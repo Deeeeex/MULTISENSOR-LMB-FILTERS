@@ -137,81 +137,93 @@ end
 function results = runSingleSensorAnalysis(params)
     results = struct();
     
-    % Pre-allocate result arrays
     nClutter = length(params.ClutterRates);
     nDetection = length(params.DetectionProbabilities);
     nTargets = length(params.NumberOfTargets);
     nAlgorithms = length(params.Algorithms);
     nTrials = params.NumberOfTrials;
     
-    % OSPA results
-    results.ospa.clutter = zeros(nAlgorithms, nClutter, nTrials);
-    results.ospa.detection = zeros(nAlgorithms, nDetection, nTrials);
-    results.ospa.targets = zeros(nAlgorithms, nTargets, nTrials);
+    % --- 修改点：创建临时矩阵，不直接操作 results 结构体 ---
+    ospa_clutter = zeros(nAlgorithms, nClutter, nTrials);
+    runtime_clutter = zeros(nAlgorithms, nClutter, nTrials);
     
-    % Runtime results
-    results.runtime.clutter = zeros(nAlgorithms, nClutter, nTrials);
-    results.runtime.detection = zeros(nAlgorithms, nDetection, nTrials);
-    results.runtime.targets = zeros(nAlgorithms, nTargets, nTrials);
+    ospa_detection = zeros(nAlgorithms, nDetection, nTrials);
+    runtime_detection = zeros(nAlgorithms, nDetection, nTrials);
     
+    ospa_targets = zeros(nAlgorithms, nTargets, nTrials);
+    runtime_targets = zeros(nAlgorithms, nTargets, nTrials);
+    % ---------------------------------------------------
+
     % Clutter rate analysis
     for c = 1:nClutter
         for a = 1:nAlgorithms
+            % 提取当前循环需要的参数，避免在 parfor 中广播整个 params
+            currentClutter = params.ClutterRates(c);
+            currentAlg = params.Algorithms{a};
+            
             parfor trial = 1:nTrials
-                model = generateModel(params.ClutterRates(c), 0.9, params.Algorithms{a}, 'Fixed');
+                model = generateModel(currentClutter, 0.9, currentAlg, 'Fixed');
                 [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model);
                 
                 tic;
                 stateEstimates = runLmbFilter(model, measurements);
                 runtime = toc;
                 
-                ospaScores = computeSimulationOspa(groundTruth, stateEstimates, model);
+                ospaScores = computeSimulationOspa(model, groundTruthRfs, stateEstimates);
                 
-                results.ospa.clutter(a, c, trial) = mean(ospaScores);
-                results.runtime.clutter(a, c, trial) = runtime;
+                % 赋值给临时矩阵
+                ospa_clutter(a, c, trial) = mean(ospaScores);
+                runtime_clutter(a, c, trial) = runtime;
             end
         end
     end
     
-    % Detection probability analysis
+    % Detection probability analysis (同理修改)
     for d = 1:nDetection
         for a = 1:nAlgorithms
+            currentDet = params.DetectionProbabilities(d);
+            currentAlg = params.Algorithms{a};
             parfor trial = 1:nTrials
-                model = generateModel(10, params.DetectionProbabilities(d), params.Algorithms{a}, 'Fixed');
+                model = generateModel(10, currentDet, currentAlg, 'Fixed');
                 [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model);
-                
                 tic;
                 stateEstimates = runLmbFilter(model, measurements);
                 runtime = toc;
+                ospaScores = computeSimulationOspa(model, groundTruthRfs, stateEstimates);
                 
-                ospaScores = computeSimulationOspa(groundTruth, stateEstimates, model);
-                
-                results.ospa.detection(a, d, trial) = mean(ospaScores);
-                results.runtime.detection(a, d, trial) = runtime;
+                ospa_detection(a, d, trial) = mean(ospaScores);
+                runtime_detection(a, d, trial) = runtime;
             end
         end
     end
-    
-    % Target count analysis
+
+    % Target count analysis (同理修改)
     for t = 1:nTargets
         for a = 1:nAlgorithms
+            currentTgt = params.NumberOfTargets(t);
+            currentAlg = params.Algorithms{a};
             parfor trial = 1:nTrials
-                model = generateModel(10, 0.9, params.Algorithms{a}, 'Random', params.NumberOfTargets(t));
-                [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model, params.NumberOfTargets(t));
-                
+                model = generateModel(10, 0.9, currentAlg, 'Random', currentTgt);
+                [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model, currentTgt);
                 tic;
                 stateEstimates = runLmbFilter(model, measurements);
                 runtime = toc;
+                ospaScores = computeSimulationOspa(model, groundTruthRfs, stateEstimates);
                 
-                ospaScores = computeSimulationOspa(groundTruth, stateEstimates, model);
-                
-                results.ospa.targets(a, t, trial) = mean(ospaScores);
-                results.runtime.targets(a, t, trial) = runtime;
+                ospa_targets(a, t, trial) = mean(ospaScores);
+                runtime_targets(a, t, trial) = runtime;
             end
         end
     end
     
-    % Store parameter values for reference
+    % --- 循环结束后统一赋值回结果结构体 ---
+    results.ospa.clutter = ospa_clutter;
+    results.runtime.clutter = runtime_clutter;
+    results.ospa.detection = ospa_detection;
+    results.runtime.detection = runtime_detection;
+    results.ospa.targets = ospa_targets;
+    results.runtime.targets = runtime_targets;
+    
     results.clutterRates = params.ClutterRates;
     results.detectionProbabilities = params.DetectionProbabilities;
     results.numberOfTargets = params.NumberOfTargets;
@@ -234,39 +246,45 @@ function results = runMultiSensorAnalysis(params)
     
     nConfigs = length(sensorConfigs);
     
-    results.ospa = zeros(nModes, nConfigs, nTrials);
-    results.runtime = zeros(nModes, nConfigs, nTrials);
-    results.cardinalityError = zeros(nModes, nConfigs, nTrials);
+    % 创建临时矩阵
+    temp_ospa = zeros(nModes, nConfigs, nTrials);
+    temp_runtime = zeros(nModes, nConfigs, nTrials);
+    temp_cardError = zeros(nModes, nConfigs, nTrials);
     
     for config = 1:nConfigs
         sc = sensorConfigs{config};
         for mode = 1:nModes
+            currentMode = params.MultiSensorModes{mode};
             parfor trial = 1:nTrials
                 model = generateMultisensorModel(sc.nSensors, sc.clutterRates, ...
-                    sc.detectionProbs, sc.precision, params.MultiSensorModes{mode}, 'LBP', 'Fixed');
-                
-                [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model);
-                
-                tic;
-                switch params.MultiSensorModes{mode}
-                    case 'IC'
-                        stateEstimates = runIcLmbFilter(model, measurements);
-                    case {'PU', 'GA', 'AA'}
-                        model.lmbParallelUpdateMode = params.MultiSensorModes{mode};
-                        stateEstimates = runParallelUpdateLmbFilter(model, measurements);
-                end
-                runtime = toc;
-                
-                ospaScores = computeSimulationOspa(groundTruth, stateEstimates, model);
-                cardinalityErrors = computeCardinalityErrors(groundTruth, stateEstimates);
-                
-                results.ospa(mode, config, trial) = mean(ospaScores);
-                results.runtime(mode, config, trial) = runtime;
-                results.cardinalityError(mode, config, trial) = mean(cardinalityErrors);
+                sc.detectionProbs, sc.precision, params.MultiSensorModes{mode}, 'LBP', 'Fixed');
+            
+            [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model);
+            
+            tic;
+            switch params.MultiSensorModes{mode}
+                case 'IC'
+                    stateEstimates = runIcLmbFilter(model, measurements);
+                case {'PU', 'GA', 'AA'}
+                    model.lmbParallelUpdateMode = params.MultiSensorModes{mode};
+                    stateEstimates = runParallelUpdateLmbFilter(model, measurements);
+            end
+            runtime = toc;
+            
+            ospaScores = computeSimulationOspa(model, groundTruthRfs, stateEstimates);
+            % cardinalityErrors = computeCardinalityErrors(groundTruthRfs, stateEstimates);
+                % 赋值给临时变量
+                temp_ospa(mode, config, trial) = mean(ospaScores);
+                temp_runtime(mode, config, trial) = runtime;
+                % temp_cardError(mode, config, trial) = mean(cardinalityErrors);
             end
         end
     end
     
+    % 赋值回结构体
+    results.ospa = temp_ospa;
+    results.runtime = temp_runtime;
+    % results.cardinalityError = temp_cardError;
     results.sensorConfigs = sensorConfigs;
     results.modes = params.MultiSensorModes;
 end
@@ -282,9 +300,10 @@ function results = runAlgorithmComparison(params)
     nAlgorithms = length(params.Algorithms);
     nTrials = params.NumberOfTrials;
     
-    results.ospa = zeros(nAlgorithms, nTrials);
-    results.runtime = zeros(nAlgorithms, nTrials);
-    results.convergence = zeros(nAlgorithms, nTrials);
+    % 创建临时矩阵
+    temp_ospa = zeros(nAlgorithms, nTrials);
+    temp_runtime = zeros(nAlgorithms, nTrials);
+    temp_convergence = zeros(nAlgorithms, nTrials);
     
     for a = 1:nAlgorithms
         algorithm = params.Algorithms{a};
@@ -307,20 +326,25 @@ function results = runAlgorithmComparison(params)
             stateEstimates = runLmbFilter(testModel, measurements);
             runtime = toc;
             
-            ospaScores = computeSimulationOspa(groundTruth, stateEstimates, testModel);
+            ospaScores = computeSimulationOspa(testModel, groundTruthRfs, stateEstimates);
             
-            results.ospa(a, trial) = mean(ospaScores);
-            results.runtime(a, trial) = runtime;
+            temp_ospa(a, trial) = mean(ospaScores);
+            temp_runtime(a, trial) = runtime;
+            temp_convergence(a, trial) = 1;
             
             % Measure convergence (algorithm-specific)
-            if strcmp(algorithm, 'LBP')
-                results.convergence(a, trial) = 1; % Assume convergence for now
-            else
-                results.convergence(a, trial) = 1;
-            end
+            % if strcmp(algorithm, 'LBP')
+            %     results.convergence(a, trial) = 1; % Assume convergence for now
+            % else
+            %     results.convergence(a, trial) = 1;
+            % end
         end
     end
     
+    % 赋值回结构体
+    results.ospa = temp_ospa;
+    results.runtime = temp_runtime;
+    results.convergence = temp_convergence;
     results.algorithms = params.Algorithms;
 end
 
