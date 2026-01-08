@@ -16,9 +16,10 @@ model = generateMultisensorModel(numberOfSensors, clutterRates, detectionProbabi
 %% Apply communication model (optional)
 commConfig = struct();
 commConfig.level = 1; % 0=ideal, 1=bandwidth, 2=link loss, 3=node outage
-commConfig.globalMaxSensorPacketsPerStep = 2;
+commConfig.globalMaxMeasurementsPerStep = 35;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
+commConfig.measurementSelectionPolicy = 'firstK';
 commConfig.linkModel = 'fixed';
 commConfig.pDrop = 0.2;
 commConfig.maxOutageNodes = 1;

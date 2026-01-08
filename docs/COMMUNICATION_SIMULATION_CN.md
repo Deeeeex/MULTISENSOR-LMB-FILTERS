@@ -5,8 +5,8 @@
 ## 1. 基本假设
 
 - 量测是**周期性同步**产生的：同一时刻 `t` 有 `measurements{s, t}`。
-- 每个传感器在每个周期尝试上传一个“传感器包”。
-- **传感器包**定义为：`measurements{s, t}` 中的**全部量测**（如果为空则视为无包、不占带宽）。
+- 每个传感器在每个周期产生一个量测集合：`measurements{s, t}`。
+- 链路丢包与失联以“传感器包”为粒度（传感器在该周期的量测集合），带宽限制可截断该集合。
 
 ## 2. 多级通信环境定义
 
@@ -14,14 +14,14 @@
 
 - 不进行任何处理，`measurements` 原样透传。
 
-### Level 1：全局通信量上限（按传感器包计数）
+### Level 1：全局通信量上限（按量测数计数）
 
-每个时间步有一个**全局上限** `globalMaxSensorPacketsPerStep`，最多允许这么多“传感器包”上传。
+每个时间步有一个**全局上限** `globalMaxMeasurementsPerStep`，最多允许这么多量测上传。
 
 规则：
-- **优先级由权重决定**：权重高的传感器优先上传。
-- 达到上限后，本周期剩余传感器不再上传（包被丢弃）。
-- 空包（该传感器该时刻无量测）不消耗预算。
+- **优先级由权重决定**：权重高的传感器先分配预算。
+- 预算不足时，对当前传感器的量测集合进行截断（按配置选择保留前 K 条或随机 K 条）。
+- 空集合不消耗预算。
 
 推荐排序策略（可配置）：
 - `weightedPriority`：按权重从高到低排序；若权重相同，可按传感器编号或随机打散（避免固定偏置）。
@@ -46,9 +46,9 @@
 ## 3. 处理流程（伪流程）
 
 以时间步 `t` 为单位：
-1. 收集所有传感器的包：`packet{s} = measurements{s, t}`。
-2. Level 1：按权重排序，允许前 `K` 个非空包上传（`K=globalMaxSensorPacketsPerStep`）。
-3. Level 2：对已允许上传的包执行丢包判定。
+1. 收集所有传感器的量测集合：`measurements{s, t}`。
+2. Level 1：按权重排序并消耗量测预算（`globalMaxMeasurementsPerStep`），必要时截断集合。
+3. Level 2：对已允许上传的传感器集合执行丢包判定。
 4. Level 3：若传感器在失联窗口，直接丢弃包。
 5. 输出 `measurementsDelivered{s, t}`。
 
@@ -60,9 +60,10 @@
 commConfig.level = 2; % 0/1/2/3
 
 % Level 1: global budget
-commConfig.globalMaxSensorPacketsPerStep = 2;
+commConfig.globalMaxMeasurementsPerStep = 20;
 commConfig.sensorWeights = [0.6, 0.3, 0.1]; % 与传感器数量一致
 commConfig.priorityPolicy = 'weightedPriority'; % weightedPriority / weightedShuffle
+commConfig.measurementSelectionPolicy = 'firstK'; % firstK / random
 
 % Level 2: link loss
 commConfig.linkModel = 'fixed'; % fixed / markov
@@ -82,9 +83,10 @@ commConfig.outageMaxDuration = 30;
 ### 字段说明（简表）
 
 - `level`：通信环境等级（0/1/2/3）
-- `globalMaxSensorPacketsPerStep`：每步全局允许上传的传感器包数量上限
+- `globalMaxMeasurementsPerStep`：每步全局允许上传的量测数上限
 - `sensorWeights`：传感器优先级权重（长度需与传感器数一致）
 - `priorityPolicy`：排序策略（`weightedPriority` 按权重排序；`weightedShuffle` 权重相同的随机打散）
+- `measurementSelectionPolicy`：量测截断策略（`firstK` 保留前 K 条；`random` 随机 K 条）
 - `linkModel`：链路模型（`fixed` 固定丢包率；`markov` 两状态链路）
 - `pDrop`：固定丢包率（`linkModel='fixed'` 时生效）
 - `pGoodToBad` / `pBadToGood`：链路状态转移概率（`markov` 模式）
@@ -92,6 +94,8 @@ commConfig.outageMaxDuration = 30;
 - `maxOutageNodes`：最多失联传感器数量（Level 3）
 - `outageSchedule`：失联时段计划（空则随机生成）
 - `outageMinDuration` / `outageMaxDuration`：随机失联时长范围（步数）
+
+> 兼容说明：若历史配置仍使用 `globalMaxSensorPacketsPerStep`，系统会将其视为“量测数上限”处理。
 
 ## 5. 统计信息（建议输出）
 
@@ -108,6 +112,22 @@ commConfig.outageMaxDuration = 30;
 ```matlab
 [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfig);
 stateEstimates = runParallelUpdateLmbFilter(model, measurementsDelivered);
+```
+
+### 推荐配置（稳定版）
+
+以下配置为当前测试较稳定的 Level 1 方案，可直接用于 `runMultisensorFilters.m`：
+
+```matlab
+commConfig = struct();
+commConfig.level = 1; % 0=ideal, 1=bandwidth, 2=link loss, 3=node outage
+commConfig.globalMaxMeasurementsPerStep = 35;
+commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
+commConfig.priorityPolicy = 'weightedPriority';
+commConfig.measurementSelectionPolicy = 'firstK';
+commConfig.linkModel = 'fixed';
+commConfig.pDrop = 0.2;
+commConfig.maxOutageNodes = 1;
 ```
 
 推荐集成点：

@@ -2,9 +2,9 @@ function [measurementsDelivered, commStats] = applyCommunicationModel(measuremen
 % APPLYCOMMUNICATIONMODEL - Apply multi-level communication constraints to measurements.
 %   [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfig)
 %
-%   Applies global packet budget, link loss, and node outage models before
-%   measurements are passed to a filter. This function is designed to be
-%   called by entry scripts (e.g., runMultisensorFilters).
+%   Applies global measurement budget, link loss, and node outage models
+%   before measurements are passed to a filter. This function is designed
+%   to be called by entry scripts (e.g., runMultisensorFilters).
 %
 %   Inputs
 %       measurements - cell array. For multi-sensor: sensors x time cell matrix.
@@ -41,9 +41,16 @@ end
 level = getField(commConfig, 'level', 0);
 
 % Defaults
-globalMaxPackets = getField(commConfig, 'globalMaxSensorPacketsPerStep', numSensors);
+globalMaxMeasurements = getField(commConfig, 'globalMaxMeasurementsPerStep', []);
+if isempty(globalMaxMeasurements)
+    globalMaxMeasurements = getField(commConfig, 'globalMaxSensorPacketsPerStep', []);
+end
+if isempty(globalMaxMeasurements)
+    globalMaxMeasurements = inf;
+end
 sensorWeights = getField(commConfig, 'sensorWeights', ones(1, numSensors));
 priorityPolicy = getField(commConfig, 'priorityPolicy', 'weightedPriority');
+measurementSelectionPolicy = getField(commConfig, 'measurementSelectionPolicy', 'firstK');
 
 linkModel = getField(commConfig, 'linkModel', 'fixed');
 pDrop = getField(commConfig, 'pDrop', 0);
@@ -65,6 +72,7 @@ measurementsDelivered = measurements;
 
 commStats = struct();
 commStats.allowedPacketsPerStep = zeros(1, numSteps);
+commStats.allowedMeasurementsPerStep = zeros(1, numSteps);
 commStats.droppedByBandwidth = zeros(numSensors, numSteps);
 commStats.droppedByLink = zeros(numSensors, numSteps);
 commStats.droppedByOutage = zeros(numSensors, numSteps);
@@ -99,27 +107,52 @@ for t = 1:numSteps
         hasPacket(s) = numel(measurements{s, t}) > 0;
     end
 
-    % Level 1: global packet budget (sensor packets)
-    allowed = hasPacket;
+    % Level 1: global measurement budget
+    remainingBudget = globalMaxMeasurements;
+    allowedSensors = false(numSensors, 1);
     if level >= 1
         candidates = find(hasPacket);
-        if globalMaxPackets < numel(candidates)
-            ordered = prioritizeSensors(candidates, sensorWeights, priorityPolicy);
-            allowed = false(numSensors, 1);
-            allowed(ordered(1:globalMaxPackets)) = true;
-            dropped = hasPacket & ~allowed;
-            commStats.droppedByBandwidth(dropped, t) = 1;
+        ordered = prioritizeSensors(candidates, sensorWeights, priorityPolicy);
+        for idx = 1:numel(ordered)
+            s = ordered(idx);
+            if remainingBudget <= 0
+                break;
+            end
+            count = numel(measurements{s, t});
+            if count <= remainingBudget
+                measurementsDelivered{s, t} = measurements{s, t};
+                remainingBudget = remainingBudget - count;
+                allowedSensors(s) = true;
+            else
+                measurementsDelivered{s, t} = selectMeasurements(measurements{s, t}, remainingBudget, measurementSelectionPolicy);
+                commStats.droppedByBandwidth(s, t) = count - remainingBudget;
+                remainingBudget = 0;
+                allowedSensors(s) = true;
+            end
         end
+        if remainingBudget <= 0
+            droppedSensors = hasPacket & ~allowedSensors;
+            for s = find(droppedSensors)'
+                commStats.droppedByBandwidth(s, t) = numel(measurements{s, t});
+            end
+        end
+    else
+        for s = find(hasPacket)'
+            measurementsDelivered{s, t} = measurements{s, t};
+        end
+        allowedSensors = hasPacket;
     end
-    commStats.allowedPacketsPerStep(t) = sum(allowed);
 
-    for s = find(allowed)'
-        measurementsDelivered{s, t} = measurements{s, t};
-    end
+    commStats.allowedPacketsPerStep(t) = sum(allowedSensors);
+    commStats.allowedMeasurementsPerStep(t) = sum(cellfun(@numel, measurementsDelivered(:, t)));
 
     % Level 2: link loss
     if level >= 2
-        for s = find(allowed)'
+        for s = find(allowedSensors)'
+            deliveredCount = numel(measurementsDelivered{s, t});
+            if deliveredCount == 0
+                continue;
+            end
             dropPacket = false;
             if strcmpi(linkModel, 'markov')
                 if isBad(s)
@@ -141,8 +174,8 @@ for t = 1:numSteps
                 dropPacket = rand < pDrop;
             end
             if dropPacket
+                commStats.droppedByLink(s, t) = deliveredCount;
                 measurementsDelivered{s, t} = {};
-                commStats.droppedByLink(s, t) = 1;
             end
         end
     end
@@ -151,9 +184,8 @@ for t = 1:numSteps
     if level >= 3 && ~isempty(outageSchedule)
         outagedSensors = sensorsOutagedAt(outageSchedule, t);
         for s = outagedSensors(:)'
-            if numel(measurements{s, t}) > 0
-                commStats.droppedByOutage(s, t) = 1;
-            end
+            deliveredCount = numel(measurementsDelivered{s, t});
+            commStats.droppedByOutage(s, t) = deliveredCount;
             measurementsDelivered{s, t} = {};
         end
     end
@@ -192,6 +224,26 @@ switch lower(policy)
         % weightedPriority
         [~, sortIdx] = sort(sensorWeights, 'descend');
         ordered = sensors(sortIdx);
+end
+end
+
+function selected = selectMeasurements(measurementsCell, k, policy)
+if k <= 0
+    selected = {};
+    return;
+end
+count = numel(measurementsCell);
+if k >= count
+    selected = measurementsCell;
+    return;
+end
+switch lower(policy)
+    case 'random'
+        idx = randperm(count, k);
+        selected = measurementsCell(idx);
+    otherwise
+        % firstK
+        selected = measurementsCell(1:k);
 end
 end
 
