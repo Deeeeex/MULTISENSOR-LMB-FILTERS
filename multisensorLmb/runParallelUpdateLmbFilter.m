@@ -1,6 +1,7 @@
-function stateEstimates = runParallelUpdateLmbFilter(model, measurements)
+function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
 % RUNPARALLELUPDATELMBFILTER -- Run a multi-sensor LMB filter that uses a parallel measurment update.
 %   stateEstimates = runParallelUpdateLmbFilter(model, measurements)
+%   stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
 %
 %   Run a multi-sensor LMB filter that uses a parallel measurment update.
 %   Measurement update variants include arithmetic average (AA), geometric
@@ -16,6 +17,7 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements)
 %       model - struct. A struct with the fields declared in generateModel.
 %       measurements - cell array. An array containing the measurements for
 %           each time-step of the simulation. See also generateModel.
+%       commStats - struct. Communication statistics for link quality (optional).
 %
 %   Output
 %       stateEstimates - struct. A struct containing the LMB filter's
@@ -31,6 +33,14 @@ stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
 stateEstimates.Sigma = cell(simulationLength, 1);
 stateEstimates.objects = objects;
+% Adaptive fusion config
+useAdaptiveFusion = false;
+if isfield(model, 'adaptiveFusion') && isfield(model.adaptiveFusion, 'enabled')
+    useAdaptiveFusion = model.adaptiveFusion.enabled;
+end
+prevWeights = struct();
+prevWeights.ga = model.gaSensorWeights;
+prevWeights.aa = model.aaSensorWeights;
 %% Run the LMB filter
 for t = 1:simulationLength
     %% Prediction
@@ -60,6 +70,20 @@ for t = 1:simulationLength
                 measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
             end
         end
+    end
+    %% Adaptive fusion weights (GA/AA only)
+    if useAdaptiveFusion && (strcmp(model.lmbParallelUpdateMode, 'AA') || strcmp(model.lmbParallelUpdateMode, 'GA'))
+        if nargin < 3
+            commStatsLocal = [];
+        else
+            commStatsLocal = commStats;
+        end
+        [gaWeights, aaWeights, ~] = computeAdaptiveFusionWeights( ...
+            measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
+        model.gaSensorWeights = gaWeights;
+        model.aaSensorWeights = aaWeights;
+        prevWeights.ga = gaWeights;
+        prevWeights.aa = aaWeights;
     end
     %% Track merging
     if (strcmp(model.lmbParallelUpdateMode, 'AA'))

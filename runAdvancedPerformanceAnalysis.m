@@ -276,7 +276,7 @@ function results = runMultiSensorAnalysis(params)
                     stateEstimates = runIcLmbFilter(model, measurementsDelivered);
                 case {'PU', 'GA', 'AA'}
                     model.lmbParallelUpdateMode = params.MultiSensorModes{mode};
-                    stateEstimates = runParallelUpdateLmbFilter(model, measurementsDelivered);
+                    stateEstimates = runParallelUpdateLmbFilter(model, measurementsDelivered, commStats);
             end
             runtime = toc;
             
