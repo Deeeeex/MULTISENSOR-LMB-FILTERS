@@ -17,6 +17,7 @@ function performanceReport = runAdvancedPerformanceAnalysis(varargin)
 %       'SaveResults'           - Save results to file [default: true]
 %       'GeneratePlots'         - Generate analysis plots [default: true]
 %       'Verbose'               - Display progress [default: true]
+%       'CommunicationConfig'   - Communication configuration struct [default: struct('level',0)]
 %
 %   Output:
 %       performanceReport - Struct containing comprehensive analysis results
@@ -42,6 +43,7 @@ defaultNumberOfTrials = 20;
 defaultSaveResults = true;
 defaultGeneratePlots = true;
 defaultVerbose = true;
+defaultCommunicationConfig = struct('level', 0);
 
 p = inputParser;
 addParameter(p, 'ClutterRates', defaultClutterRates, @(x) isnumeric(x) && all(x > 0));
@@ -53,6 +55,7 @@ addParameter(p, 'NumberOfTrials', defaultNumberOfTrials, @(x) isnumeric(x) && x 
 addParameter(p, 'SaveResults', defaultSaveResults, @islogical);
 addParameter(p, 'GeneratePlots', defaultGeneratePlots, @islogical);
 addParameter(p, 'Verbose', defaultVerbose, @islogical);
+addParameter(p, 'CommunicationConfig', defaultCommunicationConfig, @isstruct);
 
 parse(p, varargin{:});
 params = p.Results;
@@ -236,6 +239,10 @@ function results = runMultiSensorAnalysis(params)
     
     nModes = length(params.MultiSensorModes);
     nTrials = params.NumberOfTrials;
+    commConfig = params.CommunicationConfig;
+    if ~isstruct(commConfig)
+        commConfig = struct('level', 0);
+    end
     
     % Sensor configurations to test
     sensorConfigs = {
@@ -255,19 +262,21 @@ function results = runMultiSensorAnalysis(params)
         sc = sensorConfigs{config};
         for mode = 1:nModes
             currentMode = params.MultiSensorModes{mode};
+            commConfigLocal = commConfig;
             parfor trial = 1:nTrials
                 model = generateMultisensorModel(sc.nSensors, sc.clutterRates, ...
                 sc.detectionProbs, sc.precision, params.MultiSensorModes{mode}, 'LBP', 'Fixed');
             
             [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model);
+            [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfigLocal);
             
             tic;
             switch params.MultiSensorModes{mode}
                 case 'IC'
-                    stateEstimates = runIcLmbFilter(model, measurements);
+                    stateEstimates = runIcLmbFilter(model, measurementsDelivered);
                 case {'PU', 'GA', 'AA'}
                     model.lmbParallelUpdateMode = params.MultiSensorModes{mode};
-                    stateEstimates = runParallelUpdateLmbFilter(model, measurements);
+                    stateEstimates = runParallelUpdateLmbFilter(model, measurementsDelivered);
             end
             runtime = toc;
             
