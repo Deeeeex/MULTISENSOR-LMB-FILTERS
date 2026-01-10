@@ -1,6 +1,28 @@
-function [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, z, model, s)
-% GENERATELMBSENSORASSOCIATIONMATRICES -- Compute the association matrices required for the data association algorithms
+function [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, z, model, s, currentTime)
+% GENERATELMBSENSORASSOCIATIONMATRICES -- Compute the association matrices required for
 %    [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, z, model, s)
+%    [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, z, model, s, currentTime)
+%
+%   This function computes the association matrices required by the LBP,
+%   Gibbs sampler, and Murty's algorithms for a given sensor. It also 
+%   determines the measurement-updated components requried for each sensor's measurement update.
+%   Supports mobile sensors with position-dependent measurements.
+%
+%   See also runLmbFilter, generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
+%
+%   Inputs
+%       objects - struct. A struct containing the prior LMB's Bernoulli components.
+%       z - cell array. A cell array of measurements for the
+%           current time-step.
+%       model - struct. A struct with the fields declared in generateMultisensorModel.
+%       s - integer. The sensor number.
+%       currentTime - integer. The current time step (optional, for mobile sensors).
+%
+%   Output
+%       associationMatrices - struct. A struct whose fields are the arrays required 
+%           by the various data association algorithms.
+%       posteriorParameters - struct. A struct whose fields are an object's
+%           posterior spatial distribution parameters.
 %
 %   This function computes the association matrices required by the LBP,
 %   Gibbs sampler, and Murty's algorithms for a given sensor. It also 
@@ -46,7 +68,15 @@ for i = 1:numberOfObjects
     %% Determine marginal likelihood ratio of the object generating each measurement
     for j = 1:objects(i).numberOfGmComponents
         % Update components for a mixture component
-        muZ = model.C{s} * objects(i).mu{j};
+        % Phase 1: Support for mobile sensors
+        if model.sensorMotionEnabled && nargin >= 4
+            sensorPos = model.sensorTrajectories{s}(1:2, currentTime);
+            targetPos = objects(i).mu{j}(1:2);
+            muZ = sensorPos + model.C{s} * [targetPos - sensorPos; 0; 0];
+        else
+            muZ = model.C{s} * objects(i).mu{j};
+        end
+        
         Z = model.C{s} * objects(i).Sigma{j} * model.C{s}' + model.Q{s};
         logGaussianNormalisingConstant = - (0.5 * model.zDimension) * log(2 * pi) - 0.5 * log(det(Z));
         logLikelihoodRatioTerms = log(objects(i).r) + log(model.detectionProbability(s)) + log(objects(i).w(j)) - log(model.clutterPerUnitVolume(s));

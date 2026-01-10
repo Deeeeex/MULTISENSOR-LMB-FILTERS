@@ -1,13 +1,15 @@
-function [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model, varargin)
-% GENERATEMULTISENSORGROUNDTRUTH -- Generates the measurements and groundtruth for a simple hard-coded example.
-%   [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model)
+function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model, varargin)
+% GENERATEMULTISENSORGROUNDTRUTH -- Generates measurements and groundtruth for a simple hard-coded example.
+%   [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model)
+%   [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model)
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
+%   Supports mobile sensors with configurable motion models.
 %
 %   See also generateMultisensorModel, plotMultisensorResults
 %
 %   Inputs
-%       model - struct. A struct with the fields declared in generateModel.
+%       model - struct. A struct with the fields declared in generateMultisensorModel.
 %       numberOfObjects - integer. The number of objects to be simulated
 %           for a 'Random' scenario.
 %
@@ -18,6 +20,8 @@ function [groundTruth, measurements, groundTruthRfs] = generateMultisensorGround
 %           each time-step of the simulation.
 %       groundTruthRfs - struct. Groundtruth RFS and optimal Kalman filter
 %           output in RFS form.
+%       sensorTrajectories - cell array. Each sensor's trajectory over time
+%           (only if sensorMotionEnabled).
 
 
 %% Simple, hard-coded scenario
@@ -73,6 +77,27 @@ for i = 1:simulationLength
         end
     end
 end
+%% Initialize sensor trajectories (Phase 1: Mobile Sensor Support)
+if model.sensorMotionEnabled
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    for s = 1:model.numberOfSensors
+        sensorTrajectories{s} = zeros(4, simulationLength);
+        sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+    end
+else
+    sensorTrajectories = [];
+end
+%% Update sensor trajectories (Phase 1: Mobile Sensor Support)
+if model.sensorMotionEnabled
+    for t = 2:simulationLength
+        for s = 1:model.numberOfSensors
+            % CV motion model for sensors
+            sensorTrajectories{s}(:, t) = model.A * sensorTrajectories{s}(:, t-1) + ...
+                chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
+        end
+    end
+end
+
 %% Add in each object's measurements
 for i = 1:numberOfObjects
     % Initialise the object's trajectory
@@ -105,7 +130,17 @@ for i = 1:numberOfObjects
             for s = 1:model.numberOfSensors
                 % Determine if object missed detection
                 if (generatedMeasurement(s))
-                    y = model.C{s} * x + chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    if model.sensorMotionEnabled
+                        % Mobile sensor: measure relative position to sensor
+                        sensorPos = sensorTrajectories{s}(1:2, t);
+                        targetPos = x(1:2);
+                        relativePos = targetPos - sensorPos;
+                        y = sensorPos + model.C{s} * [relativePos; 0; 0] + ...
+                            chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    else
+                        % Static sensor (original code)
+                        y = model.C{s} * x + chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    end
                     measurements{s, t}{end+1} = y;
                     % Stack measurements and matrices
                     start = model.zDimension * counter + 1;
@@ -122,7 +157,7 @@ for i = 1:numberOfObjects
             Sigma = (eye(model.xDimension) - K * C) * Sigma;
         end
         % Add to RFS
-        groundTruthRfs.x{t}{end+1} = x;  
+        groundTruthRfs.x{t}{end+1} = x;
         groundTruthRfs.mu{t}{end+1} = mu;
         groundTruthRfs.Sigma{t}{end+1} = Sigma;
         groundTruthRfs.cardinality(t) = groundTruthRfs.cardinality(t) + 1;

@@ -34,6 +34,8 @@ function model = generateMultisensorModel(numberOfSensors, clutterRates, detecti
 %       model - struct. A struct with the fields declared in this function.
 
 %% Very dodgy input checking
+model.sensorMotionEnabled = false; % Default: sensors are static
+
 if (nargin > 6)
     % Get input
     if (ischar(varargin{1}))
@@ -54,6 +56,29 @@ if (nargin > 6)
     end
 else
     model.scenarioType = 'Fixed';
+end
+
+%% Parse sensor motion configuration (optional)
+sensorMotionConfig = struct();
+sensorMotionConfig.enabled = false;
+
+% Check for sensor motion parameters in varargin
+sensorMotionParamIdx = -1;
+for i = 1:length(varargin)
+    if isstruct(varargin{i}) && isfield(varargin{i}, 'enabled')
+        sensorMotionConfig = varargin{i};
+        sensorMotionParamIdx = i;
+        break;
+    end
+end
+
+if ~isempty(sensorMotionConfig) && isfield(sensorMotionConfig, 'enabled') && sensorMotionConfig.enabled
+    model.sensorMotionEnabled = true;
+    model.sensorMotionType = sensorMotionConfig.motionType;
+    model.sensorProcessNoiseStd = sensorMotionConfig.processNoiseStd;
+    model.sensorInitialStates = sensorMotionConfig.initialStates;
+else
+    model.sensorMotionEnabled = false;
 end
 %% State and measurement space dimensions
 model.xDimension = 4;
@@ -192,4 +217,11 @@ model.lmbParallelUpdateMode = lmbParallelUpdateMode;
 model.aaSensorWeights = ones(1, model.numberOfSensors) / model.numberOfSensors;
 %% GA-LMB parameters
 model.gaSensorWeights = ones(1, model.numberOfSensors) / model.numberOfSensors;
+%% Sensor motion parameters (Phase 1: Basic Framework)
+if model.sensorMotionEnabled
+    model.sensorProcessNoise = cell(1, model.numberOfSensors);
+    for i = 1:model.numberOfSensors
+        model.sensorProcessNoise{i} = (model.sensorProcessNoiseStd^2) * eye(4);
+    end
+end
 end

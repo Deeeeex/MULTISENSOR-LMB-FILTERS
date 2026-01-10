@@ -1,4 +1,4 @@
-function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
+function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats, sensorTrajectories)
 % RUNPARALLELUPDATELMBFILTER -- Run a multi-sensor LMB filter that uses a parallel measurment update.
 %   stateEstimates = runParallelUpdateLmbFilter(model, measurements)
 %   stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
@@ -28,6 +28,11 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commSt
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 objects = model.object;
+
+% Phase 1: Mobile Sensor Support - Pass sensor trajectories to model
+if nargin >= 3 && ~isempty(sensorTrajectories)
+    model.sensorTrajectories = sensorTrajectories;
+end
 % Output struct
 stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
@@ -49,8 +54,12 @@ for t = 1:simulationLength
     measurementUpdatedDistributions = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
         if (numel(measurements{s, t}))
-            % Populate the association matrices required by the data association algorithms
-            [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
+            % Phase 1: Support for mobile sensors - pass current time
+            if model.sensorMotionEnabled
+                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s, t);
+            else
+                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
+            end
             if (strcmp(model.dataAssociationMethod, 'LBP'))
                 % Data association by way of loopy belief propagation
                 [r, W] = loopyBeliefPropagation(associationMatrices, model.lbpConvergenceTolerance, model.maximumNumberOfLbpIterations);
