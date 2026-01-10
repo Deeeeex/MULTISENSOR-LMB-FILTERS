@@ -14,17 +14,17 @@ model = generateMultisensorModel(numberOfSensors, clutterRates, detectionProbabi
 %% Adaptive fusion weights (GA/AA)
 model.adaptiveFusion = struct();
 model.adaptiveFusion.enabled = false;
-model.adaptiveFusion.emaAlpha = 0.8;
+model.adaptiveFusion.emaAlpha = 0.7;
 model.adaptiveFusion.minWeight = 0.05;
 %% Generate observations
 [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model);
 %% Apply communication model (optional)
 commConfig = struct();
-commConfig.level = 1; % 0=ideal, 1=bandwidth, 2=link loss, 3=node outage
-commConfig.globalMaxMeasurementsPerStep = 30;
+commConfig.level = 3; % 0=ideal, 1=bandwidth, 2=link loss, 3=node outage
+commConfig.globalMaxMeasurementsPerStep = 25;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
-commConfig.measurementSelectionPolicy = 'firstK';
+commConfig.measurementSelectionPolicy = 'random';
 commConfig.linkModel = 'fixed';
 commConfig.pDrop = 0.2;
 commConfig.maxOutageNodes = 1;

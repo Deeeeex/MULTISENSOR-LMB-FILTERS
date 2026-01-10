@@ -38,6 +38,7 @@ defaultClutterRates = [5, 10, 15, 20];
 defaultDetectionProbs = [0.7, 0.8, 0.9, 0.95];
 defaultNumberOfTargets = [5, 10, 15, 20];
 defaultAlgorithms = {'LBP', 'Gibbs', 'Murty'};
+% defaultAlgorithms = {'LBP', 'Gibbs'};
 defaultMultiSensorModes = {'IC', 'PU', 'GA', 'AA'};
 defaultNumberOfTrials = 20;
 defaultSaveResults = true;
