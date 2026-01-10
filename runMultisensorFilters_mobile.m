@@ -139,8 +139,9 @@ hold on;
 
 for i = 1:length(stateEstimates.objects)
     obj = stateEstimates.objects(i);
-    if length(obj.trajectory) > 0
-        traj = [obj.timestamps; obj.trajectory(1:2, :)];
+    if obj.trajectoryLength > 0
+        validIdx = 1:obj.trajectoryLength;
+        traj = [obj.timestamps(validIdx); obj.trajectory(1:2, validIdx)];
         colorIdx = mod(i-1, length(colors)) + 1;
         xTraj = traj(2, :);
         yTraj = traj(3, :);

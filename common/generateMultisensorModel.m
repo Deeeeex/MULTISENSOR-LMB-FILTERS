@@ -168,12 +168,12 @@ for i = 1:model.numberOfBirthLocations
     birthParameters(i).Sigma = model.SigmaB(i);
     % Trajectory
     birthParameters(i).trajectoryLength = 0;
-    birthParameters(i).trajectory = repmat(80 * ones(model.xDimension, 1), 1, 100);
+    birthParameters(i).trajectory = nan(model.xDimension, 100);
     birthParameters(i).timestamps = zeros(1, 100);
     % LMBM Birth trajectory
     birthTrajectory(i).birthLocation = model.birthLocationLabels(i);
     birthTrajectory(i).trajectoryLength = 0;
-    birthTrajectory(i).trajectory = repmat(80 * ones(model.xDimension, 1), 1, 100);
+    birthTrajectory(i).trajectory = nan(model.xDimension, 100);
     birthTrajectory(i).timestamps = zeros(1, 100);
 end
 %% Hypothesis struct
