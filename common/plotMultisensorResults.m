@@ -79,6 +79,16 @@ end
 for s = 1:model.numberOfSensors
     plot(z{s}(1, :), z{s}(2, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{s}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
 end
+% Plot sensor trajectories (if available)
+if isfield(model, 'sensorTrajectories') && model.sensorMotionEnabled && ~isempty(model.sensorTrajectories)
+    for s = 1:model.numberOfSensors
+        sensorTraj = model.sensorTrajectories{s};
+        if ~isempty(sensorTraj)
+            plot(sensorTraj(1, :), sensorTraj(2, :), 'k--', 'LineWidth', 1.5);
+            plot(sensorTraj(1, 1), sensorTraj(2, 1), 'k^', 'MarkerSize', 6, 'MarkerFaceColor', 'k', 'Color', 'k');
+        end
+    end
+end
 % State estimates
 mu = [stateEstimates.mu{:}];
 rfsTrajectories = struct('lineIndex', 0, 'displayName', [], 'trajectory', [], 'timestamps', []);
@@ -184,6 +194,16 @@ end
 % Plot measurements
 for s = 1:model.numberOfSensors
     plot(z{s}(1, :), z{s}(2, :), 'LineStyle', 'none', 'Marker', '+', 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
+end
+% Plot sensor trajectories (if available)
+if isfield(model, 'sensorTrajectories') && model.sensorMotionEnabled && ~isempty(model.sensorTrajectories)
+    for s = 1:model.numberOfSensors
+        sensorTraj = model.sensorTrajectories{s};
+        if ~isempty(sensorTraj)
+            plot(sensorTraj(1, :), sensorTraj(2, :), 'k--', 'LineWidth', 1.5);
+            plot(sensorTraj(1, 1), sensorTraj(2, 1), 'k^', 'MarkerSize', 6, 'MarkerFaceColor', 'k', 'Color', 'k');
+        end
+    end
 end
 % State estimates
 for i = 1:numel(stateEstimates.objects)

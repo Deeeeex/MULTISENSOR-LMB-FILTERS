@@ -73,7 +73,7 @@ fprintf('\n');
 filterType = 'PU'; % 'IC', 'PU', 'LMBM'
 
 if(strcmp(filterType, 'IC'))
-    stateEstimates = runIcLmbFilter(model, measurements);
+    stateEstimates = runIcLmbFilter(model, measurements, sensorTrajectories);
 elseif(strcmp(filterType, 'PU'))
     stateEstimates = runParallelUpdateLmbFilter(model, measurements, [], sensorTrajectories);
 else

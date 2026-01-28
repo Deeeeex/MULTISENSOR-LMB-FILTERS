@@ -195,6 +195,33 @@ runMultisensorFilters_mobile;
 test_mobile_sensors;
 ```
 
+### 3. `runMultisensorFilters_formation.m` - 分布式编队场景（新增）
+
+功能：编队传感器 + 编队目标的分布式本地融合示例，默认包含通信层（Level 1）、Metropolis 权重、Adaptive Weights 对比、动图输出与视角范围可视化。
+
+特点：
+- **传感器编队**：Leader+4（人字形），左→右运动
+- **目标编队**：3-3-4 三组（右上/正右/右下）向中心运动
+- **分布式融合**：每个传感器本地融合邻居测量，无中心节点
+- **通信层**：默认 Level 1（带宽约束）
+- **权重策略**：Metropolis / Uniform 可切换
+- **Adaptive Weights**：开/关对比并输出两份 GIF
+- **视角范围**：±60° 以虚线展示
+
+使用示例：
+```matlab
+runMultisensorFilters_formation;
+```
+
+核心开关与参数（脚本顶部）：
+```matlab
+useDistributedFusion = true;    % 分布式本地融合
+leaderSensor = 1;               % 可视化展示的传感器节点
+fusionWeighting = 'Metropolis'; % 'Metropolis' / 'Uniform'
+compareAdaptiveWeights = true;  % 是否对比 Adaptive Weights
+commConfig.level = 1;           % 通信层等级（默认 Level 1）
+```
+
 ## 测试方法
 
 ### 快速测试
@@ -393,6 +420,33 @@ sensorMotionConfig.motionType = 'CT';
 model = generateMultisensorModelEnhanced(3, [5 5 5], [0.9 0.9 0.9], ...
     [4 3 2], 'GA', 'LBP', 'Fixed', sensorMotionConfig);
 ```
+
+## 分布式一致性指标（新增）
+
+针对“每个传感器本地融合”的场景，除了单节点精度指标外，新增两个一致性指标，用来衡量**编队内部对目标的共同认知一致性**（不依赖真值）：
+
+### 1) 位置一致性（Position Consensus）
+用**平均两两 OSPA**衡量各节点估计集合的一致性：
+
+```
+C_pos(t) = (2 / (S*(S-1))) * Σ_{i<j} OSPA( X_i(t), X_j(t) )
+```
+
+数值越小表示越一致。实现中对两个方向的 OSPA 取平均（对称化）。
+
+### 2) 基数一致性（Cardinality Consensus）
+对每个时刻的估计目标数取**中位数偏差的平均值**（MAD）：
+
+```
+C_card(t) = (1/S) * Σ_s | n_s(t) - median(n(t)) |
+```
+
+数值越小表示越一致。
+
+### 输出位置
+在 `runMultisensorFilters_formation.m` 中默认输出：
+- 时间序列曲线（Position / Cardinality）
+- 全程均值（并在 Adaptive 对比时输出差值）
 
 ## 下一步（Phase 3）
 

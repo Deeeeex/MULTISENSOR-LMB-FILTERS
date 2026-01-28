@@ -35,7 +35,9 @@ function model = generateMultisensorModel(numberOfSensors, clutterRates, detecti
 
 %% Very dodgy input checking
 model.sensorMotionEnabled = false; % Default: sensors are static
+model.targetFormationEnabled = false; % Default: targets are not in formation
 
+numberOfBirthLocations = [];
 if (nargin > 6)
     % Get input
     if (ischar(varargin{1}))
@@ -48,11 +50,12 @@ if (nargin > 6)
             end
         end
     else
-        error('You must specify a scenario using a char array.');
+        model.scenarioType = 'Fixed';
     end
     % Check input
-    if ~(strcmp(model.scenarioType, 'Fixed') || (strcmp(model.scenarioType, 'Random')) || (strcmp(model.scenarioType, 'Coalescence')))
-        error('Scenario type must be Fixed, Random, or Coalescence');
+    if ~(strcmp(model.scenarioType, 'Fixed') || (strcmp(model.scenarioType, 'Random')) || ...
+            (strcmp(model.scenarioType, 'Coalescence')) || (strcmp(model.scenarioType, 'Formation')))
+        error('Scenario type must be Fixed, Random, Coalescence, or Formation');
     end
 else
     model.scenarioType = 'Fixed';
@@ -65,20 +68,140 @@ sensorMotionConfig.enabled = false;
 % Check for sensor motion parameters in varargin
 sensorMotionParamIdx = -1;
 for i = 1:length(varargin)
-    if isstruct(varargin{i}) && isfield(varargin{i}, 'enabled')
+    if isstruct(varargin{i}) && isfield(varargin{i}, 'enabled') && ~isfield(varargin{i}, 'targetFormationEnabled')
         sensorMotionConfig = varargin{i};
         sensorMotionParamIdx = i;
+        break;
+    end
+end
+% Check for target formation parameters in varargin
+targetFormationConfig = struct();
+targetFormationConfig.targetFormationEnabled = false;
+for i = 1:length(varargin)
+    if isstruct(varargin{i}) && isfield(varargin{i}, 'targetFormationEnabled')
+        targetFormationConfig = varargin{i};
         break;
     end
 end
 
 if ~isempty(sensorMotionConfig) && isfield(sensorMotionConfig, 'enabled') && sensorMotionConfig.enabled
     model.sensorMotionEnabled = true;
-    model.sensorMotionType = sensorMotionConfig.motionType;
-    model.sensorProcessNoiseStd = sensorMotionConfig.processNoiseStd;
-    model.sensorInitialStates = sensorMotionConfig.initialStates;
+    if isfield(sensorMotionConfig, 'motionType')
+        model.sensorMotionType = sensorMotionConfig.motionType;
+    else
+        model.sensorMotionType = 'CV';
+    end
+    if isfield(sensorMotionConfig, 'processNoiseStd')
+        model.sensorProcessNoiseStd = sensorMotionConfig.processNoiseStd;
+    else
+        model.sensorProcessNoiseStd = 0.05;
+    end
+    if isfield(sensorMotionConfig, 'initialStates')
+        model.sensorInitialStates = sensorMotionConfig.initialStates;
+    else
+        model.sensorInitialStates = cell(1, numberOfSensors);
+    end
+    % Formation motion parameters (optional)
+    if isfield(sensorMotionConfig, 'formationType')
+        model.sensorFormationType = sensorMotionConfig.formationType;
+    elseif isfield(sensorMotionConfig, 'formation')
+        model.sensorFormationType = sensorMotionConfig.formation;
+    else
+        model.sensorFormationType = 'Triangle';
+    end
+    if isfield(sensorMotionConfig, 'formationSpacing')
+        model.sensorFormationSpacing = sensorMotionConfig.formationSpacing;
+    else
+        model.sensorFormationSpacing = 20;
+    end
+    if isfield(sensorMotionConfig, 'formationCenterStart')
+        model.sensorFormationCenterStart = sensorMotionConfig.formationCenterStart;
+    elseif isfield(sensorMotionConfig, 'formationCenter')
+        model.sensorFormationCenterStart = sensorMotionConfig.formationCenter;
+    else
+        model.sensorFormationCenterStart = [-80; 0];
+    end
+    model.sensorFormationCenterStart = model.sensorFormationCenterStart(:);
+    if isfield(sensorMotionConfig, 'formationVelocity')
+        model.sensorFormationVelocity = sensorMotionConfig.formationVelocity;
+    elseif isfield(sensorMotionConfig, 'formationSpeed')
+        model.sensorFormationVelocity = [sensorMotionConfig.formationSpeed; 0];
+    else
+        model.sensorFormationVelocity = [0.8; 0];
+    end
+    model.sensorFormationVelocity = model.sensorFormationVelocity(:);
+    % CT motion parameters (optional)
+    if isfield(sensorMotionConfig, 'turnRate')
+        model.sensorTurnRate = sensorMotionConfig.turnRate;
+    end
+    if isfield(sensorMotionConfig, 'turnModel')
+        model.sensorTurnModel = sensorMotionConfig.turnModel;
+    end
 else
     model.sensorMotionEnabled = false;
+end
+%% Target formation configuration (optional)
+if ~isempty(targetFormationConfig) && isfield(targetFormationConfig, 'targetFormationEnabled') ...
+        && targetFormationConfig.targetFormationEnabled
+    model.targetFormationEnabled = true;
+    model.scenarioType = 'Formation';
+    if isfield(targetFormationConfig, 'targetFormationType')
+        model.targetFormationType = targetFormationConfig.targetFormationType;
+    else
+        model.targetFormationType = 'Triangle';
+    end
+    if isfield(targetFormationConfig, 'targetFormationSpacing')
+        model.targetFormationSpacing = targetFormationConfig.targetFormationSpacing;
+    else
+        model.targetFormationSpacing = 15;
+    end
+    if isfield(targetFormationConfig, 'targetFormationCenter')
+        model.targetFormationCenter = targetFormationConfig.targetFormationCenter;
+    else
+        model.targetFormationCenter = [60; 0];
+    end
+    model.targetFormationCenter = model.targetFormationCenter(:);
+    if isfield(targetFormationConfig, 'targetFormationVelocity')
+        model.targetFormationVelocity = targetFormationConfig.targetFormationVelocity;
+    else
+        model.targetFormationVelocity = [0.3; 0];
+    end
+    model.targetFormationVelocity = model.targetFormationVelocity(:);
+    if isfield(targetFormationConfig, 'targetBirthStates')
+        model.targetBirthStates = targetFormationConfig.targetBirthStates;
+        if isfield(targetFormationConfig, 'targetFormationCount')
+            model.targetFormationCount = targetFormationConfig.targetFormationCount;
+        else
+            model.targetFormationCount = size(model.targetBirthStates, 2);
+        end
+    end
+    if isfield(targetFormationConfig, 'targetFormationCount')
+        model.targetFormationCount = targetFormationConfig.targetFormationCount;
+    else
+        model.targetFormationCount = 3;
+    end
+    if isfield(targetFormationConfig, 'targetFormationStaggeredBirths')
+        model.targetFormationStaggeredBirths = targetFormationConfig.targetFormationStaggeredBirths;
+    else
+        model.targetFormationStaggeredBirths = false;
+    end
+    if isfield(targetFormationConfig, 'targetFormationBirthInterval')
+        model.targetFormationBirthInterval = targetFormationConfig.targetFormationBirthInterval;
+    else
+        model.targetFormationBirthInterval = 5;
+    end
+    if isfield(targetFormationConfig, 'targetFormationStartTime')
+        model.targetFormationStartTime = targetFormationConfig.targetFormationStartTime;
+    else
+        model.targetFormationStartTime = 1;
+    end
+    if isfield(targetFormationConfig, 'targetFormationLifeSpan')
+        model.targetFormationLifeSpan = targetFormationConfig.targetFormationLifeSpan;
+    else
+        model.targetFormationLifeSpan = 100;
+    end
+else
+    model.targetFormationEnabled = false;
 end
 %% State and measurement space dimensions
 model.xDimension = 4;
@@ -121,11 +244,42 @@ if (strcmp(model.scenarioType, 'Fixed'))
                 -20.0 80.0 0.0 -60.0;
                 0.0 0.0 0.0 0.0;
                 0.0 0.0 0.0 0.0];
-else
+elseif (strcmp(model.scenarioType, 'Random'))
     % Random birth locations
     model.numberOfBirthLocations = numberOfBirthLocations;
     birthLocations = zeros(model.xDimension, numberOfBirthLocations);
     birthLocations(1:2, :) = 0.5 * model.observationSpaceLimits(:, 1) + model.observationSpaceLimits(:, 2) .* rand(model.zDimension, numberOfBirthLocations);
+elseif (strcmp(model.scenarioType, 'Formation'))
+    % Formation birth locations (right side or custom)
+    if isfield(model, 'targetBirthStates') && ~isempty(model.targetBirthStates)
+        birthLocations = model.targetBirthStates;
+        if size(birthLocations, 1) == 2
+            birthLocations = [birthLocations; zeros(2, size(birthLocations, 2))];
+        end
+        model.numberOfBirthLocations = size(birthLocations, 2);
+    else
+        if ~isfield(model, 'targetFormationCount')
+            model.targetFormationCount = 3;
+        end
+        if ~isfield(model, 'targetFormationType')
+            model.targetFormationType = 'Triangle';
+        end
+        if ~isfield(model, 'targetFormationSpacing')
+            model.targetFormationSpacing = 15;
+        end
+        if ~isfield(model, 'targetFormationCenter')
+            model.targetFormationCenter = [60; 0];
+        end
+        if ~isfield(model, 'targetFormationVelocity')
+            model.targetFormationVelocity = [0.3; 0];
+        end
+        model.numberOfBirthLocations = model.targetFormationCount;
+        offsets = computeFormationOffsets(model.targetFormationType, model.targetFormationSpacing, model.numberOfBirthLocations);
+        birthLocations = zeros(model.xDimension, model.numberOfBirthLocations);
+        birthLocations(1:2, :) = model.targetFormationCenter + offsets;
+        birthLocations(3, :) = model.targetFormationVelocity(1);
+        birthLocations(4, :) = model.targetFormationVelocity(2);
+    end
 end
 model.birthLocationLabels = 1:model.numberOfBirthLocations;
 model.rB = 0.03 * ones(model.numberOfBirthLocations, 1);
@@ -224,4 +378,50 @@ if model.sensorMotionEnabled
         model.sensorProcessNoise{i} = (model.sensorProcessNoiseStd^2) * eye(4);
     end
 end
+end
+
+function offsets = computeFormationOffsets(formationType, spacing, count)
+% COMPUTEFORMATIONOFFSETS - Relative offsets for formation geometry
+    if nargin < 3
+        count = 3;
+    end
+    if nargin < 2
+        spacing = 15;
+    end
+    if nargin < 1 || isempty(formationType)
+        formationType = 'Triangle';
+    end
+    formationType = upper(formationType);
+    switch formationType
+        case 'TRIANGLE'
+            radius = spacing / sqrt(3);
+            angles = (0:2) * 2 * pi / 3;
+            baseOffsets = radius * [cos(angles); sin(angles)];
+        case 'LINE'
+            idx = (0:count-1) - (count-1)/2;
+            baseOffsets = [zeros(1, count); idx * spacing];
+        case {'LEADER4','ONEPLUSFOUR'}
+            % V-shape (chevron): leader at the tip, two followers per row
+            y1 = 0.7 * spacing;
+            y2 = 1.4 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing, -2*spacing;
+                           0,  y1,       -y1,       y2,        -y2];
+        case {'LEADER3','ONEPLUSTHREE'}
+            % V-shape: two on first row, one centered on second row
+            y1 = 0.7 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing;
+                           0,  y1,       -y1,       0];
+        case 'CIRCLE'
+            angles = 2 * pi * (0:count-1) / max(count, 1);
+            baseOffsets = spacing * [cos(angles); sin(angles)];
+        otherwise
+            baseOffsets = zeros(2, max(count, 1));
+    end
+    if size(baseOffsets, 2) >= count
+        offsets = baseOffsets(:, 1:count);
+    else
+        reps = ceil(count / size(baseOffsets, 2));
+        offsets = repmat(baseOffsets, 1, reps);
+        offsets = offsets(:, 1:count);
+    end
 end

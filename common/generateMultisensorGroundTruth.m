@@ -59,6 +59,36 @@ elseif (strcmp(model.scenarioType, 'Random'))
     birthLocationIndex = 1:model.numberOfBirthLocations; %randi([1 model.numberOfBirthLocations],1 , numberOfObjects);
     priorLocations = [model.muB{birthLocationIndex}];
     priorLocations(3:4, :) = 3 * randn(numberOfObjects, 2)';
+elseif (strcmp(model.scenarioType, 'Formation'))
+    % Formation targets (right side)
+    simulationLength = 100;
+    if isfield(model, 'targetFormationCount')
+        numberOfObjects = model.targetFormationCount;
+    else
+        numberOfObjects = model.numberOfBirthLocations;
+    end
+    if ~isfield(model, 'targetFormationStartTime')
+        model.targetFormationStartTime = 1;
+    end
+    if ~isfield(model, 'targetFormationBirthInterval')
+        model.targetFormationBirthInterval = 5;
+    end
+    if ~isfield(model, 'targetFormationStaggeredBirths')
+        model.targetFormationStaggeredBirths = false;
+    end
+    if ~isfield(model, 'targetFormationLifeSpan')
+        model.targetFormationLifeSpan = simulationLength;
+    end
+    birthLocationIndex = 1:numberOfObjects;
+    priorLocations = [model.muB{birthLocationIndex}];
+    if model.targetFormationStaggeredBirths
+        objectBirthTimes = model.targetFormationStartTime + (0:numberOfObjects-1) * model.targetFormationBirthInterval;
+    else
+        objectBirthTimes = model.targetFormationStartTime * ones(1, numberOfObjects);
+    end
+    objectBirthTimes(objectBirthTimes < 1) = 1;
+    objectBirthTimes(objectBirthTimes > simulationLength) = simulationLength;
+    objectDeathTimes = min(objectBirthTimes + model.targetFormationLifeSpan - 1, simulationLength);
 end
 %% Allocate output
 measurements = repmat({}, model.numberOfSensors, simulationLength);
@@ -82,19 +112,36 @@ if model.sensorMotionEnabled
     sensorTrajectories = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
         sensorTrajectories{s} = zeros(4, simulationLength);
-        sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+        if isfield(model, 'sensorInitialStates') && numel(model.sensorInitialStates) >= s ...
+                && ~isempty(model.sensorInitialStates{s})
+            sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+        else
+            sensorTrajectories{s}(:, 1) = zeros(4, 1);
+        end
     end
 else
     sensorTrajectories = [];
 end
 %% Update sensor trajectories (Phase 1: Mobile Sensor Support)
 if model.sensorMotionEnabled
-    for t = 2:simulationLength
-        for s = 1:model.numberOfSensors
-            % CV motion model for sensors
-            sensorTrajectories{s}(:, t) = model.A * sensorTrajectories{s}(:, t-1) + ...
-                chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
-        end
+    if isfield(model, 'sensorMotionType')
+        motionType = upper(model.sensorMotionType);
+    else
+        motionType = 'CV';
+    end
+    switch motionType
+        case 'CT'
+            sensorTrajectories = generateCtSensorTrajectories(model, simulationLength);
+        case 'FORMATION'
+            sensorTrajectories = generateFormationSensorTrajectories(model, simulationLength);
+        otherwise
+            for t = 2:simulationLength
+                for s = 1:model.numberOfSensors
+                    % CV motion model for sensors
+                    sensorTrajectories{s}(:, t) = model.A * sensorTrajectories{s}(:, t-1) + ...
+                        chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
+                end
+            end
     end
 end
 
@@ -163,4 +210,114 @@ for i = 1:numberOfObjects
         groundTruthRfs.cardinality(t) = groundTruthRfs.cardinality(t) + 1;
     end
 end
+end
+
+function sensorTrajectories = generateCtSensorTrajectories(model, simulationLength)
+% GENERATECTSENSORTRAJECTORIES - Coordinated turn sensor motion
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    for s = 1:model.numberOfSensors
+        sensorTrajectories{s} = zeros(4, simulationLength);
+        if isfield(model, 'sensorInitialStates') && numel(model.sensorInitialStates) >= s ...
+                && ~isempty(model.sensorInitialStates{s})
+            sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+        else
+            sensorTrajectories{s}(:, 1) = [0; 0; 0; 0];
+        end
+        omega = 0;
+        if isfield(model, 'sensorTurnRate')
+            omega = model.sensorTurnRate;
+        end
+        for t = 2:simulationLength
+            if isfield(model, 'sensorTurnModel') && strcmp(model.sensorTurnModel, 'WhiteNoiseTurn')
+                omega = omega + randn() * 0.01;
+            end
+            cos_w = cos(omega * model.T);
+            sin_w = sin(omega * model.T);
+            prev_state = sensorTrajectories{s}(:, t-1);
+            prev_pos = prev_state(1:2);
+            prev_vel = prev_state(3:4);
+            new_vel = [cos_w * prev_vel(1) - sin_w * prev_vel(2);
+                       sin_w * prev_vel(1) + cos_w * prev_vel(2)];
+            new_pos = prev_pos + new_vel * model.T;
+            process_noise = zeros(4, 1);
+            if isfield(model, 'sensorProcessNoise') && numel(model.sensorProcessNoise) >= s
+                process_noise = chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
+            end
+            sensorTrajectories{s}(:, t) = [new_pos; new_vel] + process_noise;
+        end
+    end
+end
+
+function sensorTrajectories = generateFormationSensorTrajectories(model, simulationLength)
+% GENERATEFORMATIONSENSORTRAJECTORIES - Rigid formation sensor motion
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    if ~isfield(model, 'sensorFormationType')
+        model.sensorFormationType = 'Triangle';
+    end
+    if ~isfield(model, 'sensorFormationSpacing')
+        model.sensorFormationSpacing = 20;
+    end
+    if ~isfield(model, 'sensorFormationCenterStart')
+        model.sensorFormationCenterStart = [-80; 0];
+    end
+    if ~isfield(model, 'sensorFormationVelocity')
+        model.sensorFormationVelocity = [0.8; 0];
+    end
+    offsets = computeFormationOffsets(model.sensorFormationType, model.sensorFormationSpacing, model.numberOfSensors);
+    center_state = [model.sensorFormationCenterStart; model.sensorFormationVelocity];
+    for t = 1:simulationLength
+        if t > 1
+            center_state = model.A * center_state;
+        end
+        for s = 1:model.numberOfSensors
+            offset = offsets(:, s);
+            sensorTrajectories{s}(:, t) = [center_state(1:2) + offset; center_state(3:4)];
+        end
+    end
+end
+
+function offsets = computeFormationOffsets(formationType, spacing, count)
+% COMPUTEFORMATIONOFFSETS - Relative offsets for formation geometry
+    if nargin < 3
+        count = 3;
+    end
+    if nargin < 2
+        spacing = 15;
+    end
+    if nargin < 1 || isempty(formationType)
+        formationType = 'Triangle';
+    end
+    formationType = upper(formationType);
+    switch formationType
+        case 'TRIANGLE'
+            radius = spacing / sqrt(3);
+            angles = (0:2) * 2 * pi / 3;
+            baseOffsets = radius * [cos(angles); sin(angles)];
+        case 'LINE'
+            idx = (0:count-1) - (count-1)/2;
+            baseOffsets = [zeros(1, count); idx * spacing];
+        case {'LEADER4','ONEPLUSFOUR'}
+            % V-shape (chevron): leader at the tip, two followers per row
+            y1 = 0.7 * spacing;
+            y2 = 1.4 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing, -2*spacing;
+                           0,  y1,       -y1,       y2,        -y2];
+        case {'LEADER3','ONEPLUSTHREE'}
+            % V-shape: two on first row, one centered on second row
+            y1 = 0.7 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing;
+                           0,  y1,       -y1,       0];
+        case 'CIRCLE'
+            angles = 2 * pi * (0:count-1) / max(count, 1);
+            baseOffsets = spacing * [cos(angles); sin(angles)];
+        otherwise
+            baseOffsets = zeros(2, max(count, 1));
+    end
+    if size(baseOffsets, 2) >= count
+        offsets = baseOffsets(:, 1:count);
+    else
+        reps = ceil(count / size(baseOffsets, 2));
+        offsets = repmat(baseOffsets, 1, reps);
+        offsets = offsets(:, 1:count);
+    end
 end
