@@ -167,9 +167,15 @@ measurements{s, t}{k} = [x; y];
 
 ## 7. 评估与分析
 
-### 7.1 OSPA 计算
+### 7.1 OSPA 与一致性指标
 
 `common/computeSimulationOspa.m` 根据 `groundTruthRfs` 与 `stateEstimates` 计算 E-OSPA / H-OSPA，并在 `common/plotResults.m` 与 `common/plotMultisensorResults.m` 中绘图。
+
+在“每个传感器本地融合”的分布式场景中（参见 `runMultisensorFilters_formation.m`），还会输出以下指标：
+- 单节点精度：每个传感器的 E-OSPA 与集合 RMSE（对齐公共目标后计算）
+- 综合一致性（Comprehensive / OSPA Consistency）：两两 OSPA 的平均值（同时反映位置与基数差异）
+- 位置一致性（Position / RMSE Consistency）：两两 RMSE 的平均值，仅在共同发现目标上计算（Hungarian 匹配）
+- 基数一致性（Cardinality Consistency）：各节点基数对中位数的平均绝对偏差
 
 ### 7.2 性能评测脚本
 
