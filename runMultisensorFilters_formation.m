@@ -26,11 +26,14 @@ detectionProbabilities = [0.9 0.9 0.9 0.9 0.9];
 q = [3 3 3 3 3];
 
 commConfig = struct();
-commConfig.level = 1; % default Level 1: bandwidth only
-commConfig.globalMaxMeasurementsPerStep = 35;
+commConfig.level = 3; % default Level 1: bandwidth only
+commConfig.globalMaxMeasurementsPerStep = 60;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
 commConfig.measurementSelectionPolicy = 'random';
+commConfig.linkModel = 'fixed';
+commConfig.pDrop = 0.2;
+commConfig.maxOutageNodes = 1;
 
 %% Sensor formation (Leader+4) moving left-to-right
 sensorMotionConfig = struct();
@@ -119,17 +122,21 @@ if useDistributedFusion
     fprintf('=====================================\n');
     if compareAdaptiveWeights
         for s = 1:numberOfSensors
-            [eBase, hBase] = computeSimulationOspa(localModelsBase{s}, groundTruthRfs, stateEstimatesBySensorBase{s});
-            [eAda, hAda] = computeSimulationOspa(localModelsAdaptive{s}, groundTruthRfs, stateEstimatesBySensorAdaptive{s});
-            fprintf('Sensor %d: E-OSPA %.3f -> %.3f (%.3f), H-OSPA %.3f -> %.3f (%.3f), neighbors=%s\n', ...
+            [eBase, ~] = computeSimulationOspa(localModelsBase{s}, groundTruthRfs, stateEstimatesBySensorBase{s});
+            [eAda, ~] = computeSimulationOspa(localModelsAdaptive{s}, groundTruthRfs, stateEstimatesBySensorAdaptive{s});
+            rmseBase = computeSetRmseOverTime(stateEstimatesBySensorBase{s}, groundTruthRfs);
+            rmseAda = computeSetRmseOverTime(stateEstimatesBySensorAdaptive{s}, groundTruthRfs);
+            fprintf('Sensor %d: E-OSPA %.3f -> %.3f (%.3f), RMSE %.3f -> %.3f (%.3f), neighbors=%s\n', ...
                 s, mean(eBase), mean(eAda), mean(eAda) - mean(eBase), ...
-                mean(hBase), mean(hAda), mean(hAda) - mean(hBase), mat2str(neighborMap{s}));
+                mean(rmseBase, 'omitnan'), mean(rmseAda, 'omitnan'), ...
+                mean(rmseAda, 'omitnan') - mean(rmseBase, 'omitnan'), mat2str(neighborMap{s}));
         end
     else
         for s = 1:numberOfSensors
-            [eOspaLocal, hOspaLocal] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
-            fprintf('Sensor %d: E-OSPA=%.3f, H-OSPA=%.3f, neighbors=%s\n', ...
-                s, mean(eOspaLocal), mean(hOspaLocal), mat2str(neighborMap{s}));
+            [eOspaLocal, ~] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
+            rmseLocal = computeSetRmseOverTime(stateEstimatesBySensor{s}, groundTruthRfs);
+            fprintf('Sensor %d: E-OSPA=%.3f, RMSE=%.3f, neighbors=%s\n', ...
+                s, mean(eOspaLocal), mean(rmseLocal, 'omitnan'), mat2str(neighborMap{s}));
         end
     end
 end
@@ -137,22 +144,24 @@ end
 %% Consensus metrics (distributed only)
 if useDistributedFusion
     if compareAdaptiveWeights
-        [posBase, cardBase] = computeConsensusMetrics(stateEstimatesBySensorBase, modelBase);
-        [posAda, cardAda] = computeConsensusMetrics(stateEstimatesBySensorAdaptive, modelAdaptive);
+        [posBase, cardBase, ospaBase] = computeConsensusMetrics(stateEstimatesBySensorBase, modelBase);
+        [posAda, cardAda, ospaAda] = computeConsensusMetrics(stateEstimatesBySensorAdaptive, modelAdaptive);
         fprintf('=====================================\n');
         fprintf('Consensus Metrics (base -> adaptive)\n');
         fprintf('=====================================\n');
-        fprintf('Position consensus: %.3f -> %.3f (%.3f)\n', mean(posBase), mean(posAda), mean(posAda) - mean(posBase));
+        fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f (%.3f)\n', mean(ospaBase), mean(ospaAda), mean(ospaAda) - mean(ospaBase));
+        fprintf('Position (RMSE) consensus: %.3f -> %.3f (%.3f)\n', mean(posBase, 'omitnan'), mean(posAda, 'omitnan'), mean(posAda, 'omitnan') - mean(posBase, 'omitnan'));
         fprintf('Cardinality consensus: %.3f -> %.3f (%.3f)\n', mean(cardBase), mean(cardAda), mean(cardAda) - mean(cardBase));
-        plotConsensusMetrics(posBase, cardBase, posAda, cardAda);
+        plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospaAda);
     else
-        [posCons, cardCons] = computeConsensusMetrics(stateEstimatesBySensor, model);
+        [posCons, cardCons, ospaCons] = computeConsensusMetrics(stateEstimatesBySensor, model);
         fprintf('=====================================\n');
         fprintf('Consensus Metrics\n');
         fprintf('=====================================\n');
-        fprintf('Position consensus: %.3f\n', mean(posCons));
+        fprintf('Comprehensive (OSPA) consensus: %.3f\n', mean(ospaCons));
+        fprintf('Position (RMSE) consensus: %.3f\n', mean(posCons, 'omitnan'));
         fprintf('Cardinality consensus: %.3f\n', mean(cardCons));
-        plotConsensusMetrics(posCons, cardCons, [], []);
+        plotConsensusMetrics(posCons, cardCons, ospaCons, [], [], []);
     end
 end
 
@@ -170,50 +179,6 @@ if useDistributedFusion
 else
     plotMultisensorResults(model, measurementsDelivered, groundTruth, stateEstimates, groundTruthRfs);
 end
-
-figure('Position', [100, 100, 1200, 500]);
-subplot(1, 2, 1);
-hold on; grid on; axis equal;
-for i = 1:length(groundTruth)
-    traj = groundTruth{i};
-    plot(traj(2, :), traj(3, :), 'b-', 'LineWidth', 1.5);
-    plot(traj(2, 1), traj(3, 1), 'bo', 'MarkerFaceColor', 'b');
-end
-for s = 1:numberOfSensors
-    sensorTraj = sensorTrajectories{s};
-    plot(sensorTraj(1, :), sensorTraj(2, :), 'k--', 'LineWidth', 2);
-    plot(sensorTraj(1, 1), sensorTraj(2, 1), 'k^', 'MarkerSize', 8, 'MarkerFaceColor', 'k');
-end
-for s = 1:numberOfSensors
-    sensorTraj = sensorTrajectories{s};
-    plotFovRays(sensorTraj(1:2, end), sensorTraj(3:4, end), fovHalfAngleDeg, fovRange, fovColor);
-end
-xlabel('X Position');
-ylabel('Y Position');
-title('Ground Truth (Targets) and Sensor Formation');
-
-subplot(1, 2, 2);
-hold on; grid on; axis equal;
-for i = 1:length(stateEstimates.objects)
-    obj = stateEstimates.objects(i);
-    if obj.trajectoryLength > 0
-        idx = 1:obj.trajectoryLength;
-        xTraj = obj.trajectory(1, idx);
-        yTraj = obj.trajectory(2, idx);
-        plot(xTraj, yTraj, 'r-', 'LineWidth', 1.5);
-    end
-end
-for s = 1:numberOfSensors
-    sensorTraj = sensorTrajectories{s};
-    plot(sensorTraj(1, :), sensorTraj(2, :), 'k--', 'LineWidth', 2);
-end
-for s = 1:numberOfSensors
-    sensorTraj = sensorTrajectories{s};
-    plotFovRays(sensorTraj(1:2, end), sensorTraj(3:4, end), fovHalfAngleDeg, fovRange, fovColor);
-end
-xlabel('X Position');
-ylabel('Y Position');
-title(sprintf('Estimated Trajectories (E-OSPA=%.3f)', mean(eOspa)));
 
 %% Local helpers
 if makeGif
@@ -270,22 +235,26 @@ end
 
 function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories, gifPath, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor)
     simLength = numel(stateEstimates.mu);
-    fig = figure('Position', [150, 150, 900, 600]);
+    fig = figure('Position', [150, 150, 900, 600], 'Visible', 'off', 'IntegerHandle', 'off');
+    set(fig, 'DefaultLegendAutoUpdate', 'off');
+    ax = axes('Parent', fig);
     for t = 1:frameSkip:simLength
-        clf(fig);
+        cla(ax);
+        axes(ax);
         hold on; grid on; axis equal;
-        xlim(model.observationSpaceLimits(1, :));
-        ylim(model.observationSpaceLimits(2, :));
-        title(sprintf('t = %d', t));
-        xlabel('X Position');
-        ylabel('Y Position');
+        legend('off');
+        xlim(ax, model.observationSpaceLimits(1, :));
+        ylim(ax, model.observationSpaceLimits(2, :));
+        title(ax, sprintf('t = %d', t));
+        xlabel(ax, 'X Position');
+        ylabel(ax, 'Y Position');
 
         % Ground truth trajectories up to t
         for i = 1:length(groundTruth)
             traj = groundTruth{i};
             idx = traj(1, :) <= t;
             if any(idx)
-                plot(traj(2, idx), traj(3, idx), 'b-', 'LineWidth', 1.0);
+                plot(ax, traj(2, idx), traj(3, idx), 'b-', 'LineWidth', 1.0);
             end
         end
 
@@ -295,7 +264,7 @@ function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories,
             if obj.trajectoryLength > 0
                 idx = obj.timestamps(1:obj.trajectoryLength) <= t;
                 if any(idx)
-                    plot(obj.trajectory(1, idx), obj.trajectory(2, idx), '-', ...
+                    plot(ax, obj.trajectory(1, idx), obj.trajectory(2, idx), '-', ...
                         'Color', [0.85 0.2 0.2], 'LineWidth', 1.0);
                 end
             end
@@ -304,21 +273,21 @@ function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories,
         % Sensor trajectories up to t
         for s = 1:model.numberOfSensors
             sensorTraj = sensorTrajectories{s};
-            plot(sensorTraj(1, 1:t), sensorTraj(2, 1:t), 'k--', 'LineWidth', 1.2);
-            plot(sensorTraj(1, t), sensorTraj(2, t), 'k^', 'MarkerSize', 7, 'MarkerFaceColor', 'k');
+            plot(ax, sensorTraj(1, 1:t), sensorTraj(2, 1:t), 'k--', 'LineWidth', 1.2);
+            plot(ax, sensorTraj(1, t), sensorTraj(2, t), 'k^', 'MarkerSize', 7, 'MarkerFaceColor', 'k');
             plotFovRays(sensorTraj(1:2, t), sensorTraj(3:4, t), fovHalfAngleDeg, fovRange, fovColor);
         end
 
         % Ground truth targets at t
         truthPos = collectTruthAtTime(groundTruth, t);
         if ~isempty(truthPos)
-            plot(truthPos(1, :), truthPos(2, :), 'bo', 'MarkerFaceColor', 'b', 'MarkerSize', 6);
+            plot(ax, truthPos(1, :), truthPos(2, :), 'bo', 'MarkerFaceColor', 'b', 'MarkerSize', 6);
         end
 
         % Estimates at t
         estPos = collectEstimatesAtTime(stateEstimates, t);
         if ~isempty(estPos)
-            plot(estPos(1, :), estPos(2, :), 'rx', 'MarkerSize', 7, 'LineWidth', 1.5);
+            plot(ax, estPos(1, :), estPos(2, :), 'rx', 'MarkerSize', 7, 'LineWidth', 1.5);
         end
 
         drawnow;
@@ -331,14 +300,16 @@ function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories,
             imwrite(imind, cm, gifPath, 'gif', 'WriteMode', 'append', 'DelayTime', frameDelay);
         end
     end
+    close(fig);
     fprintf('Saved animation to %s\n', gifPath);
 end
 
-function [posConsensus, cardConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)
+function [posConsensus, cardConsensus, ospaConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)
     numSensors = numel(stateEstimatesBySensor);
     simLength = numel(stateEstimatesBySensor{1}.mu);
     posConsensus = zeros(1, simLength);
     cardConsensus = zeros(1, simLength);
+    ospaConsensus = zeros(1, simLength);
     for t = 1:simLength
         counts = zeros(1, numSensors);
         for s = 1:numSensors
@@ -348,19 +319,112 @@ function [posConsensus, cardConsensus] = computeConsensusMetrics(stateEstimatesB
         cardConsensus(t) = mean(abs(counts - medCount));
         pairSum = 0;
         pairCount = 0;
+        ospaSum = 0;
+        ospaCount = 0;
         for i = 1:numSensors-1
             for j = i+1:numSensors
-                pairSum = pairSum + estimateSetOspa(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t, model);
-                pairCount = pairCount + 1;
+                d = estimateSetRmse(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t);
+                if ~isnan(d)
+                    pairSum = pairSum + d;
+                    pairCount = pairCount + 1;
+                end
+                dOspa = estimateSetOspaConsensus(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t, model);
+                ospaSum = ospaSum + dOspa;
+                ospaCount = ospaCount + 1;
             end
         end
         if pairCount > 0
             posConsensus(t) = pairSum / pairCount;
+        else
+            posConsensus(t) = NaN;
+        end
+        if ospaCount > 0
+            ospaConsensus(t) = ospaSum / ospaCount;
+        else
+            ospaConsensus(t) = NaN;
         end
     end
 end
 
-function dist = estimateSetOspa(estA, estB, t, model)
+function dist = estimateSetRmse(estA, estB, t)
+    muA = estA.mu{t};
+    muB = estB.mu{t};
+    if isempty(muA) && isempty(muB)
+        dist = 0;
+        return;
+    end
+    if isempty(muA) || isempty(muB)
+        dist = NaN;
+        return;
+    end
+    XA = cell2mat(cellfun(@(x) x(1:2), muA, 'UniformOutput', false));
+    XB = cell2mat(cellfun(@(x) x(1:2), muB, 'UniformOutput', false));
+    n = size(XA, 2);
+    m = size(XB, 2);
+    if n == 0 || m == 0
+        dist = NaN;
+        return;
+    end
+    D = zeros(n, m);
+    for i = 1:n
+        for j = 1:m
+            d = XA(:, i) - XB(:, j);
+            D(i, j) = sqrt(d' * d);
+        end
+    end
+    [matching, ~] = Hungarian(D);
+    matched = D(matching == 1);
+    if isempty(matched)
+        dist = NaN;
+        return;
+    end
+    dist = sqrt(mean(matched.^2));
+end
+
+function rmseSeries = computeSetRmseOverTime(stateEstimates, groundTruthRfs)
+    simLength = numel(groundTruthRfs.x);
+    rmseSeries = NaN(1, simLength);
+    for t = 1:simLength
+        rmseSeries(t) = computeSetRmseAtTime(stateEstimates, groundTruthRfs, t);
+    end
+end
+
+function rmse = computeSetRmseAtTime(stateEstimates, groundTruthRfs, t)
+    truthCells = groundTruthRfs.x{t};
+    estCells = stateEstimates.mu{t};
+    if isempty(truthCells) && isempty(estCells)
+        rmse = 0;
+        return;
+    end
+    if isempty(truthCells) || isempty(estCells)
+        rmse = NaN;
+        return;
+    end
+    XT = cell2mat(cellfun(@(x) x(1:2), truthCells, 'UniformOutput', false));
+    XE = cell2mat(cellfun(@(x) x(1:2), estCells, 'UniformOutput', false));
+    n = size(XT, 2);
+    m = size(XE, 2);
+    if n == 0 || m == 0
+        rmse = NaN;
+        return;
+    end
+    D = zeros(n, m);
+    for i = 1:n
+        for j = 1:m
+            d = XT(:, i) - XE(:, j);
+            D(i, j) = sqrt(d' * d);
+        end
+    end
+    [matching, ~] = Hungarian(D);
+    matched = D(matching == 1);
+    if isempty(matched)
+        rmse = NaN;
+        return;
+    end
+    rmse = sqrt(mean(matched.^2));
+end
+
+function dist = estimateSetOspaConsensus(estA, estB, t, model)
     muA = estA.mu{t};
     SigmaA = estA.Sigma{t};
     muB = estB.mu{t};
@@ -378,9 +442,22 @@ function dist = estimateSetOspa(estA, estB, t, model)
     dist = 0.5 * (eAB(1) + eBA(1));
 end
 
-function plotConsensusMetrics(posBase, cardBase, posAda, cardAda)
-    figure('Position', [200, 200, 1100, 400]);
-    subplot(1, 2, 1);
+function plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospaAda)
+    figure('Position', [200, 200, 1350, 400]);
+    subplot(1, 3, 1);
+    hold on; grid on;
+    plot(ospaBase, 'LineWidth', 1.5, 'Color', [0.2 0.2 0.8]);
+    if ~isempty(ospaAda)
+        plot(ospaAda, 'LineWidth', 1.5, 'Color', [0.85 0.2 0.2]);
+        legend('Base', 'Adaptive', 'Location', 'best');
+    else
+        legend('Consensus', 'Location', 'best');
+    end
+    title('Comprehensive Consensus (Pairwise OSPA)');
+    xlabel('Time Step');
+    ylabel('OSPA');
+
+    subplot(1, 3, 2);
     hold on; grid on;
     plot(posBase, 'LineWidth', 1.5, 'Color', [0.2 0.2 0.8]);
     if ~isempty(posAda)
@@ -389,11 +466,11 @@ function plotConsensusMetrics(posBase, cardBase, posAda, cardAda)
     else
         legend('Consensus', 'Location', 'best');
     end
-    title('Position Consensus (Pairwise OSPA)');
+    title('Position Consensus (Pairwise RMSE)');
     xlabel('Time Step');
-    ylabel('OSPA');
+    ylabel('RMSE');
 
-    subplot(1, 2, 2);
+    subplot(1, 3, 3);
     hold on; grid on;
     plot(cardBase, 'LineWidth', 1.5, 'Color', [0.2 0.2 0.8]);
     if ~isempty(cardAda)
