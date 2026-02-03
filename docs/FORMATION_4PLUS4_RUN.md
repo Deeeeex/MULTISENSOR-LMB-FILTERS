@@ -1,7 +1,7 @@
 # 4+4 编队场景配置与结果记录
 
 记录日期：2026-02-03  
-脚本：`runMultisensorFilters_formation_4plus4.m`  
+脚本：`RUN/GA/runMultisensorFilters_formation_4plus4.m`  
 说明：以下内容基于当前脚本配置整理，仿真结果为用户提供的运行输出，未在此复现。
 
 ## 场景开关
