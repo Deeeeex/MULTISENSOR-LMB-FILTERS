@@ -16,7 +16,7 @@ fovHalfAngleDeg = 60;
 fovRange = 60000;
 fovColor = [0.7 0.7 0.7];
 useDistributedFusion = true;
-leaderSensor = 1;
+leaderSensor = 8;
 sensorCommRange = 150;
 fusionWeighting = 'Metropolis'; % 'Metropolis' or 'Uniform'
 compareAdaptiveWeights = true;
@@ -30,8 +30,8 @@ detectionProbabilities = 0.9 * ones(1, numberOfSensors);
 q = 3 * ones(1, numberOfSensors);
 
 commConfig = struct();
-commConfig.level = 1; % default Level 1: bandwidth only
-commConfig.globalMaxMeasurementsPerStep = 90;
+commConfig.level = 2; % default Level 1: bandwidth only
+commConfig.globalMaxMeasurementsPerStep = 100;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
 commConfig.measurementSelectionPolicy = 'random';
@@ -190,12 +190,12 @@ if makeGif
     ensureGifDir(gifPathBase);
     ensureGifDir(gifPathAdaptive);
     if compareAdaptiveWeights && ~isempty(stateEstimatesBase) && ~isempty(stateEstimatesAdaptive)
-        animateScenario(model, groundTruth, stateEstimatesBase, sensorTrajectories, gifPathBase, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor);
-        animateScenario(model, groundTruth, stateEstimatesAdaptive, sensorTrajectories, gifPathAdaptive, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor);
+        animateScenario(model, groundTruth, stateEstimatesBase, sensorTrajectories, gifPathBase, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor, leaderSensor);
+        animateScenario(model, groundTruth, stateEstimatesAdaptive, sensorTrajectories, gifPathAdaptive, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor, leaderSensor);
         fprintf('Saved animation (base) to %s\n', gifPathBase);
         fprintf('Saved animation (adaptive) to %s\n', gifPathAdaptive);
     else
-        animateScenario(model, groundTruth, stateEstimates, sensorTrajectories, gifPath, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor);
+        animateScenario(model, groundTruth, stateEstimates, sensorTrajectories, gifPath, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor, leaderSensor);
         fprintf('Saved animation to %s\n', gifPath);
     end
 end
@@ -310,12 +310,15 @@ function targetBirthStates = buildTargetBirthStates()
     end
 end
 
-function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories, gifPath, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor)
+function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories, gifPath, frameSkip, frameDelay, fovHalfAngleDeg, fovRange, fovColor, leaderSensor)
     outDir = fileparts(gifPath);
     if ~isempty(outDir) && ~exist(outDir, 'dir')
         mkdir(outDir);
     end
     simLength = numel(stateEstimates.mu);
+    if nargin < 11 || isempty(leaderSensor)
+        leaderSensor = 1;
+    end
     fig = figure('Position', [150, 150, 900, 600], 'Visible', 'off', 'IntegerHandle', 'off');
     set(fig, 'DefaultLegendAutoUpdate', 'off');
     ax = axes('Parent', fig);
@@ -355,7 +358,11 @@ function animateScenario(model, groundTruth, stateEstimates, sensorTrajectories,
         for s = 1:model.numberOfSensors
             sensorTraj = sensorTrajectories{s};
             plot(ax, sensorTraj(1, 1:t), sensorTraj(2, 1:t), 'k--', 'LineWidth', 1.2);
-            plot(ax, sensorTraj(1, t), sensorTraj(2, t), 'k^', 'MarkerSize', 7, 'MarkerFaceColor', 'k');
+            if s == leaderSensor
+                plot(ax, sensorTraj(1, t), sensorTraj(2, t), 's', 'MarkerSize', 9, 'MarkerFaceColor', [0.9 0.2 0.2], 'Color', [0.6 0 0]);
+            else
+                plot(ax, sensorTraj(1, t), sensorTraj(2, t), 'k^', 'MarkerSize', 7, 'MarkerFaceColor', 'k');
+            end
             plotFovRays(sensorTraj(1:2, t), sensorTraj(3:4, t), fovHalfAngleDeg, fovRange, fovColor);
         end
 
