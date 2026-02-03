@@ -168,6 +168,18 @@ for i = 1:numberOfObjects
         end
         % Preallocate parameters
         generatedMeasurement = rand(model.numberOfSensors, 1) < model.detectionProbability;
+        if model.sensorMotionEnabled && isFovEnabled(model)
+            for s = 1:model.numberOfSensors
+                if generatedMeasurement(s)
+                    halfAngleDeg = getFovValue(model, 'sensorFovHalfAngleDeg', s, 180);
+                    maxRange = getFovValue(model, 'sensorFovRange', s, inf);
+                    if ~isTargetInFov(sensorTrajectories{s}(1:2, t), ...
+                            sensorTrajectories{s}(3:4, t), x(1:2), halfAngleDeg, maxRange)
+                        generatedMeasurement(s) = false;
+                    end
+                end
+            end
+        end
         numberOfAssignments = sum(generatedMeasurement);
         if (numberOfAssignments)
             counter = 0;
@@ -316,6 +328,48 @@ function offsets = computeFormationOffsets(formationType, spacing, count)
         offsets = repmat(baseOffsets, 1, reps);
         offsets = offsets(:, 1:count);
     end
+end
+
+function enabled = isFovEnabled(model)
+    enabled = isfield(model, 'sensorFovEnabled') && model.sensorFovEnabled && ...
+        isfield(model, 'sensorFovHalfAngleDeg') && isfield(model, 'sensorFovRange');
+end
+
+function value = getFovValue(model, fieldName, sensorIdx, defaultValue)
+    if isfield(model, fieldName)
+        v = model.(fieldName);
+        if isempty(v)
+            value = defaultValue;
+        elseif isscalar(v)
+            value = v;
+        elseif numel(v) >= sensorIdx
+            value = v(sensorIdx);
+        else
+            value = v(1);
+        end
+    else
+        value = defaultValue;
+    end
+end
+
+function inFov = isTargetInFov(sensorPos, sensorVel, targetPos, halfAngleDeg, maxRange)
+    rel = targetPos - sensorPos;
+    dist = norm(rel);
+    if ~(isfinite(maxRange))
+        maxRange = inf;
+    end
+    if dist > maxRange
+        inFov = false;
+        return;
+    end
+    speed = norm(sensorVel);
+    if speed < 1e-6 || dist < 1e-9
+        inFov = true;
+        return;
+    end
+    cosTheta = (rel' * sensorVel) / (dist * speed);
+    cosLimit = cosd(halfAngleDeg);
+    inFov = cosTheta >= cosLimit;
 end
 
 function noise = sampleSensorProcessNoise(model, s)

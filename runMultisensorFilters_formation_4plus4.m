@@ -9,11 +9,11 @@ gifPath = 'formation_animation_4plus4.gif';
 frameSkip = 1;
 frameDelay = 0.08;
 fovHalfAngleDeg = 60;
-fovRange = 60;
+fovRange = 60000;
 fovColor = [0.7 0.7 0.7];
 useDistributedFusion = true;
 leaderSensor = 1;
-sensorCommRange = 50;
+sensorCommRange = 150;
 fusionWeighting = 'Metropolis'; % 'Metropolis' or 'Uniform'
 compareAdaptiveWeights = true;
 adaptiveFusionConfig = struct('enabled', true, 'emaAlpha', 0.7, 'minWeight', 0.05);
@@ -26,8 +26,8 @@ detectionProbabilities = 0.9 * ones(1, numberOfSensors);
 q = 3 * ones(1, numberOfSensors);
 
 commConfig = struct();
-commConfig.level = 2; % default Level 1: bandwidth only
-commConfig.globalMaxMeasurementsPerStep = 80;
+commConfig.level = 1; % default Level 1: bandwidth only
+commConfig.globalMaxMeasurementsPerStep = 90;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
 commConfig.measurementSelectionPolicy = 'random';
@@ -59,6 +59,9 @@ model = generateMultisensorModel(numberOfSensors, clutterRates, ...
 model.sensorCommRange = sensorCommRange;
 model.fusionWeighting = fusionWeighting;
 model.adaptiveFusion = adaptiveFusionConfig;
+model.sensorFovEnabled = true;
+model.sensorFovHalfAngleDeg = fovHalfAngleDeg;
+model.sensorFovRange = fovRange;
 
 %% Generate observations
 [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
