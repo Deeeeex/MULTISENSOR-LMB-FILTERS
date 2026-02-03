@@ -139,7 +139,7 @@ if model.sensorMotionEnabled
                 for s = 1:model.numberOfSensors
                     % CV motion model for sensors
                     sensorTrajectories{s}(:, t) = model.A * sensorTrajectories{s}(:, t-1) + ...
-                        chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
+                        sampleSensorProcessNoise(model, s);
                 end
             end
     end
@@ -239,11 +239,7 @@ function sensorTrajectories = generateCtSensorTrajectories(model, simulationLeng
             new_vel = [cos_w * prev_vel(1) - sin_w * prev_vel(2);
                        sin_w * prev_vel(1) + cos_w * prev_vel(2)];
             new_pos = prev_pos + new_vel * model.T;
-            process_noise = zeros(4, 1);
-            if isfield(model, 'sensorProcessNoise') && numel(model.sensorProcessNoise) >= s
-                process_noise = chol(model.sensorProcessNoise{s}, 'lower') * randn(4, 1);
-            end
-            sensorTrajectories{s}(:, t) = [new_pos; new_vel] + process_noise;
+            sensorTrajectories{s}(:, t) = [new_pos; new_vel] + sampleSensorProcessNoise(model, s);
         end
     end
 end
@@ -320,4 +316,25 @@ function offsets = computeFormationOffsets(formationType, spacing, count)
         offsets = repmat(baseOffsets, 1, reps);
         offsets = offsets(:, 1:count);
     end
+end
+
+function noise = sampleSensorProcessNoise(model, s)
+% SAMPLE SENSOR PROCESS NOISE - Robustly sample even if covariance is PSD/zero
+    noise = zeros(4, 1);
+    if ~isfield(model, 'sensorProcessNoise') || numel(model.sensorProcessNoise) < s
+        return;
+    end
+    Q = model.sensorProcessNoise{s};
+    if isempty(Q) || ~any(Q(:))
+        return;
+    end
+    Q = (Q + Q') * 0.5;
+    [L, p] = chol(Q, 'lower');
+    if p > 0
+        [L, p] = chol(Q + 1e-9 * eye(size(Q)), 'lower');
+        if p > 0
+            return;
+        end
+    end
+    noise = L * randn(4, 1);
 end

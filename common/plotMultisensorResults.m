@@ -77,7 +77,7 @@ for i = 1:length(groundTruth)
 end
 % Plot measurements
 for s = 1:model.numberOfSensors
-    plot(z{s}(1, :), z{s}(2, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{s}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
+    plot(z{s}(1, :), z{s}(2, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{mod(s-1, numberOfMarkers) + 1}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
 end
 % Plot sensor trajectories (if available)
 if isfield(model, 'sensorTrajectories') && model.sensorMotionEnabled && ~isempty(model.sensorTrajectories)
@@ -135,7 +135,7 @@ for i = 1:length(groundTruth)
 end
 % Plot measurements
 for s = 1:model.numberOfSensors
-    plot(measurementTimestamps{s}, z{s}(1, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{s}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
+    plot(measurementTimestamps{s}, z{s}(1, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{mod(s-1, numberOfMarkers) + 1}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
 end
 % Plot simulation
 for i = 1:numberOfRfsTrajectories
@@ -164,7 +164,7 @@ for i = 1:length(groundTruth)
 end
 % Plot measurements
 for s = 1:model.numberOfSensors
-    plot(measurementTimestamps{s}, z{s}(2, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{s}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
+    plot(measurementTimestamps{s}, z{s}(2, :), 'LineStyle', 'none', 'Marker', LINE_MARKERS{mod(s-1, numberOfMarkers) + 1}, 'MarkerSize', 2, 'Color', [0.5 0.5 0.5], 'DisplayName', sprintf('Sensor %d measurements', s));
 end
 % Plot simulation
 for i = 1:numberOfRfsTrajectories
