@@ -7,7 +7,7 @@ setPath;
 
 %% Switch: staggered target births
 staggeredBirths = true; % true = staggered births, false = all at once
-makeGif = true;
+makeGif = false;
 outputDir = fullfile(projectRoot, 'RUN', 'AA');
 gifPath = fullfile(outputDir, 'formation_animation_4plus4_threewaves_AA.gif');
 frameSkip = 1;

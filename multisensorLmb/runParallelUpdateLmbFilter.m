@@ -46,6 +46,7 @@ end
 prevWeights = struct();
 prevWeights.ga = model.gaSensorWeights;
 prevWeights.aa = model.aaSensorWeights;
+innovationConsistency = ones(model.numberOfSensors, simulationLength);
 %% Run the LMB filter
 for t = 1:simulationLength
     %% Prediction
@@ -59,6 +60,9 @@ for t = 1:simulationLength
                 [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s, t);
             else
                 [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
+            end
+            if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
+                innovationConsistency(s, t) = associationMatrices.innovationScore;
             end
             if (strcmp(model.dataAssociationMethod, 'LBP'))
                 % Data association by way of loopy belief propagation
@@ -78,6 +82,7 @@ for t = 1:simulationLength
             for i = 1:numel(objects)
                 measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
             end
+            innovationConsistency(s, t) = 1;
         end
     end
     %% Adaptive fusion weights (GA/AA only)
@@ -87,6 +92,10 @@ for t = 1:simulationLength
         else
             commStatsLocal = commStats;
         end
+        if isempty(commStatsLocal) || ~isstruct(commStatsLocal)
+            commStatsLocal = struct();
+        end
+        commStatsLocal.innovationConsistency = innovationConsistency;
         [gaWeights, aaWeights, ~] = computeAdaptiveFusionWeights( ...
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         model.gaSensorWeights = gaWeights;

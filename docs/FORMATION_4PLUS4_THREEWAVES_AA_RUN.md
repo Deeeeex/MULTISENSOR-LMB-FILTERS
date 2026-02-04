@@ -90,3 +90,33 @@ Comprehensive (OSPA) consensus: 4.339 -> 3.868 (-0.471)
 Position (RMSE) consensus: 18.424 -> 17.358 (-1.066)
 Cardinality consensus: 0.485 -> 0.315 (-0.170)
 ```
+
+## 仿真结果（更新后的 Adaptive 策略：加入 NIS）
+```
+=====================================
+Per-Sensor OSPA (local fusion)
+=====================================
+Sensor 1: E-OSPA 3.908 -> 4.015 (0.107), RMSE 5.220 -> 4.230 (-0.991), neighbors=[1 2 3 4 8]
+Sensor 2: E-OSPA 4.095 -> 4.176 (0.081), RMSE 4.520 -> 4.354 (-0.166), neighbors=[1 2 3 4 7]
+Sensor 3: E-OSPA 4.083 -> 4.190 (0.107), RMSE 4.074 -> 4.237 (0.163), neighbors=[1 2 3 4 6]
+Sensor 4: E-OSPA 4.091 -> 4.199 (0.108), RMSE 4.073 -> 4.777 (0.704), neighbors=[1 2 3 4 5]
+Sensor 5: E-OSPA 4.492 -> 4.200 (-0.293), RMSE 10.546 -> 5.774 (-4.772), neighbors=[1 5 6 7 8]
+Sensor 6: E-OSPA 4.157 -> 4.212 (0.055), RMSE 4.553 -> 4.646 (0.093), neighbors=[2 5 6 7 8]
+Sensor 7: E-OSPA 4.388 -> 4.236 (-0.152), RMSE 6.907 -> 5.178 (-1.729), neighbors=[3 5 6 7 8]
+Sensor 8: E-OSPA 4.199 -> 4.239 (0.039), RMSE 4.931 -> 4.954 (0.023), neighbors=[4 5 6 7 8]
+=====================================
+Consensus Metrics (base -> adaptive)
+=====================================
+Comprehensive (OSPA) consensus: 4.349 -> 3.811 (-0.538)
+Position (RMSE) consensus: 19.098 -> 16.472 (-2.626)
+Cardinality consensus: 0.421 -> 0.307 (-0.114)
+```
+
+### 增益（基于更新后的 Adaptive）
+- 共识指标（越小越好）：
+  - 综合 OSPA：减少 0.538（约 12.37%）
+  - 位置 RMSE：减少 2.626（约 13.75%）
+  - 基数一致性：减少 0.114（约 27.08%）
+- 传感器平均变化（Adaptive - Base）：
+  - 平均 E-OSPA：+0.0065（略降）
+  - 平均 RMSE：-0.8344（提升）

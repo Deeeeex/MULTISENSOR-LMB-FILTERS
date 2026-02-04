@@ -7,7 +7,7 @@ setPath;
 
 %% Switch: staggered target births
 staggeredBirths = true; % true = staggered births, false = all at once
-makeGif = true;
+makeGif = false;
 outputDir = fullfile(projectRoot, 'RUN', 'GA');
 gifPath = fullfile(outputDir, 'formation_animation_4plus4.gif');
 frameSkip = 1;
@@ -21,6 +21,8 @@ sensorCommRange = 150;
 fusionWeighting = 'Metropolis'; % 'Metropolis' or 'Uniform'
 compareAdaptiveWeights = true;
 adaptiveFusionConfig = struct('enabled', true, 'emaAlpha', 0.7, 'minWeight', 0.05);
+robustNIS = true;
+robustNISMin = 0.3;
 gifPathBase = fullfile(outputDir, 'formation_animation_4plus4_base.gif');
 gifPathAdaptive = fullfile(outputDir, 'formation_animation_4plus4_adaptive.gif');
 %% Sensor configuration
@@ -31,7 +33,7 @@ q = 3 * ones(1, numberOfSensors);
 
 commConfig = struct();
 commConfig.level = 2; % default Level 1: bandwidth only
-commConfig.globalMaxMeasurementsPerStep = 100;
+commConfig.globalMaxMeasurementsPerStep = 80;
 commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
 commConfig.priorityPolicy = 'weightedPriority';
 commConfig.measurementSelectionPolicy = 'random';
@@ -63,6 +65,9 @@ model = generateMultisensorModel(numberOfSensors, clutterRates, ...
 model.sensorCommRange = sensorCommRange;
 model.fusionWeighting = fusionWeighting;
 model.adaptiveFusion = adaptiveFusionConfig;
+model.adaptiveFusion.useNIS = false;
+model.adaptiveFusion.robustNIS = robustNIS;
+model.adaptiveFusion.robustNISMin = robustNISMin;
 model.sensorFovEnabled = true;
 model.sensorFovHalfAngleDeg = fovHalfAngleDeg;
 model.sensorFovRange = fovRange;

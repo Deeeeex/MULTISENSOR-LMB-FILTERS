@@ -28,9 +28,14 @@
    - `linkQuality = delivered / (delivered + dropped)`
 
 3. **创新一致性（innovationScore）**  
-   - 当前为占位（默认全 1）  
-   - 预留 `commStats.innovationConsistency` 接口  
-   - TODO: 用 NIS 等统计替换占位实现
+   - 由 NIS（Normalized Innovation Squared）统计得到  
+   - 在 `generateLmbSensorAssociationMatrices.m` 内计算每个传感器的 NIS 分数  
+   - 通过 `commStats.innovationConsistency` 传入权重计算逻辑  
+   - **GA 可选稳健版**：设置 `model.adaptiveFusion.robustNIS = true`（仅 GA 生效）  
+     - 聚合：`median(NIS)`  
+     - 归一化：按测量维度 `dof = zDimension` 做 `NIS / dof`  
+     - 映射：`score = exp(-0.5 * NIS_norm)`  
+     - 可选钳制：`robustNISMin` / `robustNISMax`（默认 0.2 / 1.0）
 
 最终分数：
 
@@ -75,20 +80,13 @@ model.adaptiveFusion.minWeight = 0.05;
 - `runMultisensorFilters.m`
 - `runAdvancedPerformanceAnalysis.m`
 
-## 5. 创新一致性占位说明
+## 5. 创新一致性实现说明
 
-当前创新一致性为占位逻辑，保留接口但未实现 NIS 统计：
+创新一致性已接入 NIS 统计，流程如下：
 
-```matlab
-% TODO: Replace with NIS-based consistency when available.
-innovationScore = ones(1, numSensors);
-```
-
-后续接入方案建议：
-
-1. 在 `multisensorLmb/generateLmbSensorAssociationMatrices.m` 中计算 NIS
-2. 将 NIS 汇总写入 `commStats.innovationConsistency`
-3. 在 `computeAdaptiveFusionWeights.m` 中替换占位逻辑
+1. 在 `multisensorLmb/generateLmbSensorAssociationMatrices.m` 中计算每个测量的最小 NIS，并聚合成传感器级分数  
+2. 在 `multisensorLmb/runParallelUpdateLmbFilter.m` 内写入 `commStats.innovationConsistency`  
+3. 在 `multisensorLmb/computeAdaptiveFusionWeights.m` 中读取该分数作为 `innovationScore`
 
 ## 6. 注意事项
 

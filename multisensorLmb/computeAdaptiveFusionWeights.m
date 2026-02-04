@@ -2,9 +2,9 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 % COMPUTEADAPTIVEFUSIONWEIGHTS - Compute adaptive GA/AA fusion weights.
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
-%   This uses covariance level, link quality, and an innovation consistency
-%   placeholder to build reliability scores. An EMA is applied for temporal
-%   stability. Innovation consistency is left as a placeholder for now.
+%   This uses covariance level, link quality, and NIS-based innovation
+%   consistency to build reliability scores. An EMA is applied for temporal
+%   stability.
 %
 %   Inputs
 %       measurementUpdatedDistributions - (1, numberOfSensors) cell array.
@@ -53,10 +53,10 @@ for s = 1:numSensors
     end
 end
 
-% Innovation consistency placeholder.
-% TODO: Replace with NIS-based consistency when available.
+% Innovation consistency (NIS-based, injected via commStats if available).
 innovationScore = ones(1, numSensors);
-if nargin >= 5 && isstruct(commStats) && isfield(commStats, 'innovationConsistency')
+useNIS = getField(cfg, 'useNIS', true);
+if useNIS && nargin >= 5 && isstruct(commStats) && isfield(commStats, 'innovationConsistency')
     if size(commStats.innovationConsistency, 1) == numSensors && size(commStats.innovationConsistency, 2) >= t
         innovationScore = commStats.innovationConsistency(:, t)';
     end

@@ -51,6 +51,7 @@ numberOfMeasurements = numel(z);
 L = zeros(numberOfObjects, numberOfMeasurements);
 phi = zeros(numberOfObjects, 1);
 eta = zeros(numberOfObjects, 1);
+nisMin = inf(1, numberOfMeasurements);
 % Updated components for the objects' posterior spatial distributions
 posteriorParameters.w = [];
 posteriorParameters.mu = {};
@@ -89,6 +90,10 @@ for i = 1:numberOfObjects
             nu = z{k} - muZ;
             gaussianLogLikelihood = logGaussianNormalisingConstant - 0.5 * nu' * ZInv * nu;
             L(i, k) = L(i, k) + exp(logLikelihoodRatioTerms + gaussianLogLikelihood);
+            nisValue = nu' * ZInv * nu;
+            if nisValue < nisMin(k)
+                nisMin(k) = nisValue;
+            end
             % Determine updated mean and covariance for each mixture component
             posteriorParameters(i).w(k+1, j) = log(objects(i).w(j)) + gaussianLogLikelihood + log(model.detectionProbability(s)) - log(model.clutterPerUnitVolume(s));
             posteriorParameters(i).mu{k+1, j} = objects(i).mu{j} + K * nu;
@@ -112,4 +117,44 @@ associationMatrices.L = [eta L];
 associationMatrices.R = [(phi ./ eta) ones(numberOfObjects, numberOfMeasurements)];
 % Murty's algorithm association matrices
 associationMatrices.C = -log(L);
+% Innovation consistency (NIS-based)
+if numberOfMeasurements > 0
+    validNis = nisMin(isfinite(nisMin));
+    if isempty(validNis)
+        nisAgg = 0;
+    else
+        useRobust = false;
+        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
+                isfield(model.adaptiveFusion, 'robustNIS') && model.adaptiveFusion.robustNIS && ...
+                isfield(model, 'lmbParallelUpdateMode') && strcmpi(model.lmbParallelUpdateMode, 'GA')
+            useRobust = true;
+        end
+        if useRobust
+            nisAgg = median(validNis);
+        else
+            nisAgg = mean(validNis);
+        end
+    end
+    if useRobust
+        % Robust mapping: normalize by measurement DOF and apply soft clamp
+        dof = max(1, model.zDimension);
+        nisNorm = nisAgg / dof;
+        score = exp(-0.5 * nisNorm);
+        minScore = 0.2;
+        maxScore = 1.0;
+        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+            if isfield(model.adaptiveFusion, 'robustNISMin')
+                minScore = model.adaptiveFusion.robustNISMin;
+            end
+            if isfield(model.adaptiveFusion, 'robustNISMax')
+                maxScore = model.adaptiveFusion.robustNISMax;
+            end
+        end
+        associationMatrices.innovationScore = min(max(score, minScore), maxScore);
+    else
+        associationMatrices.innovationScore = 1 / (1 + nisAgg);
+    end
+else
+    associationMatrices.innovationScore = 1;
+end
 end
