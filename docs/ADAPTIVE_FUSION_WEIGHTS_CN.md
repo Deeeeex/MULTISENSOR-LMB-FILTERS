@@ -246,3 +246,41 @@ Cardinality consensus:          0.215 -> 0.214 -> 0.217
 - `nisEmaEnabled = true`
 
 而不是继续把普通 `NIS` 作为默认主方案。
+
+## 9. History-only 对比结果（2026-03-09）
+
+为单独评估 `historyScore` 的边际作用，新增了脚本：
+
+- `RUN/GA/runMultisensorFilters_formation_4plus4_HistoryCompare.m`
+
+该对比固定：
+
+- `useNIS = false`
+
+仅比较：
+
+- `w/o history`
+- `history`
+
+20 次 Monte Carlo 的一致性指标均值为：
+
+```text
+Comprehensive (OSPA) consensus: 1.811 -> 1.814
+Position (RMSE) consensus:      3.173 -> 3.158
+Cardinality consensus:          0.214 -> 0.215
+```
+
+逐传感器均值结果也基本一致：
+
+- 大多数传感器在开启 `history` 后，E-OSPA 没有明显改善
+- RMSE 只有非常有限的变化，整体收益较弱
+
+当前可以得到一个更明确的工程判断：
+
+1. `history` 单独使用时，并不是强增益项
+2. 它更像一个轻量的时间稳定化约束，而不是决定性提升来源
+3. 当前这套定义下，`history` 的主要价值更可能是在与 `robust NIS` 组合时提供额外稳定性，而不是独立拉升指标
+
+对应报告文件：
+
+- `RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md`
