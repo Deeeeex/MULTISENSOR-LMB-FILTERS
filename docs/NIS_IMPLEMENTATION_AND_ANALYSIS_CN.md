@@ -1,178 +1,386 @@
-# NIS 实现与效果分析
+# NIS 实现、耦合性分析与解耦方案
 
-本文整理当前工程中 NIS 的实现方式，以及为什么在 GA 中其增益有时并不明显。
+本文档说明当前工程中 NIS 的实现方式、它与协方差因子的数学耦合关系，以及本次改造后为何更适合作为“统计一致性惩罚项”使用。
 
-## 1. 当前实现
+## 1. 当前工程中的两个相关因子
 
-核心代码位置：
+在自适应融合权重中，当前主要有两个和估计不确定性相关的因子：
 
-- `multisensorLmb/generateLmbSensorAssociationMatrices.m`
-- `multisensorLmb/runParallelUpdateLmbFilter.m`
-- `multisensorLmb/computeAdaptiveFusionWeights.m`
+1. `covScore`
+   - 实现位置：`multisensorLmb/computeAdaptiveFusionWeights.m`
+   - 形式上近似为：
 
-当前流程如下。
+$$
+\mathrm{covScore}_j \propto \frac{1}{\mathrm{tr}\!\left(P_j^+\right)}
+$$
 
-### 1.1 逐量测计算 NIS
+其中，$P_j^+$ 是第 $j$ 个节点 measurement-updated 分布经 m-projection 后的协方差。
 
-对每个目标、每个量测，先计算：
+2. `innovationPenalty`
+   - 实现位置：`multisensorLmb/generateLmbSensorAssociationMatrices.m`
+   - 由 NIS 统计构造。
 
-```text
-nu = z - muZ
-Z = C * P * C' + Q
-NIS = nu' * Z^{-1} * nu
-```
+## 2. NIS 的基本定义
+
+对某个量测 $z$，创新向量与创新协方差分别为：
+
+$$
+\nu = z - \hat z
+$$
+
+$$
+S = C P^- C^\top + R
+$$
 
 其中：
 
-- `muZ` 为预测量测均值
-- `Z` 为创新协方差
+- $P^-$：预测协方差
+- $R$：量测噪声协方差
+- $S$：创新协方差
 
-### 1.2 量测级聚合
+对应的 NIS 定义为：
 
-对每个量测，保留跨目标的最小 NIS：
+$$
+\epsilon = \nu^\top S^{-1} \nu
+$$
 
-```text
-nisMin(k) = min_i NIS_i(k)
-```
+若模型一致，则：
 
-这一步的含义是：用“最可能解释该量测”的目标来代表该量测的一致性。
+$$
+\epsilon \sim \chi^2(d)
+$$
 
-### 1.3 传感器级聚合
+其中 $d$ 为量测维度，因此：
 
-对当前传感器的全部 `nisMin(k)` 进行聚合，得到 `nisAgg`。
+$$
+\mathbb{E}[\epsilon] = d
+$$
 
-当前默认逻辑：
+把 NIS 按维度归一化后：
 
-- `nisQuantileEnabled = true` 时：使用分位数聚合
-- 默认 `nisQuantile = 0.7`
+$$
+\bar \epsilon = \frac{\epsilon}{d}
+$$
 
-当关闭分位数聚合后：
+理论上其期望接近 $1$，而不是“越小越好”。
 
-- `GA + robustNIS = true`：使用 `median`
-- 其他情况：使用 `mean`
+## 3. 为什么 NIS 和协方差强耦合
 
-### 1.4 映射到创新一致性分数
+### 3.1 结构性耦合：二者共享同一个 $S$
 
-若 `robustNIS = true`：
+NIS 里直接出现了：
 
-```text
-nisNorm = nisAgg / dof
-score = exp(-0.5 * nisNorm)
-score = clamp(score, robustNISMin, robustNISMax)
-```
+$$
+\epsilon = \nu^\top S^{-1} \nu
+$$
 
-若 `robustNIS = false`：
+而卡尔曼更新中：
 
-```text
-score = 1 / (1 + nisAgg)
-```
+$$
+K = P^- C^\top S^{-1}
+$$
 
-最终得到 `innovationScore`。
+$$
+P^+ = P^- - P^- C^\top S^{-1} C P^-
+$$
 
-### 1.5 时间平滑
+可见：
 
-在 `runParallelUpdateLmbFilter.m` 中，当前还会对 `innovationScore` 做时间 EMA：
+- NIS 依赖 $S^{-1}$
+- 更新后的协方差 $P^+$ 也依赖 $S^{-1}$
 
-```text
-innovation(t) = alpha * innovation(t-1) + (1 - alpha) * innovationRaw(t)
-```
+因此，`NIS` 和 `covScore` 在数学上共享同一个核心对象
 
-默认：
+$$
+S = C P^- C^\top + R
+$$
 
-- `nisEmaEnabled = true`
-- `nisEmaAlpha = 0.7`
+这不是经验相关，而是公式层面的同源耦合。
 
-### 1.6 融入自适应权重
+### 3.2 一维情形下的直观看法
 
-在 `computeAdaptiveFusionWeights.m` 中，当前权重结构为：
+在一维下，设 $C = 1$，则：
 
-```text
-rawScore = mask * covScore * innovationScore * historyScore * linkQuality
-```
+$$
+S = P^- + R
+$$
 
-因此 NIS 只是动态权重的一部分，并不是单独决定融合结果的唯一因素。
+$$
+\epsilon = \frac{\nu^2}{P^- + R}
+$$
 
-## 2. 为什么 NIS 理论上有效
+$$
+P^+ = \frac{P^- R}{P^- + R}
+$$
 
-在高斯量测模型下，NIS 近似服从自由度为量测维度的卡方分布。
+若固定同一个残差 $\nu$，则有：
 
-因此：
+$$
+\frac{\partial \epsilon}{\partial P^-}
+= -\frac{\nu^2}{(P^- + R)^2} < 0
+$$
 
-- 当预测与量测匹配良好时，NIS 应落在合理区间
-- 当量测异常、误配、杂波较多或模型失配时，NIS 会增大
+说明预测协方差 $P^-$ 越大，NIS 越小。
 
-把 NIS 转成 `[0,1]` 的一致性分数后，就能降低当前“创新不可信”的传感器在融合中的影响。
+另一方面，若融合权重使用
 
-## 3. 为什么 GA 上效果可能不理想
+$$
+\mathrm{covScore} \propto \frac{1}{P^+}
+$$
 
-### 3.1 NIS 只作用于权重，不改变局部更新
-
-当前 NIS 影响的是融合权重，而不是单个传感器的局部滤波更新。
+则 $P^-$ 增大时，`covScore` 往往下降。
 
 这意味着：
 
-- 如果局部轨迹已经偏了
-- 或者局部数据关联本身就存在误配
+- 协方差变大时，`covScore` 会惩罚该节点
+- 但传统的单调 NIS 映射又会因为 NIS 变小而“奖励”该节点
 
-那么仅靠重分配权重，修正能力是有限的。
+两者都受同一个协方差变化驱动，但被解释成两个看似独立的因子，这就是工程上最麻烦的耦合来源。
 
-### 3.2 量测最小 NIS 容易偏乐观
+### 3.3 旧设计中的“双重计数”问题
 
-当前 `nisMin(k)` 取的是“跨目标最小值”。这在高杂波或高密度目标下有一个问题：
+旧版本对 NIS 的映射是：
 
-- 总有可能某个目标对某个杂波量测给出较小 NIS
-- 于是该量测被判定为“看起来还行”
+$$
+\mathrm{score} = \frac{1}{1 + \mathrm{nisAgg}}
+$$
 
-这会让传感器级 NIS 聚合偏乐观。
+或：
 
-### 3.3 GA 对权重变化较敏感
+$$
+\mathrm{score} = \exp\!\left(-\frac{1}{2}\frac{\mathrm{nisAgg}}{d}\right)
+$$
 
-GA 融合本身对权重扰动更敏感。如果：
+这两种映射都有一个共同特征：NIS 越小，分数越高。
 
-- `covScore`
-- `innovationScore`
-- `historyScore`
+但从统计意义上讲，NIS 的正确含义不是“越小越好”，而是“是否与理论卡方分布一致”。因此旧设计会把“协方差变大导致 NIS 变小”误当成更高质量，从而放大了与 `covScore` 的耦合。
 
-同时波动，那么即使 OSPA 改善，RMSE 也可能被放大。
+## 4. 本次解耦的核心思路
 
-### 3.4 NIS 容易被其他因子掩盖
+本次不再把 NIS 当作“第二个连续质量分数”，而是改成“统计一致性惩罚项”。
 
-当前权重是多个因子的乘积，NIS 的作用会被以下因素共同稀释或放大：
+### 4.1 先聚合，再归一化
 
-- 协方差分数
-- 链路质量
-- 历史稳定性
+先对传感器内量测的 NIS 做聚合：
 
-如果这些因子的波动更大，NIS 的边际贡献就不容易直接观察到。
+- `robust NIS`：优先用分位数聚合，默认使用 $0.7$ 分位；否则退回 `median`
+- 普通 `NIS`：使用 `mean`
 
-## 4. 当前新增的改进
+得到：
 
-为减少前述问题，当前已经加入两项增强：
+$$
+\mathrm{nisNorm} = \frac{\mathrm{nisAgg}}{d}
+$$
 
-1. `0.7` 分位数聚合
-   - 减少极小值对 `nisAgg` 的影响
-2. 时间 EMA 平滑
-   - 降低 NIS 分数在时间维度的抖动
+### 4.2 不再奖励“小 NIS”，只惩罚“偏离一致性区间”
 
-这两项都支持关闭回滚。
+设定一个基于卡方分布的中心置信区间：
 
-## 4.1 20 次 Monte Carlo 对比结果（2026-03-09）
+$$
+\mathrm{lower} = \frac{\chi^2_d\!\left(\frac{1-c}{2}\right)}{d}
+$$
+
+$$
+\mathrm{upper} = \frac{\chi^2_d\!\left(1-\frac{1-c}{2}\right)}{d}
+$$
+
+其中，$c$ 是一致性置信水平，当前默认：
+
+$$
+\mathrm{nisConsistencyConfidence} = 0.5
+$$
+
+然后定义：
+
+- 若 $\mathrm{nisNorm} \in [\mathrm{lower}, \mathrm{upper}]$，则不惩罚
+- 若落在区间外，则按对数距离惩罚
+
+即：
+
+$$
+\mathrm{deviation} = 0, \qquad \mathrm{nisNorm} \in [\mathrm{lower}, \mathrm{upper}]
+$$
+
+$$
+\mathrm{deviation} = \log\!\left(\frac{\mathrm{lower}}{\mathrm{nisNorm}}\right), \qquad \mathrm{nisNorm} < \mathrm{lower}
+$$
+
+$$
+\mathrm{deviation} = \log\!\left(\frac{\mathrm{nisNorm}}{\mathrm{upper}}\right), \qquad \mathrm{nisNorm} > \mathrm{upper}
+$$
+
+当前实现使用不对称软惩罚：
+
+$$
+\mathrm{innovationPenalty}
+= \exp\!\left(
+    - \beta_{\text{low}} \, \mathrm{dev}_{\text{low}}^{p_{\text{low}}}
+    - \beta_{\text{up}} \, \mathrm{dev}_{\text{up}}^{p_{\text{up}}}
+\right)
+$$
+
+其中：
+
+$$
+\mathrm{dev}_{\text{low}} = \log\!\left(\frac{\mathrm{lower}}{\mathrm{nisNorm}}\right), \qquad \mathrm{nisNorm} < \mathrm{lower}
+$$
+
+$$
+\mathrm{dev}_{\text{up}} = \log\!\left(\frac{\mathrm{nisNorm}}{\mathrm{upper}}\right), \qquad \mathrm{nisNorm} > \mathrm{upper}
+$$
+
+当 $\mathrm{nisNorm}$ 落在区间内时，上下两个偏离量都为 $0$。
+
+当前默认设置为：
+
+$$
+\mathrm{nisConsistencyConfidence} = 0.7
+$$
+
+$$
+\beta_{\text{low}} = \mathrm{nisPenaltyLowerScale} = 1.0
+$$
+
+$$
+\beta_{\text{up}} = \mathrm{nisPenaltyUpperScale} = 4.0
+$$
+
+$$
+p_{\text{low}} = \mathrm{nisPenaltyLowerPower} = 2.0, \qquad
+p_{\text{up}} = \mathrm{nisPenaltyUpperPower} = 2.0
+$$
+
+这表示：
+
+- 对“过小 NIS”的惩罚较弱
+- 对“过大 NIS”的惩罚较强
+- 区间边界附近用平方型软惩罚，避免过于尖锐的权重突变
+
+`robust NIS` 还会额外加一个下界：
+
+$$
+\mathrm{innovationPenalty} \ge \mathrm{nisPenaltyMin}
+$$
+
+## 5. 改造后为什么耦合显著减弱
+
+### 5.1 语义解耦
+
+改造后两个因子的职责明确分开：
+
+- `covScore`：度量“估计是否集中、是否精确”
+- `innovationPenalty`：只度量“创新统计是否一致”
+
+也就是说：
+
+- `covScore` 仍然是质量项
+- `NIS` 不再是质量项，而是 gate / penalty
+
+### 5.2 不再奖励“小 NIS”
+
+这是最关键的一点。
+
+旧设计里，如果节点把协方差报得偏大，那么：
+
+- $S$ 变大
+- $\epsilon = \nu^\top S^{-1} \nu$ 会变小
+- 节点可能被错误奖励
+
+新设计里：
+
+- $\mathrm{nisNorm}$ 过小同样会被视为偏离一致性区间
+- 因而不会再因为“协方差膨胀导致 NIS 变小”而得到额外好处
+
+这就切断了“协方差变大 $\rightarrow$ NIS 变小 $\rightarrow$ 权重反而上升”这条错误通路。
+
+### 5.3 仍保留 NIS 的价值
+
+虽然做了解耦，但 NIS 仍然有用，因为：
+
+- 当创新显著偏大时，它能识别滤波不一致
+- 当创新异常偏小时，它也能识别过度保守或协方差膨胀
+- 它不再和 `covScore` 一起重复表达“精度”，而是专门表达“一致性”
+
+## 6. 当前工程中的实现形态
+
+实现后，自适应权重的结构为：
+
+$$
+\mathrm{baseScore} = \mathrm{mask} \cdot \mathrm{covScore} \cdot \mathrm{linkQuality}
+$$
+
+$$
+\mathrm{rawScore} = \mathrm{baseScore} \cdot \mathrm{innovationPenalty} \cdot \mathrm{historyScore}
+$$
+
+其中当前为了专门研究 NIS 解耦，默认先将：
+
+$$
+\mathrm{useHistory} = \mathrm{false}
+$$
+
+这样当前实验里更接近：
+
+$$
+\mathrm{rawScore} = \mathrm{mask} \cdot \mathrm{covScore} \cdot \mathrm{linkQuality} \cdot \mathrm{innovationPenalty}
+$$
+
+这能更清楚地观察：
+
+- `covScore` 负责精度
+- `innovationPenalty` 负责一致性约束
+
+## 7. 当前默认配置
+
+推荐的当前默认配置为：
+
+```matlab
+model.adaptiveFusion.useNIS = true;
+model.adaptiveFusion.robustNIS = true;
+model.adaptiveFusion.nisQuantileEnabled = true;
+model.adaptiveFusion.nisQuantile = 0.7;
+model.adaptiveFusion.nisConsistencyConfidence = 0.7;
+model.adaptiveFusion.nisPenaltyScale = 4.0;
+model.adaptiveFusion.nisPenaltyMin = 0.3;
+model.adaptiveFusion.nisPenaltyLowerScale = 1.0;
+model.adaptiveFusion.nisPenaltyUpperScale = 4.0;
+model.adaptiveFusion.nisPenaltyLowerPower = 2.0;
+model.adaptiveFusion.nisPenaltyUpperPower = 2.0;
+model.adaptiveFusion.nisEmaEnabled = true;
+model.adaptiveFusion.nisEmaAlpha = 0.7;
+
+model.adaptiveFusion.useHistory = false;
+```
+
+## 8. 后续更值得验证的方向
+
+在当前“先解耦 NIS，再谈 history”的阶段，更值得做的实验是：
+
+1. 比较 `w/o NIS -> robust NIS -> NIS` 在 `useHistory = false` 下的 20 次 Monte Carlo 结果
+2. 观察 decoupled NIS 是否比旧版单调 NIS 更稳定
+3. 在此基础上，再决定是否把 `historyScore` 重新加回来
+
+## 9. Decoupled NIS 的 20 次 Monte Carlo 结果（2026-03-09）
 
 对比脚本：
 
 - `RUN/GA/runMultisensorFilters_formation_4plus4_NISCompare.m`
 
-本轮对比使用的关键配置：
+本轮对比固定：
 
-- `useHistory = true`
+- `useHistory = false`
 - `nisQuantileEnabled = true`
 - `nisQuantile = 0.7`
+- `nisConsistencyConfidence = 0.7`
+- `nisPenaltyScale = 4.0`
+- `nisPenaltyMin = 0.3`
+- `nisPenaltyLowerScale = 1.0`
+- `nisPenaltyUpperScale = 4.0`
+- `nisPenaltyLowerPower = 2.0`
+- `nisPenaltyUpperPower = 2.0`
 - `nisEmaEnabled = true`
-- `nisEmaAlpha = 0.7`
-- `robustNIS = true`
-- `robustNISMin = 0.3`
 
-对比顺序为：
+比较顺序：
 
 - `w/o NIS`
 - `robust NIS`
@@ -180,44 +388,28 @@ GA 融合本身对权重扰动更敏感。如果：
 
 20 次均值结果如下：
 
-```text
-Comprehensive (OSPA) consensus: 1.814 -> 1.811 -> 1.843
-Position (RMSE) consensus:      3.158 -> 3.119 -> 3.239
-Cardinality consensus:          0.215 -> 0.214 -> 0.217
-```
+$$
+\text{Comprehensive (OSPA) consensus: } 1.811 \rightarrow 1.811 \rightarrow 1.898
+$$
 
-从本轮结果看：
+$$
+\text{Position (RMSE) consensus: } 3.173 \rightarrow 3.159 \rightarrow 3.337
+$$
 
-- `robust NIS` 相比 `w/o NIS` 有小幅正收益
-- 普通 `NIS` 在三项一致性指标上都没有优势
-- 即使加入分位数聚合、NIS 时间平滑与历史稳定性，普通 `NIS` 依然偏不稳定
+$$
+\text{Cardinality consensus: } 0.214 \rightarrow 0.209 \rightarrow 0.234
+$$
 
-逐传感器均值也支持同样结论：大多数传感器在 `robust NIS` 下的 E-OSPA / RMSE 略优于 `w/o NIS`，而普通 `NIS` 更容易出现回退。
+当前可以得到两个直接结论：
+
+1. 调整后的 `robust NIS` 已经把 OSPA 从上一版的轻微退化拉回到基线附近，同时仍保留一点 RMSE / cardinality 收益。
+2. 普通 `NIS` 仍然明显不稳定，说明仅仅做语义解耦还不够，鲁棒聚合与较缓的惩罚结构仍然有必要。
+
+也就是说，当前最合理的 GA 默认选择仍然是：
+
+- `robustNIS = true`
+- `useHistory = false`
 
 对应报告文件：
 
-- `RUN/GA/GA_NIS_COMPARE_20260309_112550.md`
-
-## 5. 回滚方式
-
-若希望退回到较早的 NIS 行为：
-
-```matlab
-model.adaptiveFusion.nisQuantileEnabled = false;
-model.adaptiveFusion.nisEmaEnabled = false;
-```
-
-这样会退回为：
-
-- NIS 聚合使用原有 `mean / median`
-- 不对 NIS 分数做时间平滑
-
-## 6. 下一步更值得验证的方向
-
-相较于继续微调 `mean / median / quantile`，更值得做的方向是：
-
-1. 只对高置信轨迹的关联量测计算 NIS
-2. 将 NIS 改为窗口化统计一致性指标，而不是单时刻分数
-3. 与历史稳定性做消融实验，确认 NIS 的真实边际收益
-
-因此，当前更合理的研究路径不是继续单独调 NIS，而是放在完整动态权重框架里一起看。
+- `RUN/GA/GA_NIS_COMPARE_20260309_152647.md`

@@ -3,8 +3,9 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
 %   The weight model is factorized as
-%       mask * covariance * innovation * history * link
-%   and then normalized with temporal EMA smoothing.
+%       mask * covariance * link * nisPenalty * history
+%   where NIS acts as a consistency penalty instead of a quality reward.
+%   The final weights are then normalized with temporal EMA smoothing.
 
 numSensors = model.numberOfSensors;
 
@@ -20,12 +21,13 @@ useHistory = getField(cfg, 'useHistory', true);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
-innovationScore = resolveInnovationScore(commStats, t, numSensors, useNIS);
+innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [historyScore, historyState, historyDebug] = computeHistoryScore( ...
-    measurementUpdatedDistributions, covScore, innovationScore, cfg, prevWeights, useNIS, useHistory);
+    measurementUpdatedDistributions, covScore, innovationPenalty, cfg, prevWeights, useNIS, useHistory);
 
-rawScore = availabilityMask .* covScore .* innovationScore .* historyScore .* linkQuality;
+baseScore = availabilityMask .* covScore .* linkQuality;
+rawScore = baseScore .* innovationPenalty .* historyScore;
 rawWeights = normalizeScores(rawScore, availabilityMask);
 
 weights = rawWeights;
@@ -46,7 +48,9 @@ aaWeights = weights;
 debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = covScore;
-debug.innovationScore = innovationScore;
+debug.baseScore = baseScore;
+debug.innovationPenalty = innovationPenalty;
+debug.innovationScore = innovationPenalty;
 debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
@@ -86,8 +90,8 @@ for s = 1:numSensors
 end
 end
 
-function innovationScore = resolveInnovationScore(commStats, t, numSensors, useNIS)
-innovationScore = ones(1, numSensors);
+function innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS)
+innovationPenalty = ones(1, numSensors);
 if ~useNIS
     return;
 end
@@ -95,7 +99,7 @@ if nargin < 2 || ~isstruct(commStats) || ~isfield(commStats, 'innovationConsiste
     return;
 end
 if size(commStats.innovationConsistency, 1) == numSensors && size(commStats.innovationConsistency, 2) >= t
-    innovationScore = commStats.innovationConsistency(:, t)';
+    innovationPenalty = commStats.innovationConsistency(:, t)';
 end
 end
 

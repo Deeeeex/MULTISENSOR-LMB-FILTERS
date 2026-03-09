@@ -119,28 +119,29 @@ associationMatrices.R = [(phi ./ eta) ones(numberOfObjects, numberOfMeasurements
 associationMatrices.C = -log(L);
 % Innovation consistency (NIS-based)
 if numberOfMeasurements > 0
+    cfg = struct();
+    if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+        cfg = model.adaptiveFusion;
+    end
     validNis = nisMin(isfinite(nisMin));
     if isempty(validNis)
-        nisAgg = 0;
-        useRobust = false;
+        associationMatrices.innovationScore = 1;
+        associationMatrices.innovationPenalty = 1;
+        associationMatrices.nisAgg = NaN;
+        associationMatrices.nisNorm = NaN;
+        associationMatrices.nisLowerBound = NaN;
+        associationMatrices.nisUpperBound = NaN;
+        associationMatrices.nisDeviation = NaN;
+        return;
     else
         useRobust = false;
-        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
-                isfield(model.adaptiveFusion, 'robustNIS') && model.adaptiveFusion.robustNIS && ...
+        if isfield(cfg, 'robustNIS') && cfg.robustNIS && ...
                 isfield(model, 'lmbParallelUpdateMode') && strcmpi(model.lmbParallelUpdateMode, 'GA')
             useRobust = true;
         end
-        useQuantile = true;
-        quantileValue = 0.7;
-        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
-            if isfield(model.adaptiveFusion, 'nisQuantileEnabled')
-                useQuantile = model.adaptiveFusion.nisQuantileEnabled;
-            end
-            if isfield(model.adaptiveFusion, 'nisQuantile')
-                quantileValue = model.adaptiveFusion.nisQuantile;
-            end
-        end
-        if useQuantile
+        useQuantile = getConfigField(cfg, 'nisQuantileEnabled', true);
+        quantileValue = getConfigField(cfg, 'nisQuantile', 0.7);
+        if useRobust && useQuantile
             quantileValue = min(max(quantileValue, 0), 1);
             nisAgg = computeQuantile1d(validNis, quantileValue);
         elseif useRobust
@@ -149,28 +150,70 @@ if numberOfMeasurements > 0
             nisAgg = mean(validNis);
         end
     end
+    dof = max(1, model.zDimension);
+    nisNorm = nisAgg / dof;
+    confidenceLevel = getConfigField(cfg, 'nisConsistencyConfidence', 0.5);
+    confidenceLevel = min(max(confidenceLevel, 1e-3), 0.999);
+    lowerTail = 0.5 * (1 - confidenceLevel);
+    upperTail = 1 - lowerTail;
+    lowerBound = computeChiSquareQuantile(lowerTail, dof) / dof;
+    upperBound = computeChiSquareQuantile(upperTail, dof) / dof;
+    [lowerDeviation, upperDeviation] = computeLogIntervalDeviation(nisNorm, lowerBound, upperBound);
+    lowerScale = getConfigField(cfg, 'nisPenaltyLowerScale', ...
+        0.25 * getConfigField(cfg, 'nisPenaltyScale', 4.0));
+    upperScale = getConfigField(cfg, 'nisPenaltyUpperScale', ...
+        getConfigField(cfg, 'nisPenaltyScale', 4.0));
+    lowerPower = getConfigField(cfg, 'nisPenaltyLowerPower', 2.0);
+    upperPower = getConfigField(cfg, 'nisPenaltyUpperPower', 2.0);
+    penaltyExponent = lowerScale * lowerDeviation^lowerPower + ...
+        upperScale * upperDeviation^upperPower;
+    penalty = exp(-penaltyExponent);
+    minPenalty = 0.0;
+    maxPenalty = getConfigField(cfg, 'nisPenaltyMax', 1.0);
     if useRobust
-        % Robust mapping: normalize by measurement DOF and apply soft clamp
-        dof = max(1, model.zDimension);
-        nisNorm = nisAgg / dof;
-        score = exp(-0.5 * nisNorm);
-        minScore = 0.2;
-        maxScore = 1.0;
-        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
-            if isfield(model.adaptiveFusion, 'robustNISMin')
-                minScore = model.adaptiveFusion.robustNISMin;
-            end
-            if isfield(model.adaptiveFusion, 'robustNISMax')
-                maxScore = model.adaptiveFusion.robustNISMax;
-            end
-        end
-        associationMatrices.innovationScore = min(max(score, minScore), maxScore);
-    else
-        associationMatrices.innovationScore = 1 / (1 + nisAgg);
+        minPenalty = getConfigField(cfg, 'nisPenaltyMin', ...
+            getConfigField(cfg, 'robustNISMin', 0.2));
     end
+    penalty = min(max(penalty, minPenalty), maxPenalty);
+    associationMatrices.innovationScore = penalty;
+    associationMatrices.innovationPenalty = penalty;
+    associationMatrices.nisAgg = nisAgg;
+    associationMatrices.nisNorm = nisNorm;
+    associationMatrices.nisLowerBound = lowerBound;
+    associationMatrices.nisUpperBound = upperBound;
+    associationMatrices.nisDeviation = lowerDeviation + upperDeviation;
+    associationMatrices.nisLowerDeviation = lowerDeviation;
+    associationMatrices.nisUpperDeviation = upperDeviation;
 else
     associationMatrices.innovationScore = 1;
+    associationMatrices.innovationPenalty = 1;
 end
+end
+
+function value = getConfigField(cfg, fieldName, defaultValue)
+if isfield(cfg, fieldName)
+    value = cfg.(fieldName);
+else
+    value = defaultValue;
+end
+end
+
+function [lowerDeviation, upperDeviation] = computeLogIntervalDeviation(value, lowerBound, upperBound)
+value = max(value, eps);
+lowerBound = max(lowerBound, eps);
+upperBound = max(upperBound, lowerBound + eps);
+lowerDeviation = 0;
+upperDeviation = 0;
+if value < lowerBound
+    lowerDeviation = log(lowerBound / value);
+elseif value > upperBound
+    upperDeviation = log(value / upperBound);
+end
+end
+
+function value = computeChiSquareQuantile(p, dof)
+p = min(max(p, 1e-12), 1 - 1e-12);
+value = 2 * gammaincinv(p, dof / 2);
 end
 
 function value = computeQuantile1d(values, q)

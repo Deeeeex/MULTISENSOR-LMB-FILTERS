@@ -1,160 +1,89 @@
 # Adaptive Fusion Weights (GA/AA)
 
-本文档说明当前工程中自适应融合权重的实现结构、配置项以及与 NIS / 历史稳定性的关系。
+本文档说明当前工程中的自适应融合权重结构、配置项，以及当前默认实验设置。
 
-## 1. 作用范围
+## 1. 当前权重结构
 
-当前自适应权重仅作用于 `GA` / `AA` 两类并行更新融合模式，入口如下：
-
-- `multisensorLmb/computeAdaptiveFusionWeights.m`
-- `multisensorLmb/runParallelUpdateLmbFilter.m`
-- `multisensorLmb/generateLmbSensorAssociationMatrices.m`
-
-当满足以下条件时，系统会在每个时刻动态更新融合权重：
-
-- `model.lmbParallelUpdateMode` 为 `'GA'` 或 `'AA'`
-- `model.adaptiveFusion.enabled = true`
-
-## 2. 当前权重模型
-
-当前实现已整理为显式的分层乘积结构：
+当前工程将自适应融合权重写成显式分层结构：
 
 ```text
-w_j(t) ∝ mask_j(t) * cov_j(t) * nis_j(t) * hist_j(t) * link_j(t)
+baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
+rawScore_j(t)  = baseScore_j(t) * innovationPenalty_j(t) * historyScore_j(t)
 ```
 
 其中：
 
 - `mask_j(t)`：可用性掩码
-  - 当前默认全 1
-  - 未来可通过 `commStats.fusionMask` / `commStats.activeMask` 或 `model.adaptiveFusion.staticMask` 显式置零
-- `cov_j(t)`：协方差可靠性分数
-  - 由 measurement-updated Bernoulli 分布做 m-projection 后取协方差 trace
-  - trace 越小，分数越高
-- `nis_j(t)`：创新一致性分数
-  - 由 NIS 统计得到
-- `hist_j(t)`：历史稳定性分数
-  - 惩罚近期波动较大的节点
-- `link_j(t)`：链路质量分数
-  - 由通信层丢包统计计算
+- `covScore_j(t)`：协方差质量项
+- `linkQuality_j(t)`：链路质量项
+- `innovationPenalty_j(t)`：NIS 统计一致性惩罚项
+- `historyScore_j(t)`：历史稳定性项
 
-最终原始分数为：
+当前阶段为了先把 NIS 的作用分析清楚，默认设置为：
 
 ```text
-rawScore_j(t) = mask_j(t) * cov_j(t) * nis_j(t) * hist_j(t) * link_j(t)
+useHistory = false
 ```
 
-再经过归一化与时间 EMA 平滑得到最终融合权重。
+因此当前主实验中实际生效的结构更接近：
 
-## 3. 各因子说明
+```text
+rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * innovationPenalty_j(t)
+```
 
-### 3.1 协方差分数 `covScore`
+## 2. 各项含义
 
-实现位置：`multisensorLmb/computeAdaptiveFusionWeights.m`
+### 2.1 协方差质量项 `covScore`
 
-对每个传感器的 measurement-updated LMB 做 m-projection，得到协方差 `T`，并用：
+实现位置：
+
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
+
+对 measurement-updated LMB 做 m-projection 后，用协方差 trace 构造：
 
 ```text
 covScore = 1 / (eps + mean(trace(T)))
 ```
 
-衡量当前空间分布的集中程度。
+它的职责是度量“估计是否集中、是否精确”。
 
-### 3.2 创新一致性分数 `innovationScore`
+### 2.2 NIS 一致性惩罚项 `innovationPenalty`
 
 实现位置：
 
 - `multisensorLmb/generateLmbSensorAssociationMatrices.m`
-- `multisensorLmb/runParallelUpdateLmbFilter.m`
 
-NIS 的主要流程：
+当前不再把 NIS 当作“越小越好”的质量分数，而是只把它作为统计一致性惩罚项使用。
 
-1. 对每个量测计算 `NIS = nu' * Z^{-1} * nu`
-2. 对每个量测取跨目标最小 NIS
-3. 对该传感器全部量测做聚合，默认使用 `0.7` 分位数
-4. 映射到 `[0, 1]` 分数
+具体分析见：
 
-当前支持：
+- `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`
 
-- `useNIS`
-- `robustNIS`
-- `robustNISMin`
-- `robustNISMax`
-- `nisQuantileEnabled`
-- `nisQuantile`
-- `nisEmaEnabled`
-- `nisEmaAlpha`
+它的职责是度量“创新统计是否与理论模型一致”。
 
-其中 `nisEmaEnabled` 会在时间维度对创新一致性做平滑，降低权重抖动。
+### 2.3 链路质量项 `linkQuality`
 
-### 3.3 历史稳定性分数 `historyScore`
+实现位置：
 
-实现位置：`multisensorLmb/computeAdaptiveFusionWeights.m`
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
 
-历史稳定性用于惩罚“近期不稳定”的节点。当前实现基于以下三类变化量：
-
-- 协方差分数变化
-- 创新一致性分数变化
-- 期望基数变化
-
-定义瞬时不稳定度：
-
-```text
-instability_j(t) =
-    a * covDiff_j(t) +
-    b * innovationDiff_j(t) +
-    c * cardinalityDiff_j(t)
-```
-
-其中 `a,b,c` 由配置项控制。随后对不稳定度做时间 EMA：
-
-```text
-instabilityEma_j(t) =
-    alpha * instabilityEma_j(t-1) +
-    (1 - alpha) * instability_j(t)
-```
-
-最后映射为历史稳定性分数：
-
-```text
-historyScore_j(t) = exp(-scale * instabilityEma_j(t))
-```
-
-并夹紧到 `[historyMinScore, historyMaxScore]`。
-
-### 3.4 链路质量分数 `linkQuality`
-
-实现位置：`multisensorLmb/computeAdaptiveFusionWeights.m`
-
-基于通信统计计算：
+基于通信层统计：
 
 ```text
 linkQuality = delivered / (delivered + dropped)
 ```
 
-需要 `commStats` 提供：
+### 2.4 历史稳定性项 `historyScore`
 
-- `droppedByBandwidth`
-- `droppedByLink`
-- `droppedByOutage`
+实现位置：
 
-## 4. 时间平滑
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
 
-当前有两层时间平滑：
+当前该模块仍保留，但默认先关闭，用于避免与 NIS 的分析混杂。
 
-1. `innovationConsistency` 的时间平滑
-   - 配置项：`nisEmaEnabled`, `nisEmaAlpha`
-2. 最终融合权重的时间平滑
-   - 配置项：`emaAlpha`
+## 3. 当前默认配置
 
-这两层分别控制：
-
-- NIS 因子本身的抖动
-- 最终权重的抖动
-
-## 5. 默认配置
-
-当前建议默认值如下：
+当前推荐默认值如下：
 
 ```matlab
 model.adaptiveFusion.enabled = true;
@@ -167,10 +96,17 @@ model.adaptiveFusion.robustNISMin = 0.3;
 
 model.adaptiveFusion.nisQuantileEnabled = true;
 model.adaptiveFusion.nisQuantile = 0.7;
+model.adaptiveFusion.nisConsistencyConfidence = 0.7;
+model.adaptiveFusion.nisPenaltyScale = 4.0;
+model.adaptiveFusion.nisPenaltyMin = 0.3;
+model.adaptiveFusion.nisPenaltyLowerScale = 1.0;
+model.adaptiveFusion.nisPenaltyUpperScale = 4.0;
+model.adaptiveFusion.nisPenaltyLowerPower = 2.0;
+model.adaptiveFusion.nisPenaltyUpperPower = 2.0;
 model.adaptiveFusion.nisEmaEnabled = true;
 model.adaptiveFusion.nisEmaAlpha = 0.7;
 
-model.adaptiveFusion.useHistory = true;
+model.adaptiveFusion.useHistory = false;
 model.adaptiveFusion.historyEmaAlpha = 0.8;
 model.adaptiveFusion.historyScale = 2.0;
 model.adaptiveFusion.historyMinScore = 0.4;
@@ -179,9 +115,24 @@ model.adaptiveFusion.historyInnovationWeight = 0.4;
 model.adaptiveFusion.historyCardinalityWeight = 0.2;
 ```
 
-## 6. 回滚方式
+## 4. 为什么当前先关掉 history
 
-如果需要快速回滚到较早版本的行为，可在脚本中关闭新增模块：
+原因很直接：
+
+1. `historyScore` 里会同时使用 `covDiff` 与 `innovationDiff`
+2. 如果在研究 NIS 的同时保留 history，会引入额外的间接耦合路径
+3. 这会让我们难以判断改造后的 NIS 本身是否真的有效
+
+因此当前采取的策略是：
+
+- 先把 `historyScore` 关掉
+- 先把 `NIS` 从质量因子改造成一致性惩罚项
+- 先验证 NIS 解耦后的边际收益
+- 再决定是否重新引入 history
+
+## 5. 回滚方式
+
+如果需要回到更早的行为，可按以下方式关闭当前 NIS 解耦模块：
 
 ```matlab
 model.adaptiveFusion.nisQuantileEnabled = false;
@@ -189,98 +140,45 @@ model.adaptiveFusion.nisEmaEnabled = false;
 model.adaptiveFusion.useHistory = false;
 ```
 
-这样会退回到：
+若只是想恢复 history：
 
-- NIS 使用原有 mean / median 聚合
-- 不对 NIS 做时间平滑
-- 不使用历史稳定性惩罚
+```matlab
+model.adaptiveFusion.useHistory = true;
+```
 
-## 7. 当前局限
+## 6. 当前实验建议
 
-当前实现仍有几个明显限制：
+在当前阶段，更建议优先做以下对比：
 
-- `mask` 机制已预留，但尚未与事件触发 / 动态拓扑真正联动
-- 历史稳定性目前只使用局部统计变化，尚未显式引入异常检测或跨节点相关性
-- NIS 仍然基于“量测最小 NIS”构造，面对高杂波或高密度目标时可能偏乐观
+1. `w/o NIS -> robust NIS -> NIS`，且固定 `useHistory = false`
+2. 观察 decoupled NIS 对一致性 OSPA / RMSE / cardinality 的影响
+3. 只有当 decoupled NIS 的收益稳定后，再把 history 加回去
 
-因此，下一阶段更合理的方向是：
+## 7. 当前调优结果（2026-03-09）
 
-1. 将事件触发与拓扑重构显式写入 `mask`
-2. 继续验证 `historyScore` 的稳定性收益
-3. 再决定是否进一步升级 NIS 的统计构造
+在 decoupled NIS 的基础上，进一步把惩罚项调整为“不对称软惩罚”：
 
-## 8. 当前实验结论（2026-03-09）
+- 放宽一致性区间：`nisConsistencyConfidence = 0.7`
+- 下侧弱惩罚：`nisPenaltyLowerScale = 1.0`
+- 上侧强惩罚：`nisPenaltyUpperScale = 4.0`
+- 上下侧均使用平方型软惩罚：`nisPenaltyLowerPower = 2.0`，`nisPenaltyUpperPower = 2.0`
 
-在 `RUN/GA/runMultisensorFilters_formation_4plus4_NISCompare.m` 中，基于以下配置做了 20 次 Monte Carlo 对比：
+20 次 Monte Carlo 的最新结果为：
 
-- `useHistory = true`
-- `nisQuantileEnabled = true`
-- `nisQuantile = 0.7`
-- `nisEmaEnabled = true`
-- `nisEmaAlpha = 0.7`
+```text
+Comprehensive (OSPA) consensus: 1.811 -> 1.811 -> 1.898
+Position (RMSE) consensus:      3.173 -> 3.159 -> 3.337
+Cardinality consensus:          0.214 -> 0.209 -> 0.234
+```
 
-对比顺序：
+顺序仍为：
 
 - `w/o NIS`
 - `robust NIS`
 - `NIS`
 
-一致性指标均值结果为：
+当前结论是：
 
-```text
-Comprehensive (OSPA) consensus: 1.814 -> 1.811 -> 1.843
-Position (RMSE) consensus:      3.158 -> 3.119 -> 3.239
-Cardinality consensus:          0.215 -> 0.214 -> 0.217
-```
-
-当前可以先得出两个工程结论：
-
-1. `robust NIS` 在现有动态权重框架下有小幅稳定增益，可以作为 GA 中更合理的默认 NIS 形式
-2. 普通 `NIS` 即使叠加分位数聚合与时间平滑，整体仍不如 `robust NIS` 稳定
-
-因此，后续如果继续做 GA 方向实验，建议优先保留：
-
-- `useHistory = true`
-- `robustNIS = true`
-- `nisQuantileEnabled = true`
-- `nisEmaEnabled = true`
-
-而不是继续把普通 `NIS` 作为默认主方案。
-
-## 9. History-only 对比结果（2026-03-09）
-
-为单独评估 `historyScore` 的边际作用，新增了脚本：
-
-- `RUN/GA/runMultisensorFilters_formation_4plus4_HistoryCompare.m`
-
-该对比固定：
-
-- `useNIS = false`
-
-仅比较：
-
-- `w/o history`
-- `history`
-
-20 次 Monte Carlo 的一致性指标均值为：
-
-```text
-Comprehensive (OSPA) consensus: 1.811 -> 1.814
-Position (RMSE) consensus:      3.173 -> 3.158
-Cardinality consensus:          0.214 -> 0.215
-```
-
-逐传感器均值结果也基本一致：
-
-- 大多数传感器在开启 `history` 后，E-OSPA 没有明显改善
-- RMSE 只有非常有限的变化，整体收益较弱
-
-当前可以得到一个更明确的工程判断：
-
-1. `history` 单独使用时，并不是强增益项
-2. 它更像一个轻量的时间稳定化约束，而不是决定性提升来源
-3. 当前这套定义下，`history` 的主要价值更可能是在与 `robust NIS` 组合时提供额外稳定性，而不是独立拉升指标
-
-对应报告文件：
-
-- `RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md`
+1. 调优后的 `robust NIS` 已经把 OSPA 恢复到与 `w/o NIS` 基本持平
+2. 同时仍保留了轻微的 RMSE 与基数一致性收益
+3. 普通 `NIS` 仍然不稳定，当前不建议作为默认方案
