@@ -100,7 +100,7 @@ model.adaptiveFusion.nisConsistencyConfidence = 0.7;
 model.adaptiveFusion.nisPenaltyScale = 4.0;
 model.adaptiveFusion.nisPenaltyMin = 0.3;
 model.adaptiveFusion.nisPenaltyLowerScale = 1.0;
-model.adaptiveFusion.nisPenaltyUpperScale = 4.0;
+model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
 model.adaptiveFusion.nisPenaltyLowerPower = 2.0;
 model.adaptiveFusion.nisPenaltyUpperPower = 2.0;
 model.adaptiveFusion.nisEmaEnabled = true;
@@ -160,14 +160,14 @@ model.adaptiveFusion.useHistory = true;
 
 - 放宽一致性区间：`nisConsistencyConfidence = 0.7`
 - 下侧弱惩罚：`nisPenaltyLowerScale = 1.0`
-- 上侧强惩罚：`nisPenaltyUpperScale = 4.0`
+- 上侧强惩罚：`nisPenaltyUpperScale = 6.0`
 - 上下侧均使用平方型软惩罚：`nisPenaltyLowerPower = 2.0`，`nisPenaltyUpperPower = 2.0`
 
 20 次 Monte Carlo 的最新结果为：
 
 ```text
-Comprehensive (OSPA) consensus: 1.811 -> 1.811 -> 1.898
-Position (RMSE) consensus:      3.173 -> 3.159 -> 3.337
+Comprehensive (OSPA) consensus: 1.811 -> 1.810 -> 1.901
+Position (RMSE) consensus:      3.173 -> 3.153 -> 3.329
 Cardinality consensus:          0.214 -> 0.209 -> 0.234
 ```
 
@@ -182,3 +182,25 @@ Cardinality consensus:          0.214 -> 0.209 -> 0.234
 1. 调优后的 `robust NIS` 已经把 OSPA 恢复到与 `w/o NIS` 基本持平
 2. 同时仍保留了轻微的 RMSE 与基数一致性收益
 3. 普通 `NIS` 仍然不稳定，当前不建议作为默认方案
+
+
+## 8. GA ?????2026-03-09?
+
+??? decoupled NIS ??????? `nisConsistencyConfidence ? nisPenaltyUpperScale` ? 20 ? Monte Carlo ???????????
+
+- `nisConsistencyConfidence \in \{0.5, 0.7, 0.9\}`
+- `nisPenaltyUpperScale \in \{2.0, 4.0, 6.0\}`
+- `useHistory = false`
+
+????????
+- `RUN/GA/runMultisensorFilters_formation_4plus4_NISGridSearch.m`
+- `RUN/GA/GA_NIS_GRID_20260309_163105.md`
+
+???? E-OSPA???? OSPA???? RMSE ? cardinality ???????? GA ????
+
+```matlab
+model.adaptiveFusion.nisConsistencyConfidence = 0.7;
+model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
+```
+
+???? GA ??????????????????? decoupled NIS ???????

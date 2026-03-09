@@ -1,4 +1,4 @@
-% RUNMULTISENSORFILTERS_FORMATION_4PLUS4_HISTORYCOMPARE - GA history vs w/o history (20 trials)
+% RUNMULTISENSORFILTERS_FORMATION_4PLUS4_NISGRIDSEARCH - Sweep decoupled NIS parameters in GA
 close all; clc;
 scriptDir = resolveScriptDir();
 projectRoot = resolveProjectRoot(scriptDir);
@@ -9,10 +9,11 @@ setPath;
 numberOfTrials = 20;
 baseSeed = 1;
 useFixedSeed = true;
+confidenceGrid = [0.5 0.7 0.9];
+upperScaleGrid = [2.0 4.0 6.0];
 
 %% Scenario switches
 staggeredBirths = true; % true = staggered births, false = all at once
-useDistributedFusion = true;
 leaderSensor = 8;
 sensorCommRange = 150;
 fusionWeighting = 'Metropolis'; % 'Metropolis' or 'Uniform'
@@ -40,6 +41,9 @@ adaptiveFusionConfig = struct( ...
     'nisEmaAlpha', 0.7);
 robustNIS = true;
 robustNISMin = 0.3;
+numConfidence = numel(confidenceGrid);
+numUpperScale = numel(upperScaleGrid);
+numConfigs = numConfidence * numUpperScale;
 
 %% Sensor configuration
 numberOfSensors = 8;
@@ -75,16 +79,26 @@ targetFormationConfig.targetBirthStates = buildTargetBirthStates();
 targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
 
 %% Allocate trial results
-eOspaNoHist = zeros(numberOfTrials, numberOfSensors);
-eOspaHist = zeros(numberOfTrials, numberOfSensors);
-rmseNoHist = zeros(numberOfTrials, numberOfSensors);
-rmseHist = zeros(numberOfTrials, numberOfSensors);
-consOspaNoHist = zeros(numberOfTrials, 1);
-consOspaHist = zeros(numberOfTrials, 1);
-consPosNoHist = zeros(numberOfTrials, 1);
-consPosHist = zeros(numberOfTrials, 1);
-consCardNoHist = zeros(numberOfTrials, 1);
-consCardHist = zeros(numberOfTrials, 1);
+localOspaBase = zeros(numberOfTrials, 1);
+localRmseBase = zeros(numberOfTrials, 1);
+consOspaBase = zeros(numberOfTrials, 1);
+consPosBase = zeros(numberOfTrials, 1);
+consCardBase = zeros(numberOfTrials, 1);
+localOspaGrid = zeros(numberOfTrials, numConfigs);
+localRmseGrid = zeros(numberOfTrials, numConfigs);
+consOspaGrid = zeros(numberOfTrials, numConfigs);
+consPosGrid = zeros(numberOfTrials, numConfigs);
+consCardGrid = zeros(numberOfTrials, numConfigs);
+configConfidence = zeros(1, numConfigs);
+configUpperScale = zeros(1, numConfigs);
+cfgIdx = 1;
+for iConf = 1:numConfidence
+    for iScale = 1:numUpperScale
+        configConfidence(cfgIdx) = confidenceGrid(iConf);
+        configUpperScale(cfgIdx) = upperScaleGrid(iScale);
+        cfgIdx = cfgIdx + 1;
+    end
+end
 
 %% Trials
 for trial = 1:numberOfTrials
@@ -109,64 +123,76 @@ for trial = 1:numberOfTrials
     [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
     model.sensorTrajectories = sensorTrajectories;
     [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfig);
-    neighborMap = buildNeighborMap4Plus4(numberOfSensors);
 
-    % w/o history
-    modelNoHist = model;
-    modelNoHist.adaptiveFusion.enabled = true;
-    modelNoHist.adaptiveFusion.useNIS = false;
-    modelNoHist.adaptiveFusion.useHistory = false;
-    [stateEstimatesBySensorNoHist, localModelsNoHist, neighborMap] = runDistributedLmbFilter( ...
-        modelNoHist, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
+    % w/o NIS
+    modelNo = model;
+    modelNo.adaptiveFusion.enabled = true;
+    modelNo.adaptiveFusion.useNIS = false;
+    neighborMapBase = buildNeighborMap4Plus4(numberOfSensors);
+    [stateEstimatesBySensorNo, localModelsNo] = runDistributedLmbFilter( ...
+        modelNo, measurementsDelivered, sensorTrajectories, neighborMapBase, commStats);
 
-    % history only
-    modelHist = model;
-    modelHist.adaptiveFusion.enabled = true;
-    modelHist.adaptiveFusion.useNIS = false;
-    modelHist.adaptiveFusion.useHistory = true;
-    [stateEstimatesBySensorHist, localModelsHist, neighborMap] = runDistributedLmbFilter( ...
-        modelHist, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
-
-    % Per-sensor metrics
+    localOspaPerSensor = zeros(1, numberOfSensors);
+    localRmsePerSensor = zeros(1, numberOfSensors);
     for s = 1:numberOfSensors
-        [eNoHist, ~] = computeSimulationOspa(localModelsNoHist{s}, groundTruthRfs, stateEstimatesBySensorNoHist{s});
-        [eHist, ~] = computeSimulationOspa(localModelsHist{s}, groundTruthRfs, stateEstimatesBySensorHist{s});
-        eOspaNoHist(trial, s) = mean(eNoHist);
-        rmseNoHist(trial, s) = mean(computeSetRmseOverTime(stateEstimatesBySensorNoHist{s}, groundTruthRfs), 'omitnan');
-        eOspaHist(trial, s) = mean(eHist);
-        rmseHist(trial, s) = mean(computeSetRmseOverTime(stateEstimatesBySensorHist{s}, groundTruthRfs), 'omitnan');
+        [eNo, ~] = computeSimulationOspa(localModelsNo{s}, groundTruthRfs, stateEstimatesBySensorNo{s});
+        localOspaPerSensor(s) = mean(eNo);
+        localRmsePerSensor(s) = mean(computeSetRmseOverTime(stateEstimatesBySensorNo{s}, groundTruthRfs), 'omitnan');
     end
+    localOspaBase(trial) = mean(localOspaPerSensor);
+    localRmseBase(trial) = mean(localRmsePerSensor, 'omitnan');
 
-    % Consensus metrics
-    [posNoHist, cardNoHist, ospaNoHist] = computeConsensusMetrics(stateEstimatesBySensorNoHist, modelNoHist);
-    consOspaNoHist(trial) = mean(ospaNoHist);
-    consPosNoHist(trial) = mean(posNoHist, 'omitnan');
-    consCardNoHist(trial) = mean(cardNoHist);
-    [posHist, cardHist, ospaHist] = computeConsensusMetrics(stateEstimatesBySensorHist, modelHist);
-    consOspaHist(trial) = mean(ospaHist);
-    consPosHist(trial) = mean(posHist, 'omitnan');
-    consCardHist(trial) = mean(cardHist);
+    [posNo, cardNo, ospaNo] = computeConsensusMetrics(stateEstimatesBySensorNo, modelNo);
+    consOspaBase(trial) = mean(ospaNo);
+    consPosBase(trial) = mean(posNo, 'omitnan');
+    consCardBase(trial) = mean(cardNo);
+
+    for cfgIdx = 1:numConfigs
+        modelCfg = model;
+        modelCfg.adaptiveFusion.enabled = true;
+        modelCfg.adaptiveFusion.useNIS = true;
+        modelCfg.adaptiveFusion.robustNIS = robustNIS;
+        modelCfg.adaptiveFusion.robustNISMin = robustNISMin;
+        modelCfg.adaptiveFusion.nisConsistencyConfidence = configConfidence(cfgIdx);
+        modelCfg.adaptiveFusion.nisPenaltyUpperScale = configUpperScale(cfgIdx);
+        neighborMapCfg = buildNeighborMap4Plus4(numberOfSensors);
+        [stateEstimatesBySensorCfg, localModelsCfg] = runDistributedLmbFilter( ...
+            modelCfg, measurementsDelivered, sensorTrajectories, neighborMapCfg, commStats);
+
+        localOspaPerSensor = zeros(1, numberOfSensors);
+        localRmsePerSensor = zeros(1, numberOfSensors);
+        for s = 1:numberOfSensors
+            [eCfg, ~] = computeSimulationOspa(localModelsCfg{s}, groundTruthRfs, stateEstimatesBySensorCfg{s});
+            localOspaPerSensor(s) = mean(eCfg);
+            localRmsePerSensor(s) = mean(computeSetRmseOverTime(stateEstimatesBySensorCfg{s}, groundTruthRfs), 'omitnan');
+        end
+        localOspaGrid(trial, cfgIdx) = mean(localOspaPerSensor);
+        localRmseGrid(trial, cfgIdx) = mean(localRmsePerSensor, 'omitnan');
+
+        [posCfg, cardCfg, ospaCfg] = computeConsensusMetrics(stateEstimatesBySensorCfg, modelCfg);
+        consOspaGrid(trial, cfgIdx) = mean(ospaCfg);
+        consPosGrid(trial, cfgIdx) = mean(posCfg, 'omitnan');
+        consCardGrid(trial, cfgIdx) = mean(cardCfg);
+    end
 end
 
 %% Summary
 fprintf('=====================================\n');
-fprintf('GA Adaptive History Comparison (N=%d)\n', numberOfTrials);
-fprintf('useNIS=0, useHistory=0 -> 1\n');
+fprintf('GA Decoupled NIS Grid Search (N=%d)\n', numberOfTrials);
+fprintf('robustNIS=%d, robustNISMin=%.2f\n', robustNIS, robustNISMin);
 fprintf('=====================================\n');
-for s = 1:numberOfSensors
-    fprintf('Sensor %d: E-OSPA %.3f -> %.3f, RMSE %.3f -> %.3f\n', ...
-        s, mean(eOspaNoHist(:, s)), mean(eOspaHist(:, s)), ...
-        mean(rmseNoHist(:, s)), mean(rmseHist(:, s)));
+fprintf('Baseline (w/o NIS): local OSPA %.3f, local RMSE %.3f, consensus OSPA %.3f, consensus RMSE %.3f, consensus Card %.3f\n', ...
+    mean(localOspaBase), mean(localRmseBase, 'omitnan'), ...
+    mean(consOspaBase), mean(consPosBase, 'omitnan'), mean(consCardBase));
+for cfgIdx = 1:numConfigs
+    fprintf('conf=%.2f, upperScale=%.1f | local OSPA %.3f (%.3f), local RMSE %.3f (%.3f), cons OSPA %.3f (%.3f), cons RMSE %.3f (%.3f), cons Card %.3f (%.3f)\n', ...
+        configConfidence(cfgIdx), configUpperScale(cfgIdx), ...
+        mean(localOspaGrid(:, cfgIdx)), mean(localOspaGrid(:, cfgIdx)) - mean(localOspaBase), ...
+        mean(localRmseGrid(:, cfgIdx), 'omitnan'), mean(localRmseGrid(:, cfgIdx), 'omitnan') - mean(localRmseBase, 'omitnan'), ...
+        mean(consOspaGrid(:, cfgIdx)), mean(consOspaGrid(:, cfgIdx)) - mean(consOspaBase), ...
+        mean(consPosGrid(:, cfgIdx), 'omitnan'), mean(consPosGrid(:, cfgIdx), 'omitnan') - mean(consPosBase, 'omitnan'), ...
+        mean(consCardGrid(:, cfgIdx)), mean(consCardGrid(:, cfgIdx)) - mean(consCardBase));
 end
-fprintf('=====================================\n');
-fprintf('Consensus Metrics (w/o history -> history)\n');
-fprintf('=====================================\n');
-fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f\n', ...
-    mean(consOspaNoHist), mean(consOspaHist));
-fprintf('Position (RMSE) consensus: %.3f -> %.3f\n', ...
-    mean(consPosNoHist, 'omitnan'), mean(consPosHist, 'omitnan'));
-fprintf('Cardinality consensus: %.3f -> %.3f\n', ...
-    mean(consCardNoHist), mean(consCardHist));
 
 %% Write report
 reportDir = fullfile(projectRoot, 'RUN', 'GA');
@@ -174,14 +200,14 @@ if ~exist(reportDir, 'dir')
     mkdir(reportDir);
 end
 timestamp = char(datetime('now', 'Format', 'yyyyMMdd_HHmmss'));
-reportName = sprintf('GA_HISTORY_COMPARE_%s.md', timestamp);
+reportName = sprintf('GA_NIS_GRID_%s.md', timestamp);
 reportPath = fullfile(reportDir, reportName);
-writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
-    robustNISMin, sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, ...
-    eOspaNoHist, eOspaHist, rmseNoHist, rmseHist, ...
-    consOspaNoHist, consOspaHist, ...
-    consPosNoHist, consPosHist, ...
-    consCardNoHist, consCardHist);
+writeGridReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, robustNISMin, ...
+    sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, ...
+    confidenceGrid, upperScaleGrid, ...
+    localOspaBase, localRmseBase, consOspaBase, consPosBase, consCardBase, ...
+    configConfidence, configUpperScale, ...
+    localOspaGrid, localRmseGrid, consOspaGrid, consPosGrid, consCardGrid);
 fprintf('Report written: %s\n', reportPath);
 
 %% Local helpers
@@ -271,12 +297,12 @@ function targetBirthStates = buildTargetBirthStates()
     end
 end
 
-function writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
-    robustNISMin, sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, ...
-    eOspaNoHist, eOspaHist, rmseNoHist, rmseHist, ...
-    consOspaNoHist, consOspaHist, ...
-    consPosNoHist, consPosHist, ...
-    consCardNoHist, consCardHist)
+function writeGridReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, robustNISMin, ...
+    sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, ...
+    confidenceGrid, upperScaleGrid, ...
+    localOspaBase, localRmseBase, consOspaBase, consPosBase, consCardBase, ...
+    configConfidence, configUpperScale, ...
+    localOspaGrid, localRmseGrid, consOspaGrid, consPosGrid, consCardGrid)
 
     fid = fopen(reportPath, 'w');
     if fid < 0
@@ -284,13 +310,34 @@ function writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSee
         return;
     end
 
+    baseLocalOspaMean = mean(localOspaBase);
+    baseLocalRmseMean = mean(localRmseBase, 'omitnan');
+    baseConsOspaMean = mean(consOspaBase);
+    baseConsPosMean = mean(consPosBase, 'omitnan');
+    baseConsCardMean = mean(consCardBase);
+    numConfigs = numel(configConfidence);
+    summaryRows = zeros(numConfigs, 9);
+    for idx = 1:numConfigs
+        localOspaMean = mean(localOspaGrid(:, idx));
+        localRmseMean = mean(localRmseGrid(:, idx), 'omitnan');
+        consOspaMean = mean(consOspaGrid(:, idx));
+        consPosMean = mean(consPosGrid(:, idx), 'omitnan');
+        consCardMean = mean(consCardGrid(:, idx));
+        relativeScore = (localOspaMean - baseLocalOspaMean) / max(baseLocalOspaMean, eps) + ...
+            (consOspaMean - baseConsOspaMean) / max(baseConsOspaMean, eps) + ...
+            (consPosMean - baseConsPosMean) / max(baseConsPosMean, eps) + ...
+            (consCardMean - baseConsCardMean) / max(baseConsCardMean, eps);
+        summaryRows(idx, :) = [configConfidence(idx), configUpperScale(idx), ...
+            localOspaMean, localRmseMean, consOspaMean, consPosMean, consCardMean, ...
+            relativeScore, idx];
+    end
+    [~, sortIdx] = sort(summaryRows(:, 8), 'ascend');
+
     timestamp = char(datetime('now', 'Format', 'yyyy-MM-dd HH:mm:ss'));
-    fprintf(fid, '# GA History Comparison (%s)\n\n', timestamp);
-    fprintf(fid, 'Comparison order: w/o history -> history\n\n');
+    fprintf(fid, '# GA Decoupled NIS Grid Search (%s)\n\n', timestamp);
     fprintf(fid, '## Run Config\n');
     fprintf(fid, '- Trials: %d\n', numberOfTrials);
     fprintf(fid, '- baseSeed: %d (fixed=%d)\n', baseSeed, useFixedSeed);
-    fprintf(fid, '- useNIS: 0\n');
     fprintf(fid, '- robustNISMin: %.2f\n', robustNISMin);
     fprintf(fid, '- sensorCommRange: %d\n', sensorCommRange);
     fprintf(fid, '- fusionWeighting: %s\n', fusionWeighting);
@@ -302,28 +349,43 @@ function writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSee
     fprintf(fid, '- nisConsistencyConfidence: %.2f\n', adaptiveFusionConfig.nisConsistencyConfidence);
     fprintf(fid, '- nisPenaltyScale: %.2f\n', adaptiveFusionConfig.nisPenaltyScale);
     fprintf(fid, '- nisPenaltyMin: %.2f\n', adaptiveFusionConfig.nisPenaltyMin);
+    fprintf(fid, '- nisPenaltyLowerScale: %.2f\n', adaptiveFusionConfig.nisPenaltyLowerScale);
+    fprintf(fid, '- nisPenaltyUpperScale: %.2f\n', adaptiveFusionConfig.nisPenaltyUpperScale);
+    fprintf(fid, '- nisPenaltyLowerPower: %.2f\n', adaptiveFusionConfig.nisPenaltyLowerPower);
+    fprintf(fid, '- nisPenaltyUpperPower: %.2f\n', adaptiveFusionConfig.nisPenaltyUpperPower);
     fprintf(fid, '- nisEmaEnabled: %d\n', adaptiveFusionConfig.nisEmaEnabled);
     fprintf(fid, '- nisEmaAlpha: %.2f\n', adaptiveFusionConfig.nisEmaAlpha);
-    fprintf(fid, '- leaderSensor: %d\n\n', leaderSensor);
+    fprintf(fid, '- leaderSensor: %d\n', leaderSensor);
+    fprintf(fid, '- confidenceGrid: [%s]\n', sprintf(' %.2f', confidenceGrid));
+    fprintf(fid, '- upperScaleGrid: [%s]\n\n', sprintf(' %.1f', upperScaleGrid));
 
-    fprintf(fid, '## Per-Sensor Metrics (mean across trials)\n');
-    fprintf(fid, '| Sensor | E-OSPA (w/o history) | E-OSPA (history) | RMSE (w/o history) | RMSE (history) |\n');
-    fprintf(fid, '|:------:|---------------------:|-----------------:|-------------------:|---------------:|\n');
-    numberOfSensors = size(eOspaNoHist, 2);
-    for s = 1:numberOfSensors
-        fprintf(fid, '| %d | %.3f | %.3f | %.3f | %.3f |\n', ...
-            s, mean(eOspaNoHist(:, s)), mean(eOspaHist(:, s)), ...
-            mean(rmseNoHist(:, s)), mean(rmseHist(:, s)));
+    fprintf(fid, '## Baseline (w/o NIS)\n');
+    fprintf(fid, '- Local E-OSPA: %.3f\n', baseLocalOspaMean);
+    fprintf(fid, '- Local RMSE: %.3f\n', baseLocalRmseMean);
+    fprintf(fid, '- Consensus OSPA: %.3f\n', baseConsOspaMean);
+    fprintf(fid, '- Consensus RMSE: %.3f\n', baseConsPosMean);
+    fprintf(fid, '- Consensus Cardinality: %.3f\n\n', baseConsCardMean);
+
+    fprintf(fid, '## Config Ranking (mean across trials)\n');
+    fprintf(fid, '| Rank | Confidence | Upper Scale | Local E-OSPA | dLocal E-OSPA | Local RMSE | dLocal RMSE | Cons OSPA | dCons OSPA | Cons RMSE | dCons RMSE | Cons Card | dCons Card | Relative Score |\n');
+    fprintf(fid, '|:----:|-----------:|------------:|-------------:|--------------:|-----------:|------------:|----------:|-----------:|----------:|-----------:|----------:|-----------:|---------------:|\n');
+    for rankIdx = 1:numConfigs
+        row = summaryRows(sortIdx(rankIdx), :);
+        fprintf(fid, '| %d | %.2f | %.1f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.4f |\n', ...
+            rankIdx, row(1), row(2), row(3), row(3) - baseLocalOspaMean, ...
+            row(4), row(4) - baseLocalRmseMean, row(5), row(5) - baseConsOspaMean, ...
+            row(6), row(6) - baseConsPosMean, row(7), row(7) - baseConsCardMean, row(8));
     end
     fprintf(fid, '\n');
-
-    fprintf(fid, '## Consensus Metrics (mean across trials)\n');
-    fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', ...
-        mean(consOspaNoHist), mean(consOspaHist));
-    fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', ...
-        mean(consPosNoHist, 'omitnan'), mean(consPosHist, 'omitnan'));
-    fprintf(fid, '- Cardinality: %.3f -> %.3f\n', ...
-        mean(consCardNoHist), mean(consCardHist));
+    bestRow = summaryRows(sortIdx(1), :);
+    fprintf(fid, '## Suggested Next Config\n');
+    fprintf(fid, '- Confidence: %.2f\n', bestRow(1));
+    fprintf(fid, '- Upper Scale: %.1f\n', bestRow(2));
+    fprintf(fid, '- Local E-OSPA delta: %.3f\n', bestRow(3) - baseLocalOspaMean);
+    fprintf(fid, '- Local RMSE delta: %.3f\n', bestRow(4) - baseLocalRmseMean);
+    fprintf(fid, '- Consensus OSPA delta: %.3f\n', bestRow(5) - baseConsOspaMean);
+    fprintf(fid, '- Consensus RMSE delta: %.3f\n', bestRow(6) - baseConsPosMean);
+    fprintf(fid, '- Consensus Cardinality delta: %.3f\n', bestRow(7) - baseConsCardMean);
 
     fclose(fid);
 end

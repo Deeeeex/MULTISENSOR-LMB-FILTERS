@@ -242,7 +242,7 @@ $$
 $$
 
 $$
-\beta_{\text{up}} = \mathrm{nisPenaltyUpperScale} = 4.0
+\beta_{\text{up}} = \mathrm{nisPenaltyUpperScale} = 6.0
 $$
 
 $$
@@ -343,7 +343,7 @@ model.adaptiveFusion.nisConsistencyConfidence = 0.7;
 model.adaptiveFusion.nisPenaltyScale = 4.0;
 model.adaptiveFusion.nisPenaltyMin = 0.3;
 model.adaptiveFusion.nisPenaltyLowerScale = 1.0;
-model.adaptiveFusion.nisPenaltyUpperScale = 4.0;
+model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
 model.adaptiveFusion.nisPenaltyLowerPower = 2.0;
 model.adaptiveFusion.nisPenaltyUpperPower = 2.0;
 model.adaptiveFusion.nisEmaEnabled = true;
@@ -375,7 +375,7 @@ model.adaptiveFusion.useHistory = false;
 - `nisPenaltyScale = 4.0`
 - `nisPenaltyMin = 0.3`
 - `nisPenaltyLowerScale = 1.0`
-- `nisPenaltyUpperScale = 4.0`
+- `nisPenaltyUpperScale = 6.0`
 - `nisPenaltyLowerPower = 2.0`
 - `nisPenaltyUpperPower = 2.0`
 - `nisEmaEnabled = true`
@@ -389,11 +389,11 @@ model.adaptiveFusion.useHistory = false;
 20 次均值结果如下：
 
 $$
-\text{Comprehensive (OSPA) consensus: } 1.811 \rightarrow 1.811 \rightarrow 1.898
+\text{Comprehensive (OSPA) consensus: } 1.811 \rightarrow 1.810 \rightarrow 1.901
 $$
 
 $$
-\text{Position (RMSE) consensus: } 3.173 \rightarrow 3.159 \rightarrow 3.337
+\text{Position (RMSE) consensus: } 3.173 \rightarrow 3.153 \rightarrow 3.329
 $$
 
 $$
@@ -412,4 +412,48 @@ $$
 
 对应报告文件：
 
-- `RUN/GA/GA_NIS_COMPARE_20260309_152647.md`
+- `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
+
+
+## 10. ?????????2026-03-09?
+
+??????? decoupled NIS ???????????????? 20 ? Monte Carlo ?????
+
+- `nisConsistencyConfidence \in \{0.5, 0.7, 0.9\}`
+- `nisPenaltyUpperScale \in \{2.0, 4.0, 6.0\}`
+- `useHistory = false`
+- ??? `robust NIS`
+
+????????
+- `RUN/GA/runMultisensorFilters_formation_4plus4_NISGridSearch.m`
+- `RUN/GA/GA_NIS_GRID_20260309_163105.md`
+
+????????????????????????
+
+```matlab
+model.adaptiveFusion.nisConsistencyConfidence = 0.7;
+model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
+```
+
+?????? `w/o NIS` ? 20 ???????
+
+$$
+	ext{Local E-OSPA: } 2.443 ightarrow 2.440
+$$
+
+$$
+	ext{Consensus OSPA: } 1.811 ightarrow 1.810
+$$
+
+$$
+	ext{Consensus RMSE: } 3.173 ightarrow 3.153
+$$
+
+$$
+	ext{Consensus Cardinality: } 0.214 ightarrow 0.209
+$$
+
+???? GA ?????????????
+- `nisConsistencyConfidence = 0.7`
+- `nisPenaltyUpperScale = 6.0`
+- ?? decoupled NIS ??????
