@@ -81,16 +81,16 @@ for i = 1:numberOfObjects
         Z = model.C{s} * objects(i).Sigma{j} * model.C{s}' + model.Q{s};
         logGaussianNormalisingConstant = - (0.5 * model.zDimension) * log(2 * pi) - 0.5 * log(det(Z));
         logLikelihoodRatioTerms = log(objects(i).r) + log(model.detectionProbability(s)) + log(objects(i).w(j)) - log(model.clutterPerUnitVolume(s));
-        ZInv = inv(Z);
-        K = objects(i).Sigma{j} * model.C{s}' * ZInv;
+        projectionCov = objects(i).Sigma{j} * model.C{s}';
+        K = projectionCov / Z;
         SigmaUpdated = (eye(model.xDimension) - K * model.C{s}) * objects(i).Sigma{j};
         % Determine total marginal likelihood, and determine posterior components
         for k = 1:numberOfMeasurements
             % Determine marginal likelihood ratio
             nu = z{k} - muZ;
-            gaussianLogLikelihood = logGaussianNormalisingConstant - 0.5 * nu' * ZInv * nu;
+            nisValue = nu' * (Z \ nu);
+            gaussianLogLikelihood = logGaussianNormalisingConstant - 0.5 * nisValue;
             L(i, k) = L(i, k) + exp(logLikelihoodRatioTerms + gaussianLogLikelihood);
-            nisValue = nu' * ZInv * nu;
             if nisValue < nisMin(k)
                 nisMin(k) = nisValue;
             end
@@ -122,6 +122,7 @@ if numberOfMeasurements > 0
     validNis = nisMin(isfinite(nisMin));
     if isempty(validNis)
         nisAgg = 0;
+        useRobust = false;
     else
         useRobust = false;
         if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
@@ -129,7 +130,20 @@ if numberOfMeasurements > 0
                 isfield(model, 'lmbParallelUpdateMode') && strcmpi(model.lmbParallelUpdateMode, 'GA')
             useRobust = true;
         end
-        if useRobust
+        useQuantile = true;
+        quantileValue = 0.7;
+        if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+            if isfield(model.adaptiveFusion, 'nisQuantileEnabled')
+                useQuantile = model.adaptiveFusion.nisQuantileEnabled;
+            end
+            if isfield(model.adaptiveFusion, 'nisQuantile')
+                quantileValue = model.adaptiveFusion.nisQuantile;
+            end
+        end
+        if useQuantile
+            quantileValue = min(max(quantileValue, 0), 1);
+            nisAgg = computeQuantile1d(validNis, quantileValue);
+        elseif useRobust
             nisAgg = median(validNis);
         else
             nisAgg = mean(validNis);
@@ -156,5 +170,28 @@ if numberOfMeasurements > 0
     end
 else
     associationMatrices.innovationScore = 1;
+end
+end
+
+function value = computeQuantile1d(values, q)
+sortedValues = sort(values(:));
+numValues = numel(sortedValues);
+if numValues == 0
+    value = 0;
+    return;
+end
+if numValues == 1
+    value = sortedValues(1);
+    return;
+end
+index = 1 + (numValues - 1) * q;
+lowerIndex = floor(index);
+upperIndex = ceil(index);
+if lowerIndex == upperIndex
+    value = sortedValues(lowerIndex);
+else
+    fraction = index - lowerIndex;
+    value = sortedValues(lowerIndex) + fraction * ...
+        (sortedValues(upperIndex) - sortedValues(lowerIndex));
 end
 end

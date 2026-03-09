@@ -43,9 +43,17 @@ useAdaptiveFusion = false;
 if isfield(model, 'adaptiveFusion') && isfield(model.adaptiveFusion, 'enabled')
     useAdaptiveFusion = model.adaptiveFusion.enabled;
 end
+adaptiveCfg = struct();
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    adaptiveCfg = model.adaptiveFusion;
+end
+useNIS = getConfigField(adaptiveCfg, 'useNIS', true);
+useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
+nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
 prevWeights = struct();
 prevWeights.ga = model.gaSensorWeights;
 prevWeights.aa = model.aaSensorWeights;
+prevWeights.historyState = struct();
 innovationConsistency = ones(model.numberOfSensors, simulationLength);
 %% Run the LMB filter
 for t = 1:simulationLength
@@ -63,6 +71,10 @@ for t = 1:simulationLength
             end
             if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
                 innovationConsistency(s, t) = associationMatrices.innovationScore;
+            end
+            if useNIS && useNisEma && t > 1
+                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
+                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
             end
             if (strcmp(model.dataAssociationMethod, 'LBP'))
                 % Data association by way of loopy belief propagation
@@ -83,6 +95,10 @@ for t = 1:simulationLength
                 measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
             end
             innovationConsistency(s, t) = 1;
+            if useNIS && useNisEma && t > 1
+                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
+                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
+            end
         end
     end
     %% Adaptive fusion weights (GA/AA only)
@@ -96,12 +112,15 @@ for t = 1:simulationLength
             commStatsLocal = struct();
         end
         commStatsLocal.innovationConsistency = innovationConsistency;
-        [gaWeights, aaWeights, ~] = computeAdaptiveFusionWeights( ...
+        [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights( ...
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         model.gaSensorWeights = gaWeights;
         model.aaSensorWeights = aaWeights;
         prevWeights.ga = gaWeights;
         prevWeights.aa = aaWeights;
+        if isfield(debug, 'historyState')
+            prevWeights.historyState = debug.historyState;
+        end
     end
     %% Track merging
     if (strcmp(model.lmbParallelUpdateMode, 'AA'))
@@ -145,4 +164,12 @@ end
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;
+end
+
+function value = getConfigField(cfg, fieldName, defaultValue)
+if isfield(cfg, fieldName)
+    value = cfg.(fieldName);
+else
+    value = defaultValue;
+end
 end
