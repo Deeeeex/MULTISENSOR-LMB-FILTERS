@@ -1,4 +1,4 @@
-function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
+function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats, sensorTrajectories)
 % RUNPARALLELUPDATELMBFILTER -- Run a multi-sensor LMB filter that uses a parallel measurment update.
 %   stateEstimates = runParallelUpdateLmbFilter(model, measurements)
 %   stateEstimates = runParallelUpdateLmbFilter(model, measurements, commStats)
@@ -28,6 +28,11 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commSt
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 objects = model.object;
+
+% Phase 1: Mobile Sensor Support - Pass sensor trajectories to model
+if nargin >= 3 && ~isempty(sensorTrajectories)
+    model.sensorTrajectories = sensorTrajectories;
+end
 % Output struct
 stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
@@ -38,9 +43,18 @@ useAdaptiveFusion = false;
 if isfield(model, 'adaptiveFusion') && isfield(model.adaptiveFusion, 'enabled')
     useAdaptiveFusion = model.adaptiveFusion.enabled;
 end
+adaptiveCfg = struct();
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    adaptiveCfg = model.adaptiveFusion;
+end
+useNIS = getConfigField(adaptiveCfg, 'useNIS', true);
+useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
+nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
 prevWeights = struct();
 prevWeights.ga = model.gaSensorWeights;
 prevWeights.aa = model.aaSensorWeights;
+prevWeights.historyState = struct();
+innovationConsistency = ones(model.numberOfSensors, simulationLength);
 %% Run the LMB filter
 for t = 1:simulationLength
     %% Prediction
@@ -49,8 +63,19 @@ for t = 1:simulationLength
     measurementUpdatedDistributions = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
         if (numel(measurements{s, t}))
-            % Populate the association matrices required by the data association algorithms
-            [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
+            % Phase 1: Support for mobile sensors - pass current time
+            if model.sensorMotionEnabled
+                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s, t);
+            else
+                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
+            end
+            if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
+                innovationConsistency(s, t) = associationMatrices.innovationScore;
+            end
+            if useNIS && useNisEma && t > 1
+                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
+                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
+            end
             if (strcmp(model.dataAssociationMethod, 'LBP'))
                 % Data association by way of loopy belief propagation
                 [r, W] = loopyBeliefPropagation(associationMatrices, model.lbpConvergenceTolerance, model.maximumNumberOfLbpIterations);
@@ -69,6 +94,11 @@ for t = 1:simulationLength
             for i = 1:numel(objects)
                 measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
             end
+            innovationConsistency(s, t) = 1;
+            if useNIS && useNisEma && t > 1
+                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
+                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
+            end
         end
     end
     %% Adaptive fusion weights (GA/AA only)
@@ -78,12 +108,19 @@ for t = 1:simulationLength
         else
             commStatsLocal = commStats;
         end
-        [gaWeights, aaWeights, ~] = computeAdaptiveFusionWeights( ...
+        if isempty(commStatsLocal) || ~isstruct(commStatsLocal)
+            commStatsLocal = struct();
+        end
+        commStatsLocal.innovationConsistency = innovationConsistency;
+        [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights( ...
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         model.gaSensorWeights = gaWeights;
         model.aaSensorWeights = aaWeights;
         prevWeights.ga = gaWeights;
         prevWeights.aa = aaWeights;
+        if isfield(debug, 'historyState')
+            prevWeights.historyState = debug.historyState;
+        end
     end
     %% Track merging
     if (strcmp(model.lmbParallelUpdateMode, 'AA'))
@@ -127,4 +164,12 @@ end
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;
+end
+
+function value = getConfigField(cfg, fieldName, defaultValue)
+if isfield(cfg, fieldName)
+    value = cfg.(fieldName);
+else
+    value = defaultValue;
+end
 end

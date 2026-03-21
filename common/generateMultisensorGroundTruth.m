@@ -1,13 +1,15 @@
-function [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model, varargin)
-% GENERATEMULTISENSORGROUNDTRUTH -- Generates the measurements and groundtruth for a simple hard-coded example.
-%   [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model)
+function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model, varargin)
+% GENERATEMULTISENSORGROUNDTRUTH -- Generates measurements and groundtruth for a simple hard-coded example.
+%   [groundTruth, measurements, groundTruthRfs] = generateMultisensorGroundTruth(model)
+%   [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model)
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
+%   Supports mobile sensors with configurable motion models.
 %
 %   See also generateMultisensorModel, plotMultisensorResults
 %
 %   Inputs
-%       model - struct. A struct with the fields declared in generateModel.
+%       model - struct. A struct with the fields declared in generateMultisensorModel.
 %       numberOfObjects - integer. The number of objects to be simulated
 %           for a 'Random' scenario.
 %
@@ -18,6 +20,8 @@ function [groundTruth, measurements, groundTruthRfs] = generateMultisensorGround
 %           each time-step of the simulation.
 %       groundTruthRfs - struct. Groundtruth RFS and optimal Kalman filter
 %           output in RFS form.
+%       sensorTrajectories - cell array. Each sensor's trajectory over time
+%           (only if sensorMotionEnabled).
 
 
 %% Simple, hard-coded scenario
@@ -55,6 +59,36 @@ elseif (strcmp(model.scenarioType, 'Random'))
     birthLocationIndex = 1:model.numberOfBirthLocations; %randi([1 model.numberOfBirthLocations],1 , numberOfObjects);
     priorLocations = [model.muB{birthLocationIndex}];
     priorLocations(3:4, :) = 3 * randn(numberOfObjects, 2)';
+elseif (strcmp(model.scenarioType, 'Formation'))
+    % Formation targets (right side)
+    simulationLength = 100;
+    if isfield(model, 'targetFormationCount')
+        numberOfObjects = model.targetFormationCount;
+    else
+        numberOfObjects = model.numberOfBirthLocations;
+    end
+    if ~isfield(model, 'targetFormationStartTime')
+        model.targetFormationStartTime = 1;
+    end
+    if ~isfield(model, 'targetFormationBirthInterval')
+        model.targetFormationBirthInterval = 5;
+    end
+    if ~isfield(model, 'targetFormationStaggeredBirths')
+        model.targetFormationStaggeredBirths = false;
+    end
+    if ~isfield(model, 'targetFormationLifeSpan')
+        model.targetFormationLifeSpan = simulationLength;
+    end
+    birthLocationIndex = 1:numberOfObjects;
+    priorLocations = [model.muB{birthLocationIndex}];
+    if model.targetFormationStaggeredBirths
+        objectBirthTimes = model.targetFormationStartTime + (0:numberOfObjects-1) * model.targetFormationBirthInterval;
+    else
+        objectBirthTimes = model.targetFormationStartTime * ones(1, numberOfObjects);
+    end
+    objectBirthTimes(objectBirthTimes < 1) = 1;
+    objectBirthTimes(objectBirthTimes > simulationLength) = simulationLength;
+    objectDeathTimes = min(objectBirthTimes + model.targetFormationLifeSpan - 1, simulationLength);
 end
 %% Allocate output
 measurements = repmat({}, model.numberOfSensors, simulationLength);
@@ -73,6 +107,44 @@ for i = 1:simulationLength
         end
     end
 end
+%% Initialize sensor trajectories (Phase 1: Mobile Sensor Support)
+if model.sensorMotionEnabled
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    for s = 1:model.numberOfSensors
+        sensorTrajectories{s} = zeros(4, simulationLength);
+        if isfield(model, 'sensorInitialStates') && numel(model.sensorInitialStates) >= s ...
+                && ~isempty(model.sensorInitialStates{s})
+            sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+        else
+            sensorTrajectories{s}(:, 1) = zeros(4, 1);
+        end
+    end
+else
+    sensorTrajectories = [];
+end
+%% Update sensor trajectories (Phase 1: Mobile Sensor Support)
+if model.sensorMotionEnabled
+    if isfield(model, 'sensorMotionType')
+        motionType = upper(model.sensorMotionType);
+    else
+        motionType = 'CV';
+    end
+    switch motionType
+        case 'CT'
+            sensorTrajectories = generateCtSensorTrajectories(model, simulationLength);
+        case 'FORMATION'
+            sensorTrajectories = generateFormationSensorTrajectories(model, simulationLength);
+        otherwise
+            for t = 2:simulationLength
+                for s = 1:model.numberOfSensors
+                    % CV motion model for sensors
+                    sensorTrajectories{s}(:, t) = model.A * sensorTrajectories{s}(:, t-1) + ...
+                        sampleSensorProcessNoise(model, s);
+                end
+            end
+    end
+end
+
 %% Add in each object's measurements
 for i = 1:numberOfObjects
     % Initialise the object's trajectory
@@ -96,6 +168,18 @@ for i = 1:numberOfObjects
         end
         % Preallocate parameters
         generatedMeasurement = rand(model.numberOfSensors, 1) < model.detectionProbability;
+        if model.sensorMotionEnabled && isFovEnabled(model)
+            for s = 1:model.numberOfSensors
+                if generatedMeasurement(s)
+                    halfAngleDeg = getFovValue(model, 'sensorFovHalfAngleDeg', s, 180);
+                    maxRange = getFovValue(model, 'sensorFovRange', s, inf);
+                    if ~isTargetInFov(sensorTrajectories{s}(1:2, t), ...
+                            sensorTrajectories{s}(3:4, t), x(1:2), halfAngleDeg, maxRange)
+                        generatedMeasurement(s) = false;
+                    end
+                end
+            end
+        end
         numberOfAssignments = sum(generatedMeasurement);
         if (numberOfAssignments)
             counter = 0;
@@ -105,7 +189,17 @@ for i = 1:numberOfObjects
             for s = 1:model.numberOfSensors
                 % Determine if object missed detection
                 if (generatedMeasurement(s))
-                    y = model.C{s} * x + chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    if model.sensorMotionEnabled
+                        % Mobile sensor: measure relative position to sensor
+                        sensorPos = sensorTrajectories{s}(1:2, t);
+                        targetPos = x(1:2);
+                        relativePos = targetPos - sensorPos;
+                        y = sensorPos + model.C{s} * [relativePos; 0; 0] + ...
+                            chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    else
+                        % Static sensor (original code)
+                        y = model.C{s} * x + chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                    end
                     measurements{s, t}{end+1} = y;
                     % Stack measurements and matrices
                     start = model.zDimension * counter + 1;
@@ -122,10 +216,179 @@ for i = 1:numberOfObjects
             Sigma = (eye(model.xDimension) - K * C) * Sigma;
         end
         % Add to RFS
-        groundTruthRfs.x{t}{end+1} = x;  
+        groundTruthRfs.x{t}{end+1} = x;
         groundTruthRfs.mu{t}{end+1} = mu;
         groundTruthRfs.Sigma{t}{end+1} = Sigma;
         groundTruthRfs.cardinality(t) = groundTruthRfs.cardinality(t) + 1;
     end
 end
+end
+
+function sensorTrajectories = generateCtSensorTrajectories(model, simulationLength)
+% GENERATECTSENSORTRAJECTORIES - Coordinated turn sensor motion
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    for s = 1:model.numberOfSensors
+        sensorTrajectories{s} = zeros(4, simulationLength);
+        if isfield(model, 'sensorInitialStates') && numel(model.sensorInitialStates) >= s ...
+                && ~isempty(model.sensorInitialStates{s})
+            sensorTrajectories{s}(:, 1) = model.sensorInitialStates{s};
+        else
+            sensorTrajectories{s}(:, 1) = [0; 0; 0; 0];
+        end
+        omega = 0;
+        if isfield(model, 'sensorTurnRate')
+            omega = model.sensorTurnRate;
+        end
+        for t = 2:simulationLength
+            if isfield(model, 'sensorTurnModel') && strcmp(model.sensorTurnModel, 'WhiteNoiseTurn')
+                omega = omega + randn() * 0.01;
+            end
+            cos_w = cos(omega * model.T);
+            sin_w = sin(omega * model.T);
+            prev_state = sensorTrajectories{s}(:, t-1);
+            prev_pos = prev_state(1:2);
+            prev_vel = prev_state(3:4);
+            new_vel = [cos_w * prev_vel(1) - sin_w * prev_vel(2);
+                       sin_w * prev_vel(1) + cos_w * prev_vel(2)];
+            new_pos = prev_pos + new_vel * model.T;
+            sensorTrajectories{s}(:, t) = [new_pos; new_vel] + sampleSensorProcessNoise(model, s);
+        end
+    end
+end
+
+function sensorTrajectories = generateFormationSensorTrajectories(model, simulationLength)
+% GENERATEFORMATIONSENSORTRAJECTORIES - Rigid formation sensor motion
+    sensorTrajectories = cell(1, model.numberOfSensors);
+    if ~isfield(model, 'sensorFormationType')
+        model.sensorFormationType = 'Triangle';
+    end
+    if ~isfield(model, 'sensorFormationSpacing')
+        model.sensorFormationSpacing = 20;
+    end
+    if ~isfield(model, 'sensorFormationCenterStart')
+        model.sensorFormationCenterStart = [-80; 0];
+    end
+    if ~isfield(model, 'sensorFormationVelocity')
+        model.sensorFormationVelocity = [0.8; 0];
+    end
+    offsets = computeFormationOffsets(model.sensorFormationType, model.sensorFormationSpacing, model.numberOfSensors);
+    center_state = [model.sensorFormationCenterStart; model.sensorFormationVelocity];
+    for t = 1:simulationLength
+        if t > 1
+            center_state = model.A * center_state;
+        end
+        for s = 1:model.numberOfSensors
+            offset = offsets(:, s);
+            sensorTrajectories{s}(:, t) = [center_state(1:2) + offset; center_state(3:4)];
+        end
+    end
+end
+
+function offsets = computeFormationOffsets(formationType, spacing, count)
+% COMPUTEFORMATIONOFFSETS - Relative offsets for formation geometry
+    if nargin < 3
+        count = 3;
+    end
+    if nargin < 2
+        spacing = 15;
+    end
+    if nargin < 1 || isempty(formationType)
+        formationType = 'Triangle';
+    end
+    formationType = upper(formationType);
+    switch formationType
+        case 'TRIANGLE'
+            radius = spacing / sqrt(3);
+            angles = (0:2) * 2 * pi / 3;
+            baseOffsets = radius * [cos(angles); sin(angles)];
+        case 'LINE'
+            idx = (0:count-1) - (count-1)/2;
+            baseOffsets = [zeros(1, count); idx * spacing];
+        case {'LEADER4','ONEPLUSFOUR'}
+            % V-shape (chevron): leader at the tip, two followers per row
+            y1 = 0.7 * spacing;
+            y2 = 1.4 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing, -2*spacing;
+                           0,  y1,       -y1,       y2,        -y2];
+        case {'LEADER3','ONEPLUSTHREE'}
+            % V-shape: two on first row, one centered on second row
+            y1 = 0.7 * spacing;
+            baseOffsets = [0, -spacing, -spacing, -2*spacing;
+                           0,  y1,       -y1,       0];
+        case 'CIRCLE'
+            angles = 2 * pi * (0:count-1) / max(count, 1);
+            baseOffsets = spacing * [cos(angles); sin(angles)];
+        otherwise
+            baseOffsets = zeros(2, max(count, 1));
+    end
+    if size(baseOffsets, 2) >= count
+        offsets = baseOffsets(:, 1:count);
+    else
+        reps = ceil(count / size(baseOffsets, 2));
+        offsets = repmat(baseOffsets, 1, reps);
+        offsets = offsets(:, 1:count);
+    end
+end
+
+function enabled = isFovEnabled(model)
+    enabled = isfield(model, 'sensorFovEnabled') && model.sensorFovEnabled && ...
+        isfield(model, 'sensorFovHalfAngleDeg') && isfield(model, 'sensorFovRange');
+end
+
+function value = getFovValue(model, fieldName, sensorIdx, defaultValue)
+    if isfield(model, fieldName)
+        v = model.(fieldName);
+        if isempty(v)
+            value = defaultValue;
+        elseif isscalar(v)
+            value = v;
+        elseif numel(v) >= sensorIdx
+            value = v(sensorIdx);
+        else
+            value = v(1);
+        end
+    else
+        value = defaultValue;
+    end
+end
+
+function inFov = isTargetInFov(sensorPos, sensorVel, targetPos, halfAngleDeg, maxRange)
+    rel = targetPos - sensorPos;
+    dist = norm(rel);
+    if ~(isfinite(maxRange))
+        maxRange = inf;
+    end
+    if dist > maxRange
+        inFov = false;
+        return;
+    end
+    speed = norm(sensorVel);
+    if speed < 1e-6 || dist < 1e-9
+        inFov = true;
+        return;
+    end
+    cosTheta = (rel' * sensorVel) / (dist * speed);
+    cosLimit = cosd(halfAngleDeg);
+    inFov = cosTheta >= cosLimit;
+end
+
+function noise = sampleSensorProcessNoise(model, s)
+% SAMPLE SENSOR PROCESS NOISE - Robustly sample even if covariance is PSD/zero
+    noise = zeros(4, 1);
+    if ~isfield(model, 'sensorProcessNoise') || numel(model.sensorProcessNoise) < s
+        return;
+    end
+    Q = model.sensorProcessNoise{s};
+    if isempty(Q) || ~any(Q(:))
+        return;
+    end
+    Q = (Q + Q') * 0.5;
+    [L, p] = chol(Q, 'lower');
+    if p > 0
+        [L, p] = chol(Q + 1e-9 * eye(size(Q)), 'lower');
+        if p > 0
+            return;
+        end
+    end
+    noise = L * randn(4, 1);
 end

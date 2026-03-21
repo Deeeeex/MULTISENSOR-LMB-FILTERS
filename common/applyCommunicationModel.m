@@ -54,6 +54,9 @@ measurementSelectionPolicy = getField(commConfig, 'measurementSelectionPolicy', 
 
 linkModel = getField(commConfig, 'linkModel', 'fixed');
 pDrop = getField(commConfig, 'pDrop', 0);
+pDropBySensor = getField(commConfig, 'pDropBySensor', []);
+pDropLevels = getField(commConfig, 'pDropLevels', []);
+pDropLevelCounts = getField(commConfig, 'pDropLevelCounts', []);
 pGoodToBad = getField(commConfig, 'pGoodToBad', 0.1);
 pBadToGood = getField(commConfig, 'pBadToGood', 0.3);
 pDropGood = getField(commConfig, 'pDropGood', 0.05);
@@ -67,6 +70,17 @@ outageMaxDuration = getField(commConfig, 'outageMaxDuration', 30);
 if numel(sensorWeights) ~= numSensors
     sensorWeights = ones(1, numSensors);
 end
+if isempty(pDropBySensor)
+    pDropBySensor = resolveTieredPDrop(pDropLevels, pDropLevelCounts, numSensors);
+end
+if ~isempty(pDropBySensor)
+    pDropBySensor = reshape(pDropBySensor, 1, []);
+    if numel(pDropBySensor) ~= numSensors
+        pDropBySensor = [];
+    else
+        pDropBySensor = min(max(pDropBySensor, 0), 1);
+    end
+end
 
 measurementsDelivered = measurements;
 
@@ -78,6 +92,11 @@ commStats.droppedByLink = zeros(numSensors, numSteps);
 commStats.droppedByOutage = zeros(numSensors, numSteps);
 commStats.linkState = zeros(numSensors, numSteps); % 0=good, 1=bad
 commStats.outageSchedule = outageSchedule;
+if ~isempty(pDropBySensor)
+    commStats.pDropBySensor = pDropBySensor;
+else
+    commStats.pDropBySensor = pDrop * ones(1, numSensors);
+end
 
 if level <= 0
     if isVector
@@ -171,7 +190,11 @@ for t = 1:numSteps
                     dropPacket = rand < pDropGood;
                 end
             else
-                dropPacket = rand < pDrop;
+                if ~isempty(pDropBySensor)
+                    dropPacket = rand < pDropBySensor(s);
+                else
+                    dropPacket = rand < pDrop;
+                end
             end
             if dropPacket
                 commStats.droppedByLink(s, t) = deliveredCount;
@@ -194,6 +217,40 @@ end
 if isVector
     measurementsDelivered = reshape(measurementsDelivered, originalSize);
 end
+end
+
+function pDropBySensor = resolveTieredPDrop(pDropLevels, pDropLevelCounts, numSensors)
+pDropBySensor = [];
+if isempty(pDropLevels) || isempty(pDropLevelCounts)
+    return;
+end
+
+pDropLevels = reshape(pDropLevels, 1, []);
+pDropLevelCounts = round(reshape(pDropLevelCounts, 1, []));
+if numel(pDropLevels) ~= numel(pDropLevelCounts)
+    return;
+end
+if any(pDropLevelCounts < 0) || sum(pDropLevelCounts) ~= numSensors
+    return;
+end
+
+pDropLevels = min(max(pDropLevels, 0), 1);
+assigned = zeros(1, numSensors);
+cursor = 1;
+for i = 1:numel(pDropLevels)
+    count = pDropLevelCounts(i);
+    if count <= 0
+        continue;
+    end
+    assigned(cursor:cursor + count - 1) = pDropLevels(i);
+    cursor = cursor + count;
+end
+
+if cursor - 1 ~= numSensors
+    return;
+end
+
+pDropBySensor = assigned(randperm(numSensors));
 end
 
 function value = getField(s, fieldName, defaultValue)
