@@ -32,6 +32,8 @@
 - 对每个已允许上传的传感器包，按丢包模型决定是否丢弃。
 - 丢包模型可选：
   - 固定丢包率 `pDrop`
+  - 按传感器显式指定的丢包率向量 `pDropBySensor`
+  - 分档丢包配置 `pDropLevels + pDropLevelCounts`
   - 两状态马尔可夫链路（Good/Bad 状态，分别有不同丢包率）
 
 **时延**：暂不实现，但预留接口（后续可加入“延迟队列 + 到达时间戳”）。
@@ -68,6 +70,9 @@ commConfig.measurementSelectionPolicy = 'firstK'; % firstK / random
 % Level 2: link loss
 commConfig.linkModel = 'fixed'; % fixed / markov
 commConfig.pDrop = 0.2;         % fixed mode
+commConfig.pDropBySensor = [];  % 可选：长度=传感器数，优先级高于 pDrop
+commConfig.pDropLevels = [];    % 可选：例如 [0, 0.1, 0.2, 0.5]
+commConfig.pDropLevelCounts = []; % 可选：例如 [1, 4, 1, 2]
 commConfig.pGoodToBad = 0.1;    % markov mode
 commConfig.pBadToGood = 0.3;
 commConfig.pDropGood = 0.05;
@@ -89,6 +94,9 @@ commConfig.outageMaxDuration = 30;
 - `measurementSelectionPolicy`：量测截断策略（`firstK` 保留前 K 条；`random` 随机 K 条）
 - `linkModel`：链路模型（`fixed` 固定丢包率；`markov` 两状态链路）
 - `pDrop`：固定丢包率（`linkModel='fixed'` 时生效）
+- `pDropBySensor`：按传感器指定的固定丢包率向量；若提供，则优先于标量 `pDrop`
+- `pDropLevels`：分档丢包率列表，例如 `[0, 0.1, 0.2, 0.5]`
+- `pDropLevelCounts`：每个档位对应的传感器个数；与 `pDropLevels` 等长，且总和必须等于传感器数
 - `pGoodToBad` / `pBadToGood`：链路状态转移概率（`markov` 模式）
 - `pDropGood` / `pDropBad`：Good/Bad 状态下的丢包率（`markov` 模式）
 - `maxOutageNodes`：最多失联传感器数量（Level 3）
@@ -96,6 +104,47 @@ commConfig.outageMaxDuration = 30;
 - `outageMinDuration` / `outageMaxDuration`：随机失联时长范围（步数）
 
 > 兼容说明：若历史配置仍使用 `globalMaxSensorPacketsPerStep`，系统会将其视为“量测数上限”处理。
+
+### Level 2 的优先级规则
+
+当 `linkModel='fixed'` 时，链路丢包率的解析优先级为：
+
+1. `pDropBySensor`
+2. `pDropLevels + pDropLevelCounts`
+3. 标量 `pDrop`
+
+也就是说：
+
+- 如果直接给了 `pDropBySensor`，则每个传感器使用该向量中对应的固定丢包率。
+- 如果没有给 `pDropBySensor`，但给了 `pDropLevels + pDropLevelCounts`，系统会先按档位生成一个长度等于传感器数的 `pDropBySensor`，再在 trial 内固定使用。
+- 如果上面两者都没给，才退回到统一标量 `pDrop`。
+
+### 分档丢包的推荐写法
+
+如果希望链路质量更接近“好/中/差/极差”的离散层级，而不是所有节点共享同一个 `pDrop`，推荐使用：
+
+```matlab
+commConfig.level = 2;
+commConfig.linkModel = 'fixed';
+commConfig.pDrop = 0.2; % 目标平均值，仅用于记录和回退
+commConfig.pDropLevels = [0, 0.1, 0.2, 0.5];
+commConfig.pDropLevelCounts = [1, 4, 1, 2];
+```
+
+该配置的含义是：
+
+- 1 个节点处于 `0` 档
+- 4 个节点处于 `0.1` 档
+- 1 个节点处于 `0.2` 档
+- 2 个节点处于 `0.5` 档
+
+对于 8 传感器场景，上述组合的总体平均丢包率恰好为：
+
+$$
+\frac{1 \times 0 + 4 \times 0.1 + 1 \times 0.2 + 2 \times 0.5}{8} = 0.2
+$$
+
+因此它可以在**保持整体通信强度与旧配置一致**的前提下，引入更强的节点间异构性。
 
 ## 5. 统计信息（建议输出）
 
@@ -129,6 +178,30 @@ commConfig.linkModel = 'fixed';
 commConfig.pDrop = 0.2;
 commConfig.maxOutageNodes = 1;
 ```
+
+### 推荐配置（分档异构链路版）
+
+以下配置用于当前 formation `4+4` 实验，目标是保留平均 `pDrop=0.2`，同时让不同节点处于不同档位：
+
+```matlab
+commConfig = struct();
+commConfig.level = 2;
+commConfig.globalMaxMeasurementsPerStep = 80;
+commConfig.sensorWeights = ones(1, numberOfSensors) / numberOfSensors;
+commConfig.priorityPolicy = 'weightedPriority';
+commConfig.measurementSelectionPolicy = 'random';
+commConfig.linkModel = 'fixed';
+commConfig.pDrop = 0.2;
+commConfig.pDropLevels = [0, 0.1, 0.2, 0.5];
+commConfig.pDropLevelCounts = [1, 4, 1, 2];
+commConfig.maxOutageNodes = 1;
+```
+
+这套配置的优点是：
+
+- 总体平均丢包率不变，方便与旧实验对齐
+- 节点链路质量分层明确，解释性更强
+- `linkQuality` 在自适应权重中的区分度更高
 
 推荐集成点：
 - `runMultisensorFilters.m`

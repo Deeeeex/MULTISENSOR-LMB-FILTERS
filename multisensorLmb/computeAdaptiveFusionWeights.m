@@ -3,7 +3,7 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
 %   The weight model is factorized as
-%       mask * covariance * link * nisPenalty * history
+%       mask * covariance * link * cardinalityConsensus * existenceConfidence * freshness * nisPenalty * history
 %   where NIS acts as a consistency penalty instead of a quality reward.
 %   The final weights are then normalized with temporal EMA smoothing.
 
@@ -18,16 +18,27 @@ emaAlpha = getField(cfg, 'emaAlpha', 0.7);
 minWeight = getField(cfg, 'minWeight', 0.0);
 useNIS = getField(cfg, 'useNIS', true);
 useHistory = getField(cfg, 'useHistory', true);
+useCovariance = getField(cfg, 'useCovariance', true);
+useLinkQuality = getField(cfg, 'useLinkQuality', true);
+useCardinalityConsensus = getField(cfg, 'useCardinalityConsensus', false);
+useExistenceConfidence = getField(cfg, 'useExistenceConfidence', false);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
 innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS);
+cardinalityConsensusScore = resolveCardinalityConsensusScore( ...
+    measurementUpdatedDistributions, useCardinalityConsensus, cfg);
+existenceConfidenceScore = resolveExistenceConfidenceScore( ...
+    measurementUpdatedDistributions, useExistenceConfidence, cfg);
+freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
+[covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
 [historyScore, historyState, historyDebug] = computeHistoryScore( ...
     measurementUpdatedDistributions, covScore, innovationPenalty, cfg, prevWeights, useNIS, useHistory);
 
 baseScore = availabilityMask .* covScore .* linkQuality;
-rawScore = baseScore .* innovationPenalty .* historyScore;
+rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
+    freshnessScore .* innovationPenalty .* historyScore;
 rawWeights = normalizeScores(rawScore, availabilityMask);
 
 weights = rawWeights;
@@ -51,6 +62,9 @@ debug.covScore = covScore;
 debug.baseScore = baseScore;
 debug.innovationPenalty = innovationPenalty;
 debug.innovationScore = innovationPenalty;
+debug.cardinalityConsensusScore = cardinalityConsensusScore;
+debug.existenceConfidenceScore = existenceConfidenceScore;
+debug.freshnessScore = freshnessScore;
 debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
@@ -60,6 +74,69 @@ debug.historyState = historyState;
 debug.historyInstantInstability = historyDebug.instantInstability;
 debug.historyInstabilityEma = historyDebug.instabilityEma;
 debug.expectedCardinality = historyDebug.expectedCardinality;
+end
+
+function cardinalityConsensusScore = resolveCardinalityConsensusScore(measurementUpdatedDistributions, useCardinalityConsensus, cfg)
+numSensors = numel(measurementUpdatedDistributions);
+cardinalityConsensusScore = ones(1, numSensors);
+if ~useCardinalityConsensus
+    return;
+end
+
+expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
+activeMask = expectedCardinality > 0;
+if ~any(activeMask)
+    return;
+end
+
+referenceCardinality = median(expectedCardinality(activeMask));
+scoreScale = max(getField(cfg, 'cardinalityConsensusScale', 4.0), 0);
+minScore = min(max(getField(cfg, 'cardinalityConsensusMinScore', 0.4), 0), 1);
+normalizer = 1 + referenceCardinality;
+
+for s = 1:numSensors
+    diffRatio = abs(expectedCardinality(s) - referenceCardinality) / normalizer;
+    cardinalityConsensusScore(s) = minScore + (1 - minScore) * exp(-scoreScale * diffRatio);
+end
+end
+
+function existenceConfidenceScore = resolveExistenceConfidenceScore(measurementUpdatedDistributions, useExistenceConfidence, cfg)
+numSensors = numel(measurementUpdatedDistributions);
+existenceConfidenceScore = ones(1, numSensors);
+if ~useExistenceConfidence
+    return;
+end
+
+minScore = min(max(getField(cfg, 'existenceConfidenceMinScore', 0.6), 0), 1);
+power = max(getField(cfg, 'existenceConfidencePower', 1.0), 0);
+
+for s = 1:numSensors
+    objects = measurementUpdatedDistributions{s};
+    if isempty(objects)
+        existenceConfidenceScore(s) = 1;
+        continue;
+    end
+
+    existenceProb = [objects.r];
+    if isempty(existenceProb)
+        existenceConfidenceScore(s) = 1;
+        continue;
+    end
+
+    certainty = abs(2 * existenceProb - 1);
+    weightedConfidence = sum(existenceProb .* certainty) / (eps + sum(existenceProb));
+    weightedConfidence = min(max(weightedConfidence, 0), 1);
+    existenceConfidenceScore(s) = minScore + (1 - minScore) * (weightedConfidence ^ power);
+end
+end
+
+function [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality)
+if ~useCovariance
+    covScore = ones(size(covScore));
+end
+if ~useLinkQuality
+    linkQuality = ones(size(linkQuality));
+end
 end
 
 function covScore = computeCovarianceScore(measurementUpdatedDistributions, model)
@@ -100,6 +177,43 @@ if nargin < 2 || ~isstruct(commStats) || ~isfield(commStats, 'innovationConsiste
 end
 if size(commStats.innovationConsistency, 1) == numSensors && size(commStats.innovationConsistency, 2) >= t
     innovationPenalty = commStats.innovationConsistency(:, t)';
+end
+end
+
+function freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg)
+freshnessScore = ones(1, numSensors);
+useFreshness = getField(cfg, 'useFreshness', false);
+if ~useFreshness
+    return;
+end
+if nargin < 1 || ~iscell(measurements) || isempty(measurements)
+    return;
+end
+
+freshnessDecay = max(getField(cfg, 'freshnessDecay', 0.5), 0);
+freshnessMinScore = min(max(getField(cfg, 'freshnessMinScore', 0.4), 0), 1);
+
+numSteps = size(measurements, 2);
+currentStep = min(max(round(t), 1), numSteps);
+numSensorsLocal = min(numSensors, size(measurements, 1));
+
+for s = 1:numSensorsLocal
+    lastObservedStep = 0;
+    for tau = currentStep:-1:1
+        if numel(measurements{s, tau}) > 0
+            lastObservedStep = tau;
+            break;
+        end
+    end
+
+    if lastObservedStep <= 0
+        age = currentStep;
+    else
+        age = currentStep - lastObservedStep;
+    end
+
+    freshnessScore(s) = freshnessMinScore + (1 - freshnessMinScore) * ...
+        exp(-freshnessDecay * age);
 end
 end
 

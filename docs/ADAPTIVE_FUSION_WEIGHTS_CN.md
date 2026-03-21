@@ -8,7 +8,7 @@
 
 ```text
 baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
-rawScore_j(t)  = baseScore_j(t) * innovationPenalty_j(t) * historyScore_j(t)
+rawScore_j(t)  = baseScore_j(t) * cardinalityConfidence_j(t) * innovationPenalty_j(t) * historyScore_j(t)
 ```
 
 其中：
@@ -16,6 +16,7 @@ rawScore_j(t)  = baseScore_j(t) * innovationPenalty_j(t) * historyScore_j(t)
 - `mask_j(t)`：可用性掩码
 - `covScore_j(t)`：协方差质量项
 - `linkQuality_j(t)`：链路质量项
+- `cardinalityConfidence_j(t)`：存在性/基数置信度项
 - `innovationPenalty_j(t)`：NIS 统计一致性惩罚项
 - `historyScore_j(t)`：历史稳定性项
 
@@ -28,7 +29,7 @@ useHistory = false
 因此当前主实验中实际生效的结构更接近：
 
 ```text
-rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * innovationPenalty_j(t)
+rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * cardinalityConfidence_j(t) * innovationPenalty_j(t)
 ```
 
 ## 2. 各项含义
@@ -81,6 +82,34 @@ linkQuality = delivered / (delivered + dropped)
 
 当前该模块仍保留，但默认先关闭，用于避免与 NIS 的分析混杂。
 
+### 2.5 存在性/基数置信度项 `existenceConfidence`
+
+实现位置：
+
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
+
+这个因子不是再去看状态协方差，也不是再去看链路是否送达，而是看 measurement-updated posterior 里每个 Bernoulli 的 existence probability `r` 是否足够“尖锐”。
+
+对单个 Bernoulli：
+
+```text
+certainty = |2r - 1|
+```
+
+其中：
+
+- `r` 接近 `0` 或 `1`，说明“存在/不存在”判断更明确，certainty 更高
+- `r` 接近 `0.5`，说明存在性判决更模糊，certainty 更低
+
+当前实现对每个传感器使用 existence probability 加权平均：
+
+```text
+weightedConfidence = sum(r .* |2r - 1|) / sum(r)
+existenceConfidenceScore = minScore + (1 - minScore) * weightedConfidence^power
+```
+
+它的职责是度量“这个节点当前的目标存在性判断是否可靠”，因此更直接对应 cardinality 一致性问题。
+
 ## 3. 当前默认配置
 
 当前推荐默认值如下：
@@ -89,6 +118,12 @@ linkQuality = delivered / (delivered + dropped)
 model.adaptiveFusion.enabled = true;
 model.adaptiveFusion.emaAlpha = 0.7;
 model.adaptiveFusion.minWeight = 0.05;
+
+model.adaptiveFusion.useCovariance = true;
+model.adaptiveFusion.useLinkQuality = true;
+model.adaptiveFusion.useExistenceConfidence = false;
+model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
+model.adaptiveFusion.existenceConfidencePower = 2.0;
 
 model.adaptiveFusion.useNIS = true;
 model.adaptiveFusion.robustNIS = true;
@@ -183,24 +218,37 @@ Cardinality consensus:          0.214 -> 0.209 -> 0.234
 2. 同时仍保留了轻微的 RMSE 与基数一致性收益
 3. 普通 `NIS` 仍然不稳定，当前不建议作为默认方案
 
+## 8. Tiered 通信配置下的新结果（2026-03-22）
 
-## 8. GA ?????2026-03-09?
-
-??? decoupled NIS ??????? `nisConsistencyConfidence ? nisPenaltyUpperScale` ? 20 ? Monte Carlo ???????????
-
-- `nisConsistencyConfidence \in \{0.5, 0.7, 0.9\}`
-- `nisPenaltyUpperScale \in \{2.0, 4.0, 6.0\}`
-- `useHistory = false`
-
-????????
-- `RUN/GA/runMultisensorFilters_formation_4plus4_NISGridSearch.m`
-- `RUN/GA/GA_NIS_GRID_20260309_163105.md`
-
-???? E-OSPA???? OSPA???? RMSE ? cardinality ???????? GA ????
+在新的分档异构丢包通信配置下：
 
 ```matlab
-model.adaptiveFusion.nisConsistencyConfidence = 0.7;
-model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
+commConfig.pDropLevels = [0, 0.1, 0.2, 0.5];
+commConfig.pDropLevelCounts = [1, 4, 1, 2];
 ```
 
-???? GA ??????????????????? decoupled NIS ???????
+我们进一步测试了在 `协方差 + 链路质量` 基础上加入新的存在性/基数置信度因子。
+
+推荐配置为：
+
+```matlab
+model.adaptiveFusion.useCovariance = true;
+model.adaptiveFusion.useLinkQuality = true;
+model.adaptiveFusion.useExistenceConfidence = true;
+model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
+model.adaptiveFusion.existenceConfidencePower = 2.0;
+model.adaptiveFusion.useNIS = false;
+```
+
+对应的 `5 trial` 消融结果为：
+
+```text
++link quality:          OSPA 1.877771, RMSE 1.800945, Card 0.245250
++existence confidence: OSPA 1.874840, RMSE 1.779820, Card 0.244500
+```
+
+当前结论是：
+
+1. `existenceConfidence` 比 `freshness` 和 `robust NIS` 更适合作为 `协方差 + 链路质量` 之后的第三个因子
+2. 它没有重复表达“状态精度”或“通信可靠性”，而是补了“存在性判决可信度”这一维
+3. 在当前 tiered 通信配置下，它实现了 `OSPA / RMSE / Cardinality` 三项指标同时改善
