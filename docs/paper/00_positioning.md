@@ -12,20 +12,21 @@ Recommended method scope:
 
 - Main algorithm family: `GA-LMB`
 - Main mechanism: adaptive fusion weights
-- Main technical novelty: decoupled `robust NIS` consistency penalty
-- Secondary modules: `history`, `association ambiguity`
+- Main technical novelty: factorized `covariance + link quality + existence confidence` weighting
+- Secondary modules: decoupled `robust NIS`, `history`, `freshness`, `association ambiguity`
 
 ## What The Paper Should Claim
 
 - Fixed KLA weights are brittle when communication quality and local posterior quality vary across sensors.
 - A factorized adaptive weighting mechanism can improve distributed consensus quality.
-- Interpreting NIS as a consistency penalty is better than treating it as a monotonic quality reward.
-- Robust NIS aggregation is more stable than plain mean-based NIS in the current GA setting.
+- Existence-confidence weighting adds a missing dimension beyond state precision and communication reliability.
+- Interpreting NIS as a consistency penalty is still useful, but it is not the strongest current headline improvement.
 
 ## What The Paper Should Not Claim
 
 - Do not claim a brand-new multi-sensor filter family.
 - Do not claim `history` is a major innovation.
+- Do not claim `freshness` is a useful core module with current evidence.
 - Do not claim `association ambiguity` is a major innovation with current evidence.
 - Do not claim universal local tracking gains for every sensor and every metric.
 - Do not make `AA` a co-equal main line with `GA/KLA`.
@@ -35,27 +36,31 @@ Recommended method scope:
 Use a 3-point contribution list:
 
 1. An adaptive KLA fusion-weight allocation scheme for distributed GA-LMB fusion under communication constraints.
-2. A decoupled robust NIS design that converts NIS from a quality reward into a chi-square consistency penalty.
-3. An empirical study showing substantial consensus gains in GA formation scenarios and improved stability over plain NIS.
+2. A three-factor quality model that combines posterior covariance, realized link quality, and existence-confidence for communication-constrained distributed fusion.
+3. An empirical study under tiered heterogeneous packet-loss conditions showing that the existence-confidence factor further improves consensus OSPA, RMSE, and cardinality beyond `covariance + link quality`.
 
 ## Current Evidence Hierarchy
 
 Most convincing:
 
-- GA main result in the 4+4 formation scenario
-- GA `w/o NIS -> robust NIS -> NIS` ablation
-- GA NIS parameter grid
+- Tiered GA main result in the 4+4 formation scenario
+- Tiered ablation `fixed -> +covariance -> +link quality -> +existence confidence`
+- Communication-aware interpretation of tiered packet-loss heterogeneity
 
 Useful but secondary:
 
+- GA `w/o NIS -> robust NIS -> NIS` ablation
+- GA NIS parameter grid
 - Communication-level robustness analysis
 - AA three-wave scenario
 
 Weak or negative:
 
+- `freshness`
 - `history`
 - `association ambiguity`
+- `cardinality consensus`
 
 ## Writing Rule
 
-If a paragraph does not clearly serve the `GA-LMB/KLA + adaptive weights + robust NIS + consensus improvement` story, it should likely be shortened or moved to appendix.
+If a paragraph does not clearly serve the `GA-LMB/KLA + adaptive weights + tiered communication + existence confidence + consensus improvement` story, it should likely be shortened or moved to appendix.

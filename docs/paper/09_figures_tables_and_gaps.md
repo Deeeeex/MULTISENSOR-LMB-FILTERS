@@ -10,12 +10,12 @@ Figure 1:
 Figure 2:
 
 - adaptive weight factorization diagram
-- show `mask`, `covScore`, `linkQuality`, `innovationPenalty`
+- show `mask`, `covScore`, `linkQuality`, `existenceConfidence`
 
 Figure 3:
 
-- NIS consistency penalty curve
-- compare plain monotonic NIS scoring versus decoupled robust penalty
+- existence-confidence mapping curve
+- illustrate high confidence near `r=0/1` and low confidence near `r=0.5`
 
 Figure 4:
 
@@ -24,8 +24,8 @@ Figure 4:
 
 Figure 5:
 
-- NIS ablation bar chart or line chart
-- `w/o NIS`, `robust NIS`, `NIS`
+- factor ablation bar chart or line chart
+- `fixed`, `+covariance`, `+link quality`, `+existence confidence`
 
 Figure 6:
 
@@ -43,11 +43,11 @@ Table 2:
 
 Table 3:
 
-- robust NIS ablation
+- factor ablation under tiered packet loss
 
 Table 4:
 
-- NIS grid search ranking
+- secondary `robust NIS` ablation
 
 Table 5:
 
@@ -55,7 +55,7 @@ Table 5:
 
 Table 6:
 
-- negative ablations for `history` and `association ambiguity`
+- negative ablations for `freshness`, `history`, `association ambiguity`, and `cardinality consensus`
 
 ## Current Evidence Gaps
 
@@ -65,6 +65,7 @@ Highest priority:
 - add variance or confidence intervals
 - add stronger baselines beyond fixed versus adaptive
 - report runtime overhead
+- verify whether existence confidence remains beneficial beyond the current 5-trial evidence
 
 Medium priority:
 
@@ -78,6 +79,6 @@ Low priority:
 ## Practical Next Steps
 
 1. Reproduce the GA main result with Monte Carlo statistics.
-2. Consolidate all GA result tables into one consistent format.
+2. Consolidate all tiered-GA result tables into one consistent format.
 3. Draft the method section directly from the implementation files.
 4. Draft the abstract only after the result tables are stabilized.

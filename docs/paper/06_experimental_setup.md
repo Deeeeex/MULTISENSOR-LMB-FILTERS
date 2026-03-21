@@ -7,8 +7,8 @@ Use the GA 4+4 distributed formation scenario as the main evaluation setting.
 Recommended order:
 
 1. Main scenario
-2. NIS ablation
-3. Parameter study
+2. Factor ablation
+3. NIS ablation
 4. Communication robustness
 5. AA generalization
 
@@ -21,14 +21,29 @@ Use:
 - `GA-LMB`
 - `LBP` data association
 - communication level `2`
-- fixed link drop `pDrop = 0.2`
+- tiered link drop with mean `pDrop = 0.2`
+- `pDropLevels = [0, 0.1, 0.2, 0.5]`
+- `pDropLevelCounts = [1, 4, 1, 2]`
 - Metropolis weighting
 
 Main reference:
 
-- `docs/FORMATION_4PLUS4_RUN.md`
+- `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`
 
 ## Core Ablation
+
+Use:
+
+- `fixed weights`
+- `+covariance`
+- `+link quality`
+- `+existence confidence`
+
+Main reference:
+
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+
+## Secondary NIS Ablation
 
 Use:
 
@@ -38,18 +53,7 @@ Use:
 
 Main reference:
 
-- `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
-
-## Parameter Study
-
-Use:
-
-- confidence grid
-- upper penalty scale grid
-
-Main reference:
-
-- `RUN/GA/GA_NIS_GRID_20260309_163105.md`
+- `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
 
 ## Secondary Experiments
 
@@ -84,15 +88,15 @@ Optional:
 Minimum baseline set:
 
 1. fixed fusion weights
-2. adaptive weights without NIS
-3. adaptive weights with robust NIS
-4. adaptive weights with plain NIS
+2. adaptive weights with covariance only
+3. adaptive weights with covariance plus link quality
+4. adaptive weights with covariance plus link quality plus existence confidence
 
 If more time is available, add:
 
+- robust NIS as optional consistency term
 - uniform weighting
 - communication-only weighting
-- covariance-only weighting
 
 ## Reporting Rule
 

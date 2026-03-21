@@ -4,9 +4,9 @@
 
 1. Baseline KLA or GA fusion
 2. Adaptive fusion-weight factorization
-3. Decoupled robust NIS consistency penalty
+3. Existence-confidence weighting
 4. Temporal smoothing and minimum-weight stabilization
-5. Optional extensions
+5. Optional consistency and extension modules
 
 ## Core Weight Factorization
 
@@ -14,19 +14,20 @@ Use the current implementation as the paper backbone:
 
 ```text
 baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
-rawScore_j(t)  = baseScore_j(t) * innovationPenalty_j(t) * associationScore_j(t) * historyScore_j(t)
+rawScore_j(t)  = baseScore_j(t) * existenceConfidence_j(t) * innovationPenalty_j(t) * associationScore_j(t) * historyScore_j(t)
 ```
 
 Recommended main paper version:
 
 ```text
-rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * innovationPenalty_j(t)
+rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * existenceConfidence_j(t)
 ```
 
 Reason:
 
 - `historyScore` is currently weak as a headline method point.
 - `associationScore` is better treated as an extension unless later evidence improves.
+- `robust NIS` is useful as a consistency-analysis module, but not the strongest current headline gain.
 
 ## Terms To Explain
 
@@ -43,13 +44,30 @@ Reason:
 
 - delivered over delivered plus dropped measurements
 
+`existenceConfidence_j(t)`:
+
+- confidence derived from posterior Bernoulli existence probabilities
+- high when `r` is close to `0` or `1`, low when `r` is close to `0.5`
+- intended to capture local existence and cardinality decisiveness
+
 `innovationPenalty_j(t)`:
 
-- consistency penalty from aggregated NIS statistics
+- optional consistency penalty from aggregated NIS statistics
+
+## Existence-Confidence Narrative
+
+This should be the main new method subsection.
+
+Required points:
+
+- Covariance measures spatial concentration, but not whether existence decisions are decisive.
+- Link quality measures realized communication success, but not whether the transmitted local posterior is trustworthy in cardinality terms.
+- Bernoulli existence probabilities provide a direct signal for how confidently a sensor asserts the presence or absence of targets.
+- A weighted confidence score from local existence probabilities adds a complementary dimension to covariance and link quality.
 
 ## NIS Narrative
 
-This is the main technical subsection.
+This is now a secondary but still useful subsection.
 
 Required points:
 
@@ -65,15 +83,16 @@ Suggested equations to include:
 
 - KLA or geometric-average fusion rule
 - covariance score definition
-- NIS definition and normalized form
-- chi-square consistency interval
-- asymmetric soft penalty
+- link-quality definition from delivered versus dropped packets
+- existence-confidence score definition
+- optional NIS definition and normalized form
 - EMA smoothing of the final weights
 
 ## Optional Modules
 
 Describe briefly and demote:
 
+- `innovationPenalty`: optional NIS-based consistency term
 - `historyScore`: optional temporal-stability term
 - `associationScore`: optional ambiguity-aware term
 
@@ -89,4 +108,5 @@ Recommended treatment:
 - `multisensorLmb/generateLmbSensorAssociationMatrices.m`
 - `multisensorLmb/runParallelUpdateLmbFilter.m`
 - `docs/ADAPTIVE_FUSION_WEIGHTS_CN.md`
+- `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`
 - `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`

@@ -5,10 +5,10 @@
 The introduction should move in this order:
 
 1. Distributed multi-sensor tracking needs robust fusion under limited communication.
-2. KLA or geometric-average fusion is attractive, but fixed weights ignore time-varying sensor reliability.
-3. Naive uncertainty-aware weighting is not enough because NIS and covariance are structurally coupled.
-4. We introduce a consistency-aware adaptive weighting mechanism for KLA-based GA-LMB fusion.
-5. Experiments show strong consensus gains and show why `robust NIS` is better than plain `NIS`.
+2. KLA or geometric-average fusion is attractive, but fixed weights ignore time-varying sensor reliability and heterogeneous packet loss.
+3. Covariance and link quality alone still miss whether a local posterior makes a decisive existence judgment.
+4. We introduce an adaptive weighting mechanism for KLA-based GA-LMB fusion using covariance, realized link quality, and existence-confidence.
+5. Experiments show strong consensus gains and show that existence-confidence improves over the `covariance + link quality` baseline.
 
 ## Suggested Paragraph Plan
 
@@ -26,21 +26,21 @@ Paragraph 2:
 
 Paragraph 3:
 
-- Explain the pitfall of directly using NIS as a quality reward.
-- Briefly state the covariance coupling issue.
-- Set up the need for decoupled consistency-aware design.
+- Explain why posterior covariance alone does not capture existence reliability.
+- Explain why communication statistics alone do not capture local posterior decisiveness.
+- Set up the need for a third factor tied to target existence confidence.
 
 Paragraph 4:
 
 - Summarize the proposed method.
 - Mention the factorized weight model.
-- Mention robust NIS, EMA smoothing, and minimum-weight safeguard.
+- Mention covariance, link quality, existence-confidence, EMA smoothing, and minimum-weight safeguard.
 
 Paragraph 5:
 
 - Preview the main empirical findings.
-- Mention strong consensus gains in GA formation scenarios.
-- Mention that `robust NIS` is stable while plain `NIS` is not.
+- Mention strong consensus gains in tiered GA formation scenarios.
+- Mention that `existence confidence` further improves all three consensus metrics over `covariance + link quality`.
 
 Paragraph 6:
 
@@ -54,5 +54,5 @@ Paragraph 6:
 
 ## Results To Preview
 
-- Main GA formation result from `docs/FORMATION_4PLUS4_RUN.md`
-- GA NIS ablation from `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
+- Tiered GA ablation from `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+- Tiered communication setup from `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`
