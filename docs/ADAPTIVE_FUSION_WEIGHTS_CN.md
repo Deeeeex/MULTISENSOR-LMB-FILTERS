@@ -1,14 +1,14 @@
 # Adaptive Fusion Weights (GA/AA)
 
-本文档说明当前工程中的自适应融合权重结构、配置项，以及当前默认实验设置。
+本文档说明当前工程中的自适应融合权重结构、配置项，以及当前 `main` 分支上的推荐主线配置。
 
 ## 1. 当前权重结构
 
-当前工程将自适应融合权重写成显式分层结构：
+当前工程将自适应融合权重写成显式分层结构。共享质量骨架是：
 
 ```text
 baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
-rawScore_j(t)  = baseScore_j(t) * cardinalityConfidence_j(t) * innovationPenalty_j(t) * historyScore_j(t)
+rawScore_j(t)  = baseScore_j(t) * existenceConfidence_j(t) * innovationPenalty_j(t) * historyScore_j(t)
 ```
 
 其中：
@@ -16,20 +16,39 @@ rawScore_j(t)  = baseScore_j(t) * cardinalityConfidence_j(t) * innovationPenalty
 - `mask_j(t)`：可用性掩码
 - `covScore_j(t)`：协方差质量项
 - `linkQuality_j(t)`：链路质量项
-- `cardinalityConfidence_j(t)`：存在性/基数置信度项
+- `existenceConfidence_j(t)`：存在性/基数置信度项
 - `innovationPenalty_j(t)`：NIS 统计一致性惩罚项
 - `historyScore_j(t)`：历史稳定性项
 
-当前阶段为了先把 NIS 的作用分析清楚，默认设置为：
+如果启用 decoupled KLA，则在共享骨架上再拆出 spatial / existence 两条分支：
 
 ```text
-useHistory = false
+spatialScore_j(t)   = blend(rawScore_j(t), spatialDedicatedScore_j(t), eta_s)
+existenceScore_j(t) = blend(rawScore_j(t), existenceDedicatedScore_j(t), eta_e)
 ```
 
-因此当前主实验中实际生效的结构更接近：
+若进一步启用 structure-aware refinement，则对两支再叠加一个很弱的结构先验调制：
 
 ```text
-rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * cardinalityConfidence_j(t) * innovationPenalty_j(t)
+spatialScore_j(t)   = spatialScore_j(t)   * spatialStructurePrior_j(t)^gamma_s
+existenceScore_j(t) = existenceScore_j(t) * existenceStructurePrior_j(t)^gamma_e
+```
+
+当前 `main` 分支上的最佳主线配置里：
+
+```text
+useNIS = false
+useHistory = false
+useDecoupledKla = true
+useStructureAwareKla = true
+```
+
+因此实际主实验最接近的结构是：
+
+```text
+rawScore_j(t)       = mask_j(t) * covScore_j(t) * linkQuality_j(t) * existenceConfidence_j(t)
+spatialScore_j(t)   = weakly-refined decoupled spatial branch
+existenceScore_j(t) = very-lightly-refined decoupled existence branch
 ```
 
 ## 2. 各项含义
@@ -110,9 +129,31 @@ existenceConfidenceScore = minScore + (1 - minScore) * weightedConfidence^power
 
 它的职责是度量“这个节点当前的目标存在性判断是否可靠”，因此更直接对应 cardinality 一致性问题。
 
-## 3. 当前默认配置
+### 2.6 弱结构先验解耦项 `structure-aware decoupled KLA`
 
-当前推荐默认值如下：
+实现位置：
+
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
+- `multisensorLmb/runDistributedLmbFilter.m`
+
+这一层不是新的主质量因子，而是加在三因子 baseline 上的一个很弱 refinement。
+
+当前实现里：
+
+- `spatial` 分支允许稍强一点的结构修正
+- `existence` 分支只允许非常轻的结构修正
+- 结构先验来自局部子图重叠和固定分档丢包率的可靠性信息
+
+它的职责是：
+
+- 在不破坏 `existenceConfidence` 主导作用的前提下，轻微改善 spatial consensus
+- 保持 cardinality 不退化
+
+## 3. 当前推荐配置
+
+### 3.1 当前主线 best 配置
+
+当前 `main` 分支推荐直接使用以下配置复现主线 best：
 
 ```matlab
 model.adaptiveFusion.enabled = true;
@@ -121,55 +162,82 @@ model.adaptiveFusion.minWeight = 0.05;
 
 model.adaptiveFusion.useCovariance = true;
 model.adaptiveFusion.useLinkQuality = true;
-model.adaptiveFusion.useExistenceConfidence = false;
+model.adaptiveFusion.useExistenceConfidence = true;
 model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
 model.adaptiveFusion.existenceConfidencePower = 2.0;
 
-model.adaptiveFusion.useNIS = true;
-model.adaptiveFusion.robustNIS = true;
-model.adaptiveFusion.robustNISMin = 0.3;
+model.adaptiveFusion.useDecoupledKla = true;
+model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.spatialDecouplingStrength = 0.5;
+model.adaptiveFusion.existenceDecouplingStrength = 0.15;
+model.adaptiveFusion.spatialStructureStrength = 0.35;
+model.adaptiveFusion.existenceStructureStrength = 0.05;
+model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.structureReliabilityMinScore = 0.25;
 
-model.adaptiveFusion.nisQuantileEnabled = true;
-model.adaptiveFusion.nisQuantile = 0.7;
-model.adaptiveFusion.nisConsistencyConfidence = 0.7;
-model.adaptiveFusion.nisPenaltyScale = 4.0;
-model.adaptiveFusion.nisPenaltyMin = 0.3;
-model.adaptiveFusion.nisPenaltyLowerScale = 1.0;
-model.adaptiveFusion.nisPenaltyUpperScale = 6.0;
-model.adaptiveFusion.nisPenaltyLowerPower = 2.0;
-model.adaptiveFusion.nisPenaltyUpperPower = 2.0;
-model.adaptiveFusion.nisEmaEnabled = true;
-model.adaptiveFusion.nisEmaAlpha = 0.7;
-
+model.adaptiveFusion.useNIS = false;
 model.adaptiveFusion.useHistory = false;
-model.adaptiveFusion.historyEmaAlpha = 0.8;
-model.adaptiveFusion.historyScale = 2.0;
-model.adaptiveFusion.historyMinScore = 0.4;
-model.adaptiveFusion.historyCovWeight = 0.4;
-model.adaptiveFusion.historyInnovationWeight = 0.4;
-model.adaptiveFusion.historyCardinalityWeight = 0.2;
 ```
 
-## 4. 为什么当前先关掉 history
+主报告是：
+
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+
+### 3.2 三因子 baseline 配置
+
+如果只想回到结构 refinement 之前的三因子 baseline，推荐值如下：
+
+```matlab
+model.adaptiveFusion.enabled = true;
+model.adaptiveFusion.emaAlpha = 0.7;
+model.adaptiveFusion.minWeight = 0.05;
+
+model.adaptiveFusion.useCovariance = true;
+model.adaptiveFusion.useLinkQuality = true;
+model.adaptiveFusion.useExistenceConfidence = true;
+model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
+model.adaptiveFusion.existenceConfidencePower = 2.0;
+
+model.adaptiveFusion.useDecoupledKla = false;
+model.adaptiveFusion.useStructureAwareKla = false;
+model.adaptiveFusion.useNIS = false;
+model.adaptiveFusion.useHistory = false;
+```
+
+对应报告是：
+
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+
+## 4. 为什么当前先关掉 history 和 NIS
 
 原因很直接：
 
-1. `historyScore` 里会同时使用 `covDiff` 与 `innovationDiff`
-2. 如果在研究 NIS 的同时保留 history，会引入额外的间接耦合路径
-3. 这会让我们难以判断改造后的 NIS 本身是否真的有效
+1. 当前主线 best 已经在 `NIS = off`、`history = off` 的设置下超过旧 best
+2. `historyScore` 会引入额外的间接耦合路径，不利于判断三因子主线和弱结构 refinement 的真实边际收益
+3. `NIS` 更适合作为二级一致性分析模块，而不是当前主线配置的一部分
 
 因此当前采取的策略是：
 
-- 先把 `historyScore` 关掉
-- 先把 `NIS` 从质量因子改造成一致性惩罚项
-- 先验证 NIS 解耦后的边际收益
-- 再决定是否重新引入 history
+- 主线先固定在 `covariance + link quality + existenceConfidence + weak structure-aware decoupling`
+- `historyScore` 保持关闭
+- `NIS` 保持关闭
+- 等主线结果稳定后，再把 `NIS/history` 当作 secondary ablation 单独评估
 
 ## 5. 回滚方式
 
-如果需要回到更早的行为，可按以下方式关闭当前 NIS 解耦模块：
+如果需要回退到三因子 existence-confidence baseline，可按以下方式关闭当前弱结构解耦层：
 
 ```matlab
+model.adaptiveFusion.useDecoupledKla = false;
+model.adaptiveFusion.useStructureAwareKla = false;
+```
+
+如果需要回到更早的 NIS 分析线，可按以下方式重新打开该模块：
+
+```matlab
+model.adaptiveFusion.useNIS = true;
+model.adaptiveFusion.robustNIS = true;
+model.adaptiveFusion.robustNISMin = 0.3;
 model.adaptiveFusion.nisQuantileEnabled = false;
 model.adaptiveFusion.nisEmaEnabled = false;
 model.adaptiveFusion.useHistory = false;
@@ -185,11 +253,11 @@ model.adaptiveFusion.useHistory = true;
 
 在当前阶段，更建议优先做以下对比：
 
-1. `w/o NIS -> robust NIS -> NIS`，且固定 `useHistory = false`
-2. 观察 decoupled NIS 对一致性 OSPA / RMSE / cardinality 的影响
-3. 只有当 decoupled NIS 的收益稳定后，再把 history 加回去
+1. `+link quality -> +existence confidence -> +structure-aware decoupled KLA`
+2. 在更多 seed、更多通信等级下验证弱结构 refinement 是否稳定
+3. 只有主线结果稳定后，再把 `NIS/history` 加回去做 secondary 分析
 
-## 7. 当前调优结果（2026-03-09）
+## 7. 历史 NIS 调优结果（2026-03-09，次线）
 
 在 decoupled NIS 的基础上，进一步把惩罚项调整为“不对称软惩罚”：
 
@@ -257,6 +325,9 @@ model.adaptiveFusion.existenceDecouplingStrength = 0.15;
 model.adaptiveFusion.spatialStructureStrength = 0.35;
 model.adaptiveFusion.existenceStructureStrength = 0.05;
 model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.structureReliabilityMinScore = 0.25;
+model.adaptiveFusion.useNIS = false;
+model.adaptiveFusion.useHistory = false;
 ```
 
 对应的 `5 trial` 新结果为：
