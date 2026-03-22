@@ -7,11 +7,11 @@ Suggested structure:
 1. Restate the problem
    Fixed-weight KLA fusion is brittle under time-varying communication and sensor quality.
 2. Restate the method
-   We proposed an adaptive weight allocation strategy for distributed GA-LMB or KLA fusion using covariance, realized link quality, and existence confidence.
+   We proposed an adaptive weight allocation strategy for distributed GA-LMB or KLA fusion using covariance, realized link quality, and existence confidence, then refined it with weak structure-aware decoupled KLA.
 3. Restate the key technical point
-   Existence confidence is the critical additional design element beyond covariance and link quality.
+   Existence confidence is the critical additional design element beyond covariance and link quality, while the structure-aware decoupled step is a light refinement rather than a standalone factor.
 4. Restate the main empirical message
-   The method improves consensus quality under tiered heterogeneous packet loss, and existence confidence further improves all three consensus metrics beyond the `covariance + link quality` baseline.
+   The method improves consensus quality under tiered heterogeneous packet loss, and weak structure-aware decoupled KLA further improves OSPA and RMSE beyond the three-factor baseline while preserving cardinality.
 5. State the limits
    Current evidence for `freshness`, `history`, `association ambiguity`, and `cardinality consensus` is weak or negative, and stronger Monte Carlo baselines remain desirable.
 
@@ -28,5 +28,5 @@ Suggested structure:
 - richer communication models
 - larger-scale networks
 - heterogeneous sensing modalities
-- joint use of existence confidence and consistency penalties
+- joint use of existence confidence, weak structure-aware decoupling, and consistency penalties
 - more principled ambiguity-aware weighting

@@ -38,10 +38,11 @@ Use:
 - `+covariance`
 - `+link quality`
 - `+existence confidence`
+- `+structure-aware decoupled KLA`
 
 Main reference:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
 
 ## Secondary NIS Ablation
 
@@ -91,6 +92,7 @@ Minimum baseline set:
 2. adaptive weights with covariance only
 3. adaptive weights with covariance plus link quality
 4. adaptive weights with covariance plus link quality plus existence confidence
+5. adaptive weights with covariance plus link quality plus existence confidence plus weak structure-aware decoupled KLA
 
 If more time is available, add:
 

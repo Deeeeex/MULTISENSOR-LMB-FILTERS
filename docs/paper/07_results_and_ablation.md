@@ -17,41 +17,42 @@ Primary claim:
 
 Current headline result:
 
-- fixed -> full adaptive (`cov + link + existence`)
-- consensus OSPA `2.624 -> 1.875`
-- consensus RMSE `2.703 -> 1.780`
+- fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`)
+- consensus OSPA `2.624 -> 1.864`
+- consensus RMSE `2.703 -> 1.750`
 - consensus cardinality `0.879 -> 0.245`
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
 
 ## Section 2: Factor Ablation
 
 Primary claim:
 
-- The best-supported method contribution is the three-factor adaptive weighting design: covariance, realized link quality, and existence confidence.
+- The best-supported method contribution is a three-factor adaptive weighting design refined by a weak structure-aware decoupled KLA update.
 
 Current headline result:
 
 - `+link quality`: OSPA `1.877771`, RMSE `1.800945`, cardinality `0.245250`
-- `+existence confidence`: OSPA `1.874840`, RMSE `1.779820`, cardinality `0.244500`
+- `+structure-aware decoupled KLA`: OSPA `1.863592`, RMSE `1.749731`, cardinality `0.244500`
 
 Interpretation:
 
 - `covariance` delivers the first major gain over fixed weights
 - `link quality` delivers the largest additional gain under heterogeneous packet loss
-- `existence confidence` provides a smaller but consistent improvement across all three consensus metrics
+- `existence confidence` remains the key third factor that stabilizes cardinality
+- a weak structure-aware decoupled refinement then provides the current best OSPA and RMSE without worsening cardinality
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
 
 ## Section 3: Robust NIS Ablation
 
 Primary claim:
 
-- `robust NIS` is better than plain `NIS`, but it is no longer the strongest main-line driver once tiered communication and existence confidence are adopted.
+- `robust NIS` is better than plain `NIS`, but it is no longer the strongest main-line driver once tiered communication, existence confidence, and weak structure-aware decoupling are adopted.
 
 Recommended focus:
 
