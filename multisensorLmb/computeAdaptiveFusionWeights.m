@@ -16,12 +16,29 @@ end
 
 emaAlpha = getField(cfg, 'emaAlpha', 0.7);
 minWeight = getField(cfg, 'minWeight', 0.0);
+useDecoupledKla = getField(cfg, 'useDecoupledKla', false);
 useNIS = getField(cfg, 'useNIS', true);
 useHistory = getField(cfg, 'useHistory', true);
 useCovariance = getField(cfg, 'useCovariance', true);
 useLinkQuality = getField(cfg, 'useLinkQuality', true);
 useCardinalityConsensus = getField(cfg, 'useCardinalityConsensus', false);
 useExistenceConfidence = getField(cfg, 'useExistenceConfidence', false);
+spatialEmaAlpha = getField(cfg, 'spatialEmaAlpha', emaAlpha);
+existenceEmaAlpha = getField(cfg, 'existenceEmaAlpha', emaAlpha);
+spatialMinWeight = getField(cfg, 'spatialMinWeight', minWeight);
+existenceMinWeight = getField(cfg, 'existenceMinWeight', minWeight);
+spatialCovariancePower = max(getField(cfg, 'spatialCovariancePower', 1.0), 0);
+spatialLinkQualityPower = max(getField(cfg, 'spatialLinkQualityPower', 1.0), 0);
+existenceLinkQualityPower = max(getField(cfg, 'existenceLinkQualityPower', 1.0), 0);
+existenceConfidenceWeightPower = max(getField(cfg, 'existenceConfidenceWeightPower', 1.0), 0);
+spatialDecouplingStrength = min(max(getField(cfg, 'spatialDecouplingStrength', 1.0), 0), 1);
+existenceDecouplingStrength = min(max(getField(cfg, 'existenceDecouplingStrength', 1.0), 0), 1);
+spatialStructureStrength = max(getField(cfg, 'spatialStructureStrength', 0.0), 0);
+existenceStructureStrength = max(getField(cfg, 'existenceStructureStrength', 0.0), 0);
+structureReliabilityPower = max(getField(cfg, 'structureReliabilityPower', 0.0), 0);
+structureReliabilityMinScore = min(max(getField(cfg, 'structureReliabilityMinScore', 0.25), 0), 1);
+useStructureAwareKla = getField(cfg, 'useStructureAwareKla', false) || ...
+    spatialStructureStrength > 0 || existenceStructureStrength > 0;
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
@@ -39,22 +56,62 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
     freshnessScore .* innovationPenalty .* historyScore;
-rawWeights = normalizeScores(rawScore, availabilityMask);
 
-weights = rawWeights;
-if nargin >= 6 && isstruct(prevWeights) && isfield(prevWeights, 'ga')
-    if numel(prevWeights.ga) == numSensors
-        weights = emaAlpha * prevWeights.ga + (1 - emaAlpha) * rawWeights;
-        weights = normalizeScores(weights, availabilityMask);
+if useDecoupledKla
+    spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
+        (linkQuality .^ spatialLinkQualityPower) .* innovationPenalty .* historyScore;
+    existenceDedicatedScore = availabilityMask .* (linkQuality .^ existenceLinkQualityPower) .* ...
+        (existenceConfidenceScore .^ existenceConfidenceWeightPower) .* ...
+        cardinalityConsensusScore .* freshnessScore .* innovationPenalty .* historyScore;
+    spatialScore = blendDecoupledScore(rawScore, spatialDedicatedScore, spatialDecouplingStrength);
+    existenceScore = blendDecoupledScore(rawScore, existenceDedicatedScore, existenceDecouplingStrength);
+    spatialStructurePrior = resolveStructurePrior(model, 'gaSpatialStructurePrior', 'gaTopologyWeights', numSensors);
+    existenceStructurePrior = resolveStructurePrior(model, 'gaExistenceStructurePrior', 'gaTopologyWeights', numSensors);
+    communicationReliabilityPrior = ones(1, numSensors);
+    if structureReliabilityPower > 0
+        communicationReliabilityPrior = resolveCommunicationReliabilityPrior( ...
+            commStats, numSensors, structureReliabilityMinScore);
+        spatialStructurePrior = applyStructurePrior( ...
+            spatialStructurePrior, communicationReliabilityPrior, structureReliabilityPower);
+        existenceStructurePrior = applyStructurePrior( ...
+            existenceStructurePrior, communicationReliabilityPrior, structureReliabilityPower);
     end
-end
+    if useStructureAwareKla
+        spatialScore = applyStructurePrior(spatialScore, spatialStructurePrior, spatialStructureStrength);
+        existenceScore = applyStructurePrior(existenceScore, existenceStructurePrior, existenceStructureStrength);
+    end
 
-if minWeight > 0
-    weights = enforceMinimumWeight(weights, availabilityMask, minWeight);
-end
+    spatialPrev = resolvePreviousWeights(prevWeights, 'gaSpatial', 'ga', numSensors);
+    existencePrev = resolvePreviousWeights(prevWeights, 'gaExistence', 'ga', numSensors);
 
-gaWeights = weights;
-aaWeights = weights;
+    spatialWeights = finalizeAdaptiveWeights(spatialScore, availabilityMask, spatialPrev, ...
+        spatialEmaAlpha, spatialMinWeight);
+    existenceWeights = finalizeAdaptiveWeights(existenceScore, availabilityMask, existencePrev, ...
+        existenceEmaAlpha, existenceMinWeight);
+
+    gaWeights = spatialWeights;
+    aaWeights = spatialWeights;
+    rawWeights = spatialWeights;
+else
+    rawWeights = normalizeScores(rawScore, availabilityMask);
+
+    weights = rawWeights;
+    if nargin >= 6 && isstruct(prevWeights) && isfield(prevWeights, 'ga')
+        if numel(prevWeights.ga) == numSensors
+            weights = emaAlpha * prevWeights.ga + (1 - emaAlpha) * rawWeights;
+            weights = normalizeScores(weights, availabilityMask);
+        end
+    end
+
+    if minWeight > 0
+        weights = enforceMinimumWeight(weights, availabilityMask, minWeight);
+    end
+
+    gaWeights = weights;
+    aaWeights = weights;
+    spatialWeights = weights;
+    existenceWeights = weights;
+end
 
 debug = struct();
 debug.availabilityMask = availabilityMask;
@@ -69,11 +126,102 @@ debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
 debug.rawWeights = rawWeights;
-debug.weights = weights;
+debug.weights = gaWeights;
+debug.useDecoupledKla = useDecoupledKla;
+debug.useStructureAwareKla = useStructureAwareKla;
+debug.spatialRawScore = rawScore;
+debug.existenceRawScore = rawScore;
+debug.spatialStructurePrior = ones(1, numSensors);
+debug.existenceStructurePrior = ones(1, numSensors);
+debug.communicationReliabilityPrior = ones(1, numSensors);
+if useDecoupledKla
+    debug.spatialRawScore = spatialScore;
+    debug.existenceRawScore = existenceScore;
+    debug.spatialStructurePrior = spatialStructurePrior;
+    debug.existenceStructurePrior = existenceStructurePrior;
+    debug.communicationReliabilityPrior = communicationReliabilityPrior;
+end
+debug.gaSpatialWeights = spatialWeights;
+debug.aaSpatialWeights = spatialWeights;
+debug.gaExistenceWeights = existenceWeights;
+debug.aaExistenceWeights = existenceWeights;
 debug.historyState = historyState;
 debug.historyInstantInstability = historyDebug.instantInstability;
 debug.historyInstabilityEma = historyDebug.instabilityEma;
 debug.expectedCardinality = historyDebug.expectedCardinality;
+end
+
+function prior = resolveStructurePrior(model, preferredField, fallbackField, numSensors)
+prior = ones(1, numSensors);
+if nargin < 1 || ~isstruct(model)
+    return;
+end
+if isfield(model, preferredField) && numel(model.(preferredField)) == numSensors
+    prior = reshape(model.(preferredField), 1, []);
+elseif isfield(model, fallbackField) && numel(model.(fallbackField)) == numSensors
+    prior = reshape(model.(fallbackField), 1, []);
+end
+prior = max(prior, eps);
+prior = prior / mean(prior);
+end
+
+function adjustedScore = applyStructurePrior(score, prior, strength)
+adjustedScore = score;
+if nargin < 3 || strength <= 0 || isempty(prior)
+    return;
+end
+adjustedScore = score .* (prior .^ strength);
+end
+
+function prior = resolveCommunicationReliabilityPrior(commStats, numSensors, minScore)
+prior = ones(1, numSensors);
+if nargin < 1 || ~isstruct(commStats) || ~isfield(commStats, 'pDropBySensor')
+    return;
+end
+if numel(commStats.pDropBySensor) ~= numSensors
+    return;
+end
+reliability = 1 - reshape(commStats.pDropBySensor, 1, []);
+reliability = min(max(reliability, 0), 1);
+prior = minScore + (1 - minScore) * reliability;
+prior = prior / mean(prior);
+end
+
+function prev = resolvePreviousWeights(prevWeights, preferredField, fallbackField, numSensors)
+prev = [];
+if nargin < 1 || ~isstruct(prevWeights)
+    return;
+end
+if isfield(prevWeights, preferredField) && numel(prevWeights.(preferredField)) == numSensors
+    prev = prevWeights.(preferredField);
+    return;
+end
+if isfield(prevWeights, fallbackField) && numel(prevWeights.(fallbackField)) == numSensors
+    prev = prevWeights.(fallbackField);
+end
+end
+
+function weights = finalizeAdaptiveWeights(score, mask, prev, emaAlpha, minWeight)
+weights = normalizeScores(score, mask);
+if ~isempty(prev)
+    weights = emaAlpha * prev + (1 - emaAlpha) * weights;
+    weights = normalizeScores(weights, mask);
+end
+if minWeight > 0
+    weights = enforceMinimumWeight(weights, mask, minWeight);
+end
+end
+
+function blendedScore = blendDecoupledScore(anchorScore, dedicatedScore, strength)
+if strength <= 0
+    blendedScore = anchorScore;
+    return;
+end
+if strength >= 1
+    blendedScore = dedicatedScore;
+    return;
+end
+blendedScore = (anchorScore .^ (1 - strength)) .* (dedicatedScore .^ strength);
 end
 
 function cardinalityConsensusScore = resolveCardinalityConsensusScore(measurementUpdatedDistributions, useCardinalityConsensus, cfg)
