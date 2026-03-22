@@ -16,14 +16,16 @@ function objects = aaLmbTrackMerging(measurementUpdatedDistributions, model)
 %           components.
 
 objects = measurementUpdatedDistributions{1};
+spatialWeights = resolveWeightVector(model, 'aaSpatialWeights', model.aaSensorWeights);
+existenceWeights = resolveWeightVector(model, 'aaExistenceWeights', model.aaSensorWeights);
 for i = 1:numel(objects)
     %% Initialise the merge distribution
-    objects(i).r = model.aaSensorWeights(1) * objects(i).r;
-    objects(i).w = model.aaSensorWeights(1) * objects(i).w;
+    objects(i).r = existenceWeights(1) * objects(i).r;
+    objects(i).w = spatialWeights(1) * objects(i).w;
     %% Merge the remaining sensors
     for s = 2:model.numberOfSensors
-        objects(i).r = objects(i).r + model.aaSensorWeights(s) * measurementUpdatedDistributions{s}(i).r;
-        objects(i).w = horzcat(objects(i).w, model.aaSensorWeights(s) * measurementUpdatedDistributions{s}(i).w);
+        objects(i).r = objects(i).r + existenceWeights(s) * measurementUpdatedDistributions{s}(i).r;
+        objects(i).w = horzcat(objects(i).w, spatialWeights(s) * measurementUpdatedDistributions{s}(i).w);
         objects(i).mu = horzcat(objects(i).mu, measurementUpdatedDistributions{s}(i).mu);
         objects(i).Sigma = horzcat(objects(i).Sigma, measurementUpdatedDistributions{s}(i).Sigma);
     end
@@ -38,4 +40,12 @@ for i = 1:numel(objects)
 end
 
 
+end
+
+function weights = resolveWeightVector(model, fieldName, fallback)
+if isfield(model, fieldName)
+    weights = model.(fieldName);
+else
+    weights = fallback;
+end
 end

@@ -227,7 +227,7 @@ commConfig.pDropLevels = [0, 0.1, 0.2, 0.5];
 commConfig.pDropLevelCounts = [1, 4, 1, 2];
 ```
 
-我们进一步测试了在 `协方差 + 链路质量` 基础上加入新的存在性/基数置信度因子。
+我们先测试了在 `协方差 + 链路质量` 基础上加入新的存在性/基数置信度因子，随后又继续测试了一个较弱的 structure-aware decoupled KLA 版本。
 
 推荐配置为：
 
@@ -240,15 +240,35 @@ model.adaptiveFusion.existenceConfidencePower = 2.0;
 model.adaptiveFusion.useNIS = false;
 ```
 
-对应的 `5 trial` 消融结果为：
+existence-confidence baseline 的 `5 trial` 消融结果为：
 
 ```text
 +link quality:          OSPA 1.877771, RMSE 1.800945, Card 0.245250
 +existence confidence: OSPA 1.874840, RMSE 1.779820, Card 0.244500
 ```
 
+在此基础上，当前 best 配置进一步采用：
+
+```matlab
+model.adaptiveFusion.useDecoupledKla = true;
+model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.spatialDecouplingStrength = 0.5;
+model.adaptiveFusion.existenceDecouplingStrength = 0.15;
+model.adaptiveFusion.spatialStructureStrength = 0.35;
+model.adaptiveFusion.existenceStructureStrength = 0.05;
+model.adaptiveFusion.structureReliabilityPower = 0.25;
+```
+
+对应的 `5 trial` 新结果为：
+
+```text
++link quality:                    OSPA 1.877771, RMSE 1.800945, Card 0.245250
++structure-aware decoupled KLA:  OSPA 1.863592, RMSE 1.749731, Card 0.244500
+```
+
 当前结论是：
 
 1. `existenceConfidence` 比 `freshness` 和 `robust NIS` 更适合作为 `协方差 + 链路质量` 之后的第三个因子
 2. 它没有重复表达“状态精度”或“通信可靠性”，而是补了“存在性判决可信度”这一维
-3. 在当前 tiered 通信配置下，它实现了 `OSPA / RMSE / Cardinality` 三项指标同时改善
+3. 在此基础上，一个足够弱的 structure-aware decoupled KLA 还能继续降低 `OSPA / RMSE`，并保持 `Cardinality` 不退化
+4. 当前有效策略不是强化 existence 结构偏置，而是只给 existence 分支非常轻的结构调制

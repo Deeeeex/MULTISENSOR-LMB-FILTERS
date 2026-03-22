@@ -20,6 +20,8 @@ function objects = gaLmbTrackMerging(measurementUpdatedDistributions, model)
 %           components.
 
 objects = measurementUpdatedDistributions{1};
+spatialWeights = resolveWeightVector(model, 'gaSpatialWeights', model.gaSensorWeights);
+existenceWeights = resolveWeightVector(model, 'gaExistenceWeights', model.gaSensorWeights);
 for i = 1:numel(objects)
     %% Moment match and determine geometric average
     K = zeros(model.xDimension, model.xDimension);
@@ -28,9 +30,9 @@ for i = 1:numel(objects)
     for s = 1:model.numberOfSensors
         [nu, T] = mprojection(model.xDimension, measurementUpdatedDistributions{s}(i));
         % Convert to canonical form and exponentiate
-        KMatched = model.gaSensorWeights(s) * inv(T);
+        KMatched = spatialWeights(s) * inv(T);
         hMatched = KMatched * nu;
-        gMatched = -0.5 * nu' * KMatched * nu - 0.5 * model.gaSensorWeights(s) * log(det(2*pi*T));
+        gMatched = -0.5 * nu' * KMatched * nu - 0.5 * spatialWeights(s) * log(det(2*pi*T));
         % Throw it on the pile
         K = K + KMatched;
         h = h + hMatched;
@@ -45,8 +47,8 @@ for i = 1:numel(objects)
     partialDenominator = 1;
     for s = 1:model.numberOfSensors
         rS = measurementUpdatedDistributions{s}(i).r;
-        numerator = numerator * (rS^(model.gaSensorWeights(s)));
-        partialDenominator = partialDenominator *  ((1-rS)^(model.gaSensorWeights(s)));
+        numerator = numerator * (rS^(existenceWeights(s)));
+        partialDenominator = partialDenominator *  ((1-rS)^(existenceWeights(s)));
     end
     %% Update Bernoulli component
     objects(i).r = numerator / (numerator + partialDenominator);
@@ -54,6 +56,14 @@ for i = 1:numel(objects)
     objects(i).w = 1;
     objects(i).mu = {muGa};
     objects(i).Sigma = {SigmaGa};
+end
+end
+
+function weights = resolveWeightVector(model, fieldName, fallback)
+if isfield(model, fieldName)
+    weights = model.(fieldName);
+else
+    weights = fallback;
 end
 end
 %% M-projection

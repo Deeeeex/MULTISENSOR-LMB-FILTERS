@@ -44,11 +44,25 @@ for s = 1:numberOfSensors
     localModels{s} = buildSubModel(model, neighborIdx);
     localModels{s}.gaSensorWeights = weightsBySensor{s};
     localModels{s}.aaSensorWeights = weightsBySensor{s};
+    localModels{s}.gaSpatialWeights = weightsBySensor{s};
+    localModels{s}.aaSpatialWeights = weightsBySensor{s};
+    localModels{s}.gaExistenceWeights = weightsBySensor{s};
+    localModels{s}.aaExistenceWeights = weightsBySensor{s};
+    [spatialStructurePrior, existenceStructurePrior] = computeLocalStructurePriors(neighborMap, s, neighborIdx);
+    localModels{s}.gaTopologyWeights = weightsBySensor{s};
+    localModels{s}.aaTopologyWeights = weightsBySensor{s};
+    localModels{s}.gaSpatialStructurePrior = spatialStructurePrior;
+    localModels{s}.aaSpatialStructurePrior = spatialStructurePrior;
+    localModels{s}.gaExistenceStructurePrior = existenceStructurePrior;
+    localModels{s}.aaExistenceStructurePrior = existenceStructurePrior;
     localMeasurements = measurements(neighborIdx, :);
     localSensorTraj = [];
     if ~isempty(sensorTrajectories)
         localSensorTraj = sensorTrajectories(neighborIdx);
         localModels{s}.sensorTrajectories = localSensorTraj;
+    end
+    if isfield(localModels{s}, 'adaptiveFusion') && isstruct(localModels{s}.adaptiveFusion)
+        localModels{s}.adaptiveFusion.progressLabel = sprintf('sensor %d', s);
     end
     localCommStats = [];
     if nargin >= 5 && isstruct(commStats)
@@ -56,6 +70,40 @@ for s = 1:numberOfSensors
     end
     stateEstimatesBySensor{s} = runParallelUpdateLmbFilter(localModels{s}, localMeasurements, localCommStats, localSensorTraj);
 end
+end
+
+function [spatialPrior, existencePrior] = computeLocalStructurePriors(neighborMap, sourceSensorIdx, sensorIdx)
+nLocal = numel(sensorIdx);
+spatialPrior = ones(1, nLocal);
+existencePrior = ones(1, nLocal);
+if nargin < 2 || isempty(neighborMap) || isempty(sensorIdx) || sourceSensorIdx > numel(neighborMap)
+    return;
+end
+
+localSet = reshape(sensorIdx, 1, []);
+sourceNeighborhood = unique(neighborMap{sourceSensorIdx});
+for k = 1:nLocal
+    globalSensorIdx = localSet(k);
+    if globalSensorIdx > numel(neighborMap) || isempty(neighborMap{globalSensorIdx})
+        continue;
+    end
+    targetNeighborhood = unique(neighborMap{globalSensorIdx});
+    sharedNeighbors = numel(intersect(sourceNeighborhood, targetNeighborhood));
+    totalNeighbors = numel(union(sourceNeighborhood, targetNeighborhood));
+    if totalNeighbors <= 0
+        similarity = 0;
+    else
+        similarity = sharedNeighbors / totalNeighbors;
+    end
+
+    % Spatial fusion should lean toward structurally redundant neighbors,
+    % while existence fusion only gets a mild novelty preference.
+    spatialPrior(k) = 1 + similarity;
+    existencePrior(k) = 1 + 0.5 * (1 - similarity);
+end
+
+spatialPrior = spatialPrior / mean(spatialPrior);
+existencePrior = existencePrior / mean(existencePrior);
 end
 
 function neighborMap = computeNeighborMap(model, sensorTrajectories)
@@ -103,6 +151,9 @@ end
 
 function localCommStats = sliceCommStats(commStats, sensorIdx)
     localCommStats = commStats;
+    if isfield(commStats, 'pDropBySensor') && numel(commStats.pDropBySensor) >= max(sensorIdx)
+        localCommStats.pDropBySensor = commStats.pDropBySensor(sensorIdx);
+    end
     if isfield(commStats, 'droppedByBandwidth')
         localCommStats.droppedByBandwidth = commStats.droppedByBandwidth(sensorIdx, :);
     end

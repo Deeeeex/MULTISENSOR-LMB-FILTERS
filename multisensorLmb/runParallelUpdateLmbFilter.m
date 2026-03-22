@@ -48,13 +48,19 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
     adaptiveCfg = model.adaptiveFusion;
 end
 useNIS = getConfigField(adaptiveCfg, 'useNIS', true);
-useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
-nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
-prevWeights = struct();
-prevWeights.ga = model.gaSensorWeights;
-prevWeights.aa = model.aaSensorWeights;
-prevWeights.historyState = struct();
-innovationConsistency = ones(model.numberOfSensors, simulationLength);
+progressEverySteps = max(round(getConfigField(adaptiveCfg, 'progressEverySteps', 0)), 0);
+progressLabel = getConfigField(adaptiveCfg, 'progressLabel', '');
+    useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
+    nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
+    prevWeights = struct();
+    prevWeights.ga = model.gaSensorWeights;
+    prevWeights.aa = model.aaSensorWeights;
+    prevWeights.gaSpatial = getConfigField(model, 'gaSpatialWeights', model.gaSensorWeights);
+    prevWeights.aaSpatial = getConfigField(model, 'aaSpatialWeights', model.aaSensorWeights);
+    prevWeights.gaExistence = getConfigField(model, 'gaExistenceWeights', model.gaSensorWeights);
+    prevWeights.aaExistence = getConfigField(model, 'aaExistenceWeights', model.aaSensorWeights);
+    prevWeights.historyState = struct();
+    innovationConsistency = ones(model.numberOfSensors, simulationLength);
 %% Run the LMB filter
 for t = 1:simulationLength
     %% Prediction
@@ -116,8 +122,16 @@ for t = 1:simulationLength
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         model.gaSensorWeights = gaWeights;
         model.aaSensorWeights = aaWeights;
+        model.gaSpatialWeights = getConfigField(debug, 'gaSpatialWeights', gaWeights);
+        model.aaSpatialWeights = getConfigField(debug, 'aaSpatialWeights', aaWeights);
+        model.gaExistenceWeights = getConfigField(debug, 'gaExistenceWeights', gaWeights);
+        model.aaExistenceWeights = getConfigField(debug, 'aaExistenceWeights', aaWeights);
         prevWeights.ga = gaWeights;
         prevWeights.aa = aaWeights;
+        prevWeights.gaSpatial = model.gaSpatialWeights;
+        prevWeights.aaSpatial = model.aaSpatialWeights;
+        prevWeights.gaExistence = model.gaExistenceWeights;
+        prevWeights.aaExistence = model.aaExistenceWeights;
         if isfield(debug, 'historyState')
             prevWeights.historyState = debug.historyState;
         end
@@ -158,7 +172,14 @@ for t = 1:simulationLength
         objects(i).trajectoryLength = j + 1;
         objects(i).trajectory(:, j+1) = objects(i).mu{1};
         objects(i).timestamps(j+1) = t;
-    end 
+    end
+    if progressEverySteps > 0 && (mod(t, progressEverySteps) == 0 || t == simulationLength)
+        if isempty(progressLabel)
+            fprintf('Filter progress %d/%d\n', t, simulationLength);
+        else
+            fprintf('[%s] progress %d/%d\n', progressLabel, t, simulationLength);
+        end
+    end
 end
 %% Get any long trajectories that weren't extracted
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));

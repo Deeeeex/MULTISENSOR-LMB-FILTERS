@@ -23,12 +23,16 @@ function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = gener
 %       sensorTrajectories - cell array. Each sensor's trajectory over time
 %           (only if sensorMotionEnabled).
 
+simulationLength = 100;
+if isfield(model, 'simulationLength') && ~isempty(model.simulationLength)
+    simulationLength = max(1, round(model.simulationLength));
+end
+
 
 %% Simple, hard-coded scenario
 if (strcmp(model.scenarioType, 'Fixed'))
     numberOfObjects = 10;
     % Object birth times
-    simulationLength = 100;
     objectBirthTimes = [1, 1, 20, 20, 40, 40, 60, 60, 60, 60];
     objectDeathTimes = [70, 70, 80, 80, 90, 90, 100, 100, 100, 100];
     % Object birth states
@@ -51,7 +55,6 @@ elseif (strcmp(model.scenarioType, 'Random'))
         error('You must specify the number of objects for a Random scenario');
     end
      % Object birth times
-    simulationLength = 100;
     objectBirthTimes = ones(1, numberOfObjects); %randi([1 simulationLength], 1, numberOfObjects);
     objectDeathTimes = simulationLength * ones(1, numberOfObjects); %randi([1 simulationLength], 1, numberOfObjects) + objectBirthTimes + model.minimumTrajectoryLength;
     objectDeathTimes(objectDeathTimes > simulationLength) = simulationLength;
@@ -61,7 +64,6 @@ elseif (strcmp(model.scenarioType, 'Random'))
     priorLocations(3:4, :) = 3 * randn(numberOfObjects, 2)';
 elseif (strcmp(model.scenarioType, 'Formation'))
     % Formation targets (right side)
-    simulationLength = 100;
     if isfield(model, 'targetFormationCount')
         numberOfObjects = model.targetFormationCount;
     else

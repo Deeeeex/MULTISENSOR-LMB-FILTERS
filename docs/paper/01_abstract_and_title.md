@@ -25,20 +25,20 @@ Paragraph logic:
 3. Key technical point
    Introduce an existence-confidence factor that captures how decisively each local posterior supports target existence, complementing covariance and link quality.
 4. Main evidence
-   Report gains on 4+4 distributed formation scenarios with tiered heterogeneous packet loss, including improvements beyond the `covariance + link quality` baseline.
+   Report gains on 4+4 distributed formation scenarios with tiered heterogeneous packet loss, including improvements beyond the `covariance + link quality` baseline and a further gain from weak structure-aware decoupled KLA.
 5. Final takeaway
    The method primarily improves inter-sensor consensus while preserving acceptable local tracking behavior.
 
 ## One-Sentence Summary
 
-We propose a communication-aware adaptive weighting strategy for distributed KLA-based GA-LMB fusion that combines covariance, realized link quality, and existence-confidence, and achieves stronger consensus performance than both fixed weights and the `covariance + link quality` baseline under tiered packet loss.
+We propose a communication-aware adaptive weighting strategy for distributed KLA-based GA-LMB fusion that combines covariance, realized link quality, and existence-confidence, and show that a weak structure-aware decoupled refinement achieves the strongest consensus performance under tiered packet loss.
 
 ## Numbers To Consider In Abstract
 
-- Tiered GA main result: fixed -> full adaptive gives consensus OSPA `2.624 -> 1.875`
-- Tiered GA main result: fixed -> full adaptive gives consensus RMSE `2.703 -> 1.780`
+- Tiered GA main result: fixed -> full adaptive gives consensus OSPA `2.624 -> 1.864`
+- Tiered GA main result: fixed -> full adaptive gives consensus RMSE `2.703 -> 1.750`
 - Tiered GA main result: fixed -> full adaptive gives consensus cardinality `0.879 -> 0.245`
-- Tiered targeted ablation: `cov + link` -> `cov + link + existence` improves all three consensus metrics
+- Tiered targeted ablation: `cov + link` -> `cov + link + structure-aware decoupled KLA` improves OSPA and RMSE while preserving cardinality
 
 ## Abstract Warnings
 

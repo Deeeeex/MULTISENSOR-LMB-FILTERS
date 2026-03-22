@@ -230,6 +230,48 @@ model.adaptiveFusion.useNIS = false;
 - 它比 `freshness` 更有效，也比当前 `robust NIS` 更适合放在 `协方差 + 链路质量` 之后作为第三个因子
 - 从论文表述上，它补充的是“存在性判决可信度”，与“状态精度”和“通信可靠性”形成互补
 
+### 6.5 当前最优：structure-aware decoupled KLA
+
+报告：
+
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md)
+
+这轮是在 `协方差 + 链路质量 + existence confidence` 的基础上，进一步做一个很弱的 structure-aware decoupled KLA：
+
+- spatial 分支保留主要收益
+- existence 分支只做很轻的结构调制，避免破坏 cardinality
+- 结构先验同时参考局部子图重叠和固定分档丢包率
+
+推荐参数是：
+
+```matlab
+model.adaptiveFusion.useCovariance = true;
+model.adaptiveFusion.useLinkQuality = true;
+model.adaptiveFusion.useExistenceConfidence = true;
+model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
+model.adaptiveFusion.existenceConfidencePower = 2.0;
+model.adaptiveFusion.useDecoupledKla = true;
+model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.spatialDecouplingStrength = 0.5;
+model.adaptiveFusion.existenceDecouplingStrength = 0.15;
+model.adaptiveFusion.spatialStructureStrength = 0.35;
+model.adaptiveFusion.existenceStructureStrength = 0.05;
+model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.useNIS = false;
+```
+
+`5 trial` 结果：
+
+- `+link quality`: `OSPA 1.877771`, `RMSE 1.800945`, `Cardinality 0.245250`
+- `+structure-aware decoupled KLA`: `OSPA 1.863592`, `RMSE 1.749731`, `Cardinality 0.244500`
+
+结论：
+
+- 这是当前 tiered 通信配置下的最新 best
+- 相比 `+link quality`，它继续同时改善三项 consensus 指标
+- 相比上一版 `+existence confidence` best，`OSPA` 和 `RMSE` 继续下降，`Cardinality` 持平
+- 当前有效配置的关键不是“强结构先验”，而是“在 existence baseline 上叠加很弱的 structure-aware decoupling”
+
 ## 7. 推荐口径
 
 如果后续文档、实验或论文需要统一通信设置，建议优先使用分档异构口径：
@@ -262,12 +304,23 @@ model.adaptiveFusion.useLinkQuality = true;
 model.adaptiveFusion.useExistenceConfidence = true;
 model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
 model.adaptiveFusion.existenceConfidencePower = 2.0;
+model.adaptiveFusion.useDecoupledKla = true;
+model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.spatialDecouplingStrength = 0.5;
+model.adaptiveFusion.existenceDecouplingStrength = 0.15;
+model.adaptiveFusion.spatialStructureStrength = 0.35;
+model.adaptiveFusion.existenceStructureStrength = 0.05;
+model.adaptiveFusion.structureReliabilityPower = 0.25;
 model.adaptiveFusion.useNIS = false;
-model.adaptiveFusion.useHistory = false;
 ```
+
+对应主报告为：
+
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md)
 
 这套组合当前对应的是：
 
 - `协方差`：状态精度
 - `链路质量`：通信可靠性
 - `存在性置信度`：目标存在性/基数判决可信度
+- `弱结构先验解耦`：对 spatial 分支做主要 refinement，并只对 existence 分支做轻微调制

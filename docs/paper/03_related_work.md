@@ -16,6 +16,7 @@ Recommended differentiation:
 - Prior adaptive weighting often focuses on generic confidence scores, not on the covariance and NIS coupling issue.
 - Prior NIS usage often treats NIS as monotonic quality, while this work reframes it as a consistency penalty.
 - This work targets distributed `GA-LMB` realization with communication-aware and consistency-aware weighting.
+- This work uses topology only as a weak refinement layered on top of posterior-quality signals, not as the primary weight source.
 
 ## What To Cite For Contrast
 

@@ -7,8 +7,8 @@ The introduction should move in this order:
 1. Distributed multi-sensor tracking needs robust fusion under limited communication.
 2. KLA or geometric-average fusion is attractive, but fixed weights ignore time-varying sensor reliability and heterogeneous packet loss.
 3. Covariance and link quality alone still miss whether a local posterior makes a decisive existence judgment.
-4. We introduce an adaptive weighting mechanism for KLA-based GA-LMB fusion using covariance, realized link quality, and existence-confidence.
-5. Experiments show strong consensus gains and show that existence-confidence improves over the `covariance + link quality` baseline.
+4. We introduce an adaptive weighting mechanism for KLA-based GA-LMB fusion using covariance, realized link quality, and existence-confidence, then refine it with weak structure-aware decoupled KLA.
+5. Experiments show strong consensus gains and show that the weak structure-aware decoupled refinement improves over the `covariance + link quality` baseline.
 
 ## Suggested Paragraph Plan
 
@@ -40,7 +40,7 @@ Paragraph 5:
 
 - Preview the main empirical findings.
 - Mention strong consensus gains in tiered GA formation scenarios.
-- Mention that `existence confidence` further improves all three consensus metrics over `covariance + link quality`.
+- Mention that `existence confidence` is the key third factor, and that a weak structure-aware decoupled refinement further improves OSPA and RMSE without worsening cardinality.
 
 Paragraph 6:
 
@@ -54,5 +54,5 @@ Paragraph 6:
 
 ## Results To Preview
 
-- Tiered GA ablation from `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
+- Tiered GA ablation from `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
 - Tiered communication setup from `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`

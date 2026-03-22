@@ -1,5 +1,5 @@
 function [reportPath, summary] = runMultisensorFilters_formation_4plus4_TieredLinkAblation( ...
-    numberOfTrials, baseSeed, useFixedSeed, commConfigOverrides, writeReport, finalArmMode, adaptiveFusionOverrides)
+    numberOfTrials, baseSeed, useFixedSeed, commConfigOverrides, writeReport, finalArmMode, adaptiveFusionOverrides, armSelection)
 % RUNMULTISENSORFILTERS_FORMATION_4PLUS4_TIEREDLINKABLATION
 % Ablation under tiered packet-drop configuration:
 %   fixed weights -> +covariance -> +link quality -> +(robust NIS or freshness)
@@ -34,6 +34,9 @@ end
 if nargin < 7 || isempty(adaptiveFusionOverrides)
     adaptiveFusionOverrides = struct();
 end
+if nargin < 8
+    armSelection = [];
+end
 
 reportPath = '';
 summary = struct();
@@ -54,6 +57,22 @@ baseAdaptiveFusionConfig = struct( ...
     'useExistenceConfidence', false, ...
     'existenceConfidenceMinScore', 0.6, ...
     'existenceConfidencePower', 1.0, ...
+    'useDecoupledKla', false, ...
+    'spatialEmaAlpha', 0.7, ...
+    'existenceEmaAlpha', 0.7, ...
+    'spatialMinWeight', 0.05, ...
+    'existenceMinWeight', 0.05, ...
+    'spatialCovariancePower', 1.0, ...
+    'spatialLinkQualityPower', 1.0, ...
+    'existenceLinkQualityPower', 1.0, ...
+    'existenceConfidenceWeightPower', 1.0, ...
+    'spatialDecouplingStrength', 1.0, ...
+    'existenceDecouplingStrength', 1.0, ...
+    'useStructureAwareKla', false, ...
+    'spatialStructureStrength', 0.0, ...
+    'existenceStructureStrength', 0.0, ...
+    'structureReliabilityPower', 0.0, ...
+    'structureReliabilityMinScore', 0.25, ...
     'useFreshness', false, ...
     'freshnessDecay', 0.5, ...
     'freshnessMinScore', 0.4, ...
@@ -114,6 +133,7 @@ targetFormationConfig.targetBirthStates = buildTargetBirthStates();
 targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
 
 arms = buildArms(baseAdaptiveFusionConfig, finalArmMode);
+arms = selectArms(arms, armSelection);
 armNames = {arms.name};
 numArms = numel(arms);
 
@@ -146,6 +166,7 @@ for trial = 1:numberOfTrials
     pDropBySensorTrials(trial, :) = reshape(commStats.pDropBySensor, 1, []);
 
     for armIdx = 1:numArms
+        fprintf('  Arm %d/%d: %s\n', armIdx, numArms, arms(armIdx).name);
         armModel = model;
         armModel.adaptiveFusion = arms(armIdx).adaptiveFusion;
         neighborMap = buildNeighborMap4Plus4(numberOfSensors);
@@ -206,11 +227,51 @@ if writeReport
 end
 end
 
+function arms = selectArms(arms, armSelection)
+if nargin < 2 || isempty(armSelection)
+    return;
+end
+
+if isnumeric(armSelection)
+    armIdx = unique(max(1, min(numel(arms), round(armSelection(:)'))));
+    arms = arms(armIdx);
+    return;
+end
+
+if ischar(armSelection) || isstring(armSelection)
+    requested = cellstr(armSelection);
+elseif iscell(armSelection)
+    requested = cellfun(@char, armSelection, 'UniformOutput', false);
+else
+    return;
+end
+
+matched = false(1, numel(arms));
+for i = 1:numel(requested)
+    query = lower(strtrim(requested{i}));
+    if isempty(query)
+        continue;
+    end
+    for armIdx = 1:numel(arms)
+        if strcmpi(query, 'final') && armIdx == numel(arms)
+            matched(armIdx) = true;
+        elseif contains(lower(arms(armIdx).name), query)
+            matched(armIdx) = true;
+        end
+    end
+end
+
+if any(matched)
+    arms = arms(matched);
+end
+end
+
 function arms = buildArms(baseAdaptiveFusionConfig, finalArmMode)
 arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 4);
 
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = false;
+cfg.useDecoupledKla = false;
 cfg.useCovariance = false;
 cfg.useLinkQuality = false;
 cfg.useNIS = false;
@@ -219,6 +280,7 @@ arms(1).adaptiveFusion = cfg;
 
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = true;
+cfg.useDecoupledKla = false;
 cfg.useCovariance = true;
 cfg.useLinkQuality = false;
 cfg.useNIS = false;
@@ -227,6 +289,7 @@ arms(2).adaptiveFusion = cfg;
 
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = true;
+cfg.useDecoupledKla = false;
 cfg.useCovariance = true;
 cfg.useLinkQuality = true;
 cfg.useNIS = false;
@@ -235,6 +298,7 @@ arms(3).adaptiveFusion = cfg;
 
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = true;
+cfg.useDecoupledKla = false;
 cfg.useCovariance = true;
 cfg.useLinkQuality = true;
 cfg.useFreshness = false;
@@ -252,6 +316,40 @@ switch lower(finalArmMode)
         cfg.useNIS = false;
         cfg.useExistenceConfidence = true;
         arms(4).name = '+existence confidence';
+    case {'decoupled', 'decoupledkla', 'decoupled_kla'}
+        cfg.useNIS = false;
+        cfg.useExistenceConfidence = true;
+        cfg.useDecoupledKla = true;
+        arms(4).name = '+decoupled KLA';
+    case {'structureaware', 'structure_aware', 'structure-aware', ...
+            'structureawaredecoupledkla', 'structure_aware_decoupled_kla', ...
+            'structure-aware-decoupled-kla'}
+        cfg.useNIS = false;
+        cfg.useExistenceConfidence = true;
+        cfg.useDecoupledKla = true;
+        cfg.useStructureAwareKla = true;
+        if abs(cfg.existenceConfidenceMinScore - 0.6) < 1e-9
+            cfg.existenceConfidenceMinScore = 0.85;
+        end
+        if abs(cfg.existenceConfidencePower - 1.0) < 1e-9
+            cfg.existenceConfidencePower = 2.0;
+        end
+        if abs(cfg.spatialDecouplingStrength - 1.0) < 1e-9
+            cfg.spatialDecouplingStrength = 0.5;
+        end
+        if abs(cfg.existenceDecouplingStrength - 1.0) < 1e-9
+            cfg.existenceDecouplingStrength = 0.75;
+        end
+        if cfg.spatialStructureStrength <= 0
+            cfg.spatialStructureStrength = 0.35;
+        end
+        if cfg.existenceStructureStrength <= 0
+            cfg.existenceStructureStrength = 0.85;
+        end
+        if cfg.structureReliabilityPower <= 0
+            cfg.structureReliabilityPower = 1.0;
+        end
+        arms(4).name = '+structure-aware decoupled KLA';
     otherwise
         cfg.useNIS = true;
         cfg.robustNIS = true;
@@ -284,6 +382,27 @@ fprintf(fid, '- pDrop target mean: %.3f\n', getField(commConfig, 'pDrop', 0));
 fprintf(fid, '- pDropLevels: %s\n', mat2str(getField(commConfig, 'pDropLevels', []), 3));
 fprintf(fid, '- pDropLevelCounts: %s\n\n', mat2str(getField(commConfig, 'pDropLevelCounts', [])));
 fprintf(fid, '- finalArmMode: %s\n\n', finalArmMode);
+
+fprintf(fid, '## Arm Configs\n');
+for armIdx = 1:numel(arms)
+    cfg = arms(armIdx).adaptiveFusion;
+    fprintf(fid, '### %s\n', arms(armIdx).name);
+    fprintf(fid, '- enabled: %d\n', getField(cfg, 'enabled', false));
+    fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
+    fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
+    fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
+    fprintf(fid, '- useNIS: %d\n', getField(cfg, 'useNIS', false));
+    fprintf(fid, '- useDecoupledKla: %d\n', getField(cfg, 'useDecoupledKla', false));
+    fprintf(fid, '- useStructureAwareKla: %d\n', getField(cfg, 'useStructureAwareKla', false));
+    fprintf(fid, '- existenceConfidenceMinScore: %.3f\n', getField(cfg, 'existenceConfidenceMinScore', 0));
+    fprintf(fid, '- existenceConfidencePower: %.3f\n', getField(cfg, 'existenceConfidencePower', 0));
+    fprintf(fid, '- spatialDecouplingStrength: %.3f\n', getField(cfg, 'spatialDecouplingStrength', 0));
+    fprintf(fid, '- existenceDecouplingStrength: %.3f\n', getField(cfg, 'existenceDecouplingStrength', 0));
+    fprintf(fid, '- spatialStructureStrength: %.3f\n', getField(cfg, 'spatialStructureStrength', 0));
+    fprintf(fid, '- existenceStructureStrength: %.3f\n', getField(cfg, 'existenceStructureStrength', 0));
+    fprintf(fid, '- structureReliabilityPower: %.3f\n', getField(cfg, 'structureReliabilityPower', 0));
+    fprintf(fid, '- structureReliabilityMinScore: %.3f\n\n', getField(cfg, 'structureReliabilityMinScore', 0));
+end
 
 fprintf(fid, '## Per-Trial pDropBySensor\n');
 for trial = 1:size(pDropBySensorTrials, 1)

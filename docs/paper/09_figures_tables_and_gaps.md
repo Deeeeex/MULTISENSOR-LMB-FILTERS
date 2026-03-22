@@ -25,7 +25,7 @@ Figure 4:
 Figure 5:
 
 - factor ablation bar chart or line chart
-- `fixed`, `+covariance`, `+link quality`, `+existence confidence`
+- `fixed`, `+covariance`, `+link quality`, `+structure-aware decoupled KLA`
 
 Figure 6:
 
@@ -65,7 +65,7 @@ Highest priority:
 - add variance or confidence intervals
 - add stronger baselines beyond fixed versus adaptive
 - report runtime overhead
-- verify whether existence confidence remains beneficial beyond the current 5-trial evidence
+- verify whether the weak structure-aware decoupled improvement remains stable beyond the current 5-trial evidence
 
 Medium priority:
 
