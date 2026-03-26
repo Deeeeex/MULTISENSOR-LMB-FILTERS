@@ -39,6 +39,7 @@ structureReliabilityPower = max(getField(cfg, 'structureReliabilityPower', 0.0),
 structureReliabilityMinScore = min(max(getField(cfg, 'structureReliabilityMinScore', 0.25), 0), 1);
 useStructureAwareKla = getField(cfg, 'useStructureAwareKla', false) || ...
     spatialStructureStrength > 0 || existenceStructureStrength > 0;
+usePosteriorStructureConsistency = getField(cfg, 'usePosteriorStructureConsistency', true);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
@@ -76,9 +77,20 @@ if useDecoupledKla
         existenceStructurePrior = applyStructurePrior( ...
             existenceStructurePrior, communicationReliabilityPrior, structureReliabilityPower);
     end
+    spatialStructureScore = ones(1, numSensors);
+    existenceStructureScore = ones(1, numSensors);
     if useStructureAwareKla
-        spatialScore = applyStructurePrior(spatialScore, spatialStructurePrior, spatialStructureStrength);
-        existenceScore = applyStructurePrior(existenceScore, existenceStructurePrior, existenceStructureStrength);
+        if usePosteriorStructureConsistency
+            [spatialStructureScore, existenceStructureScore] = resolveStructureConsistencyScores( ...
+                measurementUpdatedDistributions, model, spatialStructurePrior, existenceStructurePrior, cfg);
+            spatialScore = spatialScore .* (spatialStructureScore .^ spatialStructureStrength);
+            existenceScore = existenceScore .* (existenceStructureScore .^ existenceStructureStrength);
+        else
+            spatialScore = applyStructurePrior(spatialScore, spatialStructurePrior, spatialStructureStrength);
+            existenceScore = applyStructurePrior(existenceScore, existenceStructurePrior, existenceStructureStrength);
+            spatialStructureScore = spatialStructurePrior;
+            existenceStructureScore = existenceStructurePrior;
+        end
     end
 
     spatialPrev = resolvePreviousWeights(prevWeights, 'gaSpatial', 'ga', numSensors);
@@ -129,17 +141,22 @@ debug.rawWeights = rawWeights;
 debug.weights = gaWeights;
 debug.useDecoupledKla = useDecoupledKla;
 debug.useStructureAwareKla = useStructureAwareKla;
+debug.usePosteriorStructureConsistency = usePosteriorStructureConsistency;
 debug.spatialRawScore = rawScore;
 debug.existenceRawScore = rawScore;
 debug.spatialStructurePrior = ones(1, numSensors);
 debug.existenceStructurePrior = ones(1, numSensors);
 debug.communicationReliabilityPrior = ones(1, numSensors);
+debug.spatialStructureScore = ones(1, numSensors);
+debug.existenceStructureScore = ones(1, numSensors);
 if useDecoupledKla
     debug.spatialRawScore = spatialScore;
     debug.existenceRawScore = existenceScore;
     debug.spatialStructurePrior = spatialStructurePrior;
     debug.existenceStructurePrior = existenceStructurePrior;
     debug.communicationReliabilityPrior = communicationReliabilityPrior;
+    debug.spatialStructureScore = spatialStructureScore;
+    debug.existenceStructureScore = existenceStructureScore;
 end
 debug.gaSpatialWeights = spatialWeights;
 debug.aaSpatialWeights = spatialWeights;
@@ -171,6 +188,169 @@ if nargin < 3 || strength <= 0 || isempty(prior)
     return;
 end
 adjustedScore = score .* (prior .^ strength);
+end
+
+function [spatialScore, existenceScore] = resolveStructureConsistencyScores( ...
+    measurementUpdatedDistributions, model, spatialPrior, existencePrior, cfg)
+
+numSensors = numel(measurementUpdatedDistributions);
+spatialScore = ones(1, numSensors);
+existenceScore = ones(1, numSensors);
+if numSensors <= 1
+    return;
+end
+
+spatialScale = max(getField(cfg, 'spatialConsistencyScale', 0.6), 0);
+existenceScale = max(getField(cfg, 'existenceConsistencyScale', 2.0), 0);
+spatialMinScore = min(max(getField(cfg, 'spatialConsistencyMinScore', 0.4), 0), 1);
+existenceMinScore = min(max(getField(cfg, 'existenceConsistencyMinScore', 0.4), 0), 1);
+summaries = repmat(struct( ...
+    'r', [], ...
+    'position', zeros(2, 0), ...
+    'trace', [], ...
+    'center', zeros(2, 1), ...
+    'dispersion', 0), 1, numSensors);
+for s = 1:numSensors
+    summaries(s) = buildStructureSummary(measurementUpdatedDistributions{s}, model);
+end
+
+for s = 1:numSensors
+    spatialWeights = reshape(spatialPrior, 1, []);
+    existenceWeights = reshape(existencePrior, 1, []);
+    spatialWeights(s) = 0;
+    existenceWeights(s) = 0;
+
+    spatialWeightSum = sum(spatialWeights);
+    existenceWeightSum = sum(existenceWeights);
+    spatialDisagreement = 0;
+    existenceDisagreement = 0;
+
+    for j = 1:numSensors
+        if j == s
+            continue;
+        end
+        [pairSpatial, pairExistence] = computePairwiseStructureDisagreement( ...
+            summaries(s), summaries(j));
+        spatialDisagreement = spatialDisagreement + spatialWeights(j) * pairSpatial;
+        existenceDisagreement = existenceDisagreement + existenceWeights(j) * pairExistence;
+    end
+
+    if spatialWeightSum > 0
+        spatialDisagreement = spatialDisagreement / spatialWeightSum;
+        spatialScore(s) = spatialMinScore + (1 - spatialMinScore) * ...
+            exp(-spatialScale * spatialDisagreement);
+    end
+    if existenceWeightSum > 0
+        existenceDisagreement = existenceDisagreement / existenceWeightSum;
+        existenceScore(s) = existenceMinScore + (1 - existenceMinScore) * ...
+            exp(-existenceScale * existenceDisagreement);
+    end
+end
+end
+
+function summary = buildStructureSummary(objects, model)
+summary = struct('r', [], 'position', zeros(2, 0), 'trace', [], 'center', zeros(2, 1), 'dispersion', 0);
+if isempty(objects) || nargin < 2 || ~isstruct(model) || ~isfield(model, 'xDimension')
+    return;
+end
+
+numObjects = numel(objects);
+summary.r = extractExistenceVector(objects);
+summary.position = zeros(2, numObjects);
+summary.trace = zeros(1, numObjects);
+for idx = 1:numObjects
+    if objects(idx).numberOfGmComponents < 1
+        continue;
+    end
+    [mu, cov] = mprojection(model.xDimension, objects(idx));
+    posDim = min(2, numel(mu));
+    if posDim > 0
+        summary.position(1:posDim, idx) = mu(1:posDim);
+    end
+    summary.trace(idx) = trace(cov);
+end
+
+weights = max(summary.r, 0);
+activeMask = (weights > 0) & (summary.trace > 0);
+if any(activeMask)
+    activeWeights = weights(activeMask);
+    activePositions = summary.position(:, activeMask);
+    activeTrace = summary.trace(activeMask);
+    totalWeight = sum(activeWeights);
+    summary.center = activePositions * (activeWeights(:) / max(totalWeight, eps));
+    centeredPositions = activePositions - summary.center;
+    radialSpread = sum(centeredPositions .^ 2, 1);
+    summary.dispersion = sum(activeWeights .* (radialSpread + activeTrace)) / max(totalWeight, eps);
+end
+end
+
+function [spatialDisagreement, existenceDisagreement] = computePairwiseStructureDisagreement(summaryA, summaryB)
+spatialDisagreement = 0;
+existenceDisagreement = 0;
+rA = summaryA.r;
+rB = summaryB.r;
+maxObjects = max(numel(rA), numel(rB));
+if maxObjects == 0
+    return;
+end
+
+rA = padVector(rA, maxObjects);
+rB = padVector(rB, maxObjects);
+traceA = padVector(summaryA.trace, maxObjects);
+traceB = padVector(summaryB.trace, maxObjects);
+
+if summaryA.dispersion > 0 && summaryB.dispersion > 0
+    centerDelta = summaryA.center - summaryB.center;
+    spatialScale = 1 + summaryA.dispersion + summaryB.dispersion;
+    centerMismatch = log(1 + (centerDelta' * centerDelta) / max(spatialScale, eps));
+    spreadMismatch = abs(log((summaryA.dispersion + eps) / (summaryB.dispersion + eps)));
+    spatialDisagreement = centerMismatch + 0.35 * spreadMismatch;
+end
+
+profileDiff = mean(abs(rA - rB));
+expectedCardA = sum(rA);
+expectedCardB = sum(rB);
+expectedCardNorm = 1 + 0.5 * (expectedCardA + expectedCardB);
+expectedCardDiff = abs(expectedCardA - expectedCardB) / max(expectedCardNorm, eps);
+confidenceDiff = abs(computeExistenceConfidence(rA) - computeExistenceConfidence(rB));
+existenceDisagreement = 0.6 * profileDiff + 0.3 * expectedCardDiff + 0.1 * confidenceDiff;
+end
+
+function confidence = computeExistenceConfidence(existenceProb)
+if isempty(existenceProb)
+    confidence = 0;
+    return;
+end
+certainty = abs(2 * existenceProb - 1);
+confidence = sum(existenceProb .* certainty) / (eps + sum(existenceProb));
+confidence = min(max(confidence, 0), 1);
+end
+
+function values = extractExistenceVector(objects)
+if isempty(objects)
+    values = [];
+    return;
+end
+values = reshape([objects.r], 1, []);
+end
+
+function padded = padVector(values, targetLength)
+padded = zeros(1, targetLength);
+if isempty(values)
+    return;
+end
+count = min(numel(values), targetLength);
+padded(1:count) = reshape(values(1:count), 1, []);
+end
+
+function padded = padMatrix(values, rowCount, targetColumns)
+padded = zeros(rowCount, targetColumns);
+if isempty(values)
+    return;
+end
+copyRows = min(size(values, 1), rowCount);
+copyCols = min(size(values, 2), targetColumns);
+padded(1:copyRows, 1:copyCols) = values(1:copyRows, 1:copyCols);
 end
 
 function prior = resolveCommunicationReliabilityPrior(commStats, numSensors, minScore)

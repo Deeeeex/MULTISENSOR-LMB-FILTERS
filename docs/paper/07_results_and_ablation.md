@@ -18,13 +18,13 @@ Primary claim:
 Current headline result:
 
 - fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`)
-- consensus OSPA `2.624 -> 1.864`
+- consensus OSPA `2.624 -> 1.862`
 - consensus RMSE `2.703 -> 1.750`
-- consensus cardinality `0.879 -> 0.245`
+- consensus cardinality `0.879 -> 0.244`
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
 ## Section 2: Factor Ablation
 
@@ -35,18 +35,18 @@ Primary claim:
 Current headline result:
 
 - `+link quality`: OSPA `1.877771`, RMSE `1.800945`, cardinality `0.245250`
-- `+structure-aware decoupled KLA`: OSPA `1.863592`, RMSE `1.749731`, cardinality `0.244500`
+- `+structure-aware decoupled KLA`: OSPA `1.862244`, RMSE `1.749608`, cardinality `0.244250`
 
 Interpretation:
 
 - `covariance` delivers the first major gain over fixed weights
 - `link quality` delivers the largest additional gain under heterogeneous packet loss
 - `existence confidence` remains the key third factor that stabilizes cardinality
-- a weak structure-aware decoupled refinement then provides the current best OSPA and RMSE without worsening cardinality
+- a weak structure-aware decoupled refinement then provides the current best OSPA and RMSE while also slightly improving cardinality
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
 ## Section 3: Robust NIS Ablation
 

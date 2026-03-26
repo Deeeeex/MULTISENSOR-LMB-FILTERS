@@ -234,13 +234,14 @@ model.adaptiveFusion.useNIS = false;
 
 报告：
 
-- [RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md)
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md)
 
 这轮是在 `协方差 + 链路质量 + existence confidence` 的基础上，进一步做一个很弱的 structure-aware decoupled KLA：
 
 - spatial 分支保留主要收益
 - existence 分支只做很轻的结构调制，避免破坏 cardinality
 - 结构先验同时参考局部子图重叠和固定分档丢包率
+- posterior-consistency 结构模式保留为实验开关，但当前 best 默认仍使用静态结构先验模式
 
 推荐参数是：
 
@@ -252,24 +253,25 @@ model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
 model.adaptiveFusion.existenceConfidencePower = 2.0;
 model.adaptiveFusion.useDecoupledKla = true;
 model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.usePosteriorStructureConsistency = false;
 model.adaptiveFusion.spatialDecouplingStrength = 0.5;
 model.adaptiveFusion.existenceDecouplingStrength = 0.15;
-model.adaptiveFusion.spatialStructureStrength = 0.35;
-model.adaptiveFusion.existenceStructureStrength = 0.05;
-model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.spatialStructureStrength = 0.45;
+model.adaptiveFusion.existenceStructureStrength = 0.08;
+model.adaptiveFusion.structureReliabilityPower = 0.30;
 model.adaptiveFusion.useNIS = false;
 ```
 
 `5 trial` 结果：
 
 - `+link quality`: `OSPA 1.877771`, `RMSE 1.800945`, `Cardinality 0.245250`
-- `+structure-aware decoupled KLA`: `OSPA 1.863592`, `RMSE 1.749731`, `Cardinality 0.244500`
+- `+structure-aware decoupled KLA`: `OSPA 1.862244`, `RMSE 1.749608`, `Cardinality 0.244250`
 
 结论：
 
 - 这是当前 tiered 通信配置下的最新 best
 - 相比 `+link quality`，它继续同时改善三项 consensus 指标
-- 相比上一版 `+existence confidence` best，`OSPA` 和 `RMSE` 继续下降，`Cardinality` 持平
+- 相比上一版 `+existence confidence` best，`OSPA`、`RMSE` 和 `Cardinality` 都继续下降
 - 当前有效配置的关键不是“强结构先验”，而是“在 existence baseline 上叠加很弱的 structure-aware decoupling”
 
 ## 7. 推荐口径
@@ -308,15 +310,15 @@ model.adaptiveFusion.useDecoupledKla = true;
 model.adaptiveFusion.useStructureAwareKla = true;
 model.adaptiveFusion.spatialDecouplingStrength = 0.5;
 model.adaptiveFusion.existenceDecouplingStrength = 0.15;
-model.adaptiveFusion.spatialStructureStrength = 0.35;
-model.adaptiveFusion.existenceStructureStrength = 0.05;
-model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.spatialStructureStrength = 0.45;
+model.adaptiveFusion.existenceStructureStrength = 0.08;
+model.adaptiveFusion.structureReliabilityPower = 0.30;
 model.adaptiveFusion.useNIS = false;
 ```
 
 对应主报告为：
 
-- [RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md)
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md)
 
 这套组合当前对应的是：
 

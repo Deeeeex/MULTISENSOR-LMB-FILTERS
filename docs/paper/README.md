@@ -17,14 +17,14 @@ Recommended main line:
 
 - In the tiered-drop 4+4 GA formation scenario, adaptive weights substantially improve consensus quality over fixed weights.
 - Adding `existence confidence` on top of `covariance + link quality` further improves consensus OSPA, RMSE, and cardinality simultaneously.
-- A weak structure-aware decoupled KLA refinement further improves consensus OSPA and RMSE while preserving the same cardinality level.
+- A weak structure-aware decoupled KLA refinement further improves consensus OSPA and RMSE while also slightly improving cardinality.
 - `robust NIS` is still more stable than plain `NIS`, but it is no longer the strongest main-line improvement in this branch.
 - The present evidence is strongest on consensus metrics, not on universally improving local tracking.
 
 ## Current Headline Numbers
 
-- Tiered GA main scenario: fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`) gives consensus OSPA `2.624 -> 1.864`, consensus RMSE `2.703 -> 1.750`, consensus cardinality `0.879 -> 0.245`
-- Tiered GA targeted improvement: `cov + link + existence` -> `cov + link + existence + weak structure-aware decoupled KLA` gives consensus OSPA `1.875 -> 1.864`, consensus RMSE `1.780 -> 1.750`, consensus cardinality `0.2445 -> 0.2445`
+- Tiered GA main scenario: fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`) gives consensus OSPA `2.624 -> 1.862`, consensus RMSE `2.703 -> 1.750`, consensus cardinality `0.879 -> 0.244`
+- Tiered GA targeted improvement: `cov + link + existence` -> `cov + link + existence + weak structure-aware decoupled KLA` gives consensus OSPA `1.875 -> 1.862`, consensus RMSE `1.780 -> 1.750`, consensus cardinality `0.2445 -> 0.2443`
 - GA NIS ablation: consensus OSPA `1.811 -> 1.810 -> 1.901`, consensus RMSE `3.173 -> 3.153 -> 3.329`, consensus cardinality `0.214 -> 0.209 -> 0.234`
 - AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus RMSE `19.098 -> 16.472`, consensus cardinality `0.421 -> 0.307`
 
@@ -63,7 +63,7 @@ Recommended main line:
 - `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`
 - `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`
 - `docs/FORMATION_4PLUS4_RUN.md`
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 - `RUN/GA/GA_TIERED_LINK_COMPARE_20260321_191405.md`
 - `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
 - `RUN/GA/GA_NIS_GRID_20260309_163105.md`
