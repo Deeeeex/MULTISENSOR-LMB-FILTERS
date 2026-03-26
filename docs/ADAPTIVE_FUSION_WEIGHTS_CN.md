@@ -320,6 +320,7 @@ existence-confidence baseline 的 `5 trial` 消融结果为：
 ```matlab
 model.adaptiveFusion.useDecoupledKla = true;
 model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.usePosteriorStructureConsistency = false;
 model.adaptiveFusion.spatialDecouplingStrength = 0.5;
 model.adaptiveFusion.existenceDecouplingStrength = 0.15;
 model.adaptiveFusion.spatialStructureStrength = 0.35;
@@ -334,12 +335,12 @@ model.adaptiveFusion.useHistory = false;
 
 ```text
 +link quality:                    OSPA 1.877771, RMSE 1.800945, Card 0.245250
-+structure-aware decoupled KLA:  OSPA 1.863592, RMSE 1.749731, Card 0.244500
++structure-aware decoupled KLA:  OSPA 1.862244, RMSE 1.749608, Card 0.244250
 ```
 
 当前结论是：
 
 1. `existenceConfidence` 比 `freshness` 和 `robust NIS` 更适合作为 `协方差 + 链路质量` 之后的第三个因子
 2. 它没有重复表达“状态精度”或“通信可靠性”，而是补了“存在性判决可信度”这一维
-3. 在此基础上，一个足够弱的 structure-aware decoupled KLA 还能继续降低 `OSPA / RMSE`，并保持 `Cardinality` 不退化
-4. 当前有效策略不是强化 existence 结构偏置，而是只给 existence 分支非常轻的结构调制
+3. 在此基础上，一个足够弱的 structure-aware decoupled KLA 还能继续同时降低 `OSPA / RMSE / Cardinality`
+4. 当前有效策略仍然不是强化 existence 结构偏置，而是把主要结构增益保留在 spatial 分支，同时只给 existence 分支轻量结构调制

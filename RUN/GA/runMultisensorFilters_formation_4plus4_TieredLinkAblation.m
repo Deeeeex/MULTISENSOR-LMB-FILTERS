@@ -69,6 +69,7 @@ baseAdaptiveFusionConfig = struct( ...
     'spatialDecouplingStrength', 1.0, ...
     'existenceDecouplingStrength', 1.0, ...
     'useStructureAwareKla', false, ...
+    'usePosteriorStructureConsistency', true, ...
     'spatialStructureStrength', 0.0, ...
     'existenceStructureStrength', 0.0, ...
     'structureReliabilityPower', 0.0, ...
@@ -328,6 +329,7 @@ switch lower(finalArmMode)
         cfg.useExistenceConfidence = true;
         cfg.useDecoupledKla = true;
         cfg.useStructureAwareKla = true;
+        cfg.usePosteriorStructureConsistency = false;
         if abs(cfg.existenceConfidenceMinScore - 0.6) < 1e-9
             cfg.existenceConfidenceMinScore = 0.85;
         end
@@ -338,16 +340,16 @@ switch lower(finalArmMode)
             cfg.spatialDecouplingStrength = 0.5;
         end
         if abs(cfg.existenceDecouplingStrength - 1.0) < 1e-9
-            cfg.existenceDecouplingStrength = 0.75;
+            cfg.existenceDecouplingStrength = 0.15;
         end
         if cfg.spatialStructureStrength <= 0
-            cfg.spatialStructureStrength = 0.35;
+            cfg.spatialStructureStrength = 0.45;
         end
         if cfg.existenceStructureStrength <= 0
-            cfg.existenceStructureStrength = 0.85;
+            cfg.existenceStructureStrength = 0.08;
         end
         if cfg.structureReliabilityPower <= 0
-            cfg.structureReliabilityPower = 1.0;
+            cfg.structureReliabilityPower = 0.30;
         end
         arms(4).name = '+structure-aware decoupled KLA';
     otherwise
@@ -394,6 +396,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- useNIS: %d\n', getField(cfg, 'useNIS', false));
     fprintf(fid, '- useDecoupledKla: %d\n', getField(cfg, 'useDecoupledKla', false));
     fprintf(fid, '- useStructureAwareKla: %d\n', getField(cfg, 'useStructureAwareKla', false));
+    fprintf(fid, '- usePosteriorStructureConsistency: %d\n', getField(cfg, 'usePosteriorStructureConsistency', false));
     fprintf(fid, '- existenceConfidenceMinScore: %.3f\n', getField(cfg, 'existenceConfidenceMinScore', 0));
     fprintf(fid, '- existenceConfidencePower: %.3f\n', getField(cfg, 'existenceConfidencePower', 0));
     fprintf(fid, '- spatialDecouplingStrength: %.3f\n', getField(cfg, 'spatialDecouplingStrength', 0));

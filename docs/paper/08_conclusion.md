@@ -11,8 +11,10 @@ Suggested structure:
 3. Restate the key technical point
    Existence confidence is the critical additional design element beyond covariance and link quality, while the structure-aware decoupled step is a light refinement rather than a standalone factor.
 4. Restate the main empirical message
-   The method improves consensus quality under tiered heterogeneous packet loss, and weak structure-aware decoupled KLA further improves OSPA and RMSE beyond the three-factor baseline while preserving cardinality.
-5. State the limits
+   The method improves consensus quality under tiered heterogeneous packet loss, and weak structure-aware decoupled KLA further improves OSPA and RMSE beyond the three-factor baseline while also slightly improving cardinality.
+5. Add supporting evidence
+   Under ideal communication, the same refinement still improves both consensus metrics and local E-OSPA or RMSE over ordinary GA, so the gain is not only from packet-loss compensation.
+6. State the limits
    Current evidence for `freshness`, `history`, `association ambiguity`, and `cardinality consensus` is weak or negative, and stronger Monte Carlo baselines remain desirable.
 
 ## Discussion Points

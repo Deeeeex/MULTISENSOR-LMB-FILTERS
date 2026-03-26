@@ -54,5 +54,5 @@ Paragraph 6:
 
 ## Results To Preview
 
-- Tiered GA ablation from `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- Tiered GA ablation from `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 - Tiered communication setup from `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`

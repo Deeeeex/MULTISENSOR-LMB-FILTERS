@@ -5,9 +5,10 @@
 1. Main GA consensus result
 2. Factor ablation
 3. Robust NIS ablation
-4. Communication robustness
-5. AA generalization
-6. Negative ablations
+4. Ideal communication comparison
+5. Communication robustness
+6. AA generalization
+7. Negative ablations
 
 ## Section 1: Main GA Result
 
@@ -18,13 +19,13 @@ Primary claim:
 Current headline result:
 
 - fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`)
-- consensus OSPA `2.624 -> 1.864`
+- consensus OSPA `2.624 -> 1.862`
 - consensus RMSE `2.703 -> 1.750`
-- consensus cardinality `0.879 -> 0.245`
+- consensus cardinality `0.879 -> 0.244`
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
 ## Section 2: Factor Ablation
 
@@ -35,18 +36,18 @@ Primary claim:
 Current headline result:
 
 - `+link quality`: OSPA `1.877771`, RMSE `1.800945`, cardinality `0.245250`
-- `+structure-aware decoupled KLA`: OSPA `1.863592`, RMSE `1.749731`, cardinality `0.244500`
+- `+structure-aware decoupled KLA`: OSPA `1.862244`, RMSE `1.749608`, cardinality `0.244250`
 
 Interpretation:
 
 - `covariance` delivers the first major gain over fixed weights
 - `link quality` delivers the largest additional gain under heterogeneous packet loss
 - `existence confidence` remains the key third factor that stabilizes cardinality
-- a weak structure-aware decoupled refinement then provides the current best OSPA and RMSE without worsening cardinality
+- a weak structure-aware decoupled refinement then provides the current best OSPA and RMSE while also slightly improving cardinality
 
 Main file:
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
 ## Section 3: Robust NIS Ablation
 
@@ -64,7 +65,27 @@ Main file:
 
 - `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
 
-## Section 4: Communication Robustness
+## Section 4: Ideal Communication Comparison
+
+Primary claim:
+
+- The structure-aware refinement is not only a communication-loss compensation trick; it also improves distributed GA under ideal communication.
+
+Supporting evidence:
+
+- ordinary GA -> structure-aware decoupled KLA
+- consensus OSPA `1.706 -> 1.494`
+- consensus RMSE `1.526 -> 1.290`
+- consensus cardinality `0.161 -> 0.139`
+- local E-OSPA `1.950 -> 1.877`
+- local RMSE `1.442 -> 1.369`
+- local H-OSPA remains essentially unchanged at `0.500`
+
+Main file:
+
+- `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
+
+## Section 5: Communication Robustness
 
 Primary claim:
 
@@ -79,7 +100,7 @@ Main file:
 
 - `analyzeCommunicationLevelImpact.m`
 
-## Section 5: AA Generalization
+## Section 6: AA Generalization
 
 Use this as a short extension section.
 
@@ -91,7 +112,7 @@ Current file:
 
 - `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
 
-## Section 6: Negative Ablations
+## Section 7: Negative Ablations
 
 Use short subsections:
 
