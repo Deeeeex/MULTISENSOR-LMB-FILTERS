@@ -51,9 +51,13 @@ Table 4:
 
 Table 5:
 
-- communication-level results
+- ideal-communication GA versus structure-aware comparison
 
 Table 6:
+
+- communication-level results
+
+Table 7:
 
 - negative ablations for `freshness`, `history`, `association ambiguity`, and `cardinality consensus`
 
@@ -70,6 +74,7 @@ Highest priority:
 Medium priority:
 
 - verify communication-level result tables cleanly from saved outputs
+- decide whether ideal-communication comparison belongs in the main paper or appendix
 - tighten wording around AA generalization
 
 Low priority:

@@ -5,9 +5,10 @@
 1. Main GA consensus result
 2. Factor ablation
 3. Robust NIS ablation
-4. Communication robustness
-5. AA generalization
-6. Negative ablations
+4. Ideal communication comparison
+5. Communication robustness
+6. AA generalization
+7. Negative ablations
 
 ## Section 1: Main GA Result
 
@@ -64,7 +65,27 @@ Main file:
 
 - `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
 
-## Section 4: Communication Robustness
+## Section 4: Ideal Communication Comparison
+
+Primary claim:
+
+- The structure-aware refinement is not only a communication-loss compensation trick; it also improves distributed GA under ideal communication.
+
+Supporting evidence:
+
+- ordinary GA -> structure-aware decoupled KLA
+- consensus OSPA `1.706 -> 1.494`
+- consensus RMSE `1.526 -> 1.290`
+- consensus cardinality `0.161 -> 0.139`
+- local E-OSPA `1.950 -> 1.877`
+- local RMSE `1.442 -> 1.369`
+- local H-OSPA remains essentially unchanged at `0.500`
+
+Main file:
+
+- `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
+
+## Section 5: Communication Robustness
 
 Primary claim:
 
@@ -79,7 +100,7 @@ Main file:
 
 - `analyzeCommunicationLevelImpact.m`
 
-## Section 5: AA Generalization
+## Section 6: AA Generalization
 
 Use this as a short extension section.
 
@@ -91,7 +112,7 @@ Current file:
 
 - `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
 
-## Section 6: Negative Ablations
+## Section 7: Negative Ablations
 
 Use short subsections:
 

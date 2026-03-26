@@ -9,8 +9,9 @@ Recommended order:
 1. Main scenario
 2. Factor ablation
 3. NIS ablation
-4. Communication robustness
-5. AA generalization
+4. Ideal communication comparison
+5. Communication robustness
+6. AA generalization
 
 ## Main Scenario
 
@@ -58,6 +59,13 @@ Main reference:
 
 ## Secondary Experiments
 
+Ideal communication comparison:
+
+- use `RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m`
+- compare `ordinary GA` against `structure-aware decoupled KLA`
+- use `comm level = 0` and `pDrop = 0`
+- report both consensus and local metrics
+
 Communication robustness:
 
 - use `analyzeCommunicationLevelImpact.m`
@@ -72,6 +80,7 @@ AA generalization:
 Local metrics:
 
 - local E-OSPA
+- local H-OSPA
 - local RMSE
 
 Consensus metrics:

@@ -4,6 +4,10 @@
 脚本：`RUN/GA/runMultisensorFilters_formation_4plus4.m`  
 说明：以下内容基于当前脚本配置整理，仿真结果为用户提供的运行输出，未在此复现。
 
+补充：
+
+- 理想通信条件下普通 `GA` 与当前 `structure-aware decoupled KLA` 的对比见 [IDEAL_COMM_COMPARE_CN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/IDEAL_COMM_COMPARE_CN.md)
+
 ## 场景开关
 - 目标分批出生：`staggeredBirths = true`（间隔 8）
 - 分布式本地融合：`useDistributedFusion = true`
