@@ -166,6 +166,9 @@ function localCommStats = sliceCommStats(commStats, sensorIdx)
     if isfield(commStats, 'innovationConsistency')
         localCommStats.innovationConsistency = commStats.innovationConsistency(sensorIdx, :);
     end
+    if isfield(commStats, 'associationAmbiguityScore')
+        localCommStats.associationAmbiguityScore = commStats.associationAmbiguityScore(sensorIdx, :);
+    end
 end
 
 function weightsBySensor = computeUniformWeights(neighborMap)

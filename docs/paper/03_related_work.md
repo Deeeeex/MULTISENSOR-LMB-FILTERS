@@ -1,32 +1,40 @@
 # Related Work
 
-## Suggested Related-Work Buckets
+## Paper-Ready Related-Work Draft
 
-1. Distributed multi-sensor RFS tracking
-2. KLA or GCI style fusion for multi-object posteriors
-3. Adaptive or reliability-aware fusion weights
-4. NIS and innovation-based consistency assessment
-5. Communication-constrained sensor fusion
+Distributed multi-sensor multi-object tracking has a mature foundation in random finite set (RFS) and labeled-RFS filtering. In particular, the generalized labeled multi-Bernoulli (GLMB) and labeled multi-Bernoulli (LMB) families provide principled Bayesian representations of target number, kinematic state, and label information, and they remain standard references for multi-object posterior propagation, track extraction, and multi-sensor update design \cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB,Vo2024OverviewLRFS}. These works establish the statistical backbone on which the present paper builds, but they do not by themselves resolve how fusion weights should adapt when local posterior quality and communication reliability differ across sensors.
+
+For distributed fusion under unknown cross-correlations, a second major line of work develops conservative density-combination rules based on Kullback-Leibler averaging, geometric-average fusion, and covariance-intersection-like consensus \cite{Battistelli2014KLA,Hlinka2014ICI}. Within the labeled-RFS setting, this line has been extended to robust distributed fusion of labeled densities, including formulations that explicitly address label mismatching and, more recently, resilience to corrupted peer-to-peer messages \cite{Li2018RobustDistributedLRFS,Gao2023ResilientLMB}. These studies make KLA/GCI-style fusion a natural starting point for distributed LMB tracking, but the weight-selection mechanism is typically fixed, uniform, or driven mainly by topology or consensus protocol considerations rather than by a factorized assessment of posterior quality, realized communication quality, and existence decisiveness.
+
+There is also prior evidence that adaptive weighting can be beneficial when sensors provide heterogeneous information. In centralized multiple-view LMB fusion, information-aware weighting has been used to improve performance under limited and different fields of view \cite{Wang2018CentralizedLMBFusion,Gostar2021CentralizedCooperativeLMB}. More recently, consensus-based distributed LMB tracking has introduced automatic track-level weight evolution for sensors with different fields of view \cite{Shen2022ConsensusLMB}. A very recent distributed heterogeneous labeled-RFS fusion method further uses information geometry and Fisher-information-based accumulation to assign adaptive scalar weights under different sensor architectures and limited fields of view \cite{CaoZhao2025InfoGeometryFusion}. In parallel, arithmetic-average density fusion has also been extended to heterogeneous unlabeled and labeled RFS filters \cite{Li2024AADensityFusion}. These works are important precedents, but they do not directly answer the question studied here: how to allocate adaptive fusion weights for distributed GA-LMB fusion when packet delivery is heterogeneous over time and when the contribution of a node depends jointly on posterior concentration, realized link reliability, and how decisively the posterior supports target existence. In particular, the information-geometry line is closer to the present paper than the centralized limited-FoV literature, but it emphasizes Fisher-information-driven weighting and weighted arithmetic fusion, whereas the present work stays within KLA-based geometric-average fusion and explicitly injects realized communication quality into the weight design.
+
+A related but separate literature considers innovation-based consistency assessment and communication-constrained distributed estimation. Innovation statistics such as NIS and NEES are standard tools in tracking and navigation for diagnosing filter consistency, and they continue to be used in recent estimator auto-tuning and consistency-enforcement studies \cite{BarShalom2001Estimation,Chen2023NISAutoTuning}. Likewise, communication constraints such as bandwidth limits, delays, asynchronous updates, and packet losses have long been recognized as central design factors in distributed fusion over sensor networks \cite{Zhang2016CommConstrainedFusion}. The present work uses both ideas in a narrower way. Communication constraints are modeled through realized link-quality terms inside the fusion weights, while innovation consistency is not treated as another monotonic quality reward; instead, it is viewed as an optional penalty because innovation-based scores are structurally coupled with covariance-based posterior-quality terms.
+
+Against this background, the contribution of this paper is deliberately narrower than a broad new fusion framework. We stay within distributed KLA-based GA-LMB fusion, but replace fixed or topology-only weighting with a communication-aware factorized weighting design built from covariance quality, realized link quality, and existence confidence. We then add only a weak structure-aware decoupled refinement, so that graph structure acts as a mild prior on top of posterior-quality signals rather than the primary source of weights. This positioning differentiates the method from both fixed-weight KLA fusion and prior adaptive formulations that are strongest in centralized limited-FoV settings or in track-level consensus schemes without explicit communication-aware weighting under heterogeneous packet loss.
 
 ## Positioning Against Prior Work
 
-Recommended differentiation:
+- Prior labeled-RFS work provides the filtering backbone, but not the current adaptive weight-allocation rule.
+- Prior KLA or GCI fusion justifies conservative distributed density fusion, but often with fixed or topology-driven weights.
+- Prior adaptive LMB weighting shows that heterogeneous information should not be fused with constant weights, but the strongest evidence is still outside the present packet-loss-aware distributed GA-LMB setting.
+- Prior NIS-based work supports using innovation statistics as consistency diagnostics, but the present paper intentionally avoids treating NIS as an independent quality reward.
+- The present method therefore targets a specific gap: adaptive weight allocation for distributed GA-LMB fusion under heterogeneous communication quality, with topology retained only as a weak refinement.
 
-- Prior KLA or GCI fusion often uses fixed weights or topology-derived weights.
-- Prior adaptive weighting often focuses on generic confidence scores, not on the covariance and NIS coupling issue.
-- Prior NIS usage often treats NIS as monotonic quality, while this work reframes it as a consistency penalty.
-- This work targets distributed `GA-LMB` realization with communication-aware and consistency-aware weighting.
-- This work uses topology only as a weak refinement layered on top of posterior-quality signals, not as the primary weight source.
+## Citation Keys Used Here
 
-## What To Cite For Contrast
-
-- KLA or GCI fusion in distributed Bayesian tracking
-- LMB or GLMB distributed fusion papers
-- Innovation consistency and NIS-based filter health monitoring
-- Communication-aware distributed estimation and consensus
-
-## Writing Advice
-
-- Keep this section functional.
-- Tie every related-work paragraph to one precise gap that your method addresses.
-- Avoid a broad survey that weakens the paper's focus.
+- `Vo2014LRFS`
+- `Reuter2014LMB`
+- `Vo2019MSGLMB`
+- `Vo2024OverviewLRFS`
+- `Battistelli2014KLA`
+- `Hlinka2014ICI`
+- `Li2018RobustDistributedLRFS`
+- `Gao2023ResilientLMB`
+- `Wang2018CentralizedLMBFusion`
+- `Gostar2021CentralizedCooperativeLMB`
+- `Shen2022ConsensusLMB`
+- `CaoZhao2025InfoGeometryFusion`
+- `Li2024AADensityFusion`
+- `BarShalom2001Estimation`
+- `Chen2023NISAutoTuning`
+- `Zhang2016CommConstrainedFusion`

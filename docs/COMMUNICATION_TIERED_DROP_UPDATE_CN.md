@@ -132,77 +132,64 @@ commConfig.pDropLevelCounts = [1, 4, 1, 2];
 
 ## 5. 当前实验脚本
 
-围绕这套最新通信配置，当前已经新增了三类脚本：
+围绕这套通信配置，当前脚本更适合分成“主线脚本”和“次线脚本”两组来看。
 
-- [RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkCompare.m](../RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkCompare.m)
-  固定权重 vs 自适应 robust NIS
+主线脚本：
+
+- [RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](../RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m)
+  `fixed -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA`
+- [RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m](../RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m)
+  ideal communication 下 `ordinary GA -> structure-aware decoupled KLA`
+
+次线或附录脚本：
+
 - [RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkNISCompare.m](../RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkNISCompare.m)
   `w/o NIS -> robust NIS -> NIS`
 - [RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkFreshnessCompare.m](../RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkFreshnessCompare.m)
   `robust NIS baseline -> robust NIS + freshness`
-- [RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](../RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m)
-  `fixed weights -> +covariance -> +link quality -> +(extra factor)`
+- [RUN/GA/runMultisensorFilters_formation_4plus4_HistoryCompare.m](../RUN/GA/runMultisensorFilters_formation_4plus4_HistoryCompare.m)
+  `w/o history -> history`
 
-这些脚本共享同一组通信配置，因此可以在同一个通信口径下比较不同权重策略。
+这些脚本共享同一组 tiered communication 口径，但当前论文或主文档更建议优先围绕第一组脚本组织叙事。
 
 ## 6. 当前验证结论
 
 以下结果都来自 `5 trial`，并使用同一套分档通信配置。
 
-### 6.1 固定权重 vs adaptive robust NIS
+### 6.1 当前主线结论：四项组合是最稳的叙事
 
-报告：
+主线报告：
 
-- [RUN/GA/GA_TIERED_LINK_COMPARE_20260321_191405.md](../RUN/GA/GA_TIERED_LINK_COMPARE_20260321_191405.md)
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md)
+- [RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md](../RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md)
 
-结果：
+当前主线消融路径：
 
-- `Comprehensive (OSPA)`: `2.585993 -> 1.908967`
-- `Position (RMSE)`: `2.855428 -> 2.980071`
-- `Cardinality`: `0.850250 -> 0.262250`
+```text
+fixed weights -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA
+```
 
-结论：
+当前可直接引用的一组结果是：
 
-- 在分档异构链路下，自适应权重对综合 OSPA 和 cardinality 的改善非常明显
-- 位置 RMSE 没有同步改善，甚至略差
+```text
+fixed weights:                  OSPA 2.624065, RMSE 2.702602, Card 0.878750
++covariance:                    OSPA 2.211513, RMSE 2.410976, Card 0.589500
++link quality:                  OSPA 1.877771, RMSE 1.800945, Card 0.245250
++existence confidence:          OSPA 1.874840, RMSE 1.779820, Card 0.244500
++structure-aware decoupled KLA: OSPA 1.862244, RMSE 1.749608, Card 0.244250
+```
 
-### 6.2 NIS 的作用
+这条路径现在已经比旧的 “adaptive robust NIS” 叙事更适合做主线，因为它的每一步边际作用都更清楚。
 
-报告：
-
-- [RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md](../RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md)
-
-结果：
-
-- `Comprehensive (OSPA)`: `1.909267 -> 1.908967 -> 2.007700`
-- `Position (RMSE)`: `2.934317 -> 2.980071 -> 3.173222`
-- `Cardinality`: `0.267000 -> 0.262250 -> 0.300500`
+### 6.2 `covariance + link quality` 是主线骨架
 
 结论：
 
-- `robust NIS` 和 `w/o NIS` 基本打平
-- `robust NIS` 在综合 OSPA 上略优，在 cardinality 上略优
-- `non-robust NIS` 仍然明显更差
+- `covariance` 先把 fixed weights 明显拉开，说明 posterior quality 本身必须进权重
+- `link quality` 在 tiered-drop 条件下继续带来最大一档附加收益，说明通信异构性必须被显式建模
+- 这两项一起构成当前 adaptive weighting 的基础骨架
 
-### 6.3 freshness 的作用
-
-报告：
-
-- [RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md](../RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md)
-
-结果：
-
-- `Comprehensive (OSPA)`: `1.908967 -> 1.909680`
-- `Position (RMSE)`: `2.980071 -> 2.979829`
-- `Cardinality`: `0.262250 -> 0.262500`
-
-结论：
-
-- `freshness` 因子在这套通信配置下仍然几乎不起作用
-- 当前更值得保留的是“分档通信 + NIS”这条主线，而不是继续拓展 freshness
-- 对这类已验证无效或收益不足的因素，相关报告统一加 `Del_` 前缀，表示“已尝试，但不进入当前主线”
-
-### 6.4 新因子：existence confidence
+### 6.3 `existence confidence` 是最有效的第三因子
 
 报告：
 
@@ -226,11 +213,11 @@ model.adaptiveFusion.useNIS = false;
 
 结论：
 
-- 这是目前在 tiered 通信配置下，第一个相对 `协方差 + 链路质量` baseline 实现三项指标同时改善的新因子
-- 它比 `freshness` 更有效，也比当前 `robust NIS` 更适合放在 `协方差 + 链路质量` 之后作为第三个因子
+- 这是目前第一个相对 `协方差 + 链路质量` baseline 稳定实现三项指标同时改善的新因子
+- 它比 `freshness` 更有效，也比 `robust NIS` 更适合放在主线第三个位置
 - 从论文表述上，它补充的是“存在性判决可信度”，与“状态精度”和“通信可靠性”形成互补
 
-### 6.5 当前最优：structure-aware decoupled KLA
+### 6.4 当前最优：weak structure-aware decoupled KLA
 
 报告：
 
@@ -270,9 +257,87 @@ model.adaptiveFusion.useNIS = false;
 结论：
 
 - 这是当前 tiered 通信配置下的最新 best
-- 相比 `+link quality`，它继续同时改善三项 consensus 指标
-- 相比上一版 `+existence confidence` best，`OSPA`、`RMSE` 和 `Cardinality` 都继续下降
-- 当前有效配置的关键不是“强结构先验”，而是“在 existence baseline 上叠加很弱的 structure-aware decoupling”
+- 相比 `+existence confidence` baseline，`OSPA`、`RMSE` 和 `Cardinality` 都继续下降
+- 当前有效配置的关键不是“强结构先验”，而是“在三因子 baseline 上叠加很弱的 structure-aware decoupling”
+- 这也意味着 structure-aware 更适合作为 refinement 来写，而不是单独写成拓扑权重主方法
+
+### 6.5 ideal communication 下的支持性证据
+
+报告：
+
+- [RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md](../RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md)
+
+结果：
+
+```text
+ordinary GA -> structure-aware decoupled KLA
+Consensus OSPA: 1.706 -> 1.494
+Consensus RMSE: 1.526 -> 1.290
+Consensus Card: 0.161 -> 0.139
+Local E-OSPA:   1.950 -> 1.877
+Local RMSE:     1.442 -> 1.369
+```
+
+结论：
+
+- 结构解耦层的收益不只是“补偿链路丢包”
+- 即使在 ideal communication 下，它对普通 GA 也仍有正向作用
+- 这条结果适合作为 supporting evidence，而不是替代 tiered main scenario
+
+### 6.6 次线与负结果：`robust NIS`、`freshness`、`history`
+
+`robust NIS` 报告：
+
+- [RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md](../RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md)
+
+结果：
+
+```text
+w/o NIS -> robust NIS -> NIS
+OSPA: 1.909267 -> 1.908967 -> 2.007700
+RMSE: 2.934317 -> 2.980071 -> 3.173222
+Card: 0.267000 -> 0.262250 -> 0.300500
+```
+
+结论：
+
+- `robust NIS` 比 plain `NIS` 稳定
+- 但它与 `w/o NIS` 基本打平，不足以构成当前主线 headline
+
+`freshness` 报告：
+
+- [RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md](../RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md)
+
+结果：
+
+```text
+OSPA: 1.908967 -> 1.909680
+RMSE: 2.980071 -> 2.979829
+Card: 0.262250 -> 0.262500
+```
+
+结论：
+
+- `freshness` 在当前口径下几乎不起作用
+- 只适合保留成负结果或附录说明
+
+`history` 报告：
+
+- [RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md](../RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md)
+
+结果：
+
+```text
+w/o history -> history
+OSPA: 1.811 -> 1.814
+RMSE: 3.173 -> 3.158
+Card: 0.214 -> 0.215
+```
+
+结论：
+
+- `history` 只带来很弱而且带耦合的变化
+- 更适合作为“尝试过，但不进正文主线”的补充材料
 
 ## 7. 推荐口径
 
@@ -314,6 +379,7 @@ model.adaptiveFusion.spatialStructureStrength = 0.45;
 model.adaptiveFusion.existenceStructureStrength = 0.08;
 model.adaptiveFusion.structureReliabilityPower = 0.30;
 model.adaptiveFusion.useNIS = false;
+model.adaptiveFusion.useHistory = false;
 ```
 
 对应主报告为：
@@ -326,3 +392,5 @@ model.adaptiveFusion.useNIS = false;
 - `链路质量`：通信可靠性
 - `存在性置信度`：目标存在性/基数判决可信度
 - `弱结构先验解耦`：对 spatial 分支做主要 refinement，并只对 existence 分支做轻微调制
+
+如果需要写论文正文，建议把 `robust NIS`、`history`、`freshness` 统一挪到次线或附录，而不要再和这四项主线并列叙述。

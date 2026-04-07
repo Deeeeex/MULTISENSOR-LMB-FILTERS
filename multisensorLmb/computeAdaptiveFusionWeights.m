@@ -3,7 +3,7 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
 %   The weight model is factorized as
-%       mask * covariance * link * cardinalityConsensus * existenceConfidence * freshness * nisPenalty * history
+%       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness * nisPenalty * history
 %   where NIS acts as a consistency penalty instead of a quality reward.
 %   The final weights are then normalized with temporal EMA smoothing.
 
@@ -23,6 +23,7 @@ useCovariance = getField(cfg, 'useCovariance', true);
 useLinkQuality = getField(cfg, 'useLinkQuality', true);
 useCardinalityConsensus = getField(cfg, 'useCardinalityConsensus', false);
 useExistenceConfidence = getField(cfg, 'useExistenceConfidence', false);
+useAssociationAmbiguity = getField(cfg, 'useAssociationAmbiguity', false);
 spatialEmaAlpha = getField(cfg, 'spatialEmaAlpha', emaAlpha);
 existenceEmaAlpha = getField(cfg, 'existenceEmaAlpha', emaAlpha);
 spatialMinWeight = getField(cfg, 'spatialMinWeight', minWeight);
@@ -48,6 +49,8 @@ cardinalityConsensusScore = resolveCardinalityConsensusScore( ...
     measurementUpdatedDistributions, useCardinalityConsensus, cfg);
 existenceConfidenceScore = resolveExistenceConfidenceScore( ...
     measurementUpdatedDistributions, useExistenceConfidence, cfg);
+associationAmbiguityScore = resolveAssociationAmbiguityScore( ...
+    commStats, t, numSensors, useAssociationAmbiguity, cfg);
 freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
@@ -56,11 +59,13 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
+    associationAmbiguityScore .* ...
     freshnessScore .* innovationPenalty .* historyScore;
 
 if useDecoupledKla
     spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
-        (linkQuality .^ spatialLinkQualityPower) .* innovationPenalty .* historyScore;
+        (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
+        innovationPenalty .* historyScore;
     existenceDedicatedScore = availabilityMask .* (linkQuality .^ existenceLinkQualityPower) .* ...
         (existenceConfidenceScore .^ existenceConfidenceWeightPower) .* ...
         cardinalityConsensusScore .* freshnessScore .* innovationPenalty .* historyScore;
@@ -133,6 +138,7 @@ debug.innovationPenalty = innovationPenalty;
 debug.innovationScore = innovationPenalty;
 debug.cardinalityConsensusScore = cardinalityConsensusScore;
 debug.existenceConfidenceScore = existenceConfidenceScore;
+debug.associationAmbiguityScore = associationAmbiguityScore;
 debug.freshnessScore = freshnessScore;
 debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
@@ -456,6 +462,42 @@ for s = 1:numSensors
     weightedConfidence = min(max(weightedConfidence, 0), 1);
     existenceConfidenceScore(s) = minScore + (1 - minScore) * (weightedConfidence ^ power);
 end
+end
+
+function associationAmbiguityScore = resolveAssociationAmbiguityScore(commStats, t, numSensors, useAssociationAmbiguity, cfg)
+associationAmbiguityScore = ones(1, numSensors);
+if ~useAssociationAmbiguity
+    return;
+end
+if nargin < 1 || ~isstruct(commStats)
+    return;
+end
+
+rawScore = [];
+if isfield(commStats, 'associationAmbiguityScore')
+    values = commStats.associationAmbiguityScore;
+    if ismatrix(values) && size(values, 1) == numSensors && size(values, 2) >= t
+        rawScore = values(:, t)';
+    elseif isvector(values) && numel(values) == numSensors
+        rawScore = reshape(values, 1, []);
+    end
+elseif isfield(commStats, 'associationConfidence')
+    values = commStats.associationConfidence;
+    if ismatrix(values) && size(values, 1) == numSensors && size(values, 2) >= t
+        rawScore = values(:, t)';
+    elseif isvector(values) && numel(values) == numSensors
+        rawScore = reshape(values, 1, []);
+    end
+end
+
+if isempty(rawScore)
+    return;
+end
+
+rawScore = min(max(rawScore, 0), 1);
+minScore = min(max(getField(cfg, 'associationAmbiguityMinScore', 0.85), 0), 1);
+power = max(getField(cfg, 'associationAmbiguityPower', 1.0), 0);
+associationAmbiguityScore = minScore + (1 - minScore) * (rawScore .^ power);
 end
 
 function [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality)

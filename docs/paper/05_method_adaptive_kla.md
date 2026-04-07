@@ -1,143 +1,285 @@
 # Method: Adaptive KLA Fusion
 
-## Recommended Section Layout
+## Paper-Ready Method Draft
 
-1. Baseline KLA or GA fusion
-2. Adaptive fusion-weight factorization
-3. Existence-confidence weighting
-4. Weak structure-aware decoupled refinement
-5. Temporal smoothing and minimum-weight stabilization
-6. Optional consistency and extension modules
+This section describes the adaptive fusion rule used in the present distributed GA-LMB implementation. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network.
 
-## Core Weight Factorization
+### 1. Baseline GA-LMB Fusion
 
-Use the current implementation as the paper backbone:
+At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior provided by node $j \in \mathcal{N}_s$. The baseline distributed fusion target is the weighted geometric average
 
-```text
-baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
-rawScore_j(t)  = baseScore_j(t) * existenceConfidence_j(t) * innovationPenalty_j(t) * associationScore_j(t) * historyScore_j(t)
-```
+$$
+\bar{\pi}_k^{(s)}(X) \propto \prod_{j \in \mathcal{N}_s} \left(\pi_k^{(j)}(X)\right)^{\omega_{k,s}^{(j)}},
+\qquad
+\sum_{j \in \mathcal{N}_s} \omega_{k,s}^{(j)} = 1,
+\qquad
+\omega_{k,s}^{(j)} \ge 0.
+$$
 
-Recommended main paper version:
+In the current GA-LMB implementation, each Bernoulli component is fused after moment matching. For the $i$th Bernoulli component at node $j$, let $(r_{k,i}^{(j)}, p_{k,i}^{(j)})$ denote its existence probability and spatial density. After moment projection, the Gaussian approximation of $p_{k,i}^{(j)}$ is
 
-```text
-rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * existenceConfidence_j(t)
-```
+$$
+p_{k,i}^{(j)}(x) \approx \mathcal{N}\!\left(x;\nu_{k,i}^{(j)}, T_{k,i}^{(j)}\right).
+$$
 
-Reason:
+Using spatial fusion weights $\omega_{k,s}^{x,(j)}$, the fused spatial density is obtained in canonical form:
 
-- `historyScore` is currently weak as a headline method point.
-- `associationScore` is better treated as an extension unless later evidence improves.
-- `robust NIS` is useful as a consistency-analysis module, but not the strongest current headline gain.
+$$
+K_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1},
+\qquad
+h_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1}\nu_{k,i}^{(j)},
+$$
 
-Current best refinement layer:
+$$
+\Sigma_{k,i}^{(s)} = \left(K_{k,i}^{(s)}\right)^{-1},
+\qquad
+\mu_{k,i}^{(s)} = \Sigma_{k,i}^{(s)} h_{k,i}^{(s)}.
+$$
 
-```text
-spatialScore_j(t)   = blend(rawScore_j(t), spatialDedicatedScore_j(t), eta_s) * structurePrior^gamma_s
-existenceScore_j(t) = blend(rawScore_j(t), existenceDedicatedScore_j(t), eta_e) * structurePrior^gamma_e
-```
+Using existence fusion weights $\omega_{k,s}^{r,(j)}$, the Bernoulli existence probability is fused by the corresponding weighted geometric rule:
 
-where the structure-aware part is intentionally weak on the existence branch.
+$$
+r_{k,i}^{(s)} =
+\frac{\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}}}
+{\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}} +
+\prod_{j \in \mathcal{N}_s} \left(1-r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}}},
+$$
 
-## Terms To Explain
+where $\eta_{k,i}^{(s)}$ is the Gaussian normalization term induced by the fused spatial density. If all weights are fixed a priori, the above rule reduces to ordinary fixed-weight GA fusion. The method proposed here instead adapts these weights over time.
 
-`mask_j(t)`:
+### 2. Factorized Adaptive Weight Backbone
 
-- availability under communication and outage constraints
+The adaptive design begins with a shared quality backbone. For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
 
-`covScore_j(t)`:
+$$
+\tilde{\omega}_{k,s}^{(j)} =
+m_k^{(j)}
+\cdot
+q_{\mathrm{cov},k}^{(j)}
+\cdot
+q_{\mathrm{link},k}^{(j)}
+\cdot
+q_{\mathrm{exist},k}^{(j)},
+$$
 
-- posterior concentration proxy
-- currently implemented by inverse mean posterior covariance trace
+where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)}$ is a covariance-quality score, $q_{\mathrm{link},k}^{(j)}$ is a realized link-quality score, and $q_{\mathrm{exist},k}^{(j)}$ is an existence-confidence score. The normalized weight is
 
-`linkQuality_j(t)`:
+$$
+\bar{\omega}_{k,s}^{(j)} =
+\frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
+$$
 
-- delivered over delivered plus dropped measurements
+This factorization is intentionally narrow. It keeps only the three factors with the strongest current evidence:
 
-`existenceConfidence_j(t)`:
+- posterior concentration through covariance,
+- communication reliability through delivered-versus-dropped packets,
+- existence decisiveness through Bernoulli existence probabilities.
 
-- confidence derived from posterior Bernoulli existence probabilities
-- high when `r` is close to `0` or `1`, low when `r` is close to `0.5`
-- intended to capture local existence and cardinality decisiveness
+Other terms, such as NIS penalties, history scores, freshness scores, or ambiguity-aware corrections, remain optional extensions rather than components of the claimed core method.
 
-`innovationPenalty_j(t)`:
+### 3. Covariance And Link-Quality Terms
 
-- optional consistency penalty from aggregated NIS statistics
+The covariance term is designed to reward concentrated local posteriors. For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The code uses
 
-`structurePrior_j(t)`:
+$$
+q_{\mathrm{cov},k}^{(j)}
+=
+\frac{1}{\epsilon + \frac{1}{M_k}\sum_{i=1}^{M_k}\operatorname{tr}\!\left(T_{k,i}^{(j)}\right)},
+$$
 
-- weak local-graph refinement based on neighborhood overlap and communication reliability
-- used to slightly reshape the decoupled spatial and existence branches
-- not intended to replace posterior-quality factors as the main weight signal
+so that a node with smaller posterior spread receives a larger score.
 
-## Existence-Confidence Narrative
+The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The code uses
 
-This should be the main new method subsection.
+$$
+q_{\mathrm{link},k}^{(j)}
+=
+\frac{d_k^{(j)}}{d_k^{(j)} + \ell_k^{(j)}},
+$$
 
-Required points:
+which directly reflects how reliably that node's information is reaching its neighbors. This term is particularly important under the tiered heterogeneous packet-loss model, where nodes with similar sensing models can still have systematically different effective utility because their measurements are delivered with different reliability.
 
-- Covariance measures spatial concentration, but not whether existence decisions are decisive.
-- Link quality measures realized communication success, but not whether the transmitted local posterior is trustworthy in cardinality terms.
-- Bernoulli existence probabilities provide a direct signal for how confidently a sensor asserts the presence or absence of targets.
-- A weighted confidence score from local existence probabilities adds a complementary dimension to covariance and link quality.
+### 4. Existence-Confidence Weighting
 
-## Weak Structure-Aware Decoupled Narrative
+The main additional method contribution beyond covariance and link quality is the existence-confidence term. Covariance measures spatial concentration, but it does not indicate whether a node is decisive about the existence of a target. Likewise, link statistics indicate whether packets were delivered, but they do not indicate whether the delivered posterior is reliable in cardinality terms.
 
-This should be a short refinement subsection after the three-factor design.
+To capture this missing dimension, the method computes a certainty score from Bernoulli existence probabilities. For the $i$th Bernoulli component at node $j$,
 
-Required points:
+$$
+c_{k,i}^{(j)} = \left|2r_{k,i}^{(j)} - 1\right|.
+$$
 
-- The strongest current result does not come from replacing the three-factor score, but from refining it.
-- Spatial and existence fusion need not share exactly the same weight dynamics.
-- The spatial branch can tolerate a modest graph-aware refinement.
-- The existence branch is much more sensitive, so only a very weak structure-aware adjustment is retained.
-- Structure should be framed as a light prior layered on top of posterior quality and link quality, not as a topology-only weighting scheme.
+This quantity is large when $r_{k,i}^{(j)}$ is close to $0$ or $1$, and small when $r_{k,i}^{(j)}$ is close to the ambiguous region around $0.5$. The per-node weighted existence confidence is then defined as
 
-## NIS Narrative
+$$
+\bar{c}_{k}^{(j)} =
+\frac{\sum_{i=1}^{M_k} r_{k,i}^{(j)} c_{k,i}^{(j)}}
+{\epsilon + \sum_{i=1}^{M_k} r_{k,i}^{(j)}}.
+$$
 
-This is now a secondary but still useful subsection.
+The final existence-confidence score is mapped into a bounded positive weight factor:
 
-Required points:
+$$
+q_{\mathrm{exist},k}^{(j)}
+=
+\lambda_{\min} + (1-\lambda_{\min})\left(\bar{c}_{k}^{(j)}\right)^{p_e},
+$$
 
-- NIS and posterior covariance are structurally coupled through the innovation covariance.
-- A monotonic `smaller NIS is better` mapping causes double counting.
-- The fix is to treat NIS as a consistency test, not a second quality reward.
-- `robust NIS` uses quantile or median aggregation.
-- The penalty is asymmetric: weaker for too-small NIS, stronger for too-large NIS.
+where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters. This design gives more influence to nodes whose posteriors are decisive about object existence while preventing low-confidence nodes from being assigned zero weight. Empirically, this term is the key factor that improves cardinality-related consensus beyond a covariance-and-link-only baseline.
 
-## Useful Equation Skeleton
+### 5. Decoupled Spatial And Existence Scores
 
-Suggested equations to include:
+The current best implementation does not force the same adaptive score to govern spatial fusion and existence fusion. Instead, it constructs branch-specific dedicated scores and blends them with the shared backbone. The spatial-dedicated score is
 
-- KLA or geometric-average fusion rule
-- covariance score definition
-- link-quality definition from delivered versus dropped packets
-- existence-confidence score definition
-- decoupled spatial and existence score definitions
-- weak structure-prior modulation
-- optional NIS definition and normalized form
-- EMA smoothing of the final weights
+$$
+\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
+m_k^{(j)}
+\cdot
+\left(q_{\mathrm{cov},k}^{(j)}\right)^{\alpha_x}
+\cdot
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_x},
+$$
 
-## Optional Modules
+while the existence-dedicated score is
 
-Describe briefly and demote:
+$$
+\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)} =
+m_k^{(j)}
+\cdot
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_r}
+\cdot
+\left(q_{\mathrm{exist},k}^{(j)}\right)^{\alpha_r}.
+$$
 
-- `innovationPenalty`: optional NIS-based consistency term
-- `historyScore`: optional temporal-stability term
-- `associationScore`: optional ambiguity-aware term
-- strong structure-aware priors on the existence branch
+The final branch scores are obtained through geometric interpolation:
 
-Recommended treatment:
+$$
+\tilde{\omega}_{k,s}^{x,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_x}
+\left(\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}\right)^{\eta_x},
+$$
 
-- include in the method as optional extensions
-- evaluate in ablation
-- do not make them part of the claimed core method
+$$
+\tilde{\omega}_{k,s}^{r,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_r}
+\left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r},
+$$
+
+with $0 \le \eta_x,\eta_r \le 1$. In implementation form, these products are realized multiplicatively as
+
+$$
+\tilde{\omega}_{k,s}^{x,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_x}
+\cdot
+\left(\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}\right)^{\eta_x},
+\qquad
+\tilde{\omega}_{k,s}^{r,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_r}
+\cdot
+\left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
+$$
+
+The instantaneous branch-normalized weights are then
+
+$$
+\bar{\omega}_{k,s}^{x,(j)}
+=
+\frac{\tilde{\omega}_{k,s}^{x,(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{x,(u)}},
+\qquad
+\bar{\omega}_{k,s}^{r,(j)}
+=
+\frac{\tilde{\omega}_{k,s}^{r,(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{r,(u)}}.
+$$
+
+The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. The experiments show that the existence branch is more sensitive, so the best setting uses only a mild deviation from the shared backbone on the existence side.
+
+### 6. Weak Structure-Aware Refinement
+
+After branch decoupling, the method applies a weak graph-aware correction. Let $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ denote spatial and existence structure priors, respectively. The code constructs these priors from two ingredients:
+
+- neighborhood-overlap similarity in the local communication graph,
+- communication-reliability information derived from link-loss statistics.
+
+The branch scores are then modulated as
+
+$$
+\tilde{\omega}_{k,s}^{x,(j)} \leftarrow \tilde{\omega}_{k,s}^{x,(j)}
+\cdot
+\left(\xi_{k,s}^{x,(j)}\right)^{\gamma_x},
+\qquad
+\tilde{\omega}_{k,s}^{r,(j)} \leftarrow \tilde{\omega}_{k,s}^{r,(j)}
+\cdot
+\left(\xi_{k,s}^{r,(j)}\right)^{\gamma_r},
+$$
+
+where $\gamma_x,\gamma_r \ge 0$ are structure-strength parameters. The current best configuration intentionally keeps $\gamma_r \ll \gamma_x$. In other words, topology is not allowed to dominate the core weight assignment, and the existence branch receives only a very weak structural perturbation. This design reflects the empirical fact that stronger topology-driven corrections can easily damage cardinality agreement even when they help spatial consensus.
+
+The implementation also contains an optional posterior-structure-consistency mode that derives structure scores from pairwise disagreement among neighboring posteriors. However, the present best-performing main-line configuration keeps this option off and uses the weaker static local-structure prior instead.
+
+### 7. Temporal Stabilization And Minimum-Weight Safeguard
+
+The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average:
+
+$$
+\omega_{k,s}^{x,(j)}
+=
+\operatorname{Normalize}\!\left(
+\alpha_x \omega_{k-1,s}^{x,(j)} + (1-\alpha_x)\bar{\omega}_{k,s}^{x,(j)}
+\right),
+$$
+
+$$
+\omega_{k,s}^{r,(j)}
+=
+\operatorname{Normalize}\!\left(
+\alpha_r \omega_{k-1,s}^{r,(j)} + (1-\alpha_r)\bar{\omega}_{k,s}^{r,(j)}
+\right),
+$$
+
+where $\bar{\omega}_{k,s}^{x,(j)}$ and $\bar{\omega}_{k,s}^{r,(j)}$ denote the branch-normalized instantaneous weights and $\alpha_x,\alpha_r \in [0,1)$ are smoothing factors. A minimum-weight safeguard is then enforced on available neighbors before renormalization so that no active node is completely discarded by transient score fluctuations.
+
+This stabilization step is not presented as a novelty claim by itself. Its purpose is pragmatic: preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+
+### 8. Optional Consistency And Extension Modules
+
+The implementation retains several optional extensions:
+
+- `innovationPenalty`, an NIS-based consistency penalty,
+- `historyScore`, a temporal-stability term,
+- `freshnessScore`, a recency-oriented term,
+- `cardinalityConsensusScore` and ambiguity-related extensions,
+- posterior-structure-consistency scoring.
+
+These modules are intentionally not part of the claimed core method. The main reason is not that they are useless in every setting, but that their current evidence is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus weak structure-aware decoupling.
+
+Among them, the most relevant is the NIS-based consistency term. Innovation consistency is still useful, but it is treated as a penalty rather than an additional monotonic reward. This choice avoids double counting, because innovation-based scores are structurally coupled with covariance through the innovation covariance. Accordingly, the current paper positions NIS as a secondary consistency module and leaves its detailed analysis to ablation or appendix discussion rather than the main method claim.
+
+## Method Positioning Notes
+
+- Present the method as an adaptive weight-allocation scheme for distributed GA-LMB fusion, not as a new RFS filter family.
+- Keep the main narrative on `covariance + link quality + existence confidence + weak structure-aware decoupled refinement`.
+- Treat EMA smoothing as a stabilization device, not a headline contribution.
+- Treat NIS, history, freshness, and stronger structure priors as optional modules or appendix material.
+
+## Citation Keys Used Here
+
+- `Battistelli2014KLA`
+- `Hlinka2014ICI`
+- `Vo2014LRFS`
+- `Reuter2014LMB`
+- `Vo2019MSGLMB`
+- `BarShalom2001Estimation`
 
 ## Source Files
 
 - `multisensorLmb/computeAdaptiveFusionWeights.m`
-- `multisensorLmb/generateLmbSensorAssociationMatrices.m`
+- `multisensorLmb/gaLmbTrackMerging.m`
 - `multisensorLmb/runParallelUpdateLmbFilter.m`
+- `multisensorLmb/runDistributedLmbFilter.m`
 - `docs/ADAPTIVE_FUSION_WEIGHTS_CN.md`
 - `docs/COMMUNICATION_TIERED_DROP_UPDATE_CN.md`
 - `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`

@@ -61,6 +61,7 @@ progressLabel = getConfigField(adaptiveCfg, 'progressLabel', '');
     prevWeights.aaExistence = getConfigField(model, 'aaExistenceWeights', model.aaSensorWeights);
     prevWeights.historyState = struct();
     innovationConsistency = ones(model.numberOfSensors, simulationLength);
+    associationAmbiguityScore = ones(model.numberOfSensors, simulationLength);
 %% Run the LMB filter
 for t = 1:simulationLength
     %% Prediction
@@ -77,6 +78,10 @@ for t = 1:simulationLength
             end
             if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
                 innovationConsistency(s, t) = associationMatrices.innovationScore;
+            end
+            if isfield(associationMatrices, 'associationAmbiguityScore') && ...
+                    isfinite(associationMatrices.associationAmbiguityScore)
+                associationAmbiguityScore(s, t) = associationMatrices.associationAmbiguityScore;
             end
             if useNIS && useNisEma && t > 1
                 innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
@@ -101,6 +106,7 @@ for t = 1:simulationLength
                 measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
             end
             innovationConsistency(s, t) = 1;
+            associationAmbiguityScore(s, t) = 1;
             if useNIS && useNisEma && t > 1
                 innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
                     (1 - nisEmaAlpha) * innovationConsistency(s, t);
@@ -118,6 +124,7 @@ for t = 1:simulationLength
             commStatsLocal = struct();
         end
         commStatsLocal.innovationConsistency = innovationConsistency;
+        commStatsLocal.associationAmbiguityScore = associationAmbiguityScore;
         [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights( ...
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         model.gaSensorWeights = gaWeights;

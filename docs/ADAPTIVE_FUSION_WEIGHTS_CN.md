@@ -1,57 +1,50 @@
 # Adaptive Fusion Weights (GA/AA)
 
-本文档说明当前工程中的自适应融合权重结构、配置项，以及当前 `main` 分支上的推荐主线配置。
+本文档说明当前工程中的自适应融合权重结构、推荐主线配置，以及哪些模块应放在正文主线、哪些模块只保留为次线或附录材料。
 
-## 1. 当前权重结构
+当前建议已经比较明确：
 
-当前工程将自适应融合权重写成显式分层结构。共享质量骨架是：
+- 正文主线只突出 `covariance + link quality + existenceConfidence + weak structure-aware decoupled KLA`
+- `NIS/history` 仍然保留实现和实验结果，但只作为次线分析或附录候选
+
+## 1. 当前主线结构
+
+当前 `main` 分支上的 best 配置，实际使用的是四层主线结构：
 
 ```text
 baseScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t)
-rawScore_j(t)  = baseScore_j(t) * existenceConfidence_j(t) * innovationPenalty_j(t) * historyScore_j(t)
+rawScore_j(t)  = baseScore_j(t) * existenceConfidence_j(t)
 ```
 
-其中：
-
-- `mask_j(t)`：可用性掩码
-- `covScore_j(t)`：协方差质量项
-- `linkQuality_j(t)`：链路质量项
-- `existenceConfidence_j(t)`：存在性/基数置信度项
-- `innovationPenalty_j(t)`：NIS 统计一致性惩罚项
-- `historyScore_j(t)`：历史稳定性项
-
-如果启用 decoupled KLA，则在共享骨架上再拆出 spatial / existence 两条分支：
+在此基础上，再做一个很弱的 decoupled refinement：
 
 ```text
 spatialScore_j(t)   = blend(rawScore_j(t), spatialDedicatedScore_j(t), eta_s)
 existenceScore_j(t) = blend(rawScore_j(t), existenceDedicatedScore_j(t), eta_e)
 ```
 
-若进一步启用 structure-aware refinement，则对两支再叠加一个很弱的结构先验调制：
+如果进一步启用 structure-aware refinement，则只做轻量调制：
 
 ```text
 spatialScore_j(t)   = spatialScore_j(t)   * spatialStructurePrior_j(t)^gamma_s
 existenceScore_j(t) = existenceScore_j(t) * existenceStructurePrior_j(t)^gamma_e
 ```
 
-当前 `main` 分支上的最佳主线配置里：
+当前 best 对应的主线开关是：
 
 ```text
-useNIS = false
-useHistory = false
+useCovariance = true
+useLinkQuality = true
+useExistenceConfidence = true
 useDecoupledKla = true
 useStructureAwareKla = true
+useNIS = false
+useHistory = false
 ```
 
-因此实际主实验最接近的结构是：
+工程里仍然保留 `innovationPenalty` 和 `historyScore` 这类扩展项，但它们不再属于当前论文正文主线。
 
-```text
-rawScore_j(t)       = mask_j(t) * covScore_j(t) * linkQuality_j(t) * existenceConfidence_j(t)
-spatialScore_j(t)   = weakly-refined decoupled spatial branch
-existenceScore_j(t) = very-lightly-refined decoupled existence branch
-```
-
-## 2. 各项含义
+## 2. 主线四项的具体实现与作用
 
 ### 2.1 协方差质量项 `covScore`
 
@@ -59,55 +52,47 @@ existenceScore_j(t) = very-lightly-refined decoupled existence branch
 
 - `multisensorLmb/computeAdaptiveFusionWeights.m`
 
-对 measurement-updated LMB 做 m-projection 后，用协方差 trace 构造：
+当前实现对 measurement-updated LMB 做 m-projection 后，用 posterior covariance trace 构造质量分数：
 
 ```text
 covScore = 1 / (eps + mean(trace(T)))
 ```
 
-它的职责是度量“估计是否集中、是否精确”。
+它表达的是“这个局部后验是否足够集中、状态估计是否足够精确”。
 
-### 2.2 NIS 一致性惩罚项 `innovationPenalty`
+它有用的原因是：
 
-实现位置：
+- fixed weights 默认假设各节点后验质量接近，但实际局部估计精度会明显波动
+- `covScore` 直接给状态更集中的后验更高权重，是最自然的 posterior-quality baseline
+- 在当前 tiered-drop 主场景中，它是 fixed weights 之后第一个稳定拉低三项一致性指标的主因子
 
-- `multisensorLmb/generateLmbSensorAssociationMatrices.m`
-
-当前不再把 NIS 当作“越小越好”的质量分数，而是只把它作为统计一致性惩罚项使用。
-
-具体分析见：
-
-- `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`
-
-它的职责是度量“创新统计是否与理论模型一致”。
-
-### 2.3 链路质量项 `linkQuality`
+### 2.2 链路质量项 `linkQuality`
 
 实现位置：
 
 - `multisensorLmb/computeAdaptiveFusionWeights.m`
 
-基于通信层统计：
+当前实现直接基于通信层 delivered / dropped 统计：
 
 ```text
 linkQuality = delivered / (delivered + dropped)
 ```
 
-### 2.4 历史稳定性项 `historyScore`
+它表达的是“这个节点最近真正把多少有效测量送出来了”。
+
+它有用的原因是：
+
+- 协方差只能看 posterior 质量，看不到通信是否可靠
+- 在分档异构丢包条件下，不同节点的长期送达率确实不同
+- 该因子能够把“好后验但链路差”和“后验一般但链路稳定”区分开，是当前 heterogeneous communication 设定下最关键的通信侧因子
+
+### 2.3 存在性/基数置信度项 `existenceConfidence`
 
 实现位置：
 
 - `multisensorLmb/computeAdaptiveFusionWeights.m`
 
-当前该模块仍保留，但默认先关闭，用于避免与 NIS 的分析混杂。
-
-### 2.5 存在性/基数置信度项 `existenceConfidence`
-
-实现位置：
-
-- `multisensorLmb/computeAdaptiveFusionWeights.m`
-
-这个因子不是再去看状态协方差，也不是再去看链路是否送达，而是看 measurement-updated posterior 里每个 Bernoulli 的 existence probability `r` 是否足够“尖锐”。
+这个因子不再看状态协方差，也不再看链路是否送达，而是直接看 measurement-updated posterior 中 Bernoulli existence probability `r` 是否足够尖锐。
 
 对单个 Bernoulli：
 
@@ -115,45 +100,63 @@ linkQuality = delivered / (delivered + dropped)
 certainty = |2r - 1|
 ```
 
-其中：
-
-- `r` 接近 `0` 或 `1`，说明“存在/不存在”判断更明确，certainty 更高
-- `r` 接近 `0.5`，说明存在性判决更模糊，certainty 更低
-
-当前实现对每个传感器使用 existence probability 加权平均：
+对单个传感器的汇总实现是：
 
 ```text
 weightedConfidence = sum(r .* |2r - 1|) / sum(r)
 existenceConfidenceScore = minScore + (1 - minScore) * weightedConfidence^power
 ```
 
-它的职责是度量“这个节点当前的目标存在性判断是否可靠”，因此更直接对应 cardinality 一致性问题。
+它有用的原因是：
 
-### 2.6 弱结构先验解耦项 `structure-aware decoupled KLA`
+- `covScore` 只能表达“位置是否集中”，不能表达“存在/不存在判决是否果断”
+- `linkQuality` 只能表达“有没有顺利发过来”，不能表达“传来的 posterior 在 cardinality 上是否可信”
+- `existenceConfidence` 恰好补上了这条维度，因此能更直接对应 cardinality disagreement
+
+在当前 tiered-drop `5-trial` 消融里：
+
+```text
++link quality:         OSPA 1.877771, RMSE 1.800945, Card 0.245250
++existence confidence: OSPA 1.874840, RMSE 1.779820, Card 0.244500
+```
+
+它是当前已验证最有效的第三个主线因子。
+
+### 2.4 弱结构先验解耦项 `structure-aware decoupled KLA`
 
 实现位置：
 
 - `multisensorLmb/computeAdaptiveFusionWeights.m`
 - `multisensorLmb/runDistributedLmbFilter.m`
 
-这一层不是新的主质量因子，而是加在三因子 baseline 上的一个很弱 refinement。
+这一层不是替代前三个质量因子的新主分数，而是在三因子 baseline 上做“很弱的分支 refinement”。
 
 当前实现里：
 
-- `spatial` 分支允许稍强一点的结构修正
-- `existence` 分支只允许非常轻的结构修正
-- 结构先验来自局部子图重叠和固定分档丢包率的可靠性信息
+- `spatial` 分支可以承受相对更强的结构修正
+- `existence` 分支只允许非常轻的结构调制
+- 结构先验来自局部子图重叠和链路可靠性信息
 
-它的职责是：
+它有用的原因是：
 
-- 在不破坏 `existenceConfidence` 主导作用的前提下，轻微改善 spatial consensus
-- 保持 cardinality 不退化
+- spatial consistency 和 existence consistency 对权重扰动的敏感度不同
+- 如果两者完全共用一条权重路径，往往会出现“空间更好了，但 cardinality 被拖坏”的耦合
+- decoupled KLA 先把两条分支拆开，再在 spatial 分支上保留主要结构增益，只给 existence 分支非常轻的修正，能更稳定地换取 OSPA/RMSE 改善而不破坏 cardinality
+
+当前 best `5-trial` 结果是：
+
+```text
++existence confidence baseline:   OSPA 1.874840, RMSE 1.779820, Card 0.244500
++structure-aware decoupled KLA:   OSPA 1.862244, RMSE 1.749608, Card 0.244250
+```
+
+这说明它更适合作为“主线三因子之上的轻量 refinement”，而不是单独拿出来当一个拓扑权重方法。
 
 ## 3. 当前推荐配置
 
 ### 3.1 当前主线 best 配置
 
-当前 `main` 分支推荐直接使用以下配置复现主线 best：
+当前推荐直接使用以下配置复现主线 best：
 
 ```matlab
 model.adaptiveFusion.enabled = true;
@@ -168,71 +171,134 @@ model.adaptiveFusion.existenceConfidencePower = 2.0;
 
 model.adaptiveFusion.useDecoupledKla = true;
 model.adaptiveFusion.useStructureAwareKla = true;
+model.adaptiveFusion.usePosteriorStructureConsistency = false;
 model.adaptiveFusion.spatialDecouplingStrength = 0.5;
 model.adaptiveFusion.existenceDecouplingStrength = 0.15;
-model.adaptiveFusion.spatialStructureStrength = 0.35;
-model.adaptiveFusion.existenceStructureStrength = 0.05;
-model.adaptiveFusion.structureReliabilityPower = 0.25;
+model.adaptiveFusion.spatialStructureStrength = 0.45;
+model.adaptiveFusion.existenceStructureStrength = 0.08;
+model.adaptiveFusion.structureReliabilityPower = 0.30;
 model.adaptiveFusion.structureReliabilityMinScore = 0.25;
 
 model.adaptiveFusion.useNIS = false;
 model.adaptiveFusion.useHistory = false;
 ```
 
-主报告是：
+主报告：
 
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_023216.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
+
+对应的 main-line headline numbers：
+
+```text
+fixed weights:                    OSPA 2.624065, RMSE 2.702602, Card 0.878750
++covariance:                      OSPA 2.211513, RMSE 2.410976, Card 0.589500
++link quality:                    OSPA 1.877771, RMSE 1.800945, Card 0.245250
++existence confidence:            OSPA 1.874840, RMSE 1.779820, Card 0.244500
++structure-aware decoupled KLA:   OSPA 1.862244, RMSE 1.749608, Card 0.244250
+```
 
 ### 3.2 三因子 baseline 配置
 
-如果只想回到结构 refinement 之前的三因子 baseline，推荐值如下：
+如果只想回到结构 refinement 之前的三因子 baseline，可使用：
 
 ```matlab
-model.adaptiveFusion.enabled = true;
-model.adaptiveFusion.emaAlpha = 0.7;
-model.adaptiveFusion.minWeight = 0.05;
-
 model.adaptiveFusion.useCovariance = true;
 model.adaptiveFusion.useLinkQuality = true;
 model.adaptiveFusion.useExistenceConfidence = true;
 model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
 model.adaptiveFusion.existenceConfidencePower = 2.0;
-
 model.adaptiveFusion.useDecoupledKla = false;
 model.adaptiveFusion.useStructureAwareKla = false;
 model.adaptiveFusion.useNIS = false;
 model.adaptiveFusion.useHistory = false;
 ```
 
-对应报告是：
+对应报告：
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
 
-## 4. 为什么当前先关掉 history 和 NIS
+## 4. 次线模块与附录候选
 
-原因很直接：
+### 4.1 `robust NIS`
 
-1. 当前主线 best 已经在 `NIS = off`、`history = off` 的设置下超过旧 best
-2. `historyScore` 会引入额外的间接耦合路径，不利于判断三因子主线和弱结构 refinement 的真实边际收益
-3. `NIS` 更适合作为二级一致性分析模块，而不是当前主线配置的一部分
+实现位置：
 
-因此当前采取的策略是：
+- `multisensorLmb/generateLmbSensorAssociationMatrices.m`
 
-- 主线先固定在 `covariance + link quality + existenceConfidence + weak structure-aware decoupling`
-- `historyScore` 保持关闭
-- `NIS` 保持关闭
-- 等主线结果稳定后，再把 `NIS/history` 当作 secondary ablation 单独评估
+当前定位：
+
+- 作为一致性惩罚或统计诊断模块保留
+- 不作为当前正文主线的一部分
+
+原因：
+
+- NIS 与 posterior covariance 通过 innovation covariance 有天然耦合
+- 如果把它再当成一个“越小越好”的奖励项，容易和 `covScore` 重复表达
+- 当前更合理的做法是把它当一致性测试，只在明显失配时惩罚
+
+当前保留的次线结果是：
+
+```text
+w/o NIS -> robust NIS -> NIS
+OSPA: 1.811 -> 1.810 -> 1.901
+RMSE: 3.173 -> 3.153 -> 3.329
+Card: 0.214 -> 0.209 -> 0.234
+```
+
+结论：
+
+- `robust NIS` 明显好于 plain `NIS`
+- 但它相对 `w/o NIS` 的增益很弱，不足以压过当前四项主线
+
+参考：
+
+- `docs/NIS_IMPLEMENTATION_AND_ANALYSIS_CN.md`
+- `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
+
+### 4.2 `historyScore`
+
+实现位置：
+
+- `multisensorLmb/computeAdaptiveFusionWeights.m`
+
+当前定位：
+
+- 只保留为次线或附录材料
+- 默认关闭
+
+原因：
+
+- 它会引入额外的时间耦合路径，不利于判断当前主线因子的真实边际收益
+- 当前实验里收益不稳定，且 narrative 上不如 `existenceConfidence` 和弱结构解耦清晰
+
+当前保留的历史结果是：
+
+```text
+w/o history -> history
+OSPA: 1.811 -> 1.814
+RMSE: 3.173 -> 3.158
+Card: 0.214 -> 0.215
+```
+
+结论：
+
+- history 只带来很弱的局部变化
+- 不适合放在正文主线，最多可在附录里说明“尝试过，但收益有限且耦合较强”
+
+参考：
+
+- `RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md`
 
 ## 5. 回滚方式
 
-如果需要回退到三因子 existence-confidence baseline，可按以下方式关闭当前弱结构解耦层：
+如果需要回退到三因子 existence-confidence baseline，可关闭当前弱结构解耦层：
 
 ```matlab
 model.adaptiveFusion.useDecoupledKla = false;
 model.adaptiveFusion.useStructureAwareKla = false;
 ```
 
-如果需要回到更早的 NIS 分析线，可按以下方式重新打开该模块：
+如果需要回到 NIS 次线分析，可重新打开：
 
 ```matlab
 model.adaptiveFusion.useNIS = true;
@@ -243,7 +309,7 @@ model.adaptiveFusion.nisEmaEnabled = false;
 model.adaptiveFusion.useHistory = false;
 ```
 
-若只是想恢复 history：
+如果只是想恢复 history：
 
 ```matlab
 model.adaptiveFusion.useHistory = true;
@@ -251,96 +317,8 @@ model.adaptiveFusion.useHistory = true;
 
 ## 6. 当前实验建议
 
-在当前阶段，更建议优先做以下对比：
+当前更建议优先围绕下面这条主线补证据：
 
-1. `+link quality -> +existence confidence -> +structure-aware decoupled KLA`
-2. 在更多 seed、更多通信等级下验证弱结构 refinement 是否稳定
-3. 只有主线结果稳定后，再把 `NIS/history` 加回去做 secondary 分析
-
-## 7. 历史 NIS 调优结果（2026-03-09，次线）
-
-在 decoupled NIS 的基础上，进一步把惩罚项调整为“不对称软惩罚”：
-
-- 放宽一致性区间：`nisConsistencyConfidence = 0.7`
-- 下侧弱惩罚：`nisPenaltyLowerScale = 1.0`
-- 上侧强惩罚：`nisPenaltyUpperScale = 6.0`
-- 上下侧均使用平方型软惩罚：`nisPenaltyLowerPower = 2.0`，`nisPenaltyUpperPower = 2.0`
-
-20 次 Monte Carlo 的最新结果为：
-
-```text
-Comprehensive (OSPA) consensus: 1.811 -> 1.810 -> 1.901
-Position (RMSE) consensus:      3.173 -> 3.153 -> 3.329
-Cardinality consensus:          0.214 -> 0.209 -> 0.234
-```
-
-顺序仍为：
-
-- `w/o NIS`
-- `robust NIS`
-- `NIS`
-
-当前结论是：
-
-1. 调优后的 `robust NIS` 已经把 OSPA 恢复到与 `w/o NIS` 基本持平
-2. 同时仍保留了轻微的 RMSE 与基数一致性收益
-3. 普通 `NIS` 仍然不稳定，当前不建议作为默认方案
-
-## 8. Tiered 通信配置下的新结果（2026-03-22）
-
-在新的分档异构丢包通信配置下：
-
-```matlab
-commConfig.pDropLevels = [0, 0.1, 0.2, 0.5];
-commConfig.pDropLevelCounts = [1, 4, 1, 2];
-```
-
-我们先测试了在 `协方差 + 链路质量` 基础上加入新的存在性/基数置信度因子，随后又继续测试了一个较弱的 structure-aware decoupled KLA 版本。
-
-推荐配置为：
-
-```matlab
-model.adaptiveFusion.useCovariance = true;
-model.adaptiveFusion.useLinkQuality = true;
-model.adaptiveFusion.useExistenceConfidence = true;
-model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
-model.adaptiveFusion.existenceConfidencePower = 2.0;
-model.adaptiveFusion.useNIS = false;
-```
-
-existence-confidence baseline 的 `5 trial` 消融结果为：
-
-```text
-+link quality:          OSPA 1.877771, RMSE 1.800945, Card 0.245250
-+existence confidence: OSPA 1.874840, RMSE 1.779820, Card 0.244500
-```
-
-在此基础上，当前 best 配置进一步采用：
-
-```matlab
-model.adaptiveFusion.useDecoupledKla = true;
-model.adaptiveFusion.useStructureAwareKla = true;
-model.adaptiveFusion.usePosteriorStructureConsistency = false;
-model.adaptiveFusion.spatialDecouplingStrength = 0.5;
-model.adaptiveFusion.existenceDecouplingStrength = 0.15;
-model.adaptiveFusion.spatialStructureStrength = 0.35;
-model.adaptiveFusion.existenceStructureStrength = 0.05;
-model.adaptiveFusion.structureReliabilityPower = 0.25;
-model.adaptiveFusion.structureReliabilityMinScore = 0.25;
-model.adaptiveFusion.useNIS = false;
-model.adaptiveFusion.useHistory = false;
-```
-
-对应的 `5 trial` 新结果为：
-
-```text
-+link quality:                    OSPA 1.877771, RMSE 1.800945, Card 0.245250
-+structure-aware decoupled KLA:  OSPA 1.862244, RMSE 1.749608, Card 0.244250
-```
-
-当前结论是：
-
-1. `existenceConfidence` 比 `freshness` 和 `robust NIS` 更适合作为 `协方差 + 链路质量` 之后的第三个因子
-2. 它没有重复表达“状态精度”或“通信可靠性”，而是补了“存在性判决可信度”这一维
-3. 在此基础上，一个足够弱的 structure-aware decoupled KLA 还能继续同时降低 `OSPA / RMSE / Cardinality`
-4. 当前有效策略仍然不是强化 existence 结构偏置，而是把主要结构增益保留在 spatial 分支，同时只给 existence 分支轻量结构调制
+1. `fixed -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA`
+2. 在更多 seed 和更多通信等级下验证弱结构 refinement 是否稳定
+3. 只把 `NIS/history` 作为次线或附录对照，不再把它们放在正文主故事的前排

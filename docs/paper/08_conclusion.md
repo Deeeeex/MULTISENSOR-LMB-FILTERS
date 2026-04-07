@@ -1,34 +1,13 @@
 # Conclusion
 
-## Conclusion Skeleton
+## Paper-Ready Conclusion Draft
 
-Suggested structure:
+This paper studies distributed GA-LMB or KLA-based fusion for multi-sensor multi-object tracking under communication constraints. The starting point is that fixed fusion weights are too rigid for networks in which posterior quality and effective communication quality vary across nodes. In the present peer-to-peer setting, the most useful question is therefore not whether geometric-average fusion should be abandoned, but how its weights should be allocated so that they reflect both local posterior quality and realized network conditions.
 
-1. Restate the problem
-   Fixed-weight KLA fusion is brittle under time-varying communication and sensor quality.
-2. Restate the method
-   We proposed an adaptive weight allocation strategy for distributed GA-LMB or KLA fusion using covariance, realized link quality, and existence confidence, then refined it with weak structure-aware decoupled KLA.
-3. Restate the key technical point
-   Existence confidence is the critical additional design element beyond covariance and link quality, while the structure-aware decoupled step is a light refinement rather than a standalone factor.
-4. Restate the main empirical message
-   The method improves consensus quality under tiered heterogeneous packet loss, and weak structure-aware decoupled KLA further improves OSPA and RMSE beyond the three-factor baseline while also slightly improving cardinality.
-5. Add supporting evidence
-   Under ideal communication, the same refinement still improves both consensus metrics and local E-OSPA or RMSE over ordinary GA, so the gain is not only from packet-loss compensation.
-6. State the limits
-   Current evidence for `freshness`, `history`, `association ambiguity`, and `cardinality consensus` is weak or negative, and stronger Monte Carlo baselines remain desirable.
+The current answer supported by the experiments is a narrow and pragmatic one. The most effective adaptive design is built on three factors: covariance quality, realized link quality, and existence confidence. Covariance captures posterior concentration, link quality captures how reliably a node's information is actually delivered, and existence confidence captures a missing dimension that is not expressed by covariance alone, namely how decisively a local Bernoulli posterior supports target existence. On top of this three-factor backbone, a weak structure-aware decoupled KLA refinement provides the current best final result. The role of this refinement is limited but useful: it acts as a light branch-specific correction rather than as a topology-dominated replacement for the core adaptive weighting rule.
 
-## Discussion Points
+In the dual-formation eight-sensor scenario under tiered heterogeneous packet loss, this design yields clear improvements in distributed consensus quality. Relative to fixed Metropolis weights, the current best method reduces consensus OSPA from `2.624065` to `1.862244`, consensus RMSE from `2.702602` to `1.749608`, and consensus cardinality disagreement from `0.878750` to `0.244250`. The ablation study further shows that covariance and link quality form the essential backbone, that existence confidence is the most effective third factor, and that the weak structure-aware decoupled refinement provides the final consistent improvement beyond the three-factor baseline.
 
-- Why consensus improvement matters in distributed tracking
-- Why existence-confidence captures information missed by covariance and link quality
-- Why consistency-aware weighting is safer than monotonic NIS rewards
-- Why optional modules should remain secondary until stronger evidence is available
+The supporting studies help clarify what this result does and does not mean. Under ideal communication, the structure-aware decoupled refinement still improves both consensus metrics and aggregate local tracking metrics relative to ordinary distributed GA, so its gain is not only a packet-loss compensation effect. At the same time, several alternative modules, including plain NIS rewards, freshness weighting, history weighting, and preliminary cardinality-consensus corrections, currently show weak, mixed, or negative evidence. For that reason, they should remain secondary or appendix-only components rather than part of the main claimed method.
 
-## Possible Future Work
-
-- stronger baseline comparisons
-- richer communication models
-- larger-scale networks
-- heterogeneous sensing modalities
-- joint use of existence confidence, weak structure-aware decoupling, and consistency penalties
-- more principled ambiguity-aware weighting
+The present work therefore supports a focused conclusion: communication-aware adaptive fusion for distributed KLA-based LMB tracking benefits most from combining posterior concentration, realized communication reliability, and existence decisiveness, with only a weak additional structural refinement. Future work should strengthen this conclusion through larger Monte Carlo studies, cleaner communication-level robustness tables, stronger external baselines, richer heterogeneous sensing scenarios, and more principled dynamic structure-consistency models that can be validated without reintroducing excessive coupling into the weight design.
