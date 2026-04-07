@@ -1,6 +1,6 @@
 # Paper Workspace
 
-This directory organizes the current paper plan for the adaptive KLA/GA-LMB fusion story.
+This directory organizes the current paper-ready draft for the adaptive KLA/GA-LMB fusion story.
 
 ## Current Positioning
 
@@ -32,7 +32,7 @@ Core main-line numbers:
 
 Secondary or appendix-only numbers:
 
-- GA NIS ablation: consensus OSPA `1.811 -> 1.810 -> 1.901`, consensus RMSE `3.173 -> 3.153 -> 3.329`, consensus cardinality `0.214 -> 0.209 -> 0.234`
+- GA NIS ablation: consensus OSPA `1.909 -> 1.909 -> 2.008`, consensus RMSE `2.934 -> 2.980 -> 3.173`, consensus cardinality `0.267 -> 0.262 -> 0.300`
 - GA history ablation: consensus OSPA `1.811 -> 1.814`, consensus RMSE `3.173 -> 3.158`, consensus cardinality `0.214 -> 0.215`
 - AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus RMSE `19.098 -> 16.472`, consensus cardinality `0.421 -> 0.307`
 
@@ -50,14 +50,14 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 
 - `00_positioning.md`: paper scope, contribution boundaries, title direction
 - `01_abstract_and_title.md`: abstract framing and title candidates
-- `02_introduction.md`: introduction paragraph plan
-- `03_related_work.md`: related-work buckets and differentiation
-- `04_problem_formulation.md`: notation and system model checklist
-- `05_method_adaptive_kla.md`: method section skeleton
+- `02_introduction.md`: paper-ready introduction draft
+- `03_related_work.md`: paper-ready related-work draft with real references
+- `04_problem_formulation.md`: paper-ready problem formulation
+- `05_method_adaptive_kla.md`: paper-ready method section
 - `06_experimental_setup.md`: scenario, metrics, baselines, implementation details
-- `07_results_and_ablation.md`: result-section order and claim mapping
-- `08_conclusion.md`: conclusion and discussion skeleton
-- `09_figures_tables_and_gaps.md`: figure plan, table plan, and missing evidence
+- `07_results_and_ablation.md`: paper-ready results and ablation section
+- `08_conclusion.md`: paper-ready conclusion draft
+- `09_figures_tables_and_gaps.md`: production checklist for figures, tables, and evidence gaps
 
 ## Recommended Writing Order
 
@@ -70,6 +70,7 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 7. `03_related_work.md`
 8. `04_problem_formulation.md`
 9. `08_conclusion.md`
+10. `09_figures_tables_and_gaps.md`
 
 ## Primary Source Files
 
@@ -85,10 +86,9 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
 - `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
-- `RUN/GA/GA_TIERED_LINK_COMPARE_20260321_191405.md`
-- `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`
-- `RUN/GA/GA_NIS_GRID_20260309_163105.md`
+- `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
 - `RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md`
-- `RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260321_131050.md`
+- `RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md`
+- `RUN/GA/Del_GA_TIERED_LINK_ABLATION_20260321_234540.md`
 - `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
 - `analyzeCommunicationLevelImpact.m`
