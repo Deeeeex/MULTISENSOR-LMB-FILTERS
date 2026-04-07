@@ -117,6 +117,9 @@ associationMatrices.L = [eta L];
 associationMatrices.R = [(phi ./ eta) ones(numberOfObjects, numberOfMeasurements)];
 % Murty's algorithm association matrices
 associationMatrices.C = -log(L);
+% Association ambiguity / confidence summary
+associationMatrices.associationConfidence = computeAssociationConfidence(L);
+associationMatrices.associationAmbiguityScore = associationMatrices.associationConfidence;
 % Innovation consistency (NIS-based)
 if numberOfMeasurements > 0
     cfg = struct();
@@ -187,6 +190,43 @@ if numberOfMeasurements > 0
 else
     associationMatrices.innovationScore = 1;
     associationMatrices.innovationPenalty = 1;
+end
+end
+
+function score = computeAssociationConfidence(L)
+score = 1;
+if isempty(L) || size(L, 2) == 0
+    return;
+end
+
+measurementScores = zeros(1, size(L, 2));
+scoreCount = 0;
+for k = 1:size(L, 2)
+    values = L(:, k);
+    values = values(isfinite(values) & values > 0);
+    if isempty(values)
+        continue;
+    end
+
+    probs = values / sum(values);
+    if numel(probs) <= 1
+        measurementScore = 1;
+    else
+        entropyValue = -sum(probs .* log(max(probs, eps)));
+        normalizedEntropy = entropyValue / log(numel(probs));
+        sortedProbs = sort(probs, 'descend');
+        topProb = sortedProbs(1);
+        secondProb = sortedProbs(2);
+        marginScore = (topProb - secondProb) / max(topProb, eps);
+        measurementScore = 0.5 * (1 - normalizedEntropy) + 0.5 * marginScore;
+    end
+
+    scoreCount = scoreCount + 1;
+    measurementScores(scoreCount) = min(max(measurementScore, 0), 1);
+end
+
+if scoreCount > 0
+    score = mean(measurementScores(1:scoreCount));
 end
 end
 

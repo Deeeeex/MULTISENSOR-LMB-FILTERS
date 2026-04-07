@@ -58,6 +58,8 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `07_results_and_ablation.md`: paper-ready results and ablation section
 - `08_conclusion.md`: paper-ready conclusion draft
 - `09_figures_tables_and_gaps.md`: production checklist for figures, tables, and evidence gaps
+- `Appendix_A_simulation_setup.md`: appendix-ready simulation and communication settings
+- `Appendix_B_additional_attempts.md`: appendix-ready record of secondary module attempts and reserved result slots
 
 ## Recommended Writing Order
 
@@ -71,6 +73,8 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 8. `04_problem_formulation.md`
 9. `08_conclusion.md`
 10. `09_figures_tables_and_gaps.md`
+11. `Appendix_A_simulation_setup.md`
+12. `Appendix_B_additional_attempts.md`
 
 ## Primary Source Files
 
@@ -90,5 +94,9 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `RUN/GA/GA_HISTORY_COMPARE_20260309_113545.md`
 - `RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260321_193131.md`
 - `RUN/GA/Del_GA_TIERED_LINK_ABLATION_20260321_234540.md`
+- `RUN/GA/runMultisensorFilters_formation_4plus4_AssociationAmbiguityCompare.m`
+- `RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260408_003930.md`
+- `RUN/GA/runMultisensorFilters_formation_4plus4_PosteriorStructureCompare.m`
+- `RUN/GA/GA_POSTERIOR_STRUCTURE_COMPARE_20260408_002901.md`
 - `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
 - `analyzeCommunicationLevelImpact.m`
