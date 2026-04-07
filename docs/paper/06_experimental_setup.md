@@ -8,10 +8,10 @@ Recommended order:
 
 1. Main scenario
 2. Factor ablation
-3. NIS ablation
-4. Ideal communication comparison
-5. Communication robustness
-6. AA generalization
+3. Ideal communication comparison
+4. Communication robustness
+5. AA generalization
+6. Secondary appendix ablations
 
 ## Main Scenario
 
@@ -45,18 +45,6 @@ Main reference:
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
-## Secondary NIS Ablation
-
-Use:
-
-- `w/o NIS`
-- `robust NIS`
-- `plain NIS`
-
-Main reference:
-
-- `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
-
 ## Secondary Experiments
 
 Ideal communication comparison:
@@ -74,6 +62,13 @@ Communication robustness:
 AA generalization:
 
 - use `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
+
+Secondary appendix ablations:
+
+- `w/o NIS -> robust NIS -> plain NIS`
+- `w/o history -> history`
+- `robust NIS baseline -> robust NIS + freshness`
+- keep these for appendix or short negative-result support, not for the main body
 
 ## Metrics To Report
 
@@ -105,7 +100,7 @@ Minimum baseline set:
 
 If more time is available, add:
 
-- robust NIS as optional consistency term
+- robust NIS as an optional consistency term
 - uniform weighting
 - communication-only weighting
 

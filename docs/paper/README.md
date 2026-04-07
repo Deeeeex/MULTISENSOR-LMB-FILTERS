@@ -9,8 +9,8 @@ Recommended main line:
 - Focus the paper on `GA-LMB / KLA` distributed fusion under communication constraints.
 - Treat adaptive fusion-weight allocation as the main method.
 - Treat `covariance + link quality + existence confidence` as the core factorized weighting design, with weak structure-aware decoupled KLA as the current best refinement.
-- Treat decoupled `robust NIS` as a secondary consistency-analysis result, not the headline contribution.
-- Treat `history`, `freshness`, `association ambiguity`, and `cardinality consensus` as ablations or extensions, not headline contributions.
+- Treat decoupled `robust NIS` as a secondary consistency-analysis result, not a headline contribution.
+- Treat `history`, `freshness`, `association ambiguity`, and `cardinality consensus` as appendix-style ablations or extensions, not headline contributions.
 - Treat `AA` as a secondary generalization experiment, not a co-equal main line.
 
 ## Strongest Supported Claims
@@ -24,11 +24,27 @@ Recommended main line:
 
 ## Current Headline Numbers
 
+Core main-line numbers:
+
 - Tiered GA main scenario: fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`) gives consensus OSPA `2.624 -> 1.862`, consensus RMSE `2.703 -> 1.750`, consensus cardinality `0.879 -> 0.244`
 - Tiered GA targeted improvement: `cov + link + existence` -> `cov + link + existence + weak structure-aware decoupled KLA` gives consensus OSPA `1.875 -> 1.862`, consensus RMSE `1.780 -> 1.750`, consensus cardinality `0.2445 -> 0.2443`
 - Ideal-comm GA comparison: `ordinary GA` -> `structure-aware decoupled KLA` gives consensus OSPA `1.706 -> 1.494`, consensus RMSE `1.526 -> 1.290`, consensus cardinality `0.161 -> 0.139`, and local E-OSPA `1.950 -> 1.877`
+
+Secondary or appendix-only numbers:
+
 - GA NIS ablation: consensus OSPA `1.811 -> 1.810 -> 1.901`, consensus RMSE `3.173 -> 3.153 -> 3.329`, consensus cardinality `0.214 -> 0.209 -> 0.234`
+- GA history ablation: consensus OSPA `1.811 -> 1.814`, consensus RMSE `3.173 -> 3.158`, consensus cardinality `0.214 -> 0.215`
 - AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus RMSE `19.098 -> 16.472`, consensus cardinality `0.421 -> 0.307`
+
+## Writing Rule For Main Text
+
+Use the following narrative order in the paper body:
+
+1. `fixed -> +covariance -> +link quality -> +existence confidence -> +weak structure-aware decoupled KLA`
+2. ideal-communication supporting evidence
+3. communication-robustness and secondary generalization
+
+Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled modules out of the main text unless they are needed as brief negative or appendix evidence.
 
 ## File Map
 
@@ -67,6 +83,7 @@ Recommended main line:
 - `docs/FORMATION_4PLUS4_RUN.md`
 - `docs/IDEAL_COMM_COMPARE_CN.md`
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
 - `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
 - `RUN/GA/GA_TIERED_LINK_COMPARE_20260321_191405.md`
 - `RUN/GA/GA_NIS_COMPARE_20260309_164119.md`

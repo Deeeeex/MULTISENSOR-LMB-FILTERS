@@ -26,6 +26,9 @@ rawScore_j(t) = mask_j(t) * covScore_j(t) * linkQuality_j(t) * existenceConfiden
 
 Reason:
 
+- `covScore` captures posterior spatial concentration.
+- `linkQuality` captures realized communication reliability.
+- `existenceConfidence` captures posterior decisiveness on target existence and cardinality.
 - `historyScore` is currently weak as a headline method point.
 - `associationScore` is better treated as an extension unless later evidence improves.
 - `robust NIS` is useful as a consistency-analysis module, but not the strongest current headline gain.
@@ -49,16 +52,19 @@ where the structure-aware part is intentionally weak on the existence branch.
 
 - posterior concentration proxy
 - currently implemented by inverse mean posterior covariance trace
+- use this as the first adaptive baseline beyond fixed weights
 
 `linkQuality_j(t)`:
 
 - delivered over delivered plus dropped measurements
+- use this to expose heterogeneous packet-loss effects that covariance alone cannot see
 
 `existenceConfidence_j(t)`:
 
 - confidence derived from posterior Bernoulli existence probabilities
 - high when `r` is close to `0` or `1`, low when `r` is close to `0.5`
 - intended to capture local existence and cardinality decisiveness
+- current implementation uses a weighted certainty score such as `sum(r .* |2r - 1|) / sum(r)`
 
 `innovationPenalty_j(t)`:
 
@@ -80,6 +86,7 @@ Required points:
 - Link quality measures realized communication success, but not whether the transmitted local posterior is trustworthy in cardinality terms.
 - Bernoulli existence probabilities provide a direct signal for how confidently a sensor asserts the presence or absence of targets.
 - A weighted confidence score from local existence probabilities adds a complementary dimension to covariance and link quality.
+- The implementation should be described concretely, for example with `certainty_i = |2r_i - 1|` and a weighted aggregation across local Bernoulli components.
 
 ## Weak Structure-Aware Decoupled Narrative
 
@@ -92,6 +99,7 @@ Required points:
 - The spatial branch can tolerate a modest graph-aware refinement.
 - The existence branch is much more sensitive, so only a very weak structure-aware adjustment is retained.
 - Structure should be framed as a light prior layered on top of posterior quality and link quality, not as a topology-only weighting scheme.
+- Mention that the current implementation derives the prior from neighborhood overlap and communication reliability rather than using a standalone topology score.
 
 ## NIS Narrative
 
@@ -130,7 +138,7 @@ Describe briefly and demote:
 Recommended treatment:
 
 - include in the method as optional extensions
-- evaluate in ablation
+- evaluate in ablation or appendix
 - do not make them part of the claimed core method
 
 ## Source Files

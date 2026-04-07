@@ -4,11 +4,11 @@
 
 1. Main GA consensus result
 2. Factor ablation
-3. Robust NIS ablation
-4. Ideal communication comparison
-5. Communication robustness
-6. AA generalization
-7. Negative ablations
+3. Ideal communication comparison
+4. Communication robustness
+5. AA generalization
+6. Secondary consistency modules
+7. Negative or appendix ablations
 
 ## Section 1: Main GA Result
 
@@ -49,23 +49,7 @@ Main file:
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
 
-## Section 3: Robust NIS Ablation
-
-Primary claim:
-
-- `robust NIS` is better than plain `NIS`, but it is no longer the strongest main-line driver once tiered communication, existence confidence, and weak structure-aware decoupling are adopted.
-
-Recommended focus:
-
-- show that `robust NIS` is close to `w/o NIS`
-- show that plain `NIS` still degrades consensus
-- position NIS as a secondary consistency module rather than the headline result
-
-Main file:
-
-- `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
-
-## Section 4: Ideal Communication Comparison
+## Section 3: Ideal Communication Comparison
 
 Primary claim:
 
@@ -85,7 +69,7 @@ Main file:
 
 - `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
 
-## Section 5: Communication Robustness
+## Section 4: Communication Robustness
 
 Primary claim:
 
@@ -100,7 +84,7 @@ Main file:
 
 - `analyzeCommunicationLevelImpact.m`
 
-## Section 6: AA Generalization
+## Section 5: AA Generalization
 
 Use this as a short extension section.
 
@@ -112,7 +96,23 @@ Current file:
 
 - `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
 
-## Section 7: Negative Ablations
+## Section 6: Secondary Consistency Modules
+
+Primary claim:
+
+- `robust NIS` is more stable than plain `NIS`, but it is no longer a main-line driver once the four-factor main story is in place.
+
+Recommended focus:
+
+- show that `robust NIS` is close to `w/o NIS`
+- show that plain `NIS` still degrades consensus
+- keep this section short and clearly secondary
+
+Main file:
+
+- `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`
+
+## Section 7: Negative Or Appendix Ablations
 
 Use short subsections:
 
@@ -132,4 +132,4 @@ Main files:
 
 - Keep the narrative centered on consensus metrics.
 - Use local metrics mainly to show that consensus gains do not come from catastrophic local degradation.
-- Negative results should strengthen the paper's credibility, not feel like distractions.
+- Secondary and negative results should strengthen the paper's credibility, not compete with the main method story.
