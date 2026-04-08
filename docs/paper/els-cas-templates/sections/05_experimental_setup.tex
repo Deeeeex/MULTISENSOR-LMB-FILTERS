@@ -1,0 +1,58 @@
+\section{Experimental Setup}
+\label{sec:experimental-setup}
+
+This section defines the evaluation protocol used to support the paper narrative. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, whether the method generalizes beyond the main GA setting, and whether several optional modules are worth keeping in the main story.
+
+\subsection{Evaluation hierarchy}
+
+The current evaluation is intentionally hierarchical. The main experiment is dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss with factor ablation from fixed weights to the full adaptive method. Supporting experiments include an ideal-communication comparison between ordinary GA and the current structure-aware adaptive method, a communication-robustness analysis across communication levels, and an AA-based secondary generalization experiment. Appendix-style ablations include NIS, history, freshness, ambiguity-aware, and cardinality-consensus variants.
+
+\subsection{Main scenario}
+
+The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for data association.
+
+The common sensor-side configuration is:
+\begin{itemize}
+\item number of sensors: $8$,
+\item filter mode: GA-LMB,
+\item data association: LBP,
+\item clutter rate: $3$ for every sensor,
+\item detection probability: $0.9$ for every sensor,
+\item measurement-noise scale: $q = 3$ for every sensor,
+\item sensor field of view enabled with half-angle $60^\circ$ and range $60000$.
+\end{itemize}
+
+The target side consists of ten objects arranged in three groups with staggered births. The three groups contain $3 + 3 + 4$ targets, respectively, and the targets move toward the central region with nominal speed $0.45$. Births are staggered every eight time steps, and the total simulation length is $100$ steps.
+
+\subsection{Communication model}
+
+The main scenario uses a tiered heterogeneous packet-loss setting. Communication is applied before distributed fusion through a measurement-delivery model with bandwidth limitation and link-level packet loss. The main configuration is:
+\begin{itemize}
+\item communication level: $2$,
+\item global maximum delivered measurements per step: $80$,
+\item packet-selection policy: weighted priority with random measurement selection,
+\item link model: fixed packet drop,
+\item target mean drop rate: $p_{\mathrm{drop}} = 0.2$,
+\item tiered drop levels: $[0, 0.1, 0.2, 0.5]$,
+\item tiered level counts: $[1, 4, 1, 2]$.
+\end{itemize}
+This tiered design preserves the historical mean communication degradation while introducing persistent cross-node heterogeneity.
+
+\subsection{Mainline ablation protocol}
+
+The core ablation study compares five arms:
+\begin{enumerate}
+\item fixed fusion weights,
+\item adaptive weighting with covariance only,
+\item adaptive weighting with covariance plus link quality,
+\item adaptive weighting with covariance plus link quality plus existence confidence,
+\item adaptive weighting with covariance plus link quality plus existence confidence plus weak structure-aware decoupled KLA.
+\end{enumerate}
+
+The current best adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main-line configuration.
+
+\subsection{Metrics and reporting}
+
+The experiments report two categories of metrics. Local tracking metrics include local E-OSPA, local H-OSPA, and local RMSE. Consensus metrics include consensus OSPA, consensus RMSE, and consensus cardinality disagreement. The OSPA family is used because it provides a mathematically consistent distance for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric}. The current paper emphasizes consensus metrics as the primary outcome because the method is meant to improve the consistency and quality of distributed fused belief across sensors.
+
+Unless otherwise stated, reported scalar metrics are Monte Carlo means. The recent headline reports for the main GA ablation and ideal-communication comparison use five trials with deterministic seed control. The paper body avoids overclaiming statistical certainty from this small trial count and instead treats the present results as the current best-supported empirical direction.

@@ -1,0 +1,69 @@
+\section{Simulation Setup}
+\label{app:simulation-setup}
+
+This appendix summarizes the simulation settings used by the current paper branch. The purpose is reproducibility rather than narrative emphasis. The main body already explains why the experiments were chosen; the present appendix records the concrete scenario geometry, target initialization, communication model, and supporting ideal-communication variant.
+
+\subsection{Main scenario overview}
+
+The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for data association, and distributed fusion is performed only over the local communication neighborhood.
+
+The common filter-side settings are:
+\begin{itemize}
+\item number of sensors: $8$,
+\item local filter mode: GA-LMB,
+\item data association: LBP,
+\item simulation length: $100$ time steps,
+\item sensor communication range: $150$,
+\item fixed-weight baseline fusion rule: Metropolis,
+\item clutter rate at every sensor: $3$,
+\item detection probability at every sensor: $0.9$,
+\item measurement-noise scale at every sensor: $q = 3$,
+\item field of view enabled with half-angle $60^\circ$ and range $60000$.
+\end{itemize}
+
+\subsection{Sensor geometry and neighborhood graph}
+
+The eight sensors are divided into two groups of four. Both groups follow constant-velocity platform trajectories with zero process noise and move from left to right with nominal velocity $[0.8, 0]^\mathsf{T}$. The two formation centers are $[-80,35]^\mathsf{T}$ and $[-80,-35]^\mathsf{T}$, respectively. Each group uses a Leader3 local formation pattern with spacing $20$.
+
+The local communication graph is fixed. Each formation is fully connected internally, and the two formations are connected by one-to-one cross links: $1\leftrightarrow5$, $2\leftrightarrow6$, $3\leftrightarrow7$, and $4\leftrightarrow8$. The corresponding neighborhood sets are therefore $\{1,2,3,4,5\}$, $\{1,2,3,4,6\}$, $\{1,2,3,4,7\}$, $\{1,2,3,4,8\}$, $\{1,5,6,7,8\}$, $\{2,5,6,7,8\}$, $\{3,5,6,7,8\}$, and $\{4,5,6,7,8\}$.
+
+\subsection{Target initialization}
+
+The target side contains ten objects divided into three groups with staggered births. The birth interval is eight time steps, the birth start time is one, and the target lifetime is $100$ time steps. The three groups are: three targets in a Triangle formation centered at $[70,80]^\mathsf{T}$ with spacing $30$, three targets in a Triangle formation centered at $[80,0]^\mathsf{T}$ with spacing $25$, and four targets in a Leader3 formation centered at $[70,-80]^\mathsf{T}$ with spacing $20$. All three groups move toward the central region with speed $0.45$.
+
+\subsection{Communication model}
+
+Communication degradation is applied before distributed fusion through a model that combines a global per-step measurement budget with optional link-level packet loss and optional node outages. The communication levels used by the code are:
+\begin{itemize}
+\item level $0$: no communication restriction,
+\item level $1$: global measurement budget only,
+\item level $2$: level $1$ plus link-level packet loss,
+\item level $3$: level $2$ plus node outages.
+\end{itemize}
+
+The main paper scenario uses level $2$ with global maximum delivered measurements per step $80$, fixed link loss, nominal mean packet-drop rate $p_{\mathrm{drop}}=0.2$, and tiered heterogeneous packet-loss configuration
+\begin{equation}
+p_{\mathrm{drop}} \in [0,\,0.1,\,0.2,\,0.5], \qquad
+\text{counts} = [1,\,4,\,1,\,2].
+\end{equation}
+This tiered configuration preserves the historical mean packet-drop rate while creating persistent node-to-node communication heterogeneity.
+
+\subsection{Ideal-communication supporting variant}
+
+The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The relevant settings are communication level $0$, effectively unlimited delivery budget, and $p_{\mathrm{drop}}=0$ for all sensors.
+
+\subsection{Main adaptive configuration}
+
+The current best adaptive configuration used in the main tiered-drop headline comparison is:
+\begin{itemize}
+\item $\texttt{emaAlpha}=0.7$,
+\item $\texttt{minWeight}=0.05$,
+\item covariance, link-quality, and existence-confidence terms enabled,
+\item $\texttt{existenceConfidenceMinScore}=0.85$,
+\item $\texttt{existenceConfidencePower}=2.0$,
+\item decoupled KLA enabled,
+\item weak structure-aware refinement enabled,
+\item posterior-structure-consistency, NIS, and history disabled in the headline configuration,
+\item spatial decoupling and structure strengths $(0.5, 0.45)$,
+\item existence decoupling and structure strengths $(0.15, 0.08)$.
+\end{itemize}

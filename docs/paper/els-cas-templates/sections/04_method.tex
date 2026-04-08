@@ -1,0 +1,154 @@
+\section{Communication-Aware Adaptive KLA Fusion}
+\label{sec:method}
+
+This section describes the adaptive fusion rule used in the distributed GA-LMB implementation. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \citep{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network.
+
+\subsection{Baseline GA-LMB fusion}
+
+At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior provided by node $j \in \mathcal{N}_s$. The baseline distributed fusion target is the weighted geometric average
+\begin{equation}
+\bar{\pi}_k^{(s)}(X) \propto \prod_{j \in \mathcal{N}_s} \left(\pi_k^{(j)}(X)\right)^{\omega_{k,s}^{(j)}},
+\qquad
+\sum_{j \in \mathcal{N}_s} \omega_{k,s}^{(j)} = 1,
+\qquad
+\omega_{k,s}^{(j)} \ge 0.
+\end{equation}
+
+After moment projection, the Gaussian approximation of the $i$th Bernoulli spatial density at node $j$ is
+\begin{equation}
+p_{k,i}^{(j)}(x) \approx \mathcal{N}\!\left(x;\nu_{k,i}^{(j)}, T_{k,i}^{(j)}\right).
+\end{equation}
+Using spatial fusion weights $\omega_{k,s}^{x,(j)}$, the fused spatial density is obtained in canonical form:
+\begin{equation}
+K_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1},
+\qquad
+h_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1}\nu_{k,i}^{(j)},
+\end{equation}
+\begin{equation}
+\Sigma_{k,i}^{(s)} = \left(K_{k,i}^{(s)}\right)^{-1},
+\qquad
+\mu_{k,i}^{(s)} = \Sigma_{k,i}^{(s)} h_{k,i}^{(s)}.
+\end{equation}
+Using existence fusion weights $\omega_{k,s}^{r,(j)}$, the Bernoulli existence probability is fused by the corresponding weighted geometric rule:
+\begin{equation}
+r_{k,i}^{(s)} =
+\frac{\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}}}
+{\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}} +
+\prod_{j \in \mathcal{N}_s} \left(1-r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}}},
+\end{equation}
+where $\eta_{k,i}^{(s)}$ is the Gaussian normalization term induced by the fused spatial density.
+
+\subsection{Factorized adaptive weight backbone}
+
+The adaptive design begins with a shared quality backbone. For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
+\begin{equation}
+\tilde{\omega}_{k,s}^{(j)} =
+m_k^{(j)}
+\cdot
+q_{\mathrm{cov},k}^{(j)}
+\cdot
+q_{\mathrm{link},k}^{(j)}
+\cdot
+q_{\mathrm{exist},k}^{(j)},
+\end{equation}
+where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)}$ is a covariance-quality score, $q_{\mathrm{link},k}^{(j)}$ is a realized link-quality score, and $q_{\mathrm{exist},k}^{(j)}$ is an existence-confidence score. The normalized weight is
+\begin{equation}
+\bar{\omega}_{k,s}^{(j)} =
+\frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
+\end{equation}
+This factorization intentionally keeps only the three factors with the strongest current evidence: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities.
+
+\subsection{Covariance and link-quality terms}
+
+For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The code uses
+\begin{equation}
+q_{\mathrm{cov},k}^{(j)}
+=
+\frac{1}{\epsilon + \frac{1}{M_k}\sum_{i=1}^{M_k}\operatorname{tr}\!\left(T_{k,i}^{(j)}\right)},
+\end{equation}
+so that a node with smaller posterior spread receives a larger score.
+
+The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The code uses
+\begin{equation}
+q_{\mathrm{link},k}^{(j)}
+=
+\frac{d_k^{(j)}}{d_k^{(j)} + \ell_k^{(j)}},
+\end{equation}
+which directly reflects how reliably that node's information is reaching its neighbors.
+
+\subsection{Existence-confidence weighting}
+
+To capture the missing existence-related dimension, the method computes a certainty score from Bernoulli existence probabilities. For the $i$th Bernoulli component at node $j$,
+\begin{equation}
+c_{k,i}^{(j)} = \left|2r_{k,i}^{(j)} - 1\right|.
+\end{equation}
+The per-node weighted existence confidence is then
+\begin{equation}
+\bar{c}_{k}^{(j)} =
+\frac{\sum_{i=1}^{M_k} r_{k,i}^{(j)} c_{k,i}^{(j)}}
+{\epsilon + \sum_{i=1}^{M_k} r_{k,i}^{(j)}}.
+\end{equation}
+The final existence-confidence score is mapped into a bounded positive factor:
+\begin{equation}
+q_{\mathrm{exist},k}^{(j)}
+=
+\lambda_{\min} + (1-\lambda_{\min})\left(\bar{c}_{k}^{(j)}\right)^{p_e},
+\end{equation}
+where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{paper-figure2-crop.png}
+  \caption{Adaptive fusion-weight factorization, showing the shared backbone and the decoupled spatial and existence branches with weak structure-aware refinement.}
+  \label{fig:factorization}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{paper-figure3.pdf}
+  \caption{Existence-confidence mapping used in the adaptive weighting rule, including the raw decisiveness curve and the bounded weighting curve used in implementation.}
+  \label{fig:existence-confidence}
+\end{figure}
+
+\subsection{Decoupled spatial and existence scores}
+
+The current best implementation does not force the same adaptive score to govern spatial fusion and existence fusion. Instead, it constructs branch-specific dedicated scores:
+\begin{equation}
+\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
+m_k^{(j)}
+\cdot
+\left(q_{\mathrm{cov},k}^{(j)}\right)^{\alpha_x}
+\cdot
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_x},
+\end{equation}
+\begin{equation}
+\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)} =
+m_k^{(j)}
+\cdot
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_r}
+\cdot
+\left(q_{\mathrm{exist},k}^{(j)}\right)^{\alpha_r}.
+\end{equation}
+The final branch scores are obtained through geometric interpolation:
+\begin{equation}
+\tilde{\omega}_{k,s}^{x,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_x}
+\left(\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}\right)^{\eta_x},
+\qquad
+\tilde{\omega}_{k,s}^{r,(j)}
+=
+\left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_r}
+\left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
+\end{equation}
+The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations.
+
+\subsection{Weak structure-aware refinement and stabilization}
+
+After branch decoupling, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The current best configuration intentionally keeps the existence-side structure strength much smaller than the spatial-side strength. In implementation terms, topology is not allowed to dominate the core weight assignment.
+
+The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+
+\subsection{Optional extension modules}
+
+The implementation retains several optional extensions, including an NIS-based consistency penalty, a history score, a freshness score, ambiguity-aware terms, and posterior-structure-consistency scoring. These modules are intentionally not part of the claimed core method because their current empirical evidence is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus weak structure-aware decoupling.

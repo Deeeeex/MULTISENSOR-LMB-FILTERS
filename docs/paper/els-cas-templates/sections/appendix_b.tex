@@ -1,0 +1,43 @@
+\section{Additional Attempted Modules and Results}
+\label{app:additional-modules}
+
+This appendix records the secondary modules explored in the current paper branch but not retained as part of the main claimed method. The purpose of this appendix is to document that the design space was explored beyond the final four-factor main line and to bound the empirical value of the discarded alternatives.
+
+\subsection{NIS-based consistency weighting}
+
+This experiment studies whether innovation-based consistency information should enter the adaptive weight model. The relevant comparison is $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$. In the current implementation, the NIS term is treated as a consistency penalty rather than a monotonic quality reward because innovation consistency is structurally coupled with covariance-based posterior quality.
+
+\begin{table}[h]
+  \centering
+  \caption{Consensus metrics for the NIS-based consistency comparison.}
+  \label{tab:appendix-nis}
+  \begin{tabular}{lccc}
+    \toprule
+    Arm & OSPA & RMSE & Cardinality \\
+    \midrule
+    w/o NIS & 1.909 & 2.934 & 0.267 \\
+    robust NIS & 1.909 & 2.980 & 0.262 \\
+    plain NIS & 2.008 & 3.173 & 0.300 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Plain NIS is clearly harmful in the present setting. Robust NIS is more stable than plain NIS and slightly improves cardinality relative to the no-NIS baseline, but it does not improve the full metric set and is effectively tied with the no-NIS baseline in OSPA.
+
+\subsection{Freshness weighting}
+
+This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. The result is effectively flat: OSPA changes from $1.909$ to $1.910$, RMSE remains at $2.980$, and cardinality disagreement changes from $0.262$ to $0.263$.
+
+\subsection{History weighting}
+
+This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality disagreement changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the paper body.
+
+\subsection{Cardinality-consensus weighting}
+
+An exploratory direct cardinality-consensus score was also tested. Relative to the $+$link-quality baseline, the pilot changed OSPA from $1.909508$ to $1.954855$, RMSE from $1.621662$ to $1.791287$, and cardinality disagreement from $0.242500$ to $0.285000$. Because this evidence is negative and only a pilot, it is retained only as appendix context.
+
+\subsection{Association ambiguity and posterior-structure consistency}
+
+Two additional extensions were explored near the end of the present branch. The association-ambiguity add-on changes the baseline result from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$ in $(\text{OSPA},\,\text{RMSE},\,\text{Cardinality})$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains exactly tied with the current weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
+
+Taken together, these appendix results strengthen the main paper rather than weaken it. They show that the design space was explored beyond the final chosen method, and they justify why the present paper is intentionally centered on covariance, realized link quality, existence confidence, and weak structure-aware decoupling.
