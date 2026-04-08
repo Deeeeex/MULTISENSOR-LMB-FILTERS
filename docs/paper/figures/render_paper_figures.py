@@ -18,10 +18,13 @@ import numpy as np
 from docs.paper.figures.paper_figure_data import get_scalar_figure_data, load_figure4_series
 
 
-FIXED_COLOR = "#7b8794"
-ADAPTIVE_COLOR = "#b42318"
-ABLATION_COLORS = ["#c7d2fe", "#93c5fd", "#60a5fa", "#f59e0b", "#b42318"]
-EDGE_COLOR = "#243b53"
+# Brighter paper palette with softened saturation: cool colors lead, with a
+# restrained warm accent reserved for the strongest ablation stage.
+FIXED_COLOR = "#78A6D8"
+ADAPTIVE_COLOR = "#62B7AE"
+SECONDARY_COLOR = "#6B93CF"
+ABLATION_COLORS = ["#D8E8F6", "#BDD8EF", "#9EC8E6", "#97D0CA", "#E3B36C"]
+EDGE_COLOR = "#2F4858"
 
 
 def apply_style() -> None:
@@ -92,7 +95,7 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
     axes[0].grid(alpha=0.25, linestyle="--", linewidth=0.7)
     axes[0].set_axisbelow(True)
 
-    axes[1].plot(r, bounded, color="#20639b", linewidth=2.2)
+    axes[1].plot(r, bounded, color=SECONDARY_COLOR, linewidth=2.2)
     axes[1].axhline(min_score, color=FIXED_COLOR, linewidth=1.2, linestyle=":")
     axes[1].set_title("Bounded Weighting Curve")
     axes[1].set_xlabel("Existence Probability r")

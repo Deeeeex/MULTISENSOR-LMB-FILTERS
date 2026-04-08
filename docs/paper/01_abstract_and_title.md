@@ -2,21 +2,30 @@
 
 ## Recommended Title
 
-Candidate A:
+Recommended:
 
-`Communication-Aware Adaptive Fusion Weights for Distributed KLA-Based LMB Fusion Under Heterogeneous Packet Loss`
+`Communication-Aware Adaptive Weights for Distributed KLA-Based LMB Fusion`
 
-Candidate B:
+Backup 1:
 
-`Adaptive KLA-Based Distributed LMB Fusion with Existence Confidence Under Communication Constraints`
+`Distributed KLA-Based LMB Fusion With Communication-Aware Adaptive Weights`
 
-Candidate C:
+Backup 2:
 
-`Communication-Aware and Existence-Aware Adaptive Fusion for Distributed GA-LMB Tracking`
+`Communication-Aware Adaptive KLA Fusion for Distributed LMB Multi-Object Tracking`
+
+## Title Direction
+
+- Related papers in this line usually keep the title centered on one method noun phrase plus one setting qualifier, rather than enumerating every internal module.
+- The strongest common templates are:
+  - `X fusion/filter for Y`
+  - `X fusion with Z`
+  - `X ... using Y`
+- Therefore `existence confidence` and `weak structure-aware decoupling` should remain in the abstract and method sections, not in the title itself.
 
 ## Paper-Ready Abstract Draft
 
-Distributed multi-sensor multi-object tracking over peer-to-peer networks requires fusion rules that remain reliable when local posteriors are heterogeneous and communication links are imperfect. Kullback-Leibler average (KLA), or geometric-average fusion, is attractive for distributed fusion because it is conservative under unknown cross-correlations, but fixed or topology-only fusion weights cannot reflect time-varying posterior quality and realized communication reliability. This paper proposes a communication-aware adaptive fusion-weight allocation method for distributed GA-LMB fusion under packet loss. The proposed weighting model combines three complementary factors: posterior covariance quality, realized link quality, and an existence-confidence term that measures how decisively a local Bernoulli posterior supports target existence. A weak structure-aware decoupled KLA refinement is further introduced to regularize the spatial and existence branches without letting topology dominate the fusion rule. Experiments on an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations and evaluated under tiered heterogeneous packet loss show that the proposed strategy substantially improves inter-sensor consensus over fixed-weight and partial-factor baselines. In particular, adding existence confidence improves consensus beyond covariance-and-link-only weighting, while the weak structure-aware decoupled refinement delivers the best overall consensus OSPA, RMSE, and cardinality agreement. These results indicate that communication-aware and existence-aware adaptive weighting is an effective way to make distributed KLA-based LMB fusion more robust in heterogeneous network conditions.
+Distributed multi-sensor multi-object tracking over peer-to-peer networks requires fusion rules that remain reliable when local posteriors are heterogeneous and communication links are imperfect. Kullback-Leibler average (KLA), or geometric-average fusion, is attractive because it remains conservative under unknown cross-correlations, yet fixed or topology-derived weights cannot reflect time-varying posterior quality or realized link reliability. This paper proposes a communication-aware adaptive fusion-weight allocation method for distributed GA-LMB fusion under packet loss. The proposed weighting rule combines posterior covariance quality, realized link quality, and an existence-confidence term that measures how decisively a local Bernoulli posterior supports target existence. A weak structure-aware decoupled KLA refinement is then introduced to modulate the spatial and existence branches without letting topology dominate the fusion rule. Experiments in an eight-sensor distributed formation scenario composed of two four-sensor formations under tiered heterogeneous packet loss show clear consensus gains over fixed-weight and partial-factor baselines. In particular, existence confidence provides the missing improvement beyond covariance-and-link-only weighting, while the weak structure-aware refinement delivers the best overall consensus OSPA, RMSE, and cardinality agreement. These results show that communication-aware adaptive weighting is an effective way to improve distributed KLA-based LMB fusion in heterogeneous network conditions.
 
 ## Terminology Rule
 
