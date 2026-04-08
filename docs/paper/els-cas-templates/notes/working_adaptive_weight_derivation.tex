@@ -1,0 +1,861 @@
+\section*{Working Derivation Note: Adaptive Branch-Decoupled Weight Allocation}
+\label{sec:working-derivation-adaptive-weights}
+
+This file is a working derivation note and is intentionally not included in the current manuscript build. Its purpose is to develop a more solid theoretical interpretation of the implemented adaptive fusion-weight design before any part of it is promoted into the appendix.
+
+The note uses the same theoretical background as the manuscript: KLA and conservative density fusion \citep{Battistelli2014KLA,Hlinka2014ICI}, distributed exponential-mixture and logarithmic-opinion-pool fusion \citep{Uney2013EMDPHD,Bandyopadhyay2018LogOP}, and the labeled-RFS / LMB representation of multi-object posteriors \citep{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}.
+
+\subsection*{Status and intended use}
+
+The current goal is not to claim a new universal optimality theorem. Instead, the goal is narrower: give a mathematically coherent variational interpretation of the implemented weighting rule, separate what can be derived cleanly from what remains a modeling choice, and identify the subset that is strong enough to move into the paper appendix later.
+
+The present note focuses on three layers:
+\begin{enumerate}
+\item the shared adaptive backbone based on covariance quality, realized link quality, and existence confidence,
+\item the decoupled spatial and existence branches,
+\item the weak structure-aware refinement and temporal stabilization.
+\end{enumerate}
+
+\subsection*{Promotion criteria}
+
+This note is ready for promotion into the appendix only if all of the following are true:
+\begin{enumerate}
+\item every key equation can be mapped directly to the current implementation in \texttt{computeAdaptiveFusionWeights.m},
+\item the branch-decoupled weight form is derived from an explicit optimization problem over the simplex,
+\item the role of the weak structure-aware term is stated as a prior perturbation of utilities rather than an unsupported claim of optimality,
+\item the difference between exact derivation and heuristic stabilization is stated explicitly.
+\end{enumerate}
+
+\subsection*{Notation and implementation anchors}
+
+Fix a fusion node $s$ at time $k$ with local neighborhood $\mathcal{N}_s$. Let $\mathcal{A}_{k,s} \subseteq \mathcal{N}_s$ denote the active set of neighbors whose information is available after communication filtering. In the code this active set is represented by the binary availability mask returned by \texttt{resolveAvailabilityMask}.
+
+For every active neighbor $j \in \mathcal{A}_{k,s}$, the implementation computes the following positive scores:
+\begin{align}
+q_{\mathrm{cov},k}^{(j)} &= \frac{1}{\epsilon + \frac{1}{M_k}\sum_{i=1}^{M_k}\operatorname{tr}(T_{k,i}^{(j)})}, \\
+q_{\mathrm{link},k}^{(j)} &= \frac{d_k^{(j)}}{d_k^{(j)} + \ell_k^{(j)}}, \\
+q_{\mathrm{exist},k}^{(j)} &= \lambda_{\min} + (1-\lambda_{\min}) \left(\bar c_k^{(j)}\right)^{p_e},
+\end{align}
+where
+\begin{equation}
+\bar c_k^{(j)} = \frac{\sum_i r_{k,i}^{(j)} |2r_{k,i}^{(j)} - 1|}{\epsilon + \sum_i r_{k,i}^{(j)}}.
+\end{equation}
+These correspond exactly to \texttt{computeCovarianceScore}, \texttt{computeLinkQuality}, and \texttt{resolveExistenceConfidenceScore} in the current implementation.
+
+The active-neighbor simplex is
+\begin{equation}
+\Delta_{k,s} = \left\{ w \in \mathbb{R}^{|\mathcal{N}_s|} : w_j \ge 0,\ \sum_{j \in \mathcal{N}_s} w_j = 1,\ w_j = 0 \text{ for } j \notin \mathcal{A}_{k,s} \right\}.
+\end{equation}
+
+\subsection*{Step 1: conservative fusion core}
+
+The implemented GA-LMB fusion rule uses branch-specific weights inside the standard weighted geometric average. For any admissible weight vector $w \in \Delta_{k,s}$, the conservative KLA aggregate is
+\begin{equation}
+\bar{\pi}_{k}^{(s)}(X;w) \propto \prod_{j \in \mathcal{N}_s} \left(\pi_k^{(j)}(X)\right)^{w_j}.
+\end{equation}
+This can be interpreted as the minimizer of
+\begin{equation}
+\pi \mapsto \sum_{j \in \mathcal{N}_s} w_j D_{\mathrm{KL}}\!\left(\pi \,\|\, \pi_k^{(j)}\right),
+\end{equation}
+which is the standard KLA variational characterization \citep{Battistelli2014KLA}. The adaptive design in this repository does not change the KLA density family. It changes only how $w$ is selected over the simplex.
+
+This distinction matters. It means the present theory task is not to re-derive GA-LMB fusion itself, but to derive a principled weight-allocation rule whose output remains an admissible KLA weight vector.
+
+\subsection*{Step 2: utility-based interpretation of the shared backbone}
+
+The code constructs a shared raw score
+\begin{equation}
+s_{0,j}
+=
+q_{\mathrm{cov},k}^{(j)}
+\cdot
+q_{\mathrm{link},k}^{(j)}
+\cdot
+q_{\mathrm{exist},k}^{(j)},
+\qquad j \in \mathcal{A}_{k,s}.
+\end{equation}
+The active-set restriction already accounts for the availability mask, so inactive neighbors are excluded from the optimization domain rather than represented through a logarithm of zero.
+
+Define the shared log-utility
+\begin{equation}
+u_{0,j} = \log q_{\mathrm{cov},k}^{(j)} + \log q_{\mathrm{link},k}^{(j)} + \log q_{\mathrm{exist},k}^{(j)}.
+\end{equation}
+Consider the entropy-regularized utility maximization problem
+\begin{equation}
+\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_{j \in \mathcal{A}_{k,s}} w_j u_{0,j}
++
+\tau H(w)
+\right\},
+\qquad
+H(w) = - \sum_{j \in \mathcal{A}_{k,s}} w_j \log w_j,
+\label{eq:shared-utility-problem}
+\end{equation}
+with temperature $\tau > 0$.
+
+\paragraph{Proposition 1.}
+The unique maximizer of \eqref{eq:shared-utility-problem} is
+\begin{equation}
+w_j^\star
+=
+\frac{\exp(u_{0,j}/\tau)}{\sum_{u \in \mathcal{A}_{k,s}} \exp(u_{0,u}/\tau)}
+=
+\frac{\left(s_{0,j}\right)^{1/\tau}}{\sum_{u \in \mathcal{A}_{k,s}} \left(s_{0,u}\right)^{1/\tau}}.
+\end{equation}
+In particular, when $\tau=1$,
+\begin{equation}
+w_j^\star = \frac{s_{0,j}}{\sum_{u \in \mathcal{A}_{k,s}} s_{0,u}}.
+\end{equation}
+
+\paragraph{Proof.}
+The objective is strictly concave on the simplex because $H(w)$ is strictly concave and $\tau > 0$. Introduce a Lagrange multiplier $\lambda$ for the sum constraint:
+\begin{equation}
+\mathcal{L}(w,\lambda)
+=
+\sum_j w_j u_{0,j}
+- \tau \sum_j w_j \log w_j
++ \lambda \left(\sum_j w_j - 1\right).
+\end{equation}
+The first-order condition is
+\begin{equation}
+u_{0,j} - \tau(\log w_j + 1) + \lambda = 0,
+\end{equation}
+which implies
+\begin{equation}
+w_j = \exp\!\left(\frac{u_{0,j} + \lambda - \tau}{\tau}\right).
+\end{equation}
+Normalization over the simplex gives the stated softmax form. \qed
+
+\paragraph{Interpretation.}
+The implemented multiplicative backbone is therefore not just an arbitrary product of factors. It is exactly the normalized solution of an entropy-regularized linear utility allocation problem in log-score space.
+
+\subsection*{Step 3: branch-decoupled utilities}
+
+The implementation does not use a single scalar weight vector for both spatial and existence fusion. Instead it forms two dedicated branch scores:
+\begin{align}
+s_{x,j}
+&=
+\left(q_{\mathrm{cov},k}^{(j)}\right)^{\alpha_x}
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_x},
+\\
+s_{r,j}
+&=
+\left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_r}
+\left(q_{\mathrm{exist},k}^{(j)}\right)^{\alpha_r},
+\end{align}
+where the code parameters are
+\begin{equation}
+\alpha_x = \texttt{spatialCovariancePower},
+\quad
+\beta_x = \texttt{spatialLinkQualityPower},
+\quad
+\beta_r = \texttt{existenceLinkQualityPower},
+\quad
+\alpha_r = \texttt{existenceConfidenceWeightPower}.
+\end{equation}
+
+The corresponding dedicated log-utilities are
+\begin{align}
+u_{x,j} &= \alpha_x \log q_{\mathrm{cov},k}^{(j)} + \beta_x \log q_{\mathrm{link},k}^{(j)}, \\
+u_{r,j} &= \beta_r \log q_{\mathrm{link},k}^{(j)} + \alpha_r \log q_{\mathrm{exist},k}^{(j)}.
+\end{align}
+
+The code then performs geometric blending through
+\begin{align}
+\tilde s_{x,j} &= s_{0,j}^{1-\eta_x} s_{x,j}^{\eta_x}, \\
+\tilde s_{r,j} &= s_{0,j}^{1-\eta_r} s_{r,j}^{\eta_r},
+\end{align}
+with
+\begin{equation}
+\eta_x = \texttt{spatialDecouplingStrength},
+\qquad
+\eta_r = \texttt{existenceDecouplingStrength}.
+\end{equation}
+
+\paragraph{Proposition 2.}
+The above geometric blend is equivalent to a convex interpolation in log-utility space:
+\begin{align}
+\hat u_{x,j} &= (1-\eta_x)u_{0,j} + \eta_x u_{x,j}, \\
+\hat u_{r,j} &= (1-\eta_r)u_{0,j} + \eta_r u_{r,j},
+\end{align}
+followed by exponentiation:
+\begin{align}
+\tilde s_{x,j} &= \exp(\hat u_{x,j}), \\
+\tilde s_{r,j} &= \exp(\hat u_{r,j}).
+\end{align}
+
+\paragraph{Proof.}
+Immediate from $\log(a^{1-\eta}b^\eta) = (1-\eta)\log a + \eta \log b$ for positive $a,b$. \qed
+
+\paragraph{Interpretation.}
+This gives a clean variational interpretation of decoupling. The method is not switching between two unrelated rules. It is interpolating between a shared all-factor utility and a branch-specific utility. Spatial fusion is allowed to lean more heavily on covariance and link reliability, while existence fusion is allowed to lean more heavily on link reliability and existence decisiveness.
+
+\subsection*{Step 4: weak structure-aware refinement as a prior perturbation}
+
+After branch decoupling, the code optionally multiplies each branch score by a positive structure term:
+\begin{align}
+\tilde s_{x,j}^{\,\prime} &= \tilde s_{x,j} \left(\xi_{x,j}\right)^{\gamma_x}, \\
+\tilde s_{r,j}^{\,\prime} &= \tilde s_{r,j} \left(\xi_{r,j}\right)^{\gamma_r},
+\end{align}
+where
+\begin{equation}
+\gamma_x = \texttt{spatialStructureStrength},
+\qquad
+\gamma_r = \texttt{existenceStructureStrength}.
+\end{equation}
+The current best implementation keeps $\gamma_r \ll \gamma_x$.
+
+The structure scores $\xi_{x,j}$ and $\xi_{r,j}$ come from either:
+\begin{enumerate}
+\item static neighborhood-overlap priors, or
+\item posterior-structure-consistency scores derived from pairwise disagreement summaries.
+\end{enumerate}
+In both cases the implemented update is multiplicative in score space.
+
+\paragraph{Proposition 3.}
+The weak structure-aware refinement is equivalent to adding a branch-specific prior term to the log-utility:
+\begin{align}
+\hat u_{x,j}^{\,\prime} &= \hat u_{x,j} + \gamma_x \log \xi_{x,j}, \\
+\hat u_{r,j}^{\,\prime} &= \hat u_{r,j} + \gamma_r \log \xi_{r,j}.
+\end{align}
+
+\paragraph{Proposition 3a.}
+Assume $\tau_x,\tau_r>0$ and define normalized branch priors
+\begin{align}
+p_{x,j} &\propto \left(\xi_{x,j}\right)^{\gamma_x/\tau_x}, \\
+p_{r,j} &\propto \left(\xi_{r,j}\right)^{\gamma_r/\tau_r}.
+\end{align}
+Then the branch-wise optimization problems with structure-aware refinement are equivalently written as
+\begin{align}
+w_{x,k,s}^\star
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_j w_j \hat u_{x,j}
+- \tau_x D_{\mathrm{KL}}(w \,\|\, p_x)
+\right\},
+\\
+w_{r,k,s}^\star
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_j w_j \hat u_{r,j}
+- \tau_r D_{\mathrm{KL}}(w \,\|\, p_r)
+\right\}.
+\end{align}
+
+\paragraph{Proof.}
+For any prior $p$ on the simplex,
+\begin{equation}
+-\tau D_{\mathrm{KL}}(w\|p)
+=
+\tau H(w) + \tau \sum_j w_j \log p_j.
+\end{equation}
+Substituting $p_j \propto \xi_j^{\gamma/\tau}$ gives
+\begin{equation}
+\tau \sum_j w_j \log p_j
+=
+\gamma \sum_j w_j \log \xi_j + \text{constant},
+\end{equation}
+where the additive normalization constant does not affect the optimizer. This recovers the previous log-prior formulation exactly. \qed
+
+\paragraph{Interpretation.}
+This is the cleanest way to state the theoretical role of structure awareness. It is not the primary source of weights. It acts as a prior perturbation of already-constructed branch utilities, or equivalently as a KL regularization toward a graph-induced prior distribution on the simplex. This wording is much safer and more accurate than claiming a full graph-theoretic optimum.
+
+\subsection*{Step 5: branch-wise simplex optimization}
+
+Combining the previous steps yields the following branch-wise optimization problems:
+\begin{align}
+w_{x,k,s}^\star
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_{j \in \mathcal{A}_{k,s}} w_j \left[\hat u_{x,j} + \gamma_x \log \xi_{x,j}\right]
++
+\tau_x H(w)
+\right\},
+\\
+w_{r,k,s}^\star
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_{j \in \mathcal{A}_{k,s}} w_j \left[\hat u_{r,j} + \gamma_r \log \xi_{r,j}\right]
++
+\tau_r H(w)
+\right\}.
+\end{align}
+
+\paragraph{Corollary 1.}
+For $\tau_x = \tau_r = 1$, the unique optimizers are
+\begin{align}
+w_{x,j}^\star
+&\propto
+s_{0,j}^{1-\eta_x}
+s_{x,j}^{\eta_x}
+\left(\xi_{x,j}\right)^{\gamma_x},
+\\
+w_{r,j}^\star
+&\propto
+s_{0,j}^{1-\eta_r}
+s_{r,j}^{\eta_r}
+\left(\xi_{r,j}\right)^{\gamma_r},
+\end{align}
+which in expanded multiplicative form become
+\begin{align}
+w_{x,j}^\star
+&\propto
+\left(q_{\mathrm{cov},j} q_{\mathrm{link},j} q_{\mathrm{exist},j}\right)^{1-\eta_x}
+\left(q_{\mathrm{cov},j}^{\alpha_x} q_{\mathrm{link},j}^{\beta_x}\right)^{\eta_x}
+\left(\xi_{x,j}\right)^{\gamma_x},
+\\
+w_{r,j}^\star
+&\propto
+\left(q_{\mathrm{cov},j} q_{\mathrm{link},j} q_{\mathrm{exist},j}\right)^{1-\eta_r}
+\left(q_{\mathrm{link},j}^{\beta_r} q_{\mathrm{exist},j}^{\alpha_r}\right)^{\eta_r}
+\left(\xi_{r,j}\right)^{\gamma_r}.
+\end{align}
+
+\paragraph{Caution for appendix drafting.}
+When this material is moved into the appendix, the multiplicative composition above should be kept exactly in product form. The derivation lives in log-utility space, but the implemented score construction is multiplicative before normalization. That is why the product expressions in Corollary 1 are the code-faithful final formulas.
+
+\subsection*{Step 6: exact branch structure induced by GA-LMB merging}
+
+The current implementation is more supportive of branch decoupling than a purely heuristic reading would suggest. In \texttt{gaLmbTrackMerging.m}, the spatial branch and the existence branch enter the fused Bernoulli component in two different mathematical forms.
+
+\paragraph{Spatial branch.}
+For the $i$th Bernoulli component, the fused Gaussian canonical parameters are
+\begin{align}
+K_i &= \sum_{j \in \mathcal{A}_{k,s}} w_{x,j} T_{i,j}^{-1}, \\
+h_i &= \sum_{j \in \mathcal{A}_{k,s}} w_{x,j} T_{i,j}^{-1}\nu_{i,j},
+\end{align}
+which implies
+\begin{equation}
+\Sigma_i = K_i^{-1},
+\qquad
+\mu_i = \Sigma_i h_i.
+\end{equation}
+Thus the spatial weights choose an information-space barycenter of local Gaussian approximations. This is an exact statement about the current implementation, not a heuristic one.
+
+\paragraph{Proposition 4a.}
+Fix a Bernoulli component $i$ and a spatial weight vector $w_x \in \Delta_{k,s}$. Let
+\begin{equation}
+\mathcal{G} = \left\{\mathcal{N}(\mu,\Sigma) : \Sigma \succ 0\right\}
+\end{equation}
+be the Gaussian family on the kinematic state space. Then the Gaussian density
+\begin{equation}
+q_i^\star = \mathcal{N}(\mu_i,\Sigma_i)
+\end{equation}
+defined by the canonical parameters above is the unique minimizer of
+\begin{equation}
+\min_{q \in \mathcal{G}}
+\sum_{j \in \mathcal{A}_{k,s}} w_{x,j}
+D_{\mathrm{KL}}\!\left(q \,\|\, \mathcal{N}(\nu_{i,j},T_{i,j})\right).
+\label{eq:gaussian-kla-barycenter}
+\end{equation}
+
+\paragraph{Proof sketch.}
+The Gaussian family is an exponential family with natural parameters
+\begin{equation}
+\theta_j = \left(T_{i,j}^{-1}\nu_{i,j}, -\frac{1}{2}T_{i,j}^{-1}\right).
+\end{equation}
+For exponential families, the weighted geometric mean density, equivalently the minimizer of the weighted reverse-KL functional in \eqref{eq:gaussian-kla-barycenter}, is obtained by weighted averaging of natural parameters. Therefore the optimizer satisfies
+\begin{equation}
+\theta^\star = \sum_j w_{x,j}\theta_j,
+\end{equation}
+which is exactly
+\begin{equation}
+K_i = \sum_j w_{x,j}T_{i,j}^{-1},
+\qquad
+h_i = \sum_j w_{x,j}T_{i,j}^{-1}\nu_{i,j}.
+\end{equation}
+Strict convexity of the Gaussian reverse-KL functional over $\Sigma \succ 0$ gives uniqueness. \qed
+
+\paragraph{Interpretation.}
+This proposition is stronger than the earlier barycenter wording. It states that, conditional on the spatial weights, the implemented Gaussian fusion step is the exact KLA barycenter within the Gaussian family. The remaining open question is therefore not the spatial fusion rule itself, but only how those spatial weights should be allocated.
+
+\paragraph{Existence branch.}
+The same routine computes the fused existence probability as
+\begin{equation}
+r_i
+=
+\frac{
+\eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}}
+}{
+\eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}} + \prod_j (1-r_{i,j})^{w_{r,j}}
+},
+\end{equation}
+where the Gaussian overlap term $\eta_i(w_x)$ depends only on the spatial branch.
+
+\paragraph{Proposition 4.}
+For every Bernoulli component $i$, the fused existence probability satisfies the exact log-odds identity
+\begin{equation}
+\log \frac{r_i}{1-r_i}
+=
+\log \eta_i(w_x)
++
+\sum_{j \in \mathcal{A}_{k,s}} w_{r,j} \log \frac{r_{i,j}}{1-r_{i,j}}.
+\label{eq:exact-logit-pooling}
+\end{equation}
+
+\paragraph{Proof.}
+Let
+\begin{equation}
+N_i = \eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}},
+\qquad
+D_i = \prod_j (1-r_{i,j})^{w_{r,j}}.
+\end{equation}
+Then
+\begin{equation}
+r_i = \frac{N_i}{N_i + D_i},
+\qquad
+\frac{r_i}{1-r_i} = \frac{N_i}{D_i}.
+\end{equation}
+Therefore,
+\begin{equation}
+\log \frac{r_i}{1-r_i}
+=
+\log \eta_i(w_x)
++
+\sum_j w_{r,j}\log r_{i,j}
+-
+\sum_j w_{r,j}\log(1-r_{i,j}),
+\end{equation}
+which immediately yields \eqref{eq:exact-logit-pooling}. \qed
+
+\paragraph{Interpretation.}
+This identity is one of the strongest exact facts available in the current implementation. It shows that the existence branch does not enter through the Gaussian canonical parameters. Instead it performs a weighted pooling of local Bernoulli logits, while the spatial branch contributes only through the additive offset $\log \eta_i(w_x)$ induced by spatial overlap.
+
+\paragraph{Consequence for decoupling.}
+Equation \eqref{eq:exact-logit-pooling} implies that, for fixed spatial weights $w_x$, the existence-weight vector $w_r$ affects the fused existence posterior only through the affine predictor
+\begin{equation}
+\sum_j w_{r,j}\ell_{i,j},
+\qquad
+\ell_{i,j} := \log \frac{r_{i,j}}{1-r_{i,j}}.
+\end{equation}
+The spatial overlap contribution $\log \eta_i(w_x)$ is constant with respect to $w_r$. Therefore the optimization of $w_r$ does not need to share the same utility structure as the optimization of $w_x$. This gives an exact structural reason, not just an empirical one, for allowing branch-separated adaptive weights.
+
+\paragraph{Proposition 4b.}
+Let $\beta=(r,p)$ and $\beta_j=(r_j,p_j)$ denote Bernoulli RFS densities with
+\begin{equation}
+\beta(\emptyset)=1-r,
+\qquad
+\beta(\{x\}) = r p(x),
+\end{equation}
+and analogously for $\beta_j$. Then the Bernoulli-RFS Kullback-Leibler divergence decomposes exactly as
+\begin{equation}
+D_{\mathrm{KL}}(\beta \,\|\, \beta_j)
+=
+d_{\mathrm{Ber}}(r\,\|\,r_j)
++
+r\,D_{\mathrm{KL}}(p\,\|\,p_j),
+\label{eq:bernoulli-rfs-kl-decomposition}
+\end{equation}
+where
+\begin{equation}
+d_{\mathrm{Ber}}(r\,\|\,r_j)
+=
+(1-r)\log\frac{1-r}{1-r_j}
++
+r\log\frac{r}{r_j}.
+\end{equation}
+
+\paragraph{Proof.}
+By direct expansion over the two admissible cardinalities,
+\begin{align}
+D_{\mathrm{KL}}(\beta \,\|\, \beta_j)
+&=
+(1-r)\log\frac{1-r}{1-r_j}
++
+\int r p(x)\log \frac{r p(x)}{r_j p_j(x)}\,dx
+\\
+&=
+(1-r)\log\frac{1-r}{1-r_j}
++
+r\log\frac{r}{r_j}
++
+r\int p(x)\log\frac{p(x)}{p_j(x)}\,dx,
+\end{align}
+which is exactly \eqref{eq:bernoulli-rfs-kl-decomposition}. \qed
+
+\paragraph{Interpretation.}
+This exact decomposition is the missing bridge between the code and a more principled decoupled theory. It shows that, even before any heuristic factorization of utilities, Bernoulli-RFS divergence already separates into an existence term and a spatial term, with the spatial mismatch weighted by the existence level $r$.
+
+\paragraph{Proposition 4c.}
+Fix a Bernoulli component $i$ and consider the decoupled surrogate objective
+\begin{equation}
+\mathcal{J}_i(r,p;w_x,w_r)
+=
+\sum_{j \in \mathcal{A}_{k,s}} w_{r,j}\, d_{\mathrm{Ber}}(r\,\|\,r_{i,j})
++
+r\sum_{j \in \mathcal{A}_{k,s}} w_{x,j}\, D_{\mathrm{KL}}(p\,\|\,p_{i,j}).
+\label{eq:decoupled-bernoulli-surrogate}
+\end{equation}
+Assume $r>0$ and let
+\begin{equation}
+\eta_i(w_x) := \int \prod_{j \in \mathcal{A}_{k,s}} p_{i,j}(x)^{w_{x,j}}\,dx.
+\end{equation}
+Then any minimizer $(r_i^\star,p_i^\star)$ of \eqref{eq:decoupled-bernoulli-surrogate} satisfies
+\begin{align}
+p_i^\star(x)
+&=
+\frac{1}{\eta_i(w_x)}
+\prod_{j \in \mathcal{A}_{k,s}} p_{i,j}(x)^{w_{x,j}},
+\label{eq:decoupled-spatial-solution}
+\\
+\log\frac{r_i^\star}{1-r_i^\star}
+&=
+\log \eta_i(w_x)
++
+\sum_{j \in \mathcal{A}_{k,s}} w_{r,j}\log\frac{r_{i,j}}{1-r_{i,j}}.
+\label{eq:decoupled-existence-solution}
+\end{align}
+
+\paragraph{Proof.}
+For fixed $r>0$, minimizing \eqref{eq:decoupled-bernoulli-surrogate} over $p$ is equivalent to minimizing
+\begin{equation}
+\sum_j w_{x,j} D_{\mathrm{KL}}(p\,\|\,p_{i,j}),
+\end{equation}
+whose optimizer is the weighted geometric mean density in \eqref{eq:decoupled-spatial-solution}. The minimum value of that spatial term is
+\begin{equation}
+\sum_j w_{x,j} D_{\mathrm{KL}}(p_i^\star\,\|\,p_{i,j}) = -\log \eta_i(w_x).
+\end{equation}
+Substituting back into \eqref{eq:decoupled-bernoulli-surrogate} reduces the remaining scalar optimization to
+\begin{equation}
+\min_{r \in [0,1]}
+\left\{
+\sum_j w_{r,j} d_{\mathrm{Ber}}(r\,\|\,r_{i,j}) - r \log \eta_i(w_x)
+\right\}.
+\end{equation}
+Differentiating with respect to $r$ yields
+\begin{equation}
+\log\frac{r}{1-r}
+- \sum_j w_{r,j}\log\frac{r_{i,j}}{1-r_{i,j}}
+- \log \eta_i(w_x)=0,
+\end{equation}
+which gives \eqref{eq:decoupled-existence-solution}. \qed
+
+\paragraph{Interpretation.}
+Proposition 4c is the strongest bridge currently available in this note. It shows that the implemented decoupled fusion equations arise exactly as the optimizer of a per-Bernoulli decoupled surrogate objective: the existence mismatch is aggregated with existence weights, while the spatial mismatch is aggregated with spatial weights and then scaled by the fused existence level.
+
+\paragraph{Relation to the code.}
+If the component spatial densities $p_{i,j}$ are replaced by their moment-matched Gaussian approximations, then \eqref{eq:decoupled-spatial-solution} becomes the Gaussian canonical fusion implemented in \texttt{gaLmbTrackMerging.m}, and \eqref{eq:decoupled-existence-solution} becomes the exact existence update already identified in Proposition 4.
+
+\paragraph{Proposition 4d.}
+Assume the local posteriors entering fusion share an aligned label set $\{\ell_i\}_{i=1}^{M_k}$ and are represented in product LMB form
+\begin{equation}
+\Pi = \bigotimes_{i=1}^{M_k} \beta_i,
+\qquad
+\Pi_j = \bigotimes_{i=1}^{M_k} \beta_{i,j},
+\end{equation}
+where each $\beta_{i,j}$ is a Bernoulli RFS density for label $\ell_i$. Then the reverse-KL divergence decomposes additively:
+\begin{equation}
+D_{\mathrm{KL}}(\Pi \,\|\, \Pi_j)
+=
+\sum_{i=1}^{M_k} D_{\mathrm{KL}}(\beta_i \,\|\, \beta_{i,j}).
+\label{eq:lmb-kl-sum}
+\end{equation}
+Consequently, the aligned-LMB decoupled surrogate
+\begin{equation}
+\mathcal{J}^{\mathrm{LMB}}(\{\beta_i\};w_x,w_r)
+=
+\sum_{i=1}^{M_k}
+\mathcal{J}_i(r_i,p_i;w_x,w_r)
+\label{eq:aligned-lmb-surrogate}
+\end{equation}
+separates exactly into independent per-label problems of the form \eqref{eq:decoupled-bernoulli-surrogate}.
+
+\paragraph{Proof sketch.}
+Under aligned labels, the LMB density is a product of independent Bernoulli components over labels. The KL divergence between product measures is additive, which gives \eqref{eq:lmb-kl-sum}. Substituting the per-label decoupled surrogate from Proposition 4c then yields \eqref{eq:aligned-lmb-surrogate}. Minimization over $\{\beta_i\}$ therefore decomposes labelwise. \qed
+
+\paragraph{Interpretation.}
+This proposition narrows the remaining theory gap substantially. Under the same alignment assumption already used by the implemented merger, the present derivation is no longer merely a per-Bernoulli story. It lifts directly to an aligned-LMB surrogate objective whose optimizer is obtained by solving the independent componentwise problems from Proposition 4c.
+
+\paragraph{Why a full non-surrogate derivation is difficult.}
+The remaining gap is now easier to state precisely. The exact aligned-LMB derivation above still relies on two simplifications that match the current implementation:
+\begin{enumerate}
+\item label alignment is assumed rather than inferred jointly with fusion,
+\item each spatial density is either fused in exact geometric-mean form or replaced by a moment-projected Gaussian approximation before canonical aggregation.
+\end{enumerate}
+Without these two restrictions, a single exact optimization over the full LMB family would generally couple label association, existence, and spatial density shape more tightly than the present code does. Therefore the current theory should not pretend that the branch-decoupled rule is the unique optimizer of a fully unconstrained LMB fusion objective. What is exact is narrower but still meaningful: it is the optimizer of an aligned and moment-compatible surrogate objective that matches the implementation architecture.
+
+\subsection*{Step 7: spatial branch as an information-space surrogate}
+
+The remaining theoretical question is why the spatial branch utility should emphasize covariance quality. The exact Gaussian fusion rule already shows that spatial weights control the precision barycenter
+\begin{equation}
+K_i(w_x) = \sum_{j \in \mathcal{A}_{k,s}} w_{x,j} T_{i,j}^{-1}.
+\end{equation}
+Hence, better spatial contributors are naturally those whose local posterior components are more concentrated in covariance terms.
+
+The current implementation does not optimize a global matrix-valued criterion over all Bernoulli components directly. Instead it uses the scalar surrogate
+\begin{equation}
+q_{\mathrm{cov},k}^{(j)}
+=
+\frac{1}{\epsilon + \bar t_{k}^{(j)}},
+\qquad
+\bar t_{k}^{(j)} := \frac{1}{M_k}\sum_{i=1}^{M_k}\operatorname{tr}(T_{k,i}^{(j)}).
+\end{equation}
+
+\paragraph{Lemma 3.}
+Suppose two sensors $a$ and $b$ satisfy
+\begin{equation}
+T_{k,i}^{(a)} \preceq T_{k,i}^{(b)}
+\qquad
+\text{for all } i=1,\ldots,M_k.
+\end{equation}
+Then
+\begin{equation}
+q_{\mathrm{cov},k}^{(a)} \ge q_{\mathrm{cov},k}^{(b)}.
+\end{equation}
+
+\paragraph{Proof.}
+If $T_{k,i}^{(a)} \preceq T_{k,i}^{(b)}$, then $\operatorname{tr}(T_{k,i}^{(a)}) \le \operatorname{tr}(T_{k,i}^{(b)})$ for every $i$. Averaging over $i$ yields $\bar t_k^{(a)} \le \bar t_k^{(b)}$. The map $x \mapsto 1/(\epsilon+x)$ is strictly decreasing on $[0,\infty)$, so $q_{\mathrm{cov},k}^{(a)} \ge q_{\mathrm{cov},k}^{(b)}$. \qed
+
+\paragraph{Interpretation.}
+The trace score is therefore monotone with respect to Loewner-order improvements in posterior covariance. This does not make it the unique or globally optimal spatial utility, but it does make it a coherent concentration proxy. In design-of-experiments language, $\operatorname{tr}(T)$ is an $A$-optimality style dispersion measure, so $q_{\mathrm{cov}}$ rewards smaller average posterior variance.
+
+\paragraph{A utility interpretation.}
+Define the local spatial concentration utility
+\begin{equation}
+u_{\mathrm{cov},j} := -\log\!\left(\epsilon + \bar t_k^{(j)}\right) = \log q_{\mathrm{cov},k}^{(j)}.
+\end{equation}
+Then the covariance-only weighting rule is the exact solution of the entropy-regularized simplex allocation problem
+\begin{equation}
+\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_{j \in \mathcal{A}_{k,s}} w_j u_{\mathrm{cov},j}
++
+\tau H(w)
+\right\},
+\end{equation}
+which is just Proposition 1 specialized to the covariance utility.
+
+\paragraph{What this means.}
+The current covariance factor should therefore be described as a separable local surrogate for spatial information quality, not as the solution of a full matrix-valued fusion-design problem. That level of modesty is important. The surrogate is mathematically clean and code-faithful, but it does not claim more than the implementation can support.
+
+\subsection*{Step 8: a coupled-surrogate objective behind branch decoupling}
+
+The previous section gives an exact algebraic reason why the two branches may use different weights. The next question is whether the implemented decoupled score construction can be embedded in a single higher-level optimization view. A reasonable answer is yes, but only at the level of a surrogate objective.
+
+Let $w_x, w_r \in \Delta_{k,s}$ denote the spatial and existence weight vectors. Define branch utilities
+\begin{align}
+U_x(w_x)
+&=
+\sum_j w_{x,j}\left[(1-\eta_x)u_{0,j} + \eta_x u_{x,j} + \gamma_x \log \xi_{x,j}\right]
++
+\tau_x H(w_x), \\
+U_r(w_r)
+&=
+\sum_j w_{r,j}\left[(1-\eta_r)u_{0,j} + \eta_r u_{r,j} + \gamma_r \log \xi_{r,j}\right]
++
+\tau_r H(w_r).
+\end{align}
+
+Consider then the block-separable surrogate program
+\begin{equation}
+\max_{w_x,w_r \in \Delta_{k,s}}
+\left\{
+U_x(w_x) + U_r(w_r)
+\right\}.
+\label{eq:block-separable-surrogate}
+\end{equation}
+
+\paragraph{Proposition 5.}
+Problem \eqref{eq:block-separable-surrogate} separates into two independent entropy-regularized simplex problems, whose unique optimizers are exactly the branch-wise weights stated in Corollary 1.
+
+\paragraph{Proof.}
+The objective in \eqref{eq:block-separable-surrogate} is the sum of a term depending only on $w_x$ and a term depending only on $w_r$, and the feasible set is the Cartesian product $\Delta_{k,s}\times\Delta_{k,s}$. Therefore the global maximizer is obtained by maximizing each term separately. Each subproblem has the same strictly concave structure as Proposition 1, with the corresponding branch utility replacing $u_{0,j}$. Applying the same entropy-regularized simplex argument gives the branch-wise softmax solution, which after exponentiation recovers Corollary 1. \qed
+
+\paragraph{What this does and does not prove.}
+This proposition does not prove that the full GA-LMB posterior optimization problem itself is exactly block-separable. It proves something narrower and more defensible: once the method is formulated as branch-specific utility allocation over admissible weight vectors, the implemented decoupled score construction is the exact optimizer of a clean block-separable surrogate objective.
+
+\paragraph{Why this surrogate is reasonable.}
+The surrogate is not arbitrary. It mirrors the exact algebraic structure of the merger:
+\begin{enumerate}
+\item the spatial branch acts on Gaussian canonical aggregation,
+\item the existence branch acts on Bernoulli logit pooling,
+\item the shared backbone keeps the two branches tethered to the same communication-aware posterior-quality assessment,
+\item the decoupling coefficients $\eta_x,\eta_r$ control how far each branch is allowed to deviate from that shared anchor.
+\end{enumerate}
+
+\paragraph{Proposition 5a.}
+Let
+\begin{equation}
+\mathcal{F}(w_x,w_r;\{\beta_i\})
+:=
+\sum_{i=1}^{M_k}\mathcal{J}_i(r_i,p_i;w_x,w_r)
+\end{equation}
+denote the aligned-LMB surrogate from Proposition 4d, and let
+\begin{equation}
+\Psi(w_x,w_r)
+:=
+-U_x(w_x)-U_r(w_r)
+\end{equation}
+denote the branch-weight regularization induced by the adaptive utilities. Then the current method is consistent with the block-relaxed objective
+\begin{equation}
+\mathcal{L}(\{\beta_i\},w_x,w_r)
+:=
+\mathcal{F}(w_x,w_r;\{\beta_i\}) + \Psi(w_x,w_r),
+\label{eq:block-relaxed-objective}
+\end{equation}
+in the following sense:
+\begin{enumerate}
+\item for fixed $(w_x,w_r)$, minimizing \eqref{eq:block-relaxed-objective} over $\{\beta_i\}$ yields the componentwise decoupled fusion solutions from Proposition 4c,
+\item for fixed summary scores extracted from the local posteriors, minimizing \eqref{eq:block-relaxed-objective} over $(w_x,w_r)$ yields the branch-wise entropy-regularized simplex problems from Proposition 5.
+\end{enumerate}
+
+\paragraph{Interpretation.}
+Proposition 5a is not a claim that the online implementation literally alternates exact minimization over these two blocks. It is a consistency statement: the state-update formulas and the adaptive weight-allocation formulas can be viewed as solving two compatible blocks of the same relaxed objective. This is the strongest accurate ``approximation theorem'' style statement currently supported by the implementation.
+
+\subsection*{Step 9: existence confidence as a bounded decisiveness factor}
+
+The existence-confidence score deserves a separate lemma because it is the least standard factor among the retained main-line terms.
+
+\paragraph{Lemma 1.}
+For any Bernoulli existence probabilities $r_{k,i}^{(j)} \in [0,1]$, the weighted certainty average $\bar c_k^{(j)}$ satisfies
+\begin{equation}
+0 \le \bar c_k^{(j)} \le 1.
+\end{equation}
+Consequently,
+\begin{equation}
+\lambda_{\min} \le q_{\mathrm{exist},k}^{(j)} \le 1.
+\end{equation}
+
+\paragraph{Proof.}
+For every $i$, the certainty term $|2r_{k,i}^{(j)} - 1|$ lies in $[0,1]$. The numerator of $\bar c_k^{(j)}$ is therefore a nonnegative weighted sum bounded above by $\sum_i r_{k,i}^{(j)}$. Division by $\epsilon + \sum_i r_{k,i}^{(j)}$ gives $0 \le \bar c_k^{(j)} \le 1$. Since the map $x \mapsto \lambda_{\min} + (1-\lambda_{\min})x^{p_e}$ is nondecreasing on $[0,1]$, the boundedness of $q_{\mathrm{exist},k}^{(j)}$ follows immediately. \qed
+
+\paragraph{Interpretation.}
+This lemma is modest but useful. It shows that the existence-confidence term cannot collapse weights to zero by itself and cannot inflate a weight above the unbounded positive range used by the other multiplicative factors. In practice it acts as a bounded decisiveness modulator rather than an unbounded reward.
+
+\paragraph{Lemma 2.}
+For any Bernoulli probability $r \in (0,1)$, define
+\begin{equation}
+c(r) := |2r-1|,
+\qquad
+\ell(r) := \left|\log \frac{r}{1-r}\right|.
+\end{equation}
+Then
+\begin{equation}
+\ell(r) = \log \frac{1+c(r)}{1-c(r)} = 2\,\mathrm{artanh}\!\big(c(r)\big),
+\end{equation}
+so $c(r)$ and $\ell(r)$ are strictly monotone transforms of each other on $(0,1)$.
+
+\paragraph{Proof.}
+If $r \ge 1/2$, then $c(r)=2r-1$ and hence $r=(1+c)/2$. Therefore
+\begin{equation}
+\frac{r}{1-r} = \frac{(1+c)/2}{(1-c)/2} = \frac{1+c}{1-c},
+\end{equation}
+which implies
+\begin{equation}
+\ell(r)=\log\frac{1+c}{1-c}=2\,\mathrm{artanh}(c).
+\end{equation}
+If $r<1/2$, the same formula follows after taking absolute values because replacing $r$ by $1-r$ changes the sign of the logit but leaves both $c(r)$ and $\ell(r)$ unchanged. \qed
+
+\paragraph{Interpretation.}
+This lemma connects the current implementation to the exact logit-pooling identity in Proposition 4. The code does not use $|\mathrm{logit}(r)|$ directly; it uses the bounded surrogate $|2r-1|$. Lemma 2 shows that this is still a monotone measure of Bernoulli decisiveness, but one that remains bounded in $[0,1]$. Therefore the implemented existence-confidence score can be interpreted as a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that drives the exact existence branch.
+
+\subsection*{Step 10: temporal stabilization as proximal tracking of a time-varying optimum}
+
+The implementation does not stop at the instantaneous branch optimum. It applies
+\begin{enumerate}
+\item normalization,
+\item exponential moving average against the previous weight vector,
+\item a minimum-weight safeguard,
+\item renormalization.
+\end{enumerate}
+
+This part is best described as a heuristic dynamic regularizer, not as an exact closed-form optimizer of the same static objective. A reasonable interpretation is that the code tracks a time-varying target optimizer while penalizing abrupt deviations from the previous weight vector.
+
+Let $\hat w_{k}$ denote the instantaneous optimizer from the branch-wise entropy-regularized utility problem. The code computes
+\begin{equation}
+w_{k}^{\mathrm{ema}} = \alpha w_{k-1} + (1-\alpha)\hat w_k,
+\end{equation}
+followed by projection onto the feasible set with minimum active weight $\mu$:
+\begin{equation}
+w_k = \Pi_{\Delta_{k,s}(\mu)}\!\left(w_k^{\mathrm{ema}}\right).
+\end{equation}
+Here $\Delta_{k,s}(\mu)$ denotes the active-neighbor simplex with lower bound $\mu$ on active entries.
+
+\paragraph{Proposition 6.}
+For any $\alpha \in [0,1]$, the EMA point $w_k^{\mathrm{ema}}$ is the unique minimizer of
+\begin{equation}
+\min_{w}
+\left\{
+\alpha \|w-w_{k-1}\|_2^2 + (1-\alpha)\|w-\hat w_k\|_2^2
+\right\}.
+\label{eq:ema-proximal}
+\end{equation}
+
+\paragraph{Proof.}
+The objective in \eqref{eq:ema-proximal} is a strictly convex quadratic. Setting its gradient to zero gives
+\begin{equation}
+2\alpha(w-w_{k-1}) + 2(1-\alpha)(w-\hat w_k)=0,
+\end{equation}
+which simplifies to
+\begin{equation}
+w=\alpha w_{k-1} + (1-\alpha)\hat w_k = w_k^{\mathrm{ema}}.
+\end{equation}
+Uniqueness follows from strict convexity. \qed
+
+\paragraph{Interpretation.}
+The EMA step is therefore not merely an ad hoc average. Before the subsequent masking and minimum-weight projection, it is the exact Euclidean compromise between the previous weight vector and the new instantaneous optimizer. The later minimum-weight safeguard should still be described as a pragmatic feasibility projection rather than as part of one unified exact optimizer.
+
+\subsection*{Step 11: what is actually proved versus what is still only modeled}
+
+\paragraph{Solid and promotable.}
+The following claims are already strong enough to consider for an eventual appendix:
+\begin{enumerate}
+\item normalized multiplicative backbone scores are the exact solution of an entropy-regularized simplex allocation problem in log-utility space,
+\item branch decoupling is exactly a convex interpolation in log-utility space,
+\item weak structure-aware refinement is exactly an additive prior term in log-utility space and equivalently a KL regularization toward a graph-induced prior,
+\item Bernoulli-RFS divergence decomposes exactly into a Bernoulli existence term plus an existence-weighted spatial KL term,
+\item the implemented existence merger is an exact weighted logit pool with an additive spatial-overlap offset,
+\item the implemented decoupled spatial and existence updates are the exact optimizer of a per-Bernoulli decoupled surrogate objective,
+ \item under the same label-alignment assumption used by the implementation, the decoupled theory lifts to an aligned-LMB surrogate objective that decomposes labelwise,
+ \item the branch-decoupled score construction is the exact optimizer of a clean block-separable surrogate objective,
+ \item the combined state-update and adaptive-weight rules are consistent with a single block-relaxed objective whose two blocks reproduce the implemented merger and weight-allocation steps,
+ \item the covariance factor is a monotone separable surrogate for posterior concentration under Loewner-order covariance improvement,
+ \item existence confidence is bounded and monotone with respect to posterior decisiveness,
+ \item the EMA step is the exact minimizer of a quadratic compromise between the previous weights and the instantaneous optimizer.
+\end{enumerate}
+
+\paragraph{Not yet solid enough for the appendix.}
+The following points still require care:
+\begin{enumerate}
+ \item a full derivation from one single non-surrogate KL objective on the complete LMB family without relying on aligned-label and moment-projection assumptions,
+ \item a proof that the chosen covariance score is the best possible posterior-quality surrogate rather than simply a sensible one,
+ \item a first-principles derivation of the static structure prior from graph geometry,
+ \item a rigorous equivalence between the EMA plus lower-bound implementation and an exact proximal optimization problem.
+\end{enumerate}
+
+\subsection*{Implementation mapping table}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Theory symbol or concept & Implementation anchor \\
+\midrule
+$q_{\mathrm{cov}}$ & \texttt{computeCovarianceScore} \\
+$q_{\mathrm{link}}$ & \texttt{computeLinkQuality} \\
+$q_{\mathrm{exist}}$ & \texttt{resolveExistenceConfidenceScore} \\
+$\eta_i(w_x)$ and exact logit pooling & \texttt{gaLmbTrackMerging} \\
+$\eta_x,\eta_r$ & \texttt{spatialDecouplingStrength}, \texttt{existenceDecouplingStrength} \\
+$\alpha_x,\beta_x$ & \texttt{spatialCovariancePower}, \texttt{spatialLinkQualityPower} \\
+$\beta_r,\alpha_r$ & \texttt{existenceLinkQualityPower}, \texttt{existenceConfidenceWeightPower} \\
+$\gamma_x,\gamma_r$ & \texttt{spatialStructureStrength}, \texttt{existenceStructureStrength} \\
+EMA stabilization & \texttt{finalizeAdaptiveWeights} \\
+minimum-weight safeguard & \texttt{enforceMinimumWeight} \\
+structure prior / consistency score & \texttt{resolveStructurePrior}, \texttt{resolveStructureConsistencyScores} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Next derivation tasks}
+
+The most valuable next steps are:
+\begin{enumerate}
+\item rewrite the branch-wise optimization problem so that the active-set handling is cleanly embedded in the notation and does not require ad hoc correction text,
+\item investigate whether the block-separable surrogate can be connected more directly to a local approximation of the full LMB KLA objective,
+\item try to write the spatial branch in terms of canonical-parameter Bregman geometry rather than only information-space barycenters,
+\item decide how much of the EMA and KL-prior interpretations belongs in the appendix versus the main text.
+\end{enumerate}
