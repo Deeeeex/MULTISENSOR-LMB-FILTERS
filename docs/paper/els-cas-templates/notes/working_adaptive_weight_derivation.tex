@@ -3,7 +3,7 @@
 
 This file is a working derivation note and is intentionally not included in the current manuscript build. Its purpose is to develop a more solid theoretical interpretation of the implemented adaptive fusion-weight design before any part of it is promoted into the appendix.
 
-The note uses the same theoretical background as the manuscript: KLA and conservative density fusion \citep{Battistelli2014KLA,Hlinka2014ICI}, distributed exponential-mixture and logarithmic-opinion-pool fusion \citep{Uney2013EMDPHD,Bandyopadhyay2018LogOP}, and the labeled-RFS / LMB representation of multi-object posteriors \citep{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}.
+The note uses the same theoretical background as the manuscript: KLA and conservative density fusion \citep{Battistelli2014KLA,Hlinka2014ICI}, distributed exponential-mixture and logarithmic-opinion-pool fusion \citep{Uney2013EMDPHD,Bandyopadhyay2018LogOP}, exponential-family / Bregman variational geometry \citep{WainwrightJordan2008,Banerjee2005Bregman}, entropic mirror-descent and exponentiated-gradient updates on the simplex \citep{KivinenWarmuth1997,BeckTeboulle2003}, envelope-theorem sensitivity analysis \citep{MilgromSegal2002}, and the labeled-RFS / LMB representation of multi-object posteriors \citep{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}.
 
 \subsection*{Status and intended use}
 
@@ -633,6 +633,59 @@ which is just Proposition 1 specialized to the covariance utility.
 \paragraph{What this means.}
 The current covariance factor should therefore be described as a separable local surrogate for spatial information quality, not as the solution of a full matrix-valued fusion-design problem. That level of modesty is important. The surrogate is mathematically clean and code-faithful, but it does not claim more than the implementation can support.
 
+\paragraph{Proposition 3b.}
+Assume an isotropic regime in which, for each active neighbor $j \in \mathcal{A}_{k,s}$ and every Bernoulli index $i$,
+\begin{equation}
+T_{k,i}^{(j)} = \sigma_j^2 I_d
+\end{equation}
+for some common state dimension $d$ and sensor-specific variance scale $\sigma_j^2 > 0$. Then the ordering induced by the implemented covariance score
+\begin{equation}
+q_{\mathrm{cov},k}^{(j)} = \frac{1}{\epsilon + d \sigma_j^2}
+\end{equation}
+is identical to the ordering induced by each of the following criteria:
+\begin{enumerate}
+\item smaller isotropic variance scale $\sigma_j^2$,
+\item smaller $\log \det T_{k,i}^{(j)}$,
+\item larger $\log \det \left(T_{k,i}^{(j)}\right)^{-1}$,
+\item larger $\operatorname{tr}\!\left(\left(T_{k,i}^{(j)}\right)^{-1}\right)$.
+\end{enumerate}
+
+\paragraph{Proof.}
+Under isotropy,
+\begin{equation}
+\operatorname{tr}(T_{k,i}^{(j)}) = d\sigma_j^2,
+\qquad
+\log\det T_{k,i}^{(j)} = d\log \sigma_j^2,
+\qquad
+\operatorname{tr}\!\left(\left(T_{k,i}^{(j)}\right)^{-1}\right)=\frac{d}{\sigma_j^2}.
+\end{equation}
+Each listed criterion is therefore a strictly monotone transform of $\sigma_j^2$, and so is $q_{\mathrm{cov},k}^{(j)}=1/(\epsilon+d\sigma_j^2)$. Hence all of them induce the same ranking on active neighbors. \qed
+
+\paragraph{Near-isotropic remark.}
+If
+\begin{equation}
+T_{k,i}^{(j)} = \rho_{i,j}\left(I_d + E_{i,j}\right),
+\qquad
+\operatorname{tr}(E_{i,j})=0,
+\qquad
+\|E_{i,j}\|_2 \ll 1,
+\end{equation}
+then $\operatorname{tr}(T_{k,i}^{(j)}) = d\rho_{i,j}$ while the matrix expansion
+\begin{equation}
+\log\det\!\left(I_d + E_{i,j}\right)
+=
+-\frac{1}{2}\operatorname{tr}(E_{i,j}^2) + \mathcal{O}\!\left(\|E_{i,j}\|_2^3\right)
+\end{equation}
+implies
+\begin{equation}
+\log\det T_{k,i}^{(j)}
+=
+d\log \rho_{i,j}
+-\frac{1}{2}\operatorname{tr}(E_{i,j}^2)
++ \mathcal{O}\!\left(\|E_{i,j}\|_2^3\right).
+\end{equation}
+Thus the implemented trace-based score and standard log-determinant information criteria differ only through second-order anisotropy corrections in a near-isotropic regime. This does not justify the present score as uniquely optimal, but it does place it much closer to standard information measures than a purely heuristic reading would suggest.
+
 \subsection*{Step 8: a coupled-surrogate objective behind branch decoupling}
 
 The previous section gives an exact algebraic reason why the two branches may use different weights. The next question is whether the implemented decoupled score construction can be embedded in a single higher-level optimization view. A reasonable answer is yes, but only at the level of a surrogate objective.
@@ -678,6 +731,78 @@ The surrogate is not arbitrary. It mirrors the exact algebraic structure of the 
 \item the decoupling coefficients $\eta_x,\eta_r$ control how far each branch is allowed to deviate from that shared anchor.
 \end{enumerate}
 
+\paragraph{Proposition 5b.}
+Let $p_x$ and $p_r$ be strictly positive priors on $\Delta_{k,s}$, and let $\mathcal{Q}_x$ and $\mathcal{Q}_r$ be differentiable latent branch-quality functionals defined on neighborhoods of $p_x$ and $p_r$. Consider the entropic proximal linearizations
+\begin{align}
+w_x^{+}
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\left\langle \nabla \mathcal{Q}_x(p_x),\, w-p_x \right\rangle
+- \tau_x D_{\mathrm{KL}}(w \,\|\, p_x)
+\right\},
+\label{eq:mirror-step-x}
+\\
+w_r^{+}
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\left\langle \nabla \mathcal{Q}_r(p_r),\, w-p_r \right\rangle
+- \tau_r D_{\mathrm{KL}}(w \,\|\, p_r)
+\right\}.
+\label{eq:mirror-step-r}
+\end{align}
+Then the unique optimizers are
+\begin{align}
+w_{x,j}^{+}
+&\propto
+p_{x,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_x(p_x))_j}{\tau_x}\right),
+\label{eq:mirror-softmax-x}
+\\
+w_{r,j}^{+}
+&\propto
+p_{r,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_r(p_r))_j}{\tau_r}\right).
+\label{eq:mirror-softmax-r}
+\end{align}
+In particular, if
+\begin{align}
+p_{x,j} &\propto \left(\xi_{x,j}\right)^{\gamma_x/\tau_x},
+&
+p_{r,j} &\propto \left(\xi_{r,j}\right)^{\gamma_r/\tau_r},
+\\
+(\nabla \mathcal{Q}_x(p_x))_j &= (1-\eta_x)u_{0,j} + \eta_x u_{x,j},
+&
+(\nabla \mathcal{Q}_r(p_r))_j &= (1-\eta_r)u_{0,j} + \eta_r u_{r,j},
+\end{align}
+then \eqref{eq:mirror-softmax-x}--\eqref{eq:mirror-softmax-r} coincide exactly with the implemented structure-aware branch weights from Corollary 1.
+
+\paragraph{Proof.}
+The terms independent of $w$ in \eqref{eq:mirror-step-x} and \eqref{eq:mirror-step-r} can be dropped. For the spatial branch, this leaves
+\begin{equation}
+\max_{w \in \Delta_{k,s}}
+\left\{
+\sum_j w_j (\nabla \mathcal{Q}_x(p_x))_j
+- \tau_x \sum_j w_j \log \frac{w_j}{p_{x,j}}
+\right\}.
+\end{equation}
+This objective is strictly concave on the simplex. Introducing a multiplier $\lambda_x$ for $\sum_j w_j=1$ gives the first-order condition
+\begin{equation}
+(\nabla \mathcal{Q}_x(p_x))_j
+- \tau_x\left(\log w_j - \log p_{x,j} + 1\right)
++ \lambda_x = 0,
+\end{equation}
+which implies
+\begin{equation}
+w_j = C_x\, p_{x,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_x(p_x))_j}{\tau_x}\right)
+\end{equation}
+for a normalization constant $C_x$. Normalizing over the simplex yields \eqref{eq:mirror-softmax-x}. The existence branch is identical. Substituting the stated priors and gradients gives exactly the branch scores from Corollary 1 after normalization. \qed
+
+\paragraph{Interpretation.}
+Proposition 5b strengthens the bridge to a fuller objective without overstating what is known. The current branch weights can be read not only as the exact optimizer of a static entropy-regularized linear-utility program, but also as an exact entropic mirror-ascent / exponentiated-gradient step \citep{KivinenWarmuth1997,BeckTeboulle2003} on any smooth latent branch-quality functional whose local gradient is summarized by the implemented utilities. This is a first-order approximation statement, not a claim that the full LMB objective is globally equal to the adopted surrogate.
+
+\paragraph{Corollary 2.}
+Suppose a fuller aligned-LMB quality functional induces reduced branch-quality functionals $\mathcal{Q}_x$ and $\mathcal{Q}_r$ over the simplex, and suppose their local sensitivities at graph-induced priors $p_x$ and $p_r$ are summarized by the implemented utilities in Proposition 5b. Then the current structure-aware branch weights coincide with one entropic first-order relaxation step of that fuller objective around the chosen priors.
+
 \paragraph{Proposition 5a.}
 Let
 \begin{equation}
@@ -706,6 +831,86 @@ in the following sense:
 
 \paragraph{Interpretation.}
 Proposition 5a is not a claim that the online implementation literally alternates exact minimization over these two blocks. It is a consistency statement: the state-update formulas and the adaptive weight-allocation formulas can be viewed as solving two compatible blocks of the same relaxed objective. This is the strongest accurate ``approximation theorem'' style statement currently supported by the implementation.
+
+\paragraph{Proposition 5c.}
+Define the reduced aligned-LMB value function
+\begin{equation}
+\Phi(w_x,w_r)
+:=
+\min_{\{\beta_i\}}
+\mathcal{F}(w_x,w_r;\{\beta_i\})
+\end{equation}
+with $\mathcal{F}$ from Proposition 5a, and suppose the minimizer is unique, interior, and differentiable with respect to $(w_x,w_r)$ in a neighborhood of interest. Then the envelope theorem \citep{MilgromSegal2002} yields
+\begin{align}
+\frac{\partial \Phi}{\partial w_{x,j}}
+&=
+\sum_{i=1}^{M_k}
+r_i^\star(w_x,w_r)\,
+D_{\mathrm{KL}}\!\left(p_i^\star(w_x,w_r)\,\|\,p_{i,j}\right),
+\label{eq:envelope-spatial-gradient}
+\\
+\frac{\partial \Phi}{\partial w_{r,j}}
+&=
+\sum_{i=1}^{M_k}
+d_{\mathrm{Ber}}\!\left(r_i^\star(w_x,w_r)\,\|\,r_{i,j}\right).
+\label{eq:envelope-existence-gradient}
+\end{align}
+Equivalently, for the reduced quality functional $\mathcal{Q}:=-\Phi$,
+\begin{align}
+\frac{\partial \mathcal{Q}}{\partial w_{x,j}}
+&=
+-
+\sum_{i=1}^{M_k}
+r_i^\star\,
+D_{\mathrm{KL}}\!\left(p_i^\star\,\|\,p_{i,j}\right),
+\\
+\frac{\partial \mathcal{Q}}{\partial w_{r,j}}
+&=
+-
+\sum_{i=1}^{M_k}
+d_{\mathrm{Ber}}\!\left(r_i^\star\,\|\,r_{i,j}\right).
+\end{align}
+
+\paragraph{Proof sketch.}
+By Proposition 4d,
+\begin{equation}
+\mathcal{F}(w_x,w_r;\{\beta_i\})
+=
+\sum_{i=1}^{M_k}\mathcal{J}_i(r_i,p_i;w_x,w_r),
+\end{equation}
+with
+\begin{equation}
+\mathcal{J}_i
+=
+\sum_j w_{r,j}d_{\mathrm{Ber}}(r_i\,\|\,r_{i,j})
++
+r_i\sum_j w_{x,j}D_{\mathrm{KL}}(p_i\,\|\,p_{i,j}).
+\end{equation}
+The explicit partial derivatives of $\mathcal{F}$ with respect to the weights are therefore
+\begin{align}
+\frac{\partial \mathcal{F}}{\partial w_{x,j}}
+&=
+\sum_{i=1}^{M_k}
+r_i\,D_{\mathrm{KL}}(p_i\,\|\,p_{i,j}),
+\\
+\frac{\partial \mathcal{F}}{\partial w_{r,j}}
+&=
+\sum_{i=1}^{M_k}
+d_{\mathrm{Ber}}(r_i\,\|\,r_{i,j}).
+\end{align}
+Evaluating these derivatives at the optimizer $\{\beta_i^\star(w_x,w_r)\}$ and applying the envelope theorem gives \eqref{eq:envelope-spatial-gradient}--\eqref{eq:envelope-existence-gradient}. \qed
+
+\paragraph{Interpretation.}
+Proposition 5c turns the earlier abstract mirror-ascent statement into a concrete reduced-objective bridge. The branch sensitivities of the aligned-LMB surrogate are exactly negative aggregated mismatch terms: the spatial branch is penalized by existence-weighted spatial KL mismatch, while the existence branch is penalized by Bernoulli mismatch. The implemented utilities should therefore be interpreted as cheap communication-aware surrogates for these exact reduced gradients, rather than as unrelated hand-crafted scores.
+
+\paragraph{A gradient-surrogate reading of the retained factors.}
+This reduced-gradient view also clarifies why the final retained factors are the ones that survived the ablations:
+\begin{enumerate}
+\item smaller covariance dispersion is a proxy for smaller future spatial KL mismatch,
+\item better realized link quality is a proxy for lower communication-induced distortion of both mismatch terms,
+\item stronger existence decisiveness is a proxy for a steeper and more reliable Bernoulli mismatch signal.
+\end{enumerate}
+This is still a surrogate interpretation, but it is now anchored to a concrete reduced aligned-LMB objective rather than to an unspecified latent utility.
 
 \subsection*{Step 9: existence confidence as a bounded decisiveness factor}
 
@@ -813,8 +1018,10 @@ The following claims are already strong enough to consider for an eventual appen
 \item the implemented decoupled spatial and existence updates are the exact optimizer of a per-Bernoulli decoupled surrogate objective,
  \item under the same label-alignment assumption used by the implementation, the decoupled theory lifts to an aligned-LMB surrogate objective that decomposes labelwise,
  \item the branch-decoupled score construction is the exact optimizer of a clean block-separable surrogate objective,
+ \item the same branch-decoupled weights are also the exact result of an entropic mirror-ascent linearization around graph-induced priors when the local gradient is summarized by the implemented utilities,
  \item the combined state-update and adaptive-weight rules are consistent with a single block-relaxed objective whose two blocks reproduce the implemented merger and weight-allocation steps,
- \item the covariance factor is a monotone separable surrogate for posterior concentration under Loewner-order covariance improvement,
+ \item the reduced aligned-LMB value function has exact branch sensitivities given by existence-weighted spatial KL mismatch and Bernoulli mismatch, which makes the retained utilities interpretable as gradient surrogates rather than ad hoc scores,
+ \item the covariance factor is a monotone separable surrogate for posterior concentration under Loewner-order covariance improvement and agrees exactly with standard isotropic information criteria in the isotropic limit,
  \item existence confidence is bounded and monotone with respect to posterior decisiveness,
  \item the EMA step is the exact minimizer of a quadratic compromise between the previous weights and the instantaneous optimizer.
 \end{enumerate}
@@ -823,9 +1030,10 @@ The following claims are already strong enough to consider for an eventual appen
 The following points still require care:
 \begin{enumerate}
  \item a full derivation from one single non-surrogate KL objective on the complete LMB family without relying on aligned-label and moment-projection assumptions,
- \item a proof that the chosen covariance score is the best possible posterior-quality surrogate rather than simply a sensible one,
+ \item a proof that the chosen covariance score remains close to the best anisotropic posterior-quality surrogate outside isotropic or near-isotropic regimes,
  \item a first-principles derivation of the static structure prior from graph geometry,
- \item a rigorous equivalence between the EMA plus lower-bound implementation and an exact proximal optimization problem.
+ \item a rigorous equivalence between the EMA plus lower-bound implementation and an exact proximal optimization problem,
+ \item a direct approximation bound between the implemented utilities and the exact reduced gradients from Proposition 5c.
 \end{enumerate}
 
 \subsection*{Implementation mapping table}
@@ -855,7 +1063,8 @@ structure prior / consistency score & \texttt{resolveStructurePrior}, \texttt{re
 The most valuable next steps are:
 \begin{enumerate}
 \item rewrite the branch-wise optimization problem so that the active-set handling is cleanly embedded in the notation and does not require ad hoc correction text,
-\item investigate whether the block-separable surrogate can be connected more directly to a local approximation of the full LMB KLA objective,
+\item investigate whether explicit approximation bounds can be proved between the retained utilities and the reduced gradients from Proposition 5c,
+\item strengthen the covariance argument from isotropic / near-isotropic agreement to a broader anisotropic approximation guarantee,
 \item try to write the spatial branch in terms of canonical-parameter Bregman geometry rather than only information-space barycenters,
 \item decide how much of the EMA and KL-prior interpretations belongs in the appendix versus the main text.
 \end{enumerate}

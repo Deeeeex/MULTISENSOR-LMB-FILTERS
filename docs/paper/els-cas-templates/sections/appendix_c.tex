@@ -65,6 +65,17 @@ w_j^\star = \frac{s_{0,j}}{\sum_u s_{0,u}}.
 
 Thus the multiplicative backbone is exactly an entropy-regularized simplex allocation in log-utility space, not merely an empirical product of factors.
 
+\paragraph{Isotropic interpretation of the covariance term.}
+If the local Gaussian components satisfy
+\begin{equation}
+T_{k,i}^{(j)} = \sigma_j^2 I_d
+\end{equation}
+for all labels $i$ at sensor $j$, then the implemented covariance score
+\begin{equation}
+q_{\mathrm{cov},k}^{(j)} = \frac{1}{\epsilon + d \sigma_j^2}
+\end{equation}
+induces exactly the same ordering as smaller $\sigma_j^2$, smaller $\log\det T_{k,i}^{(j)}$, larger $\log\det (T_{k,i}^{(j)})^{-1}$, and larger $\operatorname{tr}((T_{k,i}^{(j)})^{-1})$. Hence, in the isotropic limit, the retained trace-based score agrees with standard information criteria. In near-isotropic regimes, the disagreement with log-determinant criteria enters only through higher-order anisotropy terms.
+
 \subsection{Exact Branch Structure of the Implemented GA-LMB Merger}
 
 The implemented merger uses separate spatial and existence weights. This separation is not purely heuristic; it is supported by the algebraic structure of the GA-LMB update.
@@ -237,6 +248,53 @@ Then the branch-decoupled adaptive weights are the exact optimizer of the block-
 \end{equation}
 Moreover, together with the aligned-LMB surrogate state-update block above, the implemented merger and the adaptive weight-allocation rule are consistent with a single block-relaxed objective whose two blocks reproduce the code-level state-update and weight-update steps.
 
+\paragraph{Proposition C7a.}
+Let $p_x$ and $p_r$ be strictly positive priors on the simplex, and let $\mathcal{Q}_x$ and $\mathcal{Q}_r$ be differentiable latent branch-quality functionals. The entropic proximal linearizations
+\begin{align}
+w_x^{+}
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\left\langle \nabla \mathcal{Q}_x(p_x),\, w-p_x \right\rangle
+- \tau_x D_{\mathrm{KL}}(w \,\|\, p_x)
+\right\},
+\\
+w_r^{+}
+&=
+\arg\max_{w \in \Delta_{k,s}}
+\left\{
+\left\langle \nabla \mathcal{Q}_r(p_r),\, w-p_r \right\rangle
+- \tau_r D_{\mathrm{KL}}(w \,\|\, p_r)
+\right\}
+\end{align}
+have unique optimizers
+\begin{align}
+w_{x,j}^{+} &\propto p_{x,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_x(p_x))_j}{\tau_x}\right), \\
+w_{r,j}^{+} &\propto p_{r,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_r(p_r))_j}{\tau_r}\right).
+\end{align}
+Therefore, if the graph-induced priors satisfy $p_{x,j} \propto \xi_{x,j}^{\gamma_x/\tau_x}$ and $p_{r,j} \propto \xi_{r,j}^{\gamma_r/\tau_r}$, and if the local gradients are summarized by the implemented branch utilities, then the current structure-aware adaptive weights coincide exactly with one entropic mirror-ascent / exponentiated-gradient step on those latent branch-quality functionals \citep{KivinenWarmuth1997,BeckTeboulle2003}. This is a first-order relaxation statement, not a claim of a full global optimum for unconstrained LMB fusion.
+
+\paragraph{A reduced-objective sensitivity view.}
+Let
+\begin{equation}
+\Phi(w_x,w_r)
+:=
+\min_{\{\beta_i\}}
+\mathcal{F}(w_x,w_r;\{\beta_i\})
+\end{equation}
+denote the aligned-LMB surrogate value function from Proposition C5. Under the same local differentiability assumptions used in standard envelope arguments \citep{MilgromSegal2002}, its branch sensitivities are
+\begin{align}
+\frac{\partial \Phi}{\partial w_{x,j}}
+&=
+\sum_i r_i^\star
+D_{\mathrm{KL}}(p_i^\star\,\|\,p_{i,j}),
+\\
+\frac{\partial \Phi}{\partial w_{r,j}}
+&=
+\sum_i d_{\mathrm{Ber}}(r_i^\star\,\|\,r_{i,j}).
+\end{align}
+Hence the exact reduced aligned-LMB objective penalizes spatial weights through existence-weighted spatial KL mismatch and penalizes existence weights through Bernoulli mismatch. This provides a concrete target for the retained utilities: covariance quality, realized link quality, and existence confidence should be read as stable surrogates for these exact reduced gradients, not as unrelated heuristic factors.
+
 \subsection{Existence Confidence and Temporal Stabilization}
 
 The existence-confidence term uses
@@ -273,11 +331,14 @@ Thus the EMA step is an exact quadratic compromise between the previous weights 
 Under the same aligned-label and moment-compatible assumptions used by the implementation, this appendix establishes:
 \begin{itemize}
 \item an exact entropy-regularized interpretation of the adaptive backbone,
+ \item an isotropic-limit agreement between the retained covariance score and standard information criteria,
 \item an exact Gaussian KLA barycenter for the spatial branch,
 \item an exact logit-pooling identity for the existence branch,
 \item an exact Bernoulli-RFS decomposition that motivates branch separation,
 \item an aligned-LMB surrogate interpretation of the componentwise decoupled merger,
 \item a KL-prior interpretation of the weak structure-aware refinement,
+\item a first-order entropic mirror-ascent interpretation of the structure-aware weight update,
+ \item a concrete reduced-objective sensitivity view in which the exact branch gradients are spatial KL mismatch and Bernoulli mismatch terms,
 \item a quadratic-compromise interpretation of the EMA stabilization step.
 \end{itemize}
 What remains outside the scope of this appendix is a full theorem for completely unconstrained LMB fusion without the aligned-label and moment-projection assumptions used by the present implementation.
