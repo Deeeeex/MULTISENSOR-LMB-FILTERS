@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 500" width="100%" height="100%" style="background-color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Solid Arrowhead -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333333" />
+    </marker>
+    
+    <!-- Dashed Arrowhead for weak modulation -->
+    <marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#888888" />
+    </marker>
+  </defs>
+
+  <style>
+    /* Box Styles */
+    .box-input { fill: #ffffff; stroke: #666666; stroke-width: 1.2; }
+    .box-backbone-bg { fill: #f8fafc; stroke: #a3b8cc; stroke-width: 1.5; stroke-dasharray: 6,4; }
+    .box-core { fill: #eef3f8; stroke: #4b729f; stroke-width: 1.5; }
+    .box-spat { fill: #fff5f5; stroke: #a84040; stroke-width: 1.5; }
+    .box-exist { fill: #f0f4f8; stroke: #4b729f; stroke-width: 1.5; }
+    .box-weak { fill: #fdfdfd; stroke: #aaaaaa; stroke-width: 1.2; stroke-dasharray: 4,3; }
+    .box-post { fill: #ffffff; stroke: #666666; stroke-width: 1.2; }
+    
+    /* Line Styles */
+    .line-solid { stroke: #333333; stroke-width: 1.5; fill: none; }
+    .line-strong { stroke: #333333; stroke-width: 2.5; fill: none; }
+    .line-weak { stroke: #888888; stroke-width: 1.5; stroke-dasharray: 5,3; fill: none; }
+    
+    /* Typography */
+    .txt-title { font-size: 14px; font-weight: bold; fill: #4b729f; letter-spacing: 0.5px; }
+    .txt-main { font-size: 13px; font-weight: bold; fill: #333333; text-anchor: middle; dominant-baseline: middle; }
+    .txt-sub { font-size: 11px; font-weight: normal; fill: #666666; text-anchor: middle; dominant-baseline: middle; }
+    .txt-label { font-size: 12px; font-style: italic; fill: #555555; }
+    .txt-output { font-size: 13px; font-weight: bold; fill: #333333; text-anchor: start; dominant-baseline: middle; }
+    
+    /* Mixer Nodes */
+    .mixer-circle { fill: #ffffff; stroke: #333333; stroke-width: 1.2; }
+  </style>
+
+  <!-- ================= INPUTS ================= -->
+  <!-- Neighborhood Inputs -->
+  <rect x="15" y="210" width="110" height="40" rx="4" class="box-input" />
+  <text x="70" y="222" class="txt-main">Neighborhood</text>
+  <text x="70" y="238" class="txt-main">Inputs</text>
+
+  <!-- Availability Mask -->
+  <rect x="15" y="265" width="110" height="40" rx="4" class="box-input" />
+  <text x="70" y="277" class="txt-main">Availability</text>
+  <text x="70" y="293" class="txt-main">Mask</text>
+
+  <!-- Input Routing -->
+  <path d="M 125 230 L 135 230 L 135 257 L 145 257" class="line-solid" />
+  <path d="M 125 285 L 135 285 L 135 257" class="line-solid" />
+
+
+  <!-- ================= SHARED BACKBONE ================= -->
+  <!-- Background Group -->
+  <rect x="135" y="80" width="220" height="320" rx="8" class="box-backbone-bg" />
+  <text x="245" y="105" class="txt-title" text-anchor="middle">SHARED SCORE BACKBONE</text>
+
+  <!-- Distribution Bus Line -->
+  <line x1="145" y1="150" x2="145" y2="360" class="line-solid" />
+  
+  <line x1="145" y1="150" x2="160" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="145" y1="257" x2="160" y2="257" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="145" y1="360" x2="160" y2="360" class="line-solid" marker-end="url(#arrow)" />
+
+  <!-- Core Components -->
+  <rect x="160" y="130" width="170" height="40" rx="4" class="box-core" />
+  <text x="245" y="150" class="txt-main">Covariance Quality</text>
+
+  <rect x="160" y="237" width="170" height="40" rx="4" class="box-core" />
+  <text x="245" y="257" class="txt-main">Realized Link Quality</text>
+
+  <rect x="160" y="340" width="170" height="40" rx="4" class="box-core" />
+  <text x="245" y="360" class="txt-main">Existence Confidence</text>
+
+  <!-- Collection Bus Line -->
+  <line x1="330" y1="150" x2="345" y2="150" class="line-solid" />
+  <line x1="330" y1="257" x2="345" y2="257" class="line-solid" />
+  <line x1="330" y1="360" x2="345" y2="360" class="line-solid" />
+  
+  <line x1="345" y1="150" x2="345" y2="360" class="line-solid" />
+  
+  <!-- Shared Score Output -->
+  <line x1="345" y1="257" x2="395" y2="257" class="line-solid" marker-end="url(#arrow)" />
+  <text x="370" y="247" class="txt-label" text-anchor="middle">Shared Score</text>
+
+
+  <!-- ================= BRANCH SPLIT & REFINEMENT ================= -->
+  <!-- Split Lines -->
+  <line x1="395" y1="150" x2="395" y2="360" class="line-solid" />
+  <line x1="395" y1="150" x2="415" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="395" y1="360" x2="415" y2="360" class="line-solid" marker-end="url(#arrow)" />
+
+  <!-- Spatial Branch Refinement -->
+  <rect x="415" y="125" width="170" height="50" rx="4" class="box-spat" />
+  <text x="500" y="142" class="txt-main">Spatial Refinement</text>
+  <text x="500" y="159" class="txt-sub">Covariance &amp; Link emphasis</text>
+
+  <!-- Existence Branch Refinement -->
+  <rect x="415" y="335" width="170" height="50" rx="4" class="box-exist" />
+  <text x="500" y="352" class="txt-main">Existence Refinement</text>
+  <text x="500" y="369" class="txt-sub">Link &amp; Exist emphasis</text>
+
+
+  <!-- ================= WEAK STRUCTURE-AWARE MODULATION ================= -->
+  <!-- Modulator Block -->
+  <rect x="565" y="235" width="130" height="44" rx="4" class="box-weak" />
+  <text x="630" y="249" class="txt-main" fill="#555555">Structure-Aware</text>
+  <text x="630" y="265" class="txt-sub">Weak Refinement</text>
+
+  <!-- Mixers / Modulation Nodes -->
+  <circle cx="630" cy="150" r="10" class="mixer-circle" />
+  <path d="M 625 150 L 635 150 M 630 145 L 630 155" class="line-solid" />
+  
+  <circle cx="630" cy="360" r="10" class="mixer-circle" />
+  <path d="M 625 360 L 635 360 M 630 355 L 630 365" class="line-solid" />
+
+  <!-- Lines from Branch Refinements to Mixers -->
+  <line x1="585" y1="150" x2="620" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="585" y1="360" x2="620" y2="360" class="line-solid" marker-end="url(#arrow)" />
+
+  <!-- Modulation Arrows -->
+  <!-- UP to Spatial (Stronger) -->
+  <line x1="630" y1="235" x2="630" y2="165" class="line-strong" marker-end="url(#arrow)" />
+  <text x="636" y="195" class="txt-label" text-anchor="start">(stronger)</text>
+  
+  <!-- DOWN to Existence (Weaker) -->
+  <line x1="630" y1="279" x2="630" y2="345" class="line-weak" marker-end="url(#arrow-dashed)" />
+  <text x="636" y="315" class="txt-label" fill="#888888" text-anchor="start">(weaker)</text>
+
+
+  <!-- ================= SMOOTHING & SAFEGUARD ================= -->
+  <!-- Spatial Path Post-Processing -->
+  <line x1="640" y1="150" x2="675" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <rect x="675" y="130" width="115" height="40" rx="4" class="box-post" />
+  <text x="732.5" y="150" class="txt-main">EMA Smoothing</text>
+
+  <line x1="790" y1="150" x2="815" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <rect x="815" y="130" width="95" height="40" rx="4" class="box-post" />
+  <text x="862.5" y="142" class="txt-main">Min-Weight</text>
+  <text x="862.5" y="158" class="txt-sub">Safeguard</text>
+
+  <!-- Existence Path Post-Processing -->
+  <line x1="640" y1="360" x2="675" y2="360" class="line-solid" marker-end="url(#arrow)" />
+  <rect x="675" y="340" width="115" height="40" rx="4" class="box-post" />
+  <text x="732.5" y="360" class="txt-main">EMA Smoothing</text>
+
+  <line x1="790" y1="360" x2="815" y2="360" class="line-solid" marker-end="url(#arrow)" />
+  <rect x="815" y="340" width="95" height="40" rx="4" class="box-post" />
+  <text x="862.5" y="352" class="txt-main">Min-Weight</text>
+  <text x="862.5" y="368" class="txt-sub">Safeguard</text>
+
+
+  <!-- ================= FINAL OUTPUTS ================= -->
+  <line x1="910" y1="150" x2="935" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <text x="945" y="142" class="txt-output">Normalized</text>
+  <text x="945" y="158" class="txt-output" fill="#a84040">Spatial Weights</text>
+
+  <line x1="910" y1="360" x2="935" y2="360" class="line-solid" marker-end="url(#arrow)" />
+  <text x="945" y="352" class="txt-output">Normalized</text>
+  <text x="945" y="368" class="txt-output" fill="#4b729f">Existence Weights</text>
+
+</svg>
