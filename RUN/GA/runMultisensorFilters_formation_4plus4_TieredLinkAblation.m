@@ -143,6 +143,9 @@ rmse = zeros(numberOfTrials, numberOfSensors, numArms);
 consOspa = zeros(numberOfTrials, numArms);
 consPos = zeros(numberOfTrials, numArms);
 consCard = zeros(numberOfTrials, numArms);
+consOspaSeries = [];
+consPosSeries = [];
+consCardSeries = [];
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 
 for trial = 1:numberOfTrials
@@ -184,6 +187,15 @@ for trial = 1:numberOfTrials
         consOspa(trial, armIdx) = mean(ospaArm);
         consPos(trial, armIdx) = mean(posArm, 'omitnan');
         consCard(trial, armIdx) = mean(cardArm);
+        if isempty(consOspaSeries)
+            simLength = numel(ospaArm);
+            consOspaSeries = zeros(numberOfTrials, simLength, numArms);
+            consPosSeries = NaN(numberOfTrials, simLength, numArms);
+            consCardSeries = zeros(numberOfTrials, simLength, numArms);
+        end
+        consOspaSeries(trial, :, armIdx) = reshape(ospaArm, 1, []);
+        consPosSeries(trial, :, armIdx) = reshape(posArm, 1, []);
+        consCardSeries(trial, :, armIdx) = reshape(cardArm, 1, []);
     end
 end
 
@@ -204,6 +216,13 @@ summary.consensus.pos = mean(consPos, 1, 'omitnan');
 summary.consensus.card = mean(consCard, 1);
 summary.local.eOspa = squeeze(mean(eOspa, 1));
 summary.local.rmse = squeeze(mean(rmse, 1));
+if ~isempty(consOspaSeries)
+    summary.consensusSeries.time = (1:size(consOspaSeries, 2))';
+    summary.consensusSeries.ospa = squeeze(mean(consOspaSeries, 1));
+    summary.consensusSeries.pos = squeeze(mean(consPosSeries, 1, 'omitnan'));
+    summary.consensusSeries.card = squeeze(mean(consCardSeries, 1));
+    summary.consensusSeries.armNames = armNames;
+end
 summary.pDropBySensorTrials = pDropBySensorTrials;
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
