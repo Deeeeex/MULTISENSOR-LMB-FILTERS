@@ -3,3 +3,9 @@
 *.mat
 *.fig
 octave-workspace
+
+# local tooling and Python cache
+.superpowers/
+__pycache__/
+docs/paper/.DS_Store
+docs/superpowers/plans/

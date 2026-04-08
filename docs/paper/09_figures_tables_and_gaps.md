@@ -23,8 +23,8 @@ Recommended content:
 
 Status:
 
-- not yet drawn
-- should be created as a clean schematic rather than extracted from simulation output
+- production prompt prepared in [figure1_system_overview_prompt.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure1_system_overview_prompt.md)
+- should be finalized in a diagram or illustration tool rather than extracted from simulation output
 
 Priority:
 
@@ -47,7 +47,7 @@ Recommended content:
 
 Status:
 
-- not yet drawn
+- production prompt prepared in [figure2_weight_factorization_prompt.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure2_weight_factorization_prompt.md)
 - all required content is already stable in [05_method_adaptive_kla.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/05_method_adaptive_kla.md)
 
 Priority:
@@ -68,8 +68,9 @@ Recommended content:
 
 Status:
 
-- not yet generated as a paper figure
+- generated as a Python-rendered PDF artifact
 - formula is stable and already documented in [05_method_adaptive_kla.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/05_method_adaptive_kla.md)
+- current artifact: [figure3_existence_confidence_curve.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure3_existence_confidence_curve.pdf)
 
 Priority:
 
@@ -90,9 +91,9 @@ Recommended content:
 
 Status:
 
-- conceptually ready
-- requires a clean export path for time-series outputs from the main GA script
-- no saved paper-ready figure artifact is currently tracked in the repository
+- generated as a Python-rendered PDF artifact
+- time-series export path now uses [exportFigure4ConsensusSeries.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/exportFigure4ConsensusSeries.m)
+- current artifact: [figure4_main_ga_consensus.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure4_main_ga_consensus.pdf)
 
 Priority:
 
@@ -118,8 +119,8 @@ Primary sources:
 
 Status:
 
-- numerically ready
-- only the plotting/export step remains
+- generated as a Python-rendered PDF artifact
+- current artifact: [figure5_factor_ablation.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure5_factor_ablation.pdf)
 
 Priority:
 
@@ -143,8 +144,8 @@ Primary source:
 
 Status:
 
-- numerically ready
-- no dedicated paper-ready figure has been generated yet
+- generated as a Python-rendered PDF artifact
+- current artifact: [figure6_ideal_support.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure6_ideal_support.pdf)
 
 Priority:
 

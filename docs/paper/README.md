@@ -58,6 +58,8 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `07_results_and_ablation.md`: paper-ready results and ablation section
 - `08_conclusion.md`: paper-ready conclusion draft
 - `09_figures_tables_and_gaps.md`: production checklist for figures, tables, and evidence gaps
+- `figure_captions.md`: centralized concise captions for Figure 1 through Figure 6
+- `figures/`: Python-rendered PDF assets for Figure 4, Figure 5, and Figure 6
 - `Appendix_A_simulation_setup.md`: appendix-ready simulation and communication settings
 - `Appendix_B_additional_attempts.md`: appendix-ready record of secondary module attempts and reserved result slots
 
