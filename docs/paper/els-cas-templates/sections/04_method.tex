@@ -1,7 +1,7 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB implementation. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \citep{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network.
+This section describes the adaptive fusion rule used in the distributed GA-LMB implementation. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \citep{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. A variational and information-geometric interpretation of the implemented branch-decoupled update is given in Appendix~\ref{app:theory}.
 
 \subsection{Baseline GA-LMB fusion}
 

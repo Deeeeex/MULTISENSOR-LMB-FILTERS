@@ -139,7 +139,9 @@ armNames = {arms.name};
 numArms = numel(arms);
 
 eOspa = zeros(numberOfTrials, numberOfSensors, numArms);
+hOspa = zeros(numberOfTrials, numberOfSensors, numArms);
 rmse = zeros(numberOfTrials, numberOfSensors, numArms);
+cardErr = zeros(numberOfTrials, numberOfSensors, numArms);
 consOspa = zeros(numberOfTrials, numArms);
 consPos = zeros(numberOfTrials, numArms);
 consCard = zeros(numberOfTrials, numArms);
@@ -178,9 +180,11 @@ for trial = 1:numberOfTrials
             armModel, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
 
         for s = 1:numberOfSensors
-            [eArm, ~] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
+            [eArm, hArm, cardArm] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
             eOspa(trial, s, armIdx) = mean(eArm);
+            hOspa(trial, s, armIdx) = mean(hArm);
             rmse(trial, s, armIdx) = mean(computeSetRmseOverTime(stateEstimatesBySensor{s}, groundTruthRfs), 'omitnan');
+            cardErr(trial, s, armIdx) = mean(abs(cardArm - groundTruthRfs.cardinality));
         end
 
         [posArm, cardArm, ospaArm] = computeConsensusMetrics(stateEstimatesBySensor, armModel);
@@ -215,7 +219,13 @@ summary.consensus.ospa = mean(consOspa, 1);
 summary.consensus.pos = mean(consPos, 1, 'omitnan');
 summary.consensus.card = mean(consCard, 1);
 summary.local.eOspa = squeeze(mean(eOspa, 1));
+summary.local.hOspa = squeeze(mean(hOspa, 1));
 summary.local.rmse = squeeze(mean(rmse, 1));
+summary.local.cardErr = squeeze(mean(cardErr, 1));
+summary.local.meanAcrossSensors.eOspa = computePerArmGlobalMeans(eOspa, false);
+summary.local.meanAcrossSensors.hOspa = computePerArmGlobalMeans(hOspa, false);
+summary.local.meanAcrossSensors.rmse = computePerArmGlobalMeans(rmse, true);
+summary.local.meanAcrossSensors.cardErr = computePerArmGlobalMeans(cardErr, false);
 if ~isempty(consOspaSeries)
     summary.consensusSeries.time = (1:size(consOspaSeries, 2))';
     summary.consensusSeries.ospa = squeeze(mean(consOspaSeries, 1));
@@ -242,7 +252,7 @@ if writeReport
     reportPath = fullfile(reportDir, reportName);
     writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
         sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-        arms, consOspa, consPos, consCard, finalArmMode);
+        arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, finalArmMode);
     fprintf('Report written: %s\n', reportPath);
 end
 end
@@ -287,7 +297,7 @@ end
 end
 
 function arms = buildArms(baseAdaptiveFusionConfig, finalArmMode)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 4);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 5);
 
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = false;
@@ -316,34 +326,86 @@ cfg.useNIS = false;
 arms(3).name = '+link quality';
 arms(3).adaptiveFusion = cfg;
 
-cfg = baseAdaptiveFusionConfig;
-cfg.enabled = true;
-cfg.useDecoupledKla = false;
-cfg.useCovariance = true;
-cfg.useLinkQuality = true;
-cfg.useFreshness = false;
-
 switch lower(finalArmMode)
     case {'freshness', 'fresh'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = false;
         cfg.useFreshness = true;
         arms(4).name = '+freshness';
+        arms(4).adaptiveFusion = cfg;
+        arms = arms(1:4);
     case {'cardinality', 'cardinalityconsensus', 'cardinality_consensus'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = false;
         cfg.useCardinalityConsensus = true;
         arms(4).name = '+cardinality consensus';
+        arms(4).adaptiveFusion = cfg;
+        arms = arms(1:4);
     case {'existence', 'existenceconfidence', 'existence_confidence'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = false;
         cfg.useExistenceConfidence = true;
         arms(4).name = '+existence confidence';
+        arms(4).adaptiveFusion = cfg;
+        arms = arms(1:4);
     case {'decoupled', 'decoupledkla', 'decoupled_kla'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        cfg.useExistenceConfidence = true;
+        arms(4).name = '+existence confidence';
+        arms(4).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = false;
         cfg.useExistenceConfidence = true;
         cfg.useDecoupledKla = true;
-        arms(4).name = '+decoupled KLA';
+        arms(5).name = '+decoupled KLA';
+        arms(5).adaptiveFusion = cfg;
     case {'structureaware', 'structure_aware', 'structure-aware', ...
             'structureawaredecoupledkla', 'structure_aware_decoupled_kla', ...
             'structure-aware-decoupled-kla'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        cfg.useExistenceConfidence = true;
+        arms(4).name = '+existence confidence';
+        arms(4).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = false;
         cfg.useExistenceConfidence = true;
         cfg.useDecoupledKla = true;
@@ -370,18 +432,26 @@ switch lower(finalArmMode)
         if cfg.structureReliabilityPower <= 0
             cfg.structureReliabilityPower = 0.30;
         end
-        arms(4).name = '+structure-aware decoupled KLA';
+        arms(5).name = '+structure-aware decoupled KLA';
+        arms(5).adaptiveFusion = cfg;
     otherwise
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
         cfg.useNIS = true;
         cfg.robustNIS = true;
         arms(4).name = '+robust NIS';
+        arms(4).adaptiveFusion = cfg;
+        arms = arms(1:4);
 end
-arms(4).adaptiveFusion = cfg;
 end
 
 function writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
     sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-    arms, consOspa, consPos, consCard, finalArmMode)
+    arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, finalArmMode)
 
 fid = fopen(reportPath, 'w');
 if fid < 0
@@ -440,7 +510,51 @@ for armIdx = 1:numel(arms)
         mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), mean(consCard(:, armIdx)));
 end
 
+fprintf(fid, '\n## Local Tracking Metrics (mean across sensors and trials)\n');
+fprintf(fid, '| Arm | E-OSPA | H-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|:----|-------:|-------:|-----:|--------:|\n');
+for armIdx = 1:numel(arms)
+    eOspaMean = computeGlobalMean(eOspa(:, :, armIdx), false);
+    hOspaMean = computeGlobalMean(hOspa(:, :, armIdx), false);
+    rmseMean = computeGlobalMean(rmse(:, :, armIdx), true);
+    cardErrMean = computeGlobalMean(cardErr(:, :, armIdx), false);
+    fprintf(fid, '| %s | %.6f | %.6f | %.6f | %.6f |\n', arms(armIdx).name, ...
+        eOspaMean, hOspaMean, rmseMean, cardErrMean);
+end
+
+fprintf(fid, '\n## Local Tracking Metrics By Sensor (mean across trials)\n');
+fprintf(fid, '| Sensor | Arm | E-OSPA | H-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|------:|:----|-------:|-------:|-----:|--------:|\n');
+for sensorIdx = 1:size(eOspa, 2)
+    for armIdx = 1:numel(arms)
+        fprintf(fid, '| %d | %s | %.6f | %.6f | %.6f | %.6f |\n', sensorIdx, arms(armIdx).name, ...
+            mean(eOspa(:, sensorIdx, armIdx)), mean(hOspa(:, sensorIdx, armIdx)), ...
+            mean(rmse(:, sensorIdx, armIdx), 'omitnan'), mean(cardErr(:, sensorIdx, armIdx)));
+    end
+end
+
 fclose(fid);
+end
+
+function values = computePerArmGlobalMeans(arrayLike, omitnanFlag)
+if ndims(arrayLike) < 3
+    values = computeGlobalMean(arrayLike, omitnanFlag);
+    return;
+end
+numArms = size(arrayLike, 3);
+values = zeros(1, numArms);
+for armIdx = 1:numArms
+    values(armIdx) = computeGlobalMean(arrayLike(:, :, armIdx), omitnanFlag);
+end
+end
+
+function value = computeGlobalMean(arrayLike, omitnanFlag)
+values = arrayLike(:);
+if nargin >= 2 && omitnanFlag
+    value = mean(values, 'omitnan');
+else
+    value = mean(values);
+end
 end
 
 function merged = mergeStructFields(base, overrides)

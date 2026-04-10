@@ -9,7 +9,7 @@ The current evaluation is intentionally hierarchical. The main experiment is dua
 
 \subsection{Main scenario}
 
-The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for data association.
+The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for approximate marginal data association \citep{WilliamsLau2014LBP}.
 
 The common sensor-side configuration is:
 \begin{itemize}
@@ -53,6 +53,8 @@ The current best adaptive configuration uses exponential smoothing with $\alpha 
 
 \subsection{Metrics and reporting}
 
-The experiments report two categories of metrics. Local tracking metrics include local E-OSPA, local H-OSPA, and local RMSE. Consensus metrics include consensus OSPA, consensus RMSE, and consensus cardinality disagreement. The OSPA family is used because it provides a mathematically consistent distance for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric}. The current paper emphasizes consensus metrics as the primary outcome because the method is meant to improve the consistency and quality of distributed fused belief across sensors.
+The experiments report two categories of metrics. The first category is network-level disagreement among sensors after distributed fusion. These primary metrics are consensus OSPA, consensus RMSE, and consensus cardinality disagreement as defined in Section~\ref{sec:problem-formulation}. The second category is conventional truth-referenced tracking accuracy. These secondary metrics are local E-OSPA, local H-OSPA, local RMSE, and local cardinality error. The OSPA family is used because it provides a mathematically consistent distance for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric}. Because the consensus metrics are task-specific network-agreement measures, the paper always interprets them together with the secondary local metrics rather than in isolation.
+
+This primary-versus-secondary split is deliberate. The current method is not proposed as a generic single-sensor accuracy booster. It is proposed as a distributed fusion-weight design for improving the consistency of the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome and the local tracking metrics as a safeguard against hidden degradation. In other words, the target is to improve consistency without causing a meaningful drop in conventional tracking quality.
 
 Unless otherwise stated, reported scalar metrics are Monte Carlo means. The recent headline reports for the main GA ablation and ideal-communication comparison use five trials with deterministic seed control. The paper body avoids overclaiming statistical certainty from this small trial count and instead treats the present results as the current best-supported empirical direction.

@@ -4,6 +4,10 @@ This directory organizes the current paper-ready draft for the adaptive KLA/GA-L
 
 ## Current Positioning
 
+Current working title:
+
+- `Communication-Aware Adaptive Weights for Consensus-Oriented Distributed KLA-Based LMB Fusion`
+
 Recommended main line:
 
 - Focus the paper on `GA-LMB / KLA` distributed fusion under communication constraints.
@@ -27,6 +31,7 @@ Recommended main line:
 Core main-line numbers:
 
 - Tiered GA main scenario: fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`) gives consensus OSPA `2.624 -> 1.862`, consensus RMSE `2.703 -> 1.750`, consensus cardinality `0.879 -> 0.244`
+- Tiered GA main scenario local metrics: fixed -> full adaptive gives local E-OSPA `2.945 -> 2.382`, local H-OSPA `0.500 -> 0.500`, local RMSE `1.622 -> 1.602`, local cardinality error `1.762 -> 0.710`
 - Tiered GA targeted improvement: `cov + link + existence` -> `cov + link + existence + weak structure-aware decoupled KLA` gives consensus OSPA `1.875 -> 1.862`, consensus RMSE `1.780 -> 1.750`, consensus cardinality `0.2445 -> 0.2443`
 - Ideal-comm GA comparison: `ordinary GA` -> `structure-aware decoupled KLA` gives consensus OSPA `1.706 -> 1.494`, consensus RMSE `1.526 -> 1.290`, consensus cardinality `0.161 -> 0.139`, and local E-OSPA `1.950 -> 1.877`
 
@@ -90,6 +95,7 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `docs/FORMATION_4PLUS4_RUN.md`
 - `docs/IDEAL_COMM_COMPARE_CN.md`
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_20260410_143517.md`
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
 - `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
 - `RUN/GA/GA_TIERED_LINK_NIS_COMPARE_20260321_193628.md`

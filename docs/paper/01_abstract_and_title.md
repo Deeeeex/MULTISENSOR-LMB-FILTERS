@@ -4,7 +4,7 @@
 
 Recommended:
 
-`Communication-Aware Adaptive Weights for Distributed KLA-Based LMB Fusion`
+`Communication-Aware Adaptive Weights for Consensus-Oriented Distributed KLA-Based LMB Fusion`
 
 Backup 1:
 
@@ -17,6 +17,7 @@ Backup 2:
 ## Title Direction
 
 - Related papers in this line usually keep the title centered on one method noun phrase plus one setting qualifier, rather than enumerating every internal module.
+- Here the added qualifier `consensus-oriented` is intentional: it makes the paper's primary objective explicit while avoiding ambiguity with statistical filter-consistency terminology.
 - The strongest common templates are:
   - `X fusion/filter for Y`
   - `X fusion with Z`

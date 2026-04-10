@@ -31,7 +31,7 @@ Because the cross-correlation structure among neighboring LMB posteriors is unkn
 \qquad
 \omega_{k,s}^{(j)} \ge 0,
 \end{equation}
-where $\omega_{k,s}^{(j)}$ is the fusion weight assigned by node $s$ to neighbor $j$ at time $k$ \citep{Battistelli2014KLA,Hlinka2014ICI}. With fixed-weight fusion, $\omega_{k,s}^{(j)}$ is often chosen as a uniform or Metropolis weight. The central problem studied here is how to choose these weights adaptively so that they reflect both posterior quality and communication quality.
+where $\omega_{k,s}^{(j)}$ is the fusion weight assigned by node $s$ to neighbor $j$ at time $k$ \citep{Battistelli2014KLA,Hlinka2014ICI}. With fixed-weight fusion, $\omega_{k,s}^{(j)}$ is often chosen as a uniform or Metropolis-type consensus weight \citep{XiaoBoydLall2005ConsensusWeights}. The central problem studied here is how to choose these weights adaptively so that they reflect both posterior quality and communication quality.
 
 In the present GA-LMB implementation, the spatial and existence parts of each Bernoulli component are fused separately after moment matching. This separation makes it natural to ask whether the same scalar weight should govern both spatial fusion and existence fusion.
 
@@ -81,9 +81,46 @@ Here $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ are local structure priors deri
 
 \subsection{Evaluation target}
 
-The aim of the above formulation is not only to improve each node's local tracking output, but also to improve agreement among nodes. The experiments therefore evaluate two complementary aspects:
+The aim of the above formulation is not only to improve each node's local tracking output, but also to improve agreement among nodes. This distinction is central in the present problem. Under unknown cross-correlations and communication losses, distributed fusion is useful only if neighboring nodes move toward a shared multi-sensor picture rather than drifting toward mutually inconsistent local beliefs.
+
+Accordingly, the evaluation uses two complementary metric layers:
 \begin{itemize}
-\item local tracking quality, measured by local E-OSPA and local RMSE,
-\item inter-sensor consensus quality, measured by consensus OSPA, consensus RMSE, and consensus cardinality disagreement.
+\item primary network-level consistency metrics, which quantify disagreement among the fused outputs of different sensors,
+\item secondary truth-referenced local tracking metrics, which verify that consistency gains are not obtained by materially degrading conventional tracking accuracy.
 \end{itemize}
-This separation is important for the present problem. In a distributed network with unknown cross-correlations and communication losses, an adaptive fusion rule can be valuable even when local metrics improve only mildly, provided that it substantially improves the consistency of the fused multi-sensor picture across nodes.
+
+Let $\hat{X}_k^{(s)}$ denote the extracted multi-object estimate at sensor $s$ and time $k$, and let $\hat{n}_k^{(s)} = |\hat{X}_k^{(s)}|$ denote its estimated cardinality. The paper defines the following network-level disagreement metrics:
+\begin{align}
+C_{\mathrm{OSPA}}(k)
+&=
+\frac{2}{S(S-1)}
+\sum_{1 \le a < b \le S}
+d_{\mathrm{OSPA}}\!\left(\hat{X}_k^{(a)}, \hat{X}_k^{(b)}\right),
+\\
+C_{\mathrm{RMSE}}(k)
+&=
+\frac{2}{S(S-1)}
+\sum_{1 \le a < b \le S}
+d_{\mathrm{pos}}\!\left(\hat{X}_k^{(a)}, \hat{X}_k^{(b)}\right),
+\\
+C_{\mathrm{card}}(k)
+&=
+\frac{1}{S}
+\sum_{s=1}^{S}
+\left|
+\hat{n}_k^{(s)}
+-
+\operatorname{median}\!\left(\hat{n}_k^{(1)},\ldots,\hat{n}_k^{(S)}\right)
+\right|,
+\end{align}
+where $d_{\mathrm{OSPA}}$ is the pairwise OSPA distance between two estimated finite sets and $d_{\mathrm{pos}}$ is the pairwise position disagreement obtained after Hungarian matching on the common extracted objects \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as consensus OSPA, consensus RMSE, and consensus cardinality disagreement, respectively.
+
+These three consensus metrics are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. They are introduced here because the present problem is a distributed fusion problem under heterogeneous communication: the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as a replacement for conventional truth-referenced tracking metrics. Instead, it pairs them with the secondary local metrics listed below.
+
+The secondary local metrics remain the standard truth-referenced tracking quantities:
+\begin{itemize}
+\item local E-OSPA and H-OSPA,
+\item local RMSE,
+\item local cardinality error.
+\end{itemize}
+The evaluation logic is therefore asymmetric by design: the method is primarily successful if it reduces network-level disagreement, while the local metrics are used as a safeguard to show that this gain is not purchased by a clear loss in conventional tracking quality.

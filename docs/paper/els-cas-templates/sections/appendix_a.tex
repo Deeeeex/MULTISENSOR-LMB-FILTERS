@@ -5,7 +5,7 @@ This appendix summarizes the simulation settings used by the current paper branc
 
 \subsection{Main scenario overview}
 
-The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for data association, and distributed fusion is performed only over the local communication neighborhood.
+The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for approximate marginal data association \citep{WilliamsLau2014LBP}, and distributed fusion is performed only over the local communication neighborhood.
 
 The common filter-side settings are:
 \begin{itemize}
@@ -14,7 +14,7 @@ The common filter-side settings are:
 \item data association: LBP,
 \item simulation length: $100$ time steps,
 \item sensor communication range: $150$,
-\item fixed-weight baseline fusion rule: Metropolis,
+\item fixed-weight baseline fusion rule: Metropolis-type consensus weighting \citep{XiaoBoydLall2005ConsensusWeights},
 \item clutter rate at every sensor: $3$,
 \item detection probability at every sensor: $0.9$,
 \item measurement-noise scale at every sensor: $q = 3$,
@@ -23,13 +23,13 @@ The common filter-side settings are:
 
 \subsection{Sensor geometry and neighborhood graph}
 
-The eight sensors are divided into two groups of four. Both groups follow constant-velocity platform trajectories with zero process noise and move from left to right with nominal velocity $[0.8, 0]^\mathsf{T}$. The two formation centers are $[-80,35]^\mathsf{T}$ and $[-80,-35]^\mathsf{T}$, respectively. Each group uses a Leader3 local formation pattern with spacing $20$.
+The eight sensors are divided into two groups of four. Both groups follow constant-velocity platform trajectories with zero process noise and move from left to right with nominal velocity $[0.8, 0]^\mathsf{T}$. The two formation centers are $[-80,35]^\mathsf{T}$ and $[-80,-35]^\mathsf{T}$, respectively. Each group uses a four-agent leader-follower pattern with one lead sensor and three offset followers, with spacing $20$.
 
 The local communication graph is fixed. Each formation is fully connected internally, and the two formations are connected by one-to-one cross links: $1\leftrightarrow5$, $2\leftrightarrow6$, $3\leftrightarrow7$, and $4\leftrightarrow8$. The corresponding neighborhood sets are therefore $\{1,2,3,4,5\}$, $\{1,2,3,4,6\}$, $\{1,2,3,4,7\}$, $\{1,2,3,4,8\}$, $\{1,5,6,7,8\}$, $\{2,5,6,7,8\}$, $\{3,5,6,7,8\}$, and $\{4,5,6,7,8\}$.
 
 \subsection{Target initialization}
 
-The target side contains ten objects divided into three groups with staggered births. The birth interval is eight time steps, the birth start time is one, and the target lifetime is $100$ time steps. The three groups are: three targets in a Triangle formation centered at $[70,80]^\mathsf{T}$ with spacing $30$, three targets in a Triangle formation centered at $[80,0]^\mathsf{T}$ with spacing $25$, and four targets in a Leader3 formation centered at $[70,-80]^\mathsf{T}$ with spacing $20$. All three groups move toward the central region with speed $0.45$.
+The target side contains ten objects divided into three groups with staggered births. The birth interval is eight time steps, the birth start time is one, and the target lifetime is $100$ time steps. The three groups are: three targets in a Triangle formation centered at $[70,80]^\mathsf{T}$ with spacing $30$, three targets in a Triangle formation centered at $[80,0]^\mathsf{T}$ with spacing $25$, and four targets in a four-agent leader-follower pattern centered at $[70,-80]^\mathsf{T}$ with spacing $20$. All three groups move toward the central region with speed $0.45$.
 
 \subsection{Communication model}
 

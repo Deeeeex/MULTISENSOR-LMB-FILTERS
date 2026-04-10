@@ -200,12 +200,12 @@ Primary sources:
 
 - [GA_TIERED_LINK_ABLATION_20260322_001613.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md)
 - [GA_TIERED_LINK_ABLATION_20260326_182435.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md)
+- [GA_TIERED_LINK_ABLATION_20260410_143517.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260410_143517.md)
 
 Status:
 
-- partially ready
-- consensus metrics are ready
-- local metrics for the final tiered-drop headline comparison still need to be consolidated into one clean table
+- ready
+- consensus metrics and headline local metrics are now consolidated into one clean paper table
 
 #### Table 3. Factor Ablation Under Tiered Packet Loss
 
