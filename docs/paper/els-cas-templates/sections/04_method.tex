@@ -112,7 +112,7 @@ where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
 
 \subsection{Decoupled spatial and existence scores}
 
-The current best implementation does not force the same adaptive score to govern spatial fusion and existence fusion. Instead, it constructs branch-specific dedicated scores:
+The current best implementation does not force the same adaptive score to govern spatial fusion and existence fusion. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, even though the formal variational interpretation is deferred to Appendix~\ref{app:theory}. Instead, it constructs branch-specific dedicated scores:
 \begin{equation}
 \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
 m_k^{(j)}
