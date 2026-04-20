@@ -14,6 +14,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from docs.paper.figures.paper_figure_data import get_scalar_figure_data, load_figure4_series
 
@@ -84,26 +85,59 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
     power = float(figure3["existence_confidence_power"])
     bounded = min_score + (1.0 - min_score) * np.power(decisiveness, power)
 
-    fig, axes = plt.subplots(1, 2, figsize=(8.4, 3.3), constrained_layout=True, sharex=True)
+    fig, ax = plt.subplots(1, 1, figsize=(7.2, 3.8), constrained_layout=True)
 
-    axes[0].plot(r, decisiveness, color=ADAPTIVE_COLOR, linewidth=2.2)
-    axes[0].set_title("Raw Decisiveness")
-    axes[0].set_xlabel("Existence Probability r")
-    axes[0].set_ylabel("c = |2r - 1|")
-    axes[0].set_xlim(0.0, 1.0)
-    axes[0].set_ylim(0.0, 1.05)
-    axes[0].grid(alpha=0.25, linestyle="--", linewidth=0.7)
-    axes[0].set_axisbelow(True)
+    decisive_fill = "#EFF6FB"
+    ambiguous_fill = "#FAEEEE"
+    raw_color = "#98A6B5"
 
-    axes[1].plot(r, bounded, color=SECONDARY_COLOR, linewidth=2.2)
-    axes[1].axhline(min_score, color=FIXED_COLOR, linewidth=1.2, linestyle=":")
-    axes[1].set_title("Bounded Weighting Curve")
-    axes[1].set_xlabel("Existence Probability r")
-    axes[1].set_ylabel("Existence-Confidence Score")
-    axes[1].set_xlim(0.0, 1.0)
-    axes[1].set_ylim(min_score - 0.02, 1.02)
-    axes[1].grid(alpha=0.25, linestyle="--", linewidth=0.7)
-    axes[1].set_axisbelow(True)
+    ax.axvspan(0.0, 0.18, color=decisive_fill, zorder=0)
+    ax.axvspan(0.42, 0.58, color=ambiguous_fill, zorder=0)
+    ax.axvspan(0.82, 1.0, color=decisive_fill, zorder=0)
+    ax.fill_between(r, bounded, min_score, color=SECONDARY_COLOR, alpha=0.08, zorder=1)
+    ax.plot(r, bounded, color=SECONDARY_COLOR, linewidth=2.8, zorder=3)
+    ax.axhline(min_score, color=FIXED_COLOR, linewidth=1.4, linestyle=":", zorder=2)
+
+    sample_r = np.array([0.5, 0.9])
+    sample_score = min_score + (1.0 - min_score) * np.power(np.abs(2.0 * sample_r - 1.0), power)
+    ax.scatter(
+        sample_r,
+        sample_score,
+        s=34,
+        facecolor="white",
+        edgecolor=SECONDARY_COLOR,
+        linewidth=1.2,
+        zorder=4,
+    )
+
+    ax.set_xlabel("Existence Probability r")
+    ax.set_ylabel(r"Bounded Score $q_{\mathrm{exist}}(r)$")
+    ax.set_xlim(0.0, 1.0)
+    ax.set_ylim(min_score - 0.01, 1.01)
+    ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
+    ax.set_axisbelow(True)
+
+    ax.text(0.50, 1.001, "ambiguous region", fontsize=8, color="#8B5A5A", va="bottom", ha="center")
+    ax.text(0.98, 1.001, "decisive tails", fontsize=8, color="#5A738E", va="bottom", ha="right")
+    ax.text(0.63, min_score + 0.0025, r"$\lambda_{\min}$ floor", fontsize=8, color=FIXED_COLOR)
+    ax.text(
+        0.58,
+        0.982,
+        r"used in $\tilde{\omega} \propto q_{\mathrm{cov}}\, q_{\mathrm{link}}\, q_{\mathrm{exist}}$",
+        fontsize=8.2,
+        color=EDGE_COLOR,
+        bbox={"boxstyle": "round,pad=0.22", "facecolor": "white", "edgecolor": "#D7DEE7", "linewidth": 0.8},
+    )
+
+    inset = inset_axes(ax, width="31%", height="38%", loc="upper left", borderpad=1.2)
+    inset.plot(r, decisiveness, color=raw_color, linewidth=1.9)
+    inset.set_xlim(0.0, 1.0)
+    inset.set_ylim(0.0, 1.02)
+    inset.set_xticks([0.0, 0.5, 1.0])
+    inset.set_yticks([0.0, 1.0])
+    inset.tick_params(labelsize=7)
+    inset.grid(axis="y", alpha=0.2, linestyle="--", linewidth=0.6)
+    inset.set_title(r"raw $c(r)=|2r-1|$", fontsize=7.5, pad=2.5)
 
     fig.savefig(output_path, format="pdf", bbox_inches="tight")
     plt.close(fig)
@@ -185,7 +219,13 @@ def save_figure4(output_path: str | Path, series: dict) -> Path:
         ax.set_xlabel("Time Step")
 
     axes[0].set_ylabel("Metric Value")
-    axes[0].legend(frameon=False, loc="upper right")
+    axes[0].legend(
+        frameon=True,
+        loc="lower right",
+        facecolor="white",
+        edgecolor="#D7DEE7",
+        framealpha=0.92,
+    )
     fig.savefig(output_path, format="pdf", bbox_inches="tight")
     plt.close(fig)
     return output_path
