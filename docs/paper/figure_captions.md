@@ -12,16 +12,20 @@ Adaptive fusion-weight factorization, showing the shared backbone and the decoup
 
 ## Figure 3
 
-Existence-confidence mapping used in the adaptive weighting rule, including the raw decisiveness curve and the bounded weighting curve used in implementation.
+Existence-confidence weighting used in the adaptive rule: (a) the Bernoulli-level decisiveness mapping and bounded score curve, and (b) representative node-level aggregation examples showing how decisive posterior sets produce larger $\bar{c}^{(j)}$ and $q_{\mathrm{exist}}^{(j)}$.
 
 ## Figure 4
 
-Consensus OSPA, RMSE, and cardinality disagreement over time for fixed-weight fusion and the current adaptive method under tiered heterogeneous packet loss.
+Schematic comparison between the standard fixed ideal benchmark and the main tiered heterogeneous packet-loss scenario.
 
 ## Figure 5
 
-Consensus OSPA, RMSE, and cardinality disagreement for five ablation arms under tiered heterogeneous packet loss.
+Consensus OSPA, RMSE, and cardinality disagreement over time for fixed-weight fusion and the current adaptive method under tiered heterogeneous packet loss.
 
 ## Figure 6
+
+Consensus OSPA, RMSE, and cardinality disagreement for five ablation arms under tiered heterogeneous packet loss.
+
+## Figure 7
 
 Consensus and aggregated local metrics for ordinary GA and the structure-aware decoupled KLA method under ideal communication.

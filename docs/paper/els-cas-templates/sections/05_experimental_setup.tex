@@ -1,11 +1,11 @@
 \section{Experimental Setup}
 \label{sec:experimental-setup}
 
-This section defines the evaluation protocol used to support the paper narrative. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, whether the method generalizes beyond the main GA setting, and whether several optional modules are worth keeping in the main story.
+This section defines the evaluation protocol used to support the paper's claims. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, whether the method generalizes beyond the main GA setting, and whether several optional modules should remain outside the core method.
 
 \subsection{Evaluation hierarchy}
 
-The current evaluation is intentionally hierarchical. The main experiment is dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss with factor ablation from fixed weights to the full adaptive method. Supporting experiments include an ideal-communication comparison between ordinary GA and the current structure-aware adaptive method, a communication-robustness analysis across communication levels, and an AA-based secondary generalization experiment. Appendix-style ablations include NIS, history, freshness, ambiguity-aware, and cardinality-consensus variants.
+The evaluation is intentionally hierarchical. The main experiment is dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss with factor ablation from fixed weights to the full adaptive method. Supporting experiments include an ideal-communication comparison between ordinary GA and the proposed structure-aware adaptive method, a communication-robustness analysis across communication levels, and an AA-based secondary generalization experiment. Appendix-style ablations include NIS, history, freshness, ambiguity-aware, and cardinality-consensus variants.
 
 \subsection{Main scenario}
 
@@ -38,6 +38,15 @@ The main scenario uses a tiered heterogeneous packet-loss setting. Communication
 \end{itemize}
 This tiered design preserves the historical mean communication degradation while introducing persistent cross-node heterogeneity.
 
+Figure~\ref{fig:scenario-schematic} summarizes the contrast between the simpler standard fixed ideal benchmark and the main tiered-loss scenario. The standard ideal benchmark uses four full-ROI sensors, ideal communication, and fixed target births. The main scenario is the dual-formation eight-sensor case with staggered target waves, a bandwidth cap, and persistent drop-tier heterogeneity before distributed fusion.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{paper-figure-scenario.pdf}
+  \caption{Schematic comparison between the standard fixed ideal benchmark and the main tiered heterogeneous packet-loss scenario. The ideal benchmark uses four full-ROI sensors with no packet loss and fixed target births; the main scenario uses the dual-formation eight-sensor geometry and staggered target waves with the bandwidth cap and persistent drop-tier heterogeneity used in the main experiments.}
+  \label{fig:scenario-schematic}
+\end{figure}
+
 \subsection{Mainline ablation protocol}
 
 The core ablation study compares five arms:
@@ -49,12 +58,12 @@ The core ablation study compares five arms:
 \item adaptive weighting with covariance plus link quality plus existence confidence plus weak structure-aware decoupled KLA.
 \end{enumerate}
 
-The current best adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main-line configuration.
+The full adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main configuration.
 
 \subsection{Metrics and reporting}
 
 The experiments report two categories of metrics. The first category is network-level disagreement among sensors after distributed fusion. These primary metrics are consensus OSPA, consensus RMSE, and consensus cardinality disagreement as defined in Section~\ref{sec:problem-formulation}. The second category is conventional truth-referenced tracking accuracy. These secondary metrics are local E-OSPA, local H-OSPA, local RMSE, and local cardinality error. The OSPA family is used because it provides a mathematically consistent distance for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric}. Because the consensus metrics are task-specific network-agreement measures, the paper always interprets them together with the secondary local metrics rather than in isolation.
 
-This primary-versus-secondary split is deliberate. The current method is not proposed as a generic single-sensor accuracy booster. It is proposed as a distributed fusion-weight design for improving the consistency of the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome and the local tracking metrics as a safeguard against hidden degradation. In other words, the target is to improve consistency without causing a meaningful drop in conventional tracking quality.
+This primary-versus-secondary split is deliberate. The proposed method is not intended as a generic single-sensor accuracy booster. It is designed as a distributed fusion-weight mechanism for improving the consistency of the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome and the local tracking metrics as a safeguard against hidden degradation. In other words, the target is to improve consistency without causing a meaningful drop in conventional tracking quality.
 
-Unless otherwise stated, reported scalar metrics are Monte Carlo means. The recent headline reports for the main GA ablation and ideal-communication comparison use five trials with deterministic seed control. The paper body avoids overclaiming statistical certainty from this small trial count and instead treats the present results as the current best-supported empirical direction.
+Unless otherwise stated, reported scalar metrics are Monte Carlo means. The main fixed-versus-full adaptive confirmation, the five-arm factor ablation, and the ideal-communication comparison all use 20 deterministic trials with seeds $2$--$21$. The main confirmation and ideal-communication comparison are paired by construction. The five-arm factor ablation remains primarily a design diagnostic, but it is now reported on the same 20-trial seed set for consistency.

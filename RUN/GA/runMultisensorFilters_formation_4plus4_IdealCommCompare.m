@@ -183,12 +183,24 @@ summary.local.hOspaBase = mean(hOspaBase, 1);
 summary.local.hOspaAdaptive = mean(hOspaAdaptive, 1);
 summary.local.rmseBase = mean(rmseBase, 1);
 summary.local.rmseAdaptive = mean(rmseAdaptive, 1);
+summary.localTrials.eOspaBase = eOspaBase;
+summary.localTrials.eOspaAdaptive = eOspaAdaptive;
+summary.localTrials.hOspaBase = hOspaBase;
+summary.localTrials.hOspaAdaptive = hOspaAdaptive;
+summary.localTrials.rmseBase = rmseBase;
+summary.localTrials.rmseAdaptive = rmseAdaptive;
 summary.consensus.ospaBase = mean(consOspaBase);
 summary.consensus.ospaAdaptive = mean(consOspaAdaptive);
 summary.consensus.posBase = mean(consPosBase, 'omitnan');
 summary.consensus.posAdaptive = mean(consPosAdaptive, 'omitnan');
 summary.consensus.cardBase = mean(consCardBase);
 summary.consensus.cardAdaptive = mean(consCardAdaptive);
+summary.consensusTrials.ospaBase = consOspaBase;
+summary.consensusTrials.ospaAdaptive = consOspaAdaptive;
+summary.consensusTrials.posBase = consPosBase;
+summary.consensusTrials.posAdaptive = consPosAdaptive;
+summary.consensusTrials.cardBase = consCardBase;
+summary.consensusTrials.cardAdaptive = consCardAdaptive;
 summary.delta.ospa = summary.consensus.ospaAdaptive - summary.consensus.ospaBase;
 summary.delta.pos = summary.consensus.posAdaptive - summary.consensus.posBase;
 summary.delta.card = summary.consensus.cardAdaptive - summary.consensus.cardBase;
@@ -199,6 +211,7 @@ summary.pDropBySensorTrials = pDropBySensorTrials;
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
 summary.adaptiveFusionConfig = adaptiveFusionConfig;
+summary.trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
 
 if writeReport
     reportDir = fullfile(projectRoot, 'RUN', 'GA');
@@ -206,7 +219,8 @@ if writeReport
         mkdir(reportDir);
     end
     timestamp = datestr(now, 'yyyymmdd_HHMMSS');
-    reportName = sprintf('GA_IDEAL_COMM_COMPARE_%s.md', timestamp);
+    reportName = sprintf('GA_IDEAL_COMM_COMPARE_N%d_SEED%d_%s.md', ...
+        numberOfTrials, baseSeed, timestamp);
     reportPath = fullfile(reportDir, reportName);
     writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
         sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, ...
@@ -235,6 +249,9 @@ fprintf(fid, 'Comparison order: ordinary GA -> structure-aware decoupled KLA\n\n
 fprintf(fid, '## Run Config\n');
 fprintf(fid, '- Trials: %d\n', numberOfTrials);
 fprintf(fid, '- baseSeed: %d (fixed=%d)\n', baseSeed, useFixedSeed);
+if useFixedSeed
+    fprintf(fid, '- trialSeeds: %s\n', mat2str(computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed)));
+end
 fprintf(fid, '- sensorCommRange: %d\n', sensorCommRange);
 fprintf(fid, '- fusionWeighting: %s\n', fusionWeighting);
 fprintf(fid, '- leaderSensor: %d\n', leaderSensor);
@@ -250,6 +267,18 @@ fprintf(fid, '- adaptive structureReliabilityPower: %.3f\n\n', adaptiveFusionCon
 
 fprintf(fid, '## Mean pDropBySensor Across Trials\n');
 fprintf(fid, '- %s\n\n', mat2str(mean(pDropBySensorTrials, 1), 4));
+
+fprintf(fid, '## Per-Trial Consensus Metrics\n');
+fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
+fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
+trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
+for trial = 1:numberOfTrials
+    fprintf(fid, '| %d | %.0f | ordinary GA | %.6f | %.6f | %.6f |\n', ...
+        trial, trialSeeds(trial), consOspaBase(trial), consPosBase(trial), consCardBase(trial));
+    fprintf(fid, '| %d | %.0f | structure-aware decoupled KLA | %.6f | %.6f | %.6f |\n', ...
+        trial, trialSeeds(trial), consOspaAdaptive(trial), consPosAdaptive(trial), consCardAdaptive(trial));
+end
+fprintf(fid, '\n');
 
 fprintf(fid, '## Per-Sensor Metrics (mean across trials)\n');
 fprintf(fid, '| Sensor | E-OSPA (GA) | E-OSPA (SA) | H-OSPA (GA) | H-OSPA (SA) | RMSE (GA) | RMSE (SA) |\n');
@@ -273,7 +302,150 @@ fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', mean(consOspaBase), mean(
 fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', mean(consPosBase, 'omitnan'), mean(consPosAdaptive, 'omitnan'));
 fprintf(fid, '- Cardinality: %.3f -> %.3f\n', mean(consCardBase), mean(consCardAdaptive));
 
+fprintf(fid, '\n## Consensus Metrics With Trial Variability\n');
+writeMetricStatsTable(fid, {'ordinary GA', 'structure-aware decoupled KLA'}, ...
+    {'OSPA', 'RMSE', 'Cardinality'}, ...
+    { [consOspaBase, consOspaAdaptive], [consPosBase, consPosAdaptive], [consCardBase, consCardAdaptive] }, ...
+    [false, true, false]);
+
+fprintf(fid, '\n## Paired Improvements Relative to Ordinary GA\n');
+writePairedImprovementTable(fid, {'ordinary GA', 'structure-aware decoupled KLA'}, ...
+    {'OSPA', 'RMSE', 'Cardinality'}, ...
+    { [consOspaBase, consOspaAdaptive], [consPosBase, consPosAdaptive], [consCardBase, consCardAdaptive] }, ...
+    [false, true, false]);
+
+fprintf(fid, '\n## Local Tracking Metrics With Trial Variability\n');
+localEOspaTrial = computeTrialSensorMeansPair(eOspaBase, eOspaAdaptive, false);
+localHOspaTrial = computeTrialSensorMeansPair(hOspaBase, hOspaAdaptive, false);
+localRmseTrial = computeTrialSensorMeansPair(rmseBase, rmseAdaptive, true);
+writeMetricStatsTable(fid, {'ordinary GA', 'structure-aware decoupled KLA'}, ...
+    {'E-OSPA', 'H-OSPA', 'RMSE'}, ...
+    {localEOspaTrial.e, localHOspaTrial.e, localRmseTrial.e}, ...
+    [false, false, true]);
+
+fprintf(fid, '\n## Paired Local-Metric Improvements Relative to Ordinary GA\n');
+writePairedImprovementTable(fid, {'ordinary GA', 'structure-aware decoupled KLA'}, ...
+    {'E-OSPA', 'H-OSPA', 'RMSE'}, ...
+    {localEOspaTrial.e, localHOspaTrial.e, localRmseTrial.e}, ...
+    [false, false, true]);
+
 fclose(fid);
+end
+
+function seeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed)
+if useFixedSeed
+    seeds = baseSeed + (1:numberOfTrials);
+else
+    seeds = NaN(1, numberOfTrials);
+end
+end
+
+function out = computeTrialSensorMeansPair(baseValues, adaptiveValues, omitnanFlag)
+out.e = zeros(size(baseValues, 1), 2);
+for trial = 1:size(baseValues, 1)
+    out.e(trial, 1) = summarizeVector(reshape(baseValues(trial, :), [], 1), omitnanFlag).mean;
+    out.e(trial, 2) = summarizeVector(reshape(adaptiveValues(trial, :), [], 1), omitnanFlag).mean;
+end
+end
+
+function writeMetricStatsTable(fid, armNames, metricNames, metricArrays, omitnanFlags)
+fprintf(fid, '| Arm | Metric | Mean +/- Std | 95%% CI | N |\n');
+fprintf(fid, '|:----|:-------|-------------:|:-------|--:|\n');
+for metricIdx = 1:numel(metricNames)
+    data = metricArrays{metricIdx};
+    omitnanFlag = omitnanFlags(metricIdx);
+    for armIdx = 1:numel(armNames)
+        stats = summarizeVector(data(:, armIdx), omitnanFlag);
+        fprintf(fid, '| %s | %s | %.6f +/- %.6f | [%.6f, %.6f] | %d |\n', ...
+            armNames{armIdx}, metricNames{metricIdx}, stats.mean, stats.std, ...
+            stats.ciLow, stats.ciHigh, stats.n);
+    end
+end
+end
+
+function writePairedImprovementTable(fid, armNames, metricNames, metricArrays, omitnanFlags)
+fprintf(fid, '| Arm | Metric | Paired reduction | 95%% CI | Reduction | Wins | Sign-test p |\n');
+fprintf(fid, '|:----|:-------|-----------------:|:-------|----------:|-----:|------------:|\n');
+baselineIdx = 1;
+for metricIdx = 1:numel(metricNames)
+    data = metricArrays{metricIdx};
+    omitnanFlag = omitnanFlags(metricIdx);
+    baseline = data(:, baselineIdx);
+    candidate = data(:, 2);
+    valid = isfinite(baseline) & isfinite(candidate);
+    if ~omitnanFlag
+        valid = valid & ~isnan(baseline) & ~isnan(candidate);
+    end
+    deltas = baseline(valid) - candidate(valid);
+    stats = summarizeVector(deltas, true);
+    baseStats = summarizeVector(baseline(valid), true);
+    pct = 100 * stats.mean / baseStats.mean;
+    wins = sum(deltas > 0);
+    pValue = signTestPvalue(deltas);
+    fprintf(fid, '| %s | %s | %.6f +/- %.6f | [%.6f, %.6f] | %.2f%% | %d/%d | %.4g |\n', ...
+        armNames{2}, metricNames{metricIdx}, stats.mean, stats.std, ...
+        stats.ciLow, stats.ciHigh, pct, wins, stats.n, pValue);
+end
+end
+
+function stats = summarizeVector(values, omitnanFlag)
+values = values(:);
+if nargin >= 2 && omitnanFlag
+    values = values(isfinite(values));
+end
+stats.n = numel(values);
+if stats.n == 0
+    stats.mean = NaN;
+    stats.std = NaN;
+    stats.ciLow = NaN;
+    stats.ciHigh = NaN;
+    return;
+end
+stats.mean = mean(values);
+if stats.n > 1
+    stats.std = std(values, 0);
+    halfWidth = tCritical95(stats.n - 1) * stats.std / sqrt(stats.n);
+else
+    stats.std = 0;
+    halfWidth = 0;
+end
+stats.ciLow = stats.mean - halfWidth;
+stats.ciHigh = stats.mean + halfWidth;
+end
+
+function tcrit = tCritical95(df)
+table = [ ...
+    12.706, 4.303, 3.182, 2.776, 2.571, ...
+    2.447, 2.365, 2.306, 2.262, 2.228, ...
+    2.201, 2.179, 2.160, 2.145, 2.131, ...
+    2.120, 2.110, 2.101, 2.093, 2.086, ...
+    2.080, 2.074, 2.069, 2.064, 2.060, ...
+    2.056, 2.052, 2.048, 2.045, 2.042];
+if df < 1
+    tcrit = 0;
+elseif df <= numel(table)
+    tcrit = table(df);
+else
+    tcrit = 1.96;
+end
+end
+
+function pValue = signTestPvalue(deltas)
+deltas = deltas(:);
+deltas = deltas(isfinite(deltas) & abs(deltas) > eps);
+n = numel(deltas);
+if n == 0
+    pValue = NaN;
+    return;
+end
+wins = sum(deltas > 0);
+k = min(wins, n - wins);
+tail = 0;
+for i = 0:k
+    logProb = gammaln(n + 1) - gammaln(i + 1) - gammaln(n - i + 1) - n * log(2);
+    tail = tail + exp(logProb);
+end
+pValue = min(1, 2 * tail);
 end
 
 function merged = mergeStructFields(base, overrides)

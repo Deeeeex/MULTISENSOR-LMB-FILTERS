@@ -5,6 +5,7 @@ This directory stores Python-rendered paper-ready figure artifacts for the curre
 Current target outputs:
 
 - `figure3_existence_confidence_curve.pdf`
+- `figure_simulation_scenario.pdf`
 - `figure4_main_ga_consensus.pdf`
 - `figure5_factor_ablation.pdf`
 - `figure6_ideal_support.pdf`
@@ -17,8 +18,8 @@ Prompt-driven figure specifications:
 Current stable scalar sources:
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
-- `RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md`
-- `RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md`
+- `RUN/GA/GA_TIERED_LINK_ABLATION_MAIN20_20260507.md`
+- `RUN/GA/GA_IDEAL_COMM_MAIN20_PAIRED_20260507.md`
 
 Render command:
 
@@ -27,3 +28,9 @@ Render command:
 ```
 
 Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory.
+
+The simulation-scenario schematic is rendered with MATLAB/Octave:
+
+```bash
+octave --no-gui --quiet --eval "addpath('docs/paper/figures'); render_simulation_scenario_figure"
+```

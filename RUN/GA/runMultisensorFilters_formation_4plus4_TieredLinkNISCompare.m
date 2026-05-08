@@ -224,6 +224,10 @@ summary.consensus.posNis = mean(consPosNis, 'omitnan');
 summary.consensus.cardNo = mean(consCardNo);
 summary.consensus.cardRobust = mean(consCardRobust);
 summary.consensus.cardNis = mean(consCardNis);
+summary.consensusTrials.ospa = [consOspaNo, consOspaRobust, consOspaNis];
+summary.consensusTrials.pos = [consPosNo, consPosRobust, consPosNis];
+summary.consensusTrials.card = [consCardNo, consCardRobust, consCardNis];
+summary.trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 
 if writeReport
@@ -232,7 +236,8 @@ if writeReport
         mkdir(reportDir);
     end
     timestamp = datestr(now, 'yyyymmdd_HHMMSS');
-    reportPath = fullfile(reportDir, sprintf('GA_TIERED_LINK_NIS_COMPARE_%s.md', timestamp));
+    reportPath = fullfile(reportDir, sprintf('GA_TIERED_LINK_NIS_COMPARE_N%d_SEED%d_%s.md', ...
+        numberOfTrials, baseSeed, timestamp));
     writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, robustNISMin, ...
         sensorCommRange, fusionWeighting, leaderSensor, adaptiveFusionConfig, commConfig, ...
         pDropBySensorTrials, eOspaNo, eOspaRobust, eOspaNis, rmseNo, rmseRobust, rmseNis, ...
@@ -344,6 +349,9 @@ fprintf(fid, 'Comparison order: w/o NIS -> robust NIS -> NIS\n\n');
 fprintf(fid, '## Run Config\n');
 fprintf(fid, '- Trials: %d\n', numberOfTrials);
 fprintf(fid, '- baseSeed: %d (fixed=%d)\n', baseSeed, useFixedSeed);
+if useFixedSeed
+    fprintf(fid, '- trialSeeds: %s\n', mat2str(computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed)));
+end
 fprintf(fid, '- robustNISMin: %.2f\n', robustNISMin);
 fprintf(fid, '- sensorCommRange: %d\n', sensorCommRange);
 fprintf(fid, '- fusionWeighting: %s\n', fusionWeighting);
@@ -354,11 +362,90 @@ fprintf(fid, '## Per-Trial pDropBySensor\n');
 for trial = 1:size(pDropBySensorTrials, 1)
     fprintf(fid, '- Trial %d: %s\n', trial, mat2str(pDropBySensorTrials(trial, :), 4));
 end
+fprintf(fid, '\n## Per-Trial Consensus Metrics\n');
+fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
+fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
+trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
+armNames = {'w/o NIS', 'robust NIS', 'plain NIS'};
+for trial = 1:numberOfTrials
+    fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', trial, trialSeeds(trial), armNames{1}, consOspaNo(trial), consPosNo(trial), consCardNo(trial));
+    fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', trial, trialSeeds(trial), armNames{2}, consOspaRobust(trial), consPosRobust(trial), consCardRobust(trial));
+    fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', trial, trialSeeds(trial), armNames{3}, consOspaNis(trial), consPosNis(trial), consCardNis(trial));
+end
 fprintf(fid, '\n## Consensus Metrics (mean across trials)\n');
 fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f -> %.3f\n', mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
 fprintf(fid, '- Position (RMSE): %.3f -> %.3f -> %.3f\n', mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
 fprintf(fid, '- Cardinality: %.3f -> %.3f -> %.3f\n', mean(consCardNo), mean(consCardRobust), mean(consCardNis));
+fprintf(fid, '\n## Consensus Metrics With Trial Variability\n');
+writeMetricStatsTable(fid, armNames, {'OSPA', 'RMSE', 'Cardinality'}, ...
+    { [consOspaNo, consOspaRobust, consOspaNis], [consPosNo, consPosRobust, consPosNis], [consCardNo, consCardRobust, consCardNis] }, ...
+    [false, true, false]);
 fclose(fid);
+end
+
+function seeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed)
+if useFixedSeed
+    seeds = baseSeed + (1:numberOfTrials);
+else
+    seeds = NaN(1, numberOfTrials);
+end
+end
+
+function writeMetricStatsTable(fid, armNames, metricNames, metricArrays, omitnanFlags)
+fprintf(fid, '| Arm | Metric | Mean +/- Std | 95%% CI | N |\n');
+fprintf(fid, '|:----|:-------|-------------:|:-------|--:|\n');
+for metricIdx = 1:numel(metricNames)
+    data = metricArrays{metricIdx};
+    omitnanFlag = omitnanFlags(metricIdx);
+    for armIdx = 1:numel(armNames)
+        stats = summarizeVector(data(:, armIdx), omitnanFlag);
+        fprintf(fid, '| %s | %s | %.6f +/- %.6f | [%.6f, %.6f] | %d |\n', ...
+            armNames{armIdx}, metricNames{metricIdx}, stats.mean, stats.std, ...
+            stats.ciLow, stats.ciHigh, stats.n);
+    end
+end
+end
+
+function stats = summarizeVector(values, omitnanFlag)
+values = values(:);
+if nargin >= 2 && omitnanFlag
+    values = values(isfinite(values));
+end
+stats.n = numel(values);
+if stats.n == 0
+    stats.mean = NaN;
+    stats.std = NaN;
+    stats.ciLow = NaN;
+    stats.ciHigh = NaN;
+    return;
+end
+stats.mean = mean(values);
+if stats.n > 1
+    stats.std = std(values, 0);
+    halfWidth = tCritical95(stats.n - 1) * stats.std / sqrt(stats.n);
+else
+    stats.std = 0;
+    halfWidth = 0;
+end
+stats.ciLow = stats.mean - halfWidth;
+stats.ciHigh = stats.mean + halfWidth;
+end
+
+function tcrit = tCritical95(df)
+table = [ ...
+    12.706, 4.303, 3.182, 2.776, 2.571, ...
+    2.447, 2.365, 2.306, 2.262, 2.228, ...
+    2.201, 2.179, 2.160, 2.145, 2.131, ...
+    2.120, 2.110, 2.101, 2.093, 2.086, ...
+    2.080, 2.074, 2.069, 2.064, 2.060, ...
+    2.056, 2.052, 2.048, 2.045, 2.042];
+if df < 1
+    tcrit = 0;
+elseif df <= numel(table)
+    tcrit = table(df);
+else
+    tcrit = 1.96;
+end
 end
 
 function [posConsensus, cardConsensus, ospaConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)

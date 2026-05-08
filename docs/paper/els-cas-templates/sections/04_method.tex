@@ -1,7 +1,7 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB implementation. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \citep{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. A variational and information-geometric interpretation of the implemented branch-decoupled update is given in Appendix~\ref{app:theory}.
+This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \citep{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
 
 \subsection{Baseline GA-LMB fusion}
 
@@ -56,11 +56,11 @@ where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)
 \bar{\omega}_{k,s}^{(j)} =
 \frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
 \end{equation}
-This factorization intentionally keeps only the three factors with the strongest current evidence: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities.
+This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities.
 
 \subsection{Covariance and link-quality terms}
 
-For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The code uses
+For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The covariance-quality score is defined as
 \begin{equation}
 q_{\mathrm{cov},k}^{(j)}
 =
@@ -68,7 +68,7 @@ q_{\mathrm{cov},k}^{(j)}
 \end{equation}
 so that a node with smaller posterior spread receives a larger score.
 
-The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The code uses
+The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The realized link-quality score is defined as
 \begin{equation}
 q_{\mathrm{link},k}^{(j)}
 =
@@ -106,13 +106,13 @@ where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{paper-figure3.pdf}
-  \caption{Existence-confidence mapping used in the adaptive weighting rule, including the raw decisiveness curve and the bounded weighting curve used in implementation.}
+  \caption{Existence-confidence weighting used in the adaptive rule: (a) the Bernoulli-level decisiveness mapping and bounded score curve, and (b) representative node-level aggregation examples showing how decisive posterior sets produce larger $\bar{c}^{(j)}$ and $q_{\mathrm{exist}}^{(j)}$.}
   \label{fig:existence-confidence}
 \end{figure}
 
 \subsection{Decoupled spatial and existence scores}
 
-The current best implementation does not force the same adaptive score to govern spatial fusion and existence fusion. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, even though the formal variational interpretation is deferred to Appendix~\ref{app:theory}. Instead, it constructs branch-specific dedicated scores:
+The proposed method does not force the same adaptive score to govern spatial fusion and existence fusion. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, even though the formal variational interpretation is deferred to Appendix~\ref{app:theory}. The method therefore constructs branch-specific dedicated scores:
 \begin{equation}
 \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
 m_k^{(j)}
@@ -145,10 +145,10 @@ The point of this decoupling is not to create two unrelated methods, but to ackn
 
 \subsection{Weak structure-aware refinement and stabilization}
 
-After branch decoupling, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The current best configuration intentionally keeps the existence-side structure strength much smaller than the spatial-side strength. In implementation terms, topology is not allowed to dominate the core weight assignment.
+After branch decoupling, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
 
 The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
 \subsection{Optional extension modules}
 
-The implementation retains several optional extensions, including an NIS-based consistency penalty, a history score, a freshness score, ambiguity-aware terms, and posterior-structure-consistency scoring. These modules are intentionally not part of the claimed core method because their current empirical evidence is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus weak structure-aware decoupling.
+The evaluated software also supports several optional extensions, including an NIS-based consistency penalty, a history score, a freshness score, ambiguity-aware terms, and posterior-structure-consistency scoring. These modules are not part of the claimed core method because their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus weak structure-aware decoupling.

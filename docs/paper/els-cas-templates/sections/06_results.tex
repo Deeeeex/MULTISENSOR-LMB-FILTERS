@@ -1,40 +1,55 @@
 \section{Results and Discussion}
 \label{sec:results}
 
-This section reports the current evidence supporting the paper's main claims. The strongest evidence comes from the tiered heterogeneous packet-loss GA scenario introduced in Section~\ref{sec:experimental-setup}, so that scenario is treated as the primary result. Ideal communication, communication robustness, and AA-based experiments are used as supporting studies. Secondary consistency modules and negative ablations are reported briefly to document explored alternatives without diluting the main method story.
+This section reports the empirical evidence supporting the paper's main claims. The strongest evidence comes from the tiered heterogeneous packet-loss GA scenario introduced in Section~\ref{sec:experimental-setup}, so that scenario is treated as the primary result. Ideal communication, communication robustness, and AA-based experiments are used as supporting studies. Secondary consistency modules and negative ablations are reported briefly to document explored alternatives without diluting the main method.
 
 \subsection{Main result in the tiered-drop GA scenario}
 
-The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the current best adaptive configuration combines covariance, realized link quality, existence confidence, and a weak structure-aware decoupled KLA refinement. Across five Monte Carlo trials, the fixed-weight baseline yields consensus OSPA $2.624065$, consensus RMSE $2.702602$, and consensus cardinality disagreement $0.878750$. The current best adaptive method reduces these values to $1.862244$, $1.749608$, and $0.244250$, respectively.
+The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, and a weak structure-aware decoupled KLA refinement. Across 20 paired Monte Carlo trials, the fixed-weight baseline yields consensus OSPA $2.447978 \pm 0.191065$, consensus RMSE $2.583880 \pm 0.315832$, and consensus cardinality disagreement $0.679437 \pm 0.208768$. The full adaptive method reduces these values to $1.821448 \pm 0.055189$, $1.749812 \pm 0.274055$, and $0.231625 \pm 0.032213$, respectively.
 
-In the current five-trial evidence, these reductions are sizeable in all three consensus metrics. Relative to fixed weights, the current best adaptive method lowers consensus OSPA by about $29\%$, consensus RMSE by about $35\%$, and consensus cardinality disagreement by about $72\%$. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration but also on realized communication reliability and existence decisiveness. Figure~\ref{fig:main-consensus} shows that this separation is not driven by a single isolated time window; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
+Across these 20 paired trials, the reductions are sizeable in all three consensus metrics. Relative to fixed weights, the full adaptive method lowers consensus OSPA by about $25.6\%$, consensus RMSE by about $32.3\%$, and consensus cardinality disagreement by about $65.9\%$. The paired reductions are positive in all 20 trials for all three consensus metrics, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean, standard deviation, confidence interval, and paired reduction values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration but also on realized communication reliability and existence decisiveness. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
+
+\begin{table}[t]
+  \centering
+  \caption{Main paired consensus comparison under tiered heterogeneous packet loss. Values are computed over 20 deterministic paired trials with seeds $2$--$21$. Lower values are better.}
+  \label{tab:main-consensus-stats}
+  \begin{tabular}{lccc}
+    \toprule
+    Metric & Fixed & Adaptive & Paired reduction \\
+    \midrule
+    OSPA & $2.448 \pm 0.191$ & $1.821 \pm 0.055$ & $0.627$ $[0.548,0.705]$ \\
+    RMSE & $2.584 \pm 0.316$ & $1.750 \pm 0.274$ & $0.834$ $[0.698,0.970]$ \\
+    Cardinality & $0.679 \pm 0.209$ & $0.232 \pm 0.032$ & $0.448$ $[0.355,0.540]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{paper-figure4.pdf}
-  \caption{Consensus OSPA, RMSE, and cardinality disagreement over time for fixed-weight fusion and the current adaptive method under tiered heterogeneous packet loss.}
+  \caption{Consensus OSPA, RMSE, and cardinality disagreement over time for fixed-weight fusion and the proposed adaptive method under tiered heterogeneous packet loss.}
   \label{fig:main-consensus}
 \end{figure}
 
-The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. Mean local E-OSPA decreases from $2.945058$ to $2.381696$, mean local RMSE decreases slightly from $1.622083$ to $1.602228$, and mean local cardinality error drops from $1.762250$ to $0.710250$, while local H-OSPA remains essentially unchanged at $0.500$. In other words, the present consistency gain is not being purchased by a visible collapse in conventional truth-referenced tracking accuracy.
+The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. Mean local E-OSPA decreases from $2.895679$ to $2.394398$, mean local RMSE decreases slightly from $1.620730$ to $1.599062$, and mean local cardinality error drops from $1.568688$ to $0.712625$, while local H-OSPA remains essentially unchanged at $0.500$. In other words, the present consistency gain is not being purchased by a visible collapse in conventional truth-referenced tracking accuracy.
 
 \begin{table}[t]
   \centering
-  \caption{Conventional local tracking metrics in the main tiered heterogeneous packet-loss scenario. Values are means across sensors and trials.}
+  \caption{Conventional local tracking metrics in the main tiered heterogeneous packet-loss scenario. Values are means across sensors and the same 20 deterministic paired trials used in Table~\ref{tab:main-consensus-stats}.}
   \label{tab:main-local}
   \begin{tabular}{lcccc}
     \toprule
     Arm & E-OSPA & H-OSPA & RMSE & CardErr \\
     \midrule
-    fixed weights & 2.945058 & 0.500000 & 1.622083 & 1.762250 \\
-    +structure-aware decoupled KLA & 2.381696 & 0.499999 & 1.602228 & 0.710250 \\
+    fixed weights & 2.895679 & 0.500000 & 1.620730 & 1.568688 \\
+    +structure-aware decoupled KLA & 2.394398 & 0.500000 & 1.599062 & 0.712625 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \subsection{Factor ablation of the main adaptive design}
 
-The most important ablation is the factor-by-factor path from fixed fusion to the final weak structure-aware method. The current evidence supports the progression summarized in Table~\ref{tab:ablation} and Figure~\ref{fig:ablation}.
+The most important ablation is the factor-by-factor path from fixed fusion to the final weak structure-aware method. The 20-trial five-arm diagnostic ablation is summarized in Table~\ref{tab:ablation} and Figure~\ref{fig:ablation}.
 
 \begin{table}[t]
   \centering
@@ -44,22 +59,22 @@ The most important ablation is the factor-by-factor path from fixed fusion to th
     \toprule
     Arm & OSPA & RMSE & Cardinality \\
     \midrule
-    fixed weights & 2.624065 & 2.702602 & 0.878750 \\
-    +covariance & 2.211513 & 2.410976 & 0.589500 \\
-    +link quality & 1.877771 & 1.800945 & 0.245250 \\
-    +existence confidence & 1.874840 & 1.779820 & 0.244500 \\
-    +structure-aware decoupled KLA & 1.862244 & 1.749608 & 0.244250 \\
+    fixed weights & 2.447978 & 2.583880 & 0.679437 \\
+    +covariance & 2.082445 & 2.167710 & 0.457937 \\
+    +link quality & 1.829718 & 1.764180 & 0.230687 \\
+    +existence confidence & 1.829831 & 1.753626 & 0.230500 \\
+    +structure-aware decoupled KLA & 1.821448 & 1.749812 & 0.231625 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 Several conclusions follow from Table~\ref{tab:ablation}. First, covariance weighting is necessary but not sufficient. Adding covariance alone improves the fixed-weight baseline, which confirms that posterior concentration is a useful first-order proxy for local posterior quality. However, the covariance-only arm still leaves a large gap relative to the final method, especially in cardinality disagreement.
 
-Second, realized link quality is the dominant communication-aware factor under heterogeneous packet loss. Once link quality is added on top of covariance, consensus OSPA drops from $2.211513$ to $1.877771$, consensus RMSE drops from $2.410976$ to $1.800945$, and consensus cardinality disagreement drops from $0.589500$ to $0.245250$. This is the largest single incremental gain after the initial covariance correction.
+Second, realized link quality is the dominant communication-aware factor under heterogeneous packet loss. Once link quality is added on top of covariance, consensus OSPA drops from $2.082445$ to $1.829718$, consensus RMSE drops from $2.167710$ to $1.764180$, and consensus cardinality disagreement drops from $0.457937$ to $0.230687$. This remains the largest single incremental gain after the initial covariance correction.
 
-Third, existence confidence is the most effective third factor. Adding existence confidence on top of covariance and link quality yields a smaller but consistent improvement in all three consensus metrics. This matters because covariance and link quality alone do not explicitly express whether a node is decisive about target existence.
+Third, existence confidence continues to improve the consensus picture beyond covariance and link quality, but in the larger trial set the gain is concentrated in RMSE and cardinality rather than in a uniform three-metric improvement. Relative to the $+$link-quality arm, the $+$existence-confidence arm is essentially tied in OSPA ($1.829718$ versus $1.829831$) while improving RMSE from $1.764180$ to $1.753626$ and slightly improving cardinality disagreement from $0.230687$ to $0.230500$. This still supports the underlying interpretation that covariance and link quality alone do not explicitly express how decisive a node is about target existence, but it narrows the empirical claim relative to the earlier five-trial evidence.
 
-Finally, the current best result comes from a weak structure-aware decoupled refinement rather than from a strong topology-driven redesign. The gain from $+$existence confidence to $+$structure-aware decoupled KLA is modest but consistent in all three metrics. The correct interpretation is not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides the final refinement once the three-factor adaptive backbone is in place.
+Finally, the weak structure-aware decoupled refinement provides the best overall OSPA and RMSE, while leaving cardinality disagreement effectively tied with the $+$existence-confidence arm. Relative to $+$existence confidence, the final arm improves OSPA from $1.829831$ to $1.821448$ and RMSE from $1.753626$ to $1.749812$, while cardinality disagreement changes only slightly from $0.230500$ to $0.231625$. The correct interpretation is therefore not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides a final spatial-consensus refinement once the three-factor adaptive backbone is in place.
 
 \begin{figure}[!t]
   \centering
@@ -70,9 +85,9 @@ Finally, the current best result comes from a weak structure-aware decoupled ref
 
 \subsection{Ideal-communication supporting evidence}
 
-An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing ordinary distributed GA against the current structure-aware decoupled method under otherwise matched conditions.
+An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing ordinary distributed GA against the proposed structure-aware decoupled method under otherwise matched conditions.
 
-The result remains positive. Figure~\ref{fig:ideal-support} summarizes the matched ideal-communication comparison. In consensus metrics, ordinary GA yields OSPA $1.706$, RMSE $1.526$, and cardinality disagreement $0.161$, whereas the structure-aware decoupled method yields $1.494$, $1.290$, and $0.139$. The same experiment also reports local metrics. Aggregated over sensors and trials, local E-OSPA improves from $1.950$ to $1.877$, local RMSE improves from $1.442$ to $1.369$, and local H-OSPA remains essentially unchanged at $0.500$.
+The result remains positive in the larger paired sample as well. Figure~\ref{fig:ideal-support} summarizes the matched ideal-communication comparison over the same 20 deterministic paired trials used in the main confirmation. In consensus metrics, ordinary GA yields OSPA $1.703504 \pm 0.041063$, RMSE $1.532487 \pm 0.125044$, and cardinality disagreement $0.161500 \pm 0.014704$, whereas the structure-aware decoupled method yields $1.481747 \pm 0.044369$, $1.238241 \pm 0.081211$, and $0.132187 \pm 0.028000$. The paired reductions remain positive in all 20 trials for consensus OSPA and RMSE, with exact sign-test $p=1.9\times 10^{-6}$, and in 18 of 20 trials for cardinality disagreement, with sign-test $p=4.0\times 10^{-4}$. The same experiment also reports local metrics. Aggregated over sensors and trials, local E-OSPA improves from $1.962844$ to $1.885250$, local RMSE improves from $1.444517$ to $1.371501$, and local H-OSPA remains essentially unchanged at $0.500$.
 
 \begin{figure}[!t]
   \centering
@@ -85,12 +100,12 @@ This supporting study is useful for two reasons. First, it shows that the refine
 
 \subsection{Communication robustness and AA generalization}
 
-A broader communication-level analysis has also been implemented by varying the communication level from $0$ to $3$ and comparing fixed and adaptive fusion modes. At present, this study is best treated as supporting evidence rather than as a headline quantitative table, because the tiered-drop branch has cleaner and more directly reproducible saved reports. The present qualitative conclusion is nevertheless clear: as communication becomes more constrained and heterogeneous, adaptive weighting becomes more valuable.
+A broader communication-level analysis varies the communication level from $0$ to $3$ and compares fixed and adaptive fusion modes. This study is treated as supporting evidence rather than as a main quantitative table, because the tiered-drop experiment provides the cleanest directly reproducible comparison. The qualitative conclusion is nevertheless clear: as communication becomes more constrained and heterogeneous, adaptive weighting becomes more valuable.
 
 The weighting idea is also not completely tied to GA fusion. A secondary AA-based experiment in the same eight-sensor communication-constrained setting provides extension evidence. In that experiment, adaptive weighting reduces consensus OSPA from $4.349$ to $3.811$, consensus RMSE from $19.098$ to $16.472$, and consensus cardinality disagreement from $0.421$ to $0.307$. This result is interpreted as supporting evidence rather than a co-equal main experiment.
 
 \subsection{Secondary consistency modules}
 
-Among the secondary modules, NIS-based consistency weighting is the most relevant one to report because it was explored seriously before the current four-factor main line was stabilized. Across five trials, the comparison $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$ yields OSPA $1.909 \rightarrow 1.909 \rightarrow 2.008$, RMSE $2.934 \rightarrow 2.980 \rightarrow 3.173$, and cardinality disagreement $0.267 \rightarrow 0.262 \rightarrow 0.300$.
+Among the secondary modules, NIS-based consistency weighting is the most relevant one to report because it tests a natural alternative source of adaptive weighting information. Across 20 trials, the comparison $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$ yields OSPA $1.840 \rightarrow 1.855 \rightarrow 1.952$, RMSE $2.779 \rightarrow 2.802 \rightarrow 3.009$, and cardinality disagreement $0.233 \rightarrow 0.237 \rightarrow 0.273$.
 
-Plain NIS is clearly harmful in the present setting. Robust NIS is more stable than plain NIS and slightly improves cardinality relative to the no-NIS baseline, but it does not improve the full metric set and is effectively tied with the no-NIS baseline in OSPA. This is why NIS is no longer part of the main method story. Freshness weighting, history weighting, and preliminary cardinality-consensus corrections likewise show weak, mixed, or negative evidence and are therefore retained only as appendix material.
+Plain NIS remains clearly harmful in the present setting. In the larger trial set, robust NIS also fails to improve the baseline: it is slightly worse than the no-NIS arm in all three consensus metrics, although still materially better than plain NIS. This is why NIS is not part of the core method. Freshness weighting, history weighting, and preliminary cardinality-consensus corrections likewise show weak, mixed, or negative evidence and are therefore retained only as appendix material.

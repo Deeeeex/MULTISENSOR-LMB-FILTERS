@@ -1,7 +1,7 @@
 \section{Theoretical Interpretation of Adaptive Branch-Decoupled Fusion}
 \label{app:theory}
 
-This appendix records the theoretical interpretation of the adaptive branch-decoupled fusion rule used in the main paper. The purpose is narrower than a full new optimality theory. We focus on the exact statements that are already supported by the present implementation and the standard KLA/LMB background \citep{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Throughout this appendix, we assume the same label alignment and moment-compatible Gaussian projection used by the implemented merger.
+This appendix records the theoretical interpretation of the adaptive branch-decoupled fusion rule used in the main paper. The purpose is narrower than a full new optimality theory. We focus on the exact statements that are supported by the proposed method and the standard KLA/LMB background \citep{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Throughout this appendix, we assume the same label alignment and moment-compatible Gaussian projection used by the merger.
 
 \subsection{Entropy-Regularized Interpretation of the Weight Backbone}
 
@@ -178,14 +178,14 @@ p_i^\star(x)
 \end{align}
 Hence the implemented spatial and existence update rules are the exact optimizer of a per-Bernoulli decoupled surrogate objective.
 
-If local posteriors share an aligned label set and are represented in product LMB form, then the reverse-KL divergence is additive across labels. Under this same alignment assumption used by the implementation, the per-Bernoulli surrogate lifts directly to an aligned-LMB surrogate objective that decomposes labelwise.
+If local posteriors share an aligned label set and are represented in product LMB form, then the reverse-KL divergence is additive across labels. Under this same alignment assumption, the per-Bernoulli surrogate lifts directly to an aligned-LMB surrogate objective that decomposes labelwise.
 
 \paragraph{Scope boundary.}
-This appendix does not claim that the branch-decoupled rule is the unique optimizer of a fully unconstrained LMB fusion objective. The exact derivation above still relies on the same two architectural assumptions used by the implementation: aligned labels and moment-compatible spatial projection.
+This appendix does not claim that the branch-decoupled rule is the unique optimizer of a fully unconstrained LMB fusion objective. The exact derivation above still relies on the same two architectural assumptions used by the merger: aligned labels and moment-compatible spatial projection.
 
 \subsection{Branch-Decoupled Weight Allocation and Structure-Aware Regularization}
 
-The implemented branch-specific scores are
+The branch-specific scores are
 \begin{align}
 s_{x,j}
 &=
@@ -246,7 +246,7 @@ Then the branch-decoupled adaptive weights are the exact optimizer of the block-
 \begin{equation}
 \max_{w_x,w_r \in \Delta_{k,s}} \left\{ U_x(w_x) + U_r(w_r) \right\}.
 \end{equation}
-Moreover, together with the aligned-LMB surrogate state-update block above, the implemented merger and the adaptive weight-allocation rule are consistent with a single block-relaxed objective whose two blocks reproduce the code-level state-update and weight-update steps.
+Moreover, together with the aligned-LMB surrogate state-update block above, the merger and the adaptive weight-allocation rule are consistent with a single block-relaxed objective whose two blocks reproduce the state-update and weight-update steps.
 
 \paragraph{Proposition C7a.}
 Let $p_x$ and $p_r$ be strictly positive priors on the simplex, and let $\mathcal{Q}_x$ and $\mathcal{Q}_r$ be differentiable latent branch-quality functionals. The entropic proximal linearizations
@@ -272,7 +272,7 @@ have unique optimizers
 w_{x,j}^{+} &\propto p_{x,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_x(p_x))_j}{\tau_x}\right), \\
 w_{r,j}^{+} &\propto p_{r,j}\exp\!\left(\frac{(\nabla \mathcal{Q}_r(p_r))_j}{\tau_r}\right).
 \end{align}
-Therefore, if the graph-induced priors satisfy $p_{x,j} \propto \xi_{x,j}^{\gamma_x/\tau_x}$ and $p_{r,j} \propto \xi_{r,j}^{\gamma_r/\tau_r}$, and if the local gradients are summarized by the implemented branch utilities, then the current structure-aware adaptive weights coincide exactly with one entropic mirror-ascent / exponentiated-gradient step on those latent branch-quality functionals \citep{KivinenWarmuth1997,BeckTeboulle2003}. This is a first-order relaxation statement, not a claim of a full global optimum for unconstrained LMB fusion.
+Therefore, if the graph-induced priors satisfy $p_{x,j} \propto \xi_{x,j}^{\gamma_x/\tau_x}$ and $p_{r,j} \propto \xi_{r,j}^{\gamma_r/\tau_r}$, and if the local gradients are summarized by the branch utilities, then the proposed structure-aware adaptive weights coincide exactly with one entropic mirror-ascent / exponentiated-gradient step on those latent branch-quality functionals \citep{KivinenWarmuth1997,BeckTeboulle2003}. This is a first-order relaxation statement, not a claim of a full global optimum for unconstrained LMB fusion.
 
 \paragraph{A reduced-objective sensitivity view.}
 Let
@@ -309,7 +309,7 @@ which is bounded in $[0,1]$. This quantity is a bounded monotone surrogate of Be
 =
 2\,\mathrm{artanh}(c(r)).
 \end{equation}
-Therefore the implemented existence-confidence score is a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that appears in the exact existence branch \eqref{eq:appendix-logit-pooling}.
+Therefore the existence-confidence score is a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that appears in the exact existence branch \eqref{eq:appendix-logit-pooling}.
 
 The temporal stabilization step computes
 \begin{equation}
@@ -328,7 +328,7 @@ Thus the EMA step is an exact quadratic compromise between the previous weights 
 
 \subsection{What This Appendix Establishes}
 
-Under the same aligned-label and moment-compatible assumptions used by the implementation, this appendix establishes:
+Under the same aligned-label and moment-compatible assumptions used by the merger, this appendix establishes:
 \begin{itemize}
 \item an exact entropy-regularized interpretation of the adaptive backbone,
  \item an isotropic-limit agreement between the retained covariance score and standard information criteria,
@@ -341,4 +341,4 @@ Under the same aligned-label and moment-compatible assumptions used by the imple
  \item a concrete reduced-objective sensitivity view in which the exact branch gradients are spatial KL mismatch and Bernoulli mismatch terms,
 \item a quadratic-compromise interpretation of the EMA stabilization step.
 \end{itemize}
-What remains outside the scope of this appendix is a full theorem for completely unconstrained LMB fusion without the aligned-label and moment-projection assumptions used by the present implementation.
+What remains outside the scope of this appendix is a full theorem for completely unconstrained LMB fusion without the aligned-label and moment-projection assumptions used by the proposed merger.

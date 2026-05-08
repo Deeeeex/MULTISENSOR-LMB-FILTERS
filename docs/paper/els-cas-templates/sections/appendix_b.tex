@@ -1,11 +1,11 @@
 \section{Additional Attempted Modules and Results}
 \label{app:additional-modules}
 
-This appendix records the secondary modules explored in the current paper branch but not retained as part of the main claimed method. The purpose of this appendix is to document that the design space was explored beyond the final four-factor main line and to bound the empirical value of the discarded alternatives.
+This appendix records secondary modules that were evaluated but not retained as part of the main claimed method. The purpose is to document that the design space was explored beyond the final four-factor method and to bound the empirical value of the discarded alternatives.
 
 \subsection{NIS-based consistency weighting}
 
-This experiment studies whether innovation-based consistency information should enter the adaptive weight model. The relevant comparison is $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$. In the current implementation, the NIS term is treated as a consistency penalty rather than a monotonic quality reward because innovation consistency is structurally coupled with covariance-based posterior quality.
+This experiment studies whether innovation-based consistency information should enter the adaptive weight model. The relevant comparison is $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$. The NIS term is treated as a consistency penalty rather than a monotonic quality reward because innovation consistency is structurally coupled with covariance-based posterior quality.
 
 \begin{table}[h]
   \centering
@@ -15,14 +15,14 @@ This experiment studies whether innovation-based consistency information should 
     \toprule
     Arm & OSPA & RMSE & Cardinality \\
     \midrule
-    w/o NIS & 1.909 & 2.934 & 0.267 \\
-    robust NIS & 1.909 & 2.980 & 0.262 \\
-    plain NIS & 2.008 & 3.173 & 0.300 \\
+    w/o NIS & 1.840 & 2.779 & 0.233 \\
+    robust NIS & 1.855 & 2.802 & 0.237 \\
+    plain NIS & 1.952 & 3.009 & 0.273 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Plain NIS is clearly harmful in the present setting. Robust NIS is more stable than plain NIS and slightly improves cardinality relative to the no-NIS baseline, but it does not improve the full metric set and is effectively tied with the no-NIS baseline in OSPA.
+Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 20 trials it is still slightly worse than the no-NIS baseline in OSPA, RMSE, and cardinality disagreement.
 
 \subsection{Freshness weighting}
 
@@ -30,7 +30,7 @@ This experiment tests whether a recency-oriented score improves fusion beyond th
 
 \subsection{History weighting}
 
-This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality disagreement changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the paper body.
+This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality disagreement changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
 
 \subsection{Cardinality-consensus weighting}
 
@@ -38,6 +38,6 @@ An exploratory direct cardinality-consensus score was also tested. Relative to t
 
 \subsection{Association ambiguity and posterior-structure consistency}
 
-Two additional extensions were explored near the end of the present branch. The association-ambiguity add-on changes the baseline result from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$ in $(\text{OSPA},\,\text{RMSE},\,\text{Cardinality})$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains exactly tied with the current weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
+Two additional extensions were also evaluated. The association-ambiguity add-on changes the baseline OSPA, RMSE, and cardinality disagreement from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains tied with the retained weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
 
 Taken together, these appendix results strengthen the main paper rather than weaken it. They show that the design space was explored beyond the final chosen method, and they justify why the present paper is intentionally centered on covariance, realized link quality, existence confidence, and weak structure-aware decoupling.

@@ -5,7 +5,7 @@ Consider a distributed sensor network with sensor index set $\mathcal{V}=\{1,\ld
 
 \subsection{Dynamic and measurement model}
 
-Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the present implementation, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior
+Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the setting considered here, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior
 \begin{equation}
 \pi_{k}^{(j)} = \left\{ \left(r_{k,i}^{(j)}, p_{k,i}^{(j)}(\cdot,\ell_i)\right) \right\}_{i=1}^{M_k},
 \end{equation}
@@ -33,7 +33,7 @@ Because the cross-correlation structure among neighboring LMB posteriors is unkn
 \end{equation}
 where $\omega_{k,s}^{(j)}$ is the fusion weight assigned by node $s$ to neighbor $j$ at time $k$ \citep{Battistelli2014KLA,Hlinka2014ICI}. With fixed-weight fusion, $\omega_{k,s}^{(j)}$ is often chosen as a uniform or Metropolis-type consensus weight \citep{XiaoBoydLall2005ConsensusWeights}. The central problem studied here is how to choose these weights adaptively so that they reflect both posterior quality and communication quality.
 
-In the present GA-LMB implementation, the spatial and existence parts of each Bernoulli component are fused separately after moment matching. This separation makes it natural to ask whether the same scalar weight should govern both spatial fusion and existence fusion.
+In the GA-LMB fusion rule considered here, the spatial and existence parts of each Bernoulli component are fused separately after moment matching. This separation makes it natural to ask whether the same scalar weight should govern both spatial fusion and existence fusion.
 
 \subsection{Adaptive weight-allocation objective}
 
@@ -57,7 +57,7 @@ where $m_k^{(j)}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)}$ is a cova
 
 \subsection{Decoupled and weakly structure-aware weighting}
 
-The current best implementation does not force the spatial and existence branches to share exactly the same dynamics. Instead, it forms branch-specific scores,
+The proposed branch-decoupled fusion rule does not force the spatial and existence branches to share exactly the same dynamics. Instead, it forms branch-specific scores,
 \begin{equation}
 \tilde{\omega}_{k,s}^{x,(j)}
 =
@@ -77,7 +77,7 @@ and then applies only a weak graph-aware correction,
 \cdot
 \left(\xi_{k,s}^{r,(j)}\right)^{\gamma_r}.
 \end{equation}
-Here $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ are local structure priors derived from neighborhood overlap and communication reliability, and the exponents satisfy $\gamma_r \ll \gamma_x$ in the current best configuration. In other words, topology is not treated as the primary source of fusion weights; it acts only as a mild prior layered on top of posterior-quality and communication-quality signals.
+Here $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ are local structure priors derived from neighborhood overlap and communication reliability. The existence-side exponent is chosen much smaller than the spatial-side exponent, $\gamma_r \ll \gamma_x$, so topology acts as a mild prior layered on top of posterior-quality and communication-quality signals rather than as the primary source of fusion weights.
 
 \subsection{Evaluation target}
 

@@ -14,7 +14,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from docs.paper.figures.paper_figure_data import get_scalar_figure_data, load_figure4_series
 
@@ -85,22 +84,40 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
     power = float(figure3["existence_confidence_power"])
     bounded = min_score + (1.0 - min_score) * np.power(decisiveness, power)
 
-    fig, ax = plt.subplots(1, 1, figsize=(7.2, 3.8), constrained_layout=True)
+    profiles = figure3["profiles"]
+    profile_labels = [profile["label"] for profile in profiles]
+    profile_r = [np.asarray(profile["r_values"], dtype=float) for profile in profiles]
+    profile_cbar = []
+    profile_q = []
+    for values in profile_r:
+        c_values = np.abs(2.0 * values - 1.0)
+        weighted = np.sum(values * c_values) / np.sum(values)
+        profile_cbar.append(weighted)
+        profile_q.append(min_score + (1.0 - min_score) * weighted**power)
+
+    fig, (ax_left, ax_right) = plt.subplots(
+        1,
+        2,
+        figsize=(8.6, 3.6),
+        gridspec_kw={"width_ratios": [1.3, 0.95]},
+        constrained_layout=True,
+    )
 
     decisive_fill = "#EFF6FB"
     ambiguous_fill = "#FAEEEE"
     raw_color = "#98A6B5"
 
-    ax.axvspan(0.0, 0.18, color=decisive_fill, zorder=0)
-    ax.axvspan(0.42, 0.58, color=ambiguous_fill, zorder=0)
-    ax.axvspan(0.82, 1.0, color=decisive_fill, zorder=0)
-    ax.fill_between(r, bounded, min_score, color=SECONDARY_COLOR, alpha=0.08, zorder=1)
-    ax.plot(r, bounded, color=SECONDARY_COLOR, linewidth=2.8, zorder=3)
-    ax.axhline(min_score, color=FIXED_COLOR, linewidth=1.4, linestyle=":", zorder=2)
+    ax_left.axvspan(0.0, 0.18, color=decisive_fill, zorder=0)
+    ax_left.axvspan(0.42, 0.58, color=ambiguous_fill, zorder=0)
+    ax_left.axvspan(0.82, 1.0, color=decisive_fill, zorder=0)
+    ax_left.fill_between(r, bounded, min_score, color=SECONDARY_COLOR, alpha=0.08, zorder=1)
+    ax_left.plot(r, bounded, color=SECONDARY_COLOR, linewidth=2.8, zorder=3)
+    ax_left.plot(r, decisiveness, color=raw_color, linewidth=1.8, linestyle="--", zorder=2)
+    ax_left.axhline(min_score, color=FIXED_COLOR, linewidth=1.4, linestyle=":", zorder=2)
 
     sample_r = np.array([0.5, 0.9])
     sample_score = min_score + (1.0 - min_score) * np.power(np.abs(2.0 * sample_r - 1.0), power)
-    ax.scatter(
+    ax_left.scatter(
         sample_r,
         sample_score,
         s=34,
@@ -110,34 +127,90 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
         zorder=4,
     )
 
-    ax.set_xlabel("Existence Probability r")
-    ax.set_ylabel(r"Bounded Score $q_{\mathrm{exist}}(r)$")
-    ax.set_xlim(0.0, 1.0)
-    ax.set_ylim(min_score - 0.01, 1.01)
-    ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
-    ax.set_axisbelow(True)
+    ax_left.set_xlabel("Existence Probability r")
+    ax_left.set_ylabel(r"Score magnitude")
+    ax_left.set_xlim(0.0, 1.0)
+    ax_left.set_ylim(-0.02, 1.02)
+    ax_left.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
+    ax_left.set_axisbelow(True)
 
-    ax.text(0.50, 1.001, "ambiguous region", fontsize=8, color="#8B5A5A", va="bottom", ha="center")
-    ax.text(0.98, 1.001, "decisive tails", fontsize=8, color="#5A738E", va="bottom", ha="right")
-    ax.text(0.63, min_score + 0.0025, r"$\lambda_{\min}$ floor", fontsize=8, color=FIXED_COLOR)
-    ax.text(
-        0.58,
-        0.982,
-        r"used in $\tilde{\omega} \propto q_{\mathrm{cov}}\, q_{\mathrm{link}}\, q_{\mathrm{exist}}$",
-        fontsize=8.2,
+    ax_left.text(0.50, 1.005, "ambiguous region", fontsize=7.6, color="#8B5A5A", va="bottom", ha="center")
+    ax_left.text(0.98, 1.005, "decisive tails", fontsize=7.6, color="#5A738E", va="bottom", ha="right")
+    ax_left.text(0.63, min_score + 0.0025, r"$\lambda_{\min}$ floor", fontsize=8, color=FIXED_COLOR)
+    ax_left.text(
+        0.66,
+        0.986,
+        r"$q_{\mathrm{exist}}$ in $\tilde{\omega}$",
+        fontsize=7.5,
         color=EDGE_COLOR,
-        bbox={"boxstyle": "round,pad=0.22", "facecolor": "white", "edgecolor": "#D7DEE7", "linewidth": 0.8},
+        bbox={"boxstyle": "round,pad=0.20", "facecolor": "white", "edgecolor": "#D7DEE7", "linewidth": 0.8},
+    )
+    ax_left.text(0.18, 0.955, r"bounded $q_{\mathrm{exist}}(r)$", fontsize=7.8, color=SECONDARY_COLOR)
+    ax_left.text(0.16, 0.135, r"raw $c(r)=|2r-1|$", fontsize=7.8, color=raw_color)
+
+    y_positions = np.arange(len(profiles))[::-1]
+    profile_band = "#EDF3F8"
+    bar_height = 0.24
+    ax_right.axvline(min_score, color=FIXED_COLOR, linewidth=1.3, linestyle=":")
+    ax_right.barh(
+        y_positions + 0.14,
+        profile_cbar,
+        height=bar_height,
+        color=profile_band,
+        edgecolor=EDGE_COLOR,
+        linewidth=0.8,
+        label=r"aggregated $\bar{c}^{(j)}$",
+    )
+    ax_right.barh(
+        y_positions - 0.14,
+        profile_q,
+        height=bar_height,
+        color=ADAPTIVE_COLOR,
+        edgecolor=EDGE_COLOR,
+        linewidth=0.8,
+        label=r"final $q_{\mathrm{exist}}^{(j)}$",
     )
 
-    inset = inset_axes(ax, width="31%", height="38%", loc="upper left", borderpad=1.2)
-    inset.plot(r, decisiveness, color=raw_color, linewidth=1.9)
-    inset.set_xlim(0.0, 1.0)
-    inset.set_ylim(0.0, 1.02)
-    inset.set_xticks([0.0, 0.5, 1.0])
-    inset.set_yticks([0.0, 1.0])
-    inset.tick_params(labelsize=7)
-    inset.grid(axis="y", alpha=0.2, linestyle="--", linewidth=0.6)
-    inset.set_title(r"raw $c(r)=|2r-1|$", fontsize=7.5, pad=2.5)
+    for idx, values in enumerate(profile_r):
+        y = y_positions[idx]
+        ax_right.scatter(
+            values,
+            np.full_like(values, y + 0.28),
+            s=22,
+            color=SECONDARY_COLOR,
+            edgecolor="white",
+            linewidth=0.5,
+            zorder=3,
+        )
+        ax_right.text(
+            1.01,
+            y + 0.14,
+            f"{profile_cbar[idx]:.2f}",
+            fontsize=7.5,
+            va="center",
+            ha="left",
+            color=EDGE_COLOR,
+        )
+        ax_right.text(
+            1.01,
+            y - 0.14,
+            f"{profile_q[idx]:.2f}",
+            fontsize=7.5,
+            va="center",
+            ha="left",
+            color=EDGE_COLOR,
+        )
+
+    ax_right.set_yticks(y_positions, profile_labels)
+    ax_right.set_xlim(0.0, 1.12)
+    ax_right.set_ylim(-0.45, y_positions[0] + 0.45)
+    ax_right.set_xlabel("Aggregated confidence level")
+    ax_right.grid(axis="x", alpha=0.25, linestyle="--", linewidth=0.7)
+    ax_right.set_axisbelow(True)
+    ax_right.text(0.55, y_positions[1] + 0.40, r"example $r_{k,i}^{(j)}$", fontsize=7.0, color=EDGE_COLOR, ha="center")
+
+    ax_left.text(0.01, 0.99, "(a) Mapping", transform=ax_left.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top")
+    ax_right.text(0.01, 0.99, "(b) Aggregation", transform=ax_right.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top")
 
     fig.savefig(output_path, format="pdf", bbox_inches="tight")
     plt.close(fig)

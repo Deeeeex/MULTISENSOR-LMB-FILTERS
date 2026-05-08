@@ -10,6 +10,20 @@ def get_scalar_figure_data() -> dict:
             "r": [i / 200.0 for i in range(201)],
             "existence_confidence_min_score": 0.85,
             "existence_confidence_power": 2.0,
+            "profiles": [
+                {
+                    "label": "Decisive tails",
+                    "r_values": [0.96, 0.91, 0.87, 0.82],
+                },
+                {
+                    "label": "Mixed evidence",
+                    "r_values": [0.93, 0.74, 0.58, 0.46],
+                },
+                {
+                    "label": "Ambiguous set",
+                    "r_values": [0.57, 0.54, 0.51, 0.47],
+                },
+            ],
         },
         "figure5": {
             "title": "Factor Ablation Under Tiered Packet Loss",
@@ -21,29 +35,28 @@ def get_scalar_figure_data() -> dict:
                 "+structure-aware decoupled KLA",
             ],
             "metrics": {
-                "Consensus OSPA": [2.624065, 2.211513, 1.877771, 1.874840, 1.862244],
-                "Consensus RMSE": [2.702602, 2.410976, 1.800945, 1.779820, 1.749608],
-                "Consensus Card": [0.878750, 0.589500, 0.245250, 0.244500, 0.244250],
+                "Consensus OSPA": [2.447978, 2.082445, 1.829718, 1.829831, 1.821448],
+                "Consensus RMSE": [2.583880, 2.167710, 1.764180, 1.753626, 1.749812],
+                "Consensus Card": [0.679437, 0.457937, 0.230687, 0.230500, 0.231625],
             },
             "sources": [
-                "RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md",
-                "RUN/GA/GA_TIERED_LINK_ABLATION_20260326_182435.md",
+                "RUN/GA/GA_TIERED_LINK_ABLATION_MAIN20_20260507.md",
             ],
         },
         "figure6": {
             "title": "Ideal-Communication Supporting Comparison",
             "consensus": {
                 "labels": ["OSPA", "RMSE", "Card"],
-                "ga": [1.705549, 1.525900, 0.160500],
-                "adaptive": [1.494474, 1.289643, 0.139000],
+                "ga": [1.703504, 1.532487, 0.161500],
+                "adaptive": [1.481747, 1.238241, 0.132187],
             },
             "local": {
                 "labels": ["E-OSPA", "RMSE"],
-                "ga": [1.949511, 1.441872],
-                "adaptive": [1.876801, 1.369361],
+                "ga": [1.962844, 1.444517],
+                "adaptive": [1.885250, 1.371501],
             },
             "sources": [
-                "RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md",
+                "RUN/GA/GA_IDEAL_COMM_MAIN20_PAIRED_20260507.md",
             ],
         },
     }

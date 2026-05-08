@@ -1,7 +1,7 @@
 \section{Simulation Setup}
 \label{app:simulation-setup}
 
-This appendix summarizes the simulation settings used by the current paper branch. The purpose is reproducibility rather than narrative emphasis. The main body already explains why the experiments were chosen; the present appendix records the concrete scenario geometry, target initialization, communication model, and supporting ideal-communication variant.
+This appendix summarizes the simulation settings used in the experiments. The purpose is reproducibility rather than narrative emphasis. The main text explains why the experiments were chosen; the present appendix records the concrete scenario geometry, target initialization, communication model, and supporting ideal-communication variant.
 
 \subsection{Main scenario overview}
 
@@ -33,7 +33,7 @@ The target side contains ten objects divided into three groups with staggered bi
 
 \subsection{Communication model}
 
-Communication degradation is applied before distributed fusion through a model that combines a global per-step measurement budget with optional link-level packet loss and optional node outages. The communication levels used by the code are:
+Communication degradation is applied before distributed fusion through a model that combines a global per-step measurement budget with optional link-level packet loss and optional node outages. The communication levels are:
 \begin{itemize}
 \item level $0$: no communication restriction,
 \item level $1$: global measurement budget only,
@@ -54,7 +54,7 @@ The supporting ideal-communication comparison uses the same sensor geometry, tar
 
 \subsection{Main adaptive configuration}
 
-The current best adaptive configuration used in the main tiered-drop headline comparison is:
+The full adaptive configuration used in the main tiered-drop comparison is:
 \begin{itemize}
 \item $\texttt{emaAlpha}=0.7$,
 \item $\texttt{minWeight}=0.05$,
@@ -63,7 +63,11 @@ The current best adaptive configuration used in the main tiered-drop headline co
 \item $\texttt{existenceConfidencePower}=2.0$,
 \item decoupled KLA enabled,
 \item weak structure-aware refinement enabled,
-\item posterior-structure-consistency, NIS, and history disabled in the headline configuration,
+\item posterior-structure-consistency, NIS, and history disabled in the main configuration,
 \item spatial decoupling and structure strengths $(0.5, 0.45)$,
 \item existence decoupling and structure strengths $(0.15, 0.08)$.
 \end{itemize}
+
+\subsection{Monte Carlo seed control}
+
+The main fixed-versus-full adaptive confirmation, the supporting ideal-communication comparison, and the five-arm factor ablation all use 20 deterministic trials with seeds $2$--$21$. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.
