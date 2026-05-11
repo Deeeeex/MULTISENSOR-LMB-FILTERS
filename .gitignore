@@ -7,8 +7,8 @@ octave-workspace
 # local tooling and Python cache
 .superpowers/
 __pycache__/
-docs/.DS_Store
-docs/paper/.DS_Store
+.DS_Store
+tmp/
 docs/superpowers/plans/
 docs/paper/els-cas-templates.zip
 docs/paper/els-cas-templates/manuscript.abs
