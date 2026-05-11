@@ -47,6 +47,9 @@ function [associationMatrices, posteriorParameters] = generateLmbSensorAssociati
 %% Declare output structs
 numberOfObjects = numel(objects);
 numberOfMeasurements = numel(z);
+if nargin < 5 || isempty(currentTime)
+    currentTime = 1;
+end
 % Auxillary matrices
 L = zeros(numberOfObjects, numberOfMeasurements);
 phi = zeros(numberOfObjects, 1);
@@ -60,12 +63,10 @@ posteriorParameters = repmat(posteriorParameters, 1, numberOfObjects);
 %% Populate the LBP arrays, and compute posterior components
 for i = 1:numberOfObjects
     % Predeclare the object's posterior components, and include missed detection event
-    posteriorParameters(i).w = repmat(log(objects(i).w * (1 - model.detectionProbability(s))), numberOfMeasurements + 1, 1);
+    posteriorParameters(i).w = -inf(numberOfMeasurements + 1, objects(i).numberOfGmComponents);
     posteriorParameters(i).mu  = repmat(objects(i).mu, numberOfMeasurements + 1, 1);
     posteriorParameters(i).Sigma = repmat(objects(i).Sigma, numberOfMeasurements + 1, 1);
-    % Populate auxiliary LBP parameters
-    phi(i) = (1 -  model.detectionProbability(s)) * objects(i).r;
-    eta(i) = 1 - model.detectionProbability(s) * objects(i).r;
+    missedDetectionLikelihood = 0;
     %% Determine marginal likelihood ratio of the object generating each measurement
     for j = 1:objects(i).numberOfGmComponents
         % Update components for a mixture component
@@ -77,10 +78,17 @@ for i = 1:numberOfObjects
         else
             muZ = model.C{s} * objects(i).mu{j};
         end
-        
-        Z = model.C{s} * objects(i).Sigma{j} * model.C{s}' + model.Q{s};
+
+        [pdSensor, qSensor] = evaluateSensorQuality(model, s, objects(i).mu{j}, currentTime);
+        pdSensorForLog = max(pdSensor, realmin);
+        missedDetectionForLog = max(1 - pdSensor, realmin);
+        posteriorParameters(i).w(1, j) = log(objects(i).w(j)) + log(missedDetectionForLog);
+        missedDetectionLikelihood = missedDetectionLikelihood + ...
+            objects(i).w(j) * (1 - pdSensor);
+
+        Z = model.C{s} * objects(i).Sigma{j} * model.C{s}' + qSensor;
         logGaussianNormalisingConstant = - (0.5 * model.zDimension) * log(2 * pi) - 0.5 * log(det(Z));
-        logLikelihoodRatioTerms = log(objects(i).r) + log(model.detectionProbability(s)) + log(objects(i).w(j)) - log(model.clutterPerUnitVolume(s));
+        logLikelihoodRatioTerms = log(objects(i).r) + log(pdSensorForLog) + log(objects(i).w(j)) - log(model.clutterPerUnitVolume(s));
         projectionCov = objects(i).Sigma{j} * model.C{s}';
         K = projectionCov / Z;
         SigmaUpdated = (eye(model.xDimension) - K * model.C{s}) * objects(i).Sigma{j};
@@ -95,11 +103,15 @@ for i = 1:numberOfObjects
                 nisMin(k) = nisValue;
             end
             % Determine updated mean and covariance for each mixture component
-            posteriorParameters(i).w(k+1, j) = log(objects(i).w(j)) + gaussianLogLikelihood + log(model.detectionProbability(s)) - log(model.clutterPerUnitVolume(s));
+            posteriorParameters(i).w(k+1, j) = log(objects(i).w(j)) + gaussianLogLikelihood + log(pdSensorForLog) - log(model.clutterPerUnitVolume(s));
             posteriorParameters(i).mu{k+1, j} = objects(i).mu{j} + K * nu;
             posteriorParameters(i).Sigma{k+1, j} = SigmaUpdated;
         end
     end
+    % Populate auxiliary LBP parameters. For state-dependent p_D, this is
+    % the mixture expectation of the missed-detection likelihood.
+    phi(i) = missedDetectionLikelihood * objects(i).r;
+    eta(i) = 1 - objects(i).r + phi(i);
     % Normalise weights
     maximumWeights = max(posteriorParameters(i).w, [], 2);
     offsetWeights = posteriorParameters(i).w - maximumWeights;

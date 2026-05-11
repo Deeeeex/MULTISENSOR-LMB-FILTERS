@@ -5,9 +5,9 @@ This section reports the empirical evidence supporting the paper's main claims. 
 
 \subsection{Main result in the tiered-drop GA scenario}
 
-The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, and a weak structure-aware decoupled KLA refinement. Across 20 paired Monte Carlo trials, the fixed-weight baseline yields consensus OSPA $2.447978 \pm 0.191065$, consensus RMSE $2.583880 \pm 0.315832$, and consensus cardinality disagreement $0.679437 \pm 0.208768$. The full adaptive method reduces these values to $1.821448 \pm 0.055189$, $1.749812 \pm 0.274055$, and $0.231625 \pm 0.032213$, respectively.
+The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, and a weak structure-aware decoupled KLA refinement. We also include an information-geometry baseline adapted from the Cao-Zhao FID-FIA weighting rule, where fusion weights are proportional to the Fisher-information accumulation induced by the local posterior target pairs. Across 20 paired Monte Carlo trials, fixed weights yield consensus OSPA $2.453677 \pm 0.187964$, consensus RMSE $2.335508 \pm 0.257319$, and consensus cardinality disagreement $0.714625 \pm 0.217152$. The FID-FIA baseline reduces these values to $1.820229 \pm 0.065295$, $1.647412 \pm 0.107941$, and $0.126188 \pm 0.027037$, respectively. The full adaptive method yields $1.785873 \pm 0.057187$, $1.562521 \pm 0.199660$, and $0.192938 \pm 0.024816$.
 
-Across these 20 paired trials, the reductions are sizeable in all three consensus metrics. Relative to fixed weights, the full adaptive method lowers consensus OSPA by about $25.6\%$, consensus RMSE by about $32.3\%$, and consensus cardinality disagreement by about $65.9\%$. The paired reductions are positive in all 20 trials for all three consensus metrics, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean, standard deviation, confidence interval, and paired reduction values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration but also on realized communication reliability and existence decisiveness. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
+Across these 20 paired trials, both adaptive baselines improve strongly over fixed weights. Relative to fixed weights, the FID-FIA baseline lowers consensus OSPA by $25.8\%$, consensus RMSE by $29.5\%$, and consensus cardinality disagreement by $82.3\%$. The full adaptive method lowers the same metrics by $27.2\%$, $33.1\%$, and $73.0\%$. Thus FID-FIA is the strongest cardinality-consensus baseline, while the proposed method gives the best OSPA and RMSE. The paired reductions relative to fixed weights are positive in all 20 trials for all three consensus metrics for both adaptive methods, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean and standard deviation values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration but also on realized communication reliability and existence decisiveness. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
 
 \begin{table}[t]
   \centering
@@ -15,11 +15,11 @@ Across these 20 paired trials, the reductions are sizeable in all three consensu
   \label{tab:main-consensus-stats}
   \begin{tabular}{lccc}
     \toprule
-    Metric & Fixed & Adaptive & Paired reduction \\
+    Arm & OSPA & RMSE & Cardinality \\
     \midrule
-    OSPA & $2.448 \pm 0.191$ & $1.821 \pm 0.055$ & $0.627$ $[0.548,0.705]$ \\
-    RMSE & $2.584 \pm 0.316$ & $1.750 \pm 0.274$ & $0.834$ $[0.698,0.970]$ \\
-    Cardinality & $0.679 \pm 0.209$ & $0.232 \pm 0.032$ & $0.448$ $[0.355,0.540]$ \\
+    fixed weights & $2.454 \pm 0.188$ & $2.336 \pm 0.257$ & $0.715 \pm 0.217$ \\
+    Cao-Zhao FID-FIA baseline & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $\mathbf{0.126} \pm 0.027$ \\
+    +structure-aware decoupled KLA & $\mathbf{1.786} \pm 0.057$ & $\mathbf{1.563} \pm 0.200$ & $0.193 \pm 0.025$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -31,7 +31,7 @@ Across these 20 paired trials, the reductions are sizeable in all three consensu
   \label{fig:main-consensus}
 \end{figure}
 
-The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. Mean local E-OSPA decreases from $2.895679$ to $2.394398$, mean local RMSE decreases slightly from $1.620730$ to $1.599062$, and mean local cardinality error drops from $1.568688$ to $0.712625$, while local H-OSPA remains essentially unchanged at $0.500$. In other words, the present consistency gain is not being purchased by a visible collapse in conventional truth-referenced tracking accuracy.
+The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. The FID-FIA baseline gives the lowest truth-referenced local cardinality error ($0.392313$) and local E-OSPA ($2.183127$), confirming that its cardinality-consensus advantage is not merely agreement around a wrong count. Its tradeoff is spatial: local RMSE is higher than both fixed weights and the proposed method. The proposed method gives the lowest local RMSE ($1.598561$) while still reducing local E-OSPA and local cardinality error relative to fixed weights. In other words, FID-FIA is a strong cardinality-oriented baseline, while the proposed method provides the best spatial-consensus and local-RMSE balance.
 
 \begin{table}[t]
   \centering
@@ -41,8 +41,9 @@ The primary-metric gain would be less convincing if it came at the cost of clear
     \toprule
     Arm & E-OSPA & H-OSPA & RMSE & CardErr \\
     \midrule
-    fixed weights & 2.895679 & 0.500000 & 1.620730 & 1.568688 \\
-    +structure-aware decoupled KLA & 2.394398 & 0.500000 & 1.599062 & 0.712625 \\
+    fixed weights & 2.853096 & 0.500000 & 1.637556 & 1.454500 \\
+    Cao-Zhao FID-FIA baseline & \textbf{2.183127} & 0.500000 & 1.715746 & \textbf{0.392313} \\
+    +structure-aware decoupled KLA & 2.328672 & 0.500000 & \textbf{1.598561} & 0.578688 \\
     \bottomrule
   \end{tabular}
 \end{table}

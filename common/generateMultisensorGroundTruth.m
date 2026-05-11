@@ -146,6 +146,9 @@ if model.sensorMotionEnabled
             end
     end
 end
+if model.sensorMotionEnabled
+    model.sensorTrajectories = sensorTrajectories;
+end
 
 %% Add in each object's measurements
 for i = 1:numberOfObjects
@@ -169,18 +172,12 @@ for i = 1:numberOfObjects
             Sigma = model.A * Sigma * model.A' + model.R;
         end
         % Preallocate parameters
-        generatedMeasurement = rand(model.numberOfSensors, 1) < model.detectionProbability;
-        if model.sensorMotionEnabled && isFovEnabled(model)
-            for s = 1:model.numberOfSensors
-                if generatedMeasurement(s)
-                    halfAngleDeg = getFovValue(model, 'sensorFovHalfAngleDeg', s, 180);
-                    maxRange = getFovValue(model, 'sensorFovRange', s, inf);
-                    if ~isTargetInFov(sensorTrajectories{s}(1:2, t), ...
-                            sensorTrajectories{s}(3:4, t), x(1:2), halfAngleDeg, maxRange)
-                        generatedMeasurement(s) = false;
-                    end
-                end
-            end
+        generatedMeasurement = false(model.numberOfSensors, 1);
+        measurementCovariances = cell(model.numberOfSensors, 1);
+        for s = 1:model.numberOfSensors
+            [pdSensor, qSensor] = evaluateSensorQuality(model, s, x, t);
+            generatedMeasurement(s) = rand < pdSensor;
+            measurementCovariances{s} = qSensor;
         end
         numberOfAssignments = sum(generatedMeasurement);
         if (numberOfAssignments)
@@ -191,18 +188,21 @@ for i = 1:numberOfObjects
             for s = 1:model.numberOfSensors
                 % Determine if object missed detection
                 if (generatedMeasurement(s))
+                    qSensor = measurementCovariances{s};
                     if model.sensorMotionEnabled
                         % Mobile sensor: measure relative position to sensor
                         sensorPos = sensorTrajectories{s}(1:2, t);
                         targetPos = x(1:2);
                         relativePos = targetPos - sensorPos;
                         y = sensorPos + model.C{s} * [relativePos; 0; 0] + ...
-                            chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                            chol(qSensor, 'lower') * randn(1, model.zDimension)';
                     else
                         % Static sensor (original code)
-                        y = model.C{s} * x + chol(model.Q{s}, 'lower') * randn(1, model.zDimension)';
+                        y = model.C{s} * x + chol(qSensor, 'lower') * randn(1, model.zDimension)';
                     end
-                    measurements{s, t}{end+1} = y;
+                    sensorMeasurements = measurements{s, t};
+                    sensorMeasurements{numel(sensorMeasurements) + 1} = y;
+                    measurements{s, t} = sensorMeasurements;
                     % Stack measurements and matrices
                     start = model.zDimension * counter + 1;
                     finish = start + model.zDimension - 1;
@@ -212,7 +212,7 @@ for i = 1:numberOfObjects
                 end
             end
             % Multisensor Kalman filter update
-            Q = blkdiag(model.Q{generatedMeasurement});
+            Q = blkdiag(measurementCovariances{generatedMeasurement});
             K = Sigma * C' / ( C * Sigma * C' + Q);
             mu = mu + K * (z - C * mu);
             Sigma = (eye(model.xDimension) - K * C) * Sigma;

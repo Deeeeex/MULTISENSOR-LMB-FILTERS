@@ -13,34 +13,38 @@
 
 `covariance + link quality + existence confidence + weak structure-aware decoupled KLA`
 
-对应结果如下。
+对应结果如下。最新补充的外部 baseline 是 `Cao-Zhao FID-FIA baseline`，来源于 20-trial 主实验：
+
+- [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 
 ### 1.1 一致性指标
 
-`fixed weights -> final adaptive`
+`fixed weights -> Cao-Zhao FID-FIA baseline -> final adaptive`
 
-- `consensus OSPA`: `2.624065 -> 1.862244`
-- `consensus RMSE`: `2.702602 -> 1.749608`
-- `consensus cardinality disagreement`: `0.878750 -> 0.244250`
+| Arm | Consensus OSPA | Consensus RMSE | Consensus Cardinality |
+| --- | ---: | ---: | ---: |
+| fixed weights | 2.453677 | 2.335508 | 0.714625 |
+| Cao-Zhao FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
+| +structure-aware decoupled KLA | 1.785873 | 1.562521 | 0.192938 |
 
 相对固定权重基线：
 
-- `OSPA` 下降约 `29%`
-- `RMSE` 下降约 `35%`
-- `cardinality disagreement` 下降约 `72%`
+- `Cao-Zhao FID-FIA baseline`：`OSPA` 下降 `25.82%`，`RMSE` 下降 `29.46%`，`cardinality disagreement` 下降 `82.34%`
+- `+structure-aware decoupled KLA`：`OSPA` 下降 `27.22%`，`RMSE` 下降 `33.10%`，`cardinality disagreement` 下降 `73.00%`
 
-这说明在异构链路条件下，自适应权重不仅改善了位置层面的一致性，也显著改善了跨节点的目标数一致性。
+这说明在异构链路条件下，自适应权重不仅改善了位置层面的一致性，也显著改善了跨节点的目标数一致性。FID-FIA 在 `Cardinality` 一致性上最好，而当前主方法在 `OSPA/RMSE` 一致性上最好，二者体现出清晰的 cardinality-vs-spatial tradeoff。
 
 ### 1.2 常规 local tracking 指标
 
-同一主场景下，`fixed weights -> final adaptive` 的常规 local 指标为：
+同一主场景下，`fixed weights -> Cao-Zhao FID-FIA baseline -> final adaptive` 的常规 local 指标为：
 
-- `local E-OSPA`: `2.945058 -> 2.381696`
-- `local H-OSPA`: `0.500000 -> 0.499999`
-- `local RMSE`: `1.622083 -> 1.602228`
-- `local cardinality error`: `1.762250 -> 0.710250`
+| Arm | Local E-OSPA | Local H-OSPA | Local RMSE | Local CardErr |
+| --- | ---: | ---: | ---: | ---: |
+| fixed weights | 2.853096 | 0.500000 | 1.637556 | 1.454500 |
+| Cao-Zhao FID-FIA baseline | 2.183127 | 0.500000 | 1.715746 | 0.392313 |
+| +structure-aware decoupled KLA | 2.328672 | 0.500000 | 1.598561 | 0.578688 |
 
-结论很明确：主方法带来的 `consensus` 改善并不是通过牺牲常规跟踪精度换来的。相反，`E-OSPA` 和 `cardinality error` 还有明显改善，`RMSE` 也略有下降，`H-OSPA` 基本持平。
+这回答了 FID-FIA 的 `Cardinality` 一致性问题：它不只是让各节点“更一致”，truth-referenced `local CardErr` 也最低，说明它确实更偏向正确的目标数估计。代价是它的 local `RMSE` 高于当前主方法；当前主方法仍然是空间精度和综合一致性最好的方案。
 
 ### 1.3 当前 paper message
 
@@ -50,9 +54,11 @@
 - 自适应权重必须至少同时考虑 `posterior concentration` 和 `realized communication quality`
 - 仅有 `covariance + link quality` 还不够，`existence confidence` 提供了第三个关键判别维度
 - 最终最优点不是强拓扑主导，而是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
+- 外部 `FID-FIA` baseline 对 cardinality 非常强，但它会牺牲部分 spatial RMSE；因此论文主方法的定位应强调综合 OSPA/RMSE 优势，同时承认 FID-FIA 是一个强 cardinality baseline
 
 主要来源：
 
+- [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 - [GA_TIERED_LINK_ABLATION_20260410_143517.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260410_143517.md)
 - [06_results.tex](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/els-cas-templates/sections/06_results.tex)
 

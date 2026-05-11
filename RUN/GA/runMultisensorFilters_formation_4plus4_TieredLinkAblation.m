@@ -336,6 +336,76 @@ arms(3).name = '+link quality';
 arms(3).adaptiveFusion = cfg;
 
 switch lower(finalArmMode)
+    case {'fidfia', 'fid_fia', 'fidfiabaseline', 'fid_fia_baseline', ...
+            'fisherfia', 'fisher_fia', 'informationgeometry', ...
+            'information_geometry', 'caozhao', 'cao_zhao'}
+        arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 3);
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = false;
+        cfg.method = 'factorized';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useNIS = false;
+        arms(1).name = 'fixed weights';
+        arms(1).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'fidFia';
+        cfg.useDecoupledKla = false;
+        cfg.useStructureAwareKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useExistenceConfidence = false;
+        cfg.useFreshness = false;
+        cfg.useHistory = false;
+        cfg.useNIS = false;
+        cfg.fidFiaUseEma = false;
+        cfg.fidFiaMinWeight = 0.0;
+        cfg.fidFiaUseExistenceWeight = true;
+        cfg.fidFiaExistencePower = 1.0;
+        cfg.fidFiaQuadraturePoints = 3;
+        cfg.fidFiaUseDetectionProbability = true;
+        arms(2).name = 'Cao-Zhao FID-FIA baseline';
+        arms(2).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'factorized';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        cfg.useExistenceConfidence = true;
+        cfg.useDecoupledKla = true;
+        cfg.useStructureAwareKla = true;
+        cfg.usePosteriorStructureConsistency = false;
+        if abs(cfg.existenceConfidenceMinScore - 0.6) < 1e-9
+            cfg.existenceConfidenceMinScore = 0.85;
+        end
+        if abs(cfg.existenceConfidencePower - 1.0) < 1e-9
+            cfg.existenceConfidencePower = 2.0;
+        end
+        if abs(cfg.spatialDecouplingStrength - 1.0) < 1e-9
+            cfg.spatialDecouplingStrength = 0.5;
+        end
+        if abs(cfg.existenceDecouplingStrength - 1.0) < 1e-9
+            cfg.existenceDecouplingStrength = 0.15;
+        end
+        if cfg.spatialStructureStrength <= 0
+            cfg.spatialStructureStrength = 0.45;
+        end
+        if cfg.existenceStructureStrength <= 0
+            cfg.existenceStructureStrength = 0.08;
+        end
+        if cfg.structureReliabilityPower <= 0
+            cfg.structureReliabilityPower = 0.30;
+        end
+        arms(3).name = '+structure-aware decoupled KLA';
+        arms(3).adaptiveFusion = cfg;
     case {'freshness', 'fresh'}
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
@@ -491,6 +561,7 @@ for armIdx = 1:numel(arms)
     cfg = arms(armIdx).adaptiveFusion;
     fprintf(fid, '### %s\n', arms(armIdx).name);
     fprintf(fid, '- enabled: %d\n', getField(cfg, 'enabled', false));
+    fprintf(fid, '- method: %s\n', char(getField(cfg, 'method', 'factorized')));
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
     fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
     fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
@@ -505,7 +576,17 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- spatialStructureStrength: %.3f\n', getField(cfg, 'spatialStructureStrength', 0));
     fprintf(fid, '- existenceStructureStrength: %.3f\n', getField(cfg, 'existenceStructureStrength', 0));
     fprintf(fid, '- structureReliabilityPower: %.3f\n', getField(cfg, 'structureReliabilityPower', 0));
-    fprintf(fid, '- structureReliabilityMinScore: %.3f\n\n', getField(cfg, 'structureReliabilityMinScore', 0));
+    fprintf(fid, '- structureReliabilityMinScore: %.3f\n', getField(cfg, 'structureReliabilityMinScore', 0));
+    if strcmpi(getField(cfg, 'method', 'factorized'), 'fidFia')
+        fprintf(fid, '- fidFiaUseExistenceWeight: %d\n', getField(cfg, 'fidFiaUseExistenceWeight', true));
+        fprintf(fid, '- fidFiaExistencePower: %.3f\n', getField(cfg, 'fidFiaExistencePower', 1.0));
+        fprintf(fid, '- fidFiaQuadraturePoints: %d\n', getField(cfg, 'fidFiaQuadraturePoints', 3));
+        fprintf(fid, '- fidFiaUseDetectionProbability: %d\n', getField(cfg, 'fidFiaUseDetectionProbability', true));
+        fprintf(fid, '- fidFiaUseEma: %d\n', getField(cfg, 'fidFiaUseEma', false));
+        fprintf(fid, '- fidFiaMinWeight: %.3f\n\n', getField(cfg, 'fidFiaMinWeight', 0));
+    else
+        fprintf(fid, '\n');
+    end
 end
 
 fprintf(fid, '## Per-Trial pDropBySensor\n');

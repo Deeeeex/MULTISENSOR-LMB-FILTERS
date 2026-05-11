@@ -14,6 +14,7 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
     cfg = model.adaptiveFusion;
 end
 
+method = lower(getField(cfg, 'method', 'factorized'));
 emaAlpha = getField(cfg, 'emaAlpha', 0.7);
 minWeight = getField(cfg, 'minWeight', 0.0);
 useDecoupledKla = getField(cfg, 'useDecoupledKla', false);
@@ -43,6 +44,12 @@ useStructureAwareKla = getField(cfg, 'useStructureAwareKla', false) || ...
 usePosteriorStructureConsistency = getField(cfg, 'usePosteriorStructureConsistency', true);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
+if isFidFiaMethod(method)
+    [gaWeights, aaWeights, debug] = computeFidFiaFusionWeights( ...
+        measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights);
+    return;
+end
+
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
 innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS);
 cardinalityConsensusScore = resolveCardinalityConsensusScore( ...
@@ -172,6 +179,206 @@ debug.historyState = historyState;
 debug.historyInstantInstability = historyDebug.instantInstability;
 debug.historyInstabilityEma = historyDebug.instabilityEma;
 debug.expectedCardinality = historyDebug.expectedCardinality;
+end
+
+function tf = isFidFiaMethod(method)
+tf = any(strcmpi(method, {'fidfia', 'fid_fia', 'fisherfia', ...
+    'fisher_fia', 'informationgeometry', 'information_geometry', ...
+    'caozhao', 'cao_zhao'}));
+end
+
+function [gaWeights, aaWeights, debug] = computeFidFiaFusionWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights)
+
+numSensors = numel(measurementUpdatedDistributions);
+[fiaScore, fidPairCounts] = computeFidFiaScore(measurementUpdatedDistributions, model, t, cfg);
+rawWeights = normalizeScores(fiaScore, availabilityMask);
+
+weights = rawWeights;
+useEma = getField(cfg, 'fidFiaUseEma', false);
+if useEma && nargin >= 6 && isstruct(prevWeights) && isfield(prevWeights, 'ga') && ...
+        numel(prevWeights.ga) == numSensors
+    emaAlpha = getField(cfg, 'fidFiaEmaAlpha', getField(cfg, 'emaAlpha', 0.7));
+    weights = emaAlpha * prevWeights.ga + (1 - emaAlpha) * rawWeights;
+    weights = normalizeScores(weights, availabilityMask);
+end
+
+minWeight = getField(cfg, 'fidFiaMinWeight', 0.0);
+if minWeight > 0
+    weights = enforceMinimumWeight(weights, availabilityMask, minWeight);
+end
+
+gaWeights = weights;
+aaWeights = weights;
+
+debug = struct();
+debug.availabilityMask = availabilityMask;
+debug.covScore = ones(1, numSensors);
+debug.baseScore = fiaScore;
+debug.innovationPenalty = ones(1, numSensors);
+debug.innovationScore = debug.innovationPenalty;
+debug.cardinalityConsensusScore = ones(1, numSensors);
+debug.existenceConfidenceScore = ones(1, numSensors);
+debug.associationAmbiguityScore = ones(1, numSensors);
+debug.freshnessScore = ones(1, numSensors);
+debug.historyScore = ones(1, numSensors);
+debug.linkQuality = ones(1, numSensors);
+debug.rawScore = fiaScore;
+debug.rawWeights = rawWeights;
+debug.weights = weights;
+debug.method = 'fidFia';
+debug.fiaScore = fiaScore;
+debug.fidPairCounts = fidPairCounts;
+debug.useDecoupledKla = false;
+debug.useStructureAwareKla = false;
+debug.usePosteriorStructureConsistency = false;
+debug.spatialRawScore = fiaScore;
+debug.existenceRawScore = fiaScore;
+debug.spatialStructurePrior = ones(1, numSensors);
+debug.existenceStructurePrior = ones(1, numSensors);
+debug.communicationReliabilityPrior = ones(1, numSensors);
+debug.spatialStructureScore = ones(1, numSensors);
+debug.existenceStructureScore = ones(1, numSensors);
+debug.gaSpatialWeights = weights;
+debug.aaSpatialWeights = weights;
+debug.gaExistenceWeights = weights;
+debug.aaExistenceWeights = weights;
+debug.historyState = struct();
+debug.historyInstantInstability = zeros(1, numSensors);
+debug.historyInstabilityEma = zeros(1, numSensors);
+debug.expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
+end
+
+function [fiaScore, fidPairCounts] = computeFidFiaScore(measurementUpdatedDistributions, model, t, cfg)
+numSensors = numel(measurementUpdatedDistributions);
+fiaScore = zeros(1, numSensors);
+fidPairCounts = zeros(1, numSensors);
+
+existenceThreshold = getField(cfg, 'fidFiaExistenceThreshold', getField(model, 'existenceThreshold', 0));
+useExistenceWeight = getField(cfg, 'fidFiaUseExistenceWeight', true);
+existencePower = max(getField(cfg, 'fidFiaExistencePower', 1.0), 0);
+
+for s = 1:numSensors
+    objects = measurementUpdatedDistributions{s};
+    if isempty(objects)
+        continue;
+    end
+
+    [states, existenceProb] = extractFidFiaTargetStates(objects, model, existenceThreshold);
+    numTargets = size(states, 2);
+    if numTargets < 2
+        continue;
+    end
+
+    for i = 1:(numTargets - 1)
+        for j = (i + 1):numTargets
+            pairWeight = 1;
+            if useExistenceWeight
+                pairWeight = (max(existenceProb(i), 0) * max(existenceProb(j), 0)) ^ existencePower;
+            end
+            if pairWeight <= 0
+                continue;
+            end
+
+            fidValue = approximateLinearGaussianFid(model, s, states(:, i), states(:, j), t, cfg);
+            if isfinite(fidValue) && fidValue > 0
+                fiaScore(s) = fiaScore(s) + pairWeight * fidValue;
+                fidPairCounts(s) = fidPairCounts(s) + 1;
+            end
+        end
+    end
+end
+end
+
+function [states, existenceProb] = extractFidFiaTargetStates(objects, model, existenceThreshold)
+states = zeros(model.xDimension, numel(objects));
+existenceProb = zeros(1, numel(objects));
+count = 0;
+for i = 1:numel(objects)
+    if objects(i).numberOfGmComponents < 1 || objects(i).r <= existenceThreshold
+        continue;
+    end
+    [mu, ~] = mprojection(model.xDimension, objects(i));
+    count = count + 1;
+    states(:, count) = mu;
+    existenceProb(count) = objects(i).r;
+end
+states = states(:, 1:count);
+existenceProb = existenceProb(1:count);
+end
+
+function fidValue = approximateLinearGaussianFid(model, sensorIdx, stateA, stateB, t, cfg)
+fidValue = 0;
+if isempty(stateA) || isempty(stateB) || numel(stateA) < 2 || numel(stateB) < 2
+    return;
+end
+
+deltaState = stateB(:) - stateA(:);
+deltaPos = deltaState(1:2);
+if norm(deltaPos) <= eps
+    return;
+end
+
+numPoints = max(1, round(getField(cfg, 'fidFiaQuadraturePoints', 3)));
+useDetectionProbability = getField(cfg, 'fidFiaUseDetectionProbability', true);
+Hpos = resolvePositionMeasurementJacobian(model, sensorIdx);
+if isempty(Hpos)
+    return;
+end
+
+if numPoints == 1
+    lambdas = 0.5;
+else
+    lambdas = linspace(0, 1, numPoints);
+end
+integrand = zeros(size(lambdas));
+
+for idx = 1:numel(lambdas)
+    state = stateA(:) + lambdas(idx) * deltaState;
+    [pdSensor, measurementCovariance] = evaluateSensorQuality(model, sensorIdx, state, t);
+    if useDetectionProbability
+        if pdSensor <= 0
+            integrand(idx) = 0;
+            continue;
+        end
+        detectionScale = sqrt(max(pdSensor, 0));
+    else
+        detectionScale = 1;
+    end
+
+    measurementCovariance = regularizeCovariance(measurementCovariance);
+    fisherMetric = Hpos' * (measurementCovariance \ Hpos);
+    metricDistanceSquared = deltaPos' * fisherMetric * deltaPos;
+    integrand(idx) = detectionScale * sqrt(max(real(metricDistanceSquared), 0));
+end
+
+if numPoints == 1
+    fidValue = integrand(1);
+else
+    fidValue = trapz(lambdas, integrand);
+end
+end
+
+function Hpos = resolvePositionMeasurementJacobian(model, sensorIdx)
+Hpos = [];
+if ~isfield(model, 'C') || numel(model.C) < sensorIdx || isempty(model.C{sensorIdx})
+    return;
+end
+C = model.C{sensorIdx};
+if size(C, 2) < 2
+    return;
+end
+Hpos = C(:, 1:2);
+end
+
+function covariance = regularizeCovariance(covariance)
+covariance = (covariance + covariance') / 2;
+if isempty(covariance)
+    return;
+end
+if rcond(covariance) < 1e-12
+    covariance = covariance + 1e-9 * eye(size(covariance));
+end
 end
 
 function prior = resolveStructurePrior(model, preferredField, fallbackField, numSensors)

@@ -101,10 +101,7 @@ for t = 1:simulationLength
             measurementUpdatedDistributions{s} = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
         else
             % No measurements collected
-            measurementUpdatedDistributions{s} = objects;
-            for i = 1:numel(objects)
-                measurementUpdatedDistributions{s}(i).r = (measurementUpdatedDistributions{s}(i).r * (1 - model.detectionProbability(s))) / (1 - measurementUpdatedDistributions{s}(i).r * model.detectionProbability(s));
-            end
+            measurementUpdatedDistributions{s} = applyMissedDetectionUpdate(objects, model, s, t);
             innovationConsistency(s, t) = 1;
             associationAmbiguityScore(s, t) = 1;
             if useNIS && useNisEma && t > 1
@@ -199,5 +196,28 @@ if isfield(cfg, fieldName)
     value = cfg.(fieldName);
 else
     value = defaultValue;
+end
+end
+
+function updatedObjects = applyMissedDetectionUpdate(objects, model, sensorIdx, currentTime)
+updatedObjects = objects;
+for i = 1:numel(objects)
+    missedLikelihood = zeros(1, objects(i).numberOfGmComponents);
+    for j = 1:objects(i).numberOfGmComponents
+        [pdSensor, ~] = evaluateSensorQuality(model, sensorIdx, objects(i).mu{j}, currentTime);
+        missedLikelihood(j) = max(1 - pdSensor, realmin);
+    end
+
+    missedAverage = sum(objects(i).w .* missedLikelihood);
+    denominator = 1 - objects(i).r + objects(i).r * missedAverage;
+    if denominator > 0
+        updatedObjects(i).r = (objects(i).r * missedAverage) / denominator;
+    end
+
+    updatedWeights = objects(i).w .* missedLikelihood;
+    weightSum = sum(updatedWeights);
+    if weightSum > 0
+        updatedObjects(i).w = updatedWeights / weightSum;
+    end
 end
 end
