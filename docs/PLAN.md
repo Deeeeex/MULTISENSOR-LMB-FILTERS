@@ -60,3 +60,17 @@ The design should not replace the current method. It should add a new experiment
 - FID-FIA should enter only the existence/cardinality branch, per user preference.
 - The target is ambitious: all three consensus metrics should beat Cao-Zhao FID-FIA. The implementation should make this measurable, but the final paper positioning depends on the 20-trial result.
 - No existing FID-FIA baseline behavior should be removed; it remains the external comparison arm.
+
+## Implementation Outcome
+
+Implemented as `finalArmMode='fidFiaExistenceRefinement'`. The tuned main arm keeps the structure-aware spatial branch unchanged, enables `useFidFiaExistence`, and uses `fidFiaExistenceStrength=4.0`, `fidFiaExistenceMinScore=0.0`, `existenceEmaAlpha=0.0`, and `existenceMinWeight=0.0` for the existence branch.
+
+20-trial result from `RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md`:
+
+| Arm | Consensus OSPA | Consensus RMSE | Consensus Card | Local RMSE | Local CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Cao-Zhao FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 | 1.715746 | 0.392313 |
+| +structure-aware decoupled KLA | 1.785873 | 1.562521 | 0.192938 | 1.598561 | 0.578688 |
+| +FID-FIA existence refinement | 1.668961 | 1.528182 | 0.061062 | 1.704538 | 0.221563 |
+
+The hybrid arm beats the Cao-Zhao FID-FIA baseline on all three consensus metrics and on local CardErr. Its local RMSE is worse than the old structure-aware arm but remains slightly better than the FID-FIA baseline.

@@ -5,9 +5,9 @@ This section reports the empirical evidence supporting the paper's main claims. 
 
 \subsection{Main result in the tiered-drop GA scenario}
 
-The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, and a weak structure-aware decoupled KLA refinement. We also include an information-geometry baseline adapted from the Cao-Zhao FID-FIA weighting rule, where fusion weights are proportional to the Fisher-information accumulation induced by the local posterior target pairs. Across 20 paired Monte Carlo trials, fixed weights yield consensus OSPA $2.453677 \pm 0.187964$, consensus RMSE $2.335508 \pm 0.257319$, and consensus cardinality disagreement $0.714625 \pm 0.217152$. The FID-FIA baseline reduces these values to $1.820229 \pm 0.065295$, $1.647412 \pm 0.107941$, and $0.126188 \pm 0.027037$, respectively. The full adaptive method yields $1.785873 \pm 0.057187$, $1.562521 \pm 0.199660$, and $0.192938 \pm 0.024816$.
+The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, a weak structure-aware decoupled KLA refinement, and an FID-FIA-informed existence refinement. We also include an information-geometry baseline adapted from the Cao-Zhao FID-FIA weighting rule, where fusion weights are proportional to the Fisher-information accumulation induced by the local posterior target pairs. Across 20 paired Monte Carlo trials, fixed weights yield consensus OSPA $2.453677 \pm 0.187964$, consensus RMSE $2.335508 \pm 0.257319$, and consensus cardinality disagreement $0.714625 \pm 0.217152$. The FID-FIA baseline reduces these values to $1.820229 \pm 0.065295$, $1.647412 \pm 0.107941$, and $0.126188 \pm 0.027037$, respectively. The structure-aware decoupled KLA arm yields $1.785873 \pm 0.057187$, $1.562521 \pm 0.199660$, and $0.192938 \pm 0.024816$. Adding the FID-FIA existence refinement further reduces them to $1.668961 \pm 0.052938$, $1.528182 \pm 0.114501$, and $0.061062 \pm 0.016475$.
 
-Across these 20 paired trials, both adaptive baselines improve strongly over fixed weights. Relative to fixed weights, the FID-FIA baseline lowers consensus OSPA by $25.8\%$, consensus RMSE by $29.5\%$, and consensus cardinality disagreement by $82.3\%$. The full adaptive method lowers the same metrics by $27.2\%$, $33.1\%$, and $73.0\%$. Thus FID-FIA is the strongest cardinality-consensus baseline, while the proposed method gives the best OSPA and RMSE. The paired reductions relative to fixed weights are positive in all 20 trials for all three consensus metrics for both adaptive methods, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean and standard deviation values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration but also on realized communication reliability and existence decisiveness. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
+Across these 20 paired trials, all adaptive arms improve strongly over fixed weights. Relative to fixed weights, the FID-FIA baseline lowers consensus OSPA by $25.8\%$, consensus RMSE by $29.5\%$, and consensus cardinality disagreement by $82.3\%$. The structure-aware decoupled KLA arm lowers the same metrics by $27.2\%$, $33.1\%$, and $73.0\%$. The FID-FIA existence-refinement arm gives the strongest reductions, lowering them by $32.0\%$, $34.6\%$, and $91.5\%$. The paired reductions relative to fixed weights are positive in all 20 trials for all three consensus metrics for all adaptive arms, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean and standard deviation values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration and realized communication reliability, but also on existence decisiveness and target-pair information geometry. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
 
 \begin{table}[t]
   \centering
@@ -18,8 +18,9 @@ Across these 20 paired trials, both adaptive baselines improve strongly over fix
     Arm & OSPA & RMSE & Cardinality \\
     \midrule
     fixed weights & $2.454 \pm 0.188$ & $2.336 \pm 0.257$ & $0.715 \pm 0.217$ \\
-    Cao-Zhao FID-FIA baseline & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $\mathbf{0.126} \pm 0.027$ \\
-    +structure-aware decoupled KLA & $\mathbf{1.786} \pm 0.057$ & $\mathbf{1.563} \pm 0.200$ & $0.193 \pm 0.025$ \\
+    Cao-Zhao FID-FIA baseline & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $0.126 \pm 0.027$ \\
+    +structure-aware decoupled KLA & $1.786 \pm 0.057$ & $1.563 \pm 0.200$ & $0.193 \pm 0.025$ \\
+    +FID-FIA existence refinement & $\mathbf{1.669} \pm 0.053$ & $\mathbf{1.528} \pm 0.115$ & $\mathbf{0.061} \pm 0.016$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -31,7 +32,7 @@ Across these 20 paired trials, both adaptive baselines improve strongly over fix
   \label{fig:main-consensus}
 \end{figure}
 
-The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. The FID-FIA baseline gives the lowest truth-referenced local cardinality error ($0.392313$) and local E-OSPA ($2.183127$), confirming that its cardinality-consensus advantage is not merely agreement around a wrong count. Its tradeoff is spatial: local RMSE is higher than both fixed weights and the proposed method. The proposed method gives the lowest local RMSE ($1.598561$) while still reducing local E-OSPA and local cardinality error relative to fixed weights. In other words, FID-FIA is a strong cardinality-oriented baseline, while the proposed method provides the best spatial-consensus and local-RMSE balance.
+The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. The FID-FIA existence-refinement arm gives the lowest truth-referenced local cardinality error ($0.221563$) and local E-OSPA ($2.009084$), confirming that its cardinality-consensus advantage is not merely agreement around a wrong count. Its tradeoff is local RMSE: at $1.704538$, it is worse than the pre-refinement structure-aware arm ($1.598561$) but remains slightly better than the Cao-Zhao FID-FIA baseline ($1.715746$). In other words, injecting FID-FIA only into the existence branch captures the cardinality strength of information-geometry weighting while retaining the spatial-consensus advantage of the communication-aware adaptive backbone.
 
 \begin{table}[t]
   \centering
@@ -42,8 +43,9 @@ The primary-metric gain would be less convincing if it came at the cost of clear
     Arm & E-OSPA & H-OSPA & RMSE & CardErr \\
     \midrule
     fixed weights & 2.853096 & 0.500000 & 1.637556 & 1.454500 \\
-    Cao-Zhao FID-FIA baseline & \textbf{2.183127} & 0.500000 & 1.715746 & \textbf{0.392313} \\
+    Cao-Zhao FID-FIA baseline & 2.183127 & 0.500000 & 1.715746 & 0.392313 \\
     +structure-aware decoupled KLA & 2.328672 & 0.500000 & \textbf{1.598561} & 0.578688 \\
+    +FID-FIA existence refinement & \textbf{2.009084} & 0.500000 & 1.704538 & \textbf{0.221563} \\
     \bottomrule
   \end{tabular}
 \end{table}

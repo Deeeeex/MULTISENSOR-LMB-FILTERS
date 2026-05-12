@@ -42,6 +42,7 @@ structureReliabilityMinScore = min(max(getField(cfg, 'structureReliabilityMinSco
 useStructureAwareKla = getField(cfg, 'useStructureAwareKla', false) || ...
     spatialStructureStrength > 0 || existenceStructureStrength > 0;
 usePosteriorStructureConsistency = getField(cfg, 'usePosteriorStructureConsistency', true);
+useFidFiaExistence = getField(cfg, 'useFidFiaExistence', false);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
 if isFidFiaMethod(method)
@@ -63,6 +64,8 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
 [historyScore, historyState, historyDebug] = computeHistoryScore( ...
     measurementUpdatedDistributions, covScore, innovationPenalty, cfg, prevWeights, useNIS, useHistory);
+[fidFiaExistenceScore, fidFiaScore, fidFiaPairCounts] = resolveFidFiaExistenceScore( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask, useFidFiaExistence);
 
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
@@ -103,6 +106,10 @@ if useDecoupledKla
             spatialStructureScore = spatialStructurePrior;
             existenceStructureScore = existenceStructurePrior;
         end
+    end
+    if useFidFiaExistence
+        fidFiaExistenceStrength = max(getField(cfg, 'fidFiaExistenceStrength', 0.5), 0);
+        existenceScore = existenceScore .* (fidFiaExistenceScore .^ fidFiaExistenceStrength);
     end
 
     spatialPrev = resolvePreviousWeights(prevWeights, 'gaSpatial', 'ga', numSensors);
@@ -155,6 +162,10 @@ debug.weights = gaWeights;
 debug.useDecoupledKla = useDecoupledKla;
 debug.useStructureAwareKla = useStructureAwareKla;
 debug.usePosteriorStructureConsistency = usePosteriorStructureConsistency;
+debug.useFidFiaExistence = useFidFiaExistence;
+debug.fidFiaExistenceScore = fidFiaExistenceScore;
+debug.fidFiaScore = fidFiaScore;
+debug.fidFiaPairCounts = fidFiaPairCounts;
 debug.spatialRawScore = rawScore;
 debug.existenceRawScore = rawScore;
 debug.spatialStructurePrior = ones(1, numSensors);
@@ -229,6 +240,10 @@ debug.weights = weights;
 debug.method = 'fidFia';
 debug.fiaScore = fiaScore;
 debug.fidPairCounts = fidPairCounts;
+debug.useFidFiaExistence = false;
+debug.fidFiaScore = rawWeights;
+debug.fidFiaExistenceScore = ones(1, numSensors);
+debug.fidFiaPairCounts = fidPairCounts;
 debug.useDecoupledKla = false;
 debug.useStructureAwareKla = false;
 debug.usePosteriorStructureConsistency = false;
@@ -247,6 +262,31 @@ debug.historyState = struct();
 debug.historyInstantInstability = zeros(1, numSensors);
 debug.historyInstabilityEma = zeros(1, numSensors);
 debug.expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
+end
+
+function [fidFiaExistenceScore, normalizedFiaScore, fidPairCounts] = resolveFidFiaExistenceScore( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask, useFidFiaExistence)
+
+numSensors = numel(measurementUpdatedDistributions);
+fidFiaExistenceScore = ones(1, numSensors);
+normalizedFiaScore = zeros(1, numSensors);
+fidPairCounts = zeros(1, numSensors);
+if ~useFidFiaExistence
+    return;
+end
+
+[fiaScore, fidPairCounts] = computeFidFiaScore(measurementUpdatedDistributions, model, t, cfg);
+availableScores = fiaScore(:)' .* reshape(availabilityMask, 1, []);
+maxScore = max(availableScores);
+if isfinite(maxScore) && maxScore > eps
+    normalizedFiaScore = availableScores / maxScore;
+end
+normalizedFiaScore(~isfinite(normalizedFiaScore)) = 0;
+normalizedFiaScore = min(max(normalizedFiaScore, 0), 1);
+
+scorePower = max(getField(cfg, 'fidFiaExistencePower', 1.0), 0);
+minScore = min(max(getField(cfg, 'fidFiaExistenceMinScore', 0.4), 0), 1);
+fidFiaExistenceScore = minScore + (1 - minScore) * (normalizedFiaScore .^ scorePower);
 end
 
 function [fiaScore, fidPairCounts] = computeFidFiaScore(measurementUpdatedDistributions, model, t, cfg)

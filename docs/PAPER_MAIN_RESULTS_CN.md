@@ -9,42 +9,46 @@
 
 ## 1. 主结果：tiered heterogeneous packet-loss 下的 8 传感器 GA-LMB 主场景
 
-主场景是双四机编队的 `8-sensor distributed GA-LMB` 跟踪问题，通信设置为分层异构丢包。当前论文的 headline 方法是：
+主场景是双四机编队的 `8-sensor distributed GA-LMB` 跟踪问题，通信设置为分层异构丢包。当前论文的 headline 方法更新为：
 
-`covariance + link quality + existence confidence + weak structure-aware decoupled KLA`
+`covariance + link quality + existence confidence + weak structure-aware decoupled KLA + FID-FIA existence refinement`
 
-对应结果如下。最新补充的外部 baseline 是 `Cao-Zhao FID-FIA baseline`，来源于 20-trial 主实验：
+其中 `FID-FIA existence refinement` 只进入 existence/cardinality 分支，spatial 分支仍保持当前 structure-aware decoupled KLA 的设计。最新 20-trial 主实验来源：
 
+- [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 
 ### 1.1 一致性指标
 
-`fixed weights -> Cao-Zhao FID-FIA baseline -> final adaptive`
+`fixed weights -> Cao-Zhao FID-FIA baseline -> structure-aware decoupled KLA -> FID-FIA existence refinement`
 
 | Arm | Consensus OSPA | Consensus RMSE | Consensus Cardinality |
 | --- | ---: | ---: | ---: |
 | fixed weights | 2.453677 | 2.335508 | 0.714625 |
 | Cao-Zhao FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
 | +structure-aware decoupled KLA | 1.785873 | 1.562521 | 0.192938 |
+| +FID-FIA existence refinement | 1.668961 | 1.528182 | 0.061062 |
 
 相对固定权重基线：
 
 - `Cao-Zhao FID-FIA baseline`：`OSPA` 下降 `25.82%`，`RMSE` 下降 `29.46%`，`cardinality disagreement` 下降 `82.34%`
 - `+structure-aware decoupled KLA`：`OSPA` 下降 `27.22%`，`RMSE` 下降 `33.10%`，`cardinality disagreement` 下降 `73.00%`
+- `+FID-FIA existence refinement`：`OSPA` 下降 `31.98%`，`RMSE` 下降 `34.57%`，`cardinality disagreement` 下降 `91.46%`
 
-这说明在异构链路条件下，自适应权重不仅改善了位置层面的一致性，也显著改善了跨节点的目标数一致性。FID-FIA 在 `Cardinality` 一致性上最好，而当前主方法在 `OSPA/RMSE` 一致性上最好，二者体现出清晰的 cardinality-vs-spatial tradeoff。
+这说明 FID-FIA 的信息几何信号确实适合修正 existence/cardinality 分支。纯 `Cao-Zhao FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 hybrid arm 同时超过了 FID-FIA baseline 和旧 structure-aware arm：它在三个 primary consensus 指标上都是当前最优。
 
 ### 1.2 常规 local tracking 指标
 
-同一主场景下，`fixed weights -> Cao-Zhao FID-FIA baseline -> final adaptive` 的常规 local 指标为：
+同一主场景下，常规 local 指标为：
 
 | Arm | Local E-OSPA | Local H-OSPA | Local RMSE | Local CardErr |
 | --- | ---: | ---: | ---: | ---: |
 | fixed weights | 2.853096 | 0.500000 | 1.637556 | 1.454500 |
 | Cao-Zhao FID-FIA baseline | 2.183127 | 0.500000 | 1.715746 | 0.392313 |
 | +structure-aware decoupled KLA | 2.328672 | 0.500000 | 1.598561 | 0.578688 |
+| +FID-FIA existence refinement | 2.009084 | 0.500000 | 1.704538 | 0.221563 |
 
-这回答了 FID-FIA 的 `Cardinality` 一致性问题：它不只是让各节点“更一致”，truth-referenced `local CardErr` 也最低，说明它确实更偏向正确的目标数估计。代价是它的 local `RMSE` 高于当前主方法；当前主方法仍然是空间精度和综合一致性最好的方案。
+这进一步确认新增 hybrid 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如旧 structure-aware arm，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
 
 ### 1.3 当前 paper message
 
@@ -53,11 +57,13 @@
 - 固定权重在异构通信下过于僵硬
 - 自适应权重必须至少同时考虑 `posterior concentration` 和 `realized communication quality`
 - 仅有 `covariance + link quality` 还不够，`existence confidence` 提供了第三个关键判别维度
-- 最终最优点不是强拓扑主导，而是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
-- 外部 `FID-FIA` baseline 对 cardinality 非常强，但它会牺牲部分 spatial RMSE；因此论文主方法的定位应强调综合 OSPA/RMSE 优势，同时承认 FID-FIA 是一个强 cardinality baseline
+- 旧的最优点是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
+- 新的最优点是在保持该 spatial 分支的同时，把 FID-FIA 信息几何信号只注入 existence/cardinality 分支
+- 外部 `FID-FIA` baseline 仍然是一个强 cardinality baseline，但新的 hybrid arm 已经在 `consensus OSPA / RMSE / Cardinality` 和 `local CardErr` 上同时超过它
 
 主要来源：
 
+- [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 - [GA_TIERED_LINK_ABLATION_20260410_143517.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260410_143517.md)
 - [06_results.tex](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/els-cas-templates/sections/06_results.tex)
@@ -179,8 +185,8 @@
 
 第二，最有效的 adaptive fusion-weight design 是：
 
-`covariance + realized link quality + existence confidence + weak structure-aware decoupled KLA`
+`covariance + realized link quality + existence confidence + weak structure-aware decoupled KLA + FID-FIA existence refinement`
 
-其中真正构成 backbone 的是前三项，最后一项是弱修正而不是主导权重来源。
+其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/RMSE 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
 
-第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus RMSE / consensus cardinality disagreement`，而且没有带来常规 local tracking accuracy 的明显退化，因此已经形成一条比较完整、可 defend 的论文主线。
+第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus RMSE / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline；虽然 local RMSE 不如旧 structure-aware arm，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。

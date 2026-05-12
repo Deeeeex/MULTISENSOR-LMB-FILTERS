@@ -143,9 +143,35 @@ The final branch scores are obtained through geometric interpolation:
 \end{equation}
 The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations.
 
+\subsection{FID-FIA existence refinement}
+
+The final method adds an information-geometric refinement only to the existence branch. This refinement is motivated by the Fisher-information-distance Fisher-information-accumulation (FID-FIA) weighting idea used for heterogeneous labeled-RFS fusion \citep{CaoZhao2025InfoGeometryFusion}, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+\begin{equation}
+\hat{a}_{k,s}^{(j)}
+=
+\frac{a_{k}^{(j)}}{\epsilon + \max_{u\in\mathcal{N}_s} a_{k}^{(u)}} ,
+\qquad
+0 \leq \hat{a}_{k,s}^{(j)} \leq 1 .
+\end{equation}
+This normalized accumulation is mapped into a bounded existence-only modulation factor,
+\begin{equation}
+q_{\mathrm{fid},k,s}^{(j)}
+=
+\rho_{\min}
++ (1-\rho_{\min})\left(\hat{a}_{k,s}^{(j)}\right)^{p_f}.
+\end{equation}
+Only the existence score is modified:
+\begin{equation}
+\tilde{\omega}_{k,s}^{r,(j)}
+\leftarrow
+\tilde{\omega}_{k,s}^{r,(j)}
+\left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
+\end{equation}
+The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
+
 \subsection{Weak structure-aware refinement and stabilization}
 
-After branch decoupling, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
+After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
 
 The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
