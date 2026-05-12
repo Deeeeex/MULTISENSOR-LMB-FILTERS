@@ -52,7 +52,7 @@ The primary-metric gain would be less convincing if it came at the cost of clear
 
 \subsection{Factor ablation of the main adaptive design}
 
-The most important ablation is the factor-by-factor path from fixed fusion to the final weak structure-aware method. The 20-trial five-arm diagnostic ablation is summarized in Table~\ref{tab:ablation} and Figure~\ref{fig:ablation}.
+The most important diagnostic ablation is the factor-by-factor path from fixed fusion to the pre-refinement weak structure-aware method. The 20-trial five-arm diagnostic ablation is summarized in Table~\ref{tab:ablation} and Figure~\ref{fig:ablation}; the separate FID-FIA existence-refinement comparison was reported above because it is a branch-specific extension rather than another backbone factor.
 
 \begin{table}[t]
   \centering
@@ -77,7 +77,7 @@ Second, realized link quality is the dominant communication-aware factor under h
 
 Third, existence confidence continues to improve the consensus picture beyond covariance and link quality, but in the larger trial set the gain is concentrated in RMSE and cardinality rather than in a uniform three-metric improvement. Relative to the $+$link-quality arm, the $+$existence-confidence arm is essentially tied in OSPA ($1.829718$ versus $1.829831$) while improving RMSE from $1.764180$ to $1.753626$ and slightly improving cardinality disagreement from $0.230687$ to $0.230500$. This still supports the underlying interpretation that covariance and link quality alone do not explicitly express how decisive a node is about target existence, but it narrows the empirical claim relative to the earlier five-trial evidence.
 
-Finally, the weak structure-aware decoupled refinement provides the best overall OSPA and RMSE, while leaving cardinality disagreement effectively tied with the $+$existence-confidence arm. Relative to $+$existence confidence, the final arm improves OSPA from $1.829831$ to $1.821448$ and RMSE from $1.753626$ to $1.749812$, while cardinality disagreement changes only slightly from $0.230500$ to $0.231625$. The correct interpretation is therefore not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides a final spatial-consensus refinement once the three-factor adaptive backbone is in place.
+Finally, the weak structure-aware decoupled refinement provides the best OSPA and RMSE within the pre-FID-FIA backbone ablation, while leaving cardinality disagreement effectively tied with the $+$existence-confidence arm. Relative to $+$existence confidence, this arm improves OSPA from $1.829831$ to $1.821448$ and RMSE from $1.753626$ to $1.749812$, while cardinality disagreement changes only slightly from $0.230500$ to $0.231625$. The correct interpretation is therefore not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides a spatial-consensus refinement once the three-factor adaptive backbone is in place. The main comparison then adds FID-FIA only to the existence branch to address the remaining cardinality gap.
 
 \begin{figure}[!t]
   \centering

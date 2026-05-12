@@ -99,7 +99,7 @@ where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
 \begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{paper-figure2-crop.png}
-  \caption{Adaptive fusion-weight factorization, showing the shared backbone and the decoupled spatial and existence branches with weak structure-aware refinement.}
+  \caption{Adaptive fusion-weight factorization, showing the shared backbone and the decoupled spatial and existence branches before the FID-FIA existence refinement.}
   \label{fig:factorization}
 \end{figure}
 
@@ -141,11 +141,11 @@ The final branch scores are obtained through geometric interpolation:
 \left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_r}
 \left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
 \end{equation}
-The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations.
+The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the information-geometric idea of Cao and Zhao is used in this paper \citep{CaoZhao2025InfoGeometryFusion}. Their FID-FIA construction is a natural scalar indicator of heterogeneous sensing informativeness, and in our experiments it is especially effective for cardinality and existence decisions. However, applying the same scalar FID-FIA weight to the whole fused posterior can trade away spatial RMSE. The branch-decoupled formulation provides a cleaner use of that prior work: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
 
 \subsection{FID-FIA existence refinement}
 
-The final method adds an information-geometric refinement only to the existence branch. This refinement is motivated by the Fisher-information-distance Fisher-information-accumulation (FID-FIA) weighting idea used for heterogeneous labeled-RFS fusion \citep{CaoZhao2025InfoGeometryFusion}, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+The final method therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
 \begin{equation}
 \hat{a}_{k,s}^{(j)}
 =
@@ -177,4 +177,4 @@ The raw adaptive weights can fluctuate sharply over time, especially when packet
 
 \subsection{Optional extension modules}
 
-The evaluated software also supports several optional extensions, including an NIS-based consistency penalty, a history score, a freshness score, ambiguity-aware terms, and posterior-structure-consistency scoring. These modules are not part of the claimed core method because their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus weak structure-aware decoupling.
+The evaluated software also supports several optional extensions, including an NIS-based consistency penalty, a history score, a freshness score, ambiguity-aware terms, and posterior-structure-consistency scoring. These modules are not part of the claimed core method because their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements.

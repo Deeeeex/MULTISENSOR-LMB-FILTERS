@@ -75,6 +75,8 @@ The core ablation study compares the following five arms:
 
 This ablation path is implemented in [runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m) and is the main source for the factor-by-factor method claims.
 
+The main confirmation additionally compares the Cao-Zhao FID-FIA scalar baseline and the final `+FID-FIA existence refinement` arm. The five-arm path should be read as the backbone diagnostic; the FID-FIA existence refinement is a branch-specific extension motivated by the cardinality-vs-RMSE tradeoff observed for the scalar FID-FIA baseline.
+
 The current best adaptive configuration uses:
 
 - `emaAlpha = 0.7`
@@ -92,14 +94,19 @@ The current best adaptive configuration uses:
 - `spatialStructureStrength = 0.45`
 - `existenceStructureStrength = 0.08`
 - `structureReliabilityPower = 0.30`
+- `useFidFiaExistence = true`
+- `fidFiaExistenceStrength = 4.0`
+- `fidFiaExistenceMinScore = 0.0`
+- `existenceEmaAlpha = 0.0`
+- `existenceMinWeight = 0.0`
 - `useNIS = false`
 - `useHistory = false`
 
-This configuration corresponds to the current main-line method definition used throughout the paper workspace.
+This configuration corresponds to the current main-line method definition used throughout the paper workspace. The FID-FIA settings apply only to the existence branch; the spatial branch keeps the structure-aware KLA configuration above.
 
 ### 5. Monte Carlo Protocol And Reporting Convention
 
-For the current headline experiments, the reported comparisons are based on Monte Carlo trials with deterministic seed control. The main scripts use `baseSeed = 1` and seed each trial as `baseSeed + trial` when fixed seeds are enabled. The recent headline reports for the main GA ablation and ideal-communication comparison use `5` trials. Some older secondary NIS and history comparisons use `20` trials; these are retained for appendix-style evidence rather than for the current main headline.
+For the current headline experiments, the reported comparisons are based on Monte Carlo trials with deterministic seed control. The main scripts use `baseSeed = 1` and seed each trial as `baseSeed + trial` when fixed seeds are enabled. The current headline main GA comparison uses `20` trials with seeds `2`--`21`; future algorithm arms should reuse these fixed baseline results where possible and rerun only the new arm.
 
 Unless otherwise stated, reported scalar metrics are Monte Carlo means. Local metrics are first computed per sensor over time and then summarized across sensors or trials as needed. Consensus metrics are computed from the distributed state estimates returned by all nodes and then averaged over time and Monte Carlo trials.
 

@@ -58,7 +58,7 @@ The core ablation study compares five arms:
 \item adaptive weighting with covariance plus link quality plus existence confidence plus weak structure-aware decoupled KLA.
 \end{enumerate}
 
-The full adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main configuration.
+This five-arm path is a design diagnostic for the communication-aware backbone and the pre-refinement structure-aware branch split. The main confirmation additionally compares the Cao-Zhao FID-FIA scalar baseline and the final FID-FIA existence-refinement arm. The full adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Its final branch-specific step applies FID-FIA information geometry only to the existence weights, with existence-branch smoothing and minimum-weight flooring disabled for that refinement. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main configuration.
 
 \subsection{Metrics and reporting}
 
