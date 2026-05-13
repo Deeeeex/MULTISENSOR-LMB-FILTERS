@@ -12,7 +12,7 @@ Recommended main line:
 
 - Focus the paper on `GA-LMB / KLA` distributed fusion under communication constraints.
 - Treat adaptive fusion-weight allocation as the main method.
-- Treat `covariance + link quality + existence confidence` as the core factorized weighting design, with weak structure-aware decoupled KLA as the current best refinement.
+- Treat covariance quality, link quality, and existence confidence as the core factorized weighting backbone; the final method adds branch-decoupled refinement and uses the FID-FIA cue only on the existence-weight path.
 - Treat decoupled `robust NIS` as a secondary consistency-analysis result, not a headline contribution.
 - Treat `history`, `freshness`, `association ambiguity`, and `cardinality consensus` as appendix-style ablations or extensions, not headline contributions.
 - Treat `AA` as a secondary generalization experiment, not a co-equal main line.
@@ -20,9 +20,8 @@ Recommended main line:
 ## Strongest Supported Claims
 
 - In the tiered-drop 4+4 GA formation scenario, adaptive weights substantially improve consensus quality over fixed weights.
-- Adding `existence confidence` on top of `covariance + link quality` further improves consensus OSPA, RMSE, and cardinality simultaneously.
-- A weak structure-aware decoupled KLA refinement further improves consensus OSPA and RMSE while also slightly improving cardinality.
-- Under ideal communication, the same structure-aware refinement still improves ordinary GA on both consensus metrics and local E-OSPA or RMSE.
+- The branch-decoupled backbone improves spatial consensus over the three-factor backbone, while the existence-branch FID-FIA cue supplies the final cardinality gain.
+- Under ideal communication, the same branch-decoupled story remains useful: scalar FID-FIA is strong for cardinality, while the proposed branch-decoupled fusion gives the best OSPA and cardinality without using scalar FID-FIA as the whole-posterior rule.
 - `robust NIS` is still more stable than plain `NIS`, but it is no longer the strongest main-line improvement in this branch.
 - The present evidence is strongest on consensus metrics, not on universally improving local tracking.
 
@@ -30,10 +29,10 @@ Recommended main line:
 
 Core main-line numbers:
 
-- Tiered GA main scenario: fixed -> full adaptive (`cov + link + existence + weak structure-aware decoupling`) gives consensus OSPA `2.624 -> 1.862`, consensus RMSE `2.703 -> 1.750`, consensus cardinality `0.879 -> 0.244`
-- Tiered GA main scenario local metrics: fixed -> full adaptive gives local E-OSPA `2.945 -> 2.382`, local H-OSPA `0.500 -> 0.500`, local RMSE `1.622 -> 1.602`, local cardinality error `1.762 -> 0.710`
-- Tiered GA targeted improvement: `cov + link + existence` -> `cov + link + existence + weak structure-aware decoupled KLA` gives consensus OSPA `1.875 -> 1.862`, consensus RMSE `1.780 -> 1.750`, consensus cardinality `0.2445 -> 0.2443`
-- Ideal-comm GA comparison: `ordinary GA` -> `structure-aware decoupled KLA` gives consensus OSPA `1.706 -> 1.494`, consensus RMSE `1.526 -> 1.290`, consensus cardinality `0.161 -> 0.139`, and local E-OSPA `1.950 -> 1.877`
+- Tiered GA main scenario: Fixed Metropolis -> Proposed branch-decoupled fusion gives consensus OSPA `2.454 -> 1.669`, consensus RMSE `2.336 -> 1.528`, and consensus cardinality `0.715 -> 0.061`.
+- Tiered GA local safeguards: Fixed Metropolis -> Proposed branch-decoupled fusion gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than scalar FID-FIA.
+- Factor ablation: Three-factor backbone -> Branch-decoupled backbone improves consensus OSPA `1.830 -> 1.821` and RMSE `1.754 -> 1.750`; Proposed branch-decoupled fusion then reduces cardinality disagreement to `0.061`.
+- Ideal-communication comparison: Ordinary GA -> Proposed branch-decoupled fusion gives consensus OSPA `1.704 -> 1.433`, consensus RMSE `1.532 -> 1.309`, consensus cardinality `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
 
 Secondary or appendix-only numbers:
 
@@ -45,7 +44,7 @@ Secondary or appendix-only numbers:
 
 Use the following narrative order in the paper body:
 
-1. `fixed -> +covariance -> +link quality -> +existence confidence -> +weak structure-aware decoupled KLA`
+1. Fixed Metropolis -> Covariance only -> Covariance and link quality -> Three-factor backbone -> Branch-decoupled backbone -> Proposed branch-decoupled fusion
 2. ideal-communication supporting evidence
 3. communication-robustness and secondary generalization
 
@@ -63,8 +62,8 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `07_results_and_ablation.md`: paper-ready results and ablation section
 - `08_conclusion.md`: paper-ready conclusion draft
 - `09_figures_tables_and_gaps.md`: production checklist for figures, tables, and evidence gaps
-- `figure_captions.md`: centralized concise captions for Figure 1 through Figure 6
-- `figures/`: Python-rendered PDF assets for Figure 4, Figure 5, and Figure 6
+- `figure_captions.md`: centralized concise captions for manuscript figures
+- `figures/`: source and rendered figure assets, with scalar comparisons now represented as manuscript tables where clearer
 - `Appendix_A_simulation_setup.md`: appendix-ready simulation and communication settings
 - `Appendix_B_additional_attempts.md`: appendix-ready record of secondary module attempts and reserved result slots
 

@@ -15,7 +15,7 @@ Main experiment:
 
 Supporting experiments:
 
-- ideal-communication comparison between ordinary GA and the current structure-aware adaptive method
+- ideal-communication comparison between ordinary GA, the branch-decoupled backbone, the scalar FID-FIA baseline, and the proposed branch-decoupled fusion
 - communication-robustness analysis across communication levels
 - AA-based secondary generalization experiment
 
@@ -69,13 +69,13 @@ The core ablation study compares the following five arms:
 
 1. fixed fusion weights
 2. adaptive weighting with covariance only
-3. adaptive weighting with covariance plus link quality
-4. adaptive weighting with covariance plus link quality plus existence confidence
-5. adaptive weighting with covariance plus link quality plus existence confidence plus weak structure-aware decoupled KLA
+3. joint covariance-and-link weighting
+4. the three-factor backbone with covariance, link quality, and existence confidence
+5. the branch-decoupled backbone, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting
 
 This ablation path is implemented in [runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m) and is the main source for the factor-by-factor method claims.
 
-The main confirmation additionally compares the Cao-Zhao FID-FIA scalar baseline and the final `+FID-FIA existence refinement` arm. The five-arm path should be read as the backbone diagnostic; the FID-FIA existence refinement is a branch-specific extension motivated by the cardinality-vs-RMSE tradeoff observed for the scalar FID-FIA baseline.
+The main confirmation additionally compares the Cao-Zhao scalar FID-FIA baseline and the proposed branch-decoupled fusion. The five-arm path should be read as the backbone diagnostic; manuscript Table 3 also appends the proposed method row to show the final branch-specific FID-FIA extension on the same scale.
 
 The current best adaptive configuration uses:
 
@@ -119,7 +119,6 @@ The experiments report two categories of metrics.
 Local tracking metrics:
 
 - local E-OSPA
-- local H-OSPA
 - local RMSE
 
 Consensus metrics:
@@ -134,7 +133,7 @@ Runtime can be reported as an optional supplementary metric, but it is not part 
 
 ### 7. Ideal-Communication Supporting Experiment
 
-To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares ordinary GA against the current structure-aware decoupled adaptive method under the same dual-formation eight-sensor tracking scenario.
+To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares ordinary GA, the branch-decoupled backbone, the Cao-Zhao scalar FID-FIA baseline, and the proposed branch-decoupled fusion under the same dual-formation eight-sensor tracking scenario.
 
 The ideal-communication configuration is:
 
@@ -142,7 +141,7 @@ The ideal-communication configuration is:
 - `pDrop = 0`
 - `pDropBySensor = 0` for all sensors
 
-This experiment is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m). It reports both consensus metrics and local metrics. Its role is not to replace the main tiered-drop scenario, but to show that the weak structure-aware decoupled refinement still improves distributed fusion quality even when communication degradation is removed.
+The ordinary-GA and structure-aware comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m). The FID-FIA arms reuse the same deterministic seeds and the same ideal-communication setting through the main ablation runner with communication level `0`. This supporting experiment reports both consensus metrics and local metrics. Its role is not to replace the main tiered-drop scenario, but to show how the spatial and existence-branch refinements behave when communication degradation is removed.
 
 ### 8. Communication-Robustness And Secondary Generalization
 
@@ -171,7 +170,7 @@ Several experiments are useful for completeness but should not occupy a central 
 - `robust NIS baseline -> robust NIS + freshness`
 - ambiguity-aware or cardinality-consensus add-ons
 
-These ablations serve two purposes. First, they document that the design space was explored beyond the final chosen method. Second, they justify why the main paper is intentionally centered on `covariance + link quality + existence confidence + weak structure-aware decoupling`. At present, the gains from the secondary modules are weaker, more coupled, or less stable than those from the main-line factors.
+These ablations serve two purposes. First, they document that the design space was explored beyond the final chosen method. Second, they justify why the main paper is intentionally centered on the covariance, link-quality, and existence-confidence backbone, followed by branch decoupling and the existence-branch FID-FIA cue. At present, the gains from the secondary modules are weaker, more coupled, or less stable than those from the main-line factors.
 
 ### 10. Writing Rule For The Experimental Section
 

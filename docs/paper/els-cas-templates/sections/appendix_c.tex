@@ -203,8 +203,34 @@ with geometric interpolation
 \tilde s_{r,j} &= s_{0,j}^{1-\eta_r}s_{r,j}^{\eta_r}.
 \end{align}
 This is exactly a convex interpolation in log-utility space.
+Define $\hat u_{x,j}=\log \tilde s_{x,j}$ and $\hat u_{r,j}=\log \tilde s_{r,j}$ for the branch utilities before graph and FID-FIA refinement.
 
-After decoupling, the structure-aware refinement multiplies the scores by $\xi_{x,j}^{\gamma_x}$ and $\xi_{r,j}^{\gamma_r}$, which is equivalent to adding $\gamma_x \log \xi_{x,j}$ and $\gamma_r \log \xi_{r,j}$ to the branch utilities.
+The FID-FIA existence refinement adds one more nonnegative factor only to the existence branch. Let $a_j$ denote the Fisher-information-distance accumulation score computed from existence-weighted local target pairs, and define the bounded normalized score
+\begin{equation}
+q_{\mathrm{fid},j}
+=
+\rho_{\min} + (1-\rho_{\min})
+\left(
+\frac{a_j}{\epsilon+\max_{u\in\mathcal{A}_{k,s}} a_u}
+\right)^{p_f}.
+\end{equation}
+The refined existence score is
+\begin{equation}
+\tilde s_{r,j}^{\mathrm{fid}}
+=
+\tilde s_{r,j}\,q_{\mathrm{fid},j}^{\gamma_f}.
+\label{eq:appendix-fid-existence-score}
+\end{equation}
+In log-utility form, this is simply
+\begin{equation}
+\hat u_{r,j}^{\mathrm{fid}}
+=
+\hat u_{r,j}+\gamma_f\log q_{\mathrm{fid},j},
+\end{equation}
+while the spatial utility $\hat u_{x,j}$ is unchanged.
+The log-utility statements below are exact for $\rho_{\min}>0$; the main experiment setting $\rho_{\min}=0$ is the boundary limit that allows the existence branch to place zero instantaneous weight on sensors whose FID-FIA accumulation is zero.
+
+After decoupling, the structure-aware refinement multiplies the spatial score by $\xi_{x,j}^{\gamma_x}$ and the existence score, or the FID-FIA-refined existence score when enabled, by $\xi_{r,j}^{\gamma_r}$. This is equivalent to adding $\gamma_x \log \xi_{x,j}$ and $\gamma_r \log \xi_{r,j}$ to the corresponding branch utilities.
 
 \paragraph{Proposition C6.}
 Let $p_x$ and $p_r$ be normalized priors satisfying
@@ -232,7 +258,25 @@ w_r^\star
 \end{align}
 Thus the weak structure-aware term is precisely a KL regularization toward a graph-induced prior on the simplex.
 
+\paragraph{Corollary C6a.}
+With the FID-FIA existence refinement, the same branch-wise entropy-regularized program remains valid after replacing the existence utility $\hat u_{r,j}$ by $\hat u_{r,j}^{\mathrm{fid}}$. Equivalently,
+\begin{equation}
+w_{r,j}^{\star}
+\propto
+\tilde s_{r,j}
+\xi_{r,j}^{\gamma_r}
+q_{\mathrm{fid},j}^{\gamma_f},
+\qquad
+w_{x,j}^{\star}
+\propto
+\tilde s_{x,j}
+\xi_{x,j}^{\gamma_x}.
+\label{eq:appendix-fid-branch-weights}
+\end{equation}
+Thus the FID-FIA term is theoretically just another existence-branch log-utility, not a change to the spatial KLA barycenter.
+
 \paragraph{Proposition C7.}
+The statement below applies to the unrefined existence utility $\hat u_{r,j}$ and, after the substitution in Corollary C6a, to the FID-FIA-refined utility $\hat u_{r,j}^{\mathrm{fid}}$.
 Define the branch utilities
 \begin{align}
 U_x(w_x)
@@ -247,6 +291,9 @@ Then the branch-decoupled adaptive weights are the exact optimizer of the block-
 \max_{w_x,w_r \in \Delta_{k,s}} \left\{ U_x(w_x) + U_r(w_r) \right\}.
 \end{equation}
 Moreover, together with the aligned-LMB surrogate state-update block above, the merger and the adaptive weight-allocation rule are consistent with a single block-relaxed objective whose two blocks reproduce the state-update and weight-update steps.
+
+\paragraph{Scalar-FID-FIA as a constrained special case.}
+Using a single FID-FIA scalar weight vector for the whole fused posterior can be viewed as imposing the additional constraint $w_x=w_r=w_{\mathrm{fid}}$ and choosing both branch utilities to be dominated by $\log q_{\mathrm{fid},j}$. The proposed refinement relaxes this constraint: $w_x$ remains governed by the communication-aware spatial utility, while $w_r$ receives the FID-FIA term. This provides a theoretical explanation for the observed empirical tradeoff. A scalar FID-FIA weight can improve cardinality by moving the existence logit pool toward sensors with high pairwise Fisher separability, but the same move also perturbs the Gaussian precision barycenter. Branch decoupling keeps the information-geometric signal where it is most useful, in the Bernoulli existence pool, without forcing the spatial barycenter to use the same weights.
 
 \paragraph{Proposition C7a.}
 Let $p_x$ and $p_r$ be strictly positive priors on the simplex, and let $\mathcal{Q}_x$ and $\mathcal{Q}_r$ be differentiable latent branch-quality functionals. The entropic proximal linearizations
@@ -295,6 +342,9 @@ D_{\mathrm{KL}}(p_i^\star\,\|\,p_{i,j}),
 \end{align}
 Hence the exact reduced aligned-LMB objective penalizes spatial weights through existence-weighted spatial KL mismatch and penalizes existence weights through Bernoulli mismatch. This provides a concrete target for the retained utilities: covariance quality, realized link quality, and existence confidence should be read as stable surrogates for these exact reduced gradients, not as unrelated heuristic factors.
 
+\paragraph{FID-FIA as a Bernoulli-branch separability surrogate.}
+The reduced existence sensitivity above is a Bernoulli mismatch term. In labeled multi-target tracking, a large part of this mismatch is driven by whether the measurements provide enough information to distinguish target-generated returns from neighboring targets, clutter, or missed detections. The FID-FIA score measures exactly a local form of target-pair measurement separability through the Fisher metric induced by the sensor model. It is therefore a coherent surrogate for the reliability of the Bernoulli existence decision, even though it is not itself an exact Bernoulli KL gradient. This is the precise theoretical role used here: FID-FIA supplies an information-geometric separability utility for the existence branch, while covariance and link quality continue to supply the spatial and communication utilities.
+
 \subsection{Existence Confidence and Temporal Stabilization}
 
 The existence-confidence term uses
@@ -337,8 +387,10 @@ Under the same aligned-label and moment-compatible assumptions used by the merge
 \item an exact Bernoulli-RFS decomposition that motivates branch separation,
 \item an aligned-LMB surrogate interpretation of the componentwise decoupled merger,
 \item a KL-prior interpretation of the weak structure-aware refinement,
+\item an interpretation of FID-FIA as an existence-branch information-geometric log-utility rather than a whole-posterior scalar weight,
 \item a first-order entropic mirror-ascent interpretation of the structure-aware weight update,
  \item a concrete reduced-objective sensitivity view in which the exact branch gradients are spatial KL mismatch and Bernoulli mismatch terms,
+\item a rationale for reserving FID-FIA for the Bernoulli branch because it proxies target-pair separability relevant to existence decisions,
 \item a quadratic-compromise interpretation of the EMA stabilization step.
 \end{itemize}
 What remains outside the scope of this appendix is a full theorem for completely unconstrained LMB fusion without the aligned-label and moment-projection assumptions used by the proposed merger.

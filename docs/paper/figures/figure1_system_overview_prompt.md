@@ -6,7 +6,7 @@ Create a paper-ready system overview diagram for a distributed GA-LMB multi-sens
 
 ## Prompt
 
-Draw a clean academic schematic of a peer-to-peer distributed multi-sensor multi-object tracking system. The scene contains two four-sensor formations, for a total of eight sensors, arranged as two spatial groups with sparse inter-group connectivity. Each sensor node should show three internal stages: local measurements, local LMB posterior update, and neighborhood fusion. Communication links between neighbors should be drawn as directed or bidirectional message-passing arrows. The fusion stage at each node should point to a shared adaptive fusion-weight block, and that block should visibly feed two outputs: a spatial fusion branch and an existence fusion branch. The overall style should be minimal, publication-ready, white background, thin strokes, restrained colors, and no 3D effects. Use clear labels such as “local measurements,” “measurement-updated LMB posterior,” “adaptive GA/KLA fusion,” “spatial branch,” and “existence branch.” Make the local filtering stage visually distinct from the adaptive fusion-weight allocation stage. The final composition should read left-to-right or top-to-bottom as a signal-processing pipeline rather than as a decorative network sketch.
+Draw a clean academic schematic of a peer-to-peer distributed multi-sensor multi-object tracking system. The scene contains two four-sensor formations, for a total of eight sensors, arranged as two spatial groups with sparse inter-group connectivity. Each sensor node should show three internal stages: local measurements, local LMB posterior update, and neighborhood fusion. Communication links between neighbors should be drawn as directed or bidirectional message-passing arrows. The fusion stage at each node should point to a branch-decoupled adaptive fusion block, and that block should visibly feed two outputs: a spatial-weight path and an existence-weight path. Show a compact FID-FIA cue only on the existence-weight path, without explaining the internal FID-FIA calculation. The overall style should be minimal, publication-ready, white background, thin strokes, restrained colors, and no 3D effects. Use clear labels such as “local measurements,” “measurement-updated LMB posterior,” “Branch-Decoupled Adaptive Fusion,” “spatial-weight path,” and “existence-weight path.” Make the local filtering stage visually distinct from the adaptive fusion-weight allocation stage. The final composition should read left-to-right or top-to-bottom as a signal-processing pipeline rather than as a decorative network sketch.
 
 ## Required Elements
 
@@ -14,9 +14,9 @@ Draw a clean academic schematic of a peer-to-peer distributed multi-sensor multi
 - local measurement update at each node
 - neighborhood communication links
 - local LMB posterior representation
-- adaptive fusion-weight block
-- spatial branch output
-- existence branch output
+- branch-decoupled adaptive fusion block
+- spatial-weight path output
+- existence-weight path output
 - paper-style labels and simple legend if needed
 
 ## Style Constraints

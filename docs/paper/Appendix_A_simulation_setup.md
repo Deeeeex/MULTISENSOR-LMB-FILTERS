@@ -21,7 +21,7 @@ The common filter-side settings are:
 - measurement-noise scale at every sensor: `q = 3`
 - field of view enabled with half-angle `60 deg` and range `60000`
 
-The current headline Monte Carlo studies use deterministic seed control with `baseSeed = 1` and trial seed `baseSeed + trial`. The recent headline tiered-drop and ideal-communication comparisons both use `5` trials.
+The current headline Monte Carlo studies use deterministic seed control with `baseSeed = 1` and trial seed `baseSeed + trial`. The recent headline tiered-drop and ideal-communication comparisons both use `20` trials with seeds `2`--`21`.
 
 ### A.2 Sensor Geometry And Neighborhood Graph
 
@@ -133,7 +133,7 @@ At the start of each Monte Carlo trial, the code constructs a sensor-wise `pDrop
 
 ### A.5 Ideal-Communication Supporting Variant
 
-The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The relevant script is [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m).
+The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The ordinary-GA and branch-decoupled backbone comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m); the scalar FID-FIA and proposed branch-decoupled fusion supporting arms reuse the same deterministic seed range through the main ablation runner with ideal-communication overrides.
 
 The ideal-communication settings are:
 
@@ -143,7 +143,7 @@ The ideal-communication settings are:
 - `pDrop = 0`
 - `pDropBySensor = 0` for all eight sensors
 
-This experiment is used only as supporting evidence. Its role is to verify that the final weak structure-aware decoupled refinement is not merely compensating for packet loss.
+This experiment is used only as supporting evidence. Its role is to verify that the spatial and existence-branch refinements are not merely compensating for packet loss.
 
 ### A.6 Main Adaptive Configuration Used In The Headline Comparison
 

@@ -15,7 +15,7 @@ The figure should immediately communicate four ideas:
 
 The figure should read as:
 
-`distributed network setting -> representative node local posterior -> adaptive neighborhood fusion at that node -> spatial/existence branches -> fused local posterior`
+`distributed network setting -> representative node local posterior -> Branch-Decoupled Adaptive Fusion at that node -> spatial/existence weight paths -> fused local posterior`
 
 Do not make the figure read as a global central fusion controller.
 
@@ -44,10 +44,11 @@ Show the processing executed locally at the representative node:
 
 - `Measurements`
 - `Local LMB posterior`
-- `Neighbor posteriors + realized link outcomes`
-- `Adaptive KLA fusion at node s`
-- `Spatial branch`
-- `Existence branch`
+- `Neighbor posteriors and realized link outcomes`
+- `Branch-Decoupled Adaptive Fusion at node s`
+- `Spatial-weight path`
+- `Existence-weight path`
+- a compact `FID-FIA cue` that feeds only the existence-weight path
 - `Fused local posterior at node s`
 
 Inside the adaptive fusion block, indicate the three driving cues using compact labels, not large formulas:
@@ -55,6 +56,8 @@ Inside the adaptive fusion block, indicate the three driving cues using compact 
 - `covariance`
 - `link quality`
 - `existence confidence`
+
+Also indicate the FID-FIA-informed cue as a compact existence-only modulation signal. Do not show the internal FID-FIA computation; Figure 2 handles the detailed factorization.
 
 Add a short note somewhere unobtrusive:
 
@@ -69,6 +72,7 @@ Add a short note somewhere unobtrusive:
   - neighbor communication,
   - adaptive fusion-weight allocation.
 - The branch split should be visible but lightweight; Figure 1 is a system overview, not the full factorization figure.
+- The FID-FIA cue should visibly affect only the existence branch, not the spatial branch.
 
 ## Style Constraints
 
@@ -89,9 +93,9 @@ Add a short note somewhere unobtrusive:
 - `Local LMB posterior`
 - `Neighbor posteriors`
 - `Realized link outcomes`
-- `Adaptive KLA fusion at node s`
-- `Spatial branch`
-- `Existence branch`
+- `Branch-Decoupled Adaptive Fusion at node s`
+- `Spatial-weight path`
+- `Existence-weight path`
 - `Fused local posterior`
 
 ## Avoid
@@ -99,5 +103,6 @@ Add a short note somewhere unobtrusive:
 - Do not draw a single large block that appears to fuse all eight nodes centrally.
 - Do not repeat the same full three-box pipeline for all eight sensors.
 - Do not duplicate Figure 2 by showing the full factorization derivation inside Figure 1.
+- Do not explain the internal FID-FIA calculation in Figure 1.
 - Do not over-emphasize topology at the expense of the signal-processing pipeline.
 - Do not use decorative icons, sensor cartoons, or slide-style infographic effects.

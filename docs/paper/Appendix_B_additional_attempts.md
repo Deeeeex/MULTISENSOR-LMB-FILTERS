@@ -147,6 +147,6 @@ Current reading:
 
 The recommended use of this appendix is conservative:
 
-- keep the main paper body centered on `covariance + link quality + existence confidence + weak structure-aware decoupling`
+- keep the main paper body centered on the covariance, link-quality, and existence-confidence backbone, branch decoupling, and the existence-branch FID-FIA cue
 - use this appendix to show that alternative modules were considered and empirically bounded
 - only promote an item from this appendix into the main paper body if a rerun yields stable gains together with a clean tracked report artifact

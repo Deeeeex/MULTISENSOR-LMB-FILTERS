@@ -195,7 +195,7 @@ $$
 \frac{\tilde{\omega}_{k,s}^{r,(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{r,(u)}}.
 $$
 
-The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the method uses the information-geometric FID-FIA idea of Cao and Zhao \cite{CaoZhao2025InfoGeometryFusion}: their Fisher-information accumulation score is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions, but a scalar FID-FIA weight can trade away spatial RMSE. The present method therefore keeps the communication-aware covariance/link-quality branch in charge of spatial fusion and reserves FID-FIA for the existence branch.
+The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the method uses the information-geometric FID-FIA idea of Cao and Zhao \cite{CaoZhao2025InfoGeometryFusion}: their Fisher-information accumulation score is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions, but a scalar FID-FIA weight can trade away spatial RMSE. In the log-utility view developed in the appendix, scalar FID-FIA is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
 
 ### 6. FID-FIA Existence Refinement
 
@@ -217,7 +217,7 @@ $$
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 $$
 
-The spatial score is left unchanged. This is the key difference from using Cao-Zhao FID-FIA as a whole-posterior scalar baseline: the paper borrows its information-geometric cardinality strength, but branch decoupling prevents that signal from overriding the spatial/RMSE-oriented weight path.
+The spatial score is left unchanged. For positive $q_{\mathrm{fid},k,s}^{(j)}$, this is equivalent to adding $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adding nothing to the spatial utility; the zero-floor setting in the main experiment is the boundary case that permits a zero instantaneous existence weight. This is the key difference from using Cao-Zhao FID-FIA as a whole-posterior scalar baseline: the paper borrows its information-geometric cardinality strength, but branch decoupling prevents that signal from overriding the spatial/RMSE-oriented weight path.
 
 ### 7. Weak Structure-Aware Refinement
 
@@ -283,7 +283,7 @@ Among them, the most relevant is the NIS-based consistency term. Innovation cons
 ## Method Positioning Notes
 
 - Present the method as an adaptive weight-allocation scheme for distributed GA-LMB fusion, not as a new RFS filter family.
-- Keep the main narrative on `covariance + link quality + existence confidence + weak structure-aware spatial refinement + FID-FIA existence refinement`.
+- Keep the main narrative on the covariance, link-quality, and existence-confidence backbone, followed by branch decoupling and an FID-FIA cue restricted to the existence-weight path.
 - Treat EMA smoothing as a stabilization device, not a headline contribution.
 - Treat NIS, history, freshness, and stronger structure priors as optional modules or appendix material.
 

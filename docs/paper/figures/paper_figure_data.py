@@ -28,11 +28,11 @@ def get_scalar_figure_data() -> dict:
         "figure5": {
             "title": "Factor Ablation Under Tiered Packet Loss",
             "arms": [
-                "fixed",
-                "+covariance",
-                "+link quality",
-                "+existence confidence",
-                "+structure-aware decoupled KLA",
+                "Fixed Metropolis",
+                "Covariance only",
+                "Covariance and link quality",
+                "Three-factor backbone",
+                "Branch-decoupled backbone",
             ],
             "metrics": {
                 "Consensus OSPA": [2.447978, 2.082445, 1.829718, 1.829831, 1.821448],

@@ -9,6 +9,11 @@
     <marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#888888" />
     </marker>
+
+    <!-- Existence-only information-geometric modulation -->
+    <marker id="arrow-fid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f8f6b" />
+    </marker>
   </defs>
 
   <style>
@@ -19,12 +24,14 @@
     .box-spat { fill: #fff5f5; stroke: #a84040; stroke-width: 1.5; }
     .box-exist { fill: #f0f4f8; stroke: #4b729f; stroke-width: 1.5; }
     .box-weak { fill: #fdfdfd; stroke: #aaaaaa; stroke-width: 1.2; stroke-dasharray: 4,3; }
+    .box-fid { fill: #f1fbf6; stroke: #2f8f6b; stroke-width: 1.4; }
     .box-post { fill: #ffffff; stroke: #666666; stroke-width: 1.2; }
     
     /* Line Styles */
     .line-solid { stroke: #333333; stroke-width: 1.5; fill: none; }
     .line-strong { stroke: #333333; stroke-width: 2.5; fill: none; }
     .line-weak { stroke: #888888; stroke-width: 1.5; stroke-dasharray: 5,3; fill: none; }
+    .line-fid { stroke: #2f8f6b; stroke-width: 1.8; fill: none; }
     
     /* Typography */
     .txt-title { font-size: 14px; font-weight: bold; fill: #4b729f; letter-spacing: 0.5px; }
@@ -84,7 +91,7 @@
   
   <!-- Shared Score Output -->
   <line x1="345" y1="257" x2="395" y2="257" class="line-solid" marker-end="url(#arrow)" />
-  <text x="370" y="247" class="txt-label" text-anchor="middle">Shared Score</text>
+  <text x="370" y="247" class="txt-label" text-anchor="middle">Shared quality score</text>
 
 
   <!-- ================= BRANCH SPLIT & REFINEMENT ================= -->
@@ -95,20 +102,20 @@
 
   <!-- Spatial Branch Refinement -->
   <rect x="415" y="125" width="170" height="50" rx="4" class="box-spat" />
-  <text x="500" y="142" class="txt-main">Spatial Refinement</text>
-  <text x="500" y="159" class="txt-sub">Covariance &amp; Link emphasis</text>
+  <text x="500" y="142" class="txt-main">Spatial-weight path</text>
+  <text x="500" y="159" class="txt-sub">kinematic branch weights</text>
 
   <!-- Existence Branch Refinement -->
   <rect x="415" y="335" width="170" height="50" rx="4" class="box-exist" />
-  <text x="500" y="352" class="txt-main">Existence Refinement</text>
-  <text x="500" y="369" class="txt-sub">Link &amp; Exist emphasis</text>
+  <text x="500" y="352" class="txt-main">Existence-weight path</text>
+  <text x="500" y="369" class="txt-sub">Bernoulli branch weights</text>
 
 
   <!-- ================= WEAK STRUCTURE-AWARE MODULATION ================= -->
   <!-- Modulator Block -->
   <rect x="565" y="235" width="130" height="44" rx="4" class="box-weak" />
   <text x="630" y="249" class="txt-main" fill="#555555">Structure-Aware</text>
-  <text x="630" y="265" class="txt-sub">Weak Refinement</text>
+  <text x="630" y="265" class="txt-sub">Branch prior</text>
 
   <!-- Mixers / Modulation Nodes -->
   <circle cx="630" cy="150" r="10" class="mixer-circle" />
@@ -124,11 +131,17 @@
   <!-- Modulation Arrows -->
   <!-- UP to Spatial (Stronger) -->
   <line x1="630" y1="235" x2="630" y2="165" class="line-strong" marker-end="url(#arrow)" />
-  <text x="636" y="195" class="txt-label" text-anchor="start">(stronger)</text>
+  <text x="636" y="195" class="txt-label" text-anchor="start">spatial prior</text>
   
   <!-- DOWN to Existence (Weaker) -->
   <line x1="630" y1="279" x2="630" y2="345" class="line-weak" marker-end="url(#arrow-dashed)" />
-  <text x="636" y="315" class="txt-label" fill="#888888" text-anchor="start">(weaker)</text>
+  <text x="636" y="315" class="txt-label" fill="#888888" text-anchor="start">weak existence prior</text>
+
+  <!-- Existence-only FID-FIA Modulation -->
+  <rect x="565" y="410" width="130" height="44" rx="4" class="box-fid" />
+  <text x="630" y="424" class="txt-main" fill="#2f8f6b">FID-FIA Cue</text>
+  <text x="630" y="440" class="txt-sub">existence branch only</text>
+  <line x1="630" y1="410" x2="630" y2="375" class="line-fid" marker-end="url(#arrow-fid)" />
 
 
   <!-- ================= SMOOTHING & SAFEGUARD ================= -->
@@ -139,7 +152,7 @@
 
   <line x1="790" y1="150" x2="815" y2="150" class="line-solid" marker-end="url(#arrow)" />
   <rect x="815" y="130" width="95" height="40" rx="4" class="box-post" />
-  <text x="862.5" y="142" class="txt-main">Min-Weight</text>
+  <text x="862.5" y="142" class="txt-main">Weight Floor</text>
   <text x="862.5" y="158" class="txt-sub">Safeguard</text>
 
   <!-- Existence Path Post-Processing -->
@@ -149,7 +162,7 @@
 
   <line x1="790" y1="360" x2="815" y2="360" class="line-solid" marker-end="url(#arrow)" />
   <rect x="815" y="340" width="95" height="40" rx="4" class="box-post" />
-  <text x="862.5" y="352" class="txt-main">Min-Weight</text>
+  <text x="862.5" y="352" class="txt-main">Weight Floor</text>
   <text x="862.5" y="368" class="txt-sub">Safeguard</text>
 
 

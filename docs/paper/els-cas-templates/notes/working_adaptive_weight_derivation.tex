@@ -13,7 +13,7 @@ The present note focuses on three layers:
 \begin{enumerate}
 \item the shared adaptive backbone based on covariance quality, realized link quality, and existence confidence,
 \item the decoupled spatial and existence branches,
-\item the weak structure-aware refinement and temporal stabilization.
+\item the FID-FIA existence refinement, weak structure-aware refinement, and temporal stabilization.
 \end{enumerate}
 
 \subsection*{Promotion criteria}
@@ -41,6 +41,18 @@ where
 \bar c_k^{(j)} = \frac{\sum_i r_{k,i}^{(j)} |2r_{k,i}^{(j)} - 1|}{\epsilon + \sum_i r_{k,i}^{(j)}}.
 \end{equation}
 These correspond exactly to \texttt{computeCovarianceScore}, \texttt{computeLinkQuality}, and \texttt{resolveExistenceConfidenceScore} in the current implementation.
+
+When \texttt{useFidFiaExistence} is enabled, the implementation also computes a Fisher-information-distance accumulation score $a_k^{(j)}$ from existence-weighted local target pairs and maps it to
+\begin{equation}
+q_{\mathrm{fid},k}^{(j)}
+=
+\rho_{\min}
++(1-\rho_{\min})
+\left(
+\frac{a_k^{(j)}}{\epsilon+\max_{u\in\mathcal{A}_{k,s}} a_k^{(u)}}
+\right)^{p_f}.
+\end{equation}
+This corresponds to the FID-FIA helper path in \texttt{computeAdaptiveFusionWeights.m}. The main experiment uses this factor only for the existence branch.
 
 The active-neighbor simplex is
 \begin{equation}
@@ -191,12 +203,40 @@ Immediate from $\log(a^{1-\eta}b^\eta) = (1-\eta)\log a + \eta \log b$ for posit
 \paragraph{Interpretation.}
 This gives a clean variational interpretation of decoupling. The method is not switching between two unrelated rules. It is interpolating between a shared all-factor utility and a branch-specific utility. Spatial fusion is allowed to lean more heavily on covariance and link reliability, while existence fusion is allowed to lean more heavily on link reliability and existence decisiveness.
 
+\subsection*{Step 3b: FID-FIA as an existence-branch utility}
+
+The new experimental result suggests a sharper interpretation of the Cao-Zhao FID-FIA idea \citep{CaoZhao2025InfoGeometryFusion}. A scalar FID-FIA weight treats Fisher-information accumulation as a whole-posterior utility. In the present code, that scalar baseline is useful for cardinality, but it can trade away spatial RMSE. The branch-decoupled rule gives a more precise use of the same information-geometric signal.
+
+Define the FID-FIA-refined existence score
+\begin{equation}
+\tilde s_{r,j}^{\mathrm{fid}}
+=
+\tilde s_{r,j}
+\left(q_{\mathrm{fid},k}^{(j)}\right)^{\gamma_f},
+\qquad
+\gamma_f = \texttt{fidFiaExistenceStrength}.
+\end{equation}
+Equivalently, for $\rho_{\min}>0$,
+\begin{equation}
+\hat u_{r,j}^{\mathrm{fid}}
+=
+\hat u_{r,j}
++\gamma_f\log q_{\mathrm{fid},k}^{(j)}.
+\end{equation}
+The main experiment sets $\rho_{\min}=0$, which should be read as the boundary limit of this log-utility view: a sensor with zero FID-FIA accumulation can receive zero instantaneous existence weight. The spatial score remains
+\begin{equation}
+\tilde s_{x,j}^{\mathrm{fid}}=\tilde s_{x,j}.
+\end{equation}
+
+\paragraph{Interpretation.}
+This is the theoretical reason the new method can improve over the scalar FID-FIA baseline. FID-FIA is a measurement-separability utility: it rewards sensors whose local Fisher geometry makes target pairs more distinguishable. That is directly useful for the Bernoulli existence/logit-pooling branch, because existence and cardinality errors are driven by missed detections, false support, and target-pair ambiguity. It is less safe as a whole-posterior scalar weight because it also changes the Gaussian precision barycenter. Branch decoupling keeps the FID-FIA signal in the branch where its inductive bias matches the algebraic role of the fused variable.
+
 \subsection*{Step 4: weak structure-aware refinement as a prior perturbation}
 
 After branch decoupling, the code optionally multiplies each branch score by a positive structure term:
 \begin{align}
 \tilde s_{x,j}^{\,\prime} &= \tilde s_{x,j} \left(\xi_{x,j}\right)^{\gamma_x}, \\
-\tilde s_{r,j}^{\,\prime} &= \tilde s_{r,j} \left(\xi_{r,j}\right)^{\gamma_r},
+\tilde s_{r,j}^{\,\prime} &= \tilde s_{r,j}^{\mathrm{fid}} \left(\xi_{r,j}\right)^{\gamma_r},
 \end{align}
 where
 \begin{equation}
@@ -217,7 +257,7 @@ In both cases the implemented update is multiplicative in score space.
 The weak structure-aware refinement is equivalent to adding a branch-specific prior term to the log-utility:
 \begin{align}
 \hat u_{x,j}^{\,\prime} &= \hat u_{x,j} + \gamma_x \log \xi_{x,j}, \\
-\hat u_{r,j}^{\,\prime} &= \hat u_{r,j} + \gamma_r \log \xi_{r,j}.
+\hat u_{r,j}^{\,\prime} &= \hat u_{r,j}^{\mathrm{fid}} + \gamma_r \log \xi_{r,j}.
 \end{align}
 
 \paragraph{Proposition 3a.}
@@ -240,7 +280,7 @@ w_{r,k,s}^\star
 &=
 \arg\max_{w \in \Delta_{k,s}}
 \left\{
-\sum_j w_j \hat u_{r,j}
+\sum_j w_j \hat u_{r,j}^{\mathrm{fid}}
 - \tau_r D_{\mathrm{KL}}(w \,\|\, p_r)
 \right\}.
 \end{align}
@@ -280,7 +320,7 @@ w_{r,k,s}^\star
 &=
 \arg\max_{w \in \Delta_{k,s}}
 \left\{
-\sum_{j \in \mathcal{A}_{k,s}} w_j \left[\hat u_{r,j} + \gamma_r \log \xi_{r,j}\right]
+\sum_{j \in \mathcal{A}_{k,s}} w_j \left[\hat u_{r,j}^{\mathrm{fid}} + \gamma_r \log \xi_{r,j}\right]
 +
 \tau_r H(w)
 \right\}.
@@ -299,6 +339,7 @@ w_{r,j}^\star
 &\propto
 s_{0,j}^{1-\eta_r}
 s_{r,j}^{\eta_r}
+\left(q_{\mathrm{fid},k}^{(j)}\right)^{\gamma_f}
 \left(\xi_{r,j}\right)^{\gamma_r},
 \end{align}
 which in expanded multiplicative form become
@@ -313,6 +354,7 @@ w_{r,j}^\star
 &\propto
 \left(q_{\mathrm{cov},j} q_{\mathrm{link},j} q_{\mathrm{exist},j}\right)^{1-\eta_r}
 \left(q_{\mathrm{link},j}^{\beta_r} q_{\mathrm{exist},j}^{\alpha_r}\right)^{\eta_r}
+\left(q_{\mathrm{fid},j}\right)^{\gamma_f}
 \left(\xi_{r,j}\right)^{\gamma_r}.
 \end{align}
 
@@ -1013,6 +1055,8 @@ The following claims are already strong enough to consider for an eventual appen
 \item normalized multiplicative backbone scores are the exact solution of an entropy-regularized simplex allocation problem in log-utility space,
 \item branch decoupling is exactly a convex interpolation in log-utility space,
 \item weak structure-aware refinement is exactly an additive prior term in log-utility space and equivalently a KL regularization toward a graph-induced prior,
+\item the FID-FIA existence refinement is an existence-branch log-utility, with the main experimental zero-floor setting understood as a boundary limit of the positive-score formulation,
+\item scalar FID-FIA fusion is a constrained special case that forces the same information-geometric utility into both spatial and existence branches,
 \item Bernoulli-RFS divergence decomposes exactly into a Bernoulli existence term plus an existence-weighted spatial KL term,
 \item the implemented existence merger is an exact weighted logit pool with an additive spatial-overlap offset,
 \item the implemented decoupled spatial and existence updates are the exact optimizer of a per-Bernoulli decoupled surrogate objective,
@@ -1031,6 +1075,7 @@ The following points still require care:
 \begin{enumerate}
  \item a full derivation from one single non-surrogate KL objective on the complete LMB family without relying on aligned-label and moment-projection assumptions,
  \item a proof that the chosen covariance score remains close to the best anisotropic posterior-quality surrogate outside isotropic or near-isotropic regimes,
+ \item a rigorous approximation bound showing when FID-FIA target-pair Fisher separability tracks the Bernoulli mismatch or target-confusion probability that drives cardinality error,
  \item a first-principles derivation of the static structure prior from graph geometry,
  \item a rigorous equivalence between the EMA plus lower-bound implementation and an exact proximal optimization problem,
  \item a direct approximation bound between the implemented utilities and the exact reduced gradients from Proposition 5c.
@@ -1046,10 +1091,13 @@ Theory symbol or concept & Implementation anchor \\
 $q_{\mathrm{cov}}$ & \texttt{computeCovarianceScore} \\
 $q_{\mathrm{link}}$ & \texttt{computeLinkQuality} \\
 $q_{\mathrm{exist}}$ & \texttt{resolveExistenceConfidenceScore} \\
+$q_{\mathrm{fid}}$ & \texttt{resolveFidFiaExistenceScore}, \texttt{computeFidFiaScore} \\
 $\eta_i(w_x)$ and exact logit pooling & \texttt{gaLmbTrackMerging} \\
 $\eta_x,\eta_r$ & \texttt{spatialDecouplingStrength}, \texttt{existenceDecouplingStrength} \\
 $\alpha_x,\beta_x$ & \texttt{spatialCovariancePower}, \texttt{spatialLinkQualityPower} \\
 $\beta_r,\alpha_r$ & \texttt{existenceLinkQualityPower}, \texttt{existenceConfidenceWeightPower} \\
+$\gamma_f$ & \texttt{fidFiaExistenceStrength} \\
+$\rho_{\min},p_f$ & \texttt{fidFiaExistenceMinScore}, \texttt{fidFiaExistencePower} \\
 $\gamma_x,\gamma_r$ & \texttt{spatialStructureStrength}, \texttt{existenceStructureStrength} \\
 EMA stabilization & \texttt{finalizeAdaptiveWeights} \\
 minimum-weight safeguard & \texttt{enforceMinimumWeight} \\
@@ -1064,6 +1112,7 @@ The most valuable next steps are:
 \begin{enumerate}
 \item rewrite the branch-wise optimization problem so that the active-set handling is cleanly embedded in the notation and does not require ad hoc correction text,
 \item investigate whether explicit approximation bounds can be proved between the retained utilities and the reduced gradients from Proposition 5c,
+\item derive conditions under which the FID-FIA pairwise Fisher distance upper- or lower-bounds Bernoulli support mismatch or target-confusion probability,
 \item strengthen the covariance argument from isotropic / near-isotropic agreement to a broader anisotropic approximation guarantee,
 \item try to write the spatial branch in terms of canonical-parameter Bregman geometry rather than only information-space barycenters,
 \item decide how much of the EMA and KL-prior interpretations belongs in the appendix versus the main text.

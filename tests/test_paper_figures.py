@@ -9,7 +9,7 @@ def test_scalar_figure_data_contains_expected_sections():
     data = get_scalar_figure_data()
     assert "figure5" in data
     assert "figure6" in data
-    assert data["figure5"]["arms"][-1] == "+structure-aware decoupled KLA"
+    assert data["figure5"]["arms"][-1] == "Branch-decoupled backbone"
     assert data["figure6"]["consensus"]["labels"] == ["OSPA", "RMSE", "Card"]
 
 
@@ -111,8 +111,9 @@ def test_renderer_does_not_use_internal_suptitles(tmp_path, monkeypatch):
 
 def test_caption_registry_contains_all_main_figures():
     text = Path("docs/paper/figure_captions.md").read_text()
-    for figure_no in range(1, 7):
+    for figure_no in range(1, 6):
         assert f"Figure {figure_no}" in text
+    assert "Figure 6" not in text
 
 
 def test_prompt_files_exist_for_figure1_and_figure2():

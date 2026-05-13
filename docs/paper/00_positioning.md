@@ -12,7 +12,7 @@ Recommended method scope:
 
 - Main algorithm family: `GA-LMB`
 - Main mechanism: adaptive fusion weights
-- Main technical novelty: factorized `covariance + link quality + existence confidence` weighting, plus a weak structure-aware decoupled refinement
+- Main technical novelty: factorized covariance, link-quality, and existence-confidence weighting, followed by branch-decoupled refinement with the FID-FIA cue restricted to the existence-weight path
 - Secondary modules: decoupled `robust NIS`, `history`, `freshness`, `association ambiguity`
 
 ## What The Paper Should Claim
@@ -20,7 +20,7 @@ Recommended method scope:
 - Fixed KLA weights are brittle when communication quality and local posterior quality vary across sensors.
 - A factorized adaptive weighting mechanism can improve distributed consensus quality.
 - Existence-confidence weighting adds a missing dimension beyond state precision and communication reliability.
-- A weak structure-aware decoupled KLA refinement can further improve consensus without sacrificing cardinality.
+- Branch decoupling lets the method preserve spatial-consensus gains while importing the FID-FIA cardinality cue only where it is useful.
 - Interpreting NIS as a consistency penalty is still useful, but it is not the strongest current headline improvement.
 
 ## What The Paper Should Not Claim
@@ -38,14 +38,14 @@ Use a 3-point contribution list:
 
 1. An adaptive KLA fusion-weight allocation scheme for distributed GA-LMB fusion under communication constraints.
 2. A three-factor quality model that combines posterior covariance, realized link quality, and existence-confidence for communication-constrained distributed fusion.
-3. An empirical study under tiered heterogeneous packet-loss conditions showing that a weak structure-aware decoupled KLA refinement further improves consensus OSPA and RMSE beyond the three-factor baseline while preserving cardinality.
+3. An empirical study under tiered heterogeneous packet-loss conditions showing that branch-decoupled adaptive fusion improves spatial consensus while the existence-branch FID-FIA cue delivers the final cardinality gain.
 
 ## Current Evidence Hierarchy
 
 Most convincing:
 
 - Tiered GA main result in the 4+4 formation scenario
-- Tiered ablation `fixed -> +covariance -> +link quality -> +structure-aware decoupled KLA`
+- Tiered ablation from Fixed Metropolis to Covariance only, Covariance and link quality, Three-factor backbone, Branch-decoupled backbone, and the proposed branch-decoupled fusion
 - Communication-aware interpretation of tiered packet-loss heterogeneity
 
 Useful but secondary:
@@ -64,4 +64,4 @@ Weak or negative:
 
 ## Writing Rule
 
-If a paragraph does not clearly serve the `GA-LMB/KLA + adaptive weights + tiered communication + existence confidence + weak structure-aware decoupling + consensus improvement` story, it should likely be shortened or moved to appendix.
+If a paragraph does not clearly serve the `GA-LMB/KLA + adaptive weights + tiered communication + existence confidence + branch decoupling + existence-branch FID-FIA cue + consensus improvement` story, it should likely be shortened or moved to appendix.

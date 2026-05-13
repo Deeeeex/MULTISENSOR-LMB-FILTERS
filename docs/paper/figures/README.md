@@ -8,7 +8,8 @@ Current target outputs:
 - `figure_simulation_scenario.pdf`
 - `figure4_main_ga_consensus.pdf`
 - `figure5_factor_ablation.pdf`
-- `figure6_ideal_support.pdf`
+
+`figure5_factor_ablation.pdf` and the earlier `figure6_ideal_support.pdf` are retained as reproducible plotting artifacts, but the current manuscript presents those scalar comparisons as Tables 3 and 4.
 
 Prompt-driven figure specifications:
 

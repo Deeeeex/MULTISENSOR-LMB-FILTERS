@@ -5,9 +5,9 @@ This section reports the empirical evidence supporting the paper's main claims. 
 
 \subsection{Main result in the tiered-drop GA scenario}
 
-The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, a weak structure-aware decoupled KLA refinement, and an FID-FIA-informed existence refinement. We also include an information-geometry baseline adapted from the Cao-Zhao FID-FIA weighting rule, where fusion weights are proportional to the Fisher-information accumulation induced by the local posterior target pairs. Across 20 paired Monte Carlo trials, fixed weights yield consensus OSPA $2.453677 \pm 0.187964$, consensus RMSE $2.335508 \pm 0.257319$, and consensus cardinality disagreement $0.714625 \pm 0.217152$. The FID-FIA baseline reduces these values to $1.820229 \pm 0.065295$, $1.647412 \pm 0.107941$, and $0.126188 \pm 0.027037$, respectively. The structure-aware decoupled KLA arm yields $1.785873 \pm 0.057187$, $1.562521 \pm 0.199660$, and $0.192938 \pm 0.024816$. Adding the FID-FIA existence refinement further reduces them to $1.668961 \pm 0.052938$, $1.528182 \pm 0.114501$, and $0.061062 \pm 0.016475$.
+The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary consensus metrics and then checks the conventional local tracking metrics as a safeguard. Starting from fixed Metropolis weights, the full adaptive configuration combines covariance, realized link quality, existence confidence, a weak structure-aware decoupled KLA refinement, and an FID-FIA-informed existence refinement. We also include an information-geometry baseline adapted from the Cao-Zhao FID-FIA weighting rule, where fusion weights are proportional to the Fisher-information accumulation induced by the local posterior target pairs. Across 20 paired Monte Carlo trials, fixed weights yield consensus OSPA $2.453677 \pm 0.187964$, consensus RMSE $2.335508 \pm 0.257319$, and consensus cardinality disagreement $0.714625 \pm 0.217152$. The scalar FID-FIA baseline reduces these values to $1.820229 \pm 0.065295$, $1.647412 \pm 0.107941$, and $0.126188 \pm 0.027037$, respectively. The branch-decoupled backbone yields $1.785873 \pm 0.057187$, $1.562521 \pm 0.199660$, and $0.192938 \pm 0.024816$. The proposed branch-decoupled fusion further reduces them to $1.668961 \pm 0.052938$, $1.528182 \pm 0.114501$, and $0.061062 \pm 0.016475$.
 
-Across these 20 paired trials, all adaptive arms improve strongly over fixed weights. Relative to fixed weights, the FID-FIA baseline lowers consensus OSPA by $25.8\%$, consensus RMSE by $29.5\%$, and consensus cardinality disagreement by $82.3\%$. The structure-aware decoupled KLA arm lowers the same metrics by $27.2\%$, $33.1\%$, and $73.0\%$. The FID-FIA existence-refinement arm gives the strongest reductions, lowering them by $32.0\%$, $34.6\%$, and $91.5\%$. The paired reductions relative to fixed weights are positive in all 20 trials for all three consensus metrics for all adaptive arms, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean and standard deviation values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration and realized communication reliability, but also on existence decisiveness and target-pair information geometry. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
+Across these 20 paired trials, all adaptive arms improve strongly over fixed weights. Relative to fixed weights, the scalar FID-FIA baseline lowers consensus OSPA by $25.8\%$, consensus RMSE by $29.5\%$, and consensus cardinality disagreement by $82.3\%$. The branch-decoupled backbone lowers the same metrics by $27.2\%$, $33.1\%$, and $73.0\%$. The proposed branch-decoupled fusion gives the strongest reductions, lowering them by $32.0\%$, $34.6\%$, and $91.5\%$. The paired reductions relative to fixed weights are positive in all 20 trials for all three consensus metrics for all adaptive arms, with exact sign-test $p=1.9\times 10^{-6}$. Table~\ref{tab:main-consensus-stats} reports the corresponding mean and standard deviation values. The observed gain supports the central paper claim that fusion weights should depend not only on posterior concentration and realized communication reliability, but also on existence decisiveness and target-pair information geometry. Figure~\ref{fig:main-consensus} illustrates the same separation over time; the adaptive method stays below the fixed baseline across most of the trajectory in all three consensus metrics.
 
 \begin{table}[t]
   \centering
@@ -17,10 +17,10 @@ Across these 20 paired trials, all adaptive arms improve strongly over fixed wei
     \toprule
     Arm & OSPA & RMSE & Cardinality \\
     \midrule
-    fixed weights & $2.454 \pm 0.188$ & $2.336 \pm 0.257$ & $0.715 \pm 0.217$ \\
-    Cao-Zhao FID-FIA baseline & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $0.126 \pm 0.027$ \\
-    +structure-aware decoupled KLA & $1.786 \pm 0.057$ & $1.563 \pm 0.200$ & $0.193 \pm 0.025$ \\
-    +FID-FIA existence refinement & $\mathbf{1.669} \pm 0.053$ & $\mathbf{1.528} \pm 0.115$ & $\mathbf{0.061} \pm 0.016$ \\
+    Fixed Metropolis & $2.454 \pm 0.188$ & $2.336 \pm 0.257$ & $0.715 \pm 0.217$ \\
+    Scalar FID-FIA & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $0.126 \pm 0.027$ \\
+    Branch-decoupled backbone & $1.786 \pm 0.057$ & $1.563 \pm 0.200$ & $0.193 \pm 0.025$ \\
+    Proposed branch-decoupled fusion & $\mathbf{1.669} \pm 0.053$ & $\mathbf{1.528} \pm 0.115$ & $\mathbf{0.061} \pm 0.016$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -32,41 +32,42 @@ Across these 20 paired trials, all adaptive arms improve strongly over fixed wei
   \label{fig:main-consensus}
 \end{figure}
 
-The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. The FID-FIA existence-refinement arm gives the lowest truth-referenced local cardinality error ($0.221563$) and local E-OSPA ($2.009084$), confirming that its cardinality-consensus advantage is not merely agreement around a wrong count. Its tradeoff is local RMSE: at $1.704538$, it is worse than the pre-refinement structure-aware arm ($1.598561$) but remains slightly better than the Cao-Zhao FID-FIA baseline ($1.715746$). In other words, injecting FID-FIA only into the existence branch captures the cardinality strength of information-geometry weighting while retaining the spatial-consensus advantage of the communication-aware adaptive backbone.
+The primary-metric gain would be less convincing if it came at the cost of clear local tracking degradation. Table~\ref{tab:main-local} shows that this is not the case in the main scenario. The proposed branch-decoupled fusion gives the lowest truth-referenced local cardinality error ($0.221563$) and local E-OSPA ($2.009084$), confirming that its cardinality-consensus advantage is not merely agreement around a wrong count. Its tradeoff is local RMSE: at $1.704538$, it is worse than the branch-decoupled backbone ($1.598561$) but remains slightly better than the Cao-Zhao FID-FIA baseline ($1.715746$). In other words, injecting FID-FIA only into the existence branch captures the cardinality strength of information-geometry weighting while retaining the spatial-consensus advantage of the communication-aware adaptive backbone.
 
 \begin{table}[t]
   \centering
   \caption{Conventional local tracking metrics in the main tiered heterogeneous packet-loss scenario. Values are means across sensors and the same 20 deterministic paired trials used in Table~\ref{tab:main-consensus-stats}.}
   \label{tab:main-local}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lccc}
     \toprule
-    Arm & E-OSPA & H-OSPA & RMSE & CardErr \\
+    Arm & E-OSPA & RMSE & CardErr \\
     \midrule
-    fixed weights & 2.853096 & 0.500000 & 1.637556 & 1.454500 \\
-    Cao-Zhao FID-FIA baseline & 2.183127 & 0.500000 & 1.715746 & 0.392313 \\
-    +structure-aware decoupled KLA & 2.328672 & 0.500000 & \textbf{1.598561} & 0.578688 \\
-    +FID-FIA existence refinement & \textbf{2.009084} & 0.500000 & 1.704538 & \textbf{0.221563} \\
+    Fixed Metropolis & 2.853096 & 1.637556 & 1.454500 \\
+    Scalar FID-FIA & 2.183127 & 1.715746 & 0.392313 \\
+    Branch-decoupled backbone & 2.328672 & \textbf{1.598561} & 0.578688 \\
+    Proposed branch-decoupled fusion & \textbf{2.009084} & 1.704538 & \textbf{0.221563} \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \subsection{Factor ablation of the main adaptive design}
 
-The most important diagnostic ablation is the factor-by-factor path from fixed fusion to the pre-refinement weak structure-aware method. The 20-trial five-arm diagnostic ablation is summarized in Table~\ref{tab:ablation} and Figure~\ref{fig:ablation}; the separate FID-FIA existence-refinement comparison was reported above because it is a branch-specific extension rather than another backbone factor.
+The most important diagnostic ablation is the factor-by-factor path from fixed fusion to the branch-decoupled backbone. Table~\ref{tab:ablation} summarizes this 20-trial path and adds the proposed branch-decoupled fusion as the last row. The first five rows should be read as the communication-aware backbone diagnostic; the last row is the branch-specific existence refinement that turns the pre-refinement backbone into the final method.
 
 \begin{table}[t]
   \centering
-  \caption{Consensus metrics for the main factor ablation under tiered heterogeneous packet loss.}
+  \caption{Consensus metrics for the main factor ablation under tiered heterogeneous packet loss. The first five rows form the backbone diagnostic path, and the final row applies the FID-FIA cue only to the existence-weight path.}
   \label{tab:ablation}
   \begin{tabular}{lccc}
     \toprule
     Arm & OSPA & RMSE & Cardinality \\
     \midrule
-    fixed weights & 2.447978 & 2.583880 & 0.679437 \\
-    +covariance & 2.082445 & 2.167710 & 0.457937 \\
-    +link quality & 1.829718 & 1.764180 & 0.230687 \\
-    +existence confidence & 1.829831 & 1.753626 & 0.230500 \\
-    +structure-aware decoupled KLA & 1.821448 & 1.749812 & 0.231625 \\
+    Fixed Metropolis & 2.447978 & 2.583880 & 0.679437 \\
+    Covariance only & 2.082445 & 2.167710 & 0.457937 \\
+    Covariance and link quality & 1.829718 & 1.764180 & 0.230687 \\
+    Three-factor backbone & 1.829831 & 1.753626 & 0.230500 \\
+    Branch-decoupled backbone & 1.821448 & 1.749812 & 0.231625 \\
+    Proposed branch-decoupled fusion & \textbf{1.668961} & \textbf{1.528182} & \textbf{0.061062} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -75,31 +76,41 @@ Several conclusions follow from Table~\ref{tab:ablation}. First, covariance weig
 
 Second, realized link quality is the dominant communication-aware factor under heterogeneous packet loss. Once link quality is added on top of covariance, consensus OSPA drops from $2.082445$ to $1.829718$, consensus RMSE drops from $2.167710$ to $1.764180$, and consensus cardinality disagreement drops from $0.457937$ to $0.230687$. This remains the largest single incremental gain after the initial covariance correction.
 
-Third, existence confidence continues to improve the consensus picture beyond covariance and link quality, but in the larger trial set the gain is concentrated in RMSE and cardinality rather than in a uniform three-metric improvement. Relative to the $+$link-quality arm, the $+$existence-confidence arm is essentially tied in OSPA ($1.829718$ versus $1.829831$) while improving RMSE from $1.764180$ to $1.753626$ and slightly improving cardinality disagreement from $0.230687$ to $0.230500$. This still supports the underlying interpretation that covariance and link quality alone do not explicitly express how decisive a node is about target existence, but it narrows the empirical claim relative to the earlier five-trial evidence.
+Third, existence confidence continues to improve the consensus picture beyond covariance and link quality, but in the larger trial set the gain is concentrated in RMSE and cardinality rather than in a uniform three-metric improvement. Relative to the covariance-and-link arm, the three-factor backbone is essentially tied in OSPA ($1.829718$ versus $1.829831$) while improving RMSE from $1.764180$ to $1.753626$ and slightly improving cardinality disagreement from $0.230687$ to $0.230500$. This still supports the underlying interpretation that covariance and link quality alone do not explicitly express how decisive a node is about target existence, but it narrows the empirical claim relative to the earlier five-trial evidence.
 
-Finally, the weak structure-aware decoupled refinement provides the best OSPA and RMSE within the pre-FID-FIA backbone ablation, while leaving cardinality disagreement effectively tied with the $+$existence-confidence arm. Relative to $+$existence confidence, this arm improves OSPA from $1.829831$ to $1.821448$ and RMSE from $1.753626$ to $1.749812$, while cardinality disagreement changes only slightly from $0.230500$ to $0.231625$. The correct interpretation is therefore not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides a spatial-consensus refinement once the three-factor adaptive backbone is in place. The main comparison then adds FID-FIA only to the existence branch to address the remaining cardinality gap.
+Finally, the branch-decoupled backbone provides the best OSPA and RMSE within the pre-FID-FIA ablation, while leaving cardinality disagreement effectively tied with the three-factor backbone. Relative to the three-factor backbone, this arm improves OSPA from $1.829831$ to $1.821448$ and RMSE from $1.753626$ to $1.749812$, while cardinality disagreement changes only slightly from $0.230500$ to $0.231625$. The correct interpretation is therefore not that topology by itself solves the problem, but that a weak branch-specific structural modulation provides a spatial-consensus refinement once the three-factor adaptive backbone is in place. The final row then applies the FID-FIA cue only to the existence branch, reducing OSPA, RMSE, and cardinality disagreement further to $1.668961$, $1.528182$, and $0.061062$. This is why the proposed method is presented as a branch-specific refinement on top of the backbone rather than as a replacement scalar weighting rule.
 
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=\linewidth]{paper-figure5.pdf}
-  \caption{Consensus OSPA, RMSE, and cardinality disagreement for five ablation arms under tiered heterogeneous packet loss.}
-  \label{fig:ablation}
-\end{figure}
+\FloatBarrier
 
 \subsection{Ideal-communication supporting evidence}
 
-An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing ordinary distributed GA against the proposed structure-aware decoupled method under otherwise matched conditions.
+An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing ordinary distributed GA, the branch-decoupled backbone, the Cao-Zhao FID-FIA adaptive baseline, and the proposed branch-decoupled fusion under otherwise matched conditions. Table~\ref{tab:ideal-support} reports this comparison over the same 20 deterministic seed set used in the main confirmation.
 
-The result remains positive in the larger paired sample as well. Figure~\ref{fig:ideal-support} summarizes the matched ideal-communication comparison over the same 20 deterministic paired trials used in the main confirmation. In consensus metrics, ordinary GA yields OSPA $1.703504 \pm 0.041063$, RMSE $1.532487 \pm 0.125044$, and cardinality disagreement $0.161500 \pm 0.014704$, whereas the structure-aware decoupled method yields $1.481747 \pm 0.044369$, $1.238241 \pm 0.081211$, and $0.132187 \pm 0.028000$. The paired reductions remain positive in all 20 trials for consensus OSPA and RMSE, with exact sign-test $p=1.9\times 10^{-6}$, and in 18 of 20 trials for cardinality disagreement, with sign-test $p=4.0\times 10^{-4}$. The same experiment also reports local metrics. Aggregated over sensors and trials, local E-OSPA improves from $1.962844$ to $1.885250$, local RMSE improves from $1.444517$ to $1.371501$, and local H-OSPA remains essentially unchanged at $0.500$.
-
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=\linewidth]{paper-figure6.pdf}
-  \caption{Consensus and aggregated local metrics for ordinary GA and the structure-aware decoupled KLA method under ideal communication.}
-  \label{fig:ideal-support}
-\end{figure}
+The result remains positive in the larger paired sample as well. The pattern mirrors the tiered-drop result: information-geometric weighting is especially strong for cardinality consensus, while the branch-decoupled backbone remains the strongest RMSE-oriented ideal-communication arm. The proposed branch-decoupled fusion gives the best ideal-communication OSPA and cardinality disagreement without forcing the scalar FID-FIA weight onto the whole posterior.
 
 This supporting study is useful for two reasons. First, it shows that the refinement is not merely repairing a damaged communication channel. Second, it shows that the consensus gains are not being purchased by catastrophic degradation in local tracking quality.
+
+\begin{table}[H]
+  \centering
+  \caption{Ideal-communication supporting comparison over 20 deterministic paired trials with seeds $2$--$21$. Adaptive rows report the mean value and relative change versus ordinary GA; lower values are better, so negative percentages indicate improvements.}
+  \label{tab:ideal-support}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccccc@{}}
+    \toprule
+    & \multicolumn{3}{c}{Consensus metrics} & \multicolumn{2}{c}{Local safeguards} \\
+    \cmidrule(lr){2-4}\cmidrule(l){5-6}
+    Arm & OSPA & RMSE & Card. & E-OSPA & RMSE \\
+    \midrule
+    Ordinary GA & 1.704 & 1.532 & 0.162 & 1.963 & 1.445 \\
+    Branch-decoupled backbone & 1.482 (-13.0\%) & \textbf{1.238 (-19.2\%)} & 0.132 (-18.2\%) & 1.885 (-4.0\%) & \textbf{1.372 (-5.1\%)} \\
+    Scalar FID-FIA & 1.532 (-10.1\%) & 1.332 (-13.1\%) & 0.054 (-66.5\%) & 1.871 (-4.7\%) & 1.499 (+3.8\%) \\
+    Proposed branch-decoupled fusion & \textbf{1.433 (-15.9\%)} & 1.309 (-14.6\%) & \textbf{0.050 (-69.1\%)} & \textbf{1.756 (-10.6\%)} & 1.493 (+3.3\%) \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+\FloatBarrier
 
 \subsection{Communication robustness and AA generalization}
 

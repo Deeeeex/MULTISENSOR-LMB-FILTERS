@@ -57,7 +57,7 @@ def save_figure5(output_path: str | Path, figure5: dict) -> Path:
     output_path = Path(output_path)
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), constrained_layout=True)
     x = np.arange(len(figure5["arms"]))
-    short_labels = ["fixed", "cov", "link", "exist", "struct"]
+    short_labels = ["fixed", "cov", "cov-link", "3-factor", "branch"]
 
     for ax, (metric_name, values) in zip(axes, figure5["metrics"].items()):
         ax.bar(x, values, color=ABLATION_COLORS, edgecolor=EDGE_COLOR, linewidth=0.8)

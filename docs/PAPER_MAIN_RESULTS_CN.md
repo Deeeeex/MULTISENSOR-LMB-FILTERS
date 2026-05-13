@@ -3,7 +3,7 @@
 本文当前工作的主线目标不是单纯提升单个节点的跟踪精度，而是在异构通信条件下提升分布式融合结果的跨节点一致性。因此，实验评价采用两层逻辑：
 
 - `primary`：一致性指标，即 `consensus OSPA`、`consensus RMSE`、`consensus cardinality disagreement`
-- `secondary`：常规 truth-referenced 跟踪指标，即 `local E-OSPA`、`local H-OSPA`、`local RMSE`、`local cardinality error`
+- `secondary`：常规 truth-referenced 跟踪指标，即 `local E-OSPA`、`local RMSE`、`local cardinality error`
 
 整体判断标准是：在不明显牺牲常规跟踪精度的前提下，尽量提升融合一致性。
 
@@ -41,12 +41,12 @@
 
 同一主场景下，常规 local 指标为：
 
-| Arm | Local E-OSPA | Local H-OSPA | Local RMSE | Local CardErr |
-| --- | ---: | ---: | ---: | ---: |
-| fixed weights | 2.853096 | 0.500000 | 1.637556 | 1.454500 |
-| Cao-Zhao FID-FIA baseline | 2.183127 | 0.500000 | 1.715746 | 0.392313 |
-| +structure-aware decoupled KLA | 2.328672 | 0.500000 | 1.598561 | 0.578688 |
-| +FID-FIA existence refinement | 2.009084 | 0.500000 | 1.704538 | 0.221563 |
+| Arm | Local E-OSPA | Local RMSE | Local CardErr |
+| --- | ---: | ---: | ---: |
+| fixed weights | 2.853096 | 1.637556 | 1.454500 |
+| Cao-Zhao FID-FIA baseline | 2.183127 | 1.715746 | 0.392313 |
+| +structure-aware decoupled KLA | 2.328672 | 1.598561 | 0.578688 |
+| +FID-FIA existence refinement | 2.009084 | 1.704538 | 0.221563 |
 
 这进一步确认新增 hybrid 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如旧 structure-aware arm，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
 
@@ -117,7 +117,6 @@
 ### 3.2 常规 local 指标
 
 - `local E-OSPA`: `1.950 -> 1.877`
-- `local H-OSPA`: `0.500 -> 0.500`
 - `local RMSE`: `1.442 -> 1.369`
 
 这组结果说明两件事：

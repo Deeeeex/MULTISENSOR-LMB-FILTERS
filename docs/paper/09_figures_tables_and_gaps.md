@@ -35,14 +35,15 @@ Priority:
 Purpose:
 
 - explain the main method compactly
-- show that the claimed core method is `availability × covariance × link quality × existence confidence`
+- show that the claimed core method is the availability-masked covariance, link-quality, and existence-confidence backbone
 - show that decoupled spatial and existence branches are refinements on top of the shared backbone
 
 Recommended content:
 
 - shared backbone: `mask`, `covScore`, `linkQuality`, `existenceConfidence`
-- branch refinement: spatial-dedicated score, existence-dedicated score
-- weak structure-aware modulation after branch decoupling
+- branch refinement: spatial-weight path and existence-weight path
+- weak structure-aware branch prior after branch decoupling
+- FID-FIA cue only on the existence-weight path
 - EMA smoothing and minimum-weight safeguard as stabilization wrappers
 
 Status:
@@ -99,18 +100,17 @@ Priority:
 
 - high
 
-#### Figure 5. Factor Ablation Under Tiered Packet Loss
+#### Table 3. Factor Ablation Under Tiered Packet Loss
 
 Purpose:
 
-- summarize the main factor-by-factor story visually
+- summarize the main factor-by-factor story compactly
 - reinforce that the paper's main contribution is the four-step progression from fixed to weak structure-aware adaptive fusion
 
 Recommended content:
 
-- bar chart or compact line chart
-- arms: `fixed`, `+covariance`, `+link quality`, `+existence confidence`, `+structure-aware decoupled KLA`
-- one panel each for consensus OSPA, consensus RMSE, and consensus cardinality disagreement
+- table rows: Fixed Metropolis, Covariance only, Covariance and link quality, Three-factor backbone, Branch-decoupled backbone, Proposed branch-decoupled fusion
+- columns for consensus OSPA, consensus RMSE, and consensus cardinality disagreement
 
 Primary sources:
 
@@ -119,14 +119,13 @@ Primary sources:
 
 Status:
 
-- generated as a Python-rendered PDF artifact
-- current artifact: [figure5_factor_ablation.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure5_factor_ablation.pdf)
+- represented in the manuscript as Table 3 rather than a figure, because the scalar differences are easier to read precisely in table form
 
 Priority:
 
 - highest
 
-#### Figure 6. Ideal-Communication Supporting Comparison
+#### Table 4. Ideal-Communication Supporting Comparison
 
 Purpose:
 
@@ -134,9 +133,8 @@ Purpose:
 
 Recommended content:
 
-- compact bar chart for consensus OSPA, RMSE, and cardinality
-- optional second panel for aggregated local E-OSPA and RMSE
-- comparison: `ordinary GA` versus `structure-aware decoupled KLA`
+- compact table with consensus OSPA, RMSE, cardinality, and local safeguards
+- comparison: Ordinary GA, Branch-decoupled backbone, Scalar FID-FIA, Proposed branch-decoupled fusion
 
 Primary source:
 
@@ -144,8 +142,7 @@ Primary source:
 
 Status:
 
-- generated as a Python-rendered PDF artifact
-- current artifact: [figure6_ideal_support.pdf](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/figures/figure6_ideal_support.pdf)
+- represented in the manuscript as Table 4 rather than a bar chart, because the four-arm result is more informative as a compact quantitative comparison
 
 Priority:
 
@@ -211,11 +208,12 @@ Status:
 
 Content:
 
-- `fixed`
-- `+covariance`
-- `+link quality`
-- `+existence confidence`
-- `+structure-aware decoupled KLA`
+- Fixed Metropolis
+- Covariance only
+- Covariance and link quality
+- Three-factor backbone
+- Branch-decoupled backbone
+- Proposed branch-decoupled fusion
 
 Primary sources:
 
@@ -230,9 +228,9 @@ Status:
 
 Content:
 
-- `ordinary GA` versus `structure-aware decoupled KLA`
+- Ordinary GA, Branch-decoupled backbone, Scalar FID-FIA, and Proposed branch-decoupled fusion
 - consensus OSPA, RMSE, cardinality disagreement
-- aggregated local E-OSPA, H-OSPA, and RMSE
+- aggregated local E-OSPA and RMSE safeguards
 
 Primary source:
 
@@ -345,7 +343,7 @@ The current paper branch should produce figures and tables in the following orde
 4. Figure 4, the main GA consensus-over-time figure
 5. Table 1 and Table 2
 6. Table 6 and Table 7 as appendix support
-7. Figure 6 and the optional communication-level appendix material if time permits
+7. Table 4 and the optional communication-level appendix material if time permits
 
 This order matches the current evidence hierarchy and minimizes the risk of spending time on low-priority material before the core story is fully stabilized.
 

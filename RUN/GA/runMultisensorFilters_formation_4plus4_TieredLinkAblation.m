@@ -724,38 +724,36 @@ if numel(arms) >= 2
 end
 
 fprintf(fid, '\n## Local Tracking Metrics (mean across sensors and trials)\n');
-fprintf(fid, '| Arm | E-OSPA | H-OSPA | RMSE | CardErr |\n');
-fprintf(fid, '|:----|-------:|-------:|-----:|--------:|\n');
+fprintf(fid, '| Arm | E-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|:----|-------:|-----:|--------:|\n');
 for armIdx = 1:numel(arms)
     eOspaMean = computeGlobalMean(eOspa(:, :, armIdx), false);
-    hOspaMean = computeGlobalMean(hOspa(:, :, armIdx), false);
     rmseMean = computeGlobalMean(rmse(:, :, armIdx), true);
     cardErrMean = computeGlobalMean(cardErr(:, :, armIdx), false);
-    fprintf(fid, '| %s | %.6f | %.6f | %.6f | %.6f |\n', arms(armIdx).name, ...
-        eOspaMean, hOspaMean, rmseMean, cardErrMean);
+    fprintf(fid, '| %s | %.6f | %.6f | %.6f |\n', arms(armIdx).name, ...
+        eOspaMean, rmseMean, cardErrMean);
 end
 
 fprintf(fid, '\n## Local Tracking Metrics With Trial Variability\n');
 localEOspaTrial = computeTrialSensorMeans(eOspa, false);
-localHOspaTrial = computeTrialSensorMeans(hOspa, false);
 localRmseTrial = computeTrialSensorMeans(rmse, true);
 localCardTrial = computeTrialSensorMeans(cardErr, false);
-writeMetricStatsTable(fid, {arms.name}, {'E-OSPA', 'H-OSPA', 'RMSE', 'CardErr'}, ...
-    {localEOspaTrial, localHOspaTrial, localRmseTrial, localCardTrial}, [false, false, true, false]);
+writeMetricStatsTable(fid, {arms.name}, {'E-OSPA', 'RMSE', 'CardErr'}, ...
+    {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 
 if numel(arms) >= 2
     fprintf(fid, '\n## Paired Local-Metric Improvements Relative to Fixed Weights\n');
-    writePairedImprovementTable(fid, {arms.name}, {'E-OSPA', 'H-OSPA', 'RMSE', 'CardErr'}, ...
-        {localEOspaTrial, localHOspaTrial, localRmseTrial, localCardTrial}, [false, false, true, false]);
+    writePairedImprovementTable(fid, {arms.name}, {'E-OSPA', 'RMSE', 'CardErr'}, ...
+        {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 end
 
 fprintf(fid, '\n## Local Tracking Metrics By Sensor (mean across trials)\n');
-fprintf(fid, '| Sensor | Arm | E-OSPA | H-OSPA | RMSE | CardErr |\n');
-fprintf(fid, '|------:|:----|-------:|-------:|-----:|--------:|\n');
+fprintf(fid, '| Sensor | Arm | E-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|------:|:----|-------:|-----:|--------:|\n');
 for sensorIdx = 1:size(eOspa, 2)
     for armIdx = 1:numel(arms)
-        fprintf(fid, '| %d | %s | %.6f | %.6f | %.6f | %.6f |\n', sensorIdx, arms(armIdx).name, ...
-            mean(eOspa(:, sensorIdx, armIdx)), mean(hOspa(:, sensorIdx, armIdx)), ...
+        fprintf(fid, '| %d | %s | %.6f | %.6f | %.6f |\n', sensorIdx, arms(armIdx).name, ...
+            mean(eOspa(:, sensorIdx, armIdx)), ...
             mean(rmse(:, sensorIdx, armIdx), 'omitnan'), mean(cardErr(:, sensorIdx, armIdx)));
     end
 end
