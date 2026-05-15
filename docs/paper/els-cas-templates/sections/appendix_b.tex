@@ -1,16 +1,41 @@
 \section{Additional Attempted Modules and Results}
 \label{app:additional-modules}
 
-This appendix records secondary modules that were evaluated but not retained as part of the main claimed method. The purpose is to document that the design space was explored beyond the final four-factor method and to bound the empirical value of the discarded alternatives.
+This appendix records secondary routes and modules that were evaluated but not retained as part of the main claimed method. The purpose is to document that the design space was explored beyond the main GA/KLA method family and to bound the empirical value of alternatives that are not promoted into the paper body.
+
+\subsection{AA-based secondary route}
+
+The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was nevertheless run in the same eight-sensor communication-constrained setting with a three-wave target arrangement. The result is positive but is kept here because it is a different fusion route and is not based on the final existence-refined GA configuration.
+
+\par\medskip
+\refstepcounter{table}\label{tab:appendix-aa}
+\noindent\begin{minipage}{\linewidth}
+  \noindent\textbf{Table~\thetable}\par
+  \noindent Appendix-only AA-based secondary route.\par\smallskip
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Arm & OSPA & RMSE & Cardinality \\
+    \midrule
+    fixed AA & 4.349 & 19.098 & 0.421 \\
+    adaptive AA & 3.811 & 16.472 & 0.307 \\
+    \bottomrule
+  \end{tabular}
+\end{minipage}
+\par\medskip
+
+This result suggests that communication-aware weighting may also be useful outside GA fusion, but it is not used as a main claim. It is retained only as appendix evidence because the theoretical development, operating-mode story, and strongest experiments in this paper are all built around distributed GA/KLA-based LMB fusion.
 
 \subsection{NIS-based consistency weighting}
 
 This experiment studies whether innovation-based consistency information should enter the adaptive weight model. The relevant comparison is $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$. The NIS term is treated as a consistency penalty rather than a monotonic quality reward because innovation consistency is structurally coupled with covariance-based posterior quality.
 
-\begin{table}[h]
+\par\medskip
+\refstepcounter{table}\label{tab:appendix-nis}
+\noindent\begin{minipage}{\linewidth}
+  \noindent\textbf{Table~\thetable}\par
+  \noindent Consensus metrics for the NIS-based consistency comparison.\par\smallskip
   \centering
-  \caption{Consensus metrics for the NIS-based consistency comparison.}
-  \label{tab:appendix-nis}
   \begin{tabular}{lccc}
     \toprule
     Arm & OSPA & RMSE & Cardinality \\
@@ -20,7 +45,8 @@ This experiment studies whether innovation-based consistency information should 
     plain NIS & 1.952 & 3.009 & 0.273 \\
     \bottomrule
   \end{tabular}
-\end{table}
+\end{minipage}
+\par\medskip
 
 Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 20 trials it is still slightly worse than the no-NIS baseline in OSPA, RMSE, and cardinality disagreement.
 

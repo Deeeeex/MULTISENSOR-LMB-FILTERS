@@ -1,15 +1,17 @@
 \section{Experimental Setup}
 \label{sec:experimental-setup}
 
-This section defines the evaluation protocol used to support the paper's claims. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, whether the method generalizes beyond the main GA setting, and whether several optional modules should remain outside the core method.
+This section defines the evaluation protocol used to support the paper's claims. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, how the method behaves as communication becomes more constrained, and whether several optional modules should remain outside the core method.
 
 \subsection{Evaluation hierarchy}
 
-The evaluation is intentionally hierarchical. The main experiment is dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss with factor ablation from fixed weights to the full adaptive method. Supporting experiments include an ideal-communication comparison between ordinary GA, the branch-decoupled backbone, the scalar FID-FIA baseline, and the proposed branch-decoupled fusion, a communication-robustness analysis across communication levels, and an AA-based secondary generalization experiment. Appendix-style ablations include NIS, history, freshness, ambiguity-aware, and cardinality-consensus variants.
+The evaluation is intentionally hierarchical. The main experiment is dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss with factor ablation from Fixed Metropolis to the Balanced mode and the Cardinality-critical mode. Supporting experiments include an ideal-communication comparison between Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode, plus a communication-robustness analysis across communication levels. Appendix-style results include an AA-based secondary route and the NIS, history, freshness, ambiguity-aware, and cardinality-consensus variants.
 
 \subsection{Main scenario}
 
 The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for approximate marginal data association \citep{WilliamsLau2014LBP}.
+
+The choice of the GA/KLA route is deliberate. GA fusion gives a conservative logarithmic-opinion-pool update under unknown cross-correlations, admits a stable canonical-form Gaussian fusion step for the LMB spatial densities, and naturally exposes the Bernoulli existence product rule in which branch-specific weighting can be applied. These properties make it a cleaner vehicle for studying adaptive weight allocation than a broad comparison across fusion families.
 
 The common sensor-side configuration is:
 \begin{itemize}
@@ -49,21 +51,21 @@ Figure~\ref{fig:scenario-schematic} summarizes the contrast between the simpler 
 
 \subsection{Mainline ablation protocol}
 
-The core ablation study compares five arms:
+The core ablation study compares five consistently named arms:
 \begin{enumerate}
-\item fixed fusion weights,
-\item adaptive weighting with covariance only,
-\item joint covariance-and-link weighting,
-\item the three-factor backbone with covariance, link quality, and existence confidence,
-\item the branch-decoupled backbone, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting.
+\item Fixed Metropolis,
+\item Covariance-only adaptive,
+\item Covariance-link adaptive,
+\item Three-factor adaptive backbone,
+\item Balanced mode, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting.
 \end{enumerate}
 
-This five-arm path is a design diagnostic for the communication-aware backbone and the pre-refinement branch split. The main confirmation additionally compares the Cao-Zhao scalar FID-FIA baseline and the proposed branch-decoupled fusion; the results table appends this final arm after the five backbone rows to show the branch-specific FID-FIA extension on the same scale. The full adaptive configuration uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. Its final branch-specific step applies FID-FIA information geometry only to the existence weights, with existence-branch smoothing and minimum-weight flooring disabled for that refinement. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main configuration.
+This five-arm path is a design diagnostic for the communication-aware backbone and the pre-refinement branch split. The main confirmation additionally compares the FID-FIA baseline and the Cardinality-critical mode; the results table appends the Cardinality-critical mode after the five backbone rows to show the branch-specific FID-FIA extension on the same scale. The Balanced mode is the position-sensitive operating mode. It uses exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA with spatial and existence strengths $(0.5,0.15)$, and weak structure-aware refinement with spatial and existence strengths $(0.45,0.08)$. The Cardinality-critical mode keeps those spatial settings and applies FID-FIA information geometry only to the existence weights, with existence-branch smoothing and minimum-weight flooring disabled for that refinement. Optional posterior-structure-consistency, NIS, and history modules are disabled in the main configuration.
 
 \subsection{Metrics and reporting}
 
-The experiments report two categories of metrics. The first category is network-level disagreement among sensors after distributed fusion. These primary metrics are consensus OSPA, consensus RMSE, and consensus cardinality disagreement as defined in Section~\ref{sec:problem-formulation}. The second category is conventional truth-referenced tracking accuracy. These secondary metrics are local E-OSPA, local RMSE, and local cardinality error. The OSPA family is used because it provides a mathematically consistent distance for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric}. Because the consensus metrics are task-specific network-agreement measures, the paper always interprets them together with the secondary local metrics rather than in isolation.
+The experiments report two categories of metrics. The first category is network-level disagreement among sensors after distributed fusion. These primary metrics are consensus OSPA, consensus position disagreement, and consensus cardinality disagreement as defined in Section~\ref{sec:problem-formulation}. The second category is conventional truth-referenced tracking accuracy. These secondary metrics are local E-OSPA, local RMSE, and local cardinality error. The OSPA/GOSPA family is used because it provides mathematically consistent finite-set distances for multi-object filtering and tracking evaluation \citep{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric}. The consensus metrics are task-specific network-agreement measures built from these standard ingredients, not a replacement for standard truth-referenced tracking benchmarks, so the paper always interprets them together with the secondary local metrics rather than in isolation.
 
 This primary-versus-secondary split is deliberate. The proposed method is not intended as a generic single-sensor accuracy booster. It is designed as a distributed fusion-weight mechanism for improving the consistency of the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome and the local tracking metrics as a safeguard against hidden degradation. In other words, the target is to improve consistency without causing a meaningful drop in conventional tracking quality.
 
-Unless otherwise stated, reported scalar metrics are Monte Carlo means. The main fixed-versus-full adaptive confirmation, the five-arm factor ablation, and the ideal-communication comparison all use 20 deterministic trials with seeds $2$--$21$. The main confirmation and ideal-communication comparison are paired by construction. The five-arm factor ablation remains primarily a design diagnostic, but it is now reported on the same 20-trial seed set for consistency.
+Unless otherwise stated, reported scalar metrics are Monte Carlo means. The main fixed-versus-existence-refined confirmation, the five-arm factor ablation, and the ideal-communication comparison all use 20 deterministic trials with seeds $2$--$21$. The main confirmation and ideal-communication comparison are paired by construction. The five-arm factor ablation remains primarily a design diagnostic, but it is now reported on the same 20-trial seed set for consistency.

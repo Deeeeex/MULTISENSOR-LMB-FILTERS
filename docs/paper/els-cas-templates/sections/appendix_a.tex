@@ -50,11 +50,11 @@ This tiered configuration preserves the historical mean packet-drop rate while c
 
 \subsection{Ideal-communication supporting variant}
 
-The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The relevant settings are communication level $0$, effectively unlimited delivery budget, and $p_{\mathrm{drop}}=0$ for all sensors. The same deterministic seed range is used for ordinary GA, the branch-decoupled backbone, scalar Cao-Zhao FID-FIA, and the proposed branch-decoupled fusion.
+The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The relevant settings are communication level $0$, effectively unlimited delivery budget, and $p_{\mathrm{drop}}=0$ for all sensors. The same deterministic seed range is used for Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode.
 
-\subsection{Main adaptive configuration}
+\subsection{Main adaptive configurations}
 
-The full adaptive configuration used in the main tiered-drop comparison is:
+The Balanced mode used in the main tiered-drop comparison is:
 \begin{itemize}
 \item $\texttt{emaAlpha}=0.7$,
 \item $\texttt{minWeight}=0.05$,
@@ -63,12 +63,13 @@ The full adaptive configuration used in the main tiered-drop comparison is:
 \item $\texttt{existenceConfidencePower}=2.0$,
 \item decoupled KLA enabled,
 \item weak structure-aware refinement enabled,
-\item FID-FIA refinement enabled only for the existence branch in the final arm,
+\item FID-FIA refinement disabled,
 \item posterior-structure-consistency, NIS, and history disabled in the main configuration,
 \item spatial decoupling and structure strengths $(0.5, 0.45)$,
 \item existence decoupling and structure strengths $(0.15, 0.08)$.
 \end{itemize}
+The Cardinality-critical mode uses the same settings and additionally enables FID-FIA refinement only for the existence branch.
 
 \subsection{Monte Carlo seed control}
 
-The main fixed-versus-full adaptive confirmation, the supporting ideal-communication comparison, and the five-arm factor ablation all use 20 deterministic trials with seeds $2$--$21$. The proposed branch-decoupled fusion row reported with the ablation uses the same deterministic seed range and scenario protocol. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.
+The main fixed-versus-existence-refined confirmation, the supporting ideal-communication comparison, and the five-arm factor ablation all use 20 deterministic trials with seeds $2$--$21$. The Cardinality-critical mode row reported with the ablation uses the same deterministic seed range and scenario protocol. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.

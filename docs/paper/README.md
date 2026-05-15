@@ -12,16 +12,16 @@ Recommended main line:
 
 - Focus the paper on `GA-LMB / KLA` distributed fusion under communication constraints.
 - Treat adaptive fusion-weight allocation as the main method.
-- Treat covariance quality, link quality, and existence confidence as the core factorized weighting backbone; the final method adds branch-decoupled refinement and uses the FID-FIA cue only on the existence-weight path.
+- Treat covariance quality, link quality, and existence confidence as the core factorized weighting backbone. Present the method as a family with two operating modes: the Balanced mode for position-sensitive operation, and the Cardinality-critical mode for cardinality-sensitive operation.
 - Treat decoupled `robust NIS` as a secondary consistency-analysis result, not a headline contribution.
 - Treat `history`, `freshness`, `association ambiguity`, and `cardinality consensus` as appendix-style ablations or extensions, not headline contributions.
-- Treat `AA` as a secondary generalization experiment, not a co-equal main line.
+- Treat `AA` as an appendix-only secondary route, not a main-text result or co-equal line.
 
 ## Strongest Supported Claims
 
-- In the tiered-drop 4+4 GA formation scenario, adaptive weights substantially improve consensus quality over fixed weights.
-- The branch-decoupled backbone improves spatial consensus over the three-factor backbone, while the existence-branch FID-FIA cue supplies the final cardinality gain.
-- Under ideal communication, the same branch-decoupled story remains useful: scalar FID-FIA is strong for cardinality, while the proposed branch-decoupled fusion gives the best OSPA and cardinality without using scalar FID-FIA as the whole-posterior rule.
+- In the tiered-drop 4+4 GA formation scenario, adaptive weights substantially improve consensus quality over Fixed Metropolis.
+- The Balanced mode improves spatial consensus over Three-factor adaptive backbone, while the existence-branch FID-FIA cue supplies the final cardinality gain.
+- Under ideal communication, the same branch-decoupled story remains useful: FID-FIA is strong for cardinality, the Balanced mode is strongest for RMSE, and the Cardinality-critical mode gives the best OSPA/cardinality without using FID-FIA as the whole-posterior rule.
 - `robust NIS` is still more stable than plain `NIS`, but it is no longer the strongest main-line improvement in this branch.
 - The present evidence is strongest on consensus metrics, not on universally improving local tracking.
 
@@ -29,24 +29,24 @@ Recommended main line:
 
 Core main-line numbers:
 
-- Tiered GA main scenario: Fixed Metropolis -> Proposed branch-decoupled fusion gives consensus OSPA `2.454 -> 1.669`, consensus RMSE `2.336 -> 1.528`, and consensus cardinality `0.715 -> 0.061`.
-- Tiered GA local safeguards: Fixed Metropolis -> Proposed branch-decoupled fusion gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than scalar FID-FIA.
-- Factor ablation: Three-factor backbone -> Branch-decoupled backbone improves consensus OSPA `1.830 -> 1.821` and RMSE `1.754 -> 1.750`; Proposed branch-decoupled fusion then reduces cardinality disagreement to `0.061`.
-- Ideal-communication comparison: Ordinary GA -> Proposed branch-decoupled fusion gives consensus OSPA `1.704 -> 1.433`, consensus RMSE `1.532 -> 1.309`, consensus cardinality `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
+- Tiered GA main scenario: Fixed Metropolis -> Cardinality-critical mode gives consensus OSPA `2.454 -> 1.669`, consensus position disagreement `2.336 -> 1.528`, and consensus cardinality disagreement `0.715 -> 0.061`.
+- Tiered GA local safeguards: Fixed Metropolis -> Cardinality-critical mode gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than FID-FIA.
+- Factor ablation: Three-factor adaptive backbone -> Balanced mode improves consensus OSPA `1.830 -> 1.821` and consensus position disagreement `1.754 -> 1.750`; the Cardinality-critical mode then reduces cardinality disagreement to `0.061`.
+- Ideal-communication comparison: Ordinary GA -> Cardinality-critical mode gives consensus OSPA `1.704 -> 1.433`, consensus position disagreement `1.532 -> 1.309`, consensus cardinality disagreement `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
 
 Secondary or appendix-only numbers:
 
-- GA NIS ablation: consensus OSPA `1.909 -> 1.909 -> 2.008`, consensus RMSE `2.934 -> 2.980 -> 3.173`, consensus cardinality `0.267 -> 0.262 -> 0.300`
-- GA history ablation: consensus OSPA `1.811 -> 1.814`, consensus RMSE `3.173 -> 3.158`, consensus cardinality `0.214 -> 0.215`
-- AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus RMSE `19.098 -> 16.472`, consensus cardinality `0.421 -> 0.307`
+- GA NIS ablation: consensus OSPA `1.909 -> 1.909 -> 2.008`, consensus position disagreement `2.934 -> 2.980 -> 3.173`, consensus cardinality disagreement `0.267 -> 0.262 -> 0.300`
+- GA history ablation: consensus OSPA `1.811 -> 1.814`, consensus position disagreement `3.173 -> 3.158`, consensus cardinality disagreement `0.214 -> 0.215`
+- Appendix-only AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus position disagreement `19.098 -> 16.472`, consensus cardinality disagreement `0.421 -> 0.307`
 
 ## Writing Rule For Main Text
 
 Use the following narrative order in the paper body:
 
-1. Fixed Metropolis -> Covariance only -> Covariance and link quality -> Three-factor backbone -> Branch-decoupled backbone -> Proposed branch-decoupled fusion
+1. Fixed Metropolis -> Covariance-only adaptive -> Covariance-link adaptive -> Three-factor adaptive backbone -> Balanced mode -> Cardinality-critical mode
 2. ideal-communication supporting evidence
-3. communication-robustness and secondary generalization
+3. communication-robustness as supporting evidence
 
 Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled modules out of the main text unless they are needed as brief negative or appendix evidence.
 

@@ -2,7 +2,7 @@
 
 本文当前工作的主线目标不是单纯提升单个节点的跟踪精度，而是在异构通信条件下提升分布式融合结果的跨节点一致性。因此，实验评价采用两层逻辑：
 
-- `primary`：一致性指标，即 `consensus OSPA`、`consensus RMSE`、`consensus cardinality disagreement`
+- `primary`：一致性指标，即 `consensus OSPA`、`consensus position disagreement`、`consensus cardinality disagreement`
 - `secondary`：常规 truth-referenced 跟踪指标，即 `local E-OSPA`、`local RMSE`、`local cardinality error`
 
 整体判断标准是：在不明显牺牲常规跟踪精度的前提下，尽量提升融合一致性。
@@ -20,22 +20,22 @@
 
 ### 1.1 一致性指标
 
-`fixed weights -> Cao-Zhao FID-FIA baseline -> structure-aware decoupled KLA -> FID-FIA existence refinement`
+`Fixed Metropolis -> FID-FIA baseline -> Balanced mode -> Cardinality-critical mode`
 
-| Arm | Consensus OSPA | Consensus RMSE | Consensus Cardinality |
+| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
 | --- | ---: | ---: | ---: |
-| fixed weights | 2.453677 | 2.335508 | 0.714625 |
-| Cao-Zhao FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
-| +structure-aware decoupled KLA | 1.785873 | 1.562521 | 0.192938 |
-| +FID-FIA existence refinement | 1.668961 | 1.528182 | 0.061062 |
+| Fixed Metropolis | 2.453677 | 2.335508 | 0.714625 |
+| FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
+| Balanced mode | 1.785873 | 1.562521 | 0.192938 |
+| Cardinality-critical mode | 1.668961 | 1.528182 | 0.061062 |
 
 相对固定权重基线：
 
-- `Cao-Zhao FID-FIA baseline`：`OSPA` 下降 `25.82%`，`RMSE` 下降 `29.46%`，`cardinality disagreement` 下降 `82.34%`
-- `+structure-aware decoupled KLA`：`OSPA` 下降 `27.22%`，`RMSE` 下降 `33.10%`，`cardinality disagreement` 下降 `73.00%`
-- `+FID-FIA existence refinement`：`OSPA` 下降 `31.98%`，`RMSE` 下降 `34.57%`，`cardinality disagreement` 下降 `91.46%`
+- `FID-FIA baseline`：`OSPA` 下降 `25.82%`，`position disagreement` 下降 `29.46%`，`cardinality disagreement` 下降 `82.34%`
+- `Balanced mode`：`OSPA` 下降 `27.22%`，`position disagreement` 下降 `33.10%`，`cardinality disagreement` 下降 `73.00%`
+- `Cardinality-critical mode`：`OSPA` 下降 `31.98%`，`position disagreement` 下降 `34.57%`，`cardinality disagreement` 下降 `91.46%`
 
-这说明 FID-FIA 的信息几何信号确实适合修正 existence/cardinality 分支。纯 `Cao-Zhao FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 hybrid arm 同时超过了 FID-FIA baseline 和旧 structure-aware arm：它在三个 primary consensus 指标上都是当前最优。
+这说明 FID-FIA 的信息几何信号确实适合修正 existence/cardinality 分支。纯 `FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 `Cardinality-critical mode` 同时超过了 FID-FIA baseline 和 Balanced mode：它在三个 primary consensus 指标上都是当前最优。
 
 ### 1.2 常规 local tracking 指标
 
@@ -43,12 +43,12 @@
 
 | Arm | Local E-OSPA | Local RMSE | Local CardErr |
 | --- | ---: | ---: | ---: |
-| fixed weights | 2.853096 | 1.637556 | 1.454500 |
-| Cao-Zhao FID-FIA baseline | 2.183127 | 1.715746 | 0.392313 |
-| +structure-aware decoupled KLA | 2.328672 | 1.598561 | 0.578688 |
-| +FID-FIA existence refinement | 2.009084 | 1.704538 | 0.221563 |
+| Fixed Metropolis | 2.853096 | 1.637556 | 1.454500 |
+| FID-FIA baseline | 2.183127 | 1.715746 | 0.392313 |
+| Balanced mode | 2.328672 | 1.598561 | 0.578688 |
+| Cardinality-critical mode | 2.009084 | 1.704538 | 0.221563 |
 
-这进一步确认新增 hybrid 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如旧 structure-aware arm，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
+这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 Balanced mode，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
 
 ### 1.3 当前 paper message
 
@@ -59,7 +59,7 @@
 - 仅有 `covariance + link quality` 还不够，`existence confidence` 提供了第三个关键判别维度
 - 旧的最优点是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
 - 新的最优点是在保持该 spatial 分支的同时，把 FID-FIA 信息几何信号只注入 existence/cardinality 分支
-- 外部 `FID-FIA` baseline 仍然是一个强 cardinality baseline，但新的 hybrid arm 已经在 `consensus OSPA / RMSE / Cardinality` 和 `local CardErr` 上同时超过它
+- 外部 `FID-FIA baseline` 仍然是一个强 cardinality baseline，但新的 `Cardinality-critical mode` 已经在 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement` 和 `local CardErr` 上同时超过它
 
 主要来源：
 
@@ -72,17 +72,17 @@
 
 主线消融顺序为：
 
-`fixed -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA`
+`Fixed Metropolis -> Covariance-only adaptive -> Covariance-link adaptive -> Three-factor adaptive backbone -> Balanced mode`
 
 对应一致性指标如下：
 
-| Arm | OSPA | RMSE | Cardinality |
+| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
 | --- | ---: | ---: | ---: |
-| fixed weights | 2.624065 | 2.702602 | 0.878750 |
-| +covariance | 2.211513 | 2.410976 | 0.589500 |
-| +link quality | 1.877771 | 1.800945 | 0.245250 |
-| +existence confidence | 1.874840 | 1.779820 | 0.244500 |
-| +structure-aware decoupled KLA | 1.862244 | 1.749608 | 0.244250 |
+| Fixed Metropolis | 2.624065 | 2.702602 | 0.878750 |
+| Covariance-only adaptive | 2.211513 | 2.410976 | 0.589500 |
+| Covariance-link adaptive | 1.877771 | 1.800945 | 0.245250 |
+| Three-factor adaptive backbone | 1.874840 | 1.779820 | 0.244500 |
+| Balanced mode | 1.862244 | 1.749608 | 0.244250 |
 
 从这张消融表可以提炼出四点。
 
@@ -92,7 +92,7 @@
 
 第三，`existence confidence` 是最有效的第三因子。它弥补了 `covariance + link quality` 不能表达“一个节点是否真正对目标存在性有把握”的缺陷。
 
-第四，最终最优来自弱结构感知修正，而不是强拓扑驱动重构。`+structure-aware decoupled KLA` 相对 `+existence confidence` 的增益虽然不大，但在三项一致性指标上是稳定同向的，因此更适合作为最后一层 refinement。
+第四，最终最优来自弱结构感知修正，而不是强拓扑驱动重构。`Balanced mode` 相对 `Three-factor adaptive backbone` 的增益虽然不大，但在三项一致性指标上是稳定同向的，因此更适合作为最后一层 refinement。
 
 主要来源：
 
@@ -105,13 +105,15 @@
 
 理想通信实验的作用就是回答这个问题。该实验将通信退化去掉，在其余设置尽量保持一致的条件下，对比：
 
-- `ordinary distributed GA`
-- `structure-aware decoupled KLA`
+- `Ordinary GA`
+- `Balanced mode`
+- `FID-FIA baseline`
+- `Cardinality-critical mode`
 
 ### 3.1 一致性指标
 
 - `consensus OSPA`: `1.706 -> 1.494`
-- `consensus RMSE`: `1.526 -> 1.290`
+- `consensus position disagreement`: `1.526 -> 1.290`
 - `consensus cardinality disagreement`: `0.161 -> 0.139`
 
 ### 3.2 常规 local 指标
@@ -131,20 +133,20 @@
 - [GA_IDEAL_COMM_COMPARE_20260326_184508.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md)
 - [IDEAL_COMM_COMPARE_CN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/IDEAL_COMM_COMPARE_CN.md)
 
-## 4. supporting evidence：AA generalization
+## 4. 附录结果：AA secondary route
 
-当前方法主线是围绕 `GA-LMB / KLA` 组织的，但它并不完全局限于这一种融合形式。现有的 `AA` 扩展实验表明，这套权重思想在另一条融合线里也有正向效果。
+当前正文主线明确选择 `GA-LMB / KLA`，因为 GA/KLA 更适合讲未知相关性下的保守融合、log-opinion-pool、以及 spatial/existence 分支解耦。因此 `AA` 不再进入正文主结果，只作为附录里的 secondary route 记录。
 
 `AA` 实验中，adaptive 相对 baseline 的结果为：
 
 - `consensus OSPA`: `4.349 -> 3.811`
-- `consensus RMSE`: `19.098 -> 16.472`
+- `consensus position disagreement`: `19.098 -> 16.472`
 - `consensus cardinality disagreement`: `0.421 -> 0.307`
 
-不过，这组结果目前只是 supporting evidence，不宜和主场景并列成 headline，原因有两个：
+不过，这组结果目前只放附录，不和主场景并列，原因有两个：
 
 - 数值层面虽然改善明显，但实验线不是本文主要叙事
-- 论文当前最完整、最稳的证据链仍然是 `GA-LMB + tiered heterogeneous packet loss`
+- 论文当前最完整、最稳的证据链和理论推导都围绕 `GA-LMB + tiered heterogeneous packet loss`
 
 ## 5. 次线和附录结果：做过，但不进正文主线
 
@@ -186,6 +188,6 @@
 
 `covariance + realized link quality + existence confidence + weak structure-aware decoupled KLA + FID-FIA existence refinement`
 
-其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/RMSE 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
+其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/position 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
 
-第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus RMSE / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline；虽然 local RMSE 不如旧 structure-aware arm，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。
+第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline；虽然 local RMSE 不如 Balanced mode，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。

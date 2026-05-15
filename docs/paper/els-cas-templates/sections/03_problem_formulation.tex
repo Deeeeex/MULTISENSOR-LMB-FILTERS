@@ -57,7 +57,7 @@ where $m_k^{(j)}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)}$ is a cova
 
 \subsection{Decoupled and weakly structure-aware weighting}
 
-The proposed branch-decoupled fusion rule does not force the spatial and existence branches to share exactly the same dynamics. Instead, it forms branch-specific scores,
+The branch-decoupled fusion rule does not force the spatial and existence branches to share exactly the same dynamics. Instead, it forms branch-specific scores,
 \begin{equation}
 \tilde{\omega}_{k,s}^{x,(j)}
 =
@@ -97,7 +97,7 @@ C_{\mathrm{OSPA}}(k)
 \sum_{1 \le a < b \le S}
 d_{\mathrm{OSPA}}\!\left(\hat{X}_k^{(a)}, \hat{X}_k^{(b)}\right),
 \\
-C_{\mathrm{RMSE}}(k)
+C_{\mathrm{pos}}(k)
 &=
 \frac{2}{S(S-1)}
 \sum_{1 \le a < b \le S}
@@ -113,9 +113,9 @@ C_{\mathrm{card}}(k)
 \operatorname{median}\!\left(\hat{n}_k^{(1)},\ldots,\hat{n}_k^{(S)}\right)
 \right|,
 \end{align}
-where $d_{\mathrm{OSPA}}$ is the pairwise OSPA distance between two estimated finite sets and $d_{\mathrm{pos}}$ is the pairwise position disagreement obtained after Hungarian matching on the common extracted objects \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as consensus OSPA, consensus RMSE, and consensus cardinality disagreement, respectively.
+where $d_{\mathrm{OSPA}}$ is the pairwise OSPA distance between two estimated finite sets and $d_{\mathrm{pos}}$ is the pairwise position disagreement obtained after Hungarian matching on the common extracted objects \citep{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as consensus OSPA, consensus position disagreement, and consensus cardinality disagreement, respectively.
 
-These three consensus metrics are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. They are introduced here because the present problem is a distributed fusion problem under heterogeneous communication: the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as a replacement for conventional truth-referenced tracking metrics. Instead, it pairs them with the secondary local metrics listed below.
+These three consensus metrics are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. Their building blocks are standard or conventional: OSPA and related GOSPA-style distances are mainstream finite-set tracking metrics, Hungarian matching is the standard assignment primitive behind many tracking scores, and pairwise dispersion is the usual way to quantify disagreement in consensus problems \citep{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric,XiaoBoydLall2005ConsensusWeights}. What is specific to this paper is the aggregation target: instead of comparing each sensor only with ground truth, the metrics compare the post-fusion outputs of different nodes. They are introduced because the present problem is distributed fusion under heterogeneous communication, where the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as replacements for conventional truth-referenced tracking metrics. Instead, it pairs them with the secondary local metrics listed below.
 
 The secondary local metrics remain the standard truth-referenced tracking quantities:
 \begin{itemize}

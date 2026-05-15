@@ -133,7 +133,7 @@ At the start of each Monte Carlo trial, the code constructs a sensor-wise `pDrop
 
 ### A.5 Ideal-Communication Supporting Variant
 
-The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The ordinary-GA and branch-decoupled backbone comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m); the scalar FID-FIA and proposed branch-decoupled fusion supporting arms reuse the same deterministic seed range through the main ablation runner with ideal-communication overrides.
+The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The ordinary-GA and Balanced mode comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m); the FID-FIA and Cardinality-critical mode supporting arms reuse the same deterministic seed range through the main ablation runner with ideal-communication overrides.
 
 The ideal-communication settings are:
 
@@ -145,9 +145,9 @@ The ideal-communication settings are:
 
 This experiment is used only as supporting evidence. Its role is to verify that the spatial and existence-branch refinements are not merely compensating for packet loss.
 
-### A.6 Main Adaptive Configuration Used In The Headline Comparison
+### A.6 Main Adaptive Configurations Used In The Headline Comparison
 
-The current best adaptive configuration used in the main tiered-drop headline comparison is:
+The Balanced mode used in the main tiered-drop headline comparison is:
 
 - `emaAlpha = 0.7`
 - `minWeight = 0.05`
@@ -167,7 +167,7 @@ The current best adaptive configuration used in the main tiered-drop headline co
 - `useNIS = false`
 - `useHistory = false`
 
-This appendix lists these parameters for completeness because they define the final arm in the primary factor ablation.
+The Cardinality-critical mode uses the same spatial and backbone settings, and additionally enables FID-FIA refinement only for the existence branch. This appendix lists these parameters for completeness because they define the two main operating modes in the primary factor ablation.
 
 ### A.7 Entry Points And Report Files
 

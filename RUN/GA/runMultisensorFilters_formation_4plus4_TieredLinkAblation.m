@@ -155,6 +155,7 @@ consCard = zeros(numberOfTrials, numArms);
 consOspaSeries = [];
 consPosSeries = [];
 consCardSeries = [];
+filterRuntimeSeconds = zeros(numberOfTrials, numArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 
 for trial = 1:numberOfTrials
@@ -183,8 +184,11 @@ for trial = 1:numberOfTrials
         armModel = model;
         armModel.adaptiveFusion = arms(armIdx).adaptiveFusion;
         neighborMap = buildNeighborMap4Plus4(numberOfSensors);
+        runtimeStart = tic();
         [stateEstimatesBySensor, localModels] = runDistributedLmbFilter( ...
             armModel, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
+        filterRuntimeSeconds(trial, armIdx) = toc(runtimeStart);
+        fprintf('    Filter runtime: %.3f s\n', filterRuntimeSeconds(trial, armIdx));
 
         for s = 1:numberOfSensors
             [eArm, hArm, cardArm] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
@@ -217,8 +221,9 @@ fprintf('Tier levels=%s, counts=%s\n', mat2str(commConfig.pDropLevels, 3), mat2s
 fprintf('pDropBySensor=%s\n', mat2str(mean(pDropBySensorTrials, 1), 4));
 fprintf('=====================================\n');
 for armIdx = 1:numArms
-    fprintf('%s: OSPA %.6f, RMSE %.6f, Card %.6f\n', arms(armIdx).name, ...
-        mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), mean(consCard(:, armIdx)));
+    fprintf('%s: OSPA %.6f, RMSE %.6f, Card %.6f, Runtime %.3f s\n', arms(armIdx).name, ...
+        mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), ...
+        mean(consCard(:, armIdx)), mean(filterRuntimeSeconds(:, armIdx)));
 end
 
 summary.armNames = armNames;
@@ -240,6 +245,11 @@ summary.localTrials.eOspa = eOspa;
 summary.localTrials.hOspa = hOspa;
 summary.localTrials.rmse = rmse;
 summary.localTrials.cardErr = cardErr;
+summary.runtime.filterSeconds = filterRuntimeSeconds;
+summary.runtime.meanFilterSeconds = mean(filterRuntimeSeconds, 1);
+summary.runtime.stdFilterSeconds = std(filterRuntimeSeconds, 0, 1);
+summary.runtime.meanSecondsPerStep = summary.runtime.meanFilterSeconds ./ targetFormationConfig.targetFormationLifeSpan;
+summary.runtime.relativeToFixed = summary.runtime.meanFilterSeconds ./ max(summary.runtime.meanFilterSeconds(1), eps);
 summary.trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
 if ~isempty(consOspaSeries)
     summary.consensusSeries.time = (1:size(consOspaSeries, 2))';
@@ -268,7 +278,8 @@ if writeReport
     reportPath = fullfile(reportDir, reportName);
     writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
         sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-        arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, finalArmMode);
+        arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
+        filterRuntimeSeconds, targetFormationConfig.targetFormationLifeSpan, finalArmMode);
     fprintf('Report written: %s\n', reportPath);
 end
 end
@@ -618,7 +629,8 @@ end
 
 function writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
     sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-    arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, finalArmMode)
+    arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
+    filterRuntimeSeconds, simulationLength, finalArmMode)
 
 fid = fopen(reportPath, 'w');
 if fid < 0
@@ -723,6 +735,13 @@ if numel(arms) >= 2
         {consOspa, consPos, consCard}, [false, true, false]);
 end
 
+fprintf(fid, '\n## Computational Cost\n');
+fprintf(fid, 'Filter wall-clock time measures only the distributed LMB filtering/fusion call for each arm. Scenario generation, communication-model sampling, and metric evaluation are excluded.\n\n');
+writeRuntimeCostSummaryTable(fid, {arms.name}, filterRuntimeSeconds, simulationLength);
+fprintf(fid, '\n');
+writeRuntimePerTrialTable(fid, computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed), ...
+    {arms.name}, filterRuntimeSeconds, simulationLength);
+
 fprintf(fid, '\n## Local Tracking Metrics (mean across sensors and trials)\n');
 fprintf(fid, '| Arm | E-OSPA | RMSE | CardErr |\n');
 fprintf(fid, '|:----|-------:|-----:|--------:|\n');
@@ -811,6 +830,76 @@ for metricIdx = 1:numel(metricNames)
         fprintf(fid, '| %s | %s | %.6f +/- %.6f | [%.6f, %.6f] | %.2f%% | %d/%d | %.4g |\n', ...
             armNames{armIdx}, metricNames{metricIdx}, stats.mean, stats.std, ...
             stats.ciLow, stats.ciHigh, pct, wins, stats.n, pValue);
+    end
+end
+end
+
+function writeRuntimeCostSummaryTable(fid, armNames, runtimeSeconds, simulationLength)
+if nargin < 4 || isempty(simulationLength) || simulationLength <= 0
+    simulationLength = 1;
+end
+if isempty(runtimeSeconds)
+    fprintf(fid, 'Runtime data unavailable.\n');
+    return;
+end
+
+fixedRuntime = runtimeSeconds(:, 1);
+fprintf(fid, '| Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed | N |\n');
+fprintf(fid, '|:----|-------------------:|-----------------:|------------------:|--:|\n');
+for armIdx = 1:numel(armNames)
+    values = runtimeSeconds(:, armIdx);
+    stats = summarizeVector(values, true);
+    validRatio = isfinite(values) & isfinite(fixedRuntime) & fixedRuntime > eps;
+    if armIdx == 1
+        ratioMean = 1.0;
+    elseif any(validRatio)
+        ratioStats = summarizeVector(values(validRatio) ./ fixedRuntime(validRatio), true);
+        ratioMean = ratioStats.mean;
+    else
+        ratioMean = NaN;
+    end
+    fprintf(fid, '| %s | %.6f +/- %.6f | %.6f | %.3fx | %d |\n', ...
+        armNames{armIdx}, stats.mean, stats.std, stats.mean / simulationLength, ...
+        ratioMean, stats.n);
+end
+
+if numel(armNames) >= 2
+    fprintf(fid, '\n');
+    fprintf(fid, '| Arm | Paired overhead (s) | Relative overhead | Slower trials |\n');
+    fprintf(fid, '|:----|--------------------:|------------------:|--------------:|\n');
+    for armIdx = 2:numel(armNames)
+        values = runtimeSeconds(:, armIdx);
+        valid = isfinite(values) & isfinite(fixedRuntime) & fixedRuntime > eps;
+        deltas = values(valid) - fixedRuntime(valid);
+        ratios = values(valid) ./ fixedRuntime(valid);
+        deltaStats = summarizeVector(deltas, true);
+        ratioStats = summarizeVector(ratios, true);
+        fprintf(fid, '| %s | %.6f +/- %.6f | %.2f%% | %d/%d |\n', ...
+            armNames{armIdx}, deltaStats.mean, deltaStats.std, ...
+            100 * (ratioStats.mean - 1), sum(deltas > 0), deltaStats.n);
+    end
+end
+end
+
+function writeRuntimePerTrialTable(fid, trialSeeds, armNames, runtimeSeconds, simulationLength)
+if nargin < 5 || isempty(simulationLength) || simulationLength <= 0
+    simulationLength = 1;
+end
+if isempty(runtimeSeconds)
+    return;
+end
+
+fprintf(fid, '### Per-Trial Filter Runtime\n');
+fprintf(fid, '| Trial | Seed | Arm | Runtime (s) | Runtime/step (s) | Relative to fixed |\n');
+fprintf(fid, '|------:|-----:|:----|------------:|-----------------:|------------------:|\n');
+for trial = 1:size(runtimeSeconds, 1)
+    fixedRuntime = runtimeSeconds(trial, 1);
+    for armIdx = 1:numel(armNames)
+        runtimeValue = runtimeSeconds(trial, armIdx);
+        relativeValue = runtimeValue / max(fixedRuntime, eps);
+        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.3fx |\n', ...
+            trial, trialSeeds(trial), armNames{armIdx}, runtimeValue, ...
+            runtimeValue / simulationLength, relativeValue);
     end
 end
 end

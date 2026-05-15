@@ -2,7 +2,7 @@
 
 ## 目标
 
-在不替换当前 `covariance + link quality + existence confidence + weak structure-aware decoupled KLA` 主方法的前提下，引入一个新的混合对比臂：`+FID-FIA existence refinement`。该方法保留当前方法的 spatial/RMSE 优势，只把 Cao-Zhao FID-FIA 的信息几何可分辨性信号注入 existence/cardinality 分支。
+在不替换当前 `covariance + link quality + existence confidence + weak structure-aware decoupled KLA` 主方法的前提下，引入一个新的混合对比臂：`Cardinality-critical mode`。该方法保留当前方法的 spatial/position 优势，只把 FID-FIA 的信息几何可分辨性信号注入 existence/cardinality 分支。
 
 ## 实现设计
 
@@ -27,7 +27,7 @@
 
 新增 `finalArmMode='fidFiaExistenceRefinement'`，主实验对比顺序为：
 
-`fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement`
+`Fixed Metropolis -> FID-FIA baseline -> Balanced mode -> Cardinality-critical mode`
 
 主实验新增 arm 使用更强的 existence-only FID-FIA 调制：
 
@@ -45,10 +45,10 @@
 
 ## 验收指标
 
-20-trial 主实验完成后，优先对比 Cao-Zhao FID-FIA baseline：
+20-trial 主实验完成后，优先对比 FID-FIA baseline：
 
 - consensus OSPA < `1.820229`
-- consensus RMSE < `1.647412`
+- consensus position disagreement < `1.647412`
 - consensus Card < `0.126188`
 - local CardErr <= `0.392313`
 - local RMSE 不应差于 FID-FIA baseline 的 `1.715746`
@@ -61,10 +61,10 @@
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md`
 
-| Arm | Consensus OSPA | Consensus RMSE | Consensus Card | Local RMSE | Local CardErr |
+| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement | Local RMSE | Local CardErr |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Cao-Zhao FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 | 1.715746 | 0.392313 |
-| +structure-aware decoupled KLA | 1.785873 | 1.562521 | 0.192938 | 1.598561 | 0.578688 |
-| +FID-FIA existence refinement | 1.668961 | 1.528182 | 0.061062 | 1.704538 | 0.221563 |
+| FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 | 1.715746 | 0.392313 |
+| Balanced mode | 1.785873 | 1.562521 | 0.192938 | 1.598561 | 0.578688 |
+| Cardinality-critical mode | 1.668961 | 1.528182 | 0.061062 | 1.704538 | 0.221563 |
 
-结论：新增 hybrid arm 在三个 primary consensus 指标上都超过 Cao-Zhao FID-FIA baseline，同时 local CardErr 也更低。它的 local RMSE 不如旧 structure-aware arm，但仍略优于 FID-FIA baseline，因此可以提升为新的主实验 headline 方法。
+结论：`Cardinality-critical mode` 在三个 primary consensus 指标上都超过 FID-FIA baseline，同时 local CardErr 也更低。它的 local RMSE 不如 Balanced mode，但仍略优于 FID-FIA baseline，因此可以提升为新的主实验 headline 方法。

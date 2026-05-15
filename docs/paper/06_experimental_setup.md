@@ -2,7 +2,7 @@
 
 ## Paper-Ready Experimental-Setup Draft
 
-This section defines the evaluation protocol used to support the current paper narrative. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, whether the method generalizes beyond the main GA setting, and whether several optional modules are worth keeping in the main story.
+This section defines the evaluation protocol used to support the current paper narrative. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, how the method behaves as communication becomes more constrained, and whether several optional modules should remain outside the core method.
 
 ### 1. Evaluation Hierarchy
 
@@ -11,13 +11,13 @@ The current evaluation is intentionally hierarchical.
 Main experiment:
 
 - dual-formation eight-sensor distributed GA-LMB tracking under tiered heterogeneous packet loss
-- factor ablation from fixed weights to the full adaptive method
+- factor ablation from Fixed Metropolis to the Balanced mode and the Cardinality-critical mode
 
 Supporting experiments:
 
-- ideal-communication comparison between ordinary GA, the branch-decoupled backbone, the scalar FID-FIA baseline, and the proposed branch-decoupled fusion
+- ideal-communication comparison between Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode
 - communication-robustness analysis across communication levels
-- AA-based secondary generalization experiment
+- appendix-only AA-based secondary route
 
 Appendix or negative ablations:
 
@@ -67,17 +67,17 @@ This tiered design preserves the historical mean communication degradation while
 
 The core ablation study compares the following five arms:
 
-1. fixed fusion weights
-2. adaptive weighting with covariance only
-3. joint covariance-and-link weighting
-4. the three-factor backbone with covariance, link quality, and existence confidence
-5. the branch-decoupled backbone, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting
+1. Fixed Metropolis
+2. Covariance-only adaptive
+3. Covariance-link adaptive
+4. Three-factor adaptive backbone with covariance, link quality, and existence confidence
+5. the Balanced mode, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting
 
 This ablation path is implemented in [runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m) and is the main source for the factor-by-factor method claims.
 
-The main confirmation additionally compares the Cao-Zhao scalar FID-FIA baseline and the proposed branch-decoupled fusion. The five-arm path should be read as the backbone diagnostic; manuscript Table 3 also appends the proposed method row to show the final branch-specific FID-FIA extension on the same scale.
+The main confirmation additionally compares the FID-FIA baseline and the Cardinality-critical mode. The five-arm path should be read as the backbone diagnostic; manuscript Table 3 also appends the Cardinality-critical mode to show the final branch-specific FID-FIA extension on the same scale. The Balanced mode is the position-sensitive mode for position-sensitive operation, while the Cardinality-critical mode is the cardinality-sensitive mode.
 
-The current best adaptive configuration uses:
+The Balanced mode uses:
 
 - `emaAlpha = 0.7`
 - `minWeight = 0.05`
@@ -94,15 +94,18 @@ The current best adaptive configuration uses:
 - `spatialStructureStrength = 0.45`
 - `existenceStructureStrength = 0.08`
 - `structureReliabilityPower = 0.30`
+- `useNIS = false`
+- `useHistory = false`
+
+The Cardinality-critical mode uses the same spatial and backbone settings, and additionally applies the following existence-branch settings:
+
 - `useFidFiaExistence = true`
 - `fidFiaExistenceStrength = 4.0`
 - `fidFiaExistenceMinScore = 0.0`
 - `existenceEmaAlpha = 0.0`
 - `existenceMinWeight = 0.0`
-- `useNIS = false`
-- `useHistory = false`
 
-This configuration corresponds to the current main-line method definition used throughout the paper workspace. The FID-FIA settings apply only to the existence branch; the spatial branch keeps the structure-aware KLA configuration above.
+The FID-FIA settings apply only to the existence branch; the spatial branch keeps the Balanced mode configuration above.
 
 ### 5. Monte Carlo Protocol And Reporting Convention
 
@@ -124,16 +127,18 @@ Local tracking metrics:
 Consensus metrics:
 
 - consensus OSPA
-- consensus RMSE
+- consensus position disagreement
 - consensus cardinality disagreement
 
-The current paper should emphasize consensus metrics as the primary outcome. This is a deliberate design choice: the method is meant to improve the consistency and quality of distributed fused belief across sensors, and the strongest current evidence is indeed on consensus OSPA, consensus RMSE, and consensus cardinality disagreement. Local metrics are still reported to show that the consensus gains are not obtained by catastrophic local degradation.
+These are network-level disagreement metrics, not standard truth-referenced tracking benchmarks. Their ingredients are standard: OSPA/GOSPA-style finite-set distances, Hungarian-matched position errors, and cardinality dispersion. The paper-specific step is to aggregate them across post-fusion sensor outputs, because the goal is distributed agreement under heterogeneous communication. For that reason, they should always be reported together with local E-OSPA, local RMSE, and local cardinality error.
+
+The current paper should emphasize consensus metrics as the primary outcome. This is a deliberate design choice: the method is meant to improve the consistency and quality of distributed fused belief across sensors, and the strongest current evidence is indeed on consensus OSPA, consensus position disagreement, and consensus cardinality disagreement. Local metrics are still reported to show that the consensus gains are not obtained by catastrophic local degradation.
 
 Runtime can be reported as an optional supplementary metric, but it is not part of the current headline claim set.
 
 ### 7. Ideal-Communication Supporting Experiment
 
-To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares ordinary GA, the branch-decoupled backbone, the Cao-Zhao scalar FID-FIA baseline, and the proposed branch-decoupled fusion under the same dual-formation eight-sensor tracking scenario.
+To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode under the same dual-formation eight-sensor tracking scenario.
 
 The ideal-communication configuration is:
 
@@ -143,23 +148,23 @@ The ideal-communication configuration is:
 
 The ordinary-GA and structure-aware comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m). The FID-FIA arms reuse the same deterministic seeds and the same ideal-communication setting through the main ablation runner with communication level `0`. This supporting experiment reports both consensus metrics and local metrics. Its role is not to replace the main tiered-drop scenario, but to show how the spatial and existence-branch refinements behave when communication degradation is removed.
 
-### 8. Communication-Robustness And Secondary Generalization
+### 8. Communication-Robustness And Appendix-Only AA Route
 
-Beyond the main scenario, the paper can include two short supporting studies.
+Beyond the main scenario, the paper can include a short communication-robustness supporting study. The AA route should be kept in the appendix rather than in the main text.
 
 Communication-robustness analysis:
 
 - vary the communication level from `0` to `3`
-- inspect how consensus OSPA and consensus cardinality change as communication quality degrades
+- inspect how consensus OSPA and consensus cardinality disagreement change as communication quality degrades
 - use this study to argue that adaptive weighting becomes more useful as communication becomes more heterogeneous or constrained
 
-AA-based generalization:
+Appendix-only AA-based secondary route:
 
 - use the secondary AA scenario documented in [FORMATION_4PLUS4_THREEWAVES_AA_RUN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md)
-- treat this as evidence that the general weighting idea is not strictly tied to GA
-- keep the section short, because the strongest evidence remains on GA-LMB
+- retain this only as appendix evidence, because the paper deliberately chooses the GA/KLA route
+- do not use this as a main-text result, because the strongest evidence and theory remain on GA-LMB
 
-The AA scenario uses the same eight-sensor communication-constrained setting, but with an arithmetic-average fusion mode and a three-wave target arrangement. The current role of this experiment is extension evidence, not a co-equal main evaluation line.
+The AA scenario uses the same eight-sensor communication-constrained setting, but with an arithmetic-average fusion mode and a three-wave target arrangement. The current role of this experiment is appendix evidence, not a main-text evaluation line.
 
 ### 9. Secondary And Appendix-Only Ablations
 
@@ -180,8 +185,7 @@ The paper body should present experiments in the following order:
 2. factor ablation
 3. ideal-communication supporting evidence
 4. communication-robustness analysis
-5. AA generalization
-6. short secondary or appendix ablations
+5. short secondary or appendix ablations, including the AA route
 
 This order keeps the narrative tightly aligned with the current evidence hierarchy and prevents weaker modules from diluting the main contribution.
 

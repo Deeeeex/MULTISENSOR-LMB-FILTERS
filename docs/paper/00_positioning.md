@@ -30,7 +30,7 @@ Recommended method scope:
 - Do not claim `freshness` is a useful core module with current evidence.
 - Do not claim `association ambiguity` is a major innovation with current evidence.
 - Do not claim universal local tracking gains for every sensor and every metric.
-- Do not make `AA` a co-equal main line with `GA/KLA`.
+- Do not make `AA` a co-equal main line with `GA/KLA`; keep it appendix-only.
 
 ## Recommended Contributions
 
@@ -45,7 +45,7 @@ Use a 3-point contribution list:
 Most convincing:
 
 - Tiered GA main result in the 4+4 formation scenario
-- Tiered ablation from Fixed Metropolis to Covariance only, Covariance and link quality, Three-factor backbone, Branch-decoupled backbone, and the proposed branch-decoupled fusion
+- Tiered ablation from Fixed Metropolis to Covariance-only adaptive, Covariance-link adaptive, Three-factor adaptive backbone, Balanced mode, and the Cardinality-critical mode
 - Communication-aware interpretation of tiered packet-loss heterogeneity
 
 Useful but secondary:
@@ -53,7 +53,7 @@ Useful but secondary:
 - GA `w/o NIS -> robust NIS -> NIS` ablation
 - GA NIS parameter grid
 - Communication-level robustness analysis
-- AA three-wave scenario
+- AA three-wave scenario, appendix-only
 
 Weak or negative:
 

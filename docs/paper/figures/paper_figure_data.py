@@ -29,15 +29,15 @@ def get_scalar_figure_data() -> dict:
             "title": "Factor Ablation Under Tiered Packet Loss",
             "arms": [
                 "Fixed Metropolis",
-                "Covariance only",
-                "Covariance and link quality",
-                "Three-factor backbone",
-                "Branch-decoupled backbone",
+                "Covariance-only adaptive",
+                "Covariance-link adaptive",
+                "Three-factor adaptive backbone",
+                "Balanced mode",
             ],
             "metrics": {
-                "Consensus OSPA": [2.447978, 2.082445, 1.829718, 1.829831, 1.821448],
-                "Consensus RMSE": [2.583880, 2.167710, 1.764180, 1.753626, 1.749812],
-                "Consensus Card": [0.679437, 0.457937, 0.230687, 0.230500, 0.231625],
+                "OSPA disag.": [2.447978, 2.082445, 1.829718, 1.829831, 1.821448],
+                "Pos. disag.": [2.583880, 2.167710, 1.764180, 1.753626, 1.749812],
+                "Card. disag.": [0.679437, 0.457937, 0.230687, 0.230500, 0.231625],
             },
             "sources": [
                 "RUN/GA/GA_TIERED_LINK_ABLATION_MAIN20_20260507.md",
@@ -46,7 +46,7 @@ def get_scalar_figure_data() -> dict:
         "figure6": {
             "title": "Ideal-Communication Supporting Comparison",
             "consensus": {
-                "labels": ["OSPA", "RMSE", "Card"],
+                "labels": ["OSPA", "Pos.", "Card."],
                 "ga": [1.703504, 1.532487, 0.161500],
                 "adaptive": [1.481747, 1.238241, 0.132187],
             },

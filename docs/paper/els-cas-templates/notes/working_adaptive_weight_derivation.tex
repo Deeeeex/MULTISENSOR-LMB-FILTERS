@@ -205,7 +205,7 @@ This gives a clean variational interpretation of decoupling. The method is not s
 
 \subsection*{Step 3b: FID-FIA as an existence-branch utility}
 
-The new experimental result suggests a sharper interpretation of the Cao-Zhao FID-FIA idea \citep{CaoZhao2025InfoGeometryFusion}. A scalar FID-FIA weight treats Fisher-information accumulation as a whole-posterior utility. In the present code, that scalar baseline is useful for cardinality, but it can trade away spatial RMSE. The branch-decoupled rule gives a more precise use of the same information-geometric signal.
+The new experimental result suggests a sharper interpretation of the FID-FIA idea \citep{CaoZhao2025InfoGeometryFusion}. A single FID-FIA weight treats Fisher-information accumulation as a whole-posterior utility. In the present code, that scalar baseline is useful for cardinality, but it can trade away spatial RMSE. The branch-decoupled rule gives a more precise use of the same information-geometric signal.
 
 Define the FID-FIA-refined existence score
 \begin{equation}
@@ -229,7 +229,7 @@ The main experiment sets $\rho_{\min}=0$, which should be read as the boundary l
 \end{equation}
 
 \paragraph{Interpretation.}
-This is the theoretical reason the new method can improve over the scalar FID-FIA baseline. FID-FIA is a measurement-separability utility: it rewards sensors whose local Fisher geometry makes target pairs more distinguishable. That is directly useful for the Bernoulli existence/logit-pooling branch, because existence and cardinality errors are driven by missed detections, false support, and target-pair ambiguity. It is less safe as a whole-posterior scalar weight because it also changes the Gaussian precision barycenter. Branch decoupling keeps the FID-FIA signal in the branch where its inductive bias matches the algebraic role of the fused variable.
+This is the theoretical reason the new method can improve over the FID-FIA baseline. FID-FIA is a measurement-separability utility: it rewards sensors whose local Fisher geometry makes target pairs more distinguishable. That is directly useful for the Bernoulli existence/logit-pooling branch, because existence and cardinality errors are driven by missed detections, false support, and target-pair ambiguity. It is less safe as a whole-posterior scalar weight because it also changes the Gaussian precision barycenter. Branch decoupling keeps the FID-FIA signal in the branch where its inductive bias matches the algebraic role of the fused variable.
 
 \subsection*{Step 4: weak structure-aware refinement as a prior perturbation}
 
@@ -1056,7 +1056,7 @@ The following claims are already strong enough to consider for an eventual appen
 \item branch decoupling is exactly a convex interpolation in log-utility space,
 \item weak structure-aware refinement is exactly an additive prior term in log-utility space and equivalently a KL regularization toward a graph-induced prior,
 \item the FID-FIA existence refinement is an existence-branch log-utility, with the main experimental zero-floor setting understood as a boundary limit of the positive-score formulation,
-\item scalar FID-FIA fusion is a constrained special case that forces the same information-geometric utility into both spatial and existence branches,
+\item FID-FIA fusion is a constrained special case that forces the same information-geometric utility into both spatial and existence branches,
 \item Bernoulli-RFS divergence decomposes exactly into a Bernoulli existence term plus an existence-weighted spatial KL term,
 \item the implemented existence merger is an exact weighted logit pool with an additive spatial-overlap offset,
 \item the implemented decoupled spatial and existence updates are the exact optimizer of a per-Bernoulli decoupled surrogate objective,

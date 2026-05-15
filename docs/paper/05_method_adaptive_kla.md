@@ -195,11 +195,18 @@ $$
 \frac{\tilde{\omega}_{k,s}^{r,(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{r,(u)}}.
 $$
 
-The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the method uses the information-geometric FID-FIA idea of Cao and Zhao \cite{CaoZhao2025InfoGeometryFusion}: their Fisher-information accumulation score is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions, but a scalar FID-FIA weight can trade away spatial RMSE. In the log-utility view developed in the appendix, scalar FID-FIA is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
+The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the method uses the information-geometric FID-FIA idea of Cao and Zhao \cite{CaoZhao2025InfoGeometryFusion}: their Fisher-information accumulation score is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions, but a single FID-FIA weight can trade away spatial RMSE. In the log-utility view developed in the appendix, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
+
+This gives the paper a method-family interpretation with two recommended operating modes:
+
+- `Balanced mode`: use the three-factor adaptive backbone, decoupled spatial/existence scores, weak structure-aware refinement, and standard temporal stabilization, but do not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy or local RMSE stability is the primary concern.
+- `Cardinality-critical mode`: activate the FID-FIA cue only on the existence branch. This mode is recommended when target-number disagreement, missed tracks, or false support are the dominant risks.
+
+The two modes share the same communication-aware backbone and branch-decoupled fusion algebra. They differ only in whether the final information-geometric cue is activated on the Bernoulli existence path.
 
 ### 6. FID-FIA Existence Refinement
 
-The final method adds an information-geometric refinement only to the existence branch. Each local Bernoulli component is moment-projected, existence-weighted target pairs are formed, and a pairwise Fisher-information-distance accumulation score is computed using the sensor's detection probability and measurement covariance. The score is normalized over the local neighborhood and mapped to a bounded modulation factor:
+The Cardinality-critical mode adds an information-geometric refinement only to the existence branch. Each local Bernoulli component is moment-projected, existence-weighted target pairs are formed, and a pairwise Fisher-information-distance accumulation score is computed using the sensor's detection probability and measurement covariance. The score is normalized over the local neighborhood and mapped to a bounded modulation factor:
 
 $$
 q_{\mathrm{fid},k,s}^{(j)}
@@ -217,7 +224,7 @@ $$
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 $$
 
-The spatial score is left unchanged. For positive $q_{\mathrm{fid},k,s}^{(j)}$, this is equivalent to adding $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adding nothing to the spatial utility; the zero-floor setting in the main experiment is the boundary case that permits a zero instantaneous existence weight. This is the key difference from using Cao-Zhao FID-FIA as a whole-posterior scalar baseline: the paper borrows its information-geometric cardinality strength, but branch decoupling prevents that signal from overriding the spatial/RMSE-oriented weight path.
+The spatial score is left unchanged. For positive $q_{\mathrm{fid},k,s}^{(j)}$, this is equivalent to adding $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adding nothing to the spatial utility; the zero-floor setting in the main experiment is the boundary case that permits a zero instantaneous existence weight. This is the key difference from using FID-FIA as a whole-posterior scalar baseline: the paper borrows its information-geometric cardinality strength, but branch decoupling prevents that signal from overriding the spatial/position-oriented weight path.
 
 ### 7. Weak Structure-Aware Refinement
 

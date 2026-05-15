@@ -2,7 +2,7 @@
 
 ## Paper-Ready Planning Draft
 
-This document records the current figure plan, table plan, and evidence gaps for the paper workspace. It should be read as a practical production checklist rather than as a brainstorming note. The guiding rule is consistent with the main paper narrative: prioritize the tiered-drop GA result, the factor ablation, and the ideal-communication supporting evidence; keep AA and secondary consistency modules as supporting material; and avoid reserving prominent space for modules that currently have weak or unstable evidence.
+This document records the current figure plan, table plan, and evidence gaps for the paper workspace. It should be read as a practical production checklist rather than as a brainstorming note. The guiding rule is consistent with the main paper narrative: prioritize the tiered-drop GA result, the factor ablation, and the ideal-communication supporting evidence; keep AA and secondary consistency modules in appendix-style material; and avoid reserving prominent space for modules that currently have weak or unstable evidence.
 
 ### 1. Figure Plan
 
@@ -87,8 +87,8 @@ Purpose:
 Recommended content:
 
 - time-series curves for consensus OSPA
-- optional companion panels for consensus RMSE and consensus cardinality disagreement
-- compare fixed weights against the current best adaptive method
+- optional companion panels for consensus position disagreement and consensus cardinality disagreement
+- compare Fixed Metropolis against the existence-refined operating mode
 
 Status:
 
@@ -109,8 +109,8 @@ Purpose:
 
 Recommended content:
 
-- table rows: Fixed Metropolis, Covariance only, Covariance and link quality, Three-factor backbone, Branch-decoupled backbone, Proposed branch-decoupled fusion
-- columns for consensus OSPA, consensus RMSE, and consensus cardinality disagreement
+- table rows: Fixed Metropolis, Covariance-only adaptive, Covariance-link adaptive, Three-factor adaptive backbone, Balanced mode, Cardinality-critical mode
+- columns for consensus OSPA, consensus position disagreement, and consensus cardinality disagreement
 
 Primary sources:
 
@@ -134,7 +134,7 @@ Purpose:
 Recommended content:
 
 - compact table with consensus OSPA, RMSE, cardinality, and local safeguards
-- comparison: Ordinary GA, Branch-decoupled backbone, Scalar FID-FIA, Proposed branch-decoupled fusion
+- comparison: Ordinary GA, Balanced mode, FID-FIA baseline, Cardinality-critical mode
 
 Primary source:
 
@@ -190,7 +190,7 @@ Status:
 
 Content:
 
-- fixed weights versus current best adaptive method
+- Fixed Metropolis versus the existence-refined operating mode
 - local metrics and consensus metrics
 
 Primary sources:
@@ -209,11 +209,11 @@ Status:
 Content:
 
 - Fixed Metropolis
-- Covariance only
-- Covariance and link quality
-- Three-factor backbone
-- Branch-decoupled backbone
-- Proposed branch-decoupled fusion
+- Covariance-only adaptive
+- Covariance-link adaptive
+- Three-factor adaptive backbone
+- Balanced mode
+- Cardinality-critical mode
 
 Primary sources:
 
@@ -228,7 +228,7 @@ Status:
 
 Content:
 
-- Ordinary GA, Branch-decoupled backbone, Scalar FID-FIA, and Proposed branch-decoupled fusion
+- Ordinary GA, Balanced mode, FID-FIA baseline, and Cardinality-critical mode
 - consensus OSPA, RMSE, cardinality disagreement
 - aggregated local E-OSPA and RMSE safeguards
 
@@ -240,7 +240,7 @@ Status:
 
 - ready
 
-#### Table 5. Secondary AA Generalization
+#### Appendix Table. AA-Based Secondary Route
 
 Content:
 
@@ -323,7 +323,7 @@ Status:
 #### Medium Priority
 
 - rerun the communication-level study and export a stable table if it is to appear in the paper body or appendix
-- decide whether the AA generalization stays in the main text or moves entirely to a short appendix subsection
+- keep the AA route entirely in a short appendix subsection
 - add at least one stronger external baseline beyond fixed-weight versus adaptive internal ablations
 - report runtime overhead if the target venue expects explicit computational trade-off discussion
 

@@ -55,14 +55,21 @@ def ensure_output_dir(output_dir: str | Path) -> Path:
 
 def save_figure5(output_path: str | Path, figure5: dict) -> Path:
     output_path = Path(output_path)
-    fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(11.8, 4.0), constrained_layout=True)
     x = np.arange(len(figure5["arms"]))
-    short_labels = ["fixed", "cov", "cov-link", "3-factor", "branch"]
+    display_labels = [
+        "Fixed\nMetropolis",
+        "Covariance-only\nadaptive",
+        "Covariance-link\nadaptive",
+        "Three-factor\nbackbone",
+        "Balanced\nmode",
+    ]
 
     for ax, (metric_name, values) in zip(axes, figure5["metrics"].items()):
         ax.bar(x, values, color=ABLATION_COLORS, edgecolor=EDGE_COLOR, linewidth=0.8)
         ax.set_title(metric_name)
-        ax.set_xticks(x, short_labels, rotation=25, ha="right")
+        ax.set_xticks(x, display_labels)
+        ax.tick_params(axis="x", labelsize=7.8)
         ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
         ax.set_axisbelow(True)
 
@@ -236,7 +243,7 @@ def save_figure6(output_path: str | Path, figure6: dict) -> Path:
         consensus_x + width / 2,
         figure6["consensus"]["adaptive"],
         width,
-        label="Structure-aware decoupled KLA",
+        label="Balanced mode",
         color=ADAPTIVE_COLOR,
         edgecolor=EDGE_COLOR,
         linewidth=0.8,
@@ -279,13 +286,13 @@ def save_figure4(output_path: str | Path, series: dict) -> Path:
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), sharex=True, constrained_layout=True)
     configs = [
         ("Consensus OSPA", "ospa_fixed", "ospa_adaptive"),
-        ("Consensus RMSE", "rmse_fixed", "rmse_adaptive"),
-        ("Consensus Card", "card_fixed", "card_adaptive"),
+        ("Position disagreement", "rmse_fixed", "rmse_adaptive"),
+        ("Cardinality disagreement", "card_fixed", "card_adaptive"),
     ]
     time = np.asarray(series["time"])
     for ax, (title, fixed_key, adaptive_key) in zip(axes, configs):
-        ax.plot(time, series[fixed_key], color=FIXED_COLOR, linewidth=2.0, label="Fixed")
-        ax.plot(time, series[adaptive_key], color=ADAPTIVE_COLOR, linewidth=2.2, label="Adaptive")
+        ax.plot(time, series[fixed_key], color=FIXED_COLOR, linewidth=2.0, label="Fixed Metropolis")
+        ax.plot(time, series[adaptive_key], color=ADAPTIVE_COLOR, linewidth=2.2, label="Cardinality-critical mode")
         ax.set_title(title)
         ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
         ax.set_axisbelow(True)
