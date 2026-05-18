@@ -17,6 +17,7 @@ Supporting experiments:
 
 - ideal-communication comparison between Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode
 - communication-robustness analysis across communication levels
+- computational-cost measurement for the main baseline and proposed operating modes
 - appendix-only AA-based secondary route
 
 Appendix or negative ablations:
@@ -117,24 +118,31 @@ The current paper draft should avoid overclaiming statistical certainty from a s
 
 ### 6. Evaluation Metrics
 
-The experiments report two categories of metrics.
+The experiments report three categories of metrics.
 
-Local tracking metrics:
-
-- local E-OSPA
-- local RMSE
-
-Consensus metrics:
+Primary consensus metrics:
 
 - consensus OSPA
 - consensus position disagreement
 - consensus cardinality disagreement
 
-These are network-level disagreement metrics, not standard truth-referenced tracking benchmarks. Their ingredients are standard: OSPA/GOSPA-style finite-set distances, Hungarian-matched position errors, and cardinality dispersion. The paper-specific step is to aggregate them across post-fusion sensor outputs, because the goal is distributed agreement under heterogeneous communication. For that reason, they should always be reported together with local E-OSPA, local RMSE, and local cardinality error.
+Secondary local tracking metrics:
+
+- local E-OSPA
+- local RMSE
+- local cardinality error
+
+Efficiency metrics:
+
+- filter/fusion wall-clock runtime per trial
+- runtime per simulation step
+- runtime ratio relative to Fixed Metropolis
+
+The consensus metrics are network-level disagreement metrics, not standard truth-referenced tracking benchmarks. Their ingredients are standard: OSPA/GOSPA-style finite-set distances, Hungarian-matched position errors, and cardinality dispersion. The paper-specific step is to aggregate them across post-fusion sensor outputs, because the goal is distributed agreement under heterogeneous communication. For that reason, they should always be reported together with local E-OSPA, local RMSE, and local cardinality error.
 
 The current paper should emphasize consensus metrics as the primary outcome. This is a deliberate design choice: the method is meant to improve the consistency and quality of distributed fused belief across sensors, and the strongest current evidence is indeed on consensus OSPA, consensus position disagreement, and consensus cardinality disagreement. Local metrics are still reported to show that the consensus gains are not obtained by catastrophic local degradation.
 
-Runtime can be reported as an optional supplementary metric, but it is not part of the current headline claim set.
+Computational cost should be treated as a first-class evaluation axis, not as an optional footnote. The runtime measurement in the main experiment intentionally times only the distributed LMB filtering/fusion call for each arm. Scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. This isolates the algorithmic overhead of the adaptive weighting and branch-specific FID-FIA logic. In interpretation, the Balanced mode should be judged as the low-overhead operating point, while the Cardinality-critical mode should be judged as a higher-cost option that spends additional computation for stronger cardinality consensus.
 
 ### 7. Ideal-Communication Supporting Experiment
 

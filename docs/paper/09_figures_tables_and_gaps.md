@@ -2,7 +2,7 @@
 
 ## Paper-Ready Planning Draft
 
-This document records the current figure plan, table plan, and evidence gaps for the paper workspace. It should be read as a practical production checklist rather than as a brainstorming note. The guiding rule is consistent with the main paper narrative: prioritize the tiered-drop GA result, the factor ablation, and the ideal-communication supporting evidence; keep AA and secondary consistency modules in appendix-style material; and avoid reserving prominent space for modules that currently have weak or unstable evidence.
+This document records the current figure plan, table plan, and evidence gaps for the paper workspace. It should be read as a practical production checklist rather than as a brainstorming note. The guiding rule is consistent with the main paper narrative: prioritize the tiered-drop GA result, the factor ablation, computational-cost reporting, and the ideal-communication supporting evidence; keep AA and secondary consistency modules in appendix-style material; and avoid reserving prominent space for modules that currently have weak or unstable evidence.
 
 ### 1. Figure Plan
 
@@ -240,6 +240,22 @@ Status:
 
 - ready
 
+#### Table 5. Computational Cost In The Main Scenario
+
+Content:
+
+- Fixed Metropolis, FID-FIA baseline, Balanced mode, and Cardinality-critical mode
+- filter/fusion runtime, runtime per simulation step, and runtime relative to Fixed Metropolis
+- short interpretation of Balanced mode as the low-overhead option and Cardinality-critical mode as the higher-cost cardinality option
+
+Primary source:
+
+- [GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md)
+
+Status:
+
+- ready as a main-text efficiency table
+
 #### Appendix Table. AA-Based Secondary Route
 
 Content:
@@ -325,7 +341,6 @@ Status:
 - rerun the communication-level study and export a stable table if it is to appear in the paper body or appendix
 - keep the AA route entirely in a short appendix subsection
 - add at least one stronger external baseline beyond fixed-weight versus adaptive internal ablations
-- report runtime overhead if the target venue expects explicit computational trade-off discussion
 
 #### Low Priority
 
@@ -338,12 +353,13 @@ Status:
 The current paper branch should produce figures and tables in the following order:
 
 1. Table 3, the factor ablation under tiered packet loss
-2. Table 4, the ideal-communication supporting comparison
-3. Figure 5, the tiered-drop factor ablation figure
-4. Figure 4, the main GA consensus-over-time figure
-5. Table 1 and Table 2
-6. Table 6 and Table 7 as appendix support
-7. Table 4 and the optional communication-level appendix material if time permits
+2. Table 5, the computational-cost table for operating-mode selection
+3. Table 4, the ideal-communication supporting comparison
+4. Figure 5, the tiered-drop factor ablation figure
+5. Figure 4, the main GA consensus-over-time figure
+6. Table 1 and Table 2
+7. Table 6 and Table 7 as appendix support
+8. the optional communication-level appendix material if time permits
 
 This order matches the current evidence hierarchy and minimizes the risk of spending time on low-priority material before the core story is fully stabilized.
 

@@ -195,14 +195,14 @@ $$
 \frac{\tilde{\omega}_{k,s}^{r,(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{r,(u)}}.
 $$
 
-The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how the method uses the information-geometric FID-FIA idea of Cao and Zhao \cite{CaoZhao2025InfoGeometryFusion}: their Fisher-information accumulation score is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions, but a single FID-FIA weight can trade away spatial RMSE. In the log-utility view developed in the appendix, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
+The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. However, applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in the appendix, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
 
 This gives the paper a method-family interpretation with two recommended operating modes:
 
-- `Balanced mode`: use the three-factor adaptive backbone, decoupled spatial/existence scores, weak structure-aware refinement, and standard temporal stabilization, but do not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy or local RMSE stability is the primary concern.
-- `Cardinality-critical mode`: activate the FID-FIA cue only on the existence branch. This mode is recommended when target-number disagreement, missed tracks, or false support are the dominant risks.
+- `Balanced mode`: use the three-factor adaptive backbone, decoupled spatial/existence scores, weak structure-aware refinement, and standard temporal stabilization, but do not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy, local RMSE stability, runtime, or energy budget is the primary concern.
+- `Cardinality-critical mode`: activate the FID-FIA cue only on the existence branch. This mode is recommended when target-number disagreement, missed tracks, or false support are the dominant risks and the deployment can tolerate the additional information-geometric computation.
 
-The two modes share the same communication-aware backbone and branch-decoupled fusion algebra. They differ only in whether the final information-geometric cue is activated on the Bernoulli existence path.
+The two modes share the same communication-aware backbone and branch-decoupled fusion algebra. They differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. The computational-cost supplement follows the same interpretation: the Balanced mode keeps the adaptive gain with modest extra runtime, while the Cardinality-critical mode spends substantially more computation to obtain the strongest cardinality-consensus behavior.
 
 ### 6. FID-FIA Existence Refinement
 
@@ -302,6 +302,8 @@ Among them, the most relevant is the NIS-based consistency term. Innovation cons
 - `Reuter2014LMB`
 - `Vo2019MSGLMB`
 - `BarShalom2001Estimation`
+- `CaoZhao2025InfoGeometryFusion`
+- `Li2026FIMultirateAADensityFusion`
 
 ## Source Files
 

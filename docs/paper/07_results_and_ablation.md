@@ -12,7 +12,16 @@ These reductions are sizeable in all three consensus metrics. Relative to Fixed 
 
 The local truth-referenced metrics clarify the cardinality story. The Cardinality-critical mode has the lowest local cardinality error, `0.221563`, so its cardinality-consensus advantage is not merely agreement around a wrong target count. It also has the best local E-OSPA, `2.009084`. Its tradeoff is local RMSE, where it reaches `1.704538`, worse than the Balanced mode (`1.598561`) but still slightly better than the FID-FIA baseline (`1.715746`).
 
-This should be presented as a usage-oriented method family rather than a contradiction. The `Balanced mode` is the position-sensitive mode and is recommended when RMSE/spatial stability is the limiting requirement. The `Cardinality-critical mode` is the cardinality-sensitive mode and is recommended when target-number agreement, missed tracks, or false support dominate the application risk.
+Computational cost is the third evaluation axis for this method family. A 3-trial runtime supplement in the same 100-step tiered-drop scenario times only the distributed LMB filtering/fusion call. Scenario generation, communication-model sampling, and metric evaluation are excluded. The result is:
+
+| Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed |
+|:----|-------------------:|-----------------:|------------------:|
+| Fixed Metropolis | 47.334 +/- 0.732 | 0.473 | 1.000x |
+| FID-FIA baseline | 137.830 +/- 3.479 | 1.378 | 2.913x |
+| Balanced mode | 55.603 +/- 5.057 | 0.556 | 1.174x |
+| Cardinality-critical mode | 143.107 +/- 2.950 | 1.431 | 3.023x |
+
+This should be presented as a usage-oriented method family rather than a contradiction. The `Balanced mode` is the position-sensitive and low-overhead mode, recommended when RMSE/spatial stability, runtime, or energy budget is the limiting requirement. The `Cardinality-critical mode` is the cardinality-sensitive mode, recommended when target-number agreement, missed tracks, or false support dominate the application risk and the deployment can tolerate roughly `3x` fixed-weight filtering/fusion time.
 
 ### 2. Factor Ablation Of The Main Adaptive Design
 
@@ -86,5 +95,6 @@ Taken together, these negative ablations strengthen the paper rather than weaken
 
 - Keep the paper narrative centered on consensus metrics; they are the primary outcome for distributed fusion quality.
 - Use local metrics mainly as supporting evidence that consensus gains do not come from local collapse.
+- Treat runtime as a first-class efficiency metric for operating-mode selection, not as an optional implementation note.
 - Present the AA route, NIS, freshness, and history studies as appendix material, not as co-equal method pillars.
 - Avoid overclaiming statistical certainty from the current small trial counts; the wording should remain empirical and evidence-based.

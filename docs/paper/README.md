@@ -22,6 +22,7 @@ Recommended main line:
 - In the tiered-drop 4+4 GA formation scenario, adaptive weights substantially improve consensus quality over Fixed Metropolis.
 - The Balanced mode improves spatial consensus over Three-factor adaptive backbone, while the existence-branch FID-FIA cue supplies the final cardinality gain.
 - Under ideal communication, the same branch-decoupled story remains useful: FID-FIA is strong for cardinality, the Balanced mode is strongest for RMSE, and the Cardinality-critical mode gives the best OSPA/cardinality without using FID-FIA as the whole-posterior rule.
+- A 3-trial computational-cost supplement shows the selection tradeoff: Balanced mode is close to fixed-weight runtime, while FID-FIA-based arms are about 3x fixed runtime.
 - `robust NIS` is still more stable than plain `NIS`, but it is no longer the strongest main-line improvement in this branch.
 - The present evidence is strongest on consensus metrics, not on universally improving local tracking.
 
@@ -33,6 +34,7 @@ Core main-line numbers:
 - Tiered GA local safeguards: Fixed Metropolis -> Cardinality-critical mode gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than FID-FIA.
 - Factor ablation: Three-factor adaptive backbone -> Balanced mode improves consensus OSPA `1.830 -> 1.821` and consensus position disagreement `1.754 -> 1.750`; the Cardinality-critical mode then reduces cardinality disagreement to `0.061`.
 - Ideal-communication comparison: Ordinary GA -> Cardinality-critical mode gives consensus OSPA `1.704 -> 1.433`, consensus position disagreement `1.532 -> 1.309`, consensus cardinality disagreement `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
+- Runtime supplement: Fixed Metropolis `47.3s`, FID-FIA baseline `137.8s`, Balanced mode `55.6s`, and Cardinality-critical mode `143.1s` per 100-step trial. The practical recommendation is Balanced for runtime-sensitive deployment and Cardinality-critical when target-number consistency is worth about `3x` fixed runtime.
 
 Secondary or appendix-only numbers:
 

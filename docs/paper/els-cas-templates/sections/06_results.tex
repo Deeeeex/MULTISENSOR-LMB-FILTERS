@@ -52,6 +52,26 @@ The two proposed operating-mode rows should therefore be read as recommended set
   \end{tabular}
 \end{table}
 
+Computational cost is the third evaluation axis for this method family. Table~\ref{tab:runtime-cost} reports a three-trial runtime supplement in the same 100-step tiered-drop scenario. The measurement includes only the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. The Balanced mode is close to the fixed-weight baseline, requiring $55.6$ seconds per 100-step trial versus $47.3$ seconds for Fixed Metropolis, or about $1.17\times$ fixed runtime. In contrast, the FID-FIA baseline and the Cardinality-critical mode require about $2.91\times$ and $3.02\times$ fixed runtime, respectively. This confirms that the information-geometric FID-FIA computation is the main additional cost.
+
+\begin{table}[t]
+  \centering
+  \caption{Computational cost in the main tiered heterogeneous packet-loss scenario. Wall-clock time measures only the distributed LMB filtering/fusion call for each arm over three deterministic paired trials with seeds $2$--$4$.}
+  \label{tab:runtime-cost}
+  \begin{tabular}{lccc}
+    \toprule
+    Arm & Runtime (s) & Runtime/step (s) & Relative runtime \\
+    \midrule
+    Fixed Metropolis & $47.334 \pm 0.732$ & $0.473$ & $1.000\times$ \\
+    FID-FIA baseline & $137.830 \pm 3.479$ & $1.378$ & $2.913\times$ \\
+    Balanced mode & $55.603 \pm 5.057$ & $0.556$ & $1.174\times$ \\
+    Cardinality-critical mode & $143.107 \pm 2.950$ & $1.431$ & $3.023\times$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The cost results sharpen the operating-mode recommendation. The Balanced mode is the low-overhead default when spatial consensus, RMSE stability, runtime, or energy budget is the limiting requirement. The Cardinality-critical mode should be selected when target-number consistency and suppression of missed or false support justify roughly three times the fixed-weight filtering/fusion time.
+
 \subsection{Factor ablation of the main adaptive design}
 
 The most important diagnostic ablation is the factor-by-factor path from Fixed Metropolis to the Balanced mode. Table~\ref{tab:ablation} summarizes this 20-trial path and adds the Cardinality-critical mode as the last row. The first five rows should be read as the communication-aware backbone diagnostic; the last row is the branch-specific existence refinement that converts the Balanced mode into the cardinality-sensitive mode.

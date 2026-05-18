@@ -1,11 +1,12 @@
 # 论文主要实验结果整理
 
-本文当前工作的主线目标不是单纯提升单个节点的跟踪精度，而是在异构通信条件下提升分布式融合结果的跨节点一致性。因此，实验评价采用两层逻辑：
+本文当前工作的主线目标不是单纯提升单个节点的跟踪精度，而是在异构通信条件下提升分布式融合结果的跨节点一致性，并评估这种一致性收益是否具备部署可行性。因此，实验评价采用三层逻辑：
 
 - `primary`：一致性指标，即 `consensus OSPA`、`consensus position disagreement`、`consensus cardinality disagreement`
 - `secondary`：常规 truth-referenced 跟踪指标，即 `local E-OSPA`、`local RMSE`、`local cardinality error`
+- `efficiency`：计算量指标，即每个 arm 的过滤/融合 wall-clock runtime、per-step runtime、以及相对固定权重的 runtime ratio
 
-整体判断标准是：在不明显牺牲常规跟踪精度的前提下，尽量提升融合一致性。
+整体判断标准是：在不明显牺牲常规跟踪精度、且计算量可接受的前提下，尽量提升融合一致性。
 
 ## 1. 主结果：tiered heterogeneous packet-loss 下的 8 传感器 GA-LMB 主场景
 
@@ -17,6 +18,7 @@
 
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
+- 计算量补充实验：[GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md)
 
 ### 1.1 一致性指标
 
@@ -50,7 +52,20 @@
 
 这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 Balanced mode，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
 
-### 1.3 当前 paper message
+### 1.3 计算量补充实验
+
+同一主场景下补充了 `3-trial` 计算量统计。计时口径只包括每个 arm 的 `runDistributedLmbFilter` 过滤/融合调用，不包括场景生成、通信模型采样和指标评估。
+
+| Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed |
+| --- | ---: | ---: | ---: |
+| Fixed Metropolis | 47.334 +/- 0.732 | 0.473 | 1.000x |
+| FID-FIA baseline | 137.830 +/- 3.479 | 1.378 | 2.913x |
+| Balanced mode | 55.603 +/- 5.057 | 0.556 | 1.174x |
+| Cardinality-critical mode | 143.107 +/- 2.950 | 1.431 | 3.023x |
+
+这组计算量结果改变了选型表述：`Balanced mode` 只比固定权重多约 `17.4%` 的过滤/融合时间，却保留了主要的 spatial/position 共识增益；而 `FID-FIA baseline` 和 `Cardinality-critical mode` 都约为固定权重的 `3x`，说明 FID-FIA 相关的信息几何计算是主要额外成本。若算力或实时性是硬约束，优先推荐 `Balanced mode`；若目标数一致性、漏检/虚警支持的代价更高，再选择 `Cardinality-critical mode`。
+
+### 1.4 当前 paper message
 
 这一组结果是全文最强的证据链。它支持的结论是：
 
@@ -60,6 +75,7 @@
 - 旧的最优点是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
 - 新的最优点是在保持该 spatial 分支的同时，把 FID-FIA 信息几何信号只注入 existence/cardinality 分支
 - 外部 `FID-FIA baseline` 仍然是一个强 cardinality baseline，但新的 `Cardinality-critical mode` 已经在 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement` 和 `local CardErr` 上同时超过它
+- 计算量上，`Balanced mode` 是低额外开销的默认推荐；`Cardinality-critical mode` 是以约 `3x` fixed-runtime 换取最强 cardinality/consensus 表现的高精度选项
 
 主要来源：
 
@@ -191,3 +207,5 @@
 其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/position 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
 
 第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline；虽然 local RMSE 不如 Balanced mode，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。
+
+补充计算量统计后，选型建议应明确加入运行成本：`Balanced mode` 是算力/实时性更敏感时的默认配置；`Cardinality-critical mode` 是 cardinality 风险更高且可接受约 `3x` 过滤/融合耗时时的配置。
