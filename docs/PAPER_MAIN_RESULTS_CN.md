@@ -18,26 +18,31 @@
 
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
+- 外部动态权重 baseline 补充实验：[Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md)
 - 计算量补充实验：[GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md)
 
 ### 1.1 一致性指标
 
-`Fixed Metropolis -> FID-FIA baseline -> Balanced mode -> Cardinality-critical mode`
+`Fixed Metropolis -> PD-weighted GA -> FI-weighted GA -> FID-FIA baseline -> Balanced mode -> Cardinality-critical mode`
 
 | Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
 | --- | ---: | ---: | ---: |
 | Fixed Metropolis | 2.453677 | 2.335508 | 0.714625 |
+| PD-weighted GA | 2.174167 | 1.945781 | 0.596688 |
+| FI-weighted GA | 2.020669 | 1.895778 | 0.436750 |
 | FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
 | Balanced mode | 1.785873 | 1.562521 | 0.192938 |
 | Cardinality-critical mode | 1.668961 | 1.528182 | 0.061062 |
 
 相对固定权重基线：
 
+- `PD-weighted GA`：`OSPA` 下降 `11.39%`，`position disagreement` 下降 `16.69%`，`cardinality disagreement` 下降 `16.50%`
+- `FI-weighted GA`：`OSPA` 下降 `17.65%`，`position disagreement` 下降 `18.83%`，`cardinality disagreement` 下降 `38.88%`
 - `FID-FIA baseline`：`OSPA` 下降 `25.82%`，`position disagreement` 下降 `29.46%`，`cardinality disagreement` 下降 `82.34%`
 - `Balanced mode`：`OSPA` 下降 `27.22%`，`position disagreement` 下降 `33.10%`，`cardinality disagreement` 下降 `73.00%`
 - `Cardinality-critical mode`：`OSPA` 下降 `31.98%`，`position disagreement` 下降 `34.57%`，`cardinality disagreement` 下降 `91.46%`
 
-这说明 FID-FIA 的信息几何信号确实适合修正 existence/cardinality 分支。纯 `FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 `Cardinality-critical mode` 同时超过了 FID-FIA baseline 和 Balanced mode：它在三个 primary consensus 指标上都是当前最优。
+这说明 target-wise Fisher-information 动态权重本身是有效 baseline：`FI-weighted GA` 相比 `PD-weighted GA` 在 20/20 trials 上改善 OSPA 和 cardinality disagreement。但它仍然明显弱于通信感知的 branch-decoupled 方法，尤其是在异构丢包下的 cardinality disagreement 上。这支持当前论文主线：Fisher 类信息是有价值的权重信号，但单独作为 whole-GA 动态权重还不足以替代 realized link quality、existence 分支建模和通信感知解耦。纯 `FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 `Cardinality-critical mode` 同时超过了 FID-FIA baseline 和 Balanced mode：它在三个 primary consensus 指标上都是当前最优。
 
 ### 1.2 常规 local tracking 指标
 
@@ -46,11 +51,13 @@
 | Arm | Local E-OSPA | Local RMSE | Local CardErr |
 | --- | ---: | ---: | ---: |
 | Fixed Metropolis | 2.853096 | 1.637556 | 1.454500 |
+| PD-weighted GA | 2.724237 | 1.552784 | 1.255062 |
+| FI-weighted GA | 2.480159 | 1.538486 | 0.979625 |
 | FID-FIA baseline | 2.183127 | 1.715746 | 0.392313 |
 | Balanced mode | 2.328672 | 1.598561 | 0.578688 |
 | Cardinality-critical mode | 2.009084 | 1.704538 | 0.221563 |
 
-这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 Balanced mode，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
+`FI-weighted GA` 在 local RMSE 上很强，达到 `1.538486`，说明 target-wise Fisher trace 权重确实能改善局部空间估计。但它的 local `E-OSPA` 和 `CardErr` 仍明显弱于 FID-FIA baseline 和 `Cardinality-critical mode`。这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 FI-weighted GA 和 Balanced mode，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
 
 ### 1.3 计算量补充实验
 
@@ -74,6 +81,7 @@
 - 仅有 `covariance + link quality` 还不够，`existence confidence` 提供了第三个关键判别维度
 - 旧的最优点是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
 - 新的最优点是在保持该 spatial 分支的同时，把 FID-FIA 信息几何信号只注入 existence/cardinality 分支
+- `FI-weighted GA` 作为外部 target-wise Fisher 动态权重 baseline 是正向结果，但在异构丢包下仍不如通信感知的 branch-decoupled 方法
 - 外部 `FID-FIA baseline` 仍然是一个强 cardinality baseline，但新的 `Cardinality-critical mode` 已经在 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement` 和 `local CardErr` 上同时超过它
 - 计算量上，`Balanced mode` 是低额外开销的默认推荐；`Cardinality-critical mode` 是以约 `3x` fixed-runtime 换取最强 cardinality/consensus 表现的高精度选项
 
@@ -81,6 +89,7 @@
 
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
+- [Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md)
 - [GA_TIERED_LINK_ABLATION_20260410_143517.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_20260410_143517.md)
 - [06_results.tex](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/paper/els-cas-templates/sections/06_results.tex)
 
@@ -206,6 +215,6 @@
 
 其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/position 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
 
-第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline；虽然 local RMSE 不如 Balanced mode，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。
+第三，在当前最强证据链上，这个设计不仅显著改善了 `consensus OSPA / consensus position disagreement / consensus cardinality disagreement`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline 以及新增的 FI-weighted GA baseline；虽然 local RMSE 不如 FI-weighted GA 和 Balanced mode，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。
 
 补充计算量统计后，选型建议应明确加入运行成本：`Balanced mode` 是算力/实时性更敏感时的默认配置；`Cardinality-critical mode` 是 cardinality 风险更高且可接受约 `3x` 过滤/融合耗时时的配置。
