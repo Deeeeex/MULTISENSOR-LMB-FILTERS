@@ -153,7 +153,7 @@ for trial = 1:numberOfTrials
         rmseNis(trial, s) = mean(computeSetRmseOverTime(stateEstimatesBySensorNis{s}, groundTruthRfs), 'omitnan');
     end
 
-    % Consensus metrics
+    % Network disagreement metrics
     [posNo, cardNo, ospaNo] = computeConsensusMetrics(stateEstimatesBySensorNo, modelNo);
     consOspaNo(trial) = mean(ospaNo);
     consPosNo(trial) = mean(posNo, 'omitnan');
@@ -179,13 +179,13 @@ for s = 1:numberOfSensors
         mean(rmseNo(:, s)), mean(rmseRobust(:, s)), mean(rmseNis(:, s)));
 end
 fprintf('=====================================\n');
-fprintf('Consensus Metrics (w/o NIS -> robust NIS -> NIS)\n');
+fprintf('Network Disagreement Metrics (w/o NIS -> robust NIS -> NIS)\n');
 fprintf('=====================================\n');
-fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('OSPA consensus error: %.3f -> %.3f -> %.3f\n', ...
     mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
-fprintf('Position (RMSE) consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('Matched localization disagreement: %.3f -> %.3f -> %.3f\n', ...
     mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
-fprintf('Cardinality consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('Cardinality dispersion: %.3f -> %.3f -> %.3f\n', ...
     mean(consCardNo), mean(consCardRobust), mean(consCardNis));
 
 %% Write report
@@ -340,12 +340,12 @@ function writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSee
     end
     fprintf(fid, '\n');
 
-    fprintf(fid, '## Consensus Metrics (mean across trials)\n');
-    fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f -> %.3f\n', ...
+    fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
+    fprintf(fid, '- OSPA consensus error: %.3f -> %.3f -> %.3f\n', ...
         mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
-    fprintf(fid, '- Position (RMSE): %.3f -> %.3f -> %.3f\n', ...
+    fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f -> %.3f\n', ...
         mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
-    fprintf(fid, '- Cardinality: %.3f -> %.3f -> %.3f\n', ...
+    fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f -> %.3f\n', ...
         mean(consCardNo), mean(consCardRobust), mean(consCardNis));
 
     fclose(fid);

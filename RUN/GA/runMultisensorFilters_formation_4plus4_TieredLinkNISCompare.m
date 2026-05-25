@@ -206,13 +206,13 @@ for s = 1:numberOfSensors
         mean(pDropBySensorTrials(:, s)));
 end
 fprintf('=====================================\n');
-fprintf('Consensus Metrics (w/o NIS -> robust NIS -> NIS)\n');
+fprintf('Network Disagreement Metrics (w/o NIS -> robust NIS -> NIS)\n');
 fprintf('=====================================\n');
-fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('OSPA consensus error: %.3f -> %.3f -> %.3f\n', ...
     mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
-fprintf('Position (RMSE) consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('Matched localization disagreement: %.3f -> %.3f -> %.3f\n', ...
     mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
-fprintf('Cardinality consensus: %.3f -> %.3f -> %.3f\n', ...
+fprintf('Cardinality dispersion: %.3f -> %.3f -> %.3f\n', ...
     mean(consCardNo), mean(consCardRobust), mean(consCardNis));
 
 summary.consensus.ospaNo = mean(consOspaNo);
@@ -362,7 +362,7 @@ fprintf(fid, '## Per-Trial pDropBySensor\n');
 for trial = 1:size(pDropBySensorTrials, 1)
     fprintf(fid, '- Trial %d: %s\n', trial, mat2str(pDropBySensorTrials(trial, :), 4));
 end
-fprintf(fid, '\n## Per-Trial Consensus Metrics\n');
+fprintf(fid, '\n## Per-Trial Network Disagreement Metrics\n');
 fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
 trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
@@ -372,11 +372,11 @@ for trial = 1:numberOfTrials
     fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', trial, trialSeeds(trial), armNames{2}, consOspaRobust(trial), consPosRobust(trial), consCardRobust(trial));
     fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', trial, trialSeeds(trial), armNames{3}, consOspaNis(trial), consPosNis(trial), consCardNis(trial));
 end
-fprintf(fid, '\n## Consensus Metrics (mean across trials)\n');
-fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f -> %.3f\n', mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
-fprintf(fid, '- Position (RMSE): %.3f -> %.3f -> %.3f\n', mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
-fprintf(fid, '- Cardinality: %.3f -> %.3f -> %.3f\n', mean(consCardNo), mean(consCardRobust), mean(consCardNis));
-fprintf(fid, '\n## Consensus Metrics With Trial Variability\n');
+fprintf(fid, '\n## Network Disagreement Metrics (mean across trials)\n');
+fprintf(fid, '- OSPA consensus error: %.3f -> %.3f -> %.3f\n', mean(consOspaNo), mean(consOspaRobust), mean(consOspaNis));
+fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f -> %.3f\n', mean(consPosNo, 'omitnan'), mean(consPosRobust, 'omitnan'), mean(consPosNis, 'omitnan'));
+fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f -> %.3f\n', mean(consCardNo), mean(consCardRobust), mean(consCardNis));
+fprintf(fid, '\n## Network Disagreement Metrics With Trial Variability\n');
 writeMetricStatsTable(fid, armNames, {'OSPA', 'RMSE', 'Cardinality'}, ...
     { [consOspaNo, consOspaRobust, consOspaNis], [consPosNo, consPosRobust, consPosNis], [consCardNo, consCardRobust, consCardNis] }, ...
     [false, true, false]);

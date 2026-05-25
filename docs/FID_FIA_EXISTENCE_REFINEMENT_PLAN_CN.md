@@ -40,16 +40,16 @@
 
 这样可以直接检验新方法是否同时继承：
 
-- 当前方法的 consensus OSPA/RMSE 优势；
+- 当前方法的 OSPA consensus error/matched localization disagreement 优势；
 - FID-FIA baseline 的 cardinality 一致性优势。
 
 ## 验收指标
 
 20-trial 主实验完成后，优先对比 FID-FIA baseline：
 
-- consensus OSPA < `1.820229`
-- consensus position disagreement < `1.647412`
-- consensus Card < `0.126188`
+- OSPA consensus error < `1.820229`
+- matched localization disagreement < `1.647412`
+- cardinality dispersion < `0.126188`
 - local CardErr <= `0.392313`
 - local RMSE 不应差于 FID-FIA baseline 的 `1.715746`
 
@@ -61,10 +61,10 @@
 
 - `RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md`
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement | Local RMSE | Local CardErr |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion | Local RMSE | Local CardErr |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 | 1.715746 | 0.392313 |
 | Balanced mode | 1.785873 | 1.562521 | 0.192938 | 1.598561 | 0.578688 |
 | Cardinality-critical mode | 1.668961 | 1.528182 | 0.061062 | 1.704538 | 0.221563 |
 
-结论：`Cardinality-critical mode` 在三个 primary consensus 指标上都超过 FID-FIA baseline，同时 local CardErr 也更低。它的 local RMSE 不如 Balanced mode，但仍略优于 FID-FIA baseline，因此可以提升为新的主实验 headline 方法。
+结论：`Cardinality-critical mode` 在三个 primary network disagreement 指标上都超过 FID-FIA baseline，同时 local CardErr 也更低。它的 local RMSE 不如 Balanced mode，但仍略优于 FID-FIA baseline，因此可以提升为新的主实验 headline 方法。

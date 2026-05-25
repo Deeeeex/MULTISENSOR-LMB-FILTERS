@@ -181,7 +181,7 @@ fprintf('=====================================\n');
 fprintf('GA Decoupled NIS Grid Search (N=%d)\n', numberOfTrials);
 fprintf('robustNIS=%d, robustNISMin=%.2f\n', robustNIS, robustNISMin);
 fprintf('=====================================\n');
-fprintf('Baseline (w/o NIS): local OSPA %.3f, local RMSE %.3f, consensus OSPA %.3f, consensus RMSE %.3f, consensus Card %.3f\n', ...
+fprintf('Baseline (w/o NIS): local OSPA %.3f, local RMSE %.3f, OSPA consensus error %.3f, matched localization disagreement %.3f, cardinality dispersion %.3f\n', ...
     mean(localOspaBase), mean(localRmseBase, 'omitnan'), ...
     mean(consOspaBase), mean(consPosBase, 'omitnan'), mean(consCardBase));
 for cfgIdx = 1:numConfigs
@@ -362,9 +362,9 @@ function writeGridReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, rob
     fprintf(fid, '## Baseline (w/o NIS)\n');
     fprintf(fid, '- Local E-OSPA: %.3f\n', baseLocalOspaMean);
     fprintf(fid, '- Local RMSE: %.3f\n', baseLocalRmseMean);
-    fprintf(fid, '- Consensus OSPA: %.3f\n', baseConsOspaMean);
-    fprintf(fid, '- Consensus RMSE: %.3f\n', baseConsPosMean);
-    fprintf(fid, '- Consensus Cardinality: %.3f\n\n', baseConsCardMean);
+    fprintf(fid, '- OSPA Consensus Error: %.3f\n', baseConsOspaMean);
+    fprintf(fid, '- Matched Localization Disagreement: %.3f\n', baseConsPosMean);
+    fprintf(fid, '- Cardinality Dispersion: %.3f\n\n', baseConsCardMean);
 
     fprintf(fid, '## Config Ranking (mean across trials)\n');
     fprintf(fid, '| Rank | Confidence | Upper Scale | Local E-OSPA | dLocal E-OSPA | Local RMSE | dLocal RMSE | Cons OSPA | dCons OSPA | Cons RMSE | dCons RMSE | Cons Card | dCons Card | Relative Score |\n');
@@ -383,9 +383,9 @@ function writeGridReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, rob
     fprintf(fid, '- Upper Scale: %.1f\n', bestRow(2));
     fprintf(fid, '- Local E-OSPA delta: %.3f\n', bestRow(3) - baseLocalOspaMean);
     fprintf(fid, '- Local RMSE delta: %.3f\n', bestRow(4) - baseLocalRmseMean);
-    fprintf(fid, '- Consensus OSPA delta: %.3f\n', bestRow(5) - baseConsOspaMean);
-    fprintf(fid, '- Consensus RMSE delta: %.3f\n', bestRow(6) - baseConsPosMean);
-    fprintf(fid, '- Consensus Cardinality delta: %.3f\n', bestRow(7) - baseConsCardMean);
+    fprintf(fid, '- OSPA Consensus Error delta: %.3f\n', bestRow(5) - baseConsOspaMean);
+    fprintf(fid, '- Matched Localization Disagreement delta: %.3f\n', bestRow(6) - baseConsPosMean);
+    fprintf(fid, '- Cardinality Dispersion delta: %.3f\n', bestRow(7) - baseConsCardMean);
 
     fclose(fid);
 end

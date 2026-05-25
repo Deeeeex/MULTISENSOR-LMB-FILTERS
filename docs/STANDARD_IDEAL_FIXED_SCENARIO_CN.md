@@ -135,7 +135,7 @@
 - 结构先验已经真正进入融合逻辑
 - 当前结果不再是“因为 structure-aware 根本没参与”
 
-### 5.2 一致性指标
+### 5.2 共识误差指标
 
 `5-trial` distributed ideal 的 consensus 结果为：
 
@@ -146,9 +146,9 @@
 
 对应结论：
 
-- `Consensus RMSE` 略好
-- `Consensus OSPA` 略差
-- `Consensus Card` 略差
+- `Matched localization disagreement` 略好
+- `OSPA consensus error` 略差
+- `Cardinality dispersion` 略差
 
 也就是说，`current-best adaptive GA` 在这个 distributed ideal ring 场景下没有稳定赢过 fixed distributed `GA`。
 

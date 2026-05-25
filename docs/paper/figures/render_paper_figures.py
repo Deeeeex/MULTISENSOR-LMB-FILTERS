@@ -248,7 +248,7 @@ def save_figure6(output_path: str | Path, figure6: dict) -> Path:
         edgecolor=EDGE_COLOR,
         linewidth=0.8,
     )
-    axes[0].set_title("Consensus Metrics")
+    axes[0].set_title("Network Disagreement")
     axes[0].set_xticks(consensus_x, figure6["consensus"]["labels"])
     axes[0].grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
     axes[0].set_axisbelow(True)
@@ -285,9 +285,9 @@ def save_figure4(output_path: str | Path, series: dict) -> Path:
     output_path = Path(output_path)
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), sharex=True, constrained_layout=True)
     configs = [
-        ("Consensus OSPA", "ospa_fixed", "ospa_adaptive"),
-        ("Position disagreement", "rmse_fixed", "rmse_adaptive"),
-        ("Cardinality disagreement", "card_fixed", "card_adaptive"),
+        ("OSPA consensus error", "ospa_fixed", "ospa_adaptive"),
+        ("Matched localization disagreement", "rmse_fixed", "rmse_adaptive"),
+        ("Cardinality dispersion", "card_fixed", "card_adaptive"),
     ]
     time = np.asarray(series["time"])
     for ax, (title, fixed_key, adaptive_key) in zip(axes, configs):

@@ -86,8 +86,8 @@ Purpose:
 
 Recommended content:
 
-- time-series curves for consensus OSPA
-- optional companion panels for consensus position disagreement and consensus cardinality disagreement
+- time-series curves for OSPA consensus error
+- optional companion panels for matched localization disagreement and cardinality dispersion
 - compare Fixed Metropolis against the existence-refined operating mode
 
 Status:
@@ -110,7 +110,7 @@ Purpose:
 Recommended content:
 
 - table rows: Fixed Metropolis, Covariance-only adaptive, Covariance-link adaptive, Three-factor adaptive backbone, Balanced mode, Cardinality-critical mode
-- columns for consensus OSPA, consensus position disagreement, and consensus cardinality disagreement
+- columns for OSPA consensus error, matched localization disagreement, and cardinality dispersion
 
 Primary sources:
 
@@ -133,7 +133,7 @@ Purpose:
 
 Recommended content:
 
-- compact table with consensus OSPA, RMSE, cardinality, and local safeguards
+- compact table with OSPA consensus error, RMSE, cardinality, and local safeguards
 - comparison: Ordinary GA, Balanced mode, FID-FIA baseline, Cardinality-critical mode
 
 Primary source:
@@ -191,7 +191,7 @@ Status:
 Content:
 
 - Fixed Metropolis versus the existence-refined operating mode
-- local metrics and consensus metrics
+- local metrics and network disagreement metrics
 
 Primary sources:
 
@@ -202,7 +202,7 @@ Primary sources:
 Status:
 
 - ready
-- consensus metrics and headline local metrics are now consolidated into one clean paper table
+- network disagreement metrics and headline local metrics are now consolidated into one clean paper table
 
 #### Table 3. Factor Ablation Under Tiered Packet Loss
 
@@ -229,7 +229,7 @@ Status:
 Content:
 
 - Ordinary GA, Balanced mode, FID-FIA baseline, and Cardinality-critical mode
-- consensus OSPA, RMSE, cardinality disagreement
+- OSPA consensus error, matched localization disagreement, cardinality dispersion
 - aggregated local E-OSPA and RMSE safeguards
 
 Primary source:
@@ -261,7 +261,7 @@ Status:
 Content:
 
 - base AA versus adaptive AA
-- consensus OSPA, RMSE, and cardinality disagreement
+- OSPA consensus error, matched localization disagreement, and cardinality dispersion
 - optional note on average local metric behavior
 
 Primary source:
@@ -316,7 +316,7 @@ Content:
 
 - communication levels `0` to `3`
 - fixed versus adaptive fusion modes
-- means and variance for OSPA and cardinality disagreement
+- means and variance for OSPA consensus error and cardinality dispersion
 
 Primary source:
 

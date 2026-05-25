@@ -137,7 +137,7 @@ for trial = 1:numberOfTrials
         rmseHist(trial, s) = mean(computeSetRmseOverTime(stateEstimatesBySensorHist{s}, groundTruthRfs), 'omitnan');
     end
 
-    % Consensus metrics
+    % Network disagreement metrics
     [posNoHist, cardNoHist, ospaNoHist] = computeConsensusMetrics(stateEstimatesBySensorNoHist, modelNoHist);
     consOspaNoHist(trial) = mean(ospaNoHist);
     consPosNoHist(trial) = mean(posNoHist, 'omitnan');
@@ -159,13 +159,13 @@ for s = 1:numberOfSensors
         mean(rmseNoHist(:, s)), mean(rmseHist(:, s)));
 end
 fprintf('=====================================\n');
-fprintf('Consensus Metrics (w/o history -> history)\n');
+fprintf('Network Disagreement Metrics (w/o history -> history)\n');
 fprintf('=====================================\n');
-fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f\n', ...
+fprintf('OSPA consensus error: %.3f -> %.3f\n', ...
     mean(consOspaNoHist), mean(consOspaHist));
-fprintf('Position (RMSE) consensus: %.3f -> %.3f\n', ...
+fprintf('Matched localization disagreement: %.3f -> %.3f\n', ...
     mean(consPosNoHist, 'omitnan'), mean(consPosHist, 'omitnan'));
-fprintf('Cardinality consensus: %.3f -> %.3f\n', ...
+fprintf('Cardinality dispersion: %.3f -> %.3f\n', ...
     mean(consCardNoHist), mean(consCardHist));
 
 %% Write report
@@ -317,12 +317,12 @@ function writeComparisonReport(reportPath, numberOfTrials, baseSeed, useFixedSee
     end
     fprintf(fid, '\n');
 
-    fprintf(fid, '## Consensus Metrics (mean across trials)\n');
-    fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', ...
+    fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
+    fprintf(fid, '- OSPA consensus error: %.3f -> %.3f\n', ...
         mean(consOspaNoHist), mean(consOspaHist));
-    fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', ...
+    fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f\n', ...
         mean(consPosNoHist, 'omitnan'), mean(consPosHist, 'omitnan'));
-    fprintf(fid, '- Cardinality: %.3f -> %.3f\n', ...
+    fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f\n', ...
         mean(consCardNoHist), mean(consCardHist));
 
     fclose(fid);

@@ -64,7 +64,7 @@ covScore = 1 / (eps + mean(trace(T)))
 
 - fixed weights 默认假设各节点后验质量接近，但实际局部估计精度会明显波动
 - `covScore` 直接给状态更集中的后验更高权重，是最自然的 posterior-quality baseline
-- 在当前 tiered-drop 主场景中，它是 fixed weights 之后第一个稳定拉低三项一致性指标的主因子
+- 在当前 tiered-drop 主场景中，它是 fixed weights 之后第一个稳定拉低三项共识误差指标的主因子
 
 ### 2.2 链路质量项 `linkQuality`
 
@@ -111,7 +111,7 @@ existenceConfidenceScore = minScore + (1 - minScore) * weightedConfidence^power
 
 - `covScore` 只能表达“位置是否集中”，不能表达“存在/不存在判决是否果断”
 - `linkQuality` 只能表达“有没有顺利发过来”，不能表达“传来的 posterior 在 cardinality 上是否可信”
-- `existenceConfidence` 恰好补上了这条维度，因此能更直接对应 cardinality disagreement
+- `existenceConfidence` 恰好补上了这条维度，因此能更直接对应 cardinality dispersion
 
 在当前 tiered-drop `5-trial` 消融里：
 

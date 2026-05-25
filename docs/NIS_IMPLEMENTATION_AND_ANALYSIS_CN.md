@@ -389,15 +389,15 @@ model.adaptiveFusion.useHistory = false;
 20 次均值结果如下：
 
 $$
-\text{Comprehensive (OSPA) consensus: } 1.811 \rightarrow 1.810 \rightarrow 1.901
+\text{OSPA consensus error: } 1.811 \rightarrow 1.810 \rightarrow 1.901
 $$
 
 $$
-\text{Position (RMSE) consensus: } 3.173 \rightarrow 3.153 \rightarrow 3.329
+\text{Matched localization disagreement: } 3.173 \rightarrow 3.153 \rightarrow 3.329
 $$
 
 $$
-\text{Cardinality consensus: } 0.214 \rightarrow 0.209 \rightarrow 0.234
+\text{Cardinality dispersion: } 0.214 \rightarrow 0.209 \rightarrow 0.234
 $$
 
 当前可以得到两个直接结论：
@@ -442,15 +442,15 @@ $$
 $$
 
 $$
-	ext{Consensus OSPA: } 1.811 ightarrow 1.810
+	ext{OSPA consensus error: } 1.811 ightarrow 1.810
 $$
 
 $$
-	ext{Consensus RMSE: } 3.173 ightarrow 3.153
+	ext{Matched localization disagreement: } 3.173 ightarrow 3.153
 $$
 
 $$
-	ext{Consensus Cardinality: } 0.214 ightarrow 0.209
+	ext{Cardinality dispersion: } 0.214 ightarrow 0.209
 $$
 
 ???? GA ?????????????

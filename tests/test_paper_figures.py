@@ -9,8 +9,8 @@ def test_scalar_figure_data_contains_expected_sections():
     data = get_scalar_figure_data()
     assert "figure5" in data
     assert "figure6" in data
-    assert data["figure5"]["arms"][-1] == "Branch-decoupled backbone"
-    assert data["figure6"]["consensus"]["labels"] == ["OSPA", "RMSE", "Card"]
+    assert data["figure5"]["arms"][-1] == "Balanced mode"
+    assert data["figure6"]["consensus"]["labels"] == ["OSPA err.", "Loc. disag.", "Card. disp."]
 
 
 def test_render_command_creates_pdf_outputs(tmp_path):

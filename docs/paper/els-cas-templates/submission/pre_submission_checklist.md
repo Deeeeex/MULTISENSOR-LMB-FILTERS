@@ -75,7 +75,7 @@ Recommended evidence files to keep traceable:
 - [x] 已回答是否与 state of the art 对比。
 - [x] 已列出 5 篇关键参考文献。
 - [x] 已说明不使用公共真实数据集，实验为 deterministic synthetic simulation。
-- [x] 已说明验证指标：consensus OSPA、position disagreement、cardinality disagreement、local E-OSPA、local RMSE、local cardinality error、runtime。
+- [x] 已说明验证指标：OSPA consensus error、matched localization disagreement、cardinality dispersion、local E-OSPA、local RMSE、local cardinality error、runtime。
 - [x] 已说明 main claim 及其意义。
 - [x] 已给出主实验、local safeguards、robustness probe、runtime supplement 作为证据。
 - [x] 已说明最相关工作及差异。

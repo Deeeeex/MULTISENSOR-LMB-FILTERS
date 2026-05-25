@@ -54,9 +54,9 @@ summary = buildSummary(baseSummary, experimentSummary, baseOverrides, experiment
 fprintf('=====================================\n');
 fprintf('GA Association Ambiguity Comparison (N=%d)\n', numberOfTrials);
 fprintf('Three-factor baseline -> +association ambiguity\n');
-fprintf('Consensus OSPA: %.6f -> %.6f\n', summary.consensus.ospaBase, summary.consensus.ospaAdaptive);
-fprintf('Consensus RMSE: %.6f -> %.6f\n', summary.consensus.posBase, summary.consensus.posAdaptive);
-fprintf('Consensus Card: %.6f -> %.6f\n', summary.consensus.cardBase, summary.consensus.cardAdaptive);
+fprintf('OSPA Consensus Error: %.6f -> %.6f\n', summary.consensus.ospaBase, summary.consensus.ospaAdaptive);
+fprintf('Matched Localization Disagreement: %.6f -> %.6f\n', summary.consensus.posBase, summary.consensus.posAdaptive);
+fprintf('Cardinality Dispersion: %.6f -> %.6f\n', summary.consensus.cardBase, summary.consensus.cardAdaptive);
 
 if writeReport
     reportDir = fullfile(projectRoot, 'RUN', 'GA');
@@ -115,7 +115,7 @@ fprintf(fid, '- useAssociationAmbiguity: %d\n', getField(summary.experimentOverr
 fprintf(fid, '- associationAmbiguityMinScore: %.3f\n', getField(summary.experimentOverrides, 'associationAmbiguityMinScore', 0));
 fprintf(fid, '- associationAmbiguityPower: %.3f\n\n', getField(summary.experimentOverrides, 'associationAmbiguityPower', 0));
 
-fprintf(fid, '## Consensus Metrics (mean across trials)\n');
+fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
 fprintf(fid, '| Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|:----|-----:|-----:|------------:|\n');
 fprintf(fid, '| three-factor baseline | %.6f | %.6f | %.6f |\n', ...

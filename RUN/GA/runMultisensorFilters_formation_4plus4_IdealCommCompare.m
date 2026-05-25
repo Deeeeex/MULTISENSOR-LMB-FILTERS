@@ -173,9 +173,9 @@ fprintf('=====================================\n');
 fprintf('GA Ideal Communication Comparison (N=%d)\n', numberOfTrials);
 fprintf('Control=ordinary GA, Experiment=structure-aware decoupled KLA\n');
 fprintf('=====================================\n');
-fprintf('Consensus OSPA: %.6f -> %.6f\n', mean(consOspaBase), mean(consOspaAdaptive));
-fprintf('Consensus RMSE: %.6f -> %.6f\n', mean(consPosBase, 'omitnan'), mean(consPosAdaptive, 'omitnan'));
-fprintf('Consensus Card: %.6f -> %.6f\n', mean(consCardBase), mean(consCardAdaptive));
+fprintf('OSPA Consensus Error: %.6f -> %.6f\n', mean(consOspaBase), mean(consOspaAdaptive));
+fprintf('Matched Localization Disagreement: %.6f -> %.6f\n', mean(consPosBase, 'omitnan'), mean(consPosAdaptive, 'omitnan'));
+fprintf('Cardinality Dispersion: %.6f -> %.6f\n', mean(consCardBase), mean(consCardAdaptive));
 
 summary.local.eOspaBase = mean(eOspaBase, 1);
 summary.local.eOspaAdaptive = mean(eOspaAdaptive, 1);
@@ -268,7 +268,7 @@ fprintf(fid, '- adaptive structureReliabilityPower: %.3f\n\n', adaptiveFusionCon
 fprintf(fid, '## Mean pDropBySensor Across Trials\n');
 fprintf(fid, '- %s\n\n', mat2str(mean(pDropBySensorTrials, 1), 4));
 
-fprintf(fid, '## Per-Trial Consensus Metrics\n');
+fprintf(fid, '## Per-Trial Network Disagreement Metrics\n');
 fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
 trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
@@ -297,12 +297,12 @@ fprintf(fid, '- E-OSPA: %.3f -> %.3f\n', mean(eOspaBase(:)), mean(eOspaAdaptive(
 fprintf(fid, '- H-OSPA: %.3f -> %.3f\n', mean(hOspaBase(:)), mean(hOspaAdaptive(:)));
 fprintf(fid, '- RMSE: %.3f -> %.3f\n\n', mean(rmseBase(:)), mean(rmseAdaptive(:)));
 
-fprintf(fid, '## Consensus Metrics (mean across trials)\n');
-fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', mean(consOspaBase), mean(consOspaAdaptive));
-fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', mean(consPosBase, 'omitnan'), mean(consPosAdaptive, 'omitnan'));
-fprintf(fid, '- Cardinality: %.3f -> %.3f\n', mean(consCardBase), mean(consCardAdaptive));
+fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
+fprintf(fid, '- OSPA consensus error: %.3f -> %.3f\n', mean(consOspaBase), mean(consOspaAdaptive));
+fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f\n', mean(consPosBase, 'omitnan'), mean(consPosAdaptive, 'omitnan'));
+fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f\n', mean(consCardBase), mean(consCardAdaptive));
 
-fprintf(fid, '\n## Consensus Metrics With Trial Variability\n');
+fprintf(fid, '\n## Network Disagreement Metrics With Trial Variability\n');
 writeMetricStatsTable(fid, {'ordinary GA', 'structure-aware decoupled KLA'}, ...
     {'OSPA', 'RMSE', 'Cardinality'}, ...
     { [consOspaBase, consOspaAdaptive], [consPosBase, consPosAdaptive], [consCardBase, consCardAdaptive] }, ...

@@ -46,7 +46,7 @@ def get_scalar_figure_data() -> dict:
         "figure6": {
             "title": "Ideal-Communication Supporting Comparison",
             "consensus": {
-                "labels": ["OSPA", "Pos.", "Card."],
+                "labels": ["OSPA err.", "Loc. disag.", "Card. disp."],
                 "ga": [1.703504, 1.532487, 0.161500],
                 "adaptive": [1.481747, 1.238241, 0.132187],
             },

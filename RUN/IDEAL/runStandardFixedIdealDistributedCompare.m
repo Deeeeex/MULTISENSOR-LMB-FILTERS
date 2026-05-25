@@ -184,9 +184,9 @@ fprintf('=====================================\n');
 fprintf('Standard Ideal Distributed Compare (N=%d)\n', numberOfTrials);
 fprintf('Baseline=fixed distributed GA, Experiment=current-best adaptive distributed GA\n');
 fprintf('=====================================\n');
-fprintf('Consensus OSPA: %.6f -> %.6f\n', summary.consensus.ospaBaseline, summary.consensus.ospaAdaptive);
-fprintf('Consensus RMSE: %.6f -> %.6f\n', summary.consensus.posBaseline, summary.consensus.posAdaptive);
-fprintf('Consensus Card: %.6f -> %.6f\n', summary.consensus.cardBaseline, summary.consensus.cardAdaptive);
+fprintf('OSPA consensus error: %.6f -> %.6f\n', summary.consensus.ospaBaseline, summary.consensus.ospaAdaptive);
+fprintf('Matched localization disagreement: %.6f -> %.6f\n', summary.consensus.posBaseline, summary.consensus.posAdaptive);
+fprintf('Cardinality dispersion: %.6f -> %.6f\n', summary.consensus.cardBaseline, summary.consensus.cardAdaptive);
 
 if writeReport
     reportDir = fullfile(projectRoot, 'RUN', 'IDEAL');
@@ -226,7 +226,7 @@ fprintf(fid, '- topology: %s\n', summary.config.topologyName);
 fprintf(fid, '- neighborMap: %s\n', mat2str(cell2mat(cellfun(@(x) reshape(x, 1, []), summary.config.neighborMap, 'UniformOutput', false)')));
 fprintf(fid, '- ideal pDropBySensor: %s\n\n', mat2str(summary.meanPDropBySensor, 4));
 
-fprintf(fid, '## Consensus Metrics\n');
+fprintf(fid, '## Network Disagreement Metrics\n');
 fprintf(fid, '| Mode | OSPA | RMSE | Card |\n');
 fprintf(fid, '|:-----|-----:|-----:|-----:|\n');
 fprintf(fid, '| Fixed distributed GA | %.6f | %.6f | %.6f |\n', ...

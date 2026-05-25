@@ -166,26 +166,26 @@ if useDistributedFusion
     end
 end
 
-%% Consensus metrics (distributed only)
+%% Network disagreement metrics (distributed only)
 if useDistributedFusion
     if compareAdaptiveWeights
         [posBase, cardBase, ospaBase] = computeConsensusMetrics(stateEstimatesBySensorBase, modelBase);
         [posAda, cardAda, ospaAda] = computeConsensusMetrics(stateEstimatesBySensorAdaptive, modelAdaptive);
         fprintf('=====================================\n');
-        fprintf('Consensus Metrics (base -> adaptive)\n');
+        fprintf('Network Disagreement Metrics (base -> adaptive)\n');
         fprintf('=====================================\n');
-        fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f (%.3f)\n', mean(ospaBase), mean(ospaAda), mean(ospaAda) - mean(ospaBase));
-        fprintf('Position (RMSE) consensus: %.3f -> %.3f (%.3f)\n', mean(posBase, 'omitnan'), mean(posAda, 'omitnan'), mean(posAda, 'omitnan') - mean(posBase, 'omitnan'));
-        fprintf('Cardinality consensus: %.3f -> %.3f (%.3f)\n', mean(cardBase), mean(cardAda), mean(cardAda) - mean(cardBase));
+        fprintf('OSPA consensus error: %.3f -> %.3f (%.3f)\n', mean(ospaBase), mean(ospaAda), mean(ospaAda) - mean(ospaBase));
+        fprintf('Matched localization disagreement: %.3f -> %.3f (%.3f)\n', mean(posBase, 'omitnan'), mean(posAda, 'omitnan'), mean(posAda, 'omitnan') - mean(posBase, 'omitnan'));
+        fprintf('Cardinality dispersion: %.3f -> %.3f (%.3f)\n', mean(cardBase), mean(cardAda), mean(cardAda) - mean(cardBase));
         plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospaAda);
     else
         [posCons, cardCons, ospaCons] = computeConsensusMetrics(stateEstimatesBySensor, model);
         fprintf('=====================================\n');
-        fprintf('Consensus Metrics\n');
+        fprintf('Network Disagreement Metrics\n');
         fprintf('=====================================\n');
-        fprintf('Comprehensive (OSPA) consensus: %.3f\n', mean(ospaCons));
-        fprintf('Position (RMSE) consensus: %.3f\n', mean(posCons, 'omitnan'));
-        fprintf('Cardinality consensus: %.3f\n', mean(cardCons));
+        fprintf('OSPA consensus error: %.3f\n', mean(ospaCons));
+        fprintf('Matched localization disagreement: %.3f\n', mean(posCons, 'omitnan'));
+        fprintf('Cardinality dispersion: %.3f\n', mean(cardCons));
         plotConsensusMetrics(posCons, cardCons, ospaCons, [], [], []);
     end
 end
@@ -560,7 +560,7 @@ function plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospa
     else
         legend('Consensus', 'Location', 'best');
     end
-    title('Comprehensive Consensus (Pairwise OSPA)');
+    title('OSPA Consensus Error');
     xlabel('Time Step');
     ylabel('OSPA');
 
@@ -573,7 +573,7 @@ function plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospa
     else
         legend('Consensus', 'Location', 'best');
     end
-    title('Position Consensus (Pairwise RMSE)');
+    title('Matched Localization Disagreement');
     xlabel('Time Step');
     ylabel('RMSE');
 
@@ -586,7 +586,7 @@ function plotConsensusMetrics(posBase, cardBase, ospaBase, posAda, cardAda, ospa
     else
         legend('Consensus', 'Location', 'best');
     end
-    title('Cardinality Consensus (MAD)');
+    title('Cardinality Dispersion (MAD)');
     xlabel('Time Step');
     ylabel('Mean Abs Deviation');
 end

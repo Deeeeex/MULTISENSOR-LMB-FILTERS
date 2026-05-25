@@ -111,9 +111,9 @@ where $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ are local structure priors der
 The aim of the above formulation is not only to improve each node's local tracking output, but also to improve agreement among nodes. The experiments therefore evaluate two complementary aspects:
 
 - local tracking quality, measured by local E-OSPA and local RMSE,
-- inter-sensor consensus quality, measured by consensus OSPA, consensus position disagreement, and consensus cardinality disagreement.
+- inter-sensor consensus quality, measured by OSPA consensus error, matched localization disagreement, and cardinality dispersion.
 
-This separation is important for the present problem. In a distributed network with unknown cross-correlations and communication losses, an adaptive fusion rule can be valuable even when local metrics improve only mildly, provided that it substantially improves the consistency of the fused multi-sensor picture across nodes.
+This separation is important for the present problem. In a distributed network with unknown cross-correlations and communication losses, an adaptive fusion rule can be valuable even when local metrics improve only mildly, provided that it substantially reduces disagreement in the fused multi-sensor picture across nodes.
 
 ## Notation And Framing Notes
 

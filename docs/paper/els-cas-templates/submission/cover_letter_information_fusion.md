@@ -33,7 +33,7 @@ The study is simulation-based and does not use a public real-world dataset. The 
 
 ### 4. Validation measures
 
-The validation uses standard multi-object tracking measures and deployment-relevant fusion measures. Truth-referenced local safeguards include E-OSPA, local RMSE, and local cardinality error. The primary distributed-fusion outcomes are consensus OSPA, consensus position disagreement, and consensus cardinality disagreement, built from standard finite-set distance and assignment ingredients to quantify cross-node agreement after distributed fusion. The paper also reports filter/fusion wall-clock runtime, runtime per simulation step, and runtime relative to fixed Metropolis weighting.
+The validation uses standard multi-object tracking measures and deployment-relevant fusion measures. Truth-referenced local safeguards include E-OSPA, local RMSE, and local cardinality error. The primary distributed-fusion outcomes are OSPA consensus error, matched localization disagreement, and cardinality dispersion, built from standard finite-set distance and assignment ingredients to quantify cross-node agreement after distributed fusion. The paper also reports filter/fusion wall-clock runtime, runtime per simulation step, and runtime relative to fixed Metropolis weighting.
 
 ### 5. Main claim and significance
 
@@ -41,7 +41,7 @@ The main claim is that distributed KLA-based LMB fusion under heterogeneous comm
 
 ### 6. Evidence supporting the claim
 
-In the main 20-trial paired tiered heterogeneous packet-loss scenario, Fixed Metropolis gives consensus OSPA, position disagreement, and cardinality disagreement of 2.454, 2.336, and 0.715. The proposed Cardinality-critical mode reduces these to 1.669, 1.528, and 0.061, respectively. The lower-overhead Balanced mode gives a position-oriented alternative with substantially lower runtime than the information-geometric cardinality-critical option. The paper also includes local tracking safeguards showing that the consensus gains are not produced by local tracking collapse, a communication-level robustness probe from levels 0 to 3, and a runtime supplement showing the computational tradeoff between Balanced and Cardinality-critical operation.
+In the main 20-trial paired tiered heterogeneous packet-loss scenario, Fixed Metropolis gives OSPA consensus error, matched localization disagreement, and cardinality dispersion of 2.454, 2.336, and 0.715. The proposed Cardinality-critical mode reduces these to 1.669, 1.528, and 0.061, respectively. The lower-overhead Balanced mode gives a position-oriented alternative with substantially lower runtime than the information-geometric cardinality-critical option. The paper also includes local tracking safeguards showing that the consensus gains are not produced by local tracking collapse, a communication-level robustness probe from levels 0 to 3, and a runtime supplement showing the computational tradeoff between Balanced and Cardinality-critical operation.
 
 ### 7. Most related work and difference
 

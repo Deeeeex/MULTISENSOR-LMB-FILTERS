@@ -814,7 +814,7 @@ for trial = 1:size(pDropBySensorTrials, 1)
 end
 fprintf(fid, '\n');
 
-fprintf(fid, '## Per-Trial Consensus Metrics\n');
+fprintf(fid, '## Per-Trial Network Disagreement Metrics\n');
 fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
 trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
@@ -827,7 +827,7 @@ for trial = 1:numberOfTrials
 end
 fprintf(fid, '\n');
 
-fprintf(fid, '## Consensus Metrics (mean across trials)\n');
+fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
 fprintf(fid, '| Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|:----|-----:|-----:|------------:|\n');
 for armIdx = 1:numel(arms)
@@ -835,7 +835,7 @@ for armIdx = 1:numel(arms)
         mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), mean(consCard(:, armIdx)));
 end
 
-fprintf(fid, '\n## Consensus Metrics With Trial Variability\n');
+fprintf(fid, '\n## Network Disagreement Metrics With Trial Variability\n');
 writeMetricStatsTable(fid, {arms.name}, {'OSPA', 'RMSE', 'Cardinality'}, ...
     {consOspa, consPos, consCard}, [false, true, false]);
 
