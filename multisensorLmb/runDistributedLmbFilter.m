@@ -169,6 +169,21 @@ function localCommStats = sliceCommStats(commStats, sensorIdx)
     if isfield(commStats, 'associationAmbiguityScore')
         localCommStats.associationAmbiguityScore = commStats.associationAmbiguityScore(sensorIdx, :);
     end
+    if isfield(commStats, 'sensorSampleMask')
+        localCommStats.sensorSampleMask = commStats.sensorSampleMask(sensorIdx, :);
+    end
+    if isfield(commStats, 'sensorSampleAge')
+        localCommStats.sensorSampleAge = commStats.sensorSampleAge(sensorIdx, :);
+    end
+    if isfield(commStats, 'droppedBySchedule')
+        localCommStats.droppedBySchedule = commStats.droppedBySchedule(sensorIdx, :);
+    end
+    if isfield(commStats, 'samplingPeriods') && numel(commStats.samplingPeriods) >= max(sensorIdx)
+        localCommStats.samplingPeriods = commStats.samplingPeriods(sensorIdx);
+    end
+    if isfield(commStats, 'samplingPhaseOffsets') && numel(commStats.samplingPhaseOffsets) >= max(sensorIdx)
+        localCommStats.samplingPhaseOffsets = commStats.samplingPhaseOffsets(sensorIdx);
+    end
 end
 
 function weightsBySensor = computeUniformWeights(neighborMap)

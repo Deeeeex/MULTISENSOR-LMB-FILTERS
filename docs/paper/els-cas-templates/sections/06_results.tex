@@ -140,7 +140,27 @@ This supporting study is useful for two reasons. First, it shows that the refine
 
 \subsection{Communication robustness}
 
-A broader communication-level analysis varies the communication level from $0$ to $3$ and compares fixed and adaptive fusion modes. This study is treated as supporting evidence rather than as a main quantitative table, because the tiered-drop experiment provides the cleanest directly reproducible comparison. The qualitative conclusion is nevertheless clear: as communication becomes more constrained and heterogeneous, adaptive weighting becomes more valuable.
+A compact communication-level probe was added to test whether the Balanced mode remains useful outside the single tiered-drop setting. The probe uses the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis with the Balanced mode over three deterministic paired trials at each communication level. Level $0$ is ideal communication, level $1$ adds only the global bandwidth cap, level $2$ adds the tiered fixed link-loss model used in the main experiment, and level $3$ further adds random node outages. Table~\ref{tab:comm-level-robustness} reports the resulting consensus metrics.
+
+\begin{table}[t]
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \caption{Communication-level robustness probe in the eight-sensor dual-formation GA-LMB scenario. Each level uses three deterministic paired trials. Values are Fixed Metropolis / Balanced mode, and lower values are better.}
+  \label{tab:comm-level-robustness}
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}clccc@{}}
+    \toprule
+    Level & Additional constraint & OSPA disag. & Pos. disag. & Card. disag. \\
+    \midrule
+    0 & none & $1.622 / 1.405$ & $1.380 / 1.190$ & $0.098 / 0.070$ \\
+    1 & bandwidth cap & $1.734 / 1.494$ & $1.503 / 1.243$ & $0.152 / 0.093$ \\
+    2 & tiered link loss & $2.480 / 1.810$ & $2.400 / 1.419$ & $0.686 / 0.210$ \\
+    3 & node outage & $2.440 / 1.753$ & $2.486 / 1.450$ & $0.754 / 0.193$ \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+The probe is not used to replace the 20-trial main comparison, but it closes the previous gap in the robustness evidence. The Balanced mode improves all three consensus metrics at every communication level. The gain is modest under ideal or bandwidth-only communication, where consensus OSPA drops by about $13$--$14\%$ and cardinality disagreement drops by about $29$--$39\%$. Under tiered link loss and outage conditions, the reductions become larger: consensus OSPA drops by about $27$--$28\%$, position disagreement by about $41$--$42\%$, and cardinality disagreement by about $69$--$74\%$. The local safeguard metrics move in the same direction in this probe, with local E-OSPA and local cardinality error both lower for the Balanced mode at all four communication levels. This supports the interpretation that communication-aware weighting is most valuable when realized delivery quality becomes heterogeneous, while still providing a smaller positive effect under benign communication.
 
 \subsection{Secondary consistency modules}
 

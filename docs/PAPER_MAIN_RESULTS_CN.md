@@ -20,6 +20,7 @@
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 - 外部动态权重 baseline 补充实验：[Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md)
 - 计算量补充实验：[GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md)
+- 通信等级稳健性补充实验：`RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md` 等四个 level-specific 报告
 
 ### 1.1 一致性指标
 
@@ -158,7 +159,27 @@
 - [GA_IDEAL_COMM_COMPARE_20260326_184508.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md)
 - [IDEAL_COMM_COMPARE_CN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/IDEAL_COMM_COMPARE_CN.md)
 
-## 4. 附录结果：AA secondary route
+## 4. supporting evidence：communication-level robustness
+
+这次补了一个同 8-sensor dual-formation GA-LMB 场景下的小规模通信等级稳健性 probe：每个 communication level 跑 `3` 个 deterministic paired trials，只比较 `Fixed Metropolis` 和 `Balanced mode`。
+
+| Level | 约束含义 | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| ---: | --- | ---: | ---: | ---: |
+| 0 | ideal / none | `1.622 -> 1.405` | `1.380 -> 1.190` | `0.098 -> 0.070` |
+| 1 | bandwidth cap | `1.734 -> 1.494` | `1.503 -> 1.243` | `0.152 -> 0.093` |
+| 2 | tiered link loss | `2.480 -> 1.810` | `2.400 -> 1.419` | `0.686 -> 0.210` |
+| 3 | node outage | `2.440 -> 1.753` | `2.486 -> 1.450` | `0.754 -> 0.193` |
+
+这张表不替代 20-trial 主实验，但可以替代原来 paper 里“通信越差自适应越有价值”的纯定性段落。趋势是：`Balanced mode` 在四个通信等级上都改善三项 consensus 指标；在 ideal 或 bandwidth-only 条件下，收益较温和；到了 tiered link loss 和 outage 条件下，OSPA/position/cardinality 的改善明显放大。这和主消融里 `realized link quality` 是最大通信相关增益来源的结论一致。
+
+主要来源：
+
+- [GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md)
+- [GA_TIERED_LINK_ABLATION_N3_SEED41_20260520_112605.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED41_20260520_112605.md)
+- [GA_TIERED_LINK_ABLATION_N3_SEED51_20260520_113506.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED51_20260520_113506.md)
+- [GA_TIERED_LINK_ABLATION_N3_SEED61_20260520_114216.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED61_20260520_114216.md)
+
+## 5. 附录结果：AA secondary route
 
 当前正文主线明确选择 `GA-LMB / KLA`，因为 GA/KLA 更适合讲未知相关性下的保守融合、log-opinion-pool、以及 spatial/existence 分支解耦。因此 `AA` 不再进入正文主结果，只作为附录里的 secondary route 记录。
 
@@ -173,7 +194,7 @@
 - 数值层面虽然改善明显，但实验线不是本文主要叙事
 - 论文当前最完整、最稳的证据链和理论推导都围绕 `GA-LMB + tiered heterogeneous packet loss`
 
-## 5. 次线和附录结果：做过，但不进正文主线
+## 6. 次线和附录结果：做过，但不进正文主线
 
 为了避免把正文叙事拉散，当前 paper 已明确把以下模块降级为次线或附录材料：
 
@@ -203,7 +224,7 @@
 - 正文只保留主线四项
 - 次线模块保留到附录，用来证明“这些方向我们试过，但它们不是当前版本最有效、最稳的答案”
 
-## 6. 当前最稳的论文结论
+## 7. 当前最稳的论文结论
 
 基于现有实验结果，当前最稳的论文结论可以整理为下面三句话。
 

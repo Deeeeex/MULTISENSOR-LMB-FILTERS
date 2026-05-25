@@ -65,9 +65,16 @@ This supporting study is useful for two reasons. First, it shows that the refine
 
 ### 4. Communication-Robustness Trend
 
-A broader communication-level analysis has also been implemented by varying the communication level from `0` to `3` and comparing fixed and adaptive fusion modes through [analyzeCommunicationLevelImpact.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/analyzeCommunicationLevelImpact.m). At present, this study is best treated as supporting evidence rather than as a headline quantitative table, because the tiered-drop branch has much cleaner and more directly reproducible saved reports.
+A compact communication-level probe now varies the communication level from `0` to `3` under the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis with the Balanced mode over three deterministic paired trials per level. Level `0` is ideal communication, level `1` adds only the global bandwidth cap, level `2` adds the tiered fixed link-loss model used in the main experiment, and level `3` further adds random node outages.
 
-The present qualitative conclusion is nevertheless clear: as communication becomes more constrained and heterogeneous, adaptive weighting becomes more valuable. This trend is consistent with the factor ablation in the main scenario, where link-quality modeling provides the largest communication-specific gain. For the final paper version, the communication-level study should be rerun under the same reporting discipline as the main tiered-drop experiment so that a clean table of means and variances can be added.
+| Level | Additional constraint | OSPA disagreement | Position disagreement | Cardinality disagreement |
+|-----:|:----------------------|------------------:|----------------------:|-------------------------:|
+| 0 | none | `1.622 -> 1.405` | `1.380 -> 1.190` | `0.098 -> 0.070` |
+| 1 | bandwidth cap | `1.734 -> 1.494` | `1.503 -> 1.243` | `0.152 -> 0.093` |
+| 2 | tiered link loss | `2.480 -> 1.810` | `2.400 -> 1.419` | `0.686 -> 0.210` |
+| 3 | node outage | `2.440 -> 1.753` | `2.486 -> 1.450` | `0.754 -> 0.193` |
+
+This is supporting evidence rather than a replacement for the 20-trial main comparison, but it removes the previous purely qualitative gap. The Balanced mode improves all three consensus metrics at every communication level. The reductions are modest under ideal or bandwidth-only communication, but they become larger once link loss and outage make realized delivery quality heterogeneous. This is consistent with the factor ablation in the main scenario, where link-quality modeling provides the largest communication-specific gain.
 
 ### 5. Secondary Consistency Modules
 

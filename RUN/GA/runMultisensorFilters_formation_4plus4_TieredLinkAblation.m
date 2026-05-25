@@ -84,6 +84,16 @@ baseAdaptiveFusionConfig = struct( ...
     'useFreshness', false, ...
     'freshnessDecay', 0.5, ...
     'freshnessMinScore', 0.4, ...
+    'useCtFiDecay', false, ...
+    'ctFiDecayMinScore', 0.35, ...
+    'ctFiDecayPower', 1.0, ...
+    'ctFiUseDetectionProbability', true, ...
+    'ctFiProcessNoiseScale', NaN, ...
+    'fiTraceUseExistenceProbability', false, ...
+    'fiTraceExistencePower', 1.0, ...
+    'fiTraceUseDetectionProbability', false, ...
+    'fiTraceUseClutterPenalty', false, ...
+    'pdWeightPower', 1.0, ...
     'useHistory', false, ...
     'historyEmaAlpha', 0.8, ...
     'historyScale', 2.0, ...
@@ -176,7 +186,9 @@ for trial = 1:numberOfTrials
     [~, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
     model.sensorTrajectories = sensorTrajectories;
 
-    [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfig);
+    [measurementsForComm, samplingStats] = applyOptionalMultiRateSchedule(measurements, commConfig);
+    [measurementsDelivered, commStats] = applyCommunicationModel(measurementsForComm, model, commConfig);
+    commStats = attachSamplingStats(commStats, samplingStats);
     pDropBySensorTrials(trial, :) = reshape(commStats.pDropBySensor, 1, []);
 
     for armIdx = 1:numArms
@@ -261,6 +273,7 @@ end
 summary.pDropBySensorTrials = pDropBySensorTrials;
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
+summary.samplingStats = samplingStats;
 summary.arms = arms;
 
 if writeReport
@@ -270,7 +283,11 @@ if writeReport
     end
     timestamp = datestr(now, 'yyyymmdd_HHMMSS');
     reportPrefix = '';
-    if any(strcmpi(finalArmMode, {'freshness', 'fresh', 'cardinality', 'cardinalityconsensus', 'cardinality_consensus'}))
+    if any(strcmpi(finalArmMode, {'freshness', 'fresh', 'ctfidecay', 'ct_fi_decay', ...
+            'informationdecay', 'information_decay', 'multiratectfi', ...
+            'multi_rate_ct_fi', 'fiweightedga', 'fi_weighted_ga', ...
+            'fitracega', 'fi_trace_ga', 'cardinality', 'cardinalityconsensus', ...
+            'cardinality_consensus'}))
         reportPrefix = 'Del_';
     end
     reportName = sprintf('%sGA_TIERED_LINK_ABLATION_N%d_SEED%d_%s.md', ...
@@ -517,6 +534,76 @@ switch lower(finalArmMode)
         arms(4).name = '+freshness';
         arms(4).adaptiveFusion = cfg;
         arms = arms(1:4);
+    case {'ctfidecay', 'ct_fi_decay', 'informationdecay', 'information_decay', ...
+            'multiratectfi', 'multi_rate_ct_fi'}
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = true;
+        cfg.useCtFiDecay = false;
+        cfg.useNIS = false;
+        arms(4).name = '+freshness';
+        arms(4).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
+        cfg.useCtFiDecay = true;
+        cfg.useNIS = false;
+        arms(5).name = '+CT-FI information decay';
+        arms(5).adaptiveFusion = cfg;
+    case {'fiweightedga', 'fi_weighted_ga', 'fitracega', 'fi_trace_ga', ...
+            'fisherweightedga', 'fisher_weighted_ga'}
+        arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 4);
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = false;
+        cfg.method = 'factorized';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        arms(1).name = 'fixed weights';
+        arms(1).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'pdWeightedGa';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        arms(2).name = 'PD-weighted GA';
+        arms(2).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'fiTraceGa';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        arms(3).name = 'FI-weighted GA';
+        arms(3).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'factorized';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useFreshness = false;
+        cfg.useNIS = false;
+        arms(4).name = '+link quality';
+        arms(4).adaptiveFusion = cfg;
     case {'cardinality', 'cardinalityconsensus', 'cardinality_consensus'}
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
@@ -639,6 +726,7 @@ if fid < 0
 end
 
 timestamp = datestr(now, 'yyyy-mm-dd HH:MM:SS');
+baselineName = arms(1).name;
 fprintf(fid, '# GA Tiered Link Ablation (%s)\n\n', timestamp);
 fprintf(fid, 'Comparison order: %s\n\n', strjoin({arms.name}, ' -> '));
 fprintf(fid, '## Run Config\n');
@@ -653,7 +741,12 @@ fprintf(fid, '- leaderSensor: %d\n', leaderSensor);
 fprintf(fid, '- linkModel: %s\n', getField(commConfig, 'linkModel', 'fixed'));
 fprintf(fid, '- pDrop target mean: %.3f\n', getField(commConfig, 'pDrop', 0));
 fprintf(fid, '- pDropLevels: %s\n', mat2str(getField(commConfig, 'pDropLevels', []), 3));
-fprintf(fid, '- pDropLevelCounts: %s\n\n', mat2str(getField(commConfig, 'pDropLevelCounts', [])));
+fprintf(fid, '- pDropLevelCounts: %s\n', mat2str(getField(commConfig, 'pDropLevelCounts', [])));
+if getField(commConfig, 'enableMultiRate', false)
+    fprintf(fid, '- samplingPeriods: %s\n', mat2str(getField(commConfig, 'samplingPeriods', [])));
+    fprintf(fid, '- samplingPhaseOffsets: %s\n', mat2str(getField(commConfig, 'samplingPhaseOffsets', [])));
+end
+fprintf(fid, '\n');
 fprintf(fid, '- finalArmMode: %s\n\n', finalArmMode);
 
 fprintf(fid, '## Arm Configs\n');
@@ -665,6 +758,23 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
     fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
     fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
+    fprintf(fid, '- useFreshness: %d\n', getField(cfg, 'useFreshness', false));
+    fprintf(fid, '- useCtFiDecay: %d\n', getField(cfg, 'useCtFiDecay', false));
+    if getField(cfg, 'useCtFiDecay', false)
+        fprintf(fid, '- ctFiDecayMinScore: %.3f\n', getField(cfg, 'ctFiDecayMinScore', 0.35));
+        fprintf(fid, '- ctFiDecayPower: %.3f\n', getField(cfg, 'ctFiDecayPower', 1.0));
+        fprintf(fid, '- ctFiUseDetectionProbability: %d\n', getField(cfg, 'ctFiUseDetectionProbability', true));
+        fprintf(fid, '- ctFiProcessNoiseScale: %.3f\n', getField(cfg, 'ctFiProcessNoiseScale', NaN));
+    end
+    methodName = char(getField(cfg, 'method', 'factorized'));
+    if strcmpi(methodName, 'fiTraceGa')
+        fprintf(fid, '- fiTraceUseExistenceProbability: %d\n', getField(cfg, 'fiTraceUseExistenceProbability', false));
+        fprintf(fid, '- fiTraceExistencePower: %.3f\n', getField(cfg, 'fiTraceExistencePower', 1.0));
+        fprintf(fid, '- fiTraceUseDetectionProbability: %d\n', getField(cfg, 'fiTraceUseDetectionProbability', false));
+        fprintf(fid, '- fiTraceUseClutterPenalty: %d\n', getField(cfg, 'fiTraceUseClutterPenalty', false));
+    elseif strcmpi(methodName, 'pdWeightedGa')
+        fprintf(fid, '- pdWeightPower: %.3f\n', getField(cfg, 'pdWeightPower', 1.0));
+    end
     fprintf(fid, '- useNIS: %d\n', getField(cfg, 'useNIS', false));
     fprintf(fid, '- useDecoupledKla: %d\n', getField(cfg, 'useDecoupledKla', false));
     fprintf(fid, '- useStructureAwareKla: %d\n', getField(cfg, 'useStructureAwareKla', false));
@@ -730,17 +840,17 @@ writeMetricStatsTable(fid, {arms.name}, {'OSPA', 'RMSE', 'Cardinality'}, ...
     {consOspa, consPos, consCard}, [false, true, false]);
 
 if numel(arms) >= 2
-    fprintf(fid, '\n## Paired Improvements Relative to Fixed Weights\n');
+    fprintf(fid, '\n## Paired Improvements Relative to %s\n', baselineName);
     writePairedImprovementTable(fid, {arms.name}, {'OSPA', 'RMSE', 'Cardinality'}, ...
         {consOspa, consPos, consCard}, [false, true, false]);
 end
 
 fprintf(fid, '\n## Computational Cost\n');
 fprintf(fid, 'Filter wall-clock time measures only the distributed LMB filtering/fusion call for each arm. Scenario generation, communication-model sampling, and metric evaluation are excluded.\n\n');
-writeRuntimeCostSummaryTable(fid, {arms.name}, filterRuntimeSeconds, simulationLength);
+writeRuntimeCostSummaryTable(fid, {arms.name}, filterRuntimeSeconds, simulationLength, baselineName);
 fprintf(fid, '\n');
 writeRuntimePerTrialTable(fid, computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed), ...
-    {arms.name}, filterRuntimeSeconds, simulationLength);
+    {arms.name}, filterRuntimeSeconds, simulationLength, baselineName);
 
 fprintf(fid, '\n## Local Tracking Metrics (mean across sensors and trials)\n');
 fprintf(fid, '| Arm | E-OSPA | RMSE | CardErr |\n');
@@ -761,7 +871,7 @@ writeMetricStatsTable(fid, {arms.name}, {'E-OSPA', 'RMSE', 'CardErr'}, ...
     {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 
 if numel(arms) >= 2
-    fprintf(fid, '\n## Paired Local-Metric Improvements Relative to Fixed Weights\n');
+    fprintf(fid, '\n## Paired Local-Metric Improvements Relative to %s\n', baselineName);
     writePairedImprovementTable(fid, {arms.name}, {'E-OSPA', 'RMSE', 'CardErr'}, ...
         {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 end
@@ -834,9 +944,12 @@ for metricIdx = 1:numel(metricNames)
 end
 end
 
-function writeRuntimeCostSummaryTable(fid, armNames, runtimeSeconds, simulationLength)
+function writeRuntimeCostSummaryTable(fid, armNames, runtimeSeconds, simulationLength, baselineName)
 if nargin < 4 || isempty(simulationLength) || simulationLength <= 0
     simulationLength = 1;
+end
+if nargin < 5 || isempty(baselineName)
+    baselineName = armNames{1};
 end
 if isempty(runtimeSeconds)
     fprintf(fid, 'Runtime data unavailable.\n');
@@ -844,7 +957,7 @@ if isempty(runtimeSeconds)
 end
 
 fixedRuntime = runtimeSeconds(:, 1);
-fprintf(fid, '| Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed | N |\n');
+fprintf(fid, '| Arm | Filter runtime (s) | Runtime/step (s) | Relative to %s | N |\n', baselineName);
 fprintf(fid, '|:----|-------------------:|-----------------:|------------------:|--:|\n');
 for armIdx = 1:numel(armNames)
     values = runtimeSeconds(:, armIdx);
@@ -881,16 +994,19 @@ if numel(armNames) >= 2
 end
 end
 
-function writeRuntimePerTrialTable(fid, trialSeeds, armNames, runtimeSeconds, simulationLength)
+function writeRuntimePerTrialTable(fid, trialSeeds, armNames, runtimeSeconds, simulationLength, baselineName)
 if nargin < 5 || isempty(simulationLength) || simulationLength <= 0
     simulationLength = 1;
+end
+if nargin < 6 || isempty(baselineName)
+    baselineName = armNames{1};
 end
 if isempty(runtimeSeconds)
     return;
 end
 
 fprintf(fid, '### Per-Trial Filter Runtime\n');
-fprintf(fid, '| Trial | Seed | Arm | Runtime (s) | Runtime/step (s) | Relative to fixed |\n');
+fprintf(fid, '| Trial | Seed | Arm | Runtime (s) | Runtime/step (s) | Relative to %s |\n', baselineName);
 fprintf(fid, '|------:|-----:|:----|------------:|-----------------:|------------------:|\n');
 for trial = 1:size(runtimeSeconds, 1)
     fixedRuntime = runtimeSeconds(trial, 1);
@@ -996,6 +1112,32 @@ if nargin >= 2 && omitnanFlag
 else
     value = mean(values);
 end
+end
+
+function [measurementsForComm, samplingStats] = applyOptionalMultiRateSchedule(measurements, commConfig)
+measurementsForComm = measurements;
+samplingStats = struct();
+if ~getField(commConfig, 'enableMultiRate', false)
+    return;
+end
+samplingPeriods = getField(commConfig, 'samplingPeriods', []);
+if isempty(samplingPeriods)
+    return;
+end
+phaseOffsets = getField(commConfig, 'samplingPhaseOffsets', []);
+[measurementsForComm, samplingStats] = applyMultiRateSensorSchedule( ...
+    measurements, samplingPeriods, phaseOffsets);
+end
+
+function commStats = attachSamplingStats(commStats, samplingStats)
+if nargin < 2 || ~isstruct(samplingStats) || isempty(fieldnames(samplingStats))
+    return;
+end
+commStats.sensorSampleMask = samplingStats.sensorSampleMask;
+commStats.sensorSampleAge = samplingStats.sensorSampleAge;
+commStats.droppedBySchedule = samplingStats.droppedBySchedule;
+commStats.samplingPeriods = samplingStats.samplingPeriods;
+commStats.samplingPhaseOffsets = samplingStats.samplingPhaseOffsets;
 end
 
 function merged = mergeStructFields(base, overrides)

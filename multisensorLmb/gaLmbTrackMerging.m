@@ -20,9 +20,11 @@ function objects = gaLmbTrackMerging(measurementUpdatedDistributions, model)
 %           components.
 
 objects = measurementUpdatedDistributions{1};
-spatialWeights = resolveWeightVector(model, 'gaSpatialWeights', model.gaSensorWeights);
-existenceWeights = resolveWeightVector(model, 'gaExistenceWeights', model.gaSensorWeights);
 for i = 1:numel(objects)
+    spatialWeights = resolveObjectWeightVector( ...
+        model, 'gaTargetWiseWeights', 'gaSpatialWeights', model.gaSensorWeights, i);
+    existenceWeights = resolveObjectWeightVector( ...
+        model, 'gaTargetWiseWeights', 'gaExistenceWeights', model.gaSensorWeights, i);
     %% Moment match and determine geometric average
     K = zeros(model.xDimension, model.xDimension);
     h = zeros(model.xDimension, 1);
@@ -59,6 +61,20 @@ for i = 1:numel(objects)
 end
 end
 
+function weights = resolveObjectWeightVector(model, targetWiseFieldName, fieldName, fallback, objectIdx)
+weights = [];
+if isfield(model, targetWiseFieldName)
+    targetWiseWeights = model.(targetWiseFieldName);
+    if size(targetWiseWeights, 1) >= objectIdx && size(targetWiseWeights, 2) == numel(fallback)
+        weights = targetWiseWeights(objectIdx, :);
+    end
+end
+if isempty(weights)
+    weights = resolveWeightVector(model, fieldName, fallback);
+end
+weights = normalizeWeightVector(weights, fallback);
+end
+
 function weights = resolveWeightVector(model, fieldName, fallback)
 if isfield(model, fieldName)
     weights = model.(fieldName);
@@ -66,6 +82,23 @@ else
     weights = fallback;
 end
 end
+
+function weights = normalizeWeightVector(weights, fallback)
+weights = reshape(weights, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if numel(weights) ~= numel(fallback) || sum(weights) <= 0
+    weights = reshape(fallback, 1, []);
+    weights(~isfinite(weights)) = 0;
+    weights = max(weights, 0);
+end
+if sum(weights) <= 0
+    weights = ones(1, numel(fallback)) / numel(fallback);
+else
+    weights = weights / sum(weights);
+end
+end
+
 %% M-projection
 function [nu, T] = mprojection(n, measurementUpdatedDistribution)
 % Determine m-projected mean

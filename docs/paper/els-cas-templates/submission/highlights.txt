@@ -1,0 +1,3 @@
+Adaptive weights improve distributed GA-LMB fusion under packet loss.
+Weights combine covariance, link quality, and existence confidence.
+Operating modes trade runtime for stronger cardinality consistency.
