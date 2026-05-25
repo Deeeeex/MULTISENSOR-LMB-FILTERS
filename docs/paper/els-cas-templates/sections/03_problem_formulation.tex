@@ -3,9 +3,9 @@
 
 Consider a distributed sensor network with sensor index set $\mathcal{V}=\{1,\ldots,S\}$ operating over discrete time $k \in \{1,\ldots,T\}$. The multi-object state at time $k$ is modeled as a labeled random finite set $X_k$, and each sensor $s \in \mathcal{V}$ acquires a local measurement set $Z_k^{(s)}$. Following the standard RFS/FISST and labeled-RFS formulation, each node maintains an LMB approximation to the local multi-object posterior, whose Bernoulli components jointly encode target existence, kinematic state, and identity \citep{Mahler2003PHD,Mahler2007FISSTBook,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. The objective of the distributed fusion layer is to combine neighboring local posteriors into a consensus-quality posterior without assuming that cross-correlations among nodes are known.
 
-\subsection{Dynamic and measurement model}
+\subsection{Local LMB posterior model}
 
-Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the setting considered here, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior
+Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the setting considered here, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction, measurement update, and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior
 \begin{equation}
 \pi_{k}^{(j)} = \left\{ \left(r_{k,i}^{(j)}, p_{k,i}^{(j)}(\cdot,\ell_i)\right) \right\}_{i=1}^{M_k},
 \end{equation}
