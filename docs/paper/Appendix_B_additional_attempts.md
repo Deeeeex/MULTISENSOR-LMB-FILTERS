@@ -8,7 +8,7 @@ This appendix records secondary routes and modules explored in the current paper
 
 The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary AA experiment was run in the same eight-sensor communication-constrained setting with a three-wave target arrangement, but it is kept in the appendix because it is a different fusion route and is not based on the final existence-refined GA configuration.
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `fixed AA` | `4.349` | `19.098` | `0.421` |
 | `adaptive AA` | `3.811` | `16.472` | `0.307` |
@@ -35,7 +35,7 @@ Relevant entry points and tracked artifacts:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `w/o NIS` | `1.909` | `2.934` | `0.267` |
 | `robust NIS` | `1.909` | `2.980` | `0.262` |
@@ -58,7 +58,7 @@ Relevant entry points and tracked artifacts:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `robust NIS baseline` | `1.909` | `2.980` | `0.262` |
 | `robust NIS + freshness` | `1.910` | `2.980` | `0.263` |
@@ -79,7 +79,7 @@ Relevant entry points and tracked artifacts:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `w/o history` | `1.811` | `3.173` | `0.214` |
 | `history` | `1.814` | `3.158` | `0.215` |
@@ -100,7 +100,7 @@ Relevant entry points and tracked artifacts:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `Fixed Metropolis` | `2.590531` | `2.268101` | `0.868750` |
 | `Covariance-only adaptive` | `2.243220` | `1.774557` | `0.608750` |
@@ -124,7 +124,7 @@ Relevant code context:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `baseline` | `1.874840` | `1.779820` | `0.244500` |
 | `+association ambiguity` | `1.876368` | `1.769102` | `0.245500` |
@@ -148,7 +148,7 @@ Relevant code context:
 
 Reserved result table:
 
-| Arm | Consensus OSPA | Consensus Position Disagreement | Consensus Cardinality Disagreement |
+| Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
 | `static weak structure prior` | `1.862244` | `1.749608` | `0.244250` |
 | `posterior-structure-consistency` | `1.862244` | `1.749608` | `0.244250` |

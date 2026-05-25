@@ -9,7 +9,7 @@
 这一组实验回答两个问题：
 
 1. 在没有通信退化时，`structure-aware decoupled KLA` 相对普通 `GA` 是否仍然有效
-2. 改善是否只体现在一致性指标上，还是也能体现在部分局部跟踪指标上
+2. 改善是否只体现在共识误差指标上，还是也能体现在部分局部跟踪指标上
 
 ## 口径
 
@@ -46,11 +46,11 @@ model.adaptiveFusion.useNIS = false;
 
 ## 5 Trial 结果
 
-一致性指标：
+共识误差指标：
 
-- `Consensus OSPA`: `1.705549 -> 1.494474`
-- `Consensus RMSE`: `1.525900 -> 1.289643`
-- `Consensus Cardinality`: `0.160500 -> 0.139000`
+- `OSPA consensus error`: `1.705549 -> 1.494474`
+- `Matched localization disagreement`: `1.525900 -> 1.289643`
+- `Cardinality dispersion`: `0.160500 -> 0.139000`
 
 局部指标（传感器平均）：
 

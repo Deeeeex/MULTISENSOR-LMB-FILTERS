@@ -169,9 +169,9 @@ fprintf('GA state-dependent sensor quality + false targets (N=%d)\n', numberOfTr
 fprintf('Control=fixed weights, Experiment=adaptive GA\n');
 fprintf('False measurements per trial: %.2f\n', mean(falseMeasurementsTotal));
 fprintf('=====================================\n');
-fprintf('Consensus OSPA: %.6f -> %.6f\n', mean(consOspaBase), mean(consOspaAdaptive));
-fprintf('Consensus RMSE: %.6f -> %.6f\n', meanNoNan(consPosBase), meanNoNan(consPosAdaptive));
-fprintf('Consensus Card: %.6f -> %.6f\n', mean(consCardBase), mean(consCardAdaptive));
+fprintf('OSPA consensus error: %.6f -> %.6f\n', mean(consOspaBase), mean(consOspaAdaptive));
+fprintf('Matched localization disagreement: %.6f -> %.6f\n', meanNoNan(consPosBase), meanNoNan(consPosAdaptive));
+fprintf('Cardinality dispersion: %.6f -> %.6f\n', mean(consCardBase), mean(consCardAdaptive));
 
 summary.scenario = struct();
 summary.scenario.name = 'original 4+4 formation with state-dependent quality and persistent false targets';
@@ -424,7 +424,7 @@ fprintf(fid, '- Mean all measurements after false targets: %.3f\n', summary.meas
 fprintf(fid, '- Mean false fraction: %.2f%%\n', 100 * summary.measurements.meanFalseFraction);
 fprintf(fid, '- Mean by sensor: %s\n\n', mat2str(summary.falseTargets.meanBySensor, 4));
 
-fprintf(fid, '## Per-Trial Consensus Metrics\n');
+fprintf(fid, '## Per-Trial Network Disagreement Metrics\n');
 fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
 trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
@@ -436,15 +436,15 @@ for trial = 1:numberOfTrials
 end
 fprintf(fid, '\n');
 
-fprintf(fid, '## Consensus Metrics (mean across trials)\n');
-fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', mean(consOspaBase), mean(consOspaAdaptive));
-fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', meanNoNan(consPosBase), meanNoNan(consPosAdaptive));
-fprintf(fid, '- Cardinality: %.3f -> %.3f\n\n', mean(consCardBase), mean(consCardAdaptive));
+fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
+fprintf(fid, '- OSPA consensus error: %.3f -> %.3f\n', mean(consOspaBase), mean(consOspaAdaptive));
+fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f\n', meanNoNan(consPosBase), meanNoNan(consPosAdaptive));
+fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f\n\n', mean(consCardBase), mean(consCardAdaptive));
 
 fprintf(fid, '## Paired Improvements Relative to Fixed-Weight GA\n');
-writePairedImprovementLines(fid, 'Consensus OSPA', consOspaBase, consOspaAdaptive);
-writePairedImprovementLines(fid, 'Consensus RMSE', consPosBase, consPosAdaptive);
-writePairedImprovementLines(fid, 'Consensus cardinality disagreement', consCardBase, consCardAdaptive);
+writePairedImprovementLines(fid, 'OSPA consensus error', consOspaBase, consOspaAdaptive);
+writePairedImprovementLines(fid, 'Matched localization disagreement', consPosBase, consPosAdaptive);
+writePairedImprovementLines(fid, 'Cardinality dispersion', consCardBase, consCardAdaptive);
 fprintf(fid, '\n');
 
 fprintf(fid, '## Aggregated Local Metrics (mean across sensors and trials)\n');

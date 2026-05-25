@@ -192,13 +192,13 @@ for s = 1:numberOfSensors
         mean(rmseControl(:, s)), mean(rmseExperiment(:, s)), mean(pDropBySensorTrials(:, s)));
 end
 fprintf('=====================================\n');
-fprintf('Consensus Metrics (robust NIS baseline -> + freshness)\n');
+fprintf('Network Disagreement Metrics (robust NIS baseline -> + freshness)\n');
 fprintf('=====================================\n');
-fprintf('Comprehensive (OSPA) consensus: %.3f -> %.3f\n', ...
+fprintf('OSPA consensus error: %.3f -> %.3f\n', ...
     mean(consOspaControl), mean(consOspaExperiment));
-fprintf('Position (RMSE) consensus: %.3f -> %.3f\n', ...
+fprintf('Matched localization disagreement: %.3f -> %.3f\n', ...
     mean(consPosControl, 'omitnan'), mean(consPosExperiment, 'omitnan'));
-fprintf('Cardinality consensus: %.3f -> %.3f\n', ...
+fprintf('Cardinality dispersion: %.3f -> %.3f\n', ...
     mean(consCardControl), mean(consCardExperiment));
 
 summary.consensus.ospaControl = mean(consOspaControl);
@@ -337,10 +337,10 @@ fprintf(fid, '## Per-Trial pDropBySensor\n');
 for trial = 1:size(pDropBySensorTrials, 1)
     fprintf(fid, '- Trial %d: %s\n', trial, mat2str(pDropBySensorTrials(trial, :), 4));
 end
-fprintf(fid, '\n## Consensus Metrics (mean across trials)\n');
-fprintf(fid, '- Comprehensive (OSPA): %.3f -> %.3f\n', mean(consOspaControl), mean(consOspaExperiment));
-fprintf(fid, '- Position (RMSE): %.3f -> %.3f\n', mean(consPosControl, 'omitnan'), mean(consPosExperiment, 'omitnan'));
-fprintf(fid, '- Cardinality: %.3f -> %.3f\n', mean(consCardControl), mean(consCardExperiment));
+fprintf(fid, '\n## Network Disagreement Metrics (mean across trials)\n');
+fprintf(fid, '- OSPA consensus error: %.3f -> %.3f\n', mean(consOspaControl), mean(consOspaExperiment));
+fprintf(fid, '- Matched localization disagreement: %.3f -> %.3f\n', mean(consPosControl, 'omitnan'), mean(consPosExperiment, 'omitnan'));
+fprintf(fid, '- Cardinality dispersion: %.3f -> %.3f\n', mean(consCardControl), mean(consCardExperiment));
 fclose(fid);
 end
 

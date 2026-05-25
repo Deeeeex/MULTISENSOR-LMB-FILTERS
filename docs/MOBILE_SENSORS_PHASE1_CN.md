@@ -421,21 +421,21 @@ model = generateMultisensorModelEnhanced(3, [5 5 5], [0.9 0.9 0.9], ...
     [4 3 2], 'GA', 'LBP', 'Fixed', sensorMotionConfig);
 ```
 
-## 分布式一致性指标（新增）
+## 分布式共识误差指标（新增）
 
-针对“每个传感器本地融合”的场景，除了单节点精度指标外，新增**一致性指标**，衡量编队内部对目标的共同认知（不依赖真值）。
+针对“每个传感器本地融合”的场景，除了单节点精度指标外，新增**跨节点 disagreement / consensus-error 指标**，衡量编队内部对目标的共同认知（不依赖真值）。这里的 consistency 不是 NEES/NIS 意义上的滤波统计一致性，也不是 label consistency。
 
-### 1) 综合一致性（Comprehensive / OSPA Consistency）
-沿用历史“位置一致性”的 **OSPA 形式**，并改名为“综合一致性”：
+### 1) OSPA consensus error
+用两两 OSPA 的平均值衡量跨节点有限集估计差异：
 
 ```
 C_ospa(t) = (2 / (S*(S-1))) * Σ_{i<j} OSPA( X_i(t), X_j(t) )
 ```
 
-该指标同时考虑位置误差与基数差异（OSPA 含 cut-off），数值越小表示整体一致性越好。
+该指标同时考虑位置误差与基数差异（OSPA 含 cut-off），数值越小表示整体共识误差越小。
 
-### 2) 位置一致性（Position Consensus）
-用**平均两两 RMSE**衡量各节点估计集合的一致性，仅在**共同发现的目标**上计算误差，采用最小匹配（Hungarian）对齐目标集合：
+### 2) Matched localization disagreement
+用**平均两两 localization RMSE**衡量各节点估计集合的位置分歧，仅在**共同发现的目标**上计算误差，采用最小匹配（Hungarian）对齐目标集合：
 
 ```
 RMSE_ij(t) = sqrt( mean( ||x_i - x_j||^2 ) )  (仅匹配后的公共目标)
@@ -444,7 +444,7 @@ C_pos(t) = (2 / (S*(S-1))) * Σ_{i<j} RMSE_ij(t)
 
 若某时刻两节点没有公共目标，该对在该时刻不计入平均。
 
-### 3) 基数一致性（Cardinality Consensus）
+### 3) Cardinality dispersion
 对每个时刻的估计目标数取**中位数偏差的平均值**（MAD）：
 
 ```
@@ -453,7 +453,7 @@ C_card(t) = (1/S) * Σ_s | n_s(t) - median(n(t)) |
 
 ### 输出位置
 在 `runMultisensorFilters_formation.m` 中默认输出：
-- 时间序列曲线（Position / Cardinality）
+- 时间序列曲线（OSPA consensus error / localization disagreement / cardinality dispersion）
 - 全程均值（并在 Adaptive 对比时输出差值）
 
 ## 下一步（Phase 3）

@@ -271,9 +271,9 @@ model.adaptiveFusion.useNIS = false;
 
 ```text
 ordinary GA -> structure-aware decoupled KLA
-Consensus OSPA: 1.706 -> 1.494
-Consensus RMSE: 1.526 -> 1.290
-Consensus Card: 0.161 -> 0.139
+OSPA consensus error: 1.706 -> 1.494
+Matched localization disagreement: 1.526 -> 1.290
+Cardinality dispersion: 0.161 -> 0.139
 Local E-OSPA:   1.950 -> 1.877
 Local RMSE:     1.442 -> 1.369
 ```

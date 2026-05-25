@@ -100,8 +100,13 @@ for t = 1:simulationLength
             % Compute measurement-updated spatial distributions
             measurementUpdatedDistributions{s} = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
         else
-            % No measurements collected
-            measurementUpdatedDistributions{s} = applyMissedDetectionUpdate(objects, model, s, t);
+            % Non-sampling instants in multi-rate runs are prediction-only;
+            % scheduled scans with no detections still receive a missed update.
+            if isScheduledSample(commStats, s, t)
+                measurementUpdatedDistributions{s} = applyMissedDetectionUpdate(objects, model, s, t);
+            else
+                measurementUpdatedDistributions{s} = objects;
+            end
             innovationConsistency(s, t) = 1;
             associationAmbiguityScore(s, t) = 1;
             if useNIS && useNisEma && t > 1
@@ -130,6 +135,16 @@ for t = 1:simulationLength
         model.aaSpatialWeights = getConfigField(debug, 'aaSpatialWeights', aaWeights);
         model.gaExistenceWeights = getConfigField(debug, 'gaExistenceWeights', gaWeights);
         model.aaExistenceWeights = getConfigField(debug, 'aaExistenceWeights', aaWeights);
+        if isfield(debug, 'gaTargetWiseWeights')
+            model.gaTargetWiseWeights = debug.gaTargetWiseWeights;
+        elseif isfield(model, 'gaTargetWiseWeights')
+            model = rmfield(model, 'gaTargetWiseWeights');
+        end
+        if isfield(debug, 'aaTargetWiseWeights')
+            model.aaTargetWiseWeights = debug.aaTargetWiseWeights;
+        elseif isfield(model, 'aaTargetWiseWeights')
+            model = rmfield(model, 'aaTargetWiseWeights');
+        end
         prevWeights.ga = gaWeights;
         prevWeights.aa = aaWeights;
         prevWeights.gaSpatial = model.gaSpatialWeights;
@@ -196,6 +211,17 @@ if isfield(cfg, fieldName)
     value = cfg.(fieldName);
 else
     value = defaultValue;
+end
+end
+
+function tf = isScheduledSample(commStats, sensorIdx, currentTime)
+tf = true;
+if nargin < 1 || ~isstruct(commStats) || ~isfield(commStats, 'sensorSampleMask')
+    return;
+end
+if size(commStats.sensorSampleMask, 1) >= sensorIdx && ...
+        size(commStats.sensorSampleMask, 2) >= currentTime
+    tf = commStats.sensorSampleMask(sensorIdx, currentTime) > 0;
 end
 end
 

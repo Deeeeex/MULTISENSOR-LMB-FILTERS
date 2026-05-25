@@ -84,11 +84,11 @@ Sensor 6: E-OSPA 4.189 -> 4.198 (0.009), RMSE 4.628 -> 4.634 (0.007), neighbors=
 Sensor 7: E-OSPA 4.310 -> 4.240 (-0.070), RMSE 4.933 -> 5.437 (0.505), neighbors=[3 5 6 7 8]
 Sensor 8: E-OSPA 4.089 -> 4.198 (0.109), RMSE 3.738 -> 4.712 (0.975), neighbors=[4 5 6 7 8]
 =====================================
-Consensus Metrics (base -> adaptive)
+Network Disagreement Metrics (base -> adaptive)
 =====================================
-Comprehensive (OSPA) consensus: 4.339 -> 3.868 (-0.471)
-Position (RMSE) consensus: 18.424 -> 17.358 (-1.066)
-Cardinality consensus: 0.485 -> 0.315 (-0.170)
+OSPA consensus error: 4.339 -> 3.868 (-0.471)
+Matched localization disagreement: 18.424 -> 17.358 (-1.066)
+Cardinality dispersion: 0.485 -> 0.315 (-0.170)
 ```
 
 ## 仿真结果（更新后的 Adaptive 策略：加入 NIS）
@@ -105,18 +105,18 @@ Sensor 6: E-OSPA 4.157 -> 4.212 (0.055), RMSE 4.553 -> 4.646 (0.093), neighbors=
 Sensor 7: E-OSPA 4.388 -> 4.236 (-0.152), RMSE 6.907 -> 5.178 (-1.729), neighbors=[3 5 6 7 8]
 Sensor 8: E-OSPA 4.199 -> 4.239 (0.039), RMSE 4.931 -> 4.954 (0.023), neighbors=[4 5 6 7 8]
 =====================================
-Consensus Metrics (base -> adaptive)
+Network Disagreement Metrics (base -> adaptive)
 =====================================
-Comprehensive (OSPA) consensus: 4.349 -> 3.811 (-0.538)
-Position (RMSE) consensus: 19.098 -> 16.472 (-2.626)
-Cardinality consensus: 0.421 -> 0.307 (-0.114)
+OSPA consensus error: 4.349 -> 3.811 (-0.538)
+Matched localization disagreement: 19.098 -> 16.472 (-2.626)
+Cardinality dispersion: 0.421 -> 0.307 (-0.114)
 ```
 
 ### 增益（基于更新后的 Adaptive）
 - 共识指标（越小越好）：
   - 综合 OSPA：减少 0.538（约 12.37%）
   - 位置 RMSE：减少 2.626（约 13.75%）
-  - 基数一致性：减少 0.114（约 27.08%）
+  - 基数离散度：减少 0.114（约 27.08%）
 - 传感器平均变化（Adaptive - Base）：
   - 平均 E-OSPA：+0.0065（略降）
   - 平均 RMSE：-0.8344（提升）

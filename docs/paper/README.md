@@ -24,23 +24,23 @@ Recommended main line:
 - Under ideal communication, the same branch-decoupled story remains useful: FID-FIA is strong for cardinality, the Balanced mode is strongest for RMSE, and the Cardinality-critical mode gives the best OSPA/cardinality without using FID-FIA as the whole-posterior rule.
 - A 3-trial computational-cost supplement shows the selection tradeoff: Balanced mode is close to fixed-weight runtime, while FID-FIA-based arms are about 3x fixed runtime.
 - `robust NIS` is still more stable than plain `NIS`, but it is no longer the strongest main-line improvement in this branch.
-- The present evidence is strongest on consensus metrics, not on universally improving local tracking.
+- The present evidence is strongest on network disagreement metrics, not on universally improving local tracking.
 
 ## Current Headline Numbers
 
 Core main-line numbers:
 
-- Tiered GA main scenario: Fixed Metropolis -> Cardinality-critical mode gives consensus OSPA `2.454 -> 1.669`, consensus position disagreement `2.336 -> 1.528`, and consensus cardinality disagreement `0.715 -> 0.061`.
+- Tiered GA main scenario: Fixed Metropolis -> Cardinality-critical mode gives OSPA consensus error `2.454 -> 1.669`, matched localization disagreement `2.336 -> 1.528`, and cardinality dispersion `0.715 -> 0.061`.
 - Tiered GA local safeguards: Fixed Metropolis -> Cardinality-critical mode gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than FID-FIA.
-- Factor ablation: Three-factor adaptive backbone -> Balanced mode improves consensus OSPA `1.830 -> 1.821` and consensus position disagreement `1.754 -> 1.750`; the Cardinality-critical mode then reduces cardinality disagreement to `0.061`.
-- Ideal-communication comparison: Ordinary GA -> Cardinality-critical mode gives consensus OSPA `1.704 -> 1.433`, consensus position disagreement `1.532 -> 1.309`, consensus cardinality disagreement `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
-- Runtime supplement: Fixed Metropolis `47.3s`, FID-FIA baseline `137.8s`, Balanced mode `55.6s`, and Cardinality-critical mode `143.1s` per 100-step trial. The practical recommendation is Balanced for runtime-sensitive deployment and Cardinality-critical when target-number consistency is worth about `3x` fixed runtime.
+- Factor ablation: Three-factor adaptive backbone -> Balanced mode improves OSPA consensus error `1.830 -> 1.821` and matched localization disagreement `1.754 -> 1.750`; the Cardinality-critical mode then reduces cardinality dispersion to `0.061`.
+- Ideal-communication comparison: Ordinary GA -> Cardinality-critical mode gives OSPA consensus error `1.704 -> 1.433`, matched localization disagreement `1.532 -> 1.309`, cardinality dispersion `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
+- Runtime supplement: Fixed Metropolis `47.3s`, FID-FIA baseline `137.8s`, Balanced mode `55.6s`, and Cardinality-critical mode `143.1s` per 100-step trial. The practical recommendation is Balanced for runtime-sensitive deployment and Cardinality-critical when target-number agreement is worth about `3x` fixed runtime.
 
 Secondary or appendix-only numbers:
 
-- GA NIS ablation: consensus OSPA `1.909 -> 1.909 -> 2.008`, consensus position disagreement `2.934 -> 2.980 -> 3.173`, consensus cardinality disagreement `0.267 -> 0.262 -> 0.300`
-- GA history ablation: consensus OSPA `1.811 -> 1.814`, consensus position disagreement `3.173 -> 3.158`, consensus cardinality disagreement `0.214 -> 0.215`
-- Appendix-only AA three-wave scenario: consensus OSPA `4.349 -> 3.811`, consensus position disagreement `19.098 -> 16.472`, consensus cardinality disagreement `0.421 -> 0.307`
+- GA NIS ablation: OSPA consensus error `1.909 -> 1.909 -> 2.008`, matched localization disagreement `2.934 -> 2.980 -> 3.173`, cardinality dispersion `0.267 -> 0.262 -> 0.300`
+- GA history ablation: OSPA consensus error `1.811 -> 1.814`, matched localization disagreement `3.173 -> 3.158`, cardinality dispersion `0.214 -> 0.215`
+- Appendix-only AA three-wave scenario: OSPA consensus error `4.349 -> 3.811`, matched localization disagreement `19.098 -> 16.472`, cardinality dispersion `0.421 -> 0.307`
 
 ## Writing Rule For Main Text
 

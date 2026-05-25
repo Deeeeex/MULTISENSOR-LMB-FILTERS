@@ -68,7 +68,7 @@
 
 这个提交明确了两层评价逻辑：
 
-- `primary`：网络层一致性指标，如 `consensus OSPA`、`consensus RMSE`、`consensus cardinality disagreement`。
+- `primary`：网络层共识误差指标，如 `OSPA consensus error`、`matched localization disagreement`、`cardinality dispersion`。
 - `secondary`：常规 truth-referenced 的 local tracking 指标，用来证明一致性提升不是靠牺牲局部跟踪精度换来的。
 
 同时，这个提交还做了几件配套工作：

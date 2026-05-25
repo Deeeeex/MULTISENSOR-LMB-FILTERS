@@ -3,7 +3,7 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
 %   The weight model is factorized as
-%       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness * nisPenalty * history
+%       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness/informationDecay * nisPenalty * history
 %   where NIS acts as a consistency penalty instead of a quality reward.
 %   The final weights are then normalized with temporal EMA smoothing.
 
@@ -25,6 +25,8 @@ useLinkQuality = getField(cfg, 'useLinkQuality', true);
 useCardinalityConsensus = getField(cfg, 'useCardinalityConsensus', false);
 useExistenceConfidence = getField(cfg, 'useExistenceConfidence', false);
 useAssociationAmbiguity = getField(cfg, 'useAssociationAmbiguity', false);
+useCtFiDecay = getField(cfg, 'useCtFiDecay', false) || ...
+    getField(cfg, 'useInformationDecay', false);
 spatialEmaAlpha = getField(cfg, 'spatialEmaAlpha', emaAlpha);
 existenceEmaAlpha = getField(cfg, 'existenceEmaAlpha', emaAlpha);
 spatialMinWeight = getField(cfg, 'spatialMinWeight', minWeight);
@@ -50,6 +52,16 @@ if isFidFiaMethod(method)
         measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights);
     return;
 end
+if isFiTraceGaMethod(method)
+    [gaWeights, aaWeights, debug] = computeFiTraceGaFusionWeights( ...
+        measurementUpdatedDistributions, model, t, cfg, availabilityMask);
+    return;
+end
+if isPdWeightedGaMethod(method)
+    [gaWeights, aaWeights, debug] = computePdWeightedGaFusionWeights( ...
+        measurementUpdatedDistributions, model, t, cfg, availabilityMask);
+    return;
+end
 
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
 innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS);
@@ -60,6 +72,8 @@ existenceConfidenceScore = resolveExistenceConfidenceScore( ...
 associationAmbiguityScore = resolveAssociationAmbiguityScore( ...
     commStats, t, numSensors, useAssociationAmbiguity, cfg);
 freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg);
+ctFiDecayScore = resolveCtFiDecayScore( ...
+    measurementUpdatedDistributions, model, t, commStats, cfg, useCtFiDecay);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
 [historyScore, historyState, historyDebug] = computeHistoryScore( ...
@@ -70,15 +84,15 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
     associationAmbiguityScore .* ...
-    freshnessScore .* innovationPenalty .* historyScore;
+    freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
 
 if useDecoupledKla
     spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
         (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
-        innovationPenalty .* historyScore;
+        ctFiDecayScore .* innovationPenalty .* historyScore;
     existenceDedicatedScore = availabilityMask .* (linkQuality .^ existenceLinkQualityPower) .* ...
         (existenceConfidenceScore .^ existenceConfidenceWeightPower) .* ...
-        cardinalityConsensusScore .* freshnessScore .* innovationPenalty .* historyScore;
+        cardinalityConsensusScore .* freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
     spatialScore = blendDecoupledScore(rawScore, spatialDedicatedScore, spatialDecouplingStrength);
     existenceScore = blendDecoupledScore(rawScore, existenceDedicatedScore, existenceDecouplingStrength);
     spatialStructurePrior = resolveStructurePrior(model, 'gaSpatialStructurePrior', 'gaTopologyWeights', numSensors);
@@ -154,6 +168,8 @@ debug.cardinalityConsensusScore = cardinalityConsensusScore;
 debug.existenceConfidenceScore = existenceConfidenceScore;
 debug.associationAmbiguityScore = associationAmbiguityScore;
 debug.freshnessScore = freshnessScore;
+debug.ctFiDecayScore = ctFiDecayScore;
+debug.useCtFiDecay = useCtFiDecay;
 debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
@@ -198,6 +214,209 @@ tf = any(strcmpi(method, {'fidfia', 'fid_fia', 'fisherfia', ...
     'caozhao', 'cao_zhao'}));
 end
 
+function tf = isFiTraceGaMethod(method)
+tf = any(strcmpi(method, {'fitracega', 'fi_trace_ga', 'fi-weighted-ga', ...
+    'fiweightedga', 'fi_weighted_ga', 'fishertracega', ...
+    'fisher_trace_ga'}));
+end
+
+function tf = isPdWeightedGaMethod(method)
+tf = any(strcmpi(method, {'pdweightedga', 'pd_weighted_ga', ...
+    'pd-weighted-ga', 'detectionweightedga', 'detection_weighted_ga'}));
+end
+
+function [gaWeights, aaWeights, debug] = computeFiTraceGaFusionWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask)
+
+numSensors = numel(measurementUpdatedDistributions);
+[targetWeights, sensorScores, targetScores] = computeTargetWiseFiTraceWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask);
+weights = normalizeScores(sensorScores, availabilityMask);
+
+gaWeights = weights;
+aaWeights = weights;
+debug = buildDirectWeightDebug( ...
+    measurementUpdatedDistributions, availabilityMask, sensorScores, weights, 'fiTraceGa');
+debug.fiTraceScore = sensorScores;
+debug.fiTraceTargetScores = targetScores;
+debug.gaTargetWiseWeights = targetWeights;
+debug.aaTargetWiseWeights = targetWeights;
+debug.gaSpatialWeights = weights;
+debug.aaSpatialWeights = weights;
+debug.gaExistenceWeights = weights;
+debug.aaExistenceWeights = weights;
+debug.useTargetWiseFiWeights = true;
+debug.numberOfSensors = numSensors;
+end
+
+function [gaWeights, aaWeights, debug] = computePdWeightedGaFusionWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask)
+
+[targetWeights, sensorScores, targetScores] = computeTargetWisePdWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask);
+weights = normalizeScores(sensorScores, availabilityMask);
+
+gaWeights = weights;
+aaWeights = weights;
+debug = buildDirectWeightDebug( ...
+    measurementUpdatedDistributions, availabilityMask, sensorScores, weights, 'pdWeightedGa');
+debug.pdScore = sensorScores;
+debug.pdTargetScores = targetScores;
+debug.gaTargetWiseWeights = targetWeights;
+debug.aaTargetWiseWeights = targetWeights;
+debug.gaSpatialWeights = weights;
+debug.aaSpatialWeights = weights;
+debug.gaExistenceWeights = weights;
+debug.aaExistenceWeights = weights;
+debug.useTargetWiseFiWeights = false;
+end
+
+function debug = buildDirectWeightDebug(measurementUpdatedDistributions, availabilityMask, rawScore, weights, methodName)
+numSensors = numel(rawScore);
+debug = struct();
+debug.availabilityMask = availabilityMask;
+debug.covScore = ones(1, numSensors);
+debug.baseScore = rawScore;
+debug.innovationPenalty = ones(1, numSensors);
+debug.innovationScore = debug.innovationPenalty;
+debug.cardinalityConsensusScore = ones(1, numSensors);
+debug.existenceConfidenceScore = ones(1, numSensors);
+debug.associationAmbiguityScore = ones(1, numSensors);
+debug.freshnessScore = ones(1, numSensors);
+debug.ctFiDecayScore = ones(1, numSensors);
+debug.useCtFiDecay = false;
+debug.historyScore = ones(1, numSensors);
+debug.linkQuality = ones(1, numSensors);
+debug.rawScore = rawScore;
+debug.rawWeights = weights;
+debug.weights = weights;
+debug.method = methodName;
+debug.useFidFiaExistence = false;
+debug.fidFiaScore = ones(1, numSensors);
+debug.fidFiaExistenceScore = ones(1, numSensors);
+debug.fidFiaPairCounts = zeros(1, numSensors);
+debug.useDecoupledKla = false;
+debug.useStructureAwareKla = false;
+debug.usePosteriorStructureConsistency = false;
+debug.spatialRawScore = rawScore;
+debug.existenceRawScore = rawScore;
+debug.spatialStructurePrior = ones(1, numSensors);
+debug.existenceStructurePrior = ones(1, numSensors);
+debug.communicationReliabilityPrior = ones(1, numSensors);
+debug.spatialStructureScore = ones(1, numSensors);
+debug.existenceStructureScore = ones(1, numSensors);
+debug.historyState = struct();
+debug.historyInstantInstability = zeros(1, numSensors);
+debug.historyInstabilityEma = zeros(1, numSensors);
+debug.expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
+end
+
+function [targetWeights, sensorScores, targetScores] = computeTargetWiseFiTraceWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask)
+
+numSensors = numel(measurementUpdatedDistributions);
+numTargets = resolveNumberOfBernoulliTracks(measurementUpdatedDistributions);
+targetScores = zeros(numTargets, numSensors);
+for i = 1:numTargets
+    for s = 1:numSensors
+        if availabilityMask(s) <= 0
+            continue;
+        end
+        targetScores(i, s) = estimateBernoulliFiTrace( ...
+            measurementUpdatedDistributions{s}, i, model, s, t, cfg);
+    end
+end
+
+targetWeights = normalizeTargetScores(targetScores, availabilityMask);
+sensorScores = summarizeTargetScores(targetScores, availabilityMask);
+end
+
+function [targetWeights, sensorScores, targetScores] = computeTargetWisePdWeights( ...
+    measurementUpdatedDistributions, model, t, cfg, availabilityMask)
+
+numSensors = numel(measurementUpdatedDistributions);
+numTargets = resolveNumberOfBernoulliTracks(measurementUpdatedDistributions);
+targetScores = zeros(numTargets, numSensors);
+for i = 1:numTargets
+    for s = 1:numSensors
+        if availabilityMask(s) <= 0
+            continue;
+        end
+        targetScores(i, s) = estimateBernoulliDetectionScore( ...
+            measurementUpdatedDistributions{s}, i, model, s, t, cfg);
+    end
+end
+
+targetWeights = normalizeTargetScores(targetScores, availabilityMask);
+sensorScores = summarizeTargetScores(targetScores, availabilityMask);
+end
+
+function numTargets = resolveNumberOfBernoulliTracks(measurementUpdatedDistributions)
+numTargets = 0;
+for s = 1:numel(measurementUpdatedDistributions)
+    numTargets = max(numTargets, numel(measurementUpdatedDistributions{s}));
+end
+end
+
+function score = estimateBernoulliFiTrace(objects, objectIdx, model, sensorIdx, t, cfg)
+score = 0;
+if objectIdx > numel(objects) || objects(objectIdx).numberOfGmComponents < 1
+    return;
+end
+
+[mu, covariance] = mprojection(model.xDimension, objects(objectIdx));
+covariance = regularizeCovariance(covariance);
+infoTrace = trace(pinv(covariance));
+if ~isfinite(infoTrace) || infoTrace <= 0
+    return;
+end
+
+scale = 1;
+if getField(cfg, 'fiTraceUseExistenceProbability', false)
+    existencePower = max(getField(cfg, 'fiTraceExistencePower', 1.0), 0);
+    scale = scale * (max(objects(objectIdx).r, 0) ^ existencePower);
+end
+if getField(cfg, 'fiTraceUseDetectionProbability', false)
+    [pdSensor, ~] = evaluateSensorQuality(model, sensorIdx, mu, t);
+    scale = scale * max(pdSensor, 0);
+end
+if getField(cfg, 'fiTraceUseClutterPenalty', false)
+    clutterRate = resolveSensorValue(model.clutterRate, sensorIdx, 0);
+    scale = scale / (1 + max(clutterRate, 0));
+end
+
+score = max(scale, 0) * infoTrace;
+end
+
+function score = estimateBernoulliDetectionScore(objects, objectIdx, model, sensorIdx, t, cfg)
+score = 0;
+if objectIdx > numel(objects) || objects(objectIdx).numberOfGmComponents < 1
+    return;
+end
+[mu, ~] = mprojection(model.xDimension, objects(objectIdx));
+[pdSensor, ~] = evaluateSensorQuality(model, sensorIdx, mu, t);
+score = max(pdSensor, 0) ^ max(getField(cfg, 'pdWeightPower', 1.0), 0);
+end
+
+function targetWeights = normalizeTargetScores(targetScores, availabilityMask)
+targetWeights = zeros(size(targetScores));
+for i = 1:size(targetScores, 1)
+    targetWeights(i, :) = normalizeScores(targetScores(i, :), availabilityMask);
+end
+end
+
+function sensorScores = summarizeTargetScores(targetScores, availabilityMask)
+if isempty(targetScores)
+    sensorScores = availabilityMask;
+    return;
+end
+sensorScores = mean(targetScores, 1);
+sensorScores(~isfinite(sensorScores)) = 0;
+if ~any(sensorScores .* availabilityMask > 0)
+    sensorScores = availabilityMask;
+end
+end
+
 function [gaWeights, aaWeights, debug] = computeFidFiaFusionWeights( ...
     measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights)
 
@@ -232,6 +451,8 @@ debug.cardinalityConsensusScore = ones(1, numSensors);
 debug.existenceConfidenceScore = ones(1, numSensors);
 debug.associationAmbiguityScore = ones(1, numSensors);
 debug.freshnessScore = ones(1, numSensors);
+debug.ctFiDecayScore = ones(1, numSensors);
+debug.useCtFiDecay = false;
 debug.historyScore = ones(1, numSensors);
 debug.linkQuality = ones(1, numSensors);
 debug.rawScore = fiaScore;
@@ -831,6 +1052,137 @@ for s = 1:numSensorsLocal
 
     freshnessScore(s) = freshnessMinScore + (1 - freshnessMinScore) * ...
         exp(-freshnessDecay * age);
+end
+end
+
+function ctFiDecayScore = resolveCtFiDecayScore( ...
+    measurementUpdatedDistributions, model, t, commStats, cfg, useCtFiDecay)
+numSensors = numel(measurementUpdatedDistributions);
+ctFiDecayScore = ones(1, numSensors);
+if ~useCtFiDecay
+    return;
+end
+
+sampleAge = resolveSampleAgeFromCommStats(commStats, t, numSensors);
+minScore = min(max(getField(cfg, 'ctFiDecayMinScore', 0.35), 0), 1);
+scorePower = max(getField(cfg, 'ctFiDecayPower', 1.0), 0);
+timeStep = max(getField(model, 'T', 1), eps);
+rawInformation = zeros(1, numSensors);
+
+for s = 1:numSensors
+    dt = max(sampleAge(s), 0) * timeStep;
+    rawInformation(s) = estimateCtFiInformation( ...
+        measurementUpdatedDistributions{s}, model, s, t, dt, cfg);
+end
+
+validInformation = rawInformation(isfinite(rawInformation) & rawInformation > 0);
+if isempty(validInformation)
+    return;
+end
+
+maxInformation = max(validInformation);
+normalizedInformation = rawInformation / max(maxInformation, eps);
+normalizedInformation(~isfinite(normalizedInformation)) = 0;
+normalizedInformation = min(max(normalizedInformation, 0), 1);
+ctFiDecayScore = minScore + (1 - minScore) * (normalizedInformation .^ scorePower);
+end
+
+function sampleAge = resolveSampleAgeFromCommStats(commStats, t, numSensors)
+sampleAge = zeros(1, numSensors);
+if nargin < 1 || ~isstruct(commStats) || ~isfield(commStats, 'sensorSampleAge')
+    return;
+end
+if size(commStats.sensorSampleAge, 1) == numSensors && size(commStats.sensorSampleAge, 2) >= t
+    sampleAge = reshape(commStats.sensorSampleAge(:, t), 1, []);
+end
+sampleAge(~isfinite(sampleAge)) = 0;
+sampleAge = max(sampleAge, 0);
+end
+
+function information = estimateCtFiInformation(objects, model, sensorIdx, t, dt, cfg)
+information = NaN;
+activeInformation = [];
+existenceThreshold = getField(model, 'existenceThreshold', 0);
+if ~isempty(objects)
+    for i = 1:numel(objects)
+        if objects(i).numberOfGmComponents < 1 || objects(i).r <= existenceThreshold
+            continue;
+        end
+        [mu, ~] = mprojection(model.xDimension, objects(i));
+        activeInformation(end+1) = estimateStateCtFiInformation(model, sensorIdx, mu, t, dt, cfg); %#ok<AGROW>
+    end
+end
+
+if ~isempty(activeInformation)
+    information = mean(activeInformation(isfinite(activeInformation)));
+end
+if ~isfinite(information)
+    information = estimateStateCtFiInformation(model, sensorIdx, [], t, dt, cfg);
+end
+if ~isfinite(information)
+    information = 0;
+end
+end
+
+function information = estimateStateCtFiInformation(model, sensorIdx, state, t, dt, cfg)
+useDetectionProbability = getField(cfg, 'ctFiUseDetectionProbability', true);
+if ~isempty(state)
+    [pdSensor, measurementCovariance] = evaluateSensorQuality(model, sensorIdx, state, t);
+else
+    pdSensor = resolveSensorValue(model.detectionProbability, sensorIdx, 1.0);
+    measurementCovariance = model.Q{sensorIdx};
+end
+measurementCovariance = regularizeCovariance(measurementCovariance);
+positionProcessCovariance = computeCtPositionProcessCovariance(model, dt, size(measurementCovariance, 1), cfg);
+effectiveCovariance = regularizeCovariance(measurementCovariance + positionProcessCovariance);
+
+pdScale = 1;
+if useDetectionProbability
+    pdScale = max(pdSensor, 0);
+end
+information = pdScale * trace(pinv(effectiveCovariance));
+end
+
+function positionProcessCovariance = computeCtPositionProcessCovariance(model, dt, zDimension, cfg)
+if dt <= 0
+    positionProcessCovariance = zeros(zDimension);
+    return;
+end
+processNoiseScale = getField(cfg, 'ctFiProcessNoiseScale', NaN);
+if ~isfinite(processNoiseScale)
+    processNoiseScale = inferProcessNoiseScale(model);
+end
+positionVarianceGrowth = max(processNoiseScale, 0) * (dt ^ 3) / 3;
+positionProcessCovariance = positionVarianceGrowth * eye(zDimension);
+end
+
+function processNoiseScale = inferProcessNoiseScale(model)
+processNoiseScale = 1;
+if ~isfield(model, 'R') || isempty(model.R) || ~isfield(model, 'xDimension')
+    return;
+end
+halfDim = floor(model.xDimension / 2);
+if size(model.R, 1) < 2 * halfDim
+    return;
+end
+timeStep = max(getField(model, 'T', 1), eps);
+velocityBlock = model.R((halfDim + 1):(2 * halfDim), (halfDim + 1):(2 * halfDim));
+diagValues = diag(velocityBlock);
+diagValues = diagValues(isfinite(diagValues) & diagValues > 0);
+if ~isempty(diagValues)
+    processNoiseScale = mean(diagValues) / timeStep;
+end
+end
+
+function value = resolveSensorValue(values, sensorIdx, defaultValue)
+if isempty(values)
+    value = defaultValue;
+elseif isscalar(values)
+    value = values;
+elseif numel(values) >= sensorIdx
+    value = values(sensorIdx);
+else
+    value = values(1);
 end
 end
 

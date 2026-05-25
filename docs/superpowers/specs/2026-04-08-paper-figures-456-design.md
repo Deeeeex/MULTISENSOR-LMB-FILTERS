@@ -88,9 +88,9 @@ Figure 4 requires time-series data, not only final means. The current tracked re
 
 The required data are:
 
-- consensus OSPA over time
-- consensus RMSE over time
-- consensus cardinality disagreement over time
+- OSPA consensus error over time
+- matched localization disagreement over time
+- cardinality dispersion over time
 
 Comparison:
 
@@ -119,9 +119,9 @@ Figure 5 can be generated from already stabilized scalar results. The required f
 
 Metrics:
 
-- consensus OSPA
-- consensus RMSE
-- consensus cardinality disagreement
+- OSPA consensus error
+- matched localization disagreement
+- cardinality dispersion
 
 Primary numeric sources:
 
@@ -138,7 +138,7 @@ Consensus metrics:
 
 - OSPA
 - RMSE
-- cardinality disagreement
+- cardinality dispersion
 
 Aggregated local metrics:
 
@@ -162,7 +162,7 @@ Recommended layout:
 
 - one full-width figure
 - three horizontally arranged panels
-- panel order: consensus OSPA, consensus RMSE, consensus cardinality disagreement
+- panel order: OSPA consensus error, matched localization disagreement, cardinality dispersion
 
 Visual rules:
 
@@ -182,7 +182,7 @@ Recommended layout:
 
 - one full-width figure
 - three horizontally arranged panels
-- panel order: consensus OSPA, consensus RMSE, consensus cardinality disagreement
+- panel order: OSPA consensus error, matched localization disagreement, cardinality dispersion
 - each panel uses the same five arm labels
 
 Preferred chart type:
@@ -199,7 +199,7 @@ Rationale:
 Recommended layout:
 
 - one medium-width figure
-- left block: consensus metrics
+- left block: network disagreement metrics
 - right block: aggregated local metrics
 
 Preferred chart type:

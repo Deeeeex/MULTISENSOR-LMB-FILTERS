@@ -34,7 +34,7 @@ This experiment studies whether innovation-based consistency information should 
 \refstepcounter{table}\label{tab:appendix-nis}
 \noindent\begin{minipage}{\linewidth}
   \noindent\textbf{Table~\thetable}\par
-  \noindent Consensus metrics for the NIS-based consistency comparison.\par\smallskip
+  \noindent Network disagreement metrics for the NIS-based consistency comparison.\par\smallskip
   \centering
   \begin{tabular}{lccc}
     \toprule
@@ -48,22 +48,22 @@ This experiment studies whether innovation-based consistency information should 
 \end{minipage}
 \par\medskip
 
-Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 20 trials it is still slightly worse than the no-NIS baseline in OSPA, RMSE, and cardinality disagreement.
+Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 20 trials it is still slightly worse than the no-NIS baseline in OSPA, RMSE, and cardinality dispersion.
 
 \subsection{Freshness weighting}
 
-This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. The result is effectively flat: OSPA changes from $1.909$ to $1.910$, RMSE remains at $2.980$, and cardinality disagreement changes from $0.262$ to $0.263$.
+This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. The result is effectively flat: OSPA changes from $1.909$ to $1.910$, RMSE remains at $2.980$, and cardinality dispersion changes from $0.262$ to $0.263$.
 
 \subsection{History weighting}
 
-This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality disagreement changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
+This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality dispersion changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
 
 \subsection{Cardinality-consensus weighting}
 
-An exploratory direct cardinality-consensus score was also tested. Relative to the covariance-and-link baseline, the pilot changed OSPA from $1.909508$ to $1.954855$, RMSE from $1.621662$ to $1.791287$, and cardinality disagreement from $0.242500$ to $0.285000$. Because this evidence is negative and only a pilot, it is retained only as appendix context.
+An exploratory direct cardinality-consensus score was also tested. Relative to the covariance-and-link baseline, the pilot changed OSPA from $1.909508$ to $1.954855$, RMSE from $1.621662$ to $1.791287$, and cardinality dispersion from $0.242500$ to $0.285000$. Because this evidence is negative and only a pilot, it is retained only as appendix context.
 
 \subsection{Association ambiguity and posterior-structure consistency}
 
-Two additional extensions were also evaluated. The association-ambiguity add-on changes the baseline OSPA, RMSE, and cardinality disagreement from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains tied with the retained weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
+Two additional extensions were also evaluated. The association-ambiguity add-on changes the baseline OSPA, RMSE, and cardinality dispersion from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains tied with the retained weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
 
 Taken together, these appendix results strengthen the main paper rather than weaken it. They show that the design space was explored beyond the final chosen method, and they justify why the present paper is intentionally centered on covariance quality, realized link quality, existence confidence, branch decoupling, and the existence-branch FID-FIA cue.

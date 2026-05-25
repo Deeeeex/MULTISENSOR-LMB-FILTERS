@@ -82,9 +82,9 @@ Sensor 6: E-OSPA 2.633 -> 2.458 (-0.175), RMSE 1.517 -> 1.553 (0.036), neighbors
 Sensor 7: E-OSPA 2.667 -> 2.209 (-0.458), RMSE 1.588 -> 1.578 (-0.009), neighbors=[3 5 6 7 8]
 Sensor 8: E-OSPA 3.087 -> 2.324 (-0.764), RMSE 1.549 -> 1.545 (-0.004), neighbors=[4 5 6 7 8]
 =====================================
-Consensus Metrics (base -> adaptive)
+Network Disagreement Metrics (base -> adaptive)
 =====================================
-Comprehensive (OSPA) consensus: 2.203 -> 1.686 (-0.517)
-Position (RMSE) consensus: 1.942 -> 1.440 (-0.502)
-Cardinality consensus: 0.604 -> 0.158 (-0.446)
+OSPA consensus error: 2.203 -> 1.686 (-0.517)
+Matched localization disagreement: 1.942 -> 1.440 (-0.502)
+Cardinality dispersion: 0.604 -> 0.158 (-0.446)
 ```

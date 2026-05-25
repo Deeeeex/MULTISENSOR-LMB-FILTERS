@@ -42,9 +42,9 @@ summary = buildSummary(baseSummary, experimentSummary, baseOverrides, experiment
 fprintf('=====================================\n');
 fprintf('GA Posterior Structure Comparison (N=%d)\n', numberOfTrials);
 fprintf('Static structure prior -> posterior-structure-consistency\n');
-fprintf('Consensus OSPA: %.6f -> %.6f\n', summary.consensus.ospaBase, summary.consensus.ospaAdaptive);
-fprintf('Consensus RMSE: %.6f -> %.6f\n', summary.consensus.posBase, summary.consensus.posAdaptive);
-fprintf('Consensus Card: %.6f -> %.6f\n', summary.consensus.cardBase, summary.consensus.cardAdaptive);
+fprintf('OSPA consensus error: %.6f -> %.6f\n', summary.consensus.ospaBase, summary.consensus.ospaAdaptive);
+fprintf('Matched localization disagreement: %.6f -> %.6f\n', summary.consensus.posBase, summary.consensus.posAdaptive);
+fprintf('Cardinality dispersion: %.6f -> %.6f\n', summary.consensus.cardBase, summary.consensus.cardAdaptive);
 
 if writeReport
     reportDir = fullfile(projectRoot, 'RUN', 'GA');
@@ -99,7 +99,7 @@ fprintf(fid, '- usePosteriorStructureConsistency: %d\n\n', getField(summary.base
 fprintf(fid, '### Posterior-structure-consistency\n');
 fprintf(fid, '- usePosteriorStructureConsistency: %d\n\n', getField(summary.experimentOverrides, 'usePosteriorStructureConsistency', false));
 
-fprintf(fid, '## Consensus Metrics (mean across trials)\n');
+fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
 fprintf(fid, '| Arm | OSPA | RMSE | Cardinality |\n');
 fprintf(fid, '|:----|-----:|-----:|------------:|\n');
 fprintf(fid, '| static weak structure prior | %.6f | %.6f | %.6f |\n', ...

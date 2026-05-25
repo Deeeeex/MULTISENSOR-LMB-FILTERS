@@ -73,7 +73,7 @@
 
 - 本文研究的是 distributed fusion，而不是单节点滤波器精度优化。
 - 在 distributed fusion 问题里，更重要的问题是不同节点能否收敛到一致的多目标图景。
-- 因此 `consensus OSPA`、`consensus RMSE`、`consensus cardinality disagreement` 应该是 `primary outcome`。
+- 因此 `OSPA consensus error`、`matched localization disagreement`、`cardinality dispersion` 应该是 `primary outcome`。
 - 常规 `local E-OSPA / RMSE / cardinality error` 不应被删掉，但它们的角色是 `safeguard`，用于证明一致性提升不是靠 local collapse 换来的。
 
 换句话说，论文不是在说：
@@ -342,4 +342,4 @@
 
 截至当前证据，论文最稳的 closing message 应该是：
 
-**对于异构通信约束下的 distributed GA-LMB / KLA fusion，真正有效的不是更强的 topology 主导，而是一个以 `covariance + realized link quality + existence confidence` 为 backbone 的 communication-aware adaptive weighting 设计；在此基础上，弱结构感知的 branch-decoupled refinement 可以进一步改善 consensus OSPA 和 consensus RMSE，并保持良好的 cardinality agreement。**
+**对于异构通信约束下的 distributed GA-LMB / KLA fusion，真正有效的不是更强的 topology 主导，而是一个以 `covariance + realized link quality + existence confidence` 为 backbone 的 communication-aware adaptive weighting 设计；在此基础上，弱结构感知的 branch-decoupled refinement 可以进一步改善 OSPA consensus error 和 matched localization disagreement，并保持良好的 cardinality agreement。**

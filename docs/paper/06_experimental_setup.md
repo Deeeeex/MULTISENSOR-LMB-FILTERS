@@ -112,7 +112,7 @@ The FID-FIA settings apply only to the existence branch; the spatial branch keep
 
 For the current headline experiments, the reported comparisons are based on Monte Carlo trials with deterministic seed control. The main scripts use `baseSeed = 1` and seed each trial as `baseSeed + trial` when fixed seeds are enabled. The current headline main GA comparison uses `20` trials with seeds `2`--`21`; future algorithm arms should reuse these fixed baseline results where possible and rerun only the new arm.
 
-Unless otherwise stated, reported scalar metrics are Monte Carlo means. Local metrics are first computed per sensor over time and then summarized across sensors or trials as needed. Consensus metrics are computed from the distributed state estimates returned by all nodes and then averaged over time and Monte Carlo trials.
+Unless otherwise stated, reported scalar metrics are Monte Carlo means. Local metrics are first computed per sensor over time and then summarized across sensors or trials as needed. Network disagreement metrics are computed from the distributed state estimates returned by all nodes and then averaged over time and Monte Carlo trials.
 
 The current paper draft should avoid overclaiming statistical certainty from a small trial count. The safer wording is that the present results are consistent across repeated trials and define the current best-supported direction, while larger Monte Carlo studies remain desirable for the final paper version.
 
@@ -120,11 +120,11 @@ The current paper draft should avoid overclaiming statistical certainty from a s
 
 The experiments report three categories of metrics.
 
-Primary consensus metrics:
+Primary network disagreement metrics:
 
-- consensus OSPA
-- consensus position disagreement
-- consensus cardinality disagreement
+- OSPA consensus error
+- matched localization disagreement
+- cardinality dispersion
 
 Secondary local tracking metrics:
 
@@ -138,11 +138,11 @@ Efficiency metrics:
 - runtime per simulation step
 - runtime ratio relative to Fixed Metropolis
 
-The consensus metrics are network-level disagreement metrics, not standard truth-referenced tracking benchmarks. Their ingredients are standard: OSPA/GOSPA-style finite-set distances, Hungarian-matched position errors, and cardinality dispersion. The paper-specific step is to aggregate them across post-fusion sensor outputs, because the goal is distributed agreement under heterogeneous communication. For that reason, they should always be reported together with local E-OSPA, local RMSE, and local cardinality error.
+The primary metrics are network-level disagreement measures, not standard truth-referenced tracking benchmarks. Their ingredients are standard: OSPA/GOSPA-style finite-set distances, Hungarian-matched localization errors, and cardinality dispersion. The paper-specific step is to aggregate them across post-fusion sensor outputs, because the goal is distributed agreement under heterogeneous communication. For that reason, they should always be reported together with local E-OSPA, local RMSE, and local cardinality error.
 
-The current paper should emphasize consensus metrics as the primary outcome. This is a deliberate design choice: the method is meant to improve the consistency and quality of distributed fused belief across sensors, and the strongest current evidence is indeed on consensus OSPA, consensus position disagreement, and consensus cardinality disagreement. Local metrics are still reported to show that the consensus gains are not obtained by catastrophic local degradation.
+The current paper should emphasize network disagreement metrics as the primary outcome. This is a deliberate design choice: the method is meant to reduce cross-node disagreement in the distributed fused belief, and the strongest current evidence is indeed on OSPA consensus error, matched localization disagreement, and cardinality dispersion. Local metrics are still reported to show that the consensus gains are not obtained by catastrophic local degradation.
 
-Computational cost should be treated as a first-class evaluation axis, not as an optional footnote. The runtime measurement in the main experiment intentionally times only the distributed LMB filtering/fusion call for each arm. Scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. This isolates the algorithmic overhead of the adaptive weighting and branch-specific FID-FIA logic. In interpretation, the Balanced mode should be judged as the low-overhead operating point, while the Cardinality-critical mode should be judged as a higher-cost option that spends additional computation for stronger cardinality consensus.
+Computational cost should be treated as a first-class evaluation axis, not as an optional footnote. The runtime measurement in the main experiment intentionally times only the distributed LMB filtering/fusion call for each arm. Scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. This isolates the algorithmic overhead of the adaptive weighting and branch-specific FID-FIA logic. In interpretation, the Balanced mode should be judged as the low-overhead operating point, while the Cardinality-critical mode should be judged as a higher-cost option that spends additional computation for stronger cardinality agreement.
 
 ### 7. Ideal-Communication Supporting Experiment
 
@@ -154,7 +154,7 @@ The ideal-communication configuration is:
 - `pDrop = 0`
 - `pDropBySensor = 0` for all sensors
 
-The ordinary-GA and structure-aware comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m). The FID-FIA arms reuse the same deterministic seeds and the same ideal-communication setting through the main ablation runner with communication level `0`. This supporting experiment reports both consensus metrics and local metrics. Its role is not to replace the main tiered-drop scenario, but to show how the spatial and existence-branch refinements behave when communication degradation is removed.
+The ordinary-GA and structure-aware comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m). The FID-FIA arms reuse the same deterministic seeds and the same ideal-communication setting through the main ablation runner with communication level `0`. This supporting experiment reports both network disagreement metrics and local metrics. Its role is not to replace the main tiered-drop scenario, but to show how the spatial and existence-branch refinements behave when communication degradation is removed.
 
 ### 8. Communication-Robustness And Appendix-Only AA Route
 
@@ -163,7 +163,7 @@ Beyond the main scenario, the paper can include a short communication-robustness
 Communication-robustness analysis:
 
 - vary the communication level from `0` to `3`
-- inspect how consensus OSPA and consensus cardinality disagreement change as communication quality degrades
+- inspect how OSPA consensus error and cardinality dispersion change as communication quality degrades
 - use this study to argue that adaptive weighting becomes more useful as communication becomes more heterogeneous or constrained
 
 Appendix-only AA-based secondary route:
@@ -201,5 +201,5 @@ This order keeps the narrative tightly aligned with the current evidence hierarc
 
 - Use `an eight-sensor distributed formation scenario composed of two four-sensor formations` in the paper body instead of bare `4+4`.
 - Be explicit that the main communication model is tiered heterogeneous packet loss with preserved mean drop rate.
-- Be explicit that the current strongest claims are based on consensus metrics.
+- Be explicit that the current strongest claims are based on network disagreement metrics.
 - Avoid turning the experimental section into a changelog of every attempted factor; keep weak modules in short appendix-style subsections.
