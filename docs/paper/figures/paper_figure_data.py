@@ -71,9 +71,12 @@ def load_figure4_series(csv_path: str | Path) -> dict:
     return {
         "time": [float(row["time"]) for row in rows],
         "ospa_fixed": [float(row["ospa_fixed"]) for row in rows],
-        "ospa_adaptive": [float(row["ospa_adaptive"]) for row in rows],
+        "ospa_balanced": [float(row["ospa_balanced"]) for row in rows],
+        "ospa_cardinality": [float(row["ospa_cardinality"]) for row in rows],
         "rmse_fixed": [float(row["rmse_fixed"]) for row in rows],
-        "rmse_adaptive": [float(row["rmse_adaptive"]) for row in rows],
+        "rmse_balanced": [float(row["rmse_balanced"]) for row in rows],
+        "rmse_cardinality": [float(row["rmse_cardinality"]) for row in rows],
         "card_fixed": [float(row["card_fixed"]) for row in rows],
-        "card_adaptive": [float(row["card_adaptive"]) for row in rows],
+        "card_balanced": [float(row["card_balanced"]) for row in rows],
+        "card_cardinality": [float(row["card_cardinality"]) for row in rows],
     }

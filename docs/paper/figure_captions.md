@@ -20,4 +20,4 @@ Schematic comparison between the standard fixed ideal benchmark and the main tie
 
 ## Figure 5
 
-OSPA consensus error, matched localization disagreement, and cardinality dispersion over time for fixed-weight fusion and the current adaptive method under tiered heterogeneous packet loss.
+OSPA consensus error, matched localization disagreement, and cardinality dispersion over time for Fixed Metropolis, Balanced mode, and Cardinality-critical mode under tiered heterogeneous packet loss.

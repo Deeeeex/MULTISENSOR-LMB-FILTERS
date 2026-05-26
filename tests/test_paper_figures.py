@@ -61,10 +61,10 @@ def test_load_and_render_figure4_from_csv(tmp_path):
     csv_path.write_text(
         "\n".join(
             [
-                "time,ospa_fixed,ospa_adaptive,rmse_fixed,rmse_adaptive,card_fixed,card_adaptive",
-                "1,2.6,1.9,2.7,1.8,0.8,0.3",
-                "2,2.5,1.8,2.6,1.7,0.7,0.28",
-                "3,2.4,1.7,2.5,1.6,0.6,0.25",
+                "time,ospa_fixed,ospa_balanced,ospa_cardinality,rmse_fixed,rmse_balanced,rmse_cardinality,card_fixed,card_balanced,card_cardinality",
+                "1,2.6,1.9,1.7,2.7,1.8,1.6,0.8,0.3,0.1",
+                "2,2.5,1.8,1.6,2.6,1.7,1.5,0.7,0.28,0.09",
+                "3,2.4,1.7,1.5,2.5,1.6,1.4,0.6,0.25,0.08",
             ]
         )
     )
@@ -95,10 +95,10 @@ def test_renderer_does_not_use_internal_suptitles(tmp_path, monkeypatch):
     csv_path.write_text(
         "\n".join(
             [
-                "time,ospa_fixed,ospa_adaptive,rmse_fixed,rmse_adaptive,card_fixed,card_adaptive",
-                "1,2.6,1.9,2.7,1.8,0.8,0.3",
-                "2,2.5,1.8,2.6,1.7,0.7,0.28",
-                "3,2.4,1.7,2.5,1.6,0.6,0.25",
+                "time,ospa_fixed,ospa_balanced,ospa_cardinality,rmse_fixed,rmse_balanced,rmse_cardinality,card_fixed,card_balanced,card_cardinality",
+                "1,2.6,1.9,1.7,2.7,1.8,1.6,0.8,0.3,0.1",
+                "2,2.5,1.8,1.6,2.6,1.7,1.5,0.7,0.28,0.09",
+                "3,2.4,1.7,1.5,2.5,1.6,1.4,0.6,0.25,0.08",
             ]
         )
     )

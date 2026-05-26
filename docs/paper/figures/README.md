@@ -28,7 +28,7 @@ Render command:
 /opt/homebrew/anaconda3/bin/python3 docs/paper/figures/render_paper_figures.py --output-dir docs/paper/figures
 ```
 
-Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory.
+Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory. The CSV contains the fixed baseline, Balanced mode, and Cardinality-critical mode.
 
 The simulation-scenario schematic is rendered with MATLAB/Octave:
 

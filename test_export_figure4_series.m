@@ -19,15 +19,18 @@ assert(fid >= 0, 'Unable to open exported CSV file.');
 headerLine = fgetl(fid);
 fclose(fid);
 
-expectedHeader = 'time,ospa_fixed,ospa_adaptive,rmse_fixed,rmse_adaptive,card_fixed,card_adaptive';
+expectedHeader = 'time,ospa_fixed,ospa_balanced,ospa_cardinality,rmse_fixed,rmse_balanced,rmse_cardinality,card_fixed,card_balanced,card_cardinality';
 assert(strcmp(strtrim(headerLine), expectedHeader), 'Unexpected CSV header.');
 
 data = dlmread(exportedPath, ',', 1, 0);
-assert(size(data, 2) == 7, 'Expected 7 CSV columns.');
+assert(size(data, 2) == 10, 'Expected 10 CSV columns.');
 assert(size(data, 1) >= 50, 'Expected at least 50 time steps in exported series.');
-assert(mean(data(:, 3)) < mean(data(:, 2)), 'Adaptive OSPA mean should be below fixed OSPA mean.');
-assert(mean(data(:, 5)) < mean(data(:, 4)), 'Adaptive RMSE mean should be below fixed RMSE mean.');
-assert(mean(data(:, 7)) < mean(data(:, 6)), 'Adaptive cardinality mean should be below fixed cardinality mean.');
+assert(mean(data(:, 3)) < mean(data(:, 2)), 'Balanced OSPA mean should be below fixed OSPA mean.');
+assert(mean(data(:, 4)) < mean(data(:, 2)), 'Cardinality-critical OSPA mean should be below fixed OSPA mean.');
+assert(mean(data(:, 6)) < mean(data(:, 5)), 'Balanced RMSE mean should be below fixed RMSE mean.');
+assert(mean(data(:, 7)) < mean(data(:, 5)), 'Cardinality-critical RMSE mean should be below fixed RMSE mean.');
+assert(mean(data(:, 9)) < mean(data(:, 8)), 'Balanced cardinality mean should be below fixed cardinality mean.');
+assert(mean(data(:, 10)) < mean(data(:, 8)), 'Cardinality-critical cardinality mean should be below fixed cardinality mean.');
 
 fprintf('Figure 4 consensus series export test passed.\n');
 end

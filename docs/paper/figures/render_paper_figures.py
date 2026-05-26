@@ -23,6 +23,7 @@ from docs.paper.figures.paper_figure_data import get_scalar_figure_data, load_fi
 FIXED_COLOR = "#78A6D8"
 ADAPTIVE_COLOR = "#62B7AE"
 SECONDARY_COLOR = "#6B93CF"
+CARDINALITY_COLOR = "#D08A59"
 ABLATION_COLORS = ["#D8E8F6", "#BDD8EF", "#9EC8E6", "#97D0CA", "#E3B36C"]
 EDGE_COLOR = "#2F4858"
 
@@ -285,14 +286,21 @@ def save_figure4(output_path: str | Path, series: dict) -> Path:
     output_path = Path(output_path)
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), sharex=True, constrained_layout=True)
     configs = [
-        ("OSPA consensus error", "ospa_fixed", "ospa_adaptive"),
-        ("Matched localization disagreement", "rmse_fixed", "rmse_adaptive"),
-        ("Cardinality dispersion", "card_fixed", "card_adaptive"),
+        ("OSPA consensus error", "ospa_fixed", "ospa_balanced", "ospa_cardinality"),
+        ("Matched localization disagreement", "rmse_fixed", "rmse_balanced", "rmse_cardinality"),
+        ("Cardinality dispersion", "card_fixed", "card_balanced", "card_cardinality"),
     ]
     time = np.asarray(series["time"])
-    for ax, (title, fixed_key, adaptive_key) in zip(axes, configs):
+    for ax, (title, fixed_key, balanced_key, cardinality_key) in zip(axes, configs):
         ax.plot(time, series[fixed_key], color=FIXED_COLOR, linewidth=2.0, label="Fixed Metropolis")
-        ax.plot(time, series[adaptive_key], color=ADAPTIVE_COLOR, linewidth=2.2, label="Cardinality-critical mode")
+        ax.plot(time, series[balanced_key], color=ADAPTIVE_COLOR, linewidth=2.1, label="Balanced mode")
+        ax.plot(
+            time,
+            series[cardinality_key],
+            color=CARDINALITY_COLOR,
+            linewidth=2.1,
+            label="Cardinality-critical mode",
+        )
         ax.set_title(title)
         ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
         ax.set_axisbelow(True)
