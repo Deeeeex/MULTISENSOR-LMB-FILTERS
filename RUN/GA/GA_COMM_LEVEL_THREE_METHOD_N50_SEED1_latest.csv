@@ -1,0 +1,85 @@
+metric_group,metric,level,level_label,method,mean,std,ci_low,ci_high,n
+network,OSPA consensus error,0,none,Fixed Metropolis,1.627861927,0.040867360,1.616302892,1.639420962,50
+network,OSPA consensus error,0,none,Balanced mode,1.423436937,0.035909702,1.413280140,1.433593735,50
+network,OSPA consensus error,0,none,Cardinality-critical mode,1.431515089,0.034624471,1.421721810,1.441308368,50
+network,OSPA consensus error,1,bandwidth cap,Fixed Metropolis,1.701150267,0.042565086,1.689111042,1.713189491,50
+network,OSPA consensus error,1,bandwidth cap,Balanced mode,1.481795046,0.039483382,1.470627459,1.492962633,50
+network,OSPA consensus error,1,bandwidth cap,Cardinality-critical mode,1.472859015,0.035932388,1.462695801,1.483022229,50
+network,OSPA consensus error,2,tiered link loss,Fixed Metropolis,2.383288105,0.176309069,2.333420369,2.433155840,50
+network,OSPA consensus error,2,tiered link loss,Balanced mode,1.760323895,0.075877754,1.738862425,1.781785365,50
+network,OSPA consensus error,2,tiered link loss,Cardinality-critical mode,1.669298153,0.046269127,1.656211268,1.682385039,50
+network,OSPA consensus error,3,node outage,Fixed Metropolis,2.655978352,0.235891692,2.589258106,2.722698598,50
+network,OSPA consensus error,3,node outage,Balanced mode,1.807676811,0.079977659,1.785055713,1.830297909,50
+network,OSPA consensus error,3,node outage,Cardinality-critical mode,1.688969218,0.063485424,1.671012829,1.706925608,50
+network,Matched localization disagreement,0,none,Fixed Metropolis,1.378082720,0.032105596,1.369001886,1.387163554,50
+network,Matched localization disagreement,0,none,Balanced mode,1.201467417,0.029773318,1.193046251,1.209888583,50
+network,Matched localization disagreement,0,none,Cardinality-critical mode,1.302604910,0.182786908,1.250904965,1.354304854,50
+network,Matched localization disagreement,1,bandwidth cap,Fixed Metropolis,1.447328312,0.053165935,1.432290714,1.462365909,50
+network,Matched localization disagreement,1,bandwidth cap,Balanced mode,1.241721081,0.034319929,1.232013939,1.251428223,50
+network,Matched localization disagreement,1,bandwidth cap,Cardinality-critical mode,1.344237901,0.183096397,1.292450419,1.396025382,50
+network,Matched localization disagreement,2,tiered link loss,Fixed Metropolis,2.263491965,0.340229637,2.167260492,2.359723439,50
+network,Matched localization disagreement,2,tiered link loss,Balanced mode,1.535770285,0.148402478,1.493795726,1.577744844,50
+network,Matched localization disagreement,2,tiered link loss,Cardinality-critical mode,1.570572427,0.192670293,1.516077039,1.625067816,50
+network,Matched localization disagreement,3,node outage,Fixed Metropolis,2.700860112,0.534479561,2.549686464,2.852033761,50
+network,Matched localization disagreement,3,node outage,Balanced mode,1.570407955,0.155862227,1.526323460,1.614492451,50
+network,Matched localization disagreement,3,node outage,Cardinality-critical mode,1.574407810,0.206356512,1.516041374,1.632774245,50
+network,Cardinality dispersion,0,none,Fixed Metropolis,0.086675000,0.020237131,0.080951075,0.092398925,50
+network,Cardinality dispersion,0,none,Balanced mode,0.068850000,0.015740319,0.064397965,0.073302035,50
+network,Cardinality dispersion,0,none,Cardinality-critical mode,0.048450000,0.013369170,0.044668628,0.052231372,50
+network,Cardinality dispersion,1,bandwidth cap,Fixed Metropolis,0.126075000,0.020432208,0.120295899,0.131854101,50
+network,Cardinality dispersion,1,bandwidth cap,Balanced mode,0.085025000,0.021137140,0.079046514,0.091003486,50
+network,Cardinality dispersion,1,bandwidth cap,Cardinality-critical mode,0.049350000,0.011644829,0.046056345,0.052643655,50
+network,Cardinality dispersion,2,tiered link loss,Fixed Metropolis,0.650100000,0.223201548,0.586969069,0.713230931,50
+network,Cardinality dispersion,2,tiered link loss,Balanced mode,0.179975000,0.042789001,0.167872443,0.192077557,50
+network,Cardinality dispersion,2,tiered link loss,Cardinality-critical mode,0.065625000,0.016924295,0.060838087,0.070411913,50
+network,Cardinality dispersion,3,node outage,Fixed Metropolis,0.879550000,0.297869643,0.795299742,0.963800258,50
+network,Cardinality dispersion,3,node outage,Balanced mode,0.200925000,0.047908960,0.187374300,0.214475700,50
+network,Cardinality dispersion,3,node outage,Cardinality-critical mode,0.065925000,0.021157225,0.059940833,0.071909167,50
+local,Local E-OSPA,0,none,Fixed Metropolis,1.897743641,0.038258439,1.886922521,1.908564762,50
+local,Local E-OSPA,0,none,Balanced mode,1.827793659,0.038580510,1.816881442,1.838705875,50
+local,Local E-OSPA,0,none,Cardinality-critical mode,1.758806720,0.037831484,1.748106360,1.769507079,50
+local,Local E-OSPA,1,bandwidth cap,Fixed Metropolis,1.986237167,0.039561886,1.975047375,1.997426958,50
+local,Local E-OSPA,1,bandwidth cap,Balanced mode,1.892100226,0.039919291,1.880809346,1.903391107,50
+local,Local E-OSPA,1,bandwidth cap,Cardinality-critical mode,1.805010491,0.038561814,1.794103563,1.815917419,50
+local,Local E-OSPA,2,tiered link loss,Fixed Metropolis,2.781144318,0.128909648,2.744683163,2.817605472,50
+local,Local E-OSPA,2,tiered link loss,Balanced mode,2.292981495,0.081787476,2.269848504,2.316114487,50
+local,Local E-OSPA,2,tiered link loss,Cardinality-critical mode,2.003315080,0.044321370,1.990779103,2.015851056,50
+local,Local E-OSPA,3,node outage,Fixed Metropolis,2.999069301,0.142441485,2.958780765,3.039357837,50
+local,Local E-OSPA,3,node outage,Balanced mode,2.350607890,0.071560815,2.330367435,2.370848345,50
+local,Local E-OSPA,3,node outage,Cardinality-critical mode,2.031220509,0.047603278,2.017756269,2.044684749,50
+local,Local RMSE,0,none,Fixed Metropolis,1.441796938,0.034310603,1.432092434,1.451501442,50
+local,Local RMSE,0,none,Balanced mode,1.375123373,0.034521997,1.365359077,1.384887668,50
+local,Local RMSE,0,none,Cardinality-critical mode,1.454573501,0.130110202,1.417772779,1.491374223,50
+local,Local RMSE,1,bandwidth cap,Fixed Metropolis,1.476538997,0.036326071,1.466264433,1.486813562,50
+local,Local RMSE,1,bandwidth cap,Balanced mode,1.417160314,0.035253577,1.407189097,1.427131532,50
+local,Local RMSE,1,bandwidth cap,Cardinality-critical mode,1.498564721,0.130704057,1.461596031,1.535533411,50
+local,Local RMSE,2,tiered link loss,Fixed Metropolis,1.630027126,0.049050549,1.616153536,1.643900717,50
+local,Local RMSE,2,tiered link loss,Balanced mode,1.601288675,0.048618570,1.587537267,1.615040083,50
+local,Local RMSE,2,tiered link loss,Cardinality-critical mode,1.732578360,0.155816995,1.688506659,1.776650062,50
+local,Local RMSE,3,node outage,Fixed Metropolis,1.707800050,0.126213668,1.672101434,1.743498667,50
+local,Local RMSE,3,node outage,Balanced mode,1.628662576,0.048768118,1.614868870,1.642456283,50
+local,Local RMSE,3,node outage,Cardinality-critical mode,1.744279074,0.167413739,1.696927318,1.791630830,50
+local,Local cardinality error,0,none,Fixed Metropolis,0.272725000,0.025361783,0.265551605,0.279898395,50
+local,Local cardinality error,0,none,Balanced mode,0.260600000,0.023733533,0.253887143,0.267312857,50
+local,Local cardinality error,0,none,Cardinality-critical mode,0.189300000,0.018459760,0.184078791,0.194521209,50
+local,Local cardinality error,1,bandwidth cap,Fixed Metropolis,0.375475000,0.037157355,0.364965313,0.385984687,50
+local,Local cardinality error,1,bandwidth cap,Balanced mode,0.302525000,0.030586831,0.293873738,0.311176262,50
+local,Local cardinality error,1,bandwidth cap,Cardinality-critical mode,0.196150000,0.019700953,0.190577729,0.201722271,50
+local,Local cardinality error,2,tiered link loss,Fixed Metropolis,1.364300000,0.260181104,1.290709671,1.437890329,50
+local,Local cardinality error,2,tiered link loss,Balanced mode,0.550925000,0.084960529,0.526894534,0.574955466,50
+local,Local cardinality error,2,tiered link loss,Cardinality-critical mode,0.215425000,0.029126976,0.207186647,0.223663353,50
+local,Local cardinality error,3,node outage,Fixed Metropolis,1.737000000,0.379426763,1.629681905,1.844318095,50
+local,Local cardinality error,3,node outage,Balanced mode,0.583075000,0.087191954,0.558413391,0.607736609,50
+local,Local cardinality error,3,node outage,Cardinality-critical mode,0.215875000,0.028475565,0.207820894,0.223929106,50
+runtime,Filter runtime,0,none,Fixed Metropolis,5.364529744,0.908992024,5.107427974,5.621631514,50
+runtime,Filter runtime,0,none,Balanced mode,5.828245576,0.992576818,5.547502456,6.108988696,50
+runtime,Filter runtime,0,none,Cardinality-critical mode,14.872406022,2.421636796,14.187463702,15.557348342,50
+runtime,Filter runtime,1,bandwidth cap,Fixed Metropolis,4.921978840,0.533859590,4.770980545,5.072977135,50
+runtime,Filter runtime,1,bandwidth cap,Balanced mode,5.430244742,0.561910284,5.271312513,5.589176971,50
+runtime,Filter runtime,1,bandwidth cap,Cardinality-critical mode,13.749198242,1.268107932,13.390523155,14.107873329,50
+runtime,Filter runtime,2,tiered link loss,Fixed Metropolis,5.399734020,0.577302563,5.236448197,5.563019843,50
+runtime,Filter runtime,2,tiered link loss,Balanced mode,5.893987746,0.623895138,5.717523553,6.070451939,50
+runtime,Filter runtime,2,tiered link loss,Cardinality-critical mode,15.433452178,1.679361025,14.958457150,15.908447206,50
+runtime,Filter runtime,3,node outage,Fixed Metropolis,5.053263596,0.763740025,4.837245296,5.269281896,50
+runtime,Filter runtime,3,node outage,Balanced mode,5.353273004,0.863029410,5.109171425,5.597374583,50
+runtime,Filter runtime,3,node outage,Cardinality-critical mode,14.127465410,2.156943403,13.517389687,14.737541133,50
