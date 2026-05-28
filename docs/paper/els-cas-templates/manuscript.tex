@@ -39,14 +39,8 @@
 Distributed multi-sensor multi-object tracking over peer-to-peer networks requires fusion rules that remain conservative under unknown cross-correlations while still responding to heterogeneous sensing and communication. Kullback-Leibler average (KLA), or geometric-average fusion, provides a natural foundation for this setting, but fixed or topology-derived weights cannot express whether a neighbor's posterior is informative, whether its information was actually delivered, or whether its Bernoulli components make decisive existence claims. This paper proposes a communication-aware adaptive weighting family for consensus-oriented distributed KLA-based LMB fusion. The method uses a covariance, realized-link, and existence-confidence backbone, then separates spatial and existence weighting so that a weak structure-aware correction regularizes the spatial branch and an FID-FIA information-geometric cue can be reserved for existence fusion. The evaluation uses an eight-sensor dual-formation scenario with tiered heterogeneous packet loss and treats network disagreement, local tracking accuracy, and filter/fusion runtime as complementary evidence. The results show that the proposed operating modes improve consensus over fixed and dynamic-weight baselines without collapsing conventional local metrics: the Balanced mode is the lower-overhead position-oriented setting, whereas the Cardinality-critical mode uses additional information-geometric computation to obtain the strongest target-number agreement. The study therefore frames adaptive distributed GA-LMB fusion as an explicit spatial-versus-cardinality-versus-cost tradeoff rather than as a single fixed weighting recipe.
 \end{abstract}
 
-\begin{highlights}
-\item Adaptive weights improve distributed GA-LMB fusion under packet loss.
-\item Weights combine covariance, link quality, and existence confidence.
-\item Operating modes trade runtime for stronger cardinality agreement.
-\end{highlights}
-
 \begin{keywords}
-distributed multi-object tracking \sep labeled multi-Bernoulli \sep Kullback-Leibler average \sep adaptive fusion weights \sep packet loss
+distributed multi-object tracking \sep labeled multi-Bernoulli \sep Kullback-Leibler average \sep adaptive fusion weights \sep communication-constrained fusion
 \end{keywords}
 
 \maketitle
@@ -58,13 +52,14 @@ distributed multi-object tracking \sep labeled multi-Bernoulli \sep Kullback-Lei
 \input{sections/05_experimental_setup}
 \input{sections/06_results}
 \input{sections/07_conclusion}
-\input{sections/declarations}
 
 \clearpage
 \appendix
 \input{sections/appendix_a}
 \input{sections/appendix_b}
 \input{sections/appendix_c}
+
+\input{sections/declarations}
 
 \bibliographystyle{cas-model2-names}
 \bibliography{paper-refs}

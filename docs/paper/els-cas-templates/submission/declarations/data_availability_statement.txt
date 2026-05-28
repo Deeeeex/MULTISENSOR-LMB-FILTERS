@@ -1,0 +1,3 @@
+Data availability
+
+No real-world datasets were used in this study. The simulation data supporting the findings are synthetic and can be regenerated from the MATLAB/Octave scripts and deterministic seeds used in the experiments. The code and generated result logs will be made available by the corresponding author on reasonable request.

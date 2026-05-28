@@ -13,12 +13,11 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [ ] 替换主稿作者占位符：`manuscript.tex` 中的 `Author Name`、`author@example.com`、`Affiliation Placeholder`、地址、城市、邮编、州/省、国家。
 - [ ] 确认 short author 信息：`manuscript.tex` 中的 `\shortauthors{Author}` 需要与最终作者列表一致。
 - [ ] 将参考文献和正文引用改为期刊要求的编号引用格式。当前仍是 `\usepackage[authoryear,longnamesfirst]{natbib}` 和 `\bibliographystyle{cas-model2-names}`。
-- [ ] 完成 `sections/declarations.tex` 中的 CRediT 作者贡献声明。
-- [ ] 完成 competing interest 声明；如果无利益冲突，替换为最终无冲突措辞。
-- [ ] 完成 funding 声明；如果无资助，替换为最终无资助措辞。
-- [ ] 完成 acknowledgements；如果不需要，删除该 section。
+- [ ] 将 CRediT 中的 `First Author`、`Second Author`、`Third Author` 替换为最终作者姓名，并确认贡献分配。
+- [ ] 完成 competing interest 声明；用 Elsevier declarations tool 生成最终 Word 文件并在上传步骤作为单独文件上传。
+- [ ] 将 funding 中的 `[Funding Agency Name]` 和 `[Grant Number]` 替换为真实基金信息；如果无资助，替换为无资助声明。
 - [ ] 人工确认 generative AI disclosure 是否准确覆盖论文准备过程，并由全体作者接受。
-- [ ] 决定 data/code availability 的最终口径：公开仓库/Zenodo/OSF DOI，或仅写 corresponding author on reasonable request。
+- [ ] 决定 data/code availability 的最终口径：公开仓库/Zenodo/OSF DOI，或保持 corresponding author on reasonable request。
 - [ ] 在 cover letter 中补齐 `[Date]`、`[Corresponding Author Name]`、affiliation、email。
 - [ ] 人工确认 previous publication / preprint / concurrent submission 状态；如果存在预印本、会议版、学位论文或重叠稿件，需要在 cover letter 中披露。
 
@@ -30,6 +29,8 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] 论文图件：`figs/paper-figure*.pdf`、`figs/paper-figure*.png`、必要的 SVG 源文件。
 - [x] Highlights 独立 editable 文件：`submission/highlights.txt`。
 - [x] Cover letter 草稿：`submission/cover_letter_information_fusion.md`。
+- [x] 三个上传入口文件拆分目录：`submission/upload_files/`。
+- [x] 投稿声明拆分草稿目录：`submission/declarations/`。
 - [x] 投稿声明源文件：`sections/declarations.tex`。
 - [x] 当前 PDF 可生成：`manuscript.pdf`。
 - [ ] Graphical abstract：当前未准备。Information Fusion 页面通常是 encouraged 而非必需；如果准备，应使用非生成式 AI 的代码/手工图件，并保证可编辑源文件可追溯。
@@ -37,10 +38,13 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 
 ## 当前合规状态快照
 
-- [x] Abstract 长度当前约 240 词，低于 250 词上限。
+- [x] Abstract 长度当前约 206 词，低于 250 词上限。
 - [x] Highlights 当前为 3 条，字符数分别为 69、67、67，满足每条不超过 85 字符。
-- [x] 当前 BibTeX 输出引用 42 篇，低于 50 篇上限。
-- [x] 当前 build 日志显示 PDF 为 30 页，处于 research article 10-35 页范围内。
+- [x] Highlights 已从主稿源文件中拆出，主稿不再内嵌 `highlights` 环境。
+- [x] Acknowledgements 已删除。
+- [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
+- [x] 当前 BibTeX 输出引用 43 篇，低于 50 篇上限。
+- [x] 当前 build 日志显示 PDF 为 27 页，处于 research article 10-35 页范围内。
 - [x] 当前 build 日志未发现 undefined citation 或 undefined reference。
 - [~] 当前 build 仍有 overfull/underfull box 和 hyperref warning；这些不是阻断项，但最终投稿前应再快速扫一遍 PDF。
 - [ ] 正文引用格式仍需从 author-year 改成 numbered citation。
@@ -94,6 +98,9 @@ Include:
 - [ ] bibliography style file required by the final reference mode
 - [ ] `figs/paper-figure*` files actually used by `manuscript.tex`
 - [ ] `submission/highlights.txt`
+- [ ] `submission/upload_files/manuscript.pdf`
+- [ ] `submission/upload_files/cover_letter.txt`
+- [ ] `submission/upload_files/highlights.txt`
 - [ ] finalized cover letter text
 - [ ] optional supplementary/reproducibility archive, if selected
 

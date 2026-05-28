@@ -375,22 +375,3 @@ For any $\alpha \in [0,1]$, the EMA point $w_k^{\mathrm{ema}}$ is the unique min
 \right\}.
 \end{equation}
 Thus the EMA step is an exact quadratic compromise between the previous weights and the instantaneous optimizer. The subsequent minimum-weight enforcement should still be interpreted as a pragmatic feasibility projection rather than as part of one single exact optimizer.
-
-\subsection{What This Appendix Establishes}
-
-Under the same aligned-label and moment-compatible assumptions used by the merger, this appendix establishes:
-\begin{itemize}
-\item an exact entropy-regularized interpretation of the adaptive backbone,
- \item an isotropic-limit agreement between the retained covariance score and standard information criteria,
-\item an exact Gaussian KLA barycenter for the spatial branch,
-\item an exact logit-pooling identity for the existence branch,
-\item an exact Bernoulli-RFS decomposition that motivates branch separation,
-\item an aligned-LMB surrogate interpretation of the componentwise decoupled merger,
-\item a KL-prior interpretation of the weak structure-aware refinement,
-\item an interpretation of FID-FIA as an existence-branch information-geometric log-utility rather than a whole-posterior scalar weight,
-\item a first-order entropic mirror-ascent interpretation of the structure-aware weight update,
- \item a concrete reduced-objective sensitivity view in which the exact branch gradients are spatial KL mismatch and Bernoulli mismatch terms,
-\item a rationale for reserving FID-FIA for the Bernoulli branch because it proxies target-pair separability relevant to existence decisions,
-\item a quadratic-compromise interpretation of the EMA stabilization step.
-\end{itemize}
-What remains outside the scope of this appendix is a full theorem for completely unconstrained LMB fusion without the aligned-label and moment-projection assumptions used by the proposed merger.
