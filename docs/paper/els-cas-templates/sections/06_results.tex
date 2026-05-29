@@ -1,7 +1,7 @@
 \section{Results and Discussion}
 \label{sec:results}
 
-This section reports the empirical evidence supporting the paper's main claims. The strongest evidence comes from the tiered heterogeneous packet-loss GA scenario introduced in Section~\ref{sec:experimental-setup}, so that scenario is treated as the primary result. Ideal communication and communication-robustness experiments are used as supporting studies. Appendix-only results document exploratory variants without diluting the main GA/KLA method.
+This section reports the empirical evidence supporting the paper's main claims. The strongest evidence comes from the tiered heterogeneous packet-loss GA scenario introduced in Section~\ref{sec:experimental-setup}, so that scenario is treated as the primary result. Ideal communication and communication-sensitivity experiments are used as supporting studies. Appendix-only results document exploratory variants without diluting the main GA/KLA method.
 
 \subsection{Main result in the tiered-drop GA scenario}
 
@@ -56,17 +56,19 @@ The two proposed operating-mode rows should therefore be read as recommended set
   \end{tabular}
 \end{table}
 
-Computational cost is the third evaluation axis for this method family. Table~\ref{tab:runtime-cost} reports a 50-trial runtime measurement in the same 100-step tiered-drop scenario. The measurement includes only the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. The main cost distinction is clear. The Balanced mode remains close to the fixed-weight baseline, requiring about $1.08\times$ the Fixed Metropolis runtime. The FID-FIA baseline and the Cardinality-critical mode are both near the three-times-cost regime. A separate direct dynamic-weighting probe places PD-weighted GA and FI-weighted GA around $62$--$63$ seconds per trial, so the trace-FI baseline is comparatively inexpensive; its limitation is empirical rather than computational, because it does not close the consensus gap. The runtime evidence therefore identifies FID-FIA scoring, not the basic communication-aware weighting backbone, as the dominant source of additional cost.
+Computational cost is the third evaluation axis for this method family. Table~\ref{tab:runtime-cost} reports 50-trial runtime measurements in the same 100-step tiered-drop scenario and covers all arms in the main comparison. The measurement includes only the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. The main cost distinction is clear. The Balanced mode remains close to the fixed-weight baseline, requiring about $1.08\times$ the Fixed Metropolis runtime. The PD-weighted and FI-weighted GA baselines are also moderate-cost dynamic-weighting alternatives at about $1.23\times$--$1.25\times$ fixed runtime. By contrast, the FID-FIA baseline and the Cardinality-critical mode are both near the three-times-cost regime. The runtime evidence therefore identifies FID-FIA scoring, not the basic communication-aware weighting backbone or the direct PD/FI dynamic-weight baselines, as the dominant source of additional cost.
 
 \begin{table}[t]
   \centering
-  \caption{Computational cost in the main tiered heterogeneous packet-loss scenario. Wall-clock time measures only the distributed LMB filtering/fusion call for each arm over 50 deterministic paired trials with seeds $2$--$51$.}
+  \caption{Computational cost in the main tiered heterogeneous packet-loss scenario. Wall-clock time measures only the distributed LMB filtering/fusion call for each arm over 50 deterministic paired trials with seeds $2$--$51$. The Fixed Metropolis, FID-FIA, Balanced, and Cardinality-critical rows come from the operating-mode runtime probe; the PD-weighted and FI-weighted GA rows come from the direct dynamic-weighting probe under the same scenario and seed set. Relative runtime is computed against the paired Fixed Metropolis denominator within the corresponding probe.}
   \label{tab:runtime-cost}
   \begin{tabular}{lccc}
     \toprule
     Arm & Runtime (s) & Runtime/step (s) & Relative runtime \\
     \midrule
     Fixed Metropolis & $52.123 \pm 7.932$ & $0.521$ & $1.000\times$ \\
+    PD-weighted GA & $61.668 \pm 5.376$ & $0.617$ & $1.233\times$ \\
+    FI-weighted GA & $62.810 \pm 6.768$ & $0.628$ & $1.254\times$ \\
     FID-FIA baseline & $147.674 \pm 23.957$ & $1.477$ & $2.833\times$ \\
     Balanced mode & $56.378 \pm 9.626$ & $0.564$ & $1.082\times$ \\
     Cardinality-critical mode & $155.913 \pm 18.220$ & $1.559$ & $2.991\times$ \\
@@ -135,16 +137,16 @@ The ideal-communication result mirrors the branch specialization observed in the
 
 \FloatBarrier
 
-\subsection{Communication robustness}
+\subsection{Communication sensitivity and robustness}
 
-A communication-level robustness study was added to test whether the two operating modes remain useful outside the single tiered-drop setting. The study uses the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis, Balanced mode, and Cardinality-critical mode over 50 deterministic paired trials at each communication level. Level $0$ is ideal communication, level $1$ adds only the global bandwidth cap, level $2$ adds the tiered fixed link-loss model used in the main experiment, and level $3$ further adds random node outages. Table~\ref{tab:comm-level-robustness} reports the resulting network-level disagreement metrics, and Figure~\ref{fig:comm-level-robustness} visualizes the same means with 95\% confidence intervals.
+A communication-level sensitivity study was added to test whether the two operating modes remain useful outside the single tiered-drop setting. The study uses the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis, Balanced mode, and Cardinality-critical mode over 50 deterministic paired trials at each communication level. Level $0$ is ideal communication, level $1$ adds only the global bandwidth cap, level $2$ adds the tiered fixed link-loss model used in the main experiment, and level $3$ further adds random node outages. Table~\ref{tab:comm-level-sensitivity} reports the resulting network-level disagreement metrics, and Figure~\ref{fig:comm-level-sensitivity} visualizes the same means with 95\% confidence intervals. This table is a communication-sensitivity check; it does not test explicit sensor-side $p_D$ or measurement-noise tiers.
 
 \begin{table}[t]
   \centering
   \scriptsize
   \setlength{\tabcolsep}{3pt}
-  \caption{Communication-level robustness in the eight-sensor dual-formation GA-LMB scenario. Each level uses 50 deterministic paired trials. Values are Fixed Metropolis / Balanced mode / Cardinality-critical mode, and lower values are better.}
-  \label{tab:comm-level-robustness}
+  \caption{Communication-level sensitivity in the eight-sensor dual-formation GA-LMB scenario. Each level uses 50 deterministic paired trials. Values are Fixed Metropolis / Balanced mode / Cardinality-critical mode, and lower values are better.}
+  \label{tab:comm-level-sensitivity}
   \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}clccc@{}}
     \toprule
     Level & Additional constraint & OSPA err. & Loc. disag. & Card. disp. \\
@@ -160,8 +162,8 @@ A communication-level robustness study was added to test whether the two operati
 \begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{paper-figure7.pdf}
-  \caption{Communication-level robustness for Fixed Metropolis, Balanced mode, and Cardinality-critical mode. Markers show 50-trial means and error bars show 95\% confidence intervals.}
-  \label{fig:comm-level-robustness}
+  \caption{Communication-level sensitivity for Fixed Metropolis, Balanced mode, and Cardinality-critical mode. Markers show 50-trial means and error bars show 95\% confidence intervals.}
+  \label{fig:comm-level-sensitivity}
 \end{figure}
 
-This study is not used to replace the main tiered-drop comparison, but it closes the previous gap in the robustness evidence. Both proposed operating modes improve on Fixed Metropolis at every communication level. The important pattern is the gradient of the effect: the gain is modest under ideal or bandwidth-only communication, but it becomes much larger once tiered link loss or node outages make realized delivery quality heterogeneous. The Balanced mode gives the lowest matched localization disagreement at every level, while the Cardinality-critical mode gives the lowest cardinality dispersion at every level and the lowest OSPA consensus error once communication constraints are nontrivial. The local safeguard metrics move in the same direction: local E-OSPA and local cardinality error are lowest for the Cardinality-critical mode, while local RMSE remains strongest for the Balanced mode. This supports the interpretation that communication-aware weighting is most valuable when communication quality varies across nodes, and that the two operating modes expose a meaningful spatial-versus-cardinality tradeoff rather than a single brittle tuning.
+This study is not used to replace the main tiered-drop comparison, but it closes the previous gap in the communication-sensitivity evidence. Both proposed operating modes improve on Fixed Metropolis at every communication level. The important pattern is the gradient of the effect: the gain is modest under ideal or bandwidth-only communication, but it becomes much larger once tiered link loss or node outages make realized delivery quality heterogeneous. The Balanced mode gives the lowest matched localization disagreement at every level, while the Cardinality-critical mode gives the lowest cardinality dispersion at every level and the lowest OSPA consensus error once communication constraints are nontrivial. The local safeguard metrics move in the same direction: local E-OSPA and local cardinality error are lowest for the Cardinality-critical mode, while local RMSE remains strongest for the Balanced mode. This supports the interpretation that communication-aware weighting is most valuable when communication quality varies across nodes, and that the two operating modes expose a meaningful spatial-versus-cardinality tradeoff rather than a single brittle tuning.

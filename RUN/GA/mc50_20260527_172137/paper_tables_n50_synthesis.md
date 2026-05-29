@@ -9,10 +9,10 @@ This file reorders the batch outputs into the exact paper-table logic. It does n
 | Paper table | Source summary | Rows used |
 |:--|:--|:--|
 | Main consensus/local | 01 + 03 | Fixed/FID/Balanced/Cardinality from 01; PD/FI from 03 |
-| Runtime cost | 01, optional 03 | Fixed/FID/Balanced/Cardinality from 01; PD/FI optional from 03 |
+| Runtime cost | 01 + 03 | Fixed/FID/Balanced/Cardinality from 01; PD/FI from the direct dynamic-weighting probe |
 | Factor ablation | 02 + 01 | First five backbone rows from 02; Cardinality-critical from 01 |
 | Ideal-support | 04 | Reordered as Ordinary, Balanced, FID-FIA, Cardinality-critical |
-| Communication robustness | 05-08 | Fixed/Balanced pair per communication level |
+| Communication sensitivity | 05-08 | Fixed/Balanced/Cardinality-critical per communication level |
 
 ## Main tiered-drop table
 
@@ -36,19 +36,16 @@ This file reorders the batch outputs into the exact paper-table logic. It does n
 
 ### Runtime rows used by the current paper
 
+The PD/FI rows are from the direct dynamic-weighting probe under the same scenario and seed set. Their relative runtime uses that probe's paired Fixed Metropolis denominator.
+
 | Arm | Runtime (s) | Runtime/step (s) | Relative runtime | Runtime std | Source |
 |:--|--:|--:|--:|--:|:--|
 | Fixed Metropolis | 52.122628 | 0.521226 | 1.000000 | 7.932188 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat |
+| PD-weighted GA | 61.668471 | 0.616685 | 1.233000 | 5.376481 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md |
+| FI-weighted GA | 62.810458 | 0.628105 | 1.254000 | 6.767913 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md |
 | FID-FIA baseline | 147.673755 | 1.476738 | 2.833199 | 23.956635 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat |
 | Balanced mode | 56.378137 | 0.563781 | 1.081644 | 9.626476 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat |
 | Cardinality-critical mode | 155.913438 | 1.559134 | 2.991281 | 18.219890 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat |
-
-### Optional PD/FI runtime probe
-
-| Arm | Runtime (s) | Runtime/step (s) | Relative runtime | Runtime std | Source |
-|:--|--:|--:|--:|--:|:--|
-| PD-weighted GA | 61.668471 | 0.616685 | 1.000000 | 5.376481 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/03_tiered_pd_fi_baselines_n50_seed1.mat |
-| FI-weighted GA | 62.810458 | 0.628105 | 1.018518 | 6.767913 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/03_tiered_pd_fi_baselines_n50_seed1.mat |
 
 ## Factor ablation table
 
@@ -77,7 +74,7 @@ This file reorders the batch outputs into the exact paper-table logic. It does n
 | FID-FIA baseline | 1.880574 | 1.499905 | 0.225500 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/04_ideal_fidfia_n50_seed1.mat |
 | Cardinality-critical mode | 1.765967 | 1.470315 | 0.195350 | /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/04_ideal_fidfia_n50_seed1.mat |
 
-## Communication-level robustness table
+## Communication-level sensitivity table
 
 | Level | Fixed OSPA | Balanced OSPA | Fixed loc. disag. | Balanced loc. disag. | Fixed card. disp. | Balanced card. disp. |
 |--:|--:|--:|--:|--:|--:|--:|
@@ -85,4 +82,3 @@ This file reorders the batch outputs into the exact paper-table logic. It does n
 | 1 | pending | pending | pending | pending | pending | pending |
 | 2 | pending | pending | pending | pending | pending | pending |
 | 3 | pending | pending | pending | pending | pending | pending |
-

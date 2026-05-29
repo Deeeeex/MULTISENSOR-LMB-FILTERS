@@ -20,6 +20,7 @@ The common filter-side settings are:
 \item measurement-noise scale at every sensor: $q = 3$,
 \item field of view enabled with half-angle $60^\circ$ and range $60000$.
 \end{itemize}
+These are homogeneous nominal sensor settings. Geometry and field-of-view gating create target- and time-dependent visibility differences, but no explicit per-sensor $p_D$, noise, or clutter tiers are used in the main reported experiment.
 
 \subsection{Sensor geometry and neighborhood graph}
 
@@ -72,4 +73,4 @@ The Cardinality-critical mode uses the same settings and additionally enables FI
 
 \subsection{Monte Carlo seed control}
 
-The main fixed-versus-existence-refined confirmation, the supporting ideal-communication comparison, the factor ablation, and the communication-level robustness study all use 50 deterministic paired trials with seeds $2$--$51$. The Cardinality-critical mode row reported with the ablation uses the same deterministic seed range and scenario protocol. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.
+The main fixed-versus-existence-refined confirmation, the supporting ideal-communication comparison, the factor ablation, and the communication-level sensitivity study all use 50 deterministic paired trials with seeds $2$--$51$. The Cardinality-critical mode row reported with the ablation uses the same deterministic seed range and scenario protocol. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.

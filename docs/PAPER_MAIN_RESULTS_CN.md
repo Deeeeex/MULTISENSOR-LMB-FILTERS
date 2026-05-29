@@ -19,8 +19,8 @@
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260512_155714.md)
 - [GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N20_SEED1_20260511_163852.md)
 - 外部动态权重 baseline 补充实验：[Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md)
-- 计算量补充实验：[GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED1_20260515_105137.md)
-- 通信等级稳健性补充实验：`RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md` 等四个 level-specific 报告
+- 计算量补充实验：[paper_tables_n50_synthesis.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/paper_tables_n50_synthesis.md) 和 [Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md)
+- 通信等级 sensitivity 补充实验：[GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md)
 
 ### 1.1 跨节点共识误差指标
 
@@ -62,16 +62,18 @@
 
 ### 1.3 计算量补充实验
 
-同一主场景下补充了 `3-trial` 计算量统计。计时口径只包括每个 arm 的 `runDistributedLmbFilter` 过滤/融合调用，不包括场景生成、通信模型采样和指标评估。
+同一主场景下当前 paper runtime table 使用 `50-trial` 计算量统计。计时口径只包括每个 arm 的 `runDistributedLmbFilter` 过滤/融合调用，不包括场景生成、通信模型采样和指标评估。Fixed/FID-FIA/Balanced/Cardinality-critical 来自 operating-mode probe；PD/FI 来自同场景、同 seeds 的 direct dynamic-weighting probe。Relative ratio 使用各自 probe 内成对 Fixed Metropolis denominator。
 
 | Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed |
 | --- | ---: | ---: | ---: |
-| Fixed Metropolis | 47.334 +/- 0.732 | 0.473 | 1.000x |
-| FID-FIA baseline | 137.830 +/- 3.479 | 1.378 | 2.913x |
-| Balanced mode | 55.603 +/- 5.057 | 0.556 | 1.174x |
-| Cardinality-critical mode | 143.107 +/- 2.950 | 1.431 | 3.023x |
+| Fixed Metropolis | 52.123 +/- 7.932 | 0.521 | 1.000x |
+| PD-weighted GA | 61.668 +/- 5.376 | 0.617 | 1.233x |
+| FI-weighted GA | 62.810 +/- 6.768 | 0.628 | 1.254x |
+| FID-FIA baseline | 147.674 +/- 23.957 | 1.477 | 2.833x |
+| Balanced mode | 56.378 +/- 9.626 | 0.564 | 1.082x |
+| Cardinality-critical mode | 155.913 +/- 18.220 | 1.559 | 2.991x |
 
-这组计算量结果改变了选型表述：`Balanced mode` 只比固定权重多约 `17.4%` 的过滤/融合时间，却保留了主要的 spatial/position 共识增益；而 `FID-FIA baseline` 和 `Cardinality-critical mode` 都约为固定权重的 `3x`，说明 FID-FIA 相关的信息几何计算是主要额外成本。若算力或实时性是硬约束，优先推荐 `Balanced mode`；若目标数一致性、漏检/虚警支持的代价更高，再选择 `Cardinality-critical mode`。
+这组计算量结果改变了选型表述：`Balanced mode` 只比固定权重多约 `8.2%` 的过滤/融合时间，却保留了主要的 spatial/position 共识增益；`PD-weighted GA` 和 `FI-weighted GA` 约为 `1.23x`--`1.25x` fixed runtime，说明直接动态权重本身并不是主要计算瓶颈；而 `FID-FIA baseline` 和 `Cardinality-critical mode` 都约为固定权重的 `3x`，说明 FID-FIA 相关的信息几何计算是主要额外成本。若算力或实时性是硬约束，优先推荐 `Balanced mode`；若目标数一致性、漏检/虚警支持的代价更高，再选择 `Cardinality-critical mode`。
 
 ### 1.4 当前 paper message
 
@@ -159,25 +161,23 @@
 - [GA_IDEAL_COMM_COMPARE_20260326_184508.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md)
 - [IDEAL_COMM_COMPARE_CN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/IDEAL_COMM_COMPARE_CN.md)
 
-## 4. supporting evidence：communication-level robustness
+## 4. supporting evidence：communication-level sensitivity
 
-这次补了一个同 8-sensor dual-formation GA-LMB 场景下的小规模通信等级稳健性 probe：每个 communication level 跑 `3` 个 deterministic paired trials，只比较 `Fixed Metropolis` 和 `Balanced mode`。
+这次复用了同一 8-sensor dual-formation GA-LMB 场景下的 `50-trial` 通信等级 sensitivity probe：每个 communication level 比较 `Fixed Metropolis / Balanced mode / Cardinality-critical mode`。这张表支撑的是 communication heterogeneity/constraint sensitivity，不是显式的 sensor-side `p_D` 或 measurement-noise tier 泛化。
 
 | Level | 约束含义 | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 | ---: | --- | ---: | ---: | ---: |
-| 0 | ideal / none | `1.622 -> 1.405` | `1.380 -> 1.190` | `0.098 -> 0.070` |
-| 1 | bandwidth cap | `1.734 -> 1.494` | `1.503 -> 1.243` | `0.152 -> 0.093` |
-| 2 | tiered link loss | `2.480 -> 1.810` | `2.400 -> 1.419` | `0.686 -> 0.210` |
-| 3 | node outage | `2.440 -> 1.753` | `2.486 -> 1.450` | `0.754 -> 0.193` |
+| 0 | ideal / none | `1.628 / 1.423 / 1.432` | `1.378 / 1.201 / 1.303` | `0.087 / 0.069 / 0.048` |
+| 1 | bandwidth cap | `1.701 / 1.482 / 1.473` | `1.447 / 1.242 / 1.344` | `0.126 / 0.085 / 0.049` |
+| 2 | tiered link loss | `2.383 / 1.760 / 1.669` | `2.263 / 1.536 / 1.571` | `0.650 / 0.180 / 0.066` |
+| 3 | node outage | `2.656 / 1.808 / 1.689` | `2.701 / 1.570 / 1.574` | `0.880 / 0.201 / 0.066` |
 
-这张表不替代 20-trial 主实验，但可以替代原来 paper 里“通信越差自适应越有价值”的纯定性段落。趋势是：`Balanced mode` 在四个通信等级上都改善三项 consensus 指标；在 ideal 或 bandwidth-only 条件下，收益较温和；到了 tiered link loss 和 outage 条件下，OSPA/position/cardinality 的改善明显放大。这和主消融里 `realized link quality` 是最大通信相关增益来源的结论一致。
+这张表不替代主实验，但可以替代原来 paper 里“通信越差自适应越有价值”的纯定性段落。趋势是：两个 proposed operating modes 在四个通信等级上都改善主要 consensus 指标；在 ideal 或 bandwidth-only 条件下，收益较温和；到了 tiered link loss 和 outage 条件下，OSPA/position/cardinality 的改善明显放大。这和主消融里 `realized link quality` 是最大通信相关增益来源的结论一致。
 
 主要来源：
 
-- [GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED31_20260520_111403.md)
-- [GA_TIERED_LINK_ABLATION_N3_SEED41_20260520_112605.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED41_20260520_112605.md)
-- [GA_TIERED_LINK_ABLATION_N3_SEED51_20260520_113506.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED51_20260520_113506.md)
-- [GA_TIERED_LINK_ABLATION_N3_SEED61_20260520_114216.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N3_SEED61_20260520_114216.md)
+- [GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md)
+- [GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_latest.csv](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_latest.csv)
 
 ## 5. 附录结果：AA secondary route
 

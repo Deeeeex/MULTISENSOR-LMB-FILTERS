@@ -57,10 +57,10 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] FID-FIA baseline、Balanced mode、Cardinality-critical mode 已进入主结果表。
 - [x] local safeguards 已进入主稿：local E-OSPA、local RMSE、local cardinality error。
 - [x] runtime/cost 已作为第三评价轴进入主稿。
-- [x] communication-level robustness probe 已作为表格进入主稿。
+- [x] communication-level sensitivity probe 已作为表格进入主稿。
 - [ ] 归档主结果脚本、seed、报告和 PDF 对应 commit hash。
 - [ ] 决定公开代码版本：建议做一个 release tag，并在 data availability 中写明。
-- [ ] 如公开数据/结果包，至少包含 `RUN/GA` 中支撑主表、runtime、ideal-communication、communication-level robustness 的报告文件。
+- [ ] 如公开数据/结果包，至少包含 `RUN/GA` 中支撑主表、runtime、ideal-communication、communication-level sensitivity 的报告文件。
 - [ ] 确认 `.mat`、大型输出、临时文件是否需要进入公开包；不建议把未说明用途的中间输出直接随稿提交。
 
 Recommended evidence files to keep traceable:
