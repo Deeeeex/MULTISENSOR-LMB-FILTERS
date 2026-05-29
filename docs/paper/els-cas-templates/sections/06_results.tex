@@ -7,22 +7,22 @@ This section reports the empirical evidence supporting the paper's main claims. 
 
 The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Because the paper's design target is inter-sensor agreement, this subsection first reports the primary disagreement metrics and then checks the conventional local tracking metrics as a safeguard. The comparison separates three questions: whether dynamic reliability weighting is already beneficial, whether the communication-aware branch-decoupled design adds further value, and whether an existence-only information-geometric cue is useful when cardinality errors dominate. The two direct dynamic-weighting baselines answer the first question: the PD-weighted GA row uses detection-probability-style reliability weighting, and the target-wise FI-weighted GA row weights local Gaussian components by the trace of their information matrices.
 
-Table~\ref{tab:main-consensus-stats} should therefore be read as an ordered pattern rather than as six isolated numeric rows. Both direct dynamic-weighting baselines improve over Fixed Metropolis, confirming that adaptive reliability information is useful under heterogeneous delivery. The communication-aware method family, however, provides the stronger consensus profile. The Balanced mode gives the best localization-oriented result before the existence-only FID-FIA refinement, while the Cardinality-critical mode gives the strongest overall consensus result: relative to Fixed Metropolis, it reduces OSPA consensus error from $2.454$ to $1.669$, matched localization disagreement from $2.336$ to $1.528$, and cardinality dispersion from $0.715$ to $0.061$. These correspond to reductions of $32.0\%$, $34.6\%$, and $91.5\%$, respectively. For the original method-family arms, the paired reductions relative to Fixed Metropolis are positive in all 20 trials for all three primary disagreement metrics, with exact sign-test $p=1.9\times 10^{-6}$. The FI-weighted GA result is therefore best interpreted as a useful external Fisher-information baseline, not as a substitute for the communication-aware branch-decoupled design. Figure~\ref{fig:main-consensus} illustrates the same separation over time; both operating modes stay below the fixed baseline across most of the trajectory, with the Cardinality-critical mode most clearly separating on cardinality dispersion.
+Table~\ref{tab:main-consensus-stats} should therefore be read as an ordered pattern rather than as six isolated numeric rows. Both direct dynamic-weighting baselines improve over Fixed Metropolis, confirming that adaptive reliability information is useful under heterogeneous delivery. The communication-aware method family, however, provides the stronger consensus profile. The Balanced mode gives the best localization-oriented disagreement result, while the Cardinality-critical mode gives the lowest OSPA consensus error and cardinality dispersion: relative to Fixed Metropolis, it reduces OSPA consensus error from $2.469$ to $1.678$, matched localization disagreement from $2.326$ to $1.546$, and cardinality dispersion from $0.716$ to $0.063$. These correspond to reductions of $32.1\%$, $33.5\%$, and $91.2\%$, respectively. For the original method-family arms, the paired reductions relative to Fixed Metropolis are positive in all 50 trials for all three primary disagreement metrics, with exact sign-test $p=1.8\times 10^{-15}$. The FI-weighted GA result is therefore best interpreted as a useful external Fisher-information baseline, not as a substitute for the communication-aware branch-decoupled design. Figure~\ref{fig:main-consensus} illustrates the same separation over time; both operating modes stay below the fixed baseline across most of the trajectory, with the Cardinality-critical mode most clearly separating on cardinality dispersion.
 
 \begin{table}[t]
   \centering
-  \caption{Main paired consensus comparison under tiered heterogeneous packet loss. Values are computed over 20 deterministic paired trials with seeds $2$--$21$. Lower values are better.}
+  \caption{Main paired consensus comparison under tiered heterogeneous packet loss. Values are mean $\pm$ standard deviation over 50 deterministic paired trials with seeds $2$--$51$. Lower values are better.}
   \label{tab:main-consensus-stats}
   \begin{tabular}{lccc}
     \toprule
     Arm & OSPA err. & Loc. disag. & Card. disp. \\
     \midrule
-    Fixed Metropolis & $2.454 \pm 0.188$ & $2.336 \pm 0.257$ & $0.715 \pm 0.217$ \\
-    PD-weighted GA & $2.174 \pm 0.162$ & $1.946 \pm 0.212$ & $0.597 \pm 0.183$ \\
-    FI-weighted GA & $2.021 \pm 0.107$ & $1.896 \pm 0.247$ & $0.437 \pm 0.130$ \\
-    FID-FIA baseline & $1.820 \pm 0.065$ & $1.647 \pm 0.108$ & $0.126 \pm 0.027$ \\
-    Balanced mode & $1.786 \pm 0.057$ & $1.563 \pm 0.200$ & $0.193 \pm 0.025$ \\
-    Cardinality-critical mode & $\mathbf{1.669} \pm 0.053$ & $\mathbf{1.528} \pm 0.115$ & $\mathbf{0.061} \pm 0.016$ \\
+    Fixed Metropolis & $2.469 \pm 0.220$ & $2.326 \pm 0.353$ & $0.716 \pm 0.224$ \\
+    PD-weighted GA & $2.177 \pm 0.161$ & $1.995 \pm 0.233$ & $0.588 \pm 0.170$ \\
+    FI-weighted GA & $2.030 \pm 0.128$ & $1.870 \pm 0.221$ & $0.441 \pm 0.127$ \\
+    FID-FIA baseline & $1.818 \pm 0.056$ & $1.643 \pm 0.109$ & $0.123 \pm 0.023$ \\
+    Balanced mode & $1.779 \pm 0.073$ & $\mathbf{1.522} \pm 0.157$ & $0.188 \pm 0.031$ \\
+    Cardinality-critical mode & $\mathbf{1.678} \pm 0.050$ & $1.546 \pm 0.158$ & $\mathbf{0.063} \pm 0.017$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -40,36 +40,36 @@ The two proposed operating-mode rows should therefore be read as recommended set
 
 \begin{table}[t]
   \centering
-  \caption{Conventional local tracking metrics in the main tiered heterogeneous packet-loss scenario. Values are means across sensors and the same 20 deterministic paired trials used in Table~\ref{tab:main-consensus-stats}.}
+  \caption{Conventional local tracking metrics in the main tiered heterogeneous packet-loss scenario. Values are mean $\pm$ standard deviation across the same 50 deterministic paired trials used in Table~\ref{tab:main-consensus-stats}, after averaging each trial over sensors.}
   \label{tab:main-local}
   \begin{tabular}{lccc}
     \toprule
     Arm & E-OSPA & RMSE & CardErr \\
     \midrule
-    Fixed Metropolis & 2.853096 & 1.637556 & 1.454500 \\
-    PD-weighted GA & 2.724237 & 1.552784 & 1.255062 \\
-    FI-weighted GA & 2.480159 & \textbf{1.538486} & 0.979625 \\
-    FID-FIA baseline & 2.183127 & 1.715746 & 0.392313 \\
-    Balanced mode & 2.328672 & 1.598561 & 0.578688 \\
-    Cardinality-critical mode & \textbf{2.009084} & 1.704538 & \textbf{0.221563} \\
+    Fixed Metropolis & $2.863 \pm 0.124$ & $1.650 \pm 0.078$ & $1.455 \pm 0.242$ \\
+    PD-weighted GA & $2.736 \pm 0.116$ & $1.563 \pm 0.061$ & $1.255 \pm 0.205$ \\
+    FI-weighted GA & $2.496 \pm 0.112$ & $\mathbf{1.548} \pm 0.050$ & $0.985 \pm 0.175$ \\
+    FID-FIA baseline & $2.185 \pm 0.050$ & $1.734 \pm 0.094$ & $0.388 \pm 0.047$ \\
+    Balanced mode & $2.335 \pm 0.072$ & $1.606 \pm 0.050$ & $0.579 \pm 0.067$ \\
+    Cardinality-critical mode & $\mathbf{2.020} \pm 0.047$ & $1.721 \pm 0.161$ & $\mathbf{0.224} \pm 0.029$ \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Computational cost is the third evaluation axis for this method family. Table~\ref{tab:runtime-cost} reports a three-trial runtime supplement in the same 100-step tiered-drop scenario. The measurement includes only the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. The main cost distinction is clear. The Balanced mode remains close to the fixed-weight baseline, requiring about $1.17\times$ the Fixed Metropolis runtime. The FID-FIA baseline and the Cardinality-critical mode are both near the three-times-cost regime. A separate direct dynamic-weighting probe places PD-weighted GA and FI-weighted GA around $65$--$66$ seconds per trial, so the trace-FI baseline is comparatively inexpensive; its limitation is empirical rather than computational, because it does not close the consensus gap. The runtime evidence therefore identifies FID-FIA scoring, not the basic communication-aware weighting backbone, as the dominant source of additional cost.
+Computational cost is the third evaluation axis for this method family. Table~\ref{tab:runtime-cost} reports a 50-trial runtime measurement in the same 100-step tiered-drop scenario. The measurement includes only the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded. The main cost distinction is clear. The Balanced mode remains close to the fixed-weight baseline, requiring about $1.08\times$ the Fixed Metropolis runtime. The FID-FIA baseline and the Cardinality-critical mode are both near the three-times-cost regime. A separate direct dynamic-weighting probe places PD-weighted GA and FI-weighted GA around $62$--$63$ seconds per trial, so the trace-FI baseline is comparatively inexpensive; its limitation is empirical rather than computational, because it does not close the consensus gap. The runtime evidence therefore identifies FID-FIA scoring, not the basic communication-aware weighting backbone, as the dominant source of additional cost.
 
 \begin{table}[t]
   \centering
-  \caption{Computational cost in the main tiered heterogeneous packet-loss scenario. Wall-clock time measures only the distributed LMB filtering/fusion call for each arm over three deterministic paired trials with seeds $2$--$4$.}
+  \caption{Computational cost in the main tiered heterogeneous packet-loss scenario. Wall-clock time measures only the distributed LMB filtering/fusion call for each arm over 50 deterministic paired trials with seeds $2$--$51$.}
   \label{tab:runtime-cost}
   \begin{tabular}{lccc}
     \toprule
     Arm & Runtime (s) & Runtime/step (s) & Relative runtime \\
     \midrule
-    Fixed Metropolis & $47.334 \pm 0.732$ & $0.473$ & $1.000\times$ \\
-    FID-FIA baseline & $137.830 \pm 3.479$ & $1.378$ & $2.913\times$ \\
-    Balanced mode & $55.603 \pm 5.057$ & $0.556$ & $1.174\times$ \\
-    Cardinality-critical mode & $143.107 \pm 2.950$ & $1.431$ & $3.023\times$ \\
+    Fixed Metropolis & $52.123 \pm 7.932$ & $0.521$ & $1.000\times$ \\
+    FID-FIA baseline & $147.674 \pm 23.957$ & $1.477$ & $2.833\times$ \\
+    Balanced mode & $56.378 \pm 9.626$ & $0.564$ & $1.082\times$ \\
+    Cardinality-critical mode & $155.913 \pm 18.220$ & $1.559$ & $2.991\times$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -78,22 +78,21 @@ The cost results sharpen the operating-mode recommendation. The Balanced mode is
 
 \subsection{Factor ablation of the main adaptive design}
 
-The most important diagnostic ablation is the factor-by-factor path from Fixed Metropolis to the Balanced mode. Table~\ref{tab:ablation} summarizes this 20-trial path and adds the Cardinality-critical mode as the last row. The first five rows should be read as the communication-aware backbone diagnostic; the last row is the branch-specific existence refinement that converts the Balanced mode into the cardinality-sensitive mode.
+The most important diagnostic ablation is the factor-by-factor path from Fixed Metropolis to the Balanced mode. Table~\ref{tab:ablation} summarizes this 50-trial path and adds the Cardinality-critical mode as the last row. To keep the table focused on the main operating points, the three-factor adaptive backbone is not listed as a separate row; it remains the reliability model used by the branch-decoupled Balanced mode. The last row is the branch-specific existence refinement that converts the Balanced mode into the cardinality-sensitive mode.
 
 \begin{table}[t]
   \centering
-  \caption{Network disagreement metrics for the main factor ablation under tiered heterogeneous packet loss. The first five rows form the backbone diagnostic path, and the final row applies the FID-FIA cue only to the existence-weight path to obtain the cardinality-critical operating mode.}
+  \caption{Network disagreement metrics for the main factor ablation under tiered heterogeneous packet loss. Values are mean $\pm$ standard deviation over 50 deterministic paired trials. The rows show the progression from fixed weighting to the covariance-link backbone and then to the Balanced operating mode, which includes the three-factor adaptive backbone and weak structure-aware branch decoupling. The final row applies the FID-FIA cue only to the existence-weight path to obtain the cardinality-critical operating mode.}
   \label{tab:ablation}
   \begin{tabular}{lccc}
     \toprule
     Arm & OSPA err. & Loc. disag. & Card. disp. \\
     \midrule
-    Fixed Metropolis & 2.447978 & 2.583880 & 0.679437 \\
-    Covariance-only adaptive & 2.082445 & 2.167710 & 0.457937 \\
-    Covariance-link adaptive & 1.829718 & 1.764180 & 0.230687 \\
-    Three-factor adaptive backbone & 1.829831 & 1.753626 & 0.230500 \\
-    Balanced mode & 1.821448 & 1.749812 & 0.231625 \\
-    Cardinality-critical mode & \textbf{1.668961} & \textbf{1.528182} & \textbf{0.061062} \\
+    Fixed Metropolis & $2.469 \pm 0.220$ & $2.326 \pm 0.353$ & $0.716 \pm 0.224$ \\
+    Covariance-only adaptive & $2.091 \pm 0.145$ & $1.951 \pm 0.253$ & $0.466 \pm 0.134$ \\
+    Covariance-link adaptive & $1.788 \pm 0.071$ & $1.525 \pm 0.156$ & $0.188 \pm 0.031$ \\
+    Balanced mode & $1.779 \pm 0.073$ & $\mathbf{1.522} \pm 0.157$ & $0.188 \pm 0.031$ \\
+    Cardinality-critical mode & $\mathbf{1.678} \pm 0.050$ & $1.546 \pm 0.158$ & $\mathbf{0.063} \pm 0.017$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -102,19 +101,19 @@ Several conclusions follow from Table~\ref{tab:ablation}. First, covariance weig
 
 Second, realized link quality is the dominant communication-aware factor under heterogeneous packet loss. Adding it after covariance produces the largest incremental change in the backbone path, especially for cardinality dispersion, which is approximately halved. This is the key evidence that the method is not merely reweighting sharper posteriors; it is also responding to whether those posteriors are reliably delivered to neighboring nodes.
 
-Third, existence confidence plays a more selective role. In the larger 20-trial ablation, it does not produce a uniform improvement on every metric, but it slightly improves matched localization disagreement and cardinality dispersion after covariance and link quality have already been introduced. This narrower effect is still consistent with the design rationale: covariance and link quality do not directly express how decisive a local Bernoulli component is about target existence.
+Third, existence confidence remains part of the adaptive backbone, but its effect is not isolated as a separate operating row in Table~\ref{tab:ablation}. The reason is methodological rather than negative: existence confidence is used together with branch decoupling in the Balanced mode, where the reliability model is applied differently to the spatial and Bernoulli existence paths. This is consistent with the design rationale: covariance and link quality do not directly express how decisive a local Bernoulli component is about target existence.
 
-Finally, the Balanced mode provides a small spatial-consensus refinement within the pre-FID-FIA path, while leaving cardinality dispersion effectively tied with the three-factor backbone. The final row changes the operating point by applying the FID-FIA cue only to the existence branch, reducing cardinality dispersion from the approximately $0.23$ level of the Balanced/backbone rows to $0.061$ while also improving OSPA consensus error and matched localization disagreement. This is why the proposed method is presented as a configurable branch-decoupled family: the Balanced mode is the spatial/position-oriented setting, and the Cardinality-critical mode is the cardinality-oriented setting.
+Finally, the Balanced mode provides the pre-FID-FIA branch-decoupled operating point. The final row changes the operating point by applying the FID-FIA cue only to the existence branch, reducing cardinality dispersion from the approximately $0.188$ level of the Balanced/backbone setting to $0.063$ while also lowering OSPA consensus error. This is why the proposed method is presented as a configurable branch-decoupled family: the Balanced mode is the spatial/position-oriented setting, and the Cardinality-critical mode is the cardinality-oriented setting.
 
 \FloatBarrier
 
 \subsection{Ideal-communication supporting evidence}
 
-An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode under otherwise matched conditions. Table~\ref{tab:ideal-support} reports this comparison over the same 20 deterministic seed set used in the main confirmation.
+An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to zero and comparing Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode under otherwise matched conditions. Table~\ref{tab:ideal-support} reports this comparison over the same 50 deterministic seed set used in the main confirmation.
 
 \refstepcounter{table}\label{tab:ideal-support}
 \noindent\textbf{Table~\thetable}\\
-\noindent Ideal-communication supporting comparison over 20 deterministic paired trials with seeds $2$--$21$. Adaptive rows report the mean value and relative change versus ordinary GA; lower values are better, so negative percentages indicate improvements.
+\noindent Ideal-communication supporting comparison over 50 deterministic paired trials with seeds $2$--$51$. Adaptive rows report the mean value and relative change versus ordinary GA; lower values are better, so negative percentages indicate improvements.
 \begin{center}
   \scriptsize
   \setlength{\tabcolsep}{3pt}
@@ -124,38 +123,45 @@ An obvious question is whether the weak structure-aware decoupled refinement onl
     \cmidrule(lr){2-4}\cmidrule(l){5-6}
     Arm & OSPA err. & Loc. disag. & Card. disp. & E-OSPA & RMSE \\
     \midrule
-    Ordinary GA & 1.704 & 1.532 & 0.162 & 1.963 & 1.445 \\
-    Balanced mode & 1.482 (-13.0\%) & \textbf{1.238 (-19.2\%)} & 0.132 (-18.2\%) & 1.885 (-4.0\%) & \textbf{1.372 (-5.1\%)} \\
-    FID-FIA baseline & 1.532 (-10.1\%) & 1.332 (-13.1\%) & 0.054 (-66.5\%) & 1.871 (-4.7\%) & 1.499 (+3.8\%) \\
-    Cardinality-critical mode & \textbf{1.433 (-15.9\%)} & 1.309 (-14.6\%) & \textbf{0.050 (-69.1\%)} & \textbf{1.756 (-10.6\%)} & 1.493 (+3.3\%) \\
+    Ordinary GA & 1.634 & 1.381 & 0.090 & 1.908 & 1.442 \\
+    Balanced mode & \textbf{1.427 (-12.7\%)} & \textbf{1.202 (-13.0\%)} & 0.071 (-20.9\%) & 1.839 (-3.6\%) & \textbf{1.375 (-4.7\%)} \\
+    FID-FIA baseline & 1.534 (-6.1\%) & 1.333 (-3.5\%) & 0.057 (-36.3\%) & 1.881 (-1.4\%) & 1.500 (+4.0\%) \\
+    Cardinality-critical mode & 1.433 (-12.3\%) & 1.303 (-5.7\%) & \textbf{0.049 (-46.0\%)} & \textbf{1.766 (-7.4\%)} & 1.470 (+2.0\%) \\
     \bottomrule
   \end{tabular*}
 \end{center}
 
-The ideal-communication result mirrors the branch specialization observed in the tiered-drop experiment. Information-geometric weighting is especially effective for cardinality dispersion, whereas the Balanced mode remains the localization-oriented alternative. The Cardinality-critical mode gives the best OSPA consensus error and cardinality dispersion without forcing a single FID-FIA weight onto the whole posterior. This supporting study therefore serves two purposes: it shows that the refinement is not merely repairing packet loss, and it shows that the consensus gain is not purchased by a collapse in local tracking quality.
+The ideal-communication result mirrors the branch specialization observed in the tiered-drop experiment. Information-geometric weighting is especially effective for cardinality dispersion, whereas the Balanced mode remains the localization-oriented alternative and gives the lowest OSPA consensus error, matched localization disagreement, and local RMSE in this benign setting. The Cardinality-critical mode gives the lowest cardinality dispersion and local E-OSPA without forcing a single FID-FIA weight onto the whole posterior. This supporting study therefore serves two purposes: it shows that the refinement is not merely repairing packet loss, and it shows that the consensus gain is not purchased by a collapse in local tracking quality.
 
 \FloatBarrier
 
 \subsection{Communication robustness}
 
-A compact communication-level probe was added to test whether the Balanced mode remains useful outside the single tiered-drop setting. The probe uses the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis with the Balanced mode over three deterministic paired trials at each communication level. Level $0$ is ideal communication, level $1$ adds only the global bandwidth cap, level $2$ adds the tiered fixed link-loss model used in the main experiment, and level $3$ further adds random node outages. Table~\ref{tab:comm-level-robustness} reports the resulting network-level disagreement metrics.
+A communication-level robustness study was added to test whether the two operating modes remain useful outside the single tiered-drop setting. The study uses the same eight-sensor dual-formation GA-LMB scenario and compares Fixed Metropolis, Balanced mode, and Cardinality-critical mode over 50 deterministic paired trials at each communication level. Level $0$ is ideal communication, level $1$ adds only the global bandwidth cap, level $2$ adds the tiered fixed link-loss model used in the main experiment, and level $3$ further adds random node outages. Table~\ref{tab:comm-level-robustness} reports the resulting network-level disagreement metrics, and Figure~\ref{fig:comm-level-robustness} visualizes the same means with 95\% confidence intervals.
 
 \begin{table}[t]
   \centering
   \scriptsize
   \setlength{\tabcolsep}{3pt}
-  \caption{Communication-level robustness probe in the eight-sensor dual-formation GA-LMB scenario. Each level uses three deterministic paired trials. Values are Fixed Metropolis / Balanced mode, and lower values are better.}
+  \caption{Communication-level robustness in the eight-sensor dual-formation GA-LMB scenario. Each level uses 50 deterministic paired trials. Values are Fixed Metropolis / Balanced mode / Cardinality-critical mode, and lower values are better.}
   \label{tab:comm-level-robustness}
   \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}clccc@{}}
     \toprule
     Level & Additional constraint & OSPA err. & Loc. disag. & Card. disp. \\
     \midrule
-    0 & none & $1.622 / 1.405$ & $1.380 / 1.190$ & $0.098 / 0.070$ \\
-    1 & bandwidth cap & $1.734 / 1.494$ & $1.503 / 1.243$ & $0.152 / 0.093$ \\
-    2 & tiered link loss & $2.480 / 1.810$ & $2.400 / 1.419$ & $0.686 / 0.210$ \\
-    3 & node outage & $2.440 / 1.753$ & $2.486 / 1.450$ & $0.754 / 0.193$ \\
+    0 & none & $1.628 / 1.423 / 1.432$ & $1.378 / 1.201 / 1.303$ & $0.087 / 0.069 / 0.048$ \\
+    1 & bandwidth cap & $1.701 / 1.482 / 1.473$ & $1.447 / 1.242 / 1.344$ & $0.126 / 0.085 / 0.049$ \\
+    2 & tiered link loss & $2.383 / 1.760 / 1.669$ & $2.263 / 1.536 / 1.571$ & $0.650 / 0.180 / 0.066$ \\
+    3 & node outage & $2.656 / 1.808 / 1.689$ & $2.701 / 1.570 / 1.574$ & $0.880 / 0.201 / 0.066$ \\
     \bottomrule
   \end{tabular*}
 \end{table}
 
-The probe is not used to replace the 20-trial main comparison, but it closes the previous gap in the robustness evidence. The Balanced mode improves all three network-level disagreement metrics at every communication level. The important pattern is the gradient of the effect: the gain is modest under ideal or bandwidth-only communication, but it becomes much larger once tiered link loss or node outages make realized delivery quality heterogeneous. The local safeguard metrics move in the same direction in this probe, with local E-OSPA and local cardinality error both lower for the Balanced mode at all four communication levels. This supports the interpretation that communication-aware weighting is most valuable when communication quality varies across nodes, while still providing a smaller positive effect under benign communication.
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{paper-figure7.pdf}
+  \caption{Communication-level robustness for Fixed Metropolis, Balanced mode, and Cardinality-critical mode. Markers show 50-trial means and error bars show 95\% confidence intervals.}
+  \label{fig:comm-level-robustness}
+\end{figure}
+
+This study is not used to replace the main tiered-drop comparison, but it closes the previous gap in the robustness evidence. Both proposed operating modes improve on Fixed Metropolis at every communication level. The important pattern is the gradient of the effect: the gain is modest under ideal or bandwidth-only communication, but it becomes much larger once tiered link loss or node outages make realized delivery quality heterogeneous. The Balanced mode gives the lowest matched localization disagreement at every level, while the Cardinality-critical mode gives the lowest cardinality dispersion at every level and the lowest OSPA consensus error once communication constraints are nontrivial. The local safeguard metrics move in the same direction: local E-OSPA and local cardinality error are lowest for the Cardinality-critical mode, while local RMSE remains strongest for the Balanced mode. This supports the interpretation that communication-aware weighting is most valuable when communication quality varies across nodes, and that the two operating modes expose a meaningful spatial-versus-cardinality tradeoff rather than a single brittle tuning.

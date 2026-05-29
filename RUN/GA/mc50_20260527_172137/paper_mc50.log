@@ -1,0 +1,3713 @@
+
+===== START 01_tiered_main_fidfia_n50_seed1 at 2026-05-27 17:29:49 =====
+Trial 1/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.181 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 133.885 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.530 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 138.591 s
+Trial 2/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.057 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 127.150 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.013 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 141.647 s
+Trial 3/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.230 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.159 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.392 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 163.716 s
+Trial 4/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.594 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 157.202 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 58.651 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 170.695 s
+Trial 5/50
+  Arm 1/4: fixed weights
+    Filter runtime: 46.236 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 126.052 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 49.873 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 135.064 s
+Trial 6/50
+  Arm 1/4: fixed weights
+    Filter runtime: 45.038 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.752 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 49.747 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 151.896 s
+Trial 7/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.281 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 134.846 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.052 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.270 s
+Trial 8/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.918 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 130.053 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.534 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 137.976 s
+Trial 9/50
+  Arm 1/4: fixed weights
+    Filter runtime: 46.925 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 131.913 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 49.706 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 149.581 s
+Trial 10/50
+  Arm 1/4: fixed weights
+    Filter runtime: 46.960 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 131.087 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.174 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 140.133 s
+Trial 11/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.951 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 138.035 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.033 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.036 s
+Trial 12/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.892 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.776 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 73.874 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 152.750 s
+Trial 13/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.796 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 139.620 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.889 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 158.578 s
+Trial 14/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.401 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 141.912 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.403 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 152.037 s
+Trial 15/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.566 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 142.603 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 55.200 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 152.701 s
+Trial 16/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.984 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.332 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 72.703 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 198.150 s
+Trial 17/50
+  Arm 1/4: fixed weights
+    Filter runtime: 77.773 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 207.396 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 77.851 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 214.983 s
+Trial 18/50
+  Arm 1/4: fixed weights
+    Filter runtime: 69.684 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 201.316 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 77.274 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 209.699 s
+Trial 19/50
+  Arm 1/4: fixed weights
+    Filter runtime: 70.786 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 211.681 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 76.972 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 203.216 s
+Trial 20/50
+  Arm 1/4: fixed weights
+    Filter runtime: 72.471 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 196.767 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 77.292 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 167.623 s
+Trial 21/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.376 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.752 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.557 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.138 s
+Trial 22/50
+  Arm 1/4: fixed weights
+    Filter runtime: 58.564 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 180.841 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.420 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 144.783 s
+Trial 23/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.459 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 136.247 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.449 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 143.570 s
+Trial 24/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.096 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.092 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.582 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.590 s
+Trial 25/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.370 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 141.481 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.260 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 150.312 s
+Trial 26/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.154 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 129.658 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.382 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 137.401 s
+Trial 27/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.051 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.330 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.910 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 143.798 s
+Trial 28/50
+  Arm 1/4: fixed weights
+    Filter runtime: 45.644 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.382 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 49.919 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 143.393 s
+Trial 29/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.980 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 136.264 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.855 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 149.316 s
+Trial 30/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.913 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.083 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.154 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 148.347 s
+Trial 31/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.699 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 134.849 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.268 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.796 s
+Trial 32/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.407 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 159.046 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.252 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.537 s
+Trial 33/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.323 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 130.424 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.980 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 142.935 s
+Trial 34/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.132 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.980 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.174 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 149.472 s
+Trial 35/50
+  Arm 1/4: fixed weights
+    Filter runtime: 52.738 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.509 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 53.667 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 154.835 s
+Trial 36/50
+  Arm 1/4: fixed weights
+    Filter runtime: 52.019 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 145.147 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 58.648 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.069 s
+Trial 37/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.349 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 143.958 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.901 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 155.733 s
+Trial 38/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.038 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 131.451 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.152 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 149.544 s
+Trial 39/50
+  Arm 1/4: fixed weights
+    Filter runtime: 73.768 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 171.868 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.783 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 150.341 s
+Trial 40/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.586 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 155.121 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.165 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 140.586 s
+Trial 41/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.874 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.088 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.635 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.809 s
+Trial 42/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.637 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 131.460 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.150 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 142.567 s
+Trial 43/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.512 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 134.433 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.605 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.880 s
+Trial 44/50
+  Arm 1/4: fixed weights
+    Filter runtime: 58.344 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 155.445 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.886 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 172.154 s
+Trial 45/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.499 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.512 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.561 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 168.841 s
+Trial 46/50
+  Arm 1/4: fixed weights
+    Filter runtime: 60.015 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 167.792 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 63.310 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 176.283 s
+Trial 47/50
+  Arm 1/4: fixed weights
+    Filter runtime: 59.736 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 227.381 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 91.157 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 174.155 s
+Trial 48/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.182 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 154.874 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 55.513 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 169.399 s
+Trial 49/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.927 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 130.560 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 58.258 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 155.684 s
+Trial 50/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.017 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.122 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.192 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 152.063 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.468973, RMSE 2.326034, Card 0.716025, Runtime 52.123 s
+Cao-Zhao FID-FIA baseline: OSPA 1.817913, RMSE 1.642846, Card 0.122950, Runtime 147.674 s
++structure-aware decoupled KLA: OSPA 1.779218, RMSE 1.522191, Card 0.187675, Runtime 56.378 s
++FID-FIA existence refinement: OSPA 1.677524, RMSE 1.546107, Card 0.063200, Runtime 155.913 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_001743.md
+===== DONE 01_tiered_main_fidfia_n50_seed1 at 2026-05-28 00:17:43 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_001743.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat
+
+===== START 02_tiered_factor_ablation_n50_seed1 at 2026-05-28 00:17:43 =====
+Trial 1/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.612 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.069 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.183 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.090 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.734 s
+Trial 2/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.016 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.022 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.122 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.041 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.351 s
+Trial 3/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.187 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.885 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.169 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.259 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 55.779 s
+Trial 4/50
+  Arm 1/5: fixed weights
+    Filter runtime: 72.961 s
+  Arm 2/5: +covariance
+    Filter runtime: 65.459 s
+  Arm 3/5: +link quality
+    Filter runtime: 61.421 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 116.995 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.745 s
+Trial 5/50
+  Arm 1/5: fixed weights
+    Filter runtime: 55.609 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.964 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.325 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.857 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 56.631 s
+Trial 6/50
+  Arm 1/5: fixed weights
+    Filter runtime: 70.631 s
+  Arm 2/5: +covariance
+    Filter runtime: 73.873 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.278 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.755 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.086 s
+Trial 7/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.351 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.618 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.967 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.947 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.373 s
+Trial 8/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.319 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.772 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.298 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.259 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.525 s
+Trial 9/50
+  Arm 1/5: fixed weights
+    Filter runtime: 46.790 s
+  Arm 2/5: +covariance
+    Filter runtime: 50.268 s
+  Arm 3/5: +link quality
+    Filter runtime: 49.493 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.738 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 49.900 s
+Trial 10/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.244 s
+  Arm 2/5: +covariance
+    Filter runtime: 50.714 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.720 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.638 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.135 s
+Trial 11/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.091 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.571 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.658 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.789 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.145 s
+Trial 12/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.875 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.409 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.697 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.031 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.412 s
+Trial 13/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.696 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.128 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.709 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.775 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.038 s
+Trial 14/50
+  Arm 1/5: fixed weights
+    Filter runtime: 46.924 s
+  Arm 2/5: +covariance
+    Filter runtime: 50.591 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.325 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.226 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.877 s
+Trial 15/50
+  Arm 1/5: fixed weights
+    Filter runtime: 54.402 s
+  Arm 2/5: +covariance
+    Filter runtime: 74.301 s
+  Arm 3/5: +link quality
+    Filter runtime: 58.120 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.124 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.495 s
+Trial 16/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.686 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.365 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.709 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.728 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.044 s
+Trial 17/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.833 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.339 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.689 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.616 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.918 s
+Trial 18/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.315 s
+  Arm 2/5: +covariance
+    Filter runtime: 49.976 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.083 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.890 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.198 s
+Trial 19/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.409 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.462 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.311 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 50.197 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.601 s
+Trial 20/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.154 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.025 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.779 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 59.820 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 91.321 s
+Trial 21/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.429 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.128 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.293 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 54.365 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 55.128 s
+Trial 22/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.480 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.230 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.129 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.674 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.149 s
+Trial 23/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.666 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.401 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.186 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 54.075 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 54.288 s
+Trial 24/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.131 s
+  Arm 2/5: +covariance
+    Filter runtime: 55.310 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.064 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.239 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.929 s
+Trial 25/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.767 s
+  Arm 2/5: +covariance
+    Filter runtime: 56.122 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.908 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.603 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.912 s
+Trial 26/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.125 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.080 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.376 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.083 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.066 s
+Trial 27/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.939 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.533 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.415 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 54.623 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 54.582 s
+Trial 28/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.301 s
+  Arm 2/5: +covariance
+    Filter runtime: 50.704 s
+  Arm 3/5: +link quality
+    Filter runtime: 50.991 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.803 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 75.838 s
+Trial 29/50
+  Arm 1/5: fixed weights
+    Filter runtime: 72.658 s
+  Arm 2/5: +covariance
+    Filter runtime: 62.996 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.004 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 54.023 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 54.637 s
+Trial 30/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.453 s
+  Arm 2/5: +covariance
+    Filter runtime: 55.366 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.693 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.154 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.743 s
+Trial 31/50
+  Arm 1/5: fixed weights
+    Filter runtime: 47.824 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.920 s
+  Arm 3/5: +link quality
+    Filter runtime: 51.606 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.133 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.769 s
+Trial 32/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.043 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.359 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.899 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 55.508 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 55.146 s
+Trial 33/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.849 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.776 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.645 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.420 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.080 s
+Trial 34/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.730 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.808 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.338 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.037 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 54.384 s
+Trial 35/50
+  Arm 1/5: fixed weights
+    Filter runtime: 52.513 s
+  Arm 2/5: +covariance
+    Filter runtime: 55.315 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.942 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.524 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.670 s
+Trial 36/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.462 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.895 s
+  Arm 3/5: +link quality
+    Filter runtime: 49.735 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.329 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 49.522 s
+Trial 37/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.091 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.765 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.543 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.178 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.590 s
+Trial 38/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.715 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.073 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.304 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 71.916 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 78.200 s
+Trial 39/50
+  Arm 1/5: fixed weights
+    Filter runtime: 68.704 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.638 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.070 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.746 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.387 s
+Trial 40/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.046 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.040 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.167 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.610 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.941 s
+Trial 41/50
+  Arm 1/5: fixed weights
+    Filter runtime: 50.418 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.708 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.571 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.974 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.921 s
+Trial 42/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.991 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.974 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.143 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.882 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.041 s
+Trial 43/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.989 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.338 s
+  Arm 3/5: +link quality
+    Filter runtime: 53.268 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.428 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.422 s
+Trial 44/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.871 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.831 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.111 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 51.243 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 51.152 s
+Trial 45/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.499 s
+  Arm 2/5: +covariance
+    Filter runtime: 52.538 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.127 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.400 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 52.346 s
+Trial 46/50
+  Arm 1/5: fixed weights
+    Filter runtime: 51.071 s
+  Arm 2/5: +covariance
+    Filter runtime: 55.081 s
+  Arm 3/5: +link quality
+    Filter runtime: 54.182 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 54.255 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.219 s
+Trial 47/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.490 s
+  Arm 2/5: +covariance
+    Filter runtime: 51.722 s
+  Arm 3/5: +link quality
+    Filter runtime: 49.871 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 49.914 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 50.050 s
+Trial 48/50
+  Arm 1/5: fixed weights
+    Filter runtime: 48.190 s
+  Arm 2/5: +covariance
+    Filter runtime: 54.017 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.906 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 52.811 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 53.271 s
+Trial 49/50
+  Arm 1/5: fixed weights
+    Filter runtime: 49.243 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.965 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.926 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 75.933 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 76.241 s
+Trial 50/50
+  Arm 1/5: fixed weights
+    Filter runtime: 66.048 s
+  Arm 2/5: +covariance
+    Filter runtime: 53.495 s
+  Arm 3/5: +link quality
+    Filter runtime: 52.268 s
+  Arm 4/5: +existence confidence
+    Filter runtime: 53.237 s
+  Arm 5/5: +structure-aware decoupled KLA
+    Filter runtime: 54.088 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.468973, RMSE 2.326034, Card 0.716025, Runtime 51.557 s
++covariance: OSPA 2.090649, RMSE 1.950889, Card 0.465850, Runtime 54.259 s
++link quality: OSPA 1.788038, RMSE 1.524995, Card 0.188150, Runtime 52.575 s
++existence confidence: OSPA 1.791239, RMSE 1.534119, Card 0.187875, Runtime 54.418 s
++structure-aware decoupled KLA: OSPA 1.779218, RMSE 1.522191, Card 0.187675, Runtime 54.800 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_051636.md
+===== DONE 02_tiered_factor_ablation_n50_seed1 at 2026-05-28 05:16:36 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_051636.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/02_tiered_factor_ablation_n50_seed1.mat
+
+===== START 03_tiered_pd_fi_baselines_n50_seed1 at 2026-05-28 05:16:36 =====
+Trial 1/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.064 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.069 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 63.028 s
+  Arm 4/4: +link quality
+    Filter runtime: 52.549 s
+Trial 2/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.988 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.538 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 58.917 s
+  Arm 4/4: +link quality
+    Filter runtime: 49.449 s
+Trial 3/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.191 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.015 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.158 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.141 s
+Trial 4/50
+  Arm 1/4: fixed weights
+    Filter runtime: 52.142 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.884 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.472 s
+  Arm 4/4: +link quality
+    Filter runtime: 59.169 s
+Trial 5/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.890 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.575 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.959 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.885 s
+Trial 6/50
+  Arm 1/4: fixed weights
+    Filter runtime: 45.516 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 56.938 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 57.472 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.262 s
+Trial 7/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.584 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.817 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.491 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.997 s
+Trial 8/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.712 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.665 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.624 s
+  Arm 4/4: +link quality
+    Filter runtime: 52.251 s
+Trial 9/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.153 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 57.835 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 58.599 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.042 s
+Trial 10/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.408 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.495 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.569 s
+  Arm 4/4: +link quality
+    Filter runtime: 54.113 s
+Trial 11/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.461 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 64.263 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 95.801 s
+  Arm 4/4: +link quality
+    Filter runtime: 77.404 s
+Trial 12/50
+  Arm 1/4: fixed weights
+    Filter runtime: 52.761 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.220 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.799 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.988 s
+Trial 13/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.641 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 63.244 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.386 s
+  Arm 4/4: +link quality
+    Filter runtime: 54.547 s
+Trial 14/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.435 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.572 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.567 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.555 s
+Trial 15/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.252 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.578 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.807 s
+  Arm 4/4: +link quality
+    Filter runtime: 52.265 s
+Trial 16/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.804 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.180 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.478 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.169 s
+Trial 17/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.575 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.735 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 63.147 s
+  Arm 4/4: +link quality
+    Filter runtime: 55.416 s
+Trial 18/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.984 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.419 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.315 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.647 s
+Trial 19/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.892 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 59.528 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.182 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.678 s
+Trial 20/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.570 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.566 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.582 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.202 s
+Trial 21/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.506 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.837 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.406 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.658 s
+Trial 22/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.370 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.244 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.607 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.312 s
+Trial 23/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.108 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 64.997 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 65.930 s
+  Arm 4/4: +link quality
+    Filter runtime: 55.108 s
+Trial 24/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.747 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.866 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.809 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.326 s
+Trial 25/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.714 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.306 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 63.163 s
+  Arm 4/4: +link quality
+    Filter runtime: 52.441 s
+Trial 26/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.014 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.162 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.029 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.277 s
+Trial 27/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.670 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.362 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 63.717 s
+  Arm 4/4: +link quality
+    Filter runtime: 55.070 s
+Trial 28/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.907 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 59.607 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.250 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.141 s
+Trial 29/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.410 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.680 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 60.782 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.444 s
+Trial 30/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.900 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.367 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.241 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.603 s
+Trial 31/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.890 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.757 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.399 s
+  Arm 4/4: +link quality
+    Filter runtime: 52.898 s
+Trial 32/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.695 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.529 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 63.724 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.256 s
+Trial 33/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.794 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.419 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.131 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.708 s
+Trial 34/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.736 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.725 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.639 s
+  Arm 4/4: +link quality
+    Filter runtime: 55.229 s
+Trial 35/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.901 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 92.527 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 91.409 s
+  Arm 4/4: +link quality
+    Filter runtime: 53.888 s
+Trial 36/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.495 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 57.650 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.718 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.743 s
+Trial 37/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.993 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 62.257 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 65.966 s
+  Arm 4/4: +link quality
+    Filter runtime: 54.085 s
+Trial 38/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.629 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 61.565 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 61.195 s
+  Arm 4/4: +link quality
+    Filter runtime: 51.911 s
+Trial 39/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.572 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 76.639 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 64.856 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.886 s
+Trial 40/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.136 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 57.890 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 58.465 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.079 s
+Trial 41/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.050 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.837 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 62.194 s
+  Arm 4/4: +link quality
+    Filter runtime: 63.647 s
+Trial 42/50
+  Arm 1/4: fixed weights
+    Filter runtime: 74.423 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 60.379 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 68.183 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.487 s
+Trial 43/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.107 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 65.588 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 66.419 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.452 s
+Trial 44/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.791 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.795 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.039 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.493 s
+Trial 45/50
+  Arm 1/4: fixed weights
+    Filter runtime: 46.913 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 56.773 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 57.646 s
+  Arm 4/4: +link quality
+    Filter runtime: 49.100 s
+Trial 46/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.545 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 59.278 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.260 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.986 s
+Trial 47/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.446 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.542 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 58.704 s
+  Arm 4/4: +link quality
+    Filter runtime: 49.733 s
+Trial 48/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.432 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.053 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.224 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.074 s
+Trial 49/50
+  Arm 1/4: fixed weights
+    Filter runtime: 46.707 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 57.792 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 57.844 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.012 s
+Trial 50/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.394 s
+  Arm 2/4: PD-weighted GA
+    Filter runtime: 58.868 s
+  Arm 3/4: FI-weighted GA
+    Filter runtime: 59.221 s
+  Arm 4/4: +link quality
+    Filter runtime: 50.957 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> PD-weighted GA -> FI-weighted GA -> +link quality
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.468973, RMSE 2.326034, Card 0.716025, Runtime 50.180 s
+PD-weighted GA: OSPA 2.177337, RMSE 1.994628, Card 0.588025, Runtime 61.668 s
+FI-weighted GA: OSPA 2.029572, RMSE 1.869792, Card 0.440850, Runtime 62.810 s
++link quality: OSPA 1.788038, RMSE 1.524995, Card 0.188150, Runtime 53.095 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md
+===== DONE 03_tiered_pd_fi_baselines_n50_seed1 at 2026-05-28 09:25:45 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/03_tiered_pd_fi_baselines_n50_seed1.mat
+
+===== START 04_ideal_fidfia_n50_seed1 at 2026-05-28 09:25:45 =====
+Trial 1/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.893 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 143.097 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.182 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 158.994 s
+Trial 2/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.383 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 141.329 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.039 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 157.803 s
+Trial 3/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.458 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.572 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.907 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 174.760 s
+Trial 4/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.586 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.499 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.818 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 190.342 s
+Trial 5/50
+  Arm 1/4: fixed weights
+    Filter runtime: 79.164 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 166.379 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.805 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 165.507 s
+Trial 6/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.425 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 154.858 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.973 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 170.335 s
+Trial 7/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.679 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 153.725 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 62.595 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 166.646 s
+Trial 8/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.684 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.605 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.691 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 161.857 s
+Trial 9/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.300 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 155.141 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.200 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 163.677 s
+Trial 10/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.292 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 144.665 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.726 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 158.545 s
+Trial 11/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.619 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 149.654 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.006 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 177.494 s
+Trial 12/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.930 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.755 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.363 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.507 s
+Trial 13/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.899 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.782 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.551 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 172.510 s
+Trial 14/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.157 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 151.210 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.745 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 161.770 s
+Trial 15/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.077 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.822 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.288 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 163.252 s
+Trial 16/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.748 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.097 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.958 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 157.206 s
+Trial 17/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.175 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 142.884 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.459 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 157.093 s
+Trial 18/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.657 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 199.286 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.539 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 156.920 s
+Trial 19/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.714 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.801 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.013 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 158.422 s
+Trial 20/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.261 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 145.832 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.413 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 157.058 s
+Trial 21/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.604 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 145.548 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.836 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 161.427 s
+Trial 22/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.607 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.854 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.943 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.128 s
+Trial 23/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.063 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.467 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.711 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 162.505 s
+Trial 24/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.195 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 143.420 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.180 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 211.297 s
+Trial 25/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.857 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.974 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.241 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 169.711 s
+Trial 26/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.626 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 144.771 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.773 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 156.006 s
+Trial 27/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.518 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 149.575 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.857 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 161.715 s
+Trial 28/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.636 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.125 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.035 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 160.373 s
+Trial 29/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.728 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.849 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.003 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 169.240 s
+Trial 30/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.727 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.192 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.069 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 178.045 s
+Trial 31/50
+  Arm 1/4: fixed weights
+    Filter runtime: 68.154 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 155.950 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 63.097 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 175.074 s
+Trial 32/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.852 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 151.844 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 61.127 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 170.663 s
+Trial 33/50
+  Arm 1/4: fixed weights
+    Filter runtime: 61.696 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 156.203 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.875 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 160.033 s
+Trial 34/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.598 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 144.187 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.235 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.617 s
+Trial 35/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.372 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.483 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.792 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 164.208 s
+Trial 36/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.121 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 147.412 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.223 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 162.455 s
+Trial 37/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.230 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 158.267 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 69.737 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 209.666 s
+Trial 38/50
+  Arm 1/4: fixed weights
+    Filter runtime: 68.566 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 161.674 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 66.312 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 223.387 s
+Trial 39/50
+  Arm 1/4: fixed weights
+    Filter runtime: 81.568 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 158.707 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 66.274 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 190.201 s
+Trial 40/50
+  Arm 1/4: fixed weights
+    Filter runtime: 61.204 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 172.613 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 68.323 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 172.329 s
+Trial 41/50
+  Arm 1/4: fixed weights
+    Filter runtime: 64.157 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 161.927 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 80.866 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 174.322 s
+Trial 42/50
+  Arm 1/4: fixed weights
+    Filter runtime: 58.951 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 149.410 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.530 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 162.857 s
+Trial 43/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.461 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 169.907 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 62.535 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 159.680 s
+Trial 44/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.178 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 149.187 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.731 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 163.271 s
+Trial 45/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.672 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.710 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.053 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 162.939 s
+Trial 46/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.198 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.401 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.428 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 163.510 s
+Trial 47/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.832 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.119 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.124 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 158.774 s
+Trial 48/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.588 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 152.252 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.741 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 171.293 s
+Trial 49/50
+  Arm 1/4: fixed weights
+    Filter runtime: 55.826 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 146.406 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.367 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 160.534 s
+Trial 50/50
+  Arm 1/4: fixed weights
+    Filter runtime: 57.883 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 151.124 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.715 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 167.433 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[], counts=[]
+pDropBySensor=[0 0 0 0 0 0 0 0]
+=====================================
+fixed weights: OSPA 1.634289, RMSE 1.381434, Card 0.090125, Runtime 57.735 s
+Cao-Zhao FID-FIA baseline: OSPA 1.534235, RMSE 1.332864, Card 0.057400, Runtime 151.611 s
++structure-aware decoupled KLA: OSPA 1.427058, RMSE 1.201835, Card 0.071300, Runtime 61.660 s
++FID-FIA existence refinement: OSPA 1.432865, RMSE 1.302686, Card 0.048650, Runtime 168.228 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_163621.md
+===== DONE 04_ideal_fidfia_n50_seed1 at 2026-05-28 16:36:21 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_163621.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/04_ideal_fidfia_n50_seed1.mat
+
+===== START 05_comm_level0_balanced_n50_seed1 at 2026-05-28 16:36:21 =====
+Trial 1/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.180 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.539 s
+Trial 2/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.813 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.291 s
+Trial 3/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.736 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.301 s
+Trial 4/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.255 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.822 s
+Trial 5/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.993 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.486 s
+Trial 6/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.551 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.888 s
+Trial 7/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.964 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.213 s
+Trial 8/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.709 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.925 s
+Trial 9/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.530 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.833 s
+Trial 10/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.622 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.965 s
+Trial 11/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.794 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.240 s
+Trial 12/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.895 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.394 s
+Trial 13/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.114 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.657 s
+Trial 14/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.414 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.992 s
+Trial 15/50
+  Arm 1/2: fixed weights
+    Filter runtime: 58.724 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.454 s
+Trial 16/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.764 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.306 s
+Trial 17/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.146 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.598 s
+Trial 18/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.487 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.962 s
+Trial 19/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.693 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.165 s
+Trial 20/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.352 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.509 s
+Trial 21/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.618 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.787 s
+Trial 22/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.377 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.251 s
+Trial 23/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.191 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.811 s
+Trial 24/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.275 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 62.156 s
+Trial 25/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.531 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.277 s
+Trial 26/50
+  Arm 1/2: fixed weights
+    Filter runtime: 75.161 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.827 s
+Trial 27/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.309 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.669 s
+Trial 28/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.704 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.086 s
+Trial 29/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.458 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.874 s
+Trial 30/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.449 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.620 s
+Trial 31/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.727 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 80.413 s
+Trial 32/50
+  Arm 1/2: fixed weights
+    Filter runtime: 91.319 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.816 s
+Trial 33/50
+  Arm 1/2: fixed weights
+    Filter runtime: 57.843 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.094 s
+Trial 34/50
+  Arm 1/2: fixed weights
+    Filter runtime: 58.804 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 62.874 s
+Trial 35/50
+  Arm 1/2: fixed weights
+    Filter runtime: 61.954 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.473 s
+Trial 36/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.522 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.761 s
+Trial 37/50
+  Arm 1/2: fixed weights
+    Filter runtime: 67.055 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.715 s
+Trial 38/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.052 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 73.764 s
+Trial 39/50
+  Arm 1/2: fixed weights
+    Filter runtime: 67.737 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 125.455 s
+Trial 40/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.052 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 73.938 s
+Trial 41/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.234 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 70.411 s
+Trial 42/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.161 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 85.854 s
+Trial 43/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.589 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 69.573 s
+Trial 44/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.467 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.189 s
+Trial 45/50
+  Arm 1/2: fixed weights
+    Filter runtime: 76.329 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 69.257 s
+Trial 46/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.453 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 69.312 s
+Trial 47/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.677 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 69.818 s
+Trial 48/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.503 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 73.489 s
+Trial 49/50
+  Arm 1/2: fixed weights
+    Filter runtime: 94.900 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 104.079 s
+Trial 50/50
+  Arm 1/2: fixed weights
+    Filter runtime: 70.854 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.435 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +structure-aware decoupled KLA
+Tier levels=[], counts=[]
+pDropBySensor=[0 0 0 0 0 0 0 0]
+=====================================
+fixed weights: OSPA 1.634289, RMSE 1.381434, Card 0.090125, Runtime 61.241 s
++structure-aware decoupled KLA: OSPA 1.427058, RMSE 1.201835, Card 0.071300, Runtime 66.792 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_185729.md
+===== DONE 05_comm_level0_balanced_n50_seed1 at 2026-05-28 18:57:29 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_185729.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/05_comm_level0_balanced_n50_seed1.mat
+
+===== START 06_comm_level1_balanced_n50_seed1 at 2026-05-28 18:57:29 =====
+Trial 1/50
+  Arm 1/2: fixed weights
+    Filter runtime: 91.446 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 99.386 s
+Trial 2/50
+  Arm 1/2: fixed weights
+    Filter runtime: 81.552 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 75.867 s
+Trial 3/50
+  Arm 1/2: fixed weights
+    Filter runtime: 72.128 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 87.605 s
+Trial 4/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.668 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.506 s
+Trial 5/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.451 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 67.452 s
+Trial 6/50
+  Arm 1/2: fixed weights
+    Filter runtime: 62.864 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.013 s
+Trial 7/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.417 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.817 s
+Trial 8/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.274 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 69.150 s
+Trial 9/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.939 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 67.803 s
+Trial 10/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.999 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.830 s
+Trial 11/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.650 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.638 s
+Trial 12/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.069 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 70.170 s
+Trial 13/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.991 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.830 s
+Trial 14/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.094 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.141 s
+Trial 15/50
+  Arm 1/2: fixed weights
+    Filter runtime: 67.264 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.860 s
+Trial 16/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.213 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.822 s
+Trial 17/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.739 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.387 s
+Trial 18/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.865 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 70.144 s
+Trial 19/50
+  Arm 1/2: fixed weights
+    Filter runtime: 83.681 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 103.523 s
+Trial 20/50
+  Arm 1/2: fixed weights
+    Filter runtime: 82.200 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.215 s
+Trial 21/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.382 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.956 s
+Trial 22/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.733 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 95.438 s
+Trial 23/50
+  Arm 1/2: fixed weights
+    Filter runtime: 75.579 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 79.895 s
+Trial 24/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.866 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.794 s
+Trial 25/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.762 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.596 s
+Trial 26/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.603 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.138 s
+Trial 27/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.268 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.261 s
+Trial 28/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.651 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.854 s
+Trial 29/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.562 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.246 s
+Trial 30/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.991 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.205 s
+Trial 31/50
+  Arm 1/2: fixed weights
+    Filter runtime: 74.467 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.907 s
+Trial 32/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.327 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.394 s
+Trial 33/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.518 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 75.132 s
+Trial 34/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.154 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.792 s
+Trial 35/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.160 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.581 s
+Trial 36/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.370 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.844 s
+Trial 37/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.450 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.048 s
+Trial 38/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.897 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.977 s
+Trial 39/50
+  Arm 1/2: fixed weights
+    Filter runtime: 79.983 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.383 s
+Trial 40/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.015 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 74.811 s
+Trial 41/50
+  Arm 1/2: fixed weights
+    Filter runtime: 89.108 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 78.989 s
+Trial 42/50
+  Arm 1/2: fixed weights
+    Filter runtime: 70.128 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 77.162 s
+Trial 43/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.141 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 96.722 s
+Trial 44/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.972 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 86.467 s
+Trial 45/50
+  Arm 1/2: fixed weights
+    Filter runtime: 78.813 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 77.972 s
+Trial 46/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.922 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.773 s
+Trial 47/50
+  Arm 1/2: fixed weights
+    Filter runtime: 62.009 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.263 s
+Trial 48/50
+  Arm 1/2: fixed weights
+    Filter runtime: 60.958 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 65.081 s
+Trial 49/50
+  Arm 1/2: fixed weights
+    Filter runtime: 66.070 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 77.031 s
+Trial 50/50
+  Arm 1/2: fixed weights
+    Filter runtime: 72.447 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 76.718 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +structure-aware decoupled KLA
+Tier levels=[], counts=[]
+pDropBySensor=[0 0 0 0 0 0 0 0]
+=====================================
+fixed weights: OSPA 1.716898, RMSE 1.450569, Card 0.137350, Runtime 68.176 s
++structure-aware decoupled KLA: OSPA 1.483834, RMSE 1.241988, Card 0.085700, Runtime 73.712 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_213357.md
+===== DONE 06_comm_level1_balanced_n50_seed1 at 2026-05-28 21:33:57 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_213357.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/06_comm_level1_balanced_n50_seed1.mat
+
+===== START 07_comm_level2_balanced_n50_seed1 at 2026-05-28 21:33:57 =====
+Trial 1/50
+  Arm 1/2: fixed weights
+    Filter runtime: 69.456 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 65.667 s
+Trial 2/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.019 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 58.634 s
+Trial 3/50
+  Arm 1/2: fixed weights
+    Filter runtime: 53.399 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.711 s
+Trial 4/50
+  Arm 1/2: fixed weights
+    Filter runtime: 53.297 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 56.183 s
+Trial 5/50
+  Arm 1/2: fixed weights
+    Filter runtime: 49.805 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.760 s
+Trial 6/50
+  Arm 1/2: fixed weights
+    Filter runtime: 49.536 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.869 s
+Trial 7/50
+  Arm 1/2: fixed weights
+    Filter runtime: 57.073 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 80.979 s
+Trial 8/50
+  Arm 1/2: fixed weights
+    Filter runtime: 76.255 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.153 s
+Trial 9/50
+  Arm 1/2: fixed weights
+    Filter runtime: 49.926 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.154 s
+Trial 10/50
+  Arm 1/2: fixed weights
+    Filter runtime: 50.415 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.388 s
+Trial 11/50
+  Arm 1/2: fixed weights
+    Filter runtime: 53.164 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.064 s
+Trial 12/50
+  Arm 1/2: fixed weights
+    Filter runtime: 57.211 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.833 s
+Trial 13/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.732 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 58.561 s
+Trial 14/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.198 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.880 s
+Trial 15/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.657 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 56.679 s
+Trial 16/50
+  Arm 1/2: fixed weights
+    Filter runtime: 50.838 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.690 s
+Trial 17/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.019 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 58.560 s
+Trial 18/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.800 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.663 s
+Trial 19/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.275 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.936 s
+Trial 20/50
+  Arm 1/2: fixed weights
+    Filter runtime: 67.539 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 66.023 s
+Trial 21/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.940 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 67.452 s
+Trial 22/50
+  Arm 1/2: fixed weights
+    Filter runtime: 62.109 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 85.607 s
+Trial 23/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.660 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.030 s
+Trial 24/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.724 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.420 s
+Trial 25/50
+  Arm 1/2: fixed weights
+    Filter runtime: 50.278 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.098 s
+Trial 26/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.345 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.871 s
+Trial 27/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.948 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.672 s
+Trial 28/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.821 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 62.980 s
+Trial 29/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.208 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 89.076 s
+Trial 30/50
+  Arm 1/2: fixed weights
+    Filter runtime: 70.015 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 72.616 s
+Trial 31/50
+  Arm 1/2: fixed weights
+    Filter runtime: 73.708 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 80.025 s
+Trial 32/50
+  Arm 1/2: fixed weights
+    Filter runtime: 76.469 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 84.532 s
+Trial 33/50
+  Arm 1/2: fixed weights
+    Filter runtime: 93.678 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 81.115 s
+Trial 34/50
+  Arm 1/2: fixed weights
+    Filter runtime: 78.048 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 75.214 s
+Trial 35/50
+  Arm 1/2: fixed weights
+    Filter runtime: 73.031 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 77.202 s
+Trial 36/50
+  Arm 1/2: fixed weights
+    Filter runtime: 61.937 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 76.108 s
+Trial 37/50
+  Arm 1/2: fixed weights
+    Filter runtime: 65.574 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 73.285 s
+Trial 38/50
+  Arm 1/2: fixed weights
+    Filter runtime: 64.117 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 71.748 s
+Trial 39/50
+  Arm 1/2: fixed weights
+    Filter runtime: 73.395 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.980 s
+Trial 40/50
+  Arm 1/2: fixed weights
+    Filter runtime: 68.609 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 86.445 s
+Trial 41/50
+  Arm 1/2: fixed weights
+    Filter runtime: 79.839 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 86.800 s
+Trial 42/50
+  Arm 1/2: fixed weights
+    Filter runtime: 83.005 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 79.992 s
+Trial 43/50
+  Arm 1/2: fixed weights
+    Filter runtime: 78.743 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 75.115 s
+Trial 44/50
+  Arm 1/2: fixed weights
+    Filter runtime: 90.769 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 68.747 s
+Trial 45/50
+  Arm 1/2: fixed weights
+    Filter runtime: 61.029 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 57.951 s
+Trial 46/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.936 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.108 s
+Trial 47/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.260 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 62.079 s
+Trial 48/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.675 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.145 s
+Trial 49/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.020 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 57.467 s
+Trial 50/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.894 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.139 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +structure-aware decoupled KLA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.468973, RMSE 2.326034, Card 0.716025, Runtime 62.088 s
++structure-aware decoupled KLA: OSPA 1.779218, RMSE 1.522191, Card 0.187675, Runtime 65.468 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_235647.md
+===== DONE 07_comm_level2_balanced_n50_seed1 at 2026-05-28 23:56:47 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_235647.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/07_comm_level2_balanced_n50_seed1.mat
+
+===== START 08_comm_level3_balanced_n50_seed1 at 2026-05-28 23:56:47 =====
+Trial 1/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.598 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 56.848 s
+Trial 2/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.439 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 57.057 s
+Trial 3/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.064 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 56.936 s
+Trial 4/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.898 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.689 s
+Trial 5/50
+  Arm 1/2: fixed weights
+    Filter runtime: 82.810 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.309 s
+Trial 6/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.883 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 56.537 s
+Trial 7/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.185 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.928 s
+Trial 8/50
+  Arm 1/2: fixed weights
+    Filter runtime: 58.594 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.128 s
+Trial 9/50
+  Arm 1/2: fixed weights
+    Filter runtime: 61.076 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 63.600 s
+Trial 10/50
+  Arm 1/2: fixed weights
+    Filter runtime: 58.271 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 61.472 s
+Trial 11/50
+  Arm 1/2: fixed weights
+    Filter runtime: 57.910 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 64.930 s
+Trial 12/50
+  Arm 1/2: fixed weights
+    Filter runtime: 59.416 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 60.279 s
+Trial 13/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.640 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 59.215 s
+Trial 14/50
+  Arm 1/2: fixed weights
+    Filter runtime: 53.239 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 57.269 s
+Trial 15/50
+  Arm 1/2: fixed weights
+    Filter runtime: 57.234 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 81.686 s
+Trial 16/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.785 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.834 s
+Trial 17/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.290 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.132 s
+Trial 18/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.862 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.564 s
+Trial 19/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.345 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.899 s
+Trial 20/50
+  Arm 1/2: fixed weights
+    Filter runtime: 50.329 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.531 s
+Trial 21/50
+  Arm 1/2: fixed weights
+    Filter runtime: 61.928 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 66.564 s
+Trial 22/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.228 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.300 s
+Trial 23/50
+  Arm 1/2: fixed weights
+    Filter runtime: 49.080 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.699 s
+Trial 24/50
+  Arm 1/2: fixed weights
+    Filter runtime: 49.618 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.624 s
+Trial 25/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.010 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.109 s
+Trial 26/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.116 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 57.557 s
+Trial 27/50
+  Arm 1/2: fixed weights
+    Filter runtime: 55.897 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.495 s
+Trial 28/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.929 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.850 s
+Trial 29/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.996 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 55.073 s
+Trial 30/50
+  Arm 1/2: fixed weights
+    Filter runtime: 56.893 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 51.441 s
+Trial 31/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.550 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 51.319 s
+Trial 32/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.963 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.958 s
+Trial 33/50
+  Arm 1/2: fixed weights
+    Filter runtime: 50.082 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.106 s
+Trial 34/50
+  Arm 1/2: fixed weights
+    Filter runtime: 51.496 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 53.069 s
+Trial 35/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.064 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 70.944 s
+Trial 36/50
+  Arm 1/2: fixed weights
+    Filter runtime: 54.065 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.931 s
+Trial 37/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.624 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.364 s
+Trial 38/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.344 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 49.712 s
+Trial 39/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.669 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.576 s
+Trial 40/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.298 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 49.763 s
+Trial 41/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.257 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 49.727 s
+Trial 42/50
+  Arm 1/2: fixed weights
+    Filter runtime: 47.333 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 52.818 s
+Trial 43/50
+  Arm 1/2: fixed weights
+    Filter runtime: 63.861 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 77.921 s
+Trial 44/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.131 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 49.297 s
+Trial 45/50
+  Arm 1/2: fixed weights
+    Filter runtime: 44.265 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 47.985 s
+Trial 46/50
+  Arm 1/2: fixed weights
+    Filter runtime: 48.114 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.320 s
+Trial 47/50
+  Arm 1/2: fixed weights
+    Filter runtime: 46.962 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.100 s
+Trial 48/50
+  Arm 1/2: fixed weights
+    Filter runtime: 46.768 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 50.229 s
+Trial 49/50
+  Arm 1/2: fixed weights
+    Filter runtime: 46.125 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 48.416 s
+Trial 50/50
+  Arm 1/2: fixed weights
+    Filter runtime: 52.166 s
+  Arm 2/2: +structure-aware decoupled KLA
+    Filter runtime: 54.164 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +structure-aware decoupled KLA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.670898, RMSE 2.724505, Card 0.944800, Runtime 53.094 s
++structure-aware decoupled KLA: OSPA 1.799730, RMSE 1.569610, Card 0.192500, Runtime 56.145 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_015909.md
+===== DONE 08_comm_level3_balanced_n50_seed1 at 2026-05-29 01:59:09 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_015909.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/08_comm_level3_balanced_n50_seed1.mat
+
+===== START 09_appendix_nis_compare_n50_seed1 at 2026-05-29 01:59:09 =====
+Trial 1/50
+Trial 2/50
+Trial 3/50
+Trial 4/50
+Trial 5/50
+Trial 6/50
+Trial 7/50
+Trial 8/50
+Trial 9/50
+Trial 10/50
+Trial 11/50
+Trial 12/50
+Trial 13/50
+Trial 14/50
+Trial 15/50
+Trial 16/50
+Trial 17/50
+Trial 18/50
+Trial 19/50
+Trial 20/50
+Trial 21/50
+Trial 22/50
+Trial 23/50
+Trial 24/50
+Trial 25/50
+Trial 26/50
+Trial 27/50
+Trial 28/50
+Trial 29/50
+Trial 30/50
+Trial 31/50
+Trial 32/50
+Trial 33/50
+Trial 34/50
+Trial 35/50
+Trial 36/50
+Trial 37/50
+Trial 38/50
+Trial 39/50
+Trial 40/50
+Trial 41/50
+Trial 42/50
+Trial 43/50
+Trial 44/50
+Trial 45/50
+Trial 46/50
+Trial 47/50
+Trial 48/50
+Trial 49/50
+Trial 50/50
+=====================================
+GA Tiered Link NIS Comparison (N=50)
+Comparison order: w/o NIS -> robust NIS -> NIS
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+=====================================
+Sensor 1: E-OSPA 2.281 -> 2.303 -> 2.408, RMSE 1.560 -> 1.561 -> 1.637, mean pDrop 0.200
+Sensor 2: E-OSPA 2.290 -> 2.297 -> 2.397, RMSE 1.564 -> 1.560 -> 1.619, mean pDrop 0.174
+Sensor 3: E-OSPA 2.284 -> 2.300 -> 2.395, RMSE 1.549 -> 1.551 -> 1.626, mean pDrop 0.218
+Sensor 4: E-OSPA 2.387 -> 2.407 -> 2.482, RMSE 1.601 -> 1.602 -> 1.665, mean pDrop 0.196
+Sensor 5: E-OSPA 2.380 -> 2.394 -> 2.491, RMSE 1.628 -> 1.630 -> 1.686, mean pDrop 0.196
+Sensor 6: E-OSPA 2.361 -> 2.373 -> 2.457, RMSE 1.622 -> 1.620 -> 1.676, mean pDrop 0.232
+Sensor 7: E-OSPA 2.317 -> 2.326 -> 2.438, RMSE 1.626 -> 1.625 -> 1.680, mean pDrop 0.190
+Sensor 8: E-OSPA 2.300 -> 2.312 -> 2.422, RMSE 1.620 -> 1.618 -> 1.681, mean pDrop 0.194
+=====================================
+Network Disagreement Metrics (w/o NIS -> robust NIS -> NIS)
+=====================================
+OSPA consensus error: 1.792 -> 1.804 -> 1.897
+Matched localization disagreement: 1.556 -> 1.552 -> 1.739
+Cardinality dispersion: 0.198 -> 0.203 -> 0.237
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_NIS_COMPARE_N50_SEED1_20260529_050147.md
+===== DONE 09_appendix_nis_compare_n50_seed1 at 2026-05-29 05:01:47 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_NIS_COMPARE_N50_SEED1_20260529_050147.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/09_appendix_nis_compare_n50_seed1.mat
+
+===== START 10_appendix_freshness_compare_n50_seed1 at 2026-05-29 05:01:47 =====
+Trial 1/50
+Trial 2/50
+Trial 3/50
+Trial 4/50
+Trial 5/50
+Trial 6/50
+Trial 7/50
+Trial 8/50
+Trial 9/50
+Trial 10/50
+Trial 11/50
+Trial 12/50
+Trial 13/50
+Trial 14/50
+Trial 15/50
+Trial 16/50
+Trial 17/50
+Trial 18/50
+Trial 19/50
+Trial 20/50
+Trial 21/50
+Trial 22/50
+Trial 23/50
+Trial 24/50
+Trial 25/50
+Trial 26/50
+Trial 27/50
+Trial 28/50
+Trial 29/50
+Trial 30/50
+Trial 31/50
+Trial 32/50
+Trial 33/50
+Trial 34/50
+Trial 35/50
+Trial 36/50
+Trial 37/50
+Trial 38/50
+Trial 39/50
+Trial 40/50
+Trial 41/50
+Trial 42/50
+Trial 43/50
+Trial 44/50
+Trial 45/50
+Trial 46/50
+Trial 47/50
+Trial 48/50
+Trial 49/50
+Trial 50/50
+=====================================
+GA Tiered Link Freshness Comparison (N=50)
+Control=robust NIS baseline, Experiment=control + freshness
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+=====================================
+Sensor 1: E-OSPA 2.303 -> 2.304, RMSE 1.561 -> 1.561, mean pDrop 0.200
+Sensor 2: E-OSPA 2.297 -> 2.297, RMSE 1.560 -> 1.560, mean pDrop 0.174
+Sensor 3: E-OSPA 2.300 -> 2.300, RMSE 1.551 -> 1.550, mean pDrop 0.218
+Sensor 4: E-OSPA 2.407 -> 2.406, RMSE 1.602 -> 1.602, mean pDrop 0.196
+Sensor 5: E-OSPA 2.394 -> 2.394, RMSE 1.630 -> 1.630, mean pDrop 0.196
+Sensor 6: E-OSPA 2.373 -> 2.372, RMSE 1.620 -> 1.620, mean pDrop 0.232
+Sensor 7: E-OSPA 2.326 -> 2.325, RMSE 1.625 -> 1.625, mean pDrop 0.190
+Sensor 8: E-OSPA 2.312 -> 2.312, RMSE 1.618 -> 1.618, mean pDrop 0.194
+=====================================
+Network Disagreement Metrics (robust NIS baseline -> + freshness)
+=====================================
+OSPA consensus error: 1.804 -> 1.804
+Matched localization disagreement: 1.552 -> 1.551
+Cardinality dispersion: 0.203 -> 0.203
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260529_070254.md
+===== DONE 10_appendix_freshness_compare_n50_seed1 at 2026-05-29 07:02:54 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260529_070254.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/10_appendix_freshness_compare_n50_seed1.mat
+
+===== START 11_appendix_cardinality_consensus_n50_seed1 at 2026-05-29 07:02:54 =====
+Trial 1/50
+  Arm 1/4: fixed weights
+    Filter runtime: 72.589 s
+  Arm 2/4: +covariance
+    Filter runtime: 78.540 s
+  Arm 3/4: +link quality
+    Filter runtime: 64.952 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.856 s
+Trial 2/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.361 s
+  Arm 2/4: +covariance
+    Filter runtime: 51.526 s
+  Arm 3/4: +link quality
+    Filter runtime: 49.523 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 49.708 s
+Trial 3/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.953 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.736 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.845 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.915 s
+Trial 4/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.879 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.512 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.764 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.329 s
+Trial 5/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.307 s
+  Arm 2/4: +covariance
+    Filter runtime: 51.986 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.294 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.976 s
+Trial 6/50
+  Arm 1/4: fixed weights
+    Filter runtime: 45.712 s
+  Arm 2/4: +covariance
+    Filter runtime: 49.968 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.459 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.896 s
+Trial 7/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.829 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.958 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.414 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.467 s
+Trial 8/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.571 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.957 s
+  Arm 3/4: +link quality
+    Filter runtime: 52.353 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.045 s
+Trial 9/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.865 s
+  Arm 2/4: +covariance
+    Filter runtime: 51.958 s
+  Arm 3/4: +link quality
+    Filter runtime: 62.555 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 74.923 s
+Trial 10/50
+  Arm 1/4: fixed weights
+    Filter runtime: 71.255 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.411 s
+  Arm 3/4: +link quality
+    Filter runtime: 51.990 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.972 s
+Trial 11/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.453 s
+  Arm 2/4: +covariance
+    Filter runtime: 55.398 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.585 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.613 s
+Trial 12/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.394 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.505 s
+  Arm 3/4: +link quality
+    Filter runtime: 54.216 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.354 s
+Trial 13/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.547 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.486 s
+  Arm 3/4: +link quality
+    Filter runtime: 51.765 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.126 s
+Trial 14/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.873 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.747 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.210 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.608 s
+Trial 15/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.626 s
+  Arm 2/4: +covariance
+    Filter runtime: 55.455 s
+  Arm 3/4: +link quality
+    Filter runtime: 54.586 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 56.030 s
+Trial 16/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.940 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.529 s
+  Arm 3/4: +link quality
+    Filter runtime: 52.381 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.887 s
+Trial 17/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.065 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.202 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.179 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.773 s
+Trial 18/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.415 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.327 s
+  Arm 3/4: +link quality
+    Filter runtime: 52.156 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.897 s
+Trial 19/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.865 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.667 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.050 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.382 s
+Trial 20/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.977 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.704 s
+  Arm 3/4: +link quality
+    Filter runtime: 51.896 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.067 s
+Trial 21/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.179 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.352 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.262 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.638 s
+Trial 22/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.274 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.325 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.676 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.900 s
+Trial 23/50
+  Arm 1/4: fixed weights
+    Filter runtime: 53.241 s
+  Arm 2/4: +covariance
+    Filter runtime: 56.913 s
+  Arm 3/4: +link quality
+    Filter runtime: 68.358 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 77.563 s
+Trial 24/50
+  Arm 1/4: fixed weights
+    Filter runtime: 71.265 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.481 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.620 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.272 s
+Trial 25/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.431 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.153 s
+  Arm 3/4: +link quality
+    Filter runtime: 52.615 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.801 s
+Trial 26/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.562 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.726 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.368 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.795 s
+Trial 27/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.057 s
+  Arm 2/4: +covariance
+    Filter runtime: 55.616 s
+  Arm 3/4: +link quality
+    Filter runtime: 54.235 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.114 s
+Trial 28/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.449 s
+  Arm 2/4: +covariance
+    Filter runtime: 50.305 s
+  Arm 3/4: +link quality
+    Filter runtime: 49.619 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.186 s
+Trial 29/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.375 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.878 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.481 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.853 s
+Trial 30/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.937 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.780 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.439 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 54.293 s
+Trial 31/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.522 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.351 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.133 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.959 s
+Trial 32/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.516 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.552 s
+  Arm 3/4: +link quality
+    Filter runtime: 52.631 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.961 s
+Trial 33/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.186 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.675 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.135 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.973 s
+Trial 34/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.008 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.185 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.789 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.292 s
+Trial 35/50
+  Arm 1/4: fixed weights
+    Filter runtime: 51.583 s
+  Arm 2/4: +covariance
+    Filter runtime: 54.936 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.478 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.858 s
+Trial 36/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.520 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.303 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.069 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.179 s
+Trial 37/50
+  Arm 1/4: fixed weights
+    Filter runtime: 72.480 s
+  Arm 2/4: +covariance
+    Filter runtime: 78.193 s
+  Arm 3/4: +link quality
+    Filter runtime: 63.870 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.899 s
+Trial 38/50
+  Arm 1/4: fixed weights
+    Filter runtime: 49.807 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.753 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.206 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 53.733 s
+Trial 39/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.924 s
+  Arm 2/4: +covariance
+    Filter runtime: 53.988 s
+  Arm 3/4: +link quality
+    Filter runtime: 53.019 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 52.257 s
+Trial 40/50
+  Arm 1/4: fixed weights
+    Filter runtime: 48.128 s
+  Arm 2/4: +covariance
+    Filter runtime: 51.346 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.256 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.357 s
+Trial 41/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.394 s
+  Arm 2/4: +covariance
+    Filter runtime: 51.942 s
+  Arm 3/4: +link quality
+    Filter runtime: 51.850 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.879 s
+Trial 42/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.282 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.605 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.297 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.144 s
+Trial 43/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.192 s
+  Arm 2/4: +covariance
+    Filter runtime: 3112.923 s
+  Arm 3/4: +link quality
+    Filter runtime: 61.328 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.416 s
+Trial 44/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.802 s
+  Arm 2/4: +covariance
+    Filter runtime: 52.373 s
+  Arm 3/4: +link quality
+    Filter runtime: 51.704 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.157 s
+Trial 45/50
+  Arm 1/4: fixed weights
+    Filter runtime: 47.288 s
+  Arm 2/4: +covariance
+    Filter runtime: 50.913 s
+  Arm 3/4: +link quality
+    Filter runtime: 49.883 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 51.464 s
+Trial 46/50
+  Arm 1/4: fixed weights
+    Filter runtime: 54.157 s
+  Arm 2/4: +covariance
+    Filter runtime: 60.981 s
+  Arm 3/4: +link quality
+    Filter runtime: 57.443 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 63.235 s
+Trial 47/50
+  Arm 1/4: fixed weights
+    Filter runtime: 57.008 s
+  Arm 2/4: +covariance
+    Filter runtime: 60.262 s
+  Arm 3/4: +link quality
+    Filter runtime: 55.701 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.320 s
+Trial 48/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.608 s
+  Arm 2/4: +covariance
+    Filter runtime: 55.341 s
+  Arm 3/4: +link quality
+    Filter runtime: 54.969 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 55.985 s
+Trial 49/50
+  Arm 1/4: fixed weights
+    Filter runtime: 50.674 s
+  Arm 2/4: +covariance
+    Filter runtime: 50.673 s
+  Arm 3/4: +link quality
+    Filter runtime: 50.422 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 50.620 s
+Trial 50/50
+  Arm 1/4: fixed weights
+    Filter runtime: 56.406 s
+  Arm 2/4: +covariance
+    Filter runtime: 64.789 s
+  Arm 3/4: +link quality
+    Filter runtime: 58.517 s
+  Arm 4/4: +cardinality consensus
+    Filter runtime: 61.554 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: fixed weights -> +covariance -> +link quality -> +cardinality consensus
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
+fixed weights: OSPA 2.468973, RMSE 2.326034, Card 0.716025, Runtime 51.975 s
++covariance: OSPA 2.090649, RMSE 1.950889, Card 0.465850, Runtime 116.124 s
++link quality: OSPA 1.788038, RMSE 1.524995, Card 0.188150, Runtime 53.891 s
++cardinality consensus: OSPA 1.799575, RMSE 1.559103, Card 0.195475, Runtime 54.170 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_120602.md
+===== DONE 11_appendix_cardinality_consensus_n50_seed1 at 2026-05-29 12:06:02 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_120602.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/11_appendix_cardinality_consensus_n50_seed1.mat
+
+===== START 12_appendix_association_ambiguity_n50_seed1 at 2026-05-29 12:06:02 =====
+Trial 1/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 60.261 s
+Trial 2/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 55.200 s
+Trial 3/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 53.410 s
+Trial 4/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.664 s
+Trial 5/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.223 s
+Trial 6/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 57.844 s
+Trial 7/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 55.611 s
+Trial 8/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 57.674 s
+Trial 9/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 54.118 s
+Trial 10/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 59.605 s
+Trial 11/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 57.548 s
+Trial 12/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 56.994 s
+Trial 13/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 67.459 s
+Trial 14/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 56.425 s
+Trial 15/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 59.420 s
+Trial 16/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 57.829 s
+Trial 17/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 61.691 s
+Trial 18/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 58.183 s
+Trial 19/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 69.948 s
+Trial 20/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 58.797 s
+Trial 21/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.537 s
+Trial 22/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.536 s
+Trial 23/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 54.716 s
+Trial 24/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.608 s
+Trial 25/50
+  Arm 1/1: +existence confidence

@@ -38,25 +38,25 @@ This appendix-level experiment studies whether innovation-based consistency info
   \centering
   \begin{tabular}{lccc}
     \toprule
-    Arm & OSPA & RMSE & Cardinality \\
+    Arm & OSPA & Loc. disag. & Cardinality \\
     \midrule
-    w/o NIS & 1.840 & 2.779 & 0.233 \\
-    robust NIS & 1.855 & 2.802 & 0.237 \\
-    plain NIS & 1.952 & 3.009 & 0.273 \\
+    w/o NIS & 1.792 & 1.556 & 0.198 \\
+    robust NIS & 1.804 & 1.552 & 0.203 \\
+    plain NIS & 1.897 & 1.739 & 0.237 \\
     \bottomrule
   \end{tabular}
 \end{minipage}
 \par\medskip
 
-Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 20 trials it is still slightly worse than the no-NIS baseline in OSPA, RMSE, and cardinality dispersion.
+Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 50 trials it is still slightly worse than the no-NIS baseline in OSPA and cardinality dispersion, with only a small localization-disagreement improvement.
 
 \subsection{Freshness weighting}
 
-This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. The result is effectively flat: OSPA changes from $1.909$ to $1.910$, RMSE remains at $2.980$, and cardinality dispersion changes from $0.262$ to $0.263$.
+This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. In the 50-trial comparison, the result is effectively flat: OSPA remains at $1.804$, matched localization disagreement changes from $1.552$ to $1.551$, and cardinality dispersion remains at $0.203$.
 
 \subsection{History weighting}
 
-This experiment evaluates whether a temporal-stability score improves fusion quality. In a twenty-trial comparison, OSPA changes from $1.811$ to $1.814$, RMSE changes from $3.173$ to $3.158$, and cardinality dispersion changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
+This experiment evaluates whether a temporal-stability score improves fusion quality. In the exploratory comparison, OSPA changes from $1.811$ to $1.814$, localization disagreement changes from $3.173$ to $3.158$, and cardinality dispersion changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
 
 \subsection{Cardinality-consensus weighting}
 

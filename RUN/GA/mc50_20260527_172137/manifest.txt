@@ -1,0 +1,31 @@
+paper_mc50_batch
+created_at=2026-05-27 17:29:49
+projectRoot=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS
+runDir=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137
+trials=50
+baseSeed=1
+trialSeeds=2:51
+
+START	01_tiered_main_fidfia_n50_seed1	2026-05-27 17:29:49
+DONE	01_tiered_main_fidfia_n50_seed1	2026-05-28 00:17:43	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_001743.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat
+START	02_tiered_factor_ablation_n50_seed1	2026-05-28 00:17:43
+DONE	02_tiered_factor_ablation_n50_seed1	2026-05-28 05:16:36	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_051636.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/02_tiered_factor_ablation_n50_seed1.mat
+START	03_tiered_pd_fi_baselines_n50_seed1	2026-05-28 05:16:36
+DONE	03_tiered_pd_fi_baselines_n50_seed1	2026-05-28 09:25:45	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/03_tiered_pd_fi_baselines_n50_seed1.mat
+START	04_ideal_fidfia_n50_seed1	2026-05-28 09:25:45
+DONE	04_ideal_fidfia_n50_seed1	2026-05-28 16:36:21	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_163621.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/04_ideal_fidfia_n50_seed1.mat
+START	05_comm_level0_balanced_n50_seed1	2026-05-28 16:36:21
+DONE	05_comm_level0_balanced_n50_seed1	2026-05-28 18:57:29	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_185729.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/05_comm_level0_balanced_n50_seed1.mat
+START	06_comm_level1_balanced_n50_seed1	2026-05-28 18:57:29
+DONE	06_comm_level1_balanced_n50_seed1	2026-05-28 21:33:57	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_213357.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/06_comm_level1_balanced_n50_seed1.mat
+START	07_comm_level2_balanced_n50_seed1	2026-05-28 21:33:57
+DONE	07_comm_level2_balanced_n50_seed1	2026-05-28 23:56:47	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_235647.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/07_comm_level2_balanced_n50_seed1.mat
+START	08_comm_level3_balanced_n50_seed1	2026-05-28 23:56:47
+DONE	08_comm_level3_balanced_n50_seed1	2026-05-29 01:59:09	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_015909.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/08_comm_level3_balanced_n50_seed1.mat
+START	09_appendix_nis_compare_n50_seed1	2026-05-29 01:59:09
+DONE	09_appendix_nis_compare_n50_seed1	2026-05-29 05:01:47	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_NIS_COMPARE_N50_SEED1_20260529_050147.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/09_appendix_nis_compare_n50_seed1.mat
+START	10_appendix_freshness_compare_n50_seed1	2026-05-29 05:01:47
+DONE	10_appendix_freshness_compare_n50_seed1	2026-05-29 07:02:54	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_FRESHNESS_COMPARE_20260529_070254.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/10_appendix_freshness_compare_n50_seed1.mat
+START	11_appendix_cardinality_consensus_n50_seed1	2026-05-29 07:02:54
+DONE	11_appendix_cardinality_consensus_n50_seed1	2026-05-29 12:06:02	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_120602.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/11_appendix_cardinality_consensus_n50_seed1.mat
+START	12_appendix_association_ambiguity_n50_seed1	2026-05-29 12:06:02
