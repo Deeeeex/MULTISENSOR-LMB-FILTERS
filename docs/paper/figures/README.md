@@ -30,8 +30,11 @@ Render command:
 
 Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory. The CSV contains the fixed baseline, Balanced mode, and Cardinality-critical mode.
 
-The simulation-scenario schematic is rendered with MATLAB/Octave:
+The simulation-scenario schematic is rendered with Matplotlib:
 
 ```bash
-octave --no-gui --quiet --eval "addpath('docs/paper/figures'); render_simulation_scenario_figure"
+python3 docs/paper/figures/render_simulation_scenario_figure.py
 ```
+
+The older Octave entry point `render_simulation_scenario_figure.m` remains as a
+compatibility wrapper around the Python renderer.
