@@ -21,29 +21,28 @@
 - 外部动态权重 baseline 补充实验：[Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N20_SEED1_20260520_001252.md)
 - 计算量补充实验：[paper_tables_n50_synthesis.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/paper_tables_n50_synthesis.md) 和 [Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260528_092545.md)
 - 通信等级 sensitivity 补充实验：[GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_COMM_LEVEL_THREE_METHOD_N50_SEED1_20260528_200430.md)
+- ideal communication PD baseline 补充实验：[Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260601_193543.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260601_193543.md)
 
 ### 1.1 跨节点共识误差指标
 
-`Fixed Metropolis -> PD-weighted GA -> FI-weighted GA -> FID-FIA baseline -> Balanced mode -> Cardinality-critical mode`
+`Fixed Metropolis -> PD-weighted GA -> FID-FIA-weighted GA -> Balanced mode -> Cardinality-critical mode`
 
 | Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 | --- | ---: | ---: | ---: |
 | Fixed Metropolis | 2.453677 | 2.335508 | 0.714625 |
 | PD-weighted GA | 2.174167 | 1.945781 | 0.596688 |
-| FI-weighted GA | 2.020669 | 1.895778 | 0.436750 |
-| FID-FIA baseline | 1.820229 | 1.647412 | 0.126188 |
+| FID-FIA-weighted GA | 1.820229 | 1.647412 | 0.126188 |
 | Balanced mode | 1.785873 | 1.562521 | 0.192938 |
 | Cardinality-critical mode | 1.668961 | 1.528182 | 0.061062 |
 
 相对固定权重基线：
 
 - `PD-weighted GA`：`OSPA` 下降 `11.39%`，`matched localization disagreement` 下降 `16.69%`，`cardinality dispersion` 下降 `16.50%`
-- `FI-weighted GA`：`OSPA` 下降 `17.65%`，`matched localization disagreement` 下降 `18.83%`，`cardinality dispersion` 下降 `38.88%`
-- `FID-FIA baseline`：`OSPA` 下降 `25.82%`，`matched localization disagreement` 下降 `29.46%`，`cardinality dispersion` 下降 `82.34%`
+- `FID-FIA-weighted GA`：`OSPA` 下降 `25.82%`，`matched localization disagreement` 下降 `29.46%`，`cardinality dispersion` 下降 `82.34%`
 - `Balanced mode`：`OSPA` 下降 `27.22%`，`matched localization disagreement` 下降 `33.10%`，`cardinality dispersion` 下降 `73.00%`
 - `Cardinality-critical mode`：`OSPA` 下降 `31.98%`，`matched localization disagreement` 下降 `34.57%`，`cardinality dispersion` 下降 `91.46%`
 
-这说明 target-wise Fisher-information 动态权重本身是有效 baseline：`FI-weighted GA` 相比 `PD-weighted GA` 在 20/20 trials 上改善 OSPA 和 cardinality dispersion。但它仍然明显弱于通信感知的 branch-decoupled 方法，尤其是在异构丢包下的 cardinality dispersion 上。这支持当前论文主线：Fisher 类信息是有价值的权重信号，但单独作为 whole-GA 动态权重还不足以替代 realized link quality、existence 分支建模和通信感知解耦。纯 `FID-FIA baseline` 已经是很强的 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 `Cardinality-critical mode` 同时超过了 FID-FIA baseline 和 Balanced mode：它在三个 primary network disagreement 指标上都是当前最优。
+这说明简单的 reliability-weighted GA baseline 已经优于固定权重，但仍弱于通信感知的 branch-decoupled 方法。`FID-FIA-weighted GA` 是很强的信息几何 cardinality baseline，但把 FID-FIA 只注入 existence 分支后，新的 `Cardinality-critical mode` 同时超过了 FID-FIA-weighted GA 和 Balanced mode：它在三个 primary network disagreement 指标上都是当前最优。
 
 ### 1.2 常规 local tracking 指标
 
@@ -53,27 +52,25 @@
 | --- | ---: | ---: | ---: |
 | Fixed Metropolis | 2.853096 | 1.637556 | 1.454500 |
 | PD-weighted GA | 2.724237 | 1.552784 | 1.255062 |
-| FI-weighted GA | 2.480159 | 1.538486 | 0.979625 |
-| FID-FIA baseline | 2.183127 | 1.715746 | 0.392313 |
+| FID-FIA-weighted GA | 2.183127 | 1.715746 | 0.392313 |
 | Balanced mode | 2.328672 | 1.598561 | 0.578688 |
 | Cardinality-critical mode | 2.009084 | 1.704538 | 0.221563 |
 
-`FI-weighted GA` 在 local RMSE 上很强，达到 `1.538486`，说明 target-wise Fisher trace 权重确实能改善局部空间估计。但它的 local `E-OSPA` 和 `CardErr` 仍明显弱于 FID-FIA baseline 和 `Cardinality-critical mode`。这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA baseline 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 FI-weighted GA 和 Balanced mode，但仍略优于 FID-FIA baseline，并满足 plan 里的 safeguard。
+`PD-weighted GA` 在 local RMSE 上最好，达到 `1.552784`，但它的 local `E-OSPA` 和 `CardErr` 仍明显弱于 FID-FIA-weighted GA 和 `Cardinality-critical mode`。这进一步确认 `Cardinality-critical mode` 不是把节点推向错误的一致目标数：它的 truth-referenced `local CardErr` 从 FID-FIA-weighted GA 的 `0.392313` 进一步降到 `0.221563`，同时 `local E-OSPA` 也最好。代价是它的 local `RMSE` 不如 PD-weighted GA 和 Balanced mode，但仍略优于 FID-FIA-weighted GA，并满足 plan 里的 safeguard。
 
 ### 1.3 计算量补充实验
 
-同一主场景下当前 paper runtime table 使用 `50-trial` 计算量统计。计时口径只包括每个 arm 的 `runDistributedLmbFilter` 过滤/融合调用，不包括场景生成、通信模型采样和指标评估。Fixed/FID-FIA/Balanced/Cardinality-critical 来自 operating-mode probe；PD/FI 来自同场景、同 seeds 的 direct dynamic-weighting probe。Relative ratio 使用各自 probe 内成对 Fixed Metropolis denominator。
+同一主场景下当前 paper runtime table 使用 `50-trial` 计算量统计。计时口径只包括每个 arm 的 `runDistributedLmbFilter` 过滤/融合调用，不包括场景生成、通信模型采样和指标评估。Fixed/FID-FIA/Balanced/Cardinality-critical 来自 operating-mode probe；PD 来自同场景、同 seeds 的 direct dynamic-weighting probe。Relative ratio 使用各自 probe 内成对 Fixed Metropolis denominator。
 
 | Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed |
 | --- | ---: | ---: | ---: |
 | Fixed Metropolis | 52.123 +/- 7.932 | 0.521 | 1.000x |
 | PD-weighted GA | 61.668 +/- 5.376 | 0.617 | 1.233x |
-| FI-weighted GA | 62.810 +/- 6.768 | 0.628 | 1.254x |
-| FID-FIA baseline | 147.674 +/- 23.957 | 1.477 | 2.833x |
+| FID-FIA-weighted GA | 147.674 +/- 23.957 | 1.477 | 2.833x |
 | Balanced mode | 56.378 +/- 9.626 | 0.564 | 1.082x |
 | Cardinality-critical mode | 155.913 +/- 18.220 | 1.559 | 2.991x |
 
-这组计算量结果改变了选型表述：`Balanced mode` 只比固定权重多约 `8.2%` 的过滤/融合时间，却保留了主要的 spatial/position 共识增益；`PD-weighted GA` 和 `FI-weighted GA` 约为 `1.23x`--`1.25x` fixed runtime，说明直接动态权重本身并不是主要计算瓶颈；而 `FID-FIA baseline` 和 `Cardinality-critical mode` 都约为固定权重的 `3x`，说明 FID-FIA 相关的信息几何计算是主要额外成本。若算力或实时性是硬约束，优先推荐 `Balanced mode`；若目标数一致性、漏检/虚警支持的代价更高，再选择 `Cardinality-critical mode`。
+这组计算量结果改变了选型表述：`Balanced mode` 只比固定权重多约 `8.2%` 的过滤/融合时间，却保留了主要的 spatial/position 共识增益；`PD-weighted GA` 约为 `1.23x` fixed runtime，说明简单动态权重本身不是主要计算瓶颈；而 `FID-FIA-weighted GA` 和 `Cardinality-critical mode` 都约为固定权重的 `3x`，说明 FID-FIA 相关的信息几何计算是主要额外成本。若算力或实时性是硬约束，优先推荐 `Balanced mode`；若目标数一致性、漏检/虚警支持的代价更高，再选择 `Cardinality-critical mode`。
 
 ### 1.4 当前 paper message
 
@@ -84,8 +81,7 @@
 - 仅有 `covariance + link quality` 还不够，`existence confidence` 提供了第三个关键判别维度
 - 旧的最优点是建立在三因子 backbone 之上的 `weak structure-aware decoupled refinement`
 - 新的最优点是在保持该 spatial 分支的同时，把 FID-FIA 信息几何信号只注入 existence/cardinality 分支
-- `FI-weighted GA` 作为外部 target-wise Fisher 动态权重 baseline 是正向结果，但在异构丢包下仍不如通信感知的 branch-decoupled 方法
-- 外部 `FID-FIA baseline` 仍然是一个强 cardinality baseline，但新的 `Cardinality-critical mode` 已经在 `OSPA consensus error / matched localization disagreement / cardinality dispersion` 和 `local CardErr` 上同时超过它
+- 外部 `FID-FIA-weighted GA` 仍然是一个强 cardinality baseline，但新的 `Cardinality-critical mode` 已经在 `OSPA consensus error / matched localization disagreement / cardinality dispersion` 和 `local CardErr` 上同时超过它
 - 计算量上，`Balanced mode` 是低额外开销的默认推荐；`Cardinality-critical mode` 是以约 `3x` fixed-runtime 换取最强 cardinality/consensus 表现的高精度选项
 
 主要来源：
@@ -133,21 +129,21 @@
 
 理想通信实验的作用就是回答这个问题。该实验将通信退化去掉，在其余设置尽量保持一致的条件下，对比：
 
-- `Ordinary GA`
+- `Fixed Metropolis`
+- `PD-weighted GA`
+- `FID-FIA-weighted GA`
 - `Balanced mode`
-- `FID-FIA baseline`
 - `Cardinality-critical mode`
 
-### 3.1 跨节点共识误差指标
+### 3.1 Table 5 当前行顺序和均值
 
-- `OSPA consensus error`: `1.706 -> 1.494`
-- `matched localization disagreement`: `1.526 -> 1.290`
-- `cardinality dispersion`: `0.161 -> 0.139`
-
-### 3.2 常规 local 指标
-
-- `local E-OSPA`: `1.950 -> 1.877`
-- `local RMSE`: `1.442 -> 1.369`
+| Arm | OSPA consensus error | Matched localization disagreement | Cardinality dispersion | Local E-OSPA | Local RMSE |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Fixed Metropolis | 1.634 | 1.381 | 0.090 | 1.908 | 1.442 |
+| PD-weighted GA | 1.434 | 1.218 | 0.056 | 1.825 | 1.377 |
+| FID-FIA-weighted GA | 1.534 | 1.333 | 0.057 | 1.881 | 1.500 |
+| Balanced mode | 1.427 | 1.202 | 0.071 | 1.839 | 1.375 |
+| Cardinality-critical mode | 1.433 | 1.303 | 0.049 | 1.766 | 1.470 |
 
 这组结果说明两件事：
 
@@ -160,6 +156,7 @@
 
 - [GA_IDEAL_COMM_COMPARE_20260326_184508.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_IDEAL_COMM_COMPARE_20260326_184508.md)
 - [IDEAL_COMM_COMPARE_CN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/IDEAL_COMM_COMPARE_CN.md)
+- [Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260601_193543.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260601_193543.md)
 
 ## 4. supporting evidence：communication-level sensitivity
 
@@ -236,6 +233,6 @@
 
 其中前三项构成 communication-aware backbone，`weak structure-aware decoupled KLA` 主要稳住 spatial/position 分支，而 `FID-FIA existence refinement` 只用于加强 existence/cardinality 分支。
 
-第三，在当前最强证据链上，这个设计不仅显著改善了 `OSPA consensus error / matched localization disagreement / cardinality dispersion`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA baseline 以及新增的 FI-weighted GA baseline；虽然 local RMSE 不如 FI-weighted GA 和 Balanced mode，但仍优于 FID-FIA baseline，因此已经形成一条更强、可 defend 的论文主线。
+第三，在当前最强证据链上，这个设计不仅显著改善了 `OSPA consensus error / matched localization disagreement / cardinality dispersion`，而且在 `local CardErr` 和 `local E-OSPA` 上也超过 FID-FIA-weighted GA；虽然 local RMSE 不如 PD-weighted GA 和 Balanced mode，但仍优于 FID-FIA-weighted GA，因此已经形成一条更强、可 defend 的论文主线。
 
 补充计算量统计后，选型建议应明确加入运行成本：`Balanced mode` 是算力/实时性更敏感时的默认配置；`Cardinality-critical mode` 是 cardinality 风险更高且可接受约 `3x` 过滤/融合耗时时的配置。

@@ -6,18 +6,18 @@ This section reports the current evidence supporting the paper's main claims. Th
 
 ### 1. Main Result In The Tiered-Drop GA Scenario
 
-The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Starting from Fixed Metropolis, the Balanced mode combines covariance, realized link quality, existence confidence, and weak structure-aware decoupled KLA; the Cardinality-critical mode adds an FID-FIA-informed cue only on the existence branch. The latest 20-trial main comparison also includes a FID-FIA baseline and the Balanced mode before the final existence-branch refinement. Fixed Metropolis yields OSPA consensus error `2.453677`, matched localization disagreement `2.335508`, and cardinality dispersion `0.714625`. The FID-FIA baseline yields `1.820229`, `1.647412`, and `0.126188`. The Balanced mode yields `1.785873`, `1.562521`, and `0.192938`. The Cardinality-critical mode yields `1.668961`, `1.528182`, and `0.061062`.
+The main claim is that communication-aware adaptive weighting substantially improves distributed consensus quality in the eight-sensor dual-formation GA-LMB scenario under tiered heterogeneous packet loss. Starting from Fixed Metropolis, the Balanced mode combines covariance, realized link quality, existence confidence, and weak structure-aware decoupled KLA; the Cardinality-critical mode adds an FID-FIA-informed cue only on the existence branch. The latest 20-trial main comparison also includes FID-FIA-weighted GA, used as the information-geometric baseline, and the Balanced mode before the final existence-branch refinement. Fixed Metropolis yields OSPA consensus error `2.453677`, matched localization disagreement `2.335508`, and cardinality dispersion `0.714625`. FID-FIA-weighted GA yields `1.820229`, `1.647412`, and `0.126188`. The Balanced mode yields `1.785873`, `1.562521`, and `0.192938`. The Cardinality-critical mode yields `1.668961`, `1.528182`, and `0.061062`.
 
-These reductions are sizeable in all three network disagreement metrics. Relative to Fixed Metropolis, the FID-FIA baseline lowers cardinality dispersion by `82.34%`, making it a strong cardinality-consensus baseline. The Balanced mode lowers OSPA consensus error by `27.22%` and matched localization disagreement by `33.10%`, making it the strongest pre-refinement spatial-consensus method. The Cardinality-critical mode lowers OSPA consensus error by `31.98%`, matched localization disagreement by `34.57%`, and cardinality dispersion by `91.46%`, making it the best arm on all three primary network disagreement metrics. This result is important because the method is not being evaluated in a benign homogeneous communication setting. The communication layer deliberately preserves the historical mean packet-loss rate while introducing persistent cross-node heterogeneity. The observed gain therefore supports the central paper claim that fusion weights should depend not only on posterior concentration and realized communication reliability, but also on existence decisiveness and target-pair information geometry.
+These reductions are sizeable in all three network disagreement metrics. Relative to Fixed Metropolis, FID-FIA-weighted GA lowers cardinality dispersion by `82.34%`, making it a strong cardinality-consensus baseline. The Balanced mode lowers OSPA consensus error by `27.22%` and matched localization disagreement by `33.10%`, making it the strongest pre-refinement spatial-consensus method. The Cardinality-critical mode lowers OSPA consensus error by `31.98%`, matched localization disagreement by `34.57%`, and cardinality dispersion by `91.46%`, making it the best arm on all three primary network disagreement metrics. This result is important because the method is not being evaluated in a benign homogeneous communication setting. The communication layer deliberately preserves the historical mean packet-loss rate while introducing persistent cross-node heterogeneity. The observed gain therefore supports the central paper claim that fusion weights should depend not only on posterior concentration and realized communication reliability, but also on existence decisiveness and target-pair information geometry.
 
-The local truth-referenced metrics clarify the cardinality story. The Cardinality-critical mode has the lowest local cardinality error, `0.221563`, so its cardinality-consensus advantage is not merely agreement around a wrong target count. It also has the best local E-OSPA, `2.009084`. Its tradeoff is local RMSE, where it reaches `1.704538`, worse than the Balanced mode (`1.598561`) but still slightly better than the FID-FIA baseline (`1.715746`).
+The local truth-referenced metrics clarify the cardinality story. The Cardinality-critical mode has the lowest local cardinality error, `0.221563`, so its cardinality-consensus advantage is not merely agreement around a wrong target count. It also has the best local E-OSPA, `2.009084`. Its tradeoff is local RMSE, where it reaches `1.704538`, worse than the Balanced mode (`1.598561`) but still slightly better than FID-FIA-weighted GA (`1.715746`).
 
 Computational cost is the third evaluation axis for this method family. A 3-trial runtime supplement in the same 100-step tiered-drop scenario times only the distributed LMB filtering/fusion call. Scenario generation, communication-model sampling, and metric evaluation are excluded. The result is:
 
 | Arm | Filter runtime (s) | Runtime/step (s) | Relative to fixed |
 |:----|-------------------:|-----------------:|------------------:|
 | Fixed Metropolis | 47.334 +/- 0.732 | 0.473 | 1.000x |
-| FID-FIA baseline | 137.830 +/- 3.479 | 1.378 | 2.913x |
+| FID-FIA-weighted GA | 137.830 +/- 3.479 | 1.378 | 2.913x |
 | Balanced mode | 55.603 +/- 5.057 | 0.556 | 1.174x |
 | Cardinality-critical mode | 143.107 +/- 2.950 | 1.431 | 3.023x |
 
@@ -48,16 +48,17 @@ Finally, before the FID-FIA existence refinement is added, the best result in th
 
 ### 3. Ideal-Communication Supporting Evidence
 
-An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to `0` and comparing Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode under otherwise matched conditions.
+An obvious question is whether the weak structure-aware decoupled refinement only helps because it compensates for packet loss. The ideal-communication experiment addresses this point by setting the communication level to `0` and comparing Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, the Balanced mode, and the Cardinality-critical mode under otherwise matched conditions.
 
-The result remains positive, and the FID-FIA arms now make the supporting story sharper. The table reports mean values, with relative changes versus ordinary GA in parentheses.
+The result remains positive, and the FID-FIA arms now make the supporting story sharper. The table reports mean values, with relative changes versus Fixed Metropolis in parentheses.
 
 | Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion | Local E-OSPA | Local RMSE |
 |:----|---------------:|---------------:|---------------:|-------------:|-----------:|
-| Ordinary GA | 1.704 | 1.532 | 0.162 | 1.963 | 1.445 |
-| Balanced mode | 1.482 (-13.0%) | **1.238 (-19.2%)** | 0.132 (-18.2%) | 1.885 (-4.0%) | **1.372 (-5.1%)** |
-| FID-FIA baseline | 1.532 (-10.1%) | 1.332 (-13.1%) | 0.054 (-66.5%) | 1.871 (-4.7%) | 1.499 (+3.8%) |
-| Cardinality-critical mode | **1.433 (-15.9%)** | 1.309 (-14.6%) | **0.050 (-69.1%)** | **1.756 (-10.6%)** | 1.493 (+3.3%) |
+| Fixed Metropolis | 1.634 | 1.381 | 0.090 | 1.908 | 1.442 |
+| PD-weighted GA | 1.434 (-12.2%) | 1.218 (-11.8%) | 0.056 (-37.6%) | 1.825 (-4.3%) | 1.377 (-4.5%) |
+| FID-FIA-weighted GA | 1.534 (-6.1%) | 1.333 (-3.5%) | 0.057 (-36.3%) | 1.881 (-1.4%) | 1.500 (+4.0%) |
+| Balanced mode | **1.427 (-12.7%)** | **1.202 (-13.0%)** | 0.071 (-20.9%) | 1.839 (-3.6%) | **1.375 (-4.7%)** |
+| Cardinality-critical mode | 1.433 (-12.3%) | 1.303 (-5.7%) | **0.049 (-46.0%)** | **1.766 (-7.4%)** | 1.470 (+2.0%) |
 
 This mirrors the main tiered-drop result: FID-FIA is especially useful for cardinality, while the Balanced mode remains strongest on ideal-communication local RMSE. Aggregated over sensors and trials, local E-OSPA is best for the Cardinality-critical mode (`1.755551`), while local RMSE remains best for the Balanced mode (`1.371501`).
 

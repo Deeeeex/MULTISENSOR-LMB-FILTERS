@@ -53,8 +53,8 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 ## 实验证据与可复现材料 TODO
 
 - [x] 主 20-trial tiered heterogeneous packet-loss 结果已进入主稿。
-- [x] PD-weighted GA 和 FI-weighted GA 外部动态权重 baseline 已进入主稿。
-- [x] FID-FIA baseline、Balanced mode、Cardinality-critical mode 已进入主结果表。
+- [x] PD-weighted GA 外部动态权重 baseline 已进入主稿。
+- [x] FID-FIA-weighted GA、Balanced mode、Cardinality-critical mode 已进入主结果表。
 - [x] local safeguards 已进入主稿：local E-OSPA、local RMSE、local cardinality error。
 - [x] runtime/cost 已作为第三评价轴进入主稿。
 - [x] communication-level sensitivity probe 已作为表格进入主稿。

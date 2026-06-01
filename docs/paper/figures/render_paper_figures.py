@@ -239,7 +239,7 @@ def save_figure6(output_path: str | Path, figure6: dict) -> Path:
         consensus_x - width / 2,
         figure6["consensus"]["ga"],
         width,
-        label="Ordinary GA",
+        label="Fixed Metropolis",
         color=FIXED_COLOR,
         edgecolor=EDGE_COLOR,
         linewidth=0.8,

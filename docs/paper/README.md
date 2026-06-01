@@ -33,8 +33,8 @@ Core main-line numbers:
 - Tiered GA main scenario: Fixed Metropolis -> Cardinality-critical mode gives OSPA consensus error `2.454 -> 1.669`, matched localization disagreement `2.336 -> 1.528`, and cardinality dispersion `0.715 -> 0.061`.
 - Tiered GA local safeguards: Fixed Metropolis -> Cardinality-critical mode gives local E-OSPA `2.853 -> 2.009` and local cardinality error `1.455 -> 0.222`, while local RMSE remains slightly better than FID-FIA.
 - Factor ablation: Three-factor adaptive backbone -> Balanced mode improves OSPA consensus error `1.830 -> 1.821` and matched localization disagreement `1.754 -> 1.750`; the Cardinality-critical mode then reduces cardinality dispersion to `0.061`.
-- Ideal-communication comparison: Ordinary GA -> Cardinality-critical mode gives OSPA consensus error `1.704 -> 1.433`, matched localization disagreement `1.532 -> 1.309`, cardinality dispersion `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
-- Runtime supplement: Fixed Metropolis `47.3s`, FID-FIA baseline `137.8s`, Balanced mode `55.6s`, and Cardinality-critical mode `143.1s` per 100-step trial. The practical recommendation is Balanced for runtime-sensitive deployment and Cardinality-critical when target-number agreement is worth about `3x` fixed runtime.
+- Ideal-communication comparison: Fixed Metropolis -> Cardinality-critical mode gives OSPA consensus error `1.704 -> 1.433`, matched localization disagreement `1.532 -> 1.309`, cardinality dispersion `0.162 -> 0.050`, and local E-OSPA `1.963 -> 1.756`.
+- Runtime supplement: Fixed Metropolis `47.3s`, FID-FIA-weighted GA `137.8s`, Balanced mode `55.6s`, and Cardinality-critical mode `143.1s` per 100-step trial. The practical recommendation is Balanced for runtime-sensitive deployment and Cardinality-critical when target-number agreement is worth about `3x` fixed runtime.
 
 Secondary or appendix-only numbers:
 

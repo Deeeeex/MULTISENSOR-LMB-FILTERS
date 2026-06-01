@@ -15,7 +15,7 @@ Main experiment:
 
 Supporting experiments:
 
-- ideal-communication comparison between Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode
+- ideal-communication comparison between Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, the Balanced mode, and the Cardinality-critical mode
 - communication-robustness analysis across communication levels
 - computational-cost measurement for the main baseline and proposed operating modes
 - appendix-only AA-based secondary route
@@ -76,7 +76,7 @@ The core ablation study compares the following five arms:
 
 This ablation path is implemented in [runMultisensorFilters_formation_4plus4_TieredLinkAblation.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_TieredLinkAblation.m) and is the main source for the factor-by-factor method claims.
 
-The main confirmation additionally compares the FID-FIA baseline and the Cardinality-critical mode. The five-arm path should be read as the backbone diagnostic; manuscript Table 3 also appends the Cardinality-critical mode to show the final branch-specific FID-FIA extension on the same scale. The Balanced mode is the position-sensitive mode for position-sensitive operation, while the Cardinality-critical mode is the cardinality-sensitive mode.
+The main confirmation additionally compares PD-weighted GA, FID-FIA-weighted GA used as the information-geometric baseline, and the Cardinality-critical mode. The five-arm path should be read as the backbone diagnostic; manuscript Table 3 also appends the Cardinality-critical mode to show the final branch-specific FID-FIA extension on the same scale. The Balanced mode is the position-sensitive mode for position-sensitive operation, while the Cardinality-critical mode is the cardinality-sensitive mode.
 
 The Balanced mode uses:
 
@@ -146,7 +146,7 @@ Computational cost should be treated as a first-class evaluation axis, not as an
 
 ### 7. Ideal-Communication Supporting Experiment
 
-To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares Ordinary GA, the Balanced mode, the FID-FIA baseline, and the Cardinality-critical mode under the same dual-formation eight-sensor tracking scenario.
+To test whether the method is merely compensating for packet loss, a supporting ideal-communication experiment compares Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, the Balanced mode, and the Cardinality-critical mode under the same dual-formation eight-sensor tracking scenario.
 
 The ideal-communication configuration is:
 

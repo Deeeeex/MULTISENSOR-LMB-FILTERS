@@ -15,7 +15,7 @@ Required guide-for-authors points:
 
 1. Comparison with state of the art
 
-Yes. The manuscript compares the proposed method against fixed/topology-derived Metropolis weighting, PD-weighted GA, target-wise FI-weighted GA, and an information-geometric FID-FIA baseline. It also includes factor ablations, ideal-communication support, communication-level sensitivity, local tracking safeguards, and runtime measurements. The most relevant state-of-the-art comparison is the FID-FIA-style information-geometric fusion baseline; the proposed Cardinality-critical mode improves over that baseline in the main tiered heterogeneous packet-loss scenario while preserving a communication-aware spatial branch.
+Yes. The manuscript compares the proposed method against fixed/topology-derived Metropolis weighting, PD-weighted GA, and FID-FIA-weighted GA as the information-geometric baseline. It also includes factor ablations, ideal-communication support, communication-level sensitivity, local tracking safeguards, and runtime measurements. The most relevant state-of-the-art comparison is the FID-FIA-weighted GA baseline; the proposed Cardinality-critical mode improves over that baseline in the main tiered heterogeneous packet-loss scenario while preserving a communication-aware spatial branch.
 
 2. Five important references
 

@@ -134,7 +134,7 @@ Purpose:
 Recommended content:
 
 - compact table with OSPA consensus error, RMSE, cardinality, and local safeguards
-- comparison: Ordinary GA, Balanced mode, FID-FIA baseline, Cardinality-critical mode
+- comparison: Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, Balanced mode, Cardinality-critical mode
 
 Primary source:
 
@@ -228,7 +228,7 @@ Status:
 
 Content:
 
-- Ordinary GA, Balanced mode, FID-FIA baseline, and Cardinality-critical mode
+- Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, Balanced mode, and Cardinality-critical mode
 - OSPA consensus error, matched localization disagreement, cardinality dispersion
 - aggregated local E-OSPA and RMSE safeguards
 
@@ -244,7 +244,7 @@ Status:
 
 Content:
 
-- Fixed Metropolis, FID-FIA baseline, Balanced mode, and Cardinality-critical mode
+- Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, Balanced mode, and Cardinality-critical mode
 - filter/fusion runtime, runtime per simulation step, and runtime relative to Fixed Metropolis
 - short interpretation of Balanced mode as the low-overhead option and Cardinality-critical mode as the higher-cost cardinality option
 

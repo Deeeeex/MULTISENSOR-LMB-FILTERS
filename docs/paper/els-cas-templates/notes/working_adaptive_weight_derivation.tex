@@ -229,7 +229,7 @@ The main experiment sets $\rho_{\min}=0$, which should be read as the boundary l
 \end{equation}
 
 \paragraph{Interpretation.}
-This is the theoretical reason the new method can improve over the FID-FIA baseline. FID-FIA is a measurement-separability utility: it rewards sensors whose local Fisher geometry makes target pairs more distinguishable. That is directly useful for the Bernoulli existence/logit-pooling branch, because existence and cardinality errors are driven by missed detections, false support, and target-pair ambiguity. It is less safe as a whole-posterior scalar weight because it also changes the Gaussian precision barycenter. Branch decoupling keeps the FID-FIA signal in the branch where its inductive bias matches the algebraic role of the fused variable.
+This is the theoretical reason the new method can improve over FID-FIA-weighted GA. FID-FIA is a measurement-separability utility: it rewards sensors whose local Fisher geometry makes target pairs more distinguishable. That is directly useful for the Bernoulli existence/logit-pooling branch, because existence and cardinality errors are driven by missed detections, false support, and target-pair ambiguity. It is less safe as a whole-posterior scalar weight because it also changes the Gaussian precision barycenter. Branch decoupling keeps the FID-FIA signal in the branch where its inductive bias matches the algebraic role of the fused variable.
 
 \subsection*{Step 4: weak structure-aware refinement as a prior perturbation}
 
