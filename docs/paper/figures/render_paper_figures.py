@@ -142,18 +142,10 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
     ax_left.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
     ax_left.set_axisbelow(True)
 
-    ax_left.text(0.50, 1.005, "ambiguous region", fontsize=7.6, color="#8B5A5A", va="bottom", ha="center")
-    ax_left.text(0.98, 1.005, "decisive tails", fontsize=7.6, color="#5A738E", va="bottom", ha="right")
-    ax_left.text(0.63, min_score + 0.0025, r"$\lambda_{\min}$ floor", fontsize=8, color=FIXED_COLOR)
-    ax_left.text(
-        0.66,
-        0.986,
-        r"$q_{\mathrm{exist}}$ in $\tilde{\omega}$",
-        fontsize=7.5,
-        color=EDGE_COLOR,
-        bbox={"boxstyle": "round,pad=0.20", "facecolor": "white", "edgecolor": "#D7DEE7", "linewidth": 0.8},
-    )
-    ax_left.text(0.18, 0.955, r"bounded $q_{\mathrm{exist}}(r)$", fontsize=7.8, color=SECONDARY_COLOR)
+    ax_left.text(0.50, 1.052, "ambiguous region", fontsize=7.3, color="#8B5A5A", va="bottom", ha="center", clip_on=False)
+    ax_left.text(0.91, 1.052, "decisive tails", fontsize=7.3, color="#5A738E", va="bottom", ha="center", clip_on=False)
+    ax_left.text(0.70, min_score - 0.040, r"$\lambda_{\min}$ floor", fontsize=7.5, color=FIXED_COLOR)
+    ax_left.text(0.24, 0.940, r"bounded $q_{\mathrm{exist}}(r)$", fontsize=7.5, color=SECONDARY_COLOR)
     ax_left.text(0.16, 0.135, r"raw $c(r)=|2r-1|$", fontsize=7.8, color=raw_color)
 
     y_positions = np.arange(len(profiles))[::-1]
@@ -215,10 +207,22 @@ def save_figure3(output_path: str | Path, figure3: dict) -> Path:
     ax_right.set_xlabel("Aggregated confidence level")
     ax_right.grid(axis="x", alpha=0.25, linestyle="--", linewidth=0.7)
     ax_right.set_axisbelow(True)
+    ax_right.text(min_score + 0.015, -0.30, r"$\lambda_{\min}$ floor", fontsize=7.0, color=FIXED_COLOR, ha="left")
     ax_right.text(0.55, y_positions[1] + 0.40, r"example $r_{k,i}^{(j)}$", fontsize=7.0, color=EDGE_COLOR, ha="center")
 
-    ax_left.text(0.01, 0.99, "(a) Mapping", transform=ax_left.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top")
-    ax_right.text(0.01, 0.99, "(b) Aggregation", transform=ax_right.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top")
+    ax_right.legend(
+        frameon=False,
+        loc="lower center",
+        bbox_to_anchor=(0.50, -0.27),
+        ncol=2,
+        fontsize=7.0,
+        handlelength=1.25,
+        columnspacing=0.8,
+    )
+
+    panel_box = {"facecolor": "white", "edgecolor": "none", "alpha": 0.86, "pad": 0.8}
+    ax_left.text(0.012, 0.985, "(a) Mapping", transform=ax_left.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top", bbox=panel_box)
+    ax_right.text(0.012, 0.985, "(b) Aggregation", transform=ax_right.transAxes, fontsize=9.2, fontweight="bold", ha="left", va="top", bbox=panel_box)
 
     fig.savefig(output_path, format="pdf", bbox_inches="tight")
     plt.close(fig)

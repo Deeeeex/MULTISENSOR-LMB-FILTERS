@@ -29,3 +29,7 @@ DONE	10_appendix_freshness_compare_n50_seed1	2026-05-29 07:02:54	report=/Users/d
 START	11_appendix_cardinality_consensus_n50_seed1	2026-05-29 07:02:54
 DONE	11_appendix_cardinality_consensus_n50_seed1	2026-05-29 12:06:02	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/Del_GA_TIERED_LINK_ABLATION_N50_SEED1_20260529_120602.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/11_appendix_cardinality_consensus_n50_seed1.mat
 START	12_appendix_association_ambiguity_n50_seed1	2026-05-29 12:06:02
+DONE	12_appendix_association_ambiguity_n50_seed1	2026-05-30 04:29:25	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260530_042925.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/12_appendix_association_ambiguity_n50_seed1.mat
+START	13_appendix_posterior_structure_n50_seed1	2026-05-30 04:29:25
+DONE	13_appendix_posterior_structure_n50_seed1	2026-05-30 13:33:06	report=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_POSTERIOR_STRUCTURE_COMPARE_20260530_133306.md	mat=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/13_appendix_posterior_structure_n50_seed1.mat
+ALL_DONE	2026-05-30 13:33:06

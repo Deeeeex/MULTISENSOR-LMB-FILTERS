@@ -3711,3 +3711,579 @@ Trial 24/50
     Filter runtime: 51.608 s
 Trial 25/50
   Arm 1/1: +existence confidence
+    Filter runtime: 54.942 s
+Trial 26/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.538 s
+Trial 27/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.177 s
+Trial 28/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.778 s
+Trial 29/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 54.295 s
+Trial 30/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.958 s
+Trial 31/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.317 s
+Trial 32/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.163 s
+Trial 33/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 53.852 s
+Trial 34/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.799 s
+Trial 35/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 54.902 s
+Trial 36/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 64.616 s
+Trial 37/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 2694.611 s
+Trial 38/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 2671.287 s
+Trial 39/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 2551.929 s
+Trial 40/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1051.725 s
+Trial 41/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 3150.312 s
+Trial 42/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 680.731 s
+Trial 43/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 3682.592 s
+Trial 44/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 3700.095 s
+Trial 45/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 5613.367 s
+Trial 46/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 3673.760 s
+Trial 47/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 880.561 s
+Trial 48/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 659.805 s
+Trial 49/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.091 s
+Trial 50/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.842 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: +existence confidence
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
++existence confidence: OSPA 1.789144, RMSE 1.528563, Card 0.187550, Runtime 662.527 s
+Trial 1/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.413 s
+Trial 2/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.129 s
+Trial 3/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.212 s
+Trial 4/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.654 s
+Trial 5/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.932 s
+Trial 6/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.896 s
+Trial 7/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.961 s
+Trial 8/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.099 s
+Trial 9/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 54.483 s
+Trial 10/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.441 s
+Trial 11/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.895 s
+Trial 12/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.226 s
+Trial 13/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.206 s
+Trial 14/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.865 s
+Trial 15/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.952 s
+Trial 16/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 63.654 s
+Trial 17/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1007.071 s
+Trial 18/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1930.313 s
+Trial 19/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1035.075 s
+Trial 20/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1334.652 s
+Trial 21/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.915 s
+Trial 22/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.323 s
+Trial 23/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.251 s
+Trial 24/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.502 s
+Trial 25/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 79.520 s
+Trial 26/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.199 s
+Trial 27/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 79.457 s
+Trial 28/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.134 s
+Trial 29/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.232 s
+Trial 30/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.773 s
+Trial 31/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.465 s
+Trial 32/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 79.672 s
+Trial 33/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.251 s
+Trial 34/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.427 s
+Trial 35/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.312 s
+Trial 36/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.179 s
+Trial 37/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.541 s
+Trial 38/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.148 s
+Trial 39/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.471 s
+Trial 40/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.645 s
+Trial 41/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.548 s
+Trial 42/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.380 s
+Trial 43/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.079 s
+Trial 44/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.001 s
+Trial 45/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 75.553 s
+Trial 46/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.683 s
+Trial 47/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.006 s
+Trial 48/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.417 s
+Trial 49/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.148 s
+Trial 50/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.343 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: +existence confidence
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
++existence confidence: OSPA 1.789175, RMSE 1.528330, Card 0.187675, Runtime 169.454 s
+=====================================
+GA Association Ambiguity Comparison (N=50)
+Three-factor baseline -> +association ambiguity
+OSPA Consensus Error: 1.789144 -> 1.789175
+Matched Localization Disagreement: 1.528563 -> 1.528330
+Cardinality Dispersion: 0.187550 -> 0.187675
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260530_042925.md
+===== DONE 12_appendix_association_ambiguity_n50_seed1 at 2026-05-30 04:29:25 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260530_042925.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/12_appendix_association_ambiguity_n50_seed1.mat
+
+===== START 13_appendix_posterior_structure_n50_seed1 at 2026-05-30 04:29:25 =====
+Trial 1/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 77.531 s
+Trial 2/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 76.446 s
+Trial 3/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 78.608 s
+Trial 4/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 103.049 s
+Trial 5/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1003.610 s
+Trial 6/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1002.795 s
+Trial 7/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1005.867 s
+Trial 8/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1929.231 s
+Trial 9/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1466.693 s
+Trial 10/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1931.010 s
+Trial 11/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1005.359 s
+Trial 12/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1931.811 s
+Trial 13/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 435.592 s
+Trial 14/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1005.063 s
+Trial 15/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1700.939 s
+Trial 16/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1943.744 s
+Trial 17/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 1007.533 s
+Trial 18/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 539.233 s
+Trial 19/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 119.445 s
+Trial 20/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.149 s
+Trial 21/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.407 s
+Trial 22/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.173 s
+Trial 23/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.532 s
+Trial 24/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.880 s
+Trial 25/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.621 s
+Trial 26/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.030 s
+Trial 27/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.110 s
+Trial 28/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.022 s
+Trial 29/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.561 s
+Trial 30/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.361 s
+Trial 31/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.044 s
+Trial 32/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.098 s
+Trial 33/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.884 s
+Trial 34/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.092 s
+Trial 35/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.790 s
+Trial 36/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.706 s
+Trial 37/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.779 s
+Trial 38/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.362 s
+Trial 39/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.484 s
+Trial 40/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.557 s
+Trial 41/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.012 s
+Trial 42/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.810 s
+Trial 43/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.637 s
+Trial 44/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.656 s
+Trial 45/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 48.939 s
+Trial 46/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.952 s
+Trial 47/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.511 s
+Trial 48/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.968 s
+Trial 49/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.827 s
+Trial 50/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.631 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: +existence confidence
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
++existence confidence: OSPA 1.791239, RMSE 1.534119, Card 0.187875, Runtime 398.783 s
+Trial 1/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.148 s
+Trial 2/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.331 s
+Trial 3/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.347 s
+Trial 4/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.840 s
+Trial 5/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.598 s
+Trial 6/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.749 s
+Trial 7/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.426 s
+Trial 8/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.875 s
+Trial 9/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.394 s
+Trial 10/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.444 s
+Trial 11/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.300 s
+Trial 12/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.034 s
+Trial 13/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.349 s
+Trial 14/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.119 s
+Trial 15/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.910 s
+Trial 16/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.326 s
+Trial 17/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 52.498 s
+Trial 18/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.685 s
+Trial 19/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.915 s
+Trial 20/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.962 s
+Trial 21/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.052 s
+Trial 22/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.984 s
+Trial 23/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.265 s
+Trial 24/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.553 s
+Trial 25/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.803 s
+Trial 26/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.073 s
+Trial 27/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.555 s
+Trial 28/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.563 s
+Trial 29/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.304 s
+Trial 30/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.423 s
+Trial 31/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.629 s
+Trial 32/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.837 s
+Trial 33/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.740 s
+Trial 34/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.317 s
+Trial 35/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.458 s
+Trial 36/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.001 s
+Trial 37/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.310 s
+Trial 38/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.382 s
+Trial 39/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.377 s
+Trial 40/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.718 s
+Trial 41/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.311 s
+Trial 42/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.640 s
+Trial 43/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.917 s
+Trial 44/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.295 s
+Trial 45/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 48.752 s
+Trial 46/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.984 s
+Trial 47/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 49.685 s
+Trial 48/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.063 s
+Trial 49/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 50.383 s
+Trial 50/50
+  Arm 1/1: +existence confidence
+    Filter runtime: 51.748 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: +existence confidence
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.174 0.218 0.196 0.196 0.232 0.19 0.194]
+=====================================
++existence confidence: OSPA 1.791239, RMSE 1.534119, Card 0.187875, Runtime 50.507 s
+=====================================
+GA Posterior Structure Comparison (N=50)
+Static structure prior -> posterior-structure-consistency
+OSPA consensus error: 1.791239 -> 1.791239
+Matched localization disagreement: 1.534119 -> 1.534119
+Cardinality dispersion: 0.187875 -> 0.187875
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_POSTERIOR_STRUCTURE_COMPARE_20260530_133306.md
+===== DONE 13_appendix_posterior_structure_n50_seed1 at 2026-05-30 13:33:06 =====
+Report: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_POSTERIOR_STRUCTURE_COMPARE_20260530_133306.md
+Summary MAT: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/mc50_20260527_172137/13_appendix_posterior_structure_n50_seed1.mat
