@@ -56,7 +56,7 @@ where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)
 \bar{\omega}_{k,s}^{(j)} =
 \frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
 \end{equation}
-This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities.
+This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths used by the two operating modes.
 
 \subsection{Covariance and link-quality terms}
 
@@ -95,6 +95,7 @@ q_{\mathrm{exist},k}^{(j)}
 \lambda_{\min} + (1-\lambda_{\min})\left(\bar{c}_{k}^{(j)}\right)^{p_e},
 \end{equation}
 where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
+Figure~\ref{fig:existence-confidence} visualizes this bounded Bernoulli-level mapping and representative node-level aggregation effects.
 
 \begin{figure}[!t]
   \centering

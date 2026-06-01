@@ -383,8 +383,8 @@ def render(output_dir: Path, paper_fig_dir: Path, *, dpi: int = 300) -> dict[str
     outputs = {
         "source_pdf": output_dir / "figure1_v2.pdf",
         "source_png": output_dir / "figure1_v2.png",
-        "paper_pdf": paper_fig_dir / "paper-figure1-v2.pdf",
-        "paper_png": paper_fig_dir / "paper-figure1-v2.png",
+        "paper_pdf": paper_fig_dir / "unused-paper-figure1-v2.pdf",
+        "paper_png": paper_fig_dir / "unused-paper-figure1-v2.png",
     }
     for path in (outputs["source_pdf"], outputs["paper_pdf"]):
         fig.savefig(path, format="pdf", bbox_inches="tight", pad_inches=0.015)
