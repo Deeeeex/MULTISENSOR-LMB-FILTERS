@@ -3,10 +3,10 @@ function stateEstimates = runIcLmbFilter(model, measurements, sensorTrajectories
 %   stateEstimates = runIcLmbFilter(model, measurements)
 %
 %   Determine the objects' state estimates using the IC-LMB filter.
-%   File guide:
-%       Sequential multi-sensor baseline. Unlike runParallelUpdateLmbFilter,
-%       it updates the same LMB posterior sensor by sensor within a time
-%       step, making it the reference path for iterated-corrector behavior.
+%   文件导读：
+%       IC-LMB 顺序更新 baseline。它不像 runParallelUpdateLmbFilter 那样先
+%       得到每个传感器的 local posterior 再融合，而是在同一时刻内按传感器
+%       顺序连续更新同一个 LMB posterior，用作 iterated-corrector 对照。
 %
 %   See also generateModel, generateGroundTruth, lmbPredictionStep,
 %   generateLmbAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 
@@ -22,12 +22,12 @@ function stateEstimates = runIcLmbFilter(model, measurements, sensorTrajectories
 %           approximate MAP estimate for each time-step of the simulation, as
 %           well as the objects' trajectories.
 
-%% Initialise variables
+%% 1. 初始化 LMB component 和输出容器
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 objects = model.object;
 
-% Phase 1: Mobile Sensor Support - Pass sensor trajectories to model
+% 移动传感器轨迹会传给 per-sensor association matrix 构造器。
 if nargin >= 3 && ~isempty(sensorTrajectories)
     model.sensorTrajectories = sensorTrajectories;
 end
@@ -36,14 +36,14 @@ stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
 stateEstimates.Sigma = cell(simulationLength, 1);
 stateEstimates.objects = objects;
-%% Run the LMB filter
+%% 2. 时间递推：prediction 后按传感器顺序逐次 correction
 for t = 1:simulationLength
-    %% Prediction
+    %% 2.1 预测
     objects = lmbPredictionStep(objects, model, t);
-    %% Measurement update
+    %% 2.2 按传感器顺序进行 measurement update
     for s = 1:model.numberOfSensors
         if (numel(measurements{s, t}))
-            % Phase 1: Support for mobile sensors - pass current time
+            % 移动传感器场景下，关联矩阵需要当前时刻来读取传感器位置。
             if model.sensorMotionEnabled
                 [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s, t);
             else
@@ -59,27 +59,24 @@ for t = 1:simulationLength
                 % Data association by way of Murty's algorithm
                 [r, W] = lmbMurtysAlgorithm(associationMatrices, model.numberOfAssignments);
             end
-            % Compute posterior spatial distributions
+            % IC 路径直接把该传感器 posterior 写回 objects，供下一个传感器继续更新。
             objects = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
         else
-            % No measurements collected
+            % 当前传感器没有测量时，只做该传感器的 missed-detection 更新。
             for i = 1:numel(objects)
                 objects(i).r = (objects(i).r * ( 1- model.detectionProbability(s))) / (1 - objects(i).r * model.detectionProbability(s));
             end
         end
     end
-    %% Gate tracks
-    % Determine which objects have high existence probabilities
+    %% 2.3 轨迹剪枝：低存在概率 component 不再参与后续递推
     objectsLikelyToExist = [objects.r] > model.existenceThreshold;
-    % Objects with low existence probabilities and long trajectories are worth exporting
+    % 已形成足够长轨迹的低概率 component 仍保存到输出列表。
     discardedObjects = objects(~objectsLikelyToExist & ([objects.trajectoryLength] > model.minimumTrajectoryLength));
     stateEstimates.objects(end+1:end+numel(discardedObjects)) =  discardedObjects;
-    % Keep objects with high existence probabilities
     objects = objects(objectsLikelyToExist);
-    %% MAP cardinality extraction
-    % Determine approximate MAP estimate of the posterior LMB
+    %% 2.4 MAP 基数/状态抽取
     [nMap, mapIndices] = lmbMapCardinalityEstimate([objects.r]);
-    % Extract RFS state estimate
+    % 写出当前时刻的 RFS estimate。
     stateEstimates.labels{t} = zeros(2, nMap);
     stateEstimates.mu{t} = cell(1, nMap);
     stateEstimates.Sigma{t} = cell(1, nMap);
@@ -90,7 +87,7 @@ for t = 1:simulationLength
         stateEstimates.mu{t}{i} = objects(j).mu{1};
         stateEstimates.Sigma{t}{i} = objects(j).Sigma{1};
     end
-    %% Update each object's trajectory
+    %% 2.5 更新轨迹缓存
     for i = 1:numel(objects)
         j = objects(i).trajectoryLength;
         objects(i).trajectoryLength = j + 1;
@@ -98,7 +95,7 @@ for t = 1:simulationLength
         objects(i).timestamps(j+1) = t;
     end 
 end
-%% Get any long trajectories that weren't extracted
+%% 3. 收尾：保存仍存活且足够长的轨迹
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;

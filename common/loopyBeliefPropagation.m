@@ -4,11 +4,10 @@ function [r, W] = loopyBeliefPropagation(associationMatrices, epsilon, maximumNu
 %
 %   This function determines each object's posterior existence and marginal
 %   association probabilities using loopy belief propagation (LBP).
-%   File guide:
-%       Fast default association solver for LMB updates. It consumes the
-%       generic associationMatrices struct produced by single- or
-%       multi-sensor association builders and returns marginals used by
-%       computePosteriorLmbSpatialDistributions.
+%   文件导读：
+%       LMB 更新中默认使用的快速关联求解器。输入是关联矩阵构造函数
+%       生成的 associationMatrices，输出是每个 Bernoulli 的 posterior
+%       existence probability 和每条测量的边缘关联概率。
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,
@@ -26,28 +25,27 @@ function [r, W] = loopyBeliefPropagation(associationMatrices, epsilon, maximumNu
 %       W - (n, m) array. An array of marginal association probabilities, where
 %           each row is an object's marginal association probabilities.
 
-%% Declare variables
+%% 1. 初始化 measurement-to-object 消息
 SigmaMT = ones(size(associationMatrices.Psi));
 notConverged = true;
 counter = 0;
-%% Loopy belief propagation
+%% 2. LBP 迭代：object cluster 和 measurement cluster 之间交替传消息
 while notConverged
-    % Cache previous iteration's messages
+    % 缓存上一轮消息，用于收敛判断。
     SigmaMTOld = SigmaMT;
-    % Pass messages from the object to the measurement clusters
+    % object -> measurement 消息。
     B = associationMatrices.Psi .* SigmaMT;
     SigmaTM = associationMatrices.Psi ./ (-B + sum(B, 2) + 1);
-    % Pass messages from the measurement to the object clusters
+    % measurement -> object 消息。
     SigmaMT = 1./ (-SigmaTM + sum(SigmaTM, 1) + 1);
-    % Check for convergence
+    % 最大消息变化量低于 epsilon 或达到最大迭代次数时停止。
     counter = counter + 1;
     delta = abs(SigmaMT - SigmaMTOld);
     notConverged = (max(delta(:)) > epsilon) && (counter < maximumNumberOfLbpIterations);
 end
 Gamma = [associationMatrices.phi B .* associationMatrices.eta];
 q = sum(Gamma, 2);
-%% Determine association probabilities
+%% 3. 从最终消息中恢复边缘关联概率和存在概率
 W = Gamma ./ q;
-%% Determine existence probabilities
 r = q ./ (associationMatrices.eta + q - associationMatrices.phi);
 end

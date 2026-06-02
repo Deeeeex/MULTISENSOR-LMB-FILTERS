@@ -6,10 +6,9 @@ function [r, W] = fixedLoopyBeliefPropagation(associationMatrices, maximumNumber
 %   association probabilities using loopy belief propagation (LBP).
 %   This algorithm uses a fixed number of iteratrions, and it is only used
 %   to verify the LMB filter's asymptotic computational complexity.
-%   File guide:
-%       Benchmark-only LBP variant. Prefer loopyBeliefPropagation in normal
-%       runs; use this file when the experiment needs deterministic
-%       iteration counts rather than convergence-based stopping.
+%   文件导读：
+%       固定迭代次数的 LBP 版本，只用于复杂度或运行时对照。正常滤波
+%       推荐使用 loopyBeliefPropagation，因为它会按收敛阈值提前停止。
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,
@@ -26,20 +25,19 @@ function [r, W] = fixedLoopyBeliefPropagation(associationMatrices, maximumNumber
 %       W - array. An array of marginal association probabilities, where
 %           each row is an object's marginal association probabilities.
 
-%% Declare variables
+%% 1. 初始化消息
 SigmaMT = ones(size(associationMatrices.Psi));
-%% Loopy belief propagation
+%% 2. 固定轮数 LBP 迭代：不做收敛提前停止
 for i = 1:maximumNumberOfLbpIterations
-    % Pass messages from the object to the measurement clusters
+    % object -> measurement 消息。
     B = associationMatrices.Psi .* SigmaMT;
     SigmaTM = associationMatrices.Psi ./ (-B + sum(B, 2) + 1);
-    % Pass messages from the measurement to the object clusters
+    % measurement -> object 消息。
     SigmaMT = 1./ (-SigmaTM + sum(SigmaTM, 1) + 1);
 end
 Gamma = [associationMatrices.phi B .* associationMatrices.eta];
 q = sum(Gamma, 2);
-%% Determine association probabilities
+%% 3. 恢复边缘关联概率和存在概率
 W = Gamma ./ q;
-%% Determine existence probabilities
 r = q ./ (associationMatrices.eta + q - associationMatrices.phi);
 end

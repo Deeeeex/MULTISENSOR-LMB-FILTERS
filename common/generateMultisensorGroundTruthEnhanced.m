@@ -5,9 +5,9 @@ function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = gener
 %
 %   This wrapper delegates to generateMultisensorGroundTruth, which now
 %   supports CV, CT, and Formation sensor motion as well as formation targets.
-%   File guide:
-%       Backward-compatible alias for older scripts. Prefer reading
-%       generateMultisensorGroundTruth for the active implementation.
+%   文件导读：
+%       旧 enhanced-motion 脚本的兼容入口。当前真实实现已经集中在
+%       generateMultisensorGroundTruth；阅读核心逻辑时优先看那个文件。
 %
 %   See also generateMultisensorGroundTruth
 

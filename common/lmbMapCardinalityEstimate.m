@@ -3,10 +3,10 @@ function [nMap, mapIndices] = lmbMapCardinalityEstimate(r)
 %   [nMap, mapIndices] = lmbMapCardinalityEstimate(r)
 %
 %   This function computes an approximate MAP estimate for the LMB filter.
-%   File guide:
-%       Final state-extraction helper. Filters call it after posterior
-%       updates to choose how many Bernoulli components to export and which
-%       labels become the time-step estimate.
+%   文件导读：
+%       LMB 输出阶段的 MAP 基数估计器。滤波器完成 posterior update 后，
+%       用它决定当前时刻输出多少个 Bernoulli component，以及选择哪些
+%       label 作为状态估计。
 %
 %   See also runLmbFilter.
 %
@@ -19,15 +19,13 @@ function [nMap, mapIndices] = lmbMapCardinalityEstimate(r)
 %       mapIndices - array. The indices of the nMap greatest indices
 %           of r
 
-% Use Mahler's aglorithm to determine the LMB cardinality distribution
+%% 1. 用 elementary symmetric function 计算 LMB cardinality distribution
 r = r - 1e-6; % Does not work with unit existence probabilities
 rho = prod(1 - r)*esf(r./(1-r));
-% Determine the MAP estimate of the distribution
+%% 2. 选择 MAP cardinality，并返回存在概率最高的 nMap 个 component
 [~, maxCardinalityIndex] = max(rho);
 % The MAP estimate cannot be larger than the number of objects
 nMap = min(maxCardinalityIndex - 1, length(r));
-% Sort r in descending order
 [~, sortedIndices] = sort(-r);
-% Choose the nMap largest indices of r
 mapIndices = sortedIndices(1:nMap);
 end

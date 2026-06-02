@@ -3,17 +3,19 @@ function [measurementsScheduled, samplingStats] = applyMultiRateSensorSchedule(m
 %   Non-sampling instants are marked separately from scheduled scans with no
 %   detections so multi-rate experiments can propagate stale posteriors
 %   without treating every skipped scan as a missed detection.
-%   File guide:
-%       Pre-filter scheduler for asynchronous sensors. It removes scans at
-%       unscheduled time steps and returns age/mask diagnostics consumed by
-%       freshness and information-decay weighting experiments.
+%   文件导读：
+%       多速率传感器的预调度器。未采样时刻会被标记为 prediction-only，
+%       这样滤波器不会把“没采样”误当成“采样但没有检测”。返回的 age
+%       和 mask 诊断可供 freshness / information-decay 权重使用。
 
+%% 1. 没有调度配置时直接透传 measurements
 if nargin < 2 || isempty(samplingPeriods)
     measurementsScheduled = measurements;
     samplingStats = struct();
     return;
 end
 
+%% 2. 规范化采样周期和相位偏移
 if ~iscell(measurements)
     error('measurements must be a cell array.');
 end
@@ -35,6 +37,7 @@ if numel(phaseOffsets) ~= numSensors
 end
 phaseOffsets = mod(phaseOffsets, samplingPeriods);
 
+%% 3. 按传感器逐时刻应用采样周期；未采样时刻清空观测并记录 age
 measurementsScheduled = measurements;
 sensorSampleMask = false(numSensors, numSteps);
 sensorSampleAge = zeros(numSensors, numSteps);

@@ -7,11 +7,11 @@ function [associationMatrices, posteriorParameters] = generateLmbSensorAssociati
 %   Gibbs sampler, and Murty's algorithms for a given sensor. It also 
 %   determines the measurement-updated components requried for each sensor's measurement update.
 %   Supports mobile sensors with position-dependent measurements.
-%   File guide:
-%       Per-sensor version of generateLmbAssociationMatrices. It adds
-%       sensor-indexed measurement models, mobile-sensor geometry,
-%       state-dependent p_D/Q, NIS diagnostics, and association ambiguity
-%       scores used by adaptive multi-sensor fusion.
+%   文件导读：
+%       每个传感器的关联矩阵构造器，是单传感器 generateLmbAssociationMatrices
+%       的多传感器版本。它额外处理 sensor-indexed C/Q、移动传感器几何、
+%       state-dependent p_D/Q、NIS 诊断和 association ambiguity 诊断；这些
+%       诊断可被动态权重模块读取。
 %
 %   See also runLmbFilter, generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %
@@ -49,7 +49,7 @@ function [associationMatrices, posteriorParameters] = generateLmbSensorAssociati
 %           posterior spatial distribution parameters.
 %
 
-%% Declare output structs
+%% 1. 分配关联矩阵、诊断量和 posterior component 容器
 numberOfObjects = numel(objects);
 numberOfMeasurements = numel(z);
 if nargin < 5 || isempty(currentTime)
@@ -65,17 +65,16 @@ posteriorParameters.w = [];
 posteriorParameters.mu = {};
 posteriorParameters.Sigma = {};
 posteriorParameters = repmat(posteriorParameters, 1, numberOfObjects);
-%% Populate the LBP arrays, and compute posterior components
+%% 2. 对每个 Bernoulli component 计算该传感器下的漏检项和检测项
 for i = 1:numberOfObjects
-    % Predeclare the object's posterior components, and include missed detection event
+    % 第 1 行是 missed-detection component，后面每一行对应一条测量。
     posteriorParameters(i).w = -inf(numberOfMeasurements + 1, objects(i).numberOfGmComponents);
     posteriorParameters(i).mu  = repmat(objects(i).mu, numberOfMeasurements + 1, 1);
     posteriorParameters(i).Sigma = repmat(objects(i).Sigma, numberOfMeasurements + 1, 1);
     missedDetectionLikelihood = 0;
-    %% Determine marginal likelihood ratio of the object generating each measurement
+    %% 2.1 遍历该 Bernoulli 的 Gaussian mixture component
     for j = 1:objects(i).numberOfGmComponents
-        % Update components for a mixture component
-        % Phase 1: Support for mobile sensors
+        % 移动传感器场景下，观测均值要根据当前传感器位置计算。
         if model.sensorMotionEnabled && nargin >= 4
             sensorPos = model.sensorTrajectories{s}(1:2, currentTime);
             targetPos = objects(i).mu{j}(1:2);
@@ -84,6 +83,7 @@ for i = 1:numberOfObjects
             muZ = model.C{s} * objects(i).mu{j};
         end
 
+        % p_D 和 Q 可以随目标-传感器几何变化；这是动态权重质量诊断的输入之一。
         [pdSensor, qSensor] = evaluateSensorQuality(model, s, objects(i).mu{j}, currentTime);
         pdSensorForLog = max(pdSensor, realmin);
         missedDetectionForLog = max(1 - pdSensor, realmin);
@@ -97,9 +97,9 @@ for i = 1:numberOfObjects
         projectionCov = objects(i).Sigma{j} * model.C{s}';
         K = projectionCov / Z;
         SigmaUpdated = (eye(model.xDimension) - K * model.C{s}) * objects(i).Sigma{j};
-        % Determine total marginal likelihood, and determine posterior components
+        % 将当前 Gaussian component 对所有测量的贡献累加到 L 和 posteriorParameters。
         for k = 1:numberOfMeasurements
-            % Determine marginal likelihood ratio
+            % L(i,k) 是 object i 由当前传感器 measurement k 生成的 likelihood ratio。
             nu = z{k} - muZ;
             nisValue = nu' * (Z \ nu);
             gaussianLogLikelihood = logGaussianNormalisingConstant - 0.5 * nisValue;
@@ -107,7 +107,7 @@ for i = 1:numberOfObjects
             if nisValue < nisMin(k)
                 nisMin(k) = nisValue;
             end
-            % Determine updated mean and covariance for each mixture component
+            % 保存当前测量条件下的 posterior Gaussian component。
             posteriorParameters(i).w(k+1, j) = log(objects(i).w(j)) + gaussianLogLikelihood + log(pdSensorForLog) - log(model.clutterPerUnitVolume(s));
             posteriorParameters(i).mu{k+1, j} = objects(i).mu{j} + K * nu;
             posteriorParameters(i).Sigma{k+1, j} = SigmaUpdated;

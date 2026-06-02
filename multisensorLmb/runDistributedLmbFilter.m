@@ -5,11 +5,11 @@ function [stateEstimatesBySensor, localModels, neighborMap] = runDistributedLmbF
 %
 %   Each sensor performs local fusion using its own measurements plus those
 %   received from neighboring sensors. There is no centralized fusion.
-%   File guide:
-%       Distributed wrapper around the centralized parallel-update driver.
-%       It builds each sensor's neighborhood sub-model, assigns topology
-%       weights, slices measurements/communication stats, and runs local
-%       PU/GA/AA fusion independently.
+%   文件导读：
+%       分布式本地融合的包装层。它不直接计算动态权重，而是为每个传感器
+%       构造邻域 sub-model、初始化 Metropolis/Uniform 拓扑权重、生成
+%       spatial/existence 结构先验，再调用 runParallelUpdateLmbFilter 在本地
+%       邻域内执行 GA/AA/PU 融合。
 %
 %   Inputs
 %       model - full multi-sensor model
@@ -26,6 +26,7 @@ numberOfSensors = model.numberOfSensors;
 if nargin < 3
     sensorTrajectories = [];
 end
+%% 1. 确定每个传感器的通信邻域
 if nargin < 4 || isempty(neighborMap)
     neighborMap = computeNeighborMap(model, sensorTrajectories);
 end
@@ -33,6 +34,7 @@ end
 stateEstimatesBySensor = cell(1, numberOfSensors);
 localModels = cell(1, numberOfSensors);
 
+%% 2. 根据邻域图初始化固定拓扑权重：Metropolis 或 Uniform
 if isfield(model, 'fusionWeighting')
     fusionWeighting = model.fusionWeighting;
 else
@@ -44,8 +46,10 @@ else
     weightsBySensor = computeUniformWeights(neighborMap);
 end
 
+%% 3. 对每个传感器构造局部问题，并在其邻域内独立运行并行更新滤波器
 for s = 1:numberOfSensors
     neighborIdx = neighborMap{s};
+    % sub-model 只保留该传感器可见邻域内的传感器参数。
     localModels{s} = buildSubModel(model, neighborIdx);
     localModels{s}.gaSensorWeights = weightsBySensor{s};
     localModels{s}.aaSensorWeights = weightsBySensor{s};
@@ -53,6 +57,7 @@ for s = 1:numberOfSensors
     localModels{s}.aaSpatialWeights = weightsBySensor{s};
     localModels{s}.gaExistenceWeights = weightsBySensor{s};
     localModels{s}.aaExistenceWeights = weightsBySensor{s};
+    % 结构先验是动态权重 structure-aware 分支的输入，不直接替代质量因子。
     [spatialStructurePrior, existenceStructurePrior] = computeLocalStructurePriors(neighborMap, s, neighborIdx);
     localModels{s}.gaTopologyWeights = weightsBySensor{s};
     localModels{s}.aaTopologyWeights = weightsBySensor{s};
@@ -60,6 +65,7 @@ for s = 1:numberOfSensors
     localModels{s}.aaSpatialStructurePrior = spatialStructurePrior;
     localModels{s}.gaExistenceStructurePrior = existenceStructurePrior;
     localModels{s}.aaExistenceStructurePrior = existenceStructurePrior;
+    % measurements 和 commStats 都要切片到局部邻域，保持索引和 sub-model 对齐。
     localMeasurements = measurements(neighborIdx, :);
     localSensorTraj = [];
     if ~isempty(sensorTrajectories)
@@ -78,6 +84,10 @@ end
 end
 
 function [spatialPrior, existencePrior] = computeLocalStructurePriors(neighborMap, sourceSensorIdx, sensorIdx)
+% 中文导读：
+%   根据邻域重叠度生成两个结构先验。spatial 分支偏向结构冗余的邻居，
+%   因为冗余邻居更容易提供稳定空间一致性；existence 分支只给轻量
+%   novelty 偏好，避免拓扑修正过度影响基数判断。
 nLocal = numel(sensorIdx);
 spatialPrior = ones(1, nLocal);
 existencePrior = ones(1, nLocal);
@@ -112,6 +122,9 @@ existencePrior = existencePrior / mean(existencePrior);
 end
 
 function neighborMap = computeNeighborMap(model, sensorTrajectories)
+% 中文导读：
+%   根据传感器初始位置和通信半径生成邻域图。没有可达邻居时至少保留
+%   自身，保证每个 local filter 都有合法传感器集合。
     numberOfSensors = model.numberOfSensors;
     neighborMap = cell(1, numberOfSensors);
     if isfield(model, 'sensorCommRange')
@@ -145,6 +158,9 @@ function neighborMap = computeNeighborMap(model, sensorTrajectories)
 end
 
 function subModel = buildSubModel(model, sensorIdx)
+% 中文导读：
+%   从全局 model 中切出局部邻域 model。动态权重和融合函数都按局部
+%   sensor index 工作，因此 C/Q/clutter/p_D 必须同步切片。
     subModel = model;
     subModel.numberOfSensors = numel(sensorIdx);
     subModel.C = model.C(sensorIdx);
@@ -155,6 +171,9 @@ function subModel = buildSubModel(model, sensorIdx)
 end
 
 function localCommStats = sliceCommStats(commStats, sensorIdx)
+% 中文导读：
+%   commStats 的矩阵字段也要按邻域切片，否则动态权重会把局部传感器
+%   权重和全局通信统计错位。
     localCommStats = commStats;
     if isfield(commStats, 'pDropBySensor') && numel(commStats.pDropBySensor) >= max(sensorIdx)
         localCommStats.pDropBySensor = commStats.pDropBySensor(sensorIdx);

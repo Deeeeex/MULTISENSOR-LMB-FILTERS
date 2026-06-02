@@ -5,10 +5,10 @@ function objects = puLmbTrackMerging(measurementUpdatedDistributions, objects, m
 %   Merge the objects' measurement-updated distributions together while
 %   assuming independent sensors. Very crude merging algorithm, it might be
 %   better use expectation propagation (if possible).
-%   File guide:
-%       Parallel-update fusion under conditional sensor independence. It
-%       multiplies sensor-updated spatial likelihoods after compensating for
-%       the repeated prior, then updates Bernoulli existence probabilities.
+%   文件导读：
+%       PU 融合路径。它假设传感器条件独立，直接合并各传感器的
+%       measurement-updated posterior，并补偿重复使用的 prior。注意：
+%       当前动态 GA/AA 权重不作用于 PU，本文件主要用于融合规则对照。
 %
 %   See also generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %
@@ -24,18 +24,18 @@ function objects = puLmbTrackMerging(measurementUpdatedDistributions, objects, m
 %           components.
 
 
-%% Merge each objects measurement-updated spatial distributions
+%% 1. 逐 Bernoulli component 合并各传感器的 measurement-updated posterior
 for i = 1:numel(objects)
-    %% Determine posterior mixture size
+    %% 1.1 计算跨传感器 Gaussian mixture 的笛卡尔积大小
     numberOfGmComponents = zeros(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
         numberOfGmComponents(s) = measurementUpdatedDistributions{s}(i).numberOfGmComponents;
     end
-    %% Convert prior to canonical form
+    %% 1.2 将 prior 转成 canonical form，用于补偿多次使用 prior
     KPrior = inv(objects(i).Sigma{1});
     hPrior = KPrior * objects(i).mu{1};
     gPrior = -0.5 * objects(i).mu{1}' * KPrior * objects(i).mu{1} - 0.5 * log(det(2*pi*objects(i).Sigma{1}));
-    %% Preallocate posterior mixture
+    %% 1.3 预分配融合后 mixture；初值包含 prior 补偿项
     numberOfPosteriorGmComponents = prod(numberOfGmComponents);
     K = repmat({ (1 - model.numberOfSensors) * KPrior  }, 1, numberOfPosteriorGmComponents);
     h = repmat({ (1 - model.numberOfSensors) * hPrior  }, 1, numberOfPosteriorGmComponents);
@@ -66,7 +66,7 @@ for i = 1:numel(objects)
             end
         end
     end
-    %% Convert to covariance form and normalise
+    %% 1.4 转回 covariance form 并归一化 mixture 权重
     for j = 1:numberOfPosteriorGmComponents
         T = K{j};
         % Reuse variable names
@@ -77,7 +77,7 @@ for i = 1:numel(objects)
     eta = sum(exp(g));
     w = exp(g - max(g));
     w = w ./ sum(w);
-    %% Determine existence probability
+    %% 1.5 合并 Bernoulli existence probability
     numerator = eta * (objects(i).r)^(1 - model.numberOfSensors);
     partialDenominator = (1 - objects(i).r)^(1 - model.numberOfSensors);
     for s = 1:model.numberOfSensors

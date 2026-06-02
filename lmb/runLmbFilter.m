@@ -3,11 +3,11 @@ function stateEstimates = runLmbFilter(model, measurements)
 %   stateEstimates = runLmbFilter(model, measurements)
 %
 %   Determine the objects' state estimates using the LMB filter.
-%   File guide:
-%       Single-sensor LMB driver. Each time step follows the core sequence:
-%       prediction, association-matrix construction, selected association
-%       solver, posterior mixture update, pruning, MAP cardinality
-%       extraction, and trajectory bookkeeping.
+%   文件导读：
+%       单传感器 LMB 主循环。每个时刻都按固定顺序推进：
+%       预测 -> 构造关联矩阵 -> 选择 LBP/Gibbs/Murty 求关联边缘概率
+%       -> 重组 posterior Gaussian mixture -> 剪枝 -> MAP 基数/状态输出
+%       -> 轨迹记录。阅读这个文件可以把握 LMB 主算法的骨架。
 %
 %   See also generateModel, generateGroundTruth, lmbPredictionStep,
 %   generateLmbAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 
@@ -23,7 +23,7 @@ function stateEstimates = runLmbFilter(model, measurements)
 %           approximate MAP estimate for each time-step of the simulation, as
 %           well as the objects' trajectories.
 
-%% Initialise variables
+%% 1. 初始化：objects 是当前 LMB 的 Bernoulli component 集合
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 objects = model.object;
@@ -32,57 +32,54 @@ stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
 stateEstimates.Sigma = cell(simulationLength, 1);
 stateEstimates.objects = objects;
-%% Run the LMB filter
+%% 2. 时间递推：每个时刻执行 prediction + measurement update + extraction
 for t = 1:simulationLength
-    %% Prediction
+    %% 2.1 预测：传播已有 Bernoulli，并加入当前时刻的 birth components
     objects = lmbPredictionStep(objects, model, t);
-    %% Measurement update
+    %% 2.2 量测更新：有观测时走关联求解，无观测时只做 missed-detection 更新
     if (numel(measurements{t}))
-        % Populate the association matrices required by the data association algorithms
+        % 先把 likelihood、missed detection 和 Kalman 更新组件统一整理好。
         [associationMatrices, posteriorParameters] = generateLmbAssociationMatrices(objects, measurements{t}, model);
         if (strcmp(model.dataAssociationMethod, 'LBP'))
-            % Data association by way of loopy belief propagation
+            % LBP：默认快速近似关联后端。
             [r, W] = loopyBeliefPropagation(associationMatrices, model.lbpConvergenceTolerance, model.maximumNumberOfLbpIterations);
         elseif(strcmp(model.dataAssociationMethod, 'LBPFixed'))
             [r, W] = fixedLoopyBeliefPropagation(associationMatrices, model.maximumNumberOfLbpIterations);
         elseif(strcmp(model.dataAssociationMethod, 'Gibbs'))
-            % Data association by way of Gibbs sampling
+            % Gibbs：采样式近似后端，用于对照或不确定性分析。
             [r, W] = lmbGibbsSampling(associationMatrices, model.numberOfSamples);
         else
-            % Data association by way of Murty's algorithm
+            % Murty：K-best assignment 后端，通常更贵，适合小规模基准。
             [r, W] = lmbMurtysAlgorithm(associationMatrices, model.numberOfAssignments);
         end
-        % Compute posterior spatial distributions
+        % 将关联边缘概率 W 写回 Gaussian mixture，得到 posterior LMB。
         objects = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
     else
-        % No measurements collected
+        % 没有量测时，每个 Bernoulli 只根据漏检概率更新存在概率。
         for i = 1:numel(objects)
             objects(i).r = (objects(i).r * (1-model.detectionProbability)) / (1 - objects(i).r * model.detectionProbability);
         end
     end
-    %% Gate tracks
-    % Determine which objects have high existence probabilities
+    %% 2.3 轨迹剪枝：低存在概率的 component 不再参与后续递推
     objectsLikelyToExist = [objects.r] > model.existenceThreshold;
-    % Objects with low existence probabilities and long trajectories are worth exporting
+    % 如果低概率 component 已经形成足够长轨迹，仍保存到输出对象列表中。
     discardedObjects = objects(~objectsLikelyToExist & ([objects.trajectoryLength] > model.minimumTrajectoryLength));
     stateEstimates.objects(end+1:end+numel(discardedObjects)) =  discardedObjects;
-    % Keep objects with high existence probabilities
     objects = objects(objectsLikelyToExist);
-    %% MAP cardinality extraction
-    % Determine approximate MAP estimate of the posterior LMB
+    %% 2.4 MAP 基数抽取：决定本时刻输出几个目标
     [nMap, mapIndices] = lmbMapCardinalityEstimate([objects.r]);
-    % Extract RFS state estimate
+    % 按存在概率排序后的 component 输出为 RFS state estimate。
     stateEstimates.labels{t} = zeros(2, nMap);
     stateEstimates.mu{t} = cell(1, nMap);
     stateEstimates.Sigma{t} = cell(1, nMap);
     for i = 1:nMap
         j = mapIndices(i);
-        % Gaussians in the posterior GM are sorted according to weight
+        % posterior GM 已按权重排序，取每个 component 的主 Gaussian。
         stateEstimates.labels{t}(:, i) = [objects(j).birthTime; objects(j).birthLocation];
         stateEstimates.mu{t}{i} = objects(j).mu{1};
         stateEstimates.Sigma{t}{i} = objects(j).Sigma{1};
     end
-    %% Update each object's trajectory
+    %% 2.5 更新轨迹缓存：供可视化和长轨迹导出使用
     for i = 1:numel(objects)
         j = objects(i).trajectoryLength;
         objects(i).trajectoryLength = j + 1;
@@ -90,7 +87,7 @@ for t = 1:simulationLength
         objects(i).timestamps(j+1) = t;
     end 
 end
-%% Get any long trajectories that weren't extracted
+%% 3. 收尾：把仍存活且足够长的轨迹也写入输出
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;

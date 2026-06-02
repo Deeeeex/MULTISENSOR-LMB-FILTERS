@@ -5,11 +5,10 @@ function [measurementsDelivered, commStats] = applyCommunicationModel(measuremen
 %   Applies global measurement budget, link loss, and node outage models
 %   before measurements are passed to a filter. This function is designed
 %   to be called by entry scripts (e.g., runMultisensorFilters).
-%   File guide:
-%       Communication-layer shim between simulated measurements and filters.
-%       It preserves the measurement cell shape while recording masks,
-%       packet/measurement drops, node outages, and link-quality summaries
-%       used by adaptive fusion weights.
+%   文件导读：
+%       观测进入滤波器前的通信约束层。它不会改变 measurements 的整体
+%       cell 形状，只在其中删除未送达的测量，并把带宽丢弃、链路丢包、
+%       节点 outage、可用性 mask 和 link-quality 统计写入 commStats。
 %
 %   Inputs
 %       measurements - cell array. For multi-sensor: sensors x time cell matrix.
@@ -20,6 +19,7 @@ function [measurementsDelivered, commStats] = applyCommunicationModel(measuremen
 %       measurementsDelivered - cell array. Same shape as input measurements.
 %       commStats - struct. Basic statistics about drops and outages.
 
+%% 1. 输入兜底和 measurements 形状规范化
 if nargin < 3
     commConfig = struct();
 end
@@ -43,6 +43,7 @@ if isfield(model, 'numberOfSensors')
     numSensors = model.numberOfSensors;
 end
 
+%% 2. 读取通信模型配置和默认值
 level = getField(commConfig, 'level', 0);
 
 % Defaults
@@ -72,6 +73,7 @@ outageSchedule = getField(commConfig, 'outageSchedule', []);
 outageMinDuration = getField(commConfig, 'outageMinDuration', 10);
 outageMaxDuration = getField(commConfig, 'outageMaxDuration', 30);
 
+%% 3. 规范化 per-sensor 权重和丢包率配置
 if numel(sensorWeights) ~= numSensors
     sensorWeights = ones(1, numSensors);
 end
@@ -87,6 +89,7 @@ if ~isempty(pDropBySensor)
     end
 end
 
+%% 4. 初始化 delivered measurements 和统计字段
 measurementsDelivered = measurements;
 
 commStats = struct();
@@ -103,6 +106,7 @@ else
     commStats.pDropBySensor = pDrop * ones(1, numSensors);
 end
 
+%% 5. Level 0 表示理想通信：直接返回原始观测
 if level <= 0
     if isVector
         measurementsDelivered = reshape(measurementsDelivered, originalSize);

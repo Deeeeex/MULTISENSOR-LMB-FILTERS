@@ -6,16 +6,15 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness/informationDecay * nisPenalty * history
 %   where NIS acts as a consistency penalty instead of a quality reward.
 %   The final weights are then normalized with temporal EMA smoothing.
-%   File guide:
-%       Adaptive weighting engine for GA/AA fusion. It supports the general
-%       factorized mode plus direct PD-weighted, FI-weighted, and FID-FIA
-%       baselines, and returns both fusion weights and debug factors for
-%       experiment reports.
+%   文件导读：
+%       GA/AA 动态权重的核心实现。入口接收每个传感器的 local posterior、
+%       measurements、model 配置、当前时刻 t、通信/诊断统计和上一时刻权重。
+%       输出包括 GA/AA scalar weights、spatial/existence branch weights、
+%       target-wise weights，以及用于报告和排错的 debug 因子。
 
 numSensors = model.numberOfSensors;
 
-% Read feature flags and hyperparameters once at the top. The helper
-% functions below should stay side-effect free, except for debug state.
+%% 1. 读取配置：决定当前是 factorized 主线还是 PD/FI/FID-FIA direct baseline
 cfg = struct();
 if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
     cfg = model.adaptiveFusion;
@@ -54,8 +53,7 @@ usePosteriorStructureConsistency = getField(cfg, 'usePosteriorStructureConsisten
 useFidFiaExistence = getField(cfg, 'useFidFiaExistence', false);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
-% Direct baseline modes bypass the general factor product so their reported
-% weights remain faithful to the named PD/FI/FID-FIA scoring rule.
+%% 2. Direct baseline：这些方法直接给出权重，不进入 factor product 主线
 if isFidFiaMethod(method)
     [gaWeights, aaWeights, debug] = computeFidFiaFusionWeights( ...
         measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights);
@@ -90,17 +88,17 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [fidFiaExistenceScore, fidFiaScore, fidFiaPairCounts] = resolveFidFiaExistenceScore( ...
     measurementUpdatedDistributions, model, t, cfg, availabilityMask, useFidFiaExistence);
 
-% General adaptive mode: multiply comparable scores, then normalize only at
-% the end. This keeps the debug fields interpretable as individual factors.
+%% 3. Factorized backbone：先组合可解释因子，最后再统一归一化为权重
+% 这样 debug 中的每个 score 仍能单独解释，而不是提前被归一化掩盖。
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
     associationAmbiguityScore .* ...
     freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
 
 if useDecoupledKla
-    % Decoupled mode lets spatial KLA weights and existence/cardinality
-    % weights react to different factor subsets while still sharing the
-    % same availability mask and temporal smoothing machinery.
+    %% 4. Decoupled KLA：空间分支和存在/基数分支使用不同的专用 score
+    % spatial branch 更关注 posterior concentration 和链路可靠性；
+    % existence branch 更关注 existence confidence、cardinality/freshness 等信号。
     spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
         (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
         ctFiDecayScore .* innovationPenalty .* historyScore;
@@ -122,6 +120,7 @@ if useDecoupledKla
     end
     spatialStructureScore = ones(1, numSensors);
     existenceStructureScore = ones(1, numSensors);
+    %% 4.1 可选 structure-aware 调制：用拓扑/结构一致性轻量修正两条分支
     if useStructureAwareKla
         if usePosteriorStructureConsistency
             [spatialStructureScore, existenceStructureScore] = resolveStructureConsistencyScores( ...
@@ -135,11 +134,13 @@ if useDecoupledKla
             existenceStructureScore = existenceStructurePrior;
         end
     end
+    %% 4.2 Cardinality-critical refinement：FID-FIA 只调制 existence branch
     if useFidFiaExistence
         fidFiaExistenceStrength = max(getField(cfg, 'fidFiaExistenceStrength', 0.5), 0);
         existenceScore = existenceScore .* (fidFiaExistenceScore .^ fidFiaExistenceStrength);
     end
 
+    %% 4.3 归一化、EMA 平滑和最小权重保护
     spatialPrev = resolvePreviousWeights(prevWeights, 'gaSpatial', 'ga', numSensors);
     existencePrev = resolvePreviousWeights(prevWeights, 'gaExistence', 'ga', numSensors);
 
@@ -152,6 +153,7 @@ if useDecoupledKla
     aaWeights = spatialWeights;
     rawWeights = spatialWeights;
 else
+    %% 5. 非解耦路径：所有因子合成一条 scalar 权重，同时用于 spatial/existence
     rawWeights = normalizeScores(rawScore, availabilityMask);
 
     weights = rawWeights;
@@ -172,8 +174,7 @@ else
     existenceWeights = weights;
 end
 
-% The debug struct is intentionally verbose: report scripts use it to audit
-% which factors drove the selected weights at every time step.
+%% 6. debug 输出：保留每个因子和最终权重，供报告、消融和排错使用
 debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = covScore;
@@ -1361,12 +1362,12 @@ end
 end
 
 function [nu, T] = mprojection(n, measurementUpdatedDistribution)
-% Determine m-projected mean
+% 计算 m-projection 后的均值。
 nu = zeros(n, 1);
 for j = 1:measurementUpdatedDistribution.numberOfGmComponents
     nu = nu + measurementUpdatedDistribution.w(j) * measurementUpdatedDistribution.mu{j};
 end
-% Determine m-projected covariance
+% 计算 m-projection 后的协方差。
 T = zeros(n, n);
 for j = 1:measurementUpdatedDistribution.numberOfGmComponents
     w = measurementUpdatedDistribution.w(j);

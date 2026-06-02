@@ -4,10 +4,10 @@ function posteriorHypotheses = determinePosteriorHypothesisParameters(V, L, post
 %
 %   Determine a parameters for a new set of posterior LMBM hypotheses.
 %   These hypotheses will have unnormalised hypothesis weights.
-%   File guide:
-%       Converts sampled or K-best association events into LMBM posterior
-%       hypotheses. This is where association likelihoods become hypothesis
-%       weights, existence probabilities, and selected spatial components.
+%   文件导读：
+%       将 Gibbs 或 Murty 生成的关联事件转换为 LMBM posterior hypotheses。
+%       这里会把 association likelihood 写入 hypothesis weight，并根据
+%       关联事件选择存在概率、均值和协方差。
 %
 %   See also runLmbmFilter, generateLmbmAssociationMatrices, lmbmGibbsSampling
 %
@@ -26,21 +26,21 @@ function posteriorHypotheses = determinePosteriorHypothesisParameters(V, L, post
 %       posteriorHypotheses - struct. A struct containing posterior LMBM
 %           hypotheses, but with unnormalised hypothesis weights.
 
-%% Declare the out variables
+%% 1. 准备输出 hypotheses；每个关联事件对应一个 posterior hypothesis
 numberOfObjects = numel(priorHypothesis.r);
 eta = 1:numberOfObjects;
 numberOfPosteriorHypotheses = size(V, 1);
 priorHypothesis.r = posteriorParameters.r;
 posteriorHypotheses = repmat(priorHypothesis, 1, numberOfPosteriorHypotheses);
-%% Generate a set of posterior hypotheses
+%% 2. 遍历关联事件，写入 hypothesis weight 和 component 参数
 for i = 1:numberOfPosteriorHypotheses
-    % Association event
+    % 当前关联事件。
     v = V(i, :);
-    % Linear indices
+    % 将 object/measurement 关联事件转成 posteriorParameters 的线性索引。
     ell = numberOfObjects * v + eta;
-    % Missed detection events
+    % v>0 表示该 object 生成了某条测量，否则是 missed detection。
     generatedMeasurement = v > 0;
-    % Hypothesis weight
+    % hypothesis weight = prior weight + 当前关联事件 log likelihood。
     posteriorHypotheses(i).w = log(priorHypothesis.w) + sum(L(ell));
     % Existence probabilities
     posteriorHypotheses(i).r(generatedMeasurement, :) = 1;

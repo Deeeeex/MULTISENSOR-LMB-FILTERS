@@ -4,10 +4,10 @@ function [hypotheses, objectsLikelyToExist] = lmbmNormalisationAndGating(posteri
 %
 %   This function discards unlikely posterior parameters, and discards
 %   Bernoulli with low existence probabilities from each hypothesis.
-%   File guide:
-%       Hypothesis-management cleanup step. It prevents LMBM branching from
-%       growing without bound by normalizing, pruning weak global hypotheses,
-%       and returning the trajectory mask used by runLmbmFilter.
+%   文件导读：
+%       LMBM hypothesis 管理步骤。它负责归一化 global hypothesis 权重、
+%       删除低权重 hypotheses、限制 hypothesis 数量，并根据总存在概率
+%       返回 component/trajectory 的保留 mask。
 %
 %   See also runLmbmFilter
 %
@@ -22,18 +22,18 @@ function [hypotheses, objectsLikelyToExist] = lmbmNormalisationAndGating(posteri
 %       objectsLikelyToExist - array. An array of boolean indicating which objects
 %           have been kept, and which have been discarded.
 
-%% Normalise posterior hypothesis weights
+%% 1. 归一化 posterior hypothesis 权重
 logW = [posteriorHypotheses.w];
 maxW = max(logW, [], 2);
 w = exp(logW - maxW) ./ sum(exp(logW - maxW));
-%% Gate posterior hypotheses
+%% 2. 删除低权重 hypotheses
 likelyHypotheses = w > model.posteriorHypothesisWeightThreshold;
 hypotheses = posteriorHypotheses(likelyHypotheses);
 w = w(likelyHypotheses) ./ sum(w(likelyHypotheses));
-%% Sort the hypotheses according to weight
+%% 3. 按 hypothesis 权重降序排序
 [w, sortedIndices] = sort(w, 'descend');
 hypotheses = hypotheses(sortedIndices);
-%% If number of posterior parameters exceed the maximum, discard the hypotheses with lowest weights
+%% 4. 如果 hypothesis 数量过多，只保留最高权重的一批
 numberOfHypotheses = numel(w);
 if (numberOfHypotheses > model.maximumNumberOfPosteriorHypotheses)
     w = w(1:model.maximumNumberOfPosteriorHypotheses);
@@ -41,7 +41,7 @@ if (numberOfHypotheses > model.maximumNumberOfPosteriorHypotheses)
     hypotheses = hypotheses(1:model.maximumNumberOfPosteriorHypotheses);
     numberOfHypotheses = model.maximumNumberOfPosteriorHypotheses;
 end
-%% Determine total existence probability for each object, and discard unlikely components from each posterior hypothesis
+%% 5. 汇总每个 component 的总存在概率，并同步剪枝所有 hypotheses
 r = sum(w .* [hypotheses.r], 2);
 objectsLikelyToExist = r > model.existenceThreshold;
 for i = 1:numberOfHypotheses
@@ -53,7 +53,7 @@ for i = 1:numberOfHypotheses
     hypotheses(i).mu = hypotheses(i).mu(objectsLikelyToExist);
     hypotheses(i).Sigma = hypotheses(i).Sigma(objectsLikelyToExist);
 end
-%% Finally, this might be necessary sometimes
+%% 6. 极端情况下兜底，避免返回空 hypothesis 集合
 if (numberOfHypotheses == 0)
     hypotheses = model.hypotheses;
 end

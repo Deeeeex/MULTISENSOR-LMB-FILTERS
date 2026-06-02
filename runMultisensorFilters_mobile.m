@@ -1,28 +1,28 @@
 % RUNMULTISENSORFILTERS_MOBILE - Run multi-sensor LMB filters with mobile sensors
-%   Demonstrates Phase 1 implementation of mobile sensor support
+%   演示移动传感器支持的最小多传感器流程。
 %
-% File guide:
-%   Mobile-sensor demo that keeps the core filter pipeline small while
-%   exercising moving sensor trajectories. It is useful for debugging
-%   sensor-relative measurements before enabling the larger formation setup.
+% 文件导读：
+%   移动传感器小型示例。它保留多传感器滤波主线，同时把重点放在
+%   sensor trajectory 和相对测量几何上。阅读时先确认传感器运动配置，
+%   再看观测生成和滤波调用；大规模 formation 脚本是在此基础上扩展。
 
 %% Admin
 close all; clc;
 setPath;
 
-%% Sensor Configuration
+%% 1. 传感器基础配置
 numberOfSensors = 3;
 clutterRates = [5 5 5];
 detectionProbabilities = [0.67 0.70 0.73];
 q = [4 3 2];
 
-%% Sensor Motion Configuration (Phase 1: Basic Framework)
+%% 2. 传感器运动配置：这里使用常速度模型
 sensorMotionConfig = struct();
 sensorMotionConfig.enabled = true;
 sensorMotionConfig.motionType = 'CV'; % Constant Velocity model
 sensorMotionConfig.processNoiseStd = 0.1; % Sensor motion process noise
 
-%% Sensor Initial Positions and Velocities
+%% 3. 初始位置和速度：每行对应一个传感器
 sensorInitialStates = cell(1, numberOfSensors);
 sensorInitialPositions = [-50, 0, 0.5, 0;
                          50, 0, -0.5, 0;

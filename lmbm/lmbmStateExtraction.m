@@ -4,10 +4,9 @@ function [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypothes
 %    [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypotheses, useEapOnLmbm)
 %
 %   This function computes an approximate cardinality estimate for the LMBM filter.
-%   File guide:
-%       Final state-extraction helper for LMBM filters. It selects the
-%       reported cardinality and component indices from the best posterior
-%       global hypothesis.
+%   文件导读：
+%       LMBM 的状态抽取助手。它根据 posterior hypotheses 的存在概率汇总，
+%       决定输出基数和 component 索引。
 %
 %   See also runLmbmFilter
 %
@@ -24,13 +23,11 @@ function [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypothes
 
 rTotal = sum([hypotheses.w] .* [hypotheses.r], 2);
 if (useEapOnLmbm)
-    %% Heuristic EAP estimate
-    % Determine expected cardinality
+    %% 1. EAP 风格抽取：用期望基数作为输出数量
     cardinalityEstimate = floor(sum(rTotal));
     [~,  extractionIndices] = maxk(hypotheses(1).r, cardinalityEstimate);
 else
-    %% Very heuristic MAP estimate
-    % Determine MAP cardinality estimate of the most likely hypothesis
+    %% 2. MAP 风格抽取：复用 LMB 的 MAP cardinality helper
     [cardinalityEstimate, extractionIndices] = lmbMapCardinalityEstimate([rTotal]);
 end
 

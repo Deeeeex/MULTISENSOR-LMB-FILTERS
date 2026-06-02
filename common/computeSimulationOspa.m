@@ -7,10 +7,9 @@ function [eOspa, hOspa, cardinality] = computeSimulationOspa(model, groundTruthR
 %   estimates for an entire simulation using the OSPA metric. This returns
 %   the Euclidean-OSPA (E-OSPA) and Hellinger-OSPA (H-OSPA) for each
 %   time-step of the simulation.
-%   File guide:
-%       Batch metric wrapper around ospa.m. Use it after a filter run to
-%       convert RFS truth and estimates into time-series localization,
-%       distributional, and cardinality summaries.
+%   文件导读：
+%       OSPA 的整段仿真封装。滤波结束后调用它，把 RFS truth 和 RFS
+%       estimate 转成逐时刻的 E-OSPA、H-OSPA 和 cardinality 序列。
 %
 %   See also generateModel, generateGroundtruth, Hungarian, ospa
 %
@@ -26,6 +25,7 @@ function [eOspa, hOspa, cardinality] = computeSimulationOspa(model, groundTruthR
 %       cardinality - (1, n) array. The cardinality of the state estimates.
 %           Returned for convinience.
 
+%% 1. 逐时刻调用 ospa.m，并记录估计基数
 simulationLength = numel(groundTruthRfs.x);
 eOspa = zeros(1, simulationLength);
 hOspa = zeros(1, simulationLength);

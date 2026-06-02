@@ -3,11 +3,11 @@ function model = generateMultisensorModel(numberOfSensors, clutterRates, detecti
 %   model =  generateMultisensorModel(numberOfSensors, clutterRates, detectionProbabilities, q, lmbParallelUpdateMode, dataAssociationMethod, varargin)
 %
 %   Declares all multi-sensor simulation information, except the ground truth.
-%   File guide:
-%       Main configuration factory for the paper-facing experiments. It
-%       extends the single-sensor model with per-sensor measurement models,
-%       mobile/FOV options, target formations, and default PU/GA/AA fusion
-%       weights consumed by multisensorLmb/.
+%   文件导读：
+%       多传感器模型配置工厂，也是论文主实验最常用的 model 入口。
+%       它在单传感器模型骨架上增加 per-sensor 观测模型、移动传感器、
+%       FOV、目标 formation，以及 multisensorLmb/ 中 PU/GA/AA 使用的
+%       初始融合权重。
 %
 %   See also generateGroundTruth.
 %
@@ -38,7 +38,7 @@ function model = generateMultisensorModel(numberOfSensors, clutterRates, detecti
 %   Output
 %       model - struct. A struct with the fields declared in this function.
 
-%% Very dodgy input checking
+%% 1. 解析场景类型和默认开关
 model.sensorMotionEnabled = false; % Default: sensors are static
 model.targetFormationEnabled = false; % Default: targets are not in formation
 
@@ -66,7 +66,7 @@ else
     model.scenarioType = 'Fixed';
 end
 
-%% Parse sensor motion configuration (optional)
+%% 2. 解析移动传感器配置；没有配置时保持静态传感器
 sensorMotionConfig = struct();
 sensorMotionConfig.enabled = false;
 
@@ -241,7 +241,7 @@ model.observationSpaceVolume = prod(model.observationSpaceLimits(:, 2) - model.o
 model.clutterRate = clutterRates;
 model.clutterPerUnitVolume = clutterRates/model.observationSpaceVolume;
 %% Birth parameters
-% Determine spawning locations
+% 根据场景类型生成 birth locations。
 if (strcmp(model.scenarioType, 'Fixed'))
     % Four fixed birth locations
     model.numberOfBirthLocations = 4;
@@ -376,7 +376,7 @@ model.lmbParallelUpdateMode = lmbParallelUpdateMode;
 model.aaSensorWeights = ones(1, model.numberOfSensors) / model.numberOfSensors;
 %% GA-LMB parameters
 model.gaSensorWeights = ones(1, model.numberOfSensors) / model.numberOfSensors;
-%% Sensor motion parameters (Phase 1: Basic Framework)
+%% 移动传感器参数：静态场景下这些字段保持默认值
 if model.sensorMotionEnabled
     model.sensorProcessNoise = cell(1, model.numberOfSensors);
     for i = 1:model.numberOfSensors

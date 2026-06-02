@@ -5,11 +5,10 @@ function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = gener
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
 %   Supports mobile sensors with configurable motion models.
-%   File guide:
-%       Multi-sensor scenario simulator. It creates target trajectories,
-%       sensor trajectories, per-sensor detections, state-dependent quality
-%       effects, clutter, and RFS truth used by the centralized and
-%       distributed multi-sensor filters.
+%   文件导读：
+%       多传感器场景生成器。它负责生成目标真值、传感器轨迹、每个传感器
+%       的检测/漏检/杂波观测，以及评估用 RFS truth。移动传感器、FOV
+%       和 state-dependent sensing variation 都会在这里影响观测流。
 %
 %   See also generateMultisensorModel, plotMultisensorResults
 %
@@ -34,7 +33,7 @@ if isfield(model, 'simulationLength') && ~isempty(model.simulationLength)
 end
 
 
-%% Simple, hard-coded scenario
+%% 1. 定义目标真值：固定场景、随机场景或 formation 场景
 if (strcmp(model.scenarioType, 'Fixed'))
     numberOfObjects = 10;
     % Object birth times
@@ -97,14 +96,14 @@ elseif (strcmp(model.scenarioType, 'Formation'))
     objectBirthTimes(objectBirthTimes > simulationLength) = simulationLength;
     objectDeathTimes = min(objectBirthTimes + model.targetFormationLifeSpan - 1, simulationLength);
 end
-%% Allocate output
+%% 2. 分配输出容器：每个传感器、每个时刻一个 measurement cell
 measurements = repmat({}, model.numberOfSensors, simulationLength);
 groundTruth = repmat({}, numberOfObjects, 1);
 groundTruthRfs.x = repmat({{}}, 1, simulationLength);
 groundTruthRfs.mu = groundTruthRfs.x;
 groundTruthRfs.Sigma = groundTruthRfs.x;
 groundTruthRfs.cardinality = zeros(1, simulationLength);
-%% Add in clutter measurements
+%% 3. 先生成 per-sensor 杂波测量；目标测量随后追加
 for i = 1:simulationLength
     for s = 1:model.numberOfSensors
         numberOfClutterMeasurements = poissrnd(model.clutterRate(s));
@@ -114,7 +113,7 @@ for i = 1:simulationLength
         end
     end
 end
-%% Initialize sensor trajectories (Phase 1: Mobile Sensor Support)
+%% 4. 初始化传感器轨迹：静态传感器返回空轨迹，移动传感器返回完整轨迹容器
 if model.sensorMotionEnabled
     sensorTrajectories = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
@@ -129,7 +128,7 @@ if model.sensorMotionEnabled
 else
     sensorTrajectories = [];
 end
-%% Update sensor trajectories (Phase 1: Mobile Sensor Support)
+%% 5. 根据 CV/CT/Formation 运动模型推进传感器轨迹
 if model.sensorMotionEnabled
     if isfield(model, 'sensorMotionType')
         motionType = upper(model.sensorMotionType);
@@ -155,7 +154,7 @@ if model.sensorMotionEnabled
     model.sensorTrajectories = sensorTrajectories;
 end
 
-%% Add in each object's measurements
+%% 6. 逐目标传播真值，并为每个传感器生成目标测量
 for i = 1:numberOfObjects
     % Initialise the object's trajectory
     trajectoryLength = objectDeathTimes(i) - objectBirthTimes(i) + 1;
@@ -191,7 +190,7 @@ for i = 1:numberOfObjects
             C = zeros(model.zDimension * numberOfAssignments, model.xDimension);
             % Generate measurements
             for s = 1:model.numberOfSensors
-                % Determine if object missed detection
+                % 根据当前传感器的 state-dependent 检测概率决定是否生成测量。
                 if (generatedMeasurement(s))
                     qSensor = measurementCovariances{s};
                     if model.sensorMotionEnabled

@@ -6,10 +6,9 @@ function stateEstimates = runMultisensorLmbmFilter(model, measurements)
 %   WARNING: This filter is impossibly slow, and very memory intensive.
 %   If you use too many objects and sensors, then it is likely to exceed 
 %   Matlab's memory limit and throw an error.
-%   File guide:
-%       Multi-sensor LMBM reference implementation. It is part of the core
-%       algorithm family but is mainly useful for small baselines because
-%       the multi-sensor association space grows very quickly.
+%   文件导读：
+%       多传感器 LMBM 参考实现。它属于核心算法族，但多传感器关联空间
+%       增长很快，实际主要用于小规模 baseline 或理论对照。
 %
 %   See also generateMultisensorModel, generateMultisensorGroundTruth 
 %
@@ -23,7 +22,7 @@ function stateEstimates = runMultisensorLmbmFilter(model, measurements)
 %           approximate MAP estimate for each time-step of the simulation, as
 %           well as the objects' trajectories.
 
-%% Initialise variables
+%% 1. 初始化 hypotheses、trajectory 缓存和输出结构
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 hypotheses = model.hypotheses;
@@ -33,59 +32,58 @@ stateEstimates.labels = cell(simulationLength, 1);
 stateEstimates.mu = cell(simulationLength, 1);
 stateEstimates.Sigma = cell(simulationLength, 1);
 stateEstimates.objects = objects;
-%% Run the LMBM filter
+%% 2. 时间递推：多传感器关联会让 hypothesis 分支快速增长
 for t = 1:simulationLength
-    %% Add in new trajectory structs
+    %% 2.1 添加当前时刻 birth trajectory 占位
     [model.birthTrajectory.birthTime] = deal(t);
     objects(end+1:end+model.numberOfBirthLocations) = model.birthTrajectory; 
-    %% Preallocate posterior hypotheses
+    %% 2.2 预分配 posterior hypothesis 列表，并检查是否存在任何传感器量测
     posteriorHypotheses = repmat(model.hypotheses, 0, 1);
-    % Determine if we collected any measurments.
+    % 只要有一个传感器有量测，就进入多传感器关联更新。
     measurementsAreAvailable = false;
     for s = 1:model.numberOfSensors
         measurementsAreAvailable = measurementsAreAvailable || (numel(measurements{s, t}) > 0);
     end
-    %% Generate posterior hypotheses for each prior hyptohesis
+    %% 2.3 对每个 prior hypothesis 做 prediction 和 multi-sensor update
     for i = 1:numel(hypotheses)
-        %% Prediction step
+        %% 2.3.1 hypothesis prediction
         priorHypothesis = lmbmPredictionStep(hypotheses(i), model, t);
-        %% Measurement update
+        %% 2.3.2 multi-sensor measurement update
         if (measurementsAreAvailable)
-            % Generate the Gibbs sampler matrices, and determine the posterior spatial distributions' parameters
+            % 生成高维多传感器关联 likelihood 表。
             [L, posteriorParameters] = generateMultisensorLmbmAssociationMatrices(priorHypothesis, measurements(:, t), model);
-            % Generate posterior hypotheses using Gibbs sampling
+            % 用多传感器 Gibbs sampler 生成关联事件。
             A = multisensorLmbmGibbsSampling(L, model.numberOfSamples);
-            % Determine each posterior hypothesis' parameters
+            % 将关联事件重建为 posterior hypotheses。
             newHypotheses = determineMultisensorPosteriorHypothesisParameters(A, L, posteriorParameters, priorHypothesis);
-            % Add posterior hypotheses to the pile
+            % 追加到 posterior hypothesis 列表。
             posteriorHypotheses(end+1:end+numel(newHypotheses)) = newHypotheses;
         else
             priorHypothesis.r = (prod(1-model.detectionProbability) * priorHypothesis.r) ./ (1 - priorHypothesis.r + prod(1-model.detectionProbability) * priorHypothesis.r);
             posteriorHypotheses(end+1) = priorHypothesis; 
         end
     end
-    %% Normalise posterior hypothesis weights and discard unlikely hypothesis
+    %% 2.4 归一化和剪枝 hypotheses
     [hypotheses, objectsLikelyToExist] = lmbmNormalisationAndGating(posteriorHypotheses, model);
-    %% Gate trajectories
-    % Objects with low existence probabilities and long trajectories are worth exporting
+    %% 2.5 剪枝 trajectory，长轨迹仍保留输出
     discardedObjects = objects(~objectsLikelyToExist' & ([objects.trajectoryLength] > model.minimumTrajectoryLength));
     stateEstimates.objects(end+1:end+numel(discardedObjects)) =  discardedObjects;
     % Keep objects with high existence probabilities
     objects = objects(objectsLikelyToExist);
-    %% State extraction
+    %% 2.6 从最高权重 hypothesis 中抽取当前时刻状态估计
     [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypotheses, false);
-    % Extract RFS state estimate
+    % 写出 RFS estimate。
     stateEstimates.labels{t} = zeros(2, cardinalityEstimate);
     stateEstimates.mu{t} = cell(1, cardinalityEstimate);
     stateEstimates.Sigma{t} = cell(1, cardinalityEstimate);
     for i = 1:cardinalityEstimate
         j = extractionIndices(i);
-        % Hypotheses in the posterior LMBM are sorted according to weight
+        % hypotheses 已按权重排序，取第一个 hypothesis 的 component。
         stateEstimates.labels{t}(:, i) = [hypotheses(1).birthTime(j); hypotheses(1).birthLocation(j)];
         stateEstimates.mu{t}{i} = hypotheses(1).mu{j};
         stateEstimates.Sigma{t}{i} = hypotheses(1).Sigma{j};
     end
-    %% Update each object's trajectory
+    %% 2.7 更新 trajectory 缓存
     for i = 1:numel(objects)
         j = objects(i).trajectoryLength;
         objects(i).trajectoryLength = j + 1;
@@ -93,7 +91,7 @@ for t = 1:simulationLength
         objects(i).timestamps(j+1) = t;
     end 
 end
-%% Get any long trajectories that weren't extracted
+%% 3. 收尾：保存仍存活且足够长的轨迹
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;

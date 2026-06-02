@@ -5,10 +5,10 @@ function [associationMatrices, posteriorParameters] = generateLmbAssociationMatr
 %   This function computes the association matrices required by the LBP,
 %   Gibbs sampler, and Murty's algorithms. It also determines the measurement-updated components that
 %   are used to determine each object's posterior spatial distribution.
-%   File guide:
-%       Single-sensor measurement-update front end. It computes likelihood
-%       ratios, missed-detection terms, Kalman-updated mixture components,
-%       and the common matrix fields consumed by all association backends.
+%   文件导读：
+%       单传感器 measurement update 的前端。它把每个 Bernoulli component
+%       对每条测量的 likelihood ratio、漏检项和 Kalman 更新后的 Gaussian
+%       component 统一算好，再输出给 LBP/Gibbs/Murty 共用的矩阵字段。
 %
 %   See also runLmbFilter, generateModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %
@@ -25,7 +25,7 @@ function [associationMatrices, posteriorParameters] = generateLmbAssociationMatr
 %           posterior spatial distribution parameters.
 %
 
-%% Declare output structs
+%% 1. 分配关联矩阵和 posterior component 容器
 numberOfObjects = numel(objects);
 numberOfMeasurements = numel(z);
 % Auxillary matrices
@@ -37,18 +37,18 @@ posteriorParameters.w = [];
 posteriorParameters.mu = {};
 posteriorParameters.Sigma = {};
 posteriorParameters = repmat(posteriorParameters, 1, numberOfObjects);
-%% Populate the LBP arrays, and compute posterior components
+%% 2. 对每个 Bernoulli component 计算漏检项和每条量测的更新项
 for i = 1:numberOfObjects
-    % Predeclare the object's posterior components, and include missed detection event
+    % 第 1 行是 missed-detection component，后面每一行对应一条测量。
     posteriorParameters(i).w = repmat(log(objects(i).w * (1 - model.detectionProbability)), numberOfMeasurements + 1, 1);
     posteriorParameters(i).mu  = repmat(objects(i).mu, numberOfMeasurements + 1, 1);
     posteriorParameters(i).Sigma = repmat(objects(i).Sigma, numberOfMeasurements + 1, 1);
     % Populate auxiliary LBP parameters
     phi(i) = (1 -  model.detectionProbability) * objects(i).r;
     eta(i) = 1 - model.detectionProbability * objects(i).r;
-    %% Determine marginal likelihood ratio of the object generating each measurement
+    %% 2.1 遍历该 Bernoulli 的 Gaussian mixture component
     for j = 1:objects(i).numberOfGmComponents
-        % Update components for a mixture component
+        % 对当前 Gaussian component 预先计算创新协方差和 Kalman gain。
         muZ = model.C * objects(i).mu{j};
         Z = model.C * objects(i).Sigma{j} * model.C' + model.Q;
         logGaussianNormalisingConstant = - (0.5 * model.zDimension) * log(2 * pi) - 0.5 * log(det(Z));
@@ -56,24 +56,24 @@ for i = 1:numberOfObjects
         ZInv = inv(Z);
         K = objects(i).Sigma{j} * model.C' * ZInv;
         SigmaUpdated = (eye(model.xDimension) - K * model.C) * objects(i).Sigma{j};
-        % Determine total marginal likelihood, and determine posterior components
+        % 将当前 Gaussian component 对所有测量的贡献累加到 L 和 posteriorParameters。
         for k = 1:numberOfMeasurements
-            % Determine marginal likelihood ratio
+            % L(i,k) 是 object i 生成 measurement k 的边缘 likelihood ratio。
             nu = z{k} - muZ;
             gaussianLogLikelihood = logGaussianNormalisingConstant - 0.5 * nu' * ZInv * nu;
             L(i, k) = L(i, k) + exp(logLikelihoodRatioTerms + gaussianLogLikelihood);
-            % Determine updated mean and covariance for each mixture component
+            % 保存 measurement k 条件下的 posterior Gaussian component。
             posteriorParameters(i).w(k+1, j) = log(objects(i).w(j)) + gaussianLogLikelihood + log(model.detectionProbability) - log(model.clutterPerUnitVolume);
             posteriorParameters(i).mu{k+1, j} = objects(i).mu{j} + K * nu;
             posteriorParameters(i).Sigma{k+1, j} = SigmaUpdated;
         end
     end
-    % Normalise weights
+    % 每个“漏检/检测事件”内部都要归一化 Gaussian mixture 权重。
     maximumWeights = max(posteriorParameters(i).w, [], 2);
     offsetWeights = posteriorParameters(i).w - maximumWeights;
     posteriorParameters(i).w = exp(offsetWeights) ./ sum(exp(offsetWeights), 2);
 end
-%% Output association matrices
+%% 3. 输出三个关联后端共用但字段不同的矩阵表示
 % LBP association matrices
 associationMatrices.Psi = L ./ eta;
 associationMatrices.phi = phi;

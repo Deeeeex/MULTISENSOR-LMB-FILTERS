@@ -8,10 +8,10 @@ function [L, posteriorParameters] = generateMultisensorLmbmAssociationMatrices(h
 %   The output matrix L can be prohibitively large for a large number of 
 %   objects and sensors. It can exceed Matlab's memory limit, and in
 %   general this algorithm is very slow.
-%   File guide:
-%       Multi-sensor LMBM association builder. It enumerates the
-%       sensor-object association likelihood terms consumed by the
-%       multi-sensor Gibbs sampler and later hypothesis reconstruction.
+%   文件导读：
+%       多传感器 LMBM 的关联 likelihood 构造器。它枚举每个 object 在多个
+%       传感器上的联合关联事件，输出给 multi-sensor Gibbs sampler 和后续
+%       posterior hypothesis 重建。该矩阵可能非常大。
 %
 %   See also runMultisensorLmbmFilter, generateMultisensorModel, multisensorLmbmGibbsSampling,
 %
@@ -28,41 +28,41 @@ function [L, posteriorParameters] = generateMultisensorLmbmAssociationMatrices(h
 %       posteriorParameters - struct. A struct whose fields are a
 %           hypothesis posterior distribution parameters.
 
-%% Determine the size of the association matrix 
+%% 1. 根据每个传感器测量数确定高维关联矩阵大小
 dimensions = [zeros(1, model.numberOfSensors) numel(hypothesis.r)];
 for s = 1:model.numberOfSensors
     dimensions(s) = numel(z{s}) + 1;
 end
 numberOfEntries = prod(dimensions);
 pageSizes = [1 cumprod(dimensions(1:end-1))];
-%% Preallocate assoication variables
+%% 2. 预分配 likelihood 和 posterior 参数容器
 % Log likelihood matrix for sampling
 L = zeros(dimensions);
 % Posterior Bernoulli parameters
 r = zeros(dimensions);
 mu = cell(dimensions);
 Sigma = cell(dimensions);
-%% Populate likelihood matrix matrix
+%% 3. 枚举高维关联事件，逐项计算 likelihood ratio 和 posterior 参数
 for ell = 1:numberOfEntries
-    %% Get association vector
+    %% 3.1 将线性索引转换为多传感器关联向量
     u = convertFromLinearToCartesian(ell, pageSizes);
     i = u(end);
     a = u(1:end-1) - 1;
-    %% Determine log likelihood
+    %% 3.2 计算该联合关联事件的 log likelihood 和 posterior 参数
     [L(ell), r(ell), mu{ell}, Sigma{ell}] = determineLogLikelihoodRatio(i, a, z, hypothesis, model);
 end
-%% Assign to output struct
+%% 4. 输出 posterior 参数张量
 posteriorParameters.r = r;
 posteriorParameters.mu = mu;
 posteriorParameters.Sigma = Sigma;
 end
-%% Convert linear index to Cartesian coordinate
+%% 将线性索引转换为笛卡尔坐标形式的关联事件
 function u = convertFromLinearToCartesian(ell, d)
-%% Declare variables
+%% 1. 初始化坐标容器
 m = numel(d);
 u = zeros(1, m);
 n = ell;
-%% Roll back
+%% 2. 逐维回退线性索引
 for i = 1:m
     j = m - i + 1;
     zeta = floor(n / d(j));
@@ -71,13 +71,13 @@ for i = 1:m
     n = n - d(j) * (zeta - (eta == 0));
 end
 end
-%% Determine likelihood ratio
+%% 计算一个 object 在多传感器联合关联事件下的 likelihood ratio
 function [L, r, mu, Sigma] = determineLogLikelihoodRatio(i, a, measurements, hypothesis, model)
-%% Determine measurement
+%% 1. 解析哪些传感器给该 object 分配了测量
 assignments = a > 0;
 numberOfAssignments = sum(assignments);
 if (numberOfAssignments > 0)
-    %% Determine measurement vector
+    %% 2. 堆叠多传感器测量向量和观测矩阵
     z = zeros(model.zDimension * numberOfAssignments, 1);
     C = zeros(model.zDimension * numberOfAssignments, model.xDimension);
     counter = 0;
@@ -90,7 +90,7 @@ if (numberOfAssignments > 0)
             counter = counter + 1;
         end
     end
-    %% Determine likelihood ratio
+    %% 3. 计算联合 likelihood ratio 和 Kalman update
     % Noise matrix
     Q = blkdiag(model.Q{assignments});
     % Likelihood
@@ -102,7 +102,7 @@ if (numberOfAssignments > 0)
     Pd = sum(log(model.detectionProbability(assignments))) + sum(log(1 - model.detectionProbability(~assignments)));
     kappa = sum(log(model.clutterPerUnitVolume(assignments)));
     L = log(hypothesis.r(i)) + Pd + eta - (0.5 * nu' * ZInv * nu)  - kappa;
-    %% Determine posterior parameters
+    %% 4. 写出检测事件下的 posterior 参数
     r = 1;
     mu = hypothesis.mu{i} + K * nu;
     Sigma = (eye(model.xDimension) - K * C) * hypothesis.Sigma{i};

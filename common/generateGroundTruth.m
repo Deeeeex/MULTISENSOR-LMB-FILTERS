@@ -3,10 +3,10 @@ function [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model
 %   [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model)
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
-%   File guide:
-%       Single-sensor scenario simulator. It turns model birth/death
-%       settings into true trajectories, noisy detections, clutter, and the
-%       RFS-format truth used by plotting and OSPA evaluation.
+%   文件导读：
+%       单传感器场景生成器。它根据 model 中的 birth/death 设置生成真实
+%       目标轨迹，再生成带检测漏失、测量噪声和杂波的观测，同时整理出
+%       绘图和 OSPA 评估需要的 RFS truth。
 %
 %   See also generateModel, plotResults
 %
@@ -24,7 +24,7 @@ function [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model
 %           output in RFS form.
 
 
-%% Simple, hard-coded scenario
+%% 1. 定义真值轨迹：按场景类型确定目标数量、出生/死亡时刻和初始状态
 if (strcmp(model.scenarioType, 'Fixed'))
     numberOfObjects = 10;
     % Object birth times
@@ -60,14 +60,14 @@ elseif (strcmp(model.scenarioType, 'Random'))
     priorLocations = [model.muB{birthLocationIndex}];
     priorLocations(3:4, :) = 3 * randn(numberOfObjects, 2)';
 end
-%% Allocate output
+%% 2. 分配输出容器：观测、目标轨迹和 RFS truth
 measurements = repmat({}, simulationLength, 1);
 groundTruth = repmat({}, numberOfObjects, 1);
 groundTruthRfs.x = repmat({{}}, 1, simulationLength);
 groundTruthRfs.mu = groundTruthRfs.x;
 groundTruthRfs.Sigma = groundTruthRfs.x;
 groundTruthRfs.cardinality = zeros(1, simulationLength);
-%% Add in clutter measurements
+%% 3. 先生成杂波测量；目标测量随后追加到同一时刻 cell 中
 for i = 1:simulationLength
     numberOfClutterMeasurements = poissrnd(model.clutterRate);
     measurements{i} = cell(numberOfClutterMeasurements, 1);
@@ -75,7 +75,7 @@ for i = 1:simulationLength
         measurements{i}{j} = model.observationSpaceLimits(:, 1) + 2 * model.observationSpaceLimits(:, 2) .* rand(model.zDimension, 1);
     end
 end
-%% Add in each object's measurements
+%% 4. 逐目标传播真值，并按检测概率生成目标测量
 QChol = chol(model.Q, 'lower');
 for i = 1:numberOfObjects
     % Initialise the object's trajectory
@@ -97,7 +97,7 @@ for i = 1:numberOfObjects
             mu = model.A * mu + model.u;
             Sigma = model.A * Sigma * model.A' + model.R;
         end
-        % Determine if object missed detection
+        % 根据检测概率决定该目标当前时刻是否被探测到。
         if (rand < model.detectionProbability)
             z = model.C * x + QChol * randn(1, model.zDimension)';
             measurements{t}{end+1} = z;

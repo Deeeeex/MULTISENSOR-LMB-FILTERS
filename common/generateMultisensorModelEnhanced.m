@@ -3,10 +3,10 @@ function model = generateMultisensorModelEnhanced(numberOfSensors, clutterRates,
 %   model =  generateMultisensorModelEnhanced(numberOfSensors, clutterRates, detectionProbabilities, q, lmbParallelUpdateMode, dataAssociationMethod, varargin)
 %
 %   Enhanced version supporting multiple sensor motion models: CV, CT, etc.
-%   File guide:
-%       Compatibility wrapper for older enhanced-motion entry points. The
-%       base generateMultisensorModel now owns most mobile-sensor behavior;
-%       this file only appends optional CT/formation/scheduling fields.
+%   文件导读：
+%       旧 enhanced-motion 入口的兼容包装。当前移动传感器主逻辑主要在
+%       generateMultisensorModel；本文件只补充少量 CT/formation/scheduling
+%       相关字段。
 %
 %   See also generateMultisensorModel
 %

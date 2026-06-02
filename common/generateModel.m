@@ -3,10 +3,10 @@ function model = generateModel(clutterRate, detectionProbability, dataAssociatio
 %   model = generateModel(clutterRate, detectionProbabilty);
 %
 %   Declares all simulation information, except the ground truth.
-%   File guide:
-%       Single-sensor configuration factory. Downstream filters read almost
-%       all dynamics, birth, clutter, gating, association, and OSPA settings
-%       from the struct assembled here.
+%   文件导读：
+%       单传感器模型配置工厂。滤波器后续需要的运动模型、观测模型、
+%       birth 参数、杂波、门限、关联算法和 OSPA 参数，基本都在这里
+%       一次性写入 model struct。
 %
 %   See also generateGroundTruth.
 %
@@ -30,7 +30,7 @@ function model = generateModel(clutterRate, detectionProbability, dataAssociatio
 %   Output
 %       model - struct. A struct with the fields declared in this function.
 
-%% Very dodgy input checking
+%% 1. 解析场景类型：Fixed/Random/Coalescence
 if (nargin > 3)
     % Get input
     if (ischar(varargin{1}))
@@ -52,12 +52,12 @@ if (nargin > 3)
 else
     model.scenarioType = 'Fixed';
 end
-%% State and measurement space dimensions
+%% 2. 状态空间和观测空间维度
 model.xDimension = 4;
 model.zDimension = 2;
-%% Sampling period
+%% 3. 采样周期
 model.T = 1;
-%% Linear motion model
+%% 4. 线性运动模型：状态转移、生存概率和过程噪声
 % State transition matrix
 model.survivalProbability = 0.95; % Existing target survival probability - could be state dependent.
 model.existenceThreshold = 1e-2;
@@ -68,21 +68,20 @@ model.u = zeros(model.xDimension, 1);
 r0 = 1; %0.1
 model.R = r0*[ (1/3)*(model.T^3)*eye(model.xDimension/2) 0.5*(model.T^2)*eye(model.xDimension/2);
     0.5*(model.T^2)*eye(model.xDimension/2) model.T*eye(model.xDimension/2)];
-%% Linear observation model
+%% 5. 线性观测模型：位置观测和测量噪声
 % Observation matrix
 model.C = [ eye(model.zDimension) zeros(model.zDimension) ];
 % Measurement noise
 q0 = 3.^2;
 model.Q = q0*eye(model.zDimension);
-%% Detection probability
+%% 6. 检测概率和杂波模型
 model.detectionProbability = detectionProbability; % Could be state dependent.
 %% Observation space
 model.observationSpaceLimits = 100*[-1 1; -1 1];
 model.observationSpaceVolume = prod(model.observationSpaceLimits(:, 2) - model.observationSpaceLimits(:, 1));
 model.clutterRate = clutterRate;
 model.clutterPerUnitVolume = clutterRate/model.observationSpaceVolume;
-%% Birth parameters
-% Determine spawning locations
+%% 7. birth 参数：决定新目标可能从哪些位置出现
 if (strcmp(model.scenarioType, 'Fixed'))
     % Four fixed birth locations
     model.numberOfBirthLocations = 4;

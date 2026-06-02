@@ -1,14 +1,13 @@
 % RUNMULTISENSORFILTERS_FORMATION - Formation sensors + formation targets demo
 %
-% File guide:
-%   End-to-end formation scenario used to exercise mobile sensors, field of
-%   view limits, distributed neighbor fusion, communication constraints, and
-%   adaptive GA/AA weighting. Treat this as an exploratory demo script; the
-%   reusable logic lives under common/ and multisensorLmb/.
+% 文件导读：
+%   formation 场景的端到端演示。它把移动传感器、FOV、分布式邻域融合、
+%   通信约束和动态 GA/AA 权重放在同一条流程里。脚本本身主要负责编排
+%   参数和可视化；可复用的算法逻辑在 common/ 和 multisensorLmb/。
 close all; clc;
 setPath;
 
-%% Switch: staggered target births
+%% 1. 场景级开关：目标是否分批出生、是否导出 GIF、FOV 可视化参数
 staggeredBirths = true; % true = staggered births, false = all at once
 makeGif = true;
 gifPath = 'formation_animation.gif';
@@ -25,7 +24,7 @@ compareAdaptiveWeights = true;
 adaptiveFusionConfig = struct('enabled', true, 'emaAlpha', 0.7, 'minWeight', 0.05);
 gifPathBase = 'formation_animation_base.gif';
 gifPathAdaptive = 'formation_animation_adaptive.gif';
-%% Sensor configuration
+%% 2. 传感器基础参数：数量、杂波率、检测率、测量噪声
 numberOfSensors = 5;
 clutterRates = [3 3 3 3 3];
 detectionProbabilities = [0.9 0.9 0.9 0.9 0.9];
@@ -41,7 +40,7 @@ commConfig.linkModel = 'fixed';
 commConfig.pDrop = 0.2;
 commConfig.maxOutageNodes = 1;
 
-%% Sensor formation (Leader+4) moving left-to-right
+%% 3. 传感器队形：Leader+4 队形整体向右运动
 sensorMotionConfig = struct();
 sensorMotionConfig.enabled = true;
 sensorMotionConfig.motionType = 'Formation';
@@ -51,7 +50,7 @@ sensorMotionConfig.formationSpacing = 20;
 sensorMotionConfig.formationCenterStart = [-80; 0];
 sensorMotionConfig.formationVelocity = [0.8; 0];
 
-%% Target formations (3-3-4), all fly toward center
+%% 4. 目标队形：3-3-4 编队，支持 staggered birth
 targetFormationConfig = struct();
 targetFormationConfig.targetFormationEnabled = true;
 targetFormationConfig.targetFormationStaggeredBirths = staggeredBirths;
@@ -61,7 +60,7 @@ targetFormationConfig.targetFormationLifeSpan = 100;
 targetFormationConfig.targetBirthStates = buildTargetBirthStates();
 targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
 
-%% Generate model with formation scenario
+%% 5. 生成 formation 模型，并写入通信范围、固定/动态权重配置
 model = generateMultisensorModel(numberOfSensors, clutterRates, ...
     detectionProbabilities, q, 'GA', 'LBP', 'Formation', ...
     sensorMotionConfig, targetFormationConfig);
@@ -69,13 +68,13 @@ model.sensorCommRange = sensorCommRange;
 model.fusionWeighting = fusionWeighting;
 model.adaptiveFusion = adaptiveFusionConfig;
 
-%% Generate observations
+%% 6. 生成真值、观测和传感器轨迹；随后施加通信约束
 [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
 model.sensorTrajectories = sensorTrajectories;
 % Apply communication model (Level 1 by default)
 [measurementsDelivered, commStats] = applyCommunicationModel(measurements, model, commConfig);
 
-%% Run filter (distributed local fusion)
+%% 7. 运行分布式本地融合；可选择固定权重与动态权重对照
 stateEstimatesBySensor = [];
 localModels = [];
 neighborMap = [];

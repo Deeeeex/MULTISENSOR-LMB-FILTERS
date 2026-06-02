@@ -3,11 +3,12 @@ function [detectionProbability, measurementCovariance, info] = evaluateSensorQua
 %   Optional model.sensorQuality fields make p_D and Q depend on range and
 %   off-axis angle. With sensorQuality disabled, this returns the existing
 %   fixed per-sensor values, while still honoring the configured FOV gate.
-%   File guide:
-%       Central place for geometry-induced sensing variation. Ground-truth
-%       generation and sensor association both call this helper so p_D,
-%       measurement covariance, FOV gating, and diagnostic info stay aligned.
+%   文件导读：
+%       几何诱导传感质量变化的集中实现。真值观测生成和传感器关联矩阵
+%       都调用这里，因此 p_D、测量协方差、FOV gate 和诊断信息能保持
+%       一致。
 
+%% 1. 解析当前传感器位置、速度和目标相对几何
 if nargin < 4 || isempty(currentTime)
     currentTime = 1;
 end
@@ -45,6 +46,7 @@ if speed > 1e-9 && range > 1e-9
     offAxisDeg = acosd(cosTheta);
 end
 
+%% 2. FOV gate：先判断目标是否在当前传感器视场内
 halfAngleDeg = resolveSensorValueFromField(model, 'sensorFovHalfAngleDeg', sensorIdx, 180);
 maxRange = resolveSensorValueFromField(model, 'sensorFovRange', sensorIdx, inf);
 inFov = true;
@@ -69,6 +71,7 @@ if isfinite(halfAngleDeg) && halfAngleDeg > 0
     angleRatio = min(max(offAxisDeg / halfAngleDeg, 0), 1);
 end
 
+%% 3. 可选 state-dependent quality：按距离和偏轴角衰减检测率、放大噪声
 if enabled
     referenceRange = getField(cfg, 'referenceRange', 120);
     referenceRange = max(referenceRange, eps);
@@ -95,6 +98,7 @@ if enabled
     measurementCovariance = covarianceScale * measurementCovariance;
 end
 
+%% 4. 视场外目标强制视为不可检测，并返回诊断信息
 if ~inFov
     detectionProbability = 0;
 end

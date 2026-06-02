@@ -5,10 +5,10 @@ function [r, W, V] = lmbMurtysAlgorithm(associationMatrices, numberOfAssignments
 %   This function determines each object's posterior existence and marginal
 %   association probabilities using Murty's algorithm. This function uses
 %   Vo et al.'s code.
-%   File guide:
-%       K-best assignment backend for LMB updates. It is useful as a more
-%       exact but more expensive comparison point for LBP/Gibbs association
-%       in small or benchmark scenarios.
+%   文件导读：
+%       LMB 更新的 K-best assignment 后端。它调用 Murty 算法生成若干最可能
+%       的关联事件，再把这些事件转成存在概率和边缘关联概率。通常比 LBP
+%       更贵，适合作小规模基准或对照。
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,
@@ -28,17 +28,16 @@ function [r, W, V] = lmbMurtysAlgorithm(associationMatrices, numberOfAssignments
 %           assignment of objects to measurements.
 
 [n, m] = size(associationMatrices.C);
-%% Determine most likely assignments using Vo et al.'s implementation of Murty's algorithm
+%% 1. 用 Murty 算法生成 K 个最可能 assignment
 V = murtysAlgorithmWrapper(associationMatrices.C, numberOfAssignments);
-%% Determine marginal distributions
+%% 2. 将 K-best assignments 转成边缘关联分布
 W = repmat(V, 1, 1, m+1) == reshape(0:m, 1, 1, m+1);
 J = reshape(associationMatrices.L(n * V + (1:n)), size(V, 1), n);
 L = permute(sum(prod(J, 2) .* W, 1), [2 1 3]);
 Sigma = reshape(L, n, m+1);
-% Normalise
+% 归一化得到 Tau，再拆成 r 和 W。
 Tau = (Sigma .* associationMatrices.R) ./ sum(Sigma, 2);
-%% Determine existence probabilities
+%% 3. 输出 posterior existence probability 和 marginal association probability
 r = sum(Tau, 2);
-%% Determine marginal association probabilities
 W =  Tau ./ r;
 end
