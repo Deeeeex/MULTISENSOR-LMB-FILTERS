@@ -8,6 +8,10 @@ function [L, posteriorParameters] = generateMultisensorLmbmAssociationMatrices(h
 %   The output matrix L can be prohibitively large for a large number of 
 %   objects and sensors. It can exceed Matlab's memory limit, and in
 %   general this algorithm is very slow.
+%   File guide:
+%       Multi-sensor LMBM association builder. It enumerates the
+%       sensor-object association likelihood terms consumed by the
+%       multi-sensor Gibbs sampler and later hypothesis reconstruction.
 %
 %   See also runMultisensorLmbmFilter, generateMultisensorModel, multisensorLmbmGibbsSampling,
 %

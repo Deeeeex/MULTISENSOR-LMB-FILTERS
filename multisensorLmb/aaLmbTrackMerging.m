@@ -3,6 +3,10 @@ function objects = aaLmbTrackMerging(measurementUpdatedDistributions, model)
 %   objects = aaLmbTrackMerging(measurementUpdatedDistributions, model)
 %
 %   Merge the objects' measurement-updated distributions together using the AA-fusion rule.
+%   File guide:
+%       Arithmetic-average fusion for local sensor posteriors. It preserves
+%       multi-modal Gaussian mixtures by concatenating weighted components,
+%       then sorts and truncates to the configured mixture budget.
 %
 %   See also generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %

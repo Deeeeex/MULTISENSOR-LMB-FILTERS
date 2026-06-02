@@ -4,6 +4,10 @@ function posteriorHypotheses = determinePosteriorHypothesisParameters(V, L, post
 %
 %   Determine a parameters for a new set of posterior LMBM hypotheses.
 %   These hypotheses will have unnormalised hypothesis weights.
+%   File guide:
+%       Converts sampled or K-best association events into LMBM posterior
+%       hypotheses. This is where association likelihoods become hypothesis
+%       weights, existence probabilities, and selected spatial components.
 %
 %   See also runLmbmFilter, generateLmbmAssociationMatrices, lmbmGibbsSampling
 %

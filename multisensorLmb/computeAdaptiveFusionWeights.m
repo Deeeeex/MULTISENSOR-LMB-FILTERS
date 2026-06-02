@@ -6,9 +6,16 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 %       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness/informationDecay * nisPenalty * history
 %   where NIS acts as a consistency penalty instead of a quality reward.
 %   The final weights are then normalized with temporal EMA smoothing.
+%   File guide:
+%       Adaptive weighting engine for GA/AA fusion. It supports the general
+%       factorized mode plus direct PD-weighted, FI-weighted, and FID-FIA
+%       baselines, and returns both fusion weights and debug factors for
+%       experiment reports.
 
 numSensors = model.numberOfSensors;
 
+% Read feature flags and hyperparameters once at the top. The helper
+% functions below should stay side-effect free, except for debug state.
 cfg = struct();
 if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
     cfg = model.adaptiveFusion;
@@ -47,6 +54,8 @@ usePosteriorStructureConsistency = getField(cfg, 'usePosteriorStructureConsisten
 useFidFiaExistence = getField(cfg, 'useFidFiaExistence', false);
 
 availabilityMask = resolveAvailabilityMask(model, commStats, t, numSensors);
+% Direct baseline modes bypass the general factor product so their reported
+% weights remain faithful to the named PD/FI/FID-FIA scoring rule.
 if isFidFiaMethod(method)
     [gaWeights, aaWeights, debug] = computeFidFiaFusionWeights( ...
         measurementUpdatedDistributions, model, t, cfg, availabilityMask, prevWeights);
@@ -81,12 +90,17 @@ linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [fidFiaExistenceScore, fidFiaScore, fidFiaPairCounts] = resolveFidFiaExistenceScore( ...
     measurementUpdatedDistributions, model, t, cfg, availabilityMask, useFidFiaExistence);
 
+% General adaptive mode: multiply comparable scores, then normalize only at
+% the end. This keeps the debug fields interpretable as individual factors.
 baseScore = availabilityMask .* covScore .* linkQuality;
 rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
     associationAmbiguityScore .* ...
     freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
 
 if useDecoupledKla
+    % Decoupled mode lets spatial KLA weights and existence/cardinality
+    % weights react to different factor subsets while still sharing the
+    % same availability mask and temporal smoothing machinery.
     spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
         (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
         ctFiDecayScore .* innovationPenalty .* historyScore;
@@ -158,6 +172,8 @@ else
     existenceWeights = weights;
 end
 
+% The debug struct is intentionally verbose: report scripts use it to audit
+% which factors drove the selected weights at every time step.
 debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = covScore;

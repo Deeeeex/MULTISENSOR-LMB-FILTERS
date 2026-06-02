@@ -1,5 +1,10 @@
 % RUNMULTISENSORFILTERS_MOBILE - Run multi-sensor LMB filters with mobile sensors
 %   Demonstrates Phase 1 implementation of mobile sensor support
+%
+% File guide:
+%   Mobile-sensor demo that keeps the core filter pipeline small while
+%   exercising moving sensor trajectories. It is useful for debugging
+%   sensor-relative measurements before enabling the larger formation setup.
 
 %% Admin
 close all; clc;

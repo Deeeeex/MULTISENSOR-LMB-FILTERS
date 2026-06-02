@@ -3,6 +3,10 @@ function [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model
 %   [groundTruth, measurements, groundTruthRfs] = generateGroundTruth(model)
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
+%   File guide:
+%       Single-sensor scenario simulator. It turns model birth/death
+%       settings into true trajectories, noisy detections, clutter, and the
+%       RFS-format truth used by plotting and OSPA evaluation.
 %
 %   See also generateModel, plotResults
 %

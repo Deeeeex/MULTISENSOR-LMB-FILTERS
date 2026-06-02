@@ -3,6 +3,10 @@ function [nMap, mapIndices] = lmbMapCardinalityEstimate(r)
 %   [nMap, mapIndices] = lmbMapCardinalityEstimate(r)
 %
 %   This function computes an approximate MAP estimate for the LMB filter.
+%   File guide:
+%       Final state-extraction helper. Filters call it after posterior
+%       updates to choose how many Bernoulli components to export and which
+%       labels become the time-step estimate.
 %
 %   See also runLmbFilter.
 %

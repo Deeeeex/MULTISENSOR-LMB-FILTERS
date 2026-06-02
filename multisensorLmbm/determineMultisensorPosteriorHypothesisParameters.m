@@ -4,6 +4,10 @@ function posteriorHypotheses = determineMultisensorPosteriorHypothesisParameters
 %
 %   Determine a parameters for a new set of posterior LMBM hypotheses.
 %   These hypotheses will have unnormalised hypothesis weights.
+%   File guide:
+%       Rebuilds multi-sensor LMBM posterior hypotheses from association
+%       events. This is the multi-sensor analogue of
+%       determinePosteriorHypothesisParameters.
 %
 %   See also runLmbmFilter, generateMultisensorLmbmAssociationMatrices, lmbmGibbsSampling
 %

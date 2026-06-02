@@ -5,6 +5,10 @@ function [r, W, V] = lmbMurtysAlgorithm(associationMatrices, numberOfAssignments
 %   This function determines each object's posterior existence and marginal
 %   association probabilities using Murty's algorithm. This function uses
 %   Vo et al.'s code.
+%   File guide:
+%       K-best assignment backend for LMB updates. It is useful as a more
+%       exact but more expensive comparison point for LBP/Gibbs association
+%       in small or benchmark scenarios.
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,

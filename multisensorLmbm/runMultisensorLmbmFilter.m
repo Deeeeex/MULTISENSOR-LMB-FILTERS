@@ -6,6 +6,10 @@ function stateEstimates = runMultisensorLmbmFilter(model, measurements)
 %   WARNING: This filter is impossibly slow, and very memory intensive.
 %   If you use too many objects and sensors, then it is likely to exceed 
 %   Matlab's memory limit and throw an error.
+%   File guide:
+%       Multi-sensor LMBM reference implementation. It is part of the core
+%       algorithm family but is mainly useful for small baselines because
+%       the multi-sensor association space grows very quickly.
 %
 %   See also generateMultisensorModel, generateMultisensorGroundTruth 
 %

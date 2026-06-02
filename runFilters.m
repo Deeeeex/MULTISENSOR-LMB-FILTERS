@@ -1,4 +1,10 @@
 % RUNFILTERS - Run the single-sensor LMB or LMBM filters
+%
+% File guide:
+%   Minimal single-sensor smoke test. It builds a model, simulates one
+%   measurement stream, runs either LMB or LMBM, and plots the result. Use
+%   this script when checking the baseline single-sensor pipeline before
+%   moving to the multi-sensor experiments.
 
 %% Admin
 close all; clc;

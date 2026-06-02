@@ -3,6 +3,11 @@ function stateEstimates = runLmbmFilter(model, measurements)
 %   stateEstimates = runLmbmFilter(model, measurements)
 %
 %   Determine the objects' state estimates using the LMBM filter.
+%   File guide:
+%       Single-sensor LMBM driver. It keeps multiple global hypotheses
+%       instead of collapsing to a single LMB at each step, so this path is
+%       useful for exact/hypothesis-managed comparisons but is heavier than
+%       runLmbFilter.
 %
 %   See also generateModel, generateGroundTruth
 %

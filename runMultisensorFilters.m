@@ -1,4 +1,10 @@
 % RUNMULTISENSORFILTERS - Run the multi-sensor LMB or LMBM filters
+%
+% File guide:
+%   Compact centralized multi-sensor demo. It defines the sensor model,
+%   optionally applies communication loss, then dispatches to IC-LMB,
+%   PU/GA/AA-LMB, or multi-sensor LMBM. The formation and paper experiments
+%   extend this same model -> measurements -> communication -> filter flow.
 
 %% Admin
 close all; clc;

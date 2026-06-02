@@ -5,6 +5,10 @@ function hypothesis = lmbmPredictionStep(hypothesis, model, t)
 %   Computes predicted prior for the current time-step using the 
 %   Chapman-Kolmogorov equation, assuming an LMBM prior and the standard 
 %   multi-object motion model. 
+%   File guide:
+%       LMBM counterpart to lmbPredictionStep. It predicts every Bernoulli
+%       component inside one global hypothesis and appends new births before
+%       the measurement-update branching stage.
 %
 %   See also runLmbmFilter, generateModel
 %

@@ -5,6 +5,10 @@ function [associationMatrices, posteriorParameters] = generateLmbAssociationMatr
 %   This function computes the association matrices required by the LBP,
 %   Gibbs sampler, and Murty's algorithms. It also determines the measurement-updated components that
 %   are used to determine each object's posterior spatial distribution.
+%   File guide:
+%       Single-sensor measurement-update front end. It computes likelihood
+%       ratios, missed-detection terms, Kalman-updated mixture components,
+%       and the common matrix fields consumed by all association backends.
 %
 %   See also runLmbFilter, generateModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %

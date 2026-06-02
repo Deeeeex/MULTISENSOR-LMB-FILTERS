@@ -5,6 +5,10 @@ function [eOspa, hOspa] = ospa(x, mu, Sigma, nu, T, p)
 %   Compute the distance between the groundtruth RFS and a filter's RFS
 %   estimates using the OSPA metric. This returns the Euclidean-OSPA (E-OSPA) and
 %   Hellinger-OSPA (H-OSPA).
+%   File guide:
+%       Single-time-step metric implementation. computeSimulationOspa calls
+%       this repeatedly; experiment scripts usually consume the aggregated
+%       output rather than calling this helper directly.
 %
 %   See also generateGroundtruth, Hungarian, computeSimulationOspa.
 %

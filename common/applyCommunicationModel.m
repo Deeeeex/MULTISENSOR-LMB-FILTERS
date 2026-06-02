@@ -5,6 +5,11 @@ function [measurementsDelivered, commStats] = applyCommunicationModel(measuremen
 %   Applies global measurement budget, link loss, and node outage models
 %   before measurements are passed to a filter. This function is designed
 %   to be called by entry scripts (e.g., runMultisensorFilters).
+%   File guide:
+%       Communication-layer shim between simulated measurements and filters.
+%       It preserves the measurement cell shape while recording masks,
+%       packet/measurement drops, node outages, and link-quality summaries
+%       used by adaptive fusion weights.
 %
 %   Inputs
 %       measurements - cell array. For multi-sensor: sensors x time cell matrix.

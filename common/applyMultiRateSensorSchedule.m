@@ -3,6 +3,10 @@ function [measurementsScheduled, samplingStats] = applyMultiRateSensorSchedule(m
 %   Non-sampling instants are marked separately from scheduled scans with no
 %   detections so multi-rate experiments can propagate stale posteriors
 %   without treating every skipped scan as a missed detection.
+%   File guide:
+%       Pre-filter scheduler for asynchronous sensors. It removes scans at
+%       unscheduled time steps and returns age/mask diagnostics consumed by
+%       freshness and information-decay weighting experiments.
 
 if nargin < 2 || isempty(samplingPeriods)
     measurementsScheduled = measurements;

@@ -4,6 +4,11 @@ function [r, W] = loopyBeliefPropagation(associationMatrices, epsilon, maximumNu
 %
 %   This function determines each object's posterior existence and marginal
 %   association probabilities using loopy belief propagation (LBP).
+%   File guide:
+%       Fast default association solver for LMB updates. It consumes the
+%       generic associationMatrices struct produced by single- or
+%       multi-sensor association builders and returns marginals used by
+%       computePosteriorLmbSpatialDistributions.
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,

@@ -1,4 +1,10 @@
 % RUNMULTISENSORFILTERS_FORMATION - Formation sensors + formation targets demo
+%
+% File guide:
+%   End-to-end formation scenario used to exercise mobile sensors, field of
+%   view limits, distributed neighbor fusion, communication constraints, and
+%   adaptive GA/AA weighting. Treat this as an exploratory demo script; the
+%   reusable logic lives under common/ and multisensorLmb/.
 close all; clc;
 setPath;
 

@@ -7,6 +7,11 @@ function objects = gaLmbTrackMerging(measurementUpdatedDistributions, model)
 %   reasonably accurate. It might be possible to extend this to Gaussian
 %   mixtures, or, using the well-space mixture assumptions, apply
 %   expectation propagation.
+%   File guide:
+%       Geometric-average fusion for local sensor posteriors. It moment
+%       matches each sensor's mixture, combines Gaussian canonical
+%       parameters with spatial weights, then combines existence
+%       probabilities with existence weights.
 %
 %   See also generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %

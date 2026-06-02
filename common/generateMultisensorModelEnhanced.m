@@ -3,6 +3,10 @@ function model = generateMultisensorModelEnhanced(numberOfSensors, clutterRates,
 %   model =  generateMultisensorModelEnhanced(numberOfSensors, clutterRates, detectionProbabilities, q, lmbParallelUpdateMode, dataAssociationMethod, varargin)
 %
 %   Enhanced version supporting multiple sensor motion models: CV, CT, etc.
+%   File guide:
+%       Compatibility wrapper for older enhanced-motion entry points. The
+%       base generateMultisensorModel now owns most mobile-sensor behavior;
+%       this file only appends optional CT/formation/scheduling fields.
 %
 %   See also generateMultisensorModel
 %

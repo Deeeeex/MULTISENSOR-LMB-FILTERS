@@ -5,6 +5,11 @@ function [groundTruth, measurements, groundTruthRfs, sensorTrajectories] = gener
 %
 %   Generates the objects' groundtruths for a simple scenario, and also their measurements.
 %   Supports mobile sensors with configurable motion models.
+%   File guide:
+%       Multi-sensor scenario simulator. It creates target trajectories,
+%       sensor trajectories, per-sensor detections, state-dependent quality
+%       effects, clutter, and RFS truth used by the centralized and
+%       distributed multi-sensor filters.
 %
 %   See also generateMultisensorModel, plotMultisensorResults
 %

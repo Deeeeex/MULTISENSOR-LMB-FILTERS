@@ -6,6 +6,11 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commSt
 %   Run a multi-sensor LMB filter that uses a parallel measurment update.
 %   Measurement update variants include arithmetic average (AA), geometric
 %   average (GA), and parallel update (PU) update.
+%   File guide:
+%       Main centralized multi-sensor LMB driver. It performs one prediction
+%       per time step, runs a local association/update for each sensor, then
+%       fuses the local posteriors using PU, GA, or AA. Adaptive weighting
+%       and communication diagnostics are wired here.
 %
 %   See also generateMultisensorModel, generateMultisensorGroundTruth, lmbPredictionStep,
 %   generateLmbSensorAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 

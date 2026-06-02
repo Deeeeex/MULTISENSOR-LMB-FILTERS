@@ -3,6 +3,11 @@ function objects = computePosteriorLmbSpatialDistributions(objects, r, W, poster
 %    objects = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model)
 %
 %   This function computes each object's posterior spatial distrubtion. 
+%   File guide:
+%       Posterior mixture assembly step. It combines association marginals
+%       with precomputed missed-detection/detection components, prunes small
+%       Gaussian mixture weights, and caps mixture size for the next time
+%       step.
 %
 %   See also generateModel, runLmbFilter, lmbPredictionStep, 
 %            loopyBeliefPropagation, generateLmbAssociationMatrices

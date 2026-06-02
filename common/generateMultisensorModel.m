@@ -3,6 +3,11 @@ function model = generateMultisensorModel(numberOfSensors, clutterRates, detecti
 %   model =  generateMultisensorModel(numberOfSensors, clutterRates, detectionProbabilities, q, lmbParallelUpdateMode, dataAssociationMethod, varargin)
 %
 %   Declares all multi-sensor simulation information, except the ground truth.
+%   File guide:
+%       Main configuration factory for the paper-facing experiments. It
+%       extends the single-sensor model with per-sensor measurement models,
+%       mobile/FOV options, target formations, and default PU/GA/AA fusion
+%       weights consumed by multisensorLmb/.
 %
 %   See also generateGroundTruth.
 %

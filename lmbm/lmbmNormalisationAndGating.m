@@ -4,6 +4,10 @@ function [hypotheses, objectsLikelyToExist] = lmbmNormalisationAndGating(posteri
 %
 %   This function discards unlikely posterior parameters, and discards
 %   Bernoulli with low existence probabilities from each hypothesis.
+%   File guide:
+%       Hypothesis-management cleanup step. It prevents LMBM branching from
+%       growing without bound by normalizing, pruning weak global hypotheses,
+%       and returning the trajectory mask used by runLmbmFilter.
 %
 %   See also runLmbmFilter
 %

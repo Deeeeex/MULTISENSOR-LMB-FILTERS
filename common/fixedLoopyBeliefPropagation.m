@@ -6,6 +6,10 @@ function [r, W] = fixedLoopyBeliefPropagation(associationMatrices, maximumNumber
 %   association probabilities using loopy belief propagation (LBP).
 %   This algorithm uses a fixed number of iteratrions, and it is only used
 %   to verify the LMB filter's asymptotic computational complexity.
+%   File guide:
+%       Benchmark-only LBP variant. Prefer loopyBeliefPropagation in normal
+%       runs; use this file when the experiment needs deterministic
+%       iteration counts rather than convergence-based stopping.
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %   computePosteriorLmbSpatialDistributions, lmbGibbsSampling,

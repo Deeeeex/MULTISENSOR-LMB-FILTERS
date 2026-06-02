@@ -5,6 +5,10 @@ function objects = puLmbTrackMerging(measurementUpdatedDistributions, objects, m
 %   Merge the objects' measurement-updated distributions together while
 %   assuming independent sensors. Very crude merging algorithm, it might be
 %   better use expectation propagation (if possible).
+%   File guide:
+%       Parallel-update fusion under conditional sensor independence. It
+%       multiplies sensor-updated spatial likelihoods after compensating for
+%       the repeated prior, then updates Bernoulli existence probabilities.
 %
 %   See also generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %

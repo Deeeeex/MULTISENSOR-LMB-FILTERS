@@ -4,6 +4,10 @@ function [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypothes
 %    [cardinalityEstimate, extractionIndices] = lmbmStateExtraction(hypotheses, useEapOnLmbm)
 %
 %   This function computes an approximate cardinality estimate for the LMBM filter.
+%   File guide:
+%       Final state-extraction helper for LMBM filters. It selects the
+%       reported cardinality and component indices from the best posterior
+%       global hypothesis.
 %
 %   See also runLmbmFilter
 %

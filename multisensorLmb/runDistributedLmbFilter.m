@@ -5,6 +5,11 @@ function [stateEstimatesBySensor, localModels, neighborMap] = runDistributedLmbF
 %
 %   Each sensor performs local fusion using its own measurements plus those
 %   received from neighboring sensors. There is no centralized fusion.
+%   File guide:
+%       Distributed wrapper around the centralized parallel-update driver.
+%       It builds each sensor's neighborhood sub-model, assigns topology
+%       weights, slices measurements/communication stats, and runs local
+%       PU/GA/AA fusion independently.
 %
 %   Inputs
 %       model - full multi-sensor model

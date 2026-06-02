@@ -7,6 +7,11 @@ function [associationMatrices, posteriorParameters] = generateLmbSensorAssociati
 %   Gibbs sampler, and Murty's algorithms for a given sensor. It also 
 %   determines the measurement-updated components requried for each sensor's measurement update.
 %   Supports mobile sensors with position-dependent measurements.
+%   File guide:
+%       Per-sensor version of generateLmbAssociationMatrices. It adds
+%       sensor-indexed measurement models, mobile-sensor geometry,
+%       state-dependent p_D/Q, NIS diagnostics, and association ambiguity
+%       scores used by adaptive multi-sensor fusion.
 %
 %   See also runLmbFilter, generateMultisensorModel, loopyBeliefPropagation, lmbGibbsSampling, lmbMurtysAlgorithm
 %

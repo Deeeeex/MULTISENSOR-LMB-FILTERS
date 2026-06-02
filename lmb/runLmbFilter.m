@@ -3,6 +3,11 @@ function stateEstimates = runLmbFilter(model, measurements)
 %   stateEstimates = runLmbFilter(model, measurements)
 %
 %   Determine the objects' state estimates using the LMB filter.
+%   File guide:
+%       Single-sensor LMB driver. Each time step follows the core sequence:
+%       prediction, association-matrix construction, selected association
+%       solver, posterior mixture update, pruning, MAP cardinality
+%       extraction, and trajectory bookkeeping.
 %
 %   See also generateModel, generateGroundTruth, lmbPredictionStep,
 %   generateLmbAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 

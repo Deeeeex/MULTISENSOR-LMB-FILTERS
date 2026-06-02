@@ -3,6 +3,10 @@ function stateEstimates = runIcLmbFilter(model, measurements, sensorTrajectories
 %   stateEstimates = runIcLmbFilter(model, measurements)
 %
 %   Determine the objects' state estimates using the IC-LMB filter.
+%   File guide:
+%       Sequential multi-sensor baseline. Unlike runParallelUpdateLmbFilter,
+%       it updates the same LMB posterior sensor by sensor within a time
+%       step, making it the reference path for iterated-corrector behavior.
 %
 %   See also generateModel, generateGroundTruth, lmbPredictionStep,
 %   generateLmbAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 

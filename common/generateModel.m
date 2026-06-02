@@ -3,6 +3,10 @@ function model = generateModel(clutterRate, detectionProbability, dataAssociatio
 %   model = generateModel(clutterRate, detectionProbabilty);
 %
 %   Declares all simulation information, except the ground truth.
+%   File guide:
+%       Single-sensor configuration factory. Downstream filters read almost
+%       all dynamics, birth, clutter, gating, association, and OSPA settings
+%       from the struct assembled here.
 %
 %   See also generateGroundTruth.
 %

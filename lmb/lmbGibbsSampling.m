@@ -5,6 +5,10 @@ function [r, W, V] = lmbGibbsSampling(associationMatrices, numberOfSamples)
 %   This function determines each object's posterior existence and marginal
 %   association probabilities using Gibbs sampling. This function is a bit
 %   more optimised for Matlab.
+%   File guide:
+%       Stochastic association backend for LMB updates. It samples valid
+%       object-to-measurement assignments, compresses repeated samples, and
+%       converts them into existence and marginal association probabilities.
 %
 %   See also runLmbFilter, generateLmbAssociationMatrices,
 %       computePosteriorLmbSpatialDistributions, lmbMurtysAlgorithm, 

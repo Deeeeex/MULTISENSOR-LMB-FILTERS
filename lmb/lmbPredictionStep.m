@@ -5,6 +5,10 @@ function objects = lmbPredictionStep(objects, model, t)
 %   Computes predicted prior for the current time-step using the 
 %   Chapman-Kolmogorov equation, assuming an LMB prior and the standard 
 %   multi-object motion model. 
+%   File guide:
+%       Shared prediction step for single- and multi-sensor LMB filters. It
+%       propagates existing Bernoulli components through the linear Gaussian
+%       motion model and appends birth components for the current time step.
 %
 %   See also runLmbFilter, generateModel
 %

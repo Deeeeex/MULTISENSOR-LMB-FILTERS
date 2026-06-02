@@ -3,6 +3,10 @@ function [detectionProbability, measurementCovariance, info] = evaluateSensorQua
 %   Optional model.sensorQuality fields make p_D and Q depend on range and
 %   off-axis angle. With sensorQuality disabled, this returns the existing
 %   fixed per-sensor values, while still honoring the configured FOV gate.
+%   File guide:
+%       Central place for geometry-induced sensing variation. Ground-truth
+%       generation and sensor association both call this helper so p_D,
+%       measurement covariance, FOV gating, and diagnostic info stay aligned.
 
 if nargin < 4 || isempty(currentTime)
     currentTime = 1;
