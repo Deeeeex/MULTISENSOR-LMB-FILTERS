@@ -5,7 +5,7 @@
 当前建议已经比较明确：
 
 - 正文主线只突出 `covariance + link quality + existenceConfidence + weak structure-aware decoupled KLA`
-- `NIS/history` 仍然保留实现和实验结果，但只作为次线分析或附录候选
+- `NIS/history/freshness` 只保留历史实验结果和附录讨论价值，当前核心权重函数不再计算这些分数
 
 ## 1. 当前主线结构
 
@@ -38,11 +38,10 @@ useLinkQuality = true
 useExistenceConfidence = true
 useDecoupledKla = true
 useStructureAwareKla = true
-useNIS = false
-useHistory = false
+% NIS/history/freshness 等次线分数不再进入当前核心权重函数
 ```
 
-工程里仍然保留 `innovationPenalty` 和 `historyScore` 这类扩展项，但它们不再属于当前论文正文主线。
+当前实现已经把 `innovationPenalty`、`historyScore`、`freshnessScore` 等次线分数从 `computeAdaptiveFusionWeights.m` 中清理掉，避免正文主线和历史尝试混在同一个核心函数里。
 
 ## 2. 主线四项的具体实现与作用
 
@@ -178,9 +177,6 @@ model.adaptiveFusion.spatialStructureStrength = 0.45;
 model.adaptiveFusion.existenceStructureStrength = 0.08;
 model.adaptiveFusion.structureReliabilityPower = 0.30;
 model.adaptiveFusion.structureReliabilityMinScore = 0.25;
-
-model.adaptiveFusion.useNIS = false;
-model.adaptiveFusion.useHistory = false;
 ```
 
 主报告：
@@ -209,8 +205,6 @@ model.adaptiveFusion.existenceConfidenceMinScore = 0.85;
 model.adaptiveFusion.existenceConfidencePower = 2.0;
 model.adaptiveFusion.useDecoupledKla = false;
 model.adaptiveFusion.useStructureAwareKla = false;
-model.adaptiveFusion.useNIS = false;
-model.adaptiveFusion.useHistory = false;
 ```
 
 对应报告：
@@ -257,14 +251,14 @@ Card: 0.214 -> 0.209 -> 0.234
 
 ### 4.2 `historyScore`
 
-实现位置：
+历史实现位置：
 
-- `multisensorLmb/computeAdaptiveFusionWeights.m`
+- 曾位于 `multisensorLmb/computeAdaptiveFusionWeights.m`，当前主线版本已清理
 
 当前定位：
 
 - 只保留为次线或附录材料
-- 默认关闭
+- 当前核心实现不再提供开关式启用路径
 
 原因：
 
@@ -298,22 +292,7 @@ model.adaptiveFusion.useDecoupledKla = false;
 model.adaptiveFusion.useStructureAwareKla = false;
 ```
 
-如果需要回到 NIS 次线分析，可重新打开：
-
-```matlab
-model.adaptiveFusion.useNIS = true;
-model.adaptiveFusion.robustNIS = true;
-model.adaptiveFusion.robustNISMin = 0.3;
-model.adaptiveFusion.nisQuantileEnabled = false;
-model.adaptiveFusion.nisEmaEnabled = false;
-model.adaptiveFusion.useHistory = false;
-```
-
-如果只是想恢复 history：
-
-```matlab
-model.adaptiveFusion.useHistory = true;
-```
+如果需要重新做 NIS/history/freshness 次线分析，应从对应历史提交或实验分支恢复实现，再单独作为附录实验入口维护；当前 `computeAdaptiveFusionWeights.m` 不再通过配置开关启用这些分数。
 
 ## 6. 当前实验建议
 
@@ -321,4 +300,4 @@ model.adaptiveFusion.useHistory = true;
 
 1. `fixed -> +covariance -> +link quality -> +existence confidence -> +structure-aware decoupled KLA`
 2. 在更多 seed 和更多通信等级下验证弱结构 refinement 是否稳定
-3. 只把 `NIS/history` 作为次线或附录对照，不再把它们放在正文主故事的前排
+3. 只把 `NIS/history/freshness` 作为历史次线或附录对照，不再把它们放在正文主故事的前排

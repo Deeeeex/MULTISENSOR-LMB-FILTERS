@@ -2,13 +2,17 @@ function [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measuremen
 % COMPUTEADAPTIVEFUSIONWEIGHTS - Compute adaptive GA/AA fusion weights.
 %   [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights(measurementUpdatedDistributions, measurements, model, t, commStats, prevWeights)
 %
-%   The weight model is factorized as
-%       mask * covariance * link * cardinalityConsensus * existenceConfidence * associationAmbiguity * freshness/informationDecay * nisPenalty * history
-%   where NIS acts as a consistency penalty instead of a quality reward.
-%   The final weights are then normalized with temporal EMA smoothing.
+%   The paper-facing factorized model is
+%       mask * covariance * link * existenceConfidence
+%   followed by optional branch-decoupled KLA, weak structure-aware modulation,
+%   and the Cardinality-critical FID-FIA refinement on the existence branch.
 %   文件导读：
 %       GA/AA 动态权重的核心实现。入口接收每个传感器的 local posterior、
 %       measurements、model 配置、当前时刻 t、通信/诊断统计和上一时刻权重。
+%       当前论文主线只保留 covariance、realized link quality、
+%       existence confidence、branch-decoupled KLA、structure-aware prior
+%       以及 FID-FIA existence refinement。freshness、NIS、history 等弱证据
+%       扩展已从这个核心函数中移除，避免阅读时把历史尝试误认为主方法。
 %       输出包括 GA/AA scalar weights、spatial/existence branch weights、
 %       target-wise weights，以及用于报告和排错的 debug 因子。
 
@@ -22,17 +26,15 @@ end
 
 method = lower(getField(cfg, 'method', 'factorized'));
 emaAlpha = getField(cfg, 'emaAlpha', 0.7);
+% final weight floor：作用在归一化后的权重上，不改变单个 score 的含义。
+% 主实验通常用 0.05，目的是让活跃邻居保留少量贡献，避免某一步的
+% 瞬时 score 抖动把节点彻底清零。Cardinality-critical 的 existence 分支
+% 会把 existenceMinWeight 设为 0，让 FID-FIA 可以强力压低不可靠的基数分支。
 minWeight = getField(cfg, 'minWeight', 0.0);
 useDecoupledKla = getField(cfg, 'useDecoupledKla', false);
-useNIS = getField(cfg, 'useNIS', true);
-useHistory = getField(cfg, 'useHistory', true);
 useCovariance = getField(cfg, 'useCovariance', true);
 useLinkQuality = getField(cfg, 'useLinkQuality', true);
-useCardinalityConsensus = getField(cfg, 'useCardinalityConsensus', false);
 useExistenceConfidence = getField(cfg, 'useExistenceConfidence', false);
-useAssociationAmbiguity = getField(cfg, 'useAssociationAmbiguity', false);
-useCtFiDecay = getField(cfg, 'useCtFiDecay', false) || ...
-    getField(cfg, 'useInformationDecay', false);
 spatialEmaAlpha = getField(cfg, 'spatialEmaAlpha', emaAlpha);
 existenceEmaAlpha = getField(cfg, 'existenceEmaAlpha', emaAlpha);
 spatialMinWeight = getField(cfg, 'spatialMinWeight', minWeight);
@@ -46,6 +48,8 @@ existenceDecouplingStrength = min(max(getField(cfg, 'existenceDecouplingStrength
 spatialStructureStrength = max(getField(cfg, 'spatialStructureStrength', 0.0), 0);
 existenceStructureStrength = max(getField(cfg, 'existenceStructureStrength', 0.0), 0);
 structureReliabilityPower = max(getField(cfg, 'structureReliabilityPower', 0.0), 0);
+% score floor：作用在某个质量因子的映射内部。这里的通信可靠性下界
+% 防止结构先验因为丢包率过高而完全消灭一个仍在邻域里的传感器。
 structureReliabilityMinScore = min(max(getField(cfg, 'structureReliabilityMinScore', 0.25), 0), 1);
 useStructureAwareKla = getField(cfg, 'useStructureAwareKla', false) || ...
     spatialStructureStrength > 0 || existenceStructureStrength > 0;
@@ -70,41 +74,41 @@ if isPdWeightedGaMethod(method)
     return;
 end
 
+% 先把每个传感器的 local posterior 压缩成三个主线分数：
+%   covScore                  : posterior 越集中越大；没有显式下界。
+%   linkQuality               : 当前步 delivered/(delivered+dropped)；没有显式下界。
+%   existenceConfidenceScore  : existence probability 越果断越大；有 score 下界。
+% availabilityMask 是硬门控，和 score floor 不同：不可用邻居会直接被置零。
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
-innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS);
-cardinalityConsensusScore = resolveCardinalityConsensusScore( ...
-    measurementUpdatedDistributions, useCardinalityConsensus, cfg);
 existenceConfidenceScore = resolveExistenceConfidenceScore( ...
     measurementUpdatedDistributions, useExistenceConfidence, cfg);
-associationAmbiguityScore = resolveAssociationAmbiguityScore( ...
-    commStats, t, numSensors, useAssociationAmbiguity, cfg);
-freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg);
-ctFiDecayScore = resolveCtFiDecayScore( ...
-    measurementUpdatedDistributions, model, t, commStats, cfg, useCtFiDecay);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
-[historyScore, historyState, historyDebug] = computeHistoryScore( ...
-    measurementUpdatedDistributions, covScore, innovationPenalty, cfg, prevWeights, useNIS, useHistory);
+expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
 [fidFiaExistenceScore, fidFiaScore, fidFiaPairCounts] = resolveFidFiaExistenceScore( ...
     measurementUpdatedDistributions, model, t, cfg, availabilityMask, useFidFiaExistence);
 
-%% 3. Factorized backbone：先组合可解释因子，最后再统一归一化为权重
-% 这样 debug 中的每个 score 仍能单独解释，而不是提前被归一化掩盖。
+%% 3. Factorized backbone：只保留论文主线采用的三类质量信号
+% baseScore 先把“能不能用”和“空间/链路质量”合起来；rawScore 再乘
+% existence confidence，补上基数/存在性维度。这里不用 score 下界去保护
+% covScore/linkQuality，是为了让空 posterior 或完全未送达的传感器自然降权；
+% 只有 existence confidence 保留下界，因为“存在性不够果断”通常应弱化，
+% 但不应单独把空间上仍有价值的传感器完全打掉。
 baseScore = availabilityMask .* covScore .* linkQuality;
-rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
-    associationAmbiguityScore .* ...
-    freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
+rawScore = baseScore .* existenceConfidenceScore;
 
 if useDecoupledKla
     %% 4. Decoupled KLA：空间分支和存在/基数分支使用不同的专用 score
-    % spatial branch 更关注 posterior concentration 和链路可靠性；
-    % existence branch 更关注 existence confidence、cardinality/freshness 等信号。
+    % rawScore 是两条分支共同的 anchor，避免两条路径完全脱节。
+    % dedicatedScore 则表达“这一条分支更关心什么”：
+    %   spatial    : covScore + linkQuality，主要服务 Gaussian spatial fusion。
+    %   existence  : existenceConfidence + linkQuality，主要服务 Bernoulli r fusion。
+    % blendDecoupledScore 用几何插值，而不是线性加法，这样弱分数仍然会
+    % 对最终权重产生约束，不会被另一个大分数简单抵消。
     spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
-        (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
-        ctFiDecayScore .* innovationPenalty .* historyScore;
+        (linkQuality .^ spatialLinkQualityPower);
     existenceDedicatedScore = availabilityMask .* (linkQuality .^ existenceLinkQualityPower) .* ...
-        (existenceConfidenceScore .^ existenceConfidenceWeightPower) .* ...
-        cardinalityConsensusScore .* freshnessScore .* ctFiDecayScore .* innovationPenalty .* historyScore;
+        (existenceConfidenceScore .^ existenceConfidenceWeightPower);
     spatialScore = blendDecoupledScore(rawScore, spatialDedicatedScore, spatialDecouplingStrength);
     existenceScore = blendDecoupledScore(rawScore, existenceDedicatedScore, existenceDecouplingStrength);
     spatialStructurePrior = resolveStructurePrior(model, 'gaSpatialStructurePrior', 'gaTopologyWeights', numSensors);
@@ -121,6 +125,10 @@ if useDecoupledKla
     spatialStructureScore = ones(1, numSensors);
     existenceStructureScore = ones(1, numSensors);
     %% 4.1 可选 structure-aware 调制：用拓扑/结构一致性轻量修正两条分支
+    % 当前主实验采用 usePosteriorStructureConsistency=false：结构项来自邻域
+    % 先验和通信可靠性 prior，而不是重新计算 posterior pairwise disagreement。
+    % 如果打开 posterior consistency，则下面的 helper 会再用 spatial/existence
+    % consistency min score 给结构一致性分数设置下界，避免结构项变成硬剔除。
     if useStructureAwareKla
         if usePosteriorStructureConsistency
             [spatialStructureScore, existenceStructureScore] = resolveStructureConsistencyScores( ...
@@ -135,12 +143,20 @@ if useDecoupledKla
         end
     end
     %% 4.2 Cardinality-critical refinement：FID-FIA 只调制 existence branch
+    % FID-FIA 衡量同一传感器下目标对的可分辨性，更直接影响“有几个目标”
+    % 和 existence/cardinality 判定。它不进入 spatialScore，是为了保留
+    % Balanced mode 的空间定位优势。最终 Cardinality-critical arm 里，
+    % fidFiaExistenceMinScore=0 且 existenceMinWeight=0，因此 FID-FIA 可以
+    % 对 existence branch 做强抑制；spatial branch 仍保留 0.05 权重下界。
     if useFidFiaExistence
         fidFiaExistenceStrength = max(getField(cfg, 'fidFiaExistenceStrength', 0.5), 0);
         existenceScore = existenceScore .* (fidFiaExistenceScore .^ fidFiaExistenceStrength);
     end
 
     %% 4.3 归一化、EMA 平滑和最小权重保护
+    % finalizeAdaptiveWeights 的顺序是 normalize -> EMA -> normalize -> floor。
+    % floor 放在最后，是因为它保护的是最终融合权重，而不是中间 score。
+    % 这也解释了为什么 score 下界和 weight 下界不能互相替代。
     spatialPrev = resolvePreviousWeights(prevWeights, 'gaSpatial', 'ga', numSensors);
     existencePrev = resolvePreviousWeights(prevWeights, 'gaExistence', 'ga', numSensors);
 
@@ -154,6 +170,8 @@ if useDecoupledKla
     rawWeights = spatialWeights;
 else
     %% 5. 非解耦路径：所有因子合成一条 scalar 权重，同时用于 spatial/existence
+    % 这个路径主要用于 factorized baseline。没有 spatial/existence 分支差异，
+    % 所以 minWeight 只作为一条统一权重的最终下界。
     rawWeights = normalizeScores(rawScore, availabilityMask);
 
     weights = rawWeights;
@@ -174,20 +192,12 @@ else
     existenceWeights = weights;
 end
 
-%% 6. debug 输出：保留每个因子和最终权重，供报告、消融和排错使用
+%% 6. debug 输出：保留主线因子和最终权重，供报告、消融和排错使用
 debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = covScore;
 debug.baseScore = baseScore;
-debug.innovationPenalty = innovationPenalty;
-debug.innovationScore = innovationPenalty;
-debug.cardinalityConsensusScore = cardinalityConsensusScore;
 debug.existenceConfidenceScore = existenceConfidenceScore;
-debug.associationAmbiguityScore = associationAmbiguityScore;
-debug.freshnessScore = freshnessScore;
-debug.ctFiDecayScore = ctFiDecayScore;
-debug.useCtFiDecay = useCtFiDecay;
-debug.historyScore = historyScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
 debug.rawWeights = rawWeights;
@@ -219,10 +229,7 @@ debug.gaSpatialWeights = spatialWeights;
 debug.aaSpatialWeights = spatialWeights;
 debug.gaExistenceWeights = existenceWeights;
 debug.aaExistenceWeights = existenceWeights;
-debug.historyState = historyState;
-debug.historyInstantInstability = historyDebug.instantInstability;
-debug.historyInstabilityEma = historyDebug.instabilityEma;
-debug.expectedCardinality = historyDebug.expectedCardinality;
+debug.expectedCardinality = expectedCardinality;
 end
 
 function tf = isFidFiaMethod(method)
@@ -294,15 +301,7 @@ debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = ones(1, numSensors);
 debug.baseScore = rawScore;
-debug.innovationPenalty = ones(1, numSensors);
-debug.innovationScore = debug.innovationPenalty;
-debug.cardinalityConsensusScore = ones(1, numSensors);
 debug.existenceConfidenceScore = ones(1, numSensors);
-debug.associationAmbiguityScore = ones(1, numSensors);
-debug.freshnessScore = ones(1, numSensors);
-debug.ctFiDecayScore = ones(1, numSensors);
-debug.useCtFiDecay = false;
-debug.historyScore = ones(1, numSensors);
 debug.linkQuality = ones(1, numSensors);
 debug.rawScore = rawScore;
 debug.rawWeights = weights;
@@ -322,9 +321,6 @@ debug.existenceStructurePrior = ones(1, numSensors);
 debug.communicationReliabilityPrior = ones(1, numSensors);
 debug.spatialStructureScore = ones(1, numSensors);
 debug.existenceStructureScore = ones(1, numSensors);
-debug.historyState = struct();
-debug.historyInstantInstability = zeros(1, numSensors);
-debug.historyInstabilityEma = zeros(1, numSensors);
 debug.expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
 end
 
@@ -454,6 +450,8 @@ minWeight = getField(cfg, 'fidFiaMinWeight', 0.0);
 if minWeight > 0
     weights = enforceMinimumWeight(weights, availabilityMask, minWeight);
 end
+% 纯 FID-FIA baseline 在主实验中通常 fidFiaMinWeight=0，目的是忠实呈现
+% scalar FID-FIA 权重本身，而不是用 final weight floor 稀释这个 baseline。
 
 gaWeights = weights;
 aaWeights = weights;
@@ -462,15 +460,7 @@ debug = struct();
 debug.availabilityMask = availabilityMask;
 debug.covScore = ones(1, numSensors);
 debug.baseScore = fiaScore;
-debug.innovationPenalty = ones(1, numSensors);
-debug.innovationScore = debug.innovationPenalty;
-debug.cardinalityConsensusScore = ones(1, numSensors);
 debug.existenceConfidenceScore = ones(1, numSensors);
-debug.associationAmbiguityScore = ones(1, numSensors);
-debug.freshnessScore = ones(1, numSensors);
-debug.ctFiDecayScore = ones(1, numSensors);
-debug.useCtFiDecay = false;
-debug.historyScore = ones(1, numSensors);
 debug.linkQuality = ones(1, numSensors);
 debug.rawScore = fiaScore;
 debug.rawWeights = rawWeights;
@@ -496,9 +486,6 @@ debug.gaSpatialWeights = weights;
 debug.aaSpatialWeights = weights;
 debug.gaExistenceWeights = weights;
 debug.aaExistenceWeights = weights;
-debug.historyState = struct();
-debug.historyInstantInstability = zeros(1, numSensors);
-debug.historyInstabilityEma = zeros(1, numSensors);
 debug.expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
 end
 
@@ -522,6 +509,10 @@ end
 normalizedFiaScore(~isfinite(normalizedFiaScore)) = 0;
 normalizedFiaScore = min(max(normalizedFiaScore, 0), 1);
 
+% FID-FIA existence score 的下界是方法选择的一部分：
+%   default 0.4  : 作为温和 refinement 时，不让 FID-FIA 单独否决一个节点。
+%   final arm 0 : Cardinality-critical 模式下允许强抑制 existence branch。
+% 这里先得到 score，下游是否仍给最终权重留 floor 由 existenceMinWeight 决定。
 scorePower = max(getField(cfg, 'fidFiaExistencePower', 1.0), 0);
 minScore = min(max(getField(cfg, 'fidFiaExistenceMinScore', 0.4), 0), 1);
 fidFiaExistenceScore = minScore + (1 - minScore) * (normalizedFiaScore .^ scorePower);
@@ -693,6 +684,9 @@ end
 
 spatialScale = max(getField(cfg, 'spatialConsistencyScale', 0.6), 0);
 existenceScale = max(getField(cfg, 'existenceConsistencyScale', 2.0), 0);
+% 这两个 min score 只在 usePosteriorStructureConsistency=true 时生效。
+% 它们把“结构不一致”限制成软惩罚，避免 posterior 结构噪声把一个节点
+% 直接置零。当前主实验关闭该分支，因此这两个下界不是 headline 设置。
 spatialMinScore = min(max(getField(cfg, 'spatialConsistencyMinScore', 0.4), 0), 1);
 existenceMinScore = min(max(getField(cfg, 'existenceConsistencyMinScore', 0.4), 0), 1);
 summaries = repmat(struct( ...
@@ -854,6 +848,8 @@ if numel(commStats.pDropBySensor) ~= numSensors
 end
 reliability = 1 - reshape(commStats.pDropBySensor, 1, []);
 reliability = min(max(reliability, 0), 1);
+% pDrop 只作为结构 prior 的软调制：minScore 让高丢包节点仍可保留
+% 一点结构贡献，随后再除以均值，保证 prior 只改变相对比例而不整体放大/缩小。
 prior = minScore + (1 - minScore) * reliability;
 prior = prior / mean(prior);
 end
@@ -895,30 +891,6 @@ end
 blendedScore = (anchorScore .^ (1 - strength)) .* (dedicatedScore .^ strength);
 end
 
-function cardinalityConsensusScore = resolveCardinalityConsensusScore(measurementUpdatedDistributions, useCardinalityConsensus, cfg)
-numSensors = numel(measurementUpdatedDistributions);
-cardinalityConsensusScore = ones(1, numSensors);
-if ~useCardinalityConsensus
-    return;
-end
-
-expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
-activeMask = expectedCardinality > 0;
-if ~any(activeMask)
-    return;
-end
-
-referenceCardinality = median(expectedCardinality(activeMask));
-scoreScale = max(getField(cfg, 'cardinalityConsensusScale', 4.0), 0);
-minScore = min(max(getField(cfg, 'cardinalityConsensusMinScore', 0.4), 0), 1);
-normalizer = 1 + referenceCardinality;
-
-for s = 1:numSensors
-    diffRatio = abs(expectedCardinality(s) - referenceCardinality) / normalizer;
-    cardinalityConsensusScore(s) = minScore + (1 - minScore) * exp(-scoreScale * diffRatio);
-end
-end
-
 function existenceConfidenceScore = resolveExistenceConfidenceScore(measurementUpdatedDistributions, useExistenceConfidence, cfg)
 numSensors = numel(measurementUpdatedDistributions);
 existenceConfidenceScore = ones(1, numSensors);
@@ -926,6 +898,10 @@ if ~useExistenceConfidence
     return;
 end
 
+% existence confidence 是 score floor 最关键的使用点。r 接近 0.5 说明
+% 存在性判断不果断，但这并不等价于空间 posterior 完全无用。因此默认
+% 通过 minScore 做温和降权；主实验 Balanced/Cardinality-critical 会把
+% 0.6 的默认值提升到 0.85，让这个因子更像轻量校正而不是硬筛选。
 minScore = min(max(getField(cfg, 'existenceConfidenceMinScore', 0.6), 0), 1);
 power = max(getField(cfg, 'existenceConfidencePower', 1.0), 0);
 
@@ -947,42 +923,6 @@ for s = 1:numSensors
     weightedConfidence = min(max(weightedConfidence, 0), 1);
     existenceConfidenceScore(s) = minScore + (1 - minScore) * (weightedConfidence ^ power);
 end
-end
-
-function associationAmbiguityScore = resolveAssociationAmbiguityScore(commStats, t, numSensors, useAssociationAmbiguity, cfg)
-associationAmbiguityScore = ones(1, numSensors);
-if ~useAssociationAmbiguity
-    return;
-end
-if nargin < 1 || ~isstruct(commStats)
-    return;
-end
-
-rawScore = [];
-if isfield(commStats, 'associationAmbiguityScore')
-    values = commStats.associationAmbiguityScore;
-    if ismatrix(values) && size(values, 1) == numSensors && size(values, 2) >= t
-        rawScore = values(:, t)';
-    elseif isvector(values) && numel(values) == numSensors
-        rawScore = reshape(values, 1, []);
-    end
-elseif isfield(commStats, 'associationConfidence')
-    values = commStats.associationConfidence;
-    if ismatrix(values) && size(values, 1) == numSensors && size(values, 2) >= t
-        rawScore = values(:, t)';
-    elseif isvector(values) && numel(values) == numSensors
-        rawScore = reshape(values, 1, []);
-    end
-end
-
-if isempty(rawScore)
-    return;
-end
-
-rawScore = min(max(rawScore, 0), 1);
-minScore = min(max(getField(cfg, 'associationAmbiguityMinScore', 0.85), 0), 1);
-power = max(getField(cfg, 'associationAmbiguityPower', 1.0), 0);
-associationAmbiguityScore = minScore + (1 - minScore) * (rawScore .^ power);
 end
 
 function [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality)
@@ -1017,177 +957,10 @@ for s = 1:numSensors
         covScore(s) = 0;
     else
         meanTrace = mean(traceValues(1:traceCount));
+        % covScore 不设 score floor：posterior 越集中权重越大，空 posterior
+        % 或无有效 Gaussian component 可以自然变成 0，由 normalizeScores 兜底。
         covScore(s) = 1 / (eps + meanTrace);
     end
-end
-end
-
-function innovationPenalty = resolveInnovationPenalty(commStats, t, numSensors, useNIS)
-innovationPenalty = ones(1, numSensors);
-if ~useNIS
-    return;
-end
-if nargin < 2 || ~isstruct(commStats) || ~isfield(commStats, 'innovationConsistency')
-    return;
-end
-if size(commStats.innovationConsistency, 1) == numSensors && size(commStats.innovationConsistency, 2) >= t
-    innovationPenalty = commStats.innovationConsistency(:, t)';
-end
-end
-
-function freshnessScore = resolveFreshnessScore(measurements, t, numSensors, cfg)
-freshnessScore = ones(1, numSensors);
-useFreshness = getField(cfg, 'useFreshness', false);
-if ~useFreshness
-    return;
-end
-if nargin < 1 || ~iscell(measurements) || isempty(measurements)
-    return;
-end
-
-freshnessDecay = max(getField(cfg, 'freshnessDecay', 0.5), 0);
-freshnessMinScore = min(max(getField(cfg, 'freshnessMinScore', 0.4), 0), 1);
-
-numSteps = size(measurements, 2);
-currentStep = min(max(round(t), 1), numSteps);
-numSensorsLocal = min(numSensors, size(measurements, 1));
-
-for s = 1:numSensorsLocal
-    lastObservedStep = 0;
-    for tau = currentStep:-1:1
-        if numel(measurements{s, tau}) > 0
-            lastObservedStep = tau;
-            break;
-        end
-    end
-
-    if lastObservedStep <= 0
-        age = currentStep;
-    else
-        age = currentStep - lastObservedStep;
-    end
-
-    freshnessScore(s) = freshnessMinScore + (1 - freshnessMinScore) * ...
-        exp(-freshnessDecay * age);
-end
-end
-
-function ctFiDecayScore = resolveCtFiDecayScore( ...
-    measurementUpdatedDistributions, model, t, commStats, cfg, useCtFiDecay)
-numSensors = numel(measurementUpdatedDistributions);
-ctFiDecayScore = ones(1, numSensors);
-if ~useCtFiDecay
-    return;
-end
-
-sampleAge = resolveSampleAgeFromCommStats(commStats, t, numSensors);
-minScore = min(max(getField(cfg, 'ctFiDecayMinScore', 0.35), 0), 1);
-scorePower = max(getField(cfg, 'ctFiDecayPower', 1.0), 0);
-timeStep = max(getField(model, 'T', 1), eps);
-rawInformation = zeros(1, numSensors);
-
-for s = 1:numSensors
-    dt = max(sampleAge(s), 0) * timeStep;
-    rawInformation(s) = estimateCtFiInformation( ...
-        measurementUpdatedDistributions{s}, model, s, t, dt, cfg);
-end
-
-validInformation = rawInformation(isfinite(rawInformation) & rawInformation > 0);
-if isempty(validInformation)
-    return;
-end
-
-maxInformation = max(validInformation);
-normalizedInformation = rawInformation / max(maxInformation, eps);
-normalizedInformation(~isfinite(normalizedInformation)) = 0;
-normalizedInformation = min(max(normalizedInformation, 0), 1);
-ctFiDecayScore = minScore + (1 - minScore) * (normalizedInformation .^ scorePower);
-end
-
-function sampleAge = resolveSampleAgeFromCommStats(commStats, t, numSensors)
-sampleAge = zeros(1, numSensors);
-if nargin < 1 || ~isstruct(commStats) || ~isfield(commStats, 'sensorSampleAge')
-    return;
-end
-if size(commStats.sensorSampleAge, 1) == numSensors && size(commStats.sensorSampleAge, 2) >= t
-    sampleAge = reshape(commStats.sensorSampleAge(:, t), 1, []);
-end
-sampleAge(~isfinite(sampleAge)) = 0;
-sampleAge = max(sampleAge, 0);
-end
-
-function information = estimateCtFiInformation(objects, model, sensorIdx, t, dt, cfg)
-information = NaN;
-activeInformation = [];
-existenceThreshold = getField(model, 'existenceThreshold', 0);
-if ~isempty(objects)
-    for i = 1:numel(objects)
-        if objects(i).numberOfGmComponents < 1 || objects(i).r <= existenceThreshold
-            continue;
-        end
-        [mu, ~] = mprojection(model.xDimension, objects(i));
-        activeInformation(end+1) = estimateStateCtFiInformation(model, sensorIdx, mu, t, dt, cfg); %#ok<AGROW>
-    end
-end
-
-if ~isempty(activeInformation)
-    information = mean(activeInformation(isfinite(activeInformation)));
-end
-if ~isfinite(information)
-    information = estimateStateCtFiInformation(model, sensorIdx, [], t, dt, cfg);
-end
-if ~isfinite(information)
-    information = 0;
-end
-end
-
-function information = estimateStateCtFiInformation(model, sensorIdx, state, t, dt, cfg)
-useDetectionProbability = getField(cfg, 'ctFiUseDetectionProbability', true);
-if ~isempty(state)
-    [pdSensor, measurementCovariance] = evaluateSensorQuality(model, sensorIdx, state, t);
-else
-    pdSensor = resolveSensorValue(model.detectionProbability, sensorIdx, 1.0);
-    measurementCovariance = model.Q{sensorIdx};
-end
-measurementCovariance = regularizeCovariance(measurementCovariance);
-positionProcessCovariance = computeCtPositionProcessCovariance(model, dt, size(measurementCovariance, 1), cfg);
-effectiveCovariance = regularizeCovariance(measurementCovariance + positionProcessCovariance);
-
-pdScale = 1;
-if useDetectionProbability
-    pdScale = max(pdSensor, 0);
-end
-information = pdScale * trace(pinv(effectiveCovariance));
-end
-
-function positionProcessCovariance = computeCtPositionProcessCovariance(model, dt, zDimension, cfg)
-if dt <= 0
-    positionProcessCovariance = zeros(zDimension);
-    return;
-end
-processNoiseScale = getField(cfg, 'ctFiProcessNoiseScale', NaN);
-if ~isfinite(processNoiseScale)
-    processNoiseScale = inferProcessNoiseScale(model);
-end
-positionVarianceGrowth = max(processNoiseScale, 0) * (dt ^ 3) / 3;
-positionProcessCovariance = positionVarianceGrowth * eye(zDimension);
-end
-
-function processNoiseScale = inferProcessNoiseScale(model)
-processNoiseScale = 1;
-if ~isfield(model, 'R') || isempty(model.R) || ~isfield(model, 'xDimension')
-    return;
-end
-halfDim = floor(model.xDimension / 2);
-if size(model.R, 1) < 2 * halfDim
-    return;
-end
-timeStep = max(getField(model, 'T', 1), eps);
-velocityBlock = model.R((halfDim + 1):(2 * halfDim), (halfDim + 1):(2 * halfDim));
-diagValues = diag(velocityBlock);
-diagValues = diagValues(isfinite(diagValues) & diagValues > 0);
-if ~isempty(diagValues)
-    processNoiseScale = mean(diagValues) / timeStep;
 end
 end
 
@@ -1220,6 +993,8 @@ for s = 1:numSensors
         commStats.droppedByOutage(s, t);
     total = deliveredCount + droppedCount;
     if total > 0
+        % linkQuality 也不设 score floor。若当前传感器信息全部丢失，
+        % 它应当在这一时刻被明显降权；真正的硬可用性由 availabilityMask 控制。
         linkQuality(s) = deliveredCount / total;
     end
 end
@@ -1244,74 +1019,6 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
 end
 end
 
-function [historyScore, historyState, debug] = computeHistoryScore( ...
-    measurementUpdatedDistributions, covScore, innovationScore, cfg, prevWeights, useNIS, useHistory)
-
-numSensors = numel(covScore);
-expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
-
-historyState = struct();
-historyState.covScore = covScore;
-historyState.innovationScore = innovationScore;
-historyState.expectedCardinality = expectedCardinality;
-historyState.instabilityEma = zeros(1, numSensors);
-historyState.instantInstability = zeros(1, numSensors);
-
-debug = struct();
-debug.instantInstability = zeros(1, numSensors);
-debug.instabilityEma = zeros(1, numSensors);
-debug.expectedCardinality = expectedCardinality;
-
-historyScore = ones(1, numSensors);
-if ~useHistory
-    return;
-end
-
-historyEmaAlpha = getField(cfg, 'historyEmaAlpha', 0.8);
-historyScale = getField(cfg, 'historyScale', 2.0);
-historyMinScore = getField(cfg, 'historyMinScore', 0.4);
-historyMaxScore = getField(cfg, 'historyMaxScore', 1.0);
-covWeight = getField(cfg, 'historyCovWeight', 0.4);
-innovationWeight = getField(cfg, 'historyInnovationWeight', 0.4);
-cardinalityWeight = getField(cfg, 'historyCardinalityWeight', 0.2);
-
-if ~useNIS
-    innovationWeight = 0.0;
-end
-
-if nargin < 5 || ~isstruct(prevWeights) || ~isfield(prevWeights, 'historyState')
-    return;
-end
-prevState = prevWeights.historyState;
-if ~isValidHistoryState(prevState, numSensors)
-    return;
-end
-
-covDiff = abs(log(covScore + eps) - log(prevState.covScore + eps));
-innovationDiff = abs(innovationScore - prevState.innovationScore);
-cardinalityDiff = abs(expectedCardinality - prevState.expectedCardinality) ./ ...
-    (1 + prevState.expectedCardinality);
-
-totalWeight = covWeight + innovationWeight + cardinalityWeight;
-if totalWeight <= 0
-    return;
-end
-
-instantInstability = (covWeight * covDiff + innovationWeight * innovationDiff + ...
-    cardinalityWeight * cardinalityDiff) / totalWeight;
-instabilityEma = historyEmaAlpha * prevState.instabilityEma + ...
-    (1 - historyEmaAlpha) * instantInstability;
-
-historyScore = exp(-historyScale * instabilityEma);
-historyScore = min(max(historyScore, historyMinScore), historyMaxScore);
-
-historyState.instabilityEma = instabilityEma;
-historyState.instantInstability = instantInstability;
-
-debug.instantInstability = instantInstability;
-debug.instabilityEma = instabilityEma;
-end
-
 function expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions)
 numSensors = numel(measurementUpdatedDistributions);
 expectedCardinality = zeros(1, numSensors);
@@ -1322,14 +1029,6 @@ for s = 1:numSensors
     end
     expectedCardinality(s) = sum([objects.r]);
 end
-end
-
-function isValid = isValidHistoryState(historyState, numSensors)
-isValid = isstruct(historyState) && ...
-    isfield(historyState, 'covScore') && numel(historyState.covScore) == numSensors && ...
-    isfield(historyState, 'innovationScore') && numel(historyState.innovationScore) == numSensors && ...
-    isfield(historyState, 'expectedCardinality') && numel(historyState.expectedCardinality) == numSensors && ...
-    isfield(historyState, 'instabilityEma') && numel(historyState.instabilityEma) == numSensors;
 end
 
 function weights = normalizeScores(score, mask)
@@ -1348,6 +1047,9 @@ active = mask > 0;
 if ~any(active)
     return;
 end
+% weight floor 只保护 active 邻居。主实验 8 个传感器且 floor=0.05，
+% active floor budget 最多 0.4，仍给动态分数留下足够自由度；如果未来
+% 邻居数显著增加，应重新检查 activeCount * minWeight 是否过大。
 weights(~active) = 0;
 weights(active) = max(weights(active), minWeight);
 weights = weights / sum(weights);

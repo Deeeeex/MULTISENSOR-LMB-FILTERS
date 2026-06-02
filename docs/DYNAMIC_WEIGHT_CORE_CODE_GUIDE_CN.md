@@ -113,9 +113,7 @@ isPdWeightedGaMethod(method)
 
 ```matlab
 baseScore = availabilityMask .* covScore .* linkQuality;
-rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .* ...
-    associationAmbiguityScore .* freshnessScore .* ctFiDecayScore .* ...
-    innovationPenalty .* historyScore;
+rawScore = baseScore .* existenceConfidenceScore;
 ```
 
 当前主线最重要的是：
@@ -127,7 +125,7 @@ rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .*
 | existence decisiveness | `existenceConfidenceScore` | 看 Bernoulli existence probability 是否果断。 |
 | availability | `availabilityMask` | 屏蔽当前不可用或未送达的传感器。 |
 
-`associationAmbiguityScore`、`freshnessScore`、`ctFiDecayScore`、`innovationPenalty`、`historyScore` 都保留在实现里，但不是当前主线最优配置的核心三因子。
+`association ambiguity`、`freshness`、`CT-FI decay`、`NIS penalty`、`history` 和 `cardinality-consensus` 已从当前核心函数的主线计算里移除；它们只保留为历史实验和附录讨论材料。
 
 ### 4. Decoupled KLA 分支
 
@@ -135,13 +133,10 @@ rawScore = baseScore .* cardinalityConsensusScore .* existenceConfidenceScore .*
 
 ```matlab
 spatialDedicatedScore = availabilityMask .* (covScore .^ spatialCovariancePower) .* ...
-    (linkQuality .^ spatialLinkQualityPower) .* associationAmbiguityScore .* ...
-    ctFiDecayScore .* innovationPenalty .* historyScore;
+    (linkQuality .^ spatialLinkQualityPower);
 
 existenceDedicatedScore = availabilityMask .* (linkQuality .^ existenceLinkQualityPower) .* ...
-    (existenceConfidenceScore .^ existenceConfidenceWeightPower) .* ...
-    cardinalityConsensusScore .* freshnessScore .* ctFiDecayScore .* ...
-    innovationPenalty .* historyScore;
+    (existenceConfidenceScore .^ existenceConfidenceWeightPower);
 ```
 
 然后通过：
@@ -187,7 +182,41 @@ existenceScore = existenceScore .* (fidFiaExistenceScore .^ fidFiaExistenceStren
 
 这就是 Cardinality-critical mode 与纯 FID-FIA scalar baseline 的主要区别：FID-FIA 信号只进入 existence/cardinality 分支，不替换整个 posterior 的空间权重。
 
-### 6. 归一化、平滑和 debug
+### 6. Score 下界与最终权重下界
+
+这里有两个不同层次的“下界”，不要混在一起理解：
+
+| 类型 | 作用位置 | 目的 |
+| --- | --- | --- |
+| score 下界 | 某个质量因子从原始诊断量映射到 score 时 | 把某个因子做成软惩罚，避免单个弱因子直接否决传感器。 |
+| final weight 下界 | `normalizeScores`、EMA 之后的最终融合权重 | 防止活跃邻居因为瞬时 score 抖动被完全踢出融合。 |
+
+当前核心实现里真正还在使用的 score 下界：
+
+| 配置 | 当前主线含义 | 典型值 | 是否在最终主实验生效 |
+| --- | --- | ---: | --- |
+| `existenceConfidenceMinScore` | existence confidence 的软下界。`r` 接近 0.5 时只降权，不直接清零。 | `0.85` | Balanced mode 和 Cardinality-critical mode 生效。 |
+| `structureReliabilityMinScore` | 通信可靠性 prior 的软下界，避免高丢包节点在结构先验里被完全消除。 | `0.25` | Balanced mode 和 Cardinality-critical mode 生效。 |
+| `spatialConsistencyMinScore` / `existenceConsistencyMinScore` | posterior structure consistency 分支的软下界。 | `0.4` | 当前主实验 `usePosteriorStructureConsistency=false`，不生效。 |
+| `fidFiaExistenceMinScore` | FID-FIA existence refinement 的软/硬抑制边界。 | 默认 `0.4`，最终 arm 为 `0.0` | Cardinality-critical mode 生效，且设为 `0.0`。 |
+
+当前 final weight 下界：
+
+| 配置 | 当前主线含义 | 典型值 | 说明 |
+| --- | --- | ---: | --- |
+| `minWeight` | 非解耦 scalar 权重路径的最终权重下界。 | `0.05` | factorized baseline 使用；direct FID-FIA baseline 主实验设 `fidFiaMinWeight=0.0`。 |
+| `spatialMinWeight` | spatial branch 最终权重下界。 | `0.05` | 保留空间融合的邻居多样性，避免定位分支过早塌缩。 |
+| `existenceMinWeight` | existence branch 最终权重下界。 | Balanced 为 `0.05`，Cardinality-critical 为 `0.0` | Cardinality-critical 允许 FID-FIA 对 existence/cardinality 分支做强抑制。 |
+
+为什么这些设置是合理的：
+
+- `covScore` 不设 score 下界：空 posterior 或没有有效 Gaussian component 的节点应当自然降到 0。
+- `linkQuality` 不设 score 下界：当前步信息全部丢失时，应当明显降权；硬可用性由 `availabilityMask` 控制。
+- `existenceConfidenceMinScore=0.85` 是温和校正：存在性不果断不等于空间估计完全无用，所以只轻量降权。
+- `spatialMinWeight=0.05` 在 8-sensor 主实验里最多占 `8 * 0.05 = 0.4` 的 floor budget，仍给动态分数留下足够自由度。
+- `fidFiaExistenceMinScore=0.0` 和 `existenceMinWeight=0.0` 是 Cardinality-critical 的关键：它不是一般稳定化设置，而是为了让 FID-FIA 在目标数风险高时可以真正压低不可靠 existence 分支。
+
+### 7. 归一化、平滑和 debug
 
 最后几个 helper 是动态权重稳定性的核心：
 
@@ -275,7 +304,7 @@ localModels{s}.gaExistenceStructurePrior = existenceStructurePrior;
 
 | 文件 | 何时需要看 |
 | --- | --- |
-| `multisensorLmb/generateLmbSensorAssociationMatrices.m` | 只在你关心 `innovationConsistency` / NIS 或 `associationAmbiguityScore` 时需要看。当前主线不把 NIS/ambiguity 作为核心因子。 |
+| `multisensorLmb/generateLmbSensorAssociationMatrices.m` | 只在你关心关联矩阵、NIS 诊断或 association ambiguity 诊断时需要看。当前动态权重核心不再消费这些诊断量。 |
 | `multisensorLmb/puLmbTrackMerging.m` | PU baseline，不消费动态 GA/AA 权重；只在比较 PU/GA/AA 融合规则时看。 |
 
 ## 实验配置入口
@@ -288,7 +317,7 @@ localModels{s}.gaExistenceStructurePrior = existenceStructurePrior;
 | `RUN/GA/runMultisensorFilters_formation_4plus4_CommLevelThreeMethodCompare.m` | 通信等级对照入口，比较 Fixed Metropolis、Balanced mode、Cardinality-critical mode。 |
 | `RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m` | ideal communication 支撑实验入口，用于确认动态权重不是只在丢包时有效。 |
 | `RUN/GA/runMultisensorFilters_formation_4plus4_StateDependentQualityFalseTargetsCompare.m` | state-dependent quality / false-target 支撑实验入口。 |
-| `RUN/GA/runMultisensorFilters_formation_4plus4_NISCompare.m`、`HistoryCompare.m`、`TieredLinkFreshnessCompare.m` | 次线模块对照入口；当前不建议作为主线动态权重代码阅读起点。 |
+| `RUN/GA/runMultisensorFilters_formation_4plus4_NISCompare.m`、`HistoryCompare.m`、`TieredLinkFreshnessCompare.m` | 历史次线模块对照入口；当前主线代码已经不再从 `computeAdaptiveFusionWeights.m` 启用这些分数。 |
 
 ## 如果要改代码，应该改哪里
 

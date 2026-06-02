@@ -78,7 +78,7 @@
 | `multisensorLmb/puLmbTrackMerging.m` | PU 融合，按条件独立传感器假设合并 local posteriors。 |
 | `multisensorLmb/gaLmbTrackMerging.m` | GA 融合，按空间权重和存在概率权重做几何平均。 |
 | `multisensorLmb/aaLmbTrackMerging.m` | AA 融合，拼接并截断 Gaussian mixture，保留更多多峰结构。 |
-| `multisensorLmb/computeAdaptiveFusionWeights.m` | 自适应 GA/AA 权重核心：factorized、PD-weighted GA、FI-weighted GA、FID-FIA、decoupled KLA、structure-aware 和 history/freshness 逻辑都在这里。 |
+| `multisensorLmb/computeAdaptiveFusionWeights.m` | 自适应 GA/AA 权重核心：factorized 主线、PD-weighted GA、FI-weighted GA、FID-FIA、decoupled KLA、structure-aware 和 Cardinality-critical refinement 都在这里。 |
 
 ## LMBM 参考实现
 

@@ -5,14 +5,13 @@ clc;
 setPath;
 addpath('RUN/GA');
 
-fprintf('Test 1: association ambiguity score downweights ambiguous sensor\n');
+fprintf('Test 1: legacy association ambiguity config is ignored by core weights\n');
 [gaWeights, ~, debug] = computeAdaptiveFusionWeights( ...
     buildSimpleDistributions(), cell(3, 1), buildAmbiguityModel(), 1, ...
     struct('associationAmbiguityScore', [0.95, 0.70, 0.30]), struct());
 fprintf('  weights: %s\n', mat2str(gaWeights, 4));
-assert(isfield(debug, 'associationAmbiguityScore'));
-assert(gaWeights(1) > gaWeights(2));
-assert(gaWeights(2) > gaWeights(3));
+assert(~isfield(debug, 'associationAmbiguityScore'));
+assert(max(abs(gaWeights - ones(1, 3) / 3)) < 1e-12);
 
 fprintf('Test 2: posterior-structure comparison smoke test\n');
 [reportPath, summary] = runMultisensorFilters_formation_4plus4_PosteriorStructureCompare(1, 1, true, false);

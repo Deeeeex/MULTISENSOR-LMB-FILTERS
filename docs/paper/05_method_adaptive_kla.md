@@ -75,7 +75,7 @@ This factorization is intentionally narrow. It keeps only the three factors with
 - communication reliability through delivered-versus-dropped packets,
 - existence decisiveness through Bernoulli existence probabilities.
 
-Other terms, such as NIS penalties, history scores, freshness scores, or ambiguity-aware corrections, remain optional extensions rather than components of the claimed core method.
+Other explored terms, such as NIS penalties, history scores, freshness scores, or ambiguity-aware corrections, are treated as historical extension attempts rather than components of the claimed core method.
 
 ### 3. Covariance And Link-Quality Terms
 
@@ -273,9 +273,9 @@ where $\bar{\omega}_{k,s}^{x,(j)}$ and $\bar{\omega}_{k,s}^{r,(j)}$ denote the b
 
 This stabilization step is not presented as a novelty claim by itself. Its purpose is pragmatic: preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
-### 9. Optional Consistency And Extension Modules
+### 9. Historical Consistency And Extension Attempts
 
-The implementation retains several optional extensions:
+Several non-core extensions were implemented and evaluated during method selection:
 
 - `innovationPenalty`, an NIS-based consistency penalty,
 - `historyScore`, a temporal-stability term,
@@ -283,7 +283,7 @@ The implementation retains several optional extensions:
 - `cardinalityConsensusScore` and ambiguity-related extensions,
 - posterior-structure-consistency scoring.
 
-These modules are intentionally not part of the claimed core method. The main reason is not that they are useless in every setting, but that their current evidence is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements.
+Except for the retained posterior-structure-consistency scoring, these modules are no longer part of the current core weight function. The main reason is not that they are useless in every setting, but that their current evidence is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements.
 
 Among them, the most relevant is the NIS-based consistency term. Innovation consistency is still useful, but it is treated as a penalty rather than an additional monotonic reward. This choice avoids double counting, because innovation-based scores are structurally coupled with covariance through the innovation covariance. Accordingly, the current paper positions NIS as a secondary consistency module and leaves its detailed analysis to ablation or appendix discussion rather than the main method claim.
 
@@ -292,7 +292,7 @@ Among them, the most relevant is the NIS-based consistency term. Innovation cons
 - Present the method as an adaptive weight-allocation scheme for distributed GA-LMB fusion, not as a new RFS filter family.
 - Keep the main narrative on the covariance, link-quality, and existence-confidence backbone, followed by branch decoupling and an FID-FIA cue restricted to the existence-weight path.
 - Treat EMA smoothing as a stabilization device, not a headline contribution.
-- Treat NIS, history, freshness, and stronger structure priors as optional modules or appendix material.
+- Treat NIS, history, freshness, and stronger structure priors as historical extensions or appendix material.
 
 ## Citation Keys Used Here
 
