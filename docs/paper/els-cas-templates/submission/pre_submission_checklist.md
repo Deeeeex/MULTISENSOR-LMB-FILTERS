@@ -10,15 +10,15 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 
 ## Blocking TODO
 
-- [ ] 替换主稿作者占位符：`manuscript.tex` 中的 `Author Name`、`author@example.com`、`Affiliation Placeholder`、地址、城市、邮编、州/省、国家。
-- [ ] 确认 short author 信息：`manuscript.tex` 中的 `\shortauthors{Author}` 需要与最终作者列表一致。
+- [x] 主稿作者和单位已填写：Hao Lang、Jinhao Chen、Tianyu Wo。
+- [x] short author 已更新为 `Lang et~al.`。
 - [ ] 将参考文献和正文引用改为期刊要求的编号引用格式。当前仍是 `\usepackage[authoryear,longnamesfirst]{natbib}` 和 `\bibliographystyle{cas-model2-names}`。
-- [ ] 将 CRediT 中的 `First Author`、`Second Author`、`Third Author` 替换为最终作者姓名，并确认贡献分配。
+- [ ] 确认 CRediT 贡献分配是否符合最终作者意见。
 - [ ] 完成 competing interest 声明；用 Elsevier declarations tool 生成最终 Word 文件并在上传步骤作为单独文件上传。
 - [ ] 将 funding 中的 `[Funding Agency Name]` 和 `[Grant Number]` 替换为真实基金信息；如果无资助，替换为无资助声明。
 - [ ] 人工确认 generative AI disclosure 是否准确覆盖论文准备过程，并由全体作者接受。
 - [ ] 决定 data/code availability 的最终口径：公开仓库/Zenodo/OSF DOI，或保持 corresponding author on reasonable request。
-- [ ] 在 cover letter 中补齐 `[Date]`、`[Corresponding Author Name]`、affiliation、email。
+- [ ] 在 cover letter 中补齐 `[Date]`，并确认 Hao Lang 是否为最终通讯作者。
 - [ ] 人工确认 previous publication / preprint / concurrent submission 状态；如果存在预印本、会议版、学位论文或重叠稿件，需要在 cover letter 中披露。
 
 ## 已准备的投稿材料
@@ -44,7 +44,7 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] Acknowledgements 已删除。
 - [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
 - [x] 当前 BibTeX 输出引用 43 篇，低于 50 篇上限。
-- [x] 当前 build 日志显示 PDF 为 27 页，处于 research article 10-35 页范围内。
+- [x] 当前 build 日志显示 PDF 为 28 页，处于 research article 10-35 页范围内。
 - [x] 当前 build 日志未发现 undefined citation 或 undefined reference。
 - [~] 当前 build 仍有 overfull/underfull box 和 hyperref warning；这些不是阻断项，但最终投稿前应再快速扫一遍 PDF。
 - [ ] 正文引用格式仍需从 author-year 改成 numbered citation。

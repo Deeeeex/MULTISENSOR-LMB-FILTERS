@@ -1,8 +1,28 @@
 function [reportPath, summary] = runMultisensorFilters_formation_4plus4_TieredLinkAblation( ...
     numberOfTrials, baseSeed, useFixedSeed, commConfigOverrides, writeReport, finalArmMode, adaptiveFusionOverrides, armSelection)
 % RUNMULTISENSORFILTERS_FORMATION_4PLUS4_TIEREDLINKABLATION
-% Ablation under tiered packet-drop configuration:
-%   fixed weights -> +covariance -> +link quality -> +(robust NIS or freshness)
+% Ablation under tiered packet-drop configuration.
+%
+% 文件导读：
+%   这是当前 GA-LMB 动态权重主实验/消融入口。它本身不实现滤波器细节，
+%   而是负责把“场景、通信、实验 arm、分布式邻域、指标和报告”串起来。
+%
+% 主调用链：
+%   1. 本脚本生成 8-sensor / 10-target formation 场景配置；
+%   2. generateMultisensorModel 生成滤波模型；
+%   3. generateMultisensorGroundTruth 生成 truth、measurements 和 sensor trajectories；
+%   4. applyCommunicationModel 注入 tiered packet-drop，得到 delivered measurements；
+%   5. buildArms 根据 finalArmMode 构造 Fixed / FID-FIA / Balanced / Cardinality-critical 等 arm；
+%   6. 每个 arm 调 runDistributedLmbFilter；
+%   7. runDistributedLmbFilter 为每个 sensor 构造 local neighbor model；
+%   8. runParallelUpdateLmbFilter 在每个时刻调用 computeAdaptiveFusionWeights；
+%   9. gaLmbTrackMerging 消费 spatial/existence weights 完成 posterior fusion；
+%  10. 本脚本再计算 local tracking metrics、network disagreement metrics、runtime 和 markdown report。
+%
+% 阅读建议：
+%   先看前 300 行主函数，理解“实验如何被组织”；再看 buildArms，理解
+%   每个对照 arm 到底打开哪些 adaptiveFusion 开关；最后看 writeAblationReport
+%   和 computeConsensusMetrics，理解结果表里的指标从哪里来。
 
 close all; clc;
 scriptDir = fileparts(mfilename('fullpath'));
@@ -41,6 +61,11 @@ end
 reportPath = '';
 summary = struct();
 
+%% 1. 实验固定骨架：传感器数量、通信半径、融合拓扑和基础动态权重配置
+% 这里定义的是“所有 arm 共享”的默认设置。后面的 buildArms 会复制这份
+% baseAdaptiveFusionConfig，再按 arm 覆盖局部字段。注意：脚本里仍保留
+% 一些历史次线字段（如 freshness/NIS/history）用于旧报告兼容；当前
+% computeAdaptiveFusionWeights 主线已经不再消费这些次线字段。
 staggeredBirths = true;
 leaderSensor = 8;
 sensorCommRange = 150;
@@ -117,6 +142,9 @@ baseAdaptiveFusionConfig = struct( ...
     'robustNISMin', 0.3);
 baseAdaptiveFusionConfig = mergeStructFields(baseAdaptiveFusionConfig, adaptiveFusionOverrides);
 
+%% 2. 场景侧配置：传感器质量、通信丢包分档、传感器运动和目标编队出生
+% 这一段只准备输入，不运行滤波。真正的模型对象在 trial 循环里生成，
+% 这样每个 trial 可以用确定 seed 生成配对可比的随机场景/通信结果。
 numberOfSensors = 8;
 clutterRates = 3 * ones(1, numberOfSensors);
 detectionProbabilities = 0.9 * ones(1, numberOfSensors);
@@ -150,11 +178,18 @@ targetFormationConfig.targetFormationLifeSpan = 100;
 targetFormationConfig.targetBirthStates = buildTargetBirthStates();
 targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
 
+%% 3. Arm 构造：把一个 finalArmMode 展开成一组可比较方法
+% 最终 paper 主线通常使用 finalArmMode='fidFiaExistenceRefinement'，
+% 对应 Fixed -> FID-FIA baseline -> Balanced -> Cardinality-critical。
+% armSelection 只是调试入口，可临时只跑某几个 arm，不改变默认实验定义。
 arms = buildArms(baseAdaptiveFusionConfig, finalArmMode);
 arms = selectArms(arms, armSelection);
 armNames = {arms.name};
 numArms = numel(arms);
 
+%% 4. 预分配结果容器：local metrics、network disagreement 和 runtime
+% local metrics 是每个 sensor 相对 ground truth 的 tracking 质量；
+% consensus metrics 是不同 sensor 输出之间的一致性/分歧，不直接看 truth。
 eOspa = zeros(numberOfTrials, numberOfSensors, numArms);
 hOspa = zeros(numberOfTrials, numberOfSensors, numArms);
 rmse = zeros(numberOfTrials, numberOfSensors, numArms);
@@ -168,12 +203,14 @@ consCardSeries = [];
 filterRuntimeSeconds = zeros(numberOfTrials, numArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 
+%% 5. Trial 主循环：每个 trial 生成一次共享场景，再让所有 arm 在同一场景上配对比较
 for trial = 1:numberOfTrials
     fprintf('Trial %d/%d\n', trial, numberOfTrials);
     if useFixedSeed
         rng(baseSeed + trial);
     end
 
+    % 5.1 生成模型和测量：后续所有 arm 复用同一份 ground truth / measurements。
     model = generateMultisensorModel(numberOfSensors, clutterRates, ...
         detectionProbabilities, q, 'GA', 'LBP', 'Formation', ...
         sensorMotionConfig, targetFormationConfig);
@@ -186,22 +223,33 @@ for trial = 1:numberOfTrials
     [~, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
     model.sensorTrajectories = sensorTrajectories;
 
+    % 5.2 通信模型：先可选多速率采样，再应用 packet-drop / bandwidth / outage。
+    % computeAdaptiveFusionWeights 后面只看 delivered measurements 和 commStats，
+    % 因此通信层统计是动态 linkQuality / availabilityMask 的直接输入。
     [measurementsForComm, samplingStats] = applyOptionalMultiRateSchedule(measurements, commConfig);
     [measurementsDelivered, commStats] = applyCommunicationModel(measurementsForComm, model, commConfig);
     commStats = attachSamplingStats(commStats, samplingStats);
     pDropBySensorTrials(trial, :) = reshape(commStats.pDropBySensor, 1, []);
 
+    % 5.3 Arm 循环：每个 arm 只替换 adaptiveFusion 配置，其余场景输入保持相同。
     for armIdx = 1:numArms
         fprintf('  Arm %d/%d: %s\n', armIdx, numArms, arms(armIdx).name);
         armModel = model;
         armModel.adaptiveFusion = arms(armIdx).adaptiveFusion;
         neighborMap = buildNeighborMap4Plus4(numberOfSensors);
         runtimeStart = tic();
+        % 关键调用：进入分布式滤波层。
+        % runDistributedLmbFilter 会为每个 sensor 构造 local model；
+        % local model 再进入 runParallelUpdateLmbFilter；
+        % 动态权重真正发生在 runParallelUpdateLmbFilter -> computeAdaptiveFusionWeights；
+        % GA 融合权重最终被 gaLmbTrackMerging 消费。
         [stateEstimatesBySensor, localModels] = runDistributedLmbFilter( ...
             armModel, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
         filterRuntimeSeconds(trial, armIdx) = toc(runtimeStart);
         fprintf('    Filter runtime: %.3f s\n', filterRuntimeSeconds(trial, armIdx));
 
+        % 5.4 Local tracking metrics：每个 sensor 的输出分别和 ground truth 比。
+        % 这些指标用于防止“节点之间更一致，但一起偏离真值”的假改善。
         for s = 1:numberOfSensors
             [eArm, hArm, cardArm] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
             eOspa(trial, s, armIdx) = mean(eArm);
@@ -210,6 +258,9 @@ for trial = 1:numberOfTrials
             cardErr(trial, s, armIdx) = mean(abs(cardArm - groundTruthRfs.cardinality));
         end
 
+        % 5.5 Network disagreement metrics：比较 sensor 之间输出是否一致。
+        % paper 主表里的 OSPA consensus error / matched localization disagreement /
+        % cardinality dispersion 就来自这里的 consOspa / consPos / consCard。
         [posArm, cardArm, ospaArm] = computeConsensusMetrics(stateEstimatesBySensor, armModel);
         consOspa(trial, armIdx) = mean(ospaArm);
         consPos(trial, armIdx) = mean(posArm, 'omitnan');
@@ -226,6 +277,7 @@ for trial = 1:numberOfTrials
     end
 end
 
+%% 6. 控制台摘要：快速确认 arm 顺序、通信分档和三项 network disagreement
 fprintf('=====================================\n');
 fprintf('GA Tiered Link Ablation (N=%d)\n', numberOfTrials);
 fprintf('Order: %s\n', strjoin(armNames, ' -> '));
@@ -238,6 +290,7 @@ for armIdx = 1:numArms
         mean(consCard(:, armIdx)), mean(filterRuntimeSeconds(:, armIdx)));
 end
 
+%% 7. summary 结构：给脚本调用方/批处理脚本复用，不必解析 markdown 报告
 summary.armNames = armNames;
 summary.consensus.ospa = mean(consOspa, 1);
 summary.consensus.pos = mean(consPos, 1, 'omitnan');
@@ -276,6 +329,7 @@ summary.commConfig = commConfig;
 summary.samplingStats = samplingStats;
 summary.arms = arms;
 
+%% 8. 可选报告写出：把配置、trial 级结果、统计量、runtime 和 local metrics 写成 markdown
 if writeReport
     reportDir = fullfile(projectRoot, 'RUN', 'GA');
     if ~exist(reportDir, 'dir')
@@ -302,6 +356,9 @@ end
 end
 
 function arms = selectArms(arms, armSelection)
+% SELECTARMS - 调试用的 arm 子集选择器。
+% 正常论文实验不传 armSelection，默认跑完整 arm 序列。只有 smoke test
+% 或排查某个 arm 时，才用数字索引、名称片段或 'final' 只跑子集。
 if nargin < 2 || isempty(armSelection)
     return;
 end
@@ -341,8 +398,23 @@ end
 end
 
 function arms = buildArms(baseAdaptiveFusionConfig, finalArmMode)
+% BUILDARMS - 把 finalArmMode 映射成一组可配对比较的 adaptiveFusion 配置。
+%
+% 这里是实验设计最重要的 helper。主函数每个 trial 只生成一次场景，
+% 然后这里构造的每个 arm 都在同一场景/通信 realization 上运行，保证
+% 指标差异主要来自 adaptiveFusion 配置，而不是随机场景差异。
+%
+% 当前 paper 主线：
+%   finalArmMode='fidFiaExistenceRefinement'
+%   -> Fixed Metropolis
+%   -> Cao-Zhao FID-FIA baseline
+%   -> Balanced mode (+structure-aware decoupled KLA)
+%   -> Cardinality-critical mode (+FID-FIA existence refinement)
 arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 5);
 
+% 默认前三个 arm 是旧消融骨架：fixed -> covariance -> link quality。
+% 某些 finalArmMode 会在 switch 里重写整组 arms，例如当前主线的
+% fidFiaExistenceRefinement 直接改成 4-arm paper-facing 顺序。
 cfg = baseAdaptiveFusionConfig;
 cfg.enabled = false;
 cfg.useDecoupledKla = false;
@@ -374,6 +446,11 @@ switch lower(finalArmMode)
     case {'fidfiaexistencerefinement', 'fid_fia_existence_refinement', ...
             'fid-fia-existence-refinement', 'caozhaoexistencerefinement', ...
             'cao_zhao_existence_refinement'}
+        % Paper 主实验 arm 顺序。
+        % 1. fixed weights：关闭 adaptiveFusion，保留 Metropolis 拓扑权重。
+        % 2. FID-FIA baseline：整个 posterior 用 scalar FID-FIA 权重融合。
+        % 3. Balanced：三因子 backbone + decoupled KLA + structure prior。
+        % 4. Cardinality-critical：在 Balanced 基础上，只给 existence 分支加 FID-FIA。
         arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 4);
 
         cfg = baseAdaptiveFusionConfig;
@@ -445,6 +522,10 @@ switch lower(finalArmMode)
         arms(3).name = '+structure-aware decoupled KLA';
         arms(3).adaptiveFusion = cfg;
 
+        % Cardinality-critical 的关键不是“替换 Balanced”，而是在 Balanced 的
+        % existence branch 上叠加 FID-FIA。这里把 FID-FIA score floor 和
+        % existence final weight floor 都设成 0，让目标数风险高时可以强抑制
+        % 不可靠 existence 分支；spatial branch 的 0.05 floor 不变。
         cfg.useFidFiaExistence = true;
         cfg.fidFiaExistenceStrength = 4.0;
         cfg.fidFiaExistenceMinScore = 0.0;
@@ -523,6 +604,8 @@ switch lower(finalArmMode)
         arms(3).name = '+structure-aware decoupled KLA';
         arms(3).adaptiveFusion = cfg;
     case {'freshness', 'fresh'}
+        % 历史次线入口：当前 computeAdaptiveFusionWeights 主线已不再消费
+        % freshness 分数。保留这个分支主要是为了旧报告/历史脚本可读。
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
         cfg.useDecoupledKla = false;
@@ -536,6 +619,8 @@ switch lower(finalArmMode)
         arms = arms(1:4);
     case {'ctfidecay', 'ct_fi_decay', 'informationdecay', 'information_decay', ...
             'multiratectfi', 'multi_rate_ct_fi'}
+        % 历史多速率/信息衰减入口。当前动态权重核心已清理 CT-FI decay，
+        % 不再把它作为 paper 主线动态权重因子。
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
         cfg.useDecoupledKla = false;
@@ -605,6 +690,7 @@ switch lower(finalArmMode)
         arms(4).name = '+link quality';
         arms(4).adaptiveFusion = cfg;
     case {'cardinality', 'cardinalityconsensus', 'cardinality_consensus'}
+        % 历史 cardinality-consensus 尝试。当前核心函数已不再消费该分数。
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
         cfg.useDecoupledKla = false;
@@ -700,6 +786,8 @@ switch lower(finalArmMode)
         arms(5).name = '+structure-aware decoupled KLA';
         arms(5).adaptiveFusion = cfg;
     otherwise
+        % 旧默认 robust-NIS 消融入口。保留是为了旧脚本兼容；当前 paper
+        % 主线请显式传 finalArmMode='fidFiaExistenceRefinement'。
         cfg = baseAdaptiveFusionConfig;
         cfg.enabled = true;
         cfg.useDecoupledKla = false;
@@ -718,6 +806,12 @@ function writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed,
     sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
     arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
     filterRuntimeSeconds, simulationLength, finalArmMode)
+% WRITEABLATIONREPORT - 把一次实验的配置和结果落成 markdown 报告。
+%
+% 报告分三层：
+%   1. Run Config / Arm Configs：复现实验需要的参数；
+%   2. Network disagreement / local tracking / runtime：paper 表格用的统计量；
+%   3. Paired improvement：同一 trial 内和 baseline 成对比较，减少随机性影响。
 
 fid = fopen(reportPath, 'w');
 if fid < 0
@@ -1229,6 +1323,14 @@ end
 end
 
 function [posConsensus, cardConsensus, ospaConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)
+% COMPUTECONSENSUSMETRICS - 计算跨节点 disagreement，而不是 truth error。
+%
+% posConsensus  : 对每对 sensor 的估计集合做 Hungarian matching 后求位置 RMSE；
+% cardConsensus : 每个 sensor 的目标数和全网 median count 的平均偏差；
+% ospaConsensus : 对每对 sensor 输出做对称 OSPA，衡量有限集层面的 disagreement。
+%
+% 这些指标回答的是“各节点融合后是否趋于一致”。因此报告里必须同时
+% 保留 local tracking metrics，防止只优化一致性而牺牲 truth-referenced 质量。
 numSensors = numel(stateEstimatesBySensor);
 simLength = numel(stateEstimatesBySensor{1}.mu);
 posConsensus = zeros(1, simLength);

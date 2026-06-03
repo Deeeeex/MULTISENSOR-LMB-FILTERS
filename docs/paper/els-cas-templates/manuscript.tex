@@ -22,18 +22,39 @@
 \renewcommand{\floatpagefraction}{0.8}
 
 \shorttitle{Communication-Aware Adaptive Weights for Consensus-Oriented Distributed KLA-Based LMB Fusion}
-\shortauthors{Author}
+\shortauthors{Lang et~al.}
 
 \title[mode=title]{Communication-Aware Adaptive Weights for Consensus-Oriented\\Distributed KLA-Based LMB Fusion}
 
-\author[1]{Author Name}
-\ead{author@example.com}
-\affiliation[1]{organization={Affiliation Placeholder},
-  addressline={Address Placeholder},
-  city={City},
-  postcode={000000},
-  state={State},
-  country={Country}}
+\author[1,2]{Hao Lang}
+\cormark[1]
+\ead{langh001@avic.com}
+
+\author[3]{Jinhao Chen}
+\ead{chenjh24@buaa.edu.cn}
+
+\author[3]{Tianyu Wo}
+\ead{woty@buaa.edu.cn}
+
+\affiliation[1]{organization={Shanghai Jiao Tong University},
+  city={Shanghai},
+  postcode={200240},
+  state={Shanghai},
+  country={P.R. China}}
+
+\affiliation[2]{organization={Chinese Aeronautical Radio Electronics Research Institute},
+  city={Shanghai},
+  postcode={200241},
+  state={Shanghai},
+  country={P.R. China}}
+
+\affiliation[3]{organization={Beihang University},
+  city={Beijing},
+  postcode={100191},
+  state={Beijing},
+  country={P.R. China}}
+
+\cortext[1]{Corresponding author}
 
 \begin{abstract}
 Distributed multi-sensor multi-object tracking over peer-to-peer networks requires fusion rules that remain conservative under unknown cross-correlations while still responding to geometry-induced sensing variation and tiered communication loss. Kullback-Leibler average (KLA), or geometric-average fusion, provides a natural foundation for this setting, but fixed or topology-derived weights cannot express whether a neighbor's posterior is informative, whether its information was actually delivered, or whether its Bernoulli components make decisive existence claims. This paper proposes a communication-aware adaptive weighting family for consensus-oriented distributed KLA-based LMB fusion. The method uses a covariance, realized-link, and existence-confidence backbone, then separates spatial and existence weighting so that a weak structure-aware correction regularizes the spatial branch and an FID-FIA information-geometric cue can be reserved for existence fusion. The evaluation uses an eight-sensor dual-formation scenario with finite fields of view and tiered heterogeneous packet loss, and treats network disagreement, local tracking accuracy, and filter/fusion runtime as complementary evidence. The results show that the proposed operating modes improve consensus over fixed and dynamic-weight baselines without collapsing conventional local metrics: the Balanced mode is the lower-overhead position-oriented setting, whereas the Cardinality-critical mode uses additional information-geometric computation to obtain the strongest target-number agreement. The study therefore frames adaptive distributed GA-LMB fusion as an explicit spatial-versus-cardinality-versus-cost tradeoff rather than as a single fixed weighting recipe.

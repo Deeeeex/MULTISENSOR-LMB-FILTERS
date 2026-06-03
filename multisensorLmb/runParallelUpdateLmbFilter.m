@@ -11,6 +11,17 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commSt
 %       位置。每个时刻先做一次全局 prediction，再对每个传感器分别形成
 %       measurement-updated posterior，随后可选调用 computeAdaptiveFusionWeights
 %       更新 spatial/existence 权重，最后由 PU/GA/AA merging 完成融合。
+%       在分布式实验里，本函数通常不是拿全局 8 个传感器运行，而是被
+%       runDistributedLmbFilter 用“邻域子模型 + 邻域测量”调用。此时
+%       model.numberOfSensors 表示局部邻域大小，传感器索引也都是局部索引。
+%
+%   本函数的关键调用链：
+%       lmbPredictionStep
+%       -> generateLmbSensorAssociationMatrices
+%       -> loopyBeliefPropagation / lmbGibbsSampling / lmbMurtysAlgorithm
+%       -> computePosteriorLmbSpatialDistributions
+%       -> computeAdaptiveFusionWeights
+%       -> aaLmbTrackMerging / gaLmbTrackMerging / puLmbTrackMerging
 %
 %   See also generateMultisensorModel, generateMultisensorGroundTruth, lmbPredictionStep,
 %   generateLmbSensorAssociationMatrices, loopyBeliefPropagation, lmbGibbsSampling, 
@@ -30,12 +41,14 @@ function stateEstimates = runParallelUpdateLmbFilter(model, measurements, commSt
 %           well as the objects' trajectories.
 
 %% 1. 初始化状态：objects 是预测/融合后持续递推的 LMB component 集合
+% measurements 的维度是 [sensor x time] cell。对于 distributed local run，
+% sensor 维度已经由 runDistributedLmbFilter 切成当前邻域。
 simulationLength = length(measurements);
 % Struct containing objects' Bernoulli parameters and metadata
 objects = model.object;
 
 % 移动传感器轨迹是 association matrix 计算几何量时需要的上下文。
-if nargin >= 3 && ~isempty(sensorTrajectories)
+if nargin >= 4 && ~isempty(sensorTrajectories)
     model.sensorTrajectories = sensorTrajectories;
 end
 % Output struct
@@ -55,20 +68,25 @@ end
 useNIS = getConfigField(adaptiveCfg, 'useNIS', true);
 progressEverySteps = max(round(getConfigField(adaptiveCfg, 'progressEverySteps', 0)), 0);
 progressLabel = getConfigField(adaptiveCfg, 'progressLabel', '');
-    useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
-    nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
-    % prevWeights 是 EMA 平滑和历史项的状态入口。GA/AA 的空间分支和
-    % 存在分支可以各自保留上一时刻权重。
-    prevWeights = struct();
-    prevWeights.ga = model.gaSensorWeights;
-    prevWeights.aa = model.aaSensorWeights;
-    prevWeights.gaSpatial = getConfigField(model, 'gaSpatialWeights', model.gaSensorWeights);
-    prevWeights.aaSpatial = getConfigField(model, 'aaSpatialWeights', model.aaSensorWeights);
-    prevWeights.gaExistence = getConfigField(model, 'gaExistenceWeights', model.gaSensorWeights);
-    prevWeights.aaExistence = getConfigField(model, 'aaExistenceWeights', model.aaSensorWeights);
-    prevWeights.historyState = struct();
-    innovationConsistency = ones(model.numberOfSensors, simulationLength);
-    associationAmbiguityScore = ones(model.numberOfSensors, simulationLength);
+useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
+nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
+% prevWeights 是动态权重跨时刻平滑的状态入口。当前主线核心不再使用
+% historyScore，但 spatial/existence branch 仍需要上一时刻权重做 EMA。
+% 这里同时保留 ga/aa scalar 权重作为没有 branch-specific debug 输出时的兜底。
+prevWeights = struct();
+prevWeights.ga = model.gaSensorWeights;
+prevWeights.aa = model.aaSensorWeights;
+prevWeights.gaSpatial = getConfigField(model, 'gaSpatialWeights', model.gaSensorWeights);
+prevWeights.aaSpatial = getConfigField(model, 'aaSpatialWeights', model.aaSensorWeights);
+prevWeights.gaExistence = getConfigField(model, 'gaExistenceWeights', model.gaSensorWeights);
+prevWeights.aaExistence = getConfigField(model, 'aaExistenceWeights', model.aaSensorWeights);
+% historyState 是历史实现兼容字段；当前 computeAdaptiveFusionWeights
+% 不再返回 historyState，但保留这个容器不会影响主线行为。
+prevWeights.historyState = struct();
+% 下面两个诊断矩阵来自 association 阶段。当前动态权重核心不再消费
+% NIS/ambiguity 分数，但保留 commStatsLocal 字段有助于旧报告或调试。
+innovationConsistency = ones(model.numberOfSensors, simulationLength);
+associationAmbiguityScore = ones(model.numberOfSensors, simulationLength);
 %% 3. 时间递推：每个时刻先局部更新，再融合
 for t = 1:simulationLength
     %% 3.1 预测：所有传感器共享同一个 predicted LMB prior
@@ -76,6 +94,9 @@ for t = 1:simulationLength
     %% 3.2 每个传感器独立做 measurement update，得到 local posterior
     measurementUpdatedDistributions = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
+        % 每个传感器先独立处理自己的 delivered measurements。此时所有
+        % sensor 都基于同一个 predicted prior objects，因此后面才能把
+        % measurement-updated posteriors 做 GA/AA/PU 融合。
         if (numel(measurements{s, t}))
             % 移动传感器需要 currentTime 才能使用当前传感器位置计算观测几何。
             if model.sensorMotionEnabled
@@ -83,8 +104,9 @@ for t = 1:simulationLength
             else
                 [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
             end
-            % 关联矩阵构造阶段顺带输出 NIS/ambiguity 诊断；这些量只在配置
-            % 启用时参与动态权重，否则保留为 debug 信息。
+            % 关联矩阵构造阶段顺带输出 NIS/ambiguity 诊断。它们是历史
+            % 次线模块的输入；当前主线 computeAdaptiveFusionWeights 不再
+            % 消费这些分数，但保留下来便于旧实验入口和调试对照。
             if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
                 innovationConsistency(s, t) = associationMatrices.innovationScore;
             end
@@ -106,7 +128,9 @@ for t = 1:simulationLength
                 % Data association by way of Murty's algorithm
                 [r, W] = lmbMurtysAlgorithm(associationMatrices, model.numberOfAssignments);
             end
-            % 注意：这里的结果还没有跨传感器融合，只是 sensor s 的本地 posterior。
+            % 注意：这里的结果还没有跨传感器融合，只是 sensor s 的本地
+            % measurement-updated posterior。computeAdaptiveFusionWeights 后面
+            % 消费的就是这一组 per-sensor local posterior。
             measurementUpdatedDistributions{s} = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
         else
             % 多速率实验里，“未采样”和“采样但无检测”要区分：
@@ -136,8 +160,12 @@ for t = 1:simulationLength
         end
         commStatsLocal.innovationConsistency = innovationConsistency;
         commStatsLocal.associationAmbiguityScore = associationAmbiguityScore;
-        % computeAdaptiveFusionWeights 消费所有 local posterior 和通信/诊断信息，
-        % 返回 scalar 权重、branch-specific 权重和可追踪的 debug factor。
+        % computeAdaptiveFusionWeights 是动态权重唯一入口。它读取：
+        %   measurementUpdatedDistributions : 当前时刻各传感器 local posterior；
+        %   measurements / commStatsLocal   : 通信可用性和 delivered/drop 统计；
+        %   prevWeights                     : 上一时刻 scalar/spatial/existence 权重。
+        % 返回的 debug.gaSpatialWeights / debug.gaExistenceWeights 会决定
+        % GA merging 时 spatial density 和 Bernoulli existence 的不同融合权重。
         [gaWeights, aaWeights, debug] = computeAdaptiveFusionWeights( ...
             measurementUpdatedDistributions, measurements, model, t, commStatsLocal, prevWeights);
         % scalar 权重是兜底路径；如果 debug 中提供 spatial/existence 权重，
@@ -160,7 +188,8 @@ for t = 1:simulationLength
         elseif isfield(model, 'aaTargetWiseWeights')
             model = rmfield(model, 'aaTargetWiseWeights');
         end
-        % 更新上一时刻状态，供下一时刻 EMA/history 使用。
+        % 更新上一时刻状态，供下一时刻 EMA 使用。scalar、spatial、existence
+        % 分开记录，是因为 decoupled KLA 两条分支可以有不同平滑系数和下界。
         prevWeights.ga = gaWeights;
         prevWeights.aa = aaWeights;
         prevWeights.gaSpatial = model.gaSpatialWeights;
@@ -172,6 +201,8 @@ for t = 1:simulationLength
         end
     end
     %% 3.4 跨传感器融合：此处才真正把 local posteriors 合成一个 posterior LMB
+    % 到这里为止，每个 cell 里仍是一份 sensor-specific posterior。
+    % GA/AA/PU merging 才是跨传感器融合点；动态权重只影响 GA/AA。
     if (strcmp(model.lmbParallelUpdateMode, 'AA'))
         objects = aaLmbTrackMerging(measurementUpdatedDistributions, model);
     elseif (strcmp(model.lmbParallelUpdateMode, 'GA'))
@@ -187,6 +218,8 @@ for t = 1:simulationLength
     % Keep objects with high existence probabilities
     objects = objects(objectsLikelyToExist);
     %% 3.6 MAP 基数/状态抽取：生成当前时刻对外输出的 RFS estimate
+    % LMB posterior 是一组 Bernoulli components；MAP cardinality 先决定
+    % 本时刻输出几个目标，再取对应 component 的最高权重 Gaussian。
     [nMap, mapIndices] = lmbMapCardinalityEstimate([objects.r]);
     % 按 MAP 选中的 component 输出 label、均值和协方差。
     stateEstimates.labels{t} = zeros(2, nMap);
@@ -229,6 +262,8 @@ end
 end
 
 function tf = isScheduledSample(commStats, sensorIdx, currentTime)
+% ISSCHEDULEDSAMPLE - 区分“本时刻该传感器采样但无检测”和“本时刻根本未采样”。
+% 未采样时直接沿用 prior；采样但无检测时要做 missed-detection update。
 tf = true;
 if nargin < 1 || ~isstruct(commStats) || ~isfield(commStats, 'sensorSampleMask')
     return;
@@ -240,6 +275,9 @@ end
 end
 
 function updatedObjects = applyMissedDetectionUpdate(objects, model, sensorIdx, currentTime)
+% APPLYMISSEDDETECTIONUPDATE - 没有 measurement 但传感器确实采样时的 Bernoulli 更新。
+% 这一步用 state-dependent p_D 计算 missed-detection likelihood，降低存在概率
+% 并重加权 Gaussian mixture；它不同于“通信/调度导致没有数据”的简单跳过。
 updatedObjects = objects;
 for i = 1:numel(objects)
     missedLikelihood = zeros(1, objects(i).numberOfGmComponents);

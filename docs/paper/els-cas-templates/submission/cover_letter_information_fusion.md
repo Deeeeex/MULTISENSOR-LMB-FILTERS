@@ -62,6 +62,6 @@ The closest adaptive-weight precedent is the information-geometric FID-FIA-style
 
 Sincerely,
 
-[Corresponding Author Name]
-[Affiliation]
-[Email]
+Hao Lang
+Shanghai Jiao Tong University; Chinese Aeronautical Radio Electronics Research Institute
+langh001@avic.com
