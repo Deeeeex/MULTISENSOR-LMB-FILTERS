@@ -335,11 +335,17 @@ cfg.structureReliabilityPower = 0.30;
 arms(3).name = 'Balanced AA';
 arms(3).adaptiveFusion = cfg;
 
+% AA consumes existence weights through a linear Bernoulli average.  The GA
+% paper setting uses hard existence-branch suppression for Cardinality-critical
+% mode, but that is too brittle for AA because the spatial branch still keeps
+% mixture components from all active neighbours.  Use FID-FIA as a bounded
+% cardinality cue here, while retaining the same active-neighbour floor and EMA
+% stability as Balanced AA.
 cfg.useFidFiaExistence = true;
-cfg.fidFiaExistenceStrength = 4.0;
-cfg.fidFiaExistenceMinScore = 0.0;
-cfg.existenceEmaAlpha = 0.0;
-cfg.existenceMinWeight = 0.0;
+cfg.fidFiaExistenceStrength = 1.0;
+cfg.fidFiaExistenceMinScore = 0.4;
+cfg.existenceEmaAlpha = 0.7;
+cfg.existenceMinWeight = 0.05;
 arms(4).name = 'Cardinality-critical AA';
 arms(4).adaptiveFusion = cfg;
 end
