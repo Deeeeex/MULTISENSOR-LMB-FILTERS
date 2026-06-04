@@ -239,13 +239,13 @@ for t = 1:simulationLength
         objects(i).trajectory(:, j+1) = objects(i).mu{1};
         objects(i).timestamps(j+1) = t;
     end
-    if progressEverySteps > 0 && (mod(t, progressEverySteps) == 0 || t == simulationLength)
-        if isempty(progressLabel)
-            fprintf('Filter progress %d/%d\n', t, simulationLength);
-        else
-            fprintf('[%s] progress %d/%d\n', progressLabel, t, simulationLength);
-        end
-    end
+    % if progressEverySteps > 0 && (mod(t, progressEverySteps) == 0 || t == simulationLength)
+    %     if isempty(progressLabel)
+    %         fprintf('Filter progress %d/%d\n', t, simulationLength);
+    %     else
+    %         fprintf('[%s] progress %d/%d\n', progressLabel, t, simulationLength);
+    %     end
+    % end
 end
 %% 4. 收尾：保存仍存活且足够长的轨迹
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
