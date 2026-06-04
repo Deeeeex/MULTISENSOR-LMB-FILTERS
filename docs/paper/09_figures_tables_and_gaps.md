@@ -260,13 +260,13 @@ Status:
 
 Content:
 
-- base AA versus adaptive AA
+- fixed AA, covariance-link AA, Balanced AA, and Cardinality-critical AA
 - OSPA consensus error, matched localization disagreement, and cardinality dispersion
-- optional note on average local metric behavior
+- note on local cardinality/RMSE safeguards and runtime tradeoff
 
 Primary source:
 
-- [FORMATION_4PLUS4_THREEWAVES_AA_RUN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md)
+- [AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md)
 
 Status:
 

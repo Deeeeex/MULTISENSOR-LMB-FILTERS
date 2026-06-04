@@ -180,16 +180,19 @@
 
 当前正文主线明确选择 `GA-LMB / KLA`，因为 GA/KLA 更适合讲未知相关性下的保守融合、log-opinion-pool、以及 spatial/existence 分支解耦。因此 `AA` 不再进入正文主结果，只作为附录里的 secondary route 记录。
 
-`AA` 实验中，adaptive 相对 baseline 的结果为：
+最新 `AA` 诊断使用和主实验一致的 tiered packet-drop profile，但为了控制 AA mixture 增长，采用 24-step horizon、`existenceThreshold=0.03`、`maximumNumberOfGmComponents=3`、`maximumNumberOfLbpIterations=150` 的 AA-specific 设置。结果为：
 
-- `OSPA consensus error`: `4.349 -> 3.811`
-- `matched localization disagreement`: `19.098 -> 16.472`
-- `cardinality dispersion`: `0.421 -> 0.307`
+- `fixed AA`: `4.128 / 6.719 / 0.253`
+- `covariance-link AA`: `3.601 / 4.880 / 0.116`
+- `Balanced AA`: `3.554 / 4.788 / 0.114`
+- `Cardinality-critical AA`: `3.548 / 4.872 / 0.110`
 
-不过，这组结果目前只放附录，不和主场景并列，原因有两个：
+读法：
 
-- 数值层面虽然改善明显，但实验线不是本文主要叙事
-- 论文当前最完整、最稳的证据链和理论推导都围绕 `GA-LMB + tiered heterogeneous packet loss`
+- `Balanced AA` 相对 `fixed AA` 明显改善 consensus/cardinality，说明 covariance、link quality、existence confidence 这些 reliability cues 可以部分迁移到 AA。
+- `Cardinality-critical AA` 只带来很小的 OSPA/cardinality 边际收益，localization disagreement 反而略差于 `Balanced AA`，runtime 也从约 `1.13x` fixed AA 增加到约 `1.70x`。
+- local tracking safeguards 显示 adaptive AA 降低 local cardinality error，但 local RMSE 相对 fixed AA 变差。因此这组结果只作为附录证据，不和 GA/KLA 主场景并列。
+- 论文当前最完整、最稳的证据链和理论推导都围绕 `GA-LMB + tiered heterogeneous packet loss`。
 
 ## 6. 次线和附录结果：做过，但不进正文主线
 

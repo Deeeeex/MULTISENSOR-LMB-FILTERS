@@ -6,18 +6,21 @@ This appendix records secondary routes and modules explored in the current paper
 
 ### B.1 AA-Based Secondary Route
 
-The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary AA experiment was run in the same eight-sensor communication-constrained setting with a three-wave target arrangement, but it is kept in the appendix because it is a different fusion route and is not based on the final existence-refined GA configuration.
+The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary AA experiment was run in the same eight-sensor communication-constrained setting, using the tiered packet-drop profile from the main experiment with a shorter AA diagnostic horizon and stronger AA-specific pruning. It is kept in the appendix because AA consumes weights through linear Bernoulli averaging and Gaussian-mixture concatenation rather than through the GA/KLA rule developed in the paper body.
 
 | Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
-| `fixed AA` | `4.349` | `19.098` | `0.421` |
-| `adaptive AA` | `3.811` | `16.472` | `0.307` |
+| `fixed AA` | `4.128` | `6.719` | `0.253` |
+| `covariance-link AA` | `3.601` | `4.880` | `0.116` |
+| `Balanced AA` | `3.554` | `4.788` | `0.114` |
+| `Cardinality-critical AA` | `3.548` | `4.872` | `0.110` |
 
 Current reading:
 
-- positive but appendix-only
-- useful as a future extension pointer, not as a main claim
-- do not present it in the main text while the paper is framed as a GA/KLA contribution
+- Balanced AA gives a clear consensus/cardinality improvement over fixed AA.
+- Cardinality-critical AA gives only a small additional OSPA/cardinality reduction, while slightly worsening localization disagreement and increasing runtime.
+- The local tracking safeguards show reduced local cardinality error but worse local RMSE, so the result should remain appendix-only.
+- Do not present this route in the main text while the paper is framed as a GA/KLA contribution.
 
 In the present draft, the remaining result tables below are intentionally compact. Their role is to record why these modules stay outside the paper body.
 

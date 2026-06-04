@@ -40,7 +40,7 @@ Secondary or appendix-only numbers:
 
 - GA NIS ablation: OSPA consensus error `1.909 -> 1.909 -> 2.008`, matched localization disagreement `2.934 -> 2.980 -> 3.173`, cardinality dispersion `0.267 -> 0.262 -> 0.300`
 - GA history ablation: OSPA consensus error `1.811 -> 1.814`, matched localization disagreement `3.173 -> 3.158`, cardinality dispersion `0.214 -> 0.215`
-- Appendix-only AA three-wave scenario: OSPA consensus error `4.349 -> 3.811`, matched localization disagreement `19.098 -> 16.472`, cardinality dispersion `0.421 -> 0.307`
+- Appendix-only AA diagnostic: fixed AA `4.128 / 6.719 / 0.253`, Balanced AA `3.554 / 4.788 / 0.114`, and Cardinality-critical AA `3.548 / 4.872 / 0.110`
 
 ## Writing Rule For Main Text
 
@@ -107,5 +107,5 @@ Keep `robust NIS`, `history`, `freshness`, and other weak or strongly coupled mo
 - `RUN/GA/GA_ASSOCIATION_AMBIGUITY_COMPARE_20260408_003930.md`
 - `RUN/GA/runMultisensorFilters_formation_4plus4_PosteriorStructureCompare.m`
 - `RUN/GA/GA_POSTERIOR_STRUCTURE_COMPARE_20260408_002901.md`
-- `docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md`
+- `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md`
 - `analyzeCommunicationLevelImpact.m`

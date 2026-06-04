@@ -168,11 +168,11 @@ Communication-robustness analysis:
 
 Appendix-only AA-based secondary route:
 
-- use the secondary AA scenario documented in [FORMATION_4PLUS4_THREEWAVES_AA_RUN.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/docs/FORMATION_4PLUS4_THREEWAVES_AA_RUN.md)
+- use the AA-specific diagnostic documented in [AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md)
 - retain this only as appendix evidence, because the paper deliberately chooses the GA/KLA route
 - do not use this as a main-text result, because the strongest evidence and theory remain on GA-LMB
 
-The AA scenario uses the same eight-sensor communication-constrained setting, but with an arithmetic-average fusion mode and a three-wave target arrangement. The current role of this experiment is appendix evidence, not a main-text evaluation line.
+The AA diagnostic uses the same eight-sensor communication-constrained setting and tiered packet-drop profile, but with arithmetic-average fusion, a shorter diagnostic horizon, and stronger AA-specific pruning. The current role of this experiment is appendix evidence, not a main-text evaluation line.
 
 ### 9. Secondary And Appendix-Only Ablations
 
