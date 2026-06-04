@@ -168,7 +168,7 @@ Communication-robustness analysis:
 
 Appendix-only AA-based secondary route:
 
-- use the AA-specific diagnostic documented in [AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_174816.md)
+- use the AA-specific diagnostic documented in [AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_184128.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260604_184128.md)
 - retain this only as appendix evidence, because the paper deliberately chooses the GA/KLA route
 - do not use this as a main-text result, because the strongest evidence and theory remain on GA-LMB
 

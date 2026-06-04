@@ -6,19 +6,19 @@ This appendix records secondary routes and modules explored in the current paper
 
 ### B.1 AA-Based Secondary Route
 
-The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary AA experiment was run in the same eight-sensor communication-constrained setting, using the tiered packet-drop profile from the main experiment with a shorter AA diagnostic horizon and stronger AA-specific pruning. It is kept in the appendix because AA consumes weights through linear Bernoulli averaging and Gaussian-mixture concatenation rather than through the GA/KLA rule developed in the paper body.
+The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary AA experiment was run in the same eight-sensor communication-constrained setting, using the tiered packet-drop profile from the main experiment with a shorter AA diagnostic horizon and stronger AA-specific pruning. It is kept in the appendix because AA consumes weights through linear Bernoulli averaging and existence-weighted Gaussian-mixture concatenation rather than through the GA/KLA rule developed in the paper body.
 
 | Arm | OSPA Consensus Error | Matched Localization Disagreement | Cardinality Dispersion |
 |:----|---------------:|---------------:|----------------------:|
-| `fixed AA` | `4.128` | `6.719` | `0.253` |
-| `covariance-link AA` | `3.601` | `4.880` | `0.116` |
-| `Balanced AA` | `3.554` | `4.788` | `0.114` |
-| `Cardinality-critical AA` | `3.548` | `4.872` | `0.110` |
+| `fixed AA` | `3.903` | `5.130` | `0.226` |
+| `covariance-link AA` | `3.507` | `4.401` | `0.103` |
+| `Balanced AA` | `3.449` | `4.306` | `0.102` |
+| `Cardinality-critical AA` | `3.457` | `4.328` | `0.095` |
 
 Current reading:
 
 - Balanced AA gives a clear consensus/cardinality improvement over fixed AA.
-- Cardinality-critical AA gives only a small additional OSPA/cardinality reduction, while slightly worsening localization disagreement and increasing runtime.
+- Cardinality-critical AA gives the strongest cardinality-dispersion reduction, while slightly worsening OSPA/localization disagreement relative to Balanced AA and increasing runtime.
 - The local tracking safeguards show reduced local cardinality error but worse local RMSE, so the result should remain appendix-only.
 - Do not present this route in the main text while the paper is framed as a GA/KLA contribution.
 

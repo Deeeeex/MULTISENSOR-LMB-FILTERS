@@ -5,7 +5,7 @@ This appendix records secondary routes and modules that were evaluated but not r
 
 \subsection{AA-based secondary route}
 
-The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was nevertheless run in the same eight-sensor communication-constrained setting. This diagnostic uses the same tiered packet-drop profile as the main experiment, but shortens the AA run horizon and applies stronger AA-specific pruning to keep mixture growth tractable. The result is informative but remains appendix-only because AA consumes the adaptive weights through linear Bernoulli averaging and Gaussian-mixture concatenation rather than through the logarithmic GA/KLA fusion rule developed in the paper body.
+The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was nevertheless run in the same eight-sensor communication-constrained setting. This diagnostic uses the same tiered packet-drop profile as the main experiment, but shortens the AA run horizon and applies stronger AA-specific pruning to keep mixture growth tractable. The result is informative but remains appendix-only because AA consumes the adaptive weights through linear Bernoulli averaging and existence-weighted Gaussian-mixture concatenation rather than through the logarithmic GA/KLA fusion rule developed in the paper body.
 
 \par\medskip
 \refstepcounter{table}\label{tab:appendix-aa}
@@ -17,16 +17,16 @@ The paper body focuses on GA/KLA fusion because the method is designed around co
     \toprule
     Arm & OSPA & Loc. disag. & Cardinality \\
     \midrule
-    fixed AA & 4.128 & 6.719 & 0.253 \\
-    covariance-link AA & 3.601 & 4.880 & 0.116 \\
-    Balanced AA & 3.554 & 4.788 & 0.114 \\
-    Cardinality-critical AA & 3.548 & 4.872 & 0.110 \\
+    fixed AA & 3.903 & 5.130 & 0.226 \\
+    covariance-link AA & 3.507 & 4.401 & 0.103 \\
+    Balanced AA & 3.449 & 4.306 & 0.102 \\
+    Cardinality-critical AA & 3.457 & 4.328 & 0.095 \\
     \bottomrule
   \end{tabular}
 \end{minipage}
 \par\medskip
 
-This result suggests that communication-aware weighting is also useful outside GA fusion: the Balanced AA setting reduces OSPA consensus error by about $13.9\%$ and cardinality dispersion by about $55.0\%$ relative to fixed AA. The Cardinality-critical AA variant gives only a small additional reduction in OSPA and cardinality dispersion, while slightly worsening localization disagreement relative to Balanced AA and increasing runtime from about $1.13\times$ to $1.70\times$ the fixed-AA runtime. The local truth-referenced safeguards show the same tradeoff: both adaptive AA variants substantially reduce local cardinality error, but they increase local RMSE relative to fixed AA. We therefore treat AA as useful supporting evidence that the reliability cues can transfer to another fusion operator, not as a main claim. The theoretical development, operating-mode story, and strongest experiments in this paper remain centered on distributed GA/KLA-based LMB fusion.
+This result suggests that communication-aware weighting is also useful outside GA fusion: the Balanced AA setting reduces OSPA consensus error by about $11.6\%$, matched localization disagreement by about $16.1\%$, and cardinality dispersion by about $55.0\%$ relative to fixed AA. The Cardinality-critical AA variant gives the strongest cardinality-dispersion reduction, about $58.0\%$, but is slightly worse than Balanced AA on OSPA and localization disagreement and increases runtime from about $1.11\times$ to $1.53\times$ the fixed-AA runtime. The local truth-referenced safeguards show the same tradeoff: both adaptive AA variants substantially reduce local cardinality error, but they increase local RMSE relative to fixed AA. We therefore treat AA as useful supporting evidence that the reliability cues can transfer to another fusion operator, not as a main claim. The theoretical development, operating-mode story, and strongest experiments in this paper remain centered on distributed GA/KLA-based LMB fusion.
 
 \subsection{NIS-based consistency weighting}
 
