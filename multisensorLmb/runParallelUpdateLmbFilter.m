@@ -80,8 +80,8 @@ prevWeights.gaSpatial = getConfigField(model, 'gaSpatialWeights', model.gaSensor
 prevWeights.aaSpatial = getConfigField(model, 'aaSpatialWeights', model.aaSensorWeights);
 prevWeights.gaExistence = getConfigField(model, 'gaExistenceWeights', model.gaSensorWeights);
 prevWeights.aaExistence = getConfigField(model, 'aaExistenceWeights', model.aaSensorWeights);
-% historyState 是历史实现兼容字段；当前 computeAdaptiveFusionWeights
-% 不再返回 historyState，但保留这个容器不会影响主线行为。
+% historyState 是可选跨时刻诊断/平滑状态；默认主线为空。实验性
+% history-smoothed existence confidence 会在这里保存按 label 匹配的平滑 r。
 prevWeights.historyState = struct();
 % 下面两个诊断矩阵来自 association 阶段。当前动态权重核心不再消费
 % NIS/ambiguity 分数，但保留 commStatsLocal 字段有助于旧报告或调试。

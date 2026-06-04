@@ -80,8 +80,9 @@ end
 %   existenceConfidenceScore  : existence probability 越果断越大；有 score 下界。
 % availabilityMask 是硬门控，和 score floor 不同：不可用邻居会直接被置零。
 covScore = computeCovarianceScore(measurementUpdatedDistributions, model);
-existenceConfidenceScore = resolveExistenceConfidenceScore( ...
-    measurementUpdatedDistributions, useExistenceConfidence, cfg);
+[existenceConfidenceScore, existenceHistoryState, existenceConfidenceInstantScore] = ...
+    resolveExistenceConfidenceScore( ...
+        measurementUpdatedDistributions, useExistenceConfidence, cfg, prevWeights);
 linkQuality = computeLinkQuality(measurements, commStats, t, numSensors);
 [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality);
 expectedCardinality = computeExpectedCardinality(measurementUpdatedDistributions);
@@ -198,6 +199,7 @@ debug.availabilityMask = availabilityMask;
 debug.covScore = covScore;
 debug.baseScore = baseScore;
 debug.existenceConfidenceScore = existenceConfidenceScore;
+debug.existenceConfidenceInstantScore = existenceConfidenceInstantScore;
 debug.linkQuality = linkQuality;
 debug.rawScore = rawScore;
 debug.rawWeights = rawWeights;
@@ -230,6 +232,9 @@ debug.aaSpatialWeights = spatialWeights;
 debug.gaExistenceWeights = existenceWeights;
 debug.aaExistenceWeights = existenceWeights;
 debug.expectedCardinality = expectedCardinality;
+if ~isempty(fieldnames(existenceHistoryState))
+    debug.historyState = existenceHistoryState;
+end
 end
 
 function tf = isFidFiaMethod(method)
@@ -891,9 +896,12 @@ end
 blendedScore = (anchorScore .^ (1 - strength)) .* (dedicatedScore .^ strength);
 end
 
-function existenceConfidenceScore = resolveExistenceConfidenceScore(measurementUpdatedDistributions, useExistenceConfidence, cfg)
+function [existenceConfidenceScore, historyState, instantScore] = resolveExistenceConfidenceScore( ...
+    measurementUpdatedDistributions, useExistenceConfidence, cfg, prevWeights)
 numSensors = numel(measurementUpdatedDistributions);
 existenceConfidenceScore = ones(1, numSensors);
+instantScore = ones(1, numSensors);
+historyState = struct();
 if ~useExistenceConfidence
     return;
 end
@@ -904,25 +912,118 @@ end
 % 0.6 的默认值提升到 0.85，让这个因子更像轻量校正而不是硬筛选。
 minScore = min(max(getField(cfg, 'existenceConfidenceMinScore', 0.6), 0), 1);
 power = max(getField(cfg, 'existenceConfidencePower', 1.0), 0);
+useHistorySmoothedExistence = getField(cfg, 'useHistorySmoothedExistenceConfidence', false);
+historyAlpha = min(max(getField(cfg, 'existenceHistoryEmaAlpha', 0.8), 0), 1);
+previousHistory = resolvePreviousExistenceHistory(prevWeights, numSensors);
+if useHistorySmoothedExistence
+    historyState.existenceConfidence = cell(1, numSensors);
+end
 
 for s = 1:numSensors
     objects = measurementUpdatedDistributions{s};
     if isempty(objects)
         existenceConfidenceScore(s) = 1;
+        instantScore(s) = 1;
+        if useHistorySmoothedExistence
+            historyState.existenceConfidence{s} = buildExistenceHistoryEntry(objects, []);
+        end
         continue;
     end
 
     existenceProb = [objects.r];
     if isempty(existenceProb)
         existenceConfidenceScore(s) = 1;
+        instantScore(s) = 1;
+        if useHistorySmoothedExistence
+            historyState.existenceConfidence{s} = buildExistenceHistoryEntry(objects, []);
+        end
         continue;
     end
 
-    certainty = abs(2 * existenceProb - 1);
-    weightedConfidence = sum(existenceProb .* certainty) / (eps + sum(existenceProb));
-    weightedConfidence = min(max(weightedConfidence, 0), 1);
+    instantConfidence = computeExistenceConfidenceValue(existenceProb);
+    instantScore(s) = minScore + (1 - minScore) * (instantConfidence ^ power);
+
+    scoreExistenceProb = existenceProb;
+    if useHistorySmoothedExistence
+        scoreExistenceProb = smoothExistenceProbabilities( ...
+            objects, existenceProb, previousHistory{s}, historyAlpha);
+        historyState.existenceConfidence{s} = buildExistenceHistoryEntry(objects, scoreExistenceProb);
+    end
+
+    weightedConfidence = computeExistenceConfidenceValue(scoreExistenceProb);
     existenceConfidenceScore(s) = minScore + (1 - minScore) * (weightedConfidence ^ power);
 end
+end
+
+function previousHistory = resolvePreviousExistenceHistory(prevWeights, numSensors)
+previousHistory = cell(1, numSensors);
+if nargin < 1 || ~isstruct(prevWeights) || ~isfield(prevWeights, 'historyState') || ...
+        ~isstruct(prevWeights.historyState) || ~isfield(prevWeights.historyState, 'existenceConfidence')
+    return;
+end
+storedHistory = prevWeights.historyState.existenceConfidence;
+if ~iscell(storedHistory)
+    return;
+end
+for s = 1:min(numSensors, numel(storedHistory))
+    previousHistory{s} = storedHistory{s};
+end
+end
+
+function smoothedProb = smoothExistenceProbabilities(objects, existenceProb, previousEntry, alpha)
+smoothedProb = reshape(existenceProb, 1, []);
+if isempty(objects) || isempty(previousEntry) || ~isstruct(previousEntry) || ...
+        ~isfield(previousEntry, 'labels') || ~isfield(previousEntry, 'r')
+    return;
+end
+
+currentLabels = extractObjectLabels(objects);
+previousLabels = previousEntry.labels;
+previousR = reshape(previousEntry.r, 1, []);
+if isempty(currentLabels) || isempty(previousLabels) || size(previousLabels, 2) ~= numel(previousR)
+    return;
+end
+
+for idx = 1:size(currentLabels, 2)
+    matchIdx = find(previousLabels(1, :) == currentLabels(1, idx) & ...
+        previousLabels(2, :) == currentLabels(2, idx), 1);
+    if ~isempty(matchIdx)
+        smoothedProb(idx) = alpha * previousR(matchIdx) + (1 - alpha) * smoothedProb(idx);
+    end
+end
+smoothedProb = min(max(smoothedProb, 0), 1);
+end
+
+function entry = buildExistenceHistoryEntry(objects, existenceProb)
+entry = struct();
+entry.labels = extractObjectLabels(objects);
+entry.r = reshape(existenceProb, 1, []);
+end
+
+function labels = extractObjectLabels(objects)
+labels = zeros(2, numel(objects));
+for idx = 1:numel(objects)
+    if isfield(objects, 'birthTime')
+        labels(1, idx) = objects(idx).birthTime;
+    else
+        labels(1, idx) = idx;
+    end
+    if isfield(objects, 'birthLocation')
+        labels(2, idx) = objects(idx).birthLocation;
+    else
+        labels(2, idx) = idx;
+    end
+end
+end
+
+function confidence = computeExistenceConfidenceValue(existenceProb)
+if isempty(existenceProb)
+    confidence = 0;
+    return;
+end
+certainty = abs(2 * existenceProb - 1);
+confidence = sum(existenceProb .* certainty) / (eps + sum(existenceProb));
+confidence = min(max(confidence, 0), 1);
 end
 
 function [covScore, linkQuality] = applyFactorMasks(covScore, linkQuality, useCovariance, useLinkQuality)

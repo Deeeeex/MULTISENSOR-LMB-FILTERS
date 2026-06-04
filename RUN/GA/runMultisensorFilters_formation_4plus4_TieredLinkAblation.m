@@ -852,6 +852,8 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
     fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
     fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
+    fprintf(fid, '- useHistorySmoothedExistenceConfidence: %d\n', getField(cfg, 'useHistorySmoothedExistenceConfidence', false));
+    fprintf(fid, '- existenceHistoryEmaAlpha: %.3f\n', getField(cfg, 'existenceHistoryEmaAlpha', 0.8));
     fprintf(fid, '- useFreshness: %d\n', getField(cfg, 'useFreshness', false));
     fprintf(fid, '- useCtFiDecay: %d\n', getField(cfg, 'useCtFiDecay', false));
     if getField(cfg, 'useCtFiDecay', false)
