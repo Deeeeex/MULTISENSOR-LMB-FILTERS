@@ -1,12 +1,13 @@
 # Upload Files
 
-Use these files for the three required upload slots:
+Use these files for the required upload slots:
 
 - Manuscript: `manuscript.pdf`
+- Editable LaTeX source: `manuscript_source.zip`
 - Cover letter: `cover_letter.txt`
 - Highlights: `highlights.txt`
 
-`manuscript.pdf` is generated from `../../manuscript.tex` after removing the embedded highlights block from the manuscript source. `cover_letter.txt` and `highlights.txt` are editable plain-text files.
+`manuscript.pdf` is generated from `../../manuscript.tex`. `manuscript_source.zip` contains the complete minimal source tree and has been verified by compiling it after extraction in a clean temporary directory. `cover_letter.txt` and `highlights.txt` are editable plain-text files.
 
 Declaration handling:
 

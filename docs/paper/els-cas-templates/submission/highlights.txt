@@ -1,3 +1,4 @@
-Adaptive weights improve distributed GA-LMB fusion under packet loss.
-Weights combine covariance, link quality, and existence confidence.
-Operating modes trade runtime for stronger target-number agreement.
+Communication-aware weights improve consensus under heterogeneous packet loss.
+Covariance, realized links, and existence confidence drive adaptive fusion.
+Branch-specific weights separate spatial and cardinality objectives.
+Operating modes trade spatial accuracy, cardinality agreement, and runtime.

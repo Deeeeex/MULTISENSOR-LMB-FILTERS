@@ -34,13 +34,14 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] 投稿声明源文件：`sections/declarations.tex`。
 - [x] 当前 PDF 可生成：`manuscript.pdf`。
 - [x] Elsevier 数字引用样式文件：`model1-num-names.bst`。
+- [x] 完整 LaTeX source ZIP 已生成并通过独立解压编译：`submission/upload_files/manuscript_source.zip`。
 - [ ] Graphical abstract：当前未准备。Information Fusion 页面通常是 encouraged 而非必需；如果准备，应使用非生成式 AI 的代码/手工图件，并保证可编辑源文件可追溯。
 - [ ] Supplementary / reproducibility package：当前还没有统一打包目录；投稿前应决定是否随稿提交。
 
 ## 当前合规状态快照
 
 - [x] Abstract 长度当前约 214 词，低于 250 词上限。
-- [x] Highlights 当前为 3 条，字符数分别为 69、67、67，满足每条不超过 85 字符。
+- [x] Highlights 当前为 4 条，字符数分别为 78、75、68、75，满足每条不超过 85 字符。
 - [x] Highlights 已从主稿源文件中拆出，主稿不再内嵌 `highlights` 环境。
 - [x] Acknowledgements 已删除。
 - [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
@@ -95,13 +96,13 @@ Recommended evidence files to keep traceable:
 
 Include:
 
-- [ ] `manuscript.tex`
-- [ ] `sections/*.tex`
-- [ ] `paper-refs.bib`
-- [ ] `cas-sc.cls`
-- [ ] `cas-common.sty`
-- [ ] `model1-num-names.bst`
-- [ ] `figs/paper-figure*` files actually used by `manuscript.tex`
+- [x] `manuscript.tex`
+- [x] `sections/*.tex`
+- [x] `paper-refs.bib`
+- [x] `cas-sc.cls`
+- [x] `cas-common.sty`
+- [x] `model1-num-names.bst`
+- [x] 实际使用的 6 张正文图和 `thumbnails/cas-email.jpeg`
 - [ ] `submission/highlights.txt`
 - [ ] `submission/upload_files/manuscript.pdf`
 - [ ] `submission/upload_files/cover_letter.txt`
