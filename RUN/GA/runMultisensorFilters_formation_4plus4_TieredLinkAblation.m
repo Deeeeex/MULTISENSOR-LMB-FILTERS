@@ -344,8 +344,13 @@ if writeReport
             'cardinality_consensus'}))
         reportPrefix = 'Del_';
     end
-    reportName = sprintf('%sGA_TIERED_LINK_ABLATION_N%d_SEED%d_%s.md', ...
-        reportPrefix, numberOfTrials, baseSeed, timestamp);
+    if isRigorousAblationMode(finalArmMode)
+        reportName = sprintf('GA_RIGOROUS_COMPONENT_ABLATION_N%d_SEED%d_%s.md', ...
+            numberOfTrials, baseSeed, timestamp);
+    else
+        reportName = sprintf('%sGA_TIERED_LINK_ABLATION_N%d_SEED%d_%s.md', ...
+            reportPrefix, numberOfTrials, baseSeed, timestamp);
+    end
     reportPath = fullfile(reportDir, reportName);
     writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
         sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
@@ -443,6 +448,10 @@ arms(3).name = '+link quality';
 arms(3).adaptiveFusion = cfg;
 
 switch lower(finalArmMode)
+    case {'rigorouscomponentablation', 'rigorous_component_ablation', ...
+            'rigorous-component-ablation', 'reviewerablation', ...
+            'reviewer_ablation'}
+        arms = buildRigorousAblationArms(baseAdaptiveFusionConfig);
     case {'fidfiaexistencerefinement', 'fid_fia_existence_refinement', ...
             'fid-fia-existence-refinement', 'caozhaoexistencerefinement', ...
             'cao_zhao_existence_refinement'}
@@ -821,7 +830,11 @@ end
 
 timestamp = datestr(now, 'yyyy-mm-dd HH:MM:SS');
 baselineName = arms(1).name;
-fprintf(fid, '# GA Tiered Link Ablation (%s)\n\n', timestamp);
+if isRigorousAblationMode(finalArmMode)
+    fprintf(fid, '# GA Rigorous Component Ablation (%s)\n\n', timestamp);
+else
+    fprintf(fid, '# GA Tiered Link Ablation (%s)\n\n', timestamp);
+end
 fprintf(fid, 'Comparison order: %s\n\n', strjoin({arms.name}, ' -> '));
 fprintf(fid, '## Run Config\n');
 fprintf(fid, '- Trials: %d\n', numberOfTrials);
@@ -847,6 +860,9 @@ fprintf(fid, '## Arm Configs\n');
 for armIdx = 1:numel(arms)
     cfg = arms(armIdx).adaptiveFusion;
     fprintf(fid, '### %s\n', arms(armIdx).name);
+    if isfield(arms, 'purpose') && ~isempty(arms(armIdx).purpose)
+        fprintf(fid, '- purpose: %s\n', arms(armIdx).purpose);
+    end
     fprintf(fid, '- enabled: %d\n', getField(cfg, 'enabled', false));
     fprintf(fid, '- method: %s\n', char(getField(cfg, 'method', 'factorized')));
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
@@ -877,6 +893,8 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- usePosteriorStructureConsistency: %d\n', getField(cfg, 'usePosteriorStructureConsistency', false));
     fprintf(fid, '- existenceConfidenceMinScore: %.3f\n', getField(cfg, 'existenceConfidenceMinScore', 0));
     fprintf(fid, '- existenceConfidencePower: %.3f\n', getField(cfg, 'existenceConfidencePower', 0));
+    fprintf(fid, '- emaAlpha: %.3f\n', getField(cfg, 'emaAlpha', 0));
+    fprintf(fid, '- minWeight: %.3f\n', getField(cfg, 'minWeight', 0));
     fprintf(fid, '- spatialEmaAlpha: %.3f\n', getField(cfg, 'spatialEmaAlpha', 0));
     fprintf(fid, '- existenceEmaAlpha: %.3f\n', getField(cfg, 'existenceEmaAlpha', 0));
     fprintf(fid, '- spatialMinWeight: %.3f\n', getField(cfg, 'spatialMinWeight', 0));
@@ -1497,4 +1515,10 @@ if isstruct(s) && isfield(s, fieldName)
 else
     value = defaultValue;
 end
+end
+
+function tf = isRigorousAblationMode(finalArmMode)
+tf = any(strcmpi(finalArmMode, {'rigorouscomponentablation', ...
+    'rigorous_component_ablation', 'rigorous-component-ablation', ...
+    'reviewerablation', 'reviewer_ablation'}));
 end
