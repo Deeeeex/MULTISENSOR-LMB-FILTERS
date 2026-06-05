@@ -15,7 +15,7 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [ ] 将参考文献和正文引用改为期刊要求的编号引用格式。当前仍是 `\usepackage[authoryear,longnamesfirst]{natbib}` 和 `\bibliographystyle{cas-model2-names}`。
 - [ ] 确认 CRediT 贡献分配是否符合最终作者意见。
 - [ ] 完成 competing interest 声明；用 Elsevier declarations tool 生成最终 Word 文件并在上传步骤作为单独文件上传。
-- [ ] 将 funding 中的 `[Funding Agency Name]` 和 `[Grant Number]` 替换为真实基金信息；如果无资助，替换为无资助声明。
+- [ ] 确认资助方是否参与研究设计、数据收集与分析、论文撰写或投稿决定，并按实际情况补充 sponsor-role 声明。
 - [ ] 人工确认 generative AI disclosure 是否准确覆盖论文准备过程，并由全体作者接受。
 - [ ] 决定 data/code availability 的最终口径：公开仓库/Zenodo/OSF DOI，或保持 corresponding author on reasonable request。
 - [ ] 在 cover letter 中补齐 `[Date]`，并确认 Hao Lang 是否为最终通讯作者。
@@ -43,6 +43,7 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] Highlights 已从主稿源文件中拆出，主稿不再内嵌 `highlights` 环境。
 - [x] Acknowledgements 已删除。
 - [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
+- [x] Funding 已填写为 Aviation Industry Corporation of China, Ltd. (AVIC)，项目编号为 `2024AIASSJT02`。
 - [x] 当前 BibTeX 输出引用 43 篇，低于 50 篇上限。
 - [x] 当前 build 日志显示 PDF 为 28 页，处于 research article 10-35 页范围内。
 - [x] 当前 build 日志未发现 undefined citation 或 undefined reference。

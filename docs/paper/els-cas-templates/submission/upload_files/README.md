@@ -13,4 +13,4 @@ Declaration handling:
 - CRediT, funding, data availability, and generative AI disclosure remain in the manuscript before the reference list.
 - Declaration of competing interest should be completed through Elsevier's declarations tool and uploaded as the resulting Word document. Draft text is under `../declarations/declaration_of_competing_interest.txt`.
 
-Before final submission, replace the remaining author, affiliation, funding, competing-interest, CRediT, data/code availability, and prior-publication placeholders.
+Before final submission, replace or confirm the remaining competing-interest, CRediT, data/code availability, sponsor-role, and prior-publication placeholders.
