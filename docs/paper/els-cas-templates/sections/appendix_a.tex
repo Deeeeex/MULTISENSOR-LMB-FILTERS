@@ -5,7 +5,7 @@ This appendix records reproducibility details for the reported experiments, incl
 
 \subsection{Main scenario overview}
 
-The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for approximate marginal data association \citep{WilliamsLau2014LBP}, and distributed fusion is performed only over the local communication neighborhood.
+The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for approximate marginal data association \cite{WilliamsLau2014LBP}, and distributed fusion is performed only over the local communication neighborhood.
 
 The common filter-side settings are:
 \begin{itemize}
@@ -14,7 +14,7 @@ The common filter-side settings are:
 \item data association: LBP,
 \item simulation length: $100$ time steps,
 \item sensor communication range: $150$,
-\item fixed-weight baseline fusion rule: Metropolis-type consensus weighting \citep{XiaoBoydLall2005ConsensusWeights},
+\item fixed-weight baseline fusion rule: Metropolis-type consensus weighting \cite{XiaoBoydLall2005ConsensusWeights},
 \item clutter rate at every sensor: $3$,
 \item detection probability at every sensor: $0.9$,
 \item measurement-noise scale at every sensor: $q = 3$,
