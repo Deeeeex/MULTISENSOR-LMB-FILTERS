@@ -24,11 +24,11 @@ tiered-link 4+4 formation 场景、固定 seed 和 paired-trial 机制，只改�
 
 构造器还提供第 11 个可选 arm：
 
-`Cardinality-critical deployed control`
+`Balanced + FID-FIA existence`
 
-它在 arm 10 基础上进一步把 `existenceEmaAlpha` 和 `existenceMinWeight`
-设为 0，以匹配当前 deployment 配置。这个 arm 用于说明部署模式的整体效果，
-不应替代 arm 10 作为 FID-FIA 的单变量因果对照。
+它直接从当前无稳定化 Balanced 配置派生，只在 existence branch 增加
+FID-FIA。六个 EMA/floor 字段均保持为 0。这个 arm 用于评估论文中的下一
+operating point，不应替代 arm 10 作为旧十行因果链中的单变量对照。
 
 ## 关键实验约束
 
@@ -66,13 +66,21 @@ addpath('RUN/GA');
     runMultisensorFilters_formation_4plus4_RigorousAblation(50, 1, true, true);
 ```
 
-同时加入第 11 个 deployment control：
+同时加入第 11 个当前配置 FID-FIA extension：
 
 ```matlab
 addpath('RUN/GA');
 [reportPath, summary] = ...
     runMultisensorFilters_formation_4plus4_RigorousAblation( ...
         50, 1, true, true, struct(), struct(), 1:11);
+```
+
+只运行当前无 EMA/floor 的 FID-FIA extension：
+
+```matlab
+addpath('RUN/GA');
+[reportPath, summaryPath, summary] = ...
+    runFidFiaExistenceNoStabilizationValidation(50, 1);
 ```
 
 调试时只运行指定 arm，例如固定权重、Cov+Link、shared、decoupled、

@@ -1,4 +1,5 @@
-Communication-aware weights improve consensus under heterogeneous packet loss.
-Covariance, realized links, and existence confidence drive adaptive fusion.
-Branch-specific weights separate spatial and cardinality objectives.
-Operating modes trade spatial accuracy, cardinality agreement, and runtime.
+Realized link quality provides the dominant consensus gain under packet loss.
+Covariance quality adds an independent posterior-concentration signal.
+The combined branch-aware refinement gives a repeatable spatial gain.
+Existence-only FID-FIA provides a separate cardinality-sensitive mode.
+EMA smoothing and weight floors are rejected by the paired ablation.

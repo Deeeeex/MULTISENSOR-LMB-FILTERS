@@ -298,7 +298,7 @@ Using a single FID-FIA scalar weight vector for the whole fused posterior can be
 \paragraph{FID-FIA as an existence-branch separability utility.}
 The aligned-LMB surrogate in Proposition C5 suggests that spatial and existence weights should respond to different failure modes: spatial fusion is tied to existence-weighted spatial mismatch, while existence fusion is tied to Bernoulli existence mismatch. The retained covariance, realized-link, and existence-confidence utilities are stable local proxies for these sensitivities. The FID-FIA accumulation is used in the narrower role of an information-geometric separability cue for Bernoulli existence decisions: it favors sensors whose local target-pair geometry is more distinguishable under the Fisher metric induced by the sensor model. It should therefore be read as an existence-branch utility, not as an exact Bernoulli KL gradient or as a full objective for unconstrained LMB fusion.
 
-\subsection{Existence Confidence and Temporal Stabilization}
+\subsection{Existence Confidence}
 
 The existence-confidence term uses
 \begin{equation}
@@ -313,18 +313,3 @@ which is bounded in $[0,1]$. This quantity is a bounded monotone surrogate of Be
 2\,\mathrm{artanh}(c(r)).
 \end{equation}
 Therefore the existence-confidence score is a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that appears in the existence branch \eqref{eq:appendix-logit-pooling}.
-
-The temporal stabilization step computes
-\begin{equation}
-w_k^{\mathrm{ema}} = \alpha w_{k-1} + (1-\alpha)\hat w_k.
-\end{equation}
-
-\paragraph{Proposition C8.}
-For any $\alpha \in [0,1]$, the EMA point $w_k^{\mathrm{ema}}$ can be written as the minimizer of
-\begin{equation}
-\min_{w}
-\left\{
-\alpha \|w-w_{k-1}\|_2^2 + (1-\alpha)\|w-\hat w_k\|_2^2
-\right\}.
-\end{equation}
-Thus the EMA step is a quadratic compromise between the previous weights and the instantaneous weight vector. The subsequent minimum-weight enforcement should still be interpreted as a pragmatic feasibility projection rather than as part of one single optimization program.

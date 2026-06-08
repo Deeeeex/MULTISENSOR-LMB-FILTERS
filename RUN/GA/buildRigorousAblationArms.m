@@ -3,14 +3,13 @@ function arms = buildRigorousAblationArms(baseAdaptiveFusionConfig)
 %
 % Arms 1-8 intentionally disable EMA and final weight floors. This keeps
 % each transition attributable to the named factor or architectural change.
-% Arm 9 adds the paper-facing stabilization settings. Arm 10 adds FID-FIA
-% only to the existence branch while retaining stabilization, so its delta
-% isolates the FID-FIA refinement.
+% Arm 9 adds the retired stabilization settings as a diagnostic. Arm 10
+% adds FID-FIA only to the existence branch while retaining stabilization,
+% so its delta isolates the FID-FIA refinement.
 %
-% Arm 11 is an optional deployment control. It matches the current
-% Cardinality-critical operating mode, where the existence branch removes
-% EMA/floor protection to permit stronger suppression. It should not replace
-% arm 10 in the causal ten-row ablation table.
+% Arm 11 is the current-config extension control. It adds FID-FIA to the
+% existence branch of no-stabilization Balanced. It should not replace arm
+% 10 in the historical causal ten-row ablation table.
 
 if nargin < 1 || isempty(baseAdaptiveFusionConfig)
     baseAdaptiveFusionConfig = struct();
@@ -83,10 +82,9 @@ cfg.fidFiaUseExistenceWeight = true;
 arms(10) = makeArm('+ FID-FIA existence only', ...
     'Isolate FID-FIA on the existence branch while retaining stabilization.', cfg);
 
-cfg.existenceEmaAlpha = 0.0;
-cfg.existenceMinWeight = 0.0;
-arms(11) = makeArm('Cardinality-critical deployed control', ...
-    'Match the deployed mode by removing existence EMA/floor after FID-FIA.', cfg);
+cfg = buildFidFiaExistenceModeConfig(arms(8).adaptiveFusion);
+arms(11) = makeArm('Balanced + FID-FIA existence', ...
+    'Evaluate the existence-only FID-FIA extension on current Balanced.', cfg);
 end
 
 function cfg = resetFactorizedConfig(base)

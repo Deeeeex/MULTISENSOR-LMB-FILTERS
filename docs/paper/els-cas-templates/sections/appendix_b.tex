@@ -5,7 +5,7 @@ This appendix records secondary routes and modules that were evaluated but not r
 
 \subsection{AA-based secondary route}
 
-The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was nevertheless run in the same eight-sensor communication-constrained setting. This diagnostic uses the same tiered packet-drop profile as the main experiment, but shortens the AA run horizon and applies stronger AA-specific pruning to keep mixture growth tractable. The result is informative but remains appendix-only because AA consumes the adaptive weights through linear Bernoulli averaging and existence-weighted Gaussian-mixture concatenation rather than through the logarithmic GA/KLA fusion rule developed in the paper body.
+The paper body focuses on GA/KLA fusion because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was run with the earlier stabilized weight configuration. It is retained only as design-history evidence and is not used to support the current no-stabilization Balanced configuration. The diagnostic shortens the AA run horizon and applies stronger AA-specific pruning to keep mixture growth tractable.
 
 \par\medskip
 \refstepcounter{table}\label{tab:appendix-aa}
@@ -19,14 +19,14 @@ The paper body focuses on GA/KLA fusion because the method is designed around co
     \midrule
     fixed AA & 3.903 & 5.130 & 0.226 \\
     covariance-link AA & 3.507 & 4.401 & 0.103 \\
-    Balanced AA & 3.449 & 4.306 & 0.102 \\
-    Cardinality-critical AA & 3.457 & 4.328 & 0.095 \\
+    stabilized branch-decoupled AA & 3.449 & 4.306 & 0.102 \\
+    stabilized FID-FIA AA & 3.457 & 4.328 & 0.095 \\
     \bottomrule
   \end{tabular}
 \end{minipage}
 \par\medskip
 
-This result suggests that communication-aware weighting is also useful outside GA fusion: the Balanced AA setting reduces OSPA consensus error by about $11.6\%$, matched localization disagreement by about $16.1\%$, and cardinality dispersion by about $55.0\%$ relative to fixed AA. The Cardinality-critical AA variant gives the strongest cardinality-dispersion reduction, about $58.0\%$, but is slightly worse than Balanced AA on OSPA and localization disagreement and increases runtime from about $1.11\times$ to $1.53\times$ the fixed-AA runtime. The local truth-referenced safeguards show the same tradeoff: both adaptive AA variants substantially reduce local cardinality error, but they increase local RMSE relative to fixed AA. We therefore treat AA as useful supporting evidence that the reliability cues can transfer to another fusion operator, not as a main claim. The theoretical development, operating-mode story, and strongest experiments in this paper remain centered on distributed GA/KLA-based LMB fusion.
+The stabilized adaptive AA variants reduce disagreement relative to fixed AA, but their configuration no longer matches the retained GA method. These values therefore motivate a future no-stabilization AA rerun rather than a transfer claim in the present paper.
 
 \subsection{NIS-based consistency weighting}
 
@@ -68,4 +68,4 @@ An exploratory direct cardinality-consensus score was also tested. Relative to t
 
 Two additional extensions were also evaluated. The association-ambiguity add-on changes the baseline OSPA, RMSE, and cardinality dispersion from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains tied with the retained weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
 
-Taken together, these appendix results delimit the explored design space and explain why the retained method centers on covariance quality, realized link quality, existence confidence, branch decoupling, and the existence-branch FID-FIA cue.
+Taken together, these appendix results delimit the explored design space. Only components supported by the controlled no-stabilization GA experiment are promoted into the retained method.

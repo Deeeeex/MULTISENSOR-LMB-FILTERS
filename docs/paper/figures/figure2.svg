@@ -25,7 +25,6 @@
     .box-exist { fill: #f0f4f8; stroke: #4b729f; stroke-width: 1.5; }
     .box-weak { fill: #fdfdfd; stroke: #aaaaaa; stroke-width: 1.2; stroke-dasharray: 4,3; }
     .box-fid { fill: #f1fbf6; stroke: #2f8f6b; stroke-width: 1.4; }
-    .box-post { fill: #ffffff; stroke: #666666; stroke-width: 1.2; }
     
     /* Line Styles */
     .line-solid { stroke: #333333; stroke-width: 1.5; fill: none; }
@@ -144,34 +143,14 @@
   <line x1="630" y1="410" x2="630" y2="375" class="line-fid" marker-end="url(#arrow-fid)" />
 
 
-  <!-- ================= SMOOTHING & SAFEGUARD ================= -->
-  <!-- Spatial Path Post-Processing -->
-  <line x1="640" y1="150" x2="675" y2="150" class="line-solid" marker-end="url(#arrow)" />
-  <rect x="675" y="130" width="115" height="40" rx="4" class="box-post" />
-  <text x="732.5" y="150" class="txt-main">EMA Smoothing</text>
-
-  <line x1="790" y1="150" x2="815" y2="150" class="line-solid" marker-end="url(#arrow)" />
-  <rect x="815" y="130" width="95" height="40" rx="4" class="box-post" />
-  <text x="862.5" y="142" class="txt-main">Weight Floor</text>
-  <text x="862.5" y="158" class="txt-sub">Safeguard</text>
-
-  <!-- Existence Path Post-Processing -->
-  <line x1="640" y1="360" x2="675" y2="360" class="line-solid" marker-end="url(#arrow)" />
-  <rect x="675" y="340" width="115" height="40" rx="4" class="box-post" />
-  <text x="732.5" y="360" class="txt-main">EMA Smoothing</text>
-
-  <line x1="790" y1="360" x2="815" y2="360" class="line-solid" marker-end="url(#arrow)" />
-  <rect x="815" y="340" width="95" height="40" rx="4" class="box-post" />
-  <text x="862.5" y="352" class="txt-main">Weight Floor</text>
-  <text x="862.5" y="368" class="txt-sub">Safeguard</text>
-
-
   <!-- ================= FINAL OUTPUTS ================= -->
-  <line x1="910" y1="150" x2="935" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="640" y1="150" x2="935" y2="150" class="line-solid" marker-end="url(#arrow)" />
+  <text x="785" y="139" class="txt-label" text-anchor="middle">direct normalization</text>
   <text x="945" y="142" class="txt-output">Normalized</text>
   <text x="945" y="158" class="txt-output" fill="#a84040">Spatial Weights</text>
 
-  <line x1="910" y1="360" x2="935" y2="360" class="line-solid" marker-end="url(#arrow)" />
+  <line x1="640" y1="360" x2="935" y2="360" class="line-solid" marker-end="url(#arrow)" />
+  <text x="785" y="349" class="txt-label" text-anchor="middle">direct normalization</text>
   <text x="945" y="352" class="txt-output">Normalized</text>
   <text x="945" y="368" class="txt-output" fill="#4b729f">Existence Weights</text>
 

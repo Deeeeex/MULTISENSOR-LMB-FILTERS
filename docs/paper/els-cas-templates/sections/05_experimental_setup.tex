@@ -1,7 +1,7 @@
 \section{Experimental Setup}
 \label{sec:experimental-setup}
 
-This section defines the evaluation protocol used to support the paper's claims. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, how the method behaves as communication becomes more constrained, and whether several optional modules should remain outside the core method.
+This section defines the evaluation protocol used to support the paper's revised claims. The primary evidence is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. A controlled paired experiment isolates each retained component and the rejected stabilization option under one consistent configuration.
 
 \subsection{Evaluation hierarchy}
 
@@ -52,16 +52,18 @@ Figure~\ref{fig:scenario-schematic} summarizes the contrast between the simpler 
 
 \subsection{Mainline ablation protocol}
 
-The core ablation study compares five consistently named arms:
+The core ablation study compares the following controlled variants:
 \begin{enumerate}
 \item Fixed Metropolis,
-\item Covariance-only adaptive,
-\item Covariance-link adaptive,
-\item Three-factor adaptive backbone,
-\item Balanced mode, which adds weak structure-aware modulation after covariance, link-quality, and existence-confidence weighting.
+\item covariance only, link quality only, and existence confidence only,
+\item covariance + link,
+\item covariance + link + existence confidence with shared weights,
+\item branch-aware spatial/existence refinement with weak structure-aware modulation, retained as the Balanced mode,
+\item Cardinality-critical mode, which adds FID-FIA only to the existence branch of Balanced.
 \end{enumerate}
 
-This five-arm path is a design diagnostic for the communication-aware backbone and the pre-refinement branch split. The manuscript results table keeps the visible rows focused on operating points by treating the three-factor backbone as the reliability model used by the branch-decoupled Balanced mode rather than as a separate deployment arm. The main confirmation additionally compares PD-weighted GA, FID-FIA-weighted GA used as the information-geometric baseline, and the Cardinality-critical mode to show the branch-specific FID-FIA extension on the same scale. The Balanced mode is the position-sensitive operating mode. It uses the same parameterization across all trials: exponential smoothing with $\alpha = 0.7$, minimum weight $0.05$, existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA strengths $(0.5,0.15)$ for the spatial and existence branches, and weak structure-aware refinement strengths $(0.45,0.08)$. The Cardinality-critical mode keeps the spatial side unchanged but applies FID-FIA information geometry only to the existence weights, with existence-branch smoothing and minimum-weight flooring disabled for that refinement. Exploratory extension modules are disabled in the main configuration.
+The Balanced mode uses existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA strengths $(0.5,0.15)$ for the spatial and existence branches, and weak structure-aware strengths $(0.45,0.08)$. All EMA coefficients and final-weight floors are zero.
+The Cardinality-critical mode preserves this configuration and modifies only the existence branch.
 
 \subsection{Metrics and reporting}
 
@@ -69,4 +71,4 @@ The experiments report three categories of metrics. The first category is networ
 
 This hierarchy is deliberate. The proposed method is not intended as a generic single-sensor accuracy booster. It is designed as a distributed fusion-weight mechanism for reducing disagreement in the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome, the local tracking metrics as a safeguard against hidden degradation, and computational cost as a first-class deployment-feasibility axis. The target is to improve cross-node agreement without causing a meaningful drop in conventional tracking quality or requiring impractical additional computation. Runtime is measured only around the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded so that the reported cost isolates the algorithmic overhead of adaptive weighting and branch-specific FID-FIA scoring.
 
-Unless otherwise stated, reported scalar metrics are Monte Carlo means. The main fixed-versus-existence-refined confirmation, the five-arm factor ablation, the ideal-communication comparison, and the communication-level sensitivity study all use 50 deterministic paired trials with seeds $2$--$51$. The main confirmation, ideal-communication comparison, and communication-level sensitivity study are paired by construction. The five-arm factor ablation remains primarily a design diagnostic, but it is now reported on the same 50-trial seed set for consistency.
+Unless otherwise stated, reported scalar metrics are Monte Carlo means from 50 deterministic paired trials with seeds $2$--$51$. Every arm in the main component experiment shares the same truth, measurements, and communication realization within each trial.

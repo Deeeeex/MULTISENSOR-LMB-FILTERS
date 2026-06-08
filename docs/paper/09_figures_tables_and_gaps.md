@@ -44,7 +44,7 @@ Recommended content:
 - branch refinement: spatial-weight path and existence-weight path
 - weak structure-aware branch prior after branch decoupling
 - FID-FIA cue only on the existence-weight path
-- EMA smoothing and minimum-weight safeguard as stabilization wrappers
+- direct branch normalization, with EMA/floor shown only in the diagnostic ablation table
 
 Status:
 

@@ -133,7 +133,7 @@ At the start of each Monte Carlo trial, the code constructs a sensor-wise `pDrop
 
 ### A.5 Ideal-Communication Supporting Variant
 
-The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The ordinary-GA and Balanced mode comparison is implemented in [runMultisensorFilters_formation_4plus4_IdealCommCompare.m](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/runMultisensorFilters_formation_4plus4_IdealCommCompare.m); the FID-FIA and Cardinality-critical mode supporting arms reuse the same deterministic seed range through the main ablation runner with ideal-communication overrides.
+The older ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. Those saved results used the retired stabilization settings and are not evidence for the current no-stabilization Balanced configuration; the study must be rerun before being restored to the manuscript evidence chain.
 
 The ideal-communication settings are:
 
@@ -143,14 +143,18 @@ The ideal-communication settings are:
 - `pDrop = 0`
 - `pDropBySensor = 0` for all eight sensors
 
-This experiment is used only as supporting evidence. Its role is to verify that the spatial and existence-branch refinements are not merely compensating for packet loss.
+This experiment is retained as a future validation target rather than current supporting evidence.
 
 ### A.6 Main Adaptive Configurations Used In The Headline Comparison
 
 The Balanced mode used in the main tiered-drop headline comparison is:
 
-- `emaAlpha = 0.7`
-- `minWeight = 0.05`
+- `emaAlpha = 0.0`
+- `minWeight = 0.0`
+- `spatialEmaAlpha = 0.0`
+- `existenceEmaAlpha = 0.0`
+- `spatialMinWeight = 0.0`
+- `existenceMinWeight = 0.0`
 - `useCovariance = true`
 - `useLinkQuality = true`
 - `useExistenceConfidence = true`
@@ -167,7 +171,9 @@ The Balanced mode used in the main tiered-drop headline comparison is:
 - `useNIS = false`
 - `useHistory = false`
 
-The Cardinality-critical mode uses the same spatial and backbone settings, and additionally enables FID-FIA refinement only for the existence branch. This appendix lists these parameters for completeness because they define the two main operating modes in the primary factor ablation.
+The Cardinality-critical mode preserves all six zero EMA/floor fields and enables FID-FIA only on the existence branch. Its current 50-trial report is:
+
+- [GA_FID_FIA_EXISTENCE_NO_STABILIZATION_N50_SEED1_20260608_005220.md](/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_FID_FIA_EXISTENCE_NO_STABILIZATION_N50_SEED1_20260608_005220.md)
 
 ### A.7 Entry Points And Report Files
 

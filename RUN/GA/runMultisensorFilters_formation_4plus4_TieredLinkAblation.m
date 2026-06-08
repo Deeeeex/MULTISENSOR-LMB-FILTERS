@@ -494,52 +494,13 @@ switch lower(finalArmMode)
         arms(2).name = 'Cao-Zhao FID-FIA baseline';
         arms(2).adaptiveFusion = cfg;
 
-        cfg = baseAdaptiveFusionConfig;
-        cfg.enabled = true;
-        cfg.method = 'factorized';
-        cfg.useDecoupledKla = false;
-        cfg.useCovariance = true;
-        cfg.useLinkQuality = true;
-        cfg.useFreshness = false;
-        cfg.useNIS = false;
-        cfg.useExistenceConfidence = true;
-        cfg.useDecoupledKla = true;
-        cfg.useStructureAwareKla = true;
-        cfg.usePosteriorStructureConsistency = false;
-        cfg.useFidFiaExistence = false;
-        if abs(cfg.existenceConfidenceMinScore - 0.6) < 1e-9
-            cfg.existenceConfidenceMinScore = 0.85;
-        end
-        if abs(cfg.existenceConfidencePower - 1.0) < 1e-9
-            cfg.existenceConfidencePower = 2.0;
-        end
-        if abs(cfg.spatialDecouplingStrength - 1.0) < 1e-9
-            cfg.spatialDecouplingStrength = 0.5;
-        end
-        if abs(cfg.existenceDecouplingStrength - 1.0) < 1e-9
-            cfg.existenceDecouplingStrength = 0.15;
-        end
-        if cfg.spatialStructureStrength <= 0
-            cfg.spatialStructureStrength = 0.45;
-        end
-        if cfg.existenceStructureStrength <= 0
-            cfg.existenceStructureStrength = 0.08;
-        end
-        if cfg.structureReliabilityPower <= 0
-            cfg.structureReliabilityPower = 0.30;
-        end
+        cfg = buildBalancedModeConfig(baseAdaptiveFusionConfig);
         arms(3).name = '+structure-aware decoupled KLA';
         arms(3).adaptiveFusion = cfg;
 
-        % Cardinality-critical 的关键不是“替换 Balanced”，而是在 Balanced 的
-        % existence branch 上叠加 FID-FIA。这里把 FID-FIA score floor 和
-        % existence final weight floor 都设成 0，让目标数风险高时可以强抑制
-        % 不可靠 existence 分支；spatial branch 的 0.05 floor 不变。
-        cfg.useFidFiaExistence = true;
-        cfg.fidFiaExistenceStrength = 4.0;
-        cfg.fidFiaExistenceMinScore = 0.0;
-        cfg.existenceEmaAlpha = 0.0;
-        cfg.existenceMinWeight = 0.0;
+        % The final arm differs from Balanced only by existence-only FID-FIA.
+        % Both branches retain instantaneous weights with zero final floors.
+        cfg = buildFidFiaExistenceModeConfig(baseAdaptiveFusionConfig);
         arms(4).name = '+FID-FIA existence refinement';
         arms(4).adaptiveFusion = cfg;
     case {'fidfia', 'fid_fia', 'fidfiabaseline', 'fid_fia_baseline', ...

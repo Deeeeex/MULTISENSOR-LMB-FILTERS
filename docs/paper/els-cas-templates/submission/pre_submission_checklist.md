@@ -47,7 +47,7 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
 - [x] Funding 已填写为 Aviation Industry Corporation of China, Ltd. (AVIC)，项目编号为 `2024AIASSJT02`。
 - [x] 当前 BibTeX 输出引用 40 篇，低于 50 篇上限。
-- [x] 当前 build 日志显示 PDF 为 28 页，处于 research article 10-35 页范围内。
+- [x] 当前 PDF 为 25 页，处于 research article 10-35 页范围内。
 - [x] 当前 build 日志未发现 undefined citation 或 undefined reference。
 - [~] 当前 build 仍有 overfull/underfull box 和 hyperref warning；这些不是阻断项，但最终投稿前应再快速扫一遍 PDF。
 - [x] 正文引用和参考文献已改为按首次出现顺序编号。
@@ -56,11 +56,12 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 ## 实验证据与可复现材料 TODO
 
 - [x] 主 50-trial tiered heterogeneous packet-loss 结果已进入主稿。
-- [x] PD-weighted GA 外部动态权重 baseline 已进入主稿。
-- [x] FID-FIA-weighted GA、Balanced mode、Cardinality-critical mode 已进入主结果表。
+- [x] 7-row 组件矩阵 ablation 已进入主稿，Branch 组件联合表示 decoupling 与 weak structure-aware modulation。
+- [x] Balanced mode 已固定为无 EMA/floor 的 structure-aware 配置。
 - [x] local safeguards 已进入主稿：local E-OSPA、local RMSE、local cardinality error。
 - [x] runtime/cost 已作为第三评价轴进入主稿。
-- [x] communication-level sensitivity probe 已作为表格进入主稿。
+- [x] 无稳定化 Cardinality-critical / FID-FIA 已完成 50-trial 验证并进入主稿。
+- [ ] ideal-communication、communication-level 和 AA 需要按新配置重跑。
 - [ ] 归档主结果脚本、seed、报告和 PDF 对应 commit hash。
 - [ ] 决定公开代码版本：建议做一个 release tag，并在 data availability 中写明。
 - [ ] 如公开数据/结果包，至少包含 `RUN/GA` 中支撑主表、runtime、ideal-communication、communication-level sensitivity 的报告文件。
@@ -84,10 +85,10 @@ Recommended evidence files to keep traceable:
 - [x] 已说明不使用公共真实数据集，实验为 deterministic synthetic simulation。
 - [x] 已说明验证指标：OSPA consensus error、matched localization disagreement、cardinality dispersion、local E-OSPA、local RMSE、local cardinality error、runtime。
 - [x] 已说明 main claim 及其意义。
-- [x] 已给出主实验、local safeguards、robustness probe、runtime supplement 作为证据。
+- [x] 已给出主实验、细粒度 ablation、local safeguards 和 runtime supplement 作为证据。
 - [x] 已说明最相关工作及差异。
 - [x] 已明确声明无前期发表、预印本、会议版或并投。
-- [x] 主结果已同步为 50-trial 数据：$2.469/2.326/0.716$ 降至 $1.678/1.546/0.063$。
+- [x] 主结果已同步为 50-trial 数据：$2.383/2.263/0.650$ 降至 $1.696/1.461/0.095$。
 - [x] Cao and Zhao 参考文献年份已更新为 2026。
 - [x] 已删除 cover letter 中的内部 checklist 和投稿前提示语。
 - [ ] 如最终提供公开代码/数据 DOI，需要同步写入 cover letter。

@@ -70,7 +70,7 @@ $$
 \frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
 $$
 
-In the code, the covariance score favors posteriors whose moment-matched covariance is more concentrated, the link score favors nodes whose measurements were more reliably delivered, and the existence-confidence score favors nodes whose Bernoulli existence probabilities are further away from the ambiguous region around $0.5$. After normalization, the weights are additionally regularized by exponential moving average smoothing and a minimum-weight safeguard to prevent abrupt collapse of one node's contribution.
+In the retained configuration, the covariance score favors posteriors whose moment-matched covariance is more concentrated, the link score favors nodes whose measurements were more reliably delivered, and the existence-confidence score favors nodes whose Bernoulli existence probabilities are further away from the ambiguous region around $0.5$. The branch scores are normalized and used directly. EMA smoothing and minimum-weight flooring remain implementation diagnostics, but the 50-trial ablation showed broad disagreement and finite-set metric degradation, so both are disabled in the recommended method.
 
 ### 5. Decoupled Spatial And Existence Weighting
 

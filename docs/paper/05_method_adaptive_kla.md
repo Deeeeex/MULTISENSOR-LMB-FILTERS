@@ -197,16 +197,11 @@ $$
 
 The point of this decoupling is not to create two unrelated methods. It is to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is useful for heterogeneous sensing informativeness and is empirically strong for cardinality decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. However, applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in the appendix, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The present method relaxes that constraint: the communication-aware covariance/link-quality branch remains in charge of spatial fusion, while FID-FIA is reserved for the existence branch.
 
-This gives the paper a method-family interpretation with two recommended operating modes:
-
-- `Balanced mode`: use the three-factor adaptive backbone, decoupled spatial/existence scores, weak structure-aware refinement, and standard temporal stabilization, but do not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy, local RMSE stability, runtime, or energy budget is the primary concern.
-- `Cardinality-critical mode`: activate the FID-FIA cue only on the existence branch. This mode is recommended when target-number disagreement, missed tracks, or false support are the dominant risks and the deployment can tolerate the additional information-geometric computation.
-
-The two modes share the same communication-aware backbone and branch-decoupled fusion algebra. They differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. The computational-cost supplement follows the same interpretation: the Balanced mode keeps the adaptive gain with modest extra runtime, while the Cardinality-critical mode spends substantially more computation to obtain the strongest cardinality-consensus behavior.
+The retained `Balanced mode` uses the three-factor adaptive backbone and a branch-aware refinement that combines decoupled spatial/existence scores with weak structure-aware modulation. It uses instantaneous normalized weights: all EMA coefficients and final-weight floors are zero. The `Cardinality-critical mode` preserves the same no-stabilization configuration and adds FID-FIA only to the existence branch.
 
 ### 6. FID-FIA Existence Refinement
 
-The Cardinality-critical mode adds an information-geometric refinement only to the existence branch. Each local Bernoulli component is moment-projected, existence-weighted target pairs are formed, and a pairwise Fisher-information-distance accumulation score is computed using the sensor's detection probability and measurement covariance. The score is normalized over the local neighborhood and mapped to a bounded modulation factor:
+The Cardinality-critical extension adds an information-geometric refinement only to the existence branch. Each local Bernoulli component is moment-projected, existence-weighted target pairs are formed, and a pairwise Fisher-information-distance accumulation score is computed using the sensor's detection probability and measurement covariance. The score is normalized over the local neighborhood and mapped to a bounded modulation factor:
 
 $$
 q_{\mathrm{fid},k,s}^{(j)}
@@ -224,7 +219,7 @@ $$
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 $$
 
-The spatial score is left unchanged. For positive $q_{\mathrm{fid},k,s}^{(j)}$, this is equivalent to adding $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adding nothing to the spatial utility; the zero-floor setting in the main experiment is the boundary case that permits a zero instantaneous existence weight. This is the key difference from using FID-FIA as a whole-posterior scalar baseline: the paper borrows its information-geometric cardinality strength, but branch decoupling prevents that signal from overriding the spatial/position-oriented weight path.
+The spatial score is left unchanged. For positive $q_{\mathrm{fid},k,s}^{(j)}$, this is equivalent to adding $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adding nothing to the spatial utility. This is the key difference from using FID-FIA as a whole-posterior scalar baseline.
 
 ### 7. Weak Structure-Aware Refinement
 
@@ -249,29 +244,20 @@ where $\gamma_x,\gamma_r \ge 0$ are structure-strength parameters. The current b
 
 The implementation also contains an optional posterior-structure-consistency mode that derives structure scores from pairwise disagreement among neighboring posteriors. However, the present best-performing main-line configuration keeps this option off and uses the weaker static local-structure prior instead.
 
-### 8. Temporal Stabilization And Minimum-Weight Safeguard
+### 8. Instantaneous Weight Finalization
 
-The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average:
+The retained configuration directly uses the normalized branch weights. EMA smoothing and minimum-weight enforcement remain available in the implementation only for diagnostics. The 50-trial component ablation showed that their combination slightly improves local RMSE but degrades all three network-disagreement metrics, local E-OSPA, and local cardinality error. Consequently,
 
-$$
-\omega_{k,s}^{x,(j)}
-=
-\operatorname{Normalize}\!\left(
-\alpha_x \omega_{k-1,s}^{x,(j)} + (1-\alpha_x)\bar{\omega}_{k,s}^{x,(j)}
-\right),
-$$
+```text
+emaAlpha = 0
+minWeight = 0
+spatialEmaAlpha = 0
+existenceEmaAlpha = 0
+spatialMinWeight = 0
+existenceMinWeight = 0
+```
 
-$$
-\omega_{k,s}^{r,(j)}
-=
-\operatorname{Normalize}\!\left(
-\alpha_r \omega_{k-1,s}^{r,(j)} + (1-\alpha_r)\bar{\omega}_{k,s}^{r,(j)}
-\right),
-$$
-
-where $\bar{\omega}_{k,s}^{x,(j)}$ and $\bar{\omega}_{k,s}^{r,(j)}$ denote the branch-normalized instantaneous weights and $\alpha_x,\alpha_r \in [0,1)$ are smoothing factors. A minimum-weight safeguard is then enforced on available neighbors before renormalization so that no active node is completely discarded by transient score fluctuations.
-
-This stabilization step is not presented as a novelty claim by itself. Its purpose is pragmatic: preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+is part of the retained Balanced definition.
 
 ### 9. Historical Consistency And Extension Attempts
 
@@ -290,8 +276,10 @@ Among them, the most relevant is the NIS-based consistency term. Innovation cons
 ## Method Positioning Notes
 
 - Present the method as an adaptive weight-allocation scheme for distributed GA-LMB fusion, not as a new RFS filter family.
-- Keep the main narrative on the covariance, link-quality, and existence-confidence backbone, followed by branch decoupling and an FID-FIA cue restricted to the existence-weight path.
-- Treat EMA smoothing as a stabilization device, not a headline contribution.
+- Keep the main narrative on realized link quality as the dominant factor, covariance as an additional concentration/cardinality signal, and the combined branch-aware mechanism as a small repeatable spatial refinement.
+- Treat existence confidence as structurally motivated but empirically small in isolation; do not separately attribute the branch-aware gain to decoupling versus structure modulation.
+- Keep EMA/floor disabled in the retained method and describe their row only as a negative diagnostic.
+- Present existence-branch FID-FIA as the Cardinality-critical operating mode and state its spatial-versus-cardinality tradeoff explicitly.
 - Treat NIS, history, freshness, and stronger structure priors as historical extensions or appendix material.
 
 ## Citation Keys Used Here

@@ -56,7 +56,7 @@ where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)
 \bar{\omega}_{k,s}^{(j)} =
 \frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
 \end{equation}
-This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths used by the two operating modes.
+This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths.
 
 \subsection{Covariance and link-quality terms}
 
@@ -146,7 +146,7 @@ The point of this decoupling is not to create two unrelated methods, but to ackn
 
 \subsection{FID-FIA existence refinement}
 
-The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+The Cardinality-critical information-geometric extension acts only on the existence branch. It follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
 \begin{equation}
 \hat{a}_{k,s}^{(j)}
 =
@@ -168,20 +168,20 @@ Only the existence score is modified:
 \tilde{\omega}_{k,s}^{r,(j)}
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 \end{equation}
-The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
-Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
+The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. This update adds a strong existence-only modulation without replacing the communication-aware spatial score.
+Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility.
 
-\subsection{Recommended operating modes}
+\subsection{Retained operating configuration}
 
-The resulting method family supports two practical operating modes rather than a single mandatory setting. The \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, weak structure-aware refinement, and the standard temporal stabilization, but does not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy, RMSE stability, runtime, or energy budget is the primary operational concern.
+The retained \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, and weak structure-aware refinement. It uses the instantaneous normalized weights: EMA smoothing and final-weight floors are disabled on both branches. The controlled component ablation shows that the former stabilization pair improves local RMSE slightly but degrades network disagreement, local E-OSPA, and local cardinality error, so it is not part of the recommended configuration.
 
-The \emph{Cardinality-critical mode} adds the FID-FIA cue only to the existence branch. This mode is recommended when the cost of target-number disagreement, missed tracks, or false support is higher than a modest local-RMSE and runtime tradeoff. Both modes share the same communication-aware backbone and the same branch-decoupled fusion algebra; they differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. This framing is important because the experiments show a real operating tradeoff: the backbone is often the stronger low-overhead position-oriented choice, whereas the Cardinality-critical mode is the stronger cardinality-consensus choice with substantially higher information-geometric computation.
+The \emph{Cardinality-critical mode} inherits the same no-stabilization configuration and changes only the existence score through the FID-FIA cue. The 50-trial evaluation shows that this mode further reduces cardinality dispersion and local cardinality error, while increasing localization disagreement, local RMSE, and computation relative to Balanced. The two modes are therefore retained for different deployment priorities rather than ranked by a single aggregate score.
 
-\subsection{Weak structure-aware refinement and stabilization}
+\subsection{Weak structure-aware refinement}
 
 After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
 
-The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+After score normalization, the resulting branch weights are used directly. This preserves responsiveness to realized packet delivery and allows a sufficiently weak neighbor to receive a near-zero weight. EMA smoothing and minimum-weight enforcement remain implementation options for diagnostics, but they are disabled in the retained method.
 
 \subsection{Optional extension modules}
 
