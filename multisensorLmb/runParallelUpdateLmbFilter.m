@@ -97,55 +97,17 @@ for t = 1:simulationLength
         % 每个传感器先独立处理自己的 delivered measurements。此时所有
         % sensor 都基于同一个 predicted prior objects，因此后面才能把
         % measurement-updated posteriors 做 GA/AA/PU 融合。
-        if (numel(measurements{s, t}))
-            % 移动传感器需要 currentTime 才能使用当前传感器位置计算观测几何。
-            if model.sensorMotionEnabled
-                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s, t);
-            else
-                [associationMatrices, posteriorParameters] = generateLmbSensorAssociationMatrices(objects, measurements{s, t}, model, s);
-            end
-            % 关联矩阵构造阶段顺带输出 NIS/ambiguity 诊断。它们是历史
-            % 次线模块的输入；当前主线 computeAdaptiveFusionWeights 不再
-            % 消费这些分数，但保留下来便于旧实验入口和调试对照。
-            if isfield(associationMatrices, 'innovationScore') && isfinite(associationMatrices.innovationScore)
-                innovationConsistency(s, t) = associationMatrices.innovationScore;
-            end
-            if isfield(associationMatrices, 'associationAmbiguityScore') && ...
-                    isfinite(associationMatrices.associationAmbiguityScore)
-                associationAmbiguityScore(s, t) = associationMatrices.associationAmbiguityScore;
-            end
-            if useNIS && useNisEma && t > 1
-                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
-                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
-            end
-            if (strcmp(model.dataAssociationMethod, 'LBP'))
-                % Data association by way of loopy belief propagation
-                [r, W] = loopyBeliefPropagation(associationMatrices, model.lbpConvergenceTolerance, model.maximumNumberOfLbpIterations);
-            elseif(strcmp(model.dataAssociationMethod, 'Gibbs'))
-                % Data association by way of Gibbs sampling
-                [r, W] = lmbGibbsSampling(associationMatrices, model.numberOfSamples);
-            else
-                % Data association by way of Murty's algorithm
-                [r, W] = lmbMurtysAlgorithm(associationMatrices, model.numberOfAssignments);
-            end
-            % 注意：这里的结果还没有跨传感器融合，只是 sensor s 的本地
-            % measurement-updated posterior。computeAdaptiveFusionWeights 后面
-            % 消费的就是这一组 per-sensor local posterior。
-            measurementUpdatedDistributions{s} = computePosteriorLmbSpatialDistributions(objects, r, W, posteriorParameters, model);
-        else
-            % 多速率实验里，“未采样”和“采样但无检测”要区分：
-            % 未采样只传播 prior，采样但无检测则做 missed-detection update。
-            if isScheduledSample(commStats, s, t)
-                measurementUpdatedDistributions{s} = applyMissedDetectionUpdate(objects, model, s, t);
-            else
-                measurementUpdatedDistributions{s} = objects;
-            end
-            innovationConsistency(s, t) = 1;
-            associationAmbiguityScore(s, t) = 1;
-            if useNIS && useNisEma && t > 1
-                innovationConsistency(s, t) = nisEmaAlpha * innovationConsistency(s, t-1) + ...
-                    (1 - nisEmaAlpha) * innovationConsistency(s, t);
-            end
+        [measurementUpdatedDistributions{s}, updateDiagnostics] = ...
+            updateLmbWithSensorMeasurement( ...
+                objects, measurements{s, t}, model, s, t, ...
+                isScheduledSample(commStats, s, t));
+        innovationConsistency(s, t) = updateDiagnostics.innovationScore;
+        associationAmbiguityScore(s, t) = ...
+            updateDiagnostics.associationConfidence;
+        if useNIS && useNisEma && t > 1
+            innovationConsistency(s, t) = ...
+                nisEmaAlpha * innovationConsistency(s, t-1) + ...
+                (1 - nisEmaAlpha) * innovationConsistency(s, t);
         end
     end
     %% 3.3 动态融合权重：只作用于 GA/AA，PU 不走该权重路径
@@ -271,31 +233,5 @@ end
 if size(commStats.sensorSampleMask, 1) >= sensorIdx && ...
         size(commStats.sensorSampleMask, 2) >= currentTime
     tf = commStats.sensorSampleMask(sensorIdx, currentTime) > 0;
-end
-end
-
-function updatedObjects = applyMissedDetectionUpdate(objects, model, sensorIdx, currentTime)
-% APPLYMISSEDDETECTIONUPDATE - 没有 measurement 但传感器确实采样时的 Bernoulli 更新。
-% 这一步用 state-dependent p_D 计算 missed-detection likelihood，降低存在概率
-% 并重加权 Gaussian mixture；它不同于“通信/调度导致没有数据”的简单跳过。
-updatedObjects = objects;
-for i = 1:numel(objects)
-    missedLikelihood = zeros(1, objects(i).numberOfGmComponents);
-    for j = 1:objects(i).numberOfGmComponents
-        [pdSensor, ~] = evaluateSensorQuality(model, sensorIdx, objects(i).mu{j}, currentTime);
-        missedLikelihood(j) = max(1 - pdSensor, realmin);
-    end
-
-    missedAverage = sum(objects(i).w .* missedLikelihood);
-    denominator = 1 - objects(i).r + objects(i).r * missedAverage;
-    if denominator > 0
-        updatedObjects(i).r = (objects(i).r * missedAverage) / denominator;
-    end
-
-    updatedWeights = objects(i).w .* missedLikelihood;
-    weightSum = sum(updatedWeights);
-    if weightSum > 0
-        updatedObjects(i).w = updatedWeights / weightSum;
-    end
 end
 end
