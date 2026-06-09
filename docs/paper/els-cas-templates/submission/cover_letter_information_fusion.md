@@ -9,7 +9,7 @@ Dear Editor,
 
 Please consider our manuscript, "Communication-Aware Adaptive Weights for Consensus-Oriented Distributed KLA-Based LMB Fusion", for publication as a research article in Information Fusion.
 
-The manuscript studies distributed multi-sensor multi-object tracking in peer-to-peer sensor networks where local posterior quality and realized packet delivery vary across sensors. We propose communication-aware adaptive weighting for distributed Kullback-Leibler average (KLA), also known as geometric-average, labeled multi-Bernoulli (LMB) fusion. The Balanced configuration combines posterior covariance, realized link quality, and Bernoulli existence confidence, separates spatial and existence weighting, and applies a weak structure-aware correction. The Cardinality-critical mode adds FID-FIA only to the existence branch. Both use instantaneous weights without EMA smoothing or final-weight floors.
+The manuscript studies distributed multi-sensor multi-object tracking in peer-to-peer sensor networks where local posterior quality and realized packet delivery vary across sensors. We propose communication-aware adaptive weighting for distributed Kullback-Leibler average (KLA), also known as geometric-average, labeled multi-Bernoulli (LMB) fusion. The Balanced configuration combines posterior covariance, realized link quality, and Bernoulli existence confidence, separates spatial and existence weighting, and applies a weak structure-aware correction. The Cardinality-critical mode adds FID-FIA only to the existence branch.
 
 The paper fits the scope of Information Fusion because it addresses algorithmic multi-sensor fusion under communication constraints, including adaptive fusion architecture, distributed sensor networks, uncertainty-aware fusion rules, and computational cost.
 
@@ -17,7 +17,7 @@ The paper fits the scope of Information Fusion because it addresses algorithmic 
 
 ### 1. Comparison with state-of-the-art
 
-Yes. The manuscript compares Fixed Metropolis with covariance-only, link-only, existence-only, covariance-link, shared three-factor, Balanced, and Cardinality-critical variants. It reports network disagreement, truth-referenced local tracking safeguards, and filtering/fusion runtime over 50 deterministic trials. The Cardinality-critical mode isolates FID-FIA on the existence branch of the no-stabilization Balanced backbone.
+Yes. The manuscript compares Fixed Metropolis with covariance-only, link-only, existence-only, covariance-link, shared three-factor, Balanced, and Cardinality-critical variants. It reports network disagreement, truth-referenced local tracking safeguards, and filtering/fusion runtime over 50 deterministic trials. The Cardinality-critical mode isolates FID-FIA on the existence branch of the Balanced backbone.
 
 ### 2. Five important references
 
@@ -41,7 +41,7 @@ The main claim is that distributed KLA-based LMB fusion under heterogeneous comm
 
 ### 6. Evidence supporting the claim
 
-In the main 50-trial tiered heterogeneous packet-loss scenario, Fixed Metropolis gives OSPA consensus error, matched localization disagreement, and cardinality dispersion of 2.383, 2.263, and 0.650. The Balanced configuration reduces these to 1.696, 1.461, and 0.095, respectively, while requiring approximately 1.10 times the fixed filtering/fusion runtime. Cardinality-critical further reduces cardinality dispersion to 0.062 and local cardinality error to 0.209, with the expected increase in localization disagreement and local RMSE. The detailed ablation shows that realized link quality provides the dominant gain, covariance adds an independent benefit, and the combined branch-aware refinement supplies a smaller repeatable spatial improvement. It also shows that EMA/floor stabilization improves local RMSE only slightly while degrading all three disagreement metrics, local E-OSPA, and local cardinality error.
+In the main 50-trial tiered heterogeneous packet-loss scenario, Fixed Metropolis gives OSPA consensus error, matched localization disagreement, and cardinality dispersion of 2.383, 2.263, and 0.650. The Balanced configuration reduces these to 1.696, 1.461, and 0.095, respectively, while requiring approximately 1.10 times the fixed filtering/fusion runtime. Cardinality-critical further reduces cardinality dispersion to 0.062 and local cardinality error to 0.209, with the expected increase in localization disagreement and local RMSE. The detailed ablation shows that realized link quality provides the dominant gain, covariance adds an independent benefit, and the combined branch-aware refinement supplies a smaller repeatable spatial improvement.
 
 ### 7. Most related work and difference
 

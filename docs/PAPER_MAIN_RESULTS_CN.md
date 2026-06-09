@@ -2,25 +2,26 @@
 
 ## 证据口径
 
-当前正文使用两组确定性 50-trial 数据：
+当前正文把证据分成两类：
 
 - seeds：`2:51`
-- 核心组件消融来自 `GA_RIGOROUS_COMPONENT_ABLATION_N50_SEED1_20260605_173327.md`
+- Table 1--3 是完整 operating-point comparison
+- PD/FID-FIA direct baselines 来自同场景、同 seeds 的独立 baseline probes
+- Table 4 的核心组件消融来自 `GA_RIGOROUS_COMPONENT_ABLATION_N50_SEED1_20260605_173327.md`
 - Cardinality-critical 来自 `GA_FID_FIA_EXISTENCE_NO_STABILIZATION_N50_SEED1_20260608_005220.md`
-- 两组使用相同 seed、场景生成器、通信协议和无稳定化配置
+- Balanced 和 Cardinality-critical 使用当前无稳定化配置
 - 主场景：8-sensor dual-formation GA-LMB，tiered heterogeneous packet loss
 - Balanced 和 Cardinality-critical 均关闭所有 EMA 和 final-weight floor
 
 旧 ideal-communication、communication-level 和 AA 结果使用了已经弃用的稳定化配置，不再作为当前方法的主证据。
 
-## Network disagreement
+## Table 1：主方法 Network disagreement
 
 | Arm | OSPA | Loc. disagreement | Card. dispersion |
 |---|---:|---:|---:|
 | Fixed Metropolis | 2.383 ± 0.176 | 2.263 ± 0.340 | 0.650 ± 0.223 |
-| Covariance only | 1.983 ± 0.120 | 1.877 ± 0.240 | 0.372 ± 0.114 |
-| Link quality only | 1.712 ± 0.049 | 1.474 ± 0.053 | 0.102 ± 0.026 |
-| Covariance + link | 1.708 ± 0.046 | 1.483 ± 0.059 | 0.092 ± 0.025 |
+| PD-weighted GA | 2.177 ± 0.161 | 1.995 ± 0.233 | 0.588 ± 0.170 |
+| FID-FIA-weighted GA | 1.818 ± 0.056 | 1.643 ± 0.109 | 0.123 ± 0.023 |
 | Balanced mode | **1.696 ± 0.046** | **1.461 ± 0.053** | 0.095 ± 0.025 |
 | Cardinality-critical mode | 1.713 ± 0.049 | 1.590 ± 0.167 | **0.062 ± 0.016** |
 
@@ -30,18 +31,27 @@ Balanced 相对 Fixed 的下降：
 - localization disagreement：`35.5%`
 - cardinality dispersion：`85.4%`
 
-## Local safeguards
+## Table 2：主方法 Local safeguards
 
 | Arm | E-OSPA | RMSE | CardErr |
 |---|---:|---:|---:|
 | Fixed Metropolis | 2.781 ± 0.129 | 1.630 ± 0.049 | 1.364 ± 0.260 |
-| Covariance only | 2.556 ± 0.106 | **1.567 ± 0.049** | 0.981 ± 0.155 |
-| Link quality only | 2.074 ± 0.053 | 1.626 ± 0.045 | 0.300 ± 0.048 |
-| Covariance + link | 2.064 ± 0.051 | 1.633 ± 0.044 | 0.280 ± 0.045 |
+| PD-weighted GA | 2.736 ± 0.116 | **1.563 ± 0.061** | 1.255 ± 0.205 |
+| FID-FIA-weighted GA | 2.185 ± 0.050 | 1.734 ± 0.094 | 0.388 ± 0.047 |
 | Balanced mode | 2.072 ± 0.051 | 1.636 ± 0.045 | 0.283 ± 0.046 |
 | Cardinality-critical mode | **2.030 ± 0.042** | 1.744 ± 0.161 | **0.209 ± 0.026** |
 
-## 组件归因
+## Table 3：主方法计算量
+
+| Arm | Runtime (s) | Runtime/step (s) | Relative runtime |
+|---|---:|---:|---:|
+| Fixed Metropolis | 52.123 ± 7.932 | 0.521 | 1.000x |
+| PD-weighted GA | 61.668 ± 5.376 | 0.617 | 1.233x |
+| FID-FIA-weighted GA | 147.674 ± 23.957 | 1.477 | 2.833x |
+| Balanced mode | 56.378 ± 9.626 | 0.564 | 1.082x |
+| Cardinality-critical mode | 155.913 ± 18.220 | 1.559 | 2.991x |
+
+## Table 4：组件归因
 
 - Link quality 是当前 packet-loss 场景的主导因素。
 - Covariance 有独立作用，并在 link backbone 上进一步改善 cardinality。
@@ -50,6 +60,9 @@ Balanced 相对 Fixed 的下降：
   - OSPA 改善 `0.0145`，`50/50` trials
   - localization 改善 `0.0202`，`49/50` trials
   - cardinality 基本不变
+
+`Covariance only / Link only / Existence only / Covariance + link` 等诊断臂
+只放在 Table 4，不再进入 Table 1--3。
 
 ## EMA/floor 决策
 

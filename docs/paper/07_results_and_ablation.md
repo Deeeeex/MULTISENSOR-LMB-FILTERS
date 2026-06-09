@@ -4,8 +4,34 @@
 
 - `RUN/GA/GA_RIGOROUS_COMPONENT_ABLATION_N50_SEED1_20260605_173327.md`
 - `RUN/GA/GA_FID_FIA_EXISTENCE_NO_STABILIZATION_N50_SEED1_20260608_005220.md`
+- `RUN/GA/mc50_20260527_172137/paper_tables_n50_synthesis.md`
 
-两者均使用 seeds `2:51` 和当前无 EMA/floor 配置。
+所有结果使用 seeds `2:51` 和同一 tiered heterogeneous packet-loss
+场景。Balanced 与 Cardinality-critical 使用当前无 EMA/floor 配置。
+PD-weighted GA 和 FID-FIA-weighted GA 来自独立的 direct-baseline probes。
+
+## Main operating-point tables
+
+Table 1--3 只比较完整方法或完整 operating mode：
+
+| Arm | OSPA | Loc. disagreement | Card. dispersion |
+|---|---:|---:|---:|
+| Fixed Metropolis | 2.383 ± 0.176 | 2.263 ± 0.340 | 0.650 ± 0.223 |
+| PD-weighted GA | 2.177 ± 0.161 | 1.995 ± 0.233 | 0.588 ± 0.170 |
+| FID-FIA-weighted GA | 1.818 ± 0.056 | 1.643 ± 0.109 | 0.123 ± 0.023 |
+| Balanced mode | **1.696 ± 0.046** | **1.461 ± 0.053** | 0.095 ± 0.025 |
+| Cardinality-critical mode | 1.713 ± 0.049 | 1.590 ± 0.167 | **0.062 ± 0.016** |
+
+| Arm | E-OSPA | RMSE | CardErr |
+|---|---:|---:|---:|
+| Fixed Metropolis | 2.781 ± 0.129 | 1.630 ± 0.049 | 1.364 ± 0.260 |
+| PD-weighted GA | 2.736 ± 0.116 | **1.563 ± 0.061** | 1.255 ± 0.205 |
+| FID-FIA-weighted GA | 2.185 ± 0.050 | 1.734 ± 0.094 | 0.388 ± 0.047 |
+| Balanced mode | 2.072 ± 0.051 | 1.636 ± 0.045 | 0.283 ± 0.046 |
+| Cardinality-critical mode | **2.030 ± 0.042** | 1.744 ± 0.161 | **0.209 ± 0.026** |
+
+`Covariance only / Link only / Existence only / Covariance + link` 等组件臂
+只属于 Table 4 的严格 ablation，不进入主结果和 runtime 表。
 
 ## Retained Balanced result
 

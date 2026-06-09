@@ -1,7 +1,7 @@
 \section{Experimental Setup}
 \label{sec:experimental-setup}
 
-This section defines the evaluation protocol used to support the paper's revised claims. The primary evidence is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. A controlled paired experiment isolates each retained component and the rejected stabilization option under one consistent configuration.
+This section defines the evaluation protocol used to support the paper's claims. The primary evidence is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. A controlled paired experiment isolates each retained component under one consistent configuration.
 
 \subsection{Evaluation hierarchy}
 
@@ -62,7 +62,7 @@ The core ablation study compares the following controlled variants:
 \item Cardinality-critical mode, which adds FID-FIA only to the existence branch of Balanced.
 \end{enumerate}
 
-The Balanced mode uses existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA strengths $(0.5,0.15)$ for the spatial and existence branches, and weak structure-aware strengths $(0.45,0.08)$. All EMA coefficients and final-weight floors are zero.
+The Balanced mode uses existence-confidence parameters $\lambda_{\min}=0.85$ and $p_e=2.0$, decoupled KLA strengths $(0.5,0.15)$ for the spatial and existence branches, and weak structure-aware strengths $(0.45,0.08)$.
 The Cardinality-critical mode preserves this configuration and modifies only the existence branch.
 
 \subsection{Metrics and reporting}

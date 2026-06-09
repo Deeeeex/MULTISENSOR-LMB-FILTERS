@@ -2,4 +2,4 @@ Realized link quality provides the dominant consensus gain under packet loss.
 Covariance quality adds an independent posterior-concentration signal.
 The combined branch-aware refinement gives a repeatable spatial gain.
 Existence-only FID-FIA provides a separate cardinality-sensitive mode.
-EMA smoothing and weight floors are rejected by the paired ablation.
+Balanced remains close to the fixed-weight filtering/fusion runtime.

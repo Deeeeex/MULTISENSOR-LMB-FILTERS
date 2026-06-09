@@ -173,15 +173,15 @@ Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma
 
 \subsection{Retained operating configuration}
 
-The retained \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, and weak structure-aware refinement. It uses the instantaneous normalized weights: EMA smoothing and final-weight floors are disabled on both branches. The controlled component ablation shows that the former stabilization pair improves local RMSE slightly but degrades network disagreement, local E-OSPA, and local cardinality error, so it is not part of the recommended configuration.
+The retained \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, and weak structure-aware refinement.
 
-The \emph{Cardinality-critical mode} inherits the same no-stabilization configuration and changes only the existence score through the FID-FIA cue. The 50-trial evaluation shows that this mode further reduces cardinality dispersion and local cardinality error, while increasing localization disagreement, local RMSE, and computation relative to Balanced. The two modes are therefore retained for different deployment priorities rather than ranked by a single aggregate score.
+The \emph{Cardinality-critical mode} inherits the Balanced configuration and changes only the existence score through the FID-FIA cue. The 50-trial evaluation shows that this mode further reduces cardinality dispersion and local cardinality error, while increasing localization disagreement, local RMSE, and computation relative to Balanced. The two modes are therefore retained for different deployment priorities rather than ranked by a single aggregate score.
 
 \subsection{Weak structure-aware refinement}
 
 After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
 
-After score normalization, the resulting branch weights are used directly. This preserves responsiveness to realized packet delivery and allows a sufficiently weak neighbor to receive a near-zero weight. EMA smoothing and minimum-weight enforcement remain implementation options for diagnostics, but they are disabled in the retained method.
+After score normalization, the resulting branch weights preserve responsiveness to realized packet delivery and allow a sufficiently weak neighbor to receive a near-zero weight.
 
 \subsection{Optional extension modules}
 
