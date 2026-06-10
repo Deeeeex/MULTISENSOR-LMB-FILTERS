@@ -185,3 +185,19 @@ ov = struct('includeDynamicTopologyVariants', true);
 | Light-floor dual threshold + dynamic topology | 14378744 | 2.218 | 2.064 | 1.899 | 2.226 | 0.370 | 0.173 | 0.404 | 0.532 | 0.064 |
 
 该诊断支持当前机制解释：通过配置没有继续稀疏化融合图，而是让 delivered/window effective graph 至少保持在全量基线附近，同时把多数邻居融合质量从 heavy payload 换成 light payload。候选 arm 的 `newEdgeNoHandshakeRate = 0.7925`，说明本轮通过结果并不依赖新边 heavy handshake；后续 handshake 可作为更强动态/断链场景的待验证补救，而不应写成当前 5-trial 通过配置的必要机制。
+
+### 关键部件最小消融
+
+按下一步计划，已做 100-step seed=2 的最小消融矩阵，固定同一组测量、丢包随机数和阈值标定，拆开验证 light-floor、dynamic topology、静态边锚点和 fallback 的贡献。报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N1_SEED1_20260610_122655.md`
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Gate |
+|:--|--:|--:|--:|--:|--:|:--:|
+| Periodic full posterior + dynamic topology | 14.1% | -2.2% | +6.0% | -20.0% | +0.0% | no |
+| Light-floor dual threshold | 56.3% | +0.7% | +2.1% | +7.9% | +1.1% | yes |
+| Light-floor dual threshold + dynamic topology | 56.1% | -0.5% | +1.0% | -8.8% | +6.6% | yes |
+| Light-floor + dynamic topology (no static bonus) | 51.2% | +4.0% | +11.1% | +8.2% | +18.7% | no |
+| Light-floor + dynamic topology (no fallback) | 56.3% | +0.4% | +2.1% | -6.3% | +3.3% | yes |
+
+第一结论是 light-floor 是通信节省和通过 gate 的主因：不换拓扑时已经能以约 56% 字节下降保持 local、consensus、position 和 cardinality 都在门槛内。第二结论是 guarded dynamic topology 在 light-floor 上有增益：local E-OSPA 从 +0.7% 改为 -0.5%，consensus OSPA 从 +2.1% 改为 +1.0%，position disagreement 从 +7.9% 改为 -8.8%。第三结论是静态 4+4 边锚点很重要，去掉 `topologyStaticEdgeBonus` 后虽然 lambda2 更高，但 effective-weight lambda2 降到 0.323，self weight mass 升到 0.452，并且 consensus/cardinality 超门槛。第四结论是 fallback 在 seed=2 不是主要贡献源：去掉 fallback 仍通过，但 local、consensus 和 position 都略弱于完整 guarded 配置。
