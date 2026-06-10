@@ -87,7 +87,11 @@ effectiveWeightConnectivity = zeros(numberOfTrials, numberOfArms);
 perLabelConnectivityViolation = zeros(numberOfTrials, numberOfArms);
 perLabelWindowConnectivityViolation = zeros(numberOfTrials, numberOfArms);
 perLabelStaleAgeP90 = zeros(numberOfTrials, numberOfArms);
+perLabelStaleAgeP95 = zeros(numberOfTrials, numberOfArms);
 newEdgeNoHandshakeRate = zeros(numberOfTrials, numberOfArms);
+newEdgeHandshakeCount = zeros(numberOfTrials, numberOfArms);
+newEdgeHandshakeByteShare = zeros(numberOfTrials, numberOfArms);
+topologyChurnRate = zeros(numberOfTrials, numberOfArms);
 selfWeightMass = zeros(numberOfTrials, numberOfArms);
 lightWeightMass = zeros(numberOfTrials, numberOfArms);
 heavyWeightMass = zeros(numberOfTrials, numberOfArms);
@@ -178,8 +182,16 @@ for trialIdx = 1:numberOfTrials
             'perLabelWindowConnectivityViolationRate', 0);
         perLabelStaleAgeP90(trialIdx, armIdx) = getField( ...
             communicationSummary, 'perLabelStaleAgeP90', 0);
+        perLabelStaleAgeP95(trialIdx, armIdx) = getField( ...
+            communicationSummary, 'perLabelStaleAgeP95', 0);
         newEdgeNoHandshakeRate(trialIdx, armIdx) = getField( ...
             communicationSummary, 'newEdgeNoHandshakeRate', 0);
+        newEdgeHandshakeCount(trialIdx, armIdx) = getField( ...
+            communicationSummary, 'newEdgeHandshakeCount', 0);
+        newEdgeHandshakeByteShare(trialIdx, armIdx) = getField( ...
+            communicationSummary, 'newEdgeHandshakeByteShare', 0);
+        topologyChurnRate(trialIdx, armIdx) = getField( ...
+            communicationSummary, 'topologyChurnRate', 0);
         selfWeightMass(trialIdx, armIdx) = getField( ...
             communicationSummary, 'meanSelfWeightMass', 0);
         lightWeightMass(trialIdx, armIdx) = getField( ...
@@ -245,8 +257,16 @@ summary.effectiveGraph.perLabelWindowConnectivityViolation = ...
     mean(perLabelWindowConnectivityViolation, 1);
 summary.effectiveGraph.perLabelStaleAgeP90 = ...
     mean(perLabelStaleAgeP90, 1);
+summary.effectiveGraph.perLabelStaleAgeP95 = ...
+    mean(perLabelStaleAgeP95, 1);
 summary.effectiveGraph.newEdgeNoHandshakeRate = ...
     mean(newEdgeNoHandshakeRate, 1);
+summary.effectiveGraph.newEdgeHandshakeCount = ...
+    mean(newEdgeHandshakeCount, 1);
+summary.effectiveGraph.newEdgeHandshakeByteShare = ...
+    mean(newEdgeHandshakeByteShare, 1);
+summary.effectiveGraph.topologyChurnRate = ...
+    mean(topologyChurnRate, 1);
 summary.effectiveGraph.selfWeightMass = mean(selfWeightMass, 1);
 summary.effectiveGraph.lightWeightMass = mean(lightWeightMass, 1);
 summary.effectiveGraph.heavyWeightMass = mean(heavyWeightMass, 1);
@@ -266,7 +286,12 @@ summary.trials.deliveredConnectivity = deliveredConnectivity;
 summary.trials.effectiveWeightConnectivity = effectiveWeightConnectivity;
 summary.trials.perLabelConnectivityViolation = ...
     perLabelConnectivityViolation;
+summary.trials.perLabelStaleAgeP90 = perLabelStaleAgeP90;
+summary.trials.perLabelStaleAgeP95 = perLabelStaleAgeP95;
+summary.trials.newEdgeHandshakeByteShare = newEdgeHandshakeByteShare;
+summary.trials.topologyChurnRate = topologyChurnRate;
 summary.acceptance = evaluateAcceptance(summary);
+summary.pairedDelta = computePairedDeltaSummary(summary);
 summary.pareto = computePareto(summary);
 
 printSummary(summary);
@@ -644,6 +669,44 @@ if getField(experimentOverrides, 'includeCrossLayerTopologyVariants', false)
         'Topology edges are scored by expected effective KLA information flow.', ...
         cfg);
 end
+
+if getField(experimentOverrides, 'includeCandidateSelectionVariants', false)
+    staticEdgeBudget = countUndirectedEdgesFromNeighborMap( ...
+        buildNeighborMap4Plus4(8));
+
+    cfg = buildPeriodicLightVariantConfig( ...
+        base, staticEdgeBudget, experimentOverrides);
+    arms(end+1) = makeArm( ...
+        'Periodic light posterior + guarded dynamic topology', ...
+        'Risk baseline: light posterior on every guarded dynamic edge.', ...
+        cfg);
+
+    cfg = buildLightFloorVariantConfig( ...
+        base, calibration.multi.(controlProfile), true, ...
+        staticEdgeBudget, experimentOverrides);
+    arms(end+1) = makeArm( ...
+        'Old mainline: LightFloor-GuardedTopo', ...
+        'Previous guarded light-floor method without mixed label payload.', ...
+        cfg);
+
+    cfg = buildEffectiveKlaGraphVariantConfig( ...
+        base, calibration.multi.(controlProfile), ...
+        staticEdgeBudget, experimentOverrides, 2);
+    arms(end+1) = makeArm( ...
+        'C1: LightBackbone-GuardedTopo', ...
+        'Frozen performance candidate with handshake and light backbone.', ...
+        cfg);
+
+    cfg = buildLightFloorVariantConfig( ...
+        base, calibration.multi.(controlProfile), true, ...
+        staticEdgeBudget, experimentOverrides);
+    cfg.mixedPayloadEnabled = true;
+    cfg.mixedPayloadLightForAllActiveLabels = true;
+    arms(end+1) = makeArm( ...
+        'C2: MixedLabel-LightFloor-GuardedTopo', ...
+        'Frozen communication candidate with mixed label-wise payload.', ...
+        cfg);
+end
 end
 
 function cfg = buildLightFloorVariantConfig( ...
@@ -663,6 +726,25 @@ cfg.forceInitialHeavy = false;
 cfg.forceLabelChangeHeavy = false;
 cfg.forceStaleHeavy = false;
 cfg.dynamicTopologyEnabled = useDynamicTopology;
+cfg.dynamicTopologyEdgeBudget = staticEdgeBudget;
+cfg.topologyMinAlgebraicConnectivity = -1;
+cfg.topologyReliabilityWeight = 0.55;
+cfg.topologyOverlapWeight = 0.35;
+cfg.topologyComplementarityWeight = 0.10;
+cfg.topologyStaticEdgeBonus = getField(experimentOverrides, ...
+    'lightFloorStaticEdgeBonus', 0.35);
+cfg.topologyFallbackToBaseOnConnectivityFailure = true;
+end
+
+function cfg = buildPeriodicLightVariantConfig( ...
+    base, staticEdgeBudget, experimentOverrides)
+cfg = base;
+cfg.eventPolicy = 'alwaysLight';
+cfg.linkGateEnabled = false;
+cfg.forceInitialHeavy = false;
+cfg.forceLabelChangeHeavy = false;
+cfg.forceStaleHeavy = false;
+cfg.dynamicTopologyEnabled = true;
 cfg.dynamicTopologyEdgeBudget = staticEdgeBudget;
 cfg.topologyMinAlgebraicConnectivity = -1;
 cfg.topologyReliabilityWeight = 0.55;
@@ -873,6 +955,128 @@ for armIdx = 1:numberOfArms
 end
 end
 
+function paired = computePairedDeltaSummary(summary)
+baselineIdx = find(strcmp(summary.armNames, ...
+    'Periodic full posterior'), 1);
+numberOfArms = numel(summary.armNames);
+paired = repmat(emptyPairedDelta(), 1, numberOfArms);
+if isempty(baselineIdx)
+    return;
+end
+
+localEOspaByTrial = computeLocalMeanByTrial(summary.trials.localEOspa);
+baselineBytes = summary.trials.payloadBytes(:, baselineIdx);
+baselineLocal = localEOspaByTrial(:, baselineIdx);
+baselineConsensus = summary.trials.consensusOspa(:, baselineIdx);
+baselinePosition = summary.trials.consensusPosition(:, baselineIdx);
+baselineCardinality = summary.trials.consensusCardinality(:, baselineIdx);
+
+for armIdx = 1:numberOfArms
+    bytesReduction = percentReductionVector( ...
+        baselineBytes, summary.trials.payloadBytes(:, armIdx));
+    localChange = percentChangeVector( ...
+        baselineLocal, localEOspaByTrial(:, armIdx));
+    consensusChange = percentChangeVector( ...
+        baselineConsensus, summary.trials.consensusOspa(:, armIdx));
+    positionChange = percentChangeVector( ...
+        baselinePosition, summary.trials.consensusPosition(:, armIdx));
+    cardinalityChange = percentChangeVector( ...
+        baselineCardinality, summary.trials.consensusCardinality(:, armIdx));
+    passMask = bytesReduction >= 30 & localChange <= 5 & ...
+        consensusChange <= 10 & positionChange <= 10 & ...
+        cardinalityChange <= 10;
+    paired(armIdx).trialCount = numel(bytesReduction);
+    paired(armIdx).passCount = sum(passMask);
+    paired(armIdx).bytesReduction = summarizeDeltaVector(bytesReduction);
+    paired(armIdx).localEOspaChange = summarizeDeltaVector(localChange);
+    paired(armIdx).consensusOspaChange = ...
+        summarizeDeltaVector(consensusChange);
+    paired(armIdx).positionChange = summarizeDeltaVector(positionChange);
+    paired(armIdx).cardinalityChange = ...
+        summarizeDeltaVector(cardinalityChange);
+end
+end
+
+function paired = emptyPairedDelta()
+emptyStats = summarizeDeltaVector([]);
+paired = struct( ...
+    'trialCount', 0, ...
+    'passCount', 0, ...
+    'bytesReduction', emptyStats, ...
+    'localEOspaChange', emptyStats, ...
+    'consensusOspaChange', emptyStats, ...
+    'positionChange', emptyStats, ...
+    'cardinalityChange', emptyStats);
+end
+
+function values = computeLocalMeanByTrial(localEOspa)
+numberOfTrials = size(localEOspa, 1);
+numberOfArms = size(localEOspa, 3);
+values = zeros(numberOfTrials, numberOfArms);
+for trialIdx = 1:numberOfTrials
+    for armIdx = 1:numberOfArms
+        values(trialIdx, armIdx) = mean(localEOspa(trialIdx, :, armIdx));
+    end
+end
+end
+
+function values = percentReductionVector(baseline, candidate)
+values = NaN(size(candidate));
+valid = isfinite(baseline) & baseline > eps & isfinite(candidate);
+values(valid) = 100 * (baseline(valid) - candidate(valid)) ./ ...
+    baseline(valid);
+end
+
+function values = percentChangeVector(baseline, candidate)
+values = NaN(size(candidate));
+valid = isfinite(baseline) & abs(baseline) > eps & ...
+    isfinite(candidate);
+values(valid) = 100 * (candidate(valid) - baseline(valid)) ./ ...
+    abs(baseline(valid));
+zeroBaseline = isfinite(baseline) & abs(baseline) <= eps & ...
+    isfinite(candidate);
+values(zeroBaseline & abs(candidate) <= eps) = 0;
+values(zeroBaseline & abs(candidate) > eps) = inf;
+end
+
+function stats = summarizeDeltaVector(values)
+values = reshape(values(isfinite(values)), 1, []);
+if isempty(values)
+    stats = struct('mean', NaN, 'se', NaN, 'median', NaN, ...
+        'p90', NaN, 'worstLow', NaN, 'worstHigh', NaN);
+    return;
+end
+stats = struct();
+stats.mean = mean(values);
+if numel(values) <= 1
+    stats.se = 0;
+else
+    stats.se = std(values) / sqrt(numel(values));
+end
+stats.median = percentileScalar(values, 0.50);
+stats.p90 = percentileScalar(values, 0.90);
+stats.worstLow = min(values);
+stats.worstHigh = max(values);
+end
+
+function value = percentileScalar(values, probability)
+values = sort(reshape(values(isfinite(values)), 1, []));
+if isempty(values)
+    value = NaN;
+    return;
+end
+position = 1 + min(max(probability, 0), 1) * (numel(values) - 1);
+lowerIdx = floor(position);
+upperIdx = ceil(position);
+if lowerIdx == upperIdx
+    value = values(lowerIdx);
+else
+    fraction = position - lowerIdx;
+    value = values(lowerIdx) * (1 - fraction) + ...
+        values(upperIdx) * fraction;
+end
+end
+
 function pareto = computePareto(summary)
 bytes = summary.communication.payloadBytes;
 eOspa = summary.local.meanAcrossSensors.eOspa;
@@ -969,10 +1173,10 @@ for armIdx = 1:numel(summary.armNames)
 end
 
 fprintf(fid, '\n## Effective KLA 图诊断\n\n');
-fprintf(fid, '| Arm | Attempted lambda2 | Delivered lambda2 | Window delivered lambda2 | Effective-weight lambda2 | Label conn. violation | Window label violation | Label stale p90 | New-edge no-handshake | Self weight | Light weight | Heavy weight | Weight entropy |\n');
-fprintf(fid, '|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|\n');
+fprintf(fid, '| Arm | Attempted lambda2 | Delivered lambda2 | Window delivered lambda2 | Effective-weight lambda2 | Label conn. violation | Window label violation | Label stale p90 | Label stale p95 | Topology churn | New-edge no-handshake | Handshake count | Handshake byte share | Self weight | Light weight | Heavy weight | Weight entropy |\n');
+fprintf(fid, '|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|\n');
 for armIdx = 1:numel(summary.armNames)
-    fprintf(fid, '| %s | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.2f | %.3f | %.3f | %.3f | %.3f | %.3f |\n', ...
+    fprintf(fid, '| %s | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.2f | %.2f | %.3f | %.3f | %.1f | %.3f | %.3f | %.3f | %.3f | %.3f |\n', ...
         summary.armNames{armIdx}, ...
         summary.effectiveGraph.attemptedConnectivity(armIdx), ...
         summary.effectiveGraph.deliveredConnectivity(armIdx), ...
@@ -981,7 +1185,11 @@ for armIdx = 1:numel(summary.armNames)
         summary.effectiveGraph.perLabelConnectivityViolation(armIdx), ...
         summary.effectiveGraph.perLabelWindowConnectivityViolation(armIdx), ...
         summary.effectiveGraph.perLabelStaleAgeP90(armIdx), ...
+        summary.effectiveGraph.perLabelStaleAgeP95(armIdx), ...
+        summary.effectiveGraph.topologyChurnRate(armIdx), ...
         summary.effectiveGraph.newEdgeNoHandshakeRate(armIdx), ...
+        summary.effectiveGraph.newEdgeHandshakeCount(armIdx), ...
+        summary.effectiveGraph.newEdgeHandshakeByteShare(armIdx), ...
         summary.effectiveGraph.selfWeightMass(armIdx), ...
         summary.effectiveGraph.lightWeightMass(armIdx), ...
         summary.effectiveGraph.heavyWeightMass(armIdx), ...
@@ -1004,6 +1212,28 @@ for armIdx = 1:numel(summary.armNames)
         result.consensusPositionChangePercent, ...
         result.consensusCardinalityChangePercent, ...
         result.qualifiesForScaleUp, reasons);
+end
+
+fprintf(fid, '\n## Paired held-out delta summary\n\n');
+fprintf(fid, '每个 trial 与同 seed 的 `Periodic full posterior` 成对比较。Bytes 为降幅，其他 delta 为退化百分比；pass count 使用 30%%/5%%/10%%/10%%/10%% 主 gate。\n\n');
+fprintf(fid, '| Arm | Bytes mean | Bytes median | Bytes worst | Local mean +- SE | Local p90 | Local worst | Consensus mean +- SE | Consensus p90 | Consensus worst | Pass count |\n');
+fprintf(fid, '|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|\n');
+for armIdx = 1:numel(summary.armNames)
+    result = summary.pairedDelta(armIdx);
+    fprintf(fid, '| %s | %.1f%% | %.1f%% | %.1f%% | %.1f +- %.1f%% | %.1f%% | %.1f%% | %.1f +- %.1f%% | %.1f%% | %.1f%% | %d/%d |\n', ...
+        summary.armNames{armIdx}, ...
+        result.bytesReduction.mean, ...
+        result.bytesReduction.median, ...
+        result.bytesReduction.worstLow, ...
+        result.localEOspaChange.mean, ...
+        result.localEOspaChange.se, ...
+        result.localEOspaChange.p90, ...
+        result.localEOspaChange.worstHigh, ...
+        result.consensusOspaChange.mean, ...
+        result.consensusOspaChange.se, ...
+        result.consensusOspaChange.p90, ...
+        result.consensusOspaChange.worstHigh, ...
+        result.passCount, result.trialCount);
 end
 
 fprintf(fid, '\n## Pareto 筛选\n\n');

@@ -258,3 +258,24 @@ mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少�
 该矩阵进一步拆清了机制：单独 new-edge handshake 不能修复组合失败；真正有效的是“稳定 backbone + 低 light 阈值”带来的高频 light 同步，它把 effective-weight lambda2 恢复到全通信基线附近，并让 consensus OSPA 略优于全通信基线。当前 `modeAwareFusionWeights` 配置虽然按 light/heavy mode 折扣邻居权重，但会提高 self weight mass、降低 effective-weight lambda2，反而破坏 consensus；`effective KLA graph guard` 中的 stale heartbeat 和关闭 `q_local` 抑制也没有带来正收益。
 
 因此下一步 5-trial 候选不应扩大整套阶段矩阵，而应只比较两条通过 seed=2 gate 的候选：`Dynamic topology + handshake + light backbone` 和 `Light-floor mixed-label payload + dynamic topology`。若 mixed payload 的字节优势在 5-trial 仍保持且性能不差，则优先作为通信效率主线；若 light backbone 的 consensus 优势更稳，则可作为保守性能主线。
+
+### Development 5-trial 候选对决
+
+先按 seeds 2-6 跑了 development 5-trial，只包含全通信基线和两个 seed=2 通过候选。该结果用于候选收敛，不作为 held-out 泛化证据。报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N5_SEED1_20260610_165506.md`
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Gate |
+|:--|--:|--:|--:|--:|--:|:--:|
+| Dynamic topology + handshake + light backbone | 58.6% | +0.16% | +1.00% | +0.92% | +3.51% | yes |
+| Light-floor mixed-label payload + dynamic topology | 58.4% | +1.10% | +2.52% | +1.73% | +5.26% | yes |
+
+两者都通过 development gate，但 C1 在 seeds 2-6 上不再只是 consensus 更好，也略微少发字节。由于该 seed 区间已经参与过方法调试，下一步按 held-out 设计冻结机制，不再调阈值，改跑 seeds 7-11 的五臂候选选择矩阵：
+
+1. `Periodic full posterior`：全通信基线。
+2. `Periodic light posterior + guarded dynamic topology`：风险基线，检验是否“周期 light 就够了”。
+3. `Old mainline: LightFloor-GuardedTopo`：2026-06-10 旧主线对照。
+4. `C1: LightBackbone-GuardedTopo`：保守性能候选。
+5. `C2: MixedLabel-LightFloor-GuardedTopo`：通信效率候选。
+
+候选选择规则保持：若 C2 相对 C1 有稳定的额外字节优势且 consensus/cardinality 无明显 worst-case 风险，则选 C2；若 C1 在 consensus/cardinality 的 mean、p90 或 worst-case 上更稳，则选 C1，C2 作为 payload compression ablation。

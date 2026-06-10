@@ -43,6 +43,8 @@ switch policy
     case 'none'
         eventType = 0;
         forceHeavy = false;
+    case 'alwayslight'
+        eventType = 1;
     case 'alwaysheavy'
         eventType = 2;
     case 'singleheavy'
