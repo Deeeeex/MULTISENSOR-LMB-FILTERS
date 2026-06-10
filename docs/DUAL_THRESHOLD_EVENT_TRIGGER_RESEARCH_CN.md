@@ -238,3 +238,23 @@ mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少�
 | Cross-layer topology, static bonus 0.35 | 1021408 | 3.0513 | 2.2008 | 2.3553 | 静态锚点更强后仍不是更优 trade-off |
 
 这个结果支持有效 KLA 图解释：更直接地优化预期融合价值和图连通性，确实能降低短程 consensus OSPA。但它同时提高触发/传输强度，并牺牲 local E-OSPA，因此目前不替代 guarded light-floor/mixed payload 主配置，也不进入 100-step 或 5-trial 升级。后续若要继续 cross-layer 方向，应先加入接收端 need/request vector 或边级 expected-value gate，而不是简单提高拓扑 score 的连通性偏好。
+
+### Effective KLA 分阶段修复矩阵
+
+按原始建议的第二阶段低风险改动，已跑 100-step seed=2 阶段矩阵，报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N1_SEED1_20260610_150731.md`
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Effective-weight lambda2 | Gate |
+|:--|--:|--:|--:|--:|:--:|
+| Full method (default) | 58.0% | +9.8% | +22.7% | 0.268 | no |
+| Full method + dynamic topology | 49.2% | +10.6% | +29.1% | 0.240 | no |
+| Dynamic topology + new-edge handshake | 36.6% | +6.0% | +21.8% | 0.266 | no |
+| Dynamic topology + handshake + light backbone | 60.4% | -0.8% | -0.7% | 0.372 | yes |
+| Dynamic topology + mode-aware KLA graph | 58.5% | +5.2% | +20.7% | 0.270 | no |
+| Dynamic topology + effective KLA graph guard | 56.1% | +6.2% | +19.5% | 0.279 | no |
+| Light-floor mixed-label payload + dynamic topology | 61.0% | -0.5% | +1.0% | 0.370 | yes |
+
+该矩阵进一步拆清了机制：单独 new-edge handshake 不能修复组合失败；真正有效的是“稳定 backbone + 低 light 阈值”带来的高频 light 同步，它把 effective-weight lambda2 恢复到全通信基线附近，并让 consensus OSPA 略优于全通信基线。当前 `modeAwareFusionWeights` 配置虽然按 light/heavy mode 折扣邻居权重，但会提高 self weight mass、降低 effective-weight lambda2，反而破坏 consensus；`effective KLA graph guard` 中的 stale heartbeat 和关闭 `q_local` 抑制也没有带来正收益。
+
+因此下一步 5-trial 候选不应扩大整套阶段矩阵，而应只比较两条通过 seed=2 gate 的候选：`Dynamic topology + handshake + light backbone` 和 `Light-floor mixed-label payload + dynamic topology`。若 mixed payload 的字节优势在 5-trial 仍保持且性能不差，则优先作为通信效率主线；若 light backbone 的 consensus 优势更稳，则可作为保守性能主线。
