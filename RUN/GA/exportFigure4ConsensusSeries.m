@@ -1,6 +1,8 @@
-function csvPath = exportFigure4ConsensusSeries(outputPath)
+function csvPath = exportFigure4ConsensusSeries(outputPath, sourceMatPath)
 % EXPORTFIGURE4CONSENSUSSERIES
 % Export fixed, balanced, and cardinality-critical consensus time series for paper Figure 4.
+% By default, reuse the saved 50-trial paper run instead of rerunning a
+% shorter diagnostic export. The stored series are already trial means.
 
 close all; clc;
 scriptDir = fileparts(mfilename('fullpath'));
@@ -15,29 +17,38 @@ addpath(fullfile(projectRoot, 'RUN', 'GA'));
 if nargin < 1 || isempty(outputPath)
     outputPath = fullfile(projectRoot, 'docs', 'paper', 'figures', 'figure4_consensus_series.csv');
 end
+if nargin < 2 || isempty(sourceMatPath)
+    sourceMatPath = fullfile(projectRoot, 'RUN', 'GA', 'mc50_20260527_172137', '01_tiered_main_fidfia_n50_seed1.mat');
+end
 
 outDir = fileparts(outputPath);
 if ~isempty(outDir) && ~exist(outDir, 'dir')
     mkdir(outDir);
 end
 
-[~, summary] = runMultisensorFilters_formation_4plus4_TieredLinkAblation( ...
-    5, 1, true, struct(), false, 'fidFiaExistenceRefinement', struct(), [1 3 4]);
+if ~exist(sourceMatPath, 'file')
+    error('Figure 4 source MAT file not found: %s', sourceMatPath);
+end
+loaded = load(sourceMatPath, 'summary');
+if ~isfield(loaded, 'summary')
+    error('Figure 4 source MAT does not contain a summary struct: %s', sourceMatPath);
+end
+summary = loaded.summary;
 
 if ~isfield(summary, 'consensusSeries')
     error('Consensus time-series were not returned by the ablation runner.');
 end
 
 series = summary.consensusSeries;
-if size(series.ospa, 2) ~= 3
-    error('Expected three arms for Figure 4 export, got %d.', size(series.ospa, 2));
-end
+fixedIdx = findArmIndex(series.armNames, 'fixed weights');
+balancedIdx = findArmIndex(series.armNames, '+structure-aware decoupled KLA');
+cardinalityIdx = findArmIndex(series.armNames, '+FID-FIA existence refinement');
 
 data = [ ...
     series.time(:), ...
-    series.ospa(:, 1), series.ospa(:, 2), series.ospa(:, 3), ...
-    series.pos(:, 1), series.pos(:, 2), series.pos(:, 3), ...
-    series.card(:, 1), series.card(:, 2), series.card(:, 3)];
+    series.ospa(:, fixedIdx), series.ospa(:, balancedIdx), series.ospa(:, cardinalityIdx), ...
+    series.pos(:, fixedIdx), series.pos(:, balancedIdx), series.pos(:, cardinalityIdx), ...
+    series.card(:, fixedIdx), series.card(:, balancedIdx), series.card(:, cardinalityIdx)];
 
 fid = fopen(outputPath, 'w');
 if fid < 0
@@ -48,7 +59,19 @@ fclose(fid);
 dlmwrite(outputPath, data, '-append');
 
 csvPath = outputPath;
-fprintf('Figure 4 consensus series exported: %s\n', csvPath);
+fprintf('Figure 4 50-trial mean consensus series exported: %s\n', csvPath);
+fprintf('Source: %s\n', sourceMatPath);
+end
+
+function idx = findArmIndex(armNames, targetName)
+idx = [];
+for i = 1:numel(armNames)
+    if strcmp(char(armNames{i}), targetName)
+        idx = i;
+        return;
+    end
+end
+error('Required Figure 4 arm not found: %s', targetName);
 end
 
 function projectRoot = resolveProjectRoot(scriptDir)

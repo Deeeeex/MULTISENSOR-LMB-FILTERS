@@ -25,10 +25,10 @@ Current stable scalar sources:
 Render command:
 
 ```bash
-/opt/homebrew/anaconda3/bin/python3 docs/paper/figures/render_paper_figures.py --output-dir docs/paper/figures
+/opt/homebrew/anaconda3/bin/python3 docs/paper/figures/render_paper_figures.py --output-dir docs/paper/figures --include-figure4
 ```
 
-Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory. The CSV contains the fixed baseline, Balanced mode, and Cardinality-critical mode.
+Figure 4 additionally requires a consensus time-series CSV named `figure4_consensus_series.csv` in the same output directory. The CSV contains the fixed baseline, Balanced mode, and Cardinality-critical mode. The current CSV is exported from the saved 50-trial run `RUN/GA/mc50_20260527_172137/01_tiered_main_fidfia_n50_seed1.mat`, so the plotted curves are trial-mean trajectories rather than a representative single run.
 
 The simulation-scenario schematic is rendered with Matplotlib:
 

@@ -3,11 +3,11 @@
 
 This section defines the evaluation protocol used to support the paper's claims. The experiments are organized around one main scenario and a small set of supporting studies. The main scenario is the dual-formation eight-sensor distributed GA-LMB tracking problem under tiered heterogeneous packet loss. Supporting studies are used to check whether the observed gains persist under ideal communication, how the method behaves as communication becomes more constrained, and whether several optional modules should remain outside the core method.
 
-\subsection{Evaluation hierarchy}
+\subsection{Scenario, protocols, and operating points}
 
 The evaluation is intentionally hierarchical. The tiered-loss dual-formation scenario provides the confirmatory evidence for the proposed GA-LMB method family, while the factor ablation in the same scenario identifies which parts of the adaptive-weight design carry the result. Computational cost is measured on this main scenario as a deployment constraint rather than as a post hoc timing note. Two smaller supporting studies then test the boundaries of the claim: an ideal-communication comparison asks whether the refinement is useful without packet loss, and a communication-level sensitivity probe asks whether the same behavior persists as communication constraints become more severe. Additional exploratory variants are treated as appendix material rather than as competing headline methods.
 
-\subsection{Main scenario}
+\paragraph{Main scenario.}
 
 The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for approximate marginal data association \cite{WilliamsLau2014LBP}.
 
@@ -27,7 +27,7 @@ The nominal detection probability, measurement-noise scale, and clutter rate are
 
 The target side consists of ten objects arranged in three groups with staggered births. The three groups contain $3 + 3 + 4$ targets, respectively, and the targets move toward the central region with nominal speed $0.45$. Births are staggered every eight time steps, and the total simulation length is $100$ steps.
 
-\subsection{Communication model}
+\paragraph{Communication model.}
 
 The main scenario uses a tiered heterogeneous packet-loss setting. Communication is applied before distributed fusion through a measurement-delivery model with bandwidth limitation and link-level packet loss. The main configuration is:
 \begin{itemize}
@@ -50,7 +50,7 @@ Figure~\ref{fig:scenario-schematic} summarizes the contrast between the simpler 
   \label{fig:scenario-schematic}
 \end{figure}
 
-\subsection{Mainline ablation protocol}
+\paragraph{Mainline ablation protocol.}
 
 The core ablation study compares five consistently named arms:
 \begin{enumerate}
