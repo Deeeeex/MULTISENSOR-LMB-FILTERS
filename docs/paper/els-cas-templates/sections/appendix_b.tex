@@ -1,11 +1,11 @@
 \section{Additional Attempted Modules and Results}
 \label{app:additional-modules}
 
-This appendix records secondary routes and modules that were evaluated but not retained as part of the main claimed method. The purpose is to document that the design space was explored beyond the main geometric-average KLA method family and to bound the empirical value of alternatives that are not promoted into the paper body.
+The secondary experiments below are boundary checks rather than extra components of the method. Unless noted, they reuse the tiered-loss scenario and reporting protocol from Section~\ref{sec:experimental-setup}.
 
-\subsection{AA-based secondary route}
+\paragraph{AA-based secondary route.}
 
-The paper body focuses on the geometric-average KLA route because the method is designed around conservative logarithmic pooling and branch-specific GA-LMB fusion weights. A secondary arithmetic-average experiment was nevertheless run in the same eight-sensor communication-constrained setting. This diagnostic uses the same tiered packet-drop profile as the main experiment, but shortens the AA run horizon and applies stronger AA-specific pruning to keep mixture growth tractable. The result is informative but remains appendix-only because AA consumes the adaptive weights through linear Bernoulli averaging and existence-weighted Gaussian-mixture concatenation rather than through the logarithmic geometric-average KLA fusion rule developed in the paper body.
+An arithmetic-average (AA) diagnostic checks whether the same reliability cues transfer to a different fusion operator. The AA run uses the horizon and pruning changes noted in Appendix~\ref{app:simulation-setup}; its merger consumes the weights through linear Bernoulli averaging and existence-weighted Gaussian-mixture concatenation rather than GA/KLA logarithmic pooling.
 
 \par\medskip
 \refstepcounter{table}\label{tab:appendix-aa}
@@ -26,46 +26,29 @@ The paper body focuses on the geometric-average KLA route because the method is 
 \end{minipage}
 \par\medskip
 
-This result suggests that communication-aware weighting is also useful outside GA fusion: the Balanced AA setting reduces OSPA consensus error by about $11.6\%$, matched localization disagreement by about $16.1\%$, and cardinality dispersion by about $55.0\%$ relative to fixed AA. The Cardinality-critical AA variant gives the strongest cardinality-dispersion reduction, about $58.0\%$, but is slightly worse than Balanced AA on OSPA and localization disagreement and increases runtime from about $1.11\times$ to $1.53\times$ the fixed-AA runtime. The local truth-referenced safeguards show the same tradeoff: both adaptive AA variants substantially reduce local cardinality error, but they increase local RMSE relative to fixed AA. We therefore treat AA as useful supporting evidence that the reliability cues can transfer to another average-fusion operator, not as a main claim. The theoretical development, operating-mode story, and strongest experiments in this paper remain centered on distributed GA/KLA-based LMB fusion.
+Balanced AA reduces OSPA consensus error, matched localization disagreement, and cardinality dispersion by about $11.6\%$, $16.1\%$, and $55.0\%$ relative to fixed AA. Cardinality-critical AA gives the lowest cardinality dispersion, about a $58.0\%$ reduction, but is slightly worse than Balanced AA on OSPA and localization disagreement. The pattern matches the main operating-mode tradeoff, while the evidence remains secondary because the fusion operator is different.
 
-\subsection{NIS-based consistency weighting}
-
-This appendix-level experiment studies whether innovation-based consistency information should enter the adaptive weight model. The normalized innovation squared (NIS) is a standard filter-diagnostic statistic in tracking and navigation, and recent work also uses related distributional checks for estimator auto-tuning \cite{BarShalom2001Estimation,Chen2023NISAutoTuning}. The relevant comparison here is $\texttt{w/o NIS} \rightarrow \texttt{robust NIS} \rightarrow \texttt{plain NIS}$. The NIS term is treated as a consistency penalty rather than a monotonic quality reward because innovation consistency is structurally coupled with covariance-based posterior quality.
+\paragraph{Other exploratory modules.}
+Several exploratory modules were also left outside the core rule because their effects were weak, mixed, or negative:
 
 \par\medskip
-\refstepcounter{table}\label{tab:appendix-nis}
+\refstepcounter{table}\label{tab:appendix-extra-modules}
 \noindent\begin{minipage}{\linewidth}
   \noindent\textbf{Table~\thetable}\par
-  \noindent Network disagreement metrics for the NIS-based consistency comparison.\par\smallskip
+  \noindent Exploratory modules not retained in the main method.\par\smallskip
+  \small
   \centering
-  \begin{tabular}{lccc}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.50\linewidth}>{\raggedright\arraybackslash}p{0.19\linewidth}@{}}
     \toprule
-    Arm & OSPA & Loc. disag. & Cardinality \\
+    Module & Observed effect & Decision \\
     \midrule
-    w/o NIS & 1.792 & 1.556 & 0.198 \\
-    robust NIS & 1.804 & 1.552 & 0.203 \\
-    plain NIS & 1.897 & 1.739 & 0.237 \\
+    NIS consistency weighting & Plain NIS worsens all three disagreement metrics; robust NIS remains close to the no-NIS baseline but does not improve OSPA or cardinality dispersion. & Exclude from core rule. \\
+    Freshness and history weighting & Freshness is effectively flat; history gives only a small localization change while OSPA and cardinality are unchanged or slightly worse. & No main-text role. \\
+    Direct cardinality-consensus score & Pilot degrades OSPA, RMSE, and cardinality dispersion relative to the covariance-link baseline. & Negative appendix evidence. \\
+    Association ambiguity / stronger posterior structure & Association ambiguity is mixed; stronger posterior-structure consistency ties the retained weak static structure prior. & Future extension candidate. \\
     \bottomrule
   \end{tabular}
 \end{minipage}
 \par\medskip
 
-Plain NIS is clearly harmful in the present setting. Robust NIS remains substantially better than plain NIS, but across 50 trials it is still slightly worse than the no-NIS baseline in OSPA and cardinality dispersion, with only a small localization-disagreement improvement.
-
-\subsection{Freshness weighting}
-
-This experiment tests whether a recency-oriented score improves fusion beyond the robust-NIS baseline. The intended comparison is robust NIS baseline versus robust NIS plus freshness. In the 50-trial comparison, the result is effectively flat: OSPA remains at $1.804$, matched localization disagreement changes from $1.552$ to $1.551$, and cardinality dispersion remains at $0.203$.
-
-\subsection{History weighting}
-
-This experiment evaluates whether a temporal-stability score improves fusion quality. In the exploratory comparison, OSPA changes from $1.811$ to $1.814$, localization disagreement changes from $3.173$ to $3.158$, and cardinality dispersion changes from $0.214$ to $0.215$. This effect is too small and too mixed to justify a central role in the main text.
-
-\subsection{Cardinality-consensus weighting}
-
-An exploratory direct cardinality-consensus score was also tested. Relative to the covariance-and-link baseline, the pilot changed OSPA from $1.909508$ to $1.954855$, RMSE from $1.621662$ to $1.791287$, and cardinality dispersion from $0.242500$ to $0.285000$. Because this evidence is negative and only a pilot, it is retained only as appendix context.
-
-\subsection{Association ambiguity and posterior-structure consistency}
-
-Two additional extensions were also evaluated. The association-ambiguity add-on changes the baseline OSPA, RMSE, and cardinality dispersion from $(1.874840,\,1.779820,\,0.244500)$ to $(1.876368,\,1.769102,\,0.245500)$, which is too mixed to justify promotion into the main text. The stronger posterior-structure-consistency extension remains tied with the retained weak static structure prior at $(1.862244,\,1.749608,\,0.244250)$, so it is best treated as a future extension candidate rather than a present claim.
-
-Taken together, these appendix results delimit the explored design space and explain why the retained method centers on covariance quality, realized link quality, existence confidence, branch decoupling, and the existence-branch FID-FIA cue.
+These results keep the design space visible without turning every tested cue into a method component. The retained method stays focused on covariance quality, realized link quality, existence confidence, branch decoupling, and the existence-branch FID-FIA cue.

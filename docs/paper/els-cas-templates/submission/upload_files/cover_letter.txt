@@ -1,4 +1,4 @@
-June 5, 2026
+June 10, 2026
 
 Editor-in-Chief
 Information Fusion
@@ -7,7 +7,7 @@ Dear Editor,
 
 Please consider our manuscript, "Communication-Aware Adaptive Weights for Consensus-Oriented Distributed KLA-Based LMB Fusion", for publication as a research article in Information Fusion.
 
-The manuscript studies distributed multi-sensor multi-object tracking in peer-to-peer sensor networks where local posterior quality and realized packet delivery vary across sensors. We propose a communication-aware adaptive weighting family for distributed Kullback-Leibler average (KLA), also known as geometric-average, labeled multi-Bernoulli (LMB) fusion. The method combines posterior covariance, realized link quality, and Bernoulli existence confidence, then uses branch-specific refinements: a weak structure-aware spatial weighting path and an optional FID-FIA-informed existence path for cardinality-critical operation.
+The manuscript studies distributed multi-sensor multi-object tracking in peer-to-peer sensor networks where finite fields of view, sensing geometry, and realized packet delivery create time-varying posterior and communication reliability. We propose a communication-aware adaptive weighting family for distributed Kullback-Leibler average (KLA), also known as geometric-average, labeled multi-Bernoulli (LMB) fusion. The method combines posterior covariance, realized link quality, and Bernoulli existence confidence, then uses branch-specific refinements: a weak structure-aware spatial weighting path and an optional FID-FIA-informed existence path for cardinality-critical operation.
 
 The paper fits the scope of Information Fusion because it addresses algorithmic multi-sensor fusion under communication constraints, including adaptive fusion architecture, distributed sensor networks, uncertainty-aware fusion rules, and computational cost.
 
@@ -15,7 +15,7 @@ Required guide-for-authors points:
 
 1. Comparison with state of the art
 
-Yes. The manuscript compares the proposed method against fixed/topology-derived Metropolis weighting, PD-weighted GA, and FID-FIA-weighted GA as the information-geometric baseline. It also includes factor ablations, ideal-communication support, communication-level sensitivity, local tracking safeguards, and runtime measurements. The most relevant state-of-the-art comparison is the FID-FIA-weighted GA baseline; the proposed Cardinality-critical mode improves over that baseline in the main tiered heterogeneous packet-loss scenario while preserving a communication-aware spatial branch.
+Yes. The manuscript compares the proposed method against fixed/topology-derived Metropolis weighting, PD-weighted GA, and FID-FIA-weighted GA as the information-geometric baseline. It also includes factor ablations, ideal-communication support, communication-level sensitivity, local tracking safeguards, and runtime measurements. The FID-FIA-weighted GA row is the most relevant information-geometric baseline for the branch-specific refinement; the proposed Cardinality-critical mode improves the main consensus metrics in the tiered heterogeneous packet-loss scenario while preserving a communication-aware spatial branch.
 
 2. Five important references
 
@@ -35,15 +35,15 @@ The validation uses standard multi-object tracking measures and deployment-relev
 
 5. Main claim and significance
 
-The main claim is that distributed KLA-based LMB fusion under heterogeneous communication should not rely on fixed or topology-only weights. Fusion weights should reflect posterior concentration, realized communication reliability, and existence decisiveness, with branch-specific treatment of spatial and existence components. This matters because communication-constrained distributed fusion can otherwise produce sensors that agree poorly about target states and target number even when each node runs a valid local LMB filter.
+The main claim is that distributed KLA-based LMB fusion under communication-constrained operation should not rely on fixed or topology-only weights. Fusion weights should reflect posterior concentration, realized communication reliability, and existence decisiveness, with branch-specific treatment of spatial and existence components. This matters because heterogeneous packet delivery and geometry-induced sensing variation can otherwise leave sensors agreeing poorly about target states and target number even when each node runs a valid local LMB filter.
 
 6. Evidence supporting the claim
 
-In the main 50-trial paired tiered heterogeneous packet-loss scenario, Fixed Metropolis gives OSPA consensus error, matched localization disagreement, and cardinality dispersion of 2.469, 2.326, and 0.716. The proposed Cardinality-critical mode reduces these to 1.678, 1.546, and 0.063, respectively. The lower-overhead Balanced mode gives a position-oriented alternative with substantially lower runtime than the information-geometric cardinality-critical option. The paper also includes local tracking safeguards showing that the consensus gains are not produced by local tracking collapse, a communication-level sensitivity probe from levels 0 to 3, and a runtime supplement showing the computational tradeoff between Balanced and Cardinality-critical operation.
+In the main 50-trial paired tiered heterogeneous packet-loss scenario, Fixed Metropolis gives OSPA consensus error, matched localization disagreement, and cardinality dispersion of 2.469, 2.326, and 0.716. The proposed Cardinality-critical mode reduces these to 1.678, 1.546, and 0.063, respectively. The lower-overhead Balanced mode gives a position-oriented alternative with substantially lower runtime than the information-geometric cardinality-critical option. The paper also includes local tracking safeguards showing that the consensus gains are not produced by local tracking collapse, a communication-level sensitivity study from levels 0 to 3, and runtime measurements showing the computational tradeoff between Balanced and Cardinality-critical operation.
 
 7. Most related work and difference
 
-The closest adaptive-weight precedent is the information-geometric FID-FIA-style distributed heterogeneous labeled-RFS fusion line. The present manuscript differs by staying in peer-to-peer distributed GA/KLA-based LMB fusion, adding realized packet-delivery information to the weight backbone, and applying FID-FIA only to the Bernoulli existence branch instead of using a single scalar information-geometric weight for the whole fused posterior. The paper also differs from resilient peer-to-peer LMB fusion and distributed MB/GCI fusion by focusing on adaptive weight allocation under heterogeneous packet loss rather than only the underlying conservative fusion operator.
+The closest information-geometric precedent is the FID-FIA-style distributed heterogeneous labeled-RFS fusion line. The present manuscript differs by staying in peer-to-peer distributed GA/KLA-based LMB fusion, adding realized packet-delivery information to the weight backbone, and applying FID-FIA only to the Bernoulli existence branch instead of using a single scalar information-geometric weight for the whole fused posterior. The paper also differs from resilient peer-to-peer LMB fusion and distributed MB/GCI fusion by focusing on adaptive weight allocation under heterogeneous packet loss rather than only the underlying conservative fusion operator.
 
 8. Previous publication or concurrent submission
 

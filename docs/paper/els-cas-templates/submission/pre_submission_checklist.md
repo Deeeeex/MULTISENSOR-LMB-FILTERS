@@ -1,6 +1,6 @@
 # Information Fusion 投稿前 Checklist / TODO
 
-Updated: 2026-06-05
+Updated: 2026-06-10
 
 Target journal: Information Fusion
 
@@ -18,7 +18,7 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 - [ ] 确认资助方是否参与研究设计、数据收集与分析、论文撰写或投稿决定，并按实际情况补充 sponsor-role 声明。
 - [ ] 人工确认 generative AI disclosure 是否准确覆盖论文准备过程，并由全体作者接受。
 - [ ] 决定 data/code availability 的最终口径：公开仓库/Zenodo/OSF DOI，或保持 corresponding author on reasonable request。
-- [x] Cover letter 日期已填写为 June 5, 2026，Hao Lang 已作为通讯作者列出。
+- [x] Cover letter 日期已填写为 June 10, 2026，Hao Lang 已作为通讯作者列出。
 - [x] Cover letter 已声明稿件未曾发表（包括会议论文或预印本）且未在其他期刊审理。
 
 ## 已准备的投稿材料
@@ -41,15 +41,15 @@ Status legend: `[x]` 已完成或当前检查通过；`[ ]` 投稿前仍需处�
 ## 当前合规状态快照
 
 - [x] Abstract 长度当前约 214 词，低于 250 词上限。
-- [x] Highlights 当前为 4 条，字符数分别为 78、75、68、75，满足每条不超过 85 字符。
+- [x] Highlights 当前为 4 条，字符数分别为 71、67、66、67，满足每条不超过 85 字符。
 - [x] Highlights 已从主稿源文件中拆出，主稿不再内嵌 `highlights` 环境。
 - [x] Acknowledgements 已删除。
 - [x] Competing-interest 声明已从主稿拆出；正文保留 CRediT、funding、data availability 和 generative AI disclosure。
 - [x] Funding 已填写为 Aviation Industry Corporation of China, Ltd. (AVIC)，项目编号为 `2024AIASSJT02`。
 - [x] 当前 BibTeX 输出引用 40 篇，低于 50 篇上限。
-- [x] 当前 build 日志显示 PDF 为 28 页，处于 research article 10-35 页范围内。
+- [x] 当前 PDF 为 25 页，处于 research article 10-35 页范围内。
 - [x] 当前 build 日志未发现 undefined citation 或 undefined reference。
-- [~] 当前 build 仍有 overfull/underfull box 和 hyperref warning；这些不是阻断项，但最终投稿前应再快速扫一遍 PDF。
+- [~] 当前 build 仍有 maketitle overfull box 和 hyperref warning；这些不是阻断项，但最终投稿前应再快速扫一遍 PDF。
 - [x] 正文引用和参考文献已改为按首次出现顺序编号。
 - [~] 图件来源需要人工确认：正式投稿图不应使用生成式 AI 创建或修改。
 
@@ -84,7 +84,7 @@ Recommended evidence files to keep traceable:
 - [x] 已说明不使用公共真实数据集，实验为 deterministic synthetic simulation。
 - [x] 已说明验证指标：OSPA consensus error、matched localization disagreement、cardinality dispersion、local E-OSPA、local RMSE、local cardinality error、runtime。
 - [x] 已说明 main claim 及其意义。
-- [x] 已给出主实验、local safeguards、robustness probe、runtime supplement 作为证据。
+- [x] 已给出主实验、local safeguards、communication-level sensitivity study、runtime measurements 作为证据。
 - [x] 已说明最相关工作及差异。
 - [x] 已明确声明无前期发表、预印本、会议版或并投。
 - [x] 主结果已同步为 50-trial 数据：$2.469/2.326/0.716$ 降至 $1.678/1.546/0.063$。
@@ -103,11 +103,11 @@ Include:
 - [x] `cas-common.sty`
 - [x] `model1-num-names.bst`
 - [x] 实际使用的 6 张正文图和 `thumbnails/cas-email.jpeg`
-- [ ] `submission/highlights.txt`
-- [ ] `submission/upload_files/manuscript.pdf`
-- [ ] `submission/upload_files/cover_letter.txt`
-- [ ] `submission/upload_files/highlights.txt`
-- [ ] finalized cover letter text
+- [x] `submission/highlights.txt`
+- [x] `submission/upload_files/manuscript.pdf`
+- [x] `submission/upload_files/cover_letter.txt`
+- [x] `submission/upload_files/highlights.txt`
+- [x] finalized cover letter text for the current manuscript claim scope
 - [ ] optional supplementary/reproducibility archive, if selected
 
 Exclude from journal source upload unless explicitly needed:

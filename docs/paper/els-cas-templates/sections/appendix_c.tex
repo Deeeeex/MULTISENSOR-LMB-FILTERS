@@ -1,7 +1,7 @@
 \section{Theoretical Interpretation of Adaptive Branch-Decoupled Fusion}
 \label{app:theory}
 
-This appendix records the theoretical interpretation of the adaptive branch-decoupled fusion rule used in the main paper. The purpose is narrower than a full new optimality theory. We focus on statements that are supported by the proposed method and the standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Throughout this appendix, we assume the same label alignment and moment-compatible Gaussian projection used by the merger.
+The proof chain behind the adaptive branch-decoupled rule is deliberately limited. It assumes the same label alignment and moment-compatible Gaussian projection used by the implemented merger, together with standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. It should not be read as a global optimality theory for unconstrained LMB fusion.
 
 \subsection{Entropy-Regularized Interpretation of the Weight Backbone}
 
@@ -15,30 +15,18 @@ q_{\mathrm{exist},k}^{(j)},
 \qquad
 j \in \mathcal{A}_{k,s},
 \end{equation}
-where $q_{\mathrm{cov}}$, $q_{\mathrm{link}}$, and $q_{\mathrm{exist}}$ denote the covariance-quality, realized link-quality, and existence-confidence terms, respectively. Define
-\begin{equation}
-u_{0,j}
-=
-\log q_{\mathrm{cov},k}^{(j)}
-+
-\log q_{\mathrm{link},k}^{(j)}
-+
-\log q_{\mathrm{exist},k}^{(j)}.
-\end{equation}
-
-Let
+where the three terms denote covariance quality, realized link quality, and existence confidence. Define $u_{0,j}=\log s_{0,j}$ and
 \begin{equation}
 \Delta_{k,s}
 =
 \left\{
 w \in \mathbb{R}^{|\mathcal{A}_{k,s}|} :
 w_j \ge 0,\ \sum_j w_j = 1
-\right\}
+\right\}.
 \end{equation}
-be the active-neighbor simplex.
 
 \paragraph{Proposition C1.}
-For any temperature $\tau>0$, the optimization problem
+For any $\tau>0$, the program
 \begin{equation}
 \max_{w \in \Delta_{k,s}}
 \left\{
@@ -58,27 +46,18 @@ w_j^\star
 =
 \frac{s_{0,j}^{1/\tau}}{\sum_u s_{0,u}^{1/\tau}}.
 \end{equation}
-In particular, when $\tau=1$, the implemented normalized product rule is recovered:
-\begin{equation}
-w_j^\star = \frac{s_{0,j}}{\sum_u s_{0,u}}.
-\end{equation}
+Thus $\tau=1$ recovers the implemented normalized product rule. The multiplicative backbone is an entropy-regularized allocation in log-utility space.
 
-Thus the multiplicative backbone can be read as an entropy-regularized simplex allocation in log-utility space, not merely as an empirical product of factors.
-
-\paragraph{Isotropic interpretation of the covariance term.}
-If the local Gaussian components satisfy
-\begin{equation}
-T_{k,i}^{(j)} = \sigma_j^2 I_d
-\end{equation}
-for all labels $i$ at sensor $j$, then the implemented covariance score
+\paragraph{Covariance score in the isotropic limit.}
+If the local Gaussian components satisfy $T_{k,i}^{(j)}=\sigma_j^2I_d$, then the implemented covariance score
 \begin{equation}
 q_{\mathrm{cov},k}^{(j)} = \frac{1}{\epsilon + d \sigma_j^2}
 \end{equation}
-induces the same ordering as smaller $\sigma_j^2$, smaller $\log\det T_{k,i}^{(j)}$, larger $\log\det (T_{k,i}^{(j)})^{-1}$, and larger $\operatorname{tr}((T_{k,i}^{(j)})^{-1})$. Hence, in the isotropic limit, the retained trace-based score agrees with standard information criteria. In near-isotropic regimes, the disagreement with log-determinant criteria enters only through higher-order anisotropy terms.
+induces the same ordering as smaller $\sigma_j^2$, smaller $\log\det T_{k,i}^{(j)}$, larger $\log\det (T_{k,i}^{(j)})^{-1}$, and larger $\operatorname{tr}((T_{k,i}^{(j)})^{-1})$. The trace-based score therefore agrees with standard information criteria in the isotropic case; near-isotropic differences enter through anisotropy.
 
 \subsection{Algebraic Branch Structure of the Implemented GA-LMB Merger}
 
-The implemented merger uses separate spatial and existence weights. This separation is not purely heuristic; it is supported by the algebraic structure of the GA-LMB update.
+The implemented merger uses separate spatial and existence weights because the GA-LMB update already exposes two different algebraic blocks.
 
 \paragraph{Spatial branch.}
 For a fixed Bernoulli component $i$, the Gaussian canonical fusion step is
@@ -86,20 +65,15 @@ For a fixed Bernoulli component $i$, the Gaussian canonical fusion step is
 K_i &= \sum_j w_{x,j} T_{i,j}^{-1}, \\
 h_i &= \sum_j w_{x,j} T_{i,j}^{-1}\nu_{i,j},
 \end{align}
-with
-\begin{equation}
-\Sigma_i = K_i^{-1},
-\qquad
-\mu_i = \Sigma_i h_i.
-\end{equation}
+with $\Sigma_i=K_i^{-1}$ and $\mu_i=\Sigma_i h_i$.
 
 \paragraph{Proposition C2.}
-Conditional on the spatial weights $w_x$, the Gaussian density $\mathcal{N}(\mu_i,\Sigma_i)$ is obtained as the minimizer of
+Conditional on $w_x$, $\mathcal{N}(\mu_i,\Sigma_i)$ is the minimizer of
 \begin{equation}
 \min_{q \in \mathcal{G}}
 \sum_j w_{x,j} D_{\mathrm{KL}}\!\left(q \,\|\, \mathcal{N}(\nu_{i,j},T_{i,j})\right),
 \end{equation}
-where $\mathcal{G}$ is the Gaussian family. Hence, under the stated projection assumption, the implemented spatial update is the Gaussian KLA barycenter.
+where $\mathcal{G}$ is the Gaussian family. Expanding the Gaussian KL in canonical parameters gives the precision and information-vector averages above, so the spatial update is the reverse-KL Gaussian barycenter.
 
 \paragraph{Existence branch.}
 The same merger computes
@@ -112,10 +86,10 @@ r_i
 \eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}} + \prod_j (1-r_{i,j})^{w_{r,j}}
 },
 \end{equation}
-where $\eta_i(w_x)$ is the spatial-overlap normalization term induced by the Gaussian branch.
+where $\eta_i(w_x)$ is the spatial-overlap normalization induced by the Gaussian branch.
 
 \paragraph{Proposition C3.}
-The fused existence probability satisfies the log-odds identity
+The fused existence probability satisfies
 \begin{equation}
 \log \frac{r_i}{1-r_i}
 =
@@ -124,14 +98,12 @@ The fused existence probability satisfies the log-odds identity
 \sum_j w_{r,j}\log\frac{r_{i,j}}{1-r_{i,j}}.
 \label{eq:appendix-logit-pooling}
 \end{equation}
-Therefore, for fixed spatial weights, the existence branch is a weighted logit pool with an additive spatial-overlap offset.
+Thus, for fixed spatial weights, the existence branch is a weighted Bernoulli logit pool with an additive spatial-overlap offset.
 
 \subsection{From Bernoulli-RFS Decomposition to an Aligned-LMB Surrogate}
 
-The key theoretical bridge is that Bernoulli-RFS divergence already separates into existence and spatial terms.
-
 \paragraph{Proposition C4.}
-Let $\beta=(r,p)$ and $\beta_j=(r_j,p_j)$ be Bernoulli RFS densities. Then
+For Bernoulli RFS densities $\beta=(r,p)$ and $\beta_j=(r_j,p_j)$,
 \begin{equation}
 D_{\mathrm{KL}}(\beta \,\|\, \beta_j)
 =
@@ -148,8 +120,7 @@ d_{\mathrm{Ber}}(r\,\|\,r_j)
 +
 r\log\frac{r}{r_j}.
 \end{equation}
-
-This decomposition shows that spatial mismatch is naturally weighted by existence level.
+The spatial mismatch is therefore naturally weighted by the existence level.
 
 \paragraph{Proposition C5.}
 For a fixed Bernoulli component $i$, consider the decoupled surrogate
@@ -176,12 +147,10 @@ p_i^\star(x)
 \sum_j w_{r,j}\log\frac{r_{i,j}}{1-r_{i,j}}.
 \label{eq:appendix-decoupled-existence}
 \end{align}
-Hence, under the stated aligned-label and projection assumptions, the implemented spatial and existence update rules solve a per-Bernoulli decoupled surrogate objective.
-
-If local posteriors share an aligned label set and are represented in product LMB form, then the reverse-KL divergence is additive across labels. Under this same alignment assumption, the per-Bernoulli surrogate lifts directly to an aligned-LMB surrogate objective that decomposes labelwise.
+The spatial equation follows by normalizing the weighted geometric product. Substituting this optimum gives the $-\log\eta_i(w_x)$ spatial contribution, and differentiating the Bernoulli part gives the logit identity. With aligned labels and product LMB form, the same argument lifts labelwise because the reverse-KL divergence is additive across aligned Bernoulli factors.
 
 \paragraph{Scope boundary.}
-This appendix does not claim that the branch-decoupled rule is the unique optimizer of a fully unconstrained LMB fusion objective. The exact derivation above still relies on the same two architectural assumptions used by the merger: aligned labels and moment-compatible spatial projection.
+This surrogate does not make the branch-decoupled rule the unique optimizer of a fully unconstrained LMB fusion objective. It only states that the implemented update is compatible with a per-Bernoulli aligned-LMB objective under the merger's label-alignment and projection assumptions.
 
 \subsection{Branch-Decoupled Weight Allocation and Structure-Aware Regularization}
 
@@ -202,10 +171,9 @@ with geometric interpolation
 \tilde s_{x,j} &= s_{0,j}^{1-\eta_x}s_{x,j}^{\eta_x}, \\
 \tilde s_{r,j} &= s_{0,j}^{1-\eta_r}s_{r,j}^{\eta_r}.
 \end{align}
-This is a convex interpolation in log-utility space.
-Define $\hat u_{x,j}=\log \tilde s_{x,j}$ and $\hat u_{r,j}=\log \tilde s_{r,j}$ for the branch utilities before graph and FID-FIA refinement.
+This is convex interpolation in log-utility space. Define $\hat u_{x,j}=\log \tilde s_{x,j}$ and $\hat u_{r,j}=\log \tilde s_{r,j}$ before graph and FID-FIA refinement.
 
-The FID-FIA existence refinement adds one more nonnegative factor only to the existence branch. Let $a_j$ denote the Fisher-information-distance accumulation score computed from existence-weighted local target pairs, and define the bounded normalized score
+The FID-FIA refinement modifies only the existence branch. Let $a_j$ denote the Fisher-information-distance accumulation from existence-weighted local target pairs, and define
 \begin{equation}
 q_{\mathrm{fid},j}
 =
@@ -214,23 +182,9 @@ q_{\mathrm{fid},j}
 \frac{a_j}{\epsilon+\max_{u\in\mathcal{A}_{k,s}} a_u}
 \right)^{p_f}.
 \end{equation}
-The refined existence score is
-\begin{equation}
-\tilde s_{r,j}^{\mathrm{fid}}
-=
-\tilde s_{r,j}\,q_{\mathrm{fid},j}^{\gamma_f}.
-\label{eq:appendix-fid-existence-score}
-\end{equation}
-In log-utility form, this is simply
-\begin{equation}
-\hat u_{r,j}^{\mathrm{fid}}
-=
-\hat u_{r,j}+\gamma_f\log q_{\mathrm{fid},j},
-\end{equation}
-while the spatial utility $\hat u_{x,j}$ is unchanged.
-The log-utility interpretation below is direct for $\rho_{\min}>0$; the main experiment setting $\rho_{\min}=0$ is the boundary limit that allows the existence branch to place zero instantaneous weight on sensors whose FID-FIA accumulation is zero.
+For positive $q_{\mathrm{fid},j}$, this contributes $\gamma_f\log q_{\mathrm{fid},j}$ to the existence utility and leaves the spatial utility unchanged. The main zero-floor setting is the boundary case in which a sensor with zero FID-FIA accumulation can receive zero instantaneous existence weight.
 
-After decoupling, the structure-aware refinement multiplies the spatial score by $\xi_{x,j}^{\gamma_x}$ and the existence score, or the FID-FIA-refined existence score when enabled, by $\xi_{r,j}^{\gamma_r}$. This is equivalent to adding $\gamma_x \log \xi_{x,j}$ and $\gamma_r \log \xi_{r,j}$ to the corresponding branch utilities.
+The structure-aware refinement then multiplies the spatial score by $\xi_{x,j}^{\gamma_x}$ and the existence score by $\xi_{r,j}^{\gamma_r}$.
 
 \paragraph{Proposition C6.}
 Let $p_x$ and $p_r$ be normalized priors satisfying
@@ -238,7 +192,7 @@ Let $p_x$ and $p_r$ be normalized priors satisfying
 p_{x,j} &\propto \xi_{x,j}^{\gamma_x/\tau_x}, \\
 p_{r,j} &\propto \xi_{r,j}^{\gamma_r/\tau_r}.
 \end{align}
-Then the branch-wise optimization problems are equivalently written as
+Then the branch-wise allocations are equivalently written as
 \begin{align}
 w_x^\star
 &=
@@ -256,10 +210,10 @@ w_r^\star
 - \tau_r D_{\mathrm{KL}}(w \,\|\, p_r)
 \right\}.
 \end{align}
-Thus the weak structure-aware term can be interpreted as a KL regularization toward a graph-induced prior on the simplex.
+Thus the weak structure-aware term is a KL regularization toward a graph-induced prior on the simplex.
 
 \paragraph{Corollary C6a.}
-With the FID-FIA existence refinement, the same branch-wise entropy-regularized program remains valid after replacing the existence utility $\hat u_{r,j}$ by $\hat u_{r,j}^{\mathrm{fid}}$. Equivalently,
+With the FID-FIA existence refinement, the same program remains valid after replacing $\hat u_{r,j}$ by $\hat u_{r,j}^{\mathrm{fid}}=\hat u_{r,j}+\gamma_f\log q_{\mathrm{fid},j}$. Equivalently,
 \begin{equation}
 w_{r,j}^{\star}
 \propto
@@ -273,38 +227,30 @@ w_{x,j}^{\star}
 \xi_{x,j}^{\gamma_x}.
 \label{eq:appendix-fid-branch-weights}
 \end{equation}
-Thus the FID-FIA term is theoretically just another existence-branch log-utility, not a change to the spatial KLA barycenter.
+The FID-FIA term is therefore an existence-branch log-utility, not a change to the spatial KLA barycenter.
 
 \paragraph{Proposition C7.}
-The statement below applies to the unrefined existence utility $\hat u_{r,j}$ and, after the substitution in Corollary C6a, to the FID-FIA-refined utility $\hat u_{r,j}^{\mathrm{fid}}$.
-Define the branch utilities
+Define
 \begin{align}
 U_x(w_x)
 &=
 \sum_j w_{x,j}\hat u_{x,j} + \tau_x H(w_x), \\
 U_r(w_r)
 &=
-\sum_j w_{r,j}\hat u_{r,j} + \tau_r H(w_r).
+\sum_j w_{r,j}\hat u_{r,j} + \tau_r H(w_r),
 \end{align}
-Then, under the stated aligned-label and projection assumptions, the branch-decoupled adaptive weights solve the block-separable surrogate program
+with the FID-FIA substitution in $U_r$ when Cardinality-critical mode is active. Under the aligned-label and projection assumptions above, the branch-decoupled adaptive weights solve
 \begin{equation}
 \max_{w_x,w_r \in \Delta_{k,s}} \left\{ U_x(w_x) + U_r(w_r) \right\}.
 \end{equation}
-Moreover, together with the aligned-LMB surrogate state-update block above, the merger and the adaptive weight-allocation rule are consistent with a single block-relaxed objective whose two blocks reproduce the state-update and weight-update steps.
+Together with Proposition C5, this gives a block-relaxed interpretation: the state-update block reproduces the aligned Bernoulli/LMB surrogate, and the weight-update block reproduces the branch-wise adaptive allocations.
 
 \paragraph{Scalar-FID-FIA as a constrained special case.}
-Using a single FID-FIA scalar weight vector for the whole fused posterior can be viewed as imposing the additional constraint $w_x=w_r=w_{\mathrm{fid}}$ and choosing both branch utilities to be dominated by $\log q_{\mathrm{fid},j}$. The proposed refinement relaxes this constraint: $w_x$ remains governed by the communication-aware spatial utility, while $w_r$ receives the FID-FIA term. This provides a theoretical explanation for the observed empirical tradeoff. A single FID-FIA weight can improve cardinality by moving the existence logit pool toward sensors with high pairwise Fisher separability, but the same move also perturbs the Gaussian precision barycenter. Branch decoupling keeps the information-geometric signal where it is most useful, in the Bernoulli existence pool, without forcing the spatial barycenter to use the same weights.
-
-\paragraph{FID-FIA as an existence-branch separability utility.}
-The aligned-LMB surrogate in Proposition C5 suggests that spatial and existence weights should respond to different failure modes: spatial fusion is tied to existence-weighted spatial mismatch, while existence fusion is tied to Bernoulli existence mismatch. The retained covariance, realized-link, and existence-confidence utilities are stable local proxies for these sensitivities. The FID-FIA accumulation is used in the narrower role of an information-geometric separability cue for Bernoulli existence decisions: it favors sensors whose local target-pair geometry is more distinguishable under the Fisher metric induced by the sensor model. It should therefore be read as an existence-branch utility, not as an exact Bernoulli KL gradient or as a full objective for unconstrained LMB fusion.
+A single FID-FIA scalar weight for the whole fused posterior imposes $w_x=w_r=w_{\mathrm{fid}}$ and lets the Fisher-separability utility influence both the Gaussian barycenter and the Bernoulli logit pool. The proposed refinement relaxes that constraint: $w_x$ remains governed by the communication-aware spatial utility, while $w_r$ receives the FID-FIA term. This explains why a scalar FID-FIA baseline can improve cardinality while perturbing localization; the branch-decoupled version reserves the information-geometric cue for existence/cardinality fusion.
 
 \subsection{Existence Confidence and Temporal Stabilization}
 
-The existence-confidence term uses
-\begin{equation}
-c(r) = |2r-1|,
-\end{equation}
-which is bounded in $[0,1]$. This quantity is a bounded monotone surrogate of Bernoulli decisiveness because
+The existence-confidence term uses $c(r)=|2r-1|$, which is bounded in $[0,1]$ and monotone in the magnitude of the Bernoulli natural parameter:
 \begin{equation}
 \left|\log\frac{r}{1-r}\right|
 =
@@ -312,19 +258,19 @@ which is bounded in $[0,1]$. This quantity is a bounded monotone surrogate of Be
 =
 2\,\mathrm{artanh}(c(r)).
 \end{equation}
-Therefore the existence-confidence score is a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that appears in the existence branch \eqref{eq:appendix-logit-pooling}.
+Thus existence confidence is a bounded proxy for the Bernoulli decisiveness appearing in \eqref{eq:appendix-logit-pooling}.
 
-The temporal stabilization step computes an exponential moving average (EMA),
+The temporal stabilization step computes
 \begin{equation}
 w_k^{\mathrm{ema}} = \alpha w_{k-1} + (1-\alpha)\hat w_k.
 \end{equation}
 
 \paragraph{Proposition C8.}
-For any $\alpha \in [0,1]$, the EMA point $w_k^{\mathrm{ema}}$ can be written as the minimizer of
+For any $\alpha \in [0,1]$, $w_k^{\mathrm{ema}}$ is the minimizer of
 \begin{equation}
 \min_{w}
 \left\{
 \alpha \|w-w_{k-1}\|_2^2 + (1-\alpha)\|w-\hat w_k\|_2^2
 \right\}.
 \end{equation}
-Thus the EMA step is a quadratic compromise between the previous weights and the instantaneous weight vector. The subsequent minimum-weight enforcement should still be interpreted as a pragmatic feasibility projection rather than as part of one single optimization program.
+The EMA step is therefore a quadratic compromise between the previous weights and the instantaneous weights. The subsequent minimum-weight enforcement remains a pragmatic feasibility projection rather than part of one single exact objective.

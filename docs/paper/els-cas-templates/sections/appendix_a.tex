@@ -1,76 +1,10 @@
 \section{Simulation Setup}
 \label{app:simulation-setup}
 
-This appendix records reproducibility details for the reported experiments, including the scenario geometry, target initialization, communication model, adaptive configurations, supporting ideal-communication variant, and seed control.
+Section~\ref{sec:experimental-setup} defines the common filter, sensor, communication, operating-mode, and Monte Carlo settings. The remaining constants needed to reproduce the scenario are the formation geometry, target initialization, and paired-run handling below.
 
-\subsection{Main scenario overview}
+The eight sensors form two four-sensor groups. Their formation centers start at $[-80,35]^\mathsf{T}$ and $[-80,-35]^\mathsf{T}$ and move with nominal velocity $[0.8,0]^\mathsf{T}$. Each group follows a four-agent leader-follower pattern with spacing $20$. The communication graph is fully connected inside each group, with cross links $1\leftrightarrow5$, $2\leftrightarrow6$, $3\leftrightarrow7$, and $4\leftrightarrow8$; the communication range is $150$.
 
-The primary experiment uses an eight-sensor distributed formation-tracking scenario composed of two four-sensor formations. Each node runs a local GA-LMB filter with loopy belief propagation (LBP) for approximate marginal data association \cite{WilliamsLau2014LBP}, and distributed fusion is performed only over the local communication neighborhood.
+The ten targets are initialized as the three staggered groups summarized in Section~\ref{sec:experimental-setup}. Their group centers are $[70,80]^\mathsf{T}$, $[80,0]^\mathsf{T}$, and $[70,-80]^\mathsf{T}$, with spacings $30$, $25$, and $20$, respectively. Births start at time step one, repeat every eight steps, and last through the 100-step scenario.
 
-The common filter-side settings are:
-\begin{itemize}
-\item number of sensors: $8$,
-\item local filter mode: GA-LMB,
-\item data association: LBP,
-\item simulation length: $100$ time steps,
-\item sensor communication range: $150$,
-\item fixed-weight baseline fusion rule: Metropolis-type consensus weighting \cite{XiaoBoydLall2005ConsensusWeights},
-\item clutter rate at every sensor: $3$,
-\item detection probability at every sensor: $0.9$,
-\item measurement-noise scale at every sensor: $q = 3$,
-\item field of view enabled with half-angle $60^\circ$ and range $60000$.
-\end{itemize}
-These are homogeneous nominal sensor settings. Geometry and field-of-view gating create target- and time-dependent visibility differences, but no explicit per-sensor $p_D$, noise, or clutter tiers are used in the main reported experiment.
-
-\subsection{Sensor geometry and neighborhood graph}
-
-The eight sensors are divided into two groups of four. Both groups follow constant-velocity platform trajectories with zero process noise and move from left to right with nominal velocity $[0.8, 0]^\mathsf{T}$. The two formation centers are $[-80,35]^\mathsf{T}$ and $[-80,-35]^\mathsf{T}$, respectively. Each group uses a four-agent leader-follower pattern with one lead sensor and three offset followers, with spacing $20$.
-
-The local communication graph is fixed. Each formation is fully connected internally, and the two formations are connected by one-to-one cross links: $1\leftrightarrow5$, $2\leftrightarrow6$, $3\leftrightarrow7$, and $4\leftrightarrow8$. The corresponding neighborhood sets are therefore $\{1,2,3,4,5\}$, $\{1,2,3,4,6\}$, $\{1,2,3,4,7\}$, $\{1,2,3,4,8\}$, $\{1,5,6,7,8\}$, $\{2,5,6,7,8\}$, $\{3,5,6,7,8\}$, and $\{4,5,6,7,8\}$.
-
-\subsection{Target initialization}
-
-The target side contains ten objects divided into three groups with staggered births. The birth interval is eight time steps, the birth start time is one, and the target lifetime is $100$ time steps. The three groups are: three targets in a Triangle formation centered at $[70,80]^\mathsf{T}$ with spacing $30$, three targets in a Triangle formation centered at $[80,0]^\mathsf{T}$ with spacing $25$, and four targets in a four-agent leader-follower pattern centered at $[70,-80]^\mathsf{T}$ with spacing $20$. All three groups move toward the central region with speed $0.45$.
-
-\subsection{Communication model}
-
-Communication degradation is applied before distributed fusion through a model that combines a global per-step measurement budget with optional link-level packet loss and optional node outages. The communication levels are:
-\begin{itemize}
-\item level $0$: no communication restriction,
-\item level $1$: global measurement budget only,
-\item level $2$: level $1$ plus link-level packet loss,
-\item level $3$: level $2$ plus node outages.
-\end{itemize}
-
-The main paper scenario uses level $2$ with global maximum delivered measurements per step $80$, fixed link loss, nominal mean packet-drop rate $p_{\mathrm{drop}}=0.2$, and tiered heterogeneous packet-loss configuration
-\begin{equation}
-p_{\mathrm{drop}} \in [0,\,0.1,\,0.2,\,0.5], \qquad
-\text{counts} = [1,\,4,\,1,\,2].
-\end{equation}
-This tiered configuration preserves the historical mean packet-drop rate while creating persistent node-to-node communication heterogeneity.
-
-\subsection{Ideal-communication supporting variant}
-
-The supporting ideal-communication comparison uses the same sensor geometry, target initialization, and local filtering configuration as the main scenario, but removes communication degradation. The relevant settings are communication level $0$, effectively unlimited delivery budget, and $p_{\mathrm{drop}}=0$ for all sensors. The same deterministic seed range is used for Fixed Metropolis, PD-weighted GA, FID-FIA-weighted GA, the Balanced mode, and the Cardinality-critical mode.
-
-\subsection{Main adaptive configurations}
-
-The Balanced mode used in the main tiered-drop comparison is:
-\begin{itemize}
-\item $\texttt{emaAlpha}=0.7$,
-\item $\texttt{minWeight}=0.05$,
-\item covariance, link-quality, and existence-confidence terms enabled,
-\item $\texttt{existenceConfidenceMinScore}=0.85$,
-\item $\texttt{existenceConfidencePower}=2.0$,
-\item branch decoupling enabled,
-\item weak structure-aware refinement enabled,
-\item FID-FIA refinement disabled,
-\item posterior-structure-consistency, normalized innovation squared (NIS), and history disabled in the main configuration,
-\item spatial decoupling and structure strengths $(0.5, 0.45)$,
-\item existence decoupling and structure strengths $(0.15, 0.08)$.
-\end{itemize}
-The Cardinality-critical mode uses the same settings and additionally enables FID-FIA refinement only for the existence branch.
-
-\subsection{Monte Carlo seed control}
-
-The main fixed-versus-existence-refined confirmation, the supporting ideal-communication comparison, the factor ablation, and the communication-level sensitivity study all use 50 deterministic paired trials with seeds $2$--$51$. The Cardinality-critical mode row reported with the ablation uses the same deterministic seed range and scenario protocol. For every trial, the same generated truth, measurements, communication realization, and delivered measurement sets are used for all compared fusion arms within that trial.
+Within each deterministic seed, all compared arms share the same generated truth, measurements, communication realization, and delivered measurement sets. The ideal-communication comparison reuses the same geometry and targets but sets communication level $0$, uses effectively unlimited delivery, and sets $p_{\mathrm{drop}}=0$. The appendix-only AA diagnostics use the same communication-constrained scenario, with a shorter AA horizon and stronger AA-specific pruning to control mixture growth.
