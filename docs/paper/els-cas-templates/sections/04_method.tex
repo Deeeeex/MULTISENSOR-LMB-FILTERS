@@ -1,7 +1,7 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
+This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. The scores below should be read as bounded reliability cues consumed by the GA-LMB merger, not as independent optimality claims for each coefficient. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
 
 \subsection{Baseline GA-LMB fusion}
 
@@ -58,6 +58,9 @@ where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)
 \end{equation}
 This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths used by the two operating modes.
 
+\noindent\textbf{Remark 1 (backbone rationale).}
+The product form is a compact way to combine independent reliability cues on the simplex. In log form, it adds the utilities $\log q_{\mathrm{cov}}$, $\log q_{\mathrm{link}}$, and $\log q_{\mathrm{exist}}$, so a poor value in any cue cannot be completely hidden by a large value in another cue. The availability mask $m_k^{(j)}$ is a hard gate for an unavailable neighbor, whereas the positive floors used in some cue mappings are soft safeguards for uncertain but still usable posteriors. If all active raw scores vanish, the implementation falls back to the uniform distribution over active neighbors before applying any smoothing or final floor.
+
 \subsection{Covariance and link-quality terms}
 
 For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The covariance-quality score is defined as
@@ -75,6 +78,9 @@ q_{\mathrm{link},k}^{(j)}
 \frac{d_k^{(j)}}{d_k^{(j)} + \ell_k^{(j)}},
 \end{equation}
 which directly reflects how reliably that node's information is reaching its neighbors.
+
+\noindent\textbf{Design rationale.}
+The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue is deliberately based on delivered and dropped measurements at the current time step rather than on the static graph, because a connected neighbor whose packets are not delivered should not be treated the same as one whose information actually reaches the fusion node.
 
 \subsection{Existence-confidence weighting}
 
@@ -96,6 +102,9 @@ q_{\mathrm{exist},k}^{(j)}
 \end{equation}
 where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
 Figure~\ref{fig:existence-confidence} visualizes this bounded Bernoulli-level mapping and representative node-level aggregation effects.
+
+\noindent\textbf{Remark 2 (existence confidence).}
+The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component near $r=0.5$ and high confidence to decisive absence or presence. Weighting this certainty by $r_{k,i}^{(j)}$ makes the node-level score emphasize components that are likely to exist. The lower bound $\lambda_{\min}$ is included because an uncertain existence profile should weaken the existence branch, but it should not by itself erase a neighbor that may still contain useful spatial information.
 
 \begin{figure}[!t]
   \centering
@@ -144,6 +153,9 @@ The final branch scores are obtained through geometric interpolation:
 \end{equation}
 The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is a natural scalar indicator of local target-separability and posterior informativeness, and in our experiments it is especially effective for cardinality and existence decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. However, applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in Appendix~\ref{app:theory}, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The branch-decoupled formulation relaxes this constraint: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
 
+\noindent\textbf{Remark 3 (why geometric interpolation).}
+The shared score remains an anchor for both branches, so the spatial and existence paths do not drift into unrelated weight rules. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score instead of being cancelled by a large additive term.
+
 \subsection{FID-FIA existence refinement}
 
 The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
@@ -170,6 +182,28 @@ Only the existence score is modified:
 \end{equation}
 The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
 Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
+
+The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusion}. The algorithm is intentionally written at the level of quantities used by the implemented fusion layer: the spatial weights are consumed by the Gaussian canonical-form update, while the existence weights are consumed by the Bernoulli existence update.
+
+\begin{center}
+\small
+\fbox{%
+\begin{minipage}{0.92\linewidth}
+\refstepcounter{algorithm}\label{alg:adaptive-fusion}
+\textbf{Algorithm~\thealgorithm. Communication-aware branch-decoupled GA-LMB fusion at node $s$ and time $k$.}
+\begin{enumerate}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\item Receive the measurement-updated LMB posteriors $\{\pi_k^{(j)}:j\in\mathcal{N}_s\}$ and the realized delivery statistics for the current step.
+\item Form the availability mask $m_k^{(j)}$, covariance score $q_{\mathrm{cov},k}^{(j)}$, link score $q_{\mathrm{link},k}^{(j)}$, and existence-confidence score $q_{\mathrm{exist},k}^{(j)}$.
+\item Build the shared score $\tilde{\omega}_{k,s}^{(j)}$ and the spatial/existence dedicated scores $\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}$ and $\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}$.
+\item Interpolate the shared and dedicated scores to obtain $\tilde{\omega}_{k,s}^{x,(j)}$ and $\tilde{\omega}_{k,s}^{r,(j)}$, then apply the weak structure-aware branch prior.
+\item For Cardinality-critical mode only, compute $q_{\mathrm{fid},k,s}^{(j)}$ and multiply it into the existence score; leave the spatial score unchanged.
+\item Normalize each branch over active neighbors, optionally apply temporal smoothing and a final weight floor, and write the results as $\omega_{k,s}^{x,(j)}$ and $\omega_{k,s}^{r,(j)}$.
+\item Fuse each aligned Bernoulli component by using $\omega_{k,s}^{x,(j)}$ in the Gaussian canonical-form update and $\omega_{k,s}^{r,(j)}$ in the Bernoulli existence update.
+\end{enumerate}
+\end{minipage}}
+\end{center}
 
 \subsection{Recommended operating modes}
 
