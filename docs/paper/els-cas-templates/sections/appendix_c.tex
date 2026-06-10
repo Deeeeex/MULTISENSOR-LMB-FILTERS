@@ -57,36 +57,18 @@ induces the same ordering as smaller $\sigma_j^2$, smaller $\log\det T_{k,i}^{(j
 
 \subsection{Algebraic Branch Structure of the Implemented GA-LMB Merger}
 
-The implemented merger uses separate spatial and existence weights because the GA-LMB update already exposes two different algebraic blocks.
-
-\paragraph{Spatial branch.}
-For a fixed Bernoulli component $i$, the Gaussian canonical fusion step is
-\begin{align}
-K_i &= \sum_j w_{x,j} T_{i,j}^{-1}, \\
-h_i &= \sum_j w_{x,j} T_{i,j}^{-1}\nu_{i,j},
-\end{align}
-with $\Sigma_i=K_i^{-1}$ and $\mu_i=\Sigma_i h_i$.
+The implemented merger uses separate spatial and existence weights because the GA-LMB update already exposes two different algebraic blocks. The spatial block is the Gaussian canonical update in \eqref{eq:method-gaussian-canonical}, while the existence block is the Bernoulli geometric update in \eqref{eq:method-existence-geometric}.
 
 \paragraph{Proposition C2.}
-Conditional on $w_x$, $\mathcal{N}(\mu_i,\Sigma_i)$ is the minimizer of
+For a fixed Bernoulli component $i$ and conditional on $w_x$, the Gaussian density produced by \eqref{eq:method-gaussian-canonical} is the minimizer of
 \begin{equation}
 \min_{q \in \mathcal{G}}
 \sum_j w_{x,j} D_{\mathrm{KL}}\!\left(q \,\|\, \mathcal{N}(\nu_{i,j},T_{i,j})\right),
 \end{equation}
-where $\mathcal{G}$ is the Gaussian family. Expanding the Gaussian KL in canonical parameters gives the precision and information-vector averages above, so the spatial update is the reverse-KL Gaussian barycenter.
+where $\mathcal{G}$ is the Gaussian family. Expanding the Gaussian KL in canonical parameters gives the precision and information-vector averages in \eqref{eq:method-gaussian-canonical}, so the spatial update is the reverse-KL Gaussian barycenter.
 
 \paragraph{Existence branch.}
-The same merger computes
-\begin{equation}
-r_i
-=
-\frac{
-\eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}}
-}{
-\eta_i(w_x)\prod_j r_{i,j}^{w_{r,j}} + \prod_j (1-r_{i,j})^{w_{r,j}}
-},
-\end{equation}
-where $\eta_i(w_x)$ is the spatial-overlap normalization induced by the Gaussian branch.
+Using \eqref{eq:method-existence-geometric}, the same merger can be written in log-odds form.
 
 \paragraph{Proposition C3.}
 The fused existence probability satisfies
@@ -132,59 +114,18 @@ For a fixed Bernoulli component $i$, consider the decoupled surrogate
 r\sum_j w_{x,j}\, D_{\mathrm{KL}}(p\,\|\,p_{i,j}).
 \label{eq:appendix-decoupled-bernoulli}
 \end{equation}
-Its minimizer satisfies
-\begin{align}
-p_i^\star(x)
-&=
-\frac{1}{\eta_i(w_x)}
-\prod_j p_{i,j}(x)^{w_{x,j}},
-\label{eq:appendix-decoupled-spatial}
-\\
-\log\frac{r_i^\star}{1-r_i^\star}
-&=
-\log \eta_i(w_x)
-+
-\sum_j w_{r,j}\log\frac{r_{i,j}}{1-r_{i,j}}.
-\label{eq:appendix-decoupled-existence}
-\end{align}
-The spatial equation follows by normalizing the weighted geometric product. Substituting this optimum gives the $-\log\eta_i(w_x)$ spatial contribution, and differentiating the Bernoulli part gives the logit identity. With aligned labels and product LMB form, the same argument lifts labelwise because the reverse-KL divergence is additive across aligned Bernoulli factors.
+Its minimizer uses the normalized geometric spatial product corresponding to \eqref{eq:method-gaussian-canonical}, and its existence logit is the identity in \eqref{eq:appendix-logit-pooling}. The spatial part follows by normalizing the weighted geometric product. Substituting this optimum gives the $-\log\eta_i(w_x)$ spatial contribution, and differentiating the Bernoulli part gives the logit identity. With aligned labels and product LMB form, the same argument lifts labelwise because the reverse-KL divergence is additive across aligned Bernoulli factors.
 
 \paragraph{Scope boundary.}
 This surrogate does not make the branch-decoupled rule the unique optimizer of a fully unconstrained LMB fusion objective. It only states that the implemented update is compatible with a per-Bernoulli aligned-LMB objective under the merger's label-alignment and projection assumptions.
 
 \subsection{Branch-Decoupled Weight Allocation and Structure-Aware Regularization}
 
-The branch-specific scores are
-\begin{align}
-s_{x,j}
-&=
-\left(q_{\mathrm{cov},j}\right)^{\alpha_x}
-\left(q_{\mathrm{link},j}\right)^{\beta_x},
-\\
-s_{r,j}
-&=
-\left(q_{\mathrm{link},j}\right)^{\beta_r}
-\left(q_{\mathrm{exist},j}\right)^{\alpha_r},
-\end{align}
-with geometric interpolation
-\begin{align}
-\tilde s_{x,j} &= s_{0,j}^{1-\eta_x}s_{x,j}^{\eta_x}, \\
-\tilde s_{r,j} &= s_{0,j}^{1-\eta_r}s_{r,j}^{\eta_r}.
-\end{align}
-This is convex interpolation in log-utility space. Define $\hat u_{x,j}=\log \tilde s_{x,j}$ and $\hat u_{r,j}=\log \tilde s_{r,j}$ before graph and FID-FIA refinement.
+Let $\tilde s_{x,j}$ and $\tilde s_{r,j}$ denote the pre-normalization branch scores obtained from the dedicated scores and geometric interpolation in \eqref{eq:method-spatial-dedicated-score}--\eqref{eq:method-branch-interpolation}. This is convex interpolation in log-utility space. Define $\hat u_{x,j}=\log \tilde s_{x,j}$ and $\hat u_{r,j}=\log \tilde s_{r,j}$ before graph and FID-FIA refinement.
 
-The FID-FIA refinement modifies only the existence branch. Let $a_j$ denote the Fisher-information-distance accumulation from existence-weighted local target pairs, and define
-\begin{equation}
-q_{\mathrm{fid},j}
-=
-\rho_{\min} + (1-\rho_{\min})
-\left(
-\frac{a_j}{\epsilon+\max_{u\in\mathcal{A}_{k,s}} a_u}
-\right)^{p_f}.
-\end{equation}
-For positive $q_{\mathrm{fid},j}$, this contributes $\gamma_f\log q_{\mathrm{fid},j}$ to the existence utility and leaves the spatial utility unchanged. The main zero-floor setting is the boundary case in which a sensor with zero FID-FIA accumulation can receive zero instantaneous existence weight.
+The FID-FIA refinement modifies only the existence branch. Let $q_{\mathrm{fid},j}$ denote the bounded cue defined by \eqref{eq:method-fid-normalization}--\eqref{eq:method-fid-cue}. Using the existence-only modulation in \eqref{eq:method-fid-existence-modulation}, positive $q_{\mathrm{fid},j}$ contributes $\gamma_f\log q_{\mathrm{fid},j}$ to the existence utility and leaves the spatial utility unchanged. The main zero-floor setting is the boundary case in which a sensor with zero FID-FIA accumulation can receive zero instantaneous existence weight.
 
-The structure-aware refinement then multiplies the spatial score by $\xi_{x,j}^{\gamma_x}$ and the existence score by $\xi_{r,j}^{\gamma_r}$.
+The structure-aware refinement then multiplies the spatial score by $\xi_{x,j}^{\gamma_x}$ and the existence score by $\xi_{r,j}^{\gamma_r}$, where $\xi_{x,j}$ and $\xi_{r,j}$ are positive branch-specific graph priors.
 
 \paragraph{Proposition C6.}
 Let $p_x$ and $p_r$ be normalized priors satisfying

@@ -13,6 +13,7 @@ p_{k,i}^{(j)}(x) \approx \mathcal{N}\!\left(x;\nu_{k,i}^{(j)}, T_{k,i}^{(j)}\rig
 \end{equation}
 Using spatial fusion weights $\omega_{k,s}^{x,(j)}$, the fused spatial density is obtained in canonical form:
 \begin{equation}
+\label{eq:method-gaussian-canonical}
 K_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1},
 \qquad
 h_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(j)}\right)^{-1}\nu_{k,i}^{(j)},
@@ -24,6 +25,7 @@ h_{k,i}^{(s)} = \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{x,(j)} \left(T_{k,i}^{(
 \end{equation}
 Using existence fusion weights $\omega_{k,s}^{r,(j)}$, the Bernoulli existence probability is fused by the corresponding weighted geometric rule:
 \begin{equation}
+\label{eq:method-existence-geometric}
 r_{k,i}^{(s)} =
 \frac{\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}}}
 {\eta_{k,i}^{(s)} \prod_{j \in \mathcal{N}_s} \left(r_{k,i}^{(j)}\right)^{\omega_{k,s}^{r,(j)}} +
@@ -31,9 +33,12 @@ r_{k,i}^{(s)} =
 \end{equation}
 where $\eta_{k,i}^{(s)}$ is the Gaussian normalization term induced by the fused spatial density.
 
-\subsection{Factorized adaptive weight backbone}
+\subsection{Adaptive reliability factors}
 
-The adaptive design begins with a shared quality backbone. For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
+The adaptive layer is organized as a reliability-allocation design rather than a catalogue of independent cues. It first forms a shared active-neighbor backbone that captures whether a neighbor is informative enough to participate in fusion, and then the next subsection routes this backbone into branch-specific spatial and existence weights.
+
+\paragraph{Shared backbone.}
+For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
 \begin{equation}
 \tilde{\omega}_{k,s}^{(j)} =
 m_k^{(j)}
@@ -49,12 +54,12 @@ where $m_k^{(j)} \in \{0,1\}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)
 \bar{\omega}_{k,s}^{(j)} =
 \frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
 \end{equation}
-This factorization focuses on the three factors that are most directly aligned with the design objective: posterior concentration through covariance, communication reliability through delivered-versus-dropped packets, and existence decisiveness through Bernoulli existence probabilities. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths used by the two operating modes.
+This factorization addresses the three failure modes most directly tied to distributed fusion: diffuse local posteriors, missing delivered information, and ambiguous Bernoulli support. Figure~\ref{fig:factorization} shows how this shared backbone feeds the decoupled spatial and existence-weight paths used by the two operating modes.
 
 \noindent\textbf{Remark 1 (backbone rationale).}
 The product form is a compact way to combine independent reliability cues on the simplex. In log form, it adds the utilities $\log q_{\mathrm{cov}}$, $\log q_{\mathrm{link}}$, and $\log q_{\mathrm{exist}}$, so a poor value in any cue cannot be completely hidden by a large value in another cue. The availability mask $m_k^{(j)}$ is a hard gate for an unavailable neighbor, whereas the positive floors used in some cue mappings are soft safeguards for uncertain but still usable posteriors. If all active raw scores vanish, the implementation falls back to the uniform distribution over active neighbors before applying any smoothing or final floor.
 
-\subsection{Covariance and link-quality terms}
+\paragraph{Posterior concentration and realized delivery.}
 
 For node $j$, let $T_{k,i}^{(j)}$ be the moment-matched covariance of the $i$th Bernoulli component. The covariance-quality score is defined as
 \begin{equation}
@@ -75,9 +80,9 @@ which directly reflects how reliably that node's information is reaching its nei
 \noindent\textbf{Design rationale.}
 The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue is deliberately based on delivered and dropped measurements at the current time step rather than on the static graph, because a connected neighbor whose packets are not delivered should not be treated the same as one whose information actually reaches the fusion node.
 
-\subsection{Existence-confidence weighting}
+\paragraph{Existence decisiveness.}
 
-To capture the missing existence-related dimension, the method computes a certainty score from Bernoulli existence probabilities. For the $i$th Bernoulli component at node $j$,
+The third cue is separated because Bernoulli existence uncertainty is not the same object as spatial posterior spread. For the $i$th Bernoulli component at node $j$,
 \begin{equation}
 c_{k,i}^{(j)} = \left|2r_{k,i}^{(j)} - 1\right|.
 \end{equation}
@@ -113,10 +118,11 @@ The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component 
   \label{fig:existence-confidence}
 \end{figure}
 
-\subsection{Decoupled spatial and existence scores}
+\subsection{Branch-decoupled allocation and FID-FIA refinement}
 
 The proposed method does not force the same adaptive score to govern spatial fusion and existence fusion. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, even though the formal variational interpretation is deferred to Appendix~\ref{app:theory}. The method therefore constructs branch-specific dedicated scores:
 \begin{equation}
+\label{eq:method-spatial-dedicated-score}
 \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
 m_k^{(j)}
 \cdot
@@ -125,6 +131,7 @@ m_k^{(j)}
 \left(q_{\mathrm{link},k}^{(j)}\right)^{\beta_x},
 \end{equation}
 \begin{equation}
+\label{eq:method-existence-dedicated-score}
 \tilde{\omega}_{k,s,\mathrm{ex}}^{(j)} =
 m_k^{(j)}
 \cdot
@@ -134,6 +141,7 @@ m_k^{(j)}
 \end{equation}
 The powers $\alpha_x,\beta_x,\beta_r,\alpha_r \ge 0$ tune the influence of the branch-relevant cues. The final branch scores are obtained through geometric interpolation:
 \begin{equation}
+\label{eq:method-branch-interpolation}
 \tilde{\omega}_{k,s}^{x,(j)}
 =
 \left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_x}
@@ -150,10 +158,11 @@ The point of this decoupling is not to create two unrelated methods, but to ackn
 \noindent\textbf{Remark 3 (why geometric interpolation).}
 The shared score remains an anchor for both branches, so the spatial and existence paths do not drift into unrelated weight rules. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score instead of being cancelled by a large additive term.
 
-\subsection{FID-FIA existence refinement}
+\paragraph{Existence-only FID-FIA refinement.}
 
 The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
 \begin{equation}
+\label{eq:method-fid-normalization}
 \hat{a}_{k,s}^{(j)}
 =
 \frac{a_{k}^{(j)}}{\epsilon + \max_{u\in\mathcal{N}_s} a_{k}^{(u)}} ,
@@ -162,6 +171,7 @@ The Cardinality-critical mode therefore adds an information-geometric refinement
 \end{equation}
 This normalized accumulation is mapped into a bounded existence-only modulation factor,
 \begin{equation}
+\label{eq:method-fid-cue}
 q_{\mathrm{fid},k,s}^{(j)}
 =
 \rho_{\min}
@@ -170,6 +180,7 @@ q_{\mathrm{fid},k,s}^{(j)}
 Here $\rho_{\min}\in[0,1]$ is the lower bound of the FID-FIA existence cue and $p_f>0$ controls the nonlinearity of the normalized accumulation.
 Only the existence score is modified:
 \begin{equation}
+\label{eq:method-fid-existence-modulation}
 \tilde{\omega}_{k,s}^{r,(j)}
 \leftarrow
 \tilde{\omega}_{k,s}^{r,(j)}
@@ -177,6 +188,13 @@ Only the existence score is modified:
 \end{equation}
 Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
 Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
+
+\paragraph{Weak structure-aware refinement and stabilization.}
+After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
+
+The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+
+\subsection{Algorithm and operating modes}
 
 The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusion}. The algorithm is intentionally written at the level of quantities used by the implemented fusion layer: the spatial weights are consumed by the Gaussian canonical-form update, while the existence weights are consumed by the Bernoulli existence update.
 
@@ -200,18 +218,12 @@ The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusio
 \end{minipage}}
 \end{center}
 
-\subsection{Recommended operating modes}
+\paragraph{Operating modes.}
 
 The resulting method family supports two practical operating modes rather than a single mandatory setting. The \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, weak structure-aware refinement, and the standard temporal stabilization, but does not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy, RMSE stability, runtime, or energy budget is the primary operational concern.
 
 The \emph{Cardinality-critical mode} adds the FID-FIA cue only to the existence branch. This mode is recommended when the cost of target-number disagreement, missed tracks, or false support is higher than a modest local-RMSE and runtime tradeoff. Both modes share the same communication-aware backbone and the same branch-decoupled fusion algebra; they differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. This framing is important because the experiments show a real operating tradeoff: the backbone is often the stronger low-overhead position-oriented choice, whereas the Cardinality-critical mode is the stronger cardinality-consensus choice with substantially higher information-geometric computation.
 
-\subsection{Weak structure-aware refinement and stabilization}
-
-After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
-
-The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
-
-\subsection{Optional extension modules}
+\paragraph{Optional extension modules.}
 
 The evaluated software also supports several exploratory extension modules outside the claimed core method. Their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements, so they are kept out of the main method description and summarized only in Appendix~\ref{app:additional-modules}.
