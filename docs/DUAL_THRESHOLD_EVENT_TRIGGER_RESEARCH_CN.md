@@ -81,6 +81,9 @@ U_label = q_local * (
 - `utility/informationGain/linkQuality/referenceAge`
 - `payloadScalars/payloadBytes`
 - 本地 innovation 和 association confidence
+- attempted/delivered/window-delivered/effective-weight 图的 lambda2
+- per-label effective connectivity violation、label stale age p90
+- self/light/heavy/stale fusion weight mass 和 weight entropy
 - 汇总 trigger/light/heavy/delivery rate、降级次数、估算负载
 
 固定种子 1-trial 和 5-trial 结果分别见：
@@ -128,7 +131,6 @@ ov = struct('includeDynamicTopologyVariants', true);
 | Periodic full posterior + dynamic topology | 28157392 | 2.180 | 2.166 | 字节 -14.1%，local E-OSPA -2.2%，consensus OSPA +6.0% |
 
 20-step 组合筛选显示，`Full method + dynamic topology` 虽能满足 30% 字节下降并改善 local E-OSPA，但 consensus OSPA 退化约 16.9%，说明事件触发缺边和拓扑重构误差会叠加。下一步应把动态拓扑作为独立研究线推进：固定周期全量或固定每步边预算，先做 5-trial 对比 `static 4+4 / reliability-only / reliability+overlap / reliability+overlap+lambda2 floor`，再决定是否重新与事件触发组合。
-
 ## 2026-06-10 通过配置
 
 继续迭代后，找到一个满足 5-trial 升级门槛的组合：`Light-floor dual threshold + dynamic topology`。核心调整是从“少发邻居后验”转为“多数有效边发送 light 后验，少数高效用边发送 heavy 后验，同时用守卫式动态拓扑控制信息分发路径”。这避免了默认事件触发方案中未触发边导致的一致性损失。
@@ -168,3 +170,18 @@ ov = struct('includeDynamicTopologyVariants', true);
 | Cardinality dispersion | +5.26% |
 
 该配置通过 5-trial 升级门槛。需要注意的是，当前融合函数对 light 和 heavy 输入都会做标签级矩匹配，因此 heavy 主要体现为 payload 层级的全量后验传输，而不是当前融合结果的显著差异来源。若后续要把 heavy 的作用写成方法贡献，需要进一步实现或评估 full GM-LMB payload 在关联不确定性、混合多峰保持或多轮共识中的作用。
+
+### Effective KLA 图诊断补充
+
+为验证“动态拓扑 + 事件触发失败来自有效信息流图被打断，而通过配置来自高频 light 同步保护有效图”的判断，新增了 attempted、delivered、window-delivered 和实际融合权重图的 lambda2，以及 per-label 窗口连通性、label stale age 和 self/light/heavy fusion weight mass 诊断。
+
+100-step seed=2 复现实验见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N1_SEED1_20260610_102720.md`
+
+| Arm | Bytes | Local E-OSPA | Consensus OSPA | Delivered lambda2 | Window lambda2 | Effective-weight lambda2 | Label violation | Self weight | Light weight | Heavy weight |
+|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| Periodic full posterior | 32783504 | 2.229 | 2.044 | 1.886 | 2.000 | 0.373 | 0.193 | 0.392 | 0.000 | 0.608 |
+| Light-floor dual threshold + dynamic topology | 14378744 | 2.218 | 2.064 | 1.899 | 2.226 | 0.370 | 0.173 | 0.404 | 0.532 | 0.064 |
+
+该诊断支持当前机制解释：通过配置没有继续稀疏化融合图，而是让 delivered/window effective graph 至少保持在全量基线附近，同时把多数邻居融合质量从 heavy payload 换成 light payload。候选 arm 的 `newEdgeNoHandshakeRate = 0.7925`，说明本轮通过结果并不依赖新边 heavy handshake；后续 handshake 可作为更强动态/断链场景的待验证补救，而不应写成当前 5-trial 通过配置的必要机制。

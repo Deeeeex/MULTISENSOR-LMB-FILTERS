@@ -50,6 +50,7 @@ lastSuccessfulTime = zeros(numberOfSensors);
 labelRefreshCache = cell(numberOfSensors);
 attemptHistory = cell(numberOfSensors);
 wasOutage = false(numberOfSensors);
+previousDirectedEdgeMask = false(numberOfSensors);
 
 diagnostics = initializeDiagnostics( ...
     numberOfSensors, simulationLength, baseDirectedEdgeMask, ...
@@ -89,8 +90,11 @@ for currentTime = 1:simulationLength
         topologyDetails.algebraicConnectivity;
     diagnostics.topologyUndirectedEdgeCount(currentTime) = ...
         topologyDetails.undirectedEdgeCount;
+    newEdgeMask = currentDirectedEdgeMask & ~previousDirectedEdgeMask;
+    diagnostics.newEdgeActivated(:, :, currentTime) = newEdgeMask;
 
     currentMessages(:) = {[]};
+    currentMessageTypes = zeros(numberOfSensors);
     for receiverIdx = 1:numberOfSensors
         senders = reshape(currentNeighborMap{receiverIdx}, 1, []);
         senders = senders(senders ~= receiverIdx);
@@ -112,6 +116,13 @@ for currentTime = 1:simulationLength
             [rawEventType, classifyDetails] = ...
                 classifyLmbCommunicationEvent( ...
                     utility, utilityDetails, edgeTriggerConfig, referenceAge);
+            forceHandshake = shouldForceNewEdgeHandshake( ...
+                newEdgeMask(senderIdx, receiverIdx), ...
+                localPosteriorBySensor{senderIdx}, triggerConfig);
+            if forceHandshake && ~strcmpi(triggerConfig.eventPolicy, 'none')
+                rawEventType = 2;
+                classifyDetails.forceHeavy = true;
+            end
             [heartbeatEventType, heartbeatDetails] = ...
                 computeLabelHeartbeatEvent( ...
                     localPosteriorBySensor{senderIdx}, ...
@@ -129,6 +140,13 @@ for currentTime = 1:simulationLength
             [eventType, gateDetails] = applyLmbEventLinkGate( ...
                 rawEventType, nominalReliability, recentSuccessRate, ...
                 isOutage, triggerConfig);
+            if forceHandshake && ...
+                    triggerConfig.newEdgeHandshakeBypassLinkGate && ...
+                    ~isOutage && rawEventType > 0
+                eventType = 2;
+                gateDetails.wasDowngraded = false;
+                gateDetails.reason = 'new-edge-handshake';
+            end
 
             diagnostics.utility(senderIdx, receiverIdx, currentTime) = utility;
             diagnostics.informationGain(senderIdx, receiverIdx, currentTime) = ...
@@ -149,6 +167,11 @@ for currentTime = 1:simulationLength
                 heartbeatDetails.maxAge;
             diagnostics.downgraded(senderIdx, receiverIdx, currentTime) = ...
                 gateDetails.wasDowngraded;
+            diagnostics.newEdgeHandshake(senderIdx, receiverIdx, ...
+                currentTime) = forceHandshake;
+            diagnostics.newEdgeNoHandshake(senderIdx, receiverIdx, ...
+                currentTime) = newEdgeMask(senderIdx, receiverIdx) && ...
+                eventType < 2;
 
             if eventType > 0
                 diagnostics.attempted(senderIdx, receiverIdx, currentTime) = true;
@@ -168,6 +191,9 @@ for currentTime = 1:simulationLength
                         payloadObjects, model, eventType, ...
                         updateDiagnostics{senderIdx});
                     currentMessages{receiverIdx, senderIdx} = payloadObjects;
+                    currentMessageTypes(receiverIdx, senderIdx) = eventType;
+                    diagnostics.deliveredEventType( ...
+                        senderIdx, receiverIdx, currentTime) = eventType;
                     referenceCache{senderIdx, receiverIdx} = ...
                         selectActiveObjects( ...
                             localPosteriorBySensor{senderIdx}, ...
@@ -190,15 +216,21 @@ for currentTime = 1:simulationLength
             wasOutage(senderIdx, receiverIdx) = isOutage;
         end
     end
+    diagnostics = recordCommunicationGraphDiagnostics( ...
+        diagnostics, localPosteriorBySensor, labelRefreshCache, ...
+        currentNeighborMap, triggerConfig, currentTime);
 
     for receiverIdx = 1:numberOfSensors
         [fusionInputs, topologyFusionWeights, fusionDetails] = ...
             collectCurrentFusionInputs( ...
             receiverIdx, localPosteriorBySensor{receiverIdx}, ...
-            currentMessages, receivedCache, lastSuccessfulTime, ...
+            currentMessages, currentMessageTypes, receivedCache, ...
+            lastSuccessfulTime, ...
             currentNeighborMap, currentTopologyWeights, model, ...
             triggerConfig, currentTime);
         diagnostics = recordStaleFusionDiagnostics( ...
+            diagnostics, fusionDetails, receiverIdx, currentTime);
+        diagnostics = recordFusionWeightDiagnostics( ...
             diagnostics, fusionDetails, receiverIdx, currentTime);
         [spatialFusionWeights, existenceFusionWeights] = ...
             resolveFusionWeights( ...
@@ -211,6 +243,10 @@ for currentTime = 1:simulationLength
                 fusedObjects, stateEstimatesBySensor{receiverIdx}, ...
                 model, currentTime);
     end
+    diagnostics.effectiveWeightAlgebraicConnectivity(currentTime) = ...
+        computeWeightedAlgebraicConnectivity( ...
+            diagnostics.fusionWeight(:, :, currentTime));
+    previousDirectedEdgeMask = currentDirectedEdgeMask;
 end
 
 for sensorIdx = 1:numberOfSensors
@@ -245,6 +281,13 @@ config.forceLabelChangeHeavy = getField( ...
 config.forceLabelExistenceThreshold = getField( ...
     config, 'forceLabelExistenceThreshold', 0.5);
 config.forceStaleHeavy = getField(config, 'forceStaleHeavy', false);
+config.forceNewEdgeHandshakeHeavy = getField( ...
+    config, 'forceNewEdgeHandshakeHeavy', false);
+config.newEdgeHandshakeBypassLinkGate = getField( ...
+    config, 'newEdgeHandshakeBypassLinkGate', false);
+config.newEdgeHandshakeExistenceThreshold = getField( ...
+    config, 'newEdgeHandshakeExistenceThreshold', ...
+    config.forceLabelExistenceThreshold);
 config.activeExistenceThreshold = getField( ...
     config, 'activeExistenceThreshold', model.existenceThreshold);
 config.payloadExistenceThreshold = getField( ...
@@ -285,6 +328,23 @@ config.topologyMinAlgebraicConnectivity = getField( ...
     config, 'topologyMinAlgebraicConnectivity', 0);
 config.topologyFallbackToBaseOnConnectivityFailure = getField( ...
     config, 'topologyFallbackToBaseOnConnectivityFailure', false);
+config.effectiveGraphWindow = max(1, round(getField( ...
+    config, 'effectiveGraphWindow', 5)));
+config.effectiveGraphExistenceThreshold = getField( ...
+    config, 'effectiveGraphExistenceThreshold', ...
+    config.forceLabelExistenceThreshold);
+config.localQualityGateEnabled = getField( ...
+    config, 'localQualityGateEnabled', true);
+config.modeAwareFusionWeights = getField( ...
+    config, 'modeAwareFusionWeights', false);
+config.lightFusionWeightFactor = min(max(getField( ...
+    config, 'lightFusionWeightFactor', 0.55), 0), 1);
+config.heavyFusionWeightFactor = min(max(getField( ...
+    config, 'heavyFusionWeightFactor', 1.0), 0), 1);
+config.staleFusionWeightFactor = min(max(getField( ...
+    config, 'staleFusionWeightFactor', 0.20), 0), 1);
+config.maxSelfFusionWeight = getField( ...
+    config, 'maxSelfFusionWeight', inf);
 config.fusionWeightMode = getField( ...
     config, 'fusionWeightMode', 'metropolis');
 config.adaptiveFusionConfig = getField( ...
@@ -674,9 +734,217 @@ adjacency = adjacency | adjacency';
 count = nnz(triu(adjacency, 1));
 end
 
+function tf = shouldForceNewEdgeHandshake( ...
+    isNewEdge, senderObjects, triggerConfig)
+tf = false;
+if ~isNewEdge || ~triggerConfig.forceNewEdgeHandshakeHeavy
+    return;
+end
+labels = collectActiveLabels( ...
+    senderObjects, triggerConfig.newEdgeHandshakeExistenceThreshold);
+tf = ~isempty(labels);
+end
+
+function diagnostics = recordCommunicationGraphDiagnostics( ...
+    diagnostics, localPosteriorBySensor, labelRefreshCache, ...
+    currentNeighborMap, triggerConfig, currentTime)
+attemptedMask = diagnostics.attempted(:, :, currentTime);
+deliveredMask = diagnostics.delivered(:, :, currentTime);
+diagnostics.attemptedAlgebraicConnectivity(currentTime) = ...
+    computeDirectedMaskAlgebraicConnectivity(attemptedMask);
+diagnostics.deliveredAlgebraicConnectivity(currentTime) = ...
+    computeDirectedMaskAlgebraicConnectivity(deliveredMask);
+
+windowStart = max(1, currentTime - triggerConfig.effectiveGraphWindow + 1);
+windowDeliveredMask = any( ...
+    diagnostics.delivered(:, :, windowStart:currentTime), 3);
+diagnostics.windowDeliveredAlgebraicConnectivity(currentTime) = ...
+    computeDirectedMaskAlgebraicConnectivity(windowDeliveredMask);
+
+[currentViolation, windowViolation, staleP90] = ...
+    computePerLabelEffectiveGraphDiagnostics( ...
+        localPosteriorBySensor, deliveredMask, windowDeliveredMask, ...
+        labelRefreshCache, currentNeighborMap, triggerConfig, currentTime);
+diagnostics.perLabelConnectivityViolationRate(currentTime) = ...
+    currentViolation;
+diagnostics.perLabelWindowConnectivityViolationRate(currentTime) = ...
+    windowViolation;
+diagnostics.perLabelStaleAgeP90(currentTime) = staleP90;
+end
+
+function [currentViolation, windowViolation, staleP90] = ...
+    computePerLabelEffectiveGraphDiagnostics( ...
+        localPosteriorBySensor, deliveredMask, windowDeliveredMask, ...
+        labelRefreshCache, currentNeighborMap, triggerConfig, currentTime)
+threshold = triggerConfig.effectiveGraphExistenceThreshold;
+labels = collectActiveLabelsAcrossSensors(localPosteriorBySensor, threshold);
+if isempty(labels)
+    currentViolation = 0;
+    windowViolation = 0;
+    staleP90 = 0;
+    return;
+end
+
+currentViolations = 0;
+windowViolations = 0;
+eligibleLabelCount = 0;
+staleAges = [];
+numberOfSensors = numel(localPosteriorBySensor);
+for labelIdx = 1:size(labels, 2)
+    label = labels(:, labelIdx);
+    vertices = false(1, numberOfSensors);
+    for sensorIdx = 1:numberOfSensors
+        vertices(sensorIdx) = hasActiveLabel( ...
+            localPosteriorBySensor{sensorIdx}, label, threshold);
+    end
+    if nnz(vertices) < 2
+        continue;
+    end
+    eligibleLabelCount = eligibleLabelCount + 1;
+    labelCurrentMask = false(numberOfSensors);
+    labelWindowMask = false(numberOfSensors);
+    for senderIdx = 1:numberOfSensors
+        if ~vertices(senderIdx)
+            continue;
+        end
+        for receiverIdx = find(vertices)
+            if senderIdx == receiverIdx
+                continue;
+            end
+            if deliveredMask(senderIdx, receiverIdx)
+                labelCurrentMask(senderIdx, receiverIdx) = true;
+            end
+            if windowDeliveredMask(senderIdx, receiverIdx)
+                labelWindowMask(senderIdx, receiverIdx) = true;
+            end
+        end
+        topologyReceivers = reshape(currentNeighborMap{senderIdx}, 1, []);
+        topologyReceivers = topologyReceivers(topologyReceivers ~= senderIdx);
+        for receiverIdx = topologyReceivers
+            age = resolveLabelRefreshAge( ...
+                labelRefreshCache{senderIdx, receiverIdx}, ...
+                label, currentTime);
+            staleAges(end+1) = age; %#ok<AGROW>
+        end
+    end
+    if computeDirectedMaskAlgebraicConnectivity(labelCurrentMask) <= 1e-9
+        currentViolations = currentViolations + 1;
+    end
+    if computeDirectedMaskAlgebraicConnectivity(labelWindowMask) <= 1e-9
+        windowViolations = windowViolations + 1;
+    end
+end
+if eligibleLabelCount <= 0
+    currentViolation = 0;
+    windowViolation = 0;
+else
+    currentViolation = currentViolations / eligibleLabelCount;
+    windowViolation = windowViolations / eligibleLabelCount;
+end
+if isempty(staleAges)
+    staleP90 = 0;
+else
+    staleP90 = percentileValue(staleAges, 0.90);
+end
+end
+
+function labels = collectActiveLabelsAcrossSensors(objectsBySensor, threshold)
+labels = zeros(2, 0);
+for sensorIdx = 1:numel(objectsBySensor)
+    sensorLabels = collectActiveLabels(objectsBySensor{sensorIdx}, threshold);
+    for labelIdx = 1:size(sensorLabels, 2)
+        label = sensorLabels(:, labelIdx);
+        if isempty(labels) || ~any(all(labels == label, 1))
+            labels(:, end+1) = label; %#ok<AGROW>
+        end
+    end
+end
+if ~isempty(labels)
+    labels = sortrows(labels')';
+end
+end
+
+function tf = hasActiveLabel(objects, label, threshold)
+tf = false;
+if isempty(objects)
+    return;
+end
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).r > threshold && ...
+            objects(objectIdx).numberOfGmComponents > 0 && ...
+            objects(objectIdx).birthTime == label(1) && ...
+            objects(objectIdx).birthLocation == label(2)
+        tf = true;
+        return;
+    end
+end
+end
+
+function age = resolveLabelRefreshAge(refreshCache, label, currentTime)
+lastRefresh = findLabelRefreshTime(refreshCache, label);
+if lastRefresh <= 0
+    age = currentTime;
+else
+    age = currentTime - lastRefresh;
+end
+end
+
+function value = computeDirectedMaskAlgebraicConnectivity(mask)
+if isempty(mask)
+    value = 0;
+    return;
+end
+adjacency = logical(mask) | logical(mask');
+adjacency(1:size(adjacency, 1)+1:end) = false;
+value = computeAdjacencyAlgebraicConnectivity(double(adjacency));
+end
+
+function value = computeWeightedAlgebraicConnectivity(weightMatrix)
+if isempty(weightMatrix)
+    value = 0;
+    return;
+end
+weights = max(weightMatrix, weightMatrix');
+weights(1:size(weights, 1)+1:end) = 0;
+value = computeAdjacencyAlgebraicConnectivity(weights);
+end
+
+function value = computeAdjacencyAlgebraicConnectivity(adjacency)
+numberOfSensors = size(adjacency, 1);
+if numberOfSensors < 2
+    value = 0;
+    return;
+end
+laplacian = diag(sum(adjacency, 2)) - adjacency;
+eigenvalues = sort(real(eig(laplacian)));
+if numel(eigenvalues) < 2
+    value = 0;
+else
+    value = eigenvalues(2);
+end
+end
+
+function value = percentileValue(values, probability)
+values = sort(reshape(values(isfinite(values)), 1, []));
+if isempty(values)
+    value = 0;
+    return;
+end
+position = 1 + min(max(probability, 0), 1) * (numel(values) - 1);
+lowerIdx = floor(position);
+upperIdx = ceil(position);
+if lowerIdx == upperIdx
+    value = values(lowerIdx);
+else
+    fraction = position - lowerIdx;
+    value = values(lowerIdx) * (1 - fraction) + ...
+        values(upperIdx) * fraction;
+end
+end
+
 function [inputs, weights, details] = collectCurrentFusionInputs( ...
-    receiverIdx, localPosterior, currentMessages, receivedCache, ...
-    lastSuccessfulTime, neighborMap, topologyWeights, model, ...
+    receiverIdx, localPosterior, currentMessages, currentMessageTypes, ...
+    receivedCache, lastSuccessfulTime, neighborMap, topologyWeights, model, ...
     triggerConfig, currentTime)
 inputs = {localPosterior};
 sourceIndices = receiverIdx;
@@ -686,6 +954,7 @@ details = struct( ...
     'sourceIndices', receiverIdx, ...
     'isStale', false, ...
     'age', 0, ...
+    'eventType', 2, ...
     'weights', 1);
 senders = reshape(neighborMap{receiverIdx}, 1, []);
 senders = senders(senders ~= receiverIdx);
@@ -697,6 +966,8 @@ for senderIdx = senders
         details.sourceIndices(end+1) = senderIdx; %#ok<AGROW>
         details.isStale(end+1) = false; %#ok<AGROW>
         details.age(end+1) = 0; %#ok<AGROW>
+        details.eventType(end+1) = ...
+            currentMessageTypes(receiverIdx, senderIdx); %#ok<AGROW>
     else
         usedFallback = false;
         if triggerConfig.useStaleNeighborCache
@@ -716,6 +987,7 @@ for senderIdx = senders
                 details.sourceIndices(end+1) = senderIdx; %#ok<AGROW>
                 details.isStale(end+1) = true; %#ok<AGROW>
                 details.age(end+1) = staleAge; %#ok<AGROW>
+                details.eventType(end+1) = 0; %#ok<AGROW>
                 usedFallback = true;
             end
         end
@@ -734,12 +1006,56 @@ weights = rawWeights;
 if strcmpi(triggerConfig.missingNeighborWeightMode, 'self')
     weights(1) = weights(1) + missingWeightMass;
 end
+weights = applyModeAwareFusionWeightFactors( ...
+    weights, details, triggerConfig);
+weights = normalizeFusionInputWeights(weights);
+weights = capSelfFusionWeight(weights, triggerConfig);
+details.weights = weights;
+end
+
+function weights = applyModeAwareFusionWeightFactors( ...
+    weights, details, triggerConfig)
+if ~triggerConfig.modeAwareFusionWeights
+    return;
+end
+factors = ones(size(weights));
+for sourceIdx = 2:numel(weights)
+    if details.isStale(sourceIdx)
+        factors(sourceIdx) = triggerConfig.staleFusionWeightFactor;
+    elseif details.eventType(sourceIdx) == 1
+        factors(sourceIdx) = triggerConfig.lightFusionWeightFactor;
+    elseif details.eventType(sourceIdx) >= 2
+        factors(sourceIdx) = triggerConfig.heavyFusionWeightFactor;
+    else
+        factors(sourceIdx) = 0;
+    end
+end
+weights = weights .* factors;
+end
+
+function weights = normalizeFusionInputWeights(weights)
 if sum(weights) <= 0
     weights = ones(size(weights)) / numel(weights);
 else
     weights = weights / sum(weights);
 end
-details.weights = weights;
+end
+
+function weights = capSelfFusionWeight(weights, triggerConfig)
+maxSelfWeight = triggerConfig.maxSelfFusionWeight;
+if numel(weights) <= 1 || ~isfinite(maxSelfWeight) || ...
+        maxSelfWeight <= 0 || maxSelfWeight >= 1 || ...
+        weights(1) <= maxSelfWeight
+    return;
+end
+neighborMass = sum(weights(2:end));
+if neighborMass <= eps
+    return;
+end
+excess = weights(1) - maxSelfWeight;
+weights(1) = maxSelfWeight;
+weights(2:end) = weights(2:end) + excess * weights(2:end) / neighborMass;
+weights = weights / sum(weights);
 end
 
 function diagnostics = recordStaleFusionDiagnostics( ...
@@ -754,6 +1070,41 @@ for sourceIdx = 1:numel(fusionDetails.sourceIndices)
         fusionDetails.age(sourceIdx);
     diagnostics.staleFusionWeight(senderIdx, receiverIdx, currentTime) = ...
         fusionDetails.weights(sourceIdx);
+end
+end
+
+function diagnostics = recordFusionWeightDiagnostics( ...
+    diagnostics, fusionDetails, receiverIdx, currentTime)
+weights = reshape(fusionDetails.weights, 1, []);
+for sourceIdx = 1:numel(fusionDetails.sourceIndices)
+    senderIdx = fusionDetails.sourceIndices(sourceIdx);
+    weight = weights(sourceIdx);
+    if senderIdx == receiverIdx
+        diagnostics.fusionSelfWeight(receiverIdx, currentTime) = weight;
+    else
+        diagnostics.fusionWeight(senderIdx, receiverIdx, currentTime) = weight;
+        diagnostics.fusionMode(senderIdx, receiverIdx, currentTime) = ...
+            fusionDetails.eventType(sourceIdx);
+        diagnostics.fusionNeighborWeight(receiverIdx, currentTime) = ...
+            diagnostics.fusionNeighborWeight(receiverIdx, currentTime) + weight;
+        if fusionDetails.isStale(sourceIdx)
+            diagnostics.fusionStaleWeight(receiverIdx, currentTime) = ...
+                diagnostics.fusionStaleWeight(receiverIdx, currentTime) + weight;
+        elseif fusionDetails.eventType(sourceIdx) == 1
+            diagnostics.fusionLightWeight(receiverIdx, currentTime) = ...
+                diagnostics.fusionLightWeight(receiverIdx, currentTime) + weight;
+        elseif fusionDetails.eventType(sourceIdx) >= 2
+            diagnostics.fusionHeavyWeight(receiverIdx, currentTime) = ...
+                diagnostics.fusionHeavyWeight(receiverIdx, currentTime) + weight;
+        end
+    end
+end
+positiveWeights = weights(weights > 0);
+if isempty(positiveWeights)
+    diagnostics.fusionWeightEntropy(receiverIdx, currentTime) = 0;
+else
+    diagnostics.fusionWeightEntropy(receiverIdx, currentTime) = ...
+        -sum(positiveWeights .* log(positiveWeights));
 end
 end
 
@@ -1010,14 +1361,34 @@ diagnostics.staleFusionUsed = false(shape);
 diagnostics.staleFusionAge = inf(shape);
 diagnostics.staleFusionWeight = zeros(shape);
 diagnostics.topologyActiveEdge = false(shape);
+diagnostics.newEdgeActivated = false(shape);
+diagnostics.newEdgeHandshake = false(shape);
+diagnostics.newEdgeNoHandshake = false(shape);
 diagnostics.topologyAlgebraicConnectivity = zeros(1, simulationLength);
 diagnostics.topologyUndirectedEdgeCount = zeros(1, simulationLength);
+diagnostics.attemptedAlgebraicConnectivity = zeros(1, simulationLength);
+diagnostics.deliveredAlgebraicConnectivity = zeros(1, simulationLength);
+diagnostics.windowDeliveredAlgebraicConnectivity = zeros(1, simulationLength);
+diagnostics.effectiveWeightAlgebraicConnectivity = zeros(1, simulationLength);
+diagnostics.perLabelConnectivityViolationRate = zeros(1, simulationLength);
+diagnostics.perLabelWindowConnectivityViolationRate = ...
+    zeros(1, simulationLength);
+diagnostics.perLabelStaleAgeP90 = zeros(1, simulationLength);
 diagnostics.utility = zeros(shape);
 diagnostics.informationGain = zeros(shape);
 diagnostics.linkQuality = zeros(shape);
 diagnostics.referenceAge = inf(shape);
 diagnostics.payloadScalars = zeros(shape);
 diagnostics.payloadBytes = zeros(shape);
+diagnostics.deliveredEventType = zeros(shape);
+diagnostics.fusionWeight = zeros(shape);
+diagnostics.fusionMode = zeros(shape);
+diagnostics.fusionSelfWeight = zeros(numberOfSensors, simulationLength);
+diagnostics.fusionNeighborWeight = zeros(numberOfSensors, simulationLength);
+diagnostics.fusionLightWeight = zeros(numberOfSensors, simulationLength);
+diagnostics.fusionHeavyWeight = zeros(numberOfSensors, simulationLength);
+diagnostics.fusionStaleWeight = zeros(numberOfSensors, simulationLength);
+diagnostics.fusionWeightEntropy = zeros(numberOfSensors, simulationLength);
 diagnostics.localInnovation = zeros(numberOfSensors, simulationLength);
 diagnostics.localAssociationConfidence = ...
     ones(numberOfSensors, simulationLength);
@@ -1065,6 +1436,41 @@ diagnostics.summary.meanAlgebraicConnectivity = mean( ...
     diagnostics.topologyAlgebraicConnectivity);
 diagnostics.summary.meanUndirectedEdgeCount = mean( ...
     diagnostics.topologyUndirectedEdgeCount);
+diagnostics.summary.meanAttemptedConnectivity = mean( ...
+    diagnostics.attemptedAlgebraicConnectivity);
+diagnostics.summary.meanDeliveredConnectivity = mean( ...
+    diagnostics.deliveredAlgebraicConnectivity);
+diagnostics.summary.meanWindowDeliveredConnectivity = mean( ...
+    diagnostics.windowDeliveredAlgebraicConnectivity);
+diagnostics.summary.meanEffectiveWeightConnectivity = mean( ...
+    diagnostics.effectiveWeightAlgebraicConnectivity);
+diagnostics.summary.perLabelConnectivityViolationRate = mean( ...
+    diagnostics.perLabelConnectivityViolationRate);
+diagnostics.summary.perLabelWindowConnectivityViolationRate = mean( ...
+    diagnostics.perLabelWindowConnectivityViolationRate);
+diagnostics.summary.perLabelStaleAgeP90 = mean( ...
+    diagnostics.perLabelStaleAgeP90);
+newEdges = diagnostics.newEdgeActivated(edgeTimeMask);
+diagnostics.summary.newEdgeActivationCount = sum(newEdges);
+if any(newEdges)
+    diagnostics.summary.newEdgeNoHandshakeRate = sum( ...
+        diagnostics.newEdgeNoHandshake(edgeTimeMask) & newEdges) / ...
+        sum(newEdges);
+else
+    diagnostics.summary.newEdgeNoHandshakeRate = 0;
+end
+diagnostics.summary.meanSelfWeightMass = mean( ...
+    diagnostics.fusionSelfWeight(:));
+diagnostics.summary.meanNeighborWeightMass = mean( ...
+    diagnostics.fusionNeighborWeight(:));
+diagnostics.summary.meanLightWeightMass = mean( ...
+    diagnostics.fusionLightWeight(:));
+diagnostics.summary.meanHeavyWeightMass = mean( ...
+    diagnostics.fusionHeavyWeight(:));
+diagnostics.summary.meanStaleWeightMass = mean( ...
+    diagnostics.fusionStaleWeight(:));
+diagnostics.summary.meanFusionWeightEntropy = mean( ...
+    diagnostics.fusionWeightEntropy(:));
 diagnostics.summary.payloadScalars = sum( ...
     diagnostics.payloadScalars(edgeTimeMask));
 diagnostics.summary.payloadBytes = sum( ...
