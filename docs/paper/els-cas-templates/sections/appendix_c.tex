@@ -1,7 +1,7 @@
 \section{Theoretical Interpretation of Adaptive Branch-Decoupled Fusion}
 \label{app:theory}
 
-This appendix records the theoretical interpretation of the adaptive branch-decoupled fusion rule used in the main paper. The purpose is narrower than a full new optimality theory. We focus on statements that are supported by the proposed method and the standard KLA/LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Throughout this appendix, we assume the same label alignment and moment-compatible Gaussian projection used by the merger.
+This appendix records the theoretical interpretation of the adaptive branch-decoupled fusion rule used in the main paper. The purpose is narrower than a full new optimality theory. We focus on statements that are supported by the proposed method and the standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Throughout this appendix, we assume the same label alignment and moment-compatible Gaussian projection used by the merger.
 
 \subsection{Entropy-Regularized Interpretation of the Weight Backbone}
 
@@ -314,7 +314,7 @@ which is bounded in $[0,1]$. This quantity is a bounded monotone surrogate of Be
 \end{equation}
 Therefore the existence-confidence score is a bounded monotone proxy for the magnitude of the Bernoulli natural parameter that appears in the existence branch \eqref{eq:appendix-logit-pooling}.
 
-The temporal stabilization step computes
+The temporal stabilization step computes an exponential moving average (EMA),
 \begin{equation}
 w_k^{\mathrm{ema}} = \alpha w_{k-1} + (1-\alpha)\hat w_k.
 \end{equation}

@@ -1,18 +1,11 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is a conservative Kullback-Leibler-average or geometric-average fusion strategy for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. The scores below should be read as bounded reliability cues consumed by the GA-LMB merger, not as independent optimality claims for each coefficient. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
+This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is the conservative geometric-average realization of Kullback-Leibler averaging for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. The scores below should be read as bounded reliability cues consumed by the GA-LMB merger, not as independent optimality claims for each coefficient. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
 
 \subsection{Baseline GA-LMB fusion}
 
-At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior provided by node $j \in \mathcal{N}_s$. The baseline distributed fusion target is the weighted geometric average
-\begin{equation}
-\bar{\pi}_k^{(s)}(X) \propto \prod_{j \in \mathcal{N}_s} \left(\pi_k^{(j)}(X)\right)^{\omega_{k,s}^{(j)}},
-\qquad
-\sum_{j \in \mathcal{N}_s} \omega_{k,s}^{(j)} = 1,
-\qquad
-\omega_{k,s}^{(j)} \ge 0.
-\end{equation}
+At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior density provided by node $j \in \mathcal{N}_s$. The conservative fusion target is the weighted geometric average in \eqref{eq:ga-kla-objective}. The remaining task is to specify how the LMB parameter sets are moment-projected and how the spatial and existence weights are consumed by the merger.
 
 After moment projection, the Gaussian approximation of the $i$th Bernoulli spatial density at node $j$ is
 \begin{equation}
@@ -69,7 +62,7 @@ q_{\mathrm{cov},k}^{(j)}
 =
 \frac{1}{\epsilon + \frac{1}{M_k}\sum_{i=1}^{M_k}\operatorname{tr}\!\left(T_{k,i}^{(j)}\right)},
 \end{equation}
-so that a node with smaller posterior spread receives a larger score.
+where $\epsilon>0$ is a small numerical constant used to avoid division by zero. A node with smaller posterior spread therefore receives a larger score.
 
 The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The realized link-quality score is defined as
 \begin{equation}
@@ -139,7 +132,7 @@ m_k^{(j)}
 \cdot
 \left(q_{\mathrm{exist},k}^{(j)}\right)^{\alpha_r}.
 \end{equation}
-The final branch scores are obtained through geometric interpolation:
+The powers $\alpha_x,\beta_x,\beta_r,\alpha_r \ge 0$ tune the influence of the branch-relevant cues. The final branch scores are obtained through geometric interpolation:
 \begin{equation}
 \tilde{\omega}_{k,s}^{x,(j)}
 =
@@ -151,6 +144,7 @@ The final branch scores are obtained through geometric interpolation:
 \left(\tilde{\omega}_{k,s}^{(j)}\right)^{1-\eta_r}
 \left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
 \end{equation}
+Here $\eta_x,\eta_r\in[0,1]$ are interpolation strengths: zero keeps the shared backbone, and one uses the dedicated branch score.
 The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is a natural scalar indicator of local target-separability and posterior informativeness, and in our experiments it is especially effective for cardinality and existence decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. However, applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in Appendix~\ref{app:theory}, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The branch-decoupled formulation relaxes this constraint: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
 
 \noindent\textbf{Remark 3 (why geometric interpolation).}
@@ -173,6 +167,7 @@ q_{\mathrm{fid},k,s}^{(j)}
 \rho_{\min}
 + (1-\rho_{\min})\left(\hat{a}_{k,s}^{(j)}\right)^{p_f}.
 \end{equation}
+Here $\rho_{\min}\in[0,1]$ is the lower bound of the FID-FIA existence cue and $p_f>0$ controls the nonlinearity of the normalized accumulation.
 Only the existence score is modified:
 \begin{equation}
 \tilde{\omega}_{k,s}^{r,(j)}
@@ -180,7 +175,7 @@ Only the existence score is modified:
 \tilde{\omega}_{k,s}^{r,(j)}
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 \end{equation}
-The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
+Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
 Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
 
 The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusion}. The algorithm is intentionally written at the level of quantities used by the implemented fusion layer: the spatial weights are consumed by the Gaussian canonical-form update, while the existence weights are consumed by the Bernoulli existence update.

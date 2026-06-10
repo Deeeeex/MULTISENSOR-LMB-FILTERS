@@ -1,15 +1,32 @@
 \section{Problem Formulation}
 \label{sec:problem-formulation}
 
-Consider a distributed sensor network with sensor index set $\mathcal{V}=\{1,\ldots,S\}$ operating over discrete time $k \in \{1,\ldots,T\}$. The multi-object state at time $k$ is modeled as a labeled random finite set $X_k$, and each sensor $s \in \mathcal{V}$ acquires a local measurement set $Z_k^{(s)}$. Following the standard RFS/FISST and labeled-RFS formulation, each node maintains an LMB approximation to the local multi-object posterior, whose Bernoulli components jointly encode target existence, kinematic state, and identity \cite{Mahler2003PHD,Mahler2007FISSTBook,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. The objective of the distributed fusion layer is to combine neighboring local posteriors into a consensus-quality posterior without assuming that cross-correlations among nodes are known.
+Consider a distributed sensor network with sensor index set $\mathcal{V}=\{1,\ldots,S\}$, where $S$ is the number of sensors, operating over discrete time $k \in \{1,\ldots,T\}$. The multi-object state at time $k$ is modeled as a labeled random finite set $X_k$, and each sensor $s \in \mathcal{V}$ acquires a local measurement set $Z_k^{(s)}$. Following the standard RFS/FISST and labeled-RFS formulation, each node maintains an LMB approximation to the local multi-object posterior, whose Bernoulli components jointly encode target existence, kinematic state, and identity \cite{Mahler2003PHD,Mahler2007FISSTBook,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. The objective of the distributed fusion layer is to combine neighboring local posteriors into a consensus-quality posterior without assuming that cross-correlations among nodes are known.
 
 \subsection{Local LMB posterior model}
 
-Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the setting considered here, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction, measurement update, and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior
+Let $\mathcal{N}_s \subseteq \mathcal{V}$ denote the communication neighborhood of sensor $s$, including the node itself. In the setting considered here, $\mathcal{N}_s$ is induced by a communication graph derived from sensor geometry and communication range, and each node performs local fusion only over the posteriors available inside this neighborhood. After local prediction, measurement update, and data association, node $j \in \mathcal{N}_s$ produces a measurement-updated LMB posterior. We use $\Theta_k^{(j)}$ for its finite parameter set,
 \begin{equation}
-\pi_{k}^{(j)} = \left\{ \left(r_{k,i}^{(j)}, p_{k,i}^{(j)}(\cdot,\ell_i)\right) \right\}_{i=1}^{M_k},
+\Theta_{k}^{(j)} = \left\{ \left(r_{k,i}^{(j)}, p_{k,i}^{(j)}(\cdot,\ell_i)\right) \right\}_{i=1}^{M_k},
 \end{equation}
-where $r_{k,i}^{(j)} \in [0,1]$ is the Bernoulli existence probability and $p_{k,i}^{(j)}$ is the associated spatial density for label $\ell_i$.
+where $\mathcal{L}_k=\{\ell_1,\ldots,\ell_{M_k}\}$ is the aligned label set at time $k$, $M_k$ is the number of aligned Bernoulli labels, $r_{k,i}^{(j)} \in [0,1]$ is the Bernoulli existence probability, and $p_{k,i}^{(j)}$ is the associated spatial density for label $\ell_i$. The corresponding LMB density is not this parameter set itself; it is the standard labeled-RFS density induced by the parameter set,
+\begin{equation}
+\pi_k^{(j)}(X)
+=
+\Delta(X)\,
+w_k^{(j)}\!\left(\mathcal{L}(X)\right)
+\prod_{(x,\ell_i)\in X}p_{k,i}^{(j)}(x,\ell_i),
+\end{equation}
+with
+\begin{equation}
+w_k^{(j)}(L)
+=
+\prod_{\ell_i\in L}r_{k,i}^{(j)}
+\prod_{\ell_i\in \mathcal{L}_k\setminus L}\left(1-r_{k,i}^{(j)}\right),
+\qquad
+L\subseteq\mathcal{L}_k.
+\end{equation}
+Here $\Delta(X)$ is the distinct-label indicator and $\mathcal{L}(X)$ is the set of labels present in $X$. The compact parameter-set notation $\Theta_k^{(j)}$ is used below whenever the implementation operates on the Bernoulli components rather than on the full finite-set density.
 
 \subsection{Communication-constrained delivery}
 
@@ -23,61 +40,22 @@ Accordingly, the posterior that reaches a neighbor is influenced not only by the
 
 \subsection{Distributed KLA fusion objective}
 
-Because the cross-correlation structure among neighboring LMB posteriors is unknown, exact Bayesian fusion is generally unavailable. We therefore adopt a conservative Kullback-Leibler-average or geometric-average fusion rule. At node $s$, the target fused density over the neighborhood $\mathcal{N}_s$ is
+Because the cross-correlation structure among neighboring LMB posteriors is unknown, exact Bayesian fusion is generally unavailable. We therefore adopt the geometric-average realization of Kullback-Leibler averaging, also known as generalized covariance intersection, as the main conservative fusion rule. At node $s$, the target fused density over the neighborhood $\mathcal{N}_s$ is
 \begin{equation}
+\label{eq:ga-kla-objective}
 \bar{\pi}_k^{(s)}(X) \propto \prod_{j \in \mathcal{N}_s} \left(\pi_k^{(j)}(X)\right)^{\omega_{k,s}^{(j)}},
 \qquad
 \sum_{j \in \mathcal{N}_s} \omega_{k,s}^{(j)} = 1,
 \qquad
 \omega_{k,s}^{(j)} \ge 0,
 \end{equation}
-where $\omega_{k,s}^{(j)}$ is the fusion weight assigned by node $s$ to neighbor $j$ at time $k$ \cite{Battistelli2014KLA,Hlinka2014ICI}. With fixed-weight fusion, $\omega_{k,s}^{(j)}$ is often chosen as a uniform or Metropolis-type consensus weight \cite{XiaoBoydLall2005ConsensusWeights}. The central problem studied here is how to choose these weights adaptively so that they reflect both posterior quality and communication quality.
+where $\omega_{k,s}^{(j)}$ is the fusion weight assigned by node $s$ to neighbor $j$ at time $k$ \cite{Battistelli2014KLA,Hlinka2014ICI}. Unless stated otherwise, the shorthand KLA/GA in this paper refers to this geometric-average/logarithmic-pool solution of the Kullback-Leibler averaging problem. Appendix AA experiments are treated separately as arithmetic-average density fusion, which is connected to the reverse-KL/minimum-information-loss route rather than to the logarithmic pooling operator in \eqref{eq:ga-kla-objective} \cite{LiCorchadoSun2017GCIAlternative,Gao2020MIL,Li2024AADensityFusion}. With fixed-weight fusion, $\omega_{k,s}^{(j)}$ is often chosen as a uniform or Metropolis-type consensus weight \cite{XiaoBoydLall2005ConsensusWeights}. The central problem studied here is how to choose these weights adaptively so that they reflect both posterior quality and communication quality.
 
 In the GA-LMB fusion rule considered here, the spatial and existence parts of each Bernoulli component are fused separately after moment matching. This separation makes it natural to ask whether the same scalar weight should govern both spatial fusion and existence fusion.
 
-\subsection{Adaptive weight-allocation objective}
+\subsection{Adaptive weight-allocation target}
 
-The adaptive weighting design starts from a shared quality backbone. For node $s$ and neighbor $j \in \mathcal{N}_s$, define the unnormalized score
-\begin{equation}
-\tilde{\omega}_{k,s}^{(j)}
-=
-m_k^{(j)}
-\cdot
-q_{\mathrm{cov},k}^{(j)}
-\cdot
-q_{\mathrm{link},k}^{(j)}
-\cdot
-q_{\mathrm{exist},k}^{(j)},
-\end{equation}
-where $m_k^{(j)}$ is the availability mask, $q_{\mathrm{cov},k}^{(j)}$ is a covariance-quality score, $q_{\mathrm{link},k}^{(j)}$ is a realized link-quality score, and $q_{\mathrm{exist},k}^{(j)}$ is an existence-confidence score. The normalized fusion weight is then
-\begin{equation}
-\omega_{k,s}^{(j)} =
-\frac{\tilde{\omega}_{k,s}^{(j)}}{\sum_{u \in \mathcal{N}_s}\tilde{\omega}_{k,s}^{(u)}}.
-\end{equation}
-
-\subsection{Decoupled and weakly structure-aware weighting}
-
-The branch-decoupled fusion rule does not force the spatial and existence branches to share exactly the same dynamics. Instead, it forms branch-specific scores,
-\begin{equation}
-\tilde{\omega}_{k,s}^{x,(j)}
-=
-\operatorname{blend}\!\left(\tilde{\omega}_{k,s}^{(j)}, \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}, \eta_x\right),
-\qquad
-\tilde{\omega}_{k,s}^{r,(j)}
-=
-\operatorname{blend}\!\left(\tilde{\omega}_{k,s}^{(j)}, \tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}, \eta_r\right),
-\end{equation}
-and then applies only a weak graph-aware correction,
-\begin{equation}
-\tilde{\omega}_{k,s}^{x,(j)} \leftarrow \tilde{\omega}_{k,s}^{x,(j)}
-\cdot
-\left(\xi_{k,s}^{x,(j)}\right)^{\gamma_x},
-\qquad
-\tilde{\omega}_{k,s}^{r,(j)} \leftarrow \tilde{\omega}_{k,s}^{r,(j)}
-\cdot
-\left(\xi_{k,s}^{r,(j)}\right)^{\gamma_r}.
-\end{equation}
-Here $\xi_{k,s}^{x,(j)}$ and $\xi_{k,s}^{r,(j)}$ are local structure priors derived from neighborhood overlap and communication reliability. The existence-side exponent is chosen much smaller than the spatial-side exponent, $\gamma_r \ll \gamma_x$, so topology acts as a mild prior layered on top of posterior-quality and communication-quality signals rather than as the primary source of fusion weights.
+The adaptive layer must output active-neighbor weight vectors on the simplex. In the fixed-weight case, the same vector $\omega_{k,s}^{(j)}$ can be used for the whole posterior. In the branch-decoupled case studied here, the output is a spatial vector $\omega_{k,s}^{x,(j)}$ and an existence vector $\omega_{k,s}^{r,(j)}$. Both are normalized over the available neighborhood, but they are allowed to respond to different reliability cues because the Gaussian spatial update and the Bernoulli existence update consume the weights in different algebraic blocks. Section~\ref{sec:method} gives the concrete score definitions and the per-node algorithmic flow; this section only states the fusion target and the quantities that the adaptive layer must produce.
 
 \subsection{Evaluation target}
 
@@ -113,14 +91,14 @@ D_{\mathrm{card}}(k)
 \operatorname{median}\!\left(\hat{n}_k^{(1)},\ldots,\hat{n}_k^{(S)}\right)
 \right|,
 \end{align}
-where $d_{\mathrm{OSPA}}$ is the pairwise OSPA distance between two estimated finite sets and $d_{\mathrm{loc}}$ is the matched localization disagreement obtained after Hungarian matching on the common extracted objects \cite{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as OSPA consensus error, matched localization disagreement, and cardinality dispersion, respectively.
+where $d_{\mathrm{OSPA}}$ is the pairwise optimal subpattern assignment (OSPA) distance between two estimated finite sets and $d_{\mathrm{loc}}$ is the matched localization disagreement obtained after Hungarian matching on the common extracted objects \cite{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as OSPA consensus error, matched localization disagreement, and cardinality dispersion, respectively.
 
-These three quantities are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. Their building blocks are standard or conventional: OSPA and related GOSPA-style distances are mainstream finite-set tracking metrics, Hungarian matching is the standard assignment primitive behind many tracking scores, and pairwise dispersion is the usual way to quantify disagreement in consensus problems \cite{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric,XiaoBoydLall2005ConsensusWeights}. What is specific to this paper is the aggregation target: instead of comparing each sensor only with ground truth, the metrics compare the post-fusion outputs of different nodes. They are introduced because the present problem is distributed fusion under heterogeneous communication, where the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as replacements for conventional truth-referenced tracking metrics, and it pairs the network-level disagreement metrics with the secondary local metrics listed below.
+These three quantities are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. Their building blocks are standard or conventional: OSPA and related generalized OSPA (GOSPA)-style distances are mainstream finite-set tracking metrics, Hungarian matching is the standard assignment primitive behind many tracking scores, and pairwise dispersion is the usual way to quantify disagreement in consensus problems \cite{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric,XiaoBoydLall2005ConsensusWeights}. What is specific to this paper is the aggregation target: instead of comparing each sensor only with ground truth, the metrics compare the post-fusion outputs of different nodes. They are introduced because the present problem is distributed fusion under heterogeneous communication, where the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as replacements for conventional truth-referenced tracking metrics, and it pairs the network-level disagreement metrics with the secondary local metrics listed below.
 
 The secondary local metrics remain the standard truth-referenced tracking quantities:
 \begin{itemize}
-\item local E-OSPA,
-\item local RMSE,
+\item local expected OSPA (E-OSPA),
+\item local root mean square error (RMSE),
 \item local cardinality error.
 \end{itemize}
 The evaluation logic is therefore asymmetric by design: the method is primarily successful if it reduces network-level disagreement, while the local metrics are used as a safeguard to show that this gain is not purchased by a clear loss in conventional tracking quality.
