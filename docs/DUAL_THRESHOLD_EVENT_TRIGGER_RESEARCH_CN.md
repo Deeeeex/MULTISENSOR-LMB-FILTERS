@@ -279,3 +279,20 @@ mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少�
 5. `C2: MixedLabel-LightFloor-GuardedTopo`：通信效率候选。
 
 候选选择规则保持：若 C2 相对 C1 有稳定的额外字节优势且 consensus/cardinality 无明显 worst-case 风险，则选 C2；若 C1 在 consensus/cardinality 的 mean、p90 或 worst-case 上更稳，则选 C1，C2 作为 payload compression ablation。
+
+### Held-out 5-trial 候选选择
+
+按冻结配置跑了 held-out seeds 7-11 的五臂候选选择矩阵，报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N5_SEED6_20260610_193640.md`
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Pass count | 结论 |
+|:--|--:|--:|--:|--:|--:|:--:|:--|
+| Periodic light posterior + guarded dynamic topology | 58.0% | +0.2% | +0.5% | +1.8% | +0.8% | 5/5 | Pareto，风险基线变成最强候选 |
+| Old mainline: LightFloor-GuardedTopo | 50.6% | +0.9% | +1.7% | +7.4% | -2.8% | 4/5 | 通过均值 gate，但被 periodic light 支配 |
+| C1: LightBackbone-GuardedTopo | 57.6% | +0.2% | +0.5% | +1.7% | +0.9% | 5/5 | 与 periodic light 近似持平但字节略高 |
+| C2: MixedLabel-LightFloor-GuardedTopo | 57.3% | +0.9% | +1.7% | +7.4% | -2.8% | 4/5 | 比旧主线省字节，但不优于 periodic light |
+
+这轮 held-out 的关键结论是：原本作为 reviewer 风险基线的 `Periodic light posterior + guarded dynamic topology` 反而成为 Pareto arm。它在 5/5 trials 上通过 paired gate，平均字节降幅 58.0%，local E-OSPA 退化 0.2%，consensus OSPA 退化 0.5%，并且 effective-weight lambda2=0.362，基本贴近 full posterior 的 0.364。C1 的 handshake/light-backbone 与 periodic light 几乎同指标，但额外 handshake 带来约 1.5% payload byte share 和略高字节；C2 与旧主线 tracking/consensus 完全一致，只是通过 mixed label-wise payload 把旧主线字节从 13.7M 降到 11.9M。
+
+因此，当前证据不支持把 C1 或 C2 作为最终主方法；更合理的收敛结论是：在当前单轮、moment-matched KLA 融合实现下，核心收益来自“guarded dynamic topology + 全边 light posterior 同步”，而不是事件触发 heavy/mixed 逻辑。后续若继续 20-trial，应把 `Periodic light posterior + guarded dynamic topology` 作为新的主候选/强基线，C1/C2 只作为 handshake 和 mixed payload ablation，除非后续实现 full GM-LMB heavy 在融合路径中的实际差异。
