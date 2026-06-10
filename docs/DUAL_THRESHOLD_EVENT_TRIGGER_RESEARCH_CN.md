@@ -201,3 +201,20 @@ ov = struct('includeDynamicTopologyVariants', true);
 | Light-floor + dynamic topology (no fallback) | 56.3% | +0.4% | +2.1% | -6.3% | +3.3% | yes |
 
 第一结论是 light-floor 是通信节省和通过 gate 的主因：不换拓扑时已经能以约 56% 字节下降保持 local、consensus、position 和 cardinality 都在门槛内。第二结论是 guarded dynamic topology 在 light-floor 上有增益：local E-OSPA 从 +0.7% 改为 -0.5%，consensus OSPA 从 +2.1% 改为 +1.0%，position disagreement 从 +7.9% 改为 -8.8%。第三结论是静态 4+4 边锚点很重要，去掉 `topologyStaticEdgeBonus` 后虽然 lambda2 更高，但 effective-weight lambda2 降到 0.323，self weight mass 升到 0.452，并且 consensus/cardinality 超门槛。第四结论是 fallback 在 seed=2 不是主要贡献源：去掉 fallback 仍通过，但 local、consensus 和 position 都略弱于完整 guarded 配置。
+
+### Mixed label-wise payload 初步验证
+
+根据“标签级触发 + 边级打包”的意见，新增了 `mixedPayloadEnabled` 原型：当边级事件为 heavy 时，不再把整条边所有标签都作为 full GM-LMB 发送，而是只让高效用标签保留完整 Gaussian mixture，其余有效标签以 moment-matched light LMB 形式随包发送。该实现不改变 LMB object 结构，只改变每个 label 的 Gaussian component 数，因此当前融合路径仍可复用。
+
+100-step seed=2 对比见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N1_SEED1_20260610_132613.md`
+
+| Arm | Bytes | Local E-OSPA | Consensus OSPA | Position disagreement | Card. dispersion | Effective-weight lambda2 |
+|:--|--:|--:|--:|--:|--:|--:|
+| Light-floor dual threshold + dynamic topology | 14378744 | 2.2183 | 2.0636 | 6.2174 | 0.2425 | 0.370 |
+| Light-floor mixed-label payload + dynamic topology | 12793496 | 2.2183 | 2.0636 | 6.2174 | 0.2425 | 0.370 |
+
+mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少约 11.0% 字节，且 local、consensus、position、cardinality 和 effective graph 诊断完全持平。相对周期全量基线 `32783504` bytes，总通信降幅从 guarded light-floor 的约 56.1% 提升到约 61.0%。这说明当前 heavy payload 中确实有一部分标签可以降级为 light，而不破坏单轮 KLA 融合结果。
+
+同时实现了可选 `lightCovarianceInflationEnabled`，用于按 association confidence 和 mixture entropy 对 light covariance 做保守膨胀。20-step seed=2 初测中，`Light-floor mixed robust payload + dynamic topology` 的 local E-OSPA 和 consensus OSPA 均劣于未膨胀 mixed payload，因此该开关暂时保留为实验项，不进入当前主线配置。
