@@ -276,11 +276,15 @@ config.topologyOverlapWeight = getField( ...
     config, 'topologyOverlapWeight', 0.35);
 config.topologyComplementarityWeight = getField( ...
     config, 'topologyComplementarityWeight', 0.20);
+config.topologyStaticEdgeBonus = getField( ...
+    config, 'topologyStaticEdgeBonus', 0);
 config.topologyActiveExistenceThreshold = getField( ...
     config, 'topologyActiveExistenceThreshold', ...
     config.forceLabelExistenceThreshold);
 config.topologyMinAlgebraicConnectivity = getField( ...
     config, 'topologyMinAlgebraicConnectivity', 0);
+config.topologyFallbackToBaseOnConnectivityFailure = getField( ...
+    config, 'topologyFallbackToBaseOnConnectivityFailure', false);
 config.fusionWeightMode = getField( ...
     config, 'fusionWeightMode', 'metropolis');
 config.adaptiveFusionConfig = getField( ...
@@ -400,6 +404,11 @@ edgeBudget = min(max(round(edgeBudget), numberOfSensors - 1), ...
 edgeScores = computeTopologyBenefitMatrix( ...
     localPosteriorBySensor, model, sensorTrajectories, commConfig, ...
     triggerConfig, currentTime);
+baseAdjacency = neighborMapToAdjacency(baseNeighborMap);
+staticEdgeBonus = triggerConfig.topologyStaticEdgeBonus;
+if staticEdgeBonus > 0
+    edgeScores(baseAdjacency) = edgeScores(baseAdjacency) + staticEdgeBonus;
+end
 adjacency = selectBudgetedConnectedTopology(edgeScores, edgeBudget);
 minConnectivity = triggerConfig.topologyMinAlgebraicConnectivity;
 if minConnectivity < 0
@@ -408,6 +417,13 @@ end
 if minConnectivity > 0
     adjacency = repairTopologyConnectivity( ...
         adjacency, edgeScores, minConnectivity);
+end
+if triggerConfig.topologyFallbackToBaseOnConnectivityFailure
+    repairedConnectivity = computeAlgebraicConnectivity( ...
+        adjacencyToNeighborMap(adjacency));
+    if repairedConnectivity + 1e-9 < minConnectivity
+        adjacency = baseAdjacency;
+    end
 end
 currentNeighborMap = adjacencyToNeighborMap(adjacency);
 currentTopologyWeights = computeMetropolisWeightMatrix(currentNeighborMap);
@@ -532,6 +548,18 @@ for edgeIdx = 1:size(edges, 1)
         edgeCount = edgeCount + 1;
     end
 end
+end
+
+function adjacency = neighborMapToAdjacency(neighborMap)
+numberOfSensors = numel(neighborMap);
+adjacency = false(numberOfSensors);
+for sensorIdx = 1:numberOfSensors
+    neighbors = neighborMap{sensorIdx};
+    neighbors = neighbors(neighbors ~= sensorIdx);
+    adjacency(sensorIdx, neighbors) = true;
+end
+adjacency = adjacency | adjacency';
+adjacency(1:numberOfSensors+1:end) = false;
 end
 
 function adjacency = repairTopologyConnectivity( ...

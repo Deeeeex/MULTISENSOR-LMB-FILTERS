@@ -128,3 +128,43 @@ ov = struct('includeDynamicTopologyVariants', true);
 | Periodic full posterior + dynamic topology | 28157392 | 2.180 | 2.166 | 字节 -14.1%，local E-OSPA -2.2%，consensus OSPA +6.0% |
 
 20-step 组合筛选显示，`Full method + dynamic topology` 虽能满足 30% 字节下降并改善 local E-OSPA，但 consensus OSPA 退化约 16.9%，说明事件触发缺边和拓扑重构误差会叠加。下一步应把动态拓扑作为独立研究线推进：固定周期全量或固定每步边预算，先做 5-trial 对比 `static 4+4 / reliability-only / reliability+overlap / reliability+overlap+lambda2 floor`，再决定是否重新与事件触发组合。
+
+## 2026-06-10 通过配置
+
+继续迭代后，找到一个满足 5-trial 升级门槛的组合：`Light-floor dual threshold + dynamic topology`。核心调整是从“少发邻居后验”转为“多数有效边发送 light 后验，少数高效用边发送 heavy 后验，同时用守卫式动态拓扑控制信息分发路径”。这避免了默认事件触发方案中未触发边导致的一致性损失。
+
+最终配置：
+
+- `thresholdLow = 0.20`
+- `thresholdHigh = 0.3708`
+- `forceInitialHeavy = false`
+- `forceLabelChangeHeavy = false`
+- `forceStaleHeavy = false`
+- `poorLinkThreshold = 0.0`
+- `dynamicTopologyEnabled = true`
+- `dynamicTopologyEdgeBudget = 16`
+- `topologyStaticEdgeBonus = 0.35`
+- `topologyFallbackToBaseOnConnectivityFailure = true`
+
+守卫式动态拓扑逻辑：
+
+1. 按链路可靠性、有效标签重叠和几何互补性计算候选边收益。
+2. 静态 4+4 边额外加锚点收益，减少无收益拓扑抖动。
+3. 在固定 16 条无向边预算下选择连通拓扑。
+4. 若代数连通度低于静态基线，则回退静态拓扑。
+
+5-trial 结果见：
+
+- `RUN/GA/GA_LIGHT_FLOOR_GUARDED_DYNAMIC_N5_SEEDS2_6_20260610.md`
+
+相对周期全量后验基线：
+
+| Metric | Result |
+|:--|--:|
+| Estimated bytes | -51.89% |
+| Local E-OSPA | +1.10% |
+| Consensus OSPA | +2.51% |
+| Position disagreement | +1.73% |
+| Cardinality dispersion | +5.26% |
+
+该配置通过 5-trial 升级门槛。需要注意的是，当前融合函数对 light 和 heavy 输入都会做标签级矩匹配，因此 heavy 主要体现为 payload 层级的全量后验传输，而不是当前融合结果的显著差异来源。若后续要把 heavy 的作用写成方法贡献，需要进一步实现或评估 full GM-LMB payload 在关联不确定性、混合多峰保持或多轮共识中的作用。
