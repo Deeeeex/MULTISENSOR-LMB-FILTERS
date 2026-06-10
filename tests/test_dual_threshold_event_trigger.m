@@ -289,6 +289,15 @@ assert(diagnostics.summary.deliveryCount == 4 * 32);
 assert(isfield(diagnostics.summary, 'meanDeliveredConnectivity'));
 assert(isfield(diagnostics.summary, 'meanEffectiveWeightConnectivity'));
 assert(diagnostics.summary.meanDeliveredConnectivity > 0);
+
+triggerConfig.topologyScoreMode = 'crossLayer';
+triggerConfig.mixedPayloadEnabled = true;
+[~, crossLayerDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    commConfig, triggerConfig);
+assert(all(crossLayerDiagnostics.topologyUndirectedEdgeCount == 16));
+assert(all(crossLayerDiagnostics.topologyAlgebraicConnectivity > 0));
+assert(crossLayerDiagnostics.summary.deliveryCount == 4 * 32);
 end
 
 function runEffectiveGraphDiagnosticsSmoke(model)

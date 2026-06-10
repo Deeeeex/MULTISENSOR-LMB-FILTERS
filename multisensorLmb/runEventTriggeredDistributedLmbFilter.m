@@ -320,6 +320,18 @@ config.topologyOverlapWeight = getField( ...
     config, 'topologyOverlapWeight', 0.35);
 config.topologyComplementarityWeight = getField( ...
     config, 'topologyComplementarityWeight', 0.20);
+config.topologyScoreMode = getField( ...
+    config, 'topologyScoreMode', 'legacy');
+config.topologyExpectedFusionWeight = getField( ...
+    config, 'topologyExpectedFusionWeight', 0.35);
+config.topologyPredictedTriggerWeight = getField( ...
+    config, 'topologyPredictedTriggerWeight', 0.25);
+config.topologyConnectivityRepairWeight = getField( ...
+    config, 'topologyConnectivityRepairWeight', 0.20);
+config.topologyCoverageRepairWeight = getField( ...
+    config, 'topologyCoverageRepairWeight', 0.15);
+config.topologyBytePenaltyWeight = getField( ...
+    config, 'topologyBytePenaltyWeight', 0.05);
 config.topologyStaticEdgeBonus = getField( ...
     config, 'topologyStaticEdgeBonus', 0);
 config.topologyActiveExistenceThreshold = getField( ...
@@ -536,12 +548,209 @@ for leftIdx = 1:numberOfSensors-1
             triggerConfig.topologyActiveExistenceThreshold);
         complementarity = computeGeometricComplementarity( ...
             distance, commRange);
-        score = (reliabilityWeight * reliability + ...
-            overlapWeight * overlap + ...
-            complementarityWeight * complementarity) / weightSum;
+        if strcmpi(triggerConfig.topologyScoreMode, 'crosslayer')
+            score = computeCrossLayerTopologyScore( ...
+                localPosteriorBySensor{leftIdx}, ...
+                localPosteriorBySensor{rightIdx}, model, ...
+                triggerConfig, reliability, overlap, complementarity);
+        else
+            score = (reliabilityWeight * reliability + ...
+                overlapWeight * overlap + ...
+                complementarityWeight * complementarity) / weightSum;
+        end
         scores(leftIdx, rightIdx) = score;
         scores(rightIdx, leftIdx) = score;
     end
+end
+end
+
+function score = computeCrossLayerTopologyScore( ...
+    leftObjects, rightObjects, model, triggerConfig, reliability, ...
+    overlap, complementarity)
+fusionValue = computePairwiseExpectedFusionValue( ...
+    leftObjects, rightObjects, model, triggerConfig);
+predictedTrigger = computePredictedTriggerScore( ...
+    fusionValue, triggerConfig);
+expectedFusionWeight = reliability * predictedTrigger * fusionValue;
+coverageRepair = computeCoverageRepairScore( ...
+    leftObjects, rightObjects, triggerConfig.topologyActiveExistenceThreshold);
+bytePenalty = estimatePairwiseBytePenalty( ...
+    leftObjects, rightObjects, model, triggerConfig);
+rawScore = ...
+    triggerConfig.topologyExpectedFusionWeight * expectedFusionWeight + ...
+    triggerConfig.topologyPredictedTriggerWeight * predictedTrigger + ...
+    triggerConfig.topologyConnectivityRepairWeight * complementarity + ...
+    triggerConfig.topologyCoverageRepairWeight * coverageRepair - ...
+    triggerConfig.topologyBytePenaltyWeight * bytePenalty;
+score = reliability * rawScore + 0.10 * overlap;
+score = max(score, 0);
+end
+
+function value = computePairwiseExpectedFusionValue( ...
+    leftObjects, rightObjects, model, triggerConfig)
+threshold = triggerConfig.topologyActiveExistenceThreshold;
+labels = unionActiveLabels(leftObjects, rightObjects, threshold);
+if isempty(labels)
+    value = 0;
+    return;
+end
+scores = zeros(1, size(labels, 2));
+for labelIdx = 1:size(labels, 2)
+    label = labels(:, labelIdx);
+    leftObject = findActiveObject(leftObjects, label, threshold);
+    rightObject = findActiveObject(rightObjects, label, threshold);
+    scores(labelIdx) = compareTopologyObjects( ...
+        leftObject, rightObject, model);
+end
+value = min(max(mean(scores), 0), 1);
+end
+
+function predicted = computePredictedTriggerScore(fusionValue, triggerConfig)
+thresholdLow = triggerConfig.thresholdLow;
+thresholdHigh = max(triggerConfig.thresholdHigh, thresholdLow + eps);
+predicted = (fusionValue - thresholdLow) / (thresholdHigh - thresholdLow);
+predicted = min(max(predicted, 0), 1);
+end
+
+function score = computeCoverageRepairScore( ...
+    leftObjects, rightObjects, threshold)
+leftLabels = collectActiveLabels(leftObjects, threshold);
+rightLabels = collectActiveLabels(rightObjects, threshold);
+if isempty(leftLabels) && isempty(rightLabels)
+    score = 0;
+    return;
+end
+leftOnly = countLabelDifference(leftLabels, rightLabels);
+rightOnly = countLabelDifference(rightLabels, leftLabels);
+unionCount = size(leftLabels, 2) + size(rightLabels, 2) - ...
+    (size(leftLabels, 2) - leftOnly);
+score = (leftOnly + rightOnly) / max(unionCount, 1);
+score = min(max(score, 0), 1);
+end
+
+function penalty = estimatePairwiseBytePenalty( ...
+    leftObjects, rightObjects, model, triggerConfig)
+threshold = triggerConfig.topologyActiveExistenceThreshold;
+leftCost = estimateActivePayloadCost(leftObjects, model, threshold);
+rightCost = estimateActivePayloadCost(rightObjects, model, threshold);
+stateDimension = model.xDimension;
+heavyUnit = 3 + 3 * (1 + stateDimension + stateDimension * stateDimension);
+normalizer = max(2 * heavyUnit, 1);
+penalty = min((leftCost + rightCost) / normalizer, 1);
+if triggerConfig.mixedPayloadEnabled
+    penalty = 0.75 * penalty;
+end
+end
+
+function cost = estimateActivePayloadCost(objects, model, threshold)
+cost = 0;
+if isempty(objects)
+    return;
+end
+stateDimension = model.xDimension;
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).r <= threshold || ...
+            objects(objectIdx).numberOfGmComponents <= 0
+        continue;
+    end
+    componentCount = max(1, objects(objectIdx).numberOfGmComponents);
+    cost = cost + 3 + componentCount * ...
+        (1 + stateDimension + stateDimension * stateDimension);
+end
+end
+
+function count = countLabelDifference(leftLabels, rightLabels)
+count = 0;
+for labelIdx = 1:size(leftLabels, 2)
+    if isempty(rightLabels) || ...
+            ~any(all(rightLabels == leftLabels(:, labelIdx), 1))
+        count = count + 1;
+    end
+end
+end
+
+function labels = unionActiveLabels(leftObjects, rightObjects, threshold)
+labels = collectActiveLabels(leftObjects, threshold);
+rightLabels = collectActiveLabels(rightObjects, threshold);
+for labelIdx = 1:size(rightLabels, 2)
+    label = rightLabels(:, labelIdx);
+    if isempty(labels) || ~any(all(labels == label, 1))
+        labels(:, end+1) = label; %#ok<AGROW>
+    end
+end
+if ~isempty(labels)
+    labels = sortrows(labels')';
+end
+end
+
+function object = findActiveObject(objects, label, threshold)
+object = [];
+if isempty(objects)
+    return;
+end
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).r > threshold && ...
+            objects(objectIdx).numberOfGmComponents > 0 && ...
+            objects(objectIdx).birthTime == label(1) && ...
+            objects(objectIdx).birthLocation == label(2)
+        object = objects(objectIdx);
+        return;
+    end
+end
+end
+
+function score = compareTopologyObjects(leftObject, rightObject, model)
+if isempty(leftObject) && isempty(rightObject)
+    score = 0;
+    return;
+end
+if isempty(leftObject) || isempty(rightObject)
+    score = 1;
+    return;
+end
+[leftMu, leftCov] = topologyMomentMatch(leftObject, model.xDimension);
+[rightMu, rightCov] = topologyMomentMatch(rightObject, model.xDimension);
+positionDimension = min(2, model.xDimension);
+delta = leftMu(1:positionDimension) - rightMu(1:positionDimension);
+scaleCov = leftCov(1:positionDimension, 1:positionDimension) + ...
+    rightCov(1:positionDimension, 1:positionDimension);
+scaleCov = regularizeTopologyCovariance(scaleCov);
+mahalanobis = delta' * (scaleCov \ delta);
+positionScore = 1 - exp(-0.5 * max(mahalanobis, 0));
+existenceScore = abs(leftObject.r - rightObject.r);
+traceScore = abs(log((trace(leftCov) + eps) / ...
+    (trace(rightCov) + eps)));
+traceScore = 1 - exp(-traceScore);
+score = min(max(0.50 * positionScore + ...
+    0.30 * existenceScore + 0.20 * traceScore, 0), 1);
+end
+
+function [mu, covariance] = topologyMomentMatch(object, stateDimension)
+weights = reshape(object.w, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if sum(weights) <= 0
+    weights = ones(size(weights)) / max(numel(weights), 1);
+else
+    weights = weights / sum(weights);
+end
+mu = zeros(stateDimension, 1);
+for componentIdx = 1:object.numberOfGmComponents
+    mu = mu + weights(componentIdx) * object.mu{componentIdx};
+end
+covariance = zeros(stateDimension);
+for componentIdx = 1:object.numberOfGmComponents
+    delta = object.mu{componentIdx} - mu;
+    covariance = covariance + weights(componentIdx) * ...
+        (object.Sigma{componentIdx} + delta * delta');
+end
+covariance = regularizeTopologyCovariance(covariance);
+end
+
+function covariance = regularizeTopologyCovariance(covariance)
+covariance = (covariance + covariance') / 2;
+if rcond(covariance) < 1e-12
+    covariance = covariance + 1e-9 * eye(size(covariance));
 end
 end
 

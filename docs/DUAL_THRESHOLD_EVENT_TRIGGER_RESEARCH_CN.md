@@ -218,3 +218,23 @@ ov = struct('includeDynamicTopologyVariants', true);
 mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少约 11.0% 字节，且 local、consensus、position、cardinality 和 effective graph 诊断完全持平。相对周期全量基线 `32783504` bytes，总通信降幅从 guarded light-floor 的约 56.1% 提升到约 61.0%。这说明当前 heavy payload 中确实有一部分标签可以降级为 light，而不破坏单轮 KLA 融合结果。
 
 同时实现了可选 `lightCovarianceInflationEnabled`，用于按 association confidence 和 mixture entropy 对 light covariance 做保守膨胀。20-step seed=2 初测中，`Light-floor mixed robust payload + dynamic topology` 的 local E-OSPA 和 consensus OSPA 均劣于未膨胀 mixed payload，因此该开关暂时保留为实验项，不进入当前主线配置。
+
+### Cross-layer topology score 初步验证
+
+根据“拓扑选择应服务 KLA 有效信息流，而不是只看链路/几何分数”的意见，新增了 `topologyScoreMode='crossLayer'` 原型。该模式在动态拓扑候选边打分中显式加入：
+
+- 预测融合价值：相邻节点同标签后验的位置、存在概率和协方差差异。
+- 预测触发强度：把上述融合价值映射到当前 light/heavy 阈值区间。
+- 覆盖修复价值：只在一侧存在的活跃标签比例。
+- 几何互补性和链路可靠性。
+- 估算 payload 字节惩罚。
+
+该分数只影响“连哪条边”，不改变 light-floor 触发阈值、mixed label-wise payload 或融合函数。20-step seed=2 smoke 结果如下：
+
+| Arm | Bytes | Local E-OSPA | Consensus OSPA | Topology lambda2 | 结论 |
+|:--|--:|--:|--:|--:|:--|
+| Light-floor mixed-label payload + dynamic topology | 928208 | 2.9192 | 2.3731 | 2.0821 | 当前 mixed payload 对照 |
+| Cross-layer topology, static bonus 0.20 | 982672 | 3.0004 | 2.0819 | 2.4124 | consensus 明显改善，但字节和 local 变差 |
+| Cross-layer topology, static bonus 0.35 | 1021408 | 3.0513 | 2.2008 | 2.3553 | 静态锚点更强后仍不是更优 trade-off |
+
+这个结果支持有效 KLA 图解释：更直接地优化预期融合价值和图连通性，确实能降低短程 consensus OSPA。但它同时提高触发/传输强度，并牺牲 local E-OSPA，因此目前不替代 guarded light-floor/mixed payload 主配置，也不进入 100-step 或 5-trial 升级。后续若要继续 cross-layer 方向，应先加入接收端 need/request vector 或边级 expected-value gate，而不是简单提高拓扑 score 的连通性偏好。
