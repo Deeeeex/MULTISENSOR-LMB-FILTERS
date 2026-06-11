@@ -1,0 +1,271 @@
+Event-trigger trial 1/20 (seed=12)
+  Arm 1/5: Periodic full posterior
+    bytes=34597424 trigger=1.000 E-OSPA=2.542 runtime=17.20s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=12996976 trigger=1.000 E-OSPA=2.307 runtime=14.49s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=15449784 trigger=0.981 E-OSPA=2.407 runtime=15.67s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=13135408 trigger=0.999 E-OSPA=2.307 runtime=14.87s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=13622448 trigger=0.981 E-OSPA=2.407 runtime=15.36s
+Event-trigger trial 2/20 (seed=13)
+  Arm 1/5: Periodic full posterior
+    bytes=28734952 trigger=1.000 E-OSPA=2.113 runtime=13.02s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=12033376 trigger=1.000 E-OSPA=2.075 runtime=13.29s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13245640 trigger=0.969 E-OSPA=2.086 runtime=13.09s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=12208592 trigger=0.998 E-OSPA=2.082 runtime=13.31s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11894416 trigger=0.969 E-OSPA=2.086 runtime=13.16s
+Event-trigger trial 3/20 (seed=14)
+  Arm 1/5: Periodic full posterior
+    bytes=26468800 trigger=1.000 E-OSPA=2.011 runtime=11.62s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11165216 trigger=1.000 E-OSPA=1.999 runtime=12.38s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13149288 trigger=0.971 E-OSPA=1.998 runtime=12.36s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11338832 trigger=0.999 E-OSPA=1.988 runtime=12.35s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11221488 trigger=0.971 E-OSPA=1.998 runtime=12.67s
+Event-trigger trial 4/20 (seed=15)
+  Arm 1/5: Periodic full posterior
+    bytes=27575280 trigger=1.000 E-OSPA=2.044 runtime=13.56s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=12265600 trigger=1.000 E-OSPA=2.053 runtime=13.32s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=14501080 trigger=0.979 E-OSPA=2.065 runtime=13.14s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=12434776 trigger=0.999 E-OSPA=2.054 runtime=13.24s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=12365464 trigger=0.979 E-OSPA=2.065 runtime=13.28s
+Event-trigger trial 5/20 (seed=16)
+  Arm 1/5: Periodic full posterior
+    bytes=26304784 trigger=1.000 E-OSPA=2.036 runtime=12.09s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10838432 trigger=1.000 E-OSPA=2.026 runtime=12.25s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12947344 trigger=0.971 E-OSPA=2.034 runtime=12.14s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10914032 trigger=0.998 E-OSPA=2.026 runtime=12.09s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10808872 trigger=0.971 E-OSPA=2.034 runtime=12.19s
+Event-trigger trial 6/20 (seed=17)
+  Arm 1/5: Periodic full posterior
+    bytes=28035192 trigger=1.000 E-OSPA=1.973 runtime=12.30s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10683040 trigger=1.000 E-OSPA=1.978 runtime=11.74s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12648824 trigger=0.977 E-OSPA=1.988 runtime=11.92s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10866832 trigger=1.000 E-OSPA=1.978 runtime=12.08s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10999736 trigger=0.977 E-OSPA=1.988 runtime=12.00s
+Event-trigger trial 7/20 (seed=18)
+  Arm 1/5: Periodic full posterior
+    bytes=24862216 trigger=1.000 E-OSPA=1.964 runtime=11.73s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10931392 trigger=1.000 E-OSPA=1.961 runtime=12.52s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12391456 trigger=0.966 E-OSPA=1.966 runtime=12.66s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11111488 trigger=1.000 E-OSPA=1.961 runtime=12.68s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10758832 trigger=0.966 E-OSPA=1.966 runtime=12.21s
+Event-trigger trial 8/20 (seed=19)
+  Arm 1/5: Periodic full posterior
+    bytes=27675336 trigger=1.000 E-OSPA=2.090 runtime=12.72s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11109744 trigger=1.000 E-OSPA=2.102 runtime=14.16s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13259616 trigger=0.978 E-OSPA=2.126 runtime=14.13s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11307776 trigger=0.999 E-OSPA=2.102 runtime=14.10s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11289816 trigger=0.978 E-OSPA=2.126 runtime=13.60s
+Event-trigger trial 9/20 (seed=20)
+  Arm 1/5: Periodic full posterior
+    bytes=27510280 trigger=1.000 E-OSPA=2.004 runtime=11.69s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10818528 trigger=1.000 E-OSPA=2.023 runtime=12.74s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12850240 trigger=0.971 E-OSPA=2.019 runtime=15.92s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10984680 trigger=1.000 E-OSPA=2.023 runtime=18.48s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10894720 trigger=0.971 E-OSPA=2.019 runtime=20.81s
+Event-trigger trial 10/20 (seed=21)
+  Arm 1/5: Periodic full posterior
+    bytes=26245336 trigger=1.000 E-OSPA=1.978 runtime=15.23s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11428544 trigger=1.000 E-OSPA=1.978 runtime=16.15s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13236984 trigger=0.962 E-OSPA=1.979 runtime=15.71s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11590160 trigger=0.999 E-OSPA=1.978 runtime=15.76s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11340600 trigger=0.962 E-OSPA=1.979 runtime=16.28s
+Event-trigger trial 11/20 (seed=22)
+  Arm 1/5: Periodic full posterior
+    bytes=26459048 trigger=1.000 E-OSPA=2.055 runtime=15.02s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11147008 trigger=1.000 E-OSPA=2.077 runtime=12.75s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12677288 trigger=0.973 E-OSPA=2.092 runtime=13.76s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11444200 trigger=1.000 E-OSPA=2.077 runtime=16.22s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10916480 trigger=0.973 E-OSPA=2.092 runtime=15.68s
+Event-trigger trial 12/20 (seed=23)
+  Arm 1/5: Periodic full posterior
+    bytes=25321968 trigger=1.000 E-OSPA=2.146 runtime=14.26s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11137728 trigger=1.000 E-OSPA=2.186 runtime=15.68s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13091032 trigger=0.980 E-OSPA=2.172 runtime=16.23s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11380488 trigger=1.000 E-OSPA=2.186 runtime=15.83s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11491000 trigger=0.980 E-OSPA=2.172 runtime=16.15s
+Event-trigger trial 13/20 (seed=24)
+  Arm 1/5: Periodic full posterior
+    bytes=26212176 trigger=1.000 E-OSPA=2.106 runtime=14.76s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10718512 trigger=1.000 E-OSPA=2.109 runtime=15.30s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12873744 trigger=0.971 E-OSPA=2.122 runtime=15.85s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10902472 trigger=1.000 E-OSPA=2.109 runtime=15.45s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11076816 trigger=0.971 E-OSPA=2.122 runtime=16.30s
+Event-trigger trial 14/20 (seed=25)
+  Arm 1/5: Periodic full posterior
+    bytes=28144928 trigger=1.000 E-OSPA=2.097 runtime=15.96s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11677392 trigger=1.000 E-OSPA=2.109 runtime=16.67s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=14680272 trigger=0.977 E-OSPA=2.124 runtime=16.77s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11794320 trigger=1.000 E-OSPA=2.109 runtime=16.84s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11943048 trigger=0.977 E-OSPA=2.124 runtime=17.01s
+Event-trigger trial 15/20 (seed=26)
+  Arm 1/5: Periodic full posterior
+    bytes=27788576 trigger=1.000 E-OSPA=2.124 runtime=15.93s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11682592 trigger=1.000 E-OSPA=2.102 runtime=17.19s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=13455808 trigger=0.981 E-OSPA=2.126 runtime=17.42s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11832616 trigger=1.000 E-OSPA=2.102 runtime=14.92s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11644936 trigger=0.981 E-OSPA=2.126 runtime=17.12s
+Event-trigger trial 16/20 (seed=27)
+  Arm 1/5: Periodic full posterior
+    bytes=24030184 trigger=1.000 E-OSPA=1.989 runtime=12.64s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10223616 trigger=1.000 E-OSPA=1.998 runtime=13.21s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=11820176 trigger=0.967 E-OSPA=2.017 runtime=13.05s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10267968 trigger=0.999 E-OSPA=1.998 runtime=13.03s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10235264 trigger=0.967 E-OSPA=2.017 runtime=13.46s
+Event-trigger trial 17/20 (seed=28)
+  Arm 1/5: Periodic full posterior
+    bytes=26359088 trigger=1.000 E-OSPA=2.068 runtime=11.52s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11065760 trigger=1.000 E-OSPA=2.066 runtime=12.21s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12260904 trigger=0.966 E-OSPA=2.078 runtime=11.90s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11115152 trigger=1.000 E-OSPA=2.066 runtime=12.43s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10854912 trigger=0.966 E-OSPA=2.078 runtime=11.97s
+Event-trigger trial 18/20 (seed=29)
+  Arm 1/5: Periodic full posterior
+    bytes=26748736 trigger=1.000 E-OSPA=2.035 runtime=11.62s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11309264 trigger=1.000 E-OSPA=2.023 runtime=12.71s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12284384 trigger=0.971 E-OSPA=2.010 runtime=12.35s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11357984 trigger=1.000 E-OSPA=2.023 runtime=12.51s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10949288 trigger=0.971 E-OSPA=2.010 runtime=12.13s
+Event-trigger trial 19/20 (seed=30)
+  Arm 1/5: Periodic full posterior
+    bytes=26795304 trigger=1.000 E-OSPA=1.986 runtime=12.24s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=11479456 trigger=1.000 E-OSPA=1.998 runtime=12.81s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12880552 trigger=0.981 E-OSPA=1.996 runtime=12.74s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=11559088 trigger=1.000 E-OSPA=1.998 runtime=12.66s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=11466160 trigger=0.981 E-OSPA=1.996 runtime=12.60s
+Event-trigger trial 20/20 (seed=31)
+  Arm 1/5: Periodic full posterior
+    bytes=25914056 trigger=1.000 E-OSPA=2.054 runtime=12.74s
+  Arm 2/5: Periodic light posterior + guarded dynamic topology
+    bytes=10300752 trigger=1.000 E-OSPA=2.055 runtime=13.86s
+  Arm 3/5: Old mainline: LightFloor-GuardedTopo
+    bytes=12792096 trigger=0.976 E-OSPA=2.061 runtime=13.73s
+  Arm 4/5: C1: LightBackbone-GuardedTopo
+    bytes=10392480 trigger=1.000 E-OSPA=2.055 runtime=12.59s
+  Arm 5/5: C2: MixedLabel-LightFloor-GuardedTopo
+    bytes=10462608 trigger=0.976 E-OSPA=2.061 runtime=11.61s
+=====================================
+Dual-threshold event-trigger GA-LMB (N=20)
+Calibration default multi thresholds: [0.3264 0.3797]
+=====================================
+Periodic full posterior: bytes 27089183, trigger 1.000, local E-OSPA 2.071, consensus OSPA 1.949
+Periodic light posterior + guarded dynamic topology: bytes 11250646, trigger 1.000, local E-OSPA 2.061, consensus OSPA 1.958
+Old mainline: LightFloor-GuardedTopo: bytes 13124826, trigger 0.973, local E-OSPA 2.073, consensus OSPA 1.988
+C1: LightBackbone-GuardedTopo: bytes 11396967, trigger 1.000, local E-OSPA 2.061, consensus OSPA 1.958
+C2: MixedLabel-LightFloor-GuardedTopo: bytes 11311845, trigger 0.973, local E-OSPA 2.073, consensus OSPA 1.988
+Report written: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N20_SEED11_20260611_095640.md
+
+Held-out candidate-selection result
+Report: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N20_SEED11_20260611_095640.md
+Summary: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\heldout_periodic_light_n20_seeds12_31_20260611_093132.mat
+
+Arm names:
+    {'Periodic full posterior'                            }
+    {'Periodic light posterior + guarded dynamic topology'}
+    {'Old mainline: LightFloor-GuardedTopo'               }
+    {'C1: LightBackbone-GuardedTopo'                      }
+    {'C2: MixedLabel-LightFloor-GuardedTopo'              }
+
+Payload bytes:
+   1.0e+07 *
+
+    2.7089    1.1251    1.3125    1.1397    1.1312
+
+Local E-OSPA:
+    2.0707    2.0613    2.0734    2.0612    2.0734
+
+Consensus OSPA:
+    1.9493    1.9578    1.9877    1.9580    1.9877
+
+Position disagreement:
+    4.8508    4.4896    4.6413    4.4900    4.6413
+
+Cardinality dispersion:
+    0.2026    0.2025    0.2018    0.2024    0.2018
+
+Byte reduction percent:
+         0   58.4681   51.5496   57.9280   58.2422
+
+Local E-OSPA change percent:
+         0   -0.4506    0.1299   -0.4584    0.1299
+
+Consensus OSPA change percent:
+         0    0.4386    1.9730    0.4492    1.9730
+
+Qualifies for scale-up:
+   0   1   1   1   1
+
