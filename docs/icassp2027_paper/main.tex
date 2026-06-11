@@ -19,6 +19,12 @@ Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA f
 \end{keywords}
 
 \input{sections/01_introduction}
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.94\textwidth]{figures/payload_graph_schematic.pdf}
+    \caption{Two ways to reduce communication in distributed LMB fusion. Graph sparsification changes which posterior messages enter the KLA update, while light posterior exchange keeps the same effective graph and compresses each label payload from a Gaussian mixture to moment-matched Bernoulli statistics.}
+    \label{fig:payload-graph}
+\end{figure*}
 \input{sections/02_related_work}
 \input{sections/03_method}
 \input{sections/04_experiments}

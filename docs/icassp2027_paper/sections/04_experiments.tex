@@ -49,11 +49,19 @@ method.
     \end{tabular}}
 \end{table}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/heldout_tradeoff.pdf}
+    \caption{Held-out aggregate trade-off. Bars show byte reduction relative to full-static exchange. The scatter plot compares byte reduction and consensus degradation; the shaded region satisfies the communication and consensus gates. Marker size is proportional to effective-weight graph connectivity.}
+    \label{fig:heldout-tradeoff}
+\end{figure}
+
 \subsection{Held-out Results}
 
-Table~\ref{tab:heldout-results} shows that the graph-preserving light posterior
-is the only non-reference arm that exactly matches the full-posterior baseline
-on both local tracking and consensus metrics. It reduces estimated
+Table~\ref{tab:heldout-results} and Fig.~\ref{fig:heldout-tradeoff} show that
+the graph-preserving light posterior is the only non-reference arm that exactly
+matches the full-posterior baseline on both local tracking and consensus
+metrics. It reduces estimated
 communication from 27.77M to 11.50M bytes, a 58.6\% reduction, while preserving
 the effective-weight algebraic connectivity at 0.373. Its paired trial pass
 count is 50/50, and its worst-case byte reduction remains above 55\%.
