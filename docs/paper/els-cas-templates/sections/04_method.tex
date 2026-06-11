@@ -158,9 +158,76 @@ This decoupling links a shared reliability backbone to two algebraically differe
 \noindent\textbf{Remark 3 (why geometric interpolation).}
 The shared score keeps both branches tied to the same reliability model. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score even when another term is large.
 
+\paragraph{Weak structure-aware refinement and stabilization.}
+
+The evaluated Balanced and Cardinality-critical modes next apply a weak graph-aware prior after branch decoupling and before the optional FID-FIA existence modulation. This prior combines local neighborhood overlap with a soft communication-reliability modulation. For fusion node $s$ and neighbor $j\in\mathcal{N}_s$, define the neighborhood-overlap similarity
+\begin{equation}
+\label{eq:method-neighborhood-overlap}
+\chi_s^{(j)}
+=
+\frac{|\mathcal{N}_s \cap \mathcal{N}_j|}
+{|\mathcal{N}_s \cup \mathcal{N}_j|}.
+\end{equation}
+The spatial branch favors structurally redundant neighbors, while the existence branch gives only a mild novelty preference to neighbors with nonidentical neighborhoods:
+\begin{equation}
+\label{eq:method-structure-base-prior}
+a_{x,s}^{(j)} = 1+\chi_s^{(j)},
+\qquad
+a_{r,s}^{(j)} = 1+\frac{1}{2}\left(1-\chi_s^{(j)}\right).
+\end{equation}
+Both priors are normalized to unit mean inside the local neighborhood,
+\begin{equation}
+\label{eq:method-structure-normalized-prior}
+\xi_{x,s}^{(j)}
+=
+\frac{a_{x,s}^{(j)}}{|\mathcal{N}_s|^{-1}\sum_{u\in\mathcal{N}_s}a_{x,s}^{(u)}},
+\qquad
+\xi_{r,s}^{(j)}
+=
+\frac{a_{r,s}^{(j)}}{|\mathcal{N}_s|^{-1}\sum_{u\in\mathcal{N}_s}a_{r,s}^{(u)}}.
+\end{equation}
+When tiered packet-loss statistics are available, the implementation also forms a normalized communication-reliability prior from the persistent drop tier of each neighbor:
+\begin{equation}
+\label{eq:method-structure-comm-prior}
+b_s^{(j)}
+=
+\lambda_c+(1-\lambda_c)\left(1-p_{\mathrm{drop}}^{(j)}\right),
+\qquad
+\zeta_s^{(j)}
+=
+\frac{b_s^{(j)}}{|\mathcal{N}_s|^{-1}\sum_{u\in\mathcal{N}_s}b_s^{(u)}}.
+\end{equation}
+The resulting structure factors are
+\begin{equation}
+\label{eq:method-structure-combined-prior}
+\bar{\xi}_{x,s}^{(j)}
+=
+\xi_{x,s}^{(j)}\left(\zeta_s^{(j)}\right)^{\delta_c},
+\qquad
+\bar{\xi}_{r,s}^{(j)}
+=
+\xi_{r,s}^{(j)}\left(\zeta_s^{(j)}\right)^{\delta_c},
+\end{equation}
+and they enter the two branch scores multiplicatively:
+\begin{equation}
+\label{eq:method-structure-modulation}
+\tilde{\omega}_{k,s}^{x,(j)}
+\leftarrow
+\tilde{\omega}_{k,s}^{x,(j)}
+\left(\bar{\xi}_{x,s}^{(j)}\right)^{\gamma_x},
+\qquad
+\tilde{\omega}_{k,s}^{r,(j)}
+\leftarrow
+\tilde{\omega}_{k,s}^{r,(j)}
+\left(\bar{\xi}_{r,s}^{(j)}\right)^{\gamma_r}.
+\end{equation}
+Equivalently, for positive scores, the refinement adds $\gamma_x\log\bar{\xi}_{x,s}^{(j)}$ and $\gamma_r\log\bar{\xi}_{r,s}^{(j)}$ to the spatial and existence log-utilities. The main experiments use $\gamma_x=0.45$, $\gamma_r=0.08$, $\delta_c=0.30$, and $\lambda_c=0.25$, so the structure prior is deliberately weaker on the existence branch and cannot dominate the covariance, delivery, and existence-confidence backbone.
+
+The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step preserves the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+
 \paragraph{Existence-only FID-FIA refinement.}
 
-The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets and uses it as an existence-side modulation. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+The Cardinality-critical mode then adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets and uses it as an existence-side modulation. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
 \begin{equation}
 \label{eq:method-fid-normalization}
 \hat{a}_{k,s}^{(j)}
@@ -188,11 +255,6 @@ Only the existence score is modified:
 \end{equation}
 Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
 Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility while leaving the spatial utility unchanged; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
-
-\paragraph{Weak structure-aware refinement and stabilization.}
-After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
-
-The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step preserves the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
 \subsection{Algorithm and operating modes}
 
