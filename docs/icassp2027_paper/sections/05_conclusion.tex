@@ -1,0 +1,13 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper studied a narrow but practical communication question for
+distributed LMB fusion: whether full Gaussian-mixture posteriors must be
+exchanged when the receiver-side KLA update uses label-wise moment-matched
+Bernoulli statistics. In the validated 4+4 benchmark, preserving the static
+effective fusion graph and sending light posterior messages matches full
+posterior exchange over 50 held-out trials while reducing bytes by 58.6\%.
+The result suggests a conservative design rule for this class of trackers:
+preserve effective information paths first, then compress posterior payloads.
+Future work should identify regimes where multimodal label densities, stronger
+association ambiguity, or multi-round consensus require richer messages again.

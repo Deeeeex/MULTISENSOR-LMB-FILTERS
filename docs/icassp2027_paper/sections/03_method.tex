@@ -1,0 +1,78 @@
+\section{Light Posterior Exchange}
+\label{sec:method}
+
+\subsection{Distributed LMB Fusion Baseline}
+
+At time $k$, sensor $i$ maintains an LMB posterior
+\begin{equation}
+    \pi_i = \{(r_i^\ell, p_i^\ell(x)):\ell\in\mathcal{L}_i\},
+\end{equation}
+where $r_i^\ell$ is the existence probability of label $\ell$ and
+$p_i^\ell(x)$ is represented by a Gaussian mixture. In the full-posterior
+baseline, each node periodically sends its complete GM-LMB posterior to every
+neighbor in a fixed communication graph. After packet drops are realized, each
+receiver aligns common labels and applies a single synchronous KLA-style
+fusion step with the same fusion weights for all compared variants.
+
+For a receiver $i$ and the delivered neighbor set $\mathcal{N}_i(k)$, the
+fusion step can be written abstractly as
+\begin{equation}
+    \bar{\pi}_i \propto
+    \pi_i^{\omega_{ii}}
+    \prod_{j\in\mathcal{N}_i(k)}
+    \pi_{j}^{\omega_{ij}},
+    \qquad
+    \sum_{j\in\mathcal{N}_i(k)\cup\{i\}}\omega_{ij}=1 .
+\end{equation}
+The implementation performs label-wise alignment and moment matching inside
+the LMB fusion path. This is the reason full Gaussian-mixture transmission can
+be redundant: the receiver does not preserve arbitrary mixture structure after
+the single-round fusion update.
+
+\subsection{Light Posterior Message}
+
+The proposed message keeps the Bernoulli label set and existence probabilities
+but replaces each transmitted mixture density with a single moment-matched
+Gaussian. For a label density
+\begin{equation}
+    p_i^\ell(x)=\sum_{m=1}^{M_i^\ell} w_{im}^\ell
+    \mathcal{N}(x;m_{im}^\ell,P_{im}^\ell),
+\end{equation}
+the light posterior sends
+\begin{equation}
+    \tilde{p}_i^\ell(x)=
+    \mathcal{N}(x;\bar{m}_i^\ell,\bar{P}_i^\ell),
+\end{equation}
+with
+\begin{align}
+    \bar{m}_i^\ell &=
+    \sum_m w_{im}^\ell m_{im}^\ell,\\
+    \bar{P}_i^\ell &=
+    \sum_m w_{im}^\ell
+    \left(P_{im}^\ell+
+    (m_{im}^\ell-\bar{m}_i^\ell)
+    (m_{im}^\ell-\bar{m}_i^\ell)^\top\right).
+\end{align}
+Thus a light message contains the label, existence probability, single mean,
+single covariance, and minimal bookkeeping metadata. It does not change the
+local prediction, measurement update, label pruning, fusion weights, packet
+drop model, or neighbor schedule. Only the transmitted posterior
+representation changes.
+
+\subsection{Graph Preservation and Diagnostics}
+
+The communication policy is intentionally conservative. The main method sends
+light posteriors periodically over the same static topology used by the
+full-posterior baseline. This isolates payload compression from graph
+sparsification: if performance changes, the cause is posterior summarization,
+not missing message paths.
+
+To verify this separation, we report effective-fusion-graph diagnostics in
+addition to tracking metrics. The attempted graph records scheduled neighbor
+messages, the delivered graph records successful transmissions, and the
+effective-weight graph records nonzero neighbor mass that actually enters the
+KLA update. We summarize each graph by the algebraic connectivity of its
+symmetrized adjacency or weight matrix. We also track label-level stale age and
+the total fusion weight assigned to self, light, and full posterior messages.
+The target behavior for a safe compression method is therefore not only low
+bytes, but also an effective-weight graph close to the full-posterior baseline.
