@@ -1,0 +1,499 @@
+Event-trigger trial 1/50 (seed=32)
+  Arm 1/4: Periodic full posterior
+    bytes=25900672 trigger=1.000 E-OSPA=2.072 runtime=15.70s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=26336248 trigger=1.000 E-OSPA=2.097 runtime=16.36s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10931200 trigger=1.000 E-OSPA=2.072 runtime=15.62s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10835376 trigger=1.000 E-OSPA=2.044 runtime=15.48s
+Event-trigger trial 2/50 (seed=33)
+  Arm 1/4: Periodic full posterior
+    bytes=28423272 trigger=1.000 E-OSPA=2.092 runtime=17.28s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=32508952 trigger=1.000 E-OSPA=2.190 runtime=19.03s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11738688 trigger=1.000 E-OSPA=2.092 runtime=16.33s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12070912 trigger=1.000 E-OSPA=2.096 runtime=16.95s
+Event-trigger trial 3/50 (seed=34)
+  Arm 1/4: Periodic full posterior
+    bytes=32038304 trigger=1.000 E-OSPA=2.082 runtime=18.40s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=26045416 trigger=1.000 E-OSPA=2.081 runtime=14.79s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=13214240 trigger=1.000 E-OSPA=2.082 runtime=16.49s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12418400 trigger=1.000 E-OSPA=2.091 runtime=16.95s
+Event-trigger trial 4/50 (seed=35)
+  Arm 1/4: Periodic full posterior
+    bytes=26295016 trigger=1.000 E-OSPA=1.987 runtime=14.98s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27619896 trigger=1.000 E-OSPA=2.105 runtime=15.70s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10687984 trigger=1.000 E-OSPA=1.987 runtime=15.58s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10742624 trigger=1.000 E-OSPA=2.000 runtime=15.91s
+Event-trigger trial 5/50 (seed=36)
+  Arm 1/4: Periodic full posterior
+    bytes=26553480 trigger=1.000 E-OSPA=2.005 runtime=14.62s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29524896 trigger=1.000 E-OSPA=2.185 runtime=17.45s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10655136 trigger=1.000 E-OSPA=2.005 runtime=15.51s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10784640 trigger=1.000 E-OSPA=2.009 runtime=15.85s
+Event-trigger trial 6/50 (seed=37)
+  Arm 1/4: Periodic full posterior
+    bytes=24560176 trigger=1.000 E-OSPA=2.032 runtime=13.96s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=25489512 trigger=1.000 E-OSPA=2.046 runtime=15.80s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10188112 trigger=1.000 E-OSPA=2.032 runtime=14.75s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10159984 trigger=1.000 E-OSPA=2.031 runtime=14.84s
+Event-trigger trial 7/50 (seed=38)
+  Arm 1/4: Periodic full posterior
+    bytes=26776496 trigger=1.000 E-OSPA=1.983 runtime=14.98s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=30218976 trigger=1.000 E-OSPA=2.201 runtime=17.50s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11030864 trigger=1.000 E-OSPA=1.983 runtime=15.66s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11142576 trigger=1.000 E-OSPA=2.016 runtime=16.10s
+Event-trigger trial 8/50 (seed=39)
+  Arm 1/4: Periodic full posterior
+    bytes=40147600 trigger=1.000 E-OSPA=2.176 runtime=23.06s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=31960384 trigger=1.000 E-OSPA=2.104 runtime=18.59s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=15906208 trigger=1.000 E-OSPA=2.176 runtime=23.15s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=15738000 trigger=1.000 E-OSPA=2.170 runtime=23.42s
+Event-trigger trial 9/50 (seed=40)
+  Arm 1/4: Periodic full posterior
+    bytes=28152688 trigger=1.000 E-OSPA=2.086 runtime=15.12s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28656984 trigger=1.000 E-OSPA=2.175 runtime=15.84s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11289520 trigger=1.000 E-OSPA=2.086 runtime=15.16s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11045904 trigger=1.000 E-OSPA=2.108 runtime=15.07s
+Event-trigger trial 10/50 (seed=41)
+  Arm 1/4: Periodic full posterior
+    bytes=28387864 trigger=1.000 E-OSPA=2.136 runtime=17.01s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=30129424 trigger=1.000 E-OSPA=2.280 runtime=17.21s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=12713632 trigger=1.000 E-OSPA=2.136 runtime=17.82s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=13186208 trigger=1.000 E-OSPA=2.126 runtime=18.19s
+Event-trigger trial 11/50 (seed=42)
+  Arm 1/4: Periodic full posterior
+    bytes=25399752 trigger=1.000 E-OSPA=1.984 runtime=14.37s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27669736 trigger=1.000 E-OSPA=2.119 runtime=16.61s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11254320 trigger=1.000 E-OSPA=1.984 runtime=15.08s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11252896 trigger=1.000 E-OSPA=1.984 runtime=15.65s
+Event-trigger trial 12/50 (seed=43)
+  Arm 1/4: Periodic full posterior
+    bytes=30228576 trigger=1.000 E-OSPA=2.055 runtime=15.93s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=30102448 trigger=1.000 E-OSPA=2.101 runtime=17.60s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=12162192 trigger=1.000 E-OSPA=2.055 runtime=16.64s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12176272 trigger=1.000 E-OSPA=2.054 runtime=16.75s
+Event-trigger trial 13/50 (seed=44)
+  Arm 1/4: Periodic full posterior
+    bytes=26070088 trigger=1.000 E-OSPA=2.024 runtime=13.54s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28172512 trigger=1.000 E-OSPA=2.091 runtime=16.60s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10460032 trigger=1.000 E-OSPA=2.024 runtime=14.09s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10732640 trigger=1.000 E-OSPA=2.004 runtime=14.42s
+Event-trigger trial 14/50 (seed=45)
+  Arm 1/4: Periodic full posterior
+    bytes=27457848 trigger=1.000 E-OSPA=2.065 runtime=14.87s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=25930144 trigger=1.000 E-OSPA=2.054 runtime=15.11s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11334720 trigger=1.000 E-OSPA=2.065 runtime=15.34s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11482976 trigger=1.000 E-OSPA=2.058 runtime=15.96s
+Event-trigger trial 15/50 (seed=46)
+  Arm 1/4: Periodic full posterior
+    bytes=28029216 trigger=1.000 E-OSPA=2.093 runtime=14.98s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29493168 trigger=1.000 E-OSPA=2.201 runtime=16.62s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11455680 trigger=1.000 E-OSPA=2.093 runtime=15.39s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11538912 trigger=1.000 E-OSPA=2.095 runtime=15.84s
+Event-trigger trial 16/50 (seed=47)
+  Arm 1/4: Periodic full posterior
+    bytes=27874736 trigger=1.000 E-OSPA=2.125 runtime=14.58s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28521008 trigger=1.000 E-OSPA=2.140 runtime=15.86s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11559248 trigger=1.000 E-OSPA=2.125 runtime=15.17s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11631232 trigger=1.000 E-OSPA=2.119 runtime=15.09s
+Event-trigger trial 17/50 (seed=48)
+  Arm 1/4: Periodic full posterior
+    bytes=29494600 trigger=1.000 E-OSPA=2.165 runtime=16.47s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=30736776 trigger=1.000 E-OSPA=2.255 runtime=17.74s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=13095952 trigger=1.000 E-OSPA=2.165 runtime=16.99s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12997232 trigger=1.000 E-OSPA=2.122 runtime=17.19s
+Event-trigger trial 18/50 (seed=49)
+  Arm 1/4: Periodic full posterior
+    bytes=26043088 trigger=1.000 E-OSPA=1.992 runtime=13.89s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=25402584 trigger=1.000 E-OSPA=2.023 runtime=14.67s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10997008 trigger=1.000 E-OSPA=1.992 runtime=14.41s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10954048 trigger=1.000 E-OSPA=2.004 runtime=14.64s
+Event-trigger trial 19/50 (seed=50)
+  Arm 1/4: Periodic full posterior
+    bytes=28650056 trigger=1.000 E-OSPA=2.105 runtime=14.55s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28902208 trigger=1.000 E-OSPA=2.146 runtime=15.66s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11548160 trigger=1.000 E-OSPA=2.105 runtime=16.01s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11432640 trigger=1.000 E-OSPA=2.105 runtime=16.09s
+Event-trigger trial 20/50 (seed=51)
+  Arm 1/4: Periodic full posterior
+    bytes=27484560 trigger=1.000 E-OSPA=2.112 runtime=15.69s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29581088 trigger=1.000 E-OSPA=2.178 runtime=18.75s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11279952 trigger=1.000 E-OSPA=2.112 runtime=16.43s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11522368 trigger=1.000 E-OSPA=2.118 runtime=17.04s
+Event-trigger trial 21/50 (seed=52)
+  Arm 1/4: Periodic full posterior
+    bytes=27648168 trigger=1.000 E-OSPA=2.106 runtime=16.04s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=30933064 trigger=1.000 E-OSPA=2.124 runtime=19.20s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10956864 trigger=1.000 E-OSPA=2.106 runtime=16.43s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11841648 trigger=1.000 E-OSPA=2.098 runtime=17.07s
+Event-trigger trial 22/50 (seed=53)
+  Arm 1/4: Periodic full posterior
+    bytes=25287544 trigger=1.000 E-OSPA=2.038 runtime=13.58s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=25234600 trigger=1.000 E-OSPA=2.102 runtime=14.31s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10425760 trigger=1.000 E-OSPA=2.038 runtime=14.24s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11227504 trigger=1.000 E-OSPA=2.046 runtime=16.08s
+Event-trigger trial 23/50 (seed=54)
+  Arm 1/4: Periodic full posterior
+    bytes=26422896 trigger=1.000 E-OSPA=2.008 runtime=15.11s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28793240 trigger=1.000 E-OSPA=2.075 runtime=18.10s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11038128 trigger=1.000 E-OSPA=2.008 runtime=15.65s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10935120 trigger=1.000 E-OSPA=1.986 runtime=15.81s
+Event-trigger trial 24/50 (seed=55)
+  Arm 1/4: Periodic full posterior
+    bytes=28073288 trigger=1.000 E-OSPA=2.066 runtime=16.42s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29433016 trigger=1.000 E-OSPA=2.125 runtime=17.76s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11899088 trigger=1.000 E-OSPA=2.066 runtime=17.09s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11978736 trigger=1.000 E-OSPA=2.070 runtime=17.06s
+Event-trigger trial 25/50 (seed=56)
+  Arm 1/4: Periodic full posterior
+    bytes=24605984 trigger=1.000 E-OSPA=1.972 runtime=12.79s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27871416 trigger=1.000 E-OSPA=2.056 runtime=16.81s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=9859280 trigger=1.000 E-OSPA=1.972 runtime=13.29s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10386848 trigger=1.000 E-OSPA=2.028 runtime=13.14s
+Event-trigger trial 26/50 (seed=57)
+  Arm 1/4: Periodic full posterior
+    bytes=27709328 trigger=1.000 E-OSPA=2.032 runtime=12.13s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28124400 trigger=1.000 E-OSPA=2.121 runtime=13.97s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11379728 trigger=1.000 E-OSPA=2.032 runtime=12.80s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11398448 trigger=1.000 E-OSPA=2.039 runtime=12.88s
+Event-trigger trial 27/50 (seed=58)
+  Arm 1/4: Periodic full posterior
+    bytes=26028120 trigger=1.000 E-OSPA=2.083 runtime=11.34s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28739048 trigger=1.000 E-OSPA=2.186 runtime=13.42s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10359936 trigger=1.000 E-OSPA=2.083 runtime=11.76s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10472240 trigger=1.000 E-OSPA=2.081 runtime=12.62s
+Event-trigger trial 28/50 (seed=59)
+  Arm 1/4: Periodic full posterior
+    bytes=26606832 trigger=1.000 E-OSPA=2.077 runtime=14.05s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28337504 trigger=1.000 E-OSPA=2.155 runtime=16.33s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10540656 trigger=1.000 E-OSPA=2.077 runtime=14.80s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11135056 trigger=1.000 E-OSPA=2.122 runtime=17.79s
+Event-trigger trial 29/50 (seed=60)
+  Arm 1/4: Periodic full posterior
+    bytes=27895808 trigger=1.000 E-OSPA=2.049 runtime=16.58s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28716352 trigger=1.000 E-OSPA=2.149 runtime=15.65s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=12397472 trigger=1.000 E-OSPA=2.049 runtime=16.10s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12575264 trigger=1.000 E-OSPA=2.042 runtime=16.37s
+Event-trigger trial 30/50 (seed=61)
+  Arm 1/4: Periodic full posterior
+    bytes=26044880 trigger=1.000 E-OSPA=2.004 runtime=14.50s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=24914584 trigger=1.000 E-OSPA=2.015 runtime=13.81s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11487680 trigger=1.000 E-OSPA=2.004 runtime=15.07s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11560640 trigger=1.000 E-OSPA=1.997 runtime=15.28s
+Event-trigger trial 31/50 (seed=62)
+  Arm 1/4: Periodic full posterior
+    bytes=27105040 trigger=1.000 E-OSPA=2.141 runtime=14.32s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=39741312 trigger=1.000 E-OSPA=2.273 runtime=21.26s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11512960 trigger=1.000 E-OSPA=2.141 runtime=15.03s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11954336 trigger=1.000 E-OSPA=2.183 runtime=15.59s
+Event-trigger trial 32/50 (seed=63)
+  Arm 1/4: Periodic full posterior
+    bytes=26656624 trigger=1.000 E-OSPA=1.983 runtime=13.55s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29185816 trigger=1.000 E-OSPA=2.159 runtime=17.14s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11220448 trigger=1.000 E-OSPA=1.983 runtime=13.56s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11272176 trigger=1.000 E-OSPA=1.975 runtime=14.75s
+Event-trigger trial 33/50 (seed=64)
+  Arm 1/4: Periodic full posterior
+    bytes=25654048 trigger=1.000 E-OSPA=2.085 runtime=13.36s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27089912 trigger=1.000 E-OSPA=2.142 runtime=16.71s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10385536 trigger=1.000 E-OSPA=2.085 runtime=14.25s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10391840 trigger=1.000 E-OSPA=2.073 runtime=13.72s
+Event-trigger trial 34/50 (seed=65)
+  Arm 1/4: Periodic full posterior
+    bytes=27058208 trigger=1.000 E-OSPA=1.981 runtime=14.09s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27834848 trigger=1.000 E-OSPA=2.122 runtime=14.36s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10961456 trigger=1.000 E-OSPA=1.981 runtime=14.18s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10462592 trigger=1.000 E-OSPA=1.975 runtime=13.74s
+Event-trigger trial 35/50 (seed=66)
+  Arm 1/4: Periodic full posterior
+    bytes=26381256 trigger=1.000 E-OSPA=2.002 runtime=12.97s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27782848 trigger=1.000 E-OSPA=2.115 runtime=14.70s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10508448 trigger=1.000 E-OSPA=2.002 runtime=13.37s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10502176 trigger=1.000 E-OSPA=1.999 runtime=13.57s
+Event-trigger trial 36/50 (seed=67)
+  Arm 1/4: Periodic full posterior
+    bytes=27190824 trigger=1.000 E-OSPA=2.077 runtime=14.13s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=32966336 trigger=1.000 E-OSPA=2.306 runtime=17.39s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11254512 trigger=1.000 E-OSPA=2.077 runtime=14.68s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11428416 trigger=1.000 E-OSPA=2.101 runtime=15.01s
+Event-trigger trial 37/50 (seed=68)
+  Arm 1/4: Periodic full posterior
+    bytes=25888496 trigger=1.000 E-OSPA=2.079 runtime=13.55s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=36143200 trigger=1.000 E-OSPA=2.303 runtime=19.47s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11044352 trigger=1.000 E-OSPA=2.079 runtime=14.13s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10922816 trigger=1.000 E-OSPA=2.074 runtime=14.06s
+Event-trigger trial 38/50 (seed=69)
+  Arm 1/4: Periodic full posterior
+    bytes=27446744 trigger=1.000 E-OSPA=2.105 runtime=14.71s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29808552 trigger=1.000 E-OSPA=2.240 runtime=16.59s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11930096 trigger=1.000 E-OSPA=2.105 runtime=15.10s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12010256 trigger=1.000 E-OSPA=2.154 runtime=15.36s
+Event-trigger trial 39/50 (seed=70)
+  Arm 1/4: Periodic full posterior
+    bytes=24407568 trigger=1.000 E-OSPA=1.994 runtime=12.39s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28942360 trigger=1.000 E-OSPA=2.192 runtime=15.66s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10062720 trigger=1.000 E-OSPA=1.994 runtime=12.92s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10129712 trigger=1.000 E-OSPA=1.998 runtime=13.16s
+Event-trigger trial 40/50 (seed=71)
+  Arm 1/4: Periodic full posterior
+    bytes=26889528 trigger=1.000 E-OSPA=2.018 runtime=13.99s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=29069824 trigger=1.000 E-OSPA=2.186 runtime=15.62s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11475360 trigger=1.000 E-OSPA=2.018 runtime=14.42s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11084112 trigger=1.000 E-OSPA=2.046 runtime=14.27s
+Event-trigger trial 41/50 (seed=72)
+  Arm 1/4: Periodic full posterior
+    bytes=27685912 trigger=1.000 E-OSPA=2.013 runtime=14.30s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28463552 trigger=1.000 E-OSPA=2.178 runtime=16.01s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11562784 trigger=1.000 E-OSPA=2.013 runtime=15.18s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11656272 trigger=1.000 E-OSPA=2.022 runtime=15.09s
+Event-trigger trial 42/50 (seed=73)
+  Arm 1/4: Periodic full posterior
+    bytes=38883728 trigger=1.000 E-OSPA=2.296 runtime=18.68s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=41666432 trigger=1.000 E-OSPA=2.368 runtime=21.47s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=14647040 trigger=1.000 E-OSPA=2.296 runtime=19.32s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=15046736 trigger=1.000 E-OSPA=2.314 runtime=20.34s
+Event-trigger trial 43/50 (seed=74)
+  Arm 1/4: Periodic full posterior
+    bytes=30801232 trigger=1.000 E-OSPA=2.173 runtime=16.26s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=31404048 trigger=1.000 E-OSPA=2.184 runtime=17.23s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=13294288 trigger=1.000 E-OSPA=2.173 runtime=17.00s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=13139392 trigger=1.000 E-OSPA=2.174 runtime=17.13s
+Event-trigger trial 44/50 (seed=75)
+  Arm 1/4: Periodic full posterior
+    bytes=27696752 trigger=1.000 E-OSPA=2.067 runtime=14.49s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=32430712 trigger=1.000 E-OSPA=2.190 runtime=18.72s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11693072 trigger=1.000 E-OSPA=2.067 runtime=15.03s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11716896 trigger=1.000 E-OSPA=2.059 runtime=15.12s
+Event-trigger trial 45/50 (seed=76)
+  Arm 1/4: Periodic full posterior
+    bytes=25565912 trigger=1.000 E-OSPA=1.943 runtime=12.78s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27903760 trigger=1.000 E-OSPA=2.075 runtime=15.62s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10314368 trigger=1.000 E-OSPA=1.943 runtime=13.16s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10310960 trigger=1.000 E-OSPA=1.942 runtime=13.24s
+Event-trigger trial 46/50 (seed=77)
+  Arm 1/4: Periodic full posterior
+    bytes=30247512 trigger=1.000 E-OSPA=2.194 runtime=15.47s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28728440 trigger=1.000 E-OSPA=2.068 runtime=15.32s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=12619104 trigger=1.000 E-OSPA=2.194 runtime=16.04s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12336192 trigger=1.000 E-OSPA=2.109 runtime=16.02s
+Event-trigger trial 47/50 (seed=78)
+  Arm 1/4: Periodic full posterior
+    bytes=27866216 trigger=1.000 E-OSPA=2.058 runtime=14.34s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=32063448 trigger=1.000 E-OSPA=2.193 runtime=17.20s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11843552 trigger=1.000 E-OSPA=2.058 runtime=14.86s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12023152 trigger=1.000 E-OSPA=2.077 runtime=15.45s
+Event-trigger trial 48/50 (seed=79)
+  Arm 1/4: Periodic full posterior
+    bytes=29607040 trigger=1.000 E-OSPA=2.151 runtime=14.94s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=31233600 trigger=1.000 E-OSPA=2.178 runtime=16.52s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=11986192 trigger=1.000 E-OSPA=2.151 runtime=15.53s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=11829440 trigger=1.000 E-OSPA=2.109 runtime=15.70s
+Event-trigger trial 49/50 (seed=80)
+  Arm 1/4: Periodic full posterior
+    bytes=24644280 trigger=1.000 E-OSPA=2.058 runtime=12.21s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=27726632 trigger=1.000 E-OSPA=2.139 runtime=15.18s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=10113120 trigger=1.000 E-OSPA=2.058 runtime=12.61s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=10113312 trigger=1.000 E-OSPA=2.053 runtime=12.83s
+Event-trigger trial 50/50 (seed=81)
+  Arm 1/4: Periodic full posterior
+    bytes=30591904 trigger=1.000 E-OSPA=2.035 runtime=16.14s
+  Arm 2/4: Periodic full posterior + dynamic topology
+    bytes=28987608 trigger=1.000 E-OSPA=2.050 runtime=15.44s
+  Arm 3/4: Periodic light posterior on static topology
+    bytes=12890080 trigger=1.000 E-OSPA=2.035 runtime=16.88s
+  Arm 4/4: Periodic light posterior + guarded dynamic topology
+    bytes=12809008 trigger=1.000 E-OSPA=2.020 runtime=17.06s
+=====================================
+Dual-threshold event-trigger GA-LMB (N=50)
+Calibration default multi thresholds: [0.3288 0.3791]
+=====================================
+Periodic full posterior: bytes 27771195, trigger 1.000, local E-OSPA 2.065, consensus OSPA 1.950
+Periodic full posterior + dynamic topology: bytes 29465456, trigger 1.000, local E-OSPA 2.151, consensus OSPA 2.167
+Periodic light posterior on static topology: bytes 11503339, trigger 1.000, local E-OSPA 2.065, consensus OSPA 1.950
+Periodic light posterior + guarded dynamic topology: bytes 11569943, trigger 1.000, local E-OSPA 2.066, consensus OSPA 1.964
+Report written: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED31_20260611_113226.md
+
+Periodic-light guarded topology final result
+Report: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED31_20260611_113226.md
+Summary: C:\Users\Deeee\Desktop\Projects\Efficient-KLA\RUN\GA\periodic_light_guarded_topology_final_n50_seeds32_81_20260611_103622.mat
+
+Arm names:
+    {'Periodic full posterior'                            }
+    {'Periodic full posterior + dynamic topology'         }
+    {'Periodic light posterior on static topology'        }
+    {'Periodic light posterior + guarded dynamic topology'}
+
+Payload bytes:
+   1.0e+07 *
+
+    2.7771    2.9465    1.1503    1.1570
+
+Local E-OSPA:
+    2.0652    2.1508    2.0652    2.0665
+
+Consensus OSPA:
+    1.9501    2.1667    1.9501    1.9643
+
+Position disagreement:
+    4.7577    5.0640    4.7577    4.9806
+
+Cardinality dispersion:
+    0.2026    0.2113    0.2026    0.2039
+
+Byte reduction percent:
+         0   -6.1008   58.5782   58.3383
+
+Local E-OSPA change percent:
+         0    4.1483         0    0.0622
+
+Consensus OSPA change percent:
+         0   11.1088         0    0.7299
+
+Qualifies for scale-up:
+   0   0   1   1
+
