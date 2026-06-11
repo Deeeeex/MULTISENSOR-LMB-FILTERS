@@ -1,0 +1,77 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Benchmark and Metrics}
+
+We evaluate on an eight-sensor 4+4 formation benchmark with 100 simulation
+steps per trial. Each node runs the same local LMB prediction and measurement
+update, then performs one synchronous distributed fusion round. The static
+communication graph has 16 undirected edges. Packet delivery is stochastic,
+with average node-level drop probabilities near 0.2 in the held-out run. All
+arms use the same seeds, measurements, target trajectories, and packet-drop
+draws.
+
+We report estimated communication bytes, local tracking accuracy, and network
+agreement. Local accuracy is measured by the mean local E-OSPA score, while
+network agreement is measured by consensus OSPA, position disagreement, and
+cardinality dispersion \cite{Schuhmacher2008OSPA}. Communication is estimated
+from the number of transmitted scalar posterior values. The trial-level pass
+gate requires at least 30\% byte reduction relative to full posterior exchange,
+no more than 5\% local E-OSPA degradation, and no more than 10\% degradation in
+consensus OSPA, position disagreement, and cardinality dispersion.
+
+\subsection{Compared Arms}
+
+The primary baseline is periodic full-posterior exchange on the static graph.
+The proposed arm is periodic light-posterior exchange on the same graph. We also
+include two diagnostic arms. First, full-posterior exchange with guarded dynamic
+topology tests whether changing neighbors alone improves the trade-off. Second,
+light-posterior exchange with guarded dynamic topology tests whether the light
+payload remains stable when the graph is allowed to adapt. The guarded dynamic
+topology uses the same 16-edge budget as the static graph and falls back when
+connectivity checks fail; it is included as an ablation rather than as the main
+method.
+
+\begin{table}[t]
+    \centering
+    \caption{Held-out 50-trial results over seeds 32--81. Lower bytes and OSPA are better.}
+    \label{tab:heldout-results}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        Arm & Bytes (M) & Red. & Local & Cons. & $\lambda_2^{\mathrm{eff}}$ & Pass \\
+        \midrule
+        Full-static & 27.77 & 0.0\% & 2.065 & 1.950 & 0.373 & ref. \\
+        Full-dynamic & 29.47 & -6.1\% & 2.151 & 2.167 & 0.301 & 0/50 \\
+        Light-static & 11.50 & 58.6\% & 2.065 & 1.950 & 0.373 & 50/50 \\
+        Light-dynamic & 11.57 & 58.3\% & 2.067 & 1.964 & 0.371 & 35/50 \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+\subsection{Held-out Results}
+
+Table~\ref{tab:heldout-results} shows that the graph-preserving light posterior
+is the only non-reference arm that exactly matches the full-posterior baseline
+on both local tracking and consensus metrics. It reduces estimated
+communication from 27.77M to 11.50M bytes, a 58.6\% reduction, while preserving
+the effective-weight algebraic connectivity at 0.373. Its paired trial pass
+count is 50/50, and its worst-case byte reduction remains above 55\%.
+
+The dynamic-topology arms clarify why the main method keeps the static graph.
+Dynamic topology with full posterior exchange sends slightly more bytes than
+the static baseline and degrades consensus OSPA by 11.1\% on average; its
+effective-weight connectivity drops from 0.373 to 0.301. This indicates that
+nominally adaptive connectivity does not guarantee a better KLA information
+flow. Adding light payloads to guarded dynamic topology recovers most average
+performance, but the pass count falls to 35/50 because some trials still incur
+larger agreement or cardinality deviations. Thus the robust result is not
+``dynamic topology plus light messages,'' but the simpler combination of a
+fixed effective graph with light posterior payloads.
+
+These results support the paper's central claim. In this single-round
+GA/KLA-LMB setting, the dominant communication saving comes from removing
+unneeded mixture-detail payload, not from dropping message paths. When the
+receiver ultimately fuses label-wise Bernoulli moments, periodic light posterior
+exchange can reproduce full posterior behavior while substantially reducing
+communication.
