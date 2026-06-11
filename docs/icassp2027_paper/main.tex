@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{spconf,amsmath,graphicx,booktabs}
+\usepackage{hyperref}
+
+\title{Light Posterior Exchange for Communication-Efficient Distributed LMB Fusion}
+
+\name{Anonymous ICASSP Submission}
+\address{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Distributed labeled multi-Bernoulli (LMB) fusion often exchanges full Gaussian-mixture posteriors even when the receiver-side fusion step ultimately consumes label-wise moment-matched Bernoulli statistics. This paper studies a simpler communication lever: keep the effective Kullback-Leibler average (KLA) fusion graph intact, but replace full posterior messages with light posteriors containing per-label existence probabilities and single-Gaussian moments. On a 4+4 multisensor formation benchmark, a periodic light-posterior exchange matches the full-posterior baseline in tracking and consensus metrics over 50 held-out trials while reducing estimated communication by 58.6\%. The result suggests that, for single-round GA/KLA-LMB fusion, payload compression can be safer than event-triggered graph sparsification.
+\end{abstract}
+
+\begin{keywords}
+Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA fusion, communication-efficient sensing
+\end{keywords}
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_method_placeholder}
+\input{sections/04_experiments_placeholder}
+\input{sections/05_conclusion_placeholder}
+
+\bibliographystyle{IEEEbib}
+\bibliography{refs}
+
+\end{document}
