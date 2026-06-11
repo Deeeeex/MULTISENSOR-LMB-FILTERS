@@ -1,7 +1,7 @@
 \section{Theoretical Interpretation of Adaptive Branch-Decoupled Fusion}
 \label{app:theory}
 
-The proof chain behind the adaptive branch-decoupled rule is deliberately limited. It assumes the same label alignment and moment-compatible Gaussian projection used by the implemented merger, together with standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. It should not be read as a global optimality theory for unconstrained LMB fusion.
+The proof chain behind the adaptive branch-decoupled rule is scoped to the same label alignment and moment-compatible Gaussian projection used by the implemented merger, together with standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Under these assumptions, it gives a local interpretation of the implemented update; unconstrained LMB fusion remains outside this appendix scope.
 
 \subsection{Entropy-Regularized Interpretation of the Weight Backbone}
 
@@ -117,7 +117,7 @@ r\sum_j w_{x,j}\, D_{\mathrm{KL}}(p\,\|\,p_{i,j}).
 Its minimizer uses the normalized geometric spatial product corresponding to \eqref{eq:method-gaussian-canonical}, and its existence logit is the identity in \eqref{eq:appendix-logit-pooling}. The spatial part follows by normalizing the weighted geometric product. Substituting this optimum gives the $-\log\eta_i(w_x)$ spatial contribution, and differentiating the Bernoulli part gives the logit identity. With aligned labels and product LMB form, the same argument lifts labelwise because the reverse-KL divergence is additive across aligned Bernoulli factors.
 
 \paragraph{Scope boundary.}
-This surrogate does not make the branch-decoupled rule the unique optimizer of a fully unconstrained LMB fusion objective. It only states that the implemented update is compatible with a per-Bernoulli aligned-LMB objective under the merger's label-alignment and projection assumptions.
+This surrogate supports a compatibility statement: under the merger's label-alignment and projection assumptions, the implemented update matches a per-Bernoulli aligned-LMB objective.
 
 \subsection{Branch-Decoupled Weight Allocation and Structure-Aware Regularization}
 
@@ -168,7 +168,7 @@ w_{x,j}^{\star}
 \xi_{x,j}^{\gamma_x}.
 \label{eq:appendix-fid-branch-weights}
 \end{equation}
-The FID-FIA term is therefore an existence-branch log-utility, not a change to the spatial KLA barycenter.
+The FID-FIA term is therefore an existence-branch log-utility that leaves the spatial KLA barycenter unchanged.
 
 \paragraph{Proposition C7.}
 Define
@@ -214,4 +214,4 @@ For any $\alpha \in [0,1]$, $w_k^{\mathrm{ema}}$ is the minimizer of
 \alpha \|w-w_{k-1}\|_2^2 + (1-\alpha)\|w-\hat w_k\|_2^2
 \right\}.
 \end{equation}
-The EMA step is therefore a quadratic compromise between the previous weights and the instantaneous weights. The subsequent minimum-weight enforcement remains a pragmatic feasibility projection rather than part of one single exact objective.
+The EMA step is therefore a quadratic compromise between the previous weights and the instantaneous weights. The subsequent minimum-weight enforcement is a pragmatic feasibility projection outside this quadratic interpretation.

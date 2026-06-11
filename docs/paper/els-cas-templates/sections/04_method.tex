@@ -1,7 +1,7 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is the conservative geometric-average realization of Kullback-Leibler averaging for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The main methodological question is not how to redesign the underlying labeled-RFS filter family, but how to allocate fusion weights so that they reflect posterior quality and realized communication quality in a communication-constrained sensor network. The scores below should be read as bounded reliability cues consumed by the GA-LMB merger, not as independent optimality claims for each coefficient. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
+This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is the conservative geometric-average realization of Kullback-Leibler averaging for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The method concentrates on online fusion-weight allocation inside this labeled-RFS filter family, using bounded reliability cues that the GA-LMB merger consumes at each node. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
 
 \subsection{Baseline GA-LMB fusion}
 
@@ -35,7 +35,7 @@ where $\eta_{k,i}^{(s)}$ is the Gaussian normalization term induced by the fused
 
 \subsection{Adaptive reliability factors}
 
-The adaptive layer is organized as a reliability-allocation design rather than a catalogue of independent cues. It first forms a shared active-neighbor backbone that captures whether a neighbor is informative enough to participate in fusion, and then the next subsection routes this backbone into branch-specific spatial and existence weights.
+The adaptive layer is organized as a reliability-allocation design. It first forms a shared active-neighbor backbone that captures whether a neighbor is informative enough to participate in fusion, and then the next subsection routes this backbone into branch-specific spatial and existence weights.
 
 \paragraph{Shared backbone.}
 For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
@@ -69,7 +69,7 @@ q_{\mathrm{cov},k}^{(j)}
 \end{equation}
 where $\epsilon>0$ is a small numerical constant used to avoid division by zero. A node with smaller posterior spread therefore receives a larger score.
 
-The link-quality term is derived from realized communication outcomes rather than nominal topology. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The realized link-quality score is defined as
+The link-quality term is derived from realized communication outcomes. Let $d_k^{(j)}$ and $\ell_k^{(j)}$ denote the counts of delivered and dropped measurements, respectively. The realized link-quality score is defined as
 \begin{equation}
 q_{\mathrm{link},k}^{(j)}
 =
@@ -78,11 +78,11 @@ q_{\mathrm{link},k}^{(j)}
 which directly reflects how reliably that node's information is reaching its neighbors.
 
 \noindent\textbf{Design rationale.}
-The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue is deliberately based on delivered and dropped measurements at the current time step rather than on the static graph, because a connected neighbor whose packets are not delivered should not be treated the same as one whose information actually reaches the fusion node.
+The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue uses delivered and dropped measurements at the current time step, so the weights reflect the information that actually reaches the fusion node.
 
 \paragraph{Existence decisiveness.}
 
-The third cue is separated because Bernoulli existence uncertainty is not the same object as spatial posterior spread. For the $i$th Bernoulli component at node $j$,
+The third cue is separated because Bernoulli existence uncertainty differs from spatial posterior spread. For the $i$th Bernoulli component at node $j$,
 \begin{equation}
 c_{k,i}^{(j)} = \left|2r_{k,i}^{(j)} - 1\right|.
 \end{equation}
@@ -120,7 +120,7 @@ The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component 
 
 \subsection{Branch-decoupled allocation and FID-FIA refinement}
 
-The proposed method does not force the same adaptive score to govern spatial fusion and existence fusion. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, even though the formal variational interpretation is deferred to Appendix~\ref{app:theory}. The method therefore constructs branch-specific dedicated scores:
+The proposed method allows spatial fusion and existence fusion to use different adaptive scores. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, with the formal variational interpretation deferred to Appendix~\ref{app:theory}. The method therefore constructs branch-specific dedicated scores:
 \begin{equation}
 \label{eq:method-spatial-dedicated-score}
 \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
@@ -153,14 +153,14 @@ The powers $\alpha_x,\beta_x,\beta_r,\alpha_r \ge 0$ tune the influence of the b
 \left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
 \end{equation}
 Here $\eta_x,\eta_r\in[0,1]$ are interpolation strengths: zero keeps the shared backbone, and one uses the dedicated branch score.
-The point of this decoupling is not to create two unrelated methods, but to acknowledge that spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is a natural scalar indicator of local target-separability and posterior informativeness, and in our experiments it is especially effective for cardinality and existence decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. However, applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in Appendix~\ref{app:theory}, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The branch-decoupled formulation relaxes this constraint: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
+This decoupling links a shared reliability backbone to two algebraically different fusion blocks: spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is a natural scalar indicator of local target-separability and posterior informativeness, and in our experiments it is especially effective for cardinality and existence decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. Applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in Appendix~\ref{app:theory}, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The branch-decoupled formulation relaxes this constraint: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
 
 \noindent\textbf{Remark 3 (why geometric interpolation).}
-The shared score remains an anchor for both branches, so the spatial and existence paths do not drift into unrelated weight rules. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score instead of being cancelled by a large additive term.
+The shared score keeps both branches tied to the same reliability model. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score even when another term is large.
 
 \paragraph{Existence-only FID-FIA refinement.}
 
-The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets, but it is not used as a replacement scalar fusion rule. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+The Cardinality-critical mode therefore adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets and uses it as an existence-side modulation. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
 \begin{equation}
 \label{eq:method-fid-normalization}
 \hat{a}_{k,s}^{(j)}
@@ -187,12 +187,12 @@ Only the existence score is modified:
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 \end{equation}
 Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
-Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility and adds nothing to the spatial utility; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
+Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility while leaving the spatial utility unchanged; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
 
 \paragraph{Weak structure-aware refinement and stabilization.}
 After branch decoupling and before the final FID-FIA existence modulation, the method applies a weak graph-aware correction through local structure priors derived from neighborhood-overlap similarity and communication-reliability information. The existence-side structure strength is intentionally kept much smaller than the spatial-side structure strength, so topology provides only a secondary regularization signal and does not dominate the core weight assignment.
 
-The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step is pragmatic rather than a novelty claim by itself; its purpose is to preserve the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
+The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step preserves the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
 \subsection{Algorithm and operating modes}
 
@@ -220,10 +220,10 @@ The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusio
 
 \paragraph{Operating modes.}
 
-The resulting method family supports two practical operating modes rather than a single mandatory setting. The \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, weak structure-aware refinement, and the standard temporal stabilization, but does not apply the final FID-FIA existence modulation. This mode is recommended when spatial accuracy, RMSE stability, runtime, or energy budget is the primary operational concern.
+The resulting method family supports two practical operating modes. The \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, weak structure-aware refinement, and the standard temporal stabilization, while leaving the final FID-FIA existence modulation inactive. This mode is recommended when spatial accuracy, RMSE stability, runtime, or energy budget is the primary operational concern.
 
 The \emph{Cardinality-critical mode} adds the FID-FIA cue only to the existence branch. This mode is recommended when the cost of target-number disagreement, missed tracks, or false support is higher than a modest local-RMSE and runtime tradeoff. Both modes share the same communication-aware backbone and the same branch-decoupled fusion algebra; they differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. This framing is important because the experiments show a real operating tradeoff: the backbone is often the stronger low-overhead position-oriented choice, whereas the Cardinality-critical mode is the stronger cardinality-consensus choice with substantially higher information-geometric computation.
 
 \paragraph{Optional extension modules.}
 
-The evaluated software also supports several exploratory extension modules outside the claimed core method. Their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements, so they are kept out of the main method description and summarized only in Appendix~\ref{app:additional-modules}.
+The evaluated software also supports several exploratory extension modules. Appendix~\ref{app:additional-modules} summarizes them because their empirical effects are smaller, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements.

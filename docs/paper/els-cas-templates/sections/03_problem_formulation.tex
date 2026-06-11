@@ -36,7 +36,7 @@ Before local measurements are used by a neighboring fusion node, they pass throu
 \item a stochastic packet-drop model on each sensor link,
 \item optional node-level outages.
 \end{enumerate}
-Accordingly, the posterior that reaches a neighbor is influenced not only by the underlying sensing quality, but also by whether measurements were actually delivered. Let $m_k^{(j)} \in \{0,1\}$ denote the availability indicator of node $j$ at time $k$, and let $\rho_k^{(j)} \in [0,1]$ denote the realized link-quality statistic derived from delivered-versus-dropped packets.
+Accordingly, the posterior that reaches a neighbor reflects both the underlying sensing quality and the measurements that were actually delivered. Let $m_k^{(j)} \in \{0,1\}$ denote the availability indicator of node $j$ at time $k$, and let $\rho_k^{(j)} \in [0,1]$ denote the realized link-quality statistic derived from delivered-versus-dropped packets.
 
 \subsection{Distributed KLA fusion objective}
 
@@ -59,12 +59,12 @@ The adaptive layer must output active-neighbor weight vectors on the simplex. In
 
 \subsection{Evaluation target}
 
-The aim of the above formulation is not only to improve each node's local tracking output, but also to improve agreement among nodes. This distinction is central in the present problem. Under unknown cross-correlations and communication losses, distributed fusion is useful only if neighboring nodes move toward a shared multi-sensor picture rather than drifting toward mutually inconsistent local beliefs.
+The aim of the above formulation is to improve each node's local tracking output and agreement among nodes. This distinction is central in the present problem. Under unknown cross-correlations and communication losses, distributed fusion should move neighboring nodes toward a shared multi-sensor picture.
 
 Accordingly, the evaluation uses two complementary metric layers:
 \begin{itemize}
 \item primary network-level disagreement metrics, which quantify consensus error among the fused outputs of different sensors,
-\item secondary truth-referenced local tracking metrics, which verify that consensus-error reductions are not obtained by materially degrading conventional tracking accuracy.
+\item secondary truth-referenced local tracking metrics, which verify that consensus-error reductions preserve conventional tracking accuracy.
 \end{itemize}
 
 Let $\hat{X}_k^{(s)}$ denote the extracted multi-object estimate at sensor $s$ and time $k$, and let $\hat{n}_k^{(s)} = |\hat{X}_k^{(s)}|$ denote its estimated cardinality. The paper defines the following network-level disagreement metrics:
@@ -93,7 +93,7 @@ D_{\mathrm{card}}(k)
 \end{align}
 where $d_{\mathrm{OSPA}}$ is the pairwise optimal subpattern assignment (OSPA) distance between two estimated finite sets and $d_{\mathrm{loc}}$ is the matched localization disagreement obtained after Hungarian matching on the common extracted objects \cite{Schuhmacher2008OSPA,Ristic2011TrackMetric,Kuhn1955Hungarian}. In the paper these are reported as OSPA consensus error, matched localization disagreement, and cardinality dispersion, respectively.
 
-These three quantities are task-driven network-level disagreement measures rather than standard field-wide tracking benchmarks. Their building blocks are standard or conventional: OSPA and related generalized OSPA (GOSPA)-style distances are mainstream finite-set tracking metrics, Hungarian matching is the standard assignment primitive behind many tracking scores, and pairwise dispersion is the usual way to quantify disagreement in consensus problems \cite{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric,XiaoBoydLall2005ConsensusWeights}. What is specific to this paper is the aggregation target: instead of comparing each sensor only with ground truth, the metrics compare the post-fusion outputs of different nodes. They are introduced because the present problem is distributed fusion under heterogeneous communication, where the main question is whether neighboring nodes move toward a common fused picture. For that reason, the paper does not use them as replacements for conventional truth-referenced tracking metrics, and it pairs the network-level disagreement metrics with the secondary local metrics listed below.
+These three quantities are task-driven network-level disagreement measures built from standard ingredients: OSPA and related generalized OSPA (GOSPA)-style distances are mainstream finite-set tracking metrics, Hungarian matching is the standard assignment primitive behind many tracking scores, and pairwise dispersion is the usual way to quantify disagreement in consensus problems \cite{Schuhmacher2008OSPA,Rahmathullah2017GOSPA,Ristic2011TrackMetric,XiaoBoydLall2005ConsensusWeights}. What is specific to this paper is the aggregation target: in addition to comparing each sensor with ground truth, the metrics compare the post-fusion outputs of different nodes. They are introduced because the present problem is distributed fusion under heterogeneous communication, where the main question is whether neighboring nodes move toward a common fused picture. The paper therefore reports these network-level disagreement metrics together with the secondary truth-referenced local metrics listed below.
 
 The secondary local metrics remain the standard truth-referenced tracking quantities:
 \begin{itemize}
