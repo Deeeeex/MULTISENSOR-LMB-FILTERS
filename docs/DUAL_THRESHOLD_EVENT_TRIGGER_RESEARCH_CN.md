@@ -92,16 +92,19 @@ U_label = q_local * (
 - `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N5_SEEDS2_6_20260609.md`
 
 上述两份是 2026-06-09 早期失败模式记录。后续通过 light-floor、
-guarded dynamic topology、mixed payload 和候选选择矩阵继续迭代，当前
-20-trial held-out 主结果见：
+guarded dynamic topology、mixed payload 和候选选择矩阵继续迭代，并完成
+N50 final component validation。最终 held-out 主结果见：
 
-- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N20_SEED11_20260611_095640.md`
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED31_20260611_113226.md`
 
-截至 2026-06-11，最稳健的候选不是新增 heavy/handshake 事件触发逻辑，
-而是 `Periodic light posterior + guarded dynamic topology`。该结果说明在
-当前单轮、moment-matched KLA 融合实现下，主要收益来自守卫式动态拓扑
-和全边 light posterior 同步，C1/C2 更适合作为 handshake 与 mixed payload
-消融，而不是主方法。
+截至 2026-06-11，N50 证据支持的最终 Pareto arm 不是新增 heavy/handshake
+事件触发逻辑，也不是 guarded dynamic topology，而是
+`Periodic light posterior on static topology`。该配置相对静态 full posterior
+节省约 58.6% 字节，local E-OSPA、consensus OSPA、position disagreement 和
+cardinality dispersion 完全持平，并在 paired gate 上 50/50 通过。该结果说明
+在当前单轮、moment-matched KLA 融合实现下，主要收益来自全边 light posterior
+payload 替代 full posterior payload；动态拓扑、C1/C2、handshake 与 mixed
+payload 都应写成消融或待更强场景验证的机制，而不是当前主方法。
 
 ## 2026-06-09 进度记录
 
@@ -298,14 +301,14 @@ mixed label-wise payload 在该 seed 上相对 guarded light-floor 继续减少�
 
 | Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Pass count | 结论 |
 |:--|--:|--:|--:|--:|--:|:--:|:--|
-| Periodic light posterior + guarded dynamic topology | 58.0% | +0.2% | +0.5% | +1.8% | +0.8% | 5/5 | Pareto，风险基线变成最强候选 |
+| Periodic light posterior + guarded dynamic topology | 58.0% | +0.2% | +0.5% | +1.8% | +0.8% | 5/5 | Pareto，风险基线在该阶段变成最强候选 |
 | Old mainline: LightFloor-GuardedTopo | 50.6% | +0.9% | +1.7% | +7.4% | -2.8% | 4/5 | 通过均值 gate，但被 periodic light 支配 |
 | C1: LightBackbone-GuardedTopo | 57.6% | +0.2% | +0.5% | +1.7% | +0.9% | 5/5 | 与 periodic light 近似持平但字节略高 |
 | C2: MixedLabel-LightFloor-GuardedTopo | 57.3% | +0.9% | +1.7% | +7.4% | -2.8% | 4/5 | 比旧主线省字节，但不优于 periodic light |
 
 这轮 held-out 的关键结论是：原本作为 reviewer 风险基线的 `Periodic light posterior + guarded dynamic topology` 反而成为 Pareto arm。它在 5/5 trials 上通过 paired gate，平均字节降幅 58.0%，local E-OSPA 退化 0.2%，consensus OSPA 退化 0.5%，并且 effective-weight lambda2=0.362，基本贴近 full posterior 的 0.364。C1 的 handshake/light-backbone 与 periodic light 几乎同指标，但额外 handshake 带来约 1.5% payload byte share 和略高字节；C2 与旧主线 tracking/consensus 完全一致，只是通过 mixed label-wise payload 把旧主线字节从 13.7M 降到 11.9M。
 
-因此，当前证据不支持把 C1 或 C2 作为最终主方法；更合理的收敛结论是：在当前单轮、moment-matched KLA 融合实现下，核心收益来自“guarded dynamic topology + 全边 light posterior 同步”，而不是事件触发 heavy/mixed 逻辑。后续若继续 20-trial，应把 `Periodic light posterior + guarded dynamic topology` 作为新的主候选/强基线，C1/C2 只作为 handshake 和 mixed payload ablation，除非后续实现 full GM-LMB heavy 在融合路径中的实际差异。
+因此，该 held-out 5-trial 阶段不支持把 C1 或 C2 作为最终主方法；当时更合理的收敛结论是：在当前单轮、moment-matched KLA 融合实现下，核心收益来自“guarded dynamic topology + 全边 light posterior 同步”，而不是事件触发 heavy/mixed 逻辑。因此进入后续 20-trial 时，`Periodic light posterior + guarded dynamic topology` 被作为新的主候选/强基线，C1/C2 只作为 handshake 和 mixed payload ablation。
 
 ### Held-out 20-trial 候选选择
 
@@ -327,7 +330,7 @@ paired pass count 和 Pareto 关系把候选进一步分开：
 
 | Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Pass count | 结论 |
 |:--|--:|--:|--:|--:|--:|:--:|:--|
-| Periodic light posterior + guarded dynamic topology | 58.5% | -0.5% | +0.4% | -7.4% | -0.0% | 15/20 | Pareto，当前主候选 |
+| Periodic light posterior + guarded dynamic topology | 58.5% | -0.5% | +0.4% | -7.4% | -0.0% | 15/20 | Pareto，N20 主候选 |
 | Old mainline: LightFloor-GuardedTopo | 51.5% | +0.1% | +2.0% | -4.3% | -0.4% | 13/20 | 通过均值 gate，但被 periodic light 支配 |
 | C1: LightBackbone-GuardedTopo | 57.9% | -0.5% | +0.4% | -7.4% | -0.1% | 15/20 | 与 periodic light 几乎同质，handshake 略增字节 |
 | C2: MixedLabel-LightFloor-GuardedTopo | 58.2% | +0.1% | +2.0% | -4.3% | -0.4% | 13/20 | 相对旧主线压缩字节，但不优于 periodic light |
@@ -340,18 +343,23 @@ effective-weight lambda2 为 0.369，基本贴近全通信 full posterior 的
 lambda2 降到 0.363，self weight mass 升到 0.411，paired pass count 也降到
 13/20。
 
-因此当前应冻结结论：`Periodic light posterior + guarded dynamic topology`
-是此轮证据支持的主线/强基线；`LightBackbone-GuardedTopo` 只保留为更强断链
+因此 N20 阶段曾冻结结论：`Periodic light posterior + guarded dynamic topology`
+是该轮证据支持的主线/强基线；`LightBackbone-GuardedTopo` 只保留为更强断链
 或新边可信性场景的保守备选；`MixedLabel-LightFloor-GuardedTopo` 只作为
 payload compression 消融。若要继续写成事件触发贡献，必须先让 heavy/full
 GM-LMB payload 在融合路径中产生真实差异，或者转向需要 request/need vector
-的更强动态链路场景。
+的更强动态链路场景。后续 N50 组件验证进一步把最终 Pareto arm 修正为
+静态拓扑上的 periodic light posterior。
 
-### Final N50 组件验证待运行
+### Final N50 组件验证
 
-下一步不再加新机制，改做 50-trial final component validation：固定
-seeds 32-81，对比静态 full、动态 full、静态 light 和动态 light 四臂，
-拆开验证 payload 替代与 guarded topology 的贡献。运行入口：
+按冻结配置完成 50-trial final component validation：固定 seeds 32-81，
+对比静态 full、动态 full、静态 light 和动态 light 四臂，拆开验证 payload
+替代与 guarded topology 的贡献。报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED31_20260611_113226.md`
+
+运行入口：
 
 ```matlab
 addpath('RUN/GA');
@@ -365,4 +373,24 @@ addpath('RUN/GA');
 [~, ~, ~, config] = runPeriodicLightGuardedTopologyFinalN50(false);
 ```
 
-该实验属于长实验，应在外部 MATLAB 跑完并回传结果后再继续更新结论。
+N50 汇总如下：
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Pass count | 结论 |
+|:--|--:|--:|--:|--:|--:|:--:|:--|
+| Periodic full posterior + dynamic topology | -6.1% | +4.1% | +11.1% | +6.4% | +4.3% | 0/50 | 动态拓扑单独不成立，平均字节上升 |
+| Periodic light posterior on static topology | 58.6% | +0.0% | +0.0% | +0.0% | +0.0% | 50/50 | 最终 Pareto arm |
+| Periodic light posterior + guarded dynamic topology | 58.3% | +0.1% | +0.7% | +4.7% | +0.6% | 35/50 | 通过均值 gate，但被静态 light 支配 |
+
+最终结论：
+
+1. `Periodic light posterior on static topology` 是当前证据下的主候选/强基线。
+   它在静态 4+4 拓扑上只替换 payload，不改变有效融合图，因此复现了 full
+   posterior 的 tracking/consensus 结果。
+2. `Periodic light posterior + guarded dynamic topology` 仍通过主 gate，但
+   paired pass count 降到 35/50，position disagreement 有约 4.7% 退化，
+   说明 guarded topology 不能写成当前 N50 的 Pareto 主贡献。
+3. `Periodic full posterior + dynamic topology` 平均字节增加约 6.1%，
+   consensus OSPA 退化约 11.1%，进一步说明当前拓扑重构本身不是通信节省来源。
+4. 若继续论文化，应把短期故事收窄为 light posterior payload compression；
+   若仍要主张事件触发或动态拓扑，需要先实现能让 heavy/full GM-LMB payload
+   在融合路径中产生真实差异，或设计更强断链/request 场景。
