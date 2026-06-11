@@ -24,10 +24,10 @@ fusion step can be written abstractly as
     \qquad
     \sum_{j\in\mathcal{N}_i(k)\cup\{i\}}\omega_{ij}=1 .
 \end{equation}
-The implementation performs label-wise alignment and moment matching inside
-the LMB fusion path. This is the reason full Gaussian-mixture transmission can
-be redundant: the receiver does not preserve arbitrary mixture structure after
-the single-round fusion update.
+The implementation aligns labels and moment-matches components inside the LMB
+fusion path. Thus full Gaussian-mixture transmission can be redundant: the
+receiver does not preserve arbitrary mixture structure after the single-round
+fusion update.
 
 \subsection{Light Posterior Message}
 

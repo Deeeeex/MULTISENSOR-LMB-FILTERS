@@ -1,19 +1,41 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Distributed multi-object tracking lets a sensor network combine complementary fields of view without routing all measurements to a central processor. Labeled random finite-set filters, and in particular the labeled multi-Bernoulli (LMB) family, are attractive in this setting because they maintain object existence, kinematic uncertainty, and track identity in a single posterior representation \cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. The practical difficulty is communication. A multi-sensor LMB posterior can contain many labels and multiple Gaussian components per label, so repeatedly broadcasting full Gaussian-mixture posteriors is expensive for bandwidth-limited platforms.
+Distributed multi-object tracking lets a sensor network combine complementary
+views without centralizing all measurements. Labeled random finite-set filters,
+especially labeled multi-Bernoulli (LMB) filters, are well suited to this task
+because they represent target existence, state uncertainty, and identity in one
+posterior \cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Their communication
+cost can be high: each transmitted LMB posterior may contain many labels and
+multiple Gaussian components per label.
 
-A common response is to communicate less often or with fewer neighbors. This is appealing, but it can attack the wrong bottleneck. Conservative fusion rules such as covariance intersection, generalized covariance intersection, and Kullback-Leibler average (KLA) fusion are designed to combine partially dependent estimates without requiring unknown cross-correlations \cite{JulierUhlmann1997CI,Battistelli2014KLA}. In a distributed tracker, however, the quality of the fused posterior depends not only on whether the nominal graph is connected, but also on which posterior messages actually enter the fusion step at each time. If event triggers or topology adaptation remove too many effective message paths, consensus and label agreement can degrade even while byte counts improve.
+Most communication-saving designs reduce how often nodes communicate or which
+neighbors they contact. That can be risky for conservative fusion rules such as
+covariance intersection and Kullback-Leibler average (KLA) fusion
+\cite{JulierUhlmann1997CI,Battistelli2014KLA}. The relevant object is not only
+the nominal graph, but the effective graph of posterior messages that actually
+enter the fusion step. Sparsifying this graph can reduce bytes while degrading
+consensus and label agreement.
 
-This paper takes a different position: preserve the effective fusion graph first, then reduce the payload carried by each message. The key observation is implementation-driven. In many practical GA/KLA-LMB fusion pipelines, incoming LMB components are aligned by label and reduced to label-wise Bernoulli moments before fusion. If the downstream fusion rule consumes these moments, transmitting every Gaussian-mixture component may be unnecessary in regimes where a single Gaussian moment is an adequate summary. This suggests a light posterior message containing the existence probability, mean, covariance, and minimal label metadata for each active Bernoulli component.
+This paper instead keeps the effective graph intact and compresses the payload.
+The observation is simple: in our single-round GA/KLA-LMB fusion path, incoming
+components are aligned by label and reduced to Bernoulli moments before fusion.
+When the receiver consumes those moments, transmitting every mixture component
+can be unnecessary. We therefore send a light posterior containing each active
+label's existence probability, moment-matched mean, and moment-matched
+covariance over the same static communication graph used by the full-posterior
+baseline.
 
-We study this idea in a distributed 4+4 multisensor formation benchmark. The baseline periodically exchanges full LMB posteriors over the static communication graph. The proposed light-posterior exchange keeps the same graph and synchronization schedule, but replaces each full Gaussian-mixture label density with its moment-matched single-Gaussian approximation. This design deliberately avoids graph sparsification: every baseline information path remains available to the KLA update, while communication is reduced by changing the representation of each label.
+Over 50 held-out trials on an eight-sensor 4+4 formation benchmark, this
+periodic light-posterior exchange reduces estimated communication by 58.6\%
+while matching full-posterior exchange in local E-OSPA, consensus OSPA,
+position disagreement, cardinality dispersion, and effective-weight graph
+connectivity. Dynamic-topology variants are less stable, supporting the paper's
+central design rule: preserve information paths first, then compress posterior
+payloads.
 
-The empirical result is simple but instructive. Over 50 held-out trials, periodic light-posterior exchange reduces estimated communication by 58.6\% relative to periodic full-posterior exchange, while matching the baseline local E-OSPA, consensus OSPA, position-disagreement, cardinality-dispersion, and effective-weight graph connectivity metrics. In contrast, dynamic-topology variants that alter the communication graph are less stable in the same benchmark. These results support a narrow claim: for single-round distributed GA/KLA-LMB fusion with label-wise moment matching, full posterior exchange can be overkill, and graph-preserving payload compression is a safer first lever than sparse event-triggered communication.
-
-The contributions are:
-\begin{itemize}
-    \item a graph-preserving light posterior exchange protocol for distributed LMB fusion, using label-wise moment-matched Bernoulli messages instead of full Gaussian-mixture posterior messages;
-    \item an effective-fusion-graph perspective that separates payload compression from message-path sparsification; and
-    \item a held-out 50-trial validation showing full-posterior-equivalent tracking and consensus with about 58\% lower estimated communication in a 4+4 multisensor benchmark.
-\end{itemize}
+Our contributions are a graph-preserving light posterior exchange protocol for
+distributed LMB fusion, an effective-fusion-graph perspective that separates
+payload compression from message-path sparsification, and a held-out 50-trial
+validation showing full-posterior-equivalent behavior with about 58\% lower
+estimated communication.

@@ -1,14 +1,38 @@
 \section{Related Work}
 \label{sec:related-work}
 
-\textbf{Labeled random finite-set tracking.}
-Random finite-set filters provide a principled Bayesian framework for multi-object tracking with uncertain cardinality and measurement association. The probability hypothesis density filter introduced a tractable first-moment recursion for multi-object tracking \cite{Mahler2003PHD}, while labeled RFS models attach persistent identities to objects \cite{Vo2014LRFS}. The LMB filter gives a computationally attractive labeled approximation with independent Bernoulli components \cite{Reuter2014LMB}, and multi-sensor GLMB/LMB variants extend labeled RFS tracking to distributed and cooperative sensing settings \cite{Vo2019MSGLMB}. Our work does not change the LMB recursion itself; it studies how much posterior detail must be communicated before a distributed KLA-style fusion step.
+\textbf{RFS tracking.}
+Random finite-set filters provide a Bayesian framework for tracking uncertain
+target cardinality and measurement association. PHD filters introduced a
+tractable first-moment recursion \cite{Mahler2003PHD}; labeled RFS models add
+persistent identities \cite{Vo2014LRFS}; and LMB filters provide a practical
+independent-Bernoulli approximation \cite{Reuter2014LMB}. Multi-sensor
+GLMB/LMB variants extend this framework to cooperative sensing
+\cite{Vo2019MSGLMB}. We do not modify the LMB recursion; we study how much of
+the posterior must be communicated before distributed fusion.
 
-\textbf{Conservative distributed fusion.}
-When local posteriors are statistically dependent and cross-correlations are unknown, conservative fusion rules are used to avoid overconfident estimates. Covariance intersection is a classical solution for Gaussian estimates \cite{JulierUhlmann1997CI}, and KLA or generalized covariance intersection extends this log-opinion-pool principle to probability densities \cite{Battistelli2014KLA,Bandyopadhyay2018LogOP}. Several RFS fusion methods apply KLA/GCI ideas to multi-Bernoulli or LMB densities, including exponential-mixture PHD fusion \cite{Uney2013EMDPHD}, multi-Bernoulli GCI fusion \cite{Wang2017MBGCI}, and robust distributed labeled RFS fusion \cite{Li2018RobustDistributedLRFS,Gao2023ResilientLMB}. These methods primarily define how received posteriors should be fused. We focus on the complementary question of what posterior representation should be transmitted when the fusion implementation already performs label-wise moment reduction.
+\textbf{Conservative fusion.}
+When cross-correlations are unknown, conservative rules avoid overconfident
+fusion. Covariance intersection handles Gaussian estimates
+\cite{JulierUhlmann1997CI}, while KLA/GCI extends the log-opinion-pool idea to
+probability densities \cite{Battistelli2014KLA}.
+Related log-opinion-pool analyses appear in \cite{Bandyopadhyay2018LogOP}. RFS
+variants include exponential-mixture PHD fusion \cite{Uney2013EMDPHD},
+multi-Bernoulli GCI fusion \cite{Wang2017MBGCI}, and robust distributed
+labeled RFS fusion \cite{Li2018RobustDistributedLRFS,Gao2023ResilientLMB}.
+These works define how received densities should be fused; our question is
+what representation needs to be transmitted when the receiver already reduces
+labels to moments.
 
-\textbf{Communication-aware RFS fusion.}
-Communication constraints have been addressed through selective transmission, adaptive scheduling, consensus design, and alternative density representations. Communication-constrained decentralized fusion has been studied for labeled RFS trackers \cite{Zhang2016CommConstrainedFusion}, consensus LMB filters reduce reliance on a central node \cite{Shen2022ConsensusLMB}, and recent adaptive fusion work adjusts weights or reliability scores to account for heterogeneous sensing and communication conditions \cite{Zheng2026DistributedWeightedRFS,CaoZhao2025InfoGeometryFusion}. Other work studies resilient fusion under unreliable communication or approximate average-density fusion \cite{Li2024AADensityFusion}. These lines often reduce communication by changing when nodes communicate, which neighbors they use, or how much trust a received posterior receives. Our experiments show why those graph-level choices can be fragile for single-round KLA fusion: preserving the effective message graph may matter more than reducing the number of message paths.
-
-\textbf{Payload compression versus graph sparsification.}
-The closest conceptual distinction in this paper is between transmitting fewer posterior paths and transmitting lighter posterior summaries along the same paths. Event-triggered or topology-adaptive communication can save bytes, but it also changes the effective fusion graph seen by the KLA update. A light posterior message instead leaves the graph unchanged and compresses each label density to the statistics consumed by the receiver-side fusion path. This makes the communication saving easier to attribute: any tracking or consensus change is due to posterior summarization, not to missing neighbors. The held-out results indicate that, in the tested GA/KLA-LMB setting, this payload-first design is sufficient to recover full-posterior behavior with substantially lower communication.
+\textbf{Communication-aware fusion.}
+Prior work handles limited links through selective transmission, adaptive
+scheduling, consensus, and reliability-aware fusion. Examples include
+limited-communication labeled RFS fusion \cite{Zhang2016CommConstrainedFusion},
+consensus LMB filtering \cite{Shen2022ConsensusLMB}, reliability-weighted
+distributed RFS fusion \cite{Zheng2026DistributedWeightedRFS}, geometry-aware
+fusion \cite{CaoZhao2025InfoGeometryFusion}, and average-density fusion
+approximations \cite{Li2024AADensityFusion}. These approaches often change
+message timing, neighbor choice, or fusion weights. Our work separates that
+graph-level problem from payload compression: we keep the message paths fixed
+and ask whether a lighter label representation is sufficient for the KLA
+update.
