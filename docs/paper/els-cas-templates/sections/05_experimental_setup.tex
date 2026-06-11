@@ -9,7 +9,7 @@ The evaluation is hierarchical. The tiered-loss dual-formation scenario provides
 
 \paragraph{Main scenario.}
 
-The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion, meaning that each node fuses only its own posterior and the posteriors available inside its communication neighborhood. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for approximate marginal data association \cite{WilliamsLau2014LBP}.
+The primary evaluation setting uses eight mobile sensors arranged as two four-sensor formations. The filtering mode is distributed local fusion: each node forms a local neighborhood problem from delivered measurement streams indexed by itself and its neighbors, obtains measurement-updated LMB posteriors for those streams, and fuses the resulting posterior parameters. The local multi-object filter is GA-LMB with loopy belief propagation (LBP) for approximate marginal data association \cite{WilliamsLau2014LBP}.
 
 The choice of the geometric-average KLA route is deliberate. GA fusion gives a conservative logarithmic-opinion-pool update under unknown cross-correlations, admits a stable canonical-form Gaussian fusion step for the LMB spatial densities, and naturally exposes the Bernoulli existence product rule in which branch-specific weighting can be applied. These properties make it a cleaner vehicle for studying adaptive weight allocation than a broad comparison across fusion families.
 
@@ -29,7 +29,7 @@ The target side consists of ten objects arranged in three groups with staggered 
 
 \paragraph{Communication model.}
 
-The main scenario uses a tiered heterogeneous packet-loss setting. Communication is applied before distributed fusion through a measurement-delivery model with bandwidth limitation and link-level packet loss. The main configuration is:
+The main scenario uses a tiered heterogeneous packet-loss setting. Communication is applied before distributed fusion through a measurement-stream delivery model with bandwidth limitation and per-sensor packet loss. The main configuration is:
 \begin{itemize}
 \item communication level: $2$,
 \item global maximum delivered measurements per step: $80$,

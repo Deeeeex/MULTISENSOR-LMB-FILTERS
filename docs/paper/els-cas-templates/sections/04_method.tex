@@ -5,7 +5,7 @@ This section describes the adaptive fusion rule used in the distributed GA-LMB f
 
 \subsection{Baseline GA-LMB fusion}
 
-At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior density provided by node $j \in \mathcal{N}_s$. The conservative fusion target is the weighted geometric average in \eqref{eq:ga-kla-objective}. The remaining task is to specify how the LMB parameter sets are moment-projected and how the spatial and existence weights are consumed by the merger.
+At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior density produced from the delivered measurement stream associated with neighbor index $j \in \mathcal{N}_s$, as described in Section~\ref{sec:problem-formulation}. The conservative fusion target is the weighted geometric average in \eqref{eq:ga-kla-objective}. The remaining task is to specify how the LMB parameter sets are moment-projected and how the spatial and existence weights are consumed by the merger.
 
 After moment projection, the Gaussian approximation of the $i$th Bernoulli spatial density at node $j$ is
 \begin{equation}
@@ -75,10 +75,10 @@ q_{\mathrm{link},k}^{(j)}
 =
 \frac{d_k^{(j)}}{d_k^{(j)} + \ell_k^{(j)}},
 \end{equation}
-which directly reflects how reliably that node's information is reaching its neighbors.
+which directly reflects how much of that node's measurement stream remains available after delivery constraints.
 
 \noindent\textbf{Design rationale.}
-The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue uses delivered and dropped measurements at the current time step, so the weights reflect the information that actually reaches the fusion node.
+The covariance cue is a local posterior-concentration proxy: a smaller average trace means that, after moment projection, the neighbor contributes a sharper Gaussian component to the canonical-form spatial average above. The link cue uses delivered and dropped measurements at the current time step, so the weights reflect the information available to the local fusion problem.
 
 \paragraph{Existence decisiveness.}
 
@@ -207,7 +207,7 @@ The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusio
 \begin{enumerate}
 \setlength{\itemsep}{1pt}
 \setlength{\parskip}{0pt}
-\item Receive the measurement-updated LMB posteriors $\{\pi_k^{(j)}:j\in\mathcal{N}_s\}$ and the realized delivery statistics for the current step.
+\item Assemble the local neighborhood input from the delivered measurement streams and realized delivery statistics, then obtain the measurement-updated LMB posteriors $\{\pi_k^{(j)}:j\in\mathcal{N}_s\}$ for the current step.
 \item Form the availability mask $m_k^{(j)}$, covariance score $q_{\mathrm{cov},k}^{(j)}$, link score $q_{\mathrm{link},k}^{(j)}$, and existence-confidence score $q_{\mathrm{exist},k}^{(j)}$.
 \item Build the shared score $\tilde{\omega}_{k,s}^{(j)}$ and the spatial/existence dedicated scores $\tilde{\omega}_{k,s,\mathrm{sp}}^{(j)}$ and $\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}$.
 \item Interpolate the shared and dedicated scores to obtain $\tilde{\omega}_{k,s}^{x,(j)}$ and $\tilde{\omega}_{k,s}^{r,(j)}$, then apply the weak structure-aware branch prior.
