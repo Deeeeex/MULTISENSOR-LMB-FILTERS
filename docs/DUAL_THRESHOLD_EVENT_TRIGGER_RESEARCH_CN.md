@@ -346,3 +346,23 @@ lambda2 降到 0.363，self weight mass 升到 0.411，paired pass count 也降�
 payload compression 消融。若要继续写成事件触发贡献，必须先让 heavy/full
 GM-LMB payload 在融合路径中产生真实差异，或者转向需要 request/need vector
 的更强动态链路场景。
+
+### Final N50 组件验证待运行
+
+下一步不再加新机制，改做 50-trial final component validation：固定
+seeds 32-81，对比静态 full、动态 full、静态 light 和动态 light 四臂，
+拆开验证 payload 替代与 guarded topology 的贡献。运行入口：
+
+```matlab
+addpath('RUN/GA');
+[reportPath, summaryPath, summary] = ...
+    runPeriodicLightGuardedTopologyFinalN50();
+```
+
+配置检查入口：
+
+```matlab
+[~, ~, ~, config] = runPeriodicLightGuardedTopologyFinalN50(false);
+```
+
+该实验属于长实验，应在外部 MATLAB 跑完并回传结果后再继续更新结论。

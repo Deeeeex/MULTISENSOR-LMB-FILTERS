@@ -1,6 +1,6 @@
 # Effective KLA 图验证阶段记录
 
-日期：2026-06-10
+日期：2026-06-11
 
 本文档是 `effective-kla-graph-validation` 分支的独立阶段快照。主线长记录仍保留在
 `docs/DUAL_THRESHOLD_EVENT_TRIGGER_RESEARCH_CN.md`；本文只记录当前证据链、候选收敛和下一步验证口径。
@@ -98,15 +98,35 @@ held-out 结论：
 - C2 的 tracking/consensus 与旧 light-floor 主线一致，主要价值是 payload compression ablation。
 - 当前证据不支持把 C1 或 C2 写成最终主方法。
 
+### Held-out 20-trial 候选选择
+
+报告：`RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N20_SEED11_20260611_095640.md`
+
+该轮使用 held-out seeds 12-31，冻结机制和阈值，不再调参。
+
+| Arm | Bytes reduction | Local E-OSPA change | Consensus OSPA change | Position change | Card. change | Pass count | 结论 |
+|:--|--:|--:|--:|--:|--:|:--:|:--|
+| Periodic light posterior + guarded dynamic topology | 58.5% | -0.5% | +0.4% | -7.4% | -0.0% | 15/20 | Pareto，当前主候选 |
+| Old mainline: LightFloor-GuardedTopo | 51.5% | +0.1% | +2.0% | -4.3% | -0.4% | 13/20 | 通过均值 gate，但被 periodic light 支配 |
+| C1: LightBackbone-GuardedTopo | 57.9% | -0.5% | +0.4% | -7.4% | -0.1% | 15/20 | 与 periodic light 几乎同质，handshake 略增字节 |
+| C2: MixedLabel-LightFloor-GuardedTopo | 58.2% | +0.1% | +2.0% | -4.3% | -0.4% | 13/20 | 压缩旧主线字节，但不优于 periodic light |
+
+20-trial 结论：
+
+- 四个通信节省候选都通过均值 gate，但 paired pass count 和 Pareto 关系继续支持 `Periodic light posterior + guarded dynamic topology`。
+- C1 与 periodic light 的 tracking、consensus 和 effective KLA 图指标几乎一致，但 handshake byte share 为 0.022，没有换来收益。
+- C2 与旧 light-floor 主线 tracking/consensus 基本一致，说明 mixed payload 只是压缩 ablation。
+- 旧主线和 C2 的 effective-weight lambda2 为 0.363，低于 periodic light/C1 的 0.369；self weight mass 也更高。
+
 ## 当前收敛判断
 
-截至 held-out 5-trial，最稳妥的解释是：
+截至 held-out 20-trial，最稳妥的解释是：
 
 ```text
 guarded dynamic topology + all-edge light posterior synchronization
 ```
 
-是当前单轮、moment-matched KLA 融合实现下的主要有效机制。它保留了有效融合权重图的连通性，同时用 light payload 替代 full posterior payload，从而获得约 58% 字节下降且 tracking/consensus 退化很小。
+是当前单轮、moment-matched KLA 融合实现下的主要有效机制。它保留了有效融合权重图的连通性，同时用 light payload 替代 full posterior payload，从而获得约 58% 字节下降且 tracking/consensus 退化很小。当前应把 `Periodic light posterior + guarded dynamic topology` 视为主线/强基线，而不是把 heavy handshake 或 mixed payload 写成必要机制。
 
 相反，原始双阈值事件触发里的 heavy/mixed 逻辑目前更适合作为 ablation：
 
@@ -114,47 +134,36 @@ guarded dynamic topology + all-edge light posterior synchronization
 - mixed label-wise payload 可以降低 heavy 边冗余字节，但没有改变当前单轮融合结果。
 - new-edge handshake 在更强断链或更剧烈动态拓扑场景下仍可能有价值，但不是当前 5-trial 通过配置的必要机制。
 
-## 正在运行的验证
+## 下一步验证
 
-为避免把 held-out 5-trial 过早写成最终结论，已启动 seeds 12-31 的 20-trial 冻结验证：
+20-trial 已经完成，下一步不继续调机制，而是做 N50 的最终组件验证，
+把主线拆成 payload 和 topology 两个因素：
+
+1. `Periodic full posterior`：静态拓扑 full payload 基线。
+2. `Periodic full posterior + dynamic topology`：只换 topology。
+3. `Periodic light posterior on static topology`：只换 payload。
+4. `Periodic light posterior + guarded dynamic topology`：当前主候选。
+
+运行入口已经固化为：
 
 ```matlab
-ov = struct( ...
-    'simulationLength', 100, ...
-    'includeCandidateSelectionVariants', true, ...
-    'lightFloorThresholdLow', 0.20, ...
-    'lightFloorThresholdHigh', 0.3708, ...
-    'lightFloorStaticEdgeBonus', 0.35);
-
-selected = { ...
-    'Periodic full posterior', ...
-    'Periodic light posterior + guarded dynamic topology', ...
-    'Old mainline: LightFloor-GuardedTopo', ...
-    'C1: LightBackbone-GuardedTopo', ...
-    'C2: MixedLabel-LightFloor-GuardedTopo'};
-
-[reportPath, summary] = ...
-    runMultisensorFilters_formation_4plus4_DualThresholdEventTriggerCompare( ...
-        20, 11, true, true, 'default', selected, ov);
+addpath('RUN/GA');
+[reportPath, summaryPath, summary] = ...
+    runPeriodicLightGuardedTopologyFinalN50();
 ```
 
-运行日志：
+dry-run 配置检查：
 
-```bash
-tail -f RUN/GA/heldout_periodic_light_n20_seeds12_31_20260610_194209.log
+```matlab
+[~, ~, ~, config] = runPeriodicLightGuardedTopologyFinalN50(false);
 ```
 
-该实验完成前，不应把 periodic light 结论写进论文主线，只能作为当前分支的阶段性候选收敛。
+N50 判定规则：
 
-## 20-trial 判定规则
-
-20-trial 完成后按以下顺序判定：
-
-1. `Periodic light posterior + guarded dynamic topology` 是否仍保持 30%+ bytes reduction，并满足 local E-OSPA 不超过 5%、consensus/position/cardinality 不超过 10% 的主 gate。
-2. paired pass count 是否接近 20/20；如果出现少数失败，检查 worst-case 是否由特定 drop pattern 或 topology churn 触发。
-3. C1 是否在 consensus/cardinality worst-case 上显著优于 periodic light；若没有，C1 只保留为 handshake ablation。
-4. C2 是否在字节上稳定优于 periodic light 或 C1；若没有，C2 只保留为 mixed payload compression ablation。
-5. 若 periodic light 仍是 Pareto arm，则论文方法线应转为“guarded topology with light posterior communication”，事件触发 heavy/mixed 只写失败分析或附录补充。
+1. 主候选是否仍保持 30%+ bytes reduction，并满足 local E-OSPA 不超过 5%、consensus/position/cardinality 不超过 10% 的主 gate。
+2. paired pass count 是否比 20-trial 的 15/20 更稳定；若失败样本仍集中出现，需要检查是否由特定 drop pattern、topology churn 或 label stale age 触发。
+3. static light 是否已经接近 guarded dynamic light；若接近，则 dynamic topology 只能作为轻量增强，不宜写成主要性能来源。
+4. full posterior + dynamic topology 是否继续只带来小幅通信节省；若是，则最终方法叙述应强调 light payload 替代 full payload，同时将 guarded topology 写成保护有效图和稳定链路选择的机制。
 
 ## 后续写作边界
 

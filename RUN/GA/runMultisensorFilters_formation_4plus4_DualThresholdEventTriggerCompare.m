@@ -707,6 +707,25 @@ if getField(experimentOverrides, 'includeCandidateSelectionVariants', false)
         'Frozen communication candidate with mixed label-wise payload.', ...
         cfg);
 end
+
+if getField(experimentOverrides, 'includeFinalPeriodicLightVariants', false)
+    staticEdgeBudget = countUndirectedEdgesFromNeighborMap( ...
+        buildNeighborMap4Plus4(8));
+
+    cfg = buildPeriodicLightVariantConfig( ...
+        base, staticEdgeBudget, experimentOverrides, false);
+    arms(end+1) = makeArm( ...
+        'Periodic light posterior on static topology', ...
+        'Light LMB posterior on every static 4+4 edge and step.', ...
+        cfg);
+
+    cfg = buildPeriodicLightVariantConfig( ...
+        base, staticEdgeBudget, experimentOverrides, true);
+    arms(end+1) = makeArm( ...
+        'Periodic light posterior + guarded dynamic topology', ...
+        'Light LMB posterior on every guarded dynamic edge and step.', ...
+        cfg);
+end
 end
 
 function cfg = buildLightFloorVariantConfig( ...
@@ -737,14 +756,17 @@ cfg.topologyFallbackToBaseOnConnectivityFailure = true;
 end
 
 function cfg = buildPeriodicLightVariantConfig( ...
-    base, staticEdgeBudget, experimentOverrides)
+    base, staticEdgeBudget, experimentOverrides, useDynamicTopology)
+if nargin < 4 || isempty(useDynamicTopology)
+    useDynamicTopology = true;
+end
 cfg = base;
 cfg.eventPolicy = 'alwaysLight';
 cfg.linkGateEnabled = false;
 cfg.forceInitialHeavy = false;
 cfg.forceLabelChangeHeavy = false;
 cfg.forceStaleHeavy = false;
-cfg.dynamicTopologyEnabled = true;
+cfg.dynamicTopologyEnabled = useDynamicTopology;
 cfg.dynamicTopologyEdgeBudget = staticEdgeBudget;
 cfg.topologyMinAlgebraicConnectivity = -1;
 cfg.topologyReliabilityWeight = 0.55;
@@ -870,6 +892,16 @@ queries = cellstr(armSelection);
 selected = false(1, numel(arms));
 for queryIdx = 1:numel(queries)
     query = lower(strtrim(queries{queryIdx}));
+    exactMatches = false(1, numel(arms));
+    for armIdx = 1:numel(arms)
+        if strcmp(lower(arms(armIdx).name), query)
+            exactMatches(armIdx) = true;
+        end
+    end
+    if any(exactMatches)
+        selected = selected | exactMatches;
+        continue;
+    end
     for armIdx = 1:numel(arms)
         if ~isempty(strfind(lower(arms(armIdx).name), query)) %#ok<STREMP>
             selected(armIdx) = true;
