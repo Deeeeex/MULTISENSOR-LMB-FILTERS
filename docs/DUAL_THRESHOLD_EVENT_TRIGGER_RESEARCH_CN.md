@@ -436,8 +436,33 @@ lambda2，且 attempted count 完全相同。因此当前 stress 证据支持较
 KLA graph，并稳定改善 truth-based local/consensus tracking 指标。
 
 但该配置同时让 position disagreement 变差，5/5 seeds 均未改善该诊断项。因此
-它不能写成“所有 network disagreement 指标全面优于 static graph”。后续若要把
-topology recovery 作为论文中的第二研究点，需要继续跑 N20 stress 并明确 gate：
-以同 attempted budget 下的 delivery、effective graph、local/consensus OSPA 和
-cardinality 为主恢复指标，position disagreement 作为风险项单独报告；若 N20
-仍保持同样模式，则只能主张 fault recovery trade-off，而不是全面 Pareto 优势。
+它不能写成“所有 network disagreement 指标全面优于 static graph”。
+
+N20 stress 结果见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N20_SEED86_20260614_015318.md`
+
+| Metric | Static light | Recovery dynamic | Change | Win count |
+|:--|--:|--:|--:|--:|
+| Attempt count | 3200 | 3200 | 0.00% | equal |
+| Delivery count | 2227.4 | 2911.8 | +30.72% | 20/20 |
+| Local E-OSPA | 2.2240 | 2.0696 | -6.94% | 19/20 |
+| Consensus OSPA | 2.1428 | 1.9753 | -7.82% | 19/20 |
+| Position disagreement | 4.0883 | 4.5553 | +11.42% | 11/20 |
+| Cardinality dispersion | 0.2923 | 0.2038 | -30.28% | 19/20 |
+| Effective-weight lambda2 | 0.0145 | 0.3566 | +2360.81% | 20/20 |
+
+N20 进一步确认了 N5 的主要机制，但也给出了更清楚的边界。Recovery dynamic
+在相同 attempted edge budget 下 20/20 seeds 提升 delivery count 和
+effective-weight lambda2，19/20 seeds 改善 local E-OSPA、consensus OSPA 和
+cardinality dispersion；唯一 truth-metric outlier 是 seed 96，该 seed 上
+local E-OSPA、consensus OSPA 和 cardinality 均退化。因此 strict all-trial gate
+不通过，但按 “mean 改善 + delivery/effective 20/20 + truth metrics 至少 90%
+paired wins” 的 robust recovery gate 通过。
+
+可写入论文或后续开源说明的结论应收窄为：在目标桥边强失效/强丢包场景下，
+reliability-guarded dynamic topology 能在不增加 attempted communication budget
+的前提下恢复有效 KLA 信息流图，并稳定改善 truth-based local/consensus tracking
+和 cardinality 指标。它不是通信字节节省策略，因为成功绕开坏链路会增加 delivered
+payload bytes；它也不是全面 network-disagreement Pareto 改进，因为 position
+disagreement 平均变差且只有 11/20 seeds 改善。
