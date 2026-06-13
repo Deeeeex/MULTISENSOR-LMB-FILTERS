@@ -394,3 +394,50 @@ N50 汇总如下：
 4. 若继续论文化，应把短期故事收窄为 light posterior payload compression；
    若仍要主张事件触发或动态拓扑，需要先实现能让 heavy/full GM-LMB payload
    在融合路径中产生真实差异，或设计更强断链/request 场景。
+
+### Topology recovery stress 验证
+
+根据后续目标，单独开出 topology recovery stress 线，用来回答一个不同于普通
+held-out N50 的问题：普通场景下 dynamic topology 没有胜出，但在静态 4+4
+桥边发生强失效时，是否存在一种 guard/recovery 策略能在相同尝试通信预算下
+稳定优于 static graph。
+
+当前 stress 场景保持 8 个节点、100 steps 和 16 条无向边预算不变，将静态
+跨组桥边 `[1-5, 2-6, 3-7, 4-8]` 的双向丢包率设为 `0.97`，其余候选边丢包率
+设为 `0.08`。比较两臂：
+
+1. `Recovery stress: Periodic light static topology`
+2. `Recovery stress: Reliability-guarded dynamic topology`
+
+后者使用 `recoveryTopologyReliabilityWeight=0.55`、
+`recoveryTopologyOverlapWeight=0.35`、`recoveryTopologyComplementarityWeight=0.10`
+和 `recoveryTopologyStaticEdgeBonus=0.35`，即保留静态边锚点，但允许绕开强失效
+桥边。由于两臂均为 `alwaysLight`，stress runner 使用固定 calibration stub，
+避免无关的 always-heavy threshold 标定耗时。
+
+N5 development stress 结果见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N5_SEED81_20260613_230312.md`
+
+| Metric | Static light | Recovery dynamic | Change |
+|:--|--:|--:|--:|
+| Attempt count | 3200 | 3200 | 0.00% |
+| Delivery count | 2232.6 | 2911.0 | +30.39% |
+| Local E-OSPA | 2.2064 | 2.0895 | -5.30% |
+| Consensus OSPA | 2.1164 | 1.9926 | -5.85% |
+| Position disagreement | 3.1352 | 4.5605 | +45.46% |
+| Cardinality dispersion | 0.2940 | 0.2145 | -27.04% |
+| Effective-weight lambda2 | 0.0169 | 0.3613 | +2043.50% |
+
+逐 seed 结果显示 recovery dynamic 在 seeds 82-86 上均改善 local E-OSPA、
+consensus OSPA、cardinality dispersion、delivery count 和 effective-weight
+lambda2，且 attempted count 完全相同。因此当前 stress 证据支持较窄的结论：
+在目标桥边强失效下，reliability-guarded dynamic topology 能恢复 effective
+KLA graph，并稳定改善 truth-based local/consensus tracking 指标。
+
+但该配置同时让 position disagreement 变差，5/5 seeds 均未改善该诊断项。因此
+它不能写成“所有 network disagreement 指标全面优于 static graph”。后续若要把
+topology recovery 作为论文中的第二研究点，需要继续跑 N20 stress 并明确 gate：
+以同 attempted budget 下的 delivery、effective graph、local/consensus OSPA 和
+cardinality 为主恢复指标，position disagreement 作为风险项单独报告；若 N20
+仍保持同样模式，则只能主张 fault recovery trade-off，而不是全面 Pareto 优势。
