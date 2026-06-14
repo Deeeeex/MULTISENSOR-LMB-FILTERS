@@ -1,0 +1,608 @@
+Event-trigger trial 1/50 (seed=107)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8390080 trigger=1.000 E-OSPA=2.242 runtime=17.03s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12306864 trigger=1.000 E-OSPA=2.050 runtime=15.77s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13261392 trigger=1.000 E-OSPA=2.006 runtime=14.87s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12688976 trigger=1.000 E-OSPA=2.000 runtime=14.35s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13622400 trigger=1.000 E-OSPA=2.017 runtime=15.17s
+Event-trigger trial 2/50 (seed=108)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7016592 trigger=1.000 E-OSPA=2.227 runtime=9.40s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11301744 trigger=1.000 E-OSPA=2.010 runtime=13.42s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11656640 trigger=1.000 E-OSPA=1.975 runtime=12.63s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11519888 trigger=1.000 E-OSPA=1.945 runtime=13.17s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12419504 trigger=1.000 E-OSPA=1.955 runtime=13.99s
+Event-trigger trial 3/50 (seed=109)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7646688 trigger=1.000 E-OSPA=2.279 runtime=10.66s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11916448 trigger=1.000 E-OSPA=2.068 runtime=14.10s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11713456 trigger=1.000 E-OSPA=2.019 runtime=13.15s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12949536 trigger=1.000 E-OSPA=2.094 runtime=14.34s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13111312 trigger=1.000 E-OSPA=2.095 runtime=14.41s
+Event-trigger trial 4/50 (seed=110)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8096512 trigger=1.000 E-OSPA=2.202 runtime=10.77s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13339968 trigger=1.000 E-OSPA=1.983 runtime=15.45s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13360128 trigger=1.000 E-OSPA=1.878 runtime=14.41s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11936432 trigger=1.000 E-OSPA=1.849 runtime=12.94s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12130080 trigger=1.000 E-OSPA=1.893 runtime=13.13s
+Event-trigger trial 5/50 (seed=111)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8479392 trigger=1.000 E-OSPA=2.366 runtime=10.98s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12077136 trigger=1.000 E-OSPA=2.103 runtime=15.26s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12195024 trigger=1.000 E-OSPA=2.042 runtime=14.23s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12072048 trigger=1.000 E-OSPA=2.057 runtime=13.15s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12816128 trigger=1.000 E-OSPA=2.082 runtime=14.05s
+Event-trigger trial 6/50 (seed=112)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8092720 trigger=1.000 E-OSPA=2.294 runtime=10.97s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=14552912 trigger=1.000 E-OSPA=2.089 runtime=17.24s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13254512 trigger=1.000 E-OSPA=2.015 runtime=15.01s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13154688 trigger=1.000 E-OSPA=2.026 runtime=14.26s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=14313168 trigger=1.000 E-OSPA=2.028 runtime=16.03s
+Event-trigger trial 7/50 (seed=113)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7045200 trigger=1.000 E-OSPA=2.096 runtime=9.80s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11955888 trigger=1.000 E-OSPA=1.916 runtime=14.24s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11951504 trigger=1.000 E-OSPA=1.936 runtime=12.99s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12087296 trigger=1.000 E-OSPA=1.902 runtime=13.60s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13366864 trigger=1.000 E-OSPA=2.012 runtime=15.48s
+Event-trigger trial 8/50 (seed=114)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=6908016 trigger=1.000 E-OSPA=2.197 runtime=9.23s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11695040 trigger=1.000 E-OSPA=1.974 runtime=13.46s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=10579520 trigger=1.000 E-OSPA=1.948 runtime=11.99s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12338304 trigger=1.000 E-OSPA=1.979 runtime=13.97s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11786000 trigger=1.000 E-OSPA=1.927 runtime=13.39s
+Event-trigger trial 9/50 (seed=115)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8456720 trigger=1.000 E-OSPA=2.245 runtime=11.31s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13032336 trigger=1.000 E-OSPA=1.980 runtime=16.37s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13297632 trigger=1.000 E-OSPA=1.984 runtime=15.03s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13264080 trigger=1.000 E-OSPA=1.988 runtime=14.34s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13401360 trigger=1.000 E-OSPA=2.000 runtime=14.38s
+Event-trigger trial 10/50 (seed=116)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7462656 trigger=1.000 E-OSPA=2.205 runtime=9.35s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13365600 trigger=1.000 E-OSPA=2.055 runtime=14.93s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12728512 trigger=1.000 E-OSPA=1.993 runtime=13.04s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12143456 trigger=1.000 E-OSPA=1.977 runtime=12.41s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12838128 trigger=1.000 E-OSPA=1.967 runtime=13.58s
+Event-trigger trial 11/50 (seed=117)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7580784 trigger=1.000 E-OSPA=2.234 runtime=9.26s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11858688 trigger=1.000 E-OSPA=2.045 runtime=13.49s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13416256 trigger=1.000 E-OSPA=1.973 runtime=13.89s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=14389120 trigger=1.000 E-OSPA=2.019 runtime=15.37s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11916160 trigger=1.000 E-OSPA=1.972 runtime=12.59s
+Event-trigger trial 12/50 (seed=118)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7567680 trigger=1.000 E-OSPA=2.211 runtime=9.55s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11915248 trigger=1.000 E-OSPA=2.050 runtime=14.44s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11915968 trigger=1.000 E-OSPA=1.974 runtime=12.86s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12635056 trigger=1.000 E-OSPA=2.063 runtime=13.32s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11657696 trigger=1.000 E-OSPA=1.976 runtime=12.05s
+Event-trigger trial 13/50 (seed=119)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8286864 trigger=1.000 E-OSPA=2.217 runtime=10.55s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12804352 trigger=1.000 E-OSPA=2.125 runtime=15.21s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13245008 trigger=1.000 E-OSPA=2.023 runtime=14.18s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13089936 trigger=1.000 E-OSPA=2.019 runtime=13.58s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=14770528 trigger=1.000 E-OSPA=2.097 runtime=16.04s
+Event-trigger trial 14/50 (seed=120)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8541808 trigger=1.000 E-OSPA=2.225 runtime=10.60s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=14861760 trigger=1.000 E-OSPA=2.169 runtime=17.11s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13572432 trigger=1.000 E-OSPA=2.059 runtime=14.78s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13182496 trigger=1.000 E-OSPA=2.059 runtime=14.23s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12964880 trigger=1.000 E-OSPA=2.028 runtime=13.56s
+Event-trigger trial 15/50 (seed=121)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=9261792 trigger=1.000 E-OSPA=2.243 runtime=11.41s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=14682256 trigger=1.000 E-OSPA=2.098 runtime=16.21s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=14129552 trigger=1.000 E-OSPA=1.959 runtime=14.47s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=14860048 trigger=1.000 E-OSPA=1.953 runtime=15.04s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=14270672 trigger=1.000 E-OSPA=1.956 runtime=14.35s
+Event-trigger trial 16/50 (seed=122)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7455536 trigger=1.000 E-OSPA=2.200 runtime=9.25s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12711520 trigger=1.000 E-OSPA=1.998 runtime=14.48s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12790672 trigger=1.000 E-OSPA=1.953 runtime=13.26s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13197840 trigger=1.000 E-OSPA=1.987 runtime=13.50s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13681152 trigger=1.000 E-OSPA=1.969 runtime=13.79s
+Event-trigger trial 17/50 (seed=123)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7543616 trigger=1.000 E-OSPA=2.147 runtime=9.34s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12322048 trigger=1.000 E-OSPA=1.982 runtime=13.55s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11351056 trigger=1.000 E-OSPA=1.866 runtime=11.68s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12909152 trigger=1.000 E-OSPA=1.897 runtime=13.17s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12808320 trigger=1.000 E-OSPA=1.895 runtime=12.97s
+Event-trigger trial 18/50 (seed=124)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7826032 trigger=1.000 E-OSPA=2.197 runtime=9.65s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12547632 trigger=1.000 E-OSPA=1.992 runtime=13.96s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13894352 trigger=1.000 E-OSPA=2.012 runtime=14.59s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12015856 trigger=1.000 E-OSPA=1.909 runtime=12.35s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13798144 trigger=1.000 E-OSPA=1.955 runtime=14.36s
+Event-trigger trial 19/50 (seed=125)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8046368 trigger=1.000 E-OSPA=2.199 runtime=10.02s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13290384 trigger=1.000 E-OSPA=2.004 runtime=14.69s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12170480 trigger=1.000 E-OSPA=1.902 runtime=12.45s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12232768 trigger=1.000 E-OSPA=1.951 runtime=12.55s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13101600 trigger=1.000 E-OSPA=1.942 runtime=13.50s
+Event-trigger trial 20/50 (seed=126)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8105056 trigger=1.000 E-OSPA=2.220 runtime=9.90s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12939712 trigger=1.000 E-OSPA=2.012 runtime=14.05s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13202512 trigger=1.000 E-OSPA=1.966 runtime=13.47s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12421328 trigger=1.000 E-OSPA=1.978 runtime=12.55s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12523552 trigger=1.000 E-OSPA=1.996 runtime=12.59s
+Event-trigger trial 21/50 (seed=127)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8089120 trigger=1.000 E-OSPA=2.191 runtime=9.71s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11391360 trigger=1.000 E-OSPA=1.984 runtime=12.40s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12359824 trigger=1.000 E-OSPA=1.946 runtime=12.34s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12683152 trigger=1.000 E-OSPA=2.002 runtime=12.92s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12492064 trigger=1.000 E-OSPA=1.942 runtime=12.40s
+Event-trigger trial 22/50 (seed=128)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8296864 trigger=1.000 E-OSPA=2.266 runtime=9.87s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13339024 trigger=1.000 E-OSPA=2.123 runtime=14.29s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11765488 trigger=1.000 E-OSPA=1.963 runtime=11.79s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11764192 trigger=1.000 E-OSPA=1.992 runtime=11.65s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12398352 trigger=1.000 E-OSPA=2.009 runtime=12.23s
+Event-trigger trial 23/50 (seed=129)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7760912 trigger=1.000 E-OSPA=2.175 runtime=9.53s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12517072 trigger=1.000 E-OSPA=2.034 runtime=13.81s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11573600 trigger=1.000 E-OSPA=1.920 runtime=11.62s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11740256 trigger=1.000 E-OSPA=1.923 runtime=11.67s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12668272 trigger=1.000 E-OSPA=1.976 runtime=12.77s
+Event-trigger trial 24/50 (seed=130)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7929488 trigger=1.000 E-OSPA=2.251 runtime=9.48s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12478080 trigger=1.000 E-OSPA=2.058 runtime=13.49s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12243504 trigger=1.000 E-OSPA=1.982 runtime=12.20s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11643680 trigger=1.000 E-OSPA=1.981 runtime=11.60s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12214048 trigger=1.000 E-OSPA=1.975 runtime=12.15s
+Event-trigger trial 25/50 (seed=131)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7236384 trigger=1.000 E-OSPA=2.163 runtime=8.47s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13098352 trigger=1.000 E-OSPA=2.061 runtime=13.90s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12085008 trigger=1.000 E-OSPA=1.980 runtime=11.96s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11513712 trigger=1.000 E-OSPA=1.965 runtime=11.45s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11504672 trigger=1.000 E-OSPA=1.969 runtime=11.40s
+Event-trigger trial 26/50 (seed=132)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7489024 trigger=1.000 E-OSPA=2.184 runtime=9.01s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12033520 trigger=1.000 E-OSPA=2.144 runtime=12.80s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12290944 trigger=1.000 E-OSPA=2.014 runtime=12.08s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12140384 trigger=1.000 E-OSPA=2.005 runtime=11.97s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12444512 trigger=1.000 E-OSPA=1.981 runtime=12.33s
+Event-trigger trial 27/50 (seed=133)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7544816 trigger=1.000 E-OSPA=2.161 runtime=8.85s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12421232 trigger=1.000 E-OSPA=2.018 runtime=13.40s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11008032 trigger=1.000 E-OSPA=1.967 runtime=11.05s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12048672 trigger=1.000 E-OSPA=1.941 runtime=12.10s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12614352 trigger=1.000 E-OSPA=1.897 runtime=12.76s
+Event-trigger trial 28/50 (seed=134)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8200096 trigger=1.000 E-OSPA=2.118 runtime=10.04s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12171104 trigger=1.000 E-OSPA=1.966 runtime=13.34s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11806576 trigger=1.000 E-OSPA=1.909 runtime=11.66s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11404288 trigger=1.000 E-OSPA=1.871 runtime=11.46s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11055968 trigger=1.000 E-OSPA=1.882 runtime=11.04s
+Event-trigger trial 29/50 (seed=135)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=6963376 trigger=1.000 E-OSPA=2.237 runtime=8.20s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12165888 trigger=1.000 E-OSPA=2.171 runtime=13.26s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13779824 trigger=1.000 E-OSPA=2.087 runtime=13.88s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11394976 trigger=1.000 E-OSPA=1.988 runtime=11.32s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12395904 trigger=1.000 E-OSPA=2.077 runtime=12.39s
+Event-trigger trial 30/50 (seed=136)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7449632 trigger=1.000 E-OSPA=2.157 runtime=9.05s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13443168 trigger=1.000 E-OSPA=1.964 runtime=14.43s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11500272 trigger=1.000 E-OSPA=1.897 runtime=11.68s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12741296 trigger=1.000 E-OSPA=1.923 runtime=12.81s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11456208 trigger=1.000 E-OSPA=1.918 runtime=11.50s
+Event-trigger trial 31/50 (seed=137)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7912560 trigger=1.000 E-OSPA=2.188 runtime=9.37s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13043232 trigger=1.000 E-OSPA=2.094 runtime=14.27s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12224032 trigger=1.000 E-OSPA=1.942 runtime=12.18s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11899088 trigger=1.000 E-OSPA=1.969 runtime=11.84s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12026336 trigger=1.000 E-OSPA=1.917 runtime=11.97s
+Event-trigger trial 32/50 (seed=138)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8227680 trigger=1.000 E-OSPA=2.205 runtime=9.77s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13297776 trigger=1.000 E-OSPA=2.069 runtime=14.19s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13445504 trigger=1.000 E-OSPA=2.049 runtime=13.22s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13244384 trigger=1.000 E-OSPA=2.009 runtime=12.99s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12543120 trigger=1.000 E-OSPA=2.065 runtime=12.31s
+Event-trigger trial 33/50 (seed=139)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7315696 trigger=1.000 E-OSPA=2.169 runtime=8.71s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13049952 trigger=1.000 E-OSPA=2.046 runtime=14.08s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12839120 trigger=1.000 E-OSPA=1.962 runtime=12.63s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12170640 trigger=1.000 E-OSPA=1.942 runtime=12.13s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13200464 trigger=1.000 E-OSPA=2.031 runtime=13.22s
+Event-trigger trial 34/50 (seed=140)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8972416 trigger=1.000 E-OSPA=2.302 runtime=10.90s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=14390768 trigger=1.000 E-OSPA=2.133 runtime=15.60s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13955360 trigger=1.000 E-OSPA=2.139 runtime=14.15s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12838192 trigger=1.000 E-OSPA=2.048 runtime=12.70s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13729040 trigger=1.000 E-OSPA=2.106 runtime=14.07s
+Event-trigger trial 35/50 (seed=141)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8015808 trigger=1.000 E-OSPA=2.198 runtime=9.48s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13504480 trigger=1.000 E-OSPA=2.111 runtime=14.53s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12834464 trigger=1.000 E-OSPA=2.062 runtime=13.44s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13400176 trigger=1.000 E-OSPA=2.027 runtime=18.27s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13494528 trigger=1.000 E-OSPA=2.019 runtime=18.56s
+Event-trigger trial 36/50 (seed=142)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7731088 trigger=1.000 E-OSPA=2.277 runtime=12.99s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12837008 trigger=1.000 E-OSPA=2.058 runtime=19.12s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12470976 trigger=1.000 E-OSPA=2.018 runtime=16.96s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12057632 trigger=1.000 E-OSPA=1.979 runtime=16.05s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11954048 trigger=1.000 E-OSPA=2.024 runtime=16.26s
+Event-trigger trial 37/50 (seed=143)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7438384 trigger=1.000 E-OSPA=2.175 runtime=12.15s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12834736 trigger=1.000 E-OSPA=2.013 runtime=18.70s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11994672 trigger=1.000 E-OSPA=1.883 runtime=16.07s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11639296 trigger=1.000 E-OSPA=1.918 runtime=15.80s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11835264 trigger=1.000 E-OSPA=1.949 runtime=15.96s
+Event-trigger trial 38/50 (seed=144)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7305856 trigger=1.000 E-OSPA=2.074 runtime=11.82s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13337712 trigger=1.000 E-OSPA=2.152 runtime=19.07s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13132768 trigger=1.000 E-OSPA=1.991 runtime=17.60s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12378800 trigger=1.000 E-OSPA=1.930 runtime=16.74s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12213344 trigger=1.000 E-OSPA=1.947 runtime=16.53s
+Event-trigger trial 39/50 (seed=145)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=6958192 trigger=1.000 E-OSPA=2.238 runtime=11.32s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12023856 trigger=1.000 E-OSPA=2.001 runtime=17.53s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11755856 trigger=1.000 E-OSPA=1.938 runtime=15.70s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11305536 trigger=1.000 E-OSPA=1.912 runtime=15.03s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=10805152 trigger=1.000 E-OSPA=1.920 runtime=14.57s
+Event-trigger trial 40/50 (seed=146)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7921760 trigger=1.000 E-OSPA=2.127 runtime=12.90s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13206992 trigger=1.000 E-OSPA=2.007 runtime=18.93s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12438624 trigger=1.000 E-OSPA=1.930 runtime=16.98s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11995136 trigger=1.000 E-OSPA=1.914 runtime=16.17s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=13293408 trigger=1.000 E-OSPA=1.936 runtime=18.14s
+Event-trigger trial 41/50 (seed=147)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7190704 trigger=1.000 E-OSPA=2.125 runtime=11.68s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13308752 trigger=1.000 E-OSPA=2.132 runtime=19.33s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11721904 trigger=1.000 E-OSPA=1.934 runtime=16.11s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=13295776 trigger=1.000 E-OSPA=1.968 runtime=18.30s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12458592 trigger=1.000 E-OSPA=1.949 runtime=16.86s
+Event-trigger trial 42/50 (seed=148)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7886208 trigger=1.000 E-OSPA=2.319 runtime=12.91s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12472720 trigger=1.000 E-OSPA=2.134 runtime=17.87s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12603584 trigger=1.000 E-OSPA=2.023 runtime=16.84s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12565232 trigger=1.000 E-OSPA=1.958 runtime=16.73s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11669056 trigger=1.000 E-OSPA=1.999 runtime=15.81s
+Event-trigger trial 43/50 (seed=149)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7303472 trigger=1.000 E-OSPA=2.168 runtime=11.96s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11513616 trigger=1.000 E-OSPA=2.001 runtime=17.08s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11872432 trigger=1.000 E-OSPA=1.886 runtime=16.09s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12557392 trigger=1.000 E-OSPA=1.916 runtime=16.90s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12269712 trigger=1.000 E-OSPA=1.915 runtime=16.76s
+Event-trigger trial 44/50 (seed=150)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8853792 trigger=1.000 E-OSPA=2.255 runtime=14.68s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12642448 trigger=1.000 E-OSPA=2.006 runtime=18.67s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13060000 trigger=1.000 E-OSPA=2.025 runtime=17.29s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12320736 trigger=1.000 E-OSPA=1.990 runtime=16.41s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11610240 trigger=1.000 E-OSPA=1.926 runtime=15.93s
+Event-trigger trial 45/50 (seed=151)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7339536 trigger=1.000 E-OSPA=2.162 runtime=12.12s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=10849472 trigger=1.000 E-OSPA=1.938 runtime=16.16s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=12090176 trigger=1.000 E-OSPA=1.908 runtime=16.26s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12623680 trigger=1.000 E-OSPA=1.926 runtime=17.19s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=11073984 trigger=1.000 E-OSPA=1.904 runtime=15.10s
+Event-trigger trial 46/50 (seed=152)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8240944 trigger=1.000 E-OSPA=2.331 runtime=13.09s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=13791520 trigger=1.000 E-OSPA=2.201 runtime=20.11s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13129280 trigger=1.000 E-OSPA=2.051 runtime=17.30s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12538160 trigger=1.000 E-OSPA=2.043 runtime=16.57s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12943840 trigger=1.000 E-OSPA=2.025 runtime=17.03s
+Event-trigger trial 47/50 (seed=153)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7877472 trigger=1.000 E-OSPA=2.193 runtime=12.85s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12079312 trigger=1.000 E-OSPA=1.971 runtime=18.00s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11981744 trigger=1.000 E-OSPA=1.908 runtime=16.13s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12269200 trigger=1.000 E-OSPA=1.913 runtime=15.36s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12610960 trigger=1.000 E-OSPA=1.928 runtime=12.93s
+Event-trigger trial 48/50 (seed=154)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7127264 trigger=1.000 E-OSPA=2.243 runtime=8.92s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=11294368 trigger=1.000 E-OSPA=2.092 runtime=13.28s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11055392 trigger=1.000 E-OSPA=2.052 runtime=16.36s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12303008 trigger=1.000 E-OSPA=2.067 runtime=17.27s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=10612608 trigger=1.000 E-OSPA=2.008 runtime=14.87s
+Event-trigger trial 49/50 (seed=155)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=8158432 trigger=1.000 E-OSPA=2.281 runtime=13.34s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12444736 trigger=1.000 E-OSPA=2.008 runtime=18.03s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=11254432 trigger=1.000 E-OSPA=1.931 runtime=15.58s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=11678928 trigger=1.000 E-OSPA=1.952 runtime=15.99s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12587216 trigger=1.000 E-OSPA=1.979 runtime=19.12s
+Event-trigger trial 50/50 (seed=156)
+  Arm 1/5: Recovery stress: Periodic light static topology
+    bytes=7861712 trigger=1.000 E-OSPA=2.078 runtime=13.83s
+  Arm 2/5: Recovery stress: Reliability-guarded dynamic topology
+    bytes=12842208 trigger=1.000 E-OSPA=1.962 runtime=20.77s
+  Arm 3/5: Recovery stress: Balanced reliability repair topology
+    bytes=13021072 trigger=1.000 E-OSPA=1.910 runtime=19.84s
+  Arm 4/5: Recovery stress: Role-matched reliability repair topology
+    bytes=12145680 trigger=1.000 E-OSPA=1.877 runtime=21.00s
+  Arm 5/5: Recovery stress: Distance-balanced reliability repair topology
+    bytes=12087376 trigger=1.000 E-OSPA=1.948 runtime=21.08s
+=====================================
+Dual-threshold event-trigger GA-LMB (N=50)
+Calibration default multi thresholds: [0.25 0.6]
+=====================================
+Recovery stress: Periodic light static topology: bytes 7808176, trigger 1.000, local E-OSPA 2.209, consensus OSPA 2.127
+Recovery stress: Reliability-guarded dynamic topology: bytes 12706040, trigger 1.000, local E-OSPA 2.047, consensus OSPA 1.950
+Recovery stress: Balanced reliability repair topology: bytes 12459621, trigger 1.000, local E-OSPA 1.974, consensus OSPA 1.755
+Recovery stress: Role-matched reliability repair topology: bytes 12427792, trigger 1.000, local E-OSPA 1.970, consensus OSPA 1.757
+Recovery stress: Distance-balanced reliability repair topology: bytes 12551206, trigger 1.000, local E-OSPA 1.978, consensus OSPA 1.765
+Report written: C:\Users\Deeee\Desktop\Projects\MULTISENSOR-LMB-FILTERS\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED106_20260614_212950.md
+
+Role-matched recovery stress held-out result
+Report: C:\Users\Deeee\Desktop\Projects\MULTISENSOR-LMB-FILTERS\RUN\GA\GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED106_20260614_212950.md
+Summary: C:\Users\Deeee\Desktop\Projects\MULTISENSOR-LMB-FILTERS\RUN\GA\topology_role_matched_recovery_stress_n50_seeds107_156_20260614_202800.mat
+
+Arm names:
+    {'Recovery stress: Periodic light static topology'               }
+    {'Recovery stress: Reliability-guarded dynamic topology'         }
+    {'Recovery stress: Balanced reliability repair topology'         }
+    {'Recovery stress: Role-matched reliability repair topology'     }
+    {'Recovery stress: Distance-balanced reliability repair topology'}
+
+Payload bytes:
+   1.0e+07 *
+
+    0.7808    1.2706    1.2460    1.2428    1.2551
+
+Attempt counts:
+        3200        3200        3200        3200        3200
+
+Delivery counts:
+   1.0e+03 *
+
+    2.2294    2.9161    2.9435    2.9432    2.9418
+
+Local E-OSPA:
+    2.2091    2.0471    1.9738    1.9701    1.9777
+
+Consensus OSPA:
+    2.1272    1.9502    1.7549    1.7572    1.7645
+
+Position disagreement:
+    3.6995    4.3242    3.5340    3.4896    3.9842
+
+Cardinality dispersion:
+    0.2861    0.1993    0.1881    0.1904    0.1888
+
+Effective-weight lambda2:
+    0.0149    0.3559    0.3571    0.3569    0.3561
+
+
+Recovery gate vs `Recovery stress: Periodic light static topology`:
+Arm | Attempt delta | Delivery delta | Local % | Consensus % | Position % | Card. % | Pass count
+Recovery stress: Periodic light static topology | 0.0 | 0.0 | +0.00 | +0.00 | +0.00 | +0.00 | 50/50
+Recovery stress: Reliability-guarded dynamic topology | 0.0 | 686.7 | -7.30 | -8.26 | +20.38 | -27.94 | 26/50
+Recovery stress: Balanced reliability repair topology | 0.0 | 714.1 | -10.62 | -17.46 | -2.51 | -31.67 | 37/50
+Recovery stress: Role-matched reliability repair topology | 0.0 | 713.8 | -10.79 | -17.35 | -2.93 | -31.00 | 36/50
+Recovery stress: Distance-balanced reliability repair topology | 0.0 | 712.4 | -10.44 | -17.01 | +11.47 | -31.55 | 34/50
