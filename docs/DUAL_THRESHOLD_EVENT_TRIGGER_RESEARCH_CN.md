@@ -512,3 +512,62 @@ Role-matched repair 在该 stress seed 上同时改善 local E-OSPA、consensus 
 选择，还必须受结构/角色匹配约束。该结论目前只在 seed=96 outlier 上完成
 机制验证；若要作为主线方法，还需要对 role-matched repair 做多 seed stress
 验证。
+
+### Topology recovery N50 修复策略验证
+
+按 held-out seeds 107-156 完成 50-trial recovery stress 矩阵，报告见：
+
+- `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N50_SEED106_20260614_212950.md`
+
+运行入口已固化为：
+
+```matlab
+addpath('RUN/GA');
+[reportPath, summaryPath, summary] = ...
+    runTopologyRoleMatchedRecoveryStressHeldoutN50();
+```
+
+该 N50 不再比较普通场景的通信压缩，而是固定目标桥边强失效场景：静态
+4+4 跨组桥边 `[1-5, 2-6, 3-7, 4-8]` 双向丢包率为 `0.97`，其余候选边为
+`0.08`，所有 arm 均使用 periodic light posterior，attempted edge budget
+均为 3200。核心结果如下：
+
+| Arm | Bytes | Deliveries | Local E-OSPA | Consensus OSPA | Position | Card. | Eff. lambda2 | Recovery gate |
+|:--|--:|--:|--:|--:|--:|--:|--:|:--:|
+| Static light recovery baseline | 7808176 | 2229 | 2.2091 | 2.1272 | 3.6995 | 0.2861 | 0.0149 | 50/50 |
+| Reliability-guarded dynamic | 12706040 | 2916 | 2.0471 | 1.9502 | 4.3242 | 0.1993 | 0.3559 | 26/50 |
+| Balanced reliability repair | 12459621 | 2943 | 1.9738 | 1.7549 | 3.5340 | 0.1881 | 0.3571 | 37/50 |
+| Role-matched reliability repair | 12427792 | 2943 | 1.9701 | 1.7572 | 3.4896 | 0.1904 | 0.3569 | 36/50 |
+| Distance-balanced repair | 12551206 | 2942 | 1.9777 | 1.7645 | 3.9842 | 0.1888 | 0.3561 | 34/50 |
+
+相对 static light recovery baseline，三类结构化 repair 都恢复了 effective
+KLA graph：delivered lambda2 从约 0.081 提升到约 1.98，effective-weight
+lambda2 从 0.015 提升到约 0.357，label stale p90 从 37 steps 降到 1 step
+以内。Balanced repair 和 role-matched repair 在均值上都实现了“性能全向改善”：
+local E-OSPA 约下降 10.6%-10.8%，consensus OSPA 约下降 17.4%，position
+disagreement 约下降 2.5%-2.9%，cardinality dispersion 约下降 31%。
+
+但该结论仍有两个边界：
+
+1. 这不是通信字节节省结果。动态 repair 绕开坏桥边后 delivered payload 增加，
+   bytes 从约 7.81M 升到约 12.43M-12.46M；它解决的是同 attempted budget 下的
+   有效信息流恢复，而不是压缩通信。
+2. 这不是 all-trial strict dominance。Balanced/role-matched 的 recovery gate
+   分别为 37/50 和 36/50，说明仍存在个别 seed 的 position 或 truth metric 风险。
+
+因此当前论文主线应表述为两层：
+
+1. 普通链路场景下，主收益来自 static topology 上的 moment-matched light
+   posterior payload compression。
+2. 目标桥边失效场景下，动态拓扑的合理角色是 recovery：通过保护静态组内
+   backbone、只替换失效跨组 bridge slot，并约束每个节点最多承担一条 repair
+   bridge，恢复 effective KLA graph。
+
+方法选择上，`Balanced reliability repair topology` 更适合作为可泛化主方法，
+因为它不依赖手写 role pair，且在 N50 上有最高 recovery gate pass count 和
+最低 consensus/cardinality。`Role-matched reliability repair topology` 可作为
+结构先验对照或 oracle-style diagnostic，因为它在 local、position 和 bytes 上
+略优，但需要预先指定 `[1-6, 2-8, 3-5, 4-7]` 这类 role-matched bridge policy。
+`Distance-balanced repair` 和 `Compatibility-balanced repair` 暂不进入主线：
+前者 N50 position 平均仍退化约 11.5%；后者在 seed=96 smoke 中 local/consensus
+改善但 position 仍从 2.6912 升到 3.5106，未通过 position gate。
