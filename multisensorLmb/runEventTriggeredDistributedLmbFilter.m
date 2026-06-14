@@ -81,7 +81,7 @@ for currentTime = 1:simulationLength
         resolveActiveTopology( ...
             neighborMap, topologyWeights, localPosteriorBySensor, ...
             model, sensorTrajectories, commConfig, triggerConfig, ...
-            currentTime);
+            currentTime, previousDirectedEdgeMask);
     currentDirectedEdgeMask = buildDirectedEdgeMask( ...
         currentNeighborMap, numberOfSensors);
     diagnostics.topologyActiveEdge(:, :, currentTime) = ...
@@ -228,7 +228,7 @@ for currentTime = 1:simulationLength
             currentMessages, currentMessageTypes, receivedCache, ...
             lastSuccessfulTime, ...
             currentNeighborMap, currentTopologyWeights, model, ...
-            triggerConfig, currentTime);
+            triggerConfig, currentTime, baseDirectedEdgeMask);
         diagnostics = recordStaleFusionDiagnostics( ...
             diagnostics, fusionDetails, receiverIdx, currentTime);
         diagnostics = recordFusionWeightDiagnostics( ...
@@ -335,8 +335,32 @@ config.topologyCoverageRepairWeight = getField( ...
     config, 'topologyCoverageRepairWeight', 0.15);
 config.topologyBytePenaltyWeight = getField( ...
     config, 'topologyBytePenaltyWeight', 0.05);
+config.topologyCompatibilityRiskWeight = getField( ...
+    config, 'topologyCompatibilityRiskWeight', 0.50);
+config.topologyCompatibilityCoverageWeight = getField( ...
+    config, 'topologyCompatibilityCoverageWeight', 0.10);
+config.topologyCompatibilityOverlapWeight = getField( ...
+    config, 'topologyCompatibilityOverlapWeight', 0.10);
 config.topologyStaticEdgeBonus = getField( ...
     config, 'topologyStaticEdgeBonus', 0);
+config.topologyPreviousEdgeBonus = getField( ...
+    config, 'topologyPreviousEdgeBonus', 0);
+config.topologyMaxEdgeChangeFraction = getField( ...
+    config, 'topologyMaxEdgeChangeFraction', inf);
+config.topologyStructurePreservingEnabled = getField( ...
+    config, 'topologyStructurePreservingEnabled', false);
+config.topologyBackboneGroups = getField( ...
+    config, 'topologyBackboneGroups', {});
+config.topologyStructureBridgeBudget = getField( ...
+    config, 'topologyStructureBridgeBudget', []);
+config.topologyMaxStructureBridgeDegree = getField( ...
+    config, 'topologyMaxStructureBridgeDegree', inf);
+config.topologyStructureBridgePairs = getField( ...
+    config, 'topologyStructureBridgePairs', []);
+config.topologyStructureBridgeSelectionMode = getField( ...
+    config, 'topologyStructureBridgeSelectionMode', 'greedy');
+config.topologyStructureBridgeMinScoreFraction = getField( ...
+    config, 'topologyStructureBridgeMinScoreFraction', 0.50);
 config.topologyActiveExistenceThreshold = getField( ...
     config, 'topologyActiveExistenceThreshold', ...
     config.forceLabelExistenceThreshold);
@@ -361,6 +385,10 @@ config.staleFusionWeightFactor = min(max(getField( ...
     config, 'staleFusionWeightFactor', 0.20), 0), 1);
 config.maxSelfFusionWeight = getField( ...
     config, 'maxSelfFusionWeight', inf);
+config.nonStaticFusionWeightFactor = min(max(getField( ...
+    config, 'nonStaticFusionWeightFactor', 1.0), 0), 1);
+config.maxNonStaticFusionWeight = getField( ...
+    config, 'maxNonStaticFusionWeight', inf);
 config.mixedPayloadEnabled = getField( ...
     config, 'mixedPayloadEnabled', false);
 config.mixedPayloadLightForAllActiveLabels = getField( ...
@@ -475,7 +503,7 @@ end
 function [currentNeighborMap, currentTopologyWeights, details] = ...
     resolveActiveTopology(baseNeighborMap, baseTopologyWeights, ...
         localPosteriorBySensor, model, sensorTrajectories, commConfig, ...
-        triggerConfig, currentTime)
+        triggerConfig, currentTime, previousDirectedEdgeMask)
 details = struct( ...
     'algebraicConnectivity', computeAlgebraicConnectivity(baseNeighborMap), ...
     'undirectedEdgeCount', countUndirectedEdges(baseNeighborMap));
@@ -493,15 +521,37 @@ end
 edgeBudget = min(max(round(edgeBudget), numberOfSensors - 1), ...
     numberOfSensors * (numberOfSensors - 1) / 2);
 
+positions = resolveSensorPositions(model, sensorTrajectories, currentTime);
 edgeScores = computeTopologyBenefitMatrix( ...
     localPosteriorBySensor, model, sensorTrajectories, commConfig, ...
     triggerConfig, currentTime);
+rawEdgeScores = edgeScores;
 baseAdjacency = neighborMapToAdjacency(baseNeighborMap);
-staticEdgeBonus = triggerConfig.topologyStaticEdgeBonus;
-if staticEdgeBonus > 0
-    edgeScores(baseAdjacency) = edgeScores(baseAdjacency) + staticEdgeBonus;
+
+previousAdjacency = false(numberOfSensors);
+if nargin >= 9 && ~isempty(previousDirectedEdgeMask)
+    previousAdjacency = previousDirectedEdgeMask | previousDirectedEdgeMask';
+    previousAdjacency(1:numberOfSensors+1:end) = false;
 end
-adjacency = selectBudgetedConnectedTopology(edgeScores, edgeBudget);
+previousEdgeBonus = triggerConfig.topologyPreviousEdgeBonus;
+if previousEdgeBonus > 0 && any(previousAdjacency(:))
+    retainable = previousAdjacency & isfinite(edgeScores);
+    edgeScores(retainable) = edgeScores(retainable) + previousEdgeBonus;
+end
+if triggerConfig.topologyStructurePreservingEnabled
+    adjacency = selectStructurePreservingTopology( ...
+        rawEdgeScores, previousAdjacency, baseAdjacency, edgeBudget, ...
+        triggerConfig, positions);
+else
+    staticEdgeBonus = triggerConfig.topologyStaticEdgeBonus;
+    if staticEdgeBonus > 0
+        edgeScores(baseAdjacency) = edgeScores(baseAdjacency) + staticEdgeBonus;
+    end
+    adjacency = selectBudgetedConnectedTopology(edgeScores, edgeBudget);
+    adjacency = limitTopologyChurn( ...
+        adjacency, previousAdjacency, edgeScores, edgeBudget, ...
+        triggerConfig.topologyMaxEdgeChangeFraction);
+end
 minConnectivity = triggerConfig.topologyMinAlgebraicConnectivity;
 if minConnectivity < 0
     minConnectivity = computeAlgebraicConnectivity(baseNeighborMap);
@@ -556,6 +606,11 @@ for leftIdx = 1:numberOfSensors-1
                 localPosteriorBySensor{leftIdx}, ...
                 localPosteriorBySensor{rightIdx}, model, ...
                 triggerConfig, reliability, overlap, complementarity);
+        elseif strcmpi(triggerConfig.topologyScoreMode, 'compatible')
+            score = computeCompatibilityTopologyScore( ...
+                localPosteriorBySensor{leftIdx}, ...
+                localPosteriorBySensor{rightIdx}, model, ...
+                triggerConfig, reliability, overlap, complementarity);
         else
             score = (reliabilityWeight * reliability + ...
                 overlapWeight * overlap + ...
@@ -586,6 +641,21 @@ rawScore = ...
     triggerConfig.topologyCoverageRepairWeight * coverageRepair - ...
     triggerConfig.topologyBytePenaltyWeight * bytePenalty;
 score = reliability * rawScore + 0.10 * overlap;
+score = max(score, 0);
+end
+
+function score = computeCompatibilityTopologyScore( ...
+    leftObjects, rightObjects, model, triggerConfig, reliability, ...
+    overlap, complementarity)
+fusionRisk = computePairwiseExpectedFusionValue( ...
+    leftObjects, rightObjects, model, triggerConfig);
+coverageRepair = computeCoverageRepairScore( ...
+    leftObjects, rightObjects, triggerConfig.topologyActiveExistenceThreshold);
+score = reliability - ...
+    triggerConfig.topologyCompatibilityRiskWeight * fusionRisk + ...
+    triggerConfig.topologyCompatibilityCoverageWeight * coverageRepair + ...
+    triggerConfig.topologyCompatibilityOverlapWeight * overlap + ...
+    triggerConfig.topologyComplementarityWeight * complementarity;
 score = max(score, 0);
 end
 
@@ -837,6 +907,348 @@ for edgeIdx = 1:size(edges, 1)
         edgeCount = edgeCount + 1;
     end
 end
+end
+
+function adjacency = selectStructurePreservingTopology( ...
+    scores, previousAdjacency, baseAdjacency, edgeBudget, triggerConfig, ...
+    positions)
+numberOfSensors = size(scores, 1);
+if nargin < 6
+    positions = [];
+end
+groupIds = resolveTopologyGroupIds( ...
+    triggerConfig.topologyBackboneGroups, numberOfSensors);
+if isempty(groupIds) || numel(unique(groupIds(groupIds > 0))) < 2
+    adjacency = selectBudgetedConnectedTopology(scores, edgeBudget);
+    return;
+end
+
+sameGroup = false(numberOfSensors);
+for leftIdx = 1:numberOfSensors
+    for rightIdx = 1:numberOfSensors
+        sameGroup(leftIdx, rightIdx) = groupIds(leftIdx) > 0 && ...
+            groupIds(leftIdx) == groupIds(rightIdx);
+    end
+end
+protectedBackbone = baseAdjacency & sameGroup;
+protectedBackbone(1:numberOfSensors+1:end) = false;
+protectedCount = countUndirectedEdgesFromAdjacency(protectedBackbone);
+if protectedCount >= edgeBudget
+    adjacency = selectBudgetedConnectedTopology(scores, edgeBudget);
+    return;
+end
+
+candidateScores = scores;
+previousEdgeBonus = triggerConfig.topologyPreviousEdgeBonus;
+if previousEdgeBonus > 0 && any(previousAdjacency(:))
+    retainable = previousAdjacency & isfinite(candidateScores);
+    candidateScores(retainable) = ...
+        candidateScores(retainable) + previousEdgeBonus;
+end
+candidateScores(sameGroup) = -inf;
+candidateScores(protectedBackbone) = -inf;
+
+adjacency = protectedBackbone;
+remainingBudget = edgeBudget - protectedCount;
+if ~isempty(triggerConfig.topologyStructureBridgeBudget)
+    remainingBudget = min(remainingBudget, max(0, round( ...
+        triggerConfig.topologyStructureBridgeBudget)));
+end
+targetEdgeCount = protectedCount + remainingBudget;
+maxBridgeDegree = triggerConfig.topologyMaxStructureBridgeDegree;
+bridgeDegree = countStructureBridgeDegree(adjacency, groupIds);
+forcedBridgePairs = normalizeStructureBridgePairs( ...
+    triggerConfig.topologyStructureBridgePairs, numberOfSensors);
+if isempty(forcedBridgePairs) && strcmpi( ...
+        triggerConfig.topologyStructureBridgeSelectionMode, ...
+        'distancebalanced')
+    forcedBridgePairs = selectDistanceBalancedBridgePairs( ...
+        candidateScores, positions, groupIds, remainingBudget, ...
+        maxBridgeDegree, triggerConfig);
+end
+for pairIdx = 1:size(forcedBridgePairs, 1)
+    if remainingBudget <= 0
+        break;
+    end
+    leftIdx = forcedBridgePairs(pairIdx, 1);
+    rightIdx = forcedBridgePairs(pairIdx, 2);
+    if ~isValidStructureBridgePair(leftIdx, rightIdx, groupIds, ...
+            candidateScores, adjacency)
+        continue;
+    end
+    if isfinite(maxBridgeDegree) && maxBridgeDegree >= 0 && ...
+            (bridgeDegree(leftIdx) >= maxBridgeDegree || ...
+             bridgeDegree(rightIdx) >= maxBridgeDegree)
+        continue;
+    end
+    adjacency(leftIdx, rightIdx) = true;
+    adjacency(rightIdx, leftIdx) = true;
+    bridgeDegree(leftIdx) = bridgeDegree(leftIdx) + 1;
+    bridgeDegree(rightIdx) = bridgeDegree(rightIdx) + 1;
+    remainingBudget = remainingBudget - 1;
+end
+
+edges = sortedCandidateEdges(candidateScores);
+for edgeIdx = 1:size(edges, 1)
+    if remainingBudget <= 0
+        break;
+    end
+    leftIdx = edges(edgeIdx, 1);
+    rightIdx = edges(edgeIdx, 2);
+    if adjacency(leftIdx, rightIdx)
+        continue;
+    end
+    if isfinite(maxBridgeDegree) && maxBridgeDegree >= 0 && ...
+            (bridgeDegree(leftIdx) >= maxBridgeDegree || ...
+             bridgeDegree(rightIdx) >= maxBridgeDegree)
+        continue;
+    end
+    adjacency(leftIdx, rightIdx) = true;
+    adjacency(rightIdx, leftIdx) = true;
+    if groupIds(leftIdx) ~= groupIds(rightIdx)
+        bridgeDegree(leftIdx) = bridgeDegree(leftIdx) + 1;
+        bridgeDegree(rightIdx) = bridgeDegree(rightIdx) + 1;
+    end
+    remainingBudget = remainingBudget - 1;
+end
+
+if countUndirectedEdgesFromAdjacency(adjacency) < targetEdgeCount || ...
+        ~isConnectedAdjacency(adjacency)
+    fallbackScores = scores;
+    staticEdgeBonus = triggerConfig.topologyStaticEdgeBonus;
+    if staticEdgeBonus > 0
+        fallbackScores(baseAdjacency) = ...
+            fallbackScores(baseAdjacency) + staticEdgeBonus;
+    end
+    adjacency = selectBudgetedConnectedTopology(fallbackScores, edgeBudget);
+end
+end
+
+function pairs = selectDistanceBalancedBridgePairs( ...
+    scores, positions, groupIds, bridgeBudget, maxBridgeDegree, ...
+    triggerConfig)
+pairs = zeros(0, 2);
+if isempty(positions) || bridgeBudget <= 0 || ...
+        ~isfinite(maxBridgeDegree) || maxBridgeDegree ~= 1
+    return;
+end
+groups = unique(groupIds(groupIds > 0));
+if numel(groups) ~= 2
+    return;
+end
+leftGroup = find(groupIds == groups(1));
+rightGroup = find(groupIds == groups(2));
+if bridgeBudget ~= min(numel(leftGroup), numel(rightGroup)) || ...
+        numel(leftGroup) ~= numel(rightGroup) || numel(leftGroup) > 7
+    return;
+end
+finiteScores = scores(isfinite(scores));
+if isempty(finiteScores)
+    return;
+end
+minScore = triggerConfig.topologyStructureBridgeMinScoreFraction * ...
+    max(finiteScores);
+rightPermutations = perms(rightGroup);
+bestObjective = inf;
+bestMeanScore = -inf;
+scale = max(computePositionDiameter(positions), eps);
+for permIdx = 1:size(rightPermutations, 1)
+    selectedPairs = [reshape(leftGroup, [], 1), ...
+        reshape(rightPermutations(permIdx, :), [], 1)];
+    selectedScores = zeros(1, size(selectedPairs, 1));
+    distances = zeros(1, size(selectedPairs, 1));
+    valid = true;
+    for pairIdx = 1:size(selectedPairs, 1)
+        leftIdx = selectedPairs(pairIdx, 1);
+        rightIdx = selectedPairs(pairIdx, 2);
+        score = scores(leftIdx, rightIdx);
+        if ~isfinite(score) || score < minScore
+            valid = false;
+            break;
+        end
+        selectedScores(pairIdx) = score;
+        distances(pairIdx) = norm( ...
+            positions(:, leftIdx) - positions(:, rightIdx));
+    end
+    if ~valid
+        continue;
+    end
+    meanScore = mean(selectedScores);
+    objective = std(distances) / scale + ...
+        0.25 * (max(distances) - min(distances)) / scale - ...
+        0.10 * meanScore;
+    if objective < bestObjective || ...
+            (abs(objective - bestObjective) <= eps && ...
+             meanScore > bestMeanScore)
+        bestObjective = objective;
+        bestMeanScore = meanScore;
+        pairs = selectedPairs;
+    end
+end
+end
+
+function diameter = computePositionDiameter(positions)
+diameter = 0;
+numberOfSensors = size(positions, 2);
+for leftIdx = 1:numberOfSensors-1
+    for rightIdx = leftIdx+1:numberOfSensors
+        diameter = max(diameter, ...
+            norm(positions(:, leftIdx) - positions(:, rightIdx)));
+    end
+end
+end
+
+function pairs = normalizeStructureBridgePairs(rawPairs, numberOfSensors)
+pairs = zeros(0, 2);
+if isempty(rawPairs) || ~isnumeric(rawPairs)
+    return;
+end
+if size(rawPairs, 2) ~= 2
+    return;
+end
+rawPairs = round(rawPairs);
+valid = rawPairs(:, 1) >= 1 & rawPairs(:, 1) <= numberOfSensors & ...
+    rawPairs(:, 2) >= 1 & rawPairs(:, 2) <= numberOfSensors & ...
+    rawPairs(:, 1) ~= rawPairs(:, 2);
+pairs = rawPairs(valid, :);
+end
+
+function valid = isValidStructureBridgePair( ...
+    leftIdx, rightIdx, groupIds, scores, adjacency)
+valid = leftIdx >= 1 && rightIdx >= 1 && ...
+    leftIdx <= numel(groupIds) && rightIdx <= numel(groupIds) && ...
+    groupIds(leftIdx) > 0 && groupIds(rightIdx) > 0 && ...
+    groupIds(leftIdx) ~= groupIds(rightIdx) && ...
+    isfinite(scores(leftIdx, rightIdx)) && ...
+    ~adjacency(leftIdx, rightIdx);
+end
+
+function bridgeDegree = countStructureBridgeDegree(adjacency, groupIds)
+numberOfSensors = size(adjacency, 1);
+bridgeDegree = zeros(1, numberOfSensors);
+for leftIdx = 1:numberOfSensors
+    for rightIdx = leftIdx+1:numberOfSensors
+        if adjacency(leftIdx, rightIdx) && ...
+                groupIds(leftIdx) > 0 && groupIds(rightIdx) > 0 && ...
+                groupIds(leftIdx) ~= groupIds(rightIdx)
+            bridgeDegree(leftIdx) = bridgeDegree(leftIdx) + 1;
+            bridgeDegree(rightIdx) = bridgeDegree(rightIdx) + 1;
+        end
+    end
+end
+end
+
+function groupIds = resolveTopologyGroupIds(groups, numberOfSensors)
+groupIds = zeros(1, numberOfSensors);
+if isempty(groups)
+    return;
+end
+if isnumeric(groups)
+    if numel(groups) == numberOfSensors
+        groupIds = reshape(groups, 1, []);
+    end
+    return;
+end
+if ~iscell(groups)
+    return;
+end
+for groupIdx = 1:numel(groups)
+    members = groups{groupIdx};
+    members = members(members >= 1 & members <= numberOfSensors);
+    groupIds(members) = groupIdx;
+end
+end
+
+function adjacency = limitTopologyChurn( ...
+    adjacency, previousAdjacency, scores, edgeBudget, maxChangeFraction)
+if ~isfinite(maxChangeFraction) || maxChangeFraction >= 1 || ...
+        isempty(previousAdjacency) || ~any(previousAdjacency(:))
+    return;
+end
+
+numberOfSensors = size(adjacency, 1);
+adjacency = adjacency | adjacency';
+adjacency(1:numberOfSensors+1:end) = false;
+previousAdjacency = previousAdjacency | previousAdjacency';
+previousAdjacency(1:numberOfSensors+1:end) = false;
+maxRemoved = max(0, floor(edgeBudget * max(0, maxChangeFraction)));
+
+for iterationIdx = 1:edgeBudget
+    droppedPrevious = triu(previousAdjacency & ~adjacency & isfinite(scores), 1);
+    if nnz(droppedPrevious) <= maxRemoved
+        break;
+    end
+    [addLeft, addRight, hasAdd] = selectHighestScoredEdge( ...
+        droppedPrevious, scores);
+    if ~hasAdd
+        break;
+    end
+    trialAdjacency = adjacency;
+    trialAdjacency(addLeft, addRight) = true;
+    trialAdjacency(addRight, addLeft) = true;
+    if countUndirectedEdgesFromAdjacency(trialAdjacency) > edgeBudget
+        [removeLeft, removeRight, hasRemove] = selectRemovableNewEdge( ...
+            trialAdjacency, previousAdjacency, scores);
+        if ~hasRemove
+            break;
+        end
+        trialAdjacency(removeLeft, removeRight) = false;
+        trialAdjacency(removeRight, removeLeft) = false;
+    end
+    if isConnectedAdjacency(trialAdjacency)
+        adjacency = trialAdjacency;
+    else
+        previousAdjacency(addLeft, addRight) = false;
+        previousAdjacency(addRight, addLeft) = false;
+    end
+end
+end
+
+function [leftIdx, rightIdx, found] = selectHighestScoredEdge(mask, scores)
+found = false;
+leftIdx = 0;
+rightIdx = 0;
+candidateIdx = find(mask);
+if isempty(candidateIdx)
+    return;
+end
+[~, bestCursor] = max(scores(candidateIdx));
+[leftIdx, rightIdx] = ind2sub(size(scores), candidateIdx(bestCursor));
+found = true;
+end
+
+function [leftIdx, rightIdx, found] = selectRemovableNewEdge( ...
+    adjacency, previousAdjacency, scores)
+found = false;
+leftIdx = 0;
+rightIdx = 0;
+candidates = find(triu(adjacency & ~previousAdjacency, 1));
+if isempty(candidates)
+    return;
+end
+candidateScores = scores(candidates);
+[~, order] = sort(candidateScores, 'ascend');
+for cursor = reshape(order, 1, [])
+    [candidateLeft, candidateRight] = ind2sub( ...
+        size(adjacency), candidates(cursor));
+    trialAdjacency = adjacency;
+    trialAdjacency(candidateLeft, candidateRight) = false;
+    trialAdjacency(candidateRight, candidateLeft) = false;
+    if isConnectedAdjacency(trialAdjacency)
+        leftIdx = candidateLeft;
+        rightIdx = candidateRight;
+        found = true;
+        return;
+    end
+end
+end
+
+function count = countUndirectedEdgesFromAdjacency(adjacency)
+count = nnz(triu(adjacency, 1));
+end
+
+function tf = isConnectedAdjacency(adjacency)
+tf = computeAlgebraicConnectivity(adjacencyToNeighborMap(adjacency)) > 1e-9;
 end
 
 function adjacency = neighborMapToAdjacency(neighborMap)
@@ -1178,7 +1590,7 @@ end
 function [inputs, weights, details] = collectCurrentFusionInputs( ...
     receiverIdx, localPosterior, currentMessages, currentMessageTypes, ...
     receivedCache, lastSuccessfulTime, neighborMap, topologyWeights, model, ...
-    triggerConfig, currentTime)
+    triggerConfig, currentTime, baseDirectedEdgeMask)
 inputs = {localPosterior};
 sourceIndices = receiverIdx;
 rawWeights = topologyWeights(receiverIdx, receiverIdx);
@@ -1186,6 +1598,7 @@ missingWeightMass = 0;
 details = struct( ...
     'sourceIndices', receiverIdx, ...
     'isStale', false, ...
+    'isBaseEdge', true, ...
     'age', 0, ...
     'eventType', 2, ...
     'weights', 1);
@@ -1198,6 +1611,8 @@ for senderIdx = senders
         rawWeights(end+1) = topologyWeights(receiverIdx, senderIdx); %#ok<AGROW>
         details.sourceIndices(end+1) = senderIdx; %#ok<AGROW>
         details.isStale(end+1) = false; %#ok<AGROW>
+        details.isBaseEdge(end+1) = ...
+            baseDirectedEdgeMask(senderIdx, receiverIdx); %#ok<AGROW>
         details.age(end+1) = 0; %#ok<AGROW>
         details.eventType(end+1) = ...
             currentMessageTypes(receiverIdx, senderIdx); %#ok<AGROW>
@@ -1219,6 +1634,8 @@ for senderIdx = senders
                 rawWeights(end+1) = staleWeight; %#ok<AGROW>
                 details.sourceIndices(end+1) = senderIdx; %#ok<AGROW>
                 details.isStale(end+1) = true; %#ok<AGROW>
+                details.isBaseEdge(end+1) = ...
+                    baseDirectedEdgeMask(senderIdx, receiverIdx); %#ok<AGROW>
                 details.age(end+1) = staleAge; %#ok<AGROW>
                 details.eventType(end+1) = 0; %#ok<AGROW>
                 usedFallback = true;
@@ -1241,8 +1658,11 @@ if strcmpi(triggerConfig.missingNeighborWeightMode, 'self')
 end
 weights = applyModeAwareFusionWeightFactors( ...
     weights, details, triggerConfig);
+weights = applyNonStaticFusionWeightFactor( ...
+    weights, details, triggerConfig);
 weights = normalizeFusionInputWeights(weights);
 weights = capSelfFusionWeight(weights, triggerConfig);
+weights = capNonStaticFusionWeight(weights, details, triggerConfig);
 details.weights = weights;
 end
 
@@ -1264,6 +1684,18 @@ for sourceIdx = 2:numel(weights)
     end
 end
 weights = weights .* factors;
+end
+
+function weights = applyNonStaticFusionWeightFactor( ...
+    weights, details, triggerConfig)
+factor = triggerConfig.nonStaticFusionWeightFactor;
+if factor >= 1 || numel(weights) <= 1 || ...
+        ~isfield(details, 'isBaseEdge')
+    return;
+end
+nonStatic = ~reshape(details.isBaseEdge, size(weights));
+nonStatic(1) = false;
+weights(nonStatic) = weights(nonStatic) * factor;
 end
 
 function weights = normalizeFusionInputWeights(weights)
@@ -1288,6 +1720,36 @@ end
 excess = weights(1) - maxSelfWeight;
 weights(1) = maxSelfWeight;
 weights(2:end) = weights(2:end) + excess * weights(2:end) / neighborMass;
+weights = weights / sum(weights);
+end
+
+function weights = capNonStaticFusionWeight(weights, details, triggerConfig)
+maxNonStaticWeight = triggerConfig.maxNonStaticFusionWeight;
+if numel(weights) <= 1 || ~isfinite(maxNonStaticWeight) || ...
+        maxNonStaticWeight >= 1 || ~isfield(details, 'isBaseEdge')
+    return;
+end
+nonStatic = ~reshape(details.isBaseEdge, size(weights));
+nonStatic(1) = false;
+nonStaticMass = sum(weights(nonStatic));
+if nonStaticMass <= maxNonStaticWeight
+    return;
+end
+keptMass = max(maxNonStaticWeight, 0);
+excess = nonStaticMass - keptMass;
+if nonStaticMass > eps
+    weights(nonStatic) = weights(nonStatic) * keptMass / nonStaticMass;
+else
+    weights(nonStatic) = 0;
+end
+redistribution = ~nonStatic;
+redistributionMass = sum(weights(redistribution));
+if redistributionMass <= eps
+    weights(1) = weights(1) + excess;
+else
+    weights(redistribution) = weights(redistribution) + ...
+        excess * weights(redistribution) / redistributionMass;
+end
 weights = weights / sum(weights);
 end
 

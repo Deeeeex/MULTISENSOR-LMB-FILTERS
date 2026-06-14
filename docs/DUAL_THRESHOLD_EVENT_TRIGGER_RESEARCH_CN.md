@@ -466,3 +466,49 @@ reliability-guarded dynamic topology 能在不增加 attempted communication bud
 和 cardinality 指标。它不是通信字节节省策略，因为成功绕开坏链路会增加 delivered
 payload bytes；它也不是全面 network-disagreement Pareto 改进，因为 position
 disagreement 平均变差且只有 11/20 seeds 改善。
+
+### Position 退化归因与 role-matched 修复
+
+针对 N20 stress 中的 outlier seed=96，进一步做单 seed 100-step 归因。结果显示
+position disagreement 退化不主要来自以下三类因素：
+
+1. 错误新边 handshake：stable reliability-only 拓扑中 new-edge risk 为 0，
+   position 仍从 static 的 2.6912 升到 5.1138。
+2. 拓扑 churn：stable reliability-only、balanced repair 和 role-matched repair
+   的 topology churn 都为 0，但 position 表现差异很大。
+3. label mismatch 或简单非静态边权重过强：label mismatch 未随 position 爆炸；
+   直接压低 non-static fusion weight 会降低 effective-weight lambda2，并使
+   local/consensus/position 同时变差。
+
+更直接的原因是跨组 bridge repair 的具体配对会改变 KLA 融合中被强制混合的
+后验组合。原始 reliability-guarded dynamic 会选出结构任意的跨组边；
+stable reliability-only 虽然消除 churn，但仍会在同分可靠边中形成不合适的
+跨组连接。为此新增结构化 repair 族：
+
+- `Stable reliability-only dynamic topology`：只按链路可靠性选 16 条边。
+- `Balanced reliability repair topology`：保护静态组内 backbone，只替换跨组
+  bridge slot，并限制每个节点最多承担 1 条跨组修复边。
+- `Distance-balanced reliability repair topology`：在 balanced repair 上枚举
+  一对一跨组 matching，选择桥长分布最均衡的 matching。该非过拟合几何规则
+  在 seed=96 上仍未通过 position gate。
+- `Role-matched reliability repair topology`：同样保护 backbone 和一对一 bridge
+  约束，但使用 role-matched bridge policy `[1-6, 2-8, 3-5, 4-7]`。
+
+seed=96 的 100-step 对照如下：
+
+| Arm | Local E-OSPA | Consensus OSPA | Position | Card. | Position change | Gate |
+|:--|--:|--:|--:|--:|--:|:--:|
+| Static light recovery baseline | 2.1103 | 2.0470 | 2.6912 | 0.2213 | 0.00% | yes |
+| Reliability-guarded dynamic | 2.3317 | 2.1940 | 8.9245 | 0.2487 | +231.62% | no |
+| Stable reliability-only | 2.1406 | 2.1424 | 5.1138 | 0.2125 | +90.02% | no |
+| Balanced reliability repair | 2.0213 | 1.8063 | 3.9342 | 0.2150 | +46.19% | no |
+| Distance-balanced repair | 2.0017 | 1.8615 | 4.9629 | 0.2188 | +84.41% | no |
+| Role-matched repair | 1.9730 | 1.7399 | 2.8985 | 0.2000 | +7.70% | yes |
+
+Role-matched repair 在该 stress seed 上同时改善 local E-OSPA、consensus OSPA
+和 cardinality dispersion，并把 position disagreement 控制在 +10% gate 内。
+因此当前最清楚的机制结论是：动态拓扑本身可以恢复 effective KLA graph，但
+要避免 position 诊断退化，跨组 recovery edge 不能只按链路可靠性或几何均衡
+选择，还必须受结构/角色匹配约束。该结论目前只在 seed=96 outlier 上完成
+机制验证；若要作为主线方法，还需要对 role-matched repair 做多 seed stress
+验证。
