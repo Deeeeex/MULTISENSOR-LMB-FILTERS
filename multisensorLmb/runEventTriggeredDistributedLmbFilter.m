@@ -244,6 +244,9 @@ for currentTime = 1:simulationLength
                 fusedObjects, stateEstimatesBySensor{receiverIdx}, ...
                 model, currentTime);
     end
+    diagnostics = recordTopologyRiskDiagnostics( ...
+        diagnostics, localPosteriorBySensor, triggerConfig, model, ...
+        currentTime);
     diagnostics.effectiveWeightAlgebraicConnectivity(currentTime) = ...
         computeWeightedAlgebraicConnectivity( ...
             diagnostics.fusionWeight(:, :, currentTime));
@@ -1338,6 +1341,96 @@ else
 end
 end
 
+function diagnostics = recordTopologyRiskDiagnostics( ...
+    diagnostics, localPosteriorBySensor, triggerConfig, model, currentTime)
+activeMask = diagnostics.topologyActiveEdge(:, :, currentTime);
+if ~any(activeMask(:))
+    activeMask = diagnostics.edgeMask;
+end
+activeMask(1:size(activeMask, 1)+1:end) = false;
+baseMask = diagnostics.edgeMask;
+newMask = diagnostics.newEdgeActivated(:, :, currentTime);
+nonStaticMask = activeMask & ~baseMask;
+fusionWeights = diagnostics.fusionWeight(:, :, currentTime);
+[riskMatrix, mismatchMatrix] = computeTopologyRiskMatrices( ...
+    localPosteriorBySensor, model, triggerConfig);
+
+diagnostics.topologyEdgeRisk(currentTime) = ...
+    maskedMean(riskMatrix, activeMask);
+diagnostics.topologyStaticEdgeRisk(currentTime) = ...
+    maskedMean(riskMatrix, activeMask & baseMask);
+diagnostics.topologyNonStaticEdgeRisk(currentTime) = ...
+    maskedMean(riskMatrix, nonStaticMask);
+diagnostics.topologyNewEdgeRisk(currentTime) = ...
+    maskedMean(riskMatrix, newMask);
+diagnostics.topologyLabelMismatch(currentTime) = ...
+    maskedMean(mismatchMatrix, activeMask);
+diagnostics.topologyStaticLabelMismatch(currentTime) = ...
+    maskedMean(mismatchMatrix, activeMask & baseMask);
+diagnostics.topologyNonStaticLabelMismatch(currentTime) = ...
+    maskedMean(mismatchMatrix, nonStaticMask);
+diagnostics.topologyNewEdgeLabelMismatch(currentTime) = ...
+    maskedMean(mismatchMatrix, newMask);
+
+sensorCount = max(size(activeMask, 1), 1);
+diagnostics.fusionStaticWeightMass(currentTime) = ...
+    sum(fusionWeights(activeMask & baseMask)) / sensorCount;
+diagnostics.fusionNonStaticWeightMass(currentTime) = ...
+    sum(fusionWeights(nonStaticMask)) / sensorCount;
+diagnostics.fusionNewEdgeWeightMass(currentTime) = ...
+    sum(fusionWeights(newMask)) / sensorCount;
+positiveFusionMask = fusionWeights > 0;
+diagnostics.fusionRiskWeightedEdgeRisk(currentTime) = ...
+    weightedMaskedMean(riskMatrix, fusionWeights, positiveFusionMask);
+diagnostics.fusionRiskWeightedLabelMismatch(currentTime) = ...
+    weightedMaskedMean(mismatchMatrix, fusionWeights, positiveFusionMask);
+end
+
+function [riskMatrix, mismatchMatrix] = computeTopologyRiskMatrices( ...
+    localPosteriorBySensor, model, triggerConfig)
+numberOfSensors = numel(localPosteriorBySensor);
+riskMatrix = NaN(numberOfSensors);
+mismatchMatrix = NaN(numberOfSensors);
+threshold = triggerConfig.topologyActiveExistenceThreshold;
+for leftIdx = 1:numberOfSensors-1
+    for rightIdx = leftIdx+1:numberOfSensors
+        risk = computePairwiseExpectedFusionValue( ...
+            localPosteriorBySensor{leftIdx}, ...
+            localPosteriorBySensor{rightIdx}, model, triggerConfig);
+        overlap = computeLabelOverlapScore( ...
+            localPosteriorBySensor{leftIdx}, ...
+            localPosteriorBySensor{rightIdx}, threshold);
+        mismatch = 1 - overlap;
+        riskMatrix(leftIdx, rightIdx) = risk;
+        riskMatrix(rightIdx, leftIdx) = risk;
+        mismatchMatrix(leftIdx, rightIdx) = mismatch;
+        mismatchMatrix(rightIdx, leftIdx) = mismatch;
+    end
+end
+end
+
+function value = maskedMean(values, mask)
+samples = values(mask);
+samples = samples(isfinite(samples));
+if isempty(samples)
+    value = 0;
+else
+    value = mean(samples);
+end
+end
+
+function value = weightedMaskedMean(values, weights, mask)
+samples = values(mask);
+sampleWeights = weights(mask);
+valid = isfinite(samples) & isfinite(sampleWeights) & sampleWeights > 0;
+if ~any(valid)
+    value = 0;
+else
+    value = sum(samples(valid) .* sampleWeights(valid)) / ...
+        sum(sampleWeights(valid));
+end
+end
+
 function predictedObjects = predictCachedPosterior( ...
     objects, model, age, existenceThreshold)
 predictedObjects = objects;
@@ -1625,6 +1718,19 @@ diagnostics.fusionLightWeight = zeros(numberOfSensors, simulationLength);
 diagnostics.fusionHeavyWeight = zeros(numberOfSensors, simulationLength);
 diagnostics.fusionStaleWeight = zeros(numberOfSensors, simulationLength);
 diagnostics.fusionWeightEntropy = zeros(numberOfSensors, simulationLength);
+diagnostics.topologyEdgeRisk = zeros(1, simulationLength);
+diagnostics.topologyStaticEdgeRisk = zeros(1, simulationLength);
+diagnostics.topologyNonStaticEdgeRisk = zeros(1, simulationLength);
+diagnostics.topologyNewEdgeRisk = zeros(1, simulationLength);
+diagnostics.topologyLabelMismatch = zeros(1, simulationLength);
+diagnostics.topologyStaticLabelMismatch = zeros(1, simulationLength);
+diagnostics.topologyNonStaticLabelMismatch = zeros(1, simulationLength);
+diagnostics.topologyNewEdgeLabelMismatch = zeros(1, simulationLength);
+diagnostics.fusionStaticWeightMass = zeros(1, simulationLength);
+diagnostics.fusionNonStaticWeightMass = zeros(1, simulationLength);
+diagnostics.fusionNewEdgeWeightMass = zeros(1, simulationLength);
+diagnostics.fusionRiskWeightedEdgeRisk = zeros(1, simulationLength);
+diagnostics.fusionRiskWeightedLabelMismatch = zeros(1, simulationLength);
 diagnostics.localInnovation = zeros(numberOfSensors, simulationLength);
 diagnostics.localAssociationConfidence = ...
     ones(numberOfSensors, simulationLength);
@@ -1715,6 +1821,32 @@ diagnostics.summary.meanStaleWeightMass = mean( ...
     diagnostics.fusionStaleWeight(:));
 diagnostics.summary.meanFusionWeightEntropy = mean( ...
     diagnostics.fusionWeightEntropy(:));
+diagnostics.summary.meanTopologyEdgeRisk = mean( ...
+    diagnostics.topologyEdgeRisk);
+diagnostics.summary.meanTopologyStaticEdgeRisk = mean( ...
+    diagnostics.topologyStaticEdgeRisk);
+diagnostics.summary.meanTopologyNonStaticEdgeRisk = mean( ...
+    diagnostics.topologyNonStaticEdgeRisk);
+diagnostics.summary.meanTopologyNewEdgeRisk = mean( ...
+    diagnostics.topologyNewEdgeRisk);
+diagnostics.summary.meanTopologyLabelMismatch = mean( ...
+    diagnostics.topologyLabelMismatch);
+diagnostics.summary.meanTopologyStaticLabelMismatch = mean( ...
+    diagnostics.topologyStaticLabelMismatch);
+diagnostics.summary.meanTopologyNonStaticLabelMismatch = mean( ...
+    diagnostics.topologyNonStaticLabelMismatch);
+diagnostics.summary.meanTopologyNewEdgeLabelMismatch = mean( ...
+    diagnostics.topologyNewEdgeLabelMismatch);
+diagnostics.summary.meanFusionStaticWeightMass = mean( ...
+    diagnostics.fusionStaticWeightMass);
+diagnostics.summary.meanFusionNonStaticWeightMass = mean( ...
+    diagnostics.fusionNonStaticWeightMass);
+diagnostics.summary.meanFusionNewEdgeWeightMass = mean( ...
+    diagnostics.fusionNewEdgeWeightMass);
+diagnostics.summary.meanFusionRiskWeightedEdgeRisk = mean( ...
+    diagnostics.fusionRiskWeightedEdgeRisk);
+diagnostics.summary.meanFusionRiskWeightedLabelMismatch = mean( ...
+    diagnostics.fusionRiskWeightedLabelMismatch);
 diagnostics.summary.payloadScalars = sum( ...
     diagnostics.payloadScalars(edgeTimeMask));
 diagnostics.summary.payloadBytes = sum( ...
