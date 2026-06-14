@@ -519,6 +519,8 @@ end
 function arms = buildArms( ...
     calibration, thresholdProfile, includeBalanced, experimentOverrides)
 base = buildBaseTriggerConfig();
+base.enableFullLightEquivalenceDiagnostics = getField( ...
+    experimentOverrides, 'enableFullLightEquivalenceDiagnostics', false);
 profile = lower(char(thresholdProfile));
 if strcmp(profile, 'all')
     fullProfiles = {'loose', 'default', 'strict'};

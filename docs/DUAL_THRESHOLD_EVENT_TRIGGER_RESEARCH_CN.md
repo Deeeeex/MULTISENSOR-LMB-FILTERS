@@ -395,6 +395,62 @@ N50 汇总如下：
    若仍要主张事件触发或动态拓扑，需要先实现能让 heavy/full GM-LMB payload
    在融合路径中产生真实差异，或设计更强断链/request 场景。
 
+### Full-vs-light 等价性验证
+
+为确认 `Periodic light posterior on static topology` 不是偶然胜出，而是由当前
+单轮 moment-matched KLA 融合路径决定，新增 full-vs-light 等价性验证入口：
+
+```matlab
+addpath('RUN/GA');
+[reportPath, summaryPath, validation] = ...
+    runFullVsLightEquivalenceValidation();
+```
+
+验证脚本固定静态 4+4 拓扑、full/light 两臂和零丢包矩阵，并在 full payload
+运行路径内额外做两类对比：
+
+1. 对每条 delivered heavy/full GM-LMB 消息，计算 full payload 经 moment
+   matching 后的逐标签 `(r, mean, covariance)`，并与对应 light payload 直接
+   发送的 `(r, mean, covariance)` 对比。
+2. 对每个接收端融合轮次，将 heavy/full 邻居输入替换为等价 light 输入，重新
+   执行一次 label-wise KLA，比较 full-input fused posterior 与 light-input
+   fused posterior 的逐标签 `(r, mean, covariance)`。
+
+3-trial seeds 157-159、50-step 验证结果见：
+
+- `RUN/GA/FULL_VS_LIGHT_EQUIVALENCE_N3_SEED156_20260614_221813.md`
+- 对应 full/light 性能报告：
+  `RUN/GA/GA_DUAL_THRESHOLD_EVENT_TRIGGER_N3_SEED156_20260614_221813.md`
+
+| Item | Result |
+|:--|--:|
+| Full payload bytes | 12191413 |
+| Light payload bytes | 4946581 |
+| Light byte reduction | 59.43% |
+| Payload comparisons | 4800 |
+| Payload objects compared | 75292 |
+| Payload missing labels | 0 |
+| Max payload existence diff | 0.000e+00 |
+| Max payload mean norm diff | 0.000e+00 |
+| Max payload covariance Fro diff | 0.000e+00 |
+| Fused posterior comparisons | 1200 |
+| Fused objects compared | 39845 |
+| Fused missing labels | 0 |
+| Max fused existence diff | 0.000e+00 |
+| Max fused mean norm diff | 0.000e+00 |
+| Max fused covariance Fro diff | 0.000e+00 |
+| Max local E-OSPA diff | 0.000e+00 |
+| Max consensus OSPA diff | 0.000e+00 |
+| Max position disagreement diff | 0.000e+00 |
+| Max cardinality dispersion diff | 0.000e+00 |
+
+该结果证明：在当前实现中，full GM-LMB payload 的混合结构在
+`fuseLmbPosteriorsByLabel` 里会先被 moment matching 成单 Gaussian，再进入
+label-wise KLA；light payload 直接发送的正是这些逐标签矩。因此 full 和 light
+在融合消费端数值等价，tracking/consensus 完全一致，而 light payload 显著减少
+通信负载。短期论文主线应把该部分写成“当前 KLA 消费端下的近无损 payload
+compression”，而不是把 heavy/full payload 写成已经被利用的额外信息。
+
 ### Topology recovery stress 验证
 
 根据后续目标，单独开出 topology recovery stress 线，用来回答一个不同于普通
