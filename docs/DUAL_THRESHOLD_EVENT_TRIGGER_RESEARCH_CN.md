@@ -79,7 +79,8 @@ U_label = q_local * (
 - `rawEventType/eventType`
 - `attempted/delivered/downgraded/forcedHeavy`
 - `utility/informationGain/linkQuality/referenceAge`
-- `payloadScalars/payloadBytes`
+- `attemptedPayloadBytes/deliveredPayloadBytes/payloadDeliveryRatio`
+- 兼容字段 `payloadScalars/payloadBytes`，其中 `payloadBytes` 仍表示 delivered bytes
 - 本地 innovation 和 association confidence
 - attempted/delivered/window-delivered/effective-weight 图的 lambda2
 - per-label effective connectivity violation、label stale age p90
@@ -571,3 +572,66 @@ disagreement 约下降 2.5%-2.9%，cardinality dispersion 约下降 31%。
 `Distance-balanced repair` 和 `Compatibility-balanced repair` 暂不进入主线：
 前者 N50 position 平均仍退化约 11.5%；后者在 seed=96 smoke 中 local/consensus
 改善但 position 仍从 2.6912 升到 3.5106，未通过 position gate。
+
+### 2026-06-14 外部意见启发记录
+
+这轮意见最有价值的提醒是：当前卡点不是继续调参数，而是研究问题已经被实验事实
+拆成两个不同任务。普通链路场景里的最佳结果是静态拓扑上的 light posterior
+payload compression；强桥边失效场景里的动态拓扑价值是 recovery，而不是
+communication compression。因此后续写作和实验都应避免再把二者强行包装成一个
+“动态拓扑节省通信”的统一主张。
+
+后续推进应优先保留以下判断：
+
+1. **不要再盲目调事件阈值。** 在当前实现中，light 和 heavy 最终都会进入
+   标签级 moment-matched KLA 融合，heavy payload 的 mixture 信息没有被真正利用。
+   若不实现 mixture-aware heavy fusion，双阈值 heavy 机制只能作为失败模式或
+   ablation，而不是主贡献。
+2. **普通场景先写成等价压缩。** 需要补一个 full-vs-light equivalence sanity
+   check：比较 full payload 经 moment matching 后进入 KLA 的 `(r, mean, cov)` 与
+   light payload 直接发送的 `(r, mean, cov)`，并报告融合后 posterior 差异接近 0。
+   这样 `Periodic light posterior on static topology` 才不是“简单 baseline”，而是
+   当前 KLA 实现下可解释的近无损通信压缩。
+3. **Recovery 场景要重写通信指标。** Stress 中 dynamic repair 的 delivered bytes
+   上升并不代表方法更耗通信；它是在相同 attempted edge budget 下把无效坏链路
+   尝试转移到可靠链路。因此报告应拆成 `attemptedPayloadBytes`、
+   `deliveredPayloadBytes`、`deliveryRate` 和 effective KLA graph quality。
+4. **Balanced repair 的下一步不是继续扫大矩阵，而是先做失败 seed 归因。** 应新增
+   `edgeFusionTension` 或 `bridgeCompatibilityRisk` 诊断，统计 repair edge 上同标签
+   后验的 Mahalanobis tension，并检查它与 position disagreement、local/consensus
+   outlier 的相关性。
+5. **下一版 topology repair 应优先用 compatibility veto。** 不要把可靠性、互补性、
+   λ2 和融合价值继续加成一个复杂 score；更稳的方式是在 Balanced repair 候选边中
+   先剔除 tension 过高或 FoV/role/label 不兼容的 bridge，再做 one-to-one matching。
+   若无可行 matching，则回退到 Balanced reliability repair。
+6. **如果要救回事件触发主线，唯一值得投入的是 label-wise mixture-aware heavy
+   fusion。** 最小版本是只对高关联熵或多峰 label 发送 top-M Gaussian components，
+   接收端执行 GM-level KLA/GCI 或 progressive Chernoff fusion，其余 label 继续
+   使用 light moment matching。
+
+据此，下一阶段的优先级应是：
+
+1. 补 full-vs-light equivalence 小实验，巩固普通场景 payload compression 主线。
+2. 补 attempted/delivered/effective 三分通信指标，修正 recovery 场景评价方式。
+3. 给 Balanced repair 加 fusion tension 诊断，先解释 13/50 failure seeds。
+4. 在 seed=96 和 N20 stress 上验证 compatibility-veto balanced repair；只有通过后
+   再进入 N50。
+
+### 通信指标重构记录
+
+为避免 recovery 场景中“成功绕开坏链路导致 delivered bytes 增加”被误读为通信
+预算增加，通信统计新增了 attempted/delivered 双口径：
+
+- `attemptedPayloadBytes`：所有触发发送尝试对应的估算 payload bytes，包括后续丢包
+  或 outage 未送达的消息。
+- `deliveredPayloadBytes`：成功投递并进入当前步融合/缓存更新的 payload bytes。
+- `payloadDeliveryRatio`：`deliveredPayloadBytes / attemptedPayloadBytes`，衡量字节层面
+  的有效送达比例。
+- `deliveryRate`：消息包层面的 `deliveryCount / attemptCount`。
+- `effectiveKlaGraphQuality`：`effectiveWeightConnectivity` 的通信层别名，用作有效 KLA
+  信息流图质量指标。
+
+旧字段 `payloadBytes` 保持向后兼容，仍等同于 `deliveredPayloadBytes`。因此普通通信
+压缩实验可继续沿用 delivered bytes 评价实际传输负载；recovery stress 则应同时报告
+attempted bytes、delivered bytes、delivery rate 和 effective-weight lambda2，强调
+动态 repair 的目标是在相同 attempted budget 下把无效坏链路通信转移到可靠链路。

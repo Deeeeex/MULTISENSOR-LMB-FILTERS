@@ -146,8 +146,10 @@ fprintf('Report: %s\n', reportPath);
 fprintf('Summary: %s\n', summaryPath);
 fprintf('\nArm names:\n');
 disp(summary.armNames');
-fprintf('Payload bytes:\n');
-disp(summary.communication.payloadBytes);
+fprintf('Attempted payload bytes:\n');
+disp(summary.communication.attemptedPayloadBytes);
+fprintf('Delivered payload bytes:\n');
+disp(summary.communication.deliveredPayloadBytes);
 fprintf('Attempt counts:\n');
 disp(summary.communication.attemptCount);
 fprintf('Delivery counts:\n');
@@ -180,11 +182,18 @@ baselineLocal = localTrials(:, baselineIdx);
 baselineConsensus = summary.trials.consensusOspa(:, baselineIdx);
 baselinePosition = summary.trials.consensusPosition(:, baselineIdx);
 baselineCardinality = summary.trials.consensusCardinality(:, baselineIdx);
+baselineAttemptedBytes = summary.trials.attemptedPayloadBytes(:, baselineIdx);
+baselineDeliveredBytes = summary.trials.deliveredPayloadBytes(:, baselineIdx);
 
 fprintf('\nRecovery gate vs `%s`:\n', baselineArmName);
-fprintf(['Arm | Attempt delta | Delivery delta | Local %% | ', ...
+fprintf(['Arm | Attempted byte %% | Delivered byte %% | Attempt delta | ', ...
+    'Delivery delta | Local %% | ', ...
     'Consensus %% | Position %% | Card. %% | Pass count\n']);
 for armIdx = 1:numberOfArms
+    attemptedByteChange = percentChange( ...
+        baselineAttemptedBytes, summary.trials.attemptedPayloadBytes(:, armIdx));
+    deliveredByteChange = percentChange( ...
+        baselineDeliveredBytes, summary.trials.deliveredPayloadBytes(:, armIdx));
     localChange = percentChange(baselineLocal, localTrials(:, armIdx));
     consensusChange = percentChange( ...
         baselineConsensus, summary.trials.consensusOspa(:, armIdx));
@@ -198,8 +207,9 @@ for armIdx = 1:numberOfArms
         summary.trials.attemptCount(:, baselineIdx));
     deliveryDelta = mean(summary.trials.deliveryCount(:, armIdx) - ...
         summary.trials.deliveryCount(:, baselineIdx));
-    fprintf('%s | %.1f | %.1f | %+0.2f | %+0.2f | %+0.2f | %+0.2f | %d/%d\n', ...
-        summary.armNames{armIdx}, attemptDelta, deliveryDelta, ...
+    fprintf('%s | %+0.2f | %+0.2f | %.1f | %.1f | %+0.2f | %+0.2f | %+0.2f | %+0.2f | %d/%d\n', ...
+        summary.armNames{armIdx}, mean(attemptedByteChange), ...
+        mean(deliveredByteChange), attemptDelta, deliveryDelta, ...
         mean(localChange), mean(consensusChange), mean(positionChange), ...
         mean(cardinalityChange), sum(passes), numel(passes));
 end
