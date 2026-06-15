@@ -126,3 +126,32 @@ The detailed results support five bounded conclusions. First, realized link qual
 \subsection{Scope of the revised evidence}
 
 The Balanced and Cardinality-critical configurations are confirmed here in the main tiered heterogeneous packet-loss scenario. Earlier ideal-communication, communication-level, and arithmetic-average probes predate the current operating modes and are therefore not used as supporting evidence. Repeating those studies with the current configuration remains a targeted validation step.
+
+\subsection{Payload semantics in a high-clutter crossing stress}
+\label{sec:payload-semantics}
+
+Table~\ref{tab:mixture-heavy-stress} and Figure~\ref{fig:payload-semantics-stress} report the separate payload-semantics stress described in Section~\ref{sec:payload-stress-protocol}. The first two rows are intentionally identical in tracking metrics: under the legacy moment-matched KLA path, full heavy GM-LMB messages are compressed to the same label-wise moments before fusion, so their larger payload does not translate into a richer fused posterior. This result is a useful negative control. It shows that a communication protocol cannot justify heavy messages solely by sending a larger posterior object; the receiver-side fusion operator must preserve the information that makes the heavy message different.
+
+\begin{table}[t]
+  \centering
+  \caption{Payload-semantics stress test in a two-sensor high-clutter close-crossing scenario. Values are computed over 20 deterministic trials with seeds $7$--$26$. The crossing window is steps $14$--$26$. Lower values are better.}
+  \label{tab:mixture-heavy-stress}
+  \begin{tabular}{lcccc}
+    \toprule
+    Arm & Mean E-OSPA & Crossing E-OSPA & Crossing p90 & Crossing worst \\
+    \midrule
+    Periodic light posterior & $3.534$ & $3.298$ & $3.786$ & $4.020$ \\
+    Legacy heavy fusion & $3.534$ & $3.298$ & $3.786$ & $4.020$ \\
+    Mixture-aware heavy fusion & $\mathbf{3.411}$ & $\mathbf{3.151}$ & $\mathbf{3.766}$ & $\mathbf{3.928}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{paper-figure7.pdf}
+  \caption{Payload-semantics stress result. Legacy heavy messages use substantially more payload than light summaries but produce the same fused tracking result under moment-matched KLA. Mixture-aware heavy GM-KLA preserves selected multi-modal components and improves the high-clutter close-crossing metrics, while remaining more expensive than light communication.}
+  \label{fig:payload-semantics-stress}
+\end{figure}
+
+The mixture-aware heavy row changes this outcome. It reduces full-horizon mean E-OSPA by $3.5\%$ relative to light, reduces crossing-window mean E-OSPA by $4.3\%$, and improves the absolute crossing-window p90 and worst-case values. It also wins the paired crossing-window comparison in $16$ of the $20$ seeds. The same result is not a blanket claim that heavy payloads are always preferable: the mixture-aware arm transmits substantially more data than light summaries, and its per-seed crossing percent-change p90 remains slightly positive. The supported conclusion is narrower and more useful for this paper: heavy payloads matter only when the fusion operator is allowed to keep selected multi-modal spatial information, and even then the implementation needs source-level gating and a fused-dominance fallback to avoid propagating unresolved mixture ambiguity.

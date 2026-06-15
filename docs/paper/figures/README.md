@@ -8,6 +8,7 @@ Current target outputs:
 - `figure_simulation_scenario.pdf`
 - `figure4_main_ga_consensus.pdf`
 - `figure5_factor_ablation.pdf`
+- `figure7_payload_semantics.pdf`
 
 `figure5_factor_ablation.pdf` and the earlier `figure6_ideal_support.pdf` are retained as reproducible plotting artifacts, but the current manuscript presents those scalar comparisons as Tables 3 and 4.
 
@@ -21,6 +22,7 @@ Current stable scalar sources:
 - `RUN/GA/GA_TIERED_LINK_ABLATION_20260322_001613.md`
 - `RUN/GA/GA_TIERED_LINK_ABLATION_MAIN20_20260507.md`
 - `RUN/GA/GA_IDEAL_COMM_MAIN20_PAIRED_20260507.md`
+- `RUN/GA/MIXTURE_AWARE_HEAVY_CROSSING_VALIDATION_N20_SEEDS7_26_20260615_224621.md`
 
 Render command:
 

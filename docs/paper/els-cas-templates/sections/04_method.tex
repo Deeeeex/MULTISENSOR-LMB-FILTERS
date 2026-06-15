@@ -183,6 +183,22 @@ After branch decoupling and before the final FID-FIA existence modulation, the m
 
 After score normalization, the resulting branch weights preserve responsiveness to realized packet delivery and allow a sufficiently weak neighbor to receive a near-zero weight.
 
+\subsection{Mixture-aware heavy-payload extension}
+\label{sec:mixture-aware-heavy}
+
+The preceding fusion rule is the retained operating method for the main communication-aware weighting study. The software also exposes a second question: whether a heavy payload that carries a full Gaussian-mixture LMB posterior actually changes the fused posterior. Under the legacy implementation, light and heavy messages can be nearly indistinguishable after fusion because the receiving node moment-matches each incoming Bernoulli density before applying KLA. This is a valid communication-saving implementation, but it means that heavy messages mainly change the transmitted payload, not the fused spatial representation.
+
+To test the semantic value of heavy messages, we implement a mixture-aware extension used only in the stress study of Section~\ref{sec:payload-semantics}. For a label $\ell$, the extension is activated only when at least one delivered neighbor input is heavy and at least one active source has sufficiently high existence probability, more than one Gaussian component, and nontrivial mixture entropy. Qualifying sources retain their top-$M$ components; nonqualifying sources are moment-matched to a single Gaussian before entering the same label fusion. This source-level gate prevents one strong heavy message from forcing every weak or low-existence source to expand the component tuple space.
+
+For a retained component tuple $c=(c_1,\ldots,c_J)$ with active-source weights $\omega_j^x$, the extension forms a component-level Gaussian KLA in canonical form:
+\begin{align}
+K_c &= \sum_j \omega_j^x \left(T_{\ell,c_j}^{(j)}\right)^{-1},\\
+h_c &= \sum_j \omega_j^x \left(T_{\ell,c_j}^{(j)}\right)^{-1}\nu_{\ell,c_j}^{(j)}.
+\end{align}
+The tuple mean and covariance are $\mu_c=K_c^{-1}h_c$ and $\Sigma_c=K_c^{-1}$. The tuple log weight combines the source mixture weights and the Gaussian-overlap normalization, after which the top components are retained and normalized. The Bernoulli existence update still uses the moment-matched spatial normalizer by default, so top-component truncation does not directly suppress existence probability.
+
+Two safeguards are important in the close-crossing setting. First, selected mixture components are lightly reweighted by consistency with the local prediction before state extraction. Second, if the fused mixture has no sufficiently dominant top component, the label falls back to moment-matched KLA. The validation configuration uses $M=2$, at most six fused components, a minimum source existence of $0.90$, prediction-consistency strength $0.20$, and a fused-dominance threshold of $0.55$. These values are reported as part of the stress-test configuration rather than as universal tuning constants.
+
 \subsection{Optional extension modules}
 
 The evaluated software also supports several exploratory extension modules outside the claimed core method. Their empirical effect is weaker, more coupled, or less stable than the evidence for the main three-factor backbone plus the retained branch-specific refinements, so they are kept out of the main method description and summarized only in Appendix~\ref{app:additional-modules}.

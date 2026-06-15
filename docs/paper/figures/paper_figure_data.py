@@ -59,6 +59,26 @@ def get_scalar_figure_data() -> dict:
                 "RUN/GA/GA_IDEAL_COMM_MAIN20_PAIRED_20260507.md",
             ],
         },
+        "figure7": {
+            "title": "Payload-Semantics Stress",
+            "arms": [
+                "Light posterior",
+                "Legacy heavy",
+                "Mixture-aware heavy",
+            ],
+            "metrics": {
+                "Mean E-OSPA": [3.5337, 3.5337, 3.4105],
+                "Crossing E-OSPA": [3.2983, 3.2983, 3.1509],
+                "Crossing p90": [3.7861, 3.7861, 3.7656],
+                "Crossing worst": [4.0204, 4.0204, 3.9282],
+            },
+            "payload_bytes": [152224, 683222, 679312],
+            "wins": "16/20",
+            "crossing_mean_change_percent": -4.26,
+            "sources": [
+                "RUN/GA/MIXTURE_AWARE_HEAVY_CROSSING_VALIDATION_N20_SEEDS7_26_20260615_224621.md",
+            ],
+        },
     }
 
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import shutil
 import sys
 
 if __package__ is None or __package__ == "":
@@ -286,6 +287,101 @@ def save_figure6(output_path: str | Path, figure6: dict) -> Path:
     return output_path
 
 
+def save_figure7(output_path: str | Path, figure7: dict) -> Path:
+    output_path = Path(output_path)
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(10.6, 3.75),
+        gridspec_kw={"width_ratios": [1.42, 0.88]},
+        constrained_layout=True,
+    )
+
+    arms = figure7["arms"]
+    x = np.arange(len(arms))
+    metric_names = list(figure7["metrics"].keys())
+    metric_values = [np.asarray(figure7["metrics"][name], dtype=float) for name in metric_names]
+    metric_offsets = np.linspace(-0.30, 0.30, len(metric_names))
+    metric_width = 0.15
+    metric_colors = ["#9CBFE0", "#6EB8B0", "#E0B36D", "#C8845D"]
+
+    for metric_idx, (metric_name, values) in enumerate(zip(metric_names, metric_values)):
+        axes[0].bar(
+            x + metric_offsets[metric_idx],
+            values,
+            metric_width,
+            label=metric_name,
+            color=metric_colors[metric_idx],
+            edgecolor=EDGE_COLOR,
+            linewidth=0.7,
+        )
+
+    axes[0].set_title("Tracking effect of payload semantics")
+    axes[0].set_xticks(x, ["Light", "Legacy\nheavy", "Mixture-aware\nheavy"])
+    axes[0].set_ylabel("E-OSPA")
+    axes[0].grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
+    axes[0].set_axisbelow(True)
+    axes[0].legend(frameon=False, ncol=2, fontsize=7.6, loc="upper center")
+
+    light_crossing = figure7["metrics"]["Crossing E-OSPA"][0]
+    mixture_crossing = figure7["metrics"]["Crossing E-OSPA"][2]
+    axes[0].annotate(
+        f"{figure7['crossing_mean_change_percent']:.1f}% crossing mean\nwins {figure7['wins']} seeds",
+        xy=(2 + metric_offsets[1], mixture_crossing),
+        xytext=(1.52, max(light_crossing, mixture_crossing) + 0.33),
+        arrowprops={"arrowstyle": "->", "color": EDGE_COLOR, "linewidth": 0.9},
+        fontsize=7.7,
+        color=EDGE_COLOR,
+        ha="left",
+        va="bottom",
+    )
+
+    payload_kb = np.asarray(figure7["payload_bytes"], dtype=float) / 1024.0
+    payload_colors = [FIXED_COLOR, "#B5BDC8", CARDINALITY_COLOR]
+    axes[1].bar(
+        x,
+        payload_kb,
+        color=payload_colors,
+        edgecolor=EDGE_COLOR,
+        linewidth=0.8,
+        width=0.62,
+    )
+    axes[1].set_title("Communication cost")
+    axes[1].set_xticks(x, ["Light", "Legacy\nheavy", "Mixture-aware\nheavy"])
+    axes[1].set_ylabel("Delivered payload (KiB)")
+    axes[1].grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
+    axes[1].set_axisbelow(True)
+    for arm_idx, value in enumerate(payload_kb):
+        axes[1].text(
+            arm_idx,
+            value + max(payload_kb) * 0.035,
+            f"{value:.0f}",
+            ha="center",
+            va="bottom",
+            fontsize=7.4,
+            color=EDGE_COLOR,
+        )
+
+    axes[1].text(
+        0.04,
+        0.93,
+        "legacy heavy:\nmore bytes,\nsame fused result",
+        transform=axes[1].transAxes,
+        fontsize=7.5,
+        color="#697A8A",
+        ha="left",
+        va="top",
+        bbox={"facecolor": "white", "edgecolor": "#D9E0E7", "alpha": 0.92, "pad": 2.0},
+    )
+
+    axes[0].text(0.012, 0.985, "(a)", transform=axes[0].transAxes, fontsize=9.0, fontweight="bold", ha="left", va="top")
+    axes[1].text(0.012, 0.985, "(b)", transform=axes[1].transAxes, fontsize=9.0, fontweight="bold", ha="left", va="top")
+
+    fig.savefig(output_path, format="pdf", bbox_inches="tight")
+    plt.close(fig)
+    return output_path
+
+
 def save_figure4(output_path: str | Path, series: dict) -> Path:
     output_path = Path(output_path)
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), sharex=True, constrained_layout=True)
@@ -331,6 +427,7 @@ def render_all_figures(output_dir: str | Path, include_figure4: bool = False) ->
         "figure3": save_figure3(output_root / "figure3_existence_confidence_curve.pdf", data["figure3"]),
         "figure5": save_figure5(output_root / "figure5_factor_ablation.pdf", data["figure5"]),
         "figure6": save_figure6(output_root / "figure6_ideal_support.pdf", data["figure6"]),
+        "figure7": save_figure7(output_root / "figure7_payload_semantics.pdf", data["figure7"]),
     }
 
     if include_figure4:
@@ -340,6 +437,10 @@ def render_all_figures(output_dir: str | Path, include_figure4: bool = False) ->
                 output_root / "figure4_main_ga_consensus.pdf",
                 load_figure4_series(csv_path),
             )
+
+    manuscript_fig_dir = Path(__file__).resolve().parents[1] / "els-cas-templates" / "figs"
+    if manuscript_fig_dir.exists():
+        shutil.copyfile(outputs["figure7"], manuscript_fig_dir / "paper-figure7.pdf")
 
     return outputs
 

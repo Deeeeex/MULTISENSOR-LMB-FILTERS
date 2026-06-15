@@ -72,3 +72,19 @@ The experiments report three categories of metrics. The first category is networ
 This hierarchy is deliberate. The proposed method is not intended as a generic single-sensor accuracy booster. It is designed as a distributed fusion-weight mechanism for reducing disagreement in the fused multi-sensor picture under heterogeneous communication. For that reason, the paper treats the network-level disagreement metrics as the main outcome, the local tracking metrics as a safeguard against hidden degradation, and computational cost as a first-class deployment-feasibility axis. The target is to improve cross-node agreement without causing a meaningful drop in conventional tracking quality or requiring impractical additional computation. Runtime is measured only around the distributed LMB filtering/fusion call for each arm; scenario generation, communication-model sampling, plotting, and metric evaluation are excluded so that the reported cost isolates the algorithmic overhead of adaptive weighting and branch-specific FID-FIA scoring.
 
 Unless otherwise stated, reported scalar metrics are Monte Carlo means from 50 deterministic paired trials with seeds $2$--$51$. Every arm in the main component experiment shares the same truth, measurements, and communication realization within each trial.
+
+\subsection{Payload-semantics stress protocol}
+\label{sec:payload-stress-protocol}
+
+The mixture-aware heavy-payload extension is evaluated in a separate stress protocol because it tests a different question from the main adaptive-weight study. The main 50-trial experiment asks how fusion weights should be allocated under communication heterogeneity. The payload-semantics stress asks whether a heavy GM-LMB message has any downstream value once it reaches a KLA fusion operator.
+
+The stress protocol uses two sensors, two crossing targets, elevated clutter, and periodic delivery. The simulation length is $40$ steps. Each sensor uses detection probability $0.85$, clutter rate $8$, and measurement-noise scale $4$. The targets are born at the first step from opposite sides of the scene and cross near the center, producing a short interval where label-wise spatial mixtures are useful. The reported crossing window is steps $14$--$26$.
+
+Three arms are compared with matched seeds $7$--$26$:
+\begin{enumerate}
+\item periodic light posterior, which sends moment-matched single-Gaussian LMB summaries;
+\item periodic heavy posterior with the legacy moment-matched fusion path;
+\item periodic heavy posterior with mixture-aware label-wise GM-KLA as described in Section~\ref{sec:mixture-aware-heavy}.
+\end{enumerate}
+
+The first two arms isolate the legacy payload/fusion interaction: if heavy payloads are moment-matched before KLA, the fused results should match light summaries even though the transmitted payload is larger. The third arm tests whether preserving selected mixture components during heavy fusion helps in an ambiguity regime. This protocol is intentionally small and diagnostic; it is used to support a payload-semantics claim, not to replace the main 50-trial communication-aware weighting evidence.
