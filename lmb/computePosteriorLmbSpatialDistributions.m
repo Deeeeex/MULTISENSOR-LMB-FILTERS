@@ -32,6 +32,14 @@ for i = 1:numel(objects)
     numberOfPosteriorComponents = numel(posteriorParameters(i).w);
     posteriorWeights = reshape(W(i, :)' .* posteriorParameters(i).w, 1, numberOfPosteriorComponents);
     posteriorWeights = posteriorWeights ./ sum(posteriorWeights);
+    [associationEntropy, detectionAssociationEntropy, ...
+        detectionAssociationMass, associationAmbiguity] = ...
+        computeLabelAssociationDiagnostics(W(i, :));
+    objects(i).associationEntropy = associationEntropy;
+    objects(i).detectionAssociationEntropy = detectionAssociationEntropy;
+    objects(i).detectionAssociationMass = detectionAssociationMass;
+    objects(i).associationAmbiguity = associationAmbiguity;
+    objects(i).associationConfidence = 1 - associationAmbiguity;
     %% 3. mixture reduction：先按权重排序，再删除很小的 component
     [posteriorWeights, sortedIndices] = sort(posteriorWeights, 'descend');
     % Discard insignificant components
@@ -52,4 +60,48 @@ for i = 1:numel(objects)
     objects(i).Sigma = reshape(posteriorParameters(i).Sigma(sortedIndices), 1, objects(i).numberOfGmComponents);
 end
 
+end
+
+function [associationEntropy, detectionAssociationEntropy, ...
+    detectionAssociationMass, associationAmbiguity] = ...
+    computeLabelAssociationDiagnostics(associationWeights)
+weights = reshape(associationWeights, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if sum(weights) <= 0
+    associationEntropy = 0;
+    detectionAssociationEntropy = 0;
+    detectionAssociationMass = 0;
+    associationAmbiguity = 0;
+    return;
+end
+weights = weights / sum(weights);
+associationEntropy = normalizedEntropy(weights);
+if numel(weights) <= 1
+    detectionAssociationEntropy = 0;
+    detectionAssociationMass = 0;
+    associationAmbiguity = 0;
+    return;
+end
+detectionWeights = weights(2:end);
+detectionAssociationMass = min(max(sum(detectionWeights), 0), 1);
+if detectionAssociationMass <= eps
+    detectionAssociationEntropy = 0;
+else
+    detectionAssociationEntropy = normalizedEntropy( ...
+        detectionWeights / detectionAssociationMass);
+end
+associationAmbiguity = min(max( ...
+    detectionAssociationMass * detectionAssociationEntropy, 0), 1);
+end
+
+function value = normalizedEntropy(weights)
+weights = reshape(weights, 1, []);
+weights = weights(weights > 0);
+if numel(weights) <= 1
+    value = 0;
+    return;
+end
+entropyValue = -sum(weights .* log(weights));
+value = min(max(entropyValue / log(numel(weights)), 0), 1);
 end

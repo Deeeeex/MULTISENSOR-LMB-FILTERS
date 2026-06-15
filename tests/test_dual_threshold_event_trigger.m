@@ -149,6 +149,8 @@ assert(numel(mixedPayload) == 2);
 assert(mixedPayload(1).numberOfGmComponents == 2);
 assert(mixedPayload(2).numberOfGmComponents == 1);
 
+runMixtureAwareHeavyFusionSmoke(model, mixture);
+
 noneStats = estimateLmbPayloadSize(mixture, model, 0, diagnostics);
 lightStats = estimateLmbPayloadSize(compressed, model, 1, diagnostics);
 heavyStats = estimateLmbPayloadSize(mixture, model, 2, diagnostics);
@@ -354,6 +356,72 @@ assert(any(lightDiagnostics.deliveredEventType(:) == 1));
 assert(lightDiagnostics.summary.meanLightWeightMass > 0);
 assert(lightDiagnostics.summary.meanSelfWeightMass <= 0.65 + 1e-9);
 assert(lightDiagnostics.summary.meanEffectiveWeightConnectivity > 0);
+end
+
+function runMixtureAwareHeavyFusionSmoke(model, baseObject)
+leftPosterior = baseObject;
+leftPosterior.r = 0.85;
+leftPosterior.w = [0.5, 0.5];
+leftPosterior.mu = {[-4; 0; 0; 0], [4; 0; 0; 0]};
+leftPosterior.Sigma = {0.5 * eye(4), 0.5 * eye(4)};
+
+rightPosterior = baseObject;
+rightPosterior.r = 0.85;
+rightPosterior.w = [0.5, 0.5];
+rightPosterior.mu = {[-4.2; 0; 0; 0], [4.2; 0; 0; 0]};
+rightPosterior.Sigma = {0.5 * eye(4), 0.5 * eye(4)};
+
+weights = [0.5, 0.5];
+lightInputs = { ...
+    compressLmbPosterior(leftPosterior, model, 0.01), ...
+    compressLmbPosterior(rightPosterior, model, 0.01)};
+lightFused = fuseLmbPosteriorsByLabel( ...
+    lightInputs, weights, model, weights);
+assert(lightFused.numberOfGmComponents == 1);
+assert(abs(lightFused.mu{1}(1)) < 1e-8);
+
+fusionDetails = struct( ...
+    'sourceIndices', [1, 2], ...
+    'isStale', [false, false], ...
+    'isBaseEdge', [true, true], ...
+    'age', [0, 0], ...
+    'eventType', [2, 2], ...
+    'weights', weights);
+mixtureAwareConfig = struct( ...
+    'mixtureAwareHeavyFusionEnabled', true, ...
+    'mixtureAwareTopComponents', 2, ...
+    'mixtureAwareMaxFusedComponents', 4, ...
+    'mixtureAwareMinEntropy', 0.2);
+heavyFused = fuseLmbPosteriorsByLabel( ...
+    {leftPosterior, rightPosterior}, weights, model, weights, ...
+    fusionDetails, mixtureAwareConfig);
+assert(heavyFused.numberOfGmComponents >= 2);
+componentPositions = cellfun(@(mu) mu(1), heavyFused.mu);
+assert(any(componentPositions < -2));
+assert(any(componentPositions > 2));
+assert(abs(sum(heavyFused.w) - 1) < 1e-10);
+
+weakPosterior = baseObject;
+weakPosterior.r = 0.2;
+weakPosterior.w = [0.5, 0.5];
+weakPosterior.mu = {[-8; 0; 0; 0], [8; 0; 0; 0]};
+weakPosterior.Sigma = {0.5 * eye(4), 0.5 * eye(4)};
+selectiveConfig = mixtureAwareConfig;
+selectiveConfig.mixtureAwareMaxFusedComponents = 8;
+selectiveConfig.mixtureAwareMinExistence = 0.7;
+selectiveDetails = fusionDetails;
+selectiveDetails.sourceIndices = [1, 2, 3];
+selectiveDetails.isStale = [false, false, false];
+selectiveDetails.isBaseEdge = [true, true, true];
+selectiveDetails.age = [0, 0, 0];
+selectiveDetails.eventType = [2, 2, 2];
+selectiveDetails.weights = [1/3, 1/3, 1/3];
+selectiveFused = fuseLmbPosteriorsByLabel( ...
+    {leftPosterior, rightPosterior, weakPosterior}, ...
+    selectiveDetails.weights, model, selectiveDetails.weights, ...
+    selectiveDetails, selectiveConfig);
+assert(selectiveFused.numberOfGmComponents <= 4);
+assert(selectiveFused.numberOfGmComponents >= 2);
 end
 
 function neighborMap = buildTestNeighborMap4Plus4()

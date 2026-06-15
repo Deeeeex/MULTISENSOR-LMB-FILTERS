@@ -254,7 +254,19 @@ for currentTime = 1:simulationLength
                 fusionInputs, topologyFusionWeights, model, triggerConfig);
         fusedObjects = fuseLmbPosteriorsByLabel( ...
             fusionInputs, spatialFusionWeights, model, ...
-            existenceFusionWeights);
+            existenceFusionWeights, fusionDetails, triggerConfig);
+        if triggerConfig.mixtureAwareExistenceFromLightEnabled
+            [lightEquivalentInputs, replacedCount] = ...
+                buildLightEquivalentFusionInputs( ...
+                fusionInputs, fusionDetails, model, triggerConfig);
+            if replacedCount > 0
+                lightEquivalentFusedObjects = fuseLmbPosteriorsByLabel( ...
+                    lightEquivalentInputs, spatialFusionWeights, model, ...
+                    existenceFusionWeights);
+                fusedObjects = copyExistenceByLabel( ...
+                    fusedObjects, lightEquivalentFusedObjects);
+            end
+        end
         if triggerConfig.enableFullLightEquivalenceDiagnostics
             [lightEquivalentInputs, replacedCount] = ...
                 buildLightEquivalentFusionInputs( ...
@@ -272,7 +284,8 @@ for currentTime = 1:simulationLength
         [objectsBySensor{receiverIdx}, stateEstimatesBySensor{receiverIdx}] = ...
             finalizeNodeStep( ...
                 fusedObjects, stateEstimatesBySensor{receiverIdx}, ...
-                model, currentTime);
+                model, currentTime, triggerConfig, ...
+                predictedBySensor{receiverIdx});
     end
     diagnostics = recordTopologyRiskDiagnostics( ...
         diagnostics, localPosteriorBySensor, triggerConfig, model, ...
@@ -437,6 +450,58 @@ config.lightCovarianceAssociationScale = getField( ...
     config, 'lightCovarianceAssociationScale', 0);
 config.lightCovarianceMixtureScale = getField( ...
     config, 'lightCovarianceMixtureScale', 0);
+config.mixtureAwareHeavyFusionEnabled = getField( ...
+    config, 'mixtureAwareHeavyFusionEnabled', false);
+config.mixtureAwareRequireHeavyInput = getField( ...
+    config, 'mixtureAwareRequireHeavyInput', true);
+config.mixtureAwareTopComponents = max(1, round(getField( ...
+    config, 'mixtureAwareTopComponents', 2)));
+config.mixtureAwareMaxFusedComponents = max(1, round(getField( ...
+    config, 'mixtureAwareMaxFusedComponents', 6)));
+config.mixtureAwareMaxComponentTuples = max( ...
+    config.mixtureAwareMaxFusedComponents, round(getField( ...
+    config, 'mixtureAwareMaxComponentTuples', 512)));
+config.mixtureAwareMinEntropy = min(max(getField( ...
+    config, 'mixtureAwareMinEntropy', 0.35), 0), 1);
+config.mixtureAwareMinComponentCount = max(2, round(getField( ...
+    config, 'mixtureAwareMinComponentCount', 2)));
+config.mixtureAwareMinExistence = min(max(getField( ...
+    config, 'mixtureAwareMinExistence', 0.7), 0), 1);
+config.mixtureAwareMinAssociationAmbiguity = min(max(getField( ...
+    config, 'mixtureAwareMinAssociationAmbiguity', 0), 0), 1);
+config.mixtureAwareMinDetectionAssociationMass = min(max(getField( ...
+    config, 'mixtureAwareMinDetectionAssociationMass', 0), 0), 1);
+config.mixtureAwareMaxFusedEntropy = min(max(getField( ...
+    config, 'mixtureAwareMaxFusedEntropy', 1), 0), 1);
+config.mixtureAwareMinFusedDominance = min(max(getField( ...
+    config, 'mixtureAwareMinFusedDominance', 0), 0), 1);
+config.mixtureAwareExistenceEtaMode = getField( ...
+    config, 'mixtureAwareExistenceEtaMode', 'momentMatched');
+config.mixtureAwareExistenceFromLightEnabled = getField( ...
+    config, 'mixtureAwareExistenceFromLightEnabled', false);
+config.mixtureAwareStateExtractionEnabled = getField( ...
+    config, 'mixtureAwareStateExtractionEnabled', false);
+config.mixtureAwareExtractionMinSeparation = max(0, getField( ...
+    config, 'mixtureAwareExtractionMinSeparation', 0));
+config.mixtureAwareJointExtractionEnabled = getField( ...
+    config, 'mixtureAwareJointExtractionEnabled', false);
+config.mixtureAwareJointExtractionTopComponents = max(1, round(getField( ...
+    config, 'mixtureAwareJointExtractionTopComponents', 3)));
+config.mixtureAwareJointExtractionMaxLabels = max(1, round(getField( ...
+    config, 'mixtureAwareJointExtractionMaxLabels', 6)));
+config.mixtureAwareJointExtractionPairwiseScale = max(0, getField( ...
+    config, 'mixtureAwareJointExtractionPairwiseScale', 1.0));
+config.mixtureAwareJointExtractionMinSeparation = max(0, getField( ...
+    config, 'mixtureAwareJointExtractionMinSeparation', ...
+    config.mixtureAwareExtractionMinSeparation));
+config.mixtureAwarePredictionConsistencyEnabled = getField( ...
+    config, 'mixtureAwarePredictionConsistencyEnabled', false);
+config.mixtureAwarePredictionConsistencyStrength = max(0, getField( ...
+    config, 'mixtureAwarePredictionConsistencyStrength', 0.5));
+config.mixtureAwareTrajectoryConsistencyEnabled = getField( ...
+    config, 'mixtureAwareTrajectoryConsistencyEnabled', false);
+config.mixtureAwareTrajectoryConsistencyStrength = max(0, getField( ...
+    config, 'mixtureAwareTrajectoryConsistencyStrength', 0.5));
 config.fusionWeightMode = getField( ...
     config, 'fusionWeightMode', 'metropolis');
 config.adaptiveFusionConfig = getField( ...
@@ -2115,7 +2180,14 @@ end
 end
 
 function [objects, stateEstimate] = finalizeNodeStep( ...
-    fusedObjects, stateEstimate, model, currentTime)
+    fusedObjects, stateEstimate, model, currentTime, triggerConfig, ...
+    predictedObjects)
+if nargin < 5 || isempty(triggerConfig)
+    triggerConfig = struct();
+end
+if nargin < 6
+    predictedObjects = [];
+end
 objects = fusedObjects;
 if isempty(objects)
     stateEstimate.labels{currentTime} = zeros(2, 0);
@@ -2136,25 +2208,301 @@ if isempty(objects)
     return;
 end
 
+objects = applyPredictionConsistentComponentWeights( ...
+    objects, predictedObjects, model, triggerConfig);
+objects = applyTrajectoryConsistentComponentWeights( ...
+    objects, model, triggerConfig);
 [mapCardinality, mapIndices] = lmbMapCardinalityEstimate([objects.r]);
+componentIndices = selectStateExtractionComponents( ...
+    objects, mapIndices, triggerConfig);
+trajectoryComponentIndices = ones(1, numel(objects));
 stateEstimate.labels{currentTime} = zeros(2, mapCardinality);
 stateEstimate.mu{currentTime} = cell(1, mapCardinality);
 stateEstimate.Sigma{currentTime} = cell(1, mapCardinality);
 for mapIdx = 1:mapCardinality
     objectIdx = mapIndices(mapIdx);
+    componentIdx = componentIndices(mapIdx);
     stateEstimate.labels{currentTime}(:, mapIdx) = [ ...
         objects(objectIdx).birthTime; objects(objectIdx).birthLocation];
-    stateEstimate.mu{currentTime}{mapIdx} = objects(objectIdx).mu{1};
+    stateEstimate.mu{currentTime}{mapIdx} = ...
+        objects(objectIdx).mu{componentIdx};
     stateEstimate.Sigma{currentTime}{mapIdx} = ...
-        objects(objectIdx).Sigma{1};
+        objects(objectIdx).Sigma{componentIdx};
+    trajectoryComponentIndices(objectIdx) = componentIdx;
 end
 
 for objectIdx = 1:numel(objects)
     trajectoryIdx = objects(objectIdx).trajectoryLength + 1;
     objects(objectIdx).trajectoryLength = trajectoryIdx;
+    componentIdx = min(trajectoryComponentIndices(objectIdx), ...
+        objects(objectIdx).numberOfGmComponents);
     objects(objectIdx).trajectory(:, trajectoryIdx) = ...
-        objects(objectIdx).mu{1};
+        objects(objectIdx).mu{componentIdx};
     objects(objectIdx).timestamps(trajectoryIdx) = currentTime;
+end
+end
+
+function objects = applyPredictionConsistentComponentWeights( ...
+    objects, predictedObjects, model, triggerConfig)
+if ~getField(triggerConfig, ...
+        'mixtureAwarePredictionConsistencyEnabled', false) || ...
+        isempty(predictedObjects)
+    return;
+end
+strength = getField( ...
+    triggerConfig, 'mixtureAwarePredictionConsistencyStrength', 0.5);
+if strength <= 0
+    return;
+end
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).numberOfGmComponents <= 1
+        continue;
+    end
+    predictedObject = findObjectByLabelForFinalization( ...
+        predictedObjects, objects(objectIdx));
+    if isempty(predictedObject)
+        continue;
+    end
+    [predictedMean, predictedCovariance] = ...
+        momentMatchForFinalization(predictedObject, model.xDimension);
+    predictedCovariance = regularizeFinalizationCovariance( ...
+        predictedCovariance);
+    predictedPrecision = inv(predictedCovariance);
+    weights = normalizeComponentWeightsForExtraction(objects(objectIdx));
+    scores = zeros(1, objects(objectIdx).numberOfGmComponents);
+    for componentIdx = 1:objects(objectIdx).numberOfGmComponents
+        delta = objects(objectIdx).mu{componentIdx} - predictedMean;
+        mahalanobisDistance = delta' * predictedPrecision * delta;
+        scores(componentIdx) = log(max(weights(componentIdx), realmin)) - ...
+            0.5 * strength * mahalanobisDistance;
+    end
+    normalizedScores = exp(scores - max(scores));
+    normalizedScores = normalizedScores / max(sum(normalizedScores), eps);
+    [sortedWeights, sortedIdx] = sort(normalizedScores, 'descend');
+    objects(objectIdx).w = sortedWeights;
+    objects(objectIdx).mu = objects(objectIdx).mu(sortedIdx);
+    objects(objectIdx).Sigma = objects(objectIdx).Sigma(sortedIdx);
+    objects(objectIdx).numberOfGmComponents = numel(sortedIdx);
+end
+end
+
+function objects = applyTrajectoryConsistentComponentWeights( ...
+    objects, model, triggerConfig)
+if ~getField(triggerConfig, ...
+        'mixtureAwareTrajectoryConsistencyEnabled', false)
+    return;
+end
+strength = getField( ...
+    triggerConfig, 'mixtureAwareTrajectoryConsistencyStrength', 0.5);
+if strength <= 0
+    return;
+end
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).numberOfGmComponents <= 1 || ...
+            objects(objectIdx).trajectoryLength < 1 || ...
+            isempty(objects(objectIdx).trajectory)
+        continue;
+    end
+    lastState = objects(objectIdx).trajectory( ...
+        :, objects(objectIdx).trajectoryLength);
+    if any(~isfinite(lastState))
+        continue;
+    end
+    expectedState = model.A * lastState + model.u;
+    covariance = regularizeFinalizationCovariance(model.R);
+    precision = inv(covariance);
+    weights = normalizeComponentWeightsForExtraction(objects(objectIdx));
+    scores = zeros(1, objects(objectIdx).numberOfGmComponents);
+    for componentIdx = 1:objects(objectIdx).numberOfGmComponents
+        delta = objects(objectIdx).mu{componentIdx} - expectedState;
+        mahalanobisDistance = delta' * precision * delta;
+        scores(componentIdx) = log(max(weights(componentIdx), realmin)) - ...
+            0.5 * strength * mahalanobisDistance;
+    end
+    normalizedScores = exp(scores - max(scores));
+    normalizedScores = normalizedScores / max(sum(normalizedScores), eps);
+    [sortedWeights, sortedIdx] = sort(normalizedScores, 'descend');
+    objects(objectIdx).w = sortedWeights;
+    objects(objectIdx).mu = objects(objectIdx).mu(sortedIdx);
+    objects(objectIdx).Sigma = objects(objectIdx).Sigma(sortedIdx);
+    objects(objectIdx).numberOfGmComponents = numel(sortedIdx);
+end
+end
+
+function matchedObject = findObjectByLabelForFinalization(objects, template)
+matchedObject = [];
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).numberOfGmComponents > 0 && ...
+            objects(objectIdx).birthTime == template.birthTime && ...
+            objects(objectIdx).birthLocation == template.birthLocation
+        matchedObject = objects(objectIdx);
+        return;
+    end
+end
+end
+
+function [meanVector, covariance] = momentMatchForFinalization( ...
+    object, stateDimension)
+weights = normalizeComponentWeightsForExtraction(object);
+meanVector = zeros(stateDimension, 1);
+for componentIdx = 1:object.numberOfGmComponents
+    meanVector = meanVector + weights(componentIdx) * object.mu{componentIdx};
+end
+covariance = zeros(stateDimension);
+for componentIdx = 1:object.numberOfGmComponents
+    delta = object.mu{componentIdx} - meanVector;
+    covariance = covariance + weights(componentIdx) * ...
+        (object.Sigma{componentIdx} + delta * delta');
+end
+covariance = regularizeFinalizationCovariance(covariance);
+end
+
+function covariance = regularizeFinalizationCovariance(covariance)
+covariance = (covariance + covariance') / 2;
+if isempty(covariance)
+    return;
+end
+if rcond(covariance) < 1e-12
+    covariance = covariance + 1e-9 * eye(size(covariance));
+end
+end
+
+function componentIndices = selectStateExtractionComponents( ...
+    objects, mapIndices, triggerConfig)
+componentIndices = ones(1, numel(mapIndices));
+if ~getField(triggerConfig, 'mixtureAwareStateExtractionEnabled', false)
+    return;
+end
+if getField(triggerConfig, 'mixtureAwareJointExtractionEnabled', false) && ...
+        numel(mapIndices) > 1 && ...
+        numel(mapIndices) <= getField(triggerConfig, ...
+        'mixtureAwareJointExtractionMaxLabels', 6)
+    componentIndices = selectJointStateExtractionComponents( ...
+        objects, mapIndices, triggerConfig);
+    return;
+end
+minimumSeparation = getField( ...
+    triggerConfig, 'mixtureAwareExtractionMinSeparation', 0);
+selectedPositions = zeros(2, 0);
+for mapIdx = 1:numel(mapIndices)
+    object = objects(mapIndices(mapIdx));
+    weights = normalizeComponentWeightsForExtraction(object);
+    [~, order] = sort(weights, 'descend');
+    chosenIdx = order(1);
+    if minimumSeparation > 0 && ~isempty(selectedPositions)
+        for candidateIdx = order
+            position = componentPositionForExtraction(object, candidateIdx);
+            distances = sqrt(sum((selectedPositions - position).^2, 1));
+            if all(distances >= minimumSeparation)
+                chosenIdx = candidateIdx;
+                break;
+            end
+        end
+    end
+    componentIndices(mapIdx) = chosenIdx;
+    selectedPositions(:, end+1) = ...
+        componentPositionForExtraction(object, chosenIdx); %#ok<AGROW>
+end
+end
+
+function componentIndices = selectJointStateExtractionComponents( ...
+    objects, mapIndices, triggerConfig)
+labelCount = numel(mapIndices);
+topComponentCount = getField( ...
+    triggerConfig, 'mixtureAwareJointExtractionTopComponents', 3);
+candidateComponents = cell(1, labelCount);
+candidateUnaryCosts = cell(1, labelCount);
+for labelIdx = 1:labelCount
+    object = objects(mapIndices(labelIdx));
+    weights = normalizeComponentWeightsForExtraction(object);
+    availableComponentCount = min([ ...
+        numel(weights), ...
+        max(1, object.numberOfGmComponents), ...
+        numel(object.mu), ...
+        numel(object.Sigma)]);
+    weights = weights(1:availableComponentCount);
+    [sortedWeights, sortedIdx] = sort(weights, 'descend');
+    keepCount = min(topComponentCount, numel(sortedIdx));
+    candidateComponents{labelIdx} = sortedIdx(1:keepCount);
+    candidateUnaryCosts{labelIdx} = -log(max( ...
+        sortedWeights(1:keepCount), realmin));
+end
+
+bestCost = inf;
+bestAssignment = ones(1, labelCount);
+currentAssignment = ones(1, labelCount);
+searchJointExtraction(1, 0, zeros(2, 0));
+componentIndices = bestAssignment;
+
+    function searchJointExtraction(labelIdx, runningCost, selectedPositions)
+        if labelIdx > labelCount
+            if runningCost < bestCost
+                bestCost = runningCost;
+                bestAssignment = currentAssignment;
+            end
+            return;
+        end
+        object = objects(mapIndices(labelIdx));
+        candidates = candidateComponents{labelIdx};
+        unaryCosts = candidateUnaryCosts{labelIdx};
+        for candidateIdx = 1:numel(candidates)
+            componentIdx = candidates(candidateIdx);
+            position = componentPositionForExtraction(object, componentIdx);
+            pairwiseCost = computeJointExtractionPairwiseCost( ...
+                position, selectedPositions, triggerConfig);
+            nextCost = runningCost + unaryCosts(candidateIdx) + ...
+                pairwiseCost;
+            if nextCost >= bestCost
+                continue;
+            end
+            currentAssignment(labelIdx) = componentIdx;
+            searchJointExtraction(labelIdx + 1, nextCost, ...
+                [selectedPositions, position]); %#ok<AGROW>
+        end
+    end
+end
+
+function cost = computeJointExtractionPairwiseCost( ...
+    position, selectedPositions, triggerConfig)
+cost = 0;
+if isempty(selectedPositions)
+    return;
+end
+minimumSeparation = getField( ...
+    triggerConfig, 'mixtureAwareJointExtractionMinSeparation', 0);
+pairwiseScale = getField( ...
+    triggerConfig, 'mixtureAwareJointExtractionPairwiseScale', 1.0);
+if pairwiseScale <= 0 || minimumSeparation <= 0
+    return;
+end
+distances = sqrt(sum((selectedPositions - position).^2, 1));
+violations = max(0, minimumSeparation - distances) / minimumSeparation;
+cost = pairwiseScale * sum(violations .^ 2);
+end
+
+function position = componentPositionForExtraction(object, componentIdx)
+position = zeros(2, 1);
+if componentIdx < 1 || componentIdx > numel(object.mu) || ...
+        isempty(object.mu{componentIdx})
+    return;
+end
+meanVector = reshape(object.mu{componentIdx}, [], 1);
+copyCount = min(2, numel(meanVector));
+position(1:copyCount) = meanVector(1:copyCount);
+end
+
+function weights = normalizeComponentWeightsForExtraction(object)
+weights = reshape(object.w, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+componentCount = max(1, object.numberOfGmComponents);
+if numel(weights) ~= componentCount
+    weights = ones(1, componentCount);
+end
+if sum(weights) <= 0
+    weights = ones(1, componentCount) / componentCount;
+else
+    weights = weights / sum(weights);
 end
 end
 
@@ -2437,6 +2785,20 @@ for sourceIdx = 2:numel(fusionInputs)
         fusionInputs{sourceIdx}, model, ...
         triggerConfig.payloadExistenceThreshold, triggerConfig);
     replacedCount = replacedCount + 1;
+end
+end
+
+function fusedObjects = copyExistenceByLabel( ...
+    fusedObjects, referenceObjects)
+for objectIdx = 1:numel(fusedObjects)
+    label = [fusedObjects(objectIdx).birthTime; ...
+        fusedObjects(objectIdx).birthLocation];
+    referenceObject = findObjectByLabelForComparison( ...
+        referenceObjects, label);
+    if isempty(referenceObject)
+        continue;
+    end
+    fusedObjects(objectIdx).r = referenceObject.r;
 end
 end
 
