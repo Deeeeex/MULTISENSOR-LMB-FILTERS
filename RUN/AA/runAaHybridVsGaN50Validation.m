@@ -1,6 +1,6 @@
-% RUNAAHYBRIDVSGAN10VALIDATION
-% Paired N=10 validation for the current tuned AA-existence + KLA-spatial winner
-% against the two GA paper modes on the same 24-step diagnostic scenario.
+% RUNAAHYBRIDVSGAN50VALIDATION
+% Paired N=50 validation for Tuned spatial-KLA AA against the two GA
+% reference modes on the same 24-step diagnostic scenario.
 
 close all; clc;
 scriptDir = fileparts(mfilename('fullpath'));
@@ -24,32 +24,37 @@ addpath(fullfile(projectRoot, 'RUN', 'AA'));
 addpath(fullfile(projectRoot, 'RUN', 'GA'));
 setPath;
 
-fprintf('AA hybrid vs GA N10 validation started at %s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'));
+numberOfTrials = 50;
+baseSeed = 1;
+
+fprintf('AA tuned hybrid vs GA N%d validation started at %s\n', ...
+    numberOfTrials, datestr(now, 'yyyy-mm-dd HH:MM:SS'));
 fprintf('Repo: %s\n', projectRoot);
 fprintf('Commit: ');
 system('git rev-parse HEAD');
 fflush(stdout);
 
-fprintf('\n=== GA references: Balanced and FID-FIA final, N=10, lifeSpan=24 ===\n');
+fprintf('\n=== GA references: Balanced and FID-FIA final, N=%d, lifeSpan=24 ===\n', numberOfTrials);
 fflush(stdout);
 [gaReportPath, gaSummary] = runMultisensorFilters_formation_4plus4_TieredLinkAblation( ...
-    10, 1, true, struct(), true, 'fidFiaExistenceRefinement', ...
+    numberOfTrials, baseSeed, true, struct(), true, 'fidFiaExistenceRefinement', ...
     struct(), [3 4], struct('targetFormationLifeSpan', 24));
-fprintf('GA_N10_REPORT=%s\n', gaReportPath);
+fprintf('GA_N50_REPORT=%s\n', gaReportPath);
 disp(gaSummary.consensus);
 disp(gaSummary.local.meanAcrossSensors);
 fflush(stdout);
 
-fprintf('\n=== AA N10 winner: Tuned spatial-KLA AA, threshold=0.18, N=10 ===\n');
+fprintf('\n=== AA tuned hybrid: Tuned spatial-KLA AA, threshold=0.18, N=%d ===\n', numberOfTrials);
 fflush(stdout);
 [aaReportPath, aaSummary] = runAaBalancedCardinalityValidation( ...
-    10, 1, true, ...
+    numberOfTrials, baseSeed, true, ...
     struct('saveMat', false, 'saveCheckpoints', false, ...
         'progressEverySteps', 0, 'existenceThreshold', 0.18), ...
     struct(), true, [9]);
-fprintf('AA_HYBRID_N10_REPORT=%s\n', aaReportPath);
+fprintf('AA_TUNED_HYBRID_N50_REPORT=%s\n', aaReportPath);
 disp(aaSummary.consensus);
 disp(aaSummary.local.meanAcrossSensors);
 fflush(stdout);
 
-fprintf('\nAA hybrid vs GA N10 validation finished at %s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'));
+fprintf('\nAA tuned hybrid vs GA N%d validation finished at %s\n', ...
+    numberOfTrials, datestr(now, 'yyyy-mm-dd HH:MM:SS'));

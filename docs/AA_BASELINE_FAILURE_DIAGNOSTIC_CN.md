@@ -9,9 +9,9 @@
 1. GA/KLA 用几何乘积压制不同传感器不共同支持的 spatial modes 和 false-alarm modes；AA 用线性池保留这些 modes，天然更保守，但在当前场景里会转化为更大的 inter-sensor localization disagreement。
 2. 当前 LMB 输出用 MAP cardinality + 每个 Bernoulli 的 top Gaussian。AA 保留多峰 mixture 后，不同局部邻域可能选到不同 mode；这会把 AA 的“保留信息”变成“各节点输出不一致”。`maxGM=1` 后 AA 明显改善，说明 mixture 多峰保留是核心失败源之一。
 3. target-wise PD/FI weights 消费端修复后只能小幅改善 cardinality dispersion，不能修复 localization disagreement；因此 AA 差距不是“没有用 target-wise 权重”这么简单。
-4. 纯 AA 在这个场景下很难做到和 GA 相当；但把 AA 用在 existence/PHD branch、把 spatial branch 改成 KLA 单 Gaussian，并用轻度 pruning (`existenceThreshold=0.05`) 后，1-trial 结果已经在所有记录指标上同时优于 GA Balanced 和 GA final。也就是说，“AA 用好”的可行路线不是 pure AA，而是 AA-existence + KLA-spatial hybrid。
+4. 纯 AA 在这个场景下很难做到和 GA 相当；但把 AA 用在 existence/PHD branch、把 spatial branch 改成 KLA 单 Gaussian，并配合 no-stabilization 权重、适度 pruning 和更强 spatial structure prior 后，N10 已经在所有记录指标上同时优于 GA Balanced 和 GA final。也就是说，“AA 用好”的可行路线不是 pure AA，而是 tuned AA-existence + KLA-spatial hybrid。
 
-本轮全部实验都是 N=1、seed=2 的快速复现，作用是定位失败机理，不是统计显著性结论。
+本轮实验已经从 N1 screening 升级到 N10 gate。N10 仍不是 paper-facing 主统计结论，但足以支持进入 N50 长实验。
 
 ## Question
 
@@ -23,12 +23,12 @@
 
 - 当前 worktree `/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS`
 - 既有 Zotero AA Fusion 全文综述 `/Users/dex/Desktop/Code/Research/aa_fusion_review/AA_FUSION_REVIEW_CN.md`
-- AA 消费端实现、AA regression test、AA/GA 1-trial 快速诊断
+- AA 消费端实现、AA regression test、AA/GA 快速诊断、N10 gate
 
 排除范围:
 
 - 不做新的 Zotero 全文重读；沿用 2026-06-12 已完成的全文综述。
-- 不做 N>=10/50 的统计主表；本轮仅做快速机理定位。
+- 不把 N10 当作最终统计主表；N50 作为下一阶段验证。
 - 不把 1-trial 结果写成 paper-facing 显著性结论。
 
 ## Risk Tier
@@ -49,6 +49,8 @@ L2。该诊断会影响后续研究方向和代码路径选择，但当前只修
 | C8 | `existenceThreshold=0.05` 的 Balanced spatial-KLA AA 在当前 1-trial 场景下所有记录指标均优于 GA Balanced 和 GA final。 | Medium | E6, E14 | 只是一条 seed=2 快速复现，下一步需要 N10/N20。 |
 | C9 | N10 上，`existenceThreshold=0.05` 的 Balanced spatial-KLA AA 仍优于两个 GA mode 的 OSPA、cardinality dispersion、local E-OSPA、local RMSE 和 local CardErr，但 consensus Loc 不如 GA Balanced。 | High | E15, E16, E17 | 不应上 N20/N50；需要继续压 localization disagreement。 |
 | C10 | N1 threshold sweep 显示 `existenceThreshold=0.10` 比 0.05/0.06/0.08 更好，是下一轮 N10 localization-focused tuning 的当前候选。 | Medium | E14, E18, E19, E20 | 仍可能在多 trial 下过度 pruning，必须用 N10 复核。 |
+| C11 | `existenceThreshold=0.10` 的 N10 结果继续改善 OSPA 和 local metrics，但 consensus Loc 仍高于 GA Balanced。 | High | E21, E22 | 证明单纯 threshold tuning 不够。 |
+| C12 | Tuned spatial-KLA AA (`existenceThreshold=0.18`, `spatialDecouplingStrength=1.0`, `spatialStructureStrength=0.75`) 在 N10 上所有记录指标均优于 GA Balanced 和 GA final。 | High | E15, E23, E24, E25 | 仍需 N50 验证统计稳定性。 |
 
 ## 代码实现问题与修复
 
@@ -77,6 +79,8 @@ Bernoulli-AA 的严格形式应使用同一组权重同时进入 existence 和 s
 - `aaStrictWeights` 控制项
 - 可显式选择的 `PD target-wise AA` 和 `FI target-wise AA` arm
 - 可显式选择的 `Balanced spatial-KLA AA` 和 `Cardinality spatial-KLA AA` hybrid arms
+- 可显式选择的 `Tuned spatial-KLA AA` arm
+- 第 8 个可选参数 `adaptiveFusionOverrides`，用于快速筛选 adaptiveFusion 字段而不改默认 arms
 
 `runMultisensorFilters_formation_4plus4_TieredLinkAblation.m` 新增第 9 个可选参数 `scenarioOverrides`，用于把 GA 脚本临时跑在 AA 快速诊断同样的 `targetFormationLifeSpan=24` 场景上。默认调用不变。
 
@@ -173,11 +177,14 @@ Interpretation:
 | Balanced spatial-KLA AA, threshold 0.06 | 1 | 1.7056 | 1.4989 | 0.0200 | 2.0439 | 4.1585 | 0.0700 |
 | Balanced spatial-KLA AA, threshold 0.08 | 1 | 1.7007 | 1.4855 | 0.0213 | 2.0314 | 4.1484 | 0.0688 |
 | Balanced spatial-KLA AA, threshold 0.10 | 1 | 1.6904 | 1.4821 | 0.0188 | 2.0238 | 4.1439 | 0.0663 |
+| Balanced spatial-KLA AA, threshold 0.18 | 1 | 1.6857 | 1.4759 | 0.0188 | 2.0237 | 4.1405 | 0.0663 |
+| Tuned spatial-KLA AA, threshold 0.18 | 1 | 1.6826 | 1.4746 | 0.0188 | 2.0289 | 4.1450 | 0.0663 |
 
 Interpretation:
 
-- N1 上 `existenceThreshold=0.10` 是目前最好的 localization-tuned hybrid 候选，同时没有牺牲 OSPA、cardinality 或 local metrics。
-- 该 sweep 只用于选 N10 candidate；不能用来替代多 trial 验证。
+- N1 上单纯 threshold tuning 在 `0.18` 附近达到平台，`0.20` 开始破坏 Loc，`0.25` 明显破坏 OSPA/cardinality。
+- `spatialDecouplingStrength=1.0` 和 `spatialStructureStrength=0.75` 只带来小幅 N1 Loc 改善，但在 N10 上对高 Loc trials 有实际收益。
+- Posterior structure consistency 和 `minimumTrajectoryLength` sweep 没有提供有效改善；前者变差，后者在本场景下基本无影响。
 
 ### N10 验证状态
 
@@ -186,12 +193,14 @@ Interpretation:
 | GA Balanced reference | 10 | 1.7321 | 1.4681 | 0.0830 | 2.1973 | 4.2230 | 0.2120 |
 | GA final reference | 10 | 1.8021 | 1.8254 | 0.0755 | 2.1331 | 4.5113 | 0.1495 |
 | Balanced spatial-KLA AA, threshold 0.05 | 10 | 1.6726 | 1.5488 | 0.0275 | 2.0025 | 3.8082 | 0.0778 |
+| Balanced spatial-KLA AA, threshold 0.10 | 10 | 1.6679 | 1.5019 | 0.0295 | 1.9894 | 3.7378 | 0.0773 |
+| Tuned spatial-KLA AA, threshold 0.18 | 10 | 1.6631 | 1.4563 | 0.0350 | 1.9986 | 3.7166 | 0.0840 |
 
 Interpretation:
 
-- N10 证实 hybrid 不是 N1 偶然：OSPA、cardinality、local E-OSPA/RMSE/CardErr 都明显优于两个 GA reference。
-- 但 strict goal 是“争取所有指标都好”，当前唯一失败项是 consensus Loc: `1.5488` 高于 GA Balanced `1.4681`。
-- 因此现在不应上 N20/N50，应继续做 localization-focused 1-trial/N10 tuning。
+- `threshold=0.05` 和 `0.10` 都证实 hybrid 不是 N1 偶然：OSPA、cardinality、local E-OSPA/RMSE/CardErr 均优于两个 GA reference。
+- 旧失败项是 consensus Loc: `0.05` 为 `1.5488`，`0.10` 降到 `1.5019`，但仍高于 GA Balanced `1.4681`。
+- Tuned spatial-KLA AA 把 consensus Loc 降到 `1.4563`，同时保留 OSPA、cardinality 和 local metrics 优势；这是当前第一个 N10 全指标胜出配置。
 
 ## 理论解释
 
@@ -204,7 +213,7 @@ AA 文献的核心动机是 conservative/reliable fusion: 在未知互相关、�
 3. Part V 的 FI target-wise 思路要求 target-wise association 基本可靠。我们的 distributed LMB 场景里有 partial FOV、局部邻域、通信丢包和 label/track 不确定性，FI/PD 权重只改变传感器权重，不能自动解决错误 mode 被保留下来的问题。
 4. branch-decoupled AA 对 cardinality 有用，但它本质是 heuristic，不是严格 Bernoulli-AA。strict-AA 消融表明，严格使用同一组权重时 Cardinality-critical 的 existence refinement 不再产生额外收益。
 5. hybrid 实验证明，把 spatial branch 换成 KLA 后 AA-family 方法立刻接近 GA。也就是说，AA-baseline 的主失败源不是 Bernoulli existence 线性平均，而是 spatial density 的线性 mixture 与当前 MAP/top-Gaussian 输出机制不匹配。
-6. no-stabilization 权重和轻度 existence pruning 是关键：zero floor/EMA 让 hybrid 能更快响应当前时刻质量差异，`existenceThreshold=0.05` 则去掉少量低存在概率但会影响 pairwise matching 的 Bernoulli。
+6. no-stabilization 权重和 existence pruning 是关键：zero floor/EMA 让 hybrid 能更快响应当前时刻质量差异，`existenceThreshold=0.18` 去掉低存在概率但会影响 pairwise matching 的 Bernoulli；`spatialDecouplingStrength=1.0` 与 `spatialStructureStrength=0.75` 则让 spatial branch 更依赖结构可靠的 dedicated spatial score。
 
 因此，AA-baseline 差不是“AA 理论错了”，而是当前仿真场景和实现路径更奖励 GA/KLA 的 mode intersection / false-alarm suppression。AA 的优势应该放在 existence/PHD/cardinality 分支或 missed-detection dominated regime 中体现；spatial branch 在当前场景里需要 KLA、mode guard 或 variational fit。
 
@@ -229,7 +238,7 @@ cfg = BalancedAAConfig;
 cfg.aaSpatialFusionMode = 'kla';
 ```
 
-这保留 AA 的 existence 线性平均，但 spatial branch 使用 KLA 单 Gaussian。当前 N1 winner 是 no-stabilization Balanced spatial-KLA AA，`existenceThreshold=0.05`，OSPA `1.7091`，Loc `1.4980`，Card `0.0213`。
+这保留 AA 的 existence 线性平均，但 spatial branch 使用 KLA 单 Gaussian。当前 N10 winner 是 Tuned spatial-KLA AA，`existenceThreshold=0.18`，`spatialDecouplingStrength=1.0`，`spatialStructureStrength=0.75`，N10 OSPA `1.6631`，Loc `1.4563`，Card `0.0350`。
 
 中期研究路线不建议继续纯调 AA 权重，而应改融合结构:
 
@@ -266,6 +275,14 @@ cfg.aaSpatialFusionMode = 'kla';
 | E18 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_142136.md` | Balanced spatial-KLA AA threshold=0.06 N1 threshold sweep |
 | E19 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_142224.md` | Balanced spatial-KLA AA threshold=0.08 N1 threshold sweep |
 | E20 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_142312.md` | Balanced spatial-KLA AA threshold=0.10 N1 threshold sweep, current N10 candidate |
+| E21 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_142730.md` | Balanced spatial-KLA AA threshold=0.10 N10 result, Loc still fails |
+| E22 | command log | `RUN/AA/AA_HYBRID_THR010_N10_20260621.log` | threshold=0.10 N10 command output and report path |
+| E23 | command log | `RUN/AA/AA_HYBRID_THRESHOLD_SWEEP_N1_20260621_1436.log` | threshold=0.12/0.15/0.18/0.20/0.25 N1 sweep |
+| E24 | command log | `RUN/AA/AA_HYBRID_SPATIAL_STRUCTURE_SWEEP_N1_20260621.log` | spatial structure sweep; best N1 candidate around 0.75 |
+| E25 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_150248.md` | Tuned spatial-KLA AA threshold=0.18 N10 all-metric winner |
+| E26 | command log | `RUN/AA/AA_HYBRID_TUNED_THR18_SD100_SS75_N10_20260621.log` | tuned N10 command output and report path |
+| E27 | command log | `RUN/AA/AA_HYBRID_POSTERIOR_CONSISTENCY_SWEEP_N1_20260621.log` | posterior consistency sweep, rejected |
+| E28 | command log | `RUN/AA/AA_HYBRID_MIN_TRAJECTORY_SWEEP_N1_20260621.log` | minimumTrajectoryLength sweep, no effect |
 
 ## Verification Record
 
@@ -283,13 +300,13 @@ octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedC
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(1, 1, true, struct('maximumNumberOfGmComponents', 1, ...), ..., [3]); ..."
 ```
 
-Known limitation: most tuning numbers above are 1-trial diagnostics. The current N10 run is enough to reject `threshold=0.05` as an all-metric winner, but not enough for paper claims.
+Known limitation: most tuning numbers above are 1-trial diagnostics. The tuned N10 run is enough to pass the current all-metric gate against the two GA modes, but not enough for paper-facing statistical claims.
 
 ## Risk and Escalation
 
 若把本轮结论误当成统计主结论，主要风险是过早放弃某些 AA regime 或错误宣称 AA 无法使用。升级到 paper-facing 之前需要至少:
 
-- N>=10 的 tuned AA vs GA paired validation。
+- N50 的 tuned AA vs GA paired validation。
 - 低 PD / missed-detection-dominated / partial visibility 更强的场景。
 - 对 effective target-wise fusion graph 的日志化诊断，而不是只看最终 OSPA。
 
@@ -313,6 +330,8 @@ octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedC
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(1, 1, true, struct('saveMat', false, 'saveCheckpoints', false, 'progressEverySteps', 0, 'existenceThreshold', 0.05), struct(), true, [7]);"
 
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(10, 1, true, struct('saveMat', false, 'saveCheckpoints', false, 'progressEverySteps', 0, 'existenceThreshold', 0.05), struct(), true, [7]);"
+
+octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(10, 1, true, struct('saveMat', false, 'saveCheckpoints', false, 'progressEverySteps', 0, 'existenceThreshold', 0.18), struct(), true, [9]);"
 ```
 
 Validation:
@@ -324,12 +343,11 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_
 
 ## Open Issues
 
-- 需要继续降低 consensus Loc；N10 已显示 threshold=0.05 的 hybrid 未能在 Loc 上超过 GA Balanced。
-- 下一步优先复核 `existenceThreshold=0.10` 的 N10 结果；只有它在 consensus Loc 上也超过 GA Balanced，才启动 N20/N50。
+- 需要启动 N50 验证 Tuned spatial-KLA AA 是否稳定在所有指标上超过 GA Balanced 和 GA final。
 - 需要日志化每个 Bernoulli 的 target-wise spatial/existence effective sensor set、weight entropy、mode count，才能把机理从指标层推进到可控策略。
 - FI target-wise AA 目前用的是轻量 surrogate，不等价于 Part V 的完整 CT-FI multi-rate formulation。
 - 当前 hybrid 是最小实现，尚未做 regime-aware switching 或 effective graph guard。
 
 ## Recommendation
 
-不要继续把“纯 AA 调到 GA 一样好”作为主目标。短期可以把 tuned AA (`maxGM=1`, `existenceThreshold=0.08`) 作为 pure-AA baseline 的更公平版本；真正可用的主线应转向 target-wise hybrid average fusion。当前 N10 结果证明 no-stabilization Balanced spatial-KLA AA, `existenceThreshold=0.05` 已经解决 OSPA、cardinality 和 local metrics，但还没有解决 consensus localization。下一步应把 `existenceThreshold=0.10` 作为 N10 candidate；只有 N10 上 Loc 也超过 GA Balanced 后，才值得上 N20/N50。
+不要继续把“纯 AA 调到 GA 一样好”作为主目标。短期可以把 tuned AA (`maxGM=1`, `existenceThreshold=0.08`) 作为 pure-AA baseline 的更公平版本；真正可用的主线应转向 target-wise hybrid average fusion。当前 N10 结果证明 Tuned spatial-KLA AA 已经在 OSPA、consensus Loc、cardinality 和 local metrics 上同时超过两个 GA reference。下一步应启动 N50 paired validation；若 N50 仍全指标胜出，再把它提升为 paper-facing 主线。

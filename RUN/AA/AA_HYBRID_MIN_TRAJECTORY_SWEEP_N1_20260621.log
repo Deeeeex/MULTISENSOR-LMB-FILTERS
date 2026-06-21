@@ -1,0 +1,92 @@
+AA hybrid N1 minimumTrajectory sweep started at 2026-06-21 14:56:51
+
+=== minimumTrajectoryLength 6 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 48.097 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=6, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 48.097 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145651.md
+AA_HYBRID_MINTRAJ6_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145651.md
+metrics minTraj 6: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== minimumTrajectoryLength 8 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.810 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=8, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 49.810 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145747.md
+AA_HYBRID_MINTRAJ8_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145747.md
+metrics minTraj 8: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== minimumTrajectoryLength 10 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.328 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 49.328 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145844.md
+AA_HYBRID_MINTRAJ10_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145844.md
+metrics minTraj 10: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== minimumTrajectoryLength 12 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.507 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=12, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 49.507 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145941.md
+AA_HYBRID_MINTRAJ12_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145941.md
+metrics minTraj 12: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== minimumTrajectoryLength 14 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.715 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=14, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 49.715 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_150038.md
+AA_HYBRID_MINTRAJ14_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_150038.md
+metrics minTraj 14: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== minimumTrajectoryLength 16 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.861 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=16, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 49.861 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_150135.md
+AA_HYBRID_MINTRAJ16_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_150135.md
+metrics minTraj 16: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+AA hybrid N1 minimumTrajectory sweep finished at 2026-06-21 15:02:32

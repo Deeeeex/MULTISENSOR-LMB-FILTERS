@@ -1,5 +1,5 @@
 function [reportPath, summary] = runAaBalancedCardinalityValidation( ...
-    numberOfTrials, baseSeed, useFixedSeed, aaControlOverrides, commConfigOverrides, writeReport, armSelection)
+    numberOfTrials, baseSeed, useFixedSeed, aaControlOverrides, commConfigOverrides, writeReport, armSelection, adaptiveFusionOverrides)
 % RUNAABALANCEDCARDINALITYVALIDATION
 % Formal AA diagnostic for the current Balanced and Cardinality-critical
 % adaptive fusion modes.
@@ -45,6 +45,9 @@ end
 if nargin < 7
     armSelection = [];
 end
+if nargin < 8 || isempty(adaptiveFusionOverrides)
+    adaptiveFusionOverrides = struct();
+end
 
 numberOfTrials = max(0, round(numberOfTrials));
 reportPath = '';
@@ -83,6 +86,7 @@ if isempty(armSelection)
 else
     arms = selectArms(arms, armSelection);
 end
+arms = applyAdaptiveFusionOverridesToArms(arms, adaptiveFusionOverrides);
 armNames = {arms.name};
 numArms = numel(arms);
 
@@ -396,6 +400,12 @@ cfg.fidFiaUseEma = false;
 cfg.fidFiaMinWeight = 0.0;
 arms(8).name = 'Cardinality spatial-KLA AA';
 arms(8).adaptiveFusion = cfg;
+
+cfg = arms(7).adaptiveFusion;
+cfg.spatialDecouplingStrength = 1.0;
+cfg.spatialStructureStrength = 0.75;
+arms(9).name = 'Tuned spatial-KLA AA';
+arms(9).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -405,6 +415,15 @@ cfg.spatialEmaAlpha = 0.0;
 cfg.existenceEmaAlpha = 0.0;
 cfg.spatialMinWeight = 0.0;
 cfg.existenceMinWeight = 0.0;
+end
+
+function arms = applyAdaptiveFusionOverridesToArms(arms, overrides)
+if nargin < 2 || ~isstruct(overrides) || isempty(fieldnames(overrides))
+    return;
+end
+for i = 1:numel(arms)
+    arms(i).adaptiveFusion = mergeStructFields(arms(i).adaptiveFusion, overrides);
+end
 end
 
 function model = applyAaControlsToModel(model, aaControls)

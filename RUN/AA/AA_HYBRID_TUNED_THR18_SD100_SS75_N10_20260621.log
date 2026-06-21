@@ -1,0 +1,48 @@
+AA hybrid tuned threshold=0.18 sd=1 ss=0.75 N10 validation started at 2026-06-21 15:02:48
+AA validation trial 1/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.048 s
+AA validation trial 2/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 51.283 s
+AA validation trial 3/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 51.699 s
+AA validation trial 4/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 51.632 s
+AA validation trial 5/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 50.973 s
+AA validation trial 6/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 52.385 s
+AA validation trial 7/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 50.788 s
+AA validation trial 8/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 51.370 s
+AA validation trial 9/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 51.361 s
+AA validation trial 10/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.629 s
+=====================================
+AA Balanced/Cardinality Validation (N=10)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.663109, Loc 1.456257, Card 0.035000, Runtime 51.017 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_150248.md
+AA_HYBRID_TUNED_THR18_SD100_SS75_N10_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_150248.md
+    ospa = 1.6631
+    pos = 1.4563
+    card = 0.035000
+    eOspa = 1.9986
+    hOspa = 0.4853
+    rmse = 3.7166
+    cardErr = 0.084000
+AA hybrid tuned threshold=0.18 sd=1 ss=0.75 N10 validation finished at 2026-06-21 15:12:33

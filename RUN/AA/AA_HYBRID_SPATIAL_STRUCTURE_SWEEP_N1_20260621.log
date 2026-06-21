@@ -1,0 +1,107 @@
+AA hybrid N1 spatialStructure sweep started at 2026-06-21 14:45:48
+
+=== spatialStructureStrength 0.00 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 42.709 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.699901, Loc 1.487293, Card 0.018750, Runtime 42.709 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144548.md
+AA_HYBRID_SS0_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144548.md
+metrics ss 0.00: OSPA 1.699901 Loc 1.487293 Card 0.018750 E-OSPA 2.019930 hOspa 0.482364 RMSE 4.138130 CardErr 0.066250
+
+=== spatialStructureStrength 0.25 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 43.239 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.690503, Loc 1.479397, Card 0.018750, Runtime 43.239 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144637.md
+AA_HYBRID_SS25_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144637.md
+metrics ss 0.25: OSPA 1.690503 Loc 1.479397 Card 0.018750 E-OSPA 2.021194 hOspa 0.482370 RMSE 4.138653 CardErr 0.066250
+
+=== spatialStructureStrength 0.45 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 43.255 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.685587, Loc 1.475680, Card 0.018750, Runtime 43.255 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144727.md
+AA_HYBRID_SS45_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144727.md
+metrics ss 0.45: OSPA 1.685587 Loc 1.475680 Card 0.018750 E-OSPA 2.023395 hOspa 0.482375 RMSE 4.140332 CardErr 0.066250
+
+=== spatialStructureStrength 0.75 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 52.138 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 52.138 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144817.md
+AA_HYBRID_SS75_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144817.md
+metrics ss 0.75: OSPA 1.682637 Loc 1.474567 Card 0.018750 E-OSPA 2.028910 hOspa 0.482382 RMSE 4.144950 CardErr 0.066250
+
+=== spatialStructureStrength 1.00 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 48.260 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.684280, Loc 1.477606, Card 0.018750, Runtime 48.260 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144916.md
+AA_HYBRID_SS100_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_144916.md
+metrics ss 1.00: OSPA 1.684280 Loc 1.477606 Card 0.018750 E-OSPA 2.035340 hOspa 0.482388 RMSE 4.150663 CardErr 0.066250
+
+=== spatialStructureStrength 1.50 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 47.521 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.697814, Loc 1.493761, Card 0.018750, Runtime 47.521 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145012.md
+AA_HYBRID_SS150_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145012.md
+metrics ss 1.50: OSPA 1.697814 Loc 1.493761 Card 0.018750 E-OSPA 2.053613 hOspa 0.482402 RMSE 4.168039 CardErr 0.066250
+
+=== spatialStructureStrength 2.00 ===
+AA validation trial 1/1
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 46.756 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.726370, Loc 1.524804, Card 0.018750, Runtime 46.756 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145107.md
+AA_HYBRID_SS200_SD100_THR18_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260621_145107.md
+metrics ss 2.00: OSPA 1.726370 Loc 1.524804 Card 0.018750 E-OSPA 2.077507 hOspa 0.482415 RMSE 4.178604 CardErr 0.066250
+AA hybrid N1 spatialStructure sweep finished at 2026-06-21 14:52:01
