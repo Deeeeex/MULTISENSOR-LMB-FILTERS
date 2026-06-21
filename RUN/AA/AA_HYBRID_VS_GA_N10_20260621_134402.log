@@ -1,0 +1,144 @@
+AA hybrid vs GA N10 validation started at 2026-06-21 13:44:41
+Repo: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS
+Commit: bc819494ed9017ecb2d256953a332e8386923710
+
+=== GA references: Balanced and FID-FIA final, N=10, lifeSpan=24 ===
+Trial 1/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.343 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 110.916 s
+Trial 2/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 47.164 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 103.096 s
+Trial 3/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 45.988 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 100.541 s
+Trial 4/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 45.987 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 101.869 s
+Trial 5/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 45.017 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 92.506 s
+Trial 6/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 47.184 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 109.187 s
+Trial 7/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 45.962 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 103.686 s
+Trial 8/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 47.431 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 100.562 s
+Trial 9/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 46.345 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 100.039 s
+Trial 10/10
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 44.400 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 94.811 s
+=====================================
+GA Tiered Link Ablation (N=10)
+Order: +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.19 0.14 0.24 0.21 0.15 0.24 0.21 0.22]
+=====================================
++structure-aware decoupled KLA: OSPA 1.732144, RMSE 1.468054, Card 0.083000, Runtime 46.982 s
++FID-FIA existence refinement: OSPA 1.802067, RMSE 1.825416, Card 0.075500, Runtime 101.721 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N10_SEED1_20260621_141128.md
+GA_N10_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N10_SEED1_20260621_141128.md
+    ospa =
+
+       1.7321   1.8021
+
+    pos =
+
+       1.4681   1.8254
+
+    card =
+
+       0.083000   0.075500
+
+    eOspa =
+
+       2.1973   2.1331
+
+    hOspa =
+
+       0.4867   0.4885
+
+    rmse =
+
+       4.2230   4.5113
+
+    cardErr =
+
+       0.2120   0.1495
+
+
+=== AA N1 winner: Balanced spatial-KLA AA, threshold=0.05, N=10 ===
+AA validation trial 1/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 46.628 s
+AA validation trial 2/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 53.273 s
+AA validation trial 3/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 46.437 s
+AA validation trial 4/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 48.284 s
+AA validation trial 5/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 47.871 s
+AA validation trial 6/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 49.760 s
+AA validation trial 7/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 48.367 s
+AA validation trial 8/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 48.392 s
+AA validation trial 9/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 50.166 s
+AA validation trial 10/10
+  Arm 1/1: Balanced spatial-KLA AA
+    Filter runtime: 47.927 s
+=====================================
+AA Balanced/Cardinality Validation (N=10)
+Order: Balanced spatial-KLA AA
+AA controls: existenceThreshold=0.0500, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced spatial-KLA AA: OSPA 1.672633, Loc 1.548837, Card 0.027500, Runtime 48.711 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_141129.md
+AA_HYBRID_N10_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N10_SEED1_20260621_141129.md
+    ospa = 1.6726
+    pos = 1.5488
+    card = 0.027500
+    eOspa = 2.0025
+    hOspa = 0.4859
+    rmse = 3.8082
+    cardErr = 0.077750
+
+AA hybrid vs GA N10 validation finished at 2026-06-21 14:20:39
+error: ignoring const execution_exception& while preparing to exit

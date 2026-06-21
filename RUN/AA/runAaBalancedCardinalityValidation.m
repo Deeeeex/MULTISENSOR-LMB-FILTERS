@@ -382,14 +382,29 @@ arms(6).name = 'FI target-wise AA';
 arms(6).adaptiveFusion = cfg;
 
 cfg = arms(3).adaptiveFusion;
+cfg = applyNoStabilizationWeights(cfg);
 cfg.aaSpatialFusionMode = 'kla';
 arms(7).name = 'Balanced spatial-KLA AA';
 arms(7).adaptiveFusion = cfg;
 
 cfg = arms(4).adaptiveFusion;
+cfg = applyNoStabilizationWeights(cfg);
 cfg.aaSpatialFusionMode = 'kla';
+cfg.fidFiaExistenceStrength = 4.0;
+cfg.fidFiaExistenceMinScore = 0.0;
+cfg.fidFiaUseEma = false;
+cfg.fidFiaMinWeight = 0.0;
 arms(8).name = 'Cardinality spatial-KLA AA';
 arms(8).adaptiveFusion = cfg;
+end
+
+function cfg = applyNoStabilizationWeights(cfg)
+cfg.emaAlpha = 0.0;
+cfg.minWeight = 0.0;
+cfg.spatialEmaAlpha = 0.0;
+cfg.existenceEmaAlpha = 0.0;
+cfg.spatialMinWeight = 0.0;
+cfg.existenceMinWeight = 0.0;
 end
 
 function model = applyAaControlsToModel(model, aaControls)
@@ -483,6 +498,12 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- enabled: %d\n', getField(cfg, 'enabled', false));
     fprintf(fid, '- method: %s\n', char(getField(cfg, 'method', 'factorized')));
     fprintf(fid, '- aaSpatialFusionMode: %s\n', char(getField(cfg, 'aaSpatialFusionMode', 'mixture')));
+    fprintf(fid, '- emaAlpha: %.3f\n', getField(cfg, 'emaAlpha', 0));
+    fprintf(fid, '- minWeight: %.3f\n', getField(cfg, 'minWeight', 0));
+    fprintf(fid, '- spatialEmaAlpha: %.3f\n', getField(cfg, 'spatialEmaAlpha', 0));
+    fprintf(fid, '- existenceEmaAlpha: %.3f\n', getField(cfg, 'existenceEmaAlpha', 0));
+    fprintf(fid, '- spatialMinWeight: %.3f\n', getField(cfg, 'spatialMinWeight', 0));
+    fprintf(fid, '- existenceMinWeight: %.3f\n', getField(cfg, 'existenceMinWeight', 0));
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
     fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
     fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
