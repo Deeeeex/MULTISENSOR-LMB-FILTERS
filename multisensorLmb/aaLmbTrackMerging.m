@@ -21,12 +21,24 @@ function objects = aaLmbTrackMerging(measurementUpdatedDistributions, model)
 %           components.
 
 objects = measurementUpdatedDistributions{1};
-%% 1. 读取 AA 的空间/存在分支权重；没有 branch 权重时回退到 aaSensorWeights
-spatialWeights = normalizeWeightVector( ...
-    resolveWeightVector(model, 'aaSpatialWeights', model.aaSensorWeights), model.aaSensorWeights);
-existenceWeights = normalizeWeightVector( ...
-    resolveWeightVector(model, 'aaExistenceWeights', model.aaSensorWeights), model.aaSensorWeights);
+strictAaWeights = resolveStrictAaWeights(model);
+useKlaSpatialFusion = resolveKlaSpatialFusion(model);
 for i = 1:numel(objects)
+    %% 1. 读取当前目标的 AA 权重
+    % Strict AA uses one alpha vector for both Bernoulli existence and spatial
+    % density, matching the Bernoulli-AA formula.  The legacy branch-decoupled
+    % path is a heuristic extension: existence and spatial mixture may consume
+    % different AA weights.
+    if strictAaWeights
+        spatialWeights = resolveObjectWeightVector( ...
+            model, 'aaTargetWiseWeights', 'aaSensorWeights', model.aaSensorWeights, i);
+        existenceWeights = spatialWeights;
+    else
+        spatialWeights = resolveObjectWeightVector( ...
+            model, 'aaTargetWiseWeights', 'aaSpatialWeights', model.aaSensorWeights, i);
+        existenceWeights = resolveObjectWeightVector( ...
+            model, 'aaTargetWiseWeights', 'aaExistenceWeights', model.aaSensorWeights, i);
+    end
     %% 2. Bernoulli-AA：existence 线性平均，spatial mixture 用 r_s 加权
     % For a Bernoulli density, arithmetic averaging gives
     %   r = sum_s alpha_s r_s
@@ -34,6 +46,23 @@ for i = 1:numel(objects)
     % The previous implementation used only alpha_s for p_s(x), which let
     % low-existence but sharp local posteriors dominate the output Gaussian.
     fusedExistence = 0;
+    for s = 1:model.numberOfSensors
+        localObject = measurementUpdatedDistributions{s}(i);
+        localExistence = clampProbability(localObject.r);
+
+        fusedExistence = fusedExistence + existenceWeights(s) * localExistence;
+    end
+    objects(i).r = clampProbability(fusedExistence);
+
+    if useKlaSpatialFusion
+        [muGa, SigmaGa] = fuseSpatialWithKla(measurementUpdatedDistributions, model, spatialWeights, i);
+        objects(i).numberOfGmComponents = 1;
+        objects(i).w = 1;
+        objects(i).mu = {muGa};
+        objects(i).Sigma = {SigmaGa};
+        continue;
+    end
+
     fusedWeights = [];
     fallbackWeights = [];
     fusedMeans = {};
@@ -43,13 +72,11 @@ for i = 1:numel(objects)
         localExistence = clampProbability(localObject.r);
         localWeights = reshape(localObject.w, 1, []);
 
-        fusedExistence = fusedExistence + existenceWeights(s) * localExistence;
         fusedWeights = horzcat(fusedWeights, spatialWeights(s) * localExistence * localWeights);
         fallbackWeights = horzcat(fallbackWeights, spatialWeights(s) * localWeights);
         fusedMeans = horzcat(fusedMeans, localObject.mu);
         fusedCovariances = horzcat(fusedCovariances, localObject.Sigma);
     end
-    objects(i).r = clampProbability(fusedExistence);
     if sum(fusedWeights) <= eps
         fusedWeights = fallbackWeights;
     end
@@ -71,6 +98,114 @@ for i = 1:numel(objects)
 end
 
 
+end
+
+function useKlaSpatialFusion = resolveKlaSpatialFusion(model)
+mode = '';
+if isfield(model, 'aaSpatialFusionMode')
+    mode = model.aaSpatialFusionMode;
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'aaSpatialFusionMode')
+        mode = cfg.aaSpatialFusionMode;
+    end
+end
+useKlaSpatialFusion = isKlaSpatialFusionMode(mode);
+end
+
+function tf = isKlaSpatialFusionMode(value)
+tf = false;
+if ischar(value) || isstring(value)
+    tf = any(strcmpi(char(value), {'kla', 'ga', 'geometric', ...
+        'spatial-kla', 'spatial_kla', 'hybrid-kla', 'hybrid_kla'}));
+end
+end
+
+function strictAaWeights = resolveStrictAaWeights(model)
+strictAaWeights = false;
+if isfield(model, 'aaFusionWeightMode')
+    strictAaWeights = isStrictAaMode(model.aaFusionWeightMode);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'aaFusionWeightMode')
+        strictAaWeights = isStrictAaMode(cfg.aaFusionWeightMode);
+    end
+    if isfield(cfg, 'aaStrictWeights')
+        strictAaWeights = logical(cfg.aaStrictWeights);
+    end
+end
+end
+
+function tf = isStrictAaMode(value)
+tf = false;
+if ischar(value) || isstring(value)
+    tf = any(strcmpi(char(value), {'strict', 'strict-aa', 'strict_aa'}));
+end
+end
+
+function weights = resolveObjectWeightVector(model, targetWiseFieldName, fieldName, fallback, objectIdx)
+weights = [];
+if isfield(model, targetWiseFieldName)
+    targetWiseWeights = model.(targetWiseFieldName);
+    if size(targetWiseWeights, 1) >= objectIdx && size(targetWiseWeights, 2) == numel(fallback)
+        weights = targetWiseWeights(objectIdx, :);
+    end
+end
+if isempty(weights)
+    weights = resolveWeightVector(model, fieldName, fallback);
+end
+weights = normalizeWeightVector(weights, fallback);
+end
+
+function [muGa, SigmaGa] = fuseSpatialWithKla(measurementUpdatedDistributions, model, spatialWeights, objectIdx)
+K = zeros(model.xDimension, model.xDimension);
+h = zeros(model.xDimension, 1);
+for s = 1:model.numberOfSensors
+    [nu, T] = mprojectObject(model.xDimension, measurementUpdatedDistributions{s}(objectIdx));
+    T = regularizeCovariance(T);
+    precision = inv(T);
+    weightedPrecision = spatialWeights(s) * precision;
+    K = K + weightedPrecision;
+    h = h + weightedPrecision * nu;
+end
+K = regularizeCovariance(K);
+SigmaGa = regularizeCovariance(inv(K));
+muGa = SigmaGa * h;
+end
+
+function [nu, T] = mprojectObject(n, object)
+weights = reshape(object.w, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if sum(weights) <= 0
+    weights = ones(1, max(numel(weights), 1)) / max(numel(weights), 1);
+else
+    weights = weights / sum(weights);
+end
+
+nu = zeros(n, 1);
+for j = 1:object.numberOfGmComponents
+    nu = nu + weights(j) * object.mu{j};
+end
+
+T = zeros(n, n);
+for j = 1:object.numberOfGmComponents
+    delta = object.mu{j} - nu;
+    T = T + weights(j) * (object.Sigma{j} + delta * delta');
+end
+T = regularizeCovariance(T);
+end
+
+function covariance = regularizeCovariance(covariance)
+covariance = (covariance + covariance') / 2;
+if isempty(covariance)
+    return;
+end
+if rcond(covariance) < 1e-12
+    covariance = covariance + 1e-9 * eye(size(covariance));
+end
 end
 
 function weights = resolveWeightVector(model, fieldName, fallback)

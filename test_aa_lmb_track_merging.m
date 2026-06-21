@@ -18,12 +18,41 @@ expectedFirstWeight = (0.2 * 0.90) / (0.2 * 0.90 + 0.8 * 0.05);
 assert(abs(objects(1).w(1) - expectedFirstWeight) < 1e-12);
 assert(objects(1).mu{1}(1) == 0);
 
+fprintf('Test 3: AA consumes target-wise weights before branch weights\n');
+model = buildModel([0.1, 0.9], [0.1, 0.9], 2);
+model.aaTargetWiseWeights = [0.9, 0.1];
+objects = aaLmbTrackMerging(buildTwoSensorObjectSet(0.80, 0.80), model);
+assert(abs(objects(1).r - 0.80) < 1e-12);
+assert(abs(objects(1).w(1) - 0.9) < 1e-12);
+assert(objects(1).mu{1}(1) == 0);
+
+fprintf('Test 4: strict AA uses the same weights for existence and spatial density\n');
+model = buildModel([0.9, 0.1], [0.1, 0.9], 2);
+model.aaSensorWeights = [0.6, 0.4];
+model.aaFusionWeightMode = 'strict';
+objects = aaLmbTrackMerging(buildTwoSensorObjectSet(0.20, 0.80), model);
+expectedExistence = 0.6 * 0.20 + 0.4 * 0.80;
+expectedFirstWeight = (0.6 * 0.20) / (0.6 * 0.20 + 0.4 * 0.80);
+assert(abs(objects(1).r - expectedExistence) < 1e-12);
+assert(abs(objects(1).w(2) - expectedFirstWeight) < 1e-12);
+assert(objects(1).mu{2}(1) == 0);
+
+fprintf('Test 5: hybrid spatial-KLA AA keeps AA existence and emits one Gaussian\n');
+model = buildModel([0.5, 0.5], [0.5, 0.5], 2);
+model.aaSpatialFusionMode = 'kla';
+objects = aaLmbTrackMerging(buildTwoSensorObjectSet(0.20, 0.80), model);
+assert(abs(objects(1).r - 0.50) < 1e-12);
+assert(objects(1).numberOfGmComponents == 1);
+assert(abs(objects(1).w - 1) < 1e-12);
+assert(abs(objects(1).mu{1}(1) - 50) < 1e-9);
+
 fprintf('AA-LMB track-merging tests passed.\n');
 end
 
 function model = buildModel(spatialWeights, existenceWeights, maxComponents)
 model = struct();
 model.numberOfSensors = 2;
+model.xDimension = 4;
 model.maximumNumberOfGmComponents = maxComponents;
 model.aaSensorWeights = ones(1, 2) / 2;
 model.aaSpatialWeights = spatialWeights;

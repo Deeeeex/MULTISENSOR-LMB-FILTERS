@@ -58,6 +58,7 @@ aaControls = struct( ...
     'maximumNumberOfLbpIterations', 150, ...
     'lbpConvergenceTolerance', 1e-4, ...
     'progressEverySteps', 10, ...
+    'aaStrictWeights', false, ...
     'saveMat', true, ...
     'saveCheckpoints', true);
 aaControls = mergeStructFields(aaControls, aaControlOverrides);
@@ -77,7 +78,11 @@ q = 3 * ones(1, numberOfSensors);
 
 baseAdaptiveFusionConfig = buildBaseAdaptiveFusionConfig(aaControls);
 arms = buildAaArms(baseAdaptiveFusionConfig);
-arms = selectArms(arms, armSelection);
+if isempty(armSelection)
+    arms = arms(1:4);
+else
+    arms = selectArms(arms, armSelection);
+end
 armNames = {arms.name};
 numArms = numel(arms);
 
@@ -195,6 +200,7 @@ fprintf('Order: %s\n', strjoin(armNames, ' -> '));
 fprintf('AA controls: existenceThreshold=%.4f, maxGM=%d, minTrajectory=%d, lifeSpan=%d\n', ...
     aaControls.existenceThreshold, aaControls.maximumNumberOfGmComponents, ...
     aaControls.minimumTrajectoryLength, aaControls.targetFormationLifeSpan);
+fprintf('AA strict weights: %d\n', logical(aaControls.aaStrictWeights));
 fprintf('=====================================\n');
 for armIdx = 1:numArms
     fprintf('%s: OSPA %.6f, Loc %.6f, Card %.6f, Runtime %.3f s\n', arms(armIdx).name, ...
@@ -250,6 +256,7 @@ function cfg = buildBaseAdaptiveFusionConfig(aaControls)
 cfg = struct( ...
     'enabled', true, ...
     'method', 'factorized', ...
+    'aaSpatialFusionMode', 'mixture', ...
     'emaAlpha', 0.7, ...
     'minWeight', 0.05, ...
     'useCovariance', true, ...
@@ -274,6 +281,7 @@ cfg = struct( ...
     'existenceStructureStrength', 0.0, ...
     'structureReliabilityPower', 0.0, ...
     'structureReliabilityMinScore', 0.25, ...
+    'aaStrictWeights', logical(aaControls.aaStrictWeights), ...
     'useFidFiaExistence', false, ...
     'fidFiaExistenceStrength', 0.5, ...
     'fidFiaExistencePower', 1.0, ...
@@ -290,7 +298,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 4);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 8);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -348,6 +356,40 @@ cfg.existenceEmaAlpha = 0.7;
 cfg.existenceMinWeight = 0.05;
 arms(4).name = 'Cardinality-critical AA';
 arms(4).adaptiveFusion = cfg;
+
+cfg = baseCfg;
+cfg.enabled = true;
+cfg.method = 'pdWeightedGa';
+cfg.useCovariance = false;
+cfg.useLinkQuality = false;
+cfg.useExistenceConfidence = false;
+cfg.useDecoupledKla = false;
+cfg.useStructureAwareKla = false;
+cfg.useFidFiaExistence = false;
+arms(5).name = 'PD target-wise AA';
+arms(5).adaptiveFusion = cfg;
+
+cfg = baseCfg;
+cfg.enabled = true;
+cfg.method = 'fiTraceGa';
+cfg.useCovariance = false;
+cfg.useLinkQuality = false;
+cfg.useExistenceConfidence = false;
+cfg.useDecoupledKla = false;
+cfg.useStructureAwareKla = false;
+cfg.useFidFiaExistence = false;
+arms(6).name = 'FI target-wise AA';
+arms(6).adaptiveFusion = cfg;
+
+cfg = arms(3).adaptiveFusion;
+cfg.aaSpatialFusionMode = 'kla';
+arms(7).name = 'Balanced spatial-KLA AA';
+arms(7).adaptiveFusion = cfg;
+
+cfg = arms(4).adaptiveFusion;
+cfg.aaSpatialFusionMode = 'kla';
+arms(8).name = 'Cardinality spatial-KLA AA';
+arms(8).adaptiveFusion = cfg;
 end
 
 function model = applyAaControlsToModel(model, aaControls)
@@ -429,6 +471,7 @@ fprintf(fid, '- maximumNumberOfGmComponents: %d\n', aaControls.maximumNumberOfGm
 fprintf(fid, '- minimumTrajectoryLength: %d\n', aaControls.minimumTrajectoryLength);
 fprintf(fid, '- maximumNumberOfLbpIterations: %d\n', aaControls.maximumNumberOfLbpIterations);
 fprintf(fid, '- lbpConvergenceTolerance: %.3g\n', aaControls.lbpConvergenceTolerance);
+fprintf(fid, '- aaStrictWeights: %d\n', logical(aaControls.aaStrictWeights));
 fprintf(fid, '- linkModel: %s\n', getField(commConfig, 'linkModel', 'fixed'));
 fprintf(fid, '- pDropLevels: %s\n', mat2str(getField(commConfig, 'pDropLevels', []), 3));
 fprintf(fid, '- pDropLevelCounts: %s\n\n', mat2str(getField(commConfig, 'pDropLevelCounts', [])));
@@ -439,12 +482,14 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '### %s\n', arms(armIdx).name);
     fprintf(fid, '- enabled: %d\n', getField(cfg, 'enabled', false));
     fprintf(fid, '- method: %s\n', char(getField(cfg, 'method', 'factorized')));
+    fprintf(fid, '- aaSpatialFusionMode: %s\n', char(getField(cfg, 'aaSpatialFusionMode', 'mixture')));
     fprintf(fid, '- useCovariance: %d\n', getField(cfg, 'useCovariance', false));
     fprintf(fid, '- useLinkQuality: %d\n', getField(cfg, 'useLinkQuality', false));
     fprintf(fid, '- useExistenceConfidence: %d\n', getField(cfg, 'useExistenceConfidence', false));
     fprintf(fid, '- useDecoupledKla: %d\n', getField(cfg, 'useDecoupledKla', false));
     fprintf(fid, '- useStructureAwareKla: %d\n', getField(cfg, 'useStructureAwareKla', false));
     fprintf(fid, '- useFidFiaExistence: %d\n', getField(cfg, 'useFidFiaExistence', false));
+    fprintf(fid, '- aaStrictWeights: %d\n', getField(cfg, 'aaStrictWeights', false));
     fprintf(fid, '- existenceConfidenceMinScore: %.3f\n', getField(cfg, 'existenceConfidenceMinScore', 0));
     fprintf(fid, '- existenceConfidencePower: %.3f\n', getField(cfg, 'existenceConfidencePower', 0));
     fprintf(fid, '- spatialDecouplingStrength: %.3f\n', getField(cfg, 'spatialDecouplingStrength', 0));

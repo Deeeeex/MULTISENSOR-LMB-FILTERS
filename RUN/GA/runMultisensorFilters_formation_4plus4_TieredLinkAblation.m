@@ -1,5 +1,5 @@
 function [reportPath, summary] = runMultisensorFilters_formation_4plus4_TieredLinkAblation( ...
-    numberOfTrials, baseSeed, useFixedSeed, commConfigOverrides, writeReport, finalArmMode, adaptiveFusionOverrides, armSelection)
+    numberOfTrials, baseSeed, useFixedSeed, commConfigOverrides, writeReport, finalArmMode, adaptiveFusionOverrides, armSelection, scenarioOverrides)
 % RUNMULTISENSORFILTERS_FORMATION_4PLUS4_TIEREDLINKABLATION
 % Ablation under tiered packet-drop configuration.
 %
@@ -56,6 +56,9 @@ if nargin < 7 || isempty(adaptiveFusionOverrides)
 end
 if nargin < 8
     armSelection = [];
+end
+if nargin < 9 || isempty(scenarioOverrides)
+    scenarioOverrides = struct();
 end
 
 reportPath = '';
@@ -176,6 +179,9 @@ targetFormationConfig.targetFormationBirthInterval = 8;
 targetFormationConfig.targetFormationStartTime = 1;
 targetFormationConfig.targetFormationLifeSpan = 100;
 targetFormationConfig.targetBirthStates = buildTargetBirthStates();
+targetFormationConfig = mergeStructFields(targetFormationConfig, scenarioOverrides);
+targetFormationConfig.targetFormationLifeSpan = ...
+    max(1, round(targetFormationConfig.targetFormationLifeSpan));
 targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
 
 %% 3. Arm 构造：把一个 finalArmMode 展开成一组可比较方法
@@ -326,6 +332,7 @@ end
 summary.pDropBySensorTrials = pDropBySensorTrials;
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
+summary.scenarioConfig = targetFormationConfig;
 summary.samplingStats = samplingStats;
 summary.arms = arms;
 
