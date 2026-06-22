@@ -40,6 +40,7 @@ L2。该文档会影响后续算法实现和 paper-facing 方法叙事，但当�
 | C5 | overlap-weighted spatial KLA + between-posterior uncertainty inflation + support-aware existence tempering 已实现为默认关闭的 experimental arm，并通过 synthetic regression。 | High | E9, E10, E11 | 这只证明代码边界行为，不证明场景性能。 |
 | C6 | 当前 full rule 未通过 N1 gate: OSPA 改善但 Loc、Card、E-OSPA 和 CardErr 显著变差，不能进入 N5/N50。 | High | E12, E13 | N1 是 gate，不是统计结论。 |
 | C7 | spatial-overlap only 也未通过 N1 gate: 它避免了 full rule 的 cardinality collapse，但 OSPA/Loc 均略差于同 seed tuned baseline。 | Medium-High | E14, E15 | 该 report 通过 adaptive override 运行，arm name 仍显示 Tuned spatial-KLA AA，需读取 config 字段确认。 |
+| C8 | covariance-inflation only 也未通过 N1 gate: 它是更干净的 uncertainty-propagation 假设，但未改善 Loc/OSPA，并带来约 1.5x runtime。 | Medium-High | E16, E17 | 单 seed gate 只用于否定进入 N5/N50，不作统计 claim。 |
 
 ## 方法设计
 
@@ -165,34 +166,37 @@ N1 gate 暴露出一个重要修正: `Q = M * agreement` 的 support tempering �
 
 ## 实现计划
 
-当前已新增一个明确命名的 experimental arm，而不是改写当前 tuned arm:
+当前已把 label-uncertainty fusion 拆成独立方法开关，而不是把多个机制耦合成一个场景调参臂:
 
 ```matlab
-arms(...).name = 'Label-uncertainty spatial-KLA AA';
+arms(...).name = 'Uncertainty-inflated spatial-KLA AA';
 cfg.aaSpatialFusionMode = 'kla';
 cfg.useAaLabelUncertaintyFusion = true;
-cfg.useAaLabelExistenceTempering = true;
+cfg.useAaLabelSpatialOverlapWeights = false;
+cfg.useAaLabelUncertaintyInflation = true;
+cfg.useAaLabelExistenceTempering = false;
 ```
 
 代码位置:
 
-- `aaLmbTrackMerging.m`: 消费 `useAaLabelUncertaintyFusion`，在 KLA spatial 前计算 `A_s` 和 `beta_s`，并输出 `Sigma_out = Sigma_KLA + B`。
+- `aaLmbTrackMerging.m`: 消费 `useAaLabelUncertaintyFusion`，并用 `useAaLabelSpatialOverlapWeights`、`useAaLabelUncertaintyInflation`、`useAaLabelExistenceTempering` 分别控制 overlap reweight、between-posterior covariance inflation 和 existence odds tempering。
 - `computeAdaptiveFusionWeights.m`: 不需要先改；该规则使用已有 branch weights 作为 base。
-- `runAaBalancedCardinalityValidation.m`: 新增 arm，并在 report 中记录 `labelAgreementMean`、`labelSupportNeff`、`uncertaintyInflationTrace` 的 summary diagnostics。
+- `runAaBalancedCardinalityValidation.m`: arm 12 明确命名为 `Uncertainty-inflated spatial-KLA AA`，report 记录上述开关，便于 N1 gate 复现。
 
 最小 regression:
 
 1. 两个一致 posterior 时，输出与普通 spatial-KLA 数值一致或接近。已通过 E11。
 2. 一个 spatial outlier 与两个一致 posterior 同时存在时，outlier 权重下降，均值接近一致 posterior。已通过 E11。
 3. low-support false label 的 existence odds 下降但不是硬删。已通过 E11。
-4. 仍缺单有效 posterior 的专门 regression；当前实现路径应补上该 case。
+4. covariance inflation 可在不启用 overlap reweight 的条件下独立使用。已通过 E11。
+5. 单有效 posterior 不会被 overlap 逻辑压掉。已通过 E11。
 
 实验 gate:
 
 1. N1 paired sanity: 与 Tuned spatial-KLA AA 和 GA Balanced/GA final 比较，不接受只改善一个 seed 上单个指标而显著破坏 local metrics 的 arm。当前 full rule 未通过该 gate。
 2. N5 failure-block falsification: 只用作 falsification，不在这里调参。若 label-set split 和 same-label spread rows 同时改善，才进入 N50。
 3. N50 paired validation: 目标仍是 OSPA、Loc、Card、E-OSPA、hOspa、RMSE、CardErr 均优于两个 GA modes。
-4. N50 ablation: 至少比较 current tuned, overlap-weighted spatial only, covariance inflation only, existence tempering only, full rule。
+4. N50 ablation: 只有在某个方法假设通过 N1 和 N5 falsification 后才运行；当前 full、overlap-only、inflation-only 都不满足进入条件。
 
 ## Evidence Ledger
 
@@ -213,6 +217,8 @@ cfg.useAaLabelExistenceTempering = true;
 | E13 | command log | `RUN/AA/AA_LABEL_UNCERTAINTY_N1_SEED1_20260622.log` | C6, full rule command output | medium |
 | E14 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_112431.md` | C7, spatial-overlap only N1 negative gate | medium |
 | E15 | command log | `RUN/AA/AA_LABEL_OVERLAP_SPATIAL_N1_SEED1_20260622.log` | C7, spatial-overlap only command output | medium |
+| E16 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_113133.md` | C8, covariance-inflation only N1 negative gate | strong |
+| E17 | command log | `RUN/AA/AA_LABEL_INFLATION_ONLY_N1_SEED1_20260622.log` | C8, covariance-inflation only command output | medium |
 
 ## Verification Record
 
@@ -221,15 +227,15 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 已检查:
 
 - 现有 label-level attribution report 中确实包含 `Unique labels`、`Full labels`、`Mean label cover` 和 `Max label spread`。
-- `test_aa_lmb_track_merging` 通过，覆盖 target-wise weights、strict AA、existence-gated KLA 和 label-uncertainty synthetic cases。
+- `test_aa_lmb_track_merging` 通过，覆盖 target-wise weights、strict AA、existence-gated KLA、label-uncertainty synthetic cases、inflation-only 和 single-supported-posterior case。
 - N1 full rule gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；full rule 为 `1.419895/2.728531/0.063750`，local E-OSPA/CardErr 为 `4.529137/2.046250`。
 - N1 spatial-overlap only gate 失败: OSPA/Loc/Card 为 `1.709002/1.489258/0.018750`。
+- N1 covariance-inflation only gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；inflation-only 为 `1.727916/1.540082/0.017500`，local E-OSPA/RMSE/CardErr 为 `2.066921/4.185329/0.067500`。
 
 待检查:
 
-- 单有效 posterior synthetic regression。
-- revised rule 的 N1 paired performance。
-- 是否需要对 covariance inflation 做 OSPA/eOSPA 之外的指标补充。
+- 是否需要把 label-set split 的修复上移到 distributed label management / birth-pruning，而不是继续在 fusion consumer 内补偿。
+- 是否需要对 uncertainty consistency 另设 NEES/NIS 类指标；当前 OSPA/eOSPA/RMSE gate 不支持 covariance inflation 作为主线性能改进。
 
 ## Risk and Escalation
 
@@ -237,7 +243,7 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 
 - 把一个尚未实验的 method spec 写成 performance claim。
 - overlap weighting 在 missed-detection dominated regime 下压低真实单传感器观测。
-- covariance inflation 改善 uncertainty consistency 但不改善 point Loc。
+- covariance inflation 可能改善 uncertainty consistency，但 N1 OSPA/eOSPA/RMSE 已显示它不是当前主线 Loc gap 的直接解。
 - support-mass existence tempering 在 local-neighborhood setting 下造成 cardinality collapse。
 
 升级条件:
@@ -274,4 +280,4 @@ octave --quiet RUN/AA/runAaLabelUncertaintyDiagnosticN5.m
 
 ## Recommendation
 
-当前 `Label-uncertainty spatial-KLA AA` experimental arm 已实现，但 full rule 和 spatial-overlap only 都未通过 N1 gate，因此不进入 N5/N50。下一步应回到规则设计: 保留 Gaussian overlap 作为诊断/可能的 soft spatial prior，暂时移除 absolute support-mass existence tempering，并补单有效 posterior regression；修改后再重新跑 N1 sanity。
+当前 `Uncertainty-inflated spatial-KLA AA` experimental arm 已实现，且 full rule、spatial-overlap only、covariance-inflation only 都未通过 N1 gate，因此不进入 N5/N50。下一步应停止在 fusion consumer 内继续组合这些开关，转向更上游、可泛化的问题: distributed label management / birth-pruning 如何避免 label-set split，以及是否需要一个与场景无关的 label-consensus objective 来约束 AA 的 label survival。

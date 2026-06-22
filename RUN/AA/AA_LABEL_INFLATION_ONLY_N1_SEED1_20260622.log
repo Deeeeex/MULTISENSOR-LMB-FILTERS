@@ -1,0 +1,46 @@
+AA validation trial 1/1
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 57.134 s
+  Arm 2/2: Uncertainty-inflated spatial-KLA AA
+    Filter runtime: 85.618 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Tuned spatial-KLA AA -> Uncertainty-inflated spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 57.134 s
+Uncertainty-inflated spatial-KLA AA: OSPA 1.727916, Loc 1.540082, Card 0.017500, Runtime 85.618 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_113133.md
+AA_LABEL_INFLATION_ONLY_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_113133.md
+{
+  [1,1] = Tuned spatial-KLA AA
+  [1,2] = Uncertainty-inflated spatial-KLA AA
+}
+    ospa =
+
+       1.6826   1.7279
+
+    pos =
+
+       1.4746   1.5401
+
+    card =
+
+       0.018750   0.017500
+
+    eOspa =
+
+       2.0289   2.0669
+
+    hOspa =
+
+       0.4824   0.4825
+
+    rmse =
+
+       4.1450   4.1853
+
+    cardErr =
+
+       0.066250   0.067500

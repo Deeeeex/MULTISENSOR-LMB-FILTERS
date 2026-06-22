@@ -311,6 +311,7 @@ cfg = struct( ...
     'aaKlaSpatialExistencePower', 0.0, ...
     'aaKlaSpatialExistenceMinScore', 0.0, ...
     'useAaLabelUncertaintyFusion', false, ...
+    'useAaLabelSpatialOverlapWeights', true, ...
     'useAaLabelUncertaintyInflation', true, ...
     'useAaLabelExistenceTempering', false, ...
     'spatialBridgeNoveltyStrength', 0.0, ...
@@ -441,9 +442,10 @@ arms(11).adaptiveFusion = cfg;
 
 cfg = arms(9).adaptiveFusion;
 cfg.useAaLabelUncertaintyFusion = true;
+cfg.useAaLabelSpatialOverlapWeights = false;
 cfg.useAaLabelUncertaintyInflation = true;
-cfg.useAaLabelExistenceTempering = true;
-arms(12).name = 'Label-uncertainty spatial-KLA AA';
+cfg.useAaLabelExistenceTempering = false;
+arms(12).name = 'Uncertainty-inflated spatial-KLA AA';
 arms(12).adaptiveFusion = cfg;
 end
 
@@ -580,6 +582,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- aaKlaSpatialExistencePower: %.3f\n', getField(cfg, 'aaKlaSpatialExistencePower', 0));
     fprintf(fid, '- aaKlaSpatialExistenceMinScore: %.3f\n', getField(cfg, 'aaKlaSpatialExistenceMinScore', 0));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
+    fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));
     fprintf(fid, '- useAaLabelUncertaintyInflation: %d\n', getField(cfg, 'useAaLabelUncertaintyInflation', true));
     fprintf(fid, '- useAaLabelExistenceTempering: %d\n', getField(cfg, 'useAaLabelExistenceTempering', false));
     fprintf(fid, '- spatialBridgeNoveltyStrength: %.3f\n', getField(cfg, 'spatialBridgeNoveltyStrength', 0));

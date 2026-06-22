@@ -26,6 +26,7 @@ useKlaSpatialFusion = resolveKlaSpatialFusion(model);
 useLabelUncertaintyFusion = resolveLabelUncertaintyFusion(model);
 useLabelExistenceTempering = resolveLabelExistenceTempering(model);
 useLabelUncertaintyInflation = resolveLabelUncertaintyInflation(model);
+useLabelSpatialOverlapWeights = resolveLabelSpatialOverlapWeights(model);
 for i = 1:numel(objects)
     %% 1. 读取当前目标的 AA 权重
     % Strict AA uses one alpha vector for both Bernoulli existence and spatial
@@ -63,7 +64,7 @@ for i = 1:numel(objects)
         if useLabelUncertaintyFusion
             [muGa, SigmaGa, quality] = fuseSpatialWithLabelUncertaintyKla( ...
                 measurementUpdatedDistributions, model, spatialWeights, existenceWeights, i, ...
-                useLabelUncertaintyInflation);
+                useLabelUncertaintyInflation, useLabelSpatialOverlapWeights);
             if useLabelExistenceTempering
                 objects(i).r = temperExistenceWithLabelQuality(objects(i).r, quality);
             end
@@ -191,6 +192,19 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
 end
 end
 
+function useLabelSpatialOverlapWeights = resolveLabelSpatialOverlapWeights(model)
+useLabelSpatialOverlapWeights = true;
+if isfield(model, 'useAaLabelSpatialOverlapWeights')
+    useLabelSpatialOverlapWeights = logical(model.useAaLabelSpatialOverlapWeights);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'useAaLabelSpatialOverlapWeights')
+        useLabelSpatialOverlapWeights = logical(cfg.useAaLabelSpatialOverlapWeights);
+    end
+end
+end
+
 function tf = isStrictAaMode(value)
 tf = false;
 if ischar(value) || isstring(value)
@@ -229,12 +243,17 @@ muGa = SigmaGa * h;
 end
 
 function [muGa, SigmaGa, quality] = fuseSpatialWithLabelUncertaintyKla( ...
-    measurementUpdatedDistributions, model, spatialWeights, existenceWeights, objectIdx, useInflation)
+    measurementUpdatedDistributions, model, spatialWeights, existenceWeights, objectIdx, ...
+    useInflation, useOverlapWeights)
 [means, covariances, localExistence, validMask] = projectLocalObjects( ...
     measurementUpdatedDistributions, model, objectIdx);
 baseSpatialWeights = normalizeMaskedWeights(spatialWeights, validMask);
 agreement = computeLabelSpatialAgreement(means, covariances, baseSpatialWeights, localExistence, validMask);
-betaRaw = baseSpatialWeights .* localExistence .* agreement .* validMask;
+if useOverlapWeights
+    betaRaw = baseSpatialWeights .* localExistence .* agreement .* validMask;
+else
+    betaRaw = baseSpatialWeights .* validMask;
+end
 if sum(betaRaw) <= eps
     betaRaw = baseSpatialWeights .* validMask;
 end

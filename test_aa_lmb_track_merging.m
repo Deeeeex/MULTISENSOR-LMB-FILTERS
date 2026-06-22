@@ -82,6 +82,29 @@ objects = aaLmbTrackMerging(buildObjectSet( ...
 assert(objects(1).r > 0);
 assert(objects(1).r < mean([0.80, 0.05, 0.05]));
 
+fprintf('Test 10: label-uncertainty inflation can be used without overlap reweighting\n');
+model = buildModel([0.5, 0.5], [0.5, 0.5], 2);
+model.aaSpatialFusionMode = 'kla';
+model.useAaLabelUncertaintyFusion = true;
+model.useAaLabelSpatialOverlapWeights = false;
+model.useAaLabelUncertaintyInflation = true;
+model.useAaLabelExistenceTempering = false;
+objects = aaLmbTrackMerging(buildTwoSensorObjectSet(0.80, 0.80), model);
+assert(abs(objects(1).mu{1}(1) - 50) < 1e-9);
+assert(objects(1).Sigma{1}(1, 1) > 1000);
+assert(abs(objects(1).Sigma{1}(2, 2) - 1) < 1e-8);
+
+fprintf('Test 11: single supported label posterior is not suppressed by overlap logic\n');
+model = buildModel([1/3, 1/3, 1/3], [1/3, 1/3, 1/3], 2);
+model.aaSpatialFusionMode = 'kla';
+model.useAaLabelUncertaintyFusion = true;
+model.useAaLabelExistenceTempering = false;
+objects = aaLmbTrackMerging(buildObjectSet( ...
+    [0.80, 0.00, 0.00], {[0; 0; 0; 0], [100; 0; 0; 0], [200; 0; 0; 0]}), model);
+assert(abs(objects(1).r - mean([0.80, 0.00, 0.00])) < 1e-12);
+assert(abs(objects(1).mu{1}(1)) < 1e-9);
+assert(abs(objects(1).Sigma{1}(1, 1) - 1) < 1e-8);
+
 fprintf('AA-LMB track-merging tests passed.\n');
 end
 
