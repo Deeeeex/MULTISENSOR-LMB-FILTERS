@@ -46,6 +46,15 @@ assert(objects(1).numberOfGmComponents == 1);
 assert(abs(objects(1).w - 1) < 1e-12);
 assert(abs(objects(1).mu{1}(1) - 50) < 1e-9);
 
+fprintf('Test 6: optional KLA spatial existence gate is target-wise\n');
+model = buildModel([0.5, 0.5], [0.5, 0.5], 2);
+model.aaSpatialFusionMode = 'kla';
+model.aaKlaSpatialExistencePower = 1.0;
+objects = aaLmbTrackMerging(buildTwoSensorObjectSet(0.20, 0.80), model);
+assert(abs(objects(1).r - 0.50) < 1e-12);
+assert(objects(1).numberOfGmComponents == 1);
+assert(abs(objects(1).mu{1}(1) - 80) < 1e-9);
+
 fprintf('AA-LMB track-merging tests passed.\n');
 end
 

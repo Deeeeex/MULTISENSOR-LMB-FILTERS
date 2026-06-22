@@ -128,6 +128,7 @@ consCard = zeros(numberOfTrials, numArms);
 filterRuntimeSeconds = zeros(numberOfTrials, numArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 samplingStatsLast = struct();
+weightDiagSummary = cell(numberOfTrials, numArms);
 
 reportDir = fullfile(projectRoot, 'RUN', 'AA');
 if ~exist(reportDir, 'dir')
@@ -176,6 +177,7 @@ for trial = 1:numberOfTrials
             armModel, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
         filterRuntimeSeconds(trial, armIdx) = toc(runtimeStart);
         fprintf('    Filter runtime: %.3f s\n', filterRuntimeSeconds(trial, armIdx));
+        weightDiagSummary{trial, armIdx} = summarizeAdaptiveFusionDiagnostics(stateEstimatesBySensor);
 
         for s = 1:numberOfSensors
             [eArm, hArm, cardArm] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
@@ -239,6 +241,7 @@ summary.commConfig = commConfig;
 summary.aaControls = aaControls;
 summary.samplingStats = samplingStatsLast;
 summary.arms = arms;
+summary.weightDiagnostics = weightDiagSummary;
 summary.reportPath = reportPath;
 summary.matPath = matPath;
 summary.checkpointPath = checkpointPath;
@@ -295,6 +298,10 @@ cfg = struct( ...
     'fidFiaUseExistenceWeight', true, ...
     'fidFiaUseEma', false, ...
     'fidFiaMinWeight', 0.0, ...
+    'aaKlaSpatialExistencePower', 0.0, ...
+    'aaKlaSpatialExistenceMinScore', 0.0, ...
+    'captureWeightDiagnostics', false, ...
+    'weightDiagnosticActiveThreshold', 1e-3, ...
     'useFreshness', false, ...
     'useHistory', false, ...
     'useNIS', false, ...
@@ -302,7 +309,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 8);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 10);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -406,6 +413,12 @@ cfg.spatialDecouplingStrength = 1.0;
 cfg.spatialStructureStrength = 0.75;
 arms(9).name = 'Tuned spatial-KLA AA';
 arms(9).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.aaKlaSpatialExistencePower = 1.0;
+cfg.aaKlaSpatialExistenceMinScore = 0.0;
+arms(10).name = 'Existence-gated spatial-KLA AA';
+arms(10).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -538,6 +551,9 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- existenceStructureStrength: %.3f\n', getField(cfg, 'existenceStructureStrength', 0));
     fprintf(fid, '- fidFiaExistenceStrength: %.3f\n', getField(cfg, 'fidFiaExistenceStrength', 0));
     fprintf(fid, '- fidFiaExistenceMinScore: %.3f\n', getField(cfg, 'fidFiaExistenceMinScore', 0));
+    fprintf(fid, '- aaKlaSpatialExistencePower: %.3f\n', getField(cfg, 'aaKlaSpatialExistencePower', 0));
+    fprintf(fid, '- aaKlaSpatialExistenceMinScore: %.3f\n', getField(cfg, 'aaKlaSpatialExistenceMinScore', 0));
+    fprintf(fid, '- captureWeightDiagnostics: %d\n', getField(cfg, 'captureWeightDiagnostics', false));
     fprintf(fid, '- existenceMinWeight: %.3f\n\n', getField(cfg, 'existenceMinWeight', 0));
 end
 
@@ -597,6 +613,11 @@ if numel(arms) >= 2
     fprintf(fid, '\n## Paired Local-Metric Improvements Relative to %s\n', baselineName);
     writePairedImprovementTable(fid, armNames, {'E-OSPA', 'RMSE', 'CardErr'}, ...
         {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
+end
+
+if hasAdaptiveFusionDiagnostics(summary.weightDiagnostics)
+    fprintf(fid, '\n## Adaptive Fusion Weight Diagnostics\n');
+    writeAdaptiveFusionDiagnosticTable(fid, armNames, summary.weightDiagnostics);
 end
 
 fprintf(fid, '\n## Runtime\n');
@@ -677,6 +698,186 @@ for armIdx = 1:numel(armNames)
     end
     fprintf(fid, '| %s | %.6f +/- %.6f | %.6f | %.3fx | %d |\n', ...
         armNames{armIdx}, stats.mean, stats.std, stats.mean / simulationLength, ratioMean, stats.n);
+end
+end
+
+function diagSummary = summarizeAdaptiveFusionDiagnostics(stateEstimatesBySensor)
+diagSummary = struct();
+spatialEntropy = [];
+existenceEntropy = [];
+spatialEffCount = [];
+existenceEffCount = [];
+branchL1 = [];
+maxSpatialWeight = [];
+maxExistenceWeight = [];
+targetSpatialEntropy = [];
+targetExistenceEntropy = [];
+targetSpatialEffCount = [];
+targetExistenceEffCount = [];
+targetBranchL1 = [];
+targetSpatialActiveCount = [];
+targetExistenceActiveCount = [];
+targetLocalExistenceSpread = [];
+
+for s = 1:numel(stateEstimatesBySensor)
+    if ~isfield(stateEstimatesBySensor{s}, 'adaptiveFusionDiagnostics')
+        continue;
+    end
+    diagnostics = stateEstimatesBySensor{s}.adaptiveFusionDiagnostics;
+    for k = 1:numel(diagnostics)
+        d = diagnostics(k);
+        if ~isfield(d, 't') || ~isfinite(d.t)
+            continue;
+        end
+        spatialEntropy(end+1) = d.spatialEntropy;
+        existenceEntropy(end+1) = d.existenceEntropy;
+        spatialEffCount(end+1) = d.spatialEffectiveSensorCount;
+        existenceEffCount(end+1) = d.existenceEffectiveSensorCount;
+        branchL1(end+1) = d.branchL1Divergence;
+        maxSpatialWeight(end+1) = d.maxSpatialWeight;
+        maxExistenceWeight(end+1) = d.maxExistenceWeight;
+        targetSpatialEntropy = [targetSpatialEntropy; reshape(d.targetSpatialEntropy, [], 1)];
+        targetExistenceEntropy = [targetExistenceEntropy; reshape(d.targetExistenceEntropy, [], 1)];
+        targetSpatialEffCount = [targetSpatialEffCount; reshape(d.targetSpatialEffectiveSensorCount, [], 1)];
+        targetExistenceEffCount = [targetExistenceEffCount; reshape(d.targetExistenceEffectiveSensorCount, [], 1)];
+        targetBranchL1 = [targetBranchL1; reshape(d.targetBranchL1Divergence, [], 1)];
+        targetSpatialActiveCount = [targetSpatialActiveCount; reshape(d.targetSpatialActiveCount, [], 1)];
+        targetExistenceActiveCount = [targetExistenceActiveCount; reshape(d.targetExistenceActiveCount, [], 1)];
+        if isfield(d, 'targetLocalExistence') && ~isempty(d.targetLocalExistence)
+            targetLocalExistenceSpread = [targetLocalExistenceSpread; ...
+                reshape(max(d.targetLocalExistence, [], 2) - min(d.targetLocalExistence, [], 2), [], 1)];
+        end
+    end
+end
+
+if isempty(spatialEntropy)
+    return;
+end
+
+diagSummary.spatialEntropyMean = meanFinite(spatialEntropy);
+diagSummary.existenceEntropyMean = meanFinite(existenceEntropy);
+diagSummary.spatialEffectiveSensorCountMean = meanFinite(spatialEffCount);
+diagSummary.existenceEffectiveSensorCountMean = meanFinite(existenceEffCount);
+diagSummary.branchL1DivergenceMean = meanFinite(branchL1);
+diagSummary.maxSpatialWeightMean = meanFinite(maxSpatialWeight);
+diagSummary.maxExistenceWeightMean = meanFinite(maxExistenceWeight);
+diagSummary.targetSpatialEntropyMean = meanFinite(targetSpatialEntropy);
+diagSummary.targetExistenceEntropyMean = meanFinite(targetExistenceEntropy);
+diagSummary.targetSpatialEffectiveSensorCountMean = meanFinite(targetSpatialEffCount);
+diagSummary.targetExistenceEffectiveSensorCountMean = meanFinite(targetExistenceEffCount);
+diagSummary.targetBranchL1DivergenceMean = meanFinite(targetBranchL1);
+diagSummary.targetSpatialActiveCountMean = meanFinite(targetSpatialActiveCount);
+diagSummary.targetExistenceActiveCountMean = meanFinite(targetExistenceActiveCount);
+diagSummary.targetLocalExistenceSpreadMean = meanFinite(targetLocalExistenceSpread);
+diagSummary.numRecords = numel(spatialEntropy);
+diagSummary.numTargetRecords = numel(targetSpatialEntropy);
+end
+
+function tf = hasAdaptiveFusionDiagnostics(weightDiagnostics)
+tf = false;
+if isempty(weightDiagnostics)
+    return;
+end
+for i = 1:numel(weightDiagnostics)
+    if isstruct(weightDiagnostics{i}) && isfield(weightDiagnostics{i}, 'spatialEntropyMean')
+        tf = true;
+        return;
+    end
+end
+end
+
+function writeAdaptiveFusionDiagnosticTable(fid, armNames, weightDiagnostics)
+fprintf(fid, 'Aggregate over local filters, time steps, and targets. Entropy is normalized to [0, 1]; Neff is 1/sum(w^2); branch L1 is 0.5*||w_spatial-w_existence||_1.\n\n');
+fprintf(fid, '| Arm | Spatial H | Exist H | Spatial Neff | Exist Neff | Branch L1 | Target Spatial H | Target Spatial Neff | Target Branch L1 | Target local-r spread | Target records |\n');
+fprintf(fid, '|:----|----------:|--------:|-------------:|-----------:|----------:|-----------------:|--------------------:|-----------------:|----------------------:|---------------:|\n');
+for armIdx = 1:numel(armNames)
+    armDiags = collectArmDiagnostics(weightDiagnostics, armIdx);
+    if isempty(armDiags)
+        continue;
+    end
+    fprintf(fid, '| %s | %.4f | %.4f | %.3f | %.3f | %.4f | %.4f | %.3f | %.4f | %.4f | %d |\n', ...
+        armNames{armIdx}, ...
+        meanDiagnosticField(armDiags, 'spatialEntropyMean'), ...
+        meanDiagnosticField(armDiags, 'existenceEntropyMean'), ...
+        meanDiagnosticField(armDiags, 'spatialEffectiveSensorCountMean'), ...
+        meanDiagnosticField(armDiags, 'existenceEffectiveSensorCountMean'), ...
+        meanDiagnosticField(armDiags, 'branchL1DivergenceMean'), ...
+        meanDiagnosticField(armDiags, 'targetSpatialEntropyMean'), ...
+        meanDiagnosticField(armDiags, 'targetSpatialEffectiveSensorCountMean'), ...
+        meanDiagnosticField(armDiags, 'targetBranchL1DivergenceMean'), ...
+        meanDiagnosticField(armDiags, 'targetLocalExistenceSpreadMean'), ...
+        round(sumDiagnosticField(armDiags, 'numTargetRecords')));
+end
+fprintf(fid, '\n');
+
+fprintf(fid, '| Trial | Arm | Target Spatial Neff | Target Branch L1 | Target local-r spread | Target records |\n');
+fprintf(fid, '|------:|:----|--------------------:|-----------------:|----------------------:|---------------:|\n');
+for trial = 1:size(weightDiagnostics, 1)
+    for armIdx = 1:size(weightDiagnostics, 2)
+        d = weightDiagnostics{trial, armIdx};
+        if ~isstruct(d) || ~isfield(d, 'targetSpatialEffectiveSensorCountMean')
+            continue;
+        end
+        fprintf(fid, '| %d | %s | %.3f | %.4f | %.4f | %d |\n', ...
+            trial, armNames{armIdx}, ...
+            getDiagnosticScalar(d, 'targetSpatialEffectiveSensorCountMean'), ...
+            getDiagnosticScalar(d, 'targetBranchL1DivergenceMean'), ...
+            getDiagnosticScalar(d, 'targetLocalExistenceSpreadMean'), ...
+            round(getDiagnosticScalar(d, 'numTargetRecords')));
+    end
+end
+end
+
+function armDiags = collectArmDiagnostics(weightDiagnostics, armIdx)
+armDiags = {};
+for trial = 1:size(weightDiagnostics, 1)
+    d = weightDiagnostics{trial, armIdx};
+    if isstruct(d) && isfield(d, 'spatialEntropyMean')
+        armDiags{end+1} = d;
+    end
+end
+end
+
+function value = meanDiagnosticField(diags, fieldName)
+values = zeros(numel(diags), 1);
+for i = 1:numel(diags)
+    values(i) = getDiagnosticScalar(diags{i}, fieldName);
+end
+value = meanFinite(values);
+end
+
+function value = sumDiagnosticField(diags, fieldName)
+values = zeros(numel(diags), 1);
+for i = 1:numel(diags)
+    values(i) = getDiagnosticScalar(diags{i}, fieldName);
+end
+values = values(isfinite(values));
+if isempty(values)
+    value = NaN;
+else
+    value = sum(values);
+end
+end
+
+function value = getDiagnosticScalar(d, fieldName)
+if isstruct(d) && isfield(d, fieldName)
+    value = d.(fieldName);
+else
+    value = NaN;
+end
+if isempty(value)
+    value = NaN;
+end
+value = value(1);
+end
+
+function value = meanFinite(values)
+values = values(:);
+values = values(isfinite(values));
+if isempty(values)
+    value = NaN;
+else
+    value = mean(values);
 end
 end
 

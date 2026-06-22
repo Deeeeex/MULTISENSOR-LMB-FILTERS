@@ -11,9 +11,11 @@
 包含范围:
 
 - `multisensorLmb/aaLmbTrackMerging.m` 中的 AA existence 与 spatial 消费端。
+- `multisensorLmb/runParallelUpdateLmbFilter.m` 中默认关闭的 target-wise effective-weight diagnostics。
 - `RUN/AA/runAaBalancedCardinalityValidation.m` 中的 AA / spatial-KLA AA arms。
 - N10 与 N50 tuned hybrid 对照结果。
 - N50 design ablation 结果。
+- N50 Loc failure-block 上的 existence-gated KLA-spatial 诊断。
 
 排除范围:
 
@@ -34,6 +36,7 @@ L2。该设计会影响研究路线和后续论文叙事，但当前只作为本
 | C3 | Tuned spatial-KLA AA 在 N50 上优于两个 GA mode 的 OSPA、cardinality、local E-OSPA、hOspa、local RMSE 和 local CardErr。 | High | E5, E6 | consensus Loc 仍略弱于 GA Balanced。 |
 | C4 | 当前 `spatialStructureStrength=0.75` 和 `spatialDecouplingStrength=1.0` 相对基础 spatial-KLA hybrid 只带来小幅 OSPA/Loc/Card 改善。 | High | E7, E8 | tuned local E-OSPA/RMSE/CardErr 略差于基础 spatial-KLA。 |
 | C5 | FID-FIA existence refinement 不适合当前 AA-existence + KLA-spatial hybrid；N50 ablation 中它显著破坏 Loc、Card 和 local tracking。 | High | E7, E8 | 该结论限于当前 FID-FIA 参数和 24-step diagnostic scenario。 |
+| C6 | 直接用 target-wise local existence 去 gate KLA spatial branch 会显著收缩 effective graph，但在 seeds 12-16 上没有改善 Loc/OSPA。 | Medium-High | E10, E11 | 只验证了强 gate (`power=1`, `minScore=0`)；仍可能存在更温和或 regime-aware 的 guard。 |
 
 ## 定位
 
@@ -148,6 +151,32 @@ N50 ablation 固定同一 seed schedule、`existenceThreshold=0.18` 和 24-step 
 - `Tuned spatial-KLA AA` 相对 `Balanced spatial-KLA AA` 的收益很小但方向一致: OSPA 改善 `0.004008`，Loc 改善 `0.003323`，Card 改善 `0.000025`。代价是 local E-OSPA/RMSE/CardErr 略差。因此 tuned 配置可以作为当前 N50 主配置，但需要把它描述为小幅 retuning，而不是新的主机制。
 - 与 GA Balanced 相比，tuned 配置仍有 consensus Loc gap: `1.472837` 对 `1.462915`。当前证据支持“AA-existence + KLA-spatial hybrid 是合理且整体更优的方向”，但不支持“所有指标严格优于 GA Balanced”。
 
+## Target-Wise Effective-Graph 诊断
+
+为定位剩余 Loc gap，当前代码新增了默认关闭的诊断开关:
+
+```matlab
+adaptiveFusion.captureWeightDiagnostics = true;
+```
+
+开启后，`runParallelUpdateLmbFilter.m` 会记录每个 local filter、time step 和 Bernoulli target 的:
+
+- spatial/existence branch weights；
+- normalized weight entropy；
+- effective sensor count `1/sum(w.^2)`；
+- spatial/existence branch L1 divergence；
+- target-wise local existence spread；
+- 可选 `aaKlaSpatialExistencePower` gate 后的 target spatial weights。
+
+第一个轻量 guard 是 existence-gated spatial-KLA: 对 target `i`，先用 `r_s^i` 重新调制 `alpha_x`，再进入 Gaussian KLA。这个假设来自 pure AA spatial mixture 的 `alpha_s r_s p_s(x)` 形式，但 N5 failure-block 结果不支持把它作为主配置:
+
+| Arm | Trials | OSPA | Loc | Card | E-OSPA | hOspa | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 5 | 1.702915 | 1.529716 | 0.034250 | 2.032799 | 0.4863 | 3.588145 | 0.086250 |
+| Existence-gated spatial-KLA AA | 5 | 1.708370 | 1.534009 | 0.033750 | 2.036767 | 0.4860 | 3.585358 | 0.085750 |
+
+诊断显示，existence gate 确实把 target-level spatial Neff 从 `3.937` 降到 `2.874`，branch L1 从 `0.0463` 提高到 `0.2677`。但 paired result 是 OSPA `-0.005454`、Loc `-0.004293`，即平均变差；只有 Card/CardErr/RMSE 是噪声级小幅改善。因此，当前 Loc gap 不是简单“低 existence sensor 应从 KLA spatial 移除”的问题。过强收缩 target-wise spatial effective graph 会破坏 spatial consensus。
+
 ## Evidence Ledger
 
 | ID | Type | Artifact | What it supports |
@@ -161,6 +190,8 @@ N50 ablation 固定同一 seed schedule、`existenceThreshold=0.18` 和 24-step 
 | E7 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_215745.md` | N50 design ablation report |
 | E8 | code | `multisensorLmb/aaLmbTrackMerging.m` | strict-AA and spatial-KLA AA consumption path |
 | E9 | command log | `RUN/AA/AA_TUNED_DESIGN_ABLATION_N50_20260621_215745.log` | N50 design ablation command log |
+| E10 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_095821.md` | existence-gated spatial-KLA AA N5 failure-block negative result and diagnostics |
+| E11 | command log | `RUN/AA/AA_KLA_EXISTENCE_GATE_DIAGNOSTIC_N5_SEED11_20260622.log` | N5 existence-gate diagnostic command log |
 
 ## Verification Record
 
@@ -194,6 +225,7 @@ N50 ablation 显示 tuned spatial structure 有小幅 OSPA/Loc/Card 收益，但
 octave --quiet --eval "test_aa_lmb_track_merging"
 sh RUN/AA/launchAaTunedHybridVsGaN50.sh
 sh RUN/AA/launchAaTunedDesignAblationN50.sh
+octave --quiet RUN/AA/runAaKlaExistenceGateDiagnosticN5.m
 ```
 
 N50 ablation 入口固定 `numberOfTrials=50`、`baseSeed=1`、`existenceThreshold=0.18`、arms `[3 7 8 9]`。
@@ -202,9 +234,9 @@ N50 ablation 入口固定 `numberOfTrials=50`、`baseSeed=1`、`existenceThresho
 
 - consensus Loc 尚未在 N50 上严格优于 GA Balanced。
 - 当前 branch-decoupled AA 是 heuristic；论文中必须明确命名，不能把它等同于 strict-AA。
-- 需要记录 target-wise effective graph: 每个 Bernoulli 在 spatial/existence branch 中实际使用的 sensor set、weight entropy、mode count 和 pruning 前后 existence。
-- 若要形成强 paper claim，需要补一个 regime-aware guard: 当 target-wise spatial graph 的共同支持不足时回退到更保守的 spatial selection 或提高 pruning。
+- 已有基础 target-wise effective-weight diagnostics，但还缺少 target/time 级 failure attribution: 哪些 label、哪些时刻和哪些邻域导致 Loc disagreement。
+- 强 existence-gated KLA spatial 不应作为主配置；若要继续 guard，应转向 regime-aware switching，而不是单纯按 `r_s` 收缩 spatial graph。
 
 ## Recommendation
 
-把当前方法作为 `heuristic AA-existence + KLA-spatial hybrid` 继续推进，而不是继续追求 pure AA 在当前 false-alarm / partial-FOV regime 下直接击败 GA。N50 ablation 已经支持该设计的主机制: spatial-KLA 是核心，FID-FIA existence refinement 应排除，tuned spatial structure 只是小幅 retuning。下一步研究点不是再做全局参数 sweep，而是针对 N50 Loc gap 做 target-wise effective graph guard 或 regime-aware switching。
+把当前方法作为 `heuristic AA-existence + KLA-spatial hybrid` 继续推进，而不是继续追求 pure AA 在当前 false-alarm / partial-FOV regime 下直接击败 GA。N50 ablation 已经支持该设计的主机制: spatial-KLA 是核心，FID-FIA existence refinement 应排除，tuned spatial structure 只是小幅 retuning。N5 existence-gated 诊断说明“收缩 spatial effective graph”本身不是充分条件；下一步更应该做 target/time failure attribution 和 regime-aware switching，而不是把 local existence gate 直接放进主方法。

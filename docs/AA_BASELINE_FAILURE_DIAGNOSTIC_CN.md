@@ -53,6 +53,7 @@ L2。该诊断会影响后续研究方向和代码路径选择，但当前只修
 | C12 | Tuned spatial-KLA AA (`existenceThreshold=0.18`, `spatialDecouplingStrength=1.0`, `spatialStructureStrength=0.75`) 在 N10 上所有记录指标均优于 GA Balanced 和 GA final。 | High | E15, E23, E24, E25 | N10 已通过；N50 暴露少量 Loc 弱点。 |
 | C13 | Tuned spatial-KLA AA 在 N50 上优于两个 GA mode 的 OSPA、cardinality、local E-OSPA、hOspa、local RMSE 和 local CardErr，但 consensus Loc 略弱于 GA Balanced。 | High | E29, E30, E31 | Loc 差距很小但方向明确，不能宣称全指标胜出。 |
 | C14 | N50 design ablation 证明 spatial-KLA 是 AA-family 的主增益来源；pure AA spatial mixture 是失败源，FID-FIA existence refinement 在当前 hybrid 下反而破坏定位和 cardinality。 | High | E34, E35 | tuned spatial structure 只有小幅收益；Loc gap 仍需后续 guard。 |
+| C15 | 强 target-wise existence-gated KLA spatial 会收缩 effective spatial graph，但在 seeds 12-16 上没有改善 Loc/OSPA。 | Medium-High | E36, E37 | 只验证 `aaKlaSpatialExistencePower=1`、`minScore=0`；不排除更温和的 regime-aware guard。 |
 
 ## 代码实现问题与修复
 
@@ -242,6 +243,19 @@ Interpretation:
 - `Tuned spatial-KLA AA` 相对基础 spatial-KLA 的收益小但一致: OSPA 降 `0.004008`，Loc 降 `0.003323`，Card 降 `0.000025`；代价是 local E-OSPA/RMSE/CardErr 略高。因此 tuned 参数应描述为小幅 retuning，而不是新的主机制。
 - N50 ablation 支持当前设计“合理”，但也确认当前 all-metric gate 尚未完全通过: consensus Loc 仍为 `1.472837`，略高于 GA Balanced `1.462915`。
 
+### Target-wise effective graph diagnostic
+
+为定位 N50 Loc gap，新增了默认关闭的 target-wise effective-weight diagnostics，并在 N50 failure block seeds 12-16 上测试了一个轻量 guard: existence-gated spatial-KLA。该 guard 在 AA/KLA hybrid 的 spatial KLA 前用每个 target 的 local existence `r_s^i` 调制 spatial weights，试图避免低 existence 但高 precision 的局部 posterior 拉动 spatial estimate。
+
+N5 结果不支持该 guard 作为主配置:
+
+| Arm | OSPA disagreement | Loc disagreement | Card dispersion | Local E-OSPA | hOspa | Local RMSE | Local CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 1.702915 | 1.529716 | 0.034250 | 2.032799 | 0.4863 | 3.588145 | 0.086250 |
+| Existence-gated spatial-KLA AA | 1.708370 | 1.534009 | 0.033750 | 2.036767 | 0.4860 | 3.585358 | 0.085750 |
+
+Paired reduction 为 OSPA `-0.005454`、Loc `-0.004293`，也就是平均变差；Card、RMSE、CardErr 只有噪声级小幅改善。诊断表显示该 guard 的确把 target spatial Neff 从 `3.937` 降到 `2.874`，branch L1 从 `0.0463` 提到 `0.2677`。因此剩余 Loc gap 不只是“低 existence sensor 没有从 spatial KLA 移除”；过强收缩 target-wise spatial effective graph 反而会伤害 spatial consensus。
+
 ## 理论解释
 
 AA 文献的核心动机是 conservative/reliable fusion: 在未知互相关、漏检、异构滤波器和分布式网络下，AA 用线性池避免过度自信，并通过 PHD/LPHD consistency 保持 first-moment 意义上的鲁棒性。这个动机和我们的失败结果并不矛盾。
@@ -330,6 +344,8 @@ cfg.aaSpatialFusionMode = 'kla';
 | E33 | command log | `RUN/AA/AA_TUNED_STRUCTURE_EXISTENCE_BLOCK_SCREEN_N5_SEED11_20260621.log` | N50 failure-block structure/existence screen |
 | E34 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_215745.md` | N50 design ablation report |
 | E35 | command log | `RUN/AA/AA_TUNED_DESIGN_ABLATION_N50_20260621_215745.log` | N50 design ablation command log |
+| E36 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_095821.md` | existence-gated spatial-KLA AA failure-block diagnostic |
+| E37 | command log | `RUN/AA/AA_KLA_EXISTENCE_GATE_DIAGNOSTIC_N5_SEED11_20260622.log` | existence-gated spatial-KLA AA diagnostic command log |
 
 ## Verification Record
 
@@ -347,15 +363,15 @@ octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedC
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(1, 1, true, struct('maximumNumberOfGmComponents', 1, ...), ..., [3]); ..."
 ```
 
-Known limitation: many tuning numbers above are 1-trial or N5 diagnostics. The tuned N50 run and N50 design ablation are now the main evidence for the hybrid direction, but they still leave one small consensus Loc gap against GA Balanced and therefore need effective-graph diagnostics before an all-metric paper-facing claim.
+Known limitation: many tuning numbers above are 1-trial or N5 diagnostics. The tuned N50 run and N50 design ablation are now the main evidence for the hybrid direction, but they still leave one small consensus Loc gap against GA Balanced. The first effective-graph guard tested here was negative, so it should be treated as diagnostic evidence rather than a new main method.
 
 ## Risk and Escalation
 
 若把本轮结论误当成统计主结论，主要风险是过早放弃某些 AA regime 或错误宣称 AA 无法使用。升级到 paper-facing 之前需要至少:
 
-- target-wise effective graph diagnostics for the remaining N50 consensus Loc gap。
+- target/time failure attribution for the remaining N50 consensus Loc gap。
 - 低 PD / missed-detection-dominated / partial visibility 更强的场景。
-- 对 effective target-wise fusion graph 的日志化诊断，而不是只看最终 OSPA。
+- regime-aware guard 或 switching，而不是只靠 local existence gate 收缩 spatial graph。
 
 ## Reproducibility
 
@@ -378,6 +394,8 @@ octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedC
 
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(10, 1, true, struct('saveMat', false, 'saveCheckpoints', false, 'progressEverySteps', 0, 'existenceThreshold', 0.05), struct(), true, [7]);"
 
+octave --quiet RUN/AA/runAaKlaExistenceGateDiagnosticN5.m
+
 octave --quiet --eval "addpath('RUN/AA'); [reportPath, summary] = runAaBalancedCardinalityValidation(10, 1, true, struct('saveMat', false, 'saveCheckpoints', false, 'progressEverySteps', 0, 'existenceThreshold', 0.18), struct(), true, [9]);"
 
 sh RUN/AA/launchAaTunedHybridVsGaN50.sh
@@ -394,10 +412,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_
 
 ## Open Issues
 
-- 需要日志化每个 Bernoulli 的 target-wise spatial/existence effective sensor set、weight entropy、mode count，才能把机理从指标层推进到可控策略。
+- 已有 target-wise spatial/existence effective weights、entropy、Neff 和 branch divergence 的基础日志化；还需要把这些诊断对齐到具体 target/time failure。
 - FI target-wise AA 目前用的是轻量 surrogate，不等价于 Part V 的完整 CT-FI multi-rate formulation。
-- 当前 hybrid 是最小实现，尚未做 regime-aware switching 或 effective graph guard。
+- 强 existence-gated spatial-KLA guard 已被 seeds 12-16 N5 negative result 排除为主配置；当前仍未实现 regime-aware switching。
 
 ## Recommendation
 
-不要继续把“纯 AA 调到 GA 一样好”作为主目标。短期可以把 tuned AA (`maxGM=1`, `existenceThreshold=0.08`) 作为 pure-AA baseline 的更公平版本；真正可用的主线应转向 target-wise hybrid average fusion。当前 N50 结果和 N50 design ablation 证明 Tuned spatial-KLA AA 已经在主要指标和 local tracking 上显著超过 GA reference，且 spatial-KLA 是核心收益来源；但 consensus Loc 仍有小幅缺口。下一步应把该方法作为 paper-facing candidate 的候选，同时把 Loc 缺口交给 target-wise effective graph guard 或 regime-aware switching 处理。
+不要继续把“纯 AA 调到 GA 一样好”作为主目标。短期可以把 tuned AA (`maxGM=1`, `existenceThreshold=0.08`) 作为 pure-AA baseline 的更公平版本；真正可用的主线应转向 target-wise hybrid average fusion。当前 N50 结果和 N50 design ablation 证明 Tuned spatial-KLA AA 已经在主要指标和 local tracking 上显著超过 GA reference，且 spatial-KLA 是核心收益来源；但 consensus Loc 仍有小幅缺口。existence-gated spatial-KLA 的 N5 负结果说明，下一步不应简单收缩 spatial effective graph，而应做 target/time failure attribution 后再设计 regime-aware switching。

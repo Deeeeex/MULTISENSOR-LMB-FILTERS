@@ -68,6 +68,11 @@ end
 useNIS = getConfigField(adaptiveCfg, 'useNIS', true);
 progressEverySteps = max(round(getConfigField(adaptiveCfg, 'progressEverySteps', 0)), 0);
 progressLabel = getConfigField(adaptiveCfg, 'progressLabel', '');
+captureWeightDiagnostics = logical(getConfigField(adaptiveCfg, 'captureWeightDiagnostics', false));
+if captureWeightDiagnostics
+    stateEstimates.adaptiveFusionDiagnostics = repmat( ...
+        buildEmptyAdaptiveFusionDiagnostic(), simulationLength, 1);
+end
 useNisEma = getConfigField(adaptiveCfg, 'nisEmaEnabled', true);
 nisEmaAlpha = getConfigField(adaptiveCfg, 'nisEmaAlpha', 0.7);
 % prevWeights 是动态权重跨时刻平滑的状态入口。当前主线核心不再使用
@@ -150,6 +155,11 @@ for t = 1:simulationLength
         elseif isfield(model, 'aaTargetWiseWeights')
             model = rmfield(model, 'aaTargetWiseWeights');
         end
+        if captureWeightDiagnostics
+            stateEstimates.adaptiveFusionDiagnostics(t) = ...
+                buildAdaptiveFusionDiagnosticRecord( ...
+                    debug, model, t, measurementUpdatedDistributions);
+        end
         % 更新上一时刻状态，供下一时刻 EMA 使用。scalar、spatial、existence
         % 分开记录，是因为 decoupled KLA 两条分支可以有不同平滑系数和下界。
         prevWeights.ga = gaWeights;
@@ -213,6 +223,235 @@ end
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;
+end
+
+function record = buildEmptyAdaptiveFusionDiagnostic()
+record = struct( ...
+    't', NaN, ...
+    'numberOfSensors', NaN, ...
+    'availabilityMask', [], ...
+    'aaSpatialWeights', [], ...
+    'aaExistenceWeights', [], ...
+    'spatialEntropy', NaN, ...
+    'existenceEntropy', NaN, ...
+    'spatialEffectiveSensorCount', NaN, ...
+    'existenceEffectiveSensorCount', NaN, ...
+    'branchL1Divergence', NaN, ...
+    'maxSpatialWeight', NaN, ...
+    'maxExistenceWeight', NaN, ...
+    'expectedCardinality', [], ...
+    'targetLocalExistence', [], ...
+    'targetSpatialWeights', [], ...
+    'targetExistenceWeights', [], ...
+    'targetSpatialEntropy', [], ...
+    'targetExistenceEntropy', [], ...
+    'targetSpatialEffectiveSensorCount', [], ...
+    'targetExistenceEffectiveSensorCount', [], ...
+    'targetBranchL1Divergence', [], ...
+    'targetSpatialActiveCount', [], ...
+    'targetExistenceActiveCount', []);
+end
+
+function record = buildAdaptiveFusionDiagnosticRecord(debug, model, t, measurementUpdatedDistributions)
+record = buildEmptyAdaptiveFusionDiagnostic();
+numSensors = model.numberOfSensors;
+record.t = t;
+record.numberOfSensors = numSensors;
+availabilityMask = normalizeDiagnosticMask(getConfigField(debug, 'availabilityMask', ones(1, numSensors)), numSensors);
+spatialWeights = normalizeDiagnosticWeights( ...
+    getConfigField(debug, 'aaSpatialWeights', getConfigField(debug, 'weights', availabilityMask)), ...
+    availabilityMask);
+existenceWeights = normalizeDiagnosticWeights( ...
+    getConfigField(debug, 'aaExistenceWeights', getConfigField(debug, 'weights', availabilityMask)), ...
+    availabilityMask);
+
+record.availabilityMask = availabilityMask;
+record.aaSpatialWeights = spatialWeights;
+record.aaExistenceWeights = existenceWeights;
+record.spatialEntropy = normalizedWeightEntropy(spatialWeights);
+record.existenceEntropy = normalizedWeightEntropy(existenceWeights);
+record.spatialEffectiveSensorCount = effectiveSensorCount(spatialWeights);
+record.existenceEffectiveSensorCount = effectiveSensorCount(existenceWeights);
+record.branchL1Divergence = 0.5 * sum(abs(spatialWeights - existenceWeights));
+record.maxSpatialWeight = max(spatialWeights);
+record.maxExistenceWeight = max(existenceWeights);
+record.expectedCardinality = getConfigField(debug, 'expectedCardinality', []);
+
+numTargets = resolveDiagnosticTargetCount(measurementUpdatedDistributions);
+if numTargets <= 0
+    return;
+end
+
+targetWiseWeights = getConfigField(debug, 'aaTargetWiseWeights', []);
+activeThreshold = max(getAdaptiveConfigField(model, 'weightDiagnosticActiveThreshold', 1e-3), 0);
+record.targetLocalExistence = zeros(numTargets, numSensors);
+record.targetSpatialWeights = zeros(numTargets, numSensors);
+record.targetExistenceWeights = zeros(numTargets, numSensors);
+record.targetSpatialEntropy = zeros(numTargets, 1);
+record.targetExistenceEntropy = zeros(numTargets, 1);
+record.targetSpatialEffectiveSensorCount = zeros(numTargets, 1);
+record.targetExistenceEffectiveSensorCount = zeros(numTargets, 1);
+record.targetBranchL1Divergence = zeros(numTargets, 1);
+record.targetSpatialActiveCount = zeros(numTargets, 1);
+record.targetExistenceActiveCount = zeros(numTargets, 1);
+
+for objectIdx = 1:numTargets
+    targetSpatial = spatialWeights;
+    targetExistence = existenceWeights;
+    if size(targetWiseWeights, 1) >= objectIdx && size(targetWiseWeights, 2) == numSensors
+        targetSpatial = normalizeDiagnosticWeights(targetWiseWeights(objectIdx, :), availabilityMask);
+        targetExistence = targetSpatial;
+    end
+    localExistence = extractLocalExistenceForTarget(measurementUpdatedDistributions, objectIdx, numSensors);
+    record.targetLocalExistence(objectIdx, :) = localExistence;
+
+    if isAaKlaSpatialFusion(model)
+        targetSpatial = applyDiagnosticKlaSpatialExistenceGate(model, targetSpatial, localExistence);
+    end
+    targetExistence = normalizeDiagnosticWeights(targetExistence, availabilityMask);
+
+    record.targetSpatialWeights(objectIdx, :) = targetSpatial;
+    record.targetExistenceWeights(objectIdx, :) = targetExistence;
+    record.targetSpatialEntropy(objectIdx) = normalizedWeightEntropy(targetSpatial);
+    record.targetExistenceEntropy(objectIdx) = normalizedWeightEntropy(targetExistence);
+    record.targetSpatialEffectiveSensorCount(objectIdx) = effectiveSensorCount(targetSpatial);
+    record.targetExistenceEffectiveSensorCount(objectIdx) = effectiveSensorCount(targetExistence);
+    record.targetBranchL1Divergence(objectIdx) = 0.5 * sum(abs(targetSpatial - targetExistence));
+    record.targetSpatialActiveCount(objectIdx) = sum(targetSpatial > activeThreshold);
+    record.targetExistenceActiveCount(objectIdx) = sum(targetExistence > activeThreshold);
+end
+end
+
+function mask = normalizeDiagnosticMask(mask, numSensors)
+mask = reshape(mask, 1, []);
+if numel(mask) ~= numSensors
+    mask = ones(1, numSensors);
+end
+mask(~isfinite(mask)) = 0;
+mask = double(mask > 0);
+if sum(mask) <= 0
+    mask = ones(1, numSensors);
+end
+end
+
+function weights = normalizeDiagnosticWeights(weights, availabilityMask)
+availabilityMask = reshape(availabilityMask, 1, []);
+weights = reshape(weights, 1, []);
+if numel(weights) ~= numel(availabilityMask)
+    weights = availabilityMask;
+end
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0) .* availabilityMask;
+if sum(weights) <= eps
+    weights = availabilityMask;
+end
+if sum(weights) <= eps
+    weights = ones(1, numel(availabilityMask)) / max(numel(availabilityMask), 1);
+else
+    weights = weights / sum(weights);
+end
+end
+
+function entropyValue = normalizedWeightEntropy(weights)
+weights = reshape(weights, 1, []);
+weights = weights(weights > 0 & isfinite(weights));
+if numel(weights) <= 1
+    entropyValue = 0;
+    return;
+end
+entropyValue = -sum(weights .* log(weights)) / log(numel(weights));
+end
+
+function count = effectiveSensorCount(weights)
+weights = reshape(weights, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if sum(weights) <= eps
+    count = 0;
+    return;
+end
+weights = weights / sum(weights);
+count = 1 / sum(weights .^ 2);
+end
+
+function numTargets = resolveDiagnosticTargetCount(measurementUpdatedDistributions)
+numTargets = 0;
+for s = 1:numel(measurementUpdatedDistributions)
+    numTargets = max(numTargets, numel(measurementUpdatedDistributions{s}));
+end
+end
+
+function localExistence = extractLocalExistenceForTarget(measurementUpdatedDistributions, objectIdx, numSensors)
+localExistence = zeros(1, numSensors);
+for s = 1:numSensors
+    if s <= numel(measurementUpdatedDistributions) && ...
+            objectIdx <= numel(measurementUpdatedDistributions{s})
+        r = measurementUpdatedDistributions{s}(objectIdx).r;
+        if ~isfinite(r)
+            r = 0;
+        end
+        localExistence(s) = min(max(r, 0), 1);
+    end
+end
+end
+
+function weights = applyDiagnosticKlaSpatialExistenceGate(model, weights, localExistence)
+power = resolveDiagnosticKlaSpatialExistencePower(model);
+if power <= 0
+    return;
+end
+minScore = resolveDiagnosticKlaSpatialExistenceMinScore(model);
+localExistence = reshape(localExistence, 1, []);
+gate = minScore + (1 - minScore) * (localExistence .^ power);
+candidate = reshape(weights, 1, []) .* gate;
+if sum(candidate) <= eps
+    return;
+end
+weights = candidate / sum(candidate);
+end
+
+function tf = isAaKlaSpatialFusion(model)
+mode = '';
+if isfield(model, 'aaSpatialFusionMode')
+    mode = model.aaSpatialFusionMode;
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    mode = getConfigField(model.adaptiveFusion, 'aaSpatialFusionMode', mode);
+end
+tf = false;
+if ischar(mode) || isstring(mode)
+    tf = any(strcmpi(char(mode), {'kla', 'ga', 'geometric', ...
+        'spatial-kla', 'spatial_kla', 'hybrid-kla', 'hybrid_kla'}));
+end
+end
+
+function power = resolveDiagnosticKlaSpatialExistencePower(model)
+power = getAdaptiveConfigField(model, 'aaKlaSpatialExistencePower', 0);
+if power <= 0 && logical(getAdaptiveConfigField(model, 'aaKlaSpatialExistenceGate', false))
+    power = 1.0;
+end
+if ~isfinite(power)
+    power = 0;
+end
+power = max(power, 0);
+end
+
+function minScore = resolveDiagnosticKlaSpatialExistenceMinScore(model)
+minScore = getAdaptiveConfigField(model, 'aaKlaSpatialExistenceMinScore', 0);
+if ~isfinite(minScore)
+    minScore = 0;
+end
+minScore = min(max(minScore, 0), 1);
+end
+
+function value = getAdaptiveConfigField(model, fieldName, defaultValue)
+value = defaultValue;
+if isfield(model, fieldName)
+    value = model.(fieldName);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    value = getConfigField(model.adaptiveFusion, fieldName, value);
+end
 end
 
 function value = getConfigField(cfg, fieldName, defaultValue)

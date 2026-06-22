@@ -55,6 +55,8 @@ for i = 1:numel(objects)
     objects(i).r = clampProbability(fusedExistence);
 
     if useKlaSpatialFusion
+        spatialWeights = applyKlaSpatialExistenceGate( ...
+            measurementUpdatedDistributions, model, spatialWeights, i);
         [muGa, SigmaGa] = fuseSpatialWithKla(measurementUpdatedDistributions, model, spatialWeights, i);
         objects(i).numberOfGmComponents = 1;
         objects(i).w = 1;
@@ -231,6 +233,69 @@ if sum(weights) <= 0
 else
     weights = weights / sum(weights);
 end
+end
+
+function weights = applyKlaSpatialExistenceGate(measurementUpdatedDistributions, model, weights, objectIdx)
+% APPLYKLASPATIALEXISTENCEGATE - Optional target-wise guard for the AA/KLA hybrid.
+% The pure AA spatial mixture weights each local spatial density by alpha_s r_s.
+% The KLA-spatial hybrid normally uses alpha_s only; enabling this guard restores
+% a target-wise existence cue before the Gaussian KLA projection.
+power = resolveKlaSpatialExistencePower(model);
+if power <= 0
+    return;
+end
+minScore = resolveKlaSpatialExistenceMinScore(model);
+existenceScore = zeros(1, numel(weights));
+for s = 1:numel(weights)
+    if s <= numel(measurementUpdatedDistributions) && ...
+            objectIdx <= numel(measurementUpdatedDistributions{s})
+        r = clampProbability(measurementUpdatedDistributions{s}(objectIdx).r);
+    else
+        r = 0;
+    end
+    existenceScore(s) = minScore + (1 - minScore) * (r ^ power);
+end
+candidate = reshape(weights, 1, []) .* existenceScore;
+if sum(candidate) <= eps
+    return;
+end
+weights = candidate / sum(candidate);
+end
+
+function power = resolveKlaSpatialExistencePower(model)
+power = 0;
+if isfield(model, 'aaKlaSpatialExistencePower')
+    power = model.aaKlaSpatialExistencePower;
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'aaKlaSpatialExistencePower')
+        power = cfg.aaKlaSpatialExistencePower;
+    elseif isfield(cfg, 'aaKlaSpatialExistenceGate') && logical(cfg.aaKlaSpatialExistenceGate)
+        power = 1.0;
+    end
+end
+if ~isfinite(power)
+    power = 0;
+end
+power = max(power, 0);
+end
+
+function minScore = resolveKlaSpatialExistenceMinScore(model)
+minScore = 0;
+if isfield(model, 'aaKlaSpatialExistenceMinScore')
+    minScore = model.aaKlaSpatialExistenceMinScore;
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'aaKlaSpatialExistenceMinScore')
+        minScore = cfg.aaKlaSpatialExistenceMinScore;
+    end
+end
+if ~isfinite(minScore)
+    minScore = 0;
+end
+minScore = min(max(minScore, 0), 1);
 end
 
 function value = clampProbability(value)
