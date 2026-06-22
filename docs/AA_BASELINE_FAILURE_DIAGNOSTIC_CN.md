@@ -456,3 +456,5 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_
 不要继续把“纯 AA 调到 GA 一样好”作为主目标。短期可以把 tuned AA (`maxGM=1`, `existenceThreshold=0.08`) 作为 pure-AA baseline 的更公平版本；真正可用的主线应转向 target-wise hybrid average fusion。当前 N50 结果和 N50 design ablation 证明 Tuned spatial-KLA AA 已经在主要指标和 local tracking 上显著超过 GA reference，且 spatial-KLA 是核心收益来源；但 consensus Loc 仍有小幅缺口。existence-gated spatial-KLA、提高 pruning 阈值和 bridge-aware prior 的 N5 负结果说明，下一步不应继续全局权重/阈值调参，而应提出可泛化的 label-consensus / uncertainty-aware AA-KLA 融合规则。
 
 具体规则草案见 `docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`。它把后续实现限定为 overlap-weighted spatial KLA、between-posterior uncertainty inflation 和 support-aware existence tempering，并要求先过 synthetic regression / N1 sanity，再进入 N5 failure-block falsification 和 N50 validation。
+
+2026-06-22 更新: label/uncertainty-aware 原型已实现并通过 synthetic regression，但 N1 sanity 未通过。Full rule 改善 OSPA (`1.682637 -> 1.419895`) 的同时显著破坏 Loc/Card/local E-OSPA/CardErr；spatial-overlap only 也略差于 tuned baseline。因此该原型当前只作为负结果和下一轮方法修订依据，不应进入 N5/N50 长实验。

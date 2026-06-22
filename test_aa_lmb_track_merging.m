@@ -55,23 +55,55 @@ assert(abs(objects(1).r - 0.50) < 1e-12);
 assert(objects(1).numberOfGmComponents == 1);
 assert(abs(objects(1).mu{1}(1) - 80) < 1e-9);
 
+fprintf('Test 7: label-uncertainty KLA matches ordinary KLA for identical posteriors\n');
+model = buildModel([0.5, 0.5], [0.5, 0.5], 2);
+model.aaSpatialFusionMode = 'kla';
+model.useAaLabelUncertaintyFusion = true;
+objects = aaLmbTrackMerging(buildObjectSet([0.80, 0.80], {[20; 0; 0; 0], [20; 0; 0; 0]}), model);
+assert(abs(objects(1).mu{1}(1) - 20) < 1e-9);
+assert(max(abs(diag(objects(1).Sigma{1}) - 1)) < 1e-8);
+
+fprintf('Test 8: label-uncertainty KLA downweights spatial outlier by overlap\n');
+model = buildModel([1/3, 1/3, 1/3], [1/3, 1/3, 1/3], 2);
+model.aaSpatialFusionMode = 'kla';
+model.useAaLabelUncertaintyFusion = true;
+objects = aaLmbTrackMerging(buildObjectSet( ...
+    [0.90, 0.90, 0.90], {[0; 0; 0; 0], [1; 0; 0; 0], [100; 0; 0; 0]}), model);
+assert(objects(1).mu{1}(1) < 5);
+assert(objects(1).Sigma{1}(1, 1) > 0.5);
+
+fprintf('Test 9: label support tempering lowers weak label odds without hard deletion\n');
+model = buildModel([1/3, 1/3, 1/3], [1/3, 1/3, 1/3], 2);
+model.aaSpatialFusionMode = 'kla';
+model.useAaLabelUncertaintyFusion = true;
+model.useAaLabelExistenceTempering = true;
+objects = aaLmbTrackMerging(buildObjectSet( ...
+    [0.80, 0.05, 0.05], {[0; 0; 0; 0], [0; 0; 0; 0], [0; 0; 0; 0]}), model);
+assert(objects(1).r > 0);
+assert(objects(1).r < mean([0.80, 0.05, 0.05]));
+
 fprintf('AA-LMB track-merging tests passed.\n');
 end
 
 function model = buildModel(spatialWeights, existenceWeights, maxComponents)
 model = struct();
-model.numberOfSensors = 2;
+model.numberOfSensors = numel(spatialWeights);
 model.xDimension = 4;
 model.maximumNumberOfGmComponents = maxComponents;
-model.aaSensorWeights = ones(1, 2) / 2;
+model.aaSensorWeights = ones(1, model.numberOfSensors) / model.numberOfSensors;
 model.aaSpatialWeights = spatialWeights;
 model.aaExistenceWeights = existenceWeights;
 end
 
 function distributions = buildTwoSensorObjectSet(r1, r2)
-distributions = cell(1, 2);
-distributions{1} = buildObject(r1, [0; 0; 0; 0]);
-distributions{2} = buildObject(r2, [100; 0; 0; 0]);
+distributions = buildObjectSet([r1, r2], {[0; 0; 0; 0], [100; 0; 0; 0]});
+end
+
+function distributions = buildObjectSet(existences, states)
+distributions = cell(1, numel(existences));
+for s = 1:numel(existences)
+    distributions{s} = buildObject(existences(s), states{s});
+end
 end
 
 function objects = buildObject(existence, state)

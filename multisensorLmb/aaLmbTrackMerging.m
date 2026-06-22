@@ -23,6 +23,9 @@ function objects = aaLmbTrackMerging(measurementUpdatedDistributions, model)
 objects = measurementUpdatedDistributions{1};
 strictAaWeights = resolveStrictAaWeights(model);
 useKlaSpatialFusion = resolveKlaSpatialFusion(model);
+useLabelUncertaintyFusion = resolveLabelUncertaintyFusion(model);
+useLabelExistenceTempering = resolveLabelExistenceTempering(model);
+useLabelUncertaintyInflation = resolveLabelUncertaintyInflation(model);
 for i = 1:numel(objects)
     %% 1. 读取当前目标的 AA 权重
     % Strict AA uses one alpha vector for both Bernoulli existence and spatial
@@ -57,7 +60,16 @@ for i = 1:numel(objects)
     if useKlaSpatialFusion
         spatialWeights = applyKlaSpatialExistenceGate( ...
             measurementUpdatedDistributions, model, spatialWeights, i);
-        [muGa, SigmaGa] = fuseSpatialWithKla(measurementUpdatedDistributions, model, spatialWeights, i);
+        if useLabelUncertaintyFusion
+            [muGa, SigmaGa, quality] = fuseSpatialWithLabelUncertaintyKla( ...
+                measurementUpdatedDistributions, model, spatialWeights, existenceWeights, i, ...
+                useLabelUncertaintyInflation);
+            if useLabelExistenceTempering
+                objects(i).r = temperExistenceWithLabelQuality(objects(i).r, quality);
+            end
+        else
+            [muGa, SigmaGa] = fuseSpatialWithKla(measurementUpdatedDistributions, model, spatialWeights, i);
+        end
         objects(i).numberOfGmComponents = 1;
         objects(i).w = 1;
         objects(i).mu = {muGa};
@@ -140,6 +152,45 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
 end
 end
 
+function useLabelUncertaintyFusion = resolveLabelUncertaintyFusion(model)
+useLabelUncertaintyFusion = false;
+if isfield(model, 'useAaLabelUncertaintyFusion')
+    useLabelUncertaintyFusion = logical(model.useAaLabelUncertaintyFusion);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'useAaLabelUncertaintyFusion')
+        useLabelUncertaintyFusion = logical(cfg.useAaLabelUncertaintyFusion);
+    end
+end
+end
+
+function useLabelExistenceTempering = resolveLabelExistenceTempering(model)
+useLabelExistenceTempering = false;
+if isfield(model, 'useAaLabelExistenceTempering')
+    useLabelExistenceTempering = logical(model.useAaLabelExistenceTempering);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'useAaLabelExistenceTempering')
+        useLabelExistenceTempering = logical(cfg.useAaLabelExistenceTempering);
+    end
+end
+end
+
+function useLabelUncertaintyInflation = resolveLabelUncertaintyInflation(model)
+useLabelUncertaintyInflation = true;
+if isfield(model, 'useAaLabelUncertaintyInflation')
+    useLabelUncertaintyInflation = logical(model.useAaLabelUncertaintyInflation);
+end
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    cfg = model.adaptiveFusion;
+    if isfield(cfg, 'useAaLabelUncertaintyInflation')
+        useLabelUncertaintyInflation = logical(cfg.useAaLabelUncertaintyInflation);
+    end
+end
+end
+
 function tf = isStrictAaMode(value)
 tf = false;
 if ischar(value) || isstring(value)
@@ -175,6 +226,200 @@ end
 K = regularizeCovariance(K);
 SigmaGa = regularizeCovariance(inv(K));
 muGa = SigmaGa * h;
+end
+
+function [muGa, SigmaGa, quality] = fuseSpatialWithLabelUncertaintyKla( ...
+    measurementUpdatedDistributions, model, spatialWeights, existenceWeights, objectIdx, useInflation)
+[means, covariances, localExistence, validMask] = projectLocalObjects( ...
+    measurementUpdatedDistributions, model, objectIdx);
+baseSpatialWeights = normalizeMaskedWeights(spatialWeights, validMask);
+agreement = computeLabelSpatialAgreement(means, covariances, baseSpatialWeights, localExistence, validMask);
+betaRaw = baseSpatialWeights .* localExistence .* agreement .* validMask;
+if sum(betaRaw) <= eps
+    betaRaw = baseSpatialWeights .* validMask;
+end
+if sum(betaRaw) <= eps
+    beta = normalizeMaskedWeights(spatialWeights, validMask);
+else
+    beta = betaRaw / sum(betaRaw);
+end
+
+[muGa, SigmaKla] = fuseProjectedGaussiansWithKla(means, covariances, beta, validMask, model.xDimension);
+SigmaGa = SigmaKla;
+if useInflation
+    SigmaGa = regularizeCovariance(SigmaGa + computeBetweenPosteriorCovariance(means, beta, validMask, model.xDimension));
+end
+
+existenceMass = normalizeMaskedWeights(existenceWeights, validMask) .* localExistence .* validMask;
+supportMass = sum(existenceMass);
+if supportMass > eps
+    weightedAgreement = sum(existenceMass .* agreement) / supportMass;
+else
+    weightedAgreement = 0;
+end
+quality = struct( ...
+    'supportMass', min(max(supportMass, 0), 1), ...
+    'weightedAgreement', min(max(weightedAgreement, 0), 1), ...
+    'effectiveSupport', computeEffectiveSupport(existenceMass), ...
+    'beta', beta, ...
+    'agreement', agreement);
+end
+
+function [means, covariances, localExistence, validMask] = projectLocalObjects( ...
+    measurementUpdatedDistributions, model, objectIdx)
+numSensors = model.numberOfSensors;
+means = zeros(model.xDimension, numSensors);
+covariances = repmat(eye(model.xDimension), 1, 1, numSensors);
+localExistence = zeros(1, numSensors);
+validMask = zeros(1, numSensors);
+for s = 1:numSensors
+    if s > numel(measurementUpdatedDistributions) || ...
+            objectIdx > numel(measurementUpdatedDistributions{s})
+        continue;
+    end
+    localObject = measurementUpdatedDistributions{s}(objectIdx);
+    if localObject.numberOfGmComponents < 1
+        continue;
+    end
+    [nu, T] = mprojectObject(model.xDimension, localObject);
+    means(:, s) = nu;
+    covariances(:, :, s) = regularizeCovariance(T);
+    localExistence(s) = clampProbability(localObject.r);
+    validMask(s) = 1;
+end
+end
+
+function agreement = computeLabelSpatialAgreement(means, covariances, weights, localExistence, validMask)
+numSensors = numel(weights);
+agreement = ones(1, numSensors);
+for s = 1:numSensors
+    if validMask(s) <= 0
+        agreement(s) = 0;
+        continue;
+    end
+    numerator = 0;
+    denominator = 0;
+    for j = 1:numSensors
+        if j == s || validMask(j) <= 0
+            continue;
+        end
+        pairWeight = weights(j) * localExistence(j);
+        if pairWeight <= 0
+            continue;
+        end
+        numerator = numerator + pairWeight * gaussianBhattacharyyaCoefficient( ...
+            means(:, s), covariances(:, :, s), means(:, j), covariances(:, :, j));
+        denominator = denominator + pairWeight;
+    end
+    if denominator > eps
+        agreement(s) = numerator / denominator;
+    else
+        agreement(s) = 1;
+    end
+    agreement(s) = min(max(agreement(s), 0), 1);
+end
+end
+
+function value = gaussianBhattacharyyaCoefficient(muA, covA, muB, covB)
+covA = regularizeCovariance(covA);
+covB = regularizeCovariance(covB);
+covMean = regularizeCovariance((covA + covB) / 2);
+delta = muA - muB;
+mahalanobis = delta' * (covMean \ delta);
+logValue = -0.125 * mahalanobis + 0.25 * safeLogDet(covA) + ...
+    0.25 * safeLogDet(covB) - 0.5 * safeLogDet(covMean);
+if ~isfinite(logValue)
+    value = 0;
+else
+    value = exp(min(logValue, 0));
+end
+value = min(max(real(value), 0), 1);
+end
+
+function logDet = safeLogDet(covariance)
+covariance = regularizeCovariance(covariance);
+[R, p] = chol(covariance);
+if p ~= 0
+    covariance = regularizeCovariance(covariance + 1e-8 * eye(size(covariance)));
+    [R, p] = chol(covariance);
+end
+if p ~= 0
+    detValue = abs(det(covariance));
+    logDet = log(max(detValue, realmin));
+else
+    logDet = 2 * sum(log(max(abs(diag(R)), realmin)));
+end
+end
+
+function [muGa, SigmaGa] = fuseProjectedGaussiansWithKla(means, covariances, weights, validMask, xDimension)
+K = zeros(xDimension, xDimension);
+h = zeros(xDimension, 1);
+for s = 1:numel(weights)
+    if validMask(s) <= 0 || weights(s) <= 0
+        continue;
+    end
+    T = regularizeCovariance(covariances(:, :, s));
+    precision = inv(T);
+    weightedPrecision = weights(s) * precision;
+    K = K + weightedPrecision;
+    h = h + weightedPrecision * means(:, s);
+end
+K = regularizeCovariance(K);
+SigmaGa = regularizeCovariance(inv(K));
+muGa = SigmaGa * h;
+end
+
+function covariance = computeBetweenPosteriorCovariance(means, weights, validMask, xDimension)
+covariance = zeros(xDimension, xDimension);
+if sum(weights .* validMask) <= eps
+    return;
+end
+center = means * reshape(weights, [], 1);
+for s = 1:numel(weights)
+    if validMask(s) <= 0 || weights(s) <= 0
+        continue;
+    end
+    delta = means(:, s) - center;
+    covariance = covariance + weights(s) * (delta * delta');
+end
+covariance = regularizeCovariance(covariance);
+end
+
+function weights = normalizeMaskedWeights(weights, validMask)
+weights = reshape(weights, 1, []);
+validMask = reshape(validMask, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0) .* validMask;
+if sum(weights) <= eps
+    weights = validMask;
+end
+if sum(weights) <= eps
+    weights = ones(size(validMask)) / max(numel(validMask), 1);
+else
+    weights = weights / sum(weights);
+end
+end
+
+function value = computeEffectiveSupport(mass)
+mass = reshape(mass, 1, []);
+mass(~isfinite(mass)) = 0;
+mass = max(mass, 0);
+if sum(mass) <= eps
+    value = 0;
+    return;
+end
+value = (sum(mass) ^ 2) / max(sum(mass .^ 2), eps);
+end
+
+function existence = temperExistenceWithLabelQuality(existence, quality)
+existence = clampProbability(existence);
+if existence <= 0 || existence >= 1
+    return;
+end
+qualityScore = min(max(quality.supportMass * quality.weightedAgreement, eps), 1);
+odds = existence / max(1 - existence, eps);
+temperedOdds = odds * qualityScore;
+existence = clampProbability(temperedOdds / (1 + temperedOdds));
 end
 
 function [nu, T] = mprojectObject(n, object)

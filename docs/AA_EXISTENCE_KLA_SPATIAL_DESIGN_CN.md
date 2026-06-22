@@ -293,3 +293,5 @@ N50 ablation 入口固定 `numberOfTrials=50`、`baseSeed=1`、`existenceThresho
 把当前方法作为 `heuristic AA-existence + KLA-spatial hybrid` 继续推进，而不是继续追求 pure AA 在当前 false-alarm / partial-FOV regime 下直接击败 GA。N50 ablation 已经支持该设计的主机制: spatial-KLA 是核心，FID-FIA existence refinement 应排除，tuned spatial structure 只是小幅 retuning。N5 attribution 和负结果说明“收缩 spatial graph”“提高 pruning 阈值”“提高 bridge prior”都不是充分条件；下一步应该提出 label-consensus / uncertainty-aware AA-KLA 融合规则，而不是继续搜索式调参。
 
 方法级规则草案见 `docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`。后续实现应以其中的 overlap-weighted spatial KLA、between-posterior uncertainty inflation 和 support-aware existence tempering 为合同，先做 synthetic regression 和 N1 sanity，再决定是否进入 N5/N50。
+
+2026-06-22 更新: 该 experimental arm 已实现并通过 synthetic regression，但 N1 sanity 未通过。Full rule 的 OSPA 从 `1.682637` 降到 `1.419895`，但 Loc 从 `1.474567` 恶化到 `2.728531`，Card 从 `0.018750` 恶化到 `0.063750`，local CardErr 从 `0.066250` 恶化到 `2.046250`。spatial-overlap only 也略差于 tuned baseline (`1.709002/1.489258/0.018750`)。因此当前版本不进入 N5/N50，下一步应回到 rule 设计，尤其要移除或重写 absolute support-mass existence tempering。

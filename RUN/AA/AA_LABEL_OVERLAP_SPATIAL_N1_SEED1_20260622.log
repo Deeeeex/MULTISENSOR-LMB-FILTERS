@@ -1,0 +1,20 @@
+AA validation trial 1/1
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 101.148 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.709002, Loc 1.489258, Card 0.018750, Runtime 101.148 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_112431.md
+AA_LABEL_OVERLAP_SPATIAL_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_112431.md
+    ospa = 1.7090
+    pos = 1.4893
+    card = 0.018750
+    eOspa = 2.0367
+    hOspa = 0.4823
+    rmse = 4.1456
+    cardErr = 0.066250
+error: ignoring const execution_exception& while preparing to exit

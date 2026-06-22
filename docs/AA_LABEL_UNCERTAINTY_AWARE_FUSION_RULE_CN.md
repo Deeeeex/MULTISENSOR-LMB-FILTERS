@@ -6,7 +6,7 @@
 
 如何把当前 AA-existence + KLA-spatial hybrid 从场景调参推进到可泛化的方法设计，使剩余 consensus Loc gap 不再靠 `existenceThreshold`、bridge prior 或 existence gate 搜索解决，而是由 label consensus、spatial dispersion 和 posterior uncertainty 共同决定融合行为。
 
-Decision target: 后续是否值得实现一个新的 AA-family arm，并在 1-trial gate、N5 failure-block falsification、N50 paired validation 和 N50 ablation 中验证。
+Decision target: 当前 label/uncertainty-aware 原型是否值得进入 N5 failure-block falsification、N50 paired validation 和 N50 ablation。
 
 ## Scope
 
@@ -23,7 +23,7 @@ Decision target: 后续是否值得实现一个新的 AA-family arm，并在 1-t
 - 不声明该草案已经优于 GA Balanced；当前 N50 consensus Loc 仍未过关。
 - 不把本规则写成 strict Bernoulli-AA 的闭式最优解。
 - 不沿 seeds 12-16 搜索固定阈值、power 或 bridge coefficient。
-- 不在本文档中新增实验结果；本文档是方法 spec 和后续验证合同。
+- 不把 N1 结果外推成统计结论；当前 N1 只作为 gate/falsification。
 
 ## Risk Tier
 
@@ -37,7 +37,9 @@ L2。该文档会影响后续算法实现和 paper-facing 方法叙事，但当�
 | C2 | 剩余 Loc gap 不能用单因子修补解释；强 existence gate、threshold=0.20 和 bridge-aware prior 都在 N5 failure block 变差。 | High | E4, E5, E6 | N5 block 不是 N50 全局因果证明，但足以排除这些作为主方法。 |
 | C3 | label-level attribution 显示 failure block 同时存在 label-set split 和 same-label spatial spread。 | High | E7, E8 | 仍是 attribution，不是修复。 |
 | C4 | 因此下一步方法应连续建模 label support、spatial agreement 和 posterior uncertainty，而不是用固定场景阈值做 hard switch。 | Medium-High | E4-E8 | 需要实现和实验验证。 |
-| C5 | 一个可实现的候选规则是 overlap-weighted spatial KLA + between-posterior uncertainty inflation + support-aware existence tempering。 | Medium | E9, E10 | 目前是理论/工程 spec，尚无性能数据。 |
+| C5 | overlap-weighted spatial KLA + between-posterior uncertainty inflation + support-aware existence tempering 已实现为默认关闭的 experimental arm，并通过 synthetic regression。 | High | E9, E10, E11 | 这只证明代码边界行为，不证明场景性能。 |
+| C6 | 当前 full rule 未通过 N1 gate: OSPA 改善但 Loc、Card、E-OSPA 和 CardErr 显著变差，不能进入 N5/N50。 | High | E12, E13 | N1 是 gate，不是统计结论。 |
+| C7 | spatial-overlap only 也未通过 N1 gate: 它避免了 full rule 的 cardinality collapse，但 OSPA/Loc 均略差于同 seed tuned baseline。 | Medium-High | E14, E15 | 该 report 通过 adaptive override 运行，arm name 仍显示 Tuned spatial-KLA AA，需读取 config 字段确认。 |
 
 ## 方法设计
 
@@ -159,9 +161,11 @@ logit(r_out) = logit(r_AA) + log(max(Q, eps))
 
 如果只有少数 sensor 看见目标，但它们的 posterior 内部一致，`A_s` 不会因为缺少其他 sensor 被硬惩罚；existence 仍由 AA base 和 support tempering 连续控制。因此该规则比固定 existence gate 更适合 partial visibility。
 
+N1 gate 暴露出一个重要修正: `Q = M * agreement` 的 support tempering 会把 absolute support mass 引入 existence odds，在 partial visibility / local-neighborhood setting 下过强，导致 CardErr 从 `0.066250` 恶化到 `2.046250`。因此 support mass 不应直接作为 default existence tempering；后续只能作为诊断或在有明确 missed-detection model 的条件下进入 odds correction。
+
 ## 实现计划
 
-建议新增一个明确命名的 experimental arm，而不是改写当前 tuned arm:
+当前已新增一个明确命名的 experimental arm，而不是改写当前 tuned arm:
 
 ```matlab
 arms(...).name = 'Label-uncertainty spatial-KLA AA';
@@ -178,14 +182,14 @@ cfg.useAaLabelExistenceTempering = true;
 
 最小 regression:
 
-1. 两个一致 posterior 时，输出与普通 spatial-KLA 数值一致或接近。
-2. 一个 spatial outlier 与两个一致 posterior 同时存在时，outlier 权重下降，均值接近一致 posterior。
-3. 单有效 posterior 时不被 hard penalty。
-4. low-support false label 的 existence odds 下降但不是硬删。
+1. 两个一致 posterior 时，输出与普通 spatial-KLA 数值一致或接近。已通过 E11。
+2. 一个 spatial outlier 与两个一致 posterior 同时存在时，outlier 权重下降，均值接近一致 posterior。已通过 E11。
+3. low-support false label 的 existence odds 下降但不是硬删。已通过 E11。
+4. 仍缺单有效 posterior 的专门 regression；当前实现路径应补上该 case。
 
 实验 gate:
 
-1. N1 paired sanity: 与 Tuned spatial-KLA AA 和 GA Balanced/GA final 比较，不接受只改善一个 seed 上单个指标而显著破坏 local metrics 的 arm。
+1. N1 paired sanity: 与 Tuned spatial-KLA AA 和 GA Balanced/GA final 比较，不接受只改善一个 seed 上单个指标而显著破坏 local metrics 的 arm。当前 full rule 未通过该 gate。
 2. N5 failure-block falsification: 只用作 falsification，不在这里调参。若 label-set split 和 same-label spread rows 同时改善，才进入 N50。
 3. N50 paired validation: 目标仍是 OSPA、Loc、Card、E-OSPA、hOspa、RMSE、CardErr 均优于两个 GA modes。
 4. N50 ablation: 至少比较 current tuned, overlap-weighted spatial only, covariance inflation only, existence tempering only, full rule。
@@ -202,22 +206,29 @@ cfg.useAaLabelExistenceTempering = true;
 | E6 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104752.md` | C2, bridge-aware prior negative probe | medium |
 | E7 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_110215.md` | C3, label-level attribution table | strong |
 | E8 | command log | `RUN/AA/AA_LABEL_FAILURE_ATTRIBUTION_N5_SEED11_20260622.log` | C3, reproduction command output | medium |
-| E9 | code | `multisensorLmb/aaLmbTrackMerging.m` | C5, location where KLA spatial branch can consume robust beta weights | medium |
-| E10 | code | `RUN/AA/runAaBalancedCardinalityValidation.m` | C5, report and arm infrastructure for a new experimental rule | medium |
+| E9 | code | `multisensorLmb/aaLmbTrackMerging.m` | C5, implemented overlap-weighted KLA, covariance inflation and existence tempering switches | strong |
+| E10 | code | `RUN/AA/runAaBalancedCardinalityValidation.m` | C5, experimental arm and report config fields | strong |
+| E11 | command | `octave --quiet --eval "test_aa_lmb_track_merging"` output: tests 1-9 passed | C5, synthetic regression | strong |
+| E12 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_112156.md` | C6, full rule N1 negative gate | strong |
+| E13 | command log | `RUN/AA/AA_LABEL_UNCERTAINTY_N1_SEED1_20260622.log` | C6, full rule command output | medium |
+| E14 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_112431.md` | C7, spatial-overlap only N1 negative gate | medium |
+| E15 | command log | `RUN/AA/AA_LABEL_OVERLAP_SPATIAL_N1_SEED1_20260622.log` | C7, spatial-overlap only command output | medium |
 
 ## Verification Record
 
-Independence status: self-check only. 本文档尚未经过独立 verifier；它把已有实验结果转化为方法 spec，但未实现或验证新 arm。
+Independence status: self-check only. 本文档尚未经过独立 verifier；当前实现和 N1 gate 均由同一 worker lane 完成，不能作为 paper-facing 结论。
 
 已检查:
 
 - 现有 label-level attribution report 中确实包含 `Unique labels`、`Full labels`、`Mean label cover` 和 `Max label spread`。
-- 当前 branch HEAD 为 `dc9431a`，远端 `origin/codex/aa-target-wise-fix` 同步到同一提交。
+- `test_aa_lmb_track_merging` 通过，覆盖 target-wise weights、strict AA、existence-gated KLA 和 label-uncertainty synthetic cases。
+- N1 full rule gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；full rule 为 `1.419895/2.728531/0.063750`，local E-OSPA/CardErr 为 `4.529137/2.046250`。
+- N1 spatial-overlap only gate 失败: OSPA/Loc/Card 为 `1.709002/1.489258/0.018750`。
 
 待检查:
 
-- 新 rule 的 regression tests。
-- N1/N5/N50 paired performance。
+- 单有效 posterior synthetic regression。
+- revised rule 的 N1 paired performance。
 - 是否需要对 covariance inflation 做 OSPA/eOSPA 之外的指标补充。
 
 ## Risk and Escalation
@@ -227,11 +238,12 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；它
 - 把一个尚未实验的 method spec 写成 performance claim。
 - overlap weighting 在 missed-detection dominated regime 下压低真实单传感器观测。
 - covariance inflation 改善 uncertainty consistency 但不改善 point Loc。
+- support-mass existence tempering 在 local-neighborhood setting 下造成 cardinality collapse。
 
 升级条件:
 
 - 若进入 paper-facing claim，需要 N50 paired validation、N50 ablation 和独立 verifier。
-- 若 full rule 只在 seeds 12-16 上好，不应上 N50；应回到 rule 设计而不是调参。
+- 当前 full rule 已在 N1 gate 失败，不应进入 N5/N50；应回到 rule 设计而不是调参。
 
 ## Reproducibility
 
@@ -239,6 +251,9 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；它
 
 ```bash
 octave --quiet RUN/AA/runAaLocFailureAttributionN5.m
+octave --quiet --eval "test_aa_lmb_track_merging"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 12]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); overrides=struct('useAaLabelUncertaintyFusion',true,'useAaLabelUncertaintyInflation',false,'useAaLabelExistenceTempering',false); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9],overrides); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md
 ```
 
@@ -252,11 +267,11 @@ octave --quiet RUN/AA/runAaLabelUncertaintyDiagnosticN5.m
 
 ## Open Issues
 
-- `Q` 的 log-odds tempering 是否过强，需要先用 synthetic regression 确认边界行为；不能在 N5 failure block 上调。
+- `Q = M * agreement` 的 log-odds tempering 已被 N1 gate 证明过强；后续需要把 absolute support mass 从 default existence correction 中移除或换成 model-normalized risk。
 - `BC_sj` 对高维 covariance determinant 的数值稳定性需要 regularization。
 - 对 label-set split 的根因可能在 distributed pruning / birth management，而不只在 local fusion rule。
 - N50 consensus Loc 仍未被证明可通过该规则改善。
 
 ## Recommendation
 
-下一步应实现 `Label-uncertainty spatial-KLA AA` experimental arm，但只按上述无场景阈值规则实现，不做 seeds 12-16 参数搜索。先跑 synthetic regression 和 N1 sanity；若没有同时保持 OSPA/Card/local metrics，再回到规则设计，不进入 N50。
+当前 `Label-uncertainty spatial-KLA AA` experimental arm 已实现，但 full rule 和 spatial-overlap only 都未通过 N1 gate，因此不进入 N5/N50。下一步应回到规则设计: 保留 Gaussian overlap 作为诊断/可能的 soft spatial prior，暂时移除 absolute support-mass existence tempering，并补单有效 posterior regression；修改后再重新跑 N1 sanity。
