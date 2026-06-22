@@ -182,17 +182,21 @@ for t = 1:simulationLength
     else
         objects = puLmbTrackMerging(measurementUpdatedDistributions, objects, model);
     end
-    %% 3.5 融合后剪枝：低存在概率 component 不再递推
-    objectsLikelyToExist = [objects.r] > model.existenceThreshold;
-    % 已经形成足够长轨迹的低概率 component 仍写入输出对象列表。
-    discardedObjects = objects(~objectsLikelyToExist & ([objects.trajectoryLength] > model.minimumTrajectoryLength));
+    %% 3.5 Label lifecycle：输出阈值和递推剪枝阈值可以解耦
+    % 高 output threshold 可以抑制 noisy estimates；较低 pruning threshold
+    % 则允许暂时低置信的 label 继续递推，避免不同邻域永久丢失同一 label。
+    [objectsForOutput, objectsForRecursion, discardedObjects] = ...
+        applyLmbLabelLifecycleThresholds(objects, model);
     stateEstimates.objects(end+1:end+numel(discardedObjects)) =  discardedObjects;
-    % Keep objects with high existence probabilities
-    objects = objects(objectsLikelyToExist);
     %% 3.6 MAP 基数/状态抽取：生成当前时刻对外输出的 RFS estimate
     % LMB posterior 是一组 Bernoulli components；MAP cardinality 先决定
     % 本时刻输出几个目标，再取对应 component 的最高权重 Gaussian。
-    [nMap, mapIndices] = lmbMapCardinalityEstimate([objects.r]);
+    if isempty(objectsForOutput)
+        nMap = 0;
+        mapIndices = [];
+    else
+        [nMap, mapIndices] = lmbMapCardinalityEstimate([objectsForOutput.r]);
+    end
     % 按 MAP 选中的 component 输出 label、均值和协方差。
     stateEstimates.labels{t} = zeros(2, nMap);
     stateEstimates.mu{t} = cell(1, nMap);
@@ -200,10 +204,12 @@ for t = 1:simulationLength
     for i = 1:nMap
         j = mapIndices(i);
         % Gaussians in the posterior GM are sorted according to weight
-        stateEstimates.labels{t}(:, i) = [objects(j).birthTime; objects(j).birthLocation];
-        stateEstimates.mu{t}{i} = objects(j).mu{1};
-        stateEstimates.Sigma{t}{i} = objects(j).Sigma{1};
+        stateEstimates.labels{t}(:, i) = [ ...
+            objectsForOutput(j).birthTime; objectsForOutput(j).birthLocation];
+        stateEstimates.mu{t}{i} = objectsForOutput(j).mu{1};
+        stateEstimates.Sigma{t}{i} = objectsForOutput(j).Sigma{1};
     end
+    objects = objectsForRecursion;
     %% 3.7 更新轨迹缓存，供后续可视化和输出使用
     for i = 1:numel(objects)
         j = objects(i).trajectoryLength;

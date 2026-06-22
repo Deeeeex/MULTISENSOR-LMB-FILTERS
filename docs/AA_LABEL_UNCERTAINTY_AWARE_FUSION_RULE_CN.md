@@ -41,6 +41,7 @@ L2。该文档会影响后续算法实现和 paper-facing 方法叙事，但当�
 | C6 | 当前 full rule 未通过 N1 gate: OSPA 改善但 Loc、Card、E-OSPA 和 CardErr 显著变差，不能进入 N5/N50。 | High | E12, E13 | N1 是 gate，不是统计结论。 |
 | C7 | spatial-overlap only 也未通过 N1 gate: 它避免了 full rule 的 cardinality collapse，但 OSPA/Loc 均略差于同 seed tuned baseline。 | Medium-High | E14, E15 | 该 report 通过 adaptive override 运行，arm name 仍显示 Tuned spatial-KLA AA，需读取 config 字段确认。 |
 | C8 | covariance-inflation only 也未通过 N1 gate: 它是更干净的 uncertainty-propagation 假设，但未改善 Loc/OSPA，并带来约 1.5x runtime。 | Medium-High | E16, E17 | 单 seed gate 只用于否定进入 N5/N50，不作统计 claim。 |
+| C9 | naive label-lifecycle decoupling 也未通过 N1 gate: 分离 output threshold 与 pruning threshold 是合理抽象，但直接保留全部低置信 label 会扩大 cardinality clutter 和 runtime。 | Medium-High | E18-E21 | 这否定的是 naive lifecycle arm，不否定更强的 label-consensus objective。 |
 
 ## 方法设计
 
@@ -164,6 +165,8 @@ logit(r_out) = logit(r_AA) + log(max(Q, eps))
 
 N1 gate 暴露出一个重要修正: `Q = M * agreement` 的 support tempering 会把 absolute support mass 引入 existence odds，在 partial visibility / local-neighborhood setting 下过强，导致 CardErr 从 `0.066250` 恶化到 `2.046250`。因此 support mass 不应直接作为 default existence tempering；后续只能作为诊断或在有明确 missed-detection model 的条件下进入 odds correction。
 
+另一个上游修正假设是把 estimate extraction 的 output threshold 与 recursive Bernoulli pruning threshold 分离。这个抽象是合理的，因为 `existenceThreshold=0.18` 同时用于输出和剪枝会让局部 missed detection 永久删除 label。但 naive arm 只把 pruning threshold 降回 `0.01`，没有给低置信 label 引入跨邻域 consensus 约束，N1 gate 显示它把 label survival split 转成了 cardinality clutter: Card 从 `0.018750` 恶化到 `0.040000`，CardErr 从 `0.066250` 恶化到 `0.097500`，runtime 约 `1.598x`。
+
 ## 实现计划
 
 当前已把 label-uncertainty fusion 拆成独立方法开关，而不是把多个机制耦合成一个场景调参臂:
@@ -177,11 +180,21 @@ cfg.useAaLabelUncertaintyInflation = true;
 cfg.useAaLabelExistenceTempering = false;
 ```
 
+另外新增了一个 label-lifecycle arm，用于验证“输出/递推解耦”这个上游假设:
+
+```matlab
+arms(...).name = 'Label-lifecycle spatial-KLA AA';
+cfg.aaSpatialFusionMode = 'kla';
+cfg.labelPruningThreshold = 0.01;
+```
+
 代码位置:
 
 - `aaLmbTrackMerging.m`: 消费 `useAaLabelUncertaintyFusion`，并用 `useAaLabelSpatialOverlapWeights`、`useAaLabelUncertaintyInflation`、`useAaLabelExistenceTempering` 分别控制 overlap reweight、between-posterior covariance inflation 和 existence odds tempering。
+- `applyLmbLabelLifecycleThresholds.m`: 将 output threshold 与 recursive pruning threshold 分离；默认 `labelPruningThreshold` 缺省时等于 `existenceThreshold`，保持旧行为。
+- `runParallelUpdateLmbFilter.m`: MAP 输出只看超过 output threshold 的 Bernoulli；递推对象按 pruning threshold 保留。
 - `computeAdaptiveFusionWeights.m`: 不需要先改；该规则使用已有 branch weights 作为 base。
-- `runAaBalancedCardinalityValidation.m`: arm 12 明确命名为 `Uncertainty-inflated spatial-KLA AA`，report 记录上述开关，便于 N1 gate 复现。
+- `runAaBalancedCardinalityValidation.m`: arm 12 明确命名为 `Uncertainty-inflated spatial-KLA AA`；arm 13 明确命名为 `Label-lifecycle spatial-KLA AA`；report 记录上述开关，便于 N1 gate 复现。
 
 最小 regression:
 
@@ -190,13 +203,14 @@ cfg.useAaLabelExistenceTempering = false;
 3. low-support false label 的 existence odds 下降但不是硬删。已通过 E11。
 4. covariance inflation 可在不启用 overlap reweight 的条件下独立使用。已通过 E11。
 5. 单有效 posterior 不会被 overlap 逻辑压掉。已通过 E11。
+6. lifecycle 默认保持旧单阈值行为，打开 `labelPruningThreshold` 后低于输出阈值但高于剪枝阈值的 label 只递推不输出。已通过 E19。
 
 实验 gate:
 
 1. N1 paired sanity: 与 Tuned spatial-KLA AA 和 GA Balanced/GA final 比较，不接受只改善一个 seed 上单个指标而显著破坏 local metrics 的 arm。当前 full rule 未通过该 gate。
 2. N5 failure-block falsification: 只用作 falsification，不在这里调参。若 label-set split 和 same-label spread rows 同时改善，才进入 N50。
 3. N50 paired validation: 目标仍是 OSPA、Loc、Card、E-OSPA、hOspa、RMSE、CardErr 均优于两个 GA modes。
-4. N50 ablation: 只有在某个方法假设通过 N1 和 N5 falsification 后才运行；当前 full、overlap-only、inflation-only 都不满足进入条件。
+4. N50 ablation: 只有在某个方法假设通过 N1 和 N5 falsification 后才运行；当前 full、overlap-only、inflation-only、naive lifecycle 都不满足进入条件。
 
 ## Evidence Ledger
 
@@ -219,6 +233,10 @@ cfg.useAaLabelExistenceTempering = false;
 | E15 | command log | `RUN/AA/AA_LABEL_OVERLAP_SPATIAL_N1_SEED1_20260622.log` | C7, spatial-overlap only command output | medium |
 | E16 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_113133.md` | C8, covariance-inflation only N1 negative gate | strong |
 | E17 | command log | `RUN/AA/AA_LABEL_INFLATION_ONLY_N1_SEED1_20260622.log` | C8, covariance-inflation only command output | medium |
+| E18 | code | `multisensorLmb/applyLmbLabelLifecycleThresholds.m` and `multisensorLmb/runParallelUpdateLmbFilter.m` | C9, output/pruning lifecycle split implementation | strong |
+| E19 | command | `octave --quiet --eval "test_lmb_label_lifecycle_thresholds"` output: tests 1-3 passed | C9, lifecycle synthetic regression | strong |
+| E20 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_113821.md` | C9, naive lifecycle N1 negative gate | strong |
+| E21 | command log | `RUN/AA/AA_LABEL_LIFECYCLE_N1_SEED1_20260622.log` | C9, lifecycle command output | medium |
 
 ## Verification Record
 
@@ -231,10 +249,12 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 - N1 full rule gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；full rule 为 `1.419895/2.728531/0.063750`，local E-OSPA/CardErr 为 `4.529137/2.046250`。
 - N1 spatial-overlap only gate 失败: OSPA/Loc/Card 为 `1.709002/1.489258/0.018750`。
 - N1 covariance-inflation only gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；inflation-only 为 `1.727916/1.540082/0.017500`，local E-OSPA/RMSE/CardErr 为 `2.066921/4.185329/0.067500`。
+- `test_lmb_label_lifecycle_thresholds` 通过，覆盖默认旧行为、递推保留低于输出阈值的 label、adaptiveFusion 覆盖剪枝阈值。
+- N1 naive lifecycle gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；lifecycle 为 `1.745000/1.484851/0.040000`，local E-OSPA/RMSE/CardErr 为 `2.073722/4.157186/0.097500`，runtime 相对 tuned 为 `1.598x`。
 
 待检查:
 
-- 是否需要把 label-set split 的修复上移到 distributed label management / birth-pruning，而不是继续在 fusion consumer 内补偿。
+- label-set split 的修复需要一个跨邻域 label-consensus objective；naive lifecycle 只保留更多低置信 label，不足以解决。
 - 是否需要对 uncertainty consistency 另设 NEES/NIS 类指标；当前 OSPA/eOSPA/RMSE gate 不支持 covariance inflation 作为主线性能改进。
 
 ## Risk and Escalation
@@ -245,6 +265,7 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 - overlap weighting 在 missed-detection dominated regime 下压低真实单传感器观测。
 - covariance inflation 可能改善 uncertainty consistency，但 N1 OSPA/eOSPA/RMSE 已显示它不是当前主线 Loc gap 的直接解。
 - support-mass existence tempering 在 local-neighborhood setting 下造成 cardinality collapse。
+- naive lifecycle decoupling 会保留过多低置信 label，造成 cardinality clutter 和 runtime 上升。
 
 升级条件:
 
@@ -258,7 +279,9 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 ```bash
 octave --quiet RUN/AA/runAaLocFailureAttributionN5.m
 octave --quiet --eval "test_aa_lmb_track_merging"
+octave --quiet --eval "test_lmb_label_lifecycle_thresholds"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 12]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 13]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); overrides=struct('useAaLabelUncertaintyFusion',true,'useAaLabelUncertaintyInflation',false,'useAaLabelExistenceTempering',false); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9],overrides); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md
 ```
@@ -275,9 +298,9 @@ octave --quiet RUN/AA/runAaLabelUncertaintyDiagnosticN5.m
 
 - `Q = M * agreement` 的 log-odds tempering 已被 N1 gate 证明过强；后续需要把 absolute support mass 从 default existence correction 中移除或换成 model-normalized risk。
 - `BC_sj` 对高维 covariance determinant 的数值稳定性需要 regularization。
-- 对 label-set split 的根因可能在 distributed pruning / birth management，而不只在 local fusion rule。
+- 对 label-set split 的根因可能在 distributed pruning / birth management，但 naive output/pruning 解耦已显示需要额外的 label-consensus 约束，否则会扩大 cardinality clutter。
 - N50 consensus Loc 仍未被证明可通过该规则改善。
 
 ## Recommendation
 
-当前 `Uncertainty-inflated spatial-KLA AA` experimental arm 已实现，且 full rule、spatial-overlap only、covariance-inflation only 都未通过 N1 gate，因此不进入 N5/N50。下一步应停止在 fusion consumer 内继续组合这些开关，转向更上游、可泛化的问题: distributed label management / birth-pruning 如何避免 label-set split，以及是否需要一个与场景无关的 label-consensus objective 来约束 AA 的 label survival。
+当前 `Uncertainty-inflated spatial-KLA AA` 和 `Label-lifecycle spatial-KLA AA` experimental arms 已实现，且 full rule、spatial-overlap only、covariance-inflation only、naive lifecycle 都未通过 N1 gate，因此不进入 N5/N50。下一步应停止在 fusion consumer 内继续组合这些开关，也不要只降低 pruning threshold；更合理的 research 点是设计一个跨邻域 label-consensus objective，让 label survival 同时考虑时序证据、邻域支持和 cardinality budget。
