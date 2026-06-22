@@ -83,7 +83,12 @@ for s = 1:numberOfSensors
     % 3.3 结构先验是动态权重 structure-aware 分支的输入，不直接替代质量因子。
     % spatial prior 偏向邻域结构相似/冗余的节点；existence prior 只做
     % 轻量 novelty 调制。二者都会归一到均值为 1，避免整体放大 score。
-    [spatialStructurePrior, existenceStructurePrior] = computeLocalStructurePriors(neighborMap, s, neighborIdx);
+    adaptiveCfg = struct();
+    if isfield(localModels{s}, 'adaptiveFusion') && isstruct(localModels{s}.adaptiveFusion)
+        adaptiveCfg = localModels{s}.adaptiveFusion;
+    end
+    [spatialStructurePrior, existenceStructurePrior] = computeLocalStructurePriors( ...
+        neighborMap, s, neighborIdx, adaptiveCfg);
     localModels{s}.gaTopologyWeights = weightsBySensor{s};
     localModels{s}.aaTopologyWeights = weightsBySensor{s};
     localModels{s}.gaSpatialStructurePrior = spatialStructurePrior;
@@ -113,14 +118,20 @@ for s = 1:numberOfSensors
 end
 end
 
-function [spatialPrior, existencePrior] = computeLocalStructurePriors(neighborMap, sourceSensorIdx, sensorIdx)
+function [spatialPrior, existencePrior] = computeLocalStructurePriors(neighborMap, sourceSensorIdx, sensorIdx, adaptiveCfg)
 % 中文导读：
 %   根据邻域重叠度生成两个结构先验。spatial 分支偏向结构冗余的邻居，
 %   因为冗余邻居更容易提供稳定空间一致性；existence 分支只给轻量
 %   novelty 偏好，避免拓扑修正过度影响基数判断。
+%   spatialBridgeNoveltyStrength 默认是 0；打开后会补偿低邻域重叠的
+%   bridge neighbor，用于诊断跨 group Loc disagreement。
 nLocal = numel(sensorIdx);
 spatialPrior = ones(1, nLocal);
 existencePrior = ones(1, nLocal);
+if nargin < 4 || ~isstruct(adaptiveCfg)
+    adaptiveCfg = struct();
+end
+spatialBridgeNoveltyStrength = max(getStructField(adaptiveCfg, 'spatialBridgeNoveltyStrength', 0), 0);
 if nargin < 2 || isempty(neighborMap) || isempty(sensorIdx) || sourceSensorIdx > numel(neighborMap)
     return;
 end
@@ -145,12 +156,21 @@ for k = 1:nLocal
     % spatial fusion 偏好这种结构冗余，因为它通常意味着空间估计更稳定；
     % existence fusion 则给“不完全相同视角”的 neighbor 一点 novelty 偏好，
     % 但只用 0.5 系数，避免拓扑项过度影响 cardinality。
-    spatialPrior(k) = 1 + similarity;
-    existencePrior(k) = 1 + 0.5 * (1 - similarity);
+    novelty = 1 - similarity;
+    spatialPrior(k) = 1 + similarity + spatialBridgeNoveltyStrength * novelty;
+    existencePrior(k) = 1 + 0.5 * novelty;
 end
 
 spatialPrior = spatialPrior / mean(spatialPrior);
 existencePrior = existencePrior / mean(existencePrior);
+end
+
+function value = getStructField(cfg, fieldName, defaultValue)
+if isstruct(cfg) && isfield(cfg, fieldName)
+    value = cfg.(fieldName);
+else
+    value = defaultValue;
+end
 end
 
 function neighborMap = computeNeighborMap(model, sensorTrajectories)

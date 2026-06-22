@@ -63,13 +63,16 @@ aaControls = struct( ...
     'progressEverySteps', 10, ...
     'aaStrictWeights', false, ...
     'saveMat', true, ...
-    'saveCheckpoints', true);
+    'saveCheckpoints', true, ...
+    'captureConsensusAttribution', false, ...
+    'consensusAttributionTopK', 3);
 aaControls = mergeStructFields(aaControls, aaControlOverrides);
 aaControls.targetFormationLifeSpan = max(1, round(aaControls.targetFormationLifeSpan));
 aaControls.maximumNumberOfGmComponents = max(1, round(aaControls.maximumNumberOfGmComponents));
 aaControls.minimumTrajectoryLength = max(1, round(aaControls.minimumTrajectoryLength));
 aaControls.maximumNumberOfLbpIterations = max(1, round(aaControls.maximumNumberOfLbpIterations));
 aaControls.progressEverySteps = max(0, round(aaControls.progressEverySteps));
+aaControls.consensusAttributionTopK = max(1, round(aaControls.consensusAttributionTopK));
 
 leaderSensor = 8;
 sensorCommRange = 150;
@@ -129,6 +132,7 @@ filterRuntimeSeconds = zeros(numberOfTrials, numArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 samplingStatsLast = struct();
 weightDiagSummary = cell(numberOfTrials, numArms);
+consensusAttribution = cell(numberOfTrials, numArms);
 
 reportDir = fullfile(projectRoot, 'RUN', 'AA');
 if ~exist(reportDir, 'dir')
@@ -191,6 +195,11 @@ for trial = 1:numberOfTrials
         consOspa(trial, armIdx) = mean(ospaArm);
         consPos(trial, armIdx) = mean(posArm, 'omitnan');
         consCard(trial, armIdx) = mean(cardConsensusArm);
+        if aaControls.captureConsensusAttribution
+            consensusAttribution{trial, armIdx} = summarizeConsensusAttribution( ...
+                stateEstimatesBySensor, groundTruthRfs, armModel, posArm, cardConsensusArm, ospaArm, ...
+                aaControls.consensusAttributionTopK);
+        end
 
         if aaControls.saveCheckpoints
             save(checkpointPath, 'trial', 'armIdx', 'armNames', 'aaControls', 'commConfig', ...
@@ -242,6 +251,7 @@ summary.aaControls = aaControls;
 summary.samplingStats = samplingStatsLast;
 summary.arms = arms;
 summary.weightDiagnostics = weightDiagSummary;
+summary.consensusAttribution = consensusAttribution;
 summary.reportPath = reportPath;
 summary.matPath = matPath;
 summary.checkpointPath = checkpointPath;
@@ -300,6 +310,7 @@ cfg = struct( ...
     'fidFiaMinWeight', 0.0, ...
     'aaKlaSpatialExistencePower', 0.0, ...
     'aaKlaSpatialExistenceMinScore', 0.0, ...
+    'spatialBridgeNoveltyStrength', 0.0, ...
     'captureWeightDiagnostics', false, ...
     'weightDiagnosticActiveThreshold', 1e-3, ...
     'useFreshness', false, ...
@@ -309,7 +320,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 10);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 11);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -419,6 +430,11 @@ cfg.aaKlaSpatialExistencePower = 1.0;
 cfg.aaKlaSpatialExistenceMinScore = 0.0;
 arms(10).name = 'Existence-gated spatial-KLA AA';
 arms(10).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.spatialBridgeNoveltyStrength = 0.75;
+arms(11).name = 'Bridge-aware spatial-KLA AA';
+arms(11).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -553,6 +569,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- fidFiaExistenceMinScore: %.3f\n', getField(cfg, 'fidFiaExistenceMinScore', 0));
     fprintf(fid, '- aaKlaSpatialExistencePower: %.3f\n', getField(cfg, 'aaKlaSpatialExistencePower', 0));
     fprintf(fid, '- aaKlaSpatialExistenceMinScore: %.3f\n', getField(cfg, 'aaKlaSpatialExistenceMinScore', 0));
+    fprintf(fid, '- spatialBridgeNoveltyStrength: %.3f\n', getField(cfg, 'spatialBridgeNoveltyStrength', 0));
     fprintf(fid, '- captureWeightDiagnostics: %d\n', getField(cfg, 'captureWeightDiagnostics', false));
     fprintf(fid, '- existenceMinWeight: %.3f\n\n', getField(cfg, 'existenceMinWeight', 0));
 end
@@ -618,6 +635,11 @@ end
 if hasAdaptiveFusionDiagnostics(summary.weightDiagnostics)
     fprintf(fid, '\n## Adaptive Fusion Weight Diagnostics\n');
     writeAdaptiveFusionDiagnosticTable(fid, armNames, summary.weightDiagnostics);
+end
+
+if hasConsensusAttribution(summary.consensusAttribution)
+    fprintf(fid, '\n## Consensus Loc Failure Attribution\n');
+    writeConsensusAttributionTable(fid, armNames, summary.consensusAttribution);
 end
 
 fprintf(fid, '\n## Runtime\n');
@@ -878,6 +900,256 @@ if isempty(values)
     value = NaN;
 else
     value = mean(values);
+end
+end
+
+function attribution = summarizeConsensusAttribution( ...
+    stateEstimatesBySensor, groundTruthRfs, model, posSeries, cardSeries, ospaSeries, topK)
+attribution = struct('records', []);
+if nargin < 6 || isempty(topK)
+    topK = 3;
+end
+valid = find(isfinite(posSeries));
+if isempty(valid)
+    return;
+end
+[~, order] = sort(posSeries(valid), 'descend');
+selected = valid(order(1:min(topK, numel(order))));
+records = repmat(buildEmptyConsensusAttributionRecord(), 1, numel(selected));
+for idx = 1:numel(selected)
+    t = selected(idx);
+    pairDetails = summarizeConsensusPairsAtTime(stateEstimatesBySensor, t);
+    diagDetails = summarizeWeightDiagnosticsAtTime(stateEstimatesBySensor, t);
+    records(idx).rank = idx;
+    records(idx).t = t;
+    records(idx).loc = posSeries(t);
+    records(idx).ospa = ospaSeries(t);
+    records(idx).card = cardSeries(t);
+    records(idx).counts = pairDetails.counts;
+    records(idx).truthCard = resolveTruthCardinality(groundTruthRfs, t);
+    records(idx).localRmse = computeLocalRmseAttributionAtTime( ...
+        stateEstimatesBySensor, groundTruthRfs, t);
+    records(idx).pairCount = pairDetails.pairCount;
+    records(idx).meanMatchedCount = pairDetails.meanMatchedCount;
+    records(idx).meanMatchedDistance = pairDetails.meanMatchedDistance;
+    records(idx).maxMatchedDistance = pairDetails.maxMatchedDistance;
+    records(idx).worstPair = pairDetails.worstPair;
+    records(idx).worstPairDistance = pairDetails.worstPairDistance;
+    records(idx).targetSpatialNeff = diagDetails.targetSpatialNeff;
+    records(idx).targetBranchL1 = diagDetails.targetBranchL1;
+    records(idx).targetLocalExistenceSpread = diagDetails.targetLocalExistenceSpread;
+    records(idx).spatialEntropy = diagDetails.spatialEntropy;
+    records(idx).spatialNeff = diagDetails.spatialNeff;
+end
+attribution.records = records;
+end
+
+function record = buildEmptyConsensusAttributionRecord()
+record = struct( ...
+    'rank', NaN, ...
+    't', NaN, ...
+    'loc', NaN, ...
+    'ospa', NaN, ...
+    'card', NaN, ...
+    'truthCard', NaN, ...
+    'localRmse', NaN, ...
+    'counts', [], ...
+    'pairCount', NaN, ...
+    'meanMatchedCount', NaN, ...
+    'meanMatchedDistance', NaN, ...
+    'maxMatchedDistance', NaN, ...
+    'worstPair', [NaN, NaN], ...
+    'worstPairDistance', NaN, ...
+    'targetSpatialNeff', NaN, ...
+    'targetBranchL1', NaN, ...
+    'targetLocalExistenceSpread', NaN, ...
+    'spatialEntropy', NaN, ...
+    'spatialNeff', NaN);
+end
+
+function truthCard = resolveTruthCardinality(groundTruthRfs, t)
+truthCard = NaN;
+if isstruct(groundTruthRfs) && isfield(groundTruthRfs, 'cardinality') && ...
+        numel(groundTruthRfs.cardinality) >= t
+    truthCard = groundTruthRfs.cardinality(t);
+end
+end
+
+function value = computeLocalRmseAttributionAtTime(stateEstimatesBySensor, groundTruthRfs, t)
+values = NaN(1, numel(stateEstimatesBySensor));
+for s = 1:numel(stateEstimatesBySensor)
+    values(s) = computeSetRmseAtTime(stateEstimatesBySensor{s}, groundTruthRfs, t);
+end
+value = meanFinite(values);
+end
+
+function details = summarizeConsensusPairsAtTime(stateEstimatesBySensor, t)
+numSensors = numel(stateEstimatesBySensor);
+details = struct();
+details.counts = zeros(1, numSensors);
+for s = 1:numSensors
+    details.counts(s) = numel(stateEstimatesBySensor{s}.mu{t});
+end
+pairDistances = [];
+matchedCounts = [];
+matchedMeans = [];
+matchedMaxima = [];
+worstDistance = -Inf;
+worstPair = [NaN, NaN];
+for i = 1:numSensors-1
+    for j = i+1:numSensors
+        pair = summarizeEstimatePairDistance(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t);
+        if ~isfinite(pair.rmse)
+            continue;
+        end
+        pairDistances(end+1) = pair.rmse;
+        matchedCounts(end+1) = pair.matchedCount;
+        matchedMeans(end+1) = pair.meanMatchedDistance;
+        matchedMaxima(end+1) = pair.maxMatchedDistance;
+        if pair.rmse > worstDistance
+            worstDistance = pair.rmse;
+            worstPair = [i, j];
+        end
+    end
+end
+details.pairCount = numel(pairDistances);
+details.meanMatchedCount = meanFinite(matchedCounts);
+details.meanMatchedDistance = meanFinite(matchedMeans);
+details.maxMatchedDistance = maxFinite(matchedMaxima);
+if isfinite(worstDistance)
+    details.worstPairDistance = worstDistance;
+else
+    details.worstPairDistance = NaN;
+end
+details.worstPair = worstPair;
+end
+
+function pair = summarizeEstimatePairDistance(estA, estB, t)
+pair = struct('rmse', NaN, 'matchedCount', 0, ...
+    'meanMatchedDistance', NaN, 'maxMatchedDistance', NaN);
+muA = estA.mu{t};
+muB = estB.mu{t};
+if isempty(muA) && isempty(muB)
+    pair.rmse = 0;
+    pair.matchedCount = 0;
+    pair.meanMatchedDistance = 0;
+    pair.maxMatchedDistance = 0;
+    return;
+end
+if isempty(muA) || isempty(muB)
+    return;
+end
+XA = cell2mat(cellfun(@(x) x(1:2), muA, 'UniformOutput', false));
+XB = cell2mat(cellfun(@(x) x(1:2), muB, 'UniformOutput', false));
+n = size(XA, 2);
+m = size(XB, 2);
+if n == 0 || m == 0
+    return;
+end
+D = zeros(n, m);
+for i = 1:n
+    for j = 1:m
+        d = XA(:, i) - XB(:, j);
+        D(i, j) = sqrt(d' * d);
+    end
+end
+[matching, ~] = Hungarian(D);
+matched = D(matching == 1);
+if isempty(matched)
+    return;
+end
+pair.rmse = sqrt(mean(matched .^ 2));
+pair.matchedCount = numel(matched);
+pair.meanMatchedDistance = mean(matched);
+pair.maxMatchedDistance = max(matched);
+end
+
+function details = summarizeWeightDiagnosticsAtTime(stateEstimatesBySensor, t)
+targetSpatialNeff = [];
+targetBranchL1 = [];
+targetLocalExistenceSpread = [];
+spatialEntropy = [];
+spatialNeff = [];
+for s = 1:numel(stateEstimatesBySensor)
+    if ~isfield(stateEstimatesBySensor{s}, 'adaptiveFusionDiagnostics')
+        continue;
+    end
+    diagnostics = stateEstimatesBySensor{s}.adaptiveFusionDiagnostics;
+    if t > numel(diagnostics)
+        continue;
+    end
+    d = diagnostics(t);
+    if ~isfield(d, 't') || ~isfinite(d.t)
+        continue;
+    end
+    spatialEntropy(end+1) = d.spatialEntropy;
+    spatialNeff(end+1) = d.spatialEffectiveSensorCount;
+    targetSpatialNeff = [targetSpatialNeff; reshape(d.targetSpatialEffectiveSensorCount, [], 1)];
+    targetBranchL1 = [targetBranchL1; reshape(d.targetBranchL1Divergence, [], 1)];
+    if isfield(d, 'targetLocalExistence') && ~isempty(d.targetLocalExistence)
+        targetLocalExistenceSpread = [targetLocalExistenceSpread; ...
+            reshape(max(d.targetLocalExistence, [], 2) - min(d.targetLocalExistence, [], 2), [], 1)];
+    end
+end
+details = struct( ...
+    'targetSpatialNeff', meanFinite(targetSpatialNeff), ...
+    'targetBranchL1', meanFinite(targetBranchL1), ...
+    'targetLocalExistenceSpread', meanFinite(targetLocalExistenceSpread), ...
+    'spatialEntropy', meanFinite(spatialEntropy), ...
+    'spatialNeff', meanFinite(spatialNeff));
+end
+
+function tf = hasConsensusAttribution(consensusAttribution)
+tf = false;
+if isempty(consensusAttribution)
+    return;
+end
+for i = 1:numel(consensusAttribution)
+    if isstruct(consensusAttribution{i}) && isfield(consensusAttribution{i}, 'records') && ...
+            ~isempty(consensusAttribution{i}.records)
+        tf = true;
+        return;
+    end
+end
+end
+
+function writeConsensusAttributionTable(fid, armNames, consensusAttribution)
+fprintf(fid, 'Top rows are the largest per-time Loc disagreement values in each trial/arm. Weight columns summarize the same time step across local filters and targets when adaptive diagnostics are enabled.\n\n');
+fprintf(fid, '| Trial | Arm | Rank | t | Truth card | Loc | OSPA | Card | Local RMSE | Counts | Worst pair | Worst pair Loc | Mean matched dist | Max matched dist | Target Spatial Neff | Target Branch L1 | Target local-r spread |\n');
+fprintf(fid, '|------:|:----|-----:|--:|-----------:|----:|-----:|-----:|-----------:|:-------|:-----------|---------------:|------------------:|-----------------:|--------------------:|-----------------:|----------------------:|\n');
+for trial = 1:size(consensusAttribution, 1)
+    for armIdx = 1:size(consensusAttribution, 2)
+        attribution = consensusAttribution{trial, armIdx};
+        if ~isstruct(attribution) || ~isfield(attribution, 'records')
+            continue;
+        end
+        for rowIdx = 1:numel(attribution.records)
+            r = attribution.records(rowIdx);
+            fprintf(fid, '| %d | %s | %d | %d | %.0f | %.6f | %.6f | %.6f | %.6f | %s | %s | %.6f | %.6f | %.6f | %.3f | %.4f | %.4f |\n', ...
+                trial, armNames{armIdx}, r.rank, r.t, r.truthCard, r.loc, r.ospa, ...
+                r.card, r.localRmse, mat2str(r.counts), formatSensorPair(r.worstPair), ...
+                r.worstPairDistance, r.meanMatchedDistance, r.maxMatchedDistance, r.targetSpatialNeff, ...
+                r.targetBranchL1, r.targetLocalExistenceSpread);
+        end
+    end
+end
+end
+
+function value = maxFinite(values)
+values = values(:);
+values = values(isfinite(values));
+if isempty(values)
+    value = NaN;
+else
+    value = max(values);
+end
+end
+
+function text = formatSensorPair(pair)
+if numel(pair) < 2 || any(~isfinite(pair))
+    text = '[]';
+else
+    text = sprintf('%d-%d', pair(1), pair(2));
 end
 end
 

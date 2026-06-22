@@ -1,0 +1,32 @@
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 57.633 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 56.600 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 49.180 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.078 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 49.551 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.2000, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.711399, Loc 1.544925, Card 0.038750, Runtime 52.209 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104136.md
+AA_TUNED_THR020_N5_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104136.md
+    ospa = 1.7114
+    pos = 1.5449
+    card = 0.038750
+    eOspa = 2.0438
+    hOspa = 0.4863
+    rmse = 3.6005
+    cardErr = 0.091250
+error: ignoring const execution_exception& while preparing to exit

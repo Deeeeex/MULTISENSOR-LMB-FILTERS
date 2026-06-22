@@ -1,0 +1,64 @@
+AA validation trial 1/5
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 47.058 s
+  Arm 2/2: Bridge-aware spatial-KLA AA
+    Filter runtime: 50.424 s
+AA validation trial 2/5
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 48.226 s
+  Arm 2/2: Bridge-aware spatial-KLA AA
+    Filter runtime: 47.925 s
+AA validation trial 3/5
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 48.542 s
+  Arm 2/2: Bridge-aware spatial-KLA AA
+    Filter runtime: 48.570 s
+AA validation trial 4/5
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 47.519 s
+  Arm 2/2: Bridge-aware spatial-KLA AA
+    Filter runtime: 47.911 s
+AA validation trial 5/5
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 49.216 s
+  Arm 2/2: Bridge-aware spatial-KLA AA
+    Filter runtime: 49.448 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA -> Bridge-aware spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.702915, Loc 1.529716, Card 0.034250, Runtime 48.112 s
+Bridge-aware spatial-KLA AA: OSPA 1.716247, Loc 1.543912, Card 0.033750, Runtime 48.855 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104752.md
+AA_BRIDGE_AWARE_N5_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104752.md
+    ospa =
+
+       1.7029   1.7162
+
+    pos =
+
+       1.5297   1.5439
+
+    card =
+
+       0.034250   0.033750
+
+    eOspa =
+
+       2.0328   2.0251
+
+    hOspa =
+
+       0.4863   0.4863
+
+    rmse =
+
+       3.5881   3.5880
+
+    cardErr =
+
+       0.086250   0.085750
+
+error: ignoring const execution_exception& while preparing to exit
