@@ -920,6 +920,7 @@ for idx = 1:numel(selected)
     t = selected(idx);
     pairDetails = summarizeConsensusPairsAtTime(stateEstimatesBySensor, t);
     diagDetails = summarizeWeightDiagnosticsAtTime(stateEstimatesBySensor, t);
+    labelDetails = summarizeLabelAgreementAtTime(stateEstimatesBySensor, t);
     records(idx).rank = idx;
     records(idx).t = t;
     records(idx).loc = posSeries(t);
@@ -940,6 +941,12 @@ for idx = 1:numel(selected)
     records(idx).targetLocalExistenceSpread = diagDetails.targetLocalExistenceSpread;
     records(idx).spatialEntropy = diagDetails.spatialEntropy;
     records(idx).spatialNeff = diagDetails.spatialNeff;
+    records(idx).uniqueLabelCount = labelDetails.uniqueLabelCount;
+    records(idx).fullCoverageLabelCount = labelDetails.fullCoverageLabelCount;
+    records(idx).meanLabelCoverage = labelDetails.meanLabelCoverage;
+    records(idx).maxLabelSpread = labelDetails.maxLabelSpread;
+    records(idx).worstLabel = labelDetails.worstLabel;
+    records(idx).worstLabelCoverage = labelDetails.worstLabelCoverage;
 end
 attribution.records = records;
 end
@@ -964,7 +971,13 @@ record = struct( ...
     'targetBranchL1', NaN, ...
     'targetLocalExistenceSpread', NaN, ...
     'spatialEntropy', NaN, ...
-    'spatialNeff', NaN);
+    'spatialNeff', NaN, ...
+    'uniqueLabelCount', NaN, ...
+    'fullCoverageLabelCount', NaN, ...
+    'meanLabelCoverage', NaN, ...
+    'maxLabelSpread', NaN, ...
+    'worstLabel', [NaN, NaN], ...
+    'worstLabelCoverage', NaN);
 end
 
 function truthCard = resolveTruthCardinality(groundTruthRfs, t)
@@ -1099,6 +1112,88 @@ details = struct( ...
     'spatialNeff', meanFinite(spatialNeff));
 end
 
+function details = summarizeLabelAgreementAtTime(stateEstimatesBySensor, t)
+numSensors = numel(stateEstimatesBySensor);
+allLabels = zeros(0, 2);
+labelsBySensor = cell(1, numSensors);
+positionsBySensor = cell(1, numSensors);
+for s = 1:numSensors
+    labels = stateEstimatesBySensor{s}.labels{t};
+    if isempty(labels)
+        labels = zeros(2, 0);
+    end
+    labelsBySensor{s} = labels;
+    positionsBySensor{s} = extractEstimatePositions(stateEstimatesBySensor{s}, t);
+    if ~isempty(labels)
+        allLabels = [allLabels; labels'];
+    end
+end
+details = struct( ...
+    'uniqueLabelCount', 0, ...
+    'fullCoverageLabelCount', 0, ...
+    'meanLabelCoverage', NaN, ...
+    'maxLabelSpread', NaN, ...
+    'worstLabel', [NaN, NaN], ...
+    'worstLabelCoverage', NaN);
+if isempty(allLabels)
+    return;
+end
+uniqueLabels = unique(allLabels, 'rows');
+numLabels = size(uniqueLabels, 1);
+coverage = zeros(numLabels, 1);
+spreads = zeros(numLabels, 1);
+for labelIdx = 1:numLabels
+    label = uniqueLabels(labelIdx, :)';
+    positions = zeros(2, 0);
+    for s = 1:numSensors
+        labels = labelsBySensor{s};
+        if isempty(labels)
+            continue;
+        end
+        matches = find(labels(1, :) == label(1) & labels(2, :) == label(2));
+        if isempty(matches)
+            continue;
+        end
+        coverage(labelIdx) = coverage(labelIdx) + 1;
+        pos = positionsBySensor{s};
+        if size(pos, 2) >= matches(1)
+            positions(:, end+1) = pos(:, matches(1));
+        end
+    end
+    spreads(labelIdx) = computeMaxPairwisePositionDistance(positions);
+end
+[maxSpread, worstIdx] = max(spreads);
+details.uniqueLabelCount = numLabels;
+details.fullCoverageLabelCount = sum(coverage == numSensors);
+details.meanLabelCoverage = mean(coverage);
+details.maxLabelSpread = maxSpread;
+details.worstLabel = uniqueLabels(worstIdx, :);
+details.worstLabelCoverage = coverage(worstIdx);
+end
+
+function positions = extractEstimatePositions(stateEstimates, t)
+mu = stateEstimates.mu{t};
+if isempty(mu)
+    positions = zeros(2, 0);
+    return;
+end
+positions = cell2mat(cellfun(@(x) x(1:2), mu, 'UniformOutput', false));
+end
+
+function value = computeMaxPairwisePositionDistance(positions)
+if size(positions, 2) <= 1
+    value = 0;
+    return;
+end
+value = 0;
+for i = 1:size(positions, 2)-1
+    for j = i+1:size(positions, 2)
+        delta = positions(:, i) - positions(:, j);
+        value = max(value, sqrt(delta' * delta));
+    end
+end
+end
+
 function tf = hasConsensusAttribution(consensusAttribution)
 tf = false;
 if isempty(consensusAttribution)
@@ -1115,8 +1210,8 @@ end
 
 function writeConsensusAttributionTable(fid, armNames, consensusAttribution)
 fprintf(fid, 'Top rows are the largest per-time Loc disagreement values in each trial/arm. Weight columns summarize the same time step across local filters and targets when adaptive diagnostics are enabled.\n\n');
-fprintf(fid, '| Trial | Arm | Rank | t | Truth card | Loc | OSPA | Card | Local RMSE | Counts | Worst pair | Worst pair Loc | Mean matched dist | Max matched dist | Target Spatial Neff | Target Branch L1 | Target local-r spread |\n');
-fprintf(fid, '|------:|:----|-----:|--:|-----------:|----:|-----:|-----:|-----------:|:-------|:-----------|---------------:|------------------:|-----------------:|--------------------:|-----------------:|----------------------:|\n');
+fprintf(fid, '| Trial | Arm | Rank | t | Truth card | Loc | OSPA | Card | Local RMSE | Counts | Unique labels | Full labels | Mean label cover | Max label spread | Worst label | Worst label cover | Worst pair | Worst pair Loc | Target Spatial Neff | Target Branch L1 | Target local-r spread |\n');
+fprintf(fid, '|------:|:----|-----:|--:|-----------:|----:|-----:|-----:|-----------:|:-------|--------------:|------------:|-----------------:|-----------------:|:------------|------------------:|:-----------|---------------:|--------------------:|-----------------:|----------------------:|\n');
 for trial = 1:size(consensusAttribution, 1)
     for armIdx = 1:size(consensusAttribution, 2)
         attribution = consensusAttribution{trial, armIdx};
@@ -1125,10 +1220,12 @@ for trial = 1:size(consensusAttribution, 1)
         end
         for rowIdx = 1:numel(attribution.records)
             r = attribution.records(rowIdx);
-            fprintf(fid, '| %d | %s | %d | %d | %.0f | %.6f | %.6f | %.6f | %.6f | %s | %s | %.6f | %.6f | %.6f | %.3f | %.4f | %.4f |\n', ...
+            fprintf(fid, '| %d | %s | %d | %d | %.0f | %.6f | %.6f | %.6f | %.6f | %s | %.0f | %.0f | %.3f | %.6f | %s | %.0f | %s | %.6f | %.3f | %.4f | %.4f |\n', ...
                 trial, armNames{armIdx}, r.rank, r.t, r.truthCard, r.loc, r.ospa, ...
-                r.card, r.localRmse, mat2str(r.counts), formatSensorPair(r.worstPair), ...
-                r.worstPairDistance, r.meanMatchedDistance, r.maxMatchedDistance, r.targetSpatialNeff, ...
+                r.card, r.localRmse, mat2str(r.counts), r.uniqueLabelCount, ...
+                r.fullCoverageLabelCount, r.meanLabelCoverage, r.maxLabelSpread, ...
+                formatLabelKey(r.worstLabel), r.worstLabelCoverage, formatSensorPair(r.worstPair), ...
+                r.worstPairDistance, r.targetSpatialNeff, ...
                 r.targetBranchL1, r.targetLocalExistenceSpread);
         end
     end
@@ -1150,6 +1247,14 @@ if numel(pair) < 2 || any(~isfinite(pair))
     text = '[]';
 else
     text = sprintf('%d-%d', pair(1), pair(2));
+end
+end
+
+function text = formatLabelKey(label)
+if numel(label) < 2 || any(~isfinite(label))
+    text = '[]';
+else
+    text = sprintf('[%.0f %.0f]', label(1), label(2));
 end
 end
 

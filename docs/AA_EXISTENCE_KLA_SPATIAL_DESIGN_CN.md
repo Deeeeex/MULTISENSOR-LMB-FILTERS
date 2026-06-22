@@ -16,6 +16,7 @@
 - N10 与 N50 tuned hybrid 对照结果。
 - N50 design ablation 结果。
 - N50 Loc failure-block 上的 existence-gated KLA-spatial 诊断。
+- N50 Loc failure-block 上的 label-level consensus attribution。
 
 排除范围:
 
@@ -36,8 +37,9 @@ L2。该设计会影响研究路线和后续论文叙事，但当前只作为本
 | C3 | Tuned spatial-KLA AA 在 N50 上优于两个 GA mode 的 OSPA、cardinality、local E-OSPA、hOspa、local RMSE 和 local CardErr。 | High | E5, E6 | consensus Loc 仍略弱于 GA Balanced。 |
 | C4 | 当前 `spatialStructureStrength=0.75` 和 `spatialDecouplingStrength=1.0` 相对基础 spatial-KLA hybrid 只带来小幅 OSPA/Loc/Card 改善。 | High | E7, E8 | tuned local E-OSPA/RMSE/CardErr 略差于基础 spatial-KLA。 |
 | C5 | FID-FIA existence refinement 不适合当前 AA-existence + KLA-spatial hybrid；N50 ablation 中它显著破坏 Loc、Card 和 local tracking。 | High | E7, E8 | 该结论限于当前 FID-FIA 参数和 24-step diagnostic scenario。 |
-| C6 | 直接用 target-wise local existence 去 gate KLA spatial branch 会显著收缩 effective graph，但在 seeds 12-16 上没有改善 Loc/OSPA。 | Medium-High | E10, E11 | 只验证了强 gate (`power=1`, `minScore=0`)；仍可能存在更温和或 regime-aware 的 guard。 |
+| C6 | 直接用 target-wise local existence 去 gate KLA spatial branch 会显著收缩 effective graph，但在 seeds 12-16 上没有改善 Loc/OSPA。 | Medium-High | E10, E11 | 该负结果用于排除单因子 guard，不应继续沿同一 block 做搜索式调参。 |
 | C7 | top-time attribution 显示剩余 Loc gap 更像少数 active-target tracking outlier、tail false-track disagreement 和跨 group pair 分歧；简单 threshold=0.20 或 bridge-aware spatial prior 都不能修复。 | Medium-High | E12-E17 | 仍是 N5 failure-block 诊断，不构成 N50 全局因果证明。 |
+| C8 | label-level attribution 把剩余 Loc gap 拆成 label-set split 和 same-label spatial spread 两类问题；这更支持方法级 label/uncertainty-aware fusion，而不是继续在同一数据块上搜索阈值。 | Medium-High | E18, E19 | 仍需把诊断变成不依赖场景阈值的融合准则。 |
 
 ## 定位
 
@@ -192,7 +194,30 @@ adaptiveFusion.captureWeightDiagnostics = true;
 | Tuned spatial-KLA AA (`thr=0.20`) | 5 | 1.711399 | 1.544925 | 0.038750 | 2.0438 | 0.4863 | 3.6005 | 0.091250 |
 | Bridge-aware spatial-KLA AA | 5 | 1.716247 | 1.543912 | 0.033750 | 2.0251 | 0.4863 | 3.5880 | 0.085750 |
 
-因此，当前不应把 Loc gap 归因到“spatial graph 太稀”或“bridge 权重太低”这一类单因子。更合理的下一步是 label/mode-level outlier attribution: 哪个 Bernoulli label 在 active-target 段发散、tail false track 何时没有被各 sensor 一致剪掉，以及这些 outlier 是否能通过局部 mode validation 而非全局权重重调解决。
+因此，当前不应把 Loc gap 归因到“spatial graph 太稀”或“bridge 权重太低”这一类单因子。更合理的下一步不是继续在 seeds 12-16 上搜索一个更好的全局阈值，而是把失败机制上升到 label/mode 层: 哪个 Bernoulli label 在 active-target 段发散、tail false track 何时没有被各 sensor 一致剪掉，以及这些 outlier 是否能通过局部 mode validation 而非全局权重重调解决。
+
+### Label-Level Attribution
+
+新增的 label-level attribution 在 top Loc rows 中记录:
+
+- `Unique labels`: 同一时刻所有 local filters 输出的不同 label 数；
+- `Full labels`: 被全部 local filters 共同输出的 label 数；
+- `Mean label cover`: 每个 label 平均被多少个 local filters 支持；
+- `Max label spread`: 同一 label 在不同 local filters 中的最大空间分歧。
+
+N5 seeds 12-16 的重放复现 Tuned spatial-KLA AA 指标: OSPA `1.702915`、Loc `1.529716`、Card `0.034250`。top rows 显示两种不同失败机制:
+
+- label-set split: seed 16 `t=41` truth card `3`，Loc `15.060304`，`Unique labels=5`、`Full labels=1`、`Mean label cover=4.6`；seed 14 `t=49` truth card `3`，Loc `7.292958`，`Unique labels=5`、`Full labels=1`。这类问题是不同 local neighborhoods 已经形成了不同 label 假设。
+- same-label spatial spread: seed 12 `t=5/6` truth card `1`，`Unique labels=1`、`Full labels=1`，但 `Max label spread` 约 `5.1-5.3`；seed 15 `t=92-97` 和 seed 16 `t=97` 的 tail rows 也有同 label false track 的空间分歧。这类问题不是 label 集合不同，而是同一 label 的局部 posterior 位置仍不一致。
+
+这说明剩余 Loc gap 的核心不是“再找一个更好的 pruning threshold / bridge prior / existence power”。更可泛化的 research point 应该是:
+
+1. label consensus 与 spatial consensus 分开建模；
+2. 对每个 label 估计跨 neighborhood 的 support、spatial dispersion 和 posterior uncertainty；
+3. 用一个从 fusion risk 或 OSPA/KLA surrogate 推导出来的 decision rule 决定保留、合并、延迟或降权，而不是在某个 seeds block 上选择固定阈值；
+4. 让 rule 对目标数、传感器数、通信拓扑和量测尺度做归一化，便于迁移到不同场景。
+
+当前代码只实现 attribution，不实现上述方法级 rule。后续如果继续改算法，应先写出这个 label/uncertainty-aware AA-KLA rule 的形式和不变量，再做实验，而不是把 failure block 当作调参集合。
 
 ## Evidence Ledger
 
@@ -215,6 +240,8 @@ adaptiveFusion.captureWeightDiagnostics = true;
 | E15 | command log | `RUN/AA/AA_TUNED_THR020_N5_SEED11_20260622.log` | threshold=0.20 command log |
 | E16 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_104752.md` | bridge-aware spatial-KLA N5 negative probe |
 | E17 | command log | `RUN/AA/AA_BRIDGE_AWARE_N5_SEED11_20260622.log` | bridge-aware spatial-KLA command log |
+| E18 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_110215.md` | label-level consensus attribution for top Loc failures |
+| E19 | command log | `RUN/AA/AA_LABEL_FAILURE_ATTRIBUTION_N5_SEED11_20260622.log` | label-level attribution command log |
 
 ## Verification Record
 
@@ -236,7 +263,7 @@ Independence status: self-check only. 本文档由当前分支代码、N10/N50 r
 
 - branch-decoupled weights 是 heuristic；
 - spatial branch 的 KLA 是针对 mode intersection 的工程选择；
-- N50 consensus Loc 尚需 effective graph guard 或 regime-aware switching 进一步处理。
+- N50 consensus Loc 尚需 label-consensus / uncertainty-aware fusion rule 进一步处理。
 
 N50 ablation 显示 tuned spatial structure 有小幅 OSPA/Loc/Card 收益，但 local E-OSPA/RMSE/CardErr 略差。当前可以保留 Tuned spatial-KLA AA 作为主配置，同时在论文或报告中把基础 spatial-KLA hybrid 作为紧邻 ablation，对收益幅度保持克制。
 
@@ -258,9 +285,9 @@ N50 ablation 入口固定 `numberOfTrials=50`、`baseSeed=1`、`existenceThresho
 
 - consensus Loc 尚未在 N50 上严格优于 GA Balanced。
 - 当前 branch-decoupled AA 是 heuristic；论文中必须明确命名，不能把它等同于 strict-AA。
-- 已有基础 target-wise effective-weight diagnostics 和 top-time consensus attribution；仍缺 label/mode-level attribution。
-- 强 existence-gated KLA spatial、threshold=0.20 和 bridge-aware spatial prior 都不应作为主配置；若要继续 guard，应转向局部 label/mode validation 或 regime-aware switching。
+- 已有基础 target-wise effective-weight diagnostics、top-time consensus attribution 和 label-level attribution；仍缺真正的方法级 label/uncertainty-aware fusion rule。
+- 强 existence-gated KLA spatial、threshold=0.20 和 bridge-aware spatial prior 都不应作为主配置；后续不应继续在 failure block 上搜索阈值，而应转向可泛化的 label/mode validation 或 uncertainty-aware switching。
 
 ## Recommendation
 
-把当前方法作为 `heuristic AA-existence + KLA-spatial hybrid` 继续推进，而不是继续追求 pure AA 在当前 false-alarm / partial-FOV regime 下直接击败 GA。N50 ablation 已经支持该设计的主机制: spatial-KLA 是核心，FID-FIA existence refinement 应排除，tuned spatial structure 只是小幅 retuning。N5 attribution 和负结果说明“收缩 spatial graph”“提高 pruning 阈值”“提高 bridge prior”都不是充分条件；下一步更应该做 label/mode-level failure attribution 和 regime-aware switching。
+把当前方法作为 `heuristic AA-existence + KLA-spatial hybrid` 继续推进，而不是继续追求 pure AA 在当前 false-alarm / partial-FOV regime 下直接击败 GA。N50 ablation 已经支持该设计的主机制: spatial-KLA 是核心，FID-FIA existence refinement 应排除，tuned spatial structure 只是小幅 retuning。N5 attribution 和负结果说明“收缩 spatial graph”“提高 pruning 阈值”“提高 bridge prior”都不是充分条件；下一步应该提出 label-consensus / uncertainty-aware AA-KLA 融合规则，而不是继续搜索式调参。

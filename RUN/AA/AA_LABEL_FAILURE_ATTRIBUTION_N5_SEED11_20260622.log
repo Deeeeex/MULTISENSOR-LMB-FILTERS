@@ -1,0 +1,36 @@
+AA Loc failure attribution N5 baseSeed=11 started at 2026-06-22 11:02:15
+Repo: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS
+Commit: 5437c570757e676cd4a39c64bd3452e16177a19c
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 52.779 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 52.817 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.141 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 50.499 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 75.227 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.702915, Loc 1.529716, Card 0.034250, Runtime 56.492 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_110215.md
+AA_LOC_FAILURE_ATTRIBUTION_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_110215.md
+    ospa = 1.7029
+    pos = 1.5297
+    card = 0.034250
+    eOspa = 2.0328
+    hOspa = 0.4863
+    rmse = 3.5881
+    cardErr = 0.086250
+AA Loc failure attribution N5 baseSeed=11 finished at 2026-06-22 11:07:37
+error: ignoring const execution_exception& while preparing to exit
