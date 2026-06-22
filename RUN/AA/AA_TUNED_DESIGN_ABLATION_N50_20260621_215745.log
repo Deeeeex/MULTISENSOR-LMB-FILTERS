@@ -1,0 +1,495 @@
+AA tuned design N50 ablation started at 2026-06-21 21:57:45
+Repo: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS
+Commit: d620e533e735291838cb4081fa8746f4caa50590
+AA validation trial 1/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 65.130 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 54.138 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 67.982 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.182 s
+AA validation trial 2/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 64.693 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.870 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 63.028 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 49.151 s
+AA validation trial 3/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 57.284 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 49.221 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 62.860 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.281 s
+AA validation trial 4/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.998 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.221 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 65.566 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 53.244 s
+AA validation trial 5/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 57.977 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 50.496 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 62.859 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.097 s
+AA validation trial 6/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.507 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 47.397 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 61.465 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.483 s
+AA validation trial 7/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.071 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.711 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.430 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 46.864 s
+AA validation trial 8/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.590 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.193 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.833 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.986 s
+AA validation trial 9/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 56.896 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 49.163 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 64.021 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 49.106 s
+AA validation trial 10/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.099 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 47.240 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.469 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.698 s
+AA validation trial 11/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.125 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.899 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 62.556 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.534 s
+AA validation trial 12/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.077 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.572 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 59.308 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 45.583 s
+AA validation trial 13/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 52.900 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 49.590 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 63.628 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.138 s
+AA validation trial 14/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 53.882 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.492 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 59.462 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 46.136 s
+AA validation trial 15/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.497 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 47.856 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 59.829 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.835 s
+AA validation trial 16/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.140 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.999 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 58.507 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.047 s
+AA validation trial 17/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.577 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 47.552 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.177 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 47.341 s
+AA validation trial 18/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.842 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.393 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 57.959 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 45.699 s
+AA validation trial 19/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 52.711 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 45.416 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 58.364 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 45.447 s
+AA validation trial 20/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 54.153 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.975 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.728 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 46.734 s
+AA validation trial 21/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 51.842 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.229 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.471 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 46.153 s
+AA validation trial 22/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 52.463 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 45.794 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 59.483 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 45.482 s
+AA validation trial 23/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 53.013 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 45.726 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 58.828 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 45.983 s
+AA validation trial 24/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 58.997 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 46.222 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 60.300 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 44.648 s
+AA validation trial 25/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 50.909 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 43.720 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 57.616 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 43.708 s
+AA validation trial 26/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 49.887 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 42.933 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 56.505 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 42.986 s
+AA validation trial 27/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 49.496 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 42.768 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 54.891 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 42.652 s
+AA validation trial 28/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 50.189 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 43.500 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 54.923 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 43.809 s
+AA validation trial 29/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 57.440 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 50.126 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 66.086 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 49.021 s
+AA validation trial 30/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 57.864 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 50.608 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 65.144 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.480 s
+AA validation trial 31/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 60.830 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.246 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 93.067 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 78.413 s
+AA validation trial 32/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 84.198 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 55.827 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 67.374 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 53.178 s
+AA validation trial 33/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 61.449 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.483 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 72.205 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 55.393 s
+AA validation trial 34/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 63.764 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 54.786 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 70.311 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 55.746 s
+AA validation trial 35/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 63.925 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.998 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 68.802 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.846 s
+AA validation trial 36/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 58.218 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 49.640 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 64.684 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.823 s
+AA validation trial 37/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 56.579 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.548 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 63.223 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.160 s
+AA validation trial 38/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.801 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.127 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 62.359 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.088 s
+AA validation trial 39/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.828 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.282 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 61.177 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 48.200 s
+AA validation trial 40/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 55.902 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.459 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 61.713 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 49.032 s
+AA validation trial 41/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 58.166 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 56.635 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 67.766 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 52.376 s
+AA validation trial 42/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 61.396 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 52.811 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 71.892 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 54.709 s
+AA validation trial 43/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 59.119 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 48.999 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 70.600 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.188 s
+AA validation trial 44/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 58.431 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 51.938 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 65.962 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 52.129 s
+AA validation trial 45/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 60.786 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.151 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 98.559 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 77.900 s
+AA validation trial 46/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 84.227 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 55.397 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 69.317 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 53.679 s
+AA validation trial 47/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 61.341 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 53.428 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 68.292 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 50.411 s
+AA validation trial 48/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 58.666 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 51.573 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 65.454 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 50.915 s
+AA validation trial 49/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 59.522 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 51.723 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 66.801 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.403 s
+AA validation trial 50/50
+  Arm 1/4: Balanced AA
+    Filter runtime: 59.514 s
+  Arm 2/4: Balanced spatial-KLA AA
+    Filter runtime: 52.020 s
+  Arm 3/4: Cardinality spatial-KLA AA
+    Filter runtime: 68.136 s
+  Arm 4/4: Tuned spatial-KLA AA
+    Filter runtime: 51.482 s
+=====================================
+AA Balanced/Cardinality Validation (N=50)
+Order: Balanced AA -> Balanced spatial-KLA AA -> Cardinality spatial-KLA AA -> Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Balanced AA: OSPA 3.422478, Loc 4.237960, Card 0.116775, Runtime 57.738 s
+Balanced spatial-KLA AA: OSPA 1.686615, Loc 1.476160, Card 0.035375, Runtime 49.302 s
+Cardinality spatial-KLA AA: OSPA 2.329792, Loc 6.549674, Card 0.209250, Runtime 64.439 s
+Tuned spatial-KLA AA: OSPA 1.682607, Loc 1.472837, Card 0.035350, Runtime 49.892 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_215745.md
+AA_TUNED_DESIGN_ABLATION_N50_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_215745.md
+    ospa =
+
+       3.4225   1.6866   2.3298   1.6826
+
+    pos =
+
+       4.2380   1.4762   6.5497   1.4728
+
+    card =
+
+       0.116775   0.035375   0.209250   0.035350
+
+    eOspa =
+
+       3.6414   2.0244   2.4425   2.0296
+
+    hOspa =
+
+       0.4833   0.4856   0.4934   0.4856
+
+    rmse =
+
+       4.3962   3.6786   5.5423   3.6829
+
+    cardErr =
+
+       0.221925   0.087925   0.314250   0.088000
+
+AA tuned design N50 ablation finished at 2026-06-22 01:26:16
+error: ignoring const execution_exception& while preparing to exit

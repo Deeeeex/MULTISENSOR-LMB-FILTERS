@@ -1,0 +1,464 @@
+AA tuned hybrid vs GA N50 validation started at 2026-06-21 15:46:50
+Repo: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS
+Commit: fa19d231f852361e7f569914f57db1a35b77455d
+
+=== GA references: Balanced and FID-FIA final, N=50, lifeSpan=24 ===
+Trial 1/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 77.634 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 164.569 s
+Trial 2/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 56.875 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 123.691 s
+Trial 3/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 55.745 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 121.699 s
+Trial 4/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 55.971 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 133.913 s
+Trial 5/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 61.993 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 106.487 s
+Trial 6/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.919 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 125.393 s
+Trial 7/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.231 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 121.243 s
+Trial 8/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 55.276 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 117.085 s
+Trial 9/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.550 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 116.972 s
+Trial 10/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.074 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 111.388 s
+Trial 11/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.346 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 136.449 s
+Trial 12/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 51.655 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 114.620 s
+Trial 13/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 58.168 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 140.505 s
+Trial 14/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 59.927 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 129.747 s
+Trial 15/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 59.961 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 168.065 s
+Trial 16/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 88.470 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 153.682 s
+Trial 17/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 55.946 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 117.451 s
+Trial 18/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 56.791 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 119.191 s
+Trial 19/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.213 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 116.360 s
+Trial 20/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 55.102 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 122.217 s
+Trial 21/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.010 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 120.474 s
+Trial 22/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.011 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 117.030 s
+Trial 23/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.549 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 116.058 s
+Trial 24/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.423 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 124.374 s
+Trial 25/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.627 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 121.612 s
+Trial 26/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.950 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 112.791 s
+Trial 27/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.104 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 120.622 s
+Trial 28/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.745 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 119.505 s
+Trial 29/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.129 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 130.023 s
+Trial 30/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.624 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 123.393 s
+Trial 31/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.743 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 124.898 s
+Trial 32/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 77.595 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 170.375 s
+Trial 33/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.473 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 132.117 s
+Trial 34/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.267 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 117.017 s
+Trial 35/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.356 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 114.885 s
+Trial 36/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.970 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 123.890 s
+Trial 37/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.885 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 129.149 s
+Trial 38/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.038 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 111.325 s
+Trial 39/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.706 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 111.417 s
+Trial 40/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.472 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 121.653 s
+Trial 41/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.128 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 114.225 s
+Trial 42/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 54.338 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 128.071 s
+Trial 43/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.283 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 117.057 s
+Trial 44/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.468 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 119.493 s
+Trial 45/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 71.726 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 173.827 s
+Trial 46/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 56.300 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 118.951 s
+Trial 47/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 52.400 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 113.372 s
+Trial 48/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.727 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 127.046 s
+Trial 49/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.933 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 121.761 s
+Trial 50/50
+  Arm 1/2: +structure-aware decoupled KLA
+    Filter runtime: 53.127 s
+  Arm 2/2: +FID-FIA existence refinement
+    Filter runtime: 122.300 s
+=====================================
+GA Tiered Link Ablation (N=50)
+Order: +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.204 0.242 0.204 0.184 0.172 0.228 0.166 0.2]
+=====================================
++structure-aware decoupled KLA: OSPA 1.761137, RMSE 1.462915, Card 0.084125, Runtime 56.439 s
++FID-FIA existence refinement: OSPA 1.847668, RMSE 1.958378, Card 0.081275, Runtime 125.589 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md
+GA_N50_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md
+    ospa =
+
+       1.7611   1.8477
+
+    pos =
+
+       1.4629   1.9584
+
+    card =
+
+       0.084125   0.081275
+
+    eOspa =
+
+       2.2133   2.1799
+
+    hOspa =
+
+       0.4869   0.4895
+
+    rmse =
+
+       4.2284   4.6951
+
+    cardErr =
+
+       0.2040   0.1510
+
+
+=== AA tuned hybrid: Tuned spatial-KLA AA, threshold=0.18, N=50 ===
+AA validation trial 1/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.219 s
+AA validation trial 2/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.249 s
+AA validation trial 3/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.575 s
+AA validation trial 4/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.543 s
+AA validation trial 5/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.286 s
+AA validation trial 6/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.324 s
+AA validation trial 7/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.211 s
+AA validation trial 8/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.307 s
+AA validation trial 9/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.729 s
+AA validation trial 10/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 46.894 s
+AA validation trial 11/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.114 s
+AA validation trial 12/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.760 s
+AA validation trial 13/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.898 s
+AA validation trial 14/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.134 s
+AA validation trial 15/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.927 s
+AA validation trial 16/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.816 s
+AA validation trial 17/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.816 s
+AA validation trial 18/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.899 s
+AA validation trial 19/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.447 s
+AA validation trial 20/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.497 s
+AA validation trial 21/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.266 s
+AA validation trial 22/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.274 s
+AA validation trial 23/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.137 s
+AA validation trial 24/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.921 s
+AA validation trial 25/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.399 s
+AA validation trial 26/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.514 s
+AA validation trial 27/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.679 s
+AA validation trial 28/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.138 s
+AA validation trial 29/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.232 s
+AA validation trial 30/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.871 s
+AA validation trial 31/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.348 s
+AA validation trial 32/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.268 s
+AA validation trial 33/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.148 s
+AA validation trial 34/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.979 s
+AA validation trial 35/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.924 s
+AA validation trial 36/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.993 s
+AA validation trial 37/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 67.040 s
+AA validation trial 38/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 69.030 s
+AA validation trial 39/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 66.706 s
+AA validation trial 40/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 53.291 s
+AA validation trial 41/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.596 s
+AA validation trial 42/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.612 s
+AA validation trial 43/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.687 s
+AA validation trial 44/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.529 s
+AA validation trial 45/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.736 s
+AA validation trial 46/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.741 s
+AA validation trial 47/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.099 s
+AA validation trial 48/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.413 s
+AA validation trial 49/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 48.196 s
+AA validation trial 50/50
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 47.818 s
+=====================================
+AA Balanced/Cardinality Validation (N=50)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.682607, Loc 1.472837, Card 0.035350, Runtime 49.325 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_183039.md
+AA_TUNED_HYBRID_N50_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260621_183039.md
+    ospa = 1.6826
+    pos = 1.4728
+    card = 0.035350
+    eOspa = 2.0296
+    hOspa = 0.4856
+    rmse = 3.6829
+    cardErr = 0.088000
+
+AA tuned hybrid vs GA N50 validation finished at 2026-06-21 19:17:54
+error: ignoring const execution_exception& while preparing to exit

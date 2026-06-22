@@ -1,0 +1,137 @@
+AA tuned structure/existence block-screen N5 baseSeed=11 started at 2026-06-21 21:26:50
+
+=== candidate ss090_es008 ss 0.90 es 0.08 ===
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.243 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 50.967 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.069 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 49.693 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.020 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.704543, Loc 1.530367, Card 0.034250, Runtime 50.799 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_212650.md
+AA_BLOCK_N5_REPORT_ss090_es008=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_212650.md
+candidate ss090_es008: OSPA 1.704543 Loc 1.530367 Card 0.034250 E-OSPA 2.036651 hOspa 0.486317 RMSE 3.591340 CardErr 0.086250
+
+=== candidate ss100_es008 ss 1.00 es 0.08 ===
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 50.258 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 49.776 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 49.995 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 53.638 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 56.577 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.706426, Loc 1.530594, Card 0.034750, Runtime 52.048 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_213142.md
+AA_BLOCK_N5_REPORT_ss100_es008=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_213142.md
+candidate ss100_es008: OSPA 1.706426 Loc 1.530594 Card 0.034750 E-OSPA 2.038489 hOspa 0.486190 RMSE 3.592574 CardErr 0.086250
+
+=== candidate ss075_es020 ss 0.75 es 0.20 ===
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 54.628 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 56.677 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 57.233 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 54.440 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.176 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.703314, Loc 1.529682, Card 0.033750, Runtime 54.831 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_213641.md
+AA_BLOCK_N5_REPORT_ss075_es020=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_213641.md
+candidate ss075_es020: OSPA 1.703314 Loc 1.529682 Card 0.033750 E-OSPA 2.032299 hOspa 0.486318 RMSE 3.597963 CardErr 0.085750
+
+=== candidate ss090_es020 ss 0.90 es 0.20 ===
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 53.695 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 52.422 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 56.222 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 52.175 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 53.869 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.704121, Loc 1.530277, Card 0.033750, Runtime 53.677 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_214157.md
+AA_BLOCK_N5_REPORT_ss090_es020=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_214157.md
+candidate ss090_es020: OSPA 1.704121 Loc 1.530277 Card 0.033750 E-OSPA 2.035705 hOspa 0.486317 RMSE 3.601172 CardErr 0.085750
+
+=== candidate ss100_es020 ss 1.00 es 0.20 ===
+AA validation trial 1/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 55.836 s
+AA validation trial 2/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.864 s
+AA validation trial 3/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 51.558 s
+AA validation trial 4/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 50.977 s
+AA validation trial 5/5
+  Arm 1/1: Tuned spatial-KLA AA
+    Filter runtime: 52.961 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Tuned spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.706420, Loc 1.531635, Card 0.034000, Runtime 52.639 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_214706.md
+AA_BLOCK_N5_REPORT_ss100_es020=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260621_214706.md
+candidate ss100_es020: OSPA 1.706420 Loc 1.531635 Card 0.034000 E-OSPA 2.039163 hOspa 0.486315 RMSE 3.603655 CardErr 0.086000
+AA tuned structure/existence block-screen N5 baseSeed=11 finished at 2026-06-21 21:52:08
