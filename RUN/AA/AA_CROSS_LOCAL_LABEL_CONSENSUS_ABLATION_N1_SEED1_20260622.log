@@ -1,0 +1,46 @@
+AA validation trial 1/1
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.772 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.342 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Cross-local label-consensus spatial-KLA AA -> Reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Cross-local label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 64.772 s
+Reference-only label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 61.342 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_143214.md
+AA_CROSS_LOCAL_LABEL_CONSENSUS_ABLATION_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_143214.md
+{
+  [1,1] = Cross-local label-consensus spatial-KLA AA
+  [1,2] = Reference-only label-consensus spatial-KLA AA
+}
+    ospa =
+
+       0   0
+
+    pos =
+
+       0   0
+
+    card =
+
+       0   0
+
+    eOspa =
+
+       1.6343   1.8111
+
+    hOspa =
+
+       0.4800   0.4791
+
+    rmse =
+
+       3.7789   3.9361
+
+    cardErr =
+
+       0.060000   0.060000

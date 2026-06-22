@@ -1,0 +1,66 @@
+AA validation trial 1/5
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.903 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.274 s
+AA validation trial 2/5
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.388 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.796 s
+AA validation trial 3/5
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.218 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 82.433 s
+AA validation trial 4/5
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 92.362 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 89.812 s
+AA validation trial 5/5
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 69.611 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.275 s
+=====================================
+AA Balanced/Cardinality Validation (N=5)
+Order: Cross-local label-consensus spatial-KLA AA -> Reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Cross-local label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 70.696 s
+Reference-only label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 72.318 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_143447.md
+AA_CROSS_LOCAL_LABEL_CONSENSUS_ABLATION_N5_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_143447.md
+{
+  [1,1] = Cross-local label-consensus spatial-KLA AA
+  [1,2] = Reference-only label-consensus spatial-KLA AA
+}
+    ospa =
+
+       0   0
+
+    pos =
+
+       0   0
+
+    card =
+
+       0   0
+
+    eOspa =
+
+       1.6604   1.7976
+
+    hOspa =
+
+       0.4850   0.4848
+
+    rmse =
+
+       3.2902   3.4685
+
+    cardErr =
+
+       0.068000   0.068000

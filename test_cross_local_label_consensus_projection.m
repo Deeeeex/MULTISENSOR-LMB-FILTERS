@@ -26,6 +26,15 @@ projected = applyCrossLocalLabelConsensusProjection(emptyEstimates, model);
 assert(isempty(projected{1}.mu{1}));
 assert(isempty(projected{2}.mu{1}));
 
+fprintf('Test 3: reference-only mode copies the medoid estimate without barycenter averaging\n');
+model.adaptiveFusion = struct('crossLocalConsensusProjectionMode', 'reference-only');
+projected = applyCrossLocalLabelConsensusProjection(stateEstimatesBySensor, model);
+for sensorIdx = 1:numel(projected)
+    assert(numel(projected{sensorIdx}.mu{1}) == 2);
+    assert(abs(projected{sensorIdx}.mu{1}{1}(1) - 0.0) < 1e-12);
+    assert(abs(projected{sensorIdx}.mu{1}{2}(1) - 10.0) < 1e-12);
+end
+
 fprintf('Cross-local label-consensus projection tests passed.\n');
 end
 

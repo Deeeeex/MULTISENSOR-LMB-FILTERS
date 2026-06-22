@@ -316,6 +316,7 @@ cfg = struct( ...
     'labelPruningMaxOutputGap', NaN, ...
     'labelSupportMinEffectiveCount', NaN, ...
     'useCrossLocalLabelConsensusProjection', false, ...
+    'crossLocalConsensusProjectionMode', 'barycenter', ...
     'crossLocalConsensusCutoff', NaN, ...
     'useAaLabelUncertaintyFusion', false, ...
     'useAaLabelSpatialOverlapWeights', true, ...
@@ -331,7 +332,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 16);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 17);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -478,8 +479,15 @@ arms(15).adaptiveFusion = cfg;
 
 cfg = arms(9).adaptiveFusion;
 cfg.useCrossLocalLabelConsensusProjection = true;
+cfg.crossLocalConsensusProjectionMode = 'barycenter';
 arms(16).name = 'Cross-local label-consensus spatial-KLA AA';
 arms(16).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.useCrossLocalLabelConsensusProjection = true;
+cfg.crossLocalConsensusProjectionMode = 'reference-only';
+arms(17).name = 'Reference-only label-consensus spatial-KLA AA';
+arms(17).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -620,6 +628,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- labelPruningMaxOutputGap: %.0f\n', getField(cfg, 'labelPruningMaxOutputGap', NaN));
     fprintf(fid, '- labelSupportMinEffectiveCount: %.3f\n', getField(cfg, 'labelSupportMinEffectiveCount', NaN));
     fprintf(fid, '- useCrossLocalLabelConsensusProjection: %d\n', getField(cfg, 'useCrossLocalLabelConsensusProjection', false));
+    fprintf(fid, '- crossLocalConsensusProjectionMode: %s\n', char(getField(cfg, 'crossLocalConsensusProjectionMode', 'barycenter')));
     fprintf(fid, '- crossLocalConsensusCutoff: %.3f\n', getField(cfg, 'crossLocalConsensusCutoff', NaN));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
     fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));

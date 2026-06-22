@@ -14,6 +14,7 @@ numberOfSensors = numel(stateEstimatesBySensor);
 simulationLength = numel(stateEstimatesBySensor{1}.mu);
 stateDimension = resolveStateDimension(stateEstimatesBySensor);
 cutoff = resolveConsensusCutoff(model);
+projectionMode = resolveProjectionMode(model);
 
 for currentTime = 1:simulationLength
     referenceIdx = selectReferenceSensor(stateEstimatesBySensor, currentTime, cutoff);
@@ -34,6 +35,10 @@ for currentTime = 1:simulationLength
         consensusLabels = zeros(2, 0);
         consensusMu = {};
         consensusSigma = {};
+    elseif strcmp(projectionMode, 'reference-only')
+        consensusLabels = referenceLabels(:, 1:referenceCount);
+        consensusMu = referenceMu(1:referenceCount);
+        consensusSigma = referenceSigma(1:referenceCount);
     else
         [consensusMu, consensusSigma] = buildConsensusStates( ...
             stateEstimatesBySensor, currentTime, referenceMu, referenceSigma, ...
@@ -171,6 +176,23 @@ for leftIdx = 1:size(leftPositions, 2)
     for rightIdx = 1:size(rightPositions, 2)
         delta = leftPositions(:, leftIdx) - rightPositions(:, rightIdx);
         distances(leftIdx, rightIdx) = sqrt(delta' * delta);
+    end
+end
+end
+
+function mode = resolveProjectionMode(model)
+mode = 'barycenter';
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
+        isfield(model.adaptiveFusion, 'crossLocalConsensusProjectionMode')
+    candidate = model.adaptiveFusion.crossLocalConsensusProjectionMode;
+    if isstring(candidate)
+        candidate = char(candidate);
+    end
+    if ischar(candidate)
+        candidate = lower(strtrim(candidate));
+        if any(strcmp(candidate, {'barycenter', 'reference-only'}))
+            mode = candidate;
+        end
     end
 end
 end
