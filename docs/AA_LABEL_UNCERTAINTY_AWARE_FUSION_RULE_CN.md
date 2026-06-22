@@ -45,6 +45,7 @@ L2。该文档会影响后续算法实现和 paper-facing 方法叙事，但当�
 | C10 | mature-label lifecycle 修复了 naive lifecycle 的 runtime/cardinality 膨胀，但 N1 仍未通过: Loc/E-OSPA/RMSE 微小改善，OSPA/Card/CardErr 变差。 | Medium-High | E22, E23, E24 | 这说明仅用 trajectory age 作为 label survival 证据仍太弱。 |
 | C11 | output-history lifecycle 在 N1 和 N5 上近似无副作用，OSPA/Loc/E-OSPA/RMSE 有极小 paired 改善且 Card/CardErr 持平，但量级太小，不足以上 N50。 | Medium-High | E22, E23, E25-E27 | 可作为低风险 primitive 保留；不能作为达成目标的主方法。 |
 | C12 | support-consensus lifecycle 把当前邻域的 label support effective count 接入 survival gate，但 N1 直接变差；当前支持信号不足以单独修复 Loc gap。 | Medium-High | E28-E30 | 这否定的是单一 Neff>=2 survival gate，不否定更完整的跨邻域 label-consensus objective。 |
+| C13 | estimate-level cross-local label-consensus projection 在 N1/N5 sanity gate 上稳定改善 local tracking metrics，并把 network disagreement 归零；这支持“跨 local filters 的 label canonicalization + barycenter projection”是比继续搜索阈值更有前景的方法方向。 | Medium | E31-E35 | 当前实现是输出级 projection，不是递归分布式滤波；consensus OSPA=0 是构造结果，必须主要看 local E-OSPA/RMSE/CardErr 和后续 N50。 |
 
 ## 方法设计
 
@@ -176,6 +177,26 @@ N1 gate 暴露出一个重要修正: `Q = M * agreement` 的 support tempering �
 - output-history lifecycle: 低置信 label 只有在最近一次 MAP 输出中过时不超过 `labelPruningMaxOutputGap=1` 时才递推。它在 N1/N5 上基本无副作用，但收益只有 `1e-4` 量级，不足以解释或修复 N50 Loc gap。
 - support-consensus lifecycle: AA merge 后记录 `labelSupportMass` 和 `labelSupportEffectiveCount`，低置信 mature label 只有当前邻域 effective support count 至少为 2 时才递推。它比 output-history 更接近当前邻域共识，但 N1 上 OSPA/Loc/E-OSPA/RMSE 均略差，因此不进入 N5。
 
+### 6. Cross-local label canonicalization and barycenter projection
+
+前面几个失败臂都只在单个 local filter 内修复 label survival 或 same-label spatial uncertainty。N5 attribution 暗示剩余 Loc gap 是跨 local filters 的 label-set split 和 same-label spatial spread 共同造成的，因此新的方法假设不再继续搜索 `existenceThreshold`、support count 或 bridge prior，而是在 local filters 输出之后显式求一个全局一致的 label canonicalization:
+
+```text
+{X_s(t)}_{s=1..S} -> reference label set L_ref(t)
+                  -> matched posterior groups G_ell(t)
+                  -> barycenter states (mu_ell, Sigma_ell)
+                  -> every local output uses the same (L_ref, barycenter states)
+```
+
+当前原型只做 estimate-level projection:
+
+1. 对每个 time step，先选 cardinality 最接近全体中位数、且到其他 local output 的平均 set distance 最小的 medoid sensor 作为 reference。
+2. 用 Hungarian assignment 把每个 local output 的 state estimate 匹配到 reference label set。
+3. 对每个 reference label 的 matched states 做 moment matching，得到 barycenter state 和 covariance。
+4. 把同一组 reference labels 和 barycenter states 写回每个 sensor 的 output estimate。
+
+这个设计的优点是方法层面上不依赖当前场景的手调阈值；它把问题从“哪个固定 existence 或 support threshold 能过这个数据集”改成“如何定义跨 local filters 的标签规范化和后验重心”。它也暴露出下一步必须处理的边界: 当前实现是 centralized/output-level pass，不能直接声明为递归 distributed AA；而 network disagreement 指标被写回一致输出后会按构造变成 0，因此是否有研究价值要看 local E-OSPA、RMSE、CardErr 是否同步改善，以及能否发展成在线邻域传播或 ADMM/consensus-barycenter 形式。
+
 ## 实现计划
 
 当前已把 label-uncertainty fusion 拆成独立方法开关，而不是把多个机制耦合成一个场景调参臂:
@@ -214,6 +235,9 @@ cfg.labelPruningThreshold = 0.01;
 cfg.labelPruningMinTrajectoryLength = 1;
 cfg.labelPruningProtectionMode = 'support-consensus';
 cfg.labelSupportMinEffectiveCount = 2.0;
+
+arms(...).name = 'Cross-local label-consensus spatial-KLA AA';
+cfg.useCrossLocalLabelConsensusProjection = true;
 ```
 
 代码位置:
@@ -223,7 +247,9 @@ cfg.labelSupportMinEffectiveCount = 2.0;
 - `runParallelUpdateLmbFilter.m`: MAP 输出只看超过 output threshold 的 Bernoulli；递推对象按 pruning threshold 保留，并把 MAP 输出 label 的 `lastOutputTime` 写回递推对象。
 - `common/generateMultisensorModel.m` / `common/generateModel.m`: 为 Bernoulli object 增加 `lastOutputTime` 字段，避免 birth 和 surviving objects 拼接时结构不一致。
 - `computeAdaptiveFusionWeights.m`: 不需要先改；该规则使用已有 branch weights 作为 base。
-- `runAaBalancedCardinalityValidation.m`: arm 12 明确命名为 `Uncertainty-inflated spatial-KLA AA`；arm 13/14 明确命名为 lifecycle variants；report 记录上述开关，便于 N1/N5 gate 复现。
+- `runDistributedLmbFilter.m`: 在所有 local filters 完成后，可选调用 cross-local label-consensus projection；默认关闭，避免改变旧实验。
+- `applyCrossLocalLabelConsensusProjection.m`: 实现 output-level reference label selection、Hungarian matching 和 moment-matched barycenter projection。
+- `runAaBalancedCardinalityValidation.m`: arm 12 明确命名为 `Uncertainty-inflated spatial-KLA AA`；arm 13/14/15 明确命名为 lifecycle variants；arm 16 为 `Cross-local label-consensus spatial-KLA AA`；report 记录上述开关，便于 N1/N5 gate 复现。
 
 最小 regression:
 
@@ -235,13 +261,14 @@ cfg.labelSupportMinEffectiveCount = 2.0;
 6. lifecycle 默认保持旧单阈值行为，打开 `labelPruningThreshold` 后低于输出阈值但高于剪枝阈值的 label 只递推不输出。已通过 E19。
 7. output-history lifecycle 只保护最近输出过的低置信 label；过期或从未输出的低置信 label 不递推。已通过 E23。
 8. AA merge 写出 label support diagnostics；support-consensus lifecycle 只保护 mature 且当前邻域 support effective count 达标的低置信 label。已通过 E29。
+9. cross-local label-consensus projection 在 N1/N5 上同时改善 local tracking metrics，且没有新增场景搜索阈值。已通过 E31-E35。
 
 实验 gate:
 
 1. N1 paired sanity: 与 Tuned spatial-KLA AA 和 GA Balanced/GA final 比较，不接受只改善一个 seed 上单个指标而显著破坏 local metrics 的 arm。当前 full rule 未通过该 gate。
 2. N5 failure-block falsification: 只用作 falsification，不在这里调参。若 label-set split 和 same-label spread rows 同时改善，才进入 N50。
 3. N50 paired validation: 目标仍是 OSPA、Loc、Card、E-OSPA、hOspa、RMSE、CardErr 均优于两个 GA modes。
-4. N50 ablation: 只有在某个方法假设通过 N1 和 N5 falsification 后才运行；当前 full、overlap-only、inflation-only、naive lifecycle、mature lifecycle、support-consensus lifecycle 都不满足进入条件；output-history lifecycle 虽然 N5 near-neutral，但效果太小，不满足上 N50 的门槛。
+4. N50 ablation: 只有在某个方法假设通过 N1 和 N5 falsification 后才运行；当前 full、overlap-only、inflation-only、naive lifecycle、mature lifecycle、support-consensus lifecycle 都不满足进入条件；output-history lifecycle 虽然 N5 near-neutral，但效果太小，不满足上 N50 的门槛；cross-local projection 通过 N1/N5 sanity 后可以进入 N50 paired validation，但 ablation 要等 N50 确认后再做。
 
 ## Evidence Ledger
 
@@ -277,6 +304,11 @@ cfg.labelSupportMinEffectiveCount = 2.0;
 | E28 | code | `multisensorLmb/aaLmbTrackMerging.m`, `multisensorLmb/applyLmbLabelLifecycleThresholds.m`, `common/generateMultisensorModel.m`, `common/generateModel.m`, `RUN/AA/runAaBalancedCardinalityValidation.m` | C12, label support diagnostics and support-consensus lifecycle gate implementation | strong |
 | E29 | command | `octave --quiet --eval "test_aa_lmb_track_merging"` output: tests 1-12 passed; `octave --quiet --eval "test_lmb_label_lifecycle_thresholds"` output: tests 1-6 passed | C12, support diagnostics and support-consensus synthetic regressions | strong |
 | E30 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_120408.md` and `RUN/AA/AA_SUPPORT_CONSENSUS_LIFECYCLE_N1_SEED1_20260622.log` | C12, support-consensus lifecycle N1 negative gate | strong |
+| E31 | code | `multisensorLmb/applyCrossLocalLabelConsensusProjection.m` and `multisensorLmb/runDistributedLmbFilter.m` | C13, output-level cross-local label canonicalization and barycenter projection implementation | strong |
+| E32 | code | `RUN/AA/runAaBalancedCardinalityValidation.m` | C13, experimental arm and report config fields for `useCrossLocalLabelConsensusProjection` | strong |
+| E33 | command | `octave --quiet --eval "test_cross_local_label_consensus_projection"` output: tests 1-2 passed | C13, projection regression | strong |
+| E34 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_121119.md` and `RUN/AA/AA_CROSS_LOCAL_LABEL_CONSENSUS_N1_SEED1_20260622.log` | C13, N1 projection sanity gate | medium |
+| E35 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_121330.md` and `RUN/AA/AA_CROSS_LOCAL_LABEL_CONSENSUS_N5_SEED11_20260622.log` | C13, N5 projection sanity gate | medium-high |
 
 ## Verification Record
 
@@ -295,11 +327,16 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 - output-history lifecycle N1 no-regression: OSPA/Loc/Card 为 `1.682562/1.474512/0.018750`，local E-OSPA/RMSE/CardErr 为 `2.028839/4.144903/0.066250`。
 - output-history lifecycle N5 near-neutral: Tuned OSPA/Loc/Card 为 `1.702915/1.529716/0.034250`；output-history 为 `1.702857/1.529653/0.034250`，local E-OSPA/RMSE/CardErr 为 `2.032737/3.588080/0.086250`，paired OSPA/Loc reductions 仅 `0.000058/0.000063`。
 - support-consensus lifecycle N1 gate 失败: Tuned baseline OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`；support-consensus 为 `1.682904/1.475046/0.018750`，local E-OSPA/RMSE/CardErr 为 `2.029092/4.145636/0.066250`。
+- cross-local label-consensus projection regression 通过，覆盖 median-cardinality reference label set 和 all-empty estimates。
+- cross-local label-consensus projection N1 gate 通过: Tuned baseline consensus OSPA/Loc/Card 为 `1.682637/1.474567/0.018750`，projection 为 `0/0/0`；local E-OSPA/RMSE/CardErr 从 `2.0289/4.1450/0.066250` 改善到 `1.6343/3.7789/0.060000`。
+- cross-local label-consensus projection N5 gate 通过: Tuned baseline consensus OSPA/Loc/Card 为 `1.702915/1.529716/0.034250`，projection 为 `0/0/0`；local E-OSPA/RMSE/CardErr 从 `2.032799/3.588145/0.086250` 改善到 `1.660378/3.290166/0.068000`，paired local wins 均为 `5/5`。
 
 待检查:
 
 - label-set split 的修复需要一个跨邻域 label-consensus objective；output-history lifecycle 只能作为低风险 survival primitive，收益太小；单一当前邻域 support-effective-count gate 也不足。
 - 是否需要对 uncertainty consistency 另设 NEES/NIS 类指标；当前 OSPA/eOSPA/RMSE gate 不支持 covariance inflation 作为主线性能改进。
+- cross-local projection 的 N50 paired validation；当前 N1/N5 只说明这个方法方向值得放大验证，不是 paper-facing 结论。
+- 如何把 centralized/output-level projection 转成 online/distributed 机制，避免只在评估后处理层面“修平”local disagreement。
 
 ## Risk and Escalation
 
@@ -312,11 +349,14 @@ Independence status: self-check only. 本文档尚未经过独立 verifier；当
 - naive lifecycle decoupling 会保留过多低置信 label，造成 cardinality clutter 和 runtime 上升。
 - output-history lifecycle 低风险但收益太小；不能把 near-neutral N5 外推成 N50 success。
 - support-consensus lifecycle 的 Neff>=2 结构约束仍会略微恶化 Loc/RMSE；不能把“有当前邻域支持”简化成充分 survival 条件。
+- cross-local label-consensus projection 把所有 local outputs 改成同一组 labels/states，所以 consensus OSPA=0 是构造结果；不能单独把它当成方法成功证据。
+- 当前 projection 需要读取所有 local outputs，尚不是通信受限图上的递归 AA 更新；论文表述必须把它定位成 upper-bound prototype 或下一步在线 consensus 设计的 empirical motivation。
 
 升级条件:
 
 - 若进入 paper-facing claim，需要 N50 paired validation、N50 ablation 和独立 verifier。
 - 当前 full rule 已在 N1 gate 失败，不应进入 N5/N50；应回到 rule 设计而不是调参。
+- cross-local projection 只有在 N50 local metrics 与 GA reference 对比仍成立时，才值得推进到在线 distributed 机制设计。
 
 ## Reproducibility
 
@@ -331,6 +371,9 @@ octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'sav
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 14]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(5,11,true,aaControls,struct(),true,[9 14]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 15]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "test_cross_local_label_consensus_projection"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9 16]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(5,11,true,aaControls,struct(),true,[9 16]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); overrides=struct('useAaLabelUncertaintyFusion',true,'useAaLabelUncertaintyInflation',false,'useAaLabelExistenceTempering',false); [reportPath, summary]=runAaBalancedCardinalityValidation(1,1,true,aaControls,struct(),true,[9],overrides); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md
 ```
@@ -349,7 +392,10 @@ octave --quiet RUN/AA/runAaLabelUncertaintyDiagnosticN5.m
 - `BC_sj` 对高维 covariance determinant 的数值稳定性需要 regularization。
 - 对 label-set split 的根因可能在 distributed pruning / birth management，但 output-history 只带来 `1e-4` 量级收益，support-consensus N1 变差；真正的下一步应建模跨 local filters 的 label survival/merging，而不是继续只在单个 local filter 内加 survival gate。
 - N50 consensus Loc 仍未被证明可通过该规则改善。
+- cross-local label-consensus projection 的 N50 与 GA reference 对比尚未完成；N1/N5 已足够说明它不是单 seed 偶然，但还不够支撑最终 claim。
 
 ## Recommendation
 
-当前 `Uncertainty-inflated spatial-KLA AA`、`Mature-label lifecycle spatial-KLA AA`、`Output-history lifecycle spatial-KLA AA` 和 `Support-consensus lifecycle spatial-KLA AA` experimental arms 已实现。full rule、spatial-overlap only、covariance-inflation only、naive lifecycle、mature lifecycle 和 support-consensus lifecycle 都未通过 N1 gate；output-history lifecycle 通过了 no-regression N1/N5，但收益太小，不进入 N50。下一步应停止在单个 local filter 内继续修 lifecycle，转向跨 local filters 的 label-consensus objective，让 label survival 同时考虑时序证据、邻域支持、label merging 和 cardinality budget。
+当前 `Uncertainty-inflated spatial-KLA AA`、`Mature-label lifecycle spatial-KLA AA`、`Output-history lifecycle spatial-KLA AA`、`Support-consensus lifecycle spatial-KLA AA` 和 `Cross-local label-consensus spatial-KLA AA` experimental arms 已实现。full rule、spatial-overlap only、covariance-inflation only、naive lifecycle、mature lifecycle 和 support-consensus lifecycle 都未通过 N1 gate；output-history lifecycle 通过了 no-regression N1/N5，但收益太小，不进入 N50。
+
+新的 cross-local label-consensus projection 通过了 N1/N5 sanity gate，且不是沿固定阈值搜索得到的参数臂。下一步应把它作为方法方向放大验证: 先跑 N50 paired validation，与现有 GA reference 对比 local metrics；若仍成立，再把 centralized/output-level projection 改造成在线邻域共识或 label-barycenter AA 机制，而不是把后处理投影直接包装成最终分布式滤波算法。

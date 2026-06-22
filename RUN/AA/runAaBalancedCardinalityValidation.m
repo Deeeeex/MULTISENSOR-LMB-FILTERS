@@ -315,6 +315,8 @@ cfg = struct( ...
     'labelPruningProtectionMode', 'trajectory-age', ...
     'labelPruningMaxOutputGap', NaN, ...
     'labelSupportMinEffectiveCount', NaN, ...
+    'useCrossLocalLabelConsensusProjection', false, ...
+    'crossLocalConsensusCutoff', NaN, ...
     'useAaLabelUncertaintyFusion', false, ...
     'useAaLabelSpatialOverlapWeights', true, ...
     'useAaLabelUncertaintyInflation', true, ...
@@ -329,7 +331,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 15);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 16);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -473,6 +475,11 @@ cfg.labelPruningProtectionMode = 'support-consensus';
 cfg.labelSupportMinEffectiveCount = 2.0;
 arms(15).name = 'Support-consensus lifecycle spatial-KLA AA';
 arms(15).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.useCrossLocalLabelConsensusProjection = true;
+arms(16).name = 'Cross-local label-consensus spatial-KLA AA';
+arms(16).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -612,6 +619,8 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- labelPruningProtectionMode: %s\n', char(getField(cfg, 'labelPruningProtectionMode', 'trajectory-age')));
     fprintf(fid, '- labelPruningMaxOutputGap: %.0f\n', getField(cfg, 'labelPruningMaxOutputGap', NaN));
     fprintf(fid, '- labelSupportMinEffectiveCount: %.3f\n', getField(cfg, 'labelSupportMinEffectiveCount', NaN));
+    fprintf(fid, '- useCrossLocalLabelConsensusProjection: %d\n', getField(cfg, 'useCrossLocalLabelConsensusProjection', false));
+    fprintf(fid, '- crossLocalConsensusCutoff: %.3f\n', getField(cfg, 'crossLocalConsensusCutoff', NaN));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
     fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));
     fprintf(fid, '- useAaLabelUncertaintyInflation: %d\n', getField(cfg, 'useAaLabelUncertaintyInflation', true));

@@ -116,6 +116,20 @@ for s = 1:numberOfSensors
     % 融合后轨迹估计，而不是邻域内每个传感器各自的估计。
     stateEstimatesBySensor{s} = runParallelUpdateLmbFilter(localModels{s}, localMeasurements, localCommStats, localSensorTraj);
 end
+
+if useCrossLocalLabelConsensusProjection(model)
+    stateEstimatesBySensor = applyCrossLocalLabelConsensusProjection( ...
+        stateEstimatesBySensor, model);
+end
+end
+
+function tf = useCrossLocalLabelConsensusProjection(model)
+tf = false;
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    tf = getStructField(model.adaptiveFusion, ...
+        'useCrossLocalLabelConsensusProjection', false);
+end
+tf = logical(tf);
 end
 
 function [spatialPrior, existencePrior] = computeLocalStructurePriors(neighborMap, sourceSensorIdx, sensorIdx, adaptiveCfg)
