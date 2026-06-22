@@ -423,4 +423,6 @@ octave --quiet RUN/AA/runAaLabelUncertaintyDiagnosticN5.m
 
 N50 reference-only ablation 进一步说明 matched posterior barycenter 是必要组件: 只复制 medoid reference output 虽然同样让 consensus 指标归零，但 local E-OSPA/RMSE 明显弱于 full barycenter projection。
 
+`docs/AA_LABEL_BARYCENTER_THEORY_CN.md` 已把该方向拆成可证明的 output-level projection 性质、matched moment barycenter 性质、以及 online/distributed 版本需要满足的稳定 matching 和 moment-consensus 条件。该文档应作为后续实现在线版本前的理论边界检查。
+
 下一步应把它作为方法方向推进，而不是继续调阈值: 设计在线邻域共识或 label-barycenter AA 机制，并做 method-level ablation，区分收益来自 reference label canonicalization、state barycenter averaging、以及二者耦合后的递归反馈。不能把当前 centralized/output-level projection 直接包装成最终分布式滤波算法。
