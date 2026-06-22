@@ -1,0 +1,291 @@
+AA validation trial 1/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 65.637 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.032 s
+AA validation trial 2/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.974 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.825 s
+AA validation trial 3/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.590 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.178 s
+AA validation trial 4/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.728 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.734 s
+AA validation trial 5/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.300 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.739 s
+AA validation trial 6/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.422 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.257 s
+AA validation trial 7/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 61.405 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.243 s
+AA validation trial 8/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.603 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.941 s
+AA validation trial 9/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.855 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.067 s
+AA validation trial 10/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 61.060 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.037 s
+AA validation trial 11/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.505 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.757 s
+AA validation trial 12/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.801 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.806 s
+AA validation trial 13/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.622 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.552 s
+AA validation trial 14/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.311 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.188 s
+AA validation trial 15/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.932 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.758 s
+AA validation trial 16/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.776 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.524 s
+AA validation trial 17/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.166 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.690 s
+AA validation trial 18/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.267 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.508 s
+AA validation trial 19/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.636 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.668 s
+AA validation trial 20/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.604 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.463 s
+AA validation trial 21/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.404 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.077 s
+AA validation trial 22/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 62.389 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.734 s
+AA validation trial 23/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.065 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.481 s
+AA validation trial 24/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 68.335 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 91.112 s
+AA validation trial 25/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 94.706 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 84.260 s
+AA validation trial 26/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.288 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.858 s
+AA validation trial 27/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 100.826 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 79.904 s
+AA validation trial 28/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 80.596 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 80.341 s
+AA validation trial 29/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 78.548 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 77.952 s
+AA validation trial 30/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 79.560 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 80.313 s
+AA validation trial 31/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 80.903 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 79.424 s
+AA validation trial 32/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 81.380 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 79.709 s
+AA validation trial 33/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 80.857 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 79.853 s
+AA validation trial 34/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 68.061 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.389 s
+AA validation trial 35/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.388 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 76.413 s
+AA validation trial 36/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 106.223 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 95.540 s
+AA validation trial 37/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 83.065 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 67.615 s
+AA validation trial 38/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 87.422 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 81.998 s
+AA validation trial 39/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 80.831 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 80.565 s
+AA validation trial 40/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 82.450 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 92.324 s
+AA validation trial 41/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 155.903 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 146.566 s
+AA validation trial 42/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 85.999 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 83.285 s
+AA validation trial 43/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 82.002 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 72.488 s
+AA validation trial 44/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 63.362 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.149 s
+AA validation trial 45/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.068 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.748 s
+AA validation trial 46/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 65.734 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 66.381 s
+AA validation trial 47/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.973 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.687 s
+AA validation trial 48/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.321 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.362 s
+AA validation trial 49/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 65.295 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.453 s
+AA validation trial 50/50
+  Arm 1/2: Cross-local label-consensus spatial-KLA AA
+    Filter runtime: 64.154 s
+  Arm 2/2: Reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.988 s
+=====================================
+AA Balanced/Cardinality Validation (N=50)
+Order: Cross-local label-consensus spatial-KLA AA -> Reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Cross-local label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 72.206 s
+Reference-only label-consensus spatial-KLA AA: OSPA 0.000000, Loc 0.000000, Card 0.000000, Runtime 70.859 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_145052.md
+AA_CROSS_LOCAL_LABEL_CONSENSUS_ABLATION_N50_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_145052.md
+{
+  [1,1] = Cross-local label-consensus spatial-KLA AA
+  [1,2] = Reference-only label-consensus spatial-KLA AA
+}
+    ospa =
+
+       0   0
+
+    pos =
+
+       0   0
+
+    card =
+
+       0   0
+
+    eOspa =
+
+       1.6455   1.7812
+
+    hOspa =
+
+       0.4834   0.4831
+
+    rmse =
+
+       3.3440   3.4637
+
+    cardErr =
+
+       0.071200   0.071200
