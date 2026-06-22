@@ -314,6 +314,7 @@ cfg = struct( ...
     'labelPruningMinTrajectoryLength', NaN, ...
     'labelPruningProtectionMode', 'trajectory-age', ...
     'labelPruningMaxOutputGap', NaN, ...
+    'labelSupportMinEffectiveCount', NaN, ...
     'useAaLabelUncertaintyFusion', false, ...
     'useAaLabelSpatialOverlapWeights', true, ...
     'useAaLabelUncertaintyInflation', true, ...
@@ -328,7 +329,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 14);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 15);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -464,6 +465,14 @@ cfg.labelPruningProtectionMode = 'last-output';
 cfg.labelPruningMaxOutputGap = 1;
 arms(14).name = 'Output-history lifecycle spatial-KLA AA';
 arms(14).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.labelPruningThreshold = 0.01;
+cfg.labelPruningMinTrajectoryLength = 1;
+cfg.labelPruningProtectionMode = 'support-consensus';
+cfg.labelSupportMinEffectiveCount = 2.0;
+arms(15).name = 'Support-consensus lifecycle spatial-KLA AA';
+arms(15).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -602,6 +611,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- labelPruningMinTrajectoryLength: %.0f\n', getField(cfg, 'labelPruningMinTrajectoryLength', NaN));
     fprintf(fid, '- labelPruningProtectionMode: %s\n', char(getField(cfg, 'labelPruningProtectionMode', 'trajectory-age')));
     fprintf(fid, '- labelPruningMaxOutputGap: %.0f\n', getField(cfg, 'labelPruningMaxOutputGap', NaN));
+    fprintf(fid, '- labelSupportMinEffectiveCount: %.3f\n', getField(cfg, 'labelSupportMinEffectiveCount', NaN));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
     fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));
     fprintf(fid, '- useAaLabelUncertaintyInflation: %d\n', getField(cfg, 'useAaLabelUncertaintyInflation', true));

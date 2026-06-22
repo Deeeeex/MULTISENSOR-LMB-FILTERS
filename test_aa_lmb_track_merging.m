@@ -105,6 +105,15 @@ assert(abs(objects(1).r - mean([0.80, 0.00, 0.00])) < 1e-12);
 assert(abs(objects(1).mu{1}(1)) < 1e-9);
 assert(abs(objects(1).Sigma{1}(1, 1) - 1) < 1e-8);
 
+fprintf('Test 12: AA records label support diagnostics for lifecycle gates\n');
+model = buildModel([1/3, 1/3, 1/3], [1/3, 1/3, 1/3], 2);
+objects = aaLmbTrackMerging(buildObjectSet( ...
+    [0.90, 0.90, 0.00], {[0; 0; 0; 0], [0; 0; 0; 0], [0; 0; 0; 0]}), model);
+assert(isfield(objects, 'labelSupportMass'));
+assert(isfield(objects, 'labelSupportEffectiveCount'));
+assert(abs(objects(1).labelSupportMass - 0.60) < 1e-12);
+assert(abs(objects(1).labelSupportEffectiveCount - 2) < 1e-12);
+
 fprintf('AA-LMB track-merging tests passed.\n');
 end
 

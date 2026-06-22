@@ -13,6 +13,7 @@ thresholds.pruningMinTrajectoryLength = resolvePruningMinTrajectoryLength( ...
     model, thresholds.pruning < thresholds.output);
 thresholds.protectionMode = resolvePruningProtectionMode(model);
 thresholds.maxOutputGap = resolvePruningMaxOutputGap(model);
+thresholds.supportMinEffectiveCount = resolveSupportMinEffectiveCount(model);
 
 if nargin < 3 || isempty(currentTime)
     currentTime = NaN;
@@ -30,6 +31,10 @@ outputMask = valid & [objects.r] > thresholds.output;
 if strcmpi(thresholds.protectionMode, 'last-output')
     protectedMask = computeLastOutputProtectionMask( ...
         objects, currentTime, thresholds.maxOutputGap);
+elseif strcmpi(thresholds.protectionMode, 'support-consensus')
+    protectedMask = computeSupportConsensusProtectionMask( ...
+        objects, thresholds.pruningMinTrajectoryLength, ...
+        thresholds.supportMinEffectiveCount);
 else
     protectedMask = ...
         [objects.trajectoryLength] >= thresholds.pruningMinTrajectoryLength;
@@ -88,13 +93,16 @@ if ~(ischar(mode) || isstring(mode))
 end
 mode = lower(strtrim(char(mode)));
 if ~any(strcmp(mode, {'trajectory-age', 'trajectory_age', 'age', ...
-        'last-output', 'last_output', 'output-history', 'output_history'}))
+        'last-output', 'last_output', 'output-history', 'output_history', ...
+        'support-consensus', 'support_consensus', 'label-support', 'label_support'}))
     mode = 'trajectory-age';
 end
 if any(strcmp(mode, {'trajectory_age', 'age'}))
     mode = 'trajectory-age';
 elseif any(strcmp(mode, {'last_output', 'output-history', 'output_history'}))
     mode = 'last-output';
+elseif any(strcmp(mode, {'support_consensus', 'label-support', 'label_support'}))
+    mode = 'support-consensus';
 end
 end
 
@@ -107,6 +115,18 @@ if isempty(maxGap) || ~isnumeric(maxGap) || ~isfinite(maxGap)
     maxGap = 1;
 end
 maxGap = max(0, round(maxGap));
+end
+
+function minCount = resolveSupportMinEffectiveCount(model)
+minCount = getField(model, 'labelSupportMinEffectiveCount', 2);
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion)
+    minCount = getField(model.adaptiveFusion, ...
+        'labelSupportMinEffectiveCount', minCount);
+end
+if isempty(minCount) || ~isnumeric(minCount) || ~isfinite(minCount)
+    minCount = 2;
+end
+minCount = max(1, minCount);
 end
 
 function mask = computeLastOutputProtectionMask(objects, currentTime, maxGap)
@@ -122,6 +142,23 @@ for idx = 1:numel(objects)
     end
     mask(idx) = isfinite(lastOutputTime) && ...
         (currentTime - lastOutputTime) <= maxGap;
+end
+end
+
+function mask = computeSupportConsensusProtectionMask( ...
+    objects, minTrajectoryLength, minEffectiveCount)
+mask = false(1, numel(objects));
+for idx = 1:numel(objects)
+    if isfield(objects, 'labelSupportEffectiveCount')
+        effectiveCount = objects(idx).labelSupportEffectiveCount;
+    else
+        effectiveCount = 0;
+    end
+    if ~isfinite(effectiveCount)
+        effectiveCount = 0;
+    end
+    mask(idx) = objects(idx).trajectoryLength >= minTrajectoryLength && ...
+        effectiveCount >= minEffectiveCount;
 end
 end
 

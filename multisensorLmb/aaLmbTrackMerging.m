@@ -57,6 +57,9 @@ for i = 1:numel(objects)
         fusedExistence = fusedExistence + existenceWeights(s) * localExistence;
     end
     objects(i).r = clampProbability(fusedExistence);
+    objects(i).labelSupportMass = objects(i).r;
+    objects(i).labelSupportEffectiveCount = computeLabelSupportEffectiveCount( ...
+        measurementUpdatedDistributions, model, existenceWeights, i);
 
     if useKlaSpatialFusion
         spatialWeights = applyKlaSpatialExistenceGate( ...
@@ -428,6 +431,23 @@ if sum(mass) <= eps
     return;
 end
 value = (sum(mass) ^ 2) / max(sum(mass .^ 2), eps);
+end
+
+function value = computeLabelSupportEffectiveCount( ...
+    measurementUpdatedDistributions, model, existenceWeights, objectIdx)
+support = zeros(1, model.numberOfSensors);
+for s = 1:model.numberOfSensors
+    if s > numel(measurementUpdatedDistributions) || ...
+            objectIdx > numel(measurementUpdatedDistributions{s})
+        continue;
+    end
+    localObject = measurementUpdatedDistributions{s}(objectIdx);
+    if localObject.numberOfGmComponents < 1
+        continue;
+    end
+    support(s) = existenceWeights(s) * clampProbability(localObject.r);
+end
+value = computeEffectiveSupport(support);
 end
 
 function existence = temperExistenceWithLabelQuality(existence, quality)

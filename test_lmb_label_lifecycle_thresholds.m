@@ -68,6 +68,23 @@ assert(numel(outputObjects) == 1);
 assert(numel(recursionObjects) == 2);
 assert([recursionObjects.birthLocation] == [1, 2]);
 
+fprintf('Test 6: support-consensus protection needs mature multi-sensor support\n');
+model = buildModel(0.18);
+model.labelPruningThreshold = 0.01;
+model.labelPruningProtectionMode = 'support-consensus';
+model.labelSupportMinEffectiveCount = 2;
+supportObjects = buildObjects([0.25, 0.10, 0.09, 0.08], [8, 8, 8, 0]);
+supportObjects(2).labelSupportEffectiveCount = 2.1;
+supportObjects(3).labelSupportEffectiveCount = 1.4;
+supportObjects(4).labelSupportEffectiveCount = 3.0;
+[outputObjects, recursionObjects, ~, thresholds] = ...
+    applyLmbLabelLifecycleThresholds(supportObjects, model, 5);
+assert(strcmp(thresholds.protectionMode, 'support-consensus'));
+assert(thresholds.supportMinEffectiveCount == 2);
+assert(numel(outputObjects) == 1);
+assert(numel(recursionObjects) == 2);
+assert([recursionObjects.birthLocation] == [1, 2]);
+
 fprintf('LMB label lifecycle tests passed.\n');
 end
 
@@ -88,6 +105,8 @@ template = struct( ...
     'Sigma', {{eye(4)}}, ...
     'trajectoryLength', 0, ...
     'lastOutputTime', -Inf, ...
+    'labelSupportMass', 0, ...
+    'labelSupportEffectiveCount', 0, ...
     'trajectory', [], ...
     'timestamps', []);
 objects = repmat(template, 1, numel(existences));
