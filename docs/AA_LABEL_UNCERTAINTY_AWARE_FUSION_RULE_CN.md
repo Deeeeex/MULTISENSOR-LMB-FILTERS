@@ -425,6 +425,6 @@ N50 reference-only ablation 进一步说明 matched posterior barycenter 是必�
 
 `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` 已把该方向拆成可证明的 output-level projection 性质、matched moment barycenter 性质、以及 online/distributed 版本需要满足的稳定 matching 和 moment-consensus 条件。该文档应作为后续实现在线版本前的理论边界检查。
 
-当前已实现第一版 `neighborhood-barycenter` output-level iterative prototype，并通过 N1/N5 sanity；N5 上 tuned local E-OSPA/RMSE/CardErr `2.032799/3.588145/0.086250`，neighborhood full 为 `1.691451/3.450998/0.073000`，neighborhood reference-only 为 `1.918293/3.716909/0.073000`。这支持继续做 N50，但它仍不是递归滤波内部的最终 online method。
+当前已实现第一版 `neighborhood-barycenter` output-level iterative prototype，并通过 N1/N5/N50 validation；N50 上 tuned local E-OSPA/RMSE/CardErr `2.029641/3.682880/0.088000`，neighborhood full 为 `1.681483/3.449035/0.077200`，neighborhood reference-only 为 `1.911286/3.662955/0.077200`。这支持继续把它下沉为递归滤波内部的 online method，但当前版本仍是 output-level iterative projection。
 
 下一步应把它作为方法方向推进，而不是继续调阈值: 设计在线邻域共识或 label-barycenter AA 机制，并做 method-level ablation，区分收益来自 reference label canonicalization、state barycenter averaging、以及二者耦合后的递归反馈。不能把当前 centralized/output-level projection 或 neighborhood output-level prototype 直接包装成最终分布式滤波算法。

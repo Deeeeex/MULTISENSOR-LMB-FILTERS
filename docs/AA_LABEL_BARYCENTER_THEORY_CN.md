@@ -36,7 +36,7 @@ L2。该文档会影响后续算法叙事和 online/distributed 实现，但当�
 | C3 | 给定匹配组后，当前 barycenter state 是 matched empirical mixture 的一阶矩，covariance 是 matched mixture 的二阶中心矩；均值同时是 matched states 的最小二乘中心。 | High | E1 | 使用等权 moment matching；未引入 covariance-quality weights。 |
 | C4 | reference-only ablation 在 N1/N5/N50 上均弱于 full barycenter projection 的 local E-OSPA/RMSE，说明经验收益不是只来自统一 label set，还来自 matched posterior barycenter。 | High | E3-E6 | CardErr 持平，说明该 ablation 主要隔离 spatial/posterior averaging。 |
 | C5 | paper-facing 下一步不应包装 centralized projection，而应实现 online neighborhood label-barycenter AA: 用局部消息交换逼近同一 label-space projection，并在稳定 matching 假设下收敛到 centralized moment barycenter。 | Medium-High | E1, E7 | 收敛命题依赖固定匹配、连通图和 doubly-stochastic weights；这些需要实现后验证。 |
-| C6 | `neighborhood-barycenter` output-level iterative prototype 已把 centralized global projection 改成每个 sensor 只用 `neighborMap{s}` 的局部 projection；N1/N5 sanity 均显示它显著优于 tuned baseline 和 neighborhood reference-only，但 runtime 约为 tuned 的 `1.59x`。 | Medium-High | E8-E10 | 仍是 output-level post-pass，不是递归滤波内部的 online message update；N50 待跑。 |
+| C6 | `neighborhood-barycenter` output-level iterative prototype 已把 centralized global projection 改成每个 sensor 只用 `neighborMap{s}` 的局部 projection；N1/N5/N50 均显示它显著优于 tuned baseline 和 neighborhood reference-only，但 N50 runtime 约为 tuned 的 `1.65x`。 | High | E8-E11 | 仍是 output-level post-pass，不是递归滤波内部的 online message update。 |
 
 ## Algorithm Design
 
@@ -178,6 +178,7 @@ q_s^{h+1} = sum_j W_{sj} q_j^h
 | E8 | code | `multisensorLmb/applyCrossLocalLabelConsensusProjection.m`, `multisensorLmb/runDistributedLmbFilter.m`, and `RUN/AA/runAaBalancedCardinalityValidation.m` | C6, neighborhood iterative projection implementation and arms 18/19 | strong |
 | E9 | command | `octave --quiet --eval "test_cross_local_label_consensus_projection"` output: tests 1-4 passed | C6, neighborhood projection regression | strong |
 | E10 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_171542.md`, `RUN/AA/AA_NEIGHBORHOOD_LABEL_BARYCENTER_N1_SEED1_20260622.log`, `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`, and `RUN/AA/AA_NEIGHBORHOOD_LABEL_BARYCENTER_N5_SEED11_20260622.log` | C6, N1/N5 neighborhood sanity and reference-only ablation | medium-high |
+| E11 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md` and `RUN/AA/AA_NEIGHBORHOOD_LABEL_BARYCENTER_N50_SEED1_20260622_174817.log` | C6, N50 neighborhood validation and reference-only ablation | strong |
 
 ## Verification Record
 
@@ -194,13 +195,15 @@ Independence status: self-check only. 本文档由同一 worker lane 基于当�
 - `test_cross_local_label_consensus_projection` tests 1-4 通过，新增覆盖 neighborhood-barycenter 只使用 local communication neighborhoods。
 - neighborhood iterative N1 sanity: centralized full local E-OSPA/RMSE/CardErr 为 `1.634304/3.778896/0.060000`，neighborhood full 为 `1.678544/3.814444/0.065000`，neighborhood reference-only 为 `1.938542/4.053640/0.065000`；neighborhood full 保留大部分收益且明显强于 reference-only。
 - neighborhood iterative N5 sanity: tuned consensus OSPA/Loc/Card 为 `1.702915/1.529716/0.034250`，neighborhood full 为 `0.305452/0.226704/0.017000`，neighborhood reference-only 为 `1.033897/0.903305/0.017000`。local E-OSPA/RMSE/CardErr 从 tuned `2.032799/3.588145/0.086250` 改善到 neighborhood full `1.691451/3.450998/0.073000`；neighborhood reference-only 为 `1.918293/3.716909/0.073000`。
+- neighborhood iterative N50 validation 通过: tuned consensus OSPA/Loc/Card 为 `1.682607/1.472837/0.035350`，neighborhood full 为 `0.309818/0.216372/0.021200`，neighborhood reference-only 为 `1.030062/0.891585/0.021200`。local E-OSPA/RMSE/CardErr 从 tuned `2.029641/3.682880/0.088000` 改善到 neighborhood full `1.681483/3.449035/0.077200`；neighborhood reference-only 为 `1.911286/3.662955/0.077200`。
+- neighborhood full 相对 tuned 的 N50 paired reductions 为 `81.59%` OSPA、`85.31%` Loc disagreement、`40.03%` Card dispersion、`17.15%` E-OSPA、`6.35%` RMSE 和 `12.27%` CardErr；wins 分别为 `50/50`、`50/50`、`50/50`、`50/50`、`48/50`、`46/50`。
+- neighborhood reference-only 的 N50 RMSE reduction 只有 `0.54%`，wins `27/50`，而 neighborhood full 的 RMSE reduction 是 `6.35%`，wins `48/50`；这继续支持 matched posterior barycenter 是空间收益来源。
 
 未检查:
 
 - 尚未实现 Proposition 4 对应的 online/distributed moment consensus。
 - 尚未验证 stable matching 在 partial-FOV / tiered packet-drop 下能保持足够长的时间窗口。
 - 尚未比较 moment-barycenter 与 KLA/precision barycenter 的 online 版本。
-- neighborhood iterative prototype 尚未完成 N50 validation。
 
 ## Risk and Escalation
 
@@ -224,6 +227,7 @@ Independence status: self-check only. 本文档由同一 worker lane 基于当�
 octave --quiet --eval "test_cross_local_label_consensus_projection"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(50,1,true,aaControls,struct(),true,[16 17]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(5,11,true,aaControls,struct(),true,[9 18 19]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(50,1,true,aaControls,struct(),true,[9 18 19]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_LABEL_BARYCENTER_THEORY_CN.md
 ```
 
@@ -246,7 +250,7 @@ octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'sav
 
 把当前 centralized 结果定位为一个通过 N50 的 method-level upper-bound prototype: 它证明跨 local filters 的 label canonicalization 加 matched posterior barycenter 是值得推进的方向，也通过 reference-only ablation 排除了“只是复制 medoid output”的解释。
 
-新增的 neighborhood iterative prototype 是向 online/distributed method 迈出的第一步。它不读取全局 label set，而是按 `neighborMap` 做局部 reference selection 和 moment barycenter，并通过多轮邻域迭代传播信息。N1/N5 sanity 支持继续上 N50，但 runtime 约为 tuned 的 `1.59x`，后续需要优化或把迭代下沉到递归滤波内部。
+新增的 neighborhood iterative prototype 是向 online/distributed method 迈出的第一步。它不读取全局 label set，而是按 `neighborMap` 做局部 reference selection 和 moment barycenter，并通过多轮邻域迭代传播信息。N1/N5/N50 均支持该方向；N50 上 neighborhood full local E-OSPA/RMSE/CardErr 为 `1.681483/3.449035/0.077200`，明显优于 tuned 和 reference-only。代价是 runtime 约为 tuned 的 `1.65x`，后续需要优化或把迭代下沉到递归滤波内部。
 
 下一步不要继续做场景阈值搜索。应实现一个 online/distributed label-barycenter AA arm，并围绕三个 ablation 证明方法合理性:
 
