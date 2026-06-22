@@ -311,6 +311,9 @@ cfg = struct( ...
     'aaKlaSpatialExistencePower', 0.0, ...
     'aaKlaSpatialExistenceMinScore', 0.0, ...
     'labelPruningThreshold', NaN, ...
+    'labelPruningMinTrajectoryLength', NaN, ...
+    'labelPruningProtectionMode', 'trajectory-age', ...
+    'labelPruningMaxOutputGap', NaN, ...
     'useAaLabelUncertaintyFusion', false, ...
     'useAaLabelSpatialOverlapWeights', true, ...
     'useAaLabelUncertaintyInflation', true, ...
@@ -325,7 +328,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 13);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 14);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -451,8 +454,16 @@ arms(12).adaptiveFusion = cfg;
 
 cfg = arms(9).adaptiveFusion;
 cfg.labelPruningThreshold = 0.01;
-arms(13).name = 'Label-lifecycle spatial-KLA AA';
+cfg.labelPruningMinTrajectoryLength = 1;
+arms(13).name = 'Mature-label lifecycle spatial-KLA AA';
 arms(13).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.labelPruningThreshold = 0.01;
+cfg.labelPruningProtectionMode = 'last-output';
+cfg.labelPruningMaxOutputGap = 1;
+arms(14).name = 'Output-history lifecycle spatial-KLA AA';
+arms(14).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -588,6 +599,9 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- aaKlaSpatialExistencePower: %.3f\n', getField(cfg, 'aaKlaSpatialExistencePower', 0));
     fprintf(fid, '- aaKlaSpatialExistenceMinScore: %.3f\n', getField(cfg, 'aaKlaSpatialExistenceMinScore', 0));
     fprintf(fid, '- labelPruningThreshold: %.6f\n', getField(cfg, 'labelPruningThreshold', NaN));
+    fprintf(fid, '- labelPruningMinTrajectoryLength: %.0f\n', getField(cfg, 'labelPruningMinTrajectoryLength', NaN));
+    fprintf(fid, '- labelPruningProtectionMode: %s\n', char(getField(cfg, 'labelPruningProtectionMode', 'trajectory-age')));
+    fprintf(fid, '- labelPruningMaxOutputGap: %.0f\n', getField(cfg, 'labelPruningMaxOutputGap', NaN));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
     fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));
     fprintf(fid, '- useAaLabelUncertaintyInflation: %d\n', getField(cfg, 'useAaLabelUncertaintyInflation', true));

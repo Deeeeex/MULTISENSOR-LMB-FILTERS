@@ -1,0 +1,46 @@
+AA validation trial 1/1
+  Arm 1/2: Tuned spatial-KLA AA
+    Filter runtime: 48.231 s
+  Arm 2/2: Output-history lifecycle spatial-KLA AA
+    Filter runtime: 51.457 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Tuned spatial-KLA AA -> Output-history lifecycle spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.682637, Loc 1.474567, Card 0.018750, Runtime 48.231 s
+Output-history lifecycle spatial-KLA AA: OSPA 1.682562, Loc 1.474512, Card 0.018750, Runtime 51.457 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_114808.md
+AA_OUTPUT_HISTORY_LIFECYCLE_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_114808.md
+{
+  [1,1] = Tuned spatial-KLA AA
+  [1,2] = Output-history lifecycle spatial-KLA AA
+}
+    ospa =
+
+       1.6826   1.6826
+
+    pos =
+
+       1.4746   1.4745
+
+    card =
+
+       0.018750   0.018750
+
+    eOspa =
+
+       2.0289   2.0288
+
+    hOspa =
+
+       0.4824   0.4824
+
+    rmse =
+
+       4.1450   4.1449
+
+    cardErr =
+
+       0.066250   0.066250

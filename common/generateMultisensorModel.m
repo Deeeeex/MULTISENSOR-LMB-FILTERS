@@ -309,6 +309,7 @@ object.detectionAssociationMass = 0;
 object.associationAmbiguity = 0;
 object.associationConfidence = 1;
 object.trajectoryLength = 0;
+object.lastOutputTime = -Inf;
 object.trajectory = [];
 object.timestamps = zeros(1, 0);
 object = repmat(object, 0, 1);

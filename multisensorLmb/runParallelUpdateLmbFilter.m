@@ -186,7 +186,7 @@ for t = 1:simulationLength
     % 高 output threshold 可以抑制 noisy estimates；较低 pruning threshold
     % 则允许暂时低置信的 label 继续递推，避免不同邻域永久丢失同一 label。
     [objectsForOutput, objectsForRecursion, discardedObjects] = ...
-        applyLmbLabelLifecycleThresholds(objects, model);
+        applyLmbLabelLifecycleThresholds(objects, model, t);
     stateEstimates.objects(end+1:end+numel(discardedObjects)) =  discardedObjects;
     %% 3.6 MAP 基数/状态抽取：生成当前时刻对外输出的 RFS estimate
     % LMB posterior 是一组 Bernoulli components；MAP cardinality 先决定
@@ -209,6 +209,8 @@ for t = 1:simulationLength
         stateEstimates.mu{t}{i} = objectsForOutput(j).mu{1};
         stateEstimates.Sigma{t}{i} = objectsForOutput(j).Sigma{1};
     end
+    objectsForRecursion = markOutputLabelsForRecursion( ...
+        objectsForRecursion, stateEstimates.labels{t}, t);
     objects = objectsForRecursion;
     %% 3.7 更新轨迹缓存，供后续可视化和输出使用
     for i = 1:numel(objects)
@@ -229,6 +231,21 @@ end
 discardedObjects = objects(([objects.trajectoryLength] > model.minimumTrajectoryLength));
 numberOfDiscardedObjects = numel(discardedObjects);
 stateEstimates.objects(end+1:end+numberOfDiscardedObjects) =  discardedObjects;
+end
+
+function objects = markOutputLabelsForRecursion(objects, outputLabels, currentTime)
+if isempty(objects)
+    return;
+end
+if ~isfield(objects, 'lastOutputTime')
+    [objects.lastOutputTime] = deal(-Inf);
+end
+for objectIdx = 1:numel(objects)
+    label = [objects(objectIdx).birthTime; objects(objectIdx).birthLocation];
+    if ~isempty(outputLabels) && any(all(outputLabels == label, 1))
+        objects(objectIdx).lastOutputTime = currentTime;
+    end
+end
 end
 
 function record = buildEmptyAdaptiveFusionDiagnostic()
