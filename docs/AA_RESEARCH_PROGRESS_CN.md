@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-22 17:10:20 CST
+最后更新: 2026-06-22 17:45:53 CST
 
 ## 当前结论
 
@@ -27,7 +27,8 @@ local outputs -> median-cardinality medoid reference label set
 | N5 sanity: 不是单 seed 偶然 | 已完成 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_121330.md` | local E-OSPA/RMSE/CardErr: tuned `2.032799/3.588145/0.086250` -> projection `1.660378/3.290166/0.068000`。 |
 | N50 validation: AA 新方法优于 GA 两个 mode | 已完成 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_122813.md`; `RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md` | projection local E-OSPA/RMSE/CardErr `1.645476/3.343985/0.071200`，低于 GA structure-aware `2.213284/4.228361/0.203975` 和 GA FID-FIA `2.179948/4.695098/0.151025`。 |
 | N50 ablation: 证明设计组件合理 | 已完成 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_145052.md`; `RUN/AA/AA_CROSS_LOCAL_LABEL_CONSENSUS_ABLATION_N50_SEED1_20260622_145045.log` | full barycenter local E-OSPA/RMSE/CardErr `1.645476/3.343985/0.071200`，reference-only `1.781249/3.463664/0.071200`。 |
-| 算法设计与理论证明 | 已建立，待 online 实现验证 | `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 已整理 output-level projection 的可证明性质、reference-only ablation 解释、online/distributed label-barycenter AA 的收敛条件和边界。 |
+| 算法设计与理论证明 | 已建立，online 化第一步通过 N5 sanity | `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 已整理 output-level projection 的可证明性质、reference-only ablation 解释、online/distributed label-barycenter AA 的收敛条件和边界；新增 neighborhood iterative prototype。 |
+| Neighborhood online 化 sanity | N1/N5 已通过，待 N50 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_171542.md`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md` | N5 local E-OSPA/RMSE/CardErr: tuned `2.032799/3.588145/0.086250` -> neighborhood full `1.691451/3.450998/0.073000`；runtime 约 `1.588x`。 |
 | 文档维护 | 已建立，持续维护 | 本文件；`docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`; `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 当前 checkpoint 已回填 N50 validation、N50 ablation、recommendation 和理论边界。 |
 
 ## 已完成的负结果
@@ -62,13 +63,14 @@ N1/N5/N50 ablation 都支持该假设:
 
 ## 剩余风险
 
-- 当前最佳结果仍是 centralized/output-level projection；下一步需要变成通信受限、递归可用的 online method。
+- 当前最佳 N50 结果仍是 centralized/output-level projection；neighborhood iterative prototype 已通过 N1/N5 sanity，但还没有 N50。
 - consensus 指标归零是构造结果；paper-facing claim 必须依赖 local metrics、GA reference 对照和 ablation。
 - 还需要独立 verifier 或至少独立复跑，避免同一 worker lane 自证。
-- 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；但还没有实现和验证通信受限版本。
+- 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；当前实现是 output-level neighborhood iterative prototype，不是递归滤波内部的最终 online method。
 
 ## 下一步
 
-1. 设计在线化版本: 邻域内 label canonicalization、consensus barycenter、或 ADMM/consensus-style iterative projection。
-2. 给 online 版本设计新的 method-level ablation: label canonicalization only、state barycenter only、iterative local consensus。
-3. 找 independent verifier 或独立复跑 N50，降低 self-check 风险。
+1. 对 neighborhood iterative prototype 上 N50，比较 tuned、neighborhood full 和 neighborhood reference-only。
+2. 如果 N50 通过，再把 output-level iterative prototype 下沉到递归滤波内部的 online label message / moment consensus。
+3. 给 online 版本设计新的 method-level ablation: label canonicalization only、state barycenter only、iterative local consensus。
+4. 找 independent verifier 或独立复跑 N50，降低 self-check 风险。

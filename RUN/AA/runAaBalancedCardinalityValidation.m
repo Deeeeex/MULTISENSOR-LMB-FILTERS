@@ -318,6 +318,7 @@ cfg = struct( ...
     'useCrossLocalLabelConsensusProjection', false, ...
     'crossLocalConsensusProjectionMode', 'barycenter', ...
     'crossLocalConsensusCutoff', NaN, ...
+    'crossLocalConsensusIterations', 1, ...
     'useAaLabelUncertaintyFusion', false, ...
     'useAaLabelSpatialOverlapWeights', true, ...
     'useAaLabelUncertaintyInflation', true, ...
@@ -332,7 +333,7 @@ cfg = struct( ...
 end
 
 function arms = buildAaArms(baseCfg)
-arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 17);
+arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 19);
 
 cfg = baseCfg;
 cfg.enabled = false;
@@ -488,6 +489,20 @@ cfg.useCrossLocalLabelConsensusProjection = true;
 cfg.crossLocalConsensusProjectionMode = 'reference-only';
 arms(17).name = 'Reference-only label-consensus spatial-KLA AA';
 arms(17).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.useCrossLocalLabelConsensusProjection = true;
+cfg.crossLocalConsensusProjectionMode = 'neighborhood-barycenter';
+cfg.crossLocalConsensusIterations = 3;
+arms(18).name = 'Neighborhood label-barycenter spatial-KLA AA';
+arms(18).adaptiveFusion = cfg;
+
+cfg = arms(9).adaptiveFusion;
+cfg.useCrossLocalLabelConsensusProjection = true;
+cfg.crossLocalConsensusProjectionMode = 'neighborhood-reference-only';
+cfg.crossLocalConsensusIterations = 3;
+arms(19).name = 'Neighborhood reference-only label-consensus spatial-KLA AA';
+arms(19).adaptiveFusion = cfg;
 end
 
 function cfg = applyNoStabilizationWeights(cfg)
@@ -630,6 +645,7 @@ for armIdx = 1:numel(arms)
     fprintf(fid, '- useCrossLocalLabelConsensusProjection: %d\n', getField(cfg, 'useCrossLocalLabelConsensusProjection', false));
     fprintf(fid, '- crossLocalConsensusProjectionMode: %s\n', char(getField(cfg, 'crossLocalConsensusProjectionMode', 'barycenter')));
     fprintf(fid, '- crossLocalConsensusCutoff: %.3f\n', getField(cfg, 'crossLocalConsensusCutoff', NaN));
+    fprintf(fid, '- crossLocalConsensusIterations: %.0f\n', getField(cfg, 'crossLocalConsensusIterations', 1));
     fprintf(fid, '- useAaLabelUncertaintyFusion: %d\n', getField(cfg, 'useAaLabelUncertaintyFusion', false));
     fprintf(fid, '- useAaLabelSpatialOverlapWeights: %d\n', getField(cfg, 'useAaLabelSpatialOverlapWeights', true));
     fprintf(fid, '- useAaLabelUncertaintyInflation: %d\n', getField(cfg, 'useAaLabelUncertaintyInflation', true));

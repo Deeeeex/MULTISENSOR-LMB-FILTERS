@@ -119,7 +119,7 @@ end
 
 if useCrossLocalLabelConsensusProjection(model)
     stateEstimatesBySensor = applyCrossLocalLabelConsensusProjection( ...
-        stateEstimatesBySensor, model);
+        stateEstimatesBySensor, model, neighborMap);
 end
 end
 

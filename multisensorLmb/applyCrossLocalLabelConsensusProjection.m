@@ -1,4 +1,4 @@
-function projectedEstimates = applyCrossLocalLabelConsensusProjection(stateEstimatesBySensor, model)
+function projectedEstimates = applyCrossLocalLabelConsensusProjection(stateEstimatesBySensor, model, neighborMap)
 % APPLYCROSSLOCALLABELCONSENSUSPROJECTION Project local outputs onto a shared label set.
 %
 % This is an estimate-level consensus pass: at each time step it selects a
@@ -15,6 +15,16 @@ simulationLength = numel(stateEstimatesBySensor{1}.mu);
 stateDimension = resolveStateDimension(stateEstimatesBySensor);
 cutoff = resolveConsensusCutoff(model);
 projectionMode = resolveProjectionMode(model);
+if nargin < 3 || isempty(neighborMap)
+    neighborMap = buildFullNeighborMap(numberOfSensors);
+end
+
+if any(strcmp(projectionMode, {'neighborhood-barycenter', 'neighborhood-reference-only'}))
+    projectedEstimates = applyNeighborhoodProjection( ...
+        stateEstimatesBySensor, model, neighborMap, projectionMode, ...
+        simulationLength, stateDimension, cutoff);
+    return;
+end
 
 for currentTime = 1:simulationLength
     referenceIdx = selectReferenceSensor(stateEstimatesBySensor, currentTime, cutoff);
@@ -54,11 +64,73 @@ for currentTime = 1:simulationLength
 end
 end
 
-function referenceIdx = selectReferenceSensor(stateEstimatesBySensor, currentTime, cutoff)
+function projectedEstimates = applyNeighborhoodProjection( ...
+    stateEstimatesBySensor, model, neighborMap, projectionMode, ...
+    simulationLength, stateDimension, cutoff)
 numberOfSensors = numel(stateEstimatesBySensor);
-counts = zeros(1, numberOfSensors);
-for sensorIdx = 1:numberOfSensors
-    counts(sensorIdx) = numel(stateEstimatesBySensor{sensorIdx}.mu{currentTime});
+numberOfIterations = resolveConsensusIterations(model);
+inputEstimates = stateEstimatesBySensor;
+
+for iterationIdx = 1:numberOfIterations
+    outputEstimates = inputEstimates;
+    for currentTime = 1:simulationLength
+        for sensorIdx = 1:numberOfSensors
+            localSensorIdx = resolveLocalNeighborIndices(neighborMap, ...
+                sensorIdx, numberOfSensors);
+            referenceIdx = selectReferenceSensor(inputEstimates, currentTime, ...
+                cutoff, localSensorIdx);
+            if referenceIdx <= 0
+                outputEstimates{sensorIdx}.labels{currentTime} = zeros(2, 0);
+                outputEstimates{sensorIdx}.mu{currentTime} = {};
+                outputEstimates{sensorIdx}.Sigma{currentTime} = {};
+                continue;
+            end
+
+            referenceLabels = inputEstimates{referenceIdx}.labels{currentTime};
+            referenceMu = inputEstimates{referenceIdx}.mu{currentTime};
+            referenceSigma = inputEstimates{referenceIdx}.Sigma{currentTime};
+            referenceCount = numel(referenceMu);
+            if referenceCount <= 0
+                consensusLabels = zeros(2, 0);
+                consensusMu = {};
+                consensusSigma = {};
+            elseif strcmp(projectionMode, 'neighborhood-reference-only')
+                consensusLabels = referenceLabels(:, 1:referenceCount);
+                consensusMu = referenceMu(1:referenceCount);
+                consensusSigma = referenceSigma(1:referenceCount);
+            else
+                [consensusMu, consensusSigma] = buildConsensusStates( ...
+                    inputEstimates, currentTime, referenceMu, referenceSigma, ...
+                    stateDimension, localSensorIdx);
+                consensusLabels = referenceLabels(:, 1:referenceCount);
+            end
+
+            outputEstimates{sensorIdx}.labels{currentTime} = consensusLabels;
+            outputEstimates{sensorIdx}.mu{currentTime} = consensusMu;
+            outputEstimates{sensorIdx}.Sigma{currentTime} = consensusSigma;
+        end
+    end
+    inputEstimates = outputEstimates;
+end
+
+projectedEstimates = inputEstimates;
+end
+
+function referenceIdx = selectReferenceSensor(stateEstimatesBySensor, currentTime, cutoff, sensorIndices)
+numberOfSensors = numel(stateEstimatesBySensor);
+if nargin < 4 || isempty(sensorIndices)
+    sensorIndices = 1:numberOfSensors;
+end
+sensorIndices = sensorIndices(sensorIndices >= 1 & sensorIndices <= numberOfSensors);
+if isempty(sensorIndices)
+    referenceIdx = 0;
+    return;
+end
+
+counts = zeros(1, numel(sensorIndices));
+for localIdx = 1:numel(sensorIndices)
+    sensorIdx = sensorIndices(localIdx);
+    counts(localIdx) = numel(stateEstimatesBySensor{sensorIdx}.mu{currentTime});
 end
 if all(counts == 0)
     referenceIdx = 0;
@@ -67,13 +139,14 @@ end
 
 medianCount = median(counts);
 candidateMask = abs(counts - medianCount) == min(abs(counts - medianCount));
-candidates = find(candidateMask);
+candidates = sensorIndices(candidateMask);
 meanDistance = inf(1, numel(candidates));
 for candidateIdx = 1:numel(candidates)
     sensorIdx = candidates(candidateIdx);
-    distances = zeros(1, numberOfSensors);
-    for otherIdx = 1:numberOfSensors
-        distances(otherIdx) = estimateSetDistance( ...
+    distances = zeros(1, numel(sensorIndices));
+    for otherLocalIdx = 1:numel(sensorIndices)
+        otherIdx = sensorIndices(otherLocalIdx);
+        distances(otherLocalIdx) = estimateSetDistance( ...
             stateEstimatesBySensor{sensorIdx}.mu{currentTime}, ...
             stateEstimatesBySensor{otherIdx}.mu{currentTime}, cutoff);
     end
@@ -84,7 +157,10 @@ referenceIdx = candidates(bestLocalIdx);
 end
 
 function [consensusMu, consensusSigma] = buildConsensusStates( ...
-    stateEstimatesBySensor, currentTime, referenceMu, referenceSigma, stateDimension)
+    stateEstimatesBySensor, currentTime, referenceMu, referenceSigma, stateDimension, sensorIndices)
+if nargin < 6 || isempty(sensorIndices)
+    sensorIndices = 1:numel(stateEstimatesBySensor);
+end
 referenceCount = numel(referenceMu);
 matchedMeans = cell(1, referenceCount);
 matchedCovariances = cell(1, referenceCount);
@@ -94,7 +170,8 @@ for referenceIdx = 1:referenceCount
 end
 referencePositions = extractPositions(referenceMu);
 
-for sensorIdx = 1:numel(stateEstimatesBySensor)
+for localIdx = 1:numel(sensorIndices)
+    sensorIdx = sensorIndices(localIdx);
     localMu = stateEstimatesBySensor{sensorIdx}.mu{currentTime};
     localSigma = stateEstimatesBySensor{sensorIdx}.Sigma{currentTime};
     if isempty(localMu)
@@ -190,10 +267,44 @@ if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
     end
     if ischar(candidate)
         candidate = lower(strtrim(candidate));
-        if any(strcmp(candidate, {'barycenter', 'reference-only'}))
+        if any(strcmp(candidate, {'barycenter', 'reference-only', ...
+                'neighborhood-barycenter', 'neighborhood-reference-only'}))
             mode = candidate;
         end
     end
+end
+end
+
+function numberOfIterations = resolveConsensusIterations(model)
+numberOfIterations = 1;
+if isfield(model, 'adaptiveFusion') && isstruct(model.adaptiveFusion) && ...
+        isfield(model.adaptiveFusion, 'crossLocalConsensusIterations')
+    candidate = model.adaptiveFusion.crossLocalConsensusIterations;
+    if isnumeric(candidate) && isfinite(candidate) && candidate >= 1
+        numberOfIterations = max(1, round(candidate));
+    end
+end
+end
+
+function neighborMap = buildFullNeighborMap(numberOfSensors)
+neighborMap = cell(1, numberOfSensors);
+for sensorIdx = 1:numberOfSensors
+    neighborMap{sensorIdx} = 1:numberOfSensors;
+end
+end
+
+function sensorIndices = resolveLocalNeighborIndices(neighborMap, sensorIdx, numberOfSensors)
+if iscell(neighborMap) && sensorIdx <= numel(neighborMap) && ...
+        ~isempty(neighborMap{sensorIdx})
+    sensorIndices = reshape(neighborMap{sensorIdx}, 1, []);
+else
+    sensorIndices = sensorIdx;
+end
+sensorIndices = unique(sensorIndices);
+sensorIndices = sensorIndices(isfinite(sensorIndices) & ...
+    sensorIndices >= 1 & sensorIndices <= numberOfSensors);
+if isempty(sensorIndices)
+    sensorIndices = sensorIdx;
 end
 end
 

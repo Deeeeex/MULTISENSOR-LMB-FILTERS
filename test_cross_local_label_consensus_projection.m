@@ -35,6 +35,23 @@ for sensorIdx = 1:numel(projected)
     assert(abs(projected{sensorIdx}.mu{1}{2}(1) - 10.0) < 1e-12);
 end
 
+fprintf('Test 4: neighborhood-barycenter mode only uses local communication neighborhoods\n');
+stateEstimatesBySensor = {
+    buildEstimate({state(0, 0)}, [1; 1]), ...
+    buildEstimate({state(2, 0)}, [2; 1]), ...
+    buildEstimate({state(100, 0)}, [3; 1])};
+neighborMap = {[1 2], [1 2], 3};
+model.adaptiveFusion = struct( ...
+    'crossLocalConsensusProjectionMode', 'neighborhood-barycenter', ...
+    'crossLocalConsensusIterations', 1);
+projected = applyCrossLocalLabelConsensusProjection(stateEstimatesBySensor, ...
+    model, neighborMap);
+assert(abs(projected{1}.mu{1}{1}(1) - 1.0) < 1e-12);
+assert(abs(projected{2}.mu{1}{1}(1) - 1.0) < 1e-12);
+assert(abs(projected{3}.mu{1}{1}(1) - 100.0) < 1e-12);
+assert(isequal(projected{1}.labels{1}, projected{2}.labels{1}));
+assert(~isequal(projected{1}.labels{1}, projected{3}.labels{1}));
+
 fprintf('Cross-local label-consensus projection tests passed.\n');
 end
 

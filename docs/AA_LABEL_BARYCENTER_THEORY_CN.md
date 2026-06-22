@@ -36,6 +36,7 @@ L2。该文档会影响后续算法叙事和 online/distributed 实现，但当�
 | C3 | 给定匹配组后，当前 barycenter state 是 matched empirical mixture 的一阶矩，covariance 是 matched mixture 的二阶中心矩；均值同时是 matched states 的最小二乘中心。 | High | E1 | 使用等权 moment matching；未引入 covariance-quality weights。 |
 | C4 | reference-only ablation 在 N1/N5/N50 上均弱于 full barycenter projection 的 local E-OSPA/RMSE，说明经验收益不是只来自统一 label set，还来自 matched posterior barycenter。 | High | E3-E6 | CardErr 持平，说明该 ablation 主要隔离 spatial/posterior averaging。 |
 | C5 | paper-facing 下一步不应包装 centralized projection，而应实现 online neighborhood label-barycenter AA: 用局部消息交换逼近同一 label-space projection，并在稳定 matching 假设下收敛到 centralized moment barycenter。 | Medium-High | E1, E7 | 收敛命题依赖固定匹配、连通图和 doubly-stochastic weights；这些需要实现后验证。 |
+| C6 | `neighborhood-barycenter` output-level iterative prototype 已把 centralized global projection 改成每个 sensor 只用 `neighborMap{s}` 的局部 projection；N1/N5 sanity 均显示它显著优于 tuned baseline 和 neighborhood reference-only，但 runtime 约为 tuned 的 `1.59x`。 | Medium-High | E8-E10 | 仍是 output-level post-pass，不是递归滤波内部的 online message update；N50 待跑。 |
 
 ## Algorithm Design
 
@@ -82,6 +83,14 @@ q_{s,ell}^{(h+1)} = sum_{j in N_s} W_{sj} q_{j,pi_{j->s}(ell)}^{(h)}
 ```
 
 其中 `q` 包含 `(r, mu, M2)`，`M2 = Sigma + mu mu'`，`W` 是通信图上的 row/doubly-stochastic 权重，`pi_{j->s}` 是邻居 label 到本地 prototype 的匹配。
+
+### 当前 neighborhood iterative prototype
+
+当前实现先做一个较保守的过渡版本: `crossLocalConsensusProjectionMode='neighborhood-barycenter'`。它仍在 output estimate 层运行，但每个 sensor `s` 的 reference selection、Hungarian matching 和 moment barycenter 只使用 `neighborMap{s}` 中的 local outputs；重复 `crossLocalConsensusIterations` 轮后，多跳信息只能通过邻域迭代传播。
+
+对应 ablation mode 是 `neighborhood-reference-only`，它使用同一邻域 reference selection 和同一迭代次数，但只复制局部 medoid estimate，不做 matched-state barycenter averaging。
+
+这一步的意义不是宣称最终 online filter 已完成，而是把 centralized global read/write 限制成 graph-local iterative operator，并保留与 centralized projection 同构的 barycenter/reference-only ablation。
 
 ## Theory Notes
 
@@ -166,6 +175,9 @@ q_s^{h+1} = sum_j W_{sj} q_j^h
 | E5 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_145052.md` | C4, N50 full vs reference-only ablation report | strong |
 | E6 | command log | `RUN/AA/AA_CROSS_LOCAL_LABEL_CONSENSUS_ABLATION_N50_SEED1_20260622_145045.log` | C1, C4, command output for N50 ablation | strong |
 | E7 | design doc | `docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md` | C5, current recommendation to move from centralized projection to online/distributed label-barycenter AA | medium |
+| E8 | code | `multisensorLmb/applyCrossLocalLabelConsensusProjection.m`, `multisensorLmb/runDistributedLmbFilter.m`, and `RUN/AA/runAaBalancedCardinalityValidation.m` | C6, neighborhood iterative projection implementation and arms 18/19 | strong |
+| E9 | command | `octave --quiet --eval "test_cross_local_label_consensus_projection"` output: tests 1-4 passed | C6, neighborhood projection regression | strong |
+| E10 | experiment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_171542.md`, `RUN/AA/AA_NEIGHBORHOOD_LABEL_BARYCENTER_N1_SEED1_20260622.log`, `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`, and `RUN/AA/AA_NEIGHBORHOOD_LABEL_BARYCENTER_N5_SEED11_20260622.log` | C6, N1/N5 neighborhood sanity and reference-only ablation | medium-high |
 
 ## Verification Record
 
@@ -179,12 +191,16 @@ Independence status: self-check only. 本文档由同一 worker lane 基于当�
 - `momentMatchStates` 输出均值 `mean(mu_i)`，covariance 为 `mean(Sigma_i + delta_i delta_i')`，并做对称化和轻量 regularization。
 - `runDistributedLmbFilter.m` 确认 projection hook 位于所有 local filters 完成之后，因此当前实现是 output-level pass。
 - N50 ablation 报告确认 full barycenter local E-OSPA/RMSE/CardErr 为 `1.645476/3.343985/0.071200`，reference-only 为 `1.781249/3.463664/0.071200`。
+- `test_cross_local_label_consensus_projection` tests 1-4 通过，新增覆盖 neighborhood-barycenter 只使用 local communication neighborhoods。
+- neighborhood iterative N1 sanity: centralized full local E-OSPA/RMSE/CardErr 为 `1.634304/3.778896/0.060000`，neighborhood full 为 `1.678544/3.814444/0.065000`，neighborhood reference-only 为 `1.938542/4.053640/0.065000`；neighborhood full 保留大部分收益且明显强于 reference-only。
+- neighborhood iterative N5 sanity: tuned consensus OSPA/Loc/Card 为 `1.702915/1.529716/0.034250`，neighborhood full 为 `0.305452/0.226704/0.017000`，neighborhood reference-only 为 `1.033897/0.903305/0.017000`。local E-OSPA/RMSE/CardErr 从 tuned `2.032799/3.588145/0.086250` 改善到 neighborhood full `1.691451/3.450998/0.073000`；neighborhood reference-only 为 `1.918293/3.716909/0.073000`。
 
 未检查:
 
 - 尚未实现 Proposition 4 对应的 online/distributed moment consensus。
 - 尚未验证 stable matching 在 partial-FOV / tiered packet-drop 下能保持足够长的时间窗口。
 - 尚未比较 moment-barycenter 与 KLA/precision barycenter 的 online 版本。
+- neighborhood iterative prototype 尚未完成 N50 validation。
 
 ## Risk and Escalation
 
@@ -207,6 +223,7 @@ Independence status: self-check only. 本文档由同一 worker lane 基于当�
 ```bash
 octave --quiet --eval "test_cross_local_label_consensus_projection"
 octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(50,1,true,aaControls,struct(),true,[16 17]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
+octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'saveCheckpoints',false,'progressEverySteps',0,'existenceThreshold',0.18); [reportPath, summary]=runAaBalancedCardinalityValidation(5,11,true,aaControls,struct(),true,[9 18 19]); disp(summary.consensus); disp(summary.local.meanAcrossSensors);"
 python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/AA_LABEL_BARYCENTER_THEORY_CN.md
 ```
 
@@ -227,7 +244,9 @@ octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'sav
 
 ## Recommendation
 
-把当前结果定位为一个通过 N50 的 method-level upper-bound prototype: 它证明跨 local filters 的 label canonicalization 加 matched posterior barycenter 是值得推进的方向，也通过 reference-only ablation 排除了“只是复制 medoid output”的解释。
+把当前 centralized 结果定位为一个通过 N50 的 method-level upper-bound prototype: 它证明跨 local filters 的 label canonicalization 加 matched posterior barycenter 是值得推进的方向，也通过 reference-only ablation 排除了“只是复制 medoid output”的解释。
+
+新增的 neighborhood iterative prototype 是向 online/distributed method 迈出的第一步。它不读取全局 label set，而是按 `neighborMap` 做局部 reference selection 和 moment barycenter，并通过多轮邻域迭代传播信息。N1/N5 sanity 支持继续上 N50，但 runtime 约为 tuned 的 `1.59x`，后续需要优化或把迭代下沉到递归滤波内部。
 
 下一步不要继续做场景阈值搜索。应实现一个 online/distributed label-barycenter AA arm，并围绕三个 ablation 证明方法合理性:
 
@@ -235,4 +254,4 @@ octave --quiet --eval "addpath('RUN/AA'); aaControls=struct('saveMat',false,'sav
 2. state barycenter only: 在稳定 labels 下做 moment/KLA barycenter。
 3. full online label-barycenter AA: label proposal、matching、existence AA、moment consensus 和 lifecycle guard 同时启用。
 
-只有当 online 版本在 N1/N5 通过 gate，并在 N50 上保持 local E-OSPA/RMSE/CardErr 优势时，才应把它升级为 paper-facing algorithm。
+只有当 neighborhood/online 版本在 N50 上保持 local E-OSPA/RMSE/CardErr 优势，并且后续递归实现不依赖 output-level post-processing 时，才应把它升级为 paper-facing algorithm。
