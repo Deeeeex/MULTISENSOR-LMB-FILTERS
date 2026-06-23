@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 02:04 CST
+日期: 2026-06-24 01:44 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -26,6 +26,7 @@
 | Neighborhood label-barycenter is lower than the two tracked GA reference rows on the six reported N50 disagreement/tracking metrics. | Results, contextual reference table | `RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Report-driven contextual comparison | Keep phrasing as contextual reference rows, not paired GA-vs-AA significance evidence. |
 | Network disagreement and runtime numbers are reproducible from raw per-trial artifacts. | Results, reproducibility notes | `verify_n50_evidence.py`; `N50_VERIFICATION_REPORT.md` | Independently recomputed | None for network/runtime; keep source hash in manifest. |
 | Runtime overhead is mainly due to repeated assignment/moment-barycenter operations, not hidden global communication. | Runtime table, complexity paragraph | Runtime log and graph-locality method text | Independently recomputed runtime | Add a short scaling note if broader N or topology experiments are added. |
+| Absolute runtime seconds are prototype-specific; the paper-facing runtime comparison is the relative cost within the paired Octave validation. | Experimental Setup, Runtime table | Local environment check: GNU Octave 11.1.0 on Apple M4, 16 GB memory | Manuscript-explicit and environment-backed | Keep absolute runtime claims modest; do not present them as hardware-independent benchmarks. |
 | Each experiment arm isolates a specific mechanism rather than serving as an unconstrained tuning comparison. | Experimental Setup | Claim-to-arm mapping in `main.tex`; N50 full/reference-only/baseline evidence | Manuscript-explicit and report-driven | Maintain this mapping when adding held-out or recursive-online experiments. |
 
 ## TAES Compliance Gates
