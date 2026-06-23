@@ -1,5 +1,25 @@
 {
-  "local_metric_boundary": "The report lacks per-trial local E-OSPA/RMSE/CardErr rows; local metrics are trace-checked through the generated evidence JSON and report summary.",
+  "local": {
+    "reason": "The archived report does not include per-trial local tracking rows.",
+    "status": "summary_traced",
+    "summary": {
+      "Neighborhood label-barycenter spatial-KLA AA": {
+        "CardErr": 0.0772,
+        "E-OSPA": 1.681483,
+        "RMSE": 3.449035
+      },
+      "Neighborhood reference-only label-consensus spatial-KLA AA": {
+        "CardErr": 0.0772,
+        "E-OSPA": 1.911286,
+        "RMSE": 3.662955
+      },
+      "Tuned spatial-KLA AA": {
+        "CardErr": 0.088,
+        "E-OSPA": 2.029641,
+        "RMSE": 3.68288
+      }
+    }
+  },
   "network": {
     "means": {
       "Neighborhood label-barycenter spatial-KLA AA": {

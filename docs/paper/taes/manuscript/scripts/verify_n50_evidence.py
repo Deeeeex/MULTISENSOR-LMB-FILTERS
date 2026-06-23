@@ -5,12 +5,13 @@ This verifier intentionally recomputes what it can from raw per-trial artifacts:
 
 * network disagreement means, confidence intervals, paired reductions, wins, and
   sign-test p-values from the per-trial Markdown table;
+* local E-OSPA/RMSE/CardErr means and paired reductions when the validation
+  report contains per-trial local tracking rows;
 * runtime means/stds/relative costs from the trial log;
 * generated manuscript fragments against the tracked report hash.
 
-The validation report does not contain per-trial local tracking metrics, so local
-E-OSPA/RMSE/CardErr can only be checked at summary/fragment trace level until a
-future run emits per-trial local tables.
+Archived reports that predate the per-trial local table remain supported. For
+those reports, local E-OSPA/RMSE/CardErr are explicitly marked summary-traced.
 """
 
 from __future__ import annotations
@@ -37,11 +38,13 @@ ARM_ORDER = [
     "Neighborhood reference-only label-consensus spatial-KLA AA",
 ]
 NETWORK_METRICS = ["OSPA", "Loc. disag.", "Card. disp."]
+LOCAL_METRICS = ["E-OSPA", "RMSE", "CardErr"]
 RUNTIME_LABEL = {
     "Tuned spatial-KLA AA": "Tuned spatial-KLA AA",
     "Neighborhood label-barycenter spatial-KLA AA": "Neighborhood label-barycenter spatial-KLA AA",
     "Neighborhood reference-only label-consensus spatial-KLA AA": "Neighborhood reference-only label-consensus spatial-KLA AA",
 }
+EXPECTED_TRIALS = 50
 
 
 @dataclass(frozen=True)
@@ -99,6 +102,12 @@ def markdown_table_after(text: str, heading: str) -> list[list[str]]:
     return rows
 
 
+def markdown_table_after_optional(text: str, heading: str) -> list[list[str]] | None:
+    if text.find(heading) < 0:
+        return None
+    return markdown_table_after(text, heading)
+
+
 def parse_network_trials(report_text: str) -> dict[str, dict[str, list[float]]]:
     rows = markdown_table_after(report_text, "## Per-Trial Network Disagreement Metrics")
     expected = ["Trial", "Seed", "Arm", *NETWORK_METRICS]
@@ -113,8 +122,33 @@ def parse_network_trials(report_text: str) -> dict[str, dict[str, list[float]]]:
             values[arm][metric].append(float(value))
     for arm in ARM_ORDER:
         for metric in NETWORK_METRICS:
-            if len(values[arm][metric]) != 50:
-                raise ValueError(f"Expected 50 rows for {arm}/{metric}, found {len(values[arm][metric])}")
+            if len(values[arm][metric]) != EXPECTED_TRIALS:
+                raise ValueError(
+                    f"Expected {EXPECTED_TRIALS} rows for {arm}/{metric}, found {len(values[arm][metric])}"
+                )
+    return values
+
+
+def parse_local_trials(report_text: str) -> dict[str, dict[str, list[float]]] | None:
+    rows = markdown_table_after_optional(report_text, "## Per-Trial Local Tracking Metrics")
+    if rows is None:
+        return None
+    expected = ["Trial", "Seed", "Arm", *LOCAL_METRICS]
+    if rows[0] != expected:
+        raise ValueError(f"Unexpected local trial header: {rows[0]}")
+    values = {arm: {metric: [] for metric in LOCAL_METRICS} for arm in ARM_ORDER}
+    for row in rows[1:]:
+        arm = row[2]
+        if arm not in values:
+            raise ValueError(f"Unexpected arm in per-trial local table: {arm}")
+        for metric, value in zip(LOCAL_METRICS, row[3:]):
+            values[arm][metric].append(float(value))
+    for arm in ARM_ORDER:
+        for metric in LOCAL_METRICS:
+            if len(values[arm][metric]) != EXPECTED_TRIALS:
+                raise ValueError(
+                    f"Expected {EXPECTED_TRIALS} rows for {arm}/{metric}, found {len(values[arm][metric])}"
+                )
     return values
 
 
@@ -122,7 +156,24 @@ def parse_network_summary(report_text: str) -> dict[str, dict[str, float]]:
     rows = markdown_table_after(report_text, "## Network Disagreement Metrics")
     if rows[0] != ["Arm", *NETWORK_METRICS]:
         raise ValueError(f"Unexpected network summary header: {rows[0]}")
-    return {row[0]: {metric: float(value) for metric, value in zip(NETWORK_METRICS, row[1:])} for row in rows[1:4]}
+    summary = {row[0]: {metric: float(value) for metric, value in zip(NETWORK_METRICS, row[1:])} for row in rows[1:]}
+    require_arms(summary, "network summary")
+    return summary
+
+
+def parse_local_summary(report_text: str) -> dict[str, dict[str, float]]:
+    rows = markdown_table_after(report_text, "## Local Tracking Metrics")
+    if rows[0] != ["Arm", *LOCAL_METRICS]:
+        raise ValueError(f"Unexpected local summary header: {rows[0]}")
+    summary = {row[0]: {metric: float(value) for metric, value in zip(LOCAL_METRICS, row[1:])} for row in rows[1:]}
+    require_arms(summary, "local summary")
+    return summary
+
+
+def require_arms(table: dict[str, object], context: str) -> None:
+    missing = [arm for arm in ARM_ORDER if arm not in table]
+    if missing:
+        raise ValueError(f"Missing expected arms in {context}: {missing}")
 
 
 def parse_runtime_summary(report_text: str) -> dict[str, dict[str, str]]:
@@ -156,8 +207,8 @@ def parse_log_runtimes(log_text: str) -> dict[str, list[float]]:
             runtimes[current_arm].append(float(runtime_match.group(1)))
             current_arm = None
     for arm in ARM_ORDER:
-        if len(runtimes[arm]) != 50:
-            raise ValueError(f"Expected 50 runtime rows for {arm}, found {len(runtimes[arm])}")
+        if len(runtimes[arm]) != EXPECTED_TRIALS:
+            raise ValueError(f"Expected {EXPECTED_TRIALS} runtime rows for {arm}, found {len(runtimes[arm])}")
     return runtimes
 
 
@@ -234,6 +285,35 @@ def verify_network(report_text: str) -> dict[str, object]:
     return verification
 
 
+def verify_local(report_text: str) -> dict[str, object]:
+    raw = parse_local_trials(report_text)
+    summary = parse_local_summary(report_text)
+    if raw is None:
+        return {
+            "status": "summary_traced",
+            "reason": "The archived report does not include per-trial local tracking rows.",
+            "summary": summary,
+        }
+
+    verification: dict[str, object] = {"status": "independent", "means": {}, "paired": {}}
+    for arm in ARM_ORDER:
+        arm_stats = {}
+        for metric in LOCAL_METRICS:
+            stats = summarize(raw[arm][metric])
+            assert_close(f"local mean {arm}/{metric}", stats.mean, summary[arm][metric], tol=1e-6)
+            arm_stats[metric] = stats.__dict__
+        verification["means"][arm] = arm_stats
+
+    baseline = ARM_ORDER[0]
+    for arm in ARM_ORDER[1:]:
+        arm_paired = {}
+        for metric in LOCAL_METRICS:
+            stats = paired_stats(raw[baseline][metric], raw[arm][metric])
+            arm_paired[metric] = stats.__dict__
+        verification["paired"][arm] = arm_paired
+    return verification
+
+
 def verify_runtime(report_text: str, log_text: str) -> dict[str, object]:
     report_runtime = parse_runtime_summary(report_text)
     raw = parse_log_runtimes(log_text)
@@ -280,11 +360,16 @@ def write_outputs(payload: dict[str, object]) -> None:
     (OUT / "n50_verification.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     network = payload["network"]
+    local = payload["local"]
     runtime = payload["runtime"]
-    full_rmse_note = (
-        "Local E-OSPA/RMSE/CardErr are summary-traced only because the archived "
-        "validation report does not include per-trial local metric rows."
-    )
+    local_is_independent = local["status"] == "independent"
+    if local_is_independent:
+        local_note = "independently recomputed from per-trial local tracking rows."
+    else:
+        local_note = (
+            "summary-traced only because the archived validation report does not "
+            "include per-trial local metric rows."
+        )
     lines = [
         "# N50 Evidence Verification Report\n\n",
         "Generated by `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py`.\n\n",
@@ -292,7 +377,7 @@ def write_outputs(payload: dict[str, object]) -> None:
         f"- Source SHA256: `{payload['source']['source_sha256']}`\n",
         "- Network metrics: independently recomputed from the per-trial Markdown table.\n",
         "- Runtime metrics: independently recomputed from the trial log.\n",
-        f"- Local metrics: {full_rmse_note}\n\n",
+        f"- Local metrics: {local_note}\n\n",
         "## Verified Checks\n\n",
         "- Network disagreement means match the report summary to within `5e-7`.\n",
         "- Runtime means/stds match the report summary to within `1e-3` seconds.\n",
@@ -308,6 +393,29 @@ def write_outputs(payload: dict[str, object]) -> None:
             f"- Network OSPA mean: full `{full_network['OSPA']['mean']:.6f}` vs tuned `{base_network['OSPA']['mean']:.6f}`.\n",
             f"- Network OSPA paired reduction: `{paired_full['OSPA']['reduction_pct']:.2f}%`, wins `{paired_full['OSPA']['wins']}/{paired_full['OSPA']['n']}`.\n",
             f"- Localization disagreement paired reduction: `{paired_full['Loc. disag.']['reduction_pct']:.2f}%`, wins `{paired_full['Loc. disag.']['wins']}/{paired_full['Loc. disag.']['n']}`.\n\n",
+        ]
+    )
+    if local_is_independent:
+        local_means = local["means"]["Neighborhood label-barycenter spatial-KLA AA"]
+        local_base = local["means"]["Tuned spatial-KLA AA"]
+        local_paired = local["paired"]["Neighborhood label-barycenter spatial-KLA AA"]
+        lines.extend(
+            [
+                "## Recomputed Local Highlights\n\n",
+                f"- Local E-OSPA mean: full `{local_means['E-OSPA']['mean']:.6f}` vs tuned `{local_base['E-OSPA']['mean']:.6f}`.\n",
+                f"- RMSE paired reduction: `{local_paired['RMSE']['reduction_pct']:.2f}%`, wins `{local_paired['RMSE']['wins']}/{local_paired['RMSE']['n']}`.\n",
+                f"- CardErr paired reduction: `{local_paired['CardErr']['reduction_pct']:.2f}%`, wins `{local_paired['CardErr']['wins']}/{local_paired['CardErr']['n']}`.\n\n",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "## Local Metric Boundary\n\n",
+                f"- {local['reason']}\n\n",
+            ]
+        )
+    lines.extend(
+        [
             "## Recomputed Runtime Highlights\n\n",
             f"- Full runtime: `{runtime['Neighborhood label-barycenter spatial-KLA AA']['mean']:.3f}` s, relative `{runtime['Neighborhood label-barycenter spatial-KLA AA']['relative']:.3f}x`.\n",
             f"- Reference-only runtime: `{runtime['Neighborhood reference-only label-consensus spatial-KLA AA']['mean']:.3f}` s, relative `{runtime['Neighborhood reference-only label-consensus spatial-KLA AA']['relative']:.3f}x`.\n",
@@ -322,11 +430,8 @@ def main() -> None:
     payload: dict[str, object] = {
         "source": verify_generated_hash(),
         "network": verify_network(report_text),
+        "local": verify_local(report_text),
         "runtime": verify_runtime(report_text, log_text),
-        "local_metric_boundary": (
-            "The report lacks per-trial local E-OSPA/RMSE/CardErr rows; local metrics are "
-            "trace-checked through the generated evidence JSON and report summary."
-        ),
     }
     write_outputs(payload)
 

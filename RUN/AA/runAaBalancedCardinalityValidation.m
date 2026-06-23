@@ -691,6 +691,23 @@ if numel(arms) >= 2
         {consOspa, consPos, consCard}, [false, true, false]);
 end
 
+localEOspaTrial = computeTrialSensorMeans(eOspa, false);
+localRmseTrial = computeTrialSensorMeans(rmse, true);
+localCardTrial = computeTrialSensorMeans(cardErr, false);
+
+fprintf(fid, '\n## Per-Trial Local Tracking Metrics\n');
+fprintf(fid, '| Trial | Seed | Arm | E-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|------:|-----:|:----|-------:|-----:|--------:|\n');
+for trial = 1:numberOfTrials
+    for armIdx = 1:numel(arms)
+        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', ...
+            trial, trialSeeds(trial), arms(armIdx).name, ...
+            localEOspaTrial(trial, armIdx), localRmseTrial(trial, armIdx), ...
+            localCardTrial(trial, armIdx));
+    end
+end
+fprintf(fid, '\n');
+
 fprintf(fid, '\n## Local Tracking Metrics\n');
 fprintf(fid, '| Arm | E-OSPA | RMSE | CardErr |\n');
 fprintf(fid, '|:----|-------:|-----:|--------:|\n');
@@ -701,9 +718,6 @@ for armIdx = 1:numel(arms)
         computeGlobalMean(cardErr(:, :, armIdx), false));
 end
 fprintf(fid, '\n');
-localEOspaTrial = computeTrialSensorMeans(eOspa, false);
-localRmseTrial = computeTrialSensorMeans(rmse, true);
-localCardTrial = computeTrialSensorMeans(cardErr, false);
 writeMetricStatsTable(fid, armNames, {'E-OSPA', 'RMSE', 'CardErr'}, ...
     {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 

@@ -29,6 +29,6 @@ Build:
 
 The build first regenerates the N50 evidence fragments, runs the verifier, renders figures, then compiles the TAES PDF. Do not edit `generated/n50_*.tex` by hand; update the validation report or extraction script and rerun the build.
 
-The verifier currently recomputes network disagreement and runtime from raw per-trial artifacts. The archived report does not include per-trial local E-OSPA/RMSE/CardErr rows, so local tracking metrics are trace-checked through the report summary and generated evidence JSON until a future validation run emits local per-trial rows.
+The verifier currently recomputes network disagreement and runtime from raw per-trial artifacts. The validation runner now emits per-trial local E-OSPA/RMSE/CardErr rows for new reports, and the verifier will independently recompute those metrics when the source report contains that table. The archived N50 report used by the current draft predates that table, so its local tracking metrics remain trace-checked through the report summary and generated evidence JSON until the N50 validation is rerun.
 
-The current manuscript is not yet submission-ready: author information is provisional, figures still need final design polish, and broader scenario plus per-trial local-metric verification still need to be added before final submission.
+The current manuscript is not yet submission-ready: author information is provisional, figures still need final design polish, and broader scenario plus rerun N50 local-metric verification still need to be added before final submission.
