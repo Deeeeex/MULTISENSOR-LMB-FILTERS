@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 00:29 CST
+日期: 2026-06-24 01:45 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -32,8 +32,10 @@
 | Gate | Current state | Required before submission |
 | --- | --- | --- |
 | Official template | `IEEEtaes.cls` and `IEEEtaes.bst` are used by `main.tex`; `./build.sh` compiles the manuscript. | Rebuild after final edits; render pages and inspect figures/tables. |
+| Template and author-guideline archive | `generated/SUBMISSION_READINESS_REPORT.md` now checks the local TAES requirements document, official template zip, and regular-paper template source as required artifacts. | Recheck online TAES/AESS pages immediately before final submission. |
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |
 | Page budget | Current manuscript is within a plausible Regular Paper range, but final printed page count is not guaranteed. | Keep estimated TAES pages near or below 10, or accept overlength charges. |
+| Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. | Re-run `./build.sh` after final title/abstract edits. |
 | Author metadata | Bracketed author/funding/repository placeholders remain in submission-style prose. | Fill real author list, affiliations, ORCID, funding, acknowledgments, corresponding author metadata. |
 | AI disclosure | Provisional Codex/OpenAI disclosure exists in Acknowledgment. | Recheck current IEEE/AESS wording and decide final disclosure scope. |
 | Citations | Core bibliography has been DOI/source checked during draft construction. | Final bibliography scan for missing DOIs, malformed entries, uncited entries, and unsupported claims. |

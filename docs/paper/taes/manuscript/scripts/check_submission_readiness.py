@@ -24,6 +24,9 @@ OUT = ROOT / "generated"
 MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
+REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
+REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
+TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
 VERIFICATION_JSON = OUT / "n50_verification.json"
 HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
 READINESS_JSON = OUT / "submission_readiness.json"
@@ -63,6 +66,16 @@ def labels(tex: str) -> set[str]:
 
 def refs(tex: str) -> set[str]:
     return set(re.findall(r"\\(?:ref|eqref|pageref){([^}]+)}", tex))
+
+
+def command_body(tex: str, name: str) -> str:
+    match = re.search(rf"\\{name}{{([^}}]+)}}", tex, flags=re.DOTALL)
+    return match.group(1).strip() if match else ""
+
+
+def environment_body(tex: str, name: str) -> str:
+    match = re.search(rf"\\begin{{{name}}}(.+?)\\end{{{name}}}", tex, flags=re.DOTALL)
+    return match.group(1).strip() if match else ""
 
 
 def placeholder_hits(tex: str) -> list[str]:
@@ -118,6 +131,9 @@ def file_checks() -> list[Check]:
         BIB,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
+        REQUIREMENTS_DOC,
+        REGULAR_TEMPLATE,
+        TEMPLATE_ZIP,
         VERIFICATION_JSON,
         OUT / "N50_EVIDENCE_MANIFEST.md",
         OUT / "REFERENCE_BASELINE_MANIFEST.md",
@@ -137,6 +153,51 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             "TAES class",
             "pass" if "\\documentclass{IEEEtaes}" in tex else "error",
             "`main.tex` uses `IEEEtaes`." if "\\documentclass{IEEEtaes}" in tex else "`main.tex` does not use `IEEEtaes`.",
+        )
+    )
+
+    title = command_body(tex, "title")
+    abstract = environment_body(tex, "abstract")
+    keywords = environment_body(tex, "IEEEkeywords")
+
+    title_abstract = f"{title}\n{abstract}".lower()
+    discouraged_words = sorted(set(re.findall(r"\b(?:new|novel)\b", title_abstract)))
+    checks.append(
+        Check(
+            "TAES title and abstract wording",
+            "pass" if not discouraged_words else "warning",
+            "Title and abstract avoid discouraged novelty words such as `new` and `novel`."
+            if not discouraged_words
+            else f"Title/abstract contain discouraged novelty words: {', '.join(discouraged_words)}",
+        )
+    )
+
+    abstract_bad_tokens = [
+        token
+        for token in [r"\cite", r"\footnote", r"\begin{equation}", r"\["]
+        if token in abstract
+    ]
+    paragraph_count = len([part for part in re.split(r"\n\s*\n", abstract) if part.strip()])
+    abstract_ok = bool(abstract) and not abstract_bad_tokens and paragraph_count == 1
+    checks.append(
+        Check(
+            "TAES abstract format",
+            "pass" if abstract_ok else "warning",
+            "Abstract is one paragraph and contains no citations, footnotes, or displayed equations."
+            if abstract_ok
+            else "Abstract should be one paragraph without citations, footnotes, or displayed equations.",
+        )
+    )
+
+    keyword_items = [item.strip().lower() for item in keywords.split(",") if item.strip()]
+    keyword_ok = len(keyword_items) >= 3 and keyword_items == sorted(keyword_items)
+    checks.append(
+        Check(
+            "TAES keyword format",
+            "pass" if keyword_ok else "warning",
+            "Keywords are comma-separated, include at least three phrases, and are alphabetized."
+            if keyword_ok
+            else "Keywords should be comma-separated, include at least three phrases, and be alphabetized.",
         )
     )
 

@@ -1,6 +1,6 @@
 # IEEE TAES 投稿模板与要求整理
 
-日期: 2026-06-23
+日期: 2026-06-24
 
 ## Question
 
@@ -18,7 +18,7 @@
 
 - 不替代投稿系统中的最终表单检查；提交前需要再次核对在线页面。
 - 不处理版权表单或 OA 付款；这些只在接受后或作者选择 OA 时发生。
-- 不替代最终 PDF 的人工逐页审读；当前仅记录本机 Tectonic 编译和渲染检查。
+- 不替代最终 PDF 的人工逐页审读；当前仅记录本机 Tectonic 编译、渲染检查和机器化 readiness gate。
 
 ## Risk Tier
 
@@ -268,6 +268,7 @@ TAES/IEEE template 中的图表准备要点:
 - 补 Figure 1 和至少两张主表: N50 main comparison、reference-only ablation。
 - 统一 AA/GA runtime denominator，或在表注中明确 runtime denominator 不同。
 - 补 independent verifier 或至少独立复跑 N50。
+- 保持 `check_submission_readiness.py` 的 TAES-specific gates 通过: 模板/投稿要求归档存在，标题与摘要不用 `new`/`novel`，摘要为单段且无 citation/footnote/display equation，关键词逗号分隔且按字母序。
 - 写明当前 method 是 graph-local output-level iterative operator，若未完成 recursive online arm，不要声称是 recursive filtering update。
 - Acknowledgments 准备 AI assistance disclosure。
 
@@ -312,6 +313,7 @@ Independence status: self-check only. 本文档由同一 worker lane 根据官�
 - 下载 IEEE Editorial Style Manual PDF，SHA-256 为 `4891f9e7ae600ddc57628d46b242f5319b8924789841aac33b847001c2bedaba`。
 - 当前环境提供 `tectonic 0.15.0`；regular/original research template 已成功编译到 `/tmp/taes_template_compile/TAES_template.pdf`，日志只有模板自身的 underfull/overfull 类排版警告。
 - 当前 TAES manuscript 已通过 `docs/paper/taes/manuscript/build.sh` 构建，生成 `docs/paper/taes/manuscript/main.pdf`；当前构建日志没有 undefined citation/reference 或 overfull warning，剩余为 underfull 类非阻塞警告。
+- `docs/paper/taes/manuscript/scripts/check_submission_readiness.py` 已把 TAES-specific 机械 gate 纳入 build 后快照: official template archive、regular template source、本文档、标题/摘要措辞、摘要格式和关键词格式。
 
 ## Risk and Escalation
 

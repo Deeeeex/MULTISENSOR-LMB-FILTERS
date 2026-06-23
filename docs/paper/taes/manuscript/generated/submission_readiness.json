@@ -26,6 +26,21 @@
       "status": "pass"
     },
     {
+      "detail": "docs/TAES_SUBMISSION_REQUIREMENTS_CN.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/template_regular/IEEE_TAES_orig-research/TAES_template.tex",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/TAES_Template.zip",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/generated/n50_verification.json",
       "gate": "required artifact",
       "status": "pass"
@@ -48,6 +63,21 @@
     {
       "detail": "`main.tex` uses `IEEEtaes`.",
       "gate": "TAES class",
+      "status": "pass"
+    },
+    {
+      "detail": "Title and abstract avoid discouraged novelty words such as `new` and `novel`.",
+      "gate": "TAES title and abstract wording",
+      "status": "pass"
+    },
+    {
+      "detail": "Abstract is one paragraph and contains no citations, footnotes, or displayed equations.",
+      "gate": "TAES abstract format",
+      "status": "pass"
+    },
+    {
+      "detail": "Keywords are comma-separated, include at least three phrases, and are alphabetized.",
+      "gate": "TAES keyword format",
       "status": "pass"
     },
     {
