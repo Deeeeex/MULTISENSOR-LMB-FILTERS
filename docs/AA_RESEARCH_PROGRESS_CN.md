@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-23 22:55 CST
+最后更新: 2026-06-23 23:03 CST
 
 ## 当前结论
 
@@ -11,6 +11,8 @@
 TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可用 `./build.sh` 生成 `main.pdf`。这一版已经把 title/abstract/intro/method/theory/experiment/results/limitations/conclusion 和 DOI 核验过的核心引用落入真实 TAES template，但还不是 submission-ready: 作者信息仍是占位，图表是 first-pass，证据仍集中在 N50 tiered packet-loss 场景，缺 independent verifier 和更广泛场景验证。
 
 第二阶段稿件增强已开始: `main.tex` 现在补入了 DOI 程序化核验过的近期 AA/RFS/LMB fusion 文献，Related Work 已按方法线重写；方法部分增加了 graph-local operator 伪代码和 reference-label invariance 性质；结果部分从均值表扩展为均值、95% CI、paired reduction、wins、sign-test evidence、runtime 和 PDF 内可见的 N50 reduction 图。
+
+第三阶段证据链增强已开始: `docs/paper/taes/manuscript/scripts/extract_n50_evidence.py` 会从 tracked N50 validation report 自动生成 `generated/n50_*` LaTeX 片段、CSV、JSON 和 `N50_EVIDENCE_MANIFEST.md`。`main.tex` 的主结果表、paired reduction 表、runtime 表和 N50 reduction 图现在由报告解析结果驱动，不再手工维护核心实验数字。
 
 已经验证的两个原型是:
 
@@ -43,6 +45,7 @@ local outputs -> median-cardinality medoid reference label set
 | Paper-writing ready 技术包 | 已完成 | `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md` | 已把方法、理论、实验结果、ablation、图表计划和 claim 边界整理成可拆入 manuscript 的中文材料。 |
 | TAES manuscript first draft | 已完成首版，可编译 PDF | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/main.pdf`; `docs/paper/taes/manuscript/references.bib` | 使用官方 `IEEEtaes.cls/.bst`，`tectonic` 编译通过并渲染检查 5 页 PDF；只剩标题页 underfull 类非阻塞警告。 |
 | TAES manuscript evidence-chain pass | 进行中，本轮已增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/references.bib`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md` | 已补近期 DOI 核验引用、Related Work 方法线、operator 伪代码、reference-label invariance、paired CI/wins/sign-test 结果、runtime 表和 N50 reduction 图；仍需更广 scenario 和最终语言压缩。 |
+| TAES manuscript reproducible-results pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/extract_n50_evidence.py`; `docs/paper/taes/manuscript/generated/N50_EVIDENCE_MANIFEST.md`; `docs/paper/taes/manuscript/generated/n50_evidence.json` | N50 paper-facing tables/figure fragments now regenerate from the tracked validation report during `./build.sh`; manifest records report SHA256 and key paper-facing checks. |
 | 文档维护 | 已建立，持续维护 | 本文件；`docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`; `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 当前 checkpoint 已回填 N50 validation、N50 ablation、recommendation、theory boundary 和 neighborhood N50。 |
 
 ## 已完成的负结果
@@ -89,7 +92,7 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - consensus 指标归零是构造结果；paper-facing claim 必须依赖 local metrics、GA reference 对照和 ablation。
 - 还需要独立 verifier 或至少独立复跑，避免同一 worker lane 自证。
 - 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；当前实现是 output-level neighborhood iterative prototype，不是递归滤波内部的最终 online method。
-- TAES 首稿已经可编译，但图表仍是 first-pass；最终稿需要更高级的矢量图、完整实验表、更多 scenario/seed coverage、作者/基金/AI disclosure 信息和人工审读。
+- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 表已经由 report-driven generated fragments 驱动；最终稿仍需要更高级的矢量图、更多 scenario/seed coverage、作者/基金/AI disclosure 信息和人工审读。
 
 ## 下一步
 

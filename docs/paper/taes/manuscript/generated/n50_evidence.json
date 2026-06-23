@@ -1,0 +1,168 @@
+{
+  "local": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "CardErr": 0.0772,
+      "E-OSPA": 1.681483,
+      "RMSE": 3.449035
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "CardErr": 0.0772,
+      "E-OSPA": 1.911286,
+      "RMSE": 3.662955
+    },
+    "Tuned spatial-KLA AA": {
+      "CardErr": 0.088,
+      "E-OSPA": 2.029641,
+      "RMSE": 3.68288
+    }
+  },
+  "network": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "Card. disp.": 0.0212,
+      "Loc. disag.": 0.216372,
+      "OSPA": 0.309818
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "Card. disp.": 0.0212,
+      "Loc. disag.": 0.891585,
+      "OSPA": 1.030062
+    },
+    "Tuned spatial-KLA AA": {
+      "Card. disp.": 0.03535,
+      "Loc. disag.": 1.472837,
+      "OSPA": 1.682607
+    }
+  },
+  "paired": {
+    "Neighborhood label-barycenter spatial-KLA AA::Card. disp.": {
+      "ci_high": 0.016021,
+      "ci_low": 0.012279,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.01415,
+      "reduction_pct": 40.03,
+      "reduction_std": 0.00675,
+      "wins": "50/50"
+    },
+    "Neighborhood label-barycenter spatial-KLA AA::CardErr": {
+      "ci_high": 0.01266,
+      "ci_low": 0.00894,
+      "p_value": "6.981e-11",
+      "reduction_mean": 0.0108,
+      "reduction_pct": 12.27,
+      "reduction_std": 0.006709,
+      "wins": "46/50"
+    },
+    "Neighborhood label-barycenter spatial-KLA AA::E-OSPA": {
+      "ci_high": 0.354731,
+      "ci_low": 0.341584,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.348157,
+      "reduction_pct": 17.15,
+      "reduction_std": 0.023714,
+      "wins": "50/50"
+    },
+    "Neighborhood label-barycenter spatial-KLA AA::Loc. disag.": {
+      "ci_high": 1.274781,
+      "ci_low": 1.238149,
+      "p_value": "1.776e-15",
+      "reduction_mean": 1.256465,
+      "reduction_pct": 85.31,
+      "reduction_std": 0.06608,
+      "wins": "50/50"
+    },
+    "Neighborhood label-barycenter spatial-KLA AA::OSPA": {
+      "ci_high": 1.386397,
+      "ci_low": 1.359181,
+      "p_value": "1.776e-15",
+      "reduction_mean": 1.372789,
+      "reduction_pct": 81.59,
+      "reduction_std": 0.049094,
+      "wins": "50/50"
+    },
+    "Neighborhood label-barycenter spatial-KLA AA::RMSE": {
+      "ci_high": 0.267136,
+      "ci_low": 0.200554,
+      "p_value": "2.267e-12",
+      "reduction_mean": 0.233845,
+      "reduction_pct": 6.35,
+      "reduction_std": 0.120104,
+      "wins": "48/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::Card. disp.": {
+      "ci_high": 0.016021,
+      "ci_low": 0.012279,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.01415,
+      "reduction_pct": 40.03,
+      "reduction_std": 0.00675,
+      "wins": "50/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::CardErr": {
+      "ci_high": 0.01266,
+      "ci_low": 0.00894,
+      "p_value": "6.981e-11",
+      "reduction_mean": 0.0108,
+      "reduction_pct": 12.27,
+      "reduction_std": 0.006709,
+      "wins": "46/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::E-OSPA": {
+      "ci_high": 0.124512,
+      "ci_low": 0.112198,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.118355,
+      "reduction_pct": 5.83,
+      "reduction_std": 0.022214,
+      "wins": "50/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::Loc. disag.": {
+      "ci_high": 0.596079,
+      "ci_low": 0.566425,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.581252,
+      "reduction_pct": 39.46,
+      "reduction_std": 0.053491,
+      "wins": "50/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::OSPA": {
+      "ci_high": 0.666133,
+      "ci_low": 0.638957,
+      "p_value": "1.776e-15",
+      "reduction_mean": 0.652545,
+      "reduction_pct": 38.78,
+      "reduction_std": 0.049022,
+      "wins": "50/50"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA::RMSE": {
+      "ci_high": 0.05642,
+      "ci_low": -0.01657,
+      "p_value": "0.6718",
+      "reduction_mean": 0.019925,
+      "reduction_pct": 0.54,
+      "reduction_std": 0.131662,
+      "wins": "27/50"
+    }
+  },
+  "runtime": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "n": "50",
+      "relative": "1.647x",
+      "runtime": "102.346812 +/- 11.261774",
+      "runtime_step": "4.264450"
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "n": "50",
+      "relative": "1.542x",
+      "runtime": "95.576241 +/- 11.190371",
+      "runtime_step": "3.982343"
+    },
+    "Tuned spatial-KLA AA": {
+      "n": "50",
+      "relative": "1.000x",
+      "runtime": "62.245046 +/- 6.444045",
+      "runtime_step": "2.593544"
+    }
+  },
+  "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md",
+  "source_sha256": "fd1727247517a6f76be765c82e3c348b51d3415707c4811150ddde364bb3a6b6"
+}

@@ -1,0 +1,4 @@
+arm,OSPA,Loc. disag.,Card. disp.,E-OSPA,RMSE,CardErr
+Tuned spatial-KLA AA,1.682607,1.472837,0.03535,2.029641,3.68288,0.088
+Neighborhood reference-only,1.030062,0.891585,0.0212,1.911286,3.662955,0.0772
+Neighborhood label-barycenter,0.309818,0.216372,0.0212,1.681483,3.449035,0.0772

@@ -15,7 +15,9 @@ Main files:
 - `main.tex`: manuscript draft.
 - `references.bib`: DOI-verified core references used by the draft.
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
+- `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
 - `scripts/render_figures.py`: dependency-light figure renderer.
+- `generated/`: reproducibility fragments generated from `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md`.
 - `figures/`: generated figure assets.
 
 Build:
@@ -24,4 +26,6 @@ Build:
 ./build.sh
 ```
 
-The current manuscript is a first paper-source checkpoint. It is not yet submission-ready: author information is placeholder, figures are first-pass assets, and broader scenario/independent-verifier evidence still needs to be added before final submission.
+The build first regenerates the N50 evidence fragments, then renders figures, then compiles the TAES PDF. Do not edit `generated/n50_*.tex` by hand; update the validation report or extraction script and rerun the build.
+
+The current manuscript is not yet submission-ready: author information is provisional, figures still need final design polish, and broader scenario/independent-verifier evidence still needs to be added before final submission.

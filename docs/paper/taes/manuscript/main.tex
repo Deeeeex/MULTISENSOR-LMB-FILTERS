@@ -223,10 +223,7 @@ Network disagreement is measured by pairwise output OSPA, localization disagreem
 \toprule
 Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
 \midrule
-Tuned spatial-KLA AA & 1.682607 & 1.472837 & 0.035350 & 2.029641 & 3.682880 & 0.088000\\
-Neighborhood reference-only & 1.030062 & 0.891585 & 0.021200 & 1.911286 & 3.662955 & 0.077200\\
-Neighborhood label-barycenter & \textbf{0.309818} & \textbf{0.216372} & \textbf{0.021200} & \textbf{1.681483} & \textbf{3.449035} & \textbf{0.077200}\\
-\bottomrule
+\input{generated/n50_mean_rows.tex}
 \end{tabular}
 \end{table*}
 
@@ -241,55 +238,14 @@ Table~\ref{tab:n50} shows that the proposed operator improves the communication-
 \toprule
 Metric & Full reduction & Full wins & Ref.-only reduction & Ref.-only wins\\
 \midrule
-Network OSPA & 81.59\% [1.359, 1.386] & 50/50 & 38.78\% [0.639, 0.666] & 50/50\\
-Loc. disagreement & 85.31\% [1.238, 1.275] & 50/50 & 39.46\% [0.566, 0.596] & 50/50\\
-Card. dispersion & 40.03\% [0.012, 0.016] & 50/50 & 40.03\% [0.012, 0.016] & 50/50\\
-E-OSPA & 17.15\% [0.342, 0.355] & 50/50 & 5.83\% [0.112, 0.125] & 50/50\\
-RMSE & 6.35\% [0.201, 0.267] & 48/50 & 0.54\% [-0.017, 0.056] & 27/50\\
-Card. error & 12.27\% [0.009, 0.013] & 46/50 & 12.27\% [0.009, 0.013] & 46/50\\
-\bottomrule
+\input{generated/n50_paired_rows.tex}
 \end{tabular}
 \end{table*}
 
 \begin{figure}[t]
 \centering
 \setlength{\unitlength}{1pc}
-\begin{picture}(18.5,12.7)
-\put(0.0,12.1){\makebox(18.5,0.35){\tablefont Paired reduction over tuned spatial-KLA AA}}
-\put(0.3,10.6){\tablefont Network OSPA}
-\put(6.1,10.7){\color{black}\rule{7.34pc}{0.12in}}
-\put(13.7,10.62){\color{black}\tablefont 81.59\%}
-\put(6.1,10.25){\color[gray]{0.55}\rule{3.49pc}{0.12in}}
-\put(9.85,10.17){\color{black}\tablefont 38.78\%}
-\put(0.3,8.55){\tablefont Loc. disag.}
-\put(6.1,8.65){\color{black}\rule{7.68pc}{0.12in}}
-\put(14.05,8.57){\color{black}\tablefont 85.31\%}
-\put(6.1,8.20){\color[gray]{0.55}\rule{3.55pc}{0.12in}}
-\put(9.90,8.12){\color{black}\tablefont 39.46\%}
-\put(0.3,6.50){\tablefont E-OSPA}
-\put(6.1,6.60){\color{black}\rule{1.54pc}{0.12in}}
-\put(7.90,6.52){\color{black}\tablefont 17.15\%}
-\put(6.1,6.15){\color[gray]{0.55}\rule{0.52pc}{0.12in}}
-\put(6.90,6.07){\color{black}\tablefont 5.83\%}
-\put(0.3,4.45){\tablefont RMSE}
-\put(6.1,4.55){\color{black}\rule{0.57pc}{0.12in}}
-\put(6.95,4.47){\color{black}\tablefont 6.35\%}
-\put(6.1,4.10){\color[gray]{0.55}\rule{0.05pc}{0.12in}}
-\put(6.45,4.02){\color{black}\tablefont 0.54\%}
-\put(0.3,2.40){\tablefont Card. error}
-\put(6.1,2.50){\color{black}\rule{1.10pc}{0.12in}}
-\put(7.45,2.42){\color{black}\tablefont 12.27\%}
-\put(6.1,2.05){\color[gray]{0.55}\rule{1.10pc}{0.12in}}
-\put(7.45,1.97){\color{black}\tablefont 12.27\%}
-\put(6.1,1.20){\line(1,0){9.0}}
-\put(6.1,0.75){\tablefont 0}
-\put(10.6,0.75){\tablefont 50\%}
-\put(15.0,0.75){\tablefont 100\%}
-\put(6.1,0.20){\color{black}\rule{0.45pc}{0.10in}}
-\put(6.8,0.18){\color{black}\tablefont Full}
-\put(9.2,0.20){\color[gray]{0.55}\rule{0.45pc}{0.10in}}
-\put(9.9,0.18){\color{black}\tablefont Ref.-only}
-\end{picture}
+\input{generated/n50_reduction_bars.tex}
 \caption{Paired percentage reductions over the tuned spatial-KLA AA baseline. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
 \label{fig:n50}
 \end{figure}
@@ -305,10 +261,7 @@ Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from st
 \toprule
 Method & Runtime (s) & Relative\\
 \midrule
-Tuned spatial-KLA AA & 62.245 $\pm$ 6.444 & 1.000x\\
-Neighborhood reference-only & 95.576 $\pm$ 11.190 & 1.542x\\
-Neighborhood label-barycenter & 102.347 $\pm$ 11.262 & 1.647x\\
-\bottomrule
+\input{generated/n50_runtime_rows.tex}
 \end{tabular}
 \end{table}
 
