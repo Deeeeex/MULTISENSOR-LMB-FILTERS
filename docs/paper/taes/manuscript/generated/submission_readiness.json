@@ -106,7 +106,7 @@
       "status": "pass"
     },
     {
-      "detail": "`main.pdf` has 7 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
+      "detail": "`main.pdf` has 8 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
       "gate": "PDF page count",
       "status": "pass"
     },

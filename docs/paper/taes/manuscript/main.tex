@@ -208,13 +208,29 @@ These properties are structural. The consensus-limit result is conditional on st
 \section{EXPERIMENTAL SETUP}
 The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
 
-We compare three arms chosen to isolate the mechanism. The baseline is a tuned spatial-KLA AA implementation with target-wise weight handling, link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. The proposed arm enables \method{} projection over communication neighborhoods with $H=3$ iterations; it tests the full label-canonicalization and matched-barycenter hypothesis. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain.
+We compare three arms chosen to isolate the mechanism rather than to search for scenario-specific hyperparameters. The baseline is a tuned spatial-KLA AA implementation with target-wise weight handling, link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. The proposed arm enables \method{} projection over communication neighborhoods with $H=3$ fixed iterations; it tests the full label-canonicalization and matched-barycenter hypothesis. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain. All arms keep their parameters fixed across the 50 paired trials and see the same measurements and packet-loss realization in each trial.
+
+\begin{table}[t]
+\caption{Mechanism-isolation protocol for the AA comparison.}
+\label{tab:design}
+\centering
+\tablefont
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.74in}>{\raggedright\arraybackslash}p{0.95in}>{\raggedright\arraybackslash}p{1.08in}}
+\toprule
+Arm & Enabled mechanism & Hypothesis tested\\
+\midrule
+Tuned spatial-KLA AA & Target-wise scalar weights and spatial-KLA AA & Correct weight routing alone does not solve component correspondence.\\
+Reference-only & Neighborhood reference selection and label copying & A common label set can reduce disagreement but should not explain the main spatial gain.\\
+Label-barycenter & Reference selection, assignment, and matched moment barycenters & Matched posterior barycenters improve both agreement and truth-referenced tracking.\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Network disagreement is measured by pairwise output OSPA, localization disagreement, and cardinality dispersion across sensors. Truth-referenced tracking quality is measured by local E-OSPA, RMSE, and cardinality error averaged across sensors. OSPA is used because it consistently combines localization and cardinality errors for multi-object filters \cite{Schuhmacher2008OSPA}. We report mean values, 95\% confidence intervals over trials, paired reductions relative to the tuned baseline, wins out of 50 paired trials, and sign-test $p$ values.
 
 With base seed 1, the 50 trial seeds are 2 through 51. Each trial samples one eight-sensor packet-loss vector from the tiered profile and reuses it for all arms. Intervals are mean $\pm1.96$ standard errors over trial-level means; paired reductions use baseline-minus-candidate deltas. Wins and two-sided sign-test values are computed on nonzero paired deltas.
 
-The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, and generated machine-readable summaries for the N50 AA validation and the contextual GA reference rows. A verifier recomputes network-disagreement statistics from per-trial report rows and runtime statistics from trial logs before the PDF is built.
+The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, and generated machine-readable summaries for the N50 AA validation and the contextual GA reference rows. A verifier recomputes network-disagreement statistics from per-trial report rows and runtime statistics from trial logs before the PDF is built; local tracking metrics are upgraded to the same per-trial recomputation path when the source validation report contains per-trial local rows.
 
 \section{RESULTS}
 \begin{table*}[t]
