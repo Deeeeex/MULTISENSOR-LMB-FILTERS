@@ -201,6 +201,13 @@ def tex_ci(result: PairedResult) -> str:
     return f"[{result.ci_low:.3f}, {result.ci_high:.3f}]"
 
 
+def tex_pvalue(value: str) -> str:
+    numeric = float(value)
+    if numeric < 1e-3:
+        return "$<10^{-3}$"
+    return f"{numeric:.3f}"
+
+
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -235,8 +242,8 @@ def write_paired_rows(paired: dict[tuple[str, str], PairedResult]) -> None:
         full = paired[(ARM_ORDER[2], metric)]
         ref = paired[(ARM_ORDER[1], metric)]
         rows.append(
-            f"{label} & {tex_pct(full.reduction_pct)} {tex_ci(full)} & {full.wins} & "
-            f"{tex_pct(ref.reduction_pct)} {tex_ci(ref)} & {ref.wins}\\\\\n"
+            f"{label} & {tex_pct(full.reduction_pct)} {tex_ci(full)} & {full.wins} & {tex_pvalue(full.p_value)} & "
+            f"{tex_pct(ref.reduction_pct)} {tex_ci(ref)} & {ref.wins} & {tex_pvalue(ref.p_value)}\\\\\n"
         )
     rows.append("\\bottomrule\n")
     write_text(OUT / "n50_paired_rows.tex", "".join(rows))

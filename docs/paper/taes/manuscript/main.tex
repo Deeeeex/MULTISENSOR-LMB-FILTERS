@@ -248,13 +248,13 @@ Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
 Table~\ref{tab:reference} places the proposed AA projection beside two GA reference rows generated with the same base seed, trial seeds, and tiered packet-loss profile. Because those rows come from the GA validation path, they are used only as contextual baselines rather than as paired significance-test inputs. In this setting, the \method{} row is lower than both GA reference rows on all six reported disagreement and tracking metrics, which supports the interpretation that label canonicalization and matched posterior barycenters address a failure mode not removed by the existing GA weighting variants alone.
 
 \begin{table*}[t]
-\caption{Paired reductions relative to the tuned spatial-KLA AA baseline. The bracketed interval is the 95\% confidence interval of the absolute paired reduction.}
+\caption{Paired reductions relative to the tuned spatial-KLA AA baseline. The bracketed interval is the 95\% confidence interval of the absolute paired reduction, and $p$ is the two-sided sign-test value on nonzero paired deltas.}
 \label{tab:paired}
 \centering
 \tablefont
-\begin{tabular}{lcccc}
+\begin{tabular}{lcccccc}
 \toprule
-Metric & Full reduction & Full wins & Ref.-only reduction & Ref.-only wins\\
+Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only wins & Ref. $p$\\
 \midrule
 \input{generated/n50_paired_rows.tex}
 \end{tabular}
@@ -268,7 +268,7 @@ Metric & Full reduction & Full wins & Ref.-only reduction & Ref.-only wins\\
 \label{fig:n50}
 \end{figure*}
 
-Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from state-barycenter effects. The reference-only ablation reduces network disagreement because sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\%, with a confidence interval crossing zero and 27 wins out of 50 paired trials. The full operator reaches 6.35\% RMSE reduction, with 48 wins out of 50 and a sign-test value of $p=2.267\times10^{-12}$. The full method also improves local E-OSPA in all 50 paired trials and cardinality error in 46 out of 50 paired trials. These results support the claim that matched posterior barycenters, not label copying alone, drive the spatial tracking gain.
+Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from state-barycenter effects. The reference-only ablation reduces network disagreement because sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\%, with a confidence interval crossing zero, 27 wins out of 50 paired trials, and no sign-test support. The full operator reaches 6.35\% RMSE reduction, with 48 wins out of 50 and $p<10^{-3}$. The full method also improves local E-OSPA in all 50 paired trials and cardinality error in 46 out of 50 paired trials. These results support the claim that matched posterior barycenters, not label copying alone, drive the spatial tracking gain.
 
 \begin{table}[t]
 \caption{Filter runtime over 50 paired trials.}
