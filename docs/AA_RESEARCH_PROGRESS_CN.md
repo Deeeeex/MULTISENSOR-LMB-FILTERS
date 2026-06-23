@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-23 23:35 CST
+最后更新: 2026-06-23 23:47 CST
 
 ## 当前结论
 
@@ -8,7 +8,7 @@
 
 论文写作准备包已整理到 `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md`，包含 paper-ready positioning、method outline、理论推导、N50 实验表、ablation 解释、图表计划和 claim 边界。
 
-TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可用 `./build.sh` 生成 `main.pdf`。这一版已经把 title/abstract/intro/method/theory/experiment/results/limitations/conclusion 和 DOI 核验过的核心引用落入真实 TAES template；方法图已经过一次矢量化 polish。但还不是 submission-ready: 作者信息仍是占位，结果图/表仍可继续设计强化，证据仍集中在 N50 tiered packet-loss 场景，缺最终 local-metric independent verifier 和更广泛场景验证。
+TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可用 `./build.sh` 生成 `main.pdf`。这一版已经把 title/abstract/intro/method/theory/experiment/results/limitations/conclusion 和 DOI 核验过的核心引用落入真实 TAES template；方法图和 N50 reduction 图已经过矢量化 polish。但还不是 submission-ready: 作者信息仍是占位，证据仍集中在 N50 tiered packet-loss 场景，缺最终 local-metric independent verifier 和更广泛场景验证。
 
 第二阶段稿件增强已开始: `main.tex` 现在补入了 DOI 程序化核验过的近期 AA/RFS/LMB fusion 文献，Related Work 已按方法线重写；方法部分增加了 graph-local operator 伪代码和 reference-label invariance 性质；结果部分从均值表扩展为均值、95% CI、paired reduction、wins、sign-test evidence、runtime 和 PDF 内可见的 N50 reduction 图。
 
@@ -16,7 +16,7 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 第三阶段 verifier 已补入: `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py` 会从 per-trial Markdown network table 独立复算 network disagreement 的均值/CI/paired reductions/wins/sign-test p，并从 trial log 独立复算 runtime mean/std/relative cost；输出 `generated/N50_VERIFICATION_REPORT.md` 和 `generated/n50_verification.json`。本轮已把 validation runner 改为对新报告输出 per-trial local E-OSPA/RMSE/CardErr rows，并用 N1 smoke 报告验证 local trial rows 可复算 summary；边界是当前 paper-facing archived N50 report 仍缺该表，因此 N50 local tracking metrics 仍是 summary-traced。已启动 TAES N50 local-verifier rerun，完成后应把新 report/log 接入 manuscript evidence scripts。
 
-第四阶段稿件质量增强已开始: 方法图已改为原生 LaTeX 矢量图并通过 PDF 渲染检查；`main.tex` 已加入 graph-locality/complexity 说明，并把 Discussion/Conclusion 中的内部待办口吻改成正式 limitation/future-work 边界。本轮 checkpoint 已完成 build/render 验证，并随本文件更新记录到分支历史中。
+第四阶段稿件质量增强已开始: 方法图已改为原生 LaTeX 矢量图并通过 PDF 渲染检查；N50 reduction 图已从拥挤单栏图改为 full-width report-driven 矢量图；`main.tex` 已加入 graph-locality/complexity 说明，并把 Discussion/Conclusion 中的内部待办口吻改成正式 limitation/future-work 边界。本轮 checkpoint 已完成 build/render 验证，并随本文件更新记录到分支历史中。
 
 已经验证的两个原型是:
 
@@ -48,10 +48,10 @@ local outputs -> median-cardinality medoid reference label set
 | Neighborhood online 化 sanity/validation | N1/N5/N50 已通过 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED1_20260622_171542.md`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md` | N50 consensus OSPA/Loc/Card `0.309818/0.216372/0.021200`，local E-OSPA/RMSE/CardErr `1.681483/3.449035/0.077200`，均低于两个 GA reference；runtime 约 `1.647x` tuned。 |
 | Paper-writing ready 技术包 | 已完成 | `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md` | 已把方法、理论、实验结果、ablation、图表计划和 claim 边界整理成可拆入 manuscript 的中文材料。 |
 | TAES manuscript first draft | 已完成首版，可编译 PDF | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/main.pdf`; `docs/paper/taes/manuscript/references.bib` | 使用官方 `IEEEtaes.cls/.bst`，`tectonic` 编译通过并渲染检查 6 页 PDF；方法图已换成原生 LaTeX 矢量图；只剩标题页 underfull 类非阻塞警告。 |
-| TAES manuscript evidence-chain pass | 进行中，本轮已增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/references.bib`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md` | 已补近期 DOI 核验引用、Related Work 方法线、operator 伪代码、reference-label invariance、paired CI/wins/sign-test 结果、runtime 表和 N50 reduction 图；仍需更广 scenario 和最终语言压缩。 |
+| TAES manuscript evidence-chain pass | 进行中，本轮已增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/references.bib`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md` | 已补近期 DOI 核验引用、Related Work 方法线、operator 伪代码、reference-label invariance、paired CI/wins/sign-test 结果、runtime 表和 full-width N50 reduction 图；仍需更广 scenario 和最终语言压缩。 |
 | TAES manuscript reproducible-results pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/extract_n50_evidence.py`; `docs/paper/taes/manuscript/generated/N50_EVIDENCE_MANIFEST.md`; `docs/paper/taes/manuscript/generated/n50_evidence.json` | N50 paper-facing tables/figure fragments now regenerate from the tracked validation report during `./build.sh`; manifest records report SHA256 and key paper-facing checks. |
 | TAES manuscript independent-verifier pass | 部分完成，N50 local rerun 正在运行 | `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py`; `RUN/AA/launchAaTaesN50LocalVerifierRerun.sh`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | Independent verifier recomputes network disagreement from per-trial report rows and runtime from trial log; new validation reports now expose per-trial local metrics. 当前已启动 50-trial rerun，完成后把新 report/log 接入 `extract_n50_evidence.py` 和 `verify_n50_evidence.py`，再重建 PDF。 |
-| TAES manuscript polish/complexity pass | 进行中 | `docs/paper/taes/manuscript/main.tex` | 已补 graph-locality/complexity paragraph，明确 Hungarian matching 是 runtime overhead 的主要来源；Discussion/Conclusion 已避免使用“下一步/投稿前还需”这类内部状态口吻。 |
+| TAES manuscript polish/complexity pass | 进行中 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/generated/n50_reduction_bars.tex` | 已补 graph-locality/complexity paragraph，明确 Hungarian matching 是 runtime overhead 的主要来源；Discussion/Conclusion 已避免使用“下一步/投稿前还需”这类内部状态口吻；N50 reduction 图已改为 full-width 矢量图并通过 PDF 渲染检查。 |
 | 文档维护 | 已建立，持续维护 | 本文件；`docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`; `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 当前 checkpoint 已回填 N50 validation、N50 ablation、recommendation、theory boundary 和 neighborhood N50。 |
 
 ## 已完成的负结果
@@ -98,7 +98,7 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - consensus 指标归零是构造结果；paper-facing claim 必须依赖 local metrics、GA reference 对照和 ablation。
 - 已有 partial independent verifier: network disagreement 和 runtime 可从 per-trial artifacts 独立复算；validation runner 已补 per-trial local raw rows，TAES N50 rerun 正在运行。运行完成前，当前 paper-facing N50 local tracking metrics 仍是 summary-traced。
 - 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；当前实现是 output-level neighborhood iterative prototype，不是递归滤波内部的最终 online method。
-- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 表已经由 report-driven generated fragments 驱动；方法图已完成一次矢量化 polish。最终稿仍需要更多 scenario/seed coverage、作者/基金/AI disclosure 信息、N50 local independent verification 接入和人工审读。
+- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 表/N50 reduction 图已经由 report-driven generated fragments 驱动；方法图和结果图已完成一次矢量化 polish。最终稿仍需要更多 scenario/seed coverage、作者/基金/AI disclosure 信息、N50 local independent verification 接入和人工审读。
 
 ## 当前长跑
 

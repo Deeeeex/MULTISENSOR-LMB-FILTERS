@@ -252,35 +252,35 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
 
 
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
-    rows = [generated_header(), "\\begin{picture}(18.5,12.7)\n"]
-    rows.append("\\put(0.0,12.1){\\makebox(18.5,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
-    y_values = [10.6, 8.55, 6.50, 4.45, 2.40]
+    rows = [generated_header(), "\\begin{picture}(38.0,8.6)\n"]
+    rows.append("\\put(0.0,8.15){\\makebox(38.0,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
+    axis_x = 9.5
+    axis_y = 1.05
+    scale_w = 22.0
+    for tick in [0, 25, 50, 75, 100]:
+        x = axis_x + scale_w * tick / 100.0
+        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color[gray]{{0.82}}\\line(0,1){{6.55}}}}\n")
+        rows.append(f"\\put({x - 0.25:.2f},0.55){{\\tablefont {tick}\\%}}\n")
+    y_values = [7.10, 5.85, 4.60, 3.35, 2.10]
     for label, y in zip(PAIRED_METRICS[:2] + PAIRED_METRICS[3:], y_values):
         _, metric = PAIRED_SOURCE[label]
         full = paired[(ARM_ORDER[2], metric)].reduction_pct
         ref = paired[(ARM_ORDER[1], metric)].reduction_pct
-        full_w = 9.0 * full / 100.0
-        ref_w = 9.0 * ref / 100.0
+        full_w = scale_w * full / 100.0
+        ref_w = scale_w * ref / 100.0
         fig_label = FIG_LABEL[label]
         rows.extend(
             [
-                f"\\put(0.3,{y:.2f}){{\\tablefont {fig_label}}}\n",
-                f"\\put(6.1,{y + 0.10:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{0.12in}}}}\n",
-                f"\\put({6.1 + full_w + 0.25:.2f},{y + 0.02:.2f}){{\\color{{black}}\\tablefont {full:.2f}\\%}}\n",
-                f"\\put(6.1,{y - 0.35:.2f}){{\\color[gray]{{0.55}}\\rule{{{ref_w:.2f}pc}}{{0.12in}}}}\n",
-                f"\\put({6.1 + ref_w + 0.25:.2f},{y - 0.43:.2f}){{\\color{{black}}\\tablefont {ref:.2f}\\%}}\n",
+                f"\\put(0.3,{y + 0.02:.2f}){{\\tablefont {fig_label}}}\n",
+                f"\\put({axis_x:.2f},{y + 0.10:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{0.11in}}}}\n",
+                f"\\put({axis_x + full_w + 0.28:.2f},{y + 0.03:.2f}){{\\color{{black}}\\tablefont {full:.2f}\\%}}\n",
+                f"\\put({axis_x:.2f},{y - 0.35:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{0.11in}}}}\n",
+                f"\\put({axis_x + ref_w + 0.28:.2f},{y - 0.42:.2f}){{\\color{{black}}\\tablefont {ref:.2f}\\%}}\n",
             ]
         )
     rows.extend(
         [
-            "\\put(6.1,1.20){\\line(1,0){9.0}}\n",
-            "\\put(6.1,0.75){\\tablefont 0}\n",
-            "\\put(10.6,0.75){\\tablefont 50\\%}\n",
-            "\\put(15.0,0.75){\\tablefont 100\\%}\n",
-            "\\put(6.1,0.20){\\color{black}\\rule{0.45pc}{0.10in}}\n",
-            "\\put(6.8,0.18){\\color{black}\\tablefont Full}\n",
-            "\\put(9.2,0.20){\\color[gray]{0.55}\\rule{0.45pc}{0.10in}}\n",
-            "\\put(9.9,0.18){\\color{black}\\tablefont Ref.-only}\n",
+            f"\\put({axis_x:.2f},{axis_y:.2f}){{\\line(1,0){{{scale_w:.2f}}}}}\n",
             "\\end{picture}\n",
         ]
     )

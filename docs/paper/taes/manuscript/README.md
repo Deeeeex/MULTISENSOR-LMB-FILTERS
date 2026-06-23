@@ -40,4 +40,4 @@ Long N50 rerun for upgrading local metric verification:
 
 After the rerun completes, update the source report/log constants in `scripts/extract_n50_evidence.py` and `scripts/verify_n50_evidence.py`, then run `./build.sh`.
 
-The current manuscript is not yet submission-ready: author information is provisional, the results figure/table design can still be strengthened, and broader scenario plus rerun N50 local-metric verification still need to be added before final submission.
+The current manuscript is not yet submission-ready: author information is provisional, broader scenario coverage and rerun N50 local-metric verification still need to be added, and final author/funding/AI-disclosure metadata still need to be completed before submission.
