@@ -18,7 +18,7 @@
 
 - 不替代投稿系统中的最终表单检查；提交前需要再次核对在线页面。
 - 不处理版权表单或 OA 付款；这些只在接受后或作者选择 OA 时发生。
-- 不声明模板编译已通过，因为当前本机没有 `pdflatex`/`latexmk`。
+- 不替代最终 PDF 的人工逐页审读；当前仅记录本机 Tectonic 编译和渲染检查。
 
 ## Risk Tier
 
@@ -310,7 +310,8 @@ Independence status: self-check only. 本文档由同一 worker lane 根据官�
 - 解压 correspondence template 后确认包含 `TAES_Corresp_template.tex`、`TAES_Corresp_template.pdf`、`IEEEtaes.cls`、`IEEEtaes.bst`、`IEEEtran_HOWTO.pdf`。
 - 保存 TAES author-info、home、technical areas、preprint policy、AI content policy、IEEE templates page 的 HTML 快照。
 - 下载 IEEE Editorial Style Manual PDF，SHA-256 为 `4891f9e7ae600ddc57628d46b242f5319b8924789841aac33b847001c2bedaba`。
-- 当前环境未安装 `pdflatex` 或 `latexmk`，因此尚未本地编译模板。
+- 当前环境提供 `tectonic 0.15.0`；regular/original research template 已成功编译到 `/tmp/taes_template_compile/TAES_template.pdf`，日志只有模板自身的 underfull/overfull 类排版警告。
+- 当前 TAES manuscript 已通过 `docs/paper/taes/manuscript/build.sh` 构建，生成 `docs/paper/taes/manuscript/main.pdf`；当前构建日志没有 undefined citation/reference 或 overfull warning，剩余为 underfull 类非阻塞警告。
 
 ## Risk and Escalation
 
@@ -351,10 +352,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/TAE
 
 ## Open Issues
 
-- 需要安装 TeX Live/MacTeX 后验证 regular template 可编译。
+- 若需要完全贴近 IEEE production 工具链，可再用 TeX Live/MacTeX 复验；当前 Tectonic 编译已经通过。
 - 需要决定是否使用 traditional model 或 OA model。
 - 需要确认所有作者 ORCID、affiliations、funding statement、corresponding author。
-- 需要准备 AI assistance disclosure 的最终英文措辞。
+- 需要把 manuscript 中 provisional Acknowledgment 的 funding placeholder 和 AI assistance disclosure 最终措辞改成作者确认版本。
 - 需要确定是否上传 TechRxiv/arXiv preprint。
 - 需要重新核对 Atypon/REX 表单是否要求 graphical abstract、data availability、conflict of interest 或 supplementary files。
 

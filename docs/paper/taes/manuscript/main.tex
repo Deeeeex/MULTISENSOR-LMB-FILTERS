@@ -44,7 +44,7 @@
 
 \authoraddress{First Author, Second Author, and Third Author are with Institution, City, Country (e-mail: author@example.com). Author information is provisional for the draft version.}
 
-\editor{This manuscript uses only simulated multi-target tracking data. No human or animal subjects are involved. AI-assisted drafting and editing will be disclosed in the acknowledgments in the final submission.}
+\editor{This manuscript uses only simulated multi-target tracking data. No human or animal subjects are involved.}
 
 \supplementary{Supplementary material, code, and reproducibility artifacts will be provided upon submission if permitted by the journal.}
 
@@ -281,6 +281,9 @@ The method uses Euclidean position matching and equally weighted moment barycent
 
 \section{CONCLUSION}
 This paper reframes a persistent AA-LMB fusion error as a label-space alignment and matched-posterior barycenter problem. The proposed \method{} operator chooses a robust local reference, canonically matches neighboring tracks to that reference, and computes first-two-moment barycenters for matched states. In 50 paired trials under tiered packet loss, the method improves both network agreement and local tracking metrics, while a reference-only ablation shows that the main spatial gain comes from posterior barycentering rather than label copying alone. The result is a graph-local projection layer that can be embedded into future recursive distributed LMB designs with explicit lifecycle and consistency safeguards.
+
+\section*{ACKNOWLEDGMENT}
+Funding and author-specific acknowledgments will be completed before submission. \mbox{OpenAI Codex} assisted with code navigation, experiment-log organization, evidence cross-checking, and language polishing. The authors remain responsible for all technical claims, derivations, citations, experiments, and manuscript content.
 
 \bibliographystyle{IEEEtaes}
 \bibliography{references}

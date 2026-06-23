@@ -32,6 +32,12 @@ The build first regenerates the N50 evidence fragments, runs the verifier, rende
 
 The verifier currently recomputes network disagreement and runtime from raw per-trial artifacts. The validation runner now emits per-trial local E-OSPA/RMSE/CardErr rows for new reports, and the verifier will independently recompute those metrics when the source report contains that table. The archived N50 report used by the current draft predates that table, so its local tracking metrics remain trace-checked through the report summary and generated evidence JSON until the N50 validation is rerun.
 
+Current build status:
+
+- Official regular-paper template compiles with Tectonic 0.15.0 into `/tmp/taes_template_compile/TAES_template.pdf`; only template-originated underfull/overfull warnings were observed.
+- This manuscript compiles with `./build.sh` and writes `main.pdf`.
+- The manuscript includes a provisional Acknowledgment section for funding metadata and IEEE/AESS AI-assistance disclosure; replace the funding placeholder before submission.
+
 Long N50 rerun for upgrading local metric verification:
 
 ```bash
