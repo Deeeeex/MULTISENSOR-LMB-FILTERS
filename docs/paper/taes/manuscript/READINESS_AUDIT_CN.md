@@ -23,6 +23,7 @@
 | Under stable matching and connected repeated neighborhood averaging, local moments converge to the centralized equal-weight barycenter. | Structural Properties | Proposition in `main.tex` | Theory stated with explicit assumptions | Do not present as a finite-round guarantee; check proof wording before final submission. |
 | Matched posterior barycenters, not label copying alone, drive the spatial tracking gain. | Results and Discussion | N50 full-vs-reference-only ablation; paired RMSE reductions/wins/sign test | Report-driven fragments, local summary trace | Upgrade to independent local-metric recomputation after the active N50 rerun completes. |
 | Neighborhood label-barycenter improves local E-OSPA/RMSE/CardErr relative to tuned spatial-KLA AA in the N50 validation. | Results, Table I/II, Fig. 3 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md`; `generated/n50_evidence.json` | Report-driven; local metrics currently summary-traced | Replace source with rerun report containing per-trial local rows and rerun verifier. |
+| Neighborhood label-barycenter is lower than the two tracked GA reference rows on the six reported N50 disagreement/tracking metrics. | Results, contextual reference table | `RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Report-driven contextual comparison | Keep phrasing as contextual reference rows, not paired GA-vs-AA significance evidence. |
 | Network disagreement and runtime numbers are reproducible from raw per-trial artifacts. | Results, reproducibility notes | `verify_n50_evidence.py`; `N50_VERIFICATION_REPORT.md` | Independently recomputed | None for network/runtime; keep source hash in manifest. |
 | Runtime overhead is mainly due to repeated assignment/moment-barycenter operations, not hidden global communication. | Runtime table, complexity paragraph | Runtime log and graph-locality method text | Independently recomputed runtime | Add a short scaling note if broader N or topology experiments are added. |
 
@@ -44,6 +45,7 @@
 | Gate | Status | Evidence | Next action |
 | --- | --- | --- | --- |
 | Report-driven tables/figure fragments | Passed | `extract_n50_evidence.py`; `generated/N50_EVIDENCE_MANIFEST.md` | Keep generated fragments read-only by convention. |
+| Report-driven GA reference rows | Passed | `extract_reference_baselines.py`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Maintain the contextual-comparison caveat in the manuscript. |
 | Independent network disagreement verifier | Passed | `verify_n50_evidence.py`; `generated/N50_VERIFICATION_REPORT.md` | Maintain hash check against source report. |
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Pending | Active N50 rerun log `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | When the log prints `AA_TAES_N50_LOCAL_VERIFIER_REPORT=...`, switch scripts to that report/log and rebuild. |

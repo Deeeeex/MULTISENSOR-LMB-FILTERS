@@ -4,6 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 python3 scripts/extract_n50_evidence.py
+python3 scripts/extract_reference_baselines.py
 python3 scripts/verify_n50_evidence.py
 python3 scripts/render_figures.py
 
