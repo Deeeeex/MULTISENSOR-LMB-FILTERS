@@ -1,28 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="220" viewBox="0 0 1120 220">
-<rect width="1120" height="220" fill="white"/>
-<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:18px;fill:#333}</style>
-<rect x="40" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
-<text class="h" x="125.0" y="86" text-anchor="middle">Local LMB</text>
-<text class="s" x="125.0" y="112" text-anchor="middle">posteriors</text>
-<rect x="250" y="56" width="190" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
-<text class="h" x="345.0" y="86" text-anchor="middle">Median-cardinality</text>
-<text class="s" x="345.0" y="112" text-anchor="middle">medoid reference</text>
-<rect x="480" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
-<text class="h" x="565.0" y="86" text-anchor="middle">Hungarian</text>
-<text class="s" x="565.0" y="112" text-anchor="middle">label matching</text>
-<rect x="690" y="56" width="190" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
-<text class="h" x="785.0" y="86" text-anchor="middle">Matched moment</text>
-<text class="s" x="785.0" y="112" text-anchor="middle">barycenter</text>
-<rect x="920" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
-<text class="h" x="1005.0" y="86" text-anchor="middle">Neighborhood</text>
-<text class="s" x="1005.0" y="112" text-anchor="middle">iteration</text>
-<line x1="210" y1="92" x2="238" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="238,85 250,92 238,99" fill="#4D4D4D"/>
-<line x1="440" y1="92" x2="468" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="468,85 480,92 468,99" fill="#4D4D4D"/>
-<line x1="650" y1="92" x2="678" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="678,85 690,92 678,99" fill="#4D4D4D"/>
-<line x1="880" y1="92" x2="908" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="908,85 920,92 908,99" fill="#4D4D4D"/>
-<text class="s" x="560" y="166" text-anchor="middle">Each sensor applies the operator over its communication neighborhood; repeated rounds propagate multi-hop information.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320">
+<rect width="1120" height="320" fill="white"/>
+<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:17px;fill:#333} .tiny{font-size:15px;fill:#333}</style>
+<rect x="38" y="44" width="180" height="90" rx="7" fill="#E8F1F8" stroke="#1F4E79" stroke-width="2.2"/>
+<text class="h" x="128.0" y="80" text-anchor="middle">Local outputs</text>
+<text class="s" x="128.0" y="110" text-anchor="middle">different label sets</text>
+<rect x="264" y="44" width="188" height="90" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
+<text class="h" x="358.0" y="80" text-anchor="middle">Reference</text>
+<text class="s" x="358.0" y="110" text-anchor="middle">median-cardinality medoid</text>
+<rect x="498" y="44" width="168" height="90" rx="7" fill="#FEF0D9" stroke="#D55E00" stroke-width="2.2"/>
+<text class="h" x="582.0" y="80" text-anchor="middle">Assignment</text>
+<text class="s" x="582.0" y="110" text-anchor="middle">Hungarian matching</text>
+<rect x="712" y="44" width="180" height="90" rx="7" fill="#EAF4EA" stroke="#009E73" stroke-width="2.2"/>
+<text class="h" x="802.0" y="80" text-anchor="middle">Barycenter</text>
+<text class="s" x="802.0" y="110" text-anchor="middle">matched moments</text>
+<rect x="938" y="44" width="144" height="90" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
+<text class="h" x="1010.0" y="80" text-anchor="middle">Iterate</text>
+<text class="s" x="1010.0" y="110" text-anchor="middle">graph-local rounds</text>
+<line x1="218" y1="92" x2="252" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="252,85 264,92 252,99" fill="#4D4D4D"/>
+<line x1="452" y1="92" x2="486" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="486,85 498,92 486,99" fill="#4D4D4D"/>
+<line x1="666" y1="92" x2="700" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="700,85 712,92 700,99" fill="#4D4D4D"/>
+<line x1="892" y1="92" x2="926" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="926,85 938,92 926,99" fill="#4D4D4D"/>
+<rect x="42" y="184" width="280" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="62" y="214">Example mismatch: X1={a,b,c}, X2={a,d,c}</text>
+<text class="tiny" x="62" y="238">Scalar AA/KLA weights cannot align b and d.</text>
+<line x1="342" y1="225" x2="512" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="512,218 526,225 512,232" fill="#4D4D4D"/>
+<rect x="548" y="184" width="242" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="568" y="214">Canonical labels: reference labels are kept.</text>
+<text class="tiny" x="568" y="238">Matched states are averaged as moments.</text>
+<line x1="812" y1="225" x2="908" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="908,218 922,225 908,232" fill="#4D4D4D"/>
+<rect x="944" y="184" width="136" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="1012" y="216" text-anchor="middle">Y_s={a,b,c}</text>
+<text class="tiny" x="1012" y="240" text-anchor="middle">local output</text>
 </svg>

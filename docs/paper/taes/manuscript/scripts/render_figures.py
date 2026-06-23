@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render first-pass TAES manuscript figures without matplotlib."""
+"""Render TAES manuscript figures without matplotlib."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def convert_svg_to_png(svg: Path, png: Path, density: int = 240) -> None:
+def convert_svg(svg: Path, target: Path, density: int = 300) -> None:
     converter = shutil.which("magick") or shutil.which("convert")
     if converter is None:
         return
@@ -29,39 +29,54 @@ def convert_svg_to_png(svg: Path, png: Path, density: int = 240) -> None:
         str(svg),
         "-quality",
         "95",
-        str(png),
+        str(target),
     ]
     if Path(converter).name == "magick":
         cmd.insert(1, "convert")
     try:
         subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError:
-        png.unlink(missing_ok=True)
+        target.unlink(missing_ok=True)
 
 
 def method_pipeline_svg() -> str:
     boxes = [
-        (40, 56, 170, 72, "Local LMB", "posteriors"),
-        (250, 56, 190, 72, "Median-cardinality", "medoid reference"),
-        (480, 56, 170, 72, "Hungarian", "label matching"),
-        (690, 56, 190, 72, "Matched moment", "barycenter"),
-        (920, 56, 170, 72, "Neighborhood", "iteration"),
+        (38, 44, 180, 90, "Local outputs", "different label sets", "#E8F1F8", "#1F4E79"),
+        (264, 44, 188, 90, "Reference", "median-cardinality medoid", "#F7F7F7", "#4D4D4D"),
+        (498, 44, 168, 90, "Assignment", "Hungarian matching", "#FEF0D9", "#D55E00"),
+        (712, 44, 180, 90, "Barycenter", "matched moments", "#EAF4EA", "#009E73"),
+        (938, 44, 144, 90, "Iterate", "graph-local rounds", "#F7F7F7", "#4D4D4D"),
     ]
-    arrow = "#4D4D4D"
     svg = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="220" viewBox="0 0 1120 220">',
-        '<rect width="1120" height="220" fill="white"/>',
-        '<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:18px;fill:#333}</style>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320">',
+        '<rect width="1120" height="320" fill="white"/>',
+        '<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:17px;fill:#333} .tiny{font-size:15px;fill:#333}</style>',
     ]
-    for x, y, w, h, title, sub in boxes:
-        svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>')
-        svg.append(f'<text class="h" x="{x + w/2}" y="{y + 30}" text-anchor="middle">{title}</text>')
-        svg.append(f'<text class="s" x="{x + w/2}" y="{y + 56}" text-anchor="middle">{sub}</text>')
-    for x1, x2 in [(210, 250), (440, 480), (650, 690), (880, 920)]:
+    for x, y, w, h, title, sub, fill, stroke in boxes:
+        svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="{fill}" stroke="{stroke}" stroke-width="2.2"/>')
+        svg.append(f'<text class="h" x="{x + w/2}" y="{y + 36}" text-anchor="middle">{title}</text>')
+        svg.append(f'<text class="s" x="{x + w/2}" y="{y + 66}" text-anchor="middle">{sub}</text>')
+    for x1, x2 in [(218, 264), (452, 498), (666, 712), (892, 938)]:
         y = 92
-        svg.append(f'<line x1="{x1}" y1="{y}" x2="{x2-12}" y2="{y}" stroke="{arrow}" stroke-width="2.5"/>')
-        svg.append(f'<polygon points="{x2-12},{y-7} {x2},{y} {x2-12},{y+7}" fill="{arrow}"/>')
-    svg.append('<text class="s" x="560" y="166" text-anchor="middle">Each sensor applies the operator over its communication neighborhood; repeated rounds propagate multi-hop information.</text>')
+        svg.append(f'<line x1="{x1}" y1="{y}" x2="{x2-12}" y2="{y}" stroke="#4D4D4D" stroke-width="2.5"/>')
+        svg.append(f'<polygon points="{x2-12},{y-7} {x2},{y} {x2-12},{y+7}" fill="#4D4D4D"/>')
+    svg.extend(
+        [
+            '<rect x="42" y="184" width="280" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="62" y="214">Example mismatch: X1={a,b,c}, X2={a,d,c}</text>',
+            '<text class="tiny" x="62" y="238">Scalar AA/KLA weights cannot align b and d.</text>',
+            '<line x1="342" y1="225" x2="512" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>',
+            '<polygon points="512,218 526,225 512,232" fill="#4D4D4D"/>',
+            '<rect x="548" y="184" width="242" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="568" y="214">Canonical labels: reference labels are kept.</text>',
+            '<text class="tiny" x="568" y="238">Matched states are averaged as moments.</text>',
+            '<line x1="812" y1="225" x2="908" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>',
+            '<polygon points="908,218 922,225 908,232" fill="#4D4D4D"/>',
+            '<rect x="944" y="184" width="136" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="1012" y="216" text-anchor="middle">Y_s={a,b,c}</text>',
+            '<text class="tiny" x="1012" y="240" text-anchor="middle">local output</text>',
+        ]
+    )
     svg.append("</svg>")
     return "\n".join(svg)
 
@@ -107,6 +122,7 @@ def n50_results_svg() -> str:
 def main() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     render_png = os.environ.get("TAES_RENDER_PNG", "0") == "1"
+    render_pdf = os.environ.get("TAES_RENDER_PDF", "0") == "1"
     assets = {
         "fig_method_pipeline.svg": method_pipeline_svg(),
         "fig_n50_results.svg": n50_results_svg(),
@@ -114,8 +130,10 @@ def main() -> None:
     for name, svg_text in assets.items():
         svg_path = FIG / name
         write(svg_path, svg_text)
+        if render_pdf:
+            convert_svg(svg_path, svg_path.with_suffix(".pdf"))
         if render_png:
-            convert_svg_to_png(svg_path, svg_path.with_suffix(".png"))
+            convert_svg(svg_path, svg_path.with_suffix(".png"), density=240)
 
 
 if __name__ == "__main__":

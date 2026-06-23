@@ -132,6 +132,27 @@ The output $Y_s(k)$ keeps the reference labels and replaces their Gaussian momen
 
 \begin{figure}[t]
 \centering
+\setlength{\unitlength}{1pt}
+\begin{picture}(236,170)
+\put(0,128){\framebox(52,28){\shortstack{\scriptsize Local outputs\\[-1pt]\scriptsize $\{a,b,c\}$, $\{a,d,c\}$}}}
+\put(61,128){\framebox(52,28){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
+\put(122,128){\framebox(52,28){\shortstack{\scriptsize Hungarian\\[-1pt]\scriptsize matching}}}
+\put(183,128){\framebox(52,28){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
+\put(52,142){\vector(1,0){9}}
+\put(113,142){\vector(1,0){9}}
+\put(174,142){\vector(1,0){9}}
+\put(7,78){\framebox(100,34){\shortstack{\scriptsize Failure mode\\[-1pt]\scriptsize scalar weights cannot align\\[-1pt]\scriptsize labels $b$ and $d$}}}
+\put(129,78){\framebox(100,34){\shortstack{\scriptsize Corrected output\\[-1pt]\scriptsize reference labels retained\\[-1pt]\scriptsize matched states averaged}}}
+\put(107,95){\vector(1,0){22}}
+\put(7,25){\framebox(222,28){\shortstack{\scriptsize Graph-local iteration over $\mathcal{N}_s$ for $H$ rounds\\[-1pt]\scriptsize propagates label agreement without global labels}}}
+\put(118,78){\vector(0,-1){25}}
+\end{picture}
+\caption{Core mechanism of the proposed operator. The failure is not only a poor fusion weight: neighboring LMB filters may carry different labels for the same target. The operator first chooses a graph-local reference, then matches neighbor tracks to that reference, and finally averages matched posterior moments.}
+\label{fig:method}
+\end{figure}
+
+\begin{figure}[t]
+\centering
 \fbox{\begin{minipage}{0.93\columnwidth}
 \textbf{Inputs:} local LMB estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.
 
@@ -149,26 +170,8 @@ The output $Y_s(k)$ keeps the reference labels and replaces their Gaussian momen
 
 \textbf{Output:} label-aligned estimate $Y_s(k)$ for every sensor.
 \end{minipage}}
-\caption{Neighborhood label-barycenter operator used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
+\caption{Implementation outline used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
 \label{fig:algorithm}
-\end{figure}
-
-\begin{figure}[t]
-\centering
-\setlength{\unitlength}{1pc}
-\begin{picture}(18.5,11.2)
-\put(1.4,9.6){\framebox(15.5,1.0){Local LMB posteriors in $\mathcal{N}_s$}}
-\put(1.4,7.4){\framebox(15.5,1.0){Median-cardinality medoid reference}}
-\put(1.4,5.2){\framebox(15.5,1.0){Hungarian label canonicalization}}
-\put(1.4,3.0){\framebox(15.5,1.0){Matched moment barycenter}}
-\put(1.4,0.8){\framebox(15.5,1.0){Repeat over neighborhood rounds}}
-\put(9.1,9.3){\vector(0,-1){0.65}}
-\put(9.1,7.1){\vector(0,-1){0.65}}
-\put(9.1,4.9){\vector(0,-1){0.65}}
-\put(9.1,2.7){\vector(0,-1){0.65}}
-\end{picture}
-\caption{The proposed operator separates label canonicalization from state fusion. Each sensor chooses a robust local reference, assigns neighbor tracks to the reference labels, and computes matched posterior barycenters. Repeated neighborhood rounds propagate label-space agreement without global label access.}
-\label{fig:method}
 \end{figure}
 
 \section{STRUCTURAL PROPERTIES}
