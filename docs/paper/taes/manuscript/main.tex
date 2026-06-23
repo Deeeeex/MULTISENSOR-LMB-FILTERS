@@ -143,22 +143,16 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 
 \begin{figure}[t]
 \centering
+\setlength{\fboxsep}{3pt}
 \fbox{\begin{minipage}{0.93\columnwidth}
-\textbf{Inputs:} local LMB estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.
-
-\textbf{For each round} $h=1,\ldots,H$ and sensor $s$:
-
-1) compute neighborhood cardinalities and select the median-cardinality candidate set $\mathcal{C}_s(k)$;
-
-2) choose the OSPA-medoid reference $\rho_s(k)$ inside $\mathcal{C}_s(k)$;
-
-3) solve a Hungarian assignment from each neighbor output to the reference output using position costs;
-
-4) for every reference label, form the matched group and replace its state by the first-two-moment barycenter;
-
-5) write the resulting labeled estimate as the next-round output of sensor $s$.
-
-\textbf{Output:} label-aligned estimate $Y_s(k)$ for every sensor.
+\footnotesize
+\textbf{Inputs:} neighborhood estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.
+\textbf{Round $h$ at sensor $s$:}
+(i) select the median-cardinality candidate set $\mathcal{C}_s(k)$;
+(ii) choose the OSPA-medoid reference $\rho_s(k)$;
+(iii) assign neighbor states to reference states by Hungarian matching;
+(iv) moment-match each reference-label group;
+(v) write the label-aligned estimate $Y_s(k)$ as the next-round output.
 \end{minipage}}
 \caption{Implementation outline used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
 \label{fig:algorithm}
@@ -183,6 +177,18 @@ The least-squares objective has gradient $2Mz-2\sum_i\mu_i$, hence its unique mi
 \end{equation}
 \end{proof}
 
+\begin{proposition}[Stable-matching consensus limit]
+For one matched reference label, suppose the correspondence is fixed and correct over a connected graph, and let
+\begin{equation}
+  q_s^h=\left[r_s^h,(\mu_s^h)^T,\operatorname{vec}(M_s^h)^T\right]^T,
+  \quad M_s^h=\Sigma_s^h+\mu_s^h(\mu_s^h)^T .
+\end{equation}
+If $q_s^{h+1}=\sum_j W_{sj}q_j^h$ with a primitive doubly stochastic matrix $W$ respecting the graph, then all $q_s^h$ converge to $S^{-1}\sum_j q_j^0$. The limiting mean and second moment therefore equal the centralized equal-weight moment barycenter.
+\end{proposition}
+\begin{proof}
+Stack the $q_s^h$ vectors. Since $W^h\rightarrow S^{-1}\mathbf{1}\mathbf{1}^T$, every node converges to the average initial moment vector. Recovering $\Sigma$ from $M-\mu\mu^T$ gives the covariance.
+\end{proof}
+
 \begin{proposition}[Existence convexity]
 If an AA existence update uses nonnegative weights that sum to one, then the fused existence probability remains in the convex hull of the incoming existence probabilities.
 \end{proposition}
@@ -197,7 +203,7 @@ For every sensor $s$, the label set of $Y_s(k)$ is a subset of the label set pro
 The operator defines output labels only from the selected reference $X_{\rho_s(k)}(k)$, so it never creates a label outside a neighborhood estimate. If all neighborhood estimates share the same labels and moments, every admissible reference has the same label set, each assignment is the identity up to ties among identical states, and each matched group contains identical moments. The barycenter equations therefore return the same mean and covariance.
 \end{proof}
 
-These properties are structural. They do not imply that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
+These properties are structural. The consensus-limit result is conditional on stable matching and stochastic graph weights; the reported implementation uses three finite rounds and recomputes references and assignments. None of the propositions implies that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
 
 \section{EXPERIMENTAL SETUP}
 The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
