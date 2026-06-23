@@ -220,6 +220,8 @@ We compare three arms. The baseline is a tuned spatial-KLA AA implementation wit
 
 Network disagreement is measured by pairwise output OSPA, localization disagreement, and cardinality dispersion across sensors. Truth-referenced tracking quality is measured by local E-OSPA, RMSE, and cardinality error averaged across sensors. OSPA is used because it consistently combines localization and cardinality errors for multi-object filters \cite{Schuhmacher2008OSPA}. We report mean values, 95\% confidence intervals over trials, paired reductions relative to the tuned baseline, wins out of 50 paired trials, and sign-test $p$ values.
 
+With base seed 1, the 50 trial seeds are 2 through 51. Each trial samples one eight-sensor packet-loss vector from the tiered profile and reuses it for all arms. Intervals are mean $\pm1.96$ standard errors over trial-level means; paired reductions use baseline-minus-candidate deltas. Wins and two-sided sign-test values are computed on nonzero paired deltas.
+
 \section{RESULTS}
 \begin{table*}[t]
 \caption{Fifty-trial paired validation under tiered packet loss. Lower values are better. Values are trial means. The proposed operator improves both network agreement and local tracking quality; the reference-only ablation isolates the part of the gain that comes from label-set canonicalization alone.}
@@ -283,7 +285,7 @@ The method uses Euclidean position matching and equally weighted moment barycent
 This paper reframes a persistent AA-LMB fusion error as a label-space alignment and matched-posterior barycenter problem. The proposed \method{} operator chooses a robust local reference, canonically matches neighboring tracks to that reference, and computes first-two-moment barycenters for matched states. In 50 paired trials under tiered packet loss, the method improves both network agreement and local tracking metrics, while a reference-only ablation shows that the main spatial gain comes from posterior barycentering rather than label copying alone. The result is a graph-local projection layer that can be embedded into future recursive distributed LMB designs with explicit lifecycle and consistency safeguards.
 
 \section*{ACKNOWLEDGMENT}
-Funding and author-specific acknowledgments will be completed before submission. \mbox{OpenAI Codex} assisted with code navigation, experiment-log organization, evidence cross-checking, and language polishing. The authors remain responsible for all technical claims, derivations, citations, experiments, and manuscript content.
+Funding and author acknowledgments will be completed before submission. \mbox{OpenAI Codex} assisted with code navigation, experiment-log organization, evidence cross-checking, and language polishing. The authors remain responsible for all technical claims, derivations, citations, experiments, and manuscript content.
 
 \bibliographystyle{IEEEtaes}
 \bibliography{references}
