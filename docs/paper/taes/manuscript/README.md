@@ -14,6 +14,7 @@ Main files:
 
 - `main.tex`: manuscript draft.
 - `references.bib`: DOI-verified core references used by the draft.
+- `READINESS_AUDIT_CN.md`: claim-to-evidence and TAES submission-readiness audit for the current draft.
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
@@ -47,3 +48,5 @@ Long N50 rerun for upgrading local metric verification:
 After the rerun completes, update the source report/log constants in `scripts/extract_n50_evidence.py` and `scripts/verify_n50_evidence.py`, then run `./build.sh`.
 
 The current manuscript is not yet submission-ready: author information is provisional, broader scenario coverage and rerun N50 local-metric verification still need to be added, and final author/funding/AI-disclosure metadata still need to be completed before submission.
+
+For the current claim-by-claim readiness state, see `READINESS_AUDIT_CN.md`.
