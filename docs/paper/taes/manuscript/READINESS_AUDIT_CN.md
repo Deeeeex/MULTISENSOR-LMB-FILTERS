@@ -54,7 +54,7 @@
 | Independent network disagreement verifier | Passed | `verify_n50_evidence.py`; `generated/N50_VERIFICATION_REPORT.md` | Maintain hash check against source report. |
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Pending | Active N50 rerun log `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | When the log prints `AA_TAES_N50_LOCAL_VERIFIER_REPORT=...`, switch scripts to that report/log and rebuild. |
-| Held-out scenario evidence | Partial sanity only | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report | Still run a paper-grade held-out N50 or packet-loss-family validation after local verifier closes. |
+| Held-out scenario evidence | Partial sanity only | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; launcher `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` prepared | Still run a paper-grade held-out N50 or packet-loss-family validation after local verifier closes. |
 | PDF visual QA | Partial | Prior rendered inspections after recent commits | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gates are metadata placeholders and N50 local-metric independent verification; held-out evidence remains a warning because only N5 sanity exists. |
 
@@ -65,4 +65,4 @@
 3. Confirm `generated/N50_VERIFICATION_REPORT.md` says local metrics are independently recomputed from per-trial local tracking rows.
 4. Render `main.pdf` to page PNGs and inspect title/abstract, method figures, results tables, and reference page spacing.
 5. Commit and push the source/report-script checkpoint.
-6. Upgrade the tracked N5 base-seed-11 sanity evidence into a paper-grade held-out validation and decide whether it enters the main paper, a compact robustness paragraph, or supplementary material.
+6. Start `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` after the local verifier finishes, then decide whether the held-out N50 evidence enters the main paper, a compact robustness paragraph, or supplementary material.
