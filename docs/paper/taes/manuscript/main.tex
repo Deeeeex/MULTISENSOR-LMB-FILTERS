@@ -136,22 +136,8 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 
 \begin{figure}[t]
 \centering
-\setlength{\unitlength}{1pt}
-\begin{picture}(236,170)
-\put(0,128){\framebox(52,28){\shortstack{\scriptsize Local outputs\\[-1pt]\scriptsize $\{a,b,c\}$, $\{a,d,c\}$}}}
-\put(61,128){\framebox(52,28){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
-\put(122,128){\framebox(52,28){\shortstack{\scriptsize Hungarian\\[-1pt]\scriptsize matching}}}
-\put(183,128){\framebox(52,28){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
-\put(52,142){\vector(1,0){9}}
-\put(113,142){\vector(1,0){9}}
-\put(174,142){\vector(1,0){9}}
-\put(7,78){\framebox(100,34){\shortstack{\scriptsize Failure mode\\[-1pt]\scriptsize scalar weights cannot align\\[-1pt]\scriptsize labels $b$ and $d$}}}
-\put(129,78){\framebox(100,34){\shortstack{\scriptsize Corrected output\\[-1pt]\scriptsize reference labels retained\\[-1pt]\scriptsize matched states averaged}}}
-\put(107,95){\vector(1,0){22}}
-\put(7,25){\framebox(222,28){\shortstack{\scriptsize Graph-local iteration over $\mathcal{N}_s$ for $H$ rounds\\[-1pt]\scriptsize propagates label agreement without global labels}}}
-\put(118,78){\vector(0,-1){25}}
-\end{picture}
-\caption{Core mechanism of the proposed operator. The failure is not only a poor fusion weight: neighboring LMB filters may carry different labels for the same target. The operator first chooses a graph-local reference, then matches neighbor tracks to that reference, and finally averages matched posterior moments.}
+\input{generated/method_pipeline.tex}
+\caption{Core mechanism of the proposed operator. Fusion weights specify how much probability mass a neighbor contributes, but they do not define component correspondence across local LMB posteriors. The operator therefore chooses a graph-local reference, matches neighbor tracks to that reference, and replaces matched states by posterior moment barycenters.}
 \label{fig:method}
 \end{figure}
 

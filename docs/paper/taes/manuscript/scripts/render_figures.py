@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FIG = ROOT / "figures"
+GEN = ROOT / "generated"
 
 
 def write(path: Path, text: str) -> None:
@@ -81,6 +82,30 @@ def method_pipeline_svg() -> str:
     return "\n".join(svg)
 
 
+def method_pipeline_tex() -> str:
+    return r"""\begingroup
+\setlength{\unitlength}{1pt}
+\begin{picture}(236,170)
+\thicklines
+\put(0,128){\framebox(52,28){\shortstack{\scriptsize Local outputs\\[-1pt]\scriptsize $\{a,b,c\}$, $\{a,d,c\}$}}}
+\put(61,128){\framebox(52,28){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
+\put(122,128){\framebox(52,28){\shortstack{\scriptsize Assignment\\[-1pt]\scriptsize to reference}}}
+\put(183,128){\framebox(52,28){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
+\put(52,142){\vector(1,0){9}}
+\put(113,142){\vector(1,0){9}}
+\put(174,142){\vector(1,0){9}}
+
+\put(3,80){\framebox(104,34){\shortstack{\scriptsize Weighting failure\\[-1pt]\scriptsize weights choose mass,\\[-1pt]\scriptsize not label match}}}
+\put(128,80){\framebox(104,34){\shortstack{\scriptsize Corrected output\\[-1pt]\scriptsize reference labels retained,\\[-1pt]\scriptsize matched states averaged}}}
+\put(107,97){\vector(1,0){21}}
+
+\put(7,25){\framebox(222,28){\shortstack{\scriptsize Repeat for $H$ graph-local rounds over $\mathcal{N}_s$\\[-1pt]\scriptsize no global label dictionary is read or constructed}}}
+\put(118,80){\vector(0,-1){27}}
+\end{picture}
+\endgroup
+"""
+
+
 def n50_results_svg() -> str:
     metrics = [
         ("Network OSPA", 81.59, 38.78),
@@ -121,6 +146,7 @@ def n50_results_svg() -> str:
 
 def main() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
+    GEN.mkdir(parents=True, exist_ok=True)
     render_png = os.environ.get("TAES_RENDER_PNG", "0") == "1"
     render_pdf = os.environ.get("TAES_RENDER_PDF", "0") == "1"
     assets = {
@@ -134,6 +160,7 @@ def main() -> None:
             convert_svg(svg_path, svg_path.with_suffix(".pdf"))
         if render_png:
             convert_svg(svg_path, svg_path.with_suffix(".png"), density=240)
+    write(GEN / "method_pipeline.tex", method_pipeline_tex())
 
 
 if __name__ == "__main__":
