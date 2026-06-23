@@ -1,0 +1,145 @@
+{
+  "config": {
+    "base_seed": 11,
+    "trial_seeds": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "trials": 5
+  },
+  "local": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "CardErr": 0.073,
+      "E-OSPA": 1.691451,
+      "RMSE": 3.450998
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "CardErr": 0.073,
+      "E-OSPA": 1.918293,
+      "RMSE": 3.716909
+    },
+    "Tuned spatial-KLA AA": {
+      "CardErr": 0.08625,
+      "E-OSPA": 2.032799,
+      "RMSE": 3.588145
+    }
+  },
+  "network": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "Card. disp.": 0.017,
+      "Loc. disag.": 0.226704,
+      "OSPA": 0.305452
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "Card. disp.": 0.017,
+      "Loc. disag.": 0.903305,
+      "OSPA": 1.033897
+    },
+    "Tuned spatial-KLA AA": {
+      "Card. disp.": 0.03425,
+      "Loc. disag.": 1.529716,
+      "OSPA": 1.702915
+    }
+  },
+  "paired_local": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "CardErr": {
+        "ci": "[0.008518, 0.017982]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.013250 +/- 0.003812",
+        "reduction": "15.36%",
+        "wins": "5/5"
+      },
+      "E-OSPA": {
+        "ci": "[0.306018, 0.376679]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.341349 +/- 0.028459",
+        "reduction": "16.79%",
+        "wins": "5/5"
+      },
+      "RMSE": {
+        "ci": "[0.025959, 0.248335]",
+        "p_value": "0.375",
+        "paired_reduction": "0.137147 +/- 0.089562",
+        "reduction": "3.82%",
+        "wins": "4/5"
+      }
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "CardErr": {
+        "ci": "[0.008518, 0.017982]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.013250 +/- 0.003812",
+        "reduction": "15.36%",
+        "wins": "5/5"
+      },
+      "E-OSPA": {
+        "ci": "[0.082542, 0.146471]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.114506 +/- 0.025747",
+        "reduction": "5.63%",
+        "wins": "5/5"
+      },
+      "RMSE": {
+        "ci": "[-0.297823, 0.040295]",
+        "p_value": "0.375",
+        "paired_reduction": "-0.128764 +/- 0.136177",
+        "reduction": "-3.59%",
+        "wins": "1/5"
+      }
+    }
+  },
+  "paired_network": {
+    "Neighborhood label-barycenter spatial-KLA AA": {
+      "Card. disp.": {
+        "ci": "[0.012174, 0.022326]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.017250 +/- 0.004089",
+        "reduction": "50.36%",
+        "wins": "5/5"
+      },
+      "Loc. disag.": {
+        "ci": "[1.224360, 1.381664]",
+        "p_value": "0.0625",
+        "paired_reduction": "1.303012 +/- 0.063354",
+        "reduction": "85.18%",
+        "wins": "5/5"
+      },
+      "OSPA": {
+        "ci": "[1.351939, 1.442987]",
+        "p_value": "0.0625",
+        "paired_reduction": "1.397463 +/- 0.036670",
+        "reduction": "82.06%",
+        "wins": "5/5"
+      }
+    },
+    "Neighborhood reference-only label-consensus spatial-KLA AA": {
+      "Card. disp.": {
+        "ci": "[0.012174, 0.022326]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.017250 +/- 0.004089",
+        "reduction": "50.36%",
+        "wins": "5/5"
+      },
+      "Loc. disag.": {
+        "ci": "[0.532048, 0.720774]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.626411 +/- 0.076009",
+        "reduction": "40.95%",
+        "wins": "5/5"
+      },
+      "OSPA": {
+        "ci": "[0.622913, 0.715123]",
+        "p_value": "0.0625",
+        "paired_reduction": "0.669018 +/- 0.037138",
+        "reduction": "39.29%",
+        "wins": "5/5"
+      }
+    }
+  },
+  "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md",
+  "source_sha256": "416a541cedbd4f7e2cc30c50564baf6d8cf41aaf401c5ef624696f5e3040aaa8"
+}

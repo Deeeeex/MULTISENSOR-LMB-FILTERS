@@ -25,6 +25,7 @@ MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 VERIFICATION_JSON = OUT / "n50_verification.json"
+HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 
@@ -120,6 +121,7 @@ def file_checks() -> list[Check]:
         VERIFICATION_JSON,
         OUT / "N50_EVIDENCE_MANIFEST.md",
         OUT / "REFERENCE_BASELINE_MANIFEST.md",
+        OUT / "HELDOUT_SANITY_MANIFEST.md",
     ]
     for path in required:
         status = "pass" if path.exists() else "error"
@@ -258,23 +260,26 @@ def evidence_checks() -> list[Check]:
         )
     )
 
-    heldout_patterns = [
-        "RUN/AA/*HELDOUT*.md",
-        "RUN/AA/*BASESEED*.md",
-        "docs/paper/taes/manuscript/generated/*heldout*",
-    ]
-    heldout_files = []
-    for pattern in heldout_patterns:
-        heldout_files.extend(REPO.glob(pattern))
-    checks.append(
-        Check(
-            "held-out scenario evidence",
-            "pass" if heldout_files else "pending",
-            f"Detected held-out evidence artifacts: {', '.join(str(path.relative_to(REPO)) for path in heldout_files[:5])}"
-            if heldout_files
-            else "No committed held-out base-seed or packet-loss-family evidence artifact detected.",
+    if HELDOUT_SANITY_JSON.exists():
+        heldout = json.loads(read_text(HELDOUT_SANITY_JSON))
+        config = heldout.get("config", {})
+        checks.append(
+            Check(
+                "held-out scenario evidence",
+                "warning",
+                "Tracked N5 base-seed sanity evidence exists "
+                f"(base seed {config.get('base_seed')}, {config.get('trials')} trials), "
+                "but a paper-grade held-out N50 or packet-loss-family validation is still needed.",
+            )
         )
-    )
+    else:
+        checks.append(
+            Check(
+                "held-out scenario evidence",
+                "pending",
+                "No generated held-out base-seed or packet-loss-family evidence artifact detected.",
+            )
+        )
     return checks
 
 

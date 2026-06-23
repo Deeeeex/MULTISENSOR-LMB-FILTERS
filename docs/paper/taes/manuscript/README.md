@@ -18,6 +18,7 @@ Main files:
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
 - `scripts/extract_reference_baselines.py`: parses tracked AA and GA N50 reports to generate contextual reference rows and a manifest.
+- `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check without treating it as a paper-grade held-out validation.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
 - `scripts/render_figures.py`: dependency-light figure renderer for the method pipeline and static SVG assets.
@@ -35,7 +36,7 @@ The build first regenerates the N50 evidence fragments, regenerates contextual r
 
 The verifier currently recomputes network disagreement and runtime from raw per-trial artifacts. The validation runner now emits per-trial local E-OSPA/RMSE/CardErr rows for new reports, and the verifier will independently recompute those metrics when the source report contains that table. The archived N50 report used by the current draft predates that table, so its local tracking metrics remain trace-checked through the report summary and generated evidence JSON until the N50 validation is rerun.
 
-The build also writes `generated/SUBMISSION_READINESS_REPORT.md` and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata, held-out validation, and the N50 local-metric verifier.
+The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata, paper-grade held-out validation, and the N50 local-metric verifier.
 
 Current build status:
 
