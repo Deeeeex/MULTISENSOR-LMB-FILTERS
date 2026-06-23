@@ -21,3 +21,5 @@ else
   echo "No LaTeX engine found. Install tectonic, latexmk, or pdflatex." >&2
   exit 1
 fi
+
+python3 scripts/check_submission_readiness.py

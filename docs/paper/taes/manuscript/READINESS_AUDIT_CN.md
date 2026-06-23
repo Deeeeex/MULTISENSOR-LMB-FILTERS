@@ -39,6 +39,7 @@
 | Citations | Core bibliography has been DOI/source checked during draft construction. | Final bibliography scan for missing DOIs, malformed entries, uncited entries, and unsupported claims. |
 | Preprint/reuse | No final decision recorded. | Decide whether to post preprint and prepare IEEE-compliant preprint notice if needed. |
 | Submission files | PDF builds locally; source bundle exists in manuscript directory. | Prepare clean source zip, PDF, cover metadata, and any supplementary material. |
+| Machine-checkable readiness | `generated/SUBMISSION_READINESS_REPORT.md` is written by `./build.sh`; current status is `draft_with_pending_gates`. | Close the listed pending gates before treating the draft as submission-ready. |
 
 ## Evidence Gates
 
@@ -51,6 +52,7 @@
 | Independent local metric verifier | Pending | Active N50 rerun log `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | When the log prints `AA_TAES_N50_LOCAL_VERIFIER_REPORT=...`, switch scripts to that report/log and rebuild. |
 | Held-out scenario evidence | Pending | No committed held-out packet-loss/base-seed report yet | Run one additional held-out validation after local verifier closes. |
 | PDF visual QA | Partial | Prior rendered inspections after recent commits | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
+| Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gates are metadata placeholders, N50 local-metric independent verification, and held-out scenario evidence. |
 
 ## Immediate Execution Order
 

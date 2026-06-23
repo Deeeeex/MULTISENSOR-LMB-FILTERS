@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "detail": "docs/paper/taes/manuscript/main.tex",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/main.pdf",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/references.bib",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/IEEEtaes.bst",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/n50_verification.json",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/N50_EVIDENCE_MANIFEST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/REFERENCE_BASELINE_MANIFEST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "`main.tex` uses `IEEEtaes`.",
+      "gate": "TAES class",
+      "status": "pass"
+    },
+    {
+      "detail": "20 cited keys all exist in `references.bib`.",
+      "gate": "citation keys",
+      "status": "pass"
+    },
+    {
+      "detail": "5 cross-references resolve to manuscript labels.",
+      "gate": "cross references",
+      "status": "pass"
+    },
+    {
+      "detail": "All BibTeX entries contain DOI fields.",
+      "gate": "BibTeX DOI fields",
+      "status": "pass"
+    },
+    {
+      "detail": "14 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, SECOND AUTHOR, TAES.2026.Doi Number, THIRD AUTHOR, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "gate": "submission metadata placeholders",
+      "status": "pending"
+    },
+    {
+      "detail": "Acknowledgment includes a conservative OpenAI Codex disclosure.",
+      "gate": "AI-assistance disclosure",
+      "status": "pass"
+    },
+    {
+      "detail": "`main.pdf` has 7 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
+      "gate": "PDF page count",
+      "status": "pass"
+    },
+    {
+      "detail": "No obvious unresolved-reference tokens found in extracted PDF text.",
+      "gate": "PDF extracted text",
+      "status": "pass"
+    },
+    {
+      "detail": "Network disagreement metrics are recomputed from per-trial report rows.",
+      "gate": "N50 network verifier",
+      "status": "pass"
+    },
+    {
+      "detail": "Runtime metrics are recomputed from the trial log.",
+      "gate": "N50 runtime verifier",
+      "status": "pass"
+    },
+    {
+      "detail": "Local metrics are still `summary_traced`; switch to the rerun report with per-trial local rows when it finishes.",
+      "gate": "N50 local-metric verifier",
+      "status": "pending"
+    },
+    {
+      "detail": "No committed held-out base-seed or packet-loss-family evidence artifact detected.",
+      "gate": "held-out scenario evidence",
+      "status": "pending"
+    }
+  ],
+  "overall_status": "draft_with_pending_gates"
+}
