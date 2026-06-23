@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-24 02:04 CST
+最后更新: 2026-06-24 02:14 CST
 
 ## 当前结论
 
@@ -16,7 +16,7 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 第三阶段 verifier 已补入: `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py` 会从 per-trial Markdown network table 独立复算 network disagreement 的均值/CI/paired reductions/wins/sign-test p，并从 trial log 独立复算 runtime mean/std/relative cost；输出 `generated/N50_VERIFICATION_REPORT.md` 和 `generated/n50_verification.json`。本轮已把 validation runner 改为对新报告输出 per-trial local E-OSPA/RMSE/CardErr rows，并用 N1 smoke 报告验证 local trial rows 可复算 summary；边界是当前 paper-facing archived N50 report 仍缺该表，因此 N50 local tracking metrics 仍是 summary-traced。已启动 TAES N50 local-verifier rerun，完成后应把新 report/log 接入 manuscript evidence scripts。
 
-第四阶段稿件质量增强已开始: 方法图已改为 build 生成的原生 LaTeX 矢量 fragment 并通过 PDF 渲染检查；N50 reduction 图已从拥挤单栏图改为 full-width report-driven 矢量图；`main.tex` 已加入 graph-locality/complexity 说明，并补入 stable-matching consensus limit 命题，把 graph-local moment iteration 与 centralized equal-weight moment barycenter 的条件性关系写清楚。当前又强化了 Introduction 的审稿故事: AA/KLA 权重解决“信谁、信多少”，但不解决跨 local LMB posterior 的 Bernoulli component correspondence；因此本文的问题被明确表述为 label canonicalization + matched posterior barycenter，而不是 scalar weight search。
+第四阶段稿件质量增强已开始: 方法图已改为 build 生成的原生 LaTeX 矢量 fragment 并通过 PDF 渲染检查；N50 reduction 图已从拥挤单栏图改为 full-width report-driven 矢量图；`main.tex` 已加入 graph-locality/complexity 说明，并补入 stable-matching consensus limit 命题，把 graph-local moment iteration 与 centralized equal-weight moment barycenter 的条件性关系写清楚。当前又强化了摘要和 Introduction 的审稿故事: 摘要现在从 packet-loss 下的 component-correspondence failure 开始；Intro 明确 AA/KLA 权重解决“信谁、信多少”，但不解决跨 local LMB posterior 的 Bernoulli component correspondence；因此本文的问题被明确表述为 label canonicalization + matched posterior barycenter，而不是 scalar weight search。
 
 投稿 readiness 审计已新增到 `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`。该文档把 TAES compliance gates、paper-facing claims、当前证据级别和剩余关闭条件逐项列出，后续 N50 local-verifier 完成后可直接按该表更新 source report/log、重建 PDF 并关闭 local-metric independent-verifier gate。
 
