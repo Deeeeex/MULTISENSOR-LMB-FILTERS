@@ -214,6 +214,8 @@ Network disagreement is measured by pairwise output OSPA, localization disagreem
 
 With base seed 1, the 50 trial seeds are 2 through 51. Each trial samples one eight-sensor packet-loss vector from the tiered profile and reuses it for all arms. Intervals are mean $\pm1.96$ standard errors over trial-level means; paired reductions use baseline-minus-candidate deltas. Wins and two-sided sign-test values are computed on nonzero paired deltas.
 
+The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, and generated machine-readable summaries for the N50 AA validation and the contextual GA reference rows. A verifier recomputes network-disagreement statistics from per-trial report rows and runtime statistics from trial logs before the PDF is built.
+
 \section{RESULTS}
 \begin{table*}[t]
 \caption{Fifty-trial paired validation under tiered packet loss. Lower values are better. Values are trial means. The proposed operator improves both network agreement and local tracking quality; the reference-only ablation isolates the part of the gain that comes from label-set canonicalization alone.}
