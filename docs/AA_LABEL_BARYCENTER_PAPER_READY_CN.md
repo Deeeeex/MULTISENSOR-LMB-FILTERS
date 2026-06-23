@@ -28,10 +28,22 @@ L2。该文档会直接影响论文叙事和下一步算法实现，但当前仍
 
 ## Paper-Ready Positioning
 
+目标期刊: **IEEE Transactions on Aerospace and Electronic Systems (TAES)**。
+
+TAES-first 写作策略: 把论文收敛为 distributed LMB multi-target tracking 方法，强调 RFS/LMB tracking、sensor-network communication loss、label/track alignment、runtime/deployability 和可复现实验；不要写成宽泛的 general information-fusion framework。
+
+TAES 模板与投稿要求入口: `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md`。当前建议使用 regular paper 模板 `docs/paper/taes/template_regular/IEEE_TAES_orig-research/TAES_template.tex`。
+
 候选英文标题:
 
 ```text
-Neighborhood Label-Barycenter Average Fusion for Distributed LMB Tracking under Unreliable Communication
+Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication
+```
+
+更短的 TAES 备选标题:
+
+```text
+Label-Barycenter Average Fusion for Distributed LMB Multi-Target Tracking
 ```
 
 候选中文标题:
@@ -50,7 +62,7 @@ Neighborhood Label-Barycenter Average Fusion for Distributed LMB Tracking under 
 
 1. 失败诊断: AA consumer-side target-wise weights 修复后，单纯继续调 `existenceThreshold`、support count 或 bridge prior 不能解释剩余 Loc gap；failure block 同时包含 label-set split 和 same-label spatial spread。
 2. 方法转向: 把目标从场景阈值搜索改为结构化 operator: reference label set selection、Hungarian label canonicalization、matched posterior moment barycenter、neighborhood iterative propagation。
-3. 论文主方法: `Neighborhood label-barycenter spatial-KLA AA`。它只使用 `neighborMap{s}` 中的 local outputs，迭代 `crossLocalConsensusIterations=3` 轮。
+3. TAES 主方法: `Neighborhood label-barycenter spatial-KLA AA`。它只使用 `neighborMap{s}` 中的 local outputs，迭代 `crossLocalConsensusIterations=3` 轮，并在 distributed multi-target tracking 指标上验证。
 4. upper-bound 诊断: `Cross-local label-consensus spatial-KLA AA`。它全局读取所有 local outputs 并把同一结果写给所有 sensors，因此 consensus 指标归零是构造性质，只能用作 upper-bound 和 ablation 诊断。
 5. 必要组件证据: reference-only ablation 使用同一 reference selection 和 label canonicalization，但不做 matched posterior barycenter；N50 显示它显著弱于 full barycenter，说明收益不是简单复制 medoid output。
 
