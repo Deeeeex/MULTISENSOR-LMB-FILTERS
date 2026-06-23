@@ -252,16 +252,20 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
 
 
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
-    rows = [generated_header(), "\\begin{picture}(38.0,8.6)\n"]
-    rows.append("\\put(0.0,8.15){\\makebox(38.0,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
-    axis_x = 9.5
-    axis_y = 1.05
-    scale_w = 22.0
+    rows = [generated_header(), "\\begin{picture}(38.0,9.8)\n"]
+    rows.append("\\put(0.0,9.35){\\makebox(38.0,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
+    rows.append("\\put(30.6,8.82){\\tablefont Full / Ref.}\n")
+    axis_x = 9.2
+    axis_y = 0.95
+    scale_w = 20.5
+    value_x = axis_x + scale_w + 1.0
+    grid_h = 7.65
+    bar_h = "0.08in"
     for tick in [0, 25, 50, 75, 100]:
         x = axis_x + scale_w * tick / 100.0
-        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color[gray]{{0.82}}\\line(0,1){{6.55}}}}\n")
-        rows.append(f"\\put({x - 0.25:.2f},0.55){{\\tablefont {tick}\\%}}\n")
-    y_values = [7.10, 5.85, 4.60, 3.35, 2.10]
+        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color[gray]{{0.82}}\\line(0,1){{{grid_h:.2f}}}}}\n")
+        rows.append(f"\\put({x - 0.25:.2f},0.45){{\\tablefont {tick}\\%}}\n")
+    y_values = [8.05, 6.52, 4.99, 3.46, 1.93]
     for label, y in zip(PAIRED_METRICS[:2] + PAIRED_METRICS[3:], y_values):
         _, metric = PAIRED_SOURCE[label]
         full = paired[(ARM_ORDER[2], metric)].reduction_pct
@@ -272,10 +276,10 @@ def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
         rows.extend(
             [
                 f"\\put(0.3,{y + 0.02:.2f}){{\\tablefont {fig_label}}}\n",
-                f"\\put({axis_x:.2f},{y + 0.10:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{0.11in}}}}\n",
-                f"\\put({axis_x + full_w + 0.28:.2f},{y + 0.03:.2f}){{\\color{{black}}\\tablefont {full:.2f}\\%}}\n",
-                f"\\put({axis_x:.2f},{y - 0.35:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{0.11in}}}}\n",
-                f"\\put({axis_x + ref_w + 0.28:.2f},{y - 0.42:.2f}){{\\color{{black}}\\tablefont {ref:.2f}\\%}}\n",
+                f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
+                f"\\put({value_x:.2f},{y + 0.23:.2f}){{\\makebox(6.8,0)[l]{{\\tablefont {full:.2f}\\%}}}}\n",
+                f"\\put({axis_x:.2f},{y - 0.43:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
+                f"\\put({value_x:.2f},{y - 0.42:.2f}){{\\makebox(6.8,0)[l]{{\\tablefont {ref:.2f}\\%}}}}\n",
             ]
         )
     rows.extend(
