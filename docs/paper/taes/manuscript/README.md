@@ -37,7 +37,7 @@ Current build status:
 
 - Official regular-paper template compiles with Tectonic 0.15.0 into `/tmp/taes_template_compile/TAES_template.pdf`; only template-originated underfull/overfull warnings were observed.
 - This manuscript compiles with `./build.sh` and writes `main.pdf`.
-- The manuscript includes a provisional Acknowledgment section for funding metadata and IEEE/AESS AI-assistance disclosure; replace the funding placeholder before submission.
+- The manuscript includes bracketed author, repository, and funding placeholders plus a provisional IEEE/AESS AI-assistance disclosure; replace placeholders before submission.
 
 Long N50 rerun for upgrading local metric verification:
 
