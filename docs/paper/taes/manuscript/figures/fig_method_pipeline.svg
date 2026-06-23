@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="220" viewBox="0 0 1120 220">
+<rect width="1120" height="220" fill="white"/>
+<style>text{font-family:Helvetica,sans-serif;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:18px;fill:#333}</style>
+<rect x="40" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
+<text class="h" x="125.0" y="86" text-anchor="middle">Local LMB</text>
+<text class="s" x="125.0" y="112" text-anchor="middle">posteriors</text>
+<rect x="250" y="56" width="190" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
+<text class="h" x="345.0" y="86" text-anchor="middle">Median-cardinality</text>
+<text class="s" x="345.0" y="112" text-anchor="middle">medoid reference</text>
+<rect x="480" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
+<text class="h" x="565.0" y="86" text-anchor="middle">Hungarian</text>
+<text class="s" x="565.0" y="112" text-anchor="middle">label matching</text>
+<rect x="690" y="56" width="190" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
+<text class="h" x="785.0" y="86" text-anchor="middle">Matched moment</text>
+<text class="s" x="785.0" y="112" text-anchor="middle">barycenter</text>
+<rect x="920" y="56" width="170" height="72" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>
+<text class="h" x="1005.0" y="86" text-anchor="middle">Neighborhood</text>
+<text class="s" x="1005.0" y="112" text-anchor="middle">iteration</text>
+<line x1="210" y1="92" x2="238" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="238,85 250,92 238,99" fill="#4D4D4D"/>
+<line x1="440" y1="92" x2="468" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="468,85 480,92 468,99" fill="#4D4D4D"/>
+<line x1="650" y1="92" x2="678" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="678,85 690,92 678,99" fill="#4D4D4D"/>
+<line x1="880" y1="92" x2="908" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="908,85 920,92 908,99" fill="#4D4D4D"/>
+<text class="s" x="560" y="166" text-anchor="middle">Each sensor applies the operator over its communication neighborhood; repeated rounds propagate multi-hop information.</text>
+</svg>
