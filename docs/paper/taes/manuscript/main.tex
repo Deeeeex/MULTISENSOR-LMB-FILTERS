@@ -1,6 +1,6 @@
 \documentclass{IEEEtaes}
 
-\usepackage{amsmath,amssymb,array,booktabs,cite,graphicx}
+\usepackage{amsmath,amssymb,array,booktabs,cite,graphicx,xcolor}
 
 \jvol{XX}
 \jnum{XX}
@@ -42,7 +42,7 @@
 
 \corresp{Corresponding author: FIRST AUTHOR.}
 
-\authoraddress{First Author, Second Author, and Third Author are with Institution, City, Country (e-mail: author@example.com). Author information is a placeholder for the draft version.}
+\authoraddress{First Author, Second Author, and Third Author are with Institution, City, Country (e-mail: author@example.com). Author information is provisional for the draft version.}
 
 \editor{This manuscript uses only simulated multi-target tracking data. No human or animal subjects are involved. AI-assisted drafting and editing will be disclosed in the acknowledgments in the final submission.}
 
@@ -64,7 +64,7 @@ Arithmetic average fusion, distributed sensor networks, labeled multi-Bernoulli 
 
 Density fusion for distributed RFS tracking is usually built around conservative geometric rules, such as generalized covariance intersection or the Kullback--Leibler average (KLA), or around arithmetic-average (AA) fusion rules that preserve weak components and support heterogeneous labeled and unlabeled filters \cite{Battistelli2014KLA,Wang2017MBGCI,Li2018RobustDistributedLRFS,Li2024AADensityFusion}. These rules define how to combine densities, but their practical LMB implementations still need a correspondence between local Bernoulli components. When the correspondence is wrong, a refined fusion weight cannot repair the fact that two local filters are speaking different label languages.
 
-This paper starts from that failure mode. After fixing target-wise AA weight consumption in our distributed LMB implementation, the residual error was not explained by a single existence threshold, support count, or bridge prior. The remaining failure blocks contained two structural errors: label-set splits across local filters and spatial dispersion among tracks that should represent the same target. We therefore treat the problem as one of label canonicalization followed by matched posterior barycentering, rather than as another scalar weight-search problem.
+This paper starts from that failure mode. We use a tuned AA-LMB baseline in which target-wise weights are consumed consistently by the existence and spatial branches, so the comparison is not confounded by a scalar weight-routing bug. The remaining failure blocks contain two structural errors: label-set splits across local filters and spatial dispersion among tracks that should represent the same target. We therefore treat the problem as one of label canonicalization followed by matched posterior barycentering, rather than as another scalar weight-search problem.
 
 We propose a \method{} operator for distributed LMB fusion. At each time step, each sensor uses only the estimates available in its communication neighborhood. The sensor first chooses a reference estimate by a median-cardinality medoid rule, which prevents minority cardinality outliers from directly selecting the reference. It then matches neighboring estimates to the reference labels using the Hungarian assignment method \cite{Kuhn1955Hungarian}. For each reference label, the matched Gaussian states are replaced by the mean and covariance of the empirical matched mixture. Repeating this local operator over the graph propagates label-space agreement without reading a global label set.
 
@@ -76,11 +76,13 @@ The contribution is threefold.
 \end{itemize}
 
 \section{RELATED WORK}
-Labeled RFS filters provide a Bayesian finite-set formulation for preserving target identity while estimating multi-object states \cite{Vo2014LRFS}. The LMB filter gives a tractable approximation in which each Bernoulli component carries an existence probability and a labeled single-target density \cite{Reuter2014LMB}. Multi-sensor and distributed versions of labeled RFS filters have been studied through centralized LMB fusion, generalized covariance-intersection fusion, consensus LMB updates, and resilient peer-to-peer fusion \cite{Wang2017MBGCI,Li2018RobustDistributedLRFS,Shen2022ConsensusLMB,Gao2023ResilientLMB}.
+Labeled RFS filters provide a Bayesian finite-set formulation for preserving target identity while estimating multi-object states \cite{Vo2014LRFS}. The LMB filter gives a tractable approximation in which each Bernoulli component carries an existence probability and a labeled single-target density \cite{Reuter2014LMB}. Multi-sensor and distributed versions of labeled RFS filters have been studied through generalized covariance-intersection fusion, robust distributed labeled-RFS fusion, consensus LMB updates, and resilient peer-to-peer LMB fusion \cite{Wang2017MBGCI,Li2018RobustDistributedLRFS,Shen2022ConsensusLMB,Gao2023ResilientLMB}. These methods address how sensors should share uncertain multi-object information, but practical labeled fusion still depends on whether components with different local labels are comparable.
 
-KLA and logarithmic opinion-pool fusion are widely used because they avoid double counting under unknown correlations and connect naturally to consensus on probability densities \cite{Battistelli2014KLA}. Arithmetic-average fusion follows a different principle: it linearly pools densities and can preserve low-weight components that geometric fusion suppresses. Recent AA density-fusion work extends this view to heterogeneous unlabeled and labeled RFS filters \cite{Li2024AADensityFusion}. Our method is complementary. It does not replace AA or KLA weighting; it supplies a label-aligned projection layer that makes local Bernoulli components comparable before the fused output is evaluated.
+KLA and logarithmic opinion-pool fusion are widely used because they avoid double counting under unknown correlations and connect naturally to consensus on probability densities \cite{Battistelli2014KLA}. This conservatism is valuable in distributed tracking, but geometric fusion can suppress weak components when local support is asymmetric. Arithmetic-average fusion follows a linear-pooling principle and has been analyzed statistically and information-theoretically for RFS densities \cite{Li2024AADensityFusionPartI}. Subsequent AA density-fusion work gives unified derivations for unlabeled and labeled RFS fusion, heterogeneous unlabeled/labeled fusion, and variational heterogeneous distributed fusion \cite{Li2024AADensityFusionPartII,Li2024AADensityFusion,Li2025AADensityFusionPartIV}. Fisher-information weighted AA fusion for multi-rate filters and weighted peer-to-peer RFS fusion further show that recent work is moving from one-shot density pooling toward communication- and filter-quality-aware AA designs \cite{Li2026FIMultirateAADensityFusion,Zheng2026DistributedWeightedRFS}.
 
-Finite-set fusion also raises consistency questions that are not present in single-target Gaussian fusion. Pointwise consistency and global cardinality can move in different directions \cite{Uney2019FiniteSetConsistency}. Our experiments therefore report both network disagreement and truth-referenced tracking error using OSPA-style metrics \cite{Schuhmacher2008OSPA}. The method also relies on assignment, for which the Hungarian method remains the standard polynomial-time solver \cite{Kuhn1955Hungarian}, and on graph-local iteration, which is closely related to average-consensus ideas in sensor networks \cite{XiaoBoydLall2005ConsensusWeights}.
+Heterogeneity and field-of-view mismatch create a separate difficulty. RFS fusion across heterogeneous sensors can be formulated without assuming identical local multi-object densities \cite{YiChai2021HeterogeneousRFS}, and labeled RFS fusion with different fields of view has been studied explicitly \cite{Gao2022DifferentFOV}. Information-geometric labeled-RFS fusion offers another route for distributed heterogeneous state estimation \cite{CaoZhao2026InfoGeometryFusion}. These lines motivate robust fusion under nonidentical local views, but they do not by themselves remove the output-level failure in which two local LMB filters carry different labels for the same physical target after packet loss.
+
+Our method is complementary to AA, KLA, and information-geometric weighting. It does not replace the underlying density-fusion rule. Instead, it supplies a graph-local label-aligned projection layer that makes local Bernoulli components comparable before the fused output is evaluated. Finite-set fusion also raises consistency questions that are not present in single-target Gaussian fusion: pointwise consistency and global cardinality can move in different directions \cite{Uney2019FiniteSetConsistency}. We therefore report both network disagreement and truth-referenced tracking error using OSPA-style metrics \cite{Schuhmacher2008OSPA}. The method relies on assignment, for which the Hungarian method remains the standard polynomial-time solver \cite{Kuhn1955Hungarian}, and on graph-local iteration, which is closely related to average-consensus ideas in sensor networks \cite{XiaoBoydLall2005ConsensusWeights}.
 
 \section{PROBLEM FORMULATION}
 Consider a network of $S$ sensors. At time $k$, sensor $s$ outputs an LMB estimate
@@ -130,6 +132,29 @@ The output $Y_s(k)$ keeps the reference labels and replaces their Gaussian momen
 
 \begin{figure}[t]
 \centering
+\fbox{\begin{minipage}{0.93\columnwidth}
+\textbf{Inputs:} local LMB estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.
+
+\textbf{For each round} $h=1,\ldots,H$ and sensor $s$:
+
+1) compute neighborhood cardinalities and select the median-cardinality candidate set $\mathcal{C}_s(k)$;
+
+2) choose the OSPA-medoid reference $\rho_s(k)$ inside $\mathcal{C}_s(k)$;
+
+3) solve a Hungarian assignment from each neighbor output to the reference output using position costs;
+
+4) for every reference label, form the matched group and replace its state by the first-two-moment barycenter;
+
+5) write the resulting labeled estimate as the next-round output of sensor $s$.
+
+\textbf{Output:} label-aligned estimate $Y_s(k)$ for every sensor.
+\end{minipage}}
+\caption{Neighborhood label-barycenter operator used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
+\label{fig:algorithm}
+\end{figure}
+
+\begin{figure}[t]
+\centering
 \setlength{\unitlength}{1pc}
 \begin{picture}(18.5,11.2)
 \put(1.4,9.6){\framebox(15.5,1.0){Local LMB posteriors in $\mathcal{N}_s$}}
@@ -172,18 +197,25 @@ If an AA existence update uses nonnegative weights that sum to one, then the fus
 The fused value is a convex combination of values in $[0,1]$.
 \end{proof}
 
+\begin{proposition}[Reference-label invariance]
+For every sensor $s$, the label set of $Y_s(k)$ is a subset of the label set produced by one sensor in $\mathcal{N}_s$. Moreover, if every estimate in $\mathcal{N}_s$ has the same labels and identical matched Gaussian moments, then $\mathcal{B}_s$ returns that estimate unchanged.
+\end{proposition}
+\begin{proof}
+The operator defines output labels only from the selected reference $X_{\rho_s(k)}(k)$, so it never creates a label outside a neighborhood estimate. If all neighborhood estimates share the same labels and moments, every admissible reference has the same label set, each assignment is the identity up to ties among identical states, and each matched group contains identical moments. The barycenter equations therefore return the same mean and covariance.
+\end{proof}
+
 These properties are structural. They do not imply that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
 
 \section{EXPERIMENTAL SETUP}
-The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
+The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
 
 We compare three arms. The baseline is a tuned spatial-KLA AA implementation with target-wise weight handling, link-quality weighting, existence confidence, and structure-aware spatial decoupling. The proposed arm enables \method{} projection over communication neighborhoods with $H=3$ iterations. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters.
 
-Network disagreement is measured by pairwise output OSPA, localization disagreement, and cardinality dispersion across sensors. Truth-referenced tracking quality is measured by local E-OSPA, RMSE, and cardinality error averaged across sensors. OSPA is used because it consistently combines localization and cardinality errors for multi-object filters \cite{Schuhmacher2008OSPA}.
+Network disagreement is measured by pairwise output OSPA, localization disagreement, and cardinality dispersion across sensors. Truth-referenced tracking quality is measured by local E-OSPA, RMSE, and cardinality error averaged across sensors. OSPA is used because it consistently combines localization and cardinality errors for multi-object filters \cite{Schuhmacher2008OSPA}. We report mean values, 95\% confidence intervals over trials, paired reductions relative to the tuned baseline, wins out of 50 paired trials, and sign-test $p$ values.
 
 \section{RESULTS}
 \begin{table*}[t]
-\caption{Fifty-trial paired validation under tiered packet loss. Lower values are better. The proposed operator improves both network agreement and local tracking quality; the reference-only ablation isolates the part of the gain that comes from label-set canonicalization alone.}
+\caption{Fifty-trial paired validation under tiered packet loss. Lower values are better. Values are trial means. The proposed operator improves both network agreement and local tracking quality; the reference-only ablation isolates the part of the gain that comes from label-set canonicalization alone.}
 \label{tab:n50}
 \centering
 \tablefont
@@ -198,31 +230,89 @@ Neighborhood label-barycenter & \textbf{0.309818} & \textbf{0.216372} & \textbf{
 \end{tabular}
 \end{table*}
 
-Table~\ref{tab:n50} shows that the proposed operator improves the communication-facing and truth-facing metrics simultaneously. Relative to the tuned spatial-KLA AA baseline, \method{} reduces network OSPA disagreement by 81.59\%, localization disagreement by 85.31\%, and cardinality dispersion by 40.03\%. These three network-disagreement metrics improve in all 50 paired trials.
+Table~\ref{tab:n50} shows that the proposed operator improves the communication-facing and truth-facing metrics simultaneously. The 95\% confidence intervals for network OSPA are $[1.666520,1.698693]$ for the tuned baseline, $[0.300179,0.319457]$ for the full method, and $[1.014315,1.045808]$ for the reference-only ablation. For local E-OSPA, the corresponding intervals are $[2.012605,2.046677]$, $[1.663594,1.699373]$, and $[1.893427,1.929145]$.
 
-The same run also improves local tracking quality. Local E-OSPA drops from 2.029641 to 1.681483, a 17.15\% paired reduction with 50 wins out of 50. RMSE drops from 3.682880 to 3.449035, a 6.35\% paired reduction with 48 wins out of 50. Cardinality error drops from 0.088000 to 0.077200, a 12.27\% paired reduction with 46 wins out of 50.
+\begin{table*}[t]
+\caption{Paired reductions relative to the tuned spatial-KLA AA baseline. The bracketed interval is the 95\% confidence interval of the absolute paired reduction.}
+\label{tab:paired}
+\centering
+\tablefont
+\begin{tabular}{lcccc}
+\toprule
+Metric & Full reduction & Full wins & Ref.-only reduction & Ref.-only wins\\
+\midrule
+Network OSPA & 81.59\% [1.359, 1.386] & 50/50 & 38.78\% [0.639, 0.666] & 50/50\\
+Loc. disagreement & 85.31\% [1.238, 1.275] & 50/50 & 39.46\% [0.566, 0.596] & 50/50\\
+Card. dispersion & 40.03\% [0.012, 0.016] & 50/50 & 40.03\% [0.012, 0.016] & 50/50\\
+E-OSPA & 17.15\% [0.342, 0.355] & 50/50 & 5.83\% [0.112, 0.125] & 50/50\\
+RMSE & 6.35\% [0.201, 0.267] & 48/50 & 0.54\% [-0.017, 0.056] & 27/50\\
+Card. error & 12.27\% [0.009, 0.013] & 46/50 & 12.27\% [0.009, 0.013] & 46/50\\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \begin{figure}[t]
 \centering
-\tablefont
-\begin{tabular}{lrr}
-\toprule
-Metric & Full & Ref.-only\\
-\midrule
-Network OSPA & 81.59\% & 38.78\%\\
-Loc. disagreement & 85.31\% & 39.46\%\\
-E-OSPA & 17.15\% & 5.83\%\\
-RMSE & 6.35\% & 0.54\%\\
-Card. error & 12.27\% & 12.27\%\\
-\bottomrule
-\end{tabular}
-\caption{Paired reductions over the tuned spatial-KLA AA baseline. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
+\setlength{\unitlength}{1pc}
+\begin{picture}(18.5,12.7)
+\put(0.0,12.1){\makebox(18.5,0.35){\tablefont Paired reduction over tuned spatial-KLA AA}}
+\put(0.3,10.6){\tablefont Network OSPA}
+\put(6.1,10.7){\color{black}\rule{7.34pc}{0.12in}}
+\put(13.7,10.62){\color{black}\tablefont 81.59\%}
+\put(6.1,10.25){\color[gray]{0.55}\rule{3.49pc}{0.12in}}
+\put(9.85,10.17){\color{black}\tablefont 38.78\%}
+\put(0.3,8.55){\tablefont Loc. disag.}
+\put(6.1,8.65){\color{black}\rule{7.68pc}{0.12in}}
+\put(14.05,8.57){\color{black}\tablefont 85.31\%}
+\put(6.1,8.20){\color[gray]{0.55}\rule{3.55pc}{0.12in}}
+\put(9.90,8.12){\color{black}\tablefont 39.46\%}
+\put(0.3,6.50){\tablefont E-OSPA}
+\put(6.1,6.60){\color{black}\rule{1.54pc}{0.12in}}
+\put(7.90,6.52){\color{black}\tablefont 17.15\%}
+\put(6.1,6.15){\color[gray]{0.55}\rule{0.52pc}{0.12in}}
+\put(6.90,6.07){\color{black}\tablefont 5.83\%}
+\put(0.3,4.45){\tablefont RMSE}
+\put(6.1,4.55){\color{black}\rule{0.57pc}{0.12in}}
+\put(6.95,4.47){\color{black}\tablefont 6.35\%}
+\put(6.1,4.10){\color[gray]{0.55}\rule{0.05pc}{0.12in}}
+\put(6.45,4.02){\color{black}\tablefont 0.54\%}
+\put(0.3,2.40){\tablefont Card. error}
+\put(6.1,2.50){\color{black}\rule{1.10pc}{0.12in}}
+\put(7.45,2.42){\color{black}\tablefont 12.27\%}
+\put(6.1,2.05){\color[gray]{0.55}\rule{1.10pc}{0.12in}}
+\put(7.45,1.97){\color{black}\tablefont 12.27\%}
+\put(6.1,1.20){\line(1,0){9.0}}
+\put(6.1,0.75){\tablefont 0}
+\put(10.6,0.75){\tablefont 50\%}
+\put(15.0,0.75){\tablefont 100\%}
+\put(6.1,0.20){\color{black}\rule{0.45pc}{0.10in}}
+\put(6.8,0.18){\color{black}\tablefont Full}
+\put(9.2,0.20){\color[gray]{0.55}\rule{0.45pc}{0.10in}}
+\put(9.9,0.18){\color{black}\tablefont Ref.-only}
+\end{picture}
+\caption{Paired percentage reductions over the tuned spatial-KLA AA baseline. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
 \label{fig:n50}
 \end{figure}
 
-The reference-only ablation is important because it tests whether the method merely copies a good local estimate. It reduces network disagreement because all sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\% and is not reliable in paired wins. The full operator reaches 6.35\% RMSE reduction, which supports the claim that matched posterior barycenters contribute the spatial gain.
+Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from state-barycenter effects. The reference-only ablation reduces network disagreement because sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\%, with a confidence interval crossing zero and 27 wins out of 50 paired trials. The full operator reaches 6.35\% RMSE reduction, with 48 wins out of 50 and a sign-test value of $p=2.267\times10^{-12}$. The full method also improves local E-OSPA in all 50 paired trials and cardinality error in 46 out of 50 paired trials. These results support the claim that matched posterior barycenters, not label copying alone, drive the spatial tracking gain.
 
-The computational cost is higher than the tuned baseline. Mean filter runtime increases from 62.245 s to 102.347 s, or 1.647 times the tuned baseline, for the 50-trial validation. The reference-only ablation costs 1.542 times the baseline, so most of the overhead comes from repeated neighborhood matching and output rewriting rather than from moment computation alone.
+\begin{table}[t]
+\caption{Filter runtime over 50 paired trials.}
+\label{tab:runtime}
+\centering
+\tablefont
+\begin{tabular}{>{\raggedright\arraybackslash}p{1.15in}cc}
+\toprule
+Method & Runtime (s) & Relative\\
+\midrule
+Tuned spatial-KLA AA & 62.245 $\pm$ 6.444 & 1.000x\\
+Neighborhood reference-only & 95.576 $\pm$ 11.190 & 1.542x\\
+Neighborhood label-barycenter & 102.347 $\pm$ 11.262 & 1.647x\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The computational cost is higher than the tuned baseline. Mean filter runtime increases from 62.245 s to 102.347 s, or 1.647 times the tuned baseline, for the 50-trial validation (Table~\ref{tab:runtime}). The reference-only ablation costs 1.542 times the baseline, so most of the overhead comes from repeated neighborhood matching and output rewriting rather than from moment computation alone.
 
 \section{DISCUSSION AND LIMITATIONS}
 The present operator is an estimate-level projection layer. It is graph-local in the sense that each sensor uses only its communication neighborhood, but it is not yet a fully recursive message update inside the LMB filtering loop. This distinction matters for the final paper claim: the current evidence supports label-aligned output fusion under unreliable communication, while an online distributed LMB recursion would require additional stability and lifecycle analysis.

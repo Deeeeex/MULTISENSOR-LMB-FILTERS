@@ -18,25 +18,23 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def convert_svg_to_png(svg: Path, png: Path, density: int = 220) -> None:
-    converter = shutil.which("convert")
+def convert_svg_to_png(svg: Path, png: Path, density: int = 240) -> None:
+    converter = shutil.which("magick") or shutil.which("convert")
     if converter is None:
         return
+    cmd = [
+        converter,
+        "-density",
+        str(density),
+        str(svg),
+        "-quality",
+        "95",
+        str(png),
+    ]
+    if Path(converter).name == "magick":
+        cmd.insert(1, "convert")
     try:
-        subprocess.run(
-            [
-                converter,
-                "-density",
-                str(density),
-                "-font",
-                "Helvetica",
-                str(svg),
-                "-quality",
-                "95",
-                str(png),
-            ],
-            check=True,
-        )
+        subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError:
         png.unlink(missing_ok=True)
 
@@ -53,7 +51,7 @@ def method_pipeline_svg() -> str:
     svg = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="220" viewBox="0 0 1120 220">',
         '<rect width="1120" height="220" fill="white"/>',
-        '<style>text{font-family:Helvetica,sans-serif;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:18px;fill:#333}</style>',
+        '<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:18px;fill:#333}</style>',
     ]
     for x, y, w, h, title, sub in boxes:
         svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="#F4F6F8" stroke="#1F4E79" stroke-width="2"/>')
@@ -83,7 +81,7 @@ def n50_results_svg() -> str:
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
         '<rect width="1120" height="560" fill="white"/>',
-        '<style>text{font-family:Helvetica,sans-serif;} .axis{font-size:20px;fill:#222} .small{font-size:17px;fill:#333} .label{font-size:19px;fill:#111}</style>',
+        '<style>text{font-family:Verdana;} .axis{font-size:20px;fill:#222} .small{font-size:17px;fill:#333} .label{font-size:19px;fill:#111}</style>',
         '<text class="axis" x="560" y="36" text-anchor="middle" font-weight="700">Paired reduction over tuned spatial-KLA AA, 50 trials</text>',
     ]
     for tick in range(0, 101, 20):
