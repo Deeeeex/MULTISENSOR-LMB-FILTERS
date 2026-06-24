@@ -1,0 +1,17 @@
+\begin{table}[t]
+\caption{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; the run uses base seed 11 and the same fixed three-arm protocol as the main validation.}
+\label{tab:heldout}
+\centering
+\tablefont
+\begin{tabular}{lcccc}
+\toprule
+Metric & Full red. & Full wins & Ref. red. & Ref. wins\\
+\midrule
+OSPA & 81.85\% & 50/50 & 39.15\% & 50/50\\
+E-OSPA & 17.15\% & 50/50 & 5.88\% & 50/50\\
+RMSE & 6.64\% & 48/50 & 0.82\% & 28/50\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by 81.85\%, local E-OSPA by 17.15\%, and local RMSE by 6.64\% relative to tuned spatial-KLA AA. The reference-only RMSE reduction is 0.82\% with 28/50 wins and no sign-test support ($p=0.4799$), so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.

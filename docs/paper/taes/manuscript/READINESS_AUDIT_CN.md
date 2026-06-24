@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 11:59 CST
+日期: 2026-06-24 12:30 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -8,10 +8,10 @@
 
 ## 当前判断
 
-稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX 或故事线，而是投稿元数据和场景覆盖还缺最后闭环:
+稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、baseSeed=11 held-out N50 robustness check 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX、故事线或当前 N50 证据链，而是投稿元数据仍缺最后闭环:
 
 1. 作者、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
-2. 当前实证集中在 tiered packet-loss formation 场景；paper-grade held-out base-seed-11 N50 已启动但尚未完成。
+2. 当前实证仍集中在 tiered packet-loss formation 场景；baseSeed=11 held-out N50 已关闭跨 seed robustness gate，但更广 packet-loss/topology/target-maneuver 场景族验证仍会降低审稿风险。
 
 ## Claim-to-Evidence Matrix
 
@@ -22,10 +22,11 @@
 | The proposed layer is a label-and-moment projection on active output tracks, not a replacement for the AA Bernoulli existence consumer. | Problem Formulation, Matched Moment Barycenter, Structural Properties, Experimental Setup | `multisensorLmb/applyCrossLocalLabelConsensusProjection.m`; `multisensorLmb/runDistributedLmbFilter.m`; revised `main.tex` wording | Code-aligned and manuscript-explicit | Keep existence-branch claims tied to upstream AA convex weighting; do not imply the projection estimates new existence probabilities. |
 | The operator is graph-local in the neighborhood version and does not require global label-set access. | Method, Graph locality paragraph | `RUN/AA/runAaBalancedCardinalityValidation.m`; neighborhood N50 report | Code path and report-backed | Keep centralized upper-bound language out of the main claim. |
 | Under stable matching and connected repeated neighborhood averaging, local moments converge to the centralized equal-weight barycenter. | Structural Properties | Proposition in `main.tex` | Theory stated with explicit assumptions | Do not present as a finite-round guarantee; check proof wording before final submission. |
-| Matched posterior barycenters, not label copying alone, drive the spatial tracking gain. | Results and Discussion | N50 full-vs-reference-only ablation; paired RMSE reductions/wins/sign-test p-values in Table IV | Report-driven fragments plus independent local-metric verifier | Broaden scenario coverage before submission. |
+| Matched posterior barycenters, not label copying alone, drive the spatial tracking gain. | Results and Discussion | Main N50 full-vs-reference-only ablation; held-out baseSeed=11 N50 RMSE separation; paired RMSE reductions/wins/sign-test p-values in Table IV and held-out fragment | Report-driven fragments plus independent local-metric verifier and held-out robustness gate | Broader scenario-family validation remains useful but is no longer the immediate held-out blocker. |
 | Neighborhood label-barycenter improves local E-OSPA/RMSE/CardErr relative to tuned spatial-KLA AA in the N50 validation. | Results, Table I/II, Fig. 3 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `generated/n50_evidence.json`; `generated/N50_VERIFICATION_REPORT.md` | Local metrics independently recomputed from per-trial local rows | None for current N50; broaden scenario coverage before submission. |
 | Neighborhood label-barycenter is lower than the two tracked GA reference rows on the six reported N50 disagreement/tracking metrics. | Results, contextual reference table | `RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Report-driven contextual comparison | Keep phrasing as contextual reference rows, not paired GA-vs-AA significance evidence. |
 | Network disagreement and runtime numbers are reproducible from raw per-trial artifacts. | Results, reproducibility notes | `verify_n50_evidence.py`; `N50_VERIFICATION_REPORT.md` | Independently recomputed | None for network/runtime; keep source hash in manifest. |
+| The main mechanism is not a base-seed-1 accident. | Results optional held-out fragment | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `generated/HELDOUT_N50_MANIFEST.md`; `generated/heldout_n50_evidence.json`; `generated/heldout_n50_section.tex` | Strict held-out gate checks baseSeed=11, N50, trial seeds 12..61, three-arm metric coverage, paired evidence, and RMSE mechanism separation | If moved to supplement, keep the source artifact and manifest referenced in the response-ready evidence package. |
 | Runtime overhead is mainly due to repeated assignment/moment-barycenter operations, not hidden global communication. | Runtime table, complexity paragraph | Runtime log and graph-locality method text | Independently recomputed runtime | Add a short scaling note if broader N or topology experiments are added. |
 | Absolute runtime seconds are prototype-specific; the paper-facing runtime comparison is the relative cost within the paired Octave validation. | Experimental Setup, Runtime table | Local environment check: GNU Octave 11.1.0 on Apple M4, 16 GB memory | Manuscript-explicit and environment-backed | Keep absolute runtime claims modest; do not present them as hardware-independent benchmarks. |
 | Each experiment arm isolates a specific mechanism rather than serving as an unconstrained tuning comparison. | Experimental Setup | Claim-to-arm mapping in `main.tex`; fixed-design statement that $H=3$, the existence threshold, projection cutoffs, barycenter weights, and trial-specific label rules are not searched per scenario | Manuscript-explicit and report-driven | Maintain this mapping when adding held-out or recursive-online experiments; held-out base-seed runs should remain robustness checks, not tuning sources. |
@@ -57,14 +58,14 @@
 | Independent network disagreement verifier | Passed | `verify_n50_evidence.py`; `generated/N50_VERIFICATION_REPORT.md` | Maintain hash check against source report. |
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
-| Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`; prewired optional fragment `generated/heldout_n50_section.tex`; strict held-out checks in `check_submission_readiness.py` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, add the path to `evidence_sources.json`, rebuild, then inspect the generated held-out table/paragraph before keeping it in the manuscript. The readiness checker now requires the held-out N50 payload to expose base seed 11, at least 50 trials, parsed trial seeds, generated manifest/LaTeX fragment, all three arms, all manuscript metrics, paired CI/wins/p-values, and a visible full-barycenter-vs-reference-only RMSE separation check. |
+| Held-out scenario evidence | Passed for baseSeed=11 N50 robustness | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `generated/HELDOUT_SANITY_MANIFEST.md`; `generated/HELDOUT_N50_MANIFEST.md`; `generated/heldout_n50_evidence.json`; `generated/heldout_n50_section.tex` | Keep the compact held-out table/paragraph in the manuscript or move it to supplementary/response-ready material after final page-budget review. The readiness checker requires base seed 11, at least 50 trials, parsed trial seeds, generated manifest/LaTeX fragment, all three arms, all manuscript metrics, paired CI/wins/p-values, and a visible full-barycenter-vs-reference-only RMSE separation check. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, problem/method pages, structural-properties pages, and result/reference pages after the scalar-weight counterexample edit | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
-| Submission readiness checker | Passed for mechanical gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. The checker now also tracks citation hygiene, implementation-alignment wording, the cover-letter/portal-metadata draft, and strict structure/mechanism checks for the optional held-out N50 evidence. |
+| Submission readiness checker | Passed for mechanical and held-out evidence gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders. The checker also tracks citation hygiene, implementation-alignment wording, the cover-letter/portal-metadata draft, and strict structure/mechanism checks for the held-out N50 evidence. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check` Tectonic compile | Re-run after final manuscript-affecting edits. |
 
 ## Immediate Execution Order
 
-1. Monitor `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` until the held-out N50 report path is printed.
-2. If the held-out result supports the mechanism claim, add the evidence path to the manuscript evidence pipeline and inspect the generated `heldout_n50_section.tex` table/paragraph.
-3. Rebuild `main.pdf` and re-render the title/abstract page, method pages, held-out table page, result tables/figure page, and final reference page after any held-out evidence edit.
-4. Replace author/funding/repository placeholders once the real submission metadata is available.
+1. Replace author/funding/repository/corresponding-author/OA/preprint/conflict placeholders once the real submission metadata is available.
+2. Rebuild `main.pdf` and re-render the title/abstract page, method pages, held-out table page, result tables/figure page, and final reference page after any evidence or metadata edit.
+3. Decide whether the compact held-out N50 table/paragraph stays in the main paper, moves to supplementary material, or remains response-ready evidence depending on final page budget.
+4. Consider broader packet-loss/topology/target-maneuver scenario-family validation as the next evidence-risk reduction step, not as a blocker for the current held-out gate.

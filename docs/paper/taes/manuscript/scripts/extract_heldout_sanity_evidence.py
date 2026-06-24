@@ -217,17 +217,15 @@ def mean_row(arm: str, payload: dict[str, object]) -> str:
     return " & ".join(values) + r"\\"
 
 
-def reduction_row(metric: str, payload: dict[str, object], paired_key: str) -> str:
+def compact_reduction_row(metric: str, payload: dict[str, object], paired_key: str) -> str:
     full = payload[paired_key]["Neighborhood label-barycenter spatial-KLA AA"][metric]
     ref = payload[paired_key]["Neighborhood reference-only label-consensus spatial-KLA AA"][metric]
     values = [
         metric,
         tex_escape(full["reduction"]),
         full["wins"],
-        full["p_value"],
         tex_escape(ref["reduction"]),
         ref["wins"],
-        ref["p_value"],
     ]
     return " & ".join(values) + r"\\"
 
@@ -238,38 +236,28 @@ def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
     full_local = payload["paired_local"]["Neighborhood label-barycenter spatial-KLA AA"]
     ref_local = payload["paired_local"]["Neighborhood reference-only label-consensus spatial-KLA AA"]
 
-    rows = "\n".join(mean_row(arm, payload) for arm in ARM_ORDER)
     paired_rows = "\n".join(
         [
-            reduction_row("OSPA", payload, "paired_network"),
-            reduction_row("E-OSPA", payload, "paired_local"),
-            reduction_row("RMSE", payload, "paired_local"),
+            compact_reduction_row("OSPA", payload, "paired_network"),
+            compact_reduction_row("E-OSPA", payload, "paired_local"),
+            compact_reduction_row("RMSE", payload, "paired_local"),
         ]
     )
-    section = rf"""\begin{{table*}}[t]
-\caption{{Held-out base-seed N50 robustness check. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation. Lower values are better.}}
+    section = rf"""\begin{{table}}[t]
+\caption{{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; the run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
 \label{{tab:heldout}}
 \centering
 \tablefont
-\begin{{tabular}}{{lcccccc}}
+\begin{{tabular}}{{lcccc}}
 \toprule
-Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
-\midrule
-{rows}
-\bottomrule
-\end{{tabular}}
-
-\vspace{{0.6em}}
-\begin{{tabular}}{{lcccccc}}
-\toprule
-Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only wins & Ref. $p$\\
+Metric & Full red. & Full wins & Ref. red. & Ref. wins\\
 \midrule
 {paired_rows}
 \bottomrule
 \end{{tabular}}
-\end{{table*}}
+\end{{table}}
 
-The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])}, so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])} with {ref_local['RMSE']['wins']} wins and no sign-test support ($p={ref_local['RMSE']['p_value']}$), so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.
 """
     (OUT / "heldout_n50_section.tex").write_text(section, encoding="utf-8")
 

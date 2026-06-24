@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-24 12:08 CST
+最后更新: 2026-06-24 12:30 CST
 
 ## 当前结论
 
@@ -8,7 +8,7 @@
 
 论文写作准备包已整理到 `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md`，包含 paper-ready positioning、method outline、理论推导、N50 实验表、ablation 解释、图表计划和 claim 边界。
 
-TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可用 `./build.sh` 生成 `main.pdf`。这一版已经把 title/abstract/intro/method/theory/experiment/results/limitations/conclusion 和 DOI 核验过的核心引用落入真实 TAES template；方法图和 N50 reduction 图已经过矢量化 polish。但还不是 submission-ready: 作者信息仍是占位，证据仍集中在 N50 tiered packet-loss 场景，还缺更广泛场景验证。
+TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可用 `./build.sh` 生成 `main.pdf`。这一版已经把 title/abstract/intro/method/theory/experiment/results/limitations/conclusion 和 DOI 核验过的核心引用落入真实 TAES template；方法图和 N50 reduction 图已经过矢量化 polish；baseSeed=11 的 held-out N50 robustness evidence 也已接入正文可选片段和 readiness gate。但还不是 submission-ready: 作者/基金/repository/corresponding author 等投稿元数据仍是占位，证据主线仍集中在 tiered packet-loss formation 场景，后续更广场景族验证仍会降低审稿风险。
 
 第二阶段稿件增强已开始: `main.tex` 现在补入了 DOI 程序化核验过的近期 AA/RFS/LMB fusion 文献，Related Work 已按方法线重写；方法部分增加了 graph-local operator 伪代码和 reference-label invariance 性质；实验设置已经明确三臂设计对应的可证伪 claim；结果部分从均值表扩展为均值、95% CI、paired reduction、wins、sign-test evidence、runtime 和 PDF 内可见的 N50 reduction 图。
 
@@ -26,9 +26,9 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 当前稿件进一步补入 runtime reproducibility 说明: Experimental Setup 现在写明 runtime 是 GNU Octave 11.1.0 在 Apple M4 / 16 GB 本地工作站上的 wall-clock filter runtime，绝对秒数只表征当前 Octave/MATLAB-compatible prototype，paper-facing runtime claim 应主要解读为 paired validation 内的相对实现开销。
 
-投稿 readiness 审计已新增到 `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`。该文档把 TAES compliance gates、paper-facing claims、当前证据级别和剩余关闭条件逐项列出；当前 local-metric independent-verifier gate 已关闭，剩余重点是 held-out 场景和投稿元数据。
+投稿 readiness 审计已新增到 `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`。该文档把 TAES compliance gates、paper-facing claims、当前证据级别和剩余关闭条件逐项列出；当前 local-metric independent-verifier gate 与 baseSeed=11 held-out N50 gate 已关闭，剩余硬阻塞主要是投稿元数据占位符。
 
-投稿 readiness 现在也有机器检查产物: `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md` 和 `generated/submission_readiness.json` 会在 `./build.sh` 后自动更新。当前 overall status 是 `draft_with_pending_gates`，机械 gate 已通过；readiness checker 已新增 TAES-specific 机械检查，包括投稿要求文档与官方模板归档、标题/摘要避免 `new`/`novel`、摘要无 citation/footnote/display equation、关键词按字母序、引用 key 完整性、未引用 BibTeX 条目和 DOI 字段。剩余 pending gate 是作者/基金/repository 元数据占位符；held-out scenario evidence 仍是 warning，因为当前只有 N5 sanity，而 paper-grade held-out N50 正在运行。当前 build pipeline 已预置 `heldout_n50_report` 可选证据源，长跑完成后只需把 report path 接入 manifest 即可生成 `HELDOUT_N50_MANIFEST.md`、`generated/heldout_n50_section.tex`，并让 readiness checker 识别 paper-grade held-out evidence；本轮进一步把 held-out N50 gate 从单纯 `trials >= 50` 扩展为 baseSeed=11、trial-seed 列表、generated manifest/fragment、三臂均值指标、paired CI/wins/p-values 和 full-barycenter-vs-reference-only RMSE separation 的结构化检查，避免弱证据被误判为 paper-grade robustness evidence；`main.tex` 已用 `\IfFileExists` 预留正文 hook，未生成 N50 fragment 时当前 PDF 不变化。
+投稿 readiness 现在也有机器检查产物: `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md` 和 `generated/submission_readiness.json` 会在 `./build.sh` 后自动更新。当前 overall status 是 `draft_with_pending_gates`，机械 gate 已通过；readiness checker 已新增 TAES-specific 机械检查，包括投稿要求文档与官方模板归档、标题/摘要避免 `new`/`novel`、摘要无 citation/footnote/display equation、关键词按字母序、引用 key 完整性、未引用 BibTeX 条目和 DOI 字段。剩余 pending gate 是作者/基金/repository 元数据占位符。baseSeed=11 的 paper-grade held-out N50 已完成并接入 `heldout_n50_report`，`./build.sh` 会生成 `HELDOUT_N50_MANIFEST.md`、`generated/heldout_n50_section.tex`，并让 readiness checker 识别 paper-grade held-out evidence；该 gate 检查 baseSeed=11、trial-seed 列表、generated manifest/fragment、三臂均值指标、paired CI/wins/p-values 和 full-barycenter-vs-reference-only RMSE separation，避免弱证据被误判为 paper-grade robustness evidence。
 
 投稿包现在补入 `docs/paper/taes/manuscript/COVER_LETTER_AND_METADATA_DRAFT.md`: 包含 TAES cover letter 草稿、Regular Paper / Target Tracking and Multi-Sensor Systems portal metadata、原创性声明、AI assistance disclosure、ORCID/funding/repository/preprint/conflict placeholders 和最终替换清单。`check_submission_readiness.py` 与 source bundle 生成脚本已纳入该文件，避免最终投稿时只准备 PDF/source 而漏掉 portal/cover metadata。
 
@@ -75,10 +75,10 @@ local outputs -> median-cardinality medoid reference label set
 | TAES manuscript evidence-chain pass | 进行中，本轮已增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/references.bib`; `docs/paper/taes/manuscript/evidence_sources.json`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md` | 已补近期 DOI 核验引用、Related Work 方法线、operator 伪代码、reference-label invariance、paired CI/wins/sign-test p 表、runtime 表和 full-width N50 reduction 图；Table IV 现在直接显示 full vs reference-only 的 sign-test evidence；仍需更广 scenario 和最终语言压缩。 |
 | TAES manuscript reproducible-results pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/extract_n50_evidence.py`; `docs/paper/taes/manuscript/generated/N50_EVIDENCE_MANIFEST.md`; `docs/paper/taes/manuscript/generated/n50_evidence.json` | N50 paper-facing tables/figure fragments now regenerate from the tracked validation report during `./build.sh`; manifest records report SHA256 and key paper-facing checks. |
 | TAES manuscript GA reference evidence pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/extract_reference_baselines.py`; `docs/paper/taes/manuscript/generated/REFERENCE_BASELINE_MANIFEST.md`; `docs/paper/taes/manuscript/generated/reference_baseline_rows.tex` | Contextual GA reference rows now regenerate from tracked AA/GA N50 reports during `./build.sh`; manuscript caveat says these rows are reference baselines, not paired AA sign-test inputs. |
-| TAES manuscript held-out sanity pass | sanity checkpoint 已完成，paper-grade N50 正在运行 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`; `docs/paper/taes/manuscript/generated/HELDOUT_SANITY_MANIFEST.md`; `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`; `docs/paper/taes/manuscript/scripts/extract_heldout_sanity_evidence.py` | Build now records a tracked N5 base-seed-11 sanity check: Network OSPA full `0.305452` vs tuned `1.702915`, local E-OSPA full `1.691451` vs tuned `2.032799`, RMSE full `3.450998` vs tuned `3.588145`; reference-only RMSE reduction is `-3.59%`. Paper-grade N50/baseSeed=11 run has started with PID `92443`; current log has entered `AA validation trial 46/50`; the extractor and `main.tex` hook are now prewired so adding `heldout_n50_report` will generate a compact held-out table/paragraph automatically, and the readiness checker now validates its protocol, artifacts, metric coverage, paired evidence, and RMSE mechanism separation. |
+| TAES manuscript held-out robustness pass | baseSeed=11 N5 sanity 与 N50 robustness 均已完成 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `docs/paper/taes/manuscript/generated/HELDOUT_SANITY_MANIFEST.md`; `docs/paper/taes/manuscript/generated/HELDOUT_N50_MANIFEST.md`; `docs/paper/taes/manuscript/generated/heldout_n50_section.tex` | Build records the tracked base-seed-11 sanity and N50 robustness checks. Held-out N50 uses trials `12..61`: full barycenter reduces network OSPA by `81.85%`, local E-OSPA by `17.15%`, and local RMSE by `6.64%`; reference-only RMSE reduction is only `0.82%` with wins `28/50` and `p=0.4799`, preserving the same mechanism separation as the main N50 run. |
 | TAES manuscript independent-verifier pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py`; `docs/paper/taes/manuscript/evidence_sources.json`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | Independent verifier now recomputes network disagreement from per-trial report rows, runtime from trial log, and local E-OSPA/RMSE/CardErr from per-trial local rows; `generated/N50_VERIFICATION_REPORT.md` confirms all three paths. |
 | TAES manuscript polish/complexity pass | 进行中，本轮增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/main.pdf`; `docs/paper/taes/manuscript/generated/method_pipeline.tex`; `docs/paper/taes/manuscript/generated/n50_reduction_bars.tex` | 已补 graph-locality/complexity paragraph，明确 Hungarian matching 是 runtime overhead 的主要来源；Introduction 已强化 component-correspondence failure framing，并改成四点 contribution paragraph；Figure 1 已改为 `scripts/render_figures.py` 生成的 LaTeX fragment；Structural Properties 已补 stable-matching consensus limit 和 `Weighting is not matching` label-swap 反例；本轮又把 stable-matching consensus limit 收紧为 matched moment coordinates，并把 existence convexity 明确归为 upstream AA existence update；本轮新增 assignment-stability sufficient condition，并明确该条件不覆盖 close crossing/birth/death/cardinality mismatch；Discussion/Conclusion/Acknowledgment 已避免使用“下一步/投稿前还需”这类内部状态口吻；N50 reduction 图已改为 full-width 矢量图并通过 PDF 渲染检查，本轮进一步去掉右侧重复数值堆叠、改用 legend，精确数值保留在 Table IV；本轮又重排 Results section 的 full-width floats，让 Table II/III/IV 和 Fig. 3 集中显示，避免理论增强后结果页出现大块空白；Experimental Setup 已补 paired statistical protocol 和 mechanism-isolation protocol 表，把 baseline/proposed/reference-only 三臂分别映射到 scalar-weight consumer、full label-barycenter、label-set-only ablation 三个 claim，并声明固定参数/成对 packet-loss realization；本轮又补入 fixed-design/no per-scenario search 说明，明确 held-out base-seed run 不用于选参；本轮又补入 Octave/Apple M4 runtime 环境和绝对秒数解释边界；当前稿件元数据以 submission-style placeholders 呈现；使用 `placeins` 的 `\FloatBarrier` 防止结果浮动跨入 Discussion。 |
-| TAES submission-readiness checklist | 进行中，本轮增强 | `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md`; `docs/paper/taes/manuscript/README.md`; `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`; `docs/paper/taes/manuscript/COVER_LETTER_AND_METADATA_DRAFT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md`; `docs/paper/taes/manuscript/scripts/check_submission_readiness.py` | 官方 template 和当前 manuscript 均已用 Tectonic 编译验证；稿件已加入 provisional AI-assistance disclosure；build 后会自动生成 readiness snapshot 和 clean source bundle。当前机械 gate 通过，且 checker 已覆盖模板归档、标题/摘要/关键词、citation keys、uncited BibTeX、DOI fields、clean source bundle、implementation-alignment wording、cover letter/portal metadata draft 的 TAES-specific/claim-boundary 形式要求；本轮新增 held-out N50 strict gate，未来接入 report 时会检查 baseSeed=11、N50、trial seeds、manifest/fragment、三臂指标、paired CI/wins/p-values 和 RMSE mechanism separation；N50 local independent verifier 已通过；N5 held-out sanity 已存在但仍是 warning，剩余为 paper-grade held-out、作者/基金/OA/preprint 等投稿表单信息确认。 |
+| TAES submission-readiness checklist | 进行中，本轮增强 | `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md`; `docs/paper/taes/manuscript/README.md`; `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`; `docs/paper/taes/manuscript/COVER_LETTER_AND_METADATA_DRAFT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md`; `docs/paper/taes/manuscript/scripts/check_submission_readiness.py` | 官方 template 和当前 manuscript 均已用 Tectonic 编译验证；稿件已加入 provisional AI-assistance disclosure；build 后会自动生成 readiness snapshot 和 clean source bundle。当前机械 gate 通过，checker 已覆盖模板归档、标题/摘要/关键词、citation keys、uncited BibTeX、DOI fields、clean source bundle、implementation-alignment wording、cover letter/portal metadata draft 的 TAES-specific/claim-boundary 形式要求；held-out N50 strict gate 已通过并检查 baseSeed=11、N50、trial seeds、manifest/fragment、三臂指标、paired CI/wins/p-values 和 RMSE mechanism separation；N50 local independent verifier 已通过；剩余为作者/基金/OA/preprint/repository 等投稿表单信息确认，场景族扩展属于进一步降低风险的后续实验。 |
 | 文档维护 | 已建立，持续维护 | 本文件；`docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`; `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 当前 checkpoint 已回填 N50 validation、N50 ablation、recommendation、theory boundary 和 neighborhood N50。 |
 
 ## 已完成的负结果
@@ -124,9 +124,9 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 
 - 当前最佳 N50 结果仍来自 output-level projection；neighborhood iterative prototype 已通过 N50，但还不是递归滤波内部 online method。
 - consensus 指标归零是构造结果；paper-facing claim 必须依赖 local metrics、GA reference 对照和 ablation。
-- Independent verifier 已经覆盖 network disagreement、runtime 和 local E-OSPA/RMSE/CardErr；当前剩余证据风险主要是场景覆盖仍偏集中。
+- Independent verifier 已经覆盖 network disagreement、runtime 和 local E-OSPA/RMSE/CardErr；baseSeed=11 held-out N50 已通过，但当前剩余证据风险仍包括场景族覆盖偏集中。
 - 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；当前实现是 output-level neighborhood iterative prototype，不是递归滤波内部的最终 online method。
-- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 表/N50 reduction 图已经由 report-driven generated fragments 驱动；方法图和结果图已完成一次矢量化 polish。最终稿仍需要更多 scenario/seed coverage、作者/基金/AI disclosure 最终措辞确认和人工审读。
+- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 表/N50 reduction 图、held-out N50 table/paragraph 都已经由 report-driven generated fragments 驱动；方法图和结果图已完成一次矢量化 polish。最终稿仍需要更多场景族验证、作者/基金/AI disclosure 最终措辞确认和人工审读。
 
 ## 已完成长跑
 
@@ -140,7 +140,7 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - Log: `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`。
 - `docs/paper/taes/manuscript/evidence_sources.json` 已接入这对 report/log；`./build.sh` 后 `generated/N50_VERIFICATION_REPORT.md` 显示 local metrics are independently recomputed from per-trial local tracking rows。
 
-## 当前长跑
+## 已完成长跑: held-out baseSeed=11 N50 robustness
 
 - 目的: 生成 paper-grade held-out N50 evidence，用 baseSeed=11 检查 neighborhood label-barycenter 是否跨 seed 维持相同机制收益。
 - 启动脚本: `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh`。
@@ -148,18 +148,13 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - PID file: `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.pid`。
 - Log: `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`。
 - 启动状态: 2026-06-24 09:49 CST 时进程存活，log 已进入 `AA validation trial 1/50`。
-- 当前状态: 2026-06-24 12:08 CST 时进程仍存活，log 已进入 `AA validation trial 46/50`。
-- 查看进度:
-
-```bash
-tail -f /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log
-```
-
-完成后检查 log 中的 `AA_TAES_HELDOUT_N50_REPORT=...` 路径，确认 report 包含 per-trial local rows；若结果支持主 claim，则把路径接入 `docs/paper/taes/manuscript/evidence_sources.json`，运行 `./build.sh`，审查 `generated/HELDOUT_N50_MANIFEST.md`、`generated/heldout_n50_section.tex` 和重建后的 PDF。
+- 完成状态: 2026-06-24 12:22 CST 生成 report `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`。
+- 关键结果: full barycenter 相对 tuned AA 的 network OSPA / local E-OSPA / local RMSE reductions 为 `81.85% / 17.15% / 6.64%`；wins 为 `50/50`, `50/50`, `48/50`。Reference-only RMSE reduction 为 `0.82%`，wins `28/50`，sign-test `p=0.4799`，因此 held-out run 继续支持“matched posterior barycenter 贡献空间收益，而不只是复制 reference labels”。
+- 接入状态: `docs/paper/taes/manuscript/evidence_sources.json` 已加入 `heldout_n50_report`，`./build.sh` 生成 `generated/HELDOUT_N50_MANIFEST.md`、`generated/heldout_n50_evidence.json` 和 `generated/heldout_n50_section.tex`。
 
 ## 下一步
 
 1. 把 output-level iterative prototype 下沉到递归滤波内部的 online label message / moment consensus。
 2. 给 online 版本设计新的 method-level ablation: label canonicalization only、state barycenter only、iterative local consensus。
-3. 等当前 paper-grade held-out N50 完成后，接入 `heldout_n50_report`，审查自动生成的 held-out 表/段落，并决定是否保留在正文、移到 supplementary，或只作为 response-ready robustness evidence。
-4. 继续压缩和润色 TAES `main.tex`: 加入更广场景后的图表，同时控制 TAES 页数。
+3. 继续压缩和润色 TAES `main.tex`: 加入更广场景后的图表，同时控制 TAES 页数。
+4. 替换作者、基金、repository、corresponding author、OA/preprint/conflict 等投稿表单 metadata placeholders，并做最终人工审读。

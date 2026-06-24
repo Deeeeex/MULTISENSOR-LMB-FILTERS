@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "20819f27d5ee95156518366a463867846cb8b0c55e1f0abd4514b8362e277c33",
-  "file_count": 26,
+  "bundle_sha256": "4997e00d0a6a1249109dc58b767a6c8c4259062585549dbc379f179b6d7f44a0",
+  "file_count": 29,
   "files": [
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -20,18 +20,18 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "6964f32feff825e18c9d392673ab59c2b9cdc23671fd8c56228e47b1718e981a",
-      "size_bytes": 12287
+      "sha256": "50e0b97f1f3af1c013a184eef0a910d0e9dd74b3badd4d3b257b9b4aa70a3005",
+      "size_bytes": 13042
     },
     {
       "path": "README.md",
-      "sha256": "48140b3ffdc8d360d641adf3e981b8898f0d27f708311bb8a16e1832530a2ded",
-      "size_bytes": 5427
+      "sha256": "6ca14d4dd010b060e786303038a668021e5340c8662d2990c9f040c0175cfc6b",
+      "size_bytes": 5468
     },
     {
       "path": "evidence_sources.json",
-      "sha256": "bd30d0b36f265ce59acbeb89bb9265a1b7c2aa6539f8eb6a1bbb29cabae97e64",
-      "size_bytes": 372
+      "sha256": "1add797c648cab80b0683f0a1db1e83c92ea9ca110779f41fb1ba38cf7e2ba35",
+      "size_bytes": 471
     },
     {
       "path": "figures/fig_method_pipeline.svg",
@@ -42,6 +42,11 @@
       "path": "figures/fig_n50_results.svg",
       "sha256": "442b4c71140c7ddcf1bfbe2726dda8986fcaf041542fef1c7f4addc74771e074",
       "size_bytes": 3277
+    },
+    {
+      "path": "generated/HELDOUT_N50_MANIFEST.md",
+      "sha256": "071bc7828134591d04980a1967edc510532ec2bd1f2cd600a39b46f3c68965c5",
+      "size_bytes": 1279
     },
     {
       "path": "generated/HELDOUT_SANITY_MANIFEST.md",
@@ -62,6 +67,16 @@
       "path": "generated/REFERENCE_BASELINE_MANIFEST.md",
       "sha256": "fb25884f629a1bfe73d1adcf5e3bc666f208bcd9eebf847b5bfe3d8832b22651",
       "size_bytes": 843
+    },
+    {
+      "path": "generated/heldout_n50_evidence.json",
+      "sha256": "269dd02a4ea5e40ebb2cde5d6e6d14f9043a30e439d28e7cd1b2a8357a4fc226",
+      "size_bytes": 4405
+    },
+    {
+      "path": "generated/heldout_n50_section.tex",
+      "sha256": "5af672494e20497ae058e09006704f33d4bbfcaee6532783c3ed8791d52796c2",
+      "size_bytes": 971
     },
     {
       "path": "generated/heldout_sanity_evidence.json",
@@ -120,8 +135,8 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "7d19122e53632f197a205443ad227f70c07a860f7e0d0335fdb3b372b27b8b1e",
-      "size_bytes": 108273
+      "sha256": "cd12ad35be0d7fc6051681a131cc8226e7ebfa53ec03de61e8167b96914cbba0",
+      "size_bytes": 108934
     },
     {
       "path": "main.tex",
