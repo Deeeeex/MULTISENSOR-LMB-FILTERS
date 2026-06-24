@@ -283,6 +283,8 @@ Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only
 
 Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from state-barycenter effects. The reference-only ablation reduces network disagreement because sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\%, with a confidence interval crossing zero, 27 wins out of 50 paired trials, and no sign-test support. The full operator reaches 6.35\% RMSE reduction, with 48 wins out of 50 and $p<10^{-3}$. The full method also improves local E-OSPA in all 50 paired trials and cardinality error in 46 out of 50 paired trials. These results support the claim that matched posterior barycenters, not label copying alone, drive the spatial tracking gain.
 
+\IfFileExists{generated/heldout_n50_section.tex}{\input{generated/heldout_n50_section.tex}}{}
+
 \begin{table}[t]
 \caption{Filter runtime over 50 paired trials.}
 \label{tab:runtime}

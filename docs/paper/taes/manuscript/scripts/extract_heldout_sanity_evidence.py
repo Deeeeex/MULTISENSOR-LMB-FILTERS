@@ -185,10 +185,101 @@ def write_n50_outputs(payload: dict[str, object]) -> None:
         f"- Reference-only RMSE reduction is `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['reduction']}` with wins `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['wins']}`, preserving the barycenter-vs-label-copying separation check.\n",
     ]
     (OUT / "HELDOUT_N50_MANIFEST.md").write_text("".join(lines), encoding="utf-8")
+    write_n50_manuscript_fragment(payload)
+
+
+def manuscript_name(arm: str) -> str:
+    if arm == "Tuned spatial-KLA AA":
+        return "Tuned spatial-KLA AA"
+    if arm == "Neighborhood label-barycenter spatial-KLA AA":
+        return "Neighborhood label-barycenter"
+    if arm == "Neighborhood reference-only label-consensus spatial-KLA AA":
+        return "Neighborhood reference-only"
+    return arm
+
+
+def tex_escape(value: str) -> str:
+    return value.replace("%", r"\%")
+
+
+def mean_row(arm: str, payload: dict[str, object]) -> str:
+    network = payload["network"][arm]
+    local = payload["local"][arm]
+    values = [
+        manuscript_name(arm),
+        f"{network['OSPA']:.6f}",
+        f"{network['Loc. disag.']:.6f}",
+        f"{network['Card. disp.']:.6f}",
+        f"{local['E-OSPA']:.6f}",
+        f"{local['RMSE']:.6f}",
+        f"{local['CardErr']:.6f}",
+    ]
+    return " & ".join(values) + r"\\"
+
+
+def reduction_row(metric: str, payload: dict[str, object], paired_key: str) -> str:
+    full = payload[paired_key]["Neighborhood label-barycenter spatial-KLA AA"][metric]
+    ref = payload[paired_key]["Neighborhood reference-only label-consensus spatial-KLA AA"][metric]
+    values = [
+        metric,
+        tex_escape(full["reduction"]),
+        full["wins"],
+        full["p_value"],
+        tex_escape(ref["reduction"]),
+        ref["wins"],
+        ref["p_value"],
+    ]
+    return " & ".join(values) + r"\\"
+
+
+def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
+    config = payload["config"]
+    full_network = payload["paired_network"]["Neighborhood label-barycenter spatial-KLA AA"]
+    full_local = payload["paired_local"]["Neighborhood label-barycenter spatial-KLA AA"]
+    ref_local = payload["paired_local"]["Neighborhood reference-only label-consensus spatial-KLA AA"]
+
+    rows = "\n".join(mean_row(arm, payload) for arm in ARM_ORDER)
+    paired_rows = "\n".join(
+        [
+            reduction_row("OSPA", payload, "paired_network"),
+            reduction_row("E-OSPA", payload, "paired_local"),
+            reduction_row("RMSE", payload, "paired_local"),
+        ]
+    )
+    section = rf"""\begin{{table*}}[t]
+\caption{{Held-out base-seed N50 robustness check. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation. Lower values are better.}}
+\label{{tab:heldout}}
+\centering
+\tablefont
+\begin{{tabular}}{{lcccccc}}
+\toprule
+Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
+\midrule
+{rows}
+\bottomrule
+\end{{tabular}}
+
+\vspace{{0.6em}}
+\begin{{tabular}}{{lcccccc}}
+\toprule
+Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only wins & Ref. $p$\\
+\midrule
+{paired_rows}
+\bottomrule
+\end{{tabular}}
+\end{{table*}}
+
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])}, so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.
+"""
+    (OUT / "heldout_n50_section.tex").write_text(section, encoding="utf-8")
 
 
 def remove_n50_outputs() -> None:
-    for path in [OUT / "heldout_n50_evidence.json", OUT / "HELDOUT_N50_MANIFEST.md"]:
+    for path in [
+        OUT / "heldout_n50_evidence.json",
+        OUT / "HELDOUT_N50_MANIFEST.md",
+        OUT / "heldout_n50_section.tex",
+    ]:
         if path.exists():
             path.unlink()
 

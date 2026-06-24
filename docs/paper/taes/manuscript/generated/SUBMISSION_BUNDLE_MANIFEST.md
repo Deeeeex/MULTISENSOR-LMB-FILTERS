@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `4810e31a0b19334195a1174c258ec434326252645a6f8c0063663c011557821c`
+- Bundle SHA-256: `59645ef47f254dfa417e3e8bf5bbc9694b86703596b4c54b3e84fab11f80625e`
 - Files: 25
 
 ## Included Files
@@ -10,8 +10,8 @@
 | --- | ---: | --- |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 10414 | `2d88c9ccfe7c0c1490f86215fdeb938bdac61b8f6210cec73cc08d718a0ebb5a` |
-| `README.md` | 5203 | `264b78f1ca4516ec03b5bdb684eda29dbbe942b6c6fdf4487dcdaaa21b94554c` |
+| `READINESS_AUDIT_CN.md` | 10488 | `bcbb274dd647e3e4fc849785a4dbf7dfc649f74a608fcf4941c870a19cb3ee1b` |
+| `README.md` | 5276 | `2dfbaba3ca039cac9a7f90487c7017fd153ca287d207b604839c14a201d418fa` |
 | `evidence_sources.json` | 372 | `bd30d0b36f265ce59acbeb89bb9265a1b7c2aa6539f8eb6a1bbb29cabae97e64` |
 | `figures/fig_method_pipeline.svg` | 3198 | `c5033f4749105b91a67a944dadc6c1ed3d7bbe188195219654b333f3bf7f44db` |
 | `figures/fig_n50_results.svg` | 3277 | `442b4c71140c7ddcf1bfbe2726dda8986fcaf041542fef1c7f4addc74771e074` |
@@ -30,6 +30,6 @@
 | `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
 | `generated/reference_baseline_rows.tex` | 478 | `0057561cbefe51bd7af758250f72f9e76b68ec4d3d9de5b6ca3fe0e63e629df7` |
-| `main.pdf` | 101957 | `1892a39e1c20df5eb6bc9daf57da7aaddaca8c11de0be67a4ee9cc91fd62b45a` |
-| `main.tex` | 29814 | `9f8f3bdec64f76e2ff03a79b6bae936c180237b682ae00bb2e51b4bae4899c77` |
+| `main.pdf` | 101956 | `dcec2107596ccede6f4c5f757f8b802a7fe75388c4159a8963cd5a949a0017d3` |
+| `main.tex` | 29909 | `115e4d37d89a201bb9372516590ef7eabe42229f26110604bae6b1bfde51638d` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
