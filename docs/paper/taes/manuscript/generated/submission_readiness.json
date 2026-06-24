@@ -237,6 +237,11 @@
       "status": "pass"
     },
     {
+      "detail": "Discussion names the main assignment-ambiguity failure mode and ties recursive deployment to explicit correspondence guards.",
+      "gate": "projection failure-mode boundary wording",
+      "status": "pass"
+    },
+    {
       "detail": "DOI resolver verification covers 20/20 BibTeX entries with current BibTeX SHA-256 `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3`.",
       "gate": "BibTeX DOI resolver verification",
       "status": "pass"
@@ -387,7 +392,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `754225973b5aa4b4c9ff54539a36ed42876cd4dd465f03967aa135a08bcef77f`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `1b64fcf21942e1a2d0cfb6fdc34dbb412620977d26ff5d0325b9b75ad20eae60`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

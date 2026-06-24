@@ -685,6 +685,26 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             + "; ".join(missing_stress_boundary),
         )
     )
+
+    failure_mode_markers = [
+        "assignment ambiguity",
+        "cardinalities lack a neighborhood majority",
+        "plausible but wrong correspondence",
+        "assignment-margin",
+        "fall back to reference-only or upstream AA output",
+        "isolate the label-map and moment-barycenter mechanisms",
+    ]
+    missing_failure_mode = [marker for marker in failure_mode_markers if marker not in body]
+    checks.append(
+        Check(
+            "projection failure-mode boundary wording",
+            "pass" if not missing_failure_mode else "warning",
+            "Discussion names the main assignment-ambiguity failure mode and ties recursive deployment to explicit correspondence guards."
+            if not missing_failure_mode
+            else "Projection failure-mode boundary wording is incomplete; missing markers: "
+            + "; ".join(missing_failure_mode),
+        )
+    )
     return checks
 
 

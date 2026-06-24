@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 22:06 CST
+日期: 2026-06-24 22:19 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 22:19 Checkpoint
+
+本轮继续按 algorithmic-paper 的预投稿风险检查推进 Discussion。当前证据链已经比较完整，剩余论文风险更多来自审稿人会问“什么时候会失败，以及递归部署要如何避免错误合并”。因此 `main.tex` 的 Discussion/Limitations 新增了 assignment ambiguity failure-mode 段: 当目标接近、邻域 cardinality 没有多数、或局部 posterior 明显偏置时，medoid reference 可能选择 plausible but wrong correspondence；递归部署应由 assignment-margin、covariance、track-age 或 reliability evidence 做 projection gate，并在 correspondence 不可信时回退到 reference-only 或 upstream AA output。
+
+这不是新增方法 claim，也不是对当前数据调参，而是把方法层面的泛化边界写清楚。`check_submission_readiness.py` 同步新增 `projection failure-mode boundary wording` gate，用于防止后续压缩 Discussion 时删除这块审稿风险说明。
 
 ## 22:06 Checkpoint
 
