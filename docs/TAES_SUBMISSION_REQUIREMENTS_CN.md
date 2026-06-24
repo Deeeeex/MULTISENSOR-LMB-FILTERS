@@ -83,6 +83,17 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 - TAES preprint policy 仍说明 TAES neither encourages nor discourages TechRxiv/arXiv preprints，preprint 与否不影响 editorial decision。
 - TAES technical-area 页面仍把 `Target Tracking and Multi-Sensor Systems` 明确覆盖 multi-target tracking、data fusion、decentralized/distributed detection 和 decentralized/distributed estimation；若稿件主 thrust 是 tracking or fusion，该 technical area 是合理选择。
 
+## 2026-06-25 Live Source Refresh
+
+本轮再次读取官方 TAES author-information 页面，页面底部显示 `Last Updated: 18 July 2025`。关键硬要求仍与 2026-06-24 核对一致，同时补充几个最终投稿包相关项:
+
+- `Video Abstract` / graphical abstract 是可选增强材料，可用视频、音频、图片或动画概括论文发现；当前 AA label-barycenter 稿件不需要把它作为 portal 必备项，但 final package checklist 应明确是否提交。
+- `Supplementary Materials` 可包含 multimedia files、images、data sets、code 和 accompanying PDF documents。官方页面说明 technical supplementary material 应在投稿时提供给 peer review，且 main paper 应引用 supplementary material，并配 readme 描述材料。
+- `Code Ocean` 是 IEEE Xplore 可链接的代码托管/可执行平台；适合未来将可运行代码与文章关联，但当前 submission package 的最低要求仍是稳定 repository DOI/URL 或明确 no-public-code statement。
+- `DataPort` 可托管 up to 2TB 的较大数据集并提供 DOI；当前稿件使用模拟数据与生成报告，若不上传 DataPort，应在 metadata checklist 中明确不使用 DataPort，避免 final portal 决策遗漏。
+- 官方 overlength 段还说明，来自受制裁国家且不能与美国发生金融交易的作者，所有投稿阶段的模板页数都不能产生 overlength page charges；这不是当前已知作者信息下的假设，但 final author metadata 替换时应由 corresponding author 确认是否相关。
+- 当前稿件仍为 9 个 TAES template pages，低于 Regular Paper 超页费的 10 printed pages 阈值；若元数据替换或补充 full-topology evidence 导致页数达到 10 页以上，需要重新做 page-budget 决策。
+
 ## Claims
 
 | ID | Claim | Confidence | Evidence IDs | Caveats |
@@ -158,6 +169,7 @@ TAES 没有硬性 manuscript page limit，但:
 - TAES home 页面显示 IEEE hybrid OA APC 为 2800 USD。
 - IEEE copyright form 只在 accepted manuscript 阶段需要；对应链接会发给 corresponding author。
 - 选择 OA 不会免除 overlength page charges。
+- 如果最终作者/机构涉及不能产生 overlength charge 的约束，Regular Paper 两栏模板版本必须不超过 10 页。
 
 ### 6. ORCID
 
@@ -268,6 +280,22 @@ TAES/IEEE template 中的图表准备要点:
 - Main results table 使用 TAES one-column 或 page-wide table，不要过密。
 - N50 paired reductions 可以放一张 compact table；centralized consensus=0 upper-bound 放 appendix 或 supplementary。
 
+### 15. Supplementary Material / Code / Data 选项
+
+TAES author-information 页面允许 supplementary materials，包括 multimedia、images、datasets、code 和 accompanying PDF documents。官方页面强调:
+
+- 如果 supplementary material 是 technical content，应在 article submission process 期间提供给 peer review。
+- Main paper 应引用 supplementary material。
+- Supplementary package 应包含 readme，说明材料内容与数据集/多媒体/代码文件。
+- IEEE Code Ocean 可用于可执行代码，IEEE DataPort 可用于较大数据集并提供 DOI。
+
+对当前 AA label-barycenter 稿件的建议:
+
+- 默认不上传 graphical/video abstract，除非最终决定做一张简短 mechanism animation 或 graphical abstract。
+- 如果上传 supplement，优先把 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 中已列出的 held-out、harsh-loss、topology/FOV 和 reproducibility-ledger fragments 转成正式 supplement PDF/readme；不要直接上传内部 QA 文档。
+- 代码/数据字段优先填写稳定 repository DOI/URL；若后续选择 Code Ocean 或 DataPort，需更新 cover-letter metadata、`SUBMISSION_PACKAGE_INDEX.md` 和 readiness gate。
+- 所有 supplementary text 必须遵守 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 的 claim/non-claim 边界。
+
 ## TAES-Specific Checklist for AA Label-Barycenter Paper
 
 ### 必做
@@ -285,6 +313,7 @@ TAES/IEEE template 中的图表准备要点:
 - 保持 `check_submission_readiness.py` 的 TAES-specific gates 通过: 模板/投稿要求归档存在，标题与摘要不用 `new`/`novel`，摘要为单段且无 citation/footnote/display equation，关键词逗号分隔且按字母序。
 - 写明当前 method 是 graph-local output-level iterative operator，若未完成 recursive online arm，不要声称是 recursive filtering update。
 - Acknowledgments 准备 AI assistance disclosure。
+- 在 cover-letter/portal metadata 中明确 graphical/video abstract、supplementary material、Code Ocean/DataPort 或 repository DOI/URL 的最终选择。
 
 ### 强烈建议
 
@@ -312,6 +341,7 @@ TAES/IEEE template 中的图表准备要点:
 | E6 | TAES preprint policy | `docs/paper/taes/snapshots/taes_preprint_policy_2026-06-23.html`; https://ieee-aess.org/publications/transactions-aes/preprint-policy | preprint policy |
 | E7 | technical areas | `docs/paper/taes/snapshots/taes_technical_area_descriptions_2026-06-23.html`; https://ieee-aess.org/publications/transactions-aes/technical-areas-editors/descriptions | target technical area selection |
 | E8 | command | `sha256sum docs/paper/taes/TAES_Template.zip docs/paper/taes/IEEE_Editorial_Style_Manual_for_Authors.pdf` | downloaded file integrity hashes |
+| E9 | official author info live refresh | https://ieee-aess.org/publications/transactions-aes/author-information, read on 2026-06-25 | graphical/video abstract, supplementary materials, Code Ocean, DataPort, overlength charge edge case |
 
 ## Verification Record
 

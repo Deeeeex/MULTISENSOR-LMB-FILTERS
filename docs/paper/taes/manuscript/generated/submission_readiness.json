@@ -157,7 +157,7 @@
       "status": "pass"
     },
     {
-      "detail": "TAES requirements document records the 2026-06-24 live official-page refresh, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, and current local TeX verification status.",
+      "detail": "TAES requirements document records the 2026-06-24/25 live official-page refreshes, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, optional supplement/code/data/graphical-abstract choices, and current local TeX verification status.",
       "gate": "TAES requirements live-source refresh",
       "status": "pass"
     },
@@ -292,7 +292,7 @@
       "status": "pass"
     },
     {
-      "detail": "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders.",
+      "detail": "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, repository, Code Ocean/DataPort, supplementary-material, and graphical/video-abstract placeholders.",
       "gate": "cover letter and portal metadata draft",
       "status": "pass"
     },
@@ -457,7 +457,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 61 files and SHA-256 `1060eeedbdf065df99209de63cdeafad451745057b1acc3adb1b9cc5de8e79e5`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 61 files and SHA-256 `20b8b7b03340747d1069eb07c55217cbd5bd47b6381d1634ba8764e7e6642474`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

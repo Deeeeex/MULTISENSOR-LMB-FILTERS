@@ -111,6 +111,7 @@ BUNDLE_BUILD_FALLBACK_MARKERS = [
 ]
 REQUIREMENTS_DOC_MARKERS = [
     "2026-06-24 Live Source Refresh",
+    "2026-06-25 Live Source Refresh",
     "https://ieee.atyponrex.com/journal/taes",
     "Regular Paper",
     "200 USD",
@@ -127,6 +128,10 @@ REQUIREMENTS_DOC_MARKERS = [
     "data fusion",
     "decentralized/distributed estimation",
     "Tectonic",
+    "Video Abstract",
+    "Supplementary Materials",
+    "Code Ocean",
+    "DataPort",
 ]
 
 
@@ -409,7 +414,7 @@ def requirements_doc_checks() -> list[Check]:
         Check(
             "TAES requirements live-source refresh",
             "pass" if ok else "warning",
-            "TAES requirements document records the 2026-06-24 live official-page refresh, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, and current local TeX verification status."
+            "TAES requirements document records the 2026-06-24/25 live official-page refreshes, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, optional supplement/code/data/graphical-abstract choices, and current local TeX verification status."
             if ok
             else "TAES requirements document is missing live-source markers or contains stale caveats: "
             + "missing="
@@ -941,6 +946,10 @@ def cover_letter_checks(tex: str) -> list[Check]:
         "OpenAI Codex",
         "ORCID",
         "repository DOI/URL",
+        "Code Ocean",
+        "DataPort",
+        "Supplementary material",
+        "Graphical/video abstract",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     positioning_markers = [
@@ -972,7 +981,7 @@ def cover_letter_checks(tex: str) -> list[Check]:
         Check(
             "cover letter and portal metadata draft",
             "pass" if not missing else "warning",
-            "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders."
+            "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, repository, Code Ocean/DataPort, supplementary-material, and graphical/video-abstract placeholders."
             if not missing
             else "Cover-letter draft exists but is missing markers: " + "; ".join(missing),
         ),

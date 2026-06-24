@@ -47,6 +47,10 @@ Sincerely,
 | ORCID | [All authors] | IEEE requires ORCID for all authors. |
 | Funding | [Funding Agency] under Grant [Grant Number] | Replace or remove if unfunded. |
 | Repository / code availability | [repository DOI/URL] | Replace with a stable URL/DOI or remove if unavailable. |
+| Code Ocean | [none / URL] | Decide whether to use IEEE Code Ocean; if used, keep the repository and cover-letter wording synchronized. |
+| DataPort | [none / DOI] | Decide whether any large simulation dataset is deposited in IEEE DataPort. |
+| Supplementary material | [none / supplement files] | If submitted, provide it during peer review and ensure the main paper references it. |
+| Graphical/video abstract | [none / file] | Decide whether to submit an optional graphical or video abstract. |
 | Preprint | [none / URL] | Decide before submission and ensure IEEE-compliant wording. |
 | Conflicts of interest | [none / disclosure] | Confirm with all authors. |
 | AI assistance disclosure | Codex/OpenAI assistance disclosed in acknowledgments and cover letter | Recheck current IEEE/AESS wording before submission. |
@@ -56,6 +60,7 @@ Sincerely,
 ## Final Pre-Submission Replacements
 
 - Replace all author, affiliation, funding, DOI, email, repository, and ORCID placeholders in `main.tex`.
+- Decide whether to provide optional graphical/video abstract, supplementary material, Code Ocean, or DataPort artifacts.
 - Rebuild with `./build.sh` and confirm `generated/SUBMISSION_READINESS_REPORT.md` has no hard errors.
 - Render and inspect the latest `main.pdf` pages after metadata replacement.
 - Regenerate the source bundle and confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the final bundle checksum.

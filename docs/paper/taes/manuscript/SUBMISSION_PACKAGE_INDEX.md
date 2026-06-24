@@ -13,6 +13,7 @@ Upload or paste these items after replacing all author, funding, repository, and
 | Cover letter | `COVER_LETTER_AND_METADATA_DRAFT.md` | Drafted with manuscript type, technical area, originality statement, simulation-data statement, and AI-assistance disclosure. | Replace bracketed fields, then paste into the portal or upload as requested. |
 | Portal metadata | `COVER_LETTER_AND_METADATA_DRAFT.md` | Checklist exists for title, running head, corresponding author, ORCID, funding, repository, preprint, conflicts, and reviewer fields. | Fill the portal exactly from the final metadata values. |
 | Supplement or response evidence | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | Single response-ready map for held-out, harsh-loss, topology/FOV, and reproducibility-ledger fragments; generated `.tex` fragments remain source-package evidence and are not edited by hand. | Decide whether selected fragments become a portal supplement or remain reviewer-response evidence after final page-budget review. |
+| Optional graphical/video abstract | Not prepared | TAES allows optional graphical/video abstracts; the current package does not require one. | Decide explicitly before final portal submission. |
 | Reviewer-response planning map | `REVIEWER_RISK_REGISTER.md` | Internal pre-submission map from likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries. | Use for response planning only; do not upload or cite as a data source. |
 | Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Internal audit map tying each paper-facing claim to manuscript location, evidence artifact, verification level, terminology decision, and explicit non-claim. | Use before final submission or reviewer response; do not upload or cite as a data source unless converted to a formal supplement. |
 
@@ -47,6 +48,9 @@ The current manuscript is allowed to remain content-ready with metadata placehol
 - Corresponding author email and ORCID values for all authors.
 - Funding agency and grant number, or a deliberate no-funding statement.
 - Repository DOI/URL or a deliberate no-public-code statement.
+- Code Ocean/DataPort decision, if the final submission uses either IEEE platform instead of or in addition to a repository DOI/URL.
+- Supplementary material decision and, if submitted, a peer-review-ready supplement/readme referenced from the manuscript.
+- Graphical/video abstract decision.
 - Cover-letter signature, email, preprint URL/decision, conflict-of-interest statement, suggested reviewers, and opposed reviewers.
 - Final DOI/journal metadata fields generated only after acceptance.
 - Final IEEE/AESS wording for AI-assistance disclosure.
@@ -61,4 +65,5 @@ Run this sequence after every final metadata or evidence edit.
 4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates, including the BibTeX DOI resolver gate and the cover-letter/portal metadata source-synchronization gate; before actual portal submission, confirm it has no metadata pending gate either.
 5. Confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the current `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` checksum.
 6. Extract the source bundle in a temporary directory and run `TAES_EVIDENCE_MODE=bundled ./build.sh` to verify bundled-fragment compilation.
-7. Upload the final PDF, source bundle if requested, and finalized cover-letter or portal text according to the current TAES instructions.
+7. Decide whether to upload optional supplementary material, Code Ocean/DataPort links, or a graphical/video abstract; if a supplement is submitted, ensure it is peer-review-ready and referenced from the main manuscript.
+8. Upload the final PDF, source bundle if requested, and finalized cover-letter or portal text according to the current TAES instructions.
