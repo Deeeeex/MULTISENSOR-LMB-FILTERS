@@ -250,7 +250,7 @@ These properties are structural, not a blanket tracking-optimality claim. The as
 \section{EXPERIMENTAL SETUP}
 The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
 
-We compare three arms chosen to isolate the mechanism rather than to search for scenario-specific hyperparameters. The fixed baseline is the target-wise spatial-KLA AA implementation with link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. The validation reports retain its implementation label, Tuned spatial-KLA AA, but all paper-facing comparisons use a fixed parameterization rather than per-scenario retuning. The proposed arm keeps that upstream existence pathway and enables \method{} projection over communication neighborhoods with $H=3$ fixed iterations; it tests the full label-canonicalization and matched-barycenter hypothesis on the active output tracks. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain. All arms keep their parameters fixed across the 50 paired trials and see the same measurements and packet-loss realization in each trial.
+We compare three arms chosen to isolate the mechanism rather than to search for scenario-specific hyperparameters. The fixed baseline is the target-wise spatial-KLA AA implementation with link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. Raw validation reports retain an internal implementation label for provenance, but all manuscript tables and comparisons use the fixed spatial-KLA AA baseline name and a fixed parameterization rather than per-scenario retuning. The proposed arm keeps that upstream existence pathway and enables \method{} projection over communication neighborhoods with $H=3$ fixed iterations; it tests the full label-canonicalization and matched-barycenter hypothesis on the active output tracks. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain. All arms keep their parameters fixed across the 50 paired trials and see the same measurements and packet-loss realization in each trial.
 
 \begin{table}[t]
 \caption{Mechanism-isolation protocol for the AA comparison.}
@@ -263,7 +263,7 @@ We compare three arms chosen to isolate the mechanism rather than to search for 
 \toprule
 Arm & AA route & Ref. label & Moment avg.\\
 \midrule
-Tuned spatial-KLA AA & on & off & off\\
+Fixed spatial-KLA AA & on & off & off\\
 Reference-only & on & on & off\\
 Label-barycenter & on & on & on\\
 \bottomrule
@@ -313,7 +313,7 @@ Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
 \end{table*}
 
 \begin{table*}[t]
-\caption{Paired reductions relative to the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA. The bracketed interval is the 95\% confidence interval of the absolute paired reduction, and $p$ is the two-sided sign-test value on nonzero paired deltas.}
+\caption{Paired reductions relative to the fixed spatial-KLA AA baseline. The bracketed interval is the 95\% confidence interval of the absolute paired reduction, and $p$ is the two-sided sign-test value on nonzero paired deltas.}
 \label{tab:paired}
 \centering
 \tablefont
@@ -329,7 +329,7 @@ Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only
 \centering
 \setlength{\unitlength}{1pc}
 \input{generated/n50_reduction_bars.tex}
-\caption{Paired percentage reductions over the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA. Black bars show the full label-barycenter operator, and gray bars show the reference-only ablation. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
+\caption{Paired percentage reductions over the fixed spatial-KLA AA baseline. Black bars show the full label-barycenter operator, and gray bars show the reference-only ablation. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
 \label{fig:n50}
 \end{figure*}
 

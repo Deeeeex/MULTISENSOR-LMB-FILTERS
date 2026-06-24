@@ -9,11 +9,11 @@ This is a paper-grade held-out base-seed validation using the same three AA arms
 - Trials: `50`
 - Base seed: `11`
 - Trial seeds: `[12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]`
-- Arm set: tuned spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.
+- Arm set: fixed spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.
 
 ## Key Held-Out Checks
 
-- Network OSPA: full `0.306142` vs tuned `1.686779`; paired reduction `81.85%`, wins `50/50`.
-- Local E-OSPA: full `1.689891` vs tuned `2.039637`; paired reduction `17.15%`, wins `50/50`.
-- RMSE: full `3.450254` vs tuned `3.695581`; paired reduction `6.64%`, wins `48/50`.
+- Network OSPA: full `0.306142` vs fixed baseline `1.686779`; paired reduction `81.85%`, wins `50/50`.
+- Local E-OSPA: full `1.689891` vs fixed baseline `2.039637`; paired reduction `17.15%`, wins `50/50`.
+- RMSE: full `3.450254` vs fixed baseline `3.695581`; paired reduction `6.64%`, wins `48/50`.
 - Reference-only RMSE reduction is `0.82%` with wins `28/50`, preserving the barycenter-vs-label-copying separation check.

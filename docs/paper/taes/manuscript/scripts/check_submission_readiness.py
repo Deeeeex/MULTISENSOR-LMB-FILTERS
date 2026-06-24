@@ -712,7 +712,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "fixed target-wise spatial-KLA AA baseline",
         "fixed target-wise AA-LMB baseline",
         "rather than to search for scenario-specific hyperparameters",
-        "validation reports retain its implementation label",
+        "Raw validation reports retain an internal implementation label",
+        "all manuscript tables and comparisons use the fixed spatial-KLA AA baseline name",
         "fixed parameterization rather than per-scenario retuning",
         "no per-scenario search over projection cutoffs, barycenter weights, thresholds, or trial-specific label rules",
     ]

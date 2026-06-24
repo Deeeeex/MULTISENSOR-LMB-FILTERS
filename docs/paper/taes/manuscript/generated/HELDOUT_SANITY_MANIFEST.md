@@ -9,11 +9,11 @@ This is a tracked small-sample base-seed sanity check. It is useful for detectin
 - Trials: `5`
 - Base seed: `11`
 - Trial seeds: `[12, 13, 14, 15, 16]`
-- Arm set: tuned spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.
+- Arm set: fixed spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.
 
 ## Key Sanity Checks
 
-- Network OSPA: full `0.305452` vs tuned `1.702915`; paired reduction `82.06%`, wins `5/5`.
-- Local E-OSPA: full `1.691451` vs tuned `2.032799`; paired reduction `16.79%`, wins `5/5`.
-- RMSE: full `3.450998` vs tuned `3.588145`; paired reduction `3.82%`, wins `4/5`.
+- Network OSPA: full `0.305452` vs fixed baseline `1.702915`; paired reduction `82.06%`, wins `5/5`.
+- Local E-OSPA: full `1.691451` vs fixed baseline `2.032799`; paired reduction `16.79%`, wins `5/5`.
+- RMSE: full `3.450998` vs fixed baseline `3.588145`; paired reduction `3.82%`, wins `4/5`.
 - Reference-only RMSE reduction is `-3.59%` with wins `1/5`, preserving the barycenter-vs-label-copying separation in this small run.

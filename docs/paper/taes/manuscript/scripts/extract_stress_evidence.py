@@ -229,7 +229,7 @@ def write_fragment(payload: dict[str, object]) -> None:
 % Source: {payload['source_report']}
 % Response-ready fragment. It is not imported by main.tex unless explicitly enabled.
 \begin{{table*}}[t]
-\caption{{Harsh packet-loss N50 stress check. Reductions are relative to the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA, under fixed method parameters and the packet-loss profile $p_\mathrm{{drop}}\in{config['p_drop_levels']}$ with sensor counts {config['p_drop_level_counts']}. Bracketed intervals are 95\% confidence intervals for absolute paired reductions.}}
+\caption{{Harsh packet-loss N50 stress check. Reductions are relative to the fixed spatial-KLA AA baseline under fixed method parameters and the packet-loss profile $p_\mathrm{{drop}}\in{config['p_drop_levels']}$ with sensor counts {config['p_drop_level_counts']}. Bracketed intervals are 95\% confidence intervals for absolute paired reductions.}}
 \label{{tab:harsh-stress}}
 \centering
 \tablefont
@@ -285,9 +285,9 @@ def write_outputs(payload: dict[str, object]) -> None:
         "- Generated manuscript fragment: `generated/stress_harsh_section.tex` (response-ready; not imported by `main.tex` by default).\n",
         "- Generated manuscript sentence: `generated/stress_harsh_summary_sentence.tex` (imported by `main.tex` when stress evidence is configured).\n\n",
         "## Key Stress Checks\n\n",
-        f"- Network OSPA: full `{network[FULL_ARM]['OSPA']:.6f}` vs tuned `{network[ARM_ORDER[0]]['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
-        f"- Local E-OSPA: full `{local[FULL_ARM]['E-OSPA']:.6f}` vs tuned `{local[ARM_ORDER[0]]['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
-        f"- Local RMSE: full `{local[FULL_ARM]['RMSE']:.6f}` vs tuned `{local[ARM_ORDER[0]]['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
+        f"- Network OSPA: full `{network[FULL_ARM]['OSPA']:.6f}` vs fixed baseline `{network[ARM_ORDER[0]]['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
+        f"- Local E-OSPA: full `{local[FULL_ARM]['E-OSPA']:.6f}` vs fixed baseline `{local[ARM_ORDER[0]]['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
+        f"- Local RMSE: full `{local[FULL_ARM]['RMSE']:.6f}` vs fixed baseline `{local[ARM_ORDER[0]]['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
         f"- Reference-only RMSE reduction is `{payload['paired_local'][REF_ARM]['RMSE']['reduction']}` with wins `{payload['paired_local'][REF_ARM]['RMSE']['wins']}`.\n",
     ]
     (OUT / "STRESS_HARSH_MANIFEST.md").write_text("".join(lines), encoding="utf-8")

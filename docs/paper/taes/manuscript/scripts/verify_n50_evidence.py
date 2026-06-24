@@ -39,7 +39,7 @@ ARM_ORDER = [
 NETWORK_METRICS = ["OSPA", "Loc. disag.", "Card. disp."]
 LOCAL_METRICS = ["E-OSPA", "RMSE", "CardErr"]
 RUNTIME_LABEL = {
-    "Tuned spatial-KLA AA": "Tuned spatial-KLA AA",
+    "Tuned spatial-KLA AA": "Fixed spatial-KLA AA",
     "Neighborhood label-barycenter spatial-KLA AA": "Neighborhood label-barycenter spatial-KLA AA",
     "Neighborhood reference-only label-consensus spatial-KLA AA": "Neighborhood reference-only label-consensus spatial-KLA AA",
 }
@@ -389,7 +389,7 @@ def write_outputs(payload: dict[str, object]) -> None:
     paired_full = network["paired"]["Neighborhood label-barycenter spatial-KLA AA"]
     lines.extend(
         [
-            f"- Network OSPA mean: full `{full_network['OSPA']['mean']:.6f}` vs tuned `{base_network['OSPA']['mean']:.6f}`.\n",
+            f"- Network OSPA mean: full `{full_network['OSPA']['mean']:.6f}` vs fixed baseline `{base_network['OSPA']['mean']:.6f}`.\n",
             f"- Network OSPA paired reduction: `{paired_full['OSPA']['reduction_pct']:.2f}%`, wins `{paired_full['OSPA']['wins']}/{paired_full['OSPA']['n']}`.\n",
             f"- Localization disagreement paired reduction: `{paired_full['Loc. disag.']['reduction_pct']:.2f}%`, wins `{paired_full['Loc. disag.']['wins']}/{paired_full['Loc. disag.']['n']}`.\n\n",
         ]
@@ -401,7 +401,7 @@ def write_outputs(payload: dict[str, object]) -> None:
         lines.extend(
             [
                 "## Recomputed Local Highlights\n\n",
-                f"- Local E-OSPA mean: full `{local_means['E-OSPA']['mean']:.6f}` vs tuned `{local_base['E-OSPA']['mean']:.6f}`.\n",
+                f"- Local E-OSPA mean: full `{local_means['E-OSPA']['mean']:.6f}` vs fixed baseline `{local_base['E-OSPA']['mean']:.6f}`.\n",
                 f"- RMSE paired reduction: `{local_paired['RMSE']['reduction_pct']:.2f}%`, wins `{local_paired['RMSE']['wins']}/{local_paired['RMSE']['n']}`.\n",
                 f"- CardErr paired reduction: `{local_paired['CardErr']['reduction_pct']:.2f}%`, wins `{local_paired['CardErr']['wins']}/{local_paired['CardErr']['n']}`.\n\n",
             ]

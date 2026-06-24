@@ -146,11 +146,11 @@ def write_sanity_outputs(payload: dict[str, object]) -> None:
         f"- Trials: `{config['trials']}`\n",
         f"- Base seed: `{config['base_seed']}`\n",
         f"- Trial seeds: `{config['trial_seeds']}`\n",
-        "- Arm set: tuned spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.\n\n",
+        "- Arm set: fixed spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.\n\n",
         "## Key Sanity Checks\n\n",
-        f"- Network OSPA: full `{network['Neighborhood label-barycenter spatial-KLA AA']['OSPA']:.6f}` vs tuned `{network['Tuned spatial-KLA AA']['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
-        f"- Local E-OSPA: full `{local['Neighborhood label-barycenter spatial-KLA AA']['E-OSPA']:.6f}` vs tuned `{local['Tuned spatial-KLA AA']['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
-        f"- RMSE: full `{local['Neighborhood label-barycenter spatial-KLA AA']['RMSE']:.6f}` vs tuned `{local['Tuned spatial-KLA AA']['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
+        f"- Network OSPA: full `{network['Neighborhood label-barycenter spatial-KLA AA']['OSPA']:.6f}` vs fixed baseline `{network['Tuned spatial-KLA AA']['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
+        f"- Local E-OSPA: full `{local['Neighborhood label-barycenter spatial-KLA AA']['E-OSPA']:.6f}` vs fixed baseline `{local['Tuned spatial-KLA AA']['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
+        f"- RMSE: full `{local['Neighborhood label-barycenter spatial-KLA AA']['RMSE']:.6f}` vs fixed baseline `{local['Tuned spatial-KLA AA']['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
         f"- Reference-only RMSE reduction is `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['reduction']}` with wins `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['wins']}`, preserving the barycenter-vs-label-copying separation in this small run.\n",
     ]
     (OUT / "HELDOUT_SANITY_MANIFEST.md").write_text("".join(lines), encoding="utf-8")
@@ -177,11 +177,11 @@ def write_n50_outputs(payload: dict[str, object]) -> None:
         f"- Trials: `{config['trials']}`\n",
         f"- Base seed: `{config['base_seed']}`\n",
         f"- Trial seeds: `{config['trial_seeds']}`\n",
-        "- Arm set: tuned spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.\n\n",
+        "- Arm set: fixed spatial-KLA AA, neighborhood label-barycenter AA, and neighborhood reference-only AA.\n\n",
         "## Key Held-Out Checks\n\n",
-        f"- Network OSPA: full `{network['Neighborhood label-barycenter spatial-KLA AA']['OSPA']:.6f}` vs tuned `{network['Tuned spatial-KLA AA']['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
-        f"- Local E-OSPA: full `{local['Neighborhood label-barycenter spatial-KLA AA']['E-OSPA']:.6f}` vs tuned `{local['Tuned spatial-KLA AA']['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
-        f"- RMSE: full `{local['Neighborhood label-barycenter spatial-KLA AA']['RMSE']:.6f}` vs tuned `{local['Tuned spatial-KLA AA']['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
+        f"- Network OSPA: full `{network['Neighborhood label-barycenter spatial-KLA AA']['OSPA']:.6f}` vs fixed baseline `{network['Tuned spatial-KLA AA']['OSPA']:.6f}`; paired reduction `{paired_network['OSPA']['reduction']}`, wins `{paired_network['OSPA']['wins']}`.\n",
+        f"- Local E-OSPA: full `{local['Neighborhood label-barycenter spatial-KLA AA']['E-OSPA']:.6f}` vs fixed baseline `{local['Tuned spatial-KLA AA']['E-OSPA']:.6f}`; paired reduction `{paired_local['E-OSPA']['reduction']}`, wins `{paired_local['E-OSPA']['wins']}`.\n",
+        f"- RMSE: full `{local['Neighborhood label-barycenter spatial-KLA AA']['RMSE']:.6f}` vs fixed baseline `{local['Tuned spatial-KLA AA']['RMSE']:.6f}`; paired reduction `{paired_local['RMSE']['reduction']}`, wins `{paired_local['RMSE']['wins']}`.\n",
         f"- Reference-only RMSE reduction is `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['reduction']}` with wins `{payload['paired_local']['Neighborhood reference-only label-consensus spatial-KLA AA']['RMSE']['wins']}`, preserving the barycenter-vs-label-copying separation check.\n",
     ]
     (OUT / "HELDOUT_N50_MANIFEST.md").write_text("".join(lines), encoding="utf-8")
@@ -190,7 +190,7 @@ def write_n50_outputs(payload: dict[str, object]) -> None:
 
 def manuscript_name(arm: str) -> str:
     if arm == "Tuned spatial-KLA AA":
-        return "Tuned spatial-KLA AA"
+        return "Fixed spatial-KLA AA"
     if arm == "Neighborhood label-barycenter spatial-KLA AA":
         return "Neighborhood label-barycenter"
     if arm == "Neighborhood reference-only label-consensus spatial-KLA AA":
@@ -265,7 +265,7 @@ def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
         ]
     )
     section = rf"""\begin{{table*}}[t]
-\caption{{Held-out base-seed N50 robustness check. Reductions are relative to the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
+\caption{{Held-out base-seed N50 robustness check. Reductions are relative to the fixed spatial-KLA AA baseline; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
 \label{{tab:heldout}}
 \centering
 \tablefont

@@ -16,7 +16,7 @@ This is an optional scenario-family stress check. It is deliberately not a param
 
 ## Key Stress Checks
 
-- Network OSPA: full `0.454475` vs tuned `2.224259`; paired reduction `79.57%`, wins `50/50`.
-- Local E-OSPA: full `2.092956` vs tuned `2.523393`; paired reduction `17.06%`, wins `50/50`.
-- Local RMSE: full `3.897040` vs tuned `4.235071`; paired reduction `7.98%`, wins `48/50`.
+- Network OSPA: full `0.454475` vs fixed baseline `2.224259`; paired reduction `79.57%`, wins `50/50`.
+- Local E-OSPA: full `2.092956` vs fixed baseline `2.523393`; paired reduction `17.06%`, wins `50/50`.
+- Local RMSE: full `3.897040` vs fixed baseline `4.235071`; paired reduction `7.98%`, wins `48/50`.
 - Reference-only RMSE reduction is `2.47%` with wins `38/50`.

@@ -27,7 +27,7 @@ ARM_ORDER = [
     "Neighborhood label-barycenter spatial-KLA AA",
 ]
 ARM_LABEL = {
-    "Tuned spatial-KLA AA": "Tuned spatial-KLA AA",
+    "Tuned spatial-KLA AA": "Fixed spatial-KLA AA",
     "Neighborhood reference-only label-consensus spatial-KLA AA": "Neighborhood reference-only",
     "Neighborhood label-barycenter spatial-KLA AA": "Neighborhood label-barycenter",
 }
