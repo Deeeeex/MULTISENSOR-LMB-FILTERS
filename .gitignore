@@ -16,3 +16,7 @@ docs/paper/els-cas-templates/manuscript.aux
 docs/paper/els-cas-templates/manuscript.bbl
 docs/paper/els-cas-templates/manuscript.blg
 docs/paper/els-cas-templates/manuscript.log
+
+# local long-run artifacts; tracked historical evidence files remain visible
+RUN/AA/*.pid
+RUN/AA/*.log
