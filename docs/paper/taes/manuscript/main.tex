@@ -128,7 +128,7 @@ For a matched group $\mathcal{G}_{s,a}(k)=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the o
   \bar{\Sigma}_{s,a} &= \frac{1}{M}\sum_{i=1}^{M}
   \left[\Sigma_i+(\mu_i-\bar{\mu}_{s,a})(\mu_i-\bar{\mu}_{s,a})^T\right].
 \end{align}
-The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. The projection does not estimate new Bernoulli existence probabilities: it is applied after upstream AA existence fusion and thresholding, passes the surviving active-track existence scores through with the selected reference labels, and rewrites only the label and moment fields. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
+The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. The projection does not estimate new Bernoulli existence probabilities: it is applied after upstream AA existence fusion and thresholding, passes the surviving active-track existence scores through with the selected reference labels, and rewrites only the label and moment fields. Equivalently, with $M_i=\Sigma_i+\mu_i\mu_i^T$ and $q_i=[\mu_i^T,\operatorname{vec}(M_i)^T]^T$, it averages first-two-moment coordinates. This is a moment-matching projection, not a covariance-consistency guarantee. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
 
 \subsection{Graph Locality and Computational Cost}
 The operator is graph-local at every round: sensor $s$ only reads estimates indexed by $\mathcal{N}_s$, and no global label dictionary is constructed. The communicated object is the active-track tuple $(\ell,r,\mu,\Sigma)$ already exchanged for output-level AA; the projection only adds local reference selection, assignment, and moment accumulation after reception. An $H$-round distributed implementation therefore requires $H$ neighborhood output-exchange rounds and no centralized label service, while existence scores continue to come from upstream AA. If $d_s=|\mathcal{N}_s|$ and $n_{\max}$ upper bounds the number of tracks in the neighborhood, the dominant cost is assignment. The medoid stage evaluates set distances among neighborhood estimates, while the matching stage solves at most $d_s$ rectangular assignments to the chosen reference. With a cubic Hungarian implementation, the per-round cost is bounded by $O(d_s^2 n_{\max}^3+d_s n_{\max}^3)$ in the worst case, plus linear moment accumulation over matched tracks. This cost is acceptable in the reported formation setting, but it explains why the method is slower than scalar-weight AA and motivates the runtime study reported with the experimental results.
@@ -199,20 +199,17 @@ The physical correspondence has assignment cost at most $m\epsilon$. Any nonphys
 All other assignment costs are nonnegative, so the nonphysical assignment costs at least $\Delta-\epsilon$. The condition $\epsilon<\Delta/(m+1)$ gives $\Delta-\epsilon>m\epsilon$, hence every nonphysical assignment has larger cost.
 \end{proof}
 
-\begin{proposition}[Moment projection]
-For a matched group $\mathcal{G}=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the barycenter mean minimizes $\sum_i\|z-\mu_i\|_2^2$, and, for any representative $z$,
+\begin{proposition}[Moment-space projection]
+For a matched group $\mathcal{G}=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, define $M_i=\Sigma_i+\mu_i\mu_i^T$ and $q_i=[\mu_i^T,\operatorname{vec}(M_i)^T]^T$. The coordinate mean $\bar{q}=\frac{1}{M}\sum_i q_i$ uniquely minimizes $\sum_i\|q-q_i\|_2^2$. Recovering $\bar{\mu}$ and $\bar{M}$ from $\bar{q}$ gives
 \begin{equation}
-  \sum_i\|\mu_i-z\|_2^2
-  =\sum_i\|\mu_i-\bar{\mu}\|_2^2+M\|z-\bar{\mu}\|_2^2 .
+  \bar{\Sigma}=\bar{M}-\bar{\mu}\bar{\mu}^T
+  =\frac{1}{M}\sum_{i=1}^{M}
+  \left[\Sigma_i+(\mu_i-\bar{\mu})(\mu_i-\bar{\mu})^T\right],
 \end{equation}
-Thus the common replacement $\bar{\mu}$ is the least-squares representative of the matched group and removes within-group mean disagreement after correspondence is fixed. The pair $(\bar{\mu},\bar{\Sigma})$ gives the first two moments of the equally weighted Gaussian mixture $M^{-1}\sum_i\mathcal{N}(\mu_i,\Sigma_i)$.
+which is positive semidefinite when the incoming covariances are positive semidefinite. The replacement is therefore a first-two-moment least-squares representative of the matched group and gives the first two moments of the equally weighted matched Gaussian mixture $\frac{1}{M}\sum_i\mathcal{N}(\mu_i,\Sigma_i)$.
 \end{proposition}
 \begin{proof}
-The identity follows by writing $\mu_i-z=(\mu_i-\bar{\mu})+(\bar{\mu}-z)$ and using $\sum_i(\mu_i-\bar{\mu})=0$. It also shows that the least-squares objective is minimized uniquely at $z=\bar{\mu}=M^{-1}\sum_i\mu_i$. The covariance identity follows from total covariance:
-\begin{equation}
-  \operatorname{Cov}(x)=\mathbb{E}_i[\operatorname{Cov}(x|i)]
-  +\operatorname{Cov}_i(\mathbb{E}[x|i]).
-\end{equation}
+The Euclidean least-squares objective in $q$ is minimized by the sample mean, giving $\bar{\mu}=\frac{1}{M}\sum_i\mu_i$ and $\bar{M}=\frac{1}{M}\sum_i M_i$. Substituting $M_i=\Sigma_i+\mu_i\mu_i^T$ and subtracting $\bar{\mu}\bar{\mu}^T$ gives the displayed covariance expression; each summand is positive semidefinite. The mean coordinate also satisfies $\sum_i\|\mu_i-z\|_2^2=\sum_i\|\mu_i-\bar{\mu}\|_2^2+M\|z-\bar{\mu}\|_2^2$, so the update removes within-group mean disagreement after correspondence is fixed.
 \end{proof}
 
 \begin{proposition}[Stable-matching consensus limit]

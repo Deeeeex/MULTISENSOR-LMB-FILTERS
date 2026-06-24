@@ -682,6 +682,29 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    moment_projection_markers = [
+        "first-two-moment coordinates",
+        "moment-matching projection, not a covariance-consistency guarantee",
+        r"\begin{proposition}[Moment-space projection]",
+        r"M_i=\Sigma_i+\mu_i\mu_i^T",
+        r"\operatorname{vec}(M_i)^T",
+        "uniquely minimizes",
+        "positive semidefinite",
+        "first-two-moment least-squares representative",
+        "equally weighted matched Gaussian mixture",
+    ]
+    missing_moment_projection = [marker for marker in moment_projection_markers if marker not in tex]
+    checks.append(
+        Check(
+            "moment-space projection markers",
+            "pass" if not missing_moment_projection else "warning",
+            "Structural Properties state the barycenter as a first-two-moment least-squares projection while preserving the covariance-consistency boundary."
+            if not missing_moment_projection
+            else "Moment-space projection wording is incomplete; missing markers: "
+            + "; ".join(missing_moment_projection),
+        )
+    )
+
     internal_patterns = [
         r"\bTODO\b",
         r"\bTBD\b",

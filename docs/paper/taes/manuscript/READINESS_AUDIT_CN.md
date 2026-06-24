@@ -153,3 +153,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按 reviewer-preflight 的口径新增 `REVIEWER_RISK_REGISTER.md`，把可能的审稿质疑整理成 concern -> manuscript answer -> evidence/artifact -> residual boundary 的内部索引。它覆盖 not-another-AA/KLA-weighting-rule、label-copying-only、recursive LMB validity、equal moment barycenter、generality、runtime overhead 和 reproducibility integrity 等高风险点，但明确不是新的 claim source，也不能作为 data source 引用。
 
 `README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 已同步把它纳入投稿包说明；`create_submission_bundle.py` 已把它加入 source bundle；`check_submission_readiness.py` 新增 `reviewer risk register` gate，检查表头、核心风险项和 do-not-cite boundary。该文件的作用是让后续回复审稿或补充材料决策从已验证证据出发，而不是临时扩张主张。
+
+## 23:22 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮把 `Moment projection` 命题升级为 `Moment-space projection`，将 matched moment barycenter 明确写成 first-two-moment coordinate 上的 least-squares projection：先固定 assignment/correspondence，再对 $\mu_i$ 和 raw second moment $M_i=\Sigma_i+\mu_i\mu_i^T$ 的坐标取均值，并从 $\bar{M}-\bar{\mu}\bar{\mu}^T$ 恢复 covariance。该表述同时说明 $\bar{\Sigma}$ 的 positive semidefinite 来源和 within-group mean disagreement 被移除的代数身份。
+
+`main.tex` 中的 Method 也新增一句边界说明：这是 moment-matching projection，不是 covariance-consistency guarantee。`check_submission_readiness.py` 新增 `moment-space projection markers` gate，要求保留 first-two-moment coordinates、moment-matching/covariance-consistency boundary、Moment-space projection 命题、unique least-squares minimizer、PSD 和 matched Gaussian mixture 等 marker。`REVIEWER_RISK_REGISTER.md` 同步把 equal moment barycenter 风险项改为 theory-backed but still covariance/reliability-limited 的表述。

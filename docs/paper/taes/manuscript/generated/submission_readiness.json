@@ -242,6 +242,11 @@
       "status": "pass"
     },
     {
+      "detail": "Structural Properties state the barycenter as a first-two-moment least-squares projection while preserving the covariance-consistency boundary.",
+      "gate": "moment-space projection markers",
+      "status": "pass"
+    },
+    {
       "detail": "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language.",
       "gate": "paper-facing wording hygiene",
       "status": "pass"
@@ -432,7 +437,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `e26a692b14b579bf17e60c0807e62c824a22fbd7aa9362ab72ab27a2a3183a49`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `a73601a29eede34624043f54f8672ada545d09b67eeb388ce1d01d3f0aa55e60`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
