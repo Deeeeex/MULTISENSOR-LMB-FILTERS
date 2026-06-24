@@ -317,7 +317,7 @@
       "status": "pass"
     },
     {
-      "detail": "Reviewer risk register maps likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source.",
+      "detail": "Reviewer risk register maps likely reviewer concerns and a pre-submission reviewer synthesis to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source.",
       "gate": "reviewer risk register",
       "status": "pass"
     },
@@ -452,7 +452,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `91f955dbab259a524a067d38e8d7a9ad073624a6670631750c79eba65c6529a6`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `f73464135818cd922943a09cc0bf8408f90fadf7ec28dc9cc52b5ce7fd03ac3b`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -1034,6 +1034,12 @@ def reviewer_risk_register_checks() -> list[Check]:
         ]
     text = read_text(REVIEWER_RISK_REGISTER)
     required_markers = [
+        "Reviewer-Style Preflight Synthesis",
+        "Reviewer 1: Technical Soundness Emphasis",
+        "Reviewer 2: Originality and Significance Emphasis",
+        "Reviewer 3: Readability and Reuse Emphasis",
+        "Cross-Review Synthesis",
+        "Risk / Unsupported Claims",
         "Reviewer concern",
         "Current manuscript answer",
         "Evidence / artifact",
@@ -1043,6 +1049,7 @@ def reviewer_risk_register_checks() -> list[Check]:
         "recursive LMB validity",
         "Equal moment barycenters",
         "Generality beyond the main formation scenario",
+        "Running full-topology evidence",
         "Runtime overhead",
         "Reproducibility and generated evidence integrity",
         "do not cite this register as a data source",
@@ -1052,7 +1059,7 @@ def reviewer_risk_register_checks() -> list[Check]:
         Check(
             "reviewer risk register",
             "pass" if not missing else "warning",
-            "Reviewer risk register maps likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source."
+            "Reviewer risk register maps likely reviewer concerns and a pre-submission reviewer synthesis to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source."
             if not missing
             else "Reviewer risk register is missing markers: " + "; ".join(missing),
         )

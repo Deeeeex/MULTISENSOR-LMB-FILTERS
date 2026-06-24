@@ -138,6 +138,12 @@ Run handoff:
 
 这条 run 只用于区分 topology bottleneck 和方法本身的 assignment/barycenter behavior。结果完成前不得接入 `evidence_sources.json`、不得写入 generated scenario-family fragment、不得扩张正文 claim；结果完成后也按 no-search rule 解释，不能反向调整 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings。
 
+## 00:15 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 `nature-reviewer` 的预投稿审稿视角，对当前 `main.tex`、cover-letter draft、supplementary evidence map、generated readiness report 和 source-bundle状态做了 bounded reviewer-style preflight。结论不是新增稿件 claim，而是把三类可能审稿关注固化到 `REVIEWER_RISK_REGISTER.md`: technical soundness 关注 recursive validity、assignment ambiguity、covariance quality 和 target-maneuver 缺口；originality/significance 关注 correspondence-contract framing 是否清楚地区分于 AA/KLA weighting；readability/reuse 关注主文证据路径是否足够简洁、response-ready evidence 是否不会喧宾夺主。
+
+`REVIEWER_RISK_REGISTER.md` 现在新增 `Reviewer-Style Preflight Synthesis`、三位 reviewer emphasis、`Cross-Review Synthesis` 和 `Risk / Unsupported Claims`。其中明确写入 `full-topology` ceiling run 完成前不得进入正文、generated fragment 或 cover-letter evidence。`check_submission_readiness.py` 同步扩展 reviewer-risk gate，要求这些 marker 保留。这个改动提升的是投稿前 response planning 和 claim-boundary discipline，不改变正文数值、不接入新实验、不扩张 evidence scope。
+
 ## 22:45 Checkpoint
 
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊投稿包而不是会议稿件的口径，新增 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 作为 optional supplement / reviewer-response evidence 的单一索引层，把 held-out N50、harsh packet-loss、topology/FOV scenario family 和 reproducibility ledger 的生成片段统一映射到用途、状态和解释边界。该文件明确这些材料来自固定参数后的 robustness / boundary checks，不构成针对场景的 threshold、barycenter weight 或 label rule 搜索，也不替代 maneuvering-target、covariance-consistency、recursive-online validation 等更广泛风险项。

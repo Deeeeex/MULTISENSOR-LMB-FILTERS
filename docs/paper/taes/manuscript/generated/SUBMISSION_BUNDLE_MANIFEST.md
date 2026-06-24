@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `91f955dbab259a524a067d38e8d7a9ad073624a6670631750c79eba65c6529a6`
+- Bundle SHA-256: `f73464135818cd922943a09cc0bf8408f90fadf7ec28dc9cc52b5ce7fd03ac3b`
 - Files: 60
 
 ## Included Files
@@ -11,9 +11,9 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 5537 | `46d2d7d8d3b77efd05e1c5786309d50f0f677b97086cb04a17af2eb75a6ef25b` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 41118 | `0e407094bb8ed213a4c6dc709b8f31765676ed220876d18c8b469d39157fff82` |
+| `READINESS_AUDIT_CN.md` | 42398 | `cd2dd964c062bba80866826348d4d87ba621f1a37d805e0fd3ad17569ee3fc55` |
 | `README.md` | 11677 | `4c4d8a944e8a370727bab6ab6ba280c3ab6db64b2d898690a4465606e3434cf6` |
-| `REVIEWER_RISK_REGISTER.md` | 4229 | `3094606a3fe27df2ad78049283a4ea817f82710dba50a5de9225089442887bc8` |
+| `REVIEWER_RISK_REGISTER.md` | 11553 | `f550518fa77721f2db7873bff26b14e848e6d403222b380888986d5ea190093e` |
 | `SUBMISSION_PACKAGE_INDEX.md` | 5954 | `3492cba6d4d3c72f76aba06c81a83f79ae5c0911e049ecff511789b9c4da29f8` |
 | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | 3632 | `271551c93812b65c3674edaff9cf6360bf58837fb497aeca3167dc2b7bebe067` |
 | `build.sh` | 2341 | `873c05373c2520bed729b4df6132e03b8f6e7ff5e938cac020ef56bb13dfb317` |
@@ -52,10 +52,10 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 115644 | `2e979e22b0397c653a86e7f88c466c2a03e449722625f6195c9222e004b57604` |
+| `main.pdf` | 115643 | `7b7672b143a75717c62b9567b0b42a867b7f285e70b015ebece52fa6478ea9c2` |
 | `main.tex` | 40244 | `a391d5e4c185634b05669f989c9f18448b6e73c577e2f95c8d9368bd66b41646` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
-| `scripts/check_submission_readiness.py` | 79673 | `b9d953a600fd961db4898d239a4dac73627dd2aa24146dad14505641485fa304` |
+| `scripts/check_submission_readiness.py` | 80039 | `6e2b5b9edef9e567548a4d6781ae35b5bfeef4d18075266f1882b212f22c186e` |
 | `scripts/create_submission_bundle.py` | 4876 | `f4ef40624563f1936b8ede70c277f83d02592270a02f78243ff08014f30d7cb7` |
 | `scripts/evidence_sources.py` | 1124 | `dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55` |
 | `scripts/extract_heldout_sanity_evidence.py` | 14626 | `c6db390899a3f395d2b5f513584ba265da2bb75ce918837045995c87c09ca19b` |
