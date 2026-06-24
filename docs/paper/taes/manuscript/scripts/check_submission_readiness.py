@@ -474,6 +474,31 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    abstract_sentences = [
+        sentence.strip()
+        for sentence in re.split(r"(?<=[.!?])\s+", normalized_spaces(abstract))
+        if sentence.strip()
+    ]
+    abstract_sentence_lengths = [
+        (idx, len(re.findall(r"[A-Za-z0-9\\%-]+", sentence)))
+        for idx, sentence in enumerate(abstract_sentences, 1)
+    ]
+    overloaded_abstract_sentences = [
+        f"{idx}:{count}"
+        for idx, count in abstract_sentence_lengths
+        if count > 30
+    ]
+    checks.append(
+        Check(
+            "abstract sentence load",
+            "pass" if abstract_sentences and not overloaded_abstract_sentences else "warning",
+            "Abstract sentences stay within the configured 30-word load while preserving the TAES one-paragraph format."
+            if abstract_sentences and not overloaded_abstract_sentences
+            else "Abstract contains overloaded sentences (index:word_count): "
+            + ("; ".join(overloaded_abstract_sentences) if overloaded_abstract_sentences else "none"),
+        )
+    )
+
     keyword_items = [item.strip().lower() for item in keywords.split(",") if item.strip()]
     keyword_ok = len(keyword_items) >= 3 and keyword_items == sorted(keyword_items)
     checks.append(

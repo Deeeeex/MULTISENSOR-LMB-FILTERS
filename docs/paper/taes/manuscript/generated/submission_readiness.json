@@ -187,6 +187,11 @@
       "status": "pass"
     },
     {
+      "detail": "Abstract sentences stay within the configured 30-word load while preserving the TAES one-paragraph format.",
+      "gate": "abstract sentence load",
+      "status": "pass"
+    },
+    {
       "detail": "Keywords are comma-separated, include at least three phrases, and are alphabetized.",
       "gate": "TAES keyword format",
       "status": "pass"
@@ -487,7 +492,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `9546010b7b8d0cc1639d850b3fff1931e5180d032968e0b413e85a1823d5441d`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `b1e92722a4ff3458b2403a4aa20babf26b544ea408f542712847cd60f1739916`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

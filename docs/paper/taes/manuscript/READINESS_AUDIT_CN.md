@@ -13,6 +13,12 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 01:47 Checkpoint
+
+本轮按用户确认的思路，把 `nature-polishing` 作为期刊稿件的 reader-path / claim-evidence-boundary 质量层使用，但不改变 TAES template、page-budget、source-bundle 或 submission metadata 约束。摘要已从较长的结果堆叠句收紧为 14 个短句，按 `problem -> gap -> method -> primary evidence -> held-out replication -> boundary -> implication` 展开；所有摘要句子均不超过 30 个词，同时保留 `component-correspondence failure`、AA/KLA scalar-weight boundary、`reference-only ablation`、`A held-out 50-trial replication` 和 `full-versus-reference separation` 等机器检查 marker。
+
+`check_submission_readiness.py` 新增 `abstract sentence load` gate，把这个可读性要求固化为机械检查，防止后续压缩 abstract 时重新变成长句堆叠。这个 checkpoint 不新增实验、不改变任何手写或 generated metric、不接入仍在运行的 `full-topology` N50；它只提高第一页的期刊读者可读性和后续改稿的退化保护。
+
 ## 01:35 Checkpoint
 
 本轮按 Nature-style reviewer audit 的逻辑处理一个 wording 风险: `tuned spatial-KLA AA baseline` 容易被审稿人理解成针对当前数据集搜索式调参。`main.tex` 已把 paper-facing 叙事改为 `fixed target-wise spatial-KLA AA baseline`，同时在 Experimental Setup 说明验证报告保留 `Tuned spatial-KLA AA` 这个 implementation label，但所有 paper-facing comparisons 使用 fixed parameterization，而不是 per-scenario retuning。`COVER_LETTER_AND_METADATA_DRAFT.md` 和 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 同步这一点。
