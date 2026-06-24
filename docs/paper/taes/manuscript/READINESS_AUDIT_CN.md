@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 02:43 CST
+日期: 2026-06-25 02:49 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,10 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 02:49 Checkpoint
+
+本轮补充 paper-facing overclaim hygiene gate。`check_submission_readiness.py` 现在会扫描摘要和正文，禁止出现 unsupported universal、recursive、assignment-guarantee、fusion-weight-optimization 等过强 claim patterns，例如 replacing AA/KLA、optimizing fusion weights、guaranteeing correct assignment、validated recursive LMB、all target dynamics 或 all communication topologies。当前稿件通过该 gate；它和已有 implementation-alignment、conclusion boundary、stress/generalization boundary gates 一起，把 output-level active-track projection 的 claim 边界转成机器化保护。
 
 ## 02:43 Checkpoint
 

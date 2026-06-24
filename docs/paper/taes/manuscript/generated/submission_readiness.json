@@ -297,6 +297,11 @@
       "status": "pass"
     },
     {
+      "detail": "Paper-facing abstract/body text avoids unsupported universal, recursive, assignment-guarantee, and fusion-weight-optimization claims.",
+      "gate": "paper-facing overclaim hygiene",
+      "status": "pass"
+    },
+    {
       "detail": "Discussion opens by interpreting the ablation and boundary evidence as a correspondence/projection mechanism rather than a density-pooling replacement.",
       "gate": "discussion interpretation markers",
       "status": "pass"
@@ -522,7 +527,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `fed72be10fc4d8f681bbc5e3c1d5f25f9d8dda83556eee637c3277e7eceb155d`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `88eec470d6136f757c6b876fef3c084c470091117130832245d831eee36b2c77`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

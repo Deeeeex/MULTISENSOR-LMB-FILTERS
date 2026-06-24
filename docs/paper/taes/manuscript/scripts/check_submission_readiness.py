@@ -914,6 +914,36 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    overclaim_patterns = [
+        r"\breplaces?\s+AA/KLA\b",
+        r"\boptimizes?\s+fusion\s+weights\b",
+        r"\bguarantees?\s+correct\s+assignment\b",
+        r"\bguarantees?\s+finite-round\s+consensus\b",
+        r"\bsolves?\s+general\s+label\s+management\b",
+        r"\buniversal\s+RFS-fusion\s+theory\b",
+        r"\bvalidated\s+recursive\s+LMB\b",
+        r"\bvalidated\s+recursive\s+online\s+LMB\b",
+        r"\ball\s+target\s+dynamics\b",
+        r"\ball\s+communication\s+topologies\b",
+    ]
+    overclaim_hits = sorted(
+        {
+            pattern
+            for pattern in overclaim_patterns
+            if re.search(pattern, body, flags=re.IGNORECASE)
+        }
+    )
+    checks.append(
+        Check(
+            "paper-facing overclaim hygiene",
+            "pass" if not overclaim_hits else "warning",
+            "Paper-facing abstract/body text avoids unsupported universal, recursive, assignment-guarantee, and fusion-weight-optimization claims."
+            if not overclaim_hits
+            else "Paper-facing abstract/body text contains unsupported overclaim patterns: "
+            + "; ".join(overclaim_hits),
+        )
+    )
+
     discussion_interpretation_markers = [
         "support a specific interpretation",
         "target-wise AA weight routing is held fixed",
