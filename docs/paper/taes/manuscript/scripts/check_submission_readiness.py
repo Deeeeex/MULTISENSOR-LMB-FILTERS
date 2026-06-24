@@ -206,7 +206,8 @@ def paper_facing_body(tex: str) -> str:
     return match.group(1).strip() if match else tex
 
 
-def placeholder_hits(tex: str) -> list[str]:
+def placeholder_hits(*texts: str) -> list[str]:
+    combined = "\n".join(texts)
     hits: list[str] = []
     literal_patterns = [
         "FIRST AUTHOR",
@@ -223,19 +224,27 @@ def placeholder_hits(tex: str) -> list[str]:
         "Month 00",
     ]
     for pattern in literal_patterns:
-        if pattern in tex:
+        if pattern in combined and pattern not in hits:
             hits.append(pattern)
     bracket_patterns = [
+        r"\[Corresponding Author Name\]",
+        r"\[Email\]",
+        r"\[FIRST AUTHOR\]",
         r"\[Funding Agency\]",
         r"\[Grant Number\]",
         r"\[Institution\]",
         r"\[City\]",
         r"\[Country\]",
+        r"\[All authors\]",
+        r"\[preprint URL\]",
+        r"\[none / URL\]",
+        r"\[none / disclosure\]",
+        r"\[optional\]",
         r"\[author@example\.com\]",
         r"\[repository DOI/URL\]",
     ]
     for pattern in bracket_patterns:
-        for value in re.findall(pattern, tex):
+        for value in re.findall(pattern, combined):
             if value not in hits:
                 hits.append(value)
     return sorted(hits)
@@ -503,14 +512,15 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
-    placeholders = placeholder_hits(tex)
+    cover_letter_text = read_text(COVER_LETTER) if COVER_LETTER.exists() else ""
+    placeholders = placeholder_hits(tex, cover_letter_text)
     checks.append(
         Check(
             "submission metadata placeholders",
             "pending" if placeholders else "pass",
-            f"{len(placeholders)} placeholder tokens remain: {', '.join(placeholders)}"
+            f"{len(placeholders)} manuscript or cover-letter metadata placeholder tokens remain: {', '.join(placeholders)}"
             if placeholders
-            else "No obvious placeholder tokens detected.",
+            else "No obvious manuscript or cover-letter metadata placeholder tokens detected.",
         )
     )
 

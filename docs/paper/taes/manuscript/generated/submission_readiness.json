@@ -192,7 +192,7 @@
       "status": "pass"
     },
     {
-      "detail": "19 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "detail": "27 manuscript or cover-letter metadata placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [All authors], [City], [Corresponding Author Name], [Country], [Email], [FIRST AUTHOR], [Funding Agency], [Grant Number], [Institution], [author@example.com], [none / URL], [none / disclosure], [optional], [preprint URL], [repository DOI/URL]",
       "gate": "submission metadata placeholders",
       "status": "pending"
     },
@@ -362,7 +362,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `709b5fa40c62f3669ab670075ba7749d16a19eb88ac0ee1de56acfc72aa3239a`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `96f834e420e1900abf9935d6dde619820cd865217fd0f51ee31015e8b91a0353`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -385,7 +385,7 @@
   "content_status": "candidate_with_warnings",
   "metadata_gates": [
     {
-      "detail": "19 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "detail": "27 manuscript or cover-letter metadata placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [All authors], [City], [Corresponding Author Name], [Country], [Email], [FIRST AUTHOR], [Funding Agency], [Grant Number], [Institution], [author@example.com], [none / URL], [none / disclosure], [optional], [preprint URL], [repository DOI/URL]",
       "gate": "submission metadata placeholders",
       "status": "pending"
     }
