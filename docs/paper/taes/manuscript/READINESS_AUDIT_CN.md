@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 09:39 CST
+日期: 2026-06-24 09:49 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -11,7 +11,7 @@
 稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX 或故事线，而是投稿元数据和场景覆盖还缺最后闭环:
 
 1. 作者、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
-2. 当前实证集中在 tiered packet-loss formation 场景，还缺至少一个 paper-grade held-out base seed 或 packet-loss family 来证明不是单场景特化。
+2. 当前实证集中在 tiered packet-loss formation 场景；paper-grade held-out base-seed-11 N50 已启动但尚未完成。
 
 ## Claim-to-Evidence Matrix
 
@@ -54,7 +54,7 @@
 | Independent network disagreement verifier | Passed | `verify_n50_evidence.py`; `generated/N50_VERIFICATION_REPORT.md` | Maintain hash check against source report. |
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
-| Held-out scenario evidence | Partial sanity only | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; launcher `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` prepared | Still run a paper-grade held-out N50 or packet-loss-family validation. |
+| Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, inspect the report, then decide whether to promote the evidence into the manuscript or supplementary material. |
 | PDF visual QA | Partial | Prior rendered inspections after recent commits | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
 
@@ -62,5 +62,6 @@
 
 1. Commit and push the source/report-script checkpoint with the completed N50 local verifier evidence.
 2. Render `main.pdf` to page PNGs after the commit checkpoint and inspect title/abstract, method figures, results tables, and reference page spacing.
-3. Start `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh`, then decide whether the held-out N50 evidence enters the main paper, a compact robustness paragraph, or supplementary material.
-4. Replace author/funding/repository placeholders once the real submission metadata is available.
+3. Monitor `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` until the held-out N50 report path is printed.
+4. If the held-out result supports the mechanism claim, add the evidence path to the manuscript evidence pipeline and decide whether it belongs in the main paper, a compact robustness paragraph, or supplementary material.
+5. Replace author/funding/repository placeholders once the real submission metadata is available.
