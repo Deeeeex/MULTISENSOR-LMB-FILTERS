@@ -42,40 +42,37 @@ def convert_svg(svg: Path, target: Path, density: int = 300) -> None:
 
 def method_pipeline_svg() -> str:
     boxes = [
-        (38, 44, 180, 90, "Local outputs", "different label sets", "#E8F1F8", "#1F4E79"),
-        (264, 44, 188, 90, "Reference", "median-cardinality medoid", "#F7F7F7", "#4D4D4D"),
-        (498, 44, 168, 90, "Assignment", "Hungarian matching", "#FEF0D9", "#D55E00"),
-        (712, 44, 180, 90, "Barycenter", "matched moments", "#EAF4EA", "#009E73"),
-        (938, 44, 144, 90, "Iterate", "graph-local rounds", "#F7F7F7", "#4D4D4D"),
+        (38, 46, 188, 90, "Neighborhood LMBs", "different local labels", "#E8F1F8", "#1F4E79"),
+        (270, 46, 180, 90, "Reference", "median-cardinality medoid", "#F7F7F7", "#4D4D4D"),
+        (494, 46, 172, 90, "Assignment", "Hungarian component map", "#FEF0D9", "#D55E00"),
+        (710, 46, 186, 90, "Barycenter", "matched posterior moments", "#EAF4EA", "#009E73"),
+        (940, 46, 140, 90, "Output", "reference labels", "#F7F7F7", "#4D4D4D"),
     ]
     svg = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320">',
         '<rect width="1120" height="320" fill="white"/>',
         '<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:17px;fill:#333} .tiny{font-size:15px;fill:#333}</style>',
+        '<text class="h" x="560" y="28" text-anchor="middle">Neighborhood label-barycenter projection</text>',
     ]
     for x, y, w, h, title, sub, fill, stroke in boxes:
         svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="{fill}" stroke="{stroke}" stroke-width="2.2"/>')
         svg.append(f'<text class="h" x="{x + w/2}" y="{y + 36}" text-anchor="middle">{title}</text>')
         svg.append(f'<text class="s" x="{x + w/2}" y="{y + 66}" text-anchor="middle">{sub}</text>')
-    for x1, x2 in [(218, 264), (452, 498), (666, 712), (892, 938)]:
+    for x1, x2 in [(226, 270), (450, 494), (666, 710), (896, 940)]:
         y = 92
         svg.append(f'<line x1="{x1}" y1="{y}" x2="{x2-12}" y2="{y}" stroke="#4D4D4D" stroke-width="2.5"/>')
         svg.append(f'<polygon points="{x2-12},{y-7} {x2},{y} {x2-12},{y+7}" fill="#4D4D4D"/>')
     svg.extend(
         [
-            '<rect x="42" y="184" width="280" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="62" y="214">Example mismatch: X1={a,b,c}, X2={a,d,c}</text>',
-            '<text class="tiny" x="62" y="238">Scalar AA/KLA weights cannot align b and d.</text>',
-            '<line x1="342" y1="225" x2="512" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>',
-            '<polygon points="512,218 526,225 512,232" fill="#4D4D4D"/>',
-            '<rect x="548" y="184" width="242" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="568" y="214">Canonical labels: reference labels are kept.</text>',
-            '<text class="tiny" x="568" y="238">Matched states are averaged as moments.</text>',
-            '<line x1="812" y1="225" x2="908" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>',
-            '<polygon points="908,218 922,225 908,232" fill="#4D4D4D"/>',
-            '<rect x="944" y="184" width="136" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="1012" y="216" text-anchor="middle">Y_s={a,b,c}</text>',
-            '<text class="tiny" x="1012" y="240" text-anchor="middle">local output</text>',
+            '<rect x="62" y="184" width="376" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="82" y="212">Residual after scalar AA: weights choose probability mass</text>',
+            '<text class="tiny" x="82" y="238">but do not infer the b-to-d component correspondence.</text>',
+            '<line x1="458" y1="225" x2="652" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>',
+            '<polygon points="652,218 666,225 652,232" fill="#4D4D4D"/>',
+            '<rect x="688" y="184" width="370" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="708" y="212">Projection effect: keep reference labels and active existence</text>',
+            '<text class="tiny" x="708" y="238">scores, then average matched states as posterior moments.</text>',
+            '<text class="tiny" x="560" y="296" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>',
         ]
     )
     svg.append("</svg>")
@@ -86,27 +83,29 @@ def method_pipeline_tex() -> str:
     return r"""\begingroup
 \setlength{\unitlength}{1pt}
 \setlength{\fboxsep}{0pt}
-\begin{picture}(236,164)
+\begin{picture}(236,172)
 \thicklines
-\put(0,150){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
-\put(0,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{50pt}{\centering\scriptsize Local outputs\\[-1pt]\tiny $\{a,b,c\}$\\[-1pt]\tiny $\{a,d,c\}$}}}
-\put(62,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{43pt}{\centering\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
-\put(117,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{43pt}{\centering\scriptsize Assignment\\[-1pt]\scriptsize map}}}
-\put(172,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{50pt}{\centering\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
-\put(52,132){\vector(1,0){10}}
-\put(107,132){\vector(1,0){10}}
-\put(162,132){\vector(1,0){10}}
-\put(21,111){\makebox(0,0){\tiny 1}}
-\put(84,111){\makebox(0,0){\tiny 2}}
-\put(139,111){\makebox(0,0){\tiny 3}}
-\put(197,111){\makebox(0,0){\tiny 4}}
+\put(0,158){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
+\put(0,147){\makebox(236,7){\tiny graph-local label alignment before moment fusion}}
 
-\put(2,72){\framebox(108,28){\shortstack{\scriptsize Residual failure\\[-1pt]\tiny scalar weights choose mass\\[-1pt]\tiny but not component match}}}
-\put(126,72){\framebox(108,28){\shortstack{\scriptsize Projected output\\[-1pt]\tiny reference labels retained\\[-1pt]\tiny matched states averaged}}}
-\put(110,86){\vector(1,0){16}}
+\put(0,122){\fcolorbox{black}{black!4}{\parbox[c][30pt][c]{52pt}{\centering\scriptsize Neighborhood\\[-1pt]\scriptsize LMBs\\[-1pt]\tiny label sets differ}}}
+\put(62,122){\fcolorbox{black}{black!4}{\parbox[c][30pt][c]{42pt}{\centering\scriptsize Reference\\[-1pt]\tiny median-card.\\[-1pt]\tiny medoid}}}
+\put(114,122){\fcolorbox{black}{black!4}{\parbox[c][30pt][c]{44pt}{\centering\scriptsize Assignment\\[-1pt]\tiny Hungarian\\[-1pt]\tiny map}}}
+\put(168,122){\fcolorbox{black}{black!4}{\parbox[c][30pt][c]{58pt}{\centering\scriptsize Barycenter\\[-1pt]\tiny matched posterior\\[-1pt]\tiny moments}}}
+\put(54,137){\vector(1,0){8}}
+\put(106,137){\vector(1,0){8}}
+\put(160,137){\vector(1,0){8}}
+\put(26,115){\makebox(0,0){\tiny 1}}
+\put(83,115){\makebox(0,0){\tiny 2}}
+\put(136,115){\makebox(0,0){\tiny 3}}
+\put(197,115){\makebox(0,0){\tiny 4}}
 
-\put(13,24){\fcolorbox{black}{black!4}{\parbox[c][24pt][c]{210pt}{\centering\scriptsize Repeat for $H$ rounds over $\mathcal{N}_s$; no global label dictionary is read or constructed}}}
-\put(118,72){\vector(0,-1){23}}
+\put(2,76){\framebox(108,32){\shortstack{\scriptsize Residual after scalar AA\\[-1pt]\tiny weights choose probability mass\\[-1pt]\tiny but not component match}}}
+\put(126,76){\framebox(108,32){\shortstack{\scriptsize Projection effect\\[-1pt]\tiny reference labels and existence kept\\[-1pt]\tiny matched states averaged}}}
+\put(110,92){\vector(1,0){16}}
+
+\put(13,24){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{210pt}{\centering\scriptsize Repeat for $H$ rounds over $\mathcal{N}_s$; no global label dictionary is read or constructed\\[-1pt]\tiny output remains an estimate-level projection layer}}}
+\put(118,76){\vector(0,-1){24}}
 \end{picture}
 \endgroup
 """

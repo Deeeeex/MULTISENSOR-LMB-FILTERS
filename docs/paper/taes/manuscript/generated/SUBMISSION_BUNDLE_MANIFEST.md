@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `8554164453a080f68d0ffe8c6bfada6d2cf6fb647bee18808ade080047f3b330`
+- Bundle SHA-256: `bc0250c9d63db53a9a79a4300fce6e7f54995d0910273f5568ae489e397d734f`
 - Files: 58
 
 ## Included Files
@@ -16,7 +16,7 @@
 | `SUBMISSION_PACKAGE_INDEX.md` | 5665 | `00d98d418392282638d450b9f48f3df2d5e2e22973976c53848ca3f43e703682` |
 | `build.sh` | 2341 | `873c05373c2520bed729b4df6132e03b8f6e7ff5e938cac020ef56bb13dfb317` |
 | `evidence_sources.json` | 795 | `f51ed4a4a6db609d9cb08b4dceb20368612ed7cf560c79756ae74b756109bc83` |
-| `figures/fig_method_pipeline.svg` | 3198 | `c5033f4749105b91a67a944dadc6c1ed3d7bbe188195219654b333f3bf7f44db` |
+| `figures/fig_method_pipeline.svg` | 3139 | `5fd57a5e35a8107b1f8c655f9b308f5fbfec2be3f995b9b09eed008f7c2ab9c4` |
 | `figures/fig_n50_results.svg` | 3277 | `442b4c71140c7ddcf1bfbe2726dda8986fcaf041542fef1c7f4addc74771e074` |
 | `generated/BIBTEX_DOI_VERIFICATION.md` | 1825 | `b9441b9c44259b78778a54a61f9232f9676c3652c806b832172f535f3d051e27` |
 | `generated/HELDOUT_N50_MANIFEST.md` | 1279 | `071bc7828134591d04980a1967edc510532ec2bd1f2cd600a39b46f3c68965c5` |
@@ -31,7 +31,7 @@
 | `generated/heldout_n50_evidence.json` | 4405 | `269dd02a4ea5e40ebb2cde5d6e6d14f9043a30e439d28e7cd1b2a8357a4fc226` |
 | `generated/heldout_n50_section.tex` | 1302 | `2a33c9b64a1ee3f77151a70cd5216d19afb2cdf3d802459bc4463c4cab8982e7` |
 | `generated/heldout_sanity_evidence.json` | 3897 | `0c2635d9ee9f6f0f0fbd299baab57005e796e274639adf0563023884cd14c77e` |
-| `generated/method_pipeline.tex` | 1552 | `cfdf283627911d51e1557d0fb89494d89b9b312edd9b5a082994b04c6f3056e7` |
+| `generated/method_pipeline.tex` | 1789 | `a4e0e8b8bb8af000fb5b092e19ce8b6175adf9ddb42ee9db4d0ba529e996d0bb` |
 | `generated/n50_evidence.json` | 4938 | `b37fa2abe1cf2e3e7fa145f8629fe2ba96562ca09990d421363d4472ee3da9e8` |
 | `generated/n50_mean_metrics.csv` | 281 | `9facdb4eb81d3b0f17887f7daaa07c77e62d45bb6a0ed11a0b05a53c8732cb44` |
 | `generated/n50_mean_rows.tex` | 518 | `24070f8db5b2e6659f6f2a738e7f4045b5fbadca7bb9c622fc55d34bf561698b` |
@@ -50,7 +50,7 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 115060 | `b38570ad06956086759b6873a2c92d5cf75539dc5c5437ba627d843c8b39d7bf` |
+| `main.pdf` | 114455 | `0f793a85ee3c3f1c0296e42d963e945f44261b7d6656754923d07bc592a6c976` |
 | `main.tex` | 37245 | `f7b55f2c4f323db311fcba0130cd094c6c0c27637215e3d7b20d89253e1d9065` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 66716 | `0f37e3deccccb7e70d214f33192820ea78133ec3758f9f7fe5bafdcd06973ea5` |
@@ -61,7 +61,7 @@
 | `scripts/extract_reference_baselines.py` | 6281 | `00219cdf4357bc5d5df3c67207a09bc025b0e0e13eb3b0b0ba9a6d5e97bfc224` |
 | `scripts/extract_scenario_family_evidence.py` | 18349 | `ebee75cd767a4b488d1aaf12d1f5399c2e5e7aa869216b2de8c7dc73d09dd341` |
 | `scripts/extract_stress_evidence.py` | 14084 | `b1be425cf568d5801a84d74e63dcc2b632ea9aaa560f09f944d4149c903f2086` |
-| `scripts/render_figures.py` | 8507 | `0136b4f7738c587dc2270a02eafbbc791b25feb0007a0ac4a1977f2fb58d93af` |
+| `scripts/render_figures.py` | 8636 | `d0f612882b503e31e0e5d719b35b36b565439ee48f0828c14f504d6117dd7e65` |
 | `scripts/render_pdf_visual_qa.py` | 5263 | `f0e4425cb216fd424090c70aef6b3dcda881cc1638c85778c00ecd80eac4dd28` |
 | `scripts/render_reproducibility_ledger.py` | 10870 | `03d2ccd214ef25162b5561a2edafa9400f94ce0b87194d6471c18ac3a9af2ec2` |
 | `scripts/verify_bibtex_dois.py` | 7446 | `dfbe9fc507b57897091aab605925613687a388283c499f65304186e98532d1ea` |
