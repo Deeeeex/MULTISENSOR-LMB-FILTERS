@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 01:47 CST
+最后更新: 2026-06-25 01:53 CST
 
 ## 当前结论
 
@@ -17,6 +17,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-24 18:15 CST 状态检查: topology-ring N50 已完成，生成 report `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_20260624_162439.md`。固定参数结果显示 full label-barycenter 相对 fixed spatial-KLA AA baseline 的 network OSPA / local E-OSPA / local RMSE / CardErr reductions 为 `47.50% / 21.53% / 13.12% / 24.03%`，wins 均为 `50/50`；reference-only RMSE reduction 为 `5.17%`。2026-06-24 晚间 partial-FOV 35 deg N50 也已完成，report 为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md`；固定参数结果显示 full method 相对 fixed baseline 的 network OSPA / local disagreement / local E-OSPA / RMSE reductions 为 `43.25% / 85.49% / 6.89% / 6.50%`，reference-only RMSE reduction 为 `2.13%`。接入后 `generated/SUBMISSION_READINESS_REPORT.md` 显示 `content_status=content_ready_metadata_pending`，非元数据 gate 全部通过，剩余 pending 仅为作者/基金/repository 等投稿元数据占位符。2026-06-25 00:09 CST 已启动 fixed-parameter full-topology N50 ceiling check，PID `34014`，log `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`；01:35 CST 时仍在运行，约进入 trial `16/50`，完成前不得接入论文证据链。
 
 2026-06-25 01:47 CST 本轮按用户确认的期刊稿件偏好，把 `nature-polishing` 作为 reader-path / claim-evidence-boundary 质量层继续用于 TAES 包，但最终格式、source bundle、metadata 和 readiness 仍按 TAES 约束。摘要已收紧为 14 个短句，保留 component-correspondence failure、AA/KLA scalar-weight boundary、reference-only ablation、held-out 50-trial replication 和 full-versus-reference separation 等 story markers；`check_submission_readiness.py` 新增 `abstract sentence load` gate，要求摘要句子不超过 30 词，防止后续改稿退回长句堆叠。该改动不新增实验、不改变 metric fragments，也不接入尚未完成的 full-topology N50。
+
+2026-06-25 01:53 CST 本轮进一步压缩 abstract 版面负载。新版摘要约 224 个词、13 句、最长 25 个词，保留全部首次缩写定义和主证据信号，但减少第一页右栏顶部的 abstract continuation 风险。full-topology N50 仍只有运行日志、尚无 report，继续不得接入 `evidence_sources.json`、主文、cover letter 或 generated evidence。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 

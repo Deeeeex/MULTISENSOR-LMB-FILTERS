@@ -10,8 +10,8 @@
 
 | Label | Page | Image | Dimensions | Mean luma | Stddev luma | Status |
 | --- | ---: | --- | ---: | ---: | ---: | --- |
-| title-abstract | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png` | 1485x1935 | 0.9370 | 0.2079 | `pass` |
-| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9456 | 0.1945 | `pass` |
+| title-abstract | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png` | 1485x1935 | 0.9365 | 0.2089 | `pass` |
+| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9487 | 0.1894 | `pass` |
 | main-results | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png` | 1530x1980 | 0.9365 | 0.2088 | `pass` |
 | heldout-runtime | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png` | 1530x1980 | 0.9590 | 0.1714 | `pass` |
 | discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9377 | 0.2094 | `pass` |

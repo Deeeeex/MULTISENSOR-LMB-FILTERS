@@ -13,6 +13,10 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 01:53 Checkpoint
+
+本轮继续压缩第一页 abstract 的版面负载。上一版句子负载已经通过，但摘要尾句跨到第一页右栏顶部，会让 Index Terms 前出现一段未标注的 abstract continuation。新版摘要从 252 个词降到约 224 个词、13 句、最长 25 个词；仍保留 LMB/AA/KLA/OSPA/E-OSPA/RMSE/FOV 的首次定义，以及 `component-correspondence failure`、AA/KLA scalar-weight boundary、`reference-only ablation`、`A held-out 50-trial replication`、`full-versus-reference separation` 和 fixed-parameter boundary checks。该修改不改变任何实验、数值、generated evidence 或 full-topology 状态。
+
 ## 01:47 Checkpoint
 
 本轮按用户确认的思路，把 `nature-polishing` 作为期刊稿件的 reader-path / claim-evidence-boundary 质量层使用，但不改变 TAES template、page-budget、source-bundle 或 submission metadata 约束。摘要已从较长的结果堆叠句收紧为 14 个短句，按 `problem -> gap -> method -> primary evidence -> held-out replication -> boundary -> implication` 展开；所有摘要句子均不超过 30 个词，同时保留 `component-correspondence failure`、AA/KLA scalar-weight boundary、`reference-only ablation`、`A held-out 50-trial replication` 和 `full-versus-reference separation` 等机器检查 marker。
