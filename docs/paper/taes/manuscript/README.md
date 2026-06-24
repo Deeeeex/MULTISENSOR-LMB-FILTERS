@@ -64,7 +64,7 @@ Current build status:
 
 - Official regular-paper template compiles with Tectonic 0.15.0 into `/tmp/taes_template_compile/TAES_template.pdf`; only template-originated underfull/overfull warnings were observed.
 - This manuscript compiles with `./build.sh` and writes `main.pdf`.
-- The manuscript includes bracketed author, repository, and funding placeholders plus a provisional IEEE/AESS AI-assistance disclosure; replace placeholders before submission.
+- The manuscript includes bracketed author, repository, and funding placeholders, plus TAES front-matter placeholders such as author names, affiliations, receipt dates, and issue/DOI metadata. It also includes a provisional IEEE/AESS AI-assistance disclosure; replace placeholders before submission.
 
 Long N50 rerun for refreshing local metric verification:
 
@@ -91,6 +91,6 @@ Harsh packet-loss N50 stress run:
 
 After it completes, add the generated Markdown report path to `evidence_sources.json` as `stress_harsh_n50_report`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md` plus `generated/stress_harsh_section.tex`. This stress result must not trigger per-scenario threshold or barycenter-weight search; mixed outcomes should be preserved as scenario-boundary evidence.
 
-The current manuscript is content-ready under the project convention that author/funding/repository placeholders may remain provisional. It is not yet portal-submission-ready because final author/funding/repository/AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
+The current manuscript is content-ready under the project convention that author/funding/repository/front-matter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, and AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
 
 For the current claim-by-claim readiness state, see `READINESS_AUDIT_CN.md`.

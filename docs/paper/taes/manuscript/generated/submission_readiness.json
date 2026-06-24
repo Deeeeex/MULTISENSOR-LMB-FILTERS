@@ -192,7 +192,7 @@
       "status": "pass"
     },
     {
-      "detail": "14 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, SECOND AUTHOR, TAES.2026.Doi Number, THIRD AUTHOR, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "detail": "19 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
       "gate": "submission metadata placeholders",
       "status": "pending"
     },
@@ -362,7 +362,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `3302f3f7d2a5e3d4a3f81d78678d778aa2c165e569a01cb7ee6bc2d4cbed097e`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `709b5fa40c62f3669ab670075ba7749d16a19eb88ac0ee1de56acfc72aa3239a`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -385,7 +385,7 @@
   "content_status": "candidate_with_warnings",
   "metadata_gates": [
     {
-      "detail": "14 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, SECOND AUTHOR, TAES.2026.Doi Number, THIRD AUTHOR, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "detail": "19 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
       "gate": "submission metadata placeholders",
       "status": "pending"
     }

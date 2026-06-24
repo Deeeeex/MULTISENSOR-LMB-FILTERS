@@ -212,10 +212,15 @@ def placeholder_hits(tex: str) -> list[str]:
         "FIRST AUTHOR",
         "SECOND AUTHOR",
         "THIRD AUTHOR",
+        "First Author",
+        "Second Author",
+        "Third Author",
         "AUTHOR ET AL.",
         "TAES.2026.Doi Number",
         "Draft",
         "XX",
+        "Institution, City, Country",
+        "Month 00",
     ]
     for pattern in literal_patterns:
         if pattern in tex:

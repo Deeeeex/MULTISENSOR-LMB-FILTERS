@@ -36,7 +36,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 
 The current manuscript is allowed to remain content-ready with metadata placeholders during internal review, but these placeholders block actual TAES portal submission.
 
-- Author names, affiliations, city/country fields, and running author line.
+- Author names, affiliations, city/country fields, manuscript receipt dates, issue/DOI fields, and running author line.
 - Corresponding author email and ORCID values for all authors.
 - Funding agency and grant number, or a deliberate no-funding statement.
 - Repository DOI/URL or a deliberate no-public-code statement.

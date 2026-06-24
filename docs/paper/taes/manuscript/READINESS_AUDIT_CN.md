@@ -10,7 +10,7 @@
 
 稿件已经进入 content-ready 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、带 CI/wins/sign-test p 的 baseSeed=11 held-out N50 robustness check、harsh packet-loss N50 stress check 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前内容、证据、引用、PDF 和 source bundle gate 已经闭合；但还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
 
-1. 作者、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
+1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile；但 topology、partial field-of-view、target maneuver 和 recursive-online 场景族验证仍会降低审稿风险。
 
 ## Claim-to-Evidence Matrix
@@ -44,7 +44,7 @@
 | Page budget | Current manuscript is within a plausible Regular Paper range, but final printed page count is not guaranteed. | Keep estimated TAES pages near or below 10, or accept overlength charges. |
 | Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. Current abstract also front-loads the held-out base-seed RMSE separation. | Re-run `./build.sh` after final title/abstract edits. |
 | First-page narrative | Abstract and introduction now state the residual correspondence failure more directly, specify the separate held-out 50-trial base-seed-11 replication, and keep the proposed gain separated from scalar-weight routing. The readiness checker now records explicit first-page story markers and paper-facing wording hygiene. | Keep the first page visually checked after any abstract or contribution edit. |
-| Author metadata | Bracketed author/funding/repository placeholders remain in submission-style prose. | Fill real author list, affiliations, ORCID, funding, acknowledgments, corresponding author metadata. |
+| Author metadata | Bracketed author/funding/repository placeholders and TAES front-matter placeholders remain in submission-style prose. | Fill real author list, affiliations, receipt/revision dates if requested by the template stage, ORCID, funding, acknowledgments, corresponding author metadata, and final issue/DOI fields. |
 | AI disclosure | Provisional Codex/OpenAI disclosure exists in Acknowledgment. | Recheck current IEEE/AESS wording and decide final disclosure scope. |
 | Citations | Core bibliography has been source checked during draft construction; `verify_bibtex_dois.py` now resolves every BibTeX DOI through the DOI resolver, and the readiness checker verifies cited keys, DOI fields, uncited BibTeX entries, and same-hash DOI resolver coverage. | Final bibliography scan for malformed entries and unsupported claims after any citation edit. |
 | Preprint/reuse | No final decision recorded. | Decide whether to post preprint and prepare IEEE-compliant preprint notice if needed. |
