@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 16:25 CST
+最后更新: 2026-06-24 16:24 CST
 
 ## 目的
 
@@ -89,7 +89,7 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 与 `partial-fov35` 已完成 N1 smoke；尚未形成 paper-grade N50。下一步补 N5 smoke，若报告结构和机制信号合理，再启动固定 N50。
+- Evidence: `topology-ring` 已完成 N1 smoke，固定 N50 已启动；`partial-fov35` 已完成 N1 和固定 N5 smoke。当前尚未形成 topology/FOV paper-grade N50 generalization evidence。
 
 ## Topology-ring N1 smoke
 
@@ -156,6 +156,68 @@ Interpretation:
 - Cardinality dispersion is slightly worse for both projection arms. This is a useful boundary signal: under narrow FOV, label canonicalization can improve spatial coherence while not fully resolving cardinality disagreement.
 - Reference-only is almost tied with tuned AA on RMSE, while the full method improves RMSE by 4.03%. This continues to support matched-state barycentering as the spatial-gain mechanism, but only as an N1 smoke signal.
 - No parameter should be changed in response to this N1 result. The next evidence step is fixed N5, followed by N50 only if the N5 structure justifies the compute.
+
+## Partial-fov35 N5 smoke
+
+Fixed smoke command was run on 2026-06-24 with `AA_SCENARIO_FAMILY=partial-fov35`, `AA_SCENARIO_TRIALS=5`, `AA_SCENARIO_BASE_SEED=41`, and trial seeds `42..46`.
+
+Artifacts:
+
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED41_20260624_160335.md`
+- Launcher log: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N5_BASESEED41_20260624_160334.log`
+
+Run metadata recorded in the report:
+
+- `scenarioLabel: partial-fov35-formation`
+- `neighborMapMode: 4plus4`
+- `sensorFovHalfAngleDeg: 35.000`
+- `pDropLevels: [0 0.1 0.2 0.5]`
+- `pDropLevelCounts: [1 4 1 2]`
+- Arms: `[9 18 19]`
+
+Smoke result:
+
+| Arm | Net OSPA | Loc. disag. | Card. disp. | E-OSPA | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 2.297790 | 1.415682 | 0.400000 | 2.837543 | 4.120264 | 0.566500 |
+| Neighborhood label-barycenter | 1.341733 | 0.213073 | 0.392000 | 2.642142 | 3.727303 | 0.560000 |
+| Neighborhood reference-only | 1.750779 | 0.786636 | 0.392000 | 2.780672 | 3.944791 | 0.560000 |
+
+Paired reductions for the full operator relative to tuned AA are:
+
+- Network OSPA: `41.61%`, wins `5/5`, sign-test `p=0.0625`.
+- Localization disagreement: `84.95%`, wins `5/5`, sign-test `p=0.0625`.
+- E-OSPA: `6.89%`, wins `5/5`, sign-test `p=0.0625`.
+- RMSE: `9.54%`, wins `5/5`, sign-test `p=0.0625`.
+- Cardinality dispersion: `2.00%`, wins `3/5`, CI crosses zero.
+- CardErr: `1.15%`, wins `2/5`, CI crosses zero.
+
+Interpretation:
+
+- The N5 partial-FOV smoke supports the spatial mechanism: full label-barycenter improves network OSPA, localization disagreement, E-OSPA, and RMSE in all five paired trials.
+- The reference-only arm improves RMSE by only `4.26%`, so matched barycentering still explains a substantial part of the spatial gain.
+- Cardinality metrics remain boundary evidence because the paired CIs cross zero and the wins are weak. This should be written as `supports_spatial_mechanism_with_cardinality_boundary`, not as a full robustness claim.
+- This N5 result justifies a fixed N50 partial-FOV run later, but it still cannot be used as paper-grade evidence.
+
+## Topology-ring N50 run
+
+A paper-grade topology-family run was started on 2026-06-24 16:24 CST with fixed method parameters:
+
+```bash
+AA_SCENARIO_FAMILY=topology-ring \
+AA_SCENARIO_TRIALS=50 \
+AA_SCENARIO_BASE_SEED=31 \
+RUN/AA/launchAaTaesScenarioFamilySmoke.sh
+```
+
+Run handoff:
+
+- PID: `37456`
+- PID file: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.pid`
+- Log: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
+- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
+
+This run should be interpreted under the same no-search rule: if sparse topology weakens local tracking or cardinality, preserve the boundary result and discuss graph-local propagation limits rather than retuning `H`, thresholds, projection cutoff, barycenter weights, or label rules.
 
 ## Paper-facing 使用边界
 
