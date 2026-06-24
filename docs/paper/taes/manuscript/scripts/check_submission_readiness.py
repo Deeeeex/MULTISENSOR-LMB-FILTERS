@@ -1392,6 +1392,10 @@ def write_outputs(checks: list[Check]) -> None:
         "overall_status": portal_status,
         "portal_status": portal_status,
         "content_status": content_status,
+        "metadata_policy": (
+            "Manuscript front-matter and cover-letter/portal placeholders are ignored only "
+            "for content-readiness review; they remain blocking for actual portal submission."
+        ),
         "metadata_placeholders_allowed_for_content_readiness": True,
         "blocking_gates_after_metadata_allowance": blocking_gates,
         "metadata_gates": metadata_gates,
@@ -1411,7 +1415,7 @@ def write_outputs(checks: list[Check]) -> None:
         f"- Content status with metadata placeholders allowed: `{content_status}`\n",
         f"- Manuscript PDF: `{MAIN_PDF.relative_to(REPO)}`\n",
         f"- Machine-readable report: `{READINESS_JSON.relative_to(REPO)}`\n",
-        "- Metadata policy: author, funding, repository, and corresponding-author placeholders are "
+        "- Metadata policy: manuscript front-matter and cover-letter/portal placeholders are "
         "ignored only for content-readiness review; they remain blocking for actual portal submission.\n\n",
     ]
     if blocking_gates:

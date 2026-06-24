@@ -362,7 +362,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `aa94920a26b383b57165696291e4656a662e873d9d1195895a4692b3b4a27e16`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `33f0a4579dda5824314c553ede209e2f19408bc72f936ee0a42d1148b6c0dda6`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -391,6 +391,7 @@
     }
   ],
   "metadata_placeholders_allowed_for_content_readiness": true,
+  "metadata_policy": "Manuscript front-matter and cover-letter/portal placeholders are ignored only for content-readiness review; they remain blocking for actual portal submission.",
   "overall_status": "draft_with_pending_gates",
   "portal_status": "draft_with_pending_gates"
 }
