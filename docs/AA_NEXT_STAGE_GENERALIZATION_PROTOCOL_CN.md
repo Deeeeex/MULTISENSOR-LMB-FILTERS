@@ -1,10 +1,10 @@
 # AA next-stage generalization protocol
 
-最后更新: 2026-06-25 04:01 CST
+最后更新: 2026-06-25 04:57 CST
 
 ## 目的
 
-当前 TAES 稿件已经把 AA label-barycenter 方法固定在一个清晰边界内: active-output label/moment projection, not recursive LMB update。已有 evidence 覆盖 primary N50、held-out N50、harsh-loss N50、topology-ring N50、partial-FOV N50，并且 full-topology N50 ceiling 正在运行。
+当前 TAES 稿件已经把 AA label-barycenter 方法固定在一个清晰边界内: active-output label/moment projection, not recursive LMB update。已有 evidence 覆盖 primary N50、held-out N50、harsh-loss N50、topology-ring N50、partial-FOV N50，并且 full-topology N50 ceiling 已完成并接入 scenario-family gate。full-topology 的作用是 zero-disagreement ceiling equivalence，不是额外增益 claim。
 
 下一阶段如果继续补实验，不应围绕当前数据搜索 `H`、existence threshold、projection cutoff、barycenter weights、label rules 或 packet-loss 参数。更有价值的方向是检验方法机制在真正不同的困难来源下是否仍成立，或者暴露需要新方法设计的边界。
 
@@ -12,7 +12,7 @@
 
 本文件是 repository-level internal planning protocol: it records future risk-reduction plans, not current manuscript evidence. It is not a portal upload or source-bundle evidence artifact。The current TAES submission does not wait for these A/B/C extensions；当前稿件只依赖已经进入 `evidence_sources.json`、generated fragments、verifier/readiness gates 和 PDF/source-bundle checks 的证据。
 
-The full-topology ceiling is the only running scenario-family candidate；它完成并通过 report、extractor、generated manifest、readiness gate、source-bundle freshness 全部检查前，仍不得进入 manuscript、cover letter、supplement 或 response-ready evidence chain。
+The full-topology ceiling has completed and is now parsed only as an idealized full-neighborhood equivalence boundary；它通过 report、extractor、generated manifest、readiness gate、source-bundle freshness 全部检查后才进入 scenario-family evidence chain，并且不得写成 manuscript、cover letter、supplement 或 response-ready text 中的 gain claim。
 
 ## 当前代码支持状态
 
@@ -126,17 +126,16 @@ The full-topology ceiling is the only running scenario-family candidate；它完
 
 ## 执行顺序建议
 
-1. 等当前 `full-topology` N50 ceiling 完成并接入 scenario-family gate。
-2. 做 Candidate A 的 N1/N5 smoke，因为它直接检验本文理论中最关键的 assignment-stability boundary。
-3. 若 Candidate A 显示 assignment ambiguity 明显，优先设计 guarded projection，而不是 covariance-weighted barycenter。
-4. 若 Candidate A 稳定，再做 Candidate B，判断 equal moment barycenter 是否需要 reliability extension。
-5. Candidate C 只能在 A/B 的边界明确后启动；它更像下一篇方法，而不是当前 TAES 稿件的必要补丁。
+1. 做 Candidate A 的 N1/N5 smoke，因为它直接检验本文理论中最关键的 assignment-stability boundary。
+2. 若 Candidate A 显示 assignment ambiguity 明显，优先设计 guarded projection，而不是 covariance-weighted barycenter。
+3. 若 Candidate A 稳定，再做 Candidate B，判断 equal moment barycenter 是否需要 reliability extension。
+4. Candidate C 只能在 A/B 的边界明确后启动；它更像下一篇方法，而不是当前 TAES 稿件的必要补丁。
 
 ## Paper-facing 使用方式
 
 当前 TAES submission 不应等待 A/B/C 全部完成。它们是 reviewer-risk reduction 或下一阶段 research design:
 
-- 如果 full-topology ceiling 完成且结果稳定，可作为当前稿件的 topology ceiling evidence。
+- Full-topology ceiling 已完成；当前稿件只能把它作为 zero-disagreement equivalence boundary，不能把相同 local metrics 写成方法增益。
 - Candidate A/B 的 smoke 结果不应进入主文，只能进入 internal progress 或 response planning。
 - Candidate A/B 的 N50 若完成且通过 parser/readiness gate，可视页数进入 supplement or response-ready evidence。
 - Candidate C 即使成功，也应作为 method extension 或 follow-up paper，而不是静默扩展当前 output-level projection claim。

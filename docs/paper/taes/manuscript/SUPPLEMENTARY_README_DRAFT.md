@@ -6,7 +6,7 @@ This draft is used only if the final TAES submission includes supplementary mate
 
 No supplement files are selected by default for the current content-ready package. The current default is no separate supplementary upload; the candidate blocks remain response-ready and source-bundle-ready unless the final page budget, TAES portal form, editor, or reviewers require a formal supplement.
 
-If a supplement is selected, create it only from the eligible generated blocks listed below. Do not attach raw `RUN/` logs, scratch validation reports, internal QA documents, or unparsed in-progress experiment output.
+If a supplement is selected, create it only from the eligible generated blocks listed below. Do not attach raw `RUN/` logs, scratch validation reports, internal QA documents, or unparsed experiment output.
 
 ## Intended Supplement Scope
 
@@ -20,7 +20,7 @@ The supplement should not introduce new claims beyond the main manuscript. All s
 | --- | --- | --- | --- |
 | Held-out N50 robustness table | `generated/heldout_n50_section.tex` | Documents the fixed base-seed-11 held-out mechanism replication. | Already imported in the main manuscript; include only if moved out of the main text or requested by reviewers. |
 | Harsh packet-loss N50 stress table | `generated/stress_harsh_section.tex` | Documents the fixed harsh packet-loss boundary check. | Candidate supplement or reviewer-response table. |
-| Topology/FOV scenario-family table | `generated/scenario_family_section.tex` | Documents fixed topology-ring and partial-FOV checks. | Candidate supplement or reviewer-response table. |
+| Scenario-family table | `generated/scenario_family_section.tex` | Documents fixed topology-ring, partial-FOV, and full-topology equivalence-boundary checks. | Candidate supplement or reviewer-response table. |
 | Reproducibility ledger | `generated/reproducibility_ledger_table.tex` | Maps manuscript-facing evidence roles to source reports and verifier artifacts. | Candidate supplement if the portal or reviewers request provenance detail. |
 | Source manifests | `generated/*_MANIFEST.md` | Records source paths, hashes, scenario roles, and generated evidence provenance. | Keep in source bundle by default; include selected manifests in supplement only if converted into reviewable prose or tables. |
 
@@ -40,19 +40,19 @@ TAES_EVIDENCE_MODE=bundled ./build.sh
 
 ## Interpretation Boundaries
 
-- The held-out, harsh-loss, topology-ring, and partial-FOV checks are fixed-parameter robustness or boundary checks, not a parameter-search loop.
+- The held-out, harsh-loss, topology-ring, partial-FOV, and full-topology checks are fixed-parameter robustness, boundary, or ceiling checks, not a parameter-search loop.
 - The contextual GA rows are reference rows from a tracked validation path, not paired AA-vs-GA significance-test evidence.
 - The method remains an active-output label-and-moment projection layer, not a recursive LMB update.
 - The equal moment barycenter is a first-two-moment projection, not a covariance-consistency guarantee.
 - The current supplement should not claim validation for target maneuvers, close crossings, recursive online lifecycle guards, or covariance/reliability-weighted barycenters unless those studies are completed and parsed through the same evidence gates.
-- The running full-topology N50 result must not be included until a complete report is configured in `evidence_sources.json`, parsed by `extract_scenario_family_evidence.py`, and passed by the readiness checker.
+- The completed full-topology N50 result is included only as a zero-disagreement equivalence boundary: it must not be described as additional method gain or as the deployed graph-local topology setting.
 
 ## Main-Paper Cross-References
 
 If a formal supplement is submitted, add a concise sentence in the main manuscript or cover-letter metadata describing the selected supplement, for example:
 
 ```text
-Supplementary material provides fixed-parameter robustness tables and provenance ledgers for the held-out, harsh packet-loss, topology-ring, and partial-FOV evidence paths.
+Supplementary material provides fixed-parameter robustness tables and provenance ledgers for the held-out, harsh packet-loss, topology-ring, partial-FOV, and full-topology equivalence-boundary evidence paths.
 ```
 
 Do not add this sentence until the final supplement files are selected.

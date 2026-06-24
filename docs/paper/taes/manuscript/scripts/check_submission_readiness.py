@@ -1027,7 +1027,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         Check(
             "stress generalization boundary wording",
             "pass" if not missing_stress_boundary else "warning",
-            "Discussion preserves the boundary that harsh-loss, topology-ring, and partial-FOV checks do not substitute for maneuvering-target or covariance-consistency validation."
+            "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks do not substitute for maneuvering-target or covariance-consistency validation."
             if not missing_stress_boundary
             else "Stress/generalization boundary wording is incomplete; missing markers: "
             + "; ".join(missing_stress_boundary),
@@ -1199,7 +1199,7 @@ def final_metadata_closure_checks() -> list[Check]:
         "Graphical/video abstract",
         "no separate supplementary upload by default",
         "TAES_EVIDENCE_MODE=bundled ./build.sh",
-        "full-topology results",
+        "full-topology results as additional method gain",
         "active-output label/moment correspondence projection",
     ]
     missing = [marker for marker in required_markers if marker not in text]
@@ -1283,7 +1283,7 @@ def reviewer_risk_register_checks() -> list[Check]:
         "recursive LMB validity",
         "Equal moment barycenters",
         "Generality beyond the main formation scenario",
-        "Running full-topology evidence",
+        "Full-topology ceiling evidence",
         "Runtime overhead",
         "Reproducibility and generated evidence integrity",
         "do not cite this register as a data source",
@@ -1335,13 +1335,13 @@ def claim_evidence_boundary_map_checks() -> list[Check]:
         "fig:n50",
         "primary N50 validation",
         "Held-out base-seed N50 replication",
-        "Harsh packet loss, topology-ring, and partial-FOV",
+        "Harsh packet loss, topology-ring, partial-FOV, and full-topology",
         "Contextual GA rows",
         "Runtime overhead",
         "not portal-submission-ready",
         "does not replace AA/KLA density fusion",
         "does not guarantee correct assignment",
-        "full-topology N50 run must not be used",
+        "parsed full-topology N50 result must be used only as an idealized full-neighborhood zero-disagreement equivalence boundary",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1388,7 +1388,7 @@ def figure_table_audit_checks() -> list[Check]:
         "generated/n50_reduction_bars.tex",
         "generated/heldout_n50_section.tex",
         "Contextual comparison only",
-        "Full-topology ceiling output remains excluded",
+        "Full-topology ceiling output is included only after parsing",
         "TAES_EVIDENCE_MODE=bundled ./build.sh",
     ]
     missing = [marker for marker in required_markers if marker not in text]
@@ -1426,7 +1426,7 @@ def next_stage_protocol_checks() -> list[Check]:
         "future risk-reduction plans, not current manuscript evidence",
         "not a portal upload or source-bundle evidence artifact",
         "current TAES submission does not wait for these A/B/C extensions",
-        "full-topology ceiling is the only running scenario-family candidate",
+        "full-topology ceiling has completed and is now parsed only as an idealized full-neighborhood equivalence boundary",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1505,7 +1505,8 @@ def supplementary_evidence_package_checks() -> list[Check]:
         "do not substitute for target-maneuver, covariance-consistency, or recursive-online validation",
         "generated fragments should not be edited directly",
         "raw `RUN/` logs",
-        "running full-topology N50 result is excluded",
+        "zero-disagreement equivalence boundary",
+        "not a gain claim",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1547,7 +1548,7 @@ def supplementary_readme_checks() -> list[Check]:
         "TAES_EVIDENCE_MODE=bundled",
         "not a parameter-search loop",
         "not a recursive LMB update",
-        "full-topology N50 result must not be included",
+        "completed full-topology N50 result is included only as a zero-disagreement equivalence boundary",
         "Record either no separate supplementary upload or the exact selected supplement files",
     ]
     missing = [marker for marker in required_markers if marker not in text]
@@ -2137,7 +2138,7 @@ def scenario_family_checks() -> list[Check]:
             Check(
                 "optional scenario-family evidence path",
                 "pass",
-                "No topology/FOV scenario-family evidence is configured in `evidence_sources.json`; the non-blocking parser path is present and no stale scenario artifacts are included.",
+                "No topology/FOV/full-neighborhood scenario-family evidence is configured in `evidence_sources.json`; the non-blocking parser path is present and no stale scenario artifacts are included.",
             )
         ]
 
@@ -2200,6 +2201,7 @@ def scenario_family_checks() -> list[Check]:
     nonmatching_labels: list[str] = []
     source_hash_errors: list[str] = []
     tiers: list[str] = []
+    interpretation_by_key: dict[str, str] = {}
     for index, scenario in enumerate(scenarios):
         if not isinstance(scenario, dict):
             missing_metadata.append(f"scenario[{index}]")
@@ -2239,6 +2241,8 @@ def scenario_family_checks() -> list[Check]:
                 missing_metadata.append(f"{name}/config/{field}")
         tier = str(scenario.get("evidence_tier", "missing"))
         tiers.append(tier)
+        if source_key:
+            interpretation_by_key[source_key] = str(scenario.get("interpretation_class", "missing"))
         if scenario.get("scenario_label_matches_expected") is False:
             nonmatching_labels.append(name)
         mean_missing = []
@@ -2264,7 +2268,7 @@ def scenario_family_checks() -> list[Check]:
         Check(
             "scenario-family metadata coverage",
             "pass" if not missing_metadata and not nonmatching_labels else "warning",
-            "Scenario-family payload records scenario labels, topology/FOV controls, seeds, packet-loss profile, and expected-label matches."
+            "Scenario-family payload records scenario labels, topology/FOV/full-neighborhood controls, seeds, packet-loss profile, and expected-label matches."
             if not missing_metadata and not nonmatching_labels
             else "Scenario-family metadata is incomplete or labels do not match the configured scenario contract: missing="
             + (", ".join(missing_metadata) if missing_metadata else "none")
@@ -2292,6 +2296,19 @@ def scenario_family_checks() -> list[Check]:
             else "Scenario-family paired payload is incomplete: " + "; ".join(missing_paired),
         )
     )
+
+    if "scenario_full_topology_report" in configured_keys:
+        full_topology_class = interpretation_by_key.get("scenario_full_topology_report", "missing")
+        checks.append(
+            Check(
+                "scenario-family full-topology boundary classification",
+                "pass" if full_topology_class == "zero_disagreement_ceiling_equivalence" else "warning",
+                "Full-topology scenario is classified as a zero-disagreement ceiling equivalence boundary, not a gain claim."
+                if full_topology_class == "zero_disagreement_ceiling_equivalence"
+                else "Full-topology scenario classification is not the expected equivalence boundary: "
+                + full_topology_class,
+            )
+        )
 
     has_paper_grade = "paper_grade" in tiers
     has_smoke = any(tier != "paper_grade" for tier in tiers)

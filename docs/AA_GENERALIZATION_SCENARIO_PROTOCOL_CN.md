@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-25 00:12 CST
+最后更新: 2026-06-25 04:57 CST
 
 ## 目的
 
@@ -83,13 +83,13 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - 若 topology-ring 变差: 讨论 sparse topology 下 medoid/reference propagation 的局限，考虑递归 message-passing 版本，而不是调 `H` 直到当前数据变好。
 - 若 partial-fov35 变差: 讨论 FOV mismatch / missing support 下 assignment uncertainty 和 birth/death lifecycle guard。
-- 若 full-topology ceiling 很强: 说明 topology bottleneck 是当前 output-level neighborhood operator 的主要限制之一。
+- 若 full-topology ceiling 使所有 arms 都达到零网络分歧且 local metrics 相同: 说明 idealized full-neighborhood topology 消除了跨传感器 disagreement，结果应写成 equivalence boundary，而不是方法增益。
 
 ## 当前状态
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 和 `partial-fov35` 均已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`full-topology` 固定 N50 已启动但尚未纳入 `evidence_sources.json` 或稿件生成片段。当前 topology-ring 与 partial-FOV 已是 paper-grade scenario-family evidence，full-topology 仍是 running ceiling check。
+- Evidence: `topology-ring`、`partial-fov35` 和 `full-topology` 均已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate。当前三者都是 paper-grade scenario-family evidence；其中 full-topology 被分类为 zero-disagreement ceiling equivalence，因为所有 arms 的 network disagreement 为零且 local metrics 相同。
 
 ## Topology-ring N1 smoke
 
@@ -299,9 +299,9 @@ Interpretation:
 - Reference-only also improves label-set/cardinality consistency, but its RMSE reduction is `5.17%` versus `13.12%` for the full barycenter, so matched posterior barycentering remains the main spatial-gain mechanism.
 - This result is now paper-grade topology-family evidence, not a tuning result. It should still be written as sparse-topology coverage within the same formation-family assumptions, not as a substitute for partial-FOV, maneuvering-target, covariance-consistency, or recursive-online validation.
 
-## Full-topology N50 run
+## Full-topology N50 ceiling
 
-A paper-grade full-topology ceiling run was started on 2026-06-25 00:09 CST with fixed method parameters:
+A paper-grade full-topology ceiling run was started on 2026-06-25 00:09 CST and completed on 2026-06-25 04:49 CST with fixed method parameters:
 
 ```bash
 AA_SCENARIO_FAMILY=full-topology \
@@ -310,15 +310,20 @@ AA_SCENARIO_BASE_SEED=51 \
 RUN/AA/launchAaTaesScenarioFamilySmoke.sh
 ```
 
-Run handoff:
+Run artifacts:
 
-- PID: `34014`
-- PID file: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.pid`
 - Log: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
-- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
-- Status check at 2026-06-25 00:10 CST: PID `34014` was alive and the log had entered trial `1/50`.
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED51_20260625_000938.md`
+- Source SHA-256: `1424b0456ea5dbe6425a30b77aaabc8a45dbb92df064ae3d1bd64379b9f8effe`
+- Config: `Trials=50`, `baseSeed=51`, `scenarioLabel=full-topology-formation`, `neighborMapMode=full`, `sensorFovHalfAngleDeg=60`, `sensorFovRange=60000`, fixed packet-loss profile `[0 0.1 0.2 0.5]`.
 
-Interpret this run as an idealized topology ceiling only. If the full-topology ceiling is substantially stronger than the 4+4 or ring cases, the paper-facing interpretation is that neighborhood topology is a bottleneck for the current output-level projection layer. If it is mixed, keep the result as a boundary on assignment/reference behavior. In either case, do not tune `H`, thresholds, projection cutoff, barycenter weights, label rules, or packet-loss settings from this result.
+Observed result:
+
+- Network OSPA, localization disagreement, and cardinality dispersion are `0.000000` for all three arms.
+- Local E-OSPA/RMSE/CardErr are identical across all three arms: `1.634331` / `3.277037` / `0.073400`.
+- Full-vs-baseline network reductions have a zero denominator and are therefore reported as `n/a` in the generated scenario-family table; RMSE reduction is `0.00%`.
+
+Interpret this run as an idealized topology ceiling only. The full-neighborhood graph removes inter-sensor disagreement for every arm, so it creates a zero-disagreement ceiling equivalence. It should not be written as additional method gain, as a deployed graph-local topology result, or as a reason to tune `H`, thresholds, projection cutoff, barycenter weights, label rules, or packet-loss settings.
 
 ## Paper-facing 使用边界
 

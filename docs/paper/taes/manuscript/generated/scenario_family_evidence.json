@@ -1,12 +1,13 @@
 {
   "configured_keys": [
     "scenario_topology_ring_report",
-    "scenario_partial_fov35_report"
+    "scenario_partial_fov35_report",
+    "scenario_full_topology_report"
   ],
   "generated_by": "docs/paper/taes/manuscript/scripts/extract_scenario_family_evidence.py",
-  "paper_grade_count": 2,
+  "paper_grade_count": 3,
   "purpose": "Optional scenario-family evidence for topology and sensing-geometry robustness boundaries.",
-  "scenario_count": 2,
+  "scenario_count": 3,
   "scenarios": [
     {
       "config": {
@@ -453,6 +454,229 @@
       "source_key": "scenario_partial_fov35_report",
       "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md",
       "source_sha256": "e5b9b5ab510052df8126c561ed505830729ef03fc49c4e7bab3ff126260de88c"
+    },
+    {
+      "config": {
+        "base_seed": 51,
+        "existence_threshold": 0.18,
+        "fusion_weighting": "Metropolis",
+        "leader_sensor": 8,
+        "link_model": "fixed",
+        "lmb_parallel_update_mode": "AA",
+        "neighbor_map_mode": "full",
+        "p_drop_level_counts": [
+          1,
+          4,
+          1,
+          2
+        ],
+        "p_drop_levels": [
+          0.0,
+          0.1,
+          0.2,
+          0.5
+        ],
+        "scenario_label": "full-topology-formation",
+        "sensor_comm_range": 150.0,
+        "sensor_fov_enabled": 1,
+        "sensor_fov_half_angle_deg": 60.0,
+        "sensor_fov_range": 60000.0,
+        "sensor_motion_process_noise_std": 0.0,
+        "sensor_motion_type": "CV",
+        "target_formation_life_span": 24,
+        "trial_seeds": [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101
+        ],
+        "trials": 50
+      },
+      "display_name": "full-topology",
+      "evidence_tier": "paper_grade",
+      "expected_label": "full-topology-formation",
+      "interpretation_class": "zero_disagreement_ceiling_equivalence",
+      "local": {
+        "Neighborhood label-barycenter spatial-KLA AA": {
+          "CardErr": 0.0734,
+          "E-OSPA": 1.634331,
+          "RMSE": 3.277037
+        },
+        "Neighborhood reference-only label-consensus spatial-KLA AA": {
+          "CardErr": 0.0734,
+          "E-OSPA": 1.634331,
+          "RMSE": 3.277037
+        },
+        "Tuned spatial-KLA AA": {
+          "CardErr": 0.0734,
+          "E-OSPA": 1.634331,
+          "RMSE": 3.277037
+        }
+      },
+      "name": "full-topology",
+      "network": {
+        "Neighborhood label-barycenter spatial-KLA AA": {
+          "Card. disp.": 0.0,
+          "Loc. disag.": 0.0,
+          "OSPA": 0.0
+        },
+        "Neighborhood reference-only label-consensus spatial-KLA AA": {
+          "Card. disp.": 0.0,
+          "Loc. disag.": 0.0,
+          "OSPA": 0.0
+        },
+        "Tuned spatial-KLA AA": {
+          "Card. disp.": 0.0,
+          "Loc. disag.": 0.0,
+          "OSPA": 0.0
+        }
+      },
+      "paired_local": {
+        "Neighborhood label-barycenter spatial-KLA AA": {
+          "CardErr": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "0.00%",
+            "wins": "0/50"
+          },
+          "E-OSPA": {
+            "ci": "[-0.000000, 0.000000]",
+            "p_value": "0.6291",
+            "paired_reduction": "-0.000000 +/- 0.000000",
+            "reduction": "-0.00%",
+            "wins": "17/50"
+          },
+          "RMSE": {
+            "ci": "[-0.000000, 0.000000]",
+            "p_value": "1",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "0.00%",
+            "wins": "13/50"
+          }
+        },
+        "Neighborhood reference-only label-consensus spatial-KLA AA": {
+          "CardErr": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "0.00%",
+            "wins": "0/50"
+          },
+          "E-OSPA": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "0.00%",
+            "wins": "0/50"
+          },
+          "RMSE": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "0.00%",
+            "wins": "0/50"
+          }
+        }
+      },
+      "paired_network": {
+        "Neighborhood label-barycenter spatial-KLA AA": {
+          "Card. disp.": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          },
+          "Loc. disag.": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          },
+          "OSPA": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          }
+        },
+        "Neighborhood reference-only label-consensus spatial-KLA AA": {
+          "Card. disp.": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          },
+          "Loc. disag.": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          },
+          "OSPA": {
+            "ci": "[0.000000, 0.000000]",
+            "p_value": "NaN",
+            "paired_reduction": "0.000000 +/- 0.000000",
+            "reduction": "NaN%",
+            "wins": "0/50"
+          }
+        }
+      },
+      "scenario_label_matches_expected": true,
+      "source_key": "scenario_full_topology_report",
+      "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED51_20260625_000938.md",
+      "source_sha256": "1424b0456ea5dbe6425a30b77aaabc8a45dbb92df064ae3d1bd64379b9f8effe"
     }
   ],
   "smoke_count": 0

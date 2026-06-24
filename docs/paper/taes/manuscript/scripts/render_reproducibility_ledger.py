@@ -153,10 +153,10 @@ def build_rows() -> list[dict[str, object]]:
     if not isinstance(configured_keys, list):
         raise ValueError("Scenario-family configured_keys must be a list")
     if scenario_count == 0:
-        scenario_role = "Scenario-family evidence path is enabled, but no topology/FOV checks are currently configured."
+        scenario_role = "Scenario-family evidence path is enabled, but no topology/FOV/full-neighborhood checks are currently configured."
     elif smoke_count == 0:
         scenario_role = (
-            "Response-ready boundary evidence; all configured topology/FOV checks are "
+            "Response-ready boundary evidence; all configured topology/FOV/full-neighborhood checks are "
             "N50-or-larger paper-grade fixed-parameter runs."
         )
     else:
@@ -195,7 +195,7 @@ def build_rows() -> list[dict[str, object]]:
             "source": rel(OUT / "scenario_family_evidence.json"),
             "sha256": sha256(OUT / "scenario_family_evidence.json"),
             "protocol": (
-                f"{scenario_count} configured topology/FOV checks; "
+                f"{scenario_count} configured topology/FOV/full-neighborhood checks; "
                 f"{paper_grade_count} paper-grade; keys {', '.join(str(key) for key in configured_keys)}"
             ),
             "role": scenario_role,

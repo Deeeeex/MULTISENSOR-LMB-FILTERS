@@ -332,7 +332,7 @@
       "status": "pass"
     },
     {
-      "detail": "Discussion preserves the boundary that harsh-loss, topology-ring, and partial-FOV checks do not substitute for maneuvering-target or covariance-consistency validation.",
+      "detail": "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks do not substitute for maneuvering-target or covariance-consistency validation.",
       "gate": "stress generalization boundary wording",
       "status": "pass"
     },
@@ -417,7 +417,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 137 lines; underfull warnings observed: 118.",
+      "detail": "`tmp/build/latex_build.log` exists with 117 lines; underfull warnings observed: 97.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -522,7 +522,7 @@
       "status": "pass"
     },
     {
-      "detail": "Parsed 2 scenario-family reports for configured keys: scenario_topology_ring_report, scenario_partial_fov35_report.",
+      "detail": "Parsed 3 scenario-family reports for configured keys: scenario_topology_ring_report, scenario_partial_fov35_report, scenario_full_topology_report.",
       "gate": "scenario-family configured source coverage",
       "status": "pass"
     },
@@ -532,7 +532,7 @@
       "status": "pass"
     },
     {
-      "detail": "Scenario-family payload records scenario labels, topology/FOV controls, seeds, packet-loss profile, and expected-label matches.",
+      "detail": "Scenario-family payload records scenario labels, topology/FOV/full-neighborhood controls, seeds, packet-loss profile, and expected-label matches.",
       "gate": "scenario-family metadata coverage",
       "status": "pass"
     },
@@ -547,6 +547,11 @@
       "status": "pass"
     },
     {
+      "detail": "Full-topology scenario is classified as a zero-disagreement ceiling equivalence boundary, not a gain claim.",
+      "gate": "scenario-family full-topology boundary classification",
+      "status": "pass"
+    },
+    {
       "detail": "All configured scenario-family checks are paper-grade N50-or-larger fixed-parameter evidence.",
       "gate": "scenario-family evidence tier",
       "status": "pass"
@@ -557,7 +562,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 64 files and SHA-256 `67549faff9f3b4f629171d7f0e89ec0ea57fcf4a5eca71d70e83a346e99e367d`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 64 files and SHA-256 `49b90efd0008e44d249d1799f1116ac059b7fb26b67f0c41752e06cea78570a7`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -8,7 +8,7 @@ This file is an internal pre-submission QA artifact. It is not a data source and
 - Generated table/figure fragments must be regenerated from scripts or source reports, not edited by hand.
 - Every manuscript-affecting figure/table edit requires `./build.sh`, PDF visual QA, readiness checks, and source-bundle freshness checks.
 - Contextual GA rows remain context only and must not be described as paired AA-vs-GA significance evidence.
-- Full-topology ceiling output remains excluded until a complete report is configured in `evidence_sources.json`, parsed by the scenario-family extractor, and accepted by readiness gates.
+- Full-topology ceiling output is included only after parsing through `evidence_sources.json` and the scenario-family extractor; it must remain a zero-disagreement equivalence boundary, not a gain claim.
 
 ## Primary Manuscript Figures And Tables
 
@@ -28,7 +28,7 @@ This file is an internal pre-submission QA artifact. It is not a data source and
 | Artifact | Label | Reader task | Source / generation path | Boundary |
 | --- | --- | --- | --- | --- |
 | Harsh packet-loss stress table | `tab:harsh-stress` | Preserve full fixed-parameter harsh-loss details for supplement or response use. | `generated/stress_harsh_section.tex`; `generated/STRESS_HARSH_MANIFEST.md`. | Not in the main PDF by default; use only as response-ready or selected supplement evidence. |
-| Scenario-family table | `tab:scenario-family-aa` | Preserve topology-ring and partial-FOV fixed-parameter checks, plus future tier labels. | `generated/scenario_family_section.tex`; `generated/SCENARIO_FAMILY_MANIFEST.md`. | Do not add full-topology or smoke-tier results to paper-facing claims before gates pass. |
+| Scenario-family table | `tab:scenario-family-aa` | Preserve topology-ring, partial-FOV, and full-topology fixed-parameter checks, plus future tier labels. | `generated/scenario_family_section.tex`; `generated/SCENARIO_FAMILY_MANIFEST.md`. | Present full-topology only as an idealized zero-disagreement equivalence boundary; do not treat it as additional method gain or as the deployed graph-local topology setting. |
 | Reproducibility ledger table | `tab:ledger` | Map source reports, generated artifacts, roles, hashes, and evidence tiers. | `scripts/render_reproducibility_ledger.py`; `generated/reproducibility_ledger_table.tex`; `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md`. | Source-package/response-ready provenance, not a main-paper result table by default. |
 
 ## Final Visual QA Sequence

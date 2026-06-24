@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 03:30 CST
+日期: 2026-06-25 04:57 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -8,10 +8,18 @@
 
 ## 当前判断
 
-稿件已经进入 `content_ready_metadata_pending` 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、带 CI/wins/sign-test p 的 baseSeed=11 held-out N50 robustness check、harsh packet-loss N50 stress check、topology-ring N50 和 partial-FOV N50 scenario-family checks、以及 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前非元数据 mechanical/evidence/citation/PDF/source-bundle gates 已经闭合；`generated/SUBMISSION_READINESS_REPORT.md` 显示 metadata allowance 后无 blocking gate，也没有剩余内容 warning。本轮已把 reproducibility ledger 扩展为覆盖 primary AA N50、held-out AA N50、harsh-loss AA N50、scenario-family boundary checks、contextual GA N50 和 independent verifier，并把 topology-ring 与 partial-FOV 均升级为 paper-grade scenario-family evidence；同时 method section 和 readiness checker 已明确 projection 是 labels/moments-only 的 active-track 层，不重估 Bernoulli existence。稿件还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
+稿件已经进入 `content_ready_metadata_pending` 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、带 CI/wins/sign-test p 的 baseSeed=11 held-out N50 robustness check、harsh packet-loss N50 stress check、topology-ring N50、partial-FOV N50 和 full-topology N50 scenario-family checks、以及 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前非元数据 mechanical/evidence/citation/PDF/source-bundle gates 已经闭合；`generated/SUBMISSION_READINESS_REPORT.md` 显示 metadata allowance 后无 blocking gate，也没有剩余内容 warning。本轮已把 reproducibility ledger 扩展为覆盖 primary AA N50、held-out AA N50、harsh-loss AA N50、scenario-family boundary checks、contextual GA N50 和 independent verifier，并把 topology-ring、partial-FOV 与 full-topology 均升级为 paper-grade scenario-family evidence；其中 full-topology 被解释为 zero-disagreement equivalence boundary，而不是额外增益。method section 和 readiness checker 已明确 projection 是 labels/moments-only 的 active-track 层，不重估 Bernoulli existence。稿件还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
-2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50、partial-FOV N50 和 full-topology zero-disagreement ceiling；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 04:57 Checkpoint
+
+本轮把固定参数 full-topology N50 ceiling run 完成后接入证据链。原始报告为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED51_20260625_000938.md`，配置为 `Trials=50`、`baseSeed=51`、`scenarioLabel=full-topology-formation`、`neighborMapMode=full`，报告 SHA-256 为 `1424b0456ea5dbe6425a30b77aaabc8a45dbb92df064ae3d1bd64379b9f8effe`。
+
+结果不是新的增益证据，而是理想 full-neighborhood 上界: 三个 arms 的 Network OSPA、localization disagreement、cardinality dispersion 全部为 `0.000000`，local E-OSPA/RMSE/CardErr 也完全相同，分别为 `1.634331`、`3.277037`、`0.073400`。因此 `extract_scenario_family_evidence.py` 将该场景分类为 `zero_disagreement_ceiling_equivalence`，generated scenario-family table 对零分母 reduction 记为 `n/a`，Discussion 只把它写成 equivalence boundary。
+
+同步更新范围: `evidence_sources.json`、scenario-family extractor、generated manifest/section/summary sentence、正文 reproducibility/discussion wording、supplement/response package、claim-evidence map、reviewer risk register、figure/table audit、metadata checklist、AA generalization protocols 和 readiness checker。边界保持不变: full-topology 不能写成 deployed graph-local topology setting、不能写成额外 method gain，也不能触发 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings 的回调搜索。
 
 ## 04:28 Checkpoint
 
@@ -23,7 +31,7 @@
 
 本轮把 supplement decision 从“最终再决定”改成可检查的默认策略。当前 content-ready package 默认不上传独立 supplementary material；held-out N50 表留在正文，harsh packet-loss、topology/FOV 和 reproducibility ledger 作为 response-ready / source-bundle-ready evidence。只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才从 `generated/stress_harsh_section.tex`、`generated/scenario_family_section.tex`、`generated/reproducibility_ledger_table.tex`，以及必要时移动出正文的 `generated/heldout_n50_section.tex` 中选择正式 supplement 内容。
 
-`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 `COVER_LETTER_AND_METADATA_DRAFT.md` 已同步该默认策略。`check_submission_readiness.py` 现在要求 supplement package/README 保留默认不上传、eligible block set、raw `RUN/` logs 和 scratch reports 禁止项，以及 full-topology N50 完成并通过 scenario-family gate 前不得进入 supplement、response、cover letter 或 manuscript claims 的边界。
+`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 `COVER_LETTER_AND_METADATA_DRAFT.md` 已同步该默认策略。`check_submission_readiness.py` 现在要求 supplement package/README 保留默认不上传、eligible block set、raw `RUN/` logs 和 scratch reports 禁止项，以及 parsed full-topology N50 只能作为 zero-disagreement equivalence boundary、不能写成 gain claim 的边界。
 
 ## 03:30 Checkpoint
 
@@ -251,8 +259,8 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 1. Replace author/funding/repository/corresponding-author/OA/preprint/conflict placeholders once the real submission metadata is available.
 2. Rebuild `main.pdf` and re-render the title/abstract page, method pages, main-results page, held-out/evidence page, Discussion/Conclusion page, and final reference page after any evidence or metadata edit.
 3. Keep the held-out N50 CI/wins/p-value table in the main paper by default; do not create a separate supplement unless the final portal form, editor, reviewers, or page-budget decision requires it.
-4. Keep the harsh packet-loss, topology/FOV, and reproducibility-ledger blocks response-ready/source-bundle-ready; if a formal supplement is selected, record the exact files in the cover-letter metadata draft and portal form.
-5. Monitor the fixed-parameter full-topology N50 ceiling run and integrate it only after the report is complete and parsed through the scenario-family evidence gate.
+4. Keep the harsh packet-loss, scenario-family, and reproducibility-ledger blocks response-ready/source-bundle-ready; if a formal supplement is selected, record the exact files in the cover-letter metadata draft and portal form.
+5. Preserve the full-topology N50 result only as a fixed-parameter zero-disagreement equivalence boundary; do not use it as a gain claim or a tuning source.
 6. Consider target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps beyond the current fixed-parameter harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks.
 
 ## 00:09 Checkpoint

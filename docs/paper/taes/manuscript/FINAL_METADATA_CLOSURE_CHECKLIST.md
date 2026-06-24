@@ -58,5 +58,5 @@ Generated status reviewed: 2026-06-25 03:17 CST.
 ## Do Not Change During Metadata Closure
 
 - Do not change experiment parameters, evidence-source paths, or generated metric fragments while replacing metadata.
-- Do not add full-topology results unless a completed report exists, is configured in `evidence_sources.json`, and passes the scenario-family evidence gate.
+- Do not reinterpret the parsed full-topology results as additional method gain; they are only a full-neighborhood zero-disagreement equivalence boundary.
 - Do not broaden the method beyond active-output label/moment correspondence projection while editing author-facing text.

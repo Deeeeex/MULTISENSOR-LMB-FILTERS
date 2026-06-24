@@ -30,7 +30,7 @@ Main files:
 - `scripts/extract_reference_baselines.py`: parses tracked AA and GA N50 reports to generate contextual reference rows and a manifest.
 - `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check and, when `evidence_sources.json` includes `heldout_n50_report`, generates a paper-grade held-out N50 manifest and an optional manuscript fragment.
 - `scripts/extract_stress_evidence.py`: when `evidence_sources.json` includes `stress_harsh_n50_report`, parses the harsh packet-loss N50 stress report and generates a response-ready manifest/LaTeX fragment without making it a submission gate.
-- `scripts/extract_scenario_family_evidence.py`: when `evidence_sources.json` includes topology or FOV scenario reports, parses them into a response-ready scenario-family manifest/LaTeX fragment while preserving smoke-vs-paper-grade tier labels.
+- `scripts/extract_scenario_family_evidence.py`: when `evidence_sources.json` includes topology, FOV, or full-neighborhood ceiling reports, parses them into a response-ready scenario-family manifest/LaTeX fragment while preserving smoke-vs-paper-grade tier labels and equivalence-boundary classifications.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
 - `scripts/verify_bibtex_dois.py`: resolves every BibTeX DOI through the public DOI resolver and writes generated citation-verification evidence.
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
@@ -57,7 +57,7 @@ The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT
 
 Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, `generated/stress_harsh_section.tex`, and the concise `generated/stress_harsh_summary_sentence.tex` imported by Discussion. The full stress table remains response-ready; decide during final page-budget review whether it belongs in supplementary material or reviewer-response evidence.
 
-If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring and partial-FOV reports are fixed-parameter N50 scenario-family checks and are labeled paper-grade evidence by the generated manifest; the generated artifacts still preserve smoke-vs-paper-grade tier labels for future boundary probes.
+If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring, partial-FOV, and full-topology reports are fixed-parameter N50 scenario-family checks and are labeled paper-grade evidence by the generated manifest; full-topology is classified only as a zero-disagreement equivalence boundary. The generated artifacts still preserve smoke-vs-paper-grade tier labels for future boundary probes.
 
 The partial-FOV N50 upgrade is complete and report-driven. The configured source report is:
 
@@ -65,7 +65,7 @@ The partial-FOV N50 upgrade is complete and report-driven. The configured source
 ../../../RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md
 ```
 
-Do not change the method parameters for this scenario-family evidence path: the point is to test the fixed label-barycenter design under narrower sensing geometry, not to tune against the partial-FOV data. If future scenario-family checks produce mixed or negative indicators, keep that classification and update the Discussion boundary wording rather than searching for a better configuration.
+Do not change the method parameters for this scenario-family evidence path: the point is to test the fixed label-barycenter design under changed topology, narrower sensing geometry, or an idealized full-neighborhood ceiling, not to tune against the scenario-family data. If future scenario-family checks produce mixed, negative, or equivalence indicators, keep that classification and update the Discussion boundary wording rather than searching for a better configuration.
 
 The submission source bundle is generated at:
 
@@ -106,6 +106,6 @@ Harsh packet-loss N50 stress run:
 
 After it completes, add the generated Markdown report path to `evidence_sources.json` as `stress_harsh_n50_report`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md` plus `generated/stress_harsh_section.tex`. This stress result must not trigger per-scenario threshold or barycenter-weight search; mixed outcomes should be preserved as scenario-boundary evidence.
 
-The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed. Target-maneuver, covariance-consistency, and recursive-online validation would further reduce review risk beyond the current fixed-parameter topology/FOV scenario-family checks.
+The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed. Target-maneuver, covariance-consistency, and recursive-online validation would further reduce review risk beyond the current fixed-parameter topology/FOV/full-topology scenario-family checks.
 
 For the current claim-by-claim readiness state, see `READINESS_AUDIT_CN.md`.
