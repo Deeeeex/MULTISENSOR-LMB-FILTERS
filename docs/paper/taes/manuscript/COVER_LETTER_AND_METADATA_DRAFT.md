@@ -24,7 +24,7 @@ This submission is original work and is not under consideration elsewhere. All a
 
 [If applicable: The authors declare no conflicts of interest. / Disclose any conflicts here.]
 
-OpenAI Codex assisted with code navigation, experiment-log organization, evidence cross-checking, and language polishing. The authors remain responsible for all technical claims, derivations, citations, experiments, and manuscript content.
+OpenAI Codex assisted with code navigation, log organization, evidence checks, and language polishing; the authors remain responsible for all technical content.
 
 Thank you for considering this manuscript.
 

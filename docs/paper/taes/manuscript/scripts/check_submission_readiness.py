@@ -882,6 +882,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "positive semidefinite",
         "first-two-moment least-squares representative",
         "equally weighted matched Gaussian mixture",
+        "barycentering is therefore never worse than reference copying",
+        "barycenter-versus-copying identity is an internal moment-space statement",
     ]
     missing_moment_projection = [marker for marker in moment_projection_markers if marker not in tex]
     checks.append(

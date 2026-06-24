@@ -13,6 +13,12 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 04:28 Checkpoint
+
+本轮把 reference-only ablation 的理论支撑向前推进一步。`main.tex` 在 `Moment-space projection` 证明中补充 barycenter-versus-copying identity: 在固定匹配的 first-two-moment 坐标中，复制任一 matched reference input 的组内平方 moment error 等于 barycenter 最优误差再加上 `M||q_r-\bar{q}||^2`，因此 full barycenter 在内部 moment-space 目标上不劣于 reference-only copying，除非被复制的 reference 已经等于 barycenter。
+
+该命题不新增实验证据，也不把内部 moment-space 不等式扩展成 truth-error guarantee；正文边界句明确说明若 assignment 错误，较低的组内 moment error 仍可能描述错误 group。`CLAIM_EVIDENCE_BOUNDARY_MAP.md` 和 `check_submission_readiness.py` 已同步这条命题及其边界，用来支撑 `matched posterior barycenters, not label copying alone` 的 ablation 叙事。
+
 ## 03:17 Checkpoint
 
 本轮把 supplement decision 从“最终再决定”改成可检查的默认策略。当前 content-ready package 默认不上传独立 supplementary material；held-out N50 表留在正文，harsh packet-loss、topology/FOV 和 reproducibility ledger 作为 response-ready / source-bundle-ready evidence。只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才从 `generated/stress_harsh_section.tex`、`generated/scenario_family_section.tex`、`generated/reproducibility_ledger_table.tex`，以及必要时移动出正文的 `generated/heldout_n50_section.tex` 中选择正式 supplement 内容。
