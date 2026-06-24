@@ -50,7 +50,7 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 投稿包现在又补入 `docs/paper/taes/manuscript/SUBMISSION_PACKAGE_INDEX.md`: 该索引把最终 portal upload set、内部 QA artifacts、metadata placeholders 和 final rebuild/source-bundle verification sequence 分开列出。`check_submission_readiness.py` 会检查该索引的关键锚点，`create_submission_bundle.py` 也会把它打入 source zip，避免最终提交时 PDF、source、cover letter、portal metadata 和内部证据清单混在一起。
 
-本轮继续把 PDF 视觉 QA 机器化: `docs/paper/taes/manuscript/scripts/render_pdf_visual_qa.py` 会在完整仓库 build 后渲染首页、方法页、主结果页、held-out/结论页和参考文献末页到 `tmp/pdf_visual_qa/`，并生成 `generated/PDF_VISUAL_QA_MANIFEST.md` 与 `generated/pdf_visual_qa.json`。readiness checker 会检查这些代表页是否渲染、尺寸是否合理、页面是否非空，从而把此前手工抽查的版面 QA 固化为可复现 gate。
+本轮继续把 PDF 视觉 QA 机器化: `docs/paper/taes/manuscript/scripts/render_pdf_visual_qa.py` 会在完整仓库 build 后渲染首页、方法页、主结果页、held-out/runtime 页、Discussion/Conclusion 页和参考文献末页到 `tmp/pdf_visual_qa/`，并生成 `generated/PDF_VISUAL_QA_MANIFEST.md` 与 `generated/pdf_visual_qa.json`。readiness checker 会检查这些代表页是否渲染、尺寸是否合理、页面是否非空，从而把此前手工抽查的版面 QA 固化为可复现 gate。
 
 本轮又做了一次首页叙事 polish: abstract 现在把主 N50 写成 `50 paired trials`，把 held-out evidence 明确成独立的 `50-trial base-seed-11 run`；Introduction 不再泛泛说“starts from failure mode”，而是直接说本文针对 residual correspondence failure，并明确 proposed gain 不归因于 scalar-weight routing。贡献列表也同步加入 held-out 50-trial replication，使第一页的 what/why/evidence 路径更完整。
 

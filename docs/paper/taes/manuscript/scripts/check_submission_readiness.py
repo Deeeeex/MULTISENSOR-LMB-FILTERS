@@ -903,7 +903,14 @@ def pdf_visual_qa_checks() -> list[Check]:
     if not isinstance(pages, list):
         pages = []
     labels = {str(page.get("label", "")) for page in pages if isinstance(page, dict)}
-    required_labels = {"title-abstract", "method", "main-results", "heldout-conclusion", "references"}
+    required_labels = {
+        "title-abstract",
+        "method",
+        "main-results",
+        "heldout-runtime",
+        "discussion-conclusion",
+        "references",
+    }
     missing_labels = sorted(required_labels - labels)
     bad_pages = [
         str(page.get("label", page.get("page", "unknown")))

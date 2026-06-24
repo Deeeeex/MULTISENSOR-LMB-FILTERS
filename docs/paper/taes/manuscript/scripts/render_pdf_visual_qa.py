@@ -24,7 +24,8 @@ PAGE_PLAN = [
     ("title-abstract", 1),
     ("method", 3),
     ("main-results", 6),
-    ("heldout-conclusion", 7),
+    ("heldout-runtime", 7),
+    ("discussion-conclusion", 8),
     ("references", "last"),
 ]
 
