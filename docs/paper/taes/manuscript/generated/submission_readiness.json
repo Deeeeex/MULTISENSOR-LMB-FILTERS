@@ -122,6 +122,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/scripts/extract_scenario_family_evidence.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/scripts/extract_stress_evidence.py",
       "gate": "required artifact",
       "status": "pass"
@@ -322,7 +327,42 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 53 files and SHA-256 `df4e8563e609f963c450ed17b99f794a9d6b6c4c311fa7d54e1073066d3c387f`.",
+      "detail": "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, and `scenario_family_section.tex` exist.",
+      "gate": "scenario-family generated artifacts",
+      "status": "pass"
+    },
+    {
+      "detail": "Parsed 2 scenario-family reports for configured keys: scenario_topology_ring_report, scenario_partial_fov35_report.",
+      "gate": "scenario-family configured source coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Scenario-family payload records scenario labels, topology/FOV controls, seeds, packet-loss profile, and expected-label matches.",
+      "gate": "scenario-family metadata coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Scenario-family means cover all three arms and all network/local manuscript metrics for each configured scenario.",
+      "gate": "scenario-family mean metric coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Scenario-family paired reductions include CI, wins, and sign-test p-values for full and reference-only arms.",
+      "gate": "scenario-family paired metric coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Configured scenario-family checks are currently smoke-tier evidence only; keep them in supplement/response planning until upgraded to N50-or-larger runs.",
+      "gate": "scenario-family evidence tier",
+      "status": "warning"
+    },
+    {
+      "detail": "Scenario-family evidence is configured and parsed. This gate checks protocol, coverage, and evidence-tier labeling, not that every metric improves.",
+      "gate": "optional scenario-family evidence path",
+      "status": "pass"
+    },
+    {
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `3302f3f7d2a5e3d4a3f81d78678d778aa2c165e569a01cb7ee6bc2d4cbed097e`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -342,7 +382,7 @@
       "status": "pass"
     }
   ],
-  "content_status": "content_ready_metadata_pending",
+  "content_status": "candidate_with_warnings",
   "metadata_gates": [
     {
       "detail": "14 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, SECOND AUTHOR, TAES.2026.Doi Number, THIRD AUTHOR, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",

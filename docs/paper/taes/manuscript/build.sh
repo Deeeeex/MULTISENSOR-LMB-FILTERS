@@ -46,6 +46,7 @@ if [[ "$regenerate_evidence" == "1" ]]; then
   python3 scripts/extract_reference_baselines.py
   python3 scripts/extract_heldout_sanity_evidence.py
   python3 scripts/extract_stress_evidence.py
+  python3 scripts/extract_scenario_family_evidence.py
   python3 scripts/verify_n50_evidence.py
   python3 scripts/verify_bibtex_dois.py
   python3 scripts/render_figures.py

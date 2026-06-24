@@ -43,6 +43,9 @@ STRESS_HARSH_JSON = OUT / "stress_harsh_evidence.json"
 STRESS_HARSH_MANIFEST = OUT / "STRESS_HARSH_MANIFEST.md"
 STRESS_HARSH_FRAGMENT = OUT / "stress_harsh_section.tex"
 STRESS_HARSH_SUMMARY = OUT / "stress_harsh_summary_sentence.tex"
+SCENARIO_FAMILY_JSON = OUT / "scenario_family_evidence.json"
+SCENARIO_FAMILY_MANIFEST = OUT / "SCENARIO_FAMILY_MANIFEST.md"
+SCENARIO_FAMILY_FRAGMENT = OUT / "scenario_family_section.tex"
 REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
 REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
 REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
@@ -60,6 +63,11 @@ HELDOUT_BASE_SEED = 11
 STRESS_BASE_SEED = 21
 STRESS_P_DROP_LEVELS = [0.2, 0.35, 0.5, 0.7]
 STRESS_P_DROP_LEVEL_COUNTS = [1, 3, 2, 2]
+SCENARIO_FAMILY_KEYS = [
+    "scenario_topology_ring_report",
+    "scenario_partial_fov35_report",
+    "scenario_full_topology_report",
+]
 ARM_ORDER = [
     "Tuned spatial-KLA AA",
     "Neighborhood label-barycenter spatial-KLA AA",
@@ -79,6 +87,7 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/extract_heldout_sanity_evidence.py",
     "scripts/extract_n50_evidence.py",
     "scripts/extract_reference_baselines.py",
+    "scripts/extract_scenario_family_evidence.py",
     "scripts/extract_stress_evidence.py",
     "scripts/render_figures.py",
     "scripts/render_pdf_visual_qa.py",
@@ -347,6 +356,7 @@ def file_checks() -> list[Check]:
         OUT / "BIBTEX_DOI_VERIFICATION.md",
         OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
         ROOT / "scripts" / "create_submission_bundle.py",
+        ROOT / "scripts" / "extract_scenario_family_evidence.py",
         ROOT / "scripts" / "extract_stress_evidence.py",
         ROOT / "scripts" / "render_pdf_visual_qa.py",
         ROOT / "scripts" / "render_reproducibility_ledger.py",
@@ -936,6 +946,7 @@ def evidence_checks() -> list[Check]:
             )
         )
     checks.extend(stress_harsh_checks())
+    checks.extend(scenario_family_checks())
     return checks
 
 
@@ -1154,6 +1165,167 @@ def stress_harsh_checks() -> list[Check]:
             "pass" if protocol_ok and profile_ok else "warning",
             "Harsh-stress evidence is configured and parsed; interpretation is recorded as "
             f"`{stress.get('interpretation_class', 'missing')}`. This gate checks protocol and coverage, not that every metric improves.",
+        )
+    )
+    return checks
+
+
+def scenario_family_checks() -> list[Check]:
+    sources = json.loads(read_text(EVIDENCE_SOURCES)) if EVIDENCE_SOURCES.exists() else {}
+    configured_keys = [key for key in SCENARIO_FAMILY_KEYS if key in sources]
+    artifacts = [SCENARIO_FAMILY_JSON, SCENARIO_FAMILY_MANIFEST, SCENARIO_FAMILY_FRAGMENT]
+    existing_artifacts = [path for path in artifacts if path.exists()]
+
+    if not configured_keys and not existing_artifacts:
+        return [
+            Check(
+                "optional scenario-family evidence path",
+                "pass",
+                "No topology/FOV scenario-family evidence is configured in `evidence_sources.json`; the non-blocking parser path is present and no stale scenario artifacts are included.",
+            )
+        ]
+
+    if configured_keys and not SCENARIO_FAMILY_JSON.exists():
+        return [
+            Check(
+                "optional scenario-family evidence path",
+                "warning",
+                "Scenario-family evidence keys are configured, but `generated/scenario_family_evidence.json` is missing. Re-run `./build.sh` after the source reports are available.",
+            )
+        ]
+
+    if not configured_keys and existing_artifacts:
+        return [
+            Check(
+                "optional scenario-family evidence path",
+                "warning",
+                "Scenario-family artifacts exist even though no scenario-family evidence key is configured; remove stale files or re-run `./build.sh`.",
+            )
+        ]
+
+    payload = json.loads(read_text(SCENARIO_FAMILY_JSON))
+    scenarios = payload.get("scenarios", [])
+    if not isinstance(scenarios, list):
+        scenarios = []
+
+    checks: list[Check] = []
+    artifacts_ok = all(path.exists() for path in artifacts)
+    checks.append(
+        Check(
+            "scenario-family generated artifacts",
+            "pass" if artifacts_ok else "error",
+            "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, and `scenario_family_section.tex` exist."
+            if artifacts_ok
+            else "Scenario-family evidence JSON exists, but the generated manifest or response-ready fragment is missing.",
+        )
+    )
+
+    parsed_keys = {
+        str(item.get("source_key", ""))
+        for item in scenarios
+        if isinstance(item, dict) and item.get("source_key")
+    }
+    missing_configured = sorted(set(configured_keys) - parsed_keys)
+    count_ok = len(scenarios) >= len(configured_keys) and not missing_configured
+    checks.append(
+        Check(
+            "scenario-family configured source coverage",
+            "pass" if count_ok else "error",
+            f"Parsed {len(scenarios)} scenario-family reports for configured keys: {', '.join(configured_keys)}."
+            if count_ok
+            else "Scenario-family payload does not cover every configured source key; missing: "
+            + (", ".join(missing_configured) if missing_configured else "count mismatch"),
+        )
+    )
+
+    missing_mean: list[str] = []
+    missing_paired: list[str] = []
+    missing_metadata: list[str] = []
+    nonmatching_labels: list[str] = []
+    tiers: list[str] = []
+    for index, scenario in enumerate(scenarios):
+        if not isinstance(scenario, dict):
+            missing_metadata.append(f"scenario[{index}]")
+            continue
+        name = str(scenario.get("name", f"scenario[{index}]"))
+        config = scenario.get("config", {})
+        if not isinstance(config, dict):
+            missing_metadata.append(f"{name}/config")
+            config = {}
+        for field in [
+            "trials",
+            "base_seed",
+            "trial_seeds",
+            "scenario_label",
+            "neighbor_map_mode",
+            "sensor_fov_half_angle_deg",
+            "p_drop_levels",
+            "p_drop_level_counts",
+        ]:
+            if field not in config:
+                missing_metadata.append(f"{name}/config/{field}")
+        tier = str(scenario.get("evidence_tier", "missing"))
+        tiers.append(tier)
+        if scenario.get("scenario_label_matches_expected") is False:
+            nonmatching_labels.append(name)
+        mean_missing = []
+        mean_missing.extend(missing_metric_entries(scenario, "network", ARM_ORDER, NETWORK_METRICS))
+        mean_missing.extend(missing_metric_entries(scenario, "local", ARM_ORDER, LOCAL_METRICS))
+        missing_mean.extend(f"{name}/{entry}" for entry in mean_missing)
+        paired_missing = []
+        paired_missing.extend(missing_paired_entries(scenario, "paired_network", NETWORK_METRICS))
+        paired_missing.extend(missing_paired_entries(scenario, "paired_local", LOCAL_METRICS))
+        missing_paired.extend(f"{name}/{entry}" for entry in paired_missing)
+
+    checks.append(
+        Check(
+            "scenario-family metadata coverage",
+            "pass" if not missing_metadata and not nonmatching_labels else "warning",
+            "Scenario-family payload records scenario labels, topology/FOV controls, seeds, packet-loss profile, and expected-label matches."
+            if not missing_metadata and not nonmatching_labels
+            else "Scenario-family metadata is incomplete or labels do not match the configured scenario contract: missing="
+            + (", ".join(missing_metadata) if missing_metadata else "none")
+            + "; nonmatching labels="
+            + (", ".join(nonmatching_labels) if nonmatching_labels else "none"),
+        )
+    )
+
+    checks.append(
+        Check(
+            "scenario-family mean metric coverage",
+            "pass" if not missing_mean else "error",
+            "Scenario-family means cover all three arms and all network/local manuscript metrics for each configured scenario."
+            if not missing_mean
+            else "Scenario-family mean metric payload is incomplete: " + "; ".join(missing_mean),
+        )
+    )
+
+    checks.append(
+        Check(
+            "scenario-family paired metric coverage",
+            "pass" if not missing_paired else "error",
+            "Scenario-family paired reductions include CI, wins, and sign-test p-values for full and reference-only arms."
+            if not missing_paired
+            else "Scenario-family paired payload is incomplete: " + "; ".join(missing_paired),
+        )
+    )
+
+    has_paper_grade = "paper_grade" in tiers
+    checks.append(
+        Check(
+            "scenario-family evidence tier",
+            "pass" if has_paper_grade else "warning",
+            "At least one configured scenario-family check is paper-grade N50-or-larger evidence; smoke tiers remain explicitly labeled."
+            if has_paper_grade
+            else "Configured scenario-family checks are currently smoke-tier evidence only; keep them in supplement/response planning until upgraded to N50-or-larger runs.",
+        )
+    )
+
+    checks.append(
+        Check(
+            "optional scenario-family evidence path",
+            "pass",
+            "Scenario-family evidence is configured and parsed. This gate checks protocol, coverage, and evidence-tier labeling, not that every metric improves.",
         )
     )
     return checks
