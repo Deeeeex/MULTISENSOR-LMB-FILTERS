@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 10:15 CST
+日期: 2026-06-24 10:56 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -17,7 +17,7 @@
 
 | Paper-facing claim | Manuscript location | Primary evidence | Verification level | Remaining gate |
 | --- | --- | --- | --- | --- |
-| AA/KLA scalar weights decide fusion mass/trust but do not solve Bernoulli component correspondence across local LMB posteriors. | Introduction, Related Work | AA fusion literature synthesis; method contrast in `main.tex` | Conceptual and citation-backed | Final language pass should keep this as the central motivation and avoid overclaiming all AA failures. |
+| AA/KLA scalar weights decide fusion mass/trust but do not solve Bernoulli component correspondence across local LMB posteriors. | Introduction, Problem Formulation, Structural Properties | AA fusion literature synthesis; `Weighting is not matching` label-swap counterexample in `main.tex` | Conceptual, citation-backed, and formalized by a minimal counterexample | Final language pass should keep this as the central motivation and avoid overclaiming all AA failures. |
 | The proposed operator first canonicalizes labels by assignment and then fuses matched posterior moments. | Method, Fig. 1, Algorithm box | `scripts/render_figures.py`; `generated/method_pipeline.tex`; algorithm text in `main.tex` | Source-backed and rendered in PDF | Final PDF visual check after every figure/table edit. |
 | The operator is graph-local in the neighborhood version and does not require global label-set access. | Method, Graph locality paragraph | `RUN/AA/runAaBalancedCardinalityValidation.m`; neighborhood N50 report | Code path and report-backed | Keep centralized upper-bound language out of the main claim. |
 | Under stable matching and connected repeated neighborhood averaging, local moments converge to the centralized equal-weight barycenter. | Structural Properties | Proposition in `main.tex` | Theory stated with explicit assumptions | Do not present as a finite-round guarantee; check proof wording before final submission. |
@@ -56,7 +56,7 @@
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
 | Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`; prewired optional fragment `generated/heldout_n50_section.tex` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, add the path to `evidence_sources.json`, rebuild, then inspect the generated held-out table/paragraph before keeping it in the manuscript. |
-| PDF visual QA | Passed for current checkpoint | `./build.sh`; rendered checks of the title/abstract page, method pages, results page, and final reference page after the contribution-sentence layout fix | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
+| PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, problem/method pages, structural-properties pages, and result/reference pages after the scalar-weight counterexample edit | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check` Tectonic compile | Re-run after final manuscript-affecting edits. |
 

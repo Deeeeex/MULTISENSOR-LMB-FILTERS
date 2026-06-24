@@ -68,7 +68,8 @@ This paper starts from that structural failure mode. We use a tuned AA-LMB basel
 
 We propose a \method{} operator for distributed LMB fusion. At each time step, each sensor uses only the estimates available in its communication neighborhood. The sensor first chooses a reference estimate by a median-cardinality medoid rule, which prevents minority cardinality outliers from directly selecting the reference. It then matches neighboring estimates to the reference labels using the Hungarian assignment method \cite{Kuhn1955Hungarian}. For each reference label, the matched Gaussian states are replaced by the mean and covariance of the empirical matched mixture. Repeating this local operator over the graph propagates label-space agreement without reading a global label set.
 
-Contributions are: diagnosing residual AA-LMB correspondence failure; defining a graph-local medoid-assignment moment-barycenter operator; and separating posterior barycentering from label copying through structural analysis and paired ablations.
+\noindent\textbf{Contributions.}
+First, we isolate a residual AA-LMB failure mode that remains after target-wise scalar weights are routed correctly: component labels can still disagree, so existence and spatial consumers receive incomparable Bernoulli components. Second, we define a graph-local medoid-assignment moment-barycenter operator that canonicalizes the neighborhood label set and then fuses only matched posterior states. Third, we state the structural conditions under which the operator is robust to cardinality outliers, preserves reference labels, and reduces to centralized equal-weight moment consensus under stable matching. Fourth, we validate the mechanism with paired 50-trial evidence and a reference-only ablation that separates label copying from matched posterior barycentering.
 
 \section{RELATED WORK}
 Labeled RFS filters provide a Bayesian finite-set formulation for preserving target identity while estimating multi-object states \cite{Vo2014LRFS}. The LMB filter gives a tractable approximation in which each Bernoulli component carries an existence probability and a labeled single-target density \cite{Reuter2014LMB}. Multi-sensor and distributed versions of labeled RFS filters have been studied through generalized covariance-intersection fusion, robust distributed labeled-RFS fusion, consensus LMB updates, and resilient peer-to-peer LMB fusion \cite{Wang2017MBGCI,Li2018RobustDistributedLRFS,Shen2022ConsensusLMB,Gao2023ResilientLMB}. These methods address how sensors should share uncertain multi-object information, but practical labeled fusion still depends on whether components with different local labels are comparable.
@@ -91,6 +92,8 @@ The core difficulty is that the sets $\{\ell_{s,i}\}$ need not agree across sens
   \mathcal{B}_s:\{X_j(k):j\in\mathcal{N}_s\}\mapsto Y_s(k)
 \end{equation}
 that is local to the graph, preserves an interpretable reference label set, and reduces both pairwise output disagreement and truth-referenced tracking error.
+
+The problem is not that scalar AA/KLA weights are unimportant. They remain the mechanism for allocating trust across incoming densities once the components being compared are known. The missing object is a correspondence map from local components to a common reference. The operator below estimates that map from the output geometry before applying a moment projection.
 
 \section{NEIGHBORHOOD LABEL-BARYCENTER FUSION}
 \subsection{Reference Selection}
@@ -154,6 +157,18 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \end{figure}
 
 \section{STRUCTURAL PROPERTIES}
+\begin{proposition}[Weighting is not matching]
+Consider two sensors and two one-dimensional targets with distinct means $x_1\ne x_2$. Sensor 1 labels them $(a,x_1)$ and $(b,x_2)$, while sensor 2 labels them $(a,x_2)$ and $(b,x_1)$. A label-keyed scalar fusion consumer that fuses equal labels with weights $\alpha_a,\alpha_b\in[0,1]$ produces means
+\begin{equation}
+  \hat{x}_a=\alpha_a x_1+(1-\alpha_a)x_2,\quad
+  \hat{x}_b=\alpha_b x_2+(1-\alpha_b)x_1 .
+\end{equation}
+If both sensors have positive weight for a component, the fused mean lies between the two physical targets rather than selecting the missing permutation. Choosing an endpoint weight avoids mixing only by discarding one sensor for that component. Thus scalar weights can suppress or emphasize an incoming component, but they do not by themselves infer the correspondence $a\leftrightarrow b$ created by the label swap.
+\end{proposition}
+\begin{proof}
+The displayed equations are the scalar-weighted means used by a label-keyed consumer in this two-component example. For $0<\alpha_a<1$, $\hat{x}_a$ is a strict convex combination of $x_1$ and $x_2$; the same holds for $\hat{x}_b$ when $0<\alpha_b<1$. The only way to recover an endpoint for a component is to set the corresponding weight to 0 or 1, which selects one sensor's label assignment rather than estimating the cross-sensor permutation.
+\end{proof}
+
 \begin{proposition}[Median-cardinality robustness]
 If more than half of the sensors in $\mathcal{N}_s$ output the same cardinality $n^\star$ at time $k$, then the reference selected by the median-cardinality stage also has cardinality $n^\star$.
 \end{proposition}
