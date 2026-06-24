@@ -260,11 +260,13 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
     rows = [generated_header(), "\\begin{picture}(38.0,9.8)\n"]
     rows.append("\\put(0.0,9.35){\\makebox(38.0,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
-    rows.append("\\put(30.6,8.82){\\tablefont Full / Ref.}\n")
+    rows.append("\\put(26.9,8.82){\\color{black}\\rule{0.80pc}{0.06in}}\n")
+    rows.append("\\put(27.9,8.78){\\tablefont Full}\n")
+    rows.append("\\put(31.4,8.82){\\color[gray]{0.58}\\rule{0.80pc}{0.06in}}\n")
+    rows.append("\\put(32.4,8.78){\\tablefont Ref.-only}\n")
     axis_x = 9.2
     axis_y = 0.95
-    scale_w = 20.5
-    value_x = axis_x + scale_w + 1.0
+    scale_w = 24.0
     grid_h = 7.65
     bar_h = "0.08in"
     for tick in [0, 25, 50, 75, 100]:
@@ -283,9 +285,7 @@ def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
             [
                 f"\\put(0.3,{y + 0.02:.2f}){{\\tablefont {fig_label}}}\n",
                 f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({value_x:.2f},{y + 0.23:.2f}){{\\makebox(6.8,0)[l]{{\\tablefont {full:.2f}\\%}}}}\n",
                 f"\\put({axis_x:.2f},{y - 0.43:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({value_x:.2f},{y - 0.42:.2f}){{\\makebox(6.8,0)[l]{{\\tablefont {ref:.2f}\\%}}}}\n",
             ]
         )
     rows.extend(
