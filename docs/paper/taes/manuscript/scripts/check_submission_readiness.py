@@ -42,6 +42,7 @@ HELDOUT_N50_FRAGMENT = OUT / "heldout_n50_section.tex"
 STRESS_HARSH_JSON = OUT / "stress_harsh_evidence.json"
 STRESS_HARSH_MANIFEST = OUT / "STRESS_HARSH_MANIFEST.md"
 STRESS_HARSH_FRAGMENT = OUT / "stress_harsh_section.tex"
+STRESS_HARSH_SUMMARY = OUT / "stress_harsh_summary_sentence.tex"
 REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
 REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
 REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
@@ -1052,7 +1053,7 @@ def heldout_n50_checks(heldout: dict[str, object]) -> list[Check]:
 def stress_harsh_checks() -> list[Check]:
     sources = json.loads(read_text(EVIDENCE_SOURCES)) if EVIDENCE_SOURCES.exists() else {}
     configured = "stress_harsh_n50_report" in sources
-    artifacts = [STRESS_HARSH_JSON, STRESS_HARSH_MANIFEST, STRESS_HARSH_FRAGMENT]
+    artifacts = [STRESS_HARSH_JSON, STRESS_HARSH_MANIFEST, STRESS_HARSH_FRAGMENT, STRESS_HARSH_SUMMARY]
     existing_artifacts = [path for path in artifacts if path.exists()]
 
     if not configured and not existing_artifacts:
@@ -1112,14 +1113,14 @@ def stress_harsh_checks() -> list[Check]:
 
     artifacts_ok = all(path.exists() for path in artifacts)
     checks.append(
-        Check(
-            "harsh-stress generated artifacts",
-            "pass" if artifacts_ok else "error",
-            "`STRESS_HARSH_MANIFEST.md`, `stress_harsh_evidence.json`, and `stress_harsh_section.tex` exist."
-            if artifacts_ok
-            else "Harsh-stress evidence JSON exists, but the generated manifest or response-ready fragment is missing.",
+            Check(
+                "harsh-stress generated artifacts",
+                "pass" if artifacts_ok else "error",
+                "`STRESS_HARSH_MANIFEST.md`, `stress_harsh_evidence.json`, `stress_harsh_section.tex`, and `stress_harsh_summary_sentence.tex` exist."
+                if artifacts_ok
+                else "Harsh-stress evidence JSON exists, but the generated manifest, response-ready fragment, or manuscript summary sentence is missing.",
+            )
         )
-    )
 
     missing_mean = []
     missing_mean.extend(missing_metric_entries(stress, "network", ARM_ORDER, NETWORK_METRICS))

@@ -1,6 +1,6 @@
 # AA stress scenario validation protocol
 
-最后更新: 2026-06-24 13:13 CST
+最后更新: 2026-06-24 15:36 CST
 
 ## 目的
 
@@ -57,6 +57,41 @@ Interpretation:
 - The report structure is compatible with the existing evidence parser style: it contains per-trial network rows, local tracking rows, paired reduction tables, and runtime.
 - The full method still strongly reduces network disagreement and improves local E-OSPA/CardErr on this single stress trial.
 - RMSE is mixed in the smoke result: full barycenter is slightly worse than tuned AA, and reference-only is nearly tied. This is not a failure of the protocol; it is a useful warning that the harsher stress family may expose a localization boundary. A formal N50 run is needed before deciding whether this belongs in the manuscript, supplement, or limitation-only evidence package.
+
+## Formal N50 result
+
+Formal N50 completed on 2026-06-24 with `numberOfTrials=50`, `baseSeed=21`, and trial seeds `22..71`.
+
+Artifacts:
+
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED21_20260624_130730.md`
+- Log: `RUN/AA/AA_TAES_STRESS_HARSH_N50_BASESEED21_20260624_130728.log`
+- Generated manifest: `docs/paper/taes/manuscript/generated/STRESS_HARSH_MANIFEST.md`
+- Generated response-ready fragment: `docs/paper/taes/manuscript/generated/stress_harsh_section.tex`
+- Generated manuscript sentence: `docs/paper/taes/manuscript/generated/stress_harsh_summary_sentence.tex`
+
+Formal result:
+
+| Arm | Net OSPA | Loc. disag. | Card. disp. | E-OSPA | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 2.224259 | 2.127170 | 0.087475 | 2.523393 | 4.235071 | 0.146025 |
+| Neighborhood label-barycenter | 0.454475 | 0.299389 | 0.044100 | 2.092956 | 3.897040 | 0.110500 |
+| Neighborhood reference-only | 1.262520 | 1.152782 | 0.044100 | 2.354646 | 4.130316 | 0.110500 |
+
+Paired reductions relative to tuned AA:
+
+| Metric | Full reduction | Full wins | Ref.-only reduction | Ref.-only wins |
+| --- | ---: | ---: | ---: | ---: |
+| Network OSPA | 79.57% | 50/50 | 43.24% | 50/50 |
+| Local E-OSPA | 17.06% | 50/50 | 6.69% | 50/50 |
+| Local RMSE | 7.98% | 48/50 | 2.47% | 38/50 |
+| CardErr | 24.33% | 50/50 | 24.33% | 50/50 |
+
+Interpretation:
+
+- The formal N50 reverses the single-trial RMSE warning: under the harsher packet-loss family, full label-barycenter still improves RMSE and keeps a larger RMSE gain than reference-only.
+- The packet-loss stress result should strengthen the manuscript as fixed-design robustness evidence, not as a new tuning target.
+- This closes a broader packet-loss-profile check, but it does not close topology, partial-field-of-view, maneuver, or recursive-online implementation risks.
 
 ## Formal run launcher
 
@@ -118,7 +153,7 @@ The build will generate:
 - `generated/stress_harsh_evidence.json`
 - `generated/stress_harsh_section.tex`
 
-The LaTeX fragment is response-ready but is not imported by `main.tex` by default. This keeps the current manuscript stable while still making the stress result easy to inspect and decide: main paper, supplement/response package, or limitations-only evidence.
+The LaTeX table fragment is response-ready but is not imported by `main.tex` by default. The build also generates `stress_harsh_summary_sentence.tex`, which is imported into Discussion when `stress_harsh_n50_report` is configured. This keeps the current manuscript compact while still making the full stress table easy to use in a supplement or response package.
 
 ## Paper-facing decision rule
 
