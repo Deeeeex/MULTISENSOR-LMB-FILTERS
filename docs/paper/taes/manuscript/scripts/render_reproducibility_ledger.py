@@ -148,9 +148,22 @@ def build_rows() -> list[dict[str, object]]:
 
     scenario_count = int(scenario_evidence.get("scenario_count", 0))
     paper_grade_count = int(scenario_evidence.get("paper_grade_count", 0))
+    smoke_count = int(scenario_evidence.get("smoke_count", max(0, scenario_count - paper_grade_count)))
     configured_keys = scenario_evidence.get("configured_keys", [])
     if not isinstance(configured_keys, list):
         raise ValueError("Scenario-family configured_keys must be a list")
+    if scenario_count == 0:
+        scenario_role = "Scenario-family evidence path is enabled, but no topology/FOV checks are currently configured."
+    elif smoke_count == 0:
+        scenario_role = (
+            "Response-ready boundary evidence; all configured topology/FOV checks are "
+            "N50-or-larger paper-grade fixed-parameter runs."
+        )
+    else:
+        scenario_role = (
+            f"Response-ready boundary evidence; {paper_grade_count} paper-grade and "
+            f"{smoke_count} smoke-tier check(s), with smoke tiers explicitly labeled as boundary probes."
+        )
 
     return [
         evidence_row(
@@ -185,7 +198,7 @@ def build_rows() -> list[dict[str, object]]:
                 f"{scenario_count} configured topology/FOV checks; "
                 f"{paper_grade_count} paper-grade; keys {', '.join(str(key) for key in configured_keys)}"
             ),
-            "role": "Response-ready boundary evidence with smoke tiers explicitly labeled until upgraded to N50-or-larger runs.",
+            "role": scenario_role,
         },
         {
             "name": "Independent verifier",

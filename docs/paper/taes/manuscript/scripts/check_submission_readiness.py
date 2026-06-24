@@ -655,7 +655,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         Check(
             "stress generalization boundary wording",
             "pass" if not missing_stress_boundary else "warning",
-            "Discussion preserves the boundary that harsh packet-loss stress and topology-ring evidence do not substitute for partial-FOV, maneuver, or covariance-consistency validation."
+            "Discussion preserves the boundary that harsh-loss, topology-ring, and partial-FOV checks do not substitute for maneuvering-target or covariance-consistency validation."
             if not missing_stress_boundary
             else "Stress/generalization boundary wording is incomplete; missing markers: "
             + "; ".join(missing_stress_boundary),
@@ -1430,13 +1430,21 @@ def scenario_family_checks() -> list[Check]:
     )
 
     has_paper_grade = "paper_grade" in tiers
+    has_smoke = any(tier != "paper_grade" for tier in tiers)
+    if has_paper_grade and not has_smoke:
+        tier_detail = "All configured scenario-family checks are paper-grade N50-or-larger fixed-parameter evidence."
+    elif has_paper_grade:
+        tier_detail = "At least one configured scenario-family check is paper-grade N50-or-larger evidence; smoke tiers remain explicitly labeled."
+    else:
+        tier_detail = (
+            "Configured scenario-family checks are currently smoke-tier evidence only; "
+            "keep them in supplement/response planning until upgraded to N50-or-larger runs."
+        )
     checks.append(
         Check(
             "scenario-family evidence tier",
             "pass" if has_paper_grade else "warning",
-            "At least one configured scenario-family check is paper-grade N50-or-larger evidence; smoke tiers remain explicitly labeled."
-            if has_paper_grade
-            else "Configured scenario-family checks are currently smoke-tier evidence only; keep them in supplement/response planning until upgraded to N50-or-larger runs.",
+            tier_detail,
         )
     )
 

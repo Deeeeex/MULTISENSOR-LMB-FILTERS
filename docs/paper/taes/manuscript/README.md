@@ -50,15 +50,15 @@ The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT
 
 Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, `generated/stress_harsh_section.tex`, and the concise `generated/stress_harsh_summary_sentence.tex` imported by Discussion. The full stress table remains response-ready; decide during final page-budget review whether it belongs in supplementary material or reviewer-response evidence.
 
-If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring report is a fixed-parameter N50 scenario-family check and is labeled paper-grade evidence by the generated manifest; the partial-FOV report remains an N5 smoke-tier boundary probe until its fixed-parameter N50 run completes.
+If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring and partial-FOV reports are fixed-parameter N50 scenario-family checks and are labeled paper-grade evidence by the generated manifest; the generated artifacts still preserve smoke-vs-paper-grade tier labels for future boundary probes.
 
-The active partial-FOV N50 upgrade path is report-driven. The long run writes its live log to:
+The partial-FOV N50 upgrade is complete and report-driven. The configured source report is:
 
 ```text
-../../../RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log
+../../../RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md
 ```
 
-After the run emits its final Markdown report, replace only `scenario_partial_fov35_report` in `evidence_sources.json` with that completed report path, then run `./build.sh`. Do not change the method parameters for this scenario-family upgrade: the point is to test the fixed label-barycenter design under narrower sensing geometry, not to tune against the partial-FOV data. If the generated manifest classifies the N50 result as mixed boundary evidence, keep that classification and update the Discussion boundary wording rather than searching for a better configuration.
+Do not change the method parameters for this scenario-family evidence path: the point is to test the fixed label-barycenter design under narrower sensing geometry, not to tune against the partial-FOV data. If future scenario-family checks produce mixed or negative indicators, keep that classification and update the Discussion boundary wording rather than searching for a better configuration.
 
 The submission source bundle is generated at:
 
@@ -99,6 +99,6 @@ Harsh packet-loss N50 stress run:
 
 After it completes, add the generated Markdown report path to `evidence_sources.json` as `stress_harsh_n50_report`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md` plus `generated/stress_harsh_section.tex`. This stress result must not trigger per-scenario threshold or barycenter-weight search; mixed outcomes should be preserved as scenario-boundary evidence.
 
-The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
+The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed. Target-maneuver, covariance-consistency, and recursive-online validation would further reduce review risk beyond the current fixed-parameter topology/FOV scenario-family checks.
 
 For the current claim-by-claim readiness state, see `READINESS_AUDIT_CN.md`.
