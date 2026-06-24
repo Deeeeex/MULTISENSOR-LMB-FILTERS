@@ -29,7 +29,7 @@ Main files:
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
 - `scripts/render_figures.py`: dependency-light figure renderer for the method pipeline and static SVG assets.
 - `scripts/render_pdf_visual_qa.py`: renders representative PDF pages to `tmp/pdf_visual_qa/` and writes a generated visual-QA manifest.
-- `scripts/render_reproducibility_ledger.py`: generates a source-package ledger that separates primary paired AA evidence, held-out robustness evidence, contextual GA rows, and independent verifier evidence.
+- `scripts/render_reproducibility_ledger.py`: generates a source-package ledger that separates primary paired AA evidence, held-out robustness evidence, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and independent verifier evidence.
 - `scripts/create_submission_bundle.py`: creates a deterministic source bundle under `tmp/submission_bundle/` and writes `generated/SUBMISSION_BUNDLE_MANIFEST.md`.
 - `../../../RUN/AA/launchAaTaesN50LocalVerifierRerun.sh`: starts the long N50 rerun that emits per-trial local tracking rows for final local-metric verification.
 - `../../../RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh`: starts a paper-grade base-seed-11 held-out N50 run after the local-verifier rerun finishes; by default it refuses to start while a TAES local-verifier N50 PID is still active.
@@ -50,7 +50,7 @@ The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT
 
 Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, `generated/stress_harsh_section.tex`, and the concise `generated/stress_harsh_summary_sentence.tex` imported by Discussion. The full stress table remains response-ready; decide during final page-budget review whether it belongs in supplementary material or reviewer-response evidence.
 
-If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current configured topology-ring report is an N1 smoke check and the partial-FOV report is an N5 smoke check, so they are package-visible for boundary analysis and reviewer-response planning but should not be used as paper-grade robustness claims until upgraded to N50-or-larger runs.
+If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring report is a fixed-parameter N50 scenario-family check and is labeled paper-grade evidence by the generated manifest; the partial-FOV report remains an N5 smoke-tier boundary probe until its fixed-parameter N50 run completes.
 
 The submission source bundle is generated at:
 
