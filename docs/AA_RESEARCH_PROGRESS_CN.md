@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-24 16:54 CST
+最后更新: 2026-06-24 17:02 CST
 
 ## 当前结论
 
@@ -15,6 +15,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 本轮又把 scenario-family evidence 接入 TAES source package: `docs/paper/taes/manuscript/scripts/extract_scenario_family_evidence.py` 会解析 `scenario_topology_ring_report`、`scenario_partial_fov35_report` 或 `scenario_full_topology_report`，生成 `generated/SCENARIO_FAMILY_MANIFEST.md`、`generated/scenario_family_evidence.json` 和 response-ready 的 `generated/scenario_family_section.tex`。readiness checker 现在会检查场景源覆盖、topology/FOV metadata、三臂 network/local means、paired CI/wins/p-values 和 evidence tier；当前 topology-ring 被标记为 `n1_smoke`，partial-FOV 被标记为 `multi_trial_smoke`，因此只作为 supplement/response/boundary planning，不作为 paper-grade robustness claim。
 
 2026-06-24 16:54 CST 状态检查: topology-ring N50 仍在运行，PID `37456` 存活，log 已进入 trial `15/50`，尚未生成 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report。因此 TAES readiness 的唯一内容 warning 仍是 scenario-family evidence tier；不能把该 N50 写成完成或 paper-grade 证据。
+
+本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 只扩展 packet-loss severity，仍保留 formation-family assumptions，不能替代 sparse topology、partial FOV、maneuvering-target 或 covariance-consistency studies。这个改动避免把 stress N50 过度解释为全场景泛化证据。
 
 第二阶段稿件增强已开始: `main.tex` 现在补入了 DOI 程序化核验过的近期 AA/RFS/LMB fusion 文献，Related Work 已按方法线重写；方法部分增加了 graph-local operator 伪代码和 reference-label invariance 性质；实验设置已经明确三臂设计对应的可证伪 claim；结果部分从均值表扩展为均值、95% CI、paired reduction、wins、sign-test evidence、runtime 和 PDF 内可见的 N50 reduction 图。
 
@@ -204,7 +206,7 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - PID file: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.pid`。
 - Log: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`。
 - 启动状态: 2026-06-24 16:24 CST 时已成功 detach；后续用 `tail -f RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log` 查看。
-- 最新检查: 2026-06-24 16:54 CST 时 PID `37456` 仍存活，log 已进入 trial `15/50`，尚未生成 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report。
+- 最新检查: 2026-06-24 17:02 CST 时 PID `37456` 仍存活，log 已进入 trial `18/50`，尚未生成 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report。
 - 接入计划: 完成后把生成的 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` 配到 `scenario_topology_ring_report`，重跑 `./build.sh`，检查 `SCENARIO_FAMILY_MANIFEST.md`、`scenario_family_evidence.json`、`scenario_family_section.tex` 和 `submission_readiness.json`。若结果 mixed，保留 boundary 解释，不回调参数。
 
 ## 下一步

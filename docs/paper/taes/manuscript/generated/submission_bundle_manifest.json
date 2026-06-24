@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "d1fe92369151e59548472dd51d4f0f61afcc29eb37196a136f9a62f090f26c31",
+  "bundle_sha256": "55b1aabb26b138293a42b795649cd744c5318fd5f5bc4d83cbad8620246d268e",
   "file_count": 57,
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "7db906d042a75df43e85f1aee53f540bececcfd8b1c80366422f2243c0c74aab",
-      "size_bytes": 19249
+      "sha256": "37bcfae02f7222215599af87c3329fb511691282f523c1c64005220f5e9c5b9c",
+      "size_bytes": 19394
     },
     {
       "path": "README.md",
@@ -210,13 +210,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "b1aa8ed75f789a117bbaf63b105ae48f9e8d66ead94e60b356e5cd1d09589207",
-      "size_bytes": 110973
+      "sha256": "2618e6f785c6ace5b7461f253a78e0277d0b857baeb666c68037e5a0872433cf",
+      "size_bytes": 111022
     },
     {
       "path": "main.tex",
-      "sha256": "1f1705e6295c26c10e0117bae487abc384b95362fa71f99e0ec87c4f41a998b7",
-      "size_bytes": 34362
+      "sha256": "b97f02697ccdd6ac213d2f1911fa387437074dd5f330b72659ab340fec11f871",
+      "size_bytes": 34424
     },
     {
       "path": "references.bib",

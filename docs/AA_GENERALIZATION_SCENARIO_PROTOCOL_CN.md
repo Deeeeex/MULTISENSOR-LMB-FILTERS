@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 16:54 CST
+最后更新: 2026-06-24 17:02 CST
 
 ## 目的
 
@@ -216,7 +216,7 @@ Run handoff:
 - PID file: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.pid`
 - Log: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
 - Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
-- Status check at 2026-06-24 16:54 CST: PID `37456` was still alive; log had entered trial `15/50`; no `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report had been generated yet.
+- Status check at 2026-06-24 17:02 CST: PID `37456` was still alive; log had entered trial `18/50`; no `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report had been generated yet.
 
 This run should be interpreted under the same no-search rule: if sparse topology weakens local tracking or cardinality, preserve the boundary result and discuss graph-local propagation limits rather than retuning `H`, thresholds, projection cutoff, barycenter weights, or label rules.
 
