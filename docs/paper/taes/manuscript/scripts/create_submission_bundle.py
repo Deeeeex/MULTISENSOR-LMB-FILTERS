@@ -2,9 +2,10 @@
 """Create a deterministic TAES manuscript source bundle.
 
 The bundle is meant for final submission hygiene: it contains the compiled PDF,
-the LaTeX sources needed to rebuild it, and the generated evidence manifests
-that explain where the paper-facing numbers came from. Runtime logs, temporary
-rendered pages, and experiment outputs are intentionally excluded.
+the LaTeX sources needed to rebuild it, the generated evidence manifests that
+explain where the paper-facing numbers came from, and the local scripts needed
+to regenerate those fragments from the tracked source reports. Runtime logs,
+temporary rendered pages, and experiment outputs are intentionally excluded.
 """
 
 from __future__ import annotations
@@ -43,6 +44,7 @@ def add_if_exists(paths: list[Path], rel: str) -> None:
 def collect_files() -> list[Path]:
     files: list[Path] = []
     for rel in [
+        "build.sh",
         "main.tex",
         "main.pdf",
         "references.bib",
@@ -54,6 +56,9 @@ def collect_files() -> list[Path]:
         "evidence_sources.json",
     ]:
         add_if_exists(files, rel)
+
+    for path in sorted((ROOT / "scripts").glob("*.py")):
+        files.append(path)
 
     for directory, patterns in [
         (ROOT / "figures", ["*.svg"]),
@@ -86,7 +91,8 @@ def write_zip(files: list[Path]) -> None:
             rel = path.relative_to(ROOT).as_posix()
             info = zipfile.ZipInfo(rel, ZIP_TIMESTAMP)
             info.compress_type = zipfile.ZIP_DEFLATED
-            info.external_attr = 0o644 << 16
+            mode = 0o755 if rel == "build.sh" else 0o644
+            info.external_attr = mode << 16
             archive.writestr(info, path.read_bytes())
 
 
@@ -105,7 +111,7 @@ def write_manifest(files: list[Path]) -> None:
         "bundle_sha256": sha256(BUNDLE),
         "file_count": len(entries),
         "files": entries,
-        "purpose": "TAES manuscript source bundle with PDF, LaTeX sources, generated fragments, and evidence manifests.",
+        "purpose": "TAES manuscript source bundle with PDF, LaTeX sources, generation scripts, generated fragments, and evidence manifests.",
     }
     MANIFEST_JSON.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 

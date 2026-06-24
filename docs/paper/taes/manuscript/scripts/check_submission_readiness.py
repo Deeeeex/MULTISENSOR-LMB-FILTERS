@@ -59,6 +59,18 @@ REF_ONLY_ARM = ARM_ORDER[2]
 NETWORK_METRICS = ["OSPA", "Loc. disag.", "Card. disp."]
 LOCAL_METRICS = ["E-OSPA", "RMSE", "CardErr"]
 METADATA_PLACEHOLDER_GATE = "submission metadata placeholders"
+BUNDLE_REQUIRED_PATHS = [
+    "build.sh",
+    "scripts/check_submission_readiness.py",
+    "scripts/create_submission_bundle.py",
+    "scripts/evidence_sources.py",
+    "scripts/extract_heldout_sanity_evidence.py",
+    "scripts/extract_n50_evidence.py",
+    "scripts/extract_reference_baselines.py",
+    "scripts/extract_stress_evidence.py",
+    "scripts/render_figures.py",
+    "scripts/verify_n50_evidence.py",
+]
 
 
 @dataclass
@@ -433,15 +445,31 @@ def bundle_checks() -> list[Check]:
     bundle_path = REPO / bundle_rel if bundle_rel else Path()
     file_count = int(payload.get("file_count", 0))
     checksum = str(payload.get("bundle_sha256", ""))
+    files = payload.get("files", [])
+    bundled_paths = {
+        str(entry.get("path", ""))
+        for entry in files
+        if isinstance(entry, dict)
+    }
+    missing_required = [path for path in BUNDLE_REQUIRED_PATHS if path not in bundled_paths]
     ok = bool(bundle_rel) and bundle_path.exists() and file_count >= 10 and len(checksum) == 64
     return [
         Check(
             "submission source bundle",
-            "pass" if ok else "warning",
+            "pass" if ok and not missing_required else "warning",
             f"Clean source bundle exists at `{bundle_rel}` with {file_count} files and SHA-256 `{checksum}`."
-            if ok
-            else "Submission source bundle manifest exists but the bundle path, file count, or checksum is incomplete.",
-        )
+            if ok and not missing_required
+            else "Submission source bundle manifest exists, but the bundle path, file count, checksum, or required reproducibility scripts are incomplete. Missing required paths: "
+            + (", ".join(missing_required) if missing_required else "none")
+            + ".",
+        ),
+        Check(
+            "submission source bundle reproducibility scripts",
+            "pass" if not missing_required else "warning",
+            "Source bundle includes `build.sh` and the manuscript evidence/render/readiness scripts needed to regenerate generated fragments."
+            if not missing_required
+            else "Source bundle is missing required reproducibility scripts: " + ", ".join(missing_required),
+        ),
     ]
 
 

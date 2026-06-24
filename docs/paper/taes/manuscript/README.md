@@ -51,7 +51,7 @@ The submission source bundle is generated at:
 tmp/submission_bundle/taes_label_barycenter_submission_source.zip
 ```
 
-It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing.
+It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing. The bundle includes the TAES LaTeX source, generated fragments, `build.sh`, and the local `scripts/*.py` evidence/render/readiness utilities so that the manuscript package is self-documenting and the generated tables can be refreshed from the tracked source reports.
 
 Current build status:
 
