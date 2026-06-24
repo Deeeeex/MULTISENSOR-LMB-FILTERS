@@ -1,5 +1,5 @@
 function [reportPath, summary] = runAaBalancedCardinalityValidation( ...
-    numberOfTrials, baseSeed, useFixedSeed, aaControlOverrides, commConfigOverrides, writeReport, armSelection, adaptiveFusionOverrides)
+    numberOfTrials, baseSeed, useFixedSeed, aaControlOverrides, commConfigOverrides, writeReport, armSelection, adaptiveFusionOverrides, scenarioOverrides)
 % RUNAABALANCEDCARDINALITYVALIDATION
 % Formal AA diagnostic for the current Balanced and Cardinality-critical
 % adaptive fusion modes.
@@ -48,6 +48,9 @@ end
 if nargin < 8 || isempty(adaptiveFusionOverrides)
     adaptiveFusionOverrides = struct();
 end
+if nargin < 9 || isempty(scenarioOverrides)
+    scenarioOverrides = struct();
+end
 
 numberOfTrials = max(0, round(numberOfTrials));
 reportPath = '';
@@ -75,9 +78,10 @@ aaControls.progressEverySteps = max(0, round(aaControls.progressEverySteps));
 aaControls.consensusAttributionTopK = max(1, round(aaControls.consensusAttributionTopK));
 
 leaderSensor = 8;
-sensorCommRange = 150;
 fusionWeighting = 'Metropolis';
 numberOfSensors = 8;
+scenarioControls = buildAaScenarioControls(scenarioOverrides);
+sensorCommRange = scenarioControls.sensorCommRange;
 clutterRates = 3 * ones(1, numberOfSensors);
 detectionProbabilities = 0.9 * ones(1, numberOfSensors);
 q = 3 * ones(1, numberOfSensors);
@@ -108,8 +112,8 @@ commConfig = mergeStructFields(commConfig, commConfigOverrides);
 
 sensorMotionConfig = struct();
 sensorMotionConfig.enabled = true;
-sensorMotionConfig.motionType = 'CV';
-sensorMotionConfig.processNoiseStd = 0.0;
+sensorMotionConfig.motionType = scenarioControls.sensorMotionType;
+sensorMotionConfig.processNoiseStd = scenarioControls.sensorMotionProcessNoiseStd;
 sensorMotionConfig.initialStates = buildSensorInitialStates();
 
 targetFormationConfig = struct();
@@ -157,9 +161,9 @@ for trial = 1:numberOfTrials
         sensorMotionConfig, targetFormationConfig);
     model.sensorCommRange = sensorCommRange;
     model.fusionWeighting = fusionWeighting;
-    model.sensorFovEnabled = true;
-    model.sensorFovHalfAngleDeg = 60;
-    model.sensorFovRange = 60000;
+    model.sensorFovEnabled = scenarioControls.sensorFovEnabled;
+    model.sensorFovHalfAngleDeg = scenarioControls.sensorFovHalfAngleDeg;
+    model.sensorFovRange = scenarioControls.sensorFovRange;
     model = applyAaControlsToModel(model, aaControls);
 
     [~, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
@@ -175,7 +179,7 @@ for trial = 1:numberOfTrials
         fprintf('  Arm %d/%d: %s\n', armIdx, numArms, arms(armIdx).name);
         armModel = model;
         armModel.adaptiveFusion = arms(armIdx).adaptiveFusion;
-        neighborMap = buildNeighborMap4Plus4(numberOfSensors);
+        neighborMap = buildAaScenarioNeighborMap(numberOfSensors, scenarioControls);
         runtimeStart = tic();
         [stateEstimatesBySensor, localModels] = runDistributedLmbFilter( ...
             armModel, measurementsDelivered, sensorTrajectories, neighborMap, commStats);
@@ -248,6 +252,7 @@ summary.pDropBySensorTrials = pDropBySensorTrials;
 summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
 summary.aaControls = aaControls;
+summary.scenarioControls = scenarioControls;
 summary.samplingStats = samplingStatsLast;
 summary.arms = arms;
 summary.weightDiagnostics = weightDiagSummary;
@@ -258,7 +263,7 @@ summary.checkpointPath = checkpointPath;
 
 if writeReport
     writeAaValidationReport(reportPath, summary, numberOfTrials, baseSeed, useFixedSeed, ...
-        sensorCommRange, fusionWeighting, leaderSensor, arms, consOspa, consPos, consCard, ...
+        sensorCommRange, fusionWeighting, leaderSensor, scenarioControls, arms, consOspa, consPos, consCard, ...
         eOspa, hOspa, rmse, cardErr, filterRuntimeSeconds);
     fprintf('Report written: %s\n', reportPath);
 end
@@ -567,7 +572,7 @@ end
 end
 
 function writeAaValidationReport(reportPath, summary, numberOfTrials, baseSeed, useFixedSeed, ...
-    sensorCommRange, fusionWeighting, leaderSensor, arms, consOspa, consPos, consCard, ...
+    sensorCommRange, fusionWeighting, leaderSensor, scenarioControls, arms, consOspa, consPos, consCard, ...
     eOspa, hOspa, rmse, cardErr, filterRuntimeSeconds)
 fid = fopen(reportPath, 'w');
 if fid < 0
@@ -593,9 +598,16 @@ if useFixedSeed
     fprintf(fid, '- trialSeeds: %s\n', mat2str(computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed)));
 end
 fprintf(fid, '- lmbParallelUpdateMode: AA\n');
+fprintf(fid, '- scenarioLabel: %s\n', char(getField(scenarioControls, 'scenarioLabel', 'formation-4plus4')));
+fprintf(fid, '- neighborMapMode: %s\n', char(getField(scenarioControls, 'neighborMapMode', '4plus4')));
 fprintf(fid, '- sensorCommRange: %d\n', sensorCommRange);
 fprintf(fid, '- fusionWeighting: %s\n', fusionWeighting);
 fprintf(fid, '- leaderSensor: %d\n', leaderSensor);
+fprintf(fid, '- sensorFovEnabled: %d\n', logical(getField(scenarioControls, 'sensorFovEnabled', true)));
+fprintf(fid, '- sensorFovHalfAngleDeg: %.3f\n', getField(scenarioControls, 'sensorFovHalfAngleDeg', 60));
+fprintf(fid, '- sensorFovRange: %.3f\n', getField(scenarioControls, 'sensorFovRange', 60000));
+fprintf(fid, '- sensorMotionType: %s\n', char(getField(scenarioControls, 'sensorMotionType', 'CV')));
+fprintf(fid, '- sensorMotionProcessNoiseStd: %.6f\n', getField(scenarioControls, 'sensorMotionProcessNoiseStd', 0.0));
 fprintf(fid, '- targetFormationLifeSpan: %d\n', aaControls.targetFormationLifeSpan);
 fprintf(fid, '- existenceThreshold: %.6f\n', aaControls.existenceThreshold);
 fprintf(fid, '- maximumNumberOfGmComponents: %d\n', aaControls.maximumNumberOfGmComponents);
@@ -1476,6 +1488,38 @@ for i = 1:numel(fields)
 end
 end
 
+function controls = buildAaScenarioControls(overrides)
+controls = struct( ...
+    'scenarioLabel', 'formation-4plus4-tiered-link', ...
+    'neighborMapMode', '4plus4', ...
+    'sensorCommRange', 150, ...
+    'sensorFovEnabled', true, ...
+    'sensorFovHalfAngleDeg', 60, ...
+    'sensorFovRange', 60000, ...
+    'sensorMotionType', 'CV', ...
+    'sensorMotionProcessNoiseStd', 0.0);
+controls = mergeStructFields(controls, overrides);
+controls.sensorCommRange = max(0, controls.sensorCommRange);
+controls.sensorFovEnabled = logical(controls.sensorFovEnabled);
+controls.sensorFovHalfAngleDeg = max(0, min(180, controls.sensorFovHalfAngleDeg));
+controls.sensorFovRange = max(0, controls.sensorFovRange);
+controls.sensorMotionProcessNoiseStd = max(0, controls.sensorMotionProcessNoiseStd);
+end
+
+function neighborMap = buildAaScenarioNeighborMap(numberOfSensors, scenarioControls)
+mode = lower(strtrim(char(getField(scenarioControls, 'neighborMapMode', '4plus4'))));
+switch mode
+    case {'4plus4', 'formation-4plus4', 'default'}
+        neighborMap = buildNeighborMap4Plus4(numberOfSensors);
+    case {'ring', 'sparse-ring', '8-ring'}
+        neighborMap = buildRingNeighborMap(numberOfSensors);
+    case {'full', 'complete'}
+        neighborMap = buildFullNeighborMap(numberOfSensors);
+    otherwise
+        error('Unknown AA scenario neighborMapMode: %s', mode);
+end
+end
+
 function projectRoot = resolveProjectRoot(scriptDir)
 if isempty(scriptDir)
     scriptDir = pwd;
@@ -1524,6 +1568,28 @@ neighborMap = cell(1, numberOfSensors);
 for i = 1:4
     neighborMap{groupA(i)} = unique([groupA, pairings(i, 2)]);
     neighborMap{groupB(i)} = unique([groupB, pairings(i, 1)]);
+end
+end
+
+function neighborMap = buildRingNeighborMap(numberOfSensors)
+neighborMap = cell(1, numberOfSensors);
+for sensorIdx = 1:numberOfSensors
+    leftIdx = sensorIdx - 1;
+    rightIdx = sensorIdx + 1;
+    if leftIdx < 1
+        leftIdx = numberOfSensors;
+    end
+    if rightIdx > numberOfSensors
+        rightIdx = 1;
+    end
+    neighborMap{sensorIdx} = unique([leftIdx, sensorIdx, rightIdx]);
+end
+end
+
+function neighborMap = buildFullNeighborMap(numberOfSensors)
+neighborMap = cell(1, numberOfSensors);
+for sensorIdx = 1:numberOfSensors
+    neighborMap{sensorIdx} = 1:numberOfSensors;
 end
 end
 

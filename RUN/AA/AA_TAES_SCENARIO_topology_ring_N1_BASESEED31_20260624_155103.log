@@ -1,0 +1,55 @@
+AA validation trial 1/1
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 25.365 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 36.110 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 33.594 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Tuned spatial-KLA AA -> Neighborhood label-barycenter spatial-KLA AA -> Neighborhood reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 2.771921, Loc 2.682580, Card 0.083750, Runtime 25.365 s
+Neighborhood label-barycenter spatial-KLA AA: OSPA 1.348601, Loc 1.197544, Card 0.030000, Runtime 36.110 s
+Neighborhood reference-only label-consensus spatial-KLA AA: OSPA 2.263993, Loc 2.099705, Card 0.030000, Runtime 33.594 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED31_20260624_155105.md
+AA_TAES_SCENARIO_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED31_20260624_155105.md
+    scenarioLabel = topology-ring-formation
+    neighborMapMode = ring
+    sensorCommRange = 150
+    sensorFovEnabled = 1
+    sensorFovHalfAngleDeg = 60
+    sensorFovRange = 60000
+    sensorMotionType = CV
+    sensorMotionProcessNoiseStd = 0
+    ospa =
+
+       2.7719   1.3486   2.2640
+
+    pos =
+
+       2.6826   1.1975   2.0997
+
+    card =
+
+       0.083750   0.030000   0.030000
+
+    eOspa =
+
+       2.5807   2.0105   2.4110
+
+    hOspa =
+
+       0.4869   0.4850   0.4850
+
+    rmse =
+
+       4.5683   4.0355   4.5112
+
+    cardErr =
+
+       0.116250   0.065000   0.065000
+
+
