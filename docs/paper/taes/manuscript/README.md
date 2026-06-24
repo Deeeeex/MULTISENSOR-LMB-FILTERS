@@ -52,6 +52,14 @@ Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build al
 
 If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring report is a fixed-parameter N50 scenario-family check and is labeled paper-grade evidence by the generated manifest; the partial-FOV report remains an N5 smoke-tier boundary probe until its fixed-parameter N50 run completes.
 
+The active partial-FOV N50 upgrade path is report-driven. The long run writes its live log to:
+
+```text
+../../../RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log
+```
+
+After the run emits its final Markdown report, replace only `scenario_partial_fov35_report` in `evidence_sources.json` with that completed report path, then run `./build.sh`. Do not change the method parameters for this scenario-family upgrade: the point is to test the fixed label-barycenter design under narrower sensing geometry, not to tune against the partial-FOV data. If the generated manifest classifies the N50 result as mixed boundary evidence, keep that classification and update the Discussion boundary wording rather than searching for a better configuration.
+
 The submission source bundle is generated at:
 
 ```text

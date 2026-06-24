@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 18:15 CST
+日期: 2026-06-24 19:23 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile 与 sparse topology-ring N50；但 partial field-of-view、target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 19:23 Checkpoint
+
+当前分支为 `codex/aa-target-wise-fix`，最新已推送提交为 `6336d32 Polish TAES result table formatting`。该提交把主结果表和 GA reference 表收敛到三位小数，并把 N50 主表的 column-wise best/tie 标粗逻辑改为从生成脚本自动计算，避免手工把整行标粗造成的解释风险。
+
+partial-FOV 固定参数 N50 场景族运行仍在进行中，日志为 `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`。在该报告完成前，`evidence_sources.json` 仍应保留已完成的 `scenario_partial_fov35_report` N5 smoke-tier report，正文也只引用已完成的 harsh-loss N50 和 topology-ring N50 证据。N50 完成后，下一步不是调参，而是把同一固定方法设置下的新 Markdown report 路径替换到 `scenario_partial_fov35_report`，运行 `./build.sh`，并检查 `generated/SCENARIO_FAMILY_MANIFEST.md` 是否把 partial-FOV 从 `multi_trial_smoke` 升级为 `paper_grade`。若 N50 结果出现混合或负向指标，应保留为 boundary evidence，而不是对 partial-FOV 单独搜索阈值、barycenter 权重或 label rule。
 
 ## Claim-to-Evidence Matrix
 
@@ -69,6 +75,7 @@
 | Held-out scenario evidence | Passed for baseSeed=11 N50 robustness | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `generated/HELDOUT_SANITY_MANIFEST.md`; `generated/HELDOUT_N50_MANIFEST.md`; `generated/heldout_n50_evidence.json`; `generated/heldout_n50_section.tex` | Keep the held-out table/paragraph in the manuscript or move it to supplementary/response-ready material after final page-budget review. The readiness checker requires base seed 11, at least 50 trials, parsed trial seeds, generated manifest/LaTeX fragment, all three arms, all manuscript metrics, paired CI/wins/p-values, and a visible full-barycenter-vs-reference-only RMSE separation check. Current PDF table explicitly shows CI and sign-test p for the held-out RMSE separation. |
 | Optional harsh packet-loss stress evidence | Passed for fixed-design baseSeed=21 N50 stress check | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED21_20260624_130730.md`; `generated/STRESS_HARSH_MANIFEST.md`; `generated/stress_harsh_evidence.json`; `generated/stress_harsh_section.tex`; `generated/stress_harsh_summary_sentence.tex` | Keep the concise generated sentence in Discussion and the full table as response-ready evidence. Current stress N50 gives full-method reductions of `79.57%` network OSPA, `17.06%` local E-OSPA, `7.98%` RMSE, and `24.33%` CardErr under `[0.2, 0.35, 0.5, 0.7] / [1, 3, 2, 2]` packet loss. |
 | Scenario-family topology evidence | Passed for fixed-design topology-ring baseSeed=31 N50 check | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_20260624_162439.md`; `generated/SCENARIO_FAMILY_MANIFEST.md`; `generated/scenario_family_evidence.json`; `generated/scenario_family_section.tex`; `generated/scenario_family_summary_sentence.tex` | Keep the concise generated sentence in Discussion and the full table as response-ready evidence. Current topology-ring N50 gives full-method reductions of `47.50%` network OSPA, `21.53%` local E-OSPA, `13.12%` RMSE, and `24.03%` CardErr; reference-only RMSE reduction is `5.17%`. The readiness checker verifies source-report SHA-256 freshness and still labels partial-FOV N5 as smoke-tier boundary evidence. |
+| Scenario-family partial-FOV upgrade | In progress; not yet paper-grade | `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`; current configured completed report is still `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED41_20260624_160335.md` | Wait for the N50 Markdown report. Then update only `scenario_partial_fov35_report` in `evidence_sources.json`, rebuild, visually inspect the generated scenario manifest/summary, and preserve the fixed-parameter result even if it is a mixed boundary case. |
 | PDF visual QA | Passed for current checkpoint and now machine-recorded | `./build.sh`; `scripts/render_pdf_visual_qa.py`; `generated/PDF_VISUAL_QA_MANIFEST.md`; ImageMagick-rendered checks of the title/abstract page, method page, result tables/figure page, held-out/runtime page, Discussion/Conclusion page, and final reference page | Re-render final `main.pdf` after every manuscript-affecting checkpoint; the readiness checker now records whether representative pages rendered and passed dimension/nonblank checks. |
 | Submission readiness checker | Passed for all non-metadata blocking gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and is now `content_ready_metadata_pending`. It records first-page narrative markers, paper-facing wording hygiene, stress/generalization boundary wording, cover-letter/portal metadata source synchronization, optional harsh-stress N50 parsing, scenario-family source-hash freshness/evidence tiering, and whether the generated reproducibility ledger covers primary AA, held-out AA, harsh-loss AA, scenario-family boundary, contextual GA, and independent-verifier roles. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; extracted source-bundle `TAES_EVIDENCE_MODE=bundled ./build.sh` compile | Re-run after final manuscript-affecting edits. The readiness checker now also verifies required reproducibility scripts, the submission package index, PDF visual-QA script, source-bundle manifest hash freshness, and the bundled-fragment fallback build mode. |
@@ -79,4 +86,5 @@
 2. Rebuild `main.pdf` and re-render the title/abstract page, method pages, main-results page, held-out/evidence page, Discussion/Conclusion page, and final reference page after any evidence or metadata edit.
 3. Decide whether the held-out N50 CI/wins/p-value table stays in the main paper, moves to supplementary material, or remains response-ready evidence depending on final page budget.
 4. Keep the harsh packet-loss stress table response-ready unless page budget allows a supplement; the main paper now carries only the generated one-sentence stress summary.
-5. Consider partial-field-of-view N50, target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps.
+5. When the fixed-parameter partial-FOV N50 report completes, promote it through `evidence_sources.json` and `./build.sh`; do not tune against that scenario.
+6. Consider target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps after partial-FOV is upgraded or explicitly recorded as a boundary case.
