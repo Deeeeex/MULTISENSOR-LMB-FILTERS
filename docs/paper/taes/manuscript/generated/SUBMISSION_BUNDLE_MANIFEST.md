@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `96f834e420e1900abf9935d6dde619820cd865217fd0f51ee31015e8b91a0353`
+- Bundle SHA-256: `aa94920a26b383b57165696291e4656a662e873d9d1195895a4692b3b4a27e16`
 - Files: 57
 
 ## Included Files
@@ -11,7 +11,7 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 4095 | `35455172694851f2bc79a987f20b8fe6b9eb82176a59fe43e4a7dfb69213dd68` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 18583 | `978552b905bf961f40670be6add6d1004fb116de5c8b63f20d980cfd9a879ba5` |
+| `READINESS_AUDIT_CN.md` | 18965 | `fe2e8bdb5006a91b4e5939e9e15c637ed2bf27bfd79a3ab87fb06104427c9e1b` |
 | `README.md` | 10253 | `ba059e47e164562fba6c06e5ac872bbac6903dcad9bcba4833159c55d11cc0f0` |
 | `SUBMISSION_PACKAGE_INDEX.md` | 5512 | `72b07a70831c42914d413b59b36f54d268a4f07ef23ffcf28223df1754508ed3` |
 | `build.sh` | 2341 | `873c05373c2520bed729b4df6132e03b8f6e7ff5e938cac020ef56bb13dfb317` |
@@ -49,8 +49,8 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 398 | `5922de7860af68d2838d7a58d4ecf044a90e8ab81f9ba21b3af5eaa45f662efd` |
-| `main.pdf` | 109428 | `1c0ef2427581976bc8cf57a2a7e9920aea08448cede3850c535f6f060250a54d` |
-| `main.tex` | 33933 | `8ce75c8ad0fb1842958cb68fcca22b389b172a08c4447cefdc590df74cf60b58` |
+| `main.pdf` | 110974 | `962f1376ed33cd4194f00fd951b2dd6c0063ad91a04886b61f9bd517745f7356` |
+| `main.tex` | 34362 | `1f1705e6295c26c10e0117bae487abc384b95362fa71f99e0ec87c4f41a998b7` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 60399 | `e138e688ccfc26fef630788d180277cc51a043640ff6cdbf56dd4224703b9c3f` |
 | `scripts/create_submission_bundle.py` | 4794 | `2a57acc5bc6fa1cddb7301c7909c218996f5d313cec929068303ee21434d3402` |

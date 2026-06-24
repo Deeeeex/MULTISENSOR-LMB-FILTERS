@@ -194,10 +194,15 @@ All other assignment costs are nonnegative, so the nonphysical assignment costs 
 \end{proof}
 
 \begin{proposition}[Moment projection]
-For a matched group $\mathcal{G}=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the barycenter mean minimizes $\sum_i\|z-\mu_i\|_2^2$, and $(\bar{\mu},\bar{\Sigma})$ are the first two moments of the equally weighted Gaussian mixture $M^{-1}\sum_i\mathcal{N}(\mu_i,\Sigma_i)$.
+For a matched group $\mathcal{G}=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the barycenter mean minimizes $\sum_i\|z-\mu_i\|_2^2$, and, for any representative $z$,
+\begin{equation}
+  \sum_i\|\mu_i-z\|_2^2
+  =\sum_i\|\mu_i-\bar{\mu}\|_2^2+M\|z-\bar{\mu}\|_2^2 .
+\end{equation}
+Thus the common replacement $\bar{\mu}$ is the least-squares representative of the matched group and removes within-group mean disagreement after correspondence is fixed. The pair $(\bar{\mu},\bar{\Sigma})$ gives the first two moments of the equally weighted Gaussian mixture $M^{-1}\sum_i\mathcal{N}(\mu_i,\Sigma_i)$.
 \end{proposition}
 \begin{proof}
-The least-squares objective has gradient $2Mz-2\sum_i\mu_i$, hence its unique minimizer is $M^{-1}\sum_i\mu_i$. The covariance identity follows from total covariance:
+The identity follows by writing $\mu_i-z=(\mu_i-\bar{\mu})+(\bar{\mu}-z)$ and using $\sum_i(\mu_i-\bar{\mu})=0$. It also shows that the least-squares objective is minimized uniquely at $z=\bar{\mu}=M^{-1}\sum_i\mu_i$. The covariance identity follows from total covariance:
 \begin{equation}
   \operatorname{Cov}(x)=\mathbb{E}_i[\operatorname{Cov}(x|i)]
   +\operatorname{Cov}_i(\mathbb{E}[x|i]).

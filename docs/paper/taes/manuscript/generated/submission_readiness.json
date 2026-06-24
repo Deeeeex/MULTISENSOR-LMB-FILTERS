@@ -242,7 +242,7 @@
       "status": "pass"
     },
     {
-      "detail": "`main.pdf` has 8 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
+      "detail": "`main.pdf` has 9 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
       "gate": "PDF page count",
       "status": "pass"
     },
@@ -362,7 +362,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `96f834e420e1900abf9935d6dde619820cd865217fd0f51ee31015e8b91a0353`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `aa94920a26b383b57165696291e4656a662e873d9d1195895a4692b3b4a27e16`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
