@@ -91,6 +91,25 @@ BUNDLE_BUILD_FALLBACK_MARKERS = [
     "Raw evidence sources unavailable; compiling from bundled generated fragments.",
     "Skipping source-bundle and readiness regeneration in bundled-fragment mode.",
 ]
+REQUIREMENTS_DOC_MARKERS = [
+    "2026-06-24 Live Source Refresh",
+    "https://ieee.atyponrex.com/journal/taes",
+    "Regular Paper",
+    "200 USD",
+    "two-column",
+    "single-spaced",
+    "10-point font",
+    "AI-generated content",
+    "Acknowledgments",
+    "ORCID",
+    "single-blind",
+    "Letters category",
+    "TAES neither encourages nor discourages",
+    "Target Tracking and Multi-Sensor Systems",
+    "data fusion",
+    "decentralized/distributed estimation",
+    "Tectonic",
+]
 
 
 @dataclass
@@ -317,6 +336,33 @@ def file_checks() -> list[Check]:
         detail = str(path.relative_to(REPO)) if path.exists() else f"missing {path.relative_to(REPO)}"
         checks.append(Check("required artifact", status, detail))
     return checks
+
+
+def requirements_doc_checks() -> list[Check]:
+    if not REQUIREMENTS_DOC.exists():
+        return [Check("TAES requirements live-source refresh", "error", "`docs/TAES_SUBMISSION_REQUIREMENTS_CN.md` is missing.")]
+    text = read_text(REQUIREMENTS_DOC)
+    missing = [marker for marker in REQUIREMENTS_DOC_MARKERS if marker not in text]
+    stale_patterns = [
+        "本机未安装 TeX",
+        "尚未本地编译验证",
+        "2026-06-24 Online Spot-Check",
+    ]
+    stale = [pattern for pattern in stale_patterns if pattern in text]
+    ok = not missing and not stale
+    return [
+        Check(
+            "TAES requirements live-source refresh",
+            "pass" if ok else "warning",
+            "TAES requirements document records the 2026-06-24 live official-page refresh, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, and current local TeX verification status."
+            if ok
+            else "TAES requirements document is missing live-source markers or contains stale caveats: "
+            + "missing="
+            + (", ".join(missing) if missing else "none")
+            + "; stale="
+            + (", ".join(stale) if stale else "none"),
+        )
+    ]
 
 
 def manuscript_checks(tex: str, bib: str) -> list[Check]:
@@ -1169,6 +1215,7 @@ def main() -> None:
     bib = read_text(BIB) if BIB.exists() else ""
     checks = []
     checks.extend(file_checks())
+    checks.extend(requirements_doc_checks())
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(doi_resolver_checks(bib))
     checks.extend(cover_letter_checks())

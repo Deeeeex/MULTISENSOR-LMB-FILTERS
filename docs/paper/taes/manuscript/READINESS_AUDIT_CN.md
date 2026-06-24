@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 15:02 CST
+日期: 2026-06-24 14:56 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -37,6 +37,7 @@
 | --- | --- | --- |
 | Official template | `IEEEtaes.cls` and `IEEEtaes.bst` are used by `main.tex`; `./build.sh` compiles the manuscript. | Rebuild after final edits; render pages and inspect figures/tables. |
 | Template and author-guideline archive | `generated/SUBMISSION_READINESS_REPORT.md` now checks the local TAES requirements document, official template zip, and regular-paper template source as required artifacts. | Recheck online TAES/AESS pages immediately before final submission. |
+| TAES requirements live-source refresh | `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md` now records a 2026-06-24 live official-page refresh and no longer contains the stale local-TeX caveat; the readiness checker verifies portal/type/page-charge/format/AI/ORCID/preprint/technical-area markers. | Repeat this live-source refresh immediately before actual portal submission. |
 | Clean source bundle | `./build.sh` now writes `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and `generated/SUBMISSION_BUNDLE_MANIFEST.md`; the zip includes `build.sh` plus the manuscript evidence/render/readiness scripts, and has been extracted and compiled with Tectonic. In a source-bundle directory without raw `RUN/` reports, `build.sh` falls back to the bundled `generated/` fragments. | Regenerate after final evidence or metadata edits; submit the current PDF plus a clean source bundle according to the portal instructions. |
 | Submission package index | `SUBMISSION_PACKAGE_INDEX.md` now maps final portal uploads, internal QA artifacts, metadata placeholders, and the final rebuild/source-bundle verification sequence; the readiness checker requires these markers and the source bundle includes the index. | Keep this index synchronized after any final-upload, supplement, or metadata workflow change. |
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |

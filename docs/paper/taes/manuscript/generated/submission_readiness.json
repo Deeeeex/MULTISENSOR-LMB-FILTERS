@@ -142,6 +142,11 @@
       "status": "pass"
     },
     {
+      "detail": "TAES requirements document records the 2026-06-24 live official-page refresh, portal/type/page-charge/AI/ORCID/preprint/technical-area markers, and current local TeX verification status.",
+      "gate": "TAES requirements live-source refresh",
+      "status": "pass"
+    },
+    {
       "detail": "`main.tex` uses `IEEEtaes`.",
       "gate": "TAES class",
       "status": "pass"
@@ -292,7 +297,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 49 files and SHA-256 `89317c4ee7416838332d8ebe3313cf4c6695fa728556978965552cf810fdfed9`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 49 files and SHA-256 `2ef66f5932d0b2ad5bd2bd9bffa25d2c7363a7b939e5a182c587d35c991293b3`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

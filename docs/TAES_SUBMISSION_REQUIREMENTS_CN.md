@@ -69,9 +69,9 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 
 理由: TAES technical area description 明确覆盖 multi-target tracking、data fusion、decentralized/distributed detection 和 decentralized/distributed estimation。我们的稿件主 thrust 是 tracking/fusion，而不是 sensor resource management，因此比 `Networked Sensor Systems` 更合适。
 
-## 2026-06-24 Online Spot-Check
+## 2026-06-24 Live Source Refresh
 
-本轮没有覆盖仓库内 2026-06-23 HTML snapshots，只把当前在线页面抓取到 `/tmp` 做关键字段核对。核对结果与本文档一致:
+本轮重新读取当前在线官方页面做关键字段核对。核对结果与本文档一致:
 
 - TAES author-information 页面仍要求新 Regular Paper 通过 `https://ieee.atyponrex.com/journal/taes` 投稿，并选择 `Regular Paper` manuscript type。
 - Regular Paper 仍描述为 a well-rounded treatment of a problem area；Correspondence Item 仍用于 one or two concise points。
@@ -81,6 +81,7 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 - AESS AI-generated content 页面仍要求在 Acknowledgments 披露 AI-generated content，并说明系统名称、使用 section 和使用程度；仅 grammar/editing 不强制但建议披露。
 - TAES home 页面仍说明 single-blind/single-anonymous peer review、至少两名 independent reviewers、acceptance 前 plagiarism screening、ORCID 要求，以及 Letters category 已在 2022-12-31 停止。
 - TAES preprint policy 仍说明 TAES neither encourages nor discourages TechRxiv/arXiv preprints，preprint 与否不影响 editorial decision。
+- TAES technical-area 页面仍把 `Target Tracking and Multi-Sensor Systems` 明确覆盖 multi-target tracking、data fusion、decentralized/distributed detection 和 decentralized/distributed estimation；若稿件主 thrust 是 tracking or fusion，该 technical area 是合理选择。
 
 ## Claims
 
@@ -88,7 +89,7 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 | --- | --- | --- | --- | --- |
 | C1 | TAES 新投稿应走 Atypon/REX submission portal，Regular Paper 选择 `Regular Paper` manuscript type。 | High | E1, E2 | 旧稿件或 2025-03-04 前 submission 可能在旧系统；新稿走 Atypon。 |
 | C2 | Regular Paper 没有硬性 manuscript page limit，但接受后超过 10 printed pages 会产生每页 200 USD overlength charge。 | High | E1 | printed pages 以 IEEE production final proof 为准，模板页数只是估算。 |
-| C3 | 投稿 PDF 必须使用两栏、单倍行距、10 pt 字号、指定 margins/columns；TAES 模板是最准确页数估算方式。 | High | E1, E3 | 本机未安装 TeX，尚未本地编译验证。 |
+| C3 | 投稿 PDF 必须使用两栏、单倍行距、10 pt 字号、指定 margins/columns；TAES 模板是最准确页数估算方式。 | High | E1, E3 | 当前 regular template 和 manuscript 已用 Tectonic 本地编译通过；最终 printed pages 仍以 IEEE production proof 为准。 |
 | C4 | TAES 是 single-anonymous peer review，至少两名 independent reviewers；会在 review 前和接受前进行 plagiarism screening。 | High | E2 | 不是 double-blind，投稿稿件无需匿名化。 |
 | C5 | TAES Letters 已停止；当前只能在 Regular Paper 和 Correspondence Item 之间选。 | High | E2 | 模板 zip 仍含 letter 模板，但不要用于新投稿。 |
 | C6 | IEEE/TAES 要求所有作者有 ORCID；accepted manuscripts 需要电子版权表单。 | High | E2, E4 | ORCID 在 submission/proof 环节都可能需要。 |
@@ -341,7 +342,7 @@ Independence status: self-check only. 本文档由同一 worker lane 根据官�
 升级条件:
 
 - 正式提交前，必须由 corresponding author 登录 Atypon/REX 检查当前表单、technical area 和 mandatory files。
-- 编译初稿前，需在本机或 CI 安装 TeX Live/MacTeX，并验证 `TAES_template.tex` 可编译。
+- 如果最终 source package 需要更贴近 IEEE production 工具链，可用 TeX Live/MacTeX 复验；当前 Tectonic 构建已经覆盖 regular template 和 manuscript。
 - 如果计划上传 preprint，需要先确定版本和 IEEE copyright notice 管理方式。
 
 ## Reproducibility
