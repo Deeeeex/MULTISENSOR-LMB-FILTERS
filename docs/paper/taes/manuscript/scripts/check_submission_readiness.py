@@ -728,6 +728,24 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    conclusion_boundary_markers = [
+        "output-level correspondence module",
+        "recursive LMB use still requires lifecycle and consistency guards",
+    ]
+    missing_conclusion_boundary = [
+        marker for marker in conclusion_boundary_markers if marker not in body
+    ]
+    checks.append(
+        Check(
+            "conclusion boundary wording",
+            "pass" if not missing_conclusion_boundary else "warning",
+            "Conclusion keeps the future-use implication narrower than the evidence by naming the output-level scope and recursive-safeguard requirement."
+            if not missing_conclusion_boundary
+            else "Conclusion boundary wording is incomplete; missing markers: "
+            + "; ".join(missing_conclusion_boundary),
+        )
+    )
+
     stress_boundary_markers = [
         "stress check broadens packet-loss severity",
         "preserves the same formation-family assumptions",

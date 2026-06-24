@@ -247,6 +247,11 @@
       "status": "pass"
     },
     {
+      "detail": "Conclusion keeps the future-use implication narrower than the evidence by naming the output-level scope and recursive-safeguard requirement.",
+      "gate": "conclusion boundary wording",
+      "status": "pass"
+    },
+    {
       "detail": "Discussion preserves the boundary that harsh-loss, topology-ring, and partial-FOV checks do not substitute for maneuvering-target or covariance-consistency validation.",
       "gate": "stress generalization boundary wording",
       "status": "pass"
@@ -417,7 +422,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `7bace1de7b86ab8357e615124a60b5d636b0a817d3ae7509b0e0f7c16e159d31`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `960da1584890b5b3291cc5131a1764fd34d9a3072dc1b32f9cb42d92477160bf`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -141,3 +141,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊稿件术语一致性做了一个投稿质量补丁：摘要中补齐 labeled multi-Bernoulli (LMB)、arithmetic-average (AA)、Kullback--Leibler average (KLA)、optimal sub-pattern assignment (OSPA)、expected OSPA (E-OSPA)、root-mean-square error (RMSE) 和 field of view (FOV) 的 first-use 定义；正文中补齐 LMB、FOV、OSPA、E-OSPA、RMSE 等首次使用定义，避免后续结果表和 generated Discussion 句里直接出现未定义缩写。
 
 `check_submission_readiness.py` 已新增 `abbreviation first-use definitions` gate，分别检查 abstract 和 main text 的关键缩写定义。这个 gate 面向投稿 polish，不改变实验证据或主张，只减少 IEEE/TAES 格式审查和审稿人快速扫读时的术语粗糙风险。
+
+## 23:05 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮继续按 algorithmic-paper 的 conclusion 规则做窄幅收束：结论末句不再写成 `can support future recursive LMB designs` 这种偏承诺式表述，而是改为 `output-level correspondence module`，并明确 `recursive LMB use still requires lifecycle and consistency guards`。这个改动与正文 Discussion 里的边界一致，不新增实验主张，同时避免结论尾句孤立跨页。
+
+`check_submission_readiness.py` 已新增 `conclusion boundary wording` gate，要求结论同时保留 output-level scope 和 recursive-safeguard requirement。该 gate 的目的，是防止最终润色或压缩结论时把 evidence boundary 写宽，尤其是把当前输出层 projection 误写成已经验证的 recursive LMB update。
