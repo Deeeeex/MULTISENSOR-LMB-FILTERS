@@ -25,6 +25,10 @@
 
 `check_submission_readiness.py` 新增 `recent label-matching literature positioning` gate，要求 Related Work 保留 multiview、efficient-label-matching 和 reference-only ablation contrast markers。`CLAIM_EVIDENCE_BOUNDARY_MAP.md` 也新增对应 claim/evidence/boundary 行，防止后续把这些文献写成 strawman。试加四篇相邻文献会把 PDF 推到 10 页，因此主文保留最能支撑 correspondence-contract framing 的两篇；同时用这两篇替换一个较弱的 TechRxiv 预印本和一个泛用 consensus conference 引用，把有限 reference budget 转向更贴近 label/correspondence 的同领域工作。下一步重建时应确认 BibTeX DOI resolver 保持全通过，且 PDF 回到 9 页/10 页阈值以下。
 
+## 01:02 Checkpoint
+
+本轮按预投稿审稿视角把新增相邻文献纳入 `REVIEWER_RISK_REGISTER.md`。新增的风险项回答“本文和 multiview LMB fusion / efficient label matching 的差异是什么”: 当前 defensible contrast 不是说这些 prior works 忽略 labels 或不如本文，而是本文聚焦 active-output correspondence projection layer，并通过 reference-only ablation 分离 label copying 与 matched posterior barycentering 的机制贡献。`check_submission_readiness.py` 的 reviewer-risk gate 已同步要求 `Jin2023MultiviewLMB`、`Ding2025EfficientLabelMatching`、`active-output correspondence projection layer` 等 marker，防止后续 reviewer response planning 退回 strawman 式对比。
+
 ## 00:50 Checkpoint
 
 本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。
