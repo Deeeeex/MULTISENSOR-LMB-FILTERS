@@ -584,7 +584,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "Scalar AA/KLA weights decide how much probability mass to trust",
         "residual correspondence failure",
         "not another scalar-weight search",
-        "A separate 50-trial base-seed-11 run",
+        "A held-out 50-trial replication",
+        "full-versus-reference separation",
         "held-out 50-trial replication",
         "reference-only ablation",
     ]

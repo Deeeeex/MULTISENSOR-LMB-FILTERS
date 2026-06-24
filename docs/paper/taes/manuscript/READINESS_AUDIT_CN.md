@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 21:30 CST
+日期: 2026-06-24 21:38 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,10 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 21:38 Checkpoint
+
+本轮继续按期刊稿件第一屏读者路径做窄幅 polish。摘要末句已从 `base-seed-11` 这类内部运行标识改成 `held-out 50-trial replication` 和 `full-versus-reference separation`，保留 6.64% vs 0.82% 的机制分离数值，同时把 fixed-parameter boundary checks 写成 harsher packet loss、ring topology、partial field of view 三类泛化探针。`check_submission_readiness.py` 的 first-page narrative markers 也同步为检查论证功能，而不是强制要求摘要暴露内部 seed 标签。第一页 PDF 已渲染检查，标题、摘要、Index Terms、metadata placeholders 和引言首段均未出现重叠或坏版。
 
 ## 21:30 Checkpoint
 
@@ -57,8 +61,8 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 | Submission package index | `SUBMISSION_PACKAGE_INDEX.md` now maps final portal uploads, internal QA artifacts, metadata placeholders, and the final rebuild/source-bundle verification sequence; the readiness checker requires these markers and the source bundle includes the index. | Keep this index synchronized after any final-upload, supplement, or metadata workflow change. |
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |
 | Page budget | Current manuscript is within the pre-overlength range; the readiness checker now treats 10 or more TAES-template pages as a warning because Regular Paper overlength charges start at 10 printed pages. | Keep estimated TAES pages below 10, or explicitly accept overlength charges before submission. |
-| Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. Current abstract also front-loads the held-out base-seed RMSE separation. | Re-run `./build.sh` after final title/abstract edits. |
-| First-page narrative | Abstract and introduction now state the residual correspondence failure more directly, specify the separate held-out 50-trial base-seed-11 replication, and keep the proposed gain separated from scalar-weight routing. The readiness checker now records explicit first-page story markers and paper-facing wording hygiene. | Keep the first page visually checked after any abstract or contribution edit. |
+| Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. Current abstract front-loads the held-out full-versus-reference RMSE separation without exposing internal seed labels in the first-page prose. | Re-run `./build.sh` after final title/abstract edits. |
+| First-page narrative | Abstract and introduction now state the residual correspondence failure more directly, specify the held-out 50-trial replication, and keep the proposed gain separated from scalar-weight routing. The readiness checker records explicit first-page story markers and paper-facing wording hygiene without requiring internal run identifiers in the abstract. | Keep the first page visually checked after any abstract or contribution edit. |
 | Related-work positioning | Passed | `main.tex`; `check_submission_readiness.py` | Related Work now explicitly frames the method as a correspondence-map/output-projection layer orthogonal to AA/KLA weighting choices, rather than another density-pooling rule. The checker records these positioning markers so later compression does not erase the claim boundary. |
 | Author metadata | Bracketed author/funding/repository placeholders, TAES front-matter placeholders, and cover-letter/portal checklist placeholders remain in submission-style prose. | Fill real author list, affiliations, receipt/revision dates if requested by the template stage, ORCID, funding, acknowledgments, corresponding author metadata, final issue/DOI fields, cover-letter signature/email, and preprint/conflict/reviewer decisions. |
 | AI disclosure | Provisional Codex/OpenAI disclosure exists in Acknowledgment. | Recheck current IEEE/AESS wording and decide final disclosure scope. |

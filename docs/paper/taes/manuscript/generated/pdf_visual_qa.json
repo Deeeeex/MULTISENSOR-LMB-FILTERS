@@ -10,11 +10,11 @@
       "height": 1935,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png",
       "label": "title-abstract",
-      "mean_luma": 0.936308,
+      "mean_luma": 0.936085,
       "page": 1,
-      "size_bytes": 181240,
+      "size_bytes": 181629,
       "status": "pass",
-      "stddev_luma": 0.209198,
+      "stddev_luma": 0.209519,
       "width": 1485
     },
     {
