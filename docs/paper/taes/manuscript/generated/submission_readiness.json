@@ -322,6 +322,11 @@
       "status": "pass"
     },
     {
+      "detail": "Claim-evidence-boundary map ties core manuscript claims to evidence artifacts, verification levels, terminology decisions, and explicit non-claims.",
+      "gate": "claim-evidence-boundary map",
+      "status": "pass"
+    },
+    {
       "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier.",
       "gate": "reproducibility ledger",
       "status": "pass"
@@ -452,7 +457,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `229c774032abee5b7f16c5ddcb9e15e0cb70390fd3505f226cf18bb34b4ac9a8`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 61 files and SHA-256 `df5a684e06e672d389a372c2be5351b6e3c14123cb836811bac8663efff8d3ab`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

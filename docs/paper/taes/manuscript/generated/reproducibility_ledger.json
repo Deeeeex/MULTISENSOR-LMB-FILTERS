@@ -39,7 +39,7 @@
       "name": "Independent verifier",
       "protocol": "Recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from per-trial rows/logs.",
       "role": "Build gate for report-driven numbers before PDF compilation.",
-      "sha256": "9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6",
+      "sha256": "c4f26016b75bce44d1c2fb7ee77c28dff95f19a2d2b3baf26563b3db49f4f68a",
       "source": "docs/paper/taes/manuscript/generated/n50_verification.json"
     }
   ]

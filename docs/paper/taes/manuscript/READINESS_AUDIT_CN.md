@@ -13,6 +13,12 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 00:50 Checkpoint
+
+本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。
+
+`create_submission_bundle.py` 已把该文件纳入 deterministic source bundle；`check_submission_readiness.py` 新增 `claim-evidence-boundary map` gate，并要求保留核心 claim/evidence/non-claim markers；`README.md`、`SUBMISSION_PACKAGE_INDEX.md` 和 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 也同步说明它的内部 QA 用途和非数据源边界。下一步重建后应确认 source bundle freshness、readiness gate 和 extracted bundled build 都通过。
+
 ## 22:30 Checkpoint
 
 本轮把投稿材料里的 `COVER_LETTER_AND_METADATA_DRAFT.md` 从“包内说明”加强为真正面向 TAES editor 的 cover letter。新增内容明确了 TAES fit: 问题来自 distributed aerospace/surveillance tracking 中 unreliable peer-to-peer communication 造成的 LMB component correspondence failure；方法不是 another scalar-weight search，而是 graph-local reference selection、assignment 和 matched posterior moment barycenter；证据链是 fixed-design and report-driven，包括 tuned AA baseline、reference-only ablation、contextual GA rows、held-out replication、harsh-loss stress、topology-ring 与 partial-FOV scenario-family checks；同时 cover letter 也主动说明 projection 是 active-output label-and-moment layer，不替代 Bernoulli existence update，并把 assignment ambiguity / lifecycle / covariance-aware recursive deployment 标成 limitations。

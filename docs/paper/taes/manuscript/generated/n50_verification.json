@@ -262,7 +262,7 @@
           "p_value": 1.7763568394002505e-15,
           "reduction_mean": 0.58125226,
           "reduction_pct": 39.46480353414242,
-          "reduction_std": 0.053491299818931075,
+          "reduction_std": 0.05349129981893107,
           "wins": 50
         },
         "OSPA": {

@@ -1,21 +1,22 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `229c774032abee5b7f16c5ddcb9e15e0cb70390fd3505f226cf18bb34b4ac9a8`
-- Files: 60
+- Bundle SHA-256: `df5a684e06e672d389a372c2be5351b6e3c14123cb836811bac8663efff8d3ab`
+- Files: 61
 
 ## Included Files
 
 | Path | Size | SHA-256 |
 | --- | ---: | --- |
+| `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | 9941 | `d83c9e6174d70c95a3e6ecfa108e1d53b8ac9fd6a5eca8bc7da051645f97d23e` |
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 5537 | `46d2d7d8d3b77efd05e1c5786309d50f0f677b97086cb04a17af2eb75a6ef25b` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 44219 | `f1b265bfa1c73637747a4d84018b567f7c4cc28c353500db73ae0c041f62242b` |
-| `README.md` | 12167 | `ffb0b8bc555c4e7830d033e700e2c0fb81481e2186c36a6b488bcbe8c2da1d66` |
+| `READINESS_AUDIT_CN.md` | 45350 | `ebd4bd4fb0528058c3d73c3e4d8da32651fdd556a099f64b0bc8d52dbc9b6def` |
+| `README.md` | 12478 | `92854b5e3894ab1ef12969a21cb8237804d1c7fb805866f13c3d94443f1ae2f6` |
 | `REVIEWER_RISK_REGISTER.md` | 11990 | `0b5da801f771739f74235df73e8ec3fbd58d9d3fb36e40c5bb73395bb06a080d` |
-| `SUBMISSION_PACKAGE_INDEX.md` | 6353 | `208a8487f39b7c2ed5725059edc012bf372f27bc9b6e23ec1e0810904a6f94e3` |
-| `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | 3632 | `271551c93812b65c3674edaff9cf6360bf58837fb497aeca3167dc2b7bebe067` |
+| `SUBMISSION_PACKAGE_INDEX.md` | 6911 | `ead05464e8601234faefa6c6a7058e1e1d3981bd642ecb0e7db5fc8ad4708e96` |
+| `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | 4224 | `3478518285a0869c513d136d1d9fd61458aa58eedf27e12b7d11e2b7c89e12d9` |
 | `build.sh` | 2341 | `873c05373c2520bed729b4df6132e03b8f6e7ff5e938cac020ef56bb13dfb317` |
 | `evidence_sources.json` | 795 | `f51ed4a4a6db609d9cb08b4dceb20368612ed7cf560c79756ae74b756109bc83` |
 | `figures/fig_method_pipeline.svg` | 2380 | `47ec3a1414e3205dff6e328923eb931d6742aace8cd146f7cc150d05f9a98f7a` |
@@ -26,7 +27,7 @@
 | `generated/N50_EVIDENCE_MANIFEST.md` | 947 | `56fab4b1eee5705773d61732854c8a3fccb35ace0609b84d300cfb6ae25ee28f` |
 | `generated/N50_VERIFICATION_REPORT.md` | 1364 | `c04ea961527b1552b4850785fe9bed887a6e5ad790f63a16059a233471246486` |
 | `generated/REFERENCE_BASELINE_MANIFEST.md` | 843 | `fb25884f629a1bfe73d1adcf5e3bc666f208bcd9eebf847b5bfe3d8832b22651` |
-| `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | 1145 | `a8122c7804e613d9dfe873c341a42ed6a912ae4b5d350f2f594d961ccc4379d3` |
+| `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | 1145 | `db35138b962bbaf30dff9cbc4ed62b8735ed1d9c28b2260d882d72928cd8b2d0` |
 | `generated/SCENARIO_FAMILY_MANIFEST.md` | 1609 | `55746a2f361f717aeaf9c76f57adc164fb0b140410bcbea2d694c80cf922b15f` |
 | `generated/STRESS_HARSH_MANIFEST.md` | 1493 | `eb5a36af786ea4356a1d4d59dc9b577d9f5b805fab983fadc250c5c0d002a4cc` |
 | `generated/bibtex_doi_verification.json` | 4957 | `97cc4346f541752bda7f600024d95c2474b53fe78085f09e23d8a4677ef63b58` |
@@ -40,10 +41,10 @@
 | `generated/n50_paired_rows.tex` | 846 | `add1a5614da8899f2bbc6eac96821e3461ecb76eb6bccaba395c70f08591a76c` |
 | `generated/n50_reduction_bars.tex` | 1715 | `860e1b06274f48a2f260ff78797decfdce02b1440871fb6dedea7dac4513b398` |
 | `generated/n50_runtime_rows.tex` | 392 | `78bef5c26c39a7d453a63b219af40d1a5592f00d7a4674186b4194fcffdc21ac` |
-| `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
+| `generated/n50_verification.json` | 9254 | `c4f26016b75bce44d1c2fb7ee77c28dff95f19a2d2b3baf26563b3db49f4f68a` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
 | `generated/reference_baseline_rows.tex` | 424 | `3dc09dd30c7aa156698a416f3cb6d6df2219ea8f114475aed148d098ca508e2e` |
-| `generated/reproducibility_ledger.json` | 2763 | `d8e5ed2cbd068723ebd6d56c05e7b56c69ea5b3194b96cda8088379ead3f8d55` |
+| `generated/reproducibility_ledger.json` | 2763 | `4b24c35dba3a349c0bf05f4ac88f43e5c3131d402a7bce8d7c99d961c1e56aa3` |
 | `generated/reproducibility_ledger_rows.tex` | 1576 | `b0f88bf14030c7100b8a60c8f1620a35b90f8119e7659b7c6f017ea04706a4aa` |
 | `generated/reproducibility_ledger_table.tex` | 1962 | `f0d90c0e7bf31df9326a4f755115cac999f95fa0319fce453907fe1949ba2913` |
 | `generated/scenario_family_evidence.json` | 12888 | `afe00329aab3defd3938f97daa8e844b12e537e5e5df488c330db170de091ff8` |
@@ -52,11 +53,11 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 115643 | `1e285fad078bfcf5a76e7911d98bc3533e4fb7422876932af398d57269f9c4bf` |
+| `main.pdf` | 115643 | `173ac5c05a12467a78275cc509eea1826a798757c1e0b683821d5e53e616191e` |
 | `main.tex` | 40244 | `a391d5e4c185634b05669f989c9f18448b6e73c577e2f95c8d9368bd66b41646` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
-| `scripts/check_submission_readiness.py` | 80039 | `6e2b5b9edef9e567548a4d6781ae35b5bfeef4d18075266f1882b212f22c186e` |
-| `scripts/create_submission_bundle.py` | 4876 | `f4ef40624563f1936b8ede70c277f83d02592270a02f78243ff08014f30d7cb7` |
+| `scripts/check_submission_readiness.py` | 81941 | `ee2be71fa475dbda0f9d52980994aa0c1c2143f3b17aeb73d4515179c15ba6b2` |
+| `scripts/create_submission_bundle.py` | 4918 | `4e6921698878a2d50a92b4878796c15ce5f3756905284f23545b80abaa3c8e2e` |
 | `scripts/evidence_sources.py` | 1124 | `dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55` |
 | `scripts/extract_heldout_sanity_evidence.py` | 14626 | `c6db390899a3f395d2b5f513584ba265da2bb75ce918837045995c87c09ca19b` |
 | `scripts/extract_n50_evidence.py` | 14659 | `09109d1d5965dd141512cc2ae9b6787ea9ea2e269e3583fbbfba4fba8aad0584` |

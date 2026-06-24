@@ -32,6 +32,7 @@ COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
 REVIEWER_RISK_REGISTER = ROOT / "REVIEWER_RISK_REGISTER.md"
+CLAIM_EVIDENCE_BOUNDARY_MAP = ROOT / "CLAIM_EVIDENCE_BOUNDARY_MAP.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
@@ -87,6 +88,7 @@ BUNDLE_REQUIRED_PATHS = [
     "SUBMISSION_PACKAGE_INDEX.md",
     "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
     "REVIEWER_RISK_REGISTER.md",
+    "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
     "scripts/evidence_sources.py",
@@ -1006,6 +1008,7 @@ def submission_package_index_checks() -> list[Check]:
         "COVER_LETTER_AND_METADATA_DRAFT.md",
         "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
         "REVIEWER_RISK_REGISTER.md",
+        "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
@@ -1062,6 +1065,49 @@ def reviewer_risk_register_checks() -> list[Check]:
             "Reviewer risk register maps likely reviewer concerns and a pre-submission reviewer synthesis to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source."
             if not missing
             else "Reviewer risk register is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def claim_evidence_boundary_map_checks() -> list[Check]:
+    if not CLAIM_EVIDENCE_BOUNDARY_MAP.exists():
+        return [
+            Check(
+                "claim-evidence-boundary map",
+                "warning",
+                "`CLAIM_EVIDENCE_BOUNDARY_MAP.md` is missing.",
+            )
+        ]
+    text = read_text(CLAIM_EVIDENCE_BOUNDARY_MAP)
+    required_markers = [
+        "Terminology Ledger",
+        "Claim-Evidence-Boundary Matrix",
+        "Explicit Non-Claims",
+        "Final Paper-Readiness Use",
+        "Scalar AA/KLA weights allocate probability mass",
+        "output-space projection layer",
+        "does not re-estimate Bernoulli existence probabilities",
+        "graph-local",
+        "Moment-space projection",
+        "Matched posterior barycenters, not label copying alone",
+        "primary N50 validation",
+        "Held-out base-seed N50 replication",
+        "Harsh packet loss, topology-ring, and partial-FOV",
+        "Contextual GA rows",
+        "Runtime overhead",
+        "not portal-submission-ready",
+        "does not replace AA/KLA density fusion",
+        "does not guarantee correct assignment",
+        "full-topology N50 run must not be used",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "claim-evidence-boundary map",
+            "pass" if not missing else "warning",
+            "Claim-evidence-boundary map ties core manuscript claims to evidence artifacts, verification levels, terminology decisions, and explicit non-claims."
+            if not missing
+            else "Claim-evidence-boundary map is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -1883,6 +1929,7 @@ def main() -> None:
     checks.extend(submission_package_index_checks())
     checks.extend(supplementary_evidence_package_checks())
     checks.extend(reviewer_risk_register_checks())
+    checks.extend(claim_evidence_boundary_map_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(pdf_visual_qa_checks())

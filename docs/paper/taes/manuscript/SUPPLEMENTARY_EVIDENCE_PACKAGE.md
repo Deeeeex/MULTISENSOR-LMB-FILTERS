@@ -6,6 +6,7 @@ This file is a single handoff point for optional supplementary material or revie
 
 - Candidate Supplementary Material: robustness and provenance tables that may be moved into a supplement if the final TAES page budget or reviewer expectations require them.
 - Response-ready evidence: compact tables and manifests that can support reviewer responses without editing generated fragments by hand.
+- Claim discipline: `CLAIM_EVIDENCE_BOUNDARY_MAP.md` maps paper-facing claims to evidence artifacts, verification level, terminology decisions, and explicit non-claims before those claims enter a supplement or response.
 - Boundary control: stress, topology, and FOV checks are fixed-parameter evidence, not a tuning loop, and they do not substitute for target-maneuver, covariance-consistency, or recursive-online validation.
 
 ## Candidate Supplementary Material
@@ -16,6 +17,7 @@ This file is a single handoff point for optional supplementary material or revie
 | Harsh packet-loss N50 stress table | `generated/stress_harsh_section.tex` | Show fixed-design performance under a harsher packet-loss profile. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
 | Topology/FOV scenario-family table | `generated/scenario_family_section.tex` | Show fixed-design topology-ring and partial-FOV N50 boundary checks. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
 | Reproducibility ledger | `generated/reproducibility_ledger_table.tex` | Explain which reports, seeds, roles, and verifier artifacts support each paper-facing result. | Source-package and response-ready provenance material. |
+| Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Keep reviewer responses and optional supplement text aligned with verified claims and non-claims. | Internal QA artifact; not a data source and not a default portal upload. |
 
 ## Interpretation Boundaries
 
@@ -35,4 +37,4 @@ This file is a single handoff point for optional supplementary material or revie
 | `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | Source and SHA-256 ledger for manuscript-facing evidence roles. |
 | `generated/N50_VERIFICATION_REPORT.md` | Independent recomputation of network disagreement, runtime, and local metrics. |
 | `generated/SUBMISSION_READINESS_REPORT.md` | Current machine-readable submission-readiness summary in human-readable form. |
-
+| `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Claim, evidence, boundary, terminology, and non-claim map for final paper-readiness review. |
