@@ -97,7 +97,7 @@ def load_row(report: Path, arm: str, network_metrics: list[str]) -> dict[str, fl
 
 
 def tex_num(value: float) -> str:
-    return f"{value:.6f}"
+    return f"{value:.3f}"
 
 
 def write_rows(values: dict[str, dict[str, float]]) -> None:

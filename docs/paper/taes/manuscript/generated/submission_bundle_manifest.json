@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "c0d7b9bd1829291cbb987e08540c856da5f8a8ddc8fc3ee3bc88a3004641ca03",
+  "bundle_sha256": "50f5fe0dd3433b1d2c788e1be7dc36415f353e905b7cdf27d2516d83042396ac",
   "file_count": 58,
   "files": [
     {
@@ -135,8 +135,8 @@
     },
     {
       "path": "generated/n50_mean_rows.tex",
-      "sha256": "aec305ff6fb1bfe1edf4cb1784b31c31f8e507fa488dbad4fa2fabab00af74cb",
-      "size_bytes": 554
+      "sha256": "24070f8db5b2e6659f6f2a738e7f4045b5fbadca7bb9c622fc55d34bf561698b",
+      "size_bytes": 518
     },
     {
       "path": "generated/n50_paired_rows.tex",
@@ -165,8 +165,8 @@
     },
     {
       "path": "generated/reference_baseline_rows.tex",
-      "sha256": "0057561cbefe51bd7af758250f72f9e76b68ec4d3d9de5b6ca3fe0e63e629df7",
-      "size_bytes": 478
+      "sha256": "3dc09dd30c7aa156698a416f3cb6d6df2219ea8f114475aed148d098ca508e2e",
+      "size_bytes": 424
     },
     {
       "path": "generated/reproducibility_ledger.json",
@@ -215,13 +215,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "9f88f1cb2fee457100ed45d30b26673cfd3514be6fc227b4bbfbb7903118c322",
-      "size_bytes": 108724
+      "sha256": "a5a88b097622bdc07925decf81c9896d5a772cb696c7ef3f754d89e081b716d4",
+      "size_bytes": 108761
     },
     {
       "path": "main.tex",
-      "sha256": "2e848c22cc2d282567a26a47ac9af2cd9d113665f20bf9ab72b53a5e7631bd4c",
-      "size_bytes": 34936
+      "sha256": "99807a5f770f54c4fed4065a50e0ab9aba6d0482d6b1b2de422332aedd4e055b",
+      "size_bytes": 35045
     },
     {
       "path": "references.bib",
@@ -250,12 +250,12 @@
     },
     {
       "path": "scripts/extract_n50_evidence.py",
-      "sha256": "c247769155c954c689119d8bcb517d4bb1a5f93df28365608a79ebebdc0dc2ba",
-      "size_bytes": 14071
+      "sha256": "09109d1d5965dd141512cc2ae9b6787ea9ea2e269e3583fbbfba4fba8aad0584",
+      "size_bytes": 14659
     },
     {
       "path": "scripts/extract_reference_baselines.py",
-      "sha256": "5372c079c7eed4de5b16355570e17b34bca3933bda3ca4a8703bd1afb44aea9e",
+      "sha256": "00219cdf4357bc5d5df3c67207a09bc025b0e0e13eb3b0b0ba9a6d5e97bfc224",
       "size_bytes": 6281
     },
     {

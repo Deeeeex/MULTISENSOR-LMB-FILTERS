@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `c0d7b9bd1829291cbb987e08540c856da5f8a8ddc8fc3ee3bc88a3004641ca03`
+- Bundle SHA-256: `50f5fe0dd3433b1d2c788e1be7dc36415f353e905b7cdf27d2516d83042396ac`
 - Files: 58
 
 ## Included Files
@@ -34,13 +34,13 @@
 | `generated/method_pipeline.tex` | 1151 | `d46e7cbacac0e204abc35ca04e3943e78e7efc30454b24c59b0b53c7dc58fdc7` |
 | `generated/n50_evidence.json` | 4938 | `b37fa2abe1cf2e3e7fa145f8629fe2ba96562ca09990d421363d4472ee3da9e8` |
 | `generated/n50_mean_metrics.csv` | 281 | `9facdb4eb81d3b0f17887f7daaa07c77e62d45bb6a0ed11a0b05a53c8732cb44` |
-| `generated/n50_mean_rows.tex` | 554 | `aec305ff6fb1bfe1edf4cb1784b31c31f8e507fa488dbad4fa2fabab00af74cb` |
+| `generated/n50_mean_rows.tex` | 518 | `24070f8db5b2e6659f6f2a738e7f4045b5fbadca7bb9c622fc55d34bf561698b` |
 | `generated/n50_paired_rows.tex` | 846 | `add1a5614da8899f2bbc6eac96821e3461ecb76eb6bccaba395c70f08591a76c` |
 | `generated/n50_reduction_bars.tex` | 1715 | `860e1b06274f48a2f260ff78797decfdce02b1440871fb6dedea7dac4513b398` |
 | `generated/n50_runtime_rows.tex` | 392 | `78bef5c26c39a7d453a63b219af40d1a5592f00d7a4674186b4194fcffdc21ac` |
 | `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
-| `generated/reference_baseline_rows.tex` | 478 | `0057561cbefe51bd7af758250f72f9e76b68ec4d3d9de5b6ca3fe0e63e629df7` |
+| `generated/reference_baseline_rows.tex` | 424 | `3dc09dd30c7aa156698a416f3cb6d6df2219ea8f114475aed148d098ca508e2e` |
 | `generated/reproducibility_ledger.json` | 2749 | `e21770df7d10560a50ea69ea79ef7ef331174b5d034dd966b5a54278884d7c8e` |
 | `generated/reproducibility_ledger_rows.tex` | 1562 | `9f3cd128a7dec7780edc1dea27d673f29fa184da52323e76c17ece5686fc534b` |
 | `generated/reproducibility_ledger_table.tex` | 1948 | `7defaabe96df1a01ba8498bd4cd75c1b2f89a57002bac705f7c7b95d67574ff7` |
@@ -50,15 +50,15 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 398 | `5922de7860af68d2838d7a58d4ecf044a90e8ab81f9ba21b3af5eaa45f662efd` |
-| `main.pdf` | 108724 | `9f88f1cb2fee457100ed45d30b26673cfd3514be6fc227b4bbfbb7903118c322` |
-| `main.tex` | 34936 | `2e848c22cc2d282567a26a47ac9af2cd9d113665f20bf9ab72b53a5e7631bd4c` |
+| `main.pdf` | 108761 | `a5a88b097622bdc07925decf81c9896d5a772cb696c7ef3f754d89e081b716d4` |
+| `main.tex` | 35045 | `99807a5f770f54c4fed4065a50e0ab9aba6d0482d6b1b2de422332aedd4e055b` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 65259 | `2cd40c54f1416871ce599cfbd87e6baf5224b883f601c06eeae26cba2bf019ec` |
 | `scripts/create_submission_bundle.py` | 4794 | `2a57acc5bc6fa1cddb7301c7909c218996f5d313cec929068303ee21434d3402` |
 | `scripts/evidence_sources.py` | 1124 | `dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55` |
 | `scripts/extract_heldout_sanity_evidence.py` | 14626 | `c6db390899a3f395d2b5f513584ba265da2bb75ce918837045995c87c09ca19b` |
-| `scripts/extract_n50_evidence.py` | 14071 | `c247769155c954c689119d8bcb517d4bb1a5f93df28365608a79ebebdc0dc2ba` |
-| `scripts/extract_reference_baselines.py` | 6281 | `5372c079c7eed4de5b16355570e17b34bca3933bda3ca4a8703bd1afb44aea9e` |
+| `scripts/extract_n50_evidence.py` | 14659 | `09109d1d5965dd141512cc2ae9b6787ea9ea2e269e3583fbbfba4fba8aad0584` |
+| `scripts/extract_reference_baselines.py` | 6281 | `00219cdf4357bc5d5df3c67207a09bc025b0e0e13eb3b0b0ba9a6d5e97bfc224` |
 | `scripts/extract_scenario_family_evidence.py` | 17977 | `345f6f0821883dcb8f79a037ee5653143211f01c54f0db51570910a636947959` |
 | `scripts/extract_stress_evidence.py` | 14054 | `8a61e96a72e0ee8cdf147f2b42ca81bed7fa1c49ddf59e4e262a2e6087752fa5` |
 | `scripts/render_figures.py` | 8106 | `0fdd6d16a30e725406625f0140b0925b3c22309891d4c9924199fd48abeaf797` |

@@ -188,7 +188,7 @@ def require_arms(parsed: dict[str, object], context: str) -> None:
         raise ValueError(f"Missing arms in {context}: {missing}")
 
 
-def tex_num(value: float, digits: int = 6) -> str:
+def tex_num(value: float, digits: int = 3) -> str:
     return f"{value:.{digits}f}"
 
 
@@ -223,12 +223,31 @@ def generated_header() -> str:
 
 def write_mean_rows(network: dict[str, dict[str, float]], local: dict[str, dict[str, float]]) -> None:
     rows = [generated_header()]
+    metric_values = {
+        metric: {arm: network[arm][metric] for arm in ARM_ORDER}
+        for metric in NETWORK_METRICS
+    }
+    metric_values.update(
+        {
+            metric: {arm: local[arm][metric] for arm in ARM_ORDER}
+            for metric in LOCAL_METRICS
+        }
+    )
+    best_by_metric = {
+        metric: min(values.values())
+        for metric, values in metric_values.items()
+    }
+    display_tolerance = 0.5 * 10**-3
     for arm in ARM_ORDER:
+        metrics = NETWORK_METRICS + LOCAL_METRICS
         values = [network[arm][m] for m in NETWORK_METRICS] + [local[arm][m] for m in LOCAL_METRICS]
         label = ARM_LABEL[arm]
-        row_values = [tex_num(value) for value in values]
-        if arm == ARM_ORDER[-1]:
-            row_values = [f"\\textbf{{{value}}}" for value in row_values]
+        row_values = []
+        for metric, value in zip(metrics, values):
+            cell = tex_num(value)
+            if value <= best_by_metric[metric] + display_tolerance:
+                cell = f"\\textbf{{{cell}}}"
+            row_values.append(cell)
         rows.append(f"{label} & {' & '.join(row_values)}\\\\\n")
     rows.append("\\bottomrule\n")
     write_text(OUT / "n50_mean_rows.tex", "".join(rows))
