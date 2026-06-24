@@ -28,6 +28,7 @@ MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
+EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
 TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
@@ -36,12 +37,18 @@ HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
 HELDOUT_N50_JSON = OUT / "heldout_n50_evidence.json"
 HELDOUT_N50_MANIFEST = OUT / "HELDOUT_N50_MANIFEST.md"
 HELDOUT_N50_FRAGMENT = OUT / "heldout_n50_section.tex"
+STRESS_HARSH_JSON = OUT / "stress_harsh_evidence.json"
+STRESS_HARSH_MANIFEST = OUT / "STRESS_HARSH_MANIFEST.md"
+STRESS_HARSH_FRAGMENT = OUT / "stress_harsh_section.tex"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 
 HELDOUT_BASE_SEED = 11
+STRESS_BASE_SEED = 21
+STRESS_P_DROP_LEVELS = [0.2, 0.35, 0.5, 0.7]
+STRESS_P_DROP_LEVEL_COUNTS = [1, 3, 2, 2]
 ARM_ORDER = [
     "Tuned spatial-KLA AA",
     "Neighborhood label-barycenter spatial-KLA AA",
@@ -151,6 +158,24 @@ def safe_int(value: object, default: int = 0) -> int:
         return default
 
 
+def float_list_matches(values: object, expected: list[float], tol: float = 1e-9) -> bool:
+    if not isinstance(values, list) or len(values) != len(expected):
+        return False
+    try:
+        return all(abs(float(value) - target) <= tol for value, target in zip(values, expected))
+    except (TypeError, ValueError):
+        return False
+
+
+def int_list_matches(values: object, expected: list[int]) -> bool:
+    if not isinstance(values, list) or len(values) != len(expected):
+        return False
+    try:
+        return [int(value) for value in values] == expected
+    except (TypeError, ValueError):
+        return False
+
+
 def reduction_percent(value: object) -> float | None:
     match = re.search(r"([-+]?\d+(?:\.\d+)?)\s*%", str(value))
     if not match:
@@ -222,6 +247,7 @@ def file_checks() -> list[Check]:
         OUT / "HELDOUT_SANITY_MANIFEST.md",
         OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
         ROOT / "scripts" / "create_submission_bundle.py",
+        ROOT / "scripts" / "extract_stress_evidence.py",
     ]
     for path in required:
         status = "pass" if path.exists() else "error"
@@ -503,6 +529,7 @@ def evidence_checks() -> list[Check]:
                 "No generated held-out base-seed or packet-loss-family evidence artifact detected.",
             )
         )
+    checks.extend(stress_harsh_checks())
     return checks
 
 
@@ -612,6 +639,115 @@ def heldout_n50_checks(heldout: dict[str, object]) -> list[Check]:
             "Paper-grade held-out base-seed N50 evidence exists and strict structure checks are recorded above."
             if scenario_status == "pass"
             else "Held-out evidence artifact exists, but the protocol does not yet match the planned base-seed-11 N50 validation.",
+        )
+    )
+    return checks
+
+
+def stress_harsh_checks() -> list[Check]:
+    sources = json.loads(read_text(EVIDENCE_SOURCES)) if EVIDENCE_SOURCES.exists() else {}
+    configured = "stress_harsh_n50_report" in sources
+    artifacts = [STRESS_HARSH_JSON, STRESS_HARSH_MANIFEST, STRESS_HARSH_FRAGMENT]
+    existing_artifacts = [path for path in artifacts if path.exists()]
+
+    if not configured and not existing_artifacts:
+        return [
+            Check(
+                "optional harsh-stress evidence path",
+                "pass",
+                "Harsh packet-loss N50 evidence is not configured in `evidence_sources.json`; the non-blocking parser path is present and no stale stress artifacts are included.",
+            )
+        ]
+
+    if configured and not STRESS_HARSH_JSON.exists():
+        return [
+            Check(
+                "optional harsh-stress evidence path",
+                "warning",
+                "`stress_harsh_n50_report` is configured, but `generated/stress_harsh_evidence.json` is missing. Re-run `./build.sh` after the report is available.",
+            )
+        ]
+
+    if not configured and existing_artifacts:
+        return [
+            Check(
+                "optional harsh-stress evidence path",
+                "warning",
+                "Stress artifacts exist even though `stress_harsh_n50_report` is not configured; remove stale files or re-run `./build.sh`.",
+            )
+        ]
+
+    stress = json.loads(read_text(STRESS_HARSH_JSON))
+    checks: list[Check] = []
+    config = stress.get("config", {})
+    if not isinstance(config, dict):
+        config = {}
+
+    trials = safe_int(config.get("trials"))
+    base_seed = safe_int(config.get("base_seed"), -1)
+    trial_seeds = config.get("trial_seeds", [])
+    trial_seed_count = len(trial_seeds) if isinstance(trial_seeds, list) else 0
+    protocol_ok = trials >= 50 and base_seed == STRESS_BASE_SEED and trial_seed_count >= trials
+    profile_ok = float_list_matches(config.get("p_drop_levels"), STRESS_P_DROP_LEVELS) and int_list_matches(
+        config.get("p_drop_level_counts"), STRESS_P_DROP_LEVEL_COUNTS
+    )
+    checks.append(
+        Check(
+            "harsh-stress N50 protocol",
+            "pass" if protocol_ok and profile_ok else "warning",
+            f"Harsh-stress run uses base seed {base_seed}, {trials} trials, {trial_seed_count} parsed trial seeds, and packet-loss profile {config.get('p_drop_levels')} / {config.get('p_drop_level_counts')}."
+            if protocol_ok and profile_ok
+            else "Harsh-stress evidence should use "
+            f"base seed {STRESS_BASE_SEED}, at least 50 trials, matching trial seeds, and packet-loss profile "
+            f"{STRESS_P_DROP_LEVELS} / {STRESS_P_DROP_LEVEL_COUNTS}; found base seed {base_seed}, "
+            f"{trials} trials, {trial_seed_count} trial seeds, and profile "
+            f"{config.get('p_drop_levels')} / {config.get('p_drop_level_counts')}.",
+        )
+    )
+
+    artifacts_ok = all(path.exists() for path in artifacts)
+    checks.append(
+        Check(
+            "harsh-stress generated artifacts",
+            "pass" if artifacts_ok else "error",
+            "`STRESS_HARSH_MANIFEST.md`, `stress_harsh_evidence.json`, and `stress_harsh_section.tex` exist."
+            if artifacts_ok
+            else "Harsh-stress evidence JSON exists, but the generated manifest or response-ready fragment is missing.",
+        )
+    )
+
+    missing_mean = []
+    missing_mean.extend(missing_metric_entries(stress, "network", ARM_ORDER, NETWORK_METRICS))
+    missing_mean.extend(missing_metric_entries(stress, "local", ARM_ORDER, LOCAL_METRICS))
+    checks.append(
+        Check(
+            "harsh-stress mean metric coverage",
+            "pass" if not missing_mean else "error",
+            "Harsh-stress means cover all three arms and all network/local manuscript metrics."
+            if not missing_mean
+            else "Harsh-stress mean metric payload is incomplete: " + "; ".join(missing_mean),
+        )
+    )
+
+    missing_paired = []
+    missing_paired.extend(missing_paired_entries(stress, "paired_network", NETWORK_METRICS))
+    missing_paired.extend(missing_paired_entries(stress, "paired_local", LOCAL_METRICS))
+    checks.append(
+        Check(
+            "harsh-stress paired metric coverage",
+            "pass" if not missing_paired else "error",
+            "Harsh-stress paired reductions include CI, wins, and sign-test p-values for full and reference-only arms."
+            if not missing_paired
+            else "Harsh-stress paired payload is incomplete: " + "; ".join(missing_paired),
+        )
+    )
+
+    checks.append(
+        Check(
+            "optional harsh-stress evidence path",
+            "pass" if protocol_ok and profile_ok else "warning",
+            "Harsh-stress evidence is configured and parsed; interpretation is recorded as "
+            f"`{stress.get('interpretation_class', 'missing')}`. This gate checks protocol and coverage, not that every metric improves.",
         )
     )
     return checks

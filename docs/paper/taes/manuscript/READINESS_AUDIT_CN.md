@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 12:56 CST
+日期: 2026-06-24 13:20 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -59,8 +59,9 @@
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
 | Held-out scenario evidence | Passed for baseSeed=11 N50 robustness | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `generated/HELDOUT_SANITY_MANIFEST.md`; `generated/HELDOUT_N50_MANIFEST.md`; `generated/heldout_n50_evidence.json`; `generated/heldout_n50_section.tex` | Keep the held-out table/paragraph in the manuscript or move it to supplementary/response-ready material after final page-budget review. The readiness checker requires base seed 11, at least 50 trials, parsed trial seeds, generated manifest/LaTeX fragment, all three arms, all manuscript metrics, paired CI/wins/p-values, and a visible full-barycenter-vs-reference-only RMSE separation check. Current PDF table explicitly shows CI and sign-test p for the held-out RMSE separation. |
+| Optional harsh packet-loss stress evidence | Non-blocking parser/checker path established; formal N50 still running | `docs/AA_STRESS_SCENARIO_VALIDATION_CN.md`; `scripts/extract_stress_evidence.py`; `check_submission_readiness.py`; `RUN/AA/AA_TAES_STRESS_HARSH_N50_BASESEED21_20260624_130728.log` | After the N50 report completes, add `stress_harsh_n50_report` to `evidence_sources.json`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, and `generated/stress_harsh_section.tex`. The readiness checker treats this as protocol/coverage evidence, not as a requirement that every stress metric improve. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, result tables/figure page, and held-out/conclusion page after the held-out CI/p-value table upgrade | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
-| Submission readiness checker | Passed for all non-metadata gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker now reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and should be `content_ready_metadata_pending` when all non-metadata gates pass. |
+| Submission readiness checker | Passed for all non-metadata gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker now reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and should be `content_ready_metadata_pending` when all non-metadata gates pass. It also records whether the optional harsh-stress N50 path is unconfigured, configured-but-missing generated artifacts, or parsed with protocol/coverage checks. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check_heldout_ci` Tectonic compile | Re-run after final manuscript-affecting edits. |
 
 ## Immediate Execution Order
@@ -68,4 +69,5 @@
 1. Replace author/funding/repository/corresponding-author/OA/preprint/conflict placeholders once the real submission metadata is available.
 2. Rebuild `main.pdf` and re-render the title/abstract page, method pages, held-out table page, result tables/figure page, and final reference page after any evidence or metadata edit.
 3. Decide whether the held-out N50 CI/wins/p-value table stays in the main paper, moves to supplementary material, or remains response-ready evidence depending on final page budget.
-4. Consider broader packet-loss/topology/target-maneuver scenario-family validation as the next evidence-risk reduction step, not as a blocker for the current held-out gate.
+4. When the harsh packet-loss N50 run finishes, connect it through `stress_harsh_n50_report`, rebuild, and decide whether the result belongs in the main manuscript, supplementary/response package, or limitations-only evidence.
+5. Consider broader topology/target-maneuver scenario-family validation as the next evidence-risk reduction step, not as a blocker for the current held-out gate.

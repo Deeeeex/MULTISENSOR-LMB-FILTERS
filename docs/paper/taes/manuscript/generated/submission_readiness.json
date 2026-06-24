@@ -77,6 +77,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/scripts/extract_stress_evidence.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "`main.tex` uses `IEEEtaes`.",
       "gate": "TAES class",
       "status": "pass"
@@ -192,7 +197,12 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 29 files and SHA-256 `afda5b13afd261edbae483b9a23bfc49ab9b5d46499dc5bfc6029dab01f865b9`.",
+      "detail": "Harsh packet-loss N50 evidence is not configured in `evidence_sources.json`; the non-blocking parser path is present and no stale stress artifacts are included.",
+      "gate": "optional harsh-stress evidence path",
+      "status": "pass"
+    },
+    {
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 29 files and SHA-256 `512e1cd159bb5d7e11e790300eabff7e3ec51943436b5145d9137a7c659eefaf`.",
       "gate": "submission source bundle",
       "status": "pass"
     }
