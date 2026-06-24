@@ -582,9 +582,11 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
     )
 
     body = paper_facing_body(tex)
+    main_body_match = re.search(r"\\section{INTRODUCTION}(.+?)\\section\*{ACKNOWLEDGMENT}", tex, flags=re.DOTALL)
+    main_body = main_body_match.group(1) if main_body_match else ""
     story_markers = [
         "component-correspondence failure",
-        "Scalar AA/KLA weights decide how much probability mass to trust",
+        "Scalar arithmetic-average (AA) and Kullback--Leibler average (KLA) weights decide how much probability mass to trust",
         "residual correspondence failure",
         "not another scalar-weight search",
         "A held-out 50-trial replication",
@@ -600,6 +602,42 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             "Abstract and introduction preserve the correspondence-failure framing, scalar-weight boundary, held-out replication, and reference-only mechanism test."
             if not missing_story_markers
             else "First-page narrative is missing markers: " + "; ".join(missing_story_markers),
+        )
+    )
+
+    abstract_abbreviation_markers = [
+        "labeled multi-Bernoulli (LMB)",
+        "arithmetic-average (AA)",
+        "Kullback--Leibler average (KLA)",
+        "optimal sub-pattern assignment (OSPA)",
+        "expected OSPA (E-OSPA)",
+        "root-mean-square error (RMSE)",
+        "field of view (FOV)",
+    ]
+    main_abbreviation_markers = [
+        r"\LMB{} (LMB) filter",
+        "random finite sets (RFSs)",
+        "Kullback--Leibler average (KLA)",
+        "arithmetic-average (AA)",
+        "partial field-of-view (FOV)",
+        "optimal sub-pattern assignment (OSPA)-style",
+        "expected OSPA (E-OSPA)",
+        "root-mean-square error (RMSE)",
+    ]
+    missing_abstract_abbreviations = [
+        marker for marker in abstract_abbreviation_markers if marker not in abstract
+    ]
+    missing_main_abbreviations = [marker for marker in main_abbreviation_markers if marker not in main_body]
+    checks.append(
+        Check(
+            "abbreviation first-use definitions",
+            "pass" if not missing_abstract_abbreviations and not missing_main_abbreviations else "warning",
+            "Abstract and main text define recurring technical abbreviations at first use."
+            if not missing_abstract_abbreviations and not missing_main_abbreviations
+            else "Abbreviation definitions are incomplete: abstract missing "
+            + (", ".join(missing_abstract_abbreviations) if missing_abstract_abbreviations else "none")
+            + "; main text missing "
+            + (", ".join(missing_main_abbreviations) if missing_main_abbreviations else "none"),
         )
     )
 

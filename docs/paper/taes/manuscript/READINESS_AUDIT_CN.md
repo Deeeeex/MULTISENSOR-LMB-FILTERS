@@ -135,3 +135,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按 algorithmic-paper 的 Discussion 结构做了一个很窄但重要的稿件修订：`DISCUSSION AND LIMITATIONS` 不再直接从 limitation 开始，而是先解释 paired / held-out / boundary evidence 共同支持的机制读法。新的开场明确：在 target-wise AA weight routing 已固定的条件下，reference-only projection 主要解释 network disagreement 和 cardinality effect，而主要 RMSE separation 需要 matched moment barycenters；因此本文方法应被读作 complement to AA/KLA weighting 的 correspondence-and-projection layer，而不是 replacement for density pooling。
 
 `check_submission_readiness.py` 已新增 `discussion interpretation markers` gate，要求 Discussion 保留 fixed weight routing、reference-only partial effect、matched barycenter spatial separation、complementary-to-AA/KLA 和 not-density-pooling-replacement 这些 marker。这个 gate 的目的不是增加结果，而是防止后续为了压页或润色而把最关键的 ablation interpretation 删除。
+
+## 22:59 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊稿件术语一致性做了一个投稿质量补丁：摘要中补齐 labeled multi-Bernoulli (LMB)、arithmetic-average (AA)、Kullback--Leibler average (KLA)、optimal sub-pattern assignment (OSPA)、expected OSPA (E-OSPA)、root-mean-square error (RMSE) 和 field of view (FOV) 的 first-use 定义；正文中补齐 LMB、FOV、OSPA、E-OSPA、RMSE 等首次使用定义，避免后续结果表和 generated Discussion 句里直接出现未定义缩写。
+
+`check_submission_readiness.py` 已新增 `abbreviation first-use definitions` gate，分别检查 abstract 和 main text 的关键缩写定义。这个 gate 面向投稿 polish，不改变实验证据或主张，只减少 IEEE/TAES 格式审查和审稿人快速扫读时的术语粗糙风险。

@@ -222,6 +222,11 @@
       "status": "pass"
     },
     {
+      "detail": "Abstract and main text define recurring technical abbreviations at first use.",
+      "gate": "abbreviation first-use definitions",
+      "status": "pass"
+    },
+    {
       "detail": "Related Work keeps the method positioned as a correspondence/projection layer rather than another AA/KLA weighting rule.",
       "gate": "related-work positioning markers",
       "status": "pass"
@@ -412,7 +417,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `833b3f5bd363375ef570a05f3c26aa249c2a8bee48c484578ce1f724b284d645`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `7bace1de7b86ab8357e615124a60b5d636b0a817d3ae7509b0e0f7c16e159d31`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
