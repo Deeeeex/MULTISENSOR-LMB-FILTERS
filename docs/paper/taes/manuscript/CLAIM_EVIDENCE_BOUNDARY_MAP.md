@@ -11,6 +11,35 @@ This file is a pre-submission audit artifact for the TAES manuscript package. It
 - Evidence rule: only claims supported by manuscript equations, tracked validation reports, generated fragments, verifier outputs, or fixed-design boundary checks may be used as paper-facing claims.
 - Boundary rule: future maneuver/crossing, covariance/reliability, and recursive-online protocols are planning artifacts, not current manuscript evidence.
 
+## One-Sentence Argument
+
+In distributed LMB tracking under unreliable peer-to-peer communication, we show that residual errors can persist after target-wise AA weight routing because local Bernoulli components lack a shared correspondence contract; a graph-local reference, assignment, and first-two-moment barycenter projection repairs active output-track label/moment correspondence, supported by paired N50 ablation, held-out replication, and fixed-parameter boundary checks, with recursive lifecycle, covariance-consistency, and maneuver/crossing behavior outside the current claim.
+
+## Reader Path
+
+The manuscript should answer reviewer questions in this order:
+
+1. Relevance: unreliable communication makes local labeled tracks difficult to compare across sensors.
+2. Novelty: the paper treats label sets as a correspondence contract rather than as bookkeeping attached to scalar AA/KLA weights.
+3. Trust: structural propositions and fixed-design ablations separate label copying from matched posterior barycentering.
+4. Reuse: the method is a graph-local active-output projection with explicit inputs, costs, and source-code/evidence artifacts.
+5. Meaning: the contribution is bounded to output-level correspondence repair and does not claim recursive LMB correctness, covariance consistency, or general label-management optimality.
+
+## Section Job Map
+
+| Manuscript section | Primary job | Must preserve | Must avoid |
+| --- | --- | --- | --- |
+| Abstract | State the residual correspondence failure, the graph-local projection, and the main full-versus-reference evidence. | Active-output scope, N50 paired evidence, held-out separation, fixed-parameter boundary checks. | Presenting the method as a new scalar-weight optimizer or recursive LMB update. |
+| Introduction | Move from networked tracking relevance to the unresolved component-correspondence gap after scalar weight routing. | The `correspondence contract` framing and the distinction between probability-mass allocation and component matching. | A broad claim that AA/KLA fusion is generally inadequate. |
+| Related Work | Position AA/KLA, heterogeneous RFS fusion, assignment, and consensus as adjacent foundations. | The complementarity claim: correspondence projection is orthogonal to density-pooling weights. | A paper-by-paper catalog without the missing-correspondence throughline. |
+| Problem Formulation | Define the local LMB outputs, graph neighborhood, and missing correspondence map. | The active-track output-projection boundary. | Replacing the upstream Bernoulli existence consumer. |
+| Method | Explain reference selection, assignment, moment barycenter, graph locality, and cost. | Reproducible mechanism detail and existence pass-through wording. | Hiding the assignment cost or implying global label-dictionary access. |
+| Structural Properties | Give conditional algebraic support and formal boundaries. | Fixed-time active-output analysis scope, sufficient assignment stability, first-two-moment least-squares projection. | Claiming finite-round optimality or guaranteed assignment under crossings/births/deaths. |
+| Experimental Setup | Define the mechanism-isolation protocol and fixed parameters. | Same seeds/measurements across arms, tuned scalar-weight baseline, reference-only ablation, no per-scenario search. | Treating held-out/boundary runs as tuning sources. |
+| Results | Walk the reader through primary gains, GA context, ablation separation, and held-out replication. | Table/figure order: primary N50, contextual GA, paired ablation, held-out check. | Overstating contextual GA rows as paired significance evidence. |
+| Discussion and Limitations | Interpret why the ablation supports matched barycentering and where the method can fail. | Assignment ambiguity, covariance/reliability limits, recursive lifecycle boundary, formation-family scope. | Turning limitations into generic disclaimers disconnected from the method. |
+| Conclusion | Restate the bounded contribution and required recursive safeguards. | Output-level correspondence module language. | Promising validated recursive LMB deployment. |
+
 ## Terminology Ledger
 
 | Canonical term | First-use definition in paper | Variants to avoid | Decision |

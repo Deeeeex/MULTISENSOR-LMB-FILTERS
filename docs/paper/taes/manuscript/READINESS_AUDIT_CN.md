@@ -13,6 +13,12 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 00:55 Checkpoint
+
+本轮按 `nature-writing` / `nature-polishing` 的 algorithmic-paper 工作流，把 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 从单纯 claim/evidence 表扩展为完整的 manuscript argument ledger。新增 `One-Sentence Argument` 锁定本文的一行主张: unreliable peer-to-peer LMB tracking 中，target-wise AA weight routing 已固定后仍可能缺失 Bernoulli component correspondence；graph-local reference、assignment 和 first-two-moment barycenter projection 只修复 active output-track 的 label/moment correspondence，当前证据来自 paired N50 ablation、held-out replication 和 fixed-parameter boundary checks，而 recursive lifecycle、covariance consistency、maneuver/crossing behavior 仍在当前 claim 之外。
+
+同一文件新增 `Reader Path` 和 `Section Job Map`，逐节规定 Abstract、Introduction、Related Work、Problem Formulation、Method、Structural Properties、Experimental Setup、Results、Discussion 和 Conclusion 的唯一主要任务、必须保留的边界和必须避免的过度表述。`check_submission_readiness.py` 已把这些 marker 纳入 `claim-evidence-boundary map` gate；`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 也同步说明该 artifact 是一行主张、reader path、section-job、terminology、claim/evidence 与 non-claim 的统一内审入口。这个改动不新增科学 claim，也不改变正文数值；它的作用是在后续 metadata、cover letter、supplement 或 reviewer response 写作时，防止把当前 output-level projection 扩写成递归滤波、全局 label management 或 scalar-weight optimization。
+
 ## 00:50 Checkpoint
 
 本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。

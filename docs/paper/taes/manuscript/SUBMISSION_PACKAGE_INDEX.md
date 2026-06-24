@@ -15,7 +15,7 @@ Upload or paste these items after replacing all author, funding, repository, and
 | Supplement or response evidence | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` and `SUPPLEMENTARY_README_DRAFT.md` | Single response-ready map plus a portal-facing readme scaffold for held-out, harsh-loss, topology/FOV, and reproducibility-ledger fragments; generated `.tex` fragments remain source-package evidence and are not edited by hand. | Decide whether selected fragments become a portal supplement or remain reviewer-response evidence after final page-budget review. |
 | Optional graphical/video abstract | Not prepared | TAES allows optional graphical/video abstracts; the current package does not require one. | Decide explicitly before final portal submission. |
 | Reviewer-response planning map | `REVIEWER_RISK_REGISTER.md` | Internal pre-submission map from likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries. | Use for response planning only; do not upload or cite as a data source. |
-| Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Internal audit map tying each paper-facing claim to manuscript location, evidence artifact, verification level, terminology decision, and explicit non-claim. | Use before final submission or reviewer response; do not upload or cite as a data source unless converted to a formal supplement. |
+| Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Internal audit map tying the one-sentence argument, reader path, section jobs, terminology decisions, paper-facing claims, evidence artifacts, verification levels, and explicit non-claims together. | Use before final submission or reviewer response; do not upload or cite as a data source unless converted to a formal supplement. |
 
 ## Internal QA Artifacts
 
@@ -35,7 +35,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | Handoff map for optional supplementary material and reviewer-response evidence, including interpretation boundaries for fixed-parameter robustness checks. |
 | `SUPPLEMENTARY_README_DRAFT.md` | Draft readme to convert selected generated evidence blocks into a formal TAES supplementary-material upload. |
 | `REVIEWER_RISK_REGISTER.md` | Internal reviewer-risk map used to keep response planning aligned with the current manuscript evidence and residual limitations. |
-| `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Claim-to-evidence audit used to keep the abstract, results, discussion, cover letter, and response text aligned with verified evidence and explicit non-claims. |
+| `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Argument, section-job, terminology, and claim-to-evidence audit used to keep the abstract, results, discussion, cover letter, supplement, and response text aligned with verified evidence and explicit non-claims. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
 

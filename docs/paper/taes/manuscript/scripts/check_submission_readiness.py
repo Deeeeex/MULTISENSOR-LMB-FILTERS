@@ -1093,10 +1093,17 @@ def claim_evidence_boundary_map_checks() -> list[Check]:
         ]
     text = read_text(CLAIM_EVIDENCE_BOUNDARY_MAP)
     required_markers = [
+        "One-Sentence Argument",
+        "Reader Path",
+        "Section Job Map",
         "Terminology Ledger",
         "Claim-Evidence-Boundary Matrix",
         "Explicit Non-Claims",
         "Final Paper-Readiness Use",
+        "active output-track label/moment correspondence",
+        "correspondence contract",
+        "probability-mass allocation and component matching",
+        "Table/figure order: primary N50, contextual GA, paired ablation, held-out check",
         "Scalar AA/KLA weights allocate probability mass",
         "output-space projection layer",
         "does not re-estimate Bernoulli existence probabilities",
