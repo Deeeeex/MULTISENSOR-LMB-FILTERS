@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 09:49 CST
+日期: 2026-06-24 10:15 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -55,13 +55,12 @@
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
 | Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, inspect the report, then decide whether to promote the evidence into the manuscript or supplementary material. |
-| PDF visual QA | Partial | Prior rendered inspections after recent commits | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
+| PDF visual QA | Passed for current checkpoint | `./build.sh`; rendered checks of the title/abstract page, method pages, results page, and final reference page after the contribution-sentence layout fix | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
 
 ## Immediate Execution Order
 
-1. Commit and push the source/report-script checkpoint with the completed N50 local verifier evidence.
-2. Render `main.pdf` to page PNGs after the commit checkpoint and inspect title/abstract, method figures, results tables, and reference page spacing.
-3. Monitor `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` until the held-out N50 report path is printed.
-4. If the held-out result supports the mechanism claim, add the evidence path to the manuscript evidence pipeline and decide whether it belongs in the main paper, a compact robustness paragraph, or supplementary material.
-5. Replace author/funding/repository placeholders once the real submission metadata is available.
+1. Monitor `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` until the held-out N50 report path is printed.
+2. If the held-out result supports the mechanism claim, add the evidence path to the manuscript evidence pipeline and decide whether it belongs in the main paper, a compact robustness paragraph, or supplementary material.
+3. Rebuild `main.pdf` and re-render the title/abstract page, method pages, result tables/figure page, and final reference page after any held-out evidence edit.
+4. Replace author/funding/repository placeholders once the real submission metadata is available.
