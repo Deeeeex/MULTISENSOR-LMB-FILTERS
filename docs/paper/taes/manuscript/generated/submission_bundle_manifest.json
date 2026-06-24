@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "960da1584890b5b3291cc5131a1764fd34d9a3072dc1b32f9cb42d92477160bf",
-  "file_count": 59,
+  "bundle_sha256": "e26a692b14b579bf17e60c0807e62c824a22fbd7aa9362ab72ab27a2a3183a49",
+  "file_count": 60,
   "files": [
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -20,18 +20,23 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "0cd5d8830111a6351f5af27598926b32c08e5d93b0a9994ce95c9b0657f7f4f9",
-      "size_bytes": 34701
+      "sha256": "f49bd9de56ebc9f700cab4e21d97fb98846fe59389521dd38812f4e41e07718a",
+      "size_bytes": 35637
     },
     {
       "path": "README.md",
-      "sha256": "29f6b28517c97b5038c7dd3efcff615b85c294201071cfb8fefa9ebe02d5f5ef",
-      "size_bytes": 11362
+      "sha256": "4c4d8a944e8a370727bab6ab6ba280c3ab6db64b2d898690a4465606e3434cf6",
+      "size_bytes": 11677
+    },
+    {
+      "path": "REVIEWER_RISK_REGISTER.md",
+      "sha256": "930117440dcd8b72b6fc132900eb2f08f4200b7ebab5b8e16f4d50673e16efd4",
+      "size_bytes": 4130
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "55dcf77068bb6838f7bbae1d594f94391232fad35ffcc2247591d6b3e64ec93c",
-      "size_bytes": 5524
+      "sha256": "3492cba6d4d3c72f76aba06c81a83f79ae5c0911e049ecff511789b9c4da29f8",
+      "size_bytes": 5954
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
@@ -220,7 +225,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "a72a874cd0ed3cc3a2e0a5f36d6859f1dccdfb48da777241b60fc4acc9450c5d",
+      "sha256": "1313f4b89d9a5d144f88c51743a8ffef5a209885b13e2ab39159aefb710a4430",
       "size_bytes": 116785
     },
     {
@@ -235,13 +240,13 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "591236c4227cacaa6ccb5573fb3f8f6fc9e7e75dddf67afd05365d84b115ed6c",
-      "size_bytes": 73817
+      "sha256": "5e7efb0adf292d3f74fc12b345408c10e2190b95545ca85d63fc58a0c0e124d4",
+      "size_bytes": 75358
     },
     {
       "path": "scripts/create_submission_bundle.py",
-      "sha256": "2a6286c64c09db443c479cefd5f09ccd983743ae73534a45899e702bf98efdc4",
-      "size_bytes": 4839
+      "sha256": "f4ef40624563f1936b8ede70c277f83d02592270a02f78243ff08014f30d7cb7",
+      "size_bytes": 4876
     },
     {
       "path": "scripts/evidence_sources.py",

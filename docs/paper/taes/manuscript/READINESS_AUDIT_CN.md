@@ -147,3 +147,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮继续按 algorithmic-paper 的 conclusion 规则做窄幅收束：结论末句不再写成 `can support future recursive LMB designs` 这种偏承诺式表述，而是改为 `output-level correspondence module`，并明确 `recursive LMB use still requires lifecycle and consistency guards`。这个改动与正文 Discussion 里的边界一致，不新增实验主张，同时避免结论尾句孤立跨页。
 
 `check_submission_readiness.py` 已新增 `conclusion boundary wording` gate，要求结论同时保留 output-level scope 和 recursive-safeguard requirement。该 gate 的目的，是防止最终润色或压缩结论时把 evidence boundary 写宽，尤其是把当前输出层 projection 误写成已经验证的 recursive LMB update。
+
+## 23:16 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 reviewer-preflight 的口径新增 `REVIEWER_RISK_REGISTER.md`，把可能的审稿质疑整理成 concern -> manuscript answer -> evidence/artifact -> residual boundary 的内部索引。它覆盖 not-another-AA/KLA-weighting-rule、label-copying-only、recursive LMB validity、equal moment barycenter、generality、runtime overhead 和 reproducibility integrity 等高风险点，但明确不是新的 claim source，也不能作为 data source 引用。
+
+`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 已同步把它纳入投稿包说明；`create_submission_bundle.py` 已把它加入 source bundle；`check_submission_readiness.py` 新增 `reviewer risk register` gate，检查表头、核心风险项和 do-not-cite boundary。该文件的作用是让后续回复审稿或补充材料决策从已验证证据出发，而不是临时扩张主张。

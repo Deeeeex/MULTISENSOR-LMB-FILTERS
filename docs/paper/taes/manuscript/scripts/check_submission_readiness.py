@@ -31,6 +31,7 @@ BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
+REVIEWER_RISK_REGISTER = ROOT / "REVIEWER_RISK_REGISTER.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
@@ -84,6 +85,7 @@ BUNDLE_REQUIRED_PATHS = [
     "build.sh",
     "SUBMISSION_PACKAGE_INDEX.md",
     "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
+    "REVIEWER_RISK_REGISTER.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
     "scripts/evidence_sources.py",
@@ -355,6 +357,7 @@ def file_checks() -> list[Check]:
         COVER_LETTER,
         SUBMISSION_INDEX,
         SUPPLEMENTARY_EVIDENCE_PACKAGE,
+        REVIEWER_RISK_REGISTER,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
@@ -913,6 +916,7 @@ def submission_package_index_checks() -> list[Check]:
         "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
         "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
+        "REVIEWER_RISK_REGISTER.md",
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
@@ -926,6 +930,42 @@ def submission_package_index_checks() -> list[Check]:
             "Submission package index maps final uploads, internal QA artifacts, metadata placeholders, and the final rebuild sequence."
             if not missing
             else "Submission package index exists but is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def reviewer_risk_register_checks() -> list[Check]:
+    if not REVIEWER_RISK_REGISTER.exists():
+        return [
+            Check(
+                "reviewer risk register",
+                "warning",
+                "`REVIEWER_RISK_REGISTER.md` is missing.",
+            )
+        ]
+    text = read_text(REVIEWER_RISK_REGISTER)
+    required_markers = [
+        "Reviewer concern",
+        "Current manuscript answer",
+        "Evidence / artifact",
+        "Boundary / residual risk",
+        "not another AA/KLA weighting rule",
+        "Label copying alone",
+        "recursive LMB validity",
+        "Equal moment barycenters",
+        "Generality beyond the main formation scenario",
+        "Runtime overhead",
+        "Reproducibility and generated evidence integrity",
+        "do not cite this register as a data source",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "reviewer risk register",
+            "pass" if not missing else "warning",
+            "Reviewer risk register maps likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source."
+            if not missing
+            else "Reviewer risk register is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -1746,6 +1786,7 @@ def main() -> None:
     checks.extend(cover_letter_checks(tex))
     checks.extend(submission_package_index_checks())
     checks.extend(supplementary_evidence_package_checks())
+    checks.extend(reviewer_risk_register_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(pdf_visual_qa_checks())

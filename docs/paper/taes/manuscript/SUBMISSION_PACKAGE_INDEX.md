@@ -13,6 +13,7 @@ Upload or paste these items after replacing all author, funding, repository, and
 | Cover letter | `COVER_LETTER_AND_METADATA_DRAFT.md` | Drafted with manuscript type, technical area, originality statement, simulation-data statement, and AI-assistance disclosure. | Replace bracketed fields, then paste into the portal or upload as requested. |
 | Portal metadata | `COVER_LETTER_AND_METADATA_DRAFT.md` | Checklist exists for title, running head, corresponding author, ORCID, funding, repository, preprint, conflicts, and reviewer fields. | Fill the portal exactly from the final metadata values. |
 | Supplement or response evidence | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | Single response-ready map for held-out, harsh-loss, topology/FOV, and reproducibility-ledger fragments; generated `.tex` fragments remain source-package evidence and are not edited by hand. | Decide whether selected fragments become a portal supplement or remain reviewer-response evidence after final page-budget review. |
+| Reviewer-response planning map | `REVIEWER_RISK_REGISTER.md` | Internal pre-submission map from likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries. | Use for response planning only; do not upload or cite as a data source. |
 
 ## Internal QA Artifacts
 
@@ -30,6 +31,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `generated/SCENARIO_FAMILY_MANIFEST.md` | Optional topology/FOV scenario-family manifest; current topology-ring and partial-FOV entries are fixed-parameter N50 paper-grade scenario-family robustness evidence. |
 | `generated/PDF_VISUAL_QA_MANIFEST.md` | Local visual-QA record for representative rendered PDF pages; PNGs are generated under `tmp/pdf_visual_qa/` and are not committed. |
 | `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` | Handoff map for optional supplementary material and reviewer-response evidence, including interpretation boundaries for fixed-parameter robustness checks. |
+| `REVIEWER_RISK_REGISTER.md` | Internal reviewer-risk map used to keep response planning aligned with the current manuscript evidence and residual limitations. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
 

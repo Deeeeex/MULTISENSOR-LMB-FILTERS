@@ -32,6 +32,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/REVIEWER_RISK_REGISTER.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
       "gate": "required artifact",
       "status": "pass"
@@ -292,6 +297,11 @@
       "status": "pass"
     },
     {
+      "detail": "Reviewer risk register maps likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source.",
+      "gate": "reviewer risk register",
+      "status": "pass"
+    },
+    {
       "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier.",
       "gate": "reproducibility ledger",
       "status": "pass"
@@ -422,7 +432,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `960da1584890b5b3291cc5131a1764fd34d9a3072dc1b32f9cb42d92477160bf`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `e26a692b14b579bf17e60c0807e62c824a22fbd7aa9362ab72ab27a2a3183a49`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
