@@ -61,6 +61,16 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/scripts/create_submission_bundle.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "`main.tex` uses `IEEEtaes`.",
       "gate": "TAES class",
       "status": "pass"
@@ -134,6 +144,11 @@
       "detail": "Tracked N5 base-seed sanity evidence exists (base seed 11, 5 trials), but a paper-grade held-out N50 or packet-loss-family validation is still needed.",
       "gate": "held-out scenario evidence",
       "status": "warning"
+    },
+    {
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 25 files and SHA-256 `4810e31a0b19334195a1174c258ec434326252645a6f8c0063663c011557821c`.",
+      "gate": "submission source bundle",
+      "status": "pass"
     }
   ],
   "overall_status": "draft_with_pending_gates"

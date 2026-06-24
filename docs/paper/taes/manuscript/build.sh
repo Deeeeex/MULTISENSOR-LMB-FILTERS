@@ -23,4 +23,5 @@ else
   exit 1
 fi
 
+python3 scripts/create_submission_bundle.py
 python3 scripts/check_submission_readiness.py

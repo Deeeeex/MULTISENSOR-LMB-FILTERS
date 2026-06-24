@@ -30,6 +30,8 @@ TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
 VERIFICATION_JSON = OUT / "n50_verification.json"
 HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
 HELDOUT_N50_JSON = OUT / "heldout_n50_evidence.json"
+BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
+BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 
@@ -139,6 +141,8 @@ def file_checks() -> list[Check]:
         OUT / "N50_EVIDENCE_MANIFEST.md",
         OUT / "REFERENCE_BASELINE_MANIFEST.md",
         OUT / "HELDOUT_SANITY_MANIFEST.md",
+        OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
+        ROOT / "scripts" / "create_submission_bundle.py",
     ]
     for path in required:
         status = "pass" if path.exists() else "error"
@@ -259,6 +263,26 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
     return checks
+
+
+def bundle_checks() -> list[Check]:
+    if not BUNDLE_MANIFEST_JSON.exists():
+        return [Check("submission source bundle", "warning", "`generated/submission_bundle_manifest.json` is missing.")]
+    payload = json.loads(read_text(BUNDLE_MANIFEST_JSON))
+    bundle_rel = payload.get("bundle", "")
+    bundle_path = REPO / bundle_rel if bundle_rel else Path()
+    file_count = int(payload.get("file_count", 0))
+    checksum = str(payload.get("bundle_sha256", ""))
+    ok = bool(bundle_rel) and bundle_path.exists() and file_count >= 10 and len(checksum) == 64
+    return [
+        Check(
+            "submission source bundle",
+            "pass" if ok else "warning",
+            f"Clean source bundle exists at `{bundle_rel}` with {file_count} files and SHA-256 `{checksum}`."
+            if ok
+            else "Submission source bundle manifest exists but the bundle path, file count, or checksum is incomplete.",
+        )
+    ]
 
 
 def pdf_checks() -> list[Check]:
@@ -418,6 +442,7 @@ def main() -> None:
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(pdf_checks())
     checks.extend(evidence_checks())
+    checks.extend(bundle_checks())
     write_outputs(checks)
 
 

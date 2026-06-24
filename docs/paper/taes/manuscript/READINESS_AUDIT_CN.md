@@ -35,6 +35,7 @@
 | --- | --- | --- |
 | Official template | `IEEEtaes.cls` and `IEEEtaes.bst` are used by `main.tex`; `./build.sh` compiles the manuscript. | Rebuild after final edits; render pages and inspect figures/tables. |
 | Template and author-guideline archive | `generated/SUBMISSION_READINESS_REPORT.md` now checks the local TAES requirements document, official template zip, and regular-paper template source as required artifacts. | Recheck online TAES/AESS pages immediately before final submission. |
+| Clean source bundle | `./build.sh` now writes `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and `generated/SUBMISSION_BUNDLE_MANIFEST.md`; the zip was extracted to `/tmp/taes_submission_bundle_check` and compiled with Tectonic. | Regenerate after final evidence or metadata edits; submit the current PDF plus a clean source bundle according to the portal instructions. |
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |
 | Page budget | Current manuscript is within a plausible Regular Paper range, but final printed page count is not guaranteed. | Keep estimated TAES pages near or below 10, or accept overlength charges. |
 | Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. | Re-run `./build.sh` after final title/abstract edits. |
@@ -57,6 +58,7 @@
 | Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, inspect the report, then decide whether to promote the evidence into the manuscript or supplementary material. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; rendered checks of the title/abstract page, method pages, results page, and final reference page after the contribution-sentence layout fix | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
+| Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check` Tectonic compile | Re-run after final manuscript-affecting edits. |
 
 ## Immediate Execution Order
 
