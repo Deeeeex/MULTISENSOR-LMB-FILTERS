@@ -250,15 +250,18 @@ We compare three arms chosen to isolate the mechanism rather than to search for 
 \label{tab:design}
 \centering
 \tablefont
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.74in}>{\raggedright\arraybackslash}p{0.95in}>{\raggedright\arraybackslash}p{1.08in}}
+\begingroup
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.05in}ccc@{}}
 \toprule
-Arm & Enabled mechanism & Hypothesis tested\\
+Arm & AA route & Ref. label & Moment avg.\\
 \midrule
-Tuned spatial-KLA AA & Target-wise scalar weights and spatial-KLA AA & Correct weight routing alone does not solve component correspondence.\\
-Reference-only & Neighborhood reference selection and label copying & A common label set can reduce disagreement but should not explain the main spatial gain.\\
-Label-barycenter & Reference selection, assignment, and matched moment barycenters & Matched posterior barycenters improve both agreement and truth-referenced tracking.\\
+Tuned spatial-KLA AA & on & off & off\\
+Reference-only & on & on & off\\
+Label-barycenter & on & on & on\\
 \bottomrule
 \end{tabular}
+\endgroup
 \end{table}
 
 Network disagreement is measured by pairwise output OSPA, localization disagreement, and cardinality dispersion across sensors. Truth-referenced tracking quality is measured by local expected OSPA (E-OSPA), root-mean-square error (RMSE), and cardinality error averaged across sensors. OSPA is used because it consistently combines localization and cardinality errors for multi-object filters \cite{Schuhmacher2008OSPA}. We report mean values, 95\% confidence intervals over trials, paired reductions relative to the fixed baseline, wins out of 50 paired trials, and sign-test $p$ values.

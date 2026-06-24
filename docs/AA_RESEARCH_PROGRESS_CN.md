@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 01:53 CST
+最后更新: 2026-06-25 02:04 CST
 
 ## 当前结论
 
@@ -19,6 +19,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-25 01:47 CST 本轮按用户确认的期刊稿件偏好，把 `nature-polishing` 作为 reader-path / claim-evidence-boundary 质量层继续用于 TAES 包，但最终格式、source bundle、metadata 和 readiness 仍按 TAES 约束。摘要已收紧为 14 个短句，保留 component-correspondence failure、AA/KLA scalar-weight boundary、reference-only ablation、held-out 50-trial replication 和 full-versus-reference separation 等 story markers；`check_submission_readiness.py` 新增 `abstract sentence load` gate，要求摘要句子不超过 30 词，防止后续改稿退回长句堆叠。该改动不新增实验、不改变 metric fragments，也不接入尚未完成的 full-topology N50。
 
 2026-06-25 01:53 CST 本轮进一步压缩 abstract 版面负载。新版摘要约 224 个词、13 句、最长 25 个词，保留全部首次缩写定义和主证据信号，但减少第一页右栏顶部的 abstract continuation 风险。full-topology N50 仍只有运行日志、尚无 report，继续不得接入 `evidence_sources.json`、主文、cover letter 或 generated evidence。
+
+2026-06-25 02:04 CST 本轮按 PDF 视觉 QA 把 Table I 从段落式三列说明改成 mechanism switch matrix，直接列出 tuned baseline、reference-only 和 label-barycenter 三个 arm 对 `AA route`、`Ref. label`、`Moment avg.` 的 on/off 关系。实验设计和 mechanism claim 仍由正文解释，表格只承担快速扫描任务；改动不碰任何实验结果或 evidence sources。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 

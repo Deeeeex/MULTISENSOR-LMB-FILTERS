@@ -13,6 +13,10 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 02:04 Checkpoint
+
+本轮按 PDF 视觉审查修正 Table I。原表把三臂 hypothesis 写成段落式长文本，单栏下扫描负担偏高；新版改为 mechanism switch matrix，直接展示 `AA route`、`Ref. label`、`Moment avg.` 在 tuned baseline、reference-only 和 label-barycenter 三个 arm 中的 on/off 关系。对应的 claim 解释仍保留在 Experimental Setup 正文中。这个改动不改变实验设计、指标、evidence source 或 generated results；它只让机制隔离设计更接近审稿人快速扫描的表格形态，并消除了本轮试排时出现的 Table I overfull warning。
+
 ## 01:53 Checkpoint
 
 本轮继续压缩第一页 abstract 的版面负载。上一版句子负载已经通过，但摘要尾句跨到第一页右栏顶部，会让 Index Terms 前出现一段未标注的 abstract continuation。新版摘要从 252 个词降到约 224 个词、13 句、最长 25 个词；仍保留 LMB/AA/KLA/OSPA/E-OSPA/RMSE/FOV 的首次定义，以及 `component-correspondence failure`、AA/KLA scalar-weight boundary、`reference-only ablation`、`A held-out 50-trial replication`、`full-versus-reference separation` 和 fixed-parameter boundary checks。该修改不改变任何实验、数值、generated evidence 或 full-topology 状态。
