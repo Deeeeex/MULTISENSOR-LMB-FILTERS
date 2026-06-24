@@ -48,6 +48,7 @@ if [[ "$regenerate_evidence" == "1" ]]; then
   python3 scripts/extract_stress_evidence.py
   python3 scripts/verify_n50_evidence.py
   python3 scripts/render_figures.py
+  python3 scripts/render_reproducibility_ledger.py
 else
   echo "Raw evidence sources unavailable; compiling from bundled generated fragments."
 fi

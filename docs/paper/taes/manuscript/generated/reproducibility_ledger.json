@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "name": "Primary AA N50",
+      "protocol": "base seed 1; 50 trials; seeds 2--51; packet loss 0/0.1/0.2/0.5; counts 1/4/1/2",
+      "role": "Paired AA evidence for Tables I, III, IV, and Fig. 3; paired confidence intervals, wins, and sign-test values use the same per-trial packet-loss realizations.",
+      "sha256": "11c040627b3afd1ff28c271025059798660b0d82ca82a1adc4314db939923099",
+      "source": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md"
+    },
+    {
+      "name": "Held-out AA N50",
+      "protocol": "base seed 11; 50 trials; seeds 12--61; packet loss 0/0.1/0.2/0.5; counts 1/4/1/2",
+      "role": "Base-seed robustness check; generated after method selection and not used for parameter search.",
+      "sha256": "a958d710ca17cf96dad9f87a14edaf48b8cd5148ea04fa85e5d56abc1b6a5fde",
+      "source": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md"
+    },
+    {
+      "name": "Contextual GA N50",
+      "protocol": "base seed 1; 50 trials; seeds 2--51; packet loss 0/0.1/0.2/0.5; counts 1/4/1/2",
+      "role": "Reference rows from the tracked GA validation path; same tiered profile, but not part of the paired AA sign tests.",
+      "sha256": "bd04968b7c17011603a96a16d3794e3f7776c1e577b8167d0b0c17f377d32299",
+      "source": "RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md"
+    },
+    {
+      "name": "Independent verifier",
+      "protocol": "Recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from per-trial rows/logs.",
+      "role": "Build gate for report-driven numbers before PDF compilation.",
+      "sha256": "9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6",
+      "source": "docs/paper/taes/manuscript/generated/n50_verification.json"
+    }
+  ]
+}

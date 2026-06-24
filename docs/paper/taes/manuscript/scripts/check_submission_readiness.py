@@ -41,6 +41,10 @@ HELDOUT_N50_FRAGMENT = OUT / "heldout_n50_section.tex"
 STRESS_HARSH_JSON = OUT / "stress_harsh_evidence.json"
 STRESS_HARSH_MANIFEST = OUT / "STRESS_HARSH_MANIFEST.md"
 STRESS_HARSH_FRAGMENT = OUT / "stress_harsh_section.tex"
+REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
+REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
+REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
+REPRO_LEDGER_TABLE = OUT / "reproducibility_ledger_table.tex"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
@@ -70,6 +74,7 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/extract_reference_baselines.py",
     "scripts/extract_stress_evidence.py",
     "scripts/render_figures.py",
+    "scripts/render_reproducibility_ledger.py",
     "scripts/verify_n50_evidence.py",
 ]
 BUNDLE_BUILD_FALLBACK_MARKERS = [
@@ -121,6 +126,12 @@ def labels(tex: str) -> set[str]:
 
 def refs(tex: str) -> set[str]:
     return set(re.findall(r"\\(?:ref|eqref|pageref){([^}]+)}", tex))
+
+
+def generated_tex_fragments() -> str:
+    if not OUT.exists():
+        return ""
+    return "\n".join(read_text(path) for path in sorted(OUT.glob("*.tex")))
 
 
 def command_body(tex: str, name: str) -> str:
@@ -272,9 +283,14 @@ def file_checks() -> list[Check]:
         OUT / "N50_EVIDENCE_MANIFEST.md",
         OUT / "REFERENCE_BASELINE_MANIFEST.md",
         OUT / "HELDOUT_SANITY_MANIFEST.md",
+        OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md",
+        OUT / "reproducibility_ledger.json",
+        OUT / "reproducibility_ledger_rows.tex",
+        OUT / "reproducibility_ledger_table.tex",
         OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
         ROOT / "scripts" / "create_submission_bundle.py",
         ROOT / "scripts" / "extract_stress_evidence.py",
+        ROOT / "scripts" / "render_reproducibility_ledger.py",
     ]
     for path in required:
         status = "pass" if path.exists() else "error"
@@ -362,7 +378,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
-    missing_refs = sorted(refs(tex) - labels(tex))
+    tex_with_generated_labels = tex + "\n" + generated_tex_fragments()
+    missing_refs = sorted(refs(tex) - labels(tex_with_generated_labels))
     checks.append(
         Check(
             "cross references",
@@ -448,6 +465,39 @@ def cover_letter_checks() -> list[Check]:
             "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders."
             if not missing
             else "Cover-letter draft exists but is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def reproducibility_ledger_checks() -> list[Check]:
+    artifacts = [REPRO_LEDGER_JSON, REPRO_LEDGER_MANIFEST, REPRO_LEDGER_ROWS, REPRO_LEDGER_TABLE]
+    missing = [path.relative_to(REPO).as_posix() for path in artifacts if not path.exists()]
+    if missing:
+        return [
+            Check(
+                "reproducibility ledger",
+                "error",
+                "Generated reproducibility ledger artifacts are missing: " + ", ".join(missing),
+            )
+        ]
+
+    payload = json.loads(read_text(REPRO_LEDGER_JSON))
+    rows = payload.get("rows", [])
+    names = {str(row.get("name", "")) for row in rows if isinstance(row, dict)}
+    required_names = {"Primary AA N50", "Held-out AA N50", "Contextual GA N50", "Independent verifier"}
+    missing_names = sorted(required_names - names)
+    rows_tex = read_text(REPRO_LEDGER_ROWS)
+    table_tex = read_text(REPRO_LEDGER_TABLE)
+    marker_ok = all(name in rows_tex and name in table_tex for name in required_names)
+    return [
+        Check(
+            "reproducibility ledger",
+            "pass" if not missing_names and marker_ok else "error",
+            "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, contextual GA rows, and the independent verifier."
+            if not missing_names and marker_ok
+            else "Generated reproducibility ledger is incomplete; missing names: "
+            + (", ".join(missing_names) if missing_names else "none")
+            + f"; rows_tex_marker_ok={marker_ok}.",
         )
     ]
 
@@ -941,6 +991,7 @@ def main() -> None:
     checks.extend(file_checks())
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(cover_letter_checks())
+    checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(evidence_checks())
     checks.extend(bundle_checks())

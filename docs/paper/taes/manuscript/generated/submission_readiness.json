@@ -67,6 +67,26 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/reproducibility_ledger.json",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/reproducibility_ledger_rows.tex",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/reproducibility_ledger_table.tex",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md",
       "gate": "required artifact",
       "status": "pass"
@@ -78,6 +98,11 @@
     },
     {
       "detail": "docs/paper/taes/manuscript/scripts/extract_stress_evidence.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/scripts/render_reproducibility_ledger.py",
       "gate": "required artifact",
       "status": "pass"
     },
@@ -142,6 +167,11 @@
       "status": "pass"
     },
     {
+      "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, contextual GA rows, and the independent verifier.",
+      "gate": "reproducibility ledger",
+      "status": "pass"
+    },
+    {
       "detail": "`main.pdf` has 8 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
       "gate": "PDF page count",
       "status": "pass"
@@ -202,7 +232,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 39 files and SHA-256 `907b63753e00c7868e740f607f1cd3b9c50c7e01a43de3edb48c2277193050a1`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 44 files and SHA-256 `77cfd9d582dd3664e6f606e085c2db4665163185156dbc6508882c90cd4041aa`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
