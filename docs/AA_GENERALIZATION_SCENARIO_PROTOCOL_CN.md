@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 18:30 CST
+最后更新: 2026-06-25 00:12 CST
 
 ## 目的
 
@@ -89,7 +89,7 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`partial-fov35` 已完成 N1 和固定 N5 smoke，固定 N50 已启动。当前 topology 已有 paper-grade N50 evidence，partial-FOV 在 N50 完成前仍是 smoke-tier boundary evidence。
+- Evidence: `topology-ring` 和 `partial-fov35` 均已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`full-topology` 固定 N50 已启动但尚未纳入 `evidence_sources.json` 或稿件生成片段。当前 topology-ring 与 partial-FOV 已是 paper-grade scenario-family evidence，full-topology 仍是 running ceiling check。
 
 ## Topology-ring N1 smoke
 
@@ -199,9 +199,9 @@ Interpretation:
 - Cardinality metrics remain boundary evidence because the paired CIs cross zero and the wins are weak. This should be written as `supports_spatial_mechanism_with_cardinality_boundary`, not as a full robustness claim.
 - This N5 result justifies a fixed N50 partial-FOV run later, but it still cannot be used as paper-grade evidence.
 
-## Partial-fov35 N50 run
+## Partial-fov35 N50
 
-A paper-grade partial-FOV run was started on 2026-06-24 18:23 CST with fixed method parameters:
+A paper-grade partial-FOV run was completed on 2026-06-24 with fixed method parameters:
 
 ```bash
 AA_SCENARIO_FAMILY=partial-fov35 \
@@ -210,15 +210,44 @@ AA_SCENARIO_BASE_SEED=41 \
 RUN/AA/launchAaTaesScenarioFamilySmoke.sh
 ```
 
-Run handoff:
+Artifacts:
 
-- PID: `40658`
 - PID file: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.pid`
 - Log: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`
-- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`
-- Status check at 2026-06-24 18:30 CST: PID `40658` was alive and the log had entered trial `2/50`.
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md`
 
-Interpret this run under the no-search rule. If partial FOV weakens cardinality or RMSE, keep the result as a boundary of output-level assignment/barycenter fusion and discuss missing-support lifecycle guards rather than retuning `H`, thresholds, projection cutoff, barycenter weights, or label rules.
+Run metadata recorded in the report:
+
+- `scenarioLabel: partial-fov35-formation`
+- `neighborMapMode: 4plus4`
+- `sensorFovHalfAngleDeg: 35.000`
+- `pDropLevels: [0 0.1 0.2 0.5]`
+- `pDropLevelCounts: [1 4 1 2]`
+- Arms: `[9 18 19]`
+- Trials: `50`, trial seeds `42..91`
+
+Mean result:
+
+| Arm | Net OSPA | Loc. disag. | Card. disp. | E-OSPA | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 2.319197 | 1.511293 | 0.410025 | 2.811221 | 4.244665 | 0.563600 |
+| Neighborhood label-barycenter | 1.316075 | 0.219178 | 0.388500 | 2.617590 | 3.968878 | 0.558075 |
+| Neighborhood reference-only | 1.719987 | 0.803987 | 0.388500 | 2.737630 | 4.154236 | 0.558075 |
+
+Paired reductions for the full operator relative to tuned AA are:
+
+- Network OSPA: `43.25%`, wins `50/50`, sign-test `p=1.776e-15`.
+- Localization disagreement: `85.49%`, wins `50/50`, sign-test `p=1.776e-15`.
+- E-OSPA: `6.89%`, wins `50/50`, sign-test `p=1.776e-15`.
+- RMSE: `6.50%`, wins `50/50`, sign-test `p=1.776e-15`.
+- Reference-only RMSE reduction: `2.13%`.
+
+Interpretation:
+
+- The partial-FOV N50 result is paper-grade sensing-geometry boundary evidence under fixed parameters, not a tuning result.
+- The full operator improves network agreement and spatial tracking under narrower observation support; reference-only improves label-set consistency but has weaker RMSE reduction, so the matched-barycenter mechanism remains visible.
+- Cardinality gains are smaller than the spatial/localization gains, so this result should be written as narrower-FOV coverage with cardinality/lifecycle boundary, not as a full solution to missing-support birth/death ambiguity.
+- No parameter should be changed in response to this result. If later recursive-online work exposes missing-support failures, treat them as lifecycle/correspondence-guard design problems rather than a reason to tune `H`, thresholds, projection cutoff, barycenter weights, or label rules.
 
 ## Topology-ring N50
 
@@ -269,6 +298,27 @@ Interpretation:
 - The sparse-ring topology check supports the same mechanism under fixed parameters: full label-barycenter improves both network agreement and local tracking across all 50 paired trials.
 - Reference-only also improves label-set/cardinality consistency, but its RMSE reduction is `5.17%` versus `13.12%` for the full barycenter, so matched posterior barycentering remains the main spatial-gain mechanism.
 - This result is now paper-grade topology-family evidence, not a tuning result. It should still be written as sparse-topology coverage within the same formation-family assumptions, not as a substitute for partial-FOV, maneuvering-target, covariance-consistency, or recursive-online validation.
+
+## Full-topology N50 run
+
+A paper-grade full-topology ceiling run was started on 2026-06-25 00:09 CST with fixed method parameters:
+
+```bash
+AA_SCENARIO_FAMILY=full-topology \
+AA_SCENARIO_TRIALS=50 \
+AA_SCENARIO_BASE_SEED=51 \
+RUN/AA/launchAaTaesScenarioFamilySmoke.sh
+```
+
+Run handoff:
+
+- PID: `34014`
+- PID file: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.pid`
+- Log: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
+- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
+- Status check at 2026-06-25 00:10 CST: PID `34014` was alive and the log had entered trial `1/50`.
+
+Interpret this run as an idealized topology ceiling only. If the full-topology ceiling is substantially stronger than the 4+4 or ring cases, the paper-facing interpretation is that neighborhood topology is a bottleneck for the current output-level projection layer. If it is mixed, keep the result as a boundary on assignment/reference behavior. In either case, do not tune `H`, thresholds, projection cutoff, barycenter weights, label rules, or packet-loss settings from this result.
 
 ## Paper-facing 使用边界
 

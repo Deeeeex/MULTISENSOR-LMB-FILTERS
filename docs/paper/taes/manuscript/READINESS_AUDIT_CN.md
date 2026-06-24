@@ -122,7 +122,21 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 2. Rebuild `main.pdf` and re-render the title/abstract page, method pages, main-results page, held-out/evidence page, Discussion/Conclusion page, and final reference page after any evidence or metadata edit.
 3. Decide whether the held-out N50 CI/wins/p-value table stays in the main paper, moves to supplementary material, or remains response-ready evidence depending on final page budget.
 4. Keep the harsh packet-loss stress table response-ready unless page budget allows a supplement; the main paper now carries only the generated one-sentence stress summary.
-5. Consider target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps beyond the current fixed-parameter harsh-loss, topology-ring, and partial-FOV checks.
+5. Monitor the fixed-parameter full-topology N50 ceiling run and integrate it only after the report is complete and parsed through the scenario-family evidence gate.
+6. Consider target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps beyond the current fixed-parameter harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks.
+
+## 00:09 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 target-journal 预投稿标准把后续工作从 `ml-paper` 式会议叙事切换到更严格的 Nature-style writing / reviewer preflight 口径，但投稿格式、模板、metadata 和 page budget 仍严格按 IEEE TAES。当前稿件的非元数据 gates 已经全绿，因此下一步不再做针对当前数据的搜索式调参，而是补充一个固定参数的 topology ceiling evidence: `full-topology` N50 已用 `AA_SCENARIO_FAMILY=full-topology`、`AA_SCENARIO_TRIALS=50`、`AA_SCENARIO_BASE_SEED=51` 启动。
+
+Run handoff:
+
+- PID: `34014`
+- PID file: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.pid`
+- Log: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
+- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
+
+这条 run 只用于区分 topology bottleneck 和方法本身的 assignment/barycenter behavior。结果完成前不得接入 `evidence_sources.json`、不得写入 generated scenario-family fragment、不得扩张正文 claim；结果完成后也按 no-search rule 解释，不能反向调整 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings。
 
 ## 22:45 Checkpoint
 

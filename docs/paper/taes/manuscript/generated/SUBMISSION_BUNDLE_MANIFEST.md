@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `0e6371d008b4b56aeb78eee186d1e5bc846716f208acc63b9e8681d669a92b2d`
+- Bundle SHA-256: `91f955dbab259a524a067d38e8d7a9ad073624a6670631750c79eba65c6529a6`
 - Files: 60
 
 ## Included Files
@@ -11,7 +11,7 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 5537 | `46d2d7d8d3b77efd05e1c5786309d50f0f677b97086cb04a17af2eb75a6ef25b` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 39626 | `d8283eebb3745575e1639d20556b93561822664e72247ac8ae1c27f90170aa8a` |
+| `READINESS_AUDIT_CN.md` | 41118 | `0e407094bb8ed213a4c6dc709b8f31765676ed220876d18c8b469d39157fff82` |
 | `README.md` | 11677 | `4c4d8a944e8a370727bab6ab6ba280c3ab6db64b2d898690a4465606e3434cf6` |
 | `REVIEWER_RISK_REGISTER.md` | 4229 | `3094606a3fe27df2ad78049283a4ea817f82710dba50a5de9225089442887bc8` |
 | `SUBMISSION_PACKAGE_INDEX.md` | 5954 | `3492cba6d4d3c72f76aba06c81a83f79ae5c0911e049ecff511789b9c4da29f8` |
@@ -52,7 +52,7 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 115643 | `3df9f089a19f505553b993ebf7280ed71cac195560301da5a62000e4fb4edd67` |
+| `main.pdf` | 115644 | `2e979e22b0397c653a86e7f88c466c2a03e449722625f6195c9222e004b57604` |
 | `main.tex` | 40244 | `a391d5e4c185634b05669f989c9f18448b6e73c577e2f95c8d9368bd66b41646` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 79673 | `b9d953a600fd961db4898d239a4dac73627dd2aa24146dad14505641485fa304` |
