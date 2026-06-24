@@ -95,5 +95,6 @@
   ],
   "pdf": "docs/paper/taes/manuscript/main.pdf",
   "renderer": "Version: ImageMagick 7.1.2-17 Q16-HDRI aarch64 23794 https://imagemagick.org",
+  "stale_output_policy": "clear main_p*.png before rendering current representative pages",
   "status": "pass"
 }

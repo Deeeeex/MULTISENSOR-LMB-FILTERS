@@ -58,6 +58,7 @@ REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
 REPRO_LEDGER_TABLE = OUT / "reproducibility_ledger_table.tex"
 PDF_VISUAL_QA_JSON = OUT / "pdf_visual_qa.json"
 PDF_VISUAL_QA_MANIFEST = OUT / "PDF_VISUAL_QA_MANIFEST.md"
+PDF_VISUAL_QA_DIR = ROOT / "tmp" / "pdf_visual_qa"
 BIB_DOI_JSON = OUT / "bibtex_doi_verification.json"
 BIB_DOI_MANIFEST = OUT / "BIBTEX_DOI_VERIFICATION.md"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
@@ -1508,6 +1509,20 @@ def pdf_visual_qa_checks() -> list[Check]:
         if isinstance(page, dict) and page.get("status") != "pass"
     ]
     ok = status == "pass" and not missing_labels and not bad_pages
+    rendered_images = {
+        str(page.get("image", ""))
+        for page in pages
+        if isinstance(page, dict) and page.get("image")
+    }
+    actual_images = {
+        path.relative_to(REPO).as_posix()
+        for path in sorted(PDF_VISUAL_QA_DIR.glob("main_p*.png"))
+    } if PDF_VISUAL_QA_DIR.exists() else set()
+    stale_images = sorted(actual_images - rendered_images)
+    stale_policy_ok = (
+        payload.get("stale_output_policy")
+        == "clear main_p*.png before rendering current representative pages"
+    )
     return [
         Check(
             "PDF visual QA render",
@@ -1517,7 +1532,16 @@ def pdf_visual_qa_checks() -> list[Check]:
             else "PDF visual QA render is incomplete: "
             f"status={status}, missing labels={', '.join(missing_labels) if missing_labels else 'none'}, "
             f"non-pass pages={', '.join(bad_pages) if bad_pages else 'none'}.",
-        )
+        ),
+        Check(
+            "PDF visual QA stale-output cleanup",
+            "pass" if stale_policy_ok and not stale_images else "warning",
+            "PDF visual-QA renderer records stale-output cleanup policy, and the directory contains only images referenced by the current manifest."
+            if stale_policy_ok and not stale_images
+            else "PDF visual-QA stale-output cleanup is incomplete: "
+            f"policy_ok={stale_policy_ok}, stale images="
+            + ("; ".join(stale_images) if stale_images else "none"),
+        ),
     ]
 
 

@@ -13,6 +13,10 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 02:11 Checkpoint
+
+本轮清理 PDF visual-QA 的可复现性细节。`render_pdf_visual_qa.py` 现在每次渲染前删除旧的 `tmp/pdf_visual_qa/main_p*.png`，避免 9 页稿件目录里残留旧版 `main_p10_references.png`、manual screenshot 或过期页码图。`check_submission_readiness.py` 新增 `PDF visual QA stale-output cleanup` gate，要求 `tmp/pdf_visual_qa/` 中实际存在的 rendered page images 必须全部被当前 `generated/pdf_visual_qa.json` 引用。本次重建已删除 11 个旧渲染图，目录只剩当前 manifest 对应的 title/abstract、method、main-results、heldout-runtime、discussion-conclusion 和 references 六张代表页图。这个改动不影响正文内容、实验结果或 source bundle 证据，只减少最终人工逐页审阅时的 stale artifact 风险。
+
 ## 02:04 Checkpoint
 
 本轮按 PDF 视觉审查修正 Table I。原表把三臂 hypothesis 写成段落式长文本，单栏下扫描负担偏高；新版改为 mechanism switch matrix，直接展示 `AA route`、`Ref. label`、`Moment avg.` 在 tuned baseline、reference-only 和 label-barycenter 三个 arm 中的 on/off 关系。对应的 claim 解释仍保留在 Experimental Setup 正文中。这个改动不改变实验设计、指标、evidence source 或 generated results；它只让机制隔离设计更接近审稿人快速扫描的表格形态，并消除了本轮试排时出现的 Table I overfull warning。

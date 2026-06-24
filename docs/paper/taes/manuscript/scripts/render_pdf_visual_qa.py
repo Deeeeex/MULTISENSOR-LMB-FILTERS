@@ -100,6 +100,12 @@ def render_page(magick: str, label: str, page: int) -> dict[str, object]:
     }
 
 
+def clear_stale_page_images() -> None:
+    TMP.mkdir(parents=True, exist_ok=True)
+    for path in sorted(TMP.glob("main_p*.png")):
+        path.unlink()
+
+
 def write_outputs(payload: dict[str, object]) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     QA_JSON.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -156,13 +162,14 @@ def main() -> None:
         )
         return
 
-    TMP.mkdir(parents=True, exist_ok=True)
+    clear_stale_page_images()
     pages = [render_page(magick, label, page) for label, page in planned_pages(page_count)]
     status = "pass" if pages and all(page["status"] == "pass" for page in pages) else "warning"
     write_outputs(
         {
             **base_payload,
             "renderer": magick_version(magick),
+            "stale_output_policy": "clear main_p*.png before rendering current representative pages",
             "status": status,
             "pages": pages,
         }

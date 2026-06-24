@@ -382,6 +382,11 @@
       "status": "pass"
     },
     {
+      "detail": "PDF visual-QA renderer records stale-output cleanup policy, and the directory contains only images referenced by the current manifest.",
+      "gate": "PDF visual QA stale-output cleanup",
+      "status": "pass"
+    },
+    {
       "detail": "Network disagreement metrics are recomputed from per-trial report rows.",
       "gate": "N50 network verifier",
       "status": "pass"
@@ -492,7 +497,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `75cc66d2b62ecd0ff4f5503e78487da911783c7d088e505aa7f7de496518bf28`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `8e97f5c2984cb10df1b84be7bee1670dbe8dc6446762028d602377644f5f18f6`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

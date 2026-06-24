@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 02:04 CST
+最后更新: 2026-06-25 02:11 CST
 
 ## 当前结论
 
@@ -21,6 +21,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-25 01:53 CST 本轮进一步压缩 abstract 版面负载。新版摘要约 224 个词、13 句、最长 25 个词，保留全部首次缩写定义和主证据信号，但减少第一页右栏顶部的 abstract continuation 风险。full-topology N50 仍只有运行日志、尚无 report，继续不得接入 `evidence_sources.json`、主文、cover letter 或 generated evidence。
 
 2026-06-25 02:04 CST 本轮按 PDF 视觉 QA 把 Table I 从段落式三列说明改成 mechanism switch matrix，直接列出 tuned baseline、reference-only 和 label-barycenter 三个 arm 对 `AA route`、`Ref. label`、`Moment avg.` 的 on/off 关系。实验设计和 mechanism claim 仍由正文解释，表格只承担快速扫描任务；改动不碰任何实验结果或 evidence sources。
+
+2026-06-25 02:11 CST 本轮把 PDF visual-QA 产物清理纳入可复现检查。`render_pdf_visual_qa.py` 会在渲染当前代表页前删除旧的 `tmp/pdf_visual_qa/main_p*.png`；`check_submission_readiness.py` 新增 `PDF visual QA stale-output cleanup` gate，要求目录中不存在 manifest 未引用的旧页码或 manual screenshot。重建后 `tmp/pdf_visual_qa/` 只保留当前 9 页 PDF 的 6 张代表页图，避免最终人工检查时被旧 `p10` 或旧 discussion 截图误导。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 
