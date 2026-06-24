@@ -601,6 +601,27 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             else "Paper-facing abstract/body text contains internal-status patterns: " + "; ".join(internal_hits),
         )
     )
+
+    stress_boundary_markers = [
+        "stress check broadens packet-loss severity",
+        "preserves the same formation-family assumptions",
+        "should not be read as a substitute",
+        "sparse-topology",
+        "partial-field-of-view",
+        "maneuvering-target",
+        "covariance-consistency",
+    ]
+    missing_stress_boundary = [marker for marker in stress_boundary_markers if marker not in body]
+    checks.append(
+        Check(
+            "stress generalization boundary wording",
+            "pass" if not missing_stress_boundary else "warning",
+            "Discussion preserves the boundary that harsh packet-loss stress does not substitute for topology, FOV, maneuver, or covariance-consistency validation."
+            if not missing_stress_boundary
+            else "Stress/generalization boundary wording is incomplete; missing markers: "
+            + "; ".join(missing_stress_boundary),
+        )
+    )
     return checks
 
 

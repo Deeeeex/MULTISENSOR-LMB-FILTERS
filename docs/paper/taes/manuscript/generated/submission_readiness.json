@@ -217,6 +217,11 @@
       "status": "pass"
     },
     {
+      "detail": "Discussion preserves the boundary that harsh packet-loss stress does not substitute for topology, FOV, maneuver, or covariance-consistency validation.",
+      "gate": "stress generalization boundary wording",
+      "status": "pass"
+    },
+    {
       "detail": "DOI resolver verification covers 20/20 BibTeX entries with current BibTeX SHA-256 `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3`.",
       "gate": "BibTeX DOI resolver verification",
       "status": "pass"
@@ -362,7 +367,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `55b1aabb26b138293a42b795649cd744c5318fd5f5bc4d83cbad8620246d268e`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `dace1917545126bc23d8792ffc5366334bea32e531bb616ee801f2214010cbcd`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
