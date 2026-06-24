@@ -48,7 +48,7 @@ The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/Car
 
 The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/BIBTEX_DOI_VERIFICATION.md`, `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md`, `generated/PDF_VISUAL_QA_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. Together with `SUBMISSION_PACKAGE_INDEX.md`, these files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement. The readiness checker also records first-page narrative markers, DOI resolver coverage, paper-facing wording hygiene, and manuscript/cover-letter placeholder coverage so the core correspondence-failure story, citation hygiene, and internal-status cleanup remain visible after edits. The readiness JSON reports both a portal-level status and a content-level status, where content readiness is allowed to ignore author/funding/repository/front-matter and cover-letter placeholders during internal review.
 
-If `evidence_sources.json` later adds `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, and `generated/stress_harsh_section.tex`. The stress fragment is response-ready and intentionally not imported by `main.tex` by default; decide after inspecting the N50 result whether it belongs in the main paper, supplementary material, or limitations/response evidence.
+Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, `generated/stress_harsh_section.tex`, and the concise `generated/stress_harsh_summary_sentence.tex` imported by Discussion. The full stress table remains response-ready; decide during final page-budget review whether it belongs in supplementary material or reviewer-response evidence.
 
 If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current configured topology-ring report is an N1 smoke check and the partial-FOV report is an N5 smoke check, so they are package-visible for boundary analysis and reviewer-response planning but should not be used as paper-grade robustness claims until upgraded to N50-or-larger runs.
 
@@ -63,7 +63,7 @@ It is intentionally kept under `tmp/` so that the binary zip is not committed. T
 Current build status:
 
 - Official regular-paper template compiles with Tectonic 0.15.0 into `/tmp/taes_template_compile/TAES_template.pdf`; only template-originated underfull/overfull warnings were observed.
-- This manuscript compiles with `./build.sh` and writes `main.pdf`.
+- This manuscript compiles with `./build.sh` and writes a 9-page `main.pdf` under the current TAES template.
 - The manuscript includes bracketed author, repository, and funding placeholders, plus TAES front-matter placeholders such as author names, affiliations, receipt dates, and issue/DOI metadata. It also includes a provisional IEEE/AESS AI-assistance disclosure; replace placeholders before submission.
 
 Long N50 rerun for refreshing local metric verification:
