@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 21:14 CST
+日期: 2026-06-24 21:30 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 21:30 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮使用本地安装的 `nature-polishing` 期刊式 discussion guidance 做了一次很窄的正文 polish: 不新增 claim、不新增实验、不改主文手写数值，而是把 `extract_stress_evidence.py` 和 `extract_scenario_family_evidence.py` 生成的 Discussion 证据摘要从“报告式罗列”改成 claim/evidence/boundary 更清楚的解释性句子。stress 句现在明确是同一固定参数下的 packet-loss severity check；scenario-family 句现在明确 topology-ring 与 partial-FOV 是 topology / sensing-geometry probes，并保留 base seed、topology、FOV、full-vs-reference RMSE separation 等可追溯信息。
+
+`./build.sh` 已重新生成 `main.pdf`、`generated/stress_harsh_summary_sentence.tex`、`generated/scenario_family_summary_sentence.tex`、PDF visual QA、readiness report 和 source bundle。`generated/SUBMISSION_READINESS_REPORT.md` 仍显示 `content_ready_metadata_pending`，metadata allowance 后没有 blocking gate；source bundle 的当前 SHA-256 以 `generated/SUBMISSION_BUNDLE_MANIFEST.md` 为准，避免在被打包的审计文档中记录自引用 hash。第 8 页 Discussion/Conclusion 渲染图已人工检查，未见文字重叠、断裂或空白页问题。
 
 ## 21:14 Checkpoint
 

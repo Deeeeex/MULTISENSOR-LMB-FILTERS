@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "3e3f76740fc836bfee2763839b2b8642eabed70bc9213a3f072128efad9be687",
+  "bundle_sha256": "526614e821a73ba90f8958bb16e7c085158a37766613df5ba59a4c5d9f880321",
   "file_count": 58,
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "d930f316a0964d9f58c332a1ee79ebf75eb39a90a4c71279a69c78c1a8c0b174",
-      "size_bytes": 24052
+      "sha256": "221c4683051e2d63fa53037ec0a42558da112a7fbd1e2949b4e56ad24f3f42ff",
+      "size_bytes": 25356
     },
     {
       "path": "README.md",
@@ -195,8 +195,8 @@
     },
     {
       "path": "generated/scenario_family_summary_sentence.tex",
-      "sha256": "b68f4678f2a0e6fc037ffe4cea25deb7468a32f10092dd395aa534b8b8987605",
-      "size_bytes": 523
+      "sha256": "98bf14489e29d7d25be63ea61375d817500113134c25e4e4eda4a090ec22b4a3",
+      "size_bytes": 586
     },
     {
       "path": "generated/stress_harsh_evidence.json",
@@ -210,13 +210,13 @@
     },
     {
       "path": "generated/stress_harsh_summary_sentence.tex",
-      "sha256": "5922de7860af68d2838d7a58d4ecf044a90e8ab81f9ba21b3af5eaa45f662efd",
-      "size_bytes": 398
+      "sha256": "79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea",
+      "size_bytes": 417
     },
     {
       "path": "main.pdf",
-      "sha256": "9a1658e6b0b72d91cd9a6e262ae3ba0df4277159829774c8977164e886d04aec",
-      "size_bytes": 114371
+      "sha256": "a3548224e3f99961bd094870794fd3285fdaf8e5475aec73816c346c83aa4abf",
+      "size_bytes": 114475
     },
     {
       "path": "main.tex",
@@ -260,13 +260,13 @@
     },
     {
       "path": "scripts/extract_scenario_family_evidence.py",
-      "sha256": "d32289fe5c29cec1272f0308f26873431b7188b99247a89240b6f7131f02f703",
-      "size_bytes": 18207
+      "sha256": "ebee75cd767a4b488d1aaf12d1f5399c2e5e7aa869216b2de8c7dc73d09dd341",
+      "size_bytes": 18349
     },
     {
       "path": "scripts/extract_stress_evidence.py",
-      "sha256": "8a61e96a72e0ee8cdf147f2b42ca81bed7fa1c49ddf59e4e262a2e6087752fa5",
-      "size_bytes": 14054
+      "sha256": "b1be425cf568d5801a84d74e63dcc2b632ea9aaa560f09f944d4149c903f2086",
+      "size_bytes": 14084
     },
     {
       "path": "scripts/render_figures.py",
