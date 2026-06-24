@@ -22,7 +22,7 @@
 
 ## Risk Tier
 
-L2。投稿要求影响正式 submission 包和费用估计；本文档基于 2026-06-23 官方页面快照整理，提交前仍需人工复核。
+L2。投稿要求影响正式 submission 包和费用估计；本文档基于 2026-06-23 官方页面快照整理，并在 2026-06-24 对关键在线页面做过 spot-check。提交前仍需人工复核投稿系统。
 
 ## Downloaded Assets
 
@@ -68,6 +68,19 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 建议 technical area 选择: **Target Tracking and Multi-Sensor Systems**。
 
 理由: TAES technical area description 明确覆盖 multi-target tracking、data fusion、decentralized/distributed detection 和 decentralized/distributed estimation。我们的稿件主 thrust 是 tracking/fusion，而不是 sensor resource management，因此比 `Networked Sensor Systems` 更合适。
+
+## 2026-06-24 Online Spot-Check
+
+本轮没有覆盖仓库内 2026-06-23 HTML snapshots，只把当前在线页面抓取到 `/tmp` 做关键字段核对。核对结果与本文档一致:
+
+- TAES author-information 页面仍要求新 Regular Paper 通过 `https://ieee.atyponrex.com/journal/taes` 投稿，并选择 `Regular Paper` manuscript type。
+- Regular Paper 仍描述为 a well-rounded treatment of a problem area；Correspondence Item 仍用于 one or two concise points。
+- Regular Paper 仍无 manuscript page count limit，但 accepted paper 的 printed pages 超过 10 页会触发 overlength page charge；两栏 10 pt template 仍是最准确页数估计。
+- Regular Paper/Correspondence 的投稿格式仍是 two-column、single-spaced、10-point font、1 in top/bottom margins、0.7 in side margins、3.45 in columns、0.2 in column spacing。
+- AESS 仍建议 title/abstract 避免 `new` 和 `novel`。
+- AESS AI-generated content 页面仍要求在 Acknowledgments 披露 AI-generated content，并说明系统名称、使用 section 和使用程度；仅 grammar/editing 不强制但建议披露。
+- TAES home 页面仍说明 single-blind/single-anonymous peer review、至少两名 independent reviewers、acceptance 前 plagiarism screening、ORCID 要求，以及 Letters category 已在 2022-12-31 停止。
+- TAES preprint policy 仍说明 TAES neither encourages nor discourages TechRxiv/arXiv preprints，preprint 与否不影响 editorial decision。
 
 ## Claims
 
