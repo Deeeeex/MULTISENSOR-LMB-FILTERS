@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `8269c5feccff5fbd2f0baed1bfda9190e0ace9be1dca4af6ac6d2057f3dff1a7`
+- Bundle SHA-256: `4b3c92423154e7edf007913deb0407bcacf7b5b0ebd76f18e776b97eaf2bbc8b`
 - Files: 29
 
 ## Included Files
@@ -11,7 +11,7 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 4095 | `35455172694851f2bc79a987f20b8fe6b9eb82176a59fe43e4a7dfb69213dd68` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 13265 | `d5c0b9545373c3a41ff3cbc2de0208faf66c3339cc8dcb3d328ee98db5dafac4` |
+| `READINESS_AUDIT_CN.md` | 13315 | `f2a75fd401fed79a92f1428afce238ec7272c08ae0f0e2ab2f53c708b52e382a` |
 | `README.md` | 5754 | `222d9ceef903946bc060d3cc79a1695c9ed4e49d6c8ef0af91b9e73ea46fea33` |
 | `evidence_sources.json` | 471 | `1add797c648cab80b0683f0a1db1e83c92ea9ca110779f41fb1ba38cf7e2ba35` |
 | `figures/fig_method_pipeline.svg` | 3198 | `c5033f4749105b91a67a944dadc6c1ed3d7bbe188195219654b333f3bf7f44db` |
@@ -34,6 +34,6 @@
 | `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
 | `generated/reference_baseline_rows.tex` | 478 | `0057561cbefe51bd7af758250f72f9e76b68ec4d3d9de5b6ca3fe0e63e629df7` |
-| `main.pdf` | 108936 | `b731d76f60cc40b3e1752262e6df0547c2cdcc1f1cc147f17922c6c1175ba08e` |
-| `main.tex` | 34481 | `510e520aeb81ff3a5861df59dd333dddcfdff4befdfa86c2ae5c0668d2d8321a` |
+| `main.pdf` | 109061 | `304645da0ebe046fd3d2a4c8d43ed21343f045b2c144e8c51f8be03ea763ab10` |
+| `main.tex` | 34618 | `679d15f2fae61c3760b03a790793b2531ca442602688c7b210ff721fe7876043` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
