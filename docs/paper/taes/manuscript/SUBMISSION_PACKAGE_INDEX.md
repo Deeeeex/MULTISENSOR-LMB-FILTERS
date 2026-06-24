@@ -20,7 +20,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 
 | Artifact | Purpose |
 | --- | --- |
-| `generated/SUBMISSION_READINESS_REPORT.md` | Human-readable readiness report with portal status, content status, metadata gates, and all mechanical/evidence checks. |
+| `generated/SUBMISSION_READINESS_REPORT.md` | Human-readable readiness report with portal status, content status, metadata gates, all mechanical/evidence checks, and the `cover letter and portal metadata source synchronization` gate. |
 | `generated/submission_readiness.json` | Machine-readable readiness report. |
 | `generated/SUBMISSION_BUNDLE_MANIFEST.md` | Source-bundle file list and bundle SHA-256. |
 | `generated/submission_bundle_manifest.json` | Machine-readable source-bundle manifest used by the readiness checker. |
@@ -50,7 +50,7 @@ Run this sequence after every final metadata or evidence edit.
 1. Replace all placeholders in `main.tex` and `COVER_LETTER_AND_METADATA_DRAFT.md`.
 2. Run `./build.sh` from this directory.
 3. Inspect `main.pdf` visually after rendering representative pages.
-4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates, including the BibTeX DOI resolver gate; before actual portal submission, confirm it has no metadata pending gate either.
+4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates, including the BibTeX DOI resolver gate and the cover-letter/portal metadata source-synchronization gate; before actual portal submission, confirm it has no metadata pending gate either.
 5. Confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the current `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` checksum.
 6. Extract the source bundle in a temporary directory and run `TAES_EVIDENCE_MODE=bundled ./build.sh` to verify bundled-fragment compilation.
 7. Upload the final PDF, source bundle if requested, and finalized cover-letter or portal text according to the current TAES instructions.

@@ -166,6 +166,26 @@ def command_body(tex: str, name: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def normalized_spaces(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def markboth_right(tex: str) -> str:
+    match = re.search(r"\\markboth\s*{[^{}]*}\s*{([^{}]+)}", tex, flags=re.DOTALL)
+    return normalized_spaces(match.group(1)) if match else ""
+
+
+def markdown_table_value(text: str, field: str) -> str:
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if len(cells) >= 2 and normalized_spaces(cells[0]).lower() == field.lower():
+            return normalized_spaces(cells[1])
+    return ""
+
+
 def environment_body(tex: str, name: str) -> str:
     match = re.search(rf"\\begin{{{name}}}(.+?)\\end{{{name}}}", tex, flags=re.DOTALL)
     return match.group(1).strip() if match else ""
@@ -604,7 +624,7 @@ def doi_resolver_checks(bib: str) -> list[Check]:
     ]
 
 
-def cover_letter_checks() -> list[Check]:
+def cover_letter_checks(tex: str) -> list[Check]:
     if not COVER_LETTER.exists():
         return [Check("cover letter and portal metadata draft", "warning", "`COVER_LETTER_AND_METADATA_DRAFT.md` is missing.")]
     text = read_text(COVER_LETTER)
@@ -618,6 +638,22 @@ def cover_letter_checks() -> list[Check]:
         "repository DOI/URL",
     ]
     missing = [marker for marker in required_markers if marker not in text]
+    title = normalized_spaces(command_body(tex, "title"))
+    running_head = markboth_right(tex)
+    portal_title = markdown_table_value(text, "Title")
+    portal_running_head = markdown_table_value(text, "Running head")
+    sync_checks = {
+        "cover-letter title sentence": bool(title) and f'titled "{title}"' in text,
+        "portal title": bool(title) and portal_title == title,
+        "portal running head": bool(running_head) and portal_running_head == running_head,
+        "portal journal": markdown_table_value(text, "Journal") == "IEEE Transactions on Aerospace and Electronic Systems",
+        "portal manuscript type": markdown_table_value(text, "Manuscript type") == "Regular Paper",
+        "portal technical area": markdown_table_value(text, "Technical area") == "Target Tracking and Multi-Sensor Systems",
+        "cover-letter originality": "original work" in text and "not under consideration elsewhere" in text,
+        "simulation-data statement": "simulated multi-target tracking data" in text and "simulated multi-target tracking data" in tex,
+        "AI disclosure": "OpenAI Codex" in text and "OpenAI Codex" in tex and "authors remain responsible" in tex.lower(),
+    }
+    failed_sync = [name for name, ok in sync_checks.items() if not ok]
     return [
         Check(
             "cover letter and portal metadata draft",
@@ -625,7 +661,14 @@ def cover_letter_checks() -> list[Check]:
             "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders."
             if not missing
             else "Cover-letter draft exists but is missing markers: " + "; ".join(missing),
-        )
+        ),
+        Check(
+            "cover letter and portal metadata source synchronization",
+            "pass" if not failed_sync else "warning",
+            "Cover-letter text and portal metadata table match `main.tex` title, running head, manuscript type, technical area, simulated-data statement, and AI disclosure."
+            if not failed_sync
+            else "Cover-letter or portal metadata drift detected: " + "; ".join(failed_sync),
+        ),
     ]
 
 
@@ -644,6 +687,7 @@ def submission_package_index_checks() -> list[Check]:
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
+        "cover letter and portal metadata source synchronization",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1218,7 +1262,7 @@ def main() -> None:
     checks.extend(requirements_doc_checks())
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(doi_resolver_checks(bib))
-    checks.extend(cover_letter_checks())
+    checks.extend(cover_letter_checks(tex))
     checks.extend(submission_package_index_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())

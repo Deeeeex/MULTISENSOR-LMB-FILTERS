@@ -222,6 +222,11 @@
       "status": "pass"
     },
     {
+      "detail": "Cover-letter text and portal metadata table match `main.tex` title, running head, manuscript type, technical area, simulated-data statement, and AI disclosure.",
+      "gate": "cover letter and portal metadata source synchronization",
+      "status": "pass"
+    },
+    {
       "detail": "Submission package index maps final uploads, internal QA artifacts, metadata placeholders, and the final rebuild sequence.",
       "gate": "submission package index",
       "status": "pass"
@@ -297,7 +302,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 49 files and SHA-256 `2ef66f5932d0b2ad5bd2bd9bffa25d2c7363a7b939e5a182c587d35c991293b3`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 49 files and SHA-256 `5fbbd3cecef0d6c21e59590dacc8b0efa66fe09220a36839ed0fb242dcba02fd`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
