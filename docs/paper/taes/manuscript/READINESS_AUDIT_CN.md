@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 21:38 CST
+日期: 2026-06-24 21:58 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 21:58 Checkpoint
+
+本轮按 `nature-reviewer` 的预投稿审稿视角和 `nature-polishing` 的 algorithmic-paper/Introduction 规则复核了第一页叙事。主要风险不是实验证据不足，而是 Intro 的第一屏需要更快回答 TAES 读者的 `relevance -> novelty -> trust` 路径。因此已把引言前四段收紧为: networked surveillance/cooperative sensing 中 local track 必须可比，label set 是 fusion interface 而非内部 bookkeeping；AA/KLA 标量权重解决 probability-mass allocation，但不生成 Bernoulli component correspondence；本文问题被明确限定为 target-wise scalar weights 已正确进入 existence/spatial consumers 后，是否能用 graph-local projection 构造 missing component map；方法边界也提前写清楚为 output-space projection，不读取 global label set，也不替代 upstream Bernoulli existence update。
+
+这次修改不新增实验、不改变主文数值、不扩展 claim，只增强 first-page problem framing 和 projection boundary。下一步重建时应重点检查第 1 页是否因 Intro 增长造成摘要/引言版式压缩，以及 `first-page narrative markers`、`implementation-alignment wording` 和 `paper-facing wording hygiene` 是否仍通过。
 
 ## 21:38 Checkpoint
 
