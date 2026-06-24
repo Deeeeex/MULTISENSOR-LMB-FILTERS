@@ -12,6 +12,7 @@ readiness review.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import dataclass
@@ -71,6 +72,12 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/render_figures.py",
     "scripts/verify_n50_evidence.py",
 ]
+BUNDLE_BUILD_FALLBACK_MARKERS = [
+    "TAES_EVIDENCE_MODE",
+    "bundled",
+    "Raw evidence sources unavailable; compiling from bundled generated fragments.",
+    "Skipping source-bundle and readiness regeneration in bundled-fragment mode.",
+]
 
 
 @dataclass
@@ -87,6 +94,14 @@ def read_text(path: Path) -> str:
     if not path.exists():
         raise FileNotFoundError(path)
     return path.read_text(encoding="utf-8")
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def cite_keys(tex: str) -> set[str]:
@@ -446,13 +461,33 @@ def bundle_checks() -> list[Check]:
     file_count = int(payload.get("file_count", 0))
     checksum = str(payload.get("bundle_sha256", ""))
     files = payload.get("files", [])
-    bundled_paths = {
-        str(entry.get("path", ""))
+    manifest_entries = {
+        str(entry.get("path", "")): entry
         for entry in files
-        if isinstance(entry, dict)
+        if isinstance(entry, dict) and entry.get("path")
     }
+    bundled_paths = set(manifest_entries)
     missing_required = [path for path in BUNDLE_REQUIRED_PATHS if path not in bundled_paths]
-    ok = bool(bundle_rel) and bundle_path.exists() and file_count >= 10 and len(checksum) == 64
+
+    bundle_hash_ok = bundle_path.exists() and len(checksum) == 64 and sha256_file(bundle_path) == checksum
+    ok = bool(bundle_rel) and bundle_path.exists() and file_count >= 10 and bundle_hash_ok
+
+    missing_local: list[str] = []
+    stale_entries: list[str] = []
+    malformed_sha: list[str] = []
+    for rel, entry in manifest_entries.items():
+        local_path = ROOT / rel
+        expected_sha = str(entry.get("sha256", ""))
+        if not local_path.exists():
+            missing_local.append(rel)
+        elif len(expected_sha) != 64:
+            malformed_sha.append(rel)
+        elif sha256_file(local_path) != expected_sha:
+            stale_entries.append(rel)
+    freshness_ok = not missing_local and not stale_entries and not malformed_sha
+
+    build_script = read_text(ROOT / "build.sh") if (ROOT / "build.sh").exists() else ""
+    missing_fallback_markers = [marker for marker in BUNDLE_BUILD_FALLBACK_MARKERS if marker not in build_script]
     return [
         Check(
             "submission source bundle",
@@ -469,6 +504,28 @@ def bundle_checks() -> list[Check]:
             "Source bundle includes `build.sh` and the manuscript evidence/render/readiness scripts needed to regenerate generated fragments."
             if not missing_required
             else "Source bundle is missing required reproducibility scripts: " + ", ".join(missing_required),
+        ),
+        Check(
+            "submission source bundle freshness",
+            "pass" if freshness_ok and file_count == len(manifest_entries) else "error",
+            "Source-bundle manifest hashes match the current manuscript, generated fragments, figures, and reproducibility scripts."
+            if freshness_ok and file_count == len(manifest_entries)
+            else "Source-bundle manifest is stale or malformed: "
+            f"file_count={file_count}, manifest_entries={len(manifest_entries)}, "
+            "missing local files="
+            + (", ".join(missing_local) if missing_local else "none")
+            + "; stale entries="
+            + (", ".join(stale_entries) if stale_entries else "none")
+            + "; malformed hashes="
+            + (", ".join(malformed_sha) if malformed_sha else "none")
+            + ". Re-run `./build.sh` before submission.",
+        ),
+        Check(
+            "submission source bundle fallback build mode",
+            "pass" if not missing_fallback_markers else "error",
+            "`build.sh` supports `TAES_EVIDENCE_MODE=bundled` so an extracted source bundle can compile from packaged generated fragments when raw `RUN/` evidence is unavailable."
+            if not missing_fallback_markers
+            else "`build.sh` is missing bundled-fragment fallback markers: " + "; ".join(missing_fallback_markers),
         ),
     ]
 

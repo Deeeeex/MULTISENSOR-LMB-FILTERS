@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "a73395323efb0fc09c292ef418b9d2d319ed9a9b1dc5d11c90d303a57f4fdfaa",
+  "bundle_sha256": "907b63753e00c7868e740f607f1cd3b9c50c7e01a43de3edb48c2277193050a1",
   "file_count": 39,
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "e470e00fed59cc8a9fc50a3a9843b31aeba8ef98ef4304f0e9f85ce4525a18b2",
-      "size_bytes": 14850
+      "sha256": "3aa1329c0076a930c323a80d4df23e004f658dd774155b0b5305736215b6284a",
+      "size_bytes": 14895
     },
     {
       "path": "README.md",
@@ -140,8 +140,8 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "e48af4d6de6dde30f6ac42fe892f42bd5e31f2319f38c4e8b316f6536df74eea",
-      "size_bytes": 108622
+      "sha256": "4d6c4885f5170b004332c2ca2943df14f6bcf77ceffac69d12b7043918cd9924",
+      "size_bytes": 108621
     },
     {
       "path": "main.tex",
@@ -155,8 +155,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "27b5dc466c3e0376a051c47d02f5105c1ff645bab5f7276004310f40a78e0af6",
-      "size_bytes": 35100
+      "sha256": "6071e3a7e28d1eea486922f3564808c648fd3e6f9630686b420a9f12556a824f",
+      "size_bytes": 37909
     },
     {
       "path": "scripts/create_submission_bundle.py",

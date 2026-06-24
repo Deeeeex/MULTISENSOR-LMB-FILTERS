@@ -202,13 +202,23 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 39 files and SHA-256 `a73395323efb0fc09c292ef418b9d2d319ed9a9b1dc5d11c90d303a57f4fdfaa`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 39 files and SHA-256 `907b63753e00c7868e740f607f1cd3b9c50c7e01a43de3edb48c2277193050a1`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
     {
       "detail": "Source bundle includes `build.sh` and the manuscript evidence/render/readiness scripts needed to regenerate generated fragments.",
       "gate": "submission source bundle reproducibility scripts",
+      "status": "pass"
+    },
+    {
+      "detail": "Source-bundle manifest hashes match the current manuscript, generated fragments, figures, and reproducibility scripts.",
+      "gate": "submission source bundle freshness",
+      "status": "pass"
+    },
+    {
+      "detail": "`build.sh` supports `TAES_EVIDENCE_MODE=bundled` so an extracted source bundle can compile from packaged generated fragments when raw `RUN/` evidence is unavailable.",
+      "gate": "submission source bundle fallback build mode",
       "status": "pass"
     }
   ],
