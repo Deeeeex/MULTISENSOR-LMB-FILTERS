@@ -227,6 +227,11 @@
       "status": "pass"
     },
     {
+      "detail": "Introduction and Related Work frame the paper around a missing component-correspondence contract rather than another fusion-weight rule.",
+      "gate": "correspondence-contract story markers",
+      "status": "pass"
+    },
+    {
       "detail": "Abstract and main text define recurring technical abbreviations at first use.",
       "gate": "abbreviation first-use definitions",
       "status": "pass"
@@ -437,7 +442,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `a73601a29eede34624043f54f8672ada545d09b67eeb388ce1d01d3f0aa55e60`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `dc627c605b5fa8fea83c772b6e5943586d2ed3f43346ae2a54c328eb6b1e1ab0`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

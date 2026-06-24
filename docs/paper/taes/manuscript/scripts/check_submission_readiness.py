@@ -608,6 +608,27 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    correspondence_contract_markers = [
+        "correspondence contract",
+        "mathematically valid fusion rule can still combine the wrong Bernoulli components",
+        "once a component correspondence has been supplied",
+        "correspondence-contract construction problem",
+        "This distinction also shapes the evaluation",
+    ]
+    missing_correspondence_contract = [
+        marker for marker in correspondence_contract_markers if marker not in body
+    ]
+    checks.append(
+        Check(
+            "correspondence-contract story markers",
+            "pass" if not missing_correspondence_contract else "warning",
+            "Introduction and Related Work frame the paper around a missing component-correspondence contract rather than another fusion-weight rule."
+            if not missing_correspondence_contract
+            else "Correspondence-contract story is incomplete; missing markers: "
+            + "; ".join(missing_correspondence_contract),
+        )
+    )
+
     abstract_abbreviation_markers = [
         "labeled multi-Bernoulli (LMB)",
         "arithmetic-average (AA)",

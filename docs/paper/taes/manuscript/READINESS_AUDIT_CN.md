@@ -159,3 +159,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮把 `Moment projection` 命题升级为 `Moment-space projection`，将 matched moment barycenter 明确写成 first-two-moment coordinate 上的 least-squares projection：先固定 assignment/correspondence，再对 $\mu_i$ 和 raw second moment $M_i=\Sigma_i+\mu_i\mu_i^T$ 的坐标取均值，并从 $\bar{M}-\bar{\mu}\bar{\mu}^T$ 恢复 covariance。该表述同时说明 $\bar{\Sigma}$ 的 positive semidefinite 来源和 within-group mean disagreement 被移除的代数身份。
 
 `main.tex` 中的 Method 也新增一句边界说明：这是 moment-matching projection，不是 covariance-consistency guarantee。`check_submission_readiness.py` 新增 `moment-space projection markers` gate，要求保留 first-two-moment coordinates、moment-matching/covariance-consistency boundary、Moment-space projection 命题、unique least-squares minimizer、PSD 和 matched Gaussian mixture 等 marker。`REVIEWER_RISK_REGISTER.md` 同步把 equal moment barycenter 风险项改为 theory-backed but still covariance/reliability-limited 的表述。
+
+## 23:30 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 Intro/Related Work 的投稿故事线做窄幅增强：第一段把 label set 明确称为 `correspondence contract`，强调即使 fusion rule 数学上有效，只要 contract 在传感器间不一致，仍可能组合错误 Bernoulli components；第二段把 AA/KLA 等规则定位为在 component correspondence 已给定之后分配 probability mass；第三段把本文设计问题写成 `correspondence-contract construction problem`，不是另一个 scalar-weight search。
+
+Related Work 收尾同步压实了区别：本文不是 density-pooling rule，而是 output-space projection；这个区别也决定了评价设计，因此同时报告 network disagreement 和 truth-referenced tracking error。`check_submission_readiness.py` 新增 `correspondence-contract story markers` gate，防止后续润色时把核心故事退回到泛泛的 weight-fusion framing。
