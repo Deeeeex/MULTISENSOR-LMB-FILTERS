@@ -16,6 +16,7 @@ Main files:
 - `references.bib`: DOI-verified core references used by the draft.
 - `READINESS_AUDIT_CN.md`: claim-to-evidence and TAES submission-readiness audit for the current draft.
 - `COVER_LETTER_AND_METADATA_DRAFT.md`: editable cover-letter and portal-metadata draft for final TAES submission.
+- `SUBMISSION_PACKAGE_INDEX.md`: final handoff map that separates portal upload files, internal QA artifacts, metadata placeholders, and the final rebuild sequence.
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
 - `evidence_sources.json`: single manifest for the report/log artifacts consumed by the evidence extractors and verifier.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
@@ -42,7 +43,7 @@ In the full repository, the build first regenerates the N50 evidence fragments, 
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
-The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement. The readiness JSON reports both a portal-level status and a content-level status, where content readiness is allowed to ignore author/funding/repository placeholders during internal review.
+The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. Together with `SUBMISSION_PACKAGE_INDEX.md`, these files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement. The readiness JSON reports both a portal-level status and a content-level status, where content readiness is allowed to ignore author/funding/repository placeholders during internal review.
 
 If `evidence_sources.json` later adds `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, and `generated/stress_harsh_section.tex`. The stress fragment is response-ready and intentionally not imported by `main.tex` by default; decide after inspecting the N50 result whether it belongs in the main paper, supplementary material, or limitations/response evidence.
 
@@ -52,7 +53,7 @@ The submission source bundle is generated at:
 tmp/submission_bundle/taes_label_barycenter_submission_source.zip
 ```
 
-It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing. The bundle includes the TAES LaTeX source, generated fragments, `build.sh`, and the local `scripts/*.py` evidence/render/readiness utilities so that the manuscript package is self-documenting. Direct source-bundle compilation uses the bundled generated fragments; refreshing generated tables from tracked source reports requires the full repository with the `RUN/` artifacts.
+It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing. The bundle includes the TAES LaTeX source, generated fragments, `SUBMISSION_PACKAGE_INDEX.md`, `build.sh`, and the local `scripts/*.py` evidence/render/readiness utilities so that the manuscript package is self-documenting. Direct source-bundle compilation uses the bundled generated fragments; refreshing generated tables from tracked source reports requires the full repository with the `RUN/` artifacts.
 
 Current build status:
 

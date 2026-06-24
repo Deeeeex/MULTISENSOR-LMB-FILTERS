@@ -29,6 +29,7 @@ MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
+SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
@@ -66,6 +67,7 @@ LOCAL_METRICS = ["E-OSPA", "RMSE", "CardErr"]
 METADATA_PLACEHOLDER_GATE = "submission metadata placeholders"
 BUNDLE_REQUIRED_PATHS = [
     "build.sh",
+    "SUBMISSION_PACKAGE_INDEX.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
     "scripts/evidence_sources.py",
@@ -274,6 +276,7 @@ def file_checks() -> list[Check]:
         MAIN_PDF,
         BIB,
         COVER_LETTER,
+        SUBMISSION_INDEX,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
@@ -465,6 +468,34 @@ def cover_letter_checks() -> list[Check]:
             "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders."
             if not missing
             else "Cover-letter draft exists but is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def submission_package_index_checks() -> list[Check]:
+    if not SUBMISSION_INDEX.exists():
+        return [Check("submission package index", "warning", "`SUBMISSION_PACKAGE_INDEX.md` is missing.")]
+    text = read_text(SUBMISSION_INDEX)
+    required_markers = [
+        "Final Upload Set",
+        "Internal QA Artifacts",
+        "Metadata Placeholders",
+        "Final Rebuild Sequence",
+        "main.pdf",
+        "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
+        "COVER_LETTER_AND_METADATA_DRAFT.md",
+        "generated/SUBMISSION_READINESS_REPORT.md",
+        "generated/SUBMISSION_BUNDLE_MANIFEST.md",
+        "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "submission package index",
+            "pass" if not missing else "warning",
+            "Submission package index maps final uploads, internal QA artifacts, metadata placeholders, and the final rebuild sequence."
+            if not missing
+            else "Submission package index exists but is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -991,6 +1022,7 @@ def main() -> None:
     checks.extend(file_checks())
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(cover_letter_checks())
+    checks.extend(submission_package_index_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(evidence_checks())

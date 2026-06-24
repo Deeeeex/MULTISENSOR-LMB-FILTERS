@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "77cfd9d582dd3664e6f606e085c2db4665163185156dbc6508882c90cd4041aa",
-  "file_count": 44,
+  "bundle_sha256": "f3a0eed3d80be5cf37999ff0ec5e8fc0be8d9086e9a998610e3087a0e1bb03da",
+  "file_count": 45,
   "files": [
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -20,13 +20,18 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "e933d0e0c5f62f93cdb1c4b6f29515dbeaf3e2960eb19e516cf8eeb0f4bfc2a0",
-      "size_bytes": 15456
+      "sha256": "223c1fbcf2d6ce4d14e7cb51ac46e21d82bfbacebbbf95854d525bdbc288f45a",
+      "size_bytes": 16150
     },
     {
       "path": "README.md",
-      "sha256": "83c3547b294f58940003f4d4e9b039559a3b06e8614586651972b4002b75aa15",
-      "size_bytes": 8061
+      "sha256": "bb5bc7cd7390c77b9ad8062c6785b768a539e60c7decd3ed44835ec678e814d8",
+      "size_bytes": 8302
+    },
+    {
+      "path": "SUBMISSION_PACKAGE_INDEX.md",
+      "sha256": "9224a338565a968ba22b9aa7514b3e681653de499fa9f4ffeb51bbf7fd422110",
+      "size_bytes": 4497
     },
     {
       "path": "build.sh",
@@ -160,7 +165,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "312e189ac0a6bb9d3a0698d038710cf1ee49aac49ab5bc3b3ab3662e8dc472e0",
+      "sha256": "840be80480064d3b552267c88c21786f61a67ea83283a6015fa8de324db7cf57",
       "size_bytes": 108661
     },
     {
@@ -175,13 +180,13 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "0956eca764d19d749a8f815c62690beecd2096fcfc5e37f20ff3ac743b208580",
-      "size_bytes": 40307
+      "sha256": "349a953a52a1db612637322f795bb0f832d7c82d4bbd6db2c1924c59c72f96c9",
+      "size_bytes": 41650
     },
     {
       "path": "scripts/create_submission_bundle.py",
-      "sha256": "08cd500ffce2f2e62116b68d2905d4f58fdf42ad546bb4356dcc8c0858053d21",
-      "size_bytes": 4582
+      "sha256": "be32eef5261afc9a68f8b7112269c2157711d67f351828d7a638b46b580ca53d",
+      "size_bytes": 4621
     },
     {
       "path": "scripts/evidence_sources.py",
