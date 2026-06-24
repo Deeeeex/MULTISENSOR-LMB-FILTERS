@@ -171,3 +171,9 @@ Related Work 收尾同步压实了区别：本文不是 density-pooling rule，�
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按 Results section 的读者路径做窄幅增强：`RESULTS` 不再直接从表格开始，而是先用一段 compact evidence chain 说明证据顺序。Table II 承担 primary paired network/local gain，Table III 提供 matched-seed GA context，Table IV 和 Fig. 3 分离 reference-only label effect 与 matched-barycenter effect，Table V 复验 held-out base-seed mechanism separation。
 
 `check_submission_readiness.py` 新增 `results evidence-spine markers` gate，用于防止后续压页或润色时删掉 Results 的读者入口。该改动不改变任何表格数值、不新增实验主张，也不把 GA reference rows 改写成 paired significance evidence；它只是让 TAES 审稿人更快看清 primary result、context、mechanism ablation 和 robustness replication 的顺序。
+
+## 23:58 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按预投稿 reviewer-readability 视角重画 Fig. 1 的生成源：`method_pipeline.tex` 不再把 residual、reference、assignment、barycenter、output 和 iteration 都塞进一排小字框，而是改成更清楚的三层结构：上层说明 scalar AA weights choose probability mass, not component correspondence；中层给出 Reference、Assignment、Barycenter 三步；下层保留 Existence pass-through、Moment projection、H-round graph-local iteration 和 no global label dictionary 的边界。
+
+`scripts/render_figures.py` 同步更新 SVG 和 LaTeX fragment 生成逻辑；`check_submission_readiness.py` 新增 `method figure mechanism markers` gate，检查 Fig. 1 的 mass-vs-correspondence、three-step projection、existence-pass-through 和 no-global-label markers。该改动不改变方法 claim 或实验结果，只降低 Fig. 1 对审稿人的阅读成本，并让图的机制信号更接近最终投稿质量。

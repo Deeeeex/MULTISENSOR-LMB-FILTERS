@@ -61,6 +61,7 @@ BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
+METHOD_PIPELINE_FRAGMENT = OUT / "method_pipeline.tex"
 
 HELDOUT_BASE_SEED = 11
 STRESS_BASE_SEED = 21
@@ -581,6 +582,31 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             "Method section preserves the compact stepwise implementation box for reference, matching, projection, existence pass-through, and iteration."
             if not missing_algorithm_markers
             else "Method algorithm box is missing markers: " + "; ".join(missing_algorithm_markers),
+        )
+    )
+
+    method_figure_text = read_text(METHOD_PIPELINE_FRAGMENT) if METHOD_PIPELINE_FRAGMENT.exists() else ""
+    method_figure_markers = [
+        "Scalar AA weights choose probability mass",
+        "not component correspondence",
+        "Reference",
+        "Assignment",
+        "Barycenter",
+        "Existence pass-through",
+        "Moment projection",
+        r"no global label dictionary is read or constructed",
+    ]
+    missing_method_figure_markers = [
+        marker for marker in method_figure_markers if marker not in method_figure_text
+    ]
+    checks.append(
+        Check(
+            "method figure mechanism markers",
+            "pass" if METHOD_PIPELINE_FRAGMENT.exists() and not missing_method_figure_markers else "warning",
+            "Generated method figure preserves the compact mass-vs-correspondence, three-step projection, existence-pass-through, and no-global-label visual markers."
+            if METHOD_PIPELINE_FRAGMENT.exists() and not missing_method_figure_markers
+            else "`generated/method_pipeline.tex` is missing or incomplete; missing markers: "
+            + ("; ".join(missing_method_figure_markers) if missing_method_figure_markers else "fragment file"),
         )
     )
 

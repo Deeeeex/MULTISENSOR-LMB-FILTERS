@@ -1,37 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320">
-<rect width="1120" height="320" fill="white"/>
-<style>text{font-family:Verdana;} .h{font-size:22px;font-weight:700;fill:#111} .s{font-size:17px;fill:#333} .tiny{font-size:15px;fill:#333}</style>
-<text class="h" x="560" y="28" text-anchor="middle">Neighborhood label-barycenter projection</text>
-<rect x="38" y="46" width="188" height="90" rx="7" fill="#E8F1F8" stroke="#1F4E79" stroke-width="2.2"/>
-<text class="h" x="132.0" y="82" text-anchor="middle">Neighborhood LMBs</text>
-<text class="s" x="132.0" y="112" text-anchor="middle">different local labels</text>
-<rect x="270" y="46" width="180" height="90" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
-<text class="h" x="360.0" y="82" text-anchor="middle">Reference</text>
-<text class="s" x="360.0" y="112" text-anchor="middle">median-cardinality medoid</text>
-<rect x="494" y="46" width="172" height="90" rx="7" fill="#FEF0D9" stroke="#D55E00" stroke-width="2.2"/>
-<text class="h" x="580.0" y="82" text-anchor="middle">Assignment</text>
-<text class="s" x="580.0" y="112" text-anchor="middle">Hungarian component map</text>
-<rect x="710" y="46" width="186" height="90" rx="7" fill="#EAF4EA" stroke="#009E73" stroke-width="2.2"/>
-<text class="h" x="803.0" y="82" text-anchor="middle">Barycenter</text>
-<text class="s" x="803.0" y="112" text-anchor="middle">matched posterior moments</text>
-<rect x="940" y="46" width="140" height="90" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
-<text class="h" x="1010.0" y="82" text-anchor="middle">Output</text>
-<text class="s" x="1010.0" y="112" text-anchor="middle">reference labels</text>
-<line x1="226" y1="92" x2="258" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="258,85 270,92 258,99" fill="#4D4D4D"/>
-<line x1="450" y1="92" x2="482" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="482,85 494,92 482,99" fill="#4D4D4D"/>
-<line x1="666" y1="92" x2="698" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="698,85 710,92 698,99" fill="#4D4D4D"/>
-<line x1="896" y1="92" x2="928" y2="92" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="928,85 940,92 928,99" fill="#4D4D4D"/>
-<rect x="62" y="184" width="376" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
-<text class="tiny" x="82" y="212">Residual after scalar AA: weights choose probability mass</text>
-<text class="tiny" x="82" y="238">but do not infer the b-to-d component correspondence.</text>
-<line x1="458" y1="225" x2="652" y2="225" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="652,218 666,225 652,232" fill="#4D4D4D"/>
-<rect x="688" y="184" width="370" height="82" rx="6" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
-<text class="tiny" x="708" y="212">Projection effect: keep reference labels and active existence</text>
-<text class="tiny" x="708" y="238">scores, then average matched states as posterior moments.</text>
-<text class="tiny" x="560" y="296" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="430" viewBox="0 0 1120 430">
+<rect width="1120" height="430" fill="white"/>
+<style>text{font-family:Verdana;} .h{font-size:25px;font-weight:700;fill:#111} .s{font-size:19px;fill:#333} .tiny{font-size:18px;fill:#333}</style>
+<text class="h" x="560" y="36" text-anchor="middle">Neighborhood label-barycenter projection</text>
+<rect x="110" y="62" width="900" height="42" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.6"/>
+<text class="tiny" x="560" y="89" text-anchor="middle">Scalar AA weights choose probability mass, not component correspondence.</text>
+<rect x="90" y="120" width="250" height="82" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
+<text class="h" x="215.0" y="154" text-anchor="middle">Reference</text>
+<text class="s" x="215.0" y="183" text-anchor="middle">medoid label set</text>
+<rect x="430" y="120" width="250" height="82" rx="7" fill="#FEF0D9" stroke="#D55E00" stroke-width="2.2"/>
+<text class="h" x="555.0" y="154" text-anchor="middle">Assignment</text>
+<text class="s" x="555.0" y="183" text-anchor="middle">component map</text>
+<rect x="770" y="120" width="260" height="82" rx="7" fill="#EAF4EA" stroke="#009E73" stroke-width="2.2"/>
+<text class="h" x="900.0" y="154" text-anchor="middle">Barycenter</text>
+<text class="s" x="900.0" y="183" text-anchor="middle">matched moments</text>
+<line x1="340" y1="161" x2="418" y2="161" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="418,154 430,161 418,168" fill="#4D4D4D"/>
+<line x1="680" y1="161" x2="758" y2="161" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="758,154 770,161 758,168" fill="#4D4D4D"/>
+<rect x="90" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="305" y="280" text-anchor="middle">Existence pass-through: keep active AA existence scores.</text>
+<rect x="600" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="815" y="280" text-anchor="middle">Moment projection: average only assigned posterior states.</text>
+<rect x="120" y="336" width="880" height="48" rx="5" fill="#F7F7F7" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="560" y="366" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>
 </svg>

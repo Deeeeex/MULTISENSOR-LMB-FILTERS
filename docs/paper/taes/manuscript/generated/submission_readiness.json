@@ -222,6 +222,11 @@
       "status": "pass"
     },
     {
+      "detail": "Generated method figure preserves the compact mass-vs-correspondence, three-step projection, existence-pass-through, and no-global-label visual markers.",
+      "gate": "method figure mechanism markers",
+      "status": "pass"
+    },
+    {
       "detail": "Abstract and introduction preserve the correspondence-failure framing, scalar-weight boundary, held-out replication, and reference-only mechanism test.",
       "gate": "first-page narrative markers",
       "status": "pass"
@@ -447,7 +452,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `fd32188a44ad5bf40610b40ba32e2b9dc831a516ac93b853abb58a5dbf8884cc`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `0e6371d008b4b56aeb78eee186d1e5bc846716f208acc63b9e8681d669a92b2d`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
