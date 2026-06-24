@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 16:10 CST
+最后更新: 2026-06-24 16:25 CST
 
 ## 目的
 
@@ -89,7 +89,7 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 已完成 N1 smoke；尚未形成 paper-grade N50。下一步补 `partial-fov35` N1/N5 smoke，若报告结构和机制信号合理，再启动固定 N50。
+- Evidence: `topology-ring` 与 `partial-fov35` 已完成 N1 smoke；尚未形成 paper-grade N50。下一步补 N5 smoke，若报告结构和机制信号合理，再启动固定 N50。
 
 ## Topology-ring N1 smoke
 
@@ -122,6 +122,40 @@ Interpretation:
 - The full method improves both network agreement and local tracking on this single sparse-topology trial.
 - Reference-only improves cardinality and label-set coherence, but its RMSE gain is much smaller than the full method. This is a useful early signal for the matched-barycenter mechanism, not a paper-grade conclusion.
 - No parameter should be changed in response to this N1 result. The next evidence step is a fixed N5/N50 run, not tuning.
+
+## Partial-fov35 N1 smoke
+
+Smoke command was run on 2026-06-24 with `AA_SCENARIO_FAMILY=partial-fov35`, `AA_SCENARIO_TRIALS=1`, `AA_SCENARIO_BASE_SEED=41`, and trial seed `42`.
+
+Artifacts:
+
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED41_20260624_155707.md`
+- Launcher log: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N1_BASESEED41_20260624_155706.log`
+
+Run metadata recorded in the report:
+
+- `scenarioLabel: partial-fov35-formation`
+- `neighborMapMode: 4plus4`
+- `sensorFovHalfAngleDeg: 35.000`
+- `pDropLevels: [0 0.1 0.2 0.5]`
+- `pDropLevelCounts: [1 4 1 2]`
+- Arms: `[9 18 19]`
+
+Smoke result:
+
+| Arm | Net OSPA | Loc. disag. | Card. disp. | E-OSPA | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 2.327551 | 1.182761 | 0.457500 | 2.922353 | 4.461712 | 0.612500 |
+| Neighborhood label-barycenter | 1.516556 | 0.126668 | 0.470000 | 2.734257 | 4.281871 | 0.600000 |
+| Neighborhood reference-only | 1.884422 | 0.553296 | 0.470000 | 2.874641 | 4.460423 | 0.600000 |
+
+Interpretation:
+
+- The partial-FOV override path is functional: the report records the narrower 35 degree FOV and all three paper arms complete.
+- The full method improves network OSPA, localization disagreement, local E-OSPA, RMSE, and CardErr on this single trial.
+- Cardinality dispersion is slightly worse for both projection arms. This is a useful boundary signal: under narrow FOV, label canonicalization can improve spatial coherence while not fully resolving cardinality disagreement.
+- Reference-only is almost tied with tuned AA on RMSE, while the full method improves RMSE by 4.03%. This continues to support matched-state barycentering as the spatial-gain mechanism, but only as an N1 smoke signal.
+- No parameter should be changed in response to this N1 result. The next evidence step is fixed N5, followed by N50 only if the N5 structure justifies the compute.
 
 ## Paper-facing 使用边界
 
