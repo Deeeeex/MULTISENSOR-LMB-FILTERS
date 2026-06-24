@@ -69,6 +69,14 @@
 
 `check_submission_readiness.py` 新增 `abstract sentence load` gate，把这个可读性要求固化为机械检查，防止后续压缩 abstract 时重新变成长句堆叠。这个 checkpoint 不新增实验、不改变任何手写或 generated metric、不接入仍在运行的 `full-topology` N50；它只提高第一页的期刊读者可读性和后续改稿的退化保护。
 
+## 03:48 Checkpoint
+
+本轮按 Nature-style polishing / reviewer audit 做了低风险正文收束，不改变任何实验数值、证据源或统计结论。`main.tex` 的 abstract 末句从 “matched barycenters repair the label/moment contract” 改成 “supply the label/moment contract”，降低机制措辞的过度修复感；同时把 fixed-parameter robustness wording 改成 preserve the same full-versus-reference separation，使 abstract 的证据边界更具体。
+
+Results 中 runtime 句子从一个冒号长句拆成三句，明确 full/reference-only runtime overhead 分别为 `1.644` / `1.534` times fixed baseline，且 assignment/output rewriting 是主要开销来源。Discussion 中 harsh-loss、topology-ring、partial-FOV 的生成摘要现在独立成段，最后用一条更短的 boundary sentence 总结: these checks broaden packet-loss severity, sparse-topology coverage, and partial-field-of-view sensing, but still preserve formation-family assumptions and do not substitute for maneuvering-target or covariance-consistency studies。
+
+验证状态: `python3 -m py_compile docs/paper/taes/manuscript/scripts/check_submission_readiness.py` 通过，`git diff --check` 通过，`./build.sh` 通过；PDF 仍为 `9` pages，readiness 仍为 `content_ready_metadata_pending` 且 metadata allowance 后无 blocking gates。视觉检查 `main_all_p08.png` 与 `main_all_p09.png` 显示 Discussion/Conclusion/References 分页可接受。full-topology run 仍在运行中，本 checkpoint 没有把它并入证据链。
+
 ## 01:35 Checkpoint
 
 本轮按 Nature-style reviewer audit 的逻辑继续收束一个 wording 风险: `tuned spatial-KLA AA baseline` 容易被审稿人理解成针对当前数据集搜索式调参。`main.tex` 已把 paper-facing 叙事和机制隔离表统一为 `fixed target-wise spatial-KLA AA baseline` / `Fixed spatial-KLA AA`，并把 raw validation report 中的内部 implementation label 仅作为 provenance 处理。`COVER_LETTER_AND_METADATA_DRAFT.md`、`CLAIM_EVIDENCE_BOUNDARY_MAP.md`、`REVIEWER_RISK_REGISTER.md` 和生成脚本同步这一点。

@@ -1005,8 +1005,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
     )
 
     stress_boundary_markers = [
-        "stress check broadens packet-loss severity",
-        "preserves the same formation-family assumptions",
+        "These checks broaden packet-loss severity",
+        "They still preserve formation-family assumptions",
         "should not be read as a substitute",
         "sparse-topology",
         "partial-field-of-view",
