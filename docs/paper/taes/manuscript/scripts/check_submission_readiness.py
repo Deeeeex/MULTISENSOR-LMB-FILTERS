@@ -504,6 +504,37 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    abstract_boundary_markers = [
+        "active Bernoulli output components",
+        "label/moment correspondence",
+        "distributed active LMB outputs",
+        "output-level correspondence-and-projection view",
+    ]
+    missing_abstract_boundary = [
+        marker for marker in abstract_boundary_markers if marker not in abstract
+    ]
+    forbidden_abstract_boundary = [
+        "before existence and spatial fusion",
+    ]
+    present_forbidden_abstract_boundary = [
+        marker for marker in forbidden_abstract_boundary if marker in abstract
+    ]
+    abstract_boundary_ok = (
+        not missing_abstract_boundary and not present_forbidden_abstract_boundary
+    )
+    checks.append(
+        Check(
+            "abstract active-output boundary",
+            "pass" if abstract_boundary_ok else "warning",
+            "Abstract frames the contribution as active-output label/moment correspondence repair, not an existence-consumer replacement."
+            if abstract_boundary_ok
+            else "Abstract active-output boundary wording is incomplete: missing markers="
+            + ("; ".join(missing_abstract_boundary) if missing_abstract_boundary else "none")
+            + ", forbidden markers="
+            + ("; ".join(present_forbidden_abstract_boundary) if present_forbidden_abstract_boundary else "none"),
+        )
+    )
+
     keyword_items = [item.strip().lower() for item in keywords.split(",") if item.strip()]
     keyword_ok = len(keyword_items) >= 3 and keyword_items == sorted(keyword_items)
     checks.append(

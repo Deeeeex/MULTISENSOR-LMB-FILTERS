@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 02:35 CST
+日期: 2026-06-25 02:43 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 02:43 Checkpoint
+
+本轮按 reviewer-style preflight 修正摘要中的一个 scope 风险。旧摘要句子写成 scalar AA/KLA weights do not decide comparable components `before existence and spatial fusion`，容易被理解为本文 projection 进入或替代 Bernoulli existence consumer；这比当前实现和正文边界更强。新版摘要改为 active Bernoulli output components 的 label/moment correspondence，和 Method 中 `after the upstream AA existence update and thresholding`、`does not replace the Bernoulli existence consumer` 的实现边界一致。
+
+`check_submission_readiness.py` 新增 `abstract active-output boundary` gate，要求摘要保留 active-output / label-moment correspondence markers，并禁止旧的 `before existence and spatial fusion` 过强说法。`./build.sh` 后该 gate、abstract sentence load、implementation-alignment wording、PDF visual QA、TeX overfull 和 source-bundle freshness 均通过。这个改动只收紧 claim boundary，不改变任何实验数字、generated evidence 或 full-topology 状态。
 
 ## 02:35 Checkpoint
 

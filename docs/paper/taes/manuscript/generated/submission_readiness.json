@@ -192,6 +192,11 @@
       "status": "pass"
     },
     {
+      "detail": "Abstract frames the contribution as active-output label/moment correspondence repair, not an existence-consumer replacement.",
+      "gate": "abstract active-output boundary",
+      "status": "pass"
+    },
+    {
       "detail": "Keywords are comma-separated, include at least three phrases, and are alphabetized.",
       "gate": "TAES keyword format",
       "status": "pass"
@@ -517,7 +522,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `afcc9c0e7646c6f7eaf8d06c2b30e0380062511b4dc8df676e6b06704c8bb9f2`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `fed72be10fc4d8f681bbc5e3c1d5f25f9d8dda83556eee637c3277e7eceb155d`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
