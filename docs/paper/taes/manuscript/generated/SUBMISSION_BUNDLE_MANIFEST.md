@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `762d061713e92165616272770e1fef554f7a15b9d7b6b2be71ba16ae5c480705`
+- Bundle SHA-256: `e4b9a2d716ca3ebd4a8ddadec3f3cf23019d4489d8a3bc13e63f3181b660302e`
 - Files: 58
 
 ## Included Files
@@ -45,12 +45,12 @@
 | `generated/reproducibility_ledger_rows.tex` | 1562 | `9f3cd128a7dec7780edc1dea27d673f29fa184da52323e76c17ece5686fc534b` |
 | `generated/reproducibility_ledger_table.tex` | 1948 | `7defaabe96df1a01ba8498bd4cd75c1b2f89a57002bac705f7c7b95d67574ff7` |
 | `generated/scenario_family_evidence.json` | 12105 | `9f5c258f562c4cecb9bc4aba52cf90f2b77c1c44e19f9119523ce9abe6528754` |
-| `generated/scenario_family_section.tex` | 1156 | `efaf7b9a4ae7440f3b5ba48ae3be237ed77d78c20557096fa57549b5eb01a41c` |
+| `generated/scenario_family_section.tex` | 1164 | `da5aef89c16160ec3cc664ee558d3b3b5a69cf0c2d384a145098e05ba4b887e1` |
 | `generated/scenario_family_summary_sentence.tex` | 319 | `c863c9bf1804542b875c9fb7d459e6d67a795fb072f0b34550fbc953191f1c19` |
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 398 | `5922de7860af68d2838d7a58d4ecf044a90e8ab81f9ba21b3af5eaa45f662efd` |
-| `main.pdf` | 109186 | `8feb043b0228795c393423e17bd0204a649ba1de11ca0a7d0ab1edbc1d12bad2` |
+| `main.pdf` | 109186 | `372c2426cf836157f8fb008de65c3fe662d5698fa1b5e429fb214d94d8af1133` |
 | `main.tex` | 34534 | `ef52067f1ef36ac5e8cee99db99fcebc5fca747cbbcda5fdc63fb1c355e0534a` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 65259 | `2cd40c54f1416871ce599cfbd87e6baf5224b883f601c06eeae26cba2bf019ec` |
@@ -59,7 +59,7 @@
 | `scripts/extract_heldout_sanity_evidence.py` | 14626 | `c6db390899a3f395d2b5f513584ba265da2bb75ce918837045995c87c09ca19b` |
 | `scripts/extract_n50_evidence.py` | 14071 | `c247769155c954c689119d8bcb517d4bb1a5f93df28365608a79ebebdc0dc2ba` |
 | `scripts/extract_reference_baselines.py` | 6281 | `5372c079c7eed4de5b16355570e17b34bca3933bda3ca4a8703bd1afb44aea9e` |
-| `scripts/extract_scenario_family_evidence.py` | 17257 | `6b0c88bbe70ae20c9a32586dc88bf267d797bd0852a095905ba2b372a38504ad` |
+| `scripts/extract_scenario_family_evidence.py` | 17630 | `a1de1f362fa33147484e4b2ddc4ab2b0f2b8bbd55490c297b26baecf8f2fa1b6` |
 | `scripts/extract_stress_evidence.py` | 14054 | `8a61e96a72e0ee8cdf147f2b42ca81bed7fa1c49ddf59e4e262a2e6087752fa5` |
 | `scripts/render_figures.py` | 8106 | `0fdd6d16a30e725406625f0140b0925b3c22309891d4c9924199fd48abeaf797` |
 | `scripts/render_pdf_visual_qa.py` | 5263 | `f0e4425cb216fd424090c70aef6b3dcda881cc1638c85778c00ecd80eac4dd28` |
