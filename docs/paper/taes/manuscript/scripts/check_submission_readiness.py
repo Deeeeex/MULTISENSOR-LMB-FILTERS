@@ -668,6 +668,28 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    discussion_interpretation_markers = [
+        "support a specific interpretation",
+        "target-wise AA weight routing is held fixed",
+        "reference-only projection reduces network disagreement",
+        "Adding matched moment barycenters creates the spatial tracking separation",
+        "complementary to AA/KLA weighting",
+        "not as a replacement for density pooling",
+    ]
+    missing_discussion_interpretation = [
+        marker for marker in discussion_interpretation_markers if marker not in body
+    ]
+    checks.append(
+        Check(
+            "discussion interpretation markers",
+            "pass" if not missing_discussion_interpretation else "warning",
+            "Discussion opens by interpreting the ablation and boundary evidence as a correspondence/projection mechanism rather than a density-pooling replacement."
+            if not missing_discussion_interpretation
+            else "Discussion interpretation wording is incomplete; missing markers: "
+            + "; ".join(missing_discussion_interpretation),
+        )
+    )
+
     stress_boundary_markers = [
         "stress check broadens packet-loss severity",
         "preserves the same formation-family assumptions",

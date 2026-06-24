@@ -129,3 +129,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊投稿包而不是会议稿件的口径，新增 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 作为 optional supplement / reviewer-response evidence 的单一索引层，把 held-out N50、harsh packet-loss、topology/FOV scenario family 和 reproducibility ledger 的生成片段统一映射到用途、状态和解释边界。该文件明确这些材料来自固定参数后的 robustness / boundary checks，不构成针对场景的 threshold、barycenter weight 或 label rule 搜索，也不替代 maneuvering-target、covariance-consistency、recursive-online validation 等更广泛风险项。
 
 `SUBMISSION_PACKAGE_INDEX.md` 和 `README.md` 已同步把该 evidence package 纳入投稿包说明；`create_submission_bundle.py` 已把它加入 source bundle；`check_submission_readiness.py` 新增并调用 supplementary evidence package gate，检查候选补充材料、response-ready evidence、boundary control、四个生成片段入口、非调参声明以及 generated fragment 不手改规则。下一步必须通过 `./build.sh`、readiness report、PDF visual QA 和 extracted source-bundle rebuild 后，才能把这个 checkpoint 视为已验证。
+
+## 22:50 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 algorithmic-paper 的 Discussion 结构做了一个很窄但重要的稿件修订：`DISCUSSION AND LIMITATIONS` 不再直接从 limitation 开始，而是先解释 paired / held-out / boundary evidence 共同支持的机制读法。新的开场明确：在 target-wise AA weight routing 已固定的条件下，reference-only projection 主要解释 network disagreement 和 cardinality effect，而主要 RMSE separation 需要 matched moment barycenters；因此本文方法应被读作 complement to AA/KLA weighting 的 correspondence-and-projection layer，而不是 replacement for density pooling。
+
+`check_submission_readiness.py` 已新增 `discussion interpretation markers` gate，要求 Discussion 保留 fixed weight routing、reference-only partial effect、matched barycenter spatial separation、complementary-to-AA/KLA 和 not-density-pooling-replacement 这些 marker。这个 gate 的目的不是增加结果，而是防止后续为了压页或润色而把最关键的 ablation interpretation 删除。
