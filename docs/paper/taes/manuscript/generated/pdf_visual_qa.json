@@ -25,11 +25,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png",
       "label": "method",
-      "mean_luma": 0.949517,
+      "mean_luma": 0.94957,
       "page": 3,
-      "size_bytes": 280913,
+      "size_bytes": 294453,
       "status": "pass",
-      "stddev_luma": 0.185605,
+      "stddev_luma": 0.185687,
       "width": 1530
     },
     {
@@ -40,11 +40,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png",
       "label": "main-results",
-      "mean_luma": 0.957828,
+      "mean_luma": 0.952368,
       "page": 6,
-      "size_bytes": 128411,
+      "size_bytes": 139418,
       "status": "pass",
-      "stddev_luma": 0.172787,
+      "stddev_luma": 0.18291,
       "width": 1530
     },
     {

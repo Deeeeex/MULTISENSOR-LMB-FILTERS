@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `6524425e422f9fa5fb57b4c12249da845eb2cc3e054ae286084097df95c30eae`
+- Bundle SHA-256: `95bcbf70645574d2e39296add024f5ba690dcb56b0685b716acaf257a3680b94`
 - Files: 58
 
 ## Included Files
@@ -50,8 +50,8 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1777 | `1d1069732df3659bc00ac143944daeedc60d4c81a964f561e21d34c5b03d8c57` |
 | `generated/stress_harsh_summary_sentence.tex` | 398 | `5922de7860af68d2838d7a58d4ecf044a90e8ab81f9ba21b3af5eaa45f662efd` |
-| `main.pdf` | 112923 | `45cbd59c752076ee4864b6139fe8bb9053568e7add50d1561e003f0e914e8118` |
-| `main.tex` | 35630 | `d0102b96a7c69726093a8cb886a91609d0aba148a593417991a6e8124232cd44` |
+| `main.pdf` | 113341 | `bcd3e7df3224b24435627ff26965b3009cffc5549c96c113719fe8fe788cf3b5` |
+| `main.tex` | 36037 | `fc4fe024f8ad8c1681d17294039af2fe9c5f08a3b34c228b93c751997b51853d` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 65259 | `2cd40c54f1416871ce599cfbd87e6baf5224b883f601c06eeae26cba2bf019ec` |
 | `scripts/create_submission_bundle.py` | 4794 | `2a57acc5bc6fa1cddb7301c7909c218996f5d313cec929068303ee21434d3402` |
