@@ -24,6 +24,8 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `generated/submission_readiness.json` | Machine-readable readiness report. |
 | `generated/SUBMISSION_BUNDLE_MANIFEST.md` | Source-bundle file list and bundle SHA-256. |
 | `generated/submission_bundle_manifest.json` | Machine-readable source-bundle manifest used by the readiness checker. |
+| `generated/BIBTEX_DOI_VERIFICATION.md` | DOI resolver verification for every BibTeX entry in `references.bib`. |
+| `generated/bibtex_doi_verification.json` | Machine-readable DOI verification report used by the readiness checker. |
 | `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | Provenance ledger for primary AA evidence, held-out robustness evidence, contextual GA rows, and independent verifier evidence. |
 | `generated/PDF_VISUAL_QA_MANIFEST.md` | Local visual-QA record for representative rendered PDF pages; PNGs are generated under `tmp/pdf_visual_qa/` and are not committed. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
@@ -48,7 +50,7 @@ Run this sequence after every final metadata or evidence edit.
 1. Replace all placeholders in `main.tex` and `COVER_LETTER_AND_METADATA_DRAFT.md`.
 2. Run `./build.sh` from this directory.
 3. Inspect `main.pdf` visually after rendering representative pages.
-4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates; before actual portal submission, confirm it has no metadata pending gate either.
+4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates, including the BibTeX DOI resolver gate; before actual portal submission, confirm it has no metadata pending gate either.
 5. Confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the current `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` checksum.
 6. Extract the source bundle in a temporary directory and run `TAES_EVIDENCE_MODE=bundled ./build.sh` to verify bundled-fragment compilation.
 7. Upload the final PDF, source bundle if requested, and finalized cover-letter or portal text according to the current TAES instructions.

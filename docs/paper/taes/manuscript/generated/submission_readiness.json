@@ -102,6 +102,16 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/generated/bibtex_doi_verification.json",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/BIBTEX_DOI_VERIFICATION.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md",
       "gate": "required artifact",
       "status": "pass"
@@ -123,6 +133,11 @@
     },
     {
       "detail": "docs/paper/taes/manuscript/scripts/render_reproducibility_ledger.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/scripts/verify_bibtex_dois.py",
       "gate": "required artifact",
       "status": "pass"
     },
@@ -189,6 +204,11 @@
     {
       "detail": "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language.",
       "gate": "paper-facing wording hygiene",
+      "status": "pass"
+    },
+    {
+      "detail": "DOI resolver verification covers 20/20 BibTeX entries with current BibTeX SHA-256 `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3`.",
+      "gate": "BibTeX DOI resolver verification",
       "status": "pass"
     },
     {
@@ -272,7 +292,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 46 files and SHA-256 `b184a46a6b08083d24b684945a7fc3d0f89f8d32356b32a2ba088923ca183b87`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 49 files and SHA-256 `89317c4ee7416838332d8ebe3313cf4c6695fa728556978965552cf810fdfed9`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

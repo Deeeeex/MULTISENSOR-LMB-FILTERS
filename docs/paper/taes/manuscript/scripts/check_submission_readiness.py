@@ -48,6 +48,8 @@ REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
 REPRO_LEDGER_TABLE = OUT / "reproducibility_ledger_table.tex"
 PDF_VISUAL_QA_JSON = OUT / "pdf_visual_qa.json"
 PDF_VISUAL_QA_MANIFEST = OUT / "PDF_VISUAL_QA_MANIFEST.md"
+BIB_DOI_JSON = OUT / "bibtex_doi_verification.json"
+BIB_DOI_MANIFEST = OUT / "BIBTEX_DOI_VERIFICATION.md"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
@@ -80,6 +82,7 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/render_figures.py",
     "scripts/render_pdf_visual_qa.py",
     "scripts/render_reproducibility_ledger.py",
+    "scripts/verify_bibtex_dois.py",
     "scripts/verify_n50_evidence.py",
 ]
 BUNDLE_BUILD_FALLBACK_MARKERS = [
@@ -300,11 +303,14 @@ def file_checks() -> list[Check]:
         OUT / "reproducibility_ledger_table.tex",
         OUT / "pdf_visual_qa.json",
         OUT / "PDF_VISUAL_QA_MANIFEST.md",
+        OUT / "bibtex_doi_verification.json",
+        OUT / "BIBTEX_DOI_VERIFICATION.md",
         OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
         ROOT / "scripts" / "create_submission_bundle.py",
         ROOT / "scripts" / "extract_stress_evidence.py",
         ROOT / "scripts" / "render_pdf_visual_qa.py",
         ROOT / "scripts" / "render_reproducibility_ledger.py",
+        ROOT / "scripts" / "verify_bibtex_dois.py",
     ]
     for path in required:
         status = "pass" if path.exists() else "error"
@@ -504,6 +510,52 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
     return checks
+
+
+def doi_resolver_checks(bib: str) -> list[Check]:
+    artifacts = [BIB_DOI_JSON, BIB_DOI_MANIFEST]
+    missing = [path.relative_to(REPO).as_posix() for path in artifacts if not path.exists()]
+    if missing:
+        return [
+            Check(
+                "BibTeX DOI resolver verification",
+                "error",
+                "Generated DOI resolver verification artifacts are missing: " + ", ".join(missing),
+            )
+        ]
+
+    payload = json.loads(read_text(BIB_DOI_JSON))
+    bib_sha = hashlib.sha256(bib.encode("utf-8")).hexdigest()
+    available = bib_keys(bib)
+    status = str(payload.get("status", "missing"))
+    payload_sha = str(payload.get("bib_sha256", ""))
+    entry_count = safe_int(payload.get("entry_count"), -1)
+    resolved_count = safe_int(payload.get("resolved_count"), -1)
+    missing_doi = payload.get("missing_doi", [])
+    unresolved = payload.get("unresolved", [])
+    used_cache = bool(payload.get("used_cache", False))
+
+    ok = (
+        status == "pass"
+        and payload_sha == bib_sha
+        and entry_count == len(available)
+        and resolved_count == len(available)
+        and not missing_doi
+        and not unresolved
+    )
+    cache_note = " A same-BibTeX cached resolver pass was reused." if used_cache else ""
+    return [
+        Check(
+            "BibTeX DOI resolver verification",
+            "pass" if ok else "error",
+            f"DOI resolver verification covers {resolved_count}/{entry_count} BibTeX entries with current BibTeX SHA-256 `{payload_sha}`.{cache_note}"
+            if ok
+            else "DOI resolver verification is incomplete or stale: "
+            f"status={status}, bib_sha_matches={payload_sha == bib_sha}, "
+            f"entry_count={entry_count}, expected={len(available)}, resolved_count={resolved_count}, "
+            f"missing_doi={missing_doi}, unresolved={unresolved}.",
+        )
+    ]
 
 
 def cover_letter_checks() -> list[Check]:
@@ -1118,6 +1170,7 @@ def main() -> None:
     checks = []
     checks.extend(file_checks())
     checks.extend(manuscript_checks(tex, bib))
+    checks.extend(doi_resolver_checks(bib))
     checks.extend(cover_letter_checks())
     checks.extend(submission_package_index_checks())
     checks.extend(reproducibility_ledger_checks())

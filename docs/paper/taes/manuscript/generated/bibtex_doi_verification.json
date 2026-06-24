@@ -1,0 +1,172 @@
+{
+  "bib_sha256": "a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3",
+  "entries": [
+    {
+      "doi": "10.1109/TSP.2014.2364014",
+      "error": "",
+      "key": "Vo2014LRFS",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2014.2364014"
+    },
+    {
+      "doi": "10.1109/TSP.2014.2323064",
+      "error": "",
+      "key": "Reuter2014LMB",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2014.2323064"
+    },
+    {
+      "doi": "10.1016/j.automatica.2013.11.042",
+      "error": "",
+      "key": "Battistelli2014KLA",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1016/j.automatica.2013.11.042"
+    },
+    {
+      "doi": "10.1109/TSP.2016.2617825",
+      "error": "",
+      "key": "Wang2017MBGCI",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2016.2617825"
+    },
+    {
+      "doi": "10.1109/TSP.2017.2760286",
+      "error": "",
+      "key": "Li2018RobustDistributedLRFS",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2017.2760286"
+    },
+    {
+      "doi": "10.1109/TAES.2019.2893083",
+      "error": "",
+      "key": "Uney2019FiniteSetConsistency",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TAES.2019.2893083"
+    },
+    {
+      "doi": "10.1016/j.inffus.2023.101965",
+      "error": "",
+      "key": "Gao2023ResilientLMB",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1016/j.inffus.2023.101965"
+    },
+    {
+      "doi": "10.1109/TAES.2023.3334223",
+      "error": "",
+      "key": "Li2024AADensityFusion",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TAES.2023.3334223"
+    },
+    {
+      "doi": "10.1016/j.inffus.2023.102199",
+      "error": "",
+      "key": "Li2024AADensityFusionPartI",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1016/j.inffus.2023.102199"
+    },
+    {
+      "doi": "10.1109/TAES.2024.3359592",
+      "error": "",
+      "key": "Li2024AADensityFusionPartII",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TAES.2024.3359592"
+    },
+    {
+      "doi": "10.1109/TSP.2025.3550157",
+      "error": "",
+      "key": "Li2025AADensityFusionPartIV",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2025.3550157"
+    },
+    {
+      "doi": "10.36227/techrxiv.176782063.38593428/v1",
+      "error": "",
+      "key": "Li2026FIMultirateAADensityFusion",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.36227/techrxiv.176782063.38593428/v1"
+    },
+    {
+      "doi": "10.1109/TAES.2022.3182642",
+      "error": "",
+      "key": "Gao2022DifferentFOV",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TAES.2022.3182642"
+    },
+    {
+      "doi": "10.1109/TSP.2021.3087033",
+      "error": "",
+      "key": "YiChai2021HeterogeneousRFS",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2021.3087033"
+    },
+    {
+      "doi": "10.1016/j.inffus.2025.104060",
+      "error": "",
+      "key": "Zheng2026DistributedWeightedRFS",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1016/j.inffus.2025.104060"
+    },
+    {
+      "doi": "10.1016/j.sigpro.2025.110135",
+      "error": "",
+      "key": "CaoZhao2026InfoGeometryFusion",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1016/j.sigpro.2025.110135"
+    },
+    {
+      "doi": "10.1109/TCYB.2021.3087521",
+      "error": "",
+      "key": "Shen2022ConsensusLMB",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TCYB.2021.3087521"
+    },
+    {
+      "doi": "10.1109/TSP.2008.920469",
+      "error": "",
+      "key": "Schuhmacher2008OSPA",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TSP.2008.920469"
+    },
+    {
+      "doi": "10.1002/nav.3800020109",
+      "error": "",
+      "key": "Kuhn1955Hungarian",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1002/nav.3800020109"
+    },
+    {
+      "doi": "10.1109/IPSN.2005.1440896",
+      "error": "",
+      "key": "XiaoBoydLall2005ConsensusWeights",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/IPSN.2005.1440896"
+    }
+  ],
+  "entry_count": 20,
+  "missing_doi": [],
+  "network_errors": [],
+  "resolved_count": 20,
+  "status": "pass",
+  "unresolved": [],
+  "used_cache": false
+}
