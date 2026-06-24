@@ -69,7 +69,7 @@ This paper starts from that structural failure mode. We use a tuned AA-LMB basel
 We propose a \method{} operator for distributed LMB fusion. At each time step, each sensor uses only the estimates available in its communication neighborhood. The sensor first chooses a reference estimate by a median-cardinality medoid rule, which prevents minority cardinality outliers from directly selecting the reference. It then matches neighboring estimates to the reference labels using the Hungarian assignment method \cite{Kuhn1955Hungarian}. For each reference label, the matched Gaussian states are replaced by the mean and covariance of the empirical matched mixture. Repeating this local operator over the graph propagates label-space agreement without reading a global label set.
 
 \noindent\textbf{Contributions.}
-First, we isolate a residual AA-LMB failure mode that remains after target-wise scalar weights are routed correctly: component labels can still disagree, so existence and spatial consumers receive incomparable Bernoulli components. Second, we define a graph-local medoid-assignment moment-barycenter operator that canonicalizes the neighborhood label set and then fuses only matched posterior states. Third, we state the structural conditions under which the operator is robust to cardinality outliers, preserves reference labels, and reduces to centralized equal-weight moment consensus under stable matching. Fourth, we validate the mechanism with paired 50-trial evidence and a reference-only ablation that separates label copying from matched posterior barycentering.
+First, we isolate a residual AA-LMB failure mode that remains after target-wise scalar weights are routed correctly: component labels can still disagree, so existence and spatial consumers receive incomparable Bernoulli components. Second, we define a graph-local medoid-assignment moment-barycenter operator that canonicalizes the neighborhood label set and then fuses only matched posterior states. Third, we state the structural conditions under which the operator is robust to cardinality outliers, has a stable assignment under separated tracks, preserves reference labels, and reduces to centralized equal-weight moment consensus under stable matching. Fourth, we validate the mechanism with paired 50-trial evidence and a reference-only ablation that separates label copying from matched posterior barycentering.
 
 \section{RELATED WORK}
 Labeled RFS filters provide a Bayesian finite-set formulation for preserving target identity while estimating multi-object states \cite{Vo2014LRFS}. The LMB filter gives a tractable approximation in which each Bernoulli component carries an existence probability and a labeled single-target density \cite{Reuter2014LMB}. Multi-sensor and distributed versions of labeled RFS filters have been studied through generalized covariance-intersection fusion, robust distributed labeled-RFS fusion, consensus LMB updates, and resilient peer-to-peer LMB fusion \cite{Wang2017MBGCI,Li2018RobustDistributedLRFS,Shen2022ConsensusLMB,Gao2023ResilientLMB}. These methods address how sensors should share uncertain multi-object information, but practical labeled fusion still depends on whether components with different local labels are comparable.
@@ -177,6 +177,22 @@ If more than half of the sensors in $\mathcal{N}_s$ output the same cardinality 
 With a strict majority at $n^\star$, the sample median of neighborhood cardinalities is $n^\star$. The minimum value of $|n_j(k)-m_s(k)|$ is therefore zero, and it is attained only by sensors with $n_j(k)=n^\star$. The subsequent medoid step is restricted to this candidate set.
 \end{proof}
 
+\begin{proposition}[Sufficient assignment stability]
+Let the reference positions be $\{z_a\}_{a=1}^{m}$ with separation
+\begin{equation}
+  \Delta=\min_{a\ne b}\|z_a-z_b\|_2 .
+\end{equation}
+Suppose a neighbor has the same cardinality and contains one state $y_a$ for each reference target such that $\|y_a-z_a\|_2\le\epsilon$ after the physical correspondence is indexed by $a$. If $\epsilon<\Delta/(m+1)$, then the minimum-sum Euclidean assignment to the reference is the physical correspondence.
+\end{proposition}
+\begin{proof}
+The physical correspondence has assignment cost at most $m\epsilon$. Any nonphysical permutation assigns at least one state $y_a$ to a different reference $z_b$, $b\ne a$. For that pair,
+\begin{equation}
+  \|y_a-z_b\|_2\ge\|z_a-z_b\|_2-\|y_a-z_a\|_2
+  \ge\Delta-\epsilon .
+\end{equation}
+All other assignment costs are nonnegative, so the nonphysical assignment costs at least $\Delta-\epsilon$. The condition $\epsilon<\Delta/(m+1)$ gives $\Delta-\epsilon>m\epsilon$, hence every nonphysical assignment has larger cost.
+\end{proof}
+
 \begin{proposition}[Moment projection]
 For a matched group $\mathcal{G}=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the barycenter mean minimizes $\sum_i\|z-\mu_i\|_2^2$, and $(\bar{\mu},\bar{\Sigma})$ are the first two moments of the equally weighted Gaussian mixture $M^{-1}\sum_i\mathcal{N}(\mu_i,\Sigma_i)$.
 \end{proposition}
@@ -214,7 +230,7 @@ For every sensor $s$, the label set of $Y_s(k)$ is a subset of the label set pro
 The operator defines output labels only from the selected reference $X_{\rho_s(k)}(k)$, so it never creates a label outside a neighborhood estimate. If all neighborhood estimates share the same labels and moments, every admissible reference has the same label set, each assignment is the identity up to ties among identical states, and each matched group contains identical moments. The barycenter equations therefore return the same mean and covariance.
 \end{proof}
 
-These properties are structural. The consensus-limit result concerns the matched moment coordinates and is conditional on stable matching and stochastic graph weights; the reported implementation uses three finite rounds and recomputes references and assignments. The existence convexity statement belongs to the upstream AA existence consumer, which the projection layer leaves intact. None of the propositions implies that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
+These properties are structural. The assignment-stability condition is sufficient rather than necessary, and it excludes cardinality mismatch, births, deaths, and close target crossings. The consensus-limit result concerns the matched moment coordinates and is conditional on stable matching and stochastic graph weights; the reported implementation uses three finite rounds and recomputes references and assignments. The existence convexity statement belongs to the upstream AA existence consumer, which the projection layer leaves intact. None of the propositions implies that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
 
 \section{EXPERIMENTAL SETUP}
 The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
@@ -261,8 +277,6 @@ Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
 \end{tabular}
 \end{table*}
 
-Table~\ref{tab:n50} shows that the proposed operator improves the communication-facing and truth-facing metrics simultaneously. The 95\% confidence intervals for network OSPA are $[1.666520,1.698693]$ for the tuned baseline, $[0.300179,0.319457]$ for the full method, and $[1.014315,1.045808]$ for the reference-only ablation. For local E-OSPA, the corresponding intervals are $[2.012605,2.046677]$, $[1.663594,1.699373]$, and $[1.893427,1.929145]$.
-
 \begin{table*}[t]
 \caption{Contextual reference rows from the same 50 trial seeds and tiered packet-loss profile. Lower values are better. The GA rows are generated by the tracked GA validation path and are not used in the paired AA sign tests.}
 \label{tab:reference}
@@ -275,8 +289,6 @@ Method & Net OSPA & Loc. disag. & Card. disp. & E-OSPA & RMSE & CardErr\\
 \input{generated/reference_baseline_rows.tex}
 \end{tabular}
 \end{table*}
-
-Table~\ref{tab:reference} places the proposed AA projection beside two GA reference rows generated with the same base seed, trial seeds, and tiered packet-loss profile. Because those rows come from the GA validation path, they are used only as contextual baselines rather than as paired significance-test inputs. In this setting, the \method{} row is lower than both GA reference rows on all six reported disagreement and tracking metrics, which supports the interpretation that label canonicalization and matched posterior barycenters address a failure mode not removed by the existing GA weighting variants alone.
 
 \begin{table*}[t]
 \caption{Paired reductions relative to the tuned spatial-KLA AA baseline. The bracketed interval is the 95\% confidence interval of the absolute paired reduction, and $p$ is the two-sided sign-test value on nonzero paired deltas.}
@@ -298,6 +310,10 @@ Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only
 \caption{Paired percentage reductions over the tuned spatial-KLA AA baseline. Black bars show the full label-barycenter operator, and gray bars show the reference-only ablation. The reference-only ablation captures the effect of choosing and copying a consistent local reference label set. The full method gives substantially larger localization and RMSE gains because it also averages matched posterior states.}
 \label{fig:n50}
 \end{figure*}
+
+Table~\ref{tab:n50} shows that the proposed operator improves the communication-facing and truth-facing metrics simultaneously. The 95\% confidence intervals for network OSPA are $[1.666520,1.698693]$ for the tuned baseline, $[0.300179,0.319457]$ for the full method, and $[1.014315,1.045808]$ for the reference-only ablation. For local E-OSPA, the corresponding intervals are $[2.012605,2.046677]$, $[1.663594,1.699373]$, and $[1.893427,1.929145]$.
+
+Table~\ref{tab:reference} places the proposed AA projection beside two GA reference rows generated with the same base seed, trial seeds, and tiered packet-loss profile. Because those rows come from the GA validation path, they are used only as contextual baselines rather than as paired significance-test inputs. In this setting, the \method{} row is lower than both GA reference rows on all six reported disagreement and tracking metrics, which supports the interpretation that label canonicalization and matched posterior barycenters address a failure mode not removed by the existing GA weighting variants alone.
 
 Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from state-barycenter effects. The reference-only ablation reduces network disagreement because sensors in a neighborhood move toward a common label set, but its RMSE reduction is only 0.54\%, with a confidence interval crossing zero, 27 wins out of 50 paired trials, and no sign-test support. The full operator reaches 6.35\% RMSE reduction, with 48 wins out of 50 and $p<10^{-3}$. The full method also improves local E-OSPA in all 50 paired trials and cardinality error in 46 out of 50 paired trials. These results support the claim that matched posterior barycenters, not label copying alone, drive the spatial tracking gain.
 
