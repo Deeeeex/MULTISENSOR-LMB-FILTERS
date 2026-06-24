@@ -1,6 +1,6 @@
 # AA stress scenario validation protocol
 
-最后更新: 2026-06-24 13:05 CST
+最后更新: 2026-06-24 13:13 CST
 
 ## 目的
 
@@ -84,6 +84,41 @@ For a quicker gate before N50:
 ```bash
 AA_STRESS_TRIALS=5 RUN/AA/launchAaTaesHarshLossN50BaseSeed21.sh
 ```
+
+## Manuscript evidence extraction
+
+The TAES build now has a non-blocking stress evidence path:
+
+```text
+docs/paper/taes/manuscript/scripts/extract_stress_evidence.py
+```
+
+By default, this script does nothing except remove stale stress-generated files. After a formal harsh-loss N50 report exists, add its Markdown path to:
+
+```text
+docs/paper/taes/manuscript/evidence_sources.json
+```
+
+using the key:
+
+```json
+"stress_harsh_n50_report": "RUN/AA/<completed-harsh-loss-N50-report>.md"
+```
+
+Then run:
+
+```bash
+cd docs/paper/taes/manuscript
+./build.sh
+```
+
+The build will generate:
+
+- `generated/STRESS_HARSH_MANIFEST.md`
+- `generated/stress_harsh_evidence.json`
+- `generated/stress_harsh_section.tex`
+
+The LaTeX fragment is response-ready but is not imported by `main.tex` by default. This keeps the current manuscript stable while still making the stress result easy to inspect and decide: main paper, supplement/response package, or limitations-only evidence.
 
 ## Paper-facing decision rule
 

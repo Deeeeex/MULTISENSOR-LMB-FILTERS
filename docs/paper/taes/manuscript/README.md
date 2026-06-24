@@ -21,6 +21,7 @@ Main files:
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
 - `scripts/extract_reference_baselines.py`: parses tracked AA and GA N50 reports to generate contextual reference rows and a manifest.
 - `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check and, when `evidence_sources.json` includes `heldout_n50_report`, generates a paper-grade held-out N50 manifest and an optional manuscript fragment.
+- `scripts/extract_stress_evidence.py`: when `evidence_sources.json` includes `stress_harsh_n50_report`, parses the harsh packet-loss N50 stress report and generates a response-ready manifest/LaTeX fragment without making it a submission gate.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
 - `scripts/render_figures.py`: dependency-light figure renderer for the method pipeline and static SVG assets.
@@ -36,11 +37,13 @@ Build:
 ./build.sh
 ```
 
-The build first regenerates the N50 evidence fragments, regenerates contextual reference rows, runs the verifier, renders figures, then compiles the TAES PDF. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, or figure renderer and rerun the build.
+The build first regenerates the N50 evidence fragments, regenerates contextual reference rows, records optional held-out/stress evidence, runs the verifier, renders figures, then compiles the TAES PDF. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, or figure renderer and rerun the build.
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
 The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement. The readiness JSON reports both a portal-level status and a content-level status, where content readiness is allowed to ignore author/funding/repository placeholders during internal review.
+
+If `evidence_sources.json` later adds `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, and `generated/stress_harsh_section.tex`. The stress fragment is response-ready and intentionally not imported by `main.tex` by default; decide after inspecting the N50 result whether it belongs in the main paper, supplementary material, or limitations/response evidence.
 
 The submission source bundle is generated at:
 
@@ -72,6 +75,14 @@ Paper-grade held-out N50 run for upgrading the current N5 sanity evidence:
 
 Run this only when no other long Octave validation is active, unless concurrent N50 runs are intentional.
 The current evidence manifest already includes the completed base-seed-11 held-out N50 report. After replacing it with a newer held-out report, update `heldout_n50_report` in `evidence_sources.json`, run `./build.sh`, and inspect `generated/HELDOUT_N50_MANIFEST.md` plus `generated/heldout_n50_section.tex` before keeping the held-out result in the manuscript.
+
+Harsh packet-loss N50 stress run:
+
+```bash
+../../../RUN/AA/launchAaTaesHarshLossN50BaseSeed21.sh
+```
+
+After it completes, add the generated Markdown report path to `evidence_sources.json` as `stress_harsh_n50_report`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md` plus `generated/stress_harsh_section.tex`. This stress result must not trigger per-scenario threshold or barycenter-weight search; mixed outcomes should be preserved as scenario-boundary evidence.
 
 The current manuscript is content-ready under the project convention that author/funding/repository placeholders may remain provisional. It is not yet portal-submission-ready because final author/funding/repository/AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
 
