@@ -19,7 +19,7 @@ Main files:
 - `evidence_sources.json`: single manifest for the report/log artifacts consumed by the evidence extractors and verifier.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
 - `scripts/extract_reference_baselines.py`: parses tracked AA and GA N50 reports to generate contextual reference rows and a manifest.
-- `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check without treating it as a paper-grade held-out validation.
+- `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check and, when `evidence_sources.json` includes `heldout_n50_report`, generates a paper-grade held-out N50 manifest.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
 - `scripts/render_figures.py`: dependency-light figure renderer for the method pipeline and static SVG assets.
@@ -38,7 +38,7 @@ The build first regenerates the N50 evidence fragments, regenerates contextual r
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
-The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata and paper-grade held-out validation.
+The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, optionally `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata and paper-grade held-out validation.
 
 Current build status:
 
@@ -61,6 +61,7 @@ Paper-grade held-out N50 run for upgrading the current N5 sanity evidence:
 ```
 
 Run this only when no other long Octave validation is active, unless concurrent N50 runs are intentional.
+After the held-out run completes, add `heldout_n50_report` to `evidence_sources.json` with the emitted report path, run `./build.sh`, and inspect `generated/HELDOUT_N50_MANIFEST.md` before promoting the held-out result into the manuscript.
 
 The current manuscript is not yet submission-ready: author information is provisional, broader scenario coverage still needs to be added, and final author/funding/AI-disclosure metadata still need to be completed before submission.
 

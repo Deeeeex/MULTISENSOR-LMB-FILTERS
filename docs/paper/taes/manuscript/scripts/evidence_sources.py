@@ -25,3 +25,13 @@ def evidence_path(key: str) -> Path:
     if not path.exists():
         raise FileNotFoundError(f"Evidence source `{key}` does not exist: {path}")
     return path
+
+
+def optional_evidence_path(key: str) -> Path | None:
+    sources = load_sources()
+    if key not in sources:
+        return None
+    path = REPO / sources[key]
+    if not path.exists():
+        raise FileNotFoundError(f"Evidence source `{key}` does not exist: {path}")
+    return path

@@ -29,6 +29,7 @@ REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE
 TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
 VERIFICATION_JSON = OUT / "n50_verification.json"
 HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
+HELDOUT_N50_JSON = OUT / "heldout_n50_evidence.json"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 
@@ -321,7 +322,21 @@ def evidence_checks() -> list[Check]:
         )
     )
 
-    if HELDOUT_SANITY_JSON.exists():
+    if HELDOUT_N50_JSON.exists():
+        heldout = json.loads(read_text(HELDOUT_N50_JSON))
+        config = heldout.get("config", {})
+        trials = int(config.get("trials", 0))
+        checks.append(
+            Check(
+                "held-out scenario evidence",
+                "pass" if trials >= 50 else "warning",
+                "Paper-grade held-out base-seed evidence exists "
+                f"(base seed {config.get('base_seed')}, {trials} trials)."
+                if trials >= 50
+                else "Held-out evidence artifact exists, but it is below N50.",
+            )
+        )
+    elif HELDOUT_SANITY_JSON.exists():
         heldout = json.loads(read_text(HELDOUT_SANITY_JSON))
         config = heldout.get("config", {})
         checks.append(

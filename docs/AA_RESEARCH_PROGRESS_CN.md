@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-24 09:49 CST
+最后更新: 2026-06-24 09:58 CST
 
 ## 当前结论
 
@@ -24,7 +24,7 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 投稿 readiness 审计已新增到 `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`。该文档把 TAES compliance gates、paper-facing claims、当前证据级别和剩余关闭条件逐项列出；当前 local-metric independent-verifier gate 已关闭，剩余重点是 held-out 场景和投稿元数据。
 
-投稿 readiness 现在也有机器检查产物: `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md` 和 `generated/submission_readiness.json` 会在 `./build.sh` 后自动更新。当前 overall status 是 `draft_with_pending_gates`，机械 gate 已通过；readiness checker 已新增 TAES-specific 机械检查，包括投稿要求文档与官方模板归档、标题/摘要避免 `new`/`novel`、摘要无 citation/footnote/display equation、关键词按字母序。剩余 pending gate 是作者/基金/repository 元数据占位符；held-out scenario evidence 仍是 warning，因为当前只有 N5 sanity，而 paper-grade held-out N50 正在运行。
+投稿 readiness 现在也有机器检查产物: `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md` 和 `generated/submission_readiness.json` 会在 `./build.sh` 后自动更新。当前 overall status 是 `draft_with_pending_gates`，机械 gate 已通过；readiness checker 已新增 TAES-specific 机械检查，包括投稿要求文档与官方模板归档、标题/摘要避免 `new`/`novel`、摘要无 citation/footnote/display equation、关键词按字母序。剩余 pending gate 是作者/基金/repository 元数据占位符；held-out scenario evidence 仍是 warning，因为当前只有 N5 sanity，而 paper-grade held-out N50 正在运行。当前 build pipeline 已预置 `heldout_n50_report` 可选证据源，长跑完成后只需把 report path 接入 manifest 即可生成 `HELDOUT_N50_MANIFEST.md` 并让 readiness checker 识别 paper-grade held-out evidence。
 
 当前已补入一个 tracked held-out sanity evidence 包: `docs/paper/taes/manuscript/generated/HELDOUT_SANITY_MANIFEST.md` 解析 baseSeed=11、N=5 的同三臂 neighborhood report。它显示 full label-barycenter 在 seed-11 小样本上仍降低 Network OSPA、local E-OSPA 和 RMSE，且 reference-only 的 RMSE 为负收益，继续支持“barycenter 不只是复制 label reference”的解释。这个证据只关闭“无跨 seed 迹象”的弱问题，不替代后续 N50 或 packet-loss-family held-out validation。
 
