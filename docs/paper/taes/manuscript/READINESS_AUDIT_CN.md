@@ -21,6 +21,10 @@
 
 同步更新范围: `evidence_sources.json`、scenario-family extractor、generated manifest/section/summary sentence、正文 reproducibility/discussion wording、supplement/response package、claim-evidence map、reviewer risk register、figure/table audit、metadata checklist、AA generalization protocols 和 readiness checker。边界保持不变: full-topology 不能写成 deployed graph-local topology setting、不能写成额外 method gain，也不能触发 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings 的回调搜索。
 
+## 05:12 Checkpoint
+
+本轮清理本审计文件中较早 checkpoint 的状态歧义。04:57 之后，full-topology N50 已完成、已进入 `evidence_sources.json`、已由 scenario-family extractor 和 readiness gate 解析为 `zero_disagreement_ceiling_equivalence`。因此历史段落中原本描述“running / not integrated”的句子现在均改写为“当时状态，已由 04:57 checkpoint superseded”，避免最终 handoff 或 source-bundle 内审时把旧状态误读成当前状态。该清理不改变正文、实验数值、generated evidence 或 PDF。
+
 ## 04:28 Checkpoint
 
 本轮把 reference-only ablation 的理论支撑向前推进一步。`main.tex` 在 `Moment-space projection` 证明中补充 barycenter-versus-copying identity: 在固定匹配的 first-two-moment 坐标中，复制任一 matched reference input 的组内平方 moment error 等于 barycenter 最优误差再加上 `M||q_r-\bar{q}||^2`，因此 full barycenter 在内部 moment-space 目标上不劣于 reference-only copying，除非被复制的 reference 已经等于 barycenter。
@@ -53,7 +57,7 @@
 
 本轮按 reviewer readability 视角重做 Fig. 1 的生成逻辑。`render_figures.py` 现在把 method pipeline 表达为 `input active neighborhood LMB outputs -> reference -> assignment -> barycenter -> output active tracks`，并在图内明确 output 只 pass through upstream existence score、rewrite labels/moments。`main.tex` caption 同步这一点，强调输入不是 global label dictionary。该改动只提高方法图的信息密度和复用可读性，不改变方法定义、实验结果、source reports 或 readiness claim。
 
-视觉检查 `tmp/pdf_visual_qa/main_all_p04.png` 显示更新后的 Fig. 1 在单栏宽度下可读，没有明显文字溢出或与 Fig. 2/Structural Properties 正文重叠。full-topology ceiling run 仍未完成，本 checkpoint 没有把它接入 evidence chain。
+视觉检查 `tmp/pdf_visual_qa/main_all_p04.png` 显示更新后的 Fig. 1 在单栏宽度下可读，没有明显文字溢出或与 Fig. 2/Structural Properties 正文重叠。该 checkpoint 当时尚未接入 full-topology；当前状态已由 04:57 checkpoint superseded。
 
 ## 04:20 Checkpoint
 
@@ -83,7 +87,7 @@
 
 本轮把 PDF visual QA 从代表页抽查升级为全页覆盖。`render_pdf_visual_qa.py` 现在每次构建会同时渲染六张代表页、9 页全页 PNG 和 `tmp/pdf_visual_qa/main_contact_sheet.png`；contact sheet 采用无字体依赖的缩略图拼接流程，避免 `magick montage` 在缺省字体配置下失败。`check_submission_readiness.py` 新增 `PDF visual QA full-page coverage` 和 `PDF visual QA contact sheet` gates，并把 stale-output cleanup 扩展为同时覆盖 `main_p*.png`、`main_all_p*.png` 和 `main_contact_sheet.png`。
 
-本次 `./build.sh`、全页 contact-sheet 视觉检查和解压后的 `TAES_EVIDENCE_MODE=bundled ./build.sh` source-bundle fallback 均通过。`generated/SUBMISSION_READINESS_REPORT.md` 仍显示 `content_status=content_ready_metadata_pending`、metadata allowance 后无 blocking gate；唯一 pending 仍是作者/基金/repository 等投稿元数据占位符。这个 checkpoint 不改变正文 claim、实验结果或 evidence source，也不接入仍在运行的 full-topology N50。
+本次 `./build.sh`、全页 contact-sheet 视觉检查和解压后的 `TAES_EVIDENCE_MODE=bundled ./build.sh` source-bundle fallback 均通过。`generated/SUBMISSION_READINESS_REPORT.md` 仍显示 `content_status=content_ready_metadata_pending`、metadata allowance 后无 blocking gate；唯一 pending 仍是作者/基金/repository 等投稿元数据占位符。这个 checkpoint 不改变正文 claim、实验结果或 evidence source；其中关于 full-topology 未接入的当时状态已由 04:57 checkpoint superseded。
 
 ## 02:23 Checkpoint
 
@@ -113,7 +117,7 @@
 
 Results 中 runtime 句子从一个冒号长句拆成三句，明确 full/reference-only runtime overhead 分别为 `1.644` / `1.534` times fixed baseline，且 assignment/output rewriting 是主要开销来源。Discussion 中 harsh-loss、topology-ring、partial-FOV 的生成摘要现在独立成段，最后用一条更短的 boundary sentence 总结: these checks broaden packet-loss severity, sparse-topology coverage, and partial-field-of-view sensing, but still preserve formation-family assumptions and do not substitute for maneuvering-target or covariance-consistency studies。
 
-验证状态: `python3 -m py_compile docs/paper/taes/manuscript/scripts/check_submission_readiness.py` 通过，`git diff --check` 通过，`./build.sh` 通过；PDF 仍为 `9` pages，readiness 仍为 `content_ready_metadata_pending` 且 metadata allowance 后无 blocking gates。视觉检查 `main_all_p08.png` 与 `main_all_p09.png` 显示 Discussion/Conclusion/References 分页可接受。full-topology run 仍在运行中，本 checkpoint 没有把它并入证据链。
+验证状态: `python3 -m py_compile docs/paper/taes/manuscript/scripts/check_submission_readiness.py` 通过，`git diff --check` 通过，`./build.sh` 通过；PDF 仍为 `9` pages，readiness 仍为 `content_ready_metadata_pending` 且 metadata allowance 后无 blocking gates。视觉检查 `main_all_p08.png` 与 `main_all_p09.png` 显示 Discussion/Conclusion/References 分页可接受。该 checkpoint 当时未并入 full-topology；当前状态已由 04:57 checkpoint superseded。
 
 ## 01:35 Checkpoint
 
@@ -139,13 +143,13 @@ Results 中 runtime 句子从一个冒号长句拆成三句，明确 full/refere
 
 ## 01:15 Checkpoint
 
-本轮新增 `FINAL_METADATA_CLOSURE_CHECKLIST.md`，把当前 readiness report 中仍阻塞 portal submission 的 metadata placeholders 转成可执行替换清单。该文件覆盖 author/front-matter、affiliation/email/ORCID、funding、repository DOI/URL、Code Ocean、DataPort、preprint/conflict/reviewer fields、graphical/video abstract、supplementary-material decision，以及 post-acceptance-only 的 issue/DOI/date 字段。它明确 metadata closure 期间不得改变实验参数、evidence-source paths、generated metric fragments，也不得接入未完成的 full-topology 结果或把方法写宽成非 active-output label/moment correspondence projection。
+本轮新增 `FINAL_METADATA_CLOSURE_CHECKLIST.md`，把当前 readiness report 中仍阻塞 portal submission 的 metadata placeholders 转成可执行替换清单。该文件覆盖 author/front-matter、affiliation/email/ORCID、funding、repository DOI/URL、Code Ocean、DataPort、preprint/conflict/reviewer fields、graphical/video abstract、supplementary-material decision，以及 post-acceptance-only 的 issue/DOI/date 字段。它明确 metadata closure 期间不得改变实验参数、evidence-source paths、generated metric fragments，也不得把 parsed full-topology equivalence boundary 写成增益证据或把方法写宽成非 active-output label/moment correspondence projection。
 
 `create_submission_bundle.py` 已把该清单纳入 deterministic source bundle；`check_submission_readiness.py` 新增 `final metadata closure checklist` gate，并把该文件加入 required artifacts 与 bundle-required paths；`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 同步说明它是最终提交前的占位符闭环入口。这个 checkpoint 不改变主文科学内容，只减少实际 portal submission 前漏填或错填 metadata 的风险。
 
 ## 00:50 Checkpoint
 
-本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。
+本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology gain claim。
 
 `create_submission_bundle.py` 已把该文件纳入 deterministic source bundle；`check_submission_readiness.py` 新增 `claim-evidence-boundary map` gate，并要求保留核心 claim/evidence/non-claim markers；`README.md`、`SUBMISSION_PACKAGE_INDEX.md` 和 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 也同步说明它的内部 QA 用途和非数据源边界。下一步重建后应确认 source bundle freshness、readiness gate 和 extracted bundled build 都通过。
 
@@ -274,13 +278,13 @@ Run handoff:
 - Log: `RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
 - Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_full_topology_N50_BASESEED51_20260625_000936.log`
 
-这条 run 只用于区分 topology bottleneck 和方法本身的 assignment/barycenter behavior。结果完成前不得接入 `evidence_sources.json`、不得写入 generated scenario-family fragment、不得扩张正文 claim；结果完成后也按 no-search rule 解释，不能反向调整 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings。
+这条 run 只用于区分 topology bottleneck 和方法本身的 assignment/barycenter behavior。该 00:09 handoff 是历史启动记录；当前结果已由 04:57 checkpoint 接入 evidence chain，并按 no-search rule 解释为 equivalence boundary，不能反向调整 `H`、threshold、projection cutoff、barycenter weights、label rules 或 packet-loss settings。
 
 ## 00:15 Checkpoint
 
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按 `nature-reviewer` 的预投稿审稿视角，对当前 `main.tex`、cover-letter draft、supplementary evidence map、generated readiness report 和 source-bundle状态做了 bounded reviewer-style preflight。结论不是新增稿件 claim，而是把三类可能审稿关注固化到 `REVIEWER_RISK_REGISTER.md`: technical soundness 关注 recursive validity、assignment ambiguity、covariance quality 和 target-maneuver 缺口；originality/significance 关注 correspondence-contract framing 是否清楚地区分于 AA/KLA weighting；readability/reuse 关注主文证据路径是否足够简洁、response-ready evidence 是否不会喧宾夺主。
 
-`REVIEWER_RISK_REGISTER.md` 现在新增 `Reviewer-Style Preflight Synthesis`、三位 reviewer emphasis、`Cross-Review Synthesis` 和 `Risk / Unsupported Claims`。其中明确写入 `full-topology` ceiling run 完成前不得进入正文、generated fragment 或 cover-letter evidence。`check_submission_readiness.py` 同步扩展 reviewer-risk gate，要求这些 marker 保留。这个改动提升的是投稿前 response planning 和 claim-boundary discipline，不改变正文数值、不接入新实验、不扩张 evidence scope。
+`REVIEWER_RISK_REGISTER.md` 现在新增 `Reviewer-Style Preflight Synthesis`、三位 reviewer emphasis、`Cross-Review Synthesis` 和 `Risk / Unsupported Claims`。该 checkpoint 当时将 full-topology 标为待完成证据；当前风险 register 已由 04:57 checkpoint 更新为“parsed equivalence boundary, not gain claim”。`check_submission_readiness.py` 同步扩展 reviewer-risk gate，要求这些 marker 保留。这个改动提升的是投稿前 response planning 和 claim-boundary discipline，不改变正文数值、不接入新实验、不扩张 evidence scope。
 
 ## 00:20 Checkpoint
 
