@@ -903,11 +903,14 @@ def pdf_checks() -> list[Check]:
         return [Check("PDF render", "error", "`main.pdf` is missing.")]
     reader = PdfReader(str(MAIN_PDF))
     page_count = len(reader.pages)
+    page_budget_ok = page_count < 10
     checks.append(
         Check(
             "PDF page count",
-            "pass" if page_count <= 10 else "warning",
-            f"`main.pdf` has {page_count} TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
+            "pass" if page_budget_ok else "warning",
+            f"`main.pdf` has {page_count} TAES-template pages, below the 10-page Regular Paper overlength-charge threshold."
+            if page_budget_ok
+            else f"`main.pdf` has {page_count} TAES-template pages; Regular Paper overlength charges start at 10 printed pages. Compress or explicitly accept overlength charges before submission.",
         )
     )
     text = "\n".join(page.extract_text() or "" for page in reader.pages)
