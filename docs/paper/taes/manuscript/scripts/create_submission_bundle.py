@@ -52,6 +52,7 @@ def collect_files() -> list[Path]:
         "IEEEtaes.bst",
         "README.md",
         "SUBMISSION_PACKAGE_INDEX.md",
+        "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
         "READINESS_AUDIT_CN.md",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
         "evidence_sources.json",

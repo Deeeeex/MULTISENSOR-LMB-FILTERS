@@ -27,6 +27,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
       "gate": "required artifact",
       "status": "pass"
@@ -267,6 +272,11 @@
       "status": "pass"
     },
     {
+      "detail": "Supplementary/response evidence package maps generated robustness fragments, provenance material, and interpretation boundaries.",
+      "gate": "supplementary evidence package",
+      "status": "pass"
+    },
+    {
       "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier.",
       "gate": "reproducibility ledger",
       "status": "pass"
@@ -397,7 +407,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `161658880f6ce18eed37a9ec6ece6e6f5254620b00e0c6592e5dcb4f4b9bfe6f`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 59 files and SHA-256 `3b3d578eb24910d5bf230ee9318c2392d6edc8a6bd02b2a855fe3fca6b559508`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

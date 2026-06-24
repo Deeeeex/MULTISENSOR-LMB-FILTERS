@@ -123,3 +123,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 3. Decide whether the held-out N50 CI/wins/p-value table stays in the main paper, moves to supplementary material, or remains response-ready evidence depending on final page budget.
 4. Keep the harsh packet-loss stress table response-ready unless page budget allows a supplement; the main paper now carries only the generated one-sentence stress summary.
 5. Consider target-maneuver, covariance-consistency, and recursive-online validation as the next evidence-risk reduction steps beyond the current fixed-parameter harsh-loss, topology-ring, and partial-FOV checks.
+
+## 22:45 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊投稿包而不是会议稿件的口径，新增 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 作为 optional supplement / reviewer-response evidence 的单一索引层，把 held-out N50、harsh packet-loss、topology/FOV scenario family 和 reproducibility ledger 的生成片段统一映射到用途、状态和解释边界。该文件明确这些材料来自固定参数后的 robustness / boundary checks，不构成针对场景的 threshold、barycenter weight 或 label rule 搜索，也不替代 maneuvering-target、covariance-consistency、recursive-online validation 等更广泛风险项。
+
+`SUBMISSION_PACKAGE_INDEX.md` 和 `README.md` 已同步把该 evidence package 纳入投稿包说明；`create_submission_bundle.py` 已把它加入 source bundle；`check_submission_readiness.py` 新增并调用 supplementary evidence package gate，检查候选补充材料、response-ready evidence、boundary control、四个生成片段入口、非调参声明以及 generated fragment 不手改规则。下一步必须通过 `./build.sh`、readiness report、PDF visual QA 和 extracted source-bundle rebuild 后，才能把这个 checkpoint 视为已验证。

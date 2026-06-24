@@ -30,6 +30,7 @@ MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
+SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
@@ -82,6 +83,7 @@ METADATA_PLACEHOLDER_GATE = "submission metadata placeholders"
 BUNDLE_REQUIRED_PATHS = [
     "build.sh",
     "SUBMISSION_PACKAGE_INDEX.md",
+    "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
     "scripts/evidence_sources.py",
@@ -352,6 +354,7 @@ def file_checks() -> list[Check]:
         BIB,
         COVER_LETTER,
         SUBMISSION_INDEX,
+        SUPPLEMENTARY_EVIDENCE_PACKAGE,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
@@ -831,6 +834,7 @@ def submission_package_index_checks() -> list[Check]:
         "main.pdf",
         "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
+        "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
@@ -884,6 +888,40 @@ def reproducibility_ledger_checks() -> list[Check]:
             else "Generated reproducibility ledger is incomplete; missing names: "
             + (", ".join(missing_names) if missing_names else "none")
             + f"; rows_tex_marker_ok={marker_ok}.",
+        )
+    ]
+
+
+def supplementary_evidence_package_checks() -> list[Check]:
+    if not SUPPLEMENTARY_EVIDENCE_PACKAGE.exists():
+        return [
+            Check(
+                "supplementary evidence package",
+                "warning",
+                "`SUPPLEMENTARY_EVIDENCE_PACKAGE.md` is missing.",
+            )
+        ]
+    text = read_text(SUPPLEMENTARY_EVIDENCE_PACKAGE)
+    required_markers = [
+        "Candidate Supplementary Material",
+        "Response-ready evidence",
+        "Boundary control",
+        "generated/heldout_n50_section.tex",
+        "generated/stress_harsh_section.tex",
+        "generated/scenario_family_section.tex",
+        "generated/reproducibility_ledger_table.tex",
+        "not a tuning loop",
+        "do not substitute for target-maneuver, covariance-consistency, or recursive-online validation",
+        "generated fragments should not be edited directly",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "supplementary evidence package",
+            "pass" if not missing else "warning",
+            "Supplementary/response evidence package maps generated robustness fragments, provenance material, and interpretation boundaries."
+            if not missing
+            else "Supplementary evidence package is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -1629,6 +1667,7 @@ def main() -> None:
     checks.extend(doi_resolver_checks(bib))
     checks.extend(cover_letter_checks(tex))
     checks.extend(submission_package_index_checks())
+    checks.extend(supplementary_evidence_package_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(pdf_visual_qa_checks())
