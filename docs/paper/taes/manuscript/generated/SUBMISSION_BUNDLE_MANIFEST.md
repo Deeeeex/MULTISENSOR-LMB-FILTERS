@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `33e799e40db4064186ecac5807efcaf6b213aee513b8e3ccc6f9f80385376b5f`
+- Bundle SHA-256: `a73395323efb0fc09c292ef418b9d2d319ed9a9b1dc5d11c90d303a57f4fdfaa`
 - Files: 39
 
 ## Included Files
@@ -11,9 +11,9 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 4095 | `35455172694851f2bc79a987f20b8fe6b9eb82176a59fe43e4a7dfb69213dd68` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 14728 | `11e132836f6be893b0d83a5a4fb523d3757b909d8884bd0ad325e2712e31ea3b` |
-| `README.md` | 7229 | `70618b824af522c7e8474bd18a37536b51c637fe6e94a7fec8848bb041a96537` |
-| `build.sh` | 867 | `ffe84c99a9bf3879e2af3ceacca8248734805110982a33b6231071c798344be1` |
+| `READINESS_AUDIT_CN.md` | 14850 | `e470e00fed59cc8a9fc50a3a9843b31aeba8ef98ef4304f0e9f85ce4525a18b2` |
+| `README.md` | 7719 | `4ec7ce1335f5ae90ffa6a9579a7ac58b5c8a2ef9b7979771b8d13f0fc938b8b4` |
+| `build.sh` | 2154 | `69302abcf56a6ee7a63f00f4ee20f9526b5d14d5cc12814cf99f415c8d1aa5b6` |
 | `evidence_sources.json` | 471 | `1add797c648cab80b0683f0a1db1e83c92ea9ca110779f41fb1ba38cf7e2ba35` |
 | `figures/fig_method_pipeline.svg` | 3198 | `c5033f4749105b91a67a944dadc6c1ed3d7bbe188195219654b333f3bf7f44db` |
 | `figures/fig_n50_results.svg` | 3277 | `442b4c71140c7ddcf1bfbe2726dda8986fcaf041542fef1c7f4addc74771e074` |
@@ -35,7 +35,7 @@
 | `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
 | `generated/reference_baseline_rows.tex` | 478 | `0057561cbefe51bd7af758250f72f9e76b68ec4d3d9de5b6ca3fe0e63e629df7` |
-| `main.pdf` | 108621 | `9d2491c610c4054fc584b362633a8cfa8e7ff48b954c5379cc627fcd495fce80` |
+| `main.pdf` | 108622 | `e48af4d6de6dde30f6ac42fe892f42bd5e31f2319f38c4e8b316f6536df74eea` |
 | `main.tex` | 33698 | `b37239c486e674918418362b9f9bc772b016e4bb2764611d2a43e0a98a26feb7` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
 | `scripts/check_submission_readiness.py` | 35100 | `27b5dc466c3e0376a051c47d02f5105c1ff645bab5f7276004310f40a78e0af6` |

@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 13:29 CST
+日期: 2026-06-24 13:34 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -37,7 +37,7 @@
 | --- | --- | --- |
 | Official template | `IEEEtaes.cls` and `IEEEtaes.bst` are used by `main.tex`; `./build.sh` compiles the manuscript. | Rebuild after final edits; render pages and inspect figures/tables. |
 | Template and author-guideline archive | `generated/SUBMISSION_READINESS_REPORT.md` now checks the local TAES requirements document, official template zip, and regular-paper template source as required artifacts. | Recheck online TAES/AESS pages immediately before final submission. |
-| Clean source bundle | `./build.sh` now writes `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and `generated/SUBMISSION_BUNDLE_MANIFEST.md`; the zip includes `build.sh` plus the manuscript evidence/render/readiness scripts, and has been extracted and compiled with Tectonic. | Regenerate after final evidence or metadata edits; submit the current PDF plus a clean source bundle according to the portal instructions. |
+| Clean source bundle | `./build.sh` now writes `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and `generated/SUBMISSION_BUNDLE_MANIFEST.md`; the zip includes `build.sh` plus the manuscript evidence/render/readiness scripts, and has been extracted and compiled with Tectonic. In a source-bundle directory without raw `RUN/` reports, `build.sh` falls back to the bundled `generated/` fragments. | Regenerate after final evidence or metadata edits; submit the current PDF plus a clean source bundle according to the portal instructions. |
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |
 | Page budget | Current manuscript is within a plausible Regular Paper range, but final printed page count is not guaranteed. | Keep estimated TAES pages near or below 10, or accept overlength charges. |
 | Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. Current abstract also front-loads the held-out base-seed RMSE separation. | Re-run `./build.sh` after final title/abstract edits. |
@@ -62,7 +62,7 @@
 | Optional harsh packet-loss stress evidence | Non-blocking parser/checker path established; formal N50 still running | `docs/AA_STRESS_SCENARIO_VALIDATION_CN.md`; `scripts/extract_stress_evidence.py`; `check_submission_readiness.py`; `RUN/AA/AA_TAES_STRESS_HARSH_N50_BASESEED21_20260624_130728.log` | After the N50 report completes, add `stress_harsh_n50_report` to `evidence_sources.json`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, and `generated/stress_harsh_section.tex`. The readiness checker treats this as protocol/coverage evidence, not as a requirement that every stress metric improve. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, result tables/figure page, and held-out/conclusion page after the held-out CI/p-value table upgrade | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
 | Submission readiness checker | Passed for all non-metadata gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker now reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and should be `content_ready_metadata_pending` when all non-metadata gates pass. It also records whether the optional harsh-stress N50 path is unconfigured, configured-but-missing generated artifacts, or parsed with protocol/coverage checks. |
-| Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; extracted source-bundle Tectonic compile | Re-run after final manuscript-affecting edits. The readiness checker now also verifies that `build.sh` and the evidence/render/readiness scripts are present in the source-bundle manifest. |
+| Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; extracted source-bundle `./build.sh` compile | Re-run after final manuscript-affecting edits. The readiness checker now also verifies that `build.sh` and the evidence/render/readiness scripts are present in the source-bundle manifest. |
 
 ## Immediate Execution Order
 

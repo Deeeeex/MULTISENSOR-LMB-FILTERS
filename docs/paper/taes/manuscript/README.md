@@ -37,7 +37,7 @@ Build:
 ./build.sh
 ```
 
-The build first regenerates the N50 evidence fragments, regenerates contextual reference rows, records optional held-out/stress evidence, runs the verifier, renders figures, then compiles the TAES PDF. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, or figure renderer and rerun the build.
+In the full repository, the build first regenerates the N50 evidence fragments, regenerates contextual reference rows, records optional held-out/stress evidence, runs the verifier, renders figures, then compiles the TAES PDF. In an unpacked source-bundle directory where the raw `RUN/` reports are not present, `./build.sh` automatically falls back to compiling from the bundled `generated/` fragments. Use `TAES_EVIDENCE_MODE=refresh ./build.sh` to require raw evidence regeneration, or `TAES_EVIDENCE_MODE=bundled ./build.sh` to force bundled-fragment compilation. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, or figure renderer and rerun the full-repository build.
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
@@ -51,7 +51,7 @@ The submission source bundle is generated at:
 tmp/submission_bundle/taes_label_barycenter_submission_source.zip
 ```
 
-It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing. The bundle includes the TAES LaTeX source, generated fragments, `build.sh`, and the local `scripts/*.py` evidence/render/readiness utilities so that the manuscript package is self-documenting and the generated tables can be refreshed from the tracked source reports.
+It is intentionally kept under `tmp/` so that the binary zip is not committed. The committed manifest records the file list and SHA-256 digest for auditing. The bundle includes the TAES LaTeX source, generated fragments, `build.sh`, and the local `scripts/*.py` evidence/render/readiness utilities so that the manuscript package is self-documenting. Direct source-bundle compilation uses the bundled generated fragments; refreshing generated tables from tracked source reports requires the full repository with the `RUN/` artifacts.
 
 Current build status:
 
