@@ -575,6 +575,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    related_work_markers = [
+        "not another density-pooling rule",
+        "correspondence map",
+        "targeted output-space projection",
+        "orthogonal to those weighting choices",
+        "graph-local reference label set",
+        "matched moment barycenters",
+    ]
+    missing_related_markers = [marker for marker in related_work_markers if marker not in body]
+    checks.append(
+        Check(
+            "related-work positioning markers",
+            "pass" if not missing_related_markers else "warning",
+            "Related Work keeps the method positioned as a correspondence/projection layer rather than another AA/KLA weighting rule."
+            if not missing_related_markers
+            else "Related Work positioning is missing markers: " + "; ".join(missing_related_markers),
+        )
+    )
+
     internal_patterns = [
         r"\bTODO\b",
         r"\bTBD\b",
