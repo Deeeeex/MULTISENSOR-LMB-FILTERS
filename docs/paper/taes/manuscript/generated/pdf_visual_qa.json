@@ -1,0 +1,84 @@
+{
+  "density_dpi": 180,
+  "page_count": 8,
+  "pages": [
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1935,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png",
+      "label": "title-abstract",
+      "mean_luma": 0.938979,
+      "page": 1,
+      "size_bytes": 173309,
+      "status": "pass",
+      "stddev_luma": 0.205278,
+      "width": 1485
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png",
+      "label": "method",
+      "mean_luma": 0.948641,
+      "page": 3,
+      "size_bytes": 153893,
+      "status": "pass",
+      "stddev_luma": 0.189403,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png",
+      "label": "main-results",
+      "mean_luma": 0.947537,
+      "page": 6,
+      "size_bytes": 209400,
+      "status": "pass",
+      "stddev_luma": 0.194606,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-conclusion.png",
+      "label": "heldout-conclusion",
+      "mean_luma": 0.94663,
+      "page": 7,
+      "size_bytes": 152685,
+      "status": "pass",
+      "stddev_luma": 0.192863,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_references.png",
+      "label": "references",
+      "mean_luma": 0.969997,
+      "page": 8,
+      "size_bytes": 118124,
+      "status": "pass",
+      "stddev_luma": 0.143832,
+      "width": 1530
+    }
+  ],
+  "pdf": "docs/paper/taes/manuscript/main.pdf",
+  "renderer": "Version: ImageMagick 7.1.2-17 Q16-HDRI aarch64 23794 https://imagemagick.org",
+  "status": "pass"
+}

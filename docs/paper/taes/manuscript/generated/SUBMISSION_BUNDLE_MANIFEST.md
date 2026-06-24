@@ -1,8 +1,8 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `f3a0eed3d80be5cf37999ff0ec5e8fc0be8d9086e9a998610e3087a0e1bb03da`
-- Files: 45
+- Bundle SHA-256: `a7250c172cee045c4581a5bdda437d63151a0f29caae2188a131d8200dbb9128`
+- Files: 46
 
 ## Included Files
 
@@ -11,10 +11,10 @@
 | `COVER_LETTER_AND_METADATA_DRAFT.md` | 4095 | `35455172694851f2bc79a987f20b8fe6b9eb82176a59fe43e4a7dfb69213dd68` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 16150 | `223c1fbcf2d6ce4d14e7cb51ac46e21d82bfbacebbbf95854d525bdbc288f45a` |
-| `README.md` | 8302 | `bb5bc7cd7390c77b9ad8062c6785b768a539e60c7decd3ed44835ec678e814d8` |
-| `SUBMISSION_PACKAGE_INDEX.md` | 4497 | `9224a338565a968ba22b9aa7514b3e681653de499fa9f4ffeb51bbf7fd422110` |
-| `build.sh` | 2205 | `88fe57ae579ab021119c1bbd517ec31bd235a81824d1d7c7a5bffc21a23578a0` |
+| `READINESS_AUDIT_CN.md` | 16372 | `b6f362c203efe02e0fe481e485de2a43c9177a24aa20907da6f1964047d250bf` |
+| `README.md` | 8580 | `eb0f9fb4c69b12748d4b9f6cf3b31f879b6266e39ad320e97c5e0b9bf021c770` |
+| `SUBMISSION_PACKAGE_INDEX.md` | 4672 | `78c3aa1008d2a0f1bb89b8aea60dc52b6fb8088bdec7b5e44318be490662cb8b` |
+| `build.sh` | 2247 | `cfa7ac00b4caf58fdd4c751ea7f4267888dafd249eb09bf6c271a7f3f6aa65e9` |
 | `evidence_sources.json` | 471 | `1add797c648cab80b0683f0a1db1e83c92ea9ca110779f41fb1ba38cf7e2ba35` |
 | `figures/fig_method_pipeline.svg` | 3198 | `c5033f4749105b91a67a944dadc6c1ed3d7bbe188195219654b333f3bf7f44db` |
 | `figures/fig_n50_results.svg` | 3277 | `442b4c71140c7ddcf1bfbe2726dda8986fcaf041542fef1c7f4addc74771e074` |
@@ -40,16 +40,17 @@
 | `generated/reproducibility_ledger.json` | 1799 | `a6224437eacda7c02d2de78ecfd729ae9ab8392675db41eec64229bb61d27006` |
 | `generated/reproducibility_ledger_rows.tex` | 1047 | `73dab1abbaece4f4acbfa9546ca7aa567565a4cdc18cb9002228497e517d6bee` |
 | `generated/reproducibility_ledger_table.tex` | 1433 | `085db8bd552301e37a5e0691d5767d9e5f5f4152b4ce1db504dd019243343954` |
-| `main.pdf` | 108661 | `840be80480064d3b552267c88c21786f61a67ea83283a6015fa8de324db7cf57` |
+| `main.pdf` | 108661 | `810b8f71deb60f28d666f530c3ebb82c950526b7fa9a81d951c62689bbd9524b` |
 | `main.tex` | 33743 | `441a32fe87119cabd91c26a95183c1cff2f51109c4efa440b5df82cd049d2372` |
 | `references.bib` | 7240 | `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3` |
-| `scripts/check_submission_readiness.py` | 41650 | `349a953a52a1db612637322f795bb0f832d7c82d4bbd6db2c1924c59c72f96c9` |
-| `scripts/create_submission_bundle.py` | 4621 | `be32eef5261afc9a68f8b7112269c2157711d67f351828d7a638b46b580ca53d` |
+| `scripts/check_submission_readiness.py` | 43584 | `f562d5fdc54de5283dbe28d88b926d332f9e5148b3fec6529db0d26c7e76c75d` |
+| `scripts/create_submission_bundle.py` | 4794 | `2a57acc5bc6fa1cddb7301c7909c218996f5d313cec929068303ee21434d3402` |
 | `scripts/evidence_sources.py` | 1124 | `dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55` |
 | `scripts/extract_heldout_sanity_evidence.py` | 14626 | `c6db390899a3f395d2b5f513584ba265da2bb75ce918837045995c87c09ca19b` |
 | `scripts/extract_n50_evidence.py` | 14071 | `c247769155c954c689119d8bcb517d4bb1a5f93df28365608a79ebebdc0dc2ba` |
 | `scripts/extract_reference_baselines.py` | 6281 | `5372c079c7eed4de5b16355570e17b34bca3933bda3ca4a8703bd1afb44aea9e` |
 | `scripts/extract_stress_evidence.py` | 13068 | `c637e65383dc66e3d6426ec157b594f692efe48a8e6217bec8239d0d80e26d0a` |
 | `scripts/render_figures.py` | 8110 | `c3648309c7881397d66598f798b7cf4da7a0c0311fc8b5642d7429f4976d3e26` |
+| `scripts/render_pdf_visual_qa.py` | 5232 | `6b01927d38f5260cdce0a03089fbf6ce1cc9ab1034fd6018ef773bda745067e6` |
 | `scripts/render_reproducibility_ledger.py` | 8066 | `10ab86ca78e098c453a14b948413f5f50402421aebfe7e5977437dd76ff735c4` |
 | `scripts/verify_n50_evidence.py` | 17794 | `e8062d01073ceea899e9e7136dd7ddfd7bc9f07a92d7dc70c6bd350ce50d9b4f` |

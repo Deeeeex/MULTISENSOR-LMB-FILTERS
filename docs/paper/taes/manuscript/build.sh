@@ -68,6 +68,7 @@ else
 fi
 
 if [[ "$regenerate_evidence" == "1" ]]; then
+  python3 scripts/render_pdf_visual_qa.py
   python3 scripts/create_submission_bundle.py
   python3 scripts/check_submission_readiness.py
 else

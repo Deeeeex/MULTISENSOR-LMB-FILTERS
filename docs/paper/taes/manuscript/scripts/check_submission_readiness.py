@@ -46,6 +46,8 @@ REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
 REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
 REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
 REPRO_LEDGER_TABLE = OUT / "reproducibility_ledger_table.tex"
+PDF_VISUAL_QA_JSON = OUT / "pdf_visual_qa.json"
+PDF_VISUAL_QA_MANIFEST = OUT / "PDF_VISUAL_QA_MANIFEST.md"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
@@ -76,6 +78,7 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/extract_reference_baselines.py",
     "scripts/extract_stress_evidence.py",
     "scripts/render_figures.py",
+    "scripts/render_pdf_visual_qa.py",
     "scripts/render_reproducibility_ledger.py",
     "scripts/verify_n50_evidence.py",
 ]
@@ -290,9 +293,12 @@ def file_checks() -> list[Check]:
         OUT / "reproducibility_ledger.json",
         OUT / "reproducibility_ledger_rows.tex",
         OUT / "reproducibility_ledger_table.tex",
+        OUT / "pdf_visual_qa.json",
+        OUT / "PDF_VISUAL_QA_MANIFEST.md",
         OUT / "SUBMISSION_BUNDLE_MANIFEST.md",
         ROOT / "scripts" / "create_submission_bundle.py",
         ROOT / "scripts" / "extract_stress_evidence.py",
+        ROOT / "scripts" / "render_pdf_visual_qa.py",
         ROOT / "scripts" / "render_reproducibility_ledger.py",
     ]
     for path in required:
@@ -636,6 +642,44 @@ def pdf_checks() -> list[Check]:
         )
     )
     return checks
+
+
+def pdf_visual_qa_checks() -> list[Check]:
+    artifacts = [PDF_VISUAL_QA_JSON, PDF_VISUAL_QA_MANIFEST]
+    missing = [path.relative_to(REPO).as_posix() for path in artifacts if not path.exists()]
+    if missing:
+        return [
+            Check(
+                "PDF visual QA render",
+                "warning",
+                "Generated PDF visual QA artifacts are missing: " + ", ".join(missing),
+            )
+        ]
+    payload = json.loads(read_text(PDF_VISUAL_QA_JSON))
+    status = str(payload.get("status", "missing"))
+    pages = payload.get("pages", [])
+    if not isinstance(pages, list):
+        pages = []
+    labels = {str(page.get("label", "")) for page in pages if isinstance(page, dict)}
+    required_labels = {"title-abstract", "method", "main-results", "heldout-conclusion", "references"}
+    missing_labels = sorted(required_labels - labels)
+    bad_pages = [
+        str(page.get("label", page.get("page", "unknown")))
+        for page in pages
+        if isinstance(page, dict) and page.get("status") != "pass"
+    ]
+    ok = status == "pass" and not missing_labels and not bad_pages
+    return [
+        Check(
+            "PDF visual QA render",
+            "pass" if ok else "warning",
+            "Representative PDF pages were rendered to `tmp/pdf_visual_qa/` and passed dimension/nonblank checks."
+            if ok
+            else "PDF visual QA render is incomplete: "
+            f"status={status}, missing labels={', '.join(missing_labels) if missing_labels else 'none'}, "
+            f"non-pass pages={', '.join(bad_pages) if bad_pages else 'none'}.",
+        )
+    ]
 
 
 def evidence_checks() -> list[Check]:
@@ -1025,6 +1069,7 @@ def main() -> None:
     checks.extend(submission_package_index_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
+    checks.extend(pdf_visual_qa_checks())
     checks.extend(evidence_checks())
     checks.extend(bundle_checks())
     write_outputs(checks)

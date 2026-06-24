@@ -71,6 +71,10 @@ def collect_files() -> list[Path]:
                     continue
                 if path.name == "SUBMISSION_BUNDLE_MANIFEST.md":
                     continue
+                if path.name == "pdf_visual_qa.json":
+                    continue
+                if path.name == "PDF_VISUAL_QA_MANIFEST.md":
+                    continue
                 if path.name == "submission_readiness.json":
                     continue
                 if path.name == "SUBMISSION_READINESS_REPORT.md":

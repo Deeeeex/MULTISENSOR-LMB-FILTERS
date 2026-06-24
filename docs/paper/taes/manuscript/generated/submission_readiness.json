@@ -92,6 +92,16 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/generated/pdf_visual_qa.json",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/generated/PDF_VISUAL_QA_MANIFEST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md",
       "gate": "required artifact",
       "status": "pass"
@@ -103,6 +113,11 @@
     },
     {
       "detail": "docs/paper/taes/manuscript/scripts/extract_stress_evidence.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/paper/taes/manuscript/scripts/render_pdf_visual_qa.py",
       "gate": "required artifact",
       "status": "pass"
     },
@@ -192,6 +207,11 @@
       "status": "pass"
     },
     {
+      "detail": "Representative PDF pages were rendered to `tmp/pdf_visual_qa/` and passed dimension/nonblank checks.",
+      "gate": "PDF visual QA render",
+      "status": "pass"
+    },
+    {
       "detail": "Network disagreement metrics are recomputed from per-trial report rows.",
       "gate": "N50 network verifier",
       "status": "pass"
@@ -242,7 +262,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 45 files and SHA-256 `f3a0eed3d80be5cf37999ff0ec5e8fc0be8d9086e9a998610e3087a0e1bb03da`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 46 files and SHA-256 `a7250c172cee045c4581a5bdda437d63151a0f29caae2188a131d8200dbb9128`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

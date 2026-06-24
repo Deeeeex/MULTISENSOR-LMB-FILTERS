@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "f3a0eed3d80be5cf37999ff0ec5e8fc0be8d9086e9a998610e3087a0e1bb03da",
-  "file_count": 45,
+  "bundle_sha256": "a7250c172cee045c4581a5bdda437d63151a0f29caae2188a131d8200dbb9128",
+  "file_count": 46,
   "files": [
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -20,23 +20,23 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "223c1fbcf2d6ce4d14e7cb51ac46e21d82bfbacebbbf95854d525bdbc288f45a",
-      "size_bytes": 16150
+      "sha256": "b6f362c203efe02e0fe481e485de2a43c9177a24aa20907da6f1964047d250bf",
+      "size_bytes": 16372
     },
     {
       "path": "README.md",
-      "sha256": "bb5bc7cd7390c77b9ad8062c6785b768a539e60c7decd3ed44835ec678e814d8",
-      "size_bytes": 8302
+      "sha256": "eb0f9fb4c69b12748d4b9f6cf3b31f879b6266e39ad320e97c5e0b9bf021c770",
+      "size_bytes": 8580
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "9224a338565a968ba22b9aa7514b3e681653de499fa9f4ffeb51bbf7fd422110",
-      "size_bytes": 4497
+      "sha256": "78c3aa1008d2a0f1bb89b8aea60dc52b6fb8088bdec7b5e44318be490662cb8b",
+      "size_bytes": 4672
     },
     {
       "path": "build.sh",
-      "sha256": "88fe57ae579ab021119c1bbd517ec31bd235a81824d1d7c7a5bffc21a23578a0",
-      "size_bytes": 2205
+      "sha256": "cfa7ac00b4caf58fdd4c751ea7f4267888dafd249eb09bf6c271a7f3f6aa65e9",
+      "size_bytes": 2247
     },
     {
       "path": "evidence_sources.json",
@@ -165,7 +165,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "840be80480064d3b552267c88c21786f61a67ea83283a6015fa8de324db7cf57",
+      "sha256": "810b8f71deb60f28d666f530c3ebb82c950526b7fa9a81d951c62689bbd9524b",
       "size_bytes": 108661
     },
     {
@@ -180,13 +180,13 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "349a953a52a1db612637322f795bb0f832d7c82d4bbd6db2c1924c59c72f96c9",
-      "size_bytes": 41650
+      "sha256": "f562d5fdc54de5283dbe28d88b926d332f9e5148b3fec6529db0d26c7e76c75d",
+      "size_bytes": 43584
     },
     {
       "path": "scripts/create_submission_bundle.py",
-      "sha256": "be32eef5261afc9a68f8b7112269c2157711d67f351828d7a638b46b580ca53d",
-      "size_bytes": 4621
+      "sha256": "2a57acc5bc6fa1cddb7301c7909c218996f5d313cec929068303ee21434d3402",
+      "size_bytes": 4794
     },
     {
       "path": "scripts/evidence_sources.py",
@@ -217,6 +217,11 @@
       "path": "scripts/render_figures.py",
       "sha256": "c3648309c7881397d66598f798b7cf4da7a0c0311fc8b5642d7429f4976d3e26",
       "size_bytes": 8110
+    },
+    {
+      "path": "scripts/render_pdf_visual_qa.py",
+      "sha256": "6b01927d38f5260cdce0a03089fbf6ce1cc9ab1034fd6018ef773bda745067e6",
+      "size_bytes": 5232
     },
     {
       "path": "scripts/render_reproducibility_ledger.py",

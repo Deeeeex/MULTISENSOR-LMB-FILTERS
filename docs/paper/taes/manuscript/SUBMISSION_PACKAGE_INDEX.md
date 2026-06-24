@@ -25,6 +25,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `generated/SUBMISSION_BUNDLE_MANIFEST.md` | Source-bundle file list and bundle SHA-256. |
 | `generated/submission_bundle_manifest.json` | Machine-readable source-bundle manifest used by the readiness checker. |
 | `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | Provenance ledger for primary AA evidence, held-out robustness evidence, contextual GA rows, and independent verifier evidence. |
+| `generated/PDF_VISUAL_QA_MANIFEST.md` | Local visual-QA record for representative rendered PDF pages; PNGs are generated under `tmp/pdf_visual_qa/` and are not committed. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
 
