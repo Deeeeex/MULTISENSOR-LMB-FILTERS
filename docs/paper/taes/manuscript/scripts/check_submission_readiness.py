@@ -768,6 +768,15 @@ def cover_letter_checks(tex: str) -> list[Check]:
         "repository DOI/URL",
     ]
     missing = [marker for marker in required_markers if marker not in text]
+    positioning_markers = [
+        "distributed aerospace and surveillance systems",
+        "another scalar-weight search",
+        "reference-only ablation",
+        "fixed-design and report-driven",
+        "active-output label-and-moment layer",
+        "assignment ambiguity",
+    ]
+    missing_positioning = [marker for marker in positioning_markers if marker not in text]
     title = normalized_spaces(command_body(tex, "title"))
     running_head = markboth_right(tex)
     portal_title = markdown_table_value(text, "Title")
@@ -798,6 +807,14 @@ def cover_letter_checks(tex: str) -> list[Check]:
             "Cover-letter text and portal metadata table match `main.tex` title, running head, manuscript type, technical area, simulated-data statement, and AI disclosure."
             if not failed_sync
             else "Cover-letter or portal metadata drift detected: " + "; ".join(failed_sync),
+        ),
+        Check(
+            "cover letter paper-positioning markers",
+            "pass" if not missing_positioning else "warning",
+            "Cover letter states the TAES fit, scalar-weight boundary, reference-only ablation, fixed-design evidence chain, and projection limitations."
+            if not missing_positioning
+            else "Cover-letter paper-positioning wording is incomplete; missing markers: "
+            + "; ".join(missing_positioning),
         ),
     ]
 

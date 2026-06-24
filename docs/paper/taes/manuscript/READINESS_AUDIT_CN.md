@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 22:19 CST
+日期: 2026-06-24 22:30 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 22:30 Checkpoint
+
+本轮把投稿材料里的 `COVER_LETTER_AND_METADATA_DRAFT.md` 从“包内说明”加强为真正面向 TAES editor 的 cover letter。新增内容明确了 TAES fit: 问题来自 distributed aerospace/surveillance tracking 中 unreliable peer-to-peer communication 造成的 LMB component correspondence failure；方法不是 another scalar-weight search，而是 graph-local reference selection、assignment 和 matched posterior moment barycenter；证据链是 fixed-design and report-driven，包括 tuned AA baseline、reference-only ablation、contextual GA rows、held-out replication、harsh-loss stress、topology-ring 与 partial-FOV scenario-family checks；同时 cover letter 也主动说明 projection 是 active-output label-and-moment layer，不替代 Bernoulli existence update，并把 assignment ambiguity / lifecycle / covariance-aware recursive deployment 标成 limitations。
+
+`check_submission_readiness.py` 同步新增 `cover letter paper-positioning markers` gate，防止后续元数据替换时把 cover letter 退化成只含模板声明的普通投稿信。该改动不改变正文科学 claim，不改变实验数值，只提升实际投稿包的编辑部入口质量。
 
 ## 22:19 Checkpoint
 

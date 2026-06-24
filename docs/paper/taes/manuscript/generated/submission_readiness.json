@@ -257,6 +257,11 @@
       "status": "pass"
     },
     {
+      "detail": "Cover letter states the TAES fit, scalar-weight boundary, reference-only ablation, fixed-design evidence chain, and projection limitations.",
+      "gate": "cover letter paper-positioning markers",
+      "status": "pass"
+    },
+    {
       "detail": "Submission package index maps final uploads, internal QA artifacts, metadata placeholders, and the final rebuild sequence.",
       "gate": "submission package index",
       "status": "pass"
@@ -392,7 +397,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `1b64fcf21942e1a2d0cfb6fdc34dbb412620977d26ff5d0325b9b75ad20eae60`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `161658880f6ce18eed37a9ec6ece6e6f5254620b00e0c6592e5dcb4f4b9bfe6f`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
