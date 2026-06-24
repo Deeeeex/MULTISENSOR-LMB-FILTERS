@@ -16,6 +16,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/COVER_LETTER_AND_METADATA_DRAFT.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
       "gate": "required artifact",
       "status": "pass"
@@ -121,6 +126,11 @@
       "status": "pass"
     },
     {
+      "detail": "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders.",
+      "gate": "cover letter and portal metadata draft",
+      "status": "pass"
+    },
+    {
       "detail": "`main.pdf` has 8 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
       "gate": "PDF page count",
       "status": "pass"
@@ -151,7 +161,7 @@
       "status": "warning"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 25 files and SHA-256 `9a091124ed389a21499db1b49df3ae316185a343279cb60eda45d9d1204fa1b1`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 26 files and SHA-256 `99ca40e3943bffd208b1490a1f9c68c8b429e60b65d6c475ad0a167f9667193f`.",
       "gate": "submission source bundle",
       "status": "pass"
     }

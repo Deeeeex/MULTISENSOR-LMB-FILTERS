@@ -50,6 +50,7 @@ def collect_files() -> list[Path]:
         "IEEEtaes.bst",
         "README.md",
         "READINESS_AUDIT_CN.md",
+        "COVER_LETTER_AND_METADATA_DRAFT.md",
         "evidence_sources.json",
     ]:
         add_if_exists(files, rel)

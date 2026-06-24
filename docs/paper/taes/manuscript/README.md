@@ -15,6 +15,7 @@ Main files:
 - `main.tex`: manuscript draft.
 - `references.bib`: DOI-verified core references used by the draft.
 - `READINESS_AUDIT_CN.md`: claim-to-evidence and TAES submission-readiness audit for the current draft.
+- `COVER_LETTER_AND_METADATA_DRAFT.md`: editable cover-letter and portal-metadata draft for final TAES submission.
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
 - `evidence_sources.json`: single manifest for the report/log artifacts consumed by the evidence extractors and verifier.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
@@ -39,7 +40,7 @@ The build first regenerates the N50 evidence fragments, regenerates contextual r
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
-The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, optionally `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata and paper-grade held-out validation.
+The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, optionally `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending research/submission gates such as final author metadata, cover-letter metadata replacement, and paper-grade held-out validation.
 
 The submission source bundle is generated at:
 

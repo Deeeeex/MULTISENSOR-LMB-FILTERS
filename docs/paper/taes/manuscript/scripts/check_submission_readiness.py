@@ -24,6 +24,7 @@ OUT = ROOT / "generated"
 MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
+COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
 TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
@@ -132,6 +133,7 @@ def file_checks() -> list[Check]:
         MAIN_TEX,
         MAIN_PDF,
         BIB,
+        COVER_LETTER,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
@@ -282,6 +284,31 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
     return checks
+
+
+def cover_letter_checks() -> list[Check]:
+    if not COVER_LETTER.exists():
+        return [Check("cover letter and portal metadata draft", "warning", "`COVER_LETTER_AND_METADATA_DRAFT.md` is missing.")]
+    text = read_text(COVER_LETTER)
+    required_markers = [
+        "Regular Paper",
+        "Target Tracking and Multi-Sensor Systems",
+        "original work",
+        "not under consideration elsewhere",
+        "OpenAI Codex",
+        "ORCID",
+        "repository DOI/URL",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "cover letter and portal metadata draft",
+            "pass" if not missing else "warning",
+            "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders."
+            if not missing
+            else "Cover-letter draft exists but is missing markers: " + "; ".join(missing),
+        )
+    ]
 
 
 def bundle_checks() -> list[Check]:
@@ -459,6 +486,7 @@ def main() -> None:
     checks = []
     checks.extend(file_checks())
     checks.extend(manuscript_checks(tex, bib))
+    checks.extend(cover_letter_checks())
     checks.extend(pdf_checks())
     checks.extend(evidence_checks())
     checks.extend(bundle_checks())
