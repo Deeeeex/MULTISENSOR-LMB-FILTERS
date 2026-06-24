@@ -392,6 +392,16 @@
       "status": "pass"
     },
     {
+      "detail": "All 9 PDF pages were rendered and passed dimension/nonblank checks.",
+      "gate": "PDF visual QA full-page coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Contact sheet `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png` exists and passed dimension/nonblank checks.",
+      "gate": "PDF visual QA contact sheet",
+      "status": "pass"
+    },
+    {
       "detail": "PDF visual-QA renderer records stale-output cleanup policy, and the directory contains only images referenced by the current manifest.",
       "gate": "PDF visual QA stale-output cleanup",
       "status": "pass"
@@ -507,7 +517,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `37ad40c377e6e523149a4d4e0ace6cb7d2f3cfedbc5cd6835baf64f13246a103`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `afcc9c0e7646c6f7eaf8d06c2b30e0380062511b4dc8df676e6b06704c8bb9f2`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

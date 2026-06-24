@@ -59,6 +59,9 @@ REPRO_LEDGER_TABLE = OUT / "reproducibility_ledger_table.tex"
 PDF_VISUAL_QA_JSON = OUT / "pdf_visual_qa.json"
 PDF_VISUAL_QA_MANIFEST = OUT / "PDF_VISUAL_QA_MANIFEST.md"
 PDF_VISUAL_QA_DIR = ROOT / "tmp" / "pdf_visual_qa"
+PDF_VISUAL_QA_STALE_POLICY = (
+    "clear main_p*.png, main_all_p*.png, and main_contact_sheet.png before rendering current pages"
+)
 BIB_DOI_JSON = OUT / "bibtex_doi_verification.json"
 BIB_DOI_MANIFEST = OUT / "BIBTEX_DOI_VERIFICATION.md"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
@@ -1535,6 +1538,13 @@ def pdf_visual_qa_checks() -> list[Check]:
     pages = payload.get("pages", [])
     if not isinstance(pages, list):
         pages = []
+    all_pages = payload.get("all_pages", [])
+    if not isinstance(all_pages, list):
+        all_pages = []
+    try:
+        page_count = int(payload.get("page_count", 0))
+    except (TypeError, ValueError):
+        page_count = 0
     labels = {str(page.get("label", "")) for page in pages if isinstance(page, dict)}
     required_labels = {
         "title-abstract",
@@ -1550,30 +1560,88 @@ def pdf_visual_qa_checks() -> list[Check]:
         for page in pages
         if isinstance(page, dict) and page.get("status") != "pass"
     ]
-    ok = status == "pass" and not missing_labels and not bad_pages
+    representative_ok = not missing_labels and not bad_pages
+    all_page_numbers = {
+        int(page.get("page"))
+        for page in all_pages
+        if isinstance(page, dict) and str(page.get("page", "")).isdigit()
+    }
+    expected_page_numbers = set(range(1, page_count + 1))
+    missing_all_pages = sorted(expected_page_numbers - all_page_numbers)
+    extra_all_pages = sorted(all_page_numbers - expected_page_numbers)
+    bad_all_pages = [
+        str(page.get("page", "unknown"))
+        for page in all_pages
+        if isinstance(page, dict) and page.get("status") != "pass"
+    ]
+    full_page_ok = (
+        status == "pass"
+        and page_count > 0
+        and len(all_pages) == page_count
+        and not missing_all_pages
+        and not extra_all_pages
+        and not bad_all_pages
+    )
+    contact_sheet = payload.get("contact_sheet", {})
+    if not isinstance(contact_sheet, dict):
+        contact_sheet = {}
+    contact_image = str(contact_sheet.get("image", ""))
+    contact_image_path = REPO / contact_image if contact_image else None
+    contact_ok = (
+        contact_sheet.get("status") == "pass"
+        and bool(contact_image)
+        and contact_image_path is not None
+        and contact_image_path.exists()
+    )
     rendered_images = {
         str(page.get("image", ""))
         for page in pages
         if isinstance(page, dict) and page.get("image")
     }
-    actual_images = {
-        path.relative_to(REPO).as_posix()
-        for path in sorted(PDF_VISUAL_QA_DIR.glob("main_p*.png"))
-    } if PDF_VISUAL_QA_DIR.exists() else set()
-    stale_images = sorted(actual_images - rendered_images)
-    stale_policy_ok = (
-        payload.get("stale_output_policy")
-        == "clear main_p*.png before rendering current representative pages"
+    rendered_images.update(
+        str(page.get("image", ""))
+        for page in all_pages
+        if isinstance(page, dict) and page.get("image")
     )
+    if contact_image:
+        rendered_images.add(contact_image)
+    actual_images: set[str] = set()
+    if PDF_VISUAL_QA_DIR.exists():
+        for pattern in ("main_p*.png", "main_all_p*.png", "main_contact_sheet.png"):
+            actual_images.update(
+                path.relative_to(REPO).as_posix()
+                for path in sorted(PDF_VISUAL_QA_DIR.glob(pattern))
+            )
+    stale_images = sorted(actual_images - rendered_images)
+    stale_policy_ok = payload.get("stale_output_policy") == PDF_VISUAL_QA_STALE_POLICY
     return [
         Check(
             "PDF visual QA render",
-            "pass" if ok else "warning",
+            "pass" if representative_ok else "warning",
             "Representative PDF pages were rendered to `tmp/pdf_visual_qa/` and passed dimension/nonblank checks."
-            if ok
+            if representative_ok
             else "PDF visual QA render is incomplete: "
             f"status={status}, missing labels={', '.join(missing_labels) if missing_labels else 'none'}, "
             f"non-pass pages={', '.join(bad_pages) if bad_pages else 'none'}.",
+        ),
+        Check(
+            "PDF visual QA full-page coverage",
+            "pass" if full_page_ok else "warning",
+            f"All {page_count} PDF pages were rendered and passed dimension/nonblank checks."
+            if full_page_ok
+            else "Full-page PDF visual QA coverage is incomplete: "
+            f"status={status}, page_count={page_count}, rendered={len(all_pages)}, "
+            f"missing pages={', '.join(map(str, missing_all_pages)) if missing_all_pages else 'none'}, "
+            f"extra pages={', '.join(map(str, extra_all_pages)) if extra_all_pages else 'none'}, "
+            f"non-pass pages={', '.join(bad_all_pages) if bad_all_pages else 'none'}.",
+        ),
+        Check(
+            "PDF visual QA contact sheet",
+            "pass" if contact_ok else "warning",
+            f"Contact sheet `{contact_image}` exists and passed dimension/nonblank checks."
+            if contact_ok
+            else "PDF visual-QA contact sheet is incomplete: "
+            f"image={contact_image or 'missing'}, status={contact_sheet.get('status', 'missing')}.",
         ),
         Check(
             "PDF visual QA stale-output cleanup",

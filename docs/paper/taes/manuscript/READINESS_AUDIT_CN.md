@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 22:30 CST
+日期: 2026-06-25 02:35 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 02:35 Checkpoint
+
+本轮把 PDF visual QA 从代表页抽查升级为全页覆盖。`render_pdf_visual_qa.py` 现在每次构建会同时渲染六张代表页、9 页全页 PNG 和 `tmp/pdf_visual_qa/main_contact_sheet.png`；contact sheet 采用无字体依赖的缩略图拼接流程，避免 `magick montage` 在缺省字体配置下失败。`check_submission_readiness.py` 新增 `PDF visual QA full-page coverage` 和 `PDF visual QA contact sheet` gates，并把 stale-output cleanup 扩展为同时覆盖 `main_p*.png`、`main_all_p*.png` 和 `main_contact_sheet.png`。
+
+本次 `./build.sh`、全页 contact-sheet 视觉检查和解压后的 `TAES_EVIDENCE_MODE=bundled ./build.sh` source-bundle fallback 均通过。`generated/SUBMISSION_READINESS_REPORT.md` 仍显示 `content_status=content_ready_metadata_pending`、metadata allowance 后无 blocking gate；唯一 pending 仍是作者/基金/repository 等投稿元数据占位符。这个 checkpoint 不改变正文 claim、实验结果或 evidence source，也不接入仍在运行的 full-topology N50。
 
 ## 02:23 Checkpoint
 
@@ -168,7 +174,7 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 | Optional harsh packet-loss stress evidence | Passed for fixed-design baseSeed=21 N50 stress check | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED21_20260624_130730.md`; `generated/STRESS_HARSH_MANIFEST.md`; `generated/stress_harsh_evidence.json`; `generated/stress_harsh_section.tex`; `generated/stress_harsh_summary_sentence.tex` | Keep the concise generated sentence in Discussion and the full table as response-ready evidence. Current stress N50 gives full-method reductions of `79.57%` network OSPA, `17.06%` local E-OSPA, `7.98%` RMSE, and `24.33%` CardErr under `[0.2, 0.35, 0.5, 0.7] / [1, 3, 2, 2]` packet loss. |
 | Scenario-family topology evidence | Passed for fixed-design topology-ring baseSeed=31 N50 check | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_20260624_162439.md`; `generated/SCENARIO_FAMILY_MANIFEST.md`; `generated/scenario_family_evidence.json`; `generated/scenario_family_section.tex`; `generated/scenario_family_summary_sentence.tex` | Keep the concise generated sentence in Discussion and the full table as response-ready evidence. Current topology-ring N50 gives full-method reductions of `47.50%` network OSPA, `21.53%` local E-OSPA, `13.12%` RMSE, and `24.03%` CardErr; reference-only RMSE reduction is `5.17%`. |
 | Scenario-family partial-FOV evidence | Passed for fixed-design partial-FOV 35 deg baseSeed=41 N50 check | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md`; `generated/SCENARIO_FAMILY_MANIFEST.md`; `generated/scenario_family_evidence.json`; `generated/scenario_family_section.tex`; `generated/scenario_family_summary_sentence.tex` | Keep the concise generated sentence in Discussion and the full table as response-ready evidence. Current partial-FOV N50 gives full-method reductions of `43.25%` network OSPA, `85.49%` local disagreement, `6.50%` RMSE, and `6.89%` local E-OSPA; reference-only RMSE reduction is `2.13%`. |
-| PDF visual QA | Passed for current checkpoint and now machine-recorded | `./build.sh`; `scripts/render_pdf_visual_qa.py`; `generated/PDF_VISUAL_QA_MANIFEST.md`; ImageMagick-rendered checks of the title/abstract page, method page, result tables/figure page, held-out/runtime page, Discussion/Conclusion page, and final reference page | Re-render final `main.pdf` after every manuscript-affecting checkpoint; the readiness checker now records whether representative pages rendered and passed dimension/nonblank checks. |
+| PDF visual QA | Passed for current checkpoint and now machine-recorded | `./build.sh`; `scripts/render_pdf_visual_qa.py`; `generated/PDF_VISUAL_QA_MANIFEST.md`; `generated/pdf_visual_qa.json`; ImageMagick-rendered checks of the title/abstract page, method page, result tables/figure page, held-out/runtime page, Discussion/Conclusion page, final reference page, all 9 pages, and `tmp/pdf_visual_qa/main_contact_sheet.png` | Re-render final `main.pdf` after every manuscript-affecting checkpoint; the readiness checker now records representative pages, full-page coverage, contact sheet status, and stale-output cleanup. |
 | Submission readiness checker | Passed for all non-metadata blocking gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and is now `content_ready_metadata_pending`. It records first-page narrative markers, paper-facing wording hygiene, stress/generalization boundary wording, cover-letter/portal metadata source synchronization, optional harsh-stress N50 parsing, scenario-family source-hash freshness/evidence tiering, and whether the generated reproducibility ledger covers primary AA, held-out AA, harsh-loss AA, scenario-family boundary, contextual GA, and independent-verifier roles. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; extracted source-bundle `TAES_EVIDENCE_MODE=bundled ./build.sh` compile | Re-run after final manuscript-affecting edits. The readiness checker now also verifies required reproducibility scripts, the submission package index, PDF visual-QA script, source-bundle manifest hash freshness, and the bundled-fragment fallback build mode. |
 

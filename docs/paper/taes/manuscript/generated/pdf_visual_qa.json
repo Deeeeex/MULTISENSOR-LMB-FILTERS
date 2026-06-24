@@ -1,4 +1,146 @@
 {
+  "all_pages": [
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1935,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p01.png",
+      "mean_luma": 0.936463,
+      "page": 1,
+      "size_bytes": 182837,
+      "status": "pass",
+      "stddev_luma": 0.208865,
+      "width": 1485
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png",
+      "mean_luma": 0.932439,
+      "page": 2,
+      "size_bytes": 180710,
+      "status": "pass",
+      "stddev_luma": 0.214831,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p03.png",
+      "mean_luma": 0.948666,
+      "page": 3,
+      "size_bytes": 153552,
+      "status": "pass",
+      "stddev_luma": 0.189358,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png",
+      "mean_luma": 0.946427,
+      "page": 4,
+      "size_bytes": 230802,
+      "status": "pass",
+      "stddev_luma": 0.190574,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png",
+      "mean_luma": 0.940064,
+      "page": 5,
+      "size_bytes": 170145,
+      "status": "pass",
+      "stddev_luma": 0.203432,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png",
+      "mean_luma": 0.933383,
+      "page": 6,
+      "size_bytes": 179682,
+      "status": "pass",
+      "stddev_luma": 0.213609,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png",
+      "mean_luma": 0.958325,
+      "page": 7,
+      "size_bytes": 116328,
+      "status": "pass",
+      "stddev_luma": 0.172943,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png",
+      "mean_luma": 0.934659,
+      "page": 8,
+      "size_bytes": 233221,
+      "status": "pass",
+      "stddev_luma": 0.21388,
+      "width": 1530
+    },
+    {
+      "checks": {
+        "dimension_ok": true,
+        "nonblank_ok": true
+      },
+      "height": 1980,
+      "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p09.png",
+      "mean_luma": 0.96385,
+      "page": 9,
+      "size_bytes": 137168,
+      "status": "pass",
+      "stddev_luma": 0.157747,
+      "width": 1530
+    }
+  ],
+  "contact_sheet": {
+    "checks": {
+      "dimension_ok": true,
+      "nonblank_ok": true
+    },
+    "height": 1536,
+    "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png",
+    "mean_luma": 0.949439,
+    "size_bytes": 1285165,
+    "status": "pass",
+    "stddev_luma": 0.111519,
+    "thumbnail": "360x480",
+    "width": 1152
+  },
   "density_dpi": 180,
   "page_count": 9,
   "pages": [
@@ -95,6 +237,6 @@
   ],
   "pdf": "docs/paper/taes/manuscript/main.pdf",
   "renderer": "Version: ImageMagick 7.1.2-17 Q16-HDRI aarch64 23794 https://imagemagick.org",
-  "stale_output_policy": "clear main_p*.png before rendering current representative pages",
+  "stale_output_policy": "clear main_p*.png, main_all_p*.png, and main_contact_sheet.png before rendering current pages",
   "status": "pass"
 }
