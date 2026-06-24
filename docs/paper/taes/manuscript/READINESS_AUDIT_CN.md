@@ -165,3 +165,9 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按 Intro/Related Work 的投稿故事线做窄幅增强：第一段把 label set 明确称为 `correspondence contract`，强调即使 fusion rule 数学上有效，只要 contract 在传感器间不一致，仍可能组合错误 Bernoulli components；第二段把 AA/KLA 等规则定位为在 component correspondence 已给定之后分配 probability mass；第三段把本文设计问题写成 `correspondence-contract construction problem`，不是另一个 scalar-weight search。
 
 Related Work 收尾同步压实了区别：本文不是 density-pooling rule，而是 output-space projection；这个区别也决定了评价设计，因此同时报告 network disagreement 和 truth-referenced tracking error。`check_submission_readiness.py` 新增 `correspondence-contract story markers` gate，防止后续润色时把核心故事退回到泛泛的 weight-fusion framing。
+
+## 23:41 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮按 Results section 的读者路径做窄幅增强：`RESULTS` 不再直接从表格开始，而是先用一段 compact evidence chain 说明证据顺序。Table II 承担 primary paired network/local gain，Table III 提供 matched-seed GA context，Table IV 和 Fig. 3 分离 reference-only label effect 与 matched-barycenter effect，Table V 复验 held-out base-seed mechanism separation。
+
+`check_submission_readiness.py` 新增 `results evidence-spine markers` gate，用于防止后续压页或润色时删掉 Results 的读者入口。该改动不改变任何表格数值、不新增实验主张，也不把 GA reference rows 改写成 paired significance evidence；它只是让 TAES 审稿人更快看清 primary result、context、mechanism ablation 和 robustness replication 的顺序。

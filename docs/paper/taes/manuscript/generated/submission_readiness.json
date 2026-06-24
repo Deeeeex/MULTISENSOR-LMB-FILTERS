@@ -192,7 +192,7 @@
       "status": "pass"
     },
     {
-      "detail": "4 cross-references resolve to manuscript labels.",
+      "detail": "5 cross-references resolve to manuscript labels.",
       "gate": "cross references",
       "status": "pass"
     },
@@ -239,6 +239,11 @@
     {
       "detail": "Related Work keeps the method positioned as a correspondence/projection layer rather than another AA/KLA weighting rule.",
       "gate": "related-work positioning markers",
+      "status": "pass"
+    },
+    {
+      "detail": "Results opens with a compact evidence chain linking the primary paired run, GA context, mechanism ablation, and held-out replication.",
+      "gate": "results evidence-spine markers",
       "status": "pass"
     },
     {
@@ -442,7 +447,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `dc627c605b5fa8fea83c772b6e5943586d2ed3f43346ae2a54c328eb6b1e1ab0`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 60 files and SHA-256 `fd32188a44ad5bf40610b40ba32e2b9dc831a516ac93b853abb58a5dbf8884cc`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

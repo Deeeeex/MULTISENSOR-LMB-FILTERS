@@ -274,6 +274,8 @@ Runtime is measured as wall-clock filter time from one GNU Octave 11.1.0 executi
 The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, generated machine-readable summaries, and a generated ledger that separates paired AA evidence, held-out robustness evidence, harsh-loss stress evidence, topology/FOV boundary checks, and contextual GA rows. A verifier recomputes network-disagreement statistics from per-trial report rows, runtime statistics from trial logs, and local tracking metrics from per-trial local rows before the PDF is built.
 
 \section{RESULTS}
+The results follow one evidence chain: Table~\ref{tab:n50} tests network and local gains; Table~\ref{tab:reference} gives matched-seed GA context; Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-only from matched-barycenter effects; and Table~\ref{tab:heldout} repeats the held-out mechanism test.
+
 \begin{table*}[t]
 \caption{Fifty-trial paired validation under tiered packet loss. Lower values are better, and bold entries mark column-wise best values including ties. Values are trial means. The proposed operator improves both network agreement and local tracking quality; the reference-only ablation isolates the part of the gain that comes from label-set canonicalization alone.}
 \label{tab:n50}

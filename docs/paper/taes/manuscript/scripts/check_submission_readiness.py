@@ -684,6 +684,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    results_spine_markers = [
+        "results follow one evidence chain",
+        r"Table~\ref{tab:n50} tests network and local gains",
+        r"Table~\ref{tab:reference} gives matched-seed GA context",
+        r"Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-only from matched-barycenter effects",
+        r"Table~\ref{tab:heldout} repeats the held-out mechanism test",
+    ]
+    missing_results_spine = [marker for marker in results_spine_markers if marker not in body]
+    checks.append(
+        Check(
+            "results evidence-spine markers",
+            "pass" if not missing_results_spine else "warning",
+            "Results opens with a compact evidence chain linking the primary paired run, GA context, mechanism ablation, and held-out replication."
+            if not missing_results_spine
+            else "Results evidence-spine wording is incomplete; missing markers: "
+            + "; ".join(missing_results_spine),
+        )
+    )
+
     theory_scope_markers = [
         r"\begin{assumption}[Analysis scope]",
         "after the upstream AA existence consumer has selected active tracks",
