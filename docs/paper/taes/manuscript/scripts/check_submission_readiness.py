@@ -149,6 +149,11 @@ def environment_body(tex: str, name: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def paper_facing_body(tex: str) -> str:
+    match = re.search(r"\\begin{abstract}(.+?)\\section\*{ACKNOWLEDGMENT}", tex, flags=re.DOTALL)
+    return match.group(1).strip() if match else tex
+
+
 def placeholder_hits(tex: str) -> list[str]:
     hits: list[str] = []
     literal_patterns = [
@@ -448,6 +453,54 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             if not missing_alignment
             else "Projection/existence boundary wording is incomplete; missing markers: "
             + "; ".join(missing_alignment),
+        )
+    )
+
+    body = paper_facing_body(tex)
+    story_markers = [
+        "component-correspondence failure",
+        "Scalar AA/KLA weights decide how much probability mass to trust",
+        "residual correspondence failure",
+        "not another scalar-weight search",
+        "A separate 50-trial base-seed-11 run",
+        "held-out 50-trial replication",
+        "reference-only ablation",
+    ]
+    missing_story_markers = [marker for marker in story_markers if marker not in body]
+    checks.append(
+        Check(
+            "first-page narrative markers",
+            "pass" if not missing_story_markers else "warning",
+            "Abstract and introduction preserve the correspondence-failure framing, scalar-weight boundary, held-out replication, and reference-only mechanism test."
+            if not missing_story_markers
+            else "First-page narrative is missing markers: " + "; ".join(missing_story_markers),
+        )
+    )
+
+    internal_patterns = [
+        r"\bTODO\b",
+        r"\bTBD\b",
+        r"before submission",
+        r"will be provided",
+        r"to be completed",
+        r"not yet",
+        r"placeholder",
+        r"camera-ready",
+    ]
+    internal_hits = sorted(
+        {
+            pattern
+            for pattern in internal_patterns
+            if re.search(pattern, body, flags=re.IGNORECASE)
+        }
+    )
+    checks.append(
+        Check(
+            "paper-facing wording hygiene",
+            "pass" if not internal_hits else "warning",
+            "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language."
+            if not internal_hits
+            else "Paper-facing abstract/body text contains internal-status patterns: " + "; ".join(internal_hits),
         )
     )
     return checks

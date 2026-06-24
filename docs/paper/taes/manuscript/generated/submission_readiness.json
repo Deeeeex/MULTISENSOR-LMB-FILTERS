@@ -182,6 +182,16 @@
       "status": "pass"
     },
     {
+      "detail": "Abstract and introduction preserve the correspondence-failure framing, scalar-weight boundary, held-out replication, and reference-only mechanism test.",
+      "gate": "first-page narrative markers",
+      "status": "pass"
+    },
+    {
+      "detail": "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language.",
+      "gate": "paper-facing wording hygiene",
+      "status": "pass"
+    },
+    {
       "detail": "Cover-letter draft and portal metadata checklist exist with manuscript type, technical area, originality, AI disclosure, ORCID, and repository placeholders.",
       "gate": "cover letter and portal metadata draft",
       "status": "pass"
@@ -262,7 +272,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 46 files and SHA-256 `26ee6b742d08968af90687f8c138d304978b68544d17a8ccc07e864a93194a91`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 46 files and SHA-256 `b184a46a6b08083d24b684945a7fc3d0f89f8d32356b32a2ba088923ca183b87`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
