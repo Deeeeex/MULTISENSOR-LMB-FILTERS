@@ -126,9 +126,9 @@
       "status": "pass"
     },
     {
-      "detail": "Local metrics are still `summary_traced`; switch to the rerun report with per-trial local rows when it finishes.",
+      "detail": "Local E-OSPA/RMSE/CardErr are independently recomputed from per-trial local rows.",
       "gate": "N50 local-metric verifier",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "detail": "Tracked N5 base-seed sanity evidence exists (base seed 11, 5 trials), but a paper-grade held-out N50 or packet-loss-family validation is still needed.",

@@ -1,6 +1,6 @@
 {
-  "aa_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md",
-  "aa_sha256": "fd1727247517a6f76be765c82e3c348b51d3415707c4811150ddde364bb3a6b6",
+  "aa_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md",
+  "aa_sha256": "11c040627b3afd1ff28c271025059798660b0d82ca82a1adc4314db939923099",
   "ga_report": "RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md",
   "ga_sha256": "bd04968b7c17011603a96a16d3794e3f7776c1e577b8167d0b0c17f377d32299",
   "note": "GA rows are contextual reference baselines from the tracked GA validation path. They use the same base seed, trial seeds, and tiered packet-loss profile, but they are not part of the paired AA sign tests.",

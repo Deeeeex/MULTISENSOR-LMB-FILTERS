@@ -146,23 +146,23 @@
   "runtime": {
     "Neighborhood label-barycenter spatial-KLA AA": {
       "n": "50",
-      "relative": "1.647x",
-      "runtime": "102.346812 +/- 11.261774",
-      "runtime_step": "4.264450"
+      "relative": "1.644x",
+      "runtime": "69.728773 +/- 9.015016",
+      "runtime_step": "2.905366"
     },
     "Neighborhood reference-only label-consensus spatial-KLA AA": {
       "n": "50",
-      "relative": "1.542x",
-      "runtime": "95.576241 +/- 11.190371",
-      "runtime_step": "3.982343"
+      "relative": "1.534x",
+      "runtime": "64.869394 +/- 8.400818",
+      "runtime_step": "2.702891"
     },
     "Tuned spatial-KLA AA": {
       "n": "50",
       "relative": "1.000x",
-      "runtime": "62.245046 +/- 6.444045",
-      "runtime_step": "2.593544"
+      "runtime": "42.487028 +/- 5.426338",
+      "runtime_step": "1.770293"
     }
   },
-  "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md",
-  "source_sha256": "fd1727247517a6f76be765c82e3c348b51d3415707c4811150ddde364bb3a6b6"
+  "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md",
+  "source_sha256": "11c040627b3afd1ff28c271025059798660b0d82ca82a1adc4314db939923099"
 }

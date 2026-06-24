@@ -14,11 +14,10 @@ import json
 import re
 from pathlib import Path
 
+from evidence_sources import REPO, ROOT, evidence_path
 
-ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parents[3]
 OUT = ROOT / "generated"
-REPORT = REPO / "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md"
+REPORT = evidence_path("heldout_sanity_report")
 
 ARM_ORDER = [
     "Tuned spatial-KLA AA",

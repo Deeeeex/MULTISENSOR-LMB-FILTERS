@@ -1,0 +1,388 @@
+AA validation trial 1/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.509 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.521 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.493 s
+AA validation trial 2/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.763 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.802 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.867 s
+AA validation trial 3/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.877 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 69.170 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.231 s
+AA validation trial 4/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 42.376 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 68.378 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.668 s
+AA validation trial 5/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.398 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.654 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.533 s
+AA validation trial 6/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.709 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.728 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.537 s
+AA validation trial 7/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.907 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.427 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.581 s
+AA validation trial 8/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.852 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.730 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 65.367 s
+AA validation trial 9/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 43.785 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 73.044 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.392 s
+AA validation trial 10/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.482 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 73.261 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 66.802 s
+AA validation trial 11/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.672 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.918 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.052 s
+AA validation trial 12/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.504 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 68.139 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.876 s
+AA validation trial 13/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.193 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.444 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.846 s
+AA validation trial 14/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 44.337 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.854 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.959 s
+AA validation trial 15/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.902 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 70.410 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 65.642 s
+AA validation trial 16/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 43.796 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 70.942 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 64.818 s
+AA validation trial 17/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.157 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.802 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.218 s
+AA validation trial 18/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.292 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.947 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.743 s
+AA validation trial 19/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 39.651 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.732 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 60.974 s
+AA validation trial 20/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.703 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.959 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.119 s
+AA validation trial 21/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.074 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.734 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.132 s
+AA validation trial 22/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 39.757 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 64.954 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 60.614 s
+AA validation trial 23/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.223 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.066 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.731 s
+AA validation trial 24/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.336 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.942 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.459 s
+AA validation trial 25/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.538 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.264 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.597 s
+AA validation trial 26/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.083 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.292 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.098 s
+AA validation trial 27/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.228 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.165 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.892 s
+AA validation trial 28/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.443 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.073 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.793 s
+AA validation trial 29/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 39.745 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.616 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 62.478 s
+AA validation trial 30/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.545 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.457 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.037 s
+AA validation trial 31/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.696 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 72.862 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 67.256 s
+AA validation trial 32/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 43.110 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 68.260 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.932 s
+AA validation trial 33/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.644 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 78.544 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 70.904 s
+AA validation trial 34/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 44.757 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 75.049 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 69.971 s
+AA validation trial 35/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 52.035 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 77.348 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 76.131 s
+AA validation trial 36/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 72.833 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 119.189 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 81.880 s
+AA validation trial 37/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 48.879 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 100.153 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 116.435 s
+AA validation trial 38/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 57.813 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 72.146 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.485 s
+AA validation trial 39/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.421 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.503 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.192 s
+AA validation trial 40/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.158 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 66.599 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.268 s
+AA validation trial 41/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.831 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 70.240 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 67.362 s
+AA validation trial 42/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 42.339 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 68.590 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.748 s
+AA validation trial 43/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.943 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 67.634 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 63.380 s
+AA validation trial 44/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 39.467 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.225 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 60.719 s
+AA validation trial 45/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.190 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.465 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.319 s
+AA validation trial 46/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 41.073 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.998 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.987 s
+AA validation trial 47/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.099 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.464 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 60.771 s
+AA validation trial 48/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 39.936 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.545 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.160 s
+AA validation trial 49/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.251 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.836 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 60.879 s
+AA validation trial 50/50
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 40.038 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 65.364 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 61.146 s
+=====================================
+AA Balanced/Cardinality Validation (N=50)
+Order: Tuned spatial-KLA AA -> Neighborhood label-barycenter spatial-KLA AA -> Neighborhood reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 1.682607, Loc 1.472837, Card 0.035350, Runtime 42.487 s
+Neighborhood label-barycenter spatial-KLA AA: OSPA 0.309818, Loc 0.216372, Card 0.021200, Runtime 69.729 s
+Neighborhood reference-only label-consensus spatial-KLA AA: OSPA 1.030062, Loc 0.891585, Card 0.021200, Runtime 64.869 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md
+AA_TAES_N50_LOCAL_VERIFIER_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md
+    ospa =
+
+       1.6826   0.3098   1.0301
+
+    pos =
+
+       1.4728   0.2164   0.8916
+
+    card =
+
+       0.035350   0.021200   0.021200
+
+    eOspa =
+
+       2.0296   1.6815   1.9113
+
+    hOspa =
+
+       0.4856   0.4850   0.4850
+
+    rmse =
+
+       3.6829   3.4490   3.6630
+
+    cardErr =
+
+       0.088000   0.077200   0.077200

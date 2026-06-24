@@ -16,10 +16,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from evidence_sources import REPO, ROOT, evidence_path
 
-ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parents[3]
-REPORT = REPO / "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md"
+REPORT = evidence_path("n50_aa_report")
 OUT = ROOT / "generated"
 
 ARM_ORDER = [

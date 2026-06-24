@@ -1,24 +1,143 @@
 {
   "local": {
-    "reason": "The archived report does not include per-trial local tracking rows.",
-    "status": "summary_traced",
-    "summary": {
+    "means": {
       "Neighborhood label-barycenter spatial-KLA AA": {
-        "CardErr": 0.0772,
-        "E-OSPA": 1.681483,
-        "RMSE": 3.449035
+        "CardErr": {
+          "ci_high": 0.08169886030012045,
+          "ci_low": 0.07270113969987953,
+          "mean": 0.07719999999999999,
+          "n": 50,
+          "std": 0.01623048278482718
+        },
+        "E-OSPA": {
+          "ci_high": 1.699372856105761,
+          "ci_low": 1.6635941438942388,
+          "mean": 1.6814835,
+          "n": 50,
+          "std": 0.064539209252269
+        },
+        "RMSE": {
+          "ci_high": 3.540902574512404,
+          "ci_low": 3.3571670254875965,
+          "mean": 3.4490348,
+          "n": 50,
+          "std": 0.33143023637876134
+        }
       },
       "Neighborhood reference-only label-consensus spatial-KLA AA": {
-        "CardErr": 0.0772,
-        "E-OSPA": 1.911286,
-        "RMSE": 3.662955
+        "CardErr": {
+          "ci_high": 0.08169886030012045,
+          "ci_low": 0.07270113969987953,
+          "mean": 0.07719999999999999,
+          "n": 50,
+          "std": 0.01623048278482718
+        },
+        "E-OSPA": {
+          "ci_high": 1.929144624176963,
+          "ci_low": 1.8934269758230369,
+          "mean": 1.9112858,
+          "n": 50,
+          "std": 0.06442905958953488
+        },
+        "RMSE": {
+          "ci_high": 3.7564615519672775,
+          "ci_low": 3.5694482080327217,
+          "mean": 3.6629548799999996,
+          "n": 50,
+          "std": 0.33734286650126666
+        }
       },
       "Tuned spatial-KLA AA": {
-        "CardErr": 0.088,
-        "E-OSPA": 2.029641,
-        "RMSE": 3.68288
+        "CardErr": {
+          "ci_high": 0.09231962961375163,
+          "ci_low": 0.08368037038624838,
+          "mean": 0.08800000000000001,
+          "n": 50,
+          "std": 0.015583874449479592
+        },
+        "E-OSPA": {
+          "ci_high": 2.046676662284484,
+          "ci_low": 2.012604857715516,
+          "mean": 2.02964076,
+          "n": 50,
+          "std": 0.06146021443362312
+        },
+        "RMSE": {
+          "ci_high": 3.768371044991936,
+          "ci_low": 3.5973888750080643,
+          "mean": 3.68287996,
+          "n": 50,
+          "std": 0.30842513228976254
+        }
       }
-    }
+    },
+    "paired": {
+      "Neighborhood label-barycenter spatial-KLA AA": {
+        "CardErr": {
+          "ci_high": 0.012659630070739876,
+          "ci_low": 0.008940369929260122,
+          "n": 50,
+          "p_value": 6.981082378842984e-11,
+          "reduction_mean": 0.010799999999999999,
+          "reduction_pct": 12.27272727272727,
+          "reduction_std": 0.00670896445672748,
+          "wins": 46
+        },
+        "E-OSPA": {
+          "ci_high": 0.35473058631786947,
+          "ci_low": 0.34158393368213047,
+          "n": 50,
+          "p_value": 1.7763568394002505e-15,
+          "reduction_mean": 0.34815725999999997,
+          "reduction_pct": 17.1536395435811,
+          "reduction_std": 0.023714508236313984,
+          "wins": 50
+        },
+        "RMSE": {
+          "ci_high": 0.26713626897035053,
+          "ci_low": 0.20055405102964952,
+          "n": 50,
+          "p_value": 2.2666313270747196e-12,
+          "reduction_mean": 0.23384516000000002,
+          "reduction_pct": 6.349518923771819,
+          "reduction_std": 0.1201039229905875,
+          "wins": 48
+        }
+      },
+      "Neighborhood reference-only label-consensus spatial-KLA AA": {
+        "CardErr": {
+          "ci_high": 0.012659630070739876,
+          "ci_low": 0.008940369929260122,
+          "n": 50,
+          "p_value": 6.981082378842984e-11,
+          "reduction_mean": 0.010799999999999999,
+          "reduction_pct": 12.27272727272727,
+          "reduction_std": 0.00670896445672748,
+          "wins": 46
+        },
+        "E-OSPA": {
+          "ci_high": 0.12451228224226882,
+          "ci_low": 0.11219763775773117,
+          "n": 50,
+          "p_value": 1.7763568394002505e-15,
+          "reduction_mean": 0.11835496,
+          "reduction_pct": 5.8313255395994315,
+          "reduction_std": 0.022213695466627784,
+          "wins": 50
+        },
+        "RMSE": {
+          "ci_high": 0.05641989976724977,
+          "ci_low": -0.016569739767249698,
+          "n": 50,
+          "p_value": 0.6718110337653656,
+          "reduction_mean": 0.019925080000000036,
+          "reduction_pct": 0.5410189910181062,
+          "reduction_std": 0.13166191089593443,
+          "wins": 27
+        }
+      }
+    },
+    "status": "independent"
   },
   "network": {
     "means": {
@@ -161,26 +280,26 @@
   },
   "runtime": {
     "Neighborhood label-barycenter spatial-KLA AA": {
-      "mean": 102.34667999999999,
+      "mean": 69.72878,
       "n": 50,
-      "relative": 1.6471551865547573,
-      "std": 11.261780488584442
+      "relative": 1.6439553246785041,
+      "std": 9.014987356188852
     },
     "Neighborhood reference-only label-consensus spatial-KLA AA": {
-      "mean": 95.57628000000001,
+      "mean": 64.86948000000001,
       "n": 50,
-      "relative": 1.5418593616300862,
-      "std": 11.19033741359947
+      "relative": 1.5342333624448516,
+      "std": 8.400799153530524
     },
     "Tuned spatial-KLA AA": {
-      "mean": 62.245039999999996,
+      "mean": 42.486999999999995,
       "n": 50,
       "relative": 1.0,
-      "std": 6.444060422828236
+      "std": 5.426290197374487
     }
   },
   "source": {
-    "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md",
-    "source_sha256": "fd1727247517a6f76be765c82e3c348b51d3415707c4811150ddde364bb3a6b6"
+    "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md",
+    "source_sha256": "11c040627b3afd1ff28c271025059798660b0d82ca82a1adc4314db939923099"
   }
 }

@@ -13,13 +13,12 @@ import hashlib
 import json
 from pathlib import Path
 
+from evidence_sources import REPO, ROOT, evidence_path
 
-ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parents[3]
 OUT = ROOT / "generated"
 
-AA_REPORT = REPO / "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md"
-GA_REPORT = REPO / "RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md"
+AA_REPORT = evidence_path("n50_aa_report")
+GA_REPORT = evidence_path("reference_ga_report")
 
 NETWORK_METRICS = ["OSPA", "Loc. disag.", "Card. disp."]
 GA_NETWORK_METRICS = ["OSPA", "RMSE", "Cardinality"]

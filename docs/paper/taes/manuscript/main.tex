@@ -232,7 +232,7 @@ With base seed 1, the 50 trial seeds are 2 through 51. Each trial samples one ei
 
 Runtime measurements are wall-clock filter runtimes from a single GNU Octave 11.1.0 run on an Apple M4 workstation with 16 GB memory. The absolute seconds therefore characterize this Octave/MATLAB-compatible prototype, while the relative runtime column is the intended implementation-cost comparison within the paired validation.
 
-The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, and generated machine-readable summaries for the N50 AA validation and the contextual GA reference rows. A verifier recomputes network-disagreement statistics from per-trial report rows and runtime statistics from trial logs before the PDF is built; local tracking metrics are upgraded to the same per-trial recomputation path when the source validation report contains per-trial local rows.
+The numerical tables and Fig.~\ref{fig:n50} are generated from tracked validation reports rather than edited by hand. The reproducibility package records the source report path, source SHA-256 digest, and generated machine-readable summaries for the N50 AA validation and the contextual GA reference rows. A verifier recomputes network-disagreement statistics from per-trial report rows, runtime statistics from trial logs, and local tracking metrics from per-trial local rows before the PDF is built.
 
 \section{RESULTS}
 \begin{table*}[t]
@@ -301,7 +301,7 @@ Method & Runtime (s) & Relative\\
 \end{tabular}
 \end{table}
 
-The computational cost is higher than the tuned baseline. Mean filter runtime increases from 62.245 s to 102.347 s, or 1.647 times the tuned baseline, for the 50-trial validation (Table~\ref{tab:runtime}). The reference-only ablation costs 1.542 times the baseline, so most of the overhead comes from repeated neighborhood matching and output rewriting rather than from moment computation alone.
+The computational cost is higher than the tuned baseline. Mean filter runtime increases from 42.487 s to 69.729 s, or 1.644 times the tuned baseline, for the 50-trial validation (Table~\ref{tab:runtime}). The reference-only ablation costs 1.534 times the baseline, so most of the overhead comes from repeated neighborhood matching and output rewriting rather than from moment computation alone.
 
 \FloatBarrier
 

@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 01:44 CST
+日期: 2026-06-24 09:39 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -8,10 +8,10 @@
 
 ## 当前判断
 
-稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX 或故事线，而是证据链还缺两类最后闭环:
+稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX 或故事线，而是投稿元数据和场景覆盖还缺最后闭环:
 
-1. 当前 paper-facing N50 local E-OSPA/RMSE/CardErr 仍来自 report summary trace，尚未由 per-trial local rows 独立复算。
-2. 当前实证集中在 tiered packet-loss formation 场景，还缺至少一个 held-out base seed 或 packet-loss family 来证明不是单场景特化。
+1. 作者、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
+2. 当前实证集中在 tiered packet-loss formation 场景，还缺至少一个 paper-grade held-out base seed 或 packet-loss family 来证明不是单场景特化。
 
 ## Claim-to-Evidence Matrix
 
@@ -21,8 +21,8 @@
 | The proposed operator first canonicalizes labels by assignment and then fuses matched posterior moments. | Method, Fig. 1, Algorithm box | `scripts/render_figures.py`; `generated/method_pipeline.tex`; algorithm text in `main.tex` | Source-backed and rendered in PDF | Final PDF visual check after every figure/table edit. |
 | The operator is graph-local in the neighborhood version and does not require global label-set access. | Method, Graph locality paragraph | `RUN/AA/runAaBalancedCardinalityValidation.m`; neighborhood N50 report | Code path and report-backed | Keep centralized upper-bound language out of the main claim. |
 | Under stable matching and connected repeated neighborhood averaging, local moments converge to the centralized equal-weight barycenter. | Structural Properties | Proposition in `main.tex` | Theory stated with explicit assumptions | Do not present as a finite-round guarantee; check proof wording before final submission. |
-| Matched posterior barycenters, not label copying alone, drive the spatial tracking gain. | Results and Discussion | N50 full-vs-reference-only ablation; paired RMSE reductions/wins/sign-test p-values in Table III | Report-driven fragments, local summary trace | Upgrade to independent local-metric recomputation after the active N50 rerun completes. |
-| Neighborhood label-barycenter improves local E-OSPA/RMSE/CardErr relative to tuned spatial-KLA AA in the N50 validation. | Results, Table I/II, Fig. 3 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260622_174819.md`; `generated/n50_evidence.json` | Report-driven; local metrics currently summary-traced | Replace source with rerun report containing per-trial local rows and rerun verifier. |
+| Matched posterior barycenters, not label copying alone, drive the spatial tracking gain. | Results and Discussion | N50 full-vs-reference-only ablation; paired RMSE reductions/wins/sign-test p-values in Table III | Report-driven fragments plus independent local-metric verifier | Broaden scenario coverage before submission. |
+| Neighborhood label-barycenter improves local E-OSPA/RMSE/CardErr relative to tuned spatial-KLA AA in the N50 validation. | Results, Table I/II, Fig. 3 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `generated/n50_evidence.json`; `generated/N50_VERIFICATION_REPORT.md` | Local metrics independently recomputed from per-trial local rows | None for current N50; broaden scenario coverage before submission. |
 | Neighborhood label-barycenter is lower than the two tracked GA reference rows on the six reported N50 disagreement/tracking metrics. | Results, contextual reference table | `RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Report-driven contextual comparison | Keep phrasing as contextual reference rows, not paired GA-vs-AA significance evidence. |
 | Network disagreement and runtime numbers are reproducible from raw per-trial artifacts. | Results, reproducibility notes | `verify_n50_evidence.py`; `N50_VERIFICATION_REPORT.md` | Independently recomputed | None for network/runtime; keep source hash in manifest. |
 | Runtime overhead is mainly due to repeated assignment/moment-barycenter operations, not hidden global communication. | Runtime table, complexity paragraph | Runtime log and graph-locality method text | Independently recomputed runtime | Add a short scaling note if broader N or topology experiments are added. |
@@ -53,16 +53,14 @@
 | Report-driven GA reference rows | Passed | `extract_reference_baselines.py`; `generated/REFERENCE_BASELINE_MANIFEST.md` | Maintain the contextual-comparison caveat in the manuscript. |
 | Independent network disagreement verifier | Passed | `verify_n50_evidence.py`; `generated/N50_VERIFICATION_REPORT.md` | Maintain hash check against source report. |
 | Independent runtime verifier | Passed | `verify_n50_evidence.py`; trial log parsing | Maintain relative-cost check after source report swap. |
-| Independent local metric verifier | Pending | Active N50 rerun log `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | When the log prints `AA_TAES_N50_LOCAL_VERIFIER_REPORT=...`, switch scripts to that report/log and rebuild. |
-| Held-out scenario evidence | Partial sanity only | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; launcher `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` prepared | Still run a paper-grade held-out N50 or packet-loss-family validation after local verifier closes. |
+| Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
+| Held-out scenario evidence | Partial sanity only | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; launcher `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` prepared | Still run a paper-grade held-out N50 or packet-loss-family validation. |
 | PDF visual QA | Partial | Prior rendered inspections after recent commits | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
-| Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gates are metadata placeholders and N50 local-metric independent verification; held-out evidence remains a warning because only N5 sanity exists. |
+| Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
 
 ## Immediate Execution Order
 
-1. Let the current N50 local-verifier rerun finish; do not track the live log or pid file in git.
-2. Switch `extract_n50_evidence.py` and `verify_n50_evidence.py` to the new report/log, then run `./build.sh`.
-3. Confirm `generated/N50_VERIFICATION_REPORT.md` says local metrics are independently recomputed from per-trial local tracking rows.
-4. Render `main.pdf` to page PNGs and inspect title/abstract, method figures, results tables, and reference page spacing.
-5. Commit and push the source/report-script checkpoint.
-6. Start `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh` after the local verifier finishes, then decide whether the held-out N50 evidence enters the main paper, a compact robustness paragraph, or supplementary material.
+1. Commit and push the source/report-script checkpoint with the completed N50 local verifier evidence.
+2. Render `main.pdf` to page PNGs after the commit checkpoint and inspect title/abstract, method figures, results tables, and reference page spacing.
+3. Start `RUN/AA/launchAaTaesHeldoutN50BaseSeed11.sh`, then decide whether the held-out N50 evidence enters the main paper, a compact robustness paragraph, or supplementary material.
+4. Replace author/funding/repository placeholders once the real submission metadata is available.
