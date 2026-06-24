@@ -294,6 +294,17 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    uncited = sorted(available - cited)
+    checks.append(
+        Check(
+            "uncited BibTeX entries",
+            "pass" if not uncited else "warning",
+            "All BibTeX entries are cited in the manuscript."
+            if not uncited
+            else f"BibTeX entries are present but uncited: {', '.join(uncited)}",
+        )
+    )
+
     missing_refs = sorted(refs(tex) - labels(tex))
     checks.append(
         Check(

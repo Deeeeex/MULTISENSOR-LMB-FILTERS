@@ -101,6 +101,11 @@
       "status": "pass"
     },
     {
+      "detail": "All BibTeX entries are cited in the manuscript.",
+      "gate": "uncited BibTeX entries",
+      "status": "pass"
+    },
+    {
       "detail": "5 cross-references resolve to manuscript labels.",
       "gate": "cross references",
       "status": "pass"
@@ -161,7 +166,7 @@
       "status": "warning"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 26 files and SHA-256 `1c8ddb12f9a27a642e6b35839893717bd4a15dabff73b2e46225a9d39a2d2814`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 26 files and SHA-256 `20819f27d5ee95156518366a463867846cb8b0c55e1f0abd4514b8362e277c33`.",
       "gate": "submission source bundle",
       "status": "pass"
     }
