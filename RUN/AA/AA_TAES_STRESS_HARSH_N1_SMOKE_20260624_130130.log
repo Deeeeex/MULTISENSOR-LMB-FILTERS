@@ -1,0 +1,45 @@
+AA validation trial 1/1
+  Arm 1/3: Tuned spatial-KLA AA
+    Filter runtime: 31.506 s
+  Arm 2/3: Neighborhood label-barycenter spatial-KLA AA
+    Filter runtime: 56.099 s
+  Arm 3/3: Neighborhood reference-only label-consensus spatial-KLA AA
+    Filter runtime: 52.320 s
+=====================================
+AA Balanced/Cardinality Validation (N=1)
+Order: Tuned spatial-KLA AA -> Neighborhood label-barycenter spatial-KLA AA -> Neighborhood reference-only label-consensus spatial-KLA AA
+AA controls: existenceThreshold=0.1800, maxGM=3, minTrajectory=10, lifeSpan=24
+AA strict weights: 0
+=====================================
+Tuned spatial-KLA AA: OSPA 2.101216, Loc 2.492763, Card 0.093750, Runtime 31.506 s
+Neighborhood label-barycenter spatial-KLA AA: OSPA 0.466321, Loc 0.348431, Card 0.045000, Runtime 56.099 s
+Neighborhood reference-only label-consensus spatial-KLA AA: OSPA 1.222720, Loc 1.658173, Card 0.045000, Runtime 52.320 s
+Report written: /Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED21_20260624_130131.md
+AA_TAES_STRESS_HARSH_N1_REPORT=/Users/dex/Desktop/Code/Research/MULTISENSOR-LMB-FILTERS/RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED21_20260624_130131.md
+    ospa =
+
+       2.1012   0.4663   1.2227
+
+    pos =
+
+       2.4928   0.3484   1.6582
+
+    card =
+
+       0.093750   0.045000   0.045000
+
+    eOspa =
+
+       2.4385   2.0669   2.2766
+
+    hOspa =
+
+       0.4823   0.4825   0.4824
+
+    rmse =
+
+       3.9511   4.0114   3.9566
+
+   cardErr =
+
+      0.1738   0.1350   0.1350
