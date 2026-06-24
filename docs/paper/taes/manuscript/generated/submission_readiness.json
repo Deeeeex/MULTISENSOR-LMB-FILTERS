@@ -292,6 +292,11 @@
       "status": "pass"
     },
     {
+      "detail": "Structural Properties and Results connect identical full/reference-only cardinality metrics to the shared reference-cardinality projection rather than to moment barycentering.",
+      "gate": "cardinality-equivalent ablation theory",
+      "status": "pass"
+    },
+    {
       "detail": "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language.",
       "gate": "paper-facing wording hygiene",
       "status": "pass"
@@ -387,7 +392,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 109 lines; underfull warnings observed: 90.",
+      "detail": "`tmp/build/latex_build.log` exists with 123 lines; underfull warnings observed: 104.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -527,7 +532,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `88eec470d6136f757c6b876fef3c084c470091117130832245d831eee36b2c77`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `0e122c42edf0e5afed5ae5bbb20ce50a58736021dcff4ad070aa3c67bcc8be03`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

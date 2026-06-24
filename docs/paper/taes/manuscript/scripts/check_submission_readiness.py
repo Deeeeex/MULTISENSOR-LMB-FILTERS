@@ -887,6 +887,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    cardinality_control_markers = [
+        r"\begin{proposition}[Cardinality-equivalent control]",
+        "identical per-sensor output counts after every projection round",
+        "metrics depending only on output cardinalities",
+        "cannot by themselves distinguish label copying from moment barycentering",
+        "shared reference-cardinality projection",
+    ]
+    missing_cardinality_control = [marker for marker in cardinality_control_markers if marker not in tex]
+    checks.append(
+        Check(
+            "cardinality-equivalent ablation theory",
+            "pass" if not missing_cardinality_control else "warning",
+            "Structural Properties and Results connect identical full/reference-only cardinality metrics to the shared reference-cardinality projection rather than to moment barycentering."
+            if not missing_cardinality_control
+            else "Cardinality-equivalent ablation theory is incomplete; missing markers: "
+            + "; ".join(missing_cardinality_control),
+        )
+    )
+
     internal_patterns = [
         r"\bTODO\b",
         r"\bTBD\b",
