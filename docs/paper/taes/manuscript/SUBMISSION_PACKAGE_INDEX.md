@@ -27,7 +27,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `generated/BIBTEX_DOI_VERIFICATION.md` | DOI resolver verification for every BibTeX entry in `references.bib`. |
 | `generated/bibtex_doi_verification.json` | Machine-readable DOI verification report used by the readiness checker. |
 | `generated/REPRODUCIBILITY_LEDGER_MANIFEST.md` | Provenance ledger for primary AA evidence, held-out robustness evidence, contextual GA rows, and independent verifier evidence. |
-| `generated/SCENARIO_FAMILY_MANIFEST.md` | Optional topology/FOV scenario-family manifest; current topology N1 and partial-FOV N5 entries are smoke-tier boundary probes, not paper-grade robustness evidence. |
+| `generated/SCENARIO_FAMILY_MANIFEST.md` | Optional topology/FOV scenario-family manifest; current topology-ring N50 entry is paper-grade scenario-family robustness evidence, while the partial-FOV N5 entry remains a smoke-tier boundary probe pending N50 completion. |
 | `generated/PDF_VISUAL_QA_MANIFEST.md` | Local visual-QA record for representative rendered PDF pages; PNGs are generated under `tmp/pdf_visual_qa/` and are not committed. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
