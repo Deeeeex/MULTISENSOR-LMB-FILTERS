@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 03:17 CST
+最后更新: 2026-06-25 03:24 CST
 
 ## 当前结论
 
@@ -37,6 +37,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-25 03:09 CST 本轮增强 TAES cover letter / portal metadata draft。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在不只说明 evidence roles，还直接给出主 paired N50 的核心数字: network OSPA disagreement `81.59%` reduction、local E-OSPA `17.15%` reduction、RMSE `6.35%` reduction；并给出 reference-only RMSE `0.54%` 与 held-out full/reference RMSE `6.64%` vs `0.82%` 的机制分离。`check_submission_readiness.py` 已把这些 cover-letter quantitative markers 纳入 paper-positioning gate，保持投稿信与正文证据链同步。
 
 2026-06-25 03:17 CST 本轮把 supplement / response evidence 决策从开放问题收紧成投稿包规则。当前 content-ready package 的默认策略是 `no separate supplementary upload`: held-out N50 表仍在正文，harsh packet-loss、topology/FOV 与 reproducibility ledger 保留为 response-ready / source-bundle-ready evidence；只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才把选定 generated blocks 转成正式 supplement。`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 cover-letter metadata 行已同步；`check_submission_readiness.py` 现在会检查默认不上传 supplement、eligible block set、raw `RUN/` logs/scratch reports 禁止项，以及 full-topology N50 未完成前不得进入 supplement/response/cover-letter/manuscript claims。
+
+2026-06-25 03:24 CST 本轮清理进度/审计文档中的 stale handoff wording。当前 supplement 决策已经固定为默认不上传独立 supplement，因此 `READINESS_AUDIT_CN.md` 的 Immediate Execution Order 不再要求重新决定 held-out 表是否移入 supplement；held-out 表默认保留在正文，harsh-loss、topology/FOV 与 reproducibility ledger 保持 response-ready/source-bundle-ready。`docs/AA_RESEARCH_PROGRESS_CN.md` 的剩余风险也同步移除“partial-FOV 尚需验证”的旧说法，因为 partial-FOV N50 已完成并接入 scenario-family gate；当前剩余 evidence-risk reduction 主要是 full-topology 完成后的 ceiling interpretation、target maneuver/crossing、covariance/reliability consistency 和 recursive-online guarded deployment。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 
@@ -192,9 +194,9 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 
 - 当前最佳 N50 结果仍来自 output-level projection；neighborhood iterative prototype 已通过 N50，但还不是递归滤波内部 online method。
 - consensus 指标归零是构造结果；paper-facing claim 必须依赖 local metrics、GA reference 对照和 ablation。
-- Independent verifier 已经覆盖 network disagreement、runtime 和 local E-OSPA/RMSE/CardErr；baseSeed=11 held-out N50、harsh packet-loss N50 stress 和 topology-ring N50 均已完成并接入 evidence manifest。当前剩余证据风险主要是 partial-FOV、target maneuver、covariance consistency 和 recursive-online 实现覆盖不足，而不是 packet-loss severity 或 sparse-ring topology 单一。
+- Independent verifier 已经覆盖 network disagreement、runtime 和 local E-OSPA/RMSE/CardErr；baseSeed=11 held-out N50、harsh packet-loss N50 stress、topology-ring N50 和 partial-FOV N50 均已完成并接入 evidence manifest。当前剩余证据风险主要是 full-topology ceiling interpretation、target maneuver/crossing、covariance/reliability consistency 和 recursive-online guarded deployment，而不是 packet-loss severity、sparse-ring topology 或 partial-FOV 单一。
 - 当前 ablation 证明了 barycenter 组件有用，理论文档也给出稳定 matching 下 online moment-consensus 收敛到 centralized moment barycenter 的条件；当前实现是 output-level neighborhood iterative prototype，不是递归滤波内部的最终 online method。
-- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 正文段/N50 reduction 图、held-out N50 table/paragraph、harsh stress summary/response fragment、topology-ring scenario summary/response fragment 都已经由 report-driven generated fragments 或 verifier 输出驱动；方法图和结果图已完成一次矢量化 polish。最终稿仍需要 partial-FOV/maneuver/covariance 场景族验证、作者/基金/AI disclosure 最终措辞确认和人工审读。
+- TAES 首稿已经可编译，且 N50 主表/paired 表/runtime 正文段/N50 reduction 图、held-out N50 table/paragraph、harsh stress summary/response fragment、topology-ring 与 partial-FOV scenario summary/response fragments 都已经由 report-driven generated fragments 或 verifier 输出驱动；方法图和结果图已完成一次矢量化 polish。最终 portal submission 仍需要作者/基金/repository/AI disclosure 最终措辞确认和人工审读；更强的 evidence-risk reduction 主要来自 full-topology ceiling check、target maneuver/crossing、covariance/reliability consistency 和 recursive-online guarded deployment，而不是已经完成的 partial-FOV 场景。
 
 ## 已完成长跑
 

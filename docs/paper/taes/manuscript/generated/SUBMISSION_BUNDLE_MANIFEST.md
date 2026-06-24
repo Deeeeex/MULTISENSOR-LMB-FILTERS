@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `bb88fcc4f7d70873526361d3ad2fadc65af0aa1b14deb0d7c6732f498032d5d7`
+- Bundle SHA-256: `631790fb05fb15c70164f35462fbe4058e38ba9f47c6c072e423772145b06684`
 - Files: 63
 
 ## Included Files
@@ -13,7 +13,7 @@
 | `FINAL_METADATA_CLOSURE_CHECKLIST.md` | 5816 | `0d7e4a66018a5052dcf5f3795d34942e20b29b5f4a7e09cdea265ffd09f5fe2f` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 61567 | `1450fa69545d525fcb9ce539ffab21818458e1209e94e6ab8c01d1d65d5d7eb2` |
+| `READINESS_AUDIT_CN.md` | 61723 | `eada7d82ae6b4614add6b537baddf44938d0d9c5bde18ea24beead1c8d26f602` |
 | `README.md` | 13128 | `cd7cbd73e78706177111d843c04f1904e849fb9145ae3414a10916177fb96880` |
 | `REVIEWER_RISK_REGISTER.md` | 13996 | `5fddc77dc7df4ae39999c60afeea5e5ec9129494686487e828d89d22e65bbd3e` |
 | `SUBMISSION_PACKAGE_INDEX.md` | 8821 | `1b871dc449ae152223ef30b0351deeafdb2074833ec7d5a01f47f9dec5fea78d` |
@@ -55,7 +55,7 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1862 | `563b10245278f790d49500503501b953de187f1327bc14dbd4a366ceae669882` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 117052 | `8835052de6d56b02e36ee07094025d6f190efd3555af7728345f23c1c6235cf2` |
+| `main.pdf` | 117052 | `ae04cd5b9904599f951345bdddaad215827961c5b2dc83082f3a87970267a1c7` |
 | `main.tex` | 41114 | `424f3671bbb8bf158e5f80509600b2fc7117d53a77c141c8e329f3f8ba2cc5b4` |
 | `references.bib` | 6955 | `db4d9885c498ebe8a396144ae08248362785d159bec6dd421a58be61df5f4375` |
 | `scripts/check_submission_readiness.py` | 99625 | `e13b7f45c08cf793d05a4694a048dbbe619856110db0042f925afa17dd5680e9` |
