@@ -85,22 +85,28 @@ def method_pipeline_svg() -> str:
 def method_pipeline_tex() -> str:
     return r"""\begingroup
 \setlength{\unitlength}{1pt}
-\begin{picture}(236,170)
+\setlength{\fboxsep}{0pt}
+\begin{picture}(236,164)
 \thicklines
-\put(0,128){\framebox(56,30){\shortstack{\scriptsize Local\\[-1pt]\scriptsize outputs\\[-1pt]\tiny $\{a,b,c\}/\{a,d,c\}$}}}
-\put(64,128){\framebox(50,30){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
-\put(122,128){\framebox(52,30){\shortstack{\scriptsize Assign\\[-1pt]\scriptsize to ref.}}}
-\put(183,128){\framebox(53,30){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize bary.}}}
-\put(56,143){\vector(1,0){8}}
-\put(114,143){\vector(1,0){8}}
-\put(174,143){\vector(1,0){9}}
+\put(0,150){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
+\put(0,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{50pt}{\centering\scriptsize Local outputs\\[-1pt]\tiny $\{a,b,c\}$\\[-1pt]\tiny $\{a,d,c\}$}}}
+\put(62,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{43pt}{\centering\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
+\put(117,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{43pt}{\centering\scriptsize Assignment\\[-1pt]\scriptsize map}}}
+\put(172,118){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{50pt}{\centering\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
+\put(52,132){\vector(1,0){10}}
+\put(107,132){\vector(1,0){10}}
+\put(162,132){\vector(1,0){10}}
+\put(21,111){\makebox(0,0){\tiny 1}}
+\put(84,111){\makebox(0,0){\tiny 2}}
+\put(139,111){\makebox(0,0){\tiny 3}}
+\put(197,111){\makebox(0,0){\tiny 4}}
 
-\put(3,80){\framebox(104,34){\shortstack{\scriptsize Weighting failure\\[-1pt]\scriptsize weights choose mass,\\[-1pt]\scriptsize not label match}}}
-\put(128,80){\framebox(104,34){\shortstack{\scriptsize Corrected output\\[-1pt]\scriptsize reference labels retained,\\[-1pt]\scriptsize matched states averaged}}}
-\put(107,97){\vector(1,0){21}}
+\put(2,72){\framebox(108,28){\shortstack{\scriptsize Residual failure\\[-1pt]\tiny scalar weights choose mass\\[-1pt]\tiny but not component match}}}
+\put(126,72){\framebox(108,28){\shortstack{\scriptsize Projected output\\[-1pt]\tiny reference labels retained\\[-1pt]\tiny matched states averaged}}}
+\put(110,86){\vector(1,0){16}}
 
-\put(7,25){\framebox(222,28){\shortstack{\scriptsize Repeat for $H$ graph-local rounds over $\mathcal{N}_s$\\[-1pt]\scriptsize no global label dictionary is read or constructed}}}
-\put(118,80){\vector(0,-1){27}}
+\put(13,24){\fcolorbox{black}{black!4}{\parbox[c][24pt][c]{210pt}{\centering\scriptsize Repeat for $H$ rounds over $\mathcal{N}_s$; no global label dictionary is read or constructed}}}
+\put(118,72){\vector(0,-1){23}}
 \end{picture}
 \endgroup
 """

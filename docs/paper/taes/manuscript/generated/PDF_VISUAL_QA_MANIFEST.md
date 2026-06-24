@@ -11,7 +11,7 @@
 | Label | Page | Image | Dimensions | Mean luma | Stddev luma | Status |
 | --- | ---: | --- | ---: | ---: | ---: | --- |
 | title-abstract | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png` | 1485x1935 | 0.9382 | 0.2065 | `pass` |
-| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9493 | 0.1883 | `pass` |
+| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9495 | 0.1856 | `pass` |
 | main-results | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png` | 1530x1980 | 0.9578 | 0.1728 | `pass` |
 | heldout-runtime | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png` | 1530x1980 | 0.9550 | 0.1821 | `pass` |
 | discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9604 | 0.1678 | `pass` |
