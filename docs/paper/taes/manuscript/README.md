@@ -40,7 +40,7 @@ The build first regenerates the N50 evidence fragments, regenerates contextual r
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
-The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement.
+The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT_N50_MANIFEST.md`, `generated/SUBMISSION_BUNDLE_MANIFEST.md`, `generated/SUBMISSION_READINESS_REPORT.md`, and `generated/submission_readiness.json`. These files distinguish hard mechanical errors from pending submission gates such as final author metadata and cover-letter metadata replacement. The readiness JSON reports both a portal-level status and a content-level status, where content readiness is allowed to ignore author/funding/repository placeholders during internal review.
 
 The submission source bundle is generated at:
 
@@ -73,6 +73,6 @@ Paper-grade held-out N50 run for upgrading the current N5 sanity evidence:
 Run this only when no other long Octave validation is active, unless concurrent N50 runs are intentional.
 The current evidence manifest already includes the completed base-seed-11 held-out N50 report. After replacing it with a newer held-out report, update `heldout_n50_report` in `evidence_sources.json`, run `./build.sh`, and inspect `generated/HELDOUT_N50_MANIFEST.md` plus `generated/heldout_n50_section.tex` before keeping the held-out result in the manuscript.
 
-The current manuscript is not yet submission-ready: author information is provisional, final author/funding/repository/AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
+The current manuscript is content-ready under the project convention that author/funding/repository placeholders may remain provisional. It is not yet portal-submission-ready because final author/funding/repository/AI-disclosure metadata still need to be completed, and broader scenario-family validation would further reduce review risk.
 
 For the current claim-by-claim readiness state, see `READINESS_AUDIT_CN.md`.

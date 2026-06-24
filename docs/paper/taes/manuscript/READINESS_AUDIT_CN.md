@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 12:30 CST
+日期: 2026-06-24 12:37 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -8,7 +8,7 @@
 
 ## 当前判断
 
-稿件已经进入 paper-facing draft 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、baseSeed=11 held-out N50 robustness check 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。当前还不能标记为 submission-ready，主要原因不是 LaTeX、故事线或当前 N50 证据链，而是投稿元数据仍缺最后闭环:
+稿件已经进入 content-ready 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、baseSeed=11 held-out N50 robustness check 和 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前内容、证据、引用、PDF 和 source bundle gate 已经闭合；但还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
 
 1. 作者、基金、repository DOI/URL、corresponding author 等投稿元数据仍是占位符。
 2. 当前实证仍集中在 tiered packet-loss formation 场景；baseSeed=11 held-out N50 已关闭跨 seed robustness gate，但更广 packet-loss/topology/target-maneuver 场景族验证仍会降低审稿风险。
@@ -46,7 +46,7 @@
 | Citations | Core bibliography has been DOI/source checked during draft construction; the readiness checker verifies cited keys, DOI fields, and uncited BibTeX entries. | Final bibliography scan for malformed entries and unsupported claims. |
 | Preprint/reuse | No final decision recorded. | Decide whether to post preprint and prepare IEEE-compliant preprint notice if needed. |
 | Submission files | PDF builds locally; source bundle exists in manuscript directory. | Prepare clean source zip, PDF, cover metadata, and any supplementary material. |
-| Machine-checkable readiness | `generated/SUBMISSION_READINESS_REPORT.md` is written by `./build.sh`; current status is `draft_with_pending_gates`. | Close the listed pending gates before treating the draft as submission-ready. |
+| Machine-checkable readiness | `generated/SUBMISSION_READINESS_REPORT.md` is written by `./build.sh`; current portal status is `draft_with_pending_gates`, while content status is `content_ready_metadata_pending`. | Close the metadata placeholders before actual portal submission; content review can proceed under the project convention that these placeholders are allowed. |
 | Cover letter and portal metadata | `COVER_LETTER_AND_METADATA_DRAFT.md` now provides an editable cover-letter draft and portal metadata checklist. | Replace author/funding/repository/preprint/conflict placeholders and recheck the current TAES portal wording before submission. |
 
 ## Evidence Gates
@@ -60,7 +60,7 @@
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
 | Held-out scenario evidence | Passed for baseSeed=11 N50 robustness | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED11_20260624_094913.md`; `generated/HELDOUT_SANITY_MANIFEST.md`; `generated/HELDOUT_N50_MANIFEST.md`; `generated/heldout_n50_evidence.json`; `generated/heldout_n50_section.tex` | Keep the compact held-out table/paragraph in the manuscript or move it to supplementary/response-ready material after final page-budget review. The readiness checker requires base seed 11, at least 50 trials, parsed trial seeds, generated manifest/LaTeX fragment, all three arms, all manuscript metrics, paired CI/wins/p-values, and a visible full-barycenter-vs-reference-only RMSE separation check. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, problem/method pages, structural-properties pages, and result/reference pages after the scalar-weight counterexample edit | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
-| Submission readiness checker | Passed for mechanical and held-out evidence gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders. The checker also tracks citation hygiene, implementation-alignment wording, the cover-letter/portal-metadata draft, and strict structure/mechanism checks for the held-out N50 evidence. |
+| Submission readiness checker | Passed for all non-metadata gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Checker now reports both `portal_status` and `content_status`: the portal status remains blocked by metadata placeholders, while the content status ignores only those placeholders and should be `content_ready_metadata_pending` when all non-metadata gates pass. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check` Tectonic compile | Re-run after final manuscript-affecting edits. |
 
 ## Immediate Execution Order

@@ -1,4 +1,5 @@
 {
+  "blocking_gates_after_metadata_allowance": [],
   "checks": [
     {
       "detail": "docs/paper/taes/manuscript/main.tex",
@@ -191,10 +192,20 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 29 files and SHA-256 `4997e00d0a6a1249109dc58b767a6c8c4259062585549dbc379f179b6d7f44a0`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 29 files and SHA-256 `8269c5feccff5fbd2f0baed1bfda9190e0ace9be1dca4af6ac6d2057f3dff1a7`.",
       "gate": "submission source bundle",
       "status": "pass"
     }
   ],
-  "overall_status": "draft_with_pending_gates"
+  "content_status": "content_ready_metadata_pending",
+  "metadata_gates": [
+    {
+      "detail": "14 placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, SECOND AUTHOR, TAES.2026.Doi Number, THIRD AUTHOR, XX, [City], [Country], [Funding Agency], [Grant Number], [Institution], [author@example.com], [repository DOI/URL]",
+      "gate": "submission metadata placeholders",
+      "status": "pending"
+    }
+  ],
+  "metadata_placeholders_allowed_for_content_readiness": true,
+  "overall_status": "draft_with_pending_gates",
+  "portal_status": "draft_with_pending_gates"
 }
