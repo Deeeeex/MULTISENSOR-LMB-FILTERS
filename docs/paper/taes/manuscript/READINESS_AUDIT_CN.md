@@ -13,6 +13,10 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 02:23 Checkpoint
+
+本轮把 TeX 版面日志纳入 readiness gate。`build.sh` 现在会把 LaTeX engine 输出写入 `tmp/build/latex_build.log`，`check_submission_readiness.py` 新增 `TeX build log` 和 `TeX overfull box warnings` 两个检查: 前者确认最新构建日志存在，后者要求 latest build log 中没有 `Overfull \hbox` 或 `Overfull \vbox`。当前构建记录了既有 underfull warnings，但没有 overfull warning；因此新增 gate 通过。这个改动把“是否有表格/文字伸出栏宽”的检查从人工盯终端转成机器化投稿 QA，不改变正文内容、实验结果或证据链。
+
 ## 02:11 Checkpoint
 
 本轮清理 PDF visual-QA 的可复现性细节。`render_pdf_visual_qa.py` 现在每次渲染前删除旧的 `tmp/pdf_visual_qa/main_p*.png`，避免 9 页稿件目录里残留旧版 `main_p10_references.png`、manual screenshot 或过期页码图。`check_submission_readiness.py` 新增 `PDF visual QA stale-output cleanup` gate，要求 `tmp/pdf_visual_qa/` 中实际存在的 rendered page images 必须全部被当前 `generated/pdf_visual_qa.json` 引用。本次重建已删除 11 个旧渲染图，目录只剩当前 manifest 对应的 title/abstract、method、main-results、heldout-runtime、discussion-conclusion 和 references 六张代表页图。这个改动不影响正文内容、实验结果或 source bundle 证据，只减少最终人工逐页审阅时的 stale artifact 风险。

@@ -3,6 +3,15 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+build_dir="tmp/build"
+latex_build_log="$build_dir/latex_build.log"
+mkdir -p "$build_dir"
+: > "$latex_build_log"
+
+run_latex_engine() {
+  "$@" 2>&1 | tee -a "$latex_build_log"
+}
+
 can_regenerate_evidence() {
   python3 - <<'PY'
 import json
@@ -56,14 +65,14 @@ else
 fi
 
 if command -v tectonic >/dev/null 2>&1; then
-  tectonic -X compile main.tex
+  run_latex_engine tectonic -X compile main.tex
 elif command -v latexmk >/dev/null 2>&1; then
-  latexmk -pdf -interaction=nonstopmode main.tex
+  run_latex_engine latexmk -pdf -interaction=nonstopmode main.tex
 elif command -v pdflatex >/dev/null 2>&1; then
-  pdflatex -interaction=nonstopmode main.tex
-  bibtex main
-  pdflatex -interaction=nonstopmode main.tex
-  pdflatex -interaction=nonstopmode main.tex
+  run_latex_engine pdflatex -interaction=nonstopmode main.tex
+  run_latex_engine bibtex main
+  run_latex_engine pdflatex -interaction=nonstopmode main.tex
+  run_latex_engine pdflatex -interaction=nonstopmode main.tex
 else
   echo "No LaTeX engine found. Install tectonic, latexmk, or pdflatex." >&2
   exit 1

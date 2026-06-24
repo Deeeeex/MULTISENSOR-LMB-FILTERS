@@ -66,6 +66,7 @@ BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 METHOD_PIPELINE_FRAGMENT = OUT / "method_pipeline.tex"
+LATEX_BUILD_LOG = ROOT / "tmp" / "build" / "latex_build.log"
 
 HELDOUT_BASE_SEED = 11
 STRESS_BASE_SEED = 21
@@ -1477,6 +1478,47 @@ def pdf_checks() -> list[Check]:
     return checks
 
 
+def latex_build_log_checks() -> list[Check]:
+    if not LATEX_BUILD_LOG.exists():
+        return [
+            Check(
+                "TeX build log",
+                "warning",
+                "`tmp/build/latex_build.log` is missing; re-run `./build.sh` before final PDF review.",
+            )
+        ]
+    text = read_text(LATEX_BUILD_LOG)
+    overfull_lines = [
+        normalized_spaces(line)
+        for line in text.splitlines()
+        if "Overfull \\hbox" in line or "Overfull \\vbox" in line
+    ]
+    underfull_count = sum(
+        1
+        for line in text.splitlines()
+        if "Underfull \\hbox" in line or "Underfull \\vbox" in line
+    )
+    log_detail = (
+        f"`tmp/build/latex_build.log` exists with {len(text.splitlines())} lines; "
+        f"underfull warnings observed: {underfull_count}."
+    )
+    return [
+        Check(
+            "TeX build log",
+            "pass" if text.strip() else "warning",
+            log_detail if text.strip() else "`tmp/build/latex_build.log` is empty.",
+        ),
+        Check(
+            "TeX overfull box warnings",
+            "pass" if not overfull_lines else "warning",
+            "No overfull hbox/vbox warnings were recorded in the latest LaTeX build log."
+            if not overfull_lines
+            else "Latest LaTeX build log contains overfull box warnings: "
+            + " | ".join(overfull_lines[:6]),
+        ),
+    ]
+
+
 def pdf_visual_qa_checks() -> list[Check]:
     artifacts = [PDF_VISUAL_QA_JSON, PDF_VISUAL_QA_MANIFEST]
     missing = [path.relative_to(REPO).as_posix() for path in artifacts if not path.exists()]
@@ -2140,6 +2182,7 @@ def main() -> None:
     checks.extend(claim_evidence_boundary_map_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
+    checks.extend(latex_build_log_checks())
     checks.extend(pdf_visual_qa_checks())
     checks.extend(evidence_checks())
     checks.extend(bundle_checks())
