@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "6972b49aa16837040723172e1235ff93745ccc29dc9280d02ab3da16d8faa890",
-  "file_count": 57,
+  "bundle_sha256": "1c5b388808dded6b2e39302f8604c29ee31b724def5d07ecfdbc64db14213c3b",
+  "file_count": 58,
   "files": [
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -20,8 +20,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "de44b5382caec8ece88af33e5903ca79dff7fd92c558b080c1474c178245fadf",
-      "size_bytes": 20385
+      "sha256": "12df0d7e5684ba3abb71136909381fcf23d8b490bccb476482c35055482722e0",
+      "size_bytes": 21376
     },
     {
       "path": "README.md",
@@ -40,8 +40,8 @@
     },
     {
       "path": "evidence_sources.json",
-      "sha256": "c720e906a9620be901f97b98f74814d27142d9468ee25fc6b5b02e42b9cdcb11",
-      "size_bytes": 793
+      "sha256": "6694db6a3287989591fa9a438fa4f6a49d4861deeccb317ccdba6cd0df29faed",
+      "size_bytes": 794
     },
     {
       "path": "figures/fig_method_pipeline.svg",
@@ -85,13 +85,13 @@
     },
     {
       "path": "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
-      "sha256": "54edd79f7d4bd777c9d4d42bac94bef2e26d4372691ad439038256a37f5d2f5c",
+      "sha256": "e296eeabb75841f8b292a8548c3fef9d65f9e89191ff5538ba02a1d82ed2aa59",
       "size_bytes": 1145
     },
     {
       "path": "generated/SCENARIO_FAMILY_MANIFEST.md",
-      "sha256": "c06e58783e0183da31ff2025719e72ff6ecb55ffe7512225e09f45d0e0013561",
-      "size_bytes": 1525
+      "sha256": "0d12f8a429f246791805f1a69aec06d6837d11d299e7922444e9eb516a06a7c6",
+      "size_bytes": 1613
     },
     {
       "path": "generated/STRESS_HARSH_MANIFEST.md",
@@ -170,28 +170,33 @@
     },
     {
       "path": "generated/reproducibility_ledger.json",
-      "sha256": "6f5ea3c3cde82a4495fb1f25dddd103d10785fca550019e542942f41d812945b",
+      "sha256": "e21770df7d10560a50ea69ea79ef7ef331174b5d034dd966b5a54278884d7c8e",
       "size_bytes": 2749
     },
     {
       "path": "generated/reproducibility_ledger_rows.tex",
-      "sha256": "0c7efb489443e8ac46978e172e3f98fa3693d73755f29a8723141c3666cfb832",
+      "sha256": "9f3cd128a7dec7780edc1dea27d673f29fa184da52323e76c17ece5686fc534b",
       "size_bytes": 1562
     },
     {
       "path": "generated/reproducibility_ledger_table.tex",
-      "sha256": "6d7c3621ca49bcc1aeb088df842d1a3ed868ceffb44243a13a19385306a5ce98",
+      "sha256": "7defaabe96df1a01ba8498bd4cd75c1b2f89a57002bac705f7c7b95d67574ff7",
       "size_bytes": 1948
     },
     {
       "path": "generated/scenario_family_evidence.json",
-      "sha256": "c30bde4b71623ed2939ec8c16be77705ff1fc90c624d4220d1d8594a67bbf2de",
-      "size_bytes": 11283
+      "sha256": "9f5c258f562c4cecb9bc4aba52cf90f2b77c1c44e19f9119523ce9abe6528754",
+      "size_bytes": 12105
     },
     {
       "path": "generated/scenario_family_section.tex",
-      "sha256": "787389d0492ae26bef27d1ea6dde07b76b4311e5cffe006ce7dad84986001fc6",
-      "size_bytes": 1152
+      "sha256": "efaf7b9a4ae7440f3b5ba48ae3be237ed77d78c20557096fa57549b5eb01a41c",
+      "size_bytes": 1156
+    },
+    {
+      "path": "generated/scenario_family_summary_sentence.tex",
+      "sha256": "c863c9bf1804542b875c9fb7d459e6d67a795fb072f0b34550fbc953191f1c19",
+      "size_bytes": 319
     },
     {
       "path": "generated/stress_harsh_evidence.json",
@@ -210,13 +215,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "ec33beeaf3d2c5ea6227538db31afc5e15c9490f4594d798e02d652908bbc875",
-      "size_bytes": 107987
+      "sha256": "f570113d8b576caa95b715b124ad2e5fc6ee66441ad375a87359c5949e327dc3",
+      "size_bytes": 108029
     },
     {
       "path": "main.tex",
-      "sha256": "e3720a14611524d88d76bbed99e8c0bec7fdfd69a8fe061db865e96579ef136b",
-      "size_bytes": 34434
+      "sha256": "ee9de2ec573bdc80fb9d2329a7f6b8c1cd3509b38bc78e87afa544dcbed69e9f",
+      "size_bytes": 34612
     },
     {
       "path": "references.bib",
@@ -225,8 +230,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "fd7cfddb1eee635545ed4bfc77ec63858b6b7cb5540d6bed630b77cfa09d8391",
-      "size_bytes": 63666
+      "sha256": "2cd40c54f1416871ce599cfbd87e6baf5224b883f601c06eeae26cba2bf019ec",
+      "size_bytes": 65259
     },
     {
       "path": "scripts/create_submission_bundle.py",
@@ -255,8 +260,8 @@
     },
     {
       "path": "scripts/extract_scenario_family_evidence.py",
-      "sha256": "226e25e592db6cd82f328fbbc98ee110ac3f5b853058e7a3b7a9c489d3183358",
-      "size_bytes": 15459
+      "sha256": "6b0c88bbe70ae20c9a32586dc88bf267d797bd0852a095905ba2b372a38504ad",
+      "size_bytes": 17257
     },
     {
       "path": "scripts/extract_stress_evidence.py",

@@ -30,9 +30,9 @@
     },
     {
       "name": "Scenario-family boundary checks",
-      "protocol": "2 configured topology/FOV checks; 0 paper-grade; keys scenario_topology_ring_report, scenario_partial_fov35_report",
+      "protocol": "2 configured topology/FOV checks; 1 paper-grade; keys scenario_topology_ring_report, scenario_partial_fov35_report",
       "role": "Response-ready boundary evidence with smoke tiers explicitly labeled until upgraded to N50-or-larger runs.",
-      "sha256": "c30bde4b71623ed2939ec8c16be77705ff1fc90c624d4220d1d8594a67bbf2de",
+      "sha256": "9f5c258f562c4cecb9bc4aba52cf90f2b77c1c44e19f9119523ce9abe6528754",
       "source": "docs/paper/taes/manuscript/generated/scenario_family_evidence.json"
     },
     {

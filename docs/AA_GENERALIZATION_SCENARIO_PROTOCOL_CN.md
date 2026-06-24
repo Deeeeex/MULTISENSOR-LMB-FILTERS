@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 17:08 CST
+最后更新: 2026-06-24 18:15 CST
 
 ## 目的
 
@@ -89,7 +89,7 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 已完成 N1 smoke，固定 N50 已启动；`partial-fov35` 已完成 N1 和固定 N5 smoke。当前尚未形成 topology/FOV paper-grade N50 generalization evidence。
+- Evidence: `topology-ring` 已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`partial-fov35` 已完成 N1 和固定 N5 smoke。当前 topology 已有 paper-grade N50 evidence，partial-FOV 仍是 smoke-tier boundary evidence。
 
 ## Topology-ring N1 smoke
 
@@ -199,9 +199,9 @@ Interpretation:
 - Cardinality metrics remain boundary evidence because the paired CIs cross zero and the wins are weak. This should be written as `supports_spatial_mechanism_with_cardinality_boundary`, not as a full robustness claim.
 - This N5 result justifies a fixed N50 partial-FOV run later, but it still cannot be used as paper-grade evidence.
 
-## Topology-ring N50 run
+## Topology-ring N50
 
-A paper-grade topology-family run was started on 2026-06-24 16:24 CST with fixed method parameters:
+A paper-grade topology-family run was completed on 2026-06-24 with fixed method parameters:
 
 ```bash
 AA_SCENARIO_FAMILY=topology-ring \
@@ -210,15 +210,44 @@ AA_SCENARIO_BASE_SEED=31 \
 RUN/AA/launchAaTaesScenarioFamilySmoke.sh
 ```
 
-Run handoff:
+Artifacts:
 
-- PID: `37456`
 - PID file: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.pid`
 - Log: `RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
-- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_topology_ring_N50_BASESEED31_20260624_162437.log`
-- Status check at 2026-06-24 17:08 CST: PID `37456` was still alive; log had entered trial `21/50`; no `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_*.md` report had been generated yet.
+- Report: `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED31_20260624_162439.md`
 
-This run should be interpreted under the same no-search rule: if sparse topology weakens local tracking or cardinality, preserve the boundary result and discuss graph-local propagation limits rather than retuning `H`, thresholds, projection cutoff, barycenter weights, or label rules.
+Run metadata recorded in the report:
+
+- `scenarioLabel: topology-ring-formation`
+- `neighborMapMode: ring`
+- `sensorFovHalfAngleDeg: 60.000`
+- `pDropLevels: [0 0.1 0.2 0.5]`
+- `pDropLevelCounts: [1 4 1 2]`
+- Arms: `[9 18 19]`
+- Trials: `50`, trial seeds `32..81`
+
+Mean result:
+
+| Arm | Net OSPA | Loc. disag. | Card. disp. | E-OSPA | RMSE | CardErr |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned spatial-KLA AA | 2.814447 | 2.917719 | 0.089050 | 2.583953 | 4.372456 | 0.137350 |
+| Neighborhood label-barycenter | 1.477469 | 1.292188 | 0.050250 | 2.027627 | 3.798996 | 0.104350 |
+| Neighborhood reference-only | 2.344127 | 2.225097 | 0.050250 | 2.411276 | 4.146239 | 0.104350 |
+
+Paired reductions for the full operator relative to tuned AA are:
+
+- Network OSPA: `47.50%`, wins `50/50`, sign-test `p=1.776e-15`.
+- Localization disagreement: `55.71%`, wins `50/50`, sign-test `p=1.776e-15`.
+- Cardinality dispersion: `43.57%`, wins `50/50`, sign-test `p=1.776e-15`.
+- E-OSPA: `21.53%`, wins `50/50`, sign-test `p=1.776e-15`.
+- RMSE: `13.12%`, wins `50/50`, sign-test `p=1.776e-15`.
+- CardErr: `24.03%`, wins `50/50`, sign-test `p=1.776e-15`.
+
+Interpretation:
+
+- The sparse-ring topology check supports the same mechanism under fixed parameters: full label-barycenter improves both network agreement and local tracking across all 50 paired trials.
+- Reference-only also improves label-set/cardinality consistency, but its RMSE reduction is `5.17%` versus `13.12%` for the full barycenter, so matched posterior barycentering remains the main spatial-gain mechanism.
+- This result is now paper-grade topology-family evidence, not a tuning result. It should still be written as sparse-topology coverage within the same formation-family assumptions, not as a substitute for partial-FOV, maneuvering-target, covariance-consistency, or recursive-online validation.
 
 ## Paper-facing 使用边界
 

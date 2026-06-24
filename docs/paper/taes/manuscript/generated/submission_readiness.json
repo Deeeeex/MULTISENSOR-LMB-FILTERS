@@ -227,7 +227,7 @@
       "status": "pass"
     },
     {
-      "detail": "Discussion preserves the boundary that harsh packet-loss stress does not substitute for topology, FOV, maneuver, or covariance-consistency validation.",
+      "detail": "Discussion preserves the boundary that harsh packet-loss stress and topology-ring evidence do not substitute for partial-FOV, maneuver, or covariance-consistency validation.",
       "gate": "stress generalization boundary wording",
       "status": "pass"
     },
@@ -342,13 +342,18 @@
       "status": "pass"
     },
     {
-      "detail": "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, and `scenario_family_section.tex` exist.",
+      "detail": "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, `scenario_family_section.tex`, and `scenario_family_summary_sentence.tex` exist.",
       "gate": "scenario-family generated artifacts",
       "status": "pass"
     },
     {
       "detail": "Parsed 2 scenario-family reports for configured keys: scenario_topology_ring_report, scenario_partial_fov35_report.",
       "gate": "scenario-family configured source coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Scenario-family payload source reports and SHA-256 digests match the configured raw evidence reports.",
+      "gate": "scenario-family source hash freshness",
       "status": "pass"
     },
     {
@@ -367,9 +372,9 @@
       "status": "pass"
     },
     {
-      "detail": "Configured scenario-family checks are currently smoke-tier evidence only; keep them in supplement/response planning until upgraded to N50-or-larger runs.",
+      "detail": "At least one configured scenario-family check is paper-grade N50-or-larger evidence; smoke tiers remain explicitly labeled.",
       "gate": "scenario-family evidence tier",
-      "status": "warning"
+      "status": "pass"
     },
     {
       "detail": "Scenario-family evidence is configured and parsed. This gate checks protocol, coverage, and evidence-tier labeling, not that every metric improves.",
@@ -377,7 +382,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `6972b49aa16837040723172e1235ff93745ccc29dc9280d02ab3da16d8faa890`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `1c5b388808dded6b2e39302f8604c29ee31b724def5d07ecfdbc64db14213c3b`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -397,7 +402,7 @@
       "status": "pass"
     }
   ],
-  "content_status": "candidate_with_warnings",
+  "content_status": "content_ready_metadata_pending",
   "metadata_gates": [
     {
       "detail": "27 manuscript or cover-letter metadata placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [All authors], [City], [Corresponding Author Name], [Country], [Email], [FIRST AUTHOR], [Funding Agency], [Grant Number], [Institution], [author@example.com], [none / URL], [none / disclosure], [optional], [preprint URL], [repository DOI/URL]",

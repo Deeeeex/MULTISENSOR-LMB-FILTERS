@@ -46,6 +46,7 @@ STRESS_HARSH_SUMMARY = OUT / "stress_harsh_summary_sentence.tex"
 SCENARIO_FAMILY_JSON = OUT / "scenario_family_evidence.json"
 SCENARIO_FAMILY_MANIFEST = OUT / "SCENARIO_FAMILY_MANIFEST.md"
 SCENARIO_FAMILY_FRAGMENT = OUT / "scenario_family_section.tex"
+SCENARIO_FAMILY_SUMMARY = OUT / "scenario_family_summary_sentence.tex"
 REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
 REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
 REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
@@ -654,7 +655,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         Check(
             "stress generalization boundary wording",
             "pass" if not missing_stress_boundary else "warning",
-            "Discussion preserves the boundary that harsh packet-loss stress does not substitute for topology, FOV, maneuver, or covariance-consistency validation."
+            "Discussion preserves the boundary that harsh packet-loss stress and topology-ring evidence do not substitute for partial-FOV, maneuver, or covariance-consistency validation."
             if not missing_stress_boundary
             else "Stress/generalization boundary wording is incomplete; missing markers: "
             + "; ".join(missing_stress_boundary),
@@ -1264,7 +1265,7 @@ def stress_harsh_checks() -> list[Check]:
 def scenario_family_checks() -> list[Check]:
     sources = json.loads(read_text(EVIDENCE_SOURCES)) if EVIDENCE_SOURCES.exists() else {}
     configured_keys = [key for key in SCENARIO_FAMILY_KEYS if key in sources]
-    artifacts = [SCENARIO_FAMILY_JSON, SCENARIO_FAMILY_MANIFEST, SCENARIO_FAMILY_FRAGMENT]
+    artifacts = [SCENARIO_FAMILY_JSON, SCENARIO_FAMILY_MANIFEST, SCENARIO_FAMILY_FRAGMENT, SCENARIO_FAMILY_SUMMARY]
     existing_artifacts = [path for path in artifacts if path.exists()]
 
     if not configured_keys and not existing_artifacts:
@@ -1305,9 +1306,9 @@ def scenario_family_checks() -> list[Check]:
         Check(
             "scenario-family generated artifacts",
             "pass" if artifacts_ok else "error",
-            "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, and `scenario_family_section.tex` exist."
+            "`SCENARIO_FAMILY_MANIFEST.md`, `scenario_family_evidence.json`, `scenario_family_section.tex`, and `scenario_family_summary_sentence.tex` exist."
             if artifacts_ok
-            else "Scenario-family evidence JSON exists, but the generated manifest or response-ready fragment is missing.",
+            else "Scenario-family evidence JSON exists, but the generated manifest, response-ready fragment, or summary sentence is missing.",
         )
     )
 
@@ -1333,12 +1334,29 @@ def scenario_family_checks() -> list[Check]:
     missing_paired: list[str] = []
     missing_metadata: list[str] = []
     nonmatching_labels: list[str] = []
+    source_hash_errors: list[str] = []
     tiers: list[str] = []
     for index, scenario in enumerate(scenarios):
         if not isinstance(scenario, dict):
             missing_metadata.append(f"scenario[{index}]")
             continue
         name = str(scenario.get("name", f"scenario[{index}]"))
+        source_key = str(scenario.get("source_key", ""))
+        source_report = str(scenario.get("source_report", ""))
+        source_sha256 = str(scenario.get("source_sha256", ""))
+        configured_source = sources.get(source_key) if source_key else None
+        if not source_key or not source_report or not source_sha256:
+            source_hash_errors.append(f"{name}/missing_source_fields")
+        elif configured_source != source_report:
+            source_hash_errors.append(
+                f"{name}/source_report_mismatch configured={configured_source} payload={source_report}"
+            )
+        else:
+            source_path = REPO / source_report
+            if not source_path.exists():
+                source_hash_errors.append(f"{name}/missing_source_report={source_report}")
+            elif sha256_file(source_path) != source_sha256:
+                source_hash_errors.append(f"{name}/stale_source_sha256={source_report}")
         config = scenario.get("config", {})
         if not isinstance(config, dict):
             missing_metadata.append(f"{name}/config")
@@ -1367,6 +1385,16 @@ def scenario_family_checks() -> list[Check]:
         paired_missing.extend(missing_paired_entries(scenario, "paired_network", NETWORK_METRICS))
         paired_missing.extend(missing_paired_entries(scenario, "paired_local", LOCAL_METRICS))
         missing_paired.extend(f"{name}/{entry}" for entry in paired_missing)
+
+    checks.append(
+        Check(
+            "scenario-family source hash freshness",
+            "pass" if not source_hash_errors else "error",
+            "Scenario-family payload source reports and SHA-256 digests match the configured raw evidence reports."
+            if not source_hash_errors
+            else "Scenario-family generated evidence is stale or mismatched: " + "; ".join(source_hash_errors),
+        )
+    )
 
     checks.append(
         Check(
