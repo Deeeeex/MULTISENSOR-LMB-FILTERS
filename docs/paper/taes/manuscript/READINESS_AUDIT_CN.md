@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 02:57 CST
+日期: 2026-06-25 03:09 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,10 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 03:09 Checkpoint
+
+本轮把 cover letter 从“证据角色说明”提升为“编辑可直接看到核心证据”的投稿信草稿。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在加入主 paired N50 的三项核心结果: network OSPA disagreement 降低 `81.59%`、local E-OSPA 降低 `17.15%`、RMSE 降低 `6.35%`；同时写明 reference-only RMSE 只有 `0.54%`，held-out N50 复现实验保留 full barycenter vs label copying 的 RMSE separation (`6.64%` vs `0.82%`)。`check_submission_readiness.py` 的 cover-letter positioning gate 已新增这些定量 marker，防止最终 metadata 替换时把编辑最需要看到的机制证据删掉。
 
 ## 02:57 Checkpoint
 

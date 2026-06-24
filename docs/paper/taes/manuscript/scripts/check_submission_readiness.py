@@ -1115,6 +1115,8 @@ def cover_letter_checks(tex: str) -> list[Check]:
         "another scalar-weight search",
         "reference-only ablation",
         "fixed-design and report-driven",
+        "81.59% lower network OSPA disagreement",
+        "6.64% versus 0.82% RMSE reduction",
         "active-output label-and-moment layer",
         "assignment ambiguity",
     ]
