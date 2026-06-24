@@ -94,6 +94,7 @@ The core difficulty is that the sets $\{\ell_{s,i}\}$ need not agree across sens
 that is local to the graph, preserves an interpretable reference label set, and reduces both pairwise output disagreement and truth-referenced tracking error.
 
 The problem is not that scalar AA/KLA weights are unimportant. They remain the mechanism for allocating trust across incoming densities once the components being compared are known. The missing object is a correspondence map from local components to a common reference. The operator below estimates that map from the output geometry before applying a moment projection.
+In the reported implementation, this projection is applied to active output tracks after the upstream AA existence update and thresholding. It therefore rewrites the label set and Gaussian moments of the surviving tracks; it does not replace the Bernoulli existence consumer.
 
 \section{NEIGHBORHOOD LABEL-BARYCENTER FUSION}
 \subsection{Reference Selection}
@@ -127,7 +128,7 @@ For a matched group $\mathcal{G}_{s,a}(k)=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the o
   \bar{\Sigma}_{s,a} &= \frac{1}{M}\sum_{i=1}^{M}
   \left[\Sigma_i+(\mu_i-\bar{\mu}_{s,a})(\mu_i-\bar{\mu}_{s,a})^T\right].
 \end{align}
-The output $Y_s(k)$ keeps the reference labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
+The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. Existence scores remain governed by the upstream AA existence update; the proposed layer is a label-and-moment projection on the active estimate. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
 
 \subsection{Graph Locality and Computational Cost}
 The operator is graph-local at every round: sensor $s$ only reads estimates indexed by $\mathcal{N}_s$, and no global label dictionary is constructed. If $d_s=|\mathcal{N}_s|$ and $n_{\max}$ upper bounds the number of tracks in the neighborhood, the dominant cost is assignment. The medoid stage evaluates set distances among neighborhood estimates, while the matching stage solves at most $d_s$ rectangular assignments to the chosen reference. With a cubic Hungarian implementation, the per-round cost is bounded by $O(d_s^2 n_{\max}^3+d_s n_{\max}^3)$ in the worst case, plus linear moment accumulation over matched tracks. This cost is acceptable in the reported formation setting, but it explains why the method is slower than scalar-weight AA and motivates the runtime study reported with the experimental results.
@@ -190,7 +191,7 @@ The least-squares objective has gradient $2Mz-2\sum_i\mu_i$, hence its unique mi
 \begin{proposition}[Stable-matching consensus limit]
 For one matched reference label, suppose the correspondence is fixed and correct over a connected graph, and let
 \begin{equation}
-  q_s^h=\left[r_s^h,(\mu_s^h)^T,\operatorname{vec}(M_s^h)^T\right]^T,
+  q_s^h=\left[(\mu_s^h)^T,\operatorname{vec}(M_s^h)^T\right]^T,
   \quad M_s^h=\Sigma_s^h+\mu_s^h(\mu_s^h)^T .
 \end{equation}
 If $q_s^{h+1}=\sum_j W_{sj}q_j^h$ with a primitive doubly stochastic matrix $W$ respecting the graph, then all $q_s^h$ converge to $S^{-1}\sum_j q_j^0$. The limiting mean and second moment therefore equal the centralized equal-weight moment barycenter.
@@ -199,7 +200,7 @@ If $q_s^{h+1}=\sum_j W_{sj}q_j^h$ with a primitive doubly stochastic matrix $W$ 
 Stack the $q_s^h$ vectors. Since $W^h\rightarrow S^{-1}\mathbf{1}\mathbf{1}^T$, every node converges to the average initial moment vector. Recovering $\Sigma$ from $M-\mu\mu^T$ gives the covariance.
 \end{proof}
 
-\begin{proposition}[Existence convexity]
+\begin{proposition}[Upstream AA existence convexity]
 If an AA existence update uses nonnegative weights that sum to one, then the fused existence probability remains in the convex hull of the incoming existence probabilities.
 \end{proposition}
 \begin{proof}
@@ -213,12 +214,12 @@ For every sensor $s$, the label set of $Y_s(k)$ is a subset of the label set pro
 The operator defines output labels only from the selected reference $X_{\rho_s(k)}(k)$, so it never creates a label outside a neighborhood estimate. If all neighborhood estimates share the same labels and moments, every admissible reference has the same label set, each assignment is the identity up to ties among identical states, and each matched group contains identical moments. The barycenter equations therefore return the same mean and covariance.
 \end{proof}
 
-These properties are structural. The consensus-limit result is conditional on stable matching and stochastic graph weights; the reported implementation uses three finite rounds and recomputes references and assignments. None of the propositions implies that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
+These properties are structural. The consensus-limit result concerns the matched moment coordinates and is conditional on stable matching and stochastic graph weights; the reported implementation uses three finite rounds and recomputes references and assignments. The existence convexity statement belongs to the upstream AA existence consumer, which the projection layer leaves intact. None of the propositions implies that tracking error must decrease for every scene. The empirical section therefore tests the operator against a tuned spatial-KLA AA baseline and a reference-only ablation.
 
 \section{EXPERIMENTAL SETUP}
 The evaluation uses an eight-sensor formation-tracking scenario with tiered fixed packet-loss probabilities. Each 50-trial paired run uses the same seeds and the same per-trial packet-loss assignments across methods. The loss levels are $\{0,0.1,0.2,0.5\}$, with one sensor at 0, four sensors at 0.1, one sensor at 0.2, and two sensors at 0.5 in each trial. The LMB filters use AA parallel update mode, Metropolis fusion weights, maximum three Gaussian-mixture components, 150 loopy-belief-propagation iterations, and an existence threshold of 0.18.
 
-We compare three arms chosen to isolate the mechanism rather than to search for scenario-specific hyperparameters. The baseline is a tuned spatial-KLA AA implementation with target-wise weight handling, link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. The proposed arm enables \method{} projection over communication neighborhoods with $H=3$ fixed iterations; it tests the full label-canonicalization and matched-barycenter hypothesis. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain. All arms keep their parameters fixed across the 50 paired trials and see the same measurements and packet-loss realization in each trial.
+We compare three arms chosen to isolate the mechanism rather than to search for scenario-specific hyperparameters. The baseline is a tuned spatial-KLA AA implementation with target-wise weight handling, link-quality weighting, existence confidence, and structure-aware spatial decoupling; it tests whether label-space errors remain after scalar fusion weights are routed to the correct consumers. The proposed arm keeps that upstream existence pathway and enables \method{} projection over communication neighborhoods with $H=3$ fixed iterations; it tests the full label-canonicalization and matched-barycenter hypothesis on the active output tracks. The ablation arm uses the same reference selection and label canonicalization but copies the medoid reference states without matched-state barycenters; it tests whether label-set agreement alone explains the gain. All arms keep their parameters fixed across the 50 paired trials and see the same measurements and packet-loss realization in each trial.
 
 \begin{table}[t]
 \caption{Mechanism-isolation protocol for the AA comparison.}
