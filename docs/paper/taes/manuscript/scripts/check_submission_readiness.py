@@ -37,6 +37,7 @@ REVIEWER_RISK_REGISTER = ROOT / "REVIEWER_RISK_REGISTER.md"
 CLAIM_EVIDENCE_BOUNDARY_MAP = ROOT / "CLAIM_EVIDENCE_BOUNDARY_MAP.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
+NEXT_STAGE_PROTOCOL = REPO / "docs" / "AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md"
 REGULAR_TEMPLATE = REPO / "docs" / "paper" / "taes" / "template_regular" / "IEEE_TAES_orig-research" / "TAES_template.tex"
 TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
 VERIFICATION_JSON = OUT / "n50_verification.json"
@@ -377,9 +378,11 @@ def file_checks() -> list[Check]:
         SUPPLEMENTARY_EVIDENCE_PACKAGE,
         SUPPLEMENTARY_README_DRAFT,
         REVIEWER_RISK_REGISTER,
+        CLAIM_EVIDENCE_BOUNDARY_MAP,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
+        NEXT_STAGE_PROTOCOL,
         REGULAR_TEMPLATE,
         TEMPLATE_ZIP,
         VERIFICATION_JSON,
@@ -1341,6 +1344,43 @@ def claim_evidence_boundary_map_checks() -> list[Check]:
             "Claim-evidence-boundary map ties core manuscript claims to evidence artifacts, verification levels, terminology decisions, and explicit non-claims."
             if not missing
             else "Claim-evidence-boundary map is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def next_stage_protocol_checks() -> list[Check]:
+    if not NEXT_STAGE_PROTOCOL.exists():
+        return [
+            Check(
+                "next-stage generalization protocol",
+                "warning",
+                "`docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md` is missing.",
+            )
+        ]
+    text = read_text(NEXT_STAGE_PROTOCOL)
+    required_markers = [
+        "active-output label/moment projection, not recursive LMB update",
+        "不应围绕当前数据搜索",
+        "先写协议，再跑实验",
+        "不能用于调参",
+        "不回调当前参数",
+        "report、extractor、generated manifest、readiness gate、source-bundle freshness",
+        "maneuver-crossing-assignment",
+        "covariance-mismatch-reliability",
+        "recursive-guarded-projection",
+        "future risk-reduction plans, not current manuscript evidence",
+        "not a portal upload or source-bundle evidence artifact",
+        "current TAES submission does not wait for these A/B/C extensions",
+        "full-topology ceiling is the only running scenario-family candidate",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "next-stage generalization protocol",
+            "pass" if not missing else "warning",
+            "Next-stage protocol preserves the no-search rule and keeps maneuver/crossing, covariance/reliability, and recursive-online designs as future risk-reduction plans rather than current manuscript evidence."
+            if not missing
+            else "Next-stage protocol is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -2342,6 +2382,7 @@ def main() -> None:
     checks.extend(supplementary_readme_checks())
     checks.extend(reviewer_risk_register_checks())
     checks.extend(claim_evidence_boundary_map_checks())
+    checks.extend(next_stage_protocol_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())
     checks.extend(latex_build_log_checks())

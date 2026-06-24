@@ -47,6 +47,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
       "gate": "required artifact",
       "status": "pass"
@@ -58,6 +63,11 @@
     },
     {
       "detail": "docs/TAES_SUBMISSION_REQUIREMENTS_CN.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
+      "detail": "docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md",
       "gate": "required artifact",
       "status": "pass"
     },
@@ -377,6 +387,11 @@
       "status": "pass"
     },
     {
+      "detail": "Next-stage protocol preserves the no-search rule and keeps maneuver/crossing, covariance/reliability, and recursive-online designs as future risk-reduction plans rather than current manuscript evidence.",
+      "gate": "next-stage generalization protocol",
+      "status": "pass"
+    },
+    {
       "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier.",
       "gate": "reproducibility ledger",
       "status": "pass"
@@ -392,7 +407,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 151 lines; underfull warnings observed: 132.",
+      "detail": "`tmp/build/latex_build.log` exists with 152 lines; underfull warnings observed: 132.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -532,7 +547,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `10844b39feda54096742b251678e5187058e7f78926cffaf195932d20a8a7fa5`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `1d4e830495c46f1b988283fec52dd7f8bd526a444e30ee9f2de87884d7665b80`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

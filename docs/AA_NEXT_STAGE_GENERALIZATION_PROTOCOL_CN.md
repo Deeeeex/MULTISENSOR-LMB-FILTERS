@@ -1,12 +1,18 @@
 # AA next-stage generalization protocol
 
-最后更新: 2026-06-25 00:20 CST
+最后更新: 2026-06-25 04:01 CST
 
 ## 目的
 
 当前 TAES 稿件已经把 AA label-barycenter 方法固定在一个清晰边界内: active-output label/moment projection, not recursive LMB update。已有 evidence 覆盖 primary N50、held-out N50、harsh-loss N50、topology-ring N50、partial-FOV N50，并且 full-topology N50 ceiling 正在运行。
 
 下一阶段如果继续补实验，不应围绕当前数据搜索 `H`、existence threshold、projection cutoff、barycenter weights、label rules 或 packet-loss 参数。更有价值的方向是检验方法机制在真正不同的困难来源下是否仍成立，或者暴露需要新方法设计的边界。
+
+## 当前 submission 边界
+
+本文件是 repository-level internal planning protocol: it records future risk-reduction plans, not current manuscript evidence. It is not a portal upload or source-bundle evidence artifact。The current TAES submission does not wait for these A/B/C extensions；当前稿件只依赖已经进入 `evidence_sources.json`、generated fragments、verifier/readiness gates 和 PDF/source-bundle checks 的证据。
+
+The full-topology ceiling is the only running scenario-family candidate；它完成并通过 report、extractor、generated manifest、readiness gate、source-bundle freshness 全部检查前，仍不得进入 manuscript、cover letter、supplement 或 response-ready evidence chain。
 
 ## 当前代码支持状态
 

@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "10844b39feda54096742b251678e5187058e7f78926cffaf195932d20a8a7fa5",
+  "bundle_sha256": "1d4e830495c46f1b988283fec52dd7f8bd526a444e30ee9f2de87884d7665b80",
   "file_count": 63,
   "files": [
     {
@@ -30,13 +30,13 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "65ecc3684f8ae41618d2112b5f74742bd23fec7e97ff5db40de0fb7e1de980e8",
-      "size_bytes": 64858
+      "sha256": "d346860fdab2ea42d87a7076059a5ff53c83a4f362ce97c2b09022e88c471175",
+      "size_bytes": 65845
     },
     {
       "path": "README.md",
-      "sha256": "cd7cbd73e78706177111d843c04f1904e849fb9145ae3414a10916177fb96880",
-      "size_bytes": 13128
+      "sha256": "8d4cd36bcad11123f27621968239ede5f81350807c7993dfcb27747d796a8cf5",
+      "size_bytes": 13167
     },
     {
       "path": "REVIEWER_RISK_REGISTER.md",
@@ -45,8 +45,8 @@
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "1b871dc449ae152223ef30b0351deeafdb2074833ec7d5a01f47f9dec5fea78d",
-      "size_bytes": 8821
+      "sha256": "399bfa89b49a265dfc2029fed23ae61dd5e651f55da4d85deb03a9a7dd1a153d",
+      "size_bytes": 9034
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
@@ -240,8 +240,8 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "140e6d5c9b04bc047e0f3a2063a186629e39f406ccb63d5728d71b71fea263e0",
-      "size_bytes": 117964
+      "sha256": "ddd5b6f542a2a990b292e48a20c9ff9639e40138b656f138c4cb677748277a72",
+      "size_bytes": 117962
     },
     {
       "path": "main.tex",
@@ -255,8 +255,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "5da88fb8dfdf37920b306194784e99274684ebfc7e60755101478390d76d8708",
-      "size_bytes": 99729
+      "sha256": "41da0fee6060aba6adb7d26ca49f9271a7d16e42872395619399dac1c342b4db",
+      "size_bytes": 101590
     },
     {
       "path": "scripts/create_submission_bundle.py",

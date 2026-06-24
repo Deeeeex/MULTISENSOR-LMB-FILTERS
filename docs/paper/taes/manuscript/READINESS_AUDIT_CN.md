@@ -29,6 +29,12 @@
 
 本轮视觉检查 `tmp/pdf_visual_qa/main_all_p08.png` 确认 Fig. 3 的数字标签可读且未与 Table V、Discussion heading 或正文重叠。后续仍需在最终 metadata 替换后重跑 `./build.sh`、readiness checker 和 extracted source-bundle fallback。
 
+## 04:01 Checkpoint
+
+本轮把 reviewer-style preflight 中最容易漂移的边界转成机器检查: `check_submission_readiness.py` 新增 `next-stage generalization protocol` gate，要求 `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md` 明确 maneuver/crossing、covariance/reliability 和 recursive-online A/B/C 是 fixed no-search future risk-reduction plans, not current manuscript evidence，也不是 portal upload 或 source-bundle evidence artifact。这样后续继续做方法级泛化实验时，不会把 smoke、mixed、negative 或尚未 gated 的结果误写成当前 TAES 稿件 claim。
+
+`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 已同步说明该 protocol 由 readiness checker 验证，但仍保持在 manuscript source bundle 之外。这个 checkpoint 不改变正文、实验数字、generated evidence 或 full-topology 状态；它只把“当前 paper 不等待 A/B/C extension，且不能把 future protocol 当 evidence”的投稿边界固化。
+
 ## 03:09 Checkpoint
 
 本轮把 cover letter 从“证据角色说明”提升为“编辑可直接看到核心证据”的投稿信草稿。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在加入主 paired N50 的三项核心结果: network OSPA disagreement 降低 `81.59%`、local E-OSPA 降低 `17.15%`、RMSE 降低 `6.35%`；同时写明 reference-only RMSE 只有 `0.54%`，held-out N50 复现实验保留 full barycenter vs label copying 的 RMSE separation (`6.64%` vs `0.82%`)。`check_submission_readiness.py` 的 cover-letter positioning gate 已新增这些定量 marker，防止最终 metadata 替换时把编辑最需要看到的机制证据删掉。
