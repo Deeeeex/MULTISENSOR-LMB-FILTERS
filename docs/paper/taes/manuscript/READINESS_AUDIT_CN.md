@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 11:12 CST
+日期: 2026-06-24 11:17 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -58,7 +58,7 @@
 | Independent local metric verifier | Passed | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log`; `generated/N50_VERIFICATION_REPORT.md` | Maintain `evidence_sources.json` as the single report/log source manifest. |
 | Held-out scenario evidence | Partial sanity plus active N50 run | `generated/HELDOUT_SANITY_MANIFEST.md` from tracked N5 base-seed-11 report; active log `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`; prewired optional fragment `generated/heldout_n50_section.tex` | Wait for `AA_TAES_HELDOUT_N50_REPORT=...`, add the path to `evidence_sources.json`, rebuild, then inspect the generated held-out table/paragraph before keeping it in the manuscript. |
 | PDF visual QA | Passed for current checkpoint | `./build.sh`; ImageMagick-rendered checks of the title/abstract page, problem/method pages, structural-properties pages, and result/reference pages after the scalar-weight counterexample edit | Re-render final `main.pdf` after every manuscript-affecting checkpoint. |
-| Submission readiness checker | Passed for mechanical gates | `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. |
+| Submission readiness checker | Passed for mechanical gates | `check_submission_readiness.py`; `generated/SUBMISSION_READINESS_REPORT.md`; `generated/submission_readiness.json` | Current pending gate is submission metadata placeholders; held-out evidence remains a warning because only N5 sanity exists. The checker now also tracks implementation-alignment wording so the projection/existence boundary does not regress silently. |
 | Source-bundle rebuild check | Passed | `generated/SUBMISSION_BUNDLE_MANIFEST.md`; `/tmp/taes_submission_bundle_check` Tectonic compile | Re-run after final manuscript-affecting edits. |
 
 ## Immediate Execution Order

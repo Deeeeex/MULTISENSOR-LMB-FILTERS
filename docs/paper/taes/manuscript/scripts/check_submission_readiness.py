@@ -262,6 +262,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
             else "AI-assistance disclosure was not detected.",
         )
     )
+
+    alignment_markers = [
+        "active output tracks after the upstream AA existence update and thresholding",
+        "does not replace the Bernoulli existence consumer",
+        "label-and-moment projection on the active estimate",
+        "matched moment coordinates",
+        "upstream AA existence consumer",
+    ]
+    missing_alignment = [marker for marker in alignment_markers if marker not in tex]
+    checks.append(
+        Check(
+            "implementation-alignment wording",
+            "pass" if not missing_alignment else "warning",
+            "Manuscript explicitly separates active-track label/moment projection from the upstream AA existence consumer."
+            if not missing_alignment
+            else "Projection/existence boundary wording is incomplete; missing markers: "
+            + "; ".join(missing_alignment),
+        )
+    )
     return checks
 
 

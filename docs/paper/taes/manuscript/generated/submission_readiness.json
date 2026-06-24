@@ -116,6 +116,11 @@
       "status": "pass"
     },
     {
+      "detail": "Manuscript explicitly separates active-track label/moment projection from the upstream AA existence consumer.",
+      "gate": "implementation-alignment wording",
+      "status": "pass"
+    },
+    {
       "detail": "`main.pdf` has 8 TAES-template pages; Regular Paper overlength charges start at 10 printed pages.",
       "gate": "PDF page count",
       "status": "pass"
@@ -146,7 +151,7 @@
       "status": "warning"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 25 files and SHA-256 `0bbf97120f948c3d16458b1821c304268eff696917fbab920fb2dc11cadf894e`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 25 files and SHA-256 `9a091124ed389a21499db1b49df3ae316185a343279cb60eda45d9d1204fa1b1`.",
       "gate": "submission source bundle",
       "status": "pass"
     }

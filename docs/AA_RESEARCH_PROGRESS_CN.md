@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-24 11:12 CST
+最后更新: 2026-06-24 11:20 CST
 
 ## 当前结论
 
@@ -22,7 +22,7 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 当前稿件又补入 mechanism-isolation protocol 表: Experimental Setup 现在明确 tuned spatial-KLA AA、neighborhood reference-only 和 neighborhood label-barycenter 三个 arm 分别检验 corrected scalar-weight routing、label-set canonicalization alone、matched posterior barycenter 三个 claim，并声明 50 个 paired trials 内参数固定、measurement 和 packet-loss realization 成对复用。正文进一步写明 neighborhood operator 在 N50 前固定使用 `H=3`、复用 tuned AA baseline 的 existence threshold、不对 projection cutoff、barycenter weights 或 trial-specific label rules 做逐场景搜索，held-out base-seed run 只作为 robustness check。这样可以回应“不要变成针对当前数据搜索式调参”的方法论要求。
 
-当前稿件又完成了一次 implementation-alignment 修订: `main.tex` 现在明确 proposed layer 是 applied to active output tracks 的 label-and-moment projection，不替代上游 AA Bernoulli existence consumer；stable-matching consensus limit 命题也从 moment vector 中移除了 existence probability，把 existence convexity 单独表述为 upstream AA existence update 的性质。这个修订对齐了 `multisensorLmb/applyCrossLocalLabelConsensusProjection.m` 的实际代码路径，避免把方法 claim 写得比实现更强。
+当前稿件又完成了一次 implementation-alignment 修订: `main.tex` 现在明确 proposed layer 是 applied to active output tracks 的 label-and-moment projection，不替代上游 AA Bernoulli existence consumer；stable-matching consensus limit 命题也从 moment vector 中移除了 existence probability，把 existence convexity 单独表述为 upstream AA existence update 的性质。这个修订对齐了 `multisensorLmb/applyCrossLocalLabelConsensusProjection.m` 的实际代码路径，避免把方法 claim 写得比实现更强。`check_submission_readiness.py` 现在也新增 `implementation-alignment wording` gate，后续若正文删掉这些边界会在 readiness report 中暴露为 warning。
 
 当前稿件进一步补入 runtime reproducibility 说明: Experimental Setup 现在写明 runtime 是 GNU Octave 11.1.0 在 Apple M4 / 16 GB 本地工作站上的 wall-clock filter runtime，绝对秒数只表征当前 Octave/MATLAB-compatible prototype，paper-facing runtime claim 应主要解读为 paired validation 内的相对实现开销。
 
@@ -72,7 +72,7 @@ local outputs -> median-cardinality medoid reference label set
 | TAES manuscript held-out sanity pass | sanity checkpoint 已完成，paper-grade N50 正在运行 | `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED11_20260622_172034.md`; `docs/paper/taes/manuscript/generated/HELDOUT_SANITY_MANIFEST.md`; `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`; `docs/paper/taes/manuscript/scripts/extract_heldout_sanity_evidence.py` | Build now records a tracked N5 base-seed-11 sanity check: Network OSPA full `0.305452` vs tuned `1.702915`, local E-OSPA full `1.691451` vs tuned `2.032799`, RMSE full `3.450998` vs tuned `3.588145`; reference-only RMSE reduction is `-3.59%`. Paper-grade N50/baseSeed=11 run has started with PID `92443`; the extractor and `main.tex` hook are now prewired so adding `heldout_n50_report` will generate a compact held-out table/paragraph automatically. |
 | TAES manuscript independent-verifier pass | 已完成本轮 checkpoint | `docs/paper/taes/manuscript/scripts/verify_n50_evidence.py`; `docs/paper/taes/manuscript/evidence_sources.json`; `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED1_20260623_232622.md`; `RUN/AA/AA_TAES_N50_LOCAL_VERIFIER_RERUN_20260623_232621.log` | Independent verifier now recomputes network disagreement from per-trial report rows, runtime from trial log, and local E-OSPA/RMSE/CardErr from per-trial local rows; `generated/N50_VERIFICATION_REPORT.md` confirms all three paths. |
 | TAES manuscript polish/complexity pass | 进行中，本轮增强 | `docs/paper/taes/manuscript/main.tex`; `docs/paper/taes/manuscript/main.pdf`; `docs/paper/taes/manuscript/generated/method_pipeline.tex`; `docs/paper/taes/manuscript/generated/n50_reduction_bars.tex` | 已补 graph-locality/complexity paragraph，明确 Hungarian matching 是 runtime overhead 的主要来源；Introduction 已强化 component-correspondence failure framing，并改成四点 contribution paragraph；Figure 1 已改为 `scripts/render_figures.py` 生成的 LaTeX fragment；Structural Properties 已补 stable-matching consensus limit 和 `Weighting is not matching` label-swap 反例；本轮又把 stable-matching consensus limit 收紧为 matched moment coordinates，并把 existence convexity 明确归为 upstream AA existence update；Discussion/Conclusion/Acknowledgment 已避免使用“下一步/投稿前还需”这类内部状态口吻；N50 reduction 图已改为 full-width 矢量图并通过 PDF 渲染检查；Experimental Setup 已补 paired statistical protocol 和 mechanism-isolation protocol 表，把 baseline/proposed/reference-only 三臂分别映射到 scalar-weight consumer、full label-barycenter、label-set-only ablation 三个 claim，并声明固定参数/成对 packet-loss realization；本轮又补入 fixed-design/no per-scenario search 说明，明确 held-out base-seed run 不用于选参；本轮又补入 Octave/Apple M4 runtime 环境和绝对秒数解释边界；当前稿件元数据以 submission-style placeholders 呈现；使用 `placeins` 的 `\FloatBarrier` 防止结果浮动跨入 Discussion。 |
-| TAES submission-readiness checklist | 进行中，本轮增强 | `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md`; `docs/paper/taes/manuscript/README.md`; `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md` | 官方 template 和当前 manuscript 均已用 Tectonic 编译验证；稿件已加入 provisional AI-assistance disclosure；build 后会自动生成 readiness snapshot 和 clean source bundle。当前机械 gate 通过，且 checker 已覆盖模板归档、标题/摘要/关键词、clean source bundle 的 TAES-specific 形式要求；N50 local independent verifier 已通过；N5 held-out sanity 已存在但仍是 warning，剩余为 paper-grade held-out、作者/基金/OA/preprint 等投稿表单信息确认。 |
+| TAES submission-readiness checklist | 进行中，本轮增强 | `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md`; `docs/paper/taes/manuscript/README.md`; `docs/paper/taes/manuscript/READINESS_AUDIT_CN.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_READINESS_REPORT.md`; `docs/paper/taes/manuscript/generated/SUBMISSION_BUNDLE_MANIFEST.md`; `docs/paper/taes/manuscript/scripts/check_submission_readiness.py` | 官方 template 和当前 manuscript 均已用 Tectonic 编译验证；稿件已加入 provisional AI-assistance disclosure；build 后会自动生成 readiness snapshot 和 clean source bundle。当前机械 gate 通过，且 checker 已覆盖模板归档、标题/摘要/关键词、clean source bundle、implementation-alignment wording 的 TAES-specific/claim-boundary 形式要求；N50 local independent verifier 已通过；N5 held-out sanity 已存在但仍是 warning，剩余为 paper-grade held-out、作者/基金/OA/preprint 等投稿表单信息确认。 |
 | 文档维护 | 已建立，持续维护 | 本文件；`docs/AA_LABEL_UNCERTAINTY_AWARE_FUSION_RULE_CN.md`; `docs/AA_LABEL_BARYCENTER_THEORY_CN.md` | 当前 checkpoint 已回填 N50 validation、N50 ablation、recommendation、theory boundary 和 neighborhood N50。 |
 
 ## 已完成的负结果
@@ -142,7 +142,7 @@ Neighborhood iterative prototype 的 N50 ablation 也支持该假设:
 - PID file: `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.pid`。
 - Log: `RUN/AA/AA_TAES_HELDOUT_N50_BASESEED11_20260624_094911.log`。
 - 启动状态: 2026-06-24 09:49 CST 时进程存活，log 已进入 `AA validation trial 1/50`。
-- 当前状态: 2026-06-24 11:05 CST 时进程仍存活，log 已进入 `AA validation trial 25/50`。
+- 当前状态: 2026-06-24 11:20 CST 时进程仍存活，log 已进入 `AA validation trial 30/50`。
 - 查看进度:
 
 ```bash
