@@ -2,7 +2,7 @@
 
 This checklist is the last-step placeholder closure artifact for the TAES manuscript package. It does not add scientific claims or evidence. Its purpose is to convert the current metadata-pending readiness state into a concrete replacement plan for `main.tex`, `COVER_LETTER_AND_METADATA_DRAFT.md`, the TAES portal form, and any optional upload decisions.
 
-Generated status reviewed: 2026-06-25 01:15 CST.
+Generated status reviewed: 2026-06-25 03:17 CST.
 
 ## Current Readiness Boundary
 
@@ -41,13 +41,13 @@ Generated status reviewed: 2026-06-25 01:15 CST.
 | `XX`, `Draft` | `main.tex` | Keep only if required by the submitted template draft; otherwise replace with final journal metadata after acceptance. |
 | `TAES.2026.Doi Number` | `main.tex` | Replace only when TAES assigns the final DOI, unless the portal/template requires a blank placeholder at submission. |
 | `Graphical/video abstract` decision | `COVER_LETTER_AND_METADATA_DRAFT.md`, portal | Explicitly decide whether no graphical/video abstract is submitted or prepare an optional file. |
-| Supplementary material decision | `SUPPLEMENTARY_README_DRAFT.md`, portal | Decide whether selected generated evidence becomes a peer-review supplement or remains response-ready evidence. |
+| Supplementary material decision | `SUPPLEMENTARY_README_DRAFT.md`, `SUPPLEMENTARY_EVIDENCE_PACKAGE.md`, portal | Use no separate supplementary upload by default. Override only if selected generated evidence is converted into a peer-review supplement; otherwise keep those blocks as response-ready/source-bundle evidence. |
 | Code Ocean / DataPort decision | `COVER_LETTER_AND_METADATA_DRAFT.md`, portal | Decide whether either IEEE platform is used, and keep repository/data wording synchronized. |
 
 ## Closure Sequence
 
 1. Replace author, affiliation, corresponding-author, ORCID, funding, repository, and disclosure placeholders in `main.tex` and `COVER_LETTER_AND_METADATA_DRAFT.md`.
-2. Decide optional graphical/video abstract, supplementary material, Code Ocean, DataPort, preprint, suggested reviewer, and opposed reviewer fields.
+2. Decide optional graphical/video abstract, supplementary material, Code Ocean, DataPort, preprint, suggested reviewer, and opposed reviewer fields; record no separate supplement upload unless a formal supplement is selected.
 3. Run `./build.sh` from `docs/paper/taes/manuscript`.
 4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates and no remaining unintended metadata placeholders.
 5. Render and inspect the final `main.pdf`; confirm it remains within the intended TAES page budget.

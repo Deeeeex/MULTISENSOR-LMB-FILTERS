@@ -10,6 +10,19 @@ This file is a single handoff point for optional supplementary material or revie
 - Claim discipline: `CLAIM_EVIDENCE_BOUNDARY_MAP.md` maps paper-facing claims to evidence artifacts, verification level, terminology decisions, and explicit non-claims before those claims enter a supplement or response.
 - Boundary control: stress, topology, and FOV checks are fixed-parameter evidence, not a tuning loop, and they do not substitute for target-maneuver, covariance-consistency, or recursive-online validation.
 
+## Current Submission Decision
+
+The current content-ready package default is no separate supplementary upload. The held-out N50 robustness table is already imported in the main manuscript; the harsh packet-loss, topology/FOV, and reproducibility-ledger blocks remain response-ready and source-bundle-ready evidence unless the final page budget, TAES portal form, editor, or reviewers require a formal supplement.
+
+If a formal supplement is selected, the eligible block set is limited to:
+
+- `generated/stress_harsh_section.tex`
+- `generated/scenario_family_section.tex`
+- `generated/reproducibility_ledger_table.tex`
+- `generated/heldout_n50_section.tex`, only if the held-out table is moved out of the main manuscript
+
+The default supplement must not include raw `RUN/` logs, stale scratch validation reports, internal QA files, or generated manifests unless those files are explicitly converted into a reviewable supplement format. The running full-topology N50 result is excluded until a complete report exists, is configured in `evidence_sources.json`, is parsed by `extract_scenario_family_evidence.py`, and passes the readiness checker.
+
 ## Candidate Supplementary Material
 
 | Evidence block | Generated source | Intended use | Current status |
@@ -28,6 +41,7 @@ This file is a single handoff point for optional supplementary material or revie
 - The contextual GA rows are reference rows from a tracked GA validation path. They are not paired AA-vs-GA significance-test evidence.
 - Scenario-family evidence broadens packet-loss severity, sparse-topology coverage, and partial-field-of-view sensing. It still preserves the formation-family assumptions stated in the main Discussion.
 - If the final submission includes a supplement, convert only the selected generated fragments into the portal-compliant supplement format after final metadata replacement and one last `./build.sh` run.
+- The running full-topology N50 result is excluded from supplement, response, cover-letter, and manuscript claims until it has a complete parsed report and passes the same scenario-family evidence gate as topology-ring and partial-FOV evidence.
 
 ## File Map
 

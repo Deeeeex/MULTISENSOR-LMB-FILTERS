@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 03:09 CST
+最后更新: 2026-06-25 03:17 CST
 
 ## 当前结论
 
@@ -35,6 +35,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-25 02:57 CST 本轮补充 `Cardinality-equivalent control` 理论命题，并新增 `cardinality-equivalent ablation theory` readiness gate。该命题把 reference-only 与 full projection 在 Card. disp./CardErr 上一致的现象从“实验后解释”改成“结构预测”: 两个 arm 共享 median-cardinality reference-control path，因此 cardinality-only metrics 只能支持 reference-cardinality projection，不能证明 moment barycenter 的 localization gain；spatial gain 仍由 RMSE/E-OSPA 的 full-vs-reference separation 支撑。
 
 2026-06-25 03:09 CST 本轮增强 TAES cover letter / portal metadata draft。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在不只说明 evidence roles，还直接给出主 paired N50 的核心数字: network OSPA disagreement `81.59%` reduction、local E-OSPA `17.15%` reduction、RMSE `6.35%` reduction；并给出 reference-only RMSE `0.54%` 与 held-out full/reference RMSE `6.64%` vs `0.82%` 的机制分离。`check_submission_readiness.py` 已把这些 cover-letter quantitative markers 纳入 paper-positioning gate，保持投稿信与正文证据链同步。
+
+2026-06-25 03:17 CST 本轮把 supplement / response evidence 决策从开放问题收紧成投稿包规则。当前 content-ready package 的默认策略是 `no separate supplementary upload`: held-out N50 表仍在正文，harsh packet-loss、topology/FOV 与 reproducibility ledger 保留为 response-ready / source-bundle-ready evidence；只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才把选定 generated blocks 转成正式 supplement。`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 cover-letter metadata 行已同步；`check_submission_readiness.py` 现在会检查默认不上传 supplement、eligible block set、raw `RUN/` logs/scratch reports 禁止项，以及 full-topology N50 未完成前不得进入 supplement/response/cover-letter/manuscript claims。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 

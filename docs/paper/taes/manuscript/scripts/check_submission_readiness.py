@@ -1187,6 +1187,7 @@ def final_metadata_closure_checks() -> list[Check]:
         "Code Ocean",
         "DataPort",
         "Graphical/video abstract",
+        "no separate supplementary upload by default",
         "TAES_EVIDENCE_MODE=bundled ./build.sh",
         "full-topology results",
         "active-output label/moment correspondence projection",
@@ -1224,6 +1225,7 @@ def submission_package_index_checks() -> list[Check]:
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
         "cover letter and portal metadata source synchronization",
+        "Default current action is no separate supplement upload",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1396,6 +1398,9 @@ def supplementary_evidence_package_checks() -> list[Check]:
         "Candidate Supplementary Material",
         "Response-ready evidence",
         "Boundary control",
+        "Current Submission Decision",
+        "default is no separate supplementary upload",
+        "eligible block set is limited",
         "generated/heldout_n50_section.tex",
         "generated/stress_harsh_section.tex",
         "generated/scenario_family_section.tex",
@@ -1403,6 +1408,8 @@ def supplementary_evidence_package_checks() -> list[Check]:
         "not a tuning loop",
         "do not substitute for target-maneuver, covariance-consistency, or recursive-online validation",
         "generated fragments should not be edited directly",
+        "raw `RUN/` logs",
+        "running full-topology N50 result is excluded",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [
@@ -1427,6 +1434,9 @@ def supplementary_readme_checks() -> list[Check]:
         ]
     text = read_text(SUPPLEMENTARY_README_DRAFT)
     required_markers = [
+        "Current Default Decision",
+        "No supplement files are selected by default",
+        "current default is no separate supplementary upload",
         "Intended Supplement Scope",
         "Candidate Supplement Files",
         "Provenance and Regeneration",
@@ -1442,6 +1452,7 @@ def supplementary_readme_checks() -> list[Check]:
         "not a parameter-search loop",
         "not a recursive LMB update",
         "full-topology N50 result must not be included",
+        "Record either no separate supplementary upload or the exact selected supplement files",
     ]
     missing = [marker for marker in required_markers if marker not in text]
     return [

@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 03:09 CST
+日期: 2026-06-25 03:17 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 03:17 Checkpoint
+
+本轮把 supplement decision 从“最终再决定”改成可检查的默认策略。当前 content-ready package 默认不上传独立 supplementary material；held-out N50 表留在正文，harsh packet-loss、topology/FOV 和 reproducibility ledger 作为 response-ready / source-bundle-ready evidence。只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才从 `generated/stress_harsh_section.tex`、`generated/scenario_family_section.tex`、`generated/reproducibility_ledger_table.tex`，以及必要时移动出正文的 `generated/heldout_n50_section.tex` 中选择正式 supplement 内容。
+
+`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 `COVER_LETTER_AND_METADATA_DRAFT.md` 已同步该默认策略。`check_submission_readiness.py` 现在要求 supplement package/README 保留默认不上传、eligible block set、raw `RUN/` logs 和 scratch reports 禁止项，以及 full-topology N50 完成并通过 scenario-family gate 前不得进入 supplement、response、cover letter 或 manuscript claims 的边界。
 
 ## 03:09 Checkpoint
 
