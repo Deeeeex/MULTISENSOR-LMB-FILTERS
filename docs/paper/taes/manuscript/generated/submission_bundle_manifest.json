@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "4c8f1452885e1e7f7b00ca98ef4169402ca11365efcb90a6e403705e0f2eae16",
+  "bundle_sha256": "78a8995002b8441180b27c38a42be37fcffc895f120eab1e6056dfe1d090a572",
   "file_count": 58,
   "files": [
     {
@@ -40,8 +40,8 @@
     },
     {
       "path": "evidence_sources.json",
-      "sha256": "6694db6a3287989591fa9a438fa4f6a49d4861deeccb317ccdba6cd0df29faed",
-      "size_bytes": 794
+      "sha256": "f51ed4a4a6db609d9cb08b4dceb20368612ed7cf560c79756ae74b756109bc83",
+      "size_bytes": 795
     },
     {
       "path": "figures/fig_method_pipeline.svg",
@@ -85,13 +85,13 @@
     },
     {
       "path": "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
-      "sha256": "e296eeabb75841f8b292a8548c3fef9d65f9e89191ff5538ba02a1d82ed2aa59",
+      "sha256": "a8122c7804e613d9dfe873c341a42ed6a912ae4b5d350f2f594d961ccc4379d3",
       "size_bytes": 1145
     },
     {
       "path": "generated/SCENARIO_FAMILY_MANIFEST.md",
-      "sha256": "0d12f8a429f246791805f1a69aec06d6837d11d299e7922444e9eb516a06a7c6",
-      "size_bytes": 1613
+      "sha256": "55746a2f361f717aeaf9c76f57adc164fb0b140410bcbea2d694c80cf922b15f",
+      "size_bytes": 1609
     },
     {
       "path": "generated/STRESS_HARSH_MANIFEST.md",
@@ -170,33 +170,33 @@
     },
     {
       "path": "generated/reproducibility_ledger.json",
-      "sha256": "e21770df7d10560a50ea69ea79ef7ef331174b5d034dd966b5a54278884d7c8e",
+      "sha256": "747174a0beea1b8b4716f9ffe6cd9141d43223afccc8454b5dbbbd9e93aa084f",
       "size_bytes": 2749
     },
     {
       "path": "generated/reproducibility_ledger_rows.tex",
-      "sha256": "9f3cd128a7dec7780edc1dea27d673f29fa184da52323e76c17ece5686fc534b",
+      "sha256": "7fd69393f55903ddd69b14d068969dd7725dc178a10de60af2b6080b8e053b1e",
       "size_bytes": 1562
     },
     {
       "path": "generated/reproducibility_ledger_table.tex",
-      "sha256": "7defaabe96df1a01ba8498bd4cd75c1b2f89a57002bac705f7c7b95d67574ff7",
+      "sha256": "8ee8444a9ef835c9c56aa16c3949b6200af119437fa6e704b9501de0ef4eb807",
       "size_bytes": 1948
     },
     {
       "path": "generated/scenario_family_evidence.json",
-      "sha256": "9f5c258f562c4cecb9bc4aba52cf90f2b77c1c44e19f9119523ce9abe6528754",
-      "size_bytes": 12105
+      "sha256": "afe00329aab3defd3938f97daa8e844b12e537e5e5df488c330db170de091ff8",
+      "size_bytes": 12888
     },
     {
       "path": "generated/scenario_family_section.tex",
-      "sha256": "da5aef89c16160ec3cc664ee558d3b3b5a69cf0c2d384a145098e05ba4b887e1",
-      "size_bytes": 1164
+      "sha256": "14e399239c8897c811d1d50c8bb3d297d438574c195d5a8d54d5c511bff98c82",
+      "size_bytes": 1160
     },
     {
       "path": "generated/scenario_family_summary_sentence.tex",
-      "sha256": "6df9ecda9166b9fb7a9cc08c95b737f0ddccc7a8e9d83c66dc94d8d63a52bc5d",
-      "size_bytes": 341
+      "sha256": "b68f4678f2a0e6fc037ffe4cea25deb7468a32f10092dd395aa534b8b8987605",
+      "size_bytes": 523
     },
     {
       "path": "generated/stress_harsh_evidence.json",
@@ -215,13 +215,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "84e1c3fe705a953b87afa3aa12231aa5bb41a163c6862f87577965c0a917e7cf",
-      "size_bytes": 113463
+      "sha256": "ddae8965f087741b61da91171511e4a48faaf4538de0282e8cb219b96a2463a0",
+      "size_bytes": 113597
     },
     {
       "path": "main.tex",
-      "sha256": "65805bbc715282b744758ddb2b19d9da83bb3263d0d1d090cc6b0d733985ee62",
-      "size_bytes": 36173
+      "sha256": "1f52f6722e929a39a0ac68e90c851917bd04422cde4d9e3d5a765689a4eaf96f",
+      "size_bytes": 36248
     },
     {
       "path": "references.bib",
@@ -260,8 +260,8 @@
     },
     {
       "path": "scripts/extract_scenario_family_evidence.py",
-      "sha256": "345f6f0821883dcb8f79a037ee5653143211f01c54f0db51570910a636947959",
-      "size_bytes": 17977
+      "sha256": "d32289fe5c29cec1272f0308f26873431b7188b99247a89240b6f7131f02f703",
+      "size_bytes": 18207
     },
     {
       "path": "scripts/extract_stress_evidence.py",

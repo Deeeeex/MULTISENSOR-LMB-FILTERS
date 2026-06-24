@@ -25,16 +25,19 @@ SCENARIOS = [
     {
         "key": "scenario_topology_ring_report",
         "name": "topology-ring",
+        "display_name": "topology-ring",
         "expected_label": "topology-ring-formation",
     },
     {
         "key": "scenario_partial_fov35_report",
         "name": "partial-fov35",
+        "display_name": "partial-FOV",
         "expected_label": "partial-fov35-formation",
     },
     {
         "key": "scenario_full_topology_report",
         "name": "full-topology",
+        "display_name": "full-topology",
         "expected_label": "full-topology-formation",
     },
 ]
@@ -225,6 +228,7 @@ def build_scenario_payload(scenario: dict[str, str], report: Path) -> dict[str, 
     text = read_report(report)
     payload = {
         "name": scenario["name"],
+        "display_name": scenario["display_name"],
         "source_key": scenario["key"],
         "expected_label": scenario["expected_label"],
         "source_report": str(report.relative_to(REPO)),
@@ -344,7 +348,7 @@ def write_summary_sentence(payload: dict[str, object]) -> None:
         paired_network = item["paired_network"][FULL_ARM]
         paired_local = item["paired_local"][FULL_ARM]
         ref_local = item["paired_local"][REF_ARM]
-        scenario_name = str(item["name"]).replace("-", " ")
+        scenario_name = str(item["display_name"]) if item.get("display_name") else str(item["name"]).replace("-", " ")
         clauses.append(
             f"{tex_escape(scenario_name)} N50 "
             f"(base seed {config['base_seed']}, topology {tex_escape(config['neighbor_map_mode'])}, "

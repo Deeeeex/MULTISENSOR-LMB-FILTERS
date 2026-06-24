@@ -4,7 +4,7 @@
     "scenario_partial_fov35_report"
   ],
   "generated_by": "docs/paper/taes/manuscript/scripts/extract_scenario_family_evidence.py",
-  "paper_grade_count": 1,
+  "paper_grade_count": 2,
   "purpose": "Optional scenario-family evidence for topology and sensing-geometry robustness boundaries.",
   "scenario_count": 2,
   "scenarios": [
@@ -91,6 +91,7 @@
         ],
         "trials": 50
       },
+      "display_name": "topology-ring",
       "evidence_tier": "paper_grade",
       "expected_label": "topology-ring-formation",
       "interpretation_class": "supports_spatial_and_cardinality_mechanisms",
@@ -264,149 +265,195 @@
           43,
           44,
           45,
-          46
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91
         ],
-        "trials": 5
+        "trials": 50
       },
-      "evidence_tier": "multi_trial_smoke",
+      "display_name": "partial-FOV",
+      "evidence_tier": "paper_grade",
       "expected_label": "partial-fov35-formation",
       "interpretation_class": "supports_spatial_mechanism_with_cardinality_boundary",
       "local": {
         "Neighborhood label-barycenter spatial-KLA AA": {
-          "CardErr": 0.56,
-          "E-OSPA": 2.642142,
-          "RMSE": 3.727303
+          "CardErr": 0.5581,
+          "E-OSPA": 2.617619,
+          "RMSE": 3.968932
         },
         "Neighborhood reference-only label-consensus spatial-KLA AA": {
-          "CardErr": 0.56,
-          "E-OSPA": 2.780672,
-          "RMSE": 3.944791
+          "CardErr": 0.5581,
+          "E-OSPA": 2.737646,
+          "RMSE": 4.15418
         },
         "Tuned spatial-KLA AA": {
-          "CardErr": 0.5665,
-          "E-OSPA": 2.837543,
-          "RMSE": 4.120264
+          "CardErr": 0.563625,
+          "E-OSPA": 2.811245,
+          "RMSE": 4.244652
         }
       },
       "name": "partial-fov35",
       "network": {
         "Neighborhood label-barycenter spatial-KLA AA": {
-          "Card. disp.": 0.392,
-          "Loc. disag.": 0.213073,
-          "OSPA": 1.341733
+          "Card. disp.": 0.3885,
+          "Loc. disag.": 0.219238,
+          "OSPA": 1.316143
         },
         "Neighborhood reference-only label-consensus spatial-KLA AA": {
-          "Card. disp.": 0.392,
-          "Loc. disag.": 0.786636,
-          "OSPA": 1.750779
+          "Card. disp.": 0.3885,
+          "Loc. disag.": 0.803987,
+          "OSPA": 1.719987
         },
         "Tuned spatial-KLA AA": {
-          "Card. disp.": 0.4,
-          "Loc. disag.": 1.415682,
-          "OSPA": 2.29779
+          "Card. disp.": 0.410025,
+          "Loc. disag.": 1.51128,
+          "OSPA": 2.319206
         }
       },
       "paired_local": {
         "Neighborhood label-barycenter spatial-KLA AA": {
           "CardErr": {
-            "ci": "[-0.046913, 0.059913]",
-            "p_value": "1",
-            "paired_reduction": "0.006500 +/- 0.043024",
-            "reduction": "1.15%",
-            "wins": "2/5"
+            "ci": "[-0.003144, 0.014194]",
+            "p_value": "0.3916",
+            "paired_reduction": "0.005525 +/- 0.031274",
+            "reduction": "0.98%",
+            "wins": "28/50"
           },
           "E-OSPA": {
-            "ci": "[0.126623, 0.264179]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.195401 +/- 0.055401",
+            "ci": "[0.181137, 0.206116]",
+            "p_value": "1.776e-15",
+            "paired_reduction": "0.193626 +/- 0.045058",
             "reduction": "6.89%",
-            "wins": "5/5"
+            "wins": "50/50"
           },
           "RMSE": {
-            "ci": "[0.185295, 0.600627]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.392961 +/- 0.167275",
-            "reduction": "9.54%",
-            "wins": "5/5"
+            "ci": "[0.227839, 0.323601]",
+            "p_value": "4.21e-09",
+            "paired_reduction": "0.275720 +/- 0.172740",
+            "reduction": "6.50%",
+            "wins": "45/50"
           }
         },
         "Neighborhood reference-only label-consensus spatial-KLA AA": {
           "CardErr": {
-            "ci": "[-0.046913, 0.059913]",
-            "p_value": "1",
-            "paired_reduction": "0.006500 +/- 0.043024",
-            "reduction": "1.15%",
-            "wins": "2/5"
+            "ci": "[-0.003144, 0.014194]",
+            "p_value": "0.3916",
+            "paired_reduction": "0.005525 +/- 0.031274",
+            "reduction": "0.98%",
+            "wins": "28/50"
           },
           "E-OSPA": {
-            "ci": "[-0.016471, 0.130213]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.056871 +/- 0.059077",
-            "reduction": "2.00%",
-            "wins": "5/5"
+            "ci": "[0.060248, 0.086951]",
+            "p_value": "9.059e-14",
+            "paired_reduction": "0.073600 +/- 0.048167",
+            "reduction": "2.62%",
+            "wins": "49/50"
           },
           "RMSE": {
-            "ci": "[0.000812, 0.350133]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.175473 +/- 0.140689",
-            "reduction": "4.26%",
-            "wins": "5/5"
+            "ci": "[0.043413, 0.137532]",
+            "p_value": "0.002602",
+            "paired_reduction": "0.090472 +/- 0.169776",
+            "reduction": "2.13%",
+            "wins": "36/50"
           }
         }
       },
       "paired_network": {
         "Neighborhood label-barycenter spatial-KLA AA": {
           "Card. disp.": {
-            "ci": "[-0.041447, 0.057447]",
-            "p_value": "1",
-            "paired_reduction": "0.008000 +/- 0.039830",
-            "reduction": "2.00%",
-            "wins": "3/5"
+            "ci": "[0.013133, 0.029917]",
+            "p_value": "3.846e-05",
+            "paired_reduction": "0.021525 +/- 0.030274",
+            "reduction": "5.25%",
+            "wins": "39/50"
           },
           "Loc. disag.": {
-            "ci": "[0.735611, 1.669608]",
-            "p_value": "0.0625",
-            "paired_reduction": "1.202609 +/- 0.376168",
-            "reduction": "84.95%",
-            "wins": "5/5"
+            "ci": "[1.168564, 1.415520]",
+            "p_value": "1.776e-15",
+            "paired_reduction": "1.292042 +/- 0.445471",
+            "reduction": "85.49%",
+            "wins": "50/50"
           },
           "OSPA": {
-            "ci": "[0.641991, 1.270123]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.956057 +/- 0.252980",
-            "reduction": "41.61%",
-            "wins": "5/5"
+            "ci": "[0.936353, 1.069772]",
+            "p_value": "1.776e-15",
+            "paired_reduction": "1.003062 +/- 0.240668",
+            "reduction": "43.25%",
+            "wins": "50/50"
           }
         },
         "Neighborhood reference-only label-consensus spatial-KLA AA": {
           "Card. disp.": {
-            "ci": "[-0.041447, 0.057447]",
-            "p_value": "1",
-            "paired_reduction": "0.008000 +/- 0.039830",
-            "reduction": "2.00%",
-            "wins": "3/5"
+            "ci": "[0.013133, 0.029917]",
+            "p_value": "3.846e-05",
+            "paired_reduction": "0.021525 +/- 0.030274",
+            "reduction": "5.25%",
+            "wins": "39/50"
           },
           "Loc. disag.": {
-            "ci": "[0.278001, 0.980091]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.629046 +/- 0.282766",
-            "reduction": "44.43%",
-            "wins": "5/5"
+            "ci": "[0.610987, 0.803600]",
+            "p_value": "1.776e-15",
+            "paired_reduction": "0.707293 +/- 0.347444",
+            "reduction": "46.80%",
+            "wins": "50/50"
           },
           "OSPA": {
-            "ci": "[0.283510, 0.810511]",
-            "p_value": "0.0625",
-            "paired_reduction": "0.547010 +/- 0.212250",
-            "reduction": "23.81%",
-            "wins": "5/5"
+            "ci": "[0.536076, 0.662363]",
+            "p_value": "1.776e-15",
+            "paired_reduction": "0.599219 +/- 0.227802",
+            "reduction": "25.84%",
+            "wins": "50/50"
           }
         }
       },
       "scenario_label_matches_expected": true,
       "source_key": "scenario_partial_fov35_report",
-      "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED41_20260624_160335.md",
-      "source_sha256": "2080996592b8bcae92f5fe4d6d5a1bde86daf156ced9e4a29d9e3440716e31f8"
+      "source_report": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md",
+      "source_sha256": "e5b9b5ab510052df8126c561ed505830729ef03fc49c4e7bab3ff126260de88c"
     }
   ],
-  "smoke_count": 1
+  "smoke_count": 0
 }
