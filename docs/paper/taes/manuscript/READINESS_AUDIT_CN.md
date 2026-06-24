@@ -150,6 +150,10 @@ Run handoff:
 
 新增 `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md`，把下一阶段真正方法层面的泛化验证拆成三个候选: `maneuver-crossing-assignment`、`covariance-mismatch-reliability`、`recursive-guarded-projection`。每个候选都写明研究问题、固定改变量/不变量、代码门槛、解释规则和 no-search rule。该文档明确当前 TAES submission 不应等待这些候选全部完成；它们是 reviewer-risk reduction 或后续 method-extension 设计，不能替代当前已验证的 output-level active-track claim。
 
+## 00:25 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮补齐 submission package 的自洽性说明: `README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 现在都明确 `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md` 是 repository-level internal planning protocol，不是当前 manuscript evidence、不是 portal upload，也不进入 deterministic source bundle 的 evidence artifact list。这个边界很重要，因为 `REVIEWER_RISK_REGISTER.md` 和本审计文档会引用下一阶段 protocol，但当前提交包的证据链仍只以已完成并被 parser/readiness gate 验证的 artifacts 为准。
+
 ## 22:45 Checkpoint
 
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊投稿包而不是会议稿件的口径，新增 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 作为 optional supplement / reviewer-response evidence 的单一索引层，把 held-out N50、harsh packet-loss、topology/FOV scenario family 和 reproducibility ledger 的生成片段统一映射到用途、状态和解释边界。该文件明确这些材料来自固定参数后的 robustness / boundary checks，不构成针对场景的 threshold、barycenter weight 或 label rule 搜索，也不替代 maneuvering-target、covariance-consistency、recursive-online validation 等更广泛风险项。

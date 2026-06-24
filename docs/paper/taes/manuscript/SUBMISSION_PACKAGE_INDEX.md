@@ -35,6 +35,8 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
 
+Repository-level planning note: `../../../docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md` records fixed no-search follow-up protocols for maneuver/crossing, covariance/reliability, and recursive-online validation. It is intentionally not listed as a portal upload or source-bundle evidence artifact because those scenarios are future risk-reduction plans rather than current manuscript evidence.
+
 ## Metadata Placeholders
 
 The current manuscript is allowed to remain content-ready with metadata placeholders during internal review, but these placeholders block actual TAES portal submission.
