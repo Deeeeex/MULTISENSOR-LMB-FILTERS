@@ -87,13 +87,13 @@ def method_pipeline_tex() -> str:
 \setlength{\unitlength}{1pt}
 \begin{picture}(236,170)
 \thicklines
-\put(0,128){\framebox(52,28){\shortstack{\scriptsize Local outputs\\[-1pt]\scriptsize $\{a,b,c\}$, $\{a,d,c\}$}}}
-\put(61,128){\framebox(52,28){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
-\put(122,128){\framebox(52,28){\shortstack{\scriptsize Assignment\\[-1pt]\scriptsize to reference}}}
-\put(183,128){\framebox(52,28){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize barycenter}}}
-\put(52,142){\vector(1,0){9}}
-\put(113,142){\vector(1,0){9}}
-\put(174,142){\vector(1,0){9}}
+\put(0,128){\framebox(56,30){\shortstack{\scriptsize Local\\[-1pt]\scriptsize outputs\\[-1pt]\tiny $\{a,b,c\}/\{a,d,c\}$}}}
+\put(64,128){\framebox(50,30){\shortstack{\scriptsize Medoid\\[-1pt]\scriptsize reference}}}
+\put(122,128){\framebox(52,30){\shortstack{\scriptsize Assign\\[-1pt]\scriptsize to ref.}}}
+\put(183,128){\framebox(53,30){\shortstack{\scriptsize Moment\\[-1pt]\scriptsize bary.}}}
+\put(56,143){\vector(1,0){8}}
+\put(114,143){\vector(1,0){8}}
+\put(174,143){\vector(1,0){9}}
 
 \put(3,80){\framebox(104,34){\shortstack{\scriptsize Weighting failure\\[-1pt]\scriptsize weights choose mass,\\[-1pt]\scriptsize not label match}}}
 \put(128,80){\framebox(104,34){\shortstack{\scriptsize Corrected output\\[-1pt]\scriptsize reference labels retained,\\[-1pt]\scriptsize matched states averaged}}}

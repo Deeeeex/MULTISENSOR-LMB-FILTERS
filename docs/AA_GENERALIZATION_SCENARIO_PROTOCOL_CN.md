@@ -1,6 +1,6 @@
 # AA generalization scenario protocol
 
-最后更新: 2026-06-24 18:15 CST
+最后更新: 2026-06-24 18:30 CST
 
 ## 目的
 
@@ -89,7 +89,7 @@ Mixed 或 negative 结果不能触发参数回调搜索。应按如下方式处�
 
 - Code support: 已完成。`runAaBalancedCardinalityValidation` 支持 `scenarioOverrides`，并在报告中记录 `scenarioLabel`、`neighborMapMode`、FOV 和 sensor-motion settings。
 - Launcher: 已完成。`RUN/AA/launchAaTaesScenarioFamilySmoke.sh` 支持三类场景族和 durable log/pid handoff。
-- Evidence: `topology-ring` 已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`partial-fov35` 已完成 N1 和固定 N5 smoke。当前 topology 已有 paper-grade N50 evidence，partial-FOV 仍是 smoke-tier boundary evidence。
+- Evidence: `topology-ring` 已完成固定 N50，并已接入 TAES scenario-family evidence/readiness gate；`partial-fov35` 已完成 N1 和固定 N5 smoke，固定 N50 已启动。当前 topology 已有 paper-grade N50 evidence，partial-FOV 在 N50 完成前仍是 smoke-tier boundary evidence。
 
 ## Topology-ring N1 smoke
 
@@ -198,6 +198,27 @@ Interpretation:
 - The reference-only arm improves RMSE by only `4.26%`, so matched barycentering still explains a substantial part of the spatial gain.
 - Cardinality metrics remain boundary evidence because the paired CIs cross zero and the wins are weak. This should be written as `supports_spatial_mechanism_with_cardinality_boundary`, not as a full robustness claim.
 - This N5 result justifies a fixed N50 partial-FOV run later, but it still cannot be used as paper-grade evidence.
+
+## Partial-fov35 N50 run
+
+A paper-grade partial-FOV run was started on 2026-06-24 18:23 CST with fixed method parameters:
+
+```bash
+AA_SCENARIO_FAMILY=partial-fov35 \
+AA_SCENARIO_TRIALS=50 \
+AA_SCENARIO_BASE_SEED=41 \
+RUN/AA/launchAaTaesScenarioFamilySmoke.sh
+```
+
+Run handoff:
+
+- PID: `40658`
+- PID file: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.pid`
+- Log: `RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`
+- Follow-up command: `tail -f RUN/AA/AA_TAES_SCENARIO_partial_fov35_N50_BASESEED41_20260624_182339.log`
+- Status check at 2026-06-24 18:30 CST: PID `40658` was alive and the log had entered trial `2/50`.
+
+Interpret this run under the no-search rule. If partial FOV weakens cardinality or RMSE, keep the result as a boundary of output-level assignment/barycenter fusion and discuss missing-support lifecycle guards rather than retuning `H`, thresholds, projection cutoff, barycenter weights, or label rules.
 
 ## Topology-ring N50
 
