@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "9b538d30c0c80e4f83dad58a9d497ca9ab76b9bdacbf3106f1b6ace69b5ad2ed",
+  "bundle_sha256": "1c8ddb12f9a27a642e6b35839893717bd4a15dabff73b2e46225a9d39a2d2814",
   "file_count": 26,
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "83d486524ea2d0c581196912facdd2f86bf29864709b775787154a57cbb15f92",
-      "size_bytes": 11790
+      "sha256": "e2d868211d0dee05c4b3ddb4cd3376e7a8d32557545aff90d9e7bcd6ea7d7c22",
+      "size_bytes": 12219
     },
     {
       "path": "README.md",
@@ -120,8 +120,8 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "bed5c01a7e8cda3d5774f577c602375c74be35daccb3cf73283b412464595adb",
-      "size_bytes": 108273
+      "sha256": "b29d44d16e5d9254228af951fe990b69f72c8b7aa61ad7e3ffec67f811571b44",
+      "size_bytes": 108272
     },
     {
       "path": "main.tex",

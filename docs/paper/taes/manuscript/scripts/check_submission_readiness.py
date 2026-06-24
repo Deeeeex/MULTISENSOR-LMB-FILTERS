@@ -31,10 +31,23 @@ TEMPLATE_ZIP = REPO / "docs" / "paper" / "taes" / "TAES_Template.zip"
 VERIFICATION_JSON = OUT / "n50_verification.json"
 HELDOUT_SANITY_JSON = OUT / "heldout_sanity_evidence.json"
 HELDOUT_N50_JSON = OUT / "heldout_n50_evidence.json"
+HELDOUT_N50_MANIFEST = OUT / "HELDOUT_N50_MANIFEST.md"
+HELDOUT_N50_FRAGMENT = OUT / "heldout_n50_section.tex"
 BUNDLE_MANIFEST_JSON = OUT / "submission_bundle_manifest.json"
 BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
+
+HELDOUT_BASE_SEED = 11
+ARM_ORDER = [
+    "Tuned spatial-KLA AA",
+    "Neighborhood label-barycenter spatial-KLA AA",
+    "Neighborhood reference-only label-consensus spatial-KLA AA",
+]
+FULL_ARM = ARM_ORDER[1]
+REF_ONLY_ARM = ARM_ORDER[2]
+NETWORK_METRICS = ["OSPA", "Loc. disag.", "Card. disp."]
+LOCAL_METRICS = ["E-OSPA", "RMSE", "CardErr"]
 
 
 @dataclass
@@ -125,6 +138,66 @@ def all_bib_entries_have_doi(bib: str) -> tuple[bool, list[str]]:
         if not re.search(r"\bdoi\s*=", entry, flags=re.IGNORECASE):
             missing.append(key)
     return len(missing) == 0, missing
+
+
+def safe_int(value: object, default: int = 0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def reduction_percent(value: object) -> float | None:
+    match = re.search(r"([-+]?\d+(?:\.\d+)?)\s*%", str(value))
+    if not match:
+        return None
+    return float(match.group(1))
+
+
+def missing_metric_entries(
+    payload: dict[str, object],
+    table_name: str,
+    arms: list[str],
+    metrics: list[str],
+) -> list[str]:
+    table = payload.get(table_name, {})
+    missing: list[str] = []
+    if not isinstance(table, dict):
+        return [table_name]
+    for arm in arms:
+        row = table.get(arm)
+        if not isinstance(row, dict):
+            missing.append(f"{table_name}/{arm}")
+            continue
+        for metric in metrics:
+            if metric not in row:
+                missing.append(f"{table_name}/{arm}/{metric}")
+    return missing
+
+
+def missing_paired_entries(
+    payload: dict[str, object],
+    table_name: str,
+    metrics: list[str],
+) -> list[str]:
+    table = payload.get(table_name, {})
+    missing: list[str] = []
+    if not isinstance(table, dict):
+        return [table_name]
+    for arm in [FULL_ARM, REF_ONLY_ARM]:
+        arm_payload = table.get(arm)
+        if not isinstance(arm_payload, dict):
+            missing.append(f"{table_name}/{arm}")
+            continue
+        for metric in metrics:
+            metric_payload = arm_payload.get(metric)
+            if not isinstance(metric_payload, dict):
+                missing.append(f"{table_name}/{arm}/{metric}")
+                continue
+            for field in ["paired_reduction", "ci", "reduction", "wins", "p_value"]:
+                if field not in metric_payload:
+                    missing.append(f"{table_name}/{arm}/{metric}/{field}")
+    return missing
 
 
 def file_checks() -> list[Check]:
@@ -394,18 +467,7 @@ def evidence_checks() -> list[Check]:
 
     if HELDOUT_N50_JSON.exists():
         heldout = json.loads(read_text(HELDOUT_N50_JSON))
-        config = heldout.get("config", {})
-        trials = int(config.get("trials", 0))
-        checks.append(
-            Check(
-                "held-out scenario evidence",
-                "pass" if trials >= 50 else "warning",
-                "Paper-grade held-out base-seed evidence exists "
-                f"(base seed {config.get('base_seed')}, {trials} trials)."
-                if trials >= 50
-                else "Held-out evidence artifact exists, but it is below N50.",
-            )
-        )
+        checks.extend(heldout_n50_checks(heldout))
     elif HELDOUT_SANITY_JSON.exists():
         heldout = json.loads(read_text(HELDOUT_SANITY_JSON))
         config = heldout.get("config", {})
@@ -426,6 +488,117 @@ def evidence_checks() -> list[Check]:
                 "No generated held-out base-seed or packet-loss-family evidence artifact detected.",
             )
         )
+    return checks
+
+
+def heldout_n50_checks(heldout: dict[str, object]) -> list[Check]:
+    checks: list[Check] = []
+    config = heldout.get("config", {})
+    if not isinstance(config, dict):
+        config = {}
+    trials = safe_int(config.get("trials"))
+    base_seed = safe_int(config.get("base_seed"), -1)
+    trial_seeds = config.get("trial_seeds", [])
+    trial_seed_count = len(trial_seeds) if isinstance(trial_seeds, list) else 0
+    protocol_ok = trials >= 50 and base_seed == HELDOUT_BASE_SEED and trial_seed_count >= trials
+    checks.append(
+        Check(
+            "held-out N50 protocol",
+            "pass" if protocol_ok else "warning",
+            f"Held-out run uses base seed {base_seed}, {trials} trials, and {trial_seed_count} parsed trial seeds."
+            if protocol_ok
+            else "Paper-grade held-out validation should use "
+            f"base seed {HELDOUT_BASE_SEED}, at least 50 trials, and a parsed trial-seed list matching the trial count; "
+            f"found base seed {base_seed}, {trials} trials, {trial_seed_count} trial seeds.",
+        )
+    )
+
+    artifacts_ok = HELDOUT_N50_MANIFEST.exists() and HELDOUT_N50_FRAGMENT.exists()
+    checks.append(
+        Check(
+            "held-out N50 generated artifacts",
+            "pass" if artifacts_ok else "error",
+            "`HELDOUT_N50_MANIFEST.md` and `heldout_n50_section.tex` exist."
+            if artifacts_ok
+            else "Held-out N50 JSON exists but the generated manifest or manuscript fragment is missing.",
+        )
+    )
+
+    missing_mean = []
+    missing_mean.extend(missing_metric_entries(heldout, "network", ARM_ORDER, NETWORK_METRICS))
+    missing_mean.extend(missing_metric_entries(heldout, "local", ARM_ORDER, LOCAL_METRICS))
+    checks.append(
+        Check(
+            "held-out N50 mean metric coverage",
+            "pass" if not missing_mean else "error",
+            "Held-out N50 means cover all three arms and all network/local manuscript metrics."
+            if not missing_mean
+            else "Held-out N50 mean metric payload is incomplete: " + "; ".join(missing_mean),
+        )
+    )
+
+    missing_paired = []
+    missing_paired.extend(missing_paired_entries(heldout, "paired_network", NETWORK_METRICS))
+    missing_paired.extend(missing_paired_entries(heldout, "paired_local", LOCAL_METRICS))
+    checks.append(
+        Check(
+            "held-out N50 paired metric coverage",
+            "pass" if not missing_paired else "error",
+            "Held-out N50 paired reductions include CI, wins, and sign-test p-values for full and reference-only arms."
+            if not missing_paired
+            else "Held-out N50 paired payload is incomplete: " + "; ".join(missing_paired),
+        )
+    )
+
+    local = heldout.get("local", {})
+    paired_local = heldout.get("paired_local", {})
+    full_rmse_pct = None
+    ref_rmse_pct = None
+    tuned_rmse = full_rmse = ref_rmse = None
+    if isinstance(local, dict):
+        tuned_rmse = local.get(ARM_ORDER[0], {}).get("RMSE") if isinstance(local.get(ARM_ORDER[0]), dict) else None
+        full_rmse = local.get(FULL_ARM, {}).get("RMSE") if isinstance(local.get(FULL_ARM), dict) else None
+        ref_rmse = local.get(REF_ONLY_ARM, {}).get("RMSE") if isinstance(local.get(REF_ONLY_ARM), dict) else None
+    if isinstance(paired_local, dict):
+        full_payload = paired_local.get(FULL_ARM, {})
+        ref_payload = paired_local.get(REF_ONLY_ARM, {})
+        if isinstance(full_payload, dict) and isinstance(full_payload.get("RMSE"), dict):
+            full_rmse_pct = reduction_percent(full_payload["RMSE"].get("reduction"))
+        if isinstance(ref_payload, dict) and isinstance(ref_payload.get("RMSE"), dict):
+            ref_rmse_pct = reduction_percent(ref_payload["RMSE"].get("reduction"))
+    try:
+        means_support = float(full_rmse) < float(tuned_rmse) and float(full_rmse) < float(ref_rmse)
+    except (TypeError, ValueError):
+        means_support = False
+    reduction_support = (
+        full_rmse_pct is not None
+        and ref_rmse_pct is not None
+        and full_rmse_pct > 0
+        and full_rmse_pct > ref_rmse_pct
+    )
+    checks.append(
+        Check(
+            "held-out N50 barycenter-vs-reference separation",
+            "pass" if means_support and reduction_support else "warning",
+            "Held-out N50 supports the mechanism separation: full barycenter RMSE is below tuned and reference-only, "
+            f"with RMSE reduction {full_rmse_pct:.2f}% vs reference-only {ref_rmse_pct:.2f}%."
+            if means_support and reduction_support
+            else "Held-out N50 exists, but the RMSE mechanism-separation check is weak or missing "
+            f"(tuned={tuned_rmse}, full={full_rmse}, ref-only={ref_rmse}, "
+            f"full reduction={full_rmse_pct}, ref-only reduction={ref_rmse_pct}).",
+        )
+    )
+
+    scenario_status = "pass" if protocol_ok else "warning"
+    checks.append(
+        Check(
+            "held-out scenario evidence",
+            scenario_status,
+            "Paper-grade held-out base-seed N50 evidence exists and strict structure checks are recorded above."
+            if scenario_status == "pass"
+            else "Held-out evidence artifact exists, but the protocol does not yet match the planned base-seed-11 N50 validation.",
+        )
+    )
     return checks
 
 
