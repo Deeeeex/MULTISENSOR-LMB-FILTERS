@@ -1,17 +1,17 @@
-\begin{table}[t]
-\caption{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; the run uses base seed 11 and the same fixed three-arm protocol as the main validation.}
+\begin{table*}[t]
+\caption{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed 11 and the same fixed three-arm protocol as the main validation.}
 \label{tab:heldout}
 \centering
 \tablefont
 \begin{tabular}{lcccc}
 \toprule
-Metric & Full red. & Full wins & Ref. red. & Ref. wins\\
+Metric & Full red. [CI] & Full wins/$p$ & Ref. red. [CI] & Ref. wins/$p$\\
 \midrule
-OSPA & 81.85\% & 50/50 & 39.15\% & 50/50\\
-E-OSPA & 17.15\% & 50/50 & 5.88\% & 50/50\\
-RMSE & 6.64\% & 48/50 & 0.82\% & 28/50\\
+OSPA & 81.85\% [1.367, 1.394] & 50/50, $<10^{-3}$ & 39.15\% [0.647, 0.674] & 50/50, $<10^{-3}$\\
+E-OSPA & 17.15\% [0.342, 0.357] & 50/50, $<10^{-3}$ & 5.88\% [0.114, 0.126] & 50/50, $<10^{-3}$\\
+RMSE & 6.64\% [0.210, 0.281] & 48/50, $<10^{-3}$ & 0.82\% [-0.008, 0.069] & 28/50, 0.480\\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by 81.85\%, local E-OSPA by 17.15\%, and local RMSE by 6.64\% relative to tuned spatial-KLA AA. The reference-only RMSE reduction is 0.82\% with 28/50 wins and no sign-test support ($p=0.4799$), so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by 81.85\%, local E-OSPA by 17.15\%, and local RMSE by 6.64\% relative to tuned spatial-KLA AA. The full RMSE reduction has 48/50 wins with sign-test $p<10^{-3}$, whereas the reference-only RMSE reduction is 0.82\% with 28/50 wins and sign-test $p=0.480$. The held-out evidence therefore preserves the same separation between label-set copying and matched posterior barycentering.

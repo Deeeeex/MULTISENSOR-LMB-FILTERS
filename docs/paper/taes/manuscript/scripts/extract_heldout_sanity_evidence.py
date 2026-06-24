@@ -202,6 +202,27 @@ def tex_escape(value: str) -> str:
     return value.replace("%", r"\%")
 
 
+def tex_ci(value: str) -> str:
+    match = re.fullmatch(r"\[([-0-9.]+),\s*([-0-9.]+)\]", value.strip())
+    if not match:
+        raise ValueError(f"Could not parse CI: {value}")
+    return f"[{float(match.group(1)):.3f}, {float(match.group(2)):.3f}]"
+
+
+def tex_pvalue(value: str) -> str:
+    numeric = float(value)
+    if numeric < 1e-3:
+        return r"$<10^{-3}$"
+    return f"{numeric:.3f}"
+
+
+def tex_pvalue_expr(value: str) -> str:
+    numeric = float(value)
+    if numeric < 1e-3:
+        return r"$p<10^{-3}$"
+    return f"$p={numeric:.3f}$"
+
+
 def mean_row(arm: str, payload: dict[str, object]) -> str:
     network = payload["network"][arm]
     local = payload["local"][arm]
@@ -222,10 +243,10 @@ def compact_reduction_row(metric: str, payload: dict[str, object], paired_key: s
     ref = payload[paired_key]["Neighborhood reference-only label-consensus spatial-KLA AA"][metric]
     values = [
         metric,
-        tex_escape(full["reduction"]),
-        full["wins"],
-        tex_escape(ref["reduction"]),
-        ref["wins"],
+        f"{tex_escape(full['reduction'])} {tex_ci(full['ci'])}",
+        f"{full['wins']}, {tex_pvalue(full['p_value'])}",
+        f"{tex_escape(ref['reduction'])} {tex_ci(ref['ci'])}",
+        f"{ref['wins']}, {tex_pvalue(ref['p_value'])}",
     ]
     return " & ".join(values) + r"\\"
 
@@ -243,21 +264,21 @@ def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
             compact_reduction_row("RMSE", payload, "paired_local"),
         ]
     )
-    section = rf"""\begin{{table}}[t]
-\caption{{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; the run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
+    section = rf"""\begin{{table*}}[t]
+\caption{{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
 \label{{tab:heldout}}
 \centering
 \tablefont
 \begin{{tabular}}{{lcccc}}
 \toprule
-Metric & Full red. & Full wins & Ref. red. & Ref. wins\\
+Metric & Full red. [CI] & Full wins/$p$ & Ref. red. [CI] & Ref. wins/$p$\\
 \midrule
 {paired_rows}
 \bottomrule
 \end{{tabular}}
-\end{{table}}
+\end{{table*}}
 
-The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])} with {ref_local['RMSE']['wins']} wins and no sign-test support ($p={ref_local['RMSE']['p_value']}$), so the held-out evidence preserves the same separation between label-set copying and matched posterior barycentering.
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The full RMSE reduction has {full_local['RMSE']['wins']} wins with sign-test {tex_pvalue_expr(full_local['RMSE']['p_value'])}, whereas the reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])} with {ref_local['RMSE']['wins']} wins and sign-test {tex_pvalue_expr(ref_local['RMSE']['p_value'])}. The held-out evidence therefore preserves the same separation between label-set copying and matched posterior barycentering.
 """
     (OUT / "heldout_n50_section.tex").write_text(section, encoding="utf-8")
 
