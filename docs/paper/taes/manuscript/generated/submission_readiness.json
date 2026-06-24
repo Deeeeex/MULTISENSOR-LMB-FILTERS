@@ -207,6 +207,11 @@
       "status": "pass"
     },
     {
+      "detail": "Method section preserves the compact stepwise implementation box for reference, matching, projection, and iteration.",
+      "gate": "method algorithm-box markers",
+      "status": "pass"
+    },
+    {
       "detail": "Abstract and introduction preserve the correspondence-failure framing, scalar-weight boundary, held-out replication, and reference-only mechanism test.",
       "gate": "first-page narrative markers",
       "status": "pass"
@@ -372,7 +377,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `59621c184b5a1d007f0b122ca1b04e48b35d21ecbe9076c6dc16196e0071010a`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `b94295f1fa84439d513bdc03e4963619a986dcb0742a275ae6dc1dce26b0c76a`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -144,14 +144,12 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \centering
 \setlength{\fboxsep}{3pt}
 \fbox{\begin{minipage}{0.93\columnwidth}
-\footnotesize
-\textbf{Inputs:} neighborhood estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.
-\textbf{Round $h$ at sensor $s$:}
-(i) select the median-cardinality candidate set $\mathcal{C}_s(k)$;
-(ii) choose the OSPA-medoid reference $\rho_s(k)$;
-(iii) assign neighbor states to reference states by Hungarian matching;
-(iv) moment-match each reference-label group;
-(v) write the label-aligned estimate $Y_s(k)$ as the next-round output.
+\scriptsize
+\textbf{Input:} neighborhood estimates $\{X_j(k):j\in\mathcal{N}_s\}$, cutoff $c$, rounds $H$.\\[-1pt]
+\textbf{1 Reference:} select $\mathcal{C}_s(k)$ by median cardinality and choose OSPA-medoid $\rho_s(k)$.\\[-1pt]
+\textbf{2 Match:} assign neighbor states to reference states by Hungarian matching.\\[-1pt]
+\textbf{3 Project:} replace each reference-label group by its first-two-moment barycenter.\\[-1pt]
+\textbf{4 Iterate:} write $Y_s(k)$ as the next-round output; no global label dictionary is read.
 \end{minipage}}
 \caption{Implementation outline used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
 \label{fig:algorithm}

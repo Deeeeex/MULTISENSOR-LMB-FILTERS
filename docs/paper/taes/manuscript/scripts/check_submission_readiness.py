@@ -554,6 +554,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    algorithm_markers = [
+        r"\textbf{Input:}",
+        r"\textbf{1 Reference:}",
+        r"\textbf{2 Match:}",
+        r"\textbf{3 Project:}",
+        r"\textbf{4 Iterate:}",
+        "no global label dictionary is read",
+    ]
+    missing_algorithm_markers = [marker for marker in algorithm_markers if marker not in tex]
+    checks.append(
+        Check(
+            "method algorithm-box markers",
+            "pass" if not missing_algorithm_markers else "warning",
+            "Method section preserves the compact stepwise implementation box for reference, matching, projection, and iteration."
+            if not missing_algorithm_markers
+            else "Method algorithm box is missing markers: " + "; ".join(missing_algorithm_markers),
+        )
+    )
+
     body = paper_facing_body(tex)
     story_markers = [
         "component-correspondence failure",

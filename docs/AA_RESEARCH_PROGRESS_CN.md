@@ -58,6 +58,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 
 本轮又把 Related Work 的技术定位收紧并纳入 readiness gate: 主文现在明确本文不是另一个 density-pooling/AA-KLA weighting rule，而是在权重选择之外补一个 correspondence map 和 targeted output-space projection，用 graph-local reference label set 与 matched moment barycenters 解决 Bernoulli component comparability。`check_submission_readiness.py` 新增 `related-work positioning markers`，防止后续压缩文献综述时把这个 claim boundary 删除。
 
+本轮继续做方法页 polish: 原先 Fig. 2 的长句 implementation outline 已改成 compact step box，按 Input / Reference / Match / Project / Iterate 展开，突出 reference selection、Hungarian assignment、moment barycenter 和 no-global-label-dictionary invariant，同时保持页面预算不被算法框挤出。`check_submission_readiness.py` 新增 `method algorithm-box markers`，避免后续编辑时误删这条可复现流程说明。
+
 本轮继续把投稿前 metadata consistency 机器化: `check_submission_readiness.py` 现在会把 `COVER_LETTER_AND_METADATA_DRAFT.md` 中的 cover-letter title sentence、portal title、running head、journal、Regular Paper type、technical area、simulated-data statement 和 OpenAI Codex disclosure 与 `main.tex` 对齐检查；`SUBMISSION_PACKAGE_INDEX.md` 也明确记录 `cover letter and portal metadata source synchronization` gate，避免最终提交时 cover letter / portal form 与正文标题或 disclosure 漂移。
 
 本轮又完成一次结果图版面 polish: `scripts/extract_n50_evidence.py` 现在生成更干净的 full-width N50 reduction bar figure，去掉右侧重复数值堆叠，改用 Full/Ref.-only legend；精确百分比与置信区间仍保留在 Table IV。当时 `./build.sh` 后 `main.pdf` 为 8 页；当前 readiness snapshot 显示加入后续 held-out/stress/readiness 内容后 PDF 为 9 页，仍低于 Regular Paper overlength charge 起点。
