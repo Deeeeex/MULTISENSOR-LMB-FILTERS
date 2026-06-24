@@ -207,7 +207,7 @@
       "status": "pass"
     },
     {
-      "detail": "Method section preserves the compact stepwise implementation box for reference, matching, projection, and iteration.",
+      "detail": "Method section preserves the compact stepwise implementation box for reference, matching, projection, existence pass-through, and iteration.",
       "gate": "method algorithm-box markers",
       "status": "pass"
     },
@@ -382,7 +382,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `736799fda4837d7b866570f3cbe9762a475a3460a612d768716e0f4b20d9285b`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `3e3f76740fc836bfee2763839b2b8642eabed70bc9213a3f072128efad9be687`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -128,7 +128,7 @@ For a matched group $\mathcal{G}_{s,a}(k)=\{(\mu_i,\Sigma_i)\}_{i=1}^{M}$, the o
   \bar{\Sigma}_{s,a} &= \frac{1}{M}\sum_{i=1}^{M}
   \left[\Sigma_i+(\mu_i-\bar{\mu}_{s,a})(\mu_i-\bar{\mu}_{s,a})^T\right].
 \end{align}
-The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. Existence scores remain governed by the upstream AA existence update; the proposed layer is a label-and-moment projection on the active estimate. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
+The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussian moments by $(\bar{\mu}_{s,a},\bar{\Sigma}_{s,a})$. The projection does not estimate new Bernoulli existence probabilities: it is applied after upstream AA existence fusion and thresholding, passes the surviving active-track existence scores through with the selected reference labels, and rewrites only the label and moment fields. The implementation repeats this neighborhood operator for $H=3$ rounds in the reported experiments.
 
 \subsection{Graph Locality and Computational Cost}
 The operator is graph-local at every round: sensor $s$ only reads estimates indexed by $\mathcal{N}_s$, and no global label dictionary is constructed. The communicated object is the active-track tuple $(\ell,r,\mu,\Sigma)$ already exchanged for output-level AA; the projection only adds local reference selection, assignment, and moment accumulation after reception. An $H$-round distributed implementation therefore requires $H$ neighborhood output-exchange rounds and no centralized label service, while existence scores continue to come from upstream AA. If $d_s=|\mathcal{N}_s|$ and $n_{\max}$ upper bounds the number of tracks in the neighborhood, the dominant cost is assignment. The medoid stage evaluates set distances among neighborhood estimates, while the matching stage solves at most $d_s$ rectangular assignments to the chosen reference. With a cubic Hungarian implementation, the per-round cost is bounded by $O(d_s^2 n_{\max}^3+d_s n_{\max}^3)$ in the worst case, plus linear moment accumulation over matched tracks. This cost is acceptable in the reported formation setting, but it explains why the method is slower than scalar-weight AA and motivates the runtime study reported with the experimental results.
@@ -150,9 +150,10 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \textbf{1 Reference:} choose the median-cardinality OSPA medoid $\rho_s(k)$.\\[-1pt]
 \textbf{2 Match:} assign neighbor tracks to reference labels by Hungarian matching.\\[-1pt]
 \textbf{3 Project:} compute moment barycenters for matched states.\\[-1pt]
-\textbf{4 Iterate:} overwrite active outputs locally; no global label dictionary is read.
+\textbf{4 Existence:} pass through upstream active-track existence scores; rewrite labels/moments only.\\[-1pt]
+\textbf{5 Iterate:} overwrite active outputs locally; no global label dictionary is read.
 \end{minipage}}
-\caption{Implementation outline used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs and does not read a global label set.}
+\caption{Implementation outline used in the validation. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs, does not read a global label set, and does not re-estimate Bernoulli existence probabilities.}
 \label{fig:algorithm}
 \end{figure}
 

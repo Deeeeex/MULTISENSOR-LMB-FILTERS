@@ -539,7 +539,9 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
     alignment_markers = [
         "active output tracks after the upstream AA existence update and thresholding",
         "does not replace the Bernoulli existence consumer",
-        "label-and-moment projection on the active estimate",
+        "does not estimate new Bernoulli existence probabilities",
+        "passes the surviving active-track existence scores through",
+        "rewrites only the label and moment fields",
         "matched moment coordinates",
         "upstream AA existence consumer",
     ]
@@ -560,7 +562,9 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         r"\textbf{1 Reference:}",
         r"\textbf{2 Match:}",
         r"\textbf{3 Project:}",
-        r"\textbf{4 Iterate:}",
+        r"\textbf{4 Existence:}",
+        r"\textbf{5 Iterate:}",
+        "rewrite labels/moments only",
         "no global label dictionary is read",
     ]
     missing_algorithm_markers = [marker for marker in algorithm_markers if marker not in tex]
@@ -568,7 +572,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         Check(
             "method algorithm-box markers",
             "pass" if not missing_algorithm_markers else "warning",
-            "Method section preserves the compact stepwise implementation box for reference, matching, projection, and iteration."
+            "Method section preserves the compact stepwise implementation box for reference, matching, projection, existence pass-through, and iteration."
             if not missing_algorithm_markers
             else "Method algorithm box is missing markers: " + "; ".join(missing_algorithm_markers),
         )

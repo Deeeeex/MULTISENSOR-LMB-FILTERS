@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 21:03 CST
+日期: 2026-06-24 21:14 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -8,14 +8,16 @@
 
 ## 当前判断
 
-稿件已经进入 `content_ready_metadata_pending` 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、带 CI/wins/sign-test p 的 baseSeed=11 held-out N50 robustness check、harsh packet-loss N50 stress check、topology-ring N50 和 partial-FOV N50 scenario-family checks、以及 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前非元数据 mechanical/evidence/citation/PDF/source-bundle gates 已经闭合；`generated/SUBMISSION_READINESS_REPORT.md` 显示 metadata allowance 后无 blocking gate，也没有剩余内容 warning。本轮已把 reproducibility ledger 扩展为覆盖 primary AA N50、held-out AA N50、harsh-loss AA N50、scenario-family boundary checks、contextual GA N50 和 independent verifier，并把 topology-ring 与 partial-FOV 均升级为 paper-grade scenario-family evidence。稿件还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
+稿件已经进入 `content_ready_metadata_pending` 阶段: TAES 模板、核心方法叙事、理论性质、N50 主实验、ablation、runtime、带 CI/wins/sign-test p 的 baseSeed=11 held-out N50 robustness check、harsh packet-loss N50 stress check、topology-ring N50 和 partial-FOV N50 scenario-family checks、以及 disclosure skeleton 都已经落到 `main.tex` 和 `generated/` evidence fragments 中。按“作者/基金/repository 可先占位”的项目约定，当前非元数据 mechanical/evidence/citation/PDF/source-bundle gates 已经闭合；`generated/SUBMISSION_READINESS_REPORT.md` 显示 metadata allowance 后无 blocking gate，也没有剩余内容 warning。本轮已把 reproducibility ledger 扩展为覆盖 primary AA N50、held-out AA N50、harsh-loss AA N50、scenario-family boundary checks、contextual GA N50 和 independent verifier，并把 topology-ring 与 partial-FOV 均升级为 paper-grade scenario-family evidence；同时 method section 和 readiness checker 已明确 projection 是 labels/moments-only 的 active-track 层，不重估 Bernoulli existence。稿件还不能标记为 portal-submission-ready，因为投稿元数据仍缺最后闭环:
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
-## 21:03 Checkpoint
+## 21:14 Checkpoint
 
-当前分支为 `codex/aa-target-wise-fix`，最新已推送提交为 `124508a Add partial-FOV TAES N50 evidence`。该提交把 fixed-parameter partial-FOV 35 deg N50 报告接入 `evidence_sources.json`、正文 Discussion、scenario-family generated artifacts、source bundle 和 readiness checker。该 N50 报告显示 full operator 相对 tuned spatial-KLA AA 的 network OSPA 降低 `43.25%`、local disagreement 降低 `85.49%`、RMSE 降低 `6.50%`，reference-only RMSE 只降低 `2.13%`；该结果支持“matched posterior barycenter 而不是 label copying 单独带来空间收益”的机制边界，同时保留 partial-FOV 下 local E-OSPA/CardErr 改善幅度较窄的边界信息。
+当前分支为 `codex/aa-target-wise-fix`，上一已推送 checkpoint 为 `776f951 Synchronize TAES package evidence status`。本轮稿件 polish 把 implementation outline 从 4 步扩展为 5 步，在算法框和 caption 中显式写明 existence pass-through: projection consumes graph-neighborhood active outputs, does not read a global label set, does not re-estimate Bernoulli existence probabilities, and rewrites labels/moments only. `check_submission_readiness.py` 也新增了对应源级 markers，防止后续压缩 method section 时误把 projection 写成 existence 更新器。
+
+partial-FOV fixed-parameter 35 deg N50 仍是当前 scenario-family 证据链的一部分。该 N50 报告显示 full operator 相对 tuned spatial-KLA AA 的 network OSPA 降低 `43.25%`、local disagreement 降低 `85.49%`、RMSE 降低 `6.50%`，reference-only RMSE 只降低 `2.13%`；该结果支持“matched posterior barycenter 而不是 label copying 单独带来空间收益”的机制边界，同时保留 partial-FOV 下 local E-OSPA/CardErr 改善幅度较窄的边界信息。
 
 partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED41_20260624_182341.md`，`generated/SCENARIO_FAMILY_MANIFEST.md` 已把 topology-ring 与 partial-FOV 都标记为 `paper_grade`，smoke-tier scenario 数为 `0`。下一步不应围绕 partial-FOV 搜索阈值、barycenter 权重或 label rule；如果继续补实证，优先考虑真正泛化维度，例如 maneuvering target、covariance consistency、recursive-online fusion，或更大规模网络/目标数。
 
