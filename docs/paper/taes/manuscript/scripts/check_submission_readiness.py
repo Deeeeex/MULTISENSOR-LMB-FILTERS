@@ -619,6 +619,25 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    theory_scope_markers = [
+        r"\begin{assumption}[Analysis scope]",
+        "after the upstream AA existence consumer has selected active tracks",
+        "hold births and deaths outside the projection layer",
+        "close target crossings or cardinality mismatches",
+        "not assume",
+    ]
+    missing_theory_scope = [marker for marker in theory_scope_markers if marker not in tex]
+    checks.append(
+        Check(
+            "structural-property scope markers",
+            "pass" if not missing_theory_scope else "warning",
+            "Structural Properties state the analysis scope before the propositions, including active-track conditioning and excluded lifecycle/crossing cases."
+            if not missing_theory_scope
+            else "Structural-property scope wording is incomplete; missing markers: "
+            + "; ".join(missing_theory_scope),
+        )
+    )
+
     internal_patterns = [
         r"\bTODO\b",
         r"\bTBD\b",

@@ -158,6 +158,12 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \end{figure}
 
 \section{STRUCTURAL PROPERTIES}
+The following statements separate what the projection guarantees algebraically from what remains a tracking problem. They are stated under fixed output estimates at one time step, after the upstream AA existence consumer has selected active tracks.
+
+\begin{assumption}[Analysis scope]
+Unless a proposition states otherwise, the structural claims below analyze a fixed neighborhood at one time step. They treat reference selection and assignment as operating on active tracks, hold births and deaths outside the projection layer, and do not assume that close target crossings or cardinality mismatches are resolved by the barycenter itself.
+\end{assumption}
+
 \begin{proposition}[Weighting is not matching]
 Consider two sensors and two one-dimensional targets with distinct means $x_1\ne x_2$. Sensor 1 labels them $(a,x_1)$ and $(b,x_2)$, while sensor 2 labels them $(a,x_2)$ and $(b,x_1)$. A label-keyed scalar fusion consumer that fuses equal labels with weights $\alpha_a,\alpha_b\in[0,1]$ produces means
 \begin{equation}

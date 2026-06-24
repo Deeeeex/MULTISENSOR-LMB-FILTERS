@@ -222,6 +222,11 @@
       "status": "pass"
     },
     {
+      "detail": "Structural Properties state the analysis scope before the propositions, including active-track conditioning and excluded lifecycle/crossing cases.",
+      "gate": "structural-property scope markers",
+      "status": "pass"
+    },
+    {
       "detail": "Paper-facing abstract/body text contains no internal-status tokens such as TODO, TBD, before-submission notes, or placeholder language.",
       "gate": "paper-facing wording hygiene",
       "status": "pass"
@@ -382,7 +387,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `76058c831f9e76b142b006cae7ddb0bd1563a96411ec728d0019e9b50b780007`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 58 files and SHA-256 `8554164453a080f68d0ffe8c6bfada6d2cf6fb647bee18808ade080047f3b330`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
