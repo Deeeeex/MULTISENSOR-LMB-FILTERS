@@ -31,6 +31,7 @@ BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
+SUPPLEMENTARY_README_DRAFT = ROOT / "SUPPLEMENTARY_README_DRAFT.md"
 REVIEWER_RISK_REGISTER = ROOT / "REVIEWER_RISK_REGISTER.md"
 CLAIM_EVIDENCE_BOUNDARY_MAP = ROOT / "CLAIM_EVIDENCE_BOUNDARY_MAP.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
@@ -87,6 +88,7 @@ BUNDLE_REQUIRED_PATHS = [
     "build.sh",
     "SUBMISSION_PACKAGE_INDEX.md",
     "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
+    "SUPPLEMENTARY_README_DRAFT.md",
     "REVIEWER_RISK_REGISTER.md",
     "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
     "scripts/check_submission_readiness.py",
@@ -365,6 +367,7 @@ def file_checks() -> list[Check]:
         COVER_LETTER,
         SUBMISSION_INDEX,
         SUPPLEMENTARY_EVIDENCE_PACKAGE,
+        SUPPLEMENTARY_README_DRAFT,
         REVIEWER_RISK_REGISTER,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
@@ -1016,6 +1019,7 @@ def submission_package_index_checks() -> list[Check]:
         "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
         "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
+        "SUPPLEMENTARY_README_DRAFT.md",
         "REVIEWER_RISK_REGISTER.md",
         "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
         "generated/SUBMISSION_READINESS_REPORT.md",
@@ -1195,6 +1199,45 @@ def supplementary_evidence_package_checks() -> list[Check]:
             "Supplementary/response evidence package maps generated robustness fragments, provenance material, and interpretation boundaries."
             if not missing
             else "Supplementary evidence package is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def supplementary_readme_checks() -> list[Check]:
+    if not SUPPLEMENTARY_README_DRAFT.exists():
+        return [
+            Check(
+                "supplementary README draft",
+                "warning",
+                "`SUPPLEMENTARY_README_DRAFT.md` is missing.",
+            )
+        ]
+    text = read_text(SUPPLEMENTARY_README_DRAFT)
+    required_markers = [
+        "Intended Supplement Scope",
+        "Candidate Supplement Files",
+        "Provenance and Regeneration",
+        "Interpretation Boundaries",
+        "Main-Paper Cross-References",
+        "Finalization Checklist",
+        "generated/heldout_n50_section.tex",
+        "generated/stress_harsh_section.tex",
+        "generated/scenario_family_section.tex",
+        "generated/reproducibility_ledger_table.tex",
+        "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+        "TAES_EVIDENCE_MODE=bundled",
+        "not a parameter-search loop",
+        "not a recursive LMB update",
+        "full-topology N50 result must not be included",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "supplementary README draft",
+            "pass" if not missing else "warning",
+            "Supplementary README draft maps candidate supplement files, regeneration commands, interpretation boundaries, and final portal-upload checks."
+            if not missing
+            else "Supplementary README draft is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -1941,6 +1984,7 @@ def main() -> None:
     checks.extend(cover_letter_checks(tex))
     checks.extend(submission_package_index_checks())
     checks.extend(supplementary_evidence_package_checks())
+    checks.extend(supplementary_readme_checks())
     checks.extend(reviewer_risk_register_checks())
     checks.extend(claim_evidence_boundary_map_checks())
     checks.extend(reproducibility_ledger_checks())

@@ -32,6 +32,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/SUPPLEMENTARY_README_DRAFT.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/REVIEWER_RISK_REGISTER.md",
       "gate": "required artifact",
       "status": "pass"
@@ -317,6 +322,11 @@
       "status": "pass"
     },
     {
+      "detail": "Supplementary README draft maps candidate supplement files, regeneration commands, interpretation boundaries, and final portal-upload checks.",
+      "gate": "supplementary README draft",
+      "status": "pass"
+    },
+    {
       "detail": "Reviewer risk register maps likely reviewer concerns and a pre-submission reviewer synthesis to manuscript answers, evidence artifacts, and residual boundaries without adding a new claim source.",
       "gate": "reviewer risk register",
       "status": "pass"
@@ -457,7 +467,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 61 files and SHA-256 `20b8b7b03340747d1069eb07c55217cbd5bd47b6381d1634ba8764e7e6642474`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 62 files and SHA-256 `1b72c20ee9fb9dd3fb7b36b221f57925b4c7a09950c86a7a8202783d2a271f1a`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

@@ -6,6 +6,7 @@ This file is a single handoff point for optional supplementary material or revie
 
 - Candidate Supplementary Material: robustness and provenance tables that may be moved into a supplement if the final TAES page budget or reviewer expectations require them.
 - Response-ready evidence: compact tables and manifests that can support reviewer responses without editing generated fragments by hand.
+- Supplement README: `SUPPLEMENTARY_README_DRAFT.md` provides the portal-facing readme scaffold required if any selected blocks are converted into formal supplementary material.
 - Claim discipline: `CLAIM_EVIDENCE_BOUNDARY_MAP.md` maps paper-facing claims to evidence artifacts, verification level, terminology decisions, and explicit non-claims before those claims enter a supplement or response.
 - Boundary control: stress, topology, and FOV checks are fixed-parameter evidence, not a tuning loop, and they do not substitute for target-maneuver, covariance-consistency, or recursive-online validation.
 
@@ -18,6 +19,7 @@ This file is a single handoff point for optional supplementary material or revie
 | Topology/FOV scenario-family table | `generated/scenario_family_section.tex` | Show fixed-design topology-ring and partial-FOV N50 boundary checks. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
 | Reproducibility ledger | `generated/reproducibility_ledger_table.tex` | Explain which reports, seeds, roles, and verifier artifacts support each paper-facing result. | Source-package and response-ready provenance material. |
 | Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Keep reviewer responses and optional supplement text aligned with verified claims and non-claims. | Internal QA artifact; not a data source and not a default portal upload. |
+| Supplement README draft | `SUPPLEMENTARY_README_DRAFT.md` | Provide the readme scaffold for selected supplementary files. | Use only if a formal supplement is submitted. |
 
 ## Interpretation Boundaries
 
@@ -38,3 +40,4 @@ This file is a single handoff point for optional supplementary material or revie
 | `generated/N50_VERIFICATION_REPORT.md` | Independent recomputation of network disagreement, runtime, and local metrics. |
 | `generated/SUBMISSION_READINESS_REPORT.md` | Current machine-readable submission-readiness summary in human-readable form. |
 | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Claim, evidence, boundary, terminology, and non-claim map for final paper-readiness review. |
+| `SUPPLEMENTARY_README_DRAFT.md` | Draft readme for formal supplementary material upload, if selected. |
