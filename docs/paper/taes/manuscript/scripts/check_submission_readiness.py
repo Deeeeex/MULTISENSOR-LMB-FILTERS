@@ -647,6 +647,28 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    fixed_design_baseline_markers = [
+        "fixed target-wise spatial-KLA AA baseline",
+        "fixed target-wise AA-LMB baseline",
+        "rather than to search for scenario-specific hyperparameters",
+        "validation reports retain its implementation label",
+        "fixed parameterization rather than per-scenario retuning",
+        "no per-scenario search over projection cutoffs, barycenter weights, thresholds, or trial-specific label rules",
+    ]
+    missing_fixed_design_baseline = [
+        marker for marker in fixed_design_baseline_markers if marker not in body
+    ]
+    checks.append(
+        Check(
+            "fixed-design baseline wording",
+            "pass" if not missing_fixed_design_baseline else "warning",
+            "Manuscript distinguishes the fixed paper-facing baseline from the retained validation-report label and avoids implying per-scenario parameter search."
+            if not missing_fixed_design_baseline
+            else "Fixed-design baseline wording is incomplete; missing markers: "
+            + "; ".join(missing_fixed_design_baseline),
+        )
+    )
+
     correspondence_contract_markers = [
         "correspondence contract",
         "mathematically valid fusion rule can still combine the wrong Bernoulli components",
@@ -1125,6 +1147,9 @@ def reviewer_risk_register_checks() -> list[Check]:
         "Evidence / artifact",
         "Boundary / residual risk",
         "not another AA/KLA weighting rule",
+        "baseline or method may look tuned to the reported data",
+        "fixed target-wise spatial-KLA AA baseline",
+        "fixed-design baseline wording",
         "different from multiview LMB fusion and efficient label matching",
         "Jin2023MultiviewLMB",
         "Ding2025EfficientLabelMatching",
@@ -1171,6 +1196,7 @@ def claim_evidence_boundary_map_checks() -> list[Check]:
         "active output-track label/moment correspondence",
         "correspondence contract",
         "probability-mass allocation and component matching",
+        "fixed target-wise scalar-weight baseline",
         "Table/figure order: primary N50, contextual GA, paired ablation, held-out check",
         "Scalar AA/KLA weights allocate probability mass",
         "output-space projection layer",
@@ -1621,7 +1647,7 @@ def heldout_n50_checks(heldout: dict[str, object]) -> list[Check]:
         Check(
             "held-out N50 barycenter-vs-reference separation",
             "pass" if means_support and reduction_support else "warning",
-            "Held-out N50 supports the mechanism separation: full barycenter RMSE is below tuned and reference-only, "
+            "Held-out N50 supports the mechanism separation: full barycenter RMSE is below the fixed baseline and reference-only, "
             f"with RMSE reduction {full_rmse_pct:.2f}% vs reference-only {ref_rmse_pct:.2f}%."
             if means_support and reduction_support
             else "Held-out N50 exists, but the RMSE mechanism-separation check is weak or missing "

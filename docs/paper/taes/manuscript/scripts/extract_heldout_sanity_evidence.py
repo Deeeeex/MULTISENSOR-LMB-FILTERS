@@ -265,7 +265,7 @@ def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
         ]
     )
     section = rf"""\begin{{table*}}[t]
-\caption{{Held-out base-seed N50 robustness check. Reductions are relative to tuned spatial-KLA AA; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
+\caption{{Held-out base-seed N50 robustness check. Reductions are relative to the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
 \label{{tab:heldout}}
 \centering
 \tablefont
@@ -278,7 +278,7 @@ Metric & Full red. [CI] & Full wins/$p$ & Ref. red. [CI] & Ref. wins/$p$\\
 \end{{tabular}}
 \end{{table*}}
 
-The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The full RMSE reduction has {full_local['RMSE']['wins']} wins with sign-test {tex_pvalue_expr(full_local['RMSE']['p_value'])}, whereas the reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])} with {ref_local['RMSE']['wins']} wins and sign-test {tex_pvalue_expr(ref_local['RMSE']['p_value'])}. The held-out evidence therefore preserves the same separation between label-set copying and matched posterior barycentering.
+The held-out base-seed run repeats the mechanism test without changing the method parameters. On this run, the full operator reduces network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to the fixed spatial-KLA AA baseline. The full RMSE reduction has {full_local['RMSE']['wins']} wins with sign-test {tex_pvalue_expr(full_local['RMSE']['p_value'])}, whereas the reference-only RMSE reduction is {tex_escape(ref_local['RMSE']['reduction'])} with {ref_local['RMSE']['wins']} wins and sign-test {tex_pvalue_expr(ref_local['RMSE']['p_value'])}. The held-out evidence therefore preserves the same separation between label-set copying and matched posterior barycentering.
 """
     (OUT / "heldout_n50_section.tex").write_text(section, encoding="utf-8")
 

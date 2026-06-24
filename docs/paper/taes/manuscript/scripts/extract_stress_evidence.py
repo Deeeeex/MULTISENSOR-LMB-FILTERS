@@ -229,7 +229,7 @@ def write_fragment(payload: dict[str, object]) -> None:
 % Source: {payload['source_report']}
 % Response-ready fragment. It is not imported by main.tex unless explicitly enabled.
 \begin{{table*}}[t]
-\caption{{Harsh packet-loss N50 stress check. Reductions are relative to tuned spatial-KLA AA under fixed method parameters and the packet-loss profile $p_\mathrm{{drop}}\in{config['p_drop_levels']}$ with sensor counts {config['p_drop_level_counts']}. Bracketed intervals are 95\% confidence intervals for absolute paired reductions.}}
+\caption{{Harsh packet-loss N50 stress check. Reductions are relative to the fixed spatial-KLA AA baseline, reported under the validation label Tuned spatial-KLA AA, under fixed method parameters and the packet-loss profile $p_\mathrm{{drop}}\in{config['p_drop_levels']}$ with sensor counts {config['p_drop_level_counts']}. Bracketed intervals are 95\% confidence intervals for absolute paired reductions.}}
 \label{{tab:harsh-stress}}
 \centering
 \tablefont
@@ -242,7 +242,7 @@ Metric & Full red. [CI] & Full wins/$p$ & Ref. red. [CI] & Ref. wins/$p$\\
 \end{{tabular}}
 \end{{table*}}
 
-The harsh packet-loss stress run uses the fixed design selected before observing the stress N50 result: base seed {config['base_seed']}, {config['trials']} paired trials, existence threshold {config['existence_threshold']:.2f}, and no per-scenario search over projection cutoff, barycenter weights, label rules, or thresholds. Under this profile, the full operator changes network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to tuned spatial-KLA AA. The RMSE mechanism-control comparison is full {full_local['RMSE']['wins']} with {tex_pvalue_expr(full_local['RMSE']['p_value'])} versus reference-only {ref_local['RMSE']['wins']} with {tex_pvalue_expr(ref_local['RMSE']['p_value'])}. This fragment should be interpreted as scenario-family stress evidence rather than as a tuning target.
+The harsh packet-loss stress run uses the fixed design selected before observing the stress N50 result: base seed {config['base_seed']}, {config['trials']} paired trials, existence threshold {config['existence_threshold']:.2f}, and no per-scenario search over projection cutoff, barycenter weights, label rules, or thresholds. Under this profile, the full operator changes network OSPA by {tex_escape(full_network['OSPA']['reduction'])}, local E-OSPA by {tex_escape(full_local['E-OSPA']['reduction'])}, and local RMSE by {tex_escape(full_local['RMSE']['reduction'])} relative to the fixed spatial-KLA AA baseline. The RMSE mechanism-control comparison is full {full_local['RMSE']['wins']} with {tex_pvalue_expr(full_local['RMSE']['p_value'])} versus reference-only {ref_local['RMSE']['wins']} with {tex_pvalue_expr(ref_local['RMSE']['p_value'])}. This fragment should be interpreted as scenario-family stress evidence rather than as a tuning target.
 """
     (OUT / "stress_harsh_section.tex").write_text(section, encoding="utf-8")
     summary = (

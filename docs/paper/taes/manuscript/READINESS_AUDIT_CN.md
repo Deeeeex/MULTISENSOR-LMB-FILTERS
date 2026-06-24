@@ -13,6 +13,12 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 01:35 Checkpoint
+
+本轮按 Nature-style reviewer audit 的逻辑处理一个 wording 风险: `tuned spatial-KLA AA baseline` 容易被审稿人理解成针对当前数据集搜索式调参。`main.tex` 已把 paper-facing 叙事改为 `fixed target-wise spatial-KLA AA baseline`，同时在 Experimental Setup 说明验证报告保留 `Tuned spatial-KLA AA` 这个 implementation label，但所有 paper-facing comparisons 使用 fixed parameterization，而不是 per-scenario retuning。`COVER_LETTER_AND_METADATA_DRAFT.md` 和 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 同步这一点。
+
+`check_submission_readiness.py` 新增 `fixed-design baseline wording` gate，要求正文保留 `fixed target-wise AA-LMB baseline`、`validation reports retain its implementation label`、`fixed parameterization rather than per-scenario retuning`、`no per-scenario search over projection cutoffs, barycenter weights, thresholds, or trial-specific label rules` 等 marker。这个 checkpoint 不改变实验参数、raw evidence、generated metric fragments 或 full-topology 状态，只把“方法贡献不是数据调参”变成可机械检查的投稿约束。
+
 ## 00:55 Checkpoint
 
 本轮按 `nature-writing` / `nature-polishing` 的 algorithmic-paper 工作流，把 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 从单纯 claim/evidence 表扩展为完整的 manuscript argument ledger。新增 `One-Sentence Argument` 锁定本文的一行主张: unreliable peer-to-peer LMB tracking 中，target-wise AA weight routing 已固定后仍可能缺失 Bernoulli component correspondence；graph-local reference、assignment 和 first-two-moment barycenter projection 只修复 active output-track 的 label/moment correspondence，当前证据来自 paired N50 ablation、held-out replication 和 fixed-parameter boundary checks，而 recursive lifecycle、covariance consistency、maneuver/crossing behavior 仍在当前 claim 之外。

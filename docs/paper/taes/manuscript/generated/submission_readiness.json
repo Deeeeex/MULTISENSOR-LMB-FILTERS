@@ -242,6 +242,11 @@
       "status": "pass"
     },
     {
+      "detail": "Manuscript distinguishes the fixed paper-facing baseline from the retained validation-report label and avoids implying per-scenario parameter search.",
+      "gate": "fixed-design baseline wording",
+      "status": "pass"
+    },
+    {
       "detail": "Introduction and Related Work frame the paper around a missing component-correspondence contract rather than another fusion-weight rule.",
       "gate": "correspondence-contract story markers",
       "status": "pass"
@@ -407,7 +412,7 @@
       "status": "pass"
     },
     {
-      "detail": "Held-out N50 supports the mechanism separation: full barycenter RMSE is below tuned and reference-only, with RMSE reduction 6.64% vs reference-only 0.82%.",
+      "detail": "Held-out N50 supports the mechanism separation: full barycenter RMSE is below the fixed baseline and reference-only, with RMSE reduction 6.64% vs reference-only 0.82%.",
       "gate": "held-out N50 barycenter-vs-reference separation",
       "status": "pass"
     },
@@ -482,7 +487,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `b33c0bf812fc07b300fda1470b4f8745fe3d1d7a894325214bb57da09e1b321f`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `9546010b7b8d0cc1639d850b3fff1931e5180d032968e0b413e85a1823d5441d`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

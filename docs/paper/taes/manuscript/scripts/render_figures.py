@@ -121,7 +121,7 @@ def n50_results_svg() -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
         '<rect width="1120" height="560" fill="white"/>',
         '<style>text{font-family:Verdana;} .axis{font-size:20px;fill:#222} .small{font-size:17px;fill:#333} .label{font-size:19px;fill:#111}</style>',
-        '<text class="axis" x="560" y="36" text-anchor="middle" font-weight="700">Paired reduction over tuned spatial-KLA AA, 50 trials</text>',
+        '<text class="axis" x="560" y="36" text-anchor="middle" font-weight="700">Paired reduction over fixed spatial-KLA AA, 50 trials</text>',
     ]
     for tick in range(0, 101, 20):
         x = left + tick / 100 * scale_w

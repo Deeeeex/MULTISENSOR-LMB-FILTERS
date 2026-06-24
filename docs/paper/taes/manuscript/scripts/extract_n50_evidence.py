@@ -278,7 +278,7 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
 
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
     rows = [generated_header(), "\\begin{picture}(38.0,9.8)\n"]
-    rows.append("\\put(0.0,9.35){\\makebox(38.0,0.35){\\tablefont Paired reduction over tuned spatial-KLA AA}}\n")
+    rows.append("\\put(0.0,9.35){\\makebox(38.0,0.35){\\tablefont Paired reduction over fixed spatial-KLA AA}}\n")
     rows.append("\\put(26.9,8.82){\\color{black}\\rule{0.80pc}{0.06in}}\n")
     rows.append("\\put(27.9,8.78){\\tablefont Full}\n")
     rows.append("\\put(31.4,8.82){\\color[gray]{0.58}\\rule{0.80pc}{0.06in}}\n")
@@ -353,11 +353,11 @@ def write_manifest(
         "- Manuscript fragments: `n50_mean_rows.tex`, `n50_paired_rows.tex`, `n50_runtime_rows.tex`, `n50_reduction_bars.tex`\n",
         "- Machine-readable summary: `n50_evidence.json`\n\n",
         "## Key Paper-Facing Checks\n\n",
-        f"- Full method network OSPA: `{network[ARM_ORDER[2]]['OSPA']:.6f}` vs tuned baseline `{network[ARM_ORDER[0]]['OSPA']:.6f}`.\n",
-        f"- Full method local E-OSPA: `{local[ARM_ORDER[2]]['E-OSPA']:.6f}` vs tuned baseline `{local[ARM_ORDER[0]]['E-OSPA']:.6f}`.\n",
+        f"- Full method network OSPA: `{network[ARM_ORDER[2]]['OSPA']:.6f}` vs fixed baseline `{network[ARM_ORDER[0]]['OSPA']:.6f}`.\n",
+        f"- Full method local E-OSPA: `{local[ARM_ORDER[2]]['E-OSPA']:.6f}` vs fixed baseline `{local[ARM_ORDER[0]]['E-OSPA']:.6f}`.\n",
         f"- Full method RMSE reduction: `{full_rmse.reduction_pct:.2f}%`, CI `[{full_rmse.ci_low:.6f}, {full_rmse.ci_high:.6f}]`, wins `{full_rmse.wins}`, sign-test p `{full_rmse.p_value}`.\n",
         f"- Reference-only RMSE reduction: `{ref_rmse.reduction_pct:.2f}%`, CI `[{ref_rmse.ci_low:.6f}, {ref_rmse.ci_high:.6f}]`, wins `{ref_rmse.wins}`, sign-test p `{ref_rmse.p_value}`.\n",
-        f"- Runtime overhead: full `{runtime[ARM_ORDER[2]]['relative']}`, reference-only `{runtime[ARM_ORDER[1]]['relative']}` relative to tuned baseline.\n",
+        f"- Runtime overhead: full `{runtime[ARM_ORDER[2]]['relative']}`, reference-only `{runtime[ARM_ORDER[1]]['relative']}` relative to the fixed baseline.\n",
     ]
     write_text(OUT / "N50_EVIDENCE_MANIFEST.md", "".join(lines))
 
