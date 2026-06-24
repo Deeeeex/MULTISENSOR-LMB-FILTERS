@@ -24,7 +24,7 @@
 | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p01.png` | 1485x1935 | 0.9363 | 0.2091 | `pass` |
 | 2 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png` | 1530x1980 | 0.9324 | 0.2148 | `pass` |
 | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p03.png` | 1530x1980 | 0.9487 | 0.1894 | `pass` |
-| 4 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png` | 1530x1980 | 0.9464 | 0.1906 | `pass` |
+| 4 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png` | 1530x1980 | 0.9460 | 0.1921 | `pass` |
 | 5 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png` | 1530x1980 | 0.9431 | 0.1988 | `pass` |
 | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png` | 1530x1980 | 0.9328 | 0.2144 | `pass` |
 | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png` | 1530x1980 | 0.9515 | 0.1852 | `pass` |
@@ -36,6 +36,6 @@
 - Image: `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png`
 - Thumbnail: `360x480`
 - Dimensions: 1152x1536
-- Mean luma: 0.9484
+- Mean luma: 0.9483
 - Stddev luma: 0.1125
 - Status: `pass`

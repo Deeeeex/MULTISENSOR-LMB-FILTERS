@@ -1,26 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="430" viewBox="0 0 1120 430">
 <rect width="1120" height="430" fill="white"/>
 <style>text{font-family:Verdana;} .h{font-size:25px;font-weight:700;fill:#111} .s{font-size:19px;fill:#333} .tiny{font-size:18px;fill:#333}</style>
-<text class="h" x="560" y="36" text-anchor="middle">Neighborhood label-barycenter projection</text>
-<rect x="110" y="62" width="900" height="42" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.6"/>
-<text class="tiny" x="560" y="89" text-anchor="middle">Scalar AA weights choose probability mass, not component correspondence.</text>
-<rect x="90" y="120" width="250" height="82" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
-<text class="h" x="215.0" y="154" text-anchor="middle">Reference</text>
-<text class="s" x="215.0" y="183" text-anchor="middle">medoid label set</text>
-<rect x="430" y="120" width="250" height="82" rx="7" fill="#FEF0D9" stroke="#D55E00" stroke-width="2.2"/>
-<text class="h" x="555.0" y="154" text-anchor="middle">Assignment</text>
-<text class="s" x="555.0" y="183" text-anchor="middle">component map</text>
-<rect x="770" y="120" width="260" height="82" rx="7" fill="#EAF4EA" stroke="#009E73" stroke-width="2.2"/>
-<text class="h" x="900.0" y="154" text-anchor="middle">Barycenter</text>
-<text class="s" x="900.0" y="183" text-anchor="middle">matched moments</text>
-<line x1="340" y1="161" x2="418" y2="161" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="418,154 430,161 418,168" fill="#4D4D4D"/>
-<line x1="680" y1="161" x2="758" y2="161" stroke="#4D4D4D" stroke-width="2.5"/>
-<polygon points="758,154 770,161 758,168" fill="#4D4D4D"/>
-<rect x="90" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
-<text class="tiny" x="305" y="280" text-anchor="middle">Existence pass-through: keep active AA existence scores.</text>
-<rect x="600" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
-<text class="tiny" x="815" y="280" text-anchor="middle">Moment projection: average only assigned posterior states.</text>
-<rect x="120" y="336" width="880" height="48" rx="5" fill="#F7F7F7" stroke="#777" stroke-width="1.5"/>
-<text class="tiny" x="560" y="366" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>
+<text class="h" x="560" y="34" text-anchor="middle">Neighborhood label-barycenter projection</text>
+<rect x="95" y="58" width="930" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.6"/>
+<text class="tiny" x="560" y="87" text-anchor="middle">Input: active neighborhood LMB outputs, (label, existence, mean, covariance)</text>
+<rect x="80" y="148" width="260" height="76" rx="7" fill="#F7F7F7" stroke="#4D4D4D" stroke-width="2.2"/>
+<text class="h" x="210.0" y="182" text-anchor="middle">1 Reference</text>
+<text class="s" x="210.0" y="211" text-anchor="middle">median-cardinality medoid</text>
+<rect x="430" y="148" width="260" height="76" rx="7" fill="#FEF0D9" stroke="#D55E00" stroke-width="2.2"/>
+<text class="h" x="560.0" y="182" text-anchor="middle">2 Assignment</text>
+<text class="s" x="560.0" y="211" text-anchor="middle">tracks to reference labels</text>
+<rect x="780" y="148" width="260" height="76" rx="7" fill="#EAF4EA" stroke="#009E73" stroke-width="2.2"/>
+<text class="h" x="910.0" y="182" text-anchor="middle">3 Barycenter</text>
+<text class="s" x="910.0" y="211" text-anchor="middle">matched first two moments</text>
+<line x1="340" y1="186" x2="418" y2="186" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="418,179 430,186 418,193" fill="#4D4D4D"/>
+<line x1="690" y1="186" x2="768" y2="186" stroke="#4D4D4D" stroke-width="2.5"/>
+<polygon points="768,179 780,186 768,193" fill="#4D4D4D"/>
+<rect x="95" y="260" width="930" height="50" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="560" y="290" text-anchor="middle">Output: pass through upstream active-track existence scores; rewrite only labels and Gaussian moments.</text>
+<rect x="120" y="346" width="880" height="46" rx="5" fill="#F7F7F7" stroke="#777" stroke-width="1.5"/>
+<text class="tiny" x="560" y="374" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>
 </svg>

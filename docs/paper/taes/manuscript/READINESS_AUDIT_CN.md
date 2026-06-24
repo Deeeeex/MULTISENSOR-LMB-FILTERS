@@ -35,6 +35,12 @@
 
 `README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 已同步说明该 protocol 由 readiness checker 验证，但仍保持在 manuscript source bundle 之外。这个 checkpoint 不改变正文、实验数字、generated evidence 或 full-topology 状态；它只把“当前 paper 不等待 A/B/C extension，且不能把 future protocol 当 evidence”的投稿边界固化。
 
+## 04:11 Checkpoint
+
+本轮按 reviewer readability 视角重做 Fig. 1 的生成逻辑。`render_figures.py` 现在把 method pipeline 表达为 `input active neighborhood LMB outputs -> reference -> assignment -> barycenter -> output active tracks`，并在图内明确 output 只 pass through upstream existence score、rewrite labels/moments。`main.tex` caption 同步这一点，强调输入不是 global label dictionary。该改动只提高方法图的信息密度和复用可读性，不改变方法定义、实验结果、source reports 或 readiness claim。
+
+视觉检查 `tmp/pdf_visual_qa/main_all_p04.png` 显示更新后的 Fig. 1 在单栏宽度下可读，没有明显文字溢出或与 Fig. 2/Structural Properties 正文重叠。full-topology ceiling run 仍未完成，本 checkpoint 没有把它接入 evidence chain。
+
 ## 03:09 Checkpoint
 
 本轮把 cover letter 从“证据角色说明”提升为“编辑可直接看到核心证据”的投稿信草稿。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在加入主 paired N50 的三项核心结果: network OSPA disagreement 降低 `81.59%`、local E-OSPA 降低 `17.15%`、RMSE 降低 `6.35%`；同时写明 reference-only RMSE 只有 `0.54%`，held-out N50 复现实验保留 full barycenter vs label copying 的 RMSE separation (`6.64%` vs `0.82%`)。`check_submission_readiness.py` 的 cover-letter positioning gate 已新增这些定量 marker，防止最终 metadata 替换时把编辑最需要看到的机制证据删掉。

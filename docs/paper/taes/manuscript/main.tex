@@ -136,7 +136,7 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \begin{figure}[t]
 \centering
 \input{generated/method_pipeline.tex}
-\caption{Core mechanism of the proposed operator. Fusion weights specify how much probability mass a neighbor contributes, but they do not define component correspondence across local LMB posteriors. The operator therefore chooses a graph-local reference, matches neighbor tracks to that reference, and replaces matched states by posterior moment barycenters.}
+\caption{Core mechanism of the proposed operator. The input is the active neighborhood LMB output, not a global label dictionary. Fusion weights specify how much probability mass a neighbor contributes, but they do not define component correspondence across local LMB posteriors. The operator chooses a graph-local reference, matches neighbor tracks to that reference, passes upstream active-track existence scores through, and rewrites only labels and Gaussian moments.}
 \label{fig:method}
 \end{figure}
 

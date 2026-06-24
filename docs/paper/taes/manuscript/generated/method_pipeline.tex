@@ -4,22 +4,18 @@
 \begin{picture}(236,148)
 \thicklines
 \put(0,138){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
-\put(8,112){\framebox(220,22){\shortstack{\scriptsize Scalar AA weights choose probability mass\\[-1pt]\scriptsize not component correspondence.}}}
+\put(6,115){\framebox(224,20){\shortstack{\scriptsize Input: active neighborhood LMB outputs\\[-1pt]\tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$}}}
 
-\put(5,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Reference\\[-1pt]\tiny medoid label set}}}
-\put(87,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Assignment\\[-1pt]\tiny component map}}}
-\put(169,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Barycenter\\[-1pt]\tiny matched moments}}}
-\put(67,89){\vector(1,0){20}}
-\put(149,89){\vector(1,0){20}}
-\put(36,68){\makebox(0,0){\tiny 1}}
-\put(118,68){\makebox(0,0){\tiny 2}}
-\put(200,68){\makebox(0,0){\tiny 3}}
+\put(3,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 1 Reference\\[-1pt]\tiny median-cardinality medoid}}}
+\put(86,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 2 Assignment\\[-1pt]\tiny tracks to reference labels}}}
+\put(169,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 3 Barycenter\\[-1pt]\tiny matched first two moments}}}
+\put(67,90){\vector(1,0){19}}
+\put(150,90){\vector(1,0){19}}
 
-\put(4,38){\framebox(108,19){\shortstack{\scriptsize Existence pass-through\\[-1pt]\tiny keep active AA scores}}}
-\put(124,38){\framebox(108,19){\shortstack{\scriptsize Moment projection\\[-1pt]\tiny average assigned states}}}
-\put(112,48){\vector(1,0){12}}
+\put(6,42){\framebox(224,22){\shortstack{\scriptsize Output active tracks\\[-1pt]\tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
+\put(118,76){\vector(0,-1){12}}
 
-\put(12,9){\fcolorbox{black}{black!4}{\parbox[c][19pt][c]{212pt}{\centering\scriptsize Repeat for $H$ rounds over $\mathcal{N}_s$; no global label dictionary is read or constructed.}}}
-\put(118,38){\vector(0,-1){10}}
+\put(12,9){\fcolorbox{black}{black!4}{\parbox[c][19pt][c]{212pt}{\centering\scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
+\put(118,42){\vector(0,-1){11}}
 \end{picture}
 \endgroup

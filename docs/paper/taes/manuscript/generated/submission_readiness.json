@@ -252,7 +252,7 @@
       "status": "pass"
     },
     {
-      "detail": "Generated method figure preserves the compact mass-vs-correspondence, three-step projection, existence-pass-through, and no-global-label visual markers.",
+      "detail": "Generated method figure preserves the active-input, three-step projection, existence-pass-through, label/moment-rewrite, and no-global-label visual markers.",
       "gate": "method figure mechanism markers",
       "status": "pass"
     },
@@ -407,7 +407,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 152 lines; underfull warnings observed: 132.",
+      "detail": "`tmp/build/latex_build.log` exists with 151 lines; underfull warnings observed: 132.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -547,7 +547,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `1d4e830495c46f1b988283fec52dd7f8bd526a444e30ee9f2de87884d7665b80`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `ebf69577755649d812120a8093b359f8755955b8c576f4a8328173342cc9d76f`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

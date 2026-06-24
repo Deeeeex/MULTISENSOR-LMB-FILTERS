@@ -664,14 +664,15 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
 
     method_figure_text = read_text(METHOD_PIPELINE_FRAGMENT) if METHOD_PIPELINE_FRAGMENT.exists() else ""
     method_figure_markers = [
-        "Scalar AA weights choose probability mass",
-        "not component correspondence",
-        "Reference",
-        "Assignment",
-        "Barycenter",
-        "Existence pass-through",
-        "Moment projection",
-        r"no global label dictionary is read or constructed",
+        "Input: active neighborhood LMB outputs",
+        r"(\ell,r,\mu,\Sigma)_j",
+        "1 Reference",
+        "2 Assignment",
+        "3 Barycenter",
+        "Output active tracks",
+        r"pass through upstream $r$",
+        "rewrite only labels",
+        "no global label dictionary",
     ]
     missing_method_figure_markers = [
         marker for marker in method_figure_markers if marker not in method_figure_text
@@ -680,7 +681,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         Check(
             "method figure mechanism markers",
             "pass" if METHOD_PIPELINE_FRAGMENT.exists() and not missing_method_figure_markers else "warning",
-            "Generated method figure preserves the compact mass-vs-correspondence, three-step projection, existence-pass-through, and no-global-label visual markers."
+            "Generated method figure preserves the active-input, three-step projection, existence-pass-through, label/moment-rewrite, and no-global-label visual markers."
             if METHOD_PIPELINE_FRAGMENT.exists() and not missing_method_figure_markers
             else "`generated/method_pipeline.tex` is missing or incomplete; missing markers: "
             + ("; ".join(missing_method_figure_markers) if missing_method_figure_markers else "fragment file"),

@@ -42,34 +42,32 @@ def convert_svg(svg: Path, target: Path, density: int = 300) -> None:
 
 def method_pipeline_svg() -> str:
     boxes = [
-        (90, 120, 250, 82, "Reference", "medoid label set", "#F7F7F7", "#4D4D4D"),
-        (430, 120, 250, 82, "Assignment", "component map", "#FEF0D9", "#D55E00"),
-        (770, 120, 260, 82, "Barycenter", "matched moments", "#EAF4EA", "#009E73"),
+        (80, 148, 260, 76, "1 Reference", "median-cardinality medoid", "#F7F7F7", "#4D4D4D"),
+        (430, 148, 260, 76, "2 Assignment", "tracks to reference labels", "#FEF0D9", "#D55E00"),
+        (780, 148, 260, 76, "3 Barycenter", "matched first two moments", "#EAF4EA", "#009E73"),
     ]
     svg = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="430" viewBox="0 0 1120 430">',
         '<rect width="1120" height="430" fill="white"/>',
         '<style>text{font-family:Verdana;} .h{font-size:25px;font-weight:700;fill:#111} .s{font-size:19px;fill:#333} .tiny{font-size:18px;fill:#333}</style>',
-        '<text class="h" x="560" y="36" text-anchor="middle">Neighborhood label-barycenter projection</text>',
-        '<rect x="110" y="62" width="900" height="42" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.6"/>',
-        '<text class="tiny" x="560" y="89" text-anchor="middle">Scalar AA weights choose probability mass, not component correspondence.</text>',
+        '<text class="h" x="560" y="34" text-anchor="middle">Neighborhood label-barycenter projection</text>',
+        '<rect x="95" y="58" width="930" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.6"/>',
+        '<text class="tiny" x="560" y="87" text-anchor="middle">Input: active neighborhood LMB outputs, (label, existence, mean, covariance)</text>',
     ]
     for x, y, w, h, title, sub, fill, stroke in boxes:
         svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="{fill}" stroke="{stroke}" stroke-width="2.2"/>')
         svg.append(f'<text class="h" x="{x + w/2}" y="{y + 34}" text-anchor="middle">{title}</text>')
         svg.append(f'<text class="s" x="{x + w/2}" y="{y + 63}" text-anchor="middle">{sub}</text>')
-    for x1, x2 in [(340, 430), (680, 770)]:
-        y = 161
+    for x1, x2 in [(340, 430), (690, 780)]:
+        y = 186
         svg.append(f'<line x1="{x1}" y1="{y}" x2="{x2-12}" y2="{y}" stroke="#4D4D4D" stroke-width="2.5"/>')
         svg.append(f'<polygon points="{x2-12},{y-7} {x2},{y} {x2-12},{y+7}" fill="#4D4D4D"/>')
     svg.extend(
         [
-            '<rect x="90" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="305" y="280" text-anchor="middle">Existence pass-through: keep active AA existence scores.</text>',
-            '<rect x="600" y="250" width="430" height="48" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="815" y="280" text-anchor="middle">Moment projection: average only assigned posterior states.</text>',
-            '<rect x="120" y="336" width="880" height="48" rx="5" fill="#F7F7F7" stroke="#777" stroke-width="1.5"/>',
-            '<text class="tiny" x="560" y="366" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>',
+            '<rect x="95" y="260" width="930" height="50" rx="5" fill="#FFFFFF" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="560" y="290" text-anchor="middle">Output: pass through upstream active-track existence scores; rewrite only labels and Gaussian moments.</text>',
+            '<rect x="120" y="346" width="880" height="46" rx="5" fill="#F7F7F7" stroke="#777" stroke-width="1.5"/>',
+            '<text class="tiny" x="560" y="374" text-anchor="middle">Repeat for H graph-local rounds over N_s; no global label dictionary is read or constructed.</text>',
         ]
     )
     svg.append("</svg>")
@@ -83,23 +81,19 @@ def method_pipeline_tex() -> str:
 \begin{picture}(236,148)
 \thicklines
 \put(0,138){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
-\put(8,112){\framebox(220,22){\shortstack{\scriptsize Scalar AA weights choose probability mass\\[-1pt]\scriptsize not component correspondence.}}}
+\put(6,115){\framebox(224,20){\shortstack{\scriptsize Input: active neighborhood LMB outputs\\[-1pt]\tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$}}}
 
-\put(5,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Reference\\[-1pt]\tiny medoid label set}}}
-\put(87,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Assignment\\[-1pt]\tiny component map}}}
-\put(169,74){\fcolorbox{black}{black!4}{\parbox[c][31pt][c]{62pt}{\centering\scriptsize\bfseries Barycenter\\[-1pt]\tiny matched moments}}}
-\put(67,89){\vector(1,0){20}}
-\put(149,89){\vector(1,0){20}}
-\put(36,68){\makebox(0,0){\tiny 1}}
-\put(118,68){\makebox(0,0){\tiny 2}}
-\put(200,68){\makebox(0,0){\tiny 3}}
+\put(3,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 1 Reference\\[-1pt]\tiny median-cardinality medoid}}}
+\put(86,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 2 Assignment\\[-1pt]\tiny tracks to reference labels}}}
+\put(169,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 3 Barycenter\\[-1pt]\tiny matched first two moments}}}
+\put(67,90){\vector(1,0){19}}
+\put(150,90){\vector(1,0){19}}
 
-\put(4,38){\framebox(108,19){\shortstack{\scriptsize Existence pass-through\\[-1pt]\tiny keep active AA scores}}}
-\put(124,38){\framebox(108,19){\shortstack{\scriptsize Moment projection\\[-1pt]\tiny average assigned states}}}
-\put(112,48){\vector(1,0){12}}
+\put(6,42){\framebox(224,22){\shortstack{\scriptsize Output active tracks\\[-1pt]\tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
+\put(118,76){\vector(0,-1){12}}
 
-\put(12,9){\fcolorbox{black}{black!4}{\parbox[c][19pt][c]{212pt}{\centering\scriptsize Repeat for $H$ rounds over $\mathcal{N}_s$; no global label dictionary is read or constructed.}}}
-\put(118,38){\vector(0,-1){10}}
+\put(12,9){\fcolorbox{black}{black!4}{\parbox[c][19pt][c]{212pt}{\centering\scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
+\put(118,42){\vector(0,-1){11}}
 \end{picture}
 \endgroup
 """
