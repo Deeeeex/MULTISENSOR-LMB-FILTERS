@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "e122ee985df4c585df00eee48d7e7d94e92c1f27c8fe04ccda3b668ec5206eaa",
-  "file_count": 64,
+  "bundle_sha256": "67f334b9451ac3acbeefbd2d2b6c2e6868cd8394de0dde187cc05f6600e82ff6",
+  "file_count": 65,
   "files": [
     {
       "path": "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
@@ -22,6 +22,11 @@
       "path": "FINAL_METADATA_CLOSURE_CHECKLIST.md",
       "sha256": "575ee4f5698550e1f49a45a21dd1ab24a5a69f1c0ca2d141e8cbba80ad62e289",
       "size_bytes": 5892
+    },
+    {
+      "path": "FINAL_SUBMISSION_AUDIT_CN.md",
+      "sha256": "9b8239ca25984b7ae72b097a8fe01ed1f17a6f588fdae0bf290eff4246db187c",
+      "size_bytes": 5730
     },
     {
       "path": "IEEEtaes.bst",
@@ -50,8 +55,8 @@
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "b698ca97fe906bb80949ba6f3085612312481da83c32877168519bb43d3c85f8",
-      "size_bytes": 9625
+      "sha256": "f11f1d81cf9127d06c966e88d5bc7555753989516e3a97febfa5a5348dadcc3c",
+      "size_bytes": 10040
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
@@ -245,7 +250,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "9bc20637fdf59bdf3b950ce7f9f80c515e42e52322de943faec83412eac89613",
+      "sha256": "f7871cc57af677ecfc6552ac3b5bfee7c763c35edeb273d85f86e1a805a4f847",
       "size_bytes": 121010
     },
     {
@@ -260,13 +265,13 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "32e0e1561b3ea51d929d27b62011e1545ffdae16426227ef8f74e96a9e09e6e7",
-      "size_bytes": 104958
+      "sha256": "9fc3eeb99b6bf90cfaa8849c552db7924b8cc50eed7b2090c28d8520e1c89076",
+      "size_bytes": 106868
     },
     {
       "path": "scripts/create_submission_bundle.py",
-      "sha256": "39cacfbacd3c2f895c992a87e21f374411df3adeb90d78df23c14dd5a40e8f36",
-      "size_bytes": 5039
+      "sha256": "318129f25205d29cb1bcfa57437f200bed33da55c6bcd7aa10dea5631c2955de",
+      "size_bytes": 5079
     },
     {
       "path": "scripts/evidence_sources.py",

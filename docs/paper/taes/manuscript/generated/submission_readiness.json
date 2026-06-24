@@ -22,6 +22,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/FINAL_SUBMISSION_AUDIT_CN.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/FINAL_METADATA_CLOSURE_CHECKLIST.md",
       "gate": "required artifact",
       "status": "pass"
@@ -362,6 +367,11 @@
       "status": "pass"
     },
     {
+      "detail": "Final submission audit maps the user-facing paper-readiness requirements to current evidence, residual metadata actions, and non-claims.",
+      "gate": "final submission audit",
+      "status": "pass"
+    },
+    {
       "detail": "Final metadata closure checklist maps remaining author, funding, repository, portal, optional-upload, and post-acceptance placeholders to concrete replacement decisions.",
       "gate": "final metadata closure checklist",
       "status": "pass"
@@ -417,7 +427,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 117 lines; underfull warnings observed: 97.",
+      "detail": "`tmp/build/latex_build.log` exists with 116 lines; underfull warnings observed: 97.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -562,7 +572,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 64 files and SHA-256 `e122ee985df4c585df00eee48d7e7d94e92c1f27c8fe04ccda3b668ec5206eaa`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `67f334b9451ac3acbeefbd2d2b6c2e6868cd8394de0dde187cc05f6600e82ff6`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

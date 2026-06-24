@@ -29,6 +29,7 @@ MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
+FINAL_SUBMISSION_AUDIT = ROOT / "FINAL_SUBMISSION_AUDIT_CN.md"
 FINAL_METADATA_CHECKLIST = ROOT / "FINAL_METADATA_CLOSURE_CHECKLIST.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
@@ -95,6 +96,7 @@ METADATA_PLACEHOLDER_GATE = "submission metadata placeholders"
 BUNDLE_REQUIRED_PATHS = [
     "build.sh",
     "SUBMISSION_PACKAGE_INDEX.md",
+    "FINAL_SUBMISSION_AUDIT_CN.md",
     "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
     "SUPPLEMENTARY_README_DRAFT.md",
     "REVIEWER_RISK_REGISTER.md",
@@ -375,6 +377,7 @@ def file_checks() -> list[Check]:
         MAIN_PDF,
         BIB,
         COVER_LETTER,
+        FINAL_SUBMISSION_AUDIT,
         FINAL_METADATA_CHECKLIST,
         SUBMISSION_INDEX,
         SUPPLEMENTARY_EVIDENCE_PACKAGE,
@@ -1215,6 +1218,47 @@ def final_metadata_closure_checks() -> list[Check]:
     ]
 
 
+def final_submission_audit_checks() -> list[Check]:
+    if not FINAL_SUBMISSION_AUDIT.exists():
+        return [
+            Check(
+                "final submission audit",
+                "warning",
+                "`FINAL_SUBMISSION_AUDIT_CN.md` is missing.",
+            )
+        ]
+    text = read_text(FINAL_SUBMISSION_AUDIT)
+    required_markers = [
+        "Requirement-By-Evidence Matrix",
+        "Current Verdict",
+        "content_ready_metadata_pending",
+        "Metadata allowance leaves no non-metadata blocking gate",
+        "9 TAES-template pages",
+        "Theoretical argument is complete and bounded",
+        "Introduction story is coherent and publication-facing",
+        "Language is professional and claim-bounded",
+        "Experiments are detailed and report-driven",
+        "Evidence is solid and reproducible",
+        "Figures and tables are clear and aligned with claims",
+        "Source package is clean",
+        "Cover letter and portal handoff are ready to fill",
+        "Non-Claims To Preserve",
+        "full-topology N50 result is a zero-disagreement equivalence boundary",
+        "Final Portal-Submission Closure",
+        "TAES_EVIDENCE_MODE=bundled ./build.sh",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "final submission audit",
+            "pass" if not missing else "warning",
+            "Final submission audit maps the user-facing paper-readiness requirements to current evidence, residual metadata actions, and non-claims."
+            if not missing
+            else "Final submission audit is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
 def submission_package_index_checks() -> list[Check]:
     if not SUBMISSION_INDEX.exists():
         return [Check("submission package index", "warning", "`SUBMISSION_PACKAGE_INDEX.md` is missing.")]
@@ -1227,6 +1271,7 @@ def submission_package_index_checks() -> list[Check]:
         "main.pdf",
         "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
+        "FINAL_SUBMISSION_AUDIT_CN.md",
         "FINAL_METADATA_CLOSURE_CHECKLIST.md",
         "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
         "SUPPLEMENTARY_README_DRAFT.md",
@@ -2450,6 +2495,7 @@ def main() -> None:
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(doi_resolver_checks(bib))
     checks.extend(cover_letter_checks(tex))
+    checks.extend(final_submission_audit_checks())
     checks.extend(final_metadata_closure_checks())
     checks.extend(submission_package_index_checks())
     checks.extend(supplementary_evidence_package_checks())
