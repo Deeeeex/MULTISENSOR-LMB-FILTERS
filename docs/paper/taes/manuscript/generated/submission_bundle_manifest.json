@@ -1,7 +1,7 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "6be433f3de497f72c3593489ddbf335bda5d1ed04aedd9cd71f2ab6ff65c3e06",
-  "file_count": 62,
+  "bundle_sha256": "b33c0bf812fc07b300fda1470b4f8745fe3d1d7a894325214bb57da09e1b321f",
+  "file_count": 63,
   "files": [
     {
       "path": "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
@@ -12,6 +12,11 @@
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
       "sha256": "647cb3cc163b8690ac174056d7da79cef7359085bf16a3a2eb1d0d66a51a875e",
       "size_bytes": 6158
+    },
+    {
+      "path": "FINAL_METADATA_CLOSURE_CHECKLIST.md",
+      "sha256": "955b080336c8969c536d3decad8e63fc42b4f8b275cd5314e58abb59e16e9eef",
+      "size_bytes": 5606
     },
     {
       "path": "IEEEtaes.bst",
@@ -25,13 +30,13 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "3a9d5833b1bd82ec09dae8bde94accb589f672a344e5059fbfcf6106c8deefee",
-      "size_bytes": 49196
+      "sha256": "62a08edef7b06ed1b00449eed254afa760f479d53b9b5a33c691d24ac6d48431",
+      "size_bytes": 50361
     },
     {
       "path": "README.md",
-      "sha256": "570c10171d89d9c3772bf5dd7f3dc8bb3f7d92dba202ee210988ac8908cb8bc8",
-      "size_bytes": 12825
+      "sha256": "cd7cbd73e78706177111d843c04f1904e849fb9145ae3414a10916177fb96880",
+      "size_bytes": 13128
     },
     {
       "path": "REVIEWER_RISK_REGISTER.md",
@@ -40,8 +45,8 @@
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "72ef3e80d1298cba9ea003529d8430d302006e0e727b694bed063fa860f9ec79",
-      "size_bytes": 7979
+      "sha256": "7bebf0e22777362a5600d527d71ed7cbf73f82945b0a5a9bced45fb0e2b344f1",
+      "size_bytes": 8671
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
@@ -235,7 +240,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "653dc465ccfd06f48032add057737428e5172d693d47f114b571536fdfb65d49",
+      "sha256": "427863449c44627a1db8a04ae64c6cb95f275a154fb1b2b889b74c8af0183512",
       "size_bytes": 115631
     },
     {
@@ -250,13 +255,13 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "a406225e4be3f0181df25e202184c605fe72d7af848e3dbd77936a8e6677171b",
-      "size_bytes": 85636
+      "sha256": "e4b700808a48651e475acdb040c4c4a8512316c9d51bbf10b3f5152af79a842d",
+      "size_bytes": 87409
     },
     {
       "path": "scripts/create_submission_bundle.py",
-      "sha256": "892803dc9654768265abbc92f645ebae892f7f91d52be1a1c3e4873150144e34",
-      "size_bytes": 4959
+      "sha256": "8a5800525dcb8ef33d7dee38a08117ee29b79a63470a5b7d1f87124402eb33c5",
+      "size_bytes": 5006
     },
     {
       "path": "scripts/evidence_sources.py",

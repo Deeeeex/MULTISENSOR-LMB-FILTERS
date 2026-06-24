@@ -22,6 +22,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/FINAL_METADATA_CLOSURE_CHECKLIST.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/SUBMISSION_PACKAGE_INDEX.md",
       "gate": "required artifact",
       "status": "pass"
@@ -317,6 +322,11 @@
       "status": "pass"
     },
     {
+      "detail": "Final metadata closure checklist maps remaining author, funding, repository, portal, optional-upload, and post-acceptance placeholders to concrete replacement decisions.",
+      "gate": "final metadata closure checklist",
+      "status": "pass"
+    },
+    {
       "detail": "Submission package index maps final uploads, internal QA artifacts, metadata placeholders, and the final rebuild sequence.",
       "gate": "submission package index",
       "status": "pass"
@@ -472,7 +482,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 62 files and SHA-256 `6be433f3de497f72c3593489ddbf335bda5d1ed04aedd9cd71f2ab6ff65c3e06`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `b33c0bf812fc07b300fda1470b4f8745fe3d1d7a894325214bb57da09e1b321f`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

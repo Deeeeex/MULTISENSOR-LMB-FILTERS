@@ -29,6 +29,12 @@
 
 本轮按预投稿审稿视角把新增相邻文献纳入 `REVIEWER_RISK_REGISTER.md`。新增的风险项回答“本文和 multiview LMB fusion / efficient label matching 的差异是什么”: 当前 defensible contrast 不是说这些 prior works 忽略 labels 或不如本文，而是本文聚焦 active-output correspondence projection layer，并通过 reference-only ablation 分离 label copying 与 matched posterior barycentering 的机制贡献。`check_submission_readiness.py` 的 reviewer-risk gate 已同步要求 `Jin2023MultiviewLMB`、`Ding2025EfficientLabelMatching`、`active-output correspondence projection layer` 等 marker，防止后续 reviewer response planning 退回 strawman 式对比。
 
+## 01:15 Checkpoint
+
+本轮新增 `FINAL_METADATA_CLOSURE_CHECKLIST.md`，把当前 readiness report 中仍阻塞 portal submission 的 metadata placeholders 转成可执行替换清单。该文件覆盖 author/front-matter、affiliation/email/ORCID、funding、repository DOI/URL、Code Ocean、DataPort、preprint/conflict/reviewer fields、graphical/video abstract、supplementary-material decision，以及 post-acceptance-only 的 issue/DOI/date 字段。它明确 metadata closure 期间不得改变实验参数、evidence-source paths、generated metric fragments，也不得接入未完成的 full-topology 结果或把方法写宽成非 active-output label/moment correspondence projection。
+
+`create_submission_bundle.py` 已把该清单纳入 deterministic source bundle；`check_submission_readiness.py` 新增 `final metadata closure checklist` gate，并把该文件加入 required artifacts 与 bundle-required paths；`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 同步说明它是最终提交前的占位符闭环入口。这个 checkpoint 不改变主文科学内容，只减少实际 portal submission 前漏填或错填 metadata 的风险。
+
 ## 00:50 Checkpoint
 
 本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。

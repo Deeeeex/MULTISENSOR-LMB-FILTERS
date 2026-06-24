@@ -29,6 +29,7 @@ MAIN_TEX = ROOT / "main.tex"
 MAIN_PDF = ROOT / "main.pdf"
 BIB = ROOT / "references.bib"
 COVER_LETTER = ROOT / "COVER_LETTER_AND_METADATA_DRAFT.md"
+FINAL_METADATA_CHECKLIST = ROOT / "FINAL_METADATA_CLOSURE_CHECKLIST.md"
 SUBMISSION_INDEX = ROOT / "SUBMISSION_PACKAGE_INDEX.md"
 SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
 SUPPLEMENTARY_README_DRAFT = ROOT / "SUPPLEMENTARY_README_DRAFT.md"
@@ -91,6 +92,7 @@ BUNDLE_REQUIRED_PATHS = [
     "SUPPLEMENTARY_README_DRAFT.md",
     "REVIEWER_RISK_REGISTER.md",
     "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+    "FINAL_METADATA_CLOSURE_CHECKLIST.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
     "scripts/evidence_sources.py",
@@ -365,6 +367,7 @@ def file_checks() -> list[Check]:
         MAIN_PDF,
         BIB,
         COVER_LETTER,
+        FINAL_METADATA_CHECKLIST,
         SUBMISSION_INDEX,
         SUPPLEMENTARY_EVIDENCE_PACKAGE,
         SUPPLEMENTARY_README_DRAFT,
@@ -1026,6 +1029,46 @@ def cover_letter_checks(tex: str) -> list[Check]:
     ]
 
 
+def final_metadata_closure_checks() -> list[Check]:
+    if not FINAL_METADATA_CHECKLIST.exists():
+        return [
+            Check(
+                "final metadata closure checklist",
+                "warning",
+                "`FINAL_METADATA_CLOSURE_CHECKLIST.md` is missing.",
+            )
+        ]
+    text = read_text(FINAL_METADATA_CHECKLIST)
+    required_markers = [
+        "content_ready_metadata_pending",
+        "Required Author And Front-Matter Replacements",
+        "Funding, Repository, And Availability Decisions",
+        "TAES Front-Matter And Post-Acceptance Fields",
+        "Closure Sequence",
+        "Do Not Change During Metadata Closure",
+        "FIRST AUTHOR",
+        "ORCID",
+        "[Funding Agency]",
+        "[repository DOI/URL]",
+        "Code Ocean",
+        "DataPort",
+        "Graphical/video abstract",
+        "TAES_EVIDENCE_MODE=bundled ./build.sh",
+        "full-topology results",
+        "active-output label/moment correspondence projection",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "final metadata closure checklist",
+            "pass" if not missing else "warning",
+            "Final metadata closure checklist maps remaining author, funding, repository, portal, optional-upload, and post-acceptance placeholders to concrete replacement decisions."
+            if not missing
+            else "Final metadata closure checklist is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
 def submission_package_index_checks() -> list[Check]:
     if not SUBMISSION_INDEX.exists():
         return [Check("submission package index", "warning", "`SUBMISSION_PACKAGE_INDEX.md` is missing.")]
@@ -1038,6 +1081,7 @@ def submission_package_index_checks() -> list[Check]:
         "main.pdf",
         "tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
+        "FINAL_METADATA_CLOSURE_CHECKLIST.md",
         "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
         "SUPPLEMENTARY_README_DRAFT.md",
         "REVIEWER_RISK_REGISTER.md",
@@ -2013,6 +2057,7 @@ def main() -> None:
     checks.extend(manuscript_checks(tex, bib))
     checks.extend(doi_resolver_checks(bib))
     checks.extend(cover_letter_checks(tex))
+    checks.extend(final_metadata_closure_checks())
     checks.extend(submission_package_index_checks())
     checks.extend(supplementary_evidence_package_checks())
     checks.extend(supplementary_readme_checks())
