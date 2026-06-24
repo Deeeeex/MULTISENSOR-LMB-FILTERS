@@ -10,7 +10,7 @@ Shared manuscript claim: after target-wise AA weights have reached the existence
 
 Visible evidence base: primary paired N50 validation, reference-only ablation, held-out N50 replication, harsh packet-loss N50 stress check, topology-ring and partial-FOV N50 scenario-family checks, contextual GA rows, independent N50 verifier, DOI resolver check, PDF visual QA, and source-bundle rebuild.
 
-Missing materials affecting confidence: final author/funding/repository metadata, full-topology ceiling result while the run is still in progress, maneuvering-target validation, covariance-consistency validation, and recursive-online LMB validation with lifecycle guards.
+Missing materials affecting confidence: final author/funding/repository metadata, full-topology ceiling result while the run is still in progress, maneuvering-target validation, covariance-consistency validation, and recursive-online LMB validation with lifecycle guards. The method-level follow-up design for these validation families is recorded in `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md`.
 
 ### Reviewer 1: Technical Soundness Emphasis
 
@@ -56,6 +56,7 @@ Missing materials affecting confidence: final author/funding/repository metadata
 - Not assessable from current evidence: covariance consistency or reliability-weighted optimality of the equal moment barycenter.
 - Not assessable until completion: the full-topology ceiling run started on 2026-06-25; it must not enter manuscript claims before a report is complete, configured in `evidence_sources.json`, and parsed by `extract_scenario_family_evidence.py`.
 - Unsupported if overstated: claims that the operator replaces AA/KLA density fusion, optimizes fusion weights, guarantees finite-round consensus, or solves general label management.
+- Follow-up protocol status: `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md` defines fixed no-search candidate validations for maneuver/crossing assignment stress, covariance/reliability mismatch, and recursive guarded projection. These are future risk-reduction plans, not current manuscript evidence.
 
 ## Risk Map
 

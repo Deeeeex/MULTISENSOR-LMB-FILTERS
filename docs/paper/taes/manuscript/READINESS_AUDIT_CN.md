@@ -144,6 +144,12 @@ Run handoff:
 
 `REVIEWER_RISK_REGISTER.md` 现在新增 `Reviewer-Style Preflight Synthesis`、三位 reviewer emphasis、`Cross-Review Synthesis` 和 `Risk / Unsupported Claims`。其中明确写入 `full-topology` ceiling run 完成前不得进入正文、generated fragment 或 cover-letter evidence。`check_submission_readiness.py` 同步扩展 reviewer-risk gate，要求这些 marker 保留。这个改动提升的是投稿前 response planning 和 claim-boundary discipline，不改变正文数值、不接入新实验、不扩张 evidence scope。
 
+## 00:20 Checkpoint
+
+当前分支仍为 `codex/aa-target-wise-fix`。本轮检查了当前 PDF visual QA contact sheet: title/abstract、method、main-results、held-out/runtime、discussion/conclusion 和 references 代表页没有明显重叠、表格溢出或大块空白；第 6/7 页较密，但仍在 9 页 TAES 预算内且机器 visual QA 通过。随后检查 `runAaBalancedCardinalityValidation.m` 的 scenario override 支持范围，确认当前代码可以直接支撑 topology/FOV/full-topology，但 maneuver/crossing、covariance-consistency 和 recursive-online 不是简单换 seed 或阈值能完成的 evidence。
+
+新增 `docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md`，把下一阶段真正方法层面的泛化验证拆成三个候选: `maneuver-crossing-assignment`、`covariance-mismatch-reliability`、`recursive-guarded-projection`。每个候选都写明研究问题、固定改变量/不变量、代码门槛、解释规则和 no-search rule。该文档明确当前 TAES submission 不应等待这些候选全部完成；它们是 reviewer-risk reduction 或后续 method-extension 设计，不能替代当前已验证的 output-level active-track claim。
+
 ## 22:45 Checkpoint
 
 当前分支仍为 `codex/aa-target-wise-fix`。本轮按期刊投稿包而不是会议稿件的口径，新增 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md` 作为 optional supplement / reviewer-response evidence 的单一索引层，把 held-out N50、harsh packet-loss、topology/FOV scenario family 和 reproducibility ledger 的生成片段统一映射到用途、状态和解释边界。该文件明确这些材料来自固定参数后的 robustness / boundary checks，不构成针对场景的 threshold、barycenter weight 或 label rule 搜索，也不替代 maneuvering-target、covariance-consistency、recursive-online validation 等更广泛风险项。
