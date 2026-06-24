@@ -57,6 +57,7 @@ def collect_files() -> list[Path]:
         "SUPPLEMENTARY_README_DRAFT.md",
         "REVIEWER_RISK_REGISTER.md",
         "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+        "FIGURE_TABLE_AUDIT.md",
         "READINESS_AUDIT_CN.md",
         "COVER_LETTER_AND_METADATA_DRAFT.md",
         "evidence_sources.json",

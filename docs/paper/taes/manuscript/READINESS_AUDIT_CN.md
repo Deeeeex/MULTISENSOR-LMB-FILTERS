@@ -41,6 +41,12 @@
 
 视觉检查 `tmp/pdf_visual_qa/main_all_p04.png` 显示更新后的 Fig. 1 在单栏宽度下可读，没有明显文字溢出或与 Fig. 2/Structural Properties 正文重叠。full-topology ceiling run 仍未完成，本 checkpoint 没有把它接入 evidence chain。
 
+## 04:20 Checkpoint
+
+本轮新增 `FIGURE_TABLE_AUDIT.md`，把主文 Fig. 1、Fig. 2、Table I--V、Fig. 3 以及 response-ready/source-bundle 的 harsh-loss、scenario-family 和 reproducibility ledger tables 逐项映射到 reader task、source/generation path、visual QA target 和 claim boundary。`check_submission_readiness.py` 新增 `figure/table audit ledger` gate，`create_submission_bundle.py`、`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 已同步把该 ledger 纳入 source-bundle/self-documenting submission package。
+
+这个 checkpoint 不改变正文 claim、实验结果或图表内容；它把“图表不得引入 `CLAIM_EVIDENCE_BOUNDARY_MAP.md` 之外的 claim”“contextual GA rows 不能写成 paired AA-vs-GA significance”“full-topology ceiling report 未 gate 前不得入图表/claim”等规则变成可检查的投稿 QA。
+
 ## 03:09 Checkpoint
 
 本轮把 cover letter 从“证据角色说明”提升为“编辑可直接看到核心证据”的投稿信草稿。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在加入主 paired N50 的三项核心结果: network OSPA disagreement 降低 `81.59%`、local E-OSPA 降低 `17.15%`、RMSE 降低 `6.35%`；同时写明 reference-only RMSE 只有 `0.54%`，held-out N50 复现实验保留 full barycenter vs label copying 的 RMSE separation (`6.64%` vs `0.82%`)。`check_submission_readiness.py` 的 cover-letter positioning gate 已新增这些定量 marker，防止最终 metadata 替换时把编辑最需要看到的机制证据删掉。

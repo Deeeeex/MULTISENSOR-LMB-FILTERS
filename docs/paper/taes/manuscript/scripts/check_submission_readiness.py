@@ -35,6 +35,7 @@ SUPPLEMENTARY_EVIDENCE_PACKAGE = ROOT / "SUPPLEMENTARY_EVIDENCE_PACKAGE.md"
 SUPPLEMENTARY_README_DRAFT = ROOT / "SUPPLEMENTARY_README_DRAFT.md"
 REVIEWER_RISK_REGISTER = ROOT / "REVIEWER_RISK_REGISTER.md"
 CLAIM_EVIDENCE_BOUNDARY_MAP = ROOT / "CLAIM_EVIDENCE_BOUNDARY_MAP.md"
+FIGURE_TABLE_AUDIT = ROOT / "FIGURE_TABLE_AUDIT.md"
 EVIDENCE_SOURCES = ROOT / "evidence_sources.json"
 REQUIREMENTS_DOC = REPO / "docs" / "TAES_SUBMISSION_REQUIREMENTS_CN.md"
 NEXT_STAGE_PROTOCOL = REPO / "docs" / "AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md"
@@ -98,6 +99,7 @@ BUNDLE_REQUIRED_PATHS = [
     "SUPPLEMENTARY_README_DRAFT.md",
     "REVIEWER_RISK_REGISTER.md",
     "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+    "FIGURE_TABLE_AUDIT.md",
     "FINAL_METADATA_CLOSURE_CHECKLIST.md",
     "scripts/check_submission_readiness.py",
     "scripts/create_submission_bundle.py",
@@ -379,6 +381,7 @@ def file_checks() -> list[Check]:
         SUPPLEMENTARY_README_DRAFT,
         REVIEWER_RISK_REGISTER,
         CLAIM_EVIDENCE_BOUNDARY_MAP,
+        FIGURE_TABLE_AUDIT,
         ROOT / "IEEEtaes.cls",
         ROOT / "IEEEtaes.bst",
         REQUIREMENTS_DOC,
@@ -1226,6 +1229,7 @@ def submission_package_index_checks() -> list[Check]:
         "SUPPLEMENTARY_README_DRAFT.md",
         "REVIEWER_RISK_REGISTER.md",
         "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
+        "FIGURE_TABLE_AUDIT.md",
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
@@ -1345,6 +1349,54 @@ def claim_evidence_boundary_map_checks() -> list[Check]:
             "Claim-evidence-boundary map ties core manuscript claims to evidence artifacts, verification levels, terminology decisions, and explicit non-claims."
             if not missing
             else "Claim-evidence-boundary map is missing markers: " + "; ".join(missing),
+        )
+    ]
+
+
+def figure_table_audit_checks() -> list[Check]:
+    if not FIGURE_TABLE_AUDIT.exists():
+        return [
+            Check(
+                "figure/table audit ledger",
+                "warning",
+                "`FIGURE_TABLE_AUDIT.md` is missing.",
+            )
+        ]
+    text = read_text(FIGURE_TABLE_AUDIT)
+    required_markers = [
+        "TAES Figure/Table Audit Ledger",
+        "No figure/table may introduce a claim that is absent from `CLAIM_EVIDENCE_BOUNDARY_MAP.md`",
+        "Primary Manuscript Figures And Tables",
+        "Response-Ready Or Source-Bundle Tables",
+        "Final Visual QA Sequence",
+        "fig:method",
+        "fig:algorithm",
+        "tab:design",
+        "tab:n50",
+        "tab:reference",
+        "tab:paired",
+        "fig:n50",
+        "tab:heldout",
+        "tab:harsh-stress",
+        "tab:scenario-family-aa",
+        "tab:ledger",
+        "generated/method_pipeline.tex",
+        "generated/n50_mean_rows.tex",
+        "generated/n50_paired_rows.tex",
+        "generated/n50_reduction_bars.tex",
+        "generated/heldout_n50_section.tex",
+        "Contextual comparison only",
+        "Full-topology ceiling output remains excluded",
+        "TAES_EVIDENCE_MODE=bundled ./build.sh",
+    ]
+    missing = [marker for marker in required_markers if marker not in text]
+    return [
+        Check(
+            "figure/table audit ledger",
+            "pass" if not missing else "warning",
+            "Figure/table audit ledger maps each manuscript and response-ready visual artifact to its reader task, source path, and claim boundary."
+            if not missing
+            else "Figure/table audit ledger is missing markers: " + "; ".join(missing),
         )
     ]
 
@@ -2383,6 +2435,7 @@ def main() -> None:
     checks.extend(supplementary_readme_checks())
     checks.extend(reviewer_risk_register_checks())
     checks.extend(claim_evidence_boundary_map_checks())
+    checks.extend(figure_table_audit_checks())
     checks.extend(next_stage_protocol_checks())
     checks.extend(reproducibility_ledger_checks())
     checks.extend(pdf_checks())

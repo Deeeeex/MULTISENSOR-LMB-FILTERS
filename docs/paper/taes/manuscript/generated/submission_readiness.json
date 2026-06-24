@@ -52,6 +52,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/FIGURE_TABLE_AUDIT.md",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/IEEEtaes.cls",
       "gate": "required artifact",
       "status": "pass"
@@ -387,6 +392,11 @@
       "status": "pass"
     },
     {
+      "detail": "Figure/table audit ledger maps each manuscript and response-ready visual artifact to its reader task, source path, and claim boundary.",
+      "gate": "figure/table audit ledger",
+      "status": "pass"
+    },
+    {
       "detail": "Next-stage protocol preserves the no-search rule and keeps maneuver/crossing, covariance/reliability, and recursive-online designs as future risk-reduction plans rather than current manuscript evidence.",
       "gate": "next-stage generalization protocol",
       "status": "pass"
@@ -547,7 +557,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 63 files and SHA-256 `ebf69577755649d812120a8093b359f8755955b8c576f4a8328173342cc9d76f`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 64 files and SHA-256 `aaa22c873541519112e2cdecca0cdfa7e59944174ffbcc46ec447a156bfc94c3`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

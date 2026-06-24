@@ -17,6 +17,7 @@ Upload or paste these items after replacing all author, funding, repository, and
 | Optional graphical/video abstract | Not prepared | TAES allows optional graphical/video abstracts; the current package does not require one. | Decide explicitly before final portal submission. |
 | Reviewer-response planning map | `REVIEWER_RISK_REGISTER.md` | Internal pre-submission map from likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries. | Use for response planning only; do not upload or cite as a data source. |
 | Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Internal audit map tying the one-sentence argument, reader path, section jobs, terminology decisions, paper-facing claims, evidence artifacts, verification levels, and explicit non-claims together. | Use before final submission or reviewer response; do not upload or cite as a data source unless converted to a formal supplement. |
+| Figure/table audit ledger | `FIGURE_TABLE_AUDIT.md` | Internal map from each manuscript or response-ready visual artifact to its reader task, source path, visual QA target, and claim boundary. | Use before final submission or figure/table edits; do not upload or cite as a data source. |
 
 ## Internal QA Artifacts
 
@@ -38,6 +39,7 @@ These files are not portal uploads by default. They are the audit trail used to 
 | `SUPPLEMENTARY_README_DRAFT.md` | Draft readme to convert selected generated evidence blocks into a formal TAES supplementary-material upload. |
 | `REVIEWER_RISK_REGISTER.md` | Internal reviewer-risk map used to keep response planning aligned with the current manuscript evidence and residual limitations. |
 | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Argument, section-job, terminology, and claim-to-evidence audit used to keep the abstract, results, discussion, cover letter, supplement, and response text aligned with verified evidence and explicit non-claims. |
+| `FIGURE_TABLE_AUDIT.md` | Figure/table ledger used to keep visual artifacts, captions, generated sources, visual QA pages, and claim boundaries synchronized. |
 | `READINESS_AUDIT_CN.md` | Chinese claim-to-evidence and TAES compliance audit for project review. |
 | `README.md` | Build instructions, evidence-mode behavior, and long-run launcher references. |
 
