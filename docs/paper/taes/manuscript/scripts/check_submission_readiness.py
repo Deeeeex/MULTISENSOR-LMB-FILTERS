@@ -720,6 +720,26 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    recent_label_matching_markers = [
+        "multiview fusion in networks without feedback",
+        "efficient label matching for distributed LMB tracking",
+        "Relative to label-matching and multiview LMB work",
+        "reference-only ablation to separate label copying from matched posterior barycentering",
+    ]
+    missing_recent_label_matching = [
+        marker for marker in recent_label_matching_markers if marker not in body
+    ]
+    checks.append(
+        Check(
+            "recent label-matching literature positioning",
+            "pass" if not missing_recent_label_matching else "warning",
+            "Related Work now acknowledges adjacent multiview and efficient-label-matching LMB literature while preserving the output-projection distinction."
+            if not missing_recent_label_matching
+            else "Recent label-matching literature positioning is missing markers: "
+            + "; ".join(missing_recent_label_matching),
+        )
+    )
+
     results_spine_markers = [
         "results follow one evidence chain",
         r"Table~\ref{tab:n50} tests network and local gains",

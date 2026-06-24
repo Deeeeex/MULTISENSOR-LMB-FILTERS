@@ -187,7 +187,7 @@
       "status": "pass"
     },
     {
-      "detail": "20 cited keys all exist in `references.bib`.",
+      "detail": "19 cited keys all exist in `references.bib`.",
       "gate": "citation keys",
       "status": "pass"
     },
@@ -252,6 +252,11 @@
       "status": "pass"
     },
     {
+      "detail": "Related Work now acknowledges adjacent multiview and efficient-label-matching LMB literature while preserving the output-projection distinction.",
+      "gate": "recent label-matching literature positioning",
+      "status": "pass"
+    },
+    {
       "detail": "Results opens with a compact evidence chain linking the primary paired run, GA context, mechanism ablation, and held-out replication.",
       "gate": "results evidence-spine markers",
       "status": "pass"
@@ -292,7 +297,7 @@
       "status": "pass"
     },
     {
-      "detail": "DOI resolver verification covers 20/20 BibTeX entries with current BibTeX SHA-256 `a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3`.",
+      "detail": "DOI resolver verification covers 19/19 BibTeX entries with current BibTeX SHA-256 `db4d9885c498ebe8a396144ae08248362785d159bec6dd421a58be61df5f4375`.",
       "gate": "BibTeX DOI resolver verification",
       "status": "pass"
     },
@@ -467,7 +472,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 62 files and SHA-256 `fa7cfaebf53c97271aa7c4f0b7819703ed2b9ce2e859bf0800c11de986de7086`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 62 files and SHA-256 `9e39c8f884cf745eaece7315e429cbd5c01be6fffc2aab0c7f5500fa815a426a`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

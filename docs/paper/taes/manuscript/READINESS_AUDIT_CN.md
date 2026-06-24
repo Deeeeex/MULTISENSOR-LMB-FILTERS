@@ -19,6 +19,12 @@
 
 同一文件新增 `Reader Path` 和 `Section Job Map`，逐节规定 Abstract、Introduction、Related Work、Problem Formulation、Method、Structural Properties、Experimental Setup、Results、Discussion 和 Conclusion 的唯一主要任务、必须保留的边界和必须避免的过度表述。`check_submission_readiness.py` 已把这些 marker 纳入 `claim-evidence-boundary map` gate；`README.md` 和 `SUBMISSION_PACKAGE_INDEX.md` 也同步说明该 artifact 是一行主张、reader path、section-job、terminology、claim/evidence 与 non-claim 的统一内审入口。这个改动不新增科学 claim，也不改变正文数值；它的作用是在后续 metadata、cover letter、supplement 或 reviewer response 写作时，防止把当前 output-level projection 扩写成递归滤波、全局 label management 或 scalar-weight optimization。
 
+## 00:59 Checkpoint
+
+本轮按文献定位审查补齐 Related Work 的近年相邻工作覆盖。通过 DOI/CrossRef 元数据核对后，正文新增并引用两条最核心近年相关文献: multiview LMB fusion without feedback (`Jin2023MultiviewLMB`) 和 efficient label matching for distributed LMB tracking (`Ding2025EfficientLabelMatching`)。正文只做 bounded positioning: 承认这些是相邻基础和对照，明确本文增量是 active-output correspondence projection，并用 reference-only ablation 分离 label copying 与 matched posterior barycentering；不宣称这些 prior works 忽略 label matching 或不如本文。
+
+`check_submission_readiness.py` 新增 `recent label-matching literature positioning` gate，要求 Related Work 保留 multiview、efficient-label-matching 和 reference-only ablation contrast markers。`CLAIM_EVIDENCE_BOUNDARY_MAP.md` 也新增对应 claim/evidence/boundary 行，防止后续把这些文献写成 strawman。试加四篇相邻文献会把 PDF 推到 10 页，因此主文保留最能支撑 correspondence-contract framing 的两篇；同时用这两篇替换一个较弱的 TechRxiv 预印本和一个泛用 consensus conference 引用，把有限 reference budget 转向更贴近 label/correspondence 的同领域工作。下一步重建时应确认 BibTeX DOI resolver 保持全通过，且 PDF 回到 9 页/10 页阈值以下。
+
 ## 00:50 Checkpoint
 
 本轮把原先混在中文审计里的 claim-to-evidence matrix 抽成独立英文投稿包 artifact: `CLAIM_EVIDENCE_BOUNDARY_MAP.md`。该文件不是新的数据源，也不应被正文引用；它用于最终投稿和回复审稿前逐条检查 paper-facing claims、manuscript location、evidence artifact、verification level、boundary wording、terminology ledger 和 explicit non-claims。这样可以防止 abstract、cover letter、supplement 或 response text 在最后阶段把 output-level active-track projection 写宽成递归 LMB 更新、AA/KLA 替代品、协方差一致性保证或 full-topology 未完成证据。

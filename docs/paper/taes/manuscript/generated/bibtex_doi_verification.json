@@ -1,5 +1,5 @@
 {
-  "bib_sha256": "a1fe829e4fb1f89396e585e74c167bf5f3e214f5cab404c1405cbd17aa11c0b3",
+  "bib_sha256": "db4d9885c498ebe8a396144ae08248362785d159bec6dd421a58be61df5f4375",
   "entries": [
     {
       "doi": "10.1109/TSP.2014.2364014",
@@ -58,6 +58,14 @@
       "url": "https://doi.org/api/handles/10.1016/j.inffus.2023.101965"
     },
     {
+      "doi": "10.1109/TAES.2023.3329462",
+      "error": "",
+      "key": "Jin2023MultiviewLMB",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1109/TAES.2023.3329462"
+    },
+    {
       "doi": "10.1109/TAES.2023.3334223",
       "error": "",
       "key": "Li2024AADensityFusion",
@@ -90,14 +98,6 @@
       "url": "https://doi.org/api/handles/10.1109/TSP.2025.3550157"
     },
     {
-      "doi": "10.36227/techrxiv.176782063.38593428/v1",
-      "error": "",
-      "key": "Li2026FIMultirateAADensityFusion",
-      "resolved": true,
-      "response_code": 1,
-      "url": "https://doi.org/api/handles/10.36227/techrxiv.176782063.38593428/v1"
-    },
-    {
       "doi": "10.1109/TAES.2022.3182642",
       "error": "",
       "key": "Gao2022DifferentFOV",
@@ -122,20 +122,20 @@
       "url": "https://doi.org/api/handles/10.1016/j.inffus.2025.104060"
     },
     {
-      "doi": "10.1016/j.sigpro.2025.110135",
-      "error": "",
-      "key": "CaoZhao2026InfoGeometryFusion",
-      "resolved": true,
-      "response_code": 1,
-      "url": "https://doi.org/api/handles/10.1016/j.sigpro.2025.110135"
-    },
-    {
       "doi": "10.1109/TCYB.2021.3087521",
       "error": "",
       "key": "Shen2022ConsensusLMB",
       "resolved": true,
       "response_code": 1,
       "url": "https://doi.org/api/handles/10.1109/TCYB.2021.3087521"
+    },
+    {
+      "doi": "10.1631/FITEE.2400582",
+      "error": "",
+      "key": "Ding2025EfficientLabelMatching",
+      "resolved": true,
+      "response_code": 1,
+      "url": "https://doi.org/api/handles/10.1631/FITEE.2400582"
     },
     {
       "doi": "10.1109/TSP.2008.920469",
@@ -152,20 +152,12 @@
       "resolved": true,
       "response_code": 1,
       "url": "https://doi.org/api/handles/10.1002/nav.3800020109"
-    },
-    {
-      "doi": "10.1109/IPSN.2005.1440896",
-      "error": "",
-      "key": "XiaoBoydLall2005ConsensusWeights",
-      "resolved": true,
-      "response_code": 1,
-      "url": "https://doi.org/api/handles/10.1109/IPSN.2005.1440896"
     }
   ],
-  "entry_count": 20,
+  "entry_count": 19,
   "missing_doi": [],
   "network_errors": [],
-  "resolved_count": 20,
+  "resolved_count": 19,
   "status": "pass",
   "unresolved": [],
   "used_cache": false

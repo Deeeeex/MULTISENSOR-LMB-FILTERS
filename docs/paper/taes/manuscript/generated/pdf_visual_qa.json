@@ -85,11 +85,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p9_references.png",
       "label": "references",
-      "mean_luma": 0.962822,
+      "mean_luma": 0.96385,
       "page": 9,
-      "size_bytes": 142184,
+      "size_bytes": 137168,
       "status": "pass",
-      "stddev_luma": 0.159794,
+      "stddev_luma": 0.157747,
       "width": 1530
     }
   ],
