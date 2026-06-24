@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 14:20 CST
+日期: 2026-06-24 14:27 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -42,6 +42,7 @@
 | Manuscript type | Regular Paper is the selected target. | Submit as `Regular Paper`; technical area `Target Tracking and Multi-Sensor Systems`. |
 | Page budget | Current manuscript is within a plausible Regular Paper range, but final printed page count is not guaranteed. | Keep estimated TAES pages near or below 10, or accept overlength charges. |
 | Title/abstract/keywords | The readiness checker now verifies that the title/abstract avoid `new`/`novel`, the abstract is a single paragraph without citation/footnote/display equation, and keywords are alphabetized. Current abstract also front-loads the held-out base-seed RMSE separation. | Re-run `./build.sh` after final title/abstract edits. |
+| First-page narrative | Abstract and introduction now state the residual correspondence failure more directly, specify the separate held-out 50-trial base-seed-11 replication, and keep the proposed gain separated from scalar-weight routing. | Keep the first page visually checked after any abstract or contribution edit. |
 | Author metadata | Bracketed author/funding/repository placeholders remain in submission-style prose. | Fill real author list, affiliations, ORCID, funding, acknowledgments, corresponding author metadata. |
 | AI disclosure | Provisional Codex/OpenAI disclosure exists in Acknowledgment. | Recheck current IEEE/AESS wording and decide final disclosure scope. |
 | Citations | Core bibliography has been DOI/source checked during draft construction; the readiness checker verifies cited keys, DOI fields, and uncited BibTeX entries. | Final bibliography scan for malformed entries and unsupported claims. |

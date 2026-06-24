@@ -10,11 +10,11 @@
       "height": 1935,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png",
       "label": "title-abstract",
-      "mean_luma": 0.938979,
+      "mean_luma": 0.938166,
       "page": 1,
-      "size_bytes": 173309,
+      "size_bytes": 175767,
       "status": "pass",
-      "stddev_luma": 0.205278,
+      "stddev_luma": 0.206459,
       "width": 1485
     },
     {
@@ -55,11 +55,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-conclusion.png",
       "label": "heldout-conclusion",
-      "mean_luma": 0.94663,
+      "mean_luma": 0.946649,
       "page": 7,
-      "size_bytes": 152685,
+      "size_bytes": 152676,
       "status": "pass",
-      "stddev_luma": 0.192863,
+      "stddev_luma": 0.19284,
       "width": 1530
     },
     {
