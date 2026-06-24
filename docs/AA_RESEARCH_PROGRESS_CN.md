@@ -1,6 +1,6 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 03:24 CST
+最后更新: 2026-06-25 03:30 CST
 
 ## 当前结论
 
@@ -39,6 +39,8 @@ TAES 投稿源文件首版已建立到 `docs/paper/taes/manuscript/`，当前可
 2026-06-25 03:17 CST 本轮把 supplement / response evidence 决策从开放问题收紧成投稿包规则。当前 content-ready package 的默认策略是 `no separate supplementary upload`: held-out N50 表仍在正文，harsh packet-loss、topology/FOV 与 reproducibility ledger 保留为 response-ready / source-bundle-ready evidence；只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才把选定 generated blocks 转成正式 supplement。`SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 cover-letter metadata 行已同步；`check_submission_readiness.py` 现在会检查默认不上传 supplement、eligible block set、raw `RUN/` logs/scratch reports 禁止项，以及 full-topology N50 未完成前不得进入 supplement/response/cover-letter/manuscript claims。
 
 2026-06-25 03:24 CST 本轮清理进度/审计文档中的 stale handoff wording。当前 supplement 决策已经固定为默认不上传独立 supplement，因此 `READINESS_AUDIT_CN.md` 的 Immediate Execution Order 不再要求重新决定 held-out 表是否移入 supplement；held-out 表默认保留在正文，harsh-loss、topology/FOV 与 reproducibility ledger 保持 response-ready/source-bundle-ready。`docs/AA_RESEARCH_PROGRESS_CN.md` 的剩余风险也同步移除“partial-FOV 尚需验证”的旧说法，因为 partial-FOV N50 已完成并接入 scenario-family gate；当前剩余 evidence-risk reduction 主要是 full-topology 完成后的 ceiling interpretation、target maneuver/crossing、covariance/reliability consistency 和 recursive-online guarded deployment。
+
+2026-06-25 03:30 CST 本轮重查 TAES 官方 author-information、TAES home、technical-area 和 AESS AI-generated-content 页面，未发现与本地 `docs/TAES_SUBMISSION_REQUIREMENTS_CN.md` 或投稿包策略冲突的 drift。当前目标仍为 TAES Regular Paper，technical area 仍为 `Target Tracking and Multi-Sensor Systems`，9 页 PDF 仍低于 10 printed pages overlength-charge threshold；Code Ocean/DataPort/graphical abstract/supplement 都仍是 portal metadata 层面的显式选择项，不是当前 content-ready manuscript 的阻塞项。
 
 本轮又收紧了 Discussion/Limitations 的 claim boundary: 主文现在明确 harsh packet-loss stress 扩展 packet-loss severity，topology-ring N50 扩展 sparse-topology coverage，partial-FOV N50 扩展 sensing-geometry coverage，但证据仍保留 formation-family assumptions，不能替代 maneuvering-target、covariance-consistency 或 recursive-online studies。这个改动避免把 stress/topology/FOV N50 过度解释为全场景泛化证据。
 

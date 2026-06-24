@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 03:24 CST
+日期: 2026-06-25 03:30 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -18,6 +18,10 @@
 本轮把 supplement decision 从“最终再决定”改成可检查的默认策略。当前 content-ready package 默认不上传独立 supplementary material；held-out N50 表留在正文，harsh packet-loss、topology/FOV 和 reproducibility ledger 作为 response-ready / source-bundle-ready evidence。只有最终 page budget、TAES portal、editor 或 reviewers 要求时，才从 `generated/stress_harsh_section.tex`、`generated/scenario_family_section.tex`、`generated/reproducibility_ledger_table.tex`，以及必要时移动出正文的 `generated/heldout_n50_section.tex` 中选择正式 supplement 内容。
 
 `SUPPLEMENTARY_EVIDENCE_PACKAGE.md`、`SUPPLEMENTARY_README_DRAFT.md`、`SUBMISSION_PACKAGE_INDEX.md`、`FINAL_METADATA_CLOSURE_CHECKLIST.md` 和 `COVER_LETTER_AND_METADATA_DRAFT.md` 已同步该默认策略。`check_submission_readiness.py` 现在要求 supplement package/README 保留默认不上传、eligible block set、raw `RUN/` logs 和 scratch reports 禁止项，以及 full-topology N50 完成并通过 scenario-family gate 前不得进入 supplement、response、cover letter 或 manuscript claims 的边界。
+
+## 03:30 Checkpoint
+
+本轮重查 TAES 官方 author-information、TAES home、technical-area descriptions 和 AESS AI-generated-content 页面，未发现与当前 package strategy 冲突的要求漂移。当前审计结论不变: 按 Regular Paper 投稿，technical area 选 `Target Tracking and Multi-Sensor Systems`，当前 9 页 PDF 低于 10 printed pages overlength-charge threshold，supplement/Code Ocean/DataPort/graphical abstract 均作为最终 portal metadata 决策而非 content-readiness 阻塞项。`docs/TAES_SUBMISSION_REQUIREMENTS_CN.md` 已记录本次 03:30 official-source recheck。
 
 ## 03:09 Checkpoint
 

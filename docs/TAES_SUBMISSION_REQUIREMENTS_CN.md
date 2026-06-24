@@ -1,6 +1,6 @@
 # IEEE TAES 投稿模板与要求整理
 
-日期: 2026-06-24
+日期: 2026-06-25
 
 ## Question
 
@@ -93,6 +93,16 @@ IEEE_Editorial_Style_Manual_for_Authors.pdf
 - `DataPort` 可托管 up to 2TB 的较大数据集并提供 DOI；当前稿件使用模拟数据与生成报告，若不上传 DataPort，应在 metadata checklist 中明确不使用 DataPort，避免 final portal 决策遗漏。
 - 官方 overlength 段还说明，来自受制裁国家且不能与美国发生金融交易的作者，所有投稿阶段的模板页数都不能产生 overlength page charges；这不是当前已知作者信息下的假设，但 final author metadata 替换时应由 corresponding author 确认是否相关。
 - 当前稿件仍为 9 个 TAES template pages，低于 Regular Paper 超页费的 10 printed pages 阈值；若元数据替换或补充 full-topology evidence 导致页数达到 10 页以上，需要重新做 page-budget 决策。
+
+## 2026-06-25 03:30 Official-Source Recheck
+
+本轮再次用当前在线官方页面复核投稿包关键假设，未发现需要修改 manuscript package 的 drift:
+
+- TAES author-information 页面仍显示 `Last Updated: 18 July 2025`，并继续列出 Regular Paper / Correspondence 的统一 submission format、optional Video Abstract、Supplementary Material、Code Ocean、DataPort、copyright/Open Access 和 AI-generated content disclosure 要求。
+- TAES home 页面仍说明 Regular Papers 要求 thorough development、strong scientific underpinning、clear development and good English；当前稿件继续按 Regular Paper 而非 Correspondence 准备。
+- Technical-area 页面仍把 `Target Tracking and Multi-Sensor Systems` 覆盖到 multi-target tracking、data fusion、decentralized/distributed detection 和 decentralized/distributed estimation，并说明 tracking/fusion 主 thrust 可考虑该 technical area。
+- AESS AI-generated-content 页面仍要求凡进入 article 的 AI-generated content 在 Acknowledgments 披露 AI system、使用 section 和使用程度；editing/grammar enhancement 不强制但建议披露。当前稿件的 Codex/OpenAI disclosure skeleton 仍应保留并在最终作者审读后定稿。
+- 因此当前 TAES package 的要求结论不变: `Regular Paper`, technical area `Target Tracking and Multi-Sensor Systems`, 9-page TAES-template PDF below the 10-page overlength-charge threshold, no separate supplement by default, Code Ocean/DataPort/graphical abstract optional and to be explicitly decided in portal metadata.
 
 ## Claims
 
