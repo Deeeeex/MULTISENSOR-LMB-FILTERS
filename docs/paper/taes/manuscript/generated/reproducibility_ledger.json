@@ -22,6 +22,20 @@
       "source": "RUN/GA/GA_TIERED_LINK_ABLATION_N50_SEED1_20260621_183039.md"
     },
     {
+      "name": "Harsh-loss AA N50",
+      "protocol": "base seed 21; 50 trials; seeds 22--71; packet loss 0.2/0.35/0.5/0.7; counts 1/3/2/2",
+      "role": "Fixed-design packet-loss stress evidence; summarized in the discussion and kept separate from parameter selection.",
+      "sha256": "f1d0a94e4349a6d786d825430a82118130a6c96772ef00146978b360ed4f1f85",
+      "source": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED21_20260624_130730.md"
+    },
+    {
+      "name": "Scenario-family boundary checks",
+      "protocol": "2 configured topology/FOV checks; 0 paper-grade; keys scenario_topology_ring_report, scenario_partial_fov35_report",
+      "role": "Response-ready boundary evidence with smoke tiers explicitly labeled until upgraded to N50-or-larger runs.",
+      "sha256": "c30bde4b71623ed2939ec8c16be77705ff1fc90c624d4220d1d8594a67bbf2de",
+      "source": "docs/paper/taes/manuscript/generated/scenario_family_evidence.json"
+    },
+    {
       "name": "Independent verifier",
       "protocol": "Recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from per-trial rows/logs.",
       "role": "Build gate for report-driven numbers before PDF compilation.",

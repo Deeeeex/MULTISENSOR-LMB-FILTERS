@@ -182,7 +182,7 @@
       "status": "pass"
     },
     {
-      "detail": "5 cross-references resolve to manuscript labels.",
+      "detail": "4 cross-references resolve to manuscript labels.",
       "gate": "cross references",
       "status": "pass"
     },
@@ -252,7 +252,7 @@
       "status": "pass"
     },
     {
-      "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, contextual GA rows, and the independent verifier.",
+      "detail": "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier.",
       "gate": "reproducibility ledger",
       "status": "pass"
     },
@@ -377,7 +377,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `b03d4edf4070f167e29e89deb03da9dc0f349aff819dc13a4428d48d7f2a7816`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 57 files and SHA-256 `6972b49aa16837040723172e1235ff93745ccc29dc9280d02ab3da16d8faa890`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

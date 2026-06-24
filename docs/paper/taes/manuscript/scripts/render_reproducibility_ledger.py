@@ -116,10 +116,13 @@ def build_rows() -> list[dict[str, object]]:
     n50_report = evidence_path("n50_aa_report")
     heldout_report = evidence_path("heldout_n50_report")
     ga_report = evidence_path("reference_ga_report")
+    stress_report = evidence_path("stress_harsh_n50_report")
 
     n50_evidence = read_json(OUT / "n50_evidence.json")
     heldout_evidence = read_json(OUT / "heldout_n50_evidence.json")
     reference_evidence = read_json(OUT / "reference_baseline_evidence.json")
+    stress_evidence = read_json(OUT / "stress_harsh_evidence.json")
+    scenario_evidence = read_json(OUT / "scenario_family_evidence.json")
     verification = read_json(OUT / "n50_verification.json")
 
     if n50_evidence.get("source_sha256") != sha256(n50_report):
@@ -128,8 +131,26 @@ def build_rows() -> list[dict[str, object]]:
         raise ValueError("Held-out evidence JSON does not match the configured report hash")
     if reference_evidence.get("ga_sha256") != sha256(ga_report):
         raise ValueError("Reference evidence JSON does not match the configured GA report hash")
+    if stress_evidence.get("source_sha256") != sha256(stress_report):
+        raise ValueError("Harsh-stress evidence JSON does not match the configured report hash")
+    for scenario in scenario_evidence.get("scenarios", []):
+        if not isinstance(scenario, dict):
+            raise ValueError("Scenario-family evidence payload contains a non-object scenario entry")
+        source_report = scenario.get("source_report")
+        source_sha256 = scenario.get("source_sha256")
+        if not source_report or not source_sha256:
+            raise ValueError("Scenario-family evidence entry is missing source_report or source_sha256")
+        source_path = REPO / str(source_report)
+        if sha256(source_path) != source_sha256:
+            raise ValueError(f"Scenario-family evidence JSON hash does not match {source_report}")
     if verification.get("local", {}).get("status") != "independent":
         raise ValueError("N50 local verifier is not marked independent")
+
+    scenario_count = int(scenario_evidence.get("scenario_count", 0))
+    paper_grade_count = int(scenario_evidence.get("paper_grade_count", 0))
+    configured_keys = scenario_evidence.get("configured_keys", [])
+    if not isinstance(configured_keys, list):
+        raise ValueError("Scenario-family configured_keys must be a list")
 
     return [
         evidence_row(
@@ -150,6 +171,22 @@ def build_rows() -> list[dict[str, object]]:
             parse_report_config(ga_report),
             "Reference rows from the tracked GA validation path; same tiered profile, but not part of the paired AA sign tests.",
         ),
+        evidence_row(
+            "Harsh-loss AA N50",
+            stress_report,
+            parse_report_config(stress_report),
+            "Fixed-design packet-loss stress evidence; summarized in the discussion and kept separate from parameter selection.",
+        ),
+        {
+            "name": "Scenario-family boundary checks",
+            "source": rel(OUT / "scenario_family_evidence.json"),
+            "sha256": sha256(OUT / "scenario_family_evidence.json"),
+            "protocol": (
+                f"{scenario_count} configured topology/FOV checks; "
+                f"{paper_grade_count} paper-grade; keys {', '.join(str(key) for key in configured_keys)}"
+            ),
+            "role": "Response-ready boundary evidence with smoke tiers explicitly labeled until upgraded to N50-or-larger runs.",
+        },
         {
             "name": "Independent verifier",
             "source": rel(OUT / "n50_verification.json"),

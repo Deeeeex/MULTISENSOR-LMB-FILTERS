@@ -801,7 +801,14 @@ def reproducibility_ledger_checks() -> list[Check]:
     payload = json.loads(read_text(REPRO_LEDGER_JSON))
     rows = payload.get("rows", [])
     names = {str(row.get("name", "")) for row in rows if isinstance(row, dict)}
-    required_names = {"Primary AA N50", "Held-out AA N50", "Contextual GA N50", "Independent verifier"}
+    required_names = {
+        "Primary AA N50",
+        "Held-out AA N50",
+        "Contextual GA N50",
+        "Harsh-loss AA N50",
+        "Scenario-family boundary checks",
+        "Independent verifier",
+    }
     missing_names = sorted(required_names - names)
     rows_tex = read_text(REPRO_LEDGER_ROWS)
     table_tex = read_text(REPRO_LEDGER_TABLE)
@@ -810,7 +817,7 @@ def reproducibility_ledger_checks() -> list[Check]:
         Check(
             "reproducibility ledger",
             "pass" if not missing_names and marker_ok else "error",
-            "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, contextual GA rows, and the independent verifier."
+            "Generated reproducibility ledger covers primary paired AA evidence, held-out robustness, harsh-loss stress evidence, scenario-family boundary checks, contextual GA rows, and the independent verifier."
             if not missing_names and marker_ok
             else "Generated reproducibility ledger is incomplete; missing names: "
             + (", ".join(missing_names) if missing_names else "none")
