@@ -1,7 +1,7 @@
 # TAES Submission Bundle Manifest
 
 - Bundle: `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip`
-- Bundle SHA-256: `62b89540ad2b8248bd88493ebf4e3c77d4f2348d418bff44a96e0966ccc5f21e`
+- Bundle SHA-256: `10844b39feda54096742b251678e5187058e7f78926cffaf195932d20a8a7fa5`
 - Files: 63
 
 ## Included Files
@@ -13,7 +13,7 @@
 | `FINAL_METADATA_CLOSURE_CHECKLIST.md` | 5816 | `0d7e4a66018a5052dcf5f3795d34942e20b29b5f4a7e09cdea265ffd09f5fe2f` |
 | `IEEEtaes.bst` | 59818 | `179186d26aef2fc01e10f3ff4a54fb254ec75b3b1052d791b31cdc21105f5a97` |
 | `IEEEtaes.cls` | 217384 | `1915e48e51722aa1bacc1b5a9de5541027a5a9fb490f9d967355cd4e9a9f4ac0` |
-| `READINESS_AUDIT_CN.md` | 63959 | `0104dd138ebebc578fc6eb0a04199b88c10b8120ec95763cd24af8c068b4f222` |
+| `READINESS_AUDIT_CN.md` | 64858 | `65ecc3684f8ae41618d2112b5f74742bd23fec7e97ff5db40de0fb7e1de980e8` |
 | `README.md` | 13128 | `cd7cbd73e78706177111d843c04f1904e849fb9145ae3414a10916177fb96880` |
 | `REVIEWER_RISK_REGISTER.md` | 14027 | `228835268e2f6645af640f51366bc10df5a7e6987c80090d9717357fe98b011e` |
 | `SUBMISSION_PACKAGE_INDEX.md` | 8821 | `1b871dc449ae152223ef30b0351deeafdb2074833ec7d5a01f47f9dec5fea78d` |
@@ -41,7 +41,7 @@
 | `generated/n50_mean_metrics.csv` | 281 | `2d66c82ec737e18547a0aac5dd36c4c21fd9ca82f299a3ad0c9c5714f6d2283c` |
 | `generated/n50_mean_rows.tex` | 518 | `2144dced82014415916d27c83b31207bda353e9361b15d4d767cfa72d9755711` |
 | `generated/n50_paired_rows.tex` | 846 | `add1a5614da8899f2bbc6eac96821e3461ecb76eb6bccaba395c70f08591a76c` |
-| `generated/n50_reduction_bars.tex` | 1715 | `7a8fece87d037a432794455be254d3ace3f4c28a62872e76d5d38f27c863dd17` |
+| `generated/n50_reduction_bars.tex` | 2081 | `7fdf262a4f436f2b7bcc2aee3f3f9bf848e8b21cce9648eae7f93c1a82233764` |
 | `generated/n50_runtime_rows.tex` | 392 | `437cd2720004c8647ba7d9ecf7538ead572791539dd99e315881d6c2c7ea6136` |
 | `generated/n50_verification.json` | 9255 | `9099b74f4570f718c36b2b47f4d3399cf64dd8df2c3446cfa45523cffa83cea6` |
 | `generated/reference_baseline_evidence.json` | 1180 | `47ed7d550aa1e7d451bc912ee23dc07198b6ada1e0f7e4e11299caffd8739777` |
@@ -55,14 +55,14 @@
 | `generated/stress_harsh_evidence.json` | 4761 | `612ddccb17eff2e11fa2e94909f81bcd58b932d926a542f829a6077e6e746cfb` |
 | `generated/stress_harsh_section.tex` | 1803 | `eb4dbbf3976a87f6f0f794b37bfb688c4235d8fcdf844e1132e6d193139d2e2a` |
 | `generated/stress_harsh_summary_sentence.tex` | 417 | `79f87b0ab1ef3060b83a887ea619c5e4f7cbf859a3bb74224923374012257fea` |
-| `main.pdf` | 116964 | `0e90bd70026ae6bf8e98c8817342a9582514ad9d1e1e5c01e0d7026ab62931ea` |
-| `main.tex` | 41058 | `a22de5a64c7093193bcfe417b4eaaee08079c5500e26746cb08d92146f2cd044` |
+| `main.pdf` | 117964 | `140e6d5c9b04bc047e0f3a2063a186629e39f406ccb63d5728d71b71fea263e0` |
+| `main.tex` | 41108 | `f59de78c5d47bc5ad4cfff2908803ded93f5e79e8a28bc446a3099e0b6446746` |
 | `references.bib` | 6955 | `db4d9885c498ebe8a396144ae08248362785d159bec6dd421a58be61df5f4375` |
 | `scripts/check_submission_readiness.py` | 99729 | `5da88fb8dfdf37920b306194784e99274684ebfc7e60755101478390d76d8708` |
 | `scripts/create_submission_bundle.py` | 5006 | `8a5800525dcb8ef33d7dee38a08117ee29b79a63470a5b7d1f87124402eb33c5` |
 | `scripts/evidence_sources.py` | 1124 | `dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55` |
 | `scripts/extract_heldout_sanity_evidence.py` | 14706 | `e68770fdb5ae1194961ae1d1ae9391261163c5a9083bb4fa5fd992dcab1609f8` |
-| `scripts/extract_n50_evidence.py` | 14663 | `3a6d61b742782866e442c96daaf2a53b8b8b6429d4f8376d2aa283f3ebcb8f62` |
+| `scripts/extract_n50_evidence.py` | 15019 | `5e2cdb45383662431a7f69a363a3b8ab6695181d481e3da835c1477cc5ef04be` |
 | `scripts/extract_reference_baselines.py` | 6281 | `00219cdf4357bc5d5df3c67207a09bc025b0e0e13eb3b0b0ba9a6d5e97bfc224` |
 | `scripts/extract_scenario_family_evidence.py` | 18362 | `ada2870fe24d68332abf2f7a22cce8f302019ad4de6c3765285ab5f7828bd862` |
 | `scripts/extract_stress_evidence.py` | 14137 | `bd57466c33ae648f4423e6727c86880001ce4487636a09d7e19eded91148cadf` |

@@ -299,12 +299,16 @@ def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
         ref = paired[(ARM_ORDER[1], metric)].reduction_pct
         full_w = scale_w * full / 100.0
         ref_w = scale_w * ref / 100.0
+        full_label_x = min(axis_x + max(full_w, 0.45) + 0.25, axis_x + scale_w + 0.15)
+        ref_label_x = min(axis_x + max(ref_w, 0.45) + 0.25, axis_x + scale_w + 0.15)
         fig_label = FIG_LABEL[label]
         rows.extend(
             [
                 f"\\put(0.3,{y + 0.02:.2f}){{\\tablefont {fig_label}}}\n",
                 f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
                 f"\\put({axis_x:.2f},{y - 0.43:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
+                f"\\put({full_label_x:.2f},{y + 0.12:.2f}){{\\scriptsize {full:.1f}\\%}}\n",
+                f"\\put({ref_label_x:.2f},{y - 0.53:.2f}){{\\scriptsize {ref:.1f}\\%}}\n",
             ]
         )
     rows.extend(

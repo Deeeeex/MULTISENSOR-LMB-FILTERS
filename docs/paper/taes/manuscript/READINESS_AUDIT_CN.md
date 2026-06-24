@@ -23,6 +23,12 @@
 
 本轮重查 TAES 官方 author-information、TAES home、technical-area descriptions 和 AESS AI-generated-content 页面，未发现与当前 package strategy 冲突的要求漂移。当前审计结论不变: 按 Regular Paper 投稿，technical area 选 `Target Tracking and Multi-Sensor Systems`，当前 9 页 PDF 低于 10 printed pages overlength-charge threshold，supplement/Code Ocean/DataPort/graphical abstract 均作为最终 portal metadata 决策而非 content-readiness 阻塞项。`docs/TAES_SUBMISSION_REQUIREMENTS_CN.md` 已记录本次 03:30 official-source recheck。
 
+## 03:55 Checkpoint
+
+本轮按 `nature-polishing` 的 algorithmic-paper / Results-Discussion 边界继续做低风险可读性收束。Fig. 3 的 report-driven reduction bar fragment 现在在每个 full/reference-only bar 末端显示 paired percentage reduction 数字，caption 同步说明 bar-end labels 的含义；这让主实验机制证据在图内自洽，不要求审稿人回查正文或表格才能读出 effect size。该改动只改变 `extract_n50_evidence.py` 生成的 LaTeX visual fragment 和 figure caption，不改变任何 raw report、metric、statistical test、source manifest 或 paper-facing claim。
+
+本轮视觉检查 `tmp/pdf_visual_qa/main_all_p08.png` 确认 Fig. 3 的数字标签可读且未与 Table V、Discussion heading 或正文重叠。后续仍需在最终 metadata 替换后重跑 `./build.sh`、readiness checker 和 extracted source-bundle fallback。
+
 ## 03:09 Checkpoint
 
 本轮把 cover letter 从“证据角色说明”提升为“编辑可直接看到核心证据”的投稿信草稿。`COVER_LETTER_AND_METADATA_DRAFT.md` 现在加入主 paired N50 的三项核心结果: network OSPA disagreement 降低 `81.59%`、local E-OSPA 降低 `17.15%`、RMSE 降低 `6.35%`；同时写明 reference-only RMSE 只有 `0.54%`，held-out N50 复现实验保留 full barycenter vs label copying 的 RMSE separation (`6.64%` vs `0.82%`)。`check_submission_readiness.py` 的 cover-letter positioning gate 已新增这些定量 marker，防止最终 metadata 替换时把编辑最需要看到的机制证据删掉。
