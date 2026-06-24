@@ -40,11 +40,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png",
       "label": "main-results",
-      "mean_luma": 0.93824,
+      "mean_luma": 0.937717,
       "page": 6,
-      "size_bytes": 165089,
+      "size_bytes": 167240,
       "status": "pass",
-      "stddev_luma": 0.206248,
+      "stddev_luma": 0.207012,
       "width": 1530
     },
     {

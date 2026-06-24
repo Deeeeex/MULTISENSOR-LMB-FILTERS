@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-24 21:58 CST
+日期: 2026-06-24 22:06 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,12 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50 和 partial-FOV N50；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 22:06 Checkpoint
+
+本轮继续按预投稿审稿视角检查 Results 的机制解释。Table III 中 reference-only 与 full 在 `Card. dispersion` 和 `CardErr` 上给出相同 reduction，这不是需要隐藏的现象，而是机制分解的一部分: 两者共享同一个 reference-label projection，因此 cardinality/label-set 指标应被解释为 label-set canonicalization 的收益；full 相对 reference-only 的额外 RMSE/localization separation 才是 matched moment barycenter 的证据。`main.tex` 的 paired-results 段已加入这一解释，避免审稿人把 cardinality 改善误读成 posterior barycenter 的独立贡献，或反过来质疑 reference-only/full tie。
+
+这次修改不改变表格数值、不新增实验、不改变 conclusion，只把已有 ablation 的机制归因写得更可审。随后根据 PDF 渲染检查，将 runtime 成本段压缩为同一逻辑的短段，减少第 7 页底部孤句。
 
 ## 21:58 Checkpoint
 
