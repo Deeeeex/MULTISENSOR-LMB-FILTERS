@@ -67,7 +67,7 @@ Run this sequence after every final metadata or evidence edit.
 1. Replace all placeholders in `main.tex` and `COVER_LETTER_AND_METADATA_DRAFT.md`.
 2. Complete `FINAL_METADATA_CLOSURE_CHECKLIST.md`, including optional supplementary material, Code Ocean/DataPort, preprint, graphical/video abstract, and reviewer fields.
 3. Run `./build.sh` from this directory.
-4. Inspect `main.pdf` visually after rendering representative pages.
+4. Inspect `main.pdf` visually after rendering the representative pages, full-page PNG set, and contact sheet.
 5. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates, including the BibTeX DOI resolver gate and the cover-letter/portal metadata source-synchronization gate; before actual portal submission, confirm it has no metadata pending gate either.
 6. Confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the current `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` checksum.
 7. Extract the source bundle in a temporary directory and run `TAES_EVIDENCE_MODE=bundled ./build.sh` to verify bundled-fragment compilation.

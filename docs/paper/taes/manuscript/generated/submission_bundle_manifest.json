@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "d089fa8c9b5469d079cd3a4ea5e04f74a34cb74d19e7851925e6efc71ba1f264",
+  "bundle_sha256": "e122ee985df4c585df00eee48d7e7d94e92c1f27c8fe04ccda3b668ec5206eaa",
   "file_count": 64,
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "FINAL_METADATA_CLOSURE_CHECKLIST.md",
-      "sha256": "c40cbf13bd4cdea1d1c1deae598a923461a12990c9dfd56ef8e4b5e4ac9c0e7e",
-      "size_bytes": 5814
+      "sha256": "575ee4f5698550e1f49a45a21dd1ab24a5a69f1c0ca2d141e8cbba80ad62e289",
+      "size_bytes": 5892
     },
     {
       "path": "IEEEtaes.bst",
@@ -50,8 +50,8 @@
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
-      "sha256": "97cff8d8a4aebfd57e2293a2da64074803010002ae32c4e6eae7ae0f52f1f9c3",
-      "size_bytes": 9583
+      "sha256": "b698ca97fe906bb80949ba6f3085612312481da83c32877168519bb43d3c85f8",
+      "size_bytes": 9625
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
@@ -245,13 +245,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "9d8eeb52eecbed102f253fd94d0c1db807574fcee817a6f00695af83d286f133",
-      "size_bytes": 121014
+      "sha256": "9bc20637fdf59bdf3b950ce7f9f80c515e42e52322de943faec83412eac89613",
+      "size_bytes": 121010
     },
     {
       "path": "main.tex",
-      "sha256": "751ec4c2944c8ab7636c2c6b958e637a228eb705e58fffba88057a28abf0194e",
-      "size_bytes": 41024
+      "sha256": "cde58ed9a42a4fdb2fae9fc8754ef8eed08c7ac79616f8c1ac73d0465615b04b",
+      "size_bytes": 41021
     },
     {
       "path": "references.bib",
@@ -260,8 +260,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "d1a4d266814bd7a0740298dff785acb3a6ccbd1744857048040f04a8914e55dd",
-      "size_bytes": 104911
+      "sha256": "32e0e1561b3ea51d929d27b62011e1545ffdae16426227ef8f74e96a9e09e6e7",
+      "size_bytes": 104958
     },
     {
       "path": "scripts/create_submission_bundle.py",

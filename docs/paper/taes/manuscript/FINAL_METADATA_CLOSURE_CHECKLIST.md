@@ -2,7 +2,7 @@
 
 This checklist is the last-step placeholder closure artifact for the TAES manuscript package. It does not add scientific claims or evidence. Its purpose is to convert the current metadata-pending readiness state into a concrete replacement plan for `main.tex`, `COVER_LETTER_AND_METADATA_DRAFT.md`, the TAES portal form, and any optional upload decisions.
 
-Generated status reviewed: 2026-06-25 03:17 CST.
+Generated status reviewed: 2026-06-25 05:17 CST.
 
 ## Current Readiness Boundary
 
@@ -50,7 +50,7 @@ Generated status reviewed: 2026-06-25 03:17 CST.
 2. Decide optional graphical/video abstract, supplementary material, Code Ocean, DataPort, preprint, suggested reviewer, and opposed reviewer fields; record no separate supplement upload unless a formal supplement is selected.
 3. Run `./build.sh` from `docs/paper/taes/manuscript`.
 4. Confirm `generated/SUBMISSION_READINESS_REPORT.md` has no non-metadata blocking gates and no remaining unintended metadata placeholders.
-5. Render and inspect the final `main.pdf`; confirm it remains within the intended TAES page budget.
+5. Render and inspect the final `main.pdf`, including the full-page PNG set and contact sheet under `tmp/pdf_visual_qa/`; confirm it remains within the intended TAES page budget.
 6. Confirm `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the final source-bundle checksum.
 7. Extract `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and run `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 8. Fill the TAES portal from `COVER_LETTER_AND_METADATA_DRAFT.md` only after the rebuilt PDF, source bundle, and cover letter agree.

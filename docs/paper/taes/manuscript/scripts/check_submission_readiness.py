@@ -979,7 +979,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "reference-only projection reduces network disagreement",
         "Adding matched moment barycenters creates the spatial tracking separation",
         "complementary to AA/KLA weighting",
-        "not as a replacement for density pooling",
+        "not a replacement for density pooling",
     ]
     missing_discussion_interpretation = [
         marker for marker in discussion_interpretation_markers if marker not in body
@@ -1199,6 +1199,7 @@ def final_metadata_closure_checks() -> list[Check]:
         "Graphical/video abstract",
         "no separate supplementary upload by default",
         "TAES_EVIDENCE_MODE=bundled ./build.sh",
+        "contact sheet",
         "full-topology results as additional method gain",
         "active-output label/moment correspondence projection",
     ]
@@ -1235,6 +1236,7 @@ def submission_package_index_checks() -> list[Check]:
         "generated/SUBMISSION_READINESS_REPORT.md",
         "generated/SUBMISSION_BUNDLE_MANIFEST.md",
         "generated/REPRODUCIBILITY_LEDGER_MANIFEST.md",
+        "contact sheet",
         "cover letter and portal metadata source synchronization",
         "Default current action is no separate supplement upload",
     ]
