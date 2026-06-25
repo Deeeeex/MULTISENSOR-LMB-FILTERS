@@ -2,7 +2,7 @@
 
 This checklist is the last-step placeholder closure artifact for the TAES manuscript package. It does not add scientific claims or evidence. Its purpose is to convert the current metadata-pending readiness state into a concrete replacement plan for `main.tex`, `COVER_LETTER_AND_METADATA_DRAFT.md`, the TAES portal form, and any optional upload decisions.
 
-Generated status reviewed: 2026-06-25 05:17 CST.
+Generated status reviewed: 2026-06-25 11:38 CST.
 
 ## Current Readiness Boundary
 
@@ -10,6 +10,7 @@ Generated status reviewed: 2026-06-25 05:17 CST.
 - Metadata placeholders are allowed only for internal content-readiness review.
 - The same placeholders remain blocking for actual TAES portal submission.
 - This file should be rechecked after every author, funding, repository, cover-letter, or portal-metadata edit.
+- The cover letter now uses the same mechanism boundary as the manuscript: contextual GA rows are not AA-versus-GA significance evidence, the shared cardinality effect is a reference-cardinality control, and the E-OSPA/RMSE separation is attributed to matched posterior barycentering.
 
 ## Required Author And Front-Matter Replacements
 

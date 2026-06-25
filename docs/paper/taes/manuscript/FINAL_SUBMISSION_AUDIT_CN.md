@@ -1,6 +1,6 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 11:32 CST.
+Last checked: 2026-06-25 11:38 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
@@ -18,6 +18,7 @@ Authoritative current status:
 - Methods and Structural Properties preserve the projection-layer contract: active-track existence pass-through, graph-local cost, first-two-moment least-squares projection, and covariance/recursive-use boundaries remain explicit.
 - Results, Discussion, and Conclusion preserve the mechanism chain: primary paired AA evidence, contextual GA rows without AA-versus-GA significance claims, reference-only mechanism control, held-out replication, and output-level recursive-use boundaries.
 - Fig. 3 caption is self-contained: it identifies the Table IV source values, full/reference-only color mapping, shared cardinality-control boundary, and E-OSPA/RMSE matched-barycenter interpretation.
+- Cover letter and metadata closure notes preserve the same fixed-design mechanism boundary: contextual GA only, shared reference-cardinality control, and matched-barycenter E-OSPA/RMSE interpretation.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 - The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.
 - Remaining pending items are metadata-only placeholders listed by `generated/SUBMISSION_READINESS_REPORT.md`.
