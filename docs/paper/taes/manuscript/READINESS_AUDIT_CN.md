@@ -21,6 +21,12 @@
 
 视觉 QA 已重新检查 `tmp/pdf_visual_qa/main_all_p04.png`、`main_all_p08.png` 和 `main_contact_sheet.png`。当前 PDF 恢复为 9 页，没有孤立参考文献尾页；Fig. 1/Fig. 2 无文字重叠，Fig. 2 与 Table V、Discussion heading 不冲突。`check_submission_readiness.py` 的 method-figure marker gate 已同步为当前 `2 Match / 3 Project` 表达；该 checkpoint 不改变 raw reports、实验数值、statistical tests 或 paper-facing claims。
 
+## 17:49 Checkpoint
+
+本轮补做了 TAES-adjacent tracking figure style calibration。参考材料包括一个 submitted-to-IEEE-TAES 的 distributed sensor registration / multi-target tracking arXiv 稿、一个 decentralized multi-target tracking arXiv 稿，以及一个 IEEE aerospace-style distributed MHT/track-fusion PDF。共同风格不是营销式插画，而是白底、细线、紧凑图例、直接标签、算法表/数据流框、轨迹或误差曲线、以及少量克制颜色。
+
+`FIGURE_TABLE_AUDIT.md` 新增 `Reference Style Calibration`，把上述参考来源和本稿的图形标准写成可检查规则: vector/TikZ source where possible、white background、restrained blue/gray/gold palette、direct labels、no ornamental gradients、no unsupported visual claims、no page-count regression、no visual overlap。`check_submission_readiness.py` 已把这些 marker 纳入 figure/table audit gate。这个 checkpoint 的结论是: 当前 Fig. 1/Fig. 2 已经沿 TAES 工程论文的克制方向，而不是继续加入装饰性视觉元素。
+
 ## 17:12 Checkpoint
 
 本轮把 16:58 的两个单栏方法图进一步合并为一个双栏 composite Fig. 1。新的 `generated/method_pipeline.tex` 同时承担三件事: 左侧建立 active neighborhood / local label mismatch 的系统语义，中部展示 Reference -> Assignment -> Barycenter 的 projection mechanism，右侧给出 validation-time contract，包括 Input、Reference、Match、Project、Existence pass-through 和 Iterate。这样保留原 Fig. 2 的实现边界，但删除单独 `fig:algorithm` 浮动，避免第 4 页连续出现两个方法框导致布局像占位说明。

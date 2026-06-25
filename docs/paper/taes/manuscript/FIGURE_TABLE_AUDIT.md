@@ -10,6 +10,18 @@ This file is an internal pre-submission QA artifact. It is not a data source and
 - Contextual GA rows remain context only and must not be described as paired AA-vs-GA significance evidence.
 - Full-topology ceiling output is included only after parsing through `evidence_sources.json` and the scenario-family extractor; it must remain a zero-disagreement equivalence boundary, not a gain claim.
 
+## Reference Style Calibration
+
+This ledger uses public, nearby tracking papers only as visual style calibration; it does not cite them as scientific evidence for this manuscript's claims.
+
+| Reference | What was inspected | Takeaway for this manuscript |
+| --- | --- | --- |
+| `https://arxiv.org/pdf/1902.02523` | A distributed sensor-registration and multi-target tracking manuscript submitted to IEEE TAES, especially algorithm/table pages and trajectory/error figures. | TAES-adjacent tracking figures are restrained: white background, direct axes, thin lines, compact legends, and table-like algorithms. This supports keeping Fig. 1/Fig. 2 technical and uncluttered rather than using decorative illustration. |
+| `https://arxiv.org/pdf/1906.00770` | A decentralized multi-target tracking paper with compact scenario/result figures. | Result figures should prioritize direct labels and immediately readable metric structure over ornamental chart styling. |
+| `https://c4i.gmu.edu/~pcosta/F15/data/fileserver/file/472054/filename/Paper_1570112369.pdf` | An IEEE aerospace-style distributed MHT/track-fusion paper with architecture diagrams and scenario/result figures. | Architecture figures use explicit data-flow boxes, arrows, and color-coded processing blocks; this supports the current TikZ data-flow treatment in Fig. 1. |
+
+The current figure standard is therefore: vector/TikZ source where possible, white background, restrained blue/gray/gold palette, direct labels, no ornamental gradients, no unsupported visual claims, no page-count regression, and no visual overlap in the rendered PDF.
+
 ## Primary Manuscript Figures And Tables
 
 | Artifact | Label | Reader task | Source / generation path | Claim boundary |
