@@ -1,6 +1,6 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 05:23 CST.
+Last checked: 2026-06-25 10:58 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
@@ -14,6 +14,7 @@ Authoritative current status:
 - Metadata allowance leaves no non-metadata blocking gate.
 - `main.pdf` is 9 TAES-template pages, below the 10-page overlength-charge warning threshold.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
+- The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.
 - Remaining pending items are metadata-only placeholders listed by `generated/SUBMISSION_READINESS_REPORT.md`.
 
 ## Requirement-By-Evidence Matrix
