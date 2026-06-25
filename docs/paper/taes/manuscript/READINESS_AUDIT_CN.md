@@ -13,6 +13,14 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50、partial-FOV N50 和 full-topology zero-disagreement ceiling；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 17:37 Checkpoint
+
+本轮按 top-journal / TAES 图形标准把两张主文图从低级 `picture`/条形图进一步升级为 TikZ 生成源。`generated/method_pipeline.tex` 现在是双栏三面板机制图: 左侧用 local label mismatch 显示 scalar weights 不能生成 component correspondence，中部给出 Input -> Reference -> Match -> Project -> Output 的 graph-local operator，右侧保留 existence pass-through、H-round overwrite 和 no-global-label boundary。图内文字量减少，机制层级由节点、箭头和少量公式承担。
+
+`generated/n50_reduction_bars.tex` 现在是 TikZ 统计证据面板: 主面板按 network agreement 与 truth-referenced metrics 分组，保留 full/ref bar-end percentages 与 full-minus-reference gap；右侧 inset 直接显示 primary N50 与 held-out N50 的 RMSE full/ref separation，用于把 `tab:paired` 和 `tab:heldout` 的核心机制证据放到同一视觉 argument 中。`main.tex` caption 已同步压缩，避免图注挤占页面。
+
+视觉 QA 已重新检查 `tmp/pdf_visual_qa/main_all_p04.png`、`main_all_p08.png` 和 `main_contact_sheet.png`。当前 PDF 恢复为 9 页，没有孤立参考文献尾页；Fig. 1/Fig. 2 无文字重叠，Fig. 2 与 Table V、Discussion heading 不冲突。`check_submission_readiness.py` 的 method-figure marker gate 已同步为当前 `2 Match / 3 Project` 表达；该 checkpoint 不改变 raw reports、实验数值、statistical tests 或 paper-facing claims。
+
 ## 17:12 Checkpoint
 
 本轮把 16:58 的两个单栏方法图进一步合并为一个双栏 composite Fig. 1。新的 `generated/method_pipeline.tex` 同时承担三件事: 左侧建立 active neighborhood / local label mismatch 的系统语义，中部展示 Reference -> Assignment -> Barycenter 的 projection mechanism，右侧给出 validation-time contract，包括 Input、Reference、Match、Project、Existence pass-through 和 Iterate。这样保留原 Fig. 2 的实现边界，但删除单独 `fig:algorithm` 浮动，避免第 4 页连续出现两个方法框导致布局像占位说明。

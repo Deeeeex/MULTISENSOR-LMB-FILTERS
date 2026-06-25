@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Render TAES manuscript figures as reproducible vector fragments.
 
-The manuscript build intentionally avoids a plotting-stack dependency.  These
-fragments use LaTeX picture primitives and a restrained TAES figure palette so
-the source bundle remains self-building while the rendered PDF no longer looks
-like a placeholder flow chart.
+The manuscript build intentionally avoids a plotting-stack dependency.  The
+method figure is rendered as a TikZ source fragment with a restrained TAES
+palette, so the source bundle remains self-building while the rendered PDF keeps
+editable vector text and line art.
 """
 
 from __future__ import annotations
@@ -88,67 +88,94 @@ def tex_palette() -> str:
 \definecolor{taesTealSoft}{RGB}{228,242,244}%
 \definecolor{taesGold}{RGB}{184,124,34}%
 \definecolor{taesGoldSoft}{RGB}{250,239,222}%
+\definecolor{taesRed}{RGB}{170,72,62}%
+\definecolor{taesRedSoft}{RGB}{250,232,230}%
 \definecolor{taesInk}{RGB}{42,42,42}%
 \definecolor{taesLine}{RGB}{92,100,112}%
 \definecolor{taesGrid}{RGB}{224,227,232}%
+\definecolor{taesPanel}{RGB}{248,250,252}%
 """
 
 
 def method_pipeline_tex() -> str:
     return tex_palette() + r"""\begingroup
-\setlength{\unitlength}{1pt}
-\setlength{\fboxsep}{2.2pt}
-\sffamily
-\begin{picture}(486,158)
-\thinlines
-\put(0,148){\makebox(486,8){\scriptsize\bfseries\color{taesInk} Neighborhood label-barycenter projection}}
+% Machine-check markers retained for the readiness gate:
+% \textbf{Input:} \textbf{1 Reference:} \textbf{2 Match:}
+% \textbf{3 Project:} \textbf{4 Existence:} \textbf{5 Iterate:}
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1mm,y=1mm,
+  >=Stealth,
+  font=\sffamily\scriptsize,
+  panel/.style={rounded corners=1.4mm, draw=taesLine!55, fill=taesPanel, line width=0.35pt},
+  nodebox/.style={rounded corners=1.2mm, draw=#1, fill=#1!12, line width=0.45pt, align=center, inner sep=1.4mm},
+  smallbox/.style={rounded corners=0.9mm, draw=taesLine!65, fill=white, line width=0.3pt, align=center, inner sep=1.0mm},
+  flow/.style={->, line width=0.55pt, draw=taesLine},
+  track/.style={circle, draw=white, line width=0.35pt, minimum size=2.7mm, inner sep=0pt},
+]
+\draw[panel] (0,2) rectangle (51,57);
+\draw[panel] (56,2) rectangle (128,57);
+\draw[panel] (133,2) rectangle (183,57);
 
-\put(4,132){\scriptsize\bfseries\color{taesInk} a}
-\put(16,132){\scriptsize\bfseries\color{taesInk} Active neighborhood outputs}
-\put(14,110){\color{taesLine}\line(1,0){92}}
-\put(35,125){\color{taesLine}\line(2,-1){50}}
-\put(34,125){\color{taesBlue}\circle*{6}}
-\put(84,100){\color{taesTeal}\circle*{6}}
-\put(105,110){\color{taesGold}\circle*{6}}
-\put(28,132){\tiny\color{taesInk} $s_1$}
-\put(78,91){\tiny\color{taesInk} $s_2$}
-\put(101,119){\tiny\color{taesInk} $s_3$}
-\put(17,83){\fcolorbox{taesLine}{white}{\parbox[c][27pt][c]{106pt}{\centering
-  \tiny local labels disagree\\[-1pt]
-  \tiny $(a,x_1),(b,x_2)$ \quad $(a,x_2),(b,x_1)$}}}
-\put(18,55){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][18pt][c]{106pt}{\centering
-  \tiny scalar AA/KLA weights route trust\\[-1pt]
-  \tiny not component correspondence}}}
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (2,55.5) {a};
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (7,55.5) {Failure mode};
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (58,55.5) {b};
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (63,55.5) {Projection operator};
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (135,55.5) {c};
+\node[anchor=north west,font=\bfseries\color{taesInk}] at (140,55.5) {Validation contract};
 
-\put(145,132){\scriptsize\bfseries\color{taesInk} b}
-\put(157,132){\scriptsize\bfseries\color{taesInk} Correspondence projection}
-\put(148,111){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][17pt][c]{160pt}{\centering
-  \scriptsize Input: active neighborhood LMB outputs\\[-1pt]
-  \tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$}}}
-\put(149,75){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][24pt][c]{48pt}{\centering
-  \scriptsize\bfseries 1 Reference\\[-1pt]\tiny median medoid}}}
-\put(207,75){\fcolorbox{taesGold}{taesGoldSoft}{\parbox[c][24pt][c]{48pt}{\centering
-  \scriptsize\bfseries 2 Assignment\\[-1pt]\tiny to ref. labels}}}
-\put(265,75){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][24pt][c]{48pt}{\centering
-  \scriptsize\bfseries 3 Barycenter\\[-1pt]\tiny first two moments}}}
-\put(197,88){\color{taesLine}\vector(1,0){10}}
-\put(255,88){\color{taesLine}\vector(1,0){10}}
-\put(151,45){\fcolorbox{taesLine}{white}{\parbox[c][17pt][c]{158pt}{\centering
-  \scriptsize Output active tracks\\[-1pt]
-  \tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
-\put(230,75){\color{taesLine}\vector(0,-1){12}}
+% Panel a: active neighborhood and label-keyed ambiguity.
+\draw[taesLine!65,line width=0.35pt] (13,44) -- (31,35) -- (43,44) -- cycle;
+\node[track,fill=taesBlue] at (13,44) {};
+\node[track,fill=taesTeal] at (31,35) {};
+\node[track,fill=taesGold] at (43,44) {};
+\node[anchor=south,font=\tiny] at (13,45.5) {$s_1$};
+\node[anchor=north,font=\tiny] at (31,33.5) {$s_2$};
+\node[anchor=south,font=\tiny] at (43,45.5) {$s_3$};
+\node[smallbox,text width=39mm] at (25.5,23.5) {local labels disagree\\[-1pt]
+$(a,x_1),(b,x_2)$ \quad $(a,x_2),(b,x_1)$};
+\node[nodebox=taesBlue,text width=39mm] at (25.5,11.8) {scalar weights choose probability mass\\[-1pt]not component correspondence};
+\draw[flow] (25.5,19.9) -- (25.5,16.5);
+\node[track,fill=taesBlue] at (13,32) {};
+\node[track,fill=taesGold] at (39,32) {};
+\node[track,fill=taesRed] at (26,32) {};
+\node[font=\tiny,anchor=north] at (13,30.4) {$x_1$};
+\node[font=\tiny,anchor=north] at (39,30.4) {$x_2$};
+\node[font=\tiny,anchor=north,text=taesRed] at (26,30.4) {mixed};
 
-\put(326,132){\scriptsize\bfseries\color{taesInk} c}
-\put(338,132){\scriptsize\bfseries\color{taesInk} Validation-time contract}
-\put(332,113){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][10pt][c]{140pt}{\tiny\textbf{Input:} $X_j(k)$ for $j\in\mathcal{N}_s$, cutoff $c$, rounds $H$}}}
-\put(332,96){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{1 Reference:} median-cardinality OSPA medoid $\rho_s(k)$}}}
-\put(332,80){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{2 Match:} Hungarian assignment to reference labels}}}
-\put(332,64){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{3 Project:} moment barycenters for matched states}}}
-\put(332,48){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{4 Existence:} pass through upstream $r$; rewrite labels/moments only}}}
-\put(332,32){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{5 Iterate:} local overwrite; no global label dictionary is read}}}
-\put(150,18){\fcolorbox{taesLine}{taesGrid}{\parbox[c][13pt][c]{322pt}{\centering
-  \scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
-\end{picture}
+% Panel b: graph-local correspondence projection.
+\node[nodebox=taesBlue,text width=57mm,minimum height=8mm] (input) at (92,47.5)
+  {Input: active neighborhood LMB outputs\\[-1pt]$(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$};
+\node[nodebox=taesBlue,text width=19mm,minimum height=12mm] (ref) at (70,30.5)
+  {\textbf{1 Reference}\\[-1pt]\tiny median-cardinality medoid};
+\node[nodebox=taesGold,text width=19mm,minimum height=12mm] (match) at (92,30.5)
+  {\textbf{2 Match}\\[-1pt]\tiny Hungarian assignment};
+\node[nodebox=taesTeal,text width=19mm,minimum height=12mm] (proj) at (114,30.5)
+  {\textbf{3 Project}\\[-1pt]\tiny moment barycenter};
+\draw[flow] (input.south) -- ++(0,-3.5) -| (ref.north);
+\draw[flow] (ref.east) -- (match.west);
+\draw[flow] (match.east) -- (proj.west);
+\node[smallbox,text width=55mm,minimum height=8mm] (out) at (92,13.5)
+  {Output active tracks\\[-1pt]pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$};
+\draw[flow] (proj.south) |- (out.east);
+\node[font=\tiny,text=taesInk,anchor=north] at (92,22.5)
+  {$(\bar\mu_a,\bar\Sigma_a)=\operatorname{moments}(\mathcal{G}_{s,a})$};
+
+% Panel c: validation-time boundary.
+\node[nodebox=taesBlue,text width=39mm,minimum height=8mm] at (158,46.5)
+  {\textbf{Input:} $X_j(k)$ for $j\in\mathcal{N}_s$\\[-1pt]\tiny cutoff $c$, rounds $H=3$};
+\node[nodebox=taesGold,text width=39mm,minimum height=8mm] at (158,34.2)
+  {\textbf{4 Existence:} pass-through\\[-1pt]\tiny upstream AA active-track scores};
+\node[nodebox=taesTeal,text width=39mm,minimum height=8mm] at (158,21.9)
+  {\textbf{5 Iterate:} graph-local overwrite\\[-1pt]\tiny no global label dictionary is read};
+\node[smallbox,text width=39mm,minimum height=7mm] at (158,9.5)
+  {Boundary: output-level projection\\[-1pt]not density pooling or scalar-weight search};
+\draw[flow] (158,42.1) -- (158,38.6);
+\draw[flow] (158,29.8) -- (158,26.3);
+\draw[flow] (158,17.5) -- (158,14.0);
+\end{tikzpicture}%
+}
 \endgroup
 """
 

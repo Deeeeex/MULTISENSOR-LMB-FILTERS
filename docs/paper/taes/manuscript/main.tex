@@ -1,6 +1,8 @@
 \documentclass{IEEEtaes}
 
 \usepackage{amsmath,amssymb,array,booktabs,cite,graphicx,placeins,xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,fit,shapes.geometric}
 
 \jvol{XX}
 \jnum{XX}
@@ -138,7 +140,7 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 \begin{figure*}[t]
 \centering
 \input{generated/method_pipeline.tex}
-\caption{Active-output correspondence projection. The composite panel shows why scalar fusion weights specify neighbor probability mass but not component correspondence, then gives the graph-local reference, assignment, and moment-barycenter projection used in validation. The input is the active neighborhood LMB output, not a global label dictionary. The operator consumes only graph-neighborhood outputs, passes upstream active-track existence scores through, and rewrites only labels and Gaussian moments.}
+\caption{Active-output correspondence projection. Scalar weights route probability mass but do not infer component correspondence. The operator chooses a graph-local reference, assigns neighbor tracks to it, and moment-matches the assigned states. Existence scores pass through from upstream AA; only labels and Gaussian moments are rewritten, with no global label dictionary.}
 \label{fig:method}
 \end{figure*}
 
@@ -314,9 +316,8 @@ Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only
 
 \begin{figure*}[t]
 \centering
-\setlength{\unitlength}{1pc}
 \input{generated/n50_reduction_bars.tex}
-\caption{Mechanism separation in paired percentage reductions. Values are the paired reductions in Table~\ref{tab:paired} relative to the fixed spatial-KLA AA baseline. Blue bars show the full label-barycenter operator, and gray-blue bars show the reference-only ablation. The cardinality rows are shared reference-cardinality controls, not moment-barycenter effects. Spatial E-OSPA/RMSE separation appears only after matched posterior barycenters are added.}
+\caption{Mechanism separation in paired percentage reductions. Blue bars show the full label-barycenter operator, gray-blue bars show the reference-only ablation, and the right inset repeats the RMSE separation for the primary and held-out N50 runs. Cardinality rows are shared controls; the spatial E-OSPA/RMSE gap appears only after matched posterior barycenters are added.}
 \label{fig:n50}
 \end{figure*}
 

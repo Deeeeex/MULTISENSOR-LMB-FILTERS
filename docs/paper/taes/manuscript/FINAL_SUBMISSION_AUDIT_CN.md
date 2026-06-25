@@ -1,6 +1,6 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 17:12 CST.
+Last checked: 2026-06-25 17:37 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
@@ -17,8 +17,8 @@ Authoritative current status:
 - Related Work preserves the adjacent AA/KLA, heterogeneous/FOV, multiview, and label-matching context while keeping the contribution bounded to active-output correspondence projection.
 - Methods and Structural Properties preserve the projection-layer contract: active-track existence pass-through, graph-local cost, first-two-moment least-squares projection, and covariance/recursive-use boundaries remain explicit.
 - Results, Discussion, and Conclusion preserve the mechanism chain: primary paired AA evidence, contextual GA rows without AA-versus-GA significance claims, reference-only mechanism control, held-out replication, and output-level recursive-use boundaries.
-- Fig. 1 is now a generated double-column composite panel with a unified TAES figure palette, preserving active-output input, reference selection, assignment, barycenter projection, validation-time existence pass-through, and no-global-label boundaries in one visual argument.
-- The paired-reduction figure caption is self-contained: it identifies the Table IV source values, full/reference-only color mapping, all-six-metric paired reductions, shared cardinality-control boundary, and E-OSPA/RMSE matched-barycenter interpretation.
+- Fig. 1 is now a generated double-column TikZ composite panel with a unified TAES figure palette, preserving active-output input, reference selection, matching, moment projection, validation-time existence pass-through, and no-global-label boundaries in one visual argument.
+- The paired-reduction figure is now a generated TikZ evidence panel: it shows all six paired metrics, full/reference-only bar-end labels, full-minus-reference gaps, shared cardinality-control rows, and a primary/held-out RMSE inset for the matched-barycenter interpretation.
 - Cover letter and metadata closure notes preserve the same fixed-design mechanism boundary: contextual GA only, shared reference-cardinality control, and matched-barycenter E-OSPA/RMSE interpretation.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 - The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.

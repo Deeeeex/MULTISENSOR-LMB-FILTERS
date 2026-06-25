@@ -656,7 +656,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         r"\textbf{3 Project:}",
         r"\textbf{4 Existence:}",
         r"\textbf{5 Iterate:}",
-        "rewrite labels/moments only",
+        "rewrite only labels",
         "no global label dictionary is read",
     ]
     missing_algorithm_markers = [marker for marker in algorithm_markers if marker not in algorithm_text]
@@ -674,8 +674,8 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "Input: active neighborhood LMB outputs",
         r"(\ell,r,\mu,\Sigma)_j",
         "1 Reference",
-        "2 Assignment",
-        "3 Barycenter",
+        "2 Match",
+        "3 Project",
         "Output active tracks",
         r"pass through upstream $r$",
         "rewrite only labels",

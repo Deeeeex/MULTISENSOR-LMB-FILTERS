@@ -3,63 +3,102 @@
 % Do not edit by hand; rerun ./build.sh from the manuscript directory.
 \definecolor{taesFull}{RGB}{15,77,146}%
 \definecolor{taesRef}{RGB}{126,141,169}%
+\definecolor{taesRefSoft}{RGB}{229,234,242}%
+\definecolor{taesBlueSoft}{RGB}{231,239,248}%
+\definecolor{taesGoldSoft}{RGB}{250,239,222}%
 \definecolor{taesGrid}{RGB}{224,227,232}%
 \definecolor{taesInk}{RGB}{42,42,42}%
-\definecolor{taesSoft}{RGB}{242,245,248}%
-\begin{picture}(38.0,10.9)
-\put(0.0,10.45){\makebox(38.0,0.35){\tablefont\bfseries Paired reduction over fixed spatial-KLA AA, N=50}}
-\put(23.6,9.92){\color{taesFull}\rule{0.95pc}{0.065in}}
-\put(24.8,9.88){\tablefont Full barycenter}
-\put(30.9,9.92){\color{taesRef}\rule{0.95pc}{0.065in}}
-\put(32.1,9.88){\tablefont Ref.-only}
-\put(34.2,9.34){\tablefont\color{taesInk} $\Delta$pp}
-\put(10.10,1.02){\color{taesGrid}\line(0,1){8.45}}
-\put(9.85,0.46){\tablefont 0\%}
-\put(15.47,1.02){\color{taesGrid}\line(0,1){8.45}}
-\put(15.22,0.46){\tablefont 25\%}
-\put(20.85,1.02){\color{taesGrid}\line(0,1){8.45}}
-\put(20.60,0.46){\tablefont 50\%}
-\put(26.23,1.02){\color{taesGrid}\line(0,1){8.45}}
-\put(25.98,0.46){\tablefont 75\%}
-\put(31.60,1.02){\color{taesGrid}\line(0,1){8.45}}
-\put(31.35,0.46){\tablefont 100\%}
-\put(0.2,5.76){\color{taesGrid}\line(1,0){37.4}}
-\put(0.3,8.64){\tablefont\color{taesInk} Network OSPA}
-\put(10.10,8.86){\color{taesFull}\rule{17.54pc}{0.065in}}
-\put(10.10,8.33){\color{taesRef}\rule{8.34pc}{0.065in}}
-\put(27.86,8.73){\scriptsize\color{taesInk} 81.6\%}
-\put(18.66,8.20){\scriptsize\color{taesInk} 38.8\%}
-\put(34.25,8.50){\scriptsize\color{taesInk} +42.8}
-\put(0.3,7.40){\tablefont\color{taesInk} Loc. disag.}
-\put(10.10,7.62){\color{taesFull}\rule{18.34pc}{0.065in}}
-\put(10.10,7.09){\color{taesRef}\rule{8.48pc}{0.065in}}
-\put(28.66,7.49){\scriptsize\color{taesInk} 85.3\%}
-\put(18.80,6.96){\scriptsize\color{taesInk} 39.5\%}
-\put(34.25,7.26){\scriptsize\color{taesInk} +45.9}
-\put(0.3,6.16){\tablefont\color{taesInk} Card. disp.}
-\put(10.10,6.38){\color{taesFull}\rule{8.61pc}{0.065in}}
-\put(10.10,5.85){\color{taesRef}\rule{8.61pc}{0.065in}}
-\put(18.93,6.25){\scriptsize\color{taesInk} 40.0\%}
-\put(18.93,5.72){\scriptsize\color{taesInk} 40.0\%}
-\put(34.25,6.02){\scriptsize\color{taesInk} +0.0}
-\put(0.3,4.92){\tablefont\color{taesInk} E-OSPA}
-\put(10.10,5.14){\color{taesFull}\rule{3.69pc}{0.065in}}
-\put(10.10,4.61){\color{taesRef}\rule{1.25pc}{0.065in}}
-\put(14.01,5.01){\scriptsize\color{taesInk} 17.1\%}
-\put(11.57,4.48){\scriptsize\color{taesInk} 5.8\%}
-\put(34.25,4.78){\scriptsize\color{taesInk} +11.3}
-\put(0.3,3.68){\tablefont\color{taesInk} RMSE}
-\put(10.10,3.90){\color{taesFull}\rule{1.37pc}{0.065in}}
-\put(10.10,3.37){\color{taesRef}\rule{0.12pc}{0.065in}}
-\put(11.69,3.77){\scriptsize\color{taesInk} 6.3\%}
-\put(10.67,3.24){\scriptsize\color{taesInk} 0.5\%}
-\put(34.25,3.54){\scriptsize\color{taesInk} +5.8}
-\put(0.3,2.44){\tablefont\color{taesInk} Card. error}
-\put(10.10,2.66){\color{taesFull}\rule{2.64pc}{0.065in}}
-\put(10.10,2.13){\color{taesRef}\rule{2.64pc}{0.065in}}
-\put(12.96,2.53){\scriptsize\color{taesInk} 12.3\%}
-\put(12.96,2.00){\scriptsize\color{taesInk} 12.3\%}
-\put(34.25,2.30){\scriptsize\color{taesInk} +0.0}
-\put(10.10,1.02){\color{taesInk}\line(1,0){21.50}}
-\put(10.1,0.06){\tiny\color{taesInk} bars: paired percentage reduction; right column: full minus reference-only percentage points}
-\end{picture}
+\definecolor{taesLine}{RGB}{92,100,112}%
+\definecolor{taesPanel}{RGB}{248,250,252}%
+\begingroup
+\centering
+\resizebox{0.94\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1mm,y=1mm,
+  font=\sffamily\scriptsize,
+  barfull/.style={fill=taesFull,draw=taesFull,line width=0.2pt},
+  barref/.style={fill=taesRef,draw=taesRef,line width=0.2pt},
+  axis/.style={draw=taesLine,line width=0.3pt},
+]
+\fill[white] (0,0) rectangle (183,60);
+\node[anchor=west,font=\bfseries\color{taesInk}] at (7,57.0) {Primary paired N50};
+\draw[barfull] (91,56.2) rectangle +(5.5,1.4);\node[anchor=west] at (97.5,56.9) {Full barycenter};
+\draw[barref] (127,56.2) rectangle +(5.5,1.4);\node[anchor=west] at (133.5,56.9) {Ref.-only};
+\fill[taesBlueSoft] (0.5,34.5) rectangle (130.5,53.2);
+\fill[taesGoldSoft] (0.5,12.8) rectangle (130.5,32.2);
+\node[rotate=90,font=\tiny\bfseries\color{taesInk}] at (4.3,44.0) {network agreement};
+\node[rotate=90,font=\tiny\bfseries\color{taesInk}] at (4.3,22.4) {truth-referenced};
+\node[anchor=west,font=\tiny\color{taesInk}] at (34,53.0) {paired reduction};
+\node[anchor=west,font=\tiny\color{taesInk}] at (121.0,53.0) {gap (pp)};
+\draw[taesGrid,line width=0.25pt] (37.00,11.00) -- (37.00,52.00);
+\node[font=\tiny,anchor=north] at (37.00,10.20) {0\%};
+\draw[taesGrid,line width=0.25pt] (57.50,11.00) -- (57.50,52.00);
+\node[font=\tiny,anchor=north] at (57.50,10.20) {25\%};
+\draw[taesGrid,line width=0.25pt] (78.00,11.00) -- (78.00,52.00);
+\node[font=\tiny,anchor=north] at (78.00,10.20) {50\%};
+\draw[taesGrid,line width=0.25pt] (98.50,11.00) -- (98.50,52.00);
+\node[font=\tiny,anchor=north] at (98.50,10.20) {75\%};
+\draw[taesGrid,line width=0.25pt] (119.00,11.00) -- (119.00,52.00);
+\node[font=\tiny,anchor=north] at (119.00,10.20) {100\%};
+\draw[axis] (37.00,11.00) -- (119.00,11.00);
+\draw[taesLine!35,line width=0.3pt] (7,33.2) -- (130.5,33.2);
+\node[anchor=east,align=right,text=taesInk] at (35.50,49.40) {Network OSPA};
+\draw[barfull] (37.00,50.15) rectangle +(66.90,1.55);
+\draw[barref] (37.00,47.65) rectangle +(31.80,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (104.90,50.95) {81.6\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (69.80,48.45) {38.8\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,49.40) {+42.8};
+\node[anchor=east,align=right,text=taesInk] at (35.50,44.00) {Loc. disag.};
+\draw[barfull] (37.00,44.75) rectangle +(69.95,1.55);
+\draw[barref] (37.00,42.25) rectangle +(32.36,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (107.95,45.55) {85.3\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (70.36,43.05) {39.5\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,44.00) {+45.9};
+\node[anchor=east,align=right,text=taesInk] at (35.50,38.60) {Card. disp.};
+\draw[barfull] (37.00,39.35) rectangle +(32.82,1.55);
+\draw[barref] (37.00,36.85) rectangle +(32.82,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (70.82,40.15) {40.0\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (70.82,37.65) {40.0\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,38.60) {+0.0};
+\node[anchor=east,align=right,text=taesInk] at (35.50,28.70) {E-OSPA};
+\draw[barfull] (37.00,29.45) rectangle +(14.06,1.55);
+\draw[barref] (37.00,26.95) rectangle +(4.78,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (52.06,30.25) {17.1\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (42.78,27.75) {5.8\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,28.70) {+11.3};
+\node[anchor=east,align=right,text=taesInk] at (35.50,23.30) {RMSE};
+\draw[barfull] (37.00,24.05) rectangle +(5.21,1.55);
+\draw[barref] (37.00,21.55) rectangle +(0.44,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (43.21,24.85) {6.3\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (39.60,22.35) {0.5\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,23.30) {+5.8};
+\node[anchor=east,align=right,text=taesInk] at (35.50,17.90) {Card. error};
+\draw[barfull] (37.00,18.65) rectangle +(10.06,1.55);
+\draw[barref] (37.00,16.15) rectangle +(10.06,1.55);
+\node[font=\tiny,anchor=west,text=taesInk] at (48.06,19.45) {12.3\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (48.06,16.95) {12.3\%};
+\node[font=\tiny,anchor=west,text=taesInk] at (120.80,17.90) {+0.0};
+\draw[rounded corners=1.2mm,draw=taesLine!55,fill=white,line width=0.35pt] (134,12.8) rectangle (182,53.2);
+\node[font=\tiny\bfseries,text=taesInk] at (158,49.8) {RMSE mechanism replication};
+\node[font=\tiny,text=taesLine] at (158,46.7) {full vs ref.-only reduction};
+\draw[taesGrid,line width=0.25pt] (147.00,17.0) -- (147.00,43.0);
+\node[font=\tiny,anchor=north] at (147.00,16.0) {0\%};
+\draw[taesGrid,line width=0.25pt] (159.50,17.0) -- (159.50,43.0);
+\node[font=\tiny,anchor=north] at (159.50,16.0) {4\%};
+\draw[taesGrid,line width=0.25pt] (172.00,17.0) -- (172.00,43.0);
+\node[font=\tiny,anchor=north] at (172.00,16.0) {8\%};
+\node[font=\tiny,anchor=east] at (145.40,38.80) {Primary};
+\draw[barfull] (147.00,39.50) rectangle +(19.84,1.45);
+\draw[barref] (147.00,37.15) rectangle +(1.69,1.45);
+\node[font=\tiny,anchor=west] at (167.64,40.25) {6.35\%};
+\node[font=\tiny,anchor=west] at (149.49,37.90) {0.54\%};
+\node[font=\tiny,anchor=east] at (145.40,25.80) {Held-out};
+\draw[barfull] (147.00,26.50) rectangle +(20.75,1.45);
+\draw[barref] (147.00,24.15) rectangle +(2.56,1.45);
+\node[font=\tiny,anchor=west] at (168.55,27.25) {6.64\%};
+\node[font=\tiny,anchor=west] at (150.36,24.90) {0.82\%};
+\draw[axis] (147.00,17.0) -- (172.00,17.0);
+\node[font=\tiny,text=taesInk,anchor=west] at (37,4.9) {Cardinality rows are shared reference-cardinality controls; spatial E-OSPA/RMSE gaps isolate matched barycenters.};
+\end{tikzpicture}%
+}
+\endgroup

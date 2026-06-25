@@ -49,11 +49,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png",
-      "mean_luma": 0.949344,
+      "mean_luma": 0.949778,
       "page": 4,
-      "size_bytes": 287732,
+      "size_bytes": 303404,
       "status": "pass",
-      "stddev_luma": 0.179649,
+      "stddev_luma": 0.177131,
       "width": 1530
     },
     {
@@ -63,11 +63,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png",
-      "mean_luma": 0.943456,
+      "mean_luma": 0.943435,
       "page": 5,
-      "size_bytes": 171474,
+      "size_bytes": 173545,
       "status": "pass",
-      "stddev_luma": 0.198155,
+      "stddev_luma": 0.198167,
       "width": 1530
     },
     {
@@ -77,11 +77,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png",
-      "mean_luma": 0.936533,
+      "mean_luma": 0.936021,
       "page": 6,
-      "size_bytes": 170281,
+      "size_bytes": 170456,
       "status": "pass",
-      "stddev_luma": 0.20914,
+      "stddev_luma": 0.209929,
       "width": 1530
     },
     {
@@ -91,11 +91,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png",
-      "mean_luma": 0.946942,
+      "mean_luma": 0.947135,
       "page": 7,
-      "size_bytes": 140489,
+      "size_bytes": 138920,
       "status": "pass",
-      "stddev_luma": 0.193183,
+      "stddev_luma": 0.192854,
       "width": 1530
     },
     {
@@ -105,11 +105,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png",
-      "mean_luma": 0.940961,
+      "mean_luma": 0.940319,
       "page": 8,
-      "size_bytes": 298029,
+      "size_bytes": 145746,
       "status": "pass",
-      "stddev_luma": 0.199714,
+      "stddev_luma": 0.194316,
       "width": 1530
     },
     {
@@ -134,10 +134,10 @@
     },
     "height": 1536,
     "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png",
-    "mean_luma": 0.948237,
-    "size_bytes": 1335097,
+    "mean_luma": 0.94821,
+    "size_bytes": 1342698,
     "status": "pass",
-    "stddev_luma": 0.111082,
+    "stddev_luma": 0.110693,
     "thumbnail": "360x480",
     "width": 1152
   },
@@ -182,11 +182,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png",
       "label": "main-results",
-      "mean_luma": 0.936533,
+      "mean_luma": 0.936021,
       "page": 6,
-      "size_bytes": 170281,
+      "size_bytes": 170456,
       "status": "pass",
-      "stddev_luma": 0.20914,
+      "stddev_luma": 0.209929,
       "width": 1530
     },
     {
@@ -197,11 +197,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png",
       "label": "heldout-runtime",
-      "mean_luma": 0.946942,
+      "mean_luma": 0.947135,
       "page": 7,
-      "size_bytes": 140489,
+      "size_bytes": 138920,
       "status": "pass",
-      "stddev_luma": 0.193183,
+      "stddev_luma": 0.192854,
       "width": 1530
     },
     {
@@ -212,11 +212,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png",
       "label": "discussion-conclusion",
-      "mean_luma": 0.940961,
+      "mean_luma": 0.940319,
       "page": 8,
-      "size_bytes": 298029,
+      "size_bytes": 145746,
       "status": "pass",
-      "stddev_luma": 0.199714,
+      "stddev_luma": 0.194316,
       "width": 1530
     },
     {

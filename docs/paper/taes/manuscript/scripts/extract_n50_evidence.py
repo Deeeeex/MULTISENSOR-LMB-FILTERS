@@ -208,6 +208,10 @@ def tex_pvalue(value: str) -> str:
     return f"{numeric:.3f}"
 
 
+def pct_to_float(value: str) -> float:
+    return float(value.strip().rstrip("%"))
+
+
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -277,33 +281,66 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
     write_text(OUT / "n50_runtime_rows.tex", "".join(rows))
 
 
+def heldout_rmse_reductions() -> tuple[float, float] | None:
+    path = OUT / "heldout_n50_evidence.json"
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    paired_local = payload.get("paired_local", {})
+    try:
+        full = paired_local[ARM_ORDER[2]]["RMSE"]["reduction"]
+        ref = paired_local[ARM_ORDER[1]]["RMSE"]["reduction"]
+    except KeyError:
+        return None
+    return pct_to_float(full), pct_to_float(ref)
+
+
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
+    heldout_rmse = heldout_rmse_reductions()
     rows = [
         generated_header(),
         "\\definecolor{taesFull}{RGB}{15,77,146}%\n",
         "\\definecolor{taesRef}{RGB}{126,141,169}%\n",
+        "\\definecolor{taesRefSoft}{RGB}{229,234,242}%\n",
+        "\\definecolor{taesBlueSoft}{RGB}{231,239,248}%\n",
+        "\\definecolor{taesGoldSoft}{RGB}{250,239,222}%\n",
         "\\definecolor{taesGrid}{RGB}{224,227,232}%\n",
         "\\definecolor{taesInk}{RGB}{42,42,42}%\n",
-        "\\definecolor{taesSoft}{RGB}{242,245,248}%\n",
-        "\\begin{picture}(38.0,10.9)\n",
+        "\\definecolor{taesLine}{RGB}{92,100,112}%\n",
+        "\\definecolor{taesPanel}{RGB}{248,250,252}%\n",
+        "\\begingroup\n",
+        "\\centering\n",
+        "\\resizebox{0.94\\textwidth}{!}{%\n",
+        "\\begin{tikzpicture}[\n",
+        "  x=1mm,y=1mm,\n",
+        "  font=\\sffamily\\scriptsize,\n",
+        "  barfull/.style={fill=taesFull,draw=taesFull,line width=0.2pt},\n",
+        "  barref/.style={fill=taesRef,draw=taesRef,line width=0.2pt},\n",
+        "  axis/.style={draw=taesLine,line width=0.3pt},\n",
+        "]\n",
     ]
-    rows.append("\\put(0.0,10.45){\\makebox(38.0,0.35){\\tablefont\\bfseries Paired reduction over fixed spatial-KLA AA, N=50}}\n")
-    rows.append("\\put(23.6,9.92){\\color{taesFull}\\rule{0.95pc}{0.065in}}\n")
-    rows.append("\\put(24.8,9.88){\\tablefont Full barycenter}\n")
-    rows.append("\\put(30.9,9.92){\\color{taesRef}\\rule{0.95pc}{0.065in}}\n")
-    rows.append("\\put(32.1,9.88){\\tablefont Ref.-only}\n")
-    rows.append("\\put(34.2,9.34){\\tablefont\\color{taesInk} $\\Delta$pp}\n")
-    axis_x = 10.1
-    axis_y = 1.02
-    scale_w = 21.5
-    grid_h = 8.45
-    bar_h = "0.065in"
+    rows.append("\\fill[white] (0,0) rectangle (183,60);\n")
+    rows.append("\\node[anchor=west,font=\\bfseries\\color{taesInk}] at (7,57.0) {Primary paired N50};\n")
+    rows.append("\\draw[barfull] (91,56.2) rectangle +(5.5,1.4);\\node[anchor=west] at (97.5,56.9) {Full barycenter};\n")
+    rows.append("\\draw[barref] (127,56.2) rectangle +(5.5,1.4);\\node[anchor=west] at (133.5,56.9) {Ref.-only};\n")
+    rows.append("\\fill[taesBlueSoft] (0.5,34.5) rectangle (130.5,53.2);\n")
+    rows.append("\\fill[taesGoldSoft] (0.5,12.8) rectangle (130.5,32.2);\n")
+    rows.append("\\node[rotate=90,font=\\tiny\\bfseries\\color{taesInk}] at (4.3,44.0) {network agreement};\n")
+    rows.append("\\node[rotate=90,font=\\tiny\\bfseries\\color{taesInk}] at (4.3,22.4) {truth-referenced};\n")
+    rows.append("\\node[anchor=west,font=\\tiny\\color{taesInk}] at (34,53.0) {paired reduction};\n")
+    rows.append("\\node[anchor=west,font=\\tiny\\color{taesInk}] at (121.0,53.0) {gap (pp)};\n")
+    axis_x = 37.0
+    axis_y = 11.0
+    scale_w = 82.0
+    grid_h = 41.0
+    bar_h = 1.55
     for tick in [0, 25, 50, 75, 100]:
         x = axis_x + scale_w * tick / 100.0
-        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color{{taesGrid}}\\line(0,1){{{grid_h:.2f}}}}}\n")
-        rows.append(f"\\put({x - 0.25:.2f},0.46){{\\tablefont {tick}\\%}}\n")
-    rows.append("\\put(0.2,5.76){\\color{taesGrid}\\line(1,0){37.4}}\n")
-    y_values = [8.64, 7.40, 6.16, 4.92, 3.68, 2.44]
+        rows.append(f"\\draw[taesGrid,line width=0.25pt] ({x:.2f},{axis_y:.2f}) -- ({x:.2f},{axis_y + grid_h:.2f});\n")
+        rows.append(f"\\node[font=\\tiny,anchor=north] at ({x:.2f},{axis_y - 0.8:.2f}) {{{tick}\\%}};\n")
+    rows.append(f"\\draw[axis] ({axis_x:.2f},{axis_y:.2f}) -- ({axis_x + scale_w:.2f},{axis_y:.2f});\n")
+    rows.append("\\draw[taesLine!35,line width=0.3pt] (7,33.2) -- (130.5,33.2);\n")
+    y_values = [49.4, 44.0, 38.6, 28.7, 23.3, 17.9]
     for label, y in zip(PAIRED_METRICS, y_values):
         _, metric = PAIRED_SOURCE[label]
         full = paired[(ARM_ORDER[2], metric)].reduction_pct
@@ -311,24 +348,52 @@ def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
         delta = full - ref
         full_w = scale_w * full / 100.0
         ref_w = scale_w * ref / 100.0
-        full_label_x = min(axis_x + max(full_w, 0.35) + 0.22, axis_x + scale_w + 0.12)
-        ref_label_x = min(axis_x + max(ref_w, 0.35) + 0.22, axis_x + scale_w + 0.12)
+        full_label_x = min(axis_x + max(full_w, 1.6) + 1.0, axis_x + scale_w + 2.0)
+        ref_label_x = min(axis_x + max(ref_w, 1.6) + 1.0, axis_x + scale_w + 2.0)
+        gap_x = 120.8
         fig_label = FIG_LABEL[label]
         rows.extend(
             [
-                f"\\put(0.3,{y + 0.00:.2f}){{\\tablefont\\color{{taesInk}} {fig_label}}}\n",
-                f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{taesFull}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({axis_x:.2f},{y - 0.31:.2f}){{\\color{{taesRef}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({full_label_x:.2f},{y + 0.09:.2f}){{\\scriptsize\\color{{taesInk}} {full:.1f}\\%}}\n",
-                f"\\put({ref_label_x:.2f},{y - 0.44:.2f}){{\\scriptsize\\color{{taesInk}} {ref:.1f}\\%}}\n",
-                f"\\put(34.25,{y - 0.14:.2f}){{\\scriptsize\\color{{taesInk}} {delta:+.1f}}}\n",
+                f"\\node[anchor=east,align=right,text=taesInk] at ({axis_x - 1.5:.2f},{y:.2f}) {{{fig_label}}};\n",
+                f"\\draw[barfull] ({axis_x:.2f},{y + 0.75:.2f}) rectangle +({full_w:.2f},{bar_h:.2f});\n",
+                f"\\draw[barref] ({axis_x:.2f},{y - 1.75:.2f}) rectangle +({ref_w:.2f},{bar_h:.2f});\n",
+                f"\\node[font=\\tiny,anchor=west,text=taesInk] at ({full_label_x:.2f},{y + 1.55:.2f}) {{{full:.1f}\\%}};\n",
+                f"\\node[font=\\tiny,anchor=west,text=taesInk] at ({ref_label_x:.2f},{y - 0.95:.2f}) {{{ref:.1f}\\%}};\n",
+                f"\\node[font=\\tiny,anchor=west,text=taesInk] at ({gap_x:.2f},{y:.2f}) {{{delta:+.1f}}};\n",
             ]
         )
+    primary_full_rmse = paired[(ARM_ORDER[2], "RMSE")].reduction_pct
+    primary_ref_rmse = paired[(ARM_ORDER[1], "RMSE")].reduction_pct
+    if heldout_rmse is not None:
+        heldout_full_rmse, heldout_ref_rmse = heldout_rmse
+        inset = [
+            ("Primary", primary_full_rmse, primary_ref_rmse, 38.8),
+            ("Held-out", heldout_full_rmse, heldout_ref_rmse, 25.8),
+        ]
+        rows.append("\\draw[rounded corners=1.2mm,draw=taesLine!55,fill=white,line width=0.35pt] (134,12.8) rectangle (182,53.2);\n")
+        rows.append("\\node[font=\\tiny\\bfseries,text=taesInk] at (158,49.8) {RMSE mechanism replication};\n")
+        rows.append("\\node[font=\\tiny,text=taesLine] at (158,46.7) {full vs ref.-only reduction};\n")
+        inset_x = 147.0
+        inset_scale = 25.0 / 8.0
+        for tick in [0, 4, 8]:
+            x = inset_x + tick * inset_scale
+            rows.append(f"\\draw[taesGrid,line width=0.25pt] ({x:.2f},17.0) -- ({x:.2f},43.0);\n")
+            rows.append(f"\\node[font=\\tiny,anchor=north] at ({x:.2f},16.0) {{{tick}\\%}};\n")
+        for name, full, ref, y in inset:
+            full_w = full * inset_scale
+            ref_w = ref * inset_scale
+            rows.append(f"\\node[font=\\tiny,anchor=east] at ({inset_x - 1.6:.2f},{y:.2f}) {{{name}}};\n")
+            rows.append(f"\\draw[barfull] ({inset_x:.2f},{y + 0.7:.2f}) rectangle +({full_w:.2f},1.45);\n")
+            rows.append(f"\\draw[barref] ({inset_x:.2f},{y - 1.65:.2f}) rectangle +({max(ref_w, 0.35):.2f},1.45);\n")
+            rows.append(f"\\node[font=\\tiny,anchor=west] at ({inset_x + full_w + 0.8:.2f},{y + 1.45:.2f}) {{{full:.2f}\\%}};\n")
+            rows.append(f"\\node[font=\\tiny,anchor=west] at ({inset_x + max(ref_w, 0.35) + 0.8:.2f},{y - 0.9:.2f}) {{{ref:.2f}\\%}};\n")
+        rows.append(f"\\draw[axis] ({inset_x:.2f},17.0) -- ({inset_x + 25.0:.2f},17.0);\n")
     rows.extend(
         [
-            f"\\put({axis_x:.2f},{axis_y:.2f}){{\\color{{taesInk}}\\line(1,0){{{scale_w:.2f}}}}}\n",
-            "\\put(10.1,0.06){\\tiny\\color{taesInk} bars: paired percentage reduction; right column: full minus reference-only percentage points}\n",
-            "\\end{picture}\n",
+            "\\node[font=\\tiny,text=taesInk,anchor=west] at (37,4.9) {Cardinality rows are shared reference-cardinality controls; spatial E-OSPA/RMSE gaps isolate matched barycenters.};\n",
+            "\\end{tikzpicture}%\n",
+            "}\n",
+            "\\endgroup\n",
         ]
     )
     write_text(OUT / "n50_reduction_bars.tex", "".join(rows))
