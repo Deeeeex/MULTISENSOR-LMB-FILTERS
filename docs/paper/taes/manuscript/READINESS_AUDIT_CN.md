@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 04:57 CST
+日期: 2026-06-25 16:58 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -12,6 +12,14 @@
 
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50、partial-FOV N50 和 full-topology zero-disagreement ceiling；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
+
+## 16:58 Checkpoint
+
+本轮按 TAES/高影响力期刊的图形可读性要求重做主文图形生成链路。`scripts/render_figures.py` 不再生成黑框占位式流程图，而是用统一的低饱和蓝/青/金/灰视觉语言生成 Fig. 1 的 active-neighborhood/reference-assignment-barycenter pipeline 和 Fig. 2 的 compact validation-time projection card。Fig. 2 从手写 `fbox` 改为 `generated/algorithm_outline.tex`，`check_submission_readiness.py` 同步改为检查 generated algorithm panel 中的 Input/Reference/Match/Project/Existence/Iterate markers。
+
+Fig. 3 的 `generated/n50_reduction_bars.tex` 也已重画: 现在显示 Table IV 的全部 6 个 paired metrics，包括 `Card. disp.`，并新增右侧 `Full minus Ref.-only` 的百分点差列，用于直接显示 matched-barycenter 相对 reference-only 的机制分离。颜色说明和 caption 已同步为 blue full barycenter 与 gray-blue reference-only；cardinality rows 被明确写成 shared reference-cardinality controls，而不是 moment-barycenter effect。
+
+本轮视觉 QA 已检查 `tmp/pdf_visual_qa/main_all_p04.png`、`tmp/pdf_visual_qa/main_all_p08.png` 和 `tmp/pdf_visual_qa/main_contact_sheet.png`。Fig. 1/Fig. 2 在第 4 页没有文字溢出或压正文；Fig. 3 在第 8 页没有与 Table V、Discussion heading 或正文重叠。`./build.sh` 通过，PDF 仍为 9 页；`generated/SUBMISSION_READINESS_REPORT.md` 仍为 `content_ready_metadata_pending` 且无非 metadata blocker。该 checkpoint 只提升图形表达和布局，不改变 raw reports、实验数值、statistical tests 或 paper-facing claims。
 
 ## 04:57 Checkpoint
 

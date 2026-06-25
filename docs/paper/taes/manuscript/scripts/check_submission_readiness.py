@@ -72,6 +72,7 @@ BUNDLE_MANIFEST_MD = OUT / "SUBMISSION_BUNDLE_MANIFEST.md"
 READINESS_JSON = OUT / "submission_readiness.json"
 READINESS_MD = OUT / "SUBMISSION_READINESS_REPORT.md"
 METHOD_PIPELINE_FRAGMENT = OUT / "method_pipeline.tex"
+ALGORITHM_OUTLINE_FRAGMENT = OUT / "algorithm_outline.tex"
 LATEX_BUILD_LOG = ROOT / "tmp" / "build" / "latex_build.log"
 
 HELDOUT_BASE_SEED = 11
@@ -647,6 +648,7 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         )
     )
 
+    algorithm_text = tex + "\n" + (read_text(ALGORITHM_OUTLINE_FRAGMENT) if ALGORITHM_OUTLINE_FRAGMENT.exists() else "")
     algorithm_markers = [
         r"\textbf{Input:}",
         r"\textbf{1 Reference:}",
@@ -657,13 +659,13 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
         "rewrite labels/moments only",
         "no global label dictionary is read",
     ]
-    missing_algorithm_markers = [marker for marker in algorithm_markers if marker not in tex]
+    missing_algorithm_markers = [marker for marker in algorithm_markers if marker not in algorithm_text]
     checks.append(
         Check(
             "method algorithm-box markers",
-            "pass" if not missing_algorithm_markers else "warning",
-            "Method section preserves the compact stepwise implementation box for reference, matching, projection, existence pass-through, and iteration."
-            if not missing_algorithm_markers
+            "pass" if ALGORITHM_OUTLINE_FRAGMENT.exists() and not missing_algorithm_markers else "warning",
+            "Method section preserves the generated stepwise implementation panel for reference, matching, projection, existence pass-through, and iteration."
+            if ALGORITHM_OUTLINE_FRAGMENT.exists() and not missing_algorithm_markers
             else "Method algorithm box is missing markers: " + "; ".join(missing_algorithm_markers),
         )
     )
@@ -1430,6 +1432,7 @@ def figure_table_audit_checks() -> list[Check]:
         "tab:scenario-family-aa",
         "tab:ledger",
         "generated/method_pipeline.tex",
+        "generated/algorithm_outline.tex",
         "generated/n50_mean_rows.tex",
         "generated/n50_paired_rows.tex",
         "generated/n50_reduction_bars.tex",

@@ -52,6 +52,7 @@ PAIRED_SOURCE = {
 FIG_LABEL = {
     "Network OSPA": "Network OSPA",
     "Loc. disagreement": "Loc. disag.",
+    "Card. dispersion": "Card. disp.",
     "E-OSPA": "E-OSPA",
     "RMSE": "RMSE",
     "Card. error": "Card. error",
@@ -277,43 +278,56 @@ def write_runtime_rows(runtime: dict[str, dict[str, str]]) -> None:
 
 
 def write_reduction_bars(paired: dict[tuple[str, str], PairedResult]) -> None:
-    rows = [generated_header(), "\\begin{picture}(38.0,9.8)\n"]
-    rows.append("\\put(0.0,9.35){\\makebox(38.0,0.35){\\tablefont Paired reduction over fixed spatial-KLA AA}}\n")
-    rows.append("\\put(26.9,8.82){\\color{black}\\rule{0.80pc}{0.06in}}\n")
-    rows.append("\\put(27.9,8.78){\\tablefont Full}\n")
-    rows.append("\\put(31.4,8.82){\\color[gray]{0.58}\\rule{0.80pc}{0.06in}}\n")
-    rows.append("\\put(32.4,8.78){\\tablefont Ref.-only}\n")
-    axis_x = 9.2
-    axis_y = 0.95
-    scale_w = 24.0
-    grid_h = 7.65
-    bar_h = "0.08in"
+    rows = [
+        generated_header(),
+        "\\definecolor{taesFull}{RGB}{15,77,146}%\n",
+        "\\definecolor{taesRef}{RGB}{126,141,169}%\n",
+        "\\definecolor{taesGrid}{RGB}{224,227,232}%\n",
+        "\\definecolor{taesInk}{RGB}{42,42,42}%\n",
+        "\\definecolor{taesSoft}{RGB}{242,245,248}%\n",
+        "\\begin{picture}(38.0,10.9)\n",
+    ]
+    rows.append("\\put(0.0,10.45){\\makebox(38.0,0.35){\\tablefont\\bfseries Paired reduction over fixed spatial-KLA AA, N=50}}\n")
+    rows.append("\\put(23.6,9.92){\\color{taesFull}\\rule{0.95pc}{0.065in}}\n")
+    rows.append("\\put(24.8,9.88){\\tablefont Full barycenter}\n")
+    rows.append("\\put(30.9,9.92){\\color{taesRef}\\rule{0.95pc}{0.065in}}\n")
+    rows.append("\\put(32.1,9.88){\\tablefont Ref.-only}\n")
+    rows.append("\\put(34.2,9.34){\\tablefont\\color{taesInk} $\\Delta$pp}\n")
+    axis_x = 10.1
+    axis_y = 1.02
+    scale_w = 21.5
+    grid_h = 8.45
+    bar_h = "0.065in"
     for tick in [0, 25, 50, 75, 100]:
         x = axis_x + scale_w * tick / 100.0
-        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color[gray]{{0.82}}\\line(0,1){{{grid_h:.2f}}}}}\n")
-        rows.append(f"\\put({x - 0.25:.2f},0.45){{\\tablefont {tick}\\%}}\n")
-    y_values = [8.05, 6.52, 4.99, 3.46, 1.93]
-    for label, y in zip(PAIRED_METRICS[:2] + PAIRED_METRICS[3:], y_values):
+        rows.append(f"\\put({x:.2f},{axis_y:.2f}){{\\color{{taesGrid}}\\line(0,1){{{grid_h:.2f}}}}}\n")
+        rows.append(f"\\put({x - 0.25:.2f},0.46){{\\tablefont {tick}\\%}}\n")
+    rows.append("\\put(0.2,5.76){\\color{taesGrid}\\line(1,0){37.4}}\n")
+    y_values = [8.64, 7.40, 6.16, 4.92, 3.68, 2.44]
+    for label, y in zip(PAIRED_METRICS, y_values):
         _, metric = PAIRED_SOURCE[label]
         full = paired[(ARM_ORDER[2], metric)].reduction_pct
         ref = paired[(ARM_ORDER[1], metric)].reduction_pct
+        delta = full - ref
         full_w = scale_w * full / 100.0
         ref_w = scale_w * ref / 100.0
-        full_label_x = min(axis_x + max(full_w, 0.45) + 0.25, axis_x + scale_w + 0.15)
-        ref_label_x = min(axis_x + max(ref_w, 0.45) + 0.25, axis_x + scale_w + 0.15)
+        full_label_x = min(axis_x + max(full_w, 0.35) + 0.22, axis_x + scale_w + 0.12)
+        ref_label_x = min(axis_x + max(ref_w, 0.35) + 0.22, axis_x + scale_w + 0.12)
         fig_label = FIG_LABEL[label]
         rows.extend(
             [
-                f"\\put(0.3,{y + 0.02:.2f}){{\\tablefont {fig_label}}}\n",
-                f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{black}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({axis_x:.2f},{y - 0.43:.2f}){{\\color[gray]{{0.58}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
-                f"\\put({full_label_x:.2f},{y + 0.12:.2f}){{\\scriptsize {full:.1f}\\%}}\n",
-                f"\\put({ref_label_x:.2f},{y - 0.53:.2f}){{\\scriptsize {ref:.1f}\\%}}\n",
+                f"\\put(0.3,{y + 0.00:.2f}){{\\tablefont\\color{{taesInk}} {fig_label}}}\n",
+                f"\\put({axis_x:.2f},{y + 0.22:.2f}){{\\color{{taesFull}}\\rule{{{full_w:.2f}pc}}{{{bar_h}}}}}\n",
+                f"\\put({axis_x:.2f},{y - 0.31:.2f}){{\\color{{taesRef}}\\rule{{{ref_w:.2f}pc}}{{{bar_h}}}}}\n",
+                f"\\put({full_label_x:.2f},{y + 0.09:.2f}){{\\scriptsize\\color{{taesInk}} {full:.1f}\\%}}\n",
+                f"\\put({ref_label_x:.2f},{y - 0.44:.2f}){{\\scriptsize\\color{{taesInk}} {ref:.1f}\\%}}\n",
+                f"\\put(34.25,{y - 0.14:.2f}){{\\scriptsize\\color{{taesInk}} {delta:+.1f}}}\n",
             ]
         )
     rows.extend(
         [
-            f"\\put({axis_x:.2f},{axis_y:.2f}){{\\line(1,0){{{scale_w:.2f}}}}}\n",
+            f"\\put({axis_x:.2f},{axis_y:.2f}){{\\color{{taesInk}}\\line(1,0){{{scale_w:.2f}}}}}\n",
+            "\\put(10.1,0.06){\\tiny\\color{taesInk} bars: paired percentage reduction; right column: full minus reference-only percentage points}\n",
             "\\end{picture}\n",
         ]
     )

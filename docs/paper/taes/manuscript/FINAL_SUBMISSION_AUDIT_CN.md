@@ -1,6 +1,6 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 11:38 CST.
+Last checked: 2026-06-25 16:58 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
@@ -17,7 +17,8 @@ Authoritative current status:
 - Related Work preserves the adjacent AA/KLA, heterogeneous/FOV, multiview, and label-matching context while keeping the contribution bounded to active-output correspondence projection.
 - Methods and Structural Properties preserve the projection-layer contract: active-track existence pass-through, graph-local cost, first-two-moment least-squares projection, and covariance/recursive-use boundaries remain explicit.
 - Results, Discussion, and Conclusion preserve the mechanism chain: primary paired AA evidence, contextual GA rows without AA-versus-GA significance claims, reference-only mechanism control, held-out replication, and output-level recursive-use boundaries.
-- Fig. 3 caption is self-contained: it identifies the Table IV source values, full/reference-only color mapping, shared cardinality-control boundary, and E-OSPA/RMSE matched-barycenter interpretation.
+- Fig. 1 and Fig. 2 now use generated vector-style panels with a unified TAES figure palette, preserving active-output input, reference selection, assignment, barycenter projection, existence pass-through, and no-global-label boundaries.
+- Fig. 3 caption is self-contained: it identifies the Table IV source values, full/reference-only color mapping, all-six-metric paired reductions, shared cardinality-control boundary, and E-OSPA/RMSE matched-barycenter interpretation.
 - Cover letter and metadata closure notes preserve the same fixed-design mechanism boundary: contextual GA only, shared reference-cardinality control, and matched-barycenter E-OSPA/RMSE interpretation.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 - The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.
@@ -33,7 +34,7 @@ Authoritative current status:
 | Language is professional and claim-bounded. | Paper-facing wording hygiene, overclaim hygiene, discussion interpretation, conclusion boundary, and stress/generalization boundary gates. | Passed. | Keep author-facing edits within the active-output label/moment projection boundary. |
 | Experiments are detailed and report-driven. | Primary paired AA N50, held-out N50, harsh-loss N50, topology-ring N50, partial-FOV N50, full-topology N50, contextual GA N50, and independent verifier entries in `generated/reproducibility_ledger.json`. | Passed. | Future maneuver/crossing, covariance/reliability, and recursive-online runs remain risk-reduction plans, not current manuscript evidence. |
 | Evidence is solid and reproducible. | Source report hashes in generated manifests; `generated/N50_VERIFICATION_REPORT.md`; `generated/SCENARIO_FAMILY_MANIFEST.md`; DOI verification; source-bundle freshness and fallback-build gates. | Passed. | Keep raw `RUN/` scratch reports out of the portal upload unless converted to a formal supplement. |
-| Figures and tables are clear and aligned with claims. | `FIGURE_TABLE_AUDIT.md`; generated Fig. 1/Fig. 3 fragments; `generated/PDF_VISUAL_QA_MANIFEST.md`; contact sheet and all-page PNG checks. | Passed. | Re-render and inspect full-page PNGs after any final metadata or layout edit. |
+| Figures and tables are clear and aligned with claims. | `FIGURE_TABLE_AUDIT.md`; generated Fig. 1/Fig. 2/Fig. 3 fragments; `generated/PDF_VISUAL_QA_MANIFEST.md`; contact sheet and all-page PNG checks. | Passed. | Re-render and inspect full-page PNGs after any final metadata or layout edit. |
 | Source package is clean. | `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the source zip, file count, and hashes; extracted bundle builds with `TAES_EVIDENCE_MODE=bundled ./build.sh`. | Passed. | Regenerate after any manuscript, generated fragment, figure, or checklist change. |
 | Cover letter and portal handoff are ready to fill. | `COVER_LETTER_AND_METADATA_DRAFT.md`; `FINAL_METADATA_CLOSURE_CHECKLIST.md`; `SUBMISSION_PACKAGE_INDEX.md`. | Content-ready with placeholders. | Fill author, ORCID, funding, repository, preprint, conflict, and reviewer fields. |
 

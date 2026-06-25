@@ -144,17 +144,7 @@ The operator is graph-local at every round: sensor $s$ only reads estimates inde
 
 \begin{figure}[t]
 \centering
-\setlength{\fboxsep}{3pt}
-\fbox{\begin{minipage}{0.93\columnwidth}
-\scriptsize
-\raggedright
-\textbf{Input:} neighborhood estimates, cutoff $c$, rounds $H$.\\[-1pt]
-\textbf{1 Reference:} choose the median-cardinality OSPA medoid $\rho_s(k)$.\\[-1pt]
-\textbf{2 Match:} assign neighbor tracks to reference labels by Hungarian matching.\\[-1pt]
-\textbf{3 Project:} compute moment barycenters for matched states.\\[-1pt]
-\textbf{4 Existence:} pass through upstream active-track existence scores; rewrite labels/moments only.\\[-1pt]
-\textbf{5 Iterate:} overwrite active outputs locally; no global label dictionary is read.
-\end{minipage}}
+\input{generated/algorithm_outline.tex}
 \caption{Validation-time implementation outline. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs, does not read a global label set, and does not re-estimate Bernoulli existence probabilities.}
 \label{fig:algorithm}
 \end{figure}
@@ -333,7 +323,7 @@ Metric & Full reduction & Full wins & Full $p$ & Ref.-only reduction & Ref.-only
 \centering
 \setlength{\unitlength}{1pc}
 \input{generated/n50_reduction_bars.tex}
-\caption{Mechanism separation in paired percentage reductions. Values are the paired reductions in Table~\ref{tab:paired} relative to the fixed spatial-KLA AA baseline. Black bars show the full label-barycenter operator, and gray bars show the reference-only ablation. The identical cardinality-error row is a shared reference-cardinality control, not a moment-barycenter effect. Spatial E-OSPA/RMSE separation appears only after matched posterior barycenters are added.}
+\caption{Mechanism separation in paired percentage reductions. Values are the paired reductions in Table~\ref{tab:paired} relative to the fixed spatial-KLA AA baseline. Blue bars show the full label-barycenter operator, and gray-blue bars show the reference-only ablation. The cardinality rows are shared reference-cardinality controls, not moment-barycenter effects. Spatial E-OSPA/RMSE separation appears only after matched posterior barycenters are added.}
 \label{fig:n50}
 \end{figure*}
 

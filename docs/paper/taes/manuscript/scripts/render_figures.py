@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Render TAES manuscript figures without matplotlib."""
+"""Render TAES manuscript figures as reproducible vector fragments.
+
+The manuscript build intentionally avoids a plotting-stack dependency.  These
+fragments use LaTeX picture primitives and a restrained TAES figure palette so
+the source bundle remains self-building while the rendered PDF no longer looks
+like a placeholder flow chart.
+"""
 
 from __future__ import annotations
 
@@ -74,29 +80,102 @@ def method_pipeline_svg() -> str:
     return "\n".join(svg)
 
 
+def tex_palette() -> str:
+    return r"""\definecolor{taesBlue}{RGB}{15,77,146}%
+\definecolor{taesBlueMid}{RGB}{72,132,180}%
+\definecolor{taesBlueSoft}{RGB}{231,239,248}%
+\definecolor{taesTeal}{RGB}{66,148,158}%
+\definecolor{taesTealSoft}{RGB}{228,242,244}%
+\definecolor{taesGold}{RGB}{184,124,34}%
+\definecolor{taesGoldSoft}{RGB}{250,239,222}%
+\definecolor{taesInk}{RGB}{42,42,42}%
+\definecolor{taesLine}{RGB}{92,100,112}%
+\definecolor{taesGrid}{RGB}{224,227,232}%
+"""
+
+
 def method_pipeline_tex() -> str:
-    return r"""\begingroup
+    return tex_palette() + r"""\begingroup
 \setlength{\unitlength}{1pt}
-\setlength{\fboxsep}{0pt}
-\begin{picture}(236,148)
-\thicklines
-\put(0,138){\makebox(236,8){\scriptsize\bfseries Neighborhood label-barycenter projection}}
-\put(6,115){\framebox(224,20){\shortstack{\scriptsize Input: active neighborhood LMB outputs\\[-1pt]\tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$}}}
+\setlength{\fboxsep}{2pt}
+\sffamily
+\begin{picture}(236,164)
+\thinlines
+\put(0,154){\makebox(236,8){\scriptsize\bfseries\color{taesInk} Neighborhood label-barycenter projection}}
+\put(8,130){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][21pt][c]{220pt}{\centering
+  \scriptsize Input: active neighborhood LMB outputs\\[-1pt]
+  \tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$ with local label histories}}}
 
-\put(3,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 1 Reference\\[-1pt]\tiny median-cardinality medoid}}}
-\put(86,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 2 Assignment\\[-1pt]\tiny tracks to reference labels}}}
-\put(169,76){\fcolorbox{black}{black!4}{\parbox[c][28pt][c]{64pt}{\centering\scriptsize\bfseries 3 Barycenter\\[-1pt]\tiny matched first two moments}}}
-\put(67,90){\vector(1,0){19}}
-\put(150,90){\vector(1,0){19}}
+\put(15,105){\color{taesBlue}\circle*{5}}
+\put(35,113){\color{taesTeal}\circle*{5}}
+\put(55,105){\color{taesGold}\circle*{5}}
+\put(15,105){\color{taesLine}\line(2,1){20}}
+\put(35,113){\color{taesLine}\line(2,-1){20}}
+\put(17,96){\tiny\color{taesInk} local labels}
+\put(92,102){\color{taesLine}\vector(1,0){18}}
+\put(126,95){\tiny\color{taesInk} common reference}
+\put(168,102){\color{taesLine}\vector(1,0){18}}
+\put(196,99){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][10pt][c]{25pt}{\centering\tiny matched}}}
 
-\put(6,42){\framebox(224,22){\shortstack{\scriptsize Output active tracks\\[-1pt]\tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
-\put(118,76){\vector(0,-1){12}}
+\put(3,66){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][30pt][c]{64pt}{\centering
+  \scriptsize\bfseries 1 Reference\\[-1pt]
+  \tiny median-cardinality\\[-1pt]\tiny medoid}}}
+\put(86,66){\fcolorbox{taesGold}{taesGoldSoft}{\parbox[c][30pt][c]{64pt}{\centering
+  \scriptsize\bfseries 2 Assignment\\[-1pt]
+  \tiny tracks to reference\\[-1pt]\tiny labels}}}
+\put(169,66){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][30pt][c]{64pt}{\centering
+  \scriptsize\bfseries 3 Barycenter\\[-1pt]
+  \tiny matched first two\\[-1pt]\tiny moments}}}
+\put(67,81){\color{taesLine}\vector(1,0){19}}
+\put(150,81){\color{taesLine}\vector(1,0){19}}
 
-\put(12,9){\fcolorbox{black}{black!4}{\parbox[c][19pt][c]{212pt}{\centering\scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
-\put(118,42){\vector(0,-1){11}}
+\put(7,36){\fcolorbox{taesLine}{white}{\parbox[c][18pt][c]{222pt}{\centering
+  \scriptsize Output active tracks\\[-1pt]
+  \tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
+\put(118,66){\color{taesLine}\vector(0,-1){12}}
+
+\put(12,8){\fcolorbox{taesLine}{taesGrid}{\parbox[c][17pt][c]{212pt}{\centering
+  \scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
+\put(118,36){\color{taesLine}\vector(0,-1){10}}
 \end{picture}
 \endgroup
 """
+
+
+def algorithm_outline_tex() -> str:
+    rows = [
+        (77, "Input", "$X_j(k)$ for $j\\in\\mathcal{N}_s$, cutoff $c$, rounds $H$"),
+        (63, "1 Reference", "median-cardinality OSPA medoid $\\rho_s(k)$"),
+        (49, "2 Match", "Hungarian assignment to reference labels"),
+        (35, "3 Project", "moment barycenters for matched states"),
+        (21, "4 Existence", "pass through upstream $r$; rewrite labels/moments only"),
+        (7, "5 Iterate", "local overwrite; no global label dictionary is read"),
+    ]
+    out = [
+        tex_palette(),
+        r"""\begingroup
+\setlength{\unitlength}{1pt}
+\setlength{\fboxsep}{1.8pt}
+\sffamily
+\begin{picture}(236,95)
+\put(0,87){\makebox(236,8){\scriptsize\bfseries\color{taesInk} Validation-time projection contract}}
+\put(11,8){\color{taesGrid}\rule{1.0pt}{70pt}}
+""",
+    ]
+    for y, title, detail in rows:
+        color = "taesBlueSoft" if title == "Input" else "white"
+        border = "taesBlue" if title == "Input" else "taesLine"
+        out.append(
+            rf"\put(4,{y}){{\fcolorbox{{{border}}}{{{color}}}{{\parbox[c][9pt][c]{{228pt}}{{"
+            rf"\scriptsize\bfseries\color{{taesInk}} \textbf{{{title}:}} "
+            rf"\normalfont {detail}}}}}}}" + "\n"
+        )
+    out.append(
+        r"""\end{picture}
+\endgroup
+"""
+    )
+    return "".join(out)
 
 
 def n50_results_svg() -> str:
@@ -154,6 +233,7 @@ def main() -> None:
         if render_png:
             convert_svg(svg_path, svg_path.with_suffix(".png"), density=240)
     write(GEN / "method_pipeline.tex", method_pipeline_tex())
+    write(GEN / "algorithm_outline.tex", algorithm_outline_tex())
 
 
 if __name__ == "__main__":
