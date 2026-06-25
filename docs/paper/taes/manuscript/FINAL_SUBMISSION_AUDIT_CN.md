@@ -1,6 +1,6 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 11:11 CST.
+Last checked: 2026-06-25 11:20 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
@@ -15,6 +15,7 @@ Authoritative current status:
 - `main.pdf` is 9 TAES-template pages, below the 10-page overlength-charge warning threshold.
 - The abstract and introduction preserve the first-page correspondence-failure story, scalar-weight boundary, and fixed-design mechanism test.
 - Related Work preserves the adjacent AA/KLA, heterogeneous/FOV, multiview, and label-matching context while keeping the contribution bounded to active-output correspondence projection.
+- Methods and Structural Properties preserve the projection-layer contract: active-track existence pass-through, graph-local cost, first-two-moment least-squares projection, and covariance/recursive-use boundaries remain explicit.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 - The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.
 - Remaining pending items are metadata-only placeholders listed by `generated/SUBMISSION_READINESS_REPORT.md`.
