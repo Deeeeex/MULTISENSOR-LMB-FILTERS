@@ -10,8 +10,8 @@
 
 | Label | Page | Image | Dimensions | Mean luma | Stddev luma | Status |
 | --- | ---: | --- | ---: | ---: | ---: | --- |
-| title-abstract | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png` | 1485x1935 | 0.9363 | 0.2091 | `pass` |
-| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9487 | 0.1894 | `pass` |
+| title-abstract | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p1_title-abstract.png` | 1485x1935 | 0.9378 | 0.2068 | `pass` |
+| method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9456 | 0.1945 | `pass` |
 | main-results | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png` | 1530x1980 | 0.9336 | 0.2135 | `pass` |
 | heldout-runtime | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png` | 1530x1980 | 0.9522 | 0.1840 | `pass` |
 | discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9382 | 0.2089 | `pass` |
@@ -21,9 +21,9 @@
 
 | Page | Image | Dimensions | Mean luma | Stddev luma | Status |
 | ---: | --- | ---: | ---: | ---: | --- |
-| 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p01.png` | 1485x1935 | 0.9363 | 0.2091 | `pass` |
-| 2 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png` | 1530x1980 | 0.9324 | 0.2148 | `pass` |
-| 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p03.png` | 1530x1980 | 0.9487 | 0.1894 | `pass` |
+| 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p01.png` | 1485x1935 | 0.9378 | 0.2068 | `pass` |
+| 2 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png` | 1530x1980 | 0.9320 | 0.2155 | `pass` |
+| 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p03.png` | 1530x1980 | 0.9456 | 0.1945 | `pass` |
 | 4 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png` | 1530x1980 | 0.9460 | 0.1921 | `pass` |
 | 5 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png` | 1530x1980 | 0.9437 | 0.1978 | `pass` |
 | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png` | 1530x1980 | 0.9336 | 0.2135 | `pass` |
@@ -36,6 +36,6 @@
 - Image: `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png`
 - Thumbnail: `360x480`
 - Dimensions: 1152x1536
-- Mean luma: 0.9487
-- Stddev luma: 0.1121
+- Mean luma: 0.9485
+- Stddev luma: 0.1123
 - Status: `pass`

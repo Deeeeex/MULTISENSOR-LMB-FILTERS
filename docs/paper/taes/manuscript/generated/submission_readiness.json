@@ -572,7 +572,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `67f334b9451ac3acbeefbd2d2b6c2e6868cd8394de0dde187cc05f6600e82ff6`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `64edacf2f976f8f676ee402802ed5b1a5ca2d77a3f59ed35c20106266975e027`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
