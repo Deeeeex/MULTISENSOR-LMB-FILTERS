@@ -1,6 +1,6 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "62799ddda57678c0e175095fbbfe8450820ad1b601a35e53f30adfaefc5a1306",
+  "bundle_sha256": "61a81be0bbe6d260ff8a1b095f3ffc261b8559da267946c0baf5dc6a751a8654",
   "file_count": 65,
   "files": [
     {
@@ -25,8 +25,8 @@
     },
     {
       "path": "FINAL_SUBMISSION_AUDIT_CN.md",
-      "sha256": "e9edebc586646d7de749cb3010ebffea0ad8dfe50686cea6c1547195408f5abb",
-      "size_bytes": 5837
+      "sha256": "0eef37ba033dd8bebdd8028a20c5ab27b3bbfcef6175456b5ad53bd6686053d8",
+      "size_bytes": 5980
     },
     {
       "path": "IEEEtaes.bst",
@@ -250,13 +250,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "d380eb9740dcd423d844849a4132cf3d87171bae2731b0ba87e98eb99cc764d1",
-      "size_bytes": 121258
+      "sha256": "4266a71c104d0d0d4a7ea0d892ad4e29967b061300bc1c8fad882dc9f21d5dd0",
+      "size_bytes": 121201
     },
     {
       "path": "main.tex",
-      "sha256": "e2f863b8bb7cc614ffbe7e95e347b0d30f7a355b6dd05bf474439911a7beaa9b",
-      "size_bytes": 41362
+      "sha256": "1b9c882c8a2a9200dccd340fc362e4bf0339a7160390d5193f2b2fbf846d31b2",
+      "size_bytes": 41462
     },
     {
       "path": "references.bib",
