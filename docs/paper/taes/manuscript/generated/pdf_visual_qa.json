@@ -91,11 +91,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png",
-      "mean_luma": 0.950512,
+      "mean_luma": 0.950723,
       "page": 7,
-      "size_bytes": 131188,
+      "size_bytes": 129995,
       "status": "pass",
-      "stddev_luma": 0.187024,
+      "stddev_luma": 0.186671,
       "width": 1530
     },
     {
@@ -105,11 +105,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png",
-      "mean_luma": 0.938666,
+      "mean_luma": 0.938431,
       "page": 8,
-      "size_bytes": 225240,
+      "size_bytes": 226049,
       "status": "pass",
-      "stddev_luma": 0.207888,
+      "stddev_luma": 0.208234,
       "width": 1530
     },
     {
@@ -134,10 +134,10 @@
     },
     "height": 1536,
     "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png",
-    "mean_luma": 0.948427,
-    "size_bytes": 1314684,
+    "mean_luma": 0.948417,
+    "size_bytes": 1314876,
     "status": "pass",
-    "stddev_luma": 0.112307,
+    "stddev_luma": 0.112319,
     "thumbnail": "360x480",
     "width": 1152
   },
@@ -197,11 +197,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png",
       "label": "heldout-runtime",
-      "mean_luma": 0.950512,
+      "mean_luma": 0.950723,
       "page": 7,
-      "size_bytes": 131188,
+      "size_bytes": 129995,
       "status": "pass",
-      "stddev_luma": 0.187024,
+      "stddev_luma": 0.186671,
       "width": 1530
     },
     {
@@ -212,11 +212,11 @@
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png",
       "label": "discussion-conclusion",
-      "mean_luma": 0.938666,
+      "mean_luma": 0.938431,
       "page": 8,
-      "size_bytes": 225240,
+      "size_bytes": 226049,
       "status": "pass",
-      "stddev_luma": 0.207888,
+      "stddev_luma": 0.208234,
       "width": 1530
     },
     {
