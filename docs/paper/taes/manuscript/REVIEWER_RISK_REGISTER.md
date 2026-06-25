@@ -36,7 +36,7 @@ Missing materials affecting confidence: final author/funding/repository metadata
 
 - Overall assessment: the manuscript is now readable as a mechanism paper, but final reviewers will need a clean path from problem framing to evidence provenance.
 - Who would be interested: implementers who need a graph-local module that can be inserted after an existing distributed LMB/AA output path.
-- Major strengths: Fig. 1, the compact algorithm box, and the generated evidence manifests reduce ambiguity about what the operator consumes and what it changes.
+- Major strengths: the composite Fig. 1 method panel and the generated evidence manifests reduce ambiguity about what the operator consumes and what it changes.
 - Major concerns: response-ready evidence is extensive; the submitted main paper must keep the reader's path simple and avoid turning the Discussion into a catalog of every check.
 - Technical failings to address before a stronger case: keep supplementary tables optional unless page budget allows; keep generated fragments source-driven; keep final metadata and repository instructions synchronized.
 - Assessment against reviewer axes: readability for TAES specialists is strong; nonspecialist accessibility is adequate but not the target strength of the submission.

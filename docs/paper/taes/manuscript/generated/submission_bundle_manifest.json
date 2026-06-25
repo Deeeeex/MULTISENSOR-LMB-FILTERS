@@ -1,12 +1,12 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "97dbab7672462457484439fcebda2fd6e57281399174e2027e8ee080cf247bb2",
-  "file_count": 66,
+  "bundle_sha256": "a19e5c2936a8b6bf9a3e4c0183ef51da20bb0dcc64f47009400ed3f4a4ade718",
+  "file_count": 65,
   "files": [
     {
       "path": "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
-      "sha256": "27804981deb402501f63e1bcfc333a8e11d547667ec3ec3292e7945d8a2dad2b",
-      "size_bytes": 15979
+      "sha256": "e6f74704c2def026c305659203605c10bb717401424cfab5917c1cecffcd9282",
+      "size_bytes": 15957
     },
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -15,8 +15,8 @@
     },
     {
       "path": "FIGURE_TABLE_AUDIT.md",
-      "sha256": "d37154ce3ffe3bf687839cf5afe12c217bc97d8eb9400f6b61f0712e93203979",
-      "size_bytes": 5957
+      "sha256": "03544811d5148187e9da2fe8ff8d2accd5e85ff5ced9ea63dce700bc38f63003",
+      "size_bytes": 5639
     },
     {
       "path": "FINAL_METADATA_CLOSURE_CHECKLIST.md",
@@ -25,8 +25,8 @@
     },
     {
       "path": "FINAL_SUBMISSION_AUDIT_CN.md",
-      "sha256": "94bede7be63b0e6ded3bc080c2a980fdb600c5a2e47f9554173e600e34b40d7b",
-      "size_bytes": 7335
+      "sha256": "08b8ab3cae060f8418283bcb9b107f39d7e0227b9569a068cbcff84785acb1d7",
+      "size_bytes": 7412
     },
     {
       "path": "IEEEtaes.bst",
@@ -40,8 +40,8 @@
     },
     {
       "path": "READINESS_AUDIT_CN.md",
-      "sha256": "0105476cb8a9eca21fb887c22035e224cff9ba7b5d47ded44beff84dc33c8d35",
-      "size_bytes": 72402
+      "sha256": "5447951b9e6691c0199027265225b37ad2de27afe0a7e76ec1ea0f80c8fba245",
+      "size_bytes": 73641
     },
     {
       "path": "README.md",
@@ -50,8 +50,8 @@
     },
     {
       "path": "REVIEWER_RISK_REGISTER.md",
-      "sha256": "b4e8599a9185c6eedd855ba5b64f9509c2dd19f34e3e4dad772e087fc4eeeeea",
-      "size_bytes": 14274
+      "sha256": "561e21ead07b4a413cf4b103b73a8fa55141f79c67764ace3334a6ce1e81c64e",
+      "size_bytes": 14273
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
@@ -134,11 +134,6 @@
       "size_bytes": 1520
     },
     {
-      "path": "generated/algorithm_outline.tex",
-      "sha256": "279a036bd86d783e6647d85952eb71f11ce00342e7036183f246d53b5343fa9c",
-      "size_bytes": 1806
-    },
-    {
       "path": "generated/bibtex_doi_verification.json",
       "sha256": "f708e808e686e28bf738bafe3b898396479ef91ff2c6cf120bd9ea33d3cc75d8",
       "size_bytes": 4661
@@ -160,8 +155,8 @@
     },
     {
       "path": "generated/method_pipeline.tex",
-      "sha256": "7468029cd8b03e1b9f1e8abeefe8678132821363a73a11b79601a0f62f7f04a7",
-      "size_bytes": 2512
+      "sha256": "db9f0bfa60935511331db7217e490ee368d4ce1238e97a9c5e27ccc4a25b0708",
+      "size_bytes": 3792
     },
     {
       "path": "generated/n50_evidence.json",
@@ -255,13 +250,13 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "93f287a71364209e26e0a9a26b373b123ed5cd89e096d3a341bf48ff9d7c90cc",
-      "size_bytes": 123939
+      "sha256": "f48f7553070d5647a7cb7c0e8accc8f04e96d7947ee9651ec7ba1b38e176bc5b",
+      "size_bytes": 126536
     },
     {
       "path": "main.tex",
-      "sha256": "f1b73a3d91749d29dcad72eff6d54c5f15079670c261e1390f7ccd6547b67f97",
-      "size_bytes": 41045
+      "sha256": "e38e803fcc3b28776fdc5fba76d1b2fed852138c7ea3c149ce8a2ee1b29ecdb7",
+      "size_bytes": 40748
     },
     {
       "path": "references.bib",
@@ -270,8 +265,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "0959b6cfc87a56a68ab82a346b43fde3ed1ba2dac8d319cbb80892a20517a7e9",
-      "size_bytes": 107186
+      "sha256": "6fc55cbab15dc353199bafc8d30a8b745cb4c953e202fa894baebcd8839df620",
+      "size_bytes": 107007
     },
     {
       "path": "scripts/create_submission_bundle.py",
@@ -310,8 +305,8 @@
     },
     {
       "path": "scripts/render_figures.py",
-      "sha256": "152eaeddeb0eb3b4f6e5a63ad6291b88dd42225ffd6b8e866ccdddf493764878",
-      "size_bytes": 10728
+      "sha256": "72eda4c8221fcb0f6fe4cb58e450f23c4e62aa550979dd83519e6484e1646885",
+      "size_bytes": 10613
     },
     {
       "path": "scripts/render_pdf_visual_qa.py",

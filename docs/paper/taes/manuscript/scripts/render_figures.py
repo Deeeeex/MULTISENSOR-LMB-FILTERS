@@ -97,85 +97,60 @@ def tex_palette() -> str:
 def method_pipeline_tex() -> str:
     return tex_palette() + r"""\begingroup
 \setlength{\unitlength}{1pt}
-\setlength{\fboxsep}{2pt}
+\setlength{\fboxsep}{2.2pt}
 \sffamily
-\begin{picture}(236,164)
+\begin{picture}(486,158)
 \thinlines
-\put(0,154){\makebox(236,8){\scriptsize\bfseries\color{taesInk} Neighborhood label-barycenter projection}}
-\put(8,130){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][21pt][c]{220pt}{\centering
+\put(0,148){\makebox(486,8){\scriptsize\bfseries\color{taesInk} Neighborhood label-barycenter projection}}
+
+\put(4,132){\scriptsize\bfseries\color{taesInk} a}
+\put(16,132){\scriptsize\bfseries\color{taesInk} Active neighborhood outputs}
+\put(14,110){\color{taesLine}\line(1,0){92}}
+\put(35,125){\color{taesLine}\line(2,-1){50}}
+\put(34,125){\color{taesBlue}\circle*{6}}
+\put(84,100){\color{taesTeal}\circle*{6}}
+\put(105,110){\color{taesGold}\circle*{6}}
+\put(28,132){\tiny\color{taesInk} $s_1$}
+\put(78,91){\tiny\color{taesInk} $s_2$}
+\put(101,119){\tiny\color{taesInk} $s_3$}
+\put(17,83){\fcolorbox{taesLine}{white}{\parbox[c][27pt][c]{106pt}{\centering
+  \tiny local labels disagree\\[-1pt]
+  \tiny $(a,x_1),(b,x_2)$ \quad $(a,x_2),(b,x_1)$}}}
+\put(18,55){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][18pt][c]{106pt}{\centering
+  \tiny scalar AA/KLA weights route trust\\[-1pt]
+  \tiny not component correspondence}}}
+
+\put(145,132){\scriptsize\bfseries\color{taesInk} b}
+\put(157,132){\scriptsize\bfseries\color{taesInk} Correspondence projection}
+\put(148,111){\fcolorbox{taesLine}{taesBlueSoft}{\parbox[c][17pt][c]{160pt}{\centering
   \scriptsize Input: active neighborhood LMB outputs\\[-1pt]
-  \tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$ with local label histories}}}
-
-\put(15,105){\color{taesBlue}\circle*{5}}
-\put(35,113){\color{taesTeal}\circle*{5}}
-\put(55,105){\color{taesGold}\circle*{5}}
-\put(15,105){\color{taesLine}\line(2,1){20}}
-\put(35,113){\color{taesLine}\line(2,-1){20}}
-\put(17,96){\tiny\color{taesInk} local labels}
-\put(92,102){\color{taesLine}\vector(1,0){18}}
-\put(126,95){\tiny\color{taesInk} common reference}
-\put(168,102){\color{taesLine}\vector(1,0){18}}
-\put(196,99){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][10pt][c]{25pt}{\centering\tiny matched}}}
-
-\put(3,66){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][30pt][c]{64pt}{\centering
-  \scriptsize\bfseries 1 Reference\\[-1pt]
-  \tiny median-cardinality\\[-1pt]\tiny medoid}}}
-\put(86,66){\fcolorbox{taesGold}{taesGoldSoft}{\parbox[c][30pt][c]{64pt}{\centering
-  \scriptsize\bfseries 2 Assignment\\[-1pt]
-  \tiny tracks to reference\\[-1pt]\tiny labels}}}
-\put(169,66){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][30pt][c]{64pt}{\centering
-  \scriptsize\bfseries 3 Barycenter\\[-1pt]
-  \tiny matched first two\\[-1pt]\tiny moments}}}
-\put(67,81){\color{taesLine}\vector(1,0){19}}
-\put(150,81){\color{taesLine}\vector(1,0){19}}
-
-\put(7,36){\fcolorbox{taesLine}{white}{\parbox[c][18pt][c]{222pt}{\centering
+  \tiny $(\ell,r,\mu,\Sigma)_j,\;j\in\mathcal{N}_s$}}}
+\put(149,75){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][24pt][c]{48pt}{\centering
+  \scriptsize\bfseries 1 Reference\\[-1pt]\tiny median medoid}}}
+\put(207,75){\fcolorbox{taesGold}{taesGoldSoft}{\parbox[c][24pt][c]{48pt}{\centering
+  \scriptsize\bfseries 2 Assignment\\[-1pt]\tiny to ref. labels}}}
+\put(265,75){\fcolorbox{taesTeal}{taesTealSoft}{\parbox[c][24pt][c]{48pt}{\centering
+  \scriptsize\bfseries 3 Barycenter\\[-1pt]\tiny first two moments}}}
+\put(197,88){\color{taesLine}\vector(1,0){10}}
+\put(255,88){\color{taesLine}\vector(1,0){10}}
+\put(151,45){\fcolorbox{taesLine}{white}{\parbox[c][17pt][c]{158pt}{\centering
   \scriptsize Output active tracks\\[-1pt]
   \tiny pass through upstream $r$; rewrite only labels, $\mu$, and $\Sigma$}}}
-\put(118,66){\color{taesLine}\vector(0,-1){12}}
+\put(230,75){\color{taesLine}\vector(0,-1){12}}
 
-\put(12,8){\fcolorbox{taesLine}{taesGrid}{\parbox[c][17pt][c]{212pt}{\centering
+\put(326,132){\scriptsize\bfseries\color{taesInk} c}
+\put(338,132){\scriptsize\bfseries\color{taesInk} Validation-time contract}
+\put(332,113){\fcolorbox{taesBlue}{taesBlueSoft}{\parbox[c][10pt][c]{140pt}{\tiny\textbf{Input:} $X_j(k)$ for $j\in\mathcal{N}_s$, cutoff $c$, rounds $H$}}}
+\put(332,96){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{1 Reference:} median-cardinality OSPA medoid $\rho_s(k)$}}}
+\put(332,80){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{2 Match:} Hungarian assignment to reference labels}}}
+\put(332,64){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{3 Project:} moment barycenters for matched states}}}
+\put(332,48){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{4 Existence:} pass through upstream $r$; rewrite labels/moments only}}}
+\put(332,32){\fcolorbox{taesLine}{white}{\parbox[c][9pt][c]{140pt}{\tiny\textbf{5 Iterate:} local overwrite; no global label dictionary is read}}}
+\put(150,18){\fcolorbox{taesLine}{taesGrid}{\parbox[c][13pt][c]{322pt}{\centering
   \scriptsize Repeat $H$ graph-local rounds over $\mathcal{N}_s$; no global label dictionary.}}}
-\put(118,36){\color{taesLine}\vector(0,-1){10}}
 \end{picture}
 \endgroup
 """
-
-
-def algorithm_outline_tex() -> str:
-    rows = [
-        (77, "Input", "$X_j(k)$ for $j\\in\\mathcal{N}_s$, cutoff $c$, rounds $H$"),
-        (63, "1 Reference", "median-cardinality OSPA medoid $\\rho_s(k)$"),
-        (49, "2 Match", "Hungarian assignment to reference labels"),
-        (35, "3 Project", "moment barycenters for matched states"),
-        (21, "4 Existence", "pass through upstream $r$; rewrite labels/moments only"),
-        (7, "5 Iterate", "local overwrite; no global label dictionary is read"),
-    ]
-    out = [
-        tex_palette(),
-        r"""\begingroup
-\setlength{\unitlength}{1pt}
-\setlength{\fboxsep}{1.8pt}
-\sffamily
-\begin{picture}(236,95)
-\put(0,87){\makebox(236,8){\scriptsize\bfseries\color{taesInk} Validation-time projection contract}}
-\put(11,8){\color{taesGrid}\rule{1.0pt}{70pt}}
-""",
-    ]
-    for y, title, detail in rows:
-        color = "taesBlueSoft" if title == "Input" else "white"
-        border = "taesBlue" if title == "Input" else "taesLine"
-        out.append(
-            rf"\put(4,{y}){{\fcolorbox{{{border}}}{{{color}}}{{\parbox[c][9pt][c]{{228pt}}{{"
-            rf"\scriptsize\bfseries\color{{taesInk}} \textbf{{{title}:}} "
-            rf"\normalfont {detail}}}}}}}" + "\n"
-        )
-    out.append(
-        r"""\end{picture}
-\endgroup
-"""
-    )
-    return "".join(out)
 
 
 def n50_results_svg() -> str:
@@ -233,7 +208,6 @@ def main() -> None:
         if render_png:
             convert_svg(svg_path, svg_path.with_suffix(".png"), density=240)
     write(GEN / "method_pipeline.tex", method_pipeline_tex())
-    write(GEN / "algorithm_outline.tex", algorithm_outline_tex())
 
 
 if __name__ == "__main__":

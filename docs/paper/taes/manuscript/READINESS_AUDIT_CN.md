@@ -1,6 +1,6 @@
 # TAES 稿件 Readiness 审计
 
-日期: 2026-06-25 16:58 CST
+日期: 2026-06-25 17:12 CST
 
 目标稿件: `Neighborhood Label-Barycenter LMB Fusion for Distributed Multi-Target Tracking under Unreliable Communication`
 
@@ -13,13 +13,19 @@
 1. 作者、单位、收稿/修回日期、期卷页/DOI、基金、repository DOI/URL、corresponding author、cover-letter signature、preprint/conflict/reviewer 等投稿元数据仍是占位符。
 2. 当前实证已从主 tiered packet-loss formation 扩展到更严 harsh packet-loss profile、sparse topology-ring N50、partial-FOV N50 和 full-topology zero-disagreement ceiling；target maneuver、covariance-consistency 和 recursive-online 场景族验证仍会降低审稿风险。
 
+## 17:12 Checkpoint
+
+本轮把 16:58 的两个单栏方法图进一步合并为一个双栏 composite Fig. 1。新的 `generated/method_pipeline.tex` 同时承担三件事: 左侧建立 active neighborhood / local label mismatch 的系统语义，中部展示 Reference -> Assignment -> Barycenter 的 projection mechanism，右侧给出 validation-time contract，包括 Input、Reference、Match、Project、Existence pass-through 和 Iterate。这样保留原 Fig. 2 的实现边界，但删除单独 `fig:algorithm` 浮动，避免第 4 页连续出现两个方法框导致布局像占位说明。
+
+`main.tex` 现在只保留一个双栏 `fig:method`；`check_submission_readiness.py` 的 method algorithm markers 改为检查 composite method figure，而不是要求 `generated/algorithm_outline.tex`。`FIGURE_TABLE_AUDIT.md`、`CLAIM_EVIDENCE_BOUNDARY_MAP.md`、`REVIEWER_RISK_REGISTER.md` 和 `FINAL_SUBMISSION_AUDIT_CN.md` 已同步这一结构变化。该 checkpoint 不改变方法、raw reports、实验数值、statistical tests 或 results claims；它只改进图形布局和投稿图形的视觉层级。
+
 ## 16:58 Checkpoint
 
-本轮按 TAES/高影响力期刊的图形可读性要求重做主文图形生成链路。`scripts/render_figures.py` 不再生成黑框占位式流程图，而是用统一的低饱和蓝/青/金/灰视觉语言生成 Fig. 1 的 active-neighborhood/reference-assignment-barycenter pipeline 和 Fig. 2 的 compact validation-time projection card。Fig. 2 从手写 `fbox` 改为 `generated/algorithm_outline.tex`，`check_submission_readiness.py` 同步改为检查 generated algorithm panel 中的 Input/Reference/Match/Project/Existence/Iterate markers。
+本轮按 TAES/高影响力期刊的图形可读性要求重做主文图形生成链路。`scripts/render_figures.py` 不再生成黑框占位式流程图，而是用统一的低饱和蓝/青/金/灰视觉语言生成 Fig. 1 的 active-neighborhood/reference-assignment-barycenter pipeline 和 Fig. 2 的 compact validation-time projection card。Fig. 2 从手写 `fbox` 改为 `generated/algorithm_outline.tex`，`check_submission_readiness.py` 同步改为检查 generated algorithm panel 中的 Input/Reference/Match/Project/Existence/Iterate markers。该两图结构已经由 17:12 checkpoint superseded；当前稿件采用单个双栏 composite Fig. 1。
 
 Fig. 3 的 `generated/n50_reduction_bars.tex` 也已重画: 现在显示 Table IV 的全部 6 个 paired metrics，包括 `Card. disp.`，并新增右侧 `Full minus Ref.-only` 的百分点差列，用于直接显示 matched-barycenter 相对 reference-only 的机制分离。颜色说明和 caption 已同步为 blue full barycenter 与 gray-blue reference-only；cardinality rows 被明确写成 shared reference-cardinality controls，而不是 moment-barycenter effect。
 
-本轮视觉 QA 已检查 `tmp/pdf_visual_qa/main_all_p04.png`、`tmp/pdf_visual_qa/main_all_p08.png` 和 `tmp/pdf_visual_qa/main_contact_sheet.png`。Fig. 1/Fig. 2 在第 4 页没有文字溢出或压正文；Fig. 3 在第 8 页没有与 Table V、Discussion heading 或正文重叠。`./build.sh` 通过，PDF 仍为 9 页；`generated/SUBMISSION_READINESS_REPORT.md` 仍为 `content_ready_metadata_pending` 且无非 metadata blocker。该 checkpoint 只提升图形表达和布局，不改变 raw reports、实验数值、statistical tests 或 paper-facing claims。
+本轮视觉 QA 已检查 `tmp/pdf_visual_qa/main_all_p04.png`、`tmp/pdf_visual_qa/main_all_p08.png` 和 `tmp/pdf_visual_qa/main_contact_sheet.png`。当时 Fig. 1/Fig. 2 在第 4 页没有文字溢出或压正文；Fig. 3 在第 8 页没有与 Table V、Discussion heading 或正文重叠。`./build.sh` 通过，PDF 仍为 9 页；`generated/SUBMISSION_READINESS_REPORT.md` 仍为 `content_ready_metadata_pending` 且无非 metadata blocker。该 checkpoint 只提升图形表达和布局，不改变 raw reports、实验数值、statistical tests 或 paper-facing claims；当前方法图布局以 17:12 checkpoint 为准。
 
 ## 04:57 Checkpoint
 
@@ -208,7 +214,7 @@ partial-FOV 固定参数 N50 场景族升级已经完成，配置报告为 `RUN/
 | Paper-facing claim | Manuscript location | Primary evidence | Verification level | Remaining gate |
 | --- | --- | --- | --- | --- |
 | AA/KLA scalar weights decide fusion mass/trust but do not solve Bernoulli component correspondence across local LMB posteriors. | Introduction, Problem Formulation, Structural Properties | AA fusion literature synthesis; `Weighting is not matching` label-swap counterexample in `main.tex` | Conceptual, citation-backed, and formalized by a minimal counterexample | Final language pass should keep this as the central motivation and avoid overclaiming all AA failures. |
-| The proposed operator first canonicalizes labels by assignment and then fuses matched posterior moments. | Method, Fig. 1, compact algorithm box | `scripts/render_figures.py`; `generated/method_pipeline.tex`; algorithm step box in `main.tex`; `check_submission_readiness.py` method algorithm-box markers | Source-backed, machine-checked, and rendered in PDF | Final PDF visual check after every figure/table edit. |
+| The proposed operator first canonicalizes labels by assignment and then fuses matched posterior moments. | Method, composite Fig. 1 | `scripts/render_figures.py`; `generated/method_pipeline.tex`; `check_submission_readiness.py` method algorithm-box markers | Source-backed, machine-checked, and rendered in PDF | Final PDF visual check after every figure/table edit. |
 | The proposed layer is a label-and-moment projection on active output tracks, not a replacement for the AA Bernoulli existence consumer. | Problem Formulation, Matched Moment Barycenter, Structural Properties, Experimental Setup | `multisensorLmb/applyCrossLocalLabelConsensusProjection.m`; `multisensorLmb/runDistributedLmbFilter.m`; revised `main.tex` wording | Code-aligned and manuscript-explicit | Keep existence-branch claims tied to upstream AA convex weighting; do not imply the projection estimates new existence probabilities. |
 | The operator is graph-local in the neighborhood version and does not require global label-set access. | Method, Graph locality paragraph | `RUN/AA/runAaBalancedCardinalityValidation.m`; neighborhood N50 report | Code path and report-backed | Keep centralized upper-bound language out of the main claim. |
 | Under stable matching and connected repeated neighborhood averaging, local moments converge to the centralized equal-weight barycenter. | Structural Properties | Analysis-scope assumption, stable-matching consensus proposition in `main.tex`, and the theory-to-experiment bridge paragraph | Theory now states active-track conditioning, fixed-neighborhood scope, and excluded lifecycle/crossing/cardinality cases before giving the consensus-limit result | Do not present as a finite-round guarantee; keep recursive lifecycle handling as a limitation. |

@@ -135,19 +135,12 @@ The output $Y_s(k)$ keeps the reference active labels and replaces their Gaussia
 \subsection{Graph Locality and Computational Cost}
 The operator is graph-local at every round: sensor $s$ only reads estimates indexed by $\mathcal{N}_s$, and no global label dictionary is constructed. The communicated object is the active-track tuple $(\ell,r,\mu,\Sigma)$ already exchanged for output-level AA. The projection only adds local reference selection, assignment, and moment accumulation after reception. An $H$-round distributed implementation therefore requires $H$ neighborhood output-exchange rounds and no centralized label service, while existence scores continue to come from upstream AA. If $d_s=|\mathcal{N}_s|$ and $n_{\max}$ upper bounds the number of tracks in the neighborhood, the dominant cost is assignment. The medoid stage evaluates set distances among neighborhood estimates, while the matching stage solves at most $d_s$ rectangular assignments to the chosen reference. With a cubic Hungarian implementation, the per-round cost is bounded by $O(d_s^2 n_{\max}^3+d_s n_{\max}^3)$ in the worst case, plus linear moment accumulation over matched tracks. This cost is acceptable in the reported formation setting, but it explains why the method is slower than scalar-weight AA and motivates the runtime study reported with the experimental results.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \input{generated/method_pipeline.tex}
-\caption{Active-output correspondence projection. The input is the active neighborhood LMB output, not a global label dictionary. Fusion weights specify neighbor probability mass, but they do not define component correspondence across local LMB posteriors. The operator chooses a graph-local reference, matches neighbor tracks to that reference, passes upstream active-track existence scores through, and rewrites only labels and Gaussian moments.}
+\caption{Active-output correspondence projection. The composite panel shows why scalar fusion weights specify neighbor probability mass but not component correspondence, then gives the graph-local reference, assignment, and moment-barycenter projection used in validation. The input is the active neighborhood LMB output, not a global label dictionary. The operator consumes only graph-neighborhood outputs, passes upstream active-track existence scores through, and rewrites only labels and Gaussian moments.}
 \label{fig:method}
-\end{figure}
-
-\begin{figure}[t]
-\centering
-\input{generated/algorithm_outline.tex}
-\caption{Validation-time implementation outline. The operator is an estimate-level projection layer: it consumes only graph-neighborhood outputs, does not read a global label set, and does not re-estimate Bernoulli existence probabilities.}
-\label{fig:algorithm}
-\end{figure}
+\end{figure*}
 
 \section{STRUCTURAL PROPERTIES}
 The propositions below define the projection layer's algebraic contract. They separate guarantees of reference selection, assignment, and first-two-moment averaging from phenomena left to the underlying LMB/AA pipeline. All statements use fixed output estimates at one time step, after the upstream AA existence consumer has selected active tracks.
@@ -336,8 +329,6 @@ Table~\ref{tab:paired} and Fig.~\ref{fig:n50} separate label-set effects from st
 \IfFileExists{generated/heldout_n50_section.tex}{\input{generated/heldout_n50_section.tex}}{}
 
 The projection has a measurable runtime cost. Full and reference-only arms cost 1.644 and 1.534 times the fixed baseline, respectively. The full method increases runtime from 42.487 s to 69.729 s. Assignment and output rewriting, rather than moment computation alone, dominate this cost.
-
-\FloatBarrier
 
 \section{DISCUSSION AND LIMITATIONS}
 Taken together, the paired and boundary evidence support a specific interpretation rather than a generic fusion-weight claim. When target-wise AA weight routing is held fixed, reference-only projection reduces network disagreement and captures the shared cardinality effect. It does not produce a statistically supported RMSE separation in the primary or held-out mechanism tests. Adding matched moment barycenters creates the spatial tracking separation across the primary, held-out, harsh-loss, topology-ring, and partial-FOV checks. The full-topology run is an equivalence boundary, not a gain claim. The method is therefore a correspondence-and-projection layer complementary to AA/KLA weighting, not a replacement for density pooling.

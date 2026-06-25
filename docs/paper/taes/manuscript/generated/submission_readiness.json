@@ -257,7 +257,7 @@
       "status": "pass"
     },
     {
-      "detail": "Method section preserves the generated stepwise implementation panel for reference, matching, projection, existence pass-through, and iteration.",
+      "detail": "Method composite figure preserves the stepwise implementation contract for reference, matching, projection, existence pass-through, and iteration.",
       "gate": "method algorithm-box markers",
       "status": "pass"
     },
@@ -427,7 +427,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 102 lines; underfull warnings observed: 83.",
+      "detail": "`tmp/build/latex_build.log` exists with 116 lines; underfull warnings observed: 97.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -572,7 +572,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 66 files and SHA-256 `97dbab7672462457484439fcebda2fd6e57281399174e2027e8ee080cf247bb2`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `a19e5c2936a8b6bf9a3e4c0183ef51da20bb0dcc64f47009400ed3f4a4ade718`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
