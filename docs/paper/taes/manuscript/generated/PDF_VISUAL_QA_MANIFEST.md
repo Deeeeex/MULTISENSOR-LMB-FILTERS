@@ -14,7 +14,7 @@
 | method | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p3_method.png` | 1530x1980 | 0.9456 | 0.1945 | `pass` |
 | main-results | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png` | 1530x1980 | 0.9336 | 0.2134 | `pass` |
 | heldout-runtime | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png` | 1530x1980 | 0.9525 | 0.1834 | `pass` |
-| discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9382 | 0.2089 | `pass` |
+| discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9377 | 0.2095 | `pass` |
 | references | 9 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p9_references.png` | 1530x1980 | 0.9563 | 0.1730 | `pass` |
 
 ## All Pages
@@ -28,7 +28,7 @@
 | 5 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png` | 1530x1980 | 0.9437 | 0.1978 | `pass` |
 | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png` | 1530x1980 | 0.9336 | 0.2134 | `pass` |
 | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png` | 1530x1980 | 0.9525 | 0.1834 | `pass` |
-| 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png` | 1530x1980 | 0.9382 | 0.2089 | `pass` |
+| 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png` | 1530x1980 | 0.9377 | 0.2095 | `pass` |
 | 9 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p09.png` | 1530x1980 | 0.9563 | 0.1730 | `pass` |
 
 ## Contact Sheet
@@ -36,6 +36,6 @@
 - Image: `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png`
 - Thumbnail: `360x480`
 - Dimensions: 1152x1536
-- Mean luma: 0.9486
+- Mean luma: 0.9485
 - Stddev luma: 0.1123
 - Status: `pass`
