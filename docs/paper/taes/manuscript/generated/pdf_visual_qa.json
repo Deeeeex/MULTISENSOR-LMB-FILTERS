@@ -21,11 +21,11 @@
       },
       "height": 1980,
       "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png",
-      "mean_luma": 0.932291,
+      "mean_luma": 0.932485,
       "page": 2,
-      "size_bytes": 182112,
+      "size_bytes": 179863,
       "status": "pass",
-      "stddev_luma": 0.215087,
+      "stddev_luma": 0.214809,
       "width": 1530
     },
     {
@@ -134,10 +134,10 @@
     },
     "height": 1536,
     "image": "docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png",
-    "mean_luma": 0.948153,
-    "size_bytes": 1324075,
+    "mean_luma": 0.948161,
+    "size_bytes": 1321598,
     "status": "pass",
-    "stddev_luma": 0.112581,
+    "stddev_luma": 0.11258,
     "thumbnail": "360x480",
     "width": 1152
   },

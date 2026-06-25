@@ -22,7 +22,7 @@
 | Page | Image | Dimensions | Mean luma | Stddev luma | Status |
 | ---: | --- | ---: | ---: | ---: | --- |
 | 1 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p01.png` | 1485x1935 | 0.9368 | 0.2084 | `pass` |
-| 2 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png` | 1530x1980 | 0.9323 | 0.2151 | `pass` |
+| 2 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p02.png` | 1530x1980 | 0.9325 | 0.2148 | `pass` |
 | 3 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p03.png` | 1530x1980 | 0.9447 | 0.1959 | `pass` |
 | 4 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p04.png` | 1530x1980 | 0.9464 | 0.1913 | `pass` |
 | 5 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p05.png` | 1530x1980 | 0.9418 | 0.2007 | `pass` |
