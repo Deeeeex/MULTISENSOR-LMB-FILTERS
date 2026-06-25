@@ -265,7 +265,7 @@ def write_n50_manuscript_fragment(payload: dict[str, object]) -> None:
         ]
     )
     section = rf"""\begin{{table*}}[t]
-\caption{{Held-out base-seed N50 robustness check. Reductions are relative to the fixed spatial-KLA AA baseline; bracketed intervals are 95\% confidence intervals for the absolute paired reduction. The run uses base seed {config['base_seed']} and the same fixed three-arm protocol as the main validation.}}
+\caption{{Held-out N50 replication under the same fixed three-arm protocol. Reductions are relative to the fixed spatial-KLA AA baseline; bracketed intervals are 95\% confidence intervals for absolute paired reductions. The run uses base seed {config['base_seed']}.}}
 \label{{tab:heldout}}
 \centering
 \tablefont
