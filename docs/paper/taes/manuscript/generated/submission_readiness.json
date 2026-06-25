@@ -427,7 +427,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 110 lines; underfull warnings observed: 90.",
+      "detail": "`tmp/build/latex_build.log` exists with 117 lines; underfull warnings observed: 97.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -572,7 +572,7 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `2fe080846794c3949ddd553a94d215fed89a1134f723305e8e2c5f01c9217eff`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `006df3da04f1e721d95ff292944cb8b37ff0414ec78fa69ee81bd841076ca8d9`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
