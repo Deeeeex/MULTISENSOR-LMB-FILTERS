@@ -116,14 +116,10 @@ sensorMotionConfig.motionType = scenarioControls.sensorMotionType;
 sensorMotionConfig.processNoiseStd = scenarioControls.sensorMotionProcessNoiseStd;
 sensorMotionConfig.initialStates = buildSensorInitialStates();
 
-targetFormationConfig = struct();
-targetFormationConfig.targetFormationEnabled = true;
-targetFormationConfig.targetFormationStaggeredBirths = true;
-targetFormationConfig.targetFormationBirthInterval = 8;
-targetFormationConfig.targetFormationStartTime = 1;
-targetFormationConfig.targetFormationLifeSpan = aaControls.targetFormationLifeSpan;
-targetFormationConfig.targetBirthStates = buildTargetBirthStates();
-targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
+targetFormationConfig = buildAaTargetFormationConfig(aaControls, scenarioControls);
+scenarioWindow = sanitizeScenarioWindow(getField(scenarioControls, 'crossingWindow', []));
+scenarioWindowIndices = computeScenarioWindowIndices(scenarioWindow, aaControls.targetFormationLifeSpan);
+hasScenarioWindow = ~isempty(scenarioWindowIndices);
 
 eOspa = zeros(numberOfTrials, numberOfSensors, numArms);
 hOspa = zeros(numberOfTrials, numberOfSensors, numArms);
@@ -132,6 +128,13 @@ cardErr = zeros(numberOfTrials, numberOfSensors, numArms);
 consOspa = zeros(numberOfTrials, numArms);
 consPos = zeros(numberOfTrials, numArms);
 consCard = zeros(numberOfTrials, numArms);
+windowEOspa = NaN(numberOfTrials, numberOfSensors, numArms);
+windowHOspa = NaN(numberOfTrials, numberOfSensors, numArms);
+windowRmse = NaN(numberOfTrials, numberOfSensors, numArms);
+windowCardErr = NaN(numberOfTrials, numberOfSensors, numArms);
+windowConsOspa = NaN(numberOfTrials, numArms);
+windowConsPos = NaN(numberOfTrials, numArms);
+windowConsCard = NaN(numberOfTrials, numArms);
 filterRuntimeSeconds = zeros(numberOfTrials, numArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 samplingStatsLast = struct();
@@ -164,6 +167,11 @@ for trial = 1:numberOfTrials
     model.sensorFovEnabled = scenarioControls.sensorFovEnabled;
     model.sensorFovHalfAngleDeg = scenarioControls.sensorFovHalfAngleDeg;
     model.sensorFovRange = scenarioControls.sensorFovRange;
+    if shouldClampSimulationLengthToTargetLife(scenarioControls)
+        model.simulationLength = aaControls.targetFormationLifeSpan;
+    elseif isfinite(getField(scenarioControls, 'simulationLength', NaN))
+        model.simulationLength = max(1, round(getField(scenarioControls, 'simulationLength', NaN)));
+    end
     model = applyAaControlsToModel(model, aaControls);
 
     [~, measurements, groundTruthRfs, sensorTrajectories] = generateMultisensorGroundTruth(model);
@@ -189,16 +197,29 @@ for trial = 1:numberOfTrials
 
         for s = 1:numberOfSensors
             [eArm, hArm, cardArm] = computeSimulationOspa(localModels{s}, groundTruthRfs, stateEstimatesBySensor{s});
+            rmseArm = computeSetRmseOverTime(stateEstimatesBySensor{s}, groundTruthRfs);
+            cardErrArm = abs(reshape(cardArm, 1, []) - reshape(groundTruthRfs.cardinality, 1, []));
             eOspa(trial, s, armIdx) = mean(eArm);
             hOspa(trial, s, armIdx) = mean(hArm);
-            rmse(trial, s, armIdx) = mean(computeSetRmseOverTime(stateEstimatesBySensor{s}, groundTruthRfs), 'omitnan');
-            cardErr(trial, s, armIdx) = mean(abs(reshape(cardArm, 1, []) - reshape(groundTruthRfs.cardinality, 1, [])));
+            rmse(trial, s, armIdx) = mean(rmseArm, 'omitnan');
+            cardErr(trial, s, armIdx) = mean(cardErrArm);
+            if hasScenarioWindow
+                windowEOspa(trial, s, armIdx) = computeWindowMean(eArm, scenarioWindowIndices, false);
+                windowHOspa(trial, s, armIdx) = computeWindowMean(hArm, scenarioWindowIndices, false);
+                windowRmse(trial, s, armIdx) = computeWindowMean(rmseArm, scenarioWindowIndices, true);
+                windowCardErr(trial, s, armIdx) = computeWindowMean(cardErrArm, scenarioWindowIndices, false);
+            end
         end
 
         [posArm, cardConsensusArm, ospaArm] = computeConsensusMetrics(stateEstimatesBySensor, armModel);
         consOspa(trial, armIdx) = mean(ospaArm);
         consPos(trial, armIdx) = mean(posArm, 'omitnan');
         consCard(trial, armIdx) = mean(cardConsensusArm);
+        if hasScenarioWindow
+            windowConsOspa(trial, armIdx) = computeWindowMean(ospaArm, scenarioWindowIndices, false);
+            windowConsPos(trial, armIdx) = computeWindowMean(posArm, scenarioWindowIndices, true);
+            windowConsCard(trial, armIdx) = computeWindowMean(cardConsensusArm, scenarioWindowIndices, false);
+        end
         if aaControls.captureConsensusAttribution
             consensusAttribution{trial, armIdx} = summarizeConsensusAttribution( ...
                 stateEstimatesBySensor, groundTruthRfs, armModel, posArm, cardConsensusArm, ospaArm, ...
@@ -208,7 +229,10 @@ for trial = 1:numberOfTrials
         if aaControls.saveCheckpoints
             save(checkpointPath, 'trial', 'armIdx', 'armNames', 'aaControls', 'commConfig', ...
                 'pDropBySensorTrials', 'consOspa', 'consPos', 'consCard', ...
-                'eOspa', 'hOspa', 'rmse', 'cardErr', 'filterRuntimeSeconds', '-v7');
+                'eOspa', 'hOspa', 'rmse', 'cardErr', ...
+                'windowConsOspa', 'windowConsPos', 'windowConsCard', ...
+                'windowEOspa', 'windowHOspa', 'windowRmse', 'windowCardErr', ...
+                'filterRuntimeSeconds', '-v7');
         end
     end
 end
@@ -242,6 +266,25 @@ summary.localTrials.eOspa = eOspa;
 summary.localTrials.hOspa = hOspa;
 summary.localTrials.rmse = rmse;
 summary.localTrials.cardErr = cardErr;
+summary.scenarioWindow.enabled = hasScenarioWindow;
+summary.scenarioWindow.range = scenarioWindow;
+summary.scenarioWindow.indices = scenarioWindowIndices;
+if hasScenarioWindow
+    summary.scenarioWindow.consensus.ospa = mean(windowConsOspa, 1);
+    summary.scenarioWindow.consensus.pos = mean(windowConsPos, 1, 'omitnan');
+    summary.scenarioWindow.consensus.card = mean(windowConsCard, 1);
+    summary.scenarioWindow.consensusTrials.ospa = windowConsOspa;
+    summary.scenarioWindow.consensusTrials.pos = windowConsPos;
+    summary.scenarioWindow.consensusTrials.card = windowConsCard;
+    summary.scenarioWindow.local.meanAcrossSensors.eOspa = computePerArmGlobalMeans(windowEOspa, false);
+    summary.scenarioWindow.local.meanAcrossSensors.hOspa = computePerArmGlobalMeans(windowHOspa, false);
+    summary.scenarioWindow.local.meanAcrossSensors.rmse = computePerArmGlobalMeans(windowRmse, true);
+    summary.scenarioWindow.local.meanAcrossSensors.cardErr = computePerArmGlobalMeans(windowCardErr, false);
+    summary.scenarioWindow.localTrials.eOspa = windowEOspa;
+    summary.scenarioWindow.localTrials.hOspa = windowHOspa;
+    summary.scenarioWindow.localTrials.rmse = windowRmse;
+    summary.scenarioWindow.localTrials.cardErr = windowCardErr;
+end
 summary.runtime.filterSeconds = filterRuntimeSeconds;
 summary.runtime.meanFilterSeconds = mean(filterRuntimeSeconds, 1);
 summary.runtime.stdFilterSeconds = std(filterRuntimeSeconds, 0, 1);
@@ -253,6 +296,7 @@ summary.meanPDropBySensor = mean(pDropBySensorTrials, 1);
 summary.commConfig = commConfig;
 summary.aaControls = aaControls;
 summary.scenarioControls = scenarioControls;
+summary.targetFormationConfig = targetFormationConfig;
 summary.samplingStats = samplingStatsLast;
 summary.arms = arms;
 summary.weightDiagnostics = weightDiagSummary;
@@ -582,6 +626,7 @@ end
 
 aaControls = summary.aaControls;
 commConfig = summary.commConfig;
+targetFormationConfig = summary.targetFormationConfig;
 armNames = {arms.name};
 baselineName = arms(1).name;
 
@@ -599,6 +644,7 @@ if useFixedSeed
 end
 fprintf(fid, '- lmbParallelUpdateMode: AA\n');
 fprintf(fid, '- scenarioLabel: %s\n', char(getField(scenarioControls, 'scenarioLabel', 'formation-4plus4')));
+fprintf(fid, '- targetScenarioMode: %s\n', char(getField(scenarioControls, 'targetScenarioMode', 'formation-4plus4')));
 fprintf(fid, '- neighborMapMode: %s\n', char(getField(scenarioControls, 'neighborMapMode', '4plus4')));
 fprintf(fid, '- sensorCommRange: %d\n', sensorCommRange);
 fprintf(fid, '- fusionWeighting: %s\n', fusionWeighting);
@@ -609,6 +655,11 @@ fprintf(fid, '- sensorFovRange: %.3f\n', getField(scenarioControls, 'sensorFovRa
 fprintf(fid, '- sensorMotionType: %s\n', char(getField(scenarioControls, 'sensorMotionType', 'CV')));
 fprintf(fid, '- sensorMotionProcessNoiseStd: %.6f\n', getField(scenarioControls, 'sensorMotionProcessNoiseStd', 0.0));
 fprintf(fid, '- targetFormationLifeSpan: %d\n', aaControls.targetFormationLifeSpan);
+fprintf(fid, '- targetFormationCount: %d\n', getField(targetFormationConfig, 'targetFormationCount', NaN));
+fprintf(fid, '- targetFormationStartTime: %d\n', getField(targetFormationConfig, 'targetFormationStartTime', NaN));
+fprintf(fid, '- targetFormationStaggeredBirths: %d\n', logical(getField(targetFormationConfig, 'targetFormationStaggeredBirths', false)));
+fprintf(fid, '- targetFormationBirthInterval: %d\n', getField(targetFormationConfig, 'targetFormationBirthInterval', NaN));
+fprintf(fid, '- crossingWindow: %s\n', mat2str(getField(summary.scenarioWindow, 'range', [])));
 fprintf(fid, '- existenceThreshold: %.6f\n', aaControls.existenceThreshold);
 fprintf(fid, '- maximumNumberOfGmComponents: %d\n', aaControls.maximumNumberOfGmComponents);
 fprintf(fid, '- minimumTrajectoryLength: %d\n', aaControls.minimumTrajectoryLength);
@@ -739,6 +790,8 @@ if numel(arms) >= 2
         {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 end
 
+writeScenarioWindowMetrics(fid, summary, armNames, baselineName, trialSeeds);
+
 if hasAdaptiveFusionDiagnostics(summary.weightDiagnostics)
     fprintf(fid, '\n## Adaptive Fusion Weight Diagnostics\n');
     writeAdaptiveFusionDiagnosticTable(fid, armNames, summary.weightDiagnostics);
@@ -827,6 +880,69 @@ for armIdx = 1:numel(armNames)
     end
     fprintf(fid, '| %s | %.6f +/- %.6f | %.6f | %.3fx | %d |\n', ...
         armNames{armIdx}, stats.mean, stats.std, stats.mean / simulationLength, ratioMean, stats.n);
+end
+end
+
+function writeScenarioWindowMetrics(fid, summary, armNames, baselineName, trialSeeds)
+if ~isfield(summary, 'scenarioWindow') || ~getField(summary.scenarioWindow, 'enabled', false)
+    return;
+end
+
+windowRange = getField(summary.scenarioWindow, 'range', []);
+windowIndices = getField(summary.scenarioWindow, 'indices', []);
+fprintf(fid, '\n## Scenario Window Metrics\n');
+fprintf(fid, 'Windowed metrics are restricted to the fixed stress interval `%s` (indices `%s`). They are intended for maneuver/crossing diagnostics and should not be mixed with whole-run formation metrics.\n\n', ...
+    mat2str(windowRange), mat2str(windowIndices));
+
+consOspa = summary.scenarioWindow.consensusTrials.ospa;
+consPos = summary.scenarioWindow.consensusTrials.pos;
+consCard = summary.scenarioWindow.consensusTrials.card;
+
+fprintf(fid, '### Per-Trial Scenario-Window Network Metrics\n');
+fprintf(fid, '| Trial | Seed | Arm | OSPA | Loc. disag. | Card. disp. |\n');
+fprintf(fid, '|------:|-----:|:----|-----:|------------:|------------:|\n');
+for trial = 1:size(consOspa, 1)
+    for armIdx = 1:numel(armNames)
+        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', ...
+            trial, trialSeeds(trial), armNames{armIdx}, ...
+            consOspa(trial, armIdx), consPos(trial, armIdx), consCard(trial, armIdx));
+    end
+end
+fprintf(fid, '\n');
+
+fprintf(fid, '### Scenario-Window Network Summary\n');
+writeMetricStatsTable(fid, armNames, {'OSPA', 'Loc. disag.', 'Card. disp.'}, ...
+    {consOspa, consPos, consCard}, [false, true, false]);
+if numel(armNames) >= 2
+    fprintf(fid, '\n### Scenario-Window Network Improvements Relative to %s\n', baselineName);
+    writePairedImprovementTable(fid, armNames, {'OSPA', 'Loc. disag.', 'Card. disp.'}, ...
+        {consOspa, consPos, consCard}, [false, true, false]);
+end
+
+localEOspaTrial = computeTrialSensorMeans(summary.scenarioWindow.localTrials.eOspa, false);
+localRmseTrial = computeTrialSensorMeans(summary.scenarioWindow.localTrials.rmse, true);
+localCardTrial = computeTrialSensorMeans(summary.scenarioWindow.localTrials.cardErr, false);
+
+fprintf(fid, '\n### Per-Trial Scenario-Window Local Metrics\n');
+fprintf(fid, '| Trial | Seed | Arm | E-OSPA | RMSE | CardErr |\n');
+fprintf(fid, '|------:|-----:|:----|-------:|-----:|--------:|\n');
+for trial = 1:size(localEOspaTrial, 1)
+    for armIdx = 1:numel(armNames)
+        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', ...
+            trial, trialSeeds(trial), armNames{armIdx}, ...
+            localEOspaTrial(trial, armIdx), localRmseTrial(trial, armIdx), ...
+            localCardTrial(trial, armIdx));
+    end
+end
+fprintf(fid, '\n');
+
+fprintf(fid, '### Scenario-Window Local Summary\n');
+writeMetricStatsTable(fid, armNames, {'E-OSPA', 'RMSE', 'CardErr'}, ...
+    {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
+if numel(armNames) >= 2
+    fprintf(fid, '\n### Scenario-Window Local Improvements Relative to %s\n', baselineName);
+    writePairedImprovementTable(fid, armNames, {'E-OSPA', 'RMSE', 'CardErr'}, ...
+        {localEOspaTrial, localRmseTrial, localCardTrial}, [false, true, false]);
 end
 end
 
@@ -1489,6 +1605,11 @@ end
 end
 
 function controls = buildAaScenarioControls(overrides)
+if nargin < 1 || ~isstruct(overrides)
+    overrides = struct();
+end
+hasStaggeredOverride = isfield(overrides, 'targetFormationStaggeredBirths');
+hasCrossingWindowOverride = isfield(overrides, 'crossingWindow');
 controls = struct( ...
     'scenarioLabel', 'formation-4plus4-tiered-link', ...
     'neighborMapMode', '4plus4', ...
@@ -1497,13 +1618,81 @@ controls = struct( ...
     'sensorFovHalfAngleDeg', 60, ...
     'sensorFovRange', 60000, ...
     'sensorMotionType', 'CV', ...
-    'sensorMotionProcessNoiseStd', 0.0);
+    'sensorMotionProcessNoiseStd', 0.0, ...
+    'targetScenarioMode', 'formation-4plus4', ...
+    'targetBirthStates', [], ...
+    'targetFormationStaggeredBirths', true, ...
+    'targetFormationBirthInterval', 8, ...
+    'targetFormationStartTime', 1, ...
+    'crossingWindow', [], ...
+    'simulationLength', NaN);
 controls = mergeStructFields(controls, overrides);
+if strcmpi(strtrim(char(controls.targetScenarioMode)), 'formation-4plus4') && ...
+        isCrossingLabel(controls.scenarioLabel)
+    controls.targetScenarioMode = 'maneuver-crossing-assignment';
+end
+if isCrossingTargetScenario(controls)
+    if ~hasStaggeredOverride
+        controls.targetFormationStaggeredBirths = false;
+    end
+    if ~hasCrossingWindowOverride
+        controls.crossingWindow = [9, 17];
+    end
+end
 controls.sensorCommRange = max(0, controls.sensorCommRange);
 controls.sensorFovEnabled = logical(controls.sensorFovEnabled);
 controls.sensorFovHalfAngleDeg = max(0, min(180, controls.sensorFovHalfAngleDeg));
 controls.sensorFovRange = max(0, controls.sensorFovRange);
 controls.sensorMotionProcessNoiseStd = max(0, controls.sensorMotionProcessNoiseStd);
+controls.targetFormationStaggeredBirths = logical(controls.targetFormationStaggeredBirths);
+controls.targetFormationBirthInterval = max(1, round(controls.targetFormationBirthInterval));
+controls.targetFormationStartTime = max(1, round(controls.targetFormationStartTime));
+controls.crossingWindow = sanitizeScenarioWindow(controls.crossingWindow);
+if isfinite(controls.simulationLength)
+    controls.simulationLength = max(1, round(controls.simulationLength));
+end
+end
+
+function tf = isCrossingLabel(labelValue)
+label = lower(strtrim(char(labelValue)));
+tf = ~isempty(strfind(label, 'crossing')) || ~isempty(strfind(label, 'maneuver'));
+end
+
+function tf = isCrossingTargetScenario(scenarioControls)
+mode = lower(strtrim(char(getField(scenarioControls, 'targetScenarioMode', 'formation-4plus4'))));
+tf = any(strcmp(mode, {'maneuver-crossing-assignment', 'crossing', ...
+    'target-crossing', 'maneuver-crossing'}));
+end
+
+function tf = shouldClampSimulationLengthToTargetLife(scenarioControls)
+tf = isCrossingTargetScenario(scenarioControls) && ...
+    ~isfinite(getField(scenarioControls, 'simulationLength', NaN));
+end
+
+function targetFormationConfig = buildAaTargetFormationConfig(aaControls, scenarioControls)
+targetFormationConfig = struct();
+targetFormationConfig.targetFormationEnabled = true;
+targetFormationConfig.targetFormationStaggeredBirths = ...
+    logical(getField(scenarioControls, 'targetFormationStaggeredBirths', true));
+targetFormationConfig.targetFormationBirthInterval = ...
+    max(1, round(getField(scenarioControls, 'targetFormationBirthInterval', 8)));
+targetFormationConfig.targetFormationStartTime = ...
+    max(1, round(getField(scenarioControls, 'targetFormationStartTime', 1)));
+targetFormationConfig.targetFormationLifeSpan = aaControls.targetFormationLifeSpan;
+targetFormationConfig.targetBirthStates = resolveAaTargetBirthStates(scenarioControls);
+targetFormationConfig.targetFormationCount = size(targetFormationConfig.targetBirthStates, 2);
+end
+
+function targetBirthStates = resolveAaTargetBirthStates(scenarioControls)
+targetBirthStates = getField(scenarioControls, 'targetBirthStates', []);
+if ~isempty(targetBirthStates)
+    return;
+end
+if isCrossingTargetScenario(scenarioControls)
+    targetBirthStates = buildManeuverCrossingTargetBirthStates();
+else
+    targetBirthStates = buildTargetBirthStates();
+end
 end
 
 function neighborMap = buildAaScenarioNeighborMap(numberOfSensors, scenarioControls)
@@ -1616,6 +1805,58 @@ for g = 1:numel(groupCounts)
         targetBirthStates(:, idx) = [pos; vel];
         idx = idx + 1;
     end
+end
+end
+
+function targetBirthStates = buildManeuverCrossingTargetBirthStates()
+% Fixed 10-target close-crossing stress for assignment-stability diagnostics.
+targetBirthStates = [ ...
+    -55,  55, -55,  55, -45,  45, -35,  35, -35,  35; ...
+    -20,  20,  20, -20,   0,   0, -55,  55,  55, -55; ...
+      4,  -4,   4,  -4, 3.4,-3.4, 2.2,-2.2, 2.2,-2.2; ...
+    1.4,-1.4,-1.4, 1.4,   0,   0, 3.6,-3.6,-3.6, 3.6];
+end
+
+function window = sanitizeScenarioWindow(window)
+if isempty(window)
+    window = [];
+    return;
+end
+window = reshape(window, 1, []);
+window = window(isfinite(window));
+if numel(window) < 2
+    window = [];
+    return;
+end
+window = round(window(1:2));
+window = sort(window);
+window(1) = max(1, window(1));
+window(2) = max(window(1), window(2));
+end
+
+function indices = computeScenarioWindowIndices(window, simulationLength)
+window = sanitizeScenarioWindow(window);
+if isempty(window)
+    indices = [];
+    return;
+end
+simulationLength = max(1, round(simulationLength));
+lo = max(1, min(simulationLength, window(1)));
+hi = max(lo, min(simulationLength, window(2)));
+indices = lo:hi;
+end
+
+function value = computeWindowMean(values, indices, omitnanFlag)
+indices = indices(indices >= 1 & indices <= numel(values));
+if isempty(indices)
+    value = NaN;
+    return;
+end
+windowValues = values(indices);
+if nargin >= 3 && omitnanFlag
+    value = mean(windowValues, 'omitnan');
+else
+    value = mean(windowValues);
 end
 end
 

@@ -1,6 +1,6 @@
 # AA next-stage generalization protocol
 
-最后更新: 2026-06-25 04:57 CST
+最后更新: 2026-06-27 CST
 
 ## 目的
 
@@ -26,8 +26,17 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - `sensorFovRange`
 - `sensorMotionType`
 - `sensorMotionProcessNoiseStd`
+- `targetScenarioMode`
+- `targetBirthStates`
+- `targetFormationStaggeredBirths`
+- `targetFormationBirthInterval`
+- `targetFormationStartTime`
+- `crossingWindow`
+- `simulationLength`
 
-这足够支撑 topology、FOV 和 idealized full-topology ceiling checks。它还不足以把 target maneuver、crossing/lifecycle 或 covariance-consistency 当作已经支持的 paper evidence，因为 target birth states、time-varying target dynamics、sensor-specific measurement/covariance inflation、recursive feedback gates 等还没有形成固定协议和 parser/readiness gate。
+这足够支撑 topology、FOV、idealized full-topology ceiling checks，以及 Candidate A 的 fixed target crossing smoke。它仍不足以把 target maneuver/crossing 当作 paper-grade evidence，因为 extractor/readiness gate、N50 fixed-run manifest、assignment-ambiguity instrumentation 和 source-bundle freshness gate 尚未建立。Covariance-consistency 与 recursive feedback gates 仍未支持。
+
+2026-06-27 代码 checkpoint: `RUN/AA/runAaBalancedCardinalityValidation.m` 已新增 `targetScenarioMode='maneuver-crossing-assignment'` 的固定 10-target close-crossing birth states，并输出 `## Scenario Window Metrics`。N1 smoke report 为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md`，仅用于验证代码路径和 crossing-window metric reporting，不作为当前 manuscript evidence。
 
 ## 固定原则
 
@@ -59,6 +68,8 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - `runAaBalancedCardinalityValidation.m` 需要支持 fixed target scenario override，而不是只改 sensor/topology/FOV。
 - Ground-truth generator 需要能记录 maneuver/crossing windows，或 report 需要输出 crossing-window metrics。
 - Extractor/readiness gate 必须区分 whole-run metrics 和 crossing-window metrics，避免用平均值掩盖 assignment failure。
+
+当前状态: 前两项已在 2026-06-27 N1 smoke 中通过；第三项尚未做，因此 Candidate A 还不能进入主文或 cover-letter evidence chain。
 
 ### 解释规则
 
