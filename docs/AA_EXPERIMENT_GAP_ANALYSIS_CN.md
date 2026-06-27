@@ -8,6 +8,8 @@
 
 但当前证据还不能支撑更强的说法: 它不是递归在线 LMB 更新的完整验证，不保证 close crossing / birth / death 下 assignment 总正确，也不证明 equal moment barycenter 具有 covariance consistency 或 reliability optimality。因此，实验“不完善”的核心不是主线证据不够，而是泛化维度和方法边界还没有完全展开。
 
+2026-06-27 maneuver/crossing 补充实验的状态应按这个边界理解: N1/N5 smoke 已经证明 fixed crossing scenario、crossing-window metrics 和 three-arm mechanism split 能跑通；N5 crossing-window 里 full method 的 local RMSE/E-OSPA 均优于 reference-only，方向上支持 full-vs-reference separation。但 N5 仍只是 structural smoke，当前 N50 crossing run 仍在进行中。Extractor/readiness/source-bundle optional path 已建立并通过未配置状态的 build gate；N50 report 完成、写入 `evidence_sources.json` 并通过 crossing-window gate 之前，它还不能进入当前 TAES 主文或 cover-letter evidence chain。
+
 ## 已经比较稳的部分
 
 | 证据块 | 当前状态 | 可以支撑的 claim |

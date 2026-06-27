@@ -172,6 +172,11 @@
       "status": "pass"
     },
     {
+      "detail": "docs/paper/taes/manuscript/scripts/extract_crossing_evidence.py",
+      "gate": "required artifact",
+      "status": "pass"
+    },
+    {
       "detail": "docs/paper/taes/manuscript/scripts/render_pdf_visual_qa.py",
       "gate": "required artifact",
       "status": "pass"
@@ -572,7 +577,12 @@
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 65 files and SHA-256 `80693cbfd5f96551a3c59e0df03cbaef622c2f9f8fb322b70ff44dc7dc242d1c`.",
+      "detail": "Maneuver/crossing N50 evidence is not configured in `evidence_sources.json`; the non-blocking parser path is present and no stale crossing artifacts are included.",
+      "gate": "optional crossing N50 evidence path",
+      "status": "pass"
+    },
+    {
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 66 files and SHA-256 `e0e1345199ebb304ed361f528381ad63e1dcbe2069f162ef8c65e02c09dbc2f3`.",
       "gate": "submission source bundle",
       "status": "pass"
     },

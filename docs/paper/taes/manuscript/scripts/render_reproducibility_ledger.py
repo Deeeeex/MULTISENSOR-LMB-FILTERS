@@ -123,6 +123,8 @@ def build_rows() -> list[dict[str, object]]:
     reference_evidence = read_json(OUT / "reference_baseline_evidence.json")
     stress_evidence = read_json(OUT / "stress_harsh_evidence.json")
     scenario_evidence = read_json(OUT / "scenario_family_evidence.json")
+    crossing_path = OUT / "crossing_n50_evidence.json"
+    crossing_evidence = read_json(crossing_path) if crossing_path.exists() else None
     verification = read_json(OUT / "n50_verification.json")
 
     if n50_evidence.get("source_sha256") != sha256(n50_report):
@@ -145,6 +147,14 @@ def build_rows() -> list[dict[str, object]]:
             raise ValueError(f"Scenario-family evidence JSON hash does not match {source_report}")
     if verification.get("local", {}).get("status") != "independent":
         raise ValueError("N50 local verifier is not marked independent")
+    if crossing_evidence is not None:
+        source_report = crossing_evidence.get("source_report")
+        source_sha256 = crossing_evidence.get("source_sha256")
+        if not source_report or not source_sha256:
+            raise ValueError("Crossing evidence payload is missing source_report or source_sha256")
+        crossing_source_path = REPO / str(source_report)
+        if sha256(crossing_source_path) != source_sha256:
+            raise ValueError(f"Crossing evidence JSON hash does not match {source_report}")
 
     scenario_count = int(scenario_evidence.get("scenario_count", 0))
     paper_grade_count = int(scenario_evidence.get("paper_grade_count", 0))
@@ -165,7 +175,7 @@ def build_rows() -> list[dict[str, object]]:
             f"{smoke_count} smoke-tier check(s), with smoke tiers explicitly labeled as boundary probes."
         )
 
-    return [
+    rows = [
         evidence_row(
             "Primary AA N50",
             n50_report,
@@ -200,14 +210,35 @@ def build_rows() -> list[dict[str, object]]:
             ),
             "role": scenario_role,
         },
+    ]
+    if crossing_evidence is not None:
+        source_path = REPO / str(crossing_evidence["source_report"])
+        config = crossing_evidence.get("config", {})
+        if not isinstance(config, dict):
+            config = parse_report_config(source_path)
+        window = crossing_evidence.get("scenario_window", {}).get("range", config.get("crossing_window", "unknown"))
+        rows.append(
+            {
+                "name": "Maneuver-crossing AA N50",
+                "source": rel(source_path),
+                "sha256": sha256(source_path),
+                "protocol": (
+                    f"base seed {config.get('base_seed')}; {config.get('trials')} trials; "
+                    f"seeds {seed_range(config)}; crossing window {window}; packet loss {profile(config)}"
+                ),
+                "role": "Optional response-ready assignment-stability boundary evidence; interpreted through crossing-window metrics, not whole-run averages.",
+            }
+        )
+    rows.append(
         {
             "name": "Independent verifier",
             "source": rel(OUT / "n50_verification.json"),
             "sha256": sha256(OUT / "n50_verification.json"),
             "protocol": "Recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from per-trial rows/logs.",
             "role": "Build gate for report-driven numbers before PDF compilation.",
-        },
-    ]
+        }
+    )
+    return rows
 
 
 def write_outputs(rows: list[dict[str, object]]) -> None:

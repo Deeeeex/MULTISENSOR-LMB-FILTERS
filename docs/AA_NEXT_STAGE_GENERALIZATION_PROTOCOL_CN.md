@@ -34,7 +34,7 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - `crossingWindow`
 - `simulationLength`
 
-这足够支撑 topology、FOV、idealized full-topology ceiling checks，以及 Candidate A 的 fixed target crossing smoke。它仍不足以把 target maneuver/crossing 当作 paper-grade evidence，因为 extractor/readiness gate、N50 fixed-run manifest、assignment-ambiguity instrumentation 和 source-bundle freshness gate 尚未建立。Covariance-consistency 与 recursive feedback gates 仍未支持。
+这足够支撑 topology、FOV、idealized full-topology ceiling checks，以及 Candidate A 的 fixed target crossing smoke。2026-06-27 已新增 optional crossing N50 extractor/readiness/source-bundle path；但它仍不足以把 target maneuver/crossing 当作 paper-grade evidence，因为 N50 fixed-run report 尚未完成并配置进 `evidence_sources.json`，且 assignment-ambiguity instrumentation 仍未建立。Covariance-consistency 与 recursive feedback gates 仍未支持。
 
 2026-06-27 代码 checkpoint: `RUN/AA/runAaBalancedCardinalityValidation.m` 已新增 `targetScenarioMode='maneuver-crossing-assignment'` 的固定 10-target close-crossing birth states，并输出 `## Scenario Window Metrics`。N1 smoke report 为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md`，仅用于验证代码路径和 crossing-window metric reporting，不作为当前 manuscript evidence。
 
@@ -71,7 +71,7 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - Ground-truth generator 需要能记录 maneuver/crossing windows，或 report 需要输出 crossing-window metrics。
 - Extractor/readiness gate 必须区分 whole-run metrics 和 crossing-window metrics，避免用平均值掩盖 assignment failure。
 
-当前状态: 前两项已在 2026-06-27 N1/N5 smoke 中通过；第三项尚未做，因此 Candidate A 还不能进入主文或 cover-letter evidence chain。
+当前状态: 前两项已在 2026-06-27 N1/N5 smoke 中通过；第三项的 extractor/readiness/source-bundle optional path 已建立并通过未配置状态的 build gate。Candidate A 仍不能进入主文或 cover-letter evidence chain，直到 N50 report 完成、配置为 `crossing_n50_report` 并通过 crossing-window gate。
 
 ### 解释规则
 

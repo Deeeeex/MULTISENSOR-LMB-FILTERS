@@ -1,12 +1,12 @@
 {
   "bundle": "docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip",
-  "bundle_sha256": "80693cbfd5f96551a3c59e0df03cbaef622c2f9f8fb322b70ff44dc7dc242d1c",
-  "file_count": 65,
+  "bundle_sha256": "e0e1345199ebb304ed361f528381ad63e1dcbe2069f162ef8c65e02c09dbc2f3",
+  "file_count": 66,
   "files": [
     {
       "path": "CLAIM_EVIDENCE_BOUNDARY_MAP.md",
-      "sha256": "d2ae80792695e601a63f740ac0f04e3ef31799314a50411b40f25e3abe527cb2",
-      "size_bytes": 16035
+      "sha256": "2260823c7ce407c19eaa1bcf2fbc1e39080f0f086b154fda2c0d82c16c4955f3",
+      "size_bytes": 16916
     },
     {
       "path": "COVER_LETTER_AND_METADATA_DRAFT.md",
@@ -15,8 +15,8 @@
     },
     {
       "path": "FIGURE_TABLE_AUDIT.md",
-      "sha256": "160196edffed62c39f8a922873a537fd9db515f9aabf2811ff80284edc5f579d",
-      "size_bytes": 9914
+      "sha256": "f66f5158febe99af2c29144002d0cf29d7573d705fa24d504c63e7db2fe81ea7",
+      "size_bytes": 10321
     },
     {
       "path": "FINAL_METADATA_CLOSURE_CHECKLIST.md",
@@ -45,13 +45,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "16b37dda666312aa3937e961513df5cd1f0a1143388170b3506015f5a5776034",
-      "size_bytes": 13709
+      "sha256": "da0cc18257ad0b9fbe4ebb13d5112029c442fb10c111c9e3a2bc2f66f1d33276",
+      "size_bytes": 15087
     },
     {
       "path": "REVIEWER_RISK_REGISTER.md",
-      "sha256": "561e21ead07b4a413cf4b103b73a8fa55141f79c67764ace3334a6ce1e81c64e",
-      "size_bytes": 14273
+      "sha256": "343668f3b935cada96a9e4f15da15597e43da6d6d846cd2eb1ca9f28e2927245",
+      "size_bytes": 15149
     },
     {
       "path": "SUBMISSION_PACKAGE_INDEX.md",
@@ -60,18 +60,18 @@
     },
     {
       "path": "SUPPLEMENTARY_EVIDENCE_PACKAGE.md",
-      "sha256": "78e25daf2ead2e1ae7ff7ad4f0e2e61b20318c9dfc66a89bdcf3d64f147b9f4f",
-      "size_bytes": 6319
+      "sha256": "1bd2a75b3091152e01432730bbff6f52b39a3174251acca8d76a4ff63bec5283",
+      "size_bytes": 7414
     },
     {
       "path": "SUPPLEMENTARY_README_DRAFT.md",
-      "sha256": "f8c50a02a92c74ea8a10a8cb481c2d552368d37bd7deff971b90df6900e5ca96",
-      "size_bytes": 5372
+      "sha256": "8bab48db0d1882697421cdfa0d870d0b098cd9e888b2be097b0800bb4fe17d6b",
+      "size_bytes": 5895
     },
     {
       "path": "build.sh",
-      "sha256": "a3e2711b629524f9876a43f71962eec3fe7d05565c2c02a638b4a4d4538a7b6a",
-      "size_bytes": 2620
+      "sha256": "e265b0e8f176267da726ad4a283896c46a54eba3552e57aa400423c5b5de9215",
+      "size_bytes": 2667
     },
     {
       "path": "evidence_sources.json",
@@ -250,7 +250,7 @@
     },
     {
       "path": "main.pdf",
-      "sha256": "025761a0ce6e4748129d80e9e9e860a35010ef0961719573d5ef4641b536995d",
+      "sha256": "91795f4d96ed16900569bbd880047a09c1f1038a5dea6f803daf2397501d5903",
       "size_bytes": 129357
     },
     {
@@ -265,8 +265,8 @@
     },
     {
       "path": "scripts/check_submission_readiness.py",
-      "sha256": "9afe9bb9ee48f060cbecae87b43f3b15043fbf99d7835cfe8f6c39d1835d5cdd",
-      "size_bytes": 107300
+      "sha256": "b1e6c1a92edd7a1f77bbb05d0e0a0709454fbe036cb68f68f11b3e558329c3b0",
+      "size_bytes": 117028
     },
     {
       "path": "scripts/create_submission_bundle.py",
@@ -277,6 +277,11 @@
       "path": "scripts/evidence_sources.py",
       "sha256": "dff5ba98f70692dfe9f535da26803d4db3c8237d2652c0bb9efd08e232839f55",
       "size_bytes": 1124
+    },
+    {
+      "path": "scripts/extract_crossing_evidence.py",
+      "sha256": "b6b8e883e46b34dfdfcbb0530889f6cbe5c09d8c0e8476f9cac05320d7341dc5",
+      "size_bytes": 15532
     },
     {
       "path": "scripts/extract_heldout_sanity_evidence.py",
@@ -315,8 +320,8 @@
     },
     {
       "path": "scripts/render_reproducibility_ledger.py",
-      "sha256": "51df494cf0822635cd3a0fb78b2c4ba1e3f72d8728a0c490c07179e1d472f36d",
-      "size_bytes": 10924
+      "sha256": "e0daa840caf06206f3d24304d31fed2b466703480580795c1b531c7e03fed1bb",
+      "size_bytes": 12606
     },
     {
       "path": "scripts/verify_bibtex_dois.py",

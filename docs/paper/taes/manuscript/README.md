@@ -31,6 +31,7 @@ Main files:
 - `scripts/extract_heldout_sanity_evidence.py`: records a tracked N5 base-seed-11 sanity check and, when `evidence_sources.json` includes `heldout_n50_report`, generates a paper-grade held-out N50 manifest and an optional manuscript fragment.
 - `scripts/extract_stress_evidence.py`: when `evidence_sources.json` includes `stress_harsh_n50_report`, parses the harsh packet-loss N50 stress report and generates a response-ready manifest/LaTeX fragment without making it a submission gate.
 - `scripts/extract_scenario_family_evidence.py`: when `evidence_sources.json` includes topology, FOV, or full-neighborhood ceiling reports, parses them into a response-ready scenario-family manifest/LaTeX fragment while preserving smoke-vs-paper-grade tier labels and equivalence-boundary classifications.
+- `scripts/extract_crossing_evidence.py`: when `evidence_sources.json` includes `crossing_n50_report`, parses the fixed maneuver/crossing N50 report into crossing-window response-ready artifacts and removes stale crossing artifacts when the key is absent.
 - `scripts/verify_n50_evidence.py`: independently recomputes network disagreement from per-trial report rows and runtime from the trial log.
 - `scripts/verify_bibtex_dois.py`: resolves every BibTeX DOI through the public DOI resolver and writes generated citation-verification evidence.
 - `scripts/check_submission_readiness.py`: writes a machine-checkable TAES readiness snapshot after PDF compilation.
@@ -49,7 +50,7 @@ Build:
 ./build.sh
 ```
 
-In the full repository, the build first regenerates the N50 evidence fragments, regenerates contextual reference rows, records optional held-out/stress/scenario-family evidence, runs the verifier, resolves BibTeX DOIs, renders figures, writes the reproducibility ledger, then compiles the TAES PDF and records a representative-page visual-QA manifest. In an unpacked source-bundle directory where the raw `RUN/` reports are not present, `./build.sh` automatically falls back to compiling from the bundled `generated/` fragments. Use `TAES_EVIDENCE_MODE=refresh ./build.sh` to require raw evidence regeneration, or `TAES_EVIDENCE_MODE=bundled ./build.sh` to force bundled-fragment compilation. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, `generated/reproducibility_ledger*.tex`, `generated/bibtex_doi_verification.*`, `generated/pdf_visual_qa.*`, `generated/scenario_family_*`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, verifier, DOI verifier, visual-QA renderer, or figure renderer and rerun the full-repository build.
+In the full repository, the build first regenerates the N50 evidence fragments, regenerates contextual reference rows, records optional held-out/stress/scenario-family/crossing evidence, runs the verifier, resolves BibTeX DOIs, renders figures, writes the reproducibility ledger, then compiles the TAES PDF and records a representative-page visual-QA manifest. In an unpacked source-bundle directory where the raw `RUN/` reports are not present, `./build.sh` automatically falls back to compiling from the bundled `generated/` fragments. Use `TAES_EVIDENCE_MODE=refresh ./build.sh` to require raw evidence regeneration, or `TAES_EVIDENCE_MODE=bundled ./build.sh` to force bundled-fragment compilation. Do not edit `generated/n50_*.tex`, `generated/reference_baseline_rows.tex`, `generated/reproducibility_ledger*.tex`, `generated/bibtex_doi_verification.*`, `generated/pdf_visual_qa.*`, `generated/scenario_family_*`, `generated/crossing_n50_*`, or `generated/method_pipeline.tex` by hand; update the validation report, extraction script, verifier, DOI verifier, visual-QA renderer, or figure renderer and rerun the full-repository build.
 
 The verifier recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from raw per-trial artifacts. The current N50 evidence source contains per-trial local tracking rows, so `generated/N50_VERIFICATION_REPORT.md` independently checks the paper-facing local tracking metrics rather than only tracing the report summary.
 
@@ -58,6 +59,8 @@ The build also writes `generated/HELDOUT_SANITY_MANIFEST.md`, `generated/HELDOUT
 Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build also writes `generated/STRESS_HARSH_MANIFEST.md`, `generated/stress_harsh_evidence.json`, `generated/stress_harsh_section.tex`, and the concise `generated/stress_harsh_summary_sentence.tex` imported by Discussion. The full stress table remains response-ready; decide during final page-budget review whether it belongs in supplementary material or reviewer-response evidence.
 
 If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring, partial-FOV, and full-topology reports are fixed-parameter N50 scenario-family checks and are labeled paper-grade evidence by the generated manifest; full-topology is classified only as a zero-disagreement equivalence boundary. The generated artifacts still preserve smoke-vs-paper-grade tier labels for future boundary probes.
+
+If `evidence_sources.json` includes `crossing_n50_report`, the build also writes `generated/CROSSING_N50_MANIFEST.md`, `generated/crossing_n50_evidence.json`, `generated/crossing_n50_section.tex`, and `generated/crossing_n50_summary_sentence.tex`. This path is intentionally optional until the fixed maneuver/crossing N50 run completes; it is interpreted through the pre-specified crossing window rather than whole-run averages and remains response-ready unless explicitly imported into a supplement or reviewer response.
 
 The partial-FOV N50 upgrade is complete and report-driven. The configured source report is:
 
@@ -105,6 +108,14 @@ Harsh packet-loss N50 stress run:
 ```
 
 After it completes, add the generated Markdown report path to `evidence_sources.json` as `stress_harsh_n50_report`, run `./build.sh`, and inspect `generated/STRESS_HARSH_MANIFEST.md` plus `generated/stress_harsh_section.tex`. This stress result must not trigger per-scenario threshold or barycenter-weight search; mixed outcomes should be preserved as scenario-boundary evidence.
+
+Maneuver/crossing assignment-stability N50 run:
+
+```bash
+AA_CROSSING_TRIALS=50 AA_CROSSING_BASE_SEED=71 ../../../RUN/AA/launchAaTaesManeuverCrossingSmoke.sh
+```
+
+After it completes, add the generated Markdown report path to `evidence_sources.json` as `crossing_n50_report`, run `./build.sh`, and inspect `generated/CROSSING_N50_MANIFEST.md` plus `generated/crossing_n50_section.tex`. This crossing result must be read through the fixed crossing-window metrics; N1/N5 smoke reports are structural checks only and should not be promoted to paper-facing evidence.
 
 The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed. Target-maneuver, covariance-consistency, and recursive-online validation would further reduce review risk beyond the current fixed-parameter topology/FOV/full-topology scenario-family checks.
 

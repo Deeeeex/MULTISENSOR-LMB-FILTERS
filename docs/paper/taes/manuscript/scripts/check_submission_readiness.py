@@ -55,6 +55,10 @@ SCENARIO_FAMILY_JSON = OUT / "scenario_family_evidence.json"
 SCENARIO_FAMILY_MANIFEST = OUT / "SCENARIO_FAMILY_MANIFEST.md"
 SCENARIO_FAMILY_FRAGMENT = OUT / "scenario_family_section.tex"
 SCENARIO_FAMILY_SUMMARY = OUT / "scenario_family_summary_sentence.tex"
+CROSSING_N50_JSON = OUT / "crossing_n50_evidence.json"
+CROSSING_N50_MANIFEST = OUT / "CROSSING_N50_MANIFEST.md"
+CROSSING_N50_FRAGMENT = OUT / "crossing_n50_section.tex"
+CROSSING_N50_SUMMARY = OUT / "crossing_n50_summary_sentence.tex"
 REPRO_LEDGER_JSON = OUT / "reproducibility_ledger.json"
 REPRO_LEDGER_MANIFEST = OUT / "REPRODUCIBILITY_LEDGER_MANIFEST.md"
 REPRO_LEDGER_ROWS = OUT / "reproducibility_ledger_rows.tex"
@@ -83,6 +87,9 @@ SCENARIO_FAMILY_KEYS = [
     "scenario_partial_fov35_report",
     "scenario_full_topology_report",
 ]
+CROSSING_BASE_SEED = 71
+CROSSING_WINDOW = [9, 17]
+CROSSING_SCENARIO_LABEL = "maneuver-crossing-assignment"
 ARM_ORDER = [
     "Tuned spatial-KLA AA",
     "Neighborhood label-barycenter spatial-KLA AA",
@@ -111,6 +118,7 @@ BUNDLE_REQUIRED_PATHS = [
     "scripts/extract_reference_baselines.py",
     "scripts/extract_scenario_family_evidence.py",
     "scripts/extract_stress_evidence.py",
+    "scripts/extract_crossing_evidence.py",
     "scripts/render_figures.py",
     "scripts/render_pdf_visual_qa.py",
     "scripts/render_reproducibility_ledger.py",
@@ -407,6 +415,7 @@ def file_checks() -> list[Check]:
         ROOT / "scripts" / "create_submission_bundle.py",
         ROOT / "scripts" / "extract_scenario_family_evidence.py",
         ROOT / "scripts" / "extract_stress_evidence.py",
+        ROOT / "scripts" / "extract_crossing_evidence.py",
         ROOT / "scripts" / "render_pdf_visual_qa.py",
         ROOT / "scripts" / "render_reproducibility_ledger.py",
         ROOT / "scripts" / "verify_bibtex_dois.py",
@@ -1957,6 +1966,7 @@ def evidence_checks() -> list[Check]:
         )
     checks.extend(stress_harsh_checks())
     checks.extend(scenario_family_checks())
+    checks.extend(crossing_n50_checks())
     return checks
 
 
@@ -2387,6 +2397,202 @@ def scenario_family_checks() -> list[Check]:
             "optional scenario-family evidence path",
             "pass",
             "Scenario-family evidence is configured and parsed. This gate checks protocol, coverage, and evidence-tier labeling, not that every metric improves.",
+        )
+    )
+    return checks
+
+
+def percent_value(value: object) -> float:
+    match = re.search(r"([-+]?\d+(?:\.\d+)?)\s*%", str(value))
+    return float(match.group(1)) if match else float("nan")
+
+
+def crossing_n50_checks() -> list[Check]:
+    sources = json.loads(read_text(EVIDENCE_SOURCES)) if EVIDENCE_SOURCES.exists() else {}
+    configured = "crossing_n50_report" in sources
+    artifacts = [CROSSING_N50_JSON, CROSSING_N50_MANIFEST, CROSSING_N50_FRAGMENT, CROSSING_N50_SUMMARY]
+    existing_artifacts = [path for path in artifacts if path.exists()]
+
+    if not configured and not existing_artifacts:
+        return [
+            Check(
+                "optional crossing N50 evidence path",
+                "pass",
+                "Maneuver/crossing N50 evidence is not configured in `evidence_sources.json`; the non-blocking parser path is present and no stale crossing artifacts are included.",
+            )
+        ]
+
+    if configured and not CROSSING_N50_JSON.exists():
+        return [
+            Check(
+                "optional crossing N50 evidence path",
+                "warning",
+                "`crossing_n50_report` is configured, but `generated/crossing_n50_evidence.json` is missing. Re-run `./build.sh` after the report is available.",
+            )
+        ]
+
+    if not configured and existing_artifacts:
+        return [
+            Check(
+                "optional crossing N50 evidence path",
+                "warning",
+                "Crossing artifacts exist even though `crossing_n50_report` is not configured; remove stale files or re-run `./build.sh`.",
+            )
+        ]
+
+    crossing = json.loads(read_text(CROSSING_N50_JSON))
+    checks: list[Check] = []
+    config = crossing.get("config", {})
+    if not isinstance(config, dict):
+        config = {}
+
+    trials = safe_int(config.get("trials"))
+    base_seed = safe_int(config.get("base_seed"), -1)
+    trial_seeds = config.get("trial_seeds", [])
+    trial_seed_count = len(trial_seeds) if isinstance(trial_seeds, list) else 0
+    scenario_label = str(config.get("scenario_label", ""))
+    target_scenario = str(config.get("target_scenario_mode", ""))
+    crossing_window = config.get("crossing_window", [])
+    protocol_ok = (
+        trials >= 50
+        and base_seed == CROSSING_BASE_SEED
+        and trial_seed_count >= trials
+        and scenario_label == CROSSING_SCENARIO_LABEL
+        and target_scenario == CROSSING_SCENARIO_LABEL
+        and int_list_matches(crossing_window, CROSSING_WINDOW)
+    )
+    checks.append(
+        Check(
+            "crossing N50 protocol",
+            "pass" if protocol_ok else "warning",
+            f"Crossing run uses base seed {base_seed}, {trials} trials, {trial_seed_count} parsed trial seeds, scenario `{scenario_label}`, target mode `{target_scenario}`, and crossing window {crossing_window}."
+            if protocol_ok
+            else "Crossing evidence should use "
+            f"base seed {CROSSING_BASE_SEED}, at least 50 trials, matching trial seeds, "
+            f"scenario `{CROSSING_SCENARIO_LABEL}`, and crossing window {CROSSING_WINDOW}; found base seed {base_seed}, "
+            f"{trials} trials, {trial_seed_count} trial seeds, scenario `{scenario_label}`, "
+            f"target mode `{target_scenario}`, and window {crossing_window}.",
+        )
+    )
+
+    source_report = str(crossing.get("source_report", ""))
+    source_sha256 = str(crossing.get("source_sha256", ""))
+    configured_source = sources.get("crossing_n50_report")
+    source_ok = bool(source_report and source_sha256 and configured_source == source_report)
+    source_detail = ""
+    if source_ok:
+        source_path = REPO / source_report
+        if not source_path.exists():
+            source_ok = False
+            source_detail = f"source report is missing: {source_report}"
+        elif sha256_file(source_path) != source_sha256:
+            source_ok = False
+            source_detail = f"source report hash is stale: {source_report}"
+        else:
+            source_detail = "Crossing payload source report and SHA-256 digest match the configured raw evidence report."
+    else:
+        source_detail = (
+            "Crossing payload source fields do not match `evidence_sources.json`: "
+            f"configured={configured_source}, payload={source_report}, sha={source_sha256}."
+        )
+    checks.append(Check("crossing N50 source hash freshness", "pass" if source_ok else "error", source_detail))
+
+    artifacts_ok = all(path.exists() for path in artifacts)
+    checks.append(
+        Check(
+            "crossing N50 generated artifacts",
+            "pass" if artifacts_ok else "error",
+            "`CROSSING_N50_MANIFEST.md`, `crossing_n50_evidence.json`, `crossing_n50_section.tex`, and `crossing_n50_summary_sentence.tex` exist."
+            if artifacts_ok
+            else "Crossing evidence JSON exists, but the generated manifest, response-ready fragment, or summary sentence is missing.",
+        )
+    )
+
+    whole_run = crossing.get("whole_run", {})
+    if not isinstance(whole_run, dict):
+        whole_run = {}
+    scenario_window_payload = crossing.get("scenario_window", {})
+    if not isinstance(scenario_window_payload, dict):
+        scenario_window_payload = {}
+
+    missing_mean: list[str] = []
+    missing_mean.extend(
+        f"whole_run/{entry}" for entry in missing_metric_entries(whole_run, "network", ARM_ORDER, NETWORK_METRICS)
+    )
+    missing_mean.extend(
+        f"whole_run/{entry}" for entry in missing_metric_entries(whole_run, "local", ARM_ORDER, LOCAL_METRICS)
+    )
+    missing_mean.extend(
+        f"scenario_window/{entry}"
+        for entry in missing_metric_entries(scenario_window_payload, "network", ARM_ORDER, NETWORK_METRICS)
+    )
+    missing_mean.extend(
+        f"scenario_window/{entry}"
+        for entry in missing_metric_entries(scenario_window_payload, "local", ARM_ORDER, LOCAL_METRICS)
+    )
+    checks.append(
+        Check(
+            "crossing N50 mean metric coverage",
+            "pass" if not missing_mean else "error",
+            "Crossing payload covers all three arms and all network/local manuscript metrics for whole-run and crossing-window tables."
+            if not missing_mean
+            else "Crossing mean metric payload is incomplete: " + "; ".join(missing_mean),
+        )
+    )
+
+    missing_paired: list[str] = []
+    missing_paired.extend(
+        f"whole_run/{entry}" for entry in missing_paired_entries(whole_run, "paired_network", NETWORK_METRICS)
+    )
+    missing_paired.extend(
+        f"whole_run/{entry}" for entry in missing_paired_entries(whole_run, "paired_local", LOCAL_METRICS)
+    )
+    missing_paired.extend(
+        f"scenario_window/{entry}"
+        for entry in missing_paired_entries(scenario_window_payload, "paired_network", NETWORK_METRICS)
+    )
+    missing_paired.extend(
+        f"scenario_window/{entry}"
+        for entry in missing_paired_entries(scenario_window_payload, "paired_local", LOCAL_METRICS)
+    )
+    checks.append(
+        Check(
+            "crossing N50 paired metric coverage",
+            "pass" if not missing_paired else "error",
+            "Crossing payload includes CI, wins, and sign-test p-values for full and reference-only arms across whole-run and crossing-window paired metrics."
+            if not missing_paired
+            else "Crossing paired payload is incomplete: " + "; ".join(missing_paired),
+        )
+    )
+
+    paired_local = scenario_window_payload.get("paired_local", {})
+    if not isinstance(paired_local, dict):
+        paired_local = {}
+    full_local = paired_local.get(FULL_ARM, {}) if isinstance(paired_local.get(FULL_ARM, {}), dict) else {}
+    ref_local = paired_local.get(REF_ONLY_ARM, {}) if isinstance(paired_local.get(REF_ONLY_ARM, {}), dict) else {}
+    full_rmse = percent_value(full_local.get("RMSE", {}).get("reduction", "nan"))
+    ref_rmse = percent_value(ref_local.get("RMSE", {}).get("reduction", "nan"))
+    full_eospa = percent_value(full_local.get("E-OSPA", {}).get("reduction", "nan"))
+    ref_eospa = percent_value(ref_local.get("E-OSPA", {}).get("reduction", "nan"))
+    separation_ok = full_rmse > 0 and full_rmse > ref_rmse and full_eospa > 0 and full_eospa > ref_eospa
+    checks.append(
+        Check(
+            "crossing N50 barycenter-vs-reference separation",
+            "pass" if separation_ok else "warning",
+            f"Crossing-window mechanism separation is present: full RMSE/E-OSPA reductions {full_rmse:.2f}%/{full_eospa:.2f}% exceed reference-only {ref_rmse:.2f}%/{ref_eospa:.2f}%."
+            if separation_ok
+            else "Crossing-window full-vs-reference separation is mixed or weak: "
+            f"full RMSE/E-OSPA reductions {full_rmse:.2f}%/{full_eospa:.2f}%, "
+            f"reference-only {ref_rmse:.2f}%/{ref_eospa:.2f}%. Treat as boundary evidence, not a gain claim.",
+        )
+    )
+
+    checks.append(
+        Check(
+            "optional crossing N50 evidence path",
+            "pass" if protocol_ok else "warning",
+            "Crossing evidence is configured and parsed; interpretation is recorded as "
+            f"`{crossing.get('interpretation_class', 'missing')}`. This gate checks the fixed protocol, crossing-window coverage, and mechanism separation.",
         )
     )
     return checks
