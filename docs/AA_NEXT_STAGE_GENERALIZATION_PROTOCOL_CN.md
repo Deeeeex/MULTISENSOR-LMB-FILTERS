@@ -4,13 +4,13 @@
 
 ## 目的
 
-当前 TAES 稿件已经把 AA label-barycenter 方法固定在一个清晰边界内: active-output label/moment projection, not recursive LMB update。已有 evidence 覆盖 primary N50、held-out N50、harsh-loss N50、topology-ring N50、partial-FOV N50，并且 full-topology N50 ceiling 已完成并接入 scenario-family gate。full-topology 的作用是 zero-disagreement ceiling equivalence，不是额外增益 claim。
+当前 TAES 稿件已经把 AA label-barycenter 方法固定在一个清晰边界内: active-output label/moment projection, not recursive LMB update。已有 evidence 覆盖 primary N50、held-out N50、harsh-loss N50、topology-ring N50、partial-FOV N50、fixed maneuver/crossing-window N50，并且 full-topology N50 ceiling 已完成并接入 scenario-family gate。full-topology 的作用是 zero-disagreement ceiling equivalence，不是额外增益 claim。
 
 下一阶段如果继续补实验，不应围绕当前数据搜索 `H`、existence threshold、projection cutoff、barycenter weights、label rules 或 packet-loss 参数。更有价值的方向是检验方法机制在真正不同的困难来源下是否仍成立，或者暴露需要新方法设计的边界。
 
 ## 当前 submission 边界
 
-本文件是 repository-level internal planning protocol: it records future risk-reduction plans, not current manuscript evidence. It is not a portal upload or source-bundle evidence artifact。The current TAES submission does not wait for these A/B/C extensions；当前稿件只依赖已经进入 `evidence_sources.json`、generated fragments、verifier/readiness gates 和 PDF/source-bundle checks 的证据。
+本文件是 repository-level internal planning protocol: it records completed crossing-window boundary evidence and future method extensions, but it is not a portal upload or source-bundle evidence artifact。The current TAES submission does not wait for Candidate B/C extensions；当前稿件只依赖已经进入 `evidence_sources.json`、generated fragments、verifier/readiness gates 和 PDF/source-bundle checks 的证据。Candidate A crossing-window N50 已进入该 evidence chain；covariance/reliability and recursive-online plans remain future risk-reduction plans。
 
 The full-topology ceiling has completed and is now parsed only as an idealized full-neighborhood equivalence boundary；它通过 report、extractor、generated manifest、readiness gate、source-bundle freshness 全部检查后才进入 scenario-family evidence chain，并且不得写成 manuscript、cover letter、supplement 或 response-ready text 中的 gain claim。
 
@@ -34,11 +34,13 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - `crossingWindow`
 - `simulationLength`
 
-这足够支撑 topology、FOV、idealized full-topology ceiling checks，以及 Candidate A 的 fixed target crossing smoke。2026-06-27 已新增 optional crossing N50 extractor/readiness/source-bundle path；但它仍不足以把 target maneuver/crossing 当作 paper-grade evidence，因为 N50 fixed-run report 尚未完成并配置进 `evidence_sources.json`，且 assignment-ambiguity instrumentation 仍未建立。Covariance-consistency 与 recursive feedback gates 仍未支持。
+这足够支撑 topology、FOV、idealized full-topology ceiling checks，以及 Candidate A 的 fixed target crossing protocol。2026-06-27 已新增 crossing N50 extractor/readiness/source-bundle path，并接入完成的 fixed-run report `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED71_20260627_163915.md`。它支持 pre-specified crossing-window full-vs-reference separation，但仍不等于 general target-maneuver、birth/death、assignment-guarantee、covariance-consistency 或 recursive feedback validation。Covariance-consistency 与 recursive feedback gates 仍未支持。
 
 2026-06-27 代码 checkpoint: `RUN/AA/runAaBalancedCardinalityValidation.m` 已新增 `targetScenarioMode='maneuver-crossing-assignment'` 的固定 10-target close-crossing birth states，并输出 `## Scenario Window Metrics`。N1 smoke report 为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md`，仅用于验证代码路径和 crossing-window metric reporting，不作为当前 manuscript evidence。
 
 2026-06-27 N5 smoke: `RUN/AA/launchAaTaesManeuverCrossingSmoke.sh` 生成 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED71_20260627_162621.md`。Crossing-window local RMSE 为 fixed baseline `2.3126`、full label-barycenter `1.8618`、reference-only `2.1484`；crossing-window E-OSPA 为 `2.6807`、`2.3566`、`2.4915`。这说明 windowed metrics 能看到 full-vs-reference separation，但该 N5 仍只是 structural smoke；whole-run local RMSE 不应替代 crossing-window interpretation。
+
+2026-06-27 N50 evidence: fixed-run report `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED71_20260627_163915.md` 已完成并接入 `crossing_n50_report`。Crossing-window full method 相对 fixed spatial-KLA baseline 的 E-OSPA / RMSE reductions 为 `11.08% / 16.99%`，reference-only 为 `4.98% / 5.38%`；full-vs-reference separation 支持 assignment+barycenter mechanism 在该固定 crossing window 下仍有空间收益。该结果是 boundary evidence，不是 all-target-dynamics 或 recursive-online guarantee。
 
 ## 固定原则
 
@@ -71,7 +73,7 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - Ground-truth generator 需要能记录 maneuver/crossing windows，或 report 需要输出 crossing-window metrics。
 - Extractor/readiness gate 必须区分 whole-run metrics 和 crossing-window metrics，避免用平均值掩盖 assignment failure。
 
-当前状态: 前两项已在 2026-06-27 N1/N5 smoke 中通过；第三项的 extractor/readiness/source-bundle optional path 已建立并通过未配置状态的 build gate。Candidate A 仍不能进入主文或 cover-letter evidence chain，直到 N50 report 完成、配置为 `crossing_n50_report` 并通过 crossing-window gate。
+当前状态: 前两项已在 2026-06-27 N1/N5 smoke 中通过；第三项的 extractor/readiness/source-bundle path 已建立，并且完成的 N50 report 已配置为 `crossing_n50_report` 通过 crossing-window gate。Candidate A 可以作为固定 crossing-window response-ready / concise Discussion evidence；它仍不能写成 general maneuvering-target、birth/death 或 assignment-guarantee claim。
 
 ### 解释规则
 
@@ -146,9 +148,9 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 
 ## Paper-facing 使用方式
 
-当前 TAES submission 不应等待 A/B/C 全部完成。它们是 reviewer-risk reduction 或下一阶段 research design:
+当前 TAES submission 不应等待 B/C 全部完成。Candidate A 已作为固定 crossing-window boundary evidence 接入；B/C 仍是 reviewer-risk reduction 或下一阶段 research design:
 
 - Full-topology ceiling 已完成；当前稿件只能把它作为 zero-disagreement equivalence boundary，不能把相同 local metrics 写成方法增益。
-- Candidate A/B 的 smoke 结果不应进入主文，只能进入 internal progress 或 response planning。
-- Candidate A/B 的 N50 若完成且通过 parser/readiness gate，可视页数进入 supplement or response-ready evidence。
+- Candidate A 的 N1/N5 smoke 结果不应进入主文，只能进入 internal progress 或 response planning。
+- Candidate A 的 N50 已完成且通过 parser/readiness gate，可作为 concise Discussion evidence 和 response-ready evidence；Candidate B 的 N50 若完成且通过 parser/readiness gate，可视页数进入 supplement or response-ready evidence。
 - Candidate C 即使成功，也应作为 method extension 或 follow-up paper，而不是静默扩展当前 output-level projection claim。

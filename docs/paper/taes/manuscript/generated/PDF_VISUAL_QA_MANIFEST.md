@@ -1,7 +1,7 @@
 # PDF Visual QA Manifest
 
 - PDF: `docs/paper/taes/manuscript/main.pdf`
-- Page count: 9
+- Page count: 10
 - Renderer: `Version: ImageMagick 7.1.2-17 Q16-HDRI aarch64 23794 https://imagemagick.org`
 - Density: 180 dpi
 - Status: `pass`
@@ -15,7 +15,7 @@
 | main-results | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p6_main-results.png` | 1530x1980 | 0.9360 | 0.2099 | `pass` |
 | heldout-runtime | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p7_heldout-runtime.png` | 1530x1980 | 0.9471 | 0.1929 | `pass` |
 | discussion-conclusion | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p8_discussion-conclusion.png` | 1530x1980 | 0.9403 | 0.1943 | `pass` |
-| references | 9 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p9_references.png` | 1530x1980 | 0.9510 | 0.1827 | `pass` |
+| references | 10 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_p10_references.png` | 1530x1980 | 0.9966 | 0.0499 | `pass` |
 
 ## All Pages
 
@@ -29,13 +29,14 @@
 | 6 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p06.png` | 1530x1980 | 0.9360 | 0.2099 | `pass` |
 | 7 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p07.png` | 1530x1980 | 0.9471 | 0.1929 | `pass` |
 | 8 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p08.png` | 1530x1980 | 0.9403 | 0.1943 | `pass` |
-| 9 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p09.png` | 1530x1980 | 0.9510 | 0.1827 | `pass` |
+| 9 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p09.png` | 1530x1980 | 0.9500 | 0.1847 | `pass` |
+| 10 | `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_all_p10.png` | 1530x1980 | 0.9966 | 0.0499 | `pass` |
 
 ## Contact Sheet
 
 - Image: `docs/paper/taes/manuscript/tmp/pdf_visual_qa/main_contact_sheet.png`
 - Thumbnail: `360x480`
-- Dimensions: 1152x1536
-- Mean luma: 0.9482
-- Stddev luma: 0.1107
+- Dimensions: 1152x2048
+- Mean luma: 0.9608
+- Stddev luma: 0.0988
 - Status: `pass`

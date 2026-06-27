@@ -23,7 +23,7 @@ Main files:
 - `REVIEWER_RISK_REGISTER.md`: internal pre-submission response map linking likely reviewer concerns to manuscript answers, evidence artifacts, and residual boundaries.
 - `CLAIM_EVIDENCE_BOUNDARY_MAP.md`: internal one-sentence argument, reader path, section-job, terminology, claim-to-evidence, and non-claim map used to keep manuscript, cover-letter, supplement, and reviewer-response text aligned with verified evidence.
 - `FIGURE_TABLE_AUDIT.md`: internal figure/table ledger mapping each manuscript and response-ready visual artifact to its reader task, source path, visual QA location, and claim boundary.
-- `../../../docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md`: repository-level internal planning protocol for future maneuver/crossing, covariance/reliability, and recursive-online validation. It is not current manuscript evidence and is not part of the portal upload set.
+- `../../../docs/AA_NEXT_STAGE_GENERALIZATION_PROTOCOL_CN.md`: repository-level internal planning protocol for the completed fixed maneuver/crossing-window check and future covariance/reliability and recursive-online validation. It is not a portal upload and is not part of the portal evidence set.
 - `IEEEtaes.cls`, `IEEEtaes.bst`: official TAES template files.
 - `evidence_sources.json`: single manifest for the report/log artifacts consumed by the evidence extractors and verifier.
 - `scripts/extract_n50_evidence.py`: parses the tracked N50 validation report and generates manuscript table/figure fragments.
@@ -60,7 +60,7 @@ Because `evidence_sources.json` includes `stress_harsh_n50_report`, the build al
 
 If `evidence_sources.json` includes `scenario_topology_ring_report`, `scenario_partial_fov35_report`, or `scenario_full_topology_report`, the build also writes `generated/SCENARIO_FAMILY_MANIFEST.md`, `generated/scenario_family_evidence.json`, and `generated/scenario_family_section.tex`. The current topology-ring, partial-FOV, and full-topology reports are fixed-parameter N50 scenario-family checks and are labeled paper-grade evidence by the generated manifest; full-topology is classified only as a zero-disagreement equivalence boundary. The generated artifacts still preserve smoke-vs-paper-grade tier labels for future boundary probes.
 
-If `evidence_sources.json` includes `crossing_n50_report`, the build also writes `generated/CROSSING_N50_MANIFEST.md`, `generated/crossing_n50_evidence.json`, `generated/crossing_n50_section.tex`, and `generated/crossing_n50_summary_sentence.tex`. This path is intentionally optional until the fixed maneuver/crossing N50 run completes; it is interpreted through the pre-specified crossing window rather than whole-run averages and remains response-ready unless explicitly imported into a supplement or reviewer response.
+Because `evidence_sources.json` includes `crossing_n50_report`, the build also writes `generated/CROSSING_N50_MANIFEST.md`, `generated/crossing_n50_evidence.json`, `generated/crossing_n50_section.tex`, and `generated/crossing_n50_summary_sentence.tex`. This path is interpreted through the pre-specified crossing window rather than whole-run averages and remains response-ready unless explicitly imported into a supplement or reviewer response.
 
 The partial-FOV N50 upgrade is complete and report-driven. The configured source report is:
 
@@ -115,7 +115,7 @@ Maneuver/crossing assignment-stability N50 run:
 AA_CROSSING_TRIALS=50 AA_CROSSING_BASE_SEED=71 ../../../RUN/AA/launchAaTaesManeuverCrossingSmoke.sh
 ```
 
-After it completes, add the generated Markdown report path to `evidence_sources.json` as `crossing_n50_report`, run `./build.sh`, and inspect `generated/CROSSING_N50_MANIFEST.md` plus `generated/crossing_n50_section.tex`. This crossing result must be read through the fixed crossing-window metrics; N1/N5 smoke reports are structural checks only and should not be promoted to paper-facing evidence.
+The current configured report is `../../../RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED71_20260627_163915.md`. After replacing it with a newer crossing run, update `crossing_n50_report`, run `./build.sh`, and inspect `generated/CROSSING_N50_MANIFEST.md` plus `generated/crossing_n50_section.tex`. This crossing result must be read through the fixed crossing-window metrics; N1/N5 smoke reports are structural checks only and should not be promoted to paper-facing evidence.
 
 The current manuscript is content-ready under the project convention that author/funding/repository/front-matter and cover-letter placeholders may remain provisional. It is not yet portal-submission-ready because final author, affiliation, funding, repository, receipt-date, issue/DOI, preprint/conflict/reviewer, and AI-disclosure metadata still need to be completed. Target-maneuver, covariance-consistency, and recursive-online validation would further reduce review risk beyond the current fixed-parameter topology/FOV/full-topology scenario-family checks.
 

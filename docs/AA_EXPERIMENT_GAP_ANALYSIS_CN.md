@@ -6,9 +6,9 @@
 
 当前实验结果足够支撑一篇边界清晰的 TAES Regular Paper: 本文方法是一个作用在 active output tracks 上的 graph-local label/moment correspondence projection，用 reference selection、Hungarian assignment 和 matched first-two-moment barycenter 修复 target-wise AA/KLA scalar-weight routing 之后仍可能存在的 component-correspondence 问题。
 
-但当前证据还不能支撑更强的说法: 它不是递归在线 LMB 更新的完整验证，不保证 close crossing / birth / death 下 assignment 总正确，也不证明 equal moment barycenter 具有 covariance consistency 或 reliability optimality。因此，实验“不完善”的核心不是主线证据不够，而是泛化维度和方法边界还没有完全展开。
+但当前证据还不能支撑更强的说法: 它不是递归在线 LMB 更新的完整验证，不保证所有 close crossing / birth / death 下 assignment 总正确，也不证明 equal moment barycenter 具有 covariance consistency 或 reliability optimality。因此，实验“不完善”的核心不是主线证据不够，而是泛化维度和方法边界还没有完全展开。
 
-2026-06-27 maneuver/crossing 补充实验的状态应按这个边界理解: N1/N5 smoke 已经证明 fixed crossing scenario、crossing-window metrics 和 three-arm mechanism split 能跑通；N5 crossing-window 里 full method 的 local RMSE/E-OSPA 均优于 reference-only，方向上支持 full-vs-reference separation。但 N5 仍只是 structural smoke，当前 N50 crossing run 仍在进行中。Extractor/readiness/source-bundle optional path 已建立并通过未配置状态的 build gate；N50 report 完成、写入 `evidence_sources.json` 并通过 crossing-window gate 之前，它还不能进入当前 TAES 主文或 cover-letter evidence chain。
+2026-06-27 maneuver/crossing 补充实验的状态应按这个边界理解: N1/N5 smoke 已经证明 fixed crossing scenario、crossing-window metrics 和 three-arm mechanism split 能跑通；N50 report `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED71_20260627_163915.md` 已完成并写入 `evidence_sources.json`，通过 crossing-window gate。Crossing-window 里 full method 的 E-OSPA/RMSE reductions 为 `11.08% / 16.99%`，reference-only 为 `4.98% / 5.38%`，支持 fixed crossing window 下的 full-vs-reference separation。但它仍只是一个预指定 crossing-window boundary check，不能写成 all target dynamics、birth/death 或 recursive-online guarantee。
 
 ## 已经比较稳的部分
 
@@ -20,16 +20,17 @@
 | Harsh packet-loss N50 | 已作为 response-ready / concise Discussion evidence | 更严 packet-loss profile 下机制仍保持方向性收益，不是只对默认通信剖面有效。 |
 | topology-ring / partial-FOV N50 | 已接入 scenario-family gate | sparse topology 和 sensing-geometry perturbation 下仍有 fixed-parameter robustness evidence。 |
 | full-topology N50 | 已接入但只作为 boundary | ideal full-neighborhood 下三臂等价，只能说明 zero-disagreement ceiling，不是额外增益。 |
+| maneuver/crossing N50 | 已接入 crossing-window gate | 预指定 crossing window 下 full-vs-reference RMSE/E-OSPA separation 仍存在，是 assignment-stability boundary evidence。 |
 
 ## 实验结果里仍不完善的点
 
-### 1. 场景仍主要属于 formation-family
+### 1. Target dynamics 证据仍只覆盖一个预指定 crossing window
 
-当前主证据覆盖了主 formation、held-out seed、harsh packet-loss、ring topology、partial FOV 和 full topology ceiling，但 target dynamics 本身仍没有进入真正的 maneuver / close crossing / birth-death stress。这个边界很重要，因为本文理论里的核心条件是 assignment stability；一旦两个目标接近、交叉或局部 posterior 出现系统偏置，reference selection 和 Hungarian assignment 可能会把 moment barycenter 做到错误对应上。
+当前主证据覆盖了主 formation、held-out seed、harsh packet-loss、ring topology、partial FOV、full topology ceiling，以及一个固定 maneuver/crossing assignment-stability N50。这个 crossing N50 很有价值，因为它直接检验了本文理论中最敏感的 assignment-stability 边界，并且在预指定 crossing window 中 full 仍优于 reference-only。但它仍只是一个固定 crossing-window protocol，不覆盖 birth/death、长时间机动、多次交叉、强局部 posterior 偏置或递归反馈后的错误 label persistence。
 
-Paper-facing 处理: 不能写成 all target dynamics 或 crossing-robust。应写成 formation-family fixed-design evidence，并在 Discussion 中明确 maneuver/crossing 是下一阶段风险。
+Paper-facing 处理: 可以写成 one pre-specified maneuver/crossing window 下的 assignment-stability boundary evidence。不能写成 all target dynamics、crossing-robust、birth/death robust 或 assignment-guaranteed。
 
-Research 机会: 设计 assignment-margin guarded projection。核心不是调 `H` 或 threshold，而是引入方法层面的 guard: assignment margin、covariance overlap、track age / support history 或 multi-step consistency。
+Research 机会: 继续设计 assignment-margin guarded projection。核心不是调 `H` 或 threshold，而是引入方法层面的 guard: assignment margin、covariance overlap、track age / support history 或 multi-step consistency，并用 harder birth/death/crossing scenarios 测试 no-guard vs guarded。
 
 ### 2. 当前方法是 output-level projection，不是递归在线滤波器
 
@@ -85,7 +86,7 @@ Research 机会: 若 reviewer 关注实时性，可以补一个 complexity-focus
 2. Abstract、Introduction 和 Conclusion 必须保留 output-level、fixed-design、no per-scenario search、active-track projection 这些边界词。
 3. Results 里应强调 full-vs-reference separation，而不是只强调 network disagreement 的大幅下降。
 4. Discussion 的最佳结构是: 先说明 mechanism evidence，再说明 formation-family / crossing / covariance / recursive limits。
-5. 若要继续增强论文，最值得做的是 Candidate A 的 maneuver/crossing fixed protocol 和 crossing-window metrics，而不是继续调现有 formation 参数。
+5. 若要继续增强方法，而不是当前 TAES 证据包，最值得做的是基于 crossing 结果设计 guarded projection 和 recursive no-guard/guarded 对照，而不是继续调现有 formation 参数。
 
 ## 后续 research 优先级
 

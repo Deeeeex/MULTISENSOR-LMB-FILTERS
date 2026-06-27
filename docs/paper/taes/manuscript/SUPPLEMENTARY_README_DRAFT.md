@@ -21,7 +21,7 @@ The supplement should not introduce new claims beyond the main manuscript. All s
 | Held-out N50 robustness table | `generated/heldout_n50_section.tex` | Documents the fixed base-seed-11 held-out mechanism replication. | Already imported in the main manuscript; include only if moved out of the main text or requested by reviewers. |
 | Harsh packet-loss N50 stress table | `generated/stress_harsh_section.tex` | Documents the fixed harsh packet-loss boundary check. | Candidate supplement or reviewer-response table. |
 | Scenario-family table | `generated/scenario_family_section.tex` | Documents fixed topology-ring, partial-FOV, and full-topology equivalence-boundary checks. | Candidate supplement or reviewer-response table. |
-| Maneuver/crossing N50 table | `generated/crossing_n50_section.tex` | Documents fixed assignment-stability behavior over the pre-specified crossing window. | Candidate response table only after `crossing_n50_report` is configured and parsed as N50 evidence. |
+| Maneuver/crossing N50 table | `generated/crossing_n50_section.tex` | Documents fixed assignment-stability behavior over the pre-specified crossing window. | Candidate supplement or reviewer-response table. |
 | Reproducibility ledger | `generated/reproducibility_ledger_table.tex` | Maps manuscript-facing evidence roles to source reports and verifier artifacts. | Candidate supplement if the portal or reviewers request provenance detail. |
 | Source manifests | `generated/*_MANIFEST.md` | Records source paths, hashes, scenario roles, and generated evidence provenance. | Keep in source bundle by default; include selected manifests in supplement only if converted into reviewable prose or tables. |
 
@@ -41,8 +41,8 @@ TAES_EVIDENCE_MODE=bundled ./build.sh
 
 ## Interpretation Boundaries
 
-- The held-out, harsh-loss, topology-ring, partial-FOV, full-topology, and optional maneuver/crossing checks are fixed-parameter robustness, boundary, or ceiling checks, not a parameter-search loop.
-- The optional maneuver/crossing check is only paper-facing after an N50 report is configured and parsed; N1/N5 crossing smoke reports are structural checks and must not be promoted to supplement evidence.
+- The held-out, harsh-loss, topology-ring, partial-FOV, full-topology, and maneuver/crossing checks are fixed-parameter robustness, boundary, or ceiling checks, not a parameter-search loop.
+- The maneuver/crossing check is paper-facing only through the configured N50 report and pre-specified crossing window; N1/N5 crossing smoke reports are structural checks and must not be promoted to supplement evidence.
 - The contextual GA rows are reference rows from a tracked validation path, not paired AA-vs-GA significance-test evidence.
 - The method remains an active-output label-and-moment projection layer, not a recursive LMB update.
 - The equal moment barycenter is a first-two-moment projection, not a covariance-consistency guarantee.

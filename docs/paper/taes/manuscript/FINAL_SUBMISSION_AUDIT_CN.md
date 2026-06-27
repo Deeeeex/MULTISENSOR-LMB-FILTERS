@@ -1,18 +1,18 @@
 # TAES Final Submission Audit
 
-Last checked: 2026-06-25 17:37 CST.
+Last checked: 2026-06-27 CST.
 
 This audit maps the user's manuscript goal to current, inspectable evidence in the repository. It is a final content-readiness artifact, not a new scientific data source and not a portal upload by default.
 
 ## Current Verdict
 
-The manuscript is content-ready under the project rule that author, affiliation, funding, repository, cover-letter signature, and portal metadata may remain placeholders during internal review. It is not portal-submission-ready until those placeholders are replaced.
+The manuscript has no non-metadata blocking gate under the project rule that author, affiliation, funding, repository, cover-letter signature, and portal metadata may remain placeholders during internal review. It is not portal-submission-ready until those placeholders are replaced, and the current 10-page PDF either is compressed or the TAES page-charge risk is accepted.
 
 Authoritative current status:
 
-- `generated/SUBMISSION_READINESS_REPORT.md` reports `content_ready_metadata_pending`.
+- `generated/SUBMISSION_READINESS_REPORT.md` reports `candidate_with_warnings` under metadata allowance.
 - Metadata allowance leaves no non-metadata blocking gate.
-- `main.pdf` is 9 TAES-template pages, below the 10-page overlength-charge warning threshold.
+- `main.pdf` is 10 TAES-template pages, which triggers the Regular Paper overlength-charge warning threshold.
 - The abstract and introduction preserve the first-page correspondence-failure story, scalar-weight boundary, and fixed-design mechanism test.
 - Related Work preserves the adjacent AA/KLA, heterogeneous/FOV, multiview, and label-matching context while keeping the contribution bounded to active-output correspondence projection.
 - Methods and Structural Properties preserve the projection-layer contract: active-track existence pass-through, graph-local cost, first-two-moment least-squares projection, and covariance/recursive-use boundaries remain explicit.
@@ -22,7 +22,7 @@ Authoritative current status:
 - Cover letter and metadata closure notes preserve the same fixed-design mechanism boundary: contextual GA only, shared reference-cardinality control, and matched-barycenter E-OSPA/RMSE interpretation.
 - The source bundle is generated at `tmp/submission_bundle/taes_label_barycenter_submission_source.zip` and supports `TAES_EVIDENCE_MODE=bundled ./build.sh`.
 - The cover-letter draft is aligned with the fixed-design evidence roles and active-output claim boundary.
-- Remaining pending items are metadata-only placeholders listed by `generated/SUBMISSION_READINESS_REPORT.md`.
+- Remaining pending items are metadata placeholders, plus the explicit 10-page warning listed by `generated/SUBMISSION_READINESS_REPORT.md`.
 
 ## Requirement-By-Evidence Matrix
 
@@ -32,7 +32,7 @@ Authoritative current status:
 | Theoretical argument is complete and bounded. | Structural Properties in `main.tex`; `Moment-space projection`, stable-matching consensus, reference-copying identity, and cardinality-equivalent control gates in `check_submission_readiness.py`. | Passed. | Do not extend claims to recursive filtering, covariance consistency, or guaranteed assignment without new gated evidence. |
 | Introduction story is coherent and publication-facing. | First-page narrative, correspondence-contract, related-work positioning, and recent label-matching literature gates in `generated/SUBMISSION_READINESS_REPORT.md`. | Passed. | Preserve the scalar-weight versus correspondence distinction during metadata or cover-letter edits. |
 | Language is professional and claim-bounded. | Paper-facing wording hygiene, overclaim hygiene, discussion interpretation, conclusion boundary, and stress/generalization boundary gates. | Passed. | Keep author-facing edits within the active-output label/moment projection boundary. |
-| Experiments are detailed and report-driven. | Primary paired AA N50, held-out N50, harsh-loss N50, topology-ring N50, partial-FOV N50, full-topology N50, contextual GA N50, and independent verifier entries in `generated/reproducibility_ledger.json`. | Passed. | Future maneuver/crossing, covariance/reliability, and recursive-online runs remain risk-reduction plans, not current manuscript evidence. |
+| Experiments are detailed and report-driven. | Primary paired AA N50, held-out N50, harsh-loss N50, topology-ring N50, partial-FOV N50, maneuver/crossing-window N50, full-topology N50, contextual GA N50, and independent verifier entries in `generated/reproducibility_ledger.json`. | Passed. | Future covariance/reliability and recursive-online runs remain risk-reduction plans, not current manuscript evidence; crossing evidence is limited to the configured fixed window. |
 | Evidence is solid and reproducible. | Source report hashes in generated manifests; `generated/N50_VERIFICATION_REPORT.md`; `generated/SCENARIO_FAMILY_MANIFEST.md`; DOI verification; source-bundle freshness and fallback-build gates. | Passed. | Keep raw `RUN/` scratch reports out of the portal upload unless converted to a formal supplement. |
 | Figures and tables are clear and aligned with claims. | `FIGURE_TABLE_AUDIT.md` including TAES-adjacent reference style calibration; generated method composite and paired-reduction fragments; `generated/PDF_VISUAL_QA_MANIFEST.md`; contact sheet and all-page PNG checks. | Passed. | Re-render and inspect full-page PNGs after any final metadata or layout edit. |
 | Source package is clean. | `generated/SUBMISSION_BUNDLE_MANIFEST.md` records the source zip, file count, and hashes; extracted bundle builds with `TAES_EVIDENCE_MODE=bundled ./build.sh`. | Passed. | Regenerate after any manuscript, generated fragment, figure, or checklist change. |
@@ -42,10 +42,10 @@ Authoritative current status:
 
 - The method is not a replacement for AA/KLA density fusion.
 - The method does not optimize scalar fusion weights.
-- The method does not validate recursive online LMB feedback with births, deaths, close crossings, or lifecycle guards.
+- The method does not validate recursive online LMB feedback with births, deaths, arbitrary close crossings, or lifecycle guards; the configured crossing N50 is a fixed-window boundary check.
 - The equal moment barycenter is not a covariance-consistency or reliability-optimality guarantee.
 - The full-topology N50 result is a zero-disagreement equivalence boundary, not a method-gain claim.
-- Next-stage maneuver/crossing, covariance/reliability, and recursive-online protocols are future risk-reduction plans unless they enter `evidence_sources.json`, generated manifests, readiness gates, PDF QA, and source-bundle freshness checks.
+- Next-stage covariance/reliability and recursive-online protocols are future risk-reduction plans unless they enter `evidence_sources.json`, generated manifests, readiness gates, PDF QA, and source-bundle freshness checks. The maneuver/crossing protocol has entered this path only for the configured fixed crossing window.
 
 ## Final Portal-Submission Closure
 

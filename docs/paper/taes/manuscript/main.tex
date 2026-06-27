@@ -342,8 +342,9 @@ The method uses Euclidean position matching and equally weighted moment barycent
 
 \IfFileExists{generated/stress_harsh_summary_sentence.tex}{\input{generated/stress_harsh_summary_sentence.tex}\par}{}
 \IfFileExists{generated/scenario_family_summary_sentence.tex}{\input{generated/scenario_family_summary_sentence.tex}\par}{}
+\IfFileExists{generated/crossing_n50_summary_sentence.tex}{\input{generated/crossing_n50_summary_sentence.tex}\par}{}
 
-These checks broaden packet-loss severity, sparse-topology coverage, and partial-field-of-view sensing. They still preserve formation-family assumptions and should not be read as a substitute for maneuvering-target or covariance-consistency studies.
+These checks broaden packet-loss severity, sparse-topology coverage, partial-field-of-view sensing, and one pre-specified maneuver/crossing window. They still should not be read as validation of all maneuvering-target, birth/death, covariance-consistency, or recursive-online settings.
 
 \section{CONCLUSION}
 This paper isolates a residual AA-LMB fusion error: scalar weights can reach the intended consumers while active LMB components still lack a shared cross-sensor correspondence. The proposed \method{} operator chooses a median-cardinality medoid reference, assigns neighboring tracks to that reference, and computes first-two-moment barycenters for matched states. The paired primary and held-out N50 runs show large reductions in network disagreement and a repeatable RMSE separation between the full operator and reference-only copying. These results support the central mechanism: label canonicalization stabilizes the output label set, while matched posterior barycentering supplies the spatial gain. The current contribution is an output-level correspondence module; recursive LMB use still requires lifecycle and consistency guards.

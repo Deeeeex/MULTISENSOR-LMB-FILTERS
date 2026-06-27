@@ -342,7 +342,7 @@
       "status": "pass"
     },
     {
-      "detail": "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks do not substitute for maneuvering-target or covariance-consistency validation.",
+      "detail": "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, full-topology ceiling, and fixed crossing-window checks do not validate all maneuvering-target, birth/death, covariance-consistency, or recursive-online settings.",
       "gate": "stress generalization boundary wording",
       "status": "pass"
     },
@@ -412,7 +412,7 @@
       "status": "pass"
     },
     {
-      "detail": "Next-stage protocol preserves the no-search rule and keeps maneuver/crossing, covariance/reliability, and recursive-online designs as future risk-reduction plans rather than current manuscript evidence.",
+      "detail": "Next-stage protocol preserves the no-search rule, records the completed crossing-window evidence path, and keeps covariance/reliability plus recursive-online designs as future risk-reduction plans.",
       "gate": "next-stage generalization protocol",
       "status": "pass"
     },
@@ -422,9 +422,9 @@
       "status": "pass"
     },
     {
-      "detail": "`main.pdf` has 9 TAES-template pages, below the 10-page Regular Paper overlength-charge threshold.",
+      "detail": "`main.pdf` has 10 TAES-template pages; Regular Paper overlength charges start at 10 printed pages. Compress or explicitly accept overlength charges before submission.",
       "gate": "PDF page count",
-      "status": "pass"
+      "status": "warning"
     },
     {
       "detail": "No obvious unresolved-reference tokens found in extracted PDF text.",
@@ -432,7 +432,7 @@
       "status": "pass"
     },
     {
-      "detail": "`tmp/build/latex_build.log` exists with 109 lines; underfull warnings observed: 90.",
+      "detail": "`tmp/build/latex_build.log` exists with 124 lines; underfull warnings observed: 104.",
       "gate": "TeX build log",
       "status": "pass"
     },
@@ -447,7 +447,7 @@
       "status": "pass"
     },
     {
-      "detail": "All 9 PDF pages were rendered and passed dimension/nonblank checks.",
+      "detail": "All 10 PDF pages were rendered and passed dimension/nonblank checks.",
       "gate": "PDF visual QA full-page coverage",
       "status": "pass"
     },
@@ -577,12 +577,42 @@
       "status": "pass"
     },
     {
-      "detail": "Maneuver/crossing N50 evidence is not configured in `evidence_sources.json`; the non-blocking parser path is present and no stale crossing artifacts are included.",
+      "detail": "Crossing run uses base seed 71, 50 trials, 50 parsed trial seeds, scenario `maneuver-crossing-assignment`, target mode `maneuver-crossing-assignment`, and crossing window [9, 17].",
+      "gate": "crossing N50 protocol",
+      "status": "pass"
+    },
+    {
+      "detail": "Crossing payload source report and SHA-256 digest match the configured raw evidence report.",
+      "gate": "crossing N50 source hash freshness",
+      "status": "pass"
+    },
+    {
+      "detail": "`CROSSING_N50_MANIFEST.md`, `crossing_n50_evidence.json`, `crossing_n50_section.tex`, and `crossing_n50_summary_sentence.tex` exist.",
+      "gate": "crossing N50 generated artifacts",
+      "status": "pass"
+    },
+    {
+      "detail": "Crossing payload covers all three arms and all network/local manuscript metrics for whole-run and crossing-window tables.",
+      "gate": "crossing N50 mean metric coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Crossing payload includes CI, wins, and sign-test p-values for full and reference-only arms across whole-run and crossing-window paired metrics.",
+      "gate": "crossing N50 paired metric coverage",
+      "status": "pass"
+    },
+    {
+      "detail": "Crossing-window mechanism separation is present: full RMSE/E-OSPA reductions 16.99%/11.08% exceed reference-only 5.38%/4.98%.",
+      "gate": "crossing N50 barycenter-vs-reference separation",
+      "status": "pass"
+    },
+    {
+      "detail": "Crossing evidence is configured and parsed; interpretation is recorded as `crossing_window_supports_full_barycenter_separation`. This gate checks the fixed protocol, crossing-window coverage, and mechanism separation.",
       "gate": "optional crossing N50 evidence path",
       "status": "pass"
     },
     {
-      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 66 files and SHA-256 `e0e1345199ebb304ed361f528381ad63e1dcbe2069f162ef8c65e02c09dbc2f3`.",
+      "detail": "Clean source bundle exists at `docs/paper/taes/manuscript/tmp/submission_bundle/taes_label_barycenter_submission_source.zip` with 70 files and SHA-256 `040a15213737134cca3d36f23a4e4b27e51c9ab1714b5e577cda695880255bde`.",
       "gate": "submission source bundle",
       "status": "pass"
     },
@@ -602,7 +632,7 @@
       "status": "pass"
     }
   ],
-  "content_status": "content_ready_metadata_pending",
+  "content_status": "candidate_with_warnings",
   "metadata_gates": [
     {
       "detail": "27 manuscript or cover-letter metadata placeholder tokens remain: AUTHOR ET AL., Draft, FIRST AUTHOR, First Author, Institution, City, Country, Month 00, SECOND AUTHOR, Second Author, TAES.2026.Doi Number, THIRD AUTHOR, Third Author, XX, [All authors], [City], [Corresponding Author Name], [Country], [Email], [FIRST AUTHOR], [Funding Agency], [Grant Number], [Institution], [author@example.com], [none / URL], [none / disclosure], [optional], [preprint URL], [repository DOI/URL]",

@@ -226,7 +226,7 @@ def build_rows() -> list[dict[str, object]]:
                     f"base seed {config.get('base_seed')}; {config.get('trials')} trials; "
                     f"seeds {seed_range(config)}; crossing window {window}; packet loss {profile(config)}"
                 ),
-                "role": "Optional response-ready assignment-stability boundary evidence; interpreted through crossing-window metrics, not whole-run averages.",
+                "role": "Response-ready assignment-stability boundary evidence; interpreted through crossing-window metrics, not whole-run averages.",
             }
         )
     rows.append(

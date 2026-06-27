@@ -1028,19 +1028,21 @@ def manuscript_checks(tex: str, bib: str) -> list[Check]:
 
     stress_boundary_markers = [
         "These checks broaden packet-loss severity",
-        "They still preserve formation-family assumptions",
-        "should not be read as a substitute",
+        "one pre-specified maneuver/crossing window",
+        "should not be read as validation of all",
         "sparse-topology",
         "partial-field-of-view",
         "maneuvering-target",
+        "birth/death",
         "covariance-consistency",
+        "recursive-online",
     ]
     missing_stress_boundary = [marker for marker in stress_boundary_markers if marker not in body]
     checks.append(
         Check(
             "stress generalization boundary wording",
             "pass" if not missing_stress_boundary else "warning",
-            "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, and full-topology ceiling checks do not substitute for maneuvering-target or covariance-consistency validation."
+            "Discussion preserves the boundary that harsh-loss, topology-ring, partial-FOV, full-topology ceiling, and fixed crossing-window checks do not validate all maneuvering-target, birth/death, covariance-consistency, or recursive-online settings."
             if not missing_stress_boundary
             else "Stress/generalization boundary wording is incomplete; missing markers: "
             + "; ".join(missing_stress_boundary),
@@ -1241,9 +1243,9 @@ def final_submission_audit_checks() -> list[Check]:
     required_markers = [
         "Requirement-By-Evidence Matrix",
         "Current Verdict",
-        "content_ready_metadata_pending",
+        "candidate_with_warnings",
         "Metadata allowance leaves no non-metadata blocking gate",
-        "9 TAES-template pages",
+        "10 TAES-template pages",
         "Theoretical argument is complete and bounded",
         "Introduction story is coherent and publication-facing",
         "Language is professional and claim-bounded",
@@ -1485,9 +1487,9 @@ def next_stage_protocol_checks() -> list[Check]:
         "maneuver-crossing-assignment",
         "covariance-mismatch-reliability",
         "recursive-guarded-projection",
-        "future risk-reduction plans, not current manuscript evidence",
+        "covariance/reliability and recursive-online plans remain future risk-reduction plans",
         "not a portal upload or source-bundle evidence artifact",
-        "current TAES submission does not wait for these A/B/C extensions",
+        "current TAES submission does not wait for Candidate B/C extensions",
         "full-topology ceiling has completed and is now parsed only as an idealized full-neighborhood equivalence boundary",
     ]
     missing = [marker for marker in required_markers if marker not in text]
@@ -1495,7 +1497,7 @@ def next_stage_protocol_checks() -> list[Check]:
         Check(
             "next-stage generalization protocol",
             "pass" if not missing else "warning",
-            "Next-stage protocol preserves the no-search rule and keeps maneuver/crossing, covariance/reliability, and recursive-online designs as future risk-reduction plans rather than current manuscript evidence."
+            "Next-stage protocol preserves the no-search rule, records the completed crossing-window evidence path, and keeps covariance/reliability plus recursive-online designs as future risk-reduction plans."
             if not missing
             else "Next-stage protocol is missing markers: " + "; ".join(missing),
         )
@@ -1564,7 +1566,7 @@ def supplementary_evidence_package_checks() -> list[Check]:
         "generated/scenario_family_section.tex",
         "generated/reproducibility_ledger_table.tex",
         "not a tuning loop",
-        "do not substitute for target-maneuver, covariance-consistency, or recursive-online validation",
+        "does not substitute for target-maneuver, birth/death, covariance-consistency, or recursive-online validation",
         "generated fragments should not be edited directly",
         "raw `RUN/` logs",
         "zero-disagreement equivalence boundary",

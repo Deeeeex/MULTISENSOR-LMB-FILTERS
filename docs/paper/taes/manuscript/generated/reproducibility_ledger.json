@@ -36,6 +36,13 @@
       "source": "docs/paper/taes/manuscript/generated/scenario_family_evidence.json"
     },
     {
+      "name": "Maneuver-crossing AA N50",
+      "protocol": "base seed 71; 50 trials; seeds 72--121; crossing window [9, 17]; packet loss 0/0.1/0.2/0.5; counts 1/4/1/2",
+      "role": "Response-ready assignment-stability boundary evidence; interpreted through crossing-window metrics, not whole-run averages.",
+      "sha256": "c6bb3cee809504fae33818606093b1c3e7a7ebe1e43269f047b3aede4d175d13",
+      "source": "RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N50_SEED71_20260627_163915.md"
+    },
+    {
       "name": "Independent verifier",
       "protocol": "Recomputes network disagreement, runtime, and local E-OSPA/RMSE/CardErr from per-trial rows/logs.",
       "role": "Build gate for report-driven numbers before PDF compilation.",

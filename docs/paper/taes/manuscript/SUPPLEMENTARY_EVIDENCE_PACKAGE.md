@@ -8,17 +8,17 @@ This file is a single handoff point for optional supplementary material or revie
 - Response-ready evidence: compact tables and manifests that can support reviewer responses without editing generated fragments by hand.
 - Supplement README: `SUPPLEMENTARY_README_DRAFT.md` provides the portal-facing readme scaffold required if any selected blocks are converted into formal supplementary material.
 - Claim discipline: `CLAIM_EVIDENCE_BOUNDARY_MAP.md` maps paper-facing claims to evidence artifacts, verification level, terminology decisions, and explicit non-claims before those claims enter a supplement or response.
-- Boundary control: stress, topology, FOV, full-neighborhood ceiling, and optional maneuver/crossing checks are fixed-parameter evidence, not a tuning loop, and they do not substitute for covariance-consistency or recursive-online validation.
+- Boundary control: stress, topology, FOV, full-neighborhood ceiling, and maneuver/crossing-window checks are fixed-parameter evidence, not a tuning loop, and they do not substitute for covariance-consistency, recursive-online validation, or all birth/death/maneuvering cases.
 
 ## Current Submission Decision
 
-The current content-ready package default is no separate supplementary upload. The held-out N50 robustness table is already imported in the main manuscript; the harsh packet-loss, scenario-family, optional maneuver/crossing, and reproducibility-ledger blocks remain response-ready and source-bundle-ready evidence unless the final page budget, TAES portal form, editor, or reviewers require a formal supplement.
+The current content-ready package default is no separate supplementary upload. The held-out N50 robustness table is already imported in the main manuscript; the harsh packet-loss, scenario-family, maneuver/crossing-window, and reproducibility-ledger blocks remain response-ready and source-bundle-ready evidence unless the final page budget, TAES portal form, editor, or reviewers require a formal supplement.
 
 If a formal supplement is selected, the eligible block set is limited to:
 
 - `generated/stress_harsh_section.tex`
 - `generated/scenario_family_section.tex`
-- `generated/crossing_n50_section.tex`, only after `crossing_n50_report` is configured and the readiness gate classifies it as N50 fixed-protocol evidence
+- `generated/crossing_n50_section.tex`
 - `generated/reproducibility_ledger_table.tex`
 - `generated/heldout_n50_section.tex`, only if the held-out table is moved out of the main manuscript
 
@@ -31,7 +31,7 @@ The default supplement must not include raw `RUN/` logs, stale scratch validatio
 | Held-out N50 robustness table | `generated/heldout_n50_section.tex` | Support the claim that the full-versus-reference separation is not a base-seed-1 artifact. | Imported in the main manuscript; keep available for supplement or response. |
 | Harsh packet-loss N50 stress table | `generated/stress_harsh_section.tex` | Show fixed-design performance under a harsher packet-loss profile. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
 | Scenario-family table | `generated/scenario_family_section.tex` | Show fixed-design topology-ring, partial-FOV, and full-topology equivalence-boundary N50 checks. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
-| Maneuver/crossing N50 table | `generated/crossing_n50_section.tex` | Show fixed-design assignment-stability behavior on the pre-specified crossing window, not whole-run averages. | Optional response-ready block; use only after `crossing_n50_report` is configured and parsed as N50 evidence. |
+| Maneuver/crossing N50 table | `generated/crossing_n50_section.tex` | Show fixed-design assignment-stability behavior on the pre-specified crossing window, not whole-run averages. | Response-ready; the main paper imports only the concise generated Discussion sentence. |
 | Reproducibility ledger | `generated/reproducibility_ledger_table.tex` | Explain which reports, seeds, roles, and verifier artifacts support each paper-facing result. | Source-package and response-ready provenance material. |
 | Claim-evidence-boundary map | `CLAIM_EVIDENCE_BOUNDARY_MAP.md` | Keep reviewer responses and optional supplement text aligned with verified claims and non-claims. | Internal QA artifact; not a data source and not a default portal upload. |
 | Supplement README draft | `SUPPLEMENTARY_README_DRAFT.md` | Provide the readme scaffold for selected supplementary files. | Use only if a formal supplement is submitted. |
@@ -39,9 +39,9 @@ The default supplement must not include raw `RUN/` logs, stale scratch validatio
 ## Interpretation Boundaries
 
 - The generated fragments should not be edited directly. Update the source report, extractor, verifier, or `evidence_sources.json`, then run `./build.sh`.
-- The held-out, harsh-loss, topology-ring, partial-FOV, full-topology, and optional maneuver/crossing checks reuse fixed method parameters after method selection. They are not a tuning loop and should not trigger per-scenario threshold, barycenter-weight, or label-rule search.
-- The optional maneuver/crossing table must be interpreted through crossing-window RMSE/E-OSPA and full-versus-reference separation. N1/N5 crossing smoke reports are structural checks only and are not eligible as paper-facing evidence.
-- Until an N50 crossing report is configured and parsed, the current response-ready blocks do not substitute for target-maneuver, covariance-consistency, or recursive-online validation.
+- The held-out, harsh-loss, topology-ring, partial-FOV, full-topology, and maneuver/crossing checks reuse fixed method parameters after method selection. They are not a tuning loop and should not trigger per-scenario threshold, barycenter-weight, or label-rule search.
+- The maneuver/crossing table must be interpreted through crossing-window RMSE/E-OSPA and full-versus-reference separation. N1/N5 crossing smoke reports are structural checks only and are not eligible as paper-facing evidence.
+- The fixed N50 crossing-window block does not substitute for target-maneuver, birth/death, covariance-consistency, or recursive-online validation.
 - The contextual GA rows are reference rows from a tracked GA validation path. They are not paired AA-vs-GA significance-test evidence.
 - Scenario-family evidence broadens packet-loss severity, sparse-topology coverage, partial-field-of-view sensing, and an idealized full-neighborhood ceiling. The full-topology row shows zero network disagreement and identical local metrics across arms, so it is an equivalence boundary rather than evidence of additional method gain.
 - If the final submission includes a supplement, convert only the selected generated fragments into the portal-compliant supplement format after final metadata replacement and one last `./build.sh` run.
