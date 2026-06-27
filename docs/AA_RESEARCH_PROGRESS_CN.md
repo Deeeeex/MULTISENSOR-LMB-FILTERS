@@ -8,7 +8,7 @@
 
 实验结果里仍不完善的部分已经单独梳理到 `docs/AA_EXPERIMENT_GAP_ANALYSIS_CN.md`。当前判断是: 主线证据足够支撑 output-level active-track label/moment projection 这篇 TAES 稿；尚不能过度声称 maneuver/crossing robustness、covariance/reliability optimality 或 recursive-online LMB validity。这些不完善点更适合作为下一阶段方法创新入口，而不是继续对现有 formation 数据搜索式调参。
 
-2026-06-27 Candidate A 已开始推进: `RUN/AA/runAaBalancedCardinalityValidation.m` 现在支持 fixed target crossing scenario override 和 crossing-window report metrics；新增 launcher `RUN/AA/launchAaTaesManeuverCrossingSmoke.sh`。N1 smoke `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md` 已跑通，windowed metrics 能区分 whole-run 与 crossing-window behavior。该结果仍是 structural smoke，不进入当前 TAES manuscript claim；下一步应运行 N5，再决定是否建立 N50 extractor/readiness path。
+2026-06-27 Candidate A 已开始推进: `RUN/AA/runAaBalancedCardinalityValidation.m` 现在支持 fixed target crossing scenario override 和 crossing-window report metrics；新增 launcher `RUN/AA/launchAaTaesManeuverCrossingSmoke.sh`。N1 smoke `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md` 与 N5 smoke `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED71_20260627_162621.md` 已跑通。N5 crossing-window local RMSE 为 fixed baseline `2.3126`、full `1.8618`、reference-only `2.1484`，说明 windowed metrics 能捕捉 full-vs-reference separation；但它仍是 structural smoke，不进入当前 TAES manuscript claim。下一步若继续推进，需要建立 N50 extractor/readiness path，避免把 whole-run average 或 N5 smoke 直接写成 paper evidence。
 
 论文写作准备包已整理到 `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md`，包含 paper-ready positioning、method outline、理论推导、N50 实验表、ablation 解释、图表计划和 claim 边界。
 

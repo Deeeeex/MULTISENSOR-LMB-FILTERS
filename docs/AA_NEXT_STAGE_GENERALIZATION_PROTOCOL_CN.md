@@ -38,6 +38,8 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 
 2026-06-27 代码 checkpoint: `RUN/AA/runAaBalancedCardinalityValidation.m` 已新增 `targetScenarioMode='maneuver-crossing-assignment'` 的固定 10-target close-crossing birth states，并输出 `## Scenario Window Metrics`。N1 smoke report 为 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N1_SEED71_20260627_162134.md`，仅用于验证代码路径和 crossing-window metric reporting，不作为当前 manuscript evidence。
 
+2026-06-27 N5 smoke: `RUN/AA/launchAaTaesManeuverCrossingSmoke.sh` 生成 `RUN/AA/AA_BALANCED_CARDINALITY_VALIDATION_N5_SEED71_20260627_162621.md`。Crossing-window local RMSE 为 fixed baseline `2.3126`、full label-barycenter `1.8618`、reference-only `2.1484`；crossing-window E-OSPA 为 `2.6807`、`2.3566`、`2.4915`。这说明 windowed metrics 能看到 full-vs-reference separation，但该 N5 仍只是 structural smoke；whole-run local RMSE 不应替代 crossing-window interpretation。
+
 ## 固定原则
 
 1. 先写协议，再跑实验。每个新场景必须有固定 scenario label、改变量、不变量、arms、metrics、interpretation rule 和 no-search rule。
@@ -69,7 +71,7 @@ The full-topology ceiling has completed and is now parsed only as an idealized f
 - Ground-truth generator 需要能记录 maneuver/crossing windows，或 report 需要输出 crossing-window metrics。
 - Extractor/readiness gate 必须区分 whole-run metrics 和 crossing-window metrics，避免用平均值掩盖 assignment failure。
 
-当前状态: 前两项已在 2026-06-27 N1 smoke 中通过；第三项尚未做，因此 Candidate A 还不能进入主文或 cover-letter evidence chain。
+当前状态: 前两项已在 2026-06-27 N1/N5 smoke 中通过；第三项尚未做，因此 Candidate A 还不能进入主文或 cover-letter evidence chain。
 
 ### 解释规则
 
