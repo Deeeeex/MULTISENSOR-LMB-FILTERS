@@ -1,10 +1,12 @@
 # AA Fusion 大目标进度
 
-最后更新: 2026-06-25 18:04 CST
+最后更新: 2026-06-27 CST
 
 ## 当前结论
 
 当前最有希望的方向不是继续搜索 `existenceThreshold`、support count 或 bridge prior，而是把 AA 的剩余问题重写成跨 local filters 的 label canonicalization 与 posterior barycenter 问题。
+
+实验结果里仍不完善的部分已经单独梳理到 `docs/AA_EXPERIMENT_GAP_ANALYSIS_CN.md`。当前判断是: 主线证据足够支撑 output-level active-track label/moment projection 这篇 TAES 稿；尚不能过度声称 maneuver/crossing robustness、covariance/reliability optimality 或 recursive-online LMB validity。这些不完善点更适合作为下一阶段方法创新入口，而不是继续对现有 formation 数据搜索式调参。
 
 论文写作准备包已整理到 `docs/AA_LABEL_BARYCENTER_PAPER_READY_CN.md`，包含 paper-ready positioning、method outline、理论推导、N50 实验表、ablation 解释、图表计划和 claim 边界。
 
