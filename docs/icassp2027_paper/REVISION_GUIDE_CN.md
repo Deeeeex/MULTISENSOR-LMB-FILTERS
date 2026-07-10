@@ -321,8 +321,42 @@
 2. **Correctness checkpoint**：shared projection + tests，commit/push。
 3. **Wire-accounting checkpoint**：codec + attempted/delivered integration + tests，commit/push。
 4. **Experiment checkpoint**：paper runner、artifact schema 与 protocol 先 commit/push；完成 disjoint N5 smoke 后，若无改动则该 commit 直接冻结，若有改动则重新 commit/push 再冻结。
-5. **Confirmatory evidence checkpoint**：运行 fresh N50，提交报告/结构化轻量结果；raw `.mat` 保持本地 ignored artifact 并在报告中记录 SHA-256，tee log 放入 ignored `.superpowers/logs/`，commit/push。
+5. **Confirmatory evidence checkpoint**：运行 fresh N50，提交报告、CSV 与哈希一致的 89 KiB raw `.mat`；tee log 保持在 ignored `.superpowers/logs/`，commit/push。
 6. **Paper checkpoint**：data-driven figures、references、full rewrite、PDF，commit/push。
 7. **Final audit checkpoint**：全测试、artifact provenance、LaTeX/视觉/页数/claim audit，通过后最终 commit/push。
 
 若 Gate 1--3 任一失败，停止新 N50。Primary identity 固定为 `confirmatory-primary-seeds82-131-v2`；在 worker directory 外取得 stable reservation 的瞬间即永久 burn `82--131`，不得通过删除目录、补 MAT 或 selective retry 复用。当前 runner 故意只允许 primary `82--131`，不预先启用 fallback。若该 identity 进入 FAILED/BURNED，必须保留 tombstone/attempt ledger，修复后以新 commit 提交预注册 amendment，才可增加未观察的 `132:181` 和新 identity。若 worker 已形成 hash-bound `COMPLETE_WORKERS` receipt 但主进程在 assemble/publish 阶段中断，则只能恢复 assembly/publish，不得重算 worker。若新的 disjoint batch 仍不满足预注册的精确等价条件，论文必须把 claim 改为近似 representation 并解释误差来源，不能只挑聚合 tracking 指标维持“exact”叙事。
+
+## 11. Confirmatory 后的独立复核与最终裁决
+
+三路只读 reviewer 在 N50 完成后重新审查了当前代码、证据、LaTeX 与渲染 PDF：
+
+1. **技术正确性审查**确认 shared projection、codec、唯一变量与字段级 gate 成立，
+   但发现 evidence commit 使原 production validator 因 `HEAD != execution commit`
+   而拒绝只读重算。该问题已修复：execution/publish 继续使用严格 frozen-HEAD
+   gate；read-only validation 改为核对 execution commit 为当前历史祖先，并在该
+   commit 上重算 required-source manifest。原始 MAT 已按报告 SHA 纳入版本控制。
+2. **新颖性/意义审查**将旧稿评为 Weak Reject，但判断 Story A 完整实现后可达到
+   Borderline Accept / Weak Accept。其核心保留意见是避免把算子分解包装成新的
+   KLA 算法，必须以 operator-induced interface design 化解 tautology 攻击。
+3. **可读性/版面审查**确认旧 PDF 虽机械满足 4+1 页，但 Fig. 1/2 最终图内字约
+   3--5 pt，Fig. 2 有重叠且仍硬编码旧四臂结果；第 5 页仅两条参考文献，closest
+   work 覆盖不足。
+
+复核后的 gate 状态：
+
+| Gate | 状态 | 权威证据 |
+|---|---|---|
+| Shared projection / exact output | 通过 | focused tests；N50 `r/μ/Σ` 最大残差均为 0 |
+| Typed codec / attempted-delivered accounting | 通过 | codec tests；receiver 使用 decode 后对象 |
+| Frozen two-arm confirmatory batch | 通过 | seeds `82:131`，50/50 exact，masks 全相同 |
+| Primary communication result | 通过 | mean `58.277264%`，95% CI `[57.923222,58.636095]%` |
+| Independently reproducible evidence | 通过 | tracked MAT/CSV/MD；descendant-safe read-only validator |
+| Evidence-driven figures | 通过 | deterministic manifest/test；无 dynamic arm 或硬编码 aggregate |
+| Full manuscript rewrite / 4+1 final PDF | 待执行 | Task 8--9 |
+
+因此修改指南通过实施 gate，但论文尚未完成。剩余工作必须按以下顺序进行：
+`P/F/G` 命题与边界 -> verified closest work -> two-arm experiment text/table ->
+abstract/introduction/title -> 4+1 PDF visual and claim audit。若正文重新引入
+dynamic-topology superiority、一般 GM-KLA 等价或未限定的 network-cost claim，
+本指南自动判定该版本失败。
