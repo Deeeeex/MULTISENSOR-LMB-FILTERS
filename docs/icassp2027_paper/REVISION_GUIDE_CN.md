@@ -145,7 +145,7 @@
 1. 标题 “Light Posterior Exchange” 太泛，也不告诉读者为何 light 足够；标题应突出 `fusion-sufficient moment exchange`。
 2. 摘要最后一句把论文拉回 event-trigger/topology 对抗，但正文没有公平证据，应删除。
 3. Introduction 的“图保持”篇幅大于核心算子，贡献列表也混淆 method、perspective 与 validation。应按 `receiver consumes projection → move projection to sender → prove → encode → validate` 的因果链重写。
-4. Figure 1 应是两条并行路径并在融合输出处合流，不是三个模块串联。Figure 2 应展示每 seed 的 attempted-byte reduction 和 full/light 输出差值，而不是重复表格的四臂聚合。
+4. Figure 1 应是两条并行路径并在融合输出处合流，不是三个模块串联。Figure 2 应展示每 seed 的 attempted-byte reduction 和配对绝对 payload，而不是重复表格或把零残差审计做成 checklist。
 5. 表格小字体和列过多。主表只保留 full vs sufficient 两臂：attempted bytes、delivered bytes、local E-OSPA、consensus OSPA、max state difference；动态 topology 和 symmetrized lambda proxy 均移出。
 6. 页面分配失衡。第 5 页几乎空白，说明相关工作与引用不足；补最近工作可以自然占用 references-only page，但不得把正文挤到第 5 页。
 
@@ -279,7 +279,7 @@
 ### Gate 5：数据驱动图表与论文重写
 
 - Figure 1 改为 commutative diagram：`full GM → receiver projection → projected KLA` 与 `sender projection → moment wire message → projected KLA` 两条路径在输出处相等。
-- Figure 2 从 confirmatory artifact 读取每 seed 数据，展示 byte reduction 分布和 fusion/state difference；不硬编码 aggregate。
+- Figure 2 从 confirmatory artifact 读取每 seed 数据，展示 byte reduction 分布和配对绝对 payload；fusion/state 零残差保留在命题、正文与结构化审计中，不硬编码 aggregate。
 - 主表只保留公平两臂；移除 dynamic arms 和 effective lambda2。
 - 标题、摘要、Introduction、Method、Experiments、Conclusion 全部围绕 Story A 重写。
 - Related Work 加入 closest work，并用 frequency/schedule reduction、component selection、operator-sufficient representation 三类区分。

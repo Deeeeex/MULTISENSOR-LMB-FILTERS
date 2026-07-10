@@ -2,7 +2,7 @@
   "backend": "python-matplotlib",
   "contract": {
     "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
-    "figure_2": "Every paired seed reduces application-layer bytes while all audited outputs remain exact."
+    "figure_2": "Relative and paired absolute views quantify workload-scoped application-layer savings."
   },
   "evidence": {
     "path": "RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv",
@@ -15,7 +15,7 @@
     ],
     "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
   },
-  "generator_sha256": "223d7ce84d8da2d5f6ad3f9c87b335a1a0076b221017010abec3f1f076a97f80",
+  "generator_sha256": "27ce3b9aa332e9db136c779688ff3da6257ef9ede63b4293a9ff3c4316b4c5ff",
   "layout_qa": {
     "minimum_estimated_final_font_points": 7.143999999999999,
     "minimum_source_font_points": 7.6,
@@ -23,12 +23,12 @@
   },
   "outputs": {
     "heldout_tradeoff.pdf": {
-      "bytes": 31370,
-      "sha256": "90020fb2e06fa08d7501d6dc750acffdd3190cde06519c1a50d96e56910704ae"
+      "bytes": 26712,
+      "sha256": "47e37a33bd6d3605394ebfa1bea6ce7b8eb9a57ff24cf155f1c2fb2f7ce7498b"
     },
     "heldout_tradeoff.png": {
-      "bytes": 216866,
-      "sha256": "288c121e151a4be7071db79520c08f7b5f777bf70cf9bb5df3d9cf4b35d53fb3"
+      "bytes": 197655,
+      "sha256": "42c35915b39b7ec7902acff574866dff74818532fe826f9a7d704dcbf389f4e7"
     },
     "payload_graph_schematic.pdf": {
       "bytes": 23135,
@@ -49,6 +49,8 @@
     ],
     "max_state_residual": 0.0,
     "mean_attempted_reduction_percent": 58.2772642282589,
+    "mean_full_attempted_mb": 25.083704,
+    "mean_moment_attempted_mb": 10.4577776,
     "total_label_comparisons": 1119037,
     "total_snapshots": 40000
   }

@@ -66,6 +66,8 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert first_manifest["summary"]["all_exact_match"] is True
     assert first_manifest["summary"]["all_masks_equal"] is True
     assert first_manifest["summary"]["max_state_residual"] == 0.0
+    assert first_manifest["summary"]["mean_full_attempted_mb"] == 25.083704
+    assert first_manifest["summary"]["mean_moment_attempted_mb"] == 10.4577776
     assert first_manifest["layout_qa"]["minimum_source_font_points"] >= 7.6
     assert first_manifest["layout_qa"]["minimum_estimated_final_font_points"] >= 7.0
 
@@ -95,3 +97,5 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert "Sender-side projection" in normalized_pdf_text
     assert "Fusion-sufficient moment" in normalized_pdf_text
     assert "58.28%" in normalized_pdf_text
+    assert "Paired absolute payloads" in normalized_pdf_text
+    assert "mean saved 14.63 MB/trial" in normalized_pdf_text

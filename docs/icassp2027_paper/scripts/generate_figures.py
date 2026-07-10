@@ -380,35 +380,28 @@ def make_mechanism_figure(output_dir: Path) -> None:
     )
 
 
-def draw_audit_row(ax: plt.Axes, y: float, label: str, value: str) -> None:
-    ax.add_patch(FancyBboxPatch(
-        (0.01, y - 0.032), 0.10, 0.064,
-        boxstyle="round,pad=0.004,rounding_size=0.018",
-        transform=ax.transAxes, facecolor="#DFF1E8",
-        edgecolor=OUTPUT_COLOR, linewidth=0.8,
-    ))
-    ax.text(0.06, y, "PASS", transform=ax.transAxes, ha="center", va="center",
-            color=OUTPUT_COLOR, fontsize=MIN_SOURCE_FONT_PT, fontweight="bold")
-    ax.text(0.14, y, label, transform=ax.transAxes, ha="left", va="center",
-            color=TEXT_COLOR, fontsize=MIN_SOURCE_FONT_PT)
-    ax.text(0.97, y, value, transform=ax.transAxes, ha="right", va="center",
-            color=TEXT_COLOR, fontsize=MIN_SOURCE_FONT_PT, fontweight="bold")
-    ax.plot([0.14, 0.97], [y - 0.055, y - 0.055], transform=ax.transAxes,
-            color="#E8ECEF", linewidth=0.55)
-
-
 def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     seeds = evidence["seeds"]
     attempted = evidence["attempted_reduction"]
     mean_attempted = float(evidence["mean_attempted"])
     ci_low = float(evidence["ci_low"])
     ci_high = float(evidence["ci_high"])
+    rows = evidence["rows"]
+    full_attempted_mb = [
+        require_float(row, "full_attempted_bytes") / 1e6 for row in rows
+    ]
+    moment_attempted_mb = [
+        require_float(row, "moment_attempted_bytes") / 1e6 for row in rows
+    ]
+    mean_full_mb = math.fsum(full_attempted_mb) / len(full_attempted_mb)
+    mean_moment_mb = math.fsum(moment_attempted_mb) / len(moment_attempted_mb)
+    mean_saved_mb = mean_full_mb - mean_moment_mb
 
-    fig, (ax, audit) = plt.subplots(
+    fig, (ax, payload) = plt.subplots(
         1,
         2,
         figsize=(7.05, 2.55),
-        gridspec_kw={"width_ratios": [1.02, 1.18], "wspace": 0.32},
+        gridspec_kw={"width_ratios": [1.02, 1.18], "wspace": 0.30},
     )
 
     ax.fill_between([seeds[0], seeds[-1]], ci_low, ci_high,
@@ -435,40 +428,58 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     ax.grid(axis="y", color=GRID_COLOR, linewidth=0.55)
     ax.set_title("a  Per-seed communication reduction", loc="left", fontweight="bold")
 
-    audit.set_axis_off()
-    audit.set_title("b  Exact output-equivalence audit", loc="left", fontweight="bold")
-    audit.text(
-        0.0,
-        0.92,
-        f"{int(evidence['total_snapshots']):,} paired snapshots  |  "
-        f"{int(evidence['total_comparisons']):,} label comparisons",
-        transform=audit.transAxes,
+    order = sorted(range(len(full_attempted_mb)), key=full_attempted_mb.__getitem__)
+    ranked_full_mb = [full_attempted_mb[index] for index in order]
+    ranked_moment_mb = [moment_attempted_mb[index] for index in order]
+    ranks = list(range(1, len(order) + 1))
+    payload.hlines(
+        ranks,
+        ranked_moment_mb,
+        ranked_full_mb,
+        color="#B9D5E6",
+        linewidth=0.75,
+        zorder=1,
+    )
+    payload.scatter(
+        ranked_full_mb,
+        ranks,
+        s=10,
+        color=FULL_COLOR,
+        edgecolors="white",
+        linewidths=0.25,
+        label=f"Full GM (mean {mean_full_mb:.2f} MB)",
+        zorder=3,
+    )
+    payload.scatter(
+        ranked_moment_mb,
+        ranks,
+        s=10,
+        color=MOMENT_COLOR,
+        edgecolors="white",
+        linewidths=0.25,
+        label=f"Moment (mean {mean_moment_mb:.2f} MB)",
+        zorder=3,
+    )
+    payload.set_xlim(7.0, 36.0)
+    payload.set_ylim(0, len(order) + 1)
+    payload.set_xticks([10, 15, 20, 25, 30, 35])
+    payload.set_yticks([])
+    payload.set_xlabel("Attempted payload (MB/trial)")
+    payload.set_ylabel("50 paired trials (sorted)")
+    payload.grid(axis="x", color=GRID_COLOR, linewidth=0.55)
+    payload.legend(loc="lower right", frameon=False, handletextpad=0.45)
+    payload.text(
+        0.03,
+        0.97,
+        f"mean saved {mean_saved_mb:.2f} MB/trial",
+        transform=payload.transAxes,
         ha="left",
-        va="center",
-        color=MUTED_COLOR,
+        va="top",
         fontsize=MIN_SOURCE_FONT_PT,
-    )
-    rows = (
-        ("Existence probability $r$", r"max $|\Delta|=0$"),
-        (r"State mean $\mu$", r"max $|\Delta|=0$"),
-        (r"State covariance $\Sigma$", r"max $|\Delta|=0$"),
-        ("Tracking metrics", r"max $|\Delta|=0$"),
-        ("Attempt./deliv. masks", "50/50 equal"),
-    )
-    for y, (label, value) in zip((0.78, 0.64, 0.50, 0.36, 0.22), rows):
-        draw_audit_row(audit, y, label, value)
-    audit.text(
-        0.50,
-        0.06,
-        "Full GM and fusion-sufficient moment messages produce identical projected fusion outputs.",
-        transform=audit.transAxes,
-        ha="center",
-        va="center",
-        color=OUTPUT_COLOR,
-        fontsize=MIN_SOURCE_FONT_PT,
+        color="#174A6E",
         fontweight="bold",
-        wrap=True,
     )
+    payload.set_title("b  Paired absolute payloads", loc="left", fontweight="bold")
 
     save_figure(
         fig,
@@ -497,7 +508,7 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
         },
         "contract": {
             "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
-            "figure_2": "Every paired seed reduces application-layer bytes while all audited outputs remain exact.",
+            "figure_2": "Relative and paired absolute views quantify workload-scoped application-layer savings.",
         },
         "evidence": {
             "path": stable_path(evidence_path),
@@ -510,6 +521,12 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
         "generator_sha256": sha256(Path(__file__)),
         "summary": {
             "mean_attempted_reduction_percent": evidence["mean_attempted"],
+            "mean_full_attempted_mb": math.fsum(
+                require_float(row, "full_attempted_bytes") for row in evidence["rows"]
+            ) / len(evidence["rows"]) / 1e6,
+            "mean_moment_attempted_mb": math.fsum(
+                require_float(row, "moment_attempted_bytes") for row in evidence["rows"]
+            ) / len(evidence["rows"]) / 1e6,
             "bootstrap_ci_percent": [evidence["ci_low"], evidence["ci_high"]],
             "all_exact_match": True,
             "all_masks_equal": True,
