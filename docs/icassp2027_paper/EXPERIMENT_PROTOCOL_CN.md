@@ -1,6 +1,6 @@
 # ICASSP Fusion-Sufficient Moment Exchange 实验协议
 
-状态：**在 confirmatory 结果产生前冻结**
+状态：**协议在 confirmatory 前冻结；primary N50 已于该冻结版本上完成**
 
 协议版本：`fusion-sufficient-moment-exchange-v2`
 
@@ -138,4 +138,25 @@ Confirmatory N50（仅在实现 commit/push 与 N5 gate 通过后启动）：
 
 ```bash
 octave-cli --quiet --eval "setPath; addpath('RUN/GA'); runFusionSufficientMomentExchangeConfirmatory(true,50,81);"
+```
+
+## 7. N50 后的只读复现修订
+
+本节写于 `82:131` 已完成并永久 burn 之后，只修正证据分发与只读验证，
+没有修改算法、配置、指标、bootstrap、CSV 或任何仿真结果，也没有重跑 seed。
+
+1. 最终 MAT 仅 89 KiB。为使外部 clone 能重新计算 CSV、aggregate、bootstrap
+   和 Markdown，仓库强制跟踪该运行已经发布且 SHA-256 为
+   `8ad63429d72a75e028bd7b9a1745bce7a047e4f9558443ea1bf547cfd69ab81f`
+   的原始 MAT；这与报告绑定的是同一个文件，不是重导出版本。
+2. 实验执行、worker assembly 和 transactional publication 仍使用严格
+   provenance gate：`HEAD` 必须等于 frozen execution commit。只读 validator
+   则验证记录的 execution commit 是当前历史的祖先，并在该 commit 上重算
+   required-source manifest；因此提交 CSV/报告或后续论文文件不会使已发布
+   证据自相矛盾地失效，runtime source 漂移也不会被误当成 execution source。
+3. 已发布报告中的 `Regeneration` 命令是冻结时保存的历史执行入口。由于
+   `82:131` 已 burn，不得再次运行它。当前证据的安全入口只有只读 validation：
+
+```bash
+octave-cli --quiet --eval "setPath; addpath('RUN/GA'); v=validateFusionSufficientEvidence('RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.mat','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.md'); disp(v);"
 ```

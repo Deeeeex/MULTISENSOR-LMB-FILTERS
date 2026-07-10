@@ -103,7 +103,26 @@ writeTestText(corruptReportPath, corruptReportText);
 assertThrows(@() validateFusionSufficientEvidence( ...
     summaryPath, csvPath, corruptReportPath, testAuthorization));
 testAtomicRollback(outputDirectory);
+validateTrackedConfirmatoryEvidence();
 fprintf('test_icassp_moment_exchange_evidence passed\n');
+end
+
+function validateTrackedConfirmatoryEvidence()
+projectRoot = fileparts(fileparts(mfilename('fullpath')));
+stem = 'GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131';
+summaryPath = fullfile(projectRoot, 'RUN', 'GA', [stem, '.mat']);
+csvPath = fullfile(projectRoot, 'RUN', 'GA', [stem, '.csv']);
+reportPath = fullfile(projectRoot, 'RUN', 'GA', [stem, '.md']);
+assert(exist(summaryPath, 'file') == 2, ...
+    'Tracked confirmatory MAT evidence is missing.');
+validation = validateFusionSufficientEvidence( ...
+    summaryPath, csvPath, reportPath);
+assert(validation.valid);
+assert(validation.numberOfTrials == 50);
+assert(strcmp(validation.gitCommit, ...
+    '7974f10179a8973875bec9f301b8a5f84477d860'));
+assert(~isempty(regexp(validation.validationGitHead, ...
+    '^[0-9a-f]{40}$', 'once')));
 end
 
 function summary = makeSyntheticSummary(config)

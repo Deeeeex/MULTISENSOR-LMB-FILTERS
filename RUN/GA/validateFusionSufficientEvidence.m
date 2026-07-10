@@ -86,6 +86,7 @@ validation = struct( ...
     'valid', true, ...
     'numberOfTrials', config.numberOfTrials, ...
     'gitCommit', config.gitCommit, ...
+    'validationGitHead', readGitRevision(localProjectRoot(), 'HEAD'), ...
     'summarySha256', actualSummaryHash, ...
     'csvSha256', actualCsvHash, ...
     'aggregate', aggregate);
@@ -132,8 +133,9 @@ end
 if ~validSchema
     error('Unsupported or unauthorized evidence/test schema.');
 end
+projectRoot = localProjectRoot();
 if ~testMode
-    assertFusionSufficientConfigProvenance(config);
+    assertPublishedEvidenceProvenance(config, projectRoot);
 end
 if ~strcmp(config.executionProtocol, ...
         'deterministic-seed-subprocess-v2') || ...
@@ -152,17 +154,21 @@ if isempty(regexp(config.requiredSourcesSha256, ...
         ~strcmp(hashFusionSufficientConfig(config), config.configSha256)
     error('Evidence config/source SHA-256 is invalid.');
 end
-scriptDir = fileparts(mfilename('fullpath'));
-projectRoot = fileparts(fileparts(scriptDir));
-currentSourceHash = hashFusionSufficientRequiredSources(projectRoot);
-if ~strcmp(currentSourceHash, config.requiredSourcesSha256)
-    error(['Current required-source manifest differs from the evidence ', ...
+if testMode
+    sourceHash = hashFusionSufficientRequiredSources(projectRoot);
+else
+    sourceHash = hashFusionSufficientRequiredSourcesAtCommit( ...
+        projectRoot, config.gitCommit);
+end
+if ~strcmp(sourceHash, config.requiredSourcesSha256)
+    error(['Frozen execution-source manifest differs from the evidence ', ...
         'provenance.']);
 end
 wireSchema = getLmbWireSchema();
 if config.wireSchemaVersion ~= double(wireSchema.version)
     error('Wire schema version mismatch.');
 end
+
 if isempty(regexp(config.gitCommit, '^[0-9a-f]{40}$', 'once'))
     error('Invalid evidence Git commit.');
 end
@@ -373,6 +379,37 @@ if any(summary.trials.posteriorMissingSnapshotCount(:, 2) ~= 0) || ...
     error('Posterior equivalence gate failed.');
 end
 validateStoredAggregate(summary);
+end
+
+function provenance = assertPublishedEvidenceProvenance(config, projectRoot)
+% Validate immutable evidence after later documentation/evidence commits.
+%
+% Experiment execution and transactional publication keep using the stricter
+% assertFusionSufficientConfigProvenance gate, which requires HEAD to equal the
+% frozen execution commit.  A read-only validator must instead remain usable
+% after the generated evidence itself is committed.  It therefore binds the
+% artifact to the recorded execution commit and requires that commit to remain
+% in the current history; it never substitutes the current runtime sources for
+% the frozen blobs.
+
+head = readGitRevision(projectRoot, 'HEAD');
+command = sprintf('git -C %s merge-base --is-ancestor %s %s', ...
+    shellQuote(projectRoot), shellQuote(config.gitCommit), shellQuote(head));
+[status, ~] = system(command);
+if status ~= 0
+    error('FusionSufficientEvidenceProvenance:UnrelatedCommit', ...
+        ['Evidence execution commit %s is not an ancestor of validation ', ...
+        'HEAD %s.'], config.gitCommit, head);
+end
+[sourceHash, ~] = hashFusionSufficientRequiredSourcesAtCommit( ...
+    projectRoot, config.gitCommit);
+if ~strcmp(sourceHash, config.requiredSourcesSha256)
+    error('FusionSufficientEvidenceProvenance:SourceHashMismatch', ...
+        ['Required source blobs at the recorded execution commit do not ', ...
+        'match the evidence manifest.']);
+end
+provenance = struct('executionCommit', config.gitCommit, ...
+    'validationHead', head, 'requiredSourcesSha256', sourceHash);
 end
 
 function validateExecution(summary, config)
@@ -734,6 +771,26 @@ end
 function quoted = shellQuote(value)
 value = char(value);
 quoted = ['''', strrep(value, '''', '''"''"'''), ''''];
+end
+
+function projectRoot = localProjectRoot()
+scriptDir = fileparts(mfilename('fullpath'));
+projectRoot = fileparts(fileparts(scriptDir));
+end
+
+function revision = readGitRevision(projectRoot, expression)
+command = sprintf('git -C %s rev-parse --verify %s', ...
+    shellQuote(projectRoot), shellQuote(expression));
+[status, output] = system(command);
+if status ~= 0
+    error('FusionSufficientEvidenceProvenance:MissingRevision', ...
+        'Unable to resolve Git revision %s.', expression);
+end
+revision = strtrim(output);
+if isempty(regexp(revision, '^[0-9a-f]{40}$', 'once'))
+    error('FusionSufficientEvidenceProvenance:InvalidRevision', ...
+        'Git revision %s is not a 40-hex commit.', expression);
+end
 end
 
 function assertReadableFile(path)
