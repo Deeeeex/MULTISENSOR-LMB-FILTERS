@@ -15,7 +15,7 @@
     ],
     "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
   },
-  "generator_sha256": "27ce3b9aa332e9db136c779688ff3da6257ef9ede63b4293a9ff3c4316b4c5ff",
+  "generator_sha256": "f7e6964d5af2328abc9d3aab9b61f82ea98c7b100afc7099ed61db542f31f5c7",
   "layout_qa": {
     "minimum_estimated_final_font_points": 7.143999999999999,
     "minimum_source_font_points": 7.6,
@@ -23,12 +23,12 @@
   },
   "outputs": {
     "heldout_tradeoff.pdf": {
-      "bytes": 26712,
-      "sha256": "47e37a33bd6d3605394ebfa1bea6ce7b8eb9a57ff24cf155f1c2fb2f7ce7498b"
+      "bytes": 26882,
+      "sha256": "7916517779e63c80a75d13f2f0631563ffdceecd9fa3c9166dddbf8d3715c1e3"
     },
     "heldout_tradeoff.png": {
-      "bytes": 197655,
-      "sha256": "42c35915b39b7ec7902acff574866dff74818532fe826f9a7d704dcbf389f4e7"
+      "bytes": 212607,
+      "sha256": "1943d05cb6931a4b63682143af5baefe4b5b8a8365400efa476d05c89af4f7f3"
     },
     "payload_graph_schematic.pdf": {
       "bytes": 23135,

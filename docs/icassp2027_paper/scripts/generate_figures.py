@@ -8,6 +8,7 @@ import csv
 import hashlib
 import json
 import math
+import random
 import re
 from pathlib import Path
 
@@ -381,7 +382,6 @@ def make_mechanism_figure(output_dir: Path) -> None:
 
 
 def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
-    seeds = evidence["seeds"]
     attempted = evidence["attempted_reduction"]
     mean_attempted = float(evidence["mean_attempted"])
     ci_low = float(evidence["ci_low"])
@@ -401,85 +401,125 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         1,
         2,
         figsize=(7.05, 2.55),
-        gridspec_kw={"width_ratios": [1.02, 1.18], "wspace": 0.30},
+        gridspec_kw={"width_ratios": [1.08, 0.92], "wspace": 0.30},
     )
 
-    ax.fill_between([seeds[0], seeds[-1]], ci_low, ci_high,
-                    color="#D9EAF5", alpha=0.9, linewidth=0, label="95% bootstrap CI")
-    ax.plot(seeds, attempted, color=MOMENT_COLOR, linewidth=0.9,
-            marker="o", markersize=2.4, markeredgewidth=0,
-            label="Attempted")
-    ax.axhline(mean_attempted, color="#174A6E", linewidth=1.0, linestyle="--")
+    violin = ax.violinplot(
+        [attempted],
+        positions=[0.0],
+        vert=False,
+        widths=0.46,
+        showmeans=False,
+        showmedians=False,
+        showextrema=False,
+        bw_method=0.28,
+    )
+    for body in violin["bodies"]:
+        body.set_facecolor("#D9EAF5")
+        body.set_edgecolor("#93BED8")
+        body.set_linewidth(0.55)
+        body.set_alpha(0.85)
+
+    jitter_rng = random.Random(20270710)
+    point_y = [-0.34 + jitter_rng.uniform(-0.055, 0.055) for _ in attempted]
+    ax.scatter(
+        attempted,
+        point_y,
+        s=12,
+        color=MOMENT_COLOR,
+        edgecolors="white",
+        linewidths=0.25,
+        alpha=0.82,
+        zorder=3,
+    )
+    interval_y = 0.40
+    ax.plot([ci_low, ci_high], [interval_y, interval_y],
+            color="#174A6E", linewidth=2.1, solid_capstyle="round", zorder=4)
+    ax.plot([ci_low, ci_low], [interval_y - 0.035, interval_y + 0.035],
+            color="#174A6E", linewidth=0.9, zorder=4)
+    ax.plot([ci_high, ci_high], [interval_y - 0.035, interval_y + 0.035],
+            color="#174A6E", linewidth=0.9, zorder=4)
+    ax.scatter([mean_attempted], [interval_y], s=26, marker="D",
+               color="#174A6E", edgecolors="white", linewidths=0.35, zorder=5)
     ax.text(
         0.985,
         0.97,
-        f"mean 58.28%\n95% CI [{ci_low:.2f}, {ci_high:.2f}]%",
+        f"mean {mean_attempted:.2f}%\n95% CI [{ci_low:.2f}, {ci_high:.2f}]%",
         transform=ax.transAxes,
         ha="right",
         va="top",
         fontsize=MIN_SOURCE_FONT_PT,
         color="#174A6E",
     )
-    ax.set_xlim(seeds[0] - 1, seeds[-1] + 1)
-    ax.set_ylim(54.8, 62.2)
-    ax.set_xticks([82, 90, 100, 110, 120, 131])
-    ax.set_xlabel("Paired confirmatory seed")
-    ax.set_ylabel("Application-layer byte reduction (%)")
-    ax.grid(axis="y", color=GRID_COLOR, linewidth=0.55)
-    ax.set_title("a  Per-seed communication reduction", loc="left", fontweight="bold")
+    ax.set_xlim(55.5, 61.7)
+    ax.set_ylim(-0.49, 0.58)
+    ax.set_xticks([56, 57, 58, 59, 60, 61])
+    ax.set_yticks([])
+    ax.set_xlabel("Attempted-byte reduction (%)")
+    ax.spines["left"].set_visible(False)
+    ax.set_title("a  Relative saving across trials", loc="left", fontweight="bold")
 
-    order = sorted(range(len(full_attempted_mb)), key=full_attempted_mb.__getitem__)
-    ranked_full_mb = [full_attempted_mb[index] for index in order]
-    ranked_moment_mb = [moment_attempted_mb[index] for index in order]
-    ranks = list(range(1, len(order) + 1))
-    payload.hlines(
-        ranks,
-        ranked_moment_mb,
-        ranked_full_mb,
-        color="#B9D5E6",
-        linewidth=0.75,
-        zorder=1,
-    )
+    for full_mb, moment_mb in zip(full_attempted_mb, moment_attempted_mb):
+        payload.plot(
+            [0.0, 1.0],
+            [full_mb, moment_mb],
+            color="#B9D5E6",
+            linewidth=0.62,
+            alpha=0.62,
+            zorder=1,
+        )
     payload.scatter(
-        ranked_full_mb,
-        ranks,
-        s=10,
+        [0.0] * len(full_attempted_mb),
+        full_attempted_mb,
+        s=11,
         color=FULL_COLOR,
         edgecolors="white",
         linewidths=0.25,
-        label=f"Full GM (mean {mean_full_mb:.2f} MB)",
+        alpha=0.72,
         zorder=3,
     )
     payload.scatter(
-        ranked_moment_mb,
-        ranks,
-        s=10,
+        [1.0] * len(moment_attempted_mb),
+        moment_attempted_mb,
+        s=11,
         color=MOMENT_COLOR,
         edgecolors="white",
         linewidths=0.25,
-        label=f"Moment (mean {mean_moment_mb:.2f} MB)",
+        alpha=0.72,
         zorder=3,
     )
-    payload.set_xlim(7.0, 36.0)
-    payload.set_ylim(0, len(order) + 1)
-    payload.set_xticks([10, 15, 20, 25, 30, 35])
-    payload.set_yticks([])
-    payload.set_xlabel("Attempted payload (MB/trial)")
-    payload.set_ylabel("50 paired trials (sorted)")
-    payload.grid(axis="x", color=GRID_COLOR, linewidth=0.55)
-    payload.legend(loc="lower right", frameon=False, handletextpad=0.45)
+    payload.plot(
+        [0.0, 1.0],
+        [mean_full_mb, mean_moment_mb],
+        color="#174A6E",
+        linewidth=1.8,
+        zorder=4,
+    )
+    payload.scatter([0.0], [mean_full_mb], s=34, marker="D",
+                    color=FULL_COLOR, edgecolors="white", linewidths=0.45, zorder=5)
+    payload.scatter([1.0], [mean_moment_mb], s=34, marker="D",
+                    color=MOMENT_COLOR, edgecolors="white", linewidths=0.45, zorder=5)
+    payload.set_xlim(-0.22, 1.22)
+    payload.set_ylim(7.0, 35.5)
+    payload.set_xticks([0.0, 1.0])
+    payload.set_xticklabels(
+        [f"Full GM\nmean {mean_full_mb:.2f} MB", f"Moment\nmean {mean_moment_mb:.2f} MB"]
+    )
+    payload.set_yticks([10, 20, 30])
+    payload.set_ylabel("Attempted payload (MB/trial)")
+    payload.grid(axis="y", color=GRID_COLOR, linewidth=0.48)
     payload.text(
-        0.03,
+        0.97,
         0.97,
         f"mean saved {mean_saved_mb:.2f} MB/trial",
         transform=payload.transAxes,
-        ha="left",
+        ha="right",
         va="top",
         fontsize=MIN_SOURCE_FONT_PT,
         color="#174A6E",
         fontweight="bold",
     )
-    payload.set_title("b  Paired absolute payloads", loc="left", fontweight="bold")
+    payload.set_title("b  Paired payload reduction", loc="left", fontweight="bold")
 
     save_figure(
         fig,

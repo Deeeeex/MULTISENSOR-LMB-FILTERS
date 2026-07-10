@@ -97,5 +97,6 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert "Sender-side projection" in normalized_pdf_text
     assert "Fusion-sufficient moment" in normalized_pdf_text
     assert "58.28%" in normalized_pdf_text
-    assert "Paired absolute payloads" in normalized_pdf_text
+    assert "Relative saving across trials" in normalized_pdf_text
+    assert "Paired payload reduction" in normalized_pdf_text
     assert "mean saved 14.63 MB/trial" in normalized_pdf_text
