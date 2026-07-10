@@ -1,0 +1,50 @@
+{
+  "backend": "python-matplotlib",
+  "contract": {
+    "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
+    "figure_2": "Every paired seed reduces application-layer bytes while all audited outputs remain exact."
+  },
+  "evidence": {
+    "path": "RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv",
+    "report_path": "RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.md",
+    "report_sha256": "0855539f8cdc69a99d902b09998452e554511e00d44721a97ec5810bc76cecc9",
+    "row_count": 50,
+    "seed_interval": [
+      82,
+      131
+    ],
+    "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
+  },
+  "generator_sha256": "e0b3572fe6dfebd875563368d004e02e50e4d107e3fba94c47f15df0f1078d5b",
+  "outputs": {
+    "heldout_tradeoff.pdf": {
+      "bytes": 53019,
+      "sha256": "dfcdb24eb179256dad74ded619fac2bc16fea4a65221f2027b4b4dd46f9c54f5"
+    },
+    "heldout_tradeoff.png": {
+      "bytes": 197210,
+      "sha256": "6c9eec539efda682910e09965ca3c280efb7b6e23b8c97cc2bf9de04142d6e45"
+    },
+    "payload_graph_schematic.pdf": {
+      "bytes": 36387,
+      "sha256": "5eeadb4b0267c95a9dba208526019a0ff0a1bd13fb018be124f14a80fcde2047"
+    },
+    "payload_graph_schematic.png": {
+      "bytes": 94490,
+      "sha256": "6931b04dd272316b13cff64b7fbff9451acae5392cf6bd172cc286daf47eb458"
+    }
+  },
+  "schema": "icassp2027-figure-manifest-v1",
+  "summary": {
+    "all_exact_match": true,
+    "all_masks_equal": true,
+    "bootstrap_ci_percent": [
+      57.923221880702556,
+      58.63609499846882
+    ],
+    "max_state_residual": 0.0,
+    "mean_attempted_reduction_percent": 58.2772642282589,
+    "total_label_comparisons": 1119037,
+    "total_snapshots": 40000
+  }
+}

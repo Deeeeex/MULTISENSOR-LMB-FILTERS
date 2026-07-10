@@ -1,243 +1,533 @@
 #!/usr/bin/env python3
-"""Generate ICASSP draft figures from fixed held-out summary results."""
+"""Generate traceable ICASSP figures from frozen moment-exchange evidence."""
 
 from __future__ import annotations
 
+import argparse
+import csv
+import hashlib
+import json
 import math
+import re
 from pathlib import Path
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch
 
 
-ROOT = Path(__file__).resolve().parents[1]
-FIG_DIR = ROOT / "figures"
+PAPER_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_EVIDENCE = (
+    REPO_ROOT
+    / "RUN"
+    / "GA"
+    / "GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv"
+)
+DEFAULT_OUTPUT_DIR = PAPER_ROOT / "figures"
+FIGURE_NAMES = (
+    "payload_graph_schematic.pdf",
+    "payload_graph_schematic.png",
+    "heldout_tradeoff.pdf",
+    "heldout_tradeoff.png",
+)
+
+FULL_COLOR = "#5B6472"
+MOMENT_COLOR = "#2878B5"
+FUSION_COLOR = "#7251B5"
+OUTPUT_COLOR = "#3A8D6D"
+WIRE_COLOR = "#D18F29"
+TEXT_COLOR = "#17202A"
+MUTED_COLOR = "#566573"
+GRID_COLOR = "#DCE3E8"
 
 
-def draw_payload_box(ax, xy, width, height, title, rows, facecolor, edgecolor):
-    box = FancyBboxPatch(
-        xy,
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def stable_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(REPO_ROOT.resolve()))
+    except ValueError:
+        return str(resolved)
+
+
+def require_float(row: dict[str, str], key: str) -> float:
+    value = float(row[key])
+    if not math.isfinite(value):
+        raise ValueError(f"non-finite {key}")
+    return value
+
+
+def read_machine_fields(report_path: Path) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    for line in report_path.read_text(encoding="utf-8").splitlines():
+        match = re.fullmatch(r"([a-z0-9_]+)=(.*)", line.strip())
+        if match:
+            key, value = match.groups()
+            if key in fields:
+                raise ValueError(f"duplicate machine field {key}")
+            fields[key] = value
+    return fields
+
+
+def load_evidence(evidence_path: Path) -> dict[str, object]:
+    evidence_path = evidence_path.resolve()
+    report_path = evidence_path.with_suffix(".md")
+    if not report_path.is_file():
+        raise FileNotFoundError(f"companion evidence report missing: {report_path}")
+
+    with evidence_path.open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    if len(rows) != 50:
+        raise ValueError(f"expected 50 paired seeds, found {len(rows)}")
+
+    seeds = [int(row["seed"]) for row in rows]
+    if seeds != list(range(82, 132)):
+        raise ValueError(f"unexpected confirmatory seed interval: {seeds[:1]}..{seeds[-1:]}")
+
+    numeric_fields = (
+        "full_attempted_bytes",
+        "moment_attempted_bytes",
+        "attempted_reduction_percent",
+        "full_delivered_bytes",
+        "moment_delivered_bytes",
+        "delivered_reduction_percent",
+        "local_eospa_delta",
+        "consensus_ospa_delta",
+        "consensus_position_delta",
+        "consensus_cardinality_delta",
+        "comparison_count",
+        "snapshot_count",
+        "max_abs_r",
+        "max_abs_mu",
+        "max_abs_sigma",
+        "exact_match",
+        "attempted_masks_equal",
+        "delivered_masks_equal",
+    )
+    for row in rows:
+        for field in numeric_fields:
+            require_float(row, field)
+
+        full_attempted = require_float(row, "full_attempted_bytes")
+        moment_attempted = require_float(row, "moment_attempted_bytes")
+        recalculated = 100.0 * (full_attempted - moment_attempted) / full_attempted
+        if not math.isclose(
+            recalculated,
+            require_float(row, "attempted_reduction_percent"),
+            rel_tol=0.0,
+            abs_tol=1e-12,
+        ):
+            raise ValueError(f"attempted reduction mismatch for seed {row['seed']}")
+        for flag in ("exact_match", "attempted_masks_equal", "delivered_masks_equal"):
+            if require_float(row, flag) != 1.0:
+                raise ValueError(f"{flag} failed for seed {row['seed']}")
+
+    attempted_reduction = [require_float(row, "attempted_reduction_percent") for row in rows]
+    delivered_reduction = [require_float(row, "delivered_reduction_percent") for row in rows]
+    mean_attempted = math.fsum(attempted_reduction) / len(attempted_reduction)
+    machine = read_machine_fields(report_path)
+    evidence_hash = sha256(evidence_path)
+    if machine.get("csv_sha256") != evidence_hash:
+        raise ValueError("evidence report does not bind the supplied CSV")
+    report_mean = float(machine["aggregate_mean_attempted_reduction_percent"])
+    if not math.isclose(mean_attempted, report_mean, rel_tol=0.0, abs_tol=1e-12):
+        raise ValueError("CSV mean differs from the validated evidence report")
+
+    exact_fields = (
+        "local_eospa_delta",
+        "consensus_ospa_delta",
+        "consensus_position_delta",
+        "consensus_cardinality_delta",
+        "max_abs_r",
+        "max_abs_mu",
+        "max_abs_sigma",
+    )
+    max_deltas = {
+        field: max(abs(require_float(row, field)) for row in rows) for field in exact_fields
+    }
+    if any(value != 0.0 for value in max_deltas.values()):
+        raise ValueError(f"confirmatory equivalence is not exact: {max_deltas}")
+
+    return {
+        "evidence_path": evidence_path,
+        "report_path": report_path,
+        "rows": rows,
+        "seeds": seeds,
+        "attempted_reduction": attempted_reduction,
+        "delivered_reduction": delivered_reduction,
+        "mean_attempted": mean_attempted,
+        "ci_low": float(machine["aggregate_bootstrap_ci_low_percent"]),
+        "ci_high": float(machine["aggregate_bootstrap_ci_high_percent"]),
+        "total_comparisons": int(float(machine["aggregate_total_comparison_count"])),
+        "total_snapshots": int(float(machine["aggregate_total_snapshot_count"])),
+        "max_deltas": max_deltas,
+    }
+
+
+def configure_matplotlib() -> None:
+    mpl.rcParams.update(
+        {
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
+            "font.size": 7.2,
+            "axes.labelsize": 7.2,
+            "axes.titlesize": 8.2,
+            "xtick.labelsize": 6.8,
+            "ytick.labelsize": 6.8,
+            "legend.fontsize": 6.8,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "axes.linewidth": 0.65,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "svg.fonttype": "none",
+            "savefig.facecolor": "white",
+        }
+    )
+
+
+def rounded_box(
+    ax: plt.Axes,
+    center: tuple[float, float],
+    width: float,
+    height: float,
+    text: str,
+    facecolor: str,
+    edgecolor: str,
+    fontsize: float = 7.2,
+    linewidth: float = 0.9,
+) -> None:
+    x, y = center
+    patch = FancyBboxPatch(
+        (x - width / 2, y - height / 2),
         width,
         height,
-        boxstyle="round,pad=0.035,rounding_size=0.03",
-        linewidth=1.1,
-        edgecolor=edgecolor,
+        boxstyle="round,pad=0.012,rounding_size=0.018",
         facecolor=facecolor,
-        zorder=5,
+        edgecolor=edgecolor,
+        linewidth=linewidth,
+        transform=ax.transAxes,
+        clip_on=False,
     )
-    ax.add_patch(box)
-    x, y = xy
-    ax.text(x + width / 2, y + height - 0.08, title, ha="center", va="top",
-            fontsize=8.4, fontweight="bold", zorder=6)
-    for idx, row in enumerate(rows):
-        ax.text(x + 0.04, y + height - 0.19 - 0.12 * idx, row, ha="left",
-                va="top", fontsize=7.4, zorder=6)
+    ax.add_patch(patch)
+    ax.text(
+        x,
+        y,
+        text,
+        transform=ax.transAxes,
+        ha="center",
+        va="center",
+        fontsize=fontsize,
+        color=TEXT_COLOR,
+        linespacing=1.12,
+    )
 
 
-def draw_graph_panel(ax, title, subtitle, mode):
-    ax.set_aspect("equal")
-    ax.set_xlim(-1.35, 1.35)
-    ax.set_ylim(-1.32, 1.42)
-    ax.axis("off")
-    ax.text(0, 1.31, title, ha="center", va="top", fontsize=10.5,
-            fontweight="bold")
-    ax.text(0, 1.14, subtitle, ha="center", va="top", fontsize=7.6,
-            color="#4b5563")
-
-    coords = []
-    for idx in range(8):
-        theta = math.pi / 2 - idx * math.tau / 8
-        coords.append((0.72 * math.cos(theta), 0.72 * math.sin(theta)))
-
-    edges = [
-        (0, 1), (1, 2), (2, 3), (3, 0),
-        (4, 5), (5, 6), (6, 7), (7, 4),
-        (0, 4), (1, 5), (2, 6), (3, 7),
-        (0, 5), (1, 4), (2, 7), (3, 6),
-    ]
-    sparse_missing = {(0, 5), (1, 4), (2, 6), (3, 7), (4, 5)}
-    sparse_extra = {(0, 6), (2, 4), (3, 5)}
-
-    if mode == "full":
-        edge_color = "#64748b"
-        node_color = "#e2e8f0"
-        active_edges = set(edges)
-    elif mode == "sparse":
-        edge_color = "#9ca3af"
-        node_color = "#fee2e2"
-        active_edges = set(edges) - sparse_missing
-    else:
-        edge_color = "#2563eb"
-        node_color = "#dbeafe"
-        active_edges = set(edges)
-
-    for a, b in edges:
-        xa, ya = coords[a]
-        xb, yb = coords[b]
-        if mode == "sparse" and (a, b) in sparse_missing:
-            ax.plot([xa, xb], [ya, yb], color="#ef4444", linewidth=1.0,
-                    linestyle=(0, (2, 2)), alpha=0.7, zorder=1)
-            ax.text((xa + xb) / 2, (ya + yb) / 2, "x", ha="center",
-                    va="center", fontsize=8.0, color="#b91c1c", zorder=2)
-        elif (a, b) in active_edges:
-            ax.plot([xa, xb], [ya, yb], color=edge_color, linewidth=1.25,
-                    alpha=0.9, zorder=1)
-
-    if mode == "sparse":
-        for a, b in sparse_extra:
-            xa, ya = coords[a]
-            xb, yb = coords[b]
-            ax.plot([xa, xb], [ya, yb], color="#f59e0b", linewidth=1.0,
-                    linestyle=(0, (3, 2)), alpha=0.85, zorder=1)
-
-    for idx, (x, y) in enumerate(coords, start=1):
-        ax.add_patch(Circle((x, y), 0.095, facecolor=node_color,
-                            edgecolor="#334155", linewidth=0.8, zorder=3))
-        ax.text(x, y, str(idx), ha="center", va="center", fontsize=7.0,
-                color="#111827", zorder=4)
-
-    if mode == "full":
-        draw_payload_box(
-            ax, (-1.12, -1.20), 2.24, 0.45, "Full GM-LMB label",
-            [r"$r_\ell,\{w_m,\mu_m,P_m\}_{m=1}^{M_\ell}$",
-             "all mixture components"],
-            "#f8fafc", "#64748b")
-    elif mode == "sparse":
-        ax.text(0, -1.02, "message paths are changed", ha="center",
-                va="center", fontsize=8.2, color="#991b1b", fontweight="bold")
-        ax.text(0, -1.18, "effective KLA graph can thin out", ha="center",
-                va="center", fontsize=7.6, color="#7f1d1d")
-    else:
-        draw_payload_box(
-            ax, (-1.12, -1.20), 2.24, 0.45, "Light LMB label",
-            [r"$r_\ell,\bar{\mu}_\ell,\bar{P}_\ell$",
-             "single moment-matched Gaussian"],
-            "#eff6ff", "#2563eb")
+def arrow(
+    ax: plt.Axes,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    color: str = MUTED_COLOR,
+    style: str = "-|>",
+) -> None:
+    ax.add_patch(
+        FancyArrowPatch(
+            start,
+            end,
+            arrowstyle=style,
+            mutation_scale=9,
+            linewidth=0.9,
+            color=color,
+            transform=ax.transAxes,
+            shrinkA=1,
+            shrinkB=1,
+            clip_on=False,
+        )
+    )
 
 
-def make_mechanism_figure():
-    fig, axes = plt.subplots(1, 3, figsize=(10.8, 3.25))
-    draw_graph_panel(axes[0], "Full posterior", "same graph, large payload", "full")
-    draw_graph_panel(axes[1], "Graph sparsification", "fewer or rewired paths", "sparse")
-    draw_graph_panel(axes[2], "Light posterior", "same graph, compressed payload", "light")
-
-    for left, right in [(0, 1), (1, 2)]:
-        start = axes[left].transAxes.transform((1.00, 0.54))
-        end = axes[right].transAxes.transform((0.00, 0.54))
-        inv = fig.transFigure.inverted()
-        arrow = FancyArrowPatch(
-            inv.transform(start), inv.transform(end), transform=fig.transFigure,
-            arrowstyle="-|>", mutation_scale=12, color="#6b7280", linewidth=1.0)
-        fig.add_artist(arrow)
-
-    fig.tight_layout(rect=(0.01, 0.01, 0.99, 1.0))
-    fig.savefig(FIG_DIR / "payload_graph_schematic.pdf", bbox_inches="tight")
-    fig.savefig(FIG_DIR / "payload_graph_schematic.png", dpi=220, bbox_inches="tight")
+def save_figure(fig: plt.Figure, pdf_path: Path, png_path: Path) -> None:
+    pdf_metadata = {
+        "Creator": "ICASSP evidence figure generator",
+        "Producer": "Matplotlib",
+        "CreationDate": None,
+        "ModDate": None,
+    }
+    fig.savefig(pdf_path, bbox_inches="tight", pad_inches=0.02, metadata=pdf_metadata)
+    fig.savefig(
+        png_path,
+        dpi=300,
+        bbox_inches="tight",
+        pad_inches=0.02,
+        metadata={"Software": "Matplotlib"},
+    )
     plt.close(fig)
 
 
-def make_tradeoff_figure():
-    arms = [
-        {
-            "name": "Full-static", "short": "Full\nstatic",
-            "bytes_reduction": 0.0, "consensus_delta": 0.0,
-            "local_delta": 0.0, "eff_lambda2": 0.373, "pass": "ref.",
-            "color": "#64748b",
+def make_mechanism_figure(output_dir: Path) -> None:
+    fig, ax = plt.subplots(figsize=(7.05, 2.05))
+    ax.set_axis_off()
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    input_x = 0.105
+    output_x = 0.91
+    top_y = 0.69
+    bottom_y = 0.30
+    rounded_box(
+        ax,
+        (input_x, 0.50),
+        0.17,
+        0.34,
+        "Full GM message\n" + r"$\ell, r, \{w_m,\mu_m,\Sigma_m\}$",
+        "#F1F3F5",
+        FULL_COLOR,
+        7.1,
+    )
+    rounded_box(
+        ax,
+        (0.35, top_y),
+        0.20,
+        0.22,
+        "Receiver-side projection\n" + r"$\mathcal{P}$",
+        "#EAF3FA",
+        MOMENT_COLOR,
+        7.4,
+    )
+    rounded_box(
+        ax,
+        (0.62, top_y),
+        0.18,
+        0.22,
+        "Projected fusion\n" + r"$\mathcal{G}_{\omega}$",
+        "#F1ECF8",
+        FUSION_COLOR,
+        7.4,
+    )
+    rounded_box(
+        ax,
+        (0.31, bottom_y),
+        0.19,
+        0.22,
+        "Sender-side projection\n" + r"$\mathcal{P}$",
+        "#EAF3FA",
+        MOMENT_COLOR,
+        7.4,
+    )
+    rounded_box(
+        ax,
+        (0.54, bottom_y),
+        0.20,
+        0.22,
+        "Fusion-sufficient moment\n" + r"encode $\rightarrow$ decode",
+        "#FFF4DF",
+        WIRE_COLOR,
+        7.1,
+    )
+    rounded_box(
+        ax,
+        (0.75, bottom_y),
+        0.14,
+        0.22,
+        "Projected fusion\n" + r"$\mathcal{G}_{\omega}$",
+        "#F1ECF8",
+        FUSION_COLOR,
+        7.2,
+    )
+    rounded_box(
+        ax,
+        (output_x, 0.50),
+        0.13,
+        0.34,
+        "Same fused\noutput",
+        "#EAF5F0",
+        OUTPUT_COLOR,
+        7.5,
+    )
+
+    arrow(ax, (0.19, 0.56), (0.25, top_y))
+    arrow(ax, (0.19, 0.44), (0.215, bottom_y))
+    arrow(ax, (0.45, top_y), (0.53, top_y))
+    arrow(ax, (0.71, top_y), (0.845, 0.57))
+    arrow(ax, (0.405, bottom_y), (0.44, bottom_y))
+    arrow(ax, (0.64, bottom_y), (0.68, bottom_y))
+    arrow(ax, (0.82, bottom_y), (0.845, 0.43))
+
+    ax.text(0.91, 0.82, r"$\mathcal{F}(X)=\mathcal{F}(\mathcal{P}X)$", ha="center",
+            va="center", transform=ax.transAxes, color=OUTPUT_COLOR,
+            fontsize=8.0, fontweight="bold")
+    ax.text(
+        0.50,
+        0.01,
+        "Same labels, weights, schedule, delivery masks, and canonical projection; no quantization or covariance inflation.",
+        ha="center",
+        va="bottom",
+        transform=ax.transAxes,
+        color=MUTED_COLOR,
+        fontsize=6.5,
+    )
+
+    save_figure(
+        fig,
+        output_dir / "payload_graph_schematic.pdf",
+        output_dir / "payload_graph_schematic.png",
+    )
+
+
+def draw_audit_row(ax: plt.Axes, y: float, label: str, value: str) -> None:
+    ax.add_patch(Circle((0.06, y), 0.025, transform=ax.transAxes,
+                        facecolor="#DFF1E8", edgecolor=OUTPUT_COLOR, linewidth=0.8))
+    ax.text(0.06, y, "OK", transform=ax.transAxes, ha="center", va="center",
+            color=OUTPUT_COLOR, fontsize=5.5, fontweight="bold")
+    ax.text(0.12, y, label, transform=ax.transAxes, ha="left", va="center",
+            color=TEXT_COLOR, fontsize=6.5)
+    ax.text(0.97, y, value, transform=ax.transAxes, ha="right", va="center",
+            color=TEXT_COLOR, fontsize=6.3, fontweight="bold")
+    ax.plot([0.12, 0.97], [y - 0.055, y - 0.055], transform=ax.transAxes,
+            color="#E8ECEF", linewidth=0.55)
+
+
+def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
+    seeds = evidence["seeds"]
+    attempted = evidence["attempted_reduction"]
+    mean_attempted = float(evidence["mean_attempted"])
+    ci_low = float(evidence["ci_low"])
+    ci_high = float(evidence["ci_high"])
+
+    fig, (ax, audit) = plt.subplots(
+        1,
+        2,
+        figsize=(7.05, 2.55),
+        gridspec_kw={"width_ratios": [1.22, 1.0], "wspace": 0.32},
+    )
+
+    ax.fill_between([seeds[0], seeds[-1]], ci_low, ci_high,
+                    color="#D9EAF5", alpha=0.9, linewidth=0, label="95% bootstrap CI")
+    ax.plot(seeds, attempted, color=MOMENT_COLOR, linewidth=0.9,
+            marker="o", markersize=2.4, markeredgewidth=0,
+            label="Attempted")
+    ax.axhline(mean_attempted, color="#174A6E", linewidth=1.0, linestyle="--")
+    ax.text(
+        0.985,
+        0.97,
+        f"mean 58.28%\n95% CI [{ci_low:.2f}, {ci_high:.2f}]%",
+        transform=ax.transAxes,
+        ha="right",
+        va="top",
+        fontsize=6.9,
+        color="#174A6E",
+    )
+    ax.set_xlim(seeds[0] - 1, seeds[-1] + 1)
+    ax.set_ylim(54.8, 62.2)
+    ax.set_xticks([82, 90, 100, 110, 120, 131])
+    ax.set_xlabel("Paired confirmatory seed")
+    ax.set_ylabel("Application-layer byte reduction (%)")
+    ax.grid(axis="y", color=GRID_COLOR, linewidth=0.55)
+    ax.set_title("a  Per-seed communication reduction", loc="left", fontweight="bold")
+
+    audit.set_axis_off()
+    audit.set_title("b  Exact output-equivalence audit", loc="left", fontweight="bold")
+    audit.text(
+        0.0,
+        0.92,
+        f"{int(evidence['total_snapshots']):,} snapshots  |  "
+        f"{int(evidence['total_comparisons']):,} label comparisons",
+        transform=audit.transAxes,
+        ha="left",
+        va="center",
+        color=MUTED_COLOR,
+        fontsize=6.9,
+    )
+    rows = (
+        ("Existence probability $r$", r"max $|\Delta|=0$"),
+        (r"State mean $\mu$", r"max $|\Delta|=0$"),
+        (r"State covariance $\Sigma$", r"max $|\Delta|=0$"),
+        ("Tracking/consensus metrics", r"max $|\Delta|=0$"),
+        ("Attempted/delivered masks", "50/50 equal"),
+    )
+    for y, (label, value) in zip((0.78, 0.64, 0.50, 0.36, 0.22), rows):
+        draw_audit_row(audit, y, label, value)
+    audit.text(
+        0.50,
+        0.06,
+        "Full GM and fusion-sufficient moment messages produce identical projected fusion outputs.",
+        transform=audit.transAxes,
+        ha="center",
+        va="center",
+        color=OUTPUT_COLOR,
+        fontsize=6.7,
+        fontweight="bold",
+        wrap=True,
+    )
+
+    save_figure(
+        fig,
+        output_dir / "heldout_tradeoff.pdf",
+        output_dir / "heldout_tradeoff.png",
+    )
+
+
+def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
+    evidence_path = Path(evidence["evidence_path"])
+    report_path = Path(evidence["report_path"])
+    max_state_residual = max(float(value) for value in evidence["max_deltas"].values())
+    outputs = {
+        name: {"sha256": sha256(output_dir / name), "bytes": (output_dir / name).stat().st_size}
+        for name in FIGURE_NAMES
+    }
+    manifest = {
+        "schema": "icassp2027-figure-manifest-v1",
+        "backend": "python-matplotlib",
+        "contract": {
+            "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
+            "figure_2": "Every paired seed reduces application-layer bytes while all audited outputs remain exact.",
         },
-        {
-            "name": "Full-dynamic", "short": "Full\ndynamic",
-            "bytes_reduction": -6.1, "consensus_delta": 11.1,
-            "local_delta": 4.1, "eff_lambda2": 0.301, "pass": "0/50",
-            "color": "#ef4444",
+        "evidence": {
+            "path": stable_path(evidence_path),
+            "sha256": sha256(evidence_path),
+            "report_path": stable_path(report_path),
+            "report_sha256": sha256(report_path),
+            "row_count": len(evidence["rows"]),
+            "seed_interval": [evidence["seeds"][0], evidence["seeds"][-1]],
         },
-        {
-            "name": "Light-static", "short": "Light\nstatic",
-            "bytes_reduction": 58.6, "consensus_delta": 0.0,
-            "local_delta": 0.0, "eff_lambda2": 0.373, "pass": "50/50",
-            "color": "#2563eb",
+        "generator_sha256": sha256(Path(__file__)),
+        "summary": {
+            "mean_attempted_reduction_percent": evidence["mean_attempted"],
+            "bootstrap_ci_percent": [evidence["ci_low"], evidence["ci_high"]],
+            "all_exact_match": True,
+            "all_masks_equal": True,
+            "max_state_residual": max_state_residual,
+            "total_snapshots": evidence["total_snapshots"],
+            "total_label_comparisons": evidence["total_comparisons"],
         },
-        {
-            "name": "Light-dynamic", "short": "Light\ndynamic",
-            "bytes_reduction": 58.3, "consensus_delta": 0.7,
-            "local_delta": 0.1, "eff_lambda2": 0.371, "pass": "35/50",
-            "color": "#f59e0b",
-        },
-    ]
-
-    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.75))
-
-    ax = axes[0]
-    x = list(range(len(arms)))
-    bars = ax.bar(x, [a["bytes_reduction"] for a in arms],
-                  color=[a["color"] for a in arms], width=0.64)
-    ax.axhline(30, color="#16a34a", linewidth=1.0, linestyle="--", alpha=0.75)
-    ax.axhline(0, color="#111827", linewidth=0.7)
-    ax.text(3.45, 30, "30% gate", ha="right", va="bottom",
-            fontsize=7.2, color="#166534")
-    ax.set_ylabel("Bytes reduction (%)", fontsize=8.5)
-    ax.set_xticks(x)
-    ax.set_xticklabels([a["short"] for a in arms], fontsize=7.5)
-    ax.set_ylim(-12, 66)
-    ax.grid(axis="y", color="#e5e7eb", linewidth=0.7)
-    ax.set_title("Payload saving", fontsize=9.5, fontweight="bold")
-    for rect, arm in zip(bars, arms):
-        y = rect.get_height()
-        va = "bottom" if y >= 0 else "top"
-        offset = 1.5 if y >= 0 else -1.5
-        ax.text(rect.get_x() + rect.get_width() / 2, y + offset,
-                f"{y:.1f}%", ha="center", va=va, fontsize=7.0)
-
-    ax = axes[1]
-    ax.axvspan(30, 65, ymin=0, ymax=10 / 26, facecolor="#dcfce7",
-               alpha=0.65, zorder=0)
-    ax.axhline(10, color="#dc2626", linewidth=1.0, linestyle="--", alpha=0.8)
-    ax.axvline(30, color="#16a34a", linewidth=1.0, linestyle="--", alpha=0.8)
-    for arm in arms:
-        size = 72 + 420 * max(arm["eff_lambda2"], 0.0)
-        marker = "*" if arm["name"] == "Light-static" else "o"
-        ax.scatter(arm["bytes_reduction"], arm["consensus_delta"], s=size,
-                   color=arm["color"], edgecolor="white", linewidth=0.9,
-                   marker=marker, zorder=3)
-        label = arm["name"].replace("-", "\n")
-        dx, dy = {
-            "Full-static": (2.0, 0.8),
-            "Full-dynamic": (1.0, -2.6),
-            "Light-static": (-17.5, 1.0),
-            "Light-dynamic": (-18.5, 2.6),
-        }[arm["name"]]
-        ax.text(arm["bytes_reduction"] + dx, arm["consensus_delta"] + dy,
-                label, fontsize=6.8, color="#111827")
-    ax.text(63, 10, "10% consensus gate", ha="right", va="bottom",
-            fontsize=7.0, color="#991b1b")
-    ax.text(48, 24.2, "green region: communication\nand consensus gate",
-            ha="center", va="top", fontsize=7.0, color="#166534")
-    ax.set_xlim(-12, 66)
-    ax.set_ylim(-1.5, 26)
-    ax.set_xlabel("Bytes reduction (%)", fontsize=8.5)
-    ax.set_ylabel("Consensus OSPA change (%)", fontsize=8.5)
-    ax.grid(color="#e5e7eb", linewidth=0.7)
-    ax.set_title("Held-out trade-off", fontsize=9.5, fontweight="bold")
-    ax.text(63, -0.9, r"star: selected; size $\propto\lambda_2^{eff}$",
-            ha="right", va="bottom", fontsize=6.8, color="#475569")
-
-    fig.tight_layout(w_pad=1.0)
-    fig.savefig(FIG_DIR / "heldout_tradeoff.pdf", bbox_inches="tight")
-    fig.savefig(FIG_DIR / "heldout_tradeoff.png", dpi=220, bbox_inches="tight")
-    plt.close(fig)
+        "outputs": outputs,
+    }
+    (output_dir / "figure_manifest.json").write_text(
+        json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
 
 
-def main():
-    FIG_DIR.mkdir(parents=True, exist_ok=True)
-    plt.rcParams.update({
-        "font.family": "DejaVu Sans",
-        "mathtext.fontset": "dejavusans",
-        "pdf.fonttype": 42,
-        "ps.fonttype": 42,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-    })
-    make_mechanism_figure()
-    make_tradeoff_figure()
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--evidence", type=Path, default=DEFAULT_EVIDENCE)
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    configure_matplotlib()
+    evidence = load_evidence(args.evidence)
+    output_dir = args.output_dir.resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    make_mechanism_figure(output_dir)
+    make_evidence_figure(output_dir, evidence)
+    write_manifest(output_dir, evidence)
 
 
 if __name__ == "__main__":
