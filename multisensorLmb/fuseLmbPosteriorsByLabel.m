@@ -49,22 +49,30 @@ for labelIdx = 1:size(labels, 2)
     canonicalH = zeros(model.xDimension, 1);
     canonicalG = 0;
     for sourceIdx = find(present)
-        [mu, covariance] = momentMatch( ...
+        [mu, covariance] = projectLmbObjectMoments( ...
             localObjects{sourceIdx}, model.xDimension);
-        covariance = regularizeCovariance(covariance);
-        precision = activeSpatialWeights(sourceIdx) * inv(covariance);
+        [covariance, ~, covarianceFactor] = ...
+            regularizeCovarianceForSolve(covariance);
+        inverseCovariance = solveFromCholesky( ...
+            covarianceFactor, eye(model.xDimension));
+        precision = activeSpatialWeights(sourceIdx) * inverseCovariance;
         canonicalK = canonicalK + precision;
         canonicalH = canonicalH + precision * mu;
         canonicalG = canonicalG - ...
             0.5 * mu' * precision * mu - ...
             0.5 * activeSpatialWeights(sourceIdx) * ...
-            logDet(2 * pi * covariance);
+            gaussianLogNormalizer(covarianceFactor);
     end
-    fusedCovariance = regularizeCovariance(inv(canonicalK));
-    fusedMean = fusedCovariance * canonicalH;
+    [canonicalK, ~, canonicalFactor] = ...
+        regularizeCovarianceForSolve(canonicalK);
+    fusedCovariance = solveFromCholesky( ...
+        canonicalFactor, eye(model.xDimension));
+    [fusedCovariance, ~, fusedCovarianceFactor] = ...
+        regularizeCovarianceForSolve(fusedCovariance);
+    fusedMean = solveFromCholesky(canonicalFactor, canonicalH);
     eta = exp(canonicalG + ...
         0.5 * fusedMean' * canonicalK * fusedMean + ...
-        0.5 * logDet(2 * pi * fusedCovariance));
+        0.5 * gaussianLogNormalizer(fusedCovarianceFactor));
 
     numerator = eta;
     denominatorAbsent = 1;
@@ -128,39 +136,14 @@ for idx = 1:numel(objects)
 end
 end
 
-function [mu, covariance] = momentMatch(object, stateDimension)
-weights = reshape(object.w, 1, []);
-weights(~isfinite(weights)) = 0;
-weights = max(weights, 0);
-weights = weights / max(sum(weights), eps);
-mu = zeros(stateDimension, 1);
-for componentIdx = 1:object.numberOfGmComponents
-    mu = mu + weights(componentIdx) * object.mu{componentIdx};
-end
-covariance = zeros(stateDimension);
-for componentIdx = 1:object.numberOfGmComponents
-    delta = object.mu{componentIdx} - mu;
-    covariance = covariance + weights(componentIdx) * ...
-        (object.Sigma{componentIdx} + delta * delta');
-end
-covariance = regularizeCovariance(covariance);
+function solution = solveFromCholesky(choleskyFactor, rightHandSide)
+solution = choleskyFactor \ (choleskyFactor' \ rightHandSide);
 end
 
-function covariance = regularizeCovariance(covariance)
-covariance = (covariance + covariance') / 2;
-if rcond(covariance) < 1e-12
-    covariance = covariance + 1e-9 * eye(size(covariance));
-end
-end
-
-function value = logDet(matrix)
-matrix = regularizeCovariance(matrix);
-[factor, flag] = chol(matrix);
-if flag == 0
-    value = 2 * sum(log(diag(factor)));
-else
-    value = log(max(det(matrix), realmin));
-end
+function value = gaussianLogNormalizer(choleskyFactor)
+dimension = size(choleskyFactor, 1);
+value = dimension * log(2 * pi) + ...
+    2 * sum(log(diag(choleskyFactor)));
 end
 
 function probability = clampProbability(probability)

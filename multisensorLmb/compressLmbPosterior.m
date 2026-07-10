@@ -20,7 +20,8 @@ active = [objects.r] > existenceThreshold & ...
     [objects.numberOfGmComponents] > 0;
 compressedObjects = objects(active);
 for idx = 1:numel(compressedObjects)
-    [mu, Sigma] = momentMatchObject(compressedObjects(idx), model.xDimension);
+    [mu, Sigma] = projectLmbObjectMoments( ...
+        compressedObjects(idx), model.xDimension);
     Sigma = inflateLightCovariance( ...
         Sigma, compressedObjects(idx), compressionConfig, diagnostics);
     compressedObjects(idx).numberOfGmComponents = 1;
@@ -28,30 +29,6 @@ for idx = 1:numel(compressedObjects)
     compressedObjects(idx).mu = {mu};
     compressedObjects(idx).Sigma = {Sigma};
 end
-end
-
-function [mu, Sigma] = momentMatchObject(object, stateDimension)
-weights = reshape(object.w, 1, []);
-weights(~isfinite(weights)) = 0;
-weights = max(weights, 0);
-if sum(weights) <= 0
-    weights = ones(size(weights)) / max(numel(weights), 1);
-else
-    weights = weights / sum(weights);
-end
-
-mu = zeros(stateDimension, 1);
-for componentIdx = 1:object.numberOfGmComponents
-    mu = mu + weights(componentIdx) * object.mu{componentIdx};
-end
-
-Sigma = zeros(stateDimension, stateDimension);
-for componentIdx = 1:object.numberOfGmComponents
-    delta = object.mu{componentIdx} - mu;
-    Sigma = Sigma + weights(componentIdx) * ...
-        (object.Sigma{componentIdx} + delta * delta');
-end
-Sigma = regularizeCovariance(Sigma);
 end
 
 function Sigma = inflateLightCovariance( ...
@@ -75,7 +52,8 @@ inflation = baseInflation + ...
 if inflation <= 0
     return;
 end
-Sigma = regularizeCovariance(Sigma + inflation * eye(size(Sigma)));
+Sigma = Sigma + inflation * eye(size(Sigma));
+Sigma = (Sigma + Sigma') / 2;
 end
 
 function value = normalizedMixtureEntropy(object)
@@ -95,16 +73,6 @@ end
 weights = weights(weights > 0);
 entropy = -sum(weights .* log(weights));
 value = min(max(entropy / log(componentCount), 0), 1);
-end
-
-function covariance = regularizeCovariance(covariance)
-covariance = (covariance + covariance') / 2;
-if isempty(covariance)
-    return;
-end
-if rcond(covariance) < 1e-12
-    covariance = covariance + 1e-9 * eye(size(covariance));
-end
 end
 
 function value = clamp01(value)
