@@ -1,78 +1,119 @@
-\section{Light Posterior Exchange}
+\section{Fusion-Sufficient Moment Exchange}
 \label{sec:method}
 
-\subsection{Distributed LMB Fusion Baseline}
+\subsection{Label-Wise Moment Projection}
 
-At time $k$, sensor $i$ maintains an LMB posterior
+At time $k$, source $j$ maintains an LMB posterior
 \begin{equation}
-    \pi_i = \{(r_i^\ell, p_i^\ell(x)):\ell\in\mathcal{L}_i\},
+\begin{split}
+    \pi_j &= \{(r_j^\ell,p_j^\ell):\ell\in\mathcal L_j\},\\
+    p_j^\ell(x)&=\sum_{m=1}^{M_j^\ell}w_{jm}^\ell
+    \mathcal N(x;m_{jm}^\ell,P_{jm}^\ell).
+\end{split}
+    \label{eq:lmb-gm}
 \end{equation}
-where $r_i^\ell$ is the existence probability of label $\ell$ and
-$p_i^\ell(x)$ is represented by a Gaussian mixture. In the full-posterior
-baseline, each node periodically sends its complete GM-LMB posterior to every
-neighbor in a fixed communication graph. After packet drops are realized, each
-receiver aligns common labels and applies a single synchronous KLA-style
-fusion step with the same fusion weights for all compared variants.
-
-For a receiver $i$ and the delivered neighbor set $\mathcal{N}_i(k)$, the
-fusion step can be written abstractly as
+For normalized $w_{jm}^\ell$, define the label-wise projection $\mathcal P$ by
 \begin{equation}
-    \bar{\pi}_i \propto
-    \pi_i^{\omega_{ii}}
-    \prod_{j\in\mathcal{N}_i(k)}
-    \pi_{j}^{\omega_{ij}},
-    \qquad
-    \sum_{j\in\mathcal{N}_i(k)\cup\{i\}}\omega_{ij}=1 .
+ \mathcal P(\pi_j)=\{(r_j^\ell,\mathcal N(\mu_j^\ell,\Sigma_j^\ell))\}_\ell,
+ \quad \mu_j^\ell=\sum_m w_{jm}^\ell m_{jm}^\ell,
+ \label{eq:projection}
 \end{equation}
-The implementation aligns labels and moment-matches components inside the LMB
-fusion path. Thus full Gaussian-mixture transmission can be redundant: the
-receiver does not preserve arbitrary mixture structure after the single-round
-fusion update.
-
-\subsection{Light Posterior Message}
-
-The proposed message keeps the Bernoulli label set and existence probabilities
-but replaces each transmitted mixture density with a single moment-matched
-Gaussian. For a label density
 \begin{equation}
-    p_i^\ell(x)=\sum_{m=1}^{M_i^\ell} w_{im}^\ell
-    \mathcal{N}(x;m_{im}^\ell,P_{im}^\ell),
+ \Sigma_j^\ell=\sum_m w_{jm}^\ell\!\left[P_{jm}^\ell+
+ (m_{jm}^\ell-\mu_j^\ell)(m_{jm}^\ell-\mu_j^\ell)^\top\right].
+ \label{eq:covariance}
 \end{equation}
-the light posterior sends
+This keeps the label and existence probability and replaces the mixture by the
+Gaussian with identical first two moments. The projection is idempotent:
+$\mathcal P(\mathcal P(\pi))=\mathcal P(\pi)$.
+
+\subsection{The Projected Gaussian KLA-LMB Receiver}
+
+Receiver $i$ first applies $\mathcal P$ to every delivered source, aligns the
+union of labels, and then fuses one Gaussian per label. Let
+$\mathcal S_i^\ell$ contain self and delivered neighbors carrying label
+$\ell$. Let $\alpha_{ij}$ and $\beta_{ij}$ be the spatial and existence
+weights. Missing-label renormalization gives
 \begin{equation}
-    \tilde{p}_i^\ell(x)=
-    \mathcal{N}(x;\bar{m}_i^\ell,\bar{P}_i^\ell),
+ a_{ij}^\ell=\frac{\alpha_{ij}}{\sum_{q\in\mathcal S_i^\ell}\alpha_{iq}},
+ \qquad
+ b_{ij}^\ell=\frac{\beta_{ij}}{\sum_{q\in\mathcal S_i^\ell}\beta_{iq}}.
+ \label{eq:active-weights}
 \end{equation}
-with
-\begin{align}
-    \bar{m}_i^\ell &=
-    \sum_m w_{im}^\ell m_{im}^\ell,\\
-    \bar{P}_i^\ell &=
-    \sum_m w_{im}^\ell
-    \left(P_{im}^\ell+
-    (m_{im}^\ell-\bar{m}_i^\ell)
-    (m_{im}^\ell-\bar{m}_i^\ell)^\top\right).
-\end{align}
-Thus a light message contains the label, existence probability, single mean,
-single covariance, and minimal bookkeeping metadata. It does not change the
-local prediction, measurement update, label pruning, fusion weights, packet
-drop model, or neighbor schedule. Only the transmitted posterior
-representation changes.
+The Gaussian canonical parameters are
+\begin{equation}
+\begin{split}
+ K_i^\ell&=\sum_{j\in\mathcal S_i^\ell}a_{ij}^\ell(\Sigma_j^\ell)^{-1},
+ \quad h_i^\ell=\sum_j a_{ij}^\ell(\Sigma_j^\ell)^{-1}\mu_j^\ell,\\
+ \bar\Sigma_i^\ell&=(K_i^\ell)^{-1},\qquad
+ \bar\mu_i^\ell=\bar\Sigma_i^\ell h_i^\ell.
+\end{split}
+ \label{eq:gaussian-fusion}
+\end{equation}
+Define the Gaussian overlap by
+\begin{equation}
+\begin{split}
+ \eta_i^\ell&=\int \varphi_i^\ell(x)\,dx,\\
+ \varphi_i^\ell(x)&=\prod_{j\in\mathcal S_i^\ell}
+ \mathcal N(x;\mu_j^\ell,\Sigma_j^\ell)^{a_{ij}^\ell}.
+\end{split}
+ \label{eq:gaussian-overlap}
+\end{equation}
+The Bernoulli terms are
+\begin{equation}
+ q_1^\ell=\eta_i^\ell\prod_j(r_j^\ell)^{b_{ij}^\ell},\quad
+ q_0^\ell=\prod_j(1-r_j^\ell)^{b_{ij}^\ell},\quad
+ \bar r_i^\ell=\frac{q_1^\ell}{q_0^\ell+q_1^\ell}.
+ \label{eq:existence-fusion}
+\end{equation}
+where all products in Eq.~\eqref{eq:existence-fusion} are over
+$j\in\mathcal S_i^\ell$.
+The implementation clamps each $r_j^\ell$ to $[10^{-9},1-10^{-9}]$ and
+lower-bounds $q_0^\ell+q_1^\ell$ by machine epsilon; both paths use the same
+guards.
+Denote Eqs.~\eqref{eq:gaussian-fusion}--\eqref{eq:existence-fusion} by
+$\mathcal G_\omega$, where $\omega=(\alpha,\beta)$, and the receiver by
+$\mathcal F_\omega=\mathcal G_\omega\circ\mathcal P$.
 
-\subsection{Graph Preservation and Diagnostics}
+\textbf{Proposition 1 (fusion-output equivalence).}
+For each source, assume identical active-label presence after selection and
+pruning; identical message-type-independent spatial and existence weights;
+identical delivery masks; common projection and covariance regularization;
+disabled covariance inflation; and a common lossless codec. Then
+\begin{equation}
+ \mathcal F_\omega(\pi_1,\ldots,\pi_n)=
+ \mathcal F_\omega(\mathcal P\pi_1,\ldots,\mathcal P\pi_n).
+ \label{eq:commutation}
+\end{equation}
+\emph{Proof.} Projection preserves each source-label's $r$, $\mu$, and
+$\Sigma$ and does not change its presence in $\mathcal S_i^\ell$. Hence the
+renormalized $a_{ij}^\ell,b_{ij}^\ell$, canonical $K_i^\ell,h_i^\ell$,
+overlap $\eta_i^\ell$, and Bernoulli terms $q_0^\ell,q_1^\ell$ are unchanged.
+The common codec and covariance regularizer therefore produce the same
+$\bar r_i^\ell,\bar\mu_i^\ell,\bar\Sigma_i^\ell$. Equivalently,
+$\mathcal G_\omega\circ\mathcal P\circ\mathcal P=
+\mathcal G_\omega\circ\mathcal P$ by idempotence. $\square$
 
-The communication policy is intentionally conservative. The main method sends
-light posteriors periodically over the same static topology used by the
-full-posterior baseline. This isolates payload compression from graph
-sparsification: if performance changes, the cause is posterior summarization,
-not missing message paths.
+We call $\mathcal P(\pi)$ \emph{fusion-sufficient} only with respect to this
+$\mathcal F_\omega$: messages in the same equivalence class yield the same
+fusion output. Equation~\eqref{eq:commutation} does not imply equal posterior
+densities. It need not hold if a receiver preserves mixture modes, adapts
+weights from higher-order structure, uses different projection regularization,
+or reuses a compressed result in a multi-round algorithm.
 
-To verify this separation, we report effective-fusion-graph diagnostics in
-addition to tracking metrics. The attempted graph records scheduled neighbor
-messages, the delivered graph records successful transmissions, and the
-effective-weight graph records nonzero neighbor mass that actually enters the
-KLA update. We summarize each graph by the algebraic connectivity of its
-symmetrized adjacency or weight matrix. We also track label-level stale age and
-the total fusion weight assigned to self, light, and full posterior messages.
-The target behavior for a safe compression method is therefore not only low
-bytes, but also an effective-weight graph close to the full-posterior baseline.
+\subsection{Typed Message and Byte Accounting}
+
+Both arms use the same versioned, little-endian binary codec: a 24-byte message
+header, a 20-byte label header, and binary64 component fields for weight, mean,
+and the upper covariance triangle. For state dimension $d$, a message with
+$M_\ell$ components per label has
+\begin{equation}
+ B=24+\sum_{\ell}\left[20+8M_\ell
+ \left(1+d+\frac{d(d+1)}{2}\right)\right]\ \text{bytes}.
+ \label{eq:wire-bytes}
+\end{equation}
+The full message retains every $M_\ell$ in Eq.~\eqref{eq:lmb-gm}; the proposed
+message sets $M_\ell=1$ using Eqs.~\eqref{eq:projection}--\eqref{eq:covariance}.
+Attempted bytes are counted after encoding and before the drop draw; delivered
+bytes count messages decoded after successful delivery. No other tracker
+variable, scheduling decision, or fusion parameter changes.

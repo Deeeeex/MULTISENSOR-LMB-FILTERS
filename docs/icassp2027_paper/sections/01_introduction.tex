@@ -9,33 +9,31 @@ posterior \cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Their communication
 cost can be high: each transmitted LMB posterior may contain many labels and
 multiple Gaussian components per label.
 
-Most communication-saving designs reduce how often nodes communicate or which
-neighbors they contact. That can be risky for conservative fusion rules such as
-covariance intersection and Kullback-Leibler average (KLA) fusion
-\cite{JulierUhlmann1997CI,Battistelli2014KLA}. The relevant object is not only
-the nominal graph, but the effective graph of posterior messages that actually
-enter the fusion step. Sparsifying this graph can reduce bytes while degrading
-consensus and label agreement.
+Communication-aware RFS trackers commonly reduce transmission frequency,
+select mixture components, or project state estimates before exchange
+\cite{Shen2022EventTriggeredLMB,Shen2023AdaptiveEventTriggeredLMB,
+Shen2024IntegralEventLMB,Li2019PartialConsensusGMPHD,
+Xue2026StateCovProjection}. These methods change when estimates are sent,
+which mixture terms are shared, or how compact estimates are formed. Our
+question is different: for a fixed receiver, which transmitted fields can
+affect its output at all?
 
-This paper instead keeps the effective graph intact and compresses the payload.
-The observation is simple: in our single-round GA/KLA-LMB fusion path, incoming
-components are aligned by label and reduced to Bernoulli moments before fusion.
-When the receiver consumes those moments, transmitting every mixture component
-can be unnecessary. We therefore send a light posterior containing each active
-label's existence probability, moment-matched mean, and moment-matched
-covariance over the same static communication graph used by the full-posterior
-baseline.
+We answer that question for a single-round projected Gaussian KLA-LMB receiver.
+Its implementation aligns labels, projects each Gaussian-mixture Bernoulli to
+existence, mean, and covariance, and only then performs canonical Gaussian
+fusion. Writing the receiver as
+$\mathcal F_\omega=\mathcal G_\omega\circ\mathcal P$ exposes an operator
+identity: idempotence of $\mathcal P$ gives
+$\mathcal F_\omega=\mathcal F_\omega\circ\mathcal P$. Hence the sender may
+transmit $\mathcal P(\pi)$ instead of the full mixture without changing this
+receiver's fusion output. Figure~\ref{fig:receiver-factorization} illustrates
+the commuting paths.
 
-Over 50 held-out trials on an eight-sensor 4+4 formation benchmark, this
-periodic light-posterior exchange reduces estimated communication by 58.6\%
-while matching full-posterior exchange in local E-OSPA, consensus OSPA,
-position disagreement, cardinality dispersion, and effective-weight graph
-connectivity. Dynamic-topology variants are less stable, supporting the paper's
-central design rule: preserve information paths first, then compress posterior
-payloads.
-
-Our contributions are a graph-preserving light posterior exchange protocol for
-distributed LMB fusion, an effective-fusion-graph perspective that separates
-payload compression from message-path sparsification, and a held-out 50-trial
-validation showing full-posterior-equivalent behavior with about 58\% lower
-estimated communication.
+Our contributions are threefold. First, we formalize this receiver-induced
+message interface and state the exact conditions under which sender-side moment
+projection preserves the fusion output. Second, we implement a typed binary
+codec and measure the resulting full GM and fusion-sufficient moment messages
+at the same application-layer boundary. Third, a frozen 50-trial paired evaluation shows a
+58.28\% mean reduction in attempted bytes, with zero residual across 1,119,037
+label-level fusion comparisons. We claim neither equality of the underlying
+mixture densities nor sufficiency for a mixture-aware or multi-round receiver.

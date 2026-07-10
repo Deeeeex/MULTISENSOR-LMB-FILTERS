@@ -2,37 +2,42 @@
 
 ## Working title
 
-Light Posterior Exchange for Communication-Efficient Distributed LMB Fusion
+Fusion-Sufficient Moment Exchange for Distributed Projected KLA-LMB Tracking
 
 ## One-sentence claim
 
-For single-round distributed GA/KLA-LMB fusion, preserving the effective fusion graph while replacing full Gaussian-mixture LMB messages with label-wise moment-matched light posteriors can cut communication by about 58% without measurable tracking or consensus loss in the validated 4+4 multisensor formation benchmark.
+For the specified single-round projected Gaussian KLA-LMB receiver, sender-side per-label moment projection commutes with receiver fusion, yielding identical fusion outputs while reducing attempted application-layer bytes by 58.28% over 50 paired confirmatory trials.
 
 ## Core story
 
-The original event-triggered branch showed that saving bytes by dropping messages is fragile: sparse triggering and dynamic topology can break the effective information-flow graph that KLA fusion needs, even when the nominal communication graph remains connected. The later held-out experiments point to a simpler and cleaner contribution. The receiver-side fusion path already consumes label-wise moment-matched Bernoulli statistics, so transmitting every Gaussian-mixture component is often unnecessary. A periodic light-posterior backbone keeps the KLA graph intact and compresses the payload instead of sparsifying the graph.
+The contribution is an operator-induced interface, not a new KLA algorithm and not a generic compression heuristic. The receiver studied here is
 
-The paper should therefore frame the method as payload compression under graph preservation, not as a final dual-threshold event-triggered policy. Dynamic topology, mixed payload, and event-triggered variants are useful as diagnostics and ablations, but the main positive result is the static periodic light-posterior exchange.
+`F_omega = G_omega o P`,
+
+where `P` performs label-wise moment projection and `G_omega` performs the implemented projected Gaussian KLA-LMB fusion. Under matched source-label presence, spatial/existence weights, delivery masks, and numerical conventions, `P` preserves every input to `K`, `h`, `eta`, `q0`, and `q1`; idempotence then gives `F_omega = F_omega o P`. Moving `P` to the sender therefore removes mixture structure that cannot affect this receiver's output. A shared versioned codec makes the communication comparison real rather than a scalar-count estimate.
 
 ## Evidence to foreground
 
-- Held-out 50-trial result, seeds 32-81, 100 steps.
-- Periodic full posterior baseline: 27,771,195 estimated bytes, local E-OSPA 2.0652, consensus OSPA 1.9501, effective-weight lambda2 0.373.
-- Periodic light posterior on static topology: 11,503,339 estimated bytes, 58.6% byte reduction, unchanged local E-OSPA, consensus OSPA, position disagreement, cardinality dispersion, and effective-weight lambda2 0.373; 50/50 pass rate.
-- Periodic full posterior plus dynamic topology increases communication by 6.1% and degrades consensus OSPA by 11.1%, showing topology adaptation alone is not the answer.
-- Periodic light posterior plus guarded dynamic topology still reduces bytes by 58.3%, but pass rate drops to 35/50, so graph-preserving static light exchange is the safer mainline.
+- Frozen paired confirmatory run: 50 trials, seeds 82--131, 100 steps, 8 receivers.
+- Mean per-trial attempted application-layer byte reduction: 58.277264%; paired percentile-bootstrap 95% interval [57.923222, 58.636095]%; minimum 55.921689%.
+- Mean delivered-byte reduction: 58.267212%.
+- Attempted totals, full/moment: 1,254,185,200 / 522,888,880 bytes. Delivered totals: 1,004,548,968 / 418,898,448 bytes.
+- Exact audit: 40,000 paired sensor-time snapshot comparisons, 1,119,037 matched label-instance comparisons, no label mismatch, and zero maximum residual in existence, mean, covariance, or tracking metrics.
 
 ## Claims to avoid
 
-- Do not claim the final method is event-triggered sparse communication.
-- Do not claim dynamic topology is the primary contribution.
-- Do not claim full GM-LMB heavy messages improve the current single-round fusion result.
-- Do not claim mixed label-wise payload is necessary for the current result; treat it as a later compression ablation if used.
+- Do not claim general Gaussian-mixture KLA density equivalence.
+- Do not call the moment message "minimal" or invoke Fisher--Neyman sufficiency.
+- Do not claim radio, network, latency, or energy savings from application-layer bytes.
+- Do not claim equivalence under quantization, covariance inflation, a different projection convention, mixture-aware fusion, or multi-round reuse.
+- Do not use "light posterior," "held-out," "effective graph," dynamic-topology diagnostics, or safety language in the main story.
+- Do not claim to be the first state/covariance projection method; the novelty is that the receiver operator induces the message and an exact output-equivalence class.
 
 ## Short-paper structure
 
-1. Introduction: communication bottleneck; why graph sparsification is risky; payload compression is the safer lever.
-2. Related work: Labeled RFS/LMB tracking, conservative KLA/GCI fusion, communication-aware RFS fusion.
-3. Method: full posterior exchange baseline, light posterior message, graph-preserving exchange protocol, diagnostics for effective KLA graph.
-4. Experiments: 4+4 benchmark, N50 held-out table, ablation interpretation.
-5. Conclusion: full posterior exchange can be overkill when the fusion path moment-matches labels; preserve information flow first, compress payload second.
+1. Introduction: the receiver, not only the network policy, determines which message fields matter.
+2. Related work: distinguish event scheduling, component selection, generic state/covariance projection, and receiver-induced interfaces.
+3. Method: define `P`, the actual projected fusion operator `G_omega`, prove `F_omega = F_omega o P`, then specify the typed codec and byte boundary.
+4. Experiments: frozen two-arm paired protocol, per-seed byte distribution, and exact output audit.
+5. Discussion: explain the non-circular serialized control, workload-dependent byte ratio, failure modes, and reusable receiver-contract procedure.
+6. Conclusion: exact interface result for one receiver; name the conditions that require richer messages.

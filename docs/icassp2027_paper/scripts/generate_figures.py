@@ -13,7 +13,7 @@ from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
 PAPER_ROOT = Path(__file__).resolve().parents[1]
@@ -38,8 +38,10 @@ FUSION_COLOR = "#7251B5"
 OUTPUT_COLOR = "#3A8D6D"
 WIRE_COLOR = "#D18F29"
 TEXT_COLOR = "#17202A"
-MUTED_COLOR = "#566573"
+MUTED_COLOR = "#40505E"
 GRID_COLOR = "#DCE3E8"
+MIN_SOURCE_FONT_PT = 7.6
+PAPER_WIDTH_SCALE = 0.94
 
 
 def sha256(path: Path) -> str:
@@ -172,13 +174,13 @@ def configure_matplotlib() -> None:
     mpl.rcParams.update(
         {
             "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
-            "font.size": 7.2,
-            "axes.labelsize": 7.2,
-            "axes.titlesize": 8.2,
-            "xtick.labelsize": 6.8,
-            "ytick.labelsize": 6.8,
-            "legend.fontsize": 6.8,
+            "font.sans-serif": ["DejaVu Sans"],
+            "font.size": 8.0,
+            "axes.labelsize": 8.0,
+            "axes.titlesize": 9.0,
+            "xtick.labelsize": MIN_SOURCE_FONT_PT,
+            "ytick.labelsize": MIN_SOURCE_FONT_PT,
+            "legend.fontsize": MIN_SOURCE_FONT_PT,
             "axes.spines.top": False,
             "axes.spines.right": False,
             "axes.linewidth": 0.65,
@@ -198,7 +200,7 @@ def rounded_box(
     text: str,
     facecolor: str,
     edgecolor: str,
-    fontsize: float = 7.2,
+    fontsize: float = 7.8,
     linewidth: float = 0.9,
 ) -> None:
     x, y = center
@@ -269,7 +271,7 @@ def save_figure(fig: plt.Figure, pdf_path: Path, png_path: Path) -> None:
 
 
 def make_mechanism_figure(output_dir: Path) -> None:
-    fig, ax = plt.subplots(figsize=(7.05, 2.05))
+    fig, ax = plt.subplots(figsize=(7.05, 2.15))
     ax.set_axis_off()
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
@@ -286,57 +288,57 @@ def make_mechanism_figure(output_dir: Path) -> None:
         "Full GM message\n" + r"$\ell, r, \{w_m,\mu_m,\Sigma_m\}$",
         "#F1F3F5",
         FULL_COLOR,
-        7.1,
+        7.8,
     )
     rounded_box(
         ax,
         (0.35, top_y),
         0.20,
-        0.22,
-        "Receiver-side projection\n" + r"$\mathcal{P}$",
+        0.28,
+        "Receiver-side\nprojection\n" + r"$\mathcal{P}$",
         "#EAF3FA",
         MOMENT_COLOR,
-        7.4,
+        8.0,
     )
     rounded_box(
         ax,
         (0.62, top_y),
         0.18,
-        0.22,
+        0.28,
         "Projected fusion\n" + r"$\mathcal{G}_{\omega}$",
         "#F1ECF8",
         FUSION_COLOR,
-        7.4,
+        8.0,
     )
     rounded_box(
         ax,
-        (0.31, bottom_y),
-        0.19,
-        0.22,
-        "Sender-side projection\n" + r"$\mathcal{P}$",
+        (0.32, bottom_y),
+        0.20,
+        0.28,
+        "Sender-side\nprojection\n" + r"$\mathcal{P}$",
         "#EAF3FA",
         MOMENT_COLOR,
-        7.4,
+        MIN_SOURCE_FONT_PT,
     )
     rounded_box(
         ax,
         (0.54, bottom_y),
         0.20,
-        0.22,
-        "Fusion-sufficient moment\n" + r"encode $\rightarrow$ decode",
+        0.28,
+        "Fusion-sufficient\nmoment message\n" + r"encode $\rightarrow$ decode",
         "#FFF4DF",
         WIRE_COLOR,
-        7.1,
+        7.8,
     )
     rounded_box(
         ax,
         (0.75, bottom_y),
         0.14,
-        0.22,
-        "Projected fusion\n" + r"$\mathcal{G}_{\omega}$",
+        0.28,
+        "Projected\nfusion\n" + r"$\mathcal{G}_{\omega}$",
         "#F1ECF8",
         FUSION_COLOR,
-        7.2,
+        7.8,
     )
     rounded_box(
         ax,
@@ -346,20 +348,20 @@ def make_mechanism_figure(output_dir: Path) -> None:
         "Same fused\noutput",
         "#EAF5F0",
         OUTPUT_COLOR,
-        7.5,
+        8.0,
     )
 
     arrow(ax, (0.19, 0.56), (0.25, top_y))
-    arrow(ax, (0.19, 0.44), (0.215, bottom_y))
+    arrow(ax, (0.19, 0.44), (0.22, bottom_y))
     arrow(ax, (0.45, top_y), (0.53, top_y))
     arrow(ax, (0.71, top_y), (0.845, 0.57))
-    arrow(ax, (0.405, bottom_y), (0.44, bottom_y))
+    arrow(ax, (0.42, bottom_y), (0.44, bottom_y))
     arrow(ax, (0.64, bottom_y), (0.68, bottom_y))
     arrow(ax, (0.82, bottom_y), (0.845, 0.43))
 
     ax.text(0.91, 0.82, r"$\mathcal{F}(X)=\mathcal{F}(\mathcal{P}X)$", ha="center",
             va="center", transform=ax.transAxes, color=OUTPUT_COLOR,
-            fontsize=8.0, fontweight="bold")
+            fontsize=8.8, fontweight="bold")
     ax.text(
         0.50,
         0.01,
@@ -368,7 +370,7 @@ def make_mechanism_figure(output_dir: Path) -> None:
         va="bottom",
         transform=ax.transAxes,
         color=MUTED_COLOR,
-        fontsize=6.5,
+        fontsize=MIN_SOURCE_FONT_PT,
     )
 
     save_figure(
@@ -379,15 +381,19 @@ def make_mechanism_figure(output_dir: Path) -> None:
 
 
 def draw_audit_row(ax: plt.Axes, y: float, label: str, value: str) -> None:
-    ax.add_patch(Circle((0.06, y), 0.025, transform=ax.transAxes,
-                        facecolor="#DFF1E8", edgecolor=OUTPUT_COLOR, linewidth=0.8))
-    ax.text(0.06, y, "OK", transform=ax.transAxes, ha="center", va="center",
-            color=OUTPUT_COLOR, fontsize=5.5, fontweight="bold")
-    ax.text(0.12, y, label, transform=ax.transAxes, ha="left", va="center",
-            color=TEXT_COLOR, fontsize=6.5)
+    ax.add_patch(FancyBboxPatch(
+        (0.01, y - 0.032), 0.10, 0.064,
+        boxstyle="round,pad=0.004,rounding_size=0.018",
+        transform=ax.transAxes, facecolor="#DFF1E8",
+        edgecolor=OUTPUT_COLOR, linewidth=0.8,
+    ))
+    ax.text(0.06, y, "PASS", transform=ax.transAxes, ha="center", va="center",
+            color=OUTPUT_COLOR, fontsize=MIN_SOURCE_FONT_PT, fontweight="bold")
+    ax.text(0.14, y, label, transform=ax.transAxes, ha="left", va="center",
+            color=TEXT_COLOR, fontsize=MIN_SOURCE_FONT_PT)
     ax.text(0.97, y, value, transform=ax.transAxes, ha="right", va="center",
-            color=TEXT_COLOR, fontsize=6.3, fontweight="bold")
-    ax.plot([0.12, 0.97], [y - 0.055, y - 0.055], transform=ax.transAxes,
+            color=TEXT_COLOR, fontsize=MIN_SOURCE_FONT_PT, fontweight="bold")
+    ax.plot([0.14, 0.97], [y - 0.055, y - 0.055], transform=ax.transAxes,
             color="#E8ECEF", linewidth=0.55)
 
 
@@ -402,7 +408,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         1,
         2,
         figsize=(7.05, 2.55),
-        gridspec_kw={"width_ratios": [1.22, 1.0], "wspace": 0.32},
+        gridspec_kw={"width_ratios": [1.02, 1.18], "wspace": 0.32},
     )
 
     ax.fill_between([seeds[0], seeds[-1]], ci_low, ci_high,
@@ -418,7 +424,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         transform=ax.transAxes,
         ha="right",
         va="top",
-        fontsize=6.9,
+        fontsize=MIN_SOURCE_FONT_PT,
         color="#174A6E",
     )
     ax.set_xlim(seeds[0] - 1, seeds[-1] + 1)
@@ -434,20 +440,20 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     audit.text(
         0.0,
         0.92,
-        f"{int(evidence['total_snapshots']):,} snapshots  |  "
+        f"{int(evidence['total_snapshots']):,} paired snapshots  |  "
         f"{int(evidence['total_comparisons']):,} label comparisons",
         transform=audit.transAxes,
         ha="left",
         va="center",
         color=MUTED_COLOR,
-        fontsize=6.9,
+        fontsize=MIN_SOURCE_FONT_PT,
     )
     rows = (
         ("Existence probability $r$", r"max $|\Delta|=0$"),
         (r"State mean $\mu$", r"max $|\Delta|=0$"),
         (r"State covariance $\Sigma$", r"max $|\Delta|=0$"),
-        ("Tracking/consensus metrics", r"max $|\Delta|=0$"),
-        ("Attempted/delivered masks", "50/50 equal"),
+        ("Tracking metrics", r"max $|\Delta|=0$"),
+        ("Attempt./deliv. masks", "50/50 equal"),
     )
     for y, (label, value) in zip((0.78, 0.64, 0.50, 0.36, 0.22), rows):
         draw_audit_row(audit, y, label, value)
@@ -459,7 +465,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         ha="center",
         va="center",
         color=OUTPUT_COLOR,
-        fontsize=6.7,
+        fontsize=MIN_SOURCE_FONT_PT,
         fontweight="bold",
         wrap=True,
     )
@@ -482,6 +488,13 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
     manifest = {
         "schema": "icassp2027-figure-manifest-v1",
         "backend": "python-matplotlib",
+        "layout_qa": {
+            "minimum_source_font_points": MIN_SOURCE_FONT_PT,
+            "paper_width_scale": PAPER_WIDTH_SCALE,
+            "minimum_estimated_final_font_points": (
+                MIN_SOURCE_FONT_PT * PAPER_WIDTH_SCALE
+            ),
+        },
         "contract": {
             "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
             "figure_2": "Every paired seed reduces application-layer bytes while all audited outputs remain exact.",

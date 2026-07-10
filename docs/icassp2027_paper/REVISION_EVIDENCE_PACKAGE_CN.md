@@ -31,13 +31,14 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | C4 | 50 个 paired confirmatory seeds 的 attempted application-layer byte reduction 均值为 58.277264%，95% CI 为 [57.923222%, 58.636095%] | High | E4, E5 | 不是 airtime、energy 或 end-to-end traffic |
 | C5 | 最新证据可从 tracked MAT 重算 CSV、aggregate、bootstrap 与 Markdown | High | E5, E6 | 执行 seeds 已 burn，只允许只读 validation |
 | C6 | 新 Figure 1/2 已与中心 claim 对齐且直接绑定冻结 evidence | High | E9 | 最终稿必须按双栏全宽使用并重新视觉检查 |
+| C7 | 重写后的正文、图表、Discussion 与 4+1 PDF 已通过 claim、页数和全页视觉 gate | High | E10 | 仍需作者完成投稿前身份与 venue 合规核对 |
 
 ## Evidence Ledger
 
 | ID | Type | Source or artifact | What it supports | Strength |
 |---|---|---|---|---|
-| E1 | manuscript | `docs/icassp2027_paper/main.tex`; `sections/01_introduction.tex`; `sections/04_experiments.tex` | C1：旧 58.6%、held-out、四臂与 dynamic 叙事仍在稿件 | strong |
-| E2 | rendered PDF | `docs/icassp2027_paper/main.pdf` baseline 5-page render | C1：机械 4+1 合规但图内字约 3--5 pt、第五页极空 | strong |
+| E1 | manuscript baseline | commit `44e75dd` 中的 `main.tex`、Introduction 与 Experiments | C1：旧 58.6%、held-out、四臂与 dynamic 叙事曾在稿件 | strong |
+| E2 | rendered baseline | commit `44e75dd` 中的 `main.pdf` | C1：旧稿机械 4+1 合规但图内字约 3--5 pt、第五页极空 | strong |
 | E3 | code | `projectLmbObjectMoments.m`; `compressLmbPosterior.m`; `fuseLmbPosteriorsByLabel.m`; `runEventTriggeredDistributedLmbFilter.m` | C2/C3：shared projection、投影后 fusion、encode-before-draw/decode-before-use | strong |
 | E4 | protocol/data | `EXPERIMENT_PROTOCOL_CN.md`; `RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.{mat,csv,md}` | C2--C4：唯一变量、seeds、字节口径、exact audit | strong |
 | E5 | command | `octave-cli --quiet --eval "setPath; addpath('RUN/GA'); v=validateFusionSufficientEvidence('RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.mat','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.md'); ..."` -> `valid=1 trials=50 mean=58.277264228259 ci=[57.923221880703,58.636094998469] max=[0,0,0]` | C3--C5 | strong |
@@ -45,6 +46,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | E7 | independent review | technical, novelty, and readability reviewer lanes; synthesis in `REVISION_GUIDE_CN.md` section 11 | C1/C2：三路共同判定旧故事不成立、Story A 可执行 | strong |
 | E8 | literature | Crossref metadata and publisher pages for DOIs listed in `REVISION_GUIDE_CN.md` section 5 | C2：schedule reduction、component selection、state/covariance projection 的边界 | medium |
 | E9 | figure/test | `figure_manifest.json`; `tests/test_icassp2027_figures.py` -> `1 passed` | C6：CSV/report/hash/seed/output 全绑定且双生成一致 | strong |
+| E10 | manuscript/PDF/test | rewritten `main.tex`, all six sections, `refs.bib`, `main.pdf`; `tests/check_icassp2027_pdf.py` -> exact 5 pages, TeX Gyre font-shape gate, float-placement gate, and rendered page 1--5 visual QA | C7：Story A 完整落稿，第 5 页无正文/图/表，图内估算最小 7.14 pt 且版面密度均衡 | strong |
 
 ## Verification Record
 
@@ -57,6 +59,12 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 - Independence status: `scripted check`。production validator 在 evidence/figure
   descendant commit 上返回 `valid=1`；figure test 两次生成的 manifest 与文件 SHA
   完全一致。
+- Independence status: `scripted and visual check`。最终稿重新构建后，PDF checker
+  确认恰好 5 页、references 只在第 5 页、所有正文标题位于前 4 页；随后逐页检查
+  PNG，确认图表/公式/表格无裁切，第 4 页 Discussion 与结论无大面积异常留白。
+  checker 另核对 TeX Gyre Termes regular/bold/italic 均嵌入且无 Latin Modern
+  fallback；figure manifest 固定最小 source 字号 7.6 pt，在 0.94 宽度下估算最终
+  最小字号 7.14 pt。
 - Disagreement log: 三路对必须删除旧 topology 故事、加入条件命题、使用新 N50
   没有分歧。唯一权重差异是原创性 reviewer 仍把该贡献视为 focused/中等新颖，
   因而禁止 `first`、`novel KLA algorithm` 或一般性 sufficiency 包装。
@@ -83,20 +91,28 @@ SOURCE_DATE_EPOCH=0 /Users/dex/miniconda3/bin/python3 docs/icassp2027_paper/scri
 /Users/dex/miniconda3/bin/python3 -m pytest -q tests/test_icassp2027_figures.py
 ```
 
+正文构建与 4+1 gate：
+
+```bash
+cd docs/icassp2027_paper && tectonic --keep-logs --keep-intermediates main.tex
+cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py
+```
+
 执行 provenance 为 commit `7974f10179a8973875bec9f301b8a5f84477d860`；验证可在
 其 descendant 上运行。`82:131` 已永久 burn，不得使用报告中的历史 regeneration
 命令重跑。
 
 ## Open Issues
 
-- 正文尚未完成 `P/F/G` 命题、two-arm 表格、verified related work 与新摘要。
-- 最终 PDF 尚未经过 two-pass build、exact five-page test 与全页视觉 QA。
 - state/covariance projection 工作只构成部分背景支撑，论文不得声称 exhaustive
   novelty search 或 `first`。
+- 投稿前仍需作者核对 ICASSP 2027 最终 paper kit、匿名要求、作者列表、funding
+  与生成式 AI 声明；这些不属于本次代码与论文证据 gate。
 
 ## Recommendation
 
 以高置信度执行 Story A：`receiver factorization -> sender-side projection -> conditional
 fusion-output equivalence -> typed message -> fresh paired evidence`。删除所有 dynamic/
-event-trigger superiority 与 symmetrized connectivity 主张。该推荐由 C1--C6 支持，
-但证据包当前 gate 为 `revise/implement`，不是最终 submission pass。
+event-trigger superiority 与 symmetrized connectivity 主张。该推荐现已由 C1--C7
+支持并完成实施，证据包 gate 为 `implementation pass`。最终 submission pass 仍由
+作者在 venue 合规与作者信息核对后决定。

@@ -1,38 +1,27 @@
 \section{Related Work}
 \label{sec:related-work}
 
-\textbf{RFS tracking.}
 Random finite-set filters provide a Bayesian framework for tracking uncertain
 target cardinality and measurement association. PHD filters introduced a
 tractable first-moment recursion \cite{Mahler2003PHD}; labeled RFS models add
 persistent identities \cite{Vo2014LRFS}; and LMB filters provide a practical
 independent-Bernoulli approximation \cite{Reuter2014LMB}. Multi-sensor
 GLMB/LMB variants extend this framework to cooperative sensing
-\cite{Vo2019MSGLMB}. We do not modify the LMB recursion; we study how much of
-the posterior must be communicated before distributed fusion.
+\cite{Vo2019MSGLMB}. When cross-correlations are unknown, KLA/GCI fusion
+combines densities through a normalized weighted geometric mean
+\cite{Battistelli2014KLA}; RFS instances include exponential-mixture PHD and
+multi-Bernoulli fusion \cite{Uney2013EMDPHD,Wang2017MBGCI}. We do not change
+the local LMB recursion or propose a new KLA rule. We analyze the representation
+consumed by one projected Gaussian receiver.
 
-\textbf{Conservative fusion.}
-When cross-correlations are unknown, conservative rules avoid overconfident
-fusion. Covariance intersection handles Gaussian estimates
-\cite{JulierUhlmann1997CI}, while KLA/GCI extends the log-opinion-pool idea to
-probability densities \cite{Battistelli2014KLA}.
-Related log-opinion-pool analyses appear in \cite{Bandyopadhyay2018LogOP}. RFS
-variants include exponential-mixture PHD fusion \cite{Uney2013EMDPHD},
-multi-Bernoulli GCI fusion \cite{Wang2017MBGCI}, and robust distributed
-labeled RFS fusion \cite{Li2018RobustDistributedLRFS,Gao2023ResilientLMB}.
-These works define how received densities should be fused; our question is
-what representation needs to be transmitted when the receiver already reduces
-labels to moments.
-
-\textbf{Communication-aware fusion.}
-Prior work handles limited links through selective transmission, adaptive
-scheduling, consensus, and reliability-aware fusion. Examples include
-limited-communication labeled RFS fusion \cite{Zhang2016CommConstrainedFusion},
-consensus LMB filtering \cite{Shen2022ConsensusLMB}, reliability-weighted
-distributed RFS fusion \cite{Zheng2026DistributedWeightedRFS}, geometry-aware
-fusion \cite{CaoZhao2025InfoGeometryFusion}, and average-density fusion
-approximations \cite{Li2024AADensityFusion}. These approaches often change
-message timing, neighbor choice, or fusion weights. Our work separates that
-graph-level problem from payload compression: we keep the message paths fixed
-and ask whether a lighter label representation is sufficient for the KLA
-update.
+Communication is reduced at several layers. Event-triggered LMB methods change
+when full updates are sent \cite{Shen2022EventTriggeredLMB,
+Shen2023AdaptiveEventTriggeredLMB,Shen2024IntegralEventLMB}; related triggers
+operate on $M\delta$-GLMB labels or hypotheses
+\cite{Li2026EventTriggeredMdeltaGLMB}. Partial-consensus PHD fusion selects
+Gaussian components \cite{Li2019PartialConsensusGMPHD}, whereas state and
+covariance projection sends compact estimates at a common time
+\cite{Xue2026StateCovProjection}. Our design is different in origin: the fixed
+receiver operator induces the message fields. The resulting equivalence is
+conditional on that operator and therefore narrower than general Gaussian-
+mixture KLA approximation.

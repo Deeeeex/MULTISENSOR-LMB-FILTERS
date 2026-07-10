@@ -1,0 +1,70 @@
+\section{Discussion}
+\label{sec:discussion}
+
+Proposition~1 is algebraically simple because it states a receiver contract,
+not a new approximation to Gaussian-mixture KLA. Its practical content depends
+on showing that the studied fusion path truly factors through $\mathcal P$.
+A comparison would be circular if both arms projected before transport. Our
+full arm instead encodes every original mixture component, and the receiver
+decodes the message before invoking $\mathcal P$. The moment arm invokes the
+same canonical projection at the sender and encodes one component. We compare
+decoded outputs at every sensor and time step. This crosses the serialization
+boundary and tests whether discarded mixture structure affects $\mathcal F_\omega$.
+
+Equation~\eqref{eq:wire-bytes} also explains why 58.28\% is not a universal
+compression ratio. Let
+$c_d=1+d+d(d+1)/2$. For fixed labels, the saved payload is
+$8\sum_\ell(M_\ell-1)c_d$ bytes, while both message and label headers remain.
+No bytes are saved when every label already has one Gaussian component. Savings
+increase with mixture multiplicity, but the header fraction limits the realized
+ratio for small messages. The confirmatory result therefore characterizes this
+tracker workload rather than an implementation-independent constant.
+
+The equality can fail if an operation after $\mathcal P$ consumes discarded
+structure. Examples are component gating, label pruning based on modality,
+weights derived from mixtures, or later rounds that reuse individual modes.
+System details can also break commutation. Quantization before projection need not
+match quantization after projection, and different covariance regularizers can
+produce different canonical moments. Payload-dependent delivery or
+fragmentation can change masks, violating a condition of Proposition~1.
+
+Our byte boundary contains the encoded application payload. It excludes
+MAC/PHY framing, network and transport headers, fragmentation, retransmission,
+and radio energy. The simulated loss probability is payload-size independent,
+which isolates representation size from delivery. This design supports a clean
+interface test, but hardware-level savings require packetization, quantization,
+and energy measurements on the target link.
+
+The reusable idea is a design procedure rather than a claim of broad
+equivalence. Identify the receiver's first irreversible map, factor the
+consumer through that map, check whether it is canonical and idempotent, and
+promote its output to an explicit message type. Then validate equivalence after
+serialization under matched schedules and masks. Event triggering and
+component selection decide when or which estimates to send. Receiver-induced
+message design instead asks which fields a specified consumer can observe. Its
+guarantee is exact within that contract and intentionally silent outside it.
+
+This distinction does not imply that transmitting means and covariances is
+itself new. State/covariance projection already supports asynchronous
+multi-radar fusion \cite{Xue2026StateCovProjection}, and partial consensus can
+select Gaussian components \cite{Li2019PartialConsensusGMPHD}. Event-triggered
+LMB methods reduce full-update frequency \cite{Shen2022EventTriggeredLMB}.
+Adaptive variants refine the trigger \cite{Shen2023AdaptiveEventTriggeredLMB}. Our
+contribution is the receiver-side certificate that identifies an exact message
+equivalence class for one implemented consumer. The evidence standard changes
+accordingly. Since the schedule, masks, and fusion rule remain fixed, success is
+not a trade-off between accuracy and communication. It is equality of decoded
+fusion outputs, accompanied by a workload-specific byte reduction.
+
+The evaluation has two main validity limits. First, the interval quantifies
+variation across trajectories and drop draws within one eight-sensor model. It
+does not quantify scenario generality. The sensors use homogeneous detection
+and measurement models, one graph, binary64 fields, and a single synchronous
+round. A different pruning rule can also change $M_\ell$ and therefore the byte
+ratio. Second, exact zero residual uses one canonical projection
+implementation on both paths. Independent implementations can differ in
+summation order or regularization, even when they represent the same real-valued
+moments. Proposition~1 predicts equality only after those conventions are
+matched. Broader validation should vary state dimension, mixture multiplicity,
+sensor heterogeneity, fusion weights, and packetization under frozen comparison
+gates.

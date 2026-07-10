@@ -353,10 +353,21 @@
 | Primary communication result | 通过 | mean `58.277264%`，95% CI `[57.923222,58.636095]%` |
 | Independently reproducible evidence | 通过 | tracked MAT/CSV/MD；descendant-safe read-only validator |
 | Evidence-driven figures | 通过 | deterministic manifest/test；无 dynamic arm 或硬编码 aggregate |
-| Full manuscript rewrite / 4+1 final PDF | 待执行 | Task 8--9 |
+| Full manuscript rewrite | 通过 | 标题、摘要、Related Work、`P/F/G` 命题、two-arm 结果、Discussion 与结论均已重写 |
+| 4+1 final PDF | 通过 | `tests/check_icassp2027_pdf.py`：exact 5 pages；第 5 页仅 references；全页 PNG 视觉复核 |
+| Font/figure/float QA | 通过 | TeX Gyre Termes regular/bold/italic 无 Latin Modern fallback；图内估算最小 7.14 pt；Fig. 1/2 分置第 2/3 页，Table 1 位于 Experiments 页 |
+| Final claim/style audit | 通过 | 无旧 dynamic/held-out/effective-graph 主张；closest work 与应用层 byte 边界已显式限定 |
 
-因此修改指南通过实施 gate，但论文尚未完成。剩余工作必须按以下顺序进行：
-`P/F/G` 命题与边界 -> verified closest work -> two-arm experiment text/table ->
-abstract/introduction/title -> 4+1 PDF visual and claim audit。若正文重新引入
-dynamic-topology superiority、一般 GM-KLA 等价或未限定的 network-cost claim，
-本指南自动判定该版本失败。
+最终 red-team 又要求收紧 Proposition 1：source-indexed active-label presence、
+spatial/existence 两组权重、selection/pruning、共同 regularization、禁用 covariance
+inflation 与 lossless codec 现在均列为条件；proof 逐项说明 missing-label 重归一化、
+`K,h,eta,q0,q1` 不变，不再只写一行幂等恒等式。版面终审发现的 XeTeX `ptm`
+字体回退、图内 5--6 pt 字号和结果图过早出现也已修复并进入自动 gate。
+
+最终版本完成了 Story A 的全部实施步骤。两张图按双栏全宽排版，正文占前四页，
+第 5 页仅列参考文献；技术图、公式、表格没有裁切或横向溢出。Discussion 正面
+处理了三项最强反驳：代数恒等式是否循环验证、58.28% 是否可泛化、相同
+canonical binary64 实现是否夸大外部有效性。当前裁决为 **implementation pass**，
+而不是自动投稿许可；作者仍需确认匿名信息、最终 ICASSP 2027 官方格式与学术
+声明。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
+限定的 network-cost claim，本指南仍自动判定该版本失败。

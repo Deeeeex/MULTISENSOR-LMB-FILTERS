@@ -15,23 +15,28 @@
     ],
     "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
   },
-  "generator_sha256": "e0b3572fe6dfebd875563368d004e02e50e4d107e3fba94c47f15df0f1078d5b",
+  "generator_sha256": "223d7ce84d8da2d5f6ad3f9c87b335a1a0076b221017010abec3f1f076a97f80",
+  "layout_qa": {
+    "minimum_estimated_final_font_points": 7.143999999999999,
+    "minimum_source_font_points": 7.6,
+    "paper_width_scale": 0.94
+  },
   "outputs": {
     "heldout_tradeoff.pdf": {
-      "bytes": 53019,
-      "sha256": "dfcdb24eb179256dad74ded619fac2bc16fea4a65221f2027b4b4dd46f9c54f5"
+      "bytes": 31370,
+      "sha256": "90020fb2e06fa08d7501d6dc750acffdd3190cde06519c1a50d96e56910704ae"
     },
     "heldout_tradeoff.png": {
-      "bytes": 197210,
-      "sha256": "6c9eec539efda682910e09965ca3c280efb7b6e23b8c97cc2bf9de04142d6e45"
+      "bytes": 216866,
+      "sha256": "288c121e151a4be7071db79520c08f7b5f777bf70cf9bb5df3d9cf4b35d53fb3"
     },
     "payload_graph_schematic.pdf": {
-      "bytes": 36387,
-      "sha256": "5eeadb4b0267c95a9dba208526019a0ff0a1bd13fb018be124f14a80fcde2047"
+      "bytes": 23135,
+      "sha256": "ab71c71dab0ef862800970b1188503f60b4da7225f318b0c5f032796ba59041c"
     },
     "payload_graph_schematic.png": {
-      "bytes": 94490,
-      "sha256": "6931b04dd272316b13cff64b7fbff9451acae5392cf6bd172cc286daf47eb458"
+      "bytes": 109289,
+      "sha256": "9b7ec115e2ef00733afbde0b52c373de5598461202da7e0c08f19fbc9ff1119d"
     }
   },
   "schema": "icassp2027-figure-manifest-v1",

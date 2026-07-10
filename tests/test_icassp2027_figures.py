@@ -66,6 +66,8 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert first_manifest["summary"]["all_exact_match"] is True
     assert first_manifest["summary"]["all_masks_equal"] is True
     assert first_manifest["summary"]["max_state_residual"] == 0.0
+    assert first_manifest["layout_qa"]["minimum_source_font_points"] >= 7.6
+    assert first_manifest["layout_qa"]["minimum_estimated_final_font_points"] >= 7.0
 
     for name in OUTPUT_NAMES:
         first = first_dir / name
@@ -79,6 +81,7 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
         for name in OUTPUT_NAMES
         if name.endswith(".pdf")
     )
+    normalized_pdf_text = " ".join(pdf_text.split())
     for prohibited in (
         "dynamic topology",
         "graph sparsification",
@@ -88,7 +91,7 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
         "lambda",
     ):
         assert prohibited not in pdf_text.lower()
-    assert "Receiver-side projection" in pdf_text
-    assert "Sender-side projection" in pdf_text
-    assert "Fusion-sufficient moment" in pdf_text
-    assert "58.28%" in pdf_text
+    assert "Receiver-side projection" in normalized_pdf_text
+    assert "Sender-side projection" in normalized_pdf_text
+    assert "Fusion-sufficient moment" in normalized_pdf_text
+    assert "58.28%" in normalized_pdf_text
