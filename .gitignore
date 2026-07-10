@@ -16,3 +16,7 @@ docs/paper/els-cas-templates/manuscript.aux
 docs/paper/els-cas-templates/manuscript.bbl
 docs/paper/els-cas-templates/manuscript.blg
 docs/paper/els-cas-templates/manuscript.log
+
+# ICASSP protocol smoke evidence is local-only; N50 evidence stays trackable.
+/RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N5_SEEDS1001_1005.csv
+/RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N5_SEEDS1001_1005.md

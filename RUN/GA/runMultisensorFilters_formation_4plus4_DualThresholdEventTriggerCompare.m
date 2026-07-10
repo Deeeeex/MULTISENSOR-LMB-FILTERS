@@ -37,18 +37,25 @@ end
 scenarioConfig = buildScenarioConfig(experimentOverrides);
 calibration = getField(experimentOverrides, 'calibration', []);
 if isempty(calibration)
-    calibrationSeed = baseSeed + 1;
-    [calibrationModel, calibrationMeasurements, ~, calibrationTrajectories, ...
-        calibrationComm, neighborMap] = buildTrialInputs( ...
-            calibrationSeed, scenarioConfig);
-    calibrationComm.forceDelivery = true;
-    calibrationTrigger = buildBaseTriggerConfig();
-    calibrationTrigger.eventPolicy = 'alwaysHeavy';
-    calibrationTrigger.linkGateEnabled = false;
-    [~, calibrationDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
-        calibrationModel, calibrationMeasurements, calibrationTrajectories, ...
-        neighborMap, calibrationComm, calibrationTrigger);
-    calibration = calibrateThresholds(calibrationDiagnostics);
+    if getField(experimentOverrides, ...
+            'skipCalibrationForStaticPair', false)
+        calibration = buildNoopCalibration();
+    else
+        calibrationSeed = baseSeed + 1;
+        [calibrationModel, calibrationMeasurements, ~, ...
+            calibrationTrajectories, calibrationComm, neighborMap] = ...
+            buildTrialInputs(calibrationSeed, scenarioConfig);
+        calibrationComm.forceDelivery = true;
+        calibrationTrigger = buildBaseTriggerConfig();
+        calibrationTrigger.eventPolicy = 'alwaysHeavy';
+        calibrationTrigger.linkGateEnabled = false;
+        [~, calibrationDiagnostics] = ...
+            runEventTriggeredDistributedLmbFilter( ...
+                calibrationModel, calibrationMeasurements, ...
+                calibrationTrajectories, neighborMap, calibrationComm, ...
+                calibrationTrigger);
+        calibration = calibrateThresholds(calibrationDiagnostics);
+    end
 end
 
 arms = buildArms( ...
@@ -56,9 +63,23 @@ arms = buildArms( ...
     getField(experimentOverrides, 'includeBalancedCompatibility', false), ...
     experimentOverrides);
 arms = selectArms(arms, armSelection);
+capturePosteriorSnapshots = logical(getField( ...
+    experimentOverrides, 'capturePosteriorSnapshots', false));
+for armIdx = 1:numel(arms)
+    arms(armIdx).triggerConfig.capturePosteriorSnapshots = ...
+        capturePosteriorSnapshots;
+end
+if getField(experimentOverrides, 'paperStaticPair', false)
+    arms = freezePaperStaticPair(arms);
+end
 armNames = {arms.name};
 numberOfArms = numel(arms);
 numberOfSensors = scenarioConfig.numberOfSensors;
+posteriorBaselineIdx = find(strcmp( ...
+    armNames, 'Periodic full posterior'), 1);
+if capturePosteriorSnapshots && isempty(posteriorBaselineIdx)
+    error('Posterior snapshot comparison requires Periodic full posterior.');
+end
 
 eOspa = zeros(numberOfTrials, numberOfSensors, numberOfArms);
 hOspa = zeros(numberOfTrials, numberOfSensors, numberOfArms);
@@ -101,6 +122,15 @@ selfWeightMass = zeros(numberOfTrials, numberOfArms);
 lightWeightMass = zeros(numberOfTrials, numberOfArms);
 heavyWeightMass = zeros(numberOfTrials, numberOfArms);
 fusionWeightEntropy = zeros(numberOfTrials, numberOfArms);
+posteriorMissingSnapshotCount = zeros(numberOfTrials, numberOfArms);
+posteriorLabelSetMismatchCount = zeros(numberOfTrials, numberOfArms);
+posteriorMissingLabelCount = zeros(numberOfTrials, numberOfArms);
+posteriorComparisonCount = zeros(numberOfTrials, numberOfArms);
+posteriorSnapshotCount = zeros(numberOfTrials, numberOfArms);
+posteriorMaxAbsR = zeros(numberOfTrials, numberOfArms);
+posteriorMaxAbsMu = zeros(numberOfTrials, numberOfArms);
+posteriorMaxAbsSigma = zeros(numberOfTrials, numberOfArms);
+posteriorExactMatch = false(numberOfTrials, numberOfArms);
 pDropBySensorTrials = zeros(numberOfTrials, numberOfSensors);
 trialSeeds = NaN(1, numberOfTrials);
 
@@ -117,6 +147,7 @@ for trialIdx = 1:numberOfTrials
         commConfig, neighborMap] = buildTrialInputs( ...
             trialSeed, scenarioConfig);
     pDropBySensorTrials(trialIdx, :) = commConfig.pDropBySensor;
+    trialPosteriorSnapshots = cell(1, numberOfArms);
 
     for armIdx = 1:numberOfArms
         fprintf('  Arm %d/%d: %s\n', ...
@@ -164,6 +195,10 @@ for trialIdx = 1:numberOfTrials
             communicationDiagnostics.attempted;
         deliveredMask{trialIdx, armIdx} = ...
             communicationDiagnostics.delivered;
+        if capturePosteriorSnapshots
+            trialPosteriorSnapshots{armIdx} = ...
+                communicationDiagnostics.posteriorSnapshots;
+        end
         payloadScalars(trialIdx, armIdx) = ...
             communicationSummary.payloadScalars;
         triggerRate(trialIdx, armIdx) = communicationSummary.triggerRate;
@@ -220,6 +255,31 @@ for trialIdx = 1:numberOfTrials
             triggerRate(trialIdx, armIdx), ...
             mean(eOspa(trialIdx, :, armIdx)), ...
             runtimeSeconds(trialIdx, armIdx));
+    end
+
+    if capturePosteriorSnapshots
+        baselineSnapshots = ...
+            trialPosteriorSnapshots{posteriorBaselineIdx};
+        for armIdx = 1:numberOfArms
+            comparison = compareLmbPosteriorSnapshots( ...
+                baselineSnapshots, trialPosteriorSnapshots{armIdx});
+            posteriorMissingSnapshotCount(trialIdx, armIdx) = ...
+                comparison.missingSnapshotCount;
+            posteriorLabelSetMismatchCount(trialIdx, armIdx) = ...
+                comparison.labelSetMismatchCount;
+            posteriorMissingLabelCount(trialIdx, armIdx) = ...
+                comparison.missingLabelCount;
+            posteriorComparisonCount(trialIdx, armIdx) = ...
+                comparison.comparisonCount;
+            posteriorSnapshotCount(trialIdx, armIdx) = ...
+                comparison.snapshotCount;
+            posteriorMaxAbsR(trialIdx, armIdx) = comparison.maxAbsR;
+            posteriorMaxAbsMu(trialIdx, armIdx) = comparison.maxAbsMu;
+            posteriorMaxAbsSigma(trialIdx, armIdx) = ...
+                comparison.maxAbsSigma;
+            posteriorExactMatch(trialIdx, armIdx) = ...
+                comparison.exactMatch;
+        end
     end
 end
 
@@ -296,6 +356,27 @@ summary.effectiveGraph.lightWeightMass = mean(lightWeightMass, 1);
 summary.effectiveGraph.heavyWeightMass = mean(heavyWeightMass, 1);
 summary.effectiveGraph.fusionWeightEntropy = mean(fusionWeightEntropy, 1);
 summary.runtime.meanSeconds = mean(runtimeSeconds, 1);
+summary.equivalence.captured = capturePosteriorSnapshots;
+summary.equivalence.baselineArm = '';
+if capturePosteriorSnapshots
+    summary.equivalence.baselineArm = ...
+        armNames{posteriorBaselineIdx};
+end
+summary.equivalence.missingSnapshotCount = ...
+    sum(posteriorMissingSnapshotCount, 1);
+summary.equivalence.labelSetMismatchCount = ...
+    sum(posteriorLabelSetMismatchCount, 1);
+summary.equivalence.missingLabelCount = ...
+    sum(posteriorMissingLabelCount, 1);
+summary.equivalence.comparisonCount = ...
+    sum(posteriorComparisonCount, 1);
+summary.equivalence.snapshotCount = ...
+    sum(posteriorSnapshotCount, 1);
+summary.equivalence.maxAbsR = max(posteriorMaxAbsR, [], 1);
+summary.equivalence.maxAbsMu = max(posteriorMaxAbsMu, [], 1);
+summary.equivalence.maxAbsSigma = max(posteriorMaxAbsSigma, [], 1);
+summary.equivalence.exactMatch = ...
+    all(posteriorExactMatch, 1);
 summary.trials.localEOspa = eOspa;
 summary.trials.consensusOspa = consensusOspa;
 summary.trials.consensusPosition = consensusPosition;
@@ -306,6 +387,18 @@ summary.trials.deliveredPayloadBytes = deliveredPayloadBytes;
 summary.trials.payloadDeliveryRatio = payloadDeliveryRatio;
 summary.trials.attemptedMask = attemptedMask;
 summary.trials.deliveredMask = deliveredMask;
+summary.trials.posteriorMissingSnapshotCount = ...
+    posteriorMissingSnapshotCount;
+summary.trials.posteriorLabelSetMismatchCount = ...
+    posteriorLabelSetMismatchCount;
+summary.trials.posteriorMissingLabelCount = ...
+    posteriorMissingLabelCount;
+summary.trials.posteriorComparisonCount = posteriorComparisonCount;
+summary.trials.posteriorSnapshotCount = posteriorSnapshotCount;
+summary.trials.posteriorMaxAbsR = posteriorMaxAbsR;
+summary.trials.posteriorMaxAbsMu = posteriorMaxAbsMu;
+summary.trials.posteriorMaxAbsSigma = posteriorMaxAbsSigma;
+summary.trials.posteriorExactMatch = posteriorExactMatch;
 summary.trials.triggerRate = triggerRate;
 summary.trials.staleFusionCount = staleFusionCount;
 summary.trials.labelHeartbeatCount = labelHeartbeatCount;
@@ -437,6 +530,47 @@ calibration.information.default = ...
     quantilePair(informationSamples, [0.60, 0.90]);
 calibration.information.strict = ...
     quantilePair(informationSamples, [0.75, 0.95]);
+end
+
+function calibration = buildNoopCalibration()
+% Static periodic arms do not consume thresholds. Keep the complete shape
+% required by the generic arm builder without running a calibration trial.
+calibration = struct();
+calibration.sampleCount = struct('utility', 0, 'informationGain', 0);
+calibration.multi = struct( ...
+    'loose', [0, 0], 'default', [0, 0], 'strict', [0, 0]);
+calibration.information = struct( ...
+    'loose', [0, 0], 'default', [0, 0], 'strict', [0, 0]);
+end
+
+function arms = freezePaperStaticPair(arms)
+expectedNames = { ...
+    'Periodic full posterior', ...
+    'Periodic light posterior on static topology'};
+if numel(arms) ~= 2 || ~isequal({arms.name}, expectedNames)
+    error('paperStaticPair requires the exact frozen two-arm selection.');
+end
+canonical = arms(1).triggerConfig;
+canonical.eventPolicy = 'alwaysHeavy';
+canonical.linkGateEnabled = false;
+canonical.forceInitialHeavy = false;
+canonical.forceLabelChangeHeavy = false;
+canonical.forceStaleHeavy = false;
+canonical.useStaleNeighborCache = false;
+canonical.labelHeartbeatEnabled = false;
+canonical.mixedPayloadEnabled = false;
+canonical.mixedPayloadLightForAllActiveLabels = false;
+canonical.dynamicTopologyEnabled = false;
+canonical.topologyFallbackToBaseOnConnectivityFailure = false;
+canonical.topologyStaticEdgeBonus = 0;
+canonical.modeAwareFusionWeights = false;
+canonical.lightFusionWeightFactor = 1;
+canonical.heavyFusionWeightFactor = 1;
+canonical.lightCovarianceInflationEnabled = false;
+arms(1).triggerConfig = canonical;
+moment = canonical;
+moment.eventPolicy = 'alwaysLight';
+arms(2).triggerConfig = moment;
 end
 
 function arms = buildArms( ...
