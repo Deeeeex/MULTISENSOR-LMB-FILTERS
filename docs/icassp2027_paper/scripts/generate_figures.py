@@ -8,7 +8,6 @@ import csv
 import hashlib
 import json
 import math
-import random
 import re
 from pathlib import Path
 
@@ -382,10 +381,10 @@ def make_mechanism_figure(output_dir: Path) -> None:
 
 
 def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
-    attempted = evidence["attempted_reduction"]
     mean_attempted = float(evidence["mean_attempted"])
-    ci_low = float(evidence["ci_low"])
-    ci_high = float(evidence["ci_high"])
+    mean_delivered = math.fsum(evidence["delivered_reduction"]) / len(
+        evidence["delivered_reduction"]
+    )
     rows = evidence["rows"]
     full_attempted_mb = [
         require_float(row, "full_attempted_bytes") / 1e6 for row in rows
@@ -393,133 +392,185 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     moment_attempted_mb = [
         require_float(row, "moment_attempted_bytes") / 1e6 for row in rows
     ]
+    full_delivered_mb = [
+        require_float(row, "full_delivered_bytes") / 1e6 for row in rows
+    ]
+    moment_delivered_mb = [
+        require_float(row, "moment_delivered_bytes") / 1e6 for row in rows
+    ]
     mean_full_mb = math.fsum(full_attempted_mb) / len(full_attempted_mb)
     mean_moment_mb = math.fsum(moment_attempted_mb) / len(moment_attempted_mb)
-    mean_saved_mb = mean_full_mb - mean_moment_mb
+    mean_full_delivered_mb = math.fsum(full_delivered_mb) / len(full_delivered_mb)
+    mean_moment_delivered_mb = (
+        math.fsum(moment_delivered_mb) / len(moment_delivered_mb)
+    )
+    mean_remaining_ratio = 1.0 - mean_attempted / 100.0
 
-    fig, (ax, payload) = plt.subplots(
+    fig, (footprint, parity) = plt.subplots(
         1,
         2,
         figsize=(7.05, 2.55),
-        gridspec_kw={"width_ratios": [1.08, 0.92], "wspace": 0.30},
+        gridspec_kw={"width_ratios": [1.06, 0.94], "wspace": 0.30},
     )
 
-    violin = ax.violinplot(
-        [attempted],
-        positions=[0.0],
-        vert=False,
-        widths=0.46,
-        showmeans=False,
-        showmedians=False,
-        showextrema=False,
-        bw_method=0.28,
-    )
-    for body in violin["bodies"]:
-        body.set_facecolor("#D9EAF5")
-        body.set_edgecolor("#93BED8")
-        body.set_linewidth(0.55)
-        body.set_alpha(0.85)
-
-    jitter_rng = random.Random(20270710)
-    point_y = [-0.34 + jitter_rng.uniform(-0.055, 0.055) for _ in attempted]
-    ax.scatter(
-        attempted,
-        point_y,
-        s=12,
-        color=MOMENT_COLOR,
-        edgecolors="white",
-        linewidths=0.25,
-        alpha=0.82,
-        zorder=3,
-    )
-    interval_y = 0.40
-    ax.plot([ci_low, ci_high], [interval_y, interval_y],
-            color="#174A6E", linewidth=2.1, solid_capstyle="round", zorder=4)
-    ax.plot([ci_low, ci_low], [interval_y - 0.035, interval_y + 0.035],
-            color="#174A6E", linewidth=0.9, zorder=4)
-    ax.plot([ci_high, ci_high], [interval_y - 0.035, interval_y + 0.035],
-            color="#174A6E", linewidth=0.9, zorder=4)
-    ax.scatter([mean_attempted], [interval_y], s=26, marker="D",
-               color="#174A6E", edgecolors="white", linewidths=0.35, zorder=5)
-    ax.text(
-        0.985,
-        0.97,
-        f"mean {mean_attempted:.2f}%\n95% CI [{ci_low:.2f}, {ci_high:.2f}]%",
-        transform=ax.transAxes,
-        ha="right",
-        va="top",
-        fontsize=MIN_SOURCE_FONT_PT,
-        color="#174A6E",
-    )
-    ax.set_xlim(55.5, 61.7)
-    ax.set_ylim(-0.49, 0.58)
-    ax.set_xticks([56, 57, 58, 59, 60, 61])
-    ax.set_yticks([])
-    ax.set_xlabel("Attempted-byte reduction (%)")
-    ax.spines["left"].set_visible(False)
-    ax.set_title("a  Relative saving across trials", loc="left", fontweight="bold")
-
-    for full_mb, moment_mb in zip(full_attempted_mb, moment_attempted_mb):
-        payload.plot(
-            [0.0, 1.0],
-            [full_mb, moment_mb],
-            color="#B9D5E6",
-            linewidth=0.62,
-            alpha=0.62,
-            zorder=1,
-        )
-    payload.scatter(
-        [0.0] * len(full_attempted_mb),
-        full_attempted_mb,
-        s=11,
+    row_y = [1.0, 0.0]
+    full_means = [mean_full_mb, mean_full_delivered_mb]
+    moment_means = [mean_moment_mb, mean_moment_delivered_mb]
+    reductions = [mean_attempted, mean_delivered]
+    footprint.barh(
+        [value + 0.14 for value in row_y],
+        full_means,
+        height=0.24,
         color=FULL_COLOR,
-        edgecolors="white",
-        linewidths=0.25,
-        alpha=0.72,
-        zorder=3,
+        edgecolor="none",
+        zorder=2,
     )
-    payload.scatter(
-        [1.0] * len(moment_attempted_mb),
-        moment_attempted_mb,
-        s=11,
+    footprint.barh(
+        [value - 0.14 for value in row_y],
+        moment_means,
+        height=0.24,
         color=MOMENT_COLOR,
+        edgecolor="none",
+        zorder=2,
+    )
+    for y, full_value, moment_value, reduction in zip(
+        row_y, full_means, moment_means, reductions
+    ):
+        footprint.text(
+            0.55,
+            y + 0.14,
+            "Full GM",
+            ha="left",
+            va="center",
+            color="white",
+            fontsize=MIN_SOURCE_FONT_PT,
+            fontweight="bold",
+        )
+        footprint.text(
+            full_value - 0.45,
+            y + 0.14,
+            f"{full_value:.2f}",
+            ha="right",
+            va="center",
+            color="white",
+            fontsize=MIN_SOURCE_FONT_PT,
+            fontweight="bold",
+        )
+        footprint.text(
+            0.55,
+            y - 0.14,
+            "Moment",
+            ha="left",
+            va="center",
+            color="white",
+            fontsize=MIN_SOURCE_FONT_PT,
+            fontweight="bold",
+        )
+        footprint.text(
+            moment_value + 0.35,
+            y - 0.14,
+            f"{moment_value:.2f}",
+            ha="left",
+            va="center",
+            color=MOMENT_COLOR,
+            fontsize=MIN_SOURCE_FONT_PT,
+            fontweight="bold",
+        )
+        footprint.text(
+            30.2,
+            y,
+            f"-{reduction:.2f}%",
+            ha="right",
+            va="center",
+            color="#174A6E",
+            fontsize=MIN_SOURCE_FONT_PT,
+            fontweight="bold",
+        )
+    footprint.set_yticks(row_y)
+    footprint.set_yticklabels(["Attempted", "Delivered"])
+    footprint.set_xlim(0.0, 31.0)
+    footprint.set_xticks([0, 10, 20, 30])
+    footprint.set_xlabel("Mean application-layer payload (MB/trial)")
+    footprint.grid(axis="x", color=GRID_COLOR, linewidth=0.50)
+    footprint.set_axisbelow(True)
+    footprint.set_title("a  Communication footprint", loc="left", fontweight="bold")
+
+    limit = [0.0, 36.0]
+    parity.fill_between(limit, 0.0, limit, color="#F2F7FA", zorder=0)
+    parity.plot(
+        limit,
+        limit,
+        color="#8B949E",
+        linestyle="--",
+        linewidth=0.95,
+        zorder=1,
+    )
+    parity.plot(
+        limit,
+        [mean_remaining_ratio * value for value in limit],
+        color="#174A6E",
+        linewidth=1.25,
+        zorder=2,
+    )
+    parity.scatter(
+        full_attempted_mb,
+        moment_attempted_mb,
+        s=17,
+        color=MOMENT_COLOR,
+        alpha=0.76,
         edgecolors="white",
-        linewidths=0.25,
-        alpha=0.72,
+        linewidths=0.35,
         zorder=3,
     )
-    payload.plot(
-        [0.0, 1.0],
-        [mean_full_mb, mean_moment_mb],
+    parity.scatter(
+        [mean_full_mb],
+        [mean_moment_mb],
+        s=38,
+        marker="D",
         color="#174A6E",
-        linewidth=1.8,
-        zorder=4,
+        edgecolors="white",
+        linewidths=0.45,
+        zorder=5,
     )
-    payload.scatter([0.0], [mean_full_mb], s=34, marker="D",
-                    color=FULL_COLOR, edgecolors="white", linewidths=0.45, zorder=5)
-    payload.scatter([1.0], [mean_moment_mb], s=34, marker="D",
-                    color=MOMENT_COLOR, edgecolors="white", linewidths=0.45, zorder=5)
-    payload.set_xlim(-0.22, 1.22)
-    payload.set_ylim(7.0, 35.5)
-    payload.set_xticks([0.0, 1.0])
-    payload.set_xticklabels(
-        [f"Full GM\nmean {mean_full_mb:.2f} MB", f"Moment\nmean {mean_moment_mb:.2f} MB"]
-    )
-    payload.set_yticks([10, 20, 30])
-    payload.set_ylabel("Attempted payload (MB/trial)")
-    payload.grid(axis="y", color=GRID_COLOR, linewidth=0.48)
-    payload.text(
-        0.97,
-        0.97,
-        f"mean saved {mean_saved_mb:.2f} MB/trial",
-        transform=payload.transAxes,
-        ha="right",
-        va="top",
+    parity.text(
+        25.4,
+        26.3,
+        "no saving",
+        rotation=45,
+        ha="center",
+        va="bottom",
+        color="#737B84",
         fontsize=MIN_SOURCE_FONT_PT,
+    )
+    parity.text(
+        0.04,
+        0.96,
+        "50/50 paired trials\nbelow the no-saving line",
+        transform=parity.transAxes,
+        ha="left",
+        va="top",
+        color=TEXT_COLOR,
+        fontsize=MIN_SOURCE_FONT_PT,
+    )
+    parity.text(
+        0.96,
+        0.025,
+        f"mean remaining\n{100.0 * mean_remaining_ratio:.2f}% of full",
+        transform=parity.transAxes,
+        ha="right",
+        va="bottom",
         color="#174A6E",
+        fontsize=MIN_SOURCE_FONT_PT,
         fontweight="bold",
     )
-    payload.set_title("b  Paired payload reduction", loc="left", fontweight="bold")
+    parity.set_xlim(limit)
+    parity.set_ylim(limit)
+    parity.set_xticks([0, 10, 20, 30])
+    parity.set_yticks([0, 10, 20, 30])
+    parity.set_aspect("equal", adjustable="box")
+    parity.set_xlabel("Full-GM attempted payload (MB/trial)")
+    parity.set_ylabel("Moment payload (MB/trial)")
+    parity.set_title("b  Paired trial footprint", loc="left", fontweight="bold")
 
     save_figure(
         fig,
@@ -548,7 +599,7 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
         },
         "contract": {
             "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
-            "figure_2": "Relative and paired absolute views quantify workload-scoped application-layer savings.",
+            "figure_2": "Mean attempted/delivered footprints and paired trial scaling quantify application-layer savings.",
         },
         "evidence": {
             "path": stable_path(evidence_path),
@@ -566,6 +617,12 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
             ) / len(evidence["rows"]) / 1e6,
             "mean_moment_attempted_mb": math.fsum(
                 require_float(row, "moment_attempted_bytes") for row in evidence["rows"]
+            ) / len(evidence["rows"]) / 1e6,
+            "mean_full_delivered_mb": math.fsum(
+                require_float(row, "full_delivered_bytes") for row in evidence["rows"]
+            ) / len(evidence["rows"]) / 1e6,
+            "mean_moment_delivered_mb": math.fsum(
+                require_float(row, "moment_delivered_bytes") for row in evidence["rows"]
             ) / len(evidence["rows"]) / 1e6,
             "bootstrap_ci_percent": [evidence["ci_low"], evidence["ci_high"]],
             "all_exact_match": True,

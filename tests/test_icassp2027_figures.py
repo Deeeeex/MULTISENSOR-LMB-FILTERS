@@ -68,6 +68,8 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert first_manifest["summary"]["max_state_residual"] == 0.0
     assert first_manifest["summary"]["mean_full_attempted_mb"] == 25.083704
     assert first_manifest["summary"]["mean_moment_attempted_mb"] == 10.4577776
+    assert first_manifest["summary"]["mean_full_delivered_mb"] == 20.09097936
+    assert first_manifest["summary"]["mean_moment_delivered_mb"] == 8.37796896
     assert first_manifest["layout_qa"]["minimum_source_font_points"] >= 7.6
     assert first_manifest["layout_qa"]["minimum_estimated_final_font_points"] >= 7.0
 
@@ -97,6 +99,7 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert "Sender-side projection" in normalized_pdf_text
     assert "Fusion-sufficient moment" in normalized_pdf_text
     assert "58.28%" in normalized_pdf_text
-    assert "Relative saving across trials" in normalized_pdf_text
-    assert "Paired payload reduction" in normalized_pdf_text
-    assert "mean saved 14.63 MB/trial" in normalized_pdf_text
+    assert "Communication footprint" in normalized_pdf_text
+    assert "Paired trial footprint" in normalized_pdf_text
+    assert "50/50 paired trials below the no-saving line" in normalized_pdf_text
+    assert "mean remaining 41.72% of full" in normalized_pdf_text
