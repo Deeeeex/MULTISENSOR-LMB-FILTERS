@@ -31,6 +31,15 @@ assert(isempty(decodedEmpty));
 assert(isequal(fieldnames(decodedEmpty), fieldnames(model.object)));
 assertMetadata(decodedEmptyMetadata, emptyMetadata, 0, schema.headerBytes);
 
+scalarTemplateModel = model;
+scalarTemplateModel.object = makeObject(model, 1, 1, 0.5, 1);
+[scalarTemplateEmptyBytes, scalarTemplateEmptyStats] = ...
+    encodeLmbWireMessage([], emptyMetadata, scalarTemplateModel);
+assert(numel(scalarTemplateEmptyBytes) == schema.headerBytes);
+assert(scalarTemplateEmptyStats.objectCount == 0);
+assert(isempty(decodeLmbWireMessage( ...
+    scalarTemplateEmptyBytes, scalarTemplateModel)));
+
 light = makeObject(model, 7, 11, 1, 1);
 light.w = 1;
 light.mu = {zeros(stateDimension, 1)};
@@ -207,6 +216,10 @@ bad(21:24) = uint8([25, 0, 0, 0]);
 assertThrows(@() decodeLmbWireMessage(bad, model));
 bad = emptyBytes;
 bad(17:20) = uint8([255, 255, 255, 255]);
+assertThrows(@() decodeLmbWireMessage(bad, model));
+bad = [emptyBytes, zeros(1, 40, 'uint8')];
+bad(17:20) = uint8([2, 0, 0, 0]);
+bad(21:24) = uint8([64, 0, 0, 0]);
 assertThrows(@() decodeLmbWireMessage(bad, model));
 
 bad = fullBytes;

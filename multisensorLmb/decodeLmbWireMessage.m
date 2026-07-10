@@ -48,9 +48,13 @@ if totalBytes ~= numel(bytes)
         'Header totalBytes does not equal the byte vector length.');
 end
 remainingBytes = totalBytes - schema.headerBytes;
-if objectCount > floor(remainingBytes / schema.objectHeaderBytes)
+minimumComponentBytes = schema.floatBytes * (1 + stateDimension + ...
+    stateDimension * (stateDimension + 1) / 2);
+minimumObjectBytes = schema.objectHeaderBytes + minimumComponentBytes;
+if objectCount > floor(remainingBytes / minimumObjectBytes)
     error('decodeLmbWireMessage:ObjectCountExceedsMessage', ...
-        'Object count cannot fit in the remaining message bytes.');
+        ['Object count and minimum component payload cannot fit in the ' ...
+         'remaining message bytes.']);
 end
 
 metadata = struct( ...

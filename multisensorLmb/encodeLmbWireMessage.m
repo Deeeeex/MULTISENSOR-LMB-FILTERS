@@ -145,7 +145,7 @@ end
 
 function objects = normalizeEmptySentinel(objects, model)
 if isempty(objects)
-    objects = model.object;
+    objects = model.object([]);
 end
 end
 
