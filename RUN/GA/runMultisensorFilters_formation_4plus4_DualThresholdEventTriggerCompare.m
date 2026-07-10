@@ -69,6 +69,11 @@ consensusPosition = NaN(numberOfTrials, numberOfArms);
 consensusCardinality = zeros(numberOfTrials, numberOfArms);
 runtimeSeconds = zeros(numberOfTrials, numberOfArms);
 payloadBytes = zeros(numberOfTrials, numberOfArms);
+attemptedPayloadBytes = zeros(numberOfTrials, numberOfArms);
+deliveredPayloadBytes = zeros(numberOfTrials, numberOfArms);
+payloadDeliveryRatio = zeros(numberOfTrials, numberOfArms);
+attemptedMask = cell(numberOfTrials, numberOfArms);
+deliveredMask = cell(numberOfTrials, numberOfArms);
 payloadScalars = zeros(numberOfTrials, numberOfArms);
 triggerRate = zeros(numberOfTrials, numberOfArms);
 lightRate = zeros(numberOfTrials, numberOfArms);
@@ -149,6 +154,16 @@ for trialIdx = 1:numberOfTrials
 
         communicationSummary = communicationDiagnostics.summary;
         payloadBytes(trialIdx, armIdx) = communicationSummary.payloadBytes;
+        attemptedPayloadBytes(trialIdx, armIdx) = ...
+            communicationSummary.attemptedPayloadBytes;
+        deliveredPayloadBytes(trialIdx, armIdx) = ...
+            communicationSummary.deliveredPayloadBytes;
+        payloadDeliveryRatio(trialIdx, armIdx) = ...
+            communicationSummary.payloadDeliveryRatio;
+        attemptedMask{trialIdx, armIdx} = ...
+            communicationDiagnostics.attempted;
+        deliveredMask{trialIdx, armIdx} = ...
+            communicationDiagnostics.delivered;
         payloadScalars(trialIdx, armIdx) = ...
             communicationSummary.payloadScalars;
         triggerRate(trialIdx, armIdx) = communicationSummary.triggerRate;
@@ -232,6 +247,15 @@ summary.consensus.ospa = mean(consensusOspa, 1);
 summary.consensus.position = mean(consensusPosition, 1, 'omitnan');
 summary.consensus.cardinality = mean(consensusCardinality, 1);
 summary.communication.payloadBytes = mean(payloadBytes, 1);
+summary.communication.attemptedPayloadBytes = ...
+    mean(attemptedPayloadBytes, 1);
+summary.communication.deliveredPayloadBytes = ...
+    mean(deliveredPayloadBytes, 1);
+summary.communication.payloadDeliveryRatio = zeros(1, numberOfArms);
+nonzeroAttempted = sum(attemptedPayloadBytes, 1) > 0;
+summary.communication.payloadDeliveryRatio(nonzeroAttempted) = ...
+    sum(deliveredPayloadBytes(:, nonzeroAttempted), 1) ./ ...
+    sum(attemptedPayloadBytes(:, nonzeroAttempted), 1);
 summary.communication.payloadScalars = mean(payloadScalars, 1);
 summary.communication.triggerRate = mean(triggerRate, 1);
 summary.communication.lightRate = mean(lightRate, 1);
@@ -277,6 +301,11 @@ summary.trials.consensusOspa = consensusOspa;
 summary.trials.consensusPosition = consensusPosition;
 summary.trials.consensusCardinality = consensusCardinality;
 summary.trials.payloadBytes = payloadBytes;
+summary.trials.attemptedPayloadBytes = attemptedPayloadBytes;
+summary.trials.deliveredPayloadBytes = deliveredPayloadBytes;
+summary.trials.payloadDeliveryRatio = payloadDeliveryRatio;
+summary.trials.attemptedMask = attemptedMask;
+summary.trials.deliveredMask = deliveredMask;
 summary.trials.triggerRate = triggerRate;
 summary.trials.staleFusionCount = staleFusionCount;
 summary.trials.labelHeartbeatCount = labelHeartbeatCount;
@@ -1141,9 +1170,11 @@ fprintf('Calibration default multi thresholds: %s\n', ...
     mat2str(summary.calibration.multi.default, 4));
 fprintf('=====================================\n');
 for armIdx = 1:numel(summary.armNames)
-    fprintf('%s: bytes %.0f, trigger %.3f, local E-OSPA %.3f, consensus OSPA %.3f\n', ...
+    fprintf(['%s: attempted bytes %.0f, delivered bytes %.0f, ' ...
+        'trigger %.3f, local E-OSPA %.3f, consensus OSPA %.3f\n'], ...
         summary.armNames{armIdx}, ...
-        summary.communication.payloadBytes(armIdx), ...
+        summary.communication.attemptedPayloadBytes(armIdx), ...
+        summary.communication.deliveredPayloadBytes(armIdx), ...
         summary.communication.triggerRate(armIdx), ...
         summary.local.meanAcrossSensors.eOspa(armIdx), ...
         summary.consensus.ospa(armIdx));
@@ -1182,7 +1213,7 @@ fprintf(fid, '| Information gain | `%s` | `%s` | `%s` | %s |\n\n', ...
     formatCalibrationSampleCount(summary.calibration, 'informationGain'));
 
 fprintf(fid, '## 通信与性能结果\n\n');
-fprintf(fid, '| Arm | Scalars | Bytes | Trigger | Light | Heavy | Delivery | Downgrades | Edges | Alg. conn. | Runtime (s) | Local E-OSPA | Local RMSE | Consensus OSPA | Position disagreement | Card. dispersion |\n');
+fprintf(fid, '| Arm | Scalars | Bytes (compat. delivered alias) | Trigger | Light | Heavy | Delivery | Downgrades | Edges | Alg. conn. | Runtime (s) | Local E-OSPA | Local RMSE | Consensus OSPA | Position disagreement | Card. dispersion |\n');
 fprintf(fid, '|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|\n');
 for armIdx = 1:numel(summary.armNames)
     fprintf(fid, '| %s | %.0f | %.0f | %.3f | %.3f | %.3f | %.3f | %.1f | %.1f | %.3f | %.3f | %.4f | %.4f | %.4f | %.4f | %.4f |\n', ...
@@ -1202,6 +1233,17 @@ for armIdx = 1:numel(summary.armNames)
         summary.consensus.ospa(armIdx), ...
         summary.consensus.position(armIdx), ...
         summary.consensus.cardinality(armIdx));
+end
+
+fprintf(fid, '\n## Typed application-layer wire accounting\n\n');
+fprintf(fid, '| Arm | Attempted bytes | Delivered bytes | Payload delivery ratio |\n');
+fprintf(fid, '|:--|--:|--:|--:|\n');
+for armIdx = 1:numel(summary.armNames)
+    fprintf(fid, '| %s | %.0f | %.0f | %.6f |\n', ...
+        summary.armNames{armIdx}, ...
+        summary.communication.attemptedPayloadBytes(armIdx), ...
+        summary.communication.deliveredPayloadBytes(armIdx), ...
+        summary.communication.payloadDeliveryRatio(armIdx));
 end
 
 fprintf(fid, '\n## Effective KLA 图诊断\n\n');

@@ -155,12 +155,113 @@ heavyStats = estimateLmbPayloadSize(mixture, model, 2, diagnostics);
 assert(noneStats.scalarCount < lightStats.scalarCount);
 assert(lightStats.scalarCount < heavyStats.scalarCount);
 
+runPayloadAccountingSmoke(model);
 runCacheSmoke(model);
 runStaleFusionSmoke(model);
 runLabelHeartbeatSmoke(model);
 runDynamicTopologySmoke();
 runEffectiveGraphDiagnosticsSmoke(model);
 fprintf('test_dual_threshold_event_trigger passed\n');
+end
+
+function runPayloadAccountingSmoke(model)
+model.simulationLength = 100;
+[~, measurements, ~, sensorTrajectories] = ...
+    generateMultisensorGroundTruth(model);
+measurements = measurements(:, 1:3);
+for sensorIdx = 1:numel(sensorTrajectories)
+    sensorTrajectories{sensorIdx} = sensorTrajectories{sensorIdx}(:, 1:3);
+end
+neighborMap = {[1, 2], [1, 2]};
+alwaysHeavy = struct( ...
+    'eventPolicy', 'alwaysHeavy', ...
+    'linkGateEnabled', false);
+
+forcedComm = struct( ...
+    'pDropBySensor', [0, 0], ...
+    'forceDelivery', true);
+[~, forcedDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    forcedComm, alwaysHeavy);
+forcedSummary = forcedDiagnostics.summary;
+assert(forcedSummary.attemptedPayloadBytes > 0);
+assert(forcedSummary.attemptedPayloadBytes == ...
+    forcedSummary.deliveredPayloadBytes);
+assert(forcedSummary.payloadBytes == ...
+    forcedSummary.deliveredPayloadBytes);
+assert(forcedSummary.payloadScalars > 0);
+assert(forcedSummary.payloadDeliveryRatio == 1);
+assert(isequal(forcedDiagnostics.payloadBytes, ...
+    forcedDiagnostics.deliveredPayloadBytes));
+assert(all(forcedDiagnostics.wireMetadataValidated( ...
+    forcedDiagnostics.delivered)));
+assert(nnz(forcedDiagnostics.wireMetadataValidated) == ...
+    forcedSummary.deliveryCount);
+
+allDropComm = struct( ...
+    'pDropBySensor', [1, 1], ...
+    'linkUniforms', zeros(2, 2, 3));
+[~, allDropDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    allDropComm, alwaysHeavy);
+allDropSummary = allDropDiagnostics.summary;
+assert(allDropSummary.attemptedPayloadBytes > 0);
+assert(allDropSummary.deliveredPayloadBytes == 0);
+assert(allDropSummary.payloadBytes == 0);
+assert(allDropSummary.payloadScalars == 0);
+assert(allDropSummary.payloadDeliveryRatio == 0);
+assert(all(allDropDiagnostics.attemptedPayloadBytes( ...
+    allDropDiagnostics.attempted) > 0));
+assert(~any(allDropDiagnostics.deliveredPayloadBytes(:)));
+assert(~any(allDropDiagnostics.wireMetadataValidated(:)));
+
+noneConfig = alwaysHeavy;
+noneConfig.eventPolicy = 'none';
+[~, noAttemptDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    forcedComm, noneConfig);
+noAttemptSummary = noAttemptDiagnostics.summary;
+assert(noAttemptSummary.attemptCount == 0);
+assert(noAttemptSummary.attemptedPayloadBytes == 0);
+assert(noAttemptSummary.deliveredPayloadBytes == 0);
+assert(noAttemptSummary.payloadBytes == 0);
+assert(noAttemptSummary.payloadDeliveryRatio == 0);
+
+emptyConfig = alwaysHeavy;
+emptyConfig.payloadExistenceThreshold = 1;
+wireSchema = getLmbWireSchema();
+[~, emptyDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    forcedComm, emptyConfig);
+attemptedEmptyBytes = emptyDiagnostics.attemptedPayloadBytes( ...
+    emptyDiagnostics.attempted);
+assert(~isempty(attemptedEmptyBytes));
+assert(all(attemptedEmptyBytes == wireSchema.headerBytes));
+assert(emptyDiagnostics.summary.attemptedPayloadBytes == ...
+    emptyDiagnostics.summary.deliveredPayloadBytes);
+assert(emptyDiagnostics.summary.payloadDeliveryRatio == 1);
+assert(all(emptyDiagnostics.wireMetadataValidated( ...
+    emptyDiagnostics.delivered)));
+assert(~any(emptyDiagnostics.staleFusionUsed(:)));
+assert(all(emptyDiagnostics.deliveredPayloadBytes( ...
+    emptyDiagnostics.delivered) == wireSchema.headerBytes));
+
+emptyCacheConfig = emptyConfig;
+emptyCacheConfig.useStaleNeighborCache = true;
+emptyCacheConfig.maxStaleFusionAge = 2;
+emptyLinkUniforms = ones(2, 2, 3);
+emptyLinkUniforms(:, :, 3) = 0;
+emptyCacheComm = struct( ...
+    'pDropBySensor', [0.5, 0.5], ...
+    'linkUniforms', emptyLinkUniforms);
+[~, emptyCacheDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    emptyCacheComm, emptyCacheConfig);
+assert(emptyCacheDiagnostics.summary.deliveryCount == 4);
+assert(emptyCacheDiagnostics.summary.staleFusionCount == 0);
+emptyCacheStaleAtLastStep = ...
+    emptyCacheDiagnostics.staleFusionUsed(:, :, 3);
+assert(~any(emptyCacheStaleAtLastStep(:)));
 end
 
 function runCacheSmoke(model)

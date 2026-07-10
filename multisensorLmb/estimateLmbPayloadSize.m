@@ -1,7 +1,12 @@
 function stats = estimateLmbPayloadSize(objects, model, eventType, diagnostics)
-% ESTIMATELMBPAYLOADSIZE Estimate scalar and byte counts for an LMB message.
+% ESTIMATELMBPAYLOADSIZE Legacy scalar-equivalent LMB field counter.
 %
 % eventType: 0=none, 1=light moment-matched LMB, 2=heavy full GM-LMB.
+% This helper predates the typed application-layer wire codec. Its
+% estimatedBytes field assumes every counted value occupies one binary64
+% scalar and is retained only for historical tests and reports. Production
+% communication and paper-facing byte metrics must use numel(bytes) from
+% encodeLmbWireMessage instead.
 
 if nargin < 4
     diagnostics = struct();
