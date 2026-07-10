@@ -325,4 +325,4 @@
 6. **Paper checkpoint**：data-driven figures、references、full rewrite、PDF，commit/push。
 7. **Final audit checkpoint**：全测试、artifact provenance、LaTeX/视觉/页数/claim audit，通过后最终 commit/push。
 
-若 Gate 1--3 任一失败，停止新 N50。若 82--131 批次启动后暴露实现或协议问题，该批数据立即降级为 development evidence；修复并重新冻结后只能使用未观察的新批次 132--181，不能复用 82--131。若新的 disjoint batch 仍不满足预注册的精确等价条件，论文必须把 claim 改为近似 representation 并解释误差来源，不能只挑聚合 tracking 指标维持“exact”叙事。
+若 Gate 1--3 任一失败，停止新 N50。Primary identity 固定为 `confirmatory-primary-seeds82-131-v2`；在 worker directory 外取得 stable reservation 的瞬间即永久 burn `82--131`，不得通过删除目录、补 MAT 或 selective retry 复用。当前 runner 故意只允许 primary `82--131`，不预先启用 fallback。若该 identity 进入 FAILED/BURNED，必须保留 tombstone/attempt ledger，修复后以新 commit 提交预注册 amendment，才可增加未观察的 `132:181` 和新 identity。若 worker 已形成 hash-bound `COMPLETE_WORKERS` receipt 但主进程在 assemble/publish 阶段中断，则只能恢复 assembly/publish，不得重算 worker。若新的 disjoint batch 仍不满足预注册的精确等价条件，论文必须把 claim 改为近似 representation 并解释误差来源，不能只挑聚合 tracking 指标维持“exact”叙事。

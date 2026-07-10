@@ -33,11 +33,12 @@ if runExperiment && ~(isConfirmatory || isSmoke)
         'N5 smoke (true,5,1000) are permitted.']);
 end
 
+provenance = struct();
 if runExperiment
-    assertFusionSufficientGitProvenance(projectRoot);
+    provenance = assertFusionSufficientGitProvenance(projectRoot);
 end
 config = buildFrozenConfig( ...
-    scriptDir, projectRoot, numberOfTrials, baseSeed, isSmoke);
+    scriptDir, projectRoot, numberOfTrials, baseSeed, isSmoke, provenance);
 reportPath = '';
 csvPath = '';
 summaryPath = '';
@@ -46,31 +47,77 @@ printFrozenConfig(config);
 if ~runExperiment
     return;
 end
+assertFusionSufficientExecutionEnvironment(config);
 
-overrides = struct( ...
-    'includeFinalPeriodicLightVariants', true, ...
-    'includeDynamicTopologyVariants', false, ...
-    'includeEffectiveKlaGraphVariants', false, ...
-    'includeLightFloorVariants', false, ...
-    'includePayloadRefinementVariants', false, ...
-    'skipCalibrationForStaticPair', true, ...
-    'paperStaticPair', true, ...
-    'capturePosteriorSnapshots', true, ...
-    'simulationLength', config.simulationLength);
-[~, summary] = ...
-    runMultisensorFilters_formation_4plus4_DualThresholdEventTriggerCompare( ...
-        config.numberOfTrials, config.baseSeed, true, false, ...
-        'default', config.armSelection, overrides);
-assertFrozenRun(summary, config);
-[reportPath, csvPath, summaryPath] = ...
-    writeFusionSufficientEvidence(summary, config);
+parallelPlan = buildFusionSufficientParallelPlan(config);
+batchState = inspectFusionSufficientBatchState(parallelPlan);
+mayMarkFailure = false;
+if strcmp(batchState.name, 'UNRESERVED')
+    try
+        acquireFusionSufficientBatchOwnership(parallelPlan, config);
+        mayMarkFailure = true;
+        launchStatus = system(parallelPlan.launchCommand);
+        if launchStatus ~= 0
+            error('FusionSufficientConfirmatory:WorkerFailure', ...
+                ['At least one seed worker failed. This batch identity ', ...
+                'is permanently burned and cannot be retried.']);
+        end
+        postLaunchState = inspectFusionSufficientBatchState(parallelPlan);
+        if ~strcmp(postLaunchState.name, 'COMPLETE_WORKERS')
+            error('FusionSufficientConfirmatory:MissingSuccessReceipt', ...
+                ['Launcher returned zero without an immutable ', ...
+                'COMPLETE_WORKERS receipt.']);
+        end
+        mayMarkFailure = false;
+    catch exception
+        if mayMarkFailure
+            publishFailureBestEffort( ...
+                parallelPlan, config, exception.identifier);
+        end
+        rethrow(exception);
+    end
+elseif strcmp(batchState.name, 'COMPLETE_WORKERS')
+    % Recovery is assembly-only. Worker recomputation is never resumed.
+    mayMarkFailure = false;
+    fprintf(['  Resuming assembly from immutable COMPLETE_WORKERS ', ...
+        'receipt; no workers will run.\n']);
+else
+    error('FusionSufficientConfirmatory:BatchIdentityBurned', ...
+        ['Batch identity %s is in state %s. Reservation acquisition ', ...
+        'burned these seeds; deletion/retry is forbidden.'], ...
+        config.batchIdentity, batchState.name);
+end
+publishClaim = acquireFusionSufficientPublishClaim( ...
+    parallelPlan, config);
+try
+    postRunProvenance = assertFusionSufficientGitProvenance(projectRoot);
+    [summary, ~] = assembleFusionSufficientMomentExchangeWorkers( ...
+        parallelPlan.workerDirectory, config, postRunProvenance);
+    [reportPath, csvPath, summaryPath] = ...
+        writeFusionSufficientEvidence(summary, config, publishClaim);
+    publishFusionSufficientPublishedReceipt( ...
+        parallelPlan, config, publishClaim);
+catch exception
+    if anyFinalArtifactExists(parallelPlan.finalPaths)
+        warning('FusionSufficientConfirmatory:PublishClaimRetained', ...
+            ['Final publication started but PUBLISHED sealing did not ', ...
+            'complete. The publish claim is retained for manual audit.']);
+    else
+        releasePublishClaimBestEffort( ...
+            parallelPlan, config, publishClaim);
+    end
+    rethrow(exception);
+end
 end
 
 function config = buildFrozenConfig( ...
-    scriptDir, projectRoot, numberOfTrials, baseSeed, isSmoke)
+    scriptDir, projectRoot, numberOfTrials, baseSeed, isSmoke, provenance)
 schema = getLmbWireSchema();
 config = struct();
-config.evidenceSchema = 'fusion-sufficient-moment-exchange-v1';
+config.evidenceSchema = 'fusion-sufficient-moment-exchange-v2';
+config.workerSchema = 'fusion-sufficient-seed-worker-v2';
+config.executionProtocol = 'deterministic-seed-subprocess-v2';
+config.testOnly = false;
 config.wireSchemaVersion = double(schema.version);
 config.gitCommit = readGitCommit(projectRoot);
 config.numberOfTrials = numberOfTrials;
@@ -78,6 +125,9 @@ config.baseSeed = baseSeed;
 config.firstSeed = baseSeed + 1;
 config.lastSeed = baseSeed + numberOfTrials;
 config.armSelection = { ...
+    'Periodic full GM fusion message', ...
+    'Periodic moment message on static topology'};
+config.internalArmSelectors = { ...
     'Periodic full posterior', ...
     'Periodic light posterior on static topology'};
 config.simulationLength = 100;
@@ -92,6 +142,12 @@ config.requiredMaxMeanResidual = 0;
 config.requiredMaxCovarianceResidual = 0;
 config.bootstrapSeed = 20270710;
 config.bootstrapResamples = 10000;
+config.maxWorkers = 6;
+config.octaveExecutable = 'octave-cli';
+config.octaveVersion = '11.1.0';
+config.executionLogicalCores = 10;
+config.executionMemoryGiB = 16;
+config.estimatedSingleWorkerMemoryMiB = 110;
 config.primaryMetric = ...
     'paired attempted application-layer byte reduction per seed';
 config.byteSemantics = ['Encoded application-layer bytes only; excludes ', ...
@@ -104,16 +160,30 @@ config.projectRoot = projectRoot;
 config.isSmoke = isSmoke;
 if isSmoke
     config.artifactStem = ...
-        'GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N5_SEEDS1001_1005';
+        'GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_V2_N5_SEEDS1001_1005';
+    config.batchIdentity = 'smoke-seeds1001-1005-v2';
 else
     config.artifactStem = ...
         'GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131';
+    config.batchIdentity = 'confirmatory-primary-seeds82-131-v2';
 end
 config.regenerationCommand = sprintf([ ...
-    'octave --quiet --eval "setPath; addpath(''RUN/GA''); ', ...
+    'octave-cli --quiet --eval "setPath; addpath(''RUN/GA''); ', ...
     '[r,c,m]=runFusionSufficientMomentExchangeConfirmatory', ...
     '(true,%d,%d); disp(r); disp(c); disp(m);"'], ...
     numberOfTrials, baseSeed);
+if isempty(fieldnames(provenance))
+    config.requiredSourcesSha256 = ...
+        hashFusionSufficientRequiredSources(projectRoot);
+else
+    if ~strcmp(provenance.head, config.gitCommit)
+        error('FusionSufficientConfirmatory:CommitChanged', ...
+            'Git HEAD changed while constructing the frozen config.');
+    end
+    config.requiredSourcesSha256 = ...
+        provenance.requiredSourcesSha256;
+end
+config.configSha256 = hashFusionSufficientConfig(config);
 end
 
 function printFrozenConfig(config)
@@ -121,9 +191,12 @@ fprintf('\nFrozen ICASSP moment-exchange protocol\n');
 fprintf('  Git commit: %s\n', config.gitCommit);
 fprintf('  Trials: %d; paired seeds: %d:%d\n', ...
     config.numberOfTrials, config.firstSeed, config.lastSeed);
+fprintf('  Immutable batch identity: %s\n', config.batchIdentity);
 fprintf('  Arm 1: %s\n', config.armSelection{1});
 fprintf('  Arm 2: %s\n', config.armSelection{2});
 fprintf('  Simulation length: %d\n', config.simulationLength);
+fprintf(['  Execution only (not a paper contribution): Octave %s, ', ...
+    'fixed maxWorkers=%d\n'], config.octaveVersion, config.maxWorkers);
 fprintf('  Posterior snapshots: %s\n', ...
     logicalText(config.capturePosteriorSnapshots));
 fprintf('  Required residuals (r, mu, Sigma): %.17g, %.17g, %.17g\n', ...
@@ -135,60 +208,35 @@ fprintf('  Bootstrap: seed=%d, resamples=%d, percentile=[2.5,97.5]\n', ...
 fprintf('  Byte semantics: %s\n\n', config.byteSemantics);
 end
 
-function assertFrozenRun(summary, config)
-assert(isequal(summary.armNames, config.armSelection));
-assert(summary.numberOfTrials == config.numberOfTrials);
-assert(isequal(summary.trialSeeds, ...
-    config.firstSeed:config.lastSeed));
-assert(summary.scenarioConfig.simulationLength == ...
-    config.simulationLength);
-assert(summary.equivalence.captured);
-for armIdx = 1:2
-    trigger = summary.arms(armIdx).triggerConfig;
-    assert(trigger.capturePosteriorSnapshots);
-    assert(~trigger.linkGateEnabled);
-    assert(~trigger.forceInitialHeavy);
-    assert(~trigger.forceLabelChangeHeavy);
-    assert(~trigger.forceStaleHeavy);
-    assert(~trigger.useStaleNeighborCache);
-    assert(~trigger.labelHeartbeatEnabled);
-    assert(~trigger.mixedPayloadEnabled);
-    assert(~trigger.mixedPayloadLightForAllActiveLabels);
-    assert(~trigger.dynamicTopologyEnabled);
-    assert(~trigger.modeAwareFusionWeights);
-    assert(~trigger.lightCovarianceInflationEnabled);
-    assert(trigger.lightFusionWeightFactor == ...
-        trigger.heavyFusionWeightFactor);
+function publishFailureBestEffort(plan, config, reason)
+try
+    publishFusionSufficientBatchFailure(plan, config, reason);
+catch failureException
+    warning('FusionSufficientConfirmatory:FailureReceipt', ...
+        'Unable to publish failure tombstone: %s', ...
+        failureException.message);
 end
-assert(strcmp(summary.arms(1).triggerConfig.eventPolicy, 'alwaysHeavy'));
-assert(strcmp(summary.arms(2).triggerConfig.eventPolicy, 'alwaysLight'));
-fullTrigger = rmfield(summary.arms(1).triggerConfig, 'eventPolicy');
-momentTrigger = rmfield(summary.arms(2).triggerConfig, 'eventPolicy');
-assert(isequaln(orderfields(fullTrigger), orderfields(momentTrigger)));
-for trialIdx = 1:config.numberOfTrials
-    assert(isequal( ...
-        summary.trials.attemptedMask{trialIdx, 1}, ...
-        summary.trials.attemptedMask{trialIdx, 2}));
-    assert(isequal( ...
-        summary.trials.deliveredMask{trialIdx, 1}, ...
-        summary.trials.deliveredMask{trialIdx, 2}));
 end
-assert(all(summary.trials.deliveredPayloadBytes(:) <= ...
-    summary.trials.attemptedPayloadBytes(:)));
-assert(all(summary.trials.posteriorMissingSnapshotCount(:, 2) == 0));
-expectedSnapshotCount = summary.scenarioConfig.numberOfSensors * ...
-    summary.scenarioConfig.simulationLength;
-assert(all(summary.trials.posteriorSnapshotCount(:) == ...
-    expectedSnapshotCount));
-assert(all(summary.trials.posteriorLabelSetMismatchCount(:, 2) == 0));
-assert(all(summary.trials.posteriorMissingLabelCount(:, 2) == 0));
-assert(all(summary.trials.posteriorMaxAbsR(:, 2) == ...
-    config.requiredMaxExistenceResidual));
-assert(all(summary.trials.posteriorMaxAbsMu(:, 2) == ...
-    config.requiredMaxMeanResidual));
-assert(all(summary.trials.posteriorMaxAbsSigma(:, 2) == ...
-    config.requiredMaxCovarianceResidual));
-assert(all(summary.trials.posteriorExactMatch(:, 2)));
+
+function releasePublishClaimBestEffort(plan, config, claim)
+try
+    releaseFusionSufficientPublishClaim(plan, config, claim);
+catch releaseException
+    warning('FusionSufficientConfirmatory:PublishClaimRelease', ...
+        ['Unable to release failed publish claim; manual audit is ', ...
+        'required: %s'], releaseException.message);
+end
+end
+
+function value = anyFinalArtifactExists(paths)
+value = false;
+for pathIdx = 1:numel(paths)
+    if exist(paths{pathIdx}, 'file') == 2 || ...
+            exist(paths{pathIdx}, 'dir') == 7
+        value = true;
+        return;
+    end
+end
 end
 
 function commit = readGitCommit(projectRoot)

@@ -1,0 +1,16 @@
+function assertFusionSufficientExecutionEnvironment(config)
+% ASSERTFUSIONSUFFICIENTEXECUTIONENVIRONMENT Enforce frozen Octave runtime.
+
+if ~isfield(config, 'octaveExecutable') || ...
+        ~strcmp(config.octaveExecutable, 'octave-cli') || ...
+        ~isfield(config, 'octaveVersion')
+    error('FusionSufficientExecution:InvalidConfig', ...
+        'Frozen execution config is incomplete.');
+end
+actualVersion = version();
+if ~strcmp(actualVersion, config.octaveVersion)
+    error('FusionSufficientExecution:OctaveVersion', ...
+        'Expected Octave %s, observed %s.', ...
+        config.octaveVersion, actualVersion);
+end
+end
