@@ -39,7 +39,8 @@
 | Fig. 2 信息有效 | mean footprint + 50 paired trials；无文字交叠；单位统一为 `10^6 B/trial` | 通过 |
 | 图中文字可读 | manifest 按 PDF mediabox 与实际 include scale 计算；最小估算 final font `9.038 pt` | 通过 |
 | 视觉与排版 | 全 5 页逐页 PNG 复核；页 1--4 密度均衡；页 5 两栏参考文献平衡 | 通过 |
-| PDF 结构 | US Letter，5 pages，TeX Gyre Termes regular/bold/italic 嵌入，无 Latin Modern fallback，链接边框隐藏 | 通过 |
+| PDF 结构 | US Letter，5 pages，TeX Gyre Termes regular/bold/italic 嵌入，无 Latin Modern fallback，链接边框隐藏，title/author/keywords metadata 与正文一致 | 通过 |
+| PDF technical preflight | Ghostscript `PDFSTOPONERROR`、pypdf strict 与 `pdfinfo` 通过；无加密/JavaScript/form/suspect object；最小文本边距约 52.9 pt | 通过 |
 | Ethics | 独立 `Compliance with Ethical Standards`，使用官方 numerical-simulation 表述 | 通过 |
 | AI disclosure | 识别 OpenAI Codex、使用范围和建议级别；作者验证责任明确 | 通过 |
 | Funding/COI | 作者确认本稿无 funding，且全体作者无相关 financial/nonfinancial interests；官方示例声明已写入 Acknowledgment | **PASS** |

@@ -47,7 +47,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | E7 | independent review | technical, novelty, and readability reviewer lanes; final synthesis in `REVISION_GUIDE_CN.md` section 12 | C1--C3：三路共同确认结果有效，并识别 receiver provenance、weight naming、numerical domain 与 retained-audit 边界 | strong |
 | E8 | literature | Crossref metadata and publisher pages for DOIs listed in `REVISION_GUIDE_CN.md` section 5 | C2：schedule reduction、component selection、state/covariance projection 的边界 | medium |
 | E9 | figure/report tests | `figure_manifest.json`; `tests/test_icassp2027_figures.py`; `tests/test_icassp2027_experiment_report.py` -> `2 passed` | C4/C6：图与实验大表均绑定 frozen CSV；图表双生成一致，50-seed 行逐项回读一致 | strong |
-| E10 | manuscript/PDF/test | rewritten `main.tex`, all six sections, `refs.bib`, `main.pdf`; `tests/check_icassp2027_pdf.py` -> exact 5 pages, TeX Gyre font-shape gate, float-placement gate, and rendered page 1--5 visual QA | C7：Story A 完整落稿，第 5 页无正文/图/表，图内估算最小 9.0 pt 以上且版面密度均衡 | strong |
+| E10 | manuscript/PDF/test | rewritten `main.tex`, all six sections, `refs.bib`, `main.pdf`; `tests/check_icassp2027_pdf.py`, Ghostscript strict parse, pypdf strict and `pdfinfo` -> exact 5 pages, TeX Gyre font-shape gate, PDF metadata gate, no encryption/JavaScript/form/suspect object, minimum text margin 52.9 pt, float-placement gate, and rendered page 1--5 visual QA | C7：Story A 完整落稿，第 5 页无正文/图/表，图内估算最小 9.0 pt 以上且版面密度均衡 | strong |
 | E11 | submission bundle/test | `submission/build_submission_bundle.py`; `submission/upload_files/{manuscript.pdf,manuscript_source.zip,SHA256SUMS}`; `tests/test_icassp2027_submission_bundle.py` | C8：ZIP 仅含 12 个真实 source + build/manifest；重复生成 SHA 一致；隔离解压编译和严格 PDF gate 通过 | strong |
 
 ## Verification Record

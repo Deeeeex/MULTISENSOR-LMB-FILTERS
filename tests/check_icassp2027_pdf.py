@@ -68,8 +68,52 @@ def assert_link_borders_hidden(reader: PdfReader) -> None:
 
 def check_pdf(pdf_path: Path, require_submission_declarations: bool = False) -> list[str]:
     reader = PdfReader(pdf_path)
+    assert not reader.is_encrypted, "submission PDF must not be encrypted"
     assert len(reader.pages) == 5, f"expected exactly 5 pages, found {len(reader.pages)}"
+
+    catalog = reader.trailer["/Root"].get_object()
+    assert "/AcroForm" not in catalog, "submission PDF contains an interactive form"
+    assert "/AA" not in catalog, "submission PDF contains additional automatic actions"
+    open_action = catalog.get("/OpenAction")
+    if open_action is not None:
+        resolved_open_action = open_action.get_object()
+        assert isinstance(resolved_open_action, list), (
+            "submission PDF contains a non-navigation OpenAction"
+        )
+        assert len(resolved_open_action) >= 2 and str(resolved_open_action[1]) in {
+            "/Fit",
+            "/FitB",
+            "/FitH",
+            "/FitV",
+            "/XYZ",
+        }, "submission PDF contains an unsafe OpenAction"
+    names = catalog.get("/Names")
+    if names is not None:
+        assert "/JavaScript" not in names.get_object(), (
+            "submission PDF contains JavaScript"
+        )
+
+    for page_number, page in enumerate(reader.pages, start=1):
+        media_box = page.mediabox
+        page_size = (float(media_box.width), float(media_box.height))
+        assert page_size == (612.0, 792.0), (
+            f"page {page_number} is not US Letter: {page_size}"
+        )
+        assert int(page.get("/Rotate", 0)) % 360 == 0, (
+            f"page {page_number} is rotated"
+        )
     assert_link_borders_hidden(reader)
+
+    metadata = reader.metadata or {}
+    assert metadata.get("/Title") == (
+        "Receiver-Induced Moment Exchange for Distributed LMB Fusion"
+    )
+    assert metadata.get("/Author") == "Jinhao Chen, Hao Lang, Tianyu Wo"
+    assert metadata.get("/Keywords") == (
+        "distributed multi-object tracking, labeled random finite sets, "
+        "LMB filter, geometric-average fusion, "
+        "communication-efficient distributed tracking"
+    )
 
     pages = [normalize(page.extract_text() or "") for page in reader.pages]
     body = " ".join(pages[:4])
@@ -153,6 +197,7 @@ def check_pdf(pdf_path: Path, require_submission_declarations: bool = False) -> 
     assert "label instances matched exactly" in lowered
     assert "admissible" in lowered
     assert "fixed symmetric degree-based" in lowered
+    assert "geometric-average fusion" in lowered
 
     if require_submission_declarations:
         declaration_text = re.sub(

@@ -391,6 +391,7 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 | Fig. 1 输入语义与公式记号不一致 | 改为 local GM-LMB posterior、full-GM/moment codec 路径和全文一致的 `pi,F_(omega,R),T,P` | 已解决 |
 | Fig. 2 identity 注释交叠、百分比符号歧义、`MB` 歧义 | 删除斜向文字，百分比直接按 reduction 展示，轴统一为 `10^6 B/trial` | 已解决 |
 | 参考文献专名和电子 article number 格式 | 保护 Bayes/Kullback--Leibler/Bernoulli 大小写，Xue 2026 改为 `Art. no. 458`；保持 20 条正文引用 | 已解决 |
+| Keywords/metadata 仍可能暗示 full KLA 或无法被上传工具识别 | `KLA fusion` 精确化为 `geometric-average fusion`；PDF title/author/keywords metadata 与正文绑定并纳入 checker | 已解决 |
 | Funding 与 COI/无 COI 声明 | 作者确认本稿无 funding、全体作者无相关 financial/nonfinancial interests；官方示例已写入 Acknowledgment | 已解决 |
 | 投稿 PDF/source 包容易与主稿漂移 | 增加确定性最小 source ZIP、内部 source manifest、upload SHA-256、隔离解压编译与严格 PDF gate | 已解决 |
 | 最终 ICASSP 2027 template/submission instructions | 官方链接截至 2026-07-11 返回 404；当前 PDF 已按 CFP、single-anonymous 与 4+1 规则通过 | **EXTERNAL PENDING** |

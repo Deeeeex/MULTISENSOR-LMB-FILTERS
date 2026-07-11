@@ -14,7 +14,12 @@
     BoldFont=texgyrecursor-bold.otf,
     ItalicFont=texgyrecursor-italic.otf,
     BoldItalicFont=texgyrecursor-bolditalic.otf]
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks,
+    pdftitle={Receiver-Induced Moment Exchange for Distributed LMB Fusion},
+    pdfauthor={Jinhao Chen, Hao Lang, Tianyu Wo},
+    pdfkeywords={distributed multi-object tracking, labeled random finite sets, LMB filter, geometric-average fusion, communication-efficient distributed tracking}}
 \setcounter{dbltopnumber}{1}
 \newcommand{\confsectionstar}[1]{%
     \par\medskip
@@ -36,7 +41,7 @@ Distributed labeled multi-Bernoulli (LMB) trackers can transmit full Gaussian-mi
 \end{abstract}
 
 \begin{keywords}
-Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA fusion, communication-efficient distributed tracking
+Distributed multi-object tracking, labeled random finite sets, LMB filter, geometric-average fusion, communication-efficient distributed tracking
 \end{keywords}
 
 \input{sections/01_introduction}

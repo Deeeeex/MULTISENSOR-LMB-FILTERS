@@ -7,6 +7,7 @@
 ## 稿件元数据
 
 - [x] 标题：`Receiver-Induced Moment Exchange for Distributed LMB Fusion`
+- [x] Keywords：distributed multi-object tracking；labeled random finite sets；LMB filter；geometric-average fusion；communication-efficient distributed tracking
 - [x] 作者顺序：Jinhao Chen；Hao Lang；Tianyu Wo
 - [x] 通讯作者：Tianyu Wo（`woty@buaa.edu.cn`）
 - [x] 机构顺序：Beihang University；Shanghai Jiao Tong University；Chinese Aeronautical Radio Electronics Research Institute
@@ -27,6 +28,8 @@
 
 - [x] 4 页技术内容 + 第 5 页仅参考文献
 - [x] US Letter、5 pages、字体嵌入、隐藏链接边框
+- [x] PDF title/author/keywords metadata 与正文一致
+- [x] Ghostscript 严格解析与 pypdf strict 通过；无加密、JavaScript、form 或 suspect object；最小文本边距约 52.9 pt
 - [x] 无 overfull、undefined citation/reference 或 PDF checker error
 - [x] funding/COI 严格 PDF gate 通过
 - [x] 两张图的 source/hash、最终字号和渲染位置通过测试
