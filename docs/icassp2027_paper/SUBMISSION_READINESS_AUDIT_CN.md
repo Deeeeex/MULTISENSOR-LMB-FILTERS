@@ -13,9 +13,9 @@
 | Scientific/implementation readiness | **PASS** | 当前主张、实现路径、冻结证据、图表与文字边界一致 |
 | PDF/layout readiness | **PASS** | 4 页技术内容 + 第 5 页参考文献；无 overfull、裁切、字体或链接边框问题 |
 | Author metadata readiness | **PASS** | Jinhao Chen 第一作者；Tianyu Wo 通讯作者；机构顺序按第一作者 |
-| Venue-policy readiness | **PARTIAL** | single-anonymous、页数和 ethics 已核对；funding/COI 声明尚缺作者事实确认 |
+| Venue-policy readiness | **PASS** | single-anonymous、页数、ethics、funding 与 COI 均已核对并写入 PDF |
 | Final-template readiness | **EXTERNAL PENDING** | 2027 detailed submission/template URL 截至本次审计仍返回 HTTP 404 |
-| Overall submission status | **IMPLEMENTATION PASS / NOT YET SUBMISSION PASS** | 只有 funding/COI 作者确认与官方 2027 kit 终检未闭合 |
+| Overall submission status | **PRE-SUBMISSION PASS / FINAL-TEMPLATE PENDING** | 稿件自身门禁均通过；仅待官方 2027 kit 上线后的模板终检 |
 
 ## 2. 目标逐项证据表
 
@@ -41,29 +41,16 @@
 | PDF 结构 | US Letter，5 pages，TeX Gyre Termes regular/bold/italic 嵌入，无 Latin Modern fallback，链接边框隐藏 | 通过 |
 | Ethics | 独立 `Compliance with Ethical Standards`，使用官方 numerical-simulation 表述 | 通过 |
 | AI disclosure | 识别 OpenAI Codex、使用范围和建议级别；作者验证责任明确 | 通过 |
-| Funding/COI | ICASSP 要求披露资助和真实/潜在冲突，或明确无冲突；当前 PDF 没有该事实声明 | **AUTHOR INPUT REQUIRED** |
+| Funding/COI | 作者确认本稿无 funding，且全体作者无相关 financial/nonfinancial interests；官方示例声明已写入 Acknowledgment | **PASS** |
 | 2027 template | 当前 `spconf.sty` 与仓库保存的 official ICASSP 2026 template SHA-256 相同；2027 detailed URL 为 404 | **EXTERNAL PENDING** |
 
-## 3. Funding/COI 只能二选一地由作者确认
+## 3. Funding/COI 作者确认与落位
 
-仓库中另一篇主稿使用过以下 funding：
-
-> This work was supported by Aviation Industry Corporation of China, Ltd. (AVIC) [grant number 2024AIASSJT02].
-
-这只能作为候选文本，不能证明同一 grant 支持了本 ICASSP 工作。作者必须确认以下两项：
-
-1. `2024AIASSJT02` 是否确实资助了本稿所述 receiver/message/experiment 工作；
-2. 全体作者是否确认没有 relevant financial or nonfinancial interests，或需要披露具体关系。
-
-若 grant 适用且无 COI，建议合并写为：
-
-> This work was supported by Aviation Industry Corporation of China, Ltd. (AVIC) [grant number 2024AIASSJT02]. The authors have no relevant financial or nonfinancial interests to disclose.
-
-若本工作无 funding 且无 COI，使用 ICASSP 官方示例：
+作者于 2026-07-11 确认：本稿无 funding；全体作者无需要披露的 COI。论文据此采用 ICASSP 官方示例：
 
 > No funding was received for conducting this study. The authors have no relevant financial or nonfinancial interests to disclose.
 
-若存在真实或潜在冲突，不得使用上述无冲突文本，应由相关作者提供准确披露。
+该声明位于 `Acknowledgment` 首句，并由严格 PDF gate 检查。若事实状态发生变化，作者必须同步修改声明，不得继续使用无冲突文本。
 
 ## 4. 官方核对入口
 
@@ -81,14 +68,14 @@ octave-cli --quiet --eval "setPath; addpath('tests'); addpath('RUN/GA'); test_ic
 octave-cli --quiet --eval "setPath; addpath('RUN/GA'); v=validateFusionSufficientEvidence('RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.mat','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.md'); disp(v);"
 cd docs/icassp2027_paper && tectonic --keep-logs --keep-intermediates main.tex
 cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf
-# 仅在作者声明写入后，以下 submission gate 才应通过：
+# 作者声明已写入，以下 submission gate 必须通过：
 /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf --require-submission-declarations
 git diff --check
 ```
 
 ## 6. 完成定义
 
-只有下列两项都满足时，才可把 thread goal 标记为 complete：
+只有下列事项满足时，才可把 thread goal 标记为 complete：
 
-- 作者确认 funding/COI，并将真实声明写入最终 PDF；
+- [x] 作者确认 funding/COI，并将真实声明写入最终 PDF；
 - official ICASSP 2027 paper kit 上线后，对模板、边距、字体、页数和 PDF eXpress 要求重新检查并通过。

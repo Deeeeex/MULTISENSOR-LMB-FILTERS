@@ -370,7 +370,7 @@ inflation 与规范化 binary64 字段的 value-preserving transport 现在均�
 当前第 5 页仅列参考文献；技术图、公式、表格没有裁切或横向溢出。Discussion 正面
 处理了三项最强反驳：代数恒等式是否循环验证、58.28% 是否可泛化、相同
 canonical binary64 实现是否夸大外部有效性。当前裁决为 **implementation pass**，
-而不是自动投稿许可；作者身份现已按 Jinhao Chen 第一作者、Tianyu Wo 通讯作者写入。ICASSP 2027 CFP、single-anonymous policy、4+1 页规则、funding/COI 和 ethics requirement 已于 2026-07-11 核对；官方 detailed submission/template 链接仍为 404。作者仍需确认 funding 与利益冲突事实，并在 paper kit 上线后复核模板。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
+而不是自动投稿许可；作者身份现已按 Jinhao Chen 第一作者、Tianyu Wo 通讯作者写入。ICASSP 2027 CFP、single-anonymous policy、4+1 页规则、funding/COI 和 ethics requirement 已于 2026-07-11 核对；作者同日确认本稿无 funding 且全体作者无相关 financial/nonfinancial interests，声明已写入 Acknowledgment。官方 detailed submission/template 链接仍为 404，paper kit 上线后还需复核模板。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
 限定的 network-cost claim，本指南仍自动判定该版本失败。
 
 ## 12. 2026-07-11 最终对抗性复审与处置
@@ -391,7 +391,7 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 | Fig. 1 输入语义与公式记号不一致 | 改为 local GM-LMB posterior、full-GM/moment codec 路径和全文一致的 `pi,F_(omega,R),T,P` | 已解决 |
 | Fig. 2 identity 注释交叠、百分比符号歧义、`MB` 歧义 | 删除斜向文字，百分比直接按 reduction 展示，轴统一为 `10^6 B/trial` | 已解决 |
 | 参考文献专名和电子 article number 格式 | 保护 Bayes/Kullback--Leibler/Bernoulli 大小写，Xue 2026 改为 `Art. no. 458`；保持 20 条正文引用 | 已解决 |
-| Funding 与 COI/无 COI 声明 | ICASSP 2027 官方明确要求；不能代作者推断 | **AUTHOR INPUT REQUIRED** |
+| Funding 与 COI/无 COI 声明 | 作者确认本稿无 funding、全体作者无相关 financial/nonfinancial interests；官方示例已写入 Acknowledgment | 已解决 |
 | 最终 ICASSP 2027 template/submission instructions | 官方链接截至 2026-07-11 返回 404；当前 PDF 已按 CFP、single-anonymous 与 4+1 规则通过 | **EXTERNAL PENDING** |
 
 官方核对入口：
@@ -401,6 +401,6 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 - Single-anonymous 与 review criteria：<https://2027.ieeeicassp.org/about/editorial-policies/>
 - Detailed submission page（2026-07-11 为 404）：<https://2027.ieeeicassp.org/paper-submission-instructions/>
 
-当前技术与版面裁决仍为 **implementation pass**。只有作者提供真实 funding/COI 信息并在正式 paper kit 上线后完成模板差异检查，才可把状态提升为 **submission pass**。
+当前技术、版面与作者声明门禁均通过。正式 paper kit 上线并完成模板差异检查后，才可把状态提升为最终 **submission pass**。
 
-`tests/check_icassp2027_pdf.py --require-submission-declarations` 是最终声明门禁：当前普通 PDF gate 通过，而该严格模式按预期因缺少 funding statement 失败；写入作者确认的 funding/COI 文本后必须重新运行并通过。
+`tests/check_icassp2027_pdf.py --require-submission-declarations` 是最终声明门禁：作者确认的无 funding、无 COI 文本写入后，该严格模式必须与普通 PDF gate 一并通过。

@@ -31,7 +31,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | C4 | 50 个 paired confirmatory seeds 的 attempted application-layer byte reduction 均值为 58.277264%，95% CI 为 [57.923222%, 58.636095%] | High | E4, E5 | 不是 airtime、energy 或 end-to-end traffic |
 | C5 | 最新证据可从 tracked MAT 重算 CSV、aggregate、bootstrap 与 Markdown | High | E5, E6 | 执行 seeds 已 burn，只允许只读 validation |
 | C6 | 新 Figure 1/2 已与中心 claim 对齐且直接绑定冻结 evidence | High | E9 | 最终稿必须按双栏全宽使用并重新视觉检查 |
-| C7 | 重写后的正文、图表、Discussion 与 4+1 PDF 已通过 claim、页数和全页视觉 gate | High | E10 | Funding/COI 事实仍需作者确认；detailed 2027 template 链接尚未上线 |
+| C7 | 重写后的正文、图表、Discussion 与 4+1 PDF 已通过 claim、页数和全页视觉 gate | High | E10 | 作者已确认无 funding、无 COI；detailed 2027 template 链接尚未上线 |
 
 ## Evidence Ledger
 
@@ -106,7 +106,7 @@ cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/
 /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf --require-submission-declarations
 ```
 
-当前普通 PDF gate 通过；严格 submission gate 按预期因 funding/COI 尚未确认而失败。
+当前普通 PDF gate 与严格 submission gate 均通过；后者锁定作者确认的无 funding、无 COI 声明。
 
 执行 provenance 为 commit `7974f10179a8973875bec9f301b8a5f84477d860`；验证可在
 其 descendant 上运行。`82:131` 已永久 burn，不得使用报告中的历史 regeneration
@@ -117,7 +117,7 @@ cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/
 - state/covariance projection 工作只构成部分背景支撑，论文不得声称 exhaustive
   novelty search 或 `first`。
 - ICASSP 2027 已确认 single-anonymous、4+1 页、funding/COI 与 ethics requirements；
-  作者仍需提供真实 funding 信息并确认是否无真实/潜在 COI。
+  作者已于 2026-07-11 确认本稿无 funding，且全体作者无相关 financial/nonfinancial interests。
 - 官方 detailed submission/template 链接截至 2026-07-11 返回 404；上线后必须
   对比官方 `spconf`/模板并重新运行 PDF gate。
 - 作者需决定是否公开代码与冻结 MAT/CSV/MD，以及可写入论文的稳定 URL。
@@ -127,5 +127,5 @@ cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/
 以高置信度执行 Story A：`custom receiver factorization -> sender-side projection -> conditional
 receiver-field equivalence -> typed message -> frozen paired evidence`。删除所有 dynamic/
 event-trigger superiority 与 symmetrized connectivity 主张。该推荐现已由 C1--C7
-支持并完成实施，证据包 gate 为 `implementation pass`。最终 submission pass 仍需
-作者补齐 funding/COI，并在 official paper kit 上线后完成模板终检。
+支持并完成实施，证据包 gate 为 `implementation pass`，funding/COI 声明 gate 亦已通过。
+最终 submission pass 仅待 official paper kit 上线后完成模板终检。

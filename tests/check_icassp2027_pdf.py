@@ -155,14 +155,18 @@ def check_pdf(pdf_path: Path, require_submission_declarations: bool = False) -> 
     assert "fixed symmetric degree-based" in lowered
 
     if require_submission_declarations:
+        declaration_text = re.sub(
+            r"(?<=[a-z])-\s+(?=[a-z])", "", lowered
+        )
         has_funding = (
-            "no funding was received for conducting this study" in lowered
-            or "this work was supported by" in lowered
+            "no funding was received for conducting this study" in declaration_text
+            or "this work was supported by" in declaration_text
         )
         has_coi = (
-            "no relevant financial or nonfinancial interests to disclose" in lowered
-            or "conflict of interest" in lowered
-            or "competing interests" in lowered
+            "no relevant financial or nonfinancial interests to disclose"
+            in declaration_text
+            or "conflict of interest" in declaration_text
+            or "competing interests" in declaration_text
         )
         assert has_funding, "required funding or no-funding statement is missing"
         assert has_coi, "required COI or no-COI statement is missing"
