@@ -14,6 +14,7 @@ from pathlib import Path
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from pypdf import PdfReader
 
 
 PAPER_ROOT = Path(__file__).resolve().parents[1]
@@ -40,8 +41,14 @@ WIRE_COLOR = "#D18F29"
 TEXT_COLOR = "#17202A"
 MUTED_COLOR = "#40505E"
 GRID_COLOR = "#DCE3E8"
-MIN_SOURCE_FONT_PT = 7.6
+MECHANISM_MIN_SOURCE_FONT_PT = 7.6
+EVIDENCE_MIN_SOURCE_FONT_PT = 8.5
+GUIDELINE_MIN_FINAL_FONT_PT = 9.0
+PAPER_TEXT_WIDTH_MM = 178.0
 PAPER_WIDTH_SCALE = 0.94
+TARGET_INCLUDE_WIDTH_POINTS = (
+    PAPER_TEXT_WIDTH_MM / 25.4 * 72.0 * PAPER_WIDTH_SCALE
+)
 
 
 def sha256(path: Path) -> str:
@@ -175,12 +182,12 @@ def configure_matplotlib() -> None:
         {
             "font.family": "sans-serif",
             "font.sans-serif": ["DejaVu Sans"],
-            "font.size": 8.0,
-            "axes.labelsize": 8.0,
-            "axes.titlesize": 9.0,
-            "xtick.labelsize": MIN_SOURCE_FONT_PT,
-            "ytick.labelsize": MIN_SOURCE_FONT_PT,
-            "legend.fontsize": MIN_SOURCE_FONT_PT,
+            "font.size": EVIDENCE_MIN_SOURCE_FONT_PT,
+            "axes.labelsize": EVIDENCE_MIN_SOURCE_FONT_PT,
+            "axes.titlesize": 9.4,
+            "xtick.labelsize": EVIDENCE_MIN_SOURCE_FONT_PT,
+            "ytick.labelsize": EVIDENCE_MIN_SOURCE_FONT_PT,
+            "legend.fontsize": EVIDENCE_MIN_SOURCE_FONT_PT,
             "axes.spines.top": False,
             "axes.spines.right": False,
             "axes.linewidth": 0.65,
@@ -318,17 +325,17 @@ def make_mechanism_figure(output_dir: Path) -> None:
         (moments_x, 0.50),
         0.17,
         0.34,
-        "Identical\nfusion-sufficient\nmoments",
+        "Identical receiver\ninputs\n" + r"$\ell,r,\mu,\Sigma$",
         "#EAF5F0",
         OUTPUT_COLOR,
-        MIN_SOURCE_FONT_PT,
+        MECHANISM_MIN_SOURCE_FONT_PT,
     )
     rounded_box(
         ax,
         (fusion_x, 0.50),
         0.13,
         0.34,
-        "Projected\nfusion\n" + r"$\mathcal{G}_{\omega}$",
+        "Projected\nfusion\n" + r"$\mathcal{G}_{\omega,\mathcal{R}}$",
         "#F1ECF8",
         FUSION_COLOR,
         7.8,
@@ -351,7 +358,9 @@ def make_mechanism_figure(output_dir: Path) -> None:
     arrow(ax, (0.645, 0.50), (0.695, 0.50))
     arrow(ax, (0.825, 0.50), (0.885, 0.50))
 
-    ax.text(0.85, 0.82, r"$\mathcal{F}(X)=\mathcal{F}(\mathcal{P}X)$", ha="center",
+    ax.text(0.83, 0.82,
+            r"$\mathcal{F}(\mathcal{T}X)=\mathcal{F}(\mathcal{T}\mathcal{P}X)$",
+            ha="center",
             va="center", transform=ax.transAxes, color=OUTPUT_COLOR,
             fontsize=8.8, fontweight="bold")
     save_figure(
@@ -385,7 +394,8 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     mean_moment_delivered_mb = (
         math.fsum(moment_delivered_mb) / len(moment_delivered_mb)
     )
-    mean_remaining_ratio = 1.0 - mean_attempted / 100.0
+    minimum_reduction = min(float(value) for value in evidence["attempted_reduction"])
+    maximum_reduction = max(float(value) for value in evidence["attempted_reduction"])
 
     fig, (footprint, parity) = plt.subplots(
         1,
@@ -424,7 +434,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
             ha="left",
             va="center",
             color="white",
-            fontsize=MIN_SOURCE_FONT_PT,
+            fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
             fontweight="bold",
         )
         footprint.text(
@@ -434,7 +444,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
             ha="right",
             va="center",
             color="white",
-            fontsize=MIN_SOURCE_FONT_PT,
+            fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
             fontweight="bold",
         )
         footprint.text(
@@ -444,7 +454,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
             ha="left",
             va="center",
             color="white",
-            fontsize=MIN_SOURCE_FONT_PT,
+            fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
             fontweight="bold",
         )
         footprint.text(
@@ -454,7 +464,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
             ha="left",
             va="center",
             color=MOMENT_COLOR,
-            fontsize=MIN_SOURCE_FONT_PT,
+            fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
             fontweight="bold",
         )
         footprint.text(
@@ -464,14 +474,14 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
             ha="right",
             va="center",
             color="#174A6E",
-            fontsize=MIN_SOURCE_FONT_PT,
+            fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
             fontweight="bold",
         )
     footprint.set_yticks(row_y)
     footprint.set_yticklabels(["Attempted", "Delivered"])
     footprint.set_xlim(0.0, 31.0)
     footprint.set_xticks([0, 10, 20, 30])
-    footprint.set_xlabel("Mean application-layer payload (MB/trial)")
+    footprint.set_xlabel("Mean payload (MB/trial)")
     footprint.grid(axis="x", color=GRID_COLOR, linewidth=0.50)
     footprint.set_axisbelow(True)
     footprint.set_title("a  Communication footprint", loc="left", fontweight="bold")
@@ -486,32 +496,15 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         linewidth=0.95,
         zorder=1,
     )
-    parity.plot(
-        limit,
-        [mean_remaining_ratio * value for value in limit],
-        color="#174A6E",
-        linewidth=1.25,
-        zorder=2,
-    )
     parity.scatter(
         full_attempted_mb,
         moment_attempted_mb,
-        s=17,
+        s=21,
         color=MOMENT_COLOR,
-        alpha=0.76,
-        edgecolors="white",
-        linewidths=0.35,
-        zorder=3,
-    )
-    parity.scatter(
-        [mean_full_mb],
-        [mean_moment_mb],
-        s=38,
-        marker="D",
-        color="#174A6E",
+        alpha=0.62,
         edgecolors="white",
         linewidths=0.45,
-        zorder=5,
+        zorder=3,
     )
     parity.text(
         25.4,
@@ -521,7 +514,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         ha="center",
         va="bottom",
         color="#737B84",
-        fontsize=MIN_SOURCE_FONT_PT,
+        fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
     )
     parity.text(
         0.04,
@@ -531,17 +524,17 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         ha="left",
         va="top",
         color=TEXT_COLOR,
-        fontsize=MIN_SOURCE_FONT_PT,
+        fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
     )
     parity.text(
         0.96,
         0.025,
-        f"mean remaining\n{100.0 * mean_remaining_ratio:.2f}% of full",
+        f"reduction range\n{minimum_reduction:.2f}-{maximum_reduction:.2f}%",
         transform=parity.transAxes,
         ha="right",
         va="bottom",
         color="#174A6E",
-        fontsize=MIN_SOURCE_FONT_PT,
+        fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
         fontweight="bold",
     )
     parity.set_xlim(limit)
@@ -549,8 +542,8 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     parity.set_xticks([0, 10, 20, 30])
     parity.set_yticks([0, 10, 20, 30])
     parity.set_aspect("equal", adjustable="box")
-    parity.set_xlabel("Full-GM attempted payload (MB/trial)")
-    parity.set_ylabel("Moment payload (MB/trial)")
+    parity.set_xlabel("Full-GM attempted (MB/trial)")
+    parity.set_ylabel("Moment attempted (MB/trial)")
     parity.set_title("b  Paired trial footprint", loc="left", fontweight="bold")
 
     save_figure(
@@ -568,19 +561,41 @@ def write_manifest(output_dir: Path, evidence: dict[str, object]) -> None:
         name: {"sha256": sha256(output_dir / name), "bytes": (output_dir / name).stat().st_size}
         for name in FIGURE_NAMES
     }
+    source_font_points = {
+        "payload_graph_schematic.pdf": MECHANISM_MIN_SOURCE_FONT_PT,
+        "heldout_tradeoff.pdf": EVIDENCE_MIN_SOURCE_FONT_PT,
+    }
+    figure_layout = {}
+    for name, minimum_source_font in source_font_points.items():
+        media_box = PdfReader(output_dir / name).pages[0].mediabox
+        source_width_points = float(media_box.width)
+        estimated_scale = TARGET_INCLUDE_WIDTH_POINTS / source_width_points
+        figure_layout[name] = {
+            "minimum_source_font_points": minimum_source_font,
+            "source_width_points": source_width_points,
+            "estimated_include_scale": estimated_scale,
+            "minimum_estimated_final_font_points": (
+                minimum_source_font * estimated_scale
+            ),
+        }
+    minimum_final_font = min(
+        item["minimum_estimated_final_font_points"]
+        for item in figure_layout.values()
+    )
     manifest = {
-        "schema": "icassp2027-figure-manifest-v1",
+        "schema": "icassp2027-figure-manifest-v2",
         "backend": "python-matplotlib",
         "layout_qa": {
-            "minimum_source_font_points": MIN_SOURCE_FONT_PT,
+            "guideline_minimum_final_font_points": GUIDELINE_MIN_FINAL_FONT_PT,
+            "paper_text_width_mm": PAPER_TEXT_WIDTH_MM,
             "paper_width_scale": PAPER_WIDTH_SCALE,
-            "minimum_estimated_final_font_points": (
-                MIN_SOURCE_FONT_PT * PAPER_WIDTH_SCALE
-            ),
+            "target_include_width_points": TARGET_INCLUDE_WIDTH_POINTS,
+            "minimum_estimated_final_font_points": minimum_final_font,
+            "figures": figure_layout,
         },
         "contract": {
-            "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
-            "figure_2": "Mean attempted/delivered footprints and paired trial scaling quantify application-layer savings.",
+            "figure_1": "Canonical transport and sender-side moment projection produce identical inputs to the specified receiver.",
+            "figure_2": "Mean attempted/delivered footprints and paired trials quantify application-layer savings without mixing aggregate ratio definitions.",
         },
         "evidence": {
             "path": stable_path(evidence_path),

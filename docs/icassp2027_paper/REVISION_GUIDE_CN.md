@@ -6,19 +6,21 @@
 
 目标稿件：`docs/icassp2027_paper/`（ICASSP 2027，正文 4 页，第 5 页仅参考文献）
 
+> 本文档记录从旧四臂稿到 receiver-induced 稿的实施决策与历史问题；其中“旧稿/当前基线”描述保留作追溯，不代表最终状态。最终投稿状态、第二轮盲审与剩余作者确认项以 `FINAL_SUBMISSION_AUDIT_CN.md` 为准。
+
 ## 1. 结论先行
 
 当前稿件不是“小修润色”问题，而是**中心论点与证据类型错位**：代码中的 full/light 等价主要来自接收端算子本来就先对每个标签做矩匹配，因此 N50 上的指标一致并不是一个偶然的实验发现，而是一个可以形式化说明、再用实现测试验证的结构性质。现稿把它包装成“图保持优于图稀疏化”的经验故事，又用配置不一致的 dynamic arms 支撑该叙事，容易被审稿人判为 tautological implementation optimization、ablation confounded 或 overclaim。
 
-建议把论文彻底收束为：
+最终将论文收束为：
 
-> **面向 projected KLA-LMB 接收算子的融合充分消息（fusion-sufficient message）**。若接收端的单轮融合映射只通过每标签的存在概率与一、二阶矩消费 GM-LMB 后验，则发送端可以先施加同一个投影，只传 `(label, r, mean, covariance)`；在相同标签选择、融合权重、消息调度和传输结果下，投影前后的融合输出相同。真实的应用层编码与配对实验用于验证实现并量化通信收益，而不是用 N50 “发现”等价性。
+> **面向 executed projected KLA-LMB 接收算子的 receiver-induced moment message**。若接收端的调用链只通过每标签的存在概率与规范化一、二阶矩消费 GM-LMB 后验，则发送端可以先施加同一个投影，只传 `(label, r, mean, covariance)`；在相同 active labels、Metropolis 权重、delivery masks、数值算子与规范化 binary64 transport 下，投影前后的融合输出相同。真实应用层编码与配对实验用于验证实现并量化通信收益，而不是用 N50 “发现”等价性。
 
 本文中的 `fusion-sufficient` 仅指“对这里明确指定的融合算子，两个输入表示属于同一输出等价类”，不是 Fisher–Neyman 意义的统计充分性，也不表示两个 posterior density 相同。
 
-暂定标题：
+最终工作标题：
 
-> **Fusion-Sufficient Moment Exchange for Distributed Projected KLA-LMB Tracking**
+> **Receiver-Induced Moment Exchange for Distributed Projected KLA-LMB Tracking**
 
 一句话贡献：
 
@@ -142,7 +144,7 @@
 
 **主要问题**
 
-1. 标题 “Light Posterior Exchange” 太泛，也不告诉读者为何 light 足够；标题应突出 `fusion-sufficient moment exchange`。
+1. 标题 “Light Posterior Exchange” 太泛，也不告诉读者为何 light 足够；最终标题应突出 receiver-induced interface。
 2. 摘要最后一句把论文拉回 event-trigger/topology 对抗，但正文没有公平证据，应删除。
 3. Introduction 的“图保持”篇幅大于核心算子，贡献列表也混淆 method、perspective 与 validation。应按 `receiver consumes projection → move projection to sender → prove → encode → validate` 的因果链重写。
 4. Figure 1 应是两条并行路径并在融合输出处合流，不是三个模块串联。Figure 2 应展示每 seed 的 attempted-byte reduction 和配对绝对 payload，而不是重复表格或把零残差审计做成 checklist。
@@ -158,7 +160,7 @@
 **接收条件**
 
 - 全文只有一个中心句，所有段落和图表都服务于它。
-- 图中文字在最终双栏缩放后仍至少约 7 pt，可黑白辨认。
+- 图中文字在最终双栏缩放后不少于 9 pt，可黑白辨认。
 - 第 5 页只包含 references，正文严格在前 4 页。
 
 ## 4. Cross-review synthesis
@@ -355,12 +357,12 @@
 | Evidence-driven figures | 通过 | deterministic manifest/test；无 dynamic arm 或硬编码 aggregate |
 | Full manuscript rewrite | 通过 | 标题、摘要、Related Work、`P/F/G` 命题、two-arm 结果、Discussion 与结论均已重写 |
 | 4+1 final PDF | 通过 | `tests/check_icassp2027_pdf.py`：exact 5 pages；第 5 页仅 references；全页 PNG 视觉复核 |
-| Font/figure/float QA | 通过 | TeX Gyre Termes regular/bold/italic 无 Latin Modern fallback；图内估算最小 7.14 pt；Fig. 1/2 分置第 2/3 页，Table 1 位于 Experiments 页 |
+| Font/figure/float QA | 通过 | TeX Gyre Termes regular/bold/italic 无 Latin Modern fallback；图内估算最小 9.038 pt；Fig. 1/2 分置第 2/3 页，Table 1 位于第 4 页的 Experiments 段 |
 | Final claim/style audit | 通过 | 无旧 dynamic/held-out/effective-graph 主张；closest work 与应用层 byte 边界已显式限定 |
 
 最终 red-team 又要求收紧 Proposition 1：source-indexed active-label presence、
-spatial/existence 两组权重、selection/pruning、共同 regularization、禁用 covariance
-inflation 与 lossless codec 现在均列为条件；proof 逐项说明 missing-label 重归一化、
+Gaussian/Bernoulli 共用的 Metropolis 权重、selection/pruning、共同的 $\mathcal C/\mathcal P/\mathcal R$、禁用 covariance
+inflation 与规范化 binary64 字段的 value-preserving transport 现在均列为条件；proof 逐项说明 missing-label 重归一化、
 `K,h,eta,q0,q1` 不变，不再只写一行幂等恒等式。版面终审发现的 XeTeX `ptm`
 字体回退、图内 5--6 pt 字号和结果图过早出现也已修复并进入自动 gate。
 
@@ -368,6 +370,5 @@ inflation 与 lossless codec 现在均列为条件；proof 逐项说明 missing-
 第 5 页仅列参考文献；技术图、公式、表格没有裁切或横向溢出。Discussion 正面
 处理了三项最强反驳：代数恒等式是否循环验证、58.28% 是否可泛化、相同
 canonical binary64 实现是否夸大外部有效性。当前裁决为 **implementation pass**，
-而不是自动投稿许可；作者仍需确认匿名信息、最终 ICASSP 2027 官方格式与学术
-声明。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
+而不是自动投稿许可；作者身份现已按 Jinhao Chen 第一作者、Tianyu Wo 通讯作者写入；作者仍需确认 funding 与利益冲突声明，并在 detailed 2027 paper kit 发布后复核最终格式。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
 限定的 network-cost claim，本指南仍自动判定该版本失败。

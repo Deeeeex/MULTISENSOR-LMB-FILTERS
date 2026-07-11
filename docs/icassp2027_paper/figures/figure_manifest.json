@@ -1,8 +1,8 @@
 {
   "backend": "python-matplotlib",
   "contract": {
-    "figure_1": "Sender-side moment projection commutes with the specified projected receiver fusion.",
-    "figure_2": "Mean attempted/delivered footprints and paired trial scaling quantify application-layer savings."
+    "figure_1": "Canonical transport and sender-side moment projection produce identical inputs to the specified receiver.",
+    "figure_2": "Mean attempted/delivered footprints and paired trials quantify application-layer savings without mixing aggregate ratio definitions."
   },
   "evidence": {
     "path": "RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv",
@@ -15,31 +15,47 @@
     ],
     "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
   },
-  "generator_sha256": "2f4f8a5c69199441ca151cd531630a683bd1590baa1c3b8f1af41b0dc03a2635",
+  "generator_sha256": "d466f3ea0356b18158ffea95679cfad6102af4ae1a05676ccc29318859ffa9ee",
   "layout_qa": {
-    "minimum_estimated_final_font_points": 7.143999999999999,
-    "minimum_source_font_points": 7.6,
-    "paper_width_scale": 0.94
+    "figures": {
+      "heldout_tradeoff.pdf": {
+        "estimated_include_scale": 1.081641750537125,
+        "minimum_estimated_final_font_points": 9.193954879565561,
+        "minimum_source_font_points": 8.5,
+        "source_width_points": 438.4935336957
+      },
+      "payload_graph_schematic.pdf": {
+        "estimated_include_scale": 1.189219565784518,
+        "minimum_estimated_final_font_points": 9.038068699962336,
+        "minimum_source_font_points": 7.6,
+        "source_width_points": 398.827035
+      }
+    },
+    "guideline_minimum_final_font_points": 9.0,
+    "minimum_estimated_final_font_points": 9.038068699962336,
+    "paper_text_width_mm": 178.0,
+    "paper_width_scale": 0.94,
+    "target_include_width_points": 474.29291338582675
   },
   "outputs": {
     "heldout_tradeoff.pdf": {
-      "bytes": 23408,
-      "sha256": "2712ab56987572fe37fba5e2f960e620d2f6dd1034375b0dfc7957ecc4b68e37"
+      "bytes": 23172,
+      "sha256": "1e5cba3f138eca9ce915da9dbabeb07aaf7a06e889afed2e5998303f1c04c347"
     },
     "heldout_tradeoff.png": {
-      "bytes": 129192,
-      "sha256": "6aca9a8e4a5f1deed3ff077b0e826dda7e635e88c5d82d8735b55ad87ef3f658"
+      "bytes": 140522,
+      "sha256": "a00c74e3597a1e73944d4dcf89fadb8cb4459865f95d30c5145a88bb092b4c2d"
     },
     "payload_graph_schematic.pdf": {
-      "bytes": 21329,
-      "sha256": "5e7ff7a1cb722156a82c42f2445e3633efd9e487fa8cac742ec19f53c6ee0294"
+      "bytes": 21723,
+      "sha256": "327575bdede04848c0fb89b9dc24dc8f59593781c6b10bc9987aefa854f6ad5b"
     },
     "payload_graph_schematic.png": {
-      "bytes": 79969,
-      "sha256": "05e104e1575495e9866218624085ab69622ce9b1a69033f01a676c742901fb22"
+      "bytes": 79852,
+      "sha256": "e8aedc6de1df166069adab6c96a7418ce9aeb187749fa39b349e8e24d4e19735"
     }
   },
-  "schema": "icassp2027-figure-manifest-v1",
+  "schema": "icassp2027-figure-manifest-v2",
   "summary": {
     "all_exact_match": true,
     "all_masks_equal": true,

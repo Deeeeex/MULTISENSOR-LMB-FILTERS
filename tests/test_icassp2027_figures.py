@@ -57,7 +57,7 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     second_manifest = generate(second_dir)
 
     assert first_manifest == second_manifest
-    assert first_manifest["schema"] == "icassp2027-figure-manifest-v1"
+    assert first_manifest["schema"] == "icassp2027-figure-manifest-v2"
     assert first_manifest["evidence"]["path"] == str(EVIDENCE.relative_to(ROOT))
     assert first_manifest["evidence"]["sha256"] == sha256(EVIDENCE)
     assert first_manifest["evidence"]["row_count"] == 50
@@ -70,8 +70,21 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
     assert first_manifest["summary"]["mean_moment_attempted_mb"] == 10.4577776
     assert first_manifest["summary"]["mean_full_delivered_mb"] == 20.09097936
     assert first_manifest["summary"]["mean_moment_delivered_mb"] == 8.37796896
-    assert first_manifest["layout_qa"]["minimum_source_font_points"] >= 7.6
-    assert first_manifest["layout_qa"]["minimum_estimated_final_font_points"] >= 7.0
+    layout_qa = first_manifest["layout_qa"]
+    assert layout_qa["guideline_minimum_final_font_points"] == 9.0
+    assert layout_qa["paper_text_width_mm"] == 178.0
+    assert layout_qa["paper_width_scale"] == 0.94
+    assert layout_qa["minimum_estimated_final_font_points"] >= 9.0
+    for name, figure_qa in layout_qa["figures"].items():
+        source_width = float(PdfReader(first_dir / name).pages[0].mediabox.width)
+        expected_scale = layout_qa["target_include_width_points"] / source_width
+        assert abs(figure_qa["source_width_points"] - source_width) < 1e-9
+        assert abs(figure_qa["estimated_include_scale"] - expected_scale) < 1e-12
+        expected_final = figure_qa["minimum_source_font_points"] * expected_scale
+        assert abs(
+            figure_qa["minimum_estimated_final_font_points"] - expected_final
+        ) < 1e-12
+        assert expected_final >= 9.0
 
     for name in OUTPUT_NAMES:
         first = first_dir / name
@@ -97,11 +110,13 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
         assert prohibited not in pdf_text.lower()
     assert "Receiver-side projection" in normalized_pdf_text
     assert "Sender-side projection" in normalized_pdf_text
-    assert "fusion-sufficient moments" in normalized_pdf_text
+    assert "Identical receiver inputs" in normalized_pdf_text
     assert "Same labels, weights, schedule" not in normalized_pdf_text
     assert "no quantization or covariance inflation" not in normalized_pdf_text
     assert "58.28%" in normalized_pdf_text
     assert "Communication footprint" in normalized_pdf_text
     assert "Paired trial footprint" in normalized_pdf_text
     assert "50/50 paired trials below the no-saving line" in normalized_pdf_text
-    assert "mean remaining 41.72% of full" in normalized_pdf_text
+    assert "Moment attempted" in normalized_pdf_text
+    assert "reduction range 55.92-61.38%" in normalized_pdf_text
+    assert "mean remaining" not in normalized_pdf_text

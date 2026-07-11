@@ -3,28 +3,33 @@
 
 \subsection{Paired Confirmatory Protocol}
 
-We evaluate on an eight-sensor 4+4 formation benchmark with 100 simulation
-steps per trial. Each node runs the same local LMB prediction and measurement
-update, then performs one synchronous fusion round. The fixed graph has 16
-undirected edges (two four-node cliques and four cross-clique links). Detection
-probability is $0.9$, mean clutter count is $3$, and measurement-noise standard
-deviation is $3$. Node drop probabilities $[0,0.1,0.2,0.5]$ have multiplicities
-$[1,4,1,2]$ and are randomly assigned per trial, giving mean $0.2$.
+We evaluate an eight-sensor 4+4 formation for 100 filtering steps per trial.
+Each node performs the same local LMB recursion and one synchronous neighbor-
+fusion round per step. The fixed graph has 16 undirected edges: two four-node
+cliques and four cross-clique links. Detection probability is $0.9$, mean
+clutter is $3$, and measurement-noise standard deviation is $3$. Per-node drop
+probabilities $[0,0.1,0.2,0.5]$, with multiplicities $[1,4,1,2]$, are randomly
+assigned each trial (mean $0.2$).
 
 We compare only periodic full GM fusion messages and fusion-sufficient moment
 messages. The 50 paired trials use seeds 82--131. Within each pair, target
-trajectories, measurements, schedules, labels, fusion weights, and drop uniforms
-are identical; attempted and delivered masks are checked for equality. Local
-accuracy uses E-OSPA, while agreement uses consensus OSPA, position
-disagreement, and cardinality dispersion
-\cite{Schuhmacher2008OSPA,Ristic2011TrackMetric}. The primary communication
-statistic is the mean of the 50 per-trial attempted-byte reductions. We report a
-paired percentile-bootstrap interval with 10,000 resamples and fixed bootstrap
-seed 20270710.
+trajectories, measurements, schedules, labels, Metropolis weights, and drop
+uniforms are identical; attempted and delivered masks are checked for equality.
+Local accuracy uses Euclidean OSPA (cutoff $c=5$, order $p=2$), while agreement
+uses mean pairwise OSPA, position disagreement, and cardinality dispersion
+\cite{Schuhmacher2008OSPA}. The primary statistic is the mean of 50 per-trial
+attempted-byte reductions. Its paired percentile-bootstrap interval uses 10,000
+resamples and fixed seed 20270710.
+
+Pre-confirmatory property tests independently recompute mixture moments and
+exercise asymmetric, ill-conditioned, and singular covariances. Codec tests
+round-trip canonical fields, while mutation tests reject perturbed labels,
+$r$, $\mu$, or $\Sigma$. A negative control confirms that enabling covariance
+inflation breaks the claimed equivalence.
 
 \begin{table}[H]
     \centering
-    \caption{Paired confirmatory means over 50 trials. Att./Del. MB are attempted/delivered application-layer megabytes per trial; Cons. is consensus OSPA. Lower is better.}
+    \caption{Confirmatory means ($N=50$). Att./Del. MB: attempted/delivered application payload per trial; Local/Cons.: OSPA to truth/mean pairwise sensor OSPA ($c=5,p=2$); lower is better.}
     \label{tab:confirmatory-results}
     \begin{tabular}{lrrrr}
         \toprule
@@ -41,13 +46,12 @@ seed 20270710.
 Table~\ref{tab:confirmatory-results} and
 Fig.~\ref{fig:confirmatory-evidence} show a 58.277\% mean per-trial reduction in
 attempted bytes (95\% interval: 57.923--58.636\%; minimum 55.922\%). The mean
-delivered-byte reduction is 58.267\%. Across all trials, full and moment
-messages attempt 1,254,185,200 and 522,888,880 bytes, respectively; delivered
-totals are 1,004,548,968 and 418,898,448 bytes.
+delivered-byte reduction is 58.267\%.
 
-The output audit is stronger than rounded metric agreement. All 40,000 paired
-sensor-time snapshot comparisons have identical label sets. Across 1,119,037
+The field audit is stronger than rounded metric agreement. All 40,000 paired
+sensor-time snapshots have identical label sets. Across 1,119,037
 matched label-instance comparisons, the maximum residuals in existence
-probability, mean, and covariance are each exactly zero. Consequently, local E-OSPA, consensus OSPA, position
-disagreement (4.614), and cardinality dispersion (0.203) are identical in every
-paired trial. This matches Proposition~1 and also checks the codec boundary.
+probability, mean, and covariance are each exactly zero. Consequently, local
+E-OSPA, consensus OSPA, position disagreement (4.614), and cardinality
+dispersion (0.203) are identical in every paired trial. This matches
+Proposition~1 and checks the serialization boundary.

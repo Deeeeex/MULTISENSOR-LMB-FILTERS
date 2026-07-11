@@ -1,112 +1,137 @@
-\section{Fusion-Sufficient Moment Exchange}
+\section{Receiver-Induced Moment Exchange}
 \label{sec:method}
 
-\subsection{Label-Wise Moment Projection}
+\subsection{Canonical Label-Wise Projection}
 
 At time $k$, source $j$ maintains an LMB posterior
 \begin{equation}
 \begin{split}
     \pi_j &= \{(r_j^\ell,p_j^\ell):\ell\in\mathcal L_j\},\\
-    p_j^\ell(x)&=\sum_{m=1}^{M_j^\ell}w_{jm}^\ell
+    p_j^\ell(x)&=\sum_{m=1}^{M_j^\ell}\widetilde w_{jm}^\ell
     \mathcal N(x;m_{jm}^\ell,P_{jm}^\ell).
 \end{split}
     \label{eq:lmb-gm}
 \end{equation}
-For normalized $w_{jm}^\ell$, define the label-wise projection $\mathcal P$ by
+The implementation maps nonfinite or negative component weights to zero and
+normalizes the remainder; it uses uniform weights only when all mapped weights
+vanish. Let $\mathcal C(A)=(A+A^\top)/2$. The canonical label-wise projection
+$\mathcal P$ retains $(\ell,r_j^\ell)$ and computes
 \begin{equation}
- \mathcal P(\pi_j)=\{(r_j^\ell,\mathcal N(\mu_j^\ell,\Sigma_j^\ell))\}_\ell,
- \quad \mu_j^\ell=\sum_m w_{jm}^\ell m_{jm}^\ell,
+ \mu_j^\ell=\sum_m\widetilde w_{jm}^\ell m_{jm}^\ell,
  \label{eq:projection}
 \end{equation}
+Let $e_{jm}^\ell=m_{jm}^\ell-\mu_j^\ell$. Then
 \begin{equation}
- \Sigma_j^\ell=\sum_m w_{jm}^\ell\!\left[P_{jm}^\ell+
- (m_{jm}^\ell-\mu_j^\ell)(m_{jm}^\ell-\mu_j^\ell)^\top\right].
+ \Sigma_j^\ell=\mathcal C\!\left(\sum_m\widetilde w_{jm}^\ell
+ \left[\mathcal C(P_{jm}^\ell)+
+ e_{jm}^\ell(e_{jm}^\ell)^\top\right]\right).
  \label{eq:covariance}
 \end{equation}
-This keeps the label and existence probability and replaces the mixture by the
-Gaussian with identical first two moments. The projection is idempotent:
+Thus, $\mathcal P$ replaces each mixture by the Gaussian with the same first
+two canonical moments. It is idempotent:
 $\mathcal P(\mathcal P(\pi))=\mathcal P(\pi)$.
 
-\subsection{The Projected Gaussian KLA-LMB Receiver}
+\subsection{The Executed Presence-Conditioned Receiver}
 
-Receiver $i$ first applies $\mathcal P$ to every delivered source, aligns the
-union of labels, and then fuses one Gaussian per label. Let
-$\mathcal S_i^\ell$ contain self and delivered neighbors carrying label
-$\ell$. Let $\alpha_{ij}$ and $\beta_{ij}$ be the spatial and existence
-weights. Missing-label renormalization gives
+Receiver $i$ aligns the union of source labels and applies $\mathcal P$ to each
+delivered source. Let $\mathcal S_i^\ell$ contain self and delivered neighbors
+carrying label $\ell$. The confirmatory path uses base Metropolis weights
+$\gamma_{ij}$ for both spatial and Bernoulli fusion, and applies KLA over the
+participating source subset for each active label:
 \begin{equation}
- a_{ij}^\ell=\frac{\alpha_{ij}}{\sum_{q\in\mathcal S_i^\ell}\alpha_{iq}},
- \qquad
- b_{ij}^\ell=\frac{\beta_{ij}}{\sum_{q\in\mathcal S_i^\ell}\beta_{iq}}.
+ \omega_{ij}^\ell=\frac{\gamma_{ij}}
+ {\sum_{q\in\mathcal S_i^\ell}\gamma_{iq}},
+ \qquad j\in\mathcal S_i^\ell.
  \label{eq:active-weights}
 \end{equation}
-The Gaussian canonical parameters are
+This source-indexed, presence-conditioned rule is not a full-source LMB-density
+KLA that treats a missing label as $r^\ell=0$. The broader software accepts
+distinct spatial and existence weights, but that generalized receiver is outside
+the KLA claim and frozen experiment.
+
+The deterministic Cholesky regularizer $\mathcal R$ returns $\mathcal C(A)$ if
+factorization succeeds; otherwise it returns the first successful
+$\mathcal C(A)+10^t\delta I$, where
+$\delta=10^{-12}\max(1,\max|\operatorname{diag}(A)|)$ and $t=0,\ldots,15$.
+With $S_j^\ell=\mathcal R(\Sigma_j^\ell)$, the executed canonical update is
 \begin{equation}
 \begin{split}
- K_i^\ell&=\sum_{j\in\mathcal S_i^\ell}a_{ij}^\ell(\Sigma_j^\ell)^{-1},
- \quad h_i^\ell=\sum_j a_{ij}^\ell(\Sigma_j^\ell)^{-1}\mu_j^\ell,\\
- \bar\Sigma_i^\ell&=(K_i^\ell)^{-1},\qquad
- \bar\mu_i^\ell=\bar\Sigma_i^\ell h_i^\ell.
+ K_i^\ell&=\mathcal R\!\left(\sum_{j\in\mathcal S_i^\ell}
+ \omega_{ij}^\ell(S_j^\ell)^{-1}\right),\\
+ h_i^\ell&=\sum_{j\in\mathcal S_i^\ell}\omega_{ij}^\ell
+ (S_j^\ell)^{-1}\mu_j^\ell,\\
+ \bar\mu_i^\ell&=(K_i^\ell)^{-1}h_i^\ell,\qquad
+ \bar\Sigma_i^\ell=\mathcal R((K_i^\ell)^{-1}).
 \end{split}
  \label{eq:gaussian-fusion}
 \end{equation}
-Define the Gaussian overlap by
+Define $\lambda(A)=d\log(2\pi)+\log|A|$, evaluated from the Cholesky factor.
+The implementation's overlap factor is
 \begin{equation}
 \begin{split}
- \eta_i^\ell&=\int \varphi_i^\ell(x)\,dx,\\
- \varphi_i^\ell(x)&=\prod_{j\in\mathcal S_i^\ell}
- \mathcal N(x;\mu_j^\ell,\Sigma_j^\ell)^{a_{ij}^\ell}.
+ \log\eta_{i,\mathcal R}^\ell={}&-\frac12
+ \sum_{j\in\mathcal S_i^\ell}\omega_{ij}^\ell
+ \left[(\mu_j^\ell)^\top(S_j^\ell)^{-1}\mu_j^\ell+
+ \lambda(S_j^\ell)\right]\\
+ &+\frac12\left[(\bar\mu_i^\ell)^\top K_i^\ell\bar\mu_i^\ell+
+ \lambda(\bar\Sigma_i^\ell)\right].
 \end{split}
  \label{eq:gaussian-overlap}
 \end{equation}
-The Bernoulli terms are
+Without added jitter, Eq.~\eqref{eq:gaussian-overlap} is the weighted Gaussian-
+product integral; the stated form is exact for the executed regularized path.
+With products below over $j\in\mathcal S_i^\ell$, the Bernoulli update is
 \begin{equation}
- q_1^\ell=\eta_i^\ell\prod_j(r_j^\ell)^{b_{ij}^\ell},\quad
- q_0^\ell=\prod_j(1-r_j^\ell)^{b_{ij}^\ell},\quad
+ q_1^\ell=\eta_{i,\mathcal R}^\ell
+ \prod_j(r_j^\ell)^{\omega_{ij}^\ell},\;
+ q_0^\ell=\prod_j(1-r_j^\ell)^{\omega_{ij}^\ell},\;
  \bar r_i^\ell=\frac{q_1^\ell}{q_0^\ell+q_1^\ell}.
  \label{eq:existence-fusion}
 \end{equation}
-where all products in Eq.~\eqref{eq:existence-fusion} are over
-$j\in\mathcal S_i^\ell$.
-The implementation clamps each $r_j^\ell$ to $[10^{-9},1-10^{-9}]$ and
-lower-bounds $q_0^\ell+q_1^\ell$ by machine epsilon; both paths use the same
-guards.
-Denote Eqs.~\eqref{eq:gaussian-fusion}--\eqref{eq:existence-fusion} by
-$\mathcal G_\omega$, where $\omega=(\alpha,\beta)$, and the receiver by
-$\mathcal F_\omega=\mathcal G_\omega\circ\mathcal P$.
+Each $r_j^\ell$ is clamped to $[10^{-9},1-10^{-9}]$, and the final denominator
+is lower-bounded by machine epsilon. Denote
+Eqs.~\eqref{eq:gaussian-fusion}--\eqref{eq:existence-fusion} by
+$\mathcal G_{\omega,\mathcal R}$ and the receiver by
+$\mathcal F_{\omega,\mathcal R}=\mathcal G_{\omega,\mathcal R}\circ\mathcal P$.
 
-\textbf{Proposition 1 (fusion-output equivalence).}
-For each source, assume identical active-label presence after selection and
-pruning; identical message-type-independent spatial and existence weights;
-identical delivery masks; common projection and covariance regularization;
-disabled covariance inflation; and a common lossless codec. Then
+Let $\mathcal T$ be the posterior-content map of the versioned encode/decode
+transport below. It preserves labels, $r$, weights, and means, and replaces each
+component covariance by $\mathcal C(P)$. Thus, on admissible messages,
+$\mathcal P\circ\mathcal T=\mathcal P$ and
+$\mathcal T\circ\mathcal P=\mathcal P$.
+
+\textbf{Proposition 1 (executed fusion-output equivalence).}
+Assume identical active-label presence, base Metropolis weights, and delivery
+masks; common $\mathcal C$, $\mathcal P$, $\mathcal R$, and $\mathcal T$; and
+disabled covariance inflation. Then
 \begin{equation}
- \mathcal F_\omega(\pi_1,\ldots,\pi_n)=
- \mathcal F_\omega(\mathcal P\pi_1,\ldots,\mathcal P\pi_n).
+ \mathcal F_{\omega,\mathcal R}(\mathcal T\pi_1,\ldots,\mathcal T\pi_n)=
+ \mathcal F_{\omega,\mathcal R}(\mathcal T\mathcal P\pi_1,\ldots,
+ \mathcal T\mathcal P\pi_n).
  \label{eq:commutation}
 \end{equation}
-\emph{Proof.} Projection preserves each source-label's $r$, $\mu$, and
-$\Sigma$ and does not change its presence in $\mathcal S_i^\ell$. Hence the
-renormalized $a_{ij}^\ell,b_{ij}^\ell$, canonical $K_i^\ell,h_i^\ell$,
-overlap $\eta_i^\ell$, and Bernoulli terms $q_0^\ell,q_1^\ell$ are unchanged.
-The common codec and covariance regularizer therefore produce the same
-$\bar r_i^\ell,\bar\mu_i^\ell,\bar\Sigma_i^\ell$. Equivalently,
-$\mathcal G_\omega\circ\mathcal P\circ\mathcal P=
-\mathcal G_\omega\circ\mathcal P$ by idempotence. $\square$
+\emph{Proof.} The identities above give
+$\mathcal P\mathcal T\pi_j=\mathcal P\mathcal T\mathcal P\pi_j=
+\mathcal P\pi_j$. They preserve each source-label's $r,\mu,\Sigma$ and
+presence in $\mathcal S_i^\ell$. Hence the active $\omega_{ij}^\ell$,
+regularized $S_j^\ell$, canonical $K_i^\ell,h_i^\ell$, overlap
+$\eta_{i,\mathcal R}^\ell$, and $q_0^\ell,q_1^\ell$ are unchanged, yielding
+identical $\bar r_i^\ell,\bar\mu_i^\ell,\bar\Sigma_i^\ell$. $\square$
 
-We call $\mathcal P(\pi)$ \emph{fusion-sufficient} only with respect to this
-$\mathcal F_\omega$: messages in the same equivalence class yield the same
-fusion output. Equation~\eqref{eq:commutation} does not imply equal posterior
-densities. It need not hold if a receiver preserves mixture modes, adapts
-weights from higher-order structure, uses different projection regularization,
-or reuses a compressed result in a multi-round algorithm.
+We call $\mathcal P(\pi)$ \emph{fusion-sufficient} only for this receiver:
+members of its equivalence class produce the same output.
+Equation~\eqref{eq:commutation} does not imply equal posterior densities. It can
+fail for a mixture-aware consumer, different label selection or numerical maps,
+quantization, covariance inflation, or multi-round reuse.
 
-\subsection{Typed Message and Byte Accounting}
+\subsection{Versioned Message and Byte Accounting}
 
-Both arms use the same versioned, little-endian binary codec: a 24-byte message
+Both arms use the same versioned, little-endian binary codec underlying
+$\mathcal T$: a 24-byte message
 header, a 20-byte label header, and binary64 component fields for weight, mean,
-and the upper covariance triangle. For state dimension $d$, a message with
-$M_\ell$ components per label has
+and the upper covariance triangle. The encoder applies $\mathcal C$ before
+packing, and the decoder reconstructs the symmetric binary64 covariance. For
+state dimension $d$, a message with $M_\ell$ components per label has
 \begin{equation}
  B=24+\sum_{\ell}\left[20+8M_\ell
  \left(1+d+\frac{d(d+1)}{2}\right)\right]\ \text{bytes}.
@@ -115,5 +140,5 @@ $M_\ell$ components per label has
 The full message retains every $M_\ell$ in Eq.~\eqref{eq:lmb-gm}; the proposed
 message sets $M_\ell=1$ using Eqs.~\eqref{eq:projection}--\eqref{eq:covariance}.
 Attempted bytes are counted after encoding and before the drop draw; delivered
-bytes count messages decoded after successful delivery. No other tracker
-variable, scheduling decision, or fusion parameter changes.
+bytes count messages decoded after successful delivery. No tracker variable,
+scheduling decision, or fusion parameter changes.

@@ -2,19 +2,20 @@
 
 ## Working title
 
-Fusion-Sufficient Moment Exchange for Distributed Projected KLA-LMB Tracking
+Receiver-Induced Moment Exchange for Distributed Projected KLA-LMB Tracking
 
 ## One-sentence claim
 
-For the specified single-round projected Gaussian KLA-LMB receiver, sender-side per-label moment projection commutes with receiver fusion, yielding identical fusion outputs while reducing attempted application-layer bytes by 58.28% over 50 paired confirmatory trials.
+For the specified projected Gaussian KLA-LMB receiver with one synchronous fusion round per filtering step, sender-side label-wise moment projection preserves every executed receiver output while reducing attempted application-layer bytes by 58.28% over 50 paired confirmatory trials.
 
 ## Core story
 
-The contribution is an operator-induced interface, not a new KLA algorithm and not a generic compression heuristic. The receiver studied here is
+The contribution is a receiver-induced interface and executable certificate, not a new KLA algorithm or generic compression heuristic. The receiver studied here is
 
-`F_omega = G_omega o P`,
+`F_(omega,R) = G_(omega,R) o P`, with the wire claim
+`F_(omega,R)(T pi) = F_(omega,R)(T P pi)`.
 
-where `P` performs label-wise moment projection and `G_omega` performs the implemented projected Gaussian KLA-LMB fusion. Under matched source-label presence, spatial/existence weights, delivery masks, and numerical conventions, `P` preserves every input to `K`, `h`, `eta`, `q0`, and `q1`; idempotence then gives `F_omega = F_omega o P`. Moving `P` to the sender therefore removes mixture structure that cannot affect this receiver's output. A shared versioned codec makes the communication comparison real rather than a scalar-count estimate.
+where `P` applies weight sanitation, covariance symmetrization, and label-wise moment projection; `R` is the deterministic Cholesky regularizer; `T` is the versioned encode/decode content map; and `G_(omega,R)` is the executed projected Gaussian fusion. On admissible messages, `P o T = P` and `T o P = P`. The confirmatory path applies KLA over the participating-source subset for each label and uses the same presence-normalized Metropolis weights for Gaussian and Bernoulli terms; it is not full-source LMB-density KLA with missing labels represented by zero existence. Under matched active labels, delivery masks, `C/P/R/T`, and disabled covariance inflation, both wire paths preserve every input to `K`, `h`, `eta`, `q0`, and `q1`. Moving `P` to the sender therefore removes only structure this receiver cannot observe while testing the real serialization boundary.
 
 ## Evidence to foreground
 

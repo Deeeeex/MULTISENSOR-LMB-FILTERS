@@ -80,6 +80,7 @@ assertThrows(@() compareLmbPosteriorSnapshots( ...
     {snapshot}, {snapshot, snapshot}));
 
 testCodecFusionEquivalence(model);
+testCovarianceInflationBreaksEquivalence(model);
 testFilterSnapshotCapture();
 fprintf('test_lmb_posterior_equivalence passed\n');
 end
@@ -141,6 +142,34 @@ assert(codecReport.maxExistenceResidual == 0);
 assert(codecReport.maxMeanResidual == 0);
 assert(codecReport.maxCovarianceResidual == 0);
 assert(codecReport.exactMatch);
+end
+
+function testCovarianceInflationBreaksEquivalence(model)
+sourceOne = makeObject(model, 20, 1, 0.80, 2);
+sourceTwo = makeObject(model, 20, 1, 0.70, 3);
+weights = [0.4, 0.6];
+fullFusion = fuseLmbPosteriorsByLabel( ...
+    {sourceOne, sourceTwo}, weights, model, weights);
+
+inflationConfig = struct( ...
+    'lightCovarianceInflationEnabled', true, ...
+    'lightCovarianceInflationBase', 0.25, ...
+    'lightCovarianceAssociationScale', 0, ...
+    'lightCovarianceMixtureScale', 0);
+diagnostics = struct('associationConfidence', 1);
+inflatedOne = compressLmbPosterior( ...
+    sourceOne, model, 0, inflationConfig, diagnostics);
+inflatedTwo = compressLmbPosterior( ...
+    sourceTwo, model, 0, inflationConfig, diagnostics);
+inflatedFusion = fuseLmbPosteriorsByLabel( ...
+    {inflatedOne, inflatedTwo}, weights, model, weights);
+
+fullSnapshot = snapshotLmbPosterior(fullFusion, model);
+inflatedSnapshot = snapshotLmbPosterior(inflatedFusion, model);
+report = compareLmbPosteriorSnapshots( ...
+    {fullSnapshot}, {inflatedSnapshot});
+assert(~report.exactMatch);
+assert(report.maxCovarianceResidual > 0);
 end
 
 function testFilterSnapshotCapture()

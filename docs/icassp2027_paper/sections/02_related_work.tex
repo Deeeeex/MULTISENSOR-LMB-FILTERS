@@ -1,27 +1,30 @@
 \section{Related Work}
 \label{sec:related-work}
 
-Random finite-set filters provide a Bayesian framework for tracking uncertain
-target cardinality and measurement association. PHD filters introduced a
-tractable first-moment recursion \cite{Mahler2003PHD}; labeled RFS models add
-persistent identities \cite{Vo2014LRFS}; and LMB filters provide a practical
-independent-Bernoulli approximation \cite{Reuter2014LMB}. Multi-sensor
-GLMB/LMB variants extend this framework to cooperative sensing
-\cite{Vo2019MSGLMB}. When cross-correlations are unknown, KLA/GCI fusion
-combines densities through a normalized weighted geometric mean
-\cite{Battistelli2014KLA}; RFS instances include exponential-mixture PHD and
-multi-Bernoulli fusion \cite{Uney2013EMDPHD,Wang2017MBGCI}. We do not change
-the local LMB recursion or propose a new KLA rule. We analyze the representation
-consumed by one projected Gaussian receiver.
+Random finite-set filters model uncertain cardinality and association. PHD
+filtering gives a first-moment recursion \cite{Mahler2003PHD}; labeled RFS/LMB
+models retain identity \cite{Vo2014LRFS,Reuter2014LMB}, and multi-sensor variants
+support cooperation \cite{Vo2019MSGLMB}. Under unknown cross-correlations,
+KLA/GCI forms a normalized geometric mean \cite{Battistelli2014KLA}, with PHD
+and multi-Bernoulli RFS formulations \cite{Uney2013EMDPHD,Wang2017MBGCI}.
+Consensus LMB and labeled-RFS methods address networked tracking and label
+consistency \cite{Fantacci2015ConsensusLRFS,Shen2022ConsensusLMB,Li2018RobustDistributedLRFS,
+Li2019EfficientMultiAgentLRFS}; minimum-information-loss and arithmetic-average
+LMB rules provide alternative density-level objectives
+\cite{Gao2020MIL,Wei2024AALMB}. We propose no new density-level KLA
+rule; we audit an implemented presence-conditioned per-label variant.
 
-Communication is reduced at several layers. Event-triggered LMB methods change
-when full updates are sent \cite{Shen2022EventTriggeredLMB,
-Shen2023AdaptiveEventTriggeredLMB,Shen2024IntegralEventLMB}; related triggers
-operate on $M\delta$-GLMB labels or hypotheses
-\cite{Li2026EventTriggeredMdeltaGLMB}. Partial-consensus PHD fusion selects
-Gaussian components \cite{Li2019PartialConsensusGMPHD}, whereas state and
-covariance projection sends compact estimates at a common time
-\cite{Xue2026StateCovProjection}. Our design is different in origin: the fixed
-receiver operator induces the message fields. The resulting equivalence is
-conditional on that operator and therefore narrower than general Gaussian-
-mixture KLA approximation.
+\newpage
+
+Communication can be reduced at several layers. Event-triggered LMB methods
+control update transmission
+\cite{Shen2022EventTriggeredLMB,Li2023EventTriggeredConsensusLMB,
+Shen2024IntegralEventLMB}; related triggers
+act on $M\delta$-GLMB labels or hypotheses
+\cite{Li2026EventTriggeredMdeltaGLMB}.
+
+Partial-consensus PHD shares
+selected components \cite{Li2019PartialConsensusGMPHD}; state/covariance
+projection sends state, covariance, and time for asynchronous fusion
+\cite{Xue2026StateCovProjection}. Our tuple retains label/existence and certifies
+Gaussian overlap, missing-label normalization, and the codec.

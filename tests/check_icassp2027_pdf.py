@@ -42,20 +42,60 @@ def collect_base_fonts(reader: PdfReader) -> set[str]:
     return fonts
 
 
+def assert_link_borders_hidden(reader: PdfReader) -> None:
+    link_count = 0
+    for page in reader.pages:
+        annotations = page.get("/Annots")
+        if not annotations:
+            continue
+        for annotation_ref in annotations:
+            annotation = annotation_ref.get_object()
+            if str(annotation.get("/Subtype")) != "/Link":
+                continue
+            link_count += 1
+            border_style = annotation.get("/BS")
+            if border_style is not None:
+                width = float(border_style.get_object().get("/W", 1))
+                assert width == 0.0, "visible PDF link border detected"
+                continue
+            border = annotation.get("/Border")
+            assert border is not None and len(border) >= 3, (
+                "PDF link relies on the visible default border"
+            )
+            assert float(border[2]) == 0.0, "visible PDF link border detected"
+    assert link_count > 0, "expected hyperref link annotations"
+
+
 def check_pdf(pdf_path: Path) -> list[str]:
     reader = PdfReader(pdf_path)
     assert len(reader.pages) == 5, f"expected exactly 5 pages, found {len(reader.pages)}"
+    assert_link_borders_hidden(reader)
 
     pages = [normalize(page.extract_text() or "") for page in reader.pages]
     body = " ".join(pages[:4])
     references = pages[4]
     full_text = " ".join(pages)
 
-    assert "FUSION-SUFFICIENT MOMENT EXCHANGE" in pages[0]
+    assert "RECEIVER-INDUCED MOMENT EXCHANGE" in pages[0]
+    assert "Anonymous ICASSP Submission" not in full_text
+    author_positions = [
+        pages[0].index("Jinhao Chen"),
+        pages[0].index("Hao Lang"),
+        pages[0].index("Tianyu Wo"),
+    ]
+    assert author_positions == sorted(author_positions), "author order is incorrect"
+    affiliation_positions = [
+        pages[0].index("Beihang University"),
+        pages[0].index("Shanghai Jiao Tong University"),
+        pages[0].index("Chinese Aeronautical Radio Electronics Research Institute"),
+    ]
+    assert affiliation_positions == sorted(affiliation_positions), (
+        "affiliations are not ordered from the first author's institution"
+    )
     for heading in (
         "1. INTRODUCTION",
         "2. RELATED WORK",
-        "3. FUSION-SUFFICIENT MOMENT EXCHANGE",
+        "3. RECEIVER-INDUCED MOMENT EXCHANGE",
         "4. EXPERIMENTS",
         "5. DISCUSSION",
         "6. CONCLUSION",
@@ -67,7 +107,7 @@ def check_pdf(pdf_path: Path) -> list[str]:
     for heading in (
         "1. INTRODUCTION",
         "2. RELATED WORK",
-        "3. FUSION-SUFFICIENT MOMENT EXCHANGE",
+        "3. RECEIVER-INDUCED MOMENT EXCHANGE",
         "4. EXPERIMENTS",
         "5. DISCUSSION",
         "6. CONCLUSION",
@@ -79,10 +119,12 @@ def check_pdf(pdf_path: Path) -> list[str]:
 
     assert "Fig. 1" in pages[1], "concept figure is not on body page 2"
     assert "Fig. 2" in pages[2], "confirmatory figure is not near Experiments"
-    assert "Table 1." in pages[2], "results table is not inside the Experiments page"
     assert "4. EXPERIMENTS" in pages[2]
+    assert "Table 1." in pages[3], "results table is not on body page 4"
     assert "5. DISCUSSION" in pages[3]
     assert "6. CONCLUSION" in pages[3]
+    assert "COMPLIANCE WITH ETHICAL STANDARDS" in pages[3]
+    assert "ACKNOWLEDGMENT" in pages[3]
 
     fonts = collect_base_fonts(reader)
     for required in (

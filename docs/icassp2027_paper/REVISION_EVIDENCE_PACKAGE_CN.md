@@ -4,7 +4,7 @@
 
 当前 `effective-kla-lmb` 稿件应采用什么中心故事，以及哪些代码、实验、图表与
 正文修改足以把该故事变成可审计的 ICASSP 2027 投稿？本证据包支持“是否执行
-`Fusion-Sufficient Moment Exchange` 重写方案”的决定。
+`Receiver-Induced Moment Exchange` 重写方案”的决定。
 
 ## Scope
 
@@ -26,7 +26,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | ID | Claim | Confidence | Evidence IDs | Caveats |
 |---|---|---|---|---|
 | C1 | 当前旧稿的 graph-preservation 四臂故事与最新证据错位，不应继续投稿 | High | E1, E2, E7 | 评价针对审查时旧稿 |
-| C2 | 可辩护贡献是指定 projected receiver 诱导的 fusion-sufficient moment message，不是新 KLA 算法 | High | E3, E4, E8 | 必须紧邻定义适用边界 |
+| C2 | 可辩护贡献是指定 projected receiver 诱导的 moment message 与 executable output certificate，不是新 KLA 算法 | High | E3, E4, E8 | 必须紧邻定义适用边界 |
 | C3 | 在冻结条件下，sender-side projection 与 receiver fusion 的输出字段 bit-exact | High | E3, E4, E5 | 不等价于 full GM density 相同 |
 | C4 | 50 个 paired confirmatory seeds 的 attempted application-layer byte reduction 均值为 58.277264%，95% CI 为 [57.923222%, 58.636095%] | High | E4, E5 | 不是 airtime、energy 或 end-to-end traffic |
 | C5 | 最新证据可从 tracked MAT 重算 CSV、aggregate、bootstrap 与 Markdown | High | E5, E6 | 执行 seeds 已 burn，只允许只读 validation |
