@@ -1,10 +1,10 @@
-# Effective KLA-LMB ICASSP 论文修改方向指南
+# Receiver-Induced Moment Exchange ICASSP 论文修改方向指南
 
 更新日期：2026-07-10
 
 适用分支：`codex/effective-kla-lmb-paper-revision`
 
-目标稿件：`docs/icassp2027_paper/`（ICASSP 2027，正文 4 页，第 5 页仅参考文献）
+目标稿件：`docs/icassp2027_paper/`（ICASSP 2027，最多 4 页技术内容；官方允许可选第 5 页仅放 references、funding acknowledgments 与 Compliance with Ethical Standards；当前 PDF 采用更严格的第 5 页仅 references）
 
 > 本文档记录从旧四臂稿到 receiver-induced 稿的实施决策与历史问题；其中“旧稿/当前基线”描述保留作追溯，不代表最终状态。最终投稿状态、第二轮盲审与剩余作者确认项以 `FINAL_SUBMISSION_AUDIT_CN.md` 为准。
 
@@ -14,17 +14,17 @@
 
 最终将论文收束为：
 
-> **面向 executed projected KLA-LMB 接收算子的 receiver-induced moment message**。若接收端的调用链只通过每标签的存在概率与规范化一、二阶矩消费 GM-LMB 后验，则发送端可以先施加同一个投影，只传 `(label, r, mean, covariance)`；在相同 active labels、Metropolis 权重、delivery masks、数值算子与规范化 binary64 transport 下，投影前后的融合输出相同。真实应用层编码与配对实验用于验证实现并量化通信收益，而不是用 N50 “发现”等价性。
+> **面向作者自定义 presence-conditioned geometric-average LMB receiver 的 receiver-induced moment message**。若接收端调用链只通过每标签存在概率与规范化一、二阶矩消费 GM-LMB 后验，则发送端可以先施加同一个投影，只传 `(label, r, mean, covariance)`；在相同 active labels、fixed symmetric degree-based/effective source weights、delivery masks、数值算子与规范化 binary64 transport 下，投影前后的 receiver-observable fields 相同。真实应用层编码与配对实验用于验证实现并量化通信收益，而不是用 N50 “发现”等价性。
 
 本文中的 `fusion-sufficient` 仅指“对这里明确指定的融合算子，两个输入表示属于同一输出等价类”，不是 Fisher–Neyman 意义的统计充分性，也不表示两个 posterior density 相同。
 
 最终工作标题：
 
-> **Receiver-Induced Moment Exchange for Distributed Projected KLA-LMB Tracking**
+> **Receiver-Induced Moment Exchange for Distributed LMB Fusion**
 
 一句话贡献：
 
-> We identify the per-label moment projection consumed by a projected KLA-LMB receiver, move this projection to the sender, prove fusion-output equivalence under explicit conditions, and validate the resulting application-layer message with paired tests and a fresh multisensor evaluation.
+> We identify the first irreversible projection consumed by a custom presence-conditioned geometric-average LMB receiver, move it to the sender, certify receiver-observable field equivalence across serialization, and validate the resulting application-layer message with paired tests and a frozen multisensor evaluation.
 
 该方向成立的前提是完成两个硬门槛：
 
@@ -55,7 +55,7 @@
 
 允许声称：
 
-- 对**本文明确实现的 single-round projected Gaussian KLA-LMB receiver**，每标签矩消息是 consumer-/fusion-sufficient representation。
+- 对**本文明确实现的 single-round presence-conditioned geometric-average LMB receiver**，每标签矩消息是 consumer-/fusion-sufficient representation；该自定义 receiver 不是 full-source LMB-density KLA 的参考实现。
 - 在明示条件下，发送前投影与接收后投影给出相同的融合输入统计量和融合输出。
 - 某个明确 schema 的应用层 payload bytes 在配对实验中下降多少。
 
@@ -85,7 +85,7 @@
 
 1. 缺少核心命题。应定义每标签矩投影 `P` 和实际接收端融合算子 `F`，明确证明 `F(X)=F(P(X))`，而不是把数值一致留给 N50 表格。
 2. 当前等价性实际上由实现中的两次 moment matching 构成，容易被视为 tautology。论文必须说明新贡献不是“发现两个同代码路径结果相同”，而是识别 consumer-sufficient representation、把投影前移并给出边界。
-3. “KLA-LMB”命名过宽。若融合器在投影后只做 Gaussian canonical fusion，应使用 `projected KLA-LMB` 或同等精确术语，避免暗示一般 Gaussian-mixture KLA 的等价性。
+3. “KLA-LMB”命名过宽。早期的 `projected KLA-LMB` 收窄仍可能暗示标准 density-level KLA；最终标题改为 `Distributed LMB Fusion`，正文只把 participating-label update 描述为 geometric-average/KLA form。
 4. 缺少失效条件：不同标签剪枝、不同正则化、协方差膨胀、量化、mixture-aware consumer、多轮中间重投影或不同融合权重都可能破坏等价。
 5. sender 与 receiver 各自实现 moment matching 会产生漂移风险。应抽出唯一 canonical projection helper，由压缩与融合共同调用。
 
@@ -173,7 +173,7 @@
 2. **真实化通信证据**：实现编码、解码与 attempted/delivered accounting，替换 scalar-equivalent 口径。
 3. **删除混杂证据**：主文不再出现两个 dynamic arms 的性能比较和因果解释。
 4. **冻结后再验证**：旧 N50 作为 development/selection evidence；新 seeds 作为 confirmatory evidence。
-5. **收窄适用范围**：始终写 projected Gaussian KLA-LMB receiver，不推广到一般 GM-KLA。
+5. **收窄适用范围**：始终写 custom presence-conditioned geometric-average LMB receiver；仅说明 participating-label update 具有 KLA form，不推广到标准 full-source LMB-density KLA 或一般 GM-KLA。
 6. **可追溯 artifact**：实验输出结构化保存，图表从 artifact 生成，报告记录 commit/config/seeds。
 
 ### 4.2 reviewer 之间的张力与裁决
@@ -285,7 +285,7 @@
 - 主表只保留公平两臂；移除 dynamic arms 和 effective lambda2。
 - 标题、摘要、Introduction、Method、Experiments、Conclusion 全部围绕 Story A 重写。
 - Related Work 加入 closest work，并用 frequency/schedule reduction、component selection、operator-sufficient representation 三类区分。
-- 正文前 4 页；第 5 页仅 references；图中文字最终尺寸可读，无 overfull box 或内容裁切。
+- 正文前 4 页；当前第 5 页仅 references（官方亦允许 funding acknowledgments 与 ethics compliance）；图中文字最终尺寸可读，无 overfull box 或内容裁切。
 
 通过标准：figure tests 校验 source artifact/hash 与输出；PDF 文本与视觉 QA 通过；claim–evidence matrix 中每个保留 claim 都能指向命题、测试或 artifact。
 
@@ -356,19 +356,49 @@
 | Independently reproducible evidence | 通过 | tracked MAT/CSV/MD；descendant-safe read-only validator |
 | Evidence-driven figures | 通过 | deterministic manifest/test；无 dynamic arm 或硬编码 aggregate |
 | Full manuscript rewrite | 通过 | 标题、摘要、Related Work、`P/F/G` 命题、two-arm 结果、Discussion 与结论均已重写 |
-| 4+1 final PDF | 通过 | `tests/check_icassp2027_pdf.py`：exact 5 pages；第 5 页仅 references；全页 PNG 视觉复核 |
+| 4+1 final PDF | 通过 | `tests/check_icassp2027_pdf.py`：exact 5 pages；当前第 5 页仅 references；全页 PNG 视觉复核 |
 | Font/figure/float QA | 通过 | TeX Gyre Termes regular/bold/italic 无 Latin Modern fallback；图内估算最小 9.038 pt；Fig. 1/2 分置第 2/3 页，Table 1 位于第 4 页的 Experiments 段 |
 | Final claim/style audit | 通过 | 无旧 dynamic/held-out/effective-graph 主张；closest work 与应用层 byte 边界已显式限定 |
 
 最终 red-team 又要求收紧 Proposition 1：source-indexed active-label presence、
-Gaussian/Bernoulli 共用的 Metropolis 权重、selection/pruning、共同的 $\mathcal C/\mathcal P/\mathcal R$、禁用 covariance
+Gaussian/Bernoulli 共用的 fixed symmetric degree-based/effective source weights、selection/pruning、共同的 $\mathcal C/\mathcal P/\mathcal R$、禁用 covariance
 inflation 与规范化 binary64 字段的 value-preserving transport 现在均列为条件；proof 逐项说明 missing-label 重归一化、
 `K,h,eta,q0,q1` 不变，不再只写一行幂等恒等式。版面终审发现的 XeTeX `ptm`
 字体回退、图内 5--6 pt 字号和结果图过早出现也已修复并进入自动 gate。
 
 最终版本完成了 Story A 的全部实施步骤。两张图按双栏全宽排版，正文占前四页，
-第 5 页仅列参考文献；技术图、公式、表格没有裁切或横向溢出。Discussion 正面
+当前第 5 页仅列参考文献；技术图、公式、表格没有裁切或横向溢出。Discussion 正面
 处理了三项最强反驳：代数恒等式是否循环验证、58.28% 是否可泛化、相同
 canonical binary64 实现是否夸大外部有效性。当前裁决为 **implementation pass**，
-而不是自动投稿许可；作者身份现已按 Jinhao Chen 第一作者、Tianyu Wo 通讯作者写入；作者仍需确认 funding 与利益冲突声明，并在 detailed 2027 paper kit 发布后复核最终格式。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
+而不是自动投稿许可；作者身份现已按 Jinhao Chen 第一作者、Tianyu Wo 通讯作者写入。ICASSP 2027 CFP、single-anonymous policy、4+1 页规则、funding/COI 和 ethics requirement 已于 2026-07-11 核对；官方 detailed submission/template 链接仍为 404。作者仍需确认 funding 与利益冲突事实，并在 paper kit 上线后复核模板。若后续改动重新引入 dynamic-topology superiority、一般 GM-KLA 等价或未
 限定的 network-cost claim，本指南仍自动判定该版本失败。
+
+## 12. 2026-07-11 最终对抗性复审与处置
+
+本轮三路只读复审分别侧重技术正确性、原创性/相关工作、可读性/ICASSP 合规。主代理重新核对代码、Git provenance、冻结证据、当前 PDF 与 ICASSP 2027 官方页面后逐项裁决：
+
+| 复审问题 | 处置 | 当前状态 |
+|---|---|---|
+| audited receiver 来源不明，容易被当成普遍 consensus-LMB 路径 | 明确为 authors' custom presence-conditioned geometric-average LMB receiver；标题移除 `KLA-LMB`，正文声明并非 full-source density-KLA reference implementation | 已解决 |
+| moment matching 本身可能被包装成新意 | 引用 Runnalls 2007，并在摘要/引言明确贡献是跨 serialization 的 executable interface certificate | 已解决 |
+| historical `metropolis` 配置名与实际权重不符 | 论文统一改为 fixed symmetric degree-based base weights，并报告 regular 4+4 图上 self `1/3`、四邻居各 `1/6`；protocol 保留历史字段名但加纠错说明 | 已解决 |
+| Proposition 未定义极端 finite binary64 导致中间量非有限的边界 | 定义 admissible numerical domain：`P` 字段与所有 quadratic/logdet/exp/Bernoulli intermediates 有限，且每次 `R` 成功 | 已解决 |
+| 命题把 self 也写成经过 transport | 改为 `F(pi_i,T pi_-i)=F(pi_i,T P pi_-i)`，对应实际 remote-message path | 已解决 |
+| N50 snapshot 在 common retention 后捕获，旧措辞像 raw fusion output audit | 摘要、实验、结论和实验文档统一为 `retained post-step fields`；raw pre-retention equality 由 Proposition 1 建立 | 已解决 |
+| 单轮命题到 100-step filter-level equality 缺显式桥梁 | Discussion 增加 deterministic retention/prediction/update 的归纳说明 | 已解决 |
+| 场景不足以复现 workload-specific byte ratio | 正文补充 4-D CV state、2-D measurement、10 staggered targets、FoV、`r>1e-2` retention 与 degree-based weights | 已解决 |
+| 普通 lossless/entropy coding 反驳未回应 | Discussion 明确 representation comparison 不是 entropy coding 或 rate-optimality claim | 已解决 |
+| Fig. 1 输入语义与公式记号不一致 | 改为 local GM-LMB posterior、full-GM/moment codec 路径和全文一致的 `pi,F_(omega,R),T,P` | 已解决 |
+| Fig. 2 identity 注释交叠、百分比符号歧义、`MB` 歧义 | 删除斜向文字，百分比直接按 reduction 展示，轴统一为 `10^6 B/trial` | 已解决 |
+| 参考文献专名和电子 article number 格式 | 保护 Bayes/Kullback--Leibler/Bernoulli 大小写，Xue 2026 改为 `Art. no. 458`；保持 20 条正文引用 | 已解决 |
+| Funding 与 COI/无 COI 声明 | ICASSP 2027 官方明确要求；不能代作者推断 | **AUTHOR INPUT REQUIRED** |
+| 最终 ICASSP 2027 template/submission instructions | 官方链接截至 2026-07-11 返回 404；当前 PDF 已按 CFP、single-anonymous 与 4+1 规则通过 | **EXTERNAL PENDING** |
+
+官方核对入口：
+
+- CFP/page rule：<https://2027.ieeeicassp.org/wp-content/uploads/sites/13/2019/08/ICASSP2027-CallForPapers-July1.pdf>
+- Funding/COI 与 ethics policy：<https://2027.ieeeicassp.org/about/sps-policies/>
+- Single-anonymous 与 review criteria：<https://2027.ieeeicassp.org/about/editorial-policies/>
+- Detailed submission page（2026-07-11 为 404）：<https://2027.ieeeicassp.org/paper-submission-instructions/>
+
+当前技术与版面裁决仍为 **implementation pass**。只有作者提供真实 funding/COI 信息并在正式 paper kit 上线后完成模板差异检查，才可把状态提升为 **submission pass**。

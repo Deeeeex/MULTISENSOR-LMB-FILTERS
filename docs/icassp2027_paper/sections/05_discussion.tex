@@ -1,43 +1,35 @@
 \section{Discussion}
 \label{sec:discussion}
 
-Proposition~1 is simple only after certifying the receiver call chain. The full
-arm transports every GM component before applying $\mathcal P$; the moment arm
+Proposition~1 has short algebra but a substantial implementation contract. The
+full arm transports every GM component before $\mathcal P$; the moment arm
 projects before transport. The identities
 $\mathcal P\mathcal T=\mathcal P$ and
-$\mathcal T\mathcal P=\mathcal P$ include the codec's covariance
-canonicalization. Both arms then
-execute identical label alignment, $\mathcal R$, and Bernoulli fusion. This
-crosses the serialization boundary rather than projecting both arms in advance.
-Independent moment oracles, field mutations, and a covariance-inflation negative
-control verify that the audit detects contract violations.
+$\mathcal T\mathcal P=\mathcal P$ include covariance canonicalization. Both
+arms then share label alignment, effective weights, $\mathcal R$, and Bernoulli
+fusion.
 
-Equation~\eqref{eq:wire-bytes} explains why 58.28\% is workload specific. Let
-$c_d=1+d+d(d+1)/2$. For fixed labels, the saved payload is
-$8\sum_\ell(M_\ell-1)c_d$ bytes; headers remain. Savings vanish at $M_\ell=1$
-and grow with dimension and mixture multiplicity. The header fraction limits
-small messages, so the interval describes this workload rather than a universal
-compression ratio.
+With identical initial conditions, measurements, and masks, deterministic
+retention, prediction, and update extend the single-round equality through the
+frozen recursion.
 
-The equivalence fails under gating that uses modality, weights derived from
-mixtures,
-different label pruning, quantization, covariance inflation, or later reuse of
-individual modes. Independent implementations may also differ in summation or
-regularization. Exactness therefore requires common $\mathcal C$, $\mathcal P$,
-$\mathcal R$, $\mathcal T$, and canonical binary64 fields. The broader software's distinct
-spatial and existence weights define a generalized update outside this KLA
-claim.
+Equation~\eqref{eq:wire-bytes} makes the 58.28\% reduction workload specific.
+For $c_d=1+d+d(d+1)/2$, fixed labels save
+$8\sum_\ell(M_\ell-1)c_d$ bytes. Savings vanish at $M_\ell=1$ and grow with
+dimension and mixture multiplicity. The bootstrap interval captures
+component-count variability in this workload, not cross-model generality.
 
-The byte boundary is the encoded application payload; it excludes framing,
-headers, fragmentation, retransmission, latency, and radio energy. Payload-size-
-independent loss keeps delivery masks matched. Link-level benefits require
-measurements on the target packetization and hardware.
+Equivalence can fail under mixture-dependent gating or weights, different
+pruning, quantization, covariance inflation, or later mode reuse. Exactness also
+requires common $\mathcal C$, $\mathcal P$, $\mathcal R$, $\mathcal T$, and
+binary64 conventions. Distinct spatial and existence weights in the broader
+software are outside this certificate.
 
-This case suggests a receiver-driven procedure: identify the consumer's first irreversible map,
-certify that the remaining call chain factors through it, promote its output to
-a message type, and test after serialization. Unlike scheduling, component
-selection, or generic state/covariance projection, our certificate covers one
-consumer's labeled Bernoulli output, including existence overlap and missing-
-label semantics. Evidence is limited to one homogeneous eight-sensor model,
-graph, binary64 codec, and synchronous round. Other dimensions, mixtures,
-sensors, links, packetizations, and multi-round consumers remain future tests.
+Counts include application headers but exclude link framing, retransmission,
+latency, and energy. This is not entropy coding or rate optimality; hardware
+claims require target-packet measurements.
+
+The reusable procedure is to identify a consumer's first irreversible map,
+certify downstream factorization, promote its output to a message, and test
+after serialization. Here evidence remains limited to one eight-sensor model,
+graph, binary64 codec, and synchronous round.

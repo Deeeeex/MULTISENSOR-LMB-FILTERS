@@ -12,14 +12,14 @@ v2 不改变算法、两臂、seeds、`T=100`、随机数生成、每 seed 的�
 
 ## 1. 研究问题与唯一变量
 
-本实验检验一个严格限定的问题：对于当前实现的单轮 projected Gaussian KLA-LMB receiver，将逐标签 canonical moment projection 从接收端前移到发送端，是否在保持 fusion output 完全一致的同时减少应用层报文字节？
+本实验检验一个严格限定的问题：对于作者自定义的单轮 presence-conditioned geometric-average LMB receiver，将逐标签 canonical moment projection 从接收端前移到发送端，是否在保持 receiver-observable fields 一致的同时减少应用层报文字节？该 receiver 不是 full-source LMB-density KLA 的参考实现。
 
 实验只含两臂：
 
 1. `Periodic full GM fusion message`：每个静态有向边、每个时刻发送 full GM fusion message；
 2. `Periodic moment message on static topology`：在发送前逐标签投影为一个 Gaussian，再经相同 wire codec 发送 moment message。
 
-唯一改变的变量是 sender 是否在编码前执行 canonical moment projection。两臂共享随机种子、测量、传感器/目标轨迹、静态 4+4 topology、发送 schedule、active-label threshold、Metropolis fusion weights、existence weights 与预生成 delivery uniforms。当前 loss draw 与 payload size 无关。
+唯一改变的变量是 sender 是否在编码前执行 canonical moment projection。两臂共享随机种子、测量、传感器/目标轨迹、静态 4+4 topology、发送 schedule、active-label threshold、固定对称 degree-based base weights、existence weights 与预生成 delivery uniforms。配置字段沿用历史名称 `metropolis`，但实际 4+4 图的 base weights 为 `gamma_ii=1/3`、四个邻居各 `gamma_ij=1/6`，随后按携带标签的 source subset 归一化；不得把它写成标准 Metropolis 权重。当前 loss draw 与 payload size 无关。
 
 两臂均显式关闭 dynamic topology、link gate、stale cache、heartbeat、mixed payload、covariance inflation、mode-aware weights、initial/label-change/stale heavy override。第一臂固定 `alwaysHeavy`，第二臂固定 `alwaysLight`；这里 event type 只标识 full 或 projected wire payload，不改变发送时机。
 
@@ -73,7 +73,7 @@ rho_s = 100 * (B_full,s - B_moment,s) / B_full,s
 
 ## 4. 输出等价与因果隔离 gate
 
-Runner 必须开启 `capturePosteriorSnapshots=true`，逐 sensor、逐 time 保存只含 sorted labels、`r`、`mu`、`Sigma` 的紧凑快照。每个 seed 以 full arm 为 baseline 比较 projected arm，预先固定以下硬 gate：
+Runner 必须开启 `capturePosteriorSnapshots=true`，逐 sensor、逐 time 保存 common `r>1e-2` retention 之后、只含 sorted labels、`r`、`mu`、`Sigma` 的紧凑快照。因此 N50 字段审计的准确口径是 retained post-step fields；raw pre-retention equality 由 receiver 命题和 focused tests 建立，不得把快照审计写成所有 raw fusion outputs 的保存。每个 seed 以 full arm 为 baseline 比较 projected arm，预先固定以下硬 gate：
 
 - missing snapshot count = 0；
 - label-set mismatch count = 0；

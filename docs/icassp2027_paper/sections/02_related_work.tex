@@ -7,24 +7,26 @@ models retain identity \cite{Vo2014LRFS,Reuter2014LMB}, and multi-sensor variant
 support cooperation \cite{Vo2019MSGLMB}. Under unknown cross-correlations,
 KLA/GCI forms a normalized geometric mean \cite{Battistelli2014KLA}, with PHD
 and multi-Bernoulli RFS formulations \cite{Uney2013EMDPHD,Wang2017MBGCI}.
-Consensus LMB and labeled-RFS methods address networked tracking and label
-consistency \cite{Fantacci2015ConsensusLRFS,Shen2022ConsensusLMB,Li2018RobustDistributedLRFS,
-Li2019EfficientMultiAgentLRFS}; minimum-information-loss and arithmetic-average
-LMB rules provide alternative density-level objectives
-\cite{Gao2020MIL,Wei2024AALMB}. We propose no new density-level KLA
-rule; we audit an implemented presence-conditioned per-label variant.
+Consensus and robust LMB/LRFS methods address networked tracking, including
+label-set inconsistency
+\cite{Fantacci2015ConsensusLRFS,Shen2022ConsensusLMB,
+Li2018RobustDistributedLRFS,Li2019EfficientMultiAgentLRFS}. Minimum-information-
+loss and arithmetic-average LMB rules instead use different density-level
+objectives \cite{Gao2020MIL,Wei2024AALMB}. These works determine how labeled
+posteriors are fused. We propose no new density-level rule and audit only the
+custom presence-conditioned per-label update defined below.
 
 \newpage
 
-Communication can be reduced at several layers. Event-triggered LMB methods
-control update transmission
-\cite{Shen2022EventTriggeredLMB,Li2023EventTriggeredConsensusLMB,
-Shen2024IntegralEventLMB}; related triggers
-act on $M\delta$-GLMB labels or hypotheses
-\cite{Li2026EventTriggeredMdeltaGLMB}.
-
-Partial-consensus PHD shares
-selected components \cite{Li2019PartialConsensusGMPHD}; state/covariance
-projection sends state, covariance, and time for asynchronous fusion
-\cite{Xue2026StateCovProjection}. Our tuple retains label/existence and certifies
-Gaussian overlap, missing-label normalization, and the codec.
+Communication methods alter a different layer. Event-triggered LMB methods
+change when updates are transmitted
+\cite{Shen2022EventTriggeredLMB,Li2023EventTriggeredConsensusLMB}; related
+triggers act on $M\delta$-GLMB labels or hypotheses
+\cite{Li2026EventTriggeredMdeltaGLMB}. Partial-consensus PHD changes which GM
+components are disseminated \cite{Li2019PartialConsensusGMPHD}. State and
+covariance projection constructs compact track-level inputs for asynchronous
+Gaussian fusion \cite{Xue2026StateCovProjection}. In contrast, we hold the
+fusion rule, schedule, selection, and receiver fixed, then derive the message
+from that receiver's first projection. The certificate covers label/existence,
+Gaussian overlap, missing-label normalization, and the codec. Triggering could
+be composed with this interface, but that combination is not evaluated here.

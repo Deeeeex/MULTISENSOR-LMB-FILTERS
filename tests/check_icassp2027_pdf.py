@@ -76,7 +76,7 @@ def check_pdf(pdf_path: Path) -> list[str]:
     references = pages[4]
     full_text = " ".join(pages)
 
-    assert "RECEIVER-INDUCED MOMENT EXCHANGE" in pages[0]
+    assert "RECEIVER-INDUCED MOMENT EXCHANGE FOR DISTRIBUTED LMB FUSION" in pages[0]
     assert "Anonymous ICASSP Submission" not in full_text
     author_positions = [
         pages[0].index("Jinhao Chen"),
@@ -120,11 +120,11 @@ def check_pdf(pdf_path: Path) -> list[str]:
     assert "Fig. 1" in pages[1], "concept figure is not on body page 2"
     assert "Fig. 2" in pages[2], "confirmatory figure is not near Experiments"
     assert "4. EXPERIMENTS" in pages[2]
-    assert "Table 1." in pages[3], "results table is not on body page 4"
+    assert "Confirmatory means" in pages[3], "results table is not on body page 4"
     assert "5. DISCUSSION" in pages[3]
     assert "6. CONCLUSION" in pages[3]
     assert "COMPLIANCE WITH ETHICAL STANDARDS" in pages[3]
-    assert "ACKNOWLEDGMENT" in pages[3]
+    assert "ACKNOWLEDGMENT" in pages[3].upper()
 
     fonts = collect_base_fonts(reader)
     for required in (
@@ -142,11 +142,16 @@ def check_pdf(pdf_path: Path) -> list[str]:
         "dynamic topology",
         "effective graph",
         "full-posterior-equivalent",
+        "metropolis weights",
+        "projected kla-lmb receiver",
     ):
         assert prohibited not in lowered, f"stale story phrase remains: {prohibited}"
     assert "??" not in full_text, "unresolved LaTeX reference remains"
     assert "58.28%" in full_text
     assert "1,119,037" in full_text
+    assert "retained post-step" in lowered
+    assert "admissible" in lowered
+    assert "fixed symmetric degree-based" in lowered
     return pages
 
 

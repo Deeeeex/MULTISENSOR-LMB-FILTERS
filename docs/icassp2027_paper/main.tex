@@ -21,7 +21,7 @@
     {\centering\bfseries\MakeUppercase{#1}\par}
     \smallskip}
 
-\title{Receiver-Induced Moment Exchange for Distributed Projected KLA-LMB Tracking}
+\title{Receiver-Induced Moment Exchange for Distributed LMB Fusion}
 
 \name{Jinhao Chen$^{1}$, Hao Lang$^{2,3}$, Tianyu Wo$^{1}$\sthanks{Corresponding author: Tianyu Wo (woty@buaa.edu.cn).}}
 \address{$^{1}$Beihang University, Beijing, China\\
@@ -32,24 +32,24 @@ $^{3}$Chinese Aeronautical Radio Electronics Research Institute, Shanghai, China
 \maketitle
 
 \begin{abstract}
-In the studied distributed tracker, the network interface transmits full Gaussian-mixture (GM) messages even though the receiver discards mixture structure before fusion. We treat this mismatch as a message-interface problem for a projected Kullback--Leibler-average labeled multi-Bernoulli (KLA-LMB) receiver. Factoring its implementation into a canonical label-wise moment projection and downstream fusion identifies a receiver-induced equivalence class. Under matched active labels, Metropolis weights, delivery masks, and numerical conventions, sender-side projection preserves every fused existence probability, mean, and covariance. We realize the interface with a versioned binary application-layer codec. In 50 paired eight-sensor trials, moment exchange reduced attempted payload bytes by 58.28\% (95\% bootstrap interval: 57.92--58.64\%). All 1,119,037 audited label-instance outputs were identical. The certificate removes representation-level traffic without changing this receiver's output; it does not extend to mixture-aware or multi-round consumers.
+Distributed labeled multi-Bernoulli (LMB) trackers can transmit full Gaussian-mixture (GM) messages even when a receiver first collapses each label to one Gaussian. We audit a custom presence-conditioned geometric-average LMB receiver and derive its wire representation from this first irreversible map. Moment matching itself is standard; the contribution is an executable interface certificate spanning label presence, source weighting, deterministic regularization, and serialization. Under the stated admissible numerical contract, sender-side projection preserves every receiver-observable field. A versioned binary codec realizes the interface. In 50 paired eight-sensor trials, moment exchange reduced attempted application-layer payload by 58.28\% (95\% bootstrap interval: 57.92--58.64\%). All 1,119,037 audited retained post-step label fields were identical. More generally, the result suggests deriving messages from a receiver's first irreversible map; exactness here remains limited to this receiver and does not extend to mixture-aware or multi-round consumers.
 \end{abstract}
 
 \begin{keywords}
-Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA fusion, receiver-induced message
+Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA fusion, communication-efficient distributed tracking
 \end{keywords}
 
 \input{sections/01_introduction}
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.94\textwidth]{figures/payload_graph_schematic.pdf}
-    \caption{Receiver-induced message factorization. The full path transports and decodes the GM before applying $\mathcal P$; the moment path applies $\mathcal P$ before value-preserving encoding of canonical binary64 fields. Under Proposition~1's contract, both paths present identical inputs to $\mathcal G_{\omega,\mathcal R}$ and produce the same fused LMB output.}
+    \caption{Receiver-induced message factorization. The full path encodes the GM and projects after decoding; the moment path projects before value-preserving encoding. Under Proposition~1's contract, both paths present identical fields to $\mathcal G_{\omega,\mathcal R}$ and produce the same LMB output.}
     \label{fig:receiver-factorization}
 \end{figure*}
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.94\textwidth]{figures/heldout_tradeoff.pdf}
-    \caption{Confirmatory communication evidence (50 paired trials). Left: mean attempted/delivered application-layer payloads; percentages are mean per-trial reductions. Right: each circle is one paired trial, and the dashed identity denotes no saving. Every trial lies below the identity, with attempted-byte reductions from 55.92\% to 61.38\%. Exact receiver-output equivalence is reported in Sec.~\ref{sec:experiments}.}
+    \caption{Communication evidence from 50 paired trials. Left: mean attempted and delivered application-layer payloads; percentages are mean per-trial reductions. Right: each point is one paired trial; all lie below the no-saving identity. The retained-field audit is reported in Sec.~\ref{sec:experiments}.}
     \label{fig:confirmatory-evidence}
 \end{figure*}
 \input{sections/02_related_work}
@@ -59,12 +59,12 @@ Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA f
 \input{sections/05_conclusion}
 
 \confsectionstar{Compliance with Ethical Standards}
-This numerical simulation study required no ethical approval.
+This is a numerical simulation study for which no ethical approval was required.
 
-\confsectionstar{Acknowledgment}
-OpenAI Codex assisted with manuscript organization, language editing,
-figure-code refinement, and software review. The authors verified all content,
-citations, code changes, and results.
+\par\smallskip\noindent\textbf{Acknowledgment.}
+OpenAI Codex suggested organization, language, figure-code, and software-review
+edits throughout the manuscript; the authors verified all scientific content
+and final decisions.
 
 \clearpage
 \balance

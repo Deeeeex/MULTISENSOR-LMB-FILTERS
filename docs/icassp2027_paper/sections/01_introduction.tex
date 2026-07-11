@@ -1,42 +1,35 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Distributed multi-object tracking combines complementary sensor views without
-centralizing measurements. Labeled multi-Bernoulli (LMB) filters jointly
-represent target existence, state uncertainty, and identity
-\cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. A Gaussian-mixture (GM) LMB
-message may contain several components per label. The studied implementation
-serializes every component although its receiver immediately collapses each
-label to one Gaussian. It therefore transmits fields this receiver cannot
-observe.
+Distributed multi-object tracking combines sensor views without centralizing
+measurements. Labeled multi-Bernoulli (LMB) filters represent target existence,
+state uncertainty, and identity
+\cite{Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Their Gaussian-mixture (GM)
+messages may contain several components per label. The audited software uses a
+custom presence-conditioned geometric-average receiver, not full-source
+LMB-density KLA. It serializes every component although this receiver first
+collapses each label to one Gaussian.
 
-Communication-aware RFS trackers reduce transmission frequency, select mixture
-components, or exchange projected state estimates
+Communication-aware RFS methods alter transmission times, select GM components,
+or form compact state estimates
 \cite{Shen2022EventTriggeredLMB,Li2023EventTriggeredConsensusLMB,
-Shen2024IntegralEventLMB,
-Li2019PartialConsensusGMPHD,Xue2026StateCovProjection}. These methods decide
-when to send, which components to share, or which compact estimate to form. We
-instead ask a consumer-facing question: for a fixed receiver, which transmitted
-fields can affect its output?
+Li2019PartialConsensusGMPHD,Xue2026StateCovProjection}. Moment-preserving GM
+reduction is also standard \cite{Runnalls2007GMR}. We propose neither a new
+projection nor a density-level fusion rule. Instead, we ask which fields can
+affect a fixed receiver after serialization.
 
-We study a projected Gaussian KLA-LMB receiver with one synchronous neighbor-
-fusion round per filtering step. It aligns labels, normalizes Metropolis weights
-over sources carrying each label, projects each GM Bernoulli to existence and
-two moments, and fuses the resulting Gaussians. Let $\mathcal T$ denote the
-canonical encode/decode content map. For the executed receiver
+The receiver performs one synchronous round per filtering step. It normalizes
+fixed degree-based weights over sources carrying each label, projects each GM
+Bernoulli to existence and two moments, then applies a geometric-average update.
+Writing the receiver as
 $\mathcal F_{\omega,\mathcal R}=\mathcal G_{\omega,\mathcal R}\circ\mathcal P$,
-the wire-path identity is
-$\mathcal F_{\omega,\mathcal R}(\mathcal T\pi)=
-\mathcal F_{\omega,\mathcal R}(\mathcal T\mathcal P\pi)$. The nontrivial check
-is that label presence, Gaussian overlap, and deterministic regularization also
-factor through $\mathcal P$ after transport
-(Fig.~\ref{fig:receiver-factorization}).
+we test whether its first irreversible map $\mathcal P$ can move across the
+codec $\mathcal T$. The proof must preserve label presence, effective weights,
+Gaussian overlap, and regularization (Fig.~\ref{fig:receiver-factorization}).
 
-Our contributions are threefold. First, we extract an executable receiver
-contract that includes label presence, KLA weights, covariance canonicalization,
-and solve regularization. Second, a versioned application-layer codec and
-adversarial property tests validate the contract across serialization. Third, a
-frozen 50-trial paired evaluation shows a 58.28\% mean attempted-byte reduction
-and zero residual across 1,119,037 label-instance comparisons. We claim neither
-equality of the underlying mixture densities nor sufficiency for a mixture-aware
-or multi-round receiver.
+We contribute an executable receiver contract, a versioned binary codec with
+adversarial property tests, and a frozen 50-trial paired evaluation. Moment
+exchange reduced attempted bytes by 58.28\%, with zero residual across 1,119,037
+retained post-step label comparisons. More broadly, the study illustrates how
+to derive a message from a consumer's first irreversible map. It claims neither
+equal mixture densities nor sufficiency for mixture-aware or multi-round use.

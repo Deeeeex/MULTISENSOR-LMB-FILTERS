@@ -4,9 +4,9 @@
 
 状态：**冻结的 primary N50 已完成；证据已通过只读 validator；不得重跑 seeds 82--131**
 
-对应论文：`Receiver-Induced Moment Exchange for Distributed Projected KLA-LMB Tracking`
+对应论文：`Receiver-Induced Moment Exchange for Distributed LMB Fusion`
 
-> 一句话结论：在冻结的 50 个八传感器配对试验中，唯一改变发送端是否在编码前执行 canonical moment projection；moment message 将 attempted application-layer payload 平均降低 **58.277264%**（95% bootstrap CI：**57.923222%--58.636095%**），同时 40,000 个 sensor-time snapshots 和 1,119,037 个 label-instance comparisons 的 `r`、`mu`、`Sigma` 残差均严格为 0。
+> 一句话结论：在冻结的 50 个八传感器配对试验中，唯一改变发送端是否在编码前执行 canonical moment projection；moment message 将 attempted application-layer payload 平均降低 **58.277264%**（95% bootstrap CI：**57.923222%--58.636095%**），同时 common `r>1e-2` retention 之后的 40,000 个 sensor-time snapshots 和 1,119,037 个 retained label-instance comparisons 的 `r`、`mu`、`Sigma` 残差均严格为 0。
 
 ## 1. 一屏总览
 
@@ -21,8 +21,8 @@
 | 95% 区间 | **[57.923222%, 58.636095%]** | High | paired percentile bootstrap，10,000 resamples，seed 20270710 |
 | 单 trial 范围 | **55.921689%--61.383973%** | High | 50/50 trials 均节省 attempted bytes |
 | delivered-byte reduction | **58.267212%** | High | 50 个 per-trial delivered reductions 的平均 |
-| 快照审计 | 40,000 snapshots；0 missing；0 label-set mismatch | High | 每臂每 trial 为 `8 × 100 = 800` snapshots |
-| 字段审计 | 1,119,037 matched label instances；`max |delta r| = max |delta mu| = max |delta Sigma| = 0` | High | binary64 exact gate，不使用 tolerance |
+| 快照审计 | 40,000 retained post-step snapshots；0 missing；0 label-set mismatch | High | common `r>1e-2` retention 后，每臂每 trial 为 `8 × 100 = 800` snapshots |
+| 字段审计 | 1,119,037 retained matched label instances；`max |delta r| = max |delta mu| = max |delta Sigma| = 0` | High | binary64 exact gate，不使用 tolerance；raw pre-retention equality 由命题给出 |
 | mask 审计 | attempted masks 50/50 相同；delivered masks 50/50 相同 | High | 隔离 payload representation 之外的因果差异 |
 | tracking/consensus | 两臂所有保存指标逐 trial 完全一致 | High | 字段级等价比 rounded metrics 更强 |
 | 结论边界 | application-layer bytes；单图、同质传感器、binary64、每 step 一轮 fusion | — | 不外推到 airtime、energy、latency、multi-round 或 mixture-aware consumer |
@@ -38,7 +38,7 @@
 | `Attempted bytes` | delivery draw 之前已编码并尝试发送的 application-layer bytes | delivered bytes、airtime、IP/PHY traffic |
 | `Delivered bytes` | delivery 成功且 receiver 实际解码的 application-layer bytes | attempted bytes |
 | Per-trial reduction `rho_s` | `100 × (B_full,s - B_moment,s) / B_full,s` | ratio of aggregate totals |
-| Snapshot | 某个 sensor、某个 filtering step 的 sorted labels、`r`、`mu`、`Sigma` | 完整内部 tracker state |
+| Retained post-step snapshot | common `r>1e-2` retention 后，某个 sensor、某个 filtering step 的 sorted labels、`r`、`mu`、`Sigma` | raw pre-retention fusion output、完整内部 tracker state |
 | Exact match | label sets 相同且 `r`、`mu`、`Sigma` 的最大残差都等于 0 | 仅 rounded tracking metric 相同 |
 | E-OSPA | Euclidean OSPA，`c=5, p=2` | 未注明 cutoff/order 的泛称 OSPA |
 | 历史 artifact 名称 | 文件名保留 `FUSION_SUFFICIENT_MOMENT_EXCHANGE` 以绑定已发布证据 | 不代表 Fisher--Neyman sufficiency 或一般 density equivalence |
@@ -52,7 +52,7 @@
 | Simulation length | 100 | 100 | Yes | frozen config |
 | Graph | 固定 4+4 topology，16 undirected edges | 同左 | Yes | arm config comparison |
 | Fusion schedule | 每 filtering step 一轮 synchronous neighbor fusion | 同左 | Yes | trigger config comparison |
-| Base fusion weights | Metropolis | Metropolis | Yes | config + runtime audit |
+| Base fusion weights | 固定对称 degree-based：self `1/3`、四邻居各 `1/6` | 同左 | Yes | 配置字段历史名为 `metropolis`，但不得称为标准 Metropolis weights |
 | Gaussian/Bernoulli weights | 同一组 presence-normalized weights | 同左 | Yes | executed receiver code path |
 | Detection probability | 0.9 | 0.9 | Yes | frozen config |
 | Mean clutter count | 3 | 3 | Yes | frozen config |
@@ -74,18 +74,18 @@
 
 | 指标 | Full GM | Moment | 差异或节省 | 统计口径 / 解释 |
 |---|---:|---:|---:|---|
-| Mean attempted payload (MB/trial) | 25.083704 | 10.457778 | -14.625926 MB | decimal MB，`1 MB = 10^6 bytes` |
-| Median attempted payload (MB/trial) | 24.975680 | 10.391720 | — | 50 trials |
-| Attempted payload range (MB/trial) | 21.366480--34.206160 | 8.616240--13.825360 | — | min--max |
+| Mean attempted payload (`10^6 B/trial`) | 25.083704 | 10.457778 | -14.625926 × `10^6 B` | decimal，`10^6 B = 1 MB` |
+| Median attempted payload (`10^6 B/trial`) | 24.975680 | 10.391720 | — | 50 trials |
+| Attempted payload range (`10^6 B/trial`) | 21.366480--34.206160 | 8.616240--13.825360 | — | min--max |
 | Total attempted payload (bytes) | 1,254,185,200 | 522,888,880 | -731,296,320 | 所有 trials 求和 |
 | **Mean per-trial attempted reduction** | — | — | **58.277264%** | **论文主指标** |
 | Attempted reduction 95% CI | — | — | **57.923222%--58.636095%** | paired percentile bootstrap |
 | Attempted reduction median | — | — | 58.045087% | 50 per-trial ratios |
 | Attempted reduction min--max | — | — | 55.921689%--61.383973% | 所有 trials 均为正 |
 | Attempted ratio of aggregate totals | — | — | 58.308479% | 仅描述 totals；不得替代主指标 |
-| Mean delivered payload (MB/trial) | 20.090979 | 8.377969 | -11.713010 MB | 相同 delivery masks 下比较 |
-| Median delivered payload (MB/trial) | 19.882946 | 8.344306 | — | 50 trials |
-| Delivered payload range (MB/trial) | 17.215140--27.407228 | 7.017844--11.161628 | — | min--max |
+| Mean delivered payload (`10^6 B/trial`) | 20.090979 | 8.377969 | -11.713010 × `10^6 B` | 相同 delivery masks 下比较 |
+| Median delivered payload (`10^6 B/trial`) | 19.882946 | 8.344306 | — | 50 trials |
+| Delivered payload range (`10^6 B/trial`) | 17.215140--27.407228 | 7.017844--11.161628 | — | min--max |
 | Total delivered payload (bytes) | 1,004,548,968 | 418,898,448 | -585,650,520 | 所有 trials 求和 |
 | Mean per-trial delivered reduction | — | — | 58.267212% | 次级通信指标 |
 | Delivered reduction min--max | — | — | 56.303901%--60.982302% | 50 per-trial ratios |
@@ -234,7 +234,7 @@ Focused tests：
 
 ```bash
 octave-cli --quiet --eval "setPath; addpath('tests'); test_lmb_moment_projection; test_lmb_wire_codec; test_lmb_posterior_equivalence;"
-/Users/dex/miniconda3/bin/python3 -m pytest -q tests/test_icassp2027_figures.py
+/Users/dex/miniconda3/bin/python3 -m pytest -q tests/test_icassp2027_figures.py tests/test_icassp2027_experiment_report.py
 ```
 
 > 注意：原 evidence report 中保存的 `runFusionSufficientMomentExchangeConfirmatory(true,50,81)` 是冻结时的历史 regeneration command。Seeds 82--131 已永久 burn，当前不得再次执行该命令；后续只允许读取和验证现有 artifacts。

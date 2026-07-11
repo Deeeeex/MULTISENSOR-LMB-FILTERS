@@ -108,15 +108,18 @@ def test_figures_are_evidence_driven_and_deterministic(tmp_path: Path) -> None:
         "lambda",
     ):
         assert prohibited not in pdf_text.lower()
-    assert "Receiver-side projection" in normalized_pdf_text
-    assert "Sender-side projection" in normalized_pdf_text
+    assert "Local GM-LMB posterior" in normalized_pdf_text
+    assert "Full-GM codec" in normalized_pdf_text
+    assert "receiver projection" in normalized_pdf_text
+    assert "Sender projection" in normalized_pdf_text
+    assert "moment codec" in normalized_pdf_text
     assert "Identical receiver inputs" in normalized_pdf_text
     assert "Same labels, weights, schedule" not in normalized_pdf_text
     assert "no quantization or covariance inflation" not in normalized_pdf_text
     assert "58.28%" in normalized_pdf_text
     assert "Communication footprint" in normalized_pdf_text
     assert "Paired trial footprint" in normalized_pdf_text
-    assert "50/50 paired trials below the no-saving line" in normalized_pdf_text
+    assert "50/50 paired trials below identity" in normalized_pdf_text
     assert "Moment attempted" in normalized_pdf_text
     assert "reduction range 55.92-61.38%" in normalized_pdf_text
     assert "mean remaining" not in normalized_pdf_text

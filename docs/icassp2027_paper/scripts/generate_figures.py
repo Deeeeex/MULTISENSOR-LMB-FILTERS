@@ -295,7 +295,7 @@ def make_mechanism_figure(output_dir: Path) -> None:
         (input_x, 0.50),
         0.16,
         0.34,
-        "Full GM message\n" + r"$\ell, r, \{w_m,\mu_m,\Sigma_m\}$",
+        "Local GM-LMB\nposterior\n" + r"$\ell,r,\{w_m,\mu_m,\Sigma_m\}$",
         "#F1F3F5",
         FULL_COLOR,
         7.8,
@@ -305,7 +305,7 @@ def make_mechanism_figure(output_dir: Path) -> None:
         (route_x, top_y),
         0.19,
         0.28,
-        "Receiver-side\nprojection\n" + r"$\mathcal{P}$",
+        "Full-GM codec " + r"$\mathcal{T}$" + "\n+ receiver projection\n" + r"$\mathcal{P}$",
         "#EAF3FA",
         MOMENT_COLOR,
         8.0,
@@ -315,7 +315,7 @@ def make_mechanism_figure(output_dir: Path) -> None:
         (route_x, bottom_y),
         0.19,
         0.28,
-        "Sender-side\nprojection " + r"$\mathcal{P}$" + "\n+ moment codec",
+        "Sender projection " + r"$\mathcal{P}$" + "\n+ moment codec\n" + r"$\mathcal{T}$",
         "#FFF4DF",
         WIRE_COLOR,
         8.0,
@@ -359,7 +359,8 @@ def make_mechanism_figure(output_dir: Path) -> None:
     arrow(ax, (0.825, 0.50), (0.885, 0.50))
 
     ax.text(0.83, 0.82,
-            r"$\mathcal{F}(\mathcal{T}X)=\mathcal{F}(\mathcal{T}\mathcal{P}X)$",
+            r"$\mathcal{F}_{\omega,\mathcal{R}}(\mathcal{T}\pi)="
+            r"\mathcal{F}_{\omega,\mathcal{R}}(\mathcal{T}\mathcal{P}\pi)$",
             ha="center",
             va="center", transform=ax.transAxes, color=OUTPUT_COLOR,
             fontsize=8.8, fontweight="bold")
@@ -470,7 +471,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         footprint.text(
             30.2,
             y,
-            f"-{reduction:.2f}%",
+            f"{reduction:.2f}%",
             ha="right",
             va="center",
             color="#174A6E",
@@ -481,7 +482,7 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     footprint.set_yticklabels(["Attempted", "Delivered"])
     footprint.set_xlim(0.0, 31.0)
     footprint.set_xticks([0, 10, 20, 30])
-    footprint.set_xlabel("Mean payload (MB/trial)")
+    footprint.set_xlabel(r"Mean payload ($10^6$ bytes/trial)")
     footprint.grid(axis="x", color=GRID_COLOR, linewidth=0.50)
     footprint.set_axisbelow(True)
     footprint.set_title("a  Communication footprint", loc="left", fontweight="bold")
@@ -507,19 +508,9 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
         zorder=3,
     )
     parity.text(
-        25.4,
-        26.3,
-        "no saving",
-        rotation=45,
-        ha="center",
-        va="bottom",
-        color="#737B84",
-        fontsize=EVIDENCE_MIN_SOURCE_FONT_PT,
-    )
-    parity.text(
         0.04,
         0.96,
-        "50/50 paired trials\nbelow the no-saving line",
+        "50/50 paired trials\nbelow identity",
         transform=parity.transAxes,
         ha="left",
         va="top",
@@ -542,8 +533,8 @@ def make_evidence_figure(output_dir: Path, evidence: dict[str, object]) -> None:
     parity.set_xticks([0, 10, 20, 30])
     parity.set_yticks([0, 10, 20, 30])
     parity.set_aspect("equal", adjustable="box")
-    parity.set_xlabel("Full-GM attempted (MB/trial)")
-    parity.set_ylabel("Moment attempted (MB/trial)")
+    parity.set_xlabel(r"Full-GM attempted ($10^6$ B/trial)")
+    parity.set_ylabel(r"Moment attempted ($10^6$ B/trial)")
     parity.set_title("b  Paired trial footprint", loc="left", fontweight="bold")
 
     save_figure(

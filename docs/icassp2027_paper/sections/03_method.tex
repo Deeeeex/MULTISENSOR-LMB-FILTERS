@@ -28,26 +28,27 @@ Let $e_{jm}^\ell=m_{jm}^\ell-\mu_j^\ell$. Then
  \label{eq:covariance}
 \end{equation}
 Thus, $\mathcal P$ replaces each mixture by the Gaussian with the same first
-two canonical moments. It is idempotent:
+two canonical moments. On its finite numerical domain, it is idempotent:
 $\mathcal P(\mathcal P(\pi))=\mathcal P(\pi)$.
 
 \subsection{The Executed Presence-Conditioned Receiver}
 
 Receiver $i$ aligns the union of source labels and applies $\mathcal P$ to each
 delivered source. Let $\mathcal S_i^\ell$ contain self and delivered neighbors
-carrying label $\ell$. The confirmatory path uses base Metropolis weights
-$\gamma_{ij}$ for both spatial and Bernoulli fusion, and applies KLA over the
-participating source subset for each active label:
+carrying label $\ell$. The confirmatory path uses fixed symmetric degree-based
+weights $\gamma_{ij}$ for both spatial and Bernoulli fusion. On the regular 4+4
+graph, $\gamma_{ii}=1/3$ and each of four neighbors has $\gamma_{ij}=1/6$.
+The effective weights are normalized over the participating source subset:
 \begin{equation}
  \omega_{ij}^\ell=\frac{\gamma_{ij}}
  {\sum_{q\in\mathcal S_i^\ell}\gamma_{iq}},
  \qquad j\in\mathcal S_i^\ell.
  \label{eq:active-weights}
 \end{equation}
-This source-indexed, presence-conditioned rule is not a full-source LMB-density
-KLA that treats a missing label as $r^\ell=0$. The broader software accepts
-distinct spatial and existence weights, but that generalized receiver is outside
-the KLA claim and frozen experiment.
+Each participating-label update has geometric-average/KLA form. The resulting
+source-indexed rule is not a full-source LMB-density KLA that treats a missing
+label as $r^\ell=0$. The broader software accepts distinct spatial and existence
+weights, but that generalized receiver is outside the claim and frozen experiment.
 
 The deterministic Cholesky regularizer $\mathcal R$ returns $\mathcal C(A)$ if
 factorization succeeds; otherwise it returns the first successful
@@ -79,7 +80,8 @@ The implementation's overlap factor is
  \label{eq:gaussian-overlap}
 \end{equation}
 Without added jitter, Eq.~\eqref{eq:gaussian-overlap} is the weighted Gaussian-
-product integral; the stated form is exact for the executed regularized path.
+product integral. With jitter, it exactly reproduces the implemented regularized
+scalar rather than the unregularized analytic integral.
 With products below over $j\in\mathcal S_i^\ell$, the Bernoulli update is
 \begin{equation}
  q_1^\ell=\eta_{i,\mathcal R}^\ell
@@ -96,18 +98,23 @@ $\mathcal F_{\omega,\mathcal R}=\mathcal G_{\omega,\mathcal R}\circ\mathcal P$.
 
 Let $\mathcal T$ be the posterior-content map of the versioned encode/decode
 transport below. It preserves labels, $r$, weights, and means, and replaces each
-component covariance by $\mathcal C(P)$. Thus, on admissible messages,
+component covariance by $\mathcal C(P)$. A message is \emph{admissible} when
+$\mathcal P$ returns finite fields, every call to $\mathcal R$ succeeds, and all
+quadratic, log-determinant, exponential, and Bernoulli intermediates remain
+finite. On this numerical domain,
 $\mathcal P\circ\mathcal T=\mathcal P$ and
 $\mathcal T\circ\mathcal P=\mathcal P$.
 
 \textbf{Proposition 1 (executed fusion-output equivalence).}
-Assume identical active-label presence, base Metropolis weights, and delivery
-masks; common $\mathcal C$, $\mathcal P$, $\mathcal R$, and $\mathcal T$; and
-disabled covariance inflation. Then
+Let $\boldsymbol\pi_{-i}$ be the delivered-neighbor tuple at receiver $i$.
+Assume admissible inputs, identical active-label presence, delivery masks, and
+effective source weights after presence normalization; common $\mathcal C$,
+$\mathcal P$, $\mathcal R$, and $\mathcal T$; and disabled mode-aware weighting
+and covariance inflation. Then
 \begin{equation}
- \mathcal F_{\omega,\mathcal R}(\mathcal T\pi_1,\ldots,\mathcal T\pi_n)=
- \mathcal F_{\omega,\mathcal R}(\mathcal T\mathcal P\pi_1,\ldots,
- \mathcal T\mathcal P\pi_n).
+ \mathcal F_{\omega,\mathcal R}(\pi_i,\mathcal T\boldsymbol\pi_{-i})=
+ \mathcal F_{\omega,\mathcal R}
+ (\pi_i,\mathcal T\mathcal P\boldsymbol\pi_{-i}).
  \label{eq:commutation}
 \end{equation}
 \emph{Proof.} The identities above give
@@ -118,8 +125,10 @@ regularized $S_j^\ell$, canonical $K_i^\ell,h_i^\ell$, overlap
 $\eta_{i,\mathcal R}^\ell$, and $q_0^\ell,q_1^\ell$ are unchanged, yielding
 identical $\bar r_i^\ell,\bar\mu_i^\ell,\bar\Sigma_i^\ell$. $\square$
 
-We call $\mathcal P(\pi)$ \emph{fusion-sufficient} only for this receiver:
-members of its equivalence class produce the same output.
+Define receiver equivalence by $\pi\sim_{\mathcal P}\pi'$ when
+$\mathcal P\pi=\mathcal P\pi'$. We call $\mathcal P(\pi)$
+\emph{fusion-sufficient} only for this receiver, for which $\mathcal F$ is
+constant on each such class.
 Equation~\eqref{eq:commutation} does not imply equal posterior densities. It can
 fail for a mixture-aware consumer, different label selection or numerical maps,
 quantization, covariance inflation, or multi-round reuse.
@@ -127,9 +136,9 @@ quantization, covariance inflation, or multi-round reuse.
 \subsection{Versioned Message and Byte Accounting}
 
 Both arms use the same versioned, little-endian binary codec underlying
-$\mathcal T$: a 24-byte message
-header, a 20-byte label header, and binary64 component fields for weight, mean,
-and the upper covariance triangle. The encoder applies $\mathcal C$ before
+$\mathcal T$: a 24-byte message header, a 20-byte per-label object-record
+header, and binary64 component fields for weight, mean, and the upper covariance
+triangle. The encoder applies $\mathcal C$ before
 packing, and the decoder reconstructs the symmetric binary64 covariance. For
 state dimension $d$, a message with $M_\ell$ components per label has
 \begin{equation}
