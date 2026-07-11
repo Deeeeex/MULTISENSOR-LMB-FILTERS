@@ -271,19 +271,22 @@ def save_figure(fig: plt.Figure, pdf_path: Path, png_path: Path) -> None:
 
 
 def make_mechanism_figure(output_dir: Path) -> None:
-    fig, ax = plt.subplots(figsize=(7.05, 2.15))
+    fig, ax = plt.subplots(figsize=(7.05, 1.85))
     ax.set_axis_off()
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
 
-    input_x = 0.105
-    output_x = 0.91
-    top_y = 0.69
-    bottom_y = 0.30
+    input_x = 0.09
+    route_x = 0.31
+    moments_x = 0.56
+    fusion_x = 0.76
+    output_x = 0.94
+    top_y = 0.68
+    bottom_y = 0.32
     rounded_box(
         ax,
         (input_x, 0.50),
-        0.17,
+        0.16,
         0.34,
         "Full GM message\n" + r"$\ell, r, \{w_m,\mu_m,\Sigma_m\}$",
         "#F1F3F5",
@@ -292,8 +295,8 @@ def make_mechanism_figure(output_dir: Path) -> None:
     )
     rounded_box(
         ax,
-        (0.35, top_y),
-        0.20,
+        (route_x, top_y),
+        0.19,
         0.28,
         "Receiver-side\nprojection\n" + r"$\mathcal{P}$",
         "#EAF3FA",
@@ -302,39 +305,29 @@ def make_mechanism_figure(output_dir: Path) -> None:
     )
     rounded_box(
         ax,
-        (0.62, top_y),
-        0.18,
+        (route_x, bottom_y),
+        0.19,
         0.28,
-        "Projected fusion\n" + r"$\mathcal{G}_{\omega}$",
-        "#F1ECF8",
-        FUSION_COLOR,
+        "Sender-side\nprojection " + r"$\mathcal{P}$" + "\n+ moment codec",
+        "#FFF4DF",
+        WIRE_COLOR,
         8.0,
     )
     rounded_box(
         ax,
-        (0.32, bottom_y),
-        0.20,
-        0.28,
-        "Sender-side\nprojection\n" + r"$\mathcal{P}$",
-        "#EAF3FA",
-        MOMENT_COLOR,
+        (moments_x, 0.50),
+        0.17,
+        0.34,
+        "Identical\nfusion-sufficient\nmoments",
+        "#EAF5F0",
+        OUTPUT_COLOR,
         MIN_SOURCE_FONT_PT,
     )
     rounded_box(
         ax,
-        (0.54, bottom_y),
-        0.20,
-        0.28,
-        "Fusion-sufficient\nmoment message\n" + r"encode $\rightarrow$ decode",
-        "#FFF4DF",
-        WIRE_COLOR,
-        7.8,
-    )
-    rounded_box(
-        ax,
-        (0.75, bottom_y),
-        0.14,
-        0.28,
+        (fusion_x, 0.50),
+        0.13,
+        0.34,
         "Projected\nfusion\n" + r"$\mathcal{G}_{\omega}$",
         "#F1ECF8",
         FUSION_COLOR,
@@ -343,36 +336,24 @@ def make_mechanism_figure(output_dir: Path) -> None:
     rounded_box(
         ax,
         (output_x, 0.50),
-        0.13,
+        0.105,
         0.34,
-        "Same fused\noutput",
+        "Same fused\nLMB output",
         "#EAF5F0",
         OUTPUT_COLOR,
-        8.0,
+        7.8,
     )
 
-    arrow(ax, (0.19, 0.56), (0.25, top_y))
-    arrow(ax, (0.19, 0.44), (0.22, bottom_y))
-    arrow(ax, (0.45, top_y), (0.53, top_y))
-    arrow(ax, (0.71, top_y), (0.845, 0.57))
-    arrow(ax, (0.42, bottom_y), (0.44, bottom_y))
-    arrow(ax, (0.64, bottom_y), (0.68, bottom_y))
-    arrow(ax, (0.82, bottom_y), (0.845, 0.43))
+    arrow(ax, (0.17, 0.56), (0.215, top_y))
+    arrow(ax, (0.17, 0.44), (0.215, bottom_y))
+    arrow(ax, (0.405, top_y), (0.475, 0.56))
+    arrow(ax, (0.405, bottom_y), (0.475, 0.44))
+    arrow(ax, (0.645, 0.50), (0.695, 0.50))
+    arrow(ax, (0.825, 0.50), (0.885, 0.50))
 
-    ax.text(0.91, 0.82, r"$\mathcal{F}(X)=\mathcal{F}(\mathcal{P}X)$", ha="center",
+    ax.text(0.85, 0.82, r"$\mathcal{F}(X)=\mathcal{F}(\mathcal{P}X)$", ha="center",
             va="center", transform=ax.transAxes, color=OUTPUT_COLOR,
             fontsize=8.8, fontweight="bold")
-    ax.text(
-        0.50,
-        0.01,
-        "Same labels, weights, schedule, delivery masks, and canonical projection; no quantization or covariance inflation.",
-        ha="center",
-        va="bottom",
-        transform=ax.transAxes,
-        color=MUTED_COLOR,
-        fontsize=MIN_SOURCE_FONT_PT,
-    )
-
     save_figure(
         fig,
         output_dir / "payload_graph_schematic.pdf",

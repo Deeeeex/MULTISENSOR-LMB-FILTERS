@@ -37,7 +37,7 @@ Distributed multi-object tracking, labeled random finite sets, LMB filter, KLA f
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.94\textwidth]{figures/payload_graph_schematic.pdf}
-    \caption{Receiver-induced message design. The full-message path first applies $\mathcal P$ at the receiver. Idempotence lets the same projection move to the sender, so both paths present identical label-wise moments to $\mathcal G_\omega$ and produce exactly the same fused LMB output under the stated conditions.}
+    \caption{Receiver-induced message design. The full-message path applies $\mathcal P$ at the receiver, whereas the moment-message path applies it before lossless encoding. With matched labels, weights, schedule, delivery masks, and canonical projection---and without quantization or covariance inflation---both paths present identical label-wise moments to $\mathcal G_\omega$ and produce the same fused LMB output.}
     \label{fig:receiver-factorization}
 \end{figure*}
 \begin{figure*}[t]

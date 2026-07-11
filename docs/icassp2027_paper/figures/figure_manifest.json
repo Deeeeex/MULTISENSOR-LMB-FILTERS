@@ -15,7 +15,7 @@
     ],
     "sha256": "1c1c4717ae68009417ff74d5e27c94e8e30fb5f8972b596328b3e12dc29db9a2"
   },
-  "generator_sha256": "df1d9f0daf34b772824a85c5ac5f8706bed7d5522d896a6adc90388697ccfa74",
+  "generator_sha256": "2f4f8a5c69199441ca151cd531630a683bd1590baa1c3b8f1af41b0dc03a2635",
   "layout_qa": {
     "minimum_estimated_final_font_points": 7.143999999999999,
     "minimum_source_font_points": 7.6,
@@ -31,12 +31,12 @@
       "sha256": "6aca9a8e4a5f1deed3ff077b0e826dda7e635e88c5d82d8735b55ad87ef3f658"
     },
     "payload_graph_schematic.pdf": {
-      "bytes": 23135,
-      "sha256": "ab71c71dab0ef862800970b1188503f60b4da7225f318b0c5f032796ba59041c"
+      "bytes": 21329,
+      "sha256": "5e7ff7a1cb722156a82c42f2445e3633efd9e487fa8cac742ec19f53c6ee0294"
     },
     "payload_graph_schematic.png": {
-      "bytes": 109289,
-      "sha256": "9b7ec115e2ef00733afbde0b52c373de5598461202da7e0c08f19fbc9ff1119d"
+      "bytes": 79969,
+      "sha256": "05e104e1575495e9866218624085ab69622ce9b1a69033f01a676c742901fb22"
     }
   },
   "schema": "icassp2027-figure-manifest-v1",
