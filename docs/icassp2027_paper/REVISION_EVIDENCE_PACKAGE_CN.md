@@ -32,6 +32,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | C5 | 最新证据可从 tracked MAT 重算 CSV、aggregate、bootstrap 与 Markdown | High | E5, E6 | 执行 seeds 已 burn，只允许只读 validation |
 | C6 | 新 Figure 1/2 已与中心 claim 对齐且直接绑定冻结 evidence | High | E9 | 最终稿必须按双栏全宽使用并重新视觉检查 |
 | C7 | 重写后的正文、图表、Discussion 与 4+1 PDF 已通过 claim、页数和全页视觉 gate | High | E10 | 作者已确认无 funding、无 COI；detailed 2027 template 链接尚未上线 |
+| C8 | 最小投稿源闭包可确定性打包，并能在隔离目录重建出通过严格 gate 的五页 PDF | High | E11 | 正式 2027 kit 上线后仍需替换/比对模板并重跑 |
 
 ## Evidence Ledger
 
@@ -47,6 +48,7 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
 | E8 | literature | Crossref metadata and publisher pages for DOIs listed in `REVISION_GUIDE_CN.md` section 5 | C2：schedule reduction、component selection、state/covariance projection 的边界 | medium |
 | E9 | figure/report tests | `figure_manifest.json`; `tests/test_icassp2027_figures.py`; `tests/test_icassp2027_experiment_report.py` -> `2 passed` | C4/C6：图与实验大表均绑定 frozen CSV；图表双生成一致，50-seed 行逐项回读一致 | strong |
 | E10 | manuscript/PDF/test | rewritten `main.tex`, all six sections, `refs.bib`, `main.pdf`; `tests/check_icassp2027_pdf.py` -> exact 5 pages, TeX Gyre font-shape gate, float-placement gate, and rendered page 1--5 visual QA | C7：Story A 完整落稿，第 5 页无正文/图/表，图内估算最小 9.0 pt 以上且版面密度均衡 | strong |
+| E11 | submission bundle/test | `submission/build_submission_bundle.py`; `submission/upload_files/{manuscript.pdf,manuscript_source.zip,SHA256SUMS}`; `tests/test_icassp2027_submission_bundle.py` | C8：ZIP 仅含 12 个真实 source + build/manifest；重复生成 SHA 一致；隔离解压编译和严格 PDF gate 通过 | strong |
 
 ## Verification Record
 
@@ -65,6 +67,9 @@ payload-size-dependent loss、event-trigger/dynamic-topology 优越性、多轮 
   checker 另核对 TeX Gyre Termes regular/bold/italic 均嵌入且无 Latin Modern
   fallback；figure manifest 按实际 PDF mediabox 与 0.94 text-width include scale 计算，
   两图最终最小估算字号均不低于 9 pt。
+- Independence status: `isolated rebuild`。确定性 source ZIP 在全新临时目录解压，
+  逐文件核对内部 SHA-256 manifest 后从 `main.tex` 重建；重建 PDF 再通过五页、字体、
+  内容与 funding/COI 严格 gate。第二次打包得到相同 ZIP SHA-256。
 - Disagreement log: 三路对删除旧 topology 故事、保留 frozen N50 与应用层 byte
   边界没有分歧。最终复审进一步一致要求：把 receiver 说明为 custom variant，
   删除标题中的 `KLA-LMB`，把 historical `metropolis` 纠正为 fixed degree-based
@@ -108,6 +113,14 @@ cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/
 
 当前普通 PDF gate 与严格 submission gate 均通过；后者锁定作者确认的无 funding、无 COI 声明。
 
+确定性投稿包与隔离重建 gate：
+
+```bash
+/Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+  docs/icassp2027_paper/submission/build_submission_bundle.py --verify
+pytest -q tests/test_icassp2027_submission_bundle.py
+```
+
 执行 provenance 为 commit `7974f10179a8973875bec9f301b8a5f84477d860`；验证可在
 其 descendant 上运行。`82:131` 已永久 burn，不得使用报告中的历史 regeneration
 命令重跑。
@@ -126,6 +139,6 @@ cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/
 
 以高置信度执行 Story A：`custom receiver factorization -> sender-side projection -> conditional
 receiver-field equivalence -> typed message -> frozen paired evidence`。删除所有 dynamic/
-event-trigger superiority 与 symmetrized connectivity 主张。该推荐现已由 C1--C7
+event-trigger superiority 与 symmetrized connectivity 主张。该推荐现已由 C1--C8
 支持并完成实施，证据包 gate 为 `implementation pass`，funding/COI 声明 gate 亦已通过。
 最终 submission pass 仅待 official paper kit 上线后完成模板终检。

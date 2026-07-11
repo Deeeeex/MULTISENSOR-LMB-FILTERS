@@ -2,7 +2,7 @@
 
 审计日期：2026-07-11
 
-审计对象：`docs/icassp2027_paper/main.tex` 与 `main.pdf`
+审计对象：`docs/icassp2027_paper/main.tex`、`main.pdf` 与 `submission/upload_files/`
 
 目标：证明当前稿件是否满足“技术严谨、证据闭合、视觉合理、文字准确、可直接投稿”，而不是仅确认测试未报错。
 
@@ -14,6 +14,7 @@
 | PDF/layout readiness | **PASS** | 4 页技术内容 + 第 5 页参考文献；无 overfull、裁切、字体或链接边框问题 |
 | Author metadata readiness | **PASS** | Jinhao Chen 第一作者；Tianyu Wo 通讯作者；机构顺序按第一作者 |
 | Venue-policy readiness | **PASS** | single-anonymous、页数、ethics、funding 与 COI 均已核对并写入 PDF |
+| Submission-package readiness | **PASS** | PDF、确定性最小 source ZIP、内部 source manifest 与 upload SHA-256 均已生成并隔离重建验证 |
 | Final-template readiness | **EXTERNAL PENDING** | 2027 detailed submission/template URL 截至本次审计仍返回 HTTP 404 |
 | Overall submission status | **PRE-SUBMISSION PASS / FINAL-TEMPLATE PENDING** | 稿件自身门禁均通过；仅待官方 2027 kit 上线后的模板终检 |
 
@@ -42,6 +43,7 @@
 | Ethics | 独立 `Compliance with Ethical Standards`，使用官方 numerical-simulation 表述 | 通过 |
 | AI disclosure | 识别 OpenAI Codex、使用范围和建议级别；作者验证责任明确 | 通过 |
 | Funding/COI | 作者确认本稿无 funding，且全体作者无相关 financial/nonfinancial interests；官方示例声明已写入 Acknowledgment | **PASS** |
+| Source/upload package | 12 个真实 source + `BUILD.md`/manifest；重复生成 ZIP SHA 一致；隔离解压编译后重跑严格 PDF gate | **PASS** |
 | 2027 template | 当前 `spconf.sty` 与仓库保存的 official ICASSP 2026 template SHA-256 相同；2027 detailed URL 为 404 | **EXTERNAL PENDING** |
 
 ## 3. Funding/COI 作者确认与落位
@@ -62,7 +64,7 @@
 ## 5. 最终复验命令
 
 ```bash
-pytest -q tests/test_icassp2027_figures.py tests/test_icassp2027_experiment_report.py
+pytest -q tests/test_icassp2027_figures.py tests/test_icassp2027_experiment_report.py tests/test_icassp2027_submission_bundle.py
 octave-cli --quiet --eval "setPath; addpath('tests'); test_lmb_moment_projection; test_lmb_wire_codec; test_lmb_posterior_equivalence;"
 octave-cli --quiet --eval "setPath; addpath('tests'); addpath('RUN/GA'); test_icassp_moment_exchange_runner; test_icassp_moment_exchange_evidence;"
 octave-cli --quiet --eval "setPath; addpath('RUN/GA'); v=validateFusionSufficientEvidence('RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.mat','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.csv','RUN/GA/GA_FUSION_SUFFICIENT_MOMENT_EXCHANGE_N50_SEEDS82_131.md'); disp(v);"
@@ -70,6 +72,7 @@ cd docs/icassp2027_paper && tectonic --keep-logs --keep-intermediates main.tex
 cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf
 # 作者声明已写入，以下 submission gate 必须通过：
 /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf --require-submission-declarations
+/Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 docs/icassp2027_paper/submission/build_submission_bundle.py --verify
 git diff --check
 ```
 
@@ -78,4 +81,5 @@ git diff --check
 只有下列事项满足时，才可把 thread goal 标记为 complete：
 
 - [x] 作者确认 funding/COI，并将真实声明写入最终 PDF；
+- [x] 最小 source ZIP 与 upload PDF 已 hash-bound，并在隔离目录重建验证；
 - official ICASSP 2027 paper kit 上线后，对模板、边距、字体、页数和 PDF eXpress 要求重新检查并通过。

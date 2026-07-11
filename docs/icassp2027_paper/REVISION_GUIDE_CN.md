@@ -392,6 +392,7 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 | Fig. 2 identity 注释交叠、百分比符号歧义、`MB` 歧义 | 删除斜向文字，百分比直接按 reduction 展示，轴统一为 `10^6 B/trial` | 已解决 |
 | 参考文献专名和电子 article number 格式 | 保护 Bayes/Kullback--Leibler/Bernoulli 大小写，Xue 2026 改为 `Art. no. 458`；保持 20 条正文引用 | 已解决 |
 | Funding 与 COI/无 COI 声明 | 作者确认本稿无 funding、全体作者无相关 financial/nonfinancial interests；官方示例已写入 Acknowledgment | 已解决 |
+| 投稿 PDF/source 包容易与主稿漂移 | 增加确定性最小 source ZIP、内部 source manifest、upload SHA-256、隔离解压编译与严格 PDF gate | 已解决 |
 | 最终 ICASSP 2027 template/submission instructions | 官方链接截至 2026-07-11 返回 404；当前 PDF 已按 CFP、single-anonymous 与 4+1 规则通过 | **EXTERNAL PENDING** |
 
 官方核对入口：
@@ -401,6 +402,6 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 - Single-anonymous 与 review criteria：<https://2027.ieeeicassp.org/about/editorial-policies/>
 - Detailed submission page（2026-07-11 为 404）：<https://2027.ieeeicassp.org/paper-submission-instructions/>
 
-当前技术、版面与作者声明门禁均通过。正式 paper kit 上线并完成模板差异检查后，才可把状态提升为最终 **submission pass**。
+当前技术、版面、作者声明与隔离 submission-bundle 门禁均通过。正式 paper kit 上线并完成模板差异检查后，才可把状态提升为最终 **submission pass**。
 
 `tests/check_icassp2027_pdf.py --require-submission-declarations` 是最终声明门禁：作者确认的无 funding、无 COI 文本写入后，该严格模式必须与普通 PDF gate 一并通过。
