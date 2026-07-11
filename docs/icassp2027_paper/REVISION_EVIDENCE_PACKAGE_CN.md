@@ -100,6 +100,14 @@ cd docs/icassp2027_paper && tectonic --keep-logs --keep-intermediates main.tex
 cd ../.. && /Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py
 ```
 
+作者声明写入后的最终 submission gate：
+
+```bash
+/Users/dex/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 tests/check_icassp2027_pdf.py --pdf docs/icassp2027_paper/main.pdf --require-submission-declarations
+```
+
+当前普通 PDF gate 通过；严格 submission gate 按预期因 funding/COI 尚未确认而失败。
+
 执行 provenance 为 commit `7974f10179a8973875bec9f301b8a5f84477d860`；验证可在
 其 descendant 上运行。`82:131` 已永久 burn，不得使用报告中的历史 regeneration
 命令重跑。

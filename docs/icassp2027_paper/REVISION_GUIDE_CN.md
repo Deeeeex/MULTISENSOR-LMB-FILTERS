@@ -402,3 +402,5 @@ canonical binary64 实现是否夸大外部有效性。当前裁决为 **impleme
 - Detailed submission page（2026-07-11 为 404）：<https://2027.ieeeicassp.org/paper-submission-instructions/>
 
 当前技术与版面裁决仍为 **implementation pass**。只有作者提供真实 funding/COI 信息并在正式 paper kit 上线后完成模板差异检查，才可把状态提升为 **submission pass**。
+
+`tests/check_icassp2027_pdf.py --require-submission-declarations` 是最终声明门禁：当前普通 PDF gate 通过，而该严格模式按预期因缺少 funding statement 失败；写入作者确认的 funding/COI 文本后必须重新运行并通过。

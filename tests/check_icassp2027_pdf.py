@@ -66,7 +66,7 @@ def assert_link_borders_hidden(reader: PdfReader) -> None:
     assert link_count > 0, "expected hyperref link annotations"
 
 
-def check_pdf(pdf_path: Path) -> list[str]:
+def check_pdf(pdf_path: Path, require_submission_declarations: bool = False) -> list[str]:
     reader = PdfReader(pdf_path)
     assert len(reader.pages) == 5, f"expected exactly 5 pages, found {len(reader.pages)}"
     assert_link_borders_hidden(reader)
@@ -150,8 +150,22 @@ def check_pdf(pdf_path: Path) -> list[str]:
     assert "58.28%" in full_text
     assert "1,119,037" in full_text
     assert "retained post-step" in lowered
+    assert "label instances matched exactly" in lowered
     assert "admissible" in lowered
     assert "fixed symmetric degree-based" in lowered
+
+    if require_submission_declarations:
+        has_funding = (
+            "no funding was received for conducting this study" in lowered
+            or "this work was supported by" in lowered
+        )
+        has_coi = (
+            "no relevant financial or nonfinancial interests to disclose" in lowered
+            or "conflict of interest" in lowered
+            or "competing interests" in lowered
+        )
+        assert has_funding, "required funding or no-funding statement is missing"
+        assert has_coi, "required COI or no-COI statement is missing"
     return pages
 
 
@@ -174,6 +188,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pdf", type=Path, default=DEFAULT_PDF)
     parser.add_argument("--render-dir", type=Path, default=DEFAULT_RENDER_DIR)
+    parser.add_argument(
+        "--require-submission-declarations",
+        action="store_true",
+        help="also require the ICASSP funding and COI statements",
+    )
     return parser.parse_args()
 
 
@@ -181,7 +200,7 @@ def main() -> None:
     args = parse_args()
     pdf_path = args.pdf.resolve()
     render_dir = args.render_dir.resolve()
-    pages = check_pdf(pdf_path)
+    pages = check_pdf(pdf_path, args.require_submission_declarations)
     render_pdf(pdf_path, render_dir)
     print(f"validated {pdf_path}: {len(pages)} pages")
     print(f"rendered visual QA pages to {render_dir}")
