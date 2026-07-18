@@ -75,6 +75,9 @@ def test_report_carries_plain_language_story_and_boundaries() -> None:
     for marker in (
         "## 研究背景、核心思路与主要结论",
         "### 研究问题",
+        "本文评估的原型软件采用一个由作者实现的特定接收端",
+        "先根据目标编号对齐不同来源",
+        "不代表实际部署的多传感器系统或其他算法通常都这样工作",
         "### 相关工作与本文区别",
         "### 方法设计思路",
         "### 结果可信性",
@@ -106,6 +109,13 @@ def test_report_carries_plain_language_story_and_boundaries() -> None:
         assert acronym not in plain_section
     for meta_term in ("汇报", "非专业", "听众", "阅读建议", "技术复核区"):
         assert meta_term not in text
+    for overgeneralization in (
+        "我们检查现有系统后发现",
+        "每个节点过去会",
+        "可以把原来的过程理解为",
+        "现有接收端",
+    ):
+        assert overgeneralization not in plain_section
 
 
 def test_plain_related_work_is_bound_to_paper_bibliography() -> None:
