@@ -67,23 +67,22 @@ def test_report_is_bound_to_frozen_csv() -> None:
 
 def test_report_carries_plain_language_story_and_boundaries() -> None:
     text = REPORT.read_text()
-    plain_section = text.split("## 0. 面向非专业听众的汇报主线", 1)[1].split(
+    plain_section = text.split("## 研究背景、核心思路与主要结论", 1)[1].split(
         "## 1. 一屏总览", 1
     )[0]
 
     for marker in (
-        "## 0. 面向非专业听众的汇报主线",
-        "### 0.1 这项工作要解决什么问题",
-        "### 0.2 我们的方法是怎么想到的",
-        "### 0.3 我们如何确认结果可信",
-        "### 0.4 实验结果说明了什么",
-        "### 0.5 汇报时必须主动说明的边界",
-        "### 0.6 一分钟口头汇报版本",
+        "## 研究背景、核心思路与主要结论",
+        "### 研究问题",
+        "### 方法设计思路",
+        "### 结果可信性",
+        "### 主要实验结果",
+        "### 结论的适用范围",
+        "### 核心内容概述",
         "先把十页材料寄给对方，对方收到后再按固定模板整理成一页摘要",
         "系统实际编码并准备发送的数据量平均减少 **58.28%**",
         "超过 111 万条保留目标记录逐项完全一致",
         "不能直接换算成无线能耗或时延收益",
-        "以下为技术复核区",
     ):
         assert marker in text
 
@@ -94,3 +93,5 @@ def test_report_carries_plain_language_story_and_boundaries() -> None:
     assert "应用层" not in plain_section
     for acronym in ("LMB", "GM", "KLA"):
         assert acronym not in plain_section
+    for meta_term in ("汇报", "非专业", "听众", "阅读建议", "技术复核区"):
+        assert meta_term not in text
