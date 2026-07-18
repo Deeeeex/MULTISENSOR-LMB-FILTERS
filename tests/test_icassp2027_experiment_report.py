@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "docs" / "icassp2027_paper" / "EXPERIMENT_RESULTS_CN.md"
+BIB_PATH = ROOT / "docs" / "icassp2027_paper" / "refs.bib"
 CSV_PATH = (
     ROOT
     / "RUN"
@@ -74,12 +75,22 @@ def test_report_carries_plain_language_story_and_boundaries() -> None:
     for marker in (
         "## 研究背景、核心思路与主要结论",
         "### 研究问题",
+        "### 相关工作与本文区别",
         "### 方法设计思路",
         "### 结果可信性",
         "### 主要实验结果",
         "### 结论的适用范围",
         "### 核心内容概述",
         "先把十页材料寄给对方，对方收到后再按固定模板整理成一页摘要",
+        "相同的核心摘要 + 相同的后续处理 = 相同的接收结果",
+        "可以按照摘要把所有详细描述分组",
+        "这并不表示两份详细描述本身完全相同",
+        "调整发送时机",
+        "选择部分候选信息",
+        "直接交换紧凑的目标状态",
+        "归纳多个候选分布",
+        "重新设计多节点融合规则",
+        "本文固定现有融合方式，只重新设计输入消息",
         "系统实际编码并准备发送的数据量平均减少 **58.28%**",
         "超过 111 万条保留目标记录逐项完全一致",
         "不能直接换算成无线能耗或时延收益",
@@ -95,3 +106,21 @@ def test_report_carries_plain_language_story_and_boundaries() -> None:
         assert acronym not in plain_section
     for meta_term in ("汇报", "非专业", "听众", "阅读建议", "技术复核区"):
         assert meta_term not in text
+
+
+def test_plain_related_work_is_bound_to_paper_bibliography() -> None:
+    bib = BIB_PATH.read_text()
+
+    for key in (
+        "Shen2022EventTriggeredLMB",
+        "Li2023EventTriggeredConsensusLMB",
+        "Li2026EventTriggeredMdeltaGLMB",
+        "Li2019PartialConsensusGMPHD",
+        "Xue2026StateCovProjection",
+        "Runnalls2007GMR",
+        "Battistelli2014KLA",
+        "Wang2017MBGCI",
+        "Gao2020MIL",
+        "Wei2024AALMB",
+    ):
+        assert f"{{{key}," in bib
