@@ -1,12 +1,105 @@
-# ICASSP Receiver-Induced Moment Exchange 实验结果总表
+# ICASSP Receiver-Induced Moment Exchange 实验进度与结果总表
 
-更新日期：2026-07-11
+更新日期：2026-07-18
 
 状态：**冻结的 primary N50 已完成；证据已通过只读 validator；不得重跑 seeds 82--131**
 
 对应论文：`Receiver-Induced Moment Exchange for Distributed LMB Fusion`
 
 > 一句话结论：在冻结的 50 个八传感器配对试验中，唯一改变发送端是否在编码前执行 canonical moment projection；moment message 将 attempted application-layer payload 平均降低 **58.277264%**（95% bootstrap CI：**57.923222%--58.636095%**），同时 common `r>1e-2` retention 之后的 40,000 个 sensor-time snapshots 和 1,119,037 个 retained label-instance comparisons 的 `r`、`mu`、`Sigma` 残差均严格为 0。
+
+## 0. 论文主叙事：由接收端反推消息接口
+
+> **核心定位：**本文不是提出新的 KLA/LMB 融合规则，也不是把标准 moment matching 包装成新的压缩算法；本文识别出一个固定接收端的首个不可逆映射，把该映射的输出提升为真实 wire message，并用显式的数值契约、传输契约和冻结配对实验给出一份可执行的等价性证书。
+
+### 0.1 背景：发送内容与接收端实际使用的信息不匹配
+
+分布式多目标跟踪需要在不集中原始量测的前提下交换各节点的后验信息。LMB 后验为每个标签维护存在概率 `r` 和条件状态密度；在本文软件中，后者是 Gaussian mixture (GM)，因而一个 active label 可能携带多个 component 的权重、均值和协方差。若直接发送 full GM，应用层报文会随 active labels、状态维数和每标签 mixture multiplicity 增长。
+
+然而，本文审计的接收端不是保留完整 mixture 结构的 full-source LMB-density KLA。它执行的是一个 **custom presence-conditioned geometric-average receiver**：先按标签对齐实际出现的来源、在这些来源上重新归一化固定 base weights，再把每个来源的 label-wise GM 投影为 `(r, mu, Sigma)`，最后才计算 Gaussian overlap、存在概率和融合后的单 Gaussian。也就是说，full GM arm 先跨过真实 serialization boundary 传输全部 components，接收端随后立即丢弃其中不能通过一、二阶矩影响后续计算的结构。
+
+这里的矛盾不是“GM 信息在一般意义上无用”，而是**发送端表示比这个特定接收端的可观测接口更丰富**。已有通信感知方法主要回答何时发送、选择哪些 components 或是否只交换紧凑状态；moment-preserving projection 本身也早已是标准工具。本文提出的不同问题是：
+
+> 对一个已经确定的接收端，能否从其首个不可逆映射反推出更紧凑的消息接口，并证明该接口在真实 codec 和数值实现之后仍保持所有 receiver-observable fields？
+
+### 0.2 方法设计：把首个不可逆映射移到发送端
+
+把 executed receiver 写成
+
+$$
+\mathcal F_{\omega,\mathcal R}
+=
+\mathcal G_{\omega,\mathcal R}\circ\mathcal P ,
+$$
+
+其中各映射的职责必须固定，而不能只在概念层面说“发送 moments”：
+
+| 符号 | 具体职责 | 为什么属于等价性契约 |
+|---|---|---|
+| `C` | 用 `C(A)=(A+A^T)/2` 规范化 component covariance | 防止 sender、codec 和 receiver 对近对称矩阵采用不同解释 |
+| `P` | 清洗并重归一化 mixture weights，应用 `C`，逐标签保留 `r` 并计算 canonical `mu`、`Sigma` | 这是接收端读取 GM 后执行的首个不可逆映射 |
+| `T` | versioned little-endian binary64 encode/decode 的 posterior-content map | 保证结论跨过实际 application-layer serialization boundary，而非只比较内存对象 |
+| `R` | 固定 jitter schedule 的 deterministic Cholesky regularizer | 固定逆矩阵、log determinant 和 overlap 的实际数值语义 |
+| `G_(omega,R)` | 按 active-label presence 归一化 source weights，再计算 `K`、`h`、`eta`、`q0`、`q1` 和最终 `(r,mu,Sigma)` | 明确哪些 downstream fields 必须被消息完整保留 |
+
+设 `pi_i` 是 receiver `i` 的本地后验，`pi_-i` 是实际送达的邻居后验元组。两条路径的唯一设计差异是 `P` 位于 codec 的哪一侧：
+
+| 路径 | 发送端与 wire payload | 接收端实际使用 |
+|---|---|---|
+| Full GM arm | `pi_-i -> T(pi_-i)`；编码每个 label 的全部 GM components | 解码后执行 `P`，再进入 `G_(omega,R)` |
+| Moment arm | `pi_-i -> P(pi_-i) -> T(P(pi_-i))`；每个 label 只编码一个 canonical Gaussian | 解码后仍走同一接收端；`P` 再次执行但因 idempotence 不改变内容 |
+
+在 admissible numerical domain 内，canonical projection 和 transport 满足
+
+$$
+\mathcal P\circ\mathcal T=\mathcal P,\qquad
+\mathcal T\circ\mathcal P=\mathcal P .
+$$
+
+因此，在 active-label presence、delivery masks、presence-normalized effective source weights、`C/P/R/T` 完全相同，且 mode-aware weighting 与 covariance inflation 均关闭时，
+
+$$
+\mathcal F_{\omega,\mathcal R}
+(\pi_i,\mathcal T\boldsymbol\pi_{-i})
+=
+\mathcal F_{\omega,\mathcal R}
+(\pi_i,\mathcal T\mathcal P\boldsymbol\pi_{-i}) .
+$$
+
+这个等式表达的是 **executed receiver-output equivalence**：两条路径为后续的 `K`、`h`、`eta`、`q0` 和 `q1` 提供完全相同的输入，从而得到相同的融合后 `r`、`mu`、`Sigma`。它不声称 full GM 与 moment message 表示相同的 mixture density；本地 `pi_i` 也没有被当作网络报文处理。
+
+### 0.3 设计思想：从“少发字段”升级为“可执行证书”
+
+| 设计原则 | 本文的具体实现 | 避免的薄弱叙事 |
+|---|---|---|
+| **Receiver-first** | 先固定实际 consumer `F=G∘P`，再定义消息，而不是先设计一个通用 compact payload | 不把 receiver-specific 结论外推为一般 GM-KLA 等价 |
+| **移动最早的丢弃点** | 将 receiver 原本必做的 `P` 移到 sender、编码之前；只删除该 receiver 后续无法观测的 mixture 结构 | 不把启发式 component pruning 误写成 exact 方法 |
+| **固定 canonical semantics** | sender、codec、receiver 共用 weight sanitation、covariance symmetrization、moment projection 和 regularizer | 不用“数学上应当接近”代替可复现的浮点实现契约 |
+| **跨真实传输边界验证** | 两臂均实际 encode；attempted bytes 在 delivery draw 前计数，成功送达后实际 decode | 不用 MATLAB object 大小或标量个数估算通信量 |
+| **只改变一个因果变量** | seeds、trajectories、measurements、graph、schedule、labels、weights 和 delivery uniforms 全部配对；仅改变 sender-side projection | 不让 topology、触发策略或丢包差异混入 payload representation 的效果 |
+| **把 exactness 与 savings 分开证明** | 命题和 property tests 证明 receiver contract；N50 audit 检查递归后的 retained fields；codec bytes 独立量化收益 | 不以 rounded tracking metrics 相同替代字段级等价 |
+| **主动给出失效地图** | 明列 mixture-aware consumer、quantization、不同 numerical maps、covariance inflation、不同 pruning 和 multi-round reuse | 不把“在当前契约下 exact”写成无条件或普适结论 |
+
+这里最关键的设计判断是：**消息格式应由 consumer 的信息需求决定，而不是由 producer 的内部表示直接决定。** 但只有当该 consumer 能分解为一个明确的不可逆投影和其后的确定性计算、且投影能够与 codec 组成稳定的 canonical map 时，才可以把这个判断提升为 exact interface claim。否则，moment message 只能被当作近似或启发式压缩。
+
+### 0.4 论文论证链：背景、方法、证据与边界如何衔接
+
+| 叙事节点 | 要回答的问题 | 本文给出的回答或证据 |
+|---|---|---|
+| 1. 背景 | 为什么 full GM communication 值得处理？ | 每标签报文随 component count 增长，而 distributed LMB 需要重复跨节点交换后验 |
+| 2. 实现观察 | 为什么不是泛泛地做 GM compression？ | 当前 receiver 在任何融合计算前都会执行相同的 label-wise `P`，造成 producer representation 与 consumer interface 不匹配 |
+| 3. 方法洞见 | 我们究竟改变了什么？ | 将 receiver 的首个不可逆映射 `P` 提前到 sender；融合规则 `G`、schedule 和 tracker 均不改变 |
+| 4. 精确性主张 | 为什么提前投影不会改变该 receiver？ | `P∘T=P`、`T∘P=P` 加上 matched presence/weights/masks/numerics，给出 Proposition 1 的 executed-output equality |
+| 5. 实现可信度 | 短代数是否掩盖了工程差异？ | versioned codec、independent oracle、regularization tests、field mutation tests 和 covariance-inflation negative control 覆盖真实调用链 |
+| 6. 递归证据 | 单次融合等价是否延伸到完整 tracker？ | 冻结 N50 的 common-retention audit 覆盖 40,000 snapshots 与 1,119,037 retained label instances，字段最大残差均为 0 |
+| 7. 通信收益 | exact interface 实际节省多少？ | 50 个配对 trials 的 mean attempted-byte reduction 为 58.277264%，且所有 trials 均为正；这是当前 workload 的 application-layer 结果 |
+| 8. 结论边界 | 读者不应从结果推断什么？ | 不推断 mixture-density equality，也不推断 radio energy、latency、airtime、rate optimality 或其他 consumer/codec 下的等价性；N50 证据限于一个八传感器模型、固定 4+4 graph、binary64 codec 和每 step 一轮同步 fusion |
+
+因此，正文应始终维持同一条主线：**表示不匹配 → receiver factorization → sender-side projection → executable equivalence certificate → frozen paired evidence → workload-specific savings 与显式 failure modes**。其中，58.28% 是该设计在当前 workload 下的结果，不是论文的概念起点；真正可复用的思想是“识别 consumer 的首个不可逆映射，并检验它能否成为跨 serialization boundary 的消息接口”。
+
+### 0.5 可直接用于组内沟通的一段话
+
+分布式 LMB 节点通常以 Gaussian mixtures 表示每个标签的状态，因此直接发送 full GM 会携带所有 component；但我们当前实现的 custom presence-conditioned geometric-average receiver 在真正融合前，必然先把每个来源、每个标签投影为存在概率和一、二阶矩。本文据此从接收端反推消息设计：把这个 canonical projection 从解码后移到发送端编码前，并用统一的 covariance canonicalization、deterministic regularizer 和 versioned binary64 codec 固定两条路径的数值与传输语义。Proposition 1 证明，在标签 presence、delivery masks、effective weights 和数值映射一致的 admissible domain 内，full GM message 与 moment message 对该 receiver 产生完全相同的融合输出；property tests、负控制及冻结的 50-trial 递归审计进一步验证了真实实现。在此契约下，moment message 将 attempted application-layer bytes 平均降低 58.28%，而 1,119,037 个 retained post-step label instances 的 `r`、`mu`、`Sigma` 均严格一致。因而本文的贡献是 receiver-induced message interface 及其 executable certificate，而不是新的 KLA、一般 GM density equivalence 或无线层压缩结论。
 
 ## 1. 一屏总览
 

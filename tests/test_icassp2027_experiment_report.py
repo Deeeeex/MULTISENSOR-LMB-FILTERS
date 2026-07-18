@@ -63,3 +63,21 @@ def test_report_is_bound_to_frozen_csv() -> None:
         "raw pre-retention equality 由命题给出",
     ):
         assert marker in text
+
+
+def test_report_carries_receiver_first_story_and_boundaries() -> None:
+    text = REPORT.read_text()
+
+    for marker in (
+        "## 0. 论文主叙事：由接收端反推消息接口",
+        "### 0.1 背景：发送内容与接收端实际使用的信息不匹配",
+        "### 0.2 方法设计：把首个不可逆映射移到发送端",
+        "### 0.3 设计思想：从“少发字段”升级为“可执行证书”",
+        r"\mathcal F_{\omega,\mathcal R}",
+        r"\mathcal P\circ\mathcal T=\mathcal P",
+        "Receiver-first",
+        "executed receiver-output equivalence",
+        "不声称 full GM 与 moment message 表示相同的 mixture density",
+        "不推断 radio energy、latency、airtime、rate optimality",
+    ):
+        assert marker in text
