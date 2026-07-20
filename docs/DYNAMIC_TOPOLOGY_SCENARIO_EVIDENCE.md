@@ -157,11 +157,12 @@ No paper claim, method choice, or long experiment should treat this draft as app
 
 ## Reproducibility
 
-Repository and commit:
+Repository, audited source baseline, and scenario checkpoint:
 
 ```text
 /Users/dex/.config/superpowers/worktrees/MULTISENSOR-LMB-FILTERS/learned-dynamic-topology-scenarios
-282ca8180510315424dbb488ce7cfd80e624115f
+audited source baseline: 282ca8180510315424dbb488ce7cfd80e624115f
+scenario checkpoint: 2c75193
 ```
 
 Core inspection commands:
