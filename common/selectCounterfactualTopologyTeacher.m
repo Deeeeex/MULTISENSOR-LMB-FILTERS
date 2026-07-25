@@ -26,6 +26,7 @@ candidateCount = size(candidates, 3);
 nodeCount = size(candidates, 1);
 
 taskRisks = inf(1, candidateCount);
+nodeTaskRisks = nan(candidateCount, nodeCount);
 switchCosts = inf(1, candidateCount);
 byteMismatch = inf(1, candidateCount);
 structurallyValid = false(1, candidateCount);
@@ -76,7 +77,8 @@ else
     end
 end
 for candidateIdx = reshape(evaluationIndices, 1, [])
-    [taskRisks(candidateIdx), cache] = evaluateCandidateRisk( ...
+    [taskRisks(candidateIdx), cache, ...
+        nodeTaskRisks(candidateIdx, :)] = evaluateCandidateRisk( ...
         candidates(:, :, candidateIdx), context, options, cache);
 end
 baselineRisk = NaN;
@@ -93,7 +95,7 @@ if ~any(selectionValid)
     details = buildDetails( ...
         mode, inf, NaN, 0, toc(timerId), NaN, ...
         baselineRisk, baselineIdx, NaN, candidateCount, candidateMetadata, ...
-        taskRisks, advantages, switchCosts, byteMismatch, ...
+        taskRisks, nodeTaskRisks, advantages, switchCosts, byteMismatch, ...
         structurallyValid, selectionValid, options);
     return;
 end
@@ -104,7 +106,7 @@ details = buildDetails( ...
     mode, objective, selectedIdx, sum(selectionValid), ...
     toc(timerId), taskRisks(selectedIdx), baselineRisk, baselineIdx, ...
     advantages(selectedIdx), candidateCount, candidateMetadata, ...
-    taskRisks, advantages, switchCosts, byteMismatch, ...
+    taskRisks, nodeTaskRisks, advantages, switchCosts, byteMismatch, ...
     structurallyValid, selectionValid, options);
 end
 
@@ -137,7 +139,7 @@ for fieldIdx = 1:numel(riskFields)
 end
 end
 
-function [risk, cache] = evaluateCandidateRisk( ...
+function [risk, cache, nodeRisk] = evaluateCandidateRisk( ...
     adjacency, context, options, cache)
 weights = metropolisWeights(adjacency);
 nodeRisk = zeros(1, size(adjacency, 1));
@@ -179,7 +181,36 @@ for receiverIdx = 1:size(adjacency, 1)
     cache(receiverIdx).keys{end+1} = cacheKey;
     cache(receiverIdx).risks(end+1) = nodeRisk(receiverIdx);
 end
-risk = mean(nodeRisk);
+risk = aggregateNodeRisk(nodeRisk, options);
+end
+
+function risk = aggregateNodeRisk(nodeRisk, options)
+finiteRisk = nodeRisk(isfinite(nodeRisk));
+if isempty(finiteRisk)
+    risk = inf;
+    return;
+end
+mode = lower(strrep(getField( ...
+    options, 'sensorAggregationMode', 'mean'), '_', '-'));
+cvarFraction = min(max(getField( ...
+    options, 'sensorCvarFraction', 0.25), eps), 1);
+cvarWeight = min(max(getField( ...
+    options, 'sensorCvarWeight', 0.5), 0), 1);
+meanRisk = mean(finiteRisk);
+sortedRisk = sort(finiteRisk, 'descend');
+tailCount = max(1, ceil(cvarFraction * numel(sortedRisk)));
+cvarRisk = mean(sortedRisk(1:tailCount));
+switch mode
+    case 'mean'
+        risk = meanRisk;
+    case {'cvar', 'tail'}
+        risk = cvarRisk;
+    case {'mean-cvar', 'risk-sensitive'}
+        risk = (1 - cvarWeight) * meanRisk + ...
+            cvarWeight * cvarRisk;
+    otherwise
+        error('Unknown sensorAggregationMode: %s', mode);
+end
 end
 
 function cache = initializeRiskCache(nodeCount)
@@ -192,7 +223,7 @@ function details = buildDetails( ...
     mode, objective, candidateIdx, validCount, selectionSeconds, ...
     taskRisk, baselineTaskRisk, baselineCandidateIndex, ...
     taskAdvantage, candidateCount, ...
-    candidateMetadata, taskRisks, advantages, switchCosts, ...
+    candidateMetadata, taskRisks, nodeTaskRisks, advantages, switchCosts, ...
     byteMismatch, structurallyValid, selectionValid, options)
 finiteRisks = taskRisks(isfinite(taskRisks));
 if isempty(finiteRisks)
@@ -213,6 +244,7 @@ details.baselineCandidateIndex = baselineCandidateIndex;
 details.candidateCount = candidateCount;
 details.candidateSource = candidateMetadata.source;
 details.candidateTaskRisks = taskRisks;
+details.candidateNodeTaskRisks = nodeTaskRisks;
 details.candidateAdvantages = advantages;
 details.candidateSwitchCosts = switchCosts;
 details.candidateByteMismatchFraction = byteMismatch;
@@ -220,6 +252,12 @@ details.structurallyValidCandidates = structurallyValid;
 details.selectionValidCandidates = selectionValid;
 details.taskRiskSpread = riskSpread;
 details.horizonSteps = options.horizonSteps;
+details.sensorAggregationMode = getField( ...
+    options, 'sensorAggregationMode', 'mean');
+details.sensorCvarFraction = getField( ...
+    options, 'sensorCvarFraction', 0.25);
+details.sensorCvarWeight = getField( ...
+    options, 'sensorCvarWeight', 0.5);
 details.switchPenaltyWeight = options.switchPenaltyWeight;
 details.labelIncludesSwitchPenalty = false;
 end
