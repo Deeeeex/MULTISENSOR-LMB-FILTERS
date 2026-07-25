@@ -39,9 +39,20 @@ targetPos = targetState(1:2);
 rel = targetPos - sensorPos;
 range = norm(rel);
 offAxisDeg = 0;
-speed = norm(sensorVel);
-if speed > 1e-9 && range > 1e-9
-    cosTheta = (rel' * sensorVel) / (range * speed);
+headingVector = sensorVel;
+if isfield(model, 'sensorFovHeadingRad') && ...
+        ~isempty(model.sensorFovHeadingRad)
+    schedule = model.sensorFovHeadingRad;
+    if size(schedule, 1) >= sensorIdx && size(schedule, 2) >= currentTime
+        heading = schedule(sensorIdx, currentTime);
+        if isfinite(heading)
+            headingVector = [cos(heading); sin(heading)];
+        end
+    end
+end
+headingMagnitude = norm(headingVector);
+if headingMagnitude > 1e-9 && range > 1e-9
+    cosTheta = (rel' * headingVector) / (range * headingMagnitude);
     cosTheta = min(max(cosTheta, -1), 1);
     offAxisDeg = acosd(cosTheta);
 end
@@ -53,7 +64,7 @@ inFov = true;
 if isfield(model, 'sensorMotionEnabled') && model.sensorMotionEnabled && ...
         isfield(model, 'sensorFovEnabled') && model.sensorFovEnabled
     inFov = range <= maxRange;
-    if inFov && speed > 1e-9 && range > 1e-9
+    if inFov && headingMagnitude > 1e-9 && range > 1e-9
         inFov = offAxisDeg <= halfAngleDeg;
     end
 end

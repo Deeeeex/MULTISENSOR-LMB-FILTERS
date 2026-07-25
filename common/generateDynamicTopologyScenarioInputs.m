@@ -62,6 +62,9 @@ model.sensorFovEnabled = true;
 model.sensorFovHalfAngleDeg = ...
     config.fovHalfAngleDeg * ones(1, sensorCount);
 model.sensorFovRange = config.fovRange * ones(1, sensorCount);
+model.sensorFovHeadingRad = buildSensorFovHeadingSchedule( ...
+    config, sensorTrajectories);
+model.sensorQuality = config.sensorQuality;
 model.observationSpaceLimits = config.regionLimits;
 model.observationSpaceVolume = prod( ...
     config.regionLimits(:, 2) - config.regionLimits(:, 1));

@@ -2,6 +2,8 @@ function test_dynamic_topology_scenarios()
 % TEST_DYNAMIC_TOPOLOGY_SCENARIOS Scenario, safety and KLA reference tests.
 
 testScenarioPresets();
+testTeacherSceneDifficultyGates();
+testExplicitSensorHeadingGate();
 testScheduledBirths();
 testTimeVaryingDropAccounting();
 testInfeasiblePhysicalGraphFailsClosed();
@@ -13,8 +15,9 @@ end
 function testScenarioPresets()
 names = {'r8-legacy', 'd12-handover', ...
     'm24-handover', 'm24-link', 'm24-composite', ...
-    'x36-topology', 'x36-joint'};
-expectedSensors = [8, 12, 24, 24, 24, 36, 36];
+    'x36-topology', 'x36-joint', ...
+    'd12-hard', 'm24-hard', 'x36-hard'};
+expectedSensors = [8, 12, 24, 24, 24, 36, 36, 12, 24, 36];
 for presetIdx = 1:numel(names)
     rng(7);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -38,6 +41,74 @@ for candidateIdx = 1:size(graphs.candidateAdjacency, 3)
     assert(nnz(triu( ...
         graphs.candidateAdjacency(:, :, candidateIdx), 1)) == 14);
 end
+end
+
+function testTeacherSceneDifficultyGates()
+names = {'d12-hard', 'm24-hard', 'x36-hard'};
+for presetIdx = 1:numel(names)
+    rng(17);
+    config = buildDynamicTopologyScenarioConfig(names{presetIdx});
+    [sensors, ~] = generateMultiFormationTrajectories(config);
+    [targets, ~] = generateCorridorTargetTrajectories(config);
+    graphs = buildDynamicTopologyGraphs(config, sensors);
+    validation = validateDynamicTopologyScenario( ...
+        config, sensors, targets, graphs);
+    difficulty = validation.difficulty;
+    requirements = config.difficultyRequirements;
+    assert(difficulty.blackoutFraction <= ...
+        requirements.maxBlackoutFraction + 1e-12);
+    assert(difficulty.singleFormationFraction >= ...
+        requirements.minSingleFormationFraction - 1e-12);
+    assert(difficulty.multiFormationFraction >= ...
+        requirements.minMultiFormationFraction - 1e-12);
+    assert(difficulty.focusHandovers >= ...
+        requirements.minFocusHandovers);
+    assert(difficulty.focusCloseEncounterTimeFraction >= ...
+        requirements.minCrossGroupCloseEncounterFraction - 1e-12);
+    assert(difficulty.formationOwnershipEntropy >= ...
+        requirements.minFormationOwnershipEntropy - 1e-12);
+    assert(difficulty.blockageFocusOverlapFraction >= ...
+        requirements.minBlockageFocusOverlapFraction - 1e-12);
+end
+
+rng(17);
+config = buildDynamicTopologyScenarioConfig( ...
+    'd12-hard', struct('fovRange', 40));
+[sensors, ~] = generateMultiFormationTrajectories(config);
+[targets, ~] = generateCorridorTargetTrajectories(config);
+graphs = buildDynamicTopologyGraphs(config, sensors);
+failedClosed = false;
+try
+    validateDynamicTopologyScenario(config, sensors, targets, graphs);
+catch errorInfo
+    failedClosed = ~isempty(strfind( ...
+        errorInfo.message, 'difficulty-blackout')); %#ok<STREMP>
+end
+assert(failedClosed);
+end
+
+function testExplicitSensorHeadingGate()
+model = struct();
+model.detectionProbability = 0.9;
+model.Q = {eye(2)};
+model.sensorTrajectories = {zeros(4, 1)};
+model.sensorMotionEnabled = true;
+model.sensorFovEnabled = true;
+model.sensorFovHalfAngleDeg = 30;
+model.sensorFovRange = 100;
+model.sensorFovHeadingRad = 0;
+
+[forwardPd, ~, forwardInfo] = evaluateSensorQuality( ...
+    model, 1, [50; 0; 0; 0], 1);
+[sidePd, ~, sideInfo] = evaluateSensorQuality( ...
+    model, 1, [0; 50; 0; 0], 1);
+assert(forwardPd > 0 && forwardInfo.inFov);
+assert(sidePd == 0 && ~sideInfo.inFov);
+
+model.sensorFovHeadingRad = pi / 2;
+[rotatedPd, ~, rotatedInfo] = evaluateSensorQuality( ...
+    model, 1, [0; 50; 0; 0], 1);
+assert(rotatedPd > 0 && rotatedInfo.inFov);
 end
 
 function testScheduledBirths()

@@ -24,16 +24,22 @@ switch canonicalName
         config = configureD12(config, 'handover');
     case {'d12-link', 'd12-outage'}
         config = configureD12(config, 'link');
+    case {'d12-hard', 'd12-teacher'}
+        config = configureD12(config, 'teacher');
     case {'m24', 'm24-handover'}
         config = configureM24(config, 'handover');
     case 'm24-link'
         config = configureM24(config, 'link');
     case 'm24-composite'
         config = configureM24(config, 'composite');
+    case {'m24-hard', 'm24-teacher'}
+        config = configureM24(config, 'teacher');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
         config = configureX36(config, 'joint');
+    case {'x36-hard', 'x36-teacher'}
+        config = configureX36(config, 'teacher');
     otherwise
         error('Unknown dynamic-topology scenario preset: %s', presetName);
 end
@@ -86,6 +92,20 @@ config.survivalProbability = 0.99;
 config.ospaPositionCutoff = 100;
 config.fovRange = 320;
 config.fovHalfAngleDeg = 180;
+config.sensorFovHeadingMode = 'velocity';
+config.sensorFovPointingCenter = [0; 0];
+config.sensorQuality = struct( ...
+    'enabled', false, ...
+    'referenceRange', 320, ...
+    'detectionRangeDecay', 0.20, ...
+    'detectionRangePower', 1.5, ...
+    'edgeDetectionPenalty', 0.20, ...
+    'anglePower', 2.0, ...
+    'minDetectionProbability', 0.20, ...
+    'rangeNoiseScale', 0.60, ...
+    'edgeNoiseScale', 0.80, ...
+    'minCovarianceScale', 1.0, ...
+    'maxCovarianceScale', 5.0);
 config.commRange = 900;
 config.linkMode = 'ideal';
 config.forceDelivery = true;
@@ -105,6 +125,9 @@ config.focusWindow = [1, 120];
 config.requireStaticPhysicalAllTimes = true;
 config.requireGlobalConnectivity = true;
 config.useRingIntraFormationBackbone = true;
+config.difficultyCloseTargetDistance = 80;
+config.enforceDifficultyRequirements = false;
+config.difficultyRequirements = struct();
 end
 
 function config = configureR8(config)
@@ -180,6 +203,32 @@ if strcmp(variant, 'link')
     config.blockageWindows = [1, 2, 40, 60; 2, 3, 75, 95];
     config.focusWindowName = 'blockage';
     config.focusWindow = [40, 95];
+elseif strcmp(variant, 'teacher')
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = [1, 9, 17];
+    config.targetCrossTrackSpacing = 34;
+    config.clutterRate = 3;
+    config.detectionProbability = 0.90;
+    config.measurementNoiseStd = 6;
+    config.birthProbability = 0.07;
+    config.fovRange = 340;
+    config.fovHalfAngleDeg = 95;
+    config.sensorFovHeadingMode = 'scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.forceDelivery = true;
+    config.linkMode = 'ideal';
+    config.focusWindowName = 'teacher-handover';
+    config.focusWindow = [30, 105];
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.03, ...
+        'minSingleFormationFraction', 0.55, ...
+        'minMultiFormationFraction', 0.10, ...
+        'minFocusHandovers', 12, ...
+        'minCrossGroupCloseEncounterFraction', 0.15, ...
+        'minFormationOwnershipEntropy', 0.85, ...
+        'minBlockageFocusOverlapFraction', 0);
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
@@ -232,13 +281,44 @@ elseif strcmp(variant, 'composite')
     config.linkMode = 'correlated-blockage';
     config.focusWindowName = 'handover-and-blockage';
     config.focusWindow = [65, 135];
+elseif strcmp(variant, 'teacher')
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = [1, 9, 17, 25];
+    config.targetCrossTrackSpacing = 46;
+    config.clutterRate = 4;
+    config.detectionProbability = 0.88;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.06;
+    config.fovRange = 340;
+    config.fovHalfAngleDeg = 145;
+    config.sensorFovHeadingMode = 'scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.edgeBudget = 29;
+    config.forceDelivery = false;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 70, 90; ...
+        3, 4, 95, 115; ...
+        1, 4, 116, 135];
+    config.focusWindowName = 'teacher-handover-and-blockage';
+    config.focusWindow = [55, 135];
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.05, ...
+        'minSingleFormationFraction', 0.25, ...
+        'minMultiFormationFraction', 0.35, ...
+        'minFocusHandovers', 30, ...
+        'minCrossGroupCloseEncounterFraction', 0.20, ...
+        'minFormationOwnershipEntropy', 0.85, ...
+        'minBlockageFocusOverlapFraction', 0.50);
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
     config.focusWindowName = 'handover';
     config.focusWindow = [65, 95];
 end
-if ~config.forceDelivery
+if ~config.forceDelivery && isempty(config.blockageWindows)
     config.blockageWindows = [1, 2, 91, 110; 3, 4, 116, 135];
 end
 end
@@ -263,7 +343,7 @@ for groupIdx = 1:6
     config.sensorCenterWaypoints{groupIdx} = ...
         [radii .* cos(theta); radii .* sin(theta)];
 end
-if strcmp(loadMode, 'joint')
+if any(strcmp(loadMode, {'joint', 'teacher'}))
     config.targetGroupCount = 6;
 else
     config.targetGroupCount = 4;
@@ -296,6 +376,40 @@ config.forceDelivery = false;
 config.linkMode = 'distance';
 config.focusWindowName = 'central-overlap';
 config.focusWindow = [60, 110];
+if strcmp(loadMode, 'teacher')
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = ...
+        1 + 6 * (0:config.targetGroupCount-1);
+    config.targetDeathTimesByGroup = ...
+        160 - 2 * (0:config.targetGroupCount-1);
+    config.targetCrossTrackSpacing = 44;
+    config.clutterRate = 5;
+    config.detectionProbability = 0.86;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.05;
+    config.fovRange = 280;
+    config.fovHalfAngleDeg = 60;
+    config.sensorFovHeadingMode = 'scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 250;
+    config.edgeBudget = 44;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 60, 80; ...
+        3, 4, 86, 106; ...
+        5, 6, 112, 132];
+    config.focusWindowName = 'teacher-scale-pressure';
+    config.focusWindow = [50, 135];
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.05, ...
+        'minSingleFormationFraction', 0.25, ...
+        'minMultiFormationFraction', 0.35, ...
+        'minFocusHandovers', 50, ...
+        'minCrossGroupCloseEncounterFraction', 0.30, ...
+        'minFormationOwnershipEntropy', 0.90, ...
+        'minBlockageFocusOverlapFraction', 0.50);
+end
 end
 
 function merged = mergeStructRecursive(base, overrides)
