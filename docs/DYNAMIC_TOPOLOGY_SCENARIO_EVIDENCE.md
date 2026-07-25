@@ -37,6 +37,8 @@ Included:
   a truth-dependent diagnostic teacher, deployment-observable edge features,
   a receiver-held-out kNN policy, and paired one-step M24/X36 checkpoint
   screens against both static communication and local-only estimation.
+- paired three-step M24/X36 conditional continuations that expose posterior
+  feedback, tail behavior, directed routes and attempted-byte ratios.
 
 Excluded:
 
@@ -47,7 +49,7 @@ Excluded:
 - multi-seed or full-episode X36-clean-scale validation;
 - an exact arbitrary-GM density-power implementation;
 - seed- and time-held-out training of the learned routing model;
-- multi-step or full-episode validation of directed routing;
+- longer-window or full-episode validation of directed routing;
 - a comprehensive systematic review of every distributed LMB paper.
 
 ## Risk Tier
@@ -58,9 +60,12 @@ directed-routing action space produces a large privileged-teacher gap on both
 M24 and X36. Its deployment-observable kNN policy passes the one-step mean
 tracking and communication screen on M24 and transfers without X36 labels to
 an 11.12% gain over static and 6.41% over local at the X36 checkpoint.
-However, M24 is the training checkpoint, X36 is only a single-seed/single-time
-zero-shot screen, and M24 has a 0.22% strict worst-node caveat versus static.
-There is no multi-step, seed-held-out, full-episode, or independent validation.
+The advantage persists over three feedback steps: M24 improves 39.42% over
+static and 34.48% over local, while X36 improves 16.91% and 10.69%,
+respectively, with strict tail safety and substantially fewer attempted bytes.
+However, M24 remains the training seed/time neighborhood and X36 remains a
+single-seed zero-shot screen. There is no seed-held-out, full-episode, or
+independent validation.
 The current evidence authorizes continued directed-routing validation and a
 later GNN replacement study, not a paper claim of scalable superiority.
 
@@ -107,6 +112,8 @@ later GNN replacement study, not a paper claim of scalable superiority.
 | C37 | On the M24 training checkpoint, the learned directed policy lowers E-OSPA from 25.5087 static and 24.5451 local to 15.4348, lowers MAP-set disagreement to 20.8647, and uses 41.27% of static attempted bytes with zero infeasibility. | High | E51 | This is an in-sample single-step result. Worst-node E-OSPA is 0.22% worse than static, although 0.40% better than local. |
 | C38 | Without X36 labels or truth at inference, the same M24 model lowers X36-clean-scale E-OSPA from 46.8048 static and 44.4497 local to 41.6002, improves worst-node E-OSPA by 10.04% versus static without worsening local, and uses 20.83% of static attempted bytes with zero infeasibility. | High | E52 | This is a zero-shot cross-scale result but only one seed, one time step and a conditional shared checkpoint. |
 | C39 | The directed online path preserves receiver×sender orientation, enforces physical and directed-message budgets, validates nonnegative row-normalized receiver-specific KLA weights, and its deployment feature extractor is invariant to changes in stored target truth. | High | E49, E53 | Connectivity is intentionally not required for each instantaneous directed routing graph; local fallback is an admissible action. |
+| C40 | Over the M24 seed-7 t=75–77 conditional continuation, learned directed routing improves mean E-OSPA by 39.42% over static and 34.48% over local, improves worst-node E-OSPA by 18.61% and 17.50%, uses 30.93% of static attempted bytes, and has zero topology infeasibility. | High | E54 | The three-step window exposes posterior feedback but remains adjacent to the M24 training checkpoint and is not seed-held-out. |
+| C41 | Over the X36-clean-scale seed-7 t=75–77 zero-shot continuation, the same M24 model improves mean E-OSPA by 16.91% over static and 10.69% over local, improves worst-node E-OSPA by 7.64% versus static without worsening local, uses 20.27% of static attempted bytes, and has zero topology infeasibility. | High | E55 | This is cross-scale and multi-step, but still a single random seed and conditional rather than full-episode evidence. |
 
 ## Evidence Ledger
 
@@ -165,6 +172,8 @@ later GNN replacement study, not a paper claim of scalable superiority.
 | E51 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_031637.md` | C37: paired local/static/learned M24 one-step metrics, directed routes, attempted bytes, strict tail readout and infeasibility. | strong |
 | E52 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_032238.md` | C38: zero-shot M24-model transfer to X36 with paired local/static metrics, tail safety, communication ratio and infeasibility. | strong |
 | E53 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C39: exact sender→receiver accounting, custom fusion weights, directed budget feasibility, truth-invariant features and model-artifact checks. | strong |
+| E54 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_034300.md` | C40: paired local/static/learned M24 t=75–77 tracking, tail, communication, route-count and feasibility results. | strong |
+| E55 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_040004.md` | C41: paired zero-shot local/static/learned X36 t=75–77 tracking, tail, communication, route-count and feasibility results. | strong |
 
 Initial arithmetic check:
 
@@ -317,6 +326,12 @@ Checks performed:
   M24 and X36 t=75 caches. The final reports are E51/E52 and independently
   expose the directed Pareto readout instead of excluding sparse arms through
   the old equal-edge gate.
+- extended both continuations through t=77 and confirmed that posterior
+  feedback does not erase the gain: E54/E55 pass the mean-tracking,
+  strict-tail, communication and feasibility readouts on both scales;
+- added `runDirectedRoutingHeldoutValidation.m` so missing static-prefix
+  caches and paired local/static/learned screens can run incrementally per
+  held-out preset/seed and leave reusable artifacts if interrupted.
 
 Falsification findings incorporated into the draft:
 
@@ -351,8 +366,8 @@ Unverified:
 
 - D12 current-task-teacher direction consistency beyond seed 7;
 - the best train-selected fixed D12 graph and its held-out performance;
-- whether the directed learned policy remains beneficial over multiple
-  feedback steps after t=75;
+- whether the directed learned policy remains beneficial beyond the current
+  three feedback steps after t=75;
 - M24 seed/time-held-out direction consistency, full-episode behavior, and
   the complete M24/X36 runtime-memory curve;
 - X36-clean-scale direction consistency beyond seed 7 and any full-episode,
@@ -362,9 +377,10 @@ Unverified:
 
 ## Risk and Escalation
 
-If the scenario is biased or the single-checkpoint effect does not survive
-closed-loop feedback, subsequent GNN results could be publishable-looking but
-scientifically uninformative, and long Monte Carlo runs could be wasted.
+If the scenario is biased or the three-step effect does not survive held-out
+seeds and longer closed-loop feedback, subsequent GNN results could be
+publishable-looking but scientifically uninformative, and long Monte Carlo
+runs could be wasted.
 Before a paper claim or a long sweep, author review should confirm the scale
 ladder, communication radius, target count, directed-message budget, tail
 safety rule and Gate B/C thresholds. A domain review is also required when the
@@ -399,7 +415,7 @@ octave --no-gui --quiet --eval "addpath(genpath(pwd)); test_dynamic_topology_sce
 git diff --check
 ```
 
-Directed-routing model and final one-step checkpoint screens for E49–E52:
+Directed-routing model and one-/three-step checkpoint screens for E49–E55:
 
 ```bash
 octave --quiet --eval "
@@ -408,13 +424,15 @@ trainDirectedRoutingPolicy(struct('regenerateDataset',false));"
 
 octave --quiet --eval "
 addpath(genpath(pwd));
-o=struct( ...
-  'maxTimeSteps',75, ...
-  'continuationStartTime',75, ...
-  'armNames',{{'local','robust-static', ...
-    'learned-directed-routing'}});
-runDynamicTopologyOracleGapScreen('m24-hard',7,o);
-runDynamicTopologyOracleGapScreen('x36-clean-scale',7,o);"
+for stopTime=[75,77]
+  o=struct( ...
+    'maxTimeSteps',stopTime, ...
+    'continuationStartTime',75, ...
+    'armNames',{{'local','robust-static', ...
+      'learned-directed-routing'}});
+  runDynamicTopologyOracleGapScreen('m24-hard',7,o);
+  runDynamicTopologyOracleGapScreen('x36-clean-scale',7,o);
+end"
 ```
 
 Representative output:
@@ -427,6 +445,18 @@ M24: status=directed-routing-screening-gain-tail-caveat
 X36: status=directed-routing-screening-gain
       E=41.600155 gain_static=11.120% gain_local=6.411%
       bytes_ratio=20.834% worst_static=10.037% routes=18
+M24 t75-t77: E=15.371099 gain_static=39.420% gain_local=34.480%
+               bytes_ratio=30.925% worst_static=18.614%
+X36 t75-t77: E=38.530987 gain_static=16.908% gain_local=10.689%
+               bytes_ratio=20.272% worst_static=7.643%
+```
+
+Incremental held-out validation command:
+
+```bash
+octave --quiet --eval "
+addpath(genpath(pwd));
+runDirectedRoutingHeldoutValidation([17,27]);"
 ```
 
 X36-clean-scale behavior checkpoint and six-arm conditional screen for
