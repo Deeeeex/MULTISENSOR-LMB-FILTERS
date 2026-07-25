@@ -33,8 +33,39 @@ if isfield(model, 'simulationLength') && ~isempty(model.simulationLength)
 end
 
 
-%% 1. 定义目标真值：固定场景、随机场景或 formation 场景
-if (strcmp(model.scenarioType, 'Fixed'))
+%% 1. 定义目标真值：显式轨迹、固定场景、随机场景或 formation 场景
+useExplicitTargetTrajectories = isfield(model, ...
+    'explicitTargetTrajectories') && ...
+    ~isempty(model.explicitTargetTrajectories);
+if useExplicitTargetTrajectories
+    numberOfObjects = numel(model.explicitTargetTrajectories);
+    objectBirthTimes = zeros(1, numberOfObjects);
+    objectDeathTimes = zeros(1, numberOfObjects);
+    birthLocationIndex = 1:numberOfObjects;
+    priorLocations = zeros(model.xDimension, numberOfObjects);
+    for objectIdx = 1:numberOfObjects
+        trajectory = model.explicitTargetTrajectories{objectIdx};
+        if size(trajectory, 1) ~= model.xDimension || ...
+                size(trajectory, 2) ~= simulationLength
+            error(['Each explicit target trajectory must be ', ...
+                'xDimension-by-simulationLength.']);
+        end
+        activeTimes = find(all(isfinite(trajectory), 1));
+        if isempty(activeTimes) || ...
+                any(diff(activeTimes) ~= 1)
+            error(['Explicit target trajectories must contain one ', ...
+                'non-empty contiguous active interval.']);
+        end
+        objectBirthTimes(objectIdx) = activeTimes(1);
+        objectDeathTimes(objectIdx) = activeTimes(end);
+        priorLocations(:, objectIdx) = trajectory(:, activeTimes(1));
+    end
+    if numel(model.muB) < numberOfObjects || ...
+            numel(model.SigmaB) < numberOfObjects
+        error(['Explicit target trajectories require one birth ', ...
+            'component per target.']);
+    end
+elseif (strcmp(model.scenarioType, 'Fixed'))
     numberOfObjects = 10;
     % Object birth times
     objectBirthTimes = [1, 1, 20, 20, 40, 40, 60, 60, 60, 60];
@@ -109,12 +140,32 @@ for i = 1:simulationLength
         numberOfClutterMeasurements = poissrnd(model.clutterRate(s));
         measurements{s, i} = cell(numberOfClutterMeasurements, 1);
         for j = 1:numberOfClutterMeasurements
-            measurements{s, i}{j} = model.observationSpaceLimits(:, 1) + 2 * model.observationSpaceLimits(:, 2) .* rand(model.zDimension, 1);
+            lowerLimits = model.observationSpaceLimits(:, 1);
+            upperLimits = model.observationSpaceLimits(:, 2);
+            measurements{s, i}{j} = lowerLimits + ...
+                (upperLimits - lowerLimits) .* rand(model.zDimension, 1);
         end
     end
 end
 %% 4. 初始化传感器轨迹：静态传感器返回空轨迹，移动传感器返回完整轨迹容器
-if model.sensorMotionEnabled
+useExplicitSensorTrajectories = model.sensorMotionEnabled && ...
+    isfield(model, 'explicitSensorTrajectories') && ...
+    ~isempty(model.explicitSensorTrajectories);
+if useExplicitSensorTrajectories
+    if numel(model.explicitSensorTrajectories) ~= model.numberOfSensors
+        error(['explicitSensorTrajectories must contain one trajectory ', ...
+            'per sensor.']);
+    end
+    sensorTrajectories = model.explicitSensorTrajectories;
+    for sensorIdx = 1:model.numberOfSensors
+        if size(sensorTrajectories{sensorIdx}, 1) ~= 4 || ...
+                size(sensorTrajectories{sensorIdx}, 2) ~= simulationLength || ...
+                any(~isfinite(sensorTrajectories{sensorIdx}(:)))
+            error(['Each explicit sensor trajectory must be a finite ', ...
+                '4-by-simulationLength matrix.']);
+        end
+    end
+elseif model.sensorMotionEnabled
     sensorTrajectories = cell(1, model.numberOfSensors);
     for s = 1:model.numberOfSensors
         sensorTrajectories{s} = zeros(4, simulationLength);
@@ -129,7 +180,7 @@ else
     sensorTrajectories = [];
 end
 %% 5. 根据 CV/CT/Formation 运动模型推进传感器轨迹
-if model.sensorMotionEnabled
+if model.sensorMotionEnabled && ~useExplicitSensorTrajectories
     if isfield(model, 'sensorMotionType')
         motionType = upper(model.sensorMotionType);
     else
@@ -162,15 +213,26 @@ for i = 1:numberOfObjects
     x =  priorLocations(:, i);
     mu = model.muB{birthLocationIndex(i)};
     Sigma = model.SigmaB{birthLocationIndex(i)};
-    groundTruth{i} = repmat([t; x], 1, trajectoryLength);
+    if useExplicitTargetTrajectories
+        activeTimes = objectBirthTimes(i):objectDeathTimes(i);
+        groundTruth{i} = [activeTimes; ...
+            model.explicitTargetTrajectories{i}(:, activeTimes)];
+    else
+        groundTruth{i} = repmat([t; x], 1, trajectoryLength);
+    end
     % Simulate the object's trajectory
     for j = 1:trajectoryLength
         % Predict the object's state
         if (j > 1)
-            % Point estimate
-            x = model.A * x + model.u;
-            t = t + 1;
-            groundTruth{i}(:, j) = [t; x];
+            if useExplicitTargetTrajectories
+                t = objectBirthTimes(i) + j - 1;
+                x = model.explicitTargetTrajectories{i}(:, t);
+            else
+                % Point estimate
+                x = model.A * x + model.u;
+                t = t + 1;
+                groundTruth{i}(:, j) = [t; x];
+            end
             % Kalman filter prediction
             mu = model.A * mu + model.u;
             Sigma = model.A * Sigma * model.A' + model.R;

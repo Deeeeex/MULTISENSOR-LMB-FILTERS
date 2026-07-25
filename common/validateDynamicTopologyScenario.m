@@ -1,0 +1,220 @@
+function validation = validateDynamicTopologyScenario( ...
+    config, sensorTrajectories, targetTrajectories, graphData)
+% VALIDATEDYNAMICTOPOLOGYSCENARIO Fail closed on invalid experiment scenes.
+
+sensorCount = config.numberOfSensors;
+timeCount = config.simulationLength;
+staticAdjacency = graphData.staticAdjacency;
+hardFailures = {};
+
+if numel(sensorTrajectories) ~= sensorCount
+    hardFailures{end+1} = 'sensor-count-mismatch'; %#ok<AGROW>
+end
+if numel(targetTrajectories) ~= config.numberOfTargets
+    hardFailures{end+1} = 'target-count-mismatch'; %#ok<AGROW>
+end
+
+[maxSensorSpeed, maxSensorAcceleration, minSeparation, sensorsInBounds] = ...
+    sensorTrajectoryMetrics(config, sensorTrajectories);
+[maxTargetSpeed, targetsInBounds] = ...
+    targetTrajectoryMetrics(config, targetTrajectories);
+
+if minSeparation + 1e-9 < config.minimumSensorSeparation
+    hardFailures{end+1} = 'sensor-separation'; %#ok<AGROW>
+end
+if maxSensorSpeed > config.sensorSpeedLimit + 1e-9
+    hardFailures{end+1} = 'sensor-speed'; %#ok<AGROW>
+end
+if maxSensorAcceleration > config.sensorAccelerationLimit + 1e-9
+    hardFailures{end+1} = 'sensor-acceleration'; %#ok<AGROW>
+end
+if maxTargetSpeed > config.targetSpeedLimit + 1e-9
+    hardFailures{end+1} = 'target-speed'; %#ok<AGROW>
+end
+if ~sensorsInBounds
+    hardFailures{end+1} = 'sensor-bounds'; %#ok<AGROW>
+end
+if ~targetsInBounds
+    hardFailures{end+1} = 'target-bounds'; %#ok<AGROW>
+end
+
+staticEdgeCount = nnz(triu(staticAdjacency, 1));
+if staticEdgeCount > config.edgeBudget
+    hardFailures{end+1} = 'static-edge-budget'; %#ok<AGROW>
+end
+if max(sum(staticAdjacency, 2)) > config.maxNodeDegree
+    hardFailures{end+1} = 'static-degree-cap'; %#ok<AGROW>
+end
+if ~isConnected(staticAdjacency)
+    hardFailures{end+1} = 'static-global-connectivity'; %#ok<AGROW>
+end
+for groupIdx = 1:config.formationCount
+    group = find(config.sensorGroupIds == groupIdx);
+    if ~isConnected(staticAdjacency(group, group))
+        hardFailures{end+1} = sprintf( ...
+            'static-group-%d-connectivity', groupIdx); %#ok<AGROW>
+    end
+end
+staticPhysicalViolationCount = 0;
+for timeIdx = 1:timeCount
+    staticPhysicalViolationCount = staticPhysicalViolationCount + nnz( ...
+        staticAdjacency & ~graphData.physicalAdjacency(:, :, timeIdx));
+end
+if staticPhysicalViolationCount > 0
+    hardFailures{end+1} = 'static-physical-violation'; %#ok<AGROW>
+end
+
+candidateCount = size(graphData.candidateAdjacency, 3);
+candidateViolationCount = 0;
+for candidateIdx = 1:candidateCount
+    candidate = graphData.candidateAdjacency(:, :, candidateIdx);
+    if nnz(triu(candidate, 1)) > config.edgeBudget || ...
+            ~isConnected(candidate)
+        candidateViolationCount = candidateViolationCount + 1;
+        continue;
+    end
+    for timeIdx = 1:timeCount
+        if any(any(candidate & ...
+                ~graphData.physicalAdjacency(:, :, timeIdx)))
+            candidateViolationCount = candidateViolationCount + 1;
+            break;
+        end
+    end
+end
+if candidateViolationCount > 0
+    hardFailures{end+1} = 'candidate-topology-violation'; %#ok<AGROW>
+end
+if strcmpi(config.topologyFamily, 'd12-enumerated') && ...
+        candidateCount ~= 48
+    hardFailures{end+1} = 'd12-candidate-count'; %#ok<AGROW>
+end
+
+handoverCounts = countTargetGroupHandovers( ...
+    config, sensorTrajectories, targetTrajectories);
+if any(strcmpi(config.variant, {'handover', 'composite'})) && ...
+        any(handoverCounts < 1)
+    hardFailures{end+1} = 'missing-target-handover'; %#ok<AGROW>
+end
+
+validation = struct();
+validation.isValid = isempty(hardFailures);
+validation.hardFailures = hardFailures;
+validation.maxSensorSpeed = maxSensorSpeed;
+validation.maxSensorAcceleration = maxSensorAcceleration;
+validation.minimumSensorSeparation = minSeparation;
+validation.maxTargetSpeed = maxTargetSpeed;
+validation.sensorsInBounds = sensorsInBounds;
+validation.targetsInBounds = targetsInBounds;
+validation.staticEdgeCount = staticEdgeCount;
+validation.staticPhysicalViolationCount = staticPhysicalViolationCount;
+validation.candidateCount = candidateCount;
+validation.candidateViolationCount = candidateViolationCount;
+validation.targetGroupHandoverCounts = handoverCounts;
+
+if ~validation.isValid
+    error('Dynamic-topology scenario validation failed: %s', ...
+        strjoin(hardFailures, ', '));
+end
+end
+
+function [maxSpeed, maxAcceleration, minSeparation, inBounds] = ...
+    sensorTrajectoryMetrics(config, trajectories)
+sensorCount = numel(trajectories);
+timeCount = config.simulationLength;
+maxSpeed = 0;
+maxAcceleration = 0;
+minSeparation = inf;
+inBounds = true;
+for sensorIdx = 1:sensorCount
+    trajectory = trajectories{sensorIdx};
+    speed = sqrt(sum(trajectory(3:4, :).^2, 1));
+    acceleration = diff(trajectory(3:4, :), 1, 2) / ...
+        config.samplingPeriod;
+    maxSpeed = max(maxSpeed, max(speed));
+    if ~isempty(acceleration)
+        maxAcceleration = max(maxAcceleration, ...
+            max(sqrt(sum(acceleration.^2, 1))));
+    end
+    inBounds = inBounds && pointsInBounds( ...
+        trajectory(1:2, :), config.regionLimits);
+end
+for timeIdx = 1:timeCount
+    for leftIdx = 1:sensorCount-1
+        for rightIdx = leftIdx+1:sensorCount
+            minSeparation = min(minSeparation, norm( ...
+                trajectories{leftIdx}(1:2, timeIdx) - ...
+                trajectories{rightIdx}(1:2, timeIdx)));
+        end
+    end
+end
+end
+
+function [maxSpeed, inBounds] = targetTrajectoryMetrics(config, trajectories)
+maxSpeed = 0;
+inBounds = true;
+for targetIdx = 1:numel(trajectories)
+    trajectory = trajectories{targetIdx};
+    active = all(isfinite(trajectory), 1);
+    if any(active)
+        maxSpeed = max(maxSpeed, max(sqrt(sum( ...
+            trajectory(3:4, active).^2, 1))));
+        inBounds = inBounds && pointsInBounds( ...
+            trajectory(1:2, active), config.regionLimits);
+    end
+end
+end
+
+function inBounds = pointsInBounds(points, limits)
+inBounds = all(points(1, :) >= limits(1, 1) - 1e-9) && ...
+    all(points(1, :) <= limits(1, 2) + 1e-9) && ...
+    all(points(2, :) >= limits(2, 1) - 1e-9) && ...
+    all(points(2, :) <= limits(2, 2) + 1e-9);
+end
+
+function handoverCounts = countTargetGroupHandovers( ...
+    config, sensorTrajectories, targetTrajectories)
+handoverCounts = zeros(1, config.targetGroupCount);
+for targetGroupIdx = 1:config.targetGroupCount
+    targetIdx = find(config.targetGroupIds == targetGroupIdx, 1, 'first');
+    trajectory = targetTrajectories{targetIdx};
+    activeTimes = find(all(isfinite(trajectory), 1));
+    nearestGroups = zeros(1, numel(activeTimes));
+    for localTimeIdx = 1:numel(activeTimes)
+        timeIdx = activeTimes(localTimeIdx);
+        groupDistances = inf(1, config.formationCount);
+        for groupIdx = 1:config.formationCount
+            sensors = find(config.sensorGroupIds == groupIdx);
+            distances = zeros(1, numel(sensors));
+            for sensorLocalIdx = 1:numel(sensors)
+                distances(sensorLocalIdx) = norm( ...
+                    trajectory(1:2, timeIdx) - ...
+                    sensorTrajectories{sensors(sensorLocalIdx)}( ...
+                        1:2, timeIdx));
+            end
+            groupDistances(groupIdx) = min(distances);
+        end
+        [~, nearestGroups(localTimeIdx)] = min(groupDistances);
+    end
+    handoverCounts(targetGroupIdx) = ...
+        max(0, numel(unique(nearestGroups)) - 1);
+end
+end
+
+function connected = isConnected(adjacency)
+nodeCount = size(adjacency, 1);
+if nodeCount <= 1
+    connected = true;
+    return;
+end
+visited = false(1, nodeCount);
+queue = 1;
+visited(1) = true;
+while ~isempty(queue)
+    node = queue(1);
+    queue(1) = [];
+    neighbors = find(adjacency(node, :) & ~visited);
+    visited(neighbors) = true;
+    queue = [queue, neighbors]; %#ok<AGROW>
+end
+connected = all(visited);
+end

@@ -30,8 +30,32 @@ for i = 1:numberOfObjects
         objects(i).Sigma{j} = model.A * objects(i).Sigma{j} * model.A' + model.R;
     end
 end
-%% 2. 追加 birth components：每个 birth location 在当前时刻生成一个候选 Bernoulli
-newNumberOfObjects = numberOfObjects + model.numberOfBirthLocations;
-objects(numberOfObjects+1:newNumberOfObjects) = model.birthParameters;
+%% 2. 追加 birth components；显式日程只在指定时刻激活对应 birth location
+birthIndices = 1:model.numberOfBirthLocations;
+if isfield(model, 'birthActiveMask') && ...
+        ~isempty(model.birthActiveMask)
+    if size(model.birthActiveMask, 1) ~= model.numberOfBirthLocations
+        error('model.birthActiveMask must have one row per birth location.');
+    end
+    if t <= size(model.birthActiveMask, 2)
+        birthIndices = find(model.birthActiveMask(:, t));
+    else
+        birthIndices = [];
+    end
+elseif isfield(model, 'birthTimeByLocation') && ...
+        ~isempty(model.birthTimeByLocation)
+    birthTimes = reshape(model.birthTimeByLocation, 1, []);
+    if numel(birthTimes) ~= model.numberOfBirthLocations
+        error(['model.birthTimeByLocation must have one value per ', ...
+            'birth location.']);
+    end
+    birthIndices = find(birthTimes == t);
+end
+if isempty(birthIndices)
+    return;
+end
+newNumberOfObjects = numberOfObjects + numel(birthIndices);
+objects(numberOfObjects+1:newNumberOfObjects) = ...
+    model.birthParameters(birthIndices);
 [objects(numberOfObjects+1:newNumberOfObjects).birthTime] = deal(t);
 end

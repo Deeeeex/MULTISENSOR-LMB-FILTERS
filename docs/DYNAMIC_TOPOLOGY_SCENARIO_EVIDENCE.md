@@ -10,23 +10,31 @@ The supported decision is whether to adopt D12/M24/X36 as the scenario ladder an
 
 Included:
 
-- repository state at commit `282ca8180510315424dbb488ce7cfd80e624115f`;
+- repository ancestry from `282ca8180510315424dbb488ce7cfd80e624115f`
+  through the current implementation worktree;
 - the legacy 4+4 experiment driver and current topology selector;
 - the existing N50 topology results and cross-layer smoke results;
 - the current projected-Gaussian GA-LMB fusion implementation;
 - representative consensus/event-triggered LMB papers and a primary learned-communication paper;
-- arithmetic and waypoint feasibility checks for the proposed scenario.
+- arithmetic and waypoint feasibility checks for the proposed scenario;
+- the configurable R8/D12/M24/X36 generators, fail-closed topology handling,
+  attempted-byte accounting, mixture-aware reference configuration and D12
+  paired runner;
+- deterministic regression tests and one 8-step software/runtime smoke.
 
 Excluded:
 
-- implementation or runtime benchmarking of D12/M24/X36;
-- a completed mixture-aware LMB-KLA reference;
-- oracle experiments, learned models, or claims of performance improvement;
+- full-horizon or multi-trial D12 findings;
+- M24/X36 filter runtime and memory;
+- an exact arbitrary-GM density-power implementation;
+- learned models or claims of performance improvement;
 - a comprehensive systematic review of every distributed LMB paper.
 
 ## Risk Tier
 
-**L3.** The recommendation changes the research direction, experimental protocol, and future paper claims, so it requires author review before implementation is treated as approved.
+**L3.** The author approved implementation of the scenario direction. Any
+decision to claim an oracle gap, train a GNN, or change the paper story still
+requires review of the full-horizon evidence.
 
 ## Claims
 
@@ -39,6 +47,10 @@ Excluded:
 | C5 | Current topology infeasibility handling can violate the intended physical graph, and the bridge helper is specialized to two equal groups. | High | E9 | A replacement safe projection has not yet been implemented. |
 | C6 | The current GA fusion path projects each Gaussian mixture to one Gaussian before fusion, so it cannot be the paper-level reference for mixture-aware LMB-KLA claims. | High | E10 | A density-level mixture reference will still require a documented numerical approximation. |
 | C7 | An exact-oracle gate should precede GNN design because it can falsify the premise that dynamic edge choice has useful residual value. | Medium | E3, E4, E11 | The 10%/5% practical-effect thresholds are proposed preregistration values, not evidence-derived constants. |
+| C8 | The current worktree provides one-call R8/D12/M24/X36 scene presets and validates trajectory bounds, separation, edge budgets, group/global connectivity, all-time static physical feasibility, D12 candidate count and handovers. | High | E12, E13 | R8's old runner remains the exact numerical-regression authority; the new R8 preset is an interface regression. |
+| C9 | Dynamic topology now fails closed when the physical graph is infeasible, accepts time-varying edge loss, and reports attempted separately from delivered payload bytes. | High | E14, E13 | Control/ACK bytes are not yet added; current accounting is payload-only. |
+| C10 | The implemented mixture-aware reference preserves multiple components and passes single-Gaussian and separated-identical-mixture checks, but remains a componentwise powered-GM approximation rather than exact arbitrary-mixture KLA. | High | E15, E13 | Paper-level theory must retain this approximation boundary or replace it with a stronger numerical reference. |
+| C11 | The first 8-step smoke is not evidence of a dynamic-topology gain; it exposed metric saturation under the inherited 5 m OSPA cutoff and confirmed that a myopic one-step oracle is not a closed-loop upper bound. | High | E16 | The corrected smoke covers only the pre-handover window and one seed. |
 
 ## Evidence Ledger
 
@@ -55,6 +67,11 @@ Excluded:
 | E9 | code | `multisensorLmb/runEventTriggeredDistributedLmbFilter.m:968-1007,1124-1141` | C5: no finite candidate edges trigger an all-to-all fallback; the distance-balanced helper requires exactly two equal groups with at most seven nodes each. | strong |
 | E10 | code | `multisensorLmb/gaLmbTrackMerging.m:5-9,53-99,150-164` | C6: the code explicitly calls the merge crude, moment-matches each GM to one Gaussian, and writes back one component. | strong |
 | E11 | design artifact | `docs/LEARNING_AUGMENTED_DYNAMIC_TOPOLOGY_SCENARIO_DESIGN_CN.md` | C7: separates D12 exact diagnosis, M24 main evaluation, X36 scale, strong analytic baselines, and stop/go gates. | medium |
+| E12 | code | `common/buildDynamicTopologyScenarioConfig.m`, `common/generateDynamicTopologyScenarioInputs.m`, `common/buildDynamicTopologyGraphs.m`, `common/validateDynamicTopologyScenario.m` | C8: data-only presets, paired inputs, physical/static/candidate graphs and hard validation. | strong |
+| E13 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C8–C10: all seven presets validate; D12 has 48 fourteen-edge candidates; scheduled births, time-varying loss, attempted bytes, fail-closed topology, KLA boundary cases and exact-callback smoke pass. | strong |
+| E14 | code | `multisensorLmb/runEventTriggeredDistributedLmbFilter.m` | C9: S×S×T loss, external policy callback, non-physical-edge rejection, infeasibility diagnostics and attempted-payload accounting. | strong |
+| E15 | code | `multisensorLmb/buildMixtureAwareKlaReferenceConfig.m`, `multisensorLmb/fuseLmbPosteriorsByLabel.m` | C10: the controlled reference enables multi-component fusion and mixture-aware existence normalization while documenting componentwise power approximation. | strong |
+| E16 | experiment report | `RUN/GA/dynamic_topology/smoke_v2/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N1_20260725_131647.md` | C11: corrected 100 m cutoff, byte-matched 8-step arms, no early-window practical oracle gap, and runtime estimates. | weak |
 
 Initial arithmetic check:
 
@@ -121,7 +138,8 @@ Representative output:
 
 ## Verification Record
 
-**Independence status: self-check only.** No independent verifier was authorized for this turn, so the package and scenario specification remain drafts pending human review.
+**Independence status: self-check only.** The implementation and results are
+deterministically tested, but no independent agent verified this checkpoint.
 
 Checks performed:
 
@@ -132,6 +150,16 @@ Checks performed:
 - checked the proposed M24 formation-ring waypoint distances and found that the initial 850 m radius was too tight once 10% formation-radius jitter was included; revised it to 900 m;
 - evaluated the full 160-step pchip interpolation in Octave: maximum center speed 11.1655 m/s, acceleration 0.3845 m/s², adjacent-center distance 778.2031 m, and conservative sensor-pair bound 855.2031 m;
 - ran `git diff --check`, which passed without whitespace errors.
+- ran `test_dual_threshold_event_trigger`, which passed after the core changes;
+- ran `test_dynamic_topology_scenarios`, which passed all preset, safety,
+  accounting, fusion-boundary and D12 callback checks;
+- reproduced M24 limits from the implemented generator: 24 sensors, 30 static
+  edges, maximum speed 11.45 m/s, acceleration 0.86 m/s² and target speed
+  13.80 m/s;
+- reproduced X36 limits: 36 sensors, 45 static edges, maximum speed
+  6.41 m/s, acceleration 0.41 m/s² and target speed 13.67 m/s;
+- ran an 8-step six-arm smoke with attempted-byte mismatch below 1% for the
+  consensus oracle comparison after adding a per-step byte feasibility gate.
 
 Falsification findings incorporated into the draft:
 
@@ -140,12 +168,15 @@ Falsification findings incorporated into the draft:
 - an exact future/global oracle must not be presented as deployable;
 - a fixed static baseline must remain physically feasible throughout the scene, otherwise the comparison would be biased;
 - current projected-Gaussian fusion is explicitly excluded from paper-level mixture-aware claims.
+- the inherited `eC=5 m` makes large-scene E-OSPA saturate and was replaced by
+  preset-scale cutoffs (D12 100 m, M24 120 m, X36 150 m);
+- an exact enumeration of one-step actions is not an exact full-horizon
+  oracle, because its actions change subsequent posteriors.
 
 Unverified:
 
-- actual FoV handover duration and target visibility balance;
-- reproduction of the pchip check by the final scenario generator;
-- D12 oracle runtime;
+- full-horizon FoV handover benefit and target visibility balance;
+- D12 results beyond one seed and beyond the first eight steps;
 - M24/X36 filtering runtime and memory;
 - whether the proposed effect-size gates are appropriately calibrated.
 
@@ -184,15 +215,26 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 
 ## Open Issues
 
-1. The mixture-aware LMB-KLA numerical method and validation cases are not yet selected.
-2. The D12 exact oracle objective weights and whether the truth-based surrogate is needed remain open.
-3. The implemented generator must repeat the continuous route, speed, acceleration, and static-backbone checks after any trajectory change.
-4. The main FoV radius and target paths may need adjustment after a coverage heatmap is rendered.
+1. The componentwise powered-GM reference needs a stronger numerical
+   comparison before it can support a paper-level density claim.
+2. The D12 one-step consensus and truth objectives need full-window evidence;
+   neither may be described as a global upper bound.
+3. The implemented generator must repeat route, speed, acceleration and
+   static-backbone checks after any trajectory change.
+4. The main FoV radius and target paths may need adjustment after full-window
+   coverage and tracking results.
 5. Runtime may require sparse diagnostics before X36.
-6. Gate B/C numerical thresholds require author approval and should then be frozen.
+6. With the author's current limit, exploratory execution must not exceed
+   three paired trials.
 
 ## Recommendation
 
-Proceed with the D12/M24/X36 ladder as a **draft scenario direction** (C1–C4), retain R8 only for regression (C1–C2), and do not design the GNN until D12 passes the exact-oracle and residual-gap gates (C7).
+Proceed with at most three paired full-horizon D12 trials as an exploratory
+oracle-gap screen. Do not design or train the GNN yet. The infrastructure gates
+are now implemented (C8–C10), but the corrected smoke is deliberately too
+short and too small to establish a research direction (C11).
 
-Before any experiment, fix topology infeasibility handling (C5) and define a mixture-preserving LMB-KLA reference with explicit approximation boundaries (C6). Confidence is medium because the structural rationale is strong, but no new scenario or oracle has run yet.
+If the full handover window still shows less than the practical 10% consensus
+or 5% tracking gap under matched attempted bytes, treat that as a scene/method
+premise failure and stop before learning. If a residual gap appears, first
+measure how much the posterior-discrepancy heuristic captures.

@@ -1,6 +1,8 @@
 # 面向动态通信拓扑的多编队 LMB 跟踪场景设计
 
-> 状态：场景设计候选，等待作者确认。本文只定义问题、场景、对照和继续/停止门槛，不预设 GNN 结构或训练目标。
+> 状态：作者已确认场景方向；R8/D12/M24/X36 的可配置生成器与 D12
+> topology-only 筛查入口已完成第一版实现。当前只允许不超过 3 个 paired
+> trials 的探索性运行，尚未进入 GNN 训练或论文级统计。
 >
 > 研究边界：新的动态拓扑方向与此前的 full/light payload 等价叙事解耦。论文级实验必须使用遵循 LMB-KLA 密度级公式、保留单目标混合结构且清楚记录数值近似边界的 reference；当前投影到单高斯的融合路径只能用于场景与软件 smoke test，不能支撑最终估计或理论结论。
 
@@ -58,7 +60,9 @@
 
 ### 4.1 R8-Legacy：兼容性回归
 
-完全保留现有 `2×4`、100 步、10 个目标和固定 4 组桥边的输入。它只回答：
+现有 `2×4`、100 步、10 个目标和固定 4 组桥边的旧 runner 继续作为
+数值回归的权威入口；新框架中的 R8 preset 只检查统一接口、维度和固定
+拓扑退化，不替代旧 runner 的逐随机数复现。它只回答：
 
 - 新场景生成器是否改变旧数据；
 - 新的可行拓扑投影是否能退化为旧静态图；
@@ -209,7 +213,7 @@ X36 分成两个子测试：
 
 `Offline robust static` 必须是经过优化的强基线，而不是任意指定的环或旧 4+4 图。所有动态方法与它使用相同的边预算、度约束和切换成本核算。
 
-## 6. Oracle 的定义
+## 6. Oracle 的定义与边界
 
 D12 的一步 oracle 在完成各节点本地更新后，复制同一组本地 posterior，对每个可行拓扑执行一次相同的 LMB-KLA 融合，选择使下式最小的拓扑：
 
@@ -221,7 +225,30 @@ D12 的一步 oracle 在完成各节点本地更新后，复制同一组本地 p
 - `L_tracking-surrogate` 只使用仿真中可获得的真值计算，用于离线诊断，不能作为部署时输入；
 - `C_switch` 是相对上一时刻替换边的成本。
 
-必须同时报告只优化 consensus 的 oracle 和加入真值 surrogate 的 oracle，避免结果依赖某一个人为加权目标。M24 的 beam/look-ahead oracle 只能称为“近似诊断上限”，不能写成全局最优。
+必须同时报告只优化 consensus 的 oracle 和加入真值 surrogate 的 oracle，避免结果依赖某一个人为加权目标。
+
+这里需要增加一个严格限定：**一步 oracle 不是整段闭环跟踪性能的全局
+上界**。它的选边会改变下一时刻 posterior，因此逐时最优动作可能被
+后续反馈反超。它只能称为“精确枚举的一步诊断策略”。若要使用“上限”
+措辞，必须另做 teacher-forced 单步价值评估，或在短时域内计算
+look-ahead/动态规划上界。M24 的 beam/look-ahead 也只能称为“近似诊断
+参考”，不能写成全局最优。
+
+## 6.1 当前实现入口
+
+| 功能 | 入口 |
+|:--|:--|
+| 一键场景 preset | `common/buildDynamicTopologyScenarioConfig.m` |
+| Paired 场景输入 | `common/generateDynamicTopologyScenarioInputs.m` |
+| 多编队/走廊轨迹 | `common/generateMultiFormationTrajectories.m`、`common/generateCorridorTargetTrajectories.m` |
+| 物理图、静态图和 D12 的 48 个候选图 | `common/buildDynamicTopologyGraphs.m` |
+| 场景硬验证 | `common/validateDynamicTopologyScenario.m` |
+| D12 解析策略与一步枚举策略 | `common/selectD12TopologyPolicy.m` |
+| topology-only paired runner | `RUN/GA/runDynamicTopologyOracleGapScreen.m` |
+
+实验脚本只需切换 `d12-handover`、`d12-link`、`m24-handover`、
+`m24-link`、`m24-composite`、`x36-topology` 或 `x36-joint` 字符串；
+局部参数通过一个 `overrides` struct 覆盖。
 
 ## 7. 指标
 
@@ -267,6 +294,8 @@ D12 的一步 oracle 在完成各节点本地更新后，复制同一组本地 p
 - 所有被比较拓扑满足同一物理图、边数、度和 churn 约束；
 - 不允许出现重复传感器位置、越界轨迹或未记录的不可行拓扑；
 - 强静态图、full physical graph 和 local-only 能形成合理的性能区间。
+- OSPA/GOSPA 的距离截断必须与场景米制尺度匹配；不得沿用旧小场景中
+  `eC=5 m` 后再把大范围场景的饱和结果解释为算法差异。
 
 ### Gate B：是否存在值得研究的动态拓扑空间
 
