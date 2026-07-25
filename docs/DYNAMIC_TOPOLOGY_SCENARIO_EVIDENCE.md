@@ -21,10 +21,13 @@ Included:
   attempted-byte accounting, mixture-aware reference configuration and D12
   paired runner;
 - deterministic regression tests and one 8-step software/runtime smoke.
+- one bounded, full-window, three-seed D12 paired screen and its independent
+  post-processing audit.
 
 Excluded:
 
-- full-horizon or multi-trial D12 findings;
+- an exhaustive performance sweep over all 48 fixed D12 graphs;
+- a teacher-forced or multi-step closed-loop oracle;
 - M24/X36 filter runtime and memory;
 - an exact arbitrary-GM density-power implementation;
 - learned models or claims of performance improvement;
@@ -32,9 +35,9 @@ Excluded:
 
 ## Risk Tier
 
-**L3.** The author approved implementation of the scenario direction. Any
-decision to claim an oracle gap, train a GNN, or change the paper story still
-requires review of the full-horizon evidence.
+**L3.** The bounded D12 screen is complete and produced a research stop
+finding. It supports pausing GNN work and redesigning the diagnostic reference;
+it does not support a paper claim of dynamic-topology superiority.
 
 ## Claims
 
@@ -51,6 +54,9 @@ requires review of the full-horizon evidence.
 | C9 | Dynamic topology now fails closed when the physical graph is infeasible, accepts time-varying edge loss, and reports attempted separately from delivered payload bytes. | High | E14, E13 | Control/ACK bytes are not yet added; current accounting is payload-only. |
 | C10 | The implemented mixture-aware reference preserves multiple components and passes single-Gaussian and separated-identical-mixture checks, but remains a componentwise powered-GM approximation rather than exact arbitrary-mixture KLA. | High | E15, E13 | Paper-level theory must retain this approximation boundary or replace it with a stronger numerical reference. |
 | C11 | The first 8-step smoke is not evidence of a dynamic-topology gain; it exposed metric saturation under the inherited 5 m OSPA cutoff and confirmed that a myopic one-step oracle is not a closed-loop upper bound. | High | E16 | The corrected smoke covers only the pre-handover window and one seed. |
+| C12 | In the three-seed handover window, posterior-discrepancy improved focus E-OSPA by 6.77% and posterior disagreement by 10.76% over the geometry-selected static graph, with 3/3 paired directions, at most 1.37% attempted-byte mismatch, and zero topology infeasibility. | High | E17, E19 | N=3 is directional only, and the static graph is not an exhaustive offline performance optimum. |
+| C13 | Both one-step diagnostic policies were dominated by posterior-discrepancy on focus tracking and posterior disagreement in all three seeds; they therefore cannot be used as an upper bound or GNN teacher in the current design. | High | E17, E19 | This invalidates the current teacher, not every possible learned topology policy. |
+| C14 | The arm called robust-static is selected by a mean/worst geometric-distance score, not by evaluating tracking performance over all 48 fixed candidates. | High | E18 | No paper-level dynamic gain may be claimed until a train-selected, held-out fixed-graph baseline is added. |
 
 ## Evidence Ledger
 
@@ -72,6 +78,9 @@ requires review of the full-horizon evidence.
 | E14 | code | `multisensorLmb/runEventTriggeredDistributedLmbFilter.m` | C9: S×S×T loss, external policy callback, non-physical-edge rejection, infeasibility diagnostics and attempted-payload accounting. | strong |
 | E15 | code | `multisensorLmb/buildMixtureAwareKlaReferenceConfig.m`, `multisensorLmb/fuseLmbPosteriorsByLabel.m` | C10: the controlled reference enables multi-component fusion and mixture-aware existence normalization while documenting componentwise power approximation. | strong |
 | E16 | experiment report | `RUN/GA/dynamic_topology/smoke_v2/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N1_20260725_131647.md` | C11: corrected 100 m cutoff, byte-matched 8-step arms, no early-window practical oracle gap, and runtime estimates. | weak |
+| E17 | experiment report | `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_FINDINGS_CN.md`, `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_RECORDS.csv`, `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N3_20260725_153939.md` | C12/C13: paired focus-window results, machine-readable per-arm records, bytes, infeasibility, churn, candidate diversity and evidence boundaries for seeds 7/17/27. | strong |
+| E18 | code | `common/buildDynamicTopologyGraphs.m:27-30,174-188` | C14: the fixed candidate minimizes mean edge distance plus 0.25 times worst edge distance; no filter-performance objective is evaluated. | strong |
+| E19 | command | Independent CSV recomputation recorded in the Verification Record | C12/C13: per-seed focus improvements, byte mismatch and candidate diversity were recomputed from the tracked per-arm export. | strong |
 
 Initial arithmetic check:
 
@@ -160,6 +169,13 @@ Checks performed:
   6.41 m/s, acceleration 0.41 m/s² and target speed 13.67 m/s;
 - ran an 8-step six-arm smoke with attempted-byte mismatch below 1% for the
   consensus oracle comparison after adding a per-step byte feasibility gate.
+- ran exactly three paired D12 trials, seeds `[7,17,27]`, through step 95;
+  the tracked aggregate report and paired findings are E17;
+- independently reloaded the saved MAT summary and recomputed each seed's
+  focus tracking improvement, posterior-disagreement improvement,
+  attempted-byte mismatch, infeasibility rate and distinct-candidate count;
+- reran the paired-analysis test after adding the
+  `diagnostic-oracle-dominated` classification.
 
 Falsification findings incorporated into the draft:
 
@@ -172,11 +188,21 @@ Falsification findings incorporated into the draft:
   preset-scale cutoffs (D12 100 m, M24 120 m, X36 150 m);
 - an exact enumeration of one-step actions is not an exact full-horizon
   oracle, because its actions change subsequent posteriors.
+- the three-seed screen falsified the proposed one-step teacher: both
+  diagnostic arms were worse than posterior-discrepancy on both focus metrics
+  for all seeds;
+- the fixed comparison arm is geometry-selected rather than an exhaustive
+  offline tracking optimum, so the observed dynamic signal is not yet a
+  strong-static-baseline result;
+- a dominated diagnostic reference cannot produce a meaningful
+  static-to-oracle gain-capture ratio; the analyzer now reports this as a
+  teacher/reference failure instead of analytic sufficiency.
 
 Unverified:
 
-- full-horizon FoV handover benefit and target visibility balance;
-- D12 results beyond one seed and beyond the first eight steps;
+- D12 direction consistency beyond the bounded three-trial screen;
+- the best train-selected fixed D12 graph and its held-out performance;
+- teacher-forced one-step and short-horizon closed-loop edge values;
 - M24/X36 filtering runtime and memory;
 - whether the proposed effect-size gates are appropriately calibrated.
 
@@ -194,6 +220,7 @@ Repository, audited source baseline, and scenario checkpoint:
 /Users/dex/.config/superpowers/worktrees/MULTISENSOR-LMB-FILTERS/learned-dynamic-topology-scenarios
 audited source baseline: 282ca8180510315424dbb488ce7cfd80e624115f
 scenario checkpoint: 2c75193
+three-trial implementation checkpoint: b63fd2b
 ```
 
 Core inspection commands:
@@ -204,7 +231,47 @@ nl -ba multisensorLmb/runEventTriggeredDistributedLmbFilter.m | sed -n '968,1007
 nl -ba multisensorLmb/gaLmbTrackMerging.m | sed -n '1,100p;150,164p'
 nl -ba docs/EFFECTIVE_KLA_GRAPH_VALIDATION_STATUS_CN.md | sed -n '121,174p'
 nl -ba docs/DUAL_THRESHOLD_EVENT_TRIGGER_RESEARCH_CN.md | sed -n '235,253p'
+octave --quiet --eval "setPath; addpath('tests'); addpath(fullfile('RUN','GA')); test_dynamic_topology_screen_analysis"
 git diff --check
+```
+
+Independent E19 recomputation from the tracked CSV:
+
+```bash
+python3 - <<'PY'
+import csv
+from collections import defaultdict
+
+path = "RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_RECORDS.csv"
+rows = defaultdict(dict)
+with open(path, newline="") as handle:
+    for row in csv.DictReader(handle):
+        rows[int(row["seed"])][row["arm_mode"]] = row
+for seed in sorted(rows):
+    arm = rows[seed]
+    static, disc = arm["robust-static"], arm["discrepancy"]
+    consensus, truth = arm["oracle-consensus"], arm["oracle-truth"]
+    improve = lambda a, b, key: 100 * (float(a[key]) - float(b[key])) / float(a[key])
+    print(
+        seed,
+        f"{improve(static, disc, 'focus_eospa'):.8f}",
+        f"{improve(static, disc, 'focus_posterior_disagreement'):.8f}",
+        f"{100 * abs(float(disc['attempted_bytes']) - float(static['attempted_bytes'])) / float(static['attempted_bytes']):.8f}",
+        f"{improve(disc, consensus, 'focus_eospa'):.8f}",
+        f"{improve(disc, truth, 'focus_eospa'):.8f}",
+        disc["distinct_candidates"],
+        consensus["distinct_candidates"],
+        truth["distinct_candidates"],
+    )
+PY
+```
+
+Representative output:
+
+```text
+7  9.16157262  8.82349965  1.37262056 -11.22794067 -2.77653676 34 6 1
+17 6.39984278  8.91084635  0.61052319  -7.77930568 -7.03489390 35 5 5
+27 4.74491841 14.54526797  0.19666252  -4.37257133 -4.37257133 28 2 2
 ```
 
 Evidence-package lint:
@@ -215,26 +282,26 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 
 ## Open Issues
 
-1. The componentwise powered-GM reference needs a stronger numerical
+1. Replace the dominated one-step teacher with a teacher-forced value or
+   2--5-step closed-loop look-ahead before reconsidering a learned policy.
+2. Evaluate all 48 fixed D12 candidates on training seeds, freeze the best
+   robust fixed graph, and compare it on held-out paired seeds.
+3. The componentwise powered-GM reference needs a stronger numerical
    comparison before it can support a paper-level density claim.
-2. The D12 one-step consensus and truth objectives need full-window evidence;
-   neither may be described as a global upper bound.
-3. The implemented generator must repeat route, speed, acceleration and
+4. The implemented generator must repeat route, speed, acceleration and
    static-backbone checks after any trajectory change.
-4. The main FoV radius and target paths may need adjustment after full-window
-   coverage and tracking results.
-5. Runtime may require sparse diagnostics before X36.
-6. With the author's current limit, exploratory execution must not exceed
-   three paired trials.
+5. Runtime may require sparse diagnostics before M24/X36.
 
 ## Recommendation
 
-Proceed with at most three paired full-horizon D12 trials as an exploratory
-oracle-gap screen. Do not design or train the GNN yet. The infrastructure gates
-are now implemented (C8–C10), but the corrected smoke is deliberately too
-short and too small to establish a research direction (C11).
+Stop at the completed three-trial checkpoint and do not train the GNN under the
+current objective. The scene shows a candidate dynamic signal relative to the
+geometry-selected static graph (C12), but both proposed one-step teachers are
+dominated (C13), and the fixed baseline is not yet the registered strongest
+static control (C14).
 
-If the full handover window still shows less than the practical 10% consensus
-or 5% tracking gap under matched attempted bytes, treat that as a scene/method
-premise failure and stop before learning. If a residual gap appears, first
-measure how much the posterior-discrepancy heuristic captures.
+The next research action, if this direction is resumed, is not more Monte Carlo
+with the same arms. It is to repair the evidence gate: add a train-selected,
+held-out fixed-graph baseline and construct a teacher-forced or short-horizon
+reference that actually dominates strong deployable controls. Only a verified
+residual gap after those two checks can authorize GNN design.

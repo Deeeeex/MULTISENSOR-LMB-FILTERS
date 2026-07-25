@@ -1,8 +1,10 @@
 # 面向动态通信拓扑的多编队 LMB 跟踪场景设计
 
-> 状态：作者已确认场景方向；R8/D12/M24/X36 的可配置生成器与 D12
-> topology-only 筛查入口已完成第一版实现。当前只允许不超过 3 个 paired
-> trials 的探索性运行，尚未进入 GNN 训练或论文级统计。
+> 状态：R8/D12/M24/X36 的可配置生成器与 D12 topology-only
+> 筛查入口已完成；D12 的 3 个 paired trials 也已完成。实验发现
+> posterior-discrepancy 相对 geometry-static 有候选动态信号，但两个
+> 一步诊断策略均被其支配，不能作为 GNN 教师或性能上界。当前已在进入
+> GNN 训练前停止。
 >
 > 研究边界：新的动态拓扑方向与此前的 full/light payload 等价叙事解耦。论文级实验必须使用遵循 LMB-KLA 密度级公式、保留单目标混合结构且清楚记录数值近似边界的 reference；当前投影到单高斯的融合路径只能用于场景与软件 smoke test，不能支撑最终估计或理论结论。
 
@@ -362,15 +364,43 @@ look-ahead/动态规划上界。M24 的 beam/look-ahead 也只能称为“近似
 7. M24 冻结后执行 X36 零样本外推；
 8. 最终再决定是否把事件触发或 payload 机制作为独立扩展，而不是混入动态拓扑主贡献。
 
-## 12. 当前建议
+## 12. 三次配对筛查结果与当前停止点
 
-建议先批准以下三个决定：
+筛查使用 seeds `[7,17,27]`、步骤 `1–95`，重点检查 handover
+窗口 `35–95`。四个 arm 使用相同轨迹、测量、融合实现和 14 条边预算，
+attempted payload bytes 的配对偏差最大为 1.37%，拓扑不可行率为 0。
 
-1. 主场景采用 `4×6=24`，规模外推采用 `6×6=36`，旧 `4+4` 只做回归；
-2. 方法设计前必须先通过 D12 exact-oracle gap，且第一阶段关闭事件触发和 payload 压缩；
-3. 论文级实验必须等待保留混合结构的 LMB-KLA reference；当前投影高斯路径不再作为标准 LMB-KLA。
+| 比较 | Focus E-OSPA 改善 | Focus posterior 分歧改善 | 胜出 seeds | 结论 |
+|:--|--:|--:|--:|:--|
+| Posterior-discrepancy vs geometry-static | 6.77% | 10.76% | 3/3、3/3 | 存在候选动态信号 |
+| Consensus one-step diagnostic vs discrepancy | -7.79% | -10.90% | 0/3、0/3 | 一步一致性目标被支配 |
+| Truth one-step diagnostic vs discrepancy | -4.73% | -12.08% | 0/3、0/3 | 当前真值 surrogate 也不是有效教师 |
 
-只要其中任一项需要调整，应先修改场景规范，再开始代码和长实验。
+这组结果给出三个不同层次的判断：
+
+1. **场景不是完全没有动态选边信号。** 简单的 posterior-discrepancy
+   策略在重点交接窗口稳定优于当前固定图，说明有限 FoV 下的信息位置变化
+   确实会影响有价值的通信边。
+2. **当前 oracle-gap 设计失效。** 一致性诊断每个 seed 只访问 2–6 个
+   不同候选图，真值诊断只访问 1–5 个，而 discrepancy 访问 28–35 个。
+   瞬时目标、闭环反馈和切换代价共同使诊断策略接近静态锁定；“精确枚举
+   一步动作”并没有产生可用的闭环上界。
+3. **当前还不能证明解析策略充分。** 名为 `robust-static` 的实现实际只按
+   全时段几何距离选图，并未在 48 个固定候选中离线优化 tracking 表现。
+   因此 6.77% 只能写成“相对 geometry-static 的候选信号”，不能写成
+   “击败最强静态基线”，负的 oracle gap 也不能写成“GNN 没有理论空间”。
+
+当前研究停止点如下：
+
+- 暂停 GNN 训练，不把一步 posterior 一致性或当前 truth surrogate 当作标签；
+- posterior-discrepancy 保留为当前最强的可部署对照，但不提升为论文贡献；
+- 若重启学习方向，先补齐 48 个固定候选的 train/held-out 离线静态基线，
+  再设计 teacher-forced 单步价值或 2–5 步短时闭环 look-ahead；
+- 在新的教师参考能够稳定支配强静态与 discrepancy、并留下预注册的
+  residual gap 以前，不进入 M24 学习实验或 X36 外推。
+
+完整逐 seed 结果见
+`RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_FINDINGS_CN.md`。
 
 ## 参考
 

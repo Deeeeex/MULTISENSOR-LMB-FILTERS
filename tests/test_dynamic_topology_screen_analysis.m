@@ -14,6 +14,10 @@ for seedIdx = 1:3
         records(seedIdx, armIdx).attemptedBytes = 1e6 * ...
             (1 + 0.005 * (armIdx - 1));
         records(seedIdx, armIdx).topologyInfeasibleRate = 0;
+        records(seedIdx, armIdx).topologyChurnRate = ...
+            0.01 * (armIdx - 1);
+        records(seedIdx, armIdx).distinctCandidateCount = ...
+            3 * (armIdx - 1);
     end
     records(seedIdx, 1).focusEospa = 10;
     records(seedIdx, 2).focusEospa = 9.4;
@@ -54,6 +58,31 @@ assert(strcmp(findings.classification.status, 'residual-oracle-gap'));
 assert(findings.discrepancyVsStatic.trackingWinCount == 3);
 assert(findings.discrepancyVsStatic.byteMatchedCount == 3);
 assert(exist(reportPath, 'file') == 2);
+
+% A myopic diagnostic that is dominated by the deployable arm must not be
+% interpreted as evidence that the analytic policy is sufficient.
+for seedIdx = 1:3
+    records(seedIdx, 3).focusEospa = 10.2;
+    records(seedIdx, 4).focusEospa = 9.8;
+    records(seedIdx, 3).focusPosteriorConsensus = 1.05;
+    records(seedIdx, 4).focusPosteriorConsensus = 0.95;
+end
+for armIdx = 1:4
+    aggregate(armIdx).focusEospa = mean( ...
+        [records(:, armIdx).focusEospa]);
+    aggregate(armIdx).focusPosteriorConsensus = mean( ...
+        [records(:, armIdx).focusPosteriorConsensus]);
+end
+summary.records = records;
+summary.aggregate = aggregate;
+save(matPath, 'summary');
+[~, dominatedFindings] = ...
+    analyzeDynamicTopologyScreen(matPath, reportPath);
+assert(strcmp( ...
+    dominatedFindings.classification.status, ...
+    'diagnostic-oracle-dominated'));
+assert(dominatedFindings.consensusOracleVsDiscrepancy.trackingWinCount == 0);
+assert(dominatedFindings.truthOracleVsDiscrepancy.consensusWinCount == 0);
 fprintf('test_dynamic_topology_screen_analysis passed\n');
 end
 
@@ -66,7 +95,9 @@ record = struct( ...
     'focusEospa', NaN, ...
     'focusPosteriorConsensus', NaN, ...
     'attemptedBytes', NaN, ...
-    'topologyInfeasibleRate', NaN);
+    'topologyInfeasibleRate', NaN, ...
+    'topologyChurnRate', NaN, ...
+    'distinctCandidateCount', NaN);
 end
 
 function cleanupFiles(matPath, reportPath)
