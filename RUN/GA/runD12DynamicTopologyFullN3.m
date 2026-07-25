@@ -1,0 +1,13 @@
+% RUND12DYNAMICTOPOLOGYFULLN3 Reproducible three-trial D12 screen.
+%
+% Run from the repository root:
+%   octave --quiet RUN/GA/runD12DynamicTopologyFullN3.m
+
+setPath;
+addpath(fullfile('RUN', 'GA'));
+options = struct( ...
+    'writeReport', true, ...
+    'outputDirectory', fullfile( ...
+        'RUN', 'GA', 'dynamic_topology', 'full_n3'));
+runDynamicTopologyOracleGapScreen( ...
+    'd12-handover', [7, 17, 27], options);

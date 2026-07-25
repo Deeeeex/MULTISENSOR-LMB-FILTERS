@@ -100,6 +100,8 @@ config.maxInterFormationDegree = 2;
 config.topologyFamily = 'd12-enumerated';
 config.staticTopologyMode = 'robust-geometry';
 config.attemptedByteToleranceFraction = 0.02;
+config.focusWindowName = 'full';
+config.focusWindow = [1, 120];
 config.requireStaticPhysicalAllTimes = true;
 config.requireGlobalConnectivity = true;
 config.useRingIntraFormationBackbone = true;
@@ -129,6 +131,8 @@ config.commRange = inf;
 config.edgeBudget = 16;
 config.maxEdgeReplacementsPerStep = 0;
 config.topologyFamily = 'r8-fixed';
+config.focusWindowName = 'full';
+config.focusWindow = [1, 100];
 config.forceDelivery = true;
 config.linkMode = 'ideal';
 end
@@ -174,9 +178,13 @@ if strcmp(variant, 'link')
     config.linkMode = 'correlated-blockage';
     % [left formation, right formation, start, stop]
     config.blockageWindows = [1, 2, 40, 60; 2, 3, 75, 95];
+    config.focusWindowName = 'blockage';
+    config.focusWindow = [40, 95];
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
+    config.focusWindowName = 'handover';
+    config.focusWindow = [35, 95];
 end
 end
 
@@ -217,12 +225,18 @@ if strcmp(variant, 'link')
     config.fovRange = 1200;
     config.forceDelivery = false;
     config.linkMode = 'correlated-blockage';
+    config.focusWindowName = 'blockage';
+    config.focusWindow = [91, 135];
 elseif strcmp(variant, 'composite')
     config.forceDelivery = false;
     config.linkMode = 'correlated-blockage';
+    config.focusWindowName = 'handover-and-blockage';
+    config.focusWindow = [65, 135];
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
+    config.focusWindowName = 'handover';
+    config.focusWindow = [65, 95];
 end
 if ~config.forceDelivery
     config.blockageWindows = [1, 2, 91, 110; 3, 4, 116, 135];
@@ -280,6 +294,8 @@ config.maxEdgeReplacementsPerStep = 3;
 config.topologyFamily = 'projected-general';
 config.forceDelivery = false;
 config.linkMode = 'distance';
+config.focusWindowName = 'central-overlap';
+config.focusWindow = [60, 110];
 end
 
 function merged = mergeStructRecursive(base, overrides)
