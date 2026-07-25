@@ -31,7 +31,8 @@ Included:
   and a conditional six-step M24 strategy screen from a shared posterior
   checkpoint;
 - an X36-hard behavior/signal audit, one- and three-step six-arm conditional
-  screens, and the geometry-gated X36-matched scale-only preset.
+  screens, the aggregate-observability-matched X36 diagnostic, and the
+  geometry-gated X36-clean-scale behavior, one-step and three-step screens.
 
 Excluded:
 
@@ -39,7 +40,7 @@ Excluded:
 - a multi-seed held-out validation of the current-task-risk teacher;
 - multi-seed, full-episode M24/X36 tracking validation and a complete
   runtime-memory scaling curve;
-- a filter-health or closed-loop result for the new X36-matched preset;
+- multi-seed or full-episode X36-clean-scale validation;
 - an exact arbitrary-GM density-power implementation;
 - learned models or claims of performance improvement;
 - a comprehensive systematic review of every distributed LMB paper.
@@ -49,8 +50,10 @@ Excluded:
 **L3.** The old one-step teacher has a confirmed stop finding. The current
 task-risk teacher has positive single-seed D12 evidence and a conditional
 single-seed M24 closed-loop result. X36-hard fails the registered practical
-effect gate and also confounds scale with a harder sensing model. There is no
-held-out learned policy,
+effect gate and also confounds scale with a harder sensing model.
+X36-clean-scale passes filter health but every evaluated arm still fails the
+5% practical-effect gate; its mean teacher also worsens worst-node tracking.
+There is no held-out learned policy,
 full-episode comparison, or multi-seed effect estimate. The current evidence
 authorizes strategy and label-pipeline development, not GNN performance claims
 or a paper claim of dynamic-topology superiority.
@@ -87,6 +90,11 @@ or a paper claim of dynamic-topology superiority.
 | C26 | The X36-hard seed-7 static prefix needs 1417.08 s to reach t=75 and is already unhealthy there: E-OSPA is 107.3636/150 and cardinality error is 12.3056/24. Across 33 valid actions, current task risk spans only 1.55% and its best surrogate gain over static is 0.736%. | High | E36 | Runtime is machine-specific. The normalized tracking/cardinality values show that topology selection is being tested after a much weaker state than M24, not that X36 is intrinsically impossible. |
 | C27 | On X36-hard seed 7, all six arms are communication/edge/feasibility matched, but pure mean task risk improves E-OSPA by only 0.091% at one step and 0.358% over t=75–77; reliability reaches 0.109%, discrepancy degrades tracking, and mean-CVaR/CVaR do not beat mean. This fails the registered 5% practical-effect gate. | High | E37, E38 | The mean teacher is the numerical best observed arm in this bounded stress screen, but the effect is negligible and cannot support a scale-generalization claim. |
 | C28 | X36-matched preserves 36 sensors, 24 targets, 44 edges and three replacements per step while matching the M24 sensing/load parameters more closely. On seeds 7/17/27 it passes the registered geometry gates with 0.36%–0.42% blackout, 31.1%–31.9% single-formation visibility, 67.7%–68.6% multi-formation visibility and 69–70 focus handovers. | High | E39, E40 | Geometry/visibility health is necessary but not sufficient; a filter-health snapshot and closed-loop screen remain required. |
+| C29 | X36-matched improves the seed-7 t=75 static state over X36-hard but still fails the preregistered filter-health gate: its 1438.22 s prefix reaches E-OSPA 90.0227/150 and cardinality error 8.6944/24 (normalized 0.600/0.362). Its 33 valid actions have 2.574% task-risk spread and 1.263% surrogate gain over static. | High | E41 | The stronger action signal is not permission to run a paper-facing policy comparison from an unhealthy shared state. |
+| C30 | X36-clean-scale keeps the X36 route/load/communication problem but scales M24-hard's per-sensor sensing envelope rather than matching aggregate visibility. On seeds 7/17/27 it has zero blackout, 9.3%–9.6% single-formation visibility, 90.5%–90.7% multi-formation visibility and 69–70 focus handovers. | High | E42, E43 | This is a clean scale diagnostic with greater natural sensing redundancy; C31/C32 separately test filter health and topology action value. |
+| C31 | X36-clean-scale passes the seed-7 t=75 filter-health gate after a 1646.43 s prefix: E-OSPA is 46.8048/150 and cardinality error is 2.4444/24 (normalized 0.312/0.102). Its 33 valid actions have 11.237% task-risk spread and 1.595% surrogate gain over static. | High | E44 | This establishes a healthy, action-sensitive posterior checkpoint, not realized policy gain. |
+| C32 | In the X36-clean-scale one-step screen, reliability, mean-CVaR and CVaR tie at E-OSPA 46.3778 versus 46.8048 static (0.912%); mean is 46.3788 and discrepancy is worse. Over t=75–77, mean is numerically best at 45.9258 versus 46.3716 (0.961%, 0.292% byte mismatch, zero infeasibility), but worsens the worst node from 63.8858 to 68.4314 and does not improve MAP-set disagreement. Reliability/mean-CVaR/CVaR are tail-safer but improve mean E-OSPA by only 0.241%. | High | E45, E46 | No tested X36-clean-scale arm satisfies both the 5% tracking-primary gate and tail safety. Mean is only the finite-pool numerical winner, not a validated scalable strategy. |
+| C33 | Continuation caches now include the complete scenario and resolved fusion configurations, and reject same-name/same-time snapshots after either configuration drifts. | High | E47 | Existing local caches were migrated for this worktree; unversioned caches produced by older commits must be regenerated or migrated. |
 
 ## Evidence Ledger
 
@@ -104,7 +112,7 @@ or a paper claim of dynamic-topology superiority.
 | E10 | code | `multisensorLmb/gaLmbTrackMerging.m:5-9,53-99,150-164` | C6: the code explicitly calls the merge crude, moment-matches each GM to one Gaussian, and writes back one component. | strong |
 | E11 | design artifact | `docs/LEARNING_AUGMENTED_DYNAMIC_TOPOLOGY_SCENARIO_DESIGN_CN.md` | C7: separates D12 exact diagnosis, M24 main evaluation, X36 scale, strong analytic baselines, and stop/go gates. | medium |
 | E12 | code | `common/buildDynamicTopologyScenarioConfig.m`, `common/generateDynamicTopologyScenarioInputs.m`, `common/buildDynamicTopologyGraphs.m`, `common/validateDynamicTopologyScenario.m` | C8: data-only presets, paired inputs, physical/static/candidate graphs and hard validation. | strong |
-| E13 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C8–C10: all seven presets validate; D12 has 48 fourteen-edge candidates; scheduled births, time-varying loss, attempted bytes, fail-closed topology, KLA boundary cases and exact-callback smoke pass. | strong |
+| E13 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C8–C10: all registered presets validate; D12 has 48 fourteen-edge candidates; scheduled births, time-varying loss, attempted bytes, fail-closed topology, KLA boundary cases and exact-callback smoke pass. | strong |
 | E14 | code | `multisensorLmb/runEventTriggeredDistributedLmbFilter.m` | C9: S×S×T loss, external policy callback, non-physical-edge rejection, infeasibility diagnostics and attempted-payload accounting. | strong |
 | E15 | code | `multisensorLmb/buildMixtureAwareKlaReferenceConfig.m`, `multisensorLmb/fuseLmbPosteriorsByLabel.m` | C10: the controlled reference enables multi-component fusion and mixture-aware existence normalization while documenting componentwise power approximation. | strong |
 | E16 | experiment report | `RUN/GA/dynamic_topology/smoke_v2/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N1_20260725_131647.md` | C11: corrected 100 m cutoff, byte-matched 8-step arms, no early-window practical oracle gap, and runtime estimates. | weak |
@@ -126,12 +134,19 @@ or a paper claim of dynamic-topology superiority.
 | E32 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_221559.md` | C24: paired six-step static, reliability, discrepancy, mean-task-risk and mean-CVaR screen. Its churn column excludes the prefix boundary and is superseded by E33 for the winner. | strong |
 | E33 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_222820.md` | C24: boundary-corrected paired confirmation of static versus the winning mean-task-risk arm. | strong |
 | E34 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_225246.md` | C24: boundary-aware mean-versus-pure-CVaR confirmation; pure CVaR matches mean-CVaR's realized metrics and remains weaker than pure mean risk. | strong |
-| E35 | code | `common/buildDynamicTopologyScenarioConfig.m` | C25: exact M24-hard, X36-hard and X36-matched sensing, load, scale, communication and gate parameters. | strong |
+| E35 | code | `common/buildDynamicTopologyScenarioConfig.m` | C25: exact M24-hard, X36-hard, X36-matched and X36-clean-scale sensing, load, scale, communication and gate parameters. | strong |
 | E36 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_X36_HARD_N1_20260725_234935.md` | C26: X36-hard cached-prefix runtime, failed normalized behavior-health gate, valid action count, surrogate spread and static-relative surrogate gain. | strong |
 | E37 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_HARD_T75_N1_20260725_230827.md` | C27: constraint-matched six-arm one-step realized comparison and practical-effect stop. | strong |
 | E38 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_HARD_T75_N1_20260725_233726.md` | C27: constraint-matched six-arm t=75–77 comparison and practical-effect stop. | strong |
 | E39 | code/test | `common/buildDynamicTopologyScenarioConfig.m`, `tests/test_dynamic_topology_scenarios.m` | C28: separate X36-matched preset and preset/difficulty/candidate-pool regression coverage. | strong |
 | E40 | command | Three-seed X36-matched geometry audit recorded in the Verification Record | C28: exact blackout, visibility, handover, close-encounter, ownership and blockage values. | strong |
+| E41 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_X36_MATCHED_N1_20260726_000437.md` | C29: X36-matched runtime, failed normalized behavior-health gate and current-task-risk action signal. | strong |
+| E42 | code/test | `common/buildDynamicTopologyScenarioConfig.m`, `tests/test_dynamic_topology_scenarios.m` | C30: separate X36-clean-scale preset and preset/difficulty/candidate-pool regression coverage. | strong |
+| E43 | command | Three-seed X36-clean-scale geometry audit recorded in the Verification Record | C30: exact blackout, visibility, handover, close-encounter, ownership and blockage values. | strong |
+| E44 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_X36_CLEAN_SCALE_N1_20260726_003744.md` | C31: X36-clean-scale runtime, passed normalized behavior-health gate and current-task-risk action signal. | strong |
+| E45 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_005230.md` | C32: constraint-matched six-arm one-step comparison and practical-effect stop. | strong |
+| E46 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_013455.md` | C32: constraint-matched six-arm t=75–77 comparison, numerical winner, tail failure and practical-effect stop. | strong |
+| E47 | code/test | `RUN/GA/runDynamicTopologyTeacherSignalScreen.m`, `RUN/GA/runDynamicTopologyOracleGapScreen.m`, `tests/test_dynamic_topology_scenarios.m` | C33: stores/validates scenario and fusion snapshots and deterministically rejects caches after changing either measurement noise or mixture component count. | strong |
 
 Initial arithmetic check:
 
@@ -251,6 +266,19 @@ Checks performed:
   original X36 stress preset changes both scale and sensing difficulty;
 - introduced X36-matched as a separate scale-only preset and checked its
   geometry gates on seeds 7/17/27;
+- ran the X36-matched t=75 behavior/action screen; it improves over X36-hard
+  but still fails both normalized filter-health limits;
+- added X36-clean-scale to isolate network/target scale without reducing the
+  normalized per-sensor sensing envelope, and checked its geometry gates on
+  seeds 7/17/27;
+- generated the X36-clean-scale t=75 cache, verified that it passes the
+  normalized filter-health gate, and ran one- and three-step six-arm screens;
+- independently recomputed the three-step mean-teacher gain (0.961392%),
+  reliability gain (0.240969%), mean-teacher worst-node degradation
+  (7.115215%) and attempted-byte mismatch (0.291976%) from the report values;
+- added scenario and fusion configuration snapshots to continuation caches,
+  deterministic stale-cache rejection tests for both drift types, and
+  migrated the four ignored local checkpoint caches;
 - ran a one-step constraint-selection smoke where a local-only arm had lower
   E-OSPA but zero attempted bytes; the constraint-aware decision correctly
   excluded it and retained the communication-matched static arm.
@@ -285,14 +313,16 @@ Unverified:
   current-task-risk labels;
 - M24 direction consistency beyond seed 7, full-episode behavior, and the
   complete M24/X36 runtime-memory curve;
-- X36-matched filter health and closed-loop strategy performance;
+- X36-clean-scale direction consistency beyond seed 7 and any full-episode
+  or multi-seed effect estimate;
 - whether the proposed effect-size gates are appropriately calibrated.
 
 ## Risk and Escalation
 
-If the scenario is biased or computationally infeasible, subsequent GNN results could be publishable-looking but scientifically uninformative, and long Monte Carlo runs could be wasted. Author review is required for the scale ladder, communication radius, target count, and Gate B/C thresholds. A domain review is also required when the mixture-aware LMB-KLA reference is specified.
+If the scenario is biased or computationally infeasible, subsequent GNN results could be publishable-looking but scientifically uninformative, and long Monte Carlo runs could be wasted. Before a paper claim or another long sweep, author review should confirm the scale ladder, communication radius, target count, and Gate B/C thresholds. A domain review is also required when the mixture-aware LMB-KLA reference is specified.
 
-No paper claim, method choice, or long experiment should treat this draft as approved before that review.
+This package is self-check only and does not authorize a paper-facing claim
+without that review.
 
 ## Reproducibility
 
@@ -304,6 +334,7 @@ audited source baseline: 282ca8180510315424dbb488ce7cfd80e624115f
 scenario checkpoint: 2c75193
 three-trial implementation checkpoint: b63fd2b
 M24 continuation-strategy checkpoint: e052774
+X36 screening-gate checkpoint: 570a6c5
 ```
 
 Core inspection commands:
@@ -315,7 +346,47 @@ nl -ba multisensorLmb/gaLmbTrackMerging.m | sed -n '1,100p;150,164p'
 nl -ba docs/EFFECTIVE_KLA_GRAPH_VALIDATION_STATUS_CN.md | sed -n '121,174p'
 nl -ba docs/DUAL_THRESHOLD_EVENT_TRIGGER_RESEARCH_CN.md | sed -n '235,253p'
 octave --quiet --eval "setPath; addpath('tests'); addpath(fullfile('RUN','GA')); test_dynamic_topology_screen_analysis"
+octave --no-gui --quiet --eval "addpath(genpath(pwd)); test_dynamic_topology_scenarios; test_dynamic_topology_screen_analysis; test_dual_threshold_event_trigger;"
 git diff --check
+```
+
+X36-clean-scale behavior checkpoint and six-arm conditional screen for
+E44–E46:
+
+```bash
+octave --no-gui --quiet --eval "
+addpath(genpath(pwd));
+cacheDir=fullfile('RUN','GA','dynamic_topology','cache');
+teacherOpts=struct( ...
+  'snapshotTimes',75, ...
+  'teacherHorizonSteps',0, ...
+  'behaviorCacheDirectory',cacheDir);
+runDynamicTopologyTeacherSignalScreen( ...
+  'x36-clean-scale',7,teacherOpts);"
+
+octave --no-gui --quiet --eval "
+addpath(genpath(pwd));
+cacheDir=fullfile('RUN','GA','dynamic_topology','cache');
+arms={'robust-static','reliability','discrepancy', ...
+  'teacher-current','teacher-current-balanced', ...
+  'teacher-current-cvar'};
+screenOpts=struct( ...
+  'maxTimeSteps',77, ...
+  'continuationStartTime',75, ...
+  'armNames',{arms}, ...
+  'behaviorCacheDirectory',cacheDir);
+runDynamicTopologyOracleGapScreen( ...
+  'x36-clean-scale',7,screenOpts);"
+```
+
+Representative terminal summaries:
+
+```text
+health=1 normE=0.312032 normCard=0.101852
+gain=1.594611 spread=11.237081 candidates=33
+status=stop-negligible-observed-gain eligible=6
+best=Pure current task-risk teacher gain=0.961392
+bytesMismatch=0.291976
 ```
 
 X36-matched three-seed geometry audit for E40:
@@ -346,6 +417,15 @@ Representative output:
 7  0.0042 0.3187 0.6771 69 0.8372 0.9995 0.7326
 17 0.0036 0.3107 0.6857 69 0.8372 0.9996 0.7326
 27 0.0039 0.3128 0.6833 70 0.8372 0.9996 0.7326
+```
+
+X36-clean-scale uses the same command with preset
+`x36-clean-scale`. Representative E43 output:
+
+```text
+7  0.0000 0.0955 0.9045 69 0.8372 0.9995 0.7326
+17 0.0000 0.0938 0.9062 69 0.8372 0.9996 0.7326
+27 0.0000 0.0929 0.9071 70 0.8372 0.9996 0.7326
 ```
 
 Independent E19 recomputation from the tracked CSV:
@@ -409,8 +489,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
    machine.
 6. Repeat the conditional M24 comparison on additional paired seeds and a
    longer window before treating the 8.21% screen as an effect estimate.
-7. Complete the X36-matched filter-health gate before spending compute on
-   multi-arm closed-loop runs; retain X36-hard only as a stress negative.
+7. Retain X36-hard/X36-matched as stress negatives. X36-clean-scale passes
+   filter health but fails both the 5% practical-effect and tail-safety gates;
+   do not extend this arm set to longer or multi-seed runs without a method
+   change.
 
 ## Recommendation
 
@@ -425,8 +507,12 @@ benefit at the registered M24 checkpoint.
 The next research stage remains label-pipeline and imitation validation, not a
 paper-level GNN claim. X36-hard must not be used as the clean scale claim:
 its best observed gain is negligible and its sensing model is simultaneously
-harder (C25–C27). Complete the filter-health and frozen-strategy checks on
-X36-matched instead (C28), while retaining X36-hard as a stress negative.
+harder (C25–C27). X36-matched also fails the filter-health gate despite a
+larger action signal (C28/C29). X36-clean-scale resolves health and action
+separation, but the full six-arm screen still has no practically useful,
+tail-safe winner (C30–C32). Retain pure mean task risk as the M24 privileged
+teacher only; do not claim X36 strategy generalization from the current
+single-round architecture.
 In parallel, select the
 strongest fixed graph only on training seeds, train a policy using locally
 available inputs to imitate current-task-risk rankings, freeze it, and then

@@ -9,6 +9,7 @@ testTopologyTaskRiskOrdering();
 testTeacherLabelExcludesSwitchPenalty();
 testContinuationFromLocalPosteriorSnapshot();
 testConstraintAwareScreenDecision();
+testContinuationCacheRejectsConfigDrift();
 testScheduledBirths();
 testTimeVaryingDropAccounting();
 testInfeasiblePhysicalGraphFailsClosed();
@@ -21,8 +22,10 @@ function testScenarioPresets()
 names = {'r8-legacy', 'd12-handover', ...
     'm24-handover', 'm24-link', 'm24-composite', ...
     'x36-topology', 'x36-joint', 'x36-matched', ...
+    'x36-clean-scale', ...
     'd12-hard', 'm24-hard', 'x36-hard'};
-expectedSensors = [8, 12, 24, 24, 24, 36, 36, 36, 12, 24, 36];
+expectedSensors = [ ...
+    8, 12, 24, 24, 24, 36, 36, 36, 36, 12, 24, 36];
 for presetIdx = 1:numel(names)
     rng(7);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -49,7 +52,9 @@ end
 end
 
 function testTeacherSceneDifficultyGates()
-names = {'d12-hard', 'm24-hard', 'x36-matched', 'x36-hard'};
+names = { ...
+    'd12-hard', 'm24-hard', 'x36-matched', ...
+    'x36-clean-scale', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(17);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -117,7 +122,8 @@ assert(rotatedPd > 0 && rotatedInfo.inFov);
 end
 
 function testScalableTopologyCandidatePools()
-names = {'m24-hard', 'x36-matched', 'x36-hard'};
+names = { ...
+    'm24-hard', 'x36-matched', 'x36-clean-scale', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(23);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -412,6 +418,62 @@ assert(strcmp( ...
     'stop-no-observed-dynamic-gain'));
 assert(summary.decision. ...
     minimumPracticalTrackingGainPercent == 5);
+end
+
+function testContinuationCacheRejectsConfigDrift()
+cacheDirectory = tempname();
+mkdir(cacheDirectory);
+cleanup = onCleanup(@() cleanupDirectory(cacheDirectory)); %#ok<NASGU>
+teacherOptions = struct( ...
+    'snapshotTimes', 1, ...
+    'teacherHorizonSteps', 0, ...
+    'closedLoopHorizonSteps', 0, ...
+    'behaviorCacheDirectory', cacheDirectory, ...
+    'writeReport', false);
+runDynamicTopologyTeacherSignalScreen( ...
+    'd12-handover', 31, teacherOptions);
+
+continuationOptions = struct( ...
+    'maxTimeSteps', 1, ...
+    'continuationStartTime', 1, ...
+    'armNames', {{'robust-static'}}, ...
+    'behaviorCacheDirectory', cacheDirectory, ...
+    'writeReport', false);
+runDynamicTopologyOracleGapScreen( ...
+    'd12-handover', 31, continuationOptions);
+
+continuationOptions.scenarioOverrides = struct( ...
+    'measurementNoiseStd', 9);
+rejected = false;
+try
+    runDynamicTopologyOracleGapScreen( ...
+        'd12-handover', 31, continuationOptions);
+catch errorInfo
+    rejected = ~isempty(strfind( ...
+        errorInfo.message, ...
+        'metadata or posterior snapshot mismatches')); %#ok<STREMP>
+end
+assert(rejected);
+
+continuationOptions.scenarioOverrides = struct();
+continuationOptions.fusionOverrides = struct( ...
+    'mixtureAwareTopComponents', 2);
+rejected = false;
+try
+    runDynamicTopologyOracleGapScreen( ...
+        'd12-handover', 31, continuationOptions);
+catch errorInfo
+    rejected = ~isempty(strfind( ...
+        errorInfo.message, ...
+        'metadata or posterior snapshot mismatches')); %#ok<STREMP>
+end
+assert(rejected);
+end
+
+function cleanupDirectory(path)
+if exist(path, 'dir')
+    rmdir(path, 's');
+end
 end
 
 function testScheduledBirths()
