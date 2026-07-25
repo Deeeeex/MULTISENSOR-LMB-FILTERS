@@ -551,12 +551,44 @@ E-OSPA 为 25.5087、基数误差为 0.9167，未出现整体失效。通用候�
 15.373%，最优动作相对注册静态图降低风险 2.346%，候选评分耗时
 24.70 s。
 
-这一结果回答的是“监督量和动作接口能否扩展到 M24、且动作是否仍有
-区分度”，不是 M24 闭环收益：它只有一个 seed、一个快照，最优动作
-尚未在后续轨迹中执行。下一步应使用已缓存的行为 posterior 生成多
-快照标签，并先训练可部署的局部特征模仿器；在冻结模型之前，不启动
-昂贵的 M24 多 arm 闭环 Monte Carlo。报告见
-`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_M24_HARD_N1_20260725_183112.md`。
+这个快照结果最初只回答“监督量和动作接口能否扩展到 M24、且动作是否
+仍有区分度”。为了进一步判断正信号是否只是 surrogate 自洽，随后从
+同一个 `t=75` 本地后验快照启动六步条件续跑。所有 arm 共享静态前缀、
+29 条边预算、物理图、测量与链路随机数，并要求 attempted bytes 相对
+静态图偏差不超过 2%。
+
+| Arm | `t=75–80` E-OSPA | 最差节点 E-OSPA | MAP-set 分歧 | 基数误差 | Attempted bytes |
+|:--|--:|--:|--:|--:|--:|
+| Geometry-static | 23.0892 | 47.3908 | 25.6338 | 0.8056 | 17,091,984 |
+| Reliability dynamic | 23.1891 | 47.3611 | 26.5435 | 0.8333 | 17,120,928 |
+| Posterior-discrepancy dynamic | 26.5522 | 47.3866 | 29.5231 | 1.0556 | 17,054,832 |
+| Pure current task-risk teacher | **21.1925** | **35.9637** | **23.8603** | **0.6944** | 17,101,848 |
+| Mean-CVaR task-risk teacher | 22.7065 | 42.5722 | 25.1841 | 0.7778 | 17,158,032 |
+
+纯均值 current task-risk teacher 是六个已评估 arm 中的最优策略：相对
+geometry-static，E-OSPA 改善 8.21%，最差节点 E-OSPA 改善 24.11%，
+MAP-set 分歧改善 6.92%，基数误差改善 13.80%；attempted-byte 偏差
+仅 0.0577%，拓扑不可行率为 0。修正续跑边界计数后，它的 churn 为
+0.0227。Reliability 与 posterior-discrepancy 没有形成 tracking
+收益；在这个窗口里增加尾部风险权重也弱于纯均值目标。补跑的 pure
+CVaR 与 mean-CVaR 得到相同的 22.7065，因此没有留下未评估的风险聚合
+候选。
+
+这个结论仍是单 seed、六个条件步骤和有限候选池上的
+privileged-teacher screening。它不能称为全局最优，也不能替代可部署
+策略：teacher 评分读取真值，且 posterior 分歧从 0.8205 增至 0.8446，
+所以目前证据只支持“tracking-primary 的策略存在性”，不支持所有一致性
+指标同步改善。快照报告、五臂筛选和边界修正确认分别见
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_M24_HARD_N1_20260725_183112.md`、
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_221559.md`
+和
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_222820.md`；
+pure-CVaR 补充对照见
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_225246.md`。
+
+下一步先把这组策略和参数冻结，零样本迁移到 X36 做同预算筛选；X36
+不能用于反向调节 M24 teacher 的风险权重。正式论文实验仍需在更多
+paired seeds 和更长窗口上复核方向，并训练只读取局部可用信息的模仿器。
 
 ## 参考
 

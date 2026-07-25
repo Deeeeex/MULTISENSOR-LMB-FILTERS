@@ -8,6 +8,7 @@ testScalableTopologyCandidatePools();
 testTopologyTaskRiskOrdering();
 testTeacherLabelExcludesSwitchPenalty();
 testContinuationFromLocalPosteriorSnapshot();
+testConstraintAwareScreenDecision();
 testScheduledBirths();
 testTimeVaryingDropAccounting();
 testInfeasiblePhysicalGraphFailsClosed();
@@ -19,9 +20,9 @@ end
 function testScenarioPresets()
 names = {'r8-legacy', 'd12-handover', ...
     'm24-handover', 'm24-link', 'm24-composite', ...
-    'x36-topology', 'x36-joint', ...
+    'x36-topology', 'x36-joint', 'x36-matched', ...
     'd12-hard', 'm24-hard', 'x36-hard'};
-expectedSensors = [8, 12, 24, 24, 24, 36, 36, 12, 24, 36];
+expectedSensors = [8, 12, 24, 24, 24, 36, 36, 36, 12, 24, 36];
 for presetIdx = 1:numel(names)
     rng(7);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -48,7 +49,7 @@ end
 end
 
 function testTeacherSceneDifficultyGates()
-names = {'d12-hard', 'm24-hard', 'x36-hard'};
+names = {'d12-hard', 'm24-hard', 'x36-matched', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(17);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -116,7 +117,7 @@ assert(rotatedPd > 0 && rotatedInfo.inFov);
 end
 
 function testScalableTopologyCandidatePools()
-names = {'m24-hard', 'x36-hard'};
+names = {'m24-hard', 'x36-matched', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(23);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -393,6 +394,24 @@ assert(numel(left) == numel(right));
 for idx = 1:numel(left)
     assert(norm(left{idx} - right{idx}, 'fro') < 1e-12);
 end
+end
+
+function testConstraintAwareScreenDecision()
+options = struct( ...
+    'maxTimeSteps', 1, ...
+    'armNames', {{'robust-static', 'local'}}, ...
+    'writeReport', false);
+[~, summary] = runDynamicTopologyOracleGapScreen( ...
+    'd12-handover', 7, options);
+assert(summary.decision.constraintEligibleArmCount == 1);
+assert(strcmp( ...
+    summary.decision.bestObservedArm, ...
+    'All-time geometry static'));
+assert(strcmp( ...
+    summary.decision.status, ...
+    'stop-no-observed-dynamic-gain'));
+assert(summary.decision. ...
+    minimumPracticalTrackingGainPercent == 5);
 end
 
 function testScheduledBirths()

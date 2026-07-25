@@ -27,13 +27,19 @@ Included:
   a common safe candidate-pool interface, and counterfactual task-risk
   teacher diagnostics;
 - a one-seed D12 closed-loop current-task-risk screen, an in-sample
-  shortlisted fixed-graph control, and one M24 scale/action-signal snapshot.
+  shortlisted fixed-graph control, one M24 scale/action-signal snapshot,
+  and a conditional six-step M24 strategy screen from a shared posterior
+  checkpoint;
+- an X36-hard behavior/signal audit, one- and three-step six-arm conditional
+  screens, and the geometry-gated X36-matched scale-only preset.
 
 Excluded:
 
 - an exhaustive performance sweep over all 48 fixed D12 graphs;
 - a multi-seed held-out validation of the current-task-risk teacher;
-- a complete M24/X36 filter runtime and memory scaling curve;
+- multi-seed, full-episode M24/X36 tracking validation and a complete
+  runtime-memory scaling curve;
+- a filter-health or closed-loop result for the new X36-matched preset;
 - an exact arbitrary-GM density-power implementation;
 - learned models or claims of performance improvement;
 - a comprehensive systematic review of every distributed LMB paper.
@@ -41,10 +47,13 @@ Excluded:
 ## Risk Tier
 
 **L3.** The old one-step teacher has a confirmed stop finding. The current
-task-risk teacher has positive single-seed D12 closed-loop evidence and an M24
-action-signal snapshot, but no held-out learned policy or multi-seed effect
-estimate. The current evidence authorizes label-pipeline development, not GNN
-performance claims or a paper claim of dynamic-topology superiority.
+task-risk teacher has positive single-seed D12 evidence and a conditional
+single-seed M24 closed-loop result. X36-hard fails the registered practical
+effect gate and also confounds scale with a harder sensing model. There is no
+held-out learned policy,
+full-episode comparison, or multi-seed effect estimate. The current evidence
+authorizes strategy and label-pipeline development, not GNN performance claims
+or a paper claim of dynamic-topology superiority.
 
 ## Claims
 
@@ -72,6 +81,12 @@ performance claims or a paper claim of dynamic-topology superiority.
 | C20 | In a D12-hard seed-7 closed-loop run through step 60, the pure current task-risk teacher improves focus E-OSPA by 14.42%, focus cardinality error by 27.11%, and focus posterior disagreement by 3.54% over posterior-discrepancy, while using 1.27% fewer attempted bytes and zero infeasible topologies. | High | E28 | This is a privileged teacher and a single screening seed, not a deployable method or paper-level effect estimate. |
 | C21 | Registered fixed candidate 16 is stronger than geometry-static on D12-hard seed 7, yet the task-risk teacher still improves focus E-OSPA by 8.64%, focus cardinality error by 16.34%, and focus posterior disagreement by 8.00% at a 1.28% attempted-byte increase. | High | E28, E29 | Candidate 16 was shortlisted from in-sample teacher diagnostics, not selected on independent training seeds; this remains a screening-strength static control. |
 | C22 | At the M24-hard seed-7 t=75 snapshot, the scalable pool provides 28 selection-valid actions; current task risk spans 15.37% across them and its best action reduces the surrogate by 2.35% relative to the registered static graph, with 24.70 s teacher scoring after a 559.37 s behavior trajectory. | High | E30 | This establishes scale/action sensitivity at one posterior state only; the selected action was not rolled out, so it is not M24 tracking-gain evidence. |
+| C23 | At the same M24-hard seed-7 t=75 posterior, mean, mean-CVaR and CVaR sensor-risk aggregation select the same one-step action; that action reduces realized E-OSPA from 25.5087 to 22.6428 (11.23%) at 0.33% attempted-byte mismatch and zero infeasibility. | High | E31 | One state cannot establish that the aggregation rules are generally equivalent; it only shows no action benefit from tail weighting at this checkpoint. |
+| C24 | In the conditional M24-hard seed-7 t=75–80 screen, pure mean current task risk is the best of all six evaluated constraint-eligible arms: focus E-OSPA falls from 23.0892 to 21.1925 (8.21%), worst-node E-OSPA from 47.3908 to 35.9637, MAP-set disagreement from 25.6338 to 23.8603, and cardinality error from 0.8056 to 0.6944, with 29 edges, zero infeasibility, 0.0577% attempted-byte mismatch and boundary-aware churn 0.0227. | High | E32, E33, E34 | This is a privileged teacher, one seed, six conditional steps, and a finite proposal pool. Posterior disagreement worsens from 0.8205 to 0.8446; this is tracking-primary evidence, not a universal consensus improvement or global optimum. |
+| C25 | X36-hard is not a clean scale-only transfer from M24-hard: it simultaneously changes 24/16 to 36/24 sensors/targets and degrades half-FoV from 145° to 60°, range from 340 m to 280 m, detection from 0.88 to 0.86, clutter from 4 to 5, birth probability from 0.06 to 0.05, and quality reference range from 300 m to 250 m. | High | E35 | The stress preset remains useful as a compounded failure test, but it cannot isolate network-size generalization. |
+| C26 | The X36-hard seed-7 static prefix needs 1417.08 s to reach t=75 and is already unhealthy there: E-OSPA is 107.3636/150 and cardinality error is 12.3056/24. Across 33 valid actions, current task risk spans only 1.55% and its best surrogate gain over static is 0.736%. | High | E36 | Runtime is machine-specific. The normalized tracking/cardinality values show that topology selection is being tested after a much weaker state than M24, not that X36 is intrinsically impossible. |
+| C27 | On X36-hard seed 7, all six arms are communication/edge/feasibility matched, but pure mean task risk improves E-OSPA by only 0.091% at one step and 0.358% over t=75–77; reliability reaches 0.109%, discrepancy degrades tracking, and mean-CVaR/CVaR do not beat mean. This fails the registered 5% practical-effect gate. | High | E37, E38 | The mean teacher is the numerical best observed arm in this bounded stress screen, but the effect is negligible and cannot support a scale-generalization claim. |
+| C28 | X36-matched preserves 36 sensors, 24 targets, 44 edges and three replacements per step while matching the M24 sensing/load parameters more closely. On seeds 7/17/27 it passes the registered geometry gates with 0.36%–0.42% blackout, 31.1%–31.9% single-formation visibility, 67.7%–68.6% multi-formation visibility and 69–70 focus handovers. | High | E39, E40 | Geometry/visibility health is necessary but not sufficient; a filter-health snapshot and closed-loop screen remain required. |
 
 ## Evidence Ledger
 
@@ -107,6 +122,16 @@ performance claims or a paper claim of dynamic-topology superiority.
 | E28 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HARD_N1_20260725_181109.md` | C20: paired 60-step geometry-static, posterior-discrepancy and pure current task-risk results with tracking, consensus, bytes, churn and feasibility. | strong |
 | E29 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HARD_N1_20260725_181426.md` | C21: 60-step registered fixed-candidate-16 tracking, consensus, byte and feasibility control. | strong |
 | E30 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_M24_HARD_N1_20260725_183112.md` | C22: cached 75-step M24 behavior cost, 28 valid candidate actions, current-task-risk action spread, static-relative surrogate gain and teacher scoring time. | strong |
+| E31 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_215848.md` | C23: paired one-step static/mean/mean-CVaR/CVaR realized metrics and action agreement. | strong |
+| E32 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_221559.md` | C24: paired six-step static, reliability, discrepancy, mean-task-risk and mean-CVaR screen. Its churn column excludes the prefix boundary and is superseded by E33 for the winner. | strong |
+| E33 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_222820.md` | C24: boundary-corrected paired confirmation of static versus the winning mean-task-risk arm. | strong |
+| E34 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260725_225246.md` | C24: boundary-aware mean-versus-pure-CVaR confirmation; pure CVaR matches mean-CVaR's realized metrics and remains weaker than pure mean risk. | strong |
+| E35 | code | `common/buildDynamicTopologyScenarioConfig.m` | C25: exact M24-hard, X36-hard and X36-matched sensing, load, scale, communication and gate parameters. | strong |
+| E36 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_X36_HARD_N1_20260725_234935.md` | C26: X36-hard cached-prefix runtime, failed normalized behavior-health gate, valid action count, surrogate spread and static-relative surrogate gain. | strong |
+| E37 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_HARD_T75_N1_20260725_230827.md` | C27: constraint-matched six-arm one-step realized comparison and practical-effect stop. | strong |
+| E38 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_HARD_T75_N1_20260725_233726.md` | C27: constraint-matched six-arm t=75–77 comparison and practical-effect stop. | strong |
+| E39 | code/test | `common/buildDynamicTopologyScenarioConfig.m`, `tests/test_dynamic_topology_scenarios.m` | C28: separate X36-matched preset and preset/difficulty/candidate-pool regression coverage. | strong |
+| E40 | command | Three-seed X36-matched geometry audit recorded in the Verification Record | C28: exact blackout, visibility, handover, close-encounter, ownership and blockage values. | strong |
 
 Initial arithmetic check:
 
@@ -208,6 +233,27 @@ Checks performed:
 - ran the M24-hard seed-7 behavior trajectory through t=75 and reused its
   cached posterior to verify 28 selection-valid actions, 15.373% current-risk
   spread and 24.70 s teacher-scoring time.
+- fixed the sensor-risk aggregation path so mean-CVaR/CVaR operate on the
+  exposed per-node risks rather than reusing a scalar mean, then manually
+  recomputed the mean-CVaR objective in the deterministic regression test;
+- verified that a run resumed from a cached post-update local posterior
+  reproduces the corresponding full-run labels, means, covariances, active
+  topology and attempted bytes exactly from the continuation time onward;
+- ran the M24-hard seed-7 t=75 one-step aggregation screen, the t=75–80
+  five-arm screen, and a boundary-aware two-arm confirmation of the winning
+  mean-task-risk strategy;
+- added the previously missing pure-CVaR six-step arm; its realized metrics
+  match mean-CVaR and remain weaker than pure mean risk;
+- generated the 1417.08 s X36-hard static prefix and ran one- and three-step
+  six-arm conditional screens; pure mean risk is numerically best but remains
+  below 0.4% E-OSPA gain;
+- compared M24-hard and X36-hard configuration fields and found that the
+  original X36 stress preset changes both scale and sensing difficulty;
+- introduced X36-matched as a separate scale-only preset and checked its
+  geometry gates on seeds 7/17/27;
+- ran a one-step constraint-selection smoke where a local-only arm had lower
+  E-OSPA but zero attempted bytes; the constraint-aware decision correctly
+  excluded it and retained the communication-matched static arm.
 
 Falsification findings incorporated into the draft:
 
@@ -237,7 +283,9 @@ Unverified:
 - the best train-selected fixed D12 graph and its held-out performance;
 - whether a locally observable learned policy can imitate the privileged
   current-task-risk labels;
-- M24 closed-loop tracking gains and the complete M24/X36 runtime-memory curve;
+- M24 direction consistency beyond seed 7, full-episode behavior, and the
+  complete M24/X36 runtime-memory curve;
+- X36-matched filter health and closed-loop strategy performance;
 - whether the proposed effect-size gates are appropriately calibrated.
 
 ## Risk and Escalation
@@ -255,6 +303,7 @@ Repository, audited source baseline, and scenario checkpoint:
 audited source baseline: 282ca8180510315424dbb488ce7cfd80e624115f
 scenario checkpoint: 2c75193
 three-trial implementation checkpoint: b63fd2b
+M24 continuation-strategy checkpoint: e052774
 ```
 
 Core inspection commands:
@@ -267,6 +316,36 @@ nl -ba docs/EFFECTIVE_KLA_GRAPH_VALIDATION_STATUS_CN.md | sed -n '121,174p'
 nl -ba docs/DUAL_THRESHOLD_EVENT_TRIGGER_RESEARCH_CN.md | sed -n '235,253p'
 octave --quiet --eval "setPath; addpath('tests'); addpath(fullfile('RUN','GA')); test_dynamic_topology_screen_analysis"
 git diff --check
+```
+
+X36-matched three-seed geometry audit for E40:
+
+```bash
+octave --no-gui --quiet --eval "
+addpath(genpath(pwd));
+for seed=[7,17,27]
+  rng(seed);
+  c=buildDynamicTopologyScenarioConfig('x36-matched');
+  [s,~]=generateMultiFormationTrajectories(c);
+  [t,~]=generateCorridorTargetTrajectories(c);
+  g=buildDynamicTopologyGraphs(c,s);
+  v=validateDynamicTopologyScenario(c,s,t,g);
+  d=v.difficulty;
+  fprintf('%d %.4f %.4f %.4f %d %.4f %.4f %.4f\n', ...
+    seed,d.blackoutFraction,d.singleFormationFraction, ...
+    d.multiFormationFraction,d.focusHandovers, ...
+    d.focusCloseEncounterTimeFraction, ...
+    d.formationOwnershipEntropy, ...
+    d.blockageFocusOverlapFraction);
+end"
+```
+
+Representative output:
+
+```text
+7  0.0042 0.3187 0.6771 69 0.8372 0.9995 0.7326
+17 0.0036 0.3107 0.6857 69 0.8372 0.9996 0.7326
+27 0.0039 0.3128 0.6833 70 0.8372 0.9996 0.7326
 ```
 
 Independent E19 recomputation from the tracked CSV:
@@ -325,8 +404,13 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
    comparison before it can support a paper-level density claim.
 4. The implemented generator must repeat route, speed, acceleration and
    static-backbone checks after any trajectory change.
-5. Use cached sparse posterior snapshots for M24 label generation; a 75-step
-   behavior trajectory already costs 559.37 s on the current machine.
+5. Use cached sparse posterior snapshots for M24/X36 label generation; the
+   M24 75-step behavior trajectory already costs 559.37 s on the current
+   machine.
+6. Repeat the conditional M24 comparison on additional paired seeds and a
+   longer window before treating the 8.21% screen as an effect estimate.
+7. Complete the X36-matched filter-health gate before spending compute on
+   multi-arm closed-loop runs; retain X36-hard only as a stress negative.
 
 ## Recommendation
 
@@ -334,10 +418,16 @@ Retire the old consensus/truth-composite teacher and the redundant open-loop
 look-ahead labels. Keep pure current task risk as the privileged supervision
 candidate: it has a positive D12 closed-loop screening result against both
 posterior-discrepancy and an in-sample stronger fixed graph (C20/C21), and it
-retains substantial action separation at M24 scale (C22).
+retains substantial action separation and the best observed conditional
+closed-loop result at M24 scale (C22–C24). Mean-CVaR and CVaR add no observed
+benefit at the registered M24 checkpoint.
 
-The next stage is label-pipeline and imitation validation, not a paper-level
-GNN experiment. Select the strongest fixed D12 graph only on training seeds,
-train a policy using locally available inputs to imitate current-task-risk
-rankings, freeze it, and then run paired held-out D12 tests. M24 closed-loop
-evaluation is justified only after that frozen policy passes the D12 gate.
+The next research stage remains label-pipeline and imitation validation, not a
+paper-level GNN claim. X36-hard must not be used as the clean scale claim:
+its best observed gain is negligible and its sensing model is simultaneously
+harder (C25–C27). Complete the filter-health and frozen-strategy checks on
+X36-matched instead (C28), while retaining X36-hard as a stress negative.
+In parallel, select the
+strongest fixed graph only on training seeds, train a policy using locally
+available inputs to imitate current-task-risk rankings, freeze it, and then
+run paired held-out tests.

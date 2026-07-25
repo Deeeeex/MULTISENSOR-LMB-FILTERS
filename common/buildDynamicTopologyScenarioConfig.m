@@ -38,6 +38,8 @@ switch canonicalName
         config = configureX36(config, 'topology');
     case 'x36-joint'
         config = configureX36(config, 'joint');
+    case {'x36-matched', 'x36-scale-matched'}
+        config = configureX36(config, 'matched');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
     otherwise
@@ -343,7 +345,7 @@ for groupIdx = 1:6
     config.sensorCenterWaypoints{groupIdx} = ...
         [radii .* cos(theta); radii .* sin(theta)];
 end
-if any(strcmp(loadMode, {'joint', 'teacher'}))
+if any(strcmp(loadMode, {'joint', 'matched', 'teacher'}))
     config.targetGroupCount = 6;
 else
     config.targetGroupCount = 4;
@@ -376,7 +378,43 @@ config.forceDelivery = false;
 config.linkMode = 'distance';
 config.focusWindowName = 'central-overlap';
 config.focusWindow = [60, 110];
-if strcmp(loadMode, 'teacher')
+if strcmp(loadMode, 'matched')
+    % Scale-only counterpart to M24-hard. Preserve the M24 per-sensor
+    % sensing difficulty while increasing formation, sensor and target
+    % counts; keep x36-hard as a separate compounded stress test.
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = ...
+        1 + 6 * (0:config.targetGroupCount-1);
+    config.targetDeathTimesByGroup = ...
+        160 - 2 * (0:config.targetGroupCount-1);
+    config.targetCrossTrackSpacing = 44;
+    config.clutterRate = 4;
+    config.detectionProbability = 0.88;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.06;
+    config.fovRange = 300;
+    config.fovHalfAngleDeg = 75;
+    config.sensorFovHeadingMode = 'scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.edgeBudget = 44;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 60, 80; ...
+        3, 4, 86, 106; ...
+        5, 6, 112, 132];
+    config.focusWindowName = 'matched-scale-handover-and-blockage';
+    config.focusWindow = [50, 135];
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.02, ...
+        'minSingleFormationFraction', 0.25, ...
+        'minMultiFormationFraction', 0.60, ...
+        'minFocusHandovers', 50, ...
+        'minCrossGroupCloseEncounterFraction', 0.30, ...
+        'minFormationOwnershipEntropy', 0.90, ...
+        'minBlockageFocusOverlapFraction', 0.50);
+elseif strcmp(loadMode, 'teacher')
     config.targetsPerTargetGroup = 4;
     config.targetBirthTimesByGroup = ...
         1 + 6 * (0:config.targetGroupCount-1);
