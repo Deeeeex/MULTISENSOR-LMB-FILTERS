@@ -1,3 +1,5 @@
 *.mat
 *.log
 *.pid
+!cache/directed_teacher_m24_hard_seed7_t75.mat
+!models/directed_routing_knn_m24_t75.mat

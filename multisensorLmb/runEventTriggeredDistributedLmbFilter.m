@@ -112,6 +112,8 @@ for currentTime = continuationStartTime:simulationLength
         topologyDetails.algebraicConnectivity;
     diagnostics.topologyUndirectedEdgeCount(currentTime) = ...
         topologyDetails.undirectedEdgeCount;
+    diagnostics.topologyDirectedMessageCount(currentTime) = ...
+        topologyDetails.directedMessageCount;
     diagnostics.topologyFeasible(currentTime) = ...
         topologyDetails.feasible;
     diagnostics.topologyPolicyObjective(currentTime) = ...
@@ -414,6 +416,10 @@ config.dynamicTopologyEnabled = getField( ...
     config, 'dynamicTopologyEnabled', false);
 config.dynamicTopologyEdgeBudget = getField( ...
     config, 'dynamicTopologyEdgeBudget', []);
+config.topologyDirectedEnabled = getField( ...
+    config, 'topologyDirectedEnabled', false);
+config.topologyDirectedMessageBudget = getField( ...
+    config, 'topologyDirectedMessageBudget', []);
 config.topologyPolicyFcn = getField( ...
     config, 'topologyPolicyFcn', []);
 config.topologyPolicyName = getField( ...
@@ -749,6 +755,8 @@ function [currentNeighborMap, currentTopologyWeights, details] = ...
 details = struct( ...
     'algebraicConnectivity', computeAlgebraicConnectivity(baseNeighborMap), ...
     'undirectedEdgeCount', countUndirectedEdges(baseNeighborMap), ...
+    'directedMessageCount', nnz(buildDirectedEdgeMask( ...
+        baseNeighborMap, numel(baseNeighborMap))), ...
     'feasible', true, ...
     'policyObjective', NaN, ...
     'policyCandidateIndex', NaN, ...
@@ -771,6 +779,12 @@ if isempty(edgeBudget)
 end
 edgeBudget = min(max(round(edgeBudget), numberOfSensors - 1), ...
     numberOfSensors * (numberOfSensors - 1) / 2);
+directedMessageBudget = triggerConfig.topologyDirectedMessageBudget;
+if isempty(directedMessageBudget)
+    directedMessageBudget = 2 * edgeBudget;
+end
+directedMessageBudget = min(max(round(directedMessageBudget), 0), ...
+    numberOfSensors * (numberOfSensors - 1));
 
 positions = resolveSensorPositions(model, sensorTrajectories, currentTime);
 edgeScores = computeTopologyBenefitMatrix( ...
@@ -783,9 +797,15 @@ physicalAdjacency(1:numberOfSensors+1:end) = false;
 
 previousAdjacency = false(numberOfSensors);
 if nargin >= 9 && ~isempty(previousDirectedEdgeMask)
-    previousAdjacency = previousDirectedEdgeMask | previousDirectedEdgeMask';
+    if triggerConfig.topologyDirectedEnabled
+        previousAdjacency = previousDirectedEdgeMask';
+    else
+        previousAdjacency = ...
+            previousDirectedEdgeMask | previousDirectedEdgeMask';
+    end
     previousAdjacency(1:numberOfSensors+1:end) = false;
 end
+policyFusionWeights = [];
 if ~isempty(triggerConfig.topologyPolicyFcn)
     context = struct();
     context.localPosteriorBySensor = localPosteriorBySensor;
@@ -799,10 +819,15 @@ if ~isempty(triggerConfig.topologyPolicyFcn)
     context.physicalAdjacency = physicalAdjacency;
     context.edgeScores = rawEdgeScores;
     context.edgeBudget = edgeBudget;
+    context.directedMessageBudget = directedMessageBudget;
     context.positions = positions;
     [adjacency, policyDetails] = triggerConfig.topologyPolicyFcn(context);
     adjacency = validateExternalTopologySelection( ...
-        adjacency, physicalAdjacency, edgeBudget, numberOfSensors);
+        adjacency, physicalAdjacency, edgeBudget, ...
+        directedMessageBudget, numberOfSensors, ...
+        triggerConfig.topologyDirectedEnabled);
+    policyFusionWeights = getField( ...
+        policyDetails, 'fusionWeightMatrix', []);
     details.policyObjective = getField( ...
         policyDetails, 'objective', NaN);
     details.policyCandidateIndex = getField( ...
@@ -843,38 +868,54 @@ else
     end
 end
 minConnectivity = triggerConfig.topologyMinAlgebraicConnectivity;
-if minConnectivity < 0
-    minConnectivity = computeAlgebraicConnectivity(baseNeighborMap);
-end
-if minConnectivity > 0
-    adjacency = repairTopologyConnectivity( ...
-        adjacency, edgeScores, minConnectivity);
-end
-if triggerConfig.topologyFallbackToBaseOnConnectivityFailure
-    repairedConnectivity = computeAlgebraicConnectivity( ...
-        adjacencyToNeighborMap(adjacency));
-    if repairedConnectivity + 1e-9 < minConnectivity
-        baseIsPhysical = ~any(baseAdjacency(:) & ...
-            ~physicalAdjacency(:));
-        baseWithinBudget = countUndirectedEdgesFromAdjacency( ...
-            baseAdjacency) <= edgeBudget;
-        if baseIsPhysical && baseWithinBudget
-            adjacency = baseAdjacency;
+if ~triggerConfig.topologyDirectedEnabled
+    if minConnectivity < 0
+        minConnectivity = computeAlgebraicConnectivity(baseNeighborMap);
+    end
+    if minConnectivity > 0
+        adjacency = repairTopologyConnectivity( ...
+            adjacency, edgeScores, minConnectivity);
+    end
+    if triggerConfig.topologyFallbackToBaseOnConnectivityFailure
+        repairedConnectivity = computeAlgebraicConnectivity( ...
+            adjacencyToNeighborMap(adjacency));
+        if repairedConnectivity + 1e-9 < minConnectivity
+            baseIsPhysical = ~any(baseAdjacency(:) & ...
+                ~physicalAdjacency(:));
+            baseWithinBudget = countUndirectedEdgesFromAdjacency( ...
+                baseAdjacency) <= edgeBudget;
+            if baseIsPhysical && baseWithinBudget
+                adjacency = baseAdjacency;
+            end
         end
     end
 end
 currentNeighborMap = adjacencyToNeighborMap(adjacency);
-currentTopologyWeights = computeMetropolisWeightMatrix(currentNeighborMap);
+if isempty(policyFusionWeights)
+    currentTopologyWeights = ...
+        computeMetropolisWeightMatrix(currentNeighborMap);
+else
+    currentTopologyWeights = validateExternalFusionWeightMatrix( ...
+        policyFusionWeights, adjacency, numberOfSensors);
+end
 details.algebraicConnectivity = computeAlgebraicConnectivity(currentNeighborMap);
 details.undirectedEdgeCount = countUndirectedEdges(currentNeighborMap);
-details.feasible = ...
-    ~any(adjacency(:) & ~physicalAdjacency(:)) && ...
-    details.undirectedEdgeCount <= edgeBudget && ...
-    (numberOfSensors <= 1 || details.algebraicConnectivity > 1e-9);
+details.directedMessageCount = nnz(adjacency);
+if triggerConfig.topologyDirectedEnabled
+    details.feasible = ...
+        ~any(adjacency(:) & ~physicalAdjacency(:)) && ...
+        details.directedMessageCount <= directedMessageBudget;
+else
+    details.feasible = ...
+        ~any(adjacency(:) & ~physicalAdjacency(:)) && ...
+        details.undirectedEdgeCount <= edgeBudget && ...
+        (numberOfSensors <= 1 || details.algebraicConnectivity > 1e-9);
+end
 end
 
 function adjacency = validateExternalTopologySelection( ...
-    adjacency, physicalAdjacency, edgeBudget, numberOfSensors)
+    adjacency, physicalAdjacency, edgeBudget, directedMessageBudget, ...
+    numberOfSensors, allowDirected)
 if ~isequal(size(adjacency), [numberOfSensors, numberOfSensors])
     error('External topology policy must return an S-by-S adjacency.');
 end
@@ -882,13 +923,40 @@ if any(~isfinite(adjacency(:)))
     error('External topology policy returned a non-finite adjacency.');
 end
 adjacency = logical(adjacency);
-adjacency = adjacency | adjacency';
+if ~allowDirected
+    adjacency = adjacency | adjacency';
+end
 adjacency(1:numberOfSensors+1:end) = false;
 if any(adjacency(:) & ~physicalAdjacency(:))
     error('External topology policy selected a non-physical edge.');
 end
-if countUndirectedEdgesFromAdjacency(adjacency) > edgeBudget
+if allowDirected && nnz(adjacency) > directedMessageBudget
+    error('External topology policy exceeded the directed-message budget.');
+elseif ~allowDirected && ...
+        countUndirectedEdgesFromAdjacency(adjacency) > edgeBudget
     error('External topology policy exceeded the edge budget.');
+end
+end
+
+function weights = validateExternalFusionWeightMatrix( ...
+    weights, adjacency, numberOfSensors)
+if ~isequal(size(weights), [numberOfSensors, numberOfSensors])
+    error('External topology fusion weights must be S-by-S.');
+end
+if any(~isfinite(weights(:))) || any(weights(:) < 0)
+    error('External topology fusion weights must be finite and nonnegative.');
+end
+allowed = adjacency | eye(numberOfSensors);
+if any(weights(~allowed) > 1e-12)
+    error('External topology fusion weights use an inactive directed edge.');
+end
+for receiverIdx = 1:numberOfSensors
+    rowSum = sum(weights(receiverIdx, :));
+    if rowSum <= eps
+        weights(receiverIdx, receiverIdx) = 1;
+    else
+        weights(receiverIdx, :) = weights(receiverIdx, :) / rowSum;
+    end
 end
 end
 
@@ -2759,6 +2827,7 @@ diagnostics.newEdgeHandshake = false(shape);
 diagnostics.newEdgeNoHandshake = false(shape);
 diagnostics.topologyAlgebraicConnectivity = zeros(1, simulationLength);
 diagnostics.topologyUndirectedEdgeCount = zeros(1, simulationLength);
+diagnostics.topologyDirectedMessageCount = zeros(1, simulationLength);
 diagnostics.topologyFeasible = true(1, simulationLength);
 diagnostics.topologyPolicyObjective = nan(1, simulationLength);
 diagnostics.topologyPolicyCandidateIndex = nan(1, simulationLength);

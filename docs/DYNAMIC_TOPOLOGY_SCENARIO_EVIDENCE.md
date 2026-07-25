@@ -33,6 +33,10 @@ Included:
 - an X36-hard behavior/signal audit, one- and three-step six-arm conditional
   screens, the aggregate-observability-matched X36 diagnostic, and the
   geometry-gated X36-clean-scale behavior, one-step and three-step screens.
+- a directed, receiver-specific KLA routing path with custom fusion weights,
+  a truth-dependent diagnostic teacher, deployment-observable edge features,
+  a receiver-held-out kNN policy, and paired one-step M24/X36 checkpoint
+  screens against both static communication and local-only estimation.
 
 Excluded:
 
@@ -42,21 +46,23 @@ Excluded:
   runtime-memory scaling curve;
 - multi-seed or full-episode X36-clean-scale validation;
 - an exact arbitrary-GM density-power implementation;
-- learned models or claims of performance improvement;
+- seed- and time-held-out training of the learned routing model;
+- multi-step or full-episode validation of directed routing;
 - a comprehensive systematic review of every distributed LMB paper.
 
 ## Risk Tier
 
-**L3.** The old one-step teacher has a confirmed stop finding. The current
-task-risk teacher has positive single-seed D12 evidence and a conditional
-single-seed M24 closed-loop result. X36-hard fails the registered practical
-effect gate and also confounds scale with a harder sensing model.
-X36-clean-scale passes filter health but every evaluated arm still fails the
-5% practical-effect gate; its mean teacher also worsens worst-node tracking.
-There is no held-out learned policy,
-full-episode comparison, or multi-seed effect estimate. The current evidence
-authorizes strategy and label-pipeline development, not GNN performance claims
-or a paper claim of dynamic-topology superiority.
+**L3.** The old undirected one-step teacher has a confirmed stop finding, and
+repeating symmetric KLA makes the M24 checkpoint worse. A new receiver-specific
+directed-routing action space produces a large privileged-teacher gap on both
+M24 and X36. Its deployment-observable kNN policy passes the one-step mean
+tracking and communication screen on M24 and transfers without X36 labels to
+an 11.12% gain over static and 6.41% over local at the X36 checkpoint.
+However, M24 is the training checkpoint, X36 is only a single-seed/single-time
+zero-shot screen, and M24 has a 0.22% strict worst-node caveat versus static.
+There is no multi-step, seed-held-out, full-episode, or independent validation.
+The current evidence authorizes continued directed-routing validation and a
+later GNN replacement study, not a paper claim of scalable superiority.
 
 ## Claims
 
@@ -95,6 +101,12 @@ or a paper claim of dynamic-topology superiority.
 | C31 | X36-clean-scale passes the seed-7 t=75 filter-health gate after a 1646.43 s prefix: E-OSPA is 46.8048/150 and cardinality error is 2.4444/24 (normalized 0.312/0.102). Its 33 valid actions have 11.237% task-risk spread and 1.595% surrogate gain over static. | High | E44 | This establishes a healthy, action-sensitive posterior checkpoint, not realized policy gain. |
 | C32 | In the X36-clean-scale one-step screen, reliability, mean-CVaR and CVaR tie at E-OSPA 46.3778 versus 46.8048 static (0.912%); mean is 46.3788 and discrepancy is worse. Over t=75–77, mean is numerically best at 45.9258 versus 46.3716 (0.961%, 0.292% byte mismatch, zero infeasibility), but worsens the worst node from 63.8858 to 68.4314 and does not improve MAP-set disagreement. Reliability/mean-CVaR/CVaR are tail-safer but improve mean E-OSPA by only 0.241%. | High | E45, E46 | No tested X36-clean-scale arm satisfies both the 5% tracking-primary gate and tail safety. Mean is only the finite-pool numerical winner, not a validated scalable strategy. |
 | C33 | Continuation caches now include the complete scenario and resolved fusion configurations, and reject same-name/same-time snapshots after either configuration drifts. | High | E47 | Existing local caches were migrated for this worktree; unversioned caches produced by older commits must be regenerated or migrated. |
+| C34 | At the M24 seed-7 t=75 checkpoint, relaxing topology churn does not change the old teacher's approximately 2.35% surrogate gain, while repeating symmetric KLA for two and three rounds worsens task risk by 14.37% and 28.01% relative to one-round static fusion. | High | E48 | This diagnoses one checkpoint and the current KLA approximation; it does not prove that every multi-round consensus schedule is harmful. |
+| C35 | A privileged receiver-specific directed teacher exposes a large action-space gap: realized one-step E-OSPA improves by 39.49% over static and 37.12% over local on M24, and by 36.38% over static and 33.01% over local on X36-clean-scale, while using fewer attempted payload bytes. | High | E48 | The teacher reads truth and is only an architecture diagnostic, not a deployable method or global upper bound. |
+| C36 | The first deployable policy uses 21 truth-free posterior/geometry/link features. Receiver-held-out four-fold selection chooses k=40 and a 0.70 positive-neighbour confidence gate, with 15.21% mean selected gain and no negative selected receiver in this M24 checkpoint dataset. | High | E49, E50 | Receiver-held-out folds are not seed-, time-, or scenario-held-out; the model is fitted on M24 seed 7 at t=75. |
+| C37 | On the M24 training checkpoint, the learned directed policy lowers E-OSPA from 25.5087 static and 24.5451 local to 15.4348, lowers MAP-set disagreement to 20.8647, and uses 41.27% of static attempted bytes with zero infeasibility. | High | E51 | This is an in-sample single-step result. Worst-node E-OSPA is 0.22% worse than static, although 0.40% better than local. |
+| C38 | Without X36 labels or truth at inference, the same M24 model lowers X36-clean-scale E-OSPA from 46.8048 static and 44.4497 local to 41.6002, improves worst-node E-OSPA by 10.04% versus static without worsening local, and uses 20.83% of static attempted bytes with zero infeasibility. | High | E52 | This is a zero-shot cross-scale result but only one seed, one time step and a conditional shared checkpoint. |
+| C39 | The directed online path preserves receiver×sender orientation, enforces physical and directed-message budgets, validates nonnegative row-normalized receiver-specific KLA weights, and its deployment feature extractor is invariant to changes in stored target truth. | High | E49, E53 | Connectivity is intentionally not required for each instantaneous directed routing graph; local fallback is an admissible action. |
 
 ## Evidence Ledger
 
@@ -147,6 +159,12 @@ or a paper claim of dynamic-topology superiority.
 | E45 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_005230.md` | C32: constraint-matched six-arm one-step comparison and practical-effect stop. | strong |
 | E46 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_013455.md` | C32: constraint-matched six-arm t=75–77 comparison, numerical winner, tail failure and practical-effect stop. | strong |
 | E47 | code/test | `RUN/GA/runDynamicTopologyTeacherSignalScreen.m`, `RUN/GA/runDynamicTopologyOracleGapScreen.m`, `tests/test_dynamic_topology_scenarios.m` | C33: stores/validates scenario and fusion snapshots and deterministically rejects caches after changing either measurement noise or mixture component count. | strong |
+| E48 | diagnostic/code | `docs/DIRECTED_TASK_ROUTING_KEY_FINDING_CN.md`, `common/fuseLmbNetworkByTopologySchedule.m`, `common/selectDirectedTaskRoutingTeacher.m` | C34/C35: repeated-symmetric-fusion falsification and receiver-specific privileged action-space results at the shared M24/X36 checkpoints. | medium |
+| E49 | code | `common/computeDirectedRoutingFeatures.m`, `common/fitDirectedRoutingKnnModel.m`, `common/selectFeatureDirectedRoutingPolicy.m`, `RUN/GA/trainDirectedRoutingPolicy.m` | C36/C39: truth-free deployable feature contract, receiver-held-out model selection, inference routing and reproducible artifact generation. | strong |
+| E50 | model/data report | `RUN/GA/dynamic_topology/DIRECTED_ROUTING_MODEL_M24_T75.md`, `RUN/GA/dynamic_topology/cache/directed_teacher_m24_hard_seed7_t75.mat`, `RUN/GA/dynamic_topology/models/directed_routing_knn_m24_t75.mat` | C36: 552 edge examples, selected k/confidence gate and receiver-held-out metrics; the tracked model embeds its standardized training examples and labels. | strong |
+| E51 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_031637.md` | C37: paired local/static/learned M24 one-step metrics, directed routes, attempted bytes, strict tail readout and infeasibility. | strong |
+| E52 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_032238.md` | C38: zero-shot M24-model transfer to X36 with paired local/static metrics, tail safety, communication ratio and infeasibility. | strong |
+| E53 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C39: exact sender→receiver accounting, custom fusion weights, directed budget feasibility, truth-invariant features and model-artifact checks. | strong |
 
 Initial arithmetic check:
 
@@ -282,6 +300,23 @@ Checks performed:
 - ran a one-step constraint-selection smoke where a local-only arm had lower
   E-OSPA but zero attempted bytes; the constraint-aware decision correctly
   excluded it and retained the communication-matched static arm.
+- verified at M24 t=75 that removing the churn restriction leaves the old
+  teacher action/gain unchanged, while two and three synchronous symmetric
+  KLA rounds worsen the task-risk diagnostic;
+- integrated directed receiver×sender topology selection and receiver-specific
+  fusion weights into the online filter, including physical-edge, message
+  budget, inactive-weight and nonnegative row-normalization checks;
+- generated the M24 directed-teacher dataset, refit the tracked kNN artifact,
+  and reproduced the receiver-held-out choice `k=40`, gain threshold `0`,
+  positive-neighbour confidence `0.70`, mean selected gain `15.2095%`, and
+  zero negative selected receivers;
+- extended `test_dynamic_topology_scenarios` with exact one-way sender→receiver
+  accounting, custom KLA-weight, truth-invariant feature and model-artifact
+  checks; the complete test passed;
+- reran paired local/static/learned one-step continuations from the common
+  M24 and X36 t=75 caches. The final reports are E51/E52 and independently
+  expose the directed Pareto readout instead of excluding sparse arms through
+  the old equal-edge gate.
 
 Falsification findings incorporated into the draft:
 
@@ -304,22 +339,36 @@ Falsification findings incorporated into the draft:
 - a dominated diagnostic reference cannot produce a meaningful
   static-to-oracle gain-capture ratio; the analyzer now reports this as a
   teacher/reference failure instead of analytic sufficiency.
+- more symmetric KLA rounds are not a substitute for better routing at the
+  audited M24 checkpoint; repeated full-graph fusion progressively dilutes
+  useful local posteriors;
+- an equal-undirected-edge gate is inappropriate for a sparse directed Pareto
+  arm. The revised report keeps that old gate for like-for-like undirected
+  comparisons and separately requires directed routing to beat both static
+  and local without exceeding static attempted bytes.
 
 Unverified:
 
 - D12 current-task-teacher direction consistency beyond seed 7;
 - the best train-selected fixed D12 graph and its held-out performance;
-- whether a locally observable learned policy can imitate the privileged
-  current-task-risk labels;
-- M24 direction consistency beyond seed 7, full-episode behavior, and the
-  complete M24/X36 runtime-memory curve;
-- X36-clean-scale direction consistency beyond seed 7 and any full-episode
-  or multi-seed effect estimate;
+- whether the directed learned policy remains beneficial over multiple
+  feedback steps after t=75;
+- M24 seed/time-held-out direction consistency, full-episode behavior, and
+  the complete M24/X36 runtime-memory curve;
+- X36-clean-scale direction consistency beyond seed 7 and any full-episode,
+  multi-seed, or X36-label-trained comparison;
+- whether a GNN improves held-out routing over the inspectable kNN baseline;
 - whether the proposed effect-size gates are appropriately calibrated.
 
 ## Risk and Escalation
 
-If the scenario is biased or computationally infeasible, subsequent GNN results could be publishable-looking but scientifically uninformative, and long Monte Carlo runs could be wasted. Before a paper claim or another long sweep, author review should confirm the scale ladder, communication radius, target count, and Gate B/C thresholds. A domain review is also required when the mixture-aware LMB-KLA reference is specified.
+If the scenario is biased or the single-checkpoint effect does not survive
+closed-loop feedback, subsequent GNN results could be publishable-looking but
+scientifically uninformative, and long Monte Carlo runs could be wasted.
+Before a paper claim or a long sweep, author review should confirm the scale
+ladder, communication radius, target count, directed-message budget, tail
+safety rule and Gate B/C thresholds. A domain review is also required when the
+mixture-aware LMB-KLA reference is specified.
 
 This package is self-check only and does not authorize a paper-facing claim
 without that review.
@@ -348,6 +397,36 @@ nl -ba docs/DUAL_THRESHOLD_EVENT_TRIGGER_RESEARCH_CN.md | sed -n '235,253p'
 octave --quiet --eval "setPath; addpath('tests'); addpath(fullfile('RUN','GA')); test_dynamic_topology_screen_analysis"
 octave --no-gui --quiet --eval "addpath(genpath(pwd)); test_dynamic_topology_scenarios; test_dynamic_topology_screen_analysis; test_dual_threshold_event_trigger;"
 git diff --check
+```
+
+Directed-routing model and final one-step checkpoint screens for E49–E52:
+
+```bash
+octave --quiet --eval "
+addpath(genpath(pwd));
+trainDirectedRoutingPolicy(struct('regenerateDataset',false));"
+
+octave --quiet --eval "
+addpath(genpath(pwd));
+o=struct( ...
+  'maxTimeSteps',75, ...
+  'continuationStartTime',75, ...
+  'armNames',{{'local','robust-static', ...
+    'learned-directed-routing'}});
+runDynamicTopologyOracleGapScreen('m24-hard',7,o);
+runDynamicTopologyOracleGapScreen('x36-clean-scale',7,o);"
+```
+
+Representative output:
+
+```text
+test_dynamic_topology_scenarios passed
+M24: status=directed-routing-screening-gain-tail-caveat
+      E=15.434821 gain_static=39.492% gain_local=37.117%
+      bytes_ratio=41.266% worst_static=-0.220% routes=24
+X36: status=directed-routing-screening-gain
+      E=41.600155 gain_static=11.120% gain_local=6.411%
+      bytes_ratio=20.834% worst_static=10.037% routes=18
 ```
 
 X36-clean-scale behavior checkpoint and six-arm conditional screen for
