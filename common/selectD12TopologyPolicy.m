@@ -22,6 +22,9 @@ consensusTerms = nan(1, candidateCount);
 truthTerms = nan(1, candidateCount);
 switchTerms = nan(1, candidateCount);
 byteMismatchTerms = nan(1, candidateCount);
+fusionCache = initializeFusionCache(size(candidates, 1));
+fusionCacheEnabled = getField( ...
+    context.triggerConfig, 'topologyOracleFusionCacheEnabled', true);
 nodePayloadBytes = estimateNodePayloadBytes( ...
     context.localPosteriorBySensor, context.model);
 referenceBytes = topologyAttemptedBytes( ...
@@ -68,8 +71,9 @@ for candidateIdx = 1:candidateCount
                 -taskValue - 0.05 * connectivityValue + ...
                 0.02 * switchCost;
         case {'oracle-consensus', 'oracle-truth'}
-            [consensusValue, truthValue] = evaluateFusionCandidate( ...
-                candidate, context);
+            [consensusValue, truthValue, fusionCache] = ...
+                evaluateFusionCandidate( ...
+                    candidate, context, fusionCache, fusionCacheEnabled);
             consensusTerms(candidateIdx) = consensusValue;
             truthTerms(candidateIdx) = truthValue;
             truthWeight = 0;
@@ -151,8 +155,14 @@ for edgeCursor = 1:numel(edges)
 end
 end
 
-function [consensusValue, truthValue] = evaluateFusionCandidate( ...
-    adjacency, context)
+function cache = initializeFusionCache(sensorCount)
+cache = repmat(struct( ...
+    'keys', {{}}, ...
+    'values', {{}}), 1, sensorCount);
+end
+
+function [consensusValue, truthValue, cache] = evaluateFusionCandidate( ...
+    adjacency, context, cache, cacheEnabled)
 sensorCount = size(adjacency, 1);
 weights = metropolisWeights(adjacency);
 fused = cell(1, sensorCount);
@@ -161,12 +171,30 @@ for receiverIdx = 1:sensorCount
     sources = [receiverIdx, neighbors];
     localWeights = weights(receiverIdx, sources);
     localWeights = localWeights / max(sum(localWeights), eps);
+    % Metropolis weights depend on the neighbours' global degrees, so the
+    % cache key must include both the local neighbourhood and its weights.
+    cacheKey = [sprintf('%d_', neighbors), '|', ...
+        sprintf('%.17g_', localWeights)];
+    cachedIdx = [];
+    if cacheEnabled
+        cachedIdx = find(strcmp( ...
+            cache(receiverIdx).keys, cacheKey), 1);
+    end
+    if ~isempty(cachedIdx)
+        fused{receiverIdx} = ...
+            cache(receiverIdx).values{cachedIdx};
+        continue;
+    end
     fusionInputs = context.localPosteriorBySensor(sources);
     fusionDetails = struct( ...
         'eventType', [0, 2 * ones(1, numel(neighbors))]);
     fused{receiverIdx} = fuseLmbPosteriorsByLabel( ...
         fusionInputs, localWeights, context.model, localWeights, ...
         fusionDetails, context.triggerConfig);
+    if cacheEnabled
+        cache(receiverIdx).keys{end+1} = cacheKey;
+        cache(receiverIdx).values{end+1} = fused{receiverIdx};
+    end
 end
 
 pairValues = [];

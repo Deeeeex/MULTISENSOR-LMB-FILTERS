@@ -167,6 +167,16 @@ assert(diagnostics.topologyUndirectedEdgeCount(1) == ...
     inputs.config.edgeBudget);
 assert(isfinite(diagnostics.topologyPolicyCandidateIndex(1)));
 assert(isfinite(diagnostics.topologyPolicyObjective(1)));
+
+uncachedConfig = config;
+uncachedConfig.topologyOracleFusionCacheEnabled = false;
+[~, uncachedDiagnostics] = runEventTriggeredDistributedLmbFilter( ...
+    inputs.model, inputs.measurements, inputs.sensorTrajectories, ...
+    inputs.neighborMap, inputs.commConfig, uncachedConfig);
+assert(uncachedDiagnostics.topologyPolicyCandidateIndex(1) == ...
+    diagnostics.topologyPolicyCandidateIndex(1));
+assert(abs(uncachedDiagnostics.topologyPolicyObjective(1) - ...
+    diagnostics.topologyPolicyObjective(1)) < 1e-10);
 end
 
 function object = makeObject(model, birthTime, birthLocation, r, mu, Sigma)
