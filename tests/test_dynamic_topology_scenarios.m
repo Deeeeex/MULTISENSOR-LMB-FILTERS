@@ -4,6 +4,9 @@ function test_dynamic_topology_scenarios()
 testScenarioPresets();
 testTeacherSceneDifficultyGates();
 testExplicitSensorHeadingGate();
+testScalableTopologyCandidatePools();
+testTopologyTaskRiskOrdering();
+testTeacherLabelExcludesSwitchPenalty();
 testScheduledBirths();
 testTimeVaryingDropAccounting();
 testInfeasiblePhysicalGraphFailsClosed();
@@ -109,6 +112,192 @@ model.sensorFovHeadingRad = pi / 2;
 [rotatedPd, ~, rotatedInfo] = evaluateSensorQuality( ...
     model, 1, [0; 50; 0; 0], 1);
 assert(rotatedPd > 0 && rotatedInfo.inFov);
+end
+
+function testScalableTopologyCandidatePools()
+names = {'m24-hard', 'x36-hard'};
+for presetIdx = 1:numel(names)
+    rng(23);
+    config = buildDynamicTopologyScenarioConfig(names{presetIdx});
+    [sensors, ~] = generateMultiFormationTrajectories(config);
+    graphs = buildDynamicTopologyGraphs(config, sensors);
+    context = makeCandidatePoolContext(config, sensors, graphs);
+    [candidates, metadata] = ...
+        buildDynamicTopologyCandidatePool(context);
+    assert(strcmp(metadata.source, 'projected-general'));
+    assert(size(candidates, 3) >= 5);
+    sameGroup = bsxfun(@eq, ...
+        config.sensorGroupIds(:), config.sensorGroupIds(:)');
+    for candidateIdx = 1:size(candidates, 3)
+        candidate = candidates(:, :, candidateIdx);
+        assert(nnz(triu(candidate, 1)) == config.edgeBudget);
+        assert(max(sum(candidate, 2)) <= config.maxNodeDegree);
+        assert(max(sum(candidate & ~sameGroup, 2)) <= ...
+            config.maxInterFormationDegree);
+        assert(isConnectedTest(candidate));
+    end
+    context.previousAdjacency = graphs.staticAdjacency;
+    [localCandidates, ~] = ...
+        buildDynamicTopologyCandidatePool(context);
+    removable = zeros(1, size(localCandidates, 3));
+    for candidateIdx = 1:size(localCandidates, 3)
+        removable(candidateIdx) = nnz(triu( ...
+            context.previousAdjacency & ...
+            ~localCandidates(:, :, candidateIdx), 1));
+    end
+    assert(sum(removable <= ...
+        config.maxEdgeReplacementsPerStep) >= 5);
+    for policyMode = {'reliability', 'discrepancy'}
+        [policyAdjacency, policyDetails] = ...
+            selectProjectedTopologyPolicy( ...
+                context, policyMode{1});
+        assert(policyDetails.validCandidateCount >= 1);
+        assert(nnz(triu(policyAdjacency, 1)) == ...
+            config.edgeBudget);
+        assert(isConnectedTest(policyAdjacency));
+    end
+end
+end
+
+function testTopologyTaskRiskOrdering()
+model = generateMultisensorModel( ...
+    1, 0, 0.9, 3, 'GA', 'LBP');
+model.birthTimeByLocation = 1;
+model.dynamicTopologyScenario = struct( ...
+    'config', struct( ...
+        'targetSpeedLimit', 15, ...
+        'ospaPositionCutoff', 100), ...
+    'targetTrajectories', {{[zeros(4, 1), zeros(4, 1)]}});
+good = makeObject(model, 1, 1, 0.95, ...
+    [1; 0; 0; 0], eye(4));
+poor = makeObject(model, 1, 1, 0.45, ...
+    [80; 60; 8; -8], 100 * eye(4));
+goodRisk = evaluateLmbTopologyTaskRisk( ...
+    good, model, 1, struct('horizonSteps', 0));
+poorRisk = evaluateLmbTopologyTaskRisk( ...
+    poor, model, 1, struct('horizonSteps', 0));
+assert(goodRisk < poorRisk);
+meanRisk = evaluateLmbTopologyTaskRisk( ...
+    {good, poor}, model, 1, struct( ...
+        'horizonSteps', 0, ...
+        'sensorAggregationMode', 'mean'));
+riskSensitive = evaluateLmbTopologyTaskRisk( ...
+    {good, poor}, model, 1, struct( ...
+        'horizonSteps', 0, ...
+        'sensorAggregationMode', 'mean-cvar', ...
+        'sensorCvarFraction', 0.5, ...
+        'sensorCvarWeight', 0.5));
+assert(riskSensitive > meanRisk);
+end
+
+function testTeacherLabelExcludesSwitchPenalty()
+inputs = generateDynamicTopologyScenarioInputs('d12-hard', 19);
+timeIdx = 50;
+sensorCount = inputs.config.numberOfSensors;
+truth = inputs.targetTrajectories{1}(:, timeIdx);
+posteriors = cell(1, sensorCount);
+for sensorIdx = 1:sensorCount
+    shift = [0; 0; 0; 0];
+    if mod(sensorIdx, 3) == 0
+        shift = [90; -50; 4; -2];
+    end
+    posteriors{sensorIdx} = makeObject( ...
+        inputs.model, ...
+        inputs.model.birthTimeByLocation(1), 1, ...
+        0.85 - 0.1 * mod(sensorIdx, 2), ...
+        truth + shift, (4 + sensorIdx) * eye(4));
+end
+context = struct();
+context.localPosteriorBySensor = posteriors;
+context.model = inputs.model;
+context.commConfig = inputs.commConfig;
+context.currentTime = timeIdx;
+context.previousAdjacency = inputs.graphData.staticAdjacency;
+context.baseAdjacency = inputs.graphData.staticAdjacency;
+context.physicalAdjacency = ...
+    inputs.graphData.physicalAdjacency(:, :, timeIdx);
+context.edgeScores = double(context.physicalAdjacency);
+context.edgeBudget = inputs.config.edgeBudget;
+context.positions = zeros(2, sensorCount);
+for sensorIdx = 1:sensorCount
+    context.positions(:, sensorIdx) = ...
+        inputs.sensorTrajectories{sensorIdx}(1:2, timeIdx);
+end
+
+zeroPenalty = buildMixtureAwareKlaReferenceConfig(struct( ...
+    'topologyTeacherSwitchPenaltyWeight', 0));
+context.triggerConfig = zeroPenalty;
+[~, zeroDetails] = ...
+    selectCounterfactualTopologyTeacher(context, 'current');
+highPenalty = zeroPenalty;
+highPenalty.topologyTeacherSwitchPenaltyWeight = 10;
+context.triggerConfig = highPenalty;
+[~, highDetails] = ...
+    selectCounterfactualTopologyTeacher(context, 'current');
+finite = isfinite(zeroDetails.candidateTaskRisks) & ...
+    isfinite(highDetails.candidateTaskRisks);
+assert(any(finite));
+assert(max(abs( ...
+    zeroDetails.candidateTaskRisks(finite) - ...
+    highDetails.candidateTaskRisks(finite))) < 1e-12);
+assert(~zeroDetails.labelIncludesSwitchPenalty);
+assert(~highDetails.labelIncludesSwitchPenalty);
+assert(zeroDetails.taskRiskSpread > 0);
+
+registered = inputs.graphData.candidateAdjacency;
+removedFromBase = zeros(1, size(registered, 3));
+for candidateIdx = 1:size(registered, 3)
+    removedFromBase(candidateIdx) = nnz(triu( ...
+        inputs.graphData.staticAdjacency & ...
+        ~registered(:, :, candidateIdx), 1));
+end
+[maximumRemoved, farCandidateIdx] = max(removedFromBase);
+assert(maximumRemoved > ...
+    inputs.config.maxEdgeReplacementsPerStep);
+context.previousAdjacency = registered(:, :, farCandidateIdx);
+context.triggerConfig = zeroPenalty;
+[~, farDetails] = ...
+    selectCounterfactualTopologyTeacher(context, 'current');
+assert(isfinite(farDetails.baselineTaskRisk));
+assert(~farDetails.selectionValidCandidates( ...
+    farDetails.baselineCandidateIndex));
+allCandidateConfig = zeroPenalty;
+allCandidateConfig.topologyTeacherEvaluateAllCandidates = true;
+context.triggerConfig = allCandidateConfig;
+[~, allCandidateDetails] = ...
+    selectCounterfactualTopologyTeacher(context, 'current');
+assert(allCandidateDetails.candidateIndex == ...
+    farDetails.candidateIndex);
+evaluatedByDefault = isfinite(farDetails.candidateTaskRisks);
+assert(max(abs( ...
+    farDetails.candidateTaskRisks(evaluatedByDefault) - ...
+    allCandidateDetails.candidateTaskRisks(evaluatedByDefault))) < 1e-12);
+assert(sum(isfinite(allCandidateDetails.candidateTaskRisks)) > ...
+    sum(evaluatedByDefault));
+
+context.previousAdjacency = inputs.graphData.staticAdjacency;
+zeroPenalty.topologyTeacherClosedLoopHorizonSteps = 1;
+context.triggerConfig = zeroPenalty;
+rolloutData = struct( ...
+    'measurements', {inputs.measurements}, ...
+    'continuationAdjacency', inputs.graphData.staticAdjacency);
+[~, zeroClosedDetails] = ...
+    selectClosedLoopCounterfactualTopologyTeacher( ...
+        context, rolloutData);
+highPenalty = zeroPenalty;
+highPenalty.topologyTeacherSwitchPenaltyWeight = 10;
+context.triggerConfig = highPenalty;
+[~, highClosedDetails] = ...
+    selectClosedLoopCounterfactualTopologyTeacher( ...
+        context, rolloutData);
+finiteClosed = isfinite(zeroClosedDetails.candidateTaskRisks) & ...
+    isfinite(highClosedDetails.candidateTaskRisks);
+assert(any(finiteClosed));
+assert(max(abs( ...
+    zeroClosedDetails.candidateTaskRisks(finiteClosed) - ...
+    highClosedDetails.candidateTaskRisks(finiteClosed))) < 1e-12);
+assert(zeroClosedDetails.usesFutureMeasurements);
+assert(~zeroClosedDetails.labelIncludesSwitchPenalty);
 end
 
 function testScheduledBirths()
@@ -275,4 +464,45 @@ for componentIdx = 1:object.numberOfGmComponents
     covariance = covariance + weights(componentIdx) * ...
         (object.Sigma{componentIdx} + delta * delta');
 end
+end
+
+function context = makeCandidatePoolContext(config, sensors, graphs)
+sensorCount = config.numberOfSensors;
+scenario = struct( ...
+    'config', config, ...
+    'candidateAdjacency', graphs.candidateAdjacency);
+context = struct();
+context.model = struct( ...
+    'dynamicTopologyScenario', scenario, ...
+    'xDimension', 4);
+context.physicalAdjacency = graphs.physicalAdjacency(:, :, 1);
+context.baseAdjacency = graphs.staticAdjacency;
+context.previousAdjacency = false(sensorCount);
+context.edgeBudget = config.edgeBudget;
+context.edgeScores = double(context.physicalAdjacency);
+context.positions = zeros(2, sensorCount);
+for sensorIdx = 1:sensorCount
+    context.positions(:, sensorIdx) = ...
+        sensors{sensorIdx}(1:2, 1);
+end
+context.localPosteriorBySensor = ...
+    repmat({struct([])}, 1, sensorCount);
+context.commConfig = struct( ...
+    'pDropByEdge', zeros(sensorCount));
+context.currentTime = 1;
+end
+
+function connected = isConnectedTest(adjacency)
+nodeCount = size(adjacency, 1);
+visited = false(1, nodeCount);
+queue = 1;
+visited(1) = true;
+while ~isempty(queue)
+    node = queue(1);
+    queue(1) = [];
+    neighbors = find(adjacency(node, :) & ~visited);
+    visited(neighbors) = true;
+    queue = [queue, neighbors]; %#ok<AGROW>
+end
+connected = all(visited);
 end

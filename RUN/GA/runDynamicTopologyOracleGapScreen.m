@@ -108,6 +108,16 @@ end
 arms = repmat(struct('name', '', 'mode', ''), 1, numel(names));
 for armIdx = 1:numel(names)
     mode = lower(strrep(char(names{armIdx}), '_', '-'));
+    fixedToken = regexp(mode, ...
+        '^fixed-candidate-([0-9]+)$', 'tokens', 'once');
+    if ~isempty(fixedToken)
+        displayName = sprintf( ...
+            'Registered fixed candidate %d', ...
+            str2double(fixedToken{1}));
+        arms(armIdx) = struct( ...
+            'name', displayName, 'mode', mode);
+        continue;
+    end
     switch mode
         case 'local'
             displayName = 'Local only';
@@ -121,6 +131,10 @@ for armIdx = 1:numel(names)
             displayName = 'Exact one-step consensus oracle';
         case 'oracle-truth'
             displayName = 'Exact one-step truth diagnostic oracle';
+        case 'teacher-current'
+            displayName = 'Pure current task-risk teacher';
+        case 'teacher-predictive'
+            displayName = 'Open-loop predictive task-risk teacher';
         otherwise
             error('Unknown topology screen arm: %s', names{armIdx});
     end
@@ -133,19 +147,54 @@ config = buildMixtureAwareKlaReferenceConfig(overrides);
 config.dynamicTopologyEnabled = false;
 config.dynamicTopologyEdgeBudget = scenarioConfig.edgeBudget;
 config.topologyMaxEdgeChangeFraction = inf;
+fixedToken = regexp(arm.mode, ...
+    '^fixed-candidate-([0-9]+)$', 'tokens', 'once');
+if ~isempty(fixedToken)
+    fixedCandidateIndex = str2double(fixedToken{1});
+    config.eventPolicy = 'alwaysHeavy';
+    config.dynamicTopologyEnabled = true;
+    config.topologyPolicyName = arm.mode;
+    config.topologyPolicyFcn = ...
+        @(context) selectRegisteredFixedTopology( ...
+            context, fixedCandidateIndex);
+    return;
+end
 switch arm.mode
     case 'local'
         config.eventPolicy = 'none';
     case 'robust-static'
         config.eventPolicy = 'alwaysHeavy';
-    case {'reliability', 'discrepancy', ...
-            'oracle-consensus', 'oracle-truth'}
+    case {'reliability', 'discrepancy'}
+        config.eventPolicy = 'alwaysHeavy';
+        config.dynamicTopologyEnabled = true;
+        config.topologyPolicyName = arm.mode;
+        mode = arm.mode;
+        if strcmpi(scenarioConfig.topologyFamily, 'd12-enumerated')
+            config.topologyPolicyFcn = ...
+                @(context) selectD12TopologyPolicy(context, mode);
+        else
+            config.topologyPolicyFcn = ...
+                @(context) selectProjectedTopologyPolicy(context, mode);
+        end
+    case {'oracle-consensus', 'oracle-truth'}
         config.eventPolicy = 'alwaysHeavy';
         config.dynamicTopologyEnabled = true;
         config.topologyPolicyName = arm.mode;
         mode = arm.mode;
         config.topologyPolicyFcn = ...
             @(context) selectD12TopologyPolicy(context, mode);
+    case {'teacher-current', 'teacher-predictive'}
+        config.eventPolicy = 'alwaysHeavy';
+        config.dynamicTopologyEnabled = true;
+        config.topologyPolicyName = arm.mode;
+        if strcmp(arm.mode, 'teacher-current')
+            teacherMode = 'current';
+        else
+            teacherMode = 'predictive';
+        end
+        config.topologyPolicyFcn = ...
+            @(context) selectCounterfactualTopologyTeacher( ...
+                context, teacherMode);
 end
 end
 
@@ -231,6 +280,12 @@ record.topologyInfeasibleRate = ...
     diagnostics.summary.topologyInfeasibleRate;
 record.topologyPolicySeconds = ...
     diagnostics.summary.topologyPolicySeconds;
+record.meanPolicyTaskAdvantage = ...
+    diagnostics.summary.meanTopologyPolicyTaskAdvantage;
+record.meanPolicyTaskRiskSpread = ...
+    diagnostics.summary.meanTopologyPolicyTaskRiskSpread;
+record.meanPolicyValidCandidateCount = ...
+    diagnostics.summary.meanTopologyPolicyValidCandidateCount;
 record.elapsedSeconds = elapsedSeconds;
 candidateIndices = diagnostics.topologyPolicyCandidateIndex;
 candidateIndices = candidateIndices(isfinite(candidateIndices));
@@ -270,6 +325,9 @@ record = struct( ...
     'topologyChurnRate', NaN, ...
     'topologyInfeasibleRate', NaN, ...
     'topologyPolicySeconds', NaN, ...
+    'meanPolicyTaskAdvantage', NaN, ...
+    'meanPolicyTaskRiskSpread', NaN, ...
+    'meanPolicyValidCandidateCount', NaN, ...
     'elapsedSeconds', NaN, ...
     'distinctCandidateCount', 0, ...
     'meanEospaByTime', [], ...
@@ -290,6 +348,8 @@ metricNames = { ...
     'attemptedBytes', 'deliveredBytes', 'attemptCount', ...
     'deliveryCount', 'meanEdgeCount', 'topologyChurnRate', ...
     'topologyInfeasibleRate', 'topologyPolicySeconds', ...
+    'meanPolicyTaskAdvantage', 'meanPolicyTaskRiskSpread', ...
+    'meanPolicyValidCandidateCount', ...
     'elapsedSeconds', 'distinctCandidateCount'};
 aggregates = repmat(struct(), 1, numel(arms));
 for armIdx = 1:numel(arms)

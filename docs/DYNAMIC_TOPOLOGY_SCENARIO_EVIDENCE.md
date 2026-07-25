@@ -23,21 +23,28 @@ Included:
 - deterministic regression tests and one 8-step software/runtime smoke.
 - one bounded, full-window, three-seed D12 paired screen and its independent
   post-processing audit.
+- difficulty-gated D12/M24/X36 hard presets, a three-seed geometry audit,
+  a common safe candidate-pool interface, and counterfactual task-risk
+  teacher diagnostics;
+- a one-seed D12 closed-loop current-task-risk screen, an in-sample
+  shortlisted fixed-graph control, and one M24 scale/action-signal snapshot.
 
 Excluded:
 
 - an exhaustive performance sweep over all 48 fixed D12 graphs;
-- a teacher-forced or multi-step closed-loop oracle;
-- M24/X36 filter runtime and memory;
+- a multi-seed held-out validation of the current-task-risk teacher;
+- a complete M24/X36 filter runtime and memory scaling curve;
 - an exact arbitrary-GM density-power implementation;
 - learned models or claims of performance improvement;
 - a comprehensive systematic review of every distributed LMB paper.
 
 ## Risk Tier
 
-**L3.** The bounded D12 screen is complete and produced a research stop
-finding. It supports pausing GNN work and redesigning the diagnostic reference;
-it does not support a paper claim of dynamic-topology superiority.
+**L3.** The old one-step teacher has a confirmed stop finding. The current
+task-risk teacher has positive single-seed D12 closed-loop evidence and an M24
+action-signal snapshot, but no held-out learned policy or multi-seed effect
+estimate. The current evidence authorizes label-pipeline development, not GNN
+performance claims or a paper claim of dynamic-topology superiority.
 
 ## Claims
 
@@ -45,9 +52,9 @@ it does not support a paper claim of dynamic-topology superiority.
 |:--|:--|:--:|:--|:--|
 | C1 | The current 4+4 driver is hard-coded for eight sensors and cannot represent the proposed multi-formation scale by changing one parameter. | High | E1, E2 | Core filter functions are more generic than the experiment driver. |
 | C2 | The old 4+4 experiment does not provide positive evidence for dynamic topology; its final N50 dynamic arms were dominated or degraded. | High | E3, E4 | This is evidence about the old scene and current heuristic, not a proof that all dynamic topology is ineffective. |
-| C3 | A 12/24/36 sensor ladder creates a substantially larger topology decision space while remaining a more defensible first step than jumping to 48+ sensors. | Medium | E5, E6, E7 | Runtime and memory have not yet been measured on the proposed scenes. |
+| C3 | A 12/24/36 sensor ladder creates a substantially larger topology decision space while remaining a more defensible first step than jumping to 48+ sensors. | Medium | E5, E6, E7 | One M24 behavior runtime is now measured in C22; the full runtime-memory scaling curve remains unmeasured. |
 | C4 | The proposed M24 formation-level ring can have a physically feasible static backbone with a 900 m communication radius along the specified pchip center trajectories. | High | E8 | The final implemented generator must reproduce this check after any parameter change. |
-| C5 | Current topology infeasibility handling can violate the intended physical graph, and the bridge helper is specialized to two equal groups. | High | E9 | A replacement safe projection has not yet been implemented. |
+| C5 | The audited baseline topology fallback could violate the intended physical graph, and its bridge helper was specialized to two equal groups. | High | E9 | The new fail-closed handling and scalable safe candidate projection supersede this baseline behavior in C9/C16. |
 | C6 | The current GA fusion path projects each Gaussian mixture to one Gaussian before fusion, so it cannot be the paper-level reference for mixture-aware LMB-KLA claims. | High | E10 | A density-level mixture reference will still require a documented numerical approximation. |
 | C7 | An exact-oracle gate should precede GNN design because it can falsify the premise that dynamic edge choice has useful residual value. | Medium | E3, E4, E11 | The 10%/5% practical-effect thresholds are proposed preregistration values, not evidence-derived constants. |
 | C8 | The current worktree provides one-call R8/D12/M24/X36 scene presets and validates trajectory bounds, separation, edge budgets, group/global connectivity, all-time static physical feasibility, D12 candidate count and handovers. | High | E12, E13 | R8's old runner remains the exact numerical-regression authority; the new R8 preset is an interface regression. |
@@ -57,6 +64,14 @@ it does not support a paper claim of dynamic-topology superiority.
 | C12 | In the three-seed handover window, posterior-discrepancy improved focus E-OSPA by 6.77% and posterior disagreement by 10.76% over the geometry-selected static graph, with 3/3 paired directions, at most 1.37% attempted-byte mismatch, and zero topology infeasibility. | High | E17, E19 | N=3 is directional only, and the static graph is not an exhaustive offline performance optimum. |
 | C13 | Both one-step diagnostic policies were dominated by posterior-discrepancy on focus tracking and posterior disagreement in all three seeds; they therefore cannot be used as an upper bound or GNN teacher in the current design. | High | E17, E19 | This invalidates the current teacher, not every possible learned topology policy. |
 | C14 | The arm called robust-static is selected by a mean/worst geometric-distance score, not by evaluating tracking performance over all 48 fixed candidates. | High | E18 | No paper-level dynamic gain may be claimed until a train-selected, held-out fixed-graph baseline is added. |
+| C15 | D12-hard, M24-hard and X36-hard pass explicit low-blackout, handover, overlap, ownership-balance and blockage-pressure gates on seeds 7/17/27. | High | E20, E21 | These are geometry/observability checks, not evidence that the LMB filter is healthy or that dynamic topology improves tracking. |
+| C16 | The common candidate-pool interface keeps each formation ring, enforces physical/budget/degree/connectivity constraints, uses all 48 registered D12 graphs, and returns feasible projected pools for M24/X36. | High | E22, E21 | The projected M24/X36 pools are deterministic proposals, not exhaustive optima. |
+| C17 | The new task-risk label scores labelled existence, expected state error and covariance after mixture-aware fusion, and is invariant to the configured topology-switch penalty. | High | E23, E21 | This validates label construction, not closed-loop predictive usefulness. |
+| C18 | On D12-hard seed 7, open-loop look-ahead through 20 steps retained exactly the same topology as current task risk at t=30/40/60/80; it therefore adds no observed teacher information despite a 2.5%–3.7% candidate-risk spread. | High | E24, E25 | One seed is enough to falsify the claim that this implementation necessarily adds future information, but not to characterize every scene. |
+| C19 | Teacher-forced three-step rollouts that consume future measurements increase the candidate-risk spread to 2.07% at t=30 and 4.27% at t=60, but still select the same graph as current task risk even when the candidate graph persists for all three steps. | High | E26, E27 | This is a one-seed action-label diagnostic; C20 provides the first realized comparison for current task risk, but not a multi-seed validation. |
+| C20 | In a D12-hard seed-7 closed-loop run through step 60, the pure current task-risk teacher improves focus E-OSPA by 14.42%, focus cardinality error by 27.11%, and focus posterior disagreement by 3.54% over posterior-discrepancy, while using 1.27% fewer attempted bytes and zero infeasible topologies. | High | E28 | This is a privileged teacher and a single screening seed, not a deployable method or paper-level effect estimate. |
+| C21 | Registered fixed candidate 16 is stronger than geometry-static on D12-hard seed 7, yet the task-risk teacher still improves focus E-OSPA by 8.64%, focus cardinality error by 16.34%, and focus posterior disagreement by 8.00% at a 1.28% attempted-byte increase. | High | E28, E29 | Candidate 16 was shortlisted from in-sample teacher diagnostics, not selected on independent training seeds; this remains a screening-strength static control. |
+| C22 | At the M24-hard seed-7 t=75 snapshot, the scalable pool provides 28 selection-valid actions; current task risk spans 15.37% across them and its best action reduces the surrogate by 2.35% relative to the registered static graph, with 24.70 s teacher scoring after a 559.37 s behavior trajectory. | High | E30 | This establishes scale/action sensitivity at one posterior state only; the selected action was not rolled out, so it is not M24 tracking-gain evidence. |
 
 ## Evidence Ledger
 
@@ -81,6 +96,17 @@ it does not support a paper claim of dynamic-topology superiority.
 | E17 | experiment report | `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_FINDINGS_CN.md`, `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_RECORDS.csv`, `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N3_20260725_153939.md` | C12/C13: paired focus-window results, machine-readable per-arm records, bytes, infeasibility, churn, candidate diversity and evidence boundaries for seeds 7/17/27. | strong |
 | E18 | code | `common/buildDynamicTopologyGraphs.m:27-30,174-188` | C14: the fixed candidate minimizes mean edge distance plus 0.25 times worst edge distance; no filter-performance objective is evaluated. | strong |
 | E19 | command | Independent CSV recomputation recorded in the Verification Record | C12/C13: per-seed focus improvements, byte mismatch and candidate diversity were recomputed from the tracked per-arm export. | strong |
+| E20 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_SCENE_DIFFICULTY_20260725_173202.md` | C15: three-seed hard-scene blackout, visibility, handover, close-encounter, ownership and blockage metrics. | strong |
+| E21 | test | `tests/test_dynamic_topology_scenarios.m`; command in Verification Record | C15–C17: hard-scene gates, invalid narrow-FoV rejection, scalable candidate and projected-policy constraints, task-risk ordering, switch-penalty invariance, fixed-reference stability and eligible-only scoring equivalence. | strong |
+| E22 | code | `common/buildDynamicTopologyCandidatePool.m` | C16: exact D12 and projected M24/X36 candidate construction with safety constraints. | strong |
+| E23 | code | `common/evaluateLmbTopologyTaskRisk.m`, `common/selectCounterfactualTopologyTeacher.m` | C17: task-only current/open-loop risk and separate deployment switch penalty. | strong |
+| E24 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_D12_HARD_N1_20260725_172736.md` | C18: t=30, horizon 0/3/6, nonzero action spread but identical current/predictive selection. | medium |
+| E25 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_D12_HARD_N1_20260725_173326.md` | C18: t=40/60/80, horizon 0/10/20, identical current/predictive selections and behavior-trajectory health metrics. | strong |
+| E26 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_D12_HARD_N1_20260725_174643.md` | C19: t=30 future-measurement H3 rollout, 2.07% spread, 1.50% gain over geometry-static, no action change, 93.32 s teacher time. | strong |
+| E27 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_D12_HARD_N1_20260725_175200.md` | C19: t=60 future-measurement H3 rollout with three-step candidate persistence, 4.27% spread, 2.71% gain over geometry-static, no action change. | strong |
+| E28 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HARD_N1_20260725_181109.md` | C20: paired 60-step geometry-static, posterior-discrepancy and pure current task-risk results with tracking, consensus, bytes, churn and feasibility. | strong |
+| E29 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HARD_N1_20260725_181426.md` | C21: 60-step registered fixed-candidate-16 tracking, consensus, byte and feasibility control. | strong |
+| E30 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_M24_HARD_N1_20260725_183112.md` | C22: cached 75-step M24 behavior cost, 28 valid candidate actions, current-task-risk action spread, static-relative surrogate gain and teacher scoring time. | strong |
 
 Initial arithmetic check:
 
@@ -160,7 +186,8 @@ Checks performed:
 - evaluated the full 160-step pchip interpolation in Octave: maximum center speed 11.1655 m/s, acceleration 0.3845 m/s², adjacent-center distance 778.2031 m, and conservative sensor-pair bound 855.2031 m;
 - ran `git diff --check`, which passed without whitespace errors.
 - ran `test_dual_threshold_event_trigger`, which passed after the core changes;
-- ran `test_dynamic_topology_scenarios`, which passed all preset, safety,
+- ran `test_dynamic_topology_scenarios`, which passed all preset, difficulty,
+  candidate-pool, projected-policy, task-risk, label-invariance, safety,
   accounting, fusion-boundary and D12 callback checks;
 - reproduced M24 limits from the implemented generator: 24 sensors, 30 static
   edges, maximum speed 11.45 m/s, acceleration 0.86 m/s² and target speed
@@ -174,8 +201,13 @@ Checks performed:
 - independently reloaded the saved MAT summary and recomputed each seed's
   focus tracking improvement, posterior-disagreement improvement,
   attempted-byte mismatch, infeasibility rate and distinct-candidate count;
-- reran the paired-analysis test after adding the
-  `diagnostic-oracle-dominated` classification.
+- reran `test_dynamic_topology_screen_analysis` after the runner changes;
+- ran a D12-hard seed-7 60-step paired closed-loop screen for geometry-static,
+  posterior-discrepancy and pure current task risk, then checked registered
+  fixed candidate 16 as a stronger in-sample static control;
+- ran the M24-hard seed-7 behavior trajectory through t=75 and reused its
+  cached posterior to verify 28 selection-valid actions, 15.373% current-risk
+  spread and 24.70 s teacher-scoring time.
 
 Falsification findings incorporated into the draft:
 
@@ -191,19 +223,21 @@ Falsification findings incorporated into the draft:
 - the three-seed screen falsified the proposed one-step teacher: both
   diagnostic arms were worse than posterior-discrepancy on both focus metrics
   for all seeds;
-- the fixed comparison arm is geometry-selected rather than an exhaustive
-  offline tracking optimum, so the observed dynamic signal is not yet a
-  strong-static-baseline result;
+- the old three-seed fixed comparison arm is geometry-selected rather than
+  an exhaustive offline tracking optimum; candidate 16 strengthens the seed-7
+  screen but is still an in-sample shortlist rather than a train-selected,
+  held-out strong-static baseline;
 - a dominated diagnostic reference cannot produce a meaningful
   static-to-oracle gain-capture ratio; the analyzer now reports this as a
   teacher/reference failure instead of analytic sufficiency.
 
 Unverified:
 
-- D12 direction consistency beyond the bounded three-trial screen;
+- D12 current-task-teacher direction consistency beyond seed 7;
 - the best train-selected fixed D12 graph and its held-out performance;
-- teacher-forced one-step and short-horizon closed-loop edge values;
-- M24/X36 filtering runtime and memory;
+- whether a locally observable learned policy can imitate the privileged
+  current-task-risk labels;
+- M24 closed-loop tracking gains and the complete M24/X36 runtime-memory curve;
 - whether the proposed effect-size gates are appropriately calibrated.
 
 ## Risk and Escalation
@@ -282,26 +316,28 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 
 ## Open Issues
 
-1. Replace the dominated one-step teacher with a teacher-forced value or
-   2--5-step closed-loop look-ahead before reconsidering a learned policy.
+1. Generate current-task-risk labels on D12 training seeds and test whether
+   locally available graph/posterior features can predict the privileged
+   ranking without truth at deployment.
 2. Evaluate all 48 fixed D12 candidates on training seeds, freeze the best
    robust fixed graph, and compare it on held-out paired seeds.
 3. The componentwise powered-GM reference needs a stronger numerical
    comparison before it can support a paper-level density claim.
 4. The implemented generator must repeat route, speed, acceleration and
    static-backbone checks after any trajectory change.
-5. Runtime may require sparse diagnostics before M24/X36.
+5. Use cached sparse posterior snapshots for M24 label generation; a 75-step
+   behavior trajectory already costs 559.37 s on the current machine.
 
 ## Recommendation
 
-Stop at the completed three-trial checkpoint and do not train the GNN under the
-current objective. The scene shows a candidate dynamic signal relative to the
-geometry-selected static graph (C12), but both proposed one-step teachers are
-dominated (C13), and the fixed baseline is not yet the registered strongest
-static control (C14).
+Retire the old consensus/truth-composite teacher and the redundant open-loop
+look-ahead labels. Keep pure current task risk as the privileged supervision
+candidate: it has a positive D12 closed-loop screening result against both
+posterior-discrepancy and an in-sample stronger fixed graph (C20/C21), and it
+retains substantial action separation at M24 scale (C22).
 
-The next research action, if this direction is resumed, is not more Monte Carlo
-with the same arms. It is to repair the evidence gate: add a train-selected,
-held-out fixed-graph baseline and construct a teacher-forced or short-horizon
-reference that actually dominates strong deployable controls. Only a verified
-residual gap after those two checks can authorize GNN design.
+The next stage is label-pipeline and imitation validation, not a paper-level
+GNN experiment. Select the strongest fixed D12 graph only on training seeds,
+train a policy using locally available inputs to imitate current-task-risk
+rankings, freeze it, and then run paired held-out D12 tests. M24 closed-loop
+evaluation is justified only after that frozen policy passes the D12 gate.

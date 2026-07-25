@@ -1,10 +1,13 @@
 # 面向动态通信拓扑的多编队 LMB 跟踪场景设计
 
-> 状态：R8/D12/M24/X36 的可配置生成器与 D12 topology-only
-> 筛查入口已完成；D12 的 3 个 paired trials 也已完成。实验发现
-> posterior-discrepancy 相对 geometry-static 有候选动态信号，但两个
-> 一步诊断策略均被其支配，不能作为 GNN 教师或性能上界。当前已在进入
-> GNN 训练前停止。
+> 状态：旧的一步诊断教师已被否定；目前已经新增 D12/M24/X36 的
+> difficulty-gated hard presets、可扩展候选拓扑池和不含切换惩罚的
+> counterfactual task-risk teacher。三类 hard scene 的 3-seed
+> 几何审计已通过；纯 current task-risk teacher 已在 D12 的单 seed
+> 60 步闭环筛查中优于解析动态和强化固定对照，并在 M24 的单快照上显示
+> 可扩展的动作区分度。以上仍是 screening evidence，尚未授权 GNN
+> 训练或论文效果主张。第 12 节保留历史停止点，第 13 节记录本轮重启后
+> 的实现与新证据。
 >
 > 研究边界：新的动态拓扑方向与此前的 full/light payload 等价叙事解耦。论文级实验必须使用遵循 LMB-KLA 密度级公式、保留单目标混合结构且清楚记录数值近似边界的 reference；当前投影到单高斯的融合路径只能用于场景与软件 smoke test，不能支撑最终估计或理论结论。
 
@@ -98,7 +101,10 @@ R8 不参与新方法的主效果量计算，也不用于证明可扩展性。
 
 ### 4.4 M24-Main：四编队组合主场景
 
-M24 使用 4 个 6 节点编队、最多 12 个目标和 160 步仿真。场景同时包含观测交接和相关链路退化，但两者的发生时间错开，以便按时间窗口解释结果。
+基础 M24 使用 4 个 6 节点编队、最多 12 个目标和 160 步仿真。场景
+同时包含观测交接和相关链路退化，但两者的发生时间错开，以便按时间
+窗口解释结果。为保证首轮 teacher screening 有足够的观测归属变化，
+`m24-hard` 将目标数提高到 16；基础版本和 hard 版本必须分开报告。
 
 同一组轨迹应形成三个可开关版本：
 
@@ -245,12 +251,20 @@ look-ahead/动态规划上界。M24 的 beam/look-ahead 也只能称为“近似
 | 多编队/走廊轨迹 | `common/generateMultiFormationTrajectories.m`、`common/generateCorridorTargetTrajectories.m` |
 | 物理图、静态图和 D12 的 48 个候选图 | `common/buildDynamicTopologyGraphs.m` |
 | 场景硬验证 | `common/validateDynamicTopologyScenario.m` |
+| 场景难度度量 | `common/measureDynamicTopologyScenarioDifficulty.m` |
 | D12 解析策略与一步枚举策略 | `common/selectD12TopologyPolicy.m` |
+| D12/M24/X36 通用候选池 | `common/buildDynamicTopologyCandidatePool.m` |
+| 当前/预测 task-risk teacher | `common/selectCounterfactualTopologyTeacher.m`、`common/evaluateLmbTopologyTaskRisk.m` |
+| 未来测量闭环 teacher | `common/selectClosedLoopCounterfactualTopologyTeacher.m`、`common/evaluateClosedLoopTopologyTaskRisk.m` |
+| M24/X36 解析投影基线 | `common/selectProjectedTopologyPolicy.m` |
 | topology-only paired runner | `RUN/GA/runDynamicTopologyOracleGapScreen.m` |
+| hard scene 几何审计 | `RUN/GA/runDynamicTopologyScenarioDifficultyAudit.m` |
+| teacher signal 配对快照筛查 | `RUN/GA/runDynamicTopologyTeacherSignalScreen.m` |
 
 实验脚本只需切换 `d12-handover`、`d12-link`、`m24-handover`、
-`m24-link`、`m24-composite`、`x36-topology` 或 `x36-joint` 字符串；
-局部参数通过一个 `overrides` struct 覆盖。
+`m24-link`、`m24-composite`、`x36-topology`、`x36-joint`、
+`d12-hard`、`m24-hard` 或 `x36-hard` 字符串；局部参数通过一个
+`overrides` struct 覆盖。
 
 ## 7. 指标
 
@@ -390,7 +404,7 @@ attempted payload bytes 的配对偏差最大为 1.37%，拓扑不可行率为 0
    因此 6.77% 只能写成“相对 geometry-static 的候选信号”，不能写成
    “击败最强静态基线”，负的 oracle gap 也不能写成“GNN 没有理论空间”。
 
-当前研究停止点如下：
+当时的研究停止点如下：
 
 - 暂停 GNN 训练，不把一步 posterior 一致性或当前 truth surrogate 当作标签；
 - posterior-discrepancy 保留为当前最强的可部署对照，但不提升为论文贡献；
@@ -402,9 +416,154 @@ attempted payload bytes 的配对偏差最大为 1.37%，拓扑不可行率为 0
 完整逐 seed 结果见
 `RUN/GA/dynamic_topology/full_n3/DYNAMIC_TOPOLOGY_FINDINGS_CN.md`。
 
+## 13. 重启后的 hard scene 与 teacher 设计
+
+### 13.1 难度不再等同于“看不见”
+
+旧 M24/X36 preset 的主要问题是目标完全不可见的比例过高。这样的场景
+即使使所有方法都变差，也不能说明拓扑选择有价值。新的 hard presets
+把难度拆成四项，并写成 fail-closed gate：
+
+1. 完全不可见样本必须很少；
+2. 必须同时存在“只有一个编队看见”的信息归属阶段和“多个编队同时
+   看见”的交接阶段；
+3. 重点窗口内要有足够多的观测归属切换与跨目标群近距离相遇；
+4. M24/X36 的相关阻塞必须与重点窗口实质重合。
+
+对 seeds `[7,17,27]` 的几何审计结果如下。表中的比例均以“有效目标 ×
+时刻”样本为分母；它们只证明场景结构有效，不替代跟踪滤波健康度检查。
+
+| Preset | 节点/目标 | 完全不可见 | 单编队可见 | 多编队可见 | 重点窗口交接数 | 跨群近距离时刻 | 归属熵 | 阻塞重合 |
+|:--|:--:|--:|--:|--:|--:|--:|--:|--:|
+| D12-hard | 12/12 | 0.000 | 0.806–0.809 | 0.191–0.194 | 18 | 0.474 | 1.000 | 0 |
+| M24-hard | 24/16 | 0.028–0.030 | 0.349–0.351 | 0.620–0.622 | 44–46 | 0.667 | 0.978–0.981 | 0.765 |
+| X36-hard | 36/24 | 0.029–0.031 | 0.371–0.382 | 0.587–0.599 | 69–70 | 0.837 | 0.999–1.000 | 0.733 |
+
+hard screening 为提高选边压力，分别采用 D12/M24/X36 的
+`14/29/44` 条边预算；第 4 节的 `30/45` 仍是 M24/X36 基础场景的
+Medium 档，二者不应混写。
+
+审计报告为
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_SCENE_DIFFICULTY_20260725_173202.md`。
+回归测试还会故意把 D12 视场缩到 40 m，并要求验证器以
+`difficulty-blackout` 失败，确保 gate 不是只在正例上运行。
+
+### 13.2 通用候选动作
+
+D12 继续使用全部 48 个注册候选图。M24/X36 不枚举组合爆炸的全部图，
+而是用同一个接口生成确定性的 proposal pool：
+
+- 固定保留每个编队的环形骨架；
+- 先使编队级图连通，再填满共同边预算；
+- 同时满足物理边、总度、跨编队度和全局连通约束；
+- 用链路可靠性、posterior discrepancy、几何与混合分数提出候选；
+- 通过逐条禁用已选桥边产生可复现的局部替代图并去重。
+- 围绕上一张图显式生成单边替换邻域，保证 M24/X36 在每步 churn
+  约束下仍有可执行候选，而不是只保留“上一图不动”。
+
+这不是“找到全局最优图”的求解器，而是 M24/X36 的可控候选动作接口。
+它使 teacher、解析策略和未来 GNN 都在同一安全投影空间内比较。当前
+单步 smoke 已确认 M24 能返回 29 条边的可行图，D12/M24/X36 的候选池
+也都经过边预算、度约束和连通性回归测试。
+
+### 13.3 新 teacher 的监督量
+
+旧 teacher 把 posterior 一致性、弱真值项和切换惩罚混在一个目标里。
+它被 posterior-discrepancy 支配后，无法判断失败来自任务价值、权重，
+还是图锁定。新 teacher 对每个候选图执行一轮与接收端一致的
+mixture-aware LMB 融合，然后计算纯 tracking task risk：
+
+`R_task = R_exist + R_position + 0.15 R_velocity`。
+
+其中 `R_exist` 是逐标签 Bernoulli 存在概率的平方误差；位置和速度项是
+混合分量下的期望平方误差，并显式包含 posterior covariance，再按场景
+的 OSPA 距离和目标速度尺度归一化。`predictive` 版本只在当前时刻融合
+一次，然后在不读取未来测量的条件下传播到可配置的未来时刻，以奖励在
+即将发生观测交接前仍有用的信息传播。
+
+监督标签定义为同一状态下相对固定参考图的
+`advantage = R_static - R_candidate`。切换次数和切换惩罚只用于安全投影
+后的动作选择，不进入 `R_task` 或 advantage。测试会把切换惩罚从 0
+改到 10，并要求每个候选图的 task-risk 数组逐项完全不变。
+即使注册静态图因当前 churn 约束暂时不可选，teacher 也会额外评估它
+作为固定诊断参考；这样 advantage 的零点不会随上一时刻动作漂移，同时
+不会把该图放回可选集合。
+
+### 13.4 当前证据边界
+
+首个 D12-hard 配对快照（seed 7，`t=30`，horizon `[0,3,6]`）显示：
+
+- 候选图预测风险跨度为 3.676%，说明图动作在该状态下不是完全等价；
+- 最优候选相对当前 geometry-static 的预测风险低 1.601%；
+- 但 current-risk 与 6-step predictive teacher 选择同一候选图。
+
+把开环 horizon 拉长到 `[0,10,20]` 并移动到 `t=40/60/80` 后，三个
+快照仍与 current teacher 选择相同候选；平均风险跨度为 2.965%，相对
+geometry-static 的平均风险优势为 1.117%，但相对 current teacher 的
+额外优势仍为 0。
+
+随后又实现了读取未来真实测量的 teacher-forced 闭环 rollout。它先用
+候选图融合当前 posterior，再逐步执行 LMB 预测、本地测量更新和固定
+continuation graph 融合：
+
+- `t=30`、3-step rollout、候选图只作用当前一步：风险跨度 2.070%，
+  相对静态图优势 1.501%，但与 current teacher 选图相同；
+- `t=60`、3-step rollout、候选图持续 3 步：风险跨度扩大到 4.270%，
+  相对静态图优势 2.709%，但仍与 current teacher 选图相同。
+
+这说明未来测量与动作持续时间会放大“图是否重要”，但在当前 D12-hard
+状态上没有改变“哪张图最好”的排序。因此继续增加 horizon 并不是当前
+最有价值的复杂化方向；最简且随后进入闭环验证的监督量是纯 current
+task-risk advantage。
+
+首个闭环策略筛查已在 D12-hard seed 7、步骤 `1–60` 上完成。三个 arm
+共享测量、链路随机数、14 条边预算和 heavy mixture-aware posterior：
+
+| Arm | Focus E-OSPA | Focus 基数误差 | Focus posterior 分歧 | Attempted bytes |
+|:--|--:|--:|--:|--:|
+| Geometry-static | 73.3108 | 6.5054 | 0.4988 | 32,026,488 |
+| Posterior-discrepancy | 72.1001 | 6.3065 | 0.4865 | 32,541,840 |
+| Pure current task-risk teacher | 61.7041 | 4.5968 | 0.4693 | 32,127,360 |
+
+相对 posterior-discrepancy，纯任务风险 teacher 的 focus E-OSPA 改善
+14.42%，基数误差改善 27.11%，posterior 分歧改善 3.54%，attempted
+bytes 减少 1.27%；拓扑不可行率为 0。这个结果第一次说明新标签不只是
+在自己的 surrogate 上自洽，而是能形成更好的闭环状态轨迹。
+
+它仍然只是一个 seed 的 privileged-teacher screening：真值不能作为
+部署输入，且 geometry-static 不是最强固定图。因此随后检查由 teacher
+快照筛出的 fixed candidate 16，并把同一候选池/标签接口放到 M24 做
+尺度验证；这两项都只是进入多 seed 标签数据生成之前的证据门。
+
+候选 16 的 60 步闭环检查随后完成：其 focus E-OSPA 为 67.5372，优于
+geometry-static 的 73.3108，说明它确实是更强固定对照；纯任务风险
+teacher 仍进一步达到 61.7041，相对改善 8.64%。基数误差和 posterior
+分歧分别改善 16.34% 和 8.00%，attempted bytes 增加 1.28%，仍处于
+预设的 ±2% 通信匹配带内。这个反证使 D12 的正信号不再只依赖弱的
+geometry-static，但候选 16 仍是用同一 seed 的 teacher 快照筛出的，
+正式实验必须改为 train seeds 选图、held-out seeds 评估。
+
+M24-hard 的首个尺度快照也已完成。seed 7 的固定拓扑行为轨迹运行到
+`t=75`，24 个节点和 16 个目标的过滤耗时 559.37 s；此时行为
+E-OSPA 为 25.5087、基数误差为 0.9167，未出现整体失效。通用候选池
+生成 28 个满足物理图、29 条边预算、节点度和每步最多替换 2 条边约束
+的可选动作。纯 current task-risk 在这些动作上的相对风险跨度为
+15.373%，最优动作相对注册静态图降低风险 2.346%，候选评分耗时
+24.70 s。
+
+这一结果回答的是“监督量和动作接口能否扩展到 M24、且动作是否仍有
+区分度”，不是 M24 闭环收益：它只有一个 seed、一个快照，最优动作
+尚未在后续轨迹中执行。下一步应使用已缓存的行为 posterior 生成多
+快照标签，并先训练可部署的局部特征模仿器；在冻结模型之前，不启动
+昂贵的 M24 多 arm 闭环 Monte Carlo。报告见
+`RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_TEACHER_SIGNAL_M24_HARD_N1_20260725_183112.md`。
+
 ## 参考
 
 1. K. Shen, P. Dong, Z. Jing, and H. Leung, “Consensus-Based Labeled Multi-Bernoulli Filter for Multitarget Tracking in Distributed Sensor Network,” *IEEE Transactions on Cybernetics*, 2022. https://doi.org/10.1109/TCYB.2021.3087521
 2. K. Shen, C. Zhang, P. Dong, Z. Jing, and H. Leung, “Consensus-Based Labeled Multi-Bernoulli Filter With Event-Triggered Communication,” *IEEE Transactions on Signal Processing*, 2022. https://doi.org/10.1109/TSP.2022.3154227
 3. J. K. Verma, J. K. Chhabra, and V. Ranga, “Track Consensus-Based Labeled Multi-Target Tracking in Mobile Distributed Sensor Network,” *IEEE Transactions on Mobile Computing*, 2024. https://doi.org/10.1109/TMC.2023.3333916
 4. Y.-C. Liu et al., “When2com: Multi-Agent Perception via Communication Graph Grouping,” *CVPR*, 2020. https://openaccess.thecvf.com/content_CVPR_2020/html/Liu_When2com_Multi-Agent_Perception_via_Communication_Graph_Grouping_CVPR_2020_paper.html
+5. J. Vanneste, S. Vanneste, A. E. C. Meyes, and T. Demeester, “Learning to Communicate Using Counterfactual Reasoning,” 2020. https://arxiv.org/abs/2006.07200
+6. S. Kesper, S. Trimpe, and D. Baumann, “Learning When to Communicate at Scale in Multiagent Cooperative and Competitive Tasks,” *Proceedings of The 5th Annual Learning for Dynamics and Control Conference*, 2023. https://proceedings.mlr.press/v211/kesper23a.html
+7. A. Ramachandran, A. S. Leong, S. Dey, and D. E. Quevedo, “Wireless Sensor Network Topology Reconfiguration for Multi-Target Tracking,” 2020. https://arxiv.org/abs/2004.07197

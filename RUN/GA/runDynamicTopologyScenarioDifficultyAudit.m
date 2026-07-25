@@ -1,0 +1,189 @@
+function [reportPath, summary] = ...
+    runDynamicTopologyScenarioDifficultyAudit( ...
+        presetNames, seedList, options)
+% RUNDYNAMICTOPOLOGYSCENARIODIFFICULTYAUDIT Reproducible scene audit.
+%
+% This geometry-only audit is intentionally cheaper than running the LMB
+% filter. It verifies that hard scenes create information handovers and
+% overlap without making most active targets completely unobservable.
+
+if nargin < 1 || isempty(presetNames)
+    presetNames = {'d12-hard', 'm24-hard', 'x36-hard'};
+end
+if ischar(presetNames)
+    presetNames = {presetNames};
+end
+if nargin < 2 || isempty(seedList)
+    seedList = [7, 17, 27];
+end
+if nargin < 3 || isempty(options)
+    options = struct();
+end
+options.writeReport = getField(options, 'writeReport', true);
+options.outputDirectory = getField(options, 'outputDirectory', ...
+    fullfile('RUN', 'GA', 'dynamic_topology'));
+seedList = reshape(seedList, 1, []);
+
+records = repmat(emptyRecord(), ...
+    numel(presetNames), numel(seedList));
+for presetIdx = 1:numel(presetNames)
+    for seedIdx = 1:numel(seedList)
+        preset = presetNames{presetIdx};
+        seed = seedList(seedIdx);
+        rng(seed);
+        config = buildDynamicTopologyScenarioConfig(preset);
+        [sensors, ~] = generateMultiFormationTrajectories(config);
+        [targets, ~] = generateCorridorTargetTrajectories(config);
+        graphs = buildDynamicTopologyGraphs(config, sensors);
+        validation = validateDynamicTopologyScenario( ...
+            config, sensors, targets, graphs);
+        metrics = validation.difficulty;
+        records(presetIdx, seedIdx) = buildRecord( ...
+            preset, seed, config, validation, metrics);
+        fprintf(['%s seed %d: blackout %.3f, single %.3f, ', ...
+            'multi %.3f, handovers %d, close %.3f\n'], ...
+            preset, seed, metrics.blackoutFraction, ...
+            metrics.singleFormationFraction, ...
+            metrics.multiFormationFraction, ...
+            metrics.focusHandovers, ...
+            metrics.focusCloseEncounterTimeFraction);
+    end
+end
+
+summary = struct();
+summary.generatedAt = datestr(now, 31);
+summary.presetNames = presetNames;
+summary.seeds = seedList;
+summary.records = records;
+summary.allValid = all([records.isValid]);
+summary.aggregate = aggregateRecords(records);
+
+reportPath = '';
+if options.writeReport
+    if ~exist(options.outputDirectory, 'dir')
+        mkdir(options.outputDirectory);
+    end
+    timestamp = datestr(now, 'yyyymmdd_HHMMSS');
+    reportPath = fullfile(options.outputDirectory, ...
+        ['DYNAMIC_TOPOLOGY_SCENE_DIFFICULTY_', timestamp, '.md']);
+    matPath = strrep(reportPath, '.md', '.mat');
+    writeReport(reportPath, summary);
+    save(matPath, 'summary');
+    summary.reportPath = reportPath;
+    summary.matPath = matPath;
+    fprintf('Report: %s\n', reportPath);
+end
+end
+
+function record = buildRecord( ...
+    preset, seed, config, validation, metrics)
+record = emptyRecord();
+record.presetName = preset;
+record.seed = seed;
+record.sensorCount = config.numberOfSensors;
+record.targetCount = config.numberOfTargets;
+record.isValid = validation.isValid;
+record.blackoutFraction = metrics.blackoutFraction;
+record.singleFormationFraction = metrics.singleFormationFraction;
+record.multiFormationFraction = metrics.multiFormationFraction;
+record.focusHandovers = metrics.focusHandovers;
+record.focusCloseEncounterFraction = ...
+    metrics.focusCloseEncounterTimeFraction;
+record.ownershipEntropy = metrics.formationOwnershipEntropy;
+record.blockageFocusOverlapFraction = ...
+    metrics.blockageFocusOverlapFraction;
+record.physicalEdgeChurnRate = metrics.physicalEdgeChurnRate;
+record.meanPhysicalInterFormationEdges = ...
+    metrics.meanPhysicalInterFormationEdges;
+record.minimumTargetSeparation = ...
+    metrics.minimumTargetSeparation;
+record.staticEdgeCount = validation.staticEdgeCount;
+end
+
+function record = emptyRecord()
+record = struct( ...
+    'presetName', '', ...
+    'seed', NaN, ...
+    'sensorCount', NaN, ...
+    'targetCount', NaN, ...
+    'isValid', false, ...
+    'blackoutFraction', NaN, ...
+    'singleFormationFraction', NaN, ...
+    'multiFormationFraction', NaN, ...
+    'focusHandovers', NaN, ...
+    'focusCloseEncounterFraction', NaN, ...
+    'ownershipEntropy', NaN, ...
+    'blockageFocusOverlapFraction', NaN, ...
+    'physicalEdgeChurnRate', NaN, ...
+    'meanPhysicalInterFormationEdges', NaN, ...
+    'minimumTargetSeparation', NaN, ...
+    'staticEdgeCount', NaN);
+end
+
+function aggregates = aggregateRecords(records)
+presetNames = unique({records.presetName}, 'stable');
+aggregates = repmat(struct(), 1, numel(presetNames));
+metrics = { ...
+    'blackoutFraction', ...
+    'singleFormationFraction', ...
+    'multiFormationFraction', ...
+    'focusHandovers', ...
+    'focusCloseEncounterFraction', ...
+    'ownershipEntropy', ...
+    'blockageFocusOverlapFraction', ...
+    'physicalEdgeChurnRate', ...
+    'meanPhysicalInterFormationEdges', ...
+    'minimumTargetSeparation'};
+for presetIdx = 1:numel(presetNames)
+    selected = records(strcmp({records.presetName}, ...
+        presetNames{presetIdx}));
+    aggregates(presetIdx).presetName = presetNames{presetIdx};
+    aggregates(presetIdx).seedCount = numel(selected);
+    aggregates(presetIdx).allValid = all([selected.isValid]);
+    for metricIdx = 1:numel(metrics)
+        metric = metrics{metricIdx};
+        values = [selected.(metric)];
+        aggregates(presetIdx).([metric, 'Mean']) = mean(values);
+        aggregates(presetIdx).([metric, 'Min']) = min(values);
+        aggregates(presetIdx).([metric, 'Max']) = max(values);
+    end
+end
+end
+
+function writeReport(path, summary)
+fid = fopen(path, 'w');
+if fid < 0
+    error('Could not open report path: %s', path);
+end
+cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
+fprintf(fid, '# Dynamic-topology hard-scene difficulty audit\n\n');
+fprintf(fid, '- Seeds: `%s`\n', mat2str(summary.seeds));
+fprintf(fid, '- All validations passed: `%d`\n\n', summary.allValid);
+fprintf(fid, ['| Preset | Sensors | Targets | Seed | Blackout | ', ...
+    'Single formation | Multi formation | Focus handovers | ', ...
+    'Cross-group close | Ownership entropy | Blockage overlap |\n']);
+fprintf(fid, ['|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|\n']);
+for recordIdx = 1:numel(summary.records)
+    record = summary.records(recordIdx);
+    fprintf(fid, ['| %s | %d | %d | %d | %.3f | %.3f | %.3f | ', ...
+        '%d | %.3f | %.3f | %.3f |\n'], ...
+        record.presetName, record.sensorCount, record.targetCount, ...
+        record.seed, record.blackoutFraction, ...
+        record.singleFormationFraction, ...
+        record.multiFormationFraction, record.focusHandovers, ...
+        record.focusCloseEncounterFraction, ...
+        record.ownershipEntropy, ...
+        record.blockageFocusOverlapFraction);
+end
+fprintf(fid, ['\nBlackout, single-formation, and multi-formation values ', ...
+    'are fractions of active target-time samples. This audit does not ', ...
+    'replace a tracking-filter stability or performance run.\n']);
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
+end
+end
