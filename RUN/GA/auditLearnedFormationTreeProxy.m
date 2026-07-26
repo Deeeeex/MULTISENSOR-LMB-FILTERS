@@ -190,6 +190,15 @@ result.featureContextMode = featureContextMode;
 result.modelFamily = modelFamily;
 result.requirePreviousUnionStrongConnectivity = ...
     requirePreviousUnionStrongConnectivity;
+if requirePreviousUnionStrongConnectivity
+    result.teacherSeriesContractVersion = ...
+        'directed-teacher-series-v2-receiver-row-previous-adjacency';
+    result.previousAdjacencyConvention = ...
+        'receiver-row-sender-column-directed';
+else
+    result.teacherSeriesContractVersion = '';
+    result.previousAdjacencyConvention = '';
+end
 result.hyperparameterGrid = hyperparameterGrid;
 result.excludedFeatureNames = excludedNames;
 result.includedFeatureNames = includedNames;
