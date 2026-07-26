@@ -1,0 +1,352 @@
+function selection = selectRollingFormationMatchingEdges( ...
+        groupIds, receiverIndices, senderIndices, scores, options)
+% SELECTROLLINGFORMATIONMATCHINGEDGES Exact optional cross-edge projection.
+%
+% The projector chooses zero or more directed cross-formation sensor edges.
+% Each receiver and each cross-edge sender can be used at most once, and the
+% number of overrides is bounded. Unselected receivers are expected to keep
+% their registered intra-formation sender outside this function.
+%
+% recentFormationAdjacency uses sender-row/receiver-column orientation and
+% is ordered from oldest to newest. Once B-1 executed graphs are available,
+% the selected current graph is constrained so every nontrivial directed cut
+% has an outgoing edge in their B-step union. This is equivalent to strong
+% connectivity of the formation-level union.
+
+if nargin < 5 || isempty(options)
+    options = struct();
+end
+groupIds = reshape(groupIds, 1, []);
+receiverIndices = reshape(receiverIndices, [], 1);
+senderIndices = reshape(senderIndices, [], 1);
+scores = reshape(scores, [], 1);
+if numel(receiverIndices) ~= numel(senderIndices) || ...
+        numel(receiverIndices) ~= numel(scores)
+    error('Rolling matching edge arrays must have the same length.');
+end
+nodeCount = numel(groupIds);
+if nodeCount < 2 || any(receiverIndices < 1 | ...
+        receiverIndices > nodeCount | senderIndices < 1 | ...
+        senderIndices > nodeCount | mod(receiverIndices, 1) ~= 0 | ...
+        mod(senderIndices, 1) ~= 0)
+    error('Rolling matching sensor indices are invalid.');
+end
+groups = unique(groupIds, 'stable');
+groupCount = numel(groups);
+if groupCount < 2
+    error('Rolling formation matching needs at least two formations.');
+end
+receiverGroups = mapGroups( ...
+    groupIds, groups, receiverIndices);
+senderGroups = mapGroups(groupIds, groups, senderIndices);
+validMask = isfinite(scores) & receiverGroups ~= senderGroups;
+originalIndices = find(validMask);
+receiverIndices = receiverIndices(validMask);
+senderIndices = senderIndices(validMask);
+receiverGroups = receiverGroups(validMask);
+senderGroups = senderGroups(validMask);
+scores = scores(validMask);
+
+maximumCrossEdges = max(0, floor(getField( ...
+    options, 'maximumCrossEdges', groupCount - 1)));
+connectivityWindowLength = max(1, round(getField( ...
+    options, 'connectivityWindowLength', 3)));
+recentFormationAdjacency = getField( ...
+    options, 'recentFormationAdjacency', ...
+    false(groupCount, groupCount, 0));
+recentFormationAdjacency = normalizeHistory( ...
+    recentFormationAdjacency, groupCount, ...
+    connectivityWindowLength);
+historyCount = size(recentFormationAdjacency, 3);
+windowMature = historyCount >= connectivityWindowLength - 1;
+requireMatureWindow = logical(getField( ...
+    options, 'requireMatureWindow', true));
+enforceConnectivity = requireMatureWindow && windowMature;
+
+payloadDelta = reshape(getField( ...
+    options, 'payloadDeltaByExample', ...
+    zeros(size(validMask))), [], 1);
+if numel(payloadDelta) ~= numel(validMask)
+    error('payloadDeltaByExample must match the original examples.');
+end
+payloadDelta = payloadDelta(validMask);
+if any(~isfinite(payloadDelta))
+    error('Rolling matching payload deltas must be finite.');
+end
+maximumPayloadIncreaseBytes = getField( ...
+    options, 'maximumPayloadIncreaseBytes', inf);
+if ~isscalar(maximumPayloadIncreaseBytes) || ...
+        isnan(maximumPayloadIncreaseBytes)
+    error('maximumPayloadIncreaseBytes must be a scalar.');
+end
+
+exampleCount = numel(scores);
+[A, b, constraintTypes, connectivityCutCount] = ...
+    buildConstraints( ...
+        nodeCount, groupCount, receiverIndices, senderIndices, ...
+        receiverGroups, senderGroups, maximumCrossEdges, ...
+        payloadDelta, maximumPayloadIncreaseBytes, ...
+        recentFormationAdjacency, enforceConnectivity);
+if exampleCount == 0
+    historyUnion = any(recentFormationAdjacency, 3);
+    if enforceConnectivity && ...
+            ~isStronglyConnected(historyUnion)
+        error('No feasible rolling formation matching can be projected.');
+    end
+    selection = emptySelection( ...
+        groupCount, historyCount, connectivityWindowLength, ...
+        enforceConnectivity, historyUnion, maximumCrossEdges, ...
+        maximumPayloadIncreaseBytes);
+    return;
+end
+if exist('glpk', 'file') ~= 2
+    error('Rolling formation matching requires GLPK.');
+end
+
+lowerBounds = zeros(exampleCount, 1);
+upperBounds = ones(exampleCount, 1);
+variableTypes = repmat('I', 1, exampleCount);
+solverOptions = struct( ...
+    'msglev', max(0, round(getField( ...
+        options, 'solverMessageLevel', 0))), ...
+    'tmlim', max(1, round(getField( ...
+        options, 'solverTimeLimitSeconds', 10))));
+[primaryX, primaryObjective] = solveBinaryProgram( ...
+    scores, A, b, constraintTypes, lowerBounds, upperBounds, ...
+    variableTypes, solverOptions);
+
+% Among primary-optimal solutions, prefer the fewest overrides so a
+% zero-value edge is never sent merely because it is feasible.
+objectiveTolerance = max(1e-10, ...
+    1e-10 * max(1, abs(primaryObjective)));
+secondaryA = [A; sparse(reshape(scores, 1, []))];
+secondaryB = [b; primaryObjective - objectiveTolerance];
+secondaryTypes = [constraintTypes, 'L'];
+[secondaryX, ~] = solveBinaryProgram( ...
+    -ones(exampleCount, 1), ...
+    secondaryA, secondaryB, secondaryTypes, ...
+    lowerBounds, upperBounds, variableTypes, solverOptions);
+selectedMask = secondaryX > 0.5;
+selectedFilteredIndices = find(selectedMask);
+selectedOriginalIndices = originalIndices(selectedFilteredIndices);
+
+formationAdjacency = false(groupCount);
+for selectedIdx = reshape(selectedFilteredIndices, 1, [])
+    formationAdjacency( ...
+        senderGroups(selectedIdx), ...
+        receiverGroups(selectedIdx)) = true;
+end
+windowUnion = formationAdjacency;
+if historyCount > 0
+    windowUnion = windowUnion | any( ...
+        recentFormationAdjacency, 3);
+end
+rollingUnionStrongConnected = ...
+    ~enforceConnectivity || isStronglyConnected(windowUnion);
+if ~rollingUnionStrongConnected
+    error('Rolling matching solver returned a disconnected union.');
+end
+
+selection = struct();
+selection.exampleIndices = ...
+    reshape(selectedOriginalIndices, 1, []);
+selection.receiverIndices = reshape( ...
+    receiverIndices(selectedFilteredIndices), 1, []);
+selection.senderIndices = reshape( ...
+    senderIndices(selectedFilteredIndices), 1, []);
+selection.predictedObjective = ...
+    sum(scores(selectedFilteredIndices));
+selection.primaryOptimalObjective = primaryObjective;
+selection.crossEdgeCount = nnz(selectedMask);
+selection.maximumCrossEdges = maximumCrossEdges;
+selection.maximumCrossSourceLoad = maximumSourceLoad( ...
+    selection.senderIndices, nodeCount);
+selection.maximumCrossReceiverLoad = maximumSourceLoad( ...
+    selection.receiverIndices, nodeCount);
+selection.selectedPayloadDeltaBytes = ...
+    sum(payloadDelta(selectedFilteredIndices));
+selection.maximumPayloadIncreaseBytes = ...
+    maximumPayloadIncreaseBytes;
+selection.formationAdjacency = formationAdjacency;
+selection.windowFormationAdjacency = windowUnion;
+selection.rollingUnionStrongConnected = ...
+    rollingUnionStrongConnected;
+selection.connectivityWindowLength = ...
+    connectivityWindowLength;
+selection.historyCount = historyCount;
+selection.windowMature = windowMature;
+selection.connectivityConstraintEnforced = ...
+    enforceConnectivity;
+selection.connectivityCutCount = connectivityCutCount;
+end
+
+function [A, b, constraintTypes, cutCount] = buildConstraints( ...
+        nodeCount, groupCount, receiverIndices, senderIndices, ...
+        receiverGroups, senderGroups, maximumCrossEdges, ...
+        payloadDelta, maximumPayloadIncreaseBytes, ...
+        recentFormationAdjacency, enforceConnectivity)
+exampleCount = numel(receiverIndices);
+A = sparse(0, exampleCount);
+b = zeros(0, 1);
+constraintTypes = '';
+row = 0;
+for receiverIdx = 1:nodeCount
+    row = row + 1;
+    A(row, receiverIndices == receiverIdx) = 1;
+    b(row, 1) = 1;
+    constraintTypes(end + 1) = 'U'; %#ok<AGROW>
+end
+for senderIdx = 1:nodeCount
+    row = row + 1;
+    A(row, senderIndices == senderIdx) = 1;
+    b(row, 1) = 1;
+    constraintTypes(end + 1) = 'U'; %#ok<AGROW>
+end
+row = row + 1;
+A(row, :) = 1;
+b(row, 1) = maximumCrossEdges;
+constraintTypes(end + 1) = 'U';
+if isfinite(maximumPayloadIncreaseBytes)
+    row = row + 1;
+    A(row, :) = reshape(payloadDelta, 1, []);
+    b(row, 1) = maximumPayloadIncreaseBytes;
+    constraintTypes(end + 1) = 'U';
+end
+
+cutCount = 0;
+if ~enforceConnectivity
+    return;
+end
+historyUnion = any(recentFormationAdjacency, 3);
+for subsetMask = 1:(2 ^ groupCount - 2)
+    inside = logical(bitget(subsetMask, 1:groupCount));
+    if any(any(historyUnion(inside, ~inside)))
+        continue;
+    end
+    crossingMask = inside(senderGroups) & ...
+        ~inside(receiverGroups);
+    row = row + 1;
+    A(row, crossingMask) = 1;
+    b(row, 1) = 1;
+    constraintTypes(end + 1) = 'L'; %#ok<AGROW>
+    cutCount = cutCount + 1;
+end
+end
+
+function [x, objective] = solveBinaryProgram( ...
+        scores, A, b, constraintTypes, lowerBounds, upperBounds, ...
+        variableTypes, solverOptions)
+[x, objective, errorNumber, extra] = glpk( ...
+    scores, A, b, lowerBounds, upperBounds, ...
+    constraintTypes, variableTypes, -1, solverOptions);
+status = NaN;
+if isstruct(extra) && isfield(extra, 'status')
+    status = extra.status;
+end
+if errorNumber ~= 0 || status ~= 5 || ...
+        isempty(x) || any(~isfinite(x))
+    error([ ...
+        'No optimal rolling formation matching was found ', ...
+        '(glpk error %d, status %g).'], errorNumber, status);
+end
+end
+
+function history = normalizeHistory(history, groupCount, windowLength)
+if isempty(history)
+    history = false(groupCount, groupCount, 0);
+    return;
+end
+history = logical(history);
+if ndims(history) < 3
+    if ~isequal(size(history), [groupCount, groupCount])
+        error('Formation history must be G-by-G-by-H.');
+    end
+    history = reshape(history, groupCount, groupCount, 1);
+elseif size(history, 1) ~= groupCount || ...
+        size(history, 2) ~= groupCount
+    error('Formation history must be G-by-G-by-H.');
+end
+for historyIdx = 1:size(history, 3)
+    current = history(:, :, historyIdx);
+    current(1:groupCount+1:end) = false;
+    history(:, :, historyIdx) = current;
+end
+maximumHistory = max(0, windowLength - 1);
+if size(history, 3) > maximumHistory
+    history = history(:, :, end-maximumHistory+1:end);
+end
+end
+
+function mapped = mapGroups(groupIds, groups, sensorIndices)
+mapped = zeros(size(sensorIndices));
+for sensorCursor = 1:numel(sensorIndices)
+    mapped(sensorCursor) = find(groups == ...
+        groupIds(sensorIndices(sensorCursor)), 1);
+end
+end
+
+function value = maximumSourceLoad(indices, nodeCount)
+if isempty(indices)
+    value = 0;
+    return;
+end
+counts = accumarray( ...
+    reshape(indices, [], 1), 1, [nodeCount, 1]);
+value = max(counts);
+end
+
+function valid = isStronglyConnected(adjacency)
+nodeCount = size(adjacency, 1);
+valid = all(reachableFrom(adjacency, 1)) && ...
+    all(reachableFrom(adjacency', 1));
+end
+
+function reached = reachableFrom(adjacency, startNode)
+reached = false(1, size(adjacency, 1));
+frontier = startNode;
+while ~isempty(frontier)
+    node = frontier(end);
+    frontier(end) = [];
+    if reached(node)
+        continue;
+    end
+    reached(node) = true;
+    next = find(adjacency(node, :) & ~reached);
+    frontier = [frontier, reshape(next, 1, [])]; %#ok<AGROW>
+end
+end
+
+function selection = emptySelection( ...
+        groupCount, historyCount, windowLength, enforceConnectivity, ...
+        historyUnion, maximumCrossEdges, maximumPayloadIncreaseBytes)
+rollingStrong = ~enforceConnectivity || ...
+    isStronglyConnected(historyUnion);
+selection = struct( ...
+    'exampleIndices', [], ...
+    'receiverIndices', [], ...
+    'senderIndices', [], ...
+    'predictedObjective', 0, ...
+    'primaryOptimalObjective', 0, ...
+    'crossEdgeCount', 0, ...
+    'maximumCrossEdges', maximumCrossEdges, ...
+    'maximumCrossSourceLoad', 0, ...
+    'maximumCrossReceiverLoad', 0, ...
+    'selectedPayloadDeltaBytes', 0, ...
+    'maximumPayloadIncreaseBytes', maximumPayloadIncreaseBytes, ...
+    'formationAdjacency', false(groupCount), ...
+    'windowFormationAdjacency', historyUnion, ...
+    'rollingUnionStrongConnected', rollingStrong, ...
+    'connectivityWindowLength', windowLength, ...
+    'historyCount', historyCount, ...
+    'windowMature', historyCount >= windowLength - 1, ...
+    'connectivityConstraintEnforced', enforceConnectivity, ...
+    'connectivityCutCount', 0);
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
+end
+end
