@@ -21,6 +21,7 @@ testDirectedRoutingModelArtifact();
 testResidualRoutingModelArtifact();
 testAnalyticDirectedRoutingPolicy();
 testRegisteredDirectedRoutingControls();
+testFormationGatewayRoutingPolicies();
 testReliabilityControlIsFixedIndexOnScaledScenarios();
 testFixedIndexClosedLoopClone();
 testReliabilityQualityRoutingRespondsToPosterior();
@@ -960,6 +961,99 @@ catch errorInfo
 end
 assert(metadataRejected);
 context.model = metadataModel;
+end
+
+function testFormationGatewayRoutingPolicies()
+model = generateMultisensorModel( ...
+    6, zeros(1, 6), 0.9 * ones(1, 6), ...
+    3 * ones(1, 6), 'GA', 'LBP');
+model.dynamicTopologyScenario = struct( ...
+    'config', struct('sensorGroupIds', [1, 1, 1, 2, 2, 2]));
+context = struct( ...
+    'localPosteriorBySensor', {repmat({struct([])}, 1, 6)}, ...
+    'model', model, ...
+    'physicalAdjacency', logical(ones(6) - eye(6)), ...
+    'commConfig', struct('pDropByEdge', zeros(6)), ...
+    'currentTime', 1, ...
+    'directedMessageBudget', 6);
+
+featureNames = { ...
+    'link_reliability', 'positive_existence_gain', ...
+    'positive_precision_gain', 'negative_existence_gap', ...
+    'negative_precision_gap', 'normalized_state_discrepancy', ...
+    'active_label_overlap', 'receiver_need'};
+features = nan(6, 6, 1, numel(featureNames));
+physical = context.physicalAdjacency;
+for featureIdx = 1:numel(featureNames)
+    slice = zeros(6);
+    slice(~physical) = NaN;
+    features(:, :, 1, featureIdx) = slice;
+end
+features(:, :, 1, 1) = 0.9 * double(physical);
+features(:, :, 1, 2) = 0.01 * double(physical);
+features(:, :, 1, 7) = double(physical);
+features(~repmat(physical, 1, 1, 1, numel(featureNames))) = NaN;
+features(1, 4, 1, 2) = 0.20;
+features(2, 5, 1, 2) = 0.18;
+features(4, 1, 1, 2) = 0.15;
+featureMetadata = struct( ...
+    'sourceWeightGrid', 0.50, 'truthUsed', false);
+options = buildFormationGatewayRoutingOptions( ...
+    'v1', struct( ...
+        'actionFeatures', features, ...
+        'actionFeatureNames', {featureNames}, ...
+        'actionFeatureMetadata', featureMetadata));
+[gateway, gatewayDetails] = ...
+    selectFormationGatewayRoutingPolicy(context, options);
+assert(all(sum(gateway, 2) == 1));
+assert(nnz(gateway) == 6);
+assert(gateway(1, 4));
+assert(~gateway(2, 5));
+assert(gateway(4, 1));
+assert(nnz(gatewayDetails.overrideMask) == 2);
+assert(abs(gatewayDetails.overrideFraction - 2 / 6) < 1e-12);
+assert(gatewayDetails.posteriorUsed);
+assert(~gatewayDetails.truthUsed);
+assert(gatewayDetails.currentLinkReliabilityUsed);
+
+blockedOptions = options;
+blockedOptions.minimumPositiveExistence = 0.25;
+[blocked, blockedDetails] = ...
+    selectFormationGatewayRoutingPolicy(context, blockedOptions);
+[roundRobin, ~] = selectRegisteredDirectedRoutingPolicy( ...
+    context, 'round-robin-balanced', ...
+    struct('sourceWeight', 0.50, 'phase', 1));
+assert(isequal(blocked, roundRobin));
+assert(blockedDetails.overrideFraction == 0);
+
+[fixedGateway, fixedDetails] = ...
+    selectRegisteredGatewayRoutingPolicy( ...
+        context, 'fixed-ring', struct('sourceWeight', 0.50));
+assert(all(sum(fixedGateway, 2) == 1));
+assert(nnz(fixedGateway) == 6);
+assert(nnz(fixedDetails.overrideMask) == 2);
+assert(fixedGateway(1, 4) && fixedGateway(4, 1));
+assert(~fixedDetails.posteriorUsed);
+
+context.currentTime = 2;
+[rotatingGateway, rotatingDetails] = ...
+    selectRegisteredGatewayRoutingPolicy( ...
+        context, 'rotating-ring', ...
+        struct('sourceWeight', 0.50, 'phase', 1));
+assert(all(sum(rotatingGateway, 2) == 1));
+assert(nnz(rotatingGateway) == 6);
+assert(nnz(rotatingDetails.overrideMask) == 2);
+assert(~isequal(rotatingGateway, fixedGateway));
+
+context.commConfig.pDropByEdge = 0.8 * double(physical);
+context.commConfig.pDropByEdge(2, 6) = 0.01;
+context.commConfig.pDropByEdge(5, 3) = 0.02;
+[linkGateway, linkDetails] = ...
+    selectRegisteredGatewayRoutingPolicy( ...
+        context, 'link-aware', struct('sourceWeight', 0.50));
+assert(linkGateway(2, 6) && linkGateway(5, 3));
+assert(linkDetails.currentLinkReliabilityUsed);
+assert(nnz(linkDetails.overrideMask) == 2);
 end
 
 function testReliabilityControlIsFixedIndexOnScaledScenarios()
