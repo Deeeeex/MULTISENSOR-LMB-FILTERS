@@ -61,6 +61,10 @@ diagnostics = initializeDiagnostics( ...
     commConfig, triggerConfig);
 diagnostics.continuationStartTime = continuationStartTime;
 diagnostics.usedInitialLocalPosterior = usesInitialLocalPosterior;
+diagnostics.usedInitialPreviousAdjacency = ...
+    any(initialPreviousDirectedEdgeMask(:));
+diagnostics.initialPreviousDirectedEdgeMask = ...
+    initialPreviousDirectedEdgeMask;
 diagnostics.continuationPreviousDirectedEdgeMask = ...
     initialPreviousDirectedEdgeMask;
 
@@ -616,6 +620,20 @@ function [startTime, initialLocalPosteriors, previousAdjacency] = ...
 initialLocalPosteriors = config.filterInitialLocalPosteriorBySensor;
 previousAdjacency = false(sensorCount);
 startTime = 1;
+if ~isempty(config.filterInitialPreviousAdjacency)
+    policyAdjacency = logical( ...
+        config.filterInitialPreviousAdjacency);
+    if ~isequal(size(policyAdjacency), [sensorCount, sensorCount])
+        error(['filterInitialPreviousAdjacency must be a square ', ...
+            'sensor-count matrix.']);
+    end
+    if config.topologyDirectedEnabled
+        previousAdjacency = policyAdjacency';
+    else
+        previousAdjacency = policyAdjacency | policyAdjacency';
+    end
+    previousAdjacency(1:sensorCount+1:end) = false;
+end
 if isempty(initialLocalPosteriors)
     return;
 end
@@ -629,16 +647,6 @@ startTime = config.filterInitialLocalPosteriorTime;
 if startTime < 1 || startTime > simulationLength
     error(['filterInitialLocalPosteriorTime must lie inside the ', ...
         'measurement sequence.']);
-end
-if ~isempty(config.filterInitialPreviousAdjacency)
-    previousAdjacency = logical( ...
-        config.filterInitialPreviousAdjacency);
-    if ~isequal(size(previousAdjacency), [sensorCount, sensorCount])
-        error(['filterInitialPreviousAdjacency must be a square ', ...
-            'sensor-count matrix.']);
-    end
-    previousAdjacency = previousAdjacency | previousAdjacency';
-    previousAdjacency(1:sensorCount+1:end) = false;
 end
 end
 
@@ -804,7 +812,9 @@ physicalAdjacency(1:numberOfSensors+1:end) = false;
 previousAdjacency = false(numberOfSensors);
 if nargin >= 9 && ~isempty(previousDirectedEdgeMask)
     if triggerConfig.topologyDirectedEnabled
-        previousAdjacency = previousDirectedEdgeMask';
+        previousAdjacency = ...
+            convertDiagnosticEdgeMaskToPolicyAdjacency( ...
+                previousDirectedEdgeMask);
     else
         previousAdjacency = ...
             previousDirectedEdgeMask | previousDirectedEdgeMask';

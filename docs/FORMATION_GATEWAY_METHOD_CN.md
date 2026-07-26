@@ -256,16 +256,30 @@ analytic v4 只改善约 0.07%。这把当前缺陷定位为 **edge scorer 不�
 
 ## 11. 当前学习证据
 
-teacher generator 已支持 fixed-index 和 privileged-v4 两种行为轨迹。
-所有 action feature 都明确标记 `truthUsed=false`；真值只进入离线
-Bernoulli-risk residual 标签。训练和验证按完整 seed 分块。
+此前的 teacher-series 结论已经撤回。原因是旧生成器在 \(t>t_0\) 时直接
+读取 `topologyActiveEdge(:,:,t-1)` 作为策略的上一时刻邻接矩阵，但前者
+采用“sender 行、receiver 列”，策略接口采用“receiver 行、sender 列”。
+遗漏转置会把 previous-edge 特征以及 previous/current 联合强连通约束整体
+反向。因此，旧 `directed_teacher_oracle_v4_*` 数据、基于它得到的
+ridge/kNN/structured-ranking 数值都不能继续作为学习失败或成功的证据。
 
-在 privileged-v4 访问的 9 个 seed/time block 上，oracle projected-tree
-gain 全部为正，范围约 5.35%–17.66%。但用 seeds 7/11 训练的 ridge 和
-kNN 在冻结 seed 17 上仍会选择有害边；最佳 raw-kNN 的三个验证 block
-收益为 -8.97%/-2.32%/-7.72%。加入 receiver、formation-pair 和 block
-级上下文归一化后仍未通过 gate。
+修正版生成器和在线 filter 现在共用同一个方向转换函数，并用独立的
+`ctxv2` 文件名和
+`directed-teacher-series-v2-receiver-row-previous-adjacency` contract
+隔离旧缓存。训练器还会强制检查：完整 seed 级 train/validation 隔离、
+至少两个训练 seed、fixed-index-star 基线、previous/current 联合强连通、
+训练与验证 proxy gate、truth-free action feature，以及 artifact
+provenance。旧文件不会被静默复用。
 
-因此当前不能声称已有 deployable learned v4。下一步应使用更多训练 seed，
-并把学习目标改为整棵树的结构化排序或 regret，而不是逐边绝对 residual
-回归；最终判定仍必须来自无真值闭环策略对强固定基线的配对比较。
+这里还要区分两种“使用真值”。投影时直接读取的 action feature
+确实不含真值；但是 privileged-v4 行为会改变后续 posterior 状态，所以
+训练样本的**状态分布**仍由真值辅助的 teacher 产生，不能再表述为
+“真值只进入标签”。这种数据最多支持 proxy/DAgger 开发，不能代替
+无真值闭环验证。
+
+修正版数据尚未完成重生成，因此当前只能保留“v4 动作空间具有
+truth-assisted 闭环信号”这一架构判断，不能声称已有 deployable learned
+v4，也不能依据旧 proxy 结果判断 ridge、kNN 或结构化排序孰优。下一步先
+重生成独立 seed 的 `ctxv2` 数据，报告 exact projector 对 5% 门槛是否
+可达，再冻结候选并与 fixed-index、link-tree 及完整注册的 cyclic-path
+root/receiver-phase 控制族做无真值闭环比较。
