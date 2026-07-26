@@ -20,6 +20,7 @@ testKlaCompatibilityOrdering();
 testDirectedTeacherDeliveryExpectation();
 testDirectedRoutingModelArtifact();
 testResidualRoutingModelArtifact();
+testStructuredFormationTreeCtxv2Protocol();
 testStructuredFormationTreeTrainingFailsClosed();
 testAnalyticDirectedRoutingPolicy();
 testRegisteredDirectedRoutingControls();
@@ -45,6 +46,33 @@ testInfeasiblePhysicalGraphFailsClosed();
 testMixtureAwareReferenceBoundary();
 testD12OracleCallbackSmoke();
 fprintf('test_dynamic_topology_scenarios passed\n');
+end
+
+function testStructuredFormationTreeCtxv2Protocol()
+cacheDirectory = fullfile('synthetic', 'ctxv2');
+protocol = getStructuredFormationTreeCtxv2Protocol(cacheDirectory);
+assert(isequal(protocol.trainingSeeds, [19, 23, 29]));
+assert(isequal(protocol.validationSeeds, [31, 37]));
+assert(isequal(protocol.futureClosedLoopAuditSeeds, 43));
+assert(isequal(protocol.snapshotTimes, 75:80));
+assert(isequal(protocol.datasetSeeds(1:7), ...
+    [19, 19, 19, 19, 19, 19, 23]));
+assert(isequal(protocol.datasetTimes(1:7), ...
+    [75, 76, 77, 78, 79, 80, 75]));
+assert(isequal(protocol.trainDatasetIndices, 1:18));
+assert(isequal(protocol.validationDatasetIndices, 19:30));
+assert(strcmp(protocol.datasetContractVersion, ...
+    'directed-teacher-series-v2-receiver-row-previous-adjacency'));
+assert(strcmp(protocol.previousAdjacencyConvention, ...
+    'receiver-row-sender-column-directed'));
+assert(strcmp(protocol.baselineMode, 'fixed-index-star'));
+assert(abs(protocol.minimumAggregateRiskImprovement - 0.05) < 1e-12);
+assert(abs(protocol.maximumAttemptedByteDeviation - 0.02) < 1e-12);
+assert(~protocol.enforcePerEdgeSafety);
+assert(protocol.requirePreviousUnionStrongConnectivity);
+assert(strcmp(protocol.datasetPaths{1}, fullfile( ...
+    cacheDirectory, ...
+    'directed_teacher_oracle_v4_ctxv2_m24_hard_seed19_t75.mat')));
 end
 
 function testStrongFormationCycleProjection()
