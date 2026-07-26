@@ -11,6 +11,11 @@ function [routedPosteriors, details] = ...
 % The teacher reads truth through evaluateLmbTopologyTaskRisk and is not
 % deployable. Its purpose is to test whether directional, receiver-specific
 % routing has enough residual value to justify a learned local surrogate.
+%
+% Link delivery is a Bernoulli event: on success the registered KLA weight
+% is applied, and on failure the receiver remains local. The default
+% teacher therefore scores expected risk over these two outcomes. It does
+% not shrink the KLA weight by link reliability.
 
 if nargin < 2 || isempty(options)
     options = struct();
@@ -22,7 +27,6 @@ physical = logical(context.physicalAdjacency);
 if ~isequal(size(physical), [nodeCount, nodeCount])
     error('physicalAdjacency must be S-by-S.');
 end
-physical = physical | physical';
 physical(1:nodeCount+1:end) = false;
 
 maxMessagesPerReceiver = max(0, round(getField( ...
@@ -36,8 +40,12 @@ if isempty(sourceWeightGrid)
 end
 minimumRelativeNodeGain = max(getField( ...
     options, 'minimumRelativeNodeGain', 0), 0);
-expectedDeliveryWeighting = getField( ...
-    options, 'expectedDeliveryWeighting', true);
+deliveryExpectationMode = resolveDeliveryExpectationMode(options);
+if strcmp(deliveryExpectationMode, 'bernoulli-risk') && ...
+        maxMessagesPerReceiver > 1
+    error(['bernoulli-risk delivery expectation currently supports ', ...
+        'exactly one message per receiver.']);
+end
 riskOptions = getField(options, 'riskOptions', struct());
 
 routedPosteriors = posteriors;
@@ -48,8 +56,17 @@ selectedSourceWeights = cell(1, nodeCount);
 selectedEffectiveWeights = cell(1, nodeCount);
 selectedStepGains = cell(1, nodeCount);
 firstStepCandidateRisk = nan(nodeCount);
+firstStepCandidateConditionalRisk = nan(nodeCount);
+firstStepCandidateExpectedGain = nan(nodeCount);
 firstStepCandidateSourceWeight = nan(nodeCount);
 firstStepCandidateEffectiveWeight = nan(nodeCount);
+weightCount = numel(sourceWeightGrid);
+firstStepConditionalRiskByWeight = ...
+    nan(nodeCount, nodeCount, weightCount);
+firstStepExpectedRiskByWeight = ...
+    nan(nodeCount, nodeCount, weightCount);
+firstStepExpectedGainByWeight = ...
+    nan(nodeCount, nodeCount, weightCount);
 adjacencySchedule = false( ...
     nodeCount, nodeCount, maxMessagesPerReceiver);
 payloadBytes = estimateNodePayloadBytes(posteriors, context.model);
@@ -77,40 +94,60 @@ for receiverIdx = 1:nodeCount
             senderBestRisk = inf;
             senderBestNominalWeight = NaN;
             senderBestEffectiveWeight = NaN;
-            reliability = 1;
-            if expectedDeliveryWeighting
-                reliability = 1 - edgeDrop( ...
-                    context.commConfig, senderIdx, receiverIdx, ...
-                    context.currentTime);
-            end
-            for nominalWeight = sourceWeightGrid
-                effectiveWeight = reliability * nominalWeight;
-                weights = [1 - nominalWeight, effectiveWeight];
-                weights = weights / max(sum(weights), eps);
+            senderBestConditionalRisk = NaN;
+            reliability = 1 - edgeDrop( ...
+                context.commConfig, senderIdx, receiverIdx, ...
+                context.currentTime);
+            for weightIdx = 1:weightCount
+                nominalWeight = sourceWeightGrid(weightIdx);
+                [weights, effectiveWeight] = resolveCandidateWeights( ...
+                    nominalWeight, reliability, ...
+                    deliveryExpectationMode);
                 fusionDetails = struct('eventType', [0, 2]);
                 candidatePosterior = fuseLmbPosteriorsByLabel( ...
                     {currentPosterior, posteriors{senderIdx}}, ...
                     weights, context.model, weights, ...
                     fusionDetails, context.triggerConfig);
-                candidateRisk = evaluateLmbTopologyTaskRisk( ...
+                conditionalRisk = evaluateLmbTopologyTaskRisk( ...
                     candidatePosterior, context.model, ...
                     context.currentTime, riskOptions);
-                if candidateRisk < bestRisk - 1e-12
-                    bestRisk = candidateRisk;
+                expectedRisk = expectedCandidateRisk( ...
+                    currentRisk, conditionalRisk, reliability, ...
+                    deliveryExpectationMode);
+                if messageIdx == 1
+                    firstStepConditionalRiskByWeight( ...
+                        receiverIdx, senderIdx, weightIdx) = ...
+                        conditionalRisk;
+                    firstStepExpectedRiskByWeight( ...
+                        receiverIdx, senderIdx, weightIdx) = ...
+                        expectedRisk;
+                    firstStepExpectedGainByWeight( ...
+                        receiverIdx, senderIdx, weightIdx) = ...
+                        currentRisk - expectedRisk;
+                end
+                if expectedRisk < bestRisk - 1e-12
+                    bestRisk = expectedRisk;
                     bestSource = senderIdx;
                     bestNominalWeight = nominalWeight;
-                    bestEffectiveWeight = weights(2);
+                    bestEffectiveWeight = effectiveWeight;
                     bestPosterior = candidatePosterior;
                 end
-                if candidateRisk < senderBestRisk
-                    senderBestRisk = candidateRisk;
+                if expectedRisk < senderBestRisk
+                    senderBestRisk = expectedRisk;
                     senderBestNominalWeight = nominalWeight;
-                    senderBestEffectiveWeight = weights(2);
+                    senderBestEffectiveWeight = effectiveWeight;
+                    senderBestConditionalRisk = conditionalRisk;
                 end
             end
             if messageIdx == 1
                 firstStepCandidateRisk(receiverIdx, senderIdx) = ...
                     senderBestRisk;
+                firstStepCandidateConditionalRisk( ...
+                    receiverIdx, senderIdx) = ...
+                    senderBestConditionalRisk;
+                firstStepCandidateExpectedGain( ...
+                    receiverIdx, senderIdx) = ...
+                    currentRisk - senderBestRisk;
                 firstStepCandidateSourceWeight( ...
                     receiverIdx, senderIdx) = senderBestNominalWeight;
                 firstStepCandidateEffectiveWeight( ...
@@ -144,17 +181,29 @@ details.mode = 'privileged-directed-task-routing';
 details.maxMessagesPerReceiver = maxMessagesPerReceiver;
 details.sourceWeightGrid = sourceWeightGrid;
 details.minimumRelativeNodeGain = minimumRelativeNodeGain;
-details.expectedDeliveryWeighting = expectedDeliveryWeighting;
+details.deliveryExpectationMode = deliveryExpectationMode;
+details.expectedDeliveryWeighting = strcmp( ...
+    deliveryExpectationMode, 'legacy-weight-shrinkage');
 details.adjacencySchedule = adjacencySchedule;
 details.selectedSourcesByReceiver = selectedSources;
 details.selectedSourceWeightsByReceiver = selectedSourceWeights;
 details.selectedEffectiveWeightsByReceiver = selectedEffectiveWeights;
 details.selectedStepGainsByReceiver = selectedStepGains;
 details.firstStepCandidateRisk = firstStepCandidateRisk;
+details.firstStepCandidateConditionalRisk = ...
+    firstStepCandidateConditionalRisk;
+details.firstStepCandidateExpectedGain = ...
+    firstStepCandidateExpectedGain;
 details.firstStepCandidateSourceWeight = ...
     firstStepCandidateSourceWeight;
 details.firstStepCandidateEffectiveWeight = ...
     firstStepCandidateEffectiveWeight;
+details.firstStepConditionalRiskByWeight = ...
+    firstStepConditionalRiskByWeight;
+details.firstStepExpectedRiskByWeight = ...
+    firstStepExpectedRiskByWeight;
+details.firstStepExpectedGainByWeight = ...
+    firstStepExpectedGainByWeight;
 details.nodeRiskBefore = nodeRiskBefore;
 details.nodeRiskAfter = nodeRiskAfter;
 details.meanRiskBefore = mean(nodeRiskBefore);
@@ -185,6 +234,51 @@ if maxMessagesPerReceiver == 1
         details.fusionWeightMatrix(receiverIdx, senderIdx) = ...
             sourceWeight;
     end
+end
+end
+
+function mode = resolveDeliveryExpectationMode(options)
+if isfield(options, 'deliveryExpectationMode') && ...
+        ~isempty(options.deliveryExpectationMode)
+    mode = lower(strrep(char( ...
+        options.deliveryExpectationMode), '_', '-'));
+elseif isfield(options, 'expectedDeliveryWeighting')
+    if options.expectedDeliveryWeighting
+        mode = 'legacy-weight-shrinkage';
+    else
+        mode = 'conditional-success';
+    end
+else
+    mode = 'bernoulli-risk';
+end
+allowed = {'bernoulli-risk', 'conditional-success', ...
+    'legacy-weight-shrinkage'};
+if ~any(strcmp(mode, allowed))
+    error('Unknown deliveryExpectationMode: %s', mode);
+end
+end
+
+function [weights, effectiveWeight] = resolveCandidateWeights( ...
+    nominalWeight, reliability, mode)
+switch mode
+    case 'legacy-weight-shrinkage'
+        weights = [ ...
+            1 - nominalWeight, reliability * nominalWeight];
+        weights = weights / max(sum(weights), eps);
+        effectiveWeight = weights(2);
+    otherwise
+        weights = [1 - nominalWeight, nominalWeight];
+        effectiveWeight = nominalWeight;
+end
+end
+
+function risk = expectedCandidateRisk( ...
+    localRisk, conditionalRisk, reliability, mode)
+if strcmp(mode, 'bernoulli-risk')
+    risk = reliability * conditionalRisk + ...
+        (1 - reliability) * localRisk;
+else
+    risk = conditionalRisk;
 end
 end
 
