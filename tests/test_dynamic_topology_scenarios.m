@@ -11,6 +11,7 @@ testContinuationFromLocalPosteriorSnapshot();
 testRollingTopologyHistoryContract();
 testInvalidTopologyHistoryRejected();
 testConstraintAwareScreenDecision();
+testSelectedDeliveredRollingB3Separation();
 testResidualRoutingBackboneGate();
 testContinuationCacheRejectsConfigDrift();
 testScheduledBirths();
@@ -126,9 +127,8 @@ try
             'connectivityWindowLength', 3, ...
             'recentFormationAdjacency', history));
 catch errorInfo
-    infeasible = ~isempty(strfind( ...
-        errorInfo.message, ...
-        'No optimal rolling formation matching')); %#ok<STREMP>
+    infeasible = strcmp( ...
+        errorInfo.identifier, 'RollingMatching:Infeasible');
 end
 assert(infeasible);
 end
@@ -269,34 +269,185 @@ assert(restorationDetails.selectedSourcesByReceiver( ...
 [payloadContext, ~] = makeSyntheticRollingContext();
 payloadContext.localPosteriorBySensor = ...
     makeGroupSkewedPayloads(payloadContext.model, groupIds);
-[firstAdjacency, ~] = selectRollingSafeRoutingPolicy( ...
-    payloadContext, 'scheduled-burst', struct( ...
-        'sourceWeight', 0.70, ...
-        'payloadToleranceFraction', 0));
-payloadContext.currentTime = 2;
+payloadContext.localPosteriorBySensor{7} = ...
+    payloadContext.localPosteriorBySensor{1};
+payloadContext.currentTime = 3;
+[payloadBackbone, ~] = selectRegisteredDirectedRoutingPolicy( ...
+    payloadContext, 'fixed-balanced-cycle', ...
+    struct('sourceWeight', 0.70, 'phase', 1));
+payloadPage1 = payloadBackbone;
+payloadPage1(3, :) = false;
+payloadPage1(3, 1) = true;
+payloadPage1(5, :) = false;
+payloadPage1(5, 3) = true;
+payloadPage2 = payloadBackbone;
+payloadPage2(7, :) = false;
+payloadPage2(7, 5) = true;
 payloadContext.previousAdjacencyHistory = ...
-    reshape(firstAdjacency, 8, 8, 1);
-payloadContext.previousAdjacency = firstAdjacency;
-payloadContext.previousAdjacencyHistoryCount = 1;
-payloadContext.previousAdjacencyHistoryTimes = 1;
+    cat(3, payloadPage1, payloadPage2);
+payloadContext.previousAdjacency = payloadPage2;
+payloadContext.previousAdjacencyHistoryCount = 2;
+payloadContext.previousAdjacencyHistoryTimes = [1, 2];
+payloadPhysical = false(8);
+for formationIdx = 1:4
+    members = find(groupIds == formationIdx);
+    payloadPhysical(members, members) = ...
+        logical(ones(numel(members)) - eye(numel(members)));
+    receiverFormation = 1 + mod(formationIdx, 4);
+    receiverMembers = find(groupIds == receiverFormation);
+    payloadPhysical(receiverMembers, members) = true;
+end
+payloadPhysical(7, 5:6) = false;
+payloadPhysical(1:2, 7) = false;
+payloadContext.physicalAdjacency = payloadPhysical;
+payloadContext.baseAdjacency = payloadPhysical;
+payloadContext.edgeScores = double(payloadPhysical);
+payloadScores = zeros(8);
+payloadScores(1:2, 7:8) = 1;
 payloadRejected = false;
 try
     selectRollingSafeRoutingPolicy( ...
-        payloadContext, 'scheduled-burst', struct( ...
+        payloadContext, 'external-scores', struct( ...
+            'edgeScoreMatrix', payloadScores, ...
+            'posteriorUsed', false, ...
             'sourceWeight', 0.70, ...
             'payloadToleranceFraction', 0));
-catch
-    payloadRejected = true;
+catch errorInfo
+    payloadRejected = strcmp( ...
+        errorInfo.identifier, 'RollingMatching:Infeasible');
 end
 assert(payloadRejected);
 [~, emergencyDetails] = selectRollingSafeRoutingPolicy( ...
-    payloadContext, 'scheduled-burst', struct( ...
+    payloadContext, 'external-scores', struct( ...
+        'edgeScoreMatrix', payloadScores, ...
+        'posteriorUsed', false, ...
         'sourceWeight', 0.70, ...
         'payloadToleranceFraction', 0, ...
         'allowEmergencyPayloadViolation', true));
 assert(emergencyDetails.payloadEmergencyUsed);
 assert(~emergencyDetails.payloadLimitPassed);
 assert(emergencyDetails.successorSensorStrongConnected);
+
+endpointGroupIds = [1, 1, 2, 2];
+endpointContext = ...
+    makeSyntheticRollingContextForGroups(endpointGroupIds);
+endpointHistory = false(4, 4, 0);
+pairs12 = zeros(0, 2);
+pairs21 = zeros(0, 2);
+expectedEndpointCrossCounts = repmat([1, 1, 0], 1, 4);
+for currentTime = 1:12
+    endpointContext.currentTime = currentTime;
+    endpointContext.previousAdjacencyHistory = endpointHistory;
+    endpointContext.previousAdjacencyHistoryCount = ...
+        size(endpointHistory, 3);
+    if isempty(endpointHistory)
+        endpointContext.previousAdjacency = false(4);
+        endpointContext.previousAdjacencyHistoryTimes = [];
+    else
+        endpointContext.previousAdjacency = ...
+            endpointHistory(:, :, end);
+        endpointContext.previousAdjacencyHistoryTimes = ...
+            (currentTime - size(endpointHistory, 3)): ...
+            (currentTime - 1);
+    end
+    [endpointAdjacency, endpointDetails] = ...
+        selectRollingSafeRoutingPolicy( ...
+            endpointContext, 'scheduled-burst', struct( ...
+                'sourceWeight', 0.70, ...
+                'rootFormation', 1, ...
+                'orientation', 'clockwise', ...
+                'temporalPhase', 0, ...
+                'payloadToleranceFraction', 0));
+    assert(endpointDetails.realizedCrossCount == ...
+        expectedEndpointCrossCounts(currentTime));
+    assert(endpointDetails.maximumCrossSourceLoad <= 1);
+    assert(endpointDetails.maximumCrossReceiverLoad <= 1);
+    assert(endpointDetails.posteriorPayloadMetadataUsed);
+    assert(~endpointDetails.recursiveSafetyClaimed);
+    [crossReceivers, crossSenders] = find( ...
+        endpointAdjacency & ...
+        (endpointGroupIds(:) ~= endpointGroupIds));
+    for edgeIdx = 1:numel(crossReceivers)
+        senderGroup = endpointGroupIds(crossSenders(edgeIdx));
+        receiverGroup = endpointGroupIds(crossReceivers(edgeIdx));
+        senderRole = find(find(endpointGroupIds == senderGroup) == ...
+            crossSenders(edgeIdx), 1);
+        receiverRole = find(find(endpointGroupIds == receiverGroup) == ...
+            crossReceivers(edgeIdx), 1);
+        pair = [senderRole, receiverRole];
+        if senderGroup == 1 && receiverGroup == 2
+            pairs12(end + 1, :) = pair; %#ok<AGROW>
+        elseif senderGroup == 2 && receiverGroup == 1
+            pairs21(end + 1, :) = pair; %#ok<AGROW>
+        end
+    end
+    if currentTime >= 3
+        assert(endpointDetails.sensorWindowStrongConnected);
+        assert(isStrongDirectedPolicyUnion( ...
+            cat(3, endpointHistory, endpointAdjacency)));
+    end
+    endpointHistory = appendTestHistory( ...
+        endpointHistory, endpointAdjacency, 2);
+end
+expectedEndpointPairs = [1, 1; 1, 2; 2, 1; 2, 2];
+assert(isequal(pairs12, expectedEndpointPairs));
+assert(isequal(pairs21, expectedEndpointPairs));
+
+repairGroupIds = [1, 1, 2, 2, 3, 3];
+repairContext = ...
+    makeSyntheticRollingContextForGroups(repairGroupIds);
+repairPhysical = logical(ones(6) - eye(6));
+repairPhysical(repairGroupIds == 1, repairGroupIds == 3) = false;
+repairContext.physicalAdjacency = repairPhysical;
+repairContext.baseAdjacency = repairPhysical;
+repairContext.edgeScores = double(repairPhysical);
+repairContext.currentTime = 3;
+[repairBackbone, ~] = selectRegisteredDirectedRoutingPolicy( ...
+    repairContext, 'fixed-balanced-cycle', ...
+    struct('sourceWeight', 0.70, 'phase', 1));
+page1 = repairBackbone;
+page1(3, :) = false;
+page1(3, 1) = true;
+page2 = repairBackbone;
+page2(1, :) = false;
+page2(1, 3) = true;
+page2(5, :) = false;
+page2(5, 4) = true;
+repairContext.previousAdjacencyHistory = cat(3, page1, page2);
+repairContext.previousAdjacency = page2;
+repairContext.previousAdjacencyHistoryCount = 2;
+repairContext.previousAdjacencyHistoryTimes = [1, 2];
+[repairAdjacency, repairDetails] = ...
+    selectRollingSafeRoutingPolicy( ...
+        repairContext, 'scheduled-chunk', struct( ...
+            'sourceWeight', 0.70, ...
+            'reserveScheduleType', 'cyclic-chunk', ...
+            'quota', 1, ...
+            'formationPhase', 0, ...
+            'orientation', 'clockwise', ...
+            'anchorTime', 1, ...
+            'payloadToleranceFraction', 0));
+assert(repairDetails.proposalCrossCount == 1);
+assert(repairDetails.currentReserveFormationAdjacency(3, 1));
+assert(repairDetails.realizedCrossCount == 1);
+assert(repairDetails.formationAdjacency(3, 2));
+assert(~repairDetails.formationAdjacency(3, 1));
+assert(repairDetails.repairTriggered);
+assert(~repairDetails.nominalProjectionFeasible);
+assert(repairDetails.repairKeptCount == 0);
+assert(repairDetails.repairDroppedCount == 1);
+assert(repairDetails.repairAddedCount == 1);
+assert(repairDetails.formationWindowStrongConnected);
+assert(repairDetails.sensorWindowStrongConnected);
+assert(repairDetails.successorFormationStrongConnected);
+assert(repairDetails.successorSensorStrongConnected);
+assert(~repairDetails.payloadEmergencyUsed);
+overrideReceivers = find(repairDetails.overrideMask);
+nonOverrideReceivers = setdiff(1:6, overrideReceivers);
+assert(isequal( ...
+    repairDetails.selectedSourcesByReceiver(nonOverrideReceivers), ...
+    repairDetails.baselineSourcesByReceiver(nonOverrideReceivers)));
+assert(all(repairPhysical(repairAdjacency)));
 end
 
 function testStructuredFormationTreeCtxv2Protocol()
@@ -998,8 +1149,27 @@ continuationOptions = struct( ...
     'armNames', {{'robust-static'}}, ...
     'behaviorCacheDirectory', cacheDirectory, ...
     'writeReport', false);
-runDynamicTopologyOracleGapScreen( ...
+[~, startOneSummary] = runDynamicTopologyOracleGapScreen( ...
     'd12-handover', 31, continuationOptions);
+startOneRecord = startOneSummary.records(1, 1);
+assert(startOneRecord.pairwisePreviousGraphExecuted == 0);
+assert(startOneRecord.focusPairwisePreviousGraphExecuted == 0);
+assert(startOneRecord.rollingB3SensorMatureWindowCount == 0);
+assert(startOneRecord.focusRollingB3SensorMatureWindowCount == 0);
+assert(isnan(startOneRecord.rollingB3SensorStrongFraction));
+assert(isnan(startOneRecord.focusRollingB3SensorStrongFraction));
+startOneAggregate = startOneSummary.aggregate(1);
+unsupportedContractFields = { ...
+    'policyFormationWindowStrongFraction', ...
+    'policySensorWindowStrongFraction', ...
+    'policySuccessorSensorStrongFraction', ...
+    'policyPayloadLimitPassFraction', ...
+    'policyRepairRate', ...
+    'policyPayloadEmergencyRate'};
+for fieldIdx = 1:numel(unsupportedContractFields)
+    assert(isnan(startOneAggregate.( ...
+        unsupportedContractFields{fieldIdx})));
+end
 
 continuationOptions.scenarioOverrides = struct( ...
     'measurementNoiseStd', 9);
@@ -1012,6 +1182,7 @@ catch errorInfo
         errorInfo.message, ...
         'metadata or posterior snapshot mismatches')); %#ok<STREMP>
 end
+
 assert(rejected);
 
 continuationOptions.scenarioOverrides = struct();
@@ -1027,6 +1198,31 @@ catch errorInfo
         'metadata or posterior snapshot mismatches')); %#ok<STREMP>
 end
 assert(rejected);
+end
+
+function testSelectedDeliveredRollingB3Separation()
+scenarioOverrides = struct( ...
+    'forceDelivery', false, ...
+    'linkMode', 'distance', ...
+    'intraFormationDropProbability', 0.95, ...
+    'interFormationDropMinimum', 0.95, ...
+    'interFormationDropScale', 0, ...
+    'blockageWindows', zeros(0, 4));
+options = struct( ...
+    'maxTimeSteps', 3, ...
+    'armNames', {{'robust-static'}}, ...
+    'scenarioOverrides', scenarioOverrides, ...
+    'writeReport', false);
+[~, summary] = runDynamicTopologyOracleGapScreen( ...
+    'd12-handover', 7, options);
+record = summary.records(1, 1);
+assert(record.selectedRollingB3SensorMatureWindowCount == 1);
+assert(record.selectedRollingB3SensorStrongFraction == 1);
+assert(record.deliveredRollingB3SensorMatureWindowCount == 1);
+assert(record.deliveredRollingB3SensorStrongFraction == 0);
+assert(record.deliveryCount < record.attemptCount);
+assert(record.focusSelectedRollingB3SensorStrongFraction == 1);
+assert(record.focusDeliveredRollingB3SensorStrongFraction == 0);
 end
 
 function cleanupDirectory(path)
@@ -2536,8 +2732,12 @@ assert(rejected);
 end
 
 function [context, groupIds] = makeSyntheticRollingContext()
-sensorCount = 8;
 groupIds = repelem(1:4, 2);
+context = makeSyntheticRollingContextForGroups(groupIds);
+end
+
+function context = makeSyntheticRollingContextForGroups(groupIds)
+sensorCount = numel(groupIds);
 model = generateMultisensorModel( ...
     sensorCount, [0, 0], 0.9 * ones(1, sensorCount), ...
     3 * ones(1, sensorCount), 'GA', 'LBP');
@@ -2602,19 +2802,21 @@ end
 function posteriors = makeGroupSkewedPayloads(model, groupIds)
 posteriors = cell(1, numel(groupIds));
 for sensorIdx = 1:numel(groupIds)
-    componentCount = 1;
+    labelCount = 1;
     if groupIds(sensorIdx) == 4
-        componentCount = 5;
+        labelCount = 5;
     end
-    object = model.birthParameters(1);
-    object.r = 0.9;
-    object.numberOfGmComponents = componentCount;
-    object.w = ones(1, componentCount) / componentCount;
-    object.mu = repmat({zeros(model.xDimension, 1)}, ...
-        1, componentCount);
-    object.Sigma = repmat({eye(model.xDimension)}, ...
-        1, componentCount);
-    posteriors{sensorIdx} = object;
+    objects = repmat(model.birthParameters(1), 1, labelCount);
+    for labelIdx = 1:labelCount
+        objects(labelIdx).birthTime = 1;
+        objects(labelIdx).birthLocation = labelIdx;
+        objects(labelIdx).r = 0.9;
+        objects(labelIdx).numberOfGmComponents = 1;
+        objects(labelIdx).w = 1;
+        objects(labelIdx).mu = {zeros(model.xDimension, 1)};
+        objects(labelIdx).Sigma = {eye(model.xDimension)};
+    end
+    posteriors{sensorIdx} = objects;
 end
 end
 

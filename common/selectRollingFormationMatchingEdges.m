@@ -137,15 +137,18 @@ if exampleCount == 0
         nextReserveFormationAdjacency);
     if enforceConnectivity && ...
             ~isStronglyConnected(historyUnion)
-        error('No feasible rolling formation matching can be projected.');
+        error('RollingMatching:Infeasible', ...
+            'No feasible rolling formation matching can be projected.');
     end
     if reserveViabilityEnforced && ...
             ~isStronglyConnected(successorUnion)
-        error(['No recursively viable rolling formation matching ', ...
+        error('RollingMatching:Infeasible', ...
+            ['No one-step reserve-viable rolling formation matching ', ...
             'can be projected.']);
     end
     if any(requiredFormationAdjacency(:))
-        error('No required rolling formation pair can be projected.');
+        error('RollingMatching:Infeasible', ...
+            'No required rolling formation pair can be projected.');
     end
     selection = emptySelection( ...
         groupCount, historyCount, connectivityWindowLength, ...
@@ -158,17 +161,24 @@ if exampleCount == 0
     return;
 end
 if exist('glpk', 'file') ~= 2
-    error('Rolling formation matching requires GLPK.');
+    error('RollingMatching:SolverUnavailable', ...
+        'Rolling formation matching requires GLPK.');
 end
 
 lowerBounds = zeros(exampleCount, 1);
 upperBounds = ones(exampleCount, 1);
 variableTypes = repmat('I', 1, exampleCount);
+solverTimeLimitSeconds = getField( ...
+    options, 'solverTimeLimitSeconds', 10);
+if ~isscalar(solverTimeLimitSeconds) || ...
+        ~isfinite(solverTimeLimitSeconds) || ...
+        solverTimeLimitSeconds <= 0
+    error('solverTimeLimitSeconds must be a positive finite scalar.');
+end
 solverOptions = struct( ...
     'msglev', max(0, round(getField( ...
         options, 'solverMessageLevel', 0))), ...
-    'tmlim', max(1, round(getField( ...
-        options, 'solverTimeLimitSeconds', 10))));
+    'tmlim', max(1, round(1000 * solverTimeLimitSeconds)));
 [primaryX, primaryObjective] = solveBinaryProgram( ...
     scores, A, b, constraintTypes, lowerBounds, upperBounds, ...
     variableTypes, solverOptions);
@@ -292,6 +302,21 @@ for senderIdx = 1:nodeCount
     b(row, 1) = 1;
     constraintTypes(end + 1) = 'U'; %#ok<AGROW>
 end
+% A formation-level action is binary even when several physical endpoint
+% pairs realize it.  This cap prevents a flexible repair from spending two
+% overrides on the same directed formation pair.
+for senderGroup = 1:groupCount
+    for receiverGroup = 1:groupCount
+        if senderGroup == receiverGroup
+            continue;
+        end
+        row = row + 1;
+        A(row, senderGroups == senderGroup & ...
+            receiverGroups == receiverGroup) = 1;
+        b(row, 1) = 1;
+        constraintTypes(end + 1) = 'U'; %#ok<AGROW>
+    end
+end
 row = row + 1;
 A(row, :) = 1;
 b(row, 1) = maximumCrossEdges;
@@ -373,10 +398,24 @@ status = NaN;
 if isstruct(extra) && isfield(extra, 'status')
     status = extra.status;
 end
-if errorNumber ~= 0 || status ~= 5 || ...
-        isempty(x) || any(~isfinite(x))
-    error([ ...
-        'No optimal rolling formation matching was found ', ...
+if any(errorNumber == [10, 15])
+    error('RollingMatching:Infeasible', [ ...
+        'No feasible rolling formation matching exists ', ...
+        '(glpk error %d, status %g).'], errorNumber, status);
+end
+if errorNumber ~= 0
+    error('RollingMatching:SolverFailure', [ ...
+        'Rolling formation matching solver failed ', ...
+        '(glpk error %d, status %g).'], errorNumber, status);
+end
+if any(status == [3, 4])
+    error('RollingMatching:Infeasible', [ ...
+        'No feasible rolling formation matching exists ', ...
+        '(glpk error %d, status %g).'], errorNumber, status);
+end
+if status ~= 5 || isempty(x) || any(~isfinite(x))
+    error('RollingMatching:SolverFailure', [ ...
+        'Rolling formation matching did not return a certified optimum ', ...
         '(glpk error %d, status %g).'], errorNumber, status);
 end
 end
@@ -554,6 +593,12 @@ for senderIdx = unique(selectedSenders(:))'
 end
 if any(receiverGroups(selectedMask) == senderGroups(selectedMask))
     error('Rolling matching selection contains an intra-formation edge.');
+end
+selectedPairIds = sub2ind( ...
+    [max(senderGroups), max(receiverGroups)], ...
+    senderGroups(selectedMask), receiverGroups(selectedMask));
+if numel(unique(selectedPairIds)) ~= numel(selectedPairIds)
+    error('Rolling matching selection repeats a formation pair.');
 end
 end
 
