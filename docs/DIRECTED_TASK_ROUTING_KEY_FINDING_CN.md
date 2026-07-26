@@ -1,5 +1,15 @@
 # 定向任务路由：M24/X36 关键发现
 
+> **2026-07-26 收益归因修正：** 后续全时审计证明，
+> `directed-reliability-w0.50` 在 M24/X36 上并不动态。它在不同 seed 和
+> 全部 160 步中都重复固定的编队内 `[2,1,1,1,1,1]` sender map，与
+> `directed-fixed-index-w50` 完全一致。此前约 10%–20% 的开发收益只能
+> 归因于“固定 receiver-specific 单入边 + 等权 KLA”，不能归因于在线
+> 换路、链路自适应或学习。报告中的约 0.48 churn 只是 static prefix
+> 切到固定定向图的边界变化。下文保留旧探索过程作为历史记录；当前方法、
+> 强对照和验收协议以
+> `docs/DIRECTED_ROUTING_ATTRIBUTION_CORRECTION_CN.md` 为准。
+
 > 2026-07-26 更新：本文后半部分记录的是第一版单快照 kNN 的开发过程，
 > 不能再作为最终方法结论。held-out seed 17 显示该模型在 X36 上只比
 > local 改善 1.05%；特征距离审计进一步确认 X36 查询 100% 越过训练
