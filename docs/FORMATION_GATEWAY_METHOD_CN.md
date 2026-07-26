@@ -251,8 +251,9 @@ M24 seed 7 的三步闭环结果进一步确认这个动作空间有效：
 | Privileged v4 | 17.9780 | 34.6420 | 3,453,696 | 是 |
 
 privileged v4 相对强基线改善 6.59%，且尾部不退化、通信量下降 1.66%；
-analytic v4 只改善约 0.07%。这把当前缺陷定位为 **edge scorer 不足**，
-而不是图动作空间或闭环机制无效。
+analytic v4 只改善约 0.07%。这一结果只能说明 seed 7 的短窗口存在
+truth-assisted 信号。修正方向错误并扩大到多 seed、多快照以后，不能再把
+缺陷只归因于 edge scorer；第 12 节给出了动作空间本身的反例。
 
 ## 11. 当前学习证据
 
@@ -277,9 +278,52 @@ provenance。旧文件不会被静默复用。
 “真值只进入标签”。这种数据最多支持 proxy/DAgger 开发，不能代替
 无真值闭环验证。
 
-修正版数据尚未完成重生成，因此当前只能保留“v4 动作空间具有
-truth-assisted 闭环信号”这一架构判断，不能声称已有 deployable learned
-v4，也不能依据旧 proxy 结果判断 ridge、kNN 或结构化排序孰优。下一步先
-重生成独立 seed 的 `ctxv2` 数据，报告 exact projector 对 5% 门槛是否
-可达，再冻结候选并与 fixed-index、link-tree 及完整注册的 cyclic-path
-root/receiver-phase 控制族做无真值闭环比较。
+修正版数据已经完成五个 seed、每个 seed 六个快照的重生成。exact
+projector 的结果否决了当前每步 rooted-tree 动作空间，因此训练入口按设计
+拒绝冻结候选。旧 proxy 数值仍然无效，新数据也不支持继续调结构化 tree
+ranker；应先改变可行集和时间尺度，再重新分配验证数据。
+
+## 12. 修正版 ctxv2 的关键发现
+
+当前 joint-tree v4 每一步都强制 \(G-1\) 个 receiver 用跨编队 sender
+替换 fixed-index 编队内 sender。M24 的 \(G=4\)，所以每步必须选择三条
+覆盖所有编队的跨边，no-op/fallback 不在当前 tree feasible set 中。
+
+corrected ctxv2 在 seeds 19/23/29/31/37、t=75:80 上的精确投影结果为：
+
+| Seed | 当前 joint-tree 六步加权 proxy gain |
+|---:|---:|
+| 19 | 11.09% |
+| 23 | 3.06% |
+| 29 | 13.01% |
+| 31 | 27.05% |
+| 37 | 3.69% |
+
+30 个块中有 9 个达不到 5%，最差是 seed 23、t=77 的 -1.5963%。
+去掉 previous/current union 约束、只要求当步 rooted tree 后，仍有 9 个块
+低于 5%，最差仍为 -1.2429%。这说明主要损失不是邻接方向或两步连通约束，
+而是“当步必须用树覆盖全部编队”迫使 oracle 加入有害桥边。
+
+将动作改为“每步最多三条跨编队 override，其余 receiver 保留编队内
+fallback”，并在连续 \(B\) 步而不是当步保护强连通后，精确整数规划得到：
+
+| Seed | \(B=2\) | \(B=3\) | \(B=3\) payload ratio |
+|---:|---:|---:|---:|
+| 19 | 11.15% | 11.92% | 0.9967 |
+| 23 | 4.99% | 5.43% | 0.9983 |
+| 29 | 14.58% | 15.55% | 0.9953 |
+| 31 | 28.85% | 30.22% | 0.9967 |
+| 37 | 4.88% | 6.04% | 0.9994 |
+
+\(B=3\) 在五个 development seed 上都保留超过 5% 的六步一步风险 proxy
+headroom，且每一步 attempted payload 增量不超过 2%。它仍不是闭环 tracking
+结果，但给出了比“继续训练 tree scorer”更合理的下一方向：
+
+1. 显式保留 fixed-index intra-formation no-op；
+2. 学习跨编队 edge value；
+3. 用 rolling-\(B=3\) connectivity-debt projector 保证每个三步并图强连通；
+4. 用三步累计价值训练/筛选，而不是要求每个快照都改善 5%；
+5. 冻结结构与阈值后重新分配未查看的 validation 和 held-out seed。
+
+详细诊断见
+`RUN/GA/dynamic_topology/STRUCTURED_TREE_CTXV2_ACTION_SPACE_DIAGNOSIS.md`。

@@ -169,10 +169,12 @@ superiority, a consensus guarantee, or total-communication savings.
 | C51 | A receiver-complete formation-gateway proxy that requires both positive pairwise utility margin and absolute existence novelty improves corrected one-step teacher risk over phase-1 intra-formation round-robin by 6.01%/5.22%/7.24% on M24 t=75 seeds 7/11/17, with zero harmful selected gateway, two or three cross-formation overrides, and attempted-payload ratios of 0.9917/0.9936/1.0069. However, all three induced formation graphs are not weakly connected, so the corrected training, validation and all-observed proxy gates all fail. | High | E66 | All three snapshots are development evidence. Receiver coverage is not a connectivity guarantee; this is privileged one-step proxy risk, not closed-loop E-OSPA, consensus, X36 transfer or held-out validation. |
 | C52 | In the phase-complete 15-arm M24 seed-7 t=75–77 closed loop, novelty-gated gateway v1 improves E-OSPA by only 1.6781% over the strongest matched control (phase-1 round-robin), worsens the worst node from 34.8109 to 35.1839, and fails the registered attribution gate. It uses 1.78% fewer attempted payload bytes, retains full receiver coverage and zero infeasibility, and changes its gateway-only map. Its formation graph is disconnected at every individual step but weakly connected over the three-step union. | High | E67 | This is a one-seed, three-step conditional falsification of v1's practical/tail claim after fixed/rotating phases 1–6 and the corrected link-aware control. It blocks M24 multi-seed and X36 expansion of this version. |
 | C53 | A fixed-index-backbone strong formation cycle at w=0.70 is tail-safe on M24 seed 7 and improves E-OSPA from 19.2470 to 18.5164 at its best bridge weight 0.10, but the 3.80% gain is below the 5% gate. Larger bridge weights monotonically lose the benefit and eventually worsen tail performance. | High | E68 | This is a one-seed conditional development screen. It rejects per-step strong connectivity as the final action space; it is not a learned-policy or held-out result. |
-| C54 | Joint-tree v4 replaces the per-step strong cycle with a rooted tree whose union with the previous formation graph must be strongly connected. The exact projection jointly optimizes sensor endpoints under a one-cross-send-per-sensor constraint. On M24 seed 7 the analytic scorer is tail-safe and reduces attempted bytes by 7.27%, but improves E-OSPA by only 0.07% over fixed-index w=0.70. | High | E69 | The hard graph construction works; the hand-designed edge scorer does not realize the available tracking benefit. |
-| C55 | At t=75, the privileged optimal tree relative to fixed-index w=0.70 has positive selected residuals and one-step gains of 7.27%/15.90%/9.93% on M24 seeds 7/11/17. In the seed-7 t=75–77 closed loop, privileged joint-tree v4 improves E-OSPA from 19.2470 to 17.9780 (6.59%), keeps the worst node at 34.6420, uses 1.66% fewer attempted bytes and has a strongly connected three-step formation union. | High | E70 | This is truth-assisted architecture signal, not deployable evidence. It justifies learning the scorer but cannot be reported as the learned method result. |
-| C56 | The earlier privileged-v4 teacher series cannot support its reported ridge/kNN/structured-ranking conclusions. At \(t>t_0\), the generator passed the sender-row/receiver-column diagnostic edge mask directly into a receiver-row/sender-column policy context, reversing previous-edge features and the previous/current connectivity constraint. The corrected generator shares the live-filter converter, writes isolated `ctxv2` files, and fail-closes on the new series contract. | High | E71 | The old `directed_teacher_oracle_v4_*` caches and their proxy reports are superseded, not negative model evidence. Direct action features remain truth-free, but privileged behavior makes the sampled posterior-state distribution truth-assisted; corrected data must be regenerated before comparing learners. |
+| C54 | Joint-tree v4 replaces the per-step strong cycle with a rooted tree whose union with the previous formation graph must be strongly connected. The exact projection jointly optimizes sensor endpoints under a one-cross-send-per-sensor constraint. On M24 seed 7 the analytic scorer is tail-safe and reduces attempted bytes by 7.27%, but improves E-OSPA by only 0.07% over fixed-index w=0.70. | High | E69 | The graph construction executes correctly on this seed, but E73 shows that its every-step rooted-tree feasible set does not generally contain a 5% action. |
+| C55 | At t=75, the privileged optimal tree relative to fixed-index w=0.70 has positive selected residuals and one-step gains of 7.27%/15.90%/9.93% on M24 seeds 7/11/17. In the seed-7 t=75–77 closed loop, privileged joint-tree v4 improves E-OSPA from 19.2470 to 17.9780 (6.59%), keeps the worst node at 34.6420, uses 1.66% fewer attempted bytes and has a strongly connected three-step formation union. | High | E70 | This is a limited truth-assisted architecture signal, not deployable evidence; E73 rejects using it to justify learning the unchanged every-step tree feasible set. |
+| C56 | The earlier privileged-v4 teacher series cannot support its reported ridge/kNN/structured-ranking conclusions. At \(t>t_0\), the generator passed the sender-row/receiver-column diagnostic edge mask directly into a receiver-row/sender-column policy context, reversing previous-edge features and the previous/current connectivity constraint. The corrected generator shares the live-filter converter, writes isolated `ctxv2` files, and fail-closes on the new series contract. | High | E71 | The old `directed_teacher_oracle_v4_*` caches and their proxy reports are superseded, not negative model evidence. Direct action features remain truth-free, but privileged behavior makes the sampled posterior-state distribution truth-assisted; corrected-data conclusions are reported separately in E73. |
 | C57 | Connected-tree v2 on X36 seed 7 improves round-robin w=0.40 E-OSPA by 3.6629%, improves the worst node from 61.2646 to 56.3264 and uses 0.9873% fewer attempted bytes, while preserving instantaneous weak connectivity. It does not reach the 5% gate and was not compared against the corrected fixed-index strong control in the same report. | High | E72 | This is a scale screen, not evidence that dynamic routing beats the strongest registered X36 baseline. |
+| C58 | On the corrected ctxv2 M24 blocks (seeds 19/23/29/31/37, t=75:80), the exact joint-tree v4 projector falls below the 5% one-step proxy gate on 9/30 blocks and reaches -1.5963% at seed 23/t=77. Removing the previous/current union constraint leaves the same 9/30 failures and a -1.2429% minimum, so the every-step rooted-tree feasible set—not the learned scorer—is the primary ceiling. | High | E73 | These are truth-assisted one-step-risk labels on an oracle-v4 state distribution, not truth-free closed-loop tracking evidence. The preregistered audit fail-closes and writes no artifact. |
+| C59 | A diagnostic byte-fair optional cross-edge matching oracle with rolling \(B=3\) strong connectivity gives six-step weighted proxy gains of 11.92%/5.43%/15.55%/30.22%/6.04% on corrected ctxv2 seeds 19/23/29/31/37; \(B=2\) remains below 5% on seeds 23 and 37. | Medium | E74 | The ILP is an action-space design calculation, not yet a committed online projector or truth-free closed-loop method. All five inspected seeds become development data; no learned artifact or X36 claim follows. |
 
 ## Evidence Ledger
 
@@ -250,6 +252,8 @@ superiority, a consensus guarantee, or total-communication savings.
 | E70 | experiment report/code | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_121146.md`, `common/selectFormationTreeRoutingTeacher.m` | C55: truth-assisted v4 closed-loop architecture signal, tail, bytes and union connectivity. | strong |
 | E71 | code/test/correction | `common/convertDiagnosticEdgeMaskToPolicyAdjacency.m`, `multisensorLmb/runEventTriggeredDistributedLmbFilter.m`, `RUN/GA/generateDirectedRoutingTeacherSeries.m`, `RUN/GA/auditLearnedFormationTreeProxy.m`, `tests/test_dynamic_topology_scenarios.m`, `docs/FORMATION_GATEWAY_METHOD_CN.md` | C56: shared directed-adjacency conversion, isolated `ctxv2` dataset contract, seed-disjoint fail-closed audit, provenance boundary and explicit withdrawal of the old proxy results. | strong |
 | E72 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_114257.md` | C57: X36 v2 round-robin screen, tail, bytes and connectivity with explicit strong-control limitation. | strong |
+| E73 | corrected-data diagnostic/code | `RUN/GA/dynamic_topology/STRUCTURED_TREE_CTXV2_ACTION_SPACE_DIAGNOSIS.md`, `RUN/GA/runStructuredFormationTreeCtxv2Audit.m`, `RUN/GA/auditLearnedFormationTreeProxy.m`, `common/getStructuredFormationTreeCtxv2Protocol.m`, `common/selectRootedFormationTreeEdges.m` | C58: exact current-action-space ceiling, union-constraint decomposition and fail-closed artifact decision. | strong |
+| E74 | design diagnostic | `RUN/GA/dynamic_topology/STRUCTURED_TREE_CTXV2_ACTION_SPACE_DIAGNOSIS.md` | C59: rolling-\(B\) cut-constrained integer-program formulation, matched cross-edge cardinality, payload bound and five-seed proxy headroom. | medium |
 
 Initial arithmetic check:
 
@@ -800,10 +804,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 
 ## Open Issues
 
-1. Keep reliability-plus-source-quality, gateway v1, connected-tree v2 and
-   per-step strong-cycle v3 retired as final candidates. Joint-tree v4 is the
-   retained action space, but only its privileged scorer has passed the 5%
-   strong-baseline gate.
+1. Keep reliability-plus-source-quality, gateway v1, connected-tree v2,
+   per-step strong-cycle v3 and every-step joint-tree v4 retired as final
+   candidates. The next action space must include the fixed-index no-op,
+   optional cross-formation overrides and rolling-window connectivity.
 2. Add a train-frozen cross-formation role/map control under the same
    one-message-per-receiver and source-weight contract. The phase-complete
    physical round-robin is a strong scheduled template, but not an exhaustive
@@ -811,9 +815,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 3. Extend accounting from posterior payload to beacon, scheduling, ACK/retry
    and failed-delivery control bytes before claiming total communication
    savings.
-4. Implement or remove any paper claim about no-message actions, churn,
-   formation coverage and sliding-window connectivity. The current residual
-   prototype always falls back to a receiver-complete reliability action.
+4. Implement the rolling-\(B=3\) connectivity-debt projector before making
+   claims about optional cross-edge actions or window connectivity. The
+   current ILP result is an oracle attainability diagnostic, not an online
+   policy.
 5. Treat the generic multi-neighbour `expectedDeliveryWeighting` routines as
    legacy diagnostics until their nonlinear delivery expectation is
    enumerated or bounded. Only the one-message directed teacher has the
@@ -823,10 +828,11 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
    receiver also excludes sources missing a label and renormalizes over the
    remaining sources rather than fusing an explicit zero-existence
    Bernoulli; a theoretical claim must disclose or replace this rule.
-7. Expand privileged-v4 DAgger data beyond seeds 7/11 before fitting a
-   structured tree-ranking model. Keep seed 17 frozen during development,
-   then allocate new held-out seeds after the architecture and thresholds are
-   frozen. Do not lower the empirical gate to force a positive result.
+7. Treat corrected ctxv2 seeds 19/23/29/31/37 as development data because
+   their outcomes were inspected while redesigning the action space. Allocate
+   new validation and held-out seeds only after the rolling-window
+   architecture, horizon and thresholds are frozen. Do not lower the gate to
+   force a positive result.
 8. Profile and vectorize posterior feature extraction. The current residual
    frozen report uses 17.11 policy seconds versus 0.03 seconds for the
    backbone, adding 17.074 seconds over three M24 steps while producing no
@@ -846,16 +852,17 @@ their time union is weakly connected, yet the method gives only 1.6781%
 E-OSPA gain over the strongest matched control and is not tail-safe. Do not
 run this version on more M24 seeds or X36.
 
-The retained design is joint-tree v4: a fixed-index strong backbone, exact
-rooted-tree projection, one cross-send per sensor and a two-step
-strong-connectivity constraint. Its privileged seed-7 closed loop clears the
-5% mean gate without tail or byte regression, so the action space remains
-worth pursuing.
+Corrected ctxv2 data reject every-step joint-tree v4 as the retained action
+space: its exact projector itself misses the 5% block gate on 9/30 snapshots.
+The next design should preserve the fixed-index intra-formation action as a
+no-op, learn optional cross-formation edge values, and project them through a
+rolling-\(B=3\) connectivity-debt constraint. The proxy objective should be
+window-cumulative with per-step non-degradation rather than demanding 5% on
+every snapshot.
 
-The deployable scorer is not solved. Analytic scoring is almost identical to
-the fixed baseline, and ridge/kNN—including graph-context variants—select
-harmful edges on the frozen seed. The next implementation should train on
-more privileged-v4 rollout seeds and optimize structured tree regret or
-ranking rather than independent edge MSE. Only a truth-free closed-loop model
-that beats fixed-index and matched scheduled controls on every development
-seed should proceed to X36 and held-out evaluation.
+The five-seed rolling-\(B=3\) ILP shows action-space headroom under matched
+payload accounting, but it is privileged development evidence. Implement the
+online projector and a multi-step teacher before fitting a deployable model.
+Only a truth-free closed-loop candidate that beats fixed-index and matched
+scheduled controls on every development seed should proceed to newly
+allocated validation seeds, X36 and held-out evaluation.
