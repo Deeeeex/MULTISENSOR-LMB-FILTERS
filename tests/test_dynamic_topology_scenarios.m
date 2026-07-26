@@ -36,6 +36,7 @@ testFormationTreeFullRunBootstrap();
 testFormationGatewayProxyConnectivityGate();
 testRootedFormationTreeProjection();
 testRollingFormationMatchingProjection();
+testRollingSafeRoutingPolicy();
 testStructuredFormationTreeRanker();
 testStrongFormationCycleProjection();
 testReliabilityControlIsFixedIndexOnScaledScenarios();
@@ -87,6 +88,35 @@ immature = selectRollingFormationMatchingEdges( ...
 assert(~immature.connectivityConstraintEnforced);
 assert(immature.crossEdgeCount == 0);
 
+oldStrongHistory = false(4, 4, 2);
+oldStrongHistory(:, :, 1) = logical([ ...
+    0, 1, 0, 0; ...
+    0, 0, 1, 0; ...
+    0, 0, 0, 1; ...
+    1, 0, 0, 0]);
+withoutReserve = selectRollingFormationMatchingEdges( ...
+    groupIds, receiverIndices(1), senderIndices(1), -1, struct( ...
+        'maximumCrossEdges', 3, ...
+        'connectivityWindowLength', 3, ...
+        'recentFormationAdjacency', oldStrongHistory));
+assert(withoutReserve.crossEdgeCount == 0);
+reserveTree = logical([ ...
+    0, 1, 0, 0; ...
+    0, 0, 1, 0; ...
+    0, 0, 0, 1; ...
+    0, 0, 0, 0]);
+withReserve = selectRollingFormationMatchingEdges( ...
+    groupIds, receiverIndices(1), senderIndices(1), -1, struct( ...
+        'maximumCrossEdges', 3, ...
+        'connectivityWindowLength', 3, ...
+        'recentFormationAdjacency', oldStrongHistory, ...
+        'nextReserveFormationAdjacency', reserveTree));
+assert(withReserve.reserveViabilityEnforced);
+assert(withReserve.successorReserveViable);
+assert(withReserve.crossEdgeCount == 1);
+assert(withReserve.formationAdjacency(4, 1));
+assert(withReserve.reserveViabilityCutCount > 0);
+
 infeasible = false;
 try
     selectRollingFormationMatchingEdges( ...
@@ -101,6 +131,172 @@ catch errorInfo
         'No optimal rolling formation matching')); %#ok<STREMP>
 end
 assert(infeasible);
+end
+
+function testRollingSafeRoutingPolicy()
+[m24Controls, x36Controls] = deal( ...
+    buildRollingSafeMatchedControlArmNames(4, 0.70), ...
+    buildRollingSafeMatchedControlArmNames(6, 0.70));
+assert(m24Controls.chunkArmCount == 6);
+assert(m24Controls.burstArmCount == 24);
+assert(m24Controls.scheduledArmCount == 30);
+assert(m24Controls.totalArmCount == 31);
+assert(x36Controls.chunkArmCount == 16);
+assert(x36Controls.burstArmCount == 36);
+assert(x36Controls.scheduledArmCount == 52);
+assert(x36Controls.totalArmCount == 53);
+assert(numel(unique(m24Controls.allArmNames)) == ...
+    m24Controls.totalArmCount);
+assert(numel(unique(x36Controls.allArmNames)) == ...
+    x36Controls.totalArmCount);
+[context, groupIds] = makeSyntheticRollingContext();
+history = false(8, 8, 0);
+expectedCrossCounts = [3, 1, 0, 3, 1, 0];
+for currentTime = 1:6
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    context.previousAdjacencyHistoryCount = size(history, 3);
+    context.previousAdjacencyHistoryTimes = ...
+        max(1, currentTime - size(history, 3)): ...
+        (currentTime - 1);
+    if isempty(history)
+        context.previousAdjacencyHistoryTimes = [];
+        context.previousAdjacency = false(8);
+    else
+        context.previousAdjacency = history(:, :, end);
+    end
+    [adjacency, details] = selectRollingSafeRoutingPolicy( ...
+        context, 'scheduled-burst', struct( ...
+            'sourceWeight', 0.70, ...
+            'payloadToleranceFraction', 0.02));
+    assert(nnz(adjacency) == 8);
+    assert(all(sum(adjacency, 2) == 1));
+    assert(details.realizedCrossCount == ...
+        expectedCrossCounts(currentTime));
+    assert(details.maximumCrossSourceLoad <= 1);
+    assert(details.maximumCrossReceiverLoad <= 1);
+    assert(details.successorFormationStrongConnected);
+    assert(details.successorSensorStrongConnected);
+    assert(details.payloadLimitPassed);
+    assert(~details.payloadEmergencyUsed);
+    if currentTime >= 3
+        assert(details.formationWindowMature);
+        assert(details.formationWindowStrongConnected);
+        assert(details.sensorWindowMature);
+        assert(details.sensorWindowStrongConnected);
+        assert(isStrongDirectedPolicyUnion( ...
+            cat(3, history, adjacency)));
+    end
+    crossMask = false(8);
+    for receiverIdx = 1:8
+        for senderIdx = find(adjacency(receiverIdx, :))
+            crossMask(receiverIdx, senderIdx) = ...
+                groupIds(receiverIdx) ~= groupIds(senderIdx);
+        end
+    end
+    assert(nnz(crossMask) == expectedCrossCounts(currentTime));
+    crossSenders = find(any(crossMask, 1));
+    crossReceivers = find(any(crossMask, 2));
+    assert(numel(crossSenders) == nnz(crossMask));
+    assert(numel(crossReceivers) == nnz(crossMask));
+    history = appendTestHistory(history, adjacency, 2);
+end
+
+history = false(8, 8, 0);
+for currentTime = 1:6
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    if isempty(history)
+        context.previousAdjacency = false(8);
+        context.previousAdjacencyHistoryTimes = [];
+    else
+        context.previousAdjacency = history(:, :, end);
+        context.previousAdjacencyHistoryTimes = ...
+            (currentTime - size(history, 3)): ...
+            (currentTime - 1);
+    end
+    [chunkAdjacency, chunkDetails] = ...
+        selectRollingSafeRoutingPolicy( ...
+            context, 'scheduled-chunk', struct( ...
+                'sourceWeight', 0.70, ...
+                'reserveScheduleType', 'cyclic-chunk', ...
+                'quota', 2, ...
+                'formationPhase', 0, ...
+                'orientation', 'counter-clockwise', ...
+                'payloadToleranceFraction', 0.02));
+    assert(chunkDetails.realizedCrossCount == 2);
+    assert(strcmp(chunkDetails.reserveSchedule. ...
+        scheduleType, 'cyclic-chunk'));
+    assert(chunkDetails.reserveSchedule.quota == 2);
+    assert(chunkDetails.successorSensorStrongConnected);
+    if currentTime >= 3
+        assert(chunkDetails.sensorWindowStrongConnected);
+        assert(isStrongDirectedPolicyUnion( ...
+            cat(3, history, chunkAdjacency)));
+    end
+    history = appendTestHistory(history, chunkAdjacency, 2);
+end
+
+restorationContext = context;
+restorationContext.currentTime = 3;
+baseline = selectRegisteredDirectedRoutingPolicy( ...
+    restorationContext, 'fixed-balanced-cycle', ...
+    struct('sourceWeight', 0.70, 'phase', 1));
+forcedReceiver = 1;
+crossSender = 3;
+crossPage = baseline;
+crossPage(forcedReceiver, :) = false;
+crossPage(forcedReceiver, crossSender) = true;
+restorationContext.previousAdjacencyHistory = ...
+    cat(3, crossPage, crossPage);
+restorationContext.previousAdjacency = crossPage;
+restorationContext.previousAdjacencyHistoryCount = 2;
+restorationContext.previousAdjacencyHistoryTimes = [1, 2];
+scoreMatrix = -ones(8);
+scoreMatrix(forcedReceiver, crossSender) = 1e6;
+[~, restorationDetails] = selectRollingSafeRoutingPolicy( ...
+    restorationContext, 'external-scores', struct( ...
+        'edgeScoreMatrix', scoreMatrix, ...
+        'posteriorUsed', false, ...
+        'sourceWeight', 0.70, ...
+        'payloadToleranceFraction', 1));
+assert(any(restorationDetails. ...
+    cycleRestorationReceivers == forcedReceiver));
+assert(restorationDetails.selectedSourcesByReceiver( ...
+    forcedReceiver) == ...
+    restorationDetails.baselineSourcesByReceiver(forcedReceiver));
+
+[payloadContext, ~] = makeSyntheticRollingContext();
+payloadContext.localPosteriorBySensor = ...
+    makeGroupSkewedPayloads(payloadContext.model, groupIds);
+[firstAdjacency, ~] = selectRollingSafeRoutingPolicy( ...
+    payloadContext, 'scheduled-burst', struct( ...
+        'sourceWeight', 0.70, ...
+        'payloadToleranceFraction', 0));
+payloadContext.currentTime = 2;
+payloadContext.previousAdjacencyHistory = ...
+    reshape(firstAdjacency, 8, 8, 1);
+payloadContext.previousAdjacency = firstAdjacency;
+payloadContext.previousAdjacencyHistoryCount = 1;
+payloadContext.previousAdjacencyHistoryTimes = 1;
+payloadRejected = false;
+try
+    selectRollingSafeRoutingPolicy( ...
+        payloadContext, 'scheduled-burst', struct( ...
+            'sourceWeight', 0.70, ...
+            'payloadToleranceFraction', 0));
+catch
+    payloadRejected = true;
+end
+assert(payloadRejected);
+[~, emergencyDetails] = selectRollingSafeRoutingPolicy( ...
+    payloadContext, 'scheduled-burst', struct( ...
+        'sourceWeight', 0.70, ...
+        'payloadToleranceFraction', 0, ...
+        'allowEmergencyPayloadViolation', true));
+assert(emergencyDetails.payloadEmergencyUsed);
+assert(~emergencyDetails.payloadLimitPassed);
+assert(emergencyDetails.successorSensorStrongConnected);
 end
 
 function testStructuredFormationTreeCtxv2Protocol()
@@ -2337,6 +2533,89 @@ catch errorInfo
         errorInfo.message, pattern)); %#ok<STREMP>
 end
 assert(rejected);
+end
+
+function [context, groupIds] = makeSyntheticRollingContext()
+sensorCount = 8;
+groupIds = repelem(1:4, 2);
+model = generateMultisensorModel( ...
+    sensorCount, [0, 0], 0.9 * ones(1, sensorCount), ...
+    3 * ones(1, sensorCount), 'GA', 'LBP');
+model.dynamicTopologyScenario = struct( ...
+    'config', struct('sensorGroupIds', groupIds));
+context = struct();
+context.localPosteriorBySensor = ...
+    repmat({struct([])}, 1, sensorCount);
+context.model = model;
+context.commConfig = struct( ...
+    'pDropByEdge', zeros(sensorCount));
+context.triggerConfig = struct();
+context.currentTime = 1;
+context.previousAdjacency = false(sensorCount);
+context.previousAdjacencyHistory = ...
+    false(sensorCount, sensorCount, 0);
+context.previousAdjacencyHistoryCount = 0;
+context.previousAdjacencyHistoryTimes = [];
+context.baseAdjacency = logical(ones(sensorCount) - eye(sensorCount));
+context.physicalAdjacency = context.baseAdjacency;
+context.edgeScores = double(context.physicalAdjacency);
+context.edgeBudget = sensorCount;
+context.directedMessageBudget = sensorCount;
+context.positions = zeros(2, sensorCount);
+end
+
+function history = appendTestHistory(history, adjacency, depth)
+if isempty(history)
+    history = reshape(adjacency, ...
+        size(adjacency, 1), size(adjacency, 2), 1);
+else
+    history(:, :, end + 1) = adjacency;
+end
+if size(history, 3) > depth
+    history = history(:, :, end-depth+1:end);
+end
+end
+
+function valid = isStrongDirectedPolicyUnion(history)
+policyUnion = any(history, 3);
+senderUnion = policyUnion';
+valid = reachableAllTest(senderUnion) && ...
+    reachableAllTest(senderUnion');
+end
+
+function valid = reachableAllTest(adjacency)
+visited = false(1, size(adjacency, 1));
+frontier = 1;
+while ~isempty(frontier)
+    node = frontier(end);
+    frontier(end) = [];
+    if visited(node)
+        continue;
+    end
+    visited(node) = true;
+    frontier = [frontier, reshape(find( ...
+        adjacency(node, :) & ~visited), 1, [])]; %#ok<AGROW>
+end
+valid = all(visited);
+end
+
+function posteriors = makeGroupSkewedPayloads(model, groupIds)
+posteriors = cell(1, numel(groupIds));
+for sensorIdx = 1:numel(groupIds)
+    componentCount = 1;
+    if groupIds(sensorIdx) == 4
+        componentCount = 5;
+    end
+    object = model.birthParameters(1);
+    object.r = 0.9;
+    object.numberOfGmComponents = componentCount;
+    object.w = ones(1, componentCount) / componentCount;
+    object.mu = repmat({zeros(model.xDimension, 1)}, ...
+        1, componentCount);
+    object.Sigma = repmat({eye(model.xDimension)}, ...
+        1, componentCount);
+    posteriors{sensorIdx} = object;
+end
 end
 
 function object = makeObject(model, birthTime, birthLocation, r, mu, Sigma)
