@@ -22,6 +22,10 @@ testResidualRoutingModelArtifact();
 testAnalyticDirectedRoutingPolicy();
 testRegisteredDirectedRoutingControls();
 testFormationGatewayRoutingPolicies();
+testCanonicalGatewayPhaseCounting();
+testFormationGatewayProxyConnectivityGate();
+testRootedFormationTreeProjection();
+testStrongFormationCycleProjection();
 testReliabilityControlIsFixedIndexOnScaledScenarios();
 testFixedIndexClosedLoopClone();
 testReliabilityQualityRoutingRespondsToPosterior();
@@ -33,6 +37,33 @@ testInfeasiblePhysicalGraphFailsClosed();
 testMixtureAwareReferenceBoundary();
 testD12OracleCallbackSmoke();
 fprintf('test_dynamic_topology_scenarios passed\n');
+end
+
+function testStrongFormationCycleProjection()
+groupIds = [1, 1, 2, 2, 3, 3];
+receiverIndices = [3, 5, 1, 5, 1, 3];
+senderIndices = [1, 3, 5, 2, 4, 6];
+scores = [8, 7, 6, 2, 1, 3];
+selection = selectStrongFormationCycleEdges( ...
+    groupIds, receiverIndices, senderIndices, scores);
+assert(isequal(selection.formationCycle, [1, 2, 3]));
+assert(isequal(selection.receiverIndices, [3, 5, 1]));
+assert(isequal(selection.senderIndices, [1, 3, 5]));
+assert(abs(selection.predictedObjective - 21) < 1e-12);
+assert(selection.formationWeakConnected);
+assert(selection.formationStrongConnected);
+assert(selection.maximumSourceLoad == 1);
+
+% The previous edge 3 -> 1 makes only the complementary chain
+% 1 -> 2 -> 3 jointly strongly connected.
+options = struct('requiredUnionFormationAdjacency', logical([ ...
+    0, 0, 0; ...
+    0, 0, 0; ...
+    1, 0, 0]));
+selection = selectRootedFormationTreeEdges( ...
+    groupIds, receiverIndices, senderIndices, scores, options);
+assert(selection.formationUnionStrongConnected);
+assert(isequal(selection.formationParents, [0, 1, 2]));
 end
 
 function testScenarioPresets()
@@ -1016,6 +1047,19 @@ assert(gatewayDetails.posteriorUsed);
 assert(~gatewayDetails.truthUsed);
 assert(gatewayDetails.currentLinkReliabilityUsed);
 
+missingProvenance = options;
+missingProvenance = rmfield( ...
+    missingProvenance, 'actionFeatureMetadata');
+provenanceRejected = false;
+try
+    selectFormationGatewayRoutingPolicy( ...
+        context, missingProvenance);
+catch errorInfo
+    provenanceRejected = ~isempty(strfind( ...
+        errorInfo.message, 'require explicit')); %#ok<STREMP>
+end
+assert(provenanceRejected);
+
 blockedOptions = options;
 blockedOptions.minimumPositiveExistence = 0.25;
 [blocked, blockedDetails] = ...
@@ -1026,6 +1070,26 @@ blockedOptions.minimumPositiveExistence = 0.25;
 assert(isequal(blocked, roundRobin));
 assert(blockedDetails.overrideFraction == 0);
 
+treeOptions = buildFormationGatewayRoutingOptions( ...
+    'v2', struct( ...
+        'actionFeatures', features, ...
+        'actionFeatureNames', {featureNames}, ...
+        'actionFeatureMetadata', featureMetadata, ...
+        'minimumPositiveExistence', 0.25));
+[tree, treeDetails] = ...
+    selectConnectedFormationTreeRoutingPolicy( ...
+        context, treeOptions);
+assert(all(sum(tree, 2) == 1));
+assert(nnz(tree) == 6);
+assert(nnz(treeDetails.overrideMask) == 1);
+assert(nnz(treeDetails.bridgeMask) == 1);
+assert(treeDetails.maximumCrossSourceLoad == 1);
+assert(abs(treeDetails. ...
+    selectedSourceWeightsByReceiver(treeDetails.bridgeMask) - ...
+    0.15) < 1e-12);
+assert(nnz(treeDetails.formationParents == 0) == 1);
+assert(~treeDetails.truthUsed);
+
 [fixedGateway, fixedDetails] = ...
     selectRegisteredGatewayRoutingPolicy( ...
         context, 'fixed-ring', struct('sourceWeight', 0.50));
@@ -1034,6 +1098,12 @@ assert(nnz(fixedGateway) == 6);
 assert(nnz(fixedDetails.overrideMask) == 2);
 assert(fixedGateway(1, 4) && fixedGateway(4, 1));
 assert(~fixedDetails.posteriorUsed);
+[fixedPhaseTwo, ~] = ...
+    selectRegisteredGatewayRoutingPolicy( ...
+        context, 'fixed-ring', ...
+        struct('sourceWeight', 0.50, 'phase', 2));
+assert(fixedPhaseTwo(2, 5) && fixedPhaseTwo(5, 2));
+assert(~isequal(fixedPhaseTwo, fixedGateway));
 
 context.currentTime = 2;
 [rotatingGateway, rotatingDetails] = ...
@@ -1045,15 +1115,88 @@ assert(nnz(rotatingGateway) == 6);
 assert(nnz(rotatingDetails.overrideMask) == 2);
 assert(~isequal(rotatingGateway, fixedGateway));
 
-context.commConfig.pDropByEdge = 0.8 * double(physical);
-context.commConfig.pDropByEdge(2, 6) = 0.01;
-context.commConfig.pDropByEdge(5, 3) = 0.02;
+context.commConfig.pDropByEdge = ...
+    0.8 * repmat(double(physical), 1, 1, 2);
+context.commConfig.pDropByEdge(6, 2, 2) = 0.01;
+context.commConfig.pDropByEdge(3, 5, 2) = 0.02;
 [linkGateway, linkDetails] = ...
     selectRegisteredGatewayRoutingPolicy( ...
         context, 'link-aware', struct('sourceWeight', 0.50));
 assert(linkGateway(2, 6) && linkGateway(5, 3));
 assert(linkDetails.currentLinkReliabilityUsed);
 assert(nnz(linkDetails.overrideMask) == 2);
+end
+
+function testCanonicalGatewayPhaseCounting()
+canonical = arrayfun(@(phase) sprintf( ...
+    'directed-fixed-gateway-p%d-w50', phase), ...
+    1:6, 'UniformOutput', false);
+assert(countCanonicalGatewayControlPhases( ...
+    canonical, 1:6, 6) == 6);
+
+repeatedLabels = { ...
+    'directed-fixed-gateway-p1-w50', ...
+    'directed-fixed-gateway-p7-w50', ...
+    'directed-fixed-gateway-p13-w50', ...
+    'directed-fixed-gateway-p19-w50', ...
+    'directed-fixed-gateway-p25-w50', ...
+    'directed-fixed-gateway-p31-w50'};
+assert(countCanonicalGatewayControlPhases( ...
+    repeatedLabels, 1:6, 6) == 1);
+assert(countCanonicalGatewayControlPhases( ...
+    [canonical, repeatedLabels], 1:12, 6) == 6);
+end
+
+function testFormationGatewayProxyConnectivityGate()
+options = struct( ...
+    'sourceWeightGrid', 0.50, ...
+    'baselinePhaseGrid', 1, ...
+    'positiveExistenceWeightGrid', 1, ...
+    'positivePrecisionWeightGrid', 0, ...
+    'negativeExistencePenaltyGrid', 0, ...
+    'negativePrecisionPenaltyGrid', 50, ...
+    'discrepancyPenaltyGrid', 8, ...
+    'receiverNeedMultiplierGrid', 0, ...
+    'marginThresholdGrid', 0.02, ...
+    'minimumPositiveExistenceGrid', 0.05, ...
+    'writeReport', false);
+[~, result] = auditPairwiseDirectedRoutingProxy([], options);
+assert(~result.trainingGatePassed);
+assert(~result.validationGatePassed);
+assert(~result.allObservedBlocksPassGate);
+assert(all([result.selected.metrics.formationWeakConnected] == 0));
+end
+
+function testRootedFormationTreeProjection()
+groupIds = [1, 1, 2, 2, 3, 3];
+receiverIndices = [3, 5, 6, 1, 2, 4];
+senderIndices = [1, 3, 2, 5, 4, 6];
+scores = [5, 6, 4, 1, 2, 3];
+selection = selectRootedFormationTreeEdges( ...
+    groupIds, receiverIndices, senderIndices, scores);
+assert(selection.rootFormation == 1);
+assert(isequal(selection.formationParents, [0, 1, 2]));
+assert(isequal(selection.receiverIndices, [3, 5]));
+assert(isequal(selection.senderIndices, [1, 3]));
+assert(selection.formationWeakConnected);
+assert(selection.formationRooted);
+assert(selection.maximumSourceLoad == 1);
+
+% The globally best legal tree can require the second-best endpoint for
+% one formation pair. A pairwise top-1 projection would reject the star
+% because both top edges use sensor 1 and would incorrectly keep the chain.
+groupIds = [1, 1, 2, 3];
+receiverIndices = [3, 3, 4, 4];
+senderIndices = [1, 2, 1, 3];
+scores = [10, 9, 8, 2];
+selection = selectRootedFormationTreeEdges( ...
+    groupIds, receiverIndices, senderIndices, scores);
+assert(selection.rootFormation == 1);
+assert(isequal(selection.formationParents, [0, 1, 1]));
+assert(isequal(selection.receiverIndices, [3, 4]));
+assert(isequal(selection.senderIndices, [2, 1]));
+assert(abs(selection.predictedObjective - 17) < 1e-12);
+assert(selection.maximumSourceLoad == 1);
 end
 
 function testReliabilityControlIsFixedIndexOnScaledScenarios()

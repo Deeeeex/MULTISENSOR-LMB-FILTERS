@@ -1,12 +1,12 @@
 # Formation-gateway proxy audit
 
-- Generated: 2026-07-26 09:52:26
+- Generated: 2026-07-26 10:22:18
 - Candidate policies: `9`
 - Training blocks used for selection: `[1 2]`
 - Read-only validation blocks: `3`
-- Training gate passed: `1`
-- Validation gate passed: `1`
-- All observed blocks pass: `1`
+- Training gate passed: `0`
+- Validation gate passed: `0`
+- All observed blocks pass: `0`
 - Evidence boundary: Truth-free scores are selected on declared training snapshots; privileged labels only audit selected actions. Validation labels do not affect ranking. No closed-loop or held-out claim.
 
 ## Selected training-only policy
@@ -22,11 +22,11 @@
 - marginThreshold: `0.02`
 - minimumPositiveExistence: `0.05`
 
-| Block | Split | Risk improvement vs RR | Worst override | Harmful overrides | Overrides | Formation coverage | Bytes ratio | Oracle capture |
-|:--|:--|--:|--:|--:|--:|--:|--:|--:|
-| m24-hard seed 7 t=75 | train | 0.0601 | 0.2116 | 0.0000 | 3 | 0.7500 | 0.9917 | 0.7289 |
-| m24-hard seed 11 t=75 | train | 0.0522 | 0.1047 | 0.0000 | 2 | 0.5000 | 0.9936 | 0.5033 |
-| m24-hard seed 17 t=75 | validation | 0.0724 | 0.0330 | 0.0000 | 2 | 0.5000 | 1.0069 | 0.5864 |
+| Block | Split | Risk improvement vs RR | Worst override | Harmful overrides | Overrides | Formation coverage | Weak connected | Bytes ratio | Oracle capture |
+|:--|:--|--:|--:|--:|--:|--:|--:|--:|--:|
+| m24-hard seed 7 t=75 | train | 0.0601 | 0.2116 | 0.0000 | 3 | 0.7500 | 0 | 0.9917 | 0.7289 |
+| m24-hard seed 11 t=75 | train | 0.0522 | 0.1047 | 0.0000 | 2 | 0.5000 | 0 | 0.9936 | 0.5033 |
+| m24-hard seed 17 t=75 | validation | 0.0724 | 0.0330 | 0.0000 | 2 | 0.5000 | 0 | 1.0069 | 0.5864 |
 
 ## Top policies by training-only safety key
 
@@ -42,4 +42,4 @@
 | 8 | 0.50 | 1 | 1.00 | 0.00 | 0.00 | 50.00 | 8.00 | 0.00 | 0.025 | 0.040 | 0.0140 | 0.3333 | 0.0724 | 0.0000 |
 | 9 | 0.50 | 1 | 1.00 | 0.00 | 0.00 | 50.00 | 8.00 | 0.00 | 0.030 | 0.040 | 0.0140 | 0.3333 | 0.0724 | 0.0000 |
 
-The round-robin backbone sends one same-formation posterior to every receiver. The candidate keeps the same message count and replaces at most one route per formation. Validation columns are descriptive only and never affect candidate ranking.
+The round-robin backbone sends one same-formation posterior to every receiver. The candidate keeps the same message count and replaces at most one route per formation. Validation columns are descriptive only and never affect candidate ranking. Harmful means negative teacher residual relative to round-robin, not absolute harm relative to no communication.

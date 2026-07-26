@@ -57,25 +57,27 @@ switch mode
             senderGroup = groups(1 + mod(groupCursor, numel(groups)));
             receivers = reshape(find(groupIds == receiverGroup), 1, []);
             senders = reshape(find(groupIds == senderGroup), 1, []);
-            pairs = lexicographicPhysicalPairs( ...
-                physical, receivers, senders);
-            if isempty(pairs)
+            roleCursor = 1 + mod(phase - 1, ...
+                min(numel(receivers), numel(senders)));
+            if strcmp(mode, 'rotating-ring')
+                roleCursor = 1 + mod( ...
+                    context.currentTime - anchorTime + phase - 1, ...
+                    min(numel(receivers), numel(senders)));
+            end
+            receiverIdx = receivers(roleCursor);
+            senderIdx = senders(roleCursor);
+            if ~physical(receiverIdx, senderIdx)
                 continue;
             end
-            pairCursor = 1;
-            if strcmp(mode, 'rotating-ring')
-                pairCursor = 1 + mod( ...
-                    context.currentTime - anchorTime + phase - 1, ...
-                    size(pairs, 1));
-            end
             proposals(end + 1) = struct( ... %#ok<AGROW>
-                'receiver', pairs(pairCursor, 1), ...
-                'sender', pairs(pairCursor, 2), ...
+                'receiver', receiverIdx, ...
+                'sender', senderIdx, ...
                 'formation', receiverGroup, ...
                 'priority', 1);
         end
     case 'link-aware'
-        reliability = currentReliability(context, physical);
+        reliability = currentReliability( ...
+            context, physical, context.currentTime);
         for groupCursor = 1:numel(groups)
             receiverGroup = groups(groupCursor);
             receivers = find(groupIds == receiverGroup);
@@ -171,25 +173,25 @@ details.currentLinkReliabilityUsed = strcmp(mode, 'link-aware');
 details.currentPhysicalActionSetUsed = true;
 end
 
-function pairs = lexicographicPhysicalPairs( ...
-    physical, receivers, senders)
-pairs = zeros(0, 2);
-for receiverIdx = reshape(receivers, 1, [])
-    for senderIdx = reshape(senders, 1, [])
-        if physical(receiverIdx, senderIdx)
-            pairs(end + 1, :) = [receiverIdx, senderIdx]; %#ok<AGROW>
-        end
-    end
-end
-end
-
-function reliability = currentReliability(context, physical)
+function reliability = currentReliability( ...
+    context, physical, currentTime)
 reliability = double(physical);
 if isfield(context, 'commConfig') && ...
         isfield(context.commConfig, 'pDropByEdge') && ...
-        isequal(size(context.commConfig.pDropByEdge), size(physical))
-    reliability = 1 - context.commConfig.pDropByEdge;
+        ~isempty(context.commConfig.pDropByEdge)
+    pDrop = context.commConfig.pDropByEdge;
+    if ndims(pDrop) >= 3
+        timeIdx = min(max(1, round(currentTime)), size(pDrop, 3));
+        pDrop = pDrop(:, :, timeIdx);
+    end
+    if ~isequal(size(pDrop), size(physical))
+        error('pDropByEdge must be S-by-S or S-by-S-by-T.');
+    end
+    % Communication storage is pDrop(sender, receiver); policy matrices
+    % are adjacency(receiver, sender).
+    reliability = 1 - pDrop';
 end
+reliability = min(max(reliability, 0), 1);
 reliability(~physical) = NaN;
 end
 

@@ -166,7 +166,13 @@ superiority, a consensus guarantee, or total-communication savings.
 | C48 | Over M24 seeds 7/17 at t=75–77, the retained support-gated residual policy exactly reproduces the reliability-w0.50 path—and therefore the fixed-index control—on E-OSPA, tail, bytes and routes. In the frozen report its aggregate policy time is 17.11 s versus 0.03 s for the control path, a 17.074 s increment. | High | E63, E64 | Exact fallback prevents an unsupported learned action, but it means the learner adds cost with no measured tracking, communication or dynamic-routing value. Runtime is machine-load dependent. |
 | C49 | On M24-hard and X36-clean-scale, seeds 7/17/27 and all 160 steps, reliability-w0.50 has one unique route map, zero within-window receiver changes, zero cross-formation messages and the per-formation sender map `[2,1,1,1,1,1]`. Its routing and fusion weights exactly match `directed-fixed-index-w50`. | High | E64 | This is a route-attribution audit, not a new tracking experiment. It reclassifies earlier numerical gains as fixed directed-control gains. |
 | C50 | On D12-handover seed 7 over t=1–3, the posterior-aware reliability-plus-source-quality candidate reaches 28.6241 E-OSPA, but a complete 11-phase all-physical round-robin sweep at weights 0.50/0.70 reaches 28.1670. The candidate is 1.6229% worse, is not tail-safe, and fails the registered attribution gate. | High | E65 | This is a single-seed, three-step development falsification of the current source-quality score. It does not establish M24/X36 behavior or identify the strongest possible frozen cross-formation map. |
-| C51 | A receiver-complete formation-gateway proxy that requires both positive pairwise utility margin and absolute existence novelty improves corrected one-step teacher risk over phase-1 intra-formation round-robin by 6.01%/5.22%/7.24% on M24 t=75 seeds 7/11/17, with zero harmful selected gateway, two or three cross-formation overrides, and attempted-payload ratios of 0.9917/0.9936/1.0069. | High | E66 | All three snapshots are development evidence; this is privileged one-step proxy risk, not closed-loop E-OSPA, consensus, X36 transfer or held-out validation. |
+| C51 | A receiver-complete formation-gateway proxy that requires both positive pairwise utility margin and absolute existence novelty improves corrected one-step teacher risk over phase-1 intra-formation round-robin by 6.01%/5.22%/7.24% on M24 t=75 seeds 7/11/17, with zero harmful selected gateway, two or three cross-formation overrides, and attempted-payload ratios of 0.9917/0.9936/1.0069. However, all three induced formation graphs are not weakly connected, so the corrected training, validation and all-observed proxy gates all fail. | High | E66 | All three snapshots are development evidence. Receiver coverage is not a connectivity guarantee; this is privileged one-step proxy risk, not closed-loop E-OSPA, consensus, X36 transfer or held-out validation. |
+| C52 | In the phase-complete 15-arm M24 seed-7 t=75–77 closed loop, novelty-gated gateway v1 improves E-OSPA by only 1.6781% over the strongest matched control (phase-1 round-robin), worsens the worst node from 34.8109 to 35.1839, and fails the registered attribution gate. It uses 1.78% fewer attempted payload bytes, retains full receiver coverage and zero infeasibility, and changes its gateway-only map. Its formation graph is disconnected at every individual step but weakly connected over the three-step union. | High | E67 | This is a one-seed, three-step conditional falsification of v1's practical/tail claim after fixed/rotating phases 1–6 and the corrected link-aware control. It blocks M24 multi-seed and X36 expansion of this version. |
+| C53 | A fixed-index-backbone strong formation cycle at w=0.70 is tail-safe on M24 seed 7 and improves E-OSPA from 19.2470 to 18.5164 at its best bridge weight 0.10, but the 3.80% gain is below the 5% gate. Larger bridge weights monotonically lose the benefit and eventually worsen tail performance. | High | E68 | This is a one-seed conditional development screen. It rejects per-step strong connectivity as the final action space; it is not a learned-policy or held-out result. |
+| C54 | Joint-tree v4 replaces the per-step strong cycle with a rooted tree whose union with the previous formation graph must be strongly connected. The exact projection jointly optimizes sensor endpoints under a one-cross-send-per-sensor constraint. On M24 seed 7 the analytic scorer is tail-safe and reduces attempted bytes by 7.27%, but improves E-OSPA by only 0.07% over fixed-index w=0.70. | High | E69 | The hard graph construction works; the hand-designed edge scorer does not realize the available tracking benefit. |
+| C55 | At t=75, the privileged optimal tree relative to fixed-index w=0.70 has positive selected residuals and one-step gains of 7.27%/15.90%/9.93% on M24 seeds 7/11/17. In the seed-7 t=75–77 closed loop, privileged joint-tree v4 improves E-OSPA from 19.2470 to 17.9780 (6.59%), keeps the worst node at 34.6420, uses 1.66% fewer attempted bytes and has a strongly connected three-step formation union. | High | E70 | This is truth-assisted architecture signal, not deployable evidence. It justifies learning the scorer but cannot be reported as the learned method result. |
+| C56 | Fixed-behavior and privileged-v4 DAgger teacher series preserve truth-free action features and use truth only in labels. Across the nine privileged-state M24 blocks, privileged projected-tree gain is positive (5.35%–17.66%), but ridge/kNN edge regressors trained on seeds 7/11 fail frozen seed 17; the selected raw-kNN validation gains are -8.97%/-2.32%/-7.72%. Graph-context normalization also fails. | High | E71 | This is a negative proxy audit. More independent training seeds and a structured tree-ranking objective are required before another learned closed-loop claim. |
+| C57 | Connected-tree v2 on X36 seed 7 improves round-robin w=0.40 E-OSPA by 3.6629%, improves the worst node from 61.2646 to 56.3264 and uses 0.9873% fewer attempted bytes, while preserving instantaneous weak connectivity. It does not reach the 5% gate and was not compared against the corrected fixed-index strong control in the same report. | High | E72 | This is a scale screen, not evidence that dynamic routing beats the strongest registered X36 baseline. |
 
 ## Evidence Ledger
 
@@ -237,7 +243,13 @@ superiority, a consensus guarantee, or total-communication savings.
 | E63 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N2_20260726_075907.md` | C48: current-runner paired M24 analytic-backbone versus retained residual-policy fallback, override/support telemetry, independent residual gate and policy-time comparison. | strong |
 | E64 | code/test/audit report | `RUN/GA/dynamic_topology/DIRECTED_RELIABILITY_DYNAMICITY_AUDIT_20260726_083638.md`, `RUN/GA/auditDirectedReliabilityDynamics.m`, `common/selectRegisteredDirectedRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m`, `docs/DIRECTED_ROUTING_ATTRIBUTION_CORRECTION_CN.md` | C44/C48/C49: all-time sender-map audit, exact fixed-index equivalence, balanced controls and boundary-excluding dynamicity diagnostics. | strong |
 | E65 | experiment report/code/test | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_ORACLE_GAP_D12_HANDOVER_N1_20260726_091625.md`, `RUN/GA/runDynamicTopologyOracleGapScreen.m`, `common/selectAnalyticDirectedRoutingPolicy.m`, `common/selectRegisteredDirectedRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m` | C50: focus-aligned strong/matched attribution gate, full physical-round-robin phase sweep, source-quality candidate result, tail, bytes, coverage and route dynamics. | strong |
-| E66 | proxy report/code/test/design note | `RUN/GA/dynamic_topology/FORMATION_GATEWAY_PROXY_AUDIT_20260726_095226.md`, `RUN/GA/auditPairwiseDirectedRoutingProxy.m`, `common/selectFormationGatewayRoutingPolicy.m`, `common/selectRegisteredGatewayRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m`, `docs/FORMATION_GATEWAY_METHOD_CN.md` | C51: training-only candidate selection key, receiver-complete constrained gateway projection, absolute novelty gate, matched open-loop controls and M24 snapshot proxy results. | strong |
+| E66 | proxy report/code/test/design note | `RUN/GA/dynamic_topology/FORMATION_GATEWAY_PROXY_AUDIT_20260726_102218.md`, `RUN/GA/auditPairwiseDirectedRoutingProxy.m`, `common/selectFormationGatewayRoutingPolicy.m`, `common/selectRegisteredGatewayRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m`, `docs/FORMATION_GATEWAY_METHOD_CN.md` | C51: training-only candidate selection key, receiver-complete constrained gateway projection, explicit formation weak-connectivity rejection and M24 snapshot proxy results. | strong |
+| E67 | experiment report/code/test | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_104151.md`, `RUN/GA/runDynamicTopologyOracleGapScreen.m`, `common/selectRegisteredGatewayRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m` | C52: phase-complete 15-arm M24 short closed loop, corrected link orientation, mean/tail/bytes, gateway-only dynamics, instantaneous and union formation connectivity, and attribution-gate failure. | strong |
+| E68 | experiment reports/code | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_115612.md`, `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_120147.md`, `common/selectStrongFormationCycleEdges.m` | C53: fixed-index matched weight screen, exact strong-cycle projection and bridge-weight falsification. | strong |
+| E69 | experiment report/code/test | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_120821.md`, `common/selectRootedFormationTreeEdges.m`, `common/selectConnectedFormationTreeRoutingPolicy.m`, `tests/test_dynamic_topology_scenarios.m` | C54: exact endpoint matching, previous-union strong-connectivity constraint and analytic v4 closed loop. | strong |
+| E70 | experiment report/code | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_121146.md`, `common/selectFormationTreeRoutingTeacher.m` | C55: truth-assisted v4 closed-loop architecture signal, tail, bytes and union connectivity. | strong |
+| E71 | dataset generator/proxy reports | `RUN/GA/generateDirectedRoutingTeacherSeries.m`, `RUN/GA/auditLearnedFormationTreeProxy.m`, `RUN/GA/dynamic_topology/LEARNED_FORMATION_TREE_PROXY_AUDIT_20260726_123239.md`, `RUN/GA/dynamic_topology/LEARNED_FORMATION_TREE_PROXY_AUDIT_20260726_123253.md` | C56: fixed and privileged behavior-series provenance, seed-blocked ridge/kNN audits and failed graph-context generalization. | strong |
+| E72 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_114257.md` | C57: X36 v2 round-robin screen, tail, bytes and connectivity with explicit strong-control limitation. | strong |
 
 Initial arithmetic check:
 
@@ -782,10 +794,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
 
 ## Open Issues
 
-1. Keep the reliability-plus-source-quality score retired after its D12
-   phase-complete falsification. Screen the new receiver-complete
-   novelty-gated formation gateway first in a short M24 closed loop against
-   matched fixed, rotating, link-aware and round-robin controls.
+1. Keep reliability-plus-source-quality, gateway v1, connected-tree v2 and
+   per-step strong-cycle v3 retired as final candidates. Joint-tree v4 is the
+   retained action space, but only its privileged scorer has passed the 5%
+   strong-baseline gate.
 2. Add a train-frozen cross-formation role/map control under the same
    one-message-per-receiver and source-weight contract. The phase-complete
    physical round-robin is a strong scheduled template, but not an exhaustive
@@ -805,10 +817,10 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
    receiver also excludes sources missing a label and renormalizes over the
    remaining sources rather than fusing an explicit zero-existence
    Bernoulli; a theoretical claim must disclose or replace this rule.
-7. Collect independent seed/time-block residual datasets only if a learning
-   contribution is still desired. Freeze architecture and thresholds before
-   held-out evaluation; do not tune the empirical gate downward to force
-   overrides.
+7. Expand privileged-v4 DAgger data beyond seeds 7/11 before fitting a
+   structured tree-ranking model. Keep seed 17 frozen during development,
+   then allocate new held-out seeds after the architecture and thresholds are
+   frozen. Do not lower the empirical gate to force a positive result.
 8. Profile and vectorize posterior feature extraction. The current residual
    frozen report uses 17.11 policy seconds versus 0.03 seconds for the
    backbone, adding 17.074 seconds over three M24 steps while producing no
@@ -820,16 +832,24 @@ Retire the first single-snapshot kNN transfer claim and do not replace it with
 a GNN claim yet. The fixed reliability route remains a required sparse
 directed baseline, not a dynamic-topology method.
 
-The next candidate is the receiver-complete novelty-gated formation gateway.
-Its M24 t=75 proxy passes the development threshold without harmful selected
-gateway actions while preserving one incoming message per receiver. This is
-enough to justify a bounded M24 t=75–77 closed-loop screen, but not enough to
-promote it to the paper.
+The receiver-complete novelty-gated formation gateway v1 is also rejected as a
+method candidate. Its local M24 t=75 proxy risk is positive, but all three
+snapshot formation graphs fail the corrected weak-connectivity gate. In the
+phase-complete paired t=75–77 closed loop, the gateway-only routes change and
+their time union is weakly connected, yet the method gives only 1.6781%
+E-OSPA gain over the strongest matched control and is not tail-safe. Do not
+run this version on more M24 seeds or X36.
 
-Stop the method if it fails to improve E-OSPA by at least 5% over the strongest
-matched round-robin/fixed/rotating/link-aware gateway control, worsens the
-worst-node tail, or does not produce genuine within-window route changes.
-Only after a positive M24 multi-seed result should the same frozen policy be
-tested on X36. Until then, the supported finding is a pairwise gateway signal
-under privileged development labels, not learned topology superiority,
-consensus theory, held-out scale transfer or total-byte optimality.
+The retained design is joint-tree v4: a fixed-index strong backbone, exact
+rooted-tree projection, one cross-send per sensor and a two-step
+strong-connectivity constraint. Its privileged seed-7 closed loop clears the
+5% mean gate without tail or byte regression, so the action space remains
+worth pursuing.
+
+The deployable scorer is not solved. Analytic scoring is almost identical to
+the fixed baseline, and ridge/kNN—including graph-context variants—select
+harmful edges on the frozen seed. The next implementation should train on
+more privileged-v4 rollout seeds and optimize structured tree regret or
+ranking rather than independent edge MSE. Only a truth-free closed-loop model
+that beats fixed-index and matched scheduled controls on every development
+seed should proceed to X36 and held-out evaluation.
