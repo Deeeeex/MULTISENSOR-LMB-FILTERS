@@ -22,8 +22,7 @@ end
 
 modes = cellfun(@canonicalMode, {aggregates.mode}, ...
     'UniformOutput', false);
-observedCandidateIdx = find(cellfun(@(mode) ~isempty(regexp( ...
-    mode, '^rolling-safe-analytic-w[0-9]+$', 'once')), modes));
+observedCandidateIdx = find(cellfun(@isCandidateMode, modes));
 readout.observedCandidateCount = numel(observedCandidateIdx);
 if isempty(observedCandidateIdx)
     return;
@@ -116,12 +115,13 @@ function readout = evaluateCandidate( ...
 readout = emptyRollingSafeAttributionReadout();
 candidate = aggregates(candidateIdx);
 token = regexp(modes{candidateIdx}, ...
-    '^rolling-safe-analytic-w([0-9]+)$', ...
+    ['^(rolling-safe-analytic|', ...
+     'learned-rolling-safe-rollout)-w([0-9]+)$'], ...
     'tokens', 'once');
 if isempty(token)
     return;
 end
-sourceWeight = str2double(token{1}) / 100;
+sourceWeight = str2double(token{2}) / 100;
 candidateEospa = getMetric( ...
     candidate, 'focusEospaBySeed', NaN);
 seedCount = numel(candidateEospa);
@@ -751,6 +751,12 @@ end
 
 function mode = canonicalMode(mode)
 mode = lower(strrep(char(mode), '_', '-'));
+end
+
+function matched = isCandidateMode(mode)
+matched = ~isempty(regexp(mode, ...
+    ['^(rolling-safe-analytic|', ...
+     'learned-rolling-safe-rollout)-w[0-9]+$'], 'once'));
 end
 
 function [valid, formationCount] = ...

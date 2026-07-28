@@ -5,7 +5,9 @@
 % Invoke with, for example:
 %   SEED=19 SCREEN=risk octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=19 SCREEN=hybrid octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
+%   SEED=19 SCREEN=diverse octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=19 SCREEN=truthfree octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
+%   SEED=7 SCREEN=learned octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 
 addpath(genpath(pwd));
 
@@ -15,8 +17,8 @@ if ~isscalar(seed) || ~isfinite(seed) || seed < 1 || mod(seed, 1) ~= 0
 end
 screenName = lower(strtrim(getenv('SCREEN')));
 if isempty(screenName)
-    error(['Set SCREEN to ''risk'', ''hybrid'', or ''truthfree'' ', ...
-        'before running this experiment entry point.']);
+    error(['Set SCREEN to ''risk'', ''hybrid'', ''diverse'', ', ...
+        '''truthfree'', or ''learned'' before running this entry point.']);
 end
 
 options = struct();
@@ -24,7 +26,9 @@ options.maxTimeSteps = 77;
 options.continuationStartTime = 75;
 options.behaviorCacheDirectory = fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'cache');
-options.generateMissingBehaviorCache = false;
+generateCacheToken = lower(strtrim(getenv('GENERATE_CACHE')));
+options.generateMissingBehaviorCache = ...
+    any(strcmp(generateCacheToken, {'1', 'true', 'yes'}));
 options.primaryAttributionFamily = 'rolling-safe';
 
 switch screenName
@@ -42,6 +46,14 @@ switch screenName
             'r4-dccw-p2-w70'], mask), ...
             masks, 'UniformOutput', false);
         outputLeaf = 'hybrid';
+    case 'diverse'
+        options.armNames = { ...
+            'directed-rolling-burst-r4-dccw-p2-w70', ...
+            'oracle-rolling-safe-sequence-t75-s000000-w70', ...
+            'oracle-rolling-safe-sequence-t75-s900000-w70', ...
+            'oracle-rolling-safe-sequence-t75-s910000-w70', ...
+            'oracle-rolling-safe-sequence-t75-s920000-w70'};
+        outputLeaf = 'diverse';
     case 'truthfree'
         options.armNames = { ...
             'directed-rolling-burst-r4-dccw-p2-w70', ...
@@ -50,6 +62,13 @@ switch screenName
             'rolling-safe-sequence-t75-s242481-w70', ...
             'rolling-safe-sequence-t75-s248181-w70'};
         outputLeaf = 'truthfree';
+    case 'learned'
+        options.allowRejectedLearnedArtifact = true;
+        options.evidenceSplit = 'development';
+        options.armNames = { ...
+            'directed-rolling-burst-r4-dccw-p2-w70', ...
+            'learned-rolling-safe-rollout-w70'};
+        outputLeaf = 'learned';
     otherwise
         error('Unknown SCREEN value: %s', screenName);
 end

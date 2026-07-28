@@ -1,0 +1,36 @@
+function scores = scoreRollingSafeRolloutEdgeModel(model, X)
+% SCOREROLLINGSAFEROLLOUTEDGEMODEL Score observable cross-edge features.
+
+required = { ...
+    'kind', 'featureMean', 'featureScale', ...
+    'featureMask', 'hiddenWeight', 'hiddenBias', ...
+    'outputWeight', 'outputBias'};
+if ~isstruct(model) || ~all(isfield(model, required)) || ...
+        ~strcmp(model.kind, 'mlp-rolling-safe-rollout-edge-v1')
+    error('Invalid rolling-safe rollout edge model.');
+end
+featureMask = logical(reshape(model.featureMask, 1, []));
+if size(X, 2) ~= numel(featureMask) || ~any(featureMask)
+    error('Rolling-safe rollout feature dimension mismatch.');
+end
+retained = X(:, featureMask);
+featureMean = reshape(model.featureMean, 1, []);
+featureScale = reshape(model.featureScale, 1, []);
+if size(retained, 2) ~= numel(featureMean) || ...
+        numel(featureMean) ~= numel(featureScale) || ...
+        any(~isfinite(retained(:))) || ...
+        any(~isfinite(featureMean)) || ...
+        any(~isfinite(featureScale)) || ...
+        any(featureScale <= 0)
+    error('Rolling-safe rollout normalization contract is invalid.');
+end
+Z = bsxfun(@rdivide, ...
+    bsxfun(@minus, retained, featureMean), featureScale);
+hidden = tanh(bsxfun(@plus, ...
+    Z * model.hiddenWeight, model.hiddenBias));
+scores = hidden * model.outputWeight + model.outputBias;
+scores = reshape(scores, [], 1);
+if any(~isfinite(scores))
+    error('Rolling-safe rollout model produced non-finite scores.');
+end
+end

@@ -295,3 +295,60 @@ candidate set; the deterministic joint projector remains responsible for
 the rolling-\(B=3\), message-budget and payload contracts. This separation
 preserves the theoretical safety story while giving the data-driven
 component a nontrivial finite-horizon target.
+
+## Additional development seeds and a shared timing pattern
+
+The exhaustive three-step control/teacher switch screen was extended to
+seeds 11 and 17 from newly generated v2 continuation caches. Both seeds
+have several tail-safe actions, and their strongest admissible rollouts
+share teacher activation at the first and third decision:
+
+| Seed | Selected rollout | Mean gain | Tail gain | Byte change | Selected \(B=3\) | Repair |
+|--:|:--|--:|--:|--:|--:|--:|
+| 11 | teacher-teacher-teacher (`111`) | 27.55% | 22.60% | +1.31% | 1.0000 | 0 |
+| 17 | teacher-control-teacher (`101`) | 18.74% | 20.71% | -1.13% | 1.0000 | 0 |
+
+For seed 11, `101` also gives a 22.89% mean gain and the same tail value,
+but the all-teacher sequence has the lower mean E-OSPA while remaining
+inside the registered 2% attempted-byte tolerance. For seed 17, `101`
+slightly outperforms `111` in both mean and tail tracking error. The
+six-seed development label set therefore uses:
+
+| Seed | Outcome-selected action codes |
+|--:|:--|
+| 7 | `91-00-00` |
+| 11 | `00-00-00` |
+| 17 | `00-24-00` |
+| 19 | `24-00-00` |
+| 23 | `90-00-00` |
+| 29 | `92-00-00` |
+
+Supporting evidence:
+
+- `evidence/rollout_dataset/seed11_hybrid/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_025309.md`
+- `evidence/rollout_dataset/seed17_hybrid/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_025319.md`
+
+## First learned-policy audit
+
+The first edge MLP used seeds 19, 23 and 29 for leave-one-seed-out
+selection and seed 7 only as a development audit. With isolated-edge
+features, its minimum held-out-seed recall was zero and its seed-7
+closed-loop result was worse than the registered burst control in both
+mean and tail E-OSPA. Adding receiver-, formation-pair- and block-relative
+graph context improved the mean seed-7 result from a 1.25% regression to
+a 2.87% gain, but the worst-node error increased by 12.39%. Neither model
+passes the registered 5% mean plus no-tail-regression gate.
+
+This is a rejected-model finding, not a validation result. It also exposed
+two evidence-contract requirements now enforced by the implementation:
+
+1. offline model selection must replay the same rolling-\(B=3\) joint
+   projector used online instead of a receiver-unique top-\(K\) surrogate;
+2. artifacts that fail a registered imitation threshold cannot enter
+   closed-loop evidence runs unless an explicit development-diagnostic
+   override is recorded.
+
+The learned arm is evaluated only through the rolling-safe matched-control
+gate, and held-out-validation mode rejects any seed already present in the
+artifact's training or audit split. All seeds listed above remain
+development-only.
