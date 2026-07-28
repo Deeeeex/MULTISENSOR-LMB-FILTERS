@@ -419,3 +419,61 @@ Supporting evidence:
   `models/rolling_safe_rollout_edge_mlp_m24_t75.mat`
 - training log:
   `logs/m24_rollout_edge_model_v2_20260729.log`
+
+## Structured oracle-cardinality audit
+
+The next audit gave a linear structured ranker the exact target number of
+cross-formation edges in every recorded block, then used the production
+rolling-\(B=3\) projector to choose the graph. This intentionally
+non-deployable oracle removes cardinality prediction from the problem and
+tests only whether the recorded edge ranking transfers across seeds.
+
+It does not. Leave-one-training-seed-out evaluation obtained minimum seed F1
+`0.0000`, mean F1 `0.0889`, minimum block F1 `0.0000`, and mean exact-graph
+fraction `0.0667`. Even training replay reached only `0.2000` mean F1, and all
+three design-seen seed-7 blocks had F1 `0.0000`. Exact target cardinality was
+feasible without repair in every block, so the failure belongs to the
+observable-score-to-selected-graph mapping rather than the projector.
+
+This result rejects the proposed edge-ranker-plus-cardinality-head path. A
+cardinality head cannot rescue a ranker that fails even when cardinality is
+supplied by an oracle, and the 18 recorded graph states are too sparse and
+heterogeneous to justify a higher-capacity graph model.
+
+Supporting evidence:
+
+- `STRUCTURED_ROLLING_SAFE_ORACLE_K_AUDIT.md`
+- ignored frozen artifact:
+  `models/structured_rolling_safe_oracle_k_m24_t75.mat`
+- training log:
+  `logs/structured_oracle_k_formal_20260729.log`
+
+## Truth-free action-codebook coverage
+
+A clean conditional-continuation audit next evaluated 32 truth-free first-step
+actions on seed 7: scheduled codes `01:24`, posterior/link-aware analytic
+policies `80:81`, and six leave-one-selected-edge-out alternatives `82:87`.
+All actions consumed deployment-observable inputs and passed the selected
+rolling-\(B=3\) check, but collapsed to only 19 distinct route signatures.
+
+No candidate passed the joint gate. Relative to code `24`, the best mean
+candidate (`02`) improved E-OSPA by only 3.30% and regressed worst-node E-OSPA
+by 3.62%. The only no-repair candidate with no tail regression was the code-24
+reference itself. Hence this is not merely a selector-learning failure: the
+fixed truth-free candidate support does not contain an admissible improved
+action at this state.
+
+The method-design consequence is now explicit. The next iteration will not
+learn cardinality, imitate one privileged graph, or classify this fixed set of
+action IDs. It must generate new sensor-level score directions from independent
+observable edge-feature bases, pass them through the exact safety projector,
+and first demonstrate counterfactual action-space coverage. Only a generator
+that contains at least one no-repair action satisfying the mean, tail, and
+communication gates should be followed by cross-seed value learning.
+
+Supporting evidence:
+
+- `M24_TRUTH_FREE_COUNTERFACTUAL_COVERAGE_SEED7_20260729.md`
+- four clean source reports under
+  `evidence/rollout_dataset/seed7_counterfactual_b01of04` through
+  `seed7_counterfactual_b04of04`, all generated from commit `910fe07`
