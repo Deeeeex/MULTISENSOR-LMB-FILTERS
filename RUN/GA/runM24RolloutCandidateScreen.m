@@ -8,6 +8,8 @@
 %   SEED=19 SCREEN=diverse octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=19 SCREEN=truthfree octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=7 SCREEN=learned octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
+%   SEED=7 SCREEN=scorebasis BATCH_COUNT=4 BATCH_INDEX=1 \
+%       octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=7 SCREEN=counterfactual BATCH_COUNT=4 BATCH_INDEX=1 \
 %       octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 
@@ -20,8 +22,8 @@ end
 screenName = lower(strtrim(getenv('SCREEN')));
 if isempty(screenName)
     error(['Set SCREEN to ''risk'', ''hybrid'', ''diverse'', ', ...
-        '''truthfree'', ''learned'', or ''counterfactual'' before ', ...
-        'running this entry point.']);
+        '''truthfree'', ''learned'', ''scorebasis'', or ', ...
+        '''counterfactual'' before running this entry point.']);
 end
 
 options = struct();
@@ -72,25 +74,25 @@ switch screenName
             'directed-rolling-burst-r4-dccw-p2-w70', ...
             'learned-rolling-safe-rollout-w70'};
         outputLeaf = 'learned';
+    case {'basis', 'scorebasis'}
+        [scoreBasisRegistry, ~] = ...
+            getRollingSafeObservableScoreBasisRegistry();
+        actionCodes = [scoreBasisRegistry.actionCode];
+        [selectedCodes, batchCount, batchIndex] = ...
+            selectRollingSafeActionCodeBatchFromEnvironment( ...
+                actionCodes);
+        candidateArmNames = arrayfun(@(code) sprintf( ...
+            'rolling-safe-sequence-t75-s%02d2424-w70', code), ...
+            selectedCodes, 'UniformOutput', false);
+        options.armNames = [candidateArmNames, { ...
+            'rolling-safe-sequence-t75-s242424-w70'}];
+        outputLeaf = sprintf( ...
+            'scorebasis_b%02dof%02d', batchIndex, batchCount);
     case 'counterfactual'
         actionCodes = [1:24, 80:87];
-        batchCount = str2double(strtrim(getenv('BATCH_COUNT')));
-        batchIndex = str2double(strtrim(getenv('BATCH_INDEX')));
-        if ~isfinite(batchCount)
-            batchCount = 1;
-        end
-        if ~isfinite(batchIndex)
-            batchIndex = 1;
-        end
-        batchCount = round(batchCount);
-        batchIndex = round(batchIndex);
-        if batchCount < 1 || batchIndex < 1 || ...
-                batchIndex > batchCount
-            error(['BATCH_INDEX must lie in 1:BATCH_COUNT for the ', ...
-                'counterfactual screen.']);
-        end
-        selectedCodes = actionCodes( ...
-            batchIndex:batchCount:numel(actionCodes));
+        [selectedCodes, batchCount, batchIndex] = ...
+            selectRollingSafeActionCodeBatchFromEnvironment( ...
+                actionCodes);
         options.armNames = arrayfun(@(code) sprintf( ...
             'rolling-safe-sequence-t75-s%02d2424-w70', code), ...
             selectedCodes, 'UniformOutput', false);

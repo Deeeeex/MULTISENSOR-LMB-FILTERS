@@ -68,12 +68,23 @@ metadata.sourceWeight = sourceWeight;
 metadata.featureContextMode = featureContextMode;
 metadata.rawFeatureNames = rawNames;
 metadata.featureNames = featureNames;
+metadata.posteriorUsed = true;
+metadata.currentLinkReliabilityUsed = true;
+metadata.historyUsed = true;
+metadata.currentGeometryUsed = true;
 metadata.truthUsed = false;
+metadata.groundTruthUsed = false;
+metadata.futureOutcomeUsed = false;
 metadata.previousAdjacencyConvention = ...
     'receiver-row-sender-column-directed-oldest-to-newest';
 metadata.historyDepth = size(history, 3);
 metadata.nodeCount = nodeCount;
 metadata.crossFormationExampleCount = numel(receiverIndices);
+metadata.candidateEdgeKeys = receiverIndices + ...
+    nodeCount * (senderIndices - 1);
+metadata.featureContractSha256 = hash('sha256', sprintf( ...
+    '%s|%.17g|%s', metadata.contractVersion, ...
+    sourceWeight, strjoin(featureNames, char(31))));
 end
 
 function [X, receiverIndices, senderIndices] = ...
