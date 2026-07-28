@@ -477,3 +477,47 @@ Supporting evidence:
 - four clean source reports under
   `evidence/rollout_dataset/seed7_counterfactual_b01of04` through
   `seed7_counterfactual_b04of04`, all generated from commit `910fe07`
+
+## Observable score-basis coverage
+
+The fixed codebook failure was followed by a broader, versioned action
+generator. Six deployment-observable semantic scores—link advantage,
+posterior gain, conservative compatibility, receiver rescue, history
+novelty, and history continuity—were each projected at exact current
+cardinalities \(k=1,2,3\), with one additional \(k=0\) action. Every score
+uses deterministic within-state percentile transforms and every action is
+passed through the same exact rolling-\(B=3\) projector. Nested truth-use
+flags are now propagated to the policy boundary so a callback cannot
+silently self-report as truth-free.
+
+This generator passes the action-diversity audit: its 19 actions realize 16
+distinct sensor routes; seven no-repair sensor routes and seven no-repair
+formation routes are absent from the old codebook; all three nonzero
+cardinalities are covered; and the projector duplicate rate is 15.79%.
+Hence the result is not another pseudo-diversity failure.
+
+It nevertheless has zero tracking headroom on seed 7. Every candidate is
+worse than code 24 in both mean and worst-node E-OSPA. The least harmful
+candidate is the \(k=0\) action at a 3.68% mean regression and a 21.40% tail
+regression; among nonzero actions, receiver-rescue \(k=1\) regresses the mean
+by 3.75% and the tail by 11.70%. No action passes the registered joint
+mean/tail/byte/safety gate.
+
+This cleanly rejects local linear scoring over current scalar edge summaries,
+even when that family generates genuinely new routes and controls
+cardinality explicitly. The next diagnostic must evaluate the *counterfactual
+posterior produced by a candidate KLA update* rather than another hand-tuned
+linear combination of pre-fusion scalar features. A suitable truth-free
+test is the marginal reduction in network posterior disagreement after
+simulating receiver-side fusion, with the exact rolling safety projector
+retained. Only if that nonlinear action family has headroom should it be
+approximated by a GNN or trained graph-value model.
+
+Supporting evidence:
+
+- `M24_OBSERVABLE_SCORE_BASIS_COVERAGE_SEED7_20260729.md`
+- registry SHA-256
+  `58a558d0ebb423ca731b7c16ba3d698046785ec3d8340c400509a8dcc30dd7c7`
+- four clean source reports under
+  `evidence/rollout_dataset/seed7_scorebasis_b01of04` through
+  `seed7_scorebasis_b04of04`, generated from commit `469bd19`
