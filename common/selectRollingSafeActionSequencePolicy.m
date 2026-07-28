@@ -5,13 +5,16 @@ function [adjacency, details] = ...
 %
 % Code 0 recomputes the privileged current-risk teacher from the actual
 % trajectory state. Codes 1:(6 * formationCount) select a rolling-B3 burst:
-% three temporal phases for each clockwise/counter-clockwise root. Every
-% branch is passed through selectRollingSafeRoutingPolicy, so a sequence
-% changes the proposal objective but never bypasses the common safety layer.
+% three temporal phases for each clockwise/counter-clockwise root. Code 80
+% uses the truth-free posterior-analytic score and code 81 uses the
+% truth-free link-aware score. Codes 90:99 request nearby privileged
+% teacher alternatives. Every branch is passed through
+% selectRollingSafeRoutingPolicy, so a sequence changes the proposal
+% objective but never bypasses the common safety layer.
 %
 % The code sequence is a finite-horizon attainability/search primitive. Any
-% sequence containing code 0 reads truth and must remain excluded from a
-% deployable or validation strategy.
+% sequence containing code 0 or 90:99 reads truth and must remain excluded
+% from a deployable or validation strategy.
 
 actionCodes = round(reshape(actionCodes, 1, []));
 if isempty(actionCodes) || any(~isfinite(actionCodes)) || ...
@@ -51,6 +54,19 @@ if actionCode == 0
     [adjacency, details] = selectRollingSafeRoutingPolicy( ...
         context, 'external-scores', policyOptions);
     branch = 'privileged-current-risk';
+elseif actionCode == 80 || actionCode == 81
+    if actionCode == 80
+        scoreMode = 'posterior-analytic';
+        branch = 'truth-free-posterior-analytic';
+    else
+        scoreMode = 'link-aware';
+        branch = 'truth-free-link-aware';
+    end
+    policyOptions = struct( ...
+        'sourceWeight', sourceWeight, ...
+        'payloadToleranceFraction', payloadToleranceFraction);
+    [adjacency, details] = selectRollingSafeRoutingPolicy( ...
+        context, scoreMode, policyOptions);
 elseif actionCode >= 90 && actionCode <= 99
     alternativeIndex = actionCode - 89;
     diverseOptions = struct( ...

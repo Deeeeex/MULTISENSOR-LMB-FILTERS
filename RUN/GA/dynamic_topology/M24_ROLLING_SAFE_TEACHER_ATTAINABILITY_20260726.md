@@ -208,6 +208,75 @@ of the current joint tracking-tail-byte gate. The learned objective should
 therefore retain consensus as a monitored auxiliary loss rather than hide
 this trade-off.
 
+## Multi-seed rollout-candidate attainability
+
+The first leave-one-edge-out screen was then repeated on the declared M24
+development seeds 19, 23 and 29. A fixed alternative index did not
+generalize. In particular, all four `90/91/92-00-00` candidates on seed 19
+improved network-mean E-OSPA by about 14--16%, but increased the worst-node
+value from 43.0102 to 48.7124. The exact current-step minimax teacher showed
+the same tail failure (E-OSPA 18.6463, worst node 48.7124), so a stronger
+one-step risk scalar was still temporally misaligned.
+
+An exhaustive binary switch screen on seed 19 localized the failure. The
+teacher should not be activated at the first continuation step. Sequence
+`011`, which executes the registered control at \(t=75\) and recomputes the
+teacher at \(t=76,77\), passes the joint gate without repair:
+
+| Seed | Best observed safe rollout | Mean gain | Tail gain | Byte reduction | Selected \(B=3\) | Repair |
+|--:|:--|--:|--:|--:|--:|--:|
+| 7 | diverse alt. 2, then teacher (`91-00-00`) | 8.14% | 0.00% | 1.15% | 1.0000 | 0 |
+| 19 | control, then teacher (`011`) | 7.15% | 0.15% | 1.27% | 1.0000 | 0 |
+| 23 | diverse alt. 1, then teacher (`90-00-00`) | 26.10% | 37.71% | 0.65% | 1.0000 | 0 |
+| 29 | diverse alt. 3, then teacher (`92-00-00`) | 36.54% | 65.53% | 3.26% | 1.0000 | 0 |
+
+The table is an action-space attainability result on four development
+seeds, not a learned-policy result. Each row was selected after observing
+that seed's closed-loop tracking outcome, and codes `00` and `90:92` read
+truth. Its methodological implication is nevertheless sharp: the common
+safe projector admits useful routes on every development seed, while the
+best first action and activation time vary across seeds. The remaining
+problem is therefore state-conditioned finite-horizon ranking, not another
+fixed schedule or another coefficient on the one-step edge score.
+
+Supporting evidence:
+
+- Seed 19 diverse-action screen:
+  `evidence/rollout_dataset/seed19/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_013509.md`
+- Seed 19 hybrid screen:
+  `evidence/rollout_dataset/seed19_hybrid/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_015415.md`
+- Seed 19 minimax reproduction:
+  `evidence/rollout_dataset/seed19_risk/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_015004.md`
+- Seeds 23 and 29 candidate screens:
+  `evidence/rollout_dataset/seed23/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_013515.md`
+  and
+  `evidence/rollout_dataset/seed29/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_013525.md`
+
+### Truth-free proposal check
+
+The seed-19 timing result could in principle have reduced the learning
+problem to a binary gate over an existing analytic proposal. That simpler
+hypothesis was tested by replacing the teacher at the successful delayed
+activation times with two truth-free rolling-safe scores:
+
+| Sequence | Proposal | E-OSPA | Worst node | Attempted bytes | Mean gate |
+|:--|:--|--:|--:|--:|:--|
+| `24-24-24` | registered control | 21.7219 | 43.0102 | 3,482,928 | reference |
+| `24-24-80` | posterior-analytic at \(t=77\) | 22.3948 | 42.9460 | 3,483,432 | fail |
+| `24-80-80` | posterior-analytic at \(t=76,77\) | 23.5697 | 44.8667 | 3,471,072 | fail |
+| `24-24-81` | link-aware at \(t=77\) | 22.0004 | 42.9460 | 3,479,208 | fail |
+| `24-81-81` | link-aware at \(t=76,77\) | 22.0004 | 42.9460 | 3,479,208 | fail |
+
+The truth-free candidates preserve the safety contract but do not reproduce
+the teacher's 7.15% tracking gain. A learned timing gate over either
+existing heuristic is therefore insufficient. The data-driven component
+must learn graph or edge value, while the deterministic projector remains
+responsible for admissibility.
+
+Supporting evidence:
+
+- `evidence/rollout_dataset/seed19_truthfree/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_015745.md`
+
 ## Method implication
 
 The evidence supports a different learning target from direct one-step edge
