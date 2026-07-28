@@ -400,13 +400,17 @@ gap is evidence of structural overfitting, not a marginal acceptance miss.
 
 There is a concrete mechanism behind the failure. The pointwise BCE model
 predicts 432 edge labels independently, whereas the deployed decision is a
-coupled graph action. The free rolling-safe projector uses up to three
-cross-formation overrides and its deterministic tie-break prefers a
-maximum-cardinality feasible action. Consequently, edge scores alone
-cannot express the dataset's zero- and one-edge scheduled-control actions.
-The next learner must represent both whether to defer to the registered
-control and how to rank a complete non-control graph; all proposed graphs
-must still pass through the same deterministic safety projector.
+coupled graph action. The free rolling-safe projector maximizes the joint
+edge-score objective subject to up to three cross-formation overrides, then
+uses a tertiary negative-cardinality objective to prefer fewer edges among
+score-equivalent optima. Cardinality therefore emerges from the signs and
+relative values of all edge scores together with the rolling constraints;
+it is not an independently thresholded edge decision. Moreover, the
+zero-edge and one-edge actions occur in only one block each, so the
+corresponding leave-one-seed-out folds remove the sole example of that
+cardinality from its seed. The next learner must represent complete graph
+utility and control deferral explicitly; all proposed graphs must still
+pass through the same deterministic safety projector.
 
 Supporting evidence:
 
