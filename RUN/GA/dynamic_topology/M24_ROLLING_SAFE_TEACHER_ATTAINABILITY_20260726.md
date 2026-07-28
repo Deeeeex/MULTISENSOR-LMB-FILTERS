@@ -145,3 +145,84 @@ risk, and use the best feasible sequence as privileged training supervision.
 Only after that attainability gate passes should a truth-free structured
 scorer be trained on declared development blocks. Unseen-seed M24 validation
 and a frozen X36 transfer test remain subsequent gates.
+
+## Expanded safe-action rollout result
+
+The action set was subsequently expanded in two stages.
+
+1. Codes `01` through `24` enumerate every registered burst root,
+   orientation and temporal phase for four formations.
+2. Codes `90` through `92` generate nearby teacher actions by forbidding,
+   one at a time, the default teacher's three selected cross-formation
+   edges (ordered by increasing edge-score contribution) and resolving the
+   same exact current/successor rolling-\(B=3\) projection.
+
+All action codes modify only the proposal or admissible edge set. The
+message budget, one-message-per-receiver contract, payload accounting and
+joint rolling-safety projection remain common.
+
+The fixed burst codebook alone did not contain a three-step sequence that
+passed both tracking gates. It did, however, localize the useful branch:
+the first action `02` created up to 11.17% mean gain but irreversibly harmed
+sensor 13, while prefix `02-14` preserved the tail but saturated at 4.82%
+mean gain. Leave-one-selected-edge-out alternatives were therefore tested
+at each decision time. Diversifying the first teacher action produced the
+first joint feasible sequence:
+
+| Arm | Focus E-OSPA | Mean gain | Worst node | Tail gain | Consensus OSPA | Attempted bytes | Byte reduction |
+|:--|--:|--:|--:|--:|--:|--:|--:|
+| Registered burst control `24-24-24` | 22.3449 | 0.00% | 34.5380 | 0.00% | **22.9908** | 3,472,848 | 0.00% |
+| Default current-risk teacher `00-00-00` | 21.0283 | 5.89% | 35.1210 | -1.69% | 22.5080 | 3,387,552 | 2.46% |
+| Diverse alternative 1 `90-00-00` | 20.5468 | 8.05% | 35.1210 | -1.69% | **22.3436** | 3,392,256 | 2.32% |
+| **Diverse alternative 2 `91-00-00`** | **20.5260** | **8.14%** | **34.5380** | **0.00%** | 23.2549 | **3,432,840** | **1.15%** |
+| Diverse alternative 3 `92-00-00` | 21.2732 | 4.80% | 35.1242 | -1.70% | **22.2117** | 3,373,392 | 2.86% |
+
+Sequence `91-00-00` has selected-route signature
+`0A10-0A10-4042`, which differs from both the registered control
+(`1000-0000-0842`) and default current-risk teacher
+(`2810-4810-0882`). It satisfies selected sensor/formation \(B=3\) on all
+three mature windows, matches the control's delivered-\(B=3\) fraction of
+0.6667, and uses no infeasibility fallback, repair or payload emergency.
+
+An independent rerun of only the new arm reproduced the exact values:
+
+- Evidence report:
+  `evidence/action_search/reproduction/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_004650.md`
+- Raw log:
+  `/tmp/m24_diverse_first_alt_91_reproduction_20260729.log`
+- Reproduced tuple:
+  E-OSPA `20.5259870081`, worst node `34.5380426781`,
+  attempted bytes `3432840`, selected \(B=3\) `1.0`,
+  delivered \(B=3\) `0.666667`.
+
+This establishes the registered M24 development-block attainability gate:
+the safe action space contains a sequence with at least 5% mean gain,
+no worst-node regression and lower attempted bytes. It does not yet
+establish a deployable method. Codes `90` through `92` use truth-labelled
+teacher scores, and the sequence was selected using the same development
+block's final tracking outcomes.
+
+There is also a secondary caveat: the passing sequence's consensus OSPA is
+1.15% worse than the registered control, although this metric was not part
+of the current joint tracking-tail-byte gate. The learned objective should
+therefore retain consensus as a monitored auxiliary loss rather than hide
+this trade-off.
+
+## Method implication
+
+The evidence supports a different learning target from direct one-step edge
+regression. A finite-horizon **diverse safe rollout teacher** should:
+
+1. generate the default projected action and a small set of structured
+   leave-one-selected-edge-out alternatives;
+2. roll each candidate forward under the same future data and safety layer;
+3. select by mean tracking risk subject to explicit tail, communication and
+   rolling-connectivity constraints;
+4. supervise a truth-free graph scorer or action ranker from observable
+   posterior, link, geometry and executed-history features.
+
+At deployment, the learned model proposes edge values or ranks a small
+candidate set; the deterministic joint projector remains responsible for
+the rolling-\(B=3\), message-budget and payload contracts. This separation
+preserves the theoretical safety story while giving the data-driven
+component a nontrivial finite-horizon target.
