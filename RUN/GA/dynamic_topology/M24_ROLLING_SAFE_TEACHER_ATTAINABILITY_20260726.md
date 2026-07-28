@@ -388,3 +388,30 @@ The learned arm is evaluated only through the rolling-safe matched-control
 gate, and held-out-validation mode rejects any seed already present in the
 artifact's training or audit split. All seeds listed above remain
 development-only.
+
+The clean v2 replay audit confirms that this model family should be
+discarded rather than threshold-tuned. The selected 16-unit MLP obtained
+only `0.0222` mean projected edge F1 under leave-one-training-seed-out
+evaluation; its minimum seed F1, minimum block F1, minimum recall and
+exact-graph fraction were all zero. It also failed exact imitation on the
+only zero-edge and one-edge blocks. Training-set imitation was much
+stronger, while all three seed-7 audit blocks had zero projected F1. The
+gap is evidence of structural overfitting, not a marginal acceptance miss.
+
+There is a concrete mechanism behind the failure. The pointwise BCE model
+predicts 432 edge labels independently, whereas the deployed decision is a
+coupled graph action. The free rolling-safe projector uses up to three
+cross-formation overrides and its deterministic tie-break prefers a
+maximum-cardinality feasible action. Consequently, edge scores alone
+cannot express the dataset's zero- and one-edge scheduled-control actions.
+The next learner must represent both whether to defer to the registered
+control and how to rank a complete non-control graph; all proposed graphs
+must still pass through the same deterministic safety projector.
+
+Supporting evidence:
+
+- `ROLLING_SAFE_ROLLOUT_EDGE_MODEL_AUDIT.md`
+- ignored frozen artifact:
+  `models/rolling_safe_rollout_edge_mlp_m24_t75.mat`
+- training log:
+  `logs/m24_rollout_edge_model_v2_20260729.log`
