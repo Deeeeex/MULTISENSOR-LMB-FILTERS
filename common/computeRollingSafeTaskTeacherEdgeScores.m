@@ -75,12 +75,18 @@ for receiverIdx = 1:nodeCount
 end
 scores = -inf(numel(receiverIndices), 1);
 candidateGain = nan(numel(receiverIndices), 1);
+candidateRisk = nan(numel(receiverIndices), 1);
 unweightedResidual = -inf(numel(receiverIndices), 1);
 for exampleIdx = 1:numel(receiverIndices)
     receiverIdx = receiverIndices(exampleIdx);
     senderIdx = senderIndices(exampleIdx);
     candidateGain(exampleIdx) = ...
         gainByEdge(receiverIdx, senderIdx, weightIdx);
+    if isfinite(candidateGain(exampleIdx))
+        candidateRisk(exampleIdx) = ...
+            teacherDetails.nodeRiskBefore(receiverIdx) - ...
+            candidateGain(exampleIdx);
+    end
     if isfinite(candidateGain(exampleIdx)) && ...
             isfinite(baselineGain(receiverIdx))
         unweightedResidual(exampleIdx) = ...
@@ -112,6 +118,7 @@ details.discountFactor = discountFactor;
 details.receiverIndices = receiverIndices;
 details.senderIndices = senderIndices;
 details.candidateExpectedGain = candidateGain;
+details.candidateExpectedRisk = candidateRisk;
 details.baselineExpectedGainByReceiver = baselineGain;
 details.baselineExpectedRiskByReceiver = baselineExpectedRisk;
 details.receiverRiskPriority = receiverRiskPriority;

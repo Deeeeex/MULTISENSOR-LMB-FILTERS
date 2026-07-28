@@ -66,10 +66,82 @@ this window. Their independently audited selected-route signatures are also
 identical (`2810-4810-0882`), so the \(H=2\) ranking actually collapses to
 the current-risk ranking over these three decisions.
 
-The valid conclusion is narrower and important: the rolling-\(B=3\) action
-space and exact safety layer can support a practically meaningful mean
-closed-loop gain. The next method gate is stricter: a risk-sensitive teacher
-must retain that mean gain without regressing the worst sensor, after which a
-truth-free structured scorer can be trained only on declared development
-blocks. Unseen-seed M24 validation and an independently frozen X36 transfer
-test remain subsequent gates.
+## Risk-sensitive one-step diagnostics
+
+Several stricter one-step objectives were tested before increasing the
+teacher's action horizon.
+
+| Diagnostic | Focus E-OSPA | Mean gain vs control | Worst node | Tail gain vs control | Decision |
+|:--|--:|--:|--:|--:|:--|
+| Current-risk teacher | 21.0283 | **5.89%** | 35.1210 | -1.69% | Mean gate only |
+| Receiver-risk priority, \(c=1\) | 21.0283 | **5.89%** | 35.1210 | -1.69% | Same realized route |
+| Receiver-risk priority, \(c=3\) | 21.0508 | 5.79% | 35.1210 | -1.69% | Tail unchanged |
+| Exact current-step minimax | 21.2706 | 4.81% | 35.1210 | -1.69% | Misses both gates |
+| Corrected global-tail cap | 21.0283 | **5.89%** | 35.1210 | -1.69% | Same realized route |
+
+The corrected global-tail-capped projection lowers the predicted one-step
+worst risk from the scheduled anchor's 0.321158 to 0.222130. Nevertheless,
+the realized three-step worst-node E-OSPA increases from 34.5380 to 35.1210.
+This is direct evidence that the present one-step expected-risk surrogate is
+temporally misaligned with the closed-loop tail gate. Further tuning of its
+linear coefficient or MILP cap does not address the observed failure.
+
+Two earlier control-anchored diagnostics generated at `20260726_224527` and
+`20260726_225402` are invalidated. Their additive objective used
+`anchorRisk - candidateRisk`, although the unselected action falls back to
+the formation cycle. The correct edge advantage is therefore
+`cycleRisk - candidateRisk`; the scheduled anchor may appear only in the
+risk constraint. The implementation and tests now enforce this distinction,
+so those two numerical results must not be cited as method evidence.
+
+Supporting evidence:
+
+- Receiver-risk priority:
+  `evidence/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_221300.md`
+- Exact current-step minimax:
+  `evidence/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_223017.md`
+- Corrected global-tail cap:
+  `evidence/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260726_230419.md`
+
+## Real closed-loop switching diagnostic
+
+The next diagnostic enumerated every three-step binary switching sequence
+between the registered burst control and the current-risk teacher. Unlike
+the earlier open-loop \(H=2\) score, each activated teacher step was
+recomputed from that hybrid trajectory's actual current posterior and
+executed topology history.
+
+| Mask | Focus E-OSPA | Mean gain | Worst node | Tail gain | Attempted bytes | Gate |
+|:--:|--:|--:|--:|--:|--:|:--|
+| 000 | 22.3449 | 0.00% | 34.5380 | 0.00% | 3,472,848 | Control |
+| 001 | 22.0600 | 1.28% | 34.5380 | 0.00% | 3,464,568 | Mean fails |
+| 010 | 21.9329 | 1.84% | 34.5729 | -0.10% | 3,409,368 | Mean and tail fail |
+| 011 | 21.2387 | 4.95% | 34.7381 | -0.58% | 3,401,136 | Just below mean; tail fails |
+| 100 | 22.2890 | 0.25% | 31.3041 | **9.36%** | 3,427,536 | Mean fails |
+| 101 | 21.6043 | 3.31% | 31.2587 | **9.50%** | 3,430,008 | Mean fails |
+| 110 | 21.4818 | 3.86% | 35.1210 | -1.69% | 3,391,440 | Mean and tail fail |
+| 111 | **21.0283** | **5.89%** | 35.1210 | -1.69% | **3,387,552** | Tail fails |
+
+All eight sequences satisfy selected rolling-\(B=3\) safety, attempt no more
+bytes than the control, and reproduce the control's delivered-\(B=3\)
+fraction of 0.6667. No binary sequence simultaneously reaches the registered
+5% mean-improvement threshold and preserves the control's worst-node result.
+The failure is therefore not resolved by choosing when to activate the same
+one-step teacher.
+
+Supporting evidence:
+
+- `evidence/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260728_232256.md`
+
+## Current decision
+
+The rolling-\(B=3\) projector and message budget admit meaningful mean
+tracking gains and, under other action sequences, meaningful tail gains.
+However, the two-policy switching set contains no action sequence that
+achieves both on this development block. The next teacher must expand the
+action set itself: generate multiple alternative rolling-safe edge
+assignments, evaluate their actual finite-horizon closed-loop mean and tail
+risk, and use the best feasible sequence as privileged training supervision.
+Only after that attainability gate passes should a truth-free structured
+scorer be trained on declared development blocks. Unseen-seed M24 validation
+and a frozen X36 transfer test remain subsequent gates.
