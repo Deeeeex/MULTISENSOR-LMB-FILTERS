@@ -312,7 +312,7 @@ end
 
 function signature = adjacencySignature(adjacency)
 bits = char('0' + reshape(logical(adjacency), 1, []));
-signature = hash('sha256', bits);
+signature = computeTextSha256(bits);
 end
 
 function formationAdjacency = ...

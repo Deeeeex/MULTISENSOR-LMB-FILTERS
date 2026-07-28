@@ -133,7 +133,8 @@ for entryIdx = 1:numel(registry)
         entry.currentLinkReliabilityUsed, ...
         entry.historyUsed);
 end
-registrySha256 = hash('sha256', strjoin(serialized, char(30)));
+registrySha256 = computeTextSha256( ...
+    strjoin(serialized, char(30)));
 for entryIdx = 1:numel(registry)
     registry(entryIdx).registrySha256 = registrySha256;
 end

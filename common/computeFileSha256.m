@@ -7,5 +7,5 @@ if fid < 0
 end
 cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
 bytes = fread(fid, inf, '*uint8');
-digest = hash('sha256', char(reshape(bytes, 1, [])));
+digest = computeBytesSha256(bytes);
 end
