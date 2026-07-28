@@ -10,6 +10,8 @@
 %   SEED=7 SCREEN=learned octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=7 SCREEN=scorebasis BATCH_COUNT=4 BATCH_INDEX=1 \
 %       octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
+%   SEED=7 SCREEN=postfusion BATCH_COUNT=2 BATCH_INDEX=1 \
+%       octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 %   SEED=7 SCREEN=counterfactual BATCH_COUNT=4 BATCH_INDEX=1 \
 %       octave --quiet RUN/GA/runM24RolloutCandidateScreen.m
 
@@ -22,8 +24,9 @@ end
 screenName = lower(strtrim(getenv('SCREEN')));
 if isempty(screenName)
     error(['Set SCREEN to ''risk'', ''hybrid'', ''diverse'', ', ...
-        '''truthfree'', ''learned'', ''scorebasis'', or ', ...
-        '''counterfactual'' before running this entry point.']);
+        '''truthfree'', ''learned'', ''scorebasis'', ', ...
+        '''postfusion'', or ''counterfactual'' before running ', ...
+        'this entry point.']);
 end
 
 options = struct();
@@ -88,6 +91,18 @@ switch screenName
             'rolling-safe-sequence-t75-s242424-w70'}];
         outputLeaf = sprintf( ...
             'scorebasis_b%02dof%02d', batchIndex, batchCount);
+    case {'postfusion', 'counterfactual-consensus'}
+        actionCodes = 40:45;
+        [selectedCodes, batchCount, batchIndex] = ...
+            selectRollingSafeActionCodeBatchFromEnvironment( ...
+                actionCodes);
+        candidateArmNames = arrayfun(@(code) sprintf( ...
+            'rolling-safe-sequence-t75-s%02d2424-w70', code), ...
+            selectedCodes, 'UniformOutput', false);
+        options.armNames = [candidateArmNames, { ...
+            'rolling-safe-sequence-t75-s242424-w70'}];
+        outputLeaf = sprintf( ...
+            'postfusion_b%02dof%02d', batchIndex, batchCount);
     case 'counterfactual'
         actionCodes = [1:24, 80:87];
         [selectedCodes, batchCount, batchIndex] = ...
