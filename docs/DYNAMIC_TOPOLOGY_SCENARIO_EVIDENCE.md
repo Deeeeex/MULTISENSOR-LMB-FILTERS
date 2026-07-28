@@ -175,6 +175,7 @@ superiority, a consensus guarantee, or total-communication savings.
 | C57 | Connected-tree v2 on X36 seed 7 improves round-robin w=0.40 E-OSPA by 3.6629%, improves the worst node from 61.2646 to 56.3264 and uses 0.9873% fewer attempted bytes, while preserving instantaneous weak connectivity. It does not reach the 5% gate and was not compared against the corrected fixed-index strong control in the same report. | High | E72 | This is a scale screen, not evidence that dynamic routing beats the strongest registered X36 baseline. |
 | C58 | On the corrected ctxv2 M24 blocks (seeds 19/23/29/31/37, t=75:80), the exact joint-tree v4 projector falls below the 5% one-step proxy gate on 9/30 blocks and reaches -1.5963% at seed 23/t=77. Removing the previous/current union constraint leaves the same 9/30 failures and a -1.2429% minimum, so the every-step rooted-tree feasible set—not the learned scorer—is the primary ceiling. | High | E73 | These are truth-assisted one-step-risk labels on an oracle-v4 state distribution, not truth-free closed-loop tracking evidence. The preregistered audit fail-closes and writes no artifact. |
 | C59 | A diagnostic byte-fair optional cross-edge matching oracle with rolling \(B=3\) strong connectivity gives six-step weighted proxy gains of 11.92%/5.43%/15.55%/30.22%/6.04% on corrected ctxv2 seeds 19/23/29/31/37; \(B=2\) remains below 5% on seeds 23 and 37. | Medium | E74 | The ILP is an action-space design calculation, not yet a committed online projector or truth-free closed-loop method. All five inspected seeds become development data; no learned artifact or X36 claim follows. |
+| C60 | On the M24-hard seed-7 t=75–77 continuation, all six centralized joint-baseline counterfactual actions reduce posterior disagreement by 0.39%–10.49% at no more than 1.26% attempted-byte mismatch, yet every action worsens E-OSPA by 2.69%–25.01%. The least harmful mean-\(k=1\) action also slightly worsens the worst node, while larger or top-fraction actions degrade the worst node by as much as 30.36%. One-step posterior consensus is therefore not a sufficient tracking surrogate for this checkpoint, and these labels are rejected for deployable learning. | High | E75 | This is one design-seen seed and a three-step conditional continuation. The teacher is truth-free but centralized and offline because it reads all full network posteriors; its counterfactual routes also invoke the safety repair on one of three focus steps. The result falsifies this surrogate at the audited checkpoint, not every posterior-based multi-step objective. |
 
 ## Evidence Ledger
 
@@ -254,6 +255,7 @@ superiority, a consensus guarantee, or total-communication savings.
 | E72 | experiment report | `RUN/GA/dynamic_topology/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260726_114257.md` | C57: X36 v2 round-robin screen, tail, bytes and connectivity with explicit strong-control limitation. | strong |
 | E73 | corrected-data diagnostic/code | `RUN/GA/dynamic_topology/STRUCTURED_TREE_CTXV2_ACTION_SPACE_DIAGNOSIS.md`, `RUN/GA/runStructuredFormationTreeCtxv2Audit.m`, `RUN/GA/auditLearnedFormationTreeProxy.m`, `common/getStructuredFormationTreeCtxv2Protocol.m`, `common/selectRootedFormationTreeEdges.m` | C58: exact current-action-space ceiling, union-constraint decomposition and fail-closed artifact decision. | strong |
 | E74 | design diagnostic | `RUN/GA/dynamic_topology/STRUCTURED_TREE_CTXV2_ACTION_SPACE_DIAGNOSIS.md` | C59: rolling-\(B\) cut-constrained integer-program formulation, matched cross-edge cardinality, payload bound and five-seed proxy headroom. | medium |
+| E75 | experiment audit/report/code/test | `RUN/GA/dynamic_topology/M24_COUNTERFACTUAL_CONSENSUS_TEACHER_AUDIT_SEED7_20260729.md`, `RUN/GA/auditM24CounterfactualConsensusTeacher.m`, `RUN/GA/dynamic_topology/evidence/rollout_dataset/seed7_postfusion_b01of02/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_063121.md`, `RUN/GA/dynamic_topology/evidence/rollout_dataset/seed7_postfusion_b02of02/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_063125.md`, `common/computeRollingSafeCounterfactualConsensusEdgeScores.m`, `tests/test_dynamic_topology_scenarios.m` | C60: complete mean/top-fraction \(k=1,2,3\) joint-baseline screen, exact posterior-disagreement/tracking/tail/byte readout, offline-only boundary and deterministic scorer coverage. | strong |
 
 Initial arithmetic check:
 
@@ -396,6 +398,11 @@ Checks performed:
 - ran a one-step constraint-selection smoke where a local-only arm had lower
   E-OSPA but zero attempted bytes; the constraint-aware decision correctly
   excluded it and retained the communication-matched static arm.
+- ran the complete six-action M24 seed-7 joint-baseline counterfactual
+  consensus screen from the clean tracked implementation and independently
+  audited its two report shards; every action reduced posterior disagreement
+  but worsened realized E-OSPA, so the surrogate was rejected before model
+  fitting.
 - verified at M24 t=75 that removing the churn restriction leaves the old
   teacher action/gain unchanged, while two and three synchronous symmetric
   KLA rounds worsen the task-risk diagnostic;
@@ -837,6 +844,15 @@ python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py docs/DYN
    frozen report uses 17.11 policy seconds versus 0.03 seconds for the
    backbone, adding 17.074 seconds over three M24 steps while producing no
    action change. Treat exact timing as machine-load dependent.
+9. Keep the joint-baseline counterfactual consensus scorer only as a negative
+   offline diagnostic. Do not use its labels for imitation or value fitting:
+   the complete seed-7 screen shows that improving one-step posterior
+   agreement can systematically worsen tracking.
+10. Build the next teacher around realized, window-cumulative tracking value
+    of a complete safe joint action, with an explicit worst-node constraint.
+    Its deployable model may consume only truth-free node/edge summaries and
+    must select through the same rolling-\(B=3\) safety projector; truth may
+    appear only in the offline development label.
 
 ## Recommendation
 
@@ -863,6 +879,12 @@ every snapshot.
 The five-seed rolling-\(B=3\) ILP shows action-space headroom under matched
 payload accounting, but it is privileged development evidence. Implement the
 online projector and a multi-step teacher before fitting a deployable model.
+Do not substitute one-step posterior consensus for that teacher: the complete
+joint-baseline screen improves posterior disagreement for all six tested
+actions while degrading tracking for all six. The next learning target should
+rank a compact library of complete safe actions by realized window tracking
+gain and worst-node safety, rather than imitate individual oracle edges or
+optimize an unvalidated consensus proxy.
 Only a truth-free closed-loop candidate that beats fixed-index and matched
 scheduled controls on every development seed should proceed to newly
 allocated validation seeds, X36 and held-out evaluation.
