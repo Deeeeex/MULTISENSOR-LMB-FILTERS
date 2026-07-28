@@ -7,8 +7,10 @@ function [adjacency, details] = ...
 % trajectory state. Codes 1:(6 * formationCount) select a rolling-B3 burst:
 % three temporal phases for each clockwise/counter-clockwise root. Code 80
 % uses the truth-free posterior-analytic score and code 81 uses the
-% truth-free link-aware score. Codes 90:99 request nearby privileged
-% teacher alternatives. Every branch is passed through
+% truth-free link-aware score. Codes 82:84 request leave-one-selected-edge
+% alternatives to posterior-analytic, and 85:87 do the same for link-aware.
+% Codes 90:99 request nearby privileged teacher alternatives. Every branch
+% is passed through
 % selectRollingSafeRoutingPolicy, so a sequence changes the proposal
 % objective but never bypasses the common safety layer.
 %
@@ -67,6 +69,24 @@ elseif actionCode == 80 || actionCode == 81
         'payloadToleranceFraction', payloadToleranceFraction);
     [adjacency, details] = selectRollingSafeRoutingPolicy( ...
         context, scoreMode, policyOptions);
+elseif actionCode >= 82 && actionCode <= 87
+    if actionCode <= 84
+        scoreMode = 'posterior-analytic';
+        alternativeIndex = actionCode - 81;
+    else
+        scoreMode = 'link-aware';
+        alternativeIndex = actionCode - 84;
+    end
+    policyOptions = struct( ...
+        'sourceWeight', sourceWeight, ...
+        'payloadToleranceFraction', payloadToleranceFraction);
+    [adjacency, details] = ...
+        selectRollingSafeDiverseObservablePolicy( ...
+            context, scoreMode, alternativeIndex, ...
+            policyOptions);
+    branch = sprintf( ...
+        'truth-free-diverse-%s-%d', ...
+        scoreMode, alternativeIndex);
 elseif actionCode >= 90 && actionCode <= 99
     alternativeIndex = actionCode - 89;
     diverseOptions = struct( ...
