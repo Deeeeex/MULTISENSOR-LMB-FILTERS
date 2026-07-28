@@ -328,6 +328,42 @@ Supporting evidence:
 - `evidence/rollout_dataset/seed11_hybrid/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_025309.md`
 - `evidence/rollout_dataset/seed17_hybrid/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260729_025319.md`
 
+## Frozen rollout-imitation dataset
+
+The six outcome-selected action sequences were regenerated from clean
+commit `18f09ac2a7788854e5fafef6e45bf37db2bf05d9` under protocol
+`m24-rolling-safe-rollout-v2-projector-replay-f1`. The generated dataset
+records no tracked change, untracked source file or other research-source
+dirty state. It binds the filter RNG offset (`100000`), unconstrained
+offline payload tolerance, and the exact SHA-256 identity of every
+continuation cache.
+
+The dataset contains 18 predecision blocks (six seeds by three decisions).
+Every block contains the same 432 unique directed cross-formation
+candidates. The executed cross-edge counts are
+`[3 3 3 3 3 3 3 0 3 1 3 3 3 3 3 3 3 3]`, so the supervision includes
+both zero- and one-edge exceptions rather than only the common
+three-edge action. Raw deployment-observable edge features are retained in
+the dataset; the frozen trainer deterministically constructs
+receiver-relative, formation-pair-relative and block-relative graph
+context. Thus `raw` in the dataset report describes the stored feature
+contract, while `graph-context` describes the registered model input.
+
+This is a formal development dataset, not independent tracking evidence:
+its graph labels were selected after inspecting the same seeds' future
+closed-loop outcomes. Seed 7 is excluded from fitting and hyperparameter
+selection and is reserved for an offline artifact audit, but it remains a
+design-seen seed and must not be described as a final held-out tracking
+test.
+
+Supporting evidence:
+
+- `datasets/ROLLING_SAFE_ROLLOUT_IMITATION_M24_HARD_T75.md`
+- ignored machine-readable dataset:
+  `datasets/rolling_safe_rollout_imitation_m24_hard_t75.mat`
+- generation log:
+  `logs/m24_rollout_dataset_protocol_20260729.log`
+
 ## First learned-policy audit
 
 The first edge MLP used seeds 19, 23 and 29 for leave-one-seed-out
