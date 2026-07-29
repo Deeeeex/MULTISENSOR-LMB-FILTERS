@@ -1,0 +1,281 @@
+function [adjacency, details] = ...
+    selectBackboneResidualSplicedCyclePolicy( ...
+        context, mode, options)
+% SELECTBACKBONERESIDUALSPLICEDCYCLEPOLICY Strong residual cycle.
+%
+% The high-weight fixed-index route is untouched.  One edge from every
+% intra-formation residual cycle is spliced into a global sensor-level
+% directed cycle.  Fixed modes use posterior-independent lexicographic
+% scores; external-scores can use a teacher or learned edge-value model.
+
+if nargin < 2 || isempty(mode)
+    mode = 'fixed-clockwise';
+end
+if nargin < 3 || isempty(options)
+    options = struct();
+end
+timerId = tic;
+mode = lower(strrep(char(mode), '_', '-'));
+dominantWeight = getField(options, ...
+    'dominantWeight', 0.70);
+residualWeight = getField(options, ...
+    'residualWeight', 0.05);
+[dominantAdjacency, dominantDetails] = ...
+    selectRegisteredDirectedRoutingPolicy( ...
+        context, 'fixed-index-star', ...
+        struct('sourceWeight', dominantWeight));
+[residualBaselineAdjacency, residualBaselineDetails] = ...
+    selectRegisteredDirectedRoutingPolicy( ...
+        context, 'fixed-balanced-cycle', ...
+        struct('sourceWeight', residualWeight, 'phase', 1));
+dominantSources = reshape( ...
+    dominantDetails.selectedSourcesByReceiver, 1, []);
+residualBaselineSources = reshape( ...
+    residualBaselineDetails.selectedSourcesByReceiver, 1, []);
+nodeCount = numel(dominantSources);
+groupIds = reshape(context.model.dynamicTopologyScenario. ...
+    config.sensorGroupIds, 1, []);
+physical = logical(context.physicalAdjacency);
+
+[receiverIndices, senderIndices] = find(physical);
+crossMask = groupIds(receiverIndices) ~= ...
+    groupIds(senderIndices);
+receiverIndices = receiverIndices(crossMask);
+senderIndices = senderIndices(crossMask);
+baselineSourcesForReceiver = reshape( ...
+    residualBaselineSources(receiverIndices), [], 1);
+dominantSourcesForReceiver = reshape( ...
+    dominantSources(receiverIndices), [], 1);
+messageCountPreserving = ...
+    baselineSourcesForReceiver ~= ...
+        dominantSourcesForReceiver & ...
+    senderIndices ~= dominantSourcesForReceiver;
+receiverIndices = receiverIndices( ...
+    messageCountPreserving);
+senderIndices = senderIndices( ...
+    messageCountPreserving);
+if isempty(receiverIndices)
+    error('ResidualCycle:Infeasible', ...
+        'No message-count-preserving cross routes are available.');
+end
+
+scoreMatrix = -inf(nodeCount);
+scoreDetails = struct();
+switch mode
+    case {'fixed-clockwise', 'fixed-counter-clockwise'}
+        orientationCandidates = {strrep(mode, 'fixed-', '')};
+        deterministicScores = -( ...
+            receiverIndices * (nodeCount + 1) + ...
+            senderIndices);
+        for exampleIdx = 1:numel(receiverIndices)
+            scoreMatrix(receiverIndices(exampleIdx), ...
+                senderIndices(exampleIdx)) = ...
+                deterministicScores(exampleIdx);
+        end
+        posteriorUsed = false;
+        truthUsed = false;
+        currentLinkReliabilityUsed = false;
+    case 'external-scores'
+        orientationCandidates = { ...
+            'clockwise', 'counter-clockwise'};
+        if isfield(options, 'edgeScoreFcn') && ...
+                ~isempty(options.edgeScoreFcn)
+            if logical(getField(options, ...
+                    'edgeScoreFcnReturnsDetails', false))
+                [scores, scoreDetails] = ...
+                    options.edgeScoreFcn( ...
+                        context, receiverIndices, ...
+                        senderIndices, ...
+                        residualBaselineSources);
+            else
+                scores = options.edgeScoreFcn( ...
+                    context, receiverIndices, ...
+                    senderIndices, ...
+                    residualBaselineSources);
+            end
+        elseif isfield(options, 'edgeScoreMatrix')
+            supplied = options.edgeScoreMatrix;
+            if ~isequal(size(supplied), ...
+                    [nodeCount, nodeCount])
+                error('edgeScoreMatrix must be S-by-S.');
+            end
+            scores = zeros(numel(receiverIndices), 1);
+            for exampleIdx = 1:numel(receiverIndices)
+                scores(exampleIdx) = supplied( ...
+                    receiverIndices(exampleIdx), ...
+                    senderIndices(exampleIdx));
+            end
+        else
+            error(['external-scores mode requires edgeScoreFcn or ', ...
+                'edgeScoreMatrix.']);
+        end
+        scores = reshape(scores, [], 1);
+        if numel(scores) ~= numel(receiverIndices)
+            error('Injected spliced-cycle scores have the wrong length.');
+        end
+        for exampleIdx = 1:numel(receiverIndices)
+            scoreMatrix(receiverIndices(exampleIdx), ...
+                senderIndices(exampleIdx)) = ...
+                scores(exampleIdx);
+        end
+        posteriorUsed = logical(getField( ...
+            options, 'posteriorUsed', true)) || ...
+            logical(getField(scoreDetails, ...
+                'posteriorUsed', false));
+        truthUsed = logical(getField( ...
+            options, 'truthUsed', false)) || ...
+            logical(getField(scoreDetails, ...
+                'truthUsed', false)) || ...
+            logical(getField(scoreDetails, ...
+                'groundTruthUsed', false)) || ...
+            logical(getField(scoreDetails, ...
+                'futureOutcomeUsed', false));
+        currentLinkReliabilityUsed = logical(getField( ...
+            options, 'currentLinkReliabilityUsed', false)) || ...
+            logical(getField(scoreDetails, ...
+                'currentLinkReliabilityUsed', false));
+    otherwise
+        error('Unknown spliced-cycle mode: %s.', mode);
+end
+
+bestSelection = struct();
+bestObjective = -inf;
+infeasibleCount = 0;
+for orientationIdx = 1:numel(orientationCandidates)
+    try
+        candidate = selectSplicedResidualFormationCycle( ...
+            groupIds, residualBaselineSources, ...
+            dominantSources, physical, scoreMatrix, ...
+            orientationCandidates{orientationIdx});
+    catch errorInfo
+        if ~isResidualCycleInfeasible(errorInfo)
+            rethrow(errorInfo);
+        end
+        infeasibleCount = infeasibleCount + 1;
+        continue;
+    end
+    if candidate.predictedObjective > bestObjective
+        bestObjective = candidate.predictedObjective;
+        bestSelection = candidate;
+    end
+end
+if isempty(fieldnames(bestSelection))
+    error('ResidualCycle:Infeasible', ...
+        'Neither registered formation-cycle orientation is feasible.');
+end
+
+residualAdjacency = bestSelection.residualAdjacency;
+[adjacency, fusionWeights, routeDetails] = ...
+    buildBackbonePreservingResidualRoute( ...
+        context, dominantAdjacency, residualAdjacency, ...
+        dominantWeight, residualWeight);
+[staticAdjacency, ~, ~] = ...
+    buildBackbonePreservingResidualRoute( ...
+        context, dominantAdjacency, ...
+        residualBaselineAdjacency, dominantWeight, ...
+        residualWeight);
+if nnz(adjacency) ~= nnz(staticAdjacency)
+    error(['Spliced residual route changed the matched-static ', ...
+        'message count.']);
+end
+
+details = routeDetails;
+details.mode = ['backbone-residual-spliced-cycle-', mode];
+details.objective = -bestObjective;
+details.candidateIndex = NaN;
+details.selectionSeconds = toc(timerId);
+details.taskRisk = NaN;
+details.baselineTaskRisk = NaN;
+details.taskAdvantage = bestObjective;
+details.taskRiskSpread = finiteSpread(scoreMatrix);
+details.validCandidateCount = ...
+    nnz(isfinite(scoreMatrix));
+details.fusionWeightMatrix = fusionWeights;
+details.baselineAdjacency = staticAdjacency;
+details.dominantAdjacency = dominantAdjacency;
+details.residualAdjacency = residualAdjacency;
+details.residualBaselineAdjacency = ...
+    residualBaselineAdjacency;
+details.dominantPolicyDetails = dominantDetails;
+details.residualBaselinePolicyDetails = ...
+    residualBaselineDetails;
+details.spliceSelection = bestSelection;
+details.selectedSourcesByReceiver = ...
+    bestSelection.residualSourcesByReceiver;
+details.overrideMask = ...
+    bestSelection.residualSourcesByReceiver ~= ...
+        residualBaselineSources;
+details.overrideFraction = mean(details.overrideMask);
+details.crossFormationMessageCount = ...
+    bestSelection.crossFormationEdgeCount;
+details.maximumCrossEdges = ...
+    bestSelection.crossFormationEdgeCount;
+details.maximumCrossSourceLoad = ...
+    bestSelection.maximumCrossSourceLoad;
+details.maximumCrossReceiverLoad = ...
+    bestSelection.maximumCrossReceiverLoad;
+details.proposalCrossCount = ...
+    bestSelection.crossFormationEdgeCount;
+details.repairTriggered = false;
+details.payloadConstraintEnforced = false;
+details.payloadLimitPassed = NaN;
+details.payloadEmergencyUsed = false;
+details.posteriorUsed = posteriorUsed;
+details.posteriorPayloadMetadataUsed = false;
+details.truthUsed = truthUsed;
+details.currentLinkReliabilityUsed = ...
+    currentLinkReliabilityUsed;
+details.currentPhysicalActionSetUsed = true;
+details.backboneMode = ...
+    'fixed-index-plus-spliced-strong-residual-cycle';
+details.sourceWeight = residualWeight;
+details.sensorWindowMature = true;
+details.sensorWindowStrongConnected = true;
+details.formationWindowMature = true;
+details.formationWindowStrongConnected = true;
+details.successorSensorStrongConnected = NaN;
+details.oneStepTopologyReserveChecked = false;
+details.oneStepTopologyReservePassed = NaN;
+details.oneStepJointProjectionUsed = false;
+details.recursiveSafetyClaimed = false;
+details.topologyInfeasible = false;
+details.infeasibleOrientationCount = infeasibleCount;
+details.scoreDetails = scoreDetails;
+end
+
+function value = isResidualCycleInfeasible(errorInfo)
+identifier = getErrorField(errorInfo, 'identifier');
+message = getErrorField(errorInfo, 'message');
+value = strcmp(identifier, 'ResidualCycle:Infeasible') || ...
+    ~isempty(strfind(message, ...
+        'residual splice')); %#ok<STREMP>
+end
+
+function value = getErrorField(errorInfo, fieldName)
+value = '';
+try
+    value = errorInfo.(fieldName);
+catch
+    value = '';
+end
+if isempty(value)
+    value = '';
+end
+end
+
+function value = finiteSpread(matrix)
+finiteValues = matrix(isfinite(matrix));
+if isempty(finiteValues)
+    value = NaN;
+else
+    value = max(finiteValues) - min(finiteValues);
+end
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
+end
+end
