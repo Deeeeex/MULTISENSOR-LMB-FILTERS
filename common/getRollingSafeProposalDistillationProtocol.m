@@ -90,6 +90,28 @@ protocol.modelInitializationSeed = 9042;
 protocol.minimumExpandedTargetStateCaptureFraction = 0.80;
 protocol.minimumExpandedSeedTargetStateCaptureFraction = 2 / 3;
 protocol.minimumLegacyValueStateCaptureFraction = 0.80;
+protocol.expandedProposalModelPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', 'models', ...
+    'rolling_safe_expanded_proposal_heads_m24_t75_t83_v1.mat');
+protocol.expandedProposalModelSha256 = ...
+    ['3633d1eeaee7dbd4b00a538f553521b9', ...
+     '40ac19afbd8d56daedec2f8eca941a0b'];
+protocol.expandedProposalModelGenerationCommit = ...
+    'a7c83d188c49916195a6b6ed6da4708ee3c569f0';
+protocol.expandedProposalSelectedFamily = 'mlp';
+protocol.expandedProposalSelectedFeatureMode = 'graph-context';
+protocol.expandedProposalSelectedHiddenWidth = 64;
+protocol.expandedProposalSelectedLambda = 1e-5;
+protocol.expandedProposalSingleShotStateCaptureFraction = 2 / 54;
+protocol.expandedProposalTopKStateCaptureFraction = 2 / 54;
+protocol.expandedProposalTopKMinimumSeedCaptureFraction = 0;
+protocol.expandedProposalTopKTargetGraphRecallFraction = 2 / 210;
+protocol.expandedProposalTopKMeanBestTargetEdgeF1 = 0.197530864197531;
+protocol.expandedProposalTopKMeanDistinctProposalCount = 3.92592592592593;
+protocol.expandedProposalLegacyValueStateCaptureFraction = 1 / 10;
+protocol.expandedProposalLegacyValueGraphRecallFraction = 1 / 34;
+protocol.expandedProposalLegacyValueMeanBestTargetEdgeF1 = 0.30;
+protocol.expandedProposalReturnGenerationAuthorized = false;
 protocol.behaviorTruthUsed = false;
 protocol.behaviorFutureOutcomeUsed = false;
 protocol.featureTruthUsed = false;
