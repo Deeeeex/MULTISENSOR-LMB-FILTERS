@@ -112,8 +112,7 @@ assert(~metadata.candidateRankingPerformed);
 assert(~metadata.trackingImprovementClaimed);
 assert(metadata.exactRollingProjectorRequired);
 assert(metadata.nominalProjectionRequired);
-assert(metadata.payloadToleranceFraction == ...
-    protocol.maximumAttemptedByteDeviationFraction);
+assert(isinf(metadata.payloadToleranceFraction));
 for candidateIdx = 1:size(candidates, 3)
     candidate = candidates(:, :, candidateIdx);
     details = records(candidateIdx).policyDetails;
@@ -127,7 +126,7 @@ for candidateIdx = 1:size(candidates, 3)
     assert(~details.repairProjectionAttempted);
     assert(~details.repairTriggered);
     assert(~details.payloadEmergencyUsed);
-    assert(details.payloadConstraintEnforced);
+    assert(~details.payloadConstraintEnforced);
     assert(details.payloadLimitPassed);
     assert(details.sensorWindowStrongConnected);
     assert(details.formationWindowStrongConnected);
@@ -168,15 +167,15 @@ catch errorInfo
         errorInfo.message, 'frozen truth-free registry')); %#ok<STREMP>
 end
 assert(unregisteredRejected);
-loosePayloadRejected = false;
+wrongPayloadLayerRejected = false;
 try
     buildRollingSafeJointActionProposalBank( ...
-        context, struct('payloadToleranceFraction', 0.03));
+        context, struct('payloadToleranceFraction', 0.02));
 catch errorInfo
-    loosePayloadRejected = ~isempty(strfind( ...
-        errorInfo.message, 'frozen byte gate')); %#ok<STREMP>
+    wrongPayloadLayerRejected = ~isempty(strfind( ...
+        errorInfo.message, 'paired H=3 returns')); %#ok<STREMP>
 end
-assert(loosePayloadRejected);
+assert(wrongPayloadLayerRejected);
 end
 
 function testRollingFormationMatchingProjection()

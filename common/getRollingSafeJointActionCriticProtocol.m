@@ -82,6 +82,7 @@ protocol.maximumCandidateCount = 32;
 protocol.requireTruthFreeProposals = true;
 protocol.requireDistinctCandidateGraphs = true;
 protocol.requireNominalCandidateProjection = true;
+protocol.proposalProjectionPayloadToleranceFraction = inf;
 protocol.minimumPrivilegedAdmissibleGain = 0.05;
 protocol.minimumTopKAdmissibleCaptureFraction = 0.80;
 protocol.minimumCandidateOracleAggregateGain = 0.07;
