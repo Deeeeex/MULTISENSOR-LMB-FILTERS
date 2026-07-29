@@ -98,4 +98,9 @@ protocol.v2EscalationIsSequentialDevelopment = ...
     strcmp(variant, 'v2-e10');
 protocol.v2EscalationChangesOnlyResidualWeight = ...
     strcmp(variant, 'v2-e10');
+protocol.v2HeadroomGatePassed = false;
+protocol.v2MinimumMatchedStaticGainFraction = ...
+    0.0207134502674766;
+protocol.returnAwareHeadroomRequired = true;
+protocol.currentRiskIsNotReturnUpperBound = true;
 end
