@@ -194,6 +194,8 @@ protocol.privilegedValueTargetCountByActionCode = [9, 10, 7, 8];
 protocol.valueProposalHeadActionCodes = [0, 90, 91, 92];
 protocol.valueProposalHeadTopK = 4;
 protocol.valueProposalHeadExactCurrentCrossEdgeCount = 3;
+protocol.valueProposalBeamMaximumBannedSelectedEdges = 1;
+protocol.valueProposalBeamTopK = 16;
 protocol.valueProposalHeadRidgeLambdaGrid = ...
     [1e-4, 1e-2, 1, 100];
 protocol.valueProposalHeadSupervisionModes = ...
