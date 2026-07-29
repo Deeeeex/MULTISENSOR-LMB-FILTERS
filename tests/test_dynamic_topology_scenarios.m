@@ -118,6 +118,13 @@ assert(metadata.exactRollingProjectorRequired);
 assert(~metadata.nominalProjectionRequired);
 assert(metadata.unmodifiedCurrentCandidateGraphRequired);
 assert(isinf(metadata.payloadToleranceFraction));
+assert(protocol.returnHorizonSteps == 3);
+assert(protocol.returnContinuationActionCode == ...
+    protocol.referenceActionCode);
+assert(protocol.requireNoCandidateInitialRepair);
+assert(protocol. ...
+    maximumAdditionalRepairCountRelativeToReference == 0);
+assert(~isempty(protocol.returnRepairGateSemantics));
 for candidateIdx = 1:size(candidates, 3)
     candidate = candidates(:, :, candidateIdx);
     details = records(candidateIdx).policyDetails;

@@ -100,7 +100,19 @@ protocol.minimumTopKAdmissibleCaptureFraction = 0.80;
 protocol.minimumCandidateOracleAggregateGain = 0.07;
 protocol.maximumAttemptedByteDeviationFraction = 0.02;
 protocol.requireTailNondegradation = true;
-protocol.requireNoRepair = true;
+protocol.returnContractVersion = ...
+    'rolling-safe-joint-action-paired-return-m24-h3-v1';
+protocol.returnHorizonSteps = 3;
+protocol.returnContinuationActionCode = ...
+    protocol.referenceActionCode;
+protocol.returnFilterSeedOffset = rollout.filterSeedOffset;
+protocol.requireNoCandidateInitialRepair = true;
+protocol.maximumAdditionalRepairCountRelativeToReference = 0;
+protocol.returnRepairGateSemantics = [ ...
+    'The proposed first graph must execute without repair. Later ', ...
+    'steps use the frozen reference action and may incur rolling-', ...
+    'history repair, but a candidate may not add repairs relative ', ...
+    'to the paired state-matched reference arm.'];
 protocol.requireNoEmergencyFallback = true;
 protocol.requireNoInfeasibility = true;
 protocol.requireRollingB3Pass = true;
