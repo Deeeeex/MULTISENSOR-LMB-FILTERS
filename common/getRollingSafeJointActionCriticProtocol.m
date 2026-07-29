@@ -79,6 +79,8 @@ protocol.proposalSourceStateSha256 = ...
     ['ca08e2eec2c7a3e63ceca8b3ede292c', ...
      'ea9cdb690666f58c64be8ec4df83866c9'];
 protocol.maximumCandidateCount = 32;
+protocol.referenceActionCode = 24;
+protocol.allowRepairedReferenceGraph = true;
 protocol.requireTruthFreeProposals = true;
 protocol.requireDistinctCandidateGraphs = true;
 protocol.requireUnmodifiedCurrentCandidateGraph = true;

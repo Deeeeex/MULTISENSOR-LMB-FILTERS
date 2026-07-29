@@ -105,7 +105,11 @@ assert(metadata.distinctCandidateCount >= 5);
 assert(metadata.distinctCandidateCount <= ...
     protocol.maximumCandidateCount);
 assert(metadata.referenceActionCode == 24);
-assert(records(metadata.referenceCandidateIndex).actionCode == 24);
+assert(any(records(metadata.referenceCandidateIndex). ...
+    proposalActionCodes == 24));
+assert(metadata.selectableCandidateCount == nnz( ...
+    [records.eligibleForCriticSelection]));
+assert(metadata.selectableCandidateCount >= 1);
 assert(~metadata.truthUsed);
 assert(~metadata.futureOutcomeUsed);
 assert(~metadata.candidateRankingPerformed);
@@ -154,8 +158,8 @@ assert(strcmp(poisonedMetadata.actionCodeSetSha256, ...
 assert(size(cappedCandidates, 3) == 5);
 assert(numel(cappedRecords) == 5);
 assert(cappedMetadata.capRejectedCount > 0);
-assert(cappedRecords(cappedMetadata. ...
-    referenceCandidateIndex).actionCode == 24);
+assert(any(cappedRecords(cappedMetadata. ...
+    referenceCandidateIndex).proposalActionCodes == 24));
 
 unregisteredRejected = false;
 try
