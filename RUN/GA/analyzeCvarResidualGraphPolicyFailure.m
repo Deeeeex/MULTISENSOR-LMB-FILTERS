@@ -336,10 +336,19 @@ if targetScale <= eps
     targetScale = 1;
 end
 target = (y - targetMean) / targetScale;
-design = [ones(size(Z, 1), 1), Z];
-regularizer = diag([0, ones(1, size(Z, 2))]);
-coefficients = (design' * design + ...
-    lambda * regularizer) \ (design' * target);
+if size(Z, 2) > size(Z, 1)
+    % Z and target are centered on the fit split, so the unregularized
+    % intercept is zero.  The dual form avoids a p-by-p solve.
+    dual = (Z * Z' + ...
+        lambda * eye(size(Z, 1))) \ target;
+    coefficients = [0; Z' * dual];
+else
+    design = [ones(size(Z, 1), 1), Z];
+    regularizer = diag([0, ones(1, size(Z, 2))]);
+    coefficients = (design' * design + ...
+        lambda * regularizer) \ ...
+            (design' * target);
+end
 if any(~isfinite(coefficients))
     error('Formation ridge produced non-finite coefficients.');
 end
