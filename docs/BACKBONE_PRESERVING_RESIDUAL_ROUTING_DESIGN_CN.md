@@ -154,3 +154,22 @@ v2-e10 的静态残差为 18.8127，特权 current/minimax 为 18.4231，相对�
 - v2 source SHA-256: `3f957c6d41b91ddccdbeb28a55a4a9ee940e03aec549b216b24965d1b0ad1efe`
 - v2 audit SHA-256: `80b3c5118bf2bc2dd79f90af7ad2e6a184a457967a8d53f4eb8bfe70c047364a`
 - v2 generation commit: `c438e72`
+
+## 9. 单首动作三步回报检查
+
+冻结候选集共包含 40 个不同的 \(t=75\) 安全残差图，覆盖固定安全调度、19 个可观测打分方向、解析策略以及 current-risk 禁边多样化图。每个候选仅在 \(t=75\) 原样执行，\(t=76,77\) 统一使用同一个真值无关安全延续；候选生成不读取未来回报，最终最佳候选才由三步闭环结果离线选出。
+
+最佳候选为 `truth-current-ban-227`，E-OSPA 为 18.9375，最差节点为 34.6311。它相对静态残差 18.8201 和解析动态残差 18.7966 都没有改善，最小基线收益为 -0.75%；字节最大偏差 0.05%，全部滚动 \(B=3\)、零修复、零紧急回退和运行时不读真值要求通过。门槛因此失败，训练仍不获授权。
+
+这个结果说明单个首动作的长期排序不足以解释此前 current 动态臂的 18.0445。后者在 \(t=75,76,77\) 都重新决策，而首动作实验在后两步使用统一安全延续。下一步只比较三步中“静态残差 S”与“current-risk 动态残差 C”的八个完整序列：
+
+\[
+\{SSS,SSC,SCS,SCC,CSS,CSC,CCS,CCC\}.
+\]
+
+该检查回答动态收益是否依赖连续决策，以及哪一个时间位置真正贡献收益。它不是扩大图候选集或继续调权重；所有序列仍使用 \(\alpha=0.70,\epsilon=0.05\) 和相同消息、安全与字节门槛。
+
+- proposal SHA-256: `64ca50d68ffddf823c1204ad44026c954e87b64b24743f12fb93887dd2e22a97`
+- shard SHA-256: `f35a120fd8d6b3cbe90dbbfe914288771ba0d2c68b459d8b386cdb324ff6478b`, `c830d9886d2d11d353531d5cb36ac4bc1e5434a8ea79fca6c34de89c9c20aadc`, `ac15b7dd42071a088e13623b4536a544571e31be5a4996176250e8de4d09bcb2`, `bdd6ddddb5c4ede9c3ff414294070d1b66286f6f467f3304f33fccd0346d5f70`
+- audit SHA-256: `bbb5dbbfea0425c941eccdf295dcabae3f72ee16bdcd208aaeb15abda4ae6a15`
+- generation commit: `d432b88`

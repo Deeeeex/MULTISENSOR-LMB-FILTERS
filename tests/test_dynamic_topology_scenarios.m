@@ -3160,6 +3160,12 @@ assert(returnProtocol.bestCandidateSelectionUsesFutureOutcome);
 assert(~returnProtocol.returnDataGenerationAuthorized);
 assert(~returnProtocol.criticTrainingAuthorized);
 assert(~returnProtocol.x36PolicyRunAuthorized);
+assert(~returnProtocol.headroomGatePassed);
+assert(returnProtocol.bestCandidateIndex == 38);
+assert(abs(returnProtocol.bestCandidateEospa - ...
+    18.9375438300753) < 1e-12);
+assert(returnProtocol.singleFirstActionSearchRejected);
+assert(returnProtocol.dynamicPolicySequenceSearchRequired);
 
 context = makeSyntheticRollingContextForGroups( ...
     repelem(1:4, 4));

@@ -42,4 +42,14 @@ protocol.returnDataGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;
 protocol.heldoutClaimAllowed = false;
+protocol.headroomGatePassed = false;
+protocol.bestCandidateIndex = 38;
+protocol.bestCandidateEospa = 18.9375438300753;
+protocol.bestCandidateMinimumBaselineGainFraction = ...
+    -0.0074984295871556;
+protocol.bestCandidateWorstNodeGainFraction = 0;
+protocol.bestCandidateMaximumByteDeviationFraction = ...
+    0.000458195772325794;
+protocol.singleFirstActionSearchRejected = true;
+protocol.dynamicPolicySequenceSearchRequired = true;
 end
