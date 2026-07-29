@@ -141,6 +141,26 @@ assert(~actionAlignmentProtocol.banditImplementationAuthorized);
 assert(~actionAlignmentProtocol.developmentEvaluationAuthorized);
 assert(~actionAlignmentProtocol.heldoutM24Authorized);
 assert(~actionAlignmentProtocol.x36PolicyRunAuthorized);
+iidProtocol = getIidClusterRewardActionAlignmentProtocol();
+assert(strcmp(iidProtocol.predecessorProtocolId, ...
+    actionAlignmentProtocol.id));
+assert(strcmp(iidProtocol.scoreMode, 'iid-cluster'));
+assert(strcmp(iidProtocol.scoreType, ...
+    ['lmb-cardinality-matched-iid-cluster-', ...
+     'measurement-log-score']));
+assert(iidProtocol.scoreExactMeasurementCardinality);
+assert(iidProtocol.scoreIidClusterProjection);
+assert(~iidProtocol.scoreExactLmbMeasurementSetLikelihood);
+assert(iidProtocol.gatesInheritedWithoutRelaxation);
+assert(isequal(iidProtocol.trainingSeeds, ...
+    actionAlignmentProtocol.trainingSeeds));
+assert(isequal(iidProtocol.snapshotTimes, ...
+    actionAlignmentProtocol.snapshotTimes));
+assert(~iidProtocol.fullActionRewardDatasetAuthorized);
+assert(~iidProtocol.banditImplementationAuthorized);
+assert(~iidProtocol.developmentEvaluationAuthorized);
+assert(~iidProtocol.heldoutM24Authorized);
+assert(~iidProtocol.x36PolicyRunAuthorized);
 end
 
 function testObservablePredictiveMeasurementLogScore()
@@ -182,6 +202,37 @@ assert(strcmp(nearDetails.scoreType, ...
     'poisson-measurement-intensity-log-score'));
 assert(nearDetails.measurementCount == 1);
 assert(nearDetails.targetExpectedCount > 0);
+assert(numel(nearDetails.targetDetectionProbabilities) == 1);
+assert(abs(sum(nearDetails.targetDetectionProbabilities) - ...
+    nearDetails.targetExpectedCount) < 1e-12);
+
+[iidNearScore, iidNearDetails] = ...
+    computeLmbIidClusterMeasurementLogScore( ...
+        object, measurements, model, 1, 1);
+iidFarScore = computeLmbIidClusterMeasurementLogScore( ...
+    farObject, measurements, model, 1, 1);
+iidClutterOnlyScore = ...
+    computeLmbIidClusterMeasurementLogScore( ...
+        struct([]), measurements, model, 1, 1);
+iidEmptySetScore = ...
+    computeLmbIidClusterMeasurementLogScore( ...
+        struct([]), cell(0, 1), model, 1, 1);
+assert(iidNearScore > iidFarScore);
+assert(iidNearScore > iidClutterOnlyScore);
+assert(iidFarScore < iidClutterOnlyScore);
+assert(abs(iidClutterOnlyScore - ...
+    clutterOnlyScore) < 1e-12);
+assert(abs(iidEmptySetScore - emptySetScore) < 1e-12);
+assert(~iidNearDetails.truthUsed);
+assert(iidNearDetails.iidClusterProjection);
+assert(iidNearDetails.exactMeasurementCardinality);
+assert(~iidNearDetails.exactLmbMeasurementSetLikelihood);
+assert(strcmp(iidNearDetails.scoreType, ...
+    ['lmb-cardinality-matched-iid-cluster-', ...
+     'measurement-log-score']));
+assert(abs(sum(iidNearDetails. ...
+    targetDetectionCardinalityPmf) - 1) < 1e-12);
+assert(iidNearDetails.cardinalityProbability > 0);
 end
 
 function testRollingSafeJointActionProposalBank()
