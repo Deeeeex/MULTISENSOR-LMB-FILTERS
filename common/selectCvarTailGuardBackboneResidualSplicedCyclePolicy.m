@@ -1,0 +1,36 @@
+function [adjacency, details] = ...
+    selectCvarTailGuardBackboneResidualSplicedCyclePolicy( ...
+        context, options)
+% SELECTCVARTAILGUARDBACKBONERESIDUALSPLICEDCYCLEPOLICY Protect top risk set.
+
+if nargin < 2 || isempty(options)
+    options = struct();
+end
+options.referenceGuardMode = ...
+    'top-risk-fraction';
+options.protectionRiskMetric = ...
+    'current-eospa';
+options.protectedReceiverFraction = getField(options, ...
+    'protectedReceiverFraction', 0.10);
+[adjacency, details] = ...
+    selectTailSafeBackboneResidualSplicedCyclePolicy( ...
+        context, options);
+details.mode = ...
+    'backbone-residual-spliced-cycle-cvar-tail-guard-adaptive-current';
+details.tailGuardObjective = ...
+    'protect-current-top-risk-fraction-matched-static-eospa';
+details.tailGuardProtectedReceiverFraction = ...
+    options.protectedReceiverFraction;
+details.tailGuardProtectedReceiverCount = ...
+    numel(details.scoreDetails.protectedReceiverIndices);
+details.tailGuardProtectionMetricMatchesAudit = true;
+details.tailGuardPrivilegedDiagnosticOnly = true;
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
+end
+end

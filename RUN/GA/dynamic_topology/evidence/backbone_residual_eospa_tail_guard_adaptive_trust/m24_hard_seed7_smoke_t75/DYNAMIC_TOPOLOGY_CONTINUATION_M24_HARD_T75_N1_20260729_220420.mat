@@ -1,0 +1,4014 @@
+# Created by Octave 11.1.0, Wed Jul 29 22:04:20 2026 CST
+# name: summary
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 10
+# name: generatedAt
+# type: sq_string
+# elements: 1
+# length: 19
+2026-07-29 22:04:20
+
+
+# name: presetName
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: seeds
+# type: scalar
+7
+
+
+# name: options
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 23
+# name: maxTimeSteps
+# type: scalar
+75
+
+
+# name: continuationStartTime
+# type: scalar
+75
+
+
+# name: behaviorCacheDirectory
+# type: sq_string
+# elements: 1
+# length: 29
+RUN/GA/dynamic_topology/cache
+
+
+# name: outputDirectory
+# type: sq_string
+# elements: 1
+# length: 107
+RUN/GA/dynamic_topology/evidence/backbone_residual_eospa_tail_guard_adaptive_trust/m24_hard_seed7_smoke_t75
+
+
+# name: armNames
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 76
+oracle-backbone-residual-spliced-cycle-eospa-tail-guard-adaptive-current-a70
+
+
+
+
+
+# name: primaryAttributionFamily
+# type: sq_string
+# elements: 1
+# length: 12
+rolling-safe
+
+
+# name: evidenceSplit
+# type: sq_string
+# elements: 1
+# length: 11
+development
+
+
+# name: rollingSafeBackboneMode
+# type: sq_string
+# elements: 1
+# length: 20
+fixed-balanced-cycle
+
+
+# name: rollingPayloadProjectionToleranceFraction
+# type: scalar
+0.02
+
+
+# name: generateMissingBehaviorCache
+# type: bool
+0
+
+
+# name: writeReport
+# type: bool
+1
+
+
+# name: scenarioOverrides
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 0
+
+
+# name: fusionOverrides
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 0
+
+
+# name: filterSeedOffset
+# type: scalar
+100000
+
+
+# name: directedRoutingModelPath
+# type: sq_string
+# elements: 1
+# length: 63
+RUN/GA/dynamic_topology/models/directed_routing_knn_m24_t75.mat
+
+
+# name: residualRoutingModelPath
+# type: sq_string
+# elements: 1
+# length: 68
+RUN/GA/dynamic_topology/models/confidence_gated_residual_m24_t75.mat
+
+
+# name: structuredTreeModelPath
+# type: sq_string
+# elements: 1
+# length: 80
+RUN/GA/dynamic_topology/models/structured_formation_tree_m24_proxy_candidate.mat
+
+
+# name: rollingSafeRolloutModelPath
+# type: sq_string
+# elements: 1
+# length: 72
+RUN/GA/dynamic_topology/models/rolling_safe_rollout_edge_mlp_m24_t75.mat
+
+
+# name: allowRejectedLearnedArtifact
+# type: bool
+0
+
+
+# name: minimumPracticalTrackingGainPercent
+# type: scalar
+5
+
+
+# name: minimumDynamicRouteDifferenceFraction
+# type: scalar
+0.10000000000000001
+
+
+# name: minimumGatewayControlPhaseCount
+# type: scalar
+6
+
+
+# name: includeRollingMatchedControls
+# type: bool
+0
+
+
+
+
+# name: armNames
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 110
+Privileged E-OSPA-tail-guarded adaptive-trust spliced residual cycle (alpha=0.70, weights=[0.05 0.1 0.2 0.25])
+
+
+
+
+
+# name: records
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 153
+# name: seed
+# type: scalar
+7
+
+
+# name: armName
+# type: sq_string
+# elements: 1
+# length: 110
+Privileged E-OSPA-tail-guarded adaptive-trust spliced residual cycle (alpha=0.70, weights=[0.05 0.1 0.2 0.25])
+
+
+# name: armMode
+# type: sq_string
+# elements: 1
+# length: 76
+oracle-backbone-residual-spliced-cycle-eospa-tail-guard-adaptive-current-a70
+
+
+# name: meanEospa
+# type: scalar
+17.66089424135016
+
+
+# name: worstSensorEospa
+# type: scalar
+42.610381315831525
+
+
+# name: sensorMeanEospa
+# type: matrix
+# rows: 1
+# columns: 24
+ 5.5582811091763809 4.9382622436591497 4.8777852443978666 4.3252492172202439 5.2883818082590803 5.1980180065395096 5.5402642788628409 5.4654330315593471 6.0453542165855252 6.4746340780164227 6.5718270081117751 30.656392457990123 30.613295788664413 30.333062901643896 30.333157014361365 42.610381315831525 42.597752096792831 30.384031184031777 30.411969670058223 11.749648798313373 30.347424758360699 30.436756557178427 11.762334535037136 11.341764471751882
+
+
+# name: worstSensorIndex
+# type: scalar
+16
+
+
+# name: meanCardinalityError
+# type: scalar
+0.5
+
+
+# name: consensusOspa
+# type: scalar
+22.564000358251725
+
+
+# name: consensusPosition
+# type: scalar
+7.7804167769661206
+
+
+# name: cardinalityDispersion
+# type: scalar
+0.5
+
+
+# name: focusWindowName
+# type: sq_string
+# elements: 1
+# length: 29
+teacher-handover-and-blockage
+
+
+# name: focusWindow
+# type: matrix
+# rows: 1
+# columns: 2
+ 75 75
+
+
+# name: analysisWindow
+# type: matrix
+# rows: 1
+# columns: 2
+ 75 75
+
+
+# name: focusEospa
+# type: scalar
+17.66089424135016
+
+
+# name: focusWorstSensorEospa
+# type: scalar
+42.610381315831525
+
+
+# name: focusSensorMeanEospa
+# type: matrix
+# rows: 1
+# columns: 24
+ 5.5582811091763809 4.9382622436591497 4.8777852443978666 4.3252492172202439 5.2883818082590803 5.1980180065395096 5.5402642788628409 5.4654330315593471 6.0453542165855252 6.4746340780164227 6.5718270081117751 30.656392457990123 30.613295788664413 30.333062901643896 30.333157014361365 42.610381315831525 42.597752096792831 30.384031184031777 30.411969670058223 11.749648798313373 30.347424758360699 30.436756557178427 11.762334535037136 11.341764471751882
+
+
+# name: focusWorstSensorIndex
+# type: scalar
+16
+
+
+# name: focusCardinalityError
+# type: scalar
+0.5
+
+
+# name: focusPosteriorConsensus
+# type: scalar
+0.84086616077855625
+
+
+# name: focusMapSetDisagreement
+# type: scalar
+22.564000358251725
+
+
+# name: focusAttemptedBytes
+# type: scalar
+1942136
+
+
+# name: focusDeliveredBytes
+# type: scalar
+1843768
+
+
+# name: focusSelectedDirectedEdgeHistory
+# type: bool matrix
+# rows: 24
+# columns: 24
+ 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+
+# name: focusDeliveredDirectedEdgeHistory
+# type: bool matrix
+# rows: 24
+# columns: 24
+ 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+
+# name: focusWithinWindowRouteChangeFraction
+# type: scalar
+0
+
+
+# name: focusDistinctDirectedRouteMapCount
+# type: scalar
+1
+
+
+# name: focusWithinWindowGatewayRouteChangeFraction
+# type: scalar
+0
+
+
+# name: focusDistinctGatewayRouteMapCount
+# type: scalar
+1
+
+
+# name: focusFormationWeakConnectivityFraction
+# type: scalar
+1
+
+
+# name: focusFormationStrongConnectivityFraction
+# type: scalar
+1
+
+
+# name: focusFormationUnionWeakConnected
+# type: scalar
+1
+
+
+# name: focusFormationUnionStrongConnected
+# type: scalar
+1
+
+
+# name: focusFormationPairwiseUnionStrongFraction
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusExpectedSelectedRollingB3MatureWindowCount
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusExpectedDeliveredRollingB3MatureWindowCount
+# type: scalar
+1
+
+
+# name: focusFormationRootedTreeFraction
+# type: scalar
+0
+
+
+# name: focusCrossFormationTreeEdgeCountExactFraction
+# type: scalar
+0
+
+
+# name: focusDirectedMessageCountExactFraction
+# type: scalar
+0
+
+
+# name: focusPairwisePreviousGraphExecuted
+# type: bool
+1
+
+
+# name: focusGatewayFormationCoverageFraction
+# type: scalar
+1
+
+
+# name: focusReceiverCoverageFraction
+# type: scalar
+1
+
+
+# name: focusCrossFormationMessageFraction
+# type: scalar
+0.10000000000000001
+
+
+# name: focusFractionReceiverTimeDifferentFromFixedIndexMap
+# type: scalar
+0.66666666666666663
+
+
+# name: focusTopologyInfeasibleRate
+# type: scalar
+0
+
+
+# name: posteriorConsensus
+# type: scalar
+0.84086616077855625
+
+
+# name: posteriorExistenceConsensus
+# type: scalar
+0.060220184923801899
+
+
+# name: posteriorSpatialConsensus
+# type: scalar
+0.88666974289975531
+
+
+# name: attemptedBytes
+# type: scalar
+1942136
+
+
+# name: deliveredBytes
+# type: scalar
+1843768
+
+
+# name: attemptCount
+# type: scalar
+40
+
+
+# name: deliveryCount
+# type: scalar
+38
+
+
+# name: meanEdgeCount
+# type: scalar
+36
+
+
+# name: meanDirectedMessageCount
+# type: scalar
+40
+
+
+# name: directedMessageCountExactFraction
+# type: scalar
+0
+
+
+# name: topologyChurnRate
+# type: scalar
+0.65753424657534243
+
+
+# name: withinWindowRouteChangeFraction
+# type: scalar
+0
+
+
+# name: distinctDirectedRouteMapCount
+# type: scalar
+1
+
+
+# name: withinWindowGatewayRouteChangeFraction
+# type: scalar
+0
+
+
+# name: distinctGatewayRouteMapCount
+# type: scalar
+1
+
+
+# name: formationWeakConnectivityFraction
+# type: scalar
+1
+
+
+# name: formationStrongConnectivityFraction
+# type: scalar
+1
+
+
+# name: formationUnionWeakConnected
+# type: scalar
+1
+
+
+# name: formationUnionStrongConnected
+# type: scalar
+1
+
+
+# name: formationPairwiseUnionStrongFraction
+# type: scalar
+1
+
+
+# name: rollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: rollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: rollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: rollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: formationRootedTreeFraction
+# type: scalar
+0
+
+
+# name: crossFormationTreeEdgeCountExactFraction
+# type: scalar
+0
+
+
+# name: pairwisePreviousGraphExecuted
+# type: bool
+1
+
+
+# name: gatewayFormationCoverageFraction
+# type: scalar
+1
+
+
+# name: prefixBoundaryRouteChangeFraction
+# type: scalar
+0.875
+
+
+# name: receiverCoverageFraction
+# type: scalar
+1
+
+
+# name: meanUniqueSendersPerReceiver
+# type: scalar
+1.6666666666666667
+
+
+# name: crossFormationMessageFraction
+# type: scalar
+0.10000000000000001
+
+
+# name: fractionReceiverTimeDifferentFromFixedIndexMap
+# type: scalar
+0.66666666666666663
+
+
+# name: topologyInfeasibleRate
+# type: scalar
+0
+
+
+# name: topologyPolicySeconds
+# type: scalar
+193.28334188461304
+
+
+# name: meanPolicyTaskAdvantage
+# type: scalar
+0.10552716797306669
+
+
+# name: meanPolicyTaskRisk
+# type: scalar
+NaN
+
+
+# name: meanPolicyBaselineTaskRisk
+# type: scalar
+NaN
+
+
+# name: meanPolicyTaskRiskSpread
+# type: scalar
+0.21176881695316435
+
+
+# name: meanPolicyValidCandidateCount
+# type: scalar
+279
+
+
+# name: meanPolicyOverrideFraction
+# type: scalar
+0.16666666666666666
+
+
+# name: meanPolicySupportedCandidateFraction
+# type: scalar
+NaN
+
+
+# name: meanPolicyCrossFormationMessageCount
+# type: scalar
+4
+
+
+# name: meanPolicyProposalCrossCount
+# type: scalar
+4
+
+
+# name: policyRepairRate
+# type: scalar
+0
+
+
+# name: policyFormationWindowMatureCount
+# type: scalar
+1
+
+
+# name: policySensorWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyExpectedFormationWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyExpectedSensorWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyFormationWindowStrongFraction
+# type: scalar
+1
+
+
+# name: policySensorWindowStrongFraction
+# type: scalar
+1
+
+
+# name: policySuccessorSensorStrongFraction
+# type: scalar
+NaN
+
+
+# name: policyOneStepTopologyReservePassFraction
+# type: scalar
+NaN
+
+
+# name: policyOneStepTopologyReserveCheckCount
+# type: scalar
+0
+
+
+# name: policyExpectedOneStepTopologyReserveCheckCount
+# type: scalar
+1
+
+
+# name: policyOneStepJointProjectionUseFraction
+# type: scalar
+0
+
+
+# name: policyPayloadLimitPassFraction
+# type: scalar
+NaN
+
+
+# name: policyPayloadConstraintEnforcedFraction
+# type: scalar
+0
+
+
+# name: policyPayloadEmergencyRate
+# type: scalar
+0
+
+
+# name: policyMaximumCrossSourceLoad
+# type: scalar
+1
+
+
+# name: policyMaximumCrossReceiverLoad
+# type: scalar
+1
+
+
+# name: policyCrossCountCapPassFraction
+# type: scalar
+1
+
+
+# name: policySourceWeightMean
+# type: scalar
+0.14999999999999999
+
+
+# name: policySourceWeightSpread
+# type: scalar
+0
+
+
+# name: policyPosteriorContentUseFraction
+# type: scalar
+1
+
+
+# name: policyPosteriorPayloadMetadataUseFraction
+# type: scalar
+0
+
+
+# name: policyTruthUseFraction
+# type: scalar
+1
+
+
+# name: policyCurrentLinkReliabilityUseFraction
+# type: scalar
+1
+
+
+# name: policyRecursiveSafetyClaimRate
+# type: scalar
+0
+
+
+# name: policyBalancedCycleBackboneFraction
+# type: scalar
+0
+
+
+# name: policyFixedIndexBackboneFraction
+# type: scalar
+0
+
+
+# name: policyBackbonePreservingResidualFraction
+# type: scalar
+0
+
+
+# name: policyRegisteredScheduleMetadataMatchFraction
+# type: scalar
+NaN
+
+
+# name: policyRegisteredProposalMatchFraction
+# type: scalar
+NaN
+
+
+# name: policyRegisteredCrossCapExactFraction
+# type: scalar
+NaN
+
+
+# name: policyFormationPairCapPassFraction
+# type: scalar
+NaN
+
+
+# name: policyMaximumActualCrossEdgeCount
+# type: scalar
+NaN
+
+
+# name: policyExpectedProposalSignature
+# type: sq_string
+# elements: 0
+
+
+# name: policyObservedProposalSignature
+# type: sq_string
+# elements: 0
+
+
+# name: policySelectedRouteSignature
+# type: sq_string
+# elements: 0
+
+
+# name: elapsedSeconds
+# type: scalar
+200.05123400688171
+
+
+# name: distinctCandidateCount
+# type: scalar
+0
+
+
+# name: meanEospaByTime
+# type: matrix
+# rows: 1
+# columns: 75
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 17.66089424135016
+
+
+# name: eospaBySensorTime
+# type: matrix
+# rows: 24
+# columns: 75
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 5.5582811091763809
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 4.9382622436591497
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 4.8777852443978666
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 4.3252492172202439
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 5.2883818082590803
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 5.1980180065395096
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 5.5402642788628409
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 5.4654330315593471
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 6.0453542165855252
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 6.4746340780164227
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 6.5718270081117751
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.656392457990123
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.613295788664413
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.333062901643896
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.333157014361365
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 42.610381315831525
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 42.597752096792831
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.384031184031777
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.411969670058223
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 11.749648798313373
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.347424758360699
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 30.436756557178427
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 11.762334535037136
+ 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 120 11.341764471751882
+
+
+# name: focusEospaBySensorTime
+# type: matrix
+# rows: 24
+# columns: 1
+ 5.5582811091763809
+ 4.9382622436591497
+ 4.8777852443978666
+ 4.3252492172202439
+ 5.2883818082590803
+ 5.1980180065395096
+ 5.5402642788628409
+ 5.4654330315593471
+ 6.0453542165855252
+ 6.4746340780164227
+ 6.5718270081117751
+ 30.656392457990123
+ 30.613295788664413
+ 30.333062901643896
+ 30.333157014361365
+ 42.610381315831525
+ 42.597752096792831
+ 30.384031184031777
+ 30.411969670058223
+ 11.749648798313373
+ 30.347424758360699
+ 30.436756557178427
+ 11.762334535037136
+ 11.341764471751882
+
+
+# name: meanCardinalityErrorByTime
+# type: matrix
+# rows: 1
+# columns: 75
+ 4 4 4 4 4 4 4 4 8 8 8 8 8 8 8 8 12 12 12 12 12 12 12 12 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 0.5
+
+
+# name: posteriorConsensusByTime
+# type: matrix
+# rows: 1
+# columns: 75
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.84086616077855625
+
+
+# name: mapSetDisagreementByTime
+# type: matrix
+# rows: 1
+# columns: 75
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 22.564000358251725
+
+
+
+
+# name: aggregate
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 276
+# name: name
+# type: sq_string
+# elements: 1
+# length: 110
+Privileged E-OSPA-tail-guarded adaptive-trust spliced residual cycle (alpha=0.70, weights=[0.05 0.1 0.2 0.25])
+
+
+# name: mode
+# type: sq_string
+# elements: 1
+# length: 76
+oracle-backbone-residual-spliced-cycle-eospa-tail-guard-adaptive-current-a70
+
+
+# name: meanEospa
+# type: scalar
+17.66089424135016
+
+
+# name: meanEospaBySeed
+# type: scalar
+17.66089424135016
+
+
+# name: worstSensorEospa
+# type: scalar
+42.610381315831525
+
+
+# name: worstSensorEospaBySeed
+# type: scalar
+42.610381315831525
+
+
+# name: meanCardinalityError
+# type: scalar
+0.5
+
+
+# name: meanCardinalityErrorBySeed
+# type: scalar
+0.5
+
+
+# name: consensusOspa
+# type: scalar
+22.564000358251725
+
+
+# name: consensusOspaBySeed
+# type: scalar
+22.564000358251725
+
+
+# name: consensusPosition
+# type: scalar
+7.7804167769661206
+
+
+# name: consensusPositionBySeed
+# type: scalar
+7.7804167769661206
+
+
+# name: cardinalityDispersion
+# type: scalar
+0.5
+
+
+# name: cardinalityDispersionBySeed
+# type: scalar
+0.5
+
+
+# name: posteriorConsensus
+# type: scalar
+0.84086616077855625
+
+
+# name: posteriorConsensusBySeed
+# type: scalar
+0.84086616077855625
+
+
+# name: posteriorExistenceConsensus
+# type: scalar
+0.060220184923801899
+
+
+# name: posteriorExistenceConsensusBySeed
+# type: scalar
+0.060220184923801899
+
+
+# name: posteriorSpatialConsensus
+# type: scalar
+0.88666974289975531
+
+
+# name: posteriorSpatialConsensusBySeed
+# type: scalar
+0.88666974289975531
+
+
+# name: focusEospa
+# type: scalar
+17.66089424135016
+
+
+# name: focusEospaBySeed
+# type: scalar
+17.66089424135016
+
+
+# name: focusWorstSensorEospa
+# type: scalar
+42.610381315831525
+
+
+# name: focusWorstSensorEospaBySeed
+# type: scalar
+42.610381315831525
+
+
+# name: focusCardinalityError
+# type: scalar
+0.5
+
+
+# name: focusCardinalityErrorBySeed
+# type: scalar
+0.5
+
+
+# name: focusPosteriorConsensus
+# type: scalar
+0.84086616077855625
+
+
+# name: focusPosteriorConsensusBySeed
+# type: scalar
+0.84086616077855625
+
+
+# name: focusMapSetDisagreement
+# type: scalar
+22.564000358251725
+
+
+# name: focusMapSetDisagreementBySeed
+# type: scalar
+22.564000358251725
+
+
+# name: focusAttemptedBytes
+# type: scalar
+1942136
+
+
+# name: focusAttemptedBytesBySeed
+# type: scalar
+1942136
+
+
+# name: focusDeliveredBytes
+# type: scalar
+1843768
+
+
+# name: focusDeliveredBytesBySeed
+# type: scalar
+1843768
+
+
+# name: focusWithinWindowRouteChangeFraction
+# type: scalar
+0
+
+
+# name: focusWithinWindowRouteChangeFractionBySeed
+# type: scalar
+0
+
+
+# name: focusDistinctDirectedRouteMapCount
+# type: scalar
+1
+
+
+# name: focusDistinctDirectedRouteMapCountBySeed
+# type: scalar
+1
+
+
+# name: focusWithinWindowGatewayRouteChangeFraction
+# type: scalar
+0
+
+
+# name: focusWithinWindowGatewayRouteChangeFractionBySeed
+# type: scalar
+0
+
+
+# name: focusDistinctGatewayRouteMapCount
+# type: scalar
+1
+
+
+# name: focusDistinctGatewayRouteMapCountBySeed
+# type: scalar
+1
+
+
+# name: focusFormationWeakConnectivityFraction
+# type: scalar
+1
+
+
+# name: focusFormationWeakConnectivityFractionBySeed
+# type: scalar
+1
+
+
+# name: focusFormationStrongConnectivityFraction
+# type: scalar
+1
+
+
+# name: focusFormationStrongConnectivityFractionBySeed
+# type: scalar
+1
+
+
+# name: focusFormationUnionWeakConnected
+# type: scalar
+1
+
+
+# name: focusFormationUnionWeakConnectedBySeed
+# type: scalar
+1
+
+
+# name: focusFormationUnionStrongConnected
+# type: scalar
+1
+
+
+# name: focusFormationUnionStrongConnectedBySeed
+# type: scalar
+1
+
+
+# name: focusFormationPairwiseUnionStrongFraction
+# type: scalar
+1
+
+
+# name: focusFormationPairwiseUnionStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusRollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusRollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusSelectedRollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusExpectedSelectedRollingB3MatureWindowCount
+# type: scalar
+1
+
+
+# name: focusExpectedSelectedRollingB3MatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: focusDeliveredRollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusExpectedDeliveredRollingB3MatureWindowCount
+# type: scalar
+1
+
+
+# name: focusExpectedDeliveredRollingB3MatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: focusFormationRootedTreeFraction
+# type: scalar
+0
+
+
+# name: focusFormationRootedTreeFractionBySeed
+# type: scalar
+0
+
+
+# name: focusCrossFormationTreeEdgeCountExactFraction
+# type: scalar
+0
+
+
+# name: focusCrossFormationTreeEdgeCountExactFractionBySeed
+# type: scalar
+0
+
+
+# name: focusDirectedMessageCountExactFraction
+# type: scalar
+0
+
+
+# name: focusDirectedMessageCountExactFractionBySeed
+# type: scalar
+0
+
+
+# name: focusPairwisePreviousGraphExecuted
+# type: scalar
+1
+
+
+# name: focusPairwisePreviousGraphExecutedBySeed
+# type: bool
+1
+
+
+# name: focusGatewayFormationCoverageFraction
+# type: scalar
+1
+
+
+# name: focusGatewayFormationCoverageFractionBySeed
+# type: scalar
+1
+
+
+# name: focusReceiverCoverageFraction
+# type: scalar
+1
+
+
+# name: focusReceiverCoverageFractionBySeed
+# type: scalar
+1
+
+
+# name: focusCrossFormationMessageFraction
+# type: scalar
+0.10000000000000001
+
+
+# name: focusCrossFormationMessageFractionBySeed
+# type: scalar
+0.10000000000000001
+
+
+# name: focusFractionReceiverTimeDifferentFromFixedIndexMap
+# type: scalar
+0.66666666666666663
+
+
+# name: focusFractionReceiverTimeDifferentFromFixedIndexMapBySeed
+# type: scalar
+0.66666666666666663
+
+
+# name: focusTopologyInfeasibleRate
+# type: scalar
+0
+
+
+# name: focusTopologyInfeasibleRateBySeed
+# type: scalar
+0
+
+
+# name: attemptedBytes
+# type: scalar
+1942136
+
+
+# name: attemptedBytesBySeed
+# type: scalar
+1942136
+
+
+# name: deliveredBytes
+# type: scalar
+1843768
+
+
+# name: deliveredBytesBySeed
+# type: scalar
+1843768
+
+
+# name: attemptCount
+# type: scalar
+40
+
+
+# name: attemptCountBySeed
+# type: scalar
+40
+
+
+# name: deliveryCount
+# type: scalar
+38
+
+
+# name: deliveryCountBySeed
+# type: scalar
+38
+
+
+# name: meanEdgeCount
+# type: scalar
+36
+
+
+# name: meanEdgeCountBySeed
+# type: scalar
+36
+
+
+# name: topologyChurnRate
+# type: scalar
+0.65753424657534243
+
+
+# name: topologyChurnRateBySeed
+# type: scalar
+0.65753424657534243
+
+
+# name: meanDirectedMessageCount
+# type: scalar
+40
+
+
+# name: meanDirectedMessageCountBySeed
+# type: scalar
+40
+
+
+# name: directedMessageCountExactFraction
+# type: scalar
+0
+
+
+# name: directedMessageCountExactFractionBySeed
+# type: scalar
+0
+
+
+# name: withinWindowRouteChangeFraction
+# type: scalar
+0
+
+
+# name: withinWindowRouteChangeFractionBySeed
+# type: scalar
+0
+
+
+# name: distinctDirectedRouteMapCount
+# type: scalar
+1
+
+
+# name: distinctDirectedRouteMapCountBySeed
+# type: scalar
+1
+
+
+# name: withinWindowGatewayRouteChangeFraction
+# type: scalar
+0
+
+
+# name: withinWindowGatewayRouteChangeFractionBySeed
+# type: scalar
+0
+
+
+# name: distinctGatewayRouteMapCount
+# type: scalar
+1
+
+
+# name: distinctGatewayRouteMapCountBySeed
+# type: scalar
+1
+
+
+# name: formationWeakConnectivityFraction
+# type: scalar
+1
+
+
+# name: formationWeakConnectivityFractionBySeed
+# type: scalar
+1
+
+
+# name: formationStrongConnectivityFraction
+# type: scalar
+1
+
+
+# name: formationStrongConnectivityFractionBySeed
+# type: scalar
+1
+
+
+# name: formationUnionWeakConnected
+# type: scalar
+1
+
+
+# name: formationUnionWeakConnectedBySeed
+# type: scalar
+1
+
+
+# name: formationUnionStrongConnected
+# type: scalar
+1
+
+
+# name: formationUnionStrongConnectedBySeed
+# type: scalar
+1
+
+
+# name: formationPairwiseUnionStrongFraction
+# type: scalar
+1
+
+
+# name: formationPairwiseUnionStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: rollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: rollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: rollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: rollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: rollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: rollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: rollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: rollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: selectedRollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: selectedRollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorStrongFraction
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorMatureWindowCount
+# type: scalar
+1
+
+
+# name: deliveredRollingB3SensorMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationStrongFraction
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationMatureWindowCount
+# type: scalar
+1
+
+
+# name: deliveredRollingB3FormationMatureWindowCountBySeed
+# type: scalar
+1
+
+
+# name: formationRootedTreeFraction
+# type: scalar
+0
+
+
+# name: formationRootedTreeFractionBySeed
+# type: scalar
+0
+
+
+# name: crossFormationTreeEdgeCountExactFraction
+# type: scalar
+0
+
+
+# name: crossFormationTreeEdgeCountExactFractionBySeed
+# type: scalar
+0
+
+
+# name: pairwisePreviousGraphExecuted
+# type: scalar
+1
+
+
+# name: pairwisePreviousGraphExecutedBySeed
+# type: bool
+1
+
+
+# name: gatewayFormationCoverageFraction
+# type: scalar
+1
+
+
+# name: gatewayFormationCoverageFractionBySeed
+# type: scalar
+1
+
+
+# name: prefixBoundaryRouteChangeFraction
+# type: scalar
+0.875
+
+
+# name: prefixBoundaryRouteChangeFractionBySeed
+# type: scalar
+0.875
+
+
+# name: receiverCoverageFraction
+# type: scalar
+1
+
+
+# name: receiverCoverageFractionBySeed
+# type: scalar
+1
+
+
+# name: meanUniqueSendersPerReceiver
+# type: scalar
+1.6666666666666667
+
+
+# name: meanUniqueSendersPerReceiverBySeed
+# type: scalar
+1.6666666666666667
+
+
+# name: crossFormationMessageFraction
+# type: scalar
+0.10000000000000001
+
+
+# name: crossFormationMessageFractionBySeed
+# type: scalar
+0.10000000000000001
+
+
+# name: fractionReceiverTimeDifferentFromFixedIndexMap
+# type: scalar
+0.66666666666666663
+
+
+# name: fractionReceiverTimeDifferentFromFixedIndexMapBySeed
+# type: scalar
+0.66666666666666663
+
+
+# name: topologyInfeasibleRate
+# type: scalar
+0
+
+
+# name: topologyInfeasibleRateBySeed
+# type: scalar
+0
+
+
+# name: topologyPolicySeconds
+# type: scalar
+193.28334188461304
+
+
+# name: topologyPolicySecondsBySeed
+# type: scalar
+193.28334188461304
+
+
+# name: meanPolicyTaskAdvantage
+# type: scalar
+0.10552716797306669
+
+
+# name: meanPolicyTaskAdvantageBySeed
+# type: scalar
+0.10552716797306669
+
+
+# name: meanPolicyTaskRiskSpread
+# type: scalar
+0.21176881695316435
+
+
+# name: meanPolicyTaskRiskSpreadBySeed
+# type: scalar
+0.21176881695316435
+
+
+# name: meanPolicyTaskRisk
+# type: scalar
+NaN
+
+
+# name: meanPolicyTaskRiskBySeed
+# type: scalar
+NaN
+
+
+# name: meanPolicyBaselineTaskRisk
+# type: scalar
+NaN
+
+
+# name: meanPolicyBaselineTaskRiskBySeed
+# type: scalar
+NaN
+
+
+# name: meanPolicyValidCandidateCount
+# type: scalar
+279
+
+
+# name: meanPolicyValidCandidateCountBySeed
+# type: scalar
+279
+
+
+# name: meanPolicyOverrideFraction
+# type: scalar
+0.16666666666666666
+
+
+# name: meanPolicyOverrideFractionBySeed
+# type: scalar
+0.16666666666666666
+
+
+# name: meanPolicySupportedCandidateFraction
+# type: scalar
+NaN
+
+
+# name: meanPolicySupportedCandidateFractionBySeed
+# type: scalar
+NaN
+
+
+# name: meanPolicyCrossFormationMessageCount
+# type: scalar
+4
+
+
+# name: meanPolicyCrossFormationMessageCountBySeed
+# type: scalar
+4
+
+
+# name: meanPolicyProposalCrossCount
+# type: scalar
+4
+
+
+# name: meanPolicyProposalCrossCountBySeed
+# type: scalar
+4
+
+
+# name: policyRepairRate
+# type: scalar
+0
+
+
+# name: policyRepairRateBySeed
+# type: scalar
+0
+
+
+# name: policyFormationWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyFormationWindowMatureCountBySeed
+# type: scalar
+1
+
+
+# name: policySensorWindowMatureCount
+# type: scalar
+1
+
+
+# name: policySensorWindowMatureCountBySeed
+# type: scalar
+1
+
+
+# name: policyExpectedFormationWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyExpectedFormationWindowMatureCountBySeed
+# type: scalar
+1
+
+
+# name: policyExpectedSensorWindowMatureCount
+# type: scalar
+1
+
+
+# name: policyExpectedSensorWindowMatureCountBySeed
+# type: scalar
+1
+
+
+# name: policyFormationWindowStrongFraction
+# type: scalar
+1
+
+
+# name: policyFormationWindowStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: policySensorWindowStrongFraction
+# type: scalar
+1
+
+
+# name: policySensorWindowStrongFractionBySeed
+# type: scalar
+1
+
+
+# name: policySuccessorSensorStrongFraction
+# type: scalar
+NaN
+
+
+# name: policySuccessorSensorStrongFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyOneStepTopologyReservePassFraction
+# type: scalar
+NaN
+
+
+# name: policyOneStepTopologyReservePassFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyOneStepTopologyReserveCheckCount
+# type: scalar
+0
+
+
+# name: policyOneStepTopologyReserveCheckCountBySeed
+# type: scalar
+0
+
+
+# name: policyExpectedOneStepTopologyReserveCheckCount
+# type: scalar
+1
+
+
+# name: policyExpectedOneStepTopologyReserveCheckCountBySeed
+# type: scalar
+1
+
+
+# name: policyOneStepJointProjectionUseFraction
+# type: scalar
+0
+
+
+# name: policyOneStepJointProjectionUseFractionBySeed
+# type: scalar
+0
+
+
+# name: policyPayloadLimitPassFraction
+# type: scalar
+NaN
+
+
+# name: policyPayloadLimitPassFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyPayloadConstraintEnforcedFraction
+# type: scalar
+0
+
+
+# name: policyPayloadConstraintEnforcedFractionBySeed
+# type: scalar
+0
+
+
+# name: policyPayloadEmergencyRate
+# type: scalar
+0
+
+
+# name: policyPayloadEmergencyRateBySeed
+# type: scalar
+0
+
+
+# name: policyMaximumCrossSourceLoad
+# type: scalar
+1
+
+
+# name: policyMaximumCrossSourceLoadBySeed
+# type: scalar
+1
+
+
+# name: policyMaximumCrossReceiverLoad
+# type: scalar
+1
+
+
+# name: policyMaximumCrossReceiverLoadBySeed
+# type: scalar
+1
+
+
+# name: policyCrossCountCapPassFraction
+# type: scalar
+1
+
+
+# name: policyCrossCountCapPassFractionBySeed
+# type: scalar
+1
+
+
+# name: policySourceWeightMean
+# type: scalar
+0.14999999999999999
+
+
+# name: policySourceWeightMeanBySeed
+# type: scalar
+0.14999999999999999
+
+
+# name: policySourceWeightSpread
+# type: scalar
+0
+
+
+# name: policySourceWeightSpreadBySeed
+# type: scalar
+0
+
+
+# name: policyPosteriorContentUseFraction
+# type: scalar
+1
+
+
+# name: policyPosteriorContentUseFractionBySeed
+# type: scalar
+1
+
+
+# name: policyPosteriorPayloadMetadataUseFraction
+# type: scalar
+0
+
+
+# name: policyPosteriorPayloadMetadataUseFractionBySeed
+# type: scalar
+0
+
+
+# name: policyTruthUseFraction
+# type: scalar
+1
+
+
+# name: policyTruthUseFractionBySeed
+# type: scalar
+1
+
+
+# name: policyCurrentLinkReliabilityUseFraction
+# type: scalar
+1
+
+
+# name: policyCurrentLinkReliabilityUseFractionBySeed
+# type: scalar
+1
+
+
+# name: policyRecursiveSafetyClaimRate
+# type: scalar
+0
+
+
+# name: policyRecursiveSafetyClaimRateBySeed
+# type: scalar
+0
+
+
+# name: policyBalancedCycleBackboneFraction
+# type: scalar
+0
+
+
+# name: policyBalancedCycleBackboneFractionBySeed
+# type: scalar
+0
+
+
+# name: policyFixedIndexBackboneFraction
+# type: scalar
+0
+
+
+# name: policyFixedIndexBackboneFractionBySeed
+# type: scalar
+0
+
+
+# name: policyBackbonePreservingResidualFraction
+# type: scalar
+0
+
+
+# name: policyBackbonePreservingResidualFractionBySeed
+# type: scalar
+0
+
+
+# name: policyRegisteredScheduleMetadataMatchFraction
+# type: scalar
+NaN
+
+
+# name: policyRegisteredScheduleMetadataMatchFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyRegisteredProposalMatchFraction
+# type: scalar
+NaN
+
+
+# name: policyRegisteredProposalMatchFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyRegisteredCrossCapExactFraction
+# type: scalar
+NaN
+
+
+# name: policyRegisteredCrossCapExactFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyFormationPairCapPassFraction
+# type: scalar
+NaN
+
+
+# name: policyFormationPairCapPassFractionBySeed
+# type: scalar
+NaN
+
+
+# name: policyMaximumActualCrossEdgeCount
+# type: scalar
+NaN
+
+
+# name: policyMaximumActualCrossEdgeCountBySeed
+# type: scalar
+NaN
+
+
+# name: elapsedSeconds
+# type: scalar
+200.05123400688171
+
+
+# name: elapsedSecondsBySeed
+# type: scalar
+200.05123400688171
+
+
+# name: distinctCandidateCount
+# type: scalar
+0
+
+
+# name: distinctCandidateCountBySeed
+# type: scalar
+0
+
+
+# name: policyExpectedProposalSignatureBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 0
+
+
+
+
+
+# name: policyObservedProposalSignatureBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 0
+
+
+
+
+
+# name: policySelectedRouteSignatureBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 0
+
+
+
+
+
+# name: sensorMeanEospaBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 1
+# columns: 24
+ 5.5582811091763809 4.9382622436591497 4.8777852443978666 4.3252492172202439 5.2883818082590803 5.1980180065395096 5.5402642788628409 5.4654330315593471 6.0453542165855252 6.4746340780164227 6.5718270081117751 30.656392457990123 30.613295788664413 30.333062901643896 30.333157014361365 42.610381315831525 42.597752096792831 30.384031184031777 30.411969670058223 11.749648798313373 30.347424758360699 30.436756557178427 11.762334535037136 11.341764471751882
+
+
+
+
+
+# name: focusSensorMeanEospaBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 1
+# columns: 24
+ 5.5582811091763809 4.9382622436591497 4.8777852443978666 4.3252492172202439 5.2883818082590803 5.1980180065395096 5.5402642788628409 5.4654330315593471 6.0453542165855252 6.4746340780164227 6.5718270081117751 30.656392457990123 30.613295788664413 30.333062901643896 30.333157014361365 42.610381315831525 42.597752096792831 30.384031184031777 30.411969670058223 11.749648798313373 30.347424758360699 30.436756557178427 11.762334535037136 11.341764471751882
+
+
+
+
+
+# name: worstSensorIndexBySeed
+# type: scalar
+16
+
+
+# name: focusWorstSensorIndexBySeed
+# type: scalar
+16
+
+
+# name: focusSelectedDirectedEdgeHistoryBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: bool matrix
+# rows: 24
+# columns: 24
+ 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+
+
+
+
+# name: focusDeliveredDirectedEdgeHistoryBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: bool matrix
+# rows: 24
+# columns: 24
+ 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+
+
+
+
+# name: focusEospaBySensorTimeBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 24
+# columns: 1
+ 5.5582811091763809
+ 4.9382622436591497
+ 4.8777852443978666
+ 4.3252492172202439
+ 5.2883818082590803
+ 5.1980180065395096
+ 5.5402642788628409
+ 5.4654330315593471
+ 6.0453542165855252
+ 6.4746340780164227
+ 6.5718270081117751
+ 30.656392457990123
+ 30.613295788664413
+ 30.333062901643896
+ 30.333157014361365
+ 42.610381315831525
+ 42.597752096792831
+ 30.384031184031777
+ 30.411969670058223
+ 11.749648798313373
+ 30.347424758360699
+ 30.436756557178427
+ 11.762334535037136
+ 11.341764471751882
+
+
+
+
+
+
+
+# name: validationBySeed
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 14
+# name: isValid
+# type: bool
+1
+
+
+# name: hardFailures
+# type: cell
+# rows: 0
+# columns: 0
+
+
+# name: maxSensorSpeed
+# type: scalar
+11.448558327083052
+
+
+# name: maxSensorAcceleration
+# type: scalar
+0.85985945680007192
+
+
+# name: minimumSensorSeparation
+# type: scalar
+31.905992473422856
+
+
+# name: maxTargetSpeed
+# type: scalar
+13.812227300655474
+
+
+# name: sensorsInBounds
+# type: bool
+1
+
+
+# name: targetsInBounds
+# type: bool
+1
+
+
+# name: staticEdgeCount
+# type: scalar
+29
+
+
+# name: staticPhysicalViolationCount
+# type: scalar
+0
+
+
+# name: candidateCount
+# type: scalar
+0
+
+
+# name: candidateViolationCount
+# type: scalar
+0
+
+
+# name: targetGroupHandoverCounts
+# type: matrix
+# rows: 1
+# columns: 4
+ 3 3 3 3
+
+
+# name: difficulty
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 21
+# name: activeTargetSamples
+# type: scalar
+2296
+
+
+# name: blackoutFraction
+# type: scalar
+0.029616724738675958
+
+
+# name: singleFormationFraction
+# type: scalar
+0.35060975609756095
+
+
+# name: multiFormationFraction
+# type: scalar
+0.61977351916376311
+
+
+# name: meanVisibleFormationCount
+# type: scalar
+2.2478222996515678
+
+
+# name: targetHandoverCounts
+# type: matrix
+# rows: 1
+# columns: 16
+ 4 4 4 2 3 2 2 2 4 4 4 2 4 2 2 2
+
+
+# name: totalHandovers
+# type: scalar
+47
+
+
+# name: focusTargetHandoverCounts
+# type: matrix
+# rows: 1
+# columns: 16
+ 4 4 4 2 3 2 2 1 4 4 4 2 3 2 2 1
+
+
+# name: focusHandovers
+# type: scalar
+44
+
+
+# name: ownerByTarget
+# type: matrix
+# rows: 16
+# columns: 160
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0
+ 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0
+
+
+# name: formationOwnershipFraction
+# type: matrix
+# rows: 1
+# columns: 4
+ 0.31508078994614003 0.20332136445242369 0.30565529622980253 0.17594254937163376
+
+
+# name: formationOwnershipEntropy
+# type: scalar
+0.97799514508740182
+
+
+# name: closeTargetDistance
+# type: scalar
+80
+
+
+# name: closeEncounterTimeFraction
+# type: scalar
+0.36875000000000002
+
+
+# name: focusCloseEncounterTimeFraction
+# type: scalar
+0.66666666666666663
+
+
+# name: minimumTargetSeparation
+# type: scalar
+2.8431815114666112
+
+
+# name: minimumCrossGroupTargetSeparation
+# type: scalar
+2.8431815114666112
+
+
+# name: physicalEdgeChurnRate
+# type: scalar
+0.0037905440057820583
+
+
+# name: meanPhysicalInterFormationEdges
+# type: scalar
+196.65625
+
+
+# name: blockageFocusOverlapFraction
+# type: scalar
+0.76543209876543206
+
+
+# name: focusWindow
+# type: matrix
+# rows: 1
+# columns: 2
+ 55 135
+
+
+
+
+
+
+
+
+
+# name: decision
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 22
+# name: status
+# type: sq_string
+# elements: 1
+# length: 38
+primary-attribution-family-unavailable
+
+
+# name: primaryAttributionFamily
+# type: sq_string
+# elements: 1
+# length: 12
+rolling-safe
+
+
+# name: availableAttributionFamilies
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: constraintEligibleArmCount
+# type: scalar
+0
+
+
+# name: bestObservedArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: bestObservedFocusEospa
+# type: scalar
+NaN
+
+
+# name: bestObservedGainVsStaticPercent
+# type: scalar
+NaN
+
+
+# name: bestObservedByteMismatchPercent
+# type: scalar
+NaN
+
+
+# name: minimumPracticalTrackingGainPercent
+# type: scalar
+5
+
+
+# name: oracleConsensusGainPercent
+# type: scalar
+NaN
+
+
+# name: oracleTrackingGainPercent
+# type: scalar
+NaN
+
+
+# name: analyticOracleGainCapture
+# type: scalar
+NaN
+
+
+# name: diagnosticReferenceDominated
+# type: bool
+0
+
+
+# name: attemptedByteMismatchPercent
+# type: scalar
+NaN
+
+
+# name: communicationMatchedWithinTwoPercent
+# type: bool
+0
+
+
+# name: directedRouting
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 17
+# name: available
+# type: bool
+0
+
+
+# name: eligibleArmCount
+# type: scalar
+0
+
+
+# name: arm
+# type: null_sq_string
+# elements: 0
+
+
+# name: focusEospa
+# type: scalar
+NaN
+
+
+# name: gainVsStaticPercent
+# type: scalar
+NaN
+
+
+# name: gainVsLocalPercent
+# type: scalar
+NaN
+
+
+# name: worstNodeGainVsStaticPercent
+# type: scalar
+NaN
+
+
+# name: worstNodeGainVsLocalPercent
+# type: scalar
+NaN
+
+
+# name: attemptedByteRatioPercent
+# type: scalar
+NaN
+
+
+# name: meanDirectedMessageCount
+# type: scalar
+NaN
+
+
+# name: zeroInfeasibility
+# type: bool
+0
+
+
+# name: withinStaticAttemptedBytes
+# type: bool
+0
+
+
+# name: tailSafeVsStatic
+# type: bool
+0
+
+
+# name: tailSafeVsLocal
+# type: bool
+0
+
+
+# name: passesMeanTrackingGate
+# type: bool
+0
+
+
+# name: status
+# type: sq_string
+# elements: 1
+# length: 11
+unavailable
+
+
+# name: recommendation
+# type: null_sq_string
+# elements: 0
+
+
+
+
+# name: residualRouting
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 21
+# name: available
+# type: bool
+0
+
+
+# name: eligibleArmCount
+# type: scalar
+0
+
+
+# name: arm
+# type: null_sq_string
+# elements: 0
+
+
+# name: backboneArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: focusEospa
+# type: scalar
+NaN
+
+
+# name: backboneFocusEospa
+# type: scalar
+NaN
+
+
+# name: gainVsBackbonePercent
+# type: scalar
+NaN
+
+
+# name: worstNodeGainVsBackbonePercent
+# type: scalar
+NaN
+
+
+# name: attemptedByteRatioPercent
+# type: scalar
+NaN
+
+
+# name: policySecondsOverhead
+# type: scalar
+NaN
+
+
+# name: meanOverrideFraction
+# type: scalar
+NaN
+
+
+# name: meanSupportedCandidateFraction
+# type: scalar
+NaN
+
+
+# name: zeroInfeasibility
+# type: bool
+0
+
+
+# name: positiveGainEverySeed
+# type: bool
+0
+
+
+# name: tailSafeVsBackbone
+# type: bool
+0
+
+
+# name: withinBackboneAttemptedBytes
+# type: bool
+0
+
+
+# name: minimumPracticalGainPercent
+# type: scalar
+NaN
+
+
+# name: passesIncrementalGain
+# type: bool
+0
+
+
+# name: exactBackboneMatch
+# type: bool
+0
+
+
+# name: status
+# type: sq_string
+# elements: 1
+# length: 11
+unavailable
+
+
+# name: recommendation
+# type: null_sq_string
+# elements: 0
+
+
+
+
+# name: dynamicAttribution
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 46
+# name: available
+# type: bool
+0
+
+
+# name: availableCandidateCount
+# type: scalar
+0
+
+
+# name: completeControlCandidateCount
+# type: scalar
+0
+
+
+# name: structurallyEligibleCandidateCount
+# type: scalar
+0
+
+
+# name: completeBaselineSet
+# type: bool
+0
+
+
+# name: weightMatchedControlSet
+# type: bool
+0
+
+
+# name: matchedFixedGatewayPhaseCount
+# type: scalar
+0
+
+
+# name: matchedRotatingGatewayPhaseCount
+# type: scalar
+0
+
+
+# name: minimumGatewayControlPhaseCount
+# type: scalar
+NaN
+
+
+# name: candidateUsesCrossFormation
+# type: bool
+0
+
+
+# name: crossFormationControlSet
+# type: bool
+0
+
+
+# name: actionSupportMatched
+# type: bool
+0
+
+
+# name: candidateSourceWeight
+# type: scalar
+NaN
+
+
+# name: arm
+# type: null_sq_string
+# elements: 0
+
+
+# name: referenceArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: matchedReferenceArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: gainVsMatchedControlPercent
+# type: scalar
+NaN
+
+
+# name: gainVsMatchedControlBySeedPercent
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: positiveGainVsMatchedEverySeed
+# type: bool
+0
+
+
+# name: gainVsStrongControlPercent
+# type: scalar
+NaN
+
+
+# name: gainVsStrongControlBySeedPercent
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: positiveGainEverySeed
+# type: bool
+0
+
+
+# name: tailSafeVsStrongControl
+# type: bool
+0
+
+
+# name: maximumAttemptedByteMismatchPercent
+# type: scalar
+NaN
+
+
+# name: communicationMatchedWithinTwoPercent
+# type: bool
+0
+
+
+# name: noMoreAttemptedBytesEverySeed
+# type: bool
+0
+
+
+# name: strictParetoEverySeed
+# type: bool
+0
+
+
+# name: communicationFair
+# type: bool
+0
+
+
+# name: distinctMapsEverySeed
+# type: bool
+0
+
+
+# name: withinWindowChangesEverySeed
+# type: bool
+0
+
+
+# name: distinctGatewayMapsEverySeed
+# type: bool
+0
+
+
+# name: gatewayChangesEverySeed
+# type: bool
+0
+
+
+# name: formationUnionWeakConnectedEverySeed
+# type: bool
+0
+
+
+# name: formationUnionStrongConnectedEverySeed
+# type: bool
+0
+
+
+# name: minimumInstantaneousFormationWeakFraction
+# type: scalar
+NaN
+
+
+# name: minimumGatewayFormationCoverage
+# type: scalar
+NaN
+
+
+# name: minimumDifferenceFromFixedIndex
+# type: scalar
+NaN
+
+
+# name: differsFromFixedIndexEnough
+# type: bool
+0
+
+
+# name: receiverCoverageComplete
+# type: bool
+0
+
+
+# name: crossFormationRoutesObserved
+# type: bool
+0
+
+
+# name: zeroInfeasibility
+# type: bool
+0
+
+
+# name: minimumPracticalGainPercent
+# type: scalar
+NaN
+
+
+# name: minimumRouteDifferenceFraction
+# type: scalar
+NaN
+
+
+# name: passesAttributionGate
+# type: bool
+0
+
+
+# name: status
+# type: sq_string
+# elements: 1
+# length: 11
+unavailable
+
+
+# name: recommendation
+# type: null_sq_string
+# elements: 0
+
+
+
+
+# name: structuredTreeAttribution
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 45
+# name: available
+# type: bool
+0
+
+
+# name: availableCandidateCount
+# type: scalar
+0
+
+
+# name: arm
+# type: null_sq_string
+# elements: 0
+
+
+# name: candidateSourceWeight
+# type: scalar
+NaN
+
+
+# name: scenarioContractValid
+# type: bool
+1
+
+
+# name: formationCount
+# type: scalar
+4
+
+
+# name: sensorsPerFormation
+# type: scalar
+6
+
+
+# name: expectedCrossFormationMessageFraction
+# type: scalar
+0.125
+
+
+# name: requiredScheduledPhaseCount
+# type: scalar
+24
+
+
+# name: observedScheduledPhaseCount
+# type: scalar
+0
+
+
+# name: eligibleScheduledControlCount
+# type: scalar
+0
+
+
+# name: fixedIndexControlAvailable
+# type: bool
+0
+
+
+# name: linkTreeControlAvailable
+# type: bool
+0
+
+
+# name: completeBaselineSet
+# type: bool
+0
+
+
+# name: referenceArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: referenceArmBySeed
+# type: cell
+# rows: 0
+# columns: 0
+
+
+# name: gainVsMatchedControlPercent
+# type: scalar
+NaN
+
+
+# name: gainVsMatchedControlBySeedPercent
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: positiveGainEverySeed
+# type: bool
+0
+
+
+# name: tailSafeVsMatchedControl
+# type: bool
+0
+
+
+# name: maximumAttemptedByteMismatchPercent
+# type: scalar
+NaN
+
+
+# name: communicationMatchedWithinTwoPercent
+# type: bool
+0
+
+
+# name: noMoreAttemptedBytesEverySeed
+# type: bool
+0
+
+
+# name: strictParetoEverySeed
+# type: bool
+0
+
+
+# name: communicationFair
+# type: bool
+0
+
+
+# name: crossFormationBudgetExactEverySeed
+# type: bool
+0
+
+
+# name: directedMessageCountExactEveryStepAndSeed
+# type: bool
+0
+
+
+# name: crossFormationTreeEdgeCountExactEveryStepAndSeed
+# type: bool
+0
+
+
+# name: rootedFormationTreeEveryStepAndSeed
+# type: bool
+0
+
+
+# name: pairwiseUnionStrongEveryStepAndSeed
+# type: bool
+0
+
+
+# name: pairwisePreviousGraphExecutedEverySeed
+# type: bool
+0
+
+
+# name: receiverCoverageComplete
+# type: bool
+0
+
+
+# name: distinctMapsEverySeed
+# type: bool
+0
+
+
+# name: withinWindowChangesEverySeed
+# type: bool
+0
+
+
+# name: distinctGatewayMapsEverySeed
+# type: bool
+0
+
+
+# name: gatewayChangesEverySeed
+# type: bool
+0
+
+
+# name: minimumDifferenceFromFixedIndex
+# type: scalar
+NaN
+
+
+# name: differsFromFixedIndexEnough
+# type: bool
+0
+
+
+# name: zeroInfeasibility
+# type: bool
+0
+
+
+# name: candidateStructuralContractPassed
+# type: bool
+0
+
+
+# name: minimumPracticalGainPercent
+# type: scalar
+NaN
+
+
+# name: minimumRouteDifferenceFraction
+# type: scalar
+NaN
+
+
+# name: passesAttributionGate
+# type: bool
+0
+
+
+# name: status
+# type: sq_string
+# elements: 1
+# length: 11
+unavailable
+
+
+# name: recommendation
+# type: null_sq_string
+# elements: 0
+
+
+
+
+# name: rollingSafeAttribution
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 62
+# name: available
+# type: bool
+0
+
+
+# name: observedCandidateCount
+# type: scalar
+0
+
+
+# name: availableCandidateCount
+# type: scalar
+0
+
+
+# name: duplicateCandidateModes
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: candidateModeDuplicate
+# type: bool
+0
+
+
+# name: arm
+# type: null_sq_string
+# elements: 0
+
+
+# name: candidateMode
+# type: null_sq_string
+# elements: 0
+
+
+# name: candidateSourceWeight
+# type: scalar
+NaN
+
+
+# name: scenarioContractValid
+# type: bool
+1
+
+
+# name: formationCount
+# type: scalar
+4
+
+
+# name: expectedControlCount
+# type: scalar
+0
+
+
+# name: observedControlCount
+# type: scalar
+0
+
+
+# name: uniquelyObservedControlCount
+# type: scalar
+0
+
+
+# name: validControlCount
+# type: scalar
+0
+
+
+# name: expectedControlModes
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: missingControlModes
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: duplicateControlModes
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: invalidControlModes
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: completeControlSet
+# type: bool
+0
+
+
+# name: candidateContractPassed
+# type: bool
+0
+
+
+# name: controlContractPassed
+# type: bool
+0
+
+
+# name: scheduledBehaviorContractPassed
+# type: bool
+0
+
+
+# name: collapsedControlBehaviorPairs
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: scheduleSignatureAuditLines
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: selectedSafetyPassed
+# type: bool
+0
+
+
+# name: maturityCountsMatched
+# type: bool
+0
+
+
+# name: maturityCountsComplete
+# type: bool
+0
+
+
+# name: maturityFieldNames
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: candidateMaturityCountsByField
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: controlMaturityCountsByField
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: deliveredSafetyNoRegression
+# type: bool
+0
+
+
+# name: policyContractPassed
+# type: bool
+0
+
+
+# name: jointProjectionUsed
+# type: bool
+0
+
+
+# name: payloadConstraintEnforced
+# type: scalar
+NaN
+
+
+# name: referenceArm
+# type: null_sq_string
+# elements: 0
+
+
+# name: referenceArmBySeed
+# type: cell
+# rows: 1
+# columns: 0
+
+
+# name: referenceTrackingTieCountBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: referenceEospaBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: referenceWorstSensorEospaBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: referenceAttemptedBytesBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: referenceDeliveredSensorSafetyBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: referenceDeliveredFormationSafetyBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: candidateEospaBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: candidateWorstSensorEospaBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: candidateAttemptedBytesBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: candidateDeliveredSensorSafetyBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: candidateDeliveredFormationSafetyBySeed
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: gainVsMatchedControlPercent
+# type: scalar
+NaN
+
+
+# name: gainVsMatchedControlBySeedPercent
+# type: null_matrix
+# rows: 0
+# columns: 0
+
+
+# name: positiveGainEverySeed
+# type: bool
+0
+
+
+# name: minimumGainEverySeed
+# type: bool
+0
+
+
+# name: tailSafeVsMatchedControl
+# type: bool
+0
+
+
+# name: maximumAttemptedByteMismatchPercent
+# type: scalar
+NaN
+
+
+# name: communicationMatchedWithinTwoPercent
+# type: bool
+0
+
+
+# name: withinReferenceAttemptedBytesEverySeed
+# type: bool
+0
+
+
+# name: noMoreAttemptedBytesEverySeed
+# type: bool
+0
+
+
+# name: strictParetoEverySeed
+# type: bool
+0
+
+
+# name: communicationFair
+# type: bool
+0
+
+
+# name: minimumPracticalGainPercent
+# type: scalar
+NaN
+
+
+# name: passesAttributionGate
+# type: bool
+0
+
+
+# name: status
+# type: sq_string
+# elements: 1
+# length: 11
+unavailable
+
+
+# name: recommendation
+# type: null_sq_string
+# elements: 0
+
+
+
+
+# name: diagnosticOracle
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 7
+# name: available
+# type: bool
+1
+
+
+# name: armCount
+# type: scalar
+1
+
+
+# name: armNames
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 110
+Privileged E-OSPA-tail-guarded adaptive-trust spliced residual cycle (alpha=0.70, weights=[0.05 0.1 0.2 0.25])
+
+
+
+
+
+# name: bestFocusArm
+# type: sq_string
+# elements: 1
+# length: 110
+Privileged E-OSPA-tail-guarded adaptive-trust spliced residual cycle (alpha=0.70, weights=[0.05 0.1 0.2 0.25])
+
+
+# name: bestFocusEospa
+# type: scalar
+17.66089424135016
+
+
+# name: bestAttemptedBytes
+# type: scalar
+1942136
+
+
+# name: excludedFromPrimarySelection
+# type: bool
+1
+
+
+
+
+# name: recommendation
+# type: sq_string
+# elements: 1
+# length: 85
+The requested primary attribution family `rolling-safe` has no candidate in this run.
+
+
+
+
+# name: referenceBoundary
+# type: sq_string
+# elements: 1
+# length: 167
+Mixture-aware results use the repository componentwise powered-GM KLA approximation. This preserves multiple modes but is not an exact arbitrary-mixture density power.
+
+
+
+

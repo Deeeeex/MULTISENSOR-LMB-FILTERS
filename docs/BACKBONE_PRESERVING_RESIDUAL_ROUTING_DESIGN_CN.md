@@ -366,3 +366,28 @@ E-OSPA 安全性。
 
 - surrogate-guard smoke source SHA-256: `2ba0050c461d8a44fc369be25b7acb3ee2afb7ceaaa4dec418e7ede5128bb920`
 - surrogate-guard implementation commit: `5c79ffd`
+
+精确 E-OSPA 单节点保护的一步结果与代理版完全相同：平均 17.6609、最差
+节点 42.6104、4 条跨编队边、零 repair 和零 infeasibility。复核静态
+residual 在 \(t=75\) 的逐节点排序后，原因不是 E-OSPA 计算失效，而是
+单个 argmax 对时间尾部不稳定：
+
+| 当前排序 | 节点 | E-OSPA | 相对当前最大值 |
+|---:|---:|---:|---:|
+| 1 | 11 | 42.6925 | 0 |
+| 2 | 17 | 42.5978 | -0.2220% |
+| 3 | 16 | 42.5948 | -0.2289% |
+| 4 | 12 | 30.6564 | -28.1926% |
+
+单节点 guard 正确保护了当前最大节点 11，但三步平均的尾部节点是 16；
+后者仍被选为跨编队接收端。因此“保护当前 argmax”不能推出“保护短时窗
+最大均值”，不能进入正式三步门禁。
+
+下一版使用固定的 top-10% CVaR active set，而不是按本 seed 把阈值调到
+0.23%。对 M24，它保护当前风险最高的 \(\lceil0.1\times24\rceil=3\)
+个节点，恰好覆盖当前近并列的尾部平台；对 X36 会自动变成 4 个节点。
+其余 90% 节点仍使用原自适应收益目标，结构投影和所有通信约束不变。
+这个定义既考虑 max 风险活跃集合随时间切换，也保持跨规模的一致含义。
+
+- exact-argmax smoke source SHA-256: `9d9d26e997f4761e7f1592c8832a5e49f1e7ee8a9e47be50fbcf6dc33bde967b`
+- exact-argmax implementation commit: `004da69`
