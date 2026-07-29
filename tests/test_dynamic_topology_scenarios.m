@@ -3,6 +3,7 @@ function test_dynamic_topology_scenarios()
 
 testRollingSafeJointActionRepresentation();
 testRollingSafeJointActionProposalBank();
+testObservablePredictiveMeasurementLogScore();
 testScenarioPresets();
 testTeacherSceneDifficultyGates();
 testExplicitSensorHeadingGate();
@@ -62,6 +63,47 @@ testInfeasiblePhysicalGraphFailsClosed();
 testMixtureAwareReferenceBoundary();
 testD12OracleCallbackSmoke();
 fprintf('test_dynamic_topology_scenarios passed\n');
+end
+
+function testObservablePredictiveMeasurementLogScore()
+model = struct();
+model.clutterRate = 2;
+model.clutterPerUnitVolume = 0.02;
+model.detectionProbability = 0.9;
+model.Q = {eye(2)};
+model.C = {[1, 0, 0, 0; 0, 1, 0, 0]};
+model.sensorMotionEnabled = false;
+
+object = struct( ...
+    'r', 0.8, ...
+    'numberOfGmComponents', 1, ...
+    'w', 1, ...
+    'mu', {{zeros(4, 1)}}, ...
+    'Sigma', {{diag([1, 1, 1, 1])}});
+measurements = {[0; 0]};
+[nearScore, nearDetails] = ...
+    computeLmbPoissonMeasurementLogScore( ...
+        object, measurements, model, 1, 1);
+farObject = object;
+farObject.mu = {[20; 20; 0; 0]};
+farScore = computeLmbPoissonMeasurementLogScore( ...
+    farObject, measurements, model, 1, 1);
+clutterOnlyScore = computeLmbPoissonMeasurementLogScore( ...
+    struct([]), measurements, model, 1, 1);
+emptySetScore = computeLmbPoissonMeasurementLogScore( ...
+    struct([]), cell(0, 1), model, 1, 1);
+
+assert(nearScore > farScore);
+assert(nearScore > clutterOnlyScore);
+assert(farScore < clutterOnlyScore);
+assert(abs(clutterOnlyScore - (log(0.02) - 2)) < 1e-12);
+assert(abs(emptySetScore + 2) < 1e-12);
+assert(~nearDetails.truthUsed);
+assert(~nearDetails.exactLmbMeasurementSetLikelihood);
+assert(strcmp(nearDetails.scoreType, ...
+    'poisson-measurement-intensity-log-score'));
+assert(nearDetails.measurementCount == 1);
+assert(nearDetails.targetExpectedCount > 0);
 end
 
 function testRollingSafeJointActionProposalBank()
