@@ -1173,6 +1173,21 @@ assert(numel(graphNames) == size(graphX, 2));
 
 gitState = resolveResearchGitState();
 rolloutProtocol = getRollingSafeRolloutProtocol();
+distillationProtocol = ...
+    getRollingSafeProposalDistillationProtocol();
+assert(strcmp(distillationProtocol.datasetVariant, ...
+    'proposal-distillation-state-v1'));
+assert(isequal(distillationProtocol.datasetSeeds, ...
+    rolloutProtocol.datasetSeeds));
+assert(isequal(distillationProtocol.snapshotTimes, 75:100));
+assert(distillationProtocol.expectedBlockCount == 156);
+assert(all(distillationProtocol.actionCodeSequences(:) == 80));
+assert(~distillationProtocol.behaviorTruthUsed);
+assert(~distillationProtocol.featureTruthUsed);
+assert(distillationProtocol.targetTruthUsed);
+assert(~distillationProtocol.targetFutureOutcomeUsed);
+assert(distillationProtocol.developmentOnly);
+assert(~distillationProtocol.validationClaimAllowed);
 model = struct( ...
     'protocolId', rolloutProtocol.id, ...
     'kind', 'mlp-rolling-safe-rollout-edge-v1', ...
