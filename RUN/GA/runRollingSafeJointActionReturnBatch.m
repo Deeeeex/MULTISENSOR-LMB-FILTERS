@@ -6,10 +6,23 @@
 
 addpath(genpath(pwd));
 
-seed = parseRequiredInteger('SEED');
-currentTime = parseRequiredInteger('TIME');
-batchIndex = parseRequiredInteger('BATCH_INDEX');
-batchCount = parseRequiredInteger('BATCH_COUNT');
+environmentNames = {'SEED', 'TIME', 'BATCH_INDEX', 'BATCH_COUNT'};
+environmentValues = nan(1, numel(environmentNames));
+for environmentIdx = 1:numel(environmentNames)
+    environmentName = environmentNames{environmentIdx};
+    token = strtrim(getenv(environmentName));
+    value = str2double(token);
+    if isempty(token) || ...
+            ~isscalar(value) || ~isfinite(value) || ...
+            value < 1 || mod(value, 1) ~= 0
+        error('Set %s to one positive integer.', environmentName);
+    end
+    environmentValues(environmentIdx) = round(value);
+end
+seed = environmentValues(1);
+currentTime = environmentValues(2);
+batchIndex = environmentValues(3);
+batchCount = environmentValues(4);
 options = struct();
 maximumCandidatesToken = strtrim( ...
     getenv('MAXIMUM_CANDIDATES'));
@@ -27,14 +40,3 @@ end
 
 runRollingSafeJointActionReturnShard( ...
     seed, currentTime, batchIndex, batchCount, options);
-
-function value = parseRequiredInteger(name)
-token = strtrim(getenv(name));
-value = str2double(token);
-if isempty(token) || ...
-        ~isscalar(value) || ~isfinite(value) || ...
-        value < 1 || mod(value, 1) ~= 0
-    error('Set %s to one positive integer.', name);
-end
-value = round(value);
-end
