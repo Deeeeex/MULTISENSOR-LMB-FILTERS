@@ -2,7 +2,7 @@ function [datasetPath, dataset] = ...
     generateTruthFreeBehaviorProposalDistillationDataset(options)
 % GENERATETRUTHFREEBEHAVIORPROPOSALDISTILLATIONDATASET Expanded M24 data.
 %
-% Runs the truth-free posterior-analytic policy for 26 decisions from each
+% Runs the truth-free posterior-analytic policy for nine decisions from each
 % frozen continuation cache. At every predecision state it attaches the
 % current-risk teacher and its three one-edge exclusion alternatives.
 % Teacher graphs use current truth offline; behavior, features and history
