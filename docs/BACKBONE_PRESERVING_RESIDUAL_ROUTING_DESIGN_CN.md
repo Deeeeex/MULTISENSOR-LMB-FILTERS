@@ -342,3 +342,27 @@ topology infeasible、repair 和零跨编队边；因此没有继续运行三步
 
 - strict-guard smoke source SHA-256: `4c324f8b4270ff00f1edbcd2e4686f3408f2a20882e6070c6196e8b8e7ddbfb6`
 - strict-guard implementation commit: `97b8722`
+
+第一次最大风险保护冒烟使用的是原教师的连续任务风险代理。它成功构造了
+4 条跨编队边、没有 repair 或 infeasibility，并把一步平均 E-OSPA 从未
+保护版本的 18.4016 进一步降到 17.6609；但它仍把跨编队边接入 sensor 16，
+最差节点为 42.6104，高于静态 residual 的 42.5948。也就是说，代理风险
+选出的“最危险节点”与最终审计使用的 E-OSPA 尾部节点不一致。
+
+因此冻结一个新的指标一致版本，不修改原代理版本的协议或证据：
+
+- 自适应 edge-weight 的优化目标仍使用原连续任务风险，保留已观察到的
+  平均收益；
+- protected receiver 改为静态 residual 下当前 E-OSPA 最大的节点；
+- 只有该节点的候选 edge-weight 对使用同一 E-OSPA 做硬参照约束；
+- 当前 E-OSPA 的计算复现注册滤波器的 existence pruning、LMB MAP
+  cardinality 和最大权重 GM 分量提取，再调用与最终报告相同的 Euclidean
+  OSPA；
+- 该量仍读取真值，只能作为开发上界，不能直接成为部署策略。
+
+这样将“优化平均性能的平滑代理”和“保护论文审计尾部的精确指标”分开，
+对应一个带硬 max-risk 约束的优化问题，也避免把代理指标的安全性误写成
+E-OSPA 安全性。
+
+- surrogate-guard smoke source SHA-256: `2ba0050c461d8a44fc369be25b7acb3ee2afb7ceaaa4dec418e7ede5128bb920`
+- surrogate-guard implementation commit: `5c79ffd`

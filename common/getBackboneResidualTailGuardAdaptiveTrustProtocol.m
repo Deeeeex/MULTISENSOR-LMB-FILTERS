@@ -58,12 +58,25 @@ protocol.referenceGuardMode = ...
 protocol.protectedReceiverCount = 1;
 protocol.protectedReceiverObjective = ...
     'maximum-matched-static-expected-task-risk';
+protocol.protectionRiskMetric = ...
+    'objective-reference';
 protocol.referenceAdvantageTolerance = 1e-12;
 protocol.failClosedOnNoCompleteSafeCycle = true;
 protocol.privilegedHeadroomUsesTruth = true;
 protocol.deployable = false;
-protocol.evidencePending = true;
+protocol.evidencePending = false;
 protocol.headroomGatePassed = false;
+protocol.surrogateTailGuardRejected = true;
+protocol.smokeFeasibilityPassed = true;
+protocol.smokeFallbackUsed = false;
+protocol.smokeEospa = ...
+    17.6608942413502;
+protocol.smokeWorstSensorEospa = ...
+    42.6103813158315;
+protocol.smokeWorstSensorIndex = 16;
+protocol.smokeCrossFormationEdgeCount = 4;
+protocol.smokeSourceSha256 = ...
+    '2ba0050c461d8a44fc369be25b7acb3ee2afb7ceaaa4dec418e7ede5128bb920';
 protocol.returnDataGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;
