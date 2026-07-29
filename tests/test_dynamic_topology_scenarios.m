@@ -4,6 +4,7 @@ function test_dynamic_topology_scenarios()
 testRollingSafeJointActionRepresentation();
 testRollingSafeJointActionProposalBank();
 testObservablePredictiveMeasurementLogScore();
+testPredictiveRewardAlignmentProtocol();
 testScenarioPresets();
 testTeacherSceneDifficultyGates();
 testExplicitSensorHeadingGate();
@@ -63,6 +64,31 @@ testInfeasiblePhysicalGraphFailsClosed();
 testMixtureAwareReferenceBoundary();
 testD12OracleCallbackSmoke();
 fprintf('test_dynamic_topology_scenarios passed\n');
+end
+
+function testPredictiveRewardAlignmentProtocol()
+protocol = getPredictiveRewardAlignmentProtocol();
+headroom = ...
+    getBackboneResidualCvarTailGuardAdaptiveTrustProtocol();
+assert(strcmp(protocol.headroomProtocolId, headroom.id));
+assert(strcmp(protocol.scoreType, ...
+    'poisson-measurement-intensity-log-score'));
+assert(~protocol.scoreTruthUsed);
+assert(~protocol.scoreExactLmbMeasurementSetLikelihood);
+assert(protocol.feedbackDelay == 1);
+assert(isequal(protocol.rewardTimes, ...
+    protocol.actionTimes + 1));
+assert(all(ismember(protocol.referenceArmModes, ...
+    protocol.armModes)));
+assert(strcmp(protocol.privilegedHeadroomArmMode, ...
+    headroom.armName));
+assert(protocol.trainingOnlyDiagnostic);
+assert(isempty(protocol.developmentSeedsOpened));
+assert(isempty(protocol.heldoutSeedsOpened));
+assert(~protocol.developmentEvaluationAuthorized);
+assert(~protocol.heldoutM24Authorized);
+assert(~protocol.x36PolicyRunAuthorized);
+assert(~protocol.banditImplementationAuthorized);
 end
 
 function testObservablePredictiveMeasurementLogScore()
