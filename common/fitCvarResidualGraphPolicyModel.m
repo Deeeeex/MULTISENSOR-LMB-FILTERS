@@ -21,7 +21,7 @@ switch family
         error('Unknown CVaR graph model family: %s.', family);
 end
 model.kind = ...
-    'cvar-residual-relational-three-head-m24-v1';
+    'cvar-residual-relational-three-head-m24-v2';
 model.contractVersion = protocol.modelContractVersion;
 model.family = family;
 model.fitSeeds = fitSeeds;
