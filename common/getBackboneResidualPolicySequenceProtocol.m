@@ -26,6 +26,19 @@ protocol.requireZeroTopologyInfeasibility = true;
 protocol.maskSelectionUsesFutureOutcome = true;
 protocol.currentStepUsesTruth = true;
 protocol.deployable = false;
+protocol.headroomGatePassed = false;
+protocol.constraintEligibleMasks = { ...
+    '011', '101', '111'};
+protocol.bestSequenceMask = '101';
+protocol.bestSequenceEospa = 18.0414464472558;
+protocol.bestSequenceWorstSensorEospa = ...
+    34.6311036710960;
+protocol.bestSequenceMinimumBaselineGainFraction = ...
+    0.0401749494977313;
+protocol.bestSequenceAttemptedByteDeviationFraction = ...
+    0.000196289314091528;
+protocol.staticCurrentTimingSearchRejected = true;
+protocol.actionSpaceExpansionRequired = true;
 protocol.returnDataGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;

@@ -3180,6 +3180,17 @@ assert(sequenceProtocol.residualWeight == 0.05);
 assert(sequenceProtocol.maskSelectionUsesFutureOutcome);
 assert(sequenceProtocol.currentStepUsesTruth);
 assert(~sequenceProtocol.deployable);
+assert(~sequenceProtocol.headroomGatePassed);
+assert(isequal(sequenceProtocol.constraintEligibleMasks, ...
+    {'011', '101', '111'}));
+assert(strcmp(sequenceProtocol.bestSequenceMask, '101'));
+assert(abs(sequenceProtocol.bestSequenceEospa - ...
+    18.0414464472558) < 1e-12);
+assert(abs(sequenceProtocol. ...
+    bestSequenceMinimumBaselineGainFraction - ...
+    0.0401749494977313) < 1e-12);
+assert(sequenceProtocol.staticCurrentTimingSearchRejected);
+assert(sequenceProtocol.actionSpaceExpansionRequired);
 assert(~sequenceProtocol.returnDataGenerationAuthorized);
 assert(~sequenceProtocol.criticTrainingAuthorized);
 assert(~sequenceProtocol.x36PolicyRunAuthorized);
