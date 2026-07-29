@@ -391,3 +391,40 @@ residual 在 \(t=75\) 的逐节点排序后，原因不是 E-OSPA 计算失效�
 
 - exact-argmax smoke source SHA-256: `9d9d26e997f4761e7f1592c8832a5e49f1e7ee8a9e47be50fbcf6dc33bde967b`
 - exact-argmax implementation commit: `004da69`
+
+## 14. CVaR 活跃集合通过 M24 动作空间门禁
+
+top-10% E-OSPA active-set 版本先通过 \(t=75\) 冒烟：4 条跨编队边、
+零 repair、零 infeasibility；一步平均 E-OSPA 为 18.4231，最差节点为
+42.5978。随后在同一干净代码节点上完成 M24 seed 7、\(t=75{:}77\) 的
+冻结三步运行和独立审计：
+
+| 实验臂 | 平均 E-OSPA | 最差节点 | 尝试字节 |
+|---|---:|---:|---:|
+| 旧静态 residual | 18.8201 | 34.6311 | 5,868,888 |
+| 旧解析动态 residual | 18.7966 | 38.6978 | 5,860,992 |
+| 固定顺时针拼接环 | 19.6230 | 34.6518 | 5,873,928 |
+| 固定逆时针拼接环 | 18.9961 | 34.6300 | 5,867,832 |
+| **CVaR-tail 自适应端点与信任** | **17.7119** | **34.6286** | 5,867,136 |
+
+相对所有注册基线的最小平均收益为 **5.7707%**，越过 5% 门槛；相对
+最强尾部基线的最小收益为 **0.00393%**，因此尾部不再退化。尝试字节
+偏差仅 0.02985%，每一步均为 4 条跨编队 residual 边；独立重算的三个
+sensor-level 和 formation-level \(B=3\) 窗口全部强连通，repair、
+payload emergency 和 topology infeasibility 均为零。mean、tail、
+bytes、safety、provenance 和 cross-count 六个审计门槛全部通过。
+
+这建立了目前最重要的 M24 动作空间结论：固定高权重主干负责稳定性，
+全网 residual 环负责每步有效信息流，端点与离散信任等级提供平均收益，
+top-10% E-OSPA active set 则限制短时尾部风险。四部分必须联合存在；
+只换端点、统一增权、保护所有节点或只保护当前 argmax 都已被前序实验
+分别否定。
+
+当前通过仍是读取真值的非部署 headroom，不是最终方法结果。它只授权下一
+阶段生成多状态、多 seed 的 edge-weight/active-set 回报数据；模型训练、
+留出 M24、X36 和论文级结论仍需各自门禁。部署方法将以真值无关的图特征
+预测边价值、信任等级和尾部活跃概率，再由同一个确定性 CVaR 强环投影执行。
+
+- source SHA-256: `c6da405b307f28db3a93f8a4c29bf7f35b5f9682dc0712e63ae898d4aed3e95c`
+- audit SHA-256: `acb029fa4c8acf0a2ff1880f610a47775352b8ab718af0a3319aa3ccbfd3b396`
+- implementation commit: `e663ca4`
