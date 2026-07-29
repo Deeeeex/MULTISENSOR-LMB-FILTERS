@@ -46,6 +46,7 @@ testRootedFormationTreeProjection();
 testRollingFormationMatchingProjection();
 testRollingJointSuccessorProjection();
 testRollingSafeRoutingPolicy();
+testBackbonePreservingResidualRouting();
 testCounterfactualConsensusTeacherSemantics();
 testRollingSafeRolloutFeatureAndModelContract();
 testStructuredFormationTreeRanker();
@@ -570,6 +571,7 @@ try
 catch
     invalidWeightRejected = true;
 end
+
 assert(invalidWeightRejected);
 assert(isOfflineCounterfactualSequenceMode( ...
     'rolling-safe-sequence-t75-s402424-w70'));
@@ -3102,6 +3104,113 @@ assert(diagnostics.summary.deliveryCount == 2);
 assert(diagnostics.summary.attemptedPayloadBytes > ...
     diagnostics.summary.payloadBytes);
 assert(diagnostics.summary.payloadBytes > 0);
+end
+
+function testBackbonePreservingResidualRouting()
+protocol = getBackbonePreservingResidualProtocol();
+assert(strcmp(protocol.id, ...
+    'backbone-preserving-additive-residual-routing-v1'));
+assert(protocol.dominantSourceWeight == 0.70);
+assert(protocol.residualSourceWeight == 0.05);
+assert(protocol.selfWeightWithDistinctResidual == 0.25);
+assert(numel(protocol.armNames) == 7);
+assert(ismember(protocol.currentOracleArm, protocol.armNames));
+assert(~protocol.returnDataGenerationAuthorized);
+assert(~protocol.criticTrainingAuthorized);
+assert(~protocol.x36PolicyRunAuthorized);
+
+context = makeSyntheticRollingContextForGroups( ...
+    repelem(1:4, 4));
+sensorCount = numel(context.localPosteriorBySensor);
+context.directedMessageBudget = 2 * sensorCount;
+[dominantAdjacency, ~] = ...
+    selectRegisteredDirectedRoutingPolicy( ...
+        context, 'fixed-index-star', ...
+        struct('sourceWeight', 0.70));
+[staticAdjacency, staticDetails] = ...
+    selectBackbonePreservingResidualControl( ...
+        context, struct( ...
+            'dominantWeight', 0.70, ...
+            'residualWeight', 0.05));
+assert(all(sum(staticAdjacency, 2) >= 1));
+assert(all(sum(staticAdjacency, 2) <= 2));
+assert(nnz(staticAdjacency) <= 2 * sensorCount);
+assert(all(dominantAdjacency(:) <= staticAdjacency(:)));
+assert(max(abs(sum( ...
+    staticDetails.fusionWeightMatrix, 2) - 1)) < 1e-12);
+for receiverIdx = 1:sensorCount
+    dominantSource = staticDetails. ...
+        dominantSourcesByReceiver(receiverIdx);
+    residualSource = staticDetails. ...
+        residualSourcesByReceiver(receiverIdx);
+    expectedDominantWeight = 0.70;
+    if dominantSource == residualSource
+        expectedDominantWeight = 0.75;
+    end
+    assert(abs(staticDetails.fusionWeightMatrix( ...
+        receiverIdx, dominantSource) - ...
+        expectedDominantWeight) < 1e-12);
+end
+assert(strcmp(staticDetails.backboneMode, ...
+    'fixed-index-plus-balanced-cycle-residual'));
+assert(staticDetails.messageCount == nnz(staticAdjacency));
+assert(staticDetails.maximumMessagesPerReceiver <= 2);
+
+history = false(sensorCount, sensorCount, 0);
+for currentTime = 1:3
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    context.previousAdjacencyHistoryCount = size(history, 3);
+    if isempty(history)
+        context.previousAdjacency = false(sensorCount);
+        context.previousAdjacencyHistoryTimes = [];
+    else
+        context.previousAdjacency = history(:, :, end);
+        context.previousAdjacencyHistoryTimes = ...
+            (currentTime - size(history, 3)): ...
+            (currentTime - 1);
+    end
+    [dynamicAdjacency, dynamicDetails] = ...
+        selectBackbonePreservingResidualRoutingPolicy( ...
+            context, 'external-scores', struct( ...
+                'edgeScoreMatrix', reshape( ...
+                    1:sensorCount^2, sensorCount, sensorCount), ...
+                'posteriorUsed', false, ...
+                'dominantWeight', 0.70, ...
+                'residualWeight', 0.05, ...
+                'payloadToleranceFraction', inf));
+    assert(all(sum(dynamicAdjacency, 2) >= 1));
+    assert(all(sum(dynamicAdjacency, 2) <= 2));
+    assert(nnz(dynamicAdjacency) == nnz(staticAdjacency));
+    assert(all(dominantAdjacency(:) <= dynamicAdjacency(:)));
+    assert(max(abs(sum( ...
+        dynamicDetails.fusionWeightMatrix, 2) - 1)) < 1e-12);
+    assert(strcmp(dynamicDetails.backboneMode, ...
+        'fixed-index-plus-balanced-cycle-residual'));
+    assert(dynamicDetails.sourceWeight == 0.05);
+    assert(dynamicDetails. ...
+        crossOverrideOfDuplicateReceiverCount == 0);
+    assert(~dynamicDetails.truthUsed);
+    if currentTime >= 3
+        assert(dynamicDetails.sensorWindowMature);
+        assert(dynamicDetails.sensorWindowStrongConnected);
+        assert(dynamicDetails.formationWindowMature);
+        assert(dynamicDetails.formationWindowStrongConnected);
+    end
+    history = appendTestHistory( ...
+        history, dynamicAdjacency, 2);
+end
+
+invalidWeightsRejected = false;
+try
+    selectBackbonePreservingResidualControl( ...
+        context, struct( ...
+            'dominantWeight', 0.95, ...
+            'residualWeight', 0.05));
+catch
+    invalidWeightsRejected = true;
+end
+assert(invalidWeightsRejected);
 end
 
 function testCounterfactualConsensusTeacherSemantics()
