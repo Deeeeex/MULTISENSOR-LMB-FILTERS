@@ -73,6 +73,23 @@ protocol.auditSha256 = ...
      '0c5124506ad4dc6d3d39a3d79f31ec8'];
 protocol.auditGenerationCommit = ...
     'd13365b05e161984a5d1c1747c3861fea1cce0c1';
+protocol.modelContractVersion = ...
+    'rolling-safe-expanded-proposal-head-model-m24-v1';
+protocol.modelHeadActionCodes = [0, 90, 91, 92];
+protocol.modelSelectionMaximumBannedEdges = 0;
+protocol.modelEvaluationMaximumBannedEdges = 1;
+protocol.modelEvaluationTopK = 16;
+protocol.modelRidgeFeatureModes = {'raw', 'graph-context'};
+protocol.modelRidgeLambdaGrid = [1e-4, 1e-2, 1, 100];
+protocol.modelMlpFeatureModes = {'graph-context'};
+protocol.modelMlpHiddenWidthGrid = [16, 32, 64];
+protocol.modelMlpLambdaGrid = [1e-5, 1e-3];
+protocol.modelMlpEpochCount = 200;
+protocol.modelMlpLearningRate = 0.01;
+protocol.modelInitializationSeed = 9042;
+protocol.minimumExpandedTargetStateCaptureFraction = 0.80;
+protocol.minimumExpandedSeedTargetStateCaptureFraction = 2 / 3;
+protocol.minimumLegacyValueStateCaptureFraction = 0.80;
 protocol.behaviorTruthUsed = false;
 protocol.behaviorFutureOutcomeUsed = false;
 protocol.featureTruthUsed = false;
