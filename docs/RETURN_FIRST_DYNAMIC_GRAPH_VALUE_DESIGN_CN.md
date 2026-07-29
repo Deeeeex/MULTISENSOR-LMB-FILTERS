@@ -98,3 +98,27 @@ sum/mean/max 统计，使 M24 与 X36 共用参数，不依赖固定节点编号
 变化和边间交互；用 exact projector 给学习动作提供可审计的滚动连通保证。
 最终贡献是否成立仍由 M24/X36 的 held-out 闭环结果决定，而不是由训练损失
 或教师图命中率决定。
+
+## 5. M24 动作空间判定
+
+冻结协议在 M24-hard seed 7、`t=75:77` 上得到：
+
+| Arm | E-OSPA | Worst node | 相对最强静态均值收益 | Byte deviation |
+|:--|--:|--:|--:|--:|
+| Local-only | 23.4600 | 42.0469 | — | — |
+| Fixed-index w=0.50 | **20.0187** | 35.1414 | 0 | — |
+| Fixed-cycle w=0.50 | 22.6913 | 38.5381 | -13.35% | — |
+| Truth-free analytic | 24.1012 | 38.7993 | -20.39% | -2.85% |
+| Privileged current-risk | 21.6318 | **35.0717** | -8.06% | 0.80% |
+| Privileged minimax-risk | 21.4258 | 35.0938 | -7.03% | 1.01% |
+
+两个 privileged 上限都满足尾部、通信量、rolling-\(B=3\)、repair 和
+emergency 条件，却仍被 fixed-index 的平均跟踪性能支配。因此失败不能再
+归因于模型表达能力；在这个动作空间中，强制用跨编队边**替换**安全 cycle
+backbone 的输入，本身会丢失固定主干提供的有效信息。
+
+本版本的 return 数据生成、critic 训练和 X36 策略比较全部停止。下一版改为
+backbone-preserving additive residual routing：保留高权重 fixed-index
+主干，再用低权重 residual 通道完成编队内安全闭环和跨编队交换。动态动作
+只替换 residual 边，不再替换强主干边。这样可以把相对强基线的扰动限制在
+residual weight 内，同时继续用 exact temporal projector 保证信息流。
