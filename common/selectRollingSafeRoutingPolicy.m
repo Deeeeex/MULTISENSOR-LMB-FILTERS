@@ -36,6 +36,14 @@ if ~isscalar(sourceWeight) || ~isfinite(sourceWeight) || ...
         sourceWeight <= 0 || sourceWeight >= 1
     error('Rolling-safe sourceWeight must lie strictly inside (0,1).');
 end
+backboneMode = lower(strrep(char(getField( ...
+    options, 'backboneMode', ...
+    'fixed-balanced-cycle')), '_', '-'));
+if ~ismember(backboneMode, { ...
+        'fixed-balanced-cycle', 'fixed-index-star'})
+    error(['Rolling-safe backboneMode must be fixed-balanced-cycle ', ...
+        'or fixed-index-star.']);
+end
 windowLength = max(2, round(getField( ...
     options, 'connectivityWindowLength', 3)));
 if windowLength ~= 3
@@ -58,7 +66,7 @@ history = resolvePolicyHistory(context, nodeCount, windowLength);
 
 [baselineAdjacency, baselineDetails] = ...
     selectRegisteredDirectedRoutingPolicy( ...
-        context, 'fixed-balanced-cycle', ...
+        context, backboneMode, ...
         struct('sourceWeight', sourceWeight, 'phase', 1));
 baselineSources = reshape( ...
     baselineDetails.selectedSourcesByReceiver, 1, []);
@@ -335,6 +343,12 @@ else
 end
 details = struct();
 details.mode = ['rolling-safe-', mode];
+if strcmp(backboneMode, 'fixed-balanced-cycle')
+    details.backboneMode = ...
+        'fixed-balanced-cycle-phase1';
+else
+    details.backboneMode = backboneMode;
+end
 details.objective = -selection.predictedObjective;
 details.candidateIndex = NaN;
 details.selectionSeconds = toc(timerId);
@@ -367,7 +381,6 @@ details.selectedSourceWeightsByReceiver = ...
     sourceWeight * ones(1, nodeCount);
 details.baselineSourcesByReceiver = baselineSources;
 details.baselineAdjacency = baselineAdjacency;
-details.backboneMode = 'fixed-balanced-cycle-phase1';
 details.messageCount = nnz(adjacency);
 details.sourceWeight = sourceWeight;
 details.overrideMask = selectedSources ~= baselineSources;
