@@ -1,0 +1,22 @@
+# Structured set-proposal generalization audit: M24
+
+- Generated: 2026-07-29 17:25:37
+- Contract: `rolling-safe-structured-set-generalization-audit-m24-v1`
+- Generation commit: `354db503314544309f5aa7851c8830f6e5d25543`
+- Model SHA-256: `5fa14365f67bf5a17fd974fb31f3e100b57d7abf0d80e94ce7178576ef5eb5b7`
+- Model variant: `exact-oracle-hard-negative-v2`
+- Final sampled-bank training loss: `1.343494`
+- Training-state capture: `3 / 81 (3.704%)`
+- Training graph recall: `4 / 309 (1.294%)`
+- Training mean best edge F1 / distinct: `0.502058 / 4.061728`
+- LOSO state capture: `0 / 81 (0.000%)`
+- State-capture gap: `3.704 pp`
+- Seed-specific generalization failure: `0`
+- Sampled-objective/exact-projector mismatch: `0`
+- Exact-oracle hard-negative mining required: `0`
+- Incomplete exact-constraint convergence: `1`
+- Repeat fixed-round schedule authorized: `0`
+- More capacity authorized: `0`
+- Return/critic/X36 authorized: `0 / 0 / 0`
+- Pass: `1`
+- Evidence boundary: This development diagnosis replays the final all-seed model on its training states through the same exact top-16 projector used in LOSO evaluation. It distinguishes training-set projector capture from cross-seed generalization; it is not held-out validation or tracking-benefit evidence.
