@@ -186,6 +186,26 @@ assert(~iidProtocol.banditImplementationAuthorized);
 assert(~iidProtocol.developmentEvaluationAuthorized);
 assert(~iidProtocol.heldoutM24Authorized);
 assert(~iidProtocol.x36PolicyRunAuthorized);
+ordinalProtocol = ...
+    getOrdinalFullInformationLearnabilityProtocol();
+assert(strcmp(ordinalProtocol.predecessorProtocolId, ...
+    iidProtocol.id));
+assert(isequal(ordinalProtocol.trainingSeeds, ...
+    iidProtocol.trainingSeeds));
+assert(isequal(ordinalProtocol.featureVariants, { ...
+    'edge-only', ...
+    'edge-receiver-sender-difference'}));
+assert(isequal(ordinalProtocol.ridgeLambdaGrid, ...
+    [1e-2, 1e-1, 1, 10, 100]));
+assert(~ordinalProtocol.modelTrainingUsesTaskTruth);
+assert(~ordinalProtocol.modelSelectionUsesTaskTruth);
+assert(ordinalProtocol.secondaryTaskAuditUsesTruth);
+assert(ordinalProtocol.expectedPairCount == 144);
+assert(~ordinalProtocol.expandedRewardDatasetAuthorized);
+assert(~ordinalProtocol.banditImplementationAuthorized);
+assert(~ordinalProtocol.developmentEvaluationAuthorized);
+assert(~ordinalProtocol.heldoutM24Authorized);
+assert(~ordinalProtocol.x36PolicyRunAuthorized);
 end
 
 function testObservablePredictiveMeasurementLogScore()

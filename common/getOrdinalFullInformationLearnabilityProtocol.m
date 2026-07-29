@@ -1,0 +1,66 @@
+function protocol = getOrdinalFullInformationLearnabilityProtocol()
+% GETORDINALFULLINFORMATIONLEARNABILITYPROTOCOL Frozen LOSO preflight.
+
+predecessor = getIidClusterRewardActionAlignmentProtocol();
+if ~predecessor.iidClusterActionAlignmentRejected || ...
+        ~predecessor. ...
+            ordinalFullInformationLearnabilityAuditAuthorized
+    error('Ordinal full-information learnability is not authorized.');
+end
+
+protocol = struct();
+protocol.id = ...
+    'iid-cluster-ordinal-full-information-learnability-m24-v1';
+protocol.predecessorProtocolId = predecessor.id;
+protocol.graphDatasetProtocolId = ...
+    predecessor.graphDatasetProtocolId;
+protocol.sourceAnalysisPath = ...
+    predecessor.evidenceAnalysisPath;
+protocol.sourceAnalysisSha256 = ...
+    predecessor.evidenceAnalysisSha256;
+protocol.sourceAnalysisGenerationCommit = ...
+    predecessor.evidenceGenerationCommit;
+protocol.trainingSeeds = predecessor.trainingSeeds;
+protocol.snapshotTimes = predecessor.snapshotTimes;
+protocol.scoreType = predecessor.scoreType;
+protocol.featureVariants = { ...
+    'edge-only', 'edge-receiver-sender-difference'};
+protocol.ridgeLambdaGrid = [1e-2, 1e-1, 1, 10, 100];
+protocol.outerEvaluationMode = ...
+    'whole-seed-leave-one-out';
+protocol.innerSelectionMode = ...
+    'whole-seed-leave-one-out-surrogate-only';
+protocol.innerSelectionPrimaryMetric = ...
+    'surrogate-pairwise-preference-accuracy';
+protocol.innerSelectionSecondaryMetric = ...
+    'surrogate-score-difference-spearman';
+protocol.innerTieBreak = ...
+    'feature-variant-order-then-lambda-order';
+protocol.modelTarget = ...
+    'canonical-pair-iid-cluster-score-difference';
+protocol.modelSelectionUsesTaskTruth = false;
+protocol.modelTrainingUsesTaskTruth = false;
+protocol.secondaryTaskAuditUsesTruth = true;
+protocol.minimumOuterSurrogatePairwiseAccuracy = 0.60;
+protocol.minimumOuterSurrogateDifferenceSpearman = 0.25;
+protocol.minimumPositivePerSeedSurrogateSpearmanFraction = 4 / 6;
+protocol.minimumOuterTaskPreferenceAccuracy = 0.55;
+protocol.minimumOuterMeanSelectedTaskAdvantage = 0;
+protocol.expectedPairCount = ...
+    numel(protocol.trainingSeeds) * ...
+    numel(protocol.snapshotTimes) * 4;
+protocol.trainingOnlyDiagnostic = true;
+protocol.developmentSeedsOpened = [];
+protocol.heldoutSeedsOpened = [];
+protocol.expandedRewardDatasetAuthorized = false;
+protocol.banditImplementationAuthorized = false;
+protocol.developmentEvaluationAuthorized = false;
+protocol.heldoutM24Authorized = false;
+protocol.x36PolicyRunAuthorized = false;
+protocol.defaultOutputPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'ordinal_full_information_learnability_m24.mat');
+protocol.defaultReportPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'ORDINAL_FULL_INFORMATION_LEARNABILITY_M24.md');
+end
