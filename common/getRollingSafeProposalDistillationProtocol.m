@@ -112,6 +112,24 @@ protocol.expandedProposalLegacyValueStateCaptureFraction = 1 / 10;
 protocol.expandedProposalLegacyValueGraphRecallFraction = 1 / 34;
 protocol.expandedProposalLegacyValueMeanBestTargetEdgeF1 = 0.30;
 protocol.expandedProposalReturnGenerationAuthorized = false;
+protocol.expandedProposalGeneralizationAuditContractVersion = ...
+    'rolling-safe-expanded-proposal-generalization-audit-m24-v1';
+protocol.expandedProposalGeneralizationAuditPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'expanded_proposal_generalization_audit_m24.mat');
+protocol.expandedProposalGeneralizationAuditSha256 = ...
+    ['56a7354e5d76a9b2a0a79c75beb8b228', ...
+     'b8782de85377a1087388c7e7ff3da4da'];
+protocol.expandedProposalGeneralizationAuditGenerationCommit = ...
+    '5c9442d82137c2b6db31ed3cc6fa17c5cc45d0f2';
+protocol.expandedProposalTrainingStateCaptureFraction = 1;
+protocol.expandedProposalTrainingTargetGraphRecallFraction = 123 / 210;
+protocol.expandedProposalTrainingMeanBestTargetEdgeF1 = 1;
+protocol.expandedProposalStateCaptureGeneralizationGap = 52 / 54;
+protocol.expandedProposalSeedSpecificGeneralizationFailure = true;
+protocol.expandedProposalMoreCapacityAuthorized = false;
+protocol.expandedProposalStructuredSetObjectiveRequired = true;
+protocol.expandedProposalAdditionalSeedDiversityRequired = true;
 protocol.behaviorTruthUsed = false;
 protocol.behaviorFutureOutcomeUsed = false;
 protocol.featureTruthUsed = false;
