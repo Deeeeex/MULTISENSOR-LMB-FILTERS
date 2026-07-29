@@ -3112,12 +3112,35 @@ assert(strcmp(protocol.id, ...
     'backbone-preserving-additive-residual-routing-v1'));
 assert(protocol.dominantSourceWeight == 0.70);
 assert(protocol.residualSourceWeight == 0.05);
-assert(protocol.selfWeightWithDistinctResidual == 0.25);
+assert(abs(protocol.selfWeightWithDistinctResidual - ...
+    0.25) < 1e-15);
 assert(numel(protocol.armNames) == 7);
 assert(ismember(protocol.currentOracleArm, protocol.armNames));
 assert(~protocol.returnDataGenerationAuthorized);
 assert(~protocol.criticTrainingAuthorized);
 assert(~protocol.x36PolicyRunAuthorized);
+assert(abs(protocol.v1MinimumMatchedStaticGainFraction - ...
+    0.0412102333079491) < 1e-15);
+escalation = getBackbonePreservingResidualProtocol( ...
+    'v2-e10');
+assert(strcmp(escalation.predecessorProtocolId, ...
+    protocol.id));
+assert(escalation.dominantSourceWeight == 0.70);
+assert(escalation.residualSourceWeight == 0.10);
+assert(abs(escalation.selfWeightWithDistinctResidual - ...
+    0.20) < 1e-15);
+assert(strcmp(escalation.currentOracleArm, ...
+    'oracle-backbone-residual-current-a70-e10'));
+assert(escalation.v2EscalationIsSequentialDevelopment);
+assert(escalation. ...
+    v2EscalationChangesOnlyResidualWeight);
+unknownVariantRejected = false;
+try
+    getBackbonePreservingResidualProtocol('unknown');
+catch
+    unknownVariantRejected = true;
+end
+assert(unknownVariantRejected);
 
 context = makeSyntheticRollingContextForGroups( ...
     repelem(1:4, 4));

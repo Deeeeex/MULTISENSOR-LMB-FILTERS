@@ -6,10 +6,17 @@
 %     octave --quiet RUN/GA/runBackbonePreservingResidualHeadroom.m
 %   PRESET=x36-clean-scale SEED=7 \
 %     octave --quiet RUN/GA/runBackbonePreservingResidualHeadroom.m
+%   PROTOCOL_VARIANT=v2-e10 PRESET=m24-hard SEED=7 \
+%     octave --quiet RUN/GA/runBackbonePreservingResidualHeadroom.m
 
 addpath(genpath(pwd));
 
-protocol = getBackbonePreservingResidualProtocol();
+protocolVariant = strtrim(getenv('PROTOCOL_VARIANT'));
+if isempty(protocolVariant)
+    protocolVariant = 'v1-e05';
+end
+protocol = getBackbonePreservingResidualProtocol( ...
+    protocolVariant);
 presetName = lower(strtrim(getenv('PRESET')));
 if ~ismember(presetName, protocol.scenarioPresets)
     error('PRESET must be one of: %s.', ...
@@ -26,7 +33,8 @@ if isempty(outputDirectory)
     outputDirectory = fullfile( ...
         'RUN', 'GA', 'dynamic_topology', 'evidence', ...
         'backbone_residual_headroom', sprintf( ...
-            '%s_seed%d', strrep(presetName, '-', '_'), seed));
+            '%s_%s_seed%d', strrep(protocol.variant, '-', '_'), ...
+            strrep(presetName, '-', '_'), seed));
 end
 
 options = struct();
