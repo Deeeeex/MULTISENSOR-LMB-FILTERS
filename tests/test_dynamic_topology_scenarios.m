@@ -3166,6 +3166,23 @@ assert(abs(returnProtocol.bestCandidateEospa - ...
     18.9375438300753) < 1e-12);
 assert(returnProtocol.singleFirstActionSearchRejected);
 assert(returnProtocol.dynamicPolicySequenceSearchRequired);
+sequenceProtocol = ...
+    getBackboneResidualPolicySequenceProtocol();
+assert(strcmp(sequenceProtocol.baseProtocolId, protocol.id));
+assert(strcmp(sequenceProtocol.presetName, 'm24-hard'));
+assert(sequenceProtocol.seed == 7);
+assert(sequenceProtocol.anchorTime == 75);
+assert(isequal(sequenceProtocol.horizonTimes, 75:77));
+assert(isequal(sequenceProtocol.sequenceMasks, ...
+    dec2bin(0:7, 3)));
+assert(sequenceProtocol.dominantWeight == 0.70);
+assert(sequenceProtocol.residualWeight == 0.05);
+assert(sequenceProtocol.maskSelectionUsesFutureOutcome);
+assert(sequenceProtocol.currentStepUsesTruth);
+assert(~sequenceProtocol.deployable);
+assert(~sequenceProtocol.returnDataGenerationAuthorized);
+assert(~sequenceProtocol.criticTrainingAuthorized);
+assert(~sequenceProtocol.x36PolicyRunAuthorized);
 
 context = makeSyntheticRollingContextForGroups( ...
     repelem(1:4, 4));
@@ -3247,6 +3264,38 @@ for currentTime = 1:3
     end
     history = appendTestHistory( ...
         history, dynamicAdjacency, 2);
+end
+
+history = false(sensorCount, sensorCount, 0);
+staticSequenceMask = false(1, 3);
+for currentTime = sequenceProtocol.horizonTimes
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    context.previousAdjacencyHistoryCount = size(history, 3);
+    if isempty(history)
+        context.previousAdjacency = false(sensorCount);
+        context.previousAdjacencyHistoryTimes = [];
+    else
+        context.previousAdjacency = history(:, :, end);
+        context.previousAdjacencyHistoryTimes = ...
+            (currentTime - size(history, 3)): ...
+            (currentTime - 1);
+    end
+    [sequenceAdjacency, sequenceDetails] = ...
+        selectBackboneResidualPolicySequence( ...
+            context, staticSequenceMask, ...
+            sequenceProtocol.anchorTime, struct( ...
+                'dominantWeight', 0.70, ...
+                'residualWeight', 0.05));
+    assert(isequal(sequenceAdjacency, staticAdjacency));
+    assert(strcmp(sequenceDetails.policySequenceBranch, ...
+        'matched-static-residual'));
+    assert(sequenceDetails.policySequenceRelativeTime == ...
+        currentTime - sequenceProtocol.anchorTime + 1);
+    assert(~sequenceDetails.truthUsed);
+    assert(~sequenceDetails.policySequenceDeployable);
+    history = appendTestHistory( ...
+        history, sequenceAdjacency, 2);
 end
 
 invalidWeightsRejected = false;
