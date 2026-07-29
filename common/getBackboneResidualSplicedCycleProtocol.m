@@ -43,6 +43,23 @@ protocol.requireZeroPayloadEmergency = true;
 protocol.requireZeroTopologyInfeasibility = true;
 protocol.privilegedHeadroomUsesTruth = true;
 protocol.deployable = false;
+protocol.headroomGatePassed = false;
+protocol.currentOracleEospa = ...
+    18.0567158147012;
+protocol.currentOracleWorstSensorEospa = ...
+    34.6314120330557;
+protocol.minimumBaselineMeanGainFraction = ...
+    0.0393626021384249;
+protocol.minimumBaselineWorstNodeGainFraction = ...
+    -0.0000411226708800069;
+protocol.attemptedByteDeviationFraction = ...
+    0.00112457419531605;
+protocol.constraintEligible = true;
+protocol.fixedResidualWeightRejected = true;
+protocol.jointEdgeAndTrustWeightHeadroomRequired = true;
+protocol.registeredCrossResidualWeightGrid = ...
+    [0.05, 0.10, 0.20, 0.25];
+protocol.minimumSelfWeight = 0.05;
 protocol.returnDataGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;
