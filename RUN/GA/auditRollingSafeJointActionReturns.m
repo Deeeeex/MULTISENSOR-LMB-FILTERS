@@ -54,6 +54,7 @@ stateCount = numel(seedList) * numel(timeList);
 stateRows = repmat(emptyStateRow(), 1, stateCount);
 candidateRows = repmat(emptyCandidateRow(), 1, 0);
 sourceFiles = cell(1, stateCount * batchCount);
+sourceFileSha256 = cell(1, stateCount * batchCount);
 sourceFileCursor = 0;
 generationCommits = cell(1, 0);
 stateCursor = 0;
@@ -88,6 +89,8 @@ for seed = seedList
                 batchIndex, batchCount, protocol);
             sourceFileCursor = sourceFileCursor + 1;
             sourceFiles{sourceFileCursor} = shardPath;
+            sourceFileSha256{sourceFileCursor} = ...
+                computeFileSha256(shardPath);
             generationCommits{end + 1} = ...
                 shard.generationGitCommit; %#ok<AGROW>
             if shard.referenceIncluded
@@ -190,6 +193,15 @@ audit.completeOfficialGrid = ...
     isequal(seedList, protocol.datasetSeeds) && ...
     isequal(timeList, protocol.snapshotTimes);
 audit.sourceFiles = sourceFiles;
+audit.sourceFileSha256 = sourceFileSha256;
+shardManifestLines = cell(1, numel(sourceFiles));
+for sourceIdx = 1:numel(sourceFiles)
+    shardManifestLines{sourceIdx} = sprintf( ...
+        '%s=%s', sourceFiles{sourceIdx}, ...
+        sourceFileSha256{sourceIdx});
+end
+audit.sourceShardSetSha256 = computeTextSha256( ...
+    sprintf('%s\n', shardManifestLines{:}));
 audit.sourceGenerationCommits = generationCommits;
 audit.proposalDatasetSha256 = ...
     protocol.proposalDatasetSha256;
@@ -586,6 +598,8 @@ fprintf(fid, '- Generated: %s\n', audit.generatedAt);
 fprintf(fid, '- Contract: `%s`\n', audit.contractVersion);
 fprintf(fid, '- Return source commits: `%s`\n', ...
     strjoin(audit.sourceGenerationCommits, ', '));
+fprintf(fid, '- Raw return shard-set SHA-256: `%s`\n', ...
+    audit.sourceShardSetSha256);
 fprintf(fid, '- Complete official grid: `%d`\n', ...
     audit.completeOfficialGrid);
 fprintf(fid, '- Seeds: `%s`\n', mat2str(audit.seeds));
