@@ -111,7 +111,8 @@ assert(~metadata.futureOutcomeUsed);
 assert(~metadata.candidateRankingPerformed);
 assert(~metadata.trackingImprovementClaimed);
 assert(metadata.exactRollingProjectorRequired);
-assert(metadata.nominalProjectionRequired);
+assert(~metadata.nominalProjectionRequired);
+assert(metadata.unmodifiedCurrentCandidateGraphRequired);
 assert(isinf(metadata.payloadToleranceFraction));
 for candidateIdx = 1:size(candidates, 3)
     candidate = candidates(:, :, candidateIdx);
@@ -122,8 +123,6 @@ for candidateIdx = 1:size(candidates, 3)
     assert(~details.truthUsed);
     assert(~details.actionSequenceTruthUsed);
     assert(details.oneStepJointProjectionUsed);
-    assert(details.nominalProjectionFeasible);
-    assert(~details.repairProjectionAttempted);
     assert(~details.repairTriggered);
     assert(~details.payloadEmergencyUsed);
     assert(~details.payloadConstraintEnforced);
