@@ -26,7 +26,8 @@
 | 共享前缀 | 静态行为运行至 `t=75` |
 | 条件窗口 | `t=75:77` |
 | 融合 source weight | 0.50 |
-| 强基线 | `directed-fixed-index-w50` |
+| 强基线 | `directed-fixed-index-w50` 与 `directed-fixed-cycle-w50` |
+| 安全 backbone | `fixed-balanced-cycle` |
 | 安全层 | exact rolling-\(B=3\) projector |
 | 通信形式 | 每个 receiver 每步恰好一个邻居 posterior |
 | 诊断上限 | current-risk 与 minimax-risk privileged arms |
@@ -34,11 +35,18 @@
 privileged arms 可以读取当前真值，只用于回答“这个可行集是否有上限”，
 不能作为部署方法、验证结果或论文主结果。
 
-相对同权重 fixed-index 强基线，动作空间通过的必要条件为：
+`fixed-index-star` 的跟踪性能很强，但其有向信息流本身并不强连通；在当前
+“每个 receiver 一条消息、每步最多 \(G-1\) 个跨编队替换”的预算下，它
+不能同时充当 rolling-\(B=3\) 的安全 no-op。新动作空间因此使用同权重
+`fixed-balanced-cycle` 作为安全 backbone，同时保留 fixed-index 和
+fixed-cycle 两个静态强对照。候选必须相对两个对照都通过，而不是把 backbone
+差异计入动态收益。
 
-1. 平均 E-OSPA 至少改善 5%；
-2. 最差节点 E-OSPA 不退化；
-3. attempted bytes 偏差不超过 2%；
+动作空间通过的必要条件为：
+
+1. 相对 fixed-index 和 fixed-cycle 的平均 E-OSPA 都至少改善 5%；
+2. 最差节点 E-OSPA 相对两个强基线都不退化；
+3. 相对匹配的 fixed-cycle backbone，attempted bytes 偏差不超过 2%；
 4. 所有成熟 rolling-\(B=3\) 窗口强连通；
 5. 不出现 topology infeasibility、safety emergency 或 policy repair。
 

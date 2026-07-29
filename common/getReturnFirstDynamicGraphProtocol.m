@@ -19,11 +19,16 @@ protocol.continuationEndTime = 77;
 protocol.sourceWeight = 0.50;
 protocol.weightToken = 50;
 protocol.connectivityWindowLength = 3;
-protocol.backboneMode = 'fixed-index-star';
+protocol.backboneMode = 'fixed-balanced-cycle';
 protocol.baselineArm = 'directed-fixed-index-w50';
+protocol.matchedBackboneArm = ...
+    'directed-fixed-cycle-w50';
+protocol.baselineArms = { ...
+    protocol.baselineArm, protocol.matchedBackboneArm};
 protocol.armNames = { ...
     'local', ...
     protocol.baselineArm, ...
+    protocol.matchedBackboneArm, ...
     'rolling-safe-analytic-w50', ...
     'oracle-rolling-safe-current-w50', ...
     'oracle-rolling-safe-minimax-w50'};
@@ -35,6 +40,8 @@ protocol.maximumWorstNodeRegressionFraction = 0;
 protocol.maximumAttemptedByteDeviationFraction = 0.02;
 protocol.requireMeanTrackingBetterThanLocal = true;
 protocol.requireWorstNodeNoWorseThanLocal = true;
+protocol.requireGainAgainstEveryBaseline = true;
+protocol.requireWorstNodeNoWorseThanEveryBaseline = true;
 protocol.requireAllMatureRollingWindowsStrong = true;
 protocol.requireZeroTopologyInfeasibility = true;
 protocol.requireZeroSafetyEmergency = true;

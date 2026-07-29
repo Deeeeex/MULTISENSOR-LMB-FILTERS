@@ -1243,15 +1243,25 @@ assert(returnFirstProtocol.continuationStartTime == 75);
 assert(returnFirstProtocol.continuationEndTime == 77);
 assert(returnFirstProtocol.sourceWeight == 0.50);
 assert(strcmp(returnFirstProtocol.backboneMode, ...
-    'fixed-index-star'));
+    'fixed-balanced-cycle'));
 assert(strcmp(returnFirstProtocol.baselineArm, ...
     'directed-fixed-index-w50'));
+assert(strcmp(returnFirstProtocol.matchedBackboneArm, ...
+    'directed-fixed-cycle-w50'));
+assert(isequal(returnFirstProtocol.baselineArms, { ...
+    'directed-fixed-index-w50', ...
+    'directed-fixed-cycle-w50'}));
 assert(any(strcmp(returnFirstProtocol.armNames, ...
     returnFirstProtocol.baselineArm)));
+assert(any(strcmp(returnFirstProtocol.armNames, ...
+    returnFirstProtocol.matchedBackboneArm)));
 assert(returnFirstProtocol.minimumMeanTrackingGainFraction == 0.05);
 assert(returnFirstProtocol.maximumAttemptedByteDeviationFraction == 0.02);
 assert(returnFirstProtocol.requireMeanTrackingBetterThanLocal);
 assert(returnFirstProtocol.requireWorstNodeNoWorseThanLocal);
+assert(returnFirstProtocol.requireGainAgainstEveryBaseline);
+assert(returnFirstProtocol. ...
+    requireWorstNodeNoWorseThanEveryBaseline);
 assert(returnFirstProtocol.requireAllMatureRollingWindowsStrong);
 assert(returnFirstProtocol.requireM24HeadroomBeforeLearning);
 assert(returnFirstProtocol.requireX36HeadroomBeforeLearning);
