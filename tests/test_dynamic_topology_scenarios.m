@@ -1179,8 +1179,8 @@ assert(strcmp(distillationProtocol.datasetVariant, ...
     'proposal-distillation-state-v1'));
 assert(isequal(distillationProtocol.datasetSeeds, ...
     rolloutProtocol.datasetSeeds));
-assert(isequal(distillationProtocol.snapshotTimes, 75:100));
-assert(distillationProtocol.expectedBlockCount == 156);
+assert(isequal(distillationProtocol.snapshotTimes, 75:83));
+assert(distillationProtocol.expectedBlockCount == 54);
 assert(all(distillationProtocol.actionCodeSequences(:) == 80));
 assert(~distillationProtocol.behaviorTruthUsed);
 assert(~distillationProtocol.featureTruthUsed);

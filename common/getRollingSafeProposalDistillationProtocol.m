@@ -2,7 +2,7 @@ function protocol = getRollingSafeProposalDistillationProtocol()
 % GETROLLINGSAFEPROPOSALDISTILLATIONPROTOCOL Expanded M24 teacher data.
 %
 % The behavior trajectory is fully truth-free: posterior-analytic action
-% code 80 runs from t=75 through t=100. Privileged current-risk graphs are
+% code 80 runs from t=75 through t=83. Privileged current-risk graphs are
 % attached offline at every predecision state for proposal distillation.
 
 rollout = getRollingSafeRolloutProtocol();
@@ -17,7 +17,7 @@ protocol.presetName = rollout.presetName;
 protocol.datasetSeeds = rollout.datasetSeeds;
 protocol.continuationStartTime = ...
     rollout.continuationStartTime;
-protocol.continuationEndTime = 100;
+protocol.continuationEndTime = 83;
 protocol.snapshotTimes = ...
     protocol.continuationStartTime:protocol.continuationEndTime;
 protocol.behaviorActionCode = 80;
