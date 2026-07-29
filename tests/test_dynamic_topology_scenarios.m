@@ -96,6 +96,27 @@ assert(protocol.actionLevelPredictiveRewardAuditAuthorized);
 assert(protocol.observedTeacherScoreAdvantage < 0);
 assert(protocol.observedArmRankSpearman < 0);
 assert(protocol.observedMinimumAffectedPairSpearman < 0);
+actionAlignmentProtocol = ...
+    getPredictiveRewardActionAlignmentProtocol();
+assert(strcmp(actionAlignmentProtocol. ...
+    preflightProtocolId, protocol.id));
+assert(isequal(actionAlignmentProtocol. ...
+    trainingSeeds, [11, 17, 19, 23, 27, 29]));
+assert(isequal(actionAlignmentProtocol. ...
+    snapshotTimes, 78:83));
+assert(~actionAlignmentProtocol.scoreTruthUsed);
+assert(actionAlignmentProtocol.targetTruthUsed);
+assert(actionAlignmentProtocol.trainingOnlyDiagnostic);
+assert(actionAlignmentProtocol. ...
+    expectedReceivingFormationCount == 4);
+assert(actionAlignmentProtocol.minimumFiniteActionCount == 288);
+assert(isequal(size(actionAlignmentProtocol. ...
+    actionCodeSequences), [6, 9]));
+assert(~actionAlignmentProtocol.fullActionRewardDatasetAuthorized);
+assert(~actionAlignmentProtocol.banditImplementationAuthorized);
+assert(~actionAlignmentProtocol.developmentEvaluationAuthorized);
+assert(~actionAlignmentProtocol.heldoutM24Authorized);
+assert(~actionAlignmentProtocol.x36PolicyRunAuthorized);
 end
 
 function testObservablePredictiveMeasurementLogScore()
