@@ -1,0 +1,7 @@
+Dynamic topology screen: m24-hard, 1 seed(s), 1 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 11...
+  continuation cache: RUN/GA/dynamic_topology/cache/m24_hard_seed11_n1_sig75.mat
+  seed 11 arm Label-set two-round message-passing safe residual cycle (alpha=0.70, fixed epsilon=0.05)...
+    E-OSPA 17.5854, worst node 47.3658, consensus OSPA 23.7068, attempted 17861856 B, 391.85 s
+Report: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/closed_loop_fixed_e05_seed11_t75_t83/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260730_071528.md
+
