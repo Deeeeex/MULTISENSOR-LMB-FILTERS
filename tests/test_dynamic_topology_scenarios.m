@@ -91,6 +91,11 @@ assert(~protocol.developmentEvaluationAuthorized);
 assert(~protocol.heldoutM24Authorized);
 assert(~protocol.x36PolicyRunAuthorized);
 assert(~protocol.banditImplementationAuthorized);
+assert(protocol.alignmentPreflightRejected);
+assert(protocol.actionLevelPredictiveRewardAuditAuthorized);
+assert(protocol.observedTeacherScoreAdvantage < 0);
+assert(protocol.observedArmRankSpearman < 0);
+assert(protocol.observedMinimumAffectedPairSpearman < 0);
 end
 
 function testObservablePredictiveMeasurementLogScore()
