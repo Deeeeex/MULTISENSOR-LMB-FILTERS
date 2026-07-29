@@ -141,10 +141,9 @@ for seed = seedList
 end
 
 generationCommits = unique(generationCommits);
-if numel(generationCommits) ~= 1
-    error('Paired return shards were not generated from one commit.');
+for commitIdx = 1:numel(generationCommits)
+    validateGenerationCommit(generationCommits{commitIdx});
 end
-validateGenerationCommit(generationCommits{1});
 
 referenceMean = mean([stateRows.referenceMeanEospa]);
 oracleMean = mean([stateRows.oracleMeanEospa]);
@@ -180,7 +179,7 @@ audit.completeOfficialGrid = ...
     isequal(seedList, protocol.datasetSeeds) && ...
     isequal(timeList, protocol.snapshotTimes);
 audit.sourceFiles = sourceFiles;
-audit.sourceGenerationCommit = generationCommits{1};
+audit.sourceGenerationCommits = generationCommits;
 audit.proposalDatasetSha256 = ...
     protocol.proposalDatasetSha256;
 audit.stateRows = stateRows;
@@ -487,8 +486,8 @@ cleanup = onCleanup(@() fclose(fid));
 fprintf(fid, '# M24 paired H=3 joint-action return audit\n\n');
 fprintf(fid, '- Generated: %s\n', audit.generatedAt);
 fprintf(fid, '- Contract: `%s`\n', audit.contractVersion);
-fprintf(fid, '- Return source commit: `%s`\n', ...
-    audit.sourceGenerationCommit);
+fprintf(fid, '- Return source commits: `%s`\n', ...
+    strjoin(audit.sourceGenerationCommits, ', '));
 fprintf(fid, '- Complete official grid: `%d`\n', ...
     audit.completeOfficialGrid);
 fprintf(fid, '- Seeds: `%s`\n', mat2str(audit.seeds));
