@@ -52,11 +52,22 @@ protocol.referenceResidualWeight = ...
 protocol.requireNonnegativeReferenceAdvantage = ...
     predecessor.requireNonnegativeReferenceAdvantage;
 protocol.referenceAdvantageTolerance = 1e-12;
+protocol.referenceGuardMode = ...
+    'all-receivers';
 protocol.failClosedOnNoCompleteSafeCycle = true;
 protocol.privilegedHeadroomUsesTruth = true;
 protocol.deployable = false;
-protocol.evidencePending = true;
+protocol.evidencePending = false;
 protocol.headroomGatePassed = false;
+protocol.strictAllReceiverGuardRejected = true;
+protocol.smokeFeasibilityPassed = false;
+protocol.smokeFallbackUsed = true;
+protocol.smokeTopologyInfeasibleRate = 1;
+protocol.smokeCrossFormationEdgeCount = 0;
+protocol.smokeEospa = 19.9529;
+protocol.smokeWorstSensorEospa = 42.6925;
+protocol.smokeSourceSha256 = ...
+    '4c324f8b4270ff00f1edbcd2e4686f3408f2a20882e6070c6196e8b8e7ddbfb6';
 protocol.returnDataGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;
