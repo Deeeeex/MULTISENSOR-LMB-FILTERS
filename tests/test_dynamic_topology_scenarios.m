@@ -2,6 +2,7 @@ function test_dynamic_topology_scenarios()
 % TEST_DYNAMIC_TOPOLOGY_SCENARIOS Scenario, safety and KLA reference tests.
 
 testRollingSafeJointActionRepresentation();
+testRollingSafeJointActionProposalBank();
 testScenarioPresets();
 testTeacherSceneDifficultyGates();
 testExplicitSensorHeadingGate();
@@ -60,6 +61,122 @@ testInfeasiblePhysicalGraphFailsClosed();
 testMixtureAwareReferenceBoundary();
 testD12OracleCallbackSmoke();
 fprintf('test_dynamic_topology_scenarios passed\n');
+end
+
+function testRollingSafeJointActionProposalBank()
+[context, ~] = makeSyntheticRollingContext();
+history = false(8, 8, 0);
+policyOptions = struct( ...
+    'sourceWeight', 0.70, ...
+    'payloadToleranceFraction', 0.02);
+for currentTime = 1:2
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    context.previousAdjacencyHistoryCount = size(history, 3);
+    if isempty(history)
+        context.previousAdjacency = false(8);
+        context.previousAdjacencyHistoryTimes = [];
+    else
+        context.previousAdjacency = history(:, :, end);
+        context.previousAdjacencyHistoryTimes = ...
+            (currentTime - size(history, 3)): ...
+            (currentTime - 1);
+    end
+    adjacency = selectRollingSafeActionSequencePolicy( ...
+        context, 24, currentTime, policyOptions);
+    history = appendTestHistory(history, adjacency, 2);
+end
+context.currentTime = 3;
+context.previousAdjacencyHistory = history;
+context.previousAdjacencyHistoryCount = 2;
+context.previousAdjacencyHistoryTimes = [1, 2];
+context.previousAdjacency = history(:, :, end);
+
+[candidates, records, metadata] = ...
+    buildRollingSafeJointActionProposalBank(context);
+protocol = getRollingSafeJointActionCriticProtocol();
+assert(strcmp(metadata.contractVersion, ...
+    protocol.proposalBankContractVersion));
+assert(metadata.defaultFrozenBankUsed);
+assert(metadata.proposalCount == 28);
+assert(metadata.distinctCandidateCount == size(candidates, 3));
+assert(metadata.distinctCandidateCount == numel(records));
+assert(metadata.distinctCandidateCount >= 5);
+assert(metadata.distinctCandidateCount <= ...
+    protocol.maximumCandidateCount);
+assert(metadata.referenceActionCode == 24);
+assert(records(metadata.referenceCandidateIndex).actionCode == 24);
+assert(~metadata.truthUsed);
+assert(~metadata.futureOutcomeUsed);
+assert(~metadata.candidateRankingPerformed);
+assert(~metadata.trackingImprovementClaimed);
+assert(metadata.exactRollingProjectorRequired);
+assert(metadata.nominalProjectionRequired);
+assert(metadata.payloadToleranceFraction == ...
+    protocol.maximumAttemptedByteDeviationFraction);
+for candidateIdx = 1:size(candidates, 3)
+    candidate = candidates(:, :, candidateIdx);
+    details = records(candidateIdx).policyDetails;
+    assert(all(sum(candidate, 2) == 1));
+    assert(~any(candidate(:) & ...
+        ~context.physicalAdjacency(:)));
+    assert(~details.truthUsed);
+    assert(~details.actionSequenceTruthUsed);
+    assert(details.oneStepJointProjectionUsed);
+    assert(details.nominalProjectionFeasible);
+    assert(~details.repairProjectionAttempted);
+    assert(~details.repairTriggered);
+    assert(~details.payloadEmergencyUsed);
+    assert(details.payloadConstraintEnforced);
+    assert(details.payloadLimitPassed);
+    assert(details.sensorWindowStrongConnected);
+    assert(details.formationWindowStrongConnected);
+    assert(details.oneStepTopologyReservePassed);
+    for otherIdx = 1:(candidateIdx - 1)
+        assert(~isequal(candidate, ...
+            candidates(:, :, otherIdx)));
+    end
+end
+
+poisoned = context;
+poisoned.groundTruth = rand(9, 4);
+poisoned.futureOutcome = rand(7, 3);
+poisoned.futureMeasurements = rand(2, 5);
+[poisonedCandidates, poisonedRecords, poisonedMetadata] = ...
+    buildRollingSafeJointActionProposalBank(poisoned);
+assert(isequal(poisonedCandidates, candidates));
+assert(isequal([poisonedRecords.actionCode], ...
+    [records.actionCode]));
+assert(strcmp(poisonedMetadata.actionCodeSetSha256, ...
+    metadata.actionCodeSetSha256));
+
+[cappedCandidates, cappedRecords, cappedMetadata] = ...
+    buildRollingSafeJointActionProposalBank(context, struct( ...
+        'maximumCandidateCount', 5));
+assert(size(cappedCandidates, 3) == 5);
+assert(numel(cappedRecords) == 5);
+assert(cappedMetadata.capRejectedCount > 0);
+assert(cappedRecords(cappedMetadata. ...
+    referenceCandidateIndex).actionCode == 24);
+
+unregisteredRejected = false;
+try
+    buildRollingSafeJointActionProposalBank( ...
+        context, struct('actionCodes', [24, 59]));
+catch errorInfo
+    unregisteredRejected = ~isempty(strfind( ...
+        errorInfo.message, 'frozen truth-free registry')); %#ok<STREMP>
+end
+assert(unregisteredRejected);
+loosePayloadRejected = false;
+try
+    buildRollingSafeJointActionProposalBank( ...
+        context, struct('payloadToleranceFraction', 0.03));
+catch errorInfo
+    loosePayloadRejected = ~isempty(strfind( ...
+        errorInfo.message, 'frozen byte gate')); %#ok<STREMP>
+end
+assert(loosePayloadRejected);
 end
 
 function testRollingFormationMatchingProjection()

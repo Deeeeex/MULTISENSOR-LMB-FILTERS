@@ -117,6 +117,21 @@ datasetPath = getField(options, 'outputPath', ...
     fullfile(outputDirectory, defaultDatasetName));
 reportPath = getField(options, 'reportPath', ...
     fullfile(outputDirectory, defaultReportName));
+blockObserverFcn = getField(options, 'blockObserverFcn', []);
+if ~isempty(blockObserverFcn) && ...
+        ~isa(blockObserverFcn, 'function_handle')
+    error('blockObserverFcn must be a function handle.');
+end
+skipArtifactWrite = getField( ...
+    options, 'skipArtifactWrite', false);
+if ~isscalar(skipArtifactWrite) || ...
+        (~islogical(skipArtifactWrite) && ...
+         (~isnumeric(skipArtifactWrite) || ...
+          ~isfinite(skipArtifactWrite) || ...
+          ~ismember(skipArtifactWrite, [0, 1])))
+    error('skipArtifactWrite must be one logical scalar.');
+end
+skipArtifactWrite = logical(skipArtifactWrite);
 
 blocks = repmat(emptyBlock(), ...
     1, numel(seedList) * horizonLength);
@@ -238,6 +253,9 @@ for seedCursor = 1:numel(seedList)
         block.labelSource = ...
             'outcome-selected-safe-rollout-executed-graph';
         blocks(blockCursor) = block;
+        if ~isempty(blockObserverFcn)
+            blockObserverFcn(context, block);
+        end
     end
 end
 
@@ -325,9 +343,11 @@ if jointActionMode
         'metadata and selected history. Its control-metadata traffic ', ...
         'is not included in posterior attempted-byte totals.'];
 end
-save('-mat7-binary', datasetPath, 'dataset');
-writeReport(reportPath, dataset);
-fprintf('Dataset: %s\nReport: %s\n', datasetPath, reportPath);
+if ~skipArtifactWrite
+    save('-mat7-binary', datasetPath, 'dataset');
+    writeReport(reportPath, dataset);
+    fprintf('Dataset: %s\nReport: %s\n', datasetPath, reportPath);
+end
 end
 
 function config = buildRolloutConfig( ...
