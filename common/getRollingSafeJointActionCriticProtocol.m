@@ -191,6 +191,15 @@ protocol.privilegedValueTargetAuditGenerationCommit = ...
     '045ad799653d24f30c9382f98a186a63ca1e0231';
 protocol.privilegedValueTargetActionCodes = [0, 90, 91, 92];
 protocol.privilegedValueTargetCountByActionCode = [9, 10, 7, 8];
+protocol.valueProposalHeadActionCodes = [0, 90, 91, 92];
+protocol.valueProposalHeadTopK = 4;
+protocol.valueProposalHeadExactCurrentCrossEdgeCount = 3;
+protocol.valueProposalHeadRidgeLambdaGrid = ...
+    [1e-4, 1e-2, 1, 100];
+protocol.valueProposalHeadSupervisionModes = ...
+    {'all-privileged', 'value-weighted', 'value-only'};
+protocol.valueProposalHeadDevelopmentOnly = true;
+protocol.valueProposalHeadValidationClaimAllowed = false;
 protocol.returnHorizonSteps = 3;
 protocol.returnContinuationActionCode = ...
     protocol.referenceActionCode;
