@@ -165,6 +165,14 @@ protocol.observedDifferenceSpearmanImprovement = ...
 protocol.observedPositivePerSeedSpearmanFraction = 1;
 protocol.labelSetRepresentationAccepted = true;
 protocol.messagePassingImplementationAuthorized = true;
+protocol.messagePassingModelContractVersion = ...
+    'label-set-two-round-message-passing-policy-m24-v1';
+protocol.messagePassingRoundCount = 2;
+protocol.messageNodePooling = ...
+    'directed-incoming-outgoing-mean-max';
+protocol.messageHiddenWidth = 16;
+protocol.messagePassingOutput = ...
+    'candidate-edge-by-residual-weight-task-score';
 protocol.featuresUseTruth = false;
 protocol.featuresUseFutureOutcome = false;
 protocol.diagnosticTargetsUseTruth = true;

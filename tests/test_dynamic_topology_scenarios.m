@@ -25,6 +25,7 @@ testDirectedTopologyExecution();
 testDirectedAdjacencyConventionConversion();
 testDirectedRoutingFeaturesIgnoreTruth();
 testLabelSetDirectedActionFeatures();
+testLabelSetMessagePassingScorer();
 testKlaCompatibilityOrdering();
 testDirectedTeacherDeliveryExpectation();
 testRollingSafeTaskTeacherScores();
@@ -4641,6 +4642,85 @@ end
 assert(rejected);
 end
 
+function testLabelSetMessagePassingScorer()
+rng(9042);
+candidateCount = 8;
+weightCount = 3;
+nodeCount = 4;
+edgeFeatureCount = 4;
+nodeFeatureCount = 5;
+labelFeatureCount = 6;
+maxLabelCount = 4;
+block = struct();
+block.edgeFeatures = randn( ...
+    candidateCount, weightCount, edgeFeatureCount);
+block.edgeFeatureNames = arrayfun(@(idx) ...
+    sprintf('edge_%d', idx), 1:edgeFeatureCount, ...
+    'UniformOutput', false);
+block.nodeFeatures = randn(nodeCount, nodeFeatureCount);
+block.nodeFeatureNames = arrayfun(@(idx) ...
+    sprintf('node_%d', idx), 1:nodeFeatureCount, ...
+    'UniformOutput', false);
+block.labelFeatures = randn( ...
+    candidateCount, maxLabelCount, labelFeatureCount);
+block.labelMask = false(candidateCount, maxLabelCount);
+block.labelMask(:, 1:2) = true;
+block.labelFeatures(:, 3:4, :) = 0;
+block.labelFeatureNames = arrayfun(@(idx) ...
+    sprintf('label_%d', idx), 1:labelFeatureCount, ...
+    'UniformOutput', false);
+block.receiverIndices = [1; 1; 2; 2; 3; 3; 4; 4];
+block.senderIndices = [3; 4; 3; 4; 1; 2; 1; 2];
+block.residualWeightGrid = [0.05, 0.10, 0.20];
+block.truthUsed = false;
+block.futureOutcomeUsed = false;
+block.numericLabelIdentifiersUsedAsFeatures = false;
+model = makeLabelSetMessagePassingTestModel(block);
+scores = scoreLabelSetMessagePassingPolicyModel(model, block);
+assert(isequal(size(scores.edgeTaskScore), ...
+    [candidateCount, weightCount]));
+assert(isequal(size(scores.edgeScore), ...
+    [candidateCount, 1]));
+assert(all(isfinite(scores.edgeTaskScore(:))));
+assert(all(ismember( ...
+    scores.selectedResidualWeightByExample, ...
+    block.residualWeightGrid)));
+assert(~scores.truthUsed);
+assert(scores.permutationInvariantLabelPooling);
+assert(scores.candidatePermutationEquivariant);
+
+labelPermutation = [3, 1, 4, 2];
+labelPermuted = block;
+labelPermuted.labelFeatures = ...
+    block.labelFeatures(:, labelPermutation, :);
+labelPermuted.labelMask = ...
+    block.labelMask(:, labelPermutation);
+labelScores = scoreLabelSetMessagePassingPolicyModel( ...
+    model, labelPermuted);
+assert(max(abs(labelScores.edgeTaskScore(:) - ...
+    scores.edgeTaskScore(:))) < 1e-12);
+
+candidatePermutation = [3, 1, 8, 5, 2, 7, 4, 6];
+candidatePermuted = block;
+candidatePermuted.edgeFeatures = ...
+    block.edgeFeatures(candidatePermutation, :, :);
+candidatePermuted.labelFeatures = ...
+    block.labelFeatures(candidatePermutation, :, :);
+candidatePermuted.labelMask = ...
+    block.labelMask(candidatePermutation, :);
+candidatePermuted.receiverIndices = ...
+    block.receiverIndices(candidatePermutation);
+candidatePermuted.senderIndices = ...
+    block.senderIndices(candidatePermutation);
+candidateScores = ...
+    scoreLabelSetMessagePassingPolicyModel( ...
+        model, candidatePermuted);
+expected = scores.edgeTaskScore( ...
+    candidatePermutation, :);
+assert(max(abs(candidateScores.edgeTaskScore(:) - ...
+    expected(:))) < 1e-12);
+end
+
 function testKlaCompatibilityOrdering()
 model = generateMultisensorModel( ...
     3, [0, 0, 0], [0.9, 0.9, 0.9], [3, 3, 3], 'GA', 'LBP');
@@ -6722,6 +6802,59 @@ object.numberOfGmComponents = 1;
 object.w = 1;
 object.mu = {mu};
 object.Sigma = {Sigma};
+end
+
+function model = makeLabelSetMessagePassingTestModel(block)
+protocol = getLabelSetSimulatorPolicyProtocol();
+labelWidth = 2;
+nodeWidth = 3;
+baseWidth = 4;
+messageWidth = 3;
+edgeFeatureCount = size(block.edgeFeatures, 3);
+nodeFeatureCount = size(block.nodeFeatures, 2);
+labelFeatureCount = size(block.labelFeatures, 3);
+labelEmbeddingWidth = 3 * labelWidth + 1;
+baseInputWidth = edgeFeatureCount + ...
+    labelEmbeddingWidth + 4 * nodeWidth;
+messageInputWidth = baseWidth + ...
+    4 * (4 * baseWidth);
+outputInputWidth = messageWidth + ...
+    4 * (4 * messageWidth);
+model = struct();
+model.kind = 'label-set-message-passing-policy';
+model.contractVersion = ...
+    protocol.messagePassingModelContractVersion;
+model.edgeFeatureNames = block.edgeFeatureNames;
+model.nodeFeatureNames = block.nodeFeatureNames;
+model.labelFeatureNames = block.labelFeatureNames;
+model.edgeFeatureMean = zeros(1, edgeFeatureCount);
+model.edgeFeatureScale = ones(1, edgeFeatureCount);
+model.nodeFeatureMean = zeros(1, nodeFeatureCount);
+model.nodeFeatureScale = ones(1, nodeFeatureCount);
+model.labelFeatureMean = zeros(1, labelFeatureCount);
+model.labelFeatureScale = ones(1, labelFeatureCount);
+model.labelEncoderWeight = ...
+    randn(labelFeatureCount, labelWidth) / ...
+        sqrt(labelFeatureCount);
+model.labelEncoderBias = zeros(1, labelWidth);
+model.nodeEncoderWeight = ...
+    randn(nodeFeatureCount, nodeWidth) / ...
+        sqrt(nodeFeatureCount);
+model.nodeEncoderBias = zeros(1, nodeWidth);
+model.baseEdgeEncoderWeight = ...
+    randn(baseInputWidth, baseWidth) / ...
+        sqrt(baseInputWidth);
+model.baseEdgeEncoderBias = zeros(1, baseWidth);
+model.messageEncoderWeight = ...
+    randn(messageInputWidth, messageWidth) / ...
+        sqrt(messageInputWidth);
+model.messageEncoderBias = zeros(1, messageWidth);
+model.outputWeight = ...
+    randn(outputInputWidth, 1) / ...
+        sqrt(outputInputWidth);
+model.outputBias = 0;
+model.featuresUseTruth = false;
+model.numericLabelIdentifiersUsedAsFeatures = false;
 end
 
 function [meanVector, covariance] = objectMoments(object)
