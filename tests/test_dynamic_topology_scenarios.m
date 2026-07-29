@@ -3147,6 +3147,19 @@ catch
     unknownVariantRejected = true;
 end
 assert(unknownVariantRejected);
+returnProtocol = ...
+    getBackboneResidualReturnHeadroomProtocol();
+assert(strcmp(returnProtocol.baseProtocolId, protocol.id));
+assert(strcmp(returnProtocol.presetName, 'm24-hard'));
+assert(returnProtocol.seed == 7);
+assert(returnProtocol.currentTime == 75);
+assert(returnProtocol.horizonSteps == 3);
+assert(isequal(returnProtocol.horizonTimes, 75:77));
+assert(isequal(returnProtocol.observableActionCodes, 60:78));
+assert(returnProtocol.bestCandidateSelectionUsesFutureOutcome);
+assert(~returnProtocol.returnDataGenerationAuthorized);
+assert(~returnProtocol.criticTrainingAuthorized);
+assert(~returnProtocol.x36PolicyRunAuthorized);
 
 context = makeSyntheticRollingContextForGroups( ...
     repelem(1:4, 4));
