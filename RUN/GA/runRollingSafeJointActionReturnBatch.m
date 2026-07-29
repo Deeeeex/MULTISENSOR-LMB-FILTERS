@@ -3,6 +3,7 @@
 % Example:
 %   SEED=7 TIME=75 BATCH_INDEX=1 BATCH_COUNT=4 \
 %     octave --quiet RUN/GA/runRollingSafeJointActionReturnBatch.m
+%   PROPOSAL_ROLE=privileged selects the frozen offline target bank.
 
 addpath(genpath(pwd));
 
@@ -24,6 +25,10 @@ currentTime = environmentValues(2);
 batchIndex = environmentValues(3);
 batchCount = environmentValues(4);
 options = struct();
+proposalRole = lower(strtrim(getenv('PROPOSAL_ROLE')));
+if ~isempty(proposalRole)
+    options.proposalRole = proposalRole;
+end
 maximumCandidatesToken = strtrim( ...
     getenv('MAXIMUM_CANDIDATES'));
 if ~isempty(maximumCandidatesToken)
