@@ -1441,6 +1441,20 @@ assert(structuredProtocol. ...
 assert(structuredProtocol. ...
     structuredExactOracleHardNegativeMiningRequired);
 assert(~structuredProtocol.structuredMoreCapacityAuthorized);
+assert(strcmp(structuredProtocol.exactOracleMethodVariant, ...
+    'exact-oracle-hard-negative-v2'));
+assert(strcmp(structuredProtocol.exactOracleModelContractVersion, ...
+    'rolling-safe-exact-oracle-set-proposal-model-m24-v2'));
+assert(structuredProtocol.exactOracleHiddenWidth == 32);
+assert(abs(structuredProtocol.exactOracleLambda - 1e-2) < eps);
+assert(structuredProtocol.exactOracleEpochCountPerRound == 100);
+assert(structuredProtocol.exactOracleHardNegativeRoundCount == 3);
+assert(structuredProtocol. ...
+    exactOracleMiningMaximumBannedSelectedEdges == 0);
+assert(structuredProtocol.exactOracleInitializationSeed == 3907);
+assert(~structuredProtocol.exactOracleReturnGenerationAuthorized);
+assert(~structuredProtocol.exactOracleCriticTrainingAuthorized);
+assert(~structuredProtocol.exactOracleX36Authorized);
 assert(~structuredProtocol.returnGenerationAuthorized);
 assert(~structuredProtocol.criticTrainingAuthorized);
 assert(~structuredProtocol.x36Authorized);

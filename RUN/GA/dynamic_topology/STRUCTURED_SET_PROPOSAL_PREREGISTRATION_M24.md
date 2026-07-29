@@ -80,3 +80,31 @@ addpath(genpath(pwd));
 
 The official run must start from a clean tracked source tree with no
 untracked MATLAB/Octave source files.
+
+## Frozen v2 redesign after the sampled-bank failure
+
+The v1 run and its identical-projector audit showed 0/81 capture on both
+LOSO and all-seed training states even though the sampled-bank loss fell
+from 3.9463 to 0.5701. Therefore v2 changes only how negative complete
+graphs enter the loss; it does not widen the model, restore raw absolute
+features, change the safety layer, or lower any capture gate.
+
+- Architecture: the frozen v1 width-32, weight-decay `1e-2`,
+  relative-only four-head MLP.
+- Exact separation oracle: after each 100-epoch optimization stage, every
+  fitting state and head is passed through the unchanged exact
+  rolling-\(B=3\), exactly-three-cross-edge projector.
+- Constraint generation: any globally selected graph not already in that
+  state's softmax bank is added as a hard negative. Mining uses only the
+  nominal top-1 graph per head; the deployment evaluation remains the
+  preregistered top-16 one-edge-exclusion bank.
+- Schedule: three fixed mining rounds followed by one final 100-epoch
+  optimization stage, with Adam state carried across stages.
+- Split boundary: a LOSO fold mines hard negatives only on its eight
+  fitting seeds. The held-out seed and the legacy value-bearing states are
+  never used for mining or fitting.
+- Initialization seed: `3907` plus the already registered fold offset.
+
+The original 80% aggregate, 2/3 minimum-seed and 80% legacy-value capture
+gates remain unchanged. Passing still authorizes only H=3 return generation;
+critic training and X36 remain blocked.

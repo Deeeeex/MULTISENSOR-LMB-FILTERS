@@ -177,6 +177,27 @@ protocol.structuredSeedSpecificGeneralizationFailure = false;
 protocol.structuredSampledObjectiveProjectorMismatch = true;
 protocol.structuredExactOracleHardNegativeMiningRequired = true;
 protocol.structuredMoreCapacityAuthorized = false;
+
+% Result-blind v2 response to the sampled-objective/projector diagnosis.
+protocol.exactOracleMethodVariant = ...
+    'exact-oracle-hard-negative-v2';
+protocol.exactOracleModelContractVersion = ...
+    'rolling-safe-exact-oracle-set-proposal-model-m24-v2';
+protocol.exactOracleHiddenWidth = 32;
+protocol.exactOracleLambda = 1e-2;
+protocol.exactOracleEpochCountPerRound = 100;
+protocol.exactOracleHardNegativeRoundCount = 3;
+protocol.exactOracleMiningMaximumBannedSelectedEdges = 0;
+protocol.exactOracleInitializationSeed = 3907;
+protocol.exactOracleModelPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', 'models', ...
+    'rolling_safe_exact_oracle_set_proposal_m24_t75_t83_v2.mat');
+protocol.exactOracleReportPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'EXACT_ORACLE_SET_PROPOSAL_LOSO_DIAGNOSTIC_M24.md');
+protocol.exactOracleReturnGenerationAuthorized = false;
+protocol.exactOracleCriticTrainingAuthorized = false;
+protocol.exactOracleX36Authorized = false;
 protocol.requireExactRollingProjection = true;
 protocol.returnGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
