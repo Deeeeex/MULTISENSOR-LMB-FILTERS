@@ -1,0 +1,9 @@
+rollout imitation seed 11 codes=80-80-80-80-80-80-80-80-80: E-OSPA 23.9732, worst 38.1787, 133.47 s
+rollout imitation seed 17 codes=80-80-80-80-80-80-80-80-80: E-OSPA 20.0067, worst 39.2409, 134.08 s
+rollout imitation seed 19 codes=80-80-80-80-80-80-80-80-80: E-OSPA 24.9478, worst 39.5796, 132.90 s
+rollout imitation seed 23 codes=80-80-80-80-80-80-80-80-80: E-OSPA 13.0019, worst 28.8777, 138.35 s
+rollout imitation seed 27 codes=80-80-80-80-80-80-80-80-80: E-OSPA 17.2442, worst 32.5257, 135.71 s
+rollout imitation seed 29 codes=80-80-80-80-80-80-80-80-80: E-OSPA 11.8699, worst 24.9747, 138.17 s
+Predictive reward action alignment: RUN/GA/dynamic_topology/iid_cluster_reward_action_alignment_m24_training_states.mat
+Report: RUN/GA/dynamic_topology/IID_CLUSTER_REWARD_ACTION_ALIGNMENT_M24_TRAINING_STATES.md
+RESULT all=0 teacherPos=0.534722 globalRho=0.438356 pref=0.611111 seedFrac=1.000000 path=RUN/GA/dynamic_topology/iid_cluster_reward_action_alignment_m24_training_states.mat
