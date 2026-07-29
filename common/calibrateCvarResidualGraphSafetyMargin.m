@@ -19,14 +19,26 @@ for blockIdx = 1:numel(calibrationBlocks)
     observed = block.edgeProtectionObservedMask;
     residual = scores.edgeProtectionAdvantage(observed) - ...
         block.edgeProtectionAdvantageTarget(observed);
-    if isempty(residual) || any(~isfinite(residual))
+    if isempty(residual)
+        continue;
+    end
+    if any(~isfinite(residual))
         error('CVaR graph safety calibration residual is invalid.');
     end
     blockQuantiles(blockIdx) = empiricalQuantile( ...
         residual, protocol.modelSafetyResidualQuantile);
     observedCounts(blockIdx) = numel(residual);
 end
-margin = empiricalQuantile(blockQuantiles, ...
+observedBlockMask = observedCounts > 0;
+observedBlockFraction = mean(observedBlockMask);
+if observedBlockFraction + 1e-12 < ...
+        protocol. ...
+            minimumSafetyCalibrationObservedBlockFraction
+    error(['CVaR graph safety calibration has insufficient ', ...
+        'observed-tail block coverage.']);
+end
+margin = empiricalQuantile( ...
+    blockQuantiles(observedBlockMask), ...
     protocol.modelSafetyResidualQuantile);
 calibration = struct();
 calibration.seed = calibrationBlocks(1).seed;
@@ -34,9 +46,12 @@ calibration.quantile = ...
     protocol.modelSafetyResidualQuantile;
 calibration.blockQuantiles = blockQuantiles;
 calibration.observedCounts = observedCounts;
+calibration.observedBlockMask = observedBlockMask;
+calibration.observedBlockFraction = ...
+    observedBlockFraction;
 calibration.margin = max(0, margin);
 calibration.maximumBlockQuantile = ...
-    max(blockQuantiles);
+    max(blockQuantiles(observedBlockMask));
 calibration.truthUsed = true;
 calibration.futureOutcomeUsed = false;
 calibration.deployableCalibration = true;

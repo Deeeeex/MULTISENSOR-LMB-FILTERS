@@ -207,6 +207,7 @@ protocol.modelNodeRankLossWeight = 0.25;
 protocol.modelEdgeTaskLossWeight = 1;
 protocol.modelEdgeSafetyLossWeight = 1;
 protocol.modelSafetyResidualQuantile = 0.99;
+protocol.minimumSafetyCalibrationObservedBlockFraction = 5 / 6;
 protocol.outerLosoHeldoutSeeds = protocol.trainingSeeds;
 protocol.outerLosoCalibrationSeeds = ...
     [17, 19, 23, 27, 29, 11];
