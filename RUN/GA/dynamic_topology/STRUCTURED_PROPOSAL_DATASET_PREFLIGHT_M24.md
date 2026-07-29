@@ -1,0 +1,21 @@
+# Structured proposal dataset preflight: M24
+
+- Generated: 2026-07-29 16:42:04
+- Audit contract: `rolling-safe-structured-proposal-dataset-audit-m24-v1`
+- Audit generation commit: `3f23ba5bd7762ded9ee68a323f9713002c6b02f9`
+- Dataset SHA-256: `f75cb2eef4665bb1bbe624c92aa29348f1e00acd5ad066337bc108e7c5c89d99`
+- Dataset generation commit: `dd86712046a8d46842fb2ac40b0f973ba8b4346b`
+- Base dataset SHA-256: `ce815847e6e540e379934e2f09bbdb4f461cc2b4c7dc4ac918f35ff56feccf06`
+- Extension shard-set SHA-256: `16441c06c43a292992a2d9f2016a6e9726383f7ad2af2133227e71324ac8f701`
+- Source artifacts verified: `4 / 4`
+- State blocks / teacher targets: `81 / 309`
+- Target counts for `[00 90 91 92]`: `[81 81 77 70]`
+- Unique target / behavior / feature states: `309 / 81 / 81`
+- Feature shape: `432 x 42` per state
+- Varying feature columns: `35 / 42`
+- Positive teacher edges: `927`
+- Behavior/feature truth used: `0 / 0`
+- Teacher truth/future used: `1 / 0`
+- Behavior repair-free / feasible / B3: `1 / 1 / 1`
+- Pass: `1`
+- Evidence boundary: This preflight certifies the frozen nine-seed M24 truth-free-behavior state grid, source provenance, feature boundary and exact current-truth safe teacher alignment. It does not establish proposal capture, H=3 return, M24 benefit, critic accuracy, validation or X36 benefit.

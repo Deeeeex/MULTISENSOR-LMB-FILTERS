@@ -1369,6 +1369,16 @@ assert(structuredProtocol.expectedUniqueTargetGraphCount == 309);
 assert(structuredProtocol.expectedUniqueBehaviorGraphCount == 81);
 assert(structuredProtocol.expectedUniqueStateFeatureCount == 81);
 assert(structuredProtocol.expectedVaryingFeatureColumnCount == 35);
+assert(strcmp(structuredProtocol.auditSha256, ...
+    ['c81b77d6ff01945065eab0677852cc27', ...
+     '2972510252fcd19f43b288e855735528']));
+assert(strcmp(structuredProtocol.auditGenerationCommit, ...
+    '3f23ba5bd7762ded9ee68a323f9713002c6b02f9'));
+assert(structuredProtocol.auditSourceArtifactVerificationCount == 4);
+assert(structuredProtocol.auditAllBehaviorActionsRepairFree);
+assert(structuredProtocol.auditAllBehaviorActionsFeasible);
+assert(structuredProtocol.auditAllBehaviorWindowsPassB3);
+assert(structuredProtocol.auditPassed);
 assert(strcmp(structuredProtocol.modelFeatureMode, ...
     'relative-only'));
 assert(structuredProtocol.modelHeadCount == 4);
