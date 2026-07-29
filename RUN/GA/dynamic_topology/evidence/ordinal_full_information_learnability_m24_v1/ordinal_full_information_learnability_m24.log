@@ -1,0 +1,3 @@
+Ordinal full-information audit: RUN/GA/dynamic_topology/ordinal_full_information_learnability_m24.mat
+Report: RUN/GA/dynamic_topology/ORDINAL_FULL_INFORMATION_LEARNABILITY_M24.md
+RESULT all=0 surrogateAcc=0.506944 surrogateRho=0.047870 taskAcc=0.576389 taskRho=0.122213 selectedTask=0.065165 seedFrac=0.333333 path=RUN/GA/dynamic_topology/ordinal_full_information_learnability_m24.mat
