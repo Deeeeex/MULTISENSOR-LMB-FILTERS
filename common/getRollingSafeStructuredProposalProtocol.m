@@ -137,6 +137,28 @@ protocol.topK = 16;
 protocol.minimumStateCaptureFraction = 0.80;
 protocol.minimumSeedCaptureFraction = 2 / 3;
 protocol.minimumLegacyValueStateCaptureFraction = 0.80;
+protocol.structuredModelPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', 'models', ...
+    'rolling_safe_structured_set_proposal_m24_t75_t83_v1.mat');
+protocol.structuredModelSha256 = ...
+    ['9df630eba89c2da790514684793cf92e', ...
+     '9455bc694b418791d51940851fdcf89d'];
+protocol.structuredModelGenerationCommit = ...
+    '48379aa5183a12649c727b58324c3fdd31eb4ed8';
+protocol.structuredSelectedHiddenWidth = 32;
+protocol.structuredSelectedLambda = 1e-2;
+protocol.structuredFinalTrainingLoss = ...
+    0.570086608369893;
+protocol.structuredLosoStateCaptureFraction = 0;
+protocol.structuredLosoMinimumSeedCaptureFraction = 0;
+protocol.structuredLosoTargetGraphRecallFraction = 0;
+protocol.structuredLosoMeanBestTargetEdgeF1 = ...
+    0.218106995884774;
+protocol.structuredLosoMeanDistinctProposalCount = ...
+    4.18518518518519;
+protocol.structuredLosoProjectionFailureCount = 10;
+protocol.structuredLegacyValueStateCaptureFraction = 0;
+protocol.structuredProposalReturnGenerationAuthorized = false;
 protocol.requireExactRollingProjection = true;
 protocol.returnGenerationAuthorized = false;
 protocol.criticTrainingAuthorized = false;
