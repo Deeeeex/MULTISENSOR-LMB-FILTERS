@@ -45,7 +45,7 @@ protocol.cvarActionSpaceHeadroomEstablished = true;
 protocol.sourceSha256 = ...
     'c6da405b307f28db3a93f8a4c29bf7f35b5f9682dc0712e63ae898d4aed3e95c';
 protocol.auditSha256 = ...
-    'acb029fa4c8acf0a2ff1880f610a47775352b8ab718af0a3319aa3ccbfd3b396';
+    '109bd48f60d40e60d326c3fd79a335c2f3b1c9429aa78613bb8704c6dab4b90e';
 protocol.returnDataGenerationAuthorized = true;
 protocol.criticTrainingAuthorized = false;
 protocol.x36PolicyRunAuthorized = false;

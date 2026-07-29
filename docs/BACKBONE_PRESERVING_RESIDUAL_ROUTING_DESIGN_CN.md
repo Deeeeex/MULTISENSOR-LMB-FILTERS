@@ -426,5 +426,5 @@ top-10% E-OSPA active set 则限制短时尾部风险。四部分必须联合存
 预测边价值、信任等级和尾部活跃概率，再由同一个确定性 CVaR 强环投影执行。
 
 - source SHA-256: `c6da405b307f28db3a93f8a4c29bf7f35b5f9682dc0712e63ae898d4aed3e95c`
-- audit SHA-256: `acb029fa4c8acf0a2ff1880f610a47775352b8ab718af0a3319aa3ccbfd3b396`
+- audit SHA-256: `109bd48f60d40e60d326c3fd79a335c2f3b1c9429aa78613bb8704c6dab4b90e`
 - implementation commit: `e663ca4`
