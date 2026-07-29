@@ -6,12 +6,15 @@ headroom = ...
 rollout = getRollingSafeRolloutProtocol();
 protocol = struct();
 protocol.id = ...
-    'm24-cvar-residual-graph-policy-dataset-v1';
+    'm24-cvar-residual-graph-policy-dataset-v2-update-diagnostics';
 protocol.datasetContractVersion = ...
-    'cvar-residual-graph-policy-supervision-m24-v1';
+    'cvar-residual-graph-policy-supervision-m24-v2-update-diagnostics';
 protocol.datasetVariant = ...
     'proposal-distillation-state-v1';
-protocol.predecessorProtocolId = headroom.id;
+protocol.predecessorProtocolId = ...
+    'm24-cvar-residual-graph-policy-dataset-v1';
+protocol.headroomProtocolId = headroom.id;
+protocol.artifactVersionToken = 'v2';
 protocol.presetName = headroom.presetName;
 protocol.continuationStartTime = ...
     headroom.continuationStartTime;
@@ -37,6 +40,11 @@ protocol.payloadToleranceFraction = ...
     rollout.payloadToleranceFraction;
 protocol.filterSeedOffset = rollout.filterSeedOffset;
 protocol.featureContextMode = 'raw';
+protocol.updateDiagnosticHistoryDepth = 3;
+protocol.updateDiagnosticFeatures = { ...
+    'innovation-novelty', 'association-confidence', ...
+    'normalized-innovation-squared', ...
+    'nis-consistency-deviation'};
 protocol.behaviorCacheSha256 = { ...
     'a33665ae7709a2bbfd2bb7c0ad79f51613d6eb2534f9c7919fdd95f70b323055', ...
     'c0b67093bc055d23a920f2bf695108e74084acf7068e6ad19093645674c3fdef', ...
@@ -94,19 +102,94 @@ protocol.defaultOutputDirectory = fullfile( ...
     'cvar_residual_graph_policy_shards');
 protocol.preflightDatasetPath = fullfile( ...
     protocol.defaultOutputDirectory, ...
-    'cvar_residual_graph_m24_seed7_t75_v1.mat');
-protocol.preflightDatasetSha256 = ...
-    '40a63f2a6d74975439c38b7e9ebdf2f0bdeb31e904f1676bd707d91f9004bea5';
-protocol.preflightDatasetGenerationCommit = ...
-    '1ec8effd7edf3ab04e00c55a51e778be129cc79a';
-protocol.preflightFeatureContractSha256 = ...
-    'e8231d410d0ca1c0ee2690fdaa93b81aad3752f44c2b1c7c80527f2fcb54c148';
+    'cvar_residual_graph_m24_seed7_t75_v2.mat');
+protocol.preflightDatasetSha256 = '';
+protocol.preflightDatasetGenerationCommit = '';
+protocol.preflightFeatureContractSha256 = '';
 protocol.preflightExpectedCandidateCount = 288;
 protocol.preflightExpectedEdgeFeatureCount = 47;
-protocol.preflightExpectedNodeFeatureCount = 191;
-protocol.preflightPassed = true;
-protocol.trainingShardGenerationAuthorized = true;
-protocol.modelTrainingAuthorized = false;
+protocol.preflightExpectedNodeFeatureCount = 207;
+protocol.preflightPassed = false;
+protocol.trainingShardGenerationAuthorized = false;
+protocol.registeredShardSeeds = zeros(1, 0);
+protocol.registeredShardPaths = cellfun(@(seed) ...
+    fullfile(protocol.defaultOutputDirectory, sprintf( ...
+        'cvar_residual_graph_m24_seed%d_t75_t83_v2.mat', seed)), ...
+    num2cell(protocol.registeredShardSeeds), ...
+    'UniformOutput', false);
+protocol.registeredShardSha256 = cell(1, 0);
+protocol.shardGenerationCommit = '';
+protocol.fullShardAuditPath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'cvar_residual_graph_shard_audit_m24_v2.mat');
+protocol.fullShardAuditSha256 = '';
+protocol.fullShardDatasetSetSha256 = '';
+protocol.fullShardFeatureContractSha256 = '';
+protocol.fullShardAuditPassed = false;
+protocol.modelContractVersion = ...
+    'cvar-residual-relational-three-head-m24-v2-update-diagnostics';
+protocol.modelFamilies = {'ridge', 'mlp'};
+protocol.modelInitializationSeed = 20260730;
+protocol.modelRidgeLambda = 1e-2;
+protocol.modelNodeHiddenWidth = 16;
+protocol.modelEdgeHiddenWidth = 32;
+protocol.modelMlpEpochCount = 200;
+protocol.modelMlpLearningRate = 1e-2;
+protocol.modelMlpWeightDecay = 1e-2;
+protocol.modelHuberDelta = 1;
+protocol.modelNodeRiskLossWeight = 1;
+protocol.modelNodeRankLossWeight = 0.25;
+protocol.modelEdgeTaskLossWeight = 1;
+protocol.modelEdgeSafetyLossWeight = 1;
+protocol.modelSafetyResidualQuantile = 0.99;
+protocol.outerLosoHeldoutSeeds = protocol.trainingSeeds;
+protocol.outerLosoCalibrationSeeds = ...
+    [17, 19, 23, 27, 29, 11];
+protocol.finalModelCalibrationSeed = 29;
+protocol.modelProtectedReceiverCount = ...
+    protocol.expectedProtectedReceiverCount;
+protocol.modelEdgeRelationalFeatureCount = ...
+    protocol.preflightExpectedEdgeFeatureCount + ...
+    4 * protocol.modelNodeHiddenWidth;
+protocol.minimumNodeTailRecall = 0.80;
+protocol.minimumPerSeedNodeTailRecall = 2 / 3;
+protocol.minimumNodeTailJaccard = 0.70;
+protocol.minimumPerSeedNodeTailJaccard = 0.50;
+protocol.minimumEdgeTaskSpearman = 0.50;
+protocol.minimumPerSeedEdgeTaskSpearman = 0.35;
+protocol.maximumMedianNormalizedRegret = 0.10;
+protocol.maximumP90NormalizedRegret = 0.25;
+protocol.maximumObservedTailFalseSafeFraction = 0.01;
+protocol.minimumObservedTailTrueSafeRecall = 0.50;
+protocol.minimumSelectedSafeStateFraction = 1;
+protocol.minimumProjectionFeasibleFraction = 17 / 18;
+protocol.maximumDevelopmentFallbackCount = 1;
+protocol.minimumNonnegativeTaskStatesPerSeed = 6;
+protocol.minimumMlpWorstSeedNodeRecallImprovement = 0.05;
+protocol.minimumMlpMedianRegretImprovement = 0.05;
+protocol.trainingEvaluationMode = ...
+    'whole-seed-fit4-calibrate1-test1-outer-loso';
+protocol.developmentEvaluationMode = ...
+    'single-use-frozen-model-seed-macro';
+protocol.selectedEdgeWeightTargetUse = ...
+    'structural-validation-only';
+protocol.numericNodeIdentifiersUsed = false;
+protocol.modelTrainingAuthorized = ...
+    protocol.fullShardAuditPassed;
+protocol.rejectedV1EvidencePath = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', ...
+    'CVAR_RESIDUAL_GRAPH_POLICY_V1_REJECTION_M24.md');
+protocol.rejectedV1NodeTailRecall = ...
+    struct('ridge', 0.204, 'mlp', 0.228);
+protocol.rejectedV1MeanSelectedTaskAdvantage = ...
+    struct('ridge', -0.051, 'mlp', -0.092);
+protocol.frozenModelPath = '';
+protocol.frozenModelSha256 = '';
+protocol.frozenModelTrainingCommit = '';
+protocol.frozenModelFamily = '';
+protocol.trainingLosoPassed = false;
+protocol.developmentEvaluationAuthorized = false;
+protocol.proposalH3ReturnGenerationAuthorized = false;
 protocol.heldoutM24Authorized = false;
 protocol.x36PolicyRunAuthorized = false;
 protocol.deployable = false;
