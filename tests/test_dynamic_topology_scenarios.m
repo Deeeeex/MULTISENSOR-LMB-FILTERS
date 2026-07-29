@@ -24,6 +24,7 @@ testTimeVaryingDropAccounting();
 testDirectedTopologyExecution();
 testDirectedAdjacencyConventionConversion();
 testDirectedRoutingFeaturesIgnoreTruth();
+testLabelSetDirectedActionFeatures();
 testKlaCompatibilityOrdering();
 testDirectedTeacherDeliveryExpectation();
 testRollingSafeTaskTeacherScores();
@@ -231,6 +232,25 @@ assert(~ordinalProtocol.banditImplementationAuthorized);
 assert(~ordinalProtocol.developmentEvaluationAuthorized);
 assert(~ordinalProtocol.heldoutM24Authorized);
 assert(~ordinalProtocol.x36PolicyRunAuthorized);
+labelSetProtocol = getLabelSetSimulatorPolicyProtocol();
+assert(strcmp(labelSetProtocol.predecessorProtocolId, ...
+    ordinalProtocol.id));
+assert(isequal(labelSetProtocol.trainingSeeds, ...
+    ordinalProtocol.trainingSeeds));
+assert(isequal(labelSetProtocol.snapshotTimes, ...
+    ordinalProtocol.snapshotTimes));
+assert(isequal(labelSetProtocol.preflightSeeds, 11));
+assert(labelSetProtocol.maxLabelCount == 32);
+assert(labelSetProtocol.expectedLabelFeatureCount == 34);
+assert(~labelSetProtocol.numericLabelIdentifiersUsedAsFeatures);
+assert(strcmp(labelSetProtocol.labelCapacityOverflowPolicy, ...
+    'fail-closed-no-truncation'));
+assert(labelSetProtocol.labelSetShardGenerationAuthorized);
+assert(labelSetProtocol.representationAuditAuthorized);
+assert(~labelSetProtocol.closedLoopPolicyTrainingAuthorized);
+assert(~labelSetProtocol.developmentEvaluationAuthorized);
+assert(~labelSetProtocol.heldoutM24Authorized);
+assert(~labelSetProtocol.x36PolicyRunAuthorized);
 end
 
 function testObservablePredictiveMeasurementLogScore()
@@ -4511,6 +4531,92 @@ context.model.dynamicTopologyScenario.targetTrajectories = ...
 [after, namesAfter] = computeDirectedRoutingFeatures(context);
 assert(isequal(namesBefore, namesAfter));
 assert(isequaln(before, after));
+end
+
+function testLabelSetDirectedActionFeatures()
+model = generateMultisensorModel( ...
+    2, [0, 0], [0.9, 0.9], [3, 3], 'GA', 'LBP');
+model.dynamicTopologyScenario = struct( ...
+    'config', struct('sensorGroupIds', [1, 2]), ...
+    'targetTrajectories', {{100 * ones(4, 2)}});
+receiverShared = makeObject(model, 1, 1, 0.80, ...
+    [0; 0; 0; 0], eye(4));
+receiverShared.numberOfGmComponents = 2;
+receiverShared.w = [0.5, 0.5];
+receiverShared.mu = {[-1; 0; 0; 0], [1; 0; 0; 0]};
+receiverShared.Sigma = {eye(4), eye(4)};
+receiverShared.associationConfidence = 0.7;
+receiverShared.detectionAssociationMass = 0.6;
+receiverShared.associationAmbiguity = 0.3;
+receiverOnly = makeObject(model, 1, 2, 0.40, ...
+    [10; 0; 0; 0], 2 * eye(4));
+senderShared = makeObject(model, 1, 1, 0.90, ...
+    [2; 0; 1; 0], 0.5 * eye(4));
+receiverObjects = [receiverOnly, receiverShared];
+senderObjects = senderShared;
+context = struct( ...
+    'localPosteriorBySensor', ...
+        {{receiverObjects, senderObjects}}, ...
+    'model', model);
+options = struct('maxLabelCount', 4);
+[before, mask, names, metadata] = ...
+    computeLabelSetDirectedActionFeatures( ...
+        context, [1; 2], [2; 1], options);
+assert(isequal(size(before), [2, 4, 34]));
+assert(isequal(size(mask), [2, 4]));
+assert(all(sum(mask, 2) == 2));
+assert(numel(names) == 34);
+assert(~metadata.truthUsed);
+assert(~metadata.futureOutcomeUsed);
+assert(~metadata.numericLabelIdentifiersUsedAsFeatures);
+assert(metadata.losslessWithinCapacity);
+assert(metadata.maxObservedLabelCount == 2);
+mixtureEntropyIdx = find(strcmp( ...
+    names, 'receiver_normalized_mixture_entropy'));
+betweenRatioIdx = find(strcmp( ...
+    names, 'receiver_position_between_component_ratio'));
+assert(before(1, 1, mixtureEntropyIdx) > 0);
+assert(before(1, 1, betweenRatioIdx) > 0);
+
+context.localPosteriorBySensor{1} = ...
+    [receiverShared, receiverOnly];
+context.model.dynamicTopologyScenario.targetTrajectories = ...
+    {-1e9 * ones(4, 2)};
+[permuted, permutedMask, permutedNames] = ...
+    computeLabelSetDirectedActionFeatures( ...
+        context, [1; 2], [2; 1], options);
+assert(isequaln(before, permuted));
+assert(isequal(mask, permutedMask));
+assert(isequal(names, permutedNames));
+
+renamedReceiver = context.localPosteriorBySensor{1};
+renamedSender = context.localPosteriorBySensor{2};
+for objectIdx = 1:numel(renamedReceiver)
+    renamedReceiver(objectIdx).birthTime = 9;
+    renamedReceiver(objectIdx).birthLocation = ...
+        renamedReceiver(objectIdx).birthLocation + 20;
+end
+renamedSender.birthTime = 9;
+renamedSender.birthLocation = ...
+    renamedSender.birthLocation + 20;
+context.localPosteriorBySensor = ...
+    {renamedReceiver, renamedSender};
+[renamed, renamedMask] = ...
+    computeLabelSetDirectedActionFeatures( ...
+        context, [1; 2], [2; 1], options);
+assert(isequaln(permuted, renamed));
+assert(isequal(permutedMask, renamedMask));
+
+rejected = false;
+try
+    computeLabelSetDirectedActionFeatures( ...
+        context, 1, 2, struct('maxLabelCount', 1));
+catch errorInfo
+    rejected = ~isempty(strfind( ...
+        errorInfo.message, ...
+        'exceeding the frozen lossless capacity')); %#ok<STREMP>
+end
+assert(rejected);
 end
 
 function testKlaCompatibilityOrdering()
