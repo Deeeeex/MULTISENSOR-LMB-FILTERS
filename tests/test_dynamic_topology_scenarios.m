@@ -5116,7 +5116,7 @@ protocol = getLabelSetSimulatorPolicyProtocol();
 assert(protocol.macroActionPreflightAuthorized);
 assert(strcmp(protocol.macroActionContractVersion, ...
     'm24-label-set-causal-h3-graph-option-preflight-v1'));
-assert(numel(protocol.macroActionNames) == 3);
+assert(numel(protocol.macroActionNames) == 8);
 assert(protocol.macroActionReferenceToken == 1);
 assert(size(protocol.macroActionSequences, 2) == ...
     protocol.returnValueGateHorizon);
@@ -5143,6 +5143,14 @@ assert(protocol.diverseGraphOptionMinimumDistinctCandidateCount == 6);
 assert(protocol.diverseGraphOptionExpectedSelectedMessageCount == 40);
 assert(protocol.diverseGraphOptionMaximumSentinelCrossEdgeJaccard == 0.5);
 assert(protocol.diverseGraphOptionMinimumIncrementalOracleGainPercent == 2);
+assert(isequal(protocol.diverseGraphOptionActionTokens, [1, 3:8]));
+assert(isequal(size(protocol.diverseGraphOptionActionSequences), [7, 3]));
+assert(isequal(protocol.diverseGraphOptionActionSequences(1, :), ...
+    [1, 1, 1]));
+assert(isequal(protocol.diverseGraphOptionActionSequences(2, :), ...
+    [3, 3, 3]));
+assert(isequal(protocol.diverseGraphOptionActionSequences(end, :), ...
+    [8, 8, 8]));
 assert(protocol.macroActionBehaviorSourceGenerationAuthorized);
 assert(strcmp( ...
     protocol.macroActionBehaviorSourceContractVersion, ...

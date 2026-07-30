@@ -45,6 +45,9 @@ switch auditMode
     case 'behavior-distribution-shift'
         registeredActionSequences = ...
             protocol.macroActionDistributionShiftSequences;
+    case 'diverse-proposal-headroom'
+        registeredActionSequences = ...
+            protocol.diverseGraphOptionActionSequences;
     otherwise
         error('Unknown graph-option auditMode.');
 end
@@ -203,6 +206,10 @@ if strcmp(auditMode, ...
         'behavior-distribution-shift')
     preflight.auditContractVersion = ...
         protocol.macroActionDistributionShiftContractVersion;
+elseif strcmp(auditMode, ...
+        'diverse-proposal-headroom')
+    preflight.auditContractVersion = ...
+        protocol.diverseGraphOptionAuditContractVersion;
 else
     preflight.auditContractVersion = ...
         protocol.macroActionContractVersion;
@@ -554,6 +561,15 @@ switch actionToken
                     'protocol', protocol, ...
                     'fixedResidualWeight', ...
                         protocol.localResidualWeight));
+    case {4, 5, 6, 7, 8}
+        [adjacency, details] = ...
+            selectDiverseLabelSetMessagePassingRoutingPolicy( ...
+                context, model, actionToken - 2, struct( ...
+                    'protocol', protocol, ...
+                    'proposalCount', ...
+                        protocol.diverseGraphOptionProposalCount, ...
+                    'fixedResidualWeight', ...
+                        protocol.diverseGraphOptionResidualWeight));
     otherwise
         error('Unknown graph-option action token.');
 end
@@ -797,8 +813,14 @@ inputs.model.simulationLength = maximumTime;
 end
 
 function token = formatSequenceName(sequence)
-symbols = 'CWL';
-token = symbols(sequence);
+if all(sequence <= 3)
+    symbols = 'CWL';
+    token = symbols(sequence);
+    return;
+end
+symbols = {'C', 'W', 'G1', 'G2', 'G3', 'G4', 'G5', 'G6'};
+parts = symbols(sequence);
+token = strjoin(parts, '-');
 end
 
 function token = behaviorActionToken(action)
