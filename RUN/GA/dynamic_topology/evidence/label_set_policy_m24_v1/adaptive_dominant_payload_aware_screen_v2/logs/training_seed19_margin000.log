@@ -1,0 +1,6 @@
+Dynamic topology screen: m24-hard, 1 seed(s), 1 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 19...
+  continuation cache: RUN/GA/dynamic_topology/cache/m24_hard_seed19_n1_sig75.mat
+  seed 19 arm Adaptive dominant composite balanced payload-budget routing (margin=0.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 17.8796, worst node 33.2045, consensus OSPA 21.5208, attempted 17680536 B, 401.20 s
+Report: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_payload_aware_screen_v2/margin000/training/seed19/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260731_023745.md
