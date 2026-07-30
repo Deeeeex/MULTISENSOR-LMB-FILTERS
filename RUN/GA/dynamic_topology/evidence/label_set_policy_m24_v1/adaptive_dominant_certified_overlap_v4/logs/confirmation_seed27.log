@@ -1,0 +1,7 @@
+Dynamic topology screen: m24-hard, 1 seed(s), 1 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 27...
+  continuation cache: RUN/GA/dynamic_topology/cache/m24_hard_seed27_n1_sig75.mat
+  seed 27 arm Adaptive dominant certified-overlap payload-budget routing (margin=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 12.3253, worst node 32.0580, consensus OSPA 17.1046, attempted 16378448 B, 387.56 s
+Report: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/confirmation/training/seed27/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260731_043519.md
+ans = RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/confirmation/training/seed27/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260731_043519.md
