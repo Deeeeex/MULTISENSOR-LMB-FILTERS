@@ -1,0 +1,4 @@
+Adaptive-dominant full-window summary: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_balanced_full_window_v1/summary/LABEL_SET_ADAPTIVE_DOMINANT_FULL_WINDOW_M24_V1.md
+SUMMARY=RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_balanced_full_window_v1/summary/LABEL_SET_ADAPTIVE_DOMINANT_FULL_WINDOW_M24_V1.md
+PASS=1 meanGain=29.951895 positive=6/6 worstGain=28.353864 consensusGain=22.295043 maxByte=1.641403 restart=1 hard=1 legacyGain=25.788837
+
