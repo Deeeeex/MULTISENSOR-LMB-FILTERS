@@ -1,0 +1,4 @@
+Adaptive-dominant development summary: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_balanced_development_v1/summary/LABEL_SET_ADAPTIVE_DOMINANT_DEVELOPMENT_M24_V1.md
+SUMMARY=RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_balanced_development_v1/summary/LABEL_SET_ADAPTIVE_DOMINANT_DEVELOPMENT_M24_V1.md
+PASS=0 meanGain=35.412599 positive=2/2 worstGain=51.952299 consensusGain=34.183153 maxByte=2.001725 hard=1
+
