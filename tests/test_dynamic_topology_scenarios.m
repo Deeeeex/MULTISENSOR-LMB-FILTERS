@@ -27,6 +27,7 @@ testDirectedRoutingFeaturesIgnoreTruth();
 testLabelSetDirectedActionFeatures();
 testLabelSetMessagePassingScorer();
 testLabelSetCausalGraphOptionProtocol();
+testDynamicTopologyRestartTraceHash();
 testNestedOneDimensionalGateLoso();
 testKlaCompatibilityOrdering();
 testDirectedTeacherDeliveryExpectation();
@@ -5092,6 +5093,51 @@ assert(isequal(protocol.macroActionSentinelSeedTimes, ...
 assert(protocol.macroActionFullGridMinimumOracleGainPercent == 5);
 assert(protocol.macroActionFullGridMinimumLosoHeadroomPercent == 3);
 assert(protocol.macroActionMinimumIncrementalOracleGainPercent == 2);
+assert(protocol.macroActionBehaviorSourceGenerationAuthorized);
+assert(strcmp( ...
+    protocol.macroActionBehaviorSourceContractVersion, ...
+    'm24-label-set-graph-option-behavior-source-shard-v1'));
+assert(isequal(protocol.macroActionBehaviorSourceTimes, 78:81));
+assert(isequal(protocol.macroActionBehaviorActions, { ...
+    'fixed-counter-clockwise', ...
+    'label-set-message-passing-safe-fixed-e05-a70'}));
+assert(protocol.macroActionDistributionShiftAuditRequired);
+assert(protocol.macroActionRestartEquivalenceAuditRequired);
+end
+
+function testDynamicTopologyRestartTraceHash()
+estimate = struct();
+estimate.labels = {[1; 2], [3; 4]};
+estimate.mu = {{[1; 2]}, {[3; 4]}};
+estimate.Sigma = {{eye(2)}, {2 * eye(2)}};
+estimates = {estimate, estimate};
+diagnostics = struct();
+diagnostics.topologyActiveEdge = false(2, 2, 2);
+diagnostics.topologyActiveEdge(1, 2, :) = true;
+diagnostics.topologyPolicyFusionWeightMatrix = { ...
+    [1, 0; 0.7, 0.3], [1, 0; 0.7, 0.3]};
+diagnostics.attemptedPayloadBytes = ones(2, 2, 2);
+diagnostics.payloadBytes = ones(2, 2, 2);
+diagnostics.localInnovation = [1, 2; 3, 4];
+diagnostics.localAssociationConfidence = ...
+    [0.1, 0.2; 0.3, 0.4];
+diagnostics.localNisNorm = [NaN, 1; 2, 3];
+diagnostics.localNisDeviation = [NaN, -1; 0, 1];
+diagnostics.topologyDirectedMessageCount = [1, 1];
+first = computeDynamicTopologyRestartTraceSha256( ...
+    estimates, diagnostics, [1, 2]);
+second = computeDynamicTopologyRestartTraceSha256( ...
+    estimates, diagnostics, [1, 2]);
+assert(isequal(first, second));
+diagnostics.topologyPolicyFusionWeightMatrix{2}(2, 1) = 0.6;
+changed = computeDynamicTopologyRestartTraceSha256( ...
+    estimates, diagnostics, [1, 2]);
+assert(strcmp(first.estimateSha256, ...
+    changed.estimateSha256));
+assert(~strcmp(first.fusionWeightSha256, ...
+    changed.fusionWeightSha256));
+assert(~strcmp(first.overallSha256, ...
+    changed.overallSha256));
 end
 
 function testNestedOneDimensionalGateLoso()
