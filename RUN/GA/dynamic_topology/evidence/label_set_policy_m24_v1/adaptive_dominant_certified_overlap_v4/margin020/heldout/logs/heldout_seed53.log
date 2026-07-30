@@ -1,0 +1,14 @@
+Dynamic topology screen: m24-hard, 1 seed(s), 2 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 53...
+Teacher-signal screen: m24-hard, 1 seed(s)
+Generating paired input for seed 53...
+  saved behavior cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/heldout/cache/m24_hard_seed53_n1_sig75.mat
+  behavior trajectory 1153.09 s; 1 snapshots
+  t=75 current gain vs static 4.096%, spread 40.793%, candidates 28
+  continuation cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/heldout/cache/m24_hard_seed53_n1_sig75.mat
+  seed 53 arm Backbone residual fixed spliced cycle (ccw, alpha=0.70, epsilon=0.05)...
+    E-OSPA 9.5324, worst node 39.8224, consensus OSPA 13.3069, attempted 17901096 B, 218.01 s
+  seed 53 arm Adaptive dominant certified-overlap payload-budget routing (margin=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 6.3142, worst node 24.8771, consensus OSPA 8.9636, attempted 16486504 B, 314.11 s
+Report: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/heldout/seed53/DYNAMIC_TOPOLOGY_CONTINUATION_M24_HARD_T75_N1_20260731_052443.md
+
