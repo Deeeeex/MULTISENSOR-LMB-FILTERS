@@ -700,6 +700,16 @@ protocol.adaptiveDominantRoutingExpectedMessageCount = ...
     protocol.macroActionExpectedSelectedMessageCount;
 protocol.adaptiveDominantRoutingMinimumIncrementalOracleGainPercent = ...
     protocol.macroActionMinimumIncrementalOracleGainPercent;
+protocol.adaptiveDominantRoutingMaximumWorstRegressionPercent = 1;
+protocol.adaptiveDominantRoutingMaximumConsensusRegressionPercent = 0;
+protocol.adaptiveDominantRoutingRequiredAdmissibleStateCount = ...
+    size(protocol.adaptiveDominantRoutingSentinelSeedTimes, 1);
+protocol.adaptiveDominantBalancedActionToken = 29;
+protocol.adaptiveDominantUnbalancedActionToken = 30;
+protocol.adaptiveDominantBalancedMinimumGainVsTemporalPercent = 5;
+protocol.adaptiveDominantBalancedMinimumPositiveVsCccStateCount = ...
+    size(protocol.adaptiveDominantRoutingSentinelSeedTimes, 1);
+protocol.adaptiveDominantBalancedMaximumAggregateConsensusRegressionPercent = 1;
 protocol.featuresUseTruth = false;
 protocol.featuresUseFutureOutcome = false;
 protocol.diagnosticTargetsUseTruth = true;
