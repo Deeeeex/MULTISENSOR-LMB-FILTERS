@@ -7,7 +7,9 @@ testObservablePredictiveMeasurementLogScore();
 testPredictiveRewardAlignmentProtocol();
 testScenarioPresets();
 testTeacherSceneDifficultyGates();
+testSameHardwareScaleContract();
 testExplicitSensorHeadingGate();
+testFormationSharedSensorHeadingContract();
 testScalableTopologyCandidatePools();
 testTopologyTaskRiskOrdering();
 testTeacherLabelExcludesSwitchPenalty();
@@ -2749,11 +2751,15 @@ end
 function testScenarioPresets()
 names = {'r8-legacy', 'd12-handover', ...
     'm24-handover', 'm24-link', 'm24-composite', ...
+    'm24-formation-fov', ...
     'x36-topology', 'x36-joint', 'x36-matched', ...
-    'x36-clean-scale', ...
+    'x36-clean-scale', 'x36-formation-fov', ...
+    'x48-formation-fov', ...
     'd12-hard', 'm24-hard', 'x36-hard'};
 expectedSensors = [ ...
-    8, 12, 24, 24, 24, 36, 36, 36, 36, 12, 24, 36];
+    8, 12, 24, 24, 24, 24, 36, 36, 36, 36, 36, 48, 12, 24, 36];
+expectedTargets = [ ...
+    10, 9, 12, 12, 12, 16, 12, 18, 24, 24, 24, 32, 12, 16, 24];
 for presetIdx = 1:numel(names)
     rng(7);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -2764,6 +2770,7 @@ for presetIdx = 1:numel(names)
         config, sensors, targets, graphs);
     assert(validation.isValid);
     assert(config.numberOfSensors == expectedSensors(presetIdx));
+    assert(config.numberOfTargets == expectedTargets(presetIdx));
     assert(validation.staticEdgeCount <= config.edgeBudget);
     assert(validation.staticPhysicalViolationCount == 0);
 end
@@ -2782,7 +2789,8 @@ end
 function testTeacherSceneDifficultyGates()
 names = { ...
     'd12-hard', 'm24-hard', 'x36-matched', ...
-    'x36-clean-scale', 'x36-hard'};
+    'x36-clean-scale', 'm24-formation-fov', ...
+    'x36-formation-fov', 'x48-formation-fov', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(17);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});
@@ -2839,6 +2847,70 @@ end
 assert(failedClosed);
 end
 
+function testSameHardwareScaleContract()
+assert(nargin('auditFormationFovScaleScenarios') == 2);
+seed = 41;
+presets = { ...
+    'm24-formation-fov', 'x36-formation-fov', ...
+    'x48-formation-fov'};
+metrics = repmat(struct(), 1, numel(presets));
+configs = cell(1, numel(presets));
+for presetIdx = 1:numel(presets)
+    rng(seed);
+    config = buildDynamicTopologyScenarioConfig(presets{presetIdx});
+    configs{presetIdx} = config;
+    [sensors, ~] = generateMultiFormationTrajectories(config);
+    [targets, ~] = generateCorridorTargetTrajectories(config);
+    graphs = buildDynamicTopologyGraphs(config, sensors);
+    validation = validateDynamicTopologyScenario( ...
+        config, sensors, targets, graphs);
+    metrics(presetIdx) = validation.difficulty;
+    if presetIdx > 1
+        assert(strcmp(config.scaleControlReferencePreset, ...
+            'm24-formation-fov'));
+        assert(isequal(config.scaleControlMatchedMetrics, { ...
+            'focusMeanVisibleTargetsPerSensorTime'}));
+        assert(isequal(config.scaleControlDerivedMetrics, { ...
+            'focusMeanVisibleSensorCount'}));
+    end
+end
+
+hardwareFields = { ...
+    'fovHalfAngleDeg', 'fovTotalAngleDeg', 'fovRange', ...
+    'sensorFovHeadingMode', 'sensorFovPointingCenter', ...
+    'detectionProbability', 'measurementNoiseStd', ...
+    'sensorQuality', 'sensorHardwareProfile', ...
+    'observationSpaceLimits', 'clutterRate', ...
+    'clutterSpatialProfile'};
+for presetIdx = 2:numel(configs)
+    for fieldIdx = 1:numel(hardwareFields)
+        fieldName = hardwareFields{fieldIdx};
+        assert(isequaln(configs{1}.(fieldName), ...
+            configs{presetIdx}.(fieldName)));
+    end
+end
+assert(configs{1}.fovRange == 385);
+assert(strcmp(configs{1}.sensorHardwareProfile, ...
+    'formation-shared-150deg-r385-q300-v1'));
+
+reference = metrics(1);
+matchedFields = { ...
+    'focusMeanVisibleTargetsPerSensorTime'};
+for presetIdx = 2:numel(presets)
+    for fieldIdx = 1:numel(matchedFields)
+        fieldName = matchedFields{fieldIdx};
+        relativeError = abs( ...
+            metrics(presetIdx).(fieldName) / ...
+            reference.(fieldName) - 1);
+        assert(relativeError <= 0.03);
+    end
+end
+assert(metrics(1).focusMeanExpectedTargetDetectionCount > ...
+    metrics(2).focusMeanExpectedTargetDetectionCount);
+assert(metrics(2).focusMeanExpectedTargetDetectionCount > ...
+    metrics(3).focusMeanExpectedTargetDetectionCount);
+end
+
 function testExplicitSensorHeadingGate()
 model = struct();
 model.detectionProbability = 0.9;
@@ -2863,9 +2935,63 @@ model.sensorFovHeadingRad = pi / 2;
 assert(rotatedPd > 0 && rotatedInfo.inFov);
 end
 
+function testFormationSharedSensorHeadingContract()
+presets = { ...
+    'm24-formation-fov', ...
+    'x36-formation-fov', ...
+    'x48-formation-fov'};
+for presetIdx = 1:numel(presets)
+    rng(31);
+    config = buildDynamicTopologyScenarioConfig(presets{presetIdx});
+    [sensorTrajectories, ~] = ...
+        generateMultiFormationTrajectories(config);
+    headings = buildSensorFovHeadingSchedule( ...
+        config, sensorTrajectories);
+    assert(config.fovTotalAngleDeg == 150);
+    assert(config.fovHalfAngleDeg == 75);
+    assert(strcmp(config.sensorFovHeadingMode, ...
+        'formation-shared-scene-center'));
+    assert(isequal(size(headings), [ ...
+        config.numberOfSensors, config.simulationLength]));
+    assert(all(isfinite(headings(:))));
+    for groupIdx = 1:config.formationCount
+        groupSensors = find(config.sensorGroupIds == groupIdx);
+        referenceHeading = headings(groupSensors(1), :);
+        assert(max(max(abs(atan2(sin(bsxfun(@minus, ...
+            headings(groupSensors, :), referenceHeading)), ...
+            cos(bsxfun(@minus, headings(groupSensors, :), ...
+            referenceHeading)))))) < 1e-12);
+        centerPositions = zeros(2, config.simulationLength);
+        for sensorIdx = reshape(groupSensors, 1, [])
+            centerPositions = centerPositions + ...
+                sensorTrajectories{sensorIdx}(1:2, :);
+        end
+        centerPositions = centerPositions / numel(groupSensors);
+        expectedHeading = atan2( ...
+            config.sensorFovPointingCenter(2) - centerPositions(2, :), ...
+            config.sensorFovPointingCenter(1) - centerPositions(1, :));
+        headingError = atan2(sin(referenceHeading - expectedHeading), ...
+            cos(referenceHeading - expectedHeading));
+        assert(max(abs(headingError)) < 1e-12);
+    end
+end
+
+config = rmfield(config, 'sensorGroupIds');
+failedClosed = false;
+try
+    buildSensorFovHeadingSchedule(config, sensorTrajectories);
+catch errorInfo
+    failedClosed = ~isempty(strfind( ...
+        errorInfo.message, 'sensorGroupIds')); %#ok<STREMP>
+end
+assert(failedClosed);
+end
+
 function testScalableTopologyCandidatePools()
 names = { ...
-    'm24-hard', 'x36-matched', 'x36-clean-scale', 'x36-hard'};
+    'm24-hard', 'x36-matched', 'x36-clean-scale', ...
+    'm24-formation-fov', 'x36-formation-fov', ...
+    'x48-formation-fov', 'x36-hard'};
 for presetIdx = 1:numel(names)
     rng(23);
     config = buildDynamicTopologyScenarioConfig(names{presetIdx});

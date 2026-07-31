@@ -34,6 +34,8 @@ switch canonicalName
         config = configureM24(config, 'composite');
     case {'m24-hard', 'm24-teacher'}
         config = configureM24(config, 'teacher');
+    case {'m24-formation-fov', 'm24-realistic-fov'}
+        config = configureM24(config, 'formation-fov');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
@@ -42,13 +44,20 @@ switch canonicalName
         config = configureX36(config, 'matched');
     case {'x36-clean-scale', 'x36-scale'}
         config = configureX36(config, 'clean-scale');
+    case {'x36-formation-fov', 'x36-realistic-fov'}
+        config = configureX36(config, 'formation-fov');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
+    case {'x48-formation-fov', 'x48-realistic-fov'}
+        config = configureX48(config, 'formation-fov');
     otherwise
         error('Unknown dynamic-topology scenario preset: %s', presetName);
 end
 
 config = mergeStructRecursive(config, overrides);
+if isfield(config, 'fovTotalAngleDeg')
+    config.fovTotalAngleDeg = 2 * config.fovHalfAngleDeg;
+end
 config.numberOfSensors = ...
     config.formationCount * config.sensorsPerFormation;
 config.numberOfTargets = config.targetGroupCount * ...
@@ -316,6 +325,57 @@ elseif strcmp(variant, 'teacher')
         'minCrossGroupCloseEncounterFraction', 0.20, ...
         'minFormationOwnershipEntropy', 0.85, ...
         'minBlockageFocusOverlapFraction', 0.50);
+elseif strcmp(variant, 'formation-fov')
+    % Realistic directional sensing contract: all sensors in one formation
+    % share a common boresight toward the monitored region. FoV is reported
+    % as a 150-degree total angle (75-degree half angle), leaving a genuine
+    % rear blind sector while retaining overlap for target handover.
+    config.regionLimits = [-650, 650; -650, 650];
+    config.formationHeadingMode = 'fixed';
+    config.sensorCenterWaypoints = buildRadialFormationWaypoints( ...
+        config.formationCount, [340, 228, 136, 228, 340], ...
+        deg2rad([0, 6, 18, 30, 38]));
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = [1, 9, 17, 25];
+    config.targetRoutes = buildOpposedCorridorRoutes( ...
+        config.targetGroupCount, 420, 60);
+    config.targetCrossTrackSpacing = 40;
+    config.clutterRate = 4;
+    config.detectionProbability = 0.88;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.06;
+    config.ospaPositionCutoff = 150;
+    config.fovRange = 385;
+    config.fovHalfAngleDeg = 75;
+    config.fovTotalAngleDeg = 150;
+    config.sensorFovHeadingMode = ...
+        'formation-shared-scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.sensorHardwareProfile = ...
+        'formation-shared-150deg-r385-q300-v1';
+    config.observationSpaceLimits = [-1050, 1050; -1050, 1050];
+    config.clutterSpatialProfile = ...
+        'uniform-global-box2100-c4-v1';
+    config.edgeBudget = 29;
+    config.forceDelivery = false;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 70, 90; ...
+        3, 4, 95, 115; ...
+        1, 4, 116, 135];
+    config.focusWindowName = ...
+        'formation-fov-handover-and-blockage';
+    config.focusWindow = [55, 135];
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.05, ...
+        'minSingleFormationFraction', 0.05, ...
+        'minMultiFormationFraction', 0.88, ...
+        'minFocusHandovers', 30, ...
+        'minCrossGroupCloseEncounterFraction', 0.20, ...
+        'minFormationOwnershipEntropy', 0.99, ...
+        'minBlockageFocusOverlapFraction', 0.50);
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
@@ -338,17 +398,12 @@ config.formationRadiusJitterFraction = 0.10;
 config.formationRotationJitterDeg = 15;
 config.formationHeadingMode = 'fixed';
 config.sensorWaypointTimes = [1, 40, 80, 120, 160];
-angles = 2 * pi * (0:5) / 6;
 radii = [650, 430, 260, 430, 650];
 rotations = deg2rad([0, 6, 18, 30, 38]);
-config.sensorCenterWaypoints = cell(1, 6);
-for groupIdx = 1:6
-    theta = angles(groupIdx) + rotations;
-    config.sensorCenterWaypoints{groupIdx} = ...
-        [radii .* cos(theta); radii .* sin(theta)];
-end
+config.sensorCenterWaypoints = buildRadialFormationWaypoints( ...
+    config.formationCount, radii, rotations);
 if any(strcmp(loadMode, ...
-        {'joint', 'matched', 'clean-scale', 'teacher'}))
+        {'joint', 'matched', 'clean-scale', 'formation-fov', 'teacher'}))
     config.targetGroupCount = 6;
 else
     config.targetGroupCount = 4;
@@ -358,16 +413,8 @@ config.targetBirthTimesByGroup = ...
     1 + 8 * (0:config.targetGroupCount-1);
 config.targetDeathTimesByGroup = ...
     160 - 2 * (0:config.targetGroupCount-1);
-config.targetRoutes = cell(1, config.targetGroupCount);
-for groupIdx = 1:config.targetGroupCount
-    theta = angles(groupIdx);
-    start = 650 * [cos(theta); sin(theta)];
-    finish = -start;
-    normal = 70 * [-sin(theta); cos(theta)];
-    config.targetRoutes{groupIdx} = [ ...
-        start, 0.35 * start + normal, [0; 0], ...
-        0.35 * finish - normal, finish];
-end
+config.targetRoutes = buildOpposedCorridorRoutes( ...
+    config.targetGroupCount, 650, 70, config.formationCount);
 config.targetCrossTrackSpacing = 55;
 config.normalizeTargetRouteDuration = true;
 config.ospaPositionCutoff = 150;
@@ -416,6 +463,60 @@ if strcmp(loadMode, 'clean-scale')
         'minFocusHandovers', 60, ...
         'minCrossGroupCloseEncounterFraction', 0.80, ...
         'minFormationOwnershipEntropy', 0.90, ...
+        'minBlockageFocusOverlapFraction', 0.50);
+elseif strcmp(loadMode, 'formation-fov')
+    % Same-hardware scale control: only the formation geometry and target
+    % traffic density are calibrated. The 150-degree FoV, sensing range and
+    % complete sensor-quality profile are frozen across M24/X36/X48.
+    config.targetsPerTargetGroup = 4;
+    config.sensorCenterWaypoints = buildRadialFormationWaypoints( ...
+        config.formationCount, [686, 454, 274, 454, 686], ...
+        deg2rad([0, 6, 18, 30, 38]));
+    config.targetBirthTimesByGroup = ...
+        1 + 6 * (0:config.targetGroupCount-1);
+    config.targetDeathTimesByGroup = ...
+        160 - 2 * (0:config.targetGroupCount-1);
+    config.targetRoutes = buildOpposedCorridorRoutes( ...
+        config.targetGroupCount, 420, 60);
+    config.targetCrossTrackSpacing = 40;
+    config.clutterRate = 4;
+    config.detectionProbability = 0.88;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.06;
+    config.fovRange = 385;
+    config.fovHalfAngleDeg = 75;
+    config.fovTotalAngleDeg = 150;
+    config.sensorFovHeadingMode = ...
+        'formation-shared-scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.sensorHardwareProfile = ...
+        'formation-shared-150deg-r385-q300-v1';
+    config.observationSpaceLimits = [-1050, 1050; -1050, 1050];
+    config.clutterSpatialProfile = ...
+        'uniform-global-box2100-c4-v1';
+    config.edgeBudget = 44;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 60, 80; ...
+        3, 4, 86, 106; ...
+        5, 6, 112, 132];
+    config.focusWindowName = ...
+        'formation-fov-handover-and-blockage';
+    config.focusWindow = [50, 135];
+    config.scaleControlReferencePreset = 'm24-formation-fov';
+    config.scaleControlMatchedMetrics = { ...
+        'focusMeanVisibleTargetsPerSensorTime'};
+    config.scaleControlDerivedMetrics = { ...
+        'focusMeanVisibleSensorCount'};
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.01, ...
+        'minSingleFormationFraction', 0.13, ...
+        'minMultiFormationFraction', 0.85, ...
+        'minFocusHandovers', 60, ...
+        'minCrossGroupCloseEncounterFraction', 0.80, ...
+        'minFormationOwnershipEntropy', 0.99, ...
         'minBlockageFocusOverlapFraction', 0.50);
 elseif strcmp(loadMode, 'matched')
     % Aggregate-observability-matched diagnostic. Approximate M24-hard's
@@ -490,6 +591,114 @@ elseif strcmp(loadMode, 'teacher')
 end
 end
 
+function config = configureX48(config, variant)
+% Eight formations retain the six-sensor local geometry while increasing
+% both network scale and the number of independently moving target groups.
+% Target kinematics remain on the X36 scale so network growth is not
+% confounded with a relaxed target-speed contract.
+config.variant = variant;
+config.simulationLength = 160;
+config.regionLimits = [-1050, 1050; -1050, 1050];
+config.formationCount = 8;
+config.sensorsPerFormation = 6;
+config.formationRadius = 35;
+config.formationRadiusJitterFraction = 0.10;
+config.formationRotationJitterDeg = 15;
+config.formationHeadingMode = 'fixed';
+config.sensorWaypointTimes = [1, 40, 80, 120, 160];
+config.sensorCenterWaypoints = buildRadialFormationWaypoints( ...
+    config.formationCount, [747, 511, 315, 511, 747], ...
+    deg2rad([0, 6, 18, 30, 38]));
+config.targetGroupCount = 8;
+config.targetsPerTargetGroup = 4;
+config.targetBirthTimesByGroup = ...
+    1 + 5 * (0:config.targetGroupCount-1);
+config.targetDeathTimesByGroup = ...
+    160 - 2 * (0:config.targetGroupCount-1);
+config.targetRoutes = buildOpposedCorridorRoutes( ...
+    config.targetGroupCount, 420, 60);
+config.targetCrossTrackSpacing = 40;
+config.normalizeTargetRouteDuration = true;
+config.ospaPositionCutoff = 150;
+config.clutterRate = 4;
+config.detectionProbability = 0.88;
+config.measurementNoiseStd = 7;
+config.birthProbability = 0.06;
+% Hardware parameters are identical to the M24/X36 formation-FoV scenes;
+% only spatial geometry and target traffic are scale-calibrated.
+config.fovRange = 385;
+config.fovHalfAngleDeg = 75;
+config.fovTotalAngleDeg = 150;
+config.sensorFovHeadingMode = 'formation-shared-scene-center';
+config.sensorQuality.enabled = true;
+config.sensorQuality.referenceRange = 300;
+config.sensorHardwareProfile = ...
+    'formation-shared-150deg-r385-q300-v1';
+config.observationSpaceLimits = [-1050, 1050; -1050, 1050];
+config.clutterSpatialProfile = 'uniform-global-box2100-c4-v1';
+config.commRange = 900;
+config.edgeBudget = 59;
+config.maxEdgeReplacementsPerStep = 4;
+config.topologyFamily = 'projected-general';
+config.forceDelivery = false;
+config.linkMode = 'correlated-blockage';
+config.blockageWindows = [ ...
+    1, 2, 58, 78; ...
+    3, 4, 82, 102; ...
+    5, 6, 106, 126; ...
+    7, 8, 128, 148];
+config.focusWindowName = 'formation-fov-handover-and-blockage';
+config.focusWindow = [50, 135];
+config.scaleControlReferencePreset = 'm24-formation-fov';
+config.scaleControlMatchedMetrics = { ...
+    'focusMeanVisibleTargetsPerSensorTime'};
+config.scaleControlDerivedMetrics = { ...
+    'focusMeanVisibleSensorCount'};
+config.enforceDifficultyRequirements = true;
+config.difficultyRequirements = struct( ...
+    'maxBlackoutFraction', 0.005, ...
+    'minSingleFormationFraction', 0.18, ...
+    'minMultiFormationFraction', 0.79, ...
+    'minFocusHandovers', 110, ...
+    'minCrossGroupCloseEncounterFraction', 0.80, ...
+    'minFormationOwnershipEntropy', 0.99, ...
+    'minBlockageFocusOverlapFraction', 0.70);
+end
+
+function waypoints = buildRadialFormationWaypoints( ...
+        formationCount, radii, rotations)
+if numel(radii) ~= numel(rotations)
+    error('Radial formation radii and rotations must have equal length.');
+end
+baseAngles = 2 * pi * (0:formationCount-1) / formationCount;
+waypoints = cell(1, formationCount);
+for groupIdx = 1:formationCount
+    theta = baseAngles(groupIdx) + rotations;
+    waypoints{groupIdx} = [radii .* cos(theta); radii .* sin(theta)];
+end
+end
+
+function routes = buildOpposedCorridorRoutes( ...
+        targetGroupCount, startRadius, normalOffset, angularGroupCount)
+if nargin < 4 || isempty(angularGroupCount)
+    angularGroupCount = targetGroupCount;
+end
+if angularGroupCount < targetGroupCount
+    error('angularGroupCount must not be smaller than targetGroupCount.');
+end
+baseAngles = 2 * pi * (0:angularGroupCount-1) / angularGroupCount;
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    theta = baseAngles(groupIdx);
+    start = startRadius * [cos(theta); sin(theta)];
+    finish = -start;
+    normal = normalOffset * [-sin(theta); cos(theta)];
+    routes{groupIdx} = [ ...
+        start, 0.35 * start + normal, [0; 0], ...
+        0.35 * finish - normal, finish];
+end
+end
+
 function merged = mergeStructRecursive(base, overrides)
 merged = base;
 fields = fieldnames(overrides);
@@ -527,5 +736,19 @@ if size(config.regionLimits, 1) ~= 2 || ...
         size(config.regionLimits, 2) ~= 2 || ...
         any(config.regionLimits(:, 1) >= config.regionLimits(:, 2))
     error('regionLimits must be [xmin xmax; ymin ymax].');
+end
+if isfield(config, 'observationSpaceLimits') && ...
+        ~isempty(config.observationSpaceLimits)
+    limits = config.observationSpaceLimits;
+    if size(limits, 1) ~= 2 || size(limits, 2) ~= 2 || ...
+            any(~isfinite(limits(:))) || ...
+            any(limits(:, 1) >= limits(:, 2))
+        error(['observationSpaceLimits must be ', ...
+            '[xmin xmax; ymin ymax].']);
+    end
+    if any(limits(:, 1) > config.regionLimits(:, 1)) || ...
+            any(limits(:, 2) < config.regionLimits(:, 2))
+        error('observationSpaceLimits must enclose regionLimits.');
+    end
 end
 end

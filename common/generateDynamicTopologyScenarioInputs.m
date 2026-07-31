@@ -65,9 +65,14 @@ model.sensorFovRange = config.fovRange * ones(1, sensorCount);
 model.sensorFovHeadingRad = buildSensorFovHeadingSchedule( ...
     config, sensorTrajectories);
 model.sensorQuality = config.sensorQuality;
-model.observationSpaceLimits = config.regionLimits;
+observationSpaceLimits = config.regionLimits;
+if isfield(config, 'observationSpaceLimits') && ...
+        ~isempty(config.observationSpaceLimits)
+    observationSpaceLimits = config.observationSpaceLimits;
+end
+model.observationSpaceLimits = observationSpaceLimits;
 model.observationSpaceVolume = prod( ...
-    config.regionLimits(:, 2) - config.regionLimits(:, 1));
+    observationSpaceLimits(:, 2) - observationSpaceLimits(:, 1));
 model.clutterPerUnitVolume = model.clutterRate / ...
     model.observationSpaceVolume;
 model.explicitSensorTrajectories = sensorTrajectories;
