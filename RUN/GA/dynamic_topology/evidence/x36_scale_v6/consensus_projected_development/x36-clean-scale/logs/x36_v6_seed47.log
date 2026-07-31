@@ -1,0 +1,7 @@
+Dynamic topology screen: x36-clean-scale, 1 seed(s), 1 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 47...
+  continuation cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/x36-clean-scale/cache/x36_clean_scale_seed47_n1_sig75.mat
+  seed 47 arm Adaptive dominant one-step consensus-projected routing (regret=0.75, consensus=2.0%, payload=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 33.9518, worst node 54.1288, consensus OSPA 30.7017, attempted 39775640 B, 1894.16 s
+Report: RUN/GA/dynamic_topology/evidence/x36_scale_v6/consensus_projected_development/x36-clean-scale/seed47/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260731_220059.md
+
