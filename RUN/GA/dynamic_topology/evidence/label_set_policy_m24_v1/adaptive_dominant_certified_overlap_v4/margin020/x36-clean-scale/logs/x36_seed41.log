@@ -1,0 +1,14 @@
+Dynamic topology screen: x36-clean-scale, 1 seed(s), 2 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 41...
+Teacher-signal screen: x36-clean-scale, 1 seed(s)
+Generating paired input for seed 41...
+  saved behavior cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/x36-clean-scale/cache/x36_clean_scale_seed41_n1_sig75.mat
+  behavior trajectory 3440.56 s; 1 snapshots
+  t=75 current gain vs static 2.183%, spread 7.784%, candidates 34
+  continuation cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/x36-clean-scale/cache/x36_clean_scale_seed41_n1_sig75.mat
+  seed 41 arm Backbone residual fixed spliced cycle (ccw, alpha=0.70, epsilon=0.05)...
+    E-OSPA 35.6940, worst node 58.1282, consensus OSPA 31.3851, attempted 41853528 B, 722.65 s
+  seed 41 arm Adaptive dominant certified-overlap payload-budget routing (margin=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 35.8868, worst node 55.4855, consensus OSPA 32.5467, attempted 38040704 B, 854.48 s
+Report: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/x36-clean-scale/seed41/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260731_075321.md
+
