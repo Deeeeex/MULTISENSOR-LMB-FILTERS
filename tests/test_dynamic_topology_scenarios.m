@@ -29,6 +29,7 @@ testDirectedRoutingFeaturesIgnoreTruth();
 testLabelSetDirectedActionFeatures();
 testLabelSetMessagePassingScorer();
 testLabelSetCausalGraphOptionProtocol();
+test_rolling_safe_causal_option_protocol();
 testAdaptiveDominantFullRunBootstrap();
 testDynamicTopologyRestartTraceHash();
 testNestedOneDimensionalGateLoso();

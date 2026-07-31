@@ -24,19 +24,11 @@ function [adjacency, details] = ...
 % sequence containing code 0 or 90:99 reads truth and must remain excluded
 % from a deployable or validation strategy.
 
-actionCodes = round(reshape(actionCodes, 1, []));
-if isempty(actionCodes) || any(~isfinite(actionCodes)) || ...
-        any(actionCodes < 0)
-    error('Action sequence codes must be finite nonnegative integers.');
-end
-anchorTime = round(anchorTime);
-relativeTime = context.currentTime - anchorTime + 1;
-if relativeTime >= 1 && relativeTime <= numel(actionCodes)
-    actionCode = actionCodes(relativeTime);
-else
-    actionCode = getField(options, ...
-        'fallbackActionCode', actionCodes(end));
-end
+actionCodes = reshape(actionCodes, 1, []);
+[actionCode, relativeTime] = ...
+    resolveRollingSafeActionSequenceCode( ...
+        actionCodes, anchorTime, context.currentTime, ...
+        getField(options, 'fallbackActionCode', []));
 
 sourceWeight = getField(options, 'sourceWeight', 0.70);
 payloadToleranceFraction = getField( ...
