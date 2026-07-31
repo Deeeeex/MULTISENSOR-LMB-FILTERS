@@ -3,7 +3,9 @@ function expected = isExpectedRollingSafeOptionUnavailableError( ...
 % ISEXPECTEDROLLINGSAFEOPTIONUNAVAILABLEERROR Narrow fail-closed allowlist.
 
 if nargin < 2 || isempty(allowedIdentifiers)
-    allowedIdentifiers = {'RollingMatching:Infeasible'};
+    allowedIdentifiers = { ...
+        'RollingMatching:Infeasible', ...
+        'ObservableBasis:Unavailable'};
 end
 expected = isstruct(errorInfo) || isa(errorInfo, 'MException');
 if ~expected || ~isfieldOrProperty(errorInfo, 'identifier')
