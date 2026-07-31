@@ -57,6 +57,7 @@ testRootedFormationTreeProjection();
 testRollingFormationMatchingProjection();
 testRollingJointSuccessorProjection();
 testRollingSafeRoutingPolicy();
+testRollingSafeReferencePreferredSwitchPolicy();
 testBackbonePreservingResidualRouting();
 testCounterfactualConsensusTeacherSemantics();
 testExpectedDirectedRoutingDisagreementSemantics();
@@ -528,6 +529,7 @@ for currentTime = 1:2
         context, 24, currentTime, policyOptions);
     history = appendTestHistory(history, adjacency, 2);
 end
+
 context.currentTime = 3;
 context.previousAdjacencyHistory = history;
 context.previousAdjacencyHistoryCount = 2;
@@ -724,6 +726,276 @@ catch errorInfo
         errorInfo.message, 'paired H=3 returns')); %#ok<STREMP>
 end
 assert(wrongPayloadLayerRejected);
+end
+
+function testRollingSafeReferencePreferredSwitchPolicy()
+groupIds = repelem(1:4, 6);
+context = makeSyntheticRollingContextForGroups(groupIds);
+nodeCount = numel(groupIds);
+history = false(nodeCount, nodeCount, 0);
+policyOptions = struct( ...
+    'sourceWeight', 0.70, ...
+    'payloadToleranceFraction', inf, ...
+    'fallbackActionCode', 24, ...
+    'scoreOptions', struct( ...
+        'sourceWeight', 0.70, ...
+        'horizonSteps', 0, ...
+        'discountFactor', 0.9));
+for currentTime = 1:2
+    context.currentTime = currentTime;
+    context.previousAdjacencyHistory = history;
+    context.previousAdjacencyHistoryCount = size(history, 3);
+    context.previousAdjacencyHistoryTimes = ...
+        1:size(history, 3);
+    if isempty(history)
+        context.previousAdjacency = false(nodeCount);
+    else
+        context.previousAdjacency = history(:, :, end);
+    end
+    adjacency = selectRollingSafeActionSequencePolicy( ...
+        context, 24, currentTime, policyOptions);
+    history = appendTestHistory(history, adjacency, 2);
+end
+context.currentTime = 3;
+context.previousAdjacencyHistory = history;
+context.previousAdjacencyHistoryCount = 2;
+context.previousAdjacencyHistoryTimes = [1, 2];
+context.previousAdjacency = history(:, :, end);
+context.localInnovationHistory = zeros(nodeCount, 3);
+context.localAssociationConfidenceHistory = zeros(nodeCount, 3);
+context.localNisNormHistory = zeros(nodeCount, 3);
+context.localNisDeviationHistory = zeros(nodeCount, 3);
+context.localUpdateHistoryTimes = [1, 2, 3];
+
+% Every registered candidate must be independent of evaluation order and
+% must consume no RNG state. This includes unavailable alternatives.
+candidateCodes = [24, 22, 61, 63, 67, 77, 80, 83];
+rng(91027, 'twister');
+for candidateCode = candidateCodes
+    rngBefore = rng();
+    candidateForward = captureRollingSafeAction( ...
+        context, candidateCode, policyOptions);
+    referenceForwardResult = captureRollingSafeAction( ...
+        context, 24, policyOptions);
+    rngAfterForward = rng();
+    assert(isequal(rngBefore, rngAfterForward));
+
+    referenceReverseResult = captureRollingSafeAction( ...
+        context, 24, policyOptions);
+    candidateReverse = captureRollingSafeAction( ...
+        context, candidateCode, policyOptions);
+    rngAfterReverse = rng();
+    assert(isequal(rngBefore, rngAfterReverse));
+    assertRollingSafeActionCaptureEqual( ...
+        candidateForward, candidateReverse);
+    assertRollingSafeActionCaptureEqual( ...
+        referenceForwardResult, referenceReverseResult);
+end
+assert(candidateCodes(2) == 22);
+candidateForward = captureRollingSafeAction( ...
+    context, 22, policyOptions);
+referenceForwardResult = captureRollingSafeAction( ...
+    context, 24, policyOptions);
+assert(candidateForward.available);
+assert(referenceForwardResult.available);
+referenceForward = referenceForwardResult.adjacency;
+
+[selected, details] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        context, 22, 24, policyOptions);
+assert(details.referenceSwitchApplied);
+assert(~details.referenceSwitchAbsorbingExit);
+assert(~details.referenceSwitchAlternativeTruthUsed);
+assert(~details.referenceSwitchFutureOutcomeUsed);
+assert(strcmp(details.referenceSwitchEvaluationOrder, ...
+    'candidate-then-reference'));
+assert(strcmp(details.referenceSwitchContractVersion, ...
+    'm24-rolling-safe-reference-preferred-switch-v2'));
+assert(details.referenceSwitchReferenceNominalFree);
+assert(~details.referenceSwitchSelectedCandidate);
+assert(details.referenceSwitchSelectedActionCode == 24);
+assert(isequal(selected, referenceForward));
+assert(strcmp(details.referenceSwitchSelectedAdjacencySha256, ...
+    details.referenceSwitchReferenceAdjacencySha256));
+assert(strcmp(details.referenceSwitchSelectedFusionWeightSha256, ...
+    details.referenceSwitchReferenceFusionWeightSha256));
+assert(numel(details.referenceSwitchContextSha256) == 64);
+assert(details.referenceSwitchCandidateRequestedActionRealized);
+assert(details.referenceSwitchReferenceRequestedActionRealized);
+candidateRawAudit = auditRollingSafeReferenceSwitchAttestation( ...
+    details.referenceSwitchCandidateAttestation, 22);
+referenceRawAudit = auditRollingSafeReferenceSwitchAttestation( ...
+    details.referenceSwitchReferenceAttestation, 24);
+assert(candidateRawAudit.available);
+assert(referenceRawAudit.available);
+assert(candidateRawAudit.strictNominalFree == ...
+    details.referenceSwitchCandidateNominalFree);
+assert(referenceRawAudit.strictNominalFree == ...
+    details.referenceSwitchReferenceNominalFree);
+assert(isequal(referenceRawAudit.adjacency, referenceForward));
+tamperedAttestation = details.referenceSwitchReferenceAttestation;
+tamperedAttestation.nominalProjectionFeasible = false;
+tamperedAudit = auditRollingSafeReferenceSwitchAttestation( ...
+    tamperedAttestation, 24);
+assert(tamperedAudit.available);
+assert(~tamperedAudit.strictNominalFree);
+tamperedAttestation = details.referenceSwitchReferenceAttestation;
+tamperedAttestation.fusionWeightMatrix(1, 1) = ...
+    tamperedAttestation.fusionWeightMatrix(1, 1) + 1e-3;
+attestationWeightsRejected = false;
+try
+    auditRollingSafeReferenceSwitchAttestation( ...
+        tamperedAttestation, 24);
+catch errorInfo
+    attestationWeightsRejected = strcmp(errorInfo.identifier, ...
+        'RollingSafeReferenceSwitch:InvalidAttestation');
+end
+assert(attestationWeightsRejected);
+
+[~, diverseDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        context, 83, 24, policyOptions);
+assert(diverseDetails.referenceSwitchCandidateAvailable);
+diverseAudit = auditRollingSafeReferenceSwitchAttestation( ...
+    diverseDetails.referenceSwitchCandidateAttestation, 83);
+assert(diverseAudit.requestedActionRealized);
+forgedFallback = diverseDetails.referenceSwitchCandidateAttestation;
+defaultSources = reshape(forgedFallback. ...
+    diverseObservableDefaultSelectedSources, [], 1);
+defaultAdjacency = false(nodeCount);
+defaultAdjacency(sub2ind([nodeCount, nodeCount], ...
+    (1:nodeCount)', defaultSources)) = true;
+defaultWeights = eye(nodeCount);
+defaultWeights(1:(nodeCount + 1):end) = ...
+    1 - forgedFallback.sourceWeight;
+defaultWeights(sub2ind([nodeCount, nodeCount], ...
+    (1:nodeCount)', defaultSources)) = forgedFallback.sourceWeight;
+forgedFallback.adjacency = defaultAdjacency;
+forgedFallback.selectedSourcesByReceiver = defaultSources;
+forgedFallback.fusionWeightMatrix = defaultWeights;
+forgedFallback.diverseObservableAlternativeFeasible = true;
+forgedFallback.diverseObservableChangedAction = true;
+forgedFallbackRejected = false;
+try
+    auditRollingSafeReferenceSwitchAttestation(forgedFallback, 83);
+catch errorInfo
+    forgedFallbackRejected = strcmp(errorInfo.identifier, ...
+        'RollingSafeReferenceSwitch:InvalidAttestation') && ...
+        ~isempty(strfind(errorInfo.message, ...
+            'Diverse raw evidence')); %#ok<STREMP>
+end
+assert(forgedFallbackRejected);
+
+% Truth-like fields that are not part of the observable contract must not
+% alter either proposal or the switching decision.
+poisoned = context;
+poisoned.groundTruth = rand(4, 5);
+poisoned.futureOutcome = rand(3, 2);
+poisoned.model.dynamicTopologyScenario.targetTrajectories = ...
+    {1e12 * rand(4, 6)};
+[poisonedSelected, poisonedDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        poisoned, 22, 24, policyOptions);
+assert(isequal(poisonedSelected, selected));
+assert(strcmp(poisonedDetails.referenceSwitchDecisionReason, ...
+    details.referenceSwitchDecisionReason));
+assert(strcmp(poisonedDetails.referenceSwitchCandidateAdjacencySha256, ...
+    details.referenceSwitchCandidateAdjacencySha256));
+assert(strcmp(poisonedDetails.referenceSwitchReferenceAdjacencySha256, ...
+    details.referenceSwitchReferenceAdjacencySha256));
+assert(strcmp(poisonedDetails.referenceSwitchContextSha256, ...
+    details.referenceSwitchContextSha256));
+
+% Every observable decision input must affect the versioned context hash.
+commChanged = context;
+if isfield(commChanged.commConfig, 'pDropByEdge') && ...
+        ~isempty(commChanged.commConfig.pDropByEdge)
+    drop = commChanged.commConfig.pDropByEdge;
+    if ndims(drop) >= 3
+        timeIdx = min(context.currentTime, size(drop, 3));
+        value = drop(1, 2, timeIdx);
+        drop(1, 2, timeIdx) = perturbUnitInterval(value);
+    else
+        value = drop(1, 2);
+        drop(1, 2) = perturbUnitInterval(value);
+    end
+    commChanged.commConfig.pDropByEdge = drop;
+else
+    commChanged.commConfig.pDropBySensor = ...
+        0.05 * ones(1, nodeCount);
+end
+[~, commChangedDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        commChanged, 22, 24, policyOptions);
+assert(~strcmp(commChangedDetails.referenceSwitchContextSha256, ...
+    details.referenceSwitchContextSha256));
+
+groupChanged = context;
+groupIdsChanged = groupChanged.model.dynamicTopologyScenario. ...
+    config.sensorGroupIds;
+groupIdsChanged(groupIdsChanged == 1) = -1;
+groupIdsChanged(groupIdsChanged == 2) = 1;
+groupIdsChanged(groupIdsChanged == -1) = 2;
+groupChanged.model.dynamicTopologyScenario.config.sensorGroupIds = ...
+    groupIdsChanged;
+[~, groupChangedDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        groupChanged, 22, 24, policyOptions);
+assert(~strcmp(groupChangedDetails.referenceSwitchContextSha256, ...
+    details.referenceSwitchContextSha256));
+
+scoreWeightChangedOptions = policyOptions;
+scoreWeightChangedOptions.qualityWeight = 0.50 + 5e-13;
+[~, scoreWeightChangedDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        context, 22, 24, scoreWeightChangedOptions);
+assert(~strcmp(scoreWeightChangedDetails.referenceSwitchContextSha256, ...
+    details.referenceSwitchContextSha256));
+
+sourceWeightChangedOptions = policyOptions;
+sourceWeightChangedOptions.sourceWeight = 0.70 + 5e-13;
+sourceWeightChangedOptions.scoreOptions.sourceWeight = ...
+    sourceWeightChangedOptions.sourceWeight;
+sourceWeightDriftRejected = false;
+try
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        context, 22, 24, sourceWeightChangedOptions);
+catch errorInfo
+    sourceWeightDriftRejected = strcmp(errorInfo.identifier, ...
+        'RollingSafeReferenceSwitch:InvalidFusionWeights');
+end
+assert(sourceWeightDriftRejected);
+
+capacityChanged = context;
+capacityChanged.model.birthTimeByLocation = [1, 2];
+[~, capacityChangedDetails] = ...
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        capacityChanged, 22, 24, policyOptions);
+assert(~strcmp(capacityChangedDetails.referenceSwitchContextSha256, ...
+    details.referenceSwitchContextSha256));
+
+inconsistentPrevious = context;
+inconsistentPrevious.previousAdjacency(1, 2) = ...
+    ~inconsistentPrevious.previousAdjacency(1, 2);
+previousMismatchRejected = false;
+try
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        inconsistentPrevious, 22, 24, policyOptions);
+catch errorInfo
+    previousMismatchRejected = strcmp(errorInfo.identifier, ...
+        'RollingSafeReferenceSwitch:InvalidContext');
+end
+assert(previousMismatchRejected);
+
+rejected = false;
+try
+    selectRollingSafeReferencePreferredSwitchPolicy( ...
+        context, 0, 24, policyOptions);
+catch errorInfo
+    rejected = strcmp(errorInfo.identifier, ...
+        'RollingSafeReferenceSwitch:InvalidActionCode');
+end
+assert(rejected);
 end
 
 function testRollingFormationMatchingProjection()
@@ -9158,4 +9430,58 @@ while ~isempty(queue)
     queue = [queue, neighbors]; %#ok<AGROW>
 end
 connected = all(visited);
+end
+
+function captured = captureRollingSafeAction(context, actionCode, options)
+captured = struct( ...
+    'available', false, 'errorIdentifier', '', ...
+    'adjacency', [], 'fusionWeightMatrix', [], ...
+    'selectedSourcesByReceiver', [], 'sourceWeight', NaN, ...
+    'actionSequenceCode', NaN, 'actionSequenceBranch', '', ...
+    'truthUsed', NaN, 'actionSequenceTruthUsed', NaN);
+try
+    [adjacency, details] = ...
+        selectRollingSafeActionSequencePolicy( ...
+            context, actionCode, context.currentTime, options);
+catch errorInfo
+    captured.errorIdentifier = errorInfo.identifier;
+    return;
+end
+captured.available = true;
+captured.adjacency = adjacency;
+captured.fusionWeightMatrix = details.fusionWeightMatrix;
+captured.selectedSourcesByReceiver = ...
+    details.selectedSourcesByReceiver;
+captured.sourceWeight = details.sourceWeight;
+captured.actionSequenceCode = details.actionSequenceCode;
+captured.actionSequenceBranch = details.actionSequenceBranch;
+captured.truthUsed = details.truthUsed;
+captured.actionSequenceTruthUsed = details.actionSequenceTruthUsed;
+end
+
+function assertRollingSafeActionCaptureEqual(left, right)
+assert(left.available == right.available);
+assert(strcmp(left.errorIdentifier, right.errorIdentifier));
+if ~left.available
+    return;
+end
+assert(isequal(left.adjacency, right.adjacency));
+assert(max(abs(left.fusionWeightMatrix(:) - ...
+    right.fusionWeightMatrix(:))) < 1e-12);
+assert(isequal(left.selectedSourcesByReceiver, ...
+    right.selectedSourcesByReceiver));
+assert(abs(left.sourceWeight - right.sourceWeight) < 1e-12);
+assert(left.actionSequenceCode == right.actionSequenceCode);
+assert(strcmp(left.actionSequenceBranch, right.actionSequenceBranch));
+assert(isequal(left.truthUsed, right.truthUsed));
+assert(isequal(left.actionSequenceTruthUsed, ...
+    right.actionSequenceTruthUsed));
+end
+
+function value = perturbUnitInterval(value)
+if value <= 0.95
+    value = value + 0.01;
+else
+    value = value - 0.01;
+end
 end
