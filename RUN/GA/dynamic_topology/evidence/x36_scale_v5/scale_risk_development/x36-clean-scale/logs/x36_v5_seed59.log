@@ -1,0 +1,9 @@
+Dynamic topology screen: x36-clean-scale, 1 seed(s), 2 arm(s), maxTimeSteps=83, continuation=75
+Generating paired input for seed 59...
+  continuation cache: RUN/GA/dynamic_topology/evidence/label_set_policy_m24_v1/adaptive_dominant_certified_overlap_v4/margin020/x36-clean-scale/cache/x36_clean_scale_seed59_n1_sig75.mat
+  seed 59 arm Adaptive dominant scale-risk global-budget routing (regret=0.50, margin=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 34.8792, worst node 60.5016, consensus OSPA 35.0404, attempted 38632856 B, 816.73 s
+  seed 59 arm Adaptive dominant scale-risk global-budget routing (regret=0.75, margin=2.0%, alpha=0.70, epsilon=0.05)...
+    E-OSPA 34.4749, worst node 60.5016, consensus OSPA 34.9656, attempted 38391992 B, 856.60 s
+Report: RUN/GA/dynamic_topology/evidence/x36_scale_v5/scale_risk_development/x36-clean-scale/seed59/DYNAMIC_TOPOLOGY_CONTINUATION_X36_CLEAN_SCALE_T75_N1_20260731_173313.md
+

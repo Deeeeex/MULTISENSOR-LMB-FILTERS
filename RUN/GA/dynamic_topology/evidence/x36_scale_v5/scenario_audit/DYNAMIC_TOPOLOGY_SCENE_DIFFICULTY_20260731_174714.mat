@@ -1,0 +1,3381 @@
+# Created by Octave 11.1.0, Fri Jul 31 17:47:14 2026 CST
+# name: summary
+# type: scalar struct
+# ndims: 2
+ 1 1
+# length: 6
+# name: generatedAt
+# type: sq_string
+# elements: 1
+# length: 19
+2026-07-31 17:47:14
+
+
+# name: presetNames
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+
+
+# name: seeds
+# type: matrix
+# rows: 1
+# columns: 5
+ 41 43 47 53 59
+
+
+# name: records
+# type: struct
+# ndims: 2
+ 3 5
+# length: 23
+# name: presetName
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+
+
+# name: seed
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+41
+
+
+# name: <cell-element>
+# type: scalar
+41
+
+
+# name: <cell-element>
+# type: scalar
+41
+
+
+
+# name: <cell-element>
+# type: scalar
+43
+
+
+# name: <cell-element>
+# type: scalar
+43
+
+
+# name: <cell-element>
+# type: scalar
+43
+
+
+
+# name: <cell-element>
+# type: scalar
+47
+
+
+# name: <cell-element>
+# type: scalar
+47
+
+
+# name: <cell-element>
+# type: scalar
+47
+
+
+
+# name: <cell-element>
+# type: scalar
+53
+
+
+# name: <cell-element>
+# type: scalar
+53
+
+
+# name: <cell-element>
+# type: scalar
+53
+
+
+
+# name: <cell-element>
+# type: scalar
+59
+
+
+# name: <cell-element>
+# type: scalar
+59
+
+
+# name: <cell-element>
+# type: scalar
+59
+
+
+
+
+
+# name: sensorCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+# name: <cell-element>
+# type: scalar
+36
+
+
+
+
+
+# name: targetCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+
+
+# name: isValid
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+
+
+# name: blackoutFraction
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.029616724738675958
+
+
+# name: <cell-element>
+# type: scalar
+0.0035714285714285713
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+# name: <cell-element>
+# type: scalar
+0.030923344947735191
+
+
+# name: <cell-element>
+# type: scalar
+0.0038690476190476192
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+# name: <cell-element>
+# type: scalar
+0.03048780487804878
+
+
+# name: <cell-element>
+# type: scalar
+0.0038690476190476192
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+# name: <cell-element>
+# type: scalar
+0.028310104529616725
+
+
+# name: <cell-element>
+# type: scalar
+0.0035714285714285713
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+# name: <cell-element>
+# type: scalar
+0.029181184668989547
+
+
+# name: <cell-element>
+# type: scalar
+0.0035714285714285713
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+
+
+# name: singleFormationFraction
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.3519163763066202
+
+
+# name: <cell-element>
+# type: scalar
+0.31309523809523809
+
+
+# name: <cell-element>
+# type: scalar
+0.094345238095238093
+
+
+
+# name: <cell-element>
+# type: scalar
+0.3519163763066202
+
+
+# name: <cell-element>
+# type: scalar
+0.32023809523809521
+
+
+# name: <cell-element>
+# type: scalar
+0.096130952380952386
+
+
+
+# name: <cell-element>
+# type: scalar
+0.34930313588850176
+
+
+# name: <cell-element>
+# type: scalar
+0.32083333333333336
+
+
+# name: <cell-element>
+# type: scalar
+0.096130952380952386
+
+
+
+# name: <cell-element>
+# type: scalar
+0.35104529616724739
+
+
+# name: <cell-element>
+# type: scalar
+0.31041666666666667
+
+
+# name: <cell-element>
+# type: scalar
+0.092559523809523814
+
+
+
+# name: <cell-element>
+# type: scalar
+0.34843205574912894
+
+
+# name: <cell-element>
+# type: scalar
+0.30773809523809526
+
+
+# name: <cell-element>
+# type: scalar
+0.09285714285714286
+
+
+
+
+
+# name: multiFormationFraction
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.61846689895470386
+
+
+# name: <cell-element>
+# type: scalar
+0.68333333333333335
+
+
+# name: <cell-element>
+# type: scalar
+0.90565476190476191
+
+
+
+# name: <cell-element>
+# type: scalar
+0.61716027874564461
+
+
+# name: <cell-element>
+# type: scalar
+0.67589285714285718
+
+
+# name: <cell-element>
+# type: scalar
+0.90386904761904763
+
+
+
+# name: <cell-element>
+# type: scalar
+0.62020905923344949
+
+
+# name: <cell-element>
+# type: scalar
+0.67529761904761909
+
+
+# name: <cell-element>
+# type: scalar
+0.90386904761904763
+
+
+
+# name: <cell-element>
+# type: scalar
+0.62064459930313587
+
+
+# name: <cell-element>
+# type: scalar
+0.68601190476190477
+
+
+# name: <cell-element>
+# type: scalar
+0.90744047619047619
+
+
+
+# name: <cell-element>
+# type: scalar
+0.6223867595818815
+
+
+# name: <cell-element>
+# type: scalar
+0.68869047619047619
+
+
+# name: <cell-element>
+# type: scalar
+0.90714285714285714
+
+
+
+
+
+# name: meanVisibleSensorCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+12.320557491289199
+
+
+# name: <cell-element>
+# type: scalar
+11.370833333333334
+
+
+# name: <cell-element>
+# type: scalar
+18.49345238095238
+
+
+
+# name: <cell-element>
+# type: scalar
+12.318379790940767
+
+
+# name: <cell-element>
+# type: scalar
+11.389880952380953
+
+
+# name: <cell-element>
+# type: scalar
+18.502380952380953
+
+
+
+# name: <cell-element>
+# type: scalar
+12.324912891986063
+
+
+# name: <cell-element>
+# type: scalar
+11.393154761904762
+
+
+# name: <cell-element>
+# type: scalar
+18.511607142857144
+
+
+
+# name: <cell-element>
+# type: scalar
+12.315331010452962
+
+
+# name: <cell-element>
+# type: scalar
+11.359821428571429
+
+
+# name: <cell-element>
+# type: scalar
+18.488988095238096
+
+
+
+# name: <cell-element>
+# type: scalar
+12.309233449477352
+
+
+# name: <cell-element>
+# type: scalar
+11.349107142857143
+
+
+# name: <cell-element>
+# type: scalar
+18.479166666666668
+
+
+
+
+
+# name: focusMeanVisibleSensorCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+17.301697530864196
+
+
+# name: <cell-element>
+# type: scalar
+14.587693798449612
+
+
+# name: <cell-element>
+# type: scalar
+23.699127906976745
+
+
+
+# name: <cell-element>
+# type: scalar
+17.295524691358025
+
+
+# name: <cell-element>
+# type: scalar
+14.614341085271318
+
+
+# name: <cell-element>
+# type: scalar
+23.709786821705425
+
+
+
+# name: <cell-element>
+# type: scalar
+17.311728395061728
+
+
+# name: <cell-element>
+# type: scalar
+14.623062015503876
+
+
+# name: <cell-element>
+# type: scalar
+23.721899224806201
+
+
+
+# name: <cell-element>
+# type: scalar
+17.293209876543209
+
+
+# name: <cell-element>
+# type: scalar
+14.577519379844961
+
+
+# name: <cell-element>
+# type: scalar
+23.695251937984494
+
+
+
+# name: <cell-element>
+# type: scalar
+17.288580246913579
+
+
+# name: <cell-element>
+# type: scalar
+14.561531007751938
+
+
+# name: <cell-element>
+# type: scalar
+23.681201550387598
+
+
+
+
+
+# name: meanExpectedTargetDetectionCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+9.5370820862607477
+
+
+# name: <cell-element>
+# type: scalar
+8.5687408872618729
+
+
+# name: <cell-element>
+# type: scalar
+14.001035833211564
+
+
+
+# name: <cell-element>
+# type: scalar
+9.5361398916611257
+
+
+# name: <cell-element>
+# type: scalar
+8.5821721486909439
+
+
+# name: <cell-element>
+# type: scalar
+14.008234274748181
+
+
+
+# name: <cell-element>
+# type: scalar
+9.5409019737350995
+
+
+# name: <cell-element>
+# type: scalar
+8.5847596429883843
+
+
+# name: <cell-element>
+# type: scalar
+14.014606695660968
+
+
+
+# name: <cell-element>
+# type: scalar
+9.5311948510623683
+
+
+# name: <cell-element>
+# type: scalar
+8.5608001291629314
+
+
+# name: <cell-element>
+# type: scalar
+13.997462676673122
+
+
+
+# name: <cell-element>
+# type: scalar
+9.5276058865010693
+
+
+# name: <cell-element>
+# type: scalar
+8.5533829595031534
+
+
+# name: <cell-element>
+# type: scalar
+13.990356381508299
+
+
+
+
+
+# name: focusMeanExpectedTargetDetectionCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+13.55680779603524
+
+
+# name: <cell-element>
+# type: scalar
+11.012938339209676
+
+
+# name: <cell-element>
+# type: scalar
+17.907772516658142
+
+
+
+# name: <cell-element>
+# type: scalar
+13.553502093196908
+
+
+# name: <cell-element>
+# type: scalar
+11.031504434292044
+
+
+# name: <cell-element>
+# type: scalar
+17.915995858099823
+
+
+
+# name: <cell-element>
+# type: scalar
+13.564609594982052
+
+
+# name: <cell-element>
+# type: scalar
+11.038034774588626
+
+
+# name: <cell-element>
+# type: scalar
+17.92439795272303
+
+
+
+# name: <cell-element>
+# type: scalar
+13.546999783295202
+
+
+# name: <cell-element>
+# type: scalar
+11.005705017420693
+
+
+# name: <cell-element>
+# type: scalar
+17.90486338927348
+
+
+
+# name: <cell-element>
+# type: scalar
+13.544738544490684
+
+
+# name: <cell-element>
+# type: scalar
+10.994749288047657
+
+
+# name: <cell-element>
+# type: scalar
+17.894884754849134
+
+
+
+
+
+# name: meanVisibleTargetsPerSensorTime
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+7.3666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+6.6329861111111112
+
+
+# name: <cell-element>
+# type: scalar
+10.787847222222222
+
+
+
+# name: <cell-element>
+# type: scalar
+7.3653645833333332
+
+
+# name: <cell-element>
+# type: scalar
+6.6440972222222223
+
+
+# name: <cell-element>
+# type: scalar
+10.793055555555556
+
+
+
+# name: <cell-element>
+# type: scalar
+7.3692708333333332
+
+
+# name: <cell-element>
+# type: scalar
+6.6460069444444443
+
+
+# name: <cell-element>
+# type: scalar
+10.7984375
+
+
+
+# name: <cell-element>
+# type: scalar
+7.3635416666666664
+
+
+# name: <cell-element>
+# type: scalar
+6.6265625000000004
+
+
+# name: <cell-element>
+# type: scalar
+10.785243055555556
+
+
+
+# name: <cell-element>
+# type: scalar
+7.3598958333333337
+
+
+# name: <cell-element>
+# type: scalar
+6.6203124999999998
+
+
+# name: <cell-element>
+# type: scalar
+10.779513888888889
+
+
+
+
+
+# name: focusMeanVisibleTargetsPerSensorTime
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+11.534465020576132
+
+
+# name: <cell-element>
+# type: scalar
+9.7251291989664086
+
+
+# name: <cell-element>
+# type: scalar
+15.799418604651162
+
+
+
+# name: <cell-element>
+# type: scalar
+11.530349794238683
+
+
+# name: <cell-element>
+# type: scalar
+9.7428940568475451
+
+
+# name: <cell-element>
+# type: scalar
+15.806524547803617
+
+
+
+# name: <cell-element>
+# type: scalar
+11.541152263374485
+
+
+# name: <cell-element>
+# type: scalar
+9.7487080103359176
+
+
+# name: <cell-element>
+# type: scalar
+15.814599483204134
+
+
+
+# name: <cell-element>
+# type: scalar
+11.52880658436214
+
+
+# name: <cell-element>
+# type: scalar
+9.7183462532299743
+
+
+# name: <cell-element>
+# type: scalar
+15.796834625322997
+
+
+
+# name: <cell-element>
+# type: scalar
+11.525720164609053
+
+
+# name: <cell-element>
+# type: scalar
+9.7076873385012927
+
+
+# name: <cell-element>
+# type: scalar
+15.787467700258398
+
+
+
+
+
+# name: maximumVisibleTargetsPerSensorTime
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+16
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+
+
+# name: focusHandovers
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+45
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+# name: <cell-element>
+# type: scalar
+43
+
+
+# name: <cell-element>
+# type: scalar
+67
+
+
+# name: <cell-element>
+# type: scalar
+67
+
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+# name: <cell-element>
+# type: scalar
+43
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+# name: <cell-element>
+# type: scalar
+46
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+
+
+# name: focusCloseEncounterFraction
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+
+
+# name: ownershipEntropy
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.97841713069923375
+
+
+# name: <cell-element>
+# type: scalar
+0.99978440277735769
+
+
+# name: <cell-element>
+# type: scalar
+0.99978074263440653
+
+
+
+# name: <cell-element>
+# type: scalar
+0.97842910619644541
+
+
+# name: <cell-element>
+# type: scalar
+0.99970803274841524
+
+
+# name: <cell-element>
+# type: scalar
+0.99969741756701436
+
+
+
+# name: <cell-element>
+# type: scalar
+0.97694016814465101
+
+
+# name: <cell-element>
+# type: scalar
+0.9998736439402659
+
+
+# name: <cell-element>
+# type: scalar
+0.99986422964097743
+
+
+
+# name: <cell-element>
+# type: scalar
+0.9779232300566012
+
+
+# name: <cell-element>
+# type: scalar
+0.99941567989579949
+
+
+# name: <cell-element>
+# type: scalar
+0.99941596241927755
+
+
+
+# name: <cell-element>
+# type: scalar
+0.98173233130780513
+
+
+# name: <cell-element>
+# type: scalar
+0.99970407400145755
+
+
+# name: <cell-element>
+# type: scalar
+0.99971201434479962
+
+
+
+
+
+# name: blockageFocusOverlapFraction
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+
+
+# name: physicalEdgeChurnRate
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+0.0037887533569952009
+
+
+# name: <cell-element>
+# type: scalar
+0.0091187110378880502
+
+
+# name: <cell-element>
+# type: scalar
+0.0091187110378880502
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0037865673863582551
+
+
+# name: <cell-element>
+# type: scalar
+0.0091045308689517261
+
+
+# name: <cell-element>
+# type: scalar
+0.0091045308689517261
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0037840508334913963
+
+
+# name: <cell-element>
+# type: scalar
+0.0091008612492047194
+
+
+# name: <cell-element>
+# type: scalar
+0.0091008612492047194
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0037897271756426355
+
+
+# name: <cell-element>
+# type: scalar
+0.0091018742715670668
+
+
+# name: <cell-element>
+# type: scalar
+0.0091018742715670668
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0037967181484612833
+
+
+# name: <cell-element>
+# type: scalar
+0.0090973803478245664
+
+
+# name: <cell-element>
+# type: scalar
+0.0090973803478245664
+
+
+
+
+
+# name: meanPhysicalInterFormationEdges
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+196.625
+
+
+# name: <cell-element>
+# type: scalar
+429.72500000000002
+
+
+# name: <cell-element>
+# type: scalar
+429.72500000000002
+
+
+
+# name: <cell-element>
+# type: scalar
+196.625
+
+
+# name: <cell-element>
+# type: scalar
+429.72500000000002
+
+
+# name: <cell-element>
+# type: scalar
+429.72500000000002
+
+
+
+# name: <cell-element>
+# type: scalar
+196.63124999999999
+
+
+# name: <cell-element>
+# type: scalar
+429.75
+
+
+# name: <cell-element>
+# type: scalar
+429.75
+
+
+
+# name: <cell-element>
+# type: scalar
+196.65000000000001
+
+
+# name: <cell-element>
+# type: scalar
+429.61250000000001
+
+
+# name: <cell-element>
+# type: scalar
+429.61250000000001
+
+
+
+# name: <cell-element>
+# type: scalar
+196.61875000000001
+
+
+# name: <cell-element>
+# type: scalar
+429.68124999999998
+
+
+# name: <cell-element>
+# type: scalar
+429.68124999999998
+
+
+
+
+
+# name: minimumTargetSeparation
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+
+
+# name: staticEdgeCount
+# type: cell
+# rows: 3
+# columns: 5
+# name: <cell-element>
+# type: scalar
+29
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+
+# name: <cell-element>
+# type: scalar
+29
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+
+# name: <cell-element>
+# type: scalar
+29
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+
+# name: <cell-element>
+# type: scalar
+29
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+
+# name: <cell-element>
+# type: scalar
+29
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+# name: <cell-element>
+# type: scalar
+44
+
+
+
+
+
+
+
+# name: allValid
+# type: bool
+1
+
+
+# name: aggregate
+# type: struct
+# ndims: 2
+ 1 3
+# length: 54
+# name: presetName
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 8
+m24-hard
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+x36-matched
+
+
+
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 15
+x36-clean-scale
+
+
+
+
+
+# name: seedCount
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+5
+
+
+
+# name: <cell-element>
+# type: scalar
+5
+
+
+
+# name: <cell-element>
+# type: scalar
+5
+
+
+
+
+
+# name: allValid
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+# name: <cell-element>
+# type: bool
+1
+
+
+
+
+
+# name: blackoutFractionMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.029703832752613242
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0036904761904761906
+
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+
+
+# name: blackoutFractionMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.028310104529616725
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0035714285714285713
+
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+
+
+# name: blackoutFractionMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.030923344947735191
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0038690476190476192
+
+
+
+# name: <cell-element>
+# type: scalar
+0
+
+
+
+
+
+# name: singleFormationFractionMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.35052264808362371
+
+
+
+# name: <cell-element>
+# type: scalar
+0.31446428571428575
+
+
+
+# name: <cell-element>
+# type: scalar
+0.094404761904761908
+
+
+
+
+
+# name: singleFormationFractionMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.34843205574912894
+
+
+
+# name: <cell-element>
+# type: scalar
+0.30773809523809526
+
+
+
+# name: <cell-element>
+# type: scalar
+0.092559523809523814
+
+
+
+
+
+# name: singleFormationFractionMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.3519163763066202
+
+
+
+# name: <cell-element>
+# type: scalar
+0.32083333333333336
+
+
+
+# name: <cell-element>
+# type: scalar
+0.096130952380952386
+
+
+
+
+
+# name: multiFormationFractionMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.61977351916376311
+
+
+
+# name: <cell-element>
+# type: scalar
+0.68184523809523812
+
+
+
+# name: <cell-element>
+# type: scalar
+0.90559523809523801
+
+
+
+
+
+# name: multiFormationFractionMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.61716027874564461
+
+
+
+# name: <cell-element>
+# type: scalar
+0.67529761904761909
+
+
+
+# name: <cell-element>
+# type: scalar
+0.90386904761904763
+
+
+
+
+
+# name: multiFormationFractionMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.6223867595818815
+
+
+
+# name: <cell-element>
+# type: scalar
+0.68869047619047619
+
+
+
+# name: <cell-element>
+# type: scalar
+0.90744047619047619
+
+
+
+
+
+# name: meanVisibleSensorCountMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+12.317682926829269
+
+
+
+# name: <cell-element>
+# type: scalar
+11.372559523809525
+
+
+
+# name: <cell-element>
+# type: scalar
+18.495119047619049
+
+
+
+
+
+# name: meanVisibleSensorCountMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+12.309233449477352
+
+
+
+# name: <cell-element>
+# type: scalar
+11.349107142857143
+
+
+
+# name: <cell-element>
+# type: scalar
+18.479166666666668
+
+
+
+
+
+# name: meanVisibleSensorCountMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+12.324912891986063
+
+
+
+# name: <cell-element>
+# type: scalar
+11.393154761904762
+
+
+
+# name: <cell-element>
+# type: scalar
+18.511607142857144
+
+
+
+
+
+# name: focusMeanVisibleSensorCountMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+17.298148148148147
+
+
+
+# name: <cell-element>
+# type: scalar
+14.592829457364342
+
+
+
+# name: <cell-element>
+# type: scalar
+23.701453488372092
+
+
+
+
+
+# name: focusMeanVisibleSensorCountMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+17.288580246913579
+
+
+
+# name: <cell-element>
+# type: scalar
+14.561531007751938
+
+
+
+# name: <cell-element>
+# type: scalar
+23.681201550387598
+
+
+
+
+
+# name: focusMeanVisibleSensorCountMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+17.311728395061728
+
+
+
+# name: <cell-element>
+# type: scalar
+14.623062015503876
+
+
+
+# name: <cell-element>
+# type: scalar
+23.721899224806201
+
+
+
+
+
+# name: meanExpectedTargetDetectionCountMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+9.5345849378440821
+
+
+
+# name: <cell-element>
+# type: scalar
+8.5699711535214576
+
+
+
+# name: <cell-element>
+# type: scalar
+14.002339172360427
+
+
+
+
+
+# name: meanExpectedTargetDetectionCountMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+9.5276058865010693
+
+
+
+# name: <cell-element>
+# type: scalar
+8.5533829595031534
+
+
+
+# name: <cell-element>
+# type: scalar
+13.990356381508299
+
+
+
+
+
+# name: meanExpectedTargetDetectionCountMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+9.5409019737350995
+
+
+
+# name: <cell-element>
+# type: scalar
+8.5847596429883843
+
+
+
+# name: <cell-element>
+# type: scalar
+14.014606695660968
+
+
+
+
+
+# name: focusMeanExpectedTargetDetectionCountMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+13.553331562400018
+
+
+
+# name: <cell-element>
+# type: scalar
+11.016586370711739
+
+
+
+# name: <cell-element>
+# type: scalar
+17.909582894320721
+
+
+
+
+
+# name: focusMeanExpectedTargetDetectionCountMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+13.544738544490684
+
+
+
+# name: <cell-element>
+# type: scalar
+10.994749288047657
+
+
+
+# name: <cell-element>
+# type: scalar
+17.894884754849134
+
+
+
+
+
+# name: focusMeanExpectedTargetDetectionCountMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+13.564609594982052
+
+
+
+# name: <cell-element>
+# type: scalar
+11.038034774588626
+
+
+
+# name: <cell-element>
+# type: scalar
+17.92439795272303
+
+
+
+
+
+# name: meanVisibleTargetsPerSensorTimeMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+7.3649479166666669
+
+
+
+# name: <cell-element>
+# type: scalar
+6.6339930555555551
+
+
+
+# name: <cell-element>
+# type: scalar
+10.788819444444446
+
+
+
+
+
+# name: meanVisibleTargetsPerSensorTimeMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+7.3598958333333337
+
+
+
+# name: <cell-element>
+# type: scalar
+6.6203124999999998
+
+
+
+# name: <cell-element>
+# type: scalar
+10.779513888888889
+
+
+
+
+
+# name: meanVisibleTargetsPerSensorTimeMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+7.3692708333333332
+
+
+
+# name: <cell-element>
+# type: scalar
+6.6460069444444443
+
+
+
+# name: <cell-element>
+# type: scalar
+10.7984375
+
+
+
+
+
+# name: focusMeanVisibleTargetsPerSensorTimeMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+11.532098765432099
+
+
+
+# name: <cell-element>
+# type: scalar
+9.728552971576228
+
+
+
+# name: <cell-element>
+# type: scalar
+15.800968992248063
+
+
+
+
+
+# name: focusMeanVisibleTargetsPerSensorTimeMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+11.525720164609053
+
+
+
+# name: <cell-element>
+# type: scalar
+9.7076873385012927
+
+
+
+# name: <cell-element>
+# type: scalar
+15.787467700258398
+
+
+
+
+
+# name: focusMeanVisibleTargetsPerSensorTimeMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+11.541152263374485
+
+
+
+# name: <cell-element>
+# type: scalar
+9.7487080103359176
+
+
+
+# name: <cell-element>
+# type: scalar
+15.814599483204134
+
+
+
+
+
+# name: maximumVisibleTargetsPerSensorTimeMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+16
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+
+
+# name: maximumVisibleTargetsPerSensorTimeMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+16
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+
+
+# name: maximumVisibleTargetsPerSensorTimeMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+16
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+# name: <cell-element>
+# type: scalar
+24
+
+
+
+
+
+# name: focusHandoversMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+44.200000000000003
+
+
+
+# name: <cell-element>
+# type: scalar
+68.599999999999994
+
+
+
+# name: <cell-element>
+# type: scalar
+68.599999999999994
+
+
+
+
+
+# name: focusHandoversMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+43
+
+
+
+# name: <cell-element>
+# type: scalar
+67
+
+
+
+# name: <cell-element>
+# type: scalar
+67
+
+
+
+
+
+# name: focusHandoversMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+46
+
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+# name: <cell-element>
+# type: scalar
+69
+
+
+
+
+
+# name: focusCloseEncounterFractionMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+
+
+# name: focusCloseEncounterFractionMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+
+
+# name: focusCloseEncounterFractionMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.66666666666666663
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+# name: <cell-element>
+# type: scalar
+0.83720930232558144
+
+
+
+
+
+# name: ownershipEntropyMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.97868839328094737
+
+
+
+# name: <cell-element>
+# type: scalar
+0.99969716667265929
+
+
+
+# name: <cell-element>
+# type: scalar
+0.99969407332129501
+
+
+
+
+
+# name: ownershipEntropyMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.97694016814465101
+
+
+
+# name: <cell-element>
+# type: scalar
+0.99941567989579949
+
+
+
+# name: <cell-element>
+# type: scalar
+0.99941596241927755
+
+
+
+
+
+# name: ownershipEntropyMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.98173233130780513
+
+
+
+# name: <cell-element>
+# type: scalar
+0.9998736439402659
+
+
+
+# name: <cell-element>
+# type: scalar
+0.99986422964097743
+
+
+
+
+
+# name: blockageFocusOverlapFractionMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+
+
+# name: blockageFocusOverlapFractionMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+
+
+# name: blockageFocusOverlapFractionMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.76543209876543206
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+# name: <cell-element>
+# type: scalar
+0.73255813953488369
+
+
+
+
+
+# name: physicalEdgeChurnRateMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.0037891633801897542
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0091046715550872261
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0091046715550872261
+
+
+
+
+
+# name: physicalEdgeChurnRateMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.0037840508334913963
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0090973803478245664
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0090973803478245664
+
+
+
+
+
+# name: physicalEdgeChurnRateMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+0.0037967181484612833
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0091187110378880502
+
+
+
+# name: <cell-element>
+# type: scalar
+0.0091187110378880502
+
+
+
+
+
+# name: meanPhysicalInterFormationEdgesMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+196.63
+
+
+
+# name: <cell-element>
+# type: scalar
+429.69875000000002
+
+
+
+# name: <cell-element>
+# type: scalar
+429.69875000000002
+
+
+
+
+
+# name: meanPhysicalInterFormationEdgesMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+196.61875000000001
+
+
+
+# name: <cell-element>
+# type: scalar
+429.61250000000001
+
+
+
+# name: <cell-element>
+# type: scalar
+429.61250000000001
+
+
+
+
+
+# name: meanPhysicalInterFormationEdgesMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+196.65000000000001
+
+
+
+# name: <cell-element>
+# type: scalar
+429.75
+
+
+
+# name: <cell-element>
+# type: scalar
+429.75
+
+
+
+
+
+# name: minimumTargetSeparationMean
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+
+
+# name: minimumTargetSeparationMin
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+
+
+# name: minimumTargetSeparationMax
+# type: cell
+# rows: 1
+# columns: 3
+# name: <cell-element>
+# type: scalar
+2.8431815114666112
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+# name: <cell-element>
+# type: scalar
+2.5197261527689991
+
+
+
+
+
+
+
+
+

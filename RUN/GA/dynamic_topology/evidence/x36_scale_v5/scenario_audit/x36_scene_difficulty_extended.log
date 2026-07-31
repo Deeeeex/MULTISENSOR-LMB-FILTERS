@@ -1,0 +1,17 @@
+m24-hard seed 41: blackout 0.030, single 0.352, multi 0.618, handovers 45, close 0.667
+m24-hard seed 43: blackout 0.031, single 0.352, multi 0.617, handovers 43, close 0.667
+m24-hard seed 47: blackout 0.030, single 0.349, multi 0.620, handovers 44, close 0.667
+m24-hard seed 53: blackout 0.028, single 0.351, multi 0.621, handovers 43, close 0.667
+m24-hard seed 59: blackout 0.029, single 0.348, multi 0.622, handovers 46, close 0.667
+x36-matched seed 41: blackout 0.004, single 0.313, multi 0.683, handovers 69, close 0.837
+x36-matched seed 43: blackout 0.004, single 0.320, multi 0.676, handovers 67, close 0.837
+x36-matched seed 47: blackout 0.004, single 0.321, multi 0.675, handovers 69, close 0.837
+x36-matched seed 53: blackout 0.004, single 0.310, multi 0.686, handovers 69, close 0.837
+x36-matched seed 59: blackout 0.004, single 0.308, multi 0.689, handovers 69, close 0.837
+x36-clean-scale seed 41: blackout 0.000, single 0.094, multi 0.906, handovers 69, close 0.837
+x36-clean-scale seed 43: blackout 0.000, single 0.096, multi 0.904, handovers 67, close 0.837
+x36-clean-scale seed 47: blackout 0.000, single 0.096, multi 0.904, handovers 69, close 0.837
+x36-clean-scale seed 53: blackout 0.000, single 0.093, multi 0.907, handovers 69, close 0.837
+x36-clean-scale seed 59: blackout 0.000, single 0.093, multi 0.907, handovers 69, close 0.837
+Report: RUN/GA/dynamic_topology/evidence/x36_scale_v5/scenario_audit/DYNAMIC_TOPOLOGY_SCENE_DIFFICULTY_20260731_174714.md
+

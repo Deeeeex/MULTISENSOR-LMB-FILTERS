@@ -1,0 +1,7 @@
+X36 seed 41: outcome -0.540%, objective min/mean -0.788/+0.360, duplicates [2 3 3 3 3 4], bytes -9.840%
+X36 seed 43: outcome +7.806%, objective min/mean -0.325/+0.573, duplicates [3 2 3 3 3 3], bytes -8.019%
+X36 seed 47: outcome +22.071%, objective min/mean -0.363/+0.340, duplicates [3 3 3 3 3 2], bytes -8.291%
+X36 seed 53: outcome +9.373%, objective min/mean -0.538/+0.073, duplicates [3 2 3 3 3 3], bytes -8.639%
+X36 seed 59: outcome -0.103%, objective min/mean -0.638/-0.050, duplicates [3 3 3 3 2 2], bytes -7.084%
+X36 scale-signal audit: RUN/GA/dynamic_topology/evidence/x36_scale_v5/failure_diagnosis/X36_CERTIFIED_OVERLAP_V4_SCALE_SIGNAL_DIAGNOSIS.md
+
