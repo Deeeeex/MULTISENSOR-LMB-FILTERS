@@ -114,6 +114,9 @@ assert(isequal(guarded, [1, 2]));
 assert(details.formationRiskGuardEnabled);
 assert(details.formationRiskRejectedCandidateCount >= 1);
 assert(details.formationRiskConstraintPassed);
+assert(details.formationRiskGuardBinding);
+assert(isequal(details.unguardedSelectedModeByFormation, [2, 2]));
+assert(details.maximumUnguardedFormationRiskExcessFraction > 0);
 assert(all(details.selectedFormationRisk <= ...
     details.formationRiskLimit + 1e-12));
 assert(strcmp(details.contractVersion, ...

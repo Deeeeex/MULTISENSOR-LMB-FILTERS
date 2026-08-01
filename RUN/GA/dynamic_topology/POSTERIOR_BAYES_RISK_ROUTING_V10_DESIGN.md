@@ -86,6 +86,14 @@ unchanged. This wiring has synthetic and full 4096-action selector test
 coverage, but it is not yet registered as an experiment arm and has no
 closed-loop performance claim.
 
+The projector additionally records a non-executed shadow decision before
+the formation-tail guard. This diagnostic changes no selected action. It
+separates three possible failures on opened states: an uninformative
+posterior-risk objective, rejection by the global disagreement/payload
+constraints, or an otherwise useful action blocked only by the strict
+formation-tail guard. Any tolerance redesign must be frozen from multiple
+opened development states rather than tuned to one tracking outcome.
+
 ## Planned evidence gates
 
 1. On opened development states, posterior Bayes-risk advantage must rank
