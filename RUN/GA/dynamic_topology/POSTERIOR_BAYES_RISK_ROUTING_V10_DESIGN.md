@@ -74,6 +74,18 @@ formation, while the new guard keeps that formation on reference mode and
 still accepts the beneficial mode elsewhere. The option is disabled by
 default, so the frozen v9 path is unchanged; no runtime arm uses it yet.
 
+The third isolated milestone wires both pieces into an explicitly
+authorized prototype routing mode. The existing exact one-round teacher
+already produces a delivery-outcome distribution for every receiver under
+the reference mode and each dynamic trust level. V10 now scores those
+actual post-fusion distributions directly, constructs a separate allowed
+mode mask for every formation and trust level, and then invokes the global
+mean-disagreement, formation-tail, payload, and connectivity projection.
+The v9 analytic-linear mode remains the default and its regression path is
+unchanged. This wiring has synthetic and full 4096-action selector test
+coverage, but it is not yet registered as an experiment arm and has no
+closed-loop performance claim.
+
 ## Planned evidence gates
 
 1. On opened development states, posterior Bayes-risk advantage must rank
