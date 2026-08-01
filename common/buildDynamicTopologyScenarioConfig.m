@@ -26,6 +26,8 @@ switch canonicalName
         config = configureD12(config, 'link');
     case {'d12-hard', 'd12-teacher'}
         config = configureD12(config, 'teacher');
+    case {'d12-formation-fov', 'd12-realistic-fov'}
+        config = configureD12(config, 'formation-fov');
     case {'m24', 'm24-handover'}
         config = configureM24(config, 'handover');
     case 'm24-link'
@@ -242,6 +244,76 @@ elseif strcmp(variant, 'teacher')
         'minCrossGroupCloseEncounterFraction', 0.15, ...
         'minFormationOwnershipEntropy', 0.85, ...
         'minBlockageFocusOverlapFraction', 0);
+elseif strcmp(variant, 'formation-fov')
+    % Small same-hardware scale control. Two six-sensor formations use the
+    % identical directional sensor, clutter, and quality profile registered
+    % for M24/X36. Only scene geometry and traffic density are scaled.
+    config.simulationLength = 160;
+    config.regionLimits = [-650, 650; -650, 650];
+    config.formationCount = 2;
+    config.sensorsPerFormation = 6;
+    config.formationRadius = 35;
+    config.formationRadiusJitterFraction = 0.10;
+    config.formationRotationJitterDeg = 12;
+    config.formationHeadingMode = 'fixed';
+    config.sensorWaypointTimes = [1, 40, 80, 120, 160];
+    config.sensorCenterWaypoints = buildRadialFormationWaypoints( ...
+        config.formationCount, [260, 174, 104, 174, 260], ...
+        deg2rad([0, 6, 18, 30, 38]));
+    config.targetGroupCount = 2;
+    config.targetsPerTargetGroup = 4;
+    config.targetBirthTimesByGroup = [1, 9];
+    config.targetDeathTimesByGroup = [160, 158];
+    config.targetRoutes = buildOpposedCorridorRoutes( ...
+        config.targetGroupCount, 240, 105);
+    config.targetCrossTrackSpacing = 35;
+    config.normalizeTargetRouteDuration = true;
+    config.clutterRate = 4;
+    config.detectionProbability = 0.88;
+    config.measurementNoiseStd = 7;
+    config.birthProbability = 0.06;
+    config.ospaPositionCutoff = 150;
+    config.fovRange = 300;
+    config.fovHalfAngleDeg = 60;
+    config.fovTotalAngleDeg = 120;
+    config.sensorFovHeadingMode = ...
+        'formation-shared-scene-center';
+    config.sensorQuality.enabled = true;
+    config.sensorQuality.referenceRange = 300;
+    config.sensorHardwareProfile = ...
+        'formation-shared-120deg-r300-q300-v1';
+    config.observationSpaceLimits = [-1050, 1050; -1050, 1050];
+    config.clutterSpatialProfile = ...
+        'uniform-global-box2100-c4-v1';
+    config.commRange = 900;
+    config.edgeBudget = 14;
+    config.maxEdgeReplacementsPerStep = 1;
+    config.topologyFamily = 'projected-general';
+    config.forceDelivery = false;
+    config.linkMode = 'correlated-blockage';
+    config.blockageWindows = [ ...
+        1, 2, 60, 80; ...
+        1, 2, 100, 125];
+    config.focusWindowName = ...
+        'formation-fov-handover-and-blockage';
+    config.focusWindow = [50, 135];
+    config.scaleControlReferencePreset = 'm24-formation-fov';
+    config.scaleControlRole = ...
+        'same-hardware-transfer-regularizer-not-geometry-matched';
+    config.enforceDifficultyRequirements = true;
+    config.difficultyRequirements = struct( ...
+        'maxBlackoutFraction', 0.15, ...
+        'maxFocusBlackoutFraction', 0.005, ...
+        'maxPerTargetBlackoutFraction', 0.23, ...
+        'maxConsecutiveBlackoutSteps', 30, ...
+        'minSingleFormationFraction', 0.07, ...
+        'minMultiFormationFraction', 0.60, ...
+        'maxFocusVisibleTargetsPerSensorTime', 6.9, ...
+        'maxFocusVisibleTargetFractionPerSensorTime', 0.86, ...
+        'minFocusHandovers', 8, ...
+        'minCrossGroupCloseEncounterFraction', 0.20, ...
+        'minFormationOwnershipEntropy', 0.95, ...
+        'minBlockageFocusOverlapFraction', 0.50);
 else
     config.forceDelivery = true;
     config.linkMode = 'ideal';
