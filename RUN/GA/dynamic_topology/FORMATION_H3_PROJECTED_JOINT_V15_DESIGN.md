@@ -41,3 +41,20 @@ used as validation or a generalization result.
   constraints.
 
 X36 and final seeds remain unopened by this probe.
+
+## Result
+
+The projected joint action produces strict gains `[0, 0, 0, 0]%` on times
+`[60, 72, 104, 124]`.  At 60, 72, and 124 the exact projector selects the
+all-reference mode vector `[1,1,1,1]`, so it discards known weak H=3 actions
+already present in the singleton/pair bank.  At 104 it selects modes
+`[3,1,1,1]`, but the six targets are
+`[-1.627, -5.718, -1.614, -2.835, +0.737, +0.758]%`: communication improves
+while every estimation and consensus target regresses.
+
+The simple action-space repair is therefore falsified.  Exact enumeration and
+one-round safety do not imply multi-step value; the current posterior-risk
+objective can either collapse to reference or choose the wrong formation.
+The next opened probe will test whether the one-step intervention duration is
+itself suppressing meaningful M24 headroom before a sequence-value model is
+designed.
