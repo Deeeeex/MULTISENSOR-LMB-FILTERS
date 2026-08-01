@@ -1,0 +1,416 @@
+function result = auditFormationH3RiskToleranceSensitivity( ...
+        sourceRoot, outputRoot)
+%AUDITFORMATIONH3RISKTOLERANCESENSITIVITY Diagnose the v13 risk gate.
+%
+% This opened-data audit never changes an action or reruns a filter.  It
+% recomputes oracle selection over the frozen M24 v13 target matrices under a
+% predeclared tolerance grid.  The output is diagnostic and cannot be used as
+% validation evidence or as authorization to relax the deployment gate.
+
+if nargin < 1 || isempty(sourceRoot)
+    sourceRoot = fullfile(pwd, 'RUN', 'GA', 'dynamic_topology', ...
+        'evidence', 'formation_value_v13', ...
+        'multiscale_teacher_sentinel', 'shards');
+end
+if nargin < 2 || isempty(outputRoot)
+    outputRoot = fullfile(pwd, 'RUN', 'GA', 'dynamic_topology', ...
+        'evidence', 'formation_value_v17', ...
+        'risk_tolerance_diagnostic');
+end
+
+protocol = struct();
+protocol.contractVersion = ...
+    'formation-h3-risk-tolerance-sensitivity-v1';
+protocol.sourceProtocolId = ...
+    'formation-h3-multiscale-teacher-sentinel-v1';
+protocol.presetName = 'm24-formation-fov';
+protocol.seeds = [211, 223, 227];
+protocol.times = [60, 72];
+protocol.tolerancesPercent = [0, 0.10, 0.25, 0.50, 1.00, 2.00];
+protocol.policyNames = { ...
+    'estimation-aux-tolerance-bytes-strict', ...
+    'all-aux-tolerance'};
+protocol.targetNames = { ...
+    'mean tracking', 'minimum formation', 'worst sensor', ...
+    'consensus', 'attempted bytes', 'delivered bytes'};
+protocol.expectedStrictGains = [ ...
+    1.590661971, 0.0244719764, 0, ...
+    0.516167557, 0, 0.751287987];
+protocol.m24Gate = struct( ...
+    'minimumPositiveStates', 2, ...
+    'minimumStrongStates', 1, ...
+    'strongGainPercent', 3, ...
+    'minimumMeanGainPercent', 2);
+
+stateCount = numel(protocol.seeds) * numel(protocol.times);
+states = repmat(emptyState(), 1, stateCount);
+stateIdx = 0;
+sourceCommits = cell(1, stateCount);
+
+for seed = protocol.seeds
+    shardPath = fullfile(sourceRoot, protocol.presetName, ...
+        sprintf('seed%d', seed), sprintf( ...
+        'formation_h3_teacher_m24_formation_fov_seed%d_v1.mat', seed));
+    if exist(shardPath, 'file') ~= 2
+        error('Missing frozen v13 shard: %s', shardPath);
+    end
+    loaded = load(shardPath, 'shard');
+    validateShard(loaded.shard, protocol, seed);
+    shard = loaded.shard;
+    for timeIdx = 1:numel(protocol.times)
+        currentTime = protocol.times(timeIdx);
+        stateIdx = stateIdx + 1;
+        states(stateIdx) = buildState(shard, timeIdx, currentTime);
+        sourceCommits{stateIdx} = shard.generationGitCommit;
+    end
+end
+
+if numel(unique(sourceCommits)) ~= 1
+    error('Frozen v13 shards have inconsistent generation commits.');
+end
+
+rows = repmat(emptySummaryRow(), 1, ...
+    numel(protocol.policyNames) * numel(protocol.tolerancesPercent));
+selections = repmat(emptySelection(), ...
+    numel(rows), numel(states));
+rowIdx = 0;
+for policyIdx = 1:numel(protocol.policyNames)
+    for tolerance = protocol.tolerancesPercent
+        rowIdx = rowIdx + 1;
+        gains = zeros(1, numel(states));
+        selectedTargets = zeros(numel(states), 6);
+        for idx = 1:numel(states)
+            [selection, selectedTargets(idx, :)] = selectOracle( ...
+                states(idx), policyIdx, tolerance);
+            selections(rowIdx, idx) = selection;
+            gains(idx) = selection.gainPercent;
+        end
+        auxiliaryDebt = max(-selectedTargets(:, 2:6), 0);
+        rows(rowIdx).policyName = protocol.policyNames{policyIdx};
+        rows(rowIdx).tolerancePercent = tolerance;
+        rows(rowIdx).gainsPercent = gains;
+        rows(rowIdx).positiveStateCount = sum(gains > 1e-12);
+        rows(rowIdx).strongStateCount = sum( ...
+            gains >= protocol.m24Gate.strongGainPercent - 1e-12);
+        rows(rowIdx).meanGainPercent = mean(gains);
+        rows(rowIdx).maximumSelectedDebtPercent = ...
+            max(auxiliaryDebt(:));
+        rows(rowIdx).meanSelectedDebtPercent = ...
+            mean(auxiliaryDebt(:));
+        rows(rowIdx).communicationRegressionStateCount = sum( ...
+            any(selectedTargets(:, 5:6) < -1e-12, 2));
+        rows(rowIdx).m24GatePassed = ...
+            rows(rowIdx).positiveStateCount >= ...
+                protocol.m24Gate.minimumPositiveStates && ...
+            rows(rowIdx).strongStateCount >= ...
+                protocol.m24Gate.minimumStrongStates && ...
+            rows(rowIdx).meanGainPercent >= ...
+                protocol.m24Gate.minimumMeanGainPercent - 1e-12;
+    end
+end
+
+strictRow = rows(1);
+if max(abs(strictRow.gainsPercent - ...
+        protocol.expectedStrictGains)) > 5e-6
+    error(['Strict tolerance row does not reproduce the registered ', ...
+        'v13 audit.']);
+end
+
+[generationCommit, trackedDirty] = gitState();
+if trackedDirty
+    error('Risk-tolerance audit requires a tracked-clean generation commit.');
+end
+
+result = struct();
+result.protocol = protocol;
+result.generatedAt = datestr(now, 31);
+result.generationGitCommit = generationCommit;
+result.sourceGenerationGitCommit = sourceCommits{1};
+result.sourceRoot = sourceRoot;
+result.states = states;
+result.rows = rows;
+result.selections = selections;
+result.featuresUseTruth = false;
+result.targetsUseTruth = true;
+result.openedDevelopmentEvidenceOnly = true;
+result.validationClaimAllowed = false;
+result.deploymentGateRelaxationAuthorized = false;
+result.evidenceBoundary = [ ...
+    'This audit reselects actions from already opened, truth-scored v13 ', ...
+    'target matrices. It diagnoses constraint headroom only; it cannot ', ...
+    'validate a policy, authorize a relaxed deployment gate, or support ', ...
+    'M24/X36/final-seed claims.'];
+
+if exist(outputRoot, 'dir') ~= 7
+    mkdir(outputRoot);
+end
+matPath = fullfile(outputRoot, ...
+    'formation_h3_risk_tolerance_sensitivity_v1.mat');
+reportPath = fullfile(outputRoot, ...
+    'FORMATION_H3_RISK_TOLERANCE_SENSITIVITY_V1.md');
+save(matPath, 'result', '-v7');
+writeReport(reportPath, result);
+result.matPath = matPath;
+result.reportPath = reportPath;
+fprintf('Risk-tolerance audit: %s\n', reportPath);
+for idx = 1:numel(rows)
+    fprintf('%-43s tau=%4.2f mean=%7.3f strong=%d gate=%d debt=%6.3f\n', ...
+        rows(idx).policyName, rows(idx).tolerancePercent, ...
+        rows(idx).meanGainPercent, rows(idx).strongStateCount, ...
+        rows(idx).m24GatePassed, ...
+        rows(idx).maximumSelectedDebtPercent);
+end
+end
+
+function validateShard(shard, protocol, seed)
+required = { ...
+    'protocolId', 'presetName', 'seed', 'snapshotTimes', ...
+    'localScreens', 'pairScreens', 'generationGitCommit', ...
+    'featuresUseTruth', 'featuresUseFutureMeasurements', ...
+    'targetsUseTruth', 'targetsUseFutureMeasurements', ...
+    'openedSentinelDevelopmentOnly', 'validationClaimAllowed'};
+if ~all(isfield(shard, required)) || ...
+        ~strcmp(shard.protocolId, protocol.sourceProtocolId) || ...
+        ~strcmp(shard.presetName, protocol.presetName) || ...
+        shard.seed ~= seed || ...
+        ~isequal(shard.snapshotTimes, protocol.times) || ...
+        shard.featuresUseTruth || ...
+        shard.featuresUseFutureMeasurements || ...
+        ~shard.targetsUseTruth || ...
+        ~shard.targetsUseFutureMeasurements || ...
+        ~shard.openedSentinelDevelopmentOnly || ...
+        shard.validationClaimAllowed
+    error('Frozen v13 shard contract mismatch for seed %d.', seed);
+end
+end
+
+function state = buildState(shard, timeIdx, currentTime)
+local = shard.localScreens{timeIdx};
+pair = shard.pairScreens{timeIdx};
+validateScreen(local, currentTime);
+validateScreen(pair, currentTime);
+assertReferenceEqual(local, pair);
+
+localTargets = targetMatrix(local);
+pairTargets = targetMatrix(pair);
+pairNonreference = [pair.records.actionIndex] ~= ...
+    pair.bank.referenceActionIndex;
+state = emptyState();
+state.seed = shard.seed;
+state.currentTime = currentTime;
+state.actionNames = [ ...
+    {local.records.actionName}, ...
+    {pair.records(pairNonreference).actionName}];
+state.targets = [localTargets; pairTargets(pairNonreference, :)];
+state.runtimePassed = [ ...
+    runtimePassed(local), runtimePassed(pair, pairNonreference)];
+if size(state.targets, 1) ~= 19 || ...
+        numel(state.actionNames) ~= 19 || ...
+        numel(state.runtimePassed) ~= 19
+    error('Expected the registered 19-action v13 bank.');
+end
+end
+
+function validateScreen(screen, currentTime)
+if screen.currentTime ~= currentTime || ...
+        numel(screen.records) ~= numel(screen.outcomes) || ...
+        numel(screen.records) ~= numel(screen.actionIndices)
+    error('Frozen v13 screen structure mismatch at time %d.', currentTime);
+end
+end
+
+function passed = runtimePassed(screen, subset)
+if nargin < 2
+    subset = true(1, numel(screen.records));
+end
+indices = find(subset);
+passed = false(1, numel(indices));
+for cursor = 1:numel(indices)
+    idx = indices(cursor);
+    record = screen.records(idx);
+    outcome = screen.outcomes(idx);
+    passed(cursor) = record.selectedB3Passed && ...
+        outcome.firstActionExact && outcome.truthUseCount == 0 && ...
+        outcome.repairCount == 0 && ...
+        outcome.payloadEmergencyCount == 0 && ...
+        outcome.infeasibleCount == 0 && ...
+        all(outcome.selectedSensorB3Pass) && ...
+        all(outcome.selectedFormationB3Pass);
+end
+end
+
+function targets = targetMatrix(screen)
+records = screen.records;
+outcomes = screen.outcomes;
+reference = outcomes(screen.referenceSubsetIndex);
+deliveredSaving = zeros(numel(outcomes), 1);
+for idx = 1:numel(outcomes)
+    deliveredSaving(idx) = 100 * ...
+        (reference.deliveredBytes - outcomes(idx).deliveredBytes) / ...
+        max(reference.deliveredBytes, eps);
+end
+targets = [ ...
+    reshape([records.meanGainPercent], [], 1), ...
+    reshape([records.minimumFormationGainPercent], [], 1), ...
+    reshape([records.worstGainPercent], [], 1), ...
+    reshape([records.consensusGainPercent], [], 1), ...
+    reshape([records.attemptedByteSavingPercent], [], 1), ...
+    deliveredSaving];
+end
+
+function assertReferenceEqual(local, pair)
+localReference = local.outcomes(local.referenceSubsetIndex);
+pairReference = pair.outcomes(pair.referenceSubsetIndex);
+fields = { ...
+    'meanEospa', 'worstSensorEospa', 'formationMeanEospa', ...
+    'consensusOspa', 'attemptedBytes', 'deliveredBytes'};
+for idx = 1:numel(fields)
+    name = fields{idx};
+    if ~isequaln(localReference.(name), pairReference.(name))
+        error('Local/pair reference mismatch in %s.', name);
+    end
+end
+end
+
+function [selection, targets] = selectOracle(state, policyIdx, tolerance)
+switch policyIdx
+    case 1
+        feasible = state.runtimePassed(:) & ...
+            all(state.targets(:, 2:4) >= -tolerance - 1e-12, 2) & ...
+            all(state.targets(:, 5:6) >= -1e-12, 2);
+    case 2
+        feasible = state.runtimePassed(:) & ...
+            all(state.targets(:, 2:6) >= -tolerance - 1e-12, 2);
+    otherwise
+        error('Unknown tolerance policy.');
+end
+indices = find(feasible);
+if isempty(indices)
+    error('Reference action must remain feasible.');
+end
+[gain, localIdx] = max(state.targets(indices, 1));
+actionIdx = indices(localIdx);
+targets = state.targets(actionIdx, :);
+selection = emptySelection();
+selection.seed = state.seed;
+selection.currentTime = state.currentTime;
+selection.actionIndex = actionIdx;
+selection.actionName = state.actionNames{actionIdx};
+selection.gainPercent = gain;
+selection.targets = targets;
+end
+
+function writeReport(path, result)
+fid = fopen(path, 'w');
+if fid < 0
+    error('Cannot write risk-tolerance report: %s', path);
+end
+cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
+p = result.protocol;
+fprintf(fid, '# Formation H=3 risk-tolerance sensitivity\n\n');
+fprintf(fid, '- Contract: `%s`\n', p.contractVersion);
+fprintf(fid, '- Generation commit: `%s`\n', ...
+    result.generationGitCommit);
+fprintf(fid, '- Source generation commit: `%s`\n', ...
+    result.sourceGenerationGitCommit);
+fprintf(fid, '- Preset / seeds / times: `%s / %s / %s`\n', ...
+    p.presetName, mat2str(p.seeds), mat2str(p.times));
+fprintf(fid, '- Tolerance grid: `%s` percentage points\n\n', ...
+    mat2str(p.tolerancesPercent));
+
+fprintf(fid, '## Aggregate oracle sensitivity\n\n');
+fprintf(fid, ['| Policy | Tau | Positive | Strong >=3%% | Mean gain | ', ...
+    'Max selected debt | Comm. regressions | M24 gate |\n']);
+fprintf(fid, '|:--|--:|--:|--:|--:|--:|--:|:--|\n');
+for row = result.rows
+    fprintf(fid, '| %s | %.2f | %d/6 | %d/6 | %+.3f%% | %.3f%% | %d/6 | %s |\n', ...
+        row.policyName, row.tolerancePercent, ...
+        row.positiveStateCount, row.strongStateCount, ...
+        row.meanGainPercent, row.maximumSelectedDebtPercent, ...
+        row.communicationRegressionStateCount, ...
+        passText(row.m24GatePassed));
+end
+
+fprintf(fid, '\n## Selected actions\n\n');
+fprintf(fid, ['| Policy | Tau | Seed-time | Action | Gain | ', ...
+    'Six targets |\n']);
+fprintf(fid, '|:--|--:|:--|:--|--:|:--|\n');
+for rowIdx = 1:numel(result.rows)
+    row = result.rows(rowIdx);
+    if ~any(abs(row.tolerancePercent - [0, 0.25, 0.50, 1.00]) < 1e-12)
+        continue;
+    end
+    for stateIdx = 1:numel(result.states)
+        selection = result.selections(rowIdx, stateIdx);
+        fprintf(fid, '| %s | %.2f | %d-%d | %s | %+.3f%% | `%s` |\n', ...
+            row.policyName, row.tolerancePercent, ...
+            selection.seed, selection.currentTime, ...
+            selection.actionName, selection.gainPercent, ...
+            compactVector(selection.targets));
+    end
+end
+
+fprintf(fid, '\n## Evidence boundary\n\n%s\n', ...
+    result.evidenceBoundary);
+fprintf(fid, ['\nTau is a descriptive percentage-point tolerance applied ', ...
+    'after outcomes are known. The scan does not alter the registered ', ...
+    'strict gate, and no row is a deployable policy result.\n']);
+end
+
+function text = compactVector(values)
+text = strtrim(sprintf('%+.3f ', values));
+end
+
+function text = passText(value)
+if value
+    text = 'PASS';
+else
+    text = 'FAIL';
+end
+end
+
+function [commit, trackedDirty] = gitState()
+[status, commit] = system('git rev-parse HEAD');
+if status ~= 0
+    error('Cannot resolve generation commit.');
+end
+commit = strtrim(commit);
+[status, tracked] = system('git status --porcelain --untracked-files=no');
+if status ~= 0
+    error('Cannot inspect tracked worktree state.');
+end
+trackedDirty = ~isempty(strtrim(tracked));
+end
+
+function state = emptyState()
+state = struct( ...
+    'seed', NaN, ...
+    'currentTime', NaN, ...
+    'actionNames', {{}}, ...
+    'targets', zeros(0, 6), ...
+    'runtimePassed', false(1, 0));
+end
+
+function row = emptySummaryRow()
+row = struct( ...
+    'policyName', '', ...
+    'tolerancePercent', NaN, ...
+    'gainsPercent', zeros(1, 0), ...
+    'positiveStateCount', 0, ...
+    'strongStateCount', 0, ...
+    'meanGainPercent', NaN, ...
+    'maximumSelectedDebtPercent', NaN, ...
+    'meanSelectedDebtPercent', NaN, ...
+    'communicationRegressionStateCount', 0, ...
+    'm24GatePassed', false);
+end
+
+function selection = emptySelection()
+selection = struct( ...
+    'seed', NaN, ...
+    'currentTime', NaN, ...
+    'actionIndex', NaN, ...
+    'actionName', '', ...
+    'gainPercent', NaN, ...
+    'targets', zeros(1, 6));
+end
