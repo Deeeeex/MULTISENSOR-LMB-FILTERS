@@ -53,3 +53,25 @@ are already known.
 
 This is privileged mechanism diagnosis only.  Seeds outside the six opened
 states, X36, and all final seeds remain unopened.
+
+## Result
+
+The `tau=0` rows exactly reproduce the registered v13 strict gains.  Neither
+diagnostic rule changes the oracle through `tau=0.5%`: the mean remains
+`+0.480%` and no state reaches `3%`.  With communication still strict, even
+`tau=2%` yields only `+0.928%` mean and zero strong states.  Allowing all five
+auxiliary targets to fall by as much as `2%` yields `+1.857%` mean, still with
+zero strong states and communication regression in three of six states.
+
+A post-scan descriptive ceiling that ignores all auxiliary targets gives
+`+2.407%` mean and one strong state.  That strong action gains `+5.988%` in
+network-mean tracking but loses `-11.486%` in consensus.  The current bank
+therefore contains local tracking value, but not a jointly safe action with
+the required magnitude.
+
+This rejects risk-threshold relaxation as the next method.  The actionable
+hypothesis is now a finite-horizon sequence that can combine complementary
+nonreference actions and repay formation/consensus risk before the end of the
+window.  Such a sequence must be evaluated under the original terminal
+six-target gate and exact per-step topology runtime checks; the descriptive
+tolerances will not be carried into validation.
