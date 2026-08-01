@@ -71,6 +71,18 @@ assert(isequal(beamDetails.selectionCriteria, ...
 assert(beamDetails.targetsUseTruth);
 assert(~beamDetails.validationClaimAllowed);
 
+pairRepairProtocol = getFormationH3PairRepairProbeProtocol();
+assert(strcmp(pairRepairProtocol.contractVersion, ...
+    'formation-h3-pair-repair-sequence-protocol-v1'));
+assert(isequal(pairRepairProtocol.prefixActionIndices, [9, 13]));
+assert(isequal(pairRepairProtocol.pairRepairActionIndices, 14:19));
+assert(strcmp(pairRepairProtocol.interventionBankType, ...
+    'formation-single-plus-pair'));
+assert(pairRepairProtocol.actionSelectionUsesTruth);
+assert(pairRepairProtocol.openedTrainingMechanismProbeOnly);
+assert(~pairRepairProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3PairRepairSequenceProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...

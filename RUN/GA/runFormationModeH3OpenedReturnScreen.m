@@ -59,6 +59,10 @@ switch interventionBankType
         defaultOutputRoot = 'formation_joint_h3_v15';
         screenContractVersion = ...
             'formation-projected-joint-h3-opened-return-screen-v1';
+    case 'formation-single-plus-pair'
+        defaultOutputRoot = 'formation_sequence_h3_v19';
+        screenContractVersion = ...
+            'formation-single-plus-pair-h3-opened-return-screen-v1';
     otherwise
         error('Unknown formation-mode intervention bank type.');
 end
@@ -112,6 +116,9 @@ switch interventionBankType
         assertProjectedJointMatchesPolicy( ...
             bank, selectedPolicyAdjacency, ...
             v10Details.fusionWeightMatrix);
+    case 'formation-single-plus-pair'
+        bank = buildCombinedFormationModeInterventionBank( ...
+            projection, groupIds, struct('pairTrustWeight', 0.30));
 end
 assertReferenceMatchesRegisteredPolicy( ...
     context, bank, protocol);
@@ -349,6 +356,8 @@ if writeReportEnabled
     end
     if strcmp(interventionBankType, 'formation-conservative-pair')
         stemPrefix = 'FORMATION_PAIR_H3';
+    elseif strcmp(interventionBankType, 'formation-single-plus-pair')
+        stemPrefix = 'FORMATION_COMBINED_H3';
     else
         stemPrefix = 'FORMATION_MODE_H3';
     end
@@ -922,6 +931,9 @@ if strcmp(screen.interventionBankType, ...
 elseif strcmp(screen.interventionBankType, ...
         'formation-projected-joint')
     reportTitle = 'Formation-projected-joint H=3 opened return screen';
+elseif strcmp(screen.interventionBankType, ...
+        'formation-single-plus-pair')
+    reportTitle = 'Formation combined local-plus-pair H=3 return screen';
 else
     reportTitle = 'Formation-local H=3 opened return screen';
 end
