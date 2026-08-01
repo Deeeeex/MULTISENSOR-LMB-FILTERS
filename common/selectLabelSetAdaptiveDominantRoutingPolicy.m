@@ -1021,6 +1021,12 @@ details.dynamicObjectiveAdvantageByFormation = ...
 details.dynamicModeAllowedByFormation = ...
     reshape(dynamicModeAllowed, 1, []);
 details.dynamicModeAllowedMask = allowedModeMask;
+details.modeDominantSourcesByIndex = modeSources;
+details.modeAdjacencyByIndex = modeAdjacency;
+details.modeFusionWeightsByIndex = modeWeights;
+details.referenceDominantSourcesByReceiver = referenceSources;
+details.candidateDominantSourcesByReceiver = candidateSources;
+details.payloadByFormationMode = payloadByFormationMode;
 details.valueGateEnabled = isfinite( ...
     minimumDynamicObjectiveAdvantage);
 details.selectedModeByFormation = selectedModes;
