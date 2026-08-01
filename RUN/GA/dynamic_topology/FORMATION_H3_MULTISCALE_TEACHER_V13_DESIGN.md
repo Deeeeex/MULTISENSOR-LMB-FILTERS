@@ -1,13 +1,24 @@
 # Formation H=3 multi-scale teacher sentinel v13
 
-## Decision after the opened M24 audit
+## Decision after the completed M24 strict-oracle audit
 
-The augmented singleton-plus-pair bank has deployment-constrained oracle
-headroom on four of five opened M24 states, including two strong states.  The
-five-state LOSO ridge audit nevertheless fails: the selected model falls back
-to the reference everywhere, with negative mean-gain correlation and only
-20% top-3 oracle capture.  More model capacity is not authorized from five
-states.  The next falsifier is state and scale coverage.
+The six-state M24 sentinel falsifies the current fixed-time action-space
+proposal before model fitting.  Under the pre-registered six-target deployment
+constraint, the best feasible gains are
+`[1.591, 0.024, 0, 0.516, 0, 0.751]%`: four of six states are positive, none
+reaches the 3% strong-gain threshold, and the mean is only `0.480%` instead of
+the required `2%`.  The earlier five-state statement used a narrower tail-safe
+screen and must not be interpreted as strict deployment headroom.
+
+The dominant rejected-action constraints are minimum-formation tracking and
+network consensus.  Many actions lower network-mean E-OSPA, but do so by
+moving error into one formation or by increasing inter-sensor disagreement.
+Consequently, neither a ridge predictor nor a GNN can rescue this candidate
+bank: a learned selector cannot create an action that the exact offline oracle
+does not contain.  X36 teacher generation and all reserved validation seeds
+remain unopened.  The next falsifier is a truth-free, event-conditioned state
+screen using the same action bank; only if that screen also lacks headroom is
+the coordinated topology action space broadened.
 
 ## Frozen sentinel split
 
