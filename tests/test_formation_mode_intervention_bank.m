@@ -57,6 +57,35 @@ assert(isequal(bank.actionWithinReferencePayload', ...
     logical([1, 1, 1, 0, 1])));
 assert(~bank.truthUsed && ~bank.futureOutcomeUsed);
 
+pairBank = buildConservativePairFormationModeInterventionBank( ...
+    projection, groupIds, struct('pairTrustWeight', 0.30));
+assert(strcmp(pairBank.contractVersion, ...
+    'formation-conservative-pair-intervention-bank-v1'));
+assert(pairBank.actionCount == 2);
+assert(pairBank.pairModeIndex == 2);
+assert(isequal(pairBank.actionFormationIndices, [0, 0; 1, 2]));
+assert(isequal(pairBank.actionModes, [1, 1; 2, 2]));
+assert(isequal(pairBank.actionAdjacency(:, :, 2), mode2));
+assert(isequal(pairBank.actionFusionWeights(:, :, 2), ...
+    weightsByMode{2}));
+assert(isequal(pairBank.actionDominantSources(2, :), ...
+    sourcesByMode{2}));
+assert(isequal(pairBank.actionPosteriorProxyAllowed', ...
+    logical([1, 0])));
+assert(isequal(pairBank.actionPosteriorObjective', [0, -1]));
+assert(isequal(pairBank.actionPayloadBytes', [220, 220]));
+assert(all(pairBank.actionWithinReferencePayload));
+assert(~pairBank.truthUsed && ~pairBank.futureOutcomeUsed);
+
+failed = false;
+try
+    buildConservativePairFormationModeInterventionBank( ...
+        projection, groupIds, struct('pairTrustWeight', 0.40));
+catch
+    failed = true;
+end
+assert(failed);
+
 invalid = projection;
 invalid.modeFusionWeightsByIndex{2}(1, 3) = 0.1;
 failed = false;
