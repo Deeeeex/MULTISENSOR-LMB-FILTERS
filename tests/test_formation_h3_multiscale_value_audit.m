@@ -71,6 +71,15 @@ assert(strcmp(audit.contractVersion, ...
 assert(numel(audit.trainingCvCandidates) == 4);
 assert(numel(audit.development.rows) == 6);
 assert(all(isfinite(audit.development.targetPearson)));
+% This synthetic model has high target correlation and safe selections but
+% captures the oracle in its top three only one third of the time.  The new
+% scale guard must reject that superficially strong representation.
+assert(~audit.scaleCoverageGatePassed);
+assert(any(~[audit.developmentScaleDiagnostics(2:end).coverageGatePassed]));
+assert(~audit.predictorFreezeReviewAuthorized);
+assert(audit.minimumDevelopmentScaleTop3CaptureFraction == 0.50);
+assert(audit.minimumDevelopmentScaleSafeSelectionFraction == 1.00);
+assert(audit.minimumDevelopmentScaleDynamicSelectionFraction == 0.50);
 assert(~audit.finalModelTrainingAuthorized);
 assert(~audit.messagePassingModelAuthorized);
 assert(~audit.validationClaimAllowed);
