@@ -37,3 +37,19 @@ sweep.
 
 This is a privileged single-state probe.  Seeds 223/227, X36, and final seeds
 remain unopened.
+
+## Result
+
+Only the all-reference arm is strict-feasible, so the v19 oracle remains
+`[1,1,1]` with `0%` gain.  The best communication-safe high-gain pair is
+`[9,13,18]`, which obtains
+`[+8.656, 0, +0.031, -3.554, +0.238, +0.249]%`.  The pair that most reduces
+consensus debt is `[9,13,19]`, with
+`[+6.416, 0, -0.001, -2.589, +0.812, +0.849]%`.
+
+Thus the existing trust-0.30 pair bank still cannot close the terminal
+consensus gap, but coordinated repair is not inert: `[9,13,19]` repays about
+77.5% of the original `-11.486%` debt while retaining strong tracking and
+communication savings.  The next bounded probe should append the four
+three-formation subsets and the all-formation trust-0.30 action.  This tests
+coordination order directly without a new trust or duration sweep.
