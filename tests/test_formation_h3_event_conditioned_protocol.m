@@ -18,6 +18,18 @@ assert(isempty(intersect(protocol.allSeeds, ...
 assert(nargin('selectFormationH3EventConditionedStates') == 3);
 assert(nargin('runFormationH3EventConditionedTeacherShard') == 3);
 
+jointProtocol = getFormationH3ProjectedJointProbeProtocol();
+assert(strcmp(jointProtocol.contractVersion, ...
+    'formation-h3-projected-joint-probe-protocol-v1'));
+assert(jointProtocol.seed == 211);
+assert(isequal(jointProtocol.snapshotTimes, [60, 72, 104, 124]));
+assert(strcmp(jointProtocol.cacheGenerationGitCommit, ...
+    'c9c6d4dcdc7ad1cb04fb88a22823e99c7fc5bc53'));
+assert(jointProtocol.openedTrainingMechanismProbeOnly);
+assert(~jointProtocol.validationClaimAllowed);
+assert(nargin('runFormationProjectedJointH3OpenedReturnScreen') == 4);
+assert(nargin('runFormationH3ProjectedJointProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
