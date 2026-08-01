@@ -60,7 +60,8 @@ for timeIdx = 1:timeCount
     staticPhysicalViolationCount = staticPhysicalViolationCount + nnz( ...
         staticAdjacency & ~graphData.physicalAdjacency(:, :, timeIdx));
 end
-if staticPhysicalViolationCount > 0
+if staticPhysicalViolationCount > 0 && ...
+        getField(config, 'requireStaticPhysicalAllTimes', true)
     hardFailures{end+1} = 'static-physical-violation'; %#ok<AGROW>
 end
 
@@ -123,6 +124,14 @@ validation.difficulty = difficulty;
 if ~validation.isValid
     error('Dynamic-topology scenario validation failed: %s', ...
         strjoin(hardFailures, ', '));
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
+end
 end
 
 function failures = validateDifficultyRequirements(metrics, requirements)

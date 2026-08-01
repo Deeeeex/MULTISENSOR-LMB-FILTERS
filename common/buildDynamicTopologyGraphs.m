@@ -13,6 +13,8 @@ end
     positions, config.commRange);
 intersectionAdjacency = all(physicalAdjacency, 3);
 intersectionAdjacency(1:sensorCount+1:end) = false;
+everAdjacency = any(physicalAdjacency, 3);
+everAdjacency(1:sensorCount+1:end) = false;
 
 switch lower(config.topologyFamily)
     case 'r8-fixed'
@@ -30,12 +32,14 @@ switch lower(config.topologyFamily)
         candidateMetadata.robustStaticCandidateIndex = staticIdx;
     otherwise
         staticAdjacency = buildGenericStaticAdjacency( ...
-            config, distanceByTime, intersectionAdjacency);
+            config, distanceByTime, intersectionAdjacency, ...
+            everAdjacency);
         candidateAdjacency = zeros(sensorCount, sensorCount, 0);
         candidateMetadata = struct('gatewayNodes', {{}});
 end
 
-if any(staticAdjacency(:) & ~intersectionAdjacency(:))
+if getField(config, 'requireStaticPhysicalAllTimes', true) && ...
+        any(staticAdjacency(:) & ~intersectionAdjacency(:))
     error('The generated static topology is not physical for all times.');
 end
 
@@ -44,7 +48,10 @@ graphData.positions = positions;
 graphData.distanceByTime = distanceByTime;
 graphData.physicalAdjacency = physicalAdjacency;
 graphData.intersectionAdjacency = intersectionAdjacency;
+graphData.everAdjacency = everAdjacency;
 graphData.staticAdjacency = logical(staticAdjacency);
+graphData.staticAllTimePhysical = ...
+    ~any(staticAdjacency(:) & ~intersectionAdjacency(:));
 graphData.staticNeighborMap = adjacencyToNeighborMap(staticAdjacency);
 graphData.candidateAdjacency = logical(candidateAdjacency);
 graphData.candidateMetadata = candidateMetadata;
@@ -188,7 +195,7 @@ end
 end
 
 function adjacency = buildGenericStaticAdjacency( ...
-    config, distanceByTime, intersectionAdjacency)
+    config, distanceByTime, intersectionAdjacency, everAdjacency)
 sensorCount = config.numberOfSensors;
 adjacency = false(sensorCount);
 groups = cell(1, config.formationCount);
@@ -197,24 +204,53 @@ for groupIdx = 1:config.formationCount
     adjacency = addRing(adjacency, groups{groupIdx});
 end
 
-% A formation-level ring supplies an all-time connected static backbone.
 meanDistances = mean(distanceByTime, 3);
-for groupIdx = 1:config.formationCount
-    nextGroup = mod(groupIdx, config.formationCount) + 1;
-    adjacency = addBestGroupBridge( ...
-        adjacency, groups{groupIdx}, groups{nextGroup}, ...
-        meanDistances, intersectionAdjacency, config.maxNodeDegree);
+backboneMode = lower(getField( ...
+    config, 'formationBackboneMode', 'formation-ring'));
+switch backboneMode
+    case {'formation-ring', 'ring'}
+        backbonePairs = [ ...
+            (1:config.formationCount)', ...
+            [2:config.formationCount, 1]'];
+        allowedEdges = intersectionAdjacency;
+        edgeScores = meanDistances;
+    case {'reliable-mst', 'all-time-physical-mst'}
+        allowedEdges = intersectionAdjacency;
+        edgeScores = meanDistances;
+        backbonePairs = selectFormationMstPairs( ...
+            groups, allowedEdges, edgeScores);
+    case {'mean-availability-mst', 'nominal-mst'}
+        allowedEdges = everAdjacency;
+        availability = physicalAvailability(config, distanceByTime);
+        distanceScale = max(getField(config, 'commRange', 1), 1);
+        if ~isfinite(distanceScale)
+            distanceScale = max(meanDistances(:));
+        end
+        edgeScores = meanDistances + ...
+            2 * distanceScale * (1 - availability);
+        backbonePairs = selectFormationMstPairs( ...
+            groups, allowedEdges, edgeScores);
+    otherwise
+        error('Unknown formationBackboneMode: %s', backboneMode);
 end
 
-% Fill unused budget with the shortest reliable intersection edges while
-% retaining the degree cap.
+for pairIdx = 1:size(backbonePairs, 1)
+    leftGroupIdx = backbonePairs(pairIdx, 1);
+    rightGroupIdx = backbonePairs(pairIdx, 2);
+    adjacency = addBestGroupBridge( ...
+        adjacency, groups{leftGroupIdx}, groups{rightGroupIdx}, ...
+        edgeScores, allowedEdges, config.maxNodeDegree);
+end
+
+% Fill unused budget with the best edges admissible under the selected
+% backbone contract while retaining the node degree cap.
 edgeList = [];
 for leftIdx = 1:sensorCount-1
     for rightIdx = leftIdx+1:sensorCount
-        if intersectionAdjacency(leftIdx, rightIdx) && ...
+        if allowedEdges(leftIdx, rightIdx) && ...
                 ~adjacency(leftIdx, rightIdx)
             edgeList(end+1, :) = [ ...
-                leftIdx, rightIdx, meanDistances(leftIdx, rightIdx)]; %#ok<AGROW>
+                leftIdx, rightIdx, edgeScores(leftIdx, rightIdx)]; %#ok<AGROW>
         end
     end
 end
@@ -234,6 +270,59 @@ for edgeIdx = 1:size(edgeList, 1)
     end
     adjacency = addEdge(adjacency, leftIdx, rightIdx);
 end
+end
+
+function pairs = selectFormationMstPairs(groups, allowedEdges, edgeScores)
+formationCount = numel(groups);
+candidatePairs = zeros(0, 3);
+for leftGroupIdx = 1:formationCount-1
+    for rightGroupIdx = leftGroupIdx+1:formationCount
+        leftGroup = groups{leftGroupIdx};
+        rightGroup = groups{rightGroupIdx};
+        allowed = allowedEdges(leftGroup, rightGroup);
+        scores = edgeScores(leftGroup, rightGroup);
+        if any(allowed(:))
+            candidatePairs(end+1, :) = [ ... %#ok<AGROW>
+                leftGroupIdx, rightGroupIdx, min(scores(allowed))];
+        end
+    end
+end
+if isempty(candidatePairs)
+    error('No admissible inter-formation edge exists.');
+end
+[~, order] = sort(candidatePairs(:, 3), 'ascend');
+candidatePairs = candidatePairs(order, :);
+components = 1:formationCount;
+pairs = zeros(formationCount - 1, 2);
+pairCount = 0;
+for candidateIdx = 1:size(candidatePairs, 1)
+    leftGroupIdx = candidatePairs(candidateIdx, 1);
+    rightGroupIdx = candidatePairs(candidateIdx, 2);
+    leftComponent = components(leftGroupIdx);
+    rightComponent = components(rightGroupIdx);
+    if leftComponent == rightComponent
+        continue;
+    end
+    pairCount = pairCount + 1;
+    pairs(pairCount, :) = [leftGroupIdx, rightGroupIdx];
+    components(components == rightComponent) = leftComponent;
+    if pairCount == formationCount - 1
+        break;
+    end
+end
+if pairCount ~= formationCount - 1
+    error('Admissible formation-level graph is disconnected.');
+end
+end
+
+function availability = physicalAvailability(config, distanceByTime)
+commRange = getField(config, 'commRange', inf);
+if isfinite(commRange)
+    availability = mean(distanceByTime <= commRange, 3);
+else
+    availability = ones(size(distanceByTime, 1));
+end
+availability(1:size(availability, 1)+1:end) = 0;
 end
 
 function adjacency = addBestGroupBridge( ...
@@ -286,5 +375,13 @@ neighborMap = cell(1, sensorCount);
 for sensorIdx = 1:sensorCount
     neighborMap{sensorIdx} = unique( ...
         [sensorIdx, find(adjacency(sensorIdx, :))]);
+end
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
 end
 end
