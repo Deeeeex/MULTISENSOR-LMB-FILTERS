@@ -38,3 +38,22 @@ multi-formation mode vector against predicted terminal consensus debt.
 
 This is a privileged single-state mechanism probe.  Seeds 223/227, X36, and
 final seeds remain unopened and cannot be claimed from this result.
+
+## Result
+
+The expanded bank reproduces `[9,13,1]` within the frozen tolerance, but only
+the all-reference arm is strict-feasible.  The strict oracle therefore
+remains `[1,1,1]` with `0%` gain, and no strong safe sequence is found.
+
+The best-consensus higher-order sequence is `[9,13,23]`, which applies trust
+0.30 to formations 2+3+4 and obtains
+`[+6.448, 0, +0.031, -2.395, +1.027, +1.074]%`.  It repays about 79.1% of the
+original `-11.486%` consensus debt, only a modest improvement over the 77.5%
+repaid by the v19 pair 3+4.  The all-formation action is worse on consensus
+at `-2.637%`, despite larger communication savings.
+
+The stopping rule is therefore active: uniform-trust subset enumeration ends
+at v20.  Coordination scale is not the missing scalar.  The next method must
+choose a heterogeneous mode vector across formations and score its predicted
+terminal consensus debt, with the existing tracking, tail, and communication
+targets retained as hard safety constraints.
