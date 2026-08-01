@@ -30,6 +30,17 @@ assert(~jointProtocol.validationClaimAllowed);
 assert(nargin('runFormationProjectedJointH3OpenedReturnScreen') == 4);
 assert(nargin('runFormationH3ProjectedJointProbe') == 1);
 
+durationProtocol = getFormationH3DurationProbeProtocol();
+assert(strcmp(durationProtocol.contractVersion, ...
+    'formation-h3-duration-probe-protocol-v1'));
+assert(isequal(durationProtocol.snapshotTimes, [60, 72, 104]));
+assert(isequal(durationProtocol.actionIndices, [2, 7, 12]));
+assert(durationProtocol.interventionDurationSteps == 3);
+assert(durationProtocol.actionSelectionUsesTruth);
+assert(durationProtocol.openedTrainingMechanismProbeOnly);
+assert(~durationProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3DurationProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
