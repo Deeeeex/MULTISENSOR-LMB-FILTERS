@@ -3077,10 +3077,33 @@ for presetIdx = 1:numel(names)
     requirements = config.difficultyRequirements;
     assert(difficulty.blackoutFraction <= ...
         requirements.maxBlackoutFraction + 1e-12);
+    if isfield(requirements, 'maxFocusBlackoutFraction')
+        assert(difficulty.focusBlackoutFraction <= ...
+            requirements.maxFocusBlackoutFraction + 1e-12);
+    end
+    if isfield(requirements, 'maxPerTargetBlackoutFraction')
+        assert(difficulty.maximumPerTargetBlackoutFraction <= ...
+            requirements.maxPerTargetBlackoutFraction + 1e-12);
+    end
+    if isfield(requirements, 'maxConsecutiveBlackoutSteps')
+        assert(difficulty.maximumConsecutiveBlackoutSteps <= ...
+            requirements.maxConsecutiveBlackoutSteps);
+    end
     assert(difficulty.singleFormationFraction >= ...
         requirements.minSingleFormationFraction - 1e-12);
     assert(difficulty.multiFormationFraction >= ...
         requirements.minMultiFormationFraction - 1e-12);
+    if isfield(requirements, ...
+            'maxFocusVisibleTargetsPerSensorTime')
+        assert(difficulty.focusMeanVisibleTargetsPerSensorTime <= ...
+            requirements.maxFocusVisibleTargetsPerSensorTime + 1e-12);
+    end
+    if isfield(requirements, ...
+            'maxFocusVisibleTargetFractionPerSensorTime')
+        assert(difficulty.focusMeanVisibleTargetsPerSensorTime / ...
+            config.numberOfTargets <= requirements. ...
+            maxFocusVisibleTargetFractionPerSensorTime + 1e-12);
+    end
     assert(isfinite(difficulty.meanVisibleSensorCount));
     assert(difficulty.meanVisibleSensorCount > 0);
     assert(difficulty.meanVisibleSensorCount <= ...
@@ -3163,9 +3186,9 @@ for presetIdx = 2:numel(configs)
             configs{presetIdx}.(fieldName)));
     end
 end
-assert(configs{1}.fovRange == 385);
+assert(configs{1}.fovRange == 300);
 assert(strcmp(configs{1}.sensorHardwareProfile, ...
-    'formation-shared-150deg-r385-q300-v1'));
+    'formation-shared-120deg-r300-q300-v1'));
 
 reference = metrics(1);
 matchedFields = { ...
@@ -3221,8 +3244,8 @@ for presetIdx = 1:numel(presets)
         generateMultiFormationTrajectories(config);
     headings = buildSensorFovHeadingSchedule( ...
         config, sensorTrajectories);
-    assert(config.fovTotalAngleDeg == 150);
-    assert(config.fovHalfAngleDeg == 75);
+    assert(config.fovTotalAngleDeg == 120);
+    assert(config.fovHalfAngleDeg == 60);
     assert(strcmp(config.sensorFovHeadingMode, ...
         'formation-shared-scene-center'));
     assert(isequal(size(headings), [ ...

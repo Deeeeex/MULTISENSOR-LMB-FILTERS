@@ -39,7 +39,7 @@ for seedIdx = 1:numel(seedList)
 end
 
 summary = struct();
-summary.contractVersion = 'formation-shared-fov-geometry-scan-v1';
+summary.contractVersion = 'formation-shared-fov-geometry-scan-v2';
 summary.presetName = presetName;
 summary.seeds = seedList;
 summary.fovRanges = fovRanges;
@@ -148,6 +148,22 @@ owner(~isfinite(nearestDistance) | ~geometry.activeMask) = 0;
 
 activeFormationCounts = visibleFormationCount(geometry.activeMask);
 focusOwner = owner(:, focusWindow);
+blackoutMask = geometry.activeMask & visibleFormationCount == 0;
+focusActiveMask = geometry.activeMask(:, focusWindow);
+focusBlackoutMask = blackoutMask(:, focusWindow);
+activeSamplesByTarget = sum(geometry.activeMask, 2);
+blackoutSamplesByTarget = sum(blackoutMask, 2);
+activeTargets = activeSamplesByTarget > 0;
+perTargetBlackoutFraction = zeros(targetCount, 1);
+perTargetBlackoutFraction(activeTargets) = ...
+    blackoutSamplesByTarget(activeTargets) ./ ...
+        activeSamplesByTarget(activeTargets);
+maximumConsecutiveBlackoutSteps = 0;
+for targetIdx = 1:targetCount
+    maximumConsecutiveBlackoutSteps = max( ...
+        maximumConsecutiveBlackoutSteps, ...
+        longestTrueRun(blackoutMask(targetIdx, :)));
+end
 record = emptyRecord();
 record.fovRange = fovRange;
 record.qualityReferenceRange = referenceRange;
@@ -160,6 +176,12 @@ focusVisible = inFov(:, :, focusWindow);
 record.focusMeanVisibleTargetsPerSensorTime = ...
     sum(focusVisible(:)) / (sensorCount * numel(focusWindow));
 record.blackoutFraction = mean(activeFormationCounts == 0);
+record.focusBlackoutFraction = sum(focusBlackoutMask(:)) / ...
+    max(sum(focusActiveMask(:)), 1);
+record.maximumPerTargetBlackoutFraction = ...
+    max(perTargetBlackoutFraction);
+record.maximumConsecutiveBlackoutSteps = ...
+    maximumConsecutiveBlackoutSteps;
 record.singleFormationFraction = mean(activeFormationCounts == 1);
 record.multiFormationFraction = mean(activeFormationCounts >= 2);
 record.focusHandovers = countOwnerChanges(focusOwner);
@@ -172,6 +194,19 @@ fractions = counts / max(sum(counts), 1);
 positive = fractions(fractions > 0);
 record.formationOwnershipEntropy = ...
     -sum(positive .* log(positive)) / log(config.formationCount);
+end
+
+function longest = longestTrueRun(mask)
+longest = 0;
+current = 0;
+for sample = reshape(logical(mask), 1, [])
+    if sample
+        current = current + 1;
+        longest = max(longest, current);
+    else
+        current = 0;
+    end
+end
 end
 
 function count = countOwnerChanges(owners)
@@ -211,6 +246,9 @@ record = struct( ...
     'focusMeanExpectedTargetDetectionCount', NaN, ...
     'focusMeanVisibleTargetsPerSensorTime', NaN, ...
     'blackoutFraction', NaN, ...
+    'focusBlackoutFraction', NaN, ...
+    'maximumPerTargetBlackoutFraction', NaN, ...
+    'maximumConsecutiveBlackoutSteps', NaN, ...
     'singleFormationFraction', NaN, ...
     'multiFormationFraction', NaN, ...
     'focusHandovers', NaN, ...

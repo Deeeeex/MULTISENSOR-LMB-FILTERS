@@ -138,6 +138,28 @@ end
 metrics = struct();
 metrics.activeTargetSamples = activeSampleCount;
 metrics.blackoutFraction = blackoutCount / max(activeSampleCount, 1);
+blackoutMask = activeMask & visibilityCount == 0;
+focusActiveMask = activeMask(:, focusWindow);
+focusBlackoutMask = blackoutMask(:, focusWindow);
+metrics.focusBlackoutFraction = sum(focusBlackoutMask(:)) / ...
+    max(sum(focusActiveMask(:)), 1);
+activeSamplesByTarget = sum(activeMask, 2);
+blackoutSamplesByTarget = sum(blackoutMask, 2);
+activeTargets = activeSamplesByTarget > 0;
+perTargetBlackoutFraction = zeros(targetCount, 1);
+perTargetBlackoutFraction(activeTargets) = ...
+    blackoutSamplesByTarget(activeTargets) ./ ...
+        activeSamplesByTarget(activeTargets);
+metrics.maximumPerTargetBlackoutFraction = ...
+    max(perTargetBlackoutFraction);
+maximumConsecutiveBlackoutSteps = 0;
+for targetIdx = 1:targetCount
+    maximumConsecutiveBlackoutSteps = max( ...
+        maximumConsecutiveBlackoutSteps, ...
+        longestTrueRun(blackoutMask(targetIdx, :)));
+end
+metrics.maximumConsecutiveBlackoutSteps = ...
+    maximumConsecutiveBlackoutSteps;
 metrics.singleFormationFraction = ...
     singleFormationCount / max(activeSampleCount, 1);
 metrics.multiFormationFraction = ...
@@ -188,6 +210,19 @@ metrics.meanPhysicalInterFormationEdges = ...
 metrics.blockageFocusOverlapFraction = ...
     blockageFocusOverlap(config, focusWindow);
 metrics.focusWindow = [focusWindow(1), focusWindow(end)];
+end
+
+function longest = longestTrueRun(mask)
+longest = 0;
+current = 0;
+for sample = reshape(logical(mask), 1, [])
+    if sample
+        current = current + 1;
+        longest = max(longest, current);
+    else
+        current = 0;
+    end
+end
 end
 
 function [visible, nearestDistance, visibleSensors, ...
