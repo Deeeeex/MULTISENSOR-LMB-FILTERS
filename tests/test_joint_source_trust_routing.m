@@ -4,8 +4,64 @@ function test_joint_source_trust_routing()
 testVectorDominantWeights();
 testFiniteModeProjector();
 testValueGateMask();
+testFormationTailGuard();
 testX36SelectorIntegration();
 fprintf('test_joint_source_trust_routing passed\n');
+end
+
+function testFormationTailGuard()
+groupIds = [1, 1, 2, 2];
+nodeCount = numel(groupIds);
+modeCount = 2;
+pairRiskByMode = zeros(nodeCount, nodeCount, modeCount, modeCount);
+for leftIdx = 1:(nodeCount - 1)
+    for rightIdx = (leftIdx + 1):nodeCount
+        sameFormation = groupIds(leftIdx) == groupIds(rightIdx);
+        if sameFormation && groupIds(leftIdx) == 1
+            modeRisk = [1, 1; 1, 3];
+        elseif sameFormation
+            modeRisk = [1, 1; 1, 0];
+        else
+            modeRisk = [1, 0.5; 0.5, 0.5];
+        end
+        for leftMode = 1:modeCount
+            for rightMode = 1:modeCount
+                value = modeRisk(leftMode, rightMode);
+                pairRiskByMode( ...
+                    leftIdx, rightIdx, leftMode, rightMode) = value;
+                pairRiskByMode( ...
+                    rightIdx, leftIdx, rightMode, leftMode) = value;
+            end
+        end
+    end
+end
+objective = repmat([0, 5], 2, 1);
+payload = ones(2, modeCount);
+baseOptions = struct( ...
+    'referenceModeIndex', 1, ...
+    'riskLimit', 1, ...
+    'primaryPayloadLimitBytes', 2, ...
+    'maximumPayloadLimitBytes', 2, ...
+    'modeTrustWeights', [0.70, 0.50]);
+unprotected = selectJointSourceTrustFormationModes( ...
+    pairRiskByMode, groupIds, objective, payload, baseOptions);
+assert(isequal(unprotected, [2, 2]));
+
+guardedOptions = baseOptions;
+guardedOptions.formationRiskGuardMode = 'reference-mean-tail';
+guardedOptions.formationRiskTailFraction = 0.5;
+guardedOptions.formationRiskTailWeight = 1;
+guardedOptions.formationRiskToleranceFraction = 0;
+[guarded, details] = selectJointSourceTrustFormationModes( ...
+    pairRiskByMode, groupIds, objective, payload, guardedOptions);
+assert(isequal(guarded, [1, 2]));
+assert(details.formationRiskGuardEnabled);
+assert(details.formationRiskRejectedCandidateCount >= 1);
+assert(details.formationRiskConstraintPassed);
+assert(all(details.selectedFormationRisk <= ...
+    details.formationRiskLimit + 1e-12));
+assert(strcmp(details.contractVersion, ...
+    'joint-source-trust-formation-tail-projector-v2'));
 end
 
 function testValueGateMask()

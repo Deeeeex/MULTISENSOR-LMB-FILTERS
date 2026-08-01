@@ -64,6 +64,16 @@ tests. It is not connected to the frozen v9 validation. The completed M24
 pair identifies receiver/formation masking as a real failure mode; X36 is
 still required before choosing the exact integration and fallback policy.
 
+The second isolated milestone extends the finite-mode projector with an
+optional reference-relative formation mean-tail disagreement guard. For
+each enumerated joint action, it derives every receiver's mean pairwise
+disagreement and rejects the action if any formation's mean-tail score is
+worse than the all-reference action. A synthetic counterexample verifies
+that the old global mean accepts a jointly attractive action that harms one
+formation, while the new guard keeps that formation on reference mode and
+still accepts the beneficial mode elsewhere. The option is disabled by
+default, so the frozen v9 path is unchanged; no runtime arm uses it yet.
+
 ## Planned evidence gates
 
 1. On opened development states, posterior Bayes-risk advantage must rank
