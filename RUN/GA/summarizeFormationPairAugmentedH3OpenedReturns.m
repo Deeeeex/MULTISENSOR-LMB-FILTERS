@@ -80,6 +80,8 @@ for caseIdx = 1:size(seedTimes, 1)
         pairScreen.bank.referenceActionIndex;
     pairRecords = normalizeFormationIndices( ...
         pairScreen.records(pairNonreference));
+    pairRecords = orderfields( ...
+        pairRecords, fieldnames(localRecords));
     records = [localRecords, pairRecords];
     meanGain = [records.meanGainPercent];
     minimumFormationGain = ...
@@ -197,7 +199,15 @@ end
 function path = screenPath(root, prefix, presetName, seed, currentTime)
 stem = sprintf('%s_%s_SEED%d_T%d.mat', prefix, ...
     upper(strrep(presetName, '-', '_')), seed, currentTime);
-path = fullfile(root, sprintf('seed%d', seed), stem);
+nestedPath = fullfile(root, sprintf('seed%d', seed), stem);
+directPath = fullfile(root, stem);
+if exist(nestedPath, 'file') == 2
+    path = nestedPath;
+elseif exist(directPath, 'file') == 2
+    path = directPath;
+else
+    path = nestedPath;
+end
 end
 
 function screen = loadScreen(path)
