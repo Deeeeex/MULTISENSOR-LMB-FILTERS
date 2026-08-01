@@ -39,3 +39,25 @@ mechanism probe, not a deployable duration selector.
 - No gain would rule out intervention duration as the main missing mechanism.
 
 Seeds 223, 227, X36, and all final seeds remain unopened.
+
+## Result
+
+Holding the three outcome-inspected one-step oracle actions for all three
+return steps produces strict gains `[1.105, 0, 0]%` at times
+`[60, 72, 104]`.  Their one-step counterparts were
+`[1.591, 0.024, 0.517]%`, so persistence changes the gains by
+`[-0.486, -0.024, -0.517]` percentage points.
+
+The time-60 action remains feasible but loses roughly one third of its
+one-step gain.  At time 72, persistence introduces a `-0.199%` consensus
+regression.  At time 104, it introduces `-0.152%` attempted-byte and
+`-0.156%` delivered-byte regressions.  The strict reference fallback therefore
+rejects both actions.
+
+Fixed three-step duration is not the missing M24 mechanism.  A longer action
+can accumulate a different mixture of tracking, consensus, and communication
+effects, so one-step value cannot be multiplied or extrapolated across the
+window.  This result leaves adaptive termination as a possible component of a
+future sequential controller, but it does not justify another duration-only
+variant.  The next diagnosis must distinguish an over-conservative
+samplewise risk rule from genuine lack of value in the current action bank.
