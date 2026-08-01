@@ -83,6 +83,24 @@ assert(pairRepairProtocol.openedTrainingMechanismProbeOnly);
 assert(~pairRepairProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3PairRepairSequenceProbe') == 1);
 
+coordinatedProtocol = ...
+    getFormationH3CoordinatedSubsetRepairProbeProtocol();
+assert(strcmp(coordinatedProtocol.contractVersion, ...
+    ['formation-h3-coordinated-subset-repair-', ...
+     'sequence-protocol-v1']));
+assert(isequal(coordinatedProtocol.prefixActionIndices, [9, 13]));
+assert(isequal(coordinatedProtocol.coordinatedRepairActionIndices, ...
+    20:24));
+assert(isequal(coordinatedProtocol.subsetOrders, [3, 4]));
+assert(coordinatedProtocol.subsetTrustWeight == 0.30);
+assert(coordinatedProtocol.expectedExpandedActionCount == 24);
+assert(strcmp(coordinatedProtocol.interventionBankType, ...
+    'formation-local-pair-coordinated-subset'));
+assert(coordinatedProtocol.actionSelectionUsesTruth);
+assert(coordinatedProtocol.openedTrainingMechanismProbeOnly);
+assert(~coordinatedProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3CoordinatedSubsetRepairProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...

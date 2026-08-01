@@ -63,6 +63,11 @@ switch interventionBankType
         defaultOutputRoot = 'formation_sequence_h3_v19';
         screenContractVersion = ...
             'formation-single-plus-pair-h3-opened-return-screen-v1';
+    case 'formation-local-pair-coordinated-subset'
+        defaultOutputRoot = 'formation_sequence_h3_v20';
+        screenContractVersion = ...
+            ['formation-local-pair-coordinated-subset-h3-', ...
+             'opened-return-screen-v1'];
     otherwise
         error('Unknown formation-mode intervention bank type.');
 end
@@ -119,6 +124,12 @@ switch interventionBankType
     case 'formation-single-plus-pair'
         bank = buildCombinedFormationModeInterventionBank( ...
             projection, groupIds, struct('pairTrustWeight', 0.30));
+    case 'formation-local-pair-coordinated-subset'
+        bank = buildExpandedFormationModeInterventionBank( ...
+            projection, groupIds, struct( ...
+                'pairTrustWeight', 0.30, ...
+                'subsetTrustWeight', 0.30, ...
+                'subsetOrders', [3, 4]));
 end
 assertReferenceMatchesRegisteredPolicy( ...
     context, bank, protocol);
@@ -358,6 +369,9 @@ if writeReportEnabled
         stemPrefix = 'FORMATION_PAIR_H3';
     elseif strcmp(interventionBankType, 'formation-single-plus-pair')
         stemPrefix = 'FORMATION_COMBINED_H3';
+    elseif strcmp(interventionBankType, ...
+            'formation-local-pair-coordinated-subset')
+        stemPrefix = 'FORMATION_COORDINATED_H3';
     else
         stemPrefix = 'FORMATION_MODE_H3';
     end
@@ -934,6 +948,10 @@ elseif strcmp(screen.interventionBankType, ...
 elseif strcmp(screen.interventionBankType, ...
         'formation-single-plus-pair')
     reportTitle = 'Formation combined local-plus-pair H=3 return screen';
+elseif strcmp(screen.interventionBankType, ...
+        'formation-local-pair-coordinated-subset')
+    reportTitle = ...
+        'Formation coordinated-subset H=3 opened return screen';
 else
     reportTitle = 'Formation-local H=3 opened return screen';
 end
@@ -1002,7 +1020,8 @@ if isempty(indices)
 elseif numel(indices) == 1
     value = sprintf('%d', indices);
 else
-    value = sprintf('%d+%d', indices(1), indices(2));
+    value = strtrim(sprintf('%d+', indices));
+    value = value(1:(end - 1));
 end
 end
 
