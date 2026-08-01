@@ -59,3 +59,25 @@ enumeration.
   bank are restricted.
 
 Seeds 223/227, X36, and all final seeds remain unopened.
+
+## Result
+
+The probe evaluates 47 unique sequences.  Only the all-reference sequence is
+strict-feasible, so the strict oracle remains `[1,1,1]` with `0%` gain.  The
+four selected second actions are `[13,12,1,11]`, exactly corresponding to the
+predeclared diverse criteria.
+
+The strongest near-feasible local sequence is `[9,13,12]`: formation 3 at
+trust 0.50, then formation 4 at trust 0.70, then formation 4 at trust 0.50.
+Its six targets are
+`[+8.623, 0, -0.001, -3.717, +0.023, +0.024]%`.  Relative to `[9,1,1]`, it
+repays about 68% of the consensus debt, raises tracking gain by 2.635 points,
+and restores both communication targets, but it cannot close the remaining
+consensus gap within H=3.
+
+This is a useful negative result.  Temporal complementarity is measurable,
+but one-formation-at-a-time repair is insufficient.  The next bounded probe
+will keep the best opened prefix `[9,13]` and replace the third local action
+with every conservative two-formation repair action.  Failure of that probe
+will motivate a genuinely coordinated projection rather than further trust
+or duration tuning.
