@@ -38,6 +38,15 @@ switch canonicalName
         config = configureM24(config, 'teacher');
     case {'m24-formation-fov', 'm24-realistic-fov'}
         config = configureM24(config, 'formation-fov');
+    case {'m24-formation-fov-convoy', 'm24-convoy-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'convoy');
+    case {'m24-formation-fov-crossing', 'm24-crossing-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'crossing');
+    case {'m24-formation-fov-relay', 'm24-relay-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'relay');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
@@ -48,6 +57,15 @@ switch canonicalName
         config = configureX36(config, 'clean-scale');
     case {'x36-formation-fov', 'x36-realistic-fov'}
         config = configureX36(config, 'formation-fov');
+    case {'x36-formation-fov-convoy', 'x36-convoy-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'convoy');
+    case {'x36-formation-fov-crossing', 'x36-crossing-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'crossing');
+    case {'x36-formation-fov-relay', 'x36-relay-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'relay');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
     case {'x48-formation-fov', 'x48-realistic-fov'}
@@ -134,6 +152,7 @@ config.maxNodeDegree = 4;
 config.maxInterFormationDegree = 2;
 config.topologyFamily = 'd12-enumerated';
 config.staticTopologyMode = 'robust-geometry';
+config.formationBackboneMode = 'formation-ring';
 config.attemptedByteToleranceFraction = 0.02;
 config.focusWindowName = 'full';
 config.focusWindow = [1, 120];
