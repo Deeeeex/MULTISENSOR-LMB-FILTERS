@@ -101,6 +101,25 @@ assert(coordinatedProtocol.openedTrainingMechanismProbeOnly);
 assert(~coordinatedProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3CoordinatedSubsetRepairProbe') == 1);
 
+modeVectorProtocol = ...
+    getFormationH3HeterogeneousModeVectorProbeProtocol();
+assert(strcmp(modeVectorProtocol.contractVersion, ...
+    'formation-h3-heterogeneous-mode-vector-probe-protocol-v1'));
+assert(isequal(modeVectorProtocol.prefixModeVectors, [ ...
+    1, 1, 3, 1; 1, 1, 1, 4]));
+assert(isequal(modeVectorProtocol.prefixActionIndices, [9, 4]));
+assert(isequal(modeVectorProtocol.centerModeVector, [1, 2, 2, 2]));
+assert(modeVectorProtocol.centerActionIndex == 22);
+assert(modeVectorProtocol.maximumHammingDistance == 2);
+assert(modeVectorProtocol.expectedCandidateCount == 67);
+assert(modeVectorProtocol.expectedActionCount == 256);
+assert(strcmp(modeVectorProtocol.interventionBankType, ...
+    'formation-exhaustive-mode-vector'));
+assert(modeVectorProtocol.actionSelectionUsesTruth);
+assert(modeVectorProtocol.openedTrainingMechanismProbeOnly);
+assert(~modeVectorProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3HeterogeneousModeVectorProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
