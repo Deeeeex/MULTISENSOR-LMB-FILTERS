@@ -30,10 +30,12 @@ reference trajectory produces all three predecision caches. Cache generation,
 scene auditing, initial v35 control construction, and later full H=3 source
 replay use no tracking truth or future outcome.
 
-## Frozen truth-free controller traces
+## Revoked v2 traces and the v3 causal boundary
 
-The initial source metrics and complete H=3 controller traces were frozen
-before any X36 tracking outcome was scored:
+The revoked v2 run recorded the following candidate-side source metrics before
+any X36 tracking outcome was scored. The values remain preregistered
+development expectations for drift detection, but they are not accepted as
+causal evidence because the v2 callback could reach forbidden inputs:
 
 | Anchor | Initial bank action | Retained formations over H=3 | Explicit release | Reference fallback | Attempted bytes |
 |--:|--:|:--|:--|:--|:--|
@@ -41,19 +43,43 @@ before any X36 tracking outcome was scored:
 | 100 | 52 | `[1 2 5 6] -> [1 2 4 5] -> [4 6]` | formation 6 at t=101 | `[0 0 0]` | `[2861728 2713960 2759840]` |
 | 128 | 44 | `[1 2 4 6] -> [1 3 4] -> [3 6]` | none | `[0 0 0]` | `[1949704 1884000 1954304]` |
 
-The full 35-field runtime fingerprints are frozen as:
+The old candidate-only fingerprints are retained only to identify the revoked
+artifact:
 
-| Anchor | Executed action indices | Runtime fingerprint SHA-256 |
+| Anchor | Executed action indices | Revoked v2 candidate SHA-256 |
 |--:|:--|:--|
 | 72 | `[53 17 3]` | `fef95ee229bc6c4a86142ed72e3f6455d3dfac807a63b92ac2136bf905431f7a` |
 | 100 | `[52 28 41]` | `8f71e1c1e37cfb7d63f1f481788f9fea2277f69940d0bca52f5878b7c47b7a4c` |
 | 128 | `[44 14 37]` | `c39e67d450a697632a41b807272bfdd20ccb4b7695bca08e04dbb37668221067` |
 
-All three states use the same posterior- and current-link-aware,
-retention-debt receding-horizon controller. Only t=100 invokes the explicit
-mature-formation release schedule. The broader X36 mechanism is therefore
-debt-aware protection and rotation; staggered release is one conditional
-behavior of that controller, not a step that must appear in every state.
+V3 replaces the self-reported truth-free claim with a structural callback
+boundary. The policy receives only the current posterior, the current 2-D
+drop-probability page, current node positions and physical action set, past
+selected-topology and update histories, static fusion parameters, and sensor
+formation IDs. The posterior itself is projected to a registered LMB schema
+(label, existence, GM state, covariance, and association summaries); trajectory
+history, timestamps, unknown side-channel fields, and function handles cannot
+reach the callback. Its model view contains only the state dimension, existence
+threshold, an empty object template, and formation IDs. Target trajectories,
+the complete dynamic scenario, measurements, sensor trajectories, link
+uniforms, future drop-probability pages, callback handles, and future-dated
+posterior timestamps are rejected before the callback executes. Every other
+callback field is restricted to primitive numeric/logical/character or
+cell/struct containers, with exact adjacency, edge-score, budget, and history
+shapes tied to the current time; arbitrary class objects cannot carry a hidden
+oracle into the policy.
+
+Each anchor must now reproduce two separately identified traces:
+
+| Anchor | Reference arm | Candidate arm | V3 fingerprints |
+|--:|:--|:--|:--|
+| 72 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
+| 100 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
+| 128 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
+
+Only t=100 invokes the explicit mature-formation release schedule. The broader
+candidate mechanism is debt-aware protection and rotation; staggered release
+is one conditional behavior, not a step that must appear in every state.
 
 ## Authorization sequence
 
@@ -61,9 +87,25 @@ behavior of that controller, not a step that must appear in every state.
 2. Generate and hash the three reference posterior caches in one trajectory.
 3. Construct the unchanged v35 controller at each anchor and freeze its exact
    initial source metrics and action.
-4. Execute the complete H=3 controller without scoring tracking; freeze every
-   suspension, release, fallback, posterior/link-use, and rolling-B3 field.
-5. Reproduce those traces from a later clean commit.
+4. Execute both the fixed reference and causal candidate through the complete
+   H=3 source-only runtime without scoring tracking.
+5. Freeze all six fingerprints, including arm identity, input-contract
+   attestation, suspension/release state, fallback, posterior/link-use, fusion
+   weights, attempted bytes, and rolling-B3 fields.
+6. Reproduce all six traces from a later clean commit before minting a new
+   immutable outcome permit.
+
+The source gate publishes a MAT file, a readable report, and a completion
+marker. The marker is written last and binds the SHA-256 hashes of the other
+two files. A MAT/report pair without that marker is an interrupted publication,
+not admissible evidence; the later loader must verify the marker and both
+hashes before it can mint an outcome permit.
+
+The same gate hashes every Git-registered repository-local `.m`, `.p`, `.mlx`,
+`.oct`, and `.mex*` executable source (including symlinks) and rejects any
+unregistered executable source, including ignored shadow files. It rechecks
+that manifest before and after every arm, before eligibility, and immediately
+before publishing the completion marker.
 
 The clean v2 preflight from commit `57f65d0` reproduced all three states. Its
 MAT SHA-256 is

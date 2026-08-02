@@ -2,6 +2,12 @@ function [reportPath, screen] = ...
     runFormationStaggeredRecoveryX36V37Screen()
 % RUNFORMATIONSTAGGEREDRECOVERYX36V37SCREEN Exact permitted X36 two-arm run.
 
+repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
+originalDirectory = pwd;
+cd(repoRoot);
+directoryCleanup = onCleanup( ...
+    @() cd(originalDirectory)); %#ok<NASGU>
+
 [permit, preflight] = ...
     loadFormationStaggeredRecoveryX36OutcomePermit();
 protocol = getFormationStaggeredRecoveryX36SourceProtocol();
@@ -21,13 +27,11 @@ outputDirectory = fullfile( ...
 stem = 'FORMATION_STAGGERED_RECOVERY_X36_V37_SCREEN';
 reportPath = fullfile(outputDirectory, [stem, '.md']);
 matPath = fullfile(outputDirectory, [stem, '.mat']);
-if exist(reportPath, 'file') == 2 || exist(matPath, 'file') == 2
-    error('V37Screen:OutputExists', ...
-        'The fixed v37 outcome artifact already exists; refusing overwrite.');
-end
+assertOfficialOutputAbsent(reportPath, matPath);
 if exist(outputDirectory, 'dir') ~= 7
     mkdir(outputDirectory);
 end
+assertAllCacheArtifacts(preflight, protocol);
 
 stateCount = numel(protocol.anchorTimes);
 stateScreens = cell(1, stateCount);
@@ -107,9 +111,90 @@ screen.matPath = matPath;
 screen.sourceEvidenceBoundary = protocol.evidenceBoundary;
 screen.evidenceBoundary = permit.evidenceBoundary;
 
-save('-mat7-binary', matPath, 'screen');
-writeReport(reportPath, screen);
+temporaryMatPath = [tempname(outputDirectory), '.mat'];
+temporaryReportPath = [tempname(outputDirectory), '.md'];
+temporaryCleanup = onCleanup(@() cleanupTemporaryArtifacts( ...
+    temporaryMatPath, temporaryReportPath)); %#ok<NASGU>
+save('-mat7-binary', temporaryMatPath, 'screen');
+writeReport(temporaryReportPath, screen);
+publishOfficialArtifactPair( ...
+    temporaryMatPath, temporaryReportPath, matPath, reportPath);
 fprintf('V37 X36 exact paired screen: %s\n', reportPath);
+end
+
+function assertOfficialOutputAbsent(reportPath, matPath)
+if exist(reportPath, 'file') ~= 0 || exist(matPath, 'file') ~= 0
+    error('V37Screen:OutputExists', ...
+        'The fixed v37 outcome artifact already exists; refusing overwrite.');
+end
+end
+
+function assertAllCacheArtifacts(preflight, protocol)
+for stateIdx = 1:numel(protocol.anchorTimes)
+    proposal = preflight.pairProposals(stateIdx);
+    if exist(proposal.cachePath, 'file') ~= 2
+        error('V37Screen:CacheRequired', ...
+            'The permitted cache is unavailable at t=%d.', ...
+            proposal.anchorTime);
+    end
+    actualSha256 = computeFileSha256(proposal.cachePath);
+    if ~strcmp(actualSha256, proposal.cacheSha256) || ...
+            ~strcmp(actualSha256, ...
+                protocol.expectedCacheSha256{stateIdx})
+        error('V37Screen:CacheDrift', ...
+            ['The permitted cache changed before any outcome ', ...
+             'was scored at t=%d.'], proposal.anchorTime);
+    end
+end
+end
+
+function publishOfficialArtifactPair( ...
+        temporaryMatPath, temporaryReportPath, matPath, reportPath)
+matPublished = false;
+reportPublished = false;
+try
+    assertOfficialOutputAbsent(reportPath, matPath);
+    [moved, message] = movefile(temporaryMatPath, matPath);
+    if ~moved
+        error('V37Screen:PublishFailed', ...
+            'Could not publish the official MAT artifact: %s', message);
+    end
+    matPublished = true;
+    if exist(reportPath, 'file') ~= 0
+        error('V37Screen:OutputExists', ...
+            ['The fixed v37 report appeared during publication; ', ...
+             'refusing overwrite.']);
+    end
+    [moved, message] = movefile(temporaryReportPath, reportPath);
+    if ~moved
+        error('V37Screen:PublishFailed', ...
+            'Could not publish the official report artifact: %s', message);
+    end
+    reportPublished = true;
+    if exist(matPath, 'file') ~= 2 || ...
+            exist(reportPath, 'file') ~= 2
+        error('V37Screen:PublishFailed', ...
+            'The official MAT/report pair was not published completely.');
+    end
+catch publicationError
+    cleanupTemporaryArtifacts(temporaryMatPath, temporaryReportPath);
+    if matPublished && exist(matPath, 'file') == 2
+        delete(matPath);
+    end
+    if reportPublished && exist(reportPath, 'file') == 2
+        delete(reportPath);
+    end
+    rethrow(publicationError);
+end
+end
+
+function cleanupTemporaryArtifacts(temporaryMatPath, temporaryReportPath)
+if exist(temporaryMatPath, 'file') == 2
+    delete(temporaryMatPath);
+end
+if exist(temporaryReportPath, 'file') == 2
+    delete(temporaryReportPath);
+end
 end
 
 function assertOutcomeAuthorization(permit, preflight, protocol)
