@@ -39,14 +39,15 @@ also `0/72`.  The saved v21 control reproduced
 
 ## Research finding
 
-Opening the third action cannot remove the terminal consistency floor within
-the present H=3 family.  The best balanced high-return candidate already
+Opening the third action cannot remove the window-average consistency floor
+within the present H=3 family.  The best balanced high-return candidate already
 improves mean tracking, the formation tail, the sensor tail, attempted bytes,
-and delivered bytes, yet terminal consensus remains `1.704%` worse than the
-all-reference trajectory.  The saved v21 sequence shows the same pattern at
-`1.527%`.  This repeated residual is more specific than a generic negative
-result: tracking and communication headroom exist, but three steps do not
-give the network enough recovery time to re-align its posteriors.
+and delivered bytes, yet consensus averaged over the three-step window remains
+`1.704%` worse than the all-reference trajectory.  The saved v21 sequence
+shows the same pattern at `1.527%`.  This repeated residual is more specific
+than a generic negative result: tracking and communication headroom exist,
+but the current metric does not reveal whether the final-step posterior has
+already recovered or still needs more time.
 
 The current scalar proxy is not a viable selector.  It predicted no positive
 nonreference action, produced `0` true positives and `73` false negatives,
@@ -59,9 +60,10 @@ that model.
 
 Do not enumerate more H=3 mode vectors.  Generalize only the opened-return
 screen's time horizon and test whether one or two appended reference actions
-repair terminal consensus for a small, frozen set of v21/v24 boundary
-sequences.  Compare every H=4/H=5 candidate with an all-reference trajectory
-of the same horizon, and retain all existing execution and safety gates.
+repair both window-average and final-step consensus for a small, frozen set of
+v21/v24 boundary sequences.  Compare every H=4/H=5 candidate with an
+all-reference trajectory of the same horizon, and retain all existing
+execution and safety gates.
 
 If the residual consensus debt crosses zero while the other five targets and
 the `3%` mean threshold remain nonnegative, broader opened-state teacher

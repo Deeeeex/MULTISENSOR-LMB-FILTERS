@@ -5,7 +5,7 @@
 v19 shows that a conservative trust-0.30 action on formations 3 and 4 can
 repay about 77.5% of the consensus debt created by the profitable temporal
 prefix `[9,13]`, while retaining `+6.416%` mean tracking gain.  However, the
-terminal consensus target remains at `-2.589%`.  v20 asks whether the missing
+window-average consensus target remains at `-2.589%`.  v20 asks whether the missing
 repair is simply coordination scale: three or four formations may need to
 change together at the final step.
 
@@ -34,7 +34,7 @@ A strong strict-feasible action would justify extending a coordinated
 sequence teacher to additional unopened M24 development states.  If every
 higher-order action remains infeasible, uniform-trust subset enumeration
 stops here.  The next method must instead optimize a heterogeneous
-multi-formation mode vector against predicted terminal consensus debt.
+multi-formation mode vector against predicted window-average consensus debt.
 
 This is a privileged single-state mechanism probe.  Seeds 223/227, X36, and
 final seeds remain unopened and cannot be claimed from this result.
@@ -55,5 +55,5 @@ at `-2.637%`, despite larger communication savings.
 The stopping rule is therefore active: uniform-trust subset enumeration ends
 at v20.  Coordination scale is not the missing scalar.  The next method must
 choose a heterogeneous mode vector across formations and score its predicted
-terminal consensus debt, with the existing tracking, tail, and communication
+window-average consensus debt, with the existing tracking, tail, and communication
 targets retained as hard safety constraints.

@@ -43,7 +43,7 @@ not support another scalar trust sweep: the more informative next axis is how
 many formations are coordinated.  A final bounded subset-order probe will
 append the four three-formation combinations and the all-formation action at
 the same conservative trust 0.30.  If that still fails, the next method must
-optimize a joint mode vector against predicted terminal consensus debt rather
+optimize a joint mode vector against predicted window-average consensus debt rather
 than enumerate uniform-trust subsets.
 
 This remains outcome-inspected, single-state mechanism evidence.  Seeds

@@ -51,7 +51,7 @@ No further uniform-trust subset, duration, or scalar tolerance sweep is
 authorized.  The next candidate mechanism must:
 
 1. represent one mode choice per formation rather than a shared trust;
-2. predict terminal H=3 consensus debt from observable current-state and
+2. predict window-average H=3 consensus debt from observable current-state and
    action-sequence features;
 3. retain mean tracking, minimum-formation, worst-sensor, attempted-byte, and
    delivered-byte targets as explicit safety constraints;

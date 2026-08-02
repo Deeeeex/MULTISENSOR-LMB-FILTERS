@@ -181,6 +181,53 @@ assert(terminalRepairProtocol.openedTrainingMechanismProbeOnly);
 assert(~terminalRepairProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3TerminalDebtRepairProbe') == 1);
 
+recoveryProtocol = ...
+    getFormationReferenceRecoveryHorizonProbeProtocol();
+assert(strcmp(recoveryProtocol.contractVersion, ...
+    'formation-reference-recovery-horizon-probe-protocol-v1'));
+assert(recoveryProtocol.activePrefixSteps == 3);
+assert(isequal(recoveryProtocol.horizonSteps, [4, 5]));
+assert(recoveryProtocol.expectedCandidateCount == 4);
+assert(recoveryProtocol.expectedSequenceCountPerHorizon == 5);
+assert(recoveryProtocol.expectedActionCount == 256);
+assert(numel(recoveryProtocol.candidateModeSequences) == 4);
+assert(isequal(recoveryProtocol.candidateModeSequences{1}, [ ...
+    1, 1, 3, 1; 1, 1, 1, 4; 1, 4, 4, 2]));
+assert(isequal(recoveryProtocol.candidateModeSequences{2}, [ ...
+    1, 4, 3, 1; 1, 1, 1, 4; 1, 1, 4, 2]));
+assert(isequal(size(recoveryProtocol.expectedCandidateH3Targets), ...
+    [4, 6]));
+assert(strcmp(recoveryProtocol.targetNames{4}, ...
+    'window-average-consensus-gain'));
+assert(strcmp(recoveryProtocol.targetNames{7}, ...
+    'final-step-consensus-gain'));
+assert(recoveryProtocol.actionSelectionUsesTruth);
+assert(recoveryProtocol.openedTrainingMechanismProbeOnly);
+assert(~recoveryProtocol.teacherModelTrainingAuthorized);
+assert(~recoveryProtocol.validationClaimAllowed);
+assert(nargin('runFormationModeOpenedReturnScreen') == 4);
+assert(nargin('runFormationReferenceRecoveryHorizonProbe') == 1);
+
+failed = false;
+try
+    runFormationModeH3OpenedReturnScreen( ...
+        'm24-formation-fov', 211, 72, ...
+        struct('horizonSteps', 4));
+catch
+    failed = true;
+end
+assert(failed);
+
+failed = false;
+try
+    runFormationModeOpenedReturnScreen( ...
+        'm24-formation-fov', 211, 72, ...
+        struct('horizonSteps', 2));
+catch
+    failed = true;
+end
+assert(failed);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
