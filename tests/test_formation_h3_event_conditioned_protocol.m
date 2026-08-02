@@ -120,6 +120,23 @@ assert(modeVectorProtocol.openedTrainingMechanismProbeOnly);
 assert(~modeVectorProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3HeterogeneousModeVectorProbe') == 1);
 
+firstStepProtocol = getFormationH3FirstStepModeVectorProbeProtocol();
+assert(strcmp(firstStepProtocol.contractVersion, ...
+    'formation-h3-first-step-mode-vector-probe-protocol-v1'));
+assert(isequal(firstStepProtocol.centerModeVector, [1, 1, 1, 1]));
+assert(firstStepProtocol.maximumHammingDistance == 2);
+assert(firstStepProtocol.expectedCandidateCount == 67);
+assert(firstStepProtocol.expectedActionCount == 256);
+assert(isequal(firstStepProtocol.reproductionModeVector, ...
+    [1, 1, 3, 1]));
+assert(firstStepProtocol.reproductionActionIndex == 9);
+assert(strcmp(firstStepProtocol.interventionBankType, ...
+    'formation-exhaustive-mode-vector'));
+assert(firstStepProtocol.actionSelectionUsesTruth);
+assert(firstStepProtocol.openedTrainingMechanismProbeOnly);
+assert(~firstStepProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3FirstStepModeVectorProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
