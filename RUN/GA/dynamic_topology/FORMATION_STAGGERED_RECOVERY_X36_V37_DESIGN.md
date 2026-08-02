@@ -41,6 +41,14 @@ before any X36 tracking outcome was scored:
 | 100 | 52 | `[1 2 5 6] -> [1 2 4 5] -> [4 6]` | formation 6 at t=101 | `[0 0 0]` | `[2861728 2713960 2759840]` |
 | 128 | 44 | `[1 2 4 6] -> [1 3 4] -> [3 6]` | none | `[0 0 0]` | `[1949704 1884000 1954304]` |
 
+The full 35-field runtime fingerprints are frozen as:
+
+| Anchor | Executed action indices | Runtime fingerprint SHA-256 |
+|--:|:--|:--|
+| 72 | `[53 17 3]` | `fef95ee229bc6c4a86142ed72e3f6455d3dfac807a63b92ac2136bf905431f7a` |
+| 100 | `[52 28 41]` | `8f71e1c1e37cfb7d63f1f481788f9fea2277f69940d0bca52f5878b7c47b7a4c` |
+| 128 | `[44 14 37]` | `c39e67d450a697632a41b807272bfdd20ccb4b7695bca08e04dbb37668221067` |
+
 All three states use the same posterior- and current-link-aware,
 retention-debt receding-horizon controller. Only t=100 invokes the explicit
 mature-formation release schedule. The broader X36 mechanism is therefore
@@ -57,12 +65,19 @@ behavior of that controller, not a step that must appear in every state.
    suspension, release, fallback, posterior/link-use, and rolling-B3 field.
 5. Reproduce those traces from a later clean commit.
 
-Only after all five steps may a separate protocol authorize one fixed
-reference-versus-v35 pair per passing state. The later aggregate outcome gate
-is unchanged from M24: at least two of three strict-strong states, median mean
+The clean v2 preflight from commit `57f65d0` reproduced all three states. Its
+MAT SHA-256 is
+`de3b17cc5f67427f5c530a6d61232c34bde467ca9d3b93ebe9dd577610180d64`.
+It records `3/3` eligible pair proposals but, by construction, authorizes zero
+tracking runs and a maximum authorized count of zero.
+
+An independent permit and zero-argument exact-two-arm runner now bind that
+preflight and the three ordered pair-proposal hashes. The runner can execute
+only one reference-versus-v35 pair per state and writes to the separate
+`x36_outcome/screen` root without overwrite. The aggregate outcome gate remains
+unchanged from M24: at least two of three strict-strong states, median mean
 tracking gain at least 2%, no state below -1%, and at least two positive
-terminal-consensus states. The frozen protocol permits these three paired X36
-outcomes only after a later clean commit reproduces every registered source
-metric and runtime trace. Until that preflight passes, this design does not
-authorize an X36 outcome, GNN training, X48, a reserved seed, or a validation
-claim.
+terminal-consensus states. The permit, runner, generic executor, posterior
+safety bank, and runtime-fingerprint builder must still be source-hash-bound
+and reproduced from a clean commit before the exact X36 outcome is opened.
+GNN training, X48, reserved seeds, and validation claims remain unauthorized.
