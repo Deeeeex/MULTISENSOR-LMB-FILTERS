@@ -3,7 +3,7 @@ function test_formation_staggered_recovery_x36_source_protocol()
 
 protocol = getFormationStaggeredRecoveryX36SourceProtocol();
 assert(strcmp(protocol.contractVersion, ...
-    'formation-staggered-recovery-x36-source-protocol-v1'));
+    'formation-staggered-recovery-x36-source-protocol-v2'));
 assert(strcmp(protocol.presetName, 'x36-formation-fov'));
 assert(protocol.seed == 211);
 assert(isequal(protocol.anchorTimes, [72, 100, 128]));
@@ -16,8 +16,15 @@ assert(protocol.expectedFovTotalAngleDeg == 120);
 assert(protocol.expectedFovRange == 300);
 assert(protocol.cacheGenerationAuthorized);
 assert(protocol.sourceOnlyControlAuditAuthorized);
-assert(protocol.trackingOutcomeRerunAuthorized);
+assert(~protocol.trackingOutcomeRerunAuthorized);
+assert(protocol.trackingOutcomeEligibilityAfterCleanPreflight);
 assert(protocol.x36PairedOutcomeRerunRequiresCleanPreflight);
+assert(strcmp(protocol.expectedCacheContractVersion, ...
+    'static-prefix-behavior-cache-v2-predecision-history'));
+assert(strcmp(protocol.expectedReferenceArmName, ...
+    'formation-h3-fixed-ccw-reference-v1'));
+assert(isequal(protocol.expectedBlockageWindows, ...
+    [1, 2, 60, 80; 3, 4, 86, 106; 5, 6, 112, 132]));
 assert(isequal(protocol.expectedInitialFormationIdsByState, ...
     {[3, 5, 6], [1, 2, 5, 6], [1, 2, 4, 6]}));
 assert(isequal(protocol.expectedInitialActionIndices, [53, 52, 44]));
@@ -41,6 +48,11 @@ assert(isequal( ...
     [3332184, 3581032, 3868936]));
 assert(isnan( ...
     protocol.expectedRuntimeDebtFractionByState{1}{3}(5)));
+assert(~protocol.runtimeFingerprintFreezePending);
+assert(isequal(protocol.expectedRuntimeFingerprintSha256, { ...
+    'fef95ee229bc6c4a86142ed72e3f6455d3dfac807a63b92ac2136bf905431f7a', ...
+    '8f71e1c1e37cfb7d63f1f481788f9fea2277f69940d0bca52f5878b7c47b7a4c', ...
+    'c39e67d450a697632a41b807272bfdd20ccb4b7695bca08e04dbb37668221067'}));
 assert(~protocol.gnnTrainingAuthorized);
 assert(~protocol.x36OutcomeOpeningAuthorized);
 assert(~protocol.x48OutcomeOpeningAuthorized);

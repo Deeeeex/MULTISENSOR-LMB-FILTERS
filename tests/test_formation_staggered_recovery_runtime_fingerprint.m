@@ -1,0 +1,76 @@
+function test_formation_staggered_recovery_runtime_fingerprint()
+% TEST_FORMATIONSTAGGEREDRECOVERYRUNTIMEFINGERPRINT Trace completeness.
+
+replay = buildSyntheticReplay();
+fingerprint = ...
+    buildFormationStaggeredRecoveryRuntimeFingerprint(replay);
+baselineHash = computeCanonicalValueSha256(fingerprint);
+assert(strcmp(fingerprint.contractVersion, ...
+    'formation-staggered-recovery-runtime-fingerprint-v1'));
+assert(numel(fieldnames(fingerprint)) == 35);
+
+mutated = replay;
+mutated.selectedAdjacency(1, 2, 2) = ...
+    ~mutated.selectedAdjacency(1, 2, 2);
+mutatedHash = computeCanonicalValueSha256( ...
+    buildFormationStaggeredRecoveryRuntimeFingerprint(mutated));
+assert(~strcmp(baselineHash, mutatedHash));
+
+incomplete = rmfield(replay, 'policyHistoryTimesByTime');
+failed = false;
+try
+    buildFormationStaggeredRecoveryRuntimeFingerprint(incomplete);
+catch err
+    failed = strcmp(err.identifier, ...
+        'StaggeredRecoveryFingerprint:InvalidReplay');
+end
+assert(failed);
+
+fprintf('PASS: formation staggered-recovery runtime fingerprint tests\n');
+end
+
+function replay = buildSyntheticReplay()
+replay = struct();
+replay.returnTimes = [72, 73, 74];
+replay.actionSequenceIndices = [53, 1, 1];
+replay.executedActionIndicesByTime = [53, 17, 3];
+replay.selectedAdjacency = false(3, 3, 3);
+replay.selectedAdjacency(1, 2, :) = true;
+replay.selectedFusionWeightsByTime = {eye(3), eye(3), eye(3)};
+replay.policyBackboneModeByTime = {'a', 'b', 'c'};
+replay.attemptedBytesByTime = [10, 11, 12];
+replay.retentionDebtFractionByTime = {1, 2, 3};
+replay.retentionDebtThresholdByTime = {4, 5, 6};
+replay.retentionDebtSingleAvailableMaskByTime = ...
+    {logical([1, 0]), logical([1, 1]), logical([0, 1])};
+replay.retentionDebtSingleSafetyMaskByTime = ...
+    {logical([1, 0]), logical([1, 1]), logical([0, 1])};
+replay.retentionDebtRequestedFormationIdsByTime = ...
+    {[1, 2], 1, 2};
+replay.retentionDebtSelectedFormationIdsByTime = ...
+    {[1, 2], 1, 2};
+replay.retentionDebtProjectionRemovalOrderByTime = ...
+    {zeros(1, 0), 2, zeros(1, 0)};
+replay.staggeredRecoveryScheduleByTime = ...
+    {struct('step', 1), struct('step', 2), struct('step', 3)};
+replay.reserveProposalFormationAdjacencyByTime = ...
+    {eye(2), eye(2), eye(2)};
+replay.referenceNetworkRiskByTime = [1, 2, 3];
+replay.selectedNetworkRiskByTime = [0.9, 1.9, 2.9];
+replay.referenceFallbackCountByTime = [0, 0, 0];
+replay.evaluatedActionCountByTime = [4, 4, 4];
+replay.safeActionCountByTime = [3, 3, 3];
+replay.oneStepReservePassedByTime = logical([1, 1, 1]);
+replay.posteriorContentUsedByTime = logical([1, 1, 1]);
+replay.currentLinkReliabilityUsedByTime = logical([1, 1, 1]);
+replay.selectedSensorB3Pass = logical([1, 1, 1]);
+replay.selectedFormationB3Pass = logical([1, 1, 1]);
+replay.policyHistoryCountByTime = [2, 2, 2];
+replay.policyHistoryTimesByTime = {[70, 71], [71, 72], [72, 73]};
+replay.firstActionExact = true;
+replay.firstFusionWeightsExact = true;
+replay.truthUsed = false;
+replay.futureOutcomeUsed = false;
+replay.trackingOutcomeScored = false;
+replay.groundTruthAccessed = false;
+end
