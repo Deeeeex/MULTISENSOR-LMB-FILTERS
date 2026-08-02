@@ -23,6 +23,12 @@ noMature = buildFormationDebtCoverageReleaseSchedule( ...
 assert(noMature.candidateCount == 0);
 assert(isempty(noMature.releaseOrder));
 
+forcedReference = buildFormationDebtCoverageReleaseSchedule( ...
+    1:4, [], [0.0075, NaN, NaN, NaN], [0, 2, 2, 2], 1, 0.8);
+assert(forcedReference.candidateCount == 0);
+assert(isempty(forcedReference.releaseOrder));
+assert(forcedReference.totalSelectedPositiveDebt == 0);
+
 context = buildContext(4, 6);
 control = buildFormationStaggeredRecoveryControl(context);
 assert(strcmp(control.contractVersion, ...
