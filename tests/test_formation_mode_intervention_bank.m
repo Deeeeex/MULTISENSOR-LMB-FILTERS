@@ -238,6 +238,19 @@ assert(radiusIndices(1) == 22);
 assert(isequal(formationModeVectorToActionIndex(radiusModes, 4), ...
     radiusIndices'));
 
+[cartesianModes, cartesianIndices] = ...
+    enumerateFormationModeCartesianProduct( ...
+        {1, [1, 4], [1, 2, 4], [1, 2, 4]}, 4);
+assert(isequal(size(cartesianModes), [18, 4]));
+assert(isequal(cartesianModes(1, :), [1, 1, 1, 1]));
+assert(isequal(cartesianModes(end, :), [1, 4, 4, 4]));
+assert(isequal(cartesianModes(2, :), [1, 1, 1, 2]));
+assert(isequal(cartesianModes(4, :), [1, 1, 2, 1]));
+assert(isequal(cartesianModes(10, :), [1, 4, 1, 1]));
+assert(isequal(formationModeVectorToActionIndex( ...
+    cartesianModes, 4), cartesianIndices));
+assert(numel(unique(cartesianIndices)) == 18);
+
 jointBank = buildProjectedJointFormationModeInterventionBank( ...
     projection, groupIds);
 assert(strcmp(jointBank.contractVersion, ...
@@ -272,6 +285,15 @@ try
     buildCoordinatedSubsetFormationModeInterventionBank( ...
         projection, groupIds, struct( ...
             'subsetTrustWeight', 0.30, 'subsetOrders', 3));
+catch
+    failed = true;
+end
+assert(failed);
+
+failed = false;
+try
+    enumerateFormationModeCartesianProduct( ...
+        {1, [1, 1], 2}, 4);
 catch
     failed = true;
 end

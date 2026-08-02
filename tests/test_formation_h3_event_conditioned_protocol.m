@@ -137,6 +137,26 @@ assert(firstStepProtocol.openedTrainingMechanismProbeOnly);
 assert(~firstStepProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3FirstStepModeVectorProbe') == 1);
 
+debtRepairProtocol = ...
+    getFormationH3TwoStepDebtRepairProbeProtocol();
+assert(strcmp(debtRepairProtocol.contractVersion, ...
+    'formation-h3-two-step-debt-repair-probe-protocol-v1'));
+assert(isequal(debtRepairProtocol.prefixModeVectors, [ ...
+    1, 1, 1, 1; 1, 4, 1, 1; 1, 1, 2, 2; ...
+    1, 1, 2, 4; 1, 1, 3, 4; 1, 4, 3, 1]));
+assert(isequal(debtRepairProtocol.repairModeChoices, ...
+    {1, [1, 4], [1, 2, 4], [1, 2, 4]}));
+assert(debtRepairProtocol.expectedPrefixCount == 6);
+assert(debtRepairProtocol.expectedRepairCount == 18);
+assert(debtRepairProtocol.expectedSequenceCount == 108);
+assert(debtRepairProtocol.expectedActionCount == 256);
+assert(strcmp(debtRepairProtocol.interventionBankType, ...
+    'formation-exhaustive-mode-vector'));
+assert(debtRepairProtocol.actionSelectionUsesTruth);
+assert(debtRepairProtocol.openedTrainingMechanismProbeOnly);
+assert(~debtRepairProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3TwoStepDebtRepairProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
