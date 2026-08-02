@@ -45,3 +45,32 @@ strong sequence exists, expansion of the present H=3 mode family stops; the
 action representation or horizon must be redesigned before learning.
 
 Seeds 223/227, X36, and final seeds remain unopened.
+
+## Result
+
+The frozen 72-candidate terminal grid completed at generation commit
+`a2d9e22`.  No candidate was strictly feasible, and no candidate met the
+`3%` strong-safe gate.  Teacher-model training and further expansion of the
+current H=3 mode-vector action family therefore remain unauthorized.
+
+The closest candidate was
+`[1,1,2,2] -> [1,4,1,1] -> [1,1,1,4]`, with targets
+`[+2.685344, 0, -0.002126, -0.680632, -0.387341, -0.405006]%`.
+It reduced the consensus deficit but did not retain the tracking threshold or
+repay the sensor-tail and byte debts.  The most informative high-return
+candidate was `[1,4,3,1] -> [1,1,1,4] -> [1,1,4,2]`, with
+`[+5.7523, 0, +0.10028, -1.7041, +1.8099, +1.0115]%`.  It improved mean
+tracking, both tails, and both communication targets, leaving only terminal
+consensus below the reference.
+
+This closes the present H=3 action-family expansion.  It does not yet show
+that the dynamic-topology idea fails: the residual consensus error may be a
+transient that an additional reference-topology recovery step can remove.
+The next admissible mechanism test is therefore a pre-registered H=4/H=5
+recovery-tail probe using only selected frozen H=3 sequences followed by
+reference actions.  No new H=3 actions, learned selector, reserved seeds, or
+X36 evaluation are authorized before that test.
+
+The scalar posterior proxy again failed as a ranking mechanism: it marked no
+nonreference sequence positive, while 73 nonreference/control outcomes had
+positive realized mean gain (`TP=0`, `FP=0`, `FN=73`, agreement `0.000`).
