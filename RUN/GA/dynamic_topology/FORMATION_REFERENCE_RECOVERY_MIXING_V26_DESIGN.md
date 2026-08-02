@@ -62,3 +62,31 @@ strong-safe headroom on multiple development states.
 
 This audit is outcome-inspected diagnosis only.  Seeds 223/227, X36, and final
 seeds remain unopened.
+
+## Result
+
+The official deterministic audit at generation commit `b22a34c` passed all
+source and row-stochasticity checks and triggered all three pre-registered
+rejection conditions.
+
+- the sensor-level Dobrushin coefficient was exactly `1` for every arm through
+  H=5; the first nonsaturated step appeared only at step 6 or 7;
+- all 256 actions shared the same formation-level matrix within
+  `1.11e-16`;
+- each receiver formation retained average weight `0.9916667` locally and
+  assigned only `0.0083333` to the next formation;
+- candidates 3, 4, and 5 had H=5 centered spectral norms no worse than the
+  reference but still had negative final-step consensus gains;
+- candidates 4 and 5 were also counterexamples under maximum centered-row
+  dispersion.
+
+The current action representation therefore changes which sensor acts as a
+gateway but leaves coarse inter-formation mixing mass fixed.  Rolling-B3 and
+the tested topology-only product metrics cannot distinguish the realized
+consensus outcomes.  This formally closes graph-only safety scoring for the
+present action family.
+
+The authorized redesign must expose cross-formation mixing mass as an action,
+scale that mass with formation size, and condition predicted tracking and
+consensus risk on posterior/innovation heterogeneity.  This audit still does
+not authorize GNN training or any reserved-seed evaluation.
