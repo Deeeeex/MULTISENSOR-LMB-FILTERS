@@ -28,10 +28,12 @@ assert(protocol.minimumStateMeanGainPercent == -1);
 assert(protocol.minimumPositiveTerminalStateCount == 2);
 assert(protocol.trackingOutcomeRerunAuthorized);
 assert(~protocol.gnnTrainingAuthorized);
+assert(~protocol.x36SourceOnlyProtocolAuthorized);
 assert(~protocol.x36OutcomeOpeningAuthorized);
 assert(~protocol.x48OutcomeOpeningAuthorized);
 assert(~protocol.validationClaimAllowed);
 assert(nargin('auditFormationStaggeredRecoveryM24V36Preflight') == 1);
+assert(nargin('runFormationStaggeredRecoveryM24V36Screen') == 1);
 
 fprintf('PASS: v36 M24 replication protocol tests\n');
 end

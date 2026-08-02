@@ -49,3 +49,16 @@ states, median mean gain of at least 2%, no state below -1% mean gain, and at
 least two states with positive terminal consensus. Passing may authorize an
 X36 source-only protocol; it does not itself authorize GNN training,
 validation, X48, or reserved seeds.
+
+## Frozen clean preflight
+
+Commit `3fc4a0e280dea00bfc934e5a0fb8989f6887acb0` reproduced all three
+truth-free H=3 traces with clean source and authorized exactly one paired
+outcome per state. The preflight did not score tracking or open a new
+posterior state.
+
+Earlier t=60/104/124 reference artifacts retain mean OSPA and total-byte
+results, but predate terminal-consensus time series and the current runtime
+attestation fields. V36 therefore reruns each reference once under the current
+schema and freezes it in the aggregate screen; later analyses must reuse that
+frozen reference rather than rerun it again.
