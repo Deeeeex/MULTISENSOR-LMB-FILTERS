@@ -34,6 +34,7 @@ assert(~protocol.x48OutcomeOpeningAuthorized);
 assert(~protocol.validationClaimAllowed);
 assert(nargin('auditFormationStaggeredRecoveryM24V36Preflight') == 1);
 assert(nargin('runFormationStaggeredRecoveryM24V36Screen') == 1);
+assert(nargin('auditFormationStaggeredRecoveryM24V36') == 1);
 
 fprintf('PASS: v36 M24 replication protocol tests\n');
 end
