@@ -1,11 +1,15 @@
 function [context, replay] = ...
     replayFormationRetentionDebtV30SourceTrajectory( ...
-        sourceScreen, sourcePreflight, protocol)
-% REPLAYFORMATIONRETENTIONDEBTV30SOURCETRAJECTORY Recover causal t=74 state.
+        sourceScreen, sourcePreflight, protocol, decisionTime)
+% REPLAYFORMATIONRETENTIONDEBTV30SOURCETRAJECTORY Recover a causal v30 state.
 %
-% This helper replays only the frozen v30 t=72--74 action sequence and
+% This helper replays only the frozen v30 trajectory up to DECISIONTIME and
 % returns the pre-fusion posterior, physical graph, link model, and two-step
-% selected-topology history available to a causal controller at t=74.
+% selected-topology history available to a causal controller at that time.
+
+if nargin < 4 || isempty(decisionTime)
+    decisionTime = protocol.reconnectTime;
+end
 
 requiredProtocolFields = { ...
     'presetName', 'seed', 'anchorTime', 'reconnectTime'};
@@ -23,6 +27,13 @@ if ~isstruct(sourceScreen) || ~isfield(sourceScreen, 'cachePath') || ...
     error('RetentionDebtReplay:InvalidSource', ...
         'Frozen v30 source structures are incomplete.');
 end
+if ~isscalar(decisionTime) || ~isfinite(decisionTime) || ...
+        decisionTime ~= round(decisionTime) || ...
+        decisionTime < protocol.anchorTime || ...
+        decisionTime > protocol.reconnectTime
+    error('RetentionDebtReplay:InvalidDecisionTime', ...
+        'Decision time must lie inside the frozen v30 horizon.');
+end
 
 inputs = generateDynamicTopologyScenarioInputs( ...
     protocol.presetName, protocol.seed);
@@ -32,8 +43,8 @@ if ~isfield(loaded, 'behaviorBundle')
         'Opened behavior cache is unavailable.');
 end
 bundle = loaded.behaviorBundle;
-returnTimes = protocol.anchorTime:protocol.reconnectTime;
-inputs = cropInputs(inputs, protocol.reconnectTime);
+returnTimes = protocol.anchorTime:decisionTime;
+inputs = cropInputs(inputs, decisionTime);
 history = bundle.preDecisionTopologyHistoryByTime{ ...
     protocol.anchorTime};
 previousHistory = ...
@@ -95,8 +106,18 @@ if any(truthUsed) || any(~diagnostics.topologyFeasible(returnTimes)) || ...
         'The frozen v30 causal trajectory replay failed.');
 end
 
-previousSelected = selected(:, :, 1:2);
-currentTime = protocol.reconnectTime;
+historyForDecision = previousHistory;
+historyTimesForDecision = reshape(history.times, 1, []);
+priorRuntimeCount = numel(returnTimes) - 1;
+if priorRuntimeCount > 0
+    historyForDecision = cat(3, historyForDecision, ...
+        selected(:, :, 1:priorRuntimeCount));
+    historyTimesForDecision = [historyTimesForDecision, ...
+        returnTimes(1:priorRuntimeCount)];
+end
+previousSelected = historyForDecision(:, :, end-1:end);
+previousSelectedTimes = historyTimesForDecision(end-1:end);
+currentTime = decisionTime;
 context = struct();
 context.localPosteriorBySensor = ...
     diagnostics.topologyLocalPosteriorSnapshot{currentTime};
@@ -108,7 +129,7 @@ context.currentTime = currentTime;
 context.previousAdjacencyHistory = previousSelected;
 context.previousAdjacencyHistoryCount = ...
     size(previousSelected, 3);
-context.previousAdjacencyHistoryTimes = returnTimes(1:2);
+context.previousAdjacencyHistoryTimes = previousSelectedTimes;
 context.previousAdjacency = previousSelected(:, :, end);
 context.baseAdjacency = inputs.graphData.staticAdjacency;
 context.physicalAdjacency = logical( ...
