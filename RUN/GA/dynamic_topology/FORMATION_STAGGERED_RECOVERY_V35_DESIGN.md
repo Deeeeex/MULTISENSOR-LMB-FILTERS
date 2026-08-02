@@ -48,3 +48,10 @@ requires at least 2% mean tracking gain, nonnegative formation and worst-sensor
 gains, nonnegative window and terminal consensus gains, nonnegative attempted
 byte saving, and selected rolling-B3 passage. Failure closes this controller
 before broader evidence or GNN training.
+
+The clean preflight must execute the complete source-only H=3 controller, not
+only the t=73 decision. It freezes the causal runtime trace
+`[2,3,4] -> [2,4] -> [3]`: the old f2/f4 suspensions reconnect at t=74 while
+the now-restored f3 may be selected again from its current debt. This rollout
+records no tracking score or ground-truth access and must pass every runtime
+and rolling-connectivity gate before the paired outcome is authorized.

@@ -70,6 +70,10 @@ assert(protocol.minimumIncumbentDisagreementImprovementFraction == ...
     0.0025);
 assert(protocol.maximumControlRouteEvaluations == 25);
 assert(isequal(protocol.expectedSelectedFormationIds, [2, 4]));
+assert(isequal(protocol.expectedRuntimeSelectedFormationIdsByTime, ...
+    {[2, 3, 4], [2, 4], 3}));
+assert(isequal(protocol.expectedRuntimeStaggeredReleaseMask, ...
+    logical([0, 1, 0])));
 assert(abs(protocol.expectedRetainedDebtCoverageFraction - ...
     0.89138853069654445) < 1e-15);
 assert(abs(protocol.expectedDisagreementImprovementFraction - ...
@@ -80,6 +84,7 @@ assert(~protocol.x36OutcomeOpeningAuthorized);
 assert(~protocol.validationClaimAllowed);
 assert(nargin('auditFormationStaggeredRecoveryV35Preflight') == 1);
 assert(nargin('runFormationStaggeredRecoveryOpenedScreen') == 1);
+assert(nargin('replayFormationStaggeredRecoveryV35SourceTrajectory') == 3);
 
 fprintf('PASS: formation staggered-recovery control tests\n');
 end
