@@ -48,3 +48,32 @@ the present action family has not shown a safe teacher target.
 
 This is an opened single-state mechanism probe.  Seeds 223/227, X36, and
 final seeds remain unopened.
+
+## Result
+
+The frozen 108-sequence beam completed at generation commit `768e77f`.
+Only two sequences were strictly feasible: the all-reference control and the
+previously known weak-safe `[1,4,1,1] -> reference -> reference` sequence.
+No sequence met the `3%` strong-safe gate, so teacher-model training remains
+unauthorized.
+
+The closest strong-boundary sequence was
+`[1,1,2,2] -> [1,4,1,1] -> reference`, with targets
+`[+2.907509, 0, -0.002126, +0.105133, -0.554483, -0.579771]%`.
+It retained positive consensus but could not cross the tracking threshold or
+repay the sensor-tail and byte debts.  The most useful high-return sequence
+was `[1,4,3,1] -> [1,1,4,4] -> reference`, with
+`[+5.370555, 0, +0.098751, -4.528529, +0.273255, -0.595232]%`.
+It reduced the original prefix's consensus debt from `-11.452396%` to
+`-4.528529%` while retaining tracking, formation-tail, sensor-tail, and
+attempted-byte gains, but still failed consensus and delivered bytes.
+
+Second-step actions therefore have real debt-repair value, but their effect
+changes sign with the preceding action and the current grid is insufficient
+to reach strict headroom while the third step is forced to reference.  The
+current scalar proxy is not a usable selector: among 108 sequences it marked
+only two positive, missed 105 other positive-mean returns, and achieved only
+`0.019` action agreement.  A final mechanism probe may open the third step
+for a small set of pre-registered two-step prefixes.  No GNN training or
+reserved-seed validation is justified before that probe finds a strict
+strong teacher sequence.
