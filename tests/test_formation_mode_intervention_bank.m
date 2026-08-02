@@ -308,5 +308,20 @@ catch
     failed = true;
 end
 assert(failed);
+
+identityMixing = computeStochasticMixingDiagnostics(eye(3));
+assert(abs(identityMixing.dobrushinCoefficient - 1) < 1e-12);
+assert(abs(identityMixing.centeredSpectralNorm - 1) < 1e-12);
+uniformMixing = computeStochasticMixingDiagnostics(ones(3) / 3);
+assert(uniformMixing.dobrushinCoefficient < 1e-12);
+assert(uniformMixing.centeredSpectralNorm < 1e-12);
+groupedWeights = collapseFusionWeightsByGroup([ ...
+    0.5, 0, 0.5, 0; ...
+    0, 0.5, 0.5, 0; ...
+    0.25, 0.25, 0.5, 0; ...
+    0.25, 0.25, 0, 0.5], [1, 1, 2, 2]);
+assert(max(abs(groupedWeights(:) - 0.5)) < 1e-12);
+groupedMixing = computeStochasticMixingDiagnostics(groupedWeights);
+assert(groupedMixing.dobrushinCoefficient < 1e-12);
 fprintf('test_formation_mode_intervention_bank passed\n');
 end

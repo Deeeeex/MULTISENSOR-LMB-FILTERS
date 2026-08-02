@@ -228,6 +228,23 @@ catch
 end
 assert(failed);
 
+mixingAuditProtocol = ...
+    getFormationReferenceRecoveryMixingAuditProtocol();
+assert(strcmp(mixingAuditProtocol.contractVersion, ...
+    'formation-reference-recovery-mixing-audit-protocol-v1'));
+assert(mixingAuditProtocol.expectedHorizonSteps == 5);
+assert(mixingAuditProtocol.expectedArmCount == 5);
+assert(mixingAuditProtocol.expectedActionCount == 256);
+assert(mixingAuditProtocol.expectedNodeCount == 24);
+assert(mixingAuditProtocol.expectedFormationCount == 4);
+assert(isequal(mixingAuditProtocol.analysisSteps, ...
+    [1, 3, 5, 7, 10, 20, 30]));
+assert(mixingAuditProtocol.posthocDiagnosticOnly);
+assert(mixingAuditProtocol.authorizesActionRedesign);
+assert(~mixingAuditProtocol.authorizesGnnTraining);
+assert(~mixingAuditProtocol.validationClaimAllowed);
+assert(nargin('auditFormationReferenceRecoveryMixing') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
