@@ -71,11 +71,19 @@ oracle into the policy.
 
 Each anchor must now reproduce two separately identified traces:
 
-| Anchor | Reference arm | Candidate arm | V3 fingerprints |
-|--:|:--|:--|:--|
-| 72 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
-| 100 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
-| 128 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | pending clean discovery |
+| Anchor | Reference arm | Candidate arm | Reference SHA-256 | Candidate SHA-256 |
+|--:|:--|:--|:--|:--|
+| 72 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | `2d3ff282f22946283e7a69fbaebbdfe68ddce2b3761e7bccd999d0ca2fcd15cc` | `9a9930347c3c5f176c4bc0b3fd7529d8a6ffd05fdbc6c1cb3516c4fd49204eab` |
+| 100 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | `712198520a745ca98089a053b2a3391b3280bf35c173f39344af98f3972a3425` | `c296d38b885b9e66ab0be2fabf9696f87e908bc38b70af92619cdaf1a8f213a1` |
+| 128 | fixed CCW, posterior/link adaptation forbidden | causal v35, posterior/link use required | `afff6228ef68c3d3d7c7f51c18e67884807e448f7edf126d5a670dd3bb570f81` | `6ff4e90f72563d410c7f3bfe60363c08d6d34ccd919dbf242966664f31b02881` |
+
+The six fingerprints above were discovered from clean commit `58492d9` and
+published as an atomic MAT/report/completion-marker set. The discovery artifact
+remained outcome-unauthorized: all three eligibility flags were false, all
+tracking/truth/future-use flags were false, and the reference/candidate input-use
+attestations were respectively `posterior=0, link=0` and
+`posterior=1, link=1`. The next clean commit must reproduce the full matrix
+before any outcome permit can be minted.
 
 Only t=100 invokes the explicit mature-formation release schedule. The broader
 candidate mechanism is debt-aware protection and rotation; staggered release
