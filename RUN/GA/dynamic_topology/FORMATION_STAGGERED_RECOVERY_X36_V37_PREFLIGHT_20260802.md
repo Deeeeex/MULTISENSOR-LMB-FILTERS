@@ -1,4 +1,12 @@
-# V37 X36 frozen source-only preflight v2
+# REVOKED — V37 X36 source-only preflight v2
+
+This artifact was revoked on 2026-08-03 before any formal X36 outcome was
+produced. The runtime policy context still exposed nested target trajectories
+and future link realizations even though the controller reported that it did
+not use truth. Consequently, this artifact does not establish the claimed
+causal-input boundary and cannot authorize any tracking run. A new preflight
+must remove those fields structurally and freeze both reference and candidate
+runtime fingerprints.
 
 - Contract / generation commit: `formation-staggered-recovery-x36-v37-preflight-v2 / 57f65d0b860755157a5af7d65be8073bea065574`
 - Tracked dirty / untracked source: `0 / 0`
@@ -64,11 +72,15 @@ All three states use the same posterior- and link-aware, retention-debt receding
 
 ## Decision
 
-All three X36 states reproduce the frozen source metrics, initial actions, complete H=3 runtime fingerprints, and semantic cache provenance from clean source. The three structured pair proposals are eligible for a separate hashed outcome permit. This preflight itself authorizes no tracking run.
+The numerical source traces reproduced, but the causal-input attestation was
+invalid because forbidden fields remained reachable from the policy context.
+The three pair proposals are therefore ineligible and this artifact is revoked.
 
 ## Outcome-permit boundary
 
-This source artifact authorizes no tracking run. A later immutable permit must bind this file hash to the three eligible pair records. Only that permit may authorize exactly one two-arm run per pair.
+This source artifact authorizes no tracking run and may not be bound by any
+later permit. Only a newly generated causal preflight may open a replacement
+permit.
 
 ## Evidence boundary
 

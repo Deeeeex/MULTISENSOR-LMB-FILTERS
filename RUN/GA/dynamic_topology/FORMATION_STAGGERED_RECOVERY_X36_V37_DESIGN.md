@@ -71,13 +71,23 @@ MAT SHA-256 is
 It records `3/3` eligible pair proposals but, by construction, authorizes zero
 tracking runs and a maximum authorized count of zero.
 
-An independent permit and zero-argument exact-two-arm runner now bind that
-preflight and the three ordered pair-proposal hashes. The runner can execute
+This v2 artifact is now revoked. Adversarial review found that removing the
+three top-level truth fields did not remove nested target trajectories from the
+model, and the runtime policy callback could still see future link uniforms and
+future drop-probability pages. The controller did not declare using them, but
+reachability alone invalidates the claimed causal-input proof. No X36 outcome
+was retained. V3 must structurally expose only current observable inputs and
+freeze both reference and candidate H=3 fingerprints before a new permit is
+minted.
+
+The v2 permit and zero-argument exact-two-arm runner are fail-closed and may
+not execute the revoked preflight. A replacement runner may execute
 only one reference-versus-v35 pair per state and writes to the separate
 `x36_outcome/screen` root without overwrite. The aggregate outcome gate remains
 unchanged from M24: at least two of three strict-strong states, median mean
 tracking gain at least 2%, no state below -1%, and at least two positive
 terminal-consensus states. The permit, runner, generic executor, posterior
-safety bank, and runtime-fingerprint builder must still be source-hash-bound
-and reproduced from a clean commit before the exact X36 outcome is opened.
+safety bank, runtime-fingerprint builder, and observable-context boundary must
+be source-hash-bound and reproduced from a clean commit before the exact X36
+outcome is opened.
 GNN training, X48, reserved seeds, and validation claims remain unauthorized.
