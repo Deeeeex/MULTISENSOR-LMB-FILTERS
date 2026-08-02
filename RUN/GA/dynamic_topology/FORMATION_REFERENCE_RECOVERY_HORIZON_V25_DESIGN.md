@@ -74,3 +74,33 @@ passes, further H=3 mode-vector enumeration remains closed and the action
 representation must be redesigned or abandoned.
 
 Seeds 223/227, X36, and final seeds remain unopened.
+
+## Result
+
+The official run at generation commit `27b2c87` reproduced every embedded
+H=3 prefix with a maximum target error of `3.55e-15` percentage points.  The
+horizon generalization therefore preserves the registered three-step
+experiments.
+
+Neither H=4 nor H=5 contained a strictly feasible or strong-safe candidate.
+The closest H=4 sequence was candidate 2, with targets
+`[+7.128027, 0, +0.082042, -1.883399, +0.223614, -0.424018,
+-2.444057]%`.  It retained substantial tracking gain and a small attempted
+byte saving, but failed window-average consensus, delivered bytes, and
+final-step consensus.  At H=5, every candidate retained positive mean
+tracking gain, but all four lost both window-average and final-step consensus;
+their final-step consensus deficits ranged from `-4.824%` to `-11.147%`.
+
+Appending the fixed reference topology therefore does not repay the state
+divergence created by these prefixes.  It can also reverse the H=3
+communication saving because the altered posterior trajectory changes later
+payload sizes.  This rejects the specific "short window plus passive reference
+recovery" explanation.  It does not reject a state-conditioned recovery
+policy that observes the updated posterior and selects a new action online.
+
+Broader teacher collection, GNN training, reserved-seed evaluation, and X36
+evaluation remain unauthorized.  Before designing a closed-loop action, the
+next diagnostic must test whether rolling-B3 and topology-only mixing
+coefficients explain the observed consensus debt.  If they do not, the value
+model and safety layer must include posterior/innovation state rather than
+graph structure alone.
