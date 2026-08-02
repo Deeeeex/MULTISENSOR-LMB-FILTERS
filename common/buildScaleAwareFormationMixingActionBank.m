@@ -152,6 +152,16 @@ bank.actionGatewayLaneCounts = actionLaneCounts;
 bank.actionFormationMixingSpectralGapProxy = ...
     actionSpectralGapProxy;
 bank.actionDetails = actionDetails;
+% Compatibility fields for the generic frozen-action executor.  Payload
+% admissibility is evaluated from realized bytes after execution; this
+% truth-free structural bank imposes message-count parity before execution.
+bank.actionWithinReferencePayload = true(1, actionCount);
+bank.actionFormationIndex = zeros(1, actionCount);
+bank.actionModeIndex = 1:actionCount;
+bank.modeTrustWeights = realizedCrossWeights;
+bank.actionPosteriorProxyAllowed = false(1, actionCount);
+bank.actionPosteriorObjective = actionSpectralGapProxy;
+bank.actionPayloadBytes = nan(1, actionCount);
 bank.messageCountParityWithReference = ...
     all(actionMessageCounts == actionMessageCounts(1));
 allPhysical = true;

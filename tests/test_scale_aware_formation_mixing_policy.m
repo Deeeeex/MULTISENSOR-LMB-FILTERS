@@ -80,6 +80,23 @@ assert(bank.allFormationStrongConnected);
 assert(~bank.truthUsed && ~bank.futureOutcomeUsed);
 assert(bank.actionFormationMixingSpectralGapProxy(end) > ...
     bank.actionFormationMixingSpectralGapProxy(1));
+assert(all(bank.actionWithinReferencePayload));
+assert(isequal(bank.actionModeIndex, 1:bank.actionCount));
+
+protocol = getFormationScaleAwareMixingProbeProtocol();
+assert(strcmp(protocol.contractVersion, ...
+    'formation-scale-aware-residual-mixing-probe-protocol-v1'));
+assert(strcmp(protocol.presetName, 'm24-formation-fov'));
+assert(protocol.seed == 211);
+assert(protocol.primarySnapshotTime == 72);
+assert(isequal(protocol.openedSnapshotTimes, [60, 72, 104, 124]));
+assert(protocol.horizonSteps == 3);
+assert(protocol.maximumActionCount == 11);
+assert(protocol.minimumStrongOpenedStateCount == 3);
+assert(~protocol.finalModelTrainingAuthorized);
+assert(~protocol.x36OutcomeOpeningAuthorized);
+assert(~protocol.validationClaimAllowed);
+assert(nargin('runFormationScaleAwareMixingOpenedScreen') == 1);
 
 restricted = context;
 groupIds = context.model.dynamicTopologyScenario.config.sensorGroupIds;
