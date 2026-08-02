@@ -157,6 +157,30 @@ assert(debtRepairProtocol.openedTrainingMechanismProbeOnly);
 assert(~debtRepairProtocol.validationClaimAllowed);
 assert(nargin('runFormationH3TwoStepDebtRepairProbe') == 1);
 
+terminalRepairProtocol = ...
+    getFormationH3TerminalDebtRepairProbeProtocol();
+assert(strcmp(terminalRepairProtocol.contractVersion, ...
+    'formation-h3-terminal-debt-repair-probe-protocol-v1'));
+assert(isequal(terminalRepairProtocol.prefixFirstModeVectors, [ ...
+    1, 1, 2, 2; 1, 4, 3, 1; 1, 4, 3, 1; 1, 4, 3, 1]));
+assert(isequal(terminalRepairProtocol.prefixSecondModeVectors, [ ...
+    1, 4, 1, 1; 1, 1, 4, 4; 1, 1, 2, 4; 1, 1, 1, 4]));
+assert(isequal(terminalRepairProtocol.savedControlModeVectors, [ ...
+    1, 1, 3, 1; 1, 1, 1, 4; 1, 4, 4, 2]));
+assert(isequal(terminalRepairProtocol.repairModeChoices, ...
+    {1, [1, 4], [1, 2, 4], [1, 2, 4]}));
+assert(terminalRepairProtocol.expectedPrefixCount == 4);
+assert(terminalRepairProtocol.expectedRepairCount == 18);
+assert(terminalRepairProtocol.expectedCandidateCount == 72);
+assert(terminalRepairProtocol.expectedSequenceCount == 74);
+assert(terminalRepairProtocol.expectedActionCount == 256);
+assert(strcmp(terminalRepairProtocol.interventionBankType, ...
+    'formation-exhaustive-mode-vector'));
+assert(terminalRepairProtocol.actionSelectionUsesTruth);
+assert(terminalRepairProtocol.openedTrainingMechanismProbeOnly);
+assert(~terminalRepairProtocol.validationClaimAllowed);
+assert(nargin('runFormationH3TerminalDebtRepairProbe') == 1);
+
 groupIds = [1, 1, 2, 2];
 context = syntheticContext(groupIds);
 metrics = computeFormationH3ObservableEventScore( ...
