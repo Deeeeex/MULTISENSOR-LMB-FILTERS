@@ -28,6 +28,9 @@ assert(bank.referenceActionIndex == 1);
 assert(isequal(bank.safeActionIndices, 1));
 assert(all(bank.actionMessageCounts == 40 - ...
     bank.actionSuspendedCrossEdgeCounts));
+assert(all(abs(bank.actionMessageSavingFractions - ...
+    bank.actionMessageSavingCounts ./ ...
+        bank.actionMessageCounts(1)) < 1e-12));
 assert(all(bank.actionWithinReferencePayload));
 assert(bank.allPhysical);
 assert(bank.allRowStochastic);
