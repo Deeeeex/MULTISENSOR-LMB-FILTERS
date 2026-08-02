@@ -58,3 +58,20 @@ are infeasible.
 
 This is a privileged single-state mechanism probe.  Seeds 223/227, X36, and
 final seeds remain unopened.
+
+## Result
+
+Both frozen reproduction controls pass, and all 67 candidates execute without
+truth use, repair, payload emergency, infeasibility, or B3 failure.  None is
+strict-feasible.  The strict oracle remains all-reference with `0%` gain.
+
+The closest and best-consensus vector is `[1,4,4,2]`, with targets
+`[+5.775, 0, +0.042, -1.527, +1.027, +1.074]%`.  It repays about 86.7% of the
+original consensus debt while retaining strong tracking and positive
+communication savings; consensus is its only failing target.  The current
+single-round posterior proxy rejects this vector.
+
+Thus heterogeneous terminal modes are useful, but optimizing only the third
+step cannot undo the debt accumulated by the fixed first two actions.  The
+next teacher must choose mode vectors earlier in the horizon and carry an
+explicit predicted consensus-debt budget from the first action onward.
