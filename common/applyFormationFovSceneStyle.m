@@ -25,10 +25,11 @@ end
 
 styleName = lower(strrep(strrep(char(styleName), '_', '-'), ' ', '-'));
 config.sceneStyle = styleName;
-config.sceneGeometryVersion = 'formation-fov-multistyle-v1';
+config.sceneGeometryVersion = 'formation-fov-multistyle-v2';
 config.sceneCalibrationStatus = ...
-    'geometry-implemented-difficulty-gates-unfrozen';
+    'geometry-recalibration-in-progress-v2';
 config.formalValidationAuthorized = false;
+config.trackingOutcomeAuthorized = false;
 config.enforceDifficultyRequirements = false;
 config.difficultyRequirements = struct();
 config.scaleControlReferencePreset = '';
@@ -39,8 +40,13 @@ config.normalizeTargetRouteDuration = true;
 config.focusWindow = [45, 140];
 config.forceDelivery = false;
 config.linkMode = 'correlated-blockage';
-config.formationBackboneMode = 'reliable-mst';
+% The reference tree is chosen from geometry observable at t=1 only.  It
+% must not inspect the complete planned trajectory to select an edge that
+% is known in advance to remain available throughout the episode.
+config.formationBackboneMode = 'initial-geometry-mst';
 config.requireStaticPhysicalAllTimes = true;
+config.blockageScheduleMode = 'backbone-sequential';
+config.targetAccelerationLimit = 1.0;
 
 switch styleName
     case {'convoy', 'parallel-convoy'}
@@ -55,7 +61,9 @@ switch styleName
         config.targetRoutes = buildConvoyTargetRoutes( ...
             config.targetGroupCount);
         config.targetCrossTrackSpacing = 32;
-        config.blockageWindows = buildStyleBlockages( ...
+        config.minimumTargetSeparation = 14;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'convoy');
         config.focusWindowName = 'convoy-overtake-and-link-blockage';
     case {'crossing', 'orthogonal-crossing'}
@@ -70,7 +78,10 @@ switch styleName
         config.targetRoutes = buildCrossingTargetRoutes( ...
             config.targetGroupCount);
         config.targetCrossTrackSpacing = 32;
-        config.blockageWindows = buildStyleBlockages( ...
+        config.minimumTargetSeparation = 2;
+        config.requireStaticPhysicalAllTimes = false;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'crossing');
         config.focusWindowName = ...
             'orthogonal-intersection-and-link-blockage';
@@ -78,7 +89,11 @@ switch styleName
         config.sceneStyle = 'linear-relay';
         config.informationFlowStyle = ...
             'sequential-handover-along-a-sensor-chain';
-        config.regionLimits = [-820, 820; -430, 520];
+        if config.formationCount <= 4
+            config.regionLimits = [-720, 720; -430, 520];
+        else
+            config.regionLimits = [-980, 980; -430, 520];
+        end
         config.formationHeadingMode = 'fixed';
         config.sensorFovHeadingMode = 'formation-shared-fixed';
         config.sensorFovFixedHeadingRadByFormation = ...
@@ -88,7 +103,9 @@ switch styleName
         config.targetRoutes = buildRelayTargetRoutes( ...
             config.targetGroupCount);
         config.targetCrossTrackSpacing = 28;
-        config.blockageWindows = buildStyleBlockages( ...
+        config.minimumTargetSeparation = 9;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'relay');
         config.focusWindowName = 'corridor-relay-and-link-blockage';
     otherwise
@@ -98,32 +115,57 @@ end
 
 function waypoints = buildConvoyFormationWaypoints(formationCount)
 if formationCount <= 4
-    longitudinalOffsets = linspace(-360, 360, formationCount);
-    lanes = [-160, 160];
+    lanes = [-100, 100];
 else
-    longitudinalOffsets = linspace(-450, 450, formationCount);
-    lanes = [-180, 0, 180];
+    % Preserve the same 200 m local lane spacing when scale grows from two
+    % to three lanes.  Scale is expressed by adding formations/traffic, not
+    % by silently making X36's local sensing geometry denser.
+    lanes = [-200, 0, 200];
 end
+% The fixed 300 m sensing range must bridge the handoff between a rear
+% east-facing column and the front column.  A wider gap creates a long blind
+% band that is a scene artifact rather than a routing challenge.
+longitudinalColumns = [-175, 175];
 progress = [-170, -85, 0, 95, 210];
 waypoints = cell(1, formationCount);
 for formationIdx = 1:formationCount
     laneIdx = mod(formationIdx - 1, numel(lanes)) + 1;
+    columnIdx = floor((formationIdx - 1) / numel(lanes)) + 1;
+    if columnIdx > numel(longitudinalColumns)
+        error('Convoy geometry requires at most two formation columns.');
+    end
     waypoints{formationIdx} = [ ...
-        longitudinalOffsets(formationIdx) + progress; ...
+        longitudinalColumns(columnIdx) + progress; ...
         lanes(laneIdx) * ones(1, numel(progress))];
 end
 end
 
 function routes = buildConvoyTargetRoutes(targetGroupCount)
-lanes = linspace(-170, 170, min(4, targetGroupCount));
-x = [-680, -340, 0, 340, 680];
+if targetGroupCount <= 4
+    lanes = [-100, 100];
+else
+    lanes = [-200, 0, 200];
+end
+% Targets begin just ahead of the rear formations and then overtake the
+% front column.  This removes the long unavoidable rear-sector blackout in
+% v1 while retaining directional handover and gentle lateral maneuvers.
+x = [-320, -120, 120, 380, 650];
 routes = cell(1, targetGroupCount);
+cohortOffsets = centeredValues( ...
+    ceil(targetGroupCount / numel(lanes)), 16);
 for groupIdx = 1:targetGroupCount
     startLaneIdx = mod(groupIdx - 1, numel(lanes)) + 1;
-    finishLaneIdx = mod(groupIdx, numel(lanes)) + 1;
+    cohortIdx = floor((groupIdx - 1) / numel(lanes)) + 1;
     y0 = lanes(startLaneIdx);
-    y1 = lanes(finishLaneIdx);
-    y = [y0, y0, 0.6 * y0 + 0.4 * y1, y1, y1];
+    % Groups that reuse the same lane-change template receive a small fixed
+    % sub-lane offset.  Without it, different labelled groups can nearly
+    % collide even though within-group cross-track spacing is respected.
+    if abs(y0) > 1e-12
+        bend = -24 * sign(y0);
+    else
+        bend = 24;
+    end
+    y = y0 + cohortOffsets(cohortIdx) + [0, 0, bend, 0, 0];
     routes{groupIdx} = [x; y];
 end
 end
@@ -161,6 +203,9 @@ horizontalCount = ceil(targetGroupCount / 2);
 verticalCount = targetGroupCount - horizontalCount;
 horizontalLanes = centeredValues(horizontalCount, 115) + 35;
 verticalLanes = centeredValues(verticalCount, 115) - 35;
+% Crossing remains a deliberately hard stress geometry in v2.  Its target
+% streams traverse the complete intersection while platform groups are
+% temporally staggered to preserve separation.
 progress = [-620, -310, 0, 310, 620];
 routes = cell(1, targetGroupCount);
 for groupIdx = 1:horizontalCount
@@ -179,11 +224,7 @@ end
 end
 
 function waypoints = buildRelayFormationWaypoints(formationCount)
-if formationCount <= 4
-    x = linspace(-480, 480, formationCount);
-else
-    x = linspace(-650, 650, formationCount);
-end
+x = centeredValues(formationCount, 300);
 y = 350;
 waypoints = cell(1, formationCount);
 for formationIdx = 1:formationCount
@@ -193,7 +234,11 @@ end
 
 function routes = buildRelayTargetRoutes(targetGroupCount)
 lanes = linspace(80, 220, min(4, targetGroupCount));
-progress = [-680, -340, 0, 340, 680];
+if targetGroupCount <= 4
+    progress = [-600, -300, 0, 300, 600];
+else
+    progress = [-900, -450, 0, 450, 900];
+end
 routes = cell(1, targetGroupCount);
 for groupIdx = 1:targetGroupCount
     direction = 1 - 2 * mod(groupIdx, 2);
@@ -206,26 +251,23 @@ for groupIdx = 1:targetGroupCount
 end
 end
 
-function windows = buildStyleBlockages(formationCount, styleName)
-switch styleName
-    case 'crossing'
-        offset = ceil(formationCount / 2);
-        left = 1:min(3, formationCount - offset);
-        right = left + offset;
-    otherwise
-        if formationCount <= 4
-            left = 1:(formationCount - 1);
-            right = 2:formationCount;
-        else
-            left = 1:2:(formationCount - 1);
-            right = left + 1;
-        end
+function times = buildStyleBlockageTimes(formationCount, styleName)
+% Pair identities are resolved from the actual t=1 reference tree by
+% resolveDynamicTopologyBlockageWindows.  Only the causal time schedule is
+% part of the scene definition here.
+if formationCount <= 4
+    windowCount = formationCount - 1;
+else
+    windowCount = ceil((formationCount - 1) / 2);
 end
-windowCount = numel(left);
-starts = round(linspace(58, 112, windowCount));
+if strcmp(styleName, 'crossing')
+    startRange = [54, 108];
+else
+    startRange = [58, 112];
+end
+starts = round(linspace(startRange(1), startRange(2), windowCount));
 stops = starts + 20;
-windows = [reshape(left, [], 1), reshape(right, [], 1), ...
-    reshape(starts, [], 1), reshape(stops, [], 1)];
+times = [reshape(starts, [], 1), reshape(stops, [], 1)];
 end
 
 function values = centeredValues(count, spacing)

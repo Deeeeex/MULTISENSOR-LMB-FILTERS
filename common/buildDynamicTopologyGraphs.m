@@ -15,6 +15,8 @@ intersectionAdjacency = all(physicalAdjacency, 3);
 intersectionAdjacency(1:sensorCount+1:end) = false;
 everAdjacency = any(physicalAdjacency, 3);
 everAdjacency(1:sensorCount+1:end) = false;
+initialAdjacency = physicalAdjacency(:, :, 1);
+initialAdjacency(1:sensorCount+1:end) = false;
 
 switch lower(config.topologyFamily)
     case 'r8-fixed'
@@ -33,7 +35,7 @@ switch lower(config.topologyFamily)
     otherwise
         staticAdjacency = buildGenericStaticAdjacency( ...
             config, distanceByTime, intersectionAdjacency, ...
-            everAdjacency);
+            everAdjacency, initialAdjacency);
         candidateAdjacency = zeros(sensorCount, sensorCount, 0);
         candidateMetadata = struct('gatewayNodes', {{}});
 end
@@ -49,10 +51,19 @@ graphData.distanceByTime = distanceByTime;
 graphData.physicalAdjacency = physicalAdjacency;
 graphData.intersectionAdjacency = intersectionAdjacency;
 graphData.everAdjacency = everAdjacency;
+graphData.initialAdjacency = initialAdjacency;
 graphData.staticAdjacency = logical(staticAdjacency);
 graphData.staticAllTimePhysical = ...
     ~any(staticAdjacency(:) & ~intersectionAdjacency(:));
 graphData.staticNeighborMap = adjacencyToNeighborMap(staticAdjacency);
+graphData.formationBackbonePairs = formationPairsFromAdjacency( ...
+    config, staticAdjacency);
+if strcmpi(getField(config, 'formationBackboneMode', ''), ...
+        'initial-geometry-mst')
+    graphData.backboneSelectionTime = 1;
+else
+    graphData.backboneSelectionTime = NaN;
+end
 graphData.candidateAdjacency = logical(candidateAdjacency);
 graphData.candidateMetadata = candidateMetadata;
 end
@@ -195,7 +206,8 @@ end
 end
 
 function adjacency = buildGenericStaticAdjacency( ...
-    config, distanceByTime, intersectionAdjacency, everAdjacency)
+    config, distanceByTime, intersectionAdjacency, everAdjacency, ...
+    initialAdjacency)
 sensorCount = config.numberOfSensors;
 adjacency = false(sensorCount);
 groups = cell(1, config.formationCount);
@@ -230,6 +242,16 @@ switch backboneMode
             2 * distanceScale * (1 - availability);
         backbonePairs = selectFormationMstPairs( ...
             groups, allowedEdges, edgeScores);
+    case {'initial-geometry-mst', 'initial-mst'}
+        edgeScores = distanceByTime(:, :, 1);
+        backbonePairs = selectFormationMstPairs( ...
+            groups, initialAdjacency, edgeScores);
+        % Restrict all inter-formation reference edges to the tree selected
+        % from t=1.  Otherwise the budget-filling pass can silently add
+        % non-tree formation links and erase the intended convoy/relay
+        % information-flow geometry.
+        allowedEdges = restrictEdgesToFormationPairs( ...
+            groups, backbonePairs, initialAdjacency);
     otherwise
         error('Unknown formationBackboneMode: %s', backboneMode);
 end
@@ -269,6 +291,35 @@ for edgeIdx = 1:size(edgeList, 1)
         continue;
     end
     adjacency = addEdge(adjacency, leftIdx, rightIdx);
+end
+end
+
+function allowed = restrictEdgesToFormationPairs( ...
+        groups, formationPairs, baseAllowed)
+allowed = false(size(baseAllowed));
+for groupIdx = 1:numel(groups)
+    members = groups{groupIdx};
+    allowed(members, members) = baseAllowed(members, members);
+end
+for pairIdx = 1:size(formationPairs, 1)
+    left = groups{formationPairs(pairIdx, 1)};
+    right = groups{formationPairs(pairIdx, 2)};
+    allowed(left, right) = baseAllowed(left, right);
+    allowed(right, left) = baseAllowed(right, left);
+end
+allowed(1:size(allowed, 1)+1:end) = false;
+end
+
+function pairs = formationPairsFromAdjacency(config, adjacency)
+pairs = zeros(0, 2);
+for leftGroupIdx = 1:config.formationCount-1
+    left = find(config.sensorGroupIds == leftGroupIdx);
+    for rightGroupIdx = leftGroupIdx+1:config.formationCount
+        right = find(config.sensorGroupIds == rightGroupIdx);
+        if any(any(adjacency(left, right)))
+            pairs(end+1, :) = [leftGroupIdx, rightGroupIdx]; %#ok<AGROW>
+        end
+    end
 end
 end
 

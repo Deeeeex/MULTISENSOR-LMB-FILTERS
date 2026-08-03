@@ -10,6 +10,9 @@ function metrics = measureDynamicTopologyScenarioDifficulty( ...
 timeCount = config.simulationLength;
 formationCount = config.formationCount;
 targetCount = numel(targetTrajectories);
+if nargin < 4
+    graphData = [];
+end
 focusWindow = resolveFocusWindow(config, timeCount);
 closeDistance = getField(config, ...
     'difficultyCloseTargetDistance', 80);
@@ -160,6 +163,17 @@ for targetIdx = 1:targetCount
 end
 metrics.maximumConsecutiveBlackoutSteps = ...
     maximumConsecutiveBlackoutSteps;
+% Retain compact per-target/time diagnostics so geometry calibration can
+% distinguish a brief scene-wide blind interval from isolated target gaps.
+% These arrays are sensing-only and contain no tracker outcome.
+metrics.activeMask = activeMask;
+metrics.blackoutMask = blackoutMask;
+metrics.visibilityCountByTargetTime = visibilityCount;
+metrics.visibleSensorCountByTargetTime = visibleSensorCount;
+metrics.perTargetBlackoutFraction = perTargetBlackoutFraction;
+activeByTime = sum(activeMask, 1);
+metrics.blackoutFractionByTime = sum(blackoutMask, 1) ./ ...
+    max(activeByTime, 1);
 metrics.singleFormationFraction = ...
     singleFormationCount / max(activeSampleCount, 1);
 metrics.multiFormationFraction = ...
@@ -208,7 +222,7 @@ metrics.physicalEdgeChurnRate = physicalEdgeChurnRate;
 metrics.meanPhysicalInterFormationEdges = ...
     meanPhysicalInterFormationEdges;
 metrics.blockageFocusOverlapFraction = ...
-    blockageFocusOverlap(config, focusWindow);
+    blockageFocusOverlap(config, graphData, focusWindow);
 metrics.focusWindow = [focusWindow(1), focusWindow(end)];
 end
 
@@ -321,8 +335,8 @@ end
 meanInterFormationEdges = mean(interFormationCounts);
 end
 
-function overlap = blockageFocusOverlap(config, focusWindow)
-windows = getField(config, 'blockageWindows', zeros(0, 4));
+function overlap = blockageFocusOverlap(config, graphData, focusWindow)
+windows = resolveDynamicTopologyBlockageWindows(config, graphData);
 if isempty(windows)
     overlap = 0;
     return;

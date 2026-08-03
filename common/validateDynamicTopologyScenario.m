@@ -16,7 +16,8 @@ end
 
 [maxSensorSpeed, maxSensorAcceleration, minSeparation, sensorsInBounds] = ...
     sensorTrajectoryMetrics(config, sensorTrajectories);
-[maxTargetSpeed, targetsInBounds] = ...
+[maxTargetSpeed, maxTargetAcceleration, minTargetSeparation, ...
+    targetsInBounds, targetStatesWellFormed] = ...
     targetTrajectoryMetrics(config, targetTrajectories);
 
 if minSeparation + 1e-9 < config.minimumSensorSeparation
@@ -31,11 +32,22 @@ end
 if maxTargetSpeed > config.targetSpeedLimit + 1e-9
     hardFailures{end+1} = 'target-speed'; %#ok<AGROW>
 end
+if isfield(config, 'targetAccelerationLimit') && ...
+        maxTargetAcceleration > config.targetAccelerationLimit + 1e-9
+    hardFailures{end+1} = 'target-acceleration'; %#ok<AGROW>
+end
+if isfield(config, 'minimumTargetSeparation') && ...
+        minTargetSeparation + 1e-9 < config.minimumTargetSeparation
+    hardFailures{end+1} = 'target-separation'; %#ok<AGROW>
+end
 if ~sensorsInBounds
     hardFailures{end+1} = 'sensor-bounds'; %#ok<AGROW>
 end
 if ~targetsInBounds
     hardFailures{end+1} = 'target-bounds'; %#ok<AGROW>
+end
+if ~targetStatesWellFormed
+    hardFailures{end+1} = 'target-state-column-integrity'; %#ok<AGROW>
 end
 
 staticEdgeCount = nnz(triu(staticAdjacency, 1));
@@ -112,8 +124,11 @@ validation.maxSensorSpeed = maxSensorSpeed;
 validation.maxSensorAcceleration = maxSensorAcceleration;
 validation.minimumSensorSeparation = minSeparation;
 validation.maxTargetSpeed = maxTargetSpeed;
+validation.maxTargetAcceleration = maxTargetAcceleration;
+validation.minimumTargetSeparation = minTargetSeparation;
 validation.sensorsInBounds = sensorsInBounds;
 validation.targetsInBounds = targetsInBounds;
+validation.targetStatesWellFormed = targetStatesWellFormed;
 validation.staticEdgeCount = staticEdgeCount;
 validation.staticPhysicalViolationCount = staticPhysicalViolationCount;
 validation.candidateCount = candidateCount;
@@ -216,17 +231,49 @@ for timeIdx = 1:timeCount
 end
 end
 
-function [maxSpeed, inBounds] = targetTrajectoryMetrics(config, trajectories)
+function [maxSpeed, maxAcceleration, minSeparation, inBounds, ...
+    statesWellFormed] = ...
+    targetTrajectoryMetrics(config, trajectories)
 maxSpeed = 0;
+maxAcceleration = 0;
+minSeparation = inf;
 inBounds = true;
+statesWellFormed = true;
 for targetIdx = 1:numel(trajectories)
     trajectory = trajectories{targetIdx};
-    active = all(isfinite(trajectory), 1);
+    finiteByState = isfinite(trajectory);
+    active = all(finiteByState, 1);
+    inactive = all(isnan(trajectory), 1);
+    statesWellFormed = statesWellFormed && all(active | inactive);
     if any(active)
         maxSpeed = max(maxSpeed, max(sqrt(sum( ...
             trajectory(3:4, active).^2, 1))));
+        activeTimes = find(active);
+        contiguous = find(diff(activeTimes) == 1);
+        if ~isempty(contiguous)
+            velocity = trajectory(3:4, activeTimes);
+            acceleration = (velocity(:, contiguous + 1) - ...
+                velocity(:, contiguous)) / config.samplingPeriod;
+            maxAcceleration = max(maxAcceleration, ...
+                max(sqrt(sum(acceleration.^2, 1))));
+        end
         inBounds = inBounds && pointsInBounds( ...
             trajectory(1:2, active), config.regionLimits);
+    end
+end
+for timeIdx = 1:config.simulationLength
+    activeTargets = [];
+    for targetIdx = 1:numel(trajectories)
+        if all(isfinite(trajectories{targetIdx}(:, timeIdx)))
+            activeTargets(end+1) = targetIdx; %#ok<AGROW>
+        end
+    end
+    for leftCursor = 1:numel(activeTargets)-1
+        for rightCursor = leftCursor+1:numel(activeTargets)
+            left = trajectories{activeTargets(leftCursor)}(1:2, timeIdx);
+            right = trajectories{activeTargets(rightCursor)}(1:2, timeIdx);
+            minSeparation = min(minSeparation, norm(left - right));
+        end
     end
 end
 end

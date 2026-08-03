@@ -6,6 +6,8 @@ sensorCount = config.numberOfSensors;
 timeCount = config.simulationLength;
 pDropByEdge = ones(sensorCount, sensorCount, timeCount);
 groupIds = config.sensorGroupIds;
+resolvedBlockageWindows = ...
+    resolveDynamicTopologyBlockageWindows(config, graphData);
 
 for timeIdx = 1:timeCount
     physical = graphData.physicalAdjacency(:, :, timeIdx);
@@ -27,7 +29,7 @@ for timeIdx = 1:timeCount
                 probability = config.interFormationDropMinimum + ...
                     config.interFormationDropScale * normalizedDistance^2;
                 probability = probability + blockagePenalty( ...
-                    config.blockageWindows, groupIds(leftIdx), ...
+                    resolvedBlockageWindows, groupIds(leftIdx), ...
                     groupIds(rightIdx), timeIdx);
             end
             probability = min(max(probability, 0), 0.95);
@@ -40,7 +42,9 @@ end
 metadata = struct();
 metadata.meanPhysicalDropProbability = mean( ...
     pDropByEdge(graphData.physicalAdjacency));
-metadata.blockageWindows = config.blockageWindows;
+metadata.blockageWindows = resolvedBlockageWindows;
+metadata.blockageScheduleMode = getField( ...
+    config, 'blockageScheduleMode', 'explicit');
 end
 
 function penalty = blockagePenalty(windows, leftGroup, rightGroup, timeIdx)
@@ -56,5 +60,13 @@ for windowIdx = 1:size(windows, 1)
     if pairMatches && inWindow
         penalty = max(penalty, 0.65);
     end
+end
+end
+
+function value = getField(structure, fieldName, defaultValue)
+if isstruct(structure) && isfield(structure, fieldName)
+    value = structure.(fieldName);
+else
+    value = defaultValue;
 end
 end
