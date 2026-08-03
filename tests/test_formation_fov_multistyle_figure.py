@@ -150,3 +150,31 @@ def test_python_renderer_creates_editable_vector_and_preview_outputs(tmp_path):
     assert "Linear relay" in svg_text
     assert "518.4pt" in svg_text
     assert "345.6pt" in svg_text
+
+
+def test_vector_outputs_are_byte_reproducible(tmp_path):
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    for output in (first, second):
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "--data",
+                str(SOURCE),
+                "--output",
+                str(output),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+
+    assert first.with_suffix(".svg").read_bytes() == second.with_suffix(
+        ".svg"
+    ).read_bytes()
+    assert first.with_suffix(".pdf").read_bytes() == second.with_suffix(
+        ".pdf"
+    ).read_bytes()

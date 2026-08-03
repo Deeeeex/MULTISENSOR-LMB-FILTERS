@@ -21,6 +21,7 @@ from matplotlib.ticker import MaxNLocator
 plt.rcParams["font.family"] = "sans-serif"
 plt.rcParams["font.sans-serif"] = ["Arial", "DejaVu Sans", "Liberation Sans"]
 plt.rcParams["svg.fonttype"] = "none"
+plt.rcParams["svg.hashsalt"] = "formation-fov-multistyle-suite-v2"
 plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["font.size"] = 7
 plt.rcParams["axes.linewidth"] = 0.75
@@ -556,8 +557,11 @@ def save_figure(figure: plt.Figure, output_base: Path) -> list[Path]:
         output_base.with_suffix(".png"),
     ]
     # Preserve the registered 7.2 x 4.8 inch canvas exactly.
-    figure.savefig(outputs[0])
-    figure.savefig(outputs[1])
+    figure.savefig(outputs[0], metadata={"Date": None})
+    figure.savefig(
+        outputs[1],
+        metadata={"CreationDate": None, "ModDate": None},
+    )
     figure.savefig(outputs[2], dpi=300)
     plt.close(figure)
     svg_text = outputs[0].read_text(encoding="utf-8")

@@ -48,11 +48,13 @@ routing or tracking claim.  Crossing remains `stress-only-v5`.
 ## Verification record
 
 - `python -m pytest -q tests/test_formation_fov_multistyle_figure.py`:
-  `5 passed`.
+  `6 passed`.
 - `test_multistyle_formation_scenarios` and
   `test_formation_fov_scenarios`: pass in Octave.
 - The PDF is one page; the SVG contains `29` editable text elements and zero
   embedded image elements.
+- Fixed SVG IDs and suppressed time-varying vector metadata make consecutive
+  SVG and PDF renders byte-identical.
 - Programmatic bounds tests cover every displayed sensor and every sampled
   representative FoV arc.  Visual inspection at the final `7.2 x 4.8 in`
   canvas confirms that nodes, arc boundaries, axes, titles and panel labels
@@ -64,8 +66,8 @@ routing or tracking claim.  Crossing remains `stress-only-v5`.
 
 | File | SHA-256 |
 |:--|:--|
-| `formation_fov_multistyle_suite_v2.svg` | `6850aa3870d7b688a8b9da4d443eb8db99a8450dd89094626dd5c46a34636c61` |
-| `formation_fov_multistyle_suite_v2.pdf` | `8a1a96057aa7d24985ae1871e8cd5f15ab894a60002a53b6ed707a705ae89e14` |
+| `formation_fov_multistyle_suite_v2.svg` | `eff3952db5aa6fa1b9d170758950f22febbe43cb5ab109e03384f0304b21db3c` |
+| `formation_fov_multistyle_suite_v2.pdf` | `120e408ca302594929d6e5c8f77fab44a5822f43c38f23fedbe396fbd9b25113` |
 | `formation_fov_multistyle_suite_v2.png` | `07b0390bdb77692d6673907a603436ecd0f2fd61bbb24e1662d110bd38ac532a` |
 | `formation_fov_multistyle_suite_v5_seed41.json` | `29739de77270c93eb21652dd294e16299e858f376ce39614413f8f86db063cd2` |
 
