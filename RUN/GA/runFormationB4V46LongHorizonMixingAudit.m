@@ -1,0 +1,613 @@
+function result = runFormationB4V46LongHorizonMixingAudit(options)
+% RUNFORMATIONB4V46LONGHORIZONMIXINGAUDIT Structural-only product audit.
+%
+% The committed full32 gate established current-page execution and rolling
+% B4 joint connectivity, but its four-page products were not scrambling.
+% This independent runner reconstructs the exact committed V46 page hashes
+% and evaluates longer chronological products without generating tracking
+% truth, measurements, posterior contents, or realized delivery draws.
+
+if nargin < 1 || isempty(options)
+    options = struct();
+end
+allowedFields = {'presets', 'seeds', 'timeIndices', ...
+    'horizons', 'progressEvery'};
+if ~isstruct(options) || ~isscalar(options) || ...
+        any(~ismember(fieldnames(options), allowedFields))
+    error('FormationB4V46LongMixing:InvalidOptions', ...
+        'The long-horizon audit options are malformed.');
+end
+
+protocol = getFormationCausalMinimalEditV46Protocol();
+presets = getField(options, 'presets', protocol.registeredPresets);
+seeds = reshape(getField(options, 'seeds', ...
+    protocol.registeredSeeds), 1, []);
+timeIndices = reshape(getField(options, 'timeIndices', []), 1, []);
+horizons = reshape(getField(options, 'horizons', ...
+    [4, 8, 12, 16, 24, 32, 48, 64, 92, 140]), 1, []);
+progressEvery = getField(options, 'progressEvery', 40);
+validateOptions(presets, seeds, timeIndices, horizons, ...
+    progressEvery, protocol);
+
+[parentResult, parentMetadata, parentRawSha256] = ...
+    loadFrozenFull32Evidence();
+caseCount = numel(presets) * numel(seeds);
+cases = repmat(emptyCase(), 1, caseCount);
+cursor = 0;
+for presetIdx = 1:numel(presets)
+    for seedIdx = 1:numel(seeds)
+        cursor = cursor + 1;
+        fprintf('V46 long mixing case %d/%d: %s seed=%d\n', ...
+            cursor, caseCount, presets{presetIdx}, seeds(seedIdx));
+        parentCase = findParentCase(parentResult, ...
+            presets{presetIdx}, seeds(seedIdx));
+        cases(cursor) = buildCase(presets{presetIdx}, ...
+            seeds(seedIdx), timeIndices, horizons, progressEvery, ...
+            parentCase, protocol);
+    end
+end
+
+fullRegistryRequested = ...
+    isequal(presets, protocol.registeredPresets) && ...
+    isequal(seeds, protocol.registeredSeeds);
+fullHorizonCovered = all([cases.fullHorizonCovered]);
+allParentPagesMatched = all([cases.parentPageHashesMatched]);
+allRollingB4UnionsStrong = all([cases.everyRollingB4UnionStrong]);
+allTheoremHorizonPresent = all([cases.theoremHorizonPresent]);
+allTheoremSupportScrambling = ...
+    all([cases.everyTheoremHorizonProductSupportScrambling]);
+allTheoremPositiveColumn = ...
+    all([cases.everyTheoremHorizonProductHasPositiveColumn]);
+result = struct();
+result.contractVersion = ...
+    'formation-b4-v46-long-horizon-mixing-audit-development-v1';
+result.protocolId = protocol.id;
+result.protocolCanonicalSha256 = protocol.canonicalSha256;
+result.parentFull32ResultCanonicalSha256 = ...
+    parentResult.canonicalSha256;
+result.parentFull32RunMetadata = parentMetadata;
+result.parentFull32MatRawSha256 = parentRawSha256;
+result.presets = presets;
+result.seeds = seeds;
+result.horizons = horizons;
+result.caseCount = caseCount;
+result.cases = cases;
+result.fullRegistryRequested = fullRegistryRequested;
+result.allCasesFullHorizonCovered = fullHorizonCovered;
+result.allParentPageHashesMatched = allParentPagesMatched;
+result.everyRollingB4UnionStrong = allRollingB4UnionsStrong;
+result.allTheoremHorizonsPresent = allTheoremHorizonPresent;
+result.everyTheoremHorizonProductSupportScrambling = ...
+    allTheoremSupportScrambling;
+result.everyTheoremHorizonProductHasPositiveColumn = ...
+    allTheoremPositiveColumn;
+result.longHorizonConvergenceCertificatePassed = ...
+    fullRegistryRequested && fullHorizonCovered && ...
+    allParentPagesMatched && allRollingB4UnionsStrong && ...
+    allTheoremHorizonPresent && allTheoremSupportScrambling && ...
+    allTheoremPositiveColumn;
+result.routeReceivesCurrentPageOnly = true;
+result.fullPlannedSensorGeometryMaterializedByAudit = true;
+result.fullPlannedLinkProbabilityScheduleMaterializedByAudit = true;
+result.posteriorUsed = false;
+result.truthGeneratedOrUsed = false;
+result.measurementGeneratedOrUsed = false;
+result.futurePagePassedToProjectionOrRoute = false;
+result.realizedDeliveryUniformsGeneratedOrUsed = false;
+result.trackingOutcomeScored = false;
+result.trackingOutcomeAuthorized = false;
+result.validationClaimAllowed = false;
+result.developmentEvidenceOnly = true;
+result.canonicalSha256 = '';
+result.canonicalSha256 = computeCanonicalValueSha256( ...
+    rmfield(result, 'canonicalSha256'));
+fprintf(['V46 long mixing complete: cases=%d certificate=%d ', ...
+    'sha256=%s\n'], caseCount, ...
+    result.longHorizonConvergenceCertificatePassed, ...
+    result.canonicalSha256);
+end
+
+function value = buildCase(presetName, seed, requestedTimes, ...
+        horizons, progressEvery, parentCase, protocol)
+rng(seed, 'twister');
+config = buildDynamicTopologyScenarioConfig(presetName);
+[sensorTrajectories, trajectoryMetadata] = ...
+    generateMultiFormationTrajectories(config);
+graph = materializePhysicalGraph(config, sensorTrajectories);
+registeredBase = FormationB4V45BuildCausalRegisteredBaseGraph( ...
+    config.formationBackboneMode, config.sensorGroupIds, ...
+    trajectoryMetadata.sensorPhysicalUids, ...
+    trajectoryMetadata.formationPhysicalUidsBySensor, ...
+    graph.positions(:, :, 1), graph.physicalAdjacency(:, :, 1));
+graph.formationBackbonePairs = ...
+    registeredBase.formationGroupLabelPairs;
+[pDropByEdge, ~] = buildDynamicTopologyLinkSchedule(config, graph);
+identity = buildDynamicTopologyPhysicalIdentityRegistry(config);
+if ~isequal(identity.sensorPhysicalUids, ...
+        trajectoryMetadata.sensorPhysicalUids) || ...
+        ~isequal(identity.formationPhysicalUidsBySensor, ...
+            trajectoryMetadata.formationPhysicalUidsBySensor) || ...
+        ~strcmp(identity.canonicalSha256, ...
+            trajectoryMetadata.physicalIdentityRegistryCanonicalSha256)
+    error('FormationB4V46LongMixing:IdentityDrift', ...
+        'The materialized physical identity registry drifted.');
+end
+if isempty(requestedTimes)
+    auditedTimes = 1:config.simulationLength;
+else
+    auditedTimes = requestedTimes;
+end
+if any(auditedTimes > config.simulationLength) || ...
+        any(horizons > numel(auditedTimes))
+    error('FormationB4V46LongMixing:InvalidOptions', ...
+        'A requested time or horizon exceeds the audited span.');
+end
+
+nodeCount = config.numberOfSensors;
+timeCount = numel(auditedTimes);
+weightHistory = zeros(nodeCount, nodeCount, timeCount);
+adjacencyHistory = false(nodeCount, nodeCount, timeCount);
+repairCounts = zeros(1, timeCount);
+pageHashesMatched = true(1, timeCount);
+minimumPositiveWeight = inf;
+dutyOptions = struct('period', protocol.period, ...
+    'dutyLayer', protocol.dutyLayer, ...
+    'phasePattern', protocol.phasePattern, ...
+    'activeResidualWeight', protocol.activeResidualWeight, ...
+    'dominantWeight', protocol.dominantWeight, ...
+    'referenceResidualWeight', protocol.referenceResidualWeight);
+for localTimeIdx = 1:timeCount
+    currentTime = auditedTimes(localTimeIdx);
+    physical = logical(graph.physicalAdjacency(:, :, currentTime));
+    positions = graph.positions(:, :, currentTime);
+    currentDrop = pDropByEdge(:, :, currentTime);
+    [projectedBase, certificate] = ...
+        projectCausalMinimalEditFormationBackbone( ...
+            config.sensorGroupIds, identity.sensorPhysicalUids, ...
+            identity.formationPhysicalUidsBySensor, positions, ...
+            registeredBase.baseAdjacency, physical, currentDrop);
+    context = buildCurrentPageContext(config.sensorGroupIds, ...
+        identity, positions, physical, currentDrop, ...
+        projectedBase, currentTime);
+    [sequence, weights, details] = ...
+        buildIndexEquivariantResidualDutyCycleSchedule( ...
+            context, dutyOptions);
+    phase = mod(currentTime - 1, protocol.period) + 1;
+    if details.currentAbsolutePhase ~= phase || ...
+            ~details.currentGeometryUsed || ...
+            ~details.currentLinkReliabilityUsed || ...
+            details.posteriorUsed || details.truthUsed || ...
+            details.measurementUsed || details.futureOutcomeUsed || ...
+            details.realizedDeliveryUniformsUsed || ...
+            details.trackingOutcomeScored || ...
+            details.validationClaimAllowed
+        error('FormationB4V46LongMixing:BoundaryViolation', ...
+            'A reconstructed page crossed the frozen route boundary.');
+    end
+    adjacency = logical(sequence(:, :, phase));
+    pageWeights = weights(:, :, phase);
+    positive = pageWeights > 1e-12;
+    positive(1:nodeCount+1:end) = false;
+    expectedCount = nodeCount;
+    if phase == 1
+        expectedCount = 2 * nodeCount;
+    end
+    if nnz(adjacency) ~= expectedCount || ...
+            any(adjacency(:) & ~physical(:)) || ...
+            ~isequal(positive, adjacency) || ...
+            any(abs(sum(pageWeights, 2) - 1) > 1e-12) || ...
+            any(diag(pageWeights) <= 0)
+        error('FormationB4V46LongMixing:PageContract', ...
+            'A reconstructed synchronized-B4 page is invalid.');
+    end
+    positiveValues = pageWeights(pageWeights > 0);
+    minimumPositiveWeight = min( ...
+        minimumPositiveWeight, min(positiveValues));
+    weightHistory(:, :, localTimeIdx) = pageWeights;
+    adjacencyHistory(:, :, localTimeIdx) = adjacency;
+    repairCounts(localTimeIdx) = ...
+        certificate.registeredRemovalCount;
+    parentIdx = find(parentCase.auditedTimes == currentTime, 1);
+    actualHash = routeHash(adjacency, pageWeights);
+    pageHashesMatched(localTimeIdx) = ~isempty(parentIdx) && ...
+        strcmp(actualHash, ...
+            parentCase.syncB4PageCanonicalSha256ByTime{parentIdx});
+    if ~pageHashesMatched(localTimeIdx)
+        error('FormationB4V46LongMixing:ParentPageDrift', ...
+            'A reconstructed page differs from the committed full32 route.');
+    end
+    if localTimeIdx == 1 || localTimeIdx == timeCount || ...
+            mod(localTimeIdx, progressEvery) == 0
+        fprintf('  %s seed=%d t=%d/%d reconstructed\n', ...
+            presetName, seed, currentTime, config.simulationLength);
+    end
+end
+
+rollingB4Passed = true;
+for windowEnd = 4:timeCount
+    rollingB4Passed = rollingB4Passed && isStronglyConnected( ...
+        any(adjacencyHistory(:, :, windowEnd-3:windowEnd), 3));
+end
+if ~rollingB4Passed
+    error('FormationB4V46LongMixing:RollingB4Disconnected', ...
+        'A reconstructed actual rolling-B4 union is disconnected.');
+end
+
+tree = buildProductTree(weightHistory);
+horizonSummaries = repmat(emptyHorizon(), 1, numel(horizons));
+for horizonIdx = 1:numel(horizons)
+    horizonSummaries(horizonIdx) = auditHorizon( ...
+        tree, weightHistory, horizons(horizonIdx));
+end
+theoremHorizon = protocol.period * (nodeCount - 1);
+theoremIdx = find(horizons == theoremHorizon, 1);
+theoremPresent = ~isempty(theoremIdx);
+theoremScrambling = false;
+theoremPositiveColumn = false;
+if theoremPresent
+    theoremScrambling = horizonSummaries(theoremIdx). ...
+        everyProductSupportScrambling;
+    theoremPositiveColumn = horizonSummaries(theoremIdx). ...
+        everyProductHasPositiveColumn;
+end
+
+value = emptyCase();
+value.caseId = sprintf('%s__seed%d__v46-long-mixing', ...
+    presetName, seed);
+value.presetName = presetName;
+value.seed = seed;
+value.nodeCount = nodeCount;
+value.formationCount = config.formationCount;
+value.simulationLength = config.simulationLength;
+value.auditedTimes = auditedTimes;
+value.fullHorizonCovered = isequal(auditedTimes, ...
+    1:config.simulationLength);
+value.parentCaseCanonicalSha256 = parentCase.canonicalSha256;
+value.parentPageHashesMatched = all(pageHashesMatched);
+value.repairCountByTime = repairCounts;
+value.repairPageCount = nnz(repairCounts > 0);
+value.minimumPositiveExecutedWeight = minimumPositiveWeight;
+value.everyRollingB4UnionStrong = rollingB4Passed;
+value.horizons = horizons;
+value.horizonSummaries = horizonSummaries;
+value.theoremHorizon = theoremHorizon;
+value.theoremHorizonPresent = theoremPresent;
+value.everyTheoremHorizonProductSupportScrambling = ...
+    theoremScrambling;
+value.everyTheoremHorizonProductHasPositiveColumn = ...
+    theoremPositiveColumn;
+value.conservativeCommonMassExponent = theoremHorizon;
+value.conservativeCommonMassLog10LowerBound = ...
+    theoremHorizon * log10(minimumPositiveWeight);
+value.routeReceivesCurrentPageOnly = true;
+value.posteriorUsed = false;
+value.truthGeneratedOrUsed = false;
+value.measurementGeneratedOrUsed = false;
+value.futurePagePassedToProjectionOrRoute = false;
+value.realizedDeliveryUniformsGeneratedOrUsed = false;
+value.trackingOutcomeScored = false;
+value.trackingOutcomeAuthorized = false;
+value.validationClaimAllowed = false;
+value.developmentEvidenceOnly = true;
+value.canonicalSha256 = '';
+value.canonicalSha256 = computeCanonicalValueSha256( ...
+    rmfield(value, 'canonicalSha256'));
+end
+
+function summary = auditHorizon(tree, history, horizon)
+timeCount = size(history, 3);
+windowCount = timeCount - horizon + 1;
+dobrushin = zeros(1, windowCount);
+centeredSpectral = zeros(1, windowCount);
+centeredRow = zeros(1, windowCount);
+scrambling = false(1, windowCount);
+positiveColumn = false(1, windowCount);
+queryMatchedDirect = true;
+for windowStart = 1:windowCount
+    windowEnd = windowStart + horizon - 1;
+    product = queryProductTree(tree, windowStart, windowEnd);
+    diagnostics = computeStochasticMixingDiagnostics(product);
+    dobrushin(windowStart) = diagnostics.dobrushinCoefficient;
+    centeredSpectral(windowStart) = diagnostics.centeredSpectralNorm;
+    centeredRow(windowStart) = diagnostics.maximumCenteredRowL2;
+    support = product > 0;
+    scrambling(windowStart) = isScramblingSupport(support);
+    positiveColumn(windowStart) = any(all(support, 1));
+    if windowStart == 1 || windowStart == windowCount
+        direct = directProduct(history, windowStart, windowEnd);
+        queryMatchedDirect = queryMatchedDirect && ...
+            max(abs(product(:) - direct(:))) < 1e-12;
+    end
+end
+if ~queryMatchedDirect
+    error('FormationB4V46LongMixing:ProductTreeMismatch', ...
+        'A segment-tree product differs from direct multiplication.');
+end
+payload = struct();
+payload.horizon = horizon;
+payload.windowStarts = 1:windowCount;
+payload.windowCount = windowCount;
+payload.dobrushinByWindow = dobrushin;
+payload.centeredSpectralNormByWindow = centeredSpectral;
+payload.maximumCenteredRowL2ByWindow = centeredRow;
+payload.supportScramblingByWindow = scrambling;
+payload.positiveColumnByWindow = positiveColumn;
+payload.minimumDobrushin = min(dobrushin);
+payload.medianDobrushin = median(dobrushin);
+payload.worstDobrushin = max(dobrushin);
+payload.worstCenteredSpectralNorm = max(centeredSpectral);
+payload.worstMaximumCenteredRowL2 = max(centeredRow);
+payload.supportScramblingWindowCount = nnz(scrambling);
+payload.positiveColumnWindowCount = nnz(positiveColumn);
+payload.everyProductSupportScrambling = all(scrambling);
+payload.everyProductHasPositiveColumn = all(positiveColumn);
+payload.everyProductNumericallyDobrushinBelowOne = ...
+    all(dobrushin < 1);
+payload.productTreeDirectComparisonPassed = queryMatchedDirect;
+summary = payload;
+summary.canonicalSha256 = computeCanonicalValueSha256(payload);
+end
+
+function tree = buildProductTree(history)
+nodeCount = size(history, 1);
+timeCount = size(history, 3);
+base = 1;
+while base < timeCount
+    base = 2 * base;
+end
+pages = zeros(nodeCount, nodeCount, 2 * base);
+identity = eye(nodeCount);
+for leafIdx = 1:base
+    if leafIdx <= timeCount
+        pages(:, :, base + leafIdx - 1) = history(:, :, leafIdx);
+    else
+        pages(:, :, base + leafIdx - 1) = identity;
+    end
+end
+for nodeIdx = base-1:-1:1
+    pages(:, :, nodeIdx) = pages(:, :, 2 * nodeIdx + 1) * ...
+        pages(:, :, 2 * nodeIdx);
+end
+tree = struct('base', base, 'timeCount', timeCount, ...
+    'nodeCount', nodeCount, 'pages', pages);
+end
+
+function product = queryProductTree(tree, firstTime, lastTime)
+leftIdx = tree.base + firstTime - 1;
+rightIdx = tree.base + lastTime - 1;
+leftProduct = eye(tree.nodeCount);
+rightProduct = eye(tree.nodeCount);
+while leftIdx <= rightIdx
+    if mod(leftIdx, 2) == 1
+        leftProduct = tree.pages(:, :, leftIdx) * leftProduct;
+        leftIdx = leftIdx + 1;
+    end
+    if mod(rightIdx, 2) == 0
+        rightProduct = rightProduct * tree.pages(:, :, rightIdx);
+        rightIdx = rightIdx - 1;
+    end
+    leftIdx = floor(leftIdx / 2);
+    rightIdx = floor(rightIdx / 2);
+end
+product = rightProduct * leftProduct;
+end
+
+function product = directProduct(history, firstTime, lastTime)
+product = eye(size(history, 1));
+for currentTime = firstTime:lastTime
+    product = history(:, :, currentTime) * product;
+end
+end
+
+function passed = isScramblingSupport(support)
+passed = true;
+for firstIdx = 1:size(support, 1)-1
+    for secondIdx = firstIdx+1:size(support, 1)
+        if ~any(support(firstIdx, :) & support(secondIdx, :))
+            passed = false;
+            return;
+        end
+    end
+end
+end
+
+function context = buildCurrentPageContext(groupIds, identity, ...
+        positions, physical, pDrop, projectedBase, currentTime)
+nodeCount = numel(identity.sensorPhysicalUids);
+context = struct();
+context.localPosteriorBySensor = cell(1, nodeCount);
+context.model = struct('dynamicTopologyScenario', struct( ...
+    'config', struct('sensorGroupIds', reshape(groupIds, 1, [])), ...
+    'staticAdjacency', logical(projectedBase)));
+context.baseAdjacency = logical(projectedBase);
+context.physicalAdjacency = logical(physical);
+context.positions = positions;
+context.sensorPhysicalUids = identity.sensorPhysicalUids;
+context.formationPhysicalUidsBySensor = ...
+    identity.formationPhysicalUidsBySensor;
+context.currentTime = currentTime;
+context.commConfig = struct('pDropByEdge', pDrop);
+context.triggerConfig = buildMixtureAwareKlaReferenceConfig();
+context.directedMessageBudget = 2 * nodeCount;
+end
+
+function graph = materializePhysicalGraph(config, trajectories)
+nodeCount = config.numberOfSensors;
+timeCount = config.simulationLength;
+positions = zeros(2, nodeCount, timeCount);
+for sensorIdx = 1:nodeCount
+    positions(:, sensorIdx, :) = reshape( ...
+        trajectories{sensorIdx}(1:2, :), 2, 1, timeCount);
+end
+distances = zeros(nodeCount, nodeCount, timeCount);
+physical = false(nodeCount, nodeCount, timeCount);
+for currentTime = 1:timeCount
+    page = positions(:, :, currentTime);
+    for leftIdx = 1:nodeCount-1
+        delta = page(:, leftIdx+1:end) - page(:, leftIdx);
+        values = sqrt(sum(delta .^ 2, 1));
+        distances(leftIdx, leftIdx+1:end, currentTime) = values;
+        distances(leftIdx+1:end, leftIdx, currentTime) = values';
+        if isfinite(config.commRange)
+            available = values <= config.commRange;
+        else
+            available = true(size(values));
+        end
+        physical(leftIdx, leftIdx+1:end, currentTime) = available;
+        physical(leftIdx+1:end, leftIdx, currentTime) = available';
+    end
+end
+graph = struct('positions', positions, ...
+    'distanceByTime', distances, 'physicalAdjacency', physical);
+end
+
+function [result, metadata, rawSha256] = loadFrozenFull32Evidence()
+repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
+relativePath = fullfile('RUN', 'GA', 'dynamic_topology', ...
+    'evidence', 'formation_value_v46', ...
+    'causal_repair_preflight_e719fd6', ...
+    'FORMATION_B4_V46_CAUSAL_REPAIR_FULL32.mat');
+path = fullfile(repoRoot, relativePath);
+rawSha256 = computeFileSha256(path);
+expectedRaw = ...
+    '1bbea7c1dd7e6aae242c977fda55942abcd36cdab890bc830e52b1753f4af7d7';
+loaded = load(path);
+if ~strcmp(rawSha256, expectedRaw) || ...
+        ~isfield(loaded, 'result') || ...
+        ~isfield(loaded, 'runMetadata') || ...
+        ~strcmp(computeCanonicalValueSha256( ...
+            rmfield(loaded.result, 'canonicalSha256')), ...
+            loaded.result.canonicalSha256) || ...
+        ~strcmp(loaded.result.canonicalSha256, ...
+            'f26e0a96c6df78c32500ed05b1cf7f8a70e9b58ee83b3998181141f465aff42a') || ...
+        ~loaded.result.full32CasePreflightPassed
+    error('FormationB4V46LongMixing:ParentEvidenceDrift', ...
+        'The committed full32 parent evidence does not verify.');
+end
+result = loaded.result;
+metadata = loaded.runMetadata;
+end
+
+function item = findParentCase(parent, presetName, seed)
+matches = strcmp({parent.cases.presetName}, presetName) & ...
+    [parent.cases.seed] == seed;
+if nnz(matches) ~= 1
+    error('FormationB4V46LongMixing:ParentCaseMissing', ...
+        'The requested case is absent from committed full32 evidence.');
+end
+item = parent.cases(matches);
+end
+
+function hash = routeHash(adjacency, weights)
+hash = computeCanonicalValueSha256(struct( ...
+    'adjacency', logical(adjacency), 'fusionWeights', weights));
+end
+
+function validateOptions(presets, seeds, timeIndices, horizons, ...
+        progressEvery, protocol)
+if ~iscell(presets) || isempty(presets) || ...
+        any(~cellfun(@ischar, presets)) || ...
+        numel(unique(presets)) ~= numel(presets) || ...
+        any(~ismember(presets, protocol.registeredPresets)) || ...
+        ~isnumeric(seeds) || ~isreal(seeds) || isempty(seeds) || ...
+        any(~isfinite(seeds)) || any(seeds ~= round(seeds)) || ...
+        numel(unique(seeds)) ~= numel(seeds) || ...
+        any(~ismember(seeds, protocol.registeredSeeds))
+    error('FormationB4V46LongMixing:InvalidOptions', ...
+        'Presets or seeds are outside the registered full32 matrix.');
+end
+expectedPresets = protocol.registeredPresets( ...
+    ismember(protocol.registeredPresets, presets));
+expectedSeeds = protocol.registeredSeeds( ...
+    ismember(protocol.registeredSeeds, seeds));
+if ~isequal(presets, expectedPresets) || ...
+        ~isequal(seeds, expectedSeeds) || ...
+        (~isempty(timeIndices) && (any(~isfinite(timeIndices)) || ...
+            any(timeIndices ~= round(timeIndices)) || ...
+            any(timeIndices < 1) || ...
+            ~isequal(timeIndices, timeIndices(1):timeIndices(end)))) || ...
+        ~isnumeric(horizons) || ~isreal(horizons) || isempty(horizons) || ...
+        any(~isfinite(horizons)) || any(horizons ~= round(horizons)) || ...
+        any(horizons < 1) || numel(unique(horizons)) ~= numel(horizons) || ...
+        ~isequal(horizons, sort(horizons)) || ...
+        ~isscalar(progressEvery) || ~isfinite(progressEvery) || ...
+        progressEvery < 1 || progressEvery ~= round(progressEvery)
+    error('FormationB4V46LongMixing:InvalidOptions', ...
+        'Times, horizons, ordering, or progress interval are invalid.');
+end
+end
+
+function connected = isStronglyConnected(adjacency)
+connected = reachableAll(adjacency) && reachableAll(adjacency');
+end
+
+function connected = reachableAll(adjacency)
+visited = false(1, size(adjacency, 1));
+frontier = 1;
+while ~isempty(frontier)
+    node = frontier(end);
+    frontier(end) = [];
+    if visited(node)
+        continue;
+    end
+    visited(node) = true;
+    frontier = [frontier, reshape(find( ...
+        adjacency(node, :) & ~visited), 1, [])]; %#ok<AGROW>
+end
+connected = all(visited);
+end
+
+function value = emptyCase()
+value = struct('caseId', '', 'presetName', '', 'seed', NaN, ...
+    'nodeCount', NaN, 'formationCount', NaN, ...
+    'simulationLength', NaN, 'auditedTimes', zeros(1, 0), ...
+    'fullHorizonCovered', false, 'parentCaseCanonicalSha256', '', ...
+    'parentPageHashesMatched', false, ...
+    'repairCountByTime', zeros(1, 0), 'repairPageCount', 0, ...
+    'minimumPositiveExecutedWeight', NaN, ...
+    'everyRollingB4UnionStrong', false, ...
+    'horizons', zeros(1, 0), ...
+    'horizonSummaries', repmat(emptyHorizon(), 1, 0), ...
+    'theoremHorizon', NaN, 'theoremHorizonPresent', false, ...
+    'everyTheoremHorizonProductSupportScrambling', false, ...
+    'everyTheoremHorizonProductHasPositiveColumn', false, ...
+    'conservativeCommonMassExponent', NaN, ...
+    'conservativeCommonMassLog10LowerBound', NaN, ...
+    'routeReceivesCurrentPageOnly', false, ...
+    'posteriorUsed', false, 'truthGeneratedOrUsed', false, ...
+    'measurementGeneratedOrUsed', false, ...
+    'futurePagePassedToProjectionOrRoute', false, ...
+    'realizedDeliveryUniformsGeneratedOrUsed', false, ...
+    'trackingOutcomeScored', false, ...
+    'trackingOutcomeAuthorized', false, ...
+    'validationClaimAllowed', false, ...
+    'developmentEvidenceOnly', true, 'canonicalSha256', '');
+end
+
+function value = emptyHorizon()
+value = struct('horizon', NaN, 'windowStarts', zeros(1, 0), ...
+    'windowCount', 0, 'dobrushinByWindow', zeros(1, 0), ...
+    'centeredSpectralNormByWindow', zeros(1, 0), ...
+    'maximumCenteredRowL2ByWindow', zeros(1, 0), ...
+    'supportScramblingByWindow', false(1, 0), ...
+    'positiveColumnByWindow', false(1, 0), ...
+    'minimumDobrushin', NaN, 'medianDobrushin', NaN, ...
+    'worstDobrushin', NaN, ...
+    'worstCenteredSpectralNorm', NaN, ...
+    'worstMaximumCenteredRowL2', NaN, ...
+    'supportScramblingWindowCount', 0, ...
+    'positiveColumnWindowCount', 0, ...
+    'everyProductSupportScrambling', false, ...
+    'everyProductHasPositiveColumn', false, ...
+    'everyProductNumericallyDobrushinBelowOne', false, ...
+    'productTreeDirectComparisonPassed', false, ...
+    'canonicalSha256', '');
+end
+
+function value = getField(structure, name, defaultValue)
+if isfield(structure, name)
+    value = structure.(name);
+else
+    value = defaultValue;
+end
+end
