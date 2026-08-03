@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the tested multistyle formation-FoV geometry with Matplotlib."""
+"""Render the frozen v5 multistyle formation-FoV geometry."""
 
 from __future__ import annotations
 
@@ -12,49 +12,51 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.lines import Line2D
-from matplotlib.patches import Wedge
+from matplotlib.colors import to_rgba
+from matplotlib.patches import Circle, Wedge
+from matplotlib.ticker import MaxNLocator
 
 
-# Mandatory editable-vector typography contract.
+# Editable-vector typography contract.
 plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["font.sans-serif"] = [
-    "Arial",
-    "DejaVu Sans",
-    "Liberation Sans",
-]
+plt.rcParams["font.sans-serif"] = ["Arial", "DejaVu Sans", "Liberation Sans"]
 plt.rcParams["svg.fonttype"] = "none"
 plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["font.size"] = 7
-plt.rcParams["axes.linewidth"] = 0.8
-plt.rcParams["legend.frameon"] = False
-plt.rcParams["xtick.major.width"] = 0.7
-plt.rcParams["ytick.major.width"] = 0.7
+plt.rcParams["axes.linewidth"] = 0.75
+plt.rcParams["xtick.major.width"] = 0.65
+plt.rcParams["ytick.major.width"] = 0.65
 
 
 COLORS = {
-    "sensor": "#0F4D92",
-    "formation_path": "#3775BA",
-    "formation_start": "#B4C0E4",
-    "target": "#B64342",
-    "target_path": "#E9A6A1",
-    "fov": "#42949E",
-    "backbone": "#767676",
-    "axis": "#4D4D4D",
-    "panel_text": "#272727",
+    "sensor": "#174A7E",
+    "formation_path": "#4C78A8",
+    "formation_ring": "#8FB4D4",
+    "target": "#C44E52",
+    "target_path": "#E6A09B",
+    "fov": "#2A9D8F",
+    "backbone": "#7A7A7A",
+    "axis": "#555B61",
+    "spine": "#B5BAC1",
+    "panel_text": "#22262A",
 }
 
 
 STYLE_TITLES = {
-    "parallel-convoy": "Parallel convoy",
-    "orthogonal-crossing": "Orthogonal crossing",
+    "parallel-convoy": "Offset-corridor convoy",
     "linear-relay": "Linear relay",
+    "orthogonal-crossing": "Orthogonal crossing",
 }
 
-# A common metre-scale frame makes FoV range and formation spacing directly
-# comparable across all six panels while keeping every trajectory in view.
-COMMON_X_LIMITS = (-820.0, 820.0)
-COMMON_Y_LIMITS = (-650.0, 650.0)
+
+EXPECTED_PRESETS = [
+    "x36-formation-fov-convoy",
+    "x36-formation-fov-relay",
+    "x36-formation-fov-crossing",
+    "m24-formation-fov-convoy",
+    "m24-formation-fov-relay",
+    "m24-formation-fov-crossing",
+]
 
 
 def parse_args() -> argparse.Namespace:
@@ -63,14 +65,14 @@ def parse_args() -> argparse.Namespace:
         "--data",
         default=(
             "RUN/GA/dynamic_topology/figures/source/"
-            "formation_fov_multistyle_suite_seed41.json"
+            "formation_fov_multistyle_suite_v5_seed41.json"
         ),
     )
     parser.add_argument(
         "--output",
         default=(
             "RUN/GA/dynamic_topology/figures/"
-            "formation_fov_multistyle_suite_v1"
+            "formation_fov_multistyle_suite_v2"
         ),
         help="Output path without extension.",
     )
@@ -93,25 +95,70 @@ def load_source(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as stream:
         source = json.load(stream)
     if source.get("contractVersion") != (
-        "formation-fov-multistyle-figure-source-v1"
+        "formation-fov-multistyle-figure-source-v2"
     ):
         raise ValueError("Unexpected multistyle figure-source contract.")
     if source.get("rendererContract") != "python-matplotlib-only":
         raise ValueError("Figure source does not authorize the Python renderer.")
-    if source.get("truthOutcomeUsed") or source.get("trackingResultUsed"):
-        raise ValueError("Scenario schematic may not consume tracking outcomes.")
+    if not source.get("geometryTruthUsed"):
+        raise ValueError("Scenario schematic requires exact generated geometry.")
+    if source.get("posteriorUsed") or source.get("trackingResultUsed"):
+        raise ValueError("Scenario schematic may not consume posterior outcomes.")
     if len(source.get("scenes", [])) != 6:
         raise ValueError("Expected exactly six multistyle scene panels.")
+    if [scene.get("presetName") for scene in source["scenes"]] != EXPECTED_PRESETS:
+        raise ValueError("Figure source scene order differs from the v5 contract.")
+
+    for scene in source["scenes"]:
+        if scene.get("sceneGeometryVersion") != "formation-fov-multistyle-v5":
+            raise ValueError("Figure source is not bound to the v5 geometry.")
+        if float(scene.get("fovTotalAngleDeg", 0.0)) != 120.0:
+            raise ValueError("Figure source changed the 120-degree FoV contract.")
+        if float(scene.get("fovRange", 0.0)) != 300.0:
+            raise ValueError("Figure source changed the 300 m range contract.")
+        if int(scene.get("sensorsPerFormation", 0)) != 6:
+            raise ValueError("Figure source changed the six-sensor formation.")
+        if scene.get("trackingOutcomeAuthorized") is not False:
+            raise ValueError("Figure source must keep tracking outcomes disabled.")
+        if not isinstance(scene.get("sceneContractSha256"), str) or len(
+            scene["sceneContractSha256"]
+        ) != 64:
+            raise ValueError("Figure source lacks the frozen scene digest.")
+
+        is_stress = scene["sceneStyle"] == "orthogonal-crossing"
+        expected_formal = not is_stress
+        expected_status = (
+            "stress-only-v5"
+            if is_stress
+            else "held-out-geometry-gate-frozen-v5"
+        )
+        if scene.get("sceneCalibrationStatus") != expected_status:
+            raise ValueError("Figure source has an unexpected v5 scene status.")
+        if scene.get("formalValidationAuthorized") is not expected_formal:
+            raise ValueError("Figure source has an unexpected geometry gate state.")
+
+        group_ids = np.asarray(scene.get("sensorGroupIds", []), dtype=int)
+        headings = np.asarray(scene.get("sensorHeadingRad", []), dtype=float)
+        if group_ids.size != int(scene["nodeCount"]) or headings.size != group_ids.size:
+            raise ValueError("Figure source has inconsistent sensor headings.")
+        for group_id in np.unique(group_ids):
+            group_headings = headings[group_ids == group_id]
+            if np.max(np.abs(group_headings - group_headings[0])) > 1e-10:
+                raise ValueError("Sensors within one formation must share a heading.")
+
+        target_group_ids = np.asarray(scene.get("targetGroupIds", []), dtype=int)
+        if target_group_ids.size != int(scene["targetCount"]):
+            raise ValueError("Figure source has inconsistent target groups.")
     return source
 
 
 def add_panel_label(ax: plt.Axes, label: str) -> None:
     ax.text(
-        -0.08,
-        1.03,
+        -0.09,
+        1.025,
         label,
         transform=ax.transAxes,
-        fontsize=9,
+        fontsize=8.5,
         fontweight="bold",
         color=COLORS["panel_text"],
         ha="left",
@@ -119,125 +166,289 @@ def add_panel_label(ax: plt.Axes, label: str) -> None:
     )
 
 
-def draw_fov_wedges(
+def draw_representative_fov_wedges(
     ax: plt.Axes,
     sensor_x: np.ndarray,
     sensor_y: np.ndarray,
     headings: np.ndarray,
+    sensor_group_ids: np.ndarray,
     snapshot_index: int,
-    half_angle: float,
+    half_angle_deg: float,
     radius: float,
 ) -> None:
-    for sensor_idx, heading in enumerate(headings):
-        heading_deg = np.degrees(heading)
-        wedge = Wedge(
-            (sensor_x[sensor_idx, snapshot_index], sensor_y[sensor_idx, snapshot_index]),
-            radius,
-            heading_deg - half_angle,
-            heading_deg + half_angle,
-            facecolor=COLORS["fov"],
-            edgecolor=COLORS["fov"],
-            linewidth=0.22,
-            alpha=0.035,
-            zorder=0,
+    """Draw one exact sensor-origin sector per formation.
+
+    Every outline is exact.  Only the central formation is lightly filled so
+    the range boundary remains legible without recreating the old FoV cloud.
+    """
+
+    group_ids = np.unique(sensor_group_ids)
+    central_group = group_ids[(len(group_ids) - 1) // 2]
+    for group_id in group_ids:
+        sensor_idx = int(np.flatnonzero(sensor_group_ids == group_id)[0])
+        heading_deg = float(np.degrees(headings[sensor_idx]))
+        highlighted = group_id == central_group
+        ax.add_patch(
+            Wedge(
+                (
+                    sensor_x[sensor_idx, snapshot_index],
+                    sensor_y[sensor_idx, snapshot_index],
+                ),
+                radius,
+                heading_deg - half_angle_deg,
+                heading_deg + half_angle_deg,
+                facecolor=(
+                    to_rgba(COLORS["fov"], 0.075) if highlighted else "none"
+                ),
+                edgecolor=to_rgba(
+                    COLORS["fov"], 0.72 if highlighted else 0.42
+                ),
+                linewidth=0.72 if highlighted else 0.44,
+                zorder=0,
+            )
         )
-        ax.add_patch(wedge)
 
 
-def draw_scene(ax: plt.Axes, scene: dict, show_title: bool) -> None:
+def target_group_centres(
+    target_x: np.ndarray,
+    target_y: np.ndarray,
+    target_group_ids: np.ndarray,
+) -> list[tuple[np.ndarray, np.ndarray]]:
+    centres: list[tuple[np.ndarray, np.ndarray]] = []
+    for group_id in np.unique(target_group_ids):
+        members = target_group_ids == group_id
+        finite = np.isfinite(target_x[members]) & np.isfinite(target_y[members])
+        counts = np.sum(finite, axis=0)
+        x = np.full(target_x.shape[1], np.nan)
+        y = np.full(target_y.shape[1], np.nan)
+        active = counts > 0
+        x[active] = np.nansum(
+            np.where(finite, target_x[members], np.nan), axis=0
+        )[active] / counts[active]
+        y[active] = np.nansum(
+            np.where(finite, target_y[members], np.nan), axis=0
+        )[active] / counts[active]
+        centres.append((x, y))
+    return centres
+
+
+def add_direction_arrow(
+    ax: plt.Axes,
+    x: np.ndarray,
+    y: np.ndarray,
+    index: int,
+    color: str,
+    width: float,
+) -> None:
+    finite = np.flatnonzero(np.isfinite(x) & np.isfinite(y))
+    if finite.size < 2:
+        return
+    local = finite[
+        (finite >= max(index - 6, finite[0]))
+        & (finite <= min(index + 6, finite[-1]))
+    ]
+    if local.size < 2:
+        local = finite[-2:]
+    left, right = int(local[0]), int(local[-1])
+    ax.annotate(
+        "",
+        xy=(x[right], y[right]),
+        xytext=(x[left], y[left]),
+        arrowprops={
+            "arrowstyle": "-|>",
+            "color": color,
+            "lw": width,
+            "mutation_scale": 6,
+            "shrinkA": 0,
+            "shrinkB": 0,
+        },
+        zorder=4,
+    )
+
+
+def scene_plot_bounds(
+    scene_pair: list[dict],
+) -> tuple[tuple[float, float], tuple[float, float]]:
+    """Return one unclipped metre-scale frame across the supplied scenes."""
+
+    xs: list[float] = []
+    ys: list[float] = []
+    for scene in scene_pair:
+        snapshot_index = int(scene["snapshotTime"]) - 1
+        sensor_x = as_float_array(scene["sensorX"])
+        sensor_y = as_float_array(scene["sensorY"])
+        target_x = as_float_array(scene["targetX"])
+        target_y = as_float_array(scene["targetY"])
+        centre_x = as_float_array(scene["formationCenterX"])
+        centre_y = as_float_array(scene["formationCenterY"])
+        headings = np.asarray(scene["sensorHeadingRad"], dtype=float)
+        group_ids = np.asarray(scene["sensorGroupIds"], dtype=int)
+
+        xs.extend(sensor_x[:, snapshot_index].tolist())
+        ys.extend(sensor_y[:, snapshot_index].tolist())
+        xs.extend(centre_x[np.isfinite(centre_x)].tolist())
+        ys.extend(centre_y[np.isfinite(centre_y)].tolist())
+        xs.extend(target_x[np.isfinite(target_x)].tolist())
+        ys.extend(target_y[np.isfinite(target_y)].tolist())
+        radius = float(scene["fovRange"])
+        half_angle = np.radians(float(scene["fovHalfAngleDeg"]))
+        for group_id in np.unique(group_ids):
+            sensor_idx = int(np.flatnonzero(group_ids == group_id)[0])
+            angles = np.linspace(
+                headings[sensor_idx] - half_angle,
+                headings[sensor_idx] + half_angle,
+                61,
+            )
+            origin_x = sensor_x[sensor_idx, snapshot_index]
+            origin_y = sensor_y[sensor_idx, snapshot_index]
+            xs.extend((origin_x + radius * np.cos(angles)).tolist())
+            ys.extend((origin_y + radius * np.sin(angles)).tolist())
+
+    x_min, x_max = min(xs), max(xs)
+    y_min, y_max = min(ys), max(ys)
+    x_pad = max(24.0, 0.035 * (x_max - x_min))
+    y_pad = max(24.0, 0.035 * (y_max - y_min))
+    return (x_min - x_pad, x_max + x_pad), (y_min - y_pad, y_max + y_pad)
+
+
+def draw_scene(
+    ax: plt.Axes,
+    scene: dict,
+    limits: tuple[tuple[float, float], tuple[float, float]],
+    show_title: bool,
+    panel_label: str,
+) -> None:
     sensor_x = as_float_array(scene["sensorX"])
     sensor_y = as_float_array(scene["sensorY"])
     target_x = as_float_array(scene["targetX"])
     target_y = as_float_array(scene["targetY"])
-    center_x = as_float_array(scene["formationCenterX"])
-    center_y = as_float_array(scene["formationCenterY"])
+    centre_x = as_float_array(scene["formationCenterX"])
+    centre_y = as_float_array(scene["formationCenterY"])
     headings = np.asarray(scene["sensorHeadingRad"], dtype=float)
+    sensor_group_ids = np.asarray(scene["sensorGroupIds"], dtype=int)
+    target_group_ids = np.asarray(scene["targetGroupIds"], dtype=int)
     formation_adjacency = np.asarray(scene["formationAdjacency"], dtype=bool)
     snapshot_index = int(scene["snapshotTime"]) - 1
 
-    draw_fov_wedges(
+    draw_representative_fov_wedges(
         ax,
         sensor_x,
         sensor_y,
         headings,
+        sensor_group_ids,
         snapshot_index,
         float(scene["fovHalfAngleDeg"]),
         float(scene["fovRange"]),
     )
 
-    # Formation-centre paths reveal platform motion without duplicating all
-    # six nearly parallel sensor traces in each formation.
     for formation_idx in range(int(scene["formationCount"])):
         ax.plot(
-            center_x[formation_idx],
-            center_y[formation_idx],
+            centre_x[formation_idx],
+            centre_y[formation_idx],
             color=COLORS["formation_path"],
-            linewidth=0.85,
-            alpha=0.78,
+            linewidth=0.82,
+            alpha=0.82,
             zorder=1,
         )
-        ax.scatter(
-            center_x[formation_idx, 0],
-            center_y[formation_idx, 0],
-            s=12,
-            marker="o",
-            facecolor="white",
-            edgecolor=COLORS["formation_start"],
-            linewidth=0.8,
-            zorder=3,
+        add_direction_arrow(
+            ax,
+            centre_x[formation_idx],
+            centre_y[formation_idx],
+            snapshot_index,
+            COLORS["formation_path"],
+            0.72,
         )
-        left = max(snapshot_index - 5, 0)
-        right = min(snapshot_index + 5, center_x.shape[1] - 1)
+
+        members = sensor_group_ids == formation_idx + 1
+        offsets = np.hypot(
+            sensor_x[members, snapshot_index]
+            - centre_x[formation_idx, snapshot_index],
+            sensor_y[members, snapshot_index]
+            - centre_y[formation_idx, snapshot_index],
+        )
+        ax.add_patch(
+            Circle(
+                (
+                    centre_x[formation_idx, snapshot_index],
+                    centre_y[formation_idx, snapshot_index],
+                ),
+                float(np.max(offsets)) + 5.0,
+                facecolor="none",
+                edgecolor=COLORS["formation_ring"],
+                linewidth=0.42,
+                alpha=0.65,
+                zorder=3,
+            )
+        )
+        heading = headings[np.flatnonzero(members)[0]]
+        arrow_length = 58.0
         ax.annotate(
             "",
-            xy=(center_x[formation_idx, right], center_y[formation_idx, right]),
-            xytext=(center_x[formation_idx, left], center_y[formation_idx, left]),
+            xy=(
+                centre_x[formation_idx, snapshot_index]
+                + arrow_length * np.cos(heading),
+                centre_y[formation_idx, snapshot_index]
+                + arrow_length * np.sin(heading),
+            ),
+            xytext=(
+                centre_x[formation_idx, snapshot_index],
+                centre_y[formation_idx, snapshot_index],
+            ),
             arrowprops={
                 "arrowstyle": "-|>",
-                "color": COLORS["formation_path"],
-                "lw": 0.75,
-                "mutation_scale": 6,
+                "color": COLORS["sensor"],
+                "lw": 0.62,
+                "mutation_scale": 5,
                 "shrinkA": 0,
                 "shrinkB": 0,
             },
-            zorder=3,
+            zorder=5,
         )
 
-    # The generated static graph may contain several sensor-level bridges;
-    # collapse only their formation-level incidence for a readable schematic.
+    # This is the t=1 geometry-derived formation-level reference skeleton,
+    # not a dynamic routing decision at the displayed snapshot.
     for left in range(formation_adjacency.shape[0] - 1):
         for right in range(left + 1, formation_adjacency.shape[1]):
             if formation_adjacency[left, right]:
                 ax.plot(
-                    [center_x[left, snapshot_index], center_x[right, snapshot_index]],
-                    [center_y[left, snapshot_index], center_y[right, snapshot_index]],
+                    [centre_x[left, snapshot_index], centre_x[right, snapshot_index]],
+                    [centre_y[left, snapshot_index], centre_y[right, snapshot_index]],
                     color=COLORS["backbone"],
                     linewidth=0.55,
-                    linestyle=(0, (2.2, 2.2)),
-                    alpha=0.65,
+                    linestyle=(0, (2.4, 2.1)),
+                    alpha=0.75,
                     zorder=2,
                 )
 
-    for target_idx in range(target_x.shape[0]):
-        active = np.isfinite(target_x[target_idx]) & np.isfinite(target_y[target_idx])
+    for group_x, group_y in target_group_centres(
+        target_x, target_y, target_group_ids
+    ):
         ax.plot(
-            target_x[target_idx, active],
-            target_y[target_idx, active],
+            group_x,
+            group_y,
             color=COLORS["target_path"],
-            linewidth=0.38,
-            alpha=0.48,
+            linewidth=0.72,
+            alpha=0.78,
             zorder=1,
+        )
+        add_direction_arrow(
+            ax,
+            group_x,
+            group_y,
+            snapshot_index,
+            COLORS["target"],
+            0.60,
         )
 
     ax.scatter(
         sensor_x[:, snapshot_index],
         sensor_y[:, snapshot_index],
-        s=8,
+        s=10,
         marker="o",
         facecolor=COLORS["sensor"],
         edgecolor="white",
         linewidth=0.28,
-        zorder=5,
+        zorder=6,
     )
     active_targets = np.isfinite(target_x[:, snapshot_index]) & np.isfinite(
         target_y[:, snapshot_index]
@@ -245,162 +456,69 @@ def draw_scene(ax: plt.Axes, scene: dict, show_title: bool) -> None:
     ax.scatter(
         target_x[active_targets, snapshot_index],
         target_y[active_targets, snapshot_index],
-        s=9,
+        s=11,
         marker="D",
         facecolor=COLORS["target"],
         edgecolor="white",
         linewidth=0.25,
-        zorder=6,
+        zorder=7,
     )
 
-    ax.set_xlim(COMMON_X_LIMITS)
-    ax.set_ylim(COMMON_Y_LIMITS)
+    ax.set_xlim(limits[0])
+    ax.set_ylim(limits[1])
     ax.set_aspect("equal", adjustable="box")
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=4, steps=[1, 2, 2.5, 5, 10]))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4, steps=[1, 2, 2.5, 5, 10]))
     ax.tick_params(
         axis="both",
-        labelsize=5.5,
-        length=2.2,
-        pad=1.5,
+        labelsize=5.3,
+        length=2.1,
+        pad=1.3,
         colors=COLORS["axis"],
     )
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color("#A8A8A8")
-    ax.spines["bottom"].set_color("#A8A8A8")
+    ax.spines["left"].set_color(COLORS["spine"])
+    ax.spines["bottom"].set_color(COLORS["spine"])
+
     if show_title:
         ax.set_title(
             STYLE_TITLES[scene["sceneStyle"]],
-            fontsize=8,
+            fontsize=7.7,
             fontweight="bold",
-            pad=4,
+            pad=5,
             color=COLORS["panel_text"],
         )
-    ax.text(
-        0.02,
-        0.975,
-        (
-            f"{scene['nodeCount']} sensors · "
-            f"{scene['formationCount']} formations · "
-            f"{scene['targetCount']} targets"
-        ),
-        transform=ax.transAxes,
-        ha="left",
-        va="top",
-        fontsize=5.4,
-        color=COLORS["axis"],
-        zorder=8,
-    )
-    add_panel_label(ax, scene["panelLabel"])
+    add_panel_label(ax, panel_label)
 
 
 def build_figure(source: dict) -> plt.Figure:
-    figure = plt.figure(figsize=(7.2, 5.15), facecolor="white")
+    figure = plt.figure(figsize=(7.2, 4.8), facecolor="white")
     grid = figure.add_gridspec(
         2,
-        3,
-        height_ratios=[1.0, 1.0],
-        left=0.075,
+        2,
+        height_ratios=[2.25, 1.0],
+        left=0.082,
         right=0.985,
-        top=0.945,
-        bottom=0.145,
-        hspace=0.06,
-        wspace=0.19,
+        top=0.925,
+        bottom=0.105,
+        hspace=0.30,
+        wspace=0.22,
     )
-    axes = []
-    for scene_idx, scene in enumerate(source["scenes"]):
-        row, column = divmod(scene_idx, 3)
-        ax = figure.add_subplot(grid[row, column])
-        draw_scene(ax, scene, show_title=(row == 0))
-        if row == 1:
-            ax.set_xlabel("x (m)", fontsize=6.5, labelpad=1.5)
-        if column == 0:
-            ax.set_ylabel("y (m)", fontsize=6.5, labelpad=1.5)
-        axes.append(ax)
-
-    figure.text(
-        0.012,
-        0.69,
-        "X36",
-        rotation=90,
-        ha="center",
-        va="center",
-        fontsize=8,
-        fontweight="bold",
-        color=COLORS["panel_text"],
-    )
-    figure.text(
-        0.012,
-        0.31,
-        "M24",
-        rotation=90,
-        ha="center",
-        va="center",
-        fontsize=8,
-        fontweight="bold",
-        color=COLORS["panel_text"],
-    )
-
-    legend_handles = [
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            linestyle="none",
-            markerfacecolor=COLORS["sensor"],
-            markeredgecolor="white",
-            markersize=5,
-            label="Sensor at t=80",
-        ),
-        Line2D(
-            [0],
-            [0],
-            color=COLORS["formation_path"],
-            linewidth=1.1,
-            label="Formation-centre path",
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="D",
-            linestyle="none",
-            markerfacecolor=COLORS["target"],
-            markeredgecolor="white",
-            markersize=4.5,
-            label="Target at t=80",
-        ),
-        Line2D(
-            [0],
-            [0],
-            color=COLORS["target_path"],
-            linewidth=0.9,
-            label="Target path",
-        ),
-        Line2D(
-            [0],
-            [0],
-            color=COLORS["fov"],
-            linewidth=3.2,
-            alpha=0.28,
-            label="Exact FoV (120° / 300 m)",
-        ),
-        Line2D(
-            [0],
-            [0],
-            color=COLORS["backbone"],
-            linewidth=0.9,
-            linestyle=(0, (2.2, 2.2)),
-            label="Static formation link",
-        ),
+    # The source retains both scales for contract validation.  The primary
+    # schematic shows X36 because M24 is the same local geometry with two
+    # fewer formations; repeating it made the wide relay unreadably small.
+    panel_specs = [
+        (source["scenes"][0], grid[0, 0], "a"),
+        (source["scenes"][2], grid[0, 1], "b"),
+        (source["scenes"][1], grid[1, :], "c"),
     ]
-    figure.legend(
-        handles=legend_handles,
-        loc="lower center",
-        bbox_to_anchor=(0.53, 0.035),
-        ncol=3,
-        fontsize=6.1,
-        handlelength=2.0,
-        columnspacing=1.25,
-    )
+    for scene, slot, panel_label in panel_specs:
+        ax = figure.add_subplot(slot)
+        limits = scene_plot_bounds([scene])
+        draw_scene(ax, scene, limits, show_title=True, panel_label=panel_label)
+        ax.set_xlabel("x (m)", fontsize=6.2, labelpad=1.2)
+        ax.set_ylabel("y (m)", fontsize=6.2, labelpad=1.2)
     return figure
 
 
@@ -411,16 +529,11 @@ def save_figure(figure: plt.Figure, output_base: Path) -> list[Path]:
         output_base.with_suffix(".pdf"),
         output_base.with_suffix(".png"),
     ]
-    # Preserve the registered 7.2 x 5.15 inch canvas exactly.  Every artist is
-    # laid out inside that canvas, so tight bounding-box expansion would only
-    # make the delivered page size drift from the figure contract.
+    # Preserve the registered 7.2 x 4.8 inch canvas exactly.
     figure.savefig(outputs[0])
     figure.savefig(outputs[1])
     figure.savefig(outputs[2], dpi=300)
     plt.close(figure)
-    # Matplotlib writes path commands with spaces before line breaks.  Remove
-    # only that insignificant whitespace so the generated SVG also satisfies
-    # the repository's diff-check contract.
     svg_text = outputs[0].read_text(encoding="utf-8")
     outputs[0].write_text(
         "\n".join(line.rstrip() for line in svg_text.splitlines()) + "\n",

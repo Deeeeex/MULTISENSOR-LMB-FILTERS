@@ -8,7 +8,7 @@ function outputPath = exportFormationFovMultistyleFigureData( ...
 if nargin < 1 || isempty(outputPath)
     outputPath = fullfile( ...
         'RUN', 'GA', 'dynamic_topology', 'figures', 'source', ...
-        'formation_fov_multistyle_suite_seed41.json');
+        'formation_fov_multistyle_suite_v5_seed41.json');
 end
 if nargin < 2 || isempty(seed)
     seed = 41;
@@ -19,11 +19,11 @@ end
 
 presets = { ...
     'x36-formation-fov-convoy', ...
-    'x36-formation-fov-crossing', ...
     'x36-formation-fov-relay', ...
+    'x36-formation-fov-crossing', ...
     'm24-formation-fov-convoy', ...
-    'm24-formation-fov-crossing', ...
-    'm24-formation-fov-relay'};
+    'm24-formation-fov-relay', ...
+    'm24-formation-fov-crossing'};
 panelLabels = {'a', 'b', 'c', 'd', 'e', 'f'};
 scenes = repmat(struct(), 1, numel(presets));
 
@@ -74,6 +74,9 @@ for presetIdx = 1:numel(presets)
     scene.presetName = presets{presetIdx};
     scene.sceneStyle = config.sceneStyle;
     scene.informationFlowStyle = config.informationFlowStyle;
+    scene.sceneGeometryVersion = config.sceneGeometryVersion;
+    scene.sceneCalibrationStatus = config.sceneCalibrationStatus;
+    scene.sceneContractSha256 = config.sceneContractSha256;
     scene.nodeCount = config.numberOfSensors;
     scene.formationCount = config.formationCount;
     scene.sensorsPerFormation = config.sensorsPerFormation;
@@ -88,7 +91,9 @@ for presetIdx = 1:numel(presets)
     scene.sensorFovHeadingMode = config.sensorFovHeadingMode;
     scene.formationBackboneMode = config.formationBackboneMode;
     scene.formalValidationAuthorized = config.formalValidationAuthorized;
+    scene.trackingOutcomeAuthorized = config.trackingOutcomeAuthorized;
     scene.sensorGroupIds = config.sensorGroupIds;
+    scene.targetGroupIds = config.targetGroupIds;
     scene.sensorX = sensorX;
     scene.sensorY = sensorY;
     scene.sensorHeadingRad = headings(:, snapshotTime);
@@ -102,11 +107,12 @@ for presetIdx = 1:numel(presets)
 end
 
 payload = struct();
-payload.contractVersion = 'formation-fov-multistyle-figure-source-v1';
+payload.contractVersion = 'formation-fov-multistyle-figure-source-v2';
 payload.seed = seed;
 payload.snapshotTime = snapshotTime;
 payload.rendererContract = 'python-matplotlib-only';
-payload.truthOutcomeUsed = false;
+payload.geometryTruthUsed = true;
+payload.posteriorUsed = false;
 payload.trackingResultUsed = false;
 payload.scenes = scenes;
 
