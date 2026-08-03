@@ -1,0 +1,146 @@
+function comparison = ...
+    compareLegacyAndIndexEquivariantFormationRoutes(context, options)
+% COMPARELEGACYANDINDEXEQUIVARIANTFORMATIONROUTES Structural-only audit.
+%
+% Both arms use the same current physical graph, link-probability page,
+% weights, message budget and exact mean-square propagation certificate.
+% No posterior or tracking outcome is read.
+
+if nargin < 2 || isempty(options)
+    options = struct();
+end
+allowedFields = {'targetSquaredContractionFactor', ...
+    'maximumHorizonMultiplier', 'maximumIncomingCount'};
+if ~isstruct(options) || ~isscalar(options) || ...
+        any(~ismember(fieldnames(options), allowedFields))
+    error('FormationRouteComparison:InvalidOptions', ...
+        'The structural comparison options are malformed.');
+end
+if ~isfield(context, 'auditBoundary') || ...
+        context.auditBoundary.formalRuntimeObservableBoundaryPassed || ...
+        context.auditBoundary.runtimePhysicalUidRegistryIntegrated || ...
+        context.auditBoundary.trackingOutcomeAuthorized || ...
+        context.auditBoundary.validationClaimAllowed || ...
+        ~context.auditBoundary.developmentEvidenceOnly
+    error('FormationRouteComparison:InvalidAuditBoundary', ...
+        'The comparison requires the explicit development-only boundary.');
+end
+target = getField(options, 'targetSquaredContractionFactor', 0.90);
+maximumMultiplier = getField(options, 'maximumHorizonMultiplier', 4);
+maximumIncomingCount = getField(options, 'maximumIncomingCount', 2);
+if ~isscalar(target) || ~isfinite(target) || target <= 0 || ...
+        target >= 1 || ~isscalar(maximumMultiplier) || ...
+        maximumMultiplier < 1 || ...
+        maximumMultiplier ~= round(maximumMultiplier)
+    error('FormationRouteComparison:InvalidOptions', ...
+        'The comparison target or maximum horizon is invalid.');
+end
+
+[legacyAdjacency, legacyDetails] = ...
+    selectFormationBackboneResidualTourPolicy(context);
+[v43Adjacency, v43Details] = ...
+    selectIndexEquivariantFormationBackbonePolicy(context);
+nodeCount = size(legacyAdjacency, 1);
+maximumHorizon = maximumMultiplier * (nodeCount - 1);
+reliability = 1 - context.commConfig.pDropByEdge';
+runtime = validateReliableKlaMixingRuntimeSemantics( ...
+    context.triggerConfig);
+profileOptions = struct( ...
+    'missingNeighborWeightMode', runtime.missingNeighborWeightMode, ...
+    'maximumIncomingCount', maximumIncomingCount, ...
+    'targetSquaredFactors', target);
+legacyProfile = computeStaticReliableKlaMeanSquareHorizonProfile( ...
+    legacyAdjacency, legacyDetails.fusionWeightMatrix, reliability, ...
+    maximumHorizon, profileOptions);
+v43Profile = computeStaticReliableKlaMeanSquareHorizonProfile( ...
+    v43Adjacency, v43Details.fusionWeightMatrix, reliability, ...
+    maximumHorizon, profileOptions);
+legacyTargetHorizon = legacyProfile.firstTargetHorizon(1);
+v43TargetHorizon = v43Profile.firstTargetHorizon(1);
+fixedHorizon = nodeCount - 1;
+legacyFixedFactor = legacyProfile. ...
+    worstCaseExpectedSquaredFactorByHorizon(fixedHorizon + 1);
+v43FixedFactor = v43Profile. ...
+    worstCaseExpectedSquaredFactorByHorizon(fixedHorizon + 1);
+
+comparison = struct();
+comparison.contractVersion = ...
+    'legacy-vs-index-equivariant-formation-route-comparison-v1';
+comparison.nodeCount = nodeCount;
+comparison.formationCount = ...
+    numel(v43Details.formationPhysicalUids);
+comparison.currentTime = context.currentTime;
+comparison.targetSquaredContractionFactor = target;
+comparison.maximumHorizon = maximumHorizon;
+comparison.fixedComparisonHorizon = fixedHorizon;
+comparison.legacyTargetHorizon = legacyTargetHorizon;
+comparison.v43TargetHorizon = v43TargetHorizon;
+comparison.targetHorizonReduction = ...
+    legacyTargetHorizon - v43TargetHorizon;
+comparison.targetHorizonRatio = ...
+    v43TargetHorizon / legacyTargetHorizon;
+comparison.legacyFixedHorizonFactor = legacyFixedFactor;
+comparison.v43FixedHorizonFactor = v43FixedFactor;
+comparison.fixedHorizonFactorDelta = ...
+    v43FixedFactor - legacyFixedFactor;
+comparison.fixedHorizonRelativeReduction = ...
+    (legacyFixedFactor - v43FixedFactor) / legacyFixedFactor;
+comparison.legacyDirectedMessageCount = nnz(legacyAdjacency);
+comparison.v43DirectedMessageCount = nnz(v43Adjacency);
+comparison.sameDirectedMessageBudget = ...
+    nnz(legacyAdjacency) == nnz(v43Adjacency);
+comparison.legacyCrossFormationMessageCount = ...
+    legacyDetails.crossFormationMessageCount;
+comparison.v43CrossFormationMessageCount = ...
+    v43Details.crossFormationMessageCount;
+comparison.sameCrossFormationMessageBudget = ...
+    legacyDetails.crossFormationMessageCount == ...
+        v43Details.crossFormationMessageCount;
+comparison.legacyRouteCanonicalSha256 = routeSha256( ...
+    legacyAdjacency, legacyDetails.fusionWeightMatrix);
+comparison.v43RouteCanonicalSha256 = routeSha256( ...
+    v43Adjacency, v43Details.fusionWeightMatrix);
+comparison.legacyProfile = compactProfile(legacyProfile);
+comparison.v43Profile = compactProfile(v43Profile);
+comparison.v43RouteIndexEquivarianceDesigned = true;
+comparison.legacyRouteIndexEquivariancePassed = false;
+comparison.physicalGeometryAndReliabilityMatched = true;
+comparison.fusionWeightsMatched = ...
+    legacyDetails.dominantWeight == v43Details.dominantWeight && ...
+    legacyDetails.residualWeight == v43Details.residualWeight;
+comparison.posteriorUsed = false;
+comparison.truthUsed = false;
+comparison.measurementUsed = false;
+comparison.futureOutcomeUsed = false;
+comparison.realizedDeliveryUniformsUsed = false;
+comparison.trackingOutcomeScored = false;
+comparison.developmentEvidenceOnly = true;
+comparison.auditBoundary = context.auditBoundary;
+comparison.canonicalSha256 = computeCanonicalValueSha256(comparison);
+end
+
+function compact = compactProfile(profile)
+compact = struct();
+compact.contractVersion = profile.contractVersion;
+compact.maximumHorizon = profile.maximumHorizon;
+compact.firstStrictContractionHorizon = ...
+    profile.firstStrictContractionHorizon;
+compact.targetSquaredFactors = profile.targetSquaredFactors;
+compact.firstTargetHorizon = profile.firstTargetHorizon;
+compact.worstCaseExpectedSquaredFactorByHorizon = ...
+    profile.worstCaseExpectedSquaredFactorByHorizon;
+compact.repeatedCurrentPage = profile.repeatedCurrentPage;
+end
+
+function sha256 = routeSha256(adjacency, weights)
+sha256 = computeCanonicalValueSha256(struct( ...
+    'adjacency', logical(adjacency), 'fusionWeights', weights));
+end
+
+function value = getField(structure, name, defaultValue)
+if isfield(structure, name)
+    value = structure.(name);
+else
+    value = defaultValue;
+end
+end

@@ -9,10 +9,28 @@ function [sensorTrajectories, metadata] = ...
 timeCount = config.simulationLength;
 timeValues = 1:timeCount;
 sensorCount = config.numberOfSensors;
+physicalIdentity = buildDynamicTopologyPhysicalIdentityRegistry(config);
+if isfield(config, 'physicalIdentityRegistryCanonicalSha256') && ...
+        ~strcmp(config.physicalIdentityRegistryCanonicalSha256, ...
+            physicalIdentity.canonicalSha256)
+    error('DynamicTopologyPhysicalIdentity:RegistryDrift', ...
+        'The trajectory generator physical identity registry drifted.');
+end
 sensorTrajectories = cell(1, sensorCount);
 centerStates = cell(1, config.formationCount);
 formationRadii = zeros(1, config.formationCount);
 formationRotations = zeros(1, config.formationCount);
+radiusJitters = zeros(1, config.formationCount);
+rotationJitters = zeros(1, config.formationCount);
+[~, canonicalFormationOrder] = sort( ...
+    physicalIdentity.formationStochasticRoleUidsByFormation);
+for canonicalIdx = 1:config.formationCount
+    formationIdx = canonicalFormationOrder(canonicalIdx);
+    radiusJitters(formationIdx) = ...
+        config.formationRadiusJitterFraction * (2 * rand - 1);
+    rotationJitters(formationIdx) = ...
+        deg2rad(config.formationRotationJitterDeg) * (2 * rand - 1);
+end
 
 sensorCursor = 0;
 for groupIdx = 1:config.formationCount
@@ -28,11 +46,9 @@ for groupIdx = 1:config.formationCount
     centerVelocity = finiteDifference(centerPosition, config.samplingPeriod);
     centerStates{groupIdx} = [centerPosition; centerVelocity];
 
-    radiusJitter = config.formationRadiusJitterFraction * ...
-        (2 * rand - 1);
+    radiusJitter = radiusJitters(groupIdx);
     radius = config.formationRadius * (1 + radiusJitter);
-    rotationJitter = deg2rad(config.formationRotationJitterDeg) * ...
-        (2 * rand - 1);
+    rotationJitter = rotationJitters(groupIdx);
     formationRadii(groupIdx) = radius;
     formationRotations(groupIdx) = rotationJitter;
 
@@ -46,9 +62,12 @@ for groupIdx = 1:config.formationCount
     else
         heading = resolveFormationHeading(centerPosition, centerVelocity);
     end
-    for localIdx = 1:config.sensorsPerFormation
+    localRoleUids = physicalIdentity. ...
+        sensorLocalRoleUidsByFormation{groupIdx};
+    for localStorageIdx = 1:config.sensorsPerFormation
         sensorCursor = sensorCursor + 1;
-        theta = heading + baseAngles(localIdx) + rotationJitter;
+        localRoleUid = localRoleUids(localStorageIdx);
+        theta = heading + baseAngles(localRoleUid) + rotationJitter;
         offset = radius * [cos(theta); sin(theta)];
         position = centerPosition + offset;
         velocity = finiteDifference(position, config.samplingPeriod);
@@ -60,7 +79,23 @@ metadata = struct();
 metadata.centerStates = centerStates;
 metadata.formationRadii = formationRadii;
 metadata.formationRotations = formationRotations;
+metadata.formationRadiusJittersByPhysicalEntity = radiusJitters;
+metadata.formationRotationJittersByPhysicalEntity = rotationJitters;
+metadata.formationStochasticDrawOrder = ...
+    physicalIdentity.formationStochasticRoleUidsByFormation( ...
+        canonicalFormationOrder);
+metadata.formationStochasticRoleUidsByFormation = ...
+    physicalIdentity.formationStochasticRoleUidsByFormation;
 metadata.sensorGroupIds = config.sensorGroupIds;
+metadata.physicalIdentityRegistryContractVersion = ...
+    physicalIdentity.contractVersion;
+metadata.physicalIdentityRegistryCanonicalSha256 = ...
+    physicalIdentity.canonicalSha256;
+metadata.sensorPhysicalUids = physicalIdentity.sensorPhysicalUids;
+metadata.formationPhysicalUidsBySensor = ...
+    physicalIdentity.formationPhysicalUidsBySensor;
+metadata.sensorLocalRoleUidsBySensor = ...
+    physicalIdentity.sensorLocalRoleUidsBySensor;
 end
 
 function values = interpolateWaypoints(times, waypoints, queryTimes)
