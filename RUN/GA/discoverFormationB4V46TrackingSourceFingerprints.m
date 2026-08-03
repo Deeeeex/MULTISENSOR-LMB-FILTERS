@@ -36,6 +36,12 @@ for presetIdx = 1:numel(presets)
         record.stressMatrix = source.stressMatrix;
         record.deliverySeed = source.deliverySeed;
         record.inputFingerprint = source.inputFingerprint;
+        record.runtimeFilterInputFingerprint = ...
+            source.runtimeFilterInputFingerprint;
+        record.runtimeTargetTrajectoryRealizationAbsent = ...
+            source.runtimeTargetTrajectoryRealizationAbsent;
+        record.registeredBirthPriorRetained = ...
+            source.registeredBirthPriorRetained;
         record.sourceGeometryTruthValidationExecuted = ...
             source.sourceGeometryTruthValidationExecuted;
         record.truthHashedForSealing = source.truthHashedForSealing;
@@ -58,7 +64,7 @@ end
 
 payload = struct();
 payload.contractVersion = ...
-    'formation-b4-v46-tracking-source-fingerprint-discovery-v1';
+    'formation-b4-v46-tracking-source-fingerprint-discovery-v2';
 payload.registryId = registry.id;
 payload.registryCanonicalSha256 = registry.canonicalSha256;
 payload.presets = presets;
@@ -74,6 +80,9 @@ payload.sourceArtifactPublicationAuthorized = false;
 payload.rawSourceObjectsReturned = false;
 payload.rawTruthReturned = false;
 payload.rawMeasurementsReturned = false;
+payload.runtimeFilterModelReturned = false;
+payload.runtimeTargetTrajectoryRealizationAbsent = true;
+payload.registeredBirthPriorRetained = true;
 payload.filterExecuted = false;
 payload.stateEstimateGenerated = false;
 payload.sourceGeometryTruthValidationExecuted = true;
@@ -119,10 +128,17 @@ identity = buildDynamicTopologyPhysicalIdentityRegistry(inputs.config);
 inputs.commConfig.linkUniforms = linkUniforms;
 fingerprint = computeFormationB4V46TrackingInputFingerprint( ...
     inputs, identity, deliveryMetadata, caseContract, registry);
+runtimeModel = sanitizeFormationB4V46RuntimeFilterModel( ...
+    inputs.model, caseContract, registry);
+runtimeFingerprint = ...
+    computeFormationB4V46RuntimeFilterInputFingerprint( ...
+        runtimeModel, inputs.measurements, ...
+        inputs.sensorTrajectories, inputs.neighborMap, ...
+        inputs.commConfig, fingerprint, caseContract, registry);
 
 sourcePayload = struct();
 sourcePayload.contractVersion = ...
-    'formation-b4-v46-materialized-tracking-source-envelope-v2';
+    'formation-b4-v46-materialized-tracking-source-envelope-v3';
 sourcePayload.registryId = registry.id;
 sourcePayload.registryCanonicalSha256 = registry.canonicalSha256;
 sourcePayload.caseId = caseContract.id;
@@ -136,6 +152,9 @@ sourcePayload.primaryMatrix = caseContract.primaryMatrix;
 sourcePayload.stressMatrix = caseContract.stressMatrix;
 sourcePayload.focusWindow = caseContract.focusWindow;
 sourcePayload.inputFingerprint = fingerprint;
+sourcePayload.runtimeFilterInputFingerprint = runtimeFingerprint;
+sourcePayload.runtimeTargetTrajectoryRealizationAbsent = true;
+sourcePayload.registeredBirthPriorRetained = true;
 sourcePayload.rawSourceObjectsReturned = false;
 sourcePayload.rawTruthReturned = false;
 sourcePayload.rawMeasurementsReturned = false;
@@ -152,6 +171,7 @@ sourcePayload.validationClaimMade = false;
 source = sourcePayload;
 source.sourceEnvelopeCanonicalSha256 = ...
     computeCanonicalValueSha256(sourcePayload);
+clear runtimeModel;
 clear restoreRng;
 end
 
@@ -179,6 +199,9 @@ value = struct('caseId', '', 'caseOrdinal', NaN, ...
     'presetName', '', 'seed', NaN, 'seedRole', '', ...
     'primaryMatrix', false, 'stressMatrix', false, ...
     'deliverySeed', NaN, 'inputFingerprint', struct(), ...
+    'runtimeFilterInputFingerprint', struct(), ...
+    'runtimeTargetTrajectoryRealizationAbsent', false, ...
+    'registeredBirthPriorRetained', false, ...
     'sourceGeometryTruthValidationExecuted', false, ...
     'truthHashedForSealing', false, 'filterExecuted', false, ...
     'estimateVsTruthTrackingMetricComputed', false, ...

@@ -43,6 +43,9 @@ assert(~discovery.sourceArtifactPublicationAuthorized);
 assert(~discovery.rawSourceObjectsReturned);
 assert(~discovery.rawTruthReturned);
 assert(~discovery.rawMeasurementsReturned);
+assert(~discovery.runtimeFilterModelReturned);
+assert(discovery.runtimeTargetTrajectoryRealizationAbsent);
+assert(discovery.registeredBirthPriorRetained);
 assert(~isfield(discovery, 'inputs'));
 assert(~isfield(discovery, 'groundTruth'));
 assert(~isfield(discovery, 'measurements'));
@@ -64,6 +67,13 @@ assert(strcmp(record.presetName, 'm24-formation-fov'));
 assert(record.seed == 1009);
 assert(record.deliverySeed == 46100901);
 assert(numel(record.inputFingerprint.canonicalSha256) == 64);
+assert(numel(record.runtimeFilterInputFingerprint.canonicalSha256) == 64);
+assert(record.runtimeTargetTrajectoryRealizationAbsent);
+assert(record.registeredBirthPriorRetained);
+assert(~record.runtimeFilterInputFingerprint. ...
+    targetTrajectoryRealizationPassedToFilter);
+assert(~record.runtimeFilterInputFingerprint.groundTruthPassedToFilter);
+assert(record.runtimeFilterInputFingerprint.registeredBirthPriorRetained);
 assert(numel(record.sourceEnvelopeCanonicalSha256) == 64);
 assert(strcmp(discovery.runtimeEngine, 'GNU Octave') || ...
     strcmp(discovery.runtimeEngine, 'MATLAB'));

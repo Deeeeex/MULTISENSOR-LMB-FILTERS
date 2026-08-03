@@ -24,10 +24,12 @@ validateOwnership(inputs, caseContract, registry, officialRegistry);
 validateIdentityAndDelivery(inputs, identity, deliveryMetadata);
 validateRegisteredIdentityAndDelivery( ...
     inputs, identity, deliveryMetadata, caseContract);
+runtimeModel = sanitizeFormationB4V46RuntimeFilterModel( ...
+    inputs.model, caseContract, registry);
 
 payload = struct();
 payload.contractVersion = ...
-    'formation-b4-v46-tracking-source-input-fingerprint-v1';
+    'formation-b4-v46-tracking-source-input-fingerprint-v2';
 payload.seed = inputs.seed;
 payload.registryId = registry.id;
 payload.registryCanonicalSha256 = registry.canonicalSha256;
@@ -38,7 +40,14 @@ payload.seedRole = caseContract.seedRole;
 payload.primaryMatrix = caseContract.primaryMatrix;
 payload.stressMatrix = caseContract.stressMatrix;
 payload.configSha256 = computeCanonicalValueSha256(inputs.config);
-payload.modelSha256 = computeCanonicalValueSha256(inputs.model);
+payload.sourceModelSha256 = computeCanonicalValueSha256(inputs.model);
+payload.runtimeFilterModelSha256 = ...
+    computeCanonicalValueSha256(runtimeModel);
+payload.runtimeFilterModelContractVersion = runtimeModel. ...
+    formationB4V46RuntimeSourceEnvelope.contractVersion;
+payload.runtimeFilterBirthPriorSha256 = runtimeModel. ...
+    formationB4V46RuntimeSourceEnvelope. ...
+        registeredBirthPriorCanonicalSha256;
 payload.measurementsSha256 = ...
     computeCanonicalValueSha256(inputs.measurements);
 payload.groundTruthSha256 = ...
@@ -68,6 +77,7 @@ payload.deliveryUniformMaterializedTensorSha256 = ...
 fingerprint = payload;
 fingerprint.canonicalSha256 = ...
     computeCanonicalValueSha256(payload);
+clear runtimeModel;
 end
 
 function validateOwnership(inputs, caseContract, registry, officialRegistry)
