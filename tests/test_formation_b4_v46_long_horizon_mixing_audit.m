@@ -8,7 +8,10 @@ assert(~short.allCasesFullHorizonCovered);
 assert(short.allParentPageHashesMatched);
 assert(short.everyRollingB4UnionStrong);
 assert(~short.allTheoremHorizonsPresent);
-assert(~short.longHorizonConvergenceCertificatePassed);
+assert(~short.finiteEpisodeWeakMixingCertificatePassed);
+assert(short.finiteEpisodeOnly);
+assert(~short.infiniteHorizonConvergenceCertified);
+assert(~short.uniformAverageConsensusCertified);
 item = short.cases(1);
 assert(item.parentPageHashesMatched && item.repairPageCount == 0);
 assert(abs(item.minimumPositiveExecutedWeight - 0.1) < 1e-12);
@@ -17,12 +20,27 @@ assert(numel(item.horizonSummaries) == 3);
 assert(item.horizonSummaries(1).horizon == 4);
 assert(item.horizonSummaries(1).windowCount == 9);
 assert(abs(item.horizonSummaries(1).worstDobrushin - 1) < 1e-12);
+assert(item.horizonSummaries(1). ...
+    everyFloatingSupportMatchesBoolean);
 directChecks = ...
     [item.horizonSummaries.productTreeDirectComparisonPassed];
 assert(all(directChecks));
 assert(~item.trackingOutcomeScored && ...
     ~item.trackingOutcomeAuthorized && ...
     ~item.validationClaimAllowed && item.developmentEvidenceOnly);
+
+theorem = runFormationB4V46LongHorizonMixingAudit(struct( ...
+    'presets', {{'m24-formation-fov'}}, 'seeds', 41, ...
+    'horizons', 92, 'progressEvery', 160));
+theoremCase = theorem.cases(1);
+assert(theoremCase.fullHorizonCovered);
+assert(theoremCase.theoremHorizon == 92 && ...
+    theoremCase.theoremHorizonPresent);
+assert(theoremCase.everyTheoremHorizonProductSupportScrambling);
+assert(theoremCase.everyTheoremHorizonProductHasPositiveColumn);
+assert(theoremCase.everyTheoremHorizonProductSupportPositive);
+assert(theoremCase.finiteEpisodeWeakMixingCertificatePassed);
+assert(~theorem.finiteEpisodeWeakMixingCertificatePassed);
 
 crossing = runFormationB4V46LongHorizonMixingAudit(struct( ...
     'presets', {{'x36-formation-fov-crossing'}}, 'seeds', 41, ...
