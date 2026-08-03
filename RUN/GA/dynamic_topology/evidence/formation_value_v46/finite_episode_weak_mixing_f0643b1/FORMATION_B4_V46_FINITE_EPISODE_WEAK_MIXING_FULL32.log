@@ -1,0 +1,193 @@
+V46 long mixing case 1/32: m24-formation-fov seed=41
+  m24-formation-fov seed=41 t=1/160 reconstructed
+  m24-formation-fov seed=41 t=40/160 reconstructed
+  m24-formation-fov seed=41 t=80/160 reconstructed
+  m24-formation-fov seed=41 t=120/160 reconstructed
+  m24-formation-fov seed=41 t=160/160 reconstructed
+V46 long mixing case 2/32: m24-formation-fov seed=43
+  m24-formation-fov seed=43 t=1/160 reconstructed
+  m24-formation-fov seed=43 t=40/160 reconstructed
+  m24-formation-fov seed=43 t=80/160 reconstructed
+  m24-formation-fov seed=43 t=120/160 reconstructed
+  m24-formation-fov seed=43 t=160/160 reconstructed
+V46 long mixing case 3/32: m24-formation-fov seed=47
+  m24-formation-fov seed=47 t=1/160 reconstructed
+  m24-formation-fov seed=47 t=40/160 reconstructed
+  m24-formation-fov seed=47 t=80/160 reconstructed
+  m24-formation-fov seed=47 t=120/160 reconstructed
+  m24-formation-fov seed=47 t=160/160 reconstructed
+V46 long mixing case 4/32: m24-formation-fov seed=53
+  m24-formation-fov seed=53 t=1/160 reconstructed
+  m24-formation-fov seed=53 t=40/160 reconstructed
+  m24-formation-fov seed=53 t=80/160 reconstructed
+  m24-formation-fov seed=53 t=120/160 reconstructed
+  m24-formation-fov seed=53 t=160/160 reconstructed
+V46 long mixing case 5/32: m24-formation-fov-convoy seed=41
+  m24-formation-fov-convoy seed=41 t=1/160 reconstructed
+  m24-formation-fov-convoy seed=41 t=40/160 reconstructed
+  m24-formation-fov-convoy seed=41 t=80/160 reconstructed
+  m24-formation-fov-convoy seed=41 t=120/160 reconstructed
+  m24-formation-fov-convoy seed=41 t=160/160 reconstructed
+V46 long mixing case 6/32: m24-formation-fov-convoy seed=43
+  m24-formation-fov-convoy seed=43 t=1/160 reconstructed
+  m24-formation-fov-convoy seed=43 t=40/160 reconstructed
+  m24-formation-fov-convoy seed=43 t=80/160 reconstructed
+  m24-formation-fov-convoy seed=43 t=120/160 reconstructed
+  m24-formation-fov-convoy seed=43 t=160/160 reconstructed
+V46 long mixing case 7/32: m24-formation-fov-convoy seed=47
+  m24-formation-fov-convoy seed=47 t=1/160 reconstructed
+  m24-formation-fov-convoy seed=47 t=40/160 reconstructed
+  m24-formation-fov-convoy seed=47 t=80/160 reconstructed
+  m24-formation-fov-convoy seed=47 t=120/160 reconstructed
+  m24-formation-fov-convoy seed=47 t=160/160 reconstructed
+V46 long mixing case 8/32: m24-formation-fov-convoy seed=53
+  m24-formation-fov-convoy seed=53 t=1/160 reconstructed
+  m24-formation-fov-convoy seed=53 t=40/160 reconstructed
+  m24-formation-fov-convoy seed=53 t=80/160 reconstructed
+  m24-formation-fov-convoy seed=53 t=120/160 reconstructed
+  m24-formation-fov-convoy seed=53 t=160/160 reconstructed
+V46 long mixing case 9/32: m24-formation-fov-relay seed=41
+  m24-formation-fov-relay seed=41 t=1/160 reconstructed
+  m24-formation-fov-relay seed=41 t=40/160 reconstructed
+  m24-formation-fov-relay seed=41 t=80/160 reconstructed
+  m24-formation-fov-relay seed=41 t=120/160 reconstructed
+  m24-formation-fov-relay seed=41 t=160/160 reconstructed
+V46 long mixing case 10/32: m24-formation-fov-relay seed=43
+  m24-formation-fov-relay seed=43 t=1/160 reconstructed
+  m24-formation-fov-relay seed=43 t=40/160 reconstructed
+  m24-formation-fov-relay seed=43 t=80/160 reconstructed
+  m24-formation-fov-relay seed=43 t=120/160 reconstructed
+  m24-formation-fov-relay seed=43 t=160/160 reconstructed
+V46 long mixing case 11/32: m24-formation-fov-relay seed=47
+  m24-formation-fov-relay seed=47 t=1/160 reconstructed
+  m24-formation-fov-relay seed=47 t=40/160 reconstructed
+  m24-formation-fov-relay seed=47 t=80/160 reconstructed
+  m24-formation-fov-relay seed=47 t=120/160 reconstructed
+  m24-formation-fov-relay seed=47 t=160/160 reconstructed
+V46 long mixing case 12/32: m24-formation-fov-relay seed=53
+  m24-formation-fov-relay seed=53 t=1/160 reconstructed
+  m24-formation-fov-relay seed=53 t=40/160 reconstructed
+  m24-formation-fov-relay seed=53 t=80/160 reconstructed
+  m24-formation-fov-relay seed=53 t=120/160 reconstructed
+  m24-formation-fov-relay seed=53 t=160/160 reconstructed
+V46 long mixing case 13/32: m24-formation-fov-crossing seed=41
+  m24-formation-fov-crossing seed=41 t=1/160 reconstructed
+  m24-formation-fov-crossing seed=41 t=40/160 reconstructed
+  m24-formation-fov-crossing seed=41 t=80/160 reconstructed
+  m24-formation-fov-crossing seed=41 t=120/160 reconstructed
+  m24-formation-fov-crossing seed=41 t=160/160 reconstructed
+V46 long mixing case 14/32: m24-formation-fov-crossing seed=43
+  m24-formation-fov-crossing seed=43 t=1/160 reconstructed
+  m24-formation-fov-crossing seed=43 t=40/160 reconstructed
+  m24-formation-fov-crossing seed=43 t=80/160 reconstructed
+  m24-formation-fov-crossing seed=43 t=120/160 reconstructed
+  m24-formation-fov-crossing seed=43 t=160/160 reconstructed
+V46 long mixing case 15/32: m24-formation-fov-crossing seed=47
+  m24-formation-fov-crossing seed=47 t=1/160 reconstructed
+  m24-formation-fov-crossing seed=47 t=40/160 reconstructed
+  m24-formation-fov-crossing seed=47 t=80/160 reconstructed
+  m24-formation-fov-crossing seed=47 t=120/160 reconstructed
+  m24-formation-fov-crossing seed=47 t=160/160 reconstructed
+V46 long mixing case 16/32: m24-formation-fov-crossing seed=53
+  m24-formation-fov-crossing seed=53 t=1/160 reconstructed
+  m24-formation-fov-crossing seed=53 t=40/160 reconstructed
+  m24-formation-fov-crossing seed=53 t=80/160 reconstructed
+  m24-formation-fov-crossing seed=53 t=120/160 reconstructed
+  m24-formation-fov-crossing seed=53 t=160/160 reconstructed
+V46 long mixing case 17/32: x36-formation-fov seed=41
+  x36-formation-fov seed=41 t=1/160 reconstructed
+  x36-formation-fov seed=41 t=40/160 reconstructed
+  x36-formation-fov seed=41 t=80/160 reconstructed
+  x36-formation-fov seed=41 t=120/160 reconstructed
+  x36-formation-fov seed=41 t=160/160 reconstructed
+V46 long mixing case 18/32: x36-formation-fov seed=43
+  x36-formation-fov seed=43 t=1/160 reconstructed
+  x36-formation-fov seed=43 t=40/160 reconstructed
+  x36-formation-fov seed=43 t=80/160 reconstructed
+  x36-formation-fov seed=43 t=120/160 reconstructed
+  x36-formation-fov seed=43 t=160/160 reconstructed
+V46 long mixing case 19/32: x36-formation-fov seed=47
+  x36-formation-fov seed=47 t=1/160 reconstructed
+  x36-formation-fov seed=47 t=40/160 reconstructed
+  x36-formation-fov seed=47 t=80/160 reconstructed
+  x36-formation-fov seed=47 t=120/160 reconstructed
+  x36-formation-fov seed=47 t=160/160 reconstructed
+V46 long mixing case 20/32: x36-formation-fov seed=53
+  x36-formation-fov seed=53 t=1/160 reconstructed
+  x36-formation-fov seed=53 t=40/160 reconstructed
+  x36-formation-fov seed=53 t=80/160 reconstructed
+  x36-formation-fov seed=53 t=120/160 reconstructed
+  x36-formation-fov seed=53 t=160/160 reconstructed
+V46 long mixing case 21/32: x36-formation-fov-convoy seed=41
+  x36-formation-fov-convoy seed=41 t=1/160 reconstructed
+  x36-formation-fov-convoy seed=41 t=40/160 reconstructed
+  x36-formation-fov-convoy seed=41 t=80/160 reconstructed
+  x36-formation-fov-convoy seed=41 t=120/160 reconstructed
+  x36-formation-fov-convoy seed=41 t=160/160 reconstructed
+V46 long mixing case 22/32: x36-formation-fov-convoy seed=43
+  x36-formation-fov-convoy seed=43 t=1/160 reconstructed
+  x36-formation-fov-convoy seed=43 t=40/160 reconstructed
+  x36-formation-fov-convoy seed=43 t=80/160 reconstructed
+  x36-formation-fov-convoy seed=43 t=120/160 reconstructed
+  x36-formation-fov-convoy seed=43 t=160/160 reconstructed
+V46 long mixing case 23/32: x36-formation-fov-convoy seed=47
+  x36-formation-fov-convoy seed=47 t=1/160 reconstructed
+  x36-formation-fov-convoy seed=47 t=40/160 reconstructed
+  x36-formation-fov-convoy seed=47 t=80/160 reconstructed
+  x36-formation-fov-convoy seed=47 t=120/160 reconstructed
+  x36-formation-fov-convoy seed=47 t=160/160 reconstructed
+V46 long mixing case 24/32: x36-formation-fov-convoy seed=53
+  x36-formation-fov-convoy seed=53 t=1/160 reconstructed
+  x36-formation-fov-convoy seed=53 t=40/160 reconstructed
+  x36-formation-fov-convoy seed=53 t=80/160 reconstructed
+  x36-formation-fov-convoy seed=53 t=120/160 reconstructed
+  x36-formation-fov-convoy seed=53 t=160/160 reconstructed
+V46 long mixing case 25/32: x36-formation-fov-relay seed=41
+  x36-formation-fov-relay seed=41 t=1/160 reconstructed
+  x36-formation-fov-relay seed=41 t=40/160 reconstructed
+  x36-formation-fov-relay seed=41 t=80/160 reconstructed
+  x36-formation-fov-relay seed=41 t=120/160 reconstructed
+  x36-formation-fov-relay seed=41 t=160/160 reconstructed
+V46 long mixing case 26/32: x36-formation-fov-relay seed=43
+  x36-formation-fov-relay seed=43 t=1/160 reconstructed
+  x36-formation-fov-relay seed=43 t=40/160 reconstructed
+  x36-formation-fov-relay seed=43 t=80/160 reconstructed
+  x36-formation-fov-relay seed=43 t=120/160 reconstructed
+  x36-formation-fov-relay seed=43 t=160/160 reconstructed
+V46 long mixing case 27/32: x36-formation-fov-relay seed=47
+  x36-formation-fov-relay seed=47 t=1/160 reconstructed
+  x36-formation-fov-relay seed=47 t=40/160 reconstructed
+  x36-formation-fov-relay seed=47 t=80/160 reconstructed
+  x36-formation-fov-relay seed=47 t=120/160 reconstructed
+  x36-formation-fov-relay seed=47 t=160/160 reconstructed
+V46 long mixing case 28/32: x36-formation-fov-relay seed=53
+  x36-formation-fov-relay seed=53 t=1/160 reconstructed
+  x36-formation-fov-relay seed=53 t=40/160 reconstructed
+  x36-formation-fov-relay seed=53 t=80/160 reconstructed
+  x36-formation-fov-relay seed=53 t=120/160 reconstructed
+  x36-formation-fov-relay seed=53 t=160/160 reconstructed
+V46 long mixing case 29/32: x36-formation-fov-crossing seed=41
+  x36-formation-fov-crossing seed=41 t=1/160 reconstructed
+  x36-formation-fov-crossing seed=41 t=40/160 reconstructed
+  x36-formation-fov-crossing seed=41 t=80/160 reconstructed
+  x36-formation-fov-crossing seed=41 t=120/160 reconstructed
+  x36-formation-fov-crossing seed=41 t=160/160 reconstructed
+V46 long mixing case 30/32: x36-formation-fov-crossing seed=43
+  x36-formation-fov-crossing seed=43 t=1/160 reconstructed
+  x36-formation-fov-crossing seed=43 t=40/160 reconstructed
+  x36-formation-fov-crossing seed=43 t=80/160 reconstructed
+  x36-formation-fov-crossing seed=43 t=120/160 reconstructed
+  x36-formation-fov-crossing seed=43 t=160/160 reconstructed
+V46 long mixing case 31/32: x36-formation-fov-crossing seed=47
+  x36-formation-fov-crossing seed=47 t=1/160 reconstructed
+  x36-formation-fov-crossing seed=47 t=40/160 reconstructed
+  x36-formation-fov-crossing seed=47 t=80/160 reconstructed
+  x36-formation-fov-crossing seed=47 t=120/160 reconstructed
+  x36-formation-fov-crossing seed=47 t=160/160 reconstructed
+V46 long mixing case 32/32: x36-formation-fov-crossing seed=53
+  x36-formation-fov-crossing seed=53 t=1/160 reconstructed
+  x36-formation-fov-crossing seed=53 t=40/160 reconstructed
+  x36-formation-fov-crossing seed=53 t=80/160 reconstructed
+  x36-formation-fov-crossing seed=53 t=120/160 reconstructed
+  x36-formation-fov-crossing seed=53 t=160/160 reconstructed
+V46 long mixing complete: cases=32 finiteWeakMixing=1 sha256=34a557ed6db987a542d576507bf614c6637add369685e73eabb032d61853f62d
