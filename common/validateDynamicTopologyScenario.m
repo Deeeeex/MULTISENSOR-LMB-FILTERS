@@ -17,8 +17,11 @@ end
 [maxSensorSpeed, maxSensorAcceleration, minSeparation, sensorsInBounds] = ...
     sensorTrajectoryMetrics(config, sensorTrajectories);
 [maxTargetSpeed, maxTargetAcceleration, minTargetSeparation, ...
-    targetsInBounds, targetStatesWellFormed] = ...
+    targetsInBounds, targetStatesWellFormed, ...
+    targetActivityMatchesContract] = ...
     targetTrajectoryMetrics(config, targetTrajectories);
+minSensorTargetSeparation = minimumSensorTargetTrajectorySeparation( ...
+    config, sensorTrajectories, targetTrajectories);
 
 if minSeparation + 1e-9 < config.minimumSensorSeparation
     hardFailures{end+1} = 'sensor-separation'; %#ok<AGROW>
@@ -40,6 +43,11 @@ if isfield(config, 'minimumTargetSeparation') && ...
         minTargetSeparation + 1e-9 < config.minimumTargetSeparation
     hardFailures{end+1} = 'target-separation'; %#ok<AGROW>
 end
+if isfield(config, 'minimumSensorTargetSeparation') && ...
+        minSensorTargetSeparation + 1e-9 < ...
+            config.minimumSensorTargetSeparation
+    hardFailures{end+1} = 'sensor-target-separation'; %#ok<AGROW>
+end
 if ~sensorsInBounds
     hardFailures{end+1} = 'sensor-bounds'; %#ok<AGROW>
 end
@@ -48,6 +56,9 @@ if ~targetsInBounds
 end
 if ~targetStatesWellFormed
     hardFailures{end+1} = 'target-state-column-integrity'; %#ok<AGROW>
+end
+if ~targetActivityMatchesContract
+    hardFailures{end+1} = 'target-activity-contract'; %#ok<AGROW>
 end
 
 staticEdgeCount = nnz(triu(staticAdjacency, 1));
@@ -113,7 +124,7 @@ difficulty = measureDynamicTopologyScenarioDifficulty( ...
 if isfield(config, 'enforceDifficultyRequirements') && ...
         config.enforceDifficultyRequirements
     difficultyFailures = validateDifficultyRequirements( ...
-        difficulty, config.difficultyRequirements);
+        config, difficulty, config.difficultyRequirements);
     hardFailures = [hardFailures, difficultyFailures]; %#ok<AGROW>
 end
 
@@ -126,9 +137,12 @@ validation.minimumSensorSeparation = minSeparation;
 validation.maxTargetSpeed = maxTargetSpeed;
 validation.maxTargetAcceleration = maxTargetAcceleration;
 validation.minimumTargetSeparation = minTargetSeparation;
+validation.minimumSensorTargetSeparation = minSensorTargetSeparation;
 validation.sensorsInBounds = sensorsInBounds;
 validation.targetsInBounds = targetsInBounds;
 validation.targetStatesWellFormed = targetStatesWellFormed;
+validation.targetActivityMatchesContract = ...
+    targetActivityMatchesContract;
 validation.staticEdgeCount = staticEdgeCount;
 validation.staticPhysicalViolationCount = staticPhysicalViolationCount;
 validation.candidateCount = candidateCount;
@@ -149,7 +163,8 @@ else
 end
 end
 
-function failures = validateDifficultyRequirements(metrics, requirements)
+function failures = validateDifficultyRequirements( ...
+        config, metrics, requirements)
 failures = {};
 checks = { ...
     'maxBlackoutFraction', metrics.blackoutFraction, @le, ...
@@ -232,19 +247,47 @@ end
 end
 
 function [maxSpeed, maxAcceleration, minSeparation, inBounds, ...
-    statesWellFormed] = ...
+    statesWellFormed, activityMatchesContract] = ...
     targetTrajectoryMetrics(config, trajectories)
 maxSpeed = 0;
 maxAcceleration = 0;
 minSeparation = inf;
 inBounds = true;
 statesWellFormed = true;
+activityMatchesContract = true;
 for targetIdx = 1:numel(trajectories)
     trajectory = trajectories{targetIdx};
     finiteByState = isfinite(trajectory);
     active = all(finiteByState, 1);
     inactive = all(isnan(trajectory), 1);
     statesWellFormed = statesWellFormed && all(active | inactive);
+    if targetIdx <= numel(config.targetGroupIds)
+        groupIdx = config.targetGroupIds(targetIdx);
+        if isfinite(groupIdx) && groupIdx == round(groupIdx) && ...
+                groupIdx >= 1 && ...
+                groupIdx <= numel(config.targetBirthTimesByGroup) && ...
+                groupIdx <= numel(config.targetDeathTimesByGroup)
+            expectedActive = false(1, config.simulationLength);
+            birthTime = round( ...
+                config.targetBirthTimesByGroup(groupIdx));
+            deathTime = round( ...
+                config.targetDeathTimesByGroup(groupIdx));
+            if birthTime >= 1 && ...
+                    deathTime <= config.simulationLength && ...
+                    deathTime >= birthTime
+                expectedActive(birthTime:deathTime) = true;
+                activityMatchesContract = ...
+                    activityMatchesContract && ...
+                    isequal(active, expectedActive);
+            else
+                activityMatchesContract = false;
+            end
+        else
+            activityMatchesContract = false;
+        end
+    else
+        activityMatchesContract = false;
+    end
     if any(active)
         maxSpeed = max(maxSpeed, max(sqrt(sum( ...
             trajectory(3:4, active).^2, 1))));
@@ -283,6 +326,28 @@ inBounds = all(points(1, :) >= limits(1, 1) - 1e-9) && ...
     all(points(1, :) <= limits(1, 2) + 1e-9) && ...
     all(points(2, :) >= limits(2, 1) - 1e-9) && ...
     all(points(2, :) <= limits(2, 2) + 1e-9);
+end
+
+function minDistance = minimumSensorTargetTrajectorySeparation( ...
+        config, sensorTrajectories, targetTrajectories)
+minDistance = inf;
+for timeIdx = 1:config.simulationLength
+    sensorPositions = zeros(2, numel(sensorTrajectories));
+    for sensorIdx = 1:numel(sensorTrajectories)
+        sensorPositions(:, sensorIdx) = ...
+            sensorTrajectories{sensorIdx}(1:2, timeIdx);
+    end
+    for targetIdx = 1:numel(targetTrajectories)
+        targetState = targetTrajectories{targetIdx}(:, timeIdx);
+        if ~all(isfinite(targetState))
+            continue;
+        end
+        offsets = bsxfun(@minus, ...
+            sensorPositions, targetState(1:2));
+        minDistance = min(minDistance, ...
+            min(sqrt(sum(offsets .^ 2, 1))));
+    end
+end
 end
 
 function handoverCounts = countTargetGroupHandovers( ...

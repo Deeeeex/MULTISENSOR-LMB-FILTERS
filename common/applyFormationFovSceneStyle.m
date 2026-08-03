@@ -25,9 +25,9 @@ end
 
 styleName = lower(strrep(strrep(char(styleName), '_', '-'), ' ', '-'));
 config.sceneStyle = styleName;
-config.sceneGeometryVersion = 'formation-fov-multistyle-v2';
+config.sceneGeometryVersion = 'formation-fov-multistyle-v3';
 config.sceneCalibrationStatus = ...
-    'geometry-recalibration-in-progress-v2';
+    'geometry-recalibration-in-progress-v3';
 config.formalValidationAuthorized = false;
 config.trackingOutcomeAuthorized = false;
 config.enforceDifficultyRequirements = false;
@@ -47,6 +47,7 @@ config.formationBackboneMode = 'initial-geometry-mst';
 config.requireStaticPhysicalAllTimes = true;
 config.blockageScheduleMode = 'backbone-sequential';
 config.targetAccelerationLimit = 1.0;
+config.minimumSensorTargetSeparation = 0;
 
 switch styleName
     case {'convoy', 'parallel-convoy'}
@@ -104,6 +105,7 @@ switch styleName
             config.targetGroupCount);
         config.targetCrossTrackSpacing = 28;
         config.minimumTargetSeparation = 9;
+        config.minimumSensorTargetSeparation = 30;
         config.blockageWindows = zeros(0, 4);
         config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'relay');
@@ -233,7 +235,11 @@ end
 end
 
 function routes = buildRelayTargetRoutes(targetGroupCount)
-lanes = linspace(80, 220, min(4, targetGroupCount));
+% The v2 lower lane at 80 m combined with the 24 m route bend and 42 m
+% maximum within-group offset to create a range-only blind strip between
+% adjacent 300 m-spaced formations.  Raising only the lower bound preserves
+% the handover mechanism without moving sensors or changing the FoV.
+lanes = linspace(100, 220, min(4, targetGroupCount));
 if targetGroupCount <= 4
     progress = [-600, -300, 0, 300, 600];
 else
