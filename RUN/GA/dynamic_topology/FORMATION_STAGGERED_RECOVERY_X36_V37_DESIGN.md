@@ -82,8 +82,18 @@ published as an atomic MAT/report/completion-marker set. The discovery artifact
 remained outcome-unauthorized: all three eligibility flags were false, all
 tracking/truth/future-use flags were false, and the reference/candidate input-use
 attestations were respectively `posterior=0, link=0` and
-`posterior=1, link=1`. The next clean commit must reproduce the full matrix
-before any outcome permit can be minted.
+`posterior=1, link=1`.
+
+Clean commit `faa6d4e` subsequently reproduced the complete matrix in formal
+source-only mode. All three structured pair proposals became permit-eligible,
+while tracking remained unscored and the maximum authorized pair count remained
+zero. The formal MAT, report, and last-written completion marker have SHA-256
+values `f82b531a51df124c7f0342d6c8d77950ba16431b473ad636f39732bcda7b9fde`,
+`d3e66375e6e464528c14738fa37d708ef9c1c4bedfeadeaaf30a133eef85aacb`,
+and `bcdb136ea3a0fea3eeb4fb79db538e5c9b21256beb16e63af61995cf23660aae`,
+respectively. This closes the source-reproduction gate only; a separate permit
+must still bind those artifacts, the three proposals, and both arms before any
+tracking outcome can be opened.
 
 Only t=100 invokes the explicit mature-formation release schedule. The broader
 candidate mechanism is debt-aware protection and rotation; staggered release
@@ -126,9 +136,9 @@ three top-level truth fields did not remove nested target trajectories from the
 model, and the runtime policy callback could still see future link uniforms and
 future drop-probability pages. The controller did not declare using them, but
 reachability alone invalidates the claimed causal-input proof. No X36 outcome
-was retained. V3 must structurally expose only current observable inputs and
-freeze both reference and candidate H=3 fingerprints before a new permit is
-minted.
+was retained. V3 now structurally exposes only current observable inputs, and
+both reference and candidate H=3 fingerprints have been frozen and reproduced
+from a later clean commit. A replacement permit has not yet been minted.
 
 The v2 permit and zero-argument exact-two-arm runner are fail-closed and may
 not execute the revoked preflight. A replacement runner may execute
