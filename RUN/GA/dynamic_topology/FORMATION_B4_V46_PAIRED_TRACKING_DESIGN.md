@@ -65,11 +65,62 @@ by physical sender UID, physical receiver UID, and time.  It records only
 canonical hashes and structural metadata; it does not run either filter or
 compute any truth-derived metric.
 
+The generator-side model is not itself a legal filter input.  It contains
+target trajectories and other metadata needed to reproduce the synthetic
+scene.  A separate exact-schema sanitizer constructs the runtime model from a
+field whitelist.  The filter-visible boundary retains the dynamic and sensing
+models, the registered birth prior, the sensor-quality and FOV schedules, and
+the physical-identity metadata required by V46.  It excludes generated target
+trajectories, ground-truth RFS objects, target-formation metadata, duplicated
+sensor-trajectory copies, generator validation results, and any state estimate
+or tracking score.  Sensor trajectories are supplied once as an explicit
+runtime input.
+
+The registered birth prior is an experimental assumption, not a hidden target
+trajectory.  It fixes possible birth locations, times, probabilities, means,
+and covariances before either arm runs; posterior history buffers are reset.
+Both arms receive exactly the same prior.  Because the synthetic prior is
+centered on the configured birth locations, the paper must disclose this
+assumption and include a later sensitivity check with wider covariance or
+perturbed birth locations.  The input boundary therefore supports the narrow
+statement that no realized target trajectory is passed to the filter; it is
+not a claim that deployment knows exact births.
+
+Two different hashes are retained deliberately.  The full source fingerprint
+commits to every reproducibility object, including hashes of truth used only
+for later scoring.  The runtime-v3 projection commits only to the sanitized
+model, measurements, sensor trajectories, neighbor map, communication inputs,
+physical identity, and delivery tensor that can cross the filter boundary.  A
+filter permit may bind only the runtime-v3 projection.  Passing the full source
+fingerprint or its envelope into the filter would reintroduce a transitive
+truth commitment and is forbidden.
+
 Radial, convoy, and relay scenes form the primary matrix.  Crossing remains a
 named stress matrix because its V5 geometry contract is deliberately not a
 formal validation scene.  A stress result cannot rescue a failed primary
 gate, and a stress failure must be reported separately rather than hidden in
 an aggregate.
+
+### Stage 1 authority chain
+
+The evidence and authorization objects form a one-way dependency graph:
+
+`structural protocol -> core source registry -> source/runtime fingerprints -> non-authorizing freeze registry -> phase-specific permit -> filter execution`.
+
+No object may point backward in this chain.  In particular, fingerprints do
+not contain a freeze-registry hash or permit handle, and the freeze builder
+cannot authorize its own output.  The complete 40-case discovery is first
+published as a non-authorizing artifact from a clean, stable commit.  A later
+independent commit may hard-code and audit its hashes in a freeze registry,
+which must still declare filter execution and tracking scoring false.
+
+Execution is then split into two permits.  The development permit contains
+only the eight seed-1009 cases and the two frozen arms.  A separate
+confirmation permit does not exist unless the development evidence and the
+predeclared advance decision are frozen first.  Registering all forty source
+fingerprints therefore does not open the 32 confirmation tracking outcomes.
+Because the generator and seeds are public, this is an ordering and provenance
+guarantee rather than a secrecy guarantee.
 
 ### Stage 2: development sentinel
 
