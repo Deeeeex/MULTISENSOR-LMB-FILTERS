@@ -1,0 +1,321 @@
+FormationB4V46 preflight case 1/32: m24-formation-fov seed=41
+  m24-formation-fov seed=41 t=1/160 passed
+  m24-formation-fov seed=41 t=20/160 passed
+  m24-formation-fov seed=41 t=40/160 passed
+  m24-formation-fov seed=41 t=60/160 passed
+  m24-formation-fov seed=41 t=80/160 passed
+  m24-formation-fov seed=41 t=100/160 passed
+  m24-formation-fov seed=41 t=120/160 passed
+  m24-formation-fov seed=41 t=140/160 passed
+  m24-formation-fov seed=41 t=160/160 passed
+FormationB4V46 preflight case 2/32: m24-formation-fov seed=43
+  m24-formation-fov seed=43 t=1/160 passed
+  m24-formation-fov seed=43 t=20/160 passed
+  m24-formation-fov seed=43 t=40/160 passed
+  m24-formation-fov seed=43 t=60/160 passed
+  m24-formation-fov seed=43 t=80/160 passed
+  m24-formation-fov seed=43 t=100/160 passed
+  m24-formation-fov seed=43 t=120/160 passed
+  m24-formation-fov seed=43 t=140/160 passed
+  m24-formation-fov seed=43 t=160/160 passed
+FormationB4V46 preflight case 3/32: m24-formation-fov seed=47
+  m24-formation-fov seed=47 t=1/160 passed
+  m24-formation-fov seed=47 t=20/160 passed
+  m24-formation-fov seed=47 t=40/160 passed
+  m24-formation-fov seed=47 t=60/160 passed
+  m24-formation-fov seed=47 t=80/160 passed
+  m24-formation-fov seed=47 t=100/160 passed
+  m24-formation-fov seed=47 t=120/160 passed
+  m24-formation-fov seed=47 t=140/160 passed
+  m24-formation-fov seed=47 t=160/160 passed
+FormationB4V46 preflight case 4/32: m24-formation-fov seed=53
+  m24-formation-fov seed=53 t=1/160 passed
+  m24-formation-fov seed=53 t=20/160 passed
+  m24-formation-fov seed=53 t=40/160 passed
+  m24-formation-fov seed=53 t=60/160 passed
+  m24-formation-fov seed=53 t=80/160 passed
+  m24-formation-fov seed=53 t=100/160 passed
+  m24-formation-fov seed=53 t=120/160 passed
+  m24-formation-fov seed=53 t=140/160 passed
+  m24-formation-fov seed=53 t=160/160 passed
+FormationB4V46 preflight case 5/32: m24-formation-fov-convoy seed=41
+  m24-formation-fov-convoy seed=41 t=1/160 passed
+  m24-formation-fov-convoy seed=41 t=20/160 passed
+  m24-formation-fov-convoy seed=41 t=40/160 passed
+  m24-formation-fov-convoy seed=41 t=60/160 passed
+  m24-formation-fov-convoy seed=41 t=80/160 passed
+  m24-formation-fov-convoy seed=41 t=100/160 passed
+  m24-formation-fov-convoy seed=41 t=120/160 passed
+  m24-formation-fov-convoy seed=41 t=140/160 passed
+  m24-formation-fov-convoy seed=41 t=160/160 passed
+FormationB4V46 preflight case 6/32: m24-formation-fov-convoy seed=43
+  m24-formation-fov-convoy seed=43 t=1/160 passed
+  m24-formation-fov-convoy seed=43 t=20/160 passed
+  m24-formation-fov-convoy seed=43 t=40/160 passed
+  m24-formation-fov-convoy seed=43 t=60/160 passed
+  m24-formation-fov-convoy seed=43 t=80/160 passed
+  m24-formation-fov-convoy seed=43 t=100/160 passed
+  m24-formation-fov-convoy seed=43 t=120/160 passed
+  m24-formation-fov-convoy seed=43 t=140/160 passed
+  m24-formation-fov-convoy seed=43 t=160/160 passed
+FormationB4V46 preflight case 7/32: m24-formation-fov-convoy seed=47
+  m24-formation-fov-convoy seed=47 t=1/160 passed
+  m24-formation-fov-convoy seed=47 t=20/160 passed
+  m24-formation-fov-convoy seed=47 t=40/160 passed
+  m24-formation-fov-convoy seed=47 t=60/160 passed
+  m24-formation-fov-convoy seed=47 t=80/160 passed
+  m24-formation-fov-convoy seed=47 t=100/160 passed
+  m24-formation-fov-convoy seed=47 t=120/160 passed
+  m24-formation-fov-convoy seed=47 t=140/160 passed
+  m24-formation-fov-convoy seed=47 t=160/160 passed
+FormationB4V46 preflight case 8/32: m24-formation-fov-convoy seed=53
+  m24-formation-fov-convoy seed=53 t=1/160 passed
+  m24-formation-fov-convoy seed=53 t=20/160 passed
+  m24-formation-fov-convoy seed=53 t=40/160 passed
+  m24-formation-fov-convoy seed=53 t=60/160 passed
+  m24-formation-fov-convoy seed=53 t=80/160 passed
+  m24-formation-fov-convoy seed=53 t=100/160 passed
+  m24-formation-fov-convoy seed=53 t=120/160 passed
+  m24-formation-fov-convoy seed=53 t=140/160 passed
+  m24-formation-fov-convoy seed=53 t=160/160 passed
+FormationB4V46 preflight case 9/32: m24-formation-fov-relay seed=41
+  m24-formation-fov-relay seed=41 t=1/160 passed
+  m24-formation-fov-relay seed=41 t=20/160 passed
+  m24-formation-fov-relay seed=41 t=40/160 passed
+  m24-formation-fov-relay seed=41 t=60/160 passed
+  m24-formation-fov-relay seed=41 t=80/160 passed
+  m24-formation-fov-relay seed=41 t=100/160 passed
+  m24-formation-fov-relay seed=41 t=120/160 passed
+  m24-formation-fov-relay seed=41 t=140/160 passed
+  m24-formation-fov-relay seed=41 t=160/160 passed
+FormationB4V46 preflight case 10/32: m24-formation-fov-relay seed=43
+  m24-formation-fov-relay seed=43 t=1/160 passed
+  m24-formation-fov-relay seed=43 t=20/160 passed
+  m24-formation-fov-relay seed=43 t=40/160 passed
+  m24-formation-fov-relay seed=43 t=60/160 passed
+  m24-formation-fov-relay seed=43 t=80/160 passed
+  m24-formation-fov-relay seed=43 t=100/160 passed
+  m24-formation-fov-relay seed=43 t=120/160 passed
+  m24-formation-fov-relay seed=43 t=140/160 passed
+  m24-formation-fov-relay seed=43 t=160/160 passed
+FormationB4V46 preflight case 11/32: m24-formation-fov-relay seed=47
+  m24-formation-fov-relay seed=47 t=1/160 passed
+  m24-formation-fov-relay seed=47 t=20/160 passed
+  m24-formation-fov-relay seed=47 t=40/160 passed
+  m24-formation-fov-relay seed=47 t=60/160 passed
+  m24-formation-fov-relay seed=47 t=80/160 passed
+  m24-formation-fov-relay seed=47 t=100/160 passed
+  m24-formation-fov-relay seed=47 t=120/160 passed
+  m24-formation-fov-relay seed=47 t=140/160 passed
+  m24-formation-fov-relay seed=47 t=160/160 passed
+FormationB4V46 preflight case 12/32: m24-formation-fov-relay seed=53
+  m24-formation-fov-relay seed=53 t=1/160 passed
+  m24-formation-fov-relay seed=53 t=20/160 passed
+  m24-formation-fov-relay seed=53 t=40/160 passed
+  m24-formation-fov-relay seed=53 t=60/160 passed
+  m24-formation-fov-relay seed=53 t=80/160 passed
+  m24-formation-fov-relay seed=53 t=100/160 passed
+  m24-formation-fov-relay seed=53 t=120/160 passed
+  m24-formation-fov-relay seed=53 t=140/160 passed
+  m24-formation-fov-relay seed=53 t=160/160 passed
+FormationB4V46 preflight case 13/32: m24-formation-fov-crossing seed=41
+  m24-formation-fov-crossing seed=41 t=1/160 passed
+  m24-formation-fov-crossing seed=41 t=20/160 passed
+  m24-formation-fov-crossing seed=41 t=40/160 passed
+  m24-formation-fov-crossing seed=41 t=60/160 passed
+  m24-formation-fov-crossing seed=41 t=80/160 passed
+  m24-formation-fov-crossing seed=41 t=100/160 passed
+  m24-formation-fov-crossing seed=41 t=120/160 passed
+  m24-formation-fov-crossing seed=41 t=140/160 passed
+  m24-formation-fov-crossing seed=41 t=160/160 passed
+FormationB4V46 preflight case 14/32: m24-formation-fov-crossing seed=43
+  m24-formation-fov-crossing seed=43 t=1/160 passed
+  m24-formation-fov-crossing seed=43 t=20/160 passed
+  m24-formation-fov-crossing seed=43 t=40/160 passed
+  m24-formation-fov-crossing seed=43 t=60/160 passed
+  m24-formation-fov-crossing seed=43 t=80/160 passed
+  m24-formation-fov-crossing seed=43 t=100/160 passed
+  m24-formation-fov-crossing seed=43 t=120/160 passed
+  m24-formation-fov-crossing seed=43 t=140/160 passed
+  m24-formation-fov-crossing seed=43 t=160/160 passed
+FormationB4V46 preflight case 15/32: m24-formation-fov-crossing seed=47
+  m24-formation-fov-crossing seed=47 t=1/160 passed
+  m24-formation-fov-crossing seed=47 t=20/160 passed
+  m24-formation-fov-crossing seed=47 t=40/160 passed
+  m24-formation-fov-crossing seed=47 t=60/160 passed
+  m24-formation-fov-crossing seed=47 t=80/160 passed
+  m24-formation-fov-crossing seed=47 t=100/160 passed
+  m24-formation-fov-crossing seed=47 t=120/160 passed
+  m24-formation-fov-crossing seed=47 t=140/160 passed
+  m24-formation-fov-crossing seed=47 t=160/160 passed
+FormationB4V46 preflight case 16/32: m24-formation-fov-crossing seed=53
+  m24-formation-fov-crossing seed=53 t=1/160 passed
+  m24-formation-fov-crossing seed=53 t=20/160 passed
+  m24-formation-fov-crossing seed=53 t=40/160 passed
+  m24-formation-fov-crossing seed=53 t=60/160 passed
+  m24-formation-fov-crossing seed=53 t=80/160 passed
+  m24-formation-fov-crossing seed=53 t=100/160 passed
+  m24-formation-fov-crossing seed=53 t=120/160 passed
+  m24-formation-fov-crossing seed=53 t=140/160 passed
+  m24-formation-fov-crossing seed=53 t=160/160 passed
+FormationB4V46 preflight case 17/32: x36-formation-fov seed=41
+  x36-formation-fov seed=41 t=1/160 passed
+  x36-formation-fov seed=41 t=20/160 passed
+  x36-formation-fov seed=41 t=40/160 passed
+  x36-formation-fov seed=41 t=60/160 passed
+  x36-formation-fov seed=41 t=80/160 passed
+  x36-formation-fov seed=41 t=100/160 passed
+  x36-formation-fov seed=41 t=120/160 passed
+  x36-formation-fov seed=41 t=140/160 passed
+  x36-formation-fov seed=41 t=160/160 passed
+FormationB4V46 preflight case 18/32: x36-formation-fov seed=43
+  x36-formation-fov seed=43 t=1/160 passed
+  x36-formation-fov seed=43 t=20/160 passed
+  x36-formation-fov seed=43 t=40/160 passed
+  x36-formation-fov seed=43 t=60/160 passed
+  x36-formation-fov seed=43 t=80/160 passed
+  x36-formation-fov seed=43 t=100/160 passed
+  x36-formation-fov seed=43 t=120/160 passed
+  x36-formation-fov seed=43 t=140/160 passed
+  x36-formation-fov seed=43 t=160/160 passed
+FormationB4V46 preflight case 19/32: x36-formation-fov seed=47
+  x36-formation-fov seed=47 t=1/160 passed
+  x36-formation-fov seed=47 t=20/160 passed
+  x36-formation-fov seed=47 t=40/160 passed
+  x36-formation-fov seed=47 t=60/160 passed
+  x36-formation-fov seed=47 t=80/160 passed
+  x36-formation-fov seed=47 t=100/160 passed
+  x36-formation-fov seed=47 t=120/160 passed
+  x36-formation-fov seed=47 t=140/160 passed
+  x36-formation-fov seed=47 t=160/160 passed
+FormationB4V46 preflight case 20/32: x36-formation-fov seed=53
+  x36-formation-fov seed=53 t=1/160 passed
+  x36-formation-fov seed=53 t=20/160 passed
+  x36-formation-fov seed=53 t=40/160 passed
+  x36-formation-fov seed=53 t=60/160 passed
+  x36-formation-fov seed=53 t=80/160 passed
+  x36-formation-fov seed=53 t=100/160 passed
+  x36-formation-fov seed=53 t=120/160 passed
+  x36-formation-fov seed=53 t=140/160 passed
+  x36-formation-fov seed=53 t=160/160 passed
+FormationB4V46 preflight case 21/32: x36-formation-fov-convoy seed=41
+  x36-formation-fov-convoy seed=41 t=1/160 passed
+  x36-formation-fov-convoy seed=41 t=20/160 passed
+  x36-formation-fov-convoy seed=41 t=40/160 passed
+  x36-formation-fov-convoy seed=41 t=60/160 passed
+  x36-formation-fov-convoy seed=41 t=80/160 passed
+  x36-formation-fov-convoy seed=41 t=100/160 passed
+  x36-formation-fov-convoy seed=41 t=120/160 passed
+  x36-formation-fov-convoy seed=41 t=140/160 passed
+  x36-formation-fov-convoy seed=41 t=160/160 passed
+FormationB4V46 preflight case 22/32: x36-formation-fov-convoy seed=43
+  x36-formation-fov-convoy seed=43 t=1/160 passed
+  x36-formation-fov-convoy seed=43 t=20/160 passed
+  x36-formation-fov-convoy seed=43 t=40/160 passed
+  x36-formation-fov-convoy seed=43 t=60/160 passed
+  x36-formation-fov-convoy seed=43 t=80/160 passed
+  x36-formation-fov-convoy seed=43 t=100/160 passed
+  x36-formation-fov-convoy seed=43 t=120/160 passed
+  x36-formation-fov-convoy seed=43 t=140/160 passed
+  x36-formation-fov-convoy seed=43 t=160/160 passed
+FormationB4V46 preflight case 23/32: x36-formation-fov-convoy seed=47
+  x36-formation-fov-convoy seed=47 t=1/160 passed
+  x36-formation-fov-convoy seed=47 t=20/160 passed
+  x36-formation-fov-convoy seed=47 t=40/160 passed
+  x36-formation-fov-convoy seed=47 t=60/160 passed
+  x36-formation-fov-convoy seed=47 t=80/160 passed
+  x36-formation-fov-convoy seed=47 t=100/160 passed
+  x36-formation-fov-convoy seed=47 t=120/160 passed
+  x36-formation-fov-convoy seed=47 t=140/160 passed
+  x36-formation-fov-convoy seed=47 t=160/160 passed
+FormationB4V46 preflight case 24/32: x36-formation-fov-convoy seed=53
+  x36-formation-fov-convoy seed=53 t=1/160 passed
+  x36-formation-fov-convoy seed=53 t=20/160 passed
+  x36-formation-fov-convoy seed=53 t=40/160 passed
+  x36-formation-fov-convoy seed=53 t=60/160 passed
+  x36-formation-fov-convoy seed=53 t=80/160 passed
+  x36-formation-fov-convoy seed=53 t=100/160 passed
+  x36-formation-fov-convoy seed=53 t=120/160 passed
+  x36-formation-fov-convoy seed=53 t=140/160 passed
+  x36-formation-fov-convoy seed=53 t=160/160 passed
+FormationB4V46 preflight case 25/32: x36-formation-fov-relay seed=41
+  x36-formation-fov-relay seed=41 t=1/160 passed
+  x36-formation-fov-relay seed=41 t=20/160 passed
+  x36-formation-fov-relay seed=41 t=40/160 passed
+  x36-formation-fov-relay seed=41 t=60/160 passed
+  x36-formation-fov-relay seed=41 t=80/160 passed
+  x36-formation-fov-relay seed=41 t=100/160 passed
+  x36-formation-fov-relay seed=41 t=120/160 passed
+  x36-formation-fov-relay seed=41 t=140/160 passed
+  x36-formation-fov-relay seed=41 t=160/160 passed
+FormationB4V46 preflight case 26/32: x36-formation-fov-relay seed=43
+  x36-formation-fov-relay seed=43 t=1/160 passed
+  x36-formation-fov-relay seed=43 t=20/160 passed
+  x36-formation-fov-relay seed=43 t=40/160 passed
+  x36-formation-fov-relay seed=43 t=60/160 passed
+  x36-formation-fov-relay seed=43 t=80/160 passed
+  x36-formation-fov-relay seed=43 t=100/160 passed
+  x36-formation-fov-relay seed=43 t=120/160 passed
+  x36-formation-fov-relay seed=43 t=140/160 passed
+  x36-formation-fov-relay seed=43 t=160/160 passed
+FormationB4V46 preflight case 27/32: x36-formation-fov-relay seed=47
+  x36-formation-fov-relay seed=47 t=1/160 passed
+  x36-formation-fov-relay seed=47 t=20/160 passed
+  x36-formation-fov-relay seed=47 t=40/160 passed
+  x36-formation-fov-relay seed=47 t=60/160 passed
+  x36-formation-fov-relay seed=47 t=80/160 passed
+  x36-formation-fov-relay seed=47 t=100/160 passed
+  x36-formation-fov-relay seed=47 t=120/160 passed
+  x36-formation-fov-relay seed=47 t=140/160 passed
+  x36-formation-fov-relay seed=47 t=160/160 passed
+FormationB4V46 preflight case 28/32: x36-formation-fov-relay seed=53
+  x36-formation-fov-relay seed=53 t=1/160 passed
+  x36-formation-fov-relay seed=53 t=20/160 passed
+  x36-formation-fov-relay seed=53 t=40/160 passed
+  x36-formation-fov-relay seed=53 t=60/160 passed
+  x36-formation-fov-relay seed=53 t=80/160 passed
+  x36-formation-fov-relay seed=53 t=100/160 passed
+  x36-formation-fov-relay seed=53 t=120/160 passed
+  x36-formation-fov-relay seed=53 t=140/160 passed
+  x36-formation-fov-relay seed=53 t=160/160 passed
+FormationB4V46 preflight case 29/32: x36-formation-fov-crossing seed=41
+  x36-formation-fov-crossing seed=41 t=1/160 passed
+  x36-formation-fov-crossing seed=41 t=20/160 passed
+  x36-formation-fov-crossing seed=41 t=40/160 passed
+  x36-formation-fov-crossing seed=41 t=60/160 passed
+  x36-formation-fov-crossing seed=41 t=80/160 passed
+  x36-formation-fov-crossing seed=41 t=100/160 passed
+  x36-formation-fov-crossing seed=41 t=120/160 passed
+  x36-formation-fov-crossing seed=41 t=140/160 passed
+  x36-formation-fov-crossing seed=41 t=160/160 passed
+FormationB4V46 preflight case 30/32: x36-formation-fov-crossing seed=43
+  x36-formation-fov-crossing seed=43 t=1/160 passed
+  x36-formation-fov-crossing seed=43 t=20/160 passed
+  x36-formation-fov-crossing seed=43 t=40/160 passed
+  x36-formation-fov-crossing seed=43 t=60/160 passed
+  x36-formation-fov-crossing seed=43 t=80/160 passed
+  x36-formation-fov-crossing seed=43 t=100/160 passed
+  x36-formation-fov-crossing seed=43 t=120/160 passed
+  x36-formation-fov-crossing seed=43 t=140/160 passed
+  x36-formation-fov-crossing seed=43 t=160/160 passed
+FormationB4V46 preflight case 31/32: x36-formation-fov-crossing seed=47
+  x36-formation-fov-crossing seed=47 t=1/160 passed
+  x36-formation-fov-crossing seed=47 t=20/160 passed
+  x36-formation-fov-crossing seed=47 t=40/160 passed
+  x36-formation-fov-crossing seed=47 t=60/160 passed
+  x36-formation-fov-crossing seed=47 t=80/160 passed
+  x36-formation-fov-crossing seed=47 t=100/160 passed
+  x36-formation-fov-crossing seed=47 t=120/160 passed
+  x36-formation-fov-crossing seed=47 t=140/160 passed
+  x36-formation-fov-crossing seed=47 t=160/160 passed
+FormationB4V46 preflight case 32/32: x36-formation-fov-crossing seed=53
+  x36-formation-fov-crossing seed=53 t=1/160 passed
+  x36-formation-fov-crossing seed=53 t=20/160 passed
+  x36-formation-fov-crossing seed=53 t=40/160 passed
+  x36-formation-fov-crossing seed=53 t=60/160 passed
+  x36-formation-fov-crossing seed=53 t=80/160 passed
+  x36-formation-fov-crossing seed=53 t=100/160 passed
+  x36-formation-fov-crossing seed=53 t=120/160 passed
+  x36-formation-fov-crossing seed=53 t=140/160 passed
+  x36-formation-fov-crossing seed=53 t=160/160 passed
+FormationB4V46 preflight complete: cases=32 full32=1 sha256=f26e0a96c6df78c32500ed05b1cf7f8a70e9b58ee83b3998181141f465aff42a
