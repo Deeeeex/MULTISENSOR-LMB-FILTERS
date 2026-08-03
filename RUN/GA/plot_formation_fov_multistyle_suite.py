@@ -59,6 +59,28 @@ EXPECTED_PRESETS = [
 ]
 
 
+EXPECTED_SCENE_DIGESTS = {
+    "x36-formation-fov-convoy": (
+        "399ed8ea978df43e15d55489791a9c0e4e11ba99724ea8a760a1f3b68a8177c8"
+    ),
+    "x36-formation-fov-relay": (
+        "7fd7130518b027caaa327b3a8bcf97b7559148d1f4f1c17a1b9ad9640ae7e9a0"
+    ),
+    "x36-formation-fov-crossing": (
+        "69ea8084b1688680765e437f78e8208f1097e2dec80c7e6ff00dcbdb0feea8f0"
+    ),
+    "m24-formation-fov-convoy": (
+        "666def7dbed41c47b9f29e536a369ef24a52077059429e45e5a41852e4071726"
+    ),
+    "m24-formation-fov-relay": (
+        "49005834d31fcc6c729d546e725e79be7ae1c5b542209ea599a944187a31f2a0"
+    ),
+    "m24-formation-fov-crossing": (
+        "3749da4978a5c536c029402b8aa25762f267bee2b9e69a080548657e61a62cc6"
+    ),
+}
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -124,6 +146,10 @@ def load_source(path: Path) -> dict:
             scene["sceneContractSha256"]
         ) != 64:
             raise ValueError("Figure source lacks the frozen scene digest.")
+        if scene["sceneContractSha256"] != EXPECTED_SCENE_DIGESTS[
+            scene["presetName"]
+        ]:
+            raise ValueError("Figure source differs from the registered scene digest.")
 
         is_stress = scene["sceneStyle"] == "orthogonal-crossing"
         expected_formal = not is_stress

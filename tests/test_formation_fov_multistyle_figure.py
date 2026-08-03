@@ -70,6 +70,17 @@ def test_renderer_rejects_within_formation_heading_drift(tmp_path):
         renderer.load_source(forged)
 
 
+def test_renderer_rejects_a_well_formed_but_unregistered_scene_digest(tmp_path):
+    data = json.loads(SOURCE.read_text(encoding="utf-8"))
+    data["scenes"][0]["sceneContractSha256"] = "0" * 64
+    forged = tmp_path / "forged-digest.json"
+    forged.write_text(json.dumps(data), encoding="utf-8")
+
+    renderer = load_renderer_module()
+    with pytest.raises(ValueError, match="registered scene digest"):
+        renderer.load_source(forged)
+
+
 def test_displayed_x36_sensor_nodes_and_fov_outlines_are_inside_frames():
     renderer = load_renderer_module()
     data = renderer.load_source(SOURCE)

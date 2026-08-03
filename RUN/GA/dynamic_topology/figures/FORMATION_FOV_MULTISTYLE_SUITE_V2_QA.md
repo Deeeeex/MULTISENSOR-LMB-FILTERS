@@ -48,7 +48,7 @@ routing or tracking claim.  Crossing remains `stress-only-v5`.
 ## Verification record
 
 - `python -m pytest -q tests/test_formation_fov_multistyle_figure.py`:
-  `4 passed`.
+  `5 passed`.
 - `test_multistyle_formation_scenarios` and
   `test_formation_fov_scenarios`: pass in Octave.
 - The PDF is one page; the SVG contains `29` editable text elements and zero
