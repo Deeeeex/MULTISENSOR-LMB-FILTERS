@@ -25,9 +25,9 @@ end
 
 styleName = lower(strrep(strrep(char(styleName), '_', '-'), ' ', '-'));
 config.sceneStyle = styleName;
-config.sceneGeometryVersion = 'formation-fov-multistyle-v3';
+config.sceneGeometryVersion = 'formation-fov-multistyle-v4';
 config.sceneCalibrationStatus = ...
-    'geometry-recalibration-in-progress-v3';
+    'geometry-recalibration-in-progress-v4';
 config.formalValidationAuthorized = false;
 config.trackingOutcomeAuthorized = false;
 config.enforceDifficultyRequirements = false;
@@ -53,16 +53,19 @@ switch styleName
     case {'convoy', 'parallel-convoy'}
         config.sceneStyle = 'parallel-convoy';
         config.informationFlowStyle = ...
-            'co-moving-local-overlap-and-overtake';
+            'co-moving-offset-corridor-and-overtake';
         config.regionLimits = [-820, 820; -520, 520];
         config.formationHeadingMode = 'motion';
-        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorFovHeadingMode = 'formation-shared-fixed';
+        config.sensorFovFixedHeadingRadByFormation = ...
+            deg2rad(30) * ones(1, config.formationCount);
         config.sensorCenterWaypoints = buildConvoyFormationWaypoints( ...
             config.formationCount);
         config.targetRoutes = buildConvoyTargetRoutes( ...
             config.targetGroupCount);
-        config.targetCrossTrackSpacing = 32;
+        config.targetCrossTrackSpacing = 20;
         config.minimumTargetSeparation = 14;
+        config.minimumSensorTargetSeparation = 30;
         config.blockageWindows = zeros(0, 4);
         config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'convoy');
@@ -116,18 +119,19 @@ end
 end
 
 function waypoints = buildConvoyFormationWaypoints(formationCount)
-if formationCount <= 4
-    lanes = [-100, 100];
-else
-    % Preserve the same 200 m local lane spacing when scale grows from two
-    % to three lanes.  Scale is expressed by adding formations/traffic, not
-    % by silently making X36's local sensing geometry denser.
-    lanes = [-200, 0, 200];
+if mod(formationCount, 2) ~= 0
+    error('Convoy geometry requires two equally sized columns.');
 end
-% The fixed 300 m sensing range must bridge the handoff between a rear
-% east-facing column and the front column.  A wider gap creates a long blind
-% band that is a scene artifact rather than a routing challenge.
-longitudinalColumns = [-175, 175];
+laneCount = formationCount / 2;
+% Sensor and target service corridors are interleaved rather than
+% coincident.  The two lane grids share a 220 m pitch and are shifted by
+% -55/+55 m, giving a 110 m cross-set offset while keeping the complete
+% layout centred.  Adding a lane pair therefore preserves local geometry.
+lanes = centeredValues(laneCount, 220) - 55;
+% A 300 m front/rear-column spacing retains overlapping handoff support
+% under the fixed 300 m sensing range without placing both columns on top
+% of the same target platoon.
+longitudinalColumns = [-150, 150];
 progress = [-170, -85, 0, 95, 210];
 waypoints = cell(1, formationCount);
 for formationIdx = 1:formationCount
@@ -143,32 +147,32 @@ end
 end
 
 function routes = buildConvoyTargetRoutes(targetGroupCount)
-if targetGroupCount <= 4
-    lanes = [-100, 100];
-else
-    lanes = [-200, 0, 200];
+if mod(targetGroupCount, 2) ~= 0
+    error('Convoy geometry requires two target cohorts per lane.');
 end
-% Targets begin just ahead of the rear formations and then overtake the
-% front column.  This removes the long unavoidable rear-sector blackout in
-% v1 while retaining directional handover and gentle lateral maneuvers.
+laneCount = targetGroupCount / 2;
+lanes = centeredValues(laneCount, 220) + 55;
+% Targets travel in neighbouring monitored corridors rather than through
+% the planar sensor rings.  The two same-lane route templates receive an
+% 80 m longitudinal anchor offset; their synchronized runtime spacing also
+% depends on the registered birth/death normalization and is safety-gated
+% from generated trajectories.  A small lateral bend still creates a
+% genuine overtake/handover without manufacturing a platform collision.
 x = [-320, -120, 120, 380, 650];
 routes = cell(1, targetGroupCount);
 cohortOffsets = centeredValues( ...
-    ceil(targetGroupCount / numel(lanes)), 16);
+    ceil(targetGroupCount / numel(lanes)), 80);
 for groupIdx = 1:targetGroupCount
     startLaneIdx = mod(groupIdx - 1, numel(lanes)) + 1;
     cohortIdx = floor((groupIdx - 1) / numel(lanes)) + 1;
     y0 = lanes(startLaneIdx);
-    % Groups that reuse the same lane-change template receive a small fixed
-    % sub-lane offset.  Without it, different labelled groups can nearly
-    % collide even though within-group cross-track spacing is respected.
     if abs(y0) > 1e-12
-        bend = -24 * sign(y0);
+        bend = -8 * sign(y0);
     else
-        bend = 24;
+        bend = 8;
     end
-    y = y0 + cohortOffsets(cohortIdx) + [0, 0, bend, 0, 0];
-    routes{groupIdx} = [x; y];
+    y = y0 + [0, 0, bend, 0, 0];
+    routes{groupIdx} = [x + cohortOffsets(cohortIdx); y];
 end
 end
 

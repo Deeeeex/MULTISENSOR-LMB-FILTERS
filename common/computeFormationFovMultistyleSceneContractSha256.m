@@ -51,7 +51,7 @@ end
 
 contract = struct();
 contract.contractVersion = ...
-    'formation-fov-multistyle-scene-contract-v3';
+    'formation-fov-multistyle-scene-contract-v4';
 for fieldIdx = 1:numel(required)
     fieldName = required{fieldIdx};
     contract.(fieldName) = config.(fieldName);
