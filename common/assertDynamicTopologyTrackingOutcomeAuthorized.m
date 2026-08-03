@@ -135,6 +135,8 @@ if ~authorized
     rejectTrackingOutcome(config);
 end
 authorization.mode = 'registered-scene-outcome';
+authorization.capability = 'tracking-outcome-authorized';
+authorization.stateEstimateOutputAuthorized = true;
 authorization.trackingOutcomeScoringAuthorized = true;
 authorization.groundTruthAccessAuthorized = true;
 authorization.futureOutcomeAccessAuthorized = false;
@@ -220,6 +222,7 @@ authorization.executableSourceCommit = '';
 authorization.executableSourceManifestSha256 = '';
 authorization.executionHeadCommit = '';
 authorization.sourceInputFingerprintSha256 = '';
+authorization.stateEstimateOutputAuthorized = true;
 authorization.trackingOutcomeScoringAuthorized = false;
 authorization.groundTruthAccessAuthorized = false;
 authorization.futureOutcomeAccessAuthorized = false;

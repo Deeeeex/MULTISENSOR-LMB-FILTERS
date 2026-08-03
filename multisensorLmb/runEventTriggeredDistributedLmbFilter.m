@@ -722,6 +722,9 @@ for sensorIdx = 1:numberOfSensors
     end
 end
 diagnostics = summarizeDiagnostics(diagnostics, baseDirectedEdgeMask);
+[stateEstimatesBySensor, diagnostics] = ...
+    applyFormationBackboneBundleM24SourceOutputBoundary( ...
+        stateEstimatesBySensor, diagnostics, executionAuthorization);
 end
 
 function config = resolveTriggerConfig(config, model)
