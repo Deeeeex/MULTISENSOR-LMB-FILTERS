@@ -111,7 +111,20 @@ is one conditional behavior, not a step that must appear in every state.
    attestation, suspension/release state, fallback, posterior/link-use, fusion
    weights, attempted bytes, and rolling-B3 fields.
 6. Reproduce all six traces from a later clean commit before minting a new
-   immutable outcome permit.
+   outcome permit.
+7. Commit the complete executable gate once, attach and push an annotated tag
+   to that exact commit, then add exactly one non-executable release descriptor
+   in its direct child commit and push that exact child to the fixed official
+   branch. The loader verifies the pinned remote URL live and rejects the gate
+   commit by itself, any uncommitted descriptor, an unpublished child, and every
+   later descendant.
+8. Atomically create one fixed annotated claim tag on the pinned remote after
+   all source/cache checks but before the first tracking outcome. Git's remote
+   ref transaction admits only one winner across worktrees, fresh clones, and
+   hosts. A second atomic mirror under `git --git-common-dir` covers all local
+   worktrees. Both records remain after success, failure, interruption, or
+   publication error; a retry requires a separately reviewed permit rather
+   than deleting or reusing either claim.
 
 The source gate publishes a MAT file, a readable report, and a completion
 marker. The marker is written last and binds the SHA-256 hashes of the other
@@ -124,6 +137,23 @@ The same gate hashes every Git-registered repository-local `.m`, `.p`, `.mlx`,
 unregistered executable source, including ignored shadow files. It rechecks
 that manifest before and after every arm, before eligibility, and immediately
 before publishing the completion marker.
+
+The release loader additionally rejects Git replace refs, legacy grafts,
+skip-worktree, assume-unchanged, and other nonordinary index visibility flags.
+It compares the descriptor's current bytes directly with the descriptor-child
+commit blob and compares all six gate executables directly with the tagged gate
+commit blobs using `git hash-object --no-filters` and
+`git --no-replace-objects ls-tree`. Porcelain cleanliness is therefore not the
+trust bridge for the descriptor or executable hashes.
+
+Remote checks reject every configured Git `url.*.insteadOf` or
+`pushInsteadOf` rewrite and any custom `core.hooksPath`. Claim tag creation
+uses `core.hooksPath=/dev/null`; claim push also uses `--no-verify`, so local
+reference-transaction and pre-push hooks cannot run outcome code before the
+remote claim exists. The SSH transport is noninteractive and forces the
+`github.com` hostname and host-key alias. The operating system's SSH binary,
+known-hosts database, identity material, and any privileged network proxy
+remain an explicit machine trust boundary rather than an algorithmic claim.
 
 The clean v2 preflight from commit `57f65d0` reproduced all three states. Its
 MAT SHA-256 is
@@ -138,16 +168,34 @@ future drop-probability pages. The controller did not declare using them, but
 reachability alone invalidates the claimed causal-input proof. No X36 outcome
 was retained. V3 now structurally exposes only current observable inputs, and
 both reference and candidate H=3 fingerprints have been frozen and reproduced
-from a later clean commit. A replacement permit has not yet been minted.
+from a later clean commit. The replacement v3 permit is source-complete but
+remains inert until the tagged-gate commit and its descriptor-only child are
+both published.
 
-The v2 permit and zero-argument exact-two-arm runner are fail-closed and may
-not execute the revoked preflight. A replacement runner may execute
-only one reference-versus-v35 pair per state and writes to the separate
-`x36_outcome/screen` root without overwrite. The aggregate outcome gate remains
-unchanged from M24: at least two of three strict-strong states, median mean
-tracking gain at least 2%, no state below -1%, and at least two positive
-terminal-consensus states. The permit, runner, generic executor, posterior
-safety bank, runtime-fingerprint builder, and observable-context boundary must
-be source-hash-bound and reproduced from a clean commit before the exact X36
-outcome is opened.
-GNN training, X48, reserved seeds, and validation claims remain unauthorized.
+The v3 zero-argument runner may execute only one reference-versus-v35 pair per
+state and writes to the separate `x36_outcome_v3/screen` root without
+overwrite. Its authorization count is consumed by atomically creating the
+fixed annotated claim tag on the pinned remote before
+`runFormationModeOpenedReturnScreen` is called. A common-Git-directory mirror
+then records the same claim across local worktrees. Competing processes and
+fresh clones see the remote ref and fail; a process that crashes after the
+remote creation cannot run again. Claim metadata binds the permit, release
+descriptor, release tag object, global claim tag object, gate and generation
+commits, all three fixed output paths, and the exact 3-by-2 scope. Neither the
+remote ref nor its local mirror is part of rollback cleanup.
+
+The remote claim is treated as irreversible under the repository's normal
+non-force tag policy. Privileged deletion or force-replacement of that tag is
+outside the algorithmic lock model and invalidates the run rather than
+authorizing a retry. The runner live-checks the claim object's tag ID and
+peeled release-commit target before and after every opened state, immediately
+before the completion marker is moved into place, and once again after that
+move; any drift rolls back the outcome artifact set.
+
+The aggregate outcome gate remains unchanged from M24: at least two of three
+strict-strong states, median mean tracking gain at least 2%, no state below
+-1%, and at least two positive terminal-consensus states. The tagged release
+must bind the permit, runner, claim consumer, preflight validator, loader, and
+negative tests by raw SHA-256, while the full manifest also preserves every
+unchanged executable from the formal preflight. GNN training, X48, reserved
+seeds, recovery reruns, and validation claims remain unauthorized.
