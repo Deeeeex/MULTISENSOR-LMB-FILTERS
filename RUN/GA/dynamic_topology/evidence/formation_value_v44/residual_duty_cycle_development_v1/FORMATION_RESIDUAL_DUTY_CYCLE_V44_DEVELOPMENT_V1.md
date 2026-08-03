@@ -1,0 +1,390 @@
+# V44 residual duty-cycle structural screen
+
+- Protocol: `formation-index-equivariant-residual-duty-cycle-v44-development-v1`
+- Protocol SHA-256: `6b26fcec9238df591a6c721229911e9328daf7ad822315539604cdcb7f2a2339`
+- Generation commit: `45cbb894246750dab9c0d5917bb533d0cc0435bd`
+- Result SHA-256: `901340243371dfebdc57d82365d18f281977ab8ec8f39a58c87ac3e6a57f2eee`
+- MAT: `/Users/dex/.config/superpowers/worktrees/MULTISENSOR-LMB-FILTERS/v44-residual-duty-cycle/RUN/GA/dynamic_topology/evidence/formation_value_v44/residual_duty_cycle_development_v1/FORMATION_RESIDUAL_DUTY_CYCLE_V44_DEVELOPMENT_V1.mat`
+- Cases: `32 / 32 registered`
+- Clean source: `1`
+- Post-hoc audit: `0` (runner cannot self-authorize)
+- Recommended candidate: `formation-all-b2-e20-sp`
+
+The screen compares attempted messages required to reach the same exact mean-square contraction target over every cyclic start phase. Equal cycle-average nominal weight is not treated as KLA or output equivalence.
+
+## Candidate summary
+
+| Candidate | min periodic saving | max target-message ratio | M24 median | X36 median | pass |
+|---|---:|---:|---:|---:|:---:|
+| `sync-all-b2-e05-nc` | 25.0% | 1.5000 | 1.5000 | 1.4423 | 0 |
+| `sync-all-b2-e10-mc` | 25.0% | 0.8571 | 0.7500 | 0.7500 | 1 |
+| `sync-all-b2-e20-sp` | 25.0% | 0.7500 | 0.5000 | 0.4423 | 1 |
+| `formation-all-b2-e10-mc` | 25.0% | 0.8750 | 0.8101 | 0.8077 | 1 |
+| `formation-all-b2-e20-sp` | 25.0% | 0.6429 | 0.5000 | 0.4904 | 1 |
+| `sync-all-b3-e15-mc` | 33.3% | 1.0000 | 0.7596 | 0.7115 | 1 |
+| `sync-all-b3-e20-sp` | 33.3% | 0.7500 | 0.5994 | 0.5769 | 1 |
+| `formation-all-b3-e15-mc` | 33.3% | 1.0000 | 0.8333 | 0.7692 | 1 |
+| `formation-all-b3-e20-sp` | 33.3% | 1.0000 | 0.6667 | 0.6282 | 1 |
+| `sync-all-b4-e20-mc` | 37.5% | 0.8750 | 0.7083 | 0.6731 | 1 |
+| `formation-all-b4-e20-mc` | 37.5% | 0.9375 | 0.8073 | 0.7143 | 1 |
+
+## Case-by-candidate results
+
+| Case | Candidate | B | phase | beta | saving | ref H | worst H | worst message ratio | rho at N-1 | peak | contracts |
+|---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|:---:|
+| `m24-formation-fov__seed41__t55` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 4 | 8 | 1.5000 | 0.701057 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.498281 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 4 | 4 | 0.7500 | 0.266102 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.510285 | 36 | 1 |
+| `m24-formation-fov__seed41__t55` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 4 | 3 | 0.5625 | 0.306500 | 36 | 1 |
+| `m24-formation-fov__seed41__t55` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.489633 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 4 | 4 | 0.7500 | 0.381686 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.529849 | 36 | 1 |
+| `m24-formation-fov__seed41__t55` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 4 | 6 | 1.0000 | 0.440111 | 36 | 1 |
+| `m24-formation-fov__seed41__t55` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 4 | 5 | 0.8750 | 0.505963 | 48 | 1 |
+| `m24-formation-fov__seed41__t55` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 4 | 6 | 0.9375 | 0.519315 | 30 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 4 | 8 | 1.5000 | 0.701080 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.498313 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 4 | 4 | 0.7500 | 0.266136 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.510249 | 36 | 1 |
+| `m24-formation-fov__seed43__t55` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 4 | 3 | 0.5625 | 0.306460 | 36 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.489667 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 4 | 4 | 0.7500 | 0.381723 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.529867 | 36 | 1 |
+| `m24-formation-fov__seed43__t55` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 4 | 6 | 1.0000 | 0.440130 | 36 | 1 |
+| `m24-formation-fov__seed43__t55` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 4 | 5 | 0.8750 | 0.505997 | 48 | 1 |
+| `m24-formation-fov__seed43__t55` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 4 | 6 | 0.9375 | 0.519306 | 30 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 4 | 8 | 1.5000 | 0.701082 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.498316 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 4 | 4 | 0.7500 | 0.266136 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.510315 | 36 | 1 |
+| `m24-formation-fov__seed47__t55` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 4 | 3 | 0.5625 | 0.306528 | 36 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.489671 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 4 | 4 | 0.7500 | 0.381727 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.529911 | 36 | 1 |
+| `m24-formation-fov__seed47__t55` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 4 | 6 | 1.0000 | 0.440182 | 36 | 1 |
+| `m24-formation-fov__seed47__t55` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 4 | 5 | 0.8750 | 0.506000 | 48 | 1 |
+| `m24-formation-fov__seed47__t55` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 4 | 6 | 0.9375 | 0.519364 | 30 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 4 | 8 | 1.5000 | 0.700927 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.498097 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 4 | 4 | 0.7500 | 0.265914 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 4 | 4 | 0.7500 | 0.510116 | 36 | 1 |
+| `m24-formation-fov__seed53__t55` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 4 | 3 | 0.5625 | 0.306334 | 36 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.489436 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 4 | 4 | 0.7500 | 0.381472 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 4 | 6 | 1.0000 | 0.529701 | 36 | 1 |
+| `m24-formation-fov__seed53__t55` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 4 | 6 | 1.0000 | 0.439957 | 36 | 1 |
+| `m24-formation-fov__seed53__t55` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 4 | 5 | 0.8750 | 0.505768 | 48 | 1 |
+| `m24-formation-fov__seed53__t55` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 4 | 6 | 0.9375 | 0.519156 | 30 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.902589 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 13 | 0.8333 | 0.820190 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.692649 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 13 | 0.8125 | 0.822531 | 36 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.700871 | 36 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 12 | 0.6667 | 0.816294 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.762675 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.837476 | 36 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.803154 | 36 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.822514 | 48 | 1 |
+| `m24-formation-fov-convoy__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 16 | 0.8333 | 0.845425 | 30 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.901222 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.815163 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.675614 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 14 | 0.8750 | 0.823818 | 36 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.705833 | 36 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 12 | 0.6667 | 0.819330 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.767770 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.842586 | 36 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.811432 | 36 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.826038 | 48 | 1 |
+| `m24-formation-fov-convoy__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 16 | 0.8333 | 0.848749 | 30 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.901267 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.815186 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.674607 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 14 | 0.8750 | 0.825068 | 36 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.710283 | 36 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 12 | 0.6667 | 0.819196 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.767399 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.841666 | 36 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.809667 | 36 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.825905 | 48 | 1 |
+| `m24-formation-fov-convoy__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 16 | 0.8333 | 0.847771 | 30 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.901221 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.815103 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.674470 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 14 | 0.8750 | 0.824994 | 36 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.710173 | 36 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 12 | 0.6667 | 0.819112 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.767292 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.841602 | 36 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.809596 | 36 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.825824 | 48 | 1 |
+| `m24-formation-fov-convoy__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 16 | 0.8333 | 0.847717 | 30 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.902178 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.817861 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.682858 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 13 | 0.8125 | 0.825983 | 36 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.718480 | 36 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 13 | 0.7500 | 0.824014 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.775332 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.832207 | 36 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.790173 | 36 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.819064 | 48 | 1 |
+| `m24-formation-fov-relay__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 15 | 0.7812 | 0.832054 | 30 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.902191 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.817884 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.682898 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 13 | 0.8125 | 0.826006 | 36 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.718511 | 36 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 13 | 0.7500 | 0.824036 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.775359 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.832232 | 36 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.790204 | 36 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.819089 | 48 | 1 |
+| `m24-formation-fov-relay__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 15 | 0.7812 | 0.832075 | 30 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.902175 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.817855 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.682850 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 13 | 0.8125 | 0.825978 | 36 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.718472 | 36 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 13 | 0.7500 | 0.824007 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.775323 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.832200 | 36 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.790162 | 36 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.819058 | 48 | 1 |
+| `m24-formation-fov-relay__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 15 | 0.7812 | 0.832045 | 30 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 12 | 24 | 1.5000 | 0.902131 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 12 | 12 | 0.7500 | 0.817776 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.682720 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 12 | 13 | 0.8125 | 0.825911 | 36 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 12 | 8 | 0.5000 | 0.718376 | 36 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 12 | 13 | 0.7500 | 0.823930 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 12 | 10 | 0.5833 | 0.775227 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 12 | 15 | 0.8333 | 0.832136 | 36 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 12 | 12 | 0.6667 | 0.790090 | 36 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 12 | 13 | 0.7083 | 0.818974 | 48 | 1 |
+| `m24-formation-fov-relay__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 12 | 15 | 0.7812 | 0.831985 | 30 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 13 | 24 | 1.3846 | 0.906370 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.824388 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.689785 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.834057 | 36 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.724234 | 36 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.832206 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.785555 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.838056 | 36 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.800649 | 36 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 13 | 14 | 0.6923 | 0.833179 | 48 | 1 |
+| `m24-formation-fov-crossing__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 13 | 16 | 0.7692 | 0.854988 | 30 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 13 | 24 | 1.3846 | 0.906424 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.824487 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.689954 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.834145 | 36 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.724366 | 36 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.832301 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.785675 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.838134 | 36 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.800738 | 36 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 13 | 14 | 0.6923 | 0.833276 | 48 | 1 |
+| `m24-formation-fov-crossing__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 13 | 16 | 0.7692 | 0.855051 | 30 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 13 | 24 | 1.3846 | 0.906429 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.824497 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.689972 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.834153 | 36 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.724379 | 36 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.832311 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.785689 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.838136 | 36 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.800739 | 36 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 13 | 14 | 0.6923 | 0.833285 | 48 | 1 |
+| `m24-formation-fov-crossing__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 13 | 16 | 0.7692 | 0.855064 | 30 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 13 | 24 | 1.3846 | 0.906275 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.824213 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.689490 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 13 | 14 | 0.8077 | 0.833902 | 36 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 13 | 8 | 0.4615 | 0.724005 | 36 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.832039 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.785344 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 13 | 15 | 0.7692 | 0.837906 | 36 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 13 | 12 | 0.6154 | 0.800476 | 36 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 13 | 14 | 0.6923 | 0.833010 | 48 | 1 |
+| `m24-formation-fov-crossing__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 13 | 16 | 0.7692 | 0.854889 | 30 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 7 | 14 | 1.5000 | 0.763099 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.591177 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.375030 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.598072 | 54 | 1 |
+| `x36-formation-fov__seed41__t50` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.401843 | 54 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.571116 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 7 | 7 | 0.7143 | 0.469031 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.607423 | 48 | 1 |
+| `x36-formation-fov__seed41__t50` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 7 | 8 | 0.7619 | 0.528078 | 48 | 1 |
+| `x36-formation-fov__seed41__t50` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.583924 | 72 | 1 |
+| `x36-formation-fov__seed41__t50` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.601343 | 48 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 7 | 14 | 1.5000 | 0.763205 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.591337 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.375220 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.598198 | 54 | 1 |
+| `x36-formation-fov__seed43__t50` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.401985 | 54 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.571292 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 7 | 7 | 0.7143 | 0.469232 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.607504 | 48 | 1 |
+| `x36-formation-fov__seed43__t50` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 7 | 8 | 0.7619 | 0.528160 | 48 | 1 |
+| `x36-formation-fov__seed43__t50` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.584096 | 72 | 1 |
+| `x36-formation-fov__seed43__t50` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.601456 | 48 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 7 | 14 | 1.5000 | 0.763238 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.591386 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.375276 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.598244 | 54 | 1 |
+| `x36-formation-fov__seed47__t50` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.402032 | 54 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.571349 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 7 | 7 | 0.7143 | 0.469297 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.607569 | 48 | 1 |
+| `x36-formation-fov__seed47__t50` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 7 | 8 | 0.7619 | 0.528229 | 48 | 1 |
+| `x36-formation-fov__seed47__t50` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.584151 | 72 | 1 |
+| `x36-formation-fov__seed47__t50` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.601504 | 48 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 7 | 14 | 1.5000 | 0.763090 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.591164 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.375018 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 7 | 8 | 0.8571 | 0.597994 | 54 | 1 |
+| `x36-formation-fov__seed53__t50` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 7 | 6 | 0.6429 | 0.401750 | 54 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.571098 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 7 | 7 | 0.7143 | 0.469010 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 7 | 9 | 0.8571 | 0.607369 | 48 | 1 |
+| `x36-formation-fov__seed53__t50` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 7 | 8 | 0.7619 | 0.528014 | 48 | 1 |
+| `x36-formation-fov__seed53__t50` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.583908 | 72 | 1 |
+| `x36-formation-fov__seed53__t50` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 7 | 8 | 0.7143 | 0.601253 | 48 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929334 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.866531 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.762090 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.873320 | 54 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.788249 | 54 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.864965 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 21 | 0.5385 | 0.824290 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 24 | 0.6154 | 0.856007 | 48 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 18 | 0.4615 | 0.810693 | 48 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.866626 | 72 | 1 |
+| `x36-formation-fov-convoy__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 24 | 0.5769 | 0.849665 | 48 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929040 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.865344 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.757522 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.874225 | 54 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.791734 | 54 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.868369 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.830153 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 24 | 0.6154 | 0.855268 | 48 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 18 | 0.4615 | 0.809472 | 48 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.866044 | 72 | 1 |
+| `x36-formation-fov-convoy__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 24 | 0.5769 | 0.853277 | 48 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929043 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.865350 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.757531 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.874230 | 54 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.791743 | 54 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.868376 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.830161 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 24 | 0.6154 | 0.855273 | 48 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 18 | 0.4615 | 0.809478 | 48 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.866050 | 72 | 1 |
+| `x36-formation-fov-convoy__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 24 | 0.5769 | 0.853281 | 48 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929010 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.865288 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.757425 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.874177 | 54 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.791666 | 54 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.868315 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.830084 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 32 | 0.8205 | 0.889405 | 48 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 27 | 0.6923 | 0.868085 | 48 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.865987 | 72 | 1 |
+| `x36-formation-fov-convoy__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 36 | 0.8654 | 0.903589 | 48 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929689 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.867079 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.762171 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.875857 | 54 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.796424 | 54 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 28 | 0.7308 | 0.871421 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.835076 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 28 | 0.7179 | 0.872691 | 48 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 23 | 0.5897 | 0.840646 | 48 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.861810 | 72 | 1 |
+| `x36-formation-fov-relay__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 29 | 0.6987 | 0.880473 | 48 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929706 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.867109 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.762225 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.875883 | 54 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.796460 | 54 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 28 | 0.7308 | 0.871449 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.835111 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 28 | 0.7179 | 0.872712 | 48 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 23 | 0.5897 | 0.840665 | 48 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.861844 | 72 | 1 |
+| `x36-formation-fov-relay__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 29 | 0.6987 | 0.880483 | 48 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929720 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.867135 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.762268 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.875906 | 54 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.796496 | 54 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 28 | 0.7308 | 0.871476 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.835147 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 28 | 0.7179 | 0.872736 | 48 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 23 | 0.5897 | 0.840694 | 48 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.861872 | 72 | 1 |
+| `x36-formation-fov-relay__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 29 | 0.6987 | 0.880507 | 48 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.929674 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.867050 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.762122 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.875833 | 54 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 17 | 0.4904 | 0.796388 | 54 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 28 | 0.7308 | 0.871394 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.835042 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 28 | 0.7179 | 0.872662 | 48 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 23 | 0.5897 | 0.840608 | 48 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 26 | 0.6346 | 0.861779 | 72 | 1 |
+| `x36-formation-fov-relay__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 29 | 0.6987 | 0.880445 | 48 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.930297 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.866370 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.754781 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.874435 | 54 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 16 | 0.4615 | 0.785771 | 54 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.872787 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.836252 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 30 | 0.7692 | 0.881022 | 48 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 24 | 0.6154 | 0.853438 | 48 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 29 | 0.7115 | 0.873985 | 72 | 1 |
+| `x36-formation-fov-crossing__seed41__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 30 | 0.7212 | 0.880453 | 48 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.930617 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.867490 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.758705 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.873502 | 54 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 16 | 0.4615 | 0.781955 | 54 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.870251 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 21 | 0.5385 | 0.831878 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 30 | 0.7692 | 0.881145 | 48 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 25 | 0.6410 | 0.853764 | 48 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 29 | 0.7115 | 0.874934 | 72 | 1 |
+| `x36-formation-fov-crossing__seed43__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 30 | 0.7244 | 0.881787 | 48 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 50 | 1.4423 | 0.930488 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 26 | 0.7500 | 0.866930 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 15 | 0.4423 | 0.756141 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.873903 | 54 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 16 | 0.4615 | 0.783524 | 54 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.870719 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.832605 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 30 | 0.7692 | 0.882185 | 48 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 25 | 0.6410 | 0.855414 | 48 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 29 | 0.7115 | 0.872869 | 72 | 1 |
+| `x36-formation-fov-crossing__seed47__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 30 | 0.7244 | 0.881850 | 48 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b2-e05-nc` | 2 | synchronized | 0.05 | 25.0% | 26 | 52 | 1.5000 | 0.931389 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b2-e10-mc` | 2 | synchronized | 0.10 | 25.0% | 26 | 27 | 0.7885 | 0.870429 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b2-e20-sp` | 2 | synchronized | 0.20 | 25.0% | 26 | 16 | 0.4615 | 0.768872 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `formation-all-b2-e10-mc` | 2 | formation-staggered | 0.10 | 25.0% | 26 | 28 | 0.8077 | 0.873167 | 54 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `formation-all-b2-e20-sp` | 2 | formation-staggered | 0.20 | 25.0% | 26 | 16 | 0.4615 | 0.779851 | 54 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b3-e15-mc` | 3 | synchronized | 0.15 | 33.3% | 26 | 27 | 0.6923 | 0.867633 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b3-e20-sp` | 3 | synchronized | 0.20 | 33.3% | 26 | 22 | 0.5769 | 0.827302 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `formation-all-b3-e15-mc` | 3 | formation-staggered | 0.15 | 33.3% | 26 | 31 | 0.7949 | 0.884513 | 48 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `formation-all-b3-e20-sp` | 3 | formation-staggered | 0.20 | 33.3% | 26 | 25 | 0.6410 | 0.859311 | 48 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `sync-all-b4-e20-mc` | 4 | synchronized | 0.20 | 37.5% | 26 | 29 | 0.7115 | 0.869727 | 72 | 1 |
+| `x36-formation-fov-crossing__seed53__t45` | `formation-all-b4-e20-mc` | 4 | formation-staggered | 0.20 | 37.5% | 26 | 30 | 0.7212 | 0.880649 | 48 | 1 |
+
+## Claim boundary
+
+This is development-only structural evidence under the frozen current reliability page and independent delivery model. Runtime UID integration, posterior disturbance, paired tracking, delivered bytes, and validation claims remain unauthorized.
