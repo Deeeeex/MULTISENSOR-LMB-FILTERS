@@ -7,7 +7,7 @@ function result = ...
 if nargin < 1 || isempty(outputDirectory)
     outputDirectory = fullfile('RUN', 'GA', 'dynamic_topology', ...
         'evidence', 'formation_value_v41', ...
-        'window_contraction_development_v1');
+        'window_contraction_development_v2');
 end
 if nargin < 2 || isempty(options)
     options = struct();
@@ -25,9 +25,9 @@ requireCleanGit = logical(getField(options, 'requireCleanGit', true));
 validateInputs(outputDirectory, presets, seeds, requireCleanGit);
 
 matPath = fullfile(outputDirectory, ...
-    'FORMATION_RELIABLE_KLA_WINDOW_CONTRACTION_V41_DEVELOPMENT_V1.mat');
+    'FORMATION_RELIABLE_KLA_WINDOW_CONTRACTION_V41_DEVELOPMENT_V2.mat');
 reportPath = fullfile(outputDirectory, ...
-    'FORMATION_RELIABLE_KLA_WINDOW_CONTRACTION_V41_DEVELOPMENT_V1.md');
+    'FORMATION_RELIABLE_KLA_WINDOW_CONTRACTION_V41_DEVELOPMENT_V2.md');
 if exist(matPath, 'file') || exist(reportPath, 'file')
     error('FormationKlaWindowProbeRunner:OutputExists', ...
         'The v41 development output is non-overwriting.');
@@ -62,7 +62,7 @@ end
 
 result = struct();
 result.contractVersion = ...
-    'formation-reliable-kla-window-contraction-development-result-v1';
+    'formation-reliable-kla-window-contraction-development-result-v2';
 result.protocolId = protocol.id;
 result.protocolCanonicalSha256 = protocol.canonicalSha256;
 result.generationGitCommit = gitCommit;
@@ -81,6 +81,8 @@ result.realizedDeliveryUniformsUsed = false;
 result.fullPlannedSensorGeometryMaterialized = true;
 result.fullPlannedLinkProbabilityScheduleMaterialized = true;
 result.formalRuntimeObservableBoundaryPassed = false;
+result.compactReconstructableArtifact = true;
+result.fullMatrixPayloadStored = false;
 result.developmentEvidenceOnly = true;
 result.m24TrackingAuthorized = false;
 result.x36TrackingAuthorized = false;
@@ -123,7 +125,13 @@ context.commConfig = struct( ...
 context.triggerConfig = buildMixtureAwareKlaReferenceConfig();
 context.previousAdjacencyHistory = ...
     buildReferenceHistory(context, nodeCount);
-probe = buildFormationReliableKlaWindowContractionRouteProbe(context);
+runtimeSemantics = ...
+    validateReliableKlaMixingRuntimeSemantics(context.triggerConfig);
+probe = buildFormationReliableKlaWindowContractionRouteProbe( ...
+    context, struct( ...
+        'candidateFormationIds', zeros(1, 0), ...
+        'missingNeighborWeightModes', {{ ...
+            runtimeSemantics.missingNeighborWeightMode}}));
 adaptiveProbe = ...
     buildFormationReliableKlaAdaptiveWindowRouteProbe(context);
 
@@ -145,14 +153,86 @@ value.nodeCount = nodeCount;
 value.formationCount = config.formationCount;
 value.inputCanonicalSha256 = ...
     computeCanonicalValueSha256(inputPayload);
-value.probe = probe;
-value.adaptiveProbe = adaptiveProbe;
+value.probe = compactRouteProbe(probe);
+value.adaptiveProbe = compactAdaptiveProbe(adaptiveProbe);
 value.groundTruthGeneratorCalled = false;
 value.targetTrajectoryGeneratorCalled = false;
 value.measurementGeneratorCalled = false;
 value.fullPlannedSensorGeometryMaterialized = true;
 value.fullPlannedLinkProbabilityScheduleMaterialized = true;
 value.developmentEvidenceOnly = true;
+end
+
+function compact = compactAdaptiveProbe(full)
+compact = full;
+compact.referenceHorizonProfile.maximumWindowCertificate = ...
+    compactMeanSquareCertificate(full.referenceHorizonProfile. ...
+        maximumWindowCertificate);
+compact.routeProbe = compactRouteProbe(full.routeProbe);
+end
+
+function compact = compactRouteProbe(full)
+compact = full;
+[compact.actions.routeCanonicalSha256] = deal('');
+for actionIdx = 1:numel(compact.actions)
+    action = compact.actions(actionIdx);
+    if action.available
+        action.routeCanonicalSha256 = computeCanonicalValueSha256( ...
+            struct('adjacency', action.adjacency, ...
+                'fusionWeights', action.fusionWeights));
+    else
+        action.routeCanonicalSha256 = '';
+    end
+    for modeIdx = 1:numel(action.certificates)
+        if ~isempty(action.certificates{modeIdx})
+            action.certificates{modeIdx} = ...
+                compactEventCertificate(action.certificates{modeIdx});
+        end
+    end
+    for modeIdx = 1:numel(action.meanSquareCertificates)
+        if ~isempty(action.meanSquareCertificates{modeIdx})
+            action.meanSquareCertificates{modeIdx} = ...
+                compactMeanSquareCertificate( ...
+                    action.meanSquareCertificates{modeIdx});
+        end
+    end
+    compact.actions(actionIdx) = action;
+end
+compact.compactReconstructableArtifact = true;
+compact.fullMatrixPayloadStored = false;
+end
+
+function compact = compactEventCertificate(full)
+heavyFields = { ...
+    'requiredDeliveryMask', 'eventProductLowerBound', ...
+    'allDeliveredMixingProduct', 'allDeliveredDobrushinDetails', ...
+    'meanEffectiveMixingSequence', 'meanEffectiveMixingProduct', ...
+    'meanMixingDobrushinDetails'};
+compact = removeFieldsIfPresent(full, heavyFields);
+compact.compactReconstructableArtifact = true;
+compact.fullMatrixPayloadStored = false;
+end
+
+function compact = compactMeanSquareCertificate(full)
+heavyFields = { ...
+    'expectedCenteredQuadraticForm', ...
+    'centeredExpectedQuadraticForm', ...
+    'backwardQuadraticSequence', ...
+    'meanEffectiveMixingSequence', ...
+    'meanEffectiveMixingProduct', ...
+    'allDeliveredMixingProduct', ...
+    'pageMomentDetails'};
+compact = removeFieldsIfPresent(full, heavyFields);
+compact.compactReconstructableArtifact = true;
+compact.fullMatrixPayloadStored = false;
+end
+
+function structure = removeFieldsIfPresent(structure, names)
+for nameIdx = 1:numel(names)
+    if isfield(structure, names{nameIdx})
+        structure = rmfield(structure, names{nameIdx});
+    end
+end
 end
 
 function history = buildReferenceHistory(context, nodeCount)

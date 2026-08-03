@@ -304,6 +304,13 @@ registered mission plan without target, measurement, truth or realized link-
 uniform access.  Formal tracking remains sealed until that manifest and a
 posterior-disturbance protocol both pass.
 
+The stored development artifact is compact and reconstructable.  It retains
+route pages, route hashes, scalar certificate results and suffix disturbance
+coefficients, while omitting large quadratic sequences and page-moment
+arrays that can be regenerated from the recorded clean commit, protocol,
+preset and seed.  This keeps the evidence package reviewable without placing
+duplicated tens-of-megabytes numerical intermediates in Git.
+
 ## Current evidence boundary
 
 V41 establishes an implementation-checked structural theorem and a
