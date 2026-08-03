@@ -1,6 +1,15 @@
 function validation = validateDynamicTopologyScenario( ...
-    config, sensorTrajectories, targetTrajectories, graphData)
+    config, sensorTrajectories, targetTrajectories, graphData, options)
 % VALIDATEDYNAMICTOPOLOGYSCENARIO Fail closed on invalid experiment scenes.
+
+if nargin < 5 || isempty(options)
+    options = struct();
+end
+throwOnInvalid = getField(options, 'throwOnInvalid', true);
+if ~islogical(throwOnInvalid) || ~isscalar(throwOnInvalid)
+    error('DynamicTopologyScenario:InvalidValidationOption', ...
+        'throwOnInvalid must be a scalar logical value.');
+end
 
 sensorCount = config.numberOfSensors;
 timeCount = config.simulationLength;
@@ -150,7 +159,7 @@ validation.candidateViolationCount = candidateViolationCount;
 validation.targetGroupHandoverCounts = handoverCounts;
 validation.difficulty = difficulty;
 
-if ~validation.isValid
+if ~validation.isValid && throwOnInvalid
     error('Dynamic-topology scenario validation failed: %s', ...
         strjoin(hardFailures, ', '));
 end

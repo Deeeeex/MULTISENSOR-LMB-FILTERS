@@ -25,9 +25,9 @@ end
 
 styleName = lower(strrep(strrep(char(styleName), '_', '-'), ' ', '-'));
 config.sceneStyle = styleName;
-config.sceneGeometryVersion = 'formation-fov-multistyle-v4';
+config.sceneGeometryVersion = 'formation-fov-multistyle-v5';
 config.sceneCalibrationStatus = ...
-    'geometry-recalibration-in-progress-v4';
+    'stress-only-v5';
 config.formalValidationAuthorized = false;
 config.trackingOutcomeAuthorized = false;
 config.enforceDifficultyRequirements = false;
@@ -70,6 +70,12 @@ switch styleName
         config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'convoy');
         config.focusWindowName = 'convoy-overtake-and-link-blockage';
+        config.sceneCalibrationStatus = ...
+            'held-out-geometry-gate-frozen-v5';
+        config.formalValidationAuthorized = true;
+        config.enforceDifficultyRequirements = true;
+        config.difficultyRequirements = ...
+            getFormationFovMultistyleAbsoluteDifficultyRequirements(config);
     case {'crossing', 'orthogonal-crossing'}
         config.sceneStyle = 'orthogonal-crossing';
         config.informationFlowStyle = ...
@@ -113,6 +119,12 @@ switch styleName
         config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'relay');
         config.focusWindowName = 'corridor-relay-and-link-blockage';
+        config.sceneCalibrationStatus = ...
+            'held-out-geometry-gate-frozen-v5';
+        config.formalValidationAuthorized = true;
+        config.enforceDifficultyRequirements = true;
+        config.difficultyRequirements = ...
+            getFormationFovMultistyleAbsoluteDifficultyRequirements(config);
     otherwise
         error('Unknown formation-FoV scene style: %s', styleName);
 end

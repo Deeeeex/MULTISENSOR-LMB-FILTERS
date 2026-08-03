@@ -1,6 +1,6 @@
 function expected = ...
     getExpectedFormationFovMultistyleSceneContractSha256(config)
-% GETEXPECTEDFORMATIONFOVMULTISTYLESCENECONTRACTSHA256 Registered v4 scenes.
+% GETEXPECTEDFORMATIONFOVMULTISTYLESCENECONTRACTSHA256 Registered v5 scenes.
 
 if ~isstruct(config) || ~isscalar(config) || ...
         ~isfield(config, 'numberOfSensors') || ...
@@ -12,22 +12,22 @@ key = sprintf('%d:%s', config.numberOfSensors, config.sceneStyle);
 switch key
     case '24:parallel-convoy'
         expected = ...
-            '2ac1026f99d2d9048cd63b0d5be0ecd475e6a863f414826c6a2fb46cc8fc9181';
+            '666def7dbed41c47b9f29e536a369ef24a52077059429e45e5a41852e4071726';
     case '24:orthogonal-crossing'
         expected = ...
-            '9f4331e492f044aa566be6f8b3adc1c4cb99e207aa9a1f6a72aaab76bd4770b0';
+            '3749da4978a5c536c029402b8aa25762f267bee2b9e69a080548657e61a62cc6';
     case '24:linear-relay'
         expected = ...
-            '4f1f9173e8208f6b8f792442e9d6610e98f8ad992957c4c08671d1ef6deb4e76';
+            '49005834d31fcc6c729d546e725e79be7ae1c5b542209ea599a944187a31f2a0';
     case '36:parallel-convoy'
         expected = ...
-            '7b529e5554dfc9581aa5b715a3a81fe6b86266a2966015b258841d2e50447bc7';
+            '399ed8ea978df43e15d55489791a9c0e4e11ba99724ea8a760a1f3b68a8177c8';
     case '36:orthogonal-crossing'
         expected = ...
-            'df71200a4e5e62c3ee00e7cd0b1864bed1d99db7a0c349d8771b9943b9e7a3ec';
+            '69ea8084b1688680765e437f78e8208f1097e2dec80c7e6ff00dcbdb0feea8f0';
     case '36:linear-relay'
         expected = ...
-            'b00829d37cd78e5f1e4a2050b8e80c0154864a05f2dc01e89d8b50dc5f45d8c3';
+            '7fd7130518b027caaa327b3a8bcf97b7559148d1f4f1c17a1b9ad9640ae7e9a0';
     otherwise
         error('FormationFovSceneContract:UnknownScene', ...
             'Unregistered multistyle scene contract: %s.', key);

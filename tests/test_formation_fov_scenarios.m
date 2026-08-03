@@ -268,4 +268,8 @@ catch errorInfo
         errorInfo.message, expectedToken)); %#ok<STREMP>
 end
 assert(failedClosed);
+validation = validateDynamicTopologyScenario( ...
+    config, sensors, targets, graphs, struct('throwOnInvalid', false));
+assert(~validation.isValid);
+assert(any(strcmp(validation.hardFailures, expectedToken)));
 end
