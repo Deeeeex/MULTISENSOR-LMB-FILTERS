@@ -1,0 +1,23 @@
+function permit = ...
+    loadFormationBackboneBundleM24SourceCasePermit(permitId)
+% LOADFORMATIONBACKBONEBUNDLEM24SOURCECASEPERMIT Rebuild trusted permit.
+
+if ~ischar(permitId) || isempty(permitId)
+    error('FormationBundleSourcePermit:UnknownPermit', ...
+        'A registered source permit ID is required.');
+end
+protocol = getFormationBackboneBundleM24DevelopmentProtocol();
+for caseIdx = 1:numel(protocol.cases)
+    candidateId = sprintf('%s:%s:%s', ...
+        protocol.id, protocol.cases(caseIdx).id, ...
+        protocol.sourceArm.id);
+    if strcmp(candidateId, permitId)
+        permit = getFormationBackboneBundleM24SourceCasePermit( ...
+            protocol.cases(caseIdx).presetName, ...
+            protocol.cases(caseIdx).seed);
+        return;
+    end
+end
+error('FormationBundleSourcePermit:UnknownPermit', ...
+    'The source permit ID is not present in the trusted registry.');
+end
