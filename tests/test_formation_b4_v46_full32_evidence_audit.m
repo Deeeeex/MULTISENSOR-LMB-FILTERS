@@ -1,0 +1,30 @@
+function test_formation_b4_v46_full32_evidence_audit()
+audit = auditFormationB4V46Full32Evidence();
+assert(audit.passed);
+assert(audit.postHocAuditPassed);
+assert(audit.full32StructuralAdvancePassed);
+assert(audit.artifactFilesShaPinned);
+assert(audit.resultCanonicalShaRecomputed);
+assert(audit.runMetadataPassed && audit.protocolBindingPassed);
+assert(audit.generationCommitPinned);
+assert(audit.generationSourcesStillPinned);
+assert(audit.artifactCommitBindingPassed);
+assert(audit.artifactsAbsentAtGenerationCommit);
+assert(audit.caseAudit.passed);
+assert(audit.caseAudit.caseCount == 32);
+assert(audit.caseAudit.totalPageCount == 5120);
+assert(audit.caseAudit.rollingWindowCount == 5024);
+assert(audit.caseAudit.alignedCycleCount == 1280);
+assert(audit.caseAudit.repairCaseCount == 4);
+assert(audit.caseAudit.repairPageCount == 14);
+assert(audit.caseAudit.allFourStepDobrushinExactlyOne);
+assert(audit.caseAudit.centeredSpectralAboveOneWindowCount == 392);
+assert(audit.caseAudit.maximumProjectionWorkUnitCount == 1626);
+assert(audit.reportIdentityMatched && audit.logIdentityMatched);
+assert(audit.independentAuditCommitted);
+assert(audit.auditorAbsentAtFreezeCommit);
+assert(audit.auditSourceClean);
+assert(~audit.trackingAdvancePassed && ~audit.validationClaimAllowed);
+assert(numel(audit.canonicalSha256) == 64);
+fprintf('PASS: V46 committed full32 evidence audit test\n');
+end
