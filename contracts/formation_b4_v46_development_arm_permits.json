@@ -1,0 +1,8 @@
+{
+  "contractVersion": "formation-b4-v46-development-arm-permit-activation-v1",
+  "activation": false,
+  "executionSurfaceCommit": "",
+  "executionSurfaceManifestSha256": "",
+  "permitCount": 0,
+  "permits": []
+}

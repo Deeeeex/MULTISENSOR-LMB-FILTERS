@@ -21,6 +21,13 @@ if ~isstruct(executionContext) || ~isscalar(executionContext)
         'The dynamic-topology execution context is malformed.');
 end
 if ~isempty(fieldnames(executionContext))
+    if isFormationB4V46DevelopmentExecutionContext(executionContext)
+        assertFormationB4V46DevelopmentCriticalFunctionPaths();
+        authorization = ...
+            validateFormationB4V46DevelopmentArmExecution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     assertFormationBackboneBundleM24CriticalFunctionPaths();
     if (isfield(executionContext, 'action') && ...
             strcmp(executionContext.action, ...
@@ -147,6 +154,15 @@ authorization.trackingOutcomeScoringAuthorized = true;
 authorization.groundTruthAccessAuthorized = true;
 authorization.futureOutcomeAccessAuthorized = false;
 authorization.validationClaimAllowed = false;
+end
+
+function detected = ...
+    isFormationB4V46DevelopmentExecutionContext(executionContext)
+detected = isstruct(executionContext) && isscalar(executionContext) && ...
+    isfield(executionContext, 'contractVersion') && ...
+    ischar(executionContext.contractVersion) && ...
+    strcmp(executionContext.contractVersion, ...
+        'formation-b4-v46-development-arm-execution-context-v1');
 end
 
 function detected = isFormationB4V46SealedTrace(model, runtimeRequest)
