@@ -105,17 +105,27 @@ an aggregate.
 
 The evidence and authorization objects form a one-way dependency graph:
 
-`structural protocol -> core source registry -> source/runtime fingerprints -> non-authorizing freeze registry -> phase-specific permit -> filter execution`.
+`structural protocol -> core source registry -> source/runtime fingerprints -> offline source-provenance registry`.
+
+The execution branch is separate:
+
+`core case + independently accepted runtime-v3 case entry -> phase-specific permit -> filter execution`.
 
 No object may point backward in this chain.  In particular, fingerprints do
 not contain a freeze-registry hash or permit handle, and the freeze builder
 cannot authorize its own output.  The complete 40-case discovery is first
 published as a non-authorizing artifact from a clean, stable commit.  A later
-independent commit may hard-code and audit its hashes in a freeze registry,
-which must still declare filter execution and tracking scoring false.
+independent commit may hard-code and audit its hashes in an offline provenance
+registry, which must still declare filter execution and tracking scoring false.
+Because that registry commits to full source and source-envelope hashes, it is
+not eligible as a permit dependency.  The execution authority must be a
+separate accepted case entry containing only the core case identity and the
+runtime-v3 projection hash.  Neither the complete source fingerprint, source
+envelope, discovery-record hash, discovery hash, nor offline-registry hash may
+appear in an execution context or permit.
 
 Execution is then split into two permits.  The development permit contains
-only the eight seed-1009 cases and the two frozen arms.  A separate
+only the eight seed-1009 runtime entries and the two frozen arms.  A separate
 confirmation permit does not exist unless the development evidence and the
 predeclared advance decision are frozen first.  Registering all forty source
 fingerprints therefore does not open the 32 confirmation tracking outcomes.
