@@ -165,12 +165,12 @@ The eight crossing pairs are reported as a separate stress matrix.
 
 ## Frozen outcome metrics
 
-Each case stores the complete per-sensor, per-time extended-OSPA array and the
-complete consensus series, then derives these summaries:
+Each case stores the complete per-sensor, per-time Euclidean OSPA (E-OSPA)
+array and the complete consensus series, then derives these summaries:
 
-- full-horizon mean extended OSPA;
-- focus-window mean extended OSPA using the registered scene window;
-- worst-sensor full-horizon mean extended OSPA;
+- full-horizon mean E-OSPA;
+- focus-window mean E-OSPA using the registered scene window;
+- worst-sensor full-horizon mean E-OSPA;
 - mean absolute cardinality error;
 - mean and terminal inter-sensor OSPA disagreement;
 - attempted and delivered message counts;
@@ -189,6 +189,15 @@ Both signed changes and raw arm values are retained.  No case may be removed
 because its reference score is poor, its candidate score is unfavorable, or
 its projection repairs more pages than expected.
 
+`E` here means Euclidean, not extended.  The implementation calls `ospa.m`
+with the registered Euclidean cutoff and order and retains the first (total)
+OSPA component.  The evaluation object is reconstructed separately after the
+filter runtime audit and contains only the frozen OSPA parameters and focus
+window needed for scoring.  It is never passed into the filter or topology
+policy.  The sanitized runtime model deliberately omits OSPA parameters,
+ground truth, and every derived metric; authorized state estimates and truth
+are joined only inside the post-filter scorer.
+
 ## Development advance rule
 
 The seed-1009 sentinel advances only if all eight pairs complete and all runtime
@@ -196,10 +205,10 @@ audits pass.  For the six primary pairs, the following fixed thresholds apply:
 
 - exact attempted-message saving: 37.5%;
 - attempted-byte saving: at least 20% in every pair and at least 30% median;
-- full-horizon mean extended-OSPA increase: at most 5% in every pair and at
+- full-horizon mean E-OSPA increase: at most 5% in every pair and at
   most 2% median;
-- focus-window mean extended-OSPA increase: at most 5% in every pair;
-- worst-sensor extended-OSPA increase: at most 10% in every pair; and
+- focus-window mean E-OSPA increase: at most 5% in every pair;
+- worst-sensor E-OSPA increase: at most 10% in every pair; and
 - mean consensus-OSPA increase: at most 10% in every pair.
 
 These are development non-inferiority margins, not statistical validation.
