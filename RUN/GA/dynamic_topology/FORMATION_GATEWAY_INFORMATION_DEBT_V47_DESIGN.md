@@ -174,3 +174,28 @@ four-step simulated policy window, both scales use exactly \(5N\) messages,
 preserve a mature strongly connected formation union, and avoid fallback.
 These tests establish implementation feasibility only.  They do not yet show
 tracking or consensus improvement.
+
+An adversarial runtime review subsequently closed one evidence-verification
+gap: a callback could previously replace the reported service horizon and
+re-hash a self-consistent schedule.  The filter now independently replays the
+registered projection, V43 reference construction, and V47 scheduler from the
+raw callback context before accepting an action.  A coherent horizon-forgery
+regression is rejected.
+
+The same review identified a method-level limitation that is not repaired by
+the stronger verifier.  V47 ranks edges using all sensors' current posterior
+summaries and the global delivery ledger, but its 37.5% number counts only
+posterior messages.  Without an explicit centralized controller assumption or
+a separately implemented and charged control plane, those inputs are not
+available network-wide at zero cost.  Moreover, the first eight-step M24
+development-only structural diagnostic gives a worse post-hoc fixed-route
+mean-square factor than synchronized B4 (`0.814672` versus `0.784350`) at the
+same 240-message budget.  This diagnostic is not a closed-loop tracking score,
+but it supplies no reason to pay the missing coordination cost.
+
+V47 is therefore retained as a reproducible negative development result and
+must not proceed to a full M24/X36 tracking matrix.  A successor may reuse the
+independent evidence replay and gateway-service invariants only if it either
+(i) makes its schedule jointly reproducible from genuinely common information,
+or (ii) implements, models, and charges every compact-summary, acknowledgment,
+and schedule-control transmission.

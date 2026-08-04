@@ -155,6 +155,7 @@ payload.trackingOutcomeScored = false;
 payload.validationClaimAllowed = false;
 payload.developmentEvidenceOnly = true;
 details = payload;
+details.scheduleCertificate = payload;
 details.fusionWeightMatrix = fusionWeights;
 details.referenceAdjacency = referenceAdjacency;
 details.dominantAdjacency = dominant;
