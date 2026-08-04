@@ -146,18 +146,14 @@ that ceiling excludes nonzero control traffic.  The all-receiver phase vector
 is rejected as the primary runtime mechanism.  No tracking or communication-
 saving claim is opened by these development results.
 
-## Successor direction
+## Successor direction (superseded by V49 finding)
 
-The next structural screen keeps synchronized B4 as the default and changes
-only a small subset of cross-formation residual traffic.  At a residual burst,
-all local residuals and one mandatory directed formation cycle remain in
-place.  Only edges on the opposite cross-formation cycle may be delayed by one
-step, and the action must preserve the exact four-step residual-opportunity
-budget.  This is intended to retain the strong synchronized mixing event while
-testing the protection-and-staggered-recovery timing signal observed in V35
-and V37.  The first screen is graph-only and enumerative; posterior-based local
-bids and their charged commit protocol remain closed until both M24 and X36
-show material structural headroom.
+The first V49 screen falsified one-step defer as the main mechanism: its
+incremental gain is only 0%--0.22%.  It also revealed that non-radial V46 routes
+are usually bidirectional trees even though the current physical formation
+graph contains feasible cycles.  The successor is therefore route-only causal
+feasible-cycle completion with an exact V46 fallback.  The tree-to-cycle route
+gain and any later timing ablation must remain separate interventions.
 
 ## Development gates
 
