@@ -65,6 +65,11 @@ if registry.executionSurfaceFrozen
     assert(~authorization.trackingOutcomeScoringAuthorized);
     assert(~authorization.groundTruthAccessAuthorized);
     assert(~authorization.validationClaimAllowed);
+    truthLeakedModel = runtime.model;
+    truthLeakedModel.groundTruth = struct('forbidden', true);
+    assertErrorId(@() assertDynamicTopologyTrackingOutcomeAuthorized( ...
+        truthLeakedModel, context, request), ...
+        'FormationB4V46DevelopmentPermit:RuntimeModelDrift');
 else
     armId = registry.orderedArmIds{1};
     triggerConfig = buildFormationB4V46FixedTriggerConfig( ...
