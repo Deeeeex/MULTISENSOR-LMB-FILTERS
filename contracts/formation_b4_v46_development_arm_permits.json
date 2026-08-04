@@ -1,8 +1,25 @@
 {
   "contractVersion": "formation-b4-v46-development-arm-permit-activation-v1",
-  "activation": false,
-  "executionSurfaceCommit": "",
-  "executionSurfaceManifestSha256": "",
-  "permitCount": 0,
-  "permits": []
+  "activation": true,
+  "executionSurfaceCommit": "0a3beeb899f2d738f6f11165f489f33a054fb5db",
+  "executionSurfaceManifestSha256": "02b62ab7df9cfa17941a354e4ed109861fb9931e8e2d48f8bbc43d39cb0ff242",
+  "permitCount": 16,
+  "permits": [
+    {"caseOrdinal": 1, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 1, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 6, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 6, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 11, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 11, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 16, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 16, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 21, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 21, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 26, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 26, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 31, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 31, "armId": "v46-repaired-sync-all-b4-e20-mc"},
+    {"caseOrdinal": 36, "armId": "v46-repaired-reference-a70-e05"},
+    {"caseOrdinal": 36, "armId": "v46-repaired-sync-all-b4-e20-mc"}
+  ]
 }
