@@ -2,9 +2,10 @@
 
 ## Decision
 
-Advance the route-only feasible-cycle completion method to a time-varying
-structural replay.  Do not advance one-step defer, tracking evaluation, or
-communication-saving claims yet.
+The seed-41 focus-window time-varying structural replay passes.  Advance the
+route-only feasible-cycle completion method to an all-B4-window structural
+replay.  Do not advance one-step defer, tracking evaluation, or communication-
+saving claims yet.
 
 The main finding is not that residual traffic should be spread across phases.
 It is that V46's minimum-edit projection often leaves the formation layer as a
@@ -57,6 +58,37 @@ For the non-radial MST baseline, cycle completion changes message composition:
 Therefore equal message count must not be reported as equal byte cost until
 posterior payloads and route/control traffic are measured.
 
+## Seed-41 focus-window time-varying replay
+
+The policy selects a route from the completed burst page only.  The posthoc
+audit then uses the actual dominant route and actual link-loss probabilities
+on each of the four executed pages.  The candidate cycle replaces only the
+burst-page residual layer, exactly as synchronized B4 requires; future pages
+are never exposed to the selector.
+
+| Scale | Style | Snapshot gain | Actual four-page gain | Action |
+|:--|:--|--:|--:|:--|
+| M24 | radial | 0.000% | 0.000% | V46 fallback |
+| M24 | convoy | 7.739% | 7.739% | cycle |
+| M24 | relay | 8.506% | 8.506% | cycle |
+| M24 | crossing | 6.435% | 6.435% | cycle |
+| X36 | radial | 0.000% | 0.000% | V46 fallback |
+| X36 | convoy | 3.552% | 3.552% | cycle |
+| X36 | relay | 3.684% | 3.684% | cycle |
+| X36 | crossing | 3.368% | 3.368% | cycle |
+
+Six of eight windows select a cycle, all six improve the actual four-page
+factor, and neither fallback window is worse than V46.  The result hash after
+fixing first-window churn accounting is
+`4c725453448ddc4e3313a62900c4f5c4b8c97f703e50c618609c32a9cc196962`.
+The snapshot and actual gains happen to match on these eight windows because
+their relevant route/reliability state does not change enough to alter the
+four-page score.  This equality is an observed result, not a method invariant.
+
+Focus mode contains only one window per case, so route-pair and gateway churn
+are undefined across windows and are recorded as zero by convention.  Churn
+must be assessed in the all-B4 replay, not inferred from this table.
+
 ## Full32 physical availability
 
 The availability audit spans eight styles, seeds 41/57/73/89, and all 160
@@ -81,8 +113,9 @@ be placed in a defer field or claim.
 
 ## What this checkpoint does not prove
 
-- The exact certificate repeats one current route/reliability page for four
-  phases.  It does not certify a changing four-page execution.
+- The route gate still uses a frozen current-page score.  The time-varying
+  score is a posthoc audit and the eight focus windows do not prove a
+  whole-episode no-worse guarantee.
 - The runner materializes planned sensor trajectories for development, even
   though each page-level policy receives only its current slice.
 - The exact propagation factor is not a tracking metric and does not bound
@@ -98,15 +131,13 @@ be placed in a defer field or claim.
 
 The next artifact may use only graph/link pages and must:
 
-1. plan at a B4 boundary from the completed current page;
-2. bind the proposed formation cycle and sensor assignment to physical UIDs;
-3. execute or audit the next four actual physical/link pages;
-4. fall back globally to V46 if any planned edge expires;
-5. report exact posthoc time-varying factors separately from the planning
-   snapshot factor;
-6. report route and gateway churn, cycle run lengths, compute time, proposal
-   work, fallback reasons, and message composition; and
-7. keep tracking and total-byte claims closed.
+1. replay every B4 boundary in all eight seed-41 styles;
+2. select from each completed current page without future-page access;
+3. bind every proposed formation cycle and sensor assignment to physical UIDs;
+4. audit the actual four-page factor separately from the planning snapshot;
+5. report negative-window count, route and gateway churn, cycle run lengths,
+   compute time, proposal work, fallback reasons, and message composition; and
+6. keep tracking, atomic-execution, and total-byte claims closed.
 
 Only a stable M24/X36 time-varying structural result can authorize a short
 real-filter smoke.

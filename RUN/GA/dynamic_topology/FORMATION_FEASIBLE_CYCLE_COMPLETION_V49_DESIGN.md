@@ -114,18 +114,27 @@ the largest observed change count is seven over 159 transitions in X36
 crossing.  This proves action availability for the registered scenarios, not
 certificate or tracking success.
 
+The frozen runtime-compatible selector was then replayed on the eight seed-41
+focus windows.  It selected cycles in all six non-radial cases and returned
+V46 in both radial cases.  Posthoc scoring on the actual four physical/link
+pages reproduced 6.435%--8.506% improvement on M24 and 3.368%--3.684% on X36,
+with no negative window.  This is a focus-window structural result, not a
+whole-episode, tracking, or communication-byte result.
+
 ## Next gates
 
-1. Recompute the eight focus pages with fixed phase 1, reliability top-3
-   proposals, the 1% materiality gate, and no defer.
-2. At B4 boundaries, plan from the completed current page, require an atomic
-   route hash, and audit the realized next four physical pages.  Any expired
-   sensor edge or split plan falls back globally to V46.
-3. Report eligibility, fallback, route run length, formation-pair churn,
+1. Replay every B4 boundary in all eight seed-41 styles with fixed phase 1,
+   reliability top-3 proposals, the 1% materiality gate, and no defer.
+2. Plan from each completed current page and audit the actual four physical/
+   link pages separately from the frozen planning score.
+3. Report eligibility, fallback, negative-window count, route run length,
+   formation-pair churn,
    gateway churn, exact-score gain, compute time, and route/control bytes.
-4. Only after the time-varying structural gate passes, run one short M24 and
+4. Add an atomic route-hash dissemination/fallback protocol before any
+   distributed-execution claim.
+5. Only after the all-window structural gate passes, run one short M24 and
    one short X36 real-filter smoke with identical posterior-message budgets.
-5. Tracking development then uses the multistyle M24 matrix; X36 and new seeds
+6. Tracking development then uses the multistyle M24 matrix; X36 and new seeds
    remain held out until the method and thresholds are frozen.
 
 ## Data-driven extension
