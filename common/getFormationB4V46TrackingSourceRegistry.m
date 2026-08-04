@@ -15,7 +15,7 @@ payload.structuralProtocolId = structural.id;
 payload.structuralProtocolCanonicalSha256 = structural.canonicalSha256;
 payload.orderedArmIds = structural.primaryArms;
 payload.developmentSeed = 1009;
-payload.confirmationSeeds = [1013, 1019, 1021, 1031];
+payload.confirmationSeeds = [1013, 1019, 1021, 1033];
 payload.orderedSeeds = ...
     [payload.developmentSeed, payload.confirmationSeeds];
 payload.caseOrdering = 'scene-major-then-seed-registry-order';
@@ -62,7 +62,7 @@ payload.evidenceBoundary = [ ...
 
 actualSha256 = computeCanonicalValueSha256(payload);
 expectedSha256 = ...
-    'f8eec94b6bff1f7b77dbda493ba7cc0e2d626b2c4448644bd617386a3f77fdf1';
+    '2d86496732a97b8b597f046d384990363b5be66576d2b4031548eb72e2b75cec';
 if ~strcmp(actualSha256, expectedSha256)
     error('FormationB4V46TrackingSource:RegistryDrift', ...
         ['The V46 tracking source registry is not frozen: ', ...
