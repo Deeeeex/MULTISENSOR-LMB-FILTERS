@@ -43,9 +43,14 @@ No tracking permit exists before all three checks pass.
 ### Stage 1: source-only case sealing
 
 The development seed is fixed as `1009`.  The unopened confirmation seeds are
-fixed now as `[1013, 1019, 1021, 1031]`.  These values do not occur in an
-existing registered protocol or evidence-shard filename in this repository.
-Seed choice may not be changed after any V46 tracking metric is opened.
+fixed as `[1013, 1019, 1021, 1033]`.  The originally registered fourth seed,
+`1031`, failed the source-only geometry contract for
+`x36-formation-fov-relay`: its minimum sensor--target separation was
+`29.956118945301 m`, below the frozen `30 m` floor.  No filter or tracking
+metric had been run.  It was replaced by `1033`, the smallest unused prime
+greater than `1031`, after a geometry-only check passed all eight registered
+scene styles.  This replacement rule may not inspect tracking outcomes, and
+seed choice may not change after any V46 tracking metric is opened.
 
 The registered case order is:
 
