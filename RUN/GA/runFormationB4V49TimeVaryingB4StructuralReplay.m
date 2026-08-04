@@ -113,7 +113,9 @@ payload.sameTotalByteClaimAllowed = false;
 payload.timeVaryingNoWorseCertified = false;
 payload.validationClaimAllowed = false;
 payload.developmentEvidenceOnly = true;
-payload.canonicalSha256 = computeCanonicalValueSha256(payload);
+payload.wallClockTimingExcludedFromCanonicalSha256 = true;
+payload.canonicalSha256 = computeCanonicalValueSha256( ...
+    stripWallClockTiming(payload));
 result = payload;
 fprintf(['V49 time-varying replay complete: cycle=%d/%d ', ...
     'positive=%d negative=%d noWorse=%.3f sha256=%s\n'], ...
@@ -211,8 +213,9 @@ value.measurementUsed = false;
 value.realizedDeliveryUniformsUsed = false;
 value.trackingOutcomeScored = false;
 value.developmentEvidenceOnly = true;
+value.wallClockTimingExcludedFromCanonicalSha256 = true;
 value.canonicalSha256 = computeCanonicalValueSha256( ...
-    rmfield(value, 'canonicalSha256'));
+    stripWallClockTiming(rmfield(value, 'canonicalSha256')));
 end
 
 function value = replayWindow(config, identity, registeredBase, ...
@@ -379,8 +382,9 @@ value.trackingOutcomeScored = false;
 value.sameTotalByteClaimAllowed = false;
 value.timeVaryingNoWorseCertified = false;
 value.developmentEvidenceOnly = true;
+value.wallClockTimingExcludedFromCanonicalSha256 = true;
 value.canonicalSha256 = computeCanonicalValueSha256( ...
-    rmfield(value, 'canonicalSha256'));
+    stripWallClockTiming(rmfield(value, 'canonicalSha256')));
 end
 
 function context = buildFullRouteInput( ...
@@ -503,6 +507,27 @@ else
 end
 end
 
+function value = stripWallClockTiming(value)
+% Preserve measured timings in the result while excluding them from the
+% semantic evidence hash.  Recurse without removing any contract fields.
+if ~isstruct(value)
+    return;
+end
+for valueIdx = 1:numel(value)
+    fields = fieldnames(value(valueIdx));
+    for fieldIdx = 1:numel(fields)
+        name = fields{fieldIdx};
+        if ismember(name, {'selectionSeconds', ...
+                'meanSelectionSeconds', 'maximumSelectionSeconds'})
+            value(valueIdx).(name) = [];
+        elseif isstruct(value(valueIdx).(name))
+            value(valueIdx).(name) = ...
+                stripWallClockTiming(value(valueIdx).(name));
+        end
+    end
+end
+end
+
 function value = emptyCase()
 value = struct('caseId', '', 'presetName', '', 'seed', NaN, ...
     'nodeCount', NaN, 'formationCount', NaN, ...
@@ -524,6 +549,7 @@ value = struct('caseId', '', 'presetName', '', 'seed', NaN, ...
     'measurementUsed', false, ...
     'realizedDeliveryUniformsUsed', false, ...
     'trackingOutcomeScored', false, ...
+    'wallClockTimingExcludedFromCanonicalSha256', true, ...
     'developmentEvidenceOnly', true, 'canonicalSha256', '');
 end
 
@@ -564,6 +590,7 @@ value = struct('windowStart', NaN, 'executionTimes', zeros(1, 0), ...
     'trackingOutcomeScored', false, ...
     'sameTotalByteClaimAllowed', false, ...
     'timeVaryingNoWorseCertified', false, ...
+    'wallClockTimingExcludedFromCanonicalSha256', true, ...
     'developmentEvidenceOnly', true, 'canonicalSha256', '');
 end
 

@@ -80,7 +80,9 @@ are never exposed to the selector.
 Six of eight windows select a cycle, all six improve the actual four-page
 factor, and neither fallback window is worse than V46.  The result hash after
 fixing first-window churn accounting is
-`4c725453448ddc4e3313a62900c4f5c4b8c97f703e50c618609c32a9cc196962`.
+`c40086f57464e3015222e1ca7a584a5d01c211625132ac14a106cab2719023e5`.
+The canonical hash excludes measured wall-clock timing but retains proposal
+counts, routes, factors, decisions, budgets, and every claim-boundary flag.
 The snapshot and actual gains happen to match on these eight windows because
 their relevant route/reliability state does not change enough to alter the
 four-page score.  This equality is an observed result, not a method invariant.
