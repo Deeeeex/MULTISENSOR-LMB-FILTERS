@@ -1,0 +1,33 @@
+function improvement = ...
+    summarizeFormationB4TrackingImprovement(reference, candidate)
+% SUMMARIZEFORMATIONB4TRACKINGIMPROVEMENT Positive means candidate better.
+
+fields = { ...
+    'fullHorizonPositionEospa', ...
+    'focusWindowPositionEospa', ...
+    'worstSensorPositionEospa', ...
+    'meanAbsoluteCardinalityError', ...
+    'meanInterFormationPositionOspa', ...
+    'focusInterFormationPositionOspa'};
+improvement = struct();
+for fieldIdx = 1:numel(fields)
+    fieldName = fields{fieldIdx};
+    improvement.([fieldName, 'Pct']) = percentImprovement( ...
+        reference.(fieldName), candidate.(fieldName));
+end
+improvement.attemptedMessageSavingPct = percentImprovement( ...
+    reference.attemptedMessageCount, candidate.attemptedMessageCount);
+improvement.deliveredMessageSavingPct = percentImprovement( ...
+    reference.deliveredMessageCount, candidate.deliveredMessageCount);
+end
+
+function value = percentImprovement(reference, candidate)
+if reference == 0
+    value = 0;
+    if candidate > 0
+        value = -Inf;
+    end
+else
+    value = 100 * (reference - candidate) / reference;
+end
+end

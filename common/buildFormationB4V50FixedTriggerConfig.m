@@ -1,0 +1,26 @@
+function [config, details] = ...
+    buildFormationB4V50FixedTriggerConfig(armId, nodeCount)
+% BUILDFORMATIONB4V50FIXEDTRIGGERCONFIG Register the V50 runtime policy.
+
+protocol = getFormationB4V50RuntimeProtocol();
+if nargin ~= 2 || ~strcmp(armId, protocol.candidateArmId) || ...
+        ~isscalar(nodeCount) || nodeCount < 1 || ...
+        nodeCount ~= round(nodeCount)
+    error('FormationB4V50TriggerConfig:InvalidInput', ...
+        'The V50 arm and a positive sensor count are required.');
+end
+[config, ~] = buildFormationB4V46FixedTriggerConfig( ...
+    protocol.referenceArmId, nodeCount);
+config.topologyPolicyName = ...
+    'selectFormationB4V50SynchronizedRuntimePolicy';
+config.topologyPolicyFcn = ...
+    @selectFormationB4V50SynchronizedRuntimePolicy;
+
+details = struct();
+details.contractVersion = ...
+    'formation-b4-v50-fixed-trigger-config-v1';
+details.armId = armId;
+details.parentArmId = protocol.referenceArmId;
+details.nodeCount = nodeCount;
+details.parentConfigReusedWithoutRelaxation = true;
+end

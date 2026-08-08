@@ -80,3 +80,21 @@ rules.
 
 The target remains a stable, practically meaningful tracking gain at M24 and
 X36 scale, not merely a better graph proxy.
+
+## Implementation checkpoint
+
+The analytic V50 arm is now implemented as an isolated runtime policy.  For
+each receiver it compares the candidate residual sender with the V46 residual
+sender using current label-set posterior transfer features.  Receiver deltas
+are pooled by formation using equal mean and lower-quartile weights; cycle
+ranking then uses equal worst-formation and network-mean weights.  Up to eight
+posterior-ranked proposals receive the exact synchronized-B4 structural check.
+The candidate must have positive combined posterior value, no formation worse
+than `-0.05` on the receiver-conditional percentile scale, and no worse graph
+contraction than V46.
+
+A minimal eight-step real-filter smoke run confirms that V46 and V50 retain the
+same `2N,N,N,N` schedule and that V50 executes its phase-one cycle decisions.
+This is an execution check, not tracking evidence.  The candidate-only tracking
+runner will reuse the completed V49 pair's V46 summary, delivery seed and filter
+seed so the baseline is not rerun.
