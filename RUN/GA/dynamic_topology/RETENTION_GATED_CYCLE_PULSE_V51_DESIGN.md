@@ -1,4 +1,4 @@
-# Retention-gated cycle-pulse routing V51
+# Retention-gated B4 pulse routing V51
 
 ## Why this is the next method branch
 
@@ -6,9 +6,10 @@ The X36 convoy result rejects V49's graph-only premise: V49 improves its
 registered contraction score and delivered B4 connectivity, yet worsens
 tracking, cardinality and inter-formation consensus. V50 tests the smallest
 repair by using the current posterior to choose a more useful formation cycle.
-It still transmits one cross-formation residual input to every receiver at
-every four-step pulse, however, and therefore cannot protect a receiver when
-all currently available cross inputs are harmful.
+In the complete seed-1009 run, V50 selected no nonreference cycle in any of the
+40 windows because none passed its posterior-value gate. It therefore exactly
+reproduced V46 on every tracking metric. Sender replacement is not the active
+source of headroom in this scene.
 
 Earlier M24 continuation experiments identify a stronger estimator-side
 mechanism. Temporarily withholding incompatible cross-formation inputs, then
@@ -26,12 +27,11 @@ four-step B4 window.
 
 At each pulse:
 
-1. Build the same physically feasible posterior-aware cycle candidate as V50.
-2. For each receiving formation, aggregate current label-wise existence
-   transfer, precision transfer and posterior compatibility for the selected
-   residual inputs. The score is computed from the current observable
-   posteriors and current link reliability; it uses no truth, future
-   measurement or realized delivery outcome.
+1. Build the current V46 B4 route without reading the posterior.
+2. For each receiving formation, aggregate the current label-wise existence
+   deficit of the selected residual inputs, weighted by the current link
+   reliability. The score uses only the current observable posteriors; it does
+   not use truth, future measurements or realized delivery outcomes.
 3. If admitting the pulse is predicted to reduce supported existence mass,
    defer that formation's incoming cross message for this pulse. The dominant
    same-formation route remains active, and its removed residual weight returns
@@ -50,11 +50,11 @@ guarantee.
 
 ## Why the action space scales
 
-The route layer searches only formation cycles, as in V50. The protection
-layer makes one binary defer/reconnect decision per formation, followed by a
-deterministic temporal projection. It therefore grows linearly with formation
-count after cycle selection. No `2^F` subset enumeration and no sensor-level
-graph search are required.
+The protection layer makes one binary defer/reconnect decision per formation,
+followed by a deterministic temporal projection. It therefore grows linearly
+with formation count. No formation-cycle enumeration, `2^F` subset enumeration
+or sensor-level graph search is required. Removing the rejected V50 ranking
+layer also avoids repeatedly constructing label features for unused routes.
 
 For M24 and X36 the controller handles four and six formation decisions per
 pulse respectively. Decisions are made once every four filter steps rather
@@ -68,8 +68,8 @@ route. V51 retains those two ideas but changes the deployment surface:
 
 - it runs from the beginning of a complete scenario instead of intervening at
   preselected three-step windows;
-- it uses the current B4 cycle route rather than the older fixed cross-edge
-  layout;
+- it runs on the current repaired V46 B4 route rather than an intervention-only
+  cached route;
 - it replaces expensive exact outcome enumeration with direct label-set
   transfer features at the online selector;
 - it enforces an eight-step maximum information delay, making the scale rule
@@ -77,16 +77,13 @@ route. V51 retains those two ideas but changes the deployment surface:
 
 ## Method decision from the V50 run
 
-The current X36 convoy run is the branch point.
-
-- If V50 materially improves E-OSPA and cardinality, freeze its cycle scorer
-  and add the V51 defer/reconnect layer only if the remaining cardinality error
-  is still large.
-- If V50 is neutral or negative while selecting nonreference cycles, conclude
-  that changing the sender is insufficient and implement V51 directly.
-- If V50 almost always falls back, inspect the absolute existence-transfer
-  signal rather than relaxing its structural threshold; V51 can still act by
-  deferring a harmful V46 pulse.
+V50 used the V46 fallback in `40/40` X36 convoy windows and consequently
+matched V46 exactly: full-horizon E-OSPA `126.370`, focus E-OSPA `123.494` and
+mean absolute cardinality error `14.534`. This is a clean neutral result, not a
+small positive effect. V51 therefore does not retain V50's candidate ranking.
+It measures absolute existence-retention debt on the V46 cross input and may
+defer that input directly. The `2%` debt threshold comes from the earlier M24
+retention mechanism rather than being fitted to the X36 tracking outcome.
 
 ## Compact experiment sequence
 
