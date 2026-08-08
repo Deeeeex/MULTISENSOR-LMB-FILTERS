@@ -98,3 +98,24 @@ same `2N,N,N,N` schedule and that V50 executes its phase-one cycle decisions.
 This is an execution check, not tracking evidence.  The candidate-only tracking
 runner will reuse the completed V49 pair's V46 summary, delivery seed and filter
 seed so the baseline is not rerun.
+
+## X36 tracking-difficulty interpretation
+
+The first X36 convoy V46 arm has full-horizon position E-OSPA `126.370`, focus
+E-OSPA `123.494`, and mean absolute cardinality error `14.534` in a 24-target
+scene.  This is not explained by an impossible sensing layout.  Across the five
+frozen geometry-calibration seeds, X36 convoy has `0.0%` focus blackout, only
+`0.4%--0.5%` overall blackout, about `7.08--7.14` visible sensors and
+`5.30--5.34` expected detections per active target in the focus window.  Each
+sensor sees about `4.72--4.76` targets on average, so local measurement load is
+substantial but not near-global.
+
+The current working hypothesis is therefore estimator-side: useful label
+evidence is created by a small subset of sensors but is not maintained and
+propagated effectively through the fixed dominant/residual routes.  This makes
+the convoy run a meaningful test of posterior-aware routing rather than a reason
+to widen the FoV or reduce the target count.  After V49/V50 finish, the decisive
+diagnostic is the time-resolved cardinality and label-existence propagation by
+formation.  If V50 cannot improve those quantities, the limitation is likely
+deeper than graph selection alone and should not be hidden by making the scene
+easier.
