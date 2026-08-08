@@ -243,10 +243,30 @@ else
         incumbentReference.referenceFusionWeights, sensorUids);
     selectedCycleOrder = zeros(1, 0);
 end
+if selectedIsCycle
+    fallbackReason = 'none';
+elseif enumerationCapped
+    fallbackReason = 'enumeration-capped';
+elseif cycleCount == 0
+    fallbackReason = 'no-physical-cycle';
+elseif isempty(feasibleIndices)
+    fallbackReason = 'no-feasible-materialized-cycle';
+elseif materialityGateTriggered
+    fallbackReason = 'below-materiality-threshold';
+elseif ~cycleStrictlyImproves
+    fallbackReason = 'no-strict-improvement';
+else
+    fallbackReason = 'incumbent-fallback';
+end
+if strcmp(pulsePhaseMode, 'fixed-phase-one')
+    certificateEvaluationsPerScoredReference = 1;
+else
+    certificateEvaluationsPerScoredReference = period;
+end
 
 payload = struct();
 payload.contractVersion = ...
-    'formation-b4-v49-feasible-cycle-completion-reference-v1';
+    'formation-b4-v49-feasible-cycle-completion-reference-v2';
 payload.currentTime = context.currentTime;
 payload.nodeCount = nodeCount;
 payload.formationCount = formation.count;
@@ -273,11 +293,14 @@ payload.candidateMaterializationAttemptCount = ...
     nnz(materializationAttempted);
 payload.feasibleCycleCandidateMask = feasible;
 payload.feasibleCycleCandidateCount = nnz(feasible);
+payload.certificateEvaluationsPerScoredReference = ...
+    certificateEvaluationsPerScoredReference;
 payload.exactCandidateCertificateEvaluationCount = ...
-    period * nnz(feasible);
-payload.incumbentCertificateEvaluationCount = period;
+    certificateEvaluationsPerScoredReference * nnz(feasible);
+payload.incumbentCertificateEvaluationCount = ...
+    certificateEvaluationsPerScoredReference;
 payload.totalCertificateEvaluationCount = ...
-    period * (1 + nnz(feasible));
+    certificateEvaluationsPerScoredReference * (1 + nnz(feasible));
 payload.incumbentSynchronizedSquaredFactorByPhase = incumbentScores;
 payload.pulsePhaseMode = pulsePhaseMode;
 payload.runtimePulsePhaseOneMatched = strcmp( ...
@@ -307,6 +330,7 @@ payload.minimumRelativeImprovementVsIncumbent = ...
 payload.materialityGateTriggered = materialityGateTriggered;
 payload.selectedIsCyclePreservingReference = selectedIsCycle;
 payload.selectedUsedIncumbentFallback = ~selectedIsCycle;
+payload.selectedFallbackReason = fallbackReason;
 payload.selectedCycleOrder = selectedCycleOrder;
 payload.selectedSquaredFactor = selectedScore;
 payload.selectedBestSynchronizedPulsePhase = selectedPhase;
@@ -351,7 +375,8 @@ payload.graphCertificateStandaloneTrackingObjective = false;
 payload.frozenCurrentPagePropagationProxyOnly = true;
 payload.exactGlobalCycleOptimumClaimAllowed = strcmp( ...
     selectionMode, 'exact-contraction-enumeration') && ...
-    all(materializationAttempted | ~isfinite(proxyBottleneck));
+    ~enumerationCapped && cycleCount > 0 && nnz(feasible) > 0 && ...
+    all(materializationAttempted);
 payload.reliabilityProposalExactCertificateGated = strcmp( ...
     selectionMode, 'reliability-proposal-topk');
 payload.timeVaryingNoWorseCertified = false;
@@ -509,7 +534,12 @@ function [bestScore, bestPhase, scores] = ...
         dominantWeight, activeResidualWeight, certificateOptions, ...
         pulsePhaseMode)
 scores = nan(1, period);
-for pulsePhase = 1:period
+if strcmp(pulsePhaseMode, 'fixed-phase-one')
+    pulsePhases = 1;
+else
+    pulsePhases = 1:period;
+end
+for pulsePhase = pulsePhases
     [adjacency, weights] = materializeSynchronizedSchedule( ...
         reference.dominantAdjacency, ...
         reference.residualAdjacency, pulsePhase, period, ...
