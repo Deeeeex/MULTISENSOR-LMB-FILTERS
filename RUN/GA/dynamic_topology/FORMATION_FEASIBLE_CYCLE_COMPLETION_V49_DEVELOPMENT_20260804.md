@@ -2,10 +2,11 @@
 
 ## Decision
 
-The seed-41 focus-window time-varying structural replay passes.  Advance the
-route-only feasible-cycle completion method to an all-B4-window structural
-replay.  Do not advance one-step defer, tracking evaluation, or communication-
-saving claims yet.
+The corrected seed-41 all-B4 structural replay passes its development gate:
+271 of 320 windows select a cycle, all 271 selected windows improve the
+posthoc four-page structural propagation factor, and no window is worse than
+V46.  This authorizes a non-scoring real-filter runtime smoke.  It does not
+yet authorize tracking, total-byte, distributed-commit, or no-worse claims.
 
 The main finding is not that residual traffic should be spread across phases.
 It is that V46's minimum-edit projection often leaves the formation layer as a
@@ -27,7 +28,7 @@ headroom on both M24 and X36 non-radial scenes.
 - fallback: exact input V46 adjacency and weights, with ties going to V46;
 - one-step defer: disabled.
 
-The development result hash is
+The initial frozen-page result hash is
 `a3027dd7e47b0c8e7c11f65862598aac3715a833dd7f2e87a16e3b56af9cf902`.
 
 ## Seed-41 focus-page result
@@ -66,7 +67,7 @@ on each of the four executed pages.  The candidate cycle replaces only the
 burst-page residual layer, exactly as synchronized B4 requires; future pages
 are never exposed to the selector.
 
-| Scale | Style | Snapshot gain | Actual four-page gain | Action |
+| Scale | Style | Snapshot gain | Posthoc four-page gain | Action |
 |:--|:--|--:|--:|:--|
 | M24 | radial | 0.000% | 0.000% | V46 fallback |
 | M24 | convoy | 7.739% | 7.739% | cycle |
@@ -77,19 +78,87 @@ are never exposed to the selector.
 | X36 | relay | 3.684% | 3.684% | cycle |
 | X36 | crossing | 3.368% | 3.368% | cycle |
 
-Six of eight windows select a cycle, all six improve the actual four-page
+Six of eight windows select a cycle, all six improve the posthoc four-page
 factor, and neither fallback window is worse than V46.  The result hash after
-fixing first-window churn accounting is
-`c40086f57464e3015222e1ca7a584a5d01c211625132ac14a106cab2719023e5`.
+aligning focus starts to absolute B4 phase 1 and hardening the replay schema is
+`0376dd3d9c04b6fb1e98231f375d3a6d12345878abbe76f20c2c0d384a7733ab`.
 The canonical hash excludes measured wall-clock timing but retains proposal
 counts, routes, factors, decisions, budgets, and every claim-boundary flag.
-The snapshot and actual gains happen to match on these eight windows because
+The snapshot and posthoc gains happen to match on these eight windows because
 their relevant route/reliability state does not change enough to alter the
 four-page score.  This equality is an observed result, not a method invariant.
 
 Focus mode contains only one window per case, so route-pair and gateway churn
 are undefined across windows and are recorded as zero by convention.  Churn
 must be assessed in the all-B4 replay, not inferred from this table.
+
+## Seed-41 all-B4 structural replay
+
+The corrected replay starts at every absolute phase-1 boundary over all eight
+160-step scenarios, giving 40 windows per scenario and 320 windows in total.
+The policy still reads only the completed current page.  The next three pages
+are used only by the posthoc structural audit.
+
+| Scale | Style | Cycle windows | Mean over all windows | Selected median | Selected range | Pair-set changes | Cycle/fallback changes | Gateway symmetric difference |
+|:--|:--|--:|--:|--:|--:|--:|--:|--:|
+| M24 | radial | 16/40 | 2.036% | 5.184% | 1.096%--5.963% | 3 | 2 | 52 |
+| M24 | convoy | 40/40 | 8.256% | 7.739% | 7.739%--9.446% | 2 | 0 | 16 |
+| M24 | relay | 40/40 | 8.750% | 8.506% | 8.506%--9.481% | 2 | 0 | 24 |
+| M24 | crossing | 40/40 | 6.064% | 6.408% | 3.179%--8.679% | 4 | 0 | 128 |
+| X36 | radial | 15/40 | 0.762% | 2.012% | 1.482%--2.462% | 7 | 6 | 142 |
+| X36 | convoy | 40/40 | 3.846% | 3.552% | 3.552%--4.948% | 6 | 0 | 72 |
+| X36 | relay | 40/40 | 3.808% | 3.684% | 3.580%--4.371% | 4 | 0 | 52 |
+| X36 | crossing | 40/40 | 3.454% | 3.372% | 2.755%--4.609% | 16 | 0 | 300 |
+
+All 240 non-radial windows select a cycle and improve the audited factor.
+This includes every X36 convoy, relay, and crossing window; their worst
+selected improvement is 2.755%.  The radial scenes exercise the 1% gate and
+exact V46 fallback instead of forcing a cycle on every window.  Globally,
+271/320 windows are selected and positive, the negative-window count is zero,
+and the empirical no-worse fraction is 1.0.  The canonical result hash is
+`b140a0285cb89e703c6d9abfa60042fc14b62a9c3bbd045a018bf6fc4589196b`.
+
+The planning and posthoc factors are numerically identical in this seed-41
+matrix.  Diagnostics show that the route and loss probabilities on the
+active edges relevant to these B4 products remain unchanged within each
+window.  This is a property of the registered scenarios, not a theorem or an
+online guarantee.
+
+X36 crossing is the main control-plane warning: the selected formation-pair
+set changes 16 times over 39 transitions and the accumulated cross-gateway
+symmetric difference is 300.  The structural improvement is stable, but a
+deployable method still needs route-hash dissemination, atomic fallback, and
+explicit control-byte accounting.
+
+## Top-3 proposal versus exact-enumeration oracle
+
+An independent focus-window comparison keeps the phase, weights, 1% gate, and
+certificate fixed, changing only candidate generation.  The exact arm scores
+every feasible physical cycle and is a development oracle, not a scalable
+runtime policy.
+
+| Scale | Style | Top-3 gain | Exact gain | Oracle gap | Top-3 / exact evaluations |
+|:--|:--|--:|--:|--:|--:|
+| M24 | radial | 0.000% | 0.000% | 0.000 pp | 4 / 4 |
+| M24 | convoy | 7.739% | 7.739% | 0.000 pp | 4 / 4 |
+| M24 | relay | 8.506% | 8.506% | 0.000 pp | 4 / 4 |
+| M24 | crossing | 6.435% | 6.435% | 0.000 pp | 2 / 2 |
+| X36 | radial | 0.000% | 1.105% | 1.105 pp | 4 / 61 |
+| X36 | convoy | 3.552% | 4.919% | 1.366 pp | 4 / 61 |
+| X36 | relay | 3.684% | 4.061% | 0.377 pp | 4 / 11 |
+| X36 | crossing | 3.368% | 3.918% | 0.550 pp | 4 / 19 |
+
+The top-3 proxy is exact on these M24 focus pages but leaves measurable
+headroom on every X36 focus page.  Dense X36 exact enumeration takes about
+15 seconds per page on this development machine, compared with about 0.8
+seconds for top-3.  Therefore V49 may claim exact certification of evaluated
+proposals, but not global or near-global optimality.  A GNN or combinatorial
+model is best positioned as a causal top-k proposal generator whose outputs
+remain subject to the same exact gate and V46 fallback.  The top-3 and oracle
+artifact hashes are respectively
+`0376dd3d9c04b6fb1e98231f375d3a6d12345878abbe76f20c2c0d384a7733ab`
+and
+`46600459a9be9fbf06eeae646adc4d8324d4e8d68192b4d4505a86e1bd7e9bca`.
 
 ## Full32 physical availability
 
@@ -116,8 +185,8 @@ be placed in a defer field or claim.
 ## What this checkpoint does not prove
 
 - The route gate still uses a frozen current-page score.  The time-varying
-  score is a posthoc audit and the eight focus windows do not prove a
-  whole-episode no-worse guarantee.
+  score is a posthoc audit; one seed and 40 correlated windows per scenario
+  do not prove a population-level or online no-worse guarantee.
 - The runner materializes planned sensor trajectories for development, even
   though each page-level policy receives only its current slice.
 - The exact propagation factor is not a tracking metric and does not bound
@@ -131,15 +200,15 @@ be placed in a defer field or claim.
 
 ## Next authorization gate
 
-The next artifact may use only graph/link pages and must:
+The all-window structural gate authorizes only a short, non-scoring real-filter
+smoke.  It must compare V49 with V46 synchronized B4 under the same
+physical-UID-keyed delivery-uniform tensor and the same directed posterior
+message counts `[2N,N,N,N]`.  It must independently replay the V49 policy,
+verify installed route/weight hashes, confirm posterior non-interference, and
+avoid reading tracking outputs.
 
-1. replay every B4 boundary in all eight seed-41 styles;
-2. select from each completed current page without future-page access;
-3. bind every proposed formation cycle and sensor assignment to physical UIDs;
-4. audit the actual four-page factor separately from the planning snapshot;
-5. report negative-window count, route and gateway churn, cycle run lengths,
-   compute time, proposal work, fallback reasons, and message composition; and
-6. keep tracking, atomic-execution, and total-byte claims closed.
-
-Only a stable M24/X36 time-varying structural result can authorize a short
-real-filter smoke.
+After that smoke passes, the next research gates are: correlated-loss
+sensitivity; route-hash dissemination and atomic fallback; control and payload
+byte measurement; and multi-seed episode-level tracking evaluation.  The
+top-3 proposal rule remains a heuristic until it is replaced or its oracle gap
+is bounded.

@@ -114,34 +114,50 @@ the largest observed change count is seven over 159 transitions in X36
 crossing.  This proves action availability for the registered scenarios, not
 certificate or tracking success.
 
-The frozen runtime-compatible selector was then replayed on the eight seed-41
-focus windows.  It selected cycles in all six non-radial cases and returned
-V46 in both radial cases.  Posthoc scoring on the actual four physical/link
-pages reproduced 6.435%--8.506% improvement on M24 and 3.368%--3.684% on X36,
-with no negative window.  This is a focus-window structural result, not a
-whole-episode, tracking, or communication-byte result.
+The frozen runtime-compatible selector was then replayed at all 320 absolute
+B4 boundaries in the eight seed-41 scenarios.  It selected a cycle in 271
+windows; all 271 selected windows improved the posthoc four-page factor and no
+window was worse than V46.  Every non-radial window was selected.  M24
+non-radial mean improvements are 6.064%--8.750%; X36 non-radial means are
+3.454%--3.846%, with a 2.755% worst selected X36 improvement.  These are
+single-seed, correlated-window structural results, not tracking,
+communication-byte, or online-safety results.
+
+The planning and posthoc factors happen to match in this matrix because the
+active route/reliability state relevant to each audited product remains
+unchanged inside its B4 window.  This observed equality is not a method
+invariant.  X36 crossing also changes its selected formation-pair set 16 times
+over 39 transitions, so control-plane churn remains a first-order concern.
+
+The exact-enumeration focus oracle agrees with top-3 on M24 but exposes
+0.377--1.366 percentage points of extra improvement on X36 and selects an X36
+radial cycle that top-3 misses.  Dense X36 pages require up to 61 certificate
+evaluations and about 15 seconds on the development machine.  The default
+selector therefore certifies only the proposals it evaluates; it does not
+claim global or near-global optimality.
 
 ## Next gates
 
-1. Replay every B4 boundary in all eight seed-41 styles with fixed phase 1,
-   reliability top-3 proposals, the 1% materiality gate, and no defer.
-2. Plan from each completed current page and audit the actual four physical/
-   link pages separately from the frozen planning score.
-3. Report eligibility, fallback, negative-window count, route run length,
-   formation-pair churn,
-   gateway churn, exact-score gain, compute time, and route/control bytes.
+1. Run a non-scoring real-filter smoke against V46 synchronized B4 with the
+   same physical-UID-keyed delivery draws and exact `[2N,N,N,N]` message
+   counts.
+2. Independently replay every installed V49 route and weight page, and test
+   that changing posterior contents cannot change the route.
+3. Measure correlated-loss sensitivity and separate posterior payload bytes
+   from route-discovery/commit bytes.
 4. Add an atomic route-hash dissemination/fallback protocol before any
    distributed-execution claim.
-5. Only after the all-window structural gate passes, run one short M24 and
-   one short X36 real-filter smoke with identical posterior-message budgets.
-6. Tracking development then uses the multistyle M24 matrix; X36 and new seeds
-   remain held out until the method and thresholds are frozen.
+5. Freeze the proposal rule after either improving the X36 oracle gap or
+   explicitly accepting top-3 as a bounded-work heuristic.
+6. Only then open multi-seed episode-level tracking development; individual
+   B4 windows are not independent statistical samples.
 
 ## Data-driven extension
 
 A permutation-equivariant graph model may propose a small top-k set of cycles
-or predict whether cycle completion is worth attempting.  It may read only
-the registered causal input boundary.  Every proposal must still pass the
-distinct-receiver route constructor, physical support, fixed budget, exact
-certificate, 1% materiality gate, and global V46 fallback.  Learning is an
-acceleration/proposal layer, not the source of the safety claim.
+or predict whether cycle completion is worth attempting.  The observed X36
+oracle gap gives this proposal-learning problem a concrete target.  It may
+read only the registered causal input boundary.  Every proposal must still
+pass the distinct-receiver route constructor, physical support, fixed budget,
+exact certificate, 1% materiality gate, and global V46 fallback.  Learning is
+an acceleration/proposal layer, not the source of the safety claim.
