@@ -71,7 +71,7 @@ details = parent;
 % V51 changes the parent route and weights after the V46 policy returns.
 % Its development runner validates the installed adjacency and row-stochastic
 % weights directly, so do not carry the now-stale V46 fingerprint forward.
-details.policyRouteAndWeightCanonicalSha256 = '';
+details.routeAndWeightCanonicalSha256 = '';
 details.contractVersion = ...
     'formation-b4-v51-fixed-runtime-policy-v1';
 details.mode = 'formation-b4-v51-retention-gated-reference-runtime';
