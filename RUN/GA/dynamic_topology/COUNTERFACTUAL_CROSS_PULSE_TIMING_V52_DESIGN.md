@@ -71,6 +71,45 @@ four-page deadline are deterministic runtime constraints. Because every
 window contains one complete V46 residual pulse, its union contains a full
 strongly connected V46 route and requires no predicted future topology.
 
+## Closest prior work and boundary
+
+Event-triggered consensus LMB filters decide whether a node or Bernoulli
+component should be broadcast by comparing the current density with the most
+recent broadcast or its prediction, commonly through a KL-divergence
+threshold. They reduce update frequency or payload on a given neighbor graph;
+they do not select the position of one mandatory full-posterior pulse inside a
+fixed communication window.
+
+Value-of-Information schedulers for networked state estimation are closer to
+V52's estimator-side decision: they prioritize packets by their expected
+effect on estimation accuracy under a shared-channel budget. Predictive and
+self-triggered estimation further shows why an instantaneous event trigger
+can waste slots that the communication system cannot reallocate in time.
+Learning-based schedulers such as SchedNet show that message importance can be
+learned from task outcomes under bandwidth constraints.
+
+V52 combines these ideas at a different deployment surface. Its analytic
+baseline evaluates the actual current LMB serve/hold fusion counterfactual,
+its service ledger fixes one complete residual pulse per B4 window, and its
+current V46 projection supplies a physical strongly connected route. A later
+learner estimates only the value of waiting; it cannot change the pulse
+budget, fusion operator or executable topology. The related references are:
+
+- K. Shen et al., "Consensus-Based Labeled Multi-Bernoulli Filter With
+  Event-Triggered Communication," IEEE TSP, 2022,
+  https://doi.org/10.1109/TSP.2022.3154227.
+- A. Molin, H. Esen and K. H. Johansson, "Scheduling networked state
+  estimators based on Value of Information," Automatica, 2019,
+  https://doi.org/10.1016/j.automatica.2019.108578.
+- S. Trimpe, "Predictive and Self Triggering for Event-based State
+  Estimation," 2016, https://arxiv.org/abs/1609.07534.
+- S. Wu et al., "Learning Optimal Scheduling Policy for Remote State
+  Estimation under Uncertain Channel Condition," IEEE TCNS, 2020,
+  https://doi.org/10.1109/TCNS.2019.2959162.
+- D. Kim et al., "Learning to Schedule Communication in Multi-agent
+  Reinforcement Learning," ICLR, 2019,
+  https://arxiv.org/abs/1902.01554.
+
 ## Why this differs from earlier branches
 
 - V48 placed residual service using graph contraction only and found less
