@@ -1,0 +1,82 @@
+# Posterior-aware cycle routing V50 design
+
+## Decision being tested
+
+V49 asks a purely structural question: among physically feasible formation
+cycles, which route gives the best expected graph contraction while preserving
+the synchronized B4 communication budget?  This is scalable and causal, but it
+does not ask whether the selected cross-formation messages contain information
+that is useful to the receiving trackers.
+
+The X36 convoy paired run first tests whether graph contraction alone translates
+into tracking improvement.  If V49 does not produce a clear tracking gain over
+V46, V50 will keep the feasible-cycle action space and deterministic fallback,
+but replace the cycle ranking objective with current-posterior information
+value.  The 1% V49 contraction threshold will not be tuned against the tracking
+outcome, because that would not repair the mismatch between graph disagreement
+and estimator utility.
+
+## What V50 keeps
+
+- the same local filtering and full LMB posterior fusion as the baseline;
+- the same physical graph, incoming-degree limit, synchronized B4 schedule and
+  per-window transmission budget;
+- formation-cycle candidates, so search grows with formation structure rather
+  than arbitrary sensor-level graphs;
+- reliability and contraction as hard feasibility/safety checks;
+- a deterministic V46 fallback when no candidate has material posterior value.
+
+Posterior features are used only to choose a route.  They do not replace the
+posterior exchanged by the tracker and do not imply full/light-posterior
+equivalence.
+
+## V50 online decision
+
+At the first phase of each four-step B4 window:
+
+1. Enumerate the same physically feasible formation cycles as V49 and
+   materialize their exact sensor-level routes.
+2. Score every physically available directed cross-formation edge from the
+   current observable LMB posteriors.  The initial analytic score pools
+   label-wise existence transfer, uncertainty reduction, association quality,
+   posterior compatibility and link reliability.  It uses no target truth,
+   future measurement or realized delivery outcome.
+3. For each cycle, aggregate the selected incoming edge values per formation.
+   Rank candidates lexicographically by worst-formation value, then mean value,
+   then expected contraction.  This prevents a gain in one formation from
+   concealing harm in another.
+4. Reject candidates that violate the physical/budget/degree contract or are
+   structurally worse than V46.  Select a cycle only when its posterior value is
+   materially better than the V46 route; otherwise use V46 unchanged.
+5. Hold the selected route for the complete four-step window.  Current
+   posterior features are consulted again only at the next decision boundary.
+
+This separates three roles cleanly: posterior features estimate message value,
+the cycle projector guarantees a scalable feasible topology, and the baseline
+fallback limits avoidable regressions.
+
+## Data-driven extension
+
+The first V50 implementation should remain analytic so that the source of any
+gain is identifiable.  A GNN is justified only after the constrained action
+space shows useful tracking headroom.  It would predict edge or cycle value from
+the same permutation-invariant label-set features, trained with offline paired
+counterfactual tracking returns.  The learned model would rank candidates; it
+would not bypass the deterministic feasibility, formation-tail and fallback
+rules.
+
+## Evidence sequence
+
+1. **Current X36 convoy pair:** compare V49 with V46 using paired measurements,
+   link-delivery draws and filter seed.  A graph-only structural score is not a
+   success metric by itself.
+2. **Method decision:** retain V49 only if it gives a clear tracking improvement
+   without worse formation-tail behavior or increased communication.  Otherwise
+   implement the analytic V50 ranker above.
+3. **Development check:** one paired X36 convoy run establishes whether V50
+   repairs the graph/estimator mismatch.  Avoid multi-seed tuning at this stage.
+4. **Scene transfer:** after freezing the method, evaluate the X36 merge-split
+   and curved-corridor scenes, followed by fresh M24/X36 seeds.
+
+The target remains a stable, practically meaningful tracking gain at M24 and
+X36 scale, not merely a better graph proxy.
