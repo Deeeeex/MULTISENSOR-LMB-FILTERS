@@ -125,8 +125,67 @@ switch styleName
         config.enforceDifficultyRequirements = true;
         config.difficultyRequirements = ...
             getFormationFovMultistyleAbsoluteDifficultyRequirements(config);
+    case {'merge-split', 'converge-diverge'}
+        config.sceneStyle = 'merge-split';
+        config.informationFlowStyle = ...
+            'parallel-branches-merge-into-dense-corridor-then-split';
+        config.regionLimits = [-900, 900; -650, 650];
+        config.formationHeadingMode = 'motion';
+        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorCenterWaypoints = ...
+            buildMergeSplitFormationWaypoints(config.formationCount);
+        config.targetRoutes = ...
+            buildMergeSplitTargetRoutes(config.targetGroupCount);
+        config.targetCrossTrackSpacing = 18;
+        config.minimumTargetSeparation = 6;
+        config.minimumSensorTargetSeparation = 0;
+        config.targetAccelerationLimit = 2.0;
+        config.requireStaticPhysicalAllTimes = false;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
+            config.formationCount, 'merge-split');
+        config.focusWindowName = 'formation-merge-and-branch-split';
+        config = markExploratoryStyle(config);
+    case {'curved-corridor', 'turning-corridor'}
+        config.sceneStyle = 'curved-corridor';
+        config.informationFlowStyle = ...
+            'co-oriented-formations-follow-a-sustained-turn';
+        config.regionLimits = [-900, 900; -950, 1050];
+        config.formationHeadingMode = 'motion';
+        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorCenterWaypoints = ...
+            buildCurvedFormationWaypoints(config.formationCount);
+        config.targetRoutes = ...
+            buildCurvedTargetRoutes(config.targetGroupCount);
+        config.targetCrossTrackSpacing = 26;
+        config.minimumTargetSeparation = 8;
+        config.minimumSensorTargetSeparation = 0;
+        config.requireStaticPhysicalAllTimes = false;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
+            config.formationCount, 'curved-corridor');
+        config.focusWindowName = 'sustained-turn-and-fov-reorientation';
+        config = markExploratoryStyle(config);
     otherwise
         error('Unknown formation-FoV scene style: %s', styleName);
+end
+end
+
+function config = markExploratoryStyle(config)
+% Keep new styles switchable while they remain development-only.
+config.sceneCalibrationStatus = 'development-only';
+config.formalValidationAuthorized = false;
+config.trackingOutcomeAuthorized = false;
+config.enforceDifficultyRequirements = false;
+config.difficultyRequirements = struct();
+config.scaleControlReferencePreset = '';
+config.scaleControlMatchedMetrics = {};
+config.scaleControlDerivedMetrics = {};
+if isfield(config, 'sceneGeometryVersion')
+    config = rmfield(config, 'sceneGeometryVersion');
+end
+if isfield(config, 'sceneContractSha256')
+    config = rmfield(config, 'sceneContractSha256');
 end
 end
 
@@ -270,6 +329,88 @@ for groupIdx = 1:targetGroupCount
     routes{groupIdx} = [ ...
         direction * progress; ...
         lane + [0, bend, 0, -bend, 0]];
+end
+end
+
+function waypoints = buildMergeSplitFormationWaypoints(formationCount)
+% Parallel branches become a dense corridor before separating again.
+progress = [-620, -310, 0, 310, 620];
+longitudinalOffsets = centeredValues(formationCount, 70);
+entryLanes = centeredValues( ...
+    formationCount, 900 / max(formationCount - 1, 1));
+denseLanes = centeredValues(formationCount, 90);
+waypoints = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    exitLane = splitExitLane(formationCount, formationIdx, 300, 100);
+    y = [ ...
+        entryLanes(formationIdx), ...
+        0.55 * entryLanes(formationIdx), ...
+        denseLanes(formationIdx), ...
+        0.35 * denseLanes(formationIdx) + 0.65 * exitLane, ...
+        exitLane];
+    waypoints{formationIdx} = [ ...
+        progress + longitudinalOffsets(formationIdx); y];
+end
+end
+
+function routes = buildMergeSplitTargetRoutes(targetGroupCount)
+% Targets stay ahead of the co-moving sensor formations so that the
+% forward-looking 120-degree FoV, rather than an accidental rear blind
+% sector, controls visibility.
+progress = [-520, -210, 120, 450, 780];
+longitudinalOffsets = centeredValues(targetGroupCount, 45);
+entryLanes = centeredValues( ...
+    targetGroupCount, 850 / max(targetGroupCount - 1, 1)) + 45;
+denseLanes = centeredValues(targetGroupCount, 75) + 30;
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    exitLane = splitExitLane(targetGroupCount, groupIdx, 310, 95) + 35;
+    y = [ ...
+        entryLanes(groupIdx), ...
+        0.55 * entryLanes(groupIdx), ...
+        denseLanes(groupIdx), ...
+        0.35 * denseLanes(groupIdx) + 0.65 * exitLane, ...
+        exitLane];
+    routes{groupIdx} = [ ...
+        progress + longitudinalOffsets(groupIdx); y];
+end
+end
+
+function lane = splitExitLane(count, index, baseOffset, spacing)
+lowerCount = floor(count / 2);
+if index <= lowerCount
+    lane = -baseOffset - spacing * (lowerCount - index);
+else
+    lane = baseOffset + spacing * (index - lowerCount - 1);
+end
+end
+
+function waypoints = buildCurvedFormationWaypoints(formationCount)
+baseX = [-650, -360, -100, 100, 190];
+baseY = [-410, -380, -210, 80, 400];
+laneOffsets = centeredValues(formationCount, 160);
+waypoints = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    offset = laneOffsets(formationIdx);
+    waypoints{formationIdx} = [ ...
+        baseX; baseY + offset];
+end
+end
+
+function routes = buildCurvedTargetRoutes(targetGroupCount)
+% The target streams lead the formations through the turn.  This keeps
+% them inside the forward FoV.  Their smooth common lane drift creates one
+% interpretable information-ownership handover per stream without imposing
+% the excessive speed and acceleration of a repeated weaving manoeuvre.
+baseX = [-540, -250, 0, 180, 250];
+baseY = [-390, -320, -90, 170, 440];
+laneShift = [0, 25, 60, 95, 120];
+laneOffsets = centeredValues(targetGroupCount, 160) + 80;
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    offset = laneOffsets(groupIdx);
+    routes{groupIdx} = [ ...
+        baseX; baseY + offset + laneShift];
 end
 end
 

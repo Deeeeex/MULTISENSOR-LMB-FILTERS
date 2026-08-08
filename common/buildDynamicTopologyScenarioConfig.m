@@ -47,6 +47,12 @@ switch canonicalName
     case {'m24-formation-fov-relay', 'm24-relay-fov'}
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'relay');
+    case {'m24-formation-fov-merge-split', 'm24-merge-split-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'m24-formation-fov-curved-corridor', 'm24-curved-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'curved-corridor');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
@@ -66,6 +72,12 @@ switch canonicalName
     case {'x36-formation-fov-relay', 'x36-relay-fov'}
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'relay');
+    case {'x36-formation-fov-merge-split', 'x36-merge-split-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'x36-formation-fov-curved-corridor', 'x36-curved-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'curved-corridor');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
     case {'x48-formation-fov', 'x48-realistic-fov'}
