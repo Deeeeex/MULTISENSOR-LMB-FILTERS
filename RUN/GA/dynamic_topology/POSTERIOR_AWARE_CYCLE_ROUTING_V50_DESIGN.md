@@ -119,3 +119,20 @@ diagnostic is the time-resolved cardinality and label-existence propagation by
 formation.  If V50 cannot improve those quantities, the limitation is likely
 deeper than graph selection alone and should not be hidden by making the scene
 easier.
+
+## V49 tracking decision
+
+The X36 convoy pair rejects the graph-only V49 direction.  V49 selected cycles
+in all 40 B4 windows, improved its registered structural contraction objective
+by `3.6449%` on average, and raised delivered B4 strong connectivity from
+`0.45` to `0.90`.  In spite of those intended structural gains, full/focus
+E-OSPA regressed by `1.79%/2.45%`, mean cardinality error regressed by `5.51%`,
+and mean/focus inter-formation position OSPA regressed by `5.33%/5.58%`.
+Attempted message count stayed at `7200`, while attempted payload bytes grew by
+about `1.40%`.
+
+This is the counterexample needed to stop V49 rather than tune it: the graph
+proxy succeeds on its own terms while the estimator becomes worse.  V50 is now
+the active method test.  Its acceptance depends on tracking and cardinality
+improvement relative to the reused V46 arm; structural connectivity alone is
+not an acceptance metric.
