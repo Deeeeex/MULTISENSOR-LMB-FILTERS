@@ -2,11 +2,13 @@
 
 ## Decision
 
-The corrected seed-41 all-B4 structural replay passes its development gate:
+The corrected seed-41 all-B4 structural replay shows consistent structural
+benefit:
 271 of 320 windows select a cycle, all 271 selected windows improve the
 posthoc four-page structural propagation factor, and no window is worse than
-V46.  This authorizes a non-scoring real-filter runtime smoke.  It does not
-yet authorize tracking, total-byte, distributed-commit, or no-worse claims.
+V46.  A non-scoring real-filter runtime smoke also completes successfully.
+These results do not yet establish tracking, total-byte, distributed-commit,
+or general no-worse claims.
 
 The main finding is not that residual traffic should be spread across phases.
 It is that V46's minimum-edit projection often leaves the formation layer as a
@@ -27,9 +29,6 @@ headroom on both M24 and X36 non-radial scenes.
 - switch gate: cycle must improve the exact frozen-page factor by at least 1%;
 - fallback: exact input V46 adjacency and weights, with ties going to V46;
 - one-step defer: disabled.
-
-The initial frozen-page result hash is
-`a3027dd7e47b0c8e7c11f65862598aac3715a833dd7f2e87a16e3b56af9cf902`.
 
 ## Seed-41 focus-page result
 
@@ -62,7 +61,7 @@ posterior payloads and route/control traffic are measured.
 ## Seed-41 focus-window time-varying replay
 
 The policy selects a route from the completed burst page only.  The posthoc
-audit then uses the actual dominant route and actual link-loss probabilities
+evaluation then uses the actual dominant route and actual link-loss probabilities
 on each of the four executed pages.  The candidate cycle replaces only the
 burst-page residual layer, exactly as synchronized B4 requires; future pages
 are never exposed to the selector.
@@ -79,11 +78,7 @@ are never exposed to the selector.
 | X36 | crossing | 3.368% | 3.368% | cycle |
 
 Six of eight windows select a cycle, all six improve the posthoc four-page
-factor, and neither fallback window is worse than V46.  The result hash after
-aligning focus starts to absolute B4 phase 1 and hardening the replay schema is
-`0376dd3d9c04b6fb1e98231f375d3a6d12345878abbe76f20c2c0d384a7733ab`.
-The canonical hash excludes measured wall-clock timing but retains proposal
-counts, routes, factors, decisions, budgets, and every claim-boundary flag.
+factor, and neither fallback window is worse than V46.
 The snapshot and posthoc gains happen to match on these eight windows because
 their relevant route/reliability state does not change enough to alter the
 four-page score.  This equality is an observed result, not a method invariant.
@@ -97,7 +92,7 @@ must be assessed in the all-B4 replay, not inferred from this table.
 The corrected replay starts at every absolute phase-1 boundary over all eight
 160-step scenarios, giving 40 windows per scenario and 320 windows in total.
 The policy still reads only the completed current page.  The next three pages
-are used only by the posthoc structural audit.
+are used only by the posthoc structural evaluation.
 
 | Scale | Style | Cycle windows | Mean over all windows | Selected median | Selected range | Pair-set changes | Cycle/fallback changes | Gateway symmetric difference |
 |:--|:--|--:|--:|--:|--:|--:|--:|--:|
@@ -110,13 +105,12 @@ are used only by the posthoc structural audit.
 | X36 | relay | 40/40 | 3.808% | 3.684% | 3.580%--4.371% | 4 | 0 | 52 |
 | X36 | crossing | 40/40 | 3.454% | 3.372% | 2.755%--4.609% | 16 | 0 | 300 |
 
-All 240 non-radial windows select a cycle and improve the audited factor.
+All 240 non-radial windows select a cycle and improve the evaluated factor.
 This includes every X36 convoy, relay, and crossing window; their worst
 selected improvement is 2.755%.  The radial scenes exercise the 1% gate and
 exact V46 fallback instead of forcing a cycle on every window.  Globally,
 271/320 windows are selected and positive, the negative-window count is zero,
-and the empirical no-worse fraction is 1.0.  The canonical result hash is
-`b140a0285cb89e703c6d9abfa60042fc14b62a9c3bbd045a018bf6fc4589196b`.
+and the empirical no-worse fraction is 1.0.
 
 The planning and posthoc factors are numerically identical in this seed-41
 matrix.  Diagnostics show that the route and loss probabilities on the
@@ -127,7 +121,7 @@ online guarantee.
 X36 crossing is the main control-plane warning: the selected formation-pair
 set changes 16 times over 39 transitions and the accumulated cross-gateway
 symmetric difference is 300.  The structural improvement is stable, but a
-deployable method still needs route-hash dissemination, atomic fallback, and
+deployable method still needs route dissemination, atomic fallback, and
 explicit control-byte accounting.
 
 ## Top-3 proposal versus exact-enumeration oracle
@@ -154,19 +148,14 @@ headroom on every X36 focus page.  Dense X36 exact enumeration takes about
 seconds for top-3.  Therefore V49 may claim exact certification of evaluated
 proposals, but not global or near-global optimality.  A GNN or combinatorial
 model is best positioned as a causal top-k proposal generator whose outputs
-remain subject to the same exact gate and V46 fallback.  The top-3 and oracle
-artifact hashes are respectively
-`0376dd3d9c04b6fb1e98231f375d3a6d12345878abbe76f20c2c0d384a7733ab`
-and
-`46600459a9be9fbf06eeae646adc4d8324d4e8d68192b4d4505a86e1bd7e9bca`.
+remain subject to the same exact comparison and V46 fallback.
 
 ## Full32 physical availability
 
-The availability audit spans eight styles, seeds 41/57/73/89, and all 160
+The availability check spans eight styles, seeds 41/57/73/89, and all 160
 pages per case: 5,120 physical pages in total.  Every page contains at least
 one physical Hamiltonian formation cycle, so the cycle action is available on
-100% of these pages.  The artifact hash is
-`691f36270b201716d259f0e0992704ab700a6811571332b92620a839f87e1041`.
+100% of these pages.
 
 The UID-first cycle edge set is constant in radial/convoy/relay M24 except for
 two changes in each M24 crossing trajectory.  X36 radial changes three times,
@@ -185,7 +174,7 @@ be placed in a defer field or claim.
 ## What this checkpoint does not prove
 
 - The route gate still uses a frozen current-page score.  The time-varying
-  score is a posthoc audit; one seed and 40 correlated windows per scenario
+  score is a posthoc analysis; one seed and 40 correlated windows per scenario
   do not prove a population-level or online no-worse guarantee.
 - The runner materializes planned sensor trajectories for development, even
   though each page-level policy receives only its current slice.
@@ -238,16 +227,31 @@ from geometry and communication range rather than posterior-derived scores,
 future loss pages are rejected, and changing posterior contents does not alter
 the V49 action.
 
-## Next authorization gate
+## Current paired tracking and method decision
 
-The runtime smoke closes the implementation-path gate, but it does not yet
-support a paper claim about tracking.  The next stage is a small deterministic
-paired tracking run on M24 and X36.  Saved V46-sync baselines may be reused only
-when their scenario, delivery, and filter settings match; otherwise both arms
-will be rerun together.
+The first deterministic paired tracking run is now executing on X36 convoy,
+seed 1009.  It uses the lightweight runner
+`runFormationB4V49PairedTrackingExperiment.m`: both arms reuse the same scene,
+measurements, physical-UID delivery draws, and filter seed.  Realized target
+truth is removed before the filter call and used only after both arms finish.
+The V49 experiment path checks only the scene, arm, and runtime dimensions.
 
-The main analysis will test whether structural gain predicts localization,
-cardinality, and consensus improvement, especially in X36 crossing where
-route churn is highest.  Correlated loss and communication bytes remain later
-engineering questions.  The top-3 proposal remains a bounded-work heuristic
-rather than a global or near-global optimum.
+The main metrics are full-horizon and focus-window position E-OSPA, absolute
+cardinality error, inter-formation consensus, cycle-use rate, and burst-route
+churn.  X36 convoy is tested first because it has stable structural gain and
+less churn than crossing.  If the tracking metrics move in the same direction,
+the next cases are M24 convoy, X36 relay, and X36 crossing.  If they do not,
+the next method revision will target the mismatch between the structural proxy
+and tracking return instead of expanding the seed count.
+
+## Scenario expansion after the first tracking result
+
+Radial, convoy, relay, and crossing already cover central passage, parallel
+motion, long-chain relay, and transient intersection.  Two dynamics remain
+missing.  A **merge-split** scene should make several formations converge into
+a temporarily dense network and then leave through different branches; this
+tests whether route switching and fallback lag behind a topology transition.
+A **curved-corridor** scene should make co-oriented formations execute sustained
+turns; this separates FoV-heading changes from communication-distance changes.
+These two styles add more evidence than another radial or centre-surround
+variant and are therefore the preferred next scenario additions.
