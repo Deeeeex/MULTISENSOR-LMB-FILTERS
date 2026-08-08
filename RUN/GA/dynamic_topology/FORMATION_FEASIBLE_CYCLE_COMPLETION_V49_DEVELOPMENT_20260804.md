@@ -198,17 +198,56 @@ be placed in a defer field or claim.
 - No posterior, truth, tracking score, or realized delivery draw was used in
   this checkpoint.
 
+## Non-scoring real-filter smoke
+
+V49 now executes through the unchanged distributed-LMB fusion loop.  The
+selector first reduces the generic policy context to seven graph-only fields,
+rebuilds the V46 incumbent from a strict whitelist with an empty posterior
+container, and runs cycle selection only on absolute B4 phase 1.  The existing
+filter then applies its normal physical-edge, message-budget, and fusion-weight
+checks before executing the selected route.
+
+The controlled smoke uses four formations with three sensors each, eight
+filter steps, empty measurements, and one shared physical-UID-keyed directed
+delivery-uniform tensor.  Neither posterior state output nor a
+posterior-derived payload-size diagnostic is read.
+
+| Runtime item | V46 synchronized B4 | V49 feasible cycle |
+|:--|--:|--:|
+| Scheduled attempts by phase | `[24,12,12,12]` twice | `[24,12,12,12]` twice |
+| Actual attempted messages | 120 | 120 |
+| Common UID-keyed attempted messages | 112 | 112 |
+| Burst pages selecting a cycle | 0/2 | 2/2 |
+| Attempted-route rolling-B4 strong windows | 5/5 | 5/5 |
+| Delivered rolling-B4 strong windows | 0/5 | 5/5 |
+
+Delivery agrees exactly with the registered drop probabilities and shared
+uniform tensor, and all 112 common attempted messages have identical delivery
+outcomes.
+
+The delivered-window row is a descriptive observation from this one random
+tensor, not a connectivity guarantee or a tracking result.  The two arms have
+the same *scheduled* directed-edge count generally; their actual attempt
+counts are equal here because this smoke disables event gating and contains no
+sender outage.  Under outage, different sender outdegrees can produce
+different attempt counts.  Equal attempts also do not establish equal payload
+bytes or equal control traffic.
+
+The focused runtime checks confirm that physical feasibility is constructed
+from geometry and communication range rather than posterior-derived scores,
+future loss pages are rejected, and changing posterior contents does not alter
+the V49 action.
+
 ## Next authorization gate
 
-The all-window structural gate authorizes only a short, non-scoring real-filter
-smoke.  It must compare V49 with V46 synchronized B4 under the same
-physical-UID-keyed delivery-uniform tensor and the same directed posterior
-message counts `[2N,N,N,N]`.  It must independently replay the V49 policy,
-verify installed route/weight hashes, confirm posterior non-interference, and
-avoid reading tracking outputs.
+The runtime smoke closes the implementation-path gate, but it does not yet
+support a paper claim about tracking.  The next stage is a small deterministic
+paired tracking run on M24 and X36.  Saved V46-sync baselines may be reused only
+when their scenario, delivery, and filter settings match; otherwise both arms
+will be rerun together.
 
-After that smoke passes, the next research gates are: correlated-loss
-sensitivity; route-hash dissemination and atomic fallback; control and payload
-byte measurement; and multi-seed episode-level tracking evaluation.  The
-top-3 proposal rule remains a heuristic until it is replaced or its oracle gap
-is bounded.
+The main analysis will test whether structural gain predicts localization,
+cardinality, and consensus improvement, especially in X36 crossing where
+route churn is highest.  Correlated loss and communication bytes remain later
+engineering questions.  The top-3 proposal remains a bounded-work heuristic
+rather than a global or near-global optimum.

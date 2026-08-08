@@ -136,21 +136,42 @@ evaluations and about 15 seconds on the development machine.  The default
 selector therefore certifies only the proposals it evaluates; it does not
 claim global or near-global optimality.
 
+## Runtime implementation checkpoint
+
+The non-scoring real-filter smoke is complete.  V49 runs through the existing
+distributed-LMB loop without changing its fusion kernel.  It consumes an exact
+seven-field graph-only route context, rebuilds V46 from a posterior-empty
+whitelist, selects only at absolute B4 phase 1, and installs weights
+`0.70/0.20/0.10` on burst pages and `0.70/0.30` otherwise.  The existing
+filter validates physical support, the directed message budget, and the
+installed fusion weights before execution.
+
+In the deterministic four-formation, 12-sensor, eight-step case, both arms
+schedule and attempt `[24,12,12,12]` twice, or 120 messages each.  There are
+112 common physical-UID-keyed attempts with exactly paired delivery outcomes.
+V49 selects a cycle on both burst pages.  Both attempted-route unions are
+strong over all five rolling B4 windows; delivered unions are strong in 0/5
+V46 windows and 5/5 V49 windows.  The delivered result is descriptive for one
+draw and carries no safety or tracking claim.
+
+The phrase “same communication count” must remain qualified.  The two arms
+have the same scheduled directed-edge count.  Actual attempts are equal in
+this gate-disabled, no-outage smoke; sender outage can break that equality
+because the routes have different sender outdegrees.  Payload bytes and
+control-plane traffic remain unmeasured.
+
 ## Next gates
 
-1. Run a non-scoring real-filter smoke against V46 synchronized B4 with the
-   same physical-UID-keyed delivery draws and exact `[2N,N,N,N]` message
-   counts.
-2. Independently replay every installed V49 route and weight page, and test
-   that changing posterior contents cannot change the route.
-3. Measure correlated-loss sensitivity and separate posterior payload bytes
-   from route-discovery/commit bytes.
-4. Add an atomic route-hash dissemination/fallback protocol before any
-   distributed-execution claim.
-5. Freeze the proposal rule after either improving the X36 oracle gap or
-   explicitly accepting top-3 as a bounded-work heuristic.
-6. Only then open multi-seed episode-level tracking development; individual
-   B4 windows are not independent statistical samples.
+1. Run a small deterministic paired tracking experiment on representative
+   M24 and X36 scenarios, using identical scenes and delivery draws.
+2. Analyze whether structural gain predicts localization, cardinality, and
+   inter-sensor consensus changes; pay special attention to X36 crossing.
+3. If the effect is positive, expand by seed and scene style, using the whole
+   episode rather than individual B4 windows as the statistical unit.
+4. Compare top-3 with a stronger proposal generator on X36 only if the oracle
+   gap limits tracking performance.
+5. Treat correlated loss, control traffic, and atomic route agreement as
+   later deployment studies rather than blocking the first tracking result.
 
 ## Data-driven extension
 
