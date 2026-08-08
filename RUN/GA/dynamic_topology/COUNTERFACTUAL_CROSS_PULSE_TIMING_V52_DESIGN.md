@@ -3,11 +3,12 @@
 ## Method decision
 
 V51 asks only whether the synchronized V46 cross-formation pulse should be
-deferred. That is a useful falsification arm, but it has two limitations. Its
+deferred. On X36 convoy seed 1009 it deferred 34 of 40 pulse opportunities,
+saved 1.43% of attempted messages and improved cardinality and consensus by
+1.51% and 1.59%, but its full-horizon E-OSPA improvement was only 0.01%.
+This is a useful directional signal rather than a successful method. Its
 existence-gap score is only a fast proxy for the actual LMB fusion outcome,
-and its action space can only remove information. The latter is particularly
-restrictive on X36, where the large cardinality error may require useful label
-evidence to propagate earlier rather than less often.
+and its action space can only remove information.
 
 V52 therefore treats the communication time, rather than only the graph, as
 the decision. It retains the repaired V46 dominant route and the same B4
@@ -54,13 +55,21 @@ cannot hide severe dilution in one formation.
 ## Causal service rule
 
 Simulation time 1 executes the ordinary synchronized pulse as bootstrap.
-Each later service window is the four-page interval after one pulse and up to
-the next registered V46 pulse: absolute phases 2, 3, 4 and then 1. On phases
-2--4, execute early only when the current counterfactual benefit passes the
-fixed retention and disagreement gates; otherwise keep the single pulse
-credit. On the closing phase 1, execute any unused credit. The decision uses
-current and past observable states only. It does not use target truth, future
+Every service window then follows the ordinary V46 period boundary: absolute
+phases 1, 2, 3 and 4. On phases 1--3, execute the pulse when the current
+counterfactual benefit passes the fixed retention, cardinality and
+disagreement gates; otherwise retain the single pulse credit. On phase 4,
+execute any unused credit. Once a pulse has been served, the remaining pages
+of that window execute only the dominant layer. The decision uses current and
+past observable states only. It does not use target truth, future
 measurements, future geometry or realized packet delivery.
+
+This alignment is informed by the V51 result. V51 obtained its small benefit
+by withholding the ordinary phase-1 pulse. A phases-2--4--1 window would
+still force that same potentially harmful phase-1 pulse and therefore could
+not preserve the observed direction. A phases-1--4 service window instead
+allows the complete pulse to be delayed, re-evaluated and restored later
+without deleting its communication budget.
 
 This is a causal optimal-stopping problem under a hard service deadline. The
 deterministic first implementation uses the exact one-round score as a myopic
@@ -120,8 +129,8 @@ budget, fusion operator or executable topology. The related references are:
 - V50 replaced senders but selected no nonreference route in 40/40 windows.
   V52 changes service time rather than sender identity.
 - V51 can defer one synchronized pulse and reduce communication. V52 instead
-  preserves the V46 message budget and can move a useful complete pulse
-  earlier while delaying a currently harmful pulse only to its hard deadline.
+  preserves the V46 message budget and can delay a currently harmful phase-1
+  pulse while restoring one complete pulse by the phase-4 hard deadline.
 - V30/V35 established that actual serve/hold fusion counterfactuals contain
   useful M24 signal. V52 retains that estimator-side score while replacing
   their state-specific three-step suspension with a scale-independent single
@@ -129,17 +138,12 @@ budget, fusion operator or executable topology. The related references are:
 
 ## Experiment branch
 
-The running V51 X36 convoy result decides the immediate branch:
+V51 is retained only as evidence that harmful phase-1 fusion exists. Its
+0.01% full-horizon E-OSPA gain is far below the intended material effect, so
+its proxy threshold is not tuned further. The immediate branch is V52.
 
-- material tracking and cardinality improvement: keep V51 as the low-cost
-  arm, then compare V52 only if the remaining X36 error is still large;
-- no deferrals or a neutral result: reject the existence-gap proxy and move
-  directly to V52;
-- frequent deferrals with worse tracking: reject removal-only control and use
-  V52's fixed-budget timing action.
-
-The first V52 experiment, if opened, uses the saved X36 convoy seed-1009 V46
-baseline and runs only the candidate. A positive direction must then recur on
-X36 merge-split and curved-corridor before the unchanged method is evaluated
-on M24. Training a GNN is downstream of this analytic causal baseline, not a
+The first V52 experiment uses the saved X36 convoy seed-1009 V46 baseline and
+runs only the candidate. A positive direction must then recur on X36
+merge-split and curved-corridor before the unchanged method is evaluated on
+M24. Training a GNN is downstream of this analytic causal baseline, not a
 substitute for demonstrating that the action space has estimator value.
