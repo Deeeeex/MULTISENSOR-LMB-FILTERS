@@ -63,20 +63,28 @@ generate a graph or a fused posterior.
 
 ## Theoretical core to establish before experiments
 
-The implementation must first provide a mixture-aware LMB-KLA reference. The
-current projected-Gaussian GA-LMB receiver is acceptable for the V46--V53
-engineering branch but cannot support a general LMB-KLA theorem.
+The repository already provides a componentwise powered-GM LMB-KLA
+approximation, and V46--V53 activate it for always-heavy communication. It
+retains multiple modes and is a valid frozen numerical receiver for paired
+experiments, but it truncates component tuples and is not the exact power of
+an arbitrary Gaussian mixture. Before V54 experiments, this approximation
+must be isolated as the primary implementable reference and calibrated
+against a higher-accuracy numerical density-power oracle on controlled
+low-dimensional label cases. The projected-Gaussian GA-LMB path remains a
+separate legacy baseline; it is not the receiver currently used by V46--V53.
 
 With a correct reference, the paper should target three statements.
 
 ### 1. Label-wise distortion decomposition
 
 For LMB densities on a matched label space, the divergence between a selected
-fusion result and the full-fusion reference can be decomposed into a sum of
+fusion result and the frozen full-service reference can be decomposed into a sum of
 Bernoulli terms. This yields an additive label-packet distortion measure with
 an existence term and a single-target-density term. The derivation must retain
 the Gaussian-mixture density rather than collapsing every track to one
-Gaussian before the comparison.
+Gaussian before the comparison. Any theorem stated for exact densities must
+be separated from the error introduced by the powered-GM approximation and
+tuple truncation.
 
 ### 2. Unobserved-label suppression rule
 
@@ -117,7 +125,10 @@ does not count.
 
 Any experiment for this branch must include:
 
-- mixture-aware full LMB-KLA with fixed scalar weights;
+- the frozen componentwise powered-GM LMB-KLA approximation with fixed scalar
+  weights and disclosed tuple/component limits;
+- a higher-accuracy numerical density-power oracle on controlled label cases,
+  used to calibrate approximation error rather than as a full tracker;
 - projected-Gaussian GA-LMB, clearly marked as the legacy engineering
   receiver;
 - fixed per-Bernoulli information weights in the spirit of Wang et al.;
