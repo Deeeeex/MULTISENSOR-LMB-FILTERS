@@ -19,7 +19,16 @@ end
 cacheRoot = getField(options, 'cacheRoot', fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'evidence', ...
     'posterior_risk_v10', 'opened_state_audit', 'cache'));
-inputs = generateDynamicTopologyScenarioInputs(presetName, seed);
+% Event scans load many snapshots from one deterministic scenario.  Keep
+% the generated inputs within the current Octave process so each cache read
+% does not rebuild identical measurements and geometry.
+persistent cachedInputKey cachedInputs
+inputKey = sprintf('%s::%d', presetName, seed);
+if isempty(cachedInputKey) || ~strcmp(cachedInputKey, inputKey)
+    cachedInputs = generateDynamicTopologyScenarioInputs(presetName, seed);
+    cachedInputKey = inputKey;
+end
+inputs = cachedInputs;
 cachePath = fullfile(cacheRoot, sprintf( ...
     '%s_seed%d_n1_sig%d.mat', strrep(presetName, '-', '_'), ...
     seed, currentTime));
