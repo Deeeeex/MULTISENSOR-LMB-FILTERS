@@ -103,3 +103,25 @@ scenes, with crossing retained as a stress test.  Required comparisons include
 the fixed reference, the best formation-level controller, a byte-matched
 random label mask, the analytic label router, and the learned router if the
 label action space first demonstrates sufficient oracle headroom.
+
+## Positive-control result and method correction
+
+V61 executes all six observable nonreference bundles exactly, but none passes
+the joint gate.  The largest H=3 mean tracking gain is `+0.517%`; all bundles
+increase three-step attempted bytes by `0.414%`--`0.858%`.  The runtime ledger
+shows that the static byte model is correct at the intervention step: the
+`existence-top-4` action saves exactly `6,688` bytes at `t=104`.  The altered
+posterior then adds `10,152` and `36,960` bytes at `t=105` and `t=106`, so the
+recursive payload cost reverses the initial saving.
+
+The tracking trace is equally diagnostic.  `existence-top-4` improves the
+first step by `1.589%`, but the next two steps change by only `+0.013%` and
+`-0.032%`.  Its H=3 result nearly reproduces the historical one-step
+formation intervention at the same state, whereas the `+10.394%` V36 result
+required the adaptive three-step schedule `[1,2,4] -> [1,2] -> [4]`.
+
+The next method must therefore preserve both control dimensions: formation
+state determines where and when cross-formation input is restricted, while
+label evidence determines which target information may still traverse those
+restricted inputs.  V62 will test this layered controller on the same
+positive-control state before opening any fresh M24 or X36 outcome.
