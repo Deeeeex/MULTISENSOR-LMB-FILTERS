@@ -142,6 +142,15 @@ sensor update and stored as policy metadata. Reconstructing it from an
 already fused posterior would mix other sensors' support into the sender's
 own observation opportunity.
 
+`classifyLmbLabelLocalEvidence` then combines that opportunity with the
+label-specific detection-association mass and the predicted-to-updated
+existence change. It assigns one of four observable states: positive support,
+credible negative evidence, unsupported absence, or ambiguous evidence. Only
+positive support and credible negative evidence are admissible to the safe
+reference; the receiver's own posterior remains present independently. The
+initial semantic thresholds are explicit configuration values and must be
+frozen before held-out validation rather than retuned per scene or scale.
+
 This safe reference, not conventional all-source fusion, is the optimization
 target. Conventional full fusion remains a baseline. In addition to the KLD
 distortion, every admissible option directly enforces a supported-label
