@@ -46,3 +46,19 @@ current risk it must cover.  A future GNN may estimate persistence beyond the
 current step or non-additive interactions between formations.  It must not
 replace the physical-connectivity, useful-information, or reference-fallback
 constraints.
+
+## Frozen X36 observable decisions
+
+The committed selector was evaluated on all three registered seed-211 X36
+states without opening the t=128 tracking outcome:
+
+| State | Network rescue | Useful loss | Decision | Coverage |
+|:--|--:|--:|:--|--:|
+| t=72 | `1.512%` | `0.050%` | protect `[2,3,4,5]` | `81.126%` |
+| t=100 | `2.267%` | `0.016%` | protect `[2,4,5,6]` | `81.846%` |
+| t=128 | `0.428%` | `0.006%` | reference fallback | -- |
+
+The two activated sets are exactly the formation sets whose frozen V64
+schedules already produced `+5.847%` and `+9.329%` mean X36 tracking gains.
+The low-risk t=128 state is no longer forced into an intervention merely
+because a relative top-prefix always exists.
