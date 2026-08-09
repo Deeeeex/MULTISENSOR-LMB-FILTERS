@@ -6,12 +6,15 @@ if nargin < 1 || isempty(options)
     options = struct();
 end
 protocol = getNetworkAdditiveFormationRiskV65Protocol();
+presetName = getField(options, 'presetName', 'm24-formation-fov');
 currentTime = getField(options, 'currentTime', 104);
-registeredTimes = [104, 124];
-if ~isscalar(currentTime) || ~ismember(currentTime, registeredTimes)
+if ~isscalar(currentTime) || ~isfinite(currentTime) || ...
+        currentTime ~= round(currentTime)
     error('NetworkAdditiveM24V65:InvalidAnchor', ...
-        'V65 M24 currentTime must be 104 or 124.');
+        'V65 M24 currentTime must be a registered integer anchor.');
 end
+trackingCase = resolveTrackingCase( ...
+    protocol.m24TrackingCases, presetName, currentTime);
 gitState = resolveResearchGitState();
 if gitState.trackedWorktreeDirty || ...
         ~isempty(gitState.untrackedSourceFiles) || ...
@@ -20,13 +23,12 @@ if gitState.trackedWorktreeDirty || ...
         'V65 M24 headroom requires a clean source checkout.');
 end
 
-target = resolveTarget( ...
-    protocol.m24OpenedTrackingTargets, currentTime);
 entry = resolveCase(protocol.m24Cases, ...
-    target.presetName, target.seed);
+    trackingCase.presetName, trackingCase.seed);
 outputRoot = getField(options, 'outputRoot', fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'evidence', ...
     'tracking_aligned_v65', 'm24_network_additive_headroom', ...
+    strrep(trackingCase.presetName, '-', '_'), ...
     sprintf('t%d', currentTime)));
 if exist(outputRoot, 'dir') ~= 7
     mkdir(outputRoot);
@@ -47,7 +49,7 @@ screenOptions = struct( ...
     'outputDirectory', fullfile(outputRoot, 'screen'), ...
     'writeReport', true);
 [screenReportPath, screen] = runFormationModeOpenedReturnScreen( ...
-    target.presetName, target.seed, currentTime, screenOptions);
+    trackingCase.presetName, trackingCase.seed, currentTime, screenOptions);
 
 selection = screen.bank.networkRiskSelection;
 if ~selection.actionEnabled || screen.bank.actionCount ~= 2
@@ -86,8 +88,8 @@ result.contractVersion = ...
     'tracking-aligned-m24-network-additive-v65-result-v1';
 result.protocol = protocol;
 result.currentTime = currentTime;
-result.presetName = target.presetName;
-result.seed = target.seed;
+result.presetName = trackingCase.presetName;
+result.seed = trackingCase.seed;
 result.generatedAt = datestr(now, 31);
 result.generationGitCommit = gitState.commit;
 result.screenReportPath = screenReportPath;
@@ -107,8 +109,9 @@ result.bestStrictAttemptedByteSavingPercent = ...
     records(bestIdx).attemptedByteSavingPercent;
 result.strongHeadroomGatePassed = bestGain >= ...
     protocol.minimumMeanGainPercent - 1e-12;
-result.priorKnownGainPercent = target.meanGainPercent;
-result.priorKnownGainSource = target.source;
+result.priorKnownGainPercent = ...
+    trackingCase.priorKnownGainPercent;
+result.priorKnownGainSource = trackingCase.source;
 result.openedDevelopmentEvidenceOnly = true;
 result.validationClaimAllowed = false;
 
@@ -164,14 +167,14 @@ fprintf(fid, ['- Evidence boundary: opened M24 development state; ', ...
     'no held-out or validation claim.\n']);
 end
 
-function target = resolveTarget(targets, currentTime)
-mask = strcmp({targets.presetName}, 'm24-formation-fov') & ...
-    [targets.seed] == 211 & [targets.currentTime] == currentTime;
+function value = resolveTrackingCase(cases, presetName, currentTime)
+mask = strcmp({cases.presetName}, presetName) & ...
+    [cases.currentTime] == currentTime;
 if nnz(mask) ~= 1
     error('NetworkAdditiveM24V65:MissingTarget', ...
         'The M24 V65 anchor does not have one registered target.');
 end
-target = targets(find(mask, 1));
+value = cases(find(mask, 1));
 end
 
 function entry = resolveCase(cases, presetName, seed)
