@@ -129,16 +129,25 @@ switch styleName
         config.sceneStyle = 'merge-split';
         config.informationFlowStyle = ...
             'parallel-branches-merge-into-dense-corridor-then-split';
-        config.regionLimits = [-900, 900; -650, 650];
+        config.regionLimits = [-950, 1050; -650, 650];
         config.formationHeadingMode = 'motion';
         config.sensorFovHeadingMode = 'formation-shared-velocity';
         config.sensorCenterWaypoints = ...
             buildMergeSplitFormationWaypoints(config.formationCount);
         config.targetRoutes = ...
             buildMergeSplitTargetRoutes(config.targetGroupCount);
+        % Keep every target stream phase-aligned with the moving formation
+        % branches.  Inheriting the radial preset's staggered births made a
+        % late stream appear almost inside a formation that had already
+        % advanced along the corridor, creating sub-metre sensor--target
+        % encounters unrelated to the intended information-flow problem.
+        config.targetBirthTimesByGroup = ...
+            ones(1, config.targetGroupCount);
+        config.targetDeathTimesByGroup = ...
+            config.simulationLength * ones(1, config.targetGroupCount);
         config.targetCrossTrackSpacing = 18;
         config.minimumTargetSeparation = 6;
-        config.minimumSensorTargetSeparation = 0;
+        config.minimumSensorTargetSeparation = 30;
         config.targetAccelerationLimit = 2.0;
         config.requireStaticPhysicalAllTimes = false;
         config.blockageWindows = zeros(0, 4);
@@ -357,7 +366,12 @@ function routes = buildMergeSplitTargetRoutes(targetGroupCount)
 % Targets stay ahead of the co-moving sensor formations so that the
 % forward-looking 120-degree FoV, rather than an accidental rear blind
 % sector, controls visibility.
-progress = [-520, -210, 120, 450, 780];
+% Maintain a physical lead over the sensor branches throughout the common
+% 160-step traversal.  The earlier route started only 100 m ahead and the
+% different branch offsets allowed the rear target stream to be overtaken
+% during the first few samples.  A further 120 m lead keeps the traffic in
+% the forward FoV without letting targets pass through a sensor ring.
+progress = [-400, -90, 240, 570, 900];
 longitudinalOffsets = centeredValues(targetGroupCount, 45);
 entryLanes = centeredValues( ...
     targetGroupCount, 850 / max(targetGroupCount - 1, 1)) + 45;

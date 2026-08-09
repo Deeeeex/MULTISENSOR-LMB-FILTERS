@@ -59,4 +59,3 @@ time-varying information-flow problem: redundant cross-formation messages near
 the dense merge, followed by complementary information requirements during the
 split.  The method and thresholds remain frozen; tracking is opened only if the
 new scene first shows material signed opportunity on unseen states.
-

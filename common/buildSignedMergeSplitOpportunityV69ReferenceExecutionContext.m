@@ -1,0 +1,29 @@
+function context = ...
+    buildSignedMergeSplitOpportunityV69ReferenceExecutionContext( ...
+        presetName, seed, currentTime)
+% BUILDSIGNEDMERGESPLITOPPORTUNITYV69REFERENCEEXECUTIONCONTEXT Source only.
+
+protocol = getSignedMergeSplitOpportunityV69Protocol();
+if ~ischar(presetName) || ~ismember(presetName, protocol.presets) || ...
+        ~isscalar(seed) || ~ismember(seed, protocol.allSeeds) || ...
+        ~isscalar(currentTime) || ~isfinite(currentTime) || ...
+        currentTime ~= max(protocol.snapshotTimes)
+    error('SignedMergeSplitV69:InvalidReferenceWindow', ...
+        'The V69 merge-split reference request is not registered.');
+end
+context = struct();
+context.contractVersion = ...
+    'signed-merge-split-opportunity-v69-reference-context-v1';
+context.capability = ...
+    'signed-merge-split-opportunity-reference-development';
+context.action = ...
+    'filter-signed-merge-split-opportunity-reference-development';
+context.protocolId = protocol.id;
+context.phase = 'reference-cache';
+context.presetName = presetName;
+context.seed = seed;
+context.currentTime = currentTime;
+context.measurementTimeCount = currentTime;
+context.policyName = protocol.referencePolicyName;
+context.developmentEvidenceOnly = true;
+end
