@@ -104,12 +104,20 @@ end
 cropped = cropInputs(inputs, maximumTime);
 config = buildReferenceConfig( ...
     cropped.config, snapshotTimes, protocol);
+executionContext = struct();
+v56Protocol = getTrackingAlignedFormationH3HeadroomProtocol();
+if strcmp(protocol.id, v56Protocol.id)
+    cropped.model = removeExplicitTargetTruth(cropped.model);
+    executionContext = ...
+        buildTrackingAlignedFormationH3ExecutionContext( ...
+            presetName, seed, 'reference-cache', maximumTime);
+end
 rng(seed + protocol.filterSeedOffset);
 timerId = tic;
 [~, diagnostics] = runEventTriggeredDistributedLmbFilter( ...
     cropped.model, cropped.measurements, ...
     cropped.sensorTrajectories, cropped.neighborMap, ...
-    cropped.commConfig, config);
+    cropped.commConfig, config, executionContext);
 elapsedSeconds = toc(timerId);
 auditRuntime(diagnostics, snapshotTimes);
 
@@ -273,6 +281,21 @@ inputs.graphData.physicalAdjacency = ...
     inputs.graphData.physicalAdjacency(:, :, 1:maximumTime);
 inputs.graphData.positions = ...
     inputs.graphData.positions(:, :, 1:maximumTime);
+end
+
+function model = removeExplicitTargetTruth(model)
+if isfield(model, 'explicitTargetTrajectories')
+    model = rmfield(model, 'explicitTargetTrajectories');
+end
+if isfield(model, 'dynamicTopologyScenario') && ...
+        isstruct(model.dynamicTopologyScenario)
+    fields = {'targetTrajectories', 'target'};
+    present = fields(isfield(model.dynamicTopologyScenario, fields));
+    if ~isempty(present)
+        model.dynamicTopologyScenario = rmfield( ...
+            model.dynamicTopologyScenario, present);
+    end
+end
 end
 
 function values = finiteLogical(values)

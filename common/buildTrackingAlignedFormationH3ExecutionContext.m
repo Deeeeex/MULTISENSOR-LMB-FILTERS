@@ -1,0 +1,54 @@
+function context = ...
+    buildTrackingAlignedFormationH3ExecutionContext( ...
+        presetName, seed, phase, currentTime)
+% BUILDTRACKINGALIGNEDFORMATIONH3EXECUTIONCONTEXT V56 development boundary.
+
+protocol = getTrackingAlignedFormationH3HeadroomProtocol();
+if ~ischar(presetName) || ~isrow(presetName) || ...
+        ~any(strcmp(presetName, protocol.presets)) || ...
+        ~isa(seed, 'double') || ~isreal(seed) || ...
+        ~isscalar(seed) || ~ismember(seed, protocol.allSeeds) || ...
+        ~ischar(phase) || ~isrow(phase) || ...
+        ~isa(currentTime, 'double') || ~isreal(currentTime) || ...
+        ~isscalar(currentTime) || ~isfinite(currentTime) || ...
+        currentTime ~= floor(currentTime)
+    error('TrackingAlignedV56:InvalidExecutionContextInput', ...
+        'V56 execution context inputs do not match the headroom protocol.');
+end
+
+switch phase
+    case 'reference-cache'
+        if currentTime ~= max(protocol.snapshotTimes)
+            error('TrackingAlignedV56:InvalidReferenceCacheWindow', ...
+                'The V56 reference cache must cover all frozen anchors.');
+        end
+        measurementTimeCount = currentTime;
+        policyName = 'formation-h3-fixed-ccw-reference-v1';
+    case 'opened-return'
+        if ~ismember(currentTime, protocol.snapshotTimes)
+            error('TrackingAlignedV56:InvalidOpenedReturnAnchor', ...
+                'The V56 opened return must start at a frozen anchor.');
+        end
+        measurementTimeCount = currentTime + protocol.horizonSteps - 1;
+        policyName = sprintf( ...
+            'formation-h%d-frozen-duration-1-then-reference-v1', ...
+            protocol.horizonSteps);
+    otherwise
+        error('TrackingAlignedV56:InvalidExecutionPhase', ...
+            'Unknown V56 execution phase: %s.', phase);
+end
+
+context = struct();
+context.contractVersion = ...
+    'tracking-aligned-formation-h3-execution-context-v1';
+context.capability = 'tracking-aligned-headroom-development';
+context.action = 'filter-tracking-aligned-headroom-development';
+context.protocolId = protocol.id;
+context.phase = phase;
+context.presetName = presetName;
+context.seed = seed;
+context.currentTime = currentTime;
+context.measurementTimeCount = measurementTimeCount;
+context.policyName = policyName;
+context.developmentEvidenceOnly = true;
+end
