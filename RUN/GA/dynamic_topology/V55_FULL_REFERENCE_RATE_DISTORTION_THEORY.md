@@ -198,3 +198,13 @@ for improving on V46.  The combined selection-plus-projection experiment is
 not justified.  Only the projection-only causal arm remains before deciding
 whether to recast the work as robust fusion or abandon the payload branch in
 favor of tracking-aligned topology control.
+
+The projection-only arm has since improved full-horizon E-OSPA by 1.75% and
+cardinality error by 2.88% on the same X36 development pair.  It also
+increased attempted bytes by 0.88%, worsened terminal inter-formation
+disagreement by 4.59%, and increased runtime by 49.6%.  The projection is
+therefore retained only as a robust LMB-fusion ablation.  It does not rescue
+the rate-distortion selection claim or meet the original clear-gain routing
+target.  V55 is closed without a combined arm or selection-GNN stage; the
+active method direction is the tracking-aligned counterfactual topology
+objective defined in V56.

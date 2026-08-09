@@ -157,3 +157,16 @@ selection teacher also produced only 2.05% direct saving on its selective
 path and increased candidate runtime by 35.1%.  Do not run the combined arm
 or train a selection GNN.  Run projection-only once to decide whether any
 estimation contribution remains; otherwise stop this payload branch.
+
+Projection-only has now completed on the same X36 pair.  It improved
+full-horizon E-OSPA by 1.75%, focus E-OSPA by 2.25%, worst-sensor E-OSPA by
+1.96%, and cardinality error by 2.88%, while clamping 8,725 receiver-label
+existence values.  This is genuine development evidence for a robust-fusion
+effect.  It is not a successful routing result: attempted bytes increased by
+0.88%, terminal inter-formation disagreement worsened by 4.59%, runtime
+increased by 49.6%, and full-horizon gain remained below 2%.
+
+The attribution branch is therefore closed.  Retain projection-only as an
+independent robust LMB-fusion ablation, do not run the combined arm, and do
+not train on the V54/V55 posterior-preservation targets.  The active method
+line moves to the tracking-aligned V56 topology objective.
