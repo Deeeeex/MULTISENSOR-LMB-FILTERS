@@ -50,11 +50,14 @@ methods do not provide together:
 
 1. use the receiver's current LMB and its observation support to distinguish
    reliable negative evidence from a sender's lack of observation;
-2. compute a mixture-aware single-label serve/hold counterfactual for each
-   feasible receiver--sender--label packet;
-3. select label packets under an explicit byte budget and a temporal
-   information-flow constraint;
-4. optionally train a permutation-equivariant GNN to approximate the expensive
+2. construct a receiver-safe per-label reference that includes positive
+   evidence and credible in-FoV negative evidence, but excludes unsupported
+   absence-of-evidence inputs;
+3. enumerate the small feasible sender subsets for each receiver--label and
+   compute their mixture-aware distortion and byte cost;
+4. select one sender-subset option per label under an explicit byte budget
+   and a temporal information-flow constraint;
+5. optionally train a permutation-equivariant GNN to approximate the expensive
    counterfactual utility, while a deterministic projection enforces the byte,
    FoV and temporal-connectivity constraints.
 
@@ -96,40 +99,64 @@ With a correct reference, the paper should target three statements.
 
 ### 1. Label-wise distortion decomposition
 
-For LMB densities on a matched label space, the divergence between a selected
-fusion result and the frozen full-service reference can be decomposed into a sum of
-Bernoulli terms. This yields an additive label-packet distortion measure with
-an existence term and a single-target-density term. The derivation must retain
-the Gaussian-mixture density rather than collapsing every track to one
-Gaussian before the comparison. Any theorem stated for exact densities must
-be separated from the error introduced by the powered-GM approximation and
-tuple truncation.
+For reference and selected Bernoulli components
+`B_*^ell=(r_*^ell,p_*^ell)` and `B_A^ell=(r_A^ell,p_A^ell)`, use the
+reference-to-selected direction
+
+`d_ell(A) = (1-r_*) log((1-r_*)/(1-r_A))`
+
+`          + r_* log(r_*/r_A) + r_* D_KL(p_* || p_A)`.
+
+For matched-label-space LMB densities,
+`D_KL(pi_* || pi_A) = sum_ell d_ell(A)`. The direction is intentional: a
+candidate that deletes a reference-supported label receives infinite
+distortion in the ideal formula instead of being rewarded for becoming
+confidently empty. The spatial term must retain the Gaussian-mixture density.
+Any theorem stated for exact densities must be separated from the error
+introduced by the powered-GM approximation and tuple truncation.
+
+The additive statement is across labels, not across sender edges. Multiple
+sources fused into the same label interact through the KLA normalization and
+must be evaluated jointly.
 
 ### 2. Unobserved-label suppression rule
 
 For geometric fusion, adding a sender with low label existence or low density
 overlap can reduce the receiver's fused existence probability. If the sender's
 FoV and update history show that the label was not observable, this decrease
-is absence of evidence rather than reliable negative evidence. The method
-censors that label contribution and renormalizes the remaining label-specific
-weights. The theorem should bound the full-reference distortion and prove that
-the censoring action cannot introduce a supported-label existence decrease
-larger than the registered tolerance.
+is absence of evidence rather than reliable negative evidence. The
+receiver-safe reference therefore includes a sender for label `ell` only when
+the sender supplies positive support or has high predicted observation
+opportunity and a recent credible missed-detection update. It excludes a low
+existence value caused only by missing FoV support.
+
+This safe reference, not conventional all-source fusion, is the optimization
+target. Conventional full fusion remains a baseline. In addition to the KLD
+distortion, every admissible option directly enforces a supported-label
+existence-retention floor; the paper should not infer that floor from a loose
+divergence inequality.
 
 ### 3. Budgeted projection guarantee
 
-For a fixed physical page, additive label distortion turns packet selection
-into a budgeted allocation problem. The analytic selector ranks exact marginal
-utilities and then projects the selected packets through per-receiver byte
-limits and the previous/current pulse information-flow constraint. The final
-statement must separate two guarantees: the posterior distortion bound is
-label-wise, while reachability is a graph-level temporal guarantee.
+For a fixed physical page and bounded incoming formation degree, enumerate
+the feasible sender subsets for each receiver--label. Each subset is one
+option with an exact receiver-approximation distortion, byte cost, retention
+status and formation-edge activation mask. Because distortion is additive
+across labels, choosing one option per label is a multiple-choice knapsack;
+edge-activation variables link the selected label options to the
+previous/current pulse information-flow constraint. A small exact dynamic
+program or integer program is the analytic teacher. A per-edge greedy ranking
+is only an approximation and is not the theoretical method.
+
+The final statement separates two guarantees: the posterior distortion and
+existence-retention bounds are label-wise, while reachability is a graph-level
+temporal guarantee.
 
 ## Data-driven extension
 
-The exact selector supplies teacher targets consisting of per-label marginal
-utility, retention risk and the selected packet mask. A GNN can use only
-runtime-observable features: existence probability, mixture overlap,
+The exact selector supplies teacher targets consisting of per-label subset
+value, edge marginal values, retention risk and the selected packet mask. A
+GNN can use only runtime-observable features: existence probability, mixture overlap,
 innovation/update age, FoV support, sender/receiver covariance, link
 reliability and recent formation-level traffic. Training truth may be used in
 the loss only for an explicitly separate oracle/teacher experiment; the
