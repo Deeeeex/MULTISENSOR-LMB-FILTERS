@@ -86,3 +86,10 @@ The first direct paired run now confirms t=104.  Protecting only formations
 `+2.835%`; worst-sensor and minimum-formation gains are both nonnegative and
 rolling B3 passes.  The frozen V65 action therefore clears the full strong
 gate on M24 without copying the earlier all-formation positive control.
+
+The second direct M24 run also passes.  At t=124 the frozen set `[2,3]`
+improves mean tracking by `+8.446%`, worst-sensor tracking by `+30.177%`,
+window consensus by `+19.149%`, terminal consensus by `+20.775%`, and attempted
+bytes by `+2.653%`, with nonnegative minimum-formation gain and rolling B3.
+The same selector has therefore passed both activated M24 states and both
+activated X36 states; remaining low-risk registered states use the reference.
