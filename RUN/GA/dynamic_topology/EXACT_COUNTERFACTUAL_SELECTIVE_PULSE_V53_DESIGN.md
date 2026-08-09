@@ -72,3 +72,20 @@ tested unchanged on X36 merge-split and curved-corridor before M24. If the
 exact selective action remains near-neutral, the evidence no longer supports
 topology scheduling alone; the next research direction should move to
 label-selective robust fusion rather than another routing heuristic.
+
+The numerical gate is frozen before reading the V53 result:
+
+- full-horizon position E-OSPA improvement must be at least `+1.0%`;
+- mean absolute cardinality-error improvement must be at least `+1.0%`;
+- focus-window position E-OSPA may not degrade by more than `0.5%`;
+- attempted posterior messages may not exceed V46.
+
+This is only a development gate, not evidence of stable generalization. If it
+passes, all routing and retention settings are frozen. The stability stage
+uses X36 convoy, merge-split and curved-corridor with disjoint seeds and then
+the corresponding M24 scenes. A paper-level positive result requires positive
+mean full-horizon and cardinality improvements at both scales, wins in at
+least two thirds of paired cases, and no scene family with a mean focus-window
+degradation larger than `1.0%`. Statistical intervals and the final seed count
+are reported over paired scene-seed differences rather than inferred from the
+single opened development case.
