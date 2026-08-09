@@ -262,3 +262,9 @@ The primary comparison is not whether label selection sends fewer bytes than
 full fusion; it is whether it improves tracking and cardinality at the same or
 lower byte budget across both M24 and X36 and across radial, convoy,
 merge-split and curved-corridor scene families.
+
+The feature-gated runtime insertion points, oracle headroom gate, set-GNN
+role, and scale/scene generalization protocol are frozen in
+`V54_RUNTIME_ORACLE_AND_GNN_GATE.md`. Learning begins only after the X36
+oracle shows at least 2% full-horizon and cardinality headroom under the total
+byte ledger.
