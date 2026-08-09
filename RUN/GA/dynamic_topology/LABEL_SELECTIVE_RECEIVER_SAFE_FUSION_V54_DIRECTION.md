@@ -73,6 +73,25 @@ against a higher-accuracy numerical density-power oracle on controlled
 low-dimensional label cases. The projected-Gaussian GA-LMB path remains a
 separate legacy baseline; it is not the receiver currently used by V46--V53.
 
+### Initial numerical calibration
+
+`runPoweredGmKlaGridCalibration` directly integrates a controlled
+two-dimensional, three-mode label density on a converged tensor grid. The
+81-to-161 point refinement changes `log eta`, existence, mean and covariance
+by at most `2.5e-10`, with `3.1e-13` boundary mass. Against that oracle:
+
+| Receiver approximation | TV | KL | Mean error | Existence error |
+|:--|--:|--:|--:|--:|
+| Frozen powered-GM top-3/max-8 | 0.0334 | 0.0059 | 0.0217 | 0.0048 |
+| Untruncated powered-GM 3-by-3 | 0.0334 | 0.0059 | 0.0217 | 0.0048 |
+| Projected single Gaussian | 0.5415 | 0.8399 | 0.0620 | 0.0081 |
+
+In this aligned multimodal case, dropping the ninth tuple is negligible; the
+remaining powered-GM error comes mainly from the componentwise density-power
+approximation. The projected Gaussian has much larger shape distortion even
+though moment covariance alone can look competitive. This is a controlled
+calibration, not a general error bound or tracking result.
+
 With a correct reference, the paper should target three statements.
 
 ### 1. Label-wise distortion decomposition
