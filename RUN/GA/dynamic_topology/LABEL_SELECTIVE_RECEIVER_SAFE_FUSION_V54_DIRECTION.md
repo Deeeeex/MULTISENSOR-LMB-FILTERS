@@ -151,6 +151,13 @@ sensor update and stored as policy metadata. Reconstructing it from an
 already fused posterior would mix other sensors' support into the sender's
 own observation opportunity.
 
+`updateLmbWithSensorMeasurementAndEvidence` defines this V54-only runtime
+boundary without changing the frozen V46--V53 path. It computes opportunity
+before the local update and returns separate current-step label evidence.
+For an empty measurement set it also resets the association diagnostics
+inherited by the legacy missed-detection update; otherwise a detection from a
+previous step could be misread as current positive support.
+
 `classifyLmbLabelLocalEvidence` then combines that opportunity with the
 label-specific detection-association mass and the predicted-to-updated
 existence change. It assigns one of four observable states: positive support,
