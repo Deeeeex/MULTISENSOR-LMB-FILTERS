@@ -66,7 +66,10 @@ for formationIdx = 1:formationCount
             continue;
         end
         recordIdx = find(screen.actionIndices == actionIdx);
-        if numel(recordIdx) ~= 1
+        if isempty(recordIdx) && ...
+                ~screen.bank.actionPosteriorProxyAllowed(actionIdx)
+            continue;
+        elseif numel(recordIdx) ~= 1
             error('Tracking-aligned local mode lacks one teacher outcome.');
         end
         record = screen.records(recordIdx);
@@ -100,8 +103,11 @@ end
 
 block = struct();
 block.contractVersion = ...
-    'tracking-aligned-formation-value-block-v56-v1';
+    'tracking-aligned-formation-value-block-v56-v2';
 block.graph = graph;
+block.presetName = optionalField(screen, 'presetName', 'unknown');
+block.seed = optionalField(screen, 'seed', NaN);
+block.currentTime = optionalField(screen, 'currentTime', NaN);
 block.targetNames = targetNames;
 block.targets = targets;
 block.targetAvailableMask = targetAvailableMask;
@@ -115,6 +121,14 @@ block.targetsUseFutureMeasurements = true;
 block.runtimeEligibleFields = {'graph'};
 block.offlineOnlyFields = { ...
     'targets', 'targetAvailableMask', 'executionSafeMask'};
+end
+
+function value = optionalField(structure, name, fallback)
+if isfield(structure, name)
+    value = structure.(name);
+else
+    value = fallback;
+end
 end
 
 function safe = actionExecutionSafe(outcome, record)
