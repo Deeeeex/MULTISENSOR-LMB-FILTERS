@@ -130,6 +130,18 @@ the sender supplies positive support or has high predicted observation
 opportunity and a recent credible missed-detection update. It excludes a low
 existence value caused only by missing FoV support.
 
+The first implementable observable is
+`computeLmbLabelObservationOpportunity`: it integrates the actual runtime
+`evaluateSensorQuality` model over the predicted label Gaussian mixture with
+positive-weight position cubature. It returns expected detection probability
+and in-FoV probability without target truth or future measurements. This
+continuous opportunity score should enter the evidence rule; a binary check
+at the posterior mean is insufficient near FoV and range boundaries.
+It must be computed from each local predicted label immediately before the
+sensor update and stored as policy metadata. Reconstructing it from an
+already fused posterior would mix other sensors' support into the sender's
+own observation opportunity.
+
 This safe reference, not conventional all-source fusion, is the optimization
 target. Conventional full fusion remains a baseline. In addition to the KLD
 distortion, every admissible option directly enforces a supported-label
