@@ -11,17 +11,30 @@ When enabled, it changes exactly three stages.
    `updateLmbWithSensorMeasurementAndEvidence` so each predicted label records
    current observation opportunity and evidence before any communication.
 2. **Message construction:** on the same attempted edge opportunities as V46,
-   charge and transmit a control synopsis first, then select full GM label
+   charge a compact typed control synopsis first, then select full GM label
    payloads under the remaining byte budget. The oracle arm may inspect full
    posteriors only to produce a development upper bound and teacher targets;
    it must be marked nondeployable.
 3. **Receiver fusion:** fuse only the delivered selected label objects, then
-   run `projectSelectedLmbLabelFusionRetention` before finalizing the receiver
-   posterior. Bytes rejected after receipt remain charged.
+   run `projectReceiverSafeFusionRetention` before finalizing the receiver
+   posterior. The constraint applies only to current positive receiver
+   evidence and bounds the Bernoulli log-odds drop by `log(4)`. When fixed
+   backbone inputs still violate the bound, only existence is clamped; the
+   fused spatial density is retained. Bytes rejected after receipt remain
+   charged.
 
 The V46 dominant cycle remains unchanged. V54 acts only on residual
 cross-formation label payloads in its first implementation, so the new method
 does not need a second connectivity mechanism.
+
+The first 24-step mechanism probe found 35 positive-support, 198
+unsupported-absence and 55 ambiguous cross-residual label inputs. The compact
+synopsis plus selected GM payload used 107,552 bytes under a paired 177,792
+byte full-message budget (39.5% saving), with zero unresolved retention
+violations. The 278 existence clamps are a material algorithmic intervention,
+not a rare fallback, so only the paired X36 tracking gate can decide whether
+the constraint improves tracking or creates cardinality bias. See
+`V54_RUNTIME_INTEGRATION_FINDING.md`.
 
 ## Stage A: oracle headroom before learning
 

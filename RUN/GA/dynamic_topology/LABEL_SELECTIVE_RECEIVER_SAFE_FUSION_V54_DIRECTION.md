@@ -138,15 +138,15 @@ the option table from those synopses; the exact byte projection remains the
 same. Control-synopsis bytes are a fixed communication cost and are accounted
 separately from selected heavy label payloads.
 
-The initial X36 byte calculation supports keeping this synopsis unchanged:
-the V46 reference averages 32,491 bytes per full-posterior message, whereas a
-four-dimensional V54 synopsis costs `32 + 192 L` bytes for `L` active labels.
-At 24 labels this is 4,640 bytes (14.3% of the V46 mean), and at 48 labels it
-is 9,248 bytes (28.5%). Break-even occurs at 169 active labels. This does not
-yet prove a total-network saving: the first V54 smoke must record the actual
-active-label distribution and charge synopsis traffic on the same message
-opportunity set as V46 before allocating the remaining bytes to selected GM
-labels. See `V54_CONTROL_SYNOPSIS_FEASIBILITY.md`.
+Runtime integration rejected the original double/full-covariance synopsis:
+for a unimodal label, its 192-byte cost equalled the full-GM label cost. The
+current compact typed synopsis costs `16 + 64 L` bytes for `L` active
+four-dimensional labels. A 24-step M24 mechanism probe charged 19,008 synopsis
+bytes and 88,544 selected-GM bytes against 177,792 paired V46 full-message
+bytes, saving 39.5% on the selective path. Quantization still requires later
+calibration, and this mechanism result is not tracking evidence. See
+`V54_CONTROL_SYNOPSIS_FEASIBILITY.md` and
+`V54_RUNTIME_INTEGRATION_FINDING.md`.
 
 ### 2. Unobserved-label suppression rule
 
@@ -232,14 +232,17 @@ small tracking gain obtained by violating the byte budget or using scene truth
 does not count.
 
 Learned utility is not trusted to enforce supported-label retention. After
-the selected GM labels arrive, `projectSelectedLmbLabelFusionRetention` runs
+the selected GM labels arrive, a constrained Bernoulli projection runs
 the installed receiver on the actual payloads. If a receiver-supported label
-falls below its frozen existence floor, the receiver removes the selected
-input whose removal restores the most existence, preferring a credible
-negative input when removals tie, and eventually falls back to receiver-only
-if necessary. Already transmitted bytes remain charged. Thus prediction error
-can waste bandwidth or miss a useful fusion, but it cannot force acceptance
-of an existence-floor violation.
+with current positive association support falls more than `log(4)` in
+log-odds below its local value, the receiver first removes the selected input
+whose removal restores the most existence. If fixed backbone inputs still
+violate the constraint, only the existence coordinate is clamped to the
+boundary; the unconstrained KLA spatial density is retained. Already
+transmitted bytes remain charged. Thus prediction error can waste bandwidth
+or miss a useful fusion, but it cannot force acceptance of the frozen
+log-odds constraint or erase neighbor spatial information through a wholesale
+receiver-only fallback.
 
 ## Required baselines
 

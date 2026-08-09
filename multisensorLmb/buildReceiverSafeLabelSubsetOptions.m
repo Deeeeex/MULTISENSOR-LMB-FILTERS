@@ -48,8 +48,10 @@ referenceObject = fuseSubset(receiverObject, senderObjects, ...
 
 supportedExistenceThreshold = getUnitOption( ...
     options, 'supportedExistenceThreshold', 0.50);
-existenceRetentionFraction = getUnitOption( ...
-    options, 'existenceRetentionFraction', 0.95);
+receiverHasPositiveSupport = logical(getField( ...
+    options, 'receiverHasPositiveSupport', true));
+maximumReceiverLogOddsDrop = getNonnegativeOption( ...
+    options, 'maximumReceiverLogOddsDrop', log(4));
 selectedPayloadMetadataScalars = getField( ...
     options, 'selectedPayloadMetadataScalars', 0);
 if ~isscalar(selectedPayloadMetadataScalars) || ...
@@ -65,7 +67,8 @@ optionCount = 2^safeCount;
 template = makeOption(senderCount);
 labelOptions = repmat(template, 1, optionCount);
 for optionIdx = 1:optionCount
-    localSelection = logical(bitget(optionIdx - 1, 1:safeCount));
+    localSelection = logical(arrayfun( ...
+        @(bitIdx) bitget(optionIdx - 1, bitIdx), 1:safeCount));
     senderSubset = false(1, senderCount);
     senderSubset(safeSenderIndices(localSelection)) = true;
     candidateObject = fuseSubset(receiverObject, senderObjects, ...
@@ -74,8 +77,10 @@ for optionIdx = 1:optionCount
         approximateLmbSpatialKldCubature(referenceObject, candidateObject);
     terms = computeLmbBernoulliKldTerms( ...
         referenceObject.r, candidateObject.r, spatialKld);
-    isSupported = referenceObject.r >= supportedExistenceThreshold;
-    retentionFloor = existenceRetentionFraction * referenceObject.r;
+    isSupported = receiverHasPositiveSupport && ...
+        referenceObject.r >= supportedExistenceThreshold;
+    retentionFloor = logOddsRetentionFloor( ...
+        receiverObject.r, maximumReceiverLogOddsDrop);
     retentionSatisfied = ~isSupported || ...
         candidateObject.r + 1e-12 >= retentionFloor;
 
@@ -108,6 +113,8 @@ result.selectedPayloadMetadataScalars = selectedPayloadMetadataScalars;
 result.controlSynopsisCostIncluded = false;
 result.spatialMetricIsExactGmKld = false;
 result.receiverApproximation = 'installed-powered-gm-lmb-kla';
+result.receiverHasPositiveSupport = receiverHasPositiveSupport;
+result.maximumReceiverLogOddsDrop = maximumReceiverLogOddsDrop;
 result.requiresFullSenderPosteriors = true;
 result.intendedUse = 'offline-oracle-teacher';
 end
@@ -160,6 +167,21 @@ if ~isscalar(value) || ~isfinite(value) || value < 0 || value > 1
     error('ReceiverSafeOptions:InvalidUnitOption', ...
         '%s must be a finite scalar in [0, 1].', fieldName);
 end
+end
+
+function value = getNonnegativeOption(options, fieldName, defaultValue)
+value = getField(options, fieldName, defaultValue);
+if ~isscalar(value) || ~isfinite(value) || value < 0
+    error('ReceiverSafeOptions:InvalidNonnegativeOption', ...
+        '%s must be a finite nonnegative scalar.', fieldName);
+end
+end
+
+function floorValue = logOddsRetentionFloor(existence, maximumDrop)
+existence = min(max(existence, eps), 1 - eps);
+receiverLogOdds = log(existence / (1 - existence));
+floorOdds = exp(receiverLogOdds - maximumDrop);
+floorValue = floorOdds / (1 + floorOdds);
 end
 
 function option = makeOption(senderCount)

@@ -2,10 +2,9 @@
 
 ## Decision
 
-The fixed-shape online synopsis is small enough to retain for the first V54
-tracking implementation. The next method decision should focus on where the
-synopsis is routed and which selected GM labels consume the remaining byte
-budget, rather than compressing the synopsis before any tracking evidence.
+The original double-precision, full-covariance synopsis is rejected. The V54
+runtime uses a compact typed synopsis and charges it on the same V46 message
+opportunities before allocating bytes to selected GM labels.
 
 ## Evidence and accounting
 
@@ -14,27 +13,34 @@ messages and 233,938,560 payload bytes, or 32,491.47 bytes per message on
 average. Its saved result explicitly reports that separate control-plane bytes
 were not included.
 
-`buildLmbLabelControlSynopsis` uses four header scalars and 24 scalars per
-active four-dimensional label. Its estimated wire payload is therefore
+For a four-dimensional label, `buildLmbLabelControlSynopsis` now uses a
+16-byte header and a padded 64-byte record per active label:
 
-`B_synopsis(L) = 8 * (4 + 24 L) = 32 + 192 L` bytes.
+`B_synopsis(L) = 16 + 64 L` bytes.
+
+Continuous features use float32; label IDs, component count and evidence code
+use compact integer fields. The feature set keeps position/velocity moments,
+position covariance, velocity variance, mixture complexity and current
+observation evidence, but no GM components.
 
 | Active labels in one message | Synopsis bytes | Fraction of mean V46 full message | Bytes left under the same mean-message budget |
 |--:|--:|--:|--:|
-| 24 | 4,640 | 14.28% | 27,851 |
-| 48 | 9,248 | 28.46% | 23,243 |
-| 96 | 18,464 | 56.83% | 14,027 |
-| 169 | 32,480 | 99.96% | 11 |
+| 4 | 272 | 0.84% | 32,219 |
+| 24 | 1,552 | 4.78% | 30,939 |
+| 48 | 3,088 | 9.50% | 29,403 |
+| 96 | 6,160 | 18.96% | 26,331 |
 
-The break-even point is 169 active labels; 170 labels would exceed the mean
-V46 full-message size. The X36 convoy geometry contains 24 target labels, but
-that is not a claim that the tracker always has exactly 24 active labels.
-False or stale tracks can increase the online count, so the first V54 smoke
-must record the actual synopsis label-count distribution.
+The mean-message comparison is only descriptive. The decisive correction came
+from an early unimodal runtime prefix: the original 192-byte label synopsis
+was the same size as a one-component full-GM label and consumed 9,600 of a
+10,176-byte budget. The compact synopsis consumed 3,264 bytes on the same 12
+edge-times. A later 24-step probe used 19,008 synopsis bytes plus 88,544
+selected-GM bytes under a 177,792-byte paired full-message budget, a 39.5%
+saving on the selective path. See `V54_RUNTIME_INTEGRATION_FINDING.md`.
 
 ## Boundary of the conclusion
 
-This is a deterministic byte-feasibility calculation, not tracking evidence
+These are byte-feasibility and short mechanism results, not tracking evidence
 and not a total-network communication claim. It does not yet decide whether a
 synopsis is sent only on the V46 dominant backbone, on every physically
 available residual edge, or through a cached multi-hop control plane. Sending
