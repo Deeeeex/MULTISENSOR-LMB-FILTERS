@@ -181,3 +181,20 @@ hold:
 Until these gates pass, the defensible contribution is a theoretically
 structured candidate method and a negative result about evidence-gated
 receiver projection, not a validated tracking improvement.
+
+## X36 outcome and claim status
+
+The first full-reference selection-only X36 run failed the empirical gate.
+It saved 3.79% of total attempted bytes but changed full-horizon E-OSPA,
+focus-window E-OSPA, and cardinality error by -1.37%, -1.47%, and -2.89%.
+The direct saving on the selected residual path was only 2.05%, and candidate
+runtime increased by 35.1%.  The positive paper claim proposed at the start
+of this document is therefore not supported by the current method.
+
+This negative result exposes a scope mismatch in the candidate story.  A
+teacher that minimizes divergence from full V46 fusion is suitable for
+posterior-preserving compression, but it has no tracking-aligned mechanism
+for improving on V46.  The combined selection-plus-projection experiment is
+not justified.  Only the projection-only causal arm remains before deciding
+whether to recast the work as robust fusion or abandon the payload branch in
+favor of tracking-aligned topology control.

@@ -148,3 +148,12 @@ and -6.22%, respectively.  The 6,356 existence clamps show that projection
 was a dominant intervention.  GNN training is therefore stopped; V55 must
 first separate projection-only, full-reference selection-only, and combined
 behavior.
+
+The full-reference selection-only arm has now completed and failed: total
+attempted bytes decreased by 3.79%, but full-horizon E-OSPA, focus-window
+E-OSPA, and cardinality error changed by -1.37%, -1.47%, and -2.89%.
+Projection was disabled, so it was not the sole cause of V54 failure.  The
+selection teacher also produced only 2.05% direct saving on its selective
+path and increased candidate runtime by 35.1%.  Do not run the combined arm
+or train a selection GNN.  Run projection-only once to decide whether any
+estimation contribution remains; otherwise stop this payload branch.
