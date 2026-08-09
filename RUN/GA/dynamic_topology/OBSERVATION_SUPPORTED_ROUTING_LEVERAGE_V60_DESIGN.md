@@ -25,3 +25,19 @@ counterfactual value and retain a conservative reference fallback.
 
 No new tracking outcome, X36 result, model training or validation claim is
 opened by this attribution.
+
+## Result
+
+The full 29-state observable scan completes the attribution.  On the ten
+states with already-opened H=3 outcomes, Pearson correlation with strict gain
+is `0.9134` for raw rescued existence, `0.9476` after requiring current
+positive receiver support, and `0.9554` after weighting by association mass.
+The correction is causally informative rather than cosmetic: convoy `t=40`
+drops from `18.562%` raw rescue to `0.501%` supported rescue, while the strong
+radial `t=104` state retains `8.493%` supported and `7.544%` weighted rescue.
+
+Positive measurement support is therefore retained as a necessary
+receiver-label feature.  It is not treated as a sufficient scalar trigger:
+weak convoy states still overlap in scale with the radial `t=60` state, so
+V61 uses direct receiver--sender--label counterfactual actions and preserves
+the reference fallback.
