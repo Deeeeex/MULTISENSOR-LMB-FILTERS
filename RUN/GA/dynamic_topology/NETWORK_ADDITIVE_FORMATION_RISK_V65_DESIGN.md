@@ -79,3 +79,10 @@ The moderate radial t=72 state (`0.828%`, earlier `+4.295%`) and every opened
 convoy state (`0.051%--0.455%`) use the reference.  These older gains were
 produced by earlier action families; direct V65 tracking must therefore be run
 only for t=104 and t=124 before claiming M24 method gains.
+
+The first direct paired run now confirms t=104.  Protecting only formations
+`[1,3]` for H=3 improves mean tracking by `+6.405%`, window consensus by
+`+13.238%`, terminal consensus by `+14.502%`, and attempted bytes by
+`+2.835%`; worst-sensor and minimum-formation gains are both nonnegative and
+rolling B3 passes.  The frozen V65 action therefore clears the full strong
+gate on M24 without copying the earlier all-formation positive control.
