@@ -54,9 +54,10 @@ methods do not provide together:
    evidence and credible in-FoV negative evidence, but excludes unsupported
    absence-of-evidence inputs;
 3. enumerate the small feasible sender subsets for each receiver--label and
-   compute their mixture-aware distortion and byte cost;
-4. select one sender-subset option per label under an explicit byte budget
-   and a temporal information-flow constraint;
+   compute their mixture-aware distortion and incremental payload cost;
+4. retain the V46 strongly connected dominant backbone as a hard safety
+   layer, then select one residual sender-subset option per label under an
+   explicit byte budget while charging each activated edge header only once;
 5. optionally train a permutation-equivariant GNN to approximate the expensive
    counterfactual utility, while a deterministic projection enforces the byte,
    FoV and temporal-connectivity constraints.
@@ -119,6 +120,14 @@ The additive statement is across labels, not across sender edges. Multiple
 sources fused into the same label interact through the KLA normalization and
 must be evaluated jointly.
 
+At runtime, `buildReceiverSafeLabelSubsetOptions` enumerates the admissible
+sender subsets, runs the installed powered-GM receiver for every subset, and
+uses `approximateLmbSpatialKldCubature` for the spatial term. The latter is a
+positive-weight deterministic cubature approximation of
+`D_KL(p_* || p_A)`, not an exact arbitrary-GM KLD. The analytic LMB
+decomposition remains exact for exact spatial KLD values; experiments and
+claims must disclose the runtime spatial approximation separately.
+
 ### 2. Unobserved-label suppression rule
 
 For geometric fusion, adding a sender with low label existence or low density
@@ -161,13 +170,19 @@ divergence inequality.
 
 For a fixed physical page and bounded incoming formation degree, enumerate
 the feasible sender subsets for each receiver--label. Each subset is one
-option with an exact receiver-approximation distortion, byte cost, retention
-status and formation-edge activation mask. Because distortion is additive
-across labels, choosing one option per label is a multiple-choice knapsack;
-edge-activation variables link the selected label options to the
-previous/current pulse information-flow constraint. A small exact dynamic
-program or integer program is the analytic teacher. A per-edge greedy ranking
-is only an approximation and is not the theoretical method.
+option with a receiver-approximation distortion, incremental label bytes,
+retention status and residual formation-edge activation mask. Distortion is
+additive across labels, but wire cost is not a plain multiple-choice knapsack:
+labels sharing one sender edge also share its packet header. The exact dynamic
+program therefore uses `(label stage, active residual-edge mask)` as its state
+and Pareto-prunes cost/distortion states only within the same edge mask.
+`selectReceiverSafeLabelOptionsExact` implements this projection for the
+enumerated option table.
+
+The frozen V46 dominant cycle remains present at every step, so temporal
+strong connectivity is a construction invariant rather than a learned or
+post-hoc constraint. V54 optimizes label payloads on residual cross-formation
+edges; a per-edge greedy ranking remains only an approximate ablation.
 
 The final statement separates two guarantees: the posterior distortion and
 existence-retention bounds are label-wise, while reachability is a graph-level
