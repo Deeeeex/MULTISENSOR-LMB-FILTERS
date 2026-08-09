@@ -96,3 +96,19 @@ is `2.937%`, `3.615%`, and `3.941%`, whereas the old uniformly chosen times
 60, 100, and 132 remain below `1.55%`.  V59 will open only these three states
 for complete safe formation-protection headroom before deciding whether the
 action must move to receiver--sender--label granularity.
+
+## Stage-B result
+
+V59 enumerated all 16 formation protection subsets at each selected convoy
+state.  The best strict mean E-OSPA gains were only `+0.054%`, `+0.384%` and
+`+0.364%`, for a mean of `+0.267%` and `0/3` strong states.  The registered
+formation-level headroom gate failed.  Retention debt is therefore not a
+sufficient tracking-leverage sentinel, and the absence of gain cannot be
+attributed to an incomplete formation-subset search.
+
+The method search now moves to receiver--sender--label actions.  Before
+opening another tracking outcome, the next attribution separates locally
+measurement-supported labels from unsupported retained labels using the
+current posterior's `detectionAssociationMass`.  The full V59 interpretation
+and claim boundary are recorded in
+`V59_EVENT_CONDITIONED_FORMATION_HEADROOM_RESULT.md`.
