@@ -120,13 +120,23 @@ The additive statement is across labels, not across sender edges. Multiple
 sources fused into the same label interact through the KLA normalization and
 must be evaluated jointly.
 
-At runtime, `buildReceiverSafeLabelSubsetOptions` enumerates the admissible
+For the offline teacher, `buildReceiverSafeLabelSubsetOptions` enumerates the admissible
 sender subsets, runs the installed powered-GM receiver for every subset, and
 uses `approximateLmbSpatialKldCubature` for the spatial term. The latter is a
 positive-weight deterministic cubature approximation of
 `D_KL(p_* || p_A)`, not an exact arbitrary-GM KLD. The analytic LMB
 decomposition remains exact for exact spatial KLD values; experiments and
 claims must disclose the runtime spatial approximation separately.
+
+More precisely, this full-posterior enumerator is an offline oracle/teacher,
+not a deployable communication policy: using it online would require receiving
+the very GM payloads that the policy is supposed to select. The deployable
+path first exchanges `buildLmbLabelControlSynopsis` metadata containing label
+identity, existence, moments, mixture complexity and current observation
+evidence, but no GM components. A learned or calibrated utility model predicts
+the option table from those synopses; the exact byte projection remains the
+same. Control-synopsis bytes are a fixed communication cost and are accounted
+separately from selected heavy label payloads.
 
 ### 2. Unobserved-label suppression rule
 
@@ -197,15 +207,16 @@ temporal guarantee.
 
 ## Data-driven extension
 
-The exact selector supplies teacher targets consisting of per-label subset
-value, edge marginal values, retention risk and the selected packet mask. A
-GNN can use only runtime-observable features: existence probability, mixture overlap,
+The offline exact receiver oracle supplies teacher targets consisting of
+per-label subset value, edge marginal values, retention risk and the selected
+packet mask. A GNN can use only runtime-observable synopsis features:
+existence probability, mixture overlap,
 innovation/update age, FoV support, sender/receiver covariance, link
 reliability and recent formation-level traffic. Training truth may be used in
 the loss only for an explicitly separate oracle/teacher experiment; the
 deployable model cannot read target truth or future measurements.
 
-The learned arm is accepted only if it reproduces the analytic action on held
+The learned arm is accepted only if it reproduces the oracle action on held
 out scene families and preserves the deterministic projection guarantees. A
 small tracking gain obtained by violating the byte budget or using scene truth
 does not count.
