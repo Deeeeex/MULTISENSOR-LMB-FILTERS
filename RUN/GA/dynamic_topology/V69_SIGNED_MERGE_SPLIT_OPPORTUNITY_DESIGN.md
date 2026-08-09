@@ -25,8 +25,12 @@ bound.
 - All target streams start at time 1 and remain phase-aligned with the moving
   branches.  Their paths maintain at least 30 m sensor-target separation, so a
   useful event cannot be caused by a target spawning inside a formation.
-- Reference route: the fixed counter-clockwise formation route already used by
-  the tracking-aligned source-cache pipeline.
+- Reference route: each receiver keeps the same 0.70 within-formation dominant
+  input and one 0.05 residual input.  The residual route is induced by a
+  deterministic path tree selected from the **current physical formation
+  graph**.  Candidate paths maximize the weakest bidirectional sensor-pair
+  support and then total support; selection reads no posterior, measurement
+  support, link outcome, truth, or future geometry.
 - No tracking score, future measurement, truth trajectory, or future outcome is
   available to the discovery code.
 
@@ -36,9 +40,11 @@ For each current state, V69 measures three quantities on the same network
 reference-existence denominator.
 
 1. **Quarantine pressure.** Receiver-supported existence restored by
-   withholding an existing cross-formation input.  The frozen V65 1% risk gate
-   and V66 0.05 robust decision-exposure gate jointly decide whether this is an
-   actionable quarantine event.
+   withholding all residual inputs entering one formation for one round.  The
+   frozen V65 1% risk gate and V66 0.05 robust decision-exposure gate jointly
+   decide whether this is an actionable quarantine event.  The next two rounds
+   return to the physical-tree reference and the complete sequence must pass
+   the rolling-B3 connectivity reserve.
 2. **Reference-edge retention pressure.** Sender-supported existence lost by
    withholding the same input.  This identifies the sign of the information
    flow but is not itself a new route.
@@ -51,6 +57,20 @@ reference-existence denominator.
 The third quantity is deliberately optimistic because connectivity has not yet
 been projected.  If even this upper bound is below 1%, the state cannot justify
 a route implementation at the current action strength.
+
+## Reference-feasibility correction
+
+The first cache attempt exposed a baseline mismatch rather than a method
+result.  The merge-split physical network remained connected throughout the
+160-step scene, but a previously registered counter-clockwise cycle required
+specific formation pairs that were no longer physical.  M24 has all 6 of 6
+formation-pair links at every step; X36 has all 15 through step 135 and 14 of 15
+thereafter.  Therefore widening communication range or weakening the scene
+would hide the problem.  The corrected reference adapts only its path-tree
+endpoints to the current physical action set and retains the same weights and
+two-message-per-receiver budget.  It is feasible on all first 140 steps of both
+frozen scenes; the weakest selected path still has all 36 possible sensor-pair
+links on each selected formation edge.
 
 ## Decision rule
 

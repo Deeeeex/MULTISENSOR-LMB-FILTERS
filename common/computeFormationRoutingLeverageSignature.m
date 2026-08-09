@@ -1,5 +1,5 @@
 function [signature, control] = computeFormationRoutingLeverageSignature( ...
-        context, groupIds)
+        context, groupIds, options)
 % COMPUTEFORMATIONROUTINGLEVERAGESIGNATURE Compact truth-free V58 state.
 %
 % The signature distinguishes generic posterior contrast from a causal
@@ -8,13 +8,16 @@ function [signature, control] = computeFormationRoutingLeverageSignature( ...
 % It uses only the current local posteriors, current link probabilities, and
 % past selected topology exposed by loadFormationH3ObservableState.
 
+if nargin < 3 || isempty(options)
+    options = struct();
+end
 protocol = getTrackingAlignedRoutingLeverageV58Protocol();
 groupIds = reshape(groupIds, 1, []);
 eventMetrics = computeFormationH3ObservableEventScore( ...
     context, groupIds, struct( ...
         'tailFraction', protocol.eventScoreTailFraction, ...
         'tailWeight', protocol.eventScoreTailWeight));
-control = buildFormationRetentionDebtControl(context);
+control = buildFormationRetentionDebtControl(context, options);
 debtProtocol = getFormationIsolateReconnectProbeProtocol();
 if ~isequal(groupIds, control.groupIds) || ...
         abs(protocol.retentionDebtOnFraction - ...
