@@ -15,7 +15,7 @@ V53 combines only the supported parts of those branches:
 - retain all local within-formation residual messages on the ordinary phase-1
   pulse;
 - evaluate only the small set of cross-formation residual inputs with the
-  same full LMB fusion and link-delivery model as runtime;
+  same projected-Gaussian receiver and link-delivery model as runtime;
 - defer a cross input only when withholding it materially protects the
   receiver formation's expected cardinality and supported labels;
 - prohibit the same formation from being deferred on two consecutive pulse
@@ -24,8 +24,8 @@ V53 combines only the supported parts of those branches:
 
 The action therefore remains V51's selective, communication-saving topology
 change. The decision signal changes from a sender/receiver existence-gap
-proxy to the actual serve/hold fusion counterfactual that produced useful M24
-signals in V30/V35.
+proxy to the serve/hold counterfactual of the currently installed
+projected-Gaussian receiver, which produced useful M24 signals in V30/V35.
 
 ## Exact formation debt
 
@@ -33,7 +33,7 @@ At an absolute phase-1 pulse, first evaluate the complete current V46 route.
 For each formation with an incoming cross residual edge, evaluate one
 candidate that withholds only that formation's cross input and returns its
 weight to the affected receiver. Let the formation-average expected
-cardinalities under full service and withholding be
+cardinalities under full service and withholding under the installed receiver be
 `N_full(f)` and `N_hold(f)`. The retention debt is
 
 `d(f) = (N_hold(f) - N_full(f)) / max(N_full(f), 1)`.
@@ -49,6 +49,12 @@ does not introduce decision-threshold drops, respects the physical graph and
 row-stochastic weights, and preserves strong sensor and formation information
 flow over the previous/current pulse union. If the joint action fails, restore
 formations from lowest to highest debt until it passes; otherwise use V46.
+
+Here, "exact" means that the serve/hold alternatives are executed by the
+same installed projected-Gaussian receiver rather than approximated by an
+existence-gap proxy. It does not mean exact mixture-aware LMB-KLA. V53 can
+therefore support an engineering routing comparison inside this receiver,
+but it cannot support a general LMB-KLA theorem.
 
 ## Scale and learning path
 
