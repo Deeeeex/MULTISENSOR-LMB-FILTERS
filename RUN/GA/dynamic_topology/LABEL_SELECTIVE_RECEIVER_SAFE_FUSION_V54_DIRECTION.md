@@ -138,6 +138,16 @@ the option table from those synopses; the exact byte projection remains the
 same. Control-synopsis bytes are a fixed communication cost and are accounted
 separately from selected heavy label payloads.
 
+The initial X36 byte calculation supports keeping this synopsis unchanged:
+the V46 reference averages 32,491 bytes per full-posterior message, whereas a
+four-dimensional V54 synopsis costs `32 + 192 L` bytes for `L` active labels.
+At 24 labels this is 4,640 bytes (14.3% of the V46 mean), and at 48 labels it
+is 9,248 bytes (28.5%). Break-even occurs at 169 active labels. This does not
+yet prove a total-network saving: the first V54 smoke must record the actual
+active-label distribution and charge synopsis traffic on the same message
+opportunity set as V46 before allocating the remaining bytes to selected GM
+labels. See `V54_CONTROL_SYNOPSIS_FEASIBILITY.md`.
+
 ### 2. Unobserved-label suppression rule
 
 For geometric fusion, adding a sender with low label existence or low density
