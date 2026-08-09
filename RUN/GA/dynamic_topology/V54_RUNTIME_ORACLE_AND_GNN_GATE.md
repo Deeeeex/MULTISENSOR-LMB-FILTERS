@@ -20,8 +20,11 @@ When enabled, it changes exactly three stages.
    posterior. The constraint applies only to current positive receiver
    evidence and bounds the Bernoulli log-odds drop by `log(4)`. When fixed
    backbone inputs still violate the bound, only existence is clamped; the
-   fused spatial density is retained. Bytes rejected after receipt remain
-   charged.
+   fused spatial density is retained. This clamp is the exact KL-nearest
+   Bernoulli correction under the stated existence constraint; the preceding
+   greedy sender-input removal is only a causal heuristic. Bytes rejected
+   after receipt remain charged. The derivation and claim boundary are in
+   `V54_CONSTRAINED_BERNOULLI_PROJECTION.md`.
 
 The V46 dominant cycle remains unchanged. V54 acts only on residual
 cross-formation label payloads in its first implementation, so the new method
@@ -57,8 +60,32 @@ The oracle advances only if all conditions hold:
 The 2% headroom requirement is deliberately stronger than the final 1%
 online target: a learned approximation, control traffic, and conservative
 fallback will consume part of the oracle gain. If the oracle fails, V54's
-receiver-safe hypothesis has not created enough practical headroom and no GNN
-training is justified.
+current receiver-safe teacher has not created enough practical headroom and
+no GNN training on that teacher is justified.
+
+### Meaning and boundary of "oracle"
+
+The current oracle is exact only for its enumerated sender-subset problem. It
+minimizes the sum of label-wise reference-to-candidate Bernoulli KLDs under a
+shared byte budget and shared per-edge header costs. Its reference fuses the
+receiver with every selective sender carrying admissible positive or credible
+negative evidence. It does not use target truth and it does not directly
+minimize E-OSPA or cardinality error.
+
+Moreover, the present option table evaluates the receiver and selective
+cross-residual senders before the fixed V46 backbone and nonselective residual
+inputs enter the actual runtime fusion. Those fixed inputs are identical
+across message choices, but KLA normalization means that they can still change
+the ordering and retention effect of the choices. The large number of
+post-fusion existence clamps in the short mechanism run is direct evidence of
+this context mismatch.
+
+Consequently, the paired X36 run is a valid gate for this concrete V54 teacher
+and projection combination, but it is not a global upper bound for all
+label-selective routing policies. A failure rejects GNN imitation of the
+current teacher; it does not by itself reject a later context-aware teacher.
+The term "oracle" in paper text must therefore be qualified as
+"offline full-posterior subset teacher" rather than a tracking-truth oracle.
 
 ## Stage B: synopsis-conditioned set GNN
 

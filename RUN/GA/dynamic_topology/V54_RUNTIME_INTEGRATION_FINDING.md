@@ -86,7 +86,10 @@ fixed backbone inputs also violate the bound, the receiver retains the fused
 spatial density and clamps only its existence probability to the feasible
 boundary. This is the closest boundary point to the unconstrained Bernoulli
 result for a one-dimensional existence constraint; it does not revert the
-label's spatial estimate to the local posterior.
+label's spatial estimate to the local posterior. The exact KL derivation and
+its scope are recorded in `V54_CONSTRAINED_BERNOULLI_PROJECTION.md`; notably,
+the result justifies the final clamp but not the preceding greedy removal of
+selective sender inputs.
 
 ## Risk that the X36 oracle must resolve
 
@@ -97,3 +100,13 @@ oracle gate must therefore report the constrained projection count together
 with E-OSPA, cardinality error, focus-window performance and total bytes. No
 learned utility model should be trained unless the paired X36 result clears
 the frozen headroom gate.
+
+There is also a narrower interpretation issue. The current offline teacher
+optimizes label-wise KLD to a safe selective-sender reference before fixed V46
+backbone and nonselective residual inputs enter runtime fusion. It is exact for
+that enumerated budget problem, not for final tracking loss. The frequent
+post-fusion clamps indicate that these fixed inputs materially alter the final
+Bernoulli result. Therefore an X36 failure rejects the present teacher and
+projection combination, not the entire label-selective communication idea.
+If the gate fails with strong byte saving, the next method decision is a
+context-aware teacher or a separate projection ablation, not GNN training.
