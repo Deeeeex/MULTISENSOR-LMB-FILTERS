@@ -85,3 +85,14 @@ The method remains open development until it satisfies the original target:
 
 V58 Stage A does not authorize model training, X36 outcomes, reserved seeds,
 or paper-level generalization claims.
+
+## Stage-A result
+
+The same-version radial/convoy scan is complete.  Maximum formation retention
+debt has Pearson correlation `0.9495` with the seven best previously opened
+M24 H=3 gains, compared with `0.9164` for the former event score.  The frozen
+truth-free rule selects fresh convoy times `[40, 88, 128]`; their maximum debt
+is `2.937%`, `3.615%`, and `3.941%`, whereas the old uniformly chosen times
+60, 100, and 132 remain below `1.55%`.  V59 will open only these three states
+for complete safe formation-protection headroom before deciding whether the
+action must move to receiver--sender--label granularity.
