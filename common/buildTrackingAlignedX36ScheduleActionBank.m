@@ -62,6 +62,8 @@ legacySchedule = protocol.legacyFormationSchedules{anchorIdx};
 riskCoverageTargetFraction = NaN;
 riskCoverageAchievedFraction = NaN;
 riskCoverageFormationIds = zeros(1, 0);
+networkRiskMetrics = struct();
+networkRiskSelection = struct();
 switch bankVariant
     case 'top-k-v63'
         top1 = rankedFormationIds(1);
@@ -120,6 +122,28 @@ switch bankVariant
                 formatIds(riskCoverageFormationIds))};
         bankContractVersion = ...
             'tracking-aligned-x36-risk-coverage-action-bank-v64-v1';
+    case 'network-additive-v65'
+        v65 = getNetworkAdditiveFormationRiskV65Protocol();
+        networkRiskMetrics = computeNetworkAdditiveFormationRiskV65( ...
+            control, context, groupIds, v65.positiveSupportThreshold);
+        networkRiskSelection = ...
+            selectNetworkAdditiveFormationRiskSetV65( ...
+                networkRiskMetrics, v65);
+        if networkRiskSelection.actionEnabled
+            selected = networkRiskSelection.selectedFormationIds;
+            schedules = { ...
+                {[], [], []}, ...
+                {selected, selected, selected}};
+            actionNames = { ...
+                'reference-full-payload', ...
+                sprintf('network-additive-risk-persistent-%s', ...
+                    formatIds(selected))};
+        else
+            schedules = {{[], [], []}};
+            actionNames = {'reference-full-payload'};
+        end
+        bankContractVersion = ...
+            'tracking-aligned-x36-network-additive-action-bank-v65-v1';
     otherwise
         error('TrackingAlignedV63:UnknownActionBankVariant', ...
             'The requested X36 schedule-bank variant is not registered.');
@@ -170,6 +194,8 @@ bank.legacyFormationSchedule = legacySchedule;
 bank.riskCoverageTargetFraction = riskCoverageTargetFraction;
 bank.riskCoverageAchievedFraction = riskCoverageAchievedFraction;
 bank.riskCoverageFormationIds = riskCoverageFormationIds;
+bank.networkRiskMetrics = networkRiskMetrics;
+bank.networkRiskSelection = networkRiskSelection;
 bank.truthUsed = false;
 bank.futureMeasurementsUsed = false;
 bank.futureOutcomesUsed = false;
