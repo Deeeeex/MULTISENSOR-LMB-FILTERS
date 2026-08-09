@@ -231,6 +231,16 @@ out scene families and preserves the deterministic projection guarantees. A
 small tracking gain obtained by violating the byte budget or using scene truth
 does not count.
 
+Learned utility is not trusted to enforce supported-label retention. After
+the selected GM labels arrive, `projectSelectedLmbLabelFusionRetention` runs
+the installed receiver on the actual payloads. If a receiver-supported label
+falls below its frozen existence floor, the receiver removes the selected
+input whose removal restores the most existence, preferring a credible
+negative input when removals tie, and eventually falls back to receiver-only
+if necessary. Already transmitted bytes remain charged. Thus prediction error
+can waste bandwidth or miss a useful fusion, but it cannot force acceptance
+of an existence-floor violation.
+
 ## Required baselines
 
 Any experiment for this branch must include:
