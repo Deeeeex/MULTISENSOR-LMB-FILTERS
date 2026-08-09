@@ -5,8 +5,9 @@ function config = applyFormationFovSceneStyle(config, styleName)
 %
 % The overlay changes platform/target motion and the blockage pattern while
 % preserving the registered sensor envelope (120 degree total FoV, 300 m
-% range, detection/noise/quality profile and clutter field).  New styles are
-% deliberately marked calibration-only until their observability and graph
+% range, and detection/noise/quality profile).  A scale-normalized style may
+% register one common observation/clutter support for both scales.  New styles
+% are deliberately marked calibration-only until their observability and graph
 % difficulty gates have been frozen on unopened seeds.
 
 if nargin < 2 || isempty(styleName)
@@ -174,6 +175,48 @@ switch styleName
         config.blockageWindowTimes = buildStyleBlockageTimes( ...
             config.formationCount, 'curved-corridor');
         config.focusWindowName = 'sustained-turn-and-fov-reorientation';
+        config = markExploratoryStyle(config);
+    case {'braided-handover', 'scale-normalized-braided-handover'}
+        if mod(config.formationCount, 2) ~= 0
+            error('Braided handover requires an even formation count.');
+        end
+        config.sceneStyle = 'braided-handover';
+        config.informationFlowStyle = ...
+            'scale-normalized-local-handover-on-a-sparse-moving-chain';
+        % Both scales share the same observation/clutter support.  The
+        % occupied corridor grows with formation count inside this common
+        % box, so X36 gains propagation distance rather than denser local
+        % visibility.
+        config.regionLimits = [-3000, 3000; -900, 900];
+        config.observationSpaceLimits = [-3000, 3000; -900, 900];
+        config.clutterSpatialProfile = ...
+            'uniform-global-box6000x1800-c4-v1';
+        % A common 270 m communication radius makes adjacent 180 m modules
+        % physical while excluding their two-hop neighbours.  The 300 m,
+        % 120-degree sensing footprint then leaves a short but genuine
+        % ownership overlap for targets in the two offset service lanes.
+        config.commRange = 270;
+        config.formationHeadingMode = 'motion';
+        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorCenterWaypoints = ...
+            buildBraidedHandoverFormationWaypoints( ...
+                config.formationCount);
+        config.targetRoutes = buildBraidedHandoverTargetRoutes( ...
+            config.targetGroupCount);
+        config.targetBirthTimesByGroup = ...
+            ones(1, config.targetGroupCount);
+        config.targetDeathTimesByGroup = ...
+            config.simulationLength * ones(1, config.targetGroupCount);
+        config.targetCrossTrackSpacing = 18;
+        config.minimumTargetSeparation = 8;
+        config.minimumSensorTargetSeparation = 30;
+        config.targetAccelerationLimit = 2.5;
+        config.requireStaticPhysicalAllTimes = true;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
+            config.formationCount, 'braided-handover');
+        config.focusWindowName = ...
+            'paired-braided-handover-on-sparse-chain';
         config = markExploratoryStyle(config);
     otherwise
         error('Unknown formation-FoV scene style: %s', styleName);
@@ -425,6 +468,51 @@ for groupIdx = 1:targetGroupCount
     offset = laneOffsets(groupIdx);
     routes{groupIdx} = [ ...
         baseX; baseY + offset + laneShift];
+end
+end
+
+function waypoints = ...
+        buildBraidedHandoverFormationWaypoints(formationCount)
+% A repeated local module: adjacent formations are physical under the
+% common 270 m communication range, while two-hop pairs are not.  Adding
+% formations extends the chain without changing a module's geometry.
+spacing = 180;
+baseX = centeredValues(formationCount, spacing);
+laneY = zeros(1, formationCount);
+progress = [-360, -180, 0, 180, 360];
+waypoints = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    waypoints{formationIdx} = [ ...
+        baseX(formationIdx) + progress; ...
+        laneY(formationIdx) * ones(1, numel(progress))];
+end
+end
+
+function routes = buildBraidedHandoverTargetRoutes(targetGroupCount)
+% Every adjacent formation pair exchanges two target streams in opposite
+% relative directions.  The streams remain in two offset service lanes:
+% this prevents target/platform near-collisions while the longitudinal
+% exchange still changes the observing formation exactly once.
+if mod(targetGroupCount, 2) ~= 0
+    error('Braided handover requires an even target-group count.');
+end
+spacing = 180;
+formationX = centeredValues(targetGroupCount, spacing);
+progress = [-360, -180, 0, 180, 360];
+handoverPhase = [0, 0.25, 0.50, 0.75, 1.00];
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    if mod(groupIdx, 2) == 1
+        destinationIdx = groupIdx + 1;
+    else
+        destinationIdx = groupIdx - 1;
+    end
+    deltaX = formationX(destinationIdx) - formationX(groupIdx);
+    serviceLaneY = 110 * (1 - 2 * mod(groupIdx, 2));
+    routes{groupIdx} = [ ...
+        formationX(groupIdx) + 85 + progress + ...
+            handoverPhase * deltaX; ...
+        serviceLaneY * ones(1, numel(progress))];
 end
 end
 

@@ -53,6 +53,10 @@ switch canonicalName
     case {'m24-formation-fov-curved-corridor', 'm24-curved-fov'}
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'curved-corridor');
+    case {'m24-formation-fov-braided-handover', ...
+            'm24-braided-handover-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'braided-handover');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
@@ -78,6 +82,10 @@ switch canonicalName
     case {'x36-formation-fov-curved-corridor', 'x36-curved-fov'}
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'curved-corridor');
+    case {'x36-formation-fov-braided-handover', ...
+            'x36-braided-handover-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'braided-handover');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
     case {'x48-formation-fov', 'x48-realistic-fov'}
