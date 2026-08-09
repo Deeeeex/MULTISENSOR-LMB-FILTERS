@@ -62,3 +62,20 @@ The two activated sets are exactly the formation sets whose frozen V64
 schedules already produced `+5.847%` and `+9.329%` mean X36 tracking gains.
 The low-risk t=128 state is no longer forced into an intervention merely
 because a relative top-prefix always exists.
+
+## M24 opened-state attribution
+
+Without changing the frozen 1% budget, V65 was applied to ten previously
+opened M24 states before their earlier best-known gains were joined.  Both
+states with prior gain at or above 5% triggered, while all six states below
+2% fell back.  The two actionable radial states are:
+
+| State | Network rescue | Frozen set | Coverage | Earlier best-known gain |
+|:--|--:|:--|--:|--:|
+| t=104 | `2.515%` | `[1,3]` | `89.756%` | `+10.394%` |
+| t=124 | `2.099%` | `[2,3]` | `94.301%` | `+7.764%` |
+
+The moderate radial t=72 state (`0.828%`, earlier `+4.295%`) and every opened
+convoy state (`0.051%--0.455%`) use the reference.  These older gains were
+produced by earlier action families; direct V65 tracking must therefore be run
+only for t=104 and t=124 before claiming M24 method gains.
