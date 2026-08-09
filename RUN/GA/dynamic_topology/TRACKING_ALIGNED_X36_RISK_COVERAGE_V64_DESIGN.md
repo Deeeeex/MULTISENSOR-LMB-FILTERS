@@ -43,3 +43,16 @@ minimum-formation, window consensus, terminal consensus, attempted bytes, and
 rolling B3 connectivity all remain nonnegative.  Failure stops before t=100
 and t=128; passing opens those two states but still does not authorize model
 training or validation claims.
+
+## Opened development outcomes
+
+The frozen selector passed both opened X36 states evaluated so far:
+
+| State | Selected set | Mean tracking | Worst sensor | Window consensus | Terminal consensus | Attempted bytes |
+|:--|:--|--:|--:|--:|--:|--:|
+| t=72 | `[4,2,3,5]` | `+5.847%` | `+27.843%` | `+15.719%` | `+17.567%` | `+3.623%` |
+| t=100 | `[6,4,5,2]` | `+9.329%` | `+11.723%` | `+21.467%` | `+22.966%` | `+4.533%` |
+
+Both rows pass the registered strict and 5% mean-gain gates.  These are two
+opened states from one X36 seed, so they establish repeatable development
+headroom but not cross-seed or cross-scene generalization.
