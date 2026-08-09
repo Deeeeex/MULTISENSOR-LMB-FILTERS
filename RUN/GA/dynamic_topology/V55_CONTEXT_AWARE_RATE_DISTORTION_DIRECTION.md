@@ -1,5 +1,8 @@
 # V55 context-aware label rate-distortion direction
 
+The paper-facing derivation, exactness boundary, and promotion gates are
+collected in `V55_FULL_REFERENCE_RATE_DISTORTION_THEORY.md`.
+
 ## Why this direction exists
 
 The current V54 offline teacher evaluates a receiver and its selectable
