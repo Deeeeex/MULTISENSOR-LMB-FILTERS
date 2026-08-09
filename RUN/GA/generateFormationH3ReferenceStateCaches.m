@@ -289,7 +289,7 @@ if isfield(model, 'explicitTargetTrajectories')
 end
 if isfield(model, 'dynamicTopologyScenario') && ...
         isstruct(model.dynamicTopologyScenario)
-    fields = {'targetTrajectories', 'target'};
+    fields = {'targetTrajectories'};
     present = fields(isfield(model.dynamicTopologyScenario, fields));
     if ~isempty(present)
         model.dynamicTopologyScenario = rmfield( ...
