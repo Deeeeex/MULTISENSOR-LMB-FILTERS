@@ -29,9 +29,13 @@ maximumReceiverLogOddsDrop = getNonnegativeOption( ...
     options, 'maximumReceiverLogOddsDrop', log(4));
 requirePositiveReceiverEvidence = logical(getField( ...
     options, 'requirePositiveReceiverEvidence', true));
+removeSelectiveInputsBeforeClamp = logical(getField( ...
+    options, 'removeSelectiveInputsBeforeClamp', true));
 
 details = struct();
-details.contractVersion = 'receiver-safe-fusion-retention-v1';
+details.contractVersion = 'receiver-safe-fusion-retention-v2';
+details.removeSelectiveInputsBeforeClamp = ...
+    removeSelectiveInputsBeforeClamp;
 details.supportedLabelCount = 0;
 details.violationCountBeforeProjection = 0;
 details.removedSelectiveInputCount = 0;
@@ -67,7 +71,7 @@ for receiverObjectIdx = 1:numel(receiverObjects)
     mutableInputs = fusionInputs;
     availableSelective = selectiveSourceMask;
     removalOrder = zeros(1, 0);
-    while any(availableSelective)
+    while removeSelectiveInputsBeforeClamp && any(availableSelective)
         currentObject = fuseAndFind( ...
             mutableInputs, spatialWeights, existenceWeights, ...
             fusionDetails, model, triggerConfig, label);

@@ -3,9 +3,11 @@ function result = buildContextAwareReceiverSafeLabelSubsetOptions( ...
         selectableSenderEvidence, model, triggerConfig, options)
 % BUILDCONTEXTAWARERECEIVERSAFELABELSUBSETOPTIONS V55 label options.
 %
-% Every option contains the same fixed V46 fusion inputs.  Only selectable
-% cross-residual senders vary.  Receiver-supported existence projection is
-% applied before reference-to-candidate Bernoulli KLD is measured.
+% Every option contains the same fixed V46 fusion inputs.  The reference also
+% contains every present cross-residual label that the full V46 message would
+% supply; evidence type is not used to delete labels from the reference.
+% Receiver-supported existence projection may be enabled for the combined
+% arm or disabled for selection-only attribution.
 
 if nargin < 7 || isempty(options)
     options = struct();
@@ -36,16 +38,12 @@ if selectableCount > maximumEnumeratedSenders
         maximumEnumeratedSenders);
 end
 
-admissibleMask = false(1, selectableCount);
+referenceMask = false(1, selectableCount);
 for senderIdx = 1:selectableCount
-    evidence = selectableSenderEvidence{senderIdx};
-    admissibleMask(senderIdx) = ...
-        ~isempty(selectableSenderObjects{senderIdx}) && ...
-        isstruct(evidence) && isscalar(evidence) && ...
-        isfield(evidence, 'isAdmissibleToSafeReference') && ...
-        logical(evidence.isAdmissibleToSafeReference);
+    referenceMask(senderIdx) = ...
+        ~isempty(selectableSenderObjects{senderIdx});
 end
-admissibleIndices = find(admissibleMask);
+enumeratedIndices = find(referenceMask);
 
 sourceCount = 1 + fixedCount + selectableCount;
 spatialWeights = resolveSourceWeights( ...
@@ -54,7 +52,7 @@ existenceWeights = resolveSourceWeights( ...
     options, 'existenceWeights', sourceCount);
 referenceObject = fuseContext( ...
     receiverObject, fixedSenderObjects, selectableSenderObjects, ...
-    admissibleMask, spatialWeights, existenceWeights, model, ...
+    referenceMask, spatialWeights, existenceWeights, model, ...
     triggerConfig);
 
 supportThreshold = getUnitOption( ...
@@ -63,6 +61,8 @@ receiverHasPositiveSupport = logical(getField( ...
     options, 'receiverHasPositiveSupport', true));
 maximumReceiverLogOddsDrop = getNonnegativeOption( ...
     options, 'maximumReceiverLogOddsDrop', log(4));
+existenceProjectionEnabled = logical(getField( ...
+    options, 'existenceProjectionEnabled', true));
 if receiverPresent
     receiverExistence = receiverObject.r;
     retentionFloor = logOddsRetentionFloor( ...
@@ -71,7 +71,8 @@ else
     receiverExistence = NaN;
     retentionFloor = NaN;
 end
-floorIsActive = receiverPresent && receiverHasPositiveSupport && ...
+floorIsActive = existenceProjectionEnabled && receiverPresent && ...
+    receiverHasPositiveSupport && ...
     receiverObject.r >= supportThreshold;
 [projectedReference, referenceWasProjected] = ...
     projectExistenceToFloor( ...
@@ -88,14 +89,14 @@ if ~isscalar(selectedPayloadMetadataScalars) || ...
         'selectedPayloadMetadataScalars must be a nonnegative integer.');
 end
 
-optionCount = 2^numel(admissibleIndices);
+optionCount = 2^numel(enumeratedIndices);
 labelOptions = repmat(makeOption(selectableCount), 1, optionCount);
 for optionIdx = 1:optionCount
     localSelection = logical(arrayfun( ...
         @(bitIdx) bitget(optionIdx - 1, bitIdx), ...
-        1:numel(admissibleIndices)));
+        1:numel(enumeratedIndices)));
     senderSubset = false(1, selectableCount);
-    senderSubset(admissibleIndices(localSelection)) = true;
+    senderSubset(enumeratedIndices(localSelection)) = true;
     rawCandidate = fuseContext( ...
         receiverObject, fixedSenderObjects, selectableSenderObjects, ...
         senderSubset, spatialWeights, existenceWeights, model, ...
@@ -113,7 +114,8 @@ for optionIdx = 1:optionCount
     terms = computeLmbBernoulliKldTerms( ...
         projectedReference.r, candidateObject.r, spatialKld);
 
-    labelOptions(optionIdx).distortion = terms.total;
+    % Bernoulli KLD is nonnegative; suppress only roundoff below zero.
+    labelOptions(optionIdx).distortion = max(terms.total, 0);
     labelOptions(optionIdx).variablePayloadBytes = ...
         selectedLabelPayloadBytes( ...
             selectableSenderObjects, senderSubset, model.xDimension, ...
@@ -138,7 +140,7 @@ end
 
 result = struct();
 result.contractVersion = ...
-    'context-aware-receiver-safe-label-subset-options-v1';
+    'context-aware-receiver-safe-label-subset-options-v2';
 result.referenceObject = projectedReference;
 result.rawReferenceObject = referenceObject;
 result.referenceWasProjected = referenceWasProjected;
@@ -146,13 +148,16 @@ result.fixedSourceCount = fixedCount;
 result.fixedPresentSourceCount = sum(cellfun( ...
     @(object) ~isempty(object), fixedSenderObjects));
 result.selectableSourceCount = selectableCount;
-result.admissibleSelectableMask = admissibleMask;
-result.excludedSelectableMask = ~admissibleMask;
+result.referenceSelectableMask = referenceMask;
+result.admissibleSelectableMask = referenceMask;
+result.excludedSelectableMask = ~referenceMask;
+result.selectableEvidenceUsedForReference = false;
 result.labelOptions = labelOptions;
 result.receiverHasPositiveSupport = receiverHasPositiveSupport;
 result.receiverExistence = receiverExistence;
 result.existenceRetentionFloor = retentionFloor;
 result.existenceProjectionActive = floorIsActive;
+result.existenceProjectionEnabled = existenceProjectionEnabled;
 result.maximumReceiverLogOddsDrop = maximumReceiverLogOddsDrop;
 result.selectedPayloadMetadataScalars = ...
     selectedPayloadMetadataScalars;

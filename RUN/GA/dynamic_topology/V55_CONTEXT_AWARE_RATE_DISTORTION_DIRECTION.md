@@ -20,7 +20,8 @@ For receiver `j` and label `ell`, split the current fusion sources into:
 
 - `F_j`: fixed V46 inputs, including the dominant backbone and all
   nonselective residual inputs;
-- `S_j,ell`: admissible selectable cross-residual inputs for label `ell`;
+- `S_j,ell`: every present selectable cross-residual input that the full V46
+  message would supply for label `ell`;
 - `A_j,ell`: the selected subset of `S_j,ell`.
 
 The full safe reference and one candidate are
@@ -33,6 +34,15 @@ Every candidate contains exactly the same fixed sources.  The only decision
 is which selectable label payloads are added.  This makes the teacher's
 distortion match the nominal runtime fusion context instead of evaluating the
 residual subproblem in isolation.
+
+Unlike V54, V55 does not use evidence type to remove unsupported-absence or
+ambiguous label objects from the reference.  Those objects may still carry a
+valid predicted track even when the current measurement offers no direct
+support.  Treating their evidence category as permission to delete them would
+build a positive-evidence bias into the teacher.  Evidence remains available
+as a feature for a later deployable policy and is used to decide whether the
+optional receiver protection applies, but the selection-only rate-distortion
+reference is the actual full V46 label input set.
 
 ## Rate-distortion objective
 
@@ -127,3 +137,11 @@ the full receiver-safe learned-routing story.
   options and the attribution arms; do not train on V54 targets.
 - V54 misses both tracking and byte saving: abandon this payload-selection
   branch and return to topology-level method design.
+
+The frozen X36 convoy result follows the second branch: V54 saved 40.25% of
+total attempted bytes and 50.96% on the selective path, but full-horizon
+E-OSPA, focus-window E-OSPA, and cardinality error changed by -1.91%, -2.64%,
+and -6.22%, respectively.  The 6,356 existence clamps show that projection
+was a dominant intervention.  GNN training is therefore stopped; V55 must
+first separate projection-only, full-reference selection-only, and combined
+behavior.
