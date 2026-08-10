@@ -291,10 +291,14 @@ temporalInitialBank = ...
     temporalSuspensionBank || runtimeRecoveryBank || ...
     trackingAlignedProtectionBank;
 if receiverDomainTransportBank
+    receiverDomainBankOptions = getField(options, ...
+        'receiverDomainTransportBankOptions', struct());
+    receiverDomainBankOptions.presetName = presetName;
+    receiverDomainBankOptions.seed = seed;
+    receiverDomainBankOptions.currentTime = currentTime;
     timerId = tic;
     bank = buildReceiverDomainTransportActionBankV71( ...
-        context, getField(options, ...
-            'receiverDomainTransportBankOptions', struct()));
+        context, receiverDomainBankOptions);
     bankConstructionSeconds = toc(timerId);
 elseif x36ScheduleBank
     timerId = tic;
