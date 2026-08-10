@@ -1,0 +1,29 @@
+function context = ...
+    buildBraidedHandoverOpportunityV84ReferenceExecutionContext( ...
+        presetName, seed, currentTime)
+% BUILDBRAIDEDHANDOVEROPPORTUNITYV84REFERENCEEXECUTIONCONTEXT Source only.
+
+protocol = getBraidedHandoverOpportunityV84Protocol();
+if ~ischar(presetName) || ~ismember(presetName, protocol.presets) || ...
+        ~isscalar(seed) || ~ismember(seed, protocol.allSeeds) || ...
+        ~isscalar(currentTime) || ~isfinite(currentTime) || ...
+        currentTime ~= max(protocol.snapshotTimes)
+    error('BraidedHandoverV84:InvalidReferenceWindow', ...
+        'The V84 braided-handover reference request is not registered.');
+end
+context = struct();
+context.contractVersion = ...
+    'braided-handover-opportunity-v84-reference-context-v1';
+context.capability = ...
+    'braided-handover-opportunity-reference-development';
+context.action = ...
+    'filter-braided-handover-opportunity-reference-development';
+context.protocolId = protocol.id;
+context.phase = 'reference-cache';
+context.presetName = presetName;
+context.seed = seed;
+context.currentTime = currentTime;
+context.measurementTimeCount = currentTime;
+context.policyName = protocol.referencePolicyName;
+context.developmentEvidenceOnly = true;
+end
