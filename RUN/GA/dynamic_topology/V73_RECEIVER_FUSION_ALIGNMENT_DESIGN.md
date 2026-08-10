@@ -15,7 +15,8 @@ delivery reliability continues to scale its conditional benefit and harm.
 The scale-consistent V70 normalization and the V71 physical, message-count,
 row-weight, decision-retention, and rolling-B3 projection are then applied
 unchanged. The diagnostic question is whether receiver alignment changes the
-nominated formations, selected receiver slots, or final route.
+nominated formations or any exact receiver--incumbent--candidate slot triple,
+not merely whether the route retains the same number of slots.
 
 If the aligned route differs, the direct utility must be corrected and frozen
 before another paired tracking run. If the aligned route and ordering remain
