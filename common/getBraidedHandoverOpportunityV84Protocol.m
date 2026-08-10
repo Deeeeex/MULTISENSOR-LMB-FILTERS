@@ -23,7 +23,11 @@ protocol.decisionExistenceThreshold = 0.50;
 protocol.sourceWeight = 0.05;
 protocol.minimumLocalNetFraction = 0.01;
 protocol.minimumSenderNoveltyFraction = 0.005;
+protocol.minimumLocalRobustMarginExposure = 0.10;
 protocol.maximumProtectedHarmRatio = 1.0;
+protocol.requireZeroSupportedDownwardCrossings = true;
+protocol.maximumAnchorsPerScale = 2;
+protocol.minimumAnchorSeparation = 12;
 protocol.cacheRoot = fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'evidence', ...
     'tracking_aligned_v84', 'braided_handover_opportunity', 'cache');
