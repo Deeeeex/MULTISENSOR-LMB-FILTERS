@@ -18,6 +18,14 @@ Closed-form labeled GCI/KLA assumes consistent label spaces. Work on robust labe
 
 The repository's current missing-label exclusion resembles an unregistered exclusive-support partition, but absence after pruning, absence inside a sensor's field of view, and absence outside its field of view are not equivalent evidence. They must not share one implicit rule.
 
+This literature does not certify the V90 rule as exact KLA. In particular,
+Gao et al. derive the different-FoV subspace construction under minimum
+information loss (an arithmetic opinion pool), whereas this repository uses
+KLA/GCI (a geometric opinion pool). Their result supports making the FoV
+partition explicit; it does not justify silently transplanting the resulting
+fusion formula. V90 therefore tests a censored-existence approximation and
+keeps a future exact set-density derivation as a separate requirement.
+
 ## Method decision
 
 Route tuning pauses at V89. The already running paired episode remains useful development evidence, but it cannot authorize a generic KLA claim or multistyle expansion by itself. V90 will make the fusion semantics explicit before another topology redesign.
@@ -26,9 +34,23 @@ Three receiver modes are required:
 
 1. **Legacy support-renormalized control.** Preserve the current behavior only as an engineering ablation.
 2. **Strict common-label KLA.** A missing label at any positively weighted input is treated as zero existence. This is the sparse-representation control for the common-label-space formula.
-3. **FoV-aware partitioned fusion.** A missing label may be excluded only when current sensor geometry makes that absence uninformative. A missing label inside the source's observable region remains negative evidence. The partition must use current sensor pose, range, FoV and the current predicted label density; it may not use truth, future measurements or tracking outcomes.
+3. **FoV-aware censored-existence fusion.** A missing label is excluded only when current sensor geometry makes that absence uninformative. If the current label density lies in the source's observable region, absence is treated as censored low-existence evidence: its existence upper bound is the transmitted-payload threshold, while it contributes no invented spatial density. The partition uses current sensor pose, range, FoV, expected detection probability and the current predicted label density; it may not use truth, future measurements or tracking outcomes.
 
 The third mode needs a derivation and a clearly named approximation boundary. It must not be described as exact LMB-KLA unless the resulting set-density rule is proved.
+
+## Mathematical contract for the FoV-aware mode
+
+For label \(\ell\), let \(P_\ell\) be the positively weighted inputs that transmit the label. For every missing input \(i\), the receiver evaluates current observability
+
+\[
+O_i^\ell = \mathbb{E}_{p^\ell(x)}[p_D^i(x,t)]
+\]
+
+from the currently transmitted label density, the current sensor pose and the current FoV model. No target truth is involved. The implementation reuses the registered positive-weight position cubature rule in `computeLmbLabelObservationOpportunity`, so the estimate includes the label covariance crossing the range or angular FoV boundary instead of evaluating only GM component means. Results from multiple present sources are then averaged with their normalized spatial weights. A missing input with negligible FoV mass or low \(O_i^\ell\) is non-informative and is excluded for that label. A missing input with sufficient FoV mass and \(O_i^\ell\) is informative. Since a heavy payload transmits labels only above threshold \(\tau\), its absence provides the censored statement \(r_i^\ell \leq \tau\), not \(r_i^\ell=0\).
+
+The implemented existence update therefore inserts \(\tau\) for informative missing inputs and normalizes existence weights over transmitted plus informative-missing inputs. Spatial KLA uses only transmitted conditional densities; no spatial density is invented for a missing label. With fixed spatial-overlap term, the Bernoulli KLA log odds are monotone in every local log odds, so substituting \(\tau\) yields an upper bound on fused existence over the unknown interval \([0,\tau]\). This bound is deliberately less optimistic than legacy exclusion and less destructive than a zero-existence veto.
+
+Because the missing spatial density is marginalized as neutral rather than reconstructed, this is currently an FoV-aware censored-existence approximation, not an exact set-density KLA theorem. The experiment must retain that name and boundary until a full derivation is completed.
 
 ## Frozen experiment decision
 

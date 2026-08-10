@@ -1,0 +1,103 @@
+function test_partial_label_fusion_semantics_v90()
+% TEST_PARTIAL_LABEL_FUSION_SEMANTICS_V90 Focused missing-label controls.
+
+model = buildModel();
+inside = buildObject([20; 0; 0; 0], 0.8);
+outside = buildObject([-20; 0; 0; 0], 0.8);
+details = struct( ...
+    'sourceIndices', [1, 2], ...
+    'isSelf', [true, false], ...
+    'isStale', [false, false], ...
+    'currentTime', 1, ...
+    'eventType', [2, 2]);
+weights = [0.5, 0.5];
+
+legacy = buildMixtureAwareKlaReferenceConfig(struct( ...
+    'missingLabelFusionMode', 'support-renormalized'));
+[legacyResult, legacyDiagnostics] = fuseLmbPosteriorsByLabel( ...
+    {emptyLike(inside), inside}, weights, model, weights, ...
+    details, legacy);
+assert(numel(legacyResult) == 1);
+assert(abs(legacyResult.r - inside.r) <= 1e-10);
+assert(legacyDiagnostics.missingSourceCount == 1);
+assert(legacyDiagnostics.legacyExcludedSourceCount == 1);
+assert(legacyDiagnostics.uninformativeExcludedSourceCount == 0);
+
+strict = buildMixtureAwareKlaReferenceConfig(struct( ...
+    'missingLabelFusionMode', 'strict-common-label'));
+[strictResult, strictDiagnostics] = fuseLmbPosteriorsByLabel( ...
+    {emptyLike(inside), inside}, weights, model, weights, ...
+    details, strict);
+assert(isempty(strictResult));
+assert(strictDiagnostics.strictVetoedLabelCount == 1);
+strictSharedResult = fuseLmbPosteriorsByLabel( ...
+    {inside, inside}, weights, model, weights, details, strict);
+assert(numel(strictSharedResult) == 1);
+assert(abs(strictSharedResult.r - inside.r) <= 1e-10);
+
+fovAware = buildMixtureAwareKlaReferenceConfig(struct( ...
+    'missingLabelFusionMode', 'fov-aware-censored', ...
+    'fovAwareMissingLabelMinimumFovFraction', 0.5, ...
+    'fovAwareMissingLabelMinimumExpectedDetectionProbability', 0.1));
+[insideResult, insideDiagnostics] = fuseLmbPosteriorsByLabel( ...
+    {emptyLike(inside), inside}, weights, model, weights, ...
+    details, fovAware);
+assert(numel(insideResult) == 1);
+assert(insideResult.r > 0);
+assert(insideResult.r < inside.r);
+assert(insideDiagnostics.observableCensoredSourceCount == 1);
+assert(insideDiagnostics.uninformativeExcludedSourceCount == 0);
+
+[outsideResult, outsideDiagnostics] = fuseLmbPosteriorsByLabel( ...
+    {emptyLike(outside), outside}, weights, model, weights, ...
+    details, fovAware);
+assert(numel(outsideResult) == 1);
+assert(abs(outsideResult.r - outside.r) <= 1e-10);
+assert(outsideDiagnostics.observableCensoredSourceCount == 0);
+assert(outsideDiagnostics.uninformativeExcludedSourceCount == 1);
+
+boundary = buildObject([10; 18; 0; 0], 0.8);
+boundary.Sigma = {diag([4, 4, 1, 1])};
+boundaryAware = buildMixtureAwareKlaReferenceConfig(struct( ...
+    'missingLabelFusionMode', 'fov-aware-censored', ...
+    'fovAwareMissingLabelMinimumFovFraction', 0.25, ...
+    'fovAwareMissingLabelMinimumExpectedDetectionProbability', 0.1));
+[boundaryResult, boundaryDiagnostics] = fuseLmbPosteriorsByLabel( ...
+    {emptyLike(boundary), boundary}, weights, model, weights, ...
+    details, boundaryAware);
+assert(numel(boundaryResult) == 1);
+assert(boundaryResult.r < boundary.r);
+assert(boundaryDiagnostics.observableCensoredSourceCount == 1);
+
+fprintf('test_partial_label_fusion_semantics_v90 passed\n');
+end
+
+function model = buildModel()
+model = struct();
+model.numberOfSensors = 2;
+model.xDimension = 4;
+model.detectionProbability = [0.9, 0.9];
+model.Q = {eye(2), eye(2)};
+model.sensorMotionEnabled = true;
+model.sensorFovEnabled = true;
+model.sensorFovHalfAngleDeg = [60, 60];
+model.sensorFovRange = [100, 100];
+model.sensorFovHeadingRad = [0; 0];
+model.sensorTrajectories = {zeros(4, 1), zeros(4, 1)};
+model.sensorQuality = struct('enabled', false);
+end
+
+function object = buildObject(mean, existence)
+object = struct( ...
+    'birthTime', 1, ...
+    'birthLocation', 1, ...
+    'r', existence, ...
+    'numberOfGmComponents', 1, ...
+    'w', 1, ...
+    'mu', {{mean}}, ...
+    'Sigma', {{eye(4)}});
+end
+
+function objects = emptyLike(template)
+objects = template([]);
+end
