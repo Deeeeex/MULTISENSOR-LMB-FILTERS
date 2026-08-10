@@ -42,3 +42,26 @@ The cycle then repeats.  Every modified row keeps its reference message count
 and positive-weight multiset, and the joint sequence must pass rolling-B3.
 The full-episode paired tracking gate remains five-percent mean gain with
 nonnegative worst-sensor, minimum-formation and consensus outcomes.
+
+## Frozen executable policy
+
+The executable candidate is
+`selectRepeatedMultiGatewayHandoverV89RuntimePolicy`.  It recomputes the
+current physical-tree reference on every round, stores only gateways that
+survive the acquire projection, and consumes that stored set exactly once on
+the following broadcast round.  A repeated call with a non-increasing time
+index resets the state, so separate paired runs cannot inherit a gateway.
+
+Acquire candidates are inserted greedily in descending current novelty.
+Broadcast candidates are inserted one formation at a time.  After every
+insertion the complete route must remain physical, keep exactly two messages
+and the same positive weights per receiver, and keep both the sensor and
+collapsed-formation graph strongly connected over the latest three selected
+pages.  A rejected insertion leaves that formation on the current reference;
+if all insertions are rejected, the complete round is the reference.
+
+Direct construction at t=40 confirms that M24 executes two acquire and two
+broadcast gateways with 48 messages per round, while X36 executes four and
+four with 72 messages per round.  Both constructed sequences pass sensor and
+formation rolling-B3.  This is a route-construction result only; the frozen
+paired full-episode runner is responsible for the tracking decision.
