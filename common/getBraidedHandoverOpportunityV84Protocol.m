@@ -25,6 +25,8 @@ protocol.sourceWeight = 0.05;
 % repository implements this with a bounded componentwise powered-GM KLA
 % approximation; it is deliberately not the historical moment-matched path.
 protocol.fusionConfig = buildMixtureAwareKlaReferenceConfig();
+protocol.requireSourceFormationChange = true;
+protocol.requireCurrentNovelSupport = true;
 protocol.minimumLocalNetFraction = 0.01;
 protocol.minimumSenderNoveltyFraction = 0.005;
 protocol.minimumLocalRobustMarginExposure = 0.10;

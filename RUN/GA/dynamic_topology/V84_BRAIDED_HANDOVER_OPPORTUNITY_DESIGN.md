@@ -38,6 +38,13 @@ mixture. The association signal explains where useful information originates;
 it does not replace the KLA counterfactual. Neither signal reads truth or
 future tracking loss.
 
+The two defining eligibility conditions are applied before the expensive KLA
+counterfactual: an alternative must come from a different formation than the
+incumbent sender, and must have at least one label with stronger current
+association support than both the receiver and incumbent. This ordering only
+removes candidates that cannot satisfy V84 by definition; it does not alter
+the score or thresholds of any eligible candidate.
+
 ## Frozen development scan
 
 - scenes: `m24-formation-fov-braided-handover` and
