@@ -61,3 +61,18 @@ The tracking gate then requires, independently on both scales:
 
 Failure on either scale rejects V95. Opened anchors cannot support validation
 or generalization claims.
+
+## Scene-transfer decision after the matched-static gate
+
+The method is frozen before any new scene outcome is opened. If and only if
+both braided-handover scales pass the four-arm gate, the unchanged selector,
+token count rule and safety projection move to the already geometry-validated
+M24/X36 convoy and relay families. Each style must beat its own matched static
+route at both scales; a favorable style cannot compensate for a failed one.
+
+Merge-split and curved-corridor follow as development mechanisms: the former
+tests a changing physical graph, while the latter isolates changing sensing
+ownership on a smoother route. Orthogonal crossing remains stress-only until
+its separate observability gate is repaired. If V95 fails the current
+cross-scale matched-static gate, no scene expansion is authorized; the next
+step is a method redesign rather than a larger result matrix.
