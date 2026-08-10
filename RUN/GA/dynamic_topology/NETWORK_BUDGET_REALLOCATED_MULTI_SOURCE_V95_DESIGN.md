@@ -76,3 +76,26 @@ ownership on a smoother route. Orthogonal crossing remains stress-only until
 its separate observability gate is repaired. If V95 fails the current
 cross-scale matched-static gate, no scene expansion is authorized; the next
 step is a method redesign rather than a larger result matrix.
+
+## Opened matched-static decision
+
+V95 fails its frozen four-arm gate. The comparison uses identical cached
+posteriors, measurements, link uniforms, filter random state, communication
+budget and horizon for every arm.
+
+| Scale | Static | Donor only | One-round dynamic | Fixed reallocation | Dynamic / static | Dynamic / fixed | Gate |
+|:--|--:|--:|--:|--:|--:|--:|:--:|
+| M24 | 125.596200 | 125.596211 | 125.595824 | 125.699438 | +0.000299% | +0.082430% | fail |
+| X36 | 131.503832 | 131.473215 | 131.171915 | 130.945110 | +0.252401% | -0.173206% | fail |
+
+The M24 effect is numerically negligible and its consensus metric regresses by
+0.199%. X36 shows a small positive effect over the static route, but holding
+the same reallocation fixed is better than returning to the static tree; that
+fixed arm also regresses the weakest sensor and formation. The experiment
+therefore provides no evidence that the dynamic return decision adds value.
+
+No scene transfer or full-episode run is authorized. The current operational
+reference remains the static physical tree. A successor must change the method
+premise rather than tune V95 on these opened anchors: it needs a horizon-aware
+value model that jointly chooses recipients, trust mass and persistence, and
+must again be judged first against the matched static and fixed-route controls.
