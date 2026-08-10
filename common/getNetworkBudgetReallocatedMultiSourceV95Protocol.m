@@ -71,6 +71,7 @@ protocol.minimumSenderNoveltyFraction = ...
     source.minimumSenderNoveltyFraction;
 protocol.minimumNetUtilityFraction = 0;
 protocol.maximumSolverSeconds = 10;
+protocol.maximumConnectivityCuts = 4096;
 protocol.cases = cases;
 protocol.minimumMeanGainPercent = 5.0;
 protocol.minimumWorstSensorGainPercent = 0.0;
