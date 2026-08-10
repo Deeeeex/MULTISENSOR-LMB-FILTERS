@@ -13,6 +13,8 @@ end
 defaultProtocol = getFormationH3MultiscaleTeacherProtocol();
 protocol = getField(options, 'protocol', defaultProtocol);
 validateProtocol(protocol, defaultProtocol.id);
+receiverMode = normalizeReceiverMode(getField( ...
+    options, 'receiverMode', 'support-renormalized'));
 if nargin < 3 || isempty(snapshotTimes)
     snapshotTimes = protocol.snapshotTimes;
 end
@@ -80,6 +82,7 @@ if ~overwrite && any(existingMask)
                 bundle.policyFutureOutcomeUsed
             error('Formation H=3 existing cache provenance mismatch.');
         end
+        validateBundleReceiverMode(bundle, receiverMode);
         [posteriors, history] = ...
             extractBehaviorContinuationSnapshot( ...
                 bundle, snapshotTimes(idx), ...
@@ -95,7 +98,7 @@ if ~overwrite && any(existingMask)
     end
     summary = buildSummary( ...
         protocol, presetName, seed, snapshotTimes, cachePaths, ...
-        cacheSha256, elapsedSeconds, gitState, true);
+        cacheSha256, elapsedSeconds, gitState, true, receiverMode);
     fprintf('Reused formation H=3 cache set: %s seed %d\n', ...
         presetName, seed);
     return;
@@ -103,7 +106,7 @@ end
 
 cropped = cropInputs(inputs, maximumTime);
 config = buildReferenceConfig( ...
-    cropped.config, snapshotTimes, protocol);
+    cropped.config, snapshotTimes, protocol, receiverMode);
 executionContext = struct();
 v56Protocol = getTrackingAlignedFormationH3HeadroomProtocol();
 v58Protocol = getTrackingAlignedRoutingLeverageV58Protocol();
@@ -199,6 +202,7 @@ for idx = 1:numel(snapshotTimes)
             getField(protocol, 'referencePolicyName', ...
                 'formation-h3-fixed-ccw-reference-v1'), ...
         'referenceReplayOnly', true, ...
+        'missingLabelFusionMode', receiverMode, ...
         'policyTruthUsed', false, ...
         'policyFutureOutcomeUsed', false, ...
         'openedDevelopmentEvidenceOnly', true, ...
@@ -218,12 +222,13 @@ end
 
 summary = buildSummary( ...
     protocol, presetName, seed, snapshotTimes, cachePaths, ...
-    cacheSha256, elapsedSeconds, gitState, false);
+    cacheSha256, elapsedSeconds, gitState, false, receiverMode);
 end
 
 function summary = buildSummary( ...
         protocol, presetName, seed, snapshotTimes, cachePaths, ...
-        cacheSha256, elapsedSeconds, gitState, reusedExisting)
+        cacheSha256, elapsedSeconds, gitState, reusedExisting, ...
+        receiverMode)
 summary = struct();
 summary.contractVersion = ...
     'formation-h3-reference-state-cache-summary-v1';
@@ -240,6 +245,7 @@ summary.generationTrackedWorktreeDirty = ...
 summary.generationUntrackedSourceFiles = ...
     gitState.untrackedSourceFiles;
 summary.reusedExisting = logical(reusedExisting);
+summary.missingLabelFusionMode = receiverMode;
 summary.policyTruthUsed = false;
 summary.policyFutureOutcomeUsed = false;
 summary.openedDevelopmentEvidenceOnly = true;
@@ -248,9 +254,10 @@ summary.evidenceBoundary = protocol.evidenceBoundary;
 end
 
 function config = buildReferenceConfig( ...
-        scenarioConfig, snapshotTimes, protocol)
+        scenarioConfig, snapshotTimes, protocol, receiverMode)
 baseProtocol = getLabelSetSimulatorPolicyProtocol();
 config = buildMixtureAwareKlaReferenceConfig();
+config.missingLabelFusionMode = receiverMode;
 config.eventPolicy = 'alwaysHeavy';
 config.dynamicTopologyEnabled = true;
 config.dynamicTopologyEdgeBudget = scenarioConfig.edgeBudget;
@@ -281,6 +288,33 @@ else
 end
 if protocol.filterSeedOffset ~= 100000
     error('Formation H=3 filter RNG protocol changed.');
+end
+end
+
+function validateBundleReceiverMode(bundle, receiverMode)
+actual = 'support-renormalized';
+if isfield(bundle, 'missingLabelFusionMode')
+    actual = bundle.missingLabelFusionMode;
+elseif isfield(bundle, 'behaviorConfigSnapshot') && ...
+        isstruct(bundle.behaviorConfigSnapshot) && ...
+        isfield(bundle.behaviorConfigSnapshot, 'missingLabelFusionMode')
+    actual = bundle.behaviorConfigSnapshot.missingLabelFusionMode;
+end
+if ~ischar(actual) || ~strcmp(actual, receiverMode)
+    error('Formation H=3 cache receiver semantics mismatch.');
+end
+end
+
+function value = normalizeReceiverMode(value)
+if ~ischar(value) || ~isrow(value)
+    error('Formation H=3 cache receiver mode is invalid.');
+end
+value = lower(strrep(value, '_', '-'));
+if ~ismember(value, { ...
+        'support-renormalized', ...
+        'strict-common-label', ...
+        'fov-aware-censored'})
+    error('Formation H=3 cache receiver mode is invalid.');
 end
 end
 
