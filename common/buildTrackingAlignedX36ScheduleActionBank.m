@@ -65,7 +65,7 @@ rankedFormationIds = groups(rankedIndices);
 rankedScores = scores(rankedIndices);
 
 legacySchedule = {};
-if ~networkAdditiveBank
+if ~riskMetricBank
     anchorIdx = find(protocol.anchorTimes == context.currentTime, 1);
     legacySchedule = protocol.legacyFormationSchedules{anchorIdx};
 end
