@@ -30,8 +30,13 @@ Dynamic routing is useful only when it avoids the first error or enables the
 second under the same communication budget. V84 therefore looks for physical
 sender--receiver substitutions whose sender has current label support absent
 from both the receiver and incumbent sender, while rejecting substitutions
-that reduce receiver- or incumbent-supported labels. The signal is current
-posterior and current association support, not truth or future tracking loss.
+that reduce receiver- or incumbent-supported labels. Candidate effects are
+computed by the repository's bounded componentwise powered-GM KLA path, which
+retains multiple spatial modes. This is a numerical mixture-aware
+approximation, not an exact closed-form power of an arbitrary Gaussian
+mixture. The association signal explains where useful information originates;
+it does not replace the KLA counterfactual. Neither signal reads truth or
+future tracking loss.
 
 ## Frozen development scan
 
@@ -43,6 +48,9 @@ posterior and current association support, not truth or future tracking loss.
   fixed-budget residual tour;
 - permitted inputs: current local LMB posteriors, current association support,
   current physical links and reliability, and two past selected topologies;
+- fusion reference: receiver-first, heavy-message, componentwise powered-GM
+  mixture-aware KLA with the same bounded component settings used by the
+  tracking reference;
 - closed inputs: truth, future measurements, future links, and tracking
   outcomes.
 

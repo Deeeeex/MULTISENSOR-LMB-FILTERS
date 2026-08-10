@@ -21,6 +21,10 @@ protocol.horizonSteps = v66.horizonSteps;
 protocol.positiveSupportThreshold = v66.positiveSupportThreshold;
 protocol.decisionExistenceThreshold = 0.50;
 protocol.sourceWeight = 0.05;
+% The V84 edge counterfactual must retain spatial mixture structure.  The
+% repository implements this with a bounded componentwise powered-GM KLA
+% approximation; it is deliberately not the historical moment-matched path.
+protocol.fusionConfig = buildMixtureAwareKlaReferenceConfig();
 protocol.minimumLocalNetFraction = 0.01;
 protocol.minimumSenderNoveltyFraction = 0.005;
 protocol.minimumLocalRobustMarginExposure = 0.10;
