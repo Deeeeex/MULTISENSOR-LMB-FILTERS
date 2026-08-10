@@ -40,10 +40,16 @@ future tracking loss.
 
 The two defining eligibility conditions are applied before the expensive KLA
 counterfactual: an alternative must come from a different formation than the
-incumbent sender, and must have at least one label with stronger current
-association support than both the receiver and incumbent. This ordering only
-removes candidates that cannot satisfy V84 by definition; it does not alter
-the score or thresholds of any eligible candidate.
+incumbent sender, and its reliability-weighted novel association support must
+already reach the frozen `0.5%` receiver-formation threshold. The numerator and
+receiver-formation denominator are exactly the ones used by the final V84
+gate. This ordering only removes candidates that cannot satisfy V84 by
+definition; it does not alter the score or thresholds of any eligible
+candidate.
+
+Reference receiver fusion is also evaluated lazily: a receiver's reference KLA
+is computed only when at least one alternative survives both eligibility
+conditions. The retained reference and candidate calculations are unchanged.
 
 ## Frozen development scan
 
