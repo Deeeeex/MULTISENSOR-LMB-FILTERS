@@ -121,6 +121,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isBraidedHandoverH3V84ExecutionContext(executionContext)
+        authorization = validateBraidedHandoverH3V84Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isReceiverDomainTransportH3V72ExecutionContext( ...
             executionContext)
         authorization = ...
