@@ -32,14 +32,28 @@ attenuation or amplification, cancellation between receiver slots,
 formation-tail exposure, and consensus debt. V72 does not yet isolate which
 cause dominates.
 
+The time-resolved V72 outcome separates the layers further. In M24, affected
+formation 3 improves by 3.128 E-OSPA units in the intervention step, is almost
+neutral one step later, and improves by 1.658 units in the final step, while
+network consensus worsens at every step. In X36, formation 4 improves by
+1.498 units immediately but becomes 0.754 units worse by the third step;
+formation 5 is already 1.605 units worse in the intervention step and reaches
+3.107 units worse by the third step. Therefore temporal propagation is not the
+only missing term: the existence-only direct score fails to detect immediate
+spatial/cardinality task risk for formation 5, while formation 4 separately
+shows a later propagation or recovery effect.
+
 The next method decision is ordered rather than simultaneous:
 
 1. recompute direct, label-wise influence with the same mixture-aware
    configuration, receiver-first input ordering, and heavy-message semantics
    as the formal filter;
-2. only if the corrected direct score still preserves the failed ordering,
-   add a source-only multi-round propagation term on the reference fusion
-   graph, with explicit formation-tail and consensus penalties.
+2. augment the aligned direct score with truth-free posterior Bayes risk and
+   one-round network disagreement so spatial uncertainty and immediate
+   consensus debt enter the decision;
+3. only after the direct task-risk layer is adequate, add a source-only
+   multi-round propagation term on the reference fusion graph, with explicit
+   formation-tail and consensus penalties.
 
 V71 normalization thresholds and formation budgets will not be tuned further.
 The physical, message-count, row-weight, decision-retention, rolling-B3, and
