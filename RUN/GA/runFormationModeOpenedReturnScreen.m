@@ -970,7 +970,10 @@ elseif trackingAlignedLocalBank
         'and cannot support validation or generalization claims.'], ...
         horizonSteps);
 elseif receiverTransportBank
-    if braidedHandoverTransportBank
+    if temporalAcquireBroadcastBank
+        receiverTransportProtocol = ...
+            getTemporalAcquireBroadcastV86Protocol();
+    elseif braidedHandoverTransportBank
         receiverTransportProtocol = ...
             getBraidedHandoverH3V84Protocol();
     else
