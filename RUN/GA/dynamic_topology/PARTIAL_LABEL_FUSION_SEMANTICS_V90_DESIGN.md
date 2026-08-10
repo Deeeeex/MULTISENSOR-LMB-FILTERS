@@ -6,6 +6,31 @@ The current distributed receiver is not a generic common-label-space LMB-KLA imp
 
 This rule entered with commit `1000a9d` as part of the dual-threshold communication prototype. It is a practical response to independently pruned label sets, but it was not derived there as exact LMB-KLA. The current mixture-aware spatial path changes the Gaussian-mixture calculation; it does not change this missing-label rule.
 
+## Full-episode M24 decision
+
+The FoV-aware censored receiver was run on the complete M24 braided-handover
+episode with the same scene, measurements, delivery uniforms, filter seed and
+receiver semantics in both arms.  The static physical tree obtained E-OSPA
+121.389, while the frozen V89 acquire--broadcast route obtained 121.557.
+
+| Metric | V89 over static |
+|:--|--:|
+| Full-horizon E-OSPA | -0.139% |
+| Focus-window E-OSPA | -0.126% |
+| Worst sensor | -1.306% |
+| Worst formation | -1.343% |
+| Consensus | -0.254% |
+| Cardinality | -0.389% |
+
+The FoV-aware rule was active: the static and V89 arms respectively observed
+370 and 438 missing-source cases inside the predicted FoV, while 3382 and 3497
+geometrically uninformative absences were excluded.  The negative paired
+result therefore is not caused by the new branch remaining dormant.
+
+V90 rejects the hypothesis that explicit missing-label semantics alone can
+rescue V89.  X36 and multistyle V89 runs remain closed.  The next method must
+change the routing action itself and compare against the static tree first.
+
 The distinction matters directly to V84--V89. Their route signal is current support that the receiver and incumbent do not possess. Under the current receiver this support can propagate losslessly across a missing-label input. Under common-label-space KLA, all positively weighted Bernoulli components participate and a zero-existence component vetoes the geometric product. Therefore a V89 tracking gain would currently establish a result only for the repository's support-renormalized receiver, not for generic LMB-KLA.
 
 ## Literature boundary
