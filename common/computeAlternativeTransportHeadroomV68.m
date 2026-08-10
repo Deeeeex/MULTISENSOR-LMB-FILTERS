@@ -5,7 +5,10 @@ function metrics = computeAlternativeTransportHeadroomV68( ...
 % For every registered cross-formation residual input, replace its sender
 % with one currently physical but unused cross-formation sender. The same
 % row weight and message count are retained. Reference and candidate receiver
-% posteriors are fused by the installed label-wise projected-Gaussian KLA.
+% posteriors use the historical moment-matched KLA unless
+% options.fusionConfig explicitly enables the mixture-aware heavy-fusion
+% path. In that path the receiver is input first and selected neighbors are
+% marked as delivered heavy messages.
 % The sum of the best safe replacement per residual slot is an optimistic
 % pre-projection bound, not an executable route.
 
@@ -32,12 +35,14 @@ supportThreshold = getField( ...
     options, 'positiveSupportThreshold', 0.20);
 decisionThreshold = getField( ...
     options, 'decisionExistenceThreshold', 0.50);
+fusionConfig = getField(options, 'fusionConfig', struct());
 if numel(groupIds) ~= nodeCount || ...
         ~isequal(size(weights), [nodeCount, nodeCount]) || ...
         ~isequal(size(physical), [nodeCount, nodeCount]) || ...
         any(abs(sum(weights, 2) - 1) > 1e-10) || ...
         ~isscalar(sourceWeight) || ~isfinite(sourceWeight) || ...
-        sourceWeight <= 0 || sourceWeight >= 1
+        sourceWeight <= 0 || sourceWeight >= 1 || ...
+        ~isstruct(fusionConfig) || ~isscalar(fusionConfig)
     error('AlternativeTransportV68:DimensionMismatch', ...
         'V68 graph dimensions or weights are invalid.');
 end
@@ -61,7 +66,7 @@ for receiverIdx = 1:nodeCount
     end
     referenceFused = fuseReceiver( ...
         posteriors, activeSenders, weights(receiverIdx, activeSenders), ...
-        context.model);
+        receiverIdx, context.model, fusionConfig);
     for incumbentIdx = 1:numel(incumbentCrossSenders)
         incumbentSender = incumbentCrossSenders(incumbentIdx);
         slotWeight = weights(receiverIdx, incumbentSender);
@@ -79,7 +84,7 @@ for receiverIdx = 1:nodeCount
             candidateWeights = weights(receiverIdx, activeSenders);
             candidateFused = fuseReceiver( ...
                 posteriors, candidateSenders, candidateWeights, ...
-                context.model);
+                receiverIdx, context.model, fusionConfig);
             record = compareCandidate( ...
                 referenceFused, candidateFused, ...
                 posteriors{receiverIdx}, posteriors{incumbentSender}, ...
@@ -127,18 +132,54 @@ metrics.optimisticSupportedHarmFraction = optimisticHarm;
 metrics.optimisticNetHeadroomFraction = optimisticNet;
 metrics.routeConnectivityProjected = false;
 metrics.messageCountChanged = false;
+metrics.receiverFusionMode = receiverFusionMode(fusionConfig);
+metrics.receiverFirstInputEnforced = ...
+    strcmp(metrics.receiverFusionMode, 'mixture-aware-heavy');
+metrics.neighborMessageEventType = ...
+    2 * double(metrics.receiverFirstInputEnforced);
 metrics.truthUsed = false;
 metrics.futureMeasurementsUsed = false;
 metrics.futureOutcomesUsed = false;
 end
 
-function fused = fuseReceiver(posteriors, senders, weights, model)
+function fused = fuseReceiver( ...
+        posteriors, senders, weights, receiverIdx, model, fusionConfig)
+mixtureAware = strcmp( ...
+    receiverFusionMode(fusionConfig), 'mixture-aware-heavy');
+if mixtureAware
+    receiverPosition = find(senders == receiverIdx, 1);
+    if isempty(receiverPosition)
+        error('AlternativeTransportV68:MissingReceiverInput', ...
+            'Mixture-aware source scoring requires the receiver input.');
+    end
+    order = [receiverPosition, ...
+        setdiff(1:numel(senders), receiverPosition, 'stable')];
+    senders = senders(order);
+    weights = weights(order);
+end
 sources = cell(1, numel(senders));
 for sourceIdx = 1:numel(senders)
     sources{sourceIdx} = posteriors{senders(sourceIdx)};
 end
-fused = fuseLmbPosteriorsByLabel( ...
-    sources, weights, model, weights);
+if mixtureAware
+    fusionDetails = struct( ...
+        'eventType', [0, 2 * ones(1, numel(senders) - 1)]);
+    fused = fuseLmbPosteriorsByLabel( ...
+        sources, weights, model, weights, fusionDetails, fusionConfig);
+else
+    fused = fuseLmbPosteriorsByLabel( ...
+        sources, weights, model, weights);
+end
+end
+
+function mode = receiverFusionMode(config)
+if isstruct(config) && isscalar(config) && ...
+        logical(getField(config, ...
+            'mixtureAwareHeavyFusionEnabled', false))
+    mode = 'mixture-aware-heavy';
+else
+    mode = 'moment-matched';
+end
 end
 
 function record = compareCandidate( ...
