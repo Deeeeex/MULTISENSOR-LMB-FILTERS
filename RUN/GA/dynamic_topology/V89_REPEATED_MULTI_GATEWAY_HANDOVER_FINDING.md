@@ -14,6 +14,28 @@ Both scales pass the frozen coverage gate: more than 10% of times are
 actionable, at least one time has multiple non-conflicting gateways, and the
 union covers at least half of the formations.
 
+## Matched static-routing baseline result
+
+The braided-handover formations translate rigidly, so their relative geometry
+does not change.  A V91 execution-trace certificate confirms that the physical
+graph, physical-tree route and fusion weights each have exactly one unique
+page over all 160 rounds for both M24 and X36.  The V89 physical-tree reference
+is therefore the matched static-routing baseline, even though the selector is
+called on every round.
+
+Positive gains below mean that the adaptive V89 candidate improves on the
+static route; E-OSPA itself is lower-is-better.
+
+| Scale | Static E-OSPA | V89 E-OSPA | Full gain | Focus gain | Worst sensor | Minimum formation | Consensus | Strong gate |
+|:--|--:|--:|--:|--:|--:|--:|--:|:--:|
+| M24 | 121.277 | 121.933 | -0.541% | -0.775% | -0.891% | -1.314% | +2.467% | No |
+| X36 | 128.765 | 128.608 | +0.122% | +0.057% | +0.351% | -1.390% | +0.211% | No |
+
+V89 fails as a routing method.  It degrades every reported tracking-tail
+quantity on M24.  On X36 its mean benefit is only 0.122%, while the weakest
+formation degrades by 1.390%.  The consensus improvement is not sufficient to
+claim tracking effectiveness, and neither scale passes the frozen strong gate.
+
 ## Interpretation
 
 The V84 one-edge selector was sparse because it required an exact
@@ -29,7 +51,7 @@ appearing only at isolated handover instants.  Consequently the executable
 policy must impose temporal structure instead of modifying the graph every
 round.
 
-## Frozen implementation direction
+## Evaluated implementation
 
 The full-episode V89 controller uses a causal three-phase cadence:
 
@@ -46,6 +68,8 @@ sets are projected jointly through physicality, exact per-row message and
 weight-multiset parity, at most one gateway per formation, and rolling-B3.
 If any invariant fails, the current round uses the reference.
 
-This result authorizes implementation of the paired full-episode development
-arm.  It does not authorize a tracking, validation, generalization or
-model-training claim.
+This design was authorized by the coverage scan and then rejected by the
+matched full-episode baseline.  It remains mechanism evidence only and does
+not authorize a tracking, validation, generalization or model-training claim.
+Every successor must report its gain over the static physical tree first and
+must improve both mean and tail tracking metrics before being called effective.
