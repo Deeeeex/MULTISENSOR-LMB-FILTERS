@@ -86,3 +86,23 @@ authorize a GNN or a generalization claim.  Failing the gate means the
 remaining X36 loss is not repairable by sparse complete-label exceptions under
 the current control-only carrier, so the protection mechanism or fusion
 semantics must change before any learned policy is attempted.
+
+## Opened result
+
+V108 sends all 24 frozen exception actions and retains 5.237% mean E-OSPA gain
+with 5.870% byte saving, but it fails the local gate.  F1 remains -0.930%, F6
+falls to -0.151%, and the F6 non-gateway terminal result remains -2.904%.
+Relative to V105, mean gain drops by 0.022 percentage points and byte saving
+drops by 0.247 points; the F6 peer change is only +0.036 points.  Positive
+one-round label risk under opened truth is therefore not sufficient to predict
+recursive network E-OSPA.
+
+The result also exposes a semantic issue in the current carrier.  A
+control-only selective edge delivers an empty heavy payload.  Under
+`fov-aware-censored` missing-label fusion, an omitted label can be represented
+as a low-existence censored observation when the sender is judged able to see
+it.  Control-only is therefore not pure abstention: it can inject negative
+existence evidence for every omitted label.  Sparse positive exceptions leave
+that bulk negative-evidence mechanism intact.  The next attribution must
+separate three cases explicitly: complete positive label evidence, credible
+negative evidence, and source abstention with zero label-wise KLA weight.
