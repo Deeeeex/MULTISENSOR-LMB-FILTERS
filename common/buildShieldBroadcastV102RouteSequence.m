@@ -129,6 +129,20 @@ route.gatewayIndicesByFormation = gateways;
 route.gatewayIndicesByTime = gatewayIndicesByTime;
 route.changedReceiverIndicesByTime = changedReceiversByTime;
 route.broadcastFormationIdsByTime = broadcastFormationIdsByTime;
+previousHistory = getField(options, ...
+    'previousAdjacencyHistory', false(nodeCount, nodeCount, 0));
+if size(previousHistory, 3) >= 2
+    [route.rollingB3SensorPass, route.rollingB3FormationPass] = ...
+        rollingB3Pass(previousHistory, adjacencySequence, groupIds);
+    if ~all(route.rollingB3SensorPass) || ...
+            ~all(route.rollingB3FormationPass)
+        error('ShieldBroadcastV102:RollingB3Failure', ...
+            'The frozen V102 sequence violates rolling-B3.');
+    end
+else
+    route.rollingB3SensorPass = false(1, 0);
+    route.rollingB3FormationPass = false(1, 0);
+end
 route.truthUsed = false;
 route.futureOutcomeUsed = false;
 end
@@ -164,6 +178,60 @@ for receiverIdx = 1:size(first, 1)
         return;
     end
 end
+end
+
+function [sensorPass, formationPass] = ...
+        rollingB3Pass(previousHistory, sequence, groupIds)
+history = logical(previousHistory(:, :, end-1:end));
+sensorPass = false(1, size(sequence, 3));
+formationPass = false(1, size(sequence, 3));
+for stepIdx = 1:size(sequence, 3)
+    pages = cat(3, history, sequence(:, :, stepIdx));
+    window = any(pages(:, :, max(1, end-2):end), 3);
+    sensorPass(stepIdx) = isStronglyConnected(window);
+    formationPass(stepIdx) = isStronglyConnected( ...
+        collapseToFormations(window, groupIds));
+    history(:, :, end + 1) = sequence(:, :, stepIdx); %#ok<AGROW>
+    if size(history, 3) > 2
+        history = history(:, :, end-1:end);
+    end
+end
+end
+
+function formation = collapseToFormations(adjacency, groupIds)
+groups = unique(reshape(groupIds, 1, []), 'stable');
+formation = false(numel(groups));
+for receiverGroupIdx = 1:numel(groups)
+    receivers = groupIds == groups(receiverGroupIdx);
+    for senderGroupIdx = 1:numel(groups)
+        senders = groupIds == groups(senderGroupIdx);
+        formation(receiverGroupIdx, senderGroupIdx) = ...
+            any(any(adjacency(receivers, senders)));
+    end
+end
+formation(1:numel(groups)+1:end) = false;
+end
+
+function connected = isStronglyConnected(adjacency)
+senderAdjacency = logical(adjacency');
+connected = reachableAll(senderAdjacency) && ...
+    reachableAll(senderAdjacency');
+end
+
+function connected = reachableAll(adjacency)
+visited = false(1, size(adjacency, 1));
+frontier = 1;
+while ~isempty(frontier)
+    node = frontier(end);
+    frontier(end) = [];
+    if visited(node)
+        continue;
+    end
+    visited(node) = true;
+    frontier = [frontier, reshape(find( ...
+        adjacency(node, :) & ~visited), 1, [])]; %#ok<AGROW>
+end
+connected = all(visited);
 end
 
 function value = getField(data, name, fallback)

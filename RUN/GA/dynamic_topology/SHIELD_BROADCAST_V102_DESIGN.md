@@ -30,9 +30,9 @@ their one-step delay:
 |--:|:--|:--|
 | 72 | 1,2,4,5 | none |
 | 73 | 1,2,3,4,5 | 1,2,4,5 |
-| 74 | 1,2,3,4,5 | 1,2,3,4,5 |
+| 74 | 1,2,3,4,5 | reference recovery |
 | 75 | 1,2,3,4,5,6 | 1,2,3,4,5 |
-| 76 | 1,2,3,4,5,6 | 1,2,3,4,5,6 |
+| 76 | 1,2,3,4,5,6 | reference recovery |
 | 77 | 1,2,3,4,5,6 | 1,2,3,4,5,6 |
 
 Static and V102 share the t=72 posterior, measurements, delivery uniforms,
@@ -49,3 +49,14 @@ the weakest formation by at least 1%, keep worst-sensor and both consensus
 tails nonnegative, preserve rolling B3, and not exceed static attempted bytes.
 Only after this gate passes may the same composition be tested at M24 and
 additional radial windows, then convoy, relay, merge-split and curved-corridor.
+
+## Pre-outcome safety correction
+
+The first executable route was rejected before its tracking result could be
+reported: three consecutive broad broadcast pages broke sensor-level rolling
+B3 at t=75--77 even though every individual row preserved message and weight
+parity.  The corrected schedule alternates broadcast and full-reference
+recovery pages.  This retains broad formation coverage and the t=77 F6
+broadcast while making all six registered sensor- and formation-level B3
+windows strongly connected.  No tracking outcome from the rejected route is
+used to choose this correction.
