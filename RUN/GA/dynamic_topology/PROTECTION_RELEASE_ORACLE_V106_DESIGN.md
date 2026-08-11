@@ -48,3 +48,13 @@ not tuned after the result opens.
   insufficient; the protected payload itself must become receiver-selective.
 - If V106 loses the mean gain, the current benefit requires long-lived
   protection and the objective must explicitly optimize a fairness tradeoff.
+
+## Opened result
+
+V106 retains 5.246% mean E-OSPA gain and 5.286% attempted-byte saving, but
+the strict gate fails.  F1 is -12.181% on its release page and remains
+-0.865% over the window; F6 reaches -2.406% at the terminal page and its
+non-gateway peers remain -2.947%.  Restoring the full static payload on the
+first observed negative page is therefore too late and produces a switch
+shock.  V107 will test the single remaining temporal hypothesis by advancing
+both release pages by one step.
