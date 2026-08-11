@@ -10,17 +10,20 @@ assert(numel(protocol.candidateActionNames) == 3);
 [baseAdjacency, baseWeights, baseDetails] = syntheticCarrier();
 [candidateAdjacency, candidateWeights, details] = ...
     rewireInfluenceConeGatewayV117( ...
-        baseAdjacency, baseWeights, baseDetails, 3, 6, 4);
+        baseAdjacency, baseWeights, baseDetails, 3, 6, 4, 5, 1);
 assert(~candidateAdjacency(6, 3) && candidateAdjacency(6, 2));
 assert(~candidateAdjacency(4, 6) && candidateAdjacency(4, 3));
+assert(~candidateAdjacency(1, 5) && candidateAdjacency(1, 6));
 assert(abs(candidateWeights(6, 2) - 0.05) <= 1e-12);
 assert(abs(candidateWeights(4, 3) - 0.05) <= 1e-12);
+assert(abs(candidateWeights(1, 6) - 0.05) <= 1e-12);
 assert(max(abs(sum(candidateWeights, 2) - 1)) <= 1e-12);
 assert(nnz(candidateAdjacency) == nnz(baseAdjacency));
 assert(max(abs(sort(candidateWeights(candidateWeights > 0)) - ...
     sort(baseWeights(baseWeights > 0)))) <= 1e-12);
 assert(details.v117GatewayRewire.messageParityPassed);
 assert(details.v117GatewayRewire.rowSumPassed);
+assert(details.v117GatewayRewire.strongConnectivityPassed);
 
 entry = protocol.cases(strcmp({protocol.cases.scaleName}, 'X36'));
 context = buildAlternativeGatewayV117ExecutionContext( ...
@@ -86,6 +89,10 @@ for receiver = 1:nodeCount
     baselineResidual(receiver, residualSource) = true;
 end
 residual = baselineResidual;
+residual(1, 3) = false;
+weights(1, 3) = 0;
+residual(1, 5) = true;
+weights(1, 5) = 0.05;
 residual(6, 2) = false;
 weights(6, 2) = 0;
 residual(6, 3) = true;

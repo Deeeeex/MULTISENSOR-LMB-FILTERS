@@ -10,24 +10,26 @@ remaining loss is caused by where the same useful F5 posterior enters F6.
 
 ## Frozen candidates
 
-Sender 27, the clockwise formation cycle, the F2--F5 abstention schedule and
-the cross-residual weight `0.05` remain fixed.  Receiver 36 has the lowest
+The clockwise formation cycle, the F2--F5 abstention schedule and each
+cross-residual weight `0.05` remain fixed.  Receiver 36 has the lowest
 captured error, but its baseline residual duplicates a dominant edge; moving
 the cross slot there would add a message and change the weight multiset.  It
 is therefore excluded by the paired carrier contract.  The edge is moved to
 the three lowest-error receivers with a distinct removable residual slot:
 
-| Arm | Cross residual | Captured receiver mean E-OSPA |
-|:--|:--|--:|
-| gateway-33 | `27 -> 33` | 76.895 |
-| gateway-35 | `27 -> 35` | 76.926 |
-| gateway-34 | `27 -> 34` | 76.937 |
+| Arm | F5→F6 entry | F6→F1 return | Captured receiver mean E-OSPA |
+|:--|:--|:--|--:|
+| gateway-33 | `27 -> 33` | `34 -> 2` | 76.895 |
+| gateway-35 | `27 -> 35` | `36 -> 2` | 76.926 |
+| gateway-34 | `27 -> 34` | `35 -> 2` | 76.937 |
 
-Moving the gateway does not add a message.  The internal residual edge that
-the new gateway displaces is removed, and F6's original `33 -> 32` residual
-is restored.  Every candidate therefore preserves row-stochastic fusion,
-the nonzero weight multiset, message count, physicality, the F5-to-F6
-formation edge and rolling B3 requirements.
+Moving only the entry cuts the displaced internal source's sole outward
+influence path and fails sensor-level rolling B3.  V117 therefore treats the
+entry and return as a paired gateway.  The internal residual edge that the
+new entry displaces is removed, F6's original `33 -> 32` residual is restored,
+and the displaced source takes over the original `33 -> 2` return edge.  Every
+candidate preserves row-stochastic fusion, the nonzero weight multiset,
+message count, physicality, both formation-cycle edges and rolling B3.
 
 ## Decision rule
 
