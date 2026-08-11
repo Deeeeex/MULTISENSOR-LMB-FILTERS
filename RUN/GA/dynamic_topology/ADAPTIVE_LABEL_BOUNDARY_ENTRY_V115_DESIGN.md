@@ -50,3 +50,29 @@ projector before any new scene is opened.
 
 V115 uses an already-opened X36 anchor and an action family chosen after V114.
 It is method-development evidence, not validation or generalization.
+
+## Completed decision
+
+All three rules collapse to the V113 unshielded behavior.  Their mean
+E-OSPA values are `78.479671`, `78.479683` and `78.479672`, compared with
+`78.479689` for V113.  Each therefore gives `+4.063%` versus clockwise full,
+zero measurable marginal gain over V113, and `-0.205%` versus the V114 early
+whole-posterior shield.  All retain the same `+2.588%` mature minimum,
+`-1.495%` minimum formation and `-7.206%` F6 non-gateway terminal result.
+
+The selected-label counts explain the collapse.  On pages 5--8, the
+supported rule admits `[19 16 18 19]` labels on the network's selective
+edges, supported-or-high-existence admits `[19 19 19 19]`, and receiver-need
+admits `[21 19 20 22]`.  The extra high-existence and receiver-need labels
+change bytes but not tracking.  Current association support, existence and
+receiver need do not separate the label subset responsible for delayed F6
+regret.
+
+V115 therefore closes local threshold tuning and observable one-step label
+whitelisting as sufficient policies.  The next action-space test must assign
+label value from delayed recursive return, not current local confidence: a
+privileged label-wise keep/drop oracle on the same opened trajectory should
+first establish whether any subset between V114's empty boundary and V113's
+full boundary can pass the tail-safe gate.  If no subset does, label-wise
+boundary control is closed and the remaining upper bound is a physically
+reachable alternative full-payload source or a different carrier graph.

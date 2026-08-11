@@ -188,3 +188,24 @@ a physically reachable full-payload source when no label-safe entry exists.
 The oracle screen must first show that this finer action family can exceed the
 matched clockwise-full five-percent gate without a negative formation or
 sensor tail.  Only then is temporal-GNN predictor training justified.
+
+## V115 decision update
+
+The first observable label-wise boundary rules are complete and none passes.
+Sender support, sender support-or-high-existence, and receiver need all
+produce mean E-OSPA `78.47967--78.47968`, numerically identical to the V113
+unshielded result `78.479689`.  Every arm remains at `+4.063%` versus
+clockwise full, with `-1.495%` minimum formation and `-7.206%` F6
+non-gateway terminal gain.  The rules send different label counts and bytes
+but do not change the recursive tracking outcome.
+
+This is stronger than a failed threshold.  Current one-step association
+support, existence and receiver need cannot identify the labels that create
+delayed F6 regret.  Further threshold sweeps, and training a GNN on these
+local proxy targets, are closed.  V116 must first test a privileged delayed
+return action space on the same opened anchor.  It should search bounded
+complete-label subsets on `27 -> 32`, score their full H=8 downstream return,
+and report an oracle frontier for mean gain, F6 tail, bytes and runtime.  A
+passing subset authorizes learning a time-expanded label-value residual; no
+passing subset closes label-wise boundary control and redirects the method to
+an alternative physical source or carrier topology.
