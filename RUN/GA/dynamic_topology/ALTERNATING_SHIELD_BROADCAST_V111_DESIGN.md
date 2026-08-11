@@ -31,3 +31,17 @@ communication saving, positive consensus gains and the existing B3 reserve.
 Passing would justify making the shield/broadcast cadence online and learning
 only its risk trigger. Failure would require an explicit time-expanded risk
 model or finer label-wise propagation control.
+
+## Result
+
+V111 reaches mean E-OSPA `79.663569`, a `+5.204%` gain over the matched static
+full-payload baseline, while saving `5.483%` of attempted bytes. Every page
+from t74 onward exceeds 5% gain, and window/terminal consensus improves by
+`10.685% / 20.684%`.
+
+The safety gate nevertheless fails. Formation gains are
+`[-0.8158, 5.394, 7.449, 7.853, 11.750, -0.1541]%`, and F6 non-gateway terminal
+gain is `-2.955%`. The V102 all-positive H=6 result is therefore transient:
+fixed periodic propagation control does not prevent long-horizon downstream
+debt. The next action selector must model the time-expanded influence graph and
+fall back conservatively when downstream regret is uncertain.
