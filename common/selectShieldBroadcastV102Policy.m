@@ -2,7 +2,12 @@ function [adjacency, details] = selectShieldBroadcastV102Policy( ...
         context, startTime, bank, actionEnabled)
 % SELECTSHIELDBROADCASTV102POLICY Execute the frozen shield/broadcast route.
 
-protocol = getShieldBroadcastV102Protocol();
+if isfield(bank, 'bankVariant') && strcmp( ...
+        bank.bankVariant, 'alternating-shield-broadcast-v111')
+    protocol = getAlternatingShieldBroadcastV111Protocol();
+else
+    protocol = getShieldBroadcastV102Protocol();
+end
 routeOptions = getFormationIsolateReconnectProbeProtocol();
 [referenceAdjacency, details] = ...
     selectBackboneResidualSplicedCyclePolicy( ...
