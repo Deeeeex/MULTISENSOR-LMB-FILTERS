@@ -47,3 +47,11 @@ control.  No threshold search is needed.
   release is structurally inadequate and the method must use a gradual or
   receiver-selective reintroduction of cross-formation information.
 
+## V107 resolution
+
+V107's F1 release is nominally earlier but the t=76 cross link is not
+delivered, so its first effective full input remains t=77 and exactly
+reproduces the V106 shock.  F6 has a delivered early release, yet its
+non-gateway terminal loss worsens to -5.752%.  This closes further time-page
+enumeration.  The next method must keep control-only as fallback and admit
+only signed-positive complete label posteriors on delivered gateway edges.
