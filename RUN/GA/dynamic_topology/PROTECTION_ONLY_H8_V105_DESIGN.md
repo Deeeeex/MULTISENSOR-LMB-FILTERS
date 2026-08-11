@@ -33,3 +33,18 @@ important than the binary result.
   is unnecessary and the deployable method should be protection-only.
 
 No threshold or receiver set is changed after V105 outcomes open.
+
+## Opened result
+
+V105 lowers mean E-OSPA from 84.037151 to 79.617863, a 5.259% gain,
+while saving 6.117% attempted bytes.  The gain is positive at every return
+time and reaches at least 5.188% from t=76 onward.  However, formation gains
+are `[-0.931, 4.805, 7.711, 8.970, 11.250, -0.021]%`, and the F6
+non-gateway peers regress by 2.940% at the terminal time.  The strict gate
+therefore fails.
+
+This result reproduces V103/V104 without any topology handoff: the H=8
+control-only protection schedule is sufficient to explain both the mean gain
+and the local regressions.  The next method decision is a risk-aware
+activation/deactivation rule for protection, not receiver-label transport or
+GNN training.

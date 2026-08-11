@@ -76,3 +76,9 @@ claim above that whole-posterior handoff alone causes the local harm is
 therefore not established.  H=8 control-only protection and recursive network
 propagation remain confounded.  A protection-only V105 ablation is required
 before receiver-label control is opened.
+
+V105 resolves this confound.  With every topology and fusion-weight row fixed
+to the static route and no handoff, it still obtains 5.259% mean gain and
+essentially the same F1/F6 regressions.  The H=8 control-only protection
+schedule is sufficient to produce both effects.  Receiver-label control is
+therefore deferred in favor of protection activation/deactivation redesign.

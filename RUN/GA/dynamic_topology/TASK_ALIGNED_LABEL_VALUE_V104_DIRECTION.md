@@ -10,6 +10,13 @@ handoff row while retaining the H=8 protection schedule.  The label-wise
 stages below open only if that protection-only arm is locally safe and the
 handoff arms are not.
 
+V105 closes that condition: protection-only retains 5.259% mean gain but
+reproduces the F1 and F6 regressions.  The label-wise stages in this document
+are therefore deferred.  The immediate method target is a risk-aware
+protection activation/deactivation controller with the static route frozen.
+Label-wise learning may reopen only after that controller yields safe X36
+headroom and a handoff-specific residual failure remains.
+
 ## Decision object
 
 V104 keeps the physical route and the V101/V103 protection-age state machine.

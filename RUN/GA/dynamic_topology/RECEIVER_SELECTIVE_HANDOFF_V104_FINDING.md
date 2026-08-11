@@ -50,3 +50,12 @@ arm required.
   guide a joint temporal controller.
 
 No receiver GNN or label oracle is authorized before this attribution closes.
+
+## V105 resolution
+
+V105 keeps every topology row static and removes all handoffs, yet obtains
+5.259% mean gain with F1 at -0.931% and F6 non-gateway terminal gain at
+-2.940%.  This near reproduction closes the attribution: prolonged H=8
+control-only protection, not handoff receiver selection, is sufficient for
+both the network headroom and the local harm.  The next experiment must vary
+protection lifetime and deactivation while keeping the route static.
