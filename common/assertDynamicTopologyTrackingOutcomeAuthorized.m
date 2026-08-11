@@ -133,6 +133,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isMaturedHandoffV103ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1406,11 +1412,18 @@ expectedFields = { ...
     'measurementTimeCount', 'policyName', 'actionName', ...
     'scheduleEnabled', 'onlineReselectionEnabled', ...
     'developmentEvidenceOnly'};
+v103Context = isMaturedHandoffV103ExecutionContext(context);
 v102Context = isShieldBroadcastV102ExecutionContext(context);
 v101Context = isPropagationAwareDwellV101ExecutionContext(context);
 v100Context = ...
     isOnlinePositiveNetPropagationV100ExecutionContext(context);
-if v102Context
+if v103Context
+    protocol = getMaturedHandoffV103Protocol();
+    expectedCapability = 'matured-handoff-v103-development';
+    expectedAction = 'filter-matured-handoff-v103-development';
+    nameRequestsOnline = false;
+    authorizationMode = 'matured-handoff-v103-development';
+elseif v102Context
     protocol = getShieldBroadcastV102Protocol();
     expectedCapability = 'shield-broadcast-v102-development';
     expectedAction = 'filter-shield-broadcast-v102-development';
