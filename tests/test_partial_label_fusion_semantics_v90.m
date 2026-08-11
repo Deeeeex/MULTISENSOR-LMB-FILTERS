@@ -48,6 +48,19 @@ assert(insideResult.r < inside.r);
 assert(insideDiagnostics.observableCensoredSourceCount == 1);
 assert(insideDiagnostics.uninformativeExcludedSourceCount == 0);
 
+labelAbstentionDetails = details;
+labelAbstentionDetails.labelWhitelistRestricted = [false, true];
+labelAbstentionDetails.labelWhitelist = {zeros(2, 0), zeros(2, 0)};
+[labelAbstentionResult, labelAbstentionDiagnostics] = ...
+    fuseLmbPosteriorsByLabel( ...
+        {inside, emptyLike(inside)}, weights, model, weights, ...
+        labelAbstentionDetails, fovAware);
+assert(numel(labelAbstentionResult) == 1);
+assert(abs(labelAbstentionResult.r - inside.r) <= 1e-10);
+assert(labelAbstentionDiagnostics.observableCensoredSourceCount == 0);
+assert(labelAbstentionDiagnostics. ...
+    explicitLabelAbstentionSourceCount == 1);
+
 [outsideResult, outsideDiagnostics] = fuseLmbPosteriorsByLabel( ...
     {emptyLike(outside), outside}, weights, model, weights, ...
     details, fovAware);

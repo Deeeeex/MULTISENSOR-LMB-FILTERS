@@ -103,10 +103,18 @@ existenceOverrides = nan(size(present));
 veto = false;
 diagnostics = initializeMissingLabelFusionDiagnostics();
 positiveExistenceSource = existenceWeights > 1e-12;
-missing = positiveExistenceSource & ~present;
+[explicitLabelAbstention, whitelistDiagnostics] = ...
+    resolveExplicitLabelAbstention( ...
+        fusionDetails, localObjects, present, positiveExistenceSource);
+participating(explicitLabelAbstention) = false;
+existenceParticipating(explicitLabelAbstention) = false;
+diagnostics.explicitLabelAbstentionSourceCount = ...
+    whitelistDiagnostics.explicitLabelAbstentionSourceCount;
+missing = positiveExistenceSource & ~present & ~explicitLabelAbstention;
 if ~any(missing)
     return;
 end
+
 diagnostics.labelsWithMissingSourceCount = 1;
 diagnostics.missingSourceCount = nnz(missing);
 
@@ -172,6 +180,55 @@ switch mode
 end
 end
 
+function [abstained, diagnostics] = resolveExplicitLabelAbstention( ...
+        fusionDetails, localObjects, present, positiveExistenceSource)
+sourceCount = numel(localObjects);
+abstained = false(1, sourceCount);
+diagnostics = struct('explicitLabelAbstentionSourceCount', 0);
+if ~isfield(fusionDetails, 'labelWhitelistRestricted') && ...
+        ~isfield(fusionDetails, 'labelWhitelist')
+    return;
+end
+if ~isfield(fusionDetails, 'labelWhitelistRestricted') || ...
+        ~isfield(fusionDetails, 'labelWhitelist')
+    error('LmbKla:IncompleteLabelWhitelistContext', ...
+        'Label-wise abstention requires flags and whitelists together.');
+end
+restricted = reshape( ...
+    logical(fusionDetails.labelWhitelistRestricted), 1, []);
+whitelists = fusionDetails.labelWhitelist;
+if numel(restricted) ~= sourceCount || ~iscell(whitelists) || ...
+        numel(whitelists) ~= sourceCount
+    error('LmbKla:InvalidLabelWhitelistContext', ...
+        'Label-wise abstention metadata must match the fusion inputs.');
+end
+for sourceIdx = find(restricted)
+    labels = whitelists{sourceIdx};
+    if isempty(labels)
+        labels = zeros(2, 0);
+    end
+    if ~isnumeric(labels) || size(labels, 1) ~= 2 || ...
+            any(~isfinite(labels(:))) || ...
+            any(labels(:) ~= round(labels(:))) || ...
+            size(unique(labels', 'rows'), 1) ~= size(labels, 2)
+        error('LmbKla:InvalidLabelWhitelist', ...
+            'Every fusion-input label whitelist must be unique and 2-by-K.');
+    end
+    object = localObjects{sourceIdx};
+    if present(sourceIdx)
+        label = [object.birthTime; object.birthLocation];
+        if ~any(all(bsxfun(@eq, labels, label), 1))
+            error('LmbKla:PayloadOutsideLabelWhitelist', ...
+                'A restricted payload contains a non-whitelisted label.');
+        end
+    else
+        abstained(sourceIdx) = true;
+    end
+end
+diagnostics.explicitLabelAbstentionSourceCount = ...
+    nnz(abstained & positiveExistenceSource);
+end
+
 function diagnostics = initializeMissingLabelFusionDiagnostics()
 diagnostics = struct( ...
     'fusedLabelCount', 0, ...
@@ -181,7 +238,8 @@ diagnostics = struct( ...
     'observableCensoredSourceCount', 0, ...
     'uninformativeExcludedSourceCount', 0, ...
     'staleIgnoredSourceCount', 0, ...
-    'strictVetoedLabelCount', 0);
+    'strictVetoedLabelCount', 0, ...
+    'explicitLabelAbstentionSourceCount', 0);
 end
 
 function total = accumulateMissingLabelFusionDiagnostics(total, increment)

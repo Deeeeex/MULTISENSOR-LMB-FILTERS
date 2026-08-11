@@ -49,6 +49,23 @@ end
 groupIds = resolveFormationGroups(model, sensorCount);
 payloadMode = lower(strrep(char(triggerConfig. ...
     receiverSafeFormationConditionedPayloadMode), '_', '-'));
+boundaryLabelModes = { ...
+    'boundary-label-sender-supported-only', ...
+    'boundary-label-sender-supported-or-high-existence', ...
+    'boundary-label-receiver-need-aware'};
+boundaryLabelMode = any(strcmp(payloadMode, boundaryLabelModes));
+boundaryFormationId = 0;
+if boundaryLabelMode
+    boundaryFormationId = triggerConfig. ...
+        receiverSafeBoundaryLabelFormationId;
+    if ~isscalar(boundaryFormationId) || ...
+            ~isfinite(boundaryFormationId) || ...
+            boundaryFormationId ~= round(boundaryFormationId) || ...
+            ~ismember(boundaryFormationId, groupIds)
+        error('FormationSupportedLabelPlan:InvalidBoundaryFormation', ...
+            'The label-wise boundary formation is invalid.');
+    end
+end
 exceptionLabelsByReceiverSender = cell(sensorCount);
 if strcmp(payloadMode, 'signed-complete-label-exceptions')
     if nargin >= 7 || isempty(timeIdx) || ...
@@ -88,7 +105,7 @@ end
 
 plan = struct();
 plan.contractVersion = ...
-    'formation-conditioned-supported-label-message-plan-v62-v1';
+    'formation-conditioned-supported-label-message-plan-v62-v2';
 plan.mode = 'formation-supported-label-plan';
 plan.payloadMode = payloadMode;
 plan.currentTime = currentTime;
@@ -98,8 +115,19 @@ plan.completeLabelExceptionsByReceiverSender = ...
     exceptionLabelsByReceiverSender;
 plan.selectiveEdgeMask = selectiveEdgeMask;
 plan.abstainFromFusionEdgeMask = false(sensorCount);
+plan.labelWhitelistRestrictedEdgeMask = false(sensorCount);
 if strcmp(payloadMode, 'abstention-only')
     plan.abstainFromFusionEdgeMask = selectiveEdgeMask;
+elseif boundaryLabelMode
+    for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
+        senders = reshape(find(selectiveEdgeMask(:, receiverIdx)), 1, []);
+        if groupIds(receiverIdx) == boundaryFormationId
+            plan.labelWhitelistRestrictedEdgeMask( ...
+                senders, receiverIdx) = true;
+        else
+            plan.abstainFromFusionEdgeMask(senders, receiverIdx) = true;
+        end
+    end
 end
 plan.payloadByReceiverSender = cell(sensorCount);
 plan.synopsisByReceiverSender = cell(sensorCount);
@@ -130,6 +158,15 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
             keepMask = selectExplicitLabels( ...
                 senderObjects, exceptionLabelsByReceiverSender{ ...
                     receiverIdx, senderIdx});
+        elseif boundaryLabelMode
+            if groupIds(receiverIdx) == boundaryFormationId
+                labelRule = strrep(payloadMode, 'boundary-label-', '');
+                keepMask = selectLabels( ...
+                    senderObjects, receiverObjects, labelRule, ...
+                    supportThreshold, existenceThreshold);
+            else
+                keepMask = false(1, numel(senderObjects));
+            end
         else
             keepMask = selectLabels( ...
                 senderObjects, receiverObjects, payloadMode, ...
