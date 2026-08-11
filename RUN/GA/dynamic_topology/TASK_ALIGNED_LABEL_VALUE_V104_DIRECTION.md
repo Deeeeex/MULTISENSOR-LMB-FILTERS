@@ -1,4 +1,13 @@
-# V104 direction: hierarchical task-aligned label value control
+# Task-aligned label value direction after receiver-granularity check
+
+## Stage 0: do not assume label granularity prematurely
+
+V103 proves that formation-wide handoff is unsafe, but receiver selection may
+still be sufficient.  V104 therefore runs one retrospective receiver oracle
+before opening label combinations.  It keeps only V103 receiver rows with
+positive same-page paired tracking gain.  If this outcome-informed upper bound
+passes the strict gate, the deployable model remains a receiver-edge value
+predictor.  The label-wise stages below open only if V104 fails.
 
 ## Decision object
 
