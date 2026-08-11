@@ -195,6 +195,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isInfluenceConeCarrierV113ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1470,6 +1476,7 @@ expectedFields = { ...
     'developmentEvidenceOnly'};
 v112Context = ...
     isFiniteDurationAbstentionV112ExecutionContext(context);
+v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
 v111Context = ...
     isAlternatingShieldBroadcastV111ExecutionContext(context);
 v110Context = isOpenedSafeFormationV110ExecutionContext(context);
@@ -1488,7 +1495,17 @@ v100Context = ...
     isOnlinePositiveNetPropagationV100ExecutionContext(context);
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
-if v112Context
+if v113Context
+    protocol = getInfluenceConeCarrierV113Protocol();
+    expectedCapability = ...
+        'influence-cone-carrier-v113-development';
+    expectedAction = ...
+        'filter-influence-cone-carrier-v113-development';
+    nameRequestsOnline = false;
+    authorizationMode = ...
+        'influence-cone-carrier-v113-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v112Context
     protocol = getFiniteDurationAbstentionV112Protocol();
     expectedCapability = ...
         'finite-duration-abstention-v112-development';
