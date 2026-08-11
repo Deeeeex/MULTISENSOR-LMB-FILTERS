@@ -34,3 +34,17 @@ perfect retrospective classification.
 The oracle must preserve at least the inherited 5% mean E-OSPA gain, positive
 byte saving and consensus improvements while making all formation gains and
 the F6 non-gateway terminal gain nonnegative. Generalization remains unclaimed.
+
+## Result
+
+V110 reaches mean E-OSPA `79.517797`, a `+5.378%` gain over the matched static
+full-payload baseline, while saving `3.479%` of attempted bytes. Formation gains
+are `[-0.2158, 4.805, 7.711, 8.970, 11.250, 0.000069]%`; F6 and its non-gateway
+terminal metric return to the baseline, but F1 remains slightly negative and
+the strict gate fails.
+
+Because F1 never abstains in V110, its residual loss is a downstream effect of
+changed F2--F5 posteriors propagating through later full-payload fusion. Perfect
+local formation classification is therefore not sufficient. The next method
+decision must model the time-expanded influence cone or control outward
+propagation of protected states.
