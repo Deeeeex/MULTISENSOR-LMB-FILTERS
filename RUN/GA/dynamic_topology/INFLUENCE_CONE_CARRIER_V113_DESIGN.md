@@ -40,3 +40,24 @@ The V110 formation set is outcome-selected, so a pass establishes only that
 carrier-conditioned abstention has action-space headroom.  It would authorize
 the observable influence-cone predictor and safety projection, not a
 deployment or generalization claim.
+
+## Opened result
+
+| Arm | Mean E-OSPA | Gain vs CCW | Gain vs mean-best full | B3 |
+|:--|--:|--:|--:|:--:|
+| counter-clockwise full | 84.037151 | -- | -- | pass |
+| clockwise full | 81.803484 | +2.658% | -- | pass |
+| clockwise F2--F5 abstention | 78.479689 | +6.613% | +4.063% | pass |
+
+The interaction does not pass the strong gate.  Its mature-page minimum is
+`+2.588%`; formation gains against clockwise full are approximately
+`[0.000, 0.979, 10.620, 4.576, 9.913, -1.495]%`; and the F6 non-gateway
+terminal gain is `-7.206%`.  Consensus improves by `+11.699% / +17.191%`
+and attempted bytes fall by `3.330%` relative to clockwise full.
+
+The carrier interaction is real, but binary cycle orientation moves the
+delayed protected-to-safe boundary from F1 to F6 instead of removing it.
+V113 therefore closes whole-cycle clockwise/counter-clockwise switching as a
+policy output.  The next action-space screen must expose receiver-selective
+shielding or label-complete gradual entry at the affected boundary and must
+retain both static directions in the baseline set.

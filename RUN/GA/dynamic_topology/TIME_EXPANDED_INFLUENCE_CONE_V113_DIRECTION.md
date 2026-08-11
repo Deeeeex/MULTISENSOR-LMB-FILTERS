@@ -139,3 +139,27 @@ delivered bytes, fallback rate, predicted-risk calibration and oracle regret.
 
 This document defines a method direction, not evidence that V113 has passed
 any tracking or generalization gate.
+
+## V113 decision update
+
+The carrier-direction interaction screen is complete.  Clockwise full payload
+improves mean E-OSPA from `84.037151` to `81.803484` (`+2.658%`) but worsens
+at least one formation, so the two static directions form a multi-objective
+baseline set.  Adding the opened F2--F5 abstention schedule on the clockwise
+carrier reaches `78.479689`: `+6.613%` versus counter-clockwise full but only
+`+4.063%` versus the lower-mean clockwise full baseline.
+
+The interaction improves worst-sensor error, consensus and communication,
+but its minimum formation gain is `-1.495%` and its F6 non-gateway terminal
+gain is `-7.206%`.  F1 is repaired while the delayed boundary loss moves to
+F6.  Binary whole-cycle orientation is therefore closed, along with further
+duration-only searches.
+
+The next upper-bound action should hold the clockwise F2--F5 mechanism fixed
+and vary only the F6 boundary treatment: receiver-selective shielding,
+label-complete gradual entry, or a physically reachable alternative safe
+source.  This is the smallest screen that can decide whether the
+time-expanded cone can be contained locally before temporal-GNN training.
+Future gates compare against both registered static directions and use the
+better admissible baseline for each declared objective; an arbitrary single
+cycle orientation is no longer an adequate static baseline.
