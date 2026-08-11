@@ -222,6 +222,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isAlternativeGatewayV117ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1500,6 +1506,7 @@ v112Context = ...
 v115Context = ...
     isAdaptiveLabelBoundaryEntryV115ExecutionContext(context);
 v116Context = isDelayedLabelReturnOracleV116ExecutionContext(context);
+v117Context = isAlternativeGatewayV117ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1522,7 +1529,14 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v116Context
+if v117Context
+    protocol = getAlternativeGatewayV117Protocol();
+    expectedCapability = 'alternative-gateway-v117-development';
+    expectedAction = 'filter-alternative-gateway-v117-development';
+    nameRequestsOnline = false;
+    authorizationMode = 'alternative-gateway-v117-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v116Context
     protocol = getDelayedLabelReturnOracleV116Protocol();
     expectedCapability = ...
         'delayed-label-return-oracle-v116-development';
