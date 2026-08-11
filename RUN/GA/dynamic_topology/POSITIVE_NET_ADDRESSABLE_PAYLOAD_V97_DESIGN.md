@@ -38,3 +38,14 @@ the static full-payload route remains the primary baseline.
 
 These anchors are opened development evidence.  Passing them does not by
 itself authorize a validation or full-episode claim.
+
+## Development result
+
+V97 improves the static baseline by 8.225%, 8.066%, 2.412% and 7.174% at M24
+t=104, M24 t=124, X36 t=72 and X36 t=100 respectively.  It improves every
+anchor over V96 and passes all registered tail, consensus, communication and
+rolling-connectivity constraints, but the strict cross-scale gate passes at
+only 3 of 4 anchors.  X36 t=72 remains the sole failure.  The next method
+question is whether the safe positive-net set changes during the three-step
+window; the result does not justify further tuning of the initial coverage
+rule.
