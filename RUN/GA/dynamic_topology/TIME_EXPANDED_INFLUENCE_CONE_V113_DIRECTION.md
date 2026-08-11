@@ -209,3 +209,31 @@ and report an oracle frontier for mean gain, F6 tail, bytes and runtime.  A
 passing subset authorizes learning a time-expanded label-value residual; no
 passing subset closes label-wise boundary control and redirects the method to
 an alternative physical source or carrier topology.
+
+## V116 decision update
+
+The privileged truth-ranked boundary-subset screen is complete and none of
+the top-5, top-10 or top-15 quotas passes.  The best top-5 arm reaches mean
+E-OSPA `78.401889`, or `+4.158%` versus clockwise full.  It improves V113 full
+boundary entry by `+0.099%` but remains `-0.106%` below V114 empty boundary
+entry.  Its mature-page minimum is `+2.769%`, minimum formation gain is
+`-0.921%`, and F6 non-gateway terminal gain is `-5.594%`.  Worst-sensor and
+consensus metrics are positive, so the unresolved failure is specifically
+the downstream F6 information return.
+
+Increasing the quota to 10 or 15 moves the result mostly back toward V113:
+the two arms reach only `+4.085%` and `+4.109%` versus clockwise full and F6
+peer losses return to approximately `-7.2%`.  Current-truth alignment is a
+stronger selector than the V115 observable proxies, yet it still cannot find
+a useful intermediate point between full and empty boundary entry.  Further
+label quotas, thresholds, and a GNN trained for this `27 -> 32` label action
+are therefore closed.
+
+The captured trajectory also localizes the remaining route variable.  Sensor
+27 already has the lowest pages-5--8 mean E-OSPA among the six F5 sources
+(`69.029`), while sensor 32 has the highest error among the six F6 receivers
+(`85.380`).  V117 should retain sender 27, the F5-to-F6 formation edge and the
+cross-edge weight, but move the concrete F6 receiver and restore the internal
+residual edge displaced by each alternative gateway.  This tests whether the
+failure belongs to the gateway location and its downstream influence cone,
+rather than to the incoming labels or their source posterior.
