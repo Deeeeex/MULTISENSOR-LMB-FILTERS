@@ -50,3 +50,25 @@ the post-propagation minimum reaches 5%, the weakest formation improves by at
 least 1%, all sensor and consensus tails remain nonnegative, rolling B3 passes,
 and attempted bytes do not exceed static.  Failure closes dwell as the missing
 mechanism and redirects the method to signed receiver--sender--label influence.
+
+## Result
+
+V101 lowers mean E-OSPA from 84.581111 to 80.700047, a 4.589% gain over the
+matched static arm and a further 0.133% relative improvement over V100.  The
+post-propagation minimum rises from V100's 4.623% to 5.188%, attempted bytes
+fall by 5.811%, and all sensor, consensus and B3 tails pass.  The registered
+gate still fails because the six-step mean remains below 5% and the weakest
+formation improves only 0.165%.
+
+The spatial decomposition changes the next decision.  F5 improves from
+V100's 7.942% to 8.758%, so topology-calibrated holding repairs the t=76
+interruption there.  F6 remains at 0.165%.  At t=77 its gateway sensor 32
+improves 5.632%, while the other five members change by approximately
+-0.014% to -0.004%.  The protected posterior reaches the gateway but its task
+benefit does not survive the installed two-hop dominant KLA path.
+
+No additional hold duration is opened.  The next headroom action must combine
+cross-formation protection with a direct, message-parity-preserving
+within-formation broadcast from each protected gateway.  This supersedes the
+earlier fallback to label influence: the current result provides direct
+evidence of a transport bottleneck before any label exception is needed.
