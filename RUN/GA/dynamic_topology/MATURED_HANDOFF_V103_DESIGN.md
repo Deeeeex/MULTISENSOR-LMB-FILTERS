@@ -54,3 +54,25 @@ protection age.  Failure would close topology-only gateway handoff and redirect
 the method to receiver--sender--label value control, because the experiment
 would then have supplied a matured, directly reachable gateway posterior
 without lifting its peers.
+
+## Result and closure
+
+V103 lowers H=8 mean E-OSPA from 84.037151 to 79.554740, a 5.334% gain over
+the matched static arm, while saving 5.981% attempted bytes.  Every time gain
+from the first handoff onward exceeds 5%, both consensus tails improve, and
+rolling B3 passes.  This is the first result on the hard X36-t72 line to clear
+the network-mean 5% threshold.
+
+It is not a method pass.  Formation gains are
+`[-0.945, 4.676, 7.731, 9.079, 11.740, -0.022]%`, and the five non-gateway F6
+members regress by 2.948% at the terminal handoff.  F1 also changes from
+positive early gains to a -15.752% terminal formation gain after its broad
+handoff.  The strict receiver/formation gates therefore reject V103.
+
+Maturation timing solves the network-average phase error but not posterior
+compatibility.  A gateway posterior can be useful for its own state and still
+be harmful to a particular peer because the complete message applies the same
+sender substitution to every label.  Topology-only whole-posterior handoff is
+closed.  The next method must retain the successful protection/maturity
+controller while making transport decisions at receiver--sender--label
+granularity.
