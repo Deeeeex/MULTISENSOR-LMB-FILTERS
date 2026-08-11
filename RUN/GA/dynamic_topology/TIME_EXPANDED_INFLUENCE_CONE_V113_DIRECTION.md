@@ -163,3 +163,28 @@ time-expanded cone can be contained locally before temporal-GNN training.
 Future gates compare against both registered static directions and use the
 better admissible baseline for each declared objective; an arbitrary single
 cycle orientation is no longer an adequate static baseline.
+
+## V114 decision update
+
+The receiver-side F6 boundary screen is also complete.  Blocking the single
+clockwise cross-formation edge `27 -> 32` on pages 6--8 gives `+4.212%` mean
+gain versus clockwise full; starting on page five gives `+4.259%`.  The early
+arm is better, but the difference is only `0.049` percentage points and both
+remain below the five-percent mean and mature-page gates.
+
+The intervention is nevertheless diagnostically useful.  The early arm
+improves the boundary receiver's terminal error by `+7.329%`, worst-sensor
+error by `+11.136%`, and terminal consensus by `+19.586%`.  Yet F6
+non-gateway sensors remain `-5.522%` below clockwise full.  A binary shield
+can stop part of the incoming debt but cannot provide the useful information
+needed to reconstruct the downstream F6 posterior.  This closes boundary
+timing and whole-posterior receive/reject as primary action variables.
+
+V115 should therefore expose a label-complete gradual-entry action: keep the
+physical carrier, weights and B3 route fixed; transmit the full posterior for
+labels whose current receiving-side support is credible; defer only labels
+whose counterfactual change has unresolved downstream debt; and fall back to
+a physically reachable full-payload source when no label-safe entry exists.
+The oracle screen must first show that this finer action family can exceed the
+matched clockwise-full five-percent gate without a negative formation or
+sensor tail.  Only then is temporal-GNN predictor training justified.

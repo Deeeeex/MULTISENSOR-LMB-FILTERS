@@ -51,3 +51,29 @@ label-complete gradual entry or a physically reachable alternative source.
 
 The boundary and timing come from opened V113 outcomes.  V114 is therefore an
 oracle upper-bound screen, not deployable or generalization evidence.
+
+## Completed decision
+
+Both boundary arms preserve rolling B3 and improve the V113 mechanism, but
+neither passes the matched clockwise-full gate.  Shielding on pages 6--8
+reaches mean E-OSPA `78.358108` (`+4.212%` versus clockwise full and
+`+0.155%` versus V113).  Starting one page earlier reaches `78.319230`
+(`+4.259%` and `+0.204%`, respectively) and is the oracle arm.
+
+The early shield raises the worst-sensor gain to `+11.136%`, the window and
+terminal consensus gains to `+12.671%` and `+19.586%`, and attempted-byte
+saving to `+4.244%`.  However, the mature-page minimum is only `+2.960%`, the
+minimum formation remains `-0.311%`, and the F6 non-gateway terminal gain is
+still `-5.522%`.  Relative to V113, the F6 tail is repaired by only
+`1.571%` even though receiver 32 itself improves by `+7.329%` at the terminal
+page.
+
+This separates local boundary protection from downstream state recovery.
+Blocking the whole posterior at `27 -> 32` protects the entry receiver but
+also removes useful label information needed by the other F6 sensors; moving
+the start by one page changes the network mean by only `0.049` percentage
+points.  Arrival timing is therefore not the limiting decision variable.
+Further timing sweeps and whole-posterior binary shielding are closed.  V115
+must preserve useful labels while controlling only the harmful label-wise
+influence, with a reachable alternative source retained as the fallback
+upper bound.
