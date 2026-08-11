@@ -36,3 +36,22 @@ If X36 t=72 passes, the same frozen implementation is run on both M24 anchors
 and X36 t=100.  Scene expansion is deferred until all four matched-static
 anchors pass; otherwise the result identifies the next missing action rather
 than being hidden by broader scenario averaging.
+
+## Result
+
+V99 executes the intended causal sequence
+`[1 2 4 5] -> [1 2 3 4 5] -> [1 2 3 4 5]`.  It lowers mean E-OSPA from
+85.970277 for the matched static arm and 83.896827 for fixed V97 to
+83.561598: a 2.802% gain over static and a further 0.400% over V97.  Worst
+sensor, minimum formation, consensus, rolling B3 and attempted bytes all pass,
+but the 5% mean-gain gate does not.  The four-anchor run therefore remains
+closed.
+
+The per-step gain over static grows from 1.216% at t=72 to 2.115% at t=73 and
+5.061% at t=74.  This shows that online re-selection is useful but that the
+benefit is propagation-delayed; a fixed three-step window averages two
+transient steps with the first step at which the gain exceeds 5%.  The next
+diagnostic should test a graph-scale-aware propagation horizon before changing
+the spatial action again.  The exact online counterfactual calculation also
+takes 502.57 seconds for the V99 arm versus 87.97 seconds for fixed V97, so it
+is a teacher mechanism rather than a deployable runtime implementation.
