@@ -709,6 +709,8 @@ bank.actionAdjacency = repmat( ...
     logical(referenceAdjacency), 1, 1, bank.actionCount);
 bank.actionFusionWeights = repmat( ...
     referenceWeights, 1, 1, bank.actionCount);
+bank.actionPolicyDetails = repmat({struct()}, 1, bank.actionCount);
+bank.actionPolicyDetails{bank.referenceActionIndex} = referenceDetails;
 if influenceConeCarrierBank
     bank.actionAdjacency(:, :, 2) = ...
         logical(clockwiseCarrierAdjacency);
@@ -716,6 +718,8 @@ if influenceConeCarrierBank
         logical(clockwiseCarrierAdjacency);
     bank.actionFusionWeights(:, :, 2) = clockwiseCarrierWeights;
     bank.actionFusionWeights(:, :, 3) = clockwiseCarrierWeights;
+    bank.actionPolicyDetails{2} = clockwiseCarrierDetails;
+    bank.actionPolicyDetails{3} = clockwiseCarrierDetails;
 end
 bank.actionPosteriorObjective = actionObjective;
 bank.actionPosteriorProxyAllowed = true(1, bank.actionCount);
