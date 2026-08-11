@@ -52,3 +52,24 @@ bytes, and rolling B3.
   useful and harmful effects coexist within a receiver posterior.  V105 then
   opens the bounded receiver--sender--label oracle described in the task-
   aligned label-value direction.
+
+## Result and attribution correction
+
+V104 lowers mean E-OSPA from 84.037151 to 79.555155, a 5.333% gain, and saves
+6.091% attempted bytes.  This is essentially identical to V103: candidate
+E-OSPA changes by only +0.000415, minimum formation gain changes from -0.945%
+to -0.931%, and F6 non-gateway terminal gain changes from -2.948% to -2.945%.
+The strict gate fails.
+
+The result-informed receiver oracle therefore does not remove the local
+regressions.  More importantly, F1 still regresses even though V104 changes no
+F1 handoff row, and F6 peer 33 still regresses although its handoff row is
+restored to reference.  The earlier attribution to whole-posterior handoff was
+too strong: the harmful state can arrive recursively from other changed rows,
+or be created by extending the control-only protection schedule through H=8.
+
+Do not open label actions yet.  The minimum next experiment is an H=8
+protection-only ablation with every topology row fixed to reference.  Only the
+difference between that arm and V103/V104 can identify handoff value.  Label
+granularity becomes justified only if protection-only is locally safe but the
+handoff arms are not.

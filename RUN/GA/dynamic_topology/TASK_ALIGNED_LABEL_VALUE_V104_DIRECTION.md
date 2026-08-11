@@ -2,12 +2,13 @@
 
 ## Stage 0: do not assume label granularity prematurely
 
-V103 proves that formation-wide handoff is unsafe, but receiver selection may
-still be sufficient.  V104 therefore runs one retrospective receiver oracle
-before opening label combinations.  It keeps only V103 receiver rows with
-positive same-page paired tracking gain.  If this outcome-informed upper bound
-passes the strict gate, the deployable model remains a receiver-edge value
-predictor.  The label-wise stages below open only if V104 fails.
+V103 shows formation-level regressions, but V104 demonstrates that they persist
+after almost all harmful same-page receiver rows are restored to reference.
+Receiver selection is therefore insufficient as an attribution experiment,
+not proof that label granularity is necessary.  V105 first removes every
+handoff row while retaining the H=8 protection schedule.  The label-wise
+stages below open only if that protection-only arm is locally safe and the
+handoff arms are not.
 
 ## Decision object
 

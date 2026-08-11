@@ -67,3 +67,12 @@ label input as the fallback.
 No GNN training is authorized until a bounded exact receiver-label oracle
 shows at least 5% strict headroom on both an M24 and X36 development window.
 This prevents learning another coherent but task-misaligned compression rule.
+
+## Later attribution correction from V104
+
+V104 restored every F1 handoff row and the strongly negative F6 receiver-33
+row to reference, yet obtained nearly identical F1 and F6 regressions.  The
+claim above that whole-posterior handoff alone causes the local harm is
+therefore not established.  H=8 control-only protection and recursive network
+propagation remain confounded.  A protection-only V105 ablation is required
+before receiver-label control is opened.
