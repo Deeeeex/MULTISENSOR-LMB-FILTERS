@@ -1633,7 +1633,7 @@ elseif x36ScheduleBank
                     referencePolicyOptions(protocol));
         end
     end
-    if influenceConeCarrierArm
+    if fixedClockwiseCarrierArm
         config.receiverSafeLabelFusionEnabled = strcmp( ...
             bank.actionPayloadModes{firstActionIdx}, ...
             'abstention-only');
