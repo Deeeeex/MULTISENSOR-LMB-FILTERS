@@ -1105,7 +1105,8 @@ elseif receiverTransportBank
     screen.evidenceBoundary = receiverTransportProtocol.evidenceBoundary;
 elseif x36ScheduleBank
     if strcmp(bank.bankVariant, 'propagation-aware-dwell-v101')
-        scheduleProtocol = getPropagationAwareDwellV101Protocol();
+        v101Protocol = getPropagationAwareDwellV101Protocol();
+        screen.evidenceBoundary = v101Protocol.evidenceBoundary;
     elseif strcmp(bank.bankVariant, ...
             'online-positive-net-propagation-v100')
         v100Protocol = ...
@@ -1331,7 +1332,9 @@ if receiverTransportBank
         context, returnTimes(1), bank, ...
         actionSequenceIndices, protocol);
 elseif x36ScheduleBank
-    if strcmp(bank.bankVariant, ...
+    if strcmp(bank.bankVariant, 'propagation-aware-dwell-v101')
+        scheduleProtocol = getPropagationAwareDwellV101Protocol();
+    elseif strcmp(bank.bankVariant, ...
             'online-positive-net-propagation-v100')
         scheduleProtocol = ...
             getOnlinePositiveNetPropagationV100Protocol();
