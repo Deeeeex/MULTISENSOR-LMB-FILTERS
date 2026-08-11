@@ -52,3 +52,14 @@ consensus or attempted bytes, and must not be worse than the one-step arm.
 
 These radial anchors are development evidence only. No full-episode or scene
 transfer claim is authorized until the four-anchor gate passes.
+
+## Development result
+
+The persistent V96 arm improved the matched static full-payload baseline by
+6.188% and 7.206% at the two M24 anchors, but only 1.566% and 4.955% at the two
+X36 anchors.  The frozen cross-scale gate therefore passed at 2 of 4 anchors
+and remains closed.  These gains support adaptive posterior-participation
+control on M24; they do not yet support a general cross-scale claim or a claim
+that dynamic physical routing itself is effective.  See
+`ADDRESSABLE_RISK_ADAPTIVE_PAYLOAD_V96_FINDING.md` for the matched baseline
+contract and the exact comparison.
