@@ -97,6 +97,10 @@ plan.scheduleSource = scheduleSource;
 plan.completeLabelExceptionsByReceiverSender = ...
     exceptionLabelsByReceiverSender;
 plan.selectiveEdgeMask = selectiveEdgeMask;
+plan.abstainFromFusionEdgeMask = false(sensorCount);
+if strcmp(payloadMode, 'abstention-only')
+    plan.abstainFromFusionEdgeMask = selectiveEdgeMask;
+end
 plan.payloadByReceiverSender = cell(sensorCount);
 plan.synopsisByReceiverSender = cell(sensorCount);
 plan.receiverDetails = repmat(makeReceiverDetails(), 1, sensorCount);
@@ -217,6 +221,8 @@ for objectIdx = 1:numel(senderObjects)
     receiverSupport = supportOf(receiverObject);
     switch mode
         case 'control-only'
+            keep(objectIdx) = false;
+        case 'abstention-only'
             keep(objectIdx) = false;
         case 'sender-supported-only'
             keep(objectIdx) = senderSupport >= supportThreshold - 1e-12;
