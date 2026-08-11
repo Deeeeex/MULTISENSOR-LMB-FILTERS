@@ -177,6 +177,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isOpenedSafeFormationV110ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1450,6 +1456,7 @@ expectedFields = { ...
     'measurementTimeCount', 'policyName', 'actionName', ...
     'scheduleEnabled', 'onlineReselectionEnabled', ...
     'developmentEvidenceOnly'};
+v110Context = isOpenedSafeFormationV110ExecutionContext(context);
 v109Context = isExplicitLabelAbstentionV109ExecutionContext(context);
 v108Context = ...
     isSignedCompleteLabelExceptionV108ExecutionContext(context);
@@ -1465,7 +1472,15 @@ v100Context = ...
     isOnlinePositiveNetPropagationV100ExecutionContext(context);
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
-if v109Context
+if v110Context
+    protocol = getOpenedSafeFormationV110Protocol();
+    expectedCapability = 'opened-safe-formation-v110-development';
+    expectedAction = ...
+        'filter-opened-safe-formation-v110-development';
+    nameRequestsOnline = false;
+    authorizationMode = 'opened-safe-formation-v110-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v109Context
     protocol = getExplicitLabelAbstentionV109Protocol();
     expectedCapability = 'explicit-label-abstention-v109-development';
     expectedAction = ...
