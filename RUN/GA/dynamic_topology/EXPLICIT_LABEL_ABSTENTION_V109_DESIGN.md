@@ -2,19 +2,12 @@
 
 ## Question
 
-V105's control-only edge is not semantically neutral.  A delivered empty heavy
-payload is retained as a KLA source, and `fov-aware-censored` missing-label
-fusion can replace an omitted label with the configured low-existence bound.
-The action therefore mixes two different claims: “this source has no payload
-for the label” and “this source provides credible evidence that the label is
-absent.”  V108 shows that restoring a few positive labels does not repair the
-local loss while the remaining bulk negative-evidence path stays active.
-
-V109 asks whether V105's average gain comes from useful isolation of a harmful
-cross source or from mass low-existence evidence.  It introduces a third,
-explicit state: abstention.  An abstaining source has zero participation weight
-for every omitted label.  It contributes neither a spatial density nor a
-Bernoulli absence term to that label's KLA.
+V109 tested the hypothesis that V105's selective empty payload was retained as
+a KLA source and interpreted through `fov-aware-censored` missing-label
+semantics. If true, V105 would mix source abstention with bulk low-existence
+evidence. V109 therefore made abstention explicit: a delivered selective empty
+payload would not enter the fusion-input set or refresh the received-label
+cache.
 
 ## Matched intervention
 
@@ -50,3 +43,19 @@ Three outcomes distinguish the mechanism:
 The registered gate remains at least 5% mean E-OSPA gain, nonnegative gains for
 all six formations and the F6 non-gateway terminal metric, positive byte
 saving, positive consensus gains and selected rolling-B3 safety.
+
+## Result and corrected interpretation
+
+V109 exactly reproduces V105 at the reported precision: mean E-OSPA
+`79.617863`, gain versus matched static full payload `+5.259%`, communication
+saving `+6.117%`, formation gains
+`[-0.9312, 4.805, 7.711, 8.970, 11.250, -0.0212]%`, and F6 non-gateway terminal
+gain `-2.940%`.
+
+The motivating bulk-negative-evidence hypothesis is false for the exercised
+path. In V105, the selective empty payload is already rejected by the
+`isempty` gate in `collectCurrentFusionInputs`, before missing-label semantics
+are evaluated. V105's benefit therefore comes from source-level abstention,
+while its remaining local losses show that formation-wide abstention is too
+coarse. The next method should expose label-wise positive, credible-negative
+and abstention actions inside the KLA fusion layer.
