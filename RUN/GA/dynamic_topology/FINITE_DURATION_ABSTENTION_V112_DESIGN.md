@@ -34,3 +34,18 @@ gain on every page from t75 onward, nonnegative formation and F6 peer-terminal
 gains, positive communication saving, positive consensus gains and the frozen
 B3 reserve. If no duration passes, duration prediction alone is not a viable
 learning target and the action space must expose the downstream influence cone.
+
+## Opened result
+
+No duration passes.  Mean gain rises monotonically from `+2.703%` at three
+steps to only `+4.300%` at six steps, so every finite recovery candidate stays
+below the five-percent network target.  The minimum-regret five-step label is
+still locally unsafe: its minimum formation gain is `-0.865%`, F6 non-gateway
+terminal gain is `-5.752%`, and the minimum mature-page gain is `+2.951%`.
+Restoring the full source does not erase state already propagated through the
+recursive filter.
+
+Duration-only control is therefore closed.  V112 remains useful as the first
+paired action-to-downstream-regret label set, but it does not authorize a stop
+time predictor.  The next upper-bound action must change where an altered
+posterior can propagate, not only when the original source returns.

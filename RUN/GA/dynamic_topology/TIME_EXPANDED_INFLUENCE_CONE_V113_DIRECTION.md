@@ -104,6 +104,30 @@ that reaches at least five percent mean gain with nonnegative formation,
 sensor-tail, consensus, communication and B3 results authorizes model
 training.
 
+The first bounded X36 counterfactual should test carrier direction before a
+larger route search.  The fixed counter-clockwise reference carries altered
+F2 output directly toward the otherwise unprotected F1 formation; V110's F1
+loss appears only after this delayed propagation.  A clockwise residual cycle
+places the protected-to-unprotected boundary at a different formation.  The
+screen therefore needs four conceptually distinct outcomes:
+
+| Payload action | Carrier | Purpose |
+|:--|:--|:--|
+| full | counter-clockwise | registered primary baseline |
+| full | clockwise | conditional alternative-static baseline |
+| safe-formation abstention | counter-clockwise | reuse the V110 mechanism arm |
+| safe-formation abstention | clockwise | test influence-cone redirection |
+
+The candidate must beat the better full-payload carrier rather than only the
+registered counter-clockwise row.  Both directions must keep the same
+dominant/residual weight multiset, message count, physical-edge constraints
+and rolling B3 reserve.  If the interaction arm repairs F1 while retaining
+the aggregate gain, it establishes route-conditioned headroom for the later
+influence predictor.  If the full clockwise arm explains the result, the
+finding is only a stronger static baseline.  If neither repairs the tail,
+binary cycle orientation is too coarse and the next bank must expose
+receiver-selective or label-complete propagation controls.
+
 ## Validation path
 
 After freezing the predictor and projector, the first deployment gate is a
