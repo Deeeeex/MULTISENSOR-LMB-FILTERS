@@ -252,6 +252,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isUpstreamBoundaryReleaseV122ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1535,6 +1541,7 @@ v118Context = isAlternativeSourceV118ExecutionContext(context);
 v119Context = isTimeExpandedDualPathV119ExecutionContext(context);
 v120Context = isTimeExpandedCarrierSwitchV120ExecutionContext(context);
 v121Context = isMixedCarrierInsertionV121ExecutionContext(context);
+v122Context = isUpstreamBoundaryReleaseV122ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1557,7 +1564,17 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v121Context
+if v122Context
+    protocol = getUpstreamBoundaryReleaseV122Protocol();
+    expectedCapability = ...
+        'upstream-boundary-release-v122-development';
+    expectedAction = ...
+        'filter-upstream-boundary-release-v122-development';
+    nameRequestsOnline = false;
+    authorizationMode = ...
+        'upstream-boundary-release-v122-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v121Context
     protocol = getMixedCarrierInsertionV121Protocol();
     expectedCapability = ...
         'mixed-carrier-insertion-v121-development';
