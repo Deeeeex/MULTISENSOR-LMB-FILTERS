@@ -228,6 +228,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isAlternativeSourceV118ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1507,6 +1513,7 @@ v115Context = ...
     isAdaptiveLabelBoundaryEntryV115ExecutionContext(context);
 v116Context = isDelayedLabelReturnOracleV116ExecutionContext(context);
 v117Context = isAlternativeGatewayV117ExecutionContext(context);
+v118Context = isAlternativeSourceV118ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1529,7 +1536,14 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v117Context
+if v118Context
+    protocol = getAlternativeSourceV118Protocol();
+    expectedCapability = 'alternative-source-v118-development';
+    expectedAction = 'filter-alternative-source-v118-development';
+    nameRequestsOnline = false;
+    authorizationMode = 'alternative-source-v118-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v117Context
     protocol = getAlternativeGatewayV117Protocol();
     expectedCapability = 'alternative-gateway-v117-development';
     expectedAction = 'filter-alternative-gateway-v117-development';
