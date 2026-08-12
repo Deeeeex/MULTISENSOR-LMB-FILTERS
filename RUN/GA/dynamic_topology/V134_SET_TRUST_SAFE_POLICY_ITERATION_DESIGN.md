@@ -132,3 +132,11 @@ The first model is a shared scale-normalized additive set model with calibrated 
 6. Freeze the radial policy, then evaluate convoy and relay as held-out geometries; crossing remains an extreme stress test.
 
 Below-gate candidates, parameter screens and isolated bright spots stay in repository experiment records. The main progress document receives only a stable method decision or complete aggregate evidence that passes the registered joint gate; it does not list every failed iteration.
+
+The exact post-learning evidence hierarchy is frozen separately in
+`V134_MULTISTYLE_GENERALIZATION_PROTOCOL.md`. One scale-normalized checkpoint
+must first pass unseen radial seeds at M24 and X36, then transfer without
+retuning to the geometry-qualified convoy and relay scenes. Each scale and
+each transfer style must pass independently. Crossing is a non-gating failure
+envelope, while the other available scene families remain development assets
+until they receive a separate held-out geometry contract.
