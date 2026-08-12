@@ -157,8 +157,18 @@ assert(abs(metrics.matureGainFraction - 0.1) <= 1e-12);
 assert(isequal(metrics.matureColumns, 4:6));
 assert(metrics.minimumSensorGainFraction > 0);
 assert(metrics.minimumFormationGainFraction > 0);
+assert(metrics.minimumMatureSensorGainFraction > 0);
+assert(metrics.minimumMatureFormationGainFraction > 0);
 assert(abs(metrics.attemptedByteSavingFraction - 0.4) <= 1e-12);
 assert(metrics.passesPreLearningGate);
+
+candidateOutcome.eospaBySensorTime(1, 4:6) = 12;
+matureLocalRegression = scoreSetTrustSequenceHeadroomV134( ...
+    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, protocol);
+assert(matureLocalRegression.meanGainFraction > 0.05);
+assert(matureLocalRegression.minimumMatureSensorGainFraction < 0);
+assert(~matureLocalRegression.passesSensorGate);
+assert(~matureLocalRegression.passesPreLearningGate);
 
 fprintf('PASS: V134 set--trust sequence contract\n');
 end
