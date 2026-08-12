@@ -22,6 +22,7 @@ protocol.resultFileStem = 'SHADOW_STATE_ROLLBACK_V126_X36_T72_RESULT';
 protocol.reportTitle = 'V126 shadow-state rollback: X36 t72 H=8';
 protocol.armDisplayName = 'V126 shadow-state rollback';
 protocol.runLabel = 'V126 X36-t72 H=8';
+protocol.auxiliaryMaintenanceCostAccounted = false;
 protocol.outputRoot = fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'evidence', ...
     'tracking_aligned_v126', 'shadow_state_rollback');
