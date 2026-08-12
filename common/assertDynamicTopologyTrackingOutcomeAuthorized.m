@@ -246,6 +246,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isMixedCarrierInsertionV121ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1528,6 +1534,7 @@ v117Context = isAlternativeGatewayV117ExecutionContext(context);
 v118Context = isAlternativeSourceV118ExecutionContext(context);
 v119Context = isTimeExpandedDualPathV119ExecutionContext(context);
 v120Context = isTimeExpandedCarrierSwitchV120ExecutionContext(context);
+v121Context = isMixedCarrierInsertionV121ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1550,7 +1557,17 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v120Context
+if v121Context
+    protocol = getMixedCarrierInsertionV121Protocol();
+    expectedCapability = ...
+        'mixed-carrier-insertion-v121-development';
+    expectedAction = ...
+        'filter-mixed-carrier-insertion-v121-development';
+    nameRequestsOnline = false;
+    authorizationMode = ...
+        'mixed-carrier-insertion-v121-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v120Context
     protocol = getTimeExpandedCarrierSwitchV120Protocol();
     expectedCapability = ...
         'time-expanded-carrier-switch-v120-development';
