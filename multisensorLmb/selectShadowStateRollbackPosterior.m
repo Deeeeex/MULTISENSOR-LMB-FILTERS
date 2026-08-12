@@ -1,11 +1,14 @@
 function [posterior, applied, pageIdx] = ...
         selectShadowStateRollbackPosterior( ...
             currentPosterior, config, receiverIdx, currentTime, ...
-            localPosterior)
+            localPosterior, independentAnchorPosterior)
 % SELECTSHADOWSTATEROLLBACKPOSTERIOR Apply a registered node-time rollback.
 
 if nargin < 5
     localPosterior = [];
+end
+if nargin < 6
+    independentAnchorPosterior = [];
 end
 
 posterior = currentPosterior;
@@ -32,6 +35,12 @@ if strcmp(sourceMode, 'current-local-posterior')
             'The current local posterior was not supplied.');
     end
     posterior = localPosterior;
+elseif strcmp(sourceMode, 'independent-local-anchor')
+    if nargin < 6
+        error('StateRollback:MissingIndependentAnchor', ...
+            'The independently propagated local anchor was not supplied.');
+    end
+    posterior = independentAnchorPosterior;
 elseif strcmp(sourceMode, 'external-fused-posterior')
     page = config.shadowStateRollbackFusedPosteriorByTime{pageIdx};
     if ~iscell(page) || numel(page) < receiverIdx
