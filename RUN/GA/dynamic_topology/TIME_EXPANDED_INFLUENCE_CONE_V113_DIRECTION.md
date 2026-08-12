@@ -363,3 +363,17 @@ outcomes, but they justify one row-composition upper bound: select incoming
 carrier rows and payload participation per formation, then project the joint
 action onto the exact message, physical and rolling-B3 constraints.  Only an
 executable pass authorizes a temporal GNN for formation-row value prediction.
+
+## V123 decision update
+
+The first executable row composition preserves all structural constraints but
+reaches only `+3.079%` versus clockwise full and is `-1.026%` behind V113.
+F1--F5 remain mostly positive; F6 falls `-6.894%` over the window and
+`-7.244%` at the terminal page.  The F1-to-F6 row selected from V121 improves
+F6 on the first two pages, then reverses to losses as large as `-18.884%`.
+
+Independent formation-row values are therefore not compositionally stable.
+Before moving to a sequence model, one final bounded ablation will retain the
+V123 projected rows and payload schedule but keep F6 on its clockwise reference
+row throughout.  Failure closes additive edge/row ranking and makes finite-
+horizon joint-sequence regret the required learning target.
