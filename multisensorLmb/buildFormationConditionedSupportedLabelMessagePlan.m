@@ -119,6 +119,7 @@ plan.completeLabelExceptionsByReceiverSender = ...
 plan.selectiveEdgeMask = selectiveEdgeMask;
 plan.abstainFromFusionEdgeMask = false(sensorCount);
 plan.labelWhitelistRestrictedEdgeMask = false(sensorCount);
+plan.eventTypeByReceiverSender = 2 * ones(sensorCount);
 if strcmp(payloadMode, 'abstention-only')
     plan.abstainFromFusionEdgeMask = selectiveEdgeMask;
 elseif boundaryLabelMode
@@ -158,7 +159,9 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
         senderIdx = senders(localSenderIdx);
         senderObjects = activeObjects( ...
             localPosteriorBySensor{senderIdx}, activeThreshold);
-        if strcmp(payloadMode, 'signed-complete-label-exceptions')
+        if strcmp(payloadMode, 'light-posterior')
+            keepMask = true(1, numel(senderObjects));
+        elseif strcmp(payloadMode, 'signed-complete-label-exceptions')
             keepMask = selectExplicitLabels( ...
                 senderObjects, exceptionLabelsByReceiverSender{ ...
                     receiverIdx, senderIdx});
@@ -186,14 +189,28 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
                 supportThreshold, existenceThreshold);
         end
         payload = senderObjects(keepMask);
+        selectedEventType = 2;
+        if strcmp(payloadMode, 'light-posterior')
+            payload = compressLmbPosterior( ...
+                payload, model, activeThreshold, triggerConfig, ...
+                updateDiagnostics{senderIdx});
+            selectedEventType = 1;
+        end
         baselineStats = estimateLmbPayloadSize( ...
             senderObjects, model, 2, updateDiagnostics{senderIdx});
         selectedStats = estimateLmbPayloadSize( ...
-            payload, model, 2, updateDiagnostics{senderIdx});
-        synopsis = compactSynopsis( ...
-            numel(senderObjects), model.xDimension);
+            payload, model, selectedEventType, ...
+            updateDiagnostics{senderIdx});
+        if selectedEventType == 1
+            synopsis = emptySynopsis();
+        else
+            synopsis = compactSynopsis( ...
+                numel(senderObjects), model.xDimension);
+        end
         plan.payloadByReceiverSender{receiverIdx, senderIdx} = payload;
         plan.synopsisByReceiverSender{receiverIdx, senderIdx} = synopsis;
+        plan.eventTypeByReceiverSender(senderIdx, receiverIdx) = ...
+            selectedEventType;
         plan.activeLabelCountBySender(senderIdx) = max( ...
             plan.activeLabelCountBySender(senderIdx), ...
             numel(senderObjects));
@@ -233,6 +250,14 @@ plan.totalSelectedLabelCount = sum([details.selectedLabelCount]);
 plan.totalCandidateLabelCount = sum([details.candidateLabelCount]);
 plan.byteBudgetSatisfied = plan.totalAttemptedBytes <= ...
     plan.totalBaselineFullBytes + 1e-9;
+end
+
+function synopsis = emptySynopsis()
+synopsis = struct( ...
+    'contractVersion', 'lmb-no-separate-control-synopsis-v1', ...
+    'labelCount', 0, ...
+    'estimatedBytes', 0, ...
+    'scalarCount', 0);
 end
 
 function keep = selectExplicitLabels(senderObjects, labels, allowMissing)
