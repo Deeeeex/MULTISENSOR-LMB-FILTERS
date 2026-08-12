@@ -346,3 +346,20 @@ over these static permutations is closed.  A time-local complementary carrier
 is worth screening only if page-resolved evidence shows a positive F6 response
 at the onset of the V113 delayed loss; otherwise the representation must leave
 the single-Hamiltonian-cycle family.
+
+## V122 decision update
+
+Releasing upstream F5 from abstention repairs F6 essentially exactly: F6's
+window and terminal gains return to zero, and its non-gateway terminal peers
+improve `+6.722%` relative to V113.  This identifies the altered F5 posterior
+as the carrier of the delayed debt.  The action still fails because it also
+removes F5's local gain; network gain falls to `+2.711%` versus clockwise full.
+
+The remaining headroom is not a global cycle or formation-subset choice.  An
+optimistic formation-wise stitch over existing CW/V113/V121/V122 outcomes
+reaches `+5.293%`, while a page-wise stitch reaches `+6.275%` and exceeds the
+five-percent page gate from the fourth page onward.  These are not executable
+outcomes, but they justify one row-composition upper bound: select incoming
+carrier rows and payload participation per formation, then project the joint
+action onto the exact message, physical and rolling-B3 constraints.  Only an
+executable pass authorizes a temporal GNN for formation-row value prediction.
