@@ -237,3 +237,25 @@ cross-edge weight, but move the concrete F6 receiver and restore the internal
 residual edge displaced by each alternative gateway.  This tests whether the
 failure belongs to the gateway location and its downstream influence cone,
 rather than to the incoming labels or their source posterior.
+
+## V117 decision update
+
+The paired F6 entry-return migration screen is complete and all candidates
+fail.  The best `27 -> 33 / 34 -> 2` arm reaches mean E-OSPA `78.893034`, only
+`+3.558%` versus clockwise full and `-0.527%` versus the original V113 gateway.
+Its mature-page minimum is `+2.037%`, minimum formation is `-4.331%`, and the
+new gateway's terminal gain is `-17.936%`.  The other two candidates reduce
+mean gain to `+3.200%` or `+3.494%` and make the F6 non-gateway tail roughly
+`-10%`.
+
+Every corrected arm preserves message count, row sums, nonzero weight
+multiset, static strong connectivity and rolling B3.  The regression is thus
+caused by the changed recursive posterior path, not an invalid carrier.
+Current receiver error is not a viable gateway score, and same-source local
+gateway placement is closed.
+
+V118 should hold receiver 32 and the entire formation-level carrier fixed and
+exhaust the five alternative F5 senders at the same `0.05` cross weight.  This
+is the last single-source local control.  If it fails, the next action must
+change formation-level information provenance or use a budget-matched
+multi-source entry; no additional local gateway or label model is justified.
