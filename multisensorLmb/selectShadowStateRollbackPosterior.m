@@ -30,15 +30,16 @@ if isfield(config, 'shadowStateRollbackSourceMode')
         config.shadowStateRollbackSourceMode), '_', '-'));
 end
 if strcmp(sourceMode, 'current-local-posterior')
-    if nargin < 5
+    if nargin < 5 || isempty(localPosterior)
         error('StateRollback:MissingLocalPosterior', ...
             'The current local posterior was not supplied.');
     end
     posterior = localPosterior;
-elseif strcmp(sourceMode, 'independent-local-anchor')
-    if nargin < 6
-        error('StateRollback:MissingIndependentAnchor', ...
-            'The independently propagated local anchor was not supplied.');
+elseif ismember(sourceMode, { ...
+        'independent-local-anchor', 'light-network-anchor'})
+    if nargin < 6 || isempty(independentAnchorPosterior)
+        error('StateRollback:MissingAuxiliaryAnchor', ...
+            'The requested auxiliary anchor posterior was not supplied.');
     end
     posterior = independentAnchorPosterior;
 elseif strcmp(sourceMode, 'external-fused-posterior')
