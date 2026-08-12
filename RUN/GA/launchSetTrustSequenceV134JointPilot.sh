@@ -44,7 +44,7 @@ fi
 BASELINE_OUTPUT="$BASELINE_ROOT/RUN/GA/dynamic_topology/evidence/tracking_aligned_v133/counterfactual_regret_gate/baseline_selection"
 BASELINE_SHARDS="$BASELINE_OUTPUT/shards"
 BASELINE_ARTIFACT="$BASELINE_OUTPUT/FROZEN_REFERENCE_CARRIER_V133.mat"
-LOG_ROOT="$V134_ROOT/RUN/GA/dynamic_topology/evidence/tracking_aligned_v134/binary_admission_sequence_v3/logs"
+LOG_ROOT="$V134_ROOT/RUN/GA/dynamic_topology/evidence/tracking_aligned_v134/binary_admission_sequence_v4/logs"
 mkdir -p "$LOG_ROOT"
 
 LOCK_DIR="$LOG_ROOT/.joint_pilot_handoff.lock"
@@ -131,7 +131,7 @@ run_worker() {
 }
 
 # One M24 worker and three X36 workers approximately balance wall-clock load:
-# M24 evaluates four 53-page actions; X36 evaluates six 81-page actions.
+# M24 evaluates 12 actions of 53 pages; X36 evaluates 25 actions of 81 pages.
 echo "[$(stamp)] Evaluating the frozen V134 action banks"
 run_worker 'm24-formation-fov' 1 1 'worker_m24_1of1.log' &
 worker_pids=("$!")

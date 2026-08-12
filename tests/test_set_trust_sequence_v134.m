@@ -15,6 +15,7 @@ assert(strcmp(protocol.nominalKlaWeightMode, 'metropolis'));
 assert(~protocol.stalePosteriorSubstitutionAllowed);
 assert(protocol.persistentZeroDiagnosticOnly);
 assert(~protocol.pilotEvaluatesPersistentZeroCandidates);
+assert(protocol.pairwiseCompleteBankDeployable);
 assert(protocol.preLearningGate. ...
     minimumPairedInterventionEospGainFraction == 0.05);
 assert(protocol.preLearningGate.minimumPairedMeanEospGainFraction == 0);
@@ -38,11 +39,18 @@ assert(resolveSetTrustSequenceV134PilotAnchor(x36, protocol) == 80);
 bank = buildSetTrustSequenceCandidatesV134( ...
     ranked, m24.formationCycleDiameter, m24.recoveryTailSteps);
 assert(strcmp(bank.contractVersion, ...
-    'v134-binary-admission-sequence-bank-v3'));
+    'v134-binary-admission-sequence-bank-v4'));
 assert(bank.horizonSteps == 53);
 assert(bank.recoveryTailSteps == 46);
-assert(bank.actionCount == 1 + 2 * numel(ranked));
-assert(nnz([bank.actions.gateEligible]) == numel(ranked));
+assert(bank.deployableSetCount == 12);
+assert(bank.actionCount == 1 + 2 * bank.deployableSetCount);
+assert(nnz([bank.actions.gateEligible]) == bank.deployableSetCount);
+assert(strcmp(bank.candidateSetFamily, ...
+    'rank-equivariant-all-singletons-all-pairs-high-order-prefixes'));
+assert(bank.allSingletonsCovered);
+assert(bank.allPairsCovered);
+assert(bank.highOrderSetsAreNestedPrefixes);
+assert(~bank.exponentialSubsetEnumerationUsed);
 assert(~bank.intermediateTrustAllowed);
 assert(strcmp(bank.actions(1).scheduleKind, 'reference'));
 assert(isempty(bank.actions(1).formationSet));
@@ -62,8 +70,19 @@ assert(isequal(cell2mat(tapered.trustFactorsByTime), ...
 assert(tapered.returnsToFullTrust);
 assert(tapered.gateEligible);
 assert(~tapered.diagnosticOnly);
-assert(isequal(bank.actions(9).formationSet, ranked));
-assert(isequal(vertcat(bank.actions(9).trustFactorsByTime{:}), ...
+deployable = bank.actions([bank.actions.gateEligible]);
+candidateSets = {deployable.formationSet};
+assert(isequal(cellfun(@numel, candidateSets), ...
+    [ones(1, 4), 2 * ones(1, 6), 3, 4]));
+for formationId = ranked
+    assert(nnz(cellfun(@(set) isequal(set, formationId), ...
+        candidateSets)) == 1);
+end
+expectedPairs = nchoosek(ranked, 2);
+actualPairs = vertcat(candidateSets{cellfun(@numel, candidateSets) == 2});
+assert(isequal(actualPairs, expectedPairs));
+assert(isequal(deployable(end).formationSet, ranked));
+assert(isequal(vertcat(deployable(end).trustFactorsByTime{:}), ...
     [zeros(3, 4); ...
      0, 0, 0, 1; ...
      0, 0, 1, 1; ...
@@ -72,9 +91,23 @@ assert(isequal(vertcat(bank.actions(9).trustFactorsByTime{:}), ...
 
 remapped = buildSetTrustSequenceCandidatesV134( ...
     [8, 6, 5, 7], 3, m24.recoveryTailSteps);
-assert(isequal(remapped.actions(7).formationSet, [8, 6, 5]));
-assert(isequal(remapped.actions(7).trustFactorsByTime, ...
-    bank.actions(7).trustFactorsByTime));
+remappedDeployable = remapped.actions([remapped.actions.gateEligible]);
+for actionIdx = 1:numel(deployable)
+    originalRanks = arrayfun(@(formationId) ...
+        find(ranked == formationId), deployable(actionIdx).formationSet);
+    remappedRanks = arrayfun(@(formationId) ...
+        find([8, 6, 5, 7] == formationId), ...
+        remappedDeployable(actionIdx).formationSet);
+    assert(isequal(originalRanks, remappedRanks));
+    assert(isequal(deployable(actionIdx).trustFactorsByTime, ...
+        remappedDeployable(actionIdx).trustFactorsByTime));
+end
+
+x36Bank = buildSetTrustSequenceCandidatesV134( ...
+    [6, 2, 4, 1, 5, 3], 5, x36.recoveryTailSteps);
+assert(x36Bank.deployableSetCount == 25);
+assert(x36Bank.actionCount == 51);
+assert(nnz([x36Bank.actions.gateEligible]) == 25);
 
 weights = [0.5, 0.2, 0.3];
 details = struct( ...
