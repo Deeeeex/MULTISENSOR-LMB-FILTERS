@@ -259,3 +259,27 @@ exhaust the five alternative F5 senders at the same `0.05` cross weight.  This
 is the last single-source local control.  If it fails, the next action must
 change formation-level information provenance or use a budget-matched
 multi-source entry; no additional local gateway or label model is justified.
+
+## V118 decision update
+
+The paired alternative-source screen is complete and all five candidates
+fail.  A literal source replacement disconnected sensor 27 because
+`27 -> 32` was its only outward influence.  The admitted screen therefore
+uses the same minimum repair in every arm, replacing `25 -> 26` by
+`27 -> 26`; all arms retain 60 messages, row sums, the fusion-weight multiset,
+static strong connectivity and rolling B3.
+
+Source 28 gives the best mean E-OSPA, `78.426149`, or `+4.129%` versus
+clockwise full, but is still `-0.137%` behind V114 and makes the F6 peers
+`-7.305%` worse at the terminal page.  Source 30 is the minimum-gate-regret
+arm because its F6-peer loss is only `-0.416%`, but its mean gain falls to
+`+4.008%` and F6 remains the weakest formation at `-2.130%`.  The five-source
+mean range is only `0.183026` E-OSPA.
+
+Sender identity therefore carries a weak tail-risk signal but is not a
+sufficient control.  V116--V118 jointly close label, receiver and source
+selection on this single F5-to-F6 boundary, so no GNN should be trained on the
+local action family.  The next bounded screen must change formation-level
+information provenance with an exact-budget, horizon-aware second path and a
+donor-only ablation; repeating the one-round generic V95 reallocation would
+not answer this delayed-return mechanism.
