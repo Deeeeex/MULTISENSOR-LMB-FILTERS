@@ -265,6 +265,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isF6ReferenceRowCompositionV124ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1551,6 +1557,7 @@ v121Context = isMixedCarrierInsertionV121ExecutionContext(context);
 v122Context = isUpstreamBoundaryReleaseV122ExecutionContext(context);
 v123Context = ...
     isProjectedFormationRowCompositionV123ExecutionContext(context);
+v124Context = isF6ReferenceRowCompositionV124ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1573,7 +1580,17 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v123Context
+if v124Context
+    protocol = getF6ReferenceRowCompositionV124Protocol();
+    expectedCapability = ...
+        'f6-reference-row-composition-v124-development';
+    expectedAction = ...
+        'filter-f6-reference-row-composition-v124-development';
+    nameRequestsOnline = false;
+    authorizationMode = ...
+        'f6-reference-row-composition-v124-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v123Context
     protocol = getProjectedFormationRowCompositionV123Protocol();
     expectedCapability = ...
         'projected-formation-row-composition-v123-development';

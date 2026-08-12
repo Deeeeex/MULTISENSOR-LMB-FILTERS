@@ -5,7 +5,8 @@ function [reportPath, result] = ...
 if nargin < 1 || isempty(options)
     options = struct();
 end
-protocol = getProjectedFormationRowCompositionV123Protocol();
+protocol = getField(options, 'protocolOverride', ...
+    getProjectedFormationRowCompositionV123Protocol());
 gitState = resolveResearchGitState();
 if gitState.trackedWorktreeDirty || ...
         ~isempty(gitState.untrackedSourceFiles) || ...
@@ -122,6 +123,7 @@ result.returnTimes = screen.returnTimes;
 result.referenceOutcomeReused = screen.referenceOutcomeReused;
 result.v113BaselinesReused = true;
 result.v123CandidateScreenReused = candidateScreenReused;
+result.candidateScreenReused = candidateScreenReused;
 result.actionSequenceIndices = sequences(2, :);
 result.ccwFullRecord = ccwFullRecord;
 result.clockwiseFullRecord = cwFullRecord;
