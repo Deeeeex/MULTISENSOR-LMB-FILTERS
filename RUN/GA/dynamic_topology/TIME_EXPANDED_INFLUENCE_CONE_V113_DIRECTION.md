@@ -328,3 +328,21 @@ the same page.  A structural enumeration must precede tracking and retain
 physicality, row stochasticity, the weight multiset, 60 messages and rolling
 B3.  If no mixed carrier provides a bounded positive oracle, segment-level
 edge learning and a GNN remain unjustified.
+
+## V121 decision update
+
+The exact-budget mixed-carrier screen is complete and all four static
+formation orders fail.  Moving F6 after F1, F2, F3 or F4 reaches only
+`+2.565%` to `+3.692%` mean gain versus clockwise full, and every arm is
+`0.386%` to `1.562%` worse than fixed-clockwise abstention.  All candidates
+retain the 60-message budget, weight multiset, physicality, a single sensor
+and formation cycle, and rolling B3.
+
+The least-regret F6-after-F4 order improves F1 by `+2.558%`, but makes F6
+`-6.439%` worse over the window and `-9.751%` worse at the terminal page.
+Static one-cycle permutation therefore separates the earlier F1/F6 direction
+coupling only by concentrating the debt in F6.  Segment-level edge learning
+over these static permutations is closed.  A time-local complementary carrier
+is worth screening only if page-resolved evidence shows a positive F6 response
+at the onset of the V113 delayed loss; otherwise the representation must leave
+the single-Hamiltonian-cycle family.
