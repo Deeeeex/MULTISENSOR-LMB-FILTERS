@@ -283,3 +283,25 @@ local action family.  The next bounded screen must change formation-level
 information provenance with an exact-budget, horizon-aware second path and a
 donor-only ablation; repeating the one-round generic V95 reallocation would
 not answer this delayed-return mechanism.
+
+## V119 decision update
+
+The exact-budget time-expanded dual-path screen is complete and all four
+sources fail.  Donor-only outcomes remain within `0.001153` E-OSPA of V113,
+whereas every added F6 path makes tracking worse than its own deletion
+ablation.  The best compatibility-ranked F1 path reaches `78.501408`, or
+`+4.037%` versus clockwise full but `-0.026%` versus donor-only and `-0.233%`
+versus V114.  Its F6 formation is `-1.647%`, non-target F6 peers are `-5.217%`,
+and the target receiver is `-9.336%` at the terminal page.  Lower-compatibility
+F2--F4 sources produce still larger mean regressions.
+
+The result cleanly rejects a local complementary-source explanation: the
+removed ring input is neutral, while the new F6 input causes the loss.  KLA
+compatibility partly orders harm but finds no positive action.  V116--V119 now
+close local label, source, receiver and second-path controls.
+
+V120 should therefore change the complete formation carrier.  It will compare
+fixed counter-clockwise abstention, a clockwise-to-counter-clockwise switch
+before the F6 loss, and the reciprocal switch against the frozen V113
+clockwise-abstention baseline.  Fixed-orientation and reciprocal controls are
+required to distinguish direction, timing and generic switching effects.
