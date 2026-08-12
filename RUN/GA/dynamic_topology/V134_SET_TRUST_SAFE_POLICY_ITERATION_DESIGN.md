@@ -109,6 +109,13 @@ Learning is not authorized until the action space itself beats the stronger full
 
 If either scale fails, V134 remains an experiment record and the learner is not built. This prevents a model from hiding an action space with insufficient causal headroom.
 
+After both scale pilots are finalized, `finalizeSetTrustSequenceV134JointGate`
+recomputes every action gate from the stored component metrics and recovery
+certificate. M24 and X36 must pass independently; their gains cannot be
+averaged to compensate for a failed scale. A passing joint artifact authorizes
+only the next interpretable on-policy teacher-development stage. It does not
+authorize a GNN, a validation claim or a main-document result.
+
 ## Teacher and on-policy iteration
 
 Once the headroom gate passes, every candidate sequence is evaluated from the same state with paired measurements, delivery uniforms, filter RNG, route and nominal weights. The teacher retains intervention, full-window and recovery-tail E-OSPA, worst sensor and formation, reachable downstream effects, disagreement and bytes as separate outcomes.
