@@ -305,3 +305,26 @@ fixed counter-clockwise abstention, a clockwise-to-counter-clockwise switch
 before the F6 loss, and the reciprocal switch against the frozen V113
 clockwise-abstention baseline.  Fixed-orientation and reciprocal controls are
 required to distinguish direction, timing and generic switching effects.
+
+## V120 decision update
+
+The whole-carrier switch screen is complete and the target sequence fails.
+Clockwise-to-counter-clockwise reaches mean E-OSPA `78.581372`, or `+3.939%`
+versus the better full-payload direction.  It improves fixed CCW by `+1.178%`
+and the reciprocal switch by `+1.138%`, but remains `-0.130%` behind fixed CW.
+Its mature-page minimum is `+2.770%`, minimum formation gain is `-1.203%`, and
+minimum terminal formation gain is `-5.831%`.
+
+The switch reduces the F6 window loss from `-1.495%` under fixed CW to
+`-1.203%`, but creates a new `-1.073%` F1 loss.  The reciprocal sequence ends
+within `+0.040%` of fixed CCW, showing that the first four pages determine much
+of the later recursive state.  A later global orientation reversal therefore
+redistributes ring-tail risk rather than repairing it, and the binary
+whole-carrier switch family is closed.
+
+V121 should break the global coupling by constructing exact-budget mixed
+carriers whose formation segments may use different influence directions in
+the same page.  A structural enumeration must precede tracking and retain
+physicality, row stochasticity, the weight multiset, 60 messages and rolling
+B3.  If no mixed carrier provides a bounded positive oracle, segment-level
+edge learning and a GNN remain unjustified.
