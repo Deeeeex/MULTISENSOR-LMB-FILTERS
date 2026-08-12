@@ -328,6 +328,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isSetTrustSequenceV134ExecutionContext(executionContext)
+        authorization = validateSetTrustSequenceV134Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
