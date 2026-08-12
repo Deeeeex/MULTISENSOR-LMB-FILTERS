@@ -6,8 +6,8 @@ assert(strcmp(protocol.actionContract.payloadMode, 'abstention-only'));
 assert(strcmp(protocol.actionContract.wireRepresentation, ...
     'control-synopsis-only'));
 assert(~protocol.gnnAuthorized);
-assert(~protocol.routeExecutionAuthorized);
-assert(~protocol.trackingOutcomeScoringAuthorized);
+assert(protocol.routeExecutionAuthorized);
+assert(protocol.trackingOutcomeScoringAuthorized);
 assert(~protocol.modelTrainingAuthorized);
 assert(protocol.reportingPolicy.failedCandidatesRepositoryOnly);
 allSeeds = [protocol.developmentSeeds, protocol.calibrationSeeds, ...
