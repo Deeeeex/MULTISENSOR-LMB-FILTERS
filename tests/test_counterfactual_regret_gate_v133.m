@@ -8,7 +8,7 @@ assert(strcmp(protocol.actionContract.wireRepresentation, ...
 assert(~protocol.gnnAuthorized);
 assert(protocol.routeExecutionAuthorized);
 assert(protocol.trackingOutcomeScoringAuthorized);
-assert(~protocol.modelTrainingAuthorized);
+assert(protocol.modelTrainingAuthorized);
 assert(protocol.reportingPolicy.failedCandidatesRepositoryOnly);
 allSeeds = [protocol.developmentSeeds, protocol.calibrationSeeds, ...
     protocol.validationSeeds];

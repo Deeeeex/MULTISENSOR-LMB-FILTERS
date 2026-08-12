@@ -4,7 +4,7 @@ function test_counterfactual_regret_gate_v133_teacher()
 protocol = getCounterfactualRegretGateV133Protocol();
 assert(protocol.routeExecutionAuthorized);
 assert(protocol.trackingOutcomeScoringAuthorized);
-assert(~protocol.modelTrainingAuthorized);
+assert(protocol.modelTrainingAuthorized);
 
 context = buildCounterfactualRegretGateV133ExecutionContext( ...
     'm24-formation-fov', protocol.developmentSeeds(1), ...
@@ -87,6 +87,8 @@ assert(any(strcmp(features.names, 'exact_task_risk_change')));
 assert(any(strcmp(features.names, ...
     'downstream_hop_distance_max')));
 assert(all(isfinite(features.values)));
+modelSpec = getCounterfactualRegretGateV133ModelSpec();
+assert(all(ismember(modelSpec.featureNames, features.names)));
 
 fprintf('PASS: V133 teacher permit, label and feature contracts\n');
 end

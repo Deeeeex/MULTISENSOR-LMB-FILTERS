@@ -10,6 +10,12 @@ if nargin < 1 || isempty(options)
     options = struct();
 end
 protocol = getCounterfactualRegretGateV133Protocol();
+gitState = resolveResearchGitState();
+if gitState.trackedWorktreeDirty || ...
+        ~isempty(gitState.untrackedSourceFiles)
+    error('CounterfactualRegretV133:DirtySource', ...
+        'Freeze V133 carrier selection only from clean source.');
+end
 outputDirectory = getField(options, 'outputDirectory', ...
     fullfile(protocol.outputRoot, 'baseline_selection'));
 overwrite = logical(getField(options, 'overwrite', false));
@@ -100,7 +106,6 @@ for caseIdx = 1:numel(protocol.scaleCases)
         'perStateOracleSelectionUsed', false);
 end
 
-gitState = resolveResearchGitState();
 selection = struct();
 selection.contractVersion = ...
     'counterfactual-regret-gate-v133-frozen-carrier-selection-v1';
