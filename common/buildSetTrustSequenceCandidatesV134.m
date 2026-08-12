@@ -1,5 +1,6 @@
 function bank = buildSetTrustSequenceCandidatesV134( ...
-        rankedFormationIds, formationCycleDiameter, options)
+        rankedFormationIds, formationCycleDiameter, ...
+        recoveryTailSteps, options)
 % BUILDSETTRUSTSEQUENCECANDIDATESV134 Binary posterior-admission bank.
 %
 % Candidate sets are nested prefixes of an observable formation ranking.
@@ -8,7 +9,7 @@ function bank = buildSetTrustSequenceCandidatesV134( ...
 % No intermediate KLA weight is an action: an input is absent (0) or it is
 % admitted with its frozen nominal weight (1).
 
-if nargin < 3 || isempty(options)
+if nargin < 4 || isempty(options)
     options = struct();
 end
 allowedOptionFields = {'maximumPrefixSize'};
@@ -26,7 +27,10 @@ if ~isnumeric(rankedFormationIds) || isempty(rankedFormationIds) || ...
         ~isscalar(formationCycleDiameter) || ...
         ~isfinite(formationCycleDiameter) || ...
         formationCycleDiameter < 1 || ...
-        formationCycleDiameter ~= round(formationCycleDiameter)
+        formationCycleDiameter ~= round(formationCycleDiameter) || ...
+        ~isscalar(recoveryTailSteps) || ...
+        ~isfinite(recoveryTailSteps) || recoveryTailSteps < 1 || ...
+        recoveryTailSteps ~= round(recoveryTailSteps)
     error('V134SetTrustBank:InvalidInput', ...
         'Formation ranks and the directed-cycle diameter are malformed.');
 end
@@ -39,7 +43,8 @@ if ~isscalar(maximumPrefixSize) || ~isfinite(maximumPrefixSize) || ...
         'At least one nested formation prefix is required.');
 end
 
-horizonSteps = 2 * formationCycleDiameter + numel(rankedFormationIds);
+horizonSteps = formationCycleDiameter + ...
+    numel(rankedFormationIds) + recoveryTailSteps;
 relativeTimes = 0:(horizonSteps - 1);
 emptySchedule = repmat({zeros(1, 0)}, 1, horizonSteps);
 actions = makeAction( ...
@@ -78,10 +83,11 @@ for prefixSize = 1:maximumPrefixSize
 end
 
 bank = struct();
-bank.contractVersion = 'v134-binary-admission-sequence-bank-v2';
+bank.contractVersion = 'v134-binary-admission-sequence-bank-v3';
 bank.referenceActionIndex = 1;
 bank.rankedFormationIds = rankedFormationIds;
 bank.formationCycleDiameter = formationCycleDiameter;
+bank.recoveryTailSteps = recoveryTailSteps;
 bank.admissionFactors = [0, 1];
 bank.horizonSteps = horizonSteps;
 bank.relativeTimes = relativeTimes;
