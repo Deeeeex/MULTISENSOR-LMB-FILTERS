@@ -49,6 +49,31 @@ end
 groupIds = resolveFormationGroups(model, sensorCount);
 payloadMode = lower(strrep(char(triggerConfig. ...
     receiverSafeFormationConditionedPayloadMode), '_', '-'));
+fullPosteriorTrustMode = strcmp(payloadMode, 'full-posterior-trust');
+formationTrustFactors = zeros(1, 0);
+if fullPosteriorTrustMode
+    if nargin >= 7 || isempty(timeIdx) || ...
+            ~isfield(triggerConfig, ...
+                'receiverSafeFormationConditionedTrustFactorsByTime') || ...
+            ~iscell(triggerConfig. ...
+                receiverSafeFormationConditionedTrustFactorsByTime) || ...
+            numel(triggerConfig. ...
+                receiverSafeFormationConditionedTrustFactorsByTime) < timeIdx
+        error('FormationSupportedLabelPlan:MissingTrustSchedule', ...
+            ['Full-posterior trust requires one frozen factor vector ', ...
+             'for every formation schedule page.']);
+    end
+    formationTrustFactors = reshape(triggerConfig. ...
+        receiverSafeFormationConditionedTrustFactorsByTime{timeIdx}, 1, []);
+    if numel(formationTrustFactors) ~= numel(scheduledFormationIds) || ...
+            any(~isfinite(formationTrustFactors)) || ...
+            any(formationTrustFactors < 0) || ...
+            any(formationTrustFactors > 1)
+        error('FormationSupportedLabelPlan:InvalidTrustSchedule', ...
+            ['Formation trust factors must match the scheduled ', ...
+             'formations and lie in [0,1].']);
+    end
+end
 hybridCorrectionMode = strcmp( ...
     payloadMode, 'hybrid-posterior-correction');
 lightCorrectionFormationIds = zeros(1, 0);
@@ -146,6 +171,7 @@ plan.mode = 'formation-supported-label-plan';
 plan.payloadMode = payloadMode;
 plan.currentTime = currentTime;
 plan.scheduledFormationIds = scheduledFormationIds;
+plan.formationTrustFactors = formationTrustFactors;
 plan.lightCorrectionFormationIds = lightCorrectionFormationIds;
 plan.fullCorrectionFormationIds = fullCorrectionFormationIds;
 plan.scheduleSource = scheduleSource;
@@ -154,9 +180,21 @@ plan.completeLabelExceptionsByReceiverSender = ...
 plan.selectiveEdgeMask = selectiveEdgeMask;
 plan.abstainFromFusionEdgeMask = false(sensorCount);
 plan.labelWhitelistRestrictedEdgeMask = false(sensorCount);
+plan.fusionTrustFactorByReceiverSender = ones(sensorCount);
 plan.eventTypeByReceiverSender = 2 * ones(sensorCount);
 if strcmp(payloadMode, 'abstention-only')
     plan.abstainFromFusionEdgeMask = selectiveEdgeMask;
+elseif fullPosteriorTrustMode
+    for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
+        trustIdx = find(scheduledFormationIds == ...
+            groupIds(receiverIdx), 1);
+        senders = reshape(find(selectiveEdgeMask(:, receiverIdx)), 1, []);
+        plan.fusionTrustFactorByReceiverSender( ...
+            senders, receiverIdx) = formationTrustFactors(trustIdx);
+        if formationTrustFactors(trustIdx) <= 1e-12
+            plan.abstainFromFusionEdgeMask(senders, receiverIdx) = true;
+        end
+    end
 elseif boundaryLabelMode
     for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
         senders = reshape(find(selectiveEdgeMask(:, receiverIdx)), 1, []);
@@ -172,7 +210,8 @@ plan.payloadByReceiverSender = cell(sensorCount);
 plan.synopsisByReceiverSender = cell(sensorCount);
 plan.receiverDetails = repmat(makeReceiverDetails(), 1, sensorCount);
 plan.activeLabelCountBySender = zeros(1, sensorCount);
-plan.usesFullSenderPosteriors = false;
+plan.usesFullSenderPosteriors = fullPosteriorTrustMode && ...
+    any(formationTrustFactors > 1e-12);
 plan.isOnlineDeployable = ~ismember(payloadMode, { ...
     'signed-complete-label-exceptions', ...
     'boundary-label-frozen-whitelist', ...
@@ -196,7 +235,15 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
         senderObjects = activeObjects( ...
             localPosteriorBySensor{senderIdx}, activeThreshold);
         edgePayloadMode = payloadMode;
-        if hybridCorrectionMode
+        if fullPosteriorTrustMode
+            trustIdx = find(scheduledFormationIds == ...
+                groupIds(receiverIdx), 1);
+            if formationTrustFactors(trustIdx) <= 1e-12
+                edgePayloadMode = 'control-only';
+            else
+                edgePayloadMode = 'full-posterior';
+            end
+        elseif hybridCorrectionMode
             receiverFormationId = groupIds(receiverIdx);
             if ismember(receiverFormationId, ...
                     fullCorrectionFormationIds)
