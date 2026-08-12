@@ -93,9 +93,17 @@ is not a standalone tracking-safety theorem.
 
 ## Candidate-set construction
 
-Current observable posterior risk, disagreement, observation quality and downstream reach rank the formations. The bank contains the empty reference plus nested prefixes of that ranking. With \(F\) formations it has \(1+2F\) registered actions rather than \(2^F\) subsets. The persistent-zero member of each prefix is diagnostic-only; only the staggered binary-reentry member is deployable and gate-eligible. The first pilot therefore evaluates only the \(F\) deployable actions—four on M24 and six on X36—and does not spend filter runs on persistent-zero diagnostics.
+Current observable posterior risk, disagreement, observation quality and downstream reach rank the formations. A pure nested-prefix bank would expose only the highest-ranked formation as a singleton: on X36, five of six formations could never be protected alone. Failure of such a bank would therefore confound an ineffective admission mechanism with inadequate set coverage.
 
-The full subset bank is retained only as an offline action-space oracle on a small number of registered development states. It answers whether the nested construction leaves important set interactions unexplained; it is not available to the deployed controller.
+The v4 bank instead contains every rank-space singleton, every rank-space pair, and one nested risk prefix for each size from three through \(F\). This covers direct effects and the smallest non-additive interaction without enumerating all \(2^F\) subsets. The deployable set count is
+
+\[
+    F + \binom{F}{2} + (F-2) = \frac{F(F+1)}{2} + F - 2,
+\]
+
+which gives 12 sets on M24 and 25 on X36. Physical formation identifiers are not part of the construction: singleton, pair and prefix names refer only to observable rank positions, so relabeling formations preserves the bank. Each set receives the same staggered binary-reentry sequence. Persistent-zero variants remain diagnostic-only and are not run in the first pilot.
+
+Sets of size three or larger remain nested prefixes because higher-order exhaustive enumeration would add combinatorial cost before pairwise interaction has shown value. If the pair-complete bank passes both scales, later teacher data may test whether repeatable higher-order residuals justify a richer set encoder; validation outcomes cannot be used to expand the bank.
 
 ## Pre-learning stop gate
 
@@ -125,7 +133,7 @@ The first model is a shared scale-normalized additive set model with calibrated 
 ## Evaluation and reporting order
 
 1. Freeze the stronger full-trajectory static direction for M24 and X36.
-2. Measure full-subset oracle and nested-sequence deployable headroom.
+2. Measure pair-complete, rank-equivariant sequence headroom.
 3. Stop if the joint cross-scale gate fails.
 4. Run conservative on-policy dataset aggregation.
 5. Evaluate once on unseen radial seeds.

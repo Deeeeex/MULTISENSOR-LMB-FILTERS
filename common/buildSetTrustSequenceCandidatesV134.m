@@ -3,9 +3,10 @@ function bank = buildSetTrustSequenceCandidatesV134( ...
         recoveryTailSteps, options)
 % BUILDSETTRUSTSEQUENCECANDIDATESV134 Binary posterior-admission bank.
 %
-% Candidate sets are nested prefixes of an observable formation ranking.
-% Each set receives either diagnostic persistent abstention or a
-% diameter-long abstention phase followed by one-at-a-time binary reentry.
+% Candidate sets cover every singleton and pair in observable rank space.
+% Larger sets remain nested prefixes to keep the bank quadratic rather than
+% exponential. Each set receives either diagnostic persistent abstention or
+% a diameter-long abstention phase followed by one-at-a-time binary reentry.
 % No intermediate KLA weight is an action: an input is absent (0) or it is
 % admitted with its frozen nominal weight (1).
 
@@ -51,39 +52,44 @@ actions = makeAction( ...
     'reference-full-trust', 'reference', zeros(1, 0), ...
     emptySchedule, emptySchedule, horizonSteps, false, false);
 
-for prefixSize = 1:maximumPrefixSize
-    formationSet = rankedFormationIds(1:prefixSize);
+candidateSets = buildCandidateSets( ...
+    rankedFormationIds, maximumPrefixSize);
+for setIdx = 1:numel(candidateSets)
+    candidate = candidateSets(setIdx);
+    formationSet = candidate.formationSet;
+    setName = candidate.name;
     formationSchedule = repmat({formationSet}, 1, horizonSteps);
 
-    zeroTrust = repmat({zeros(1, prefixSize)}, 1, horizonSteps);
+    setSize = numel(formationSet);
+    zeroTrust = repmat({zeros(1, setSize)}, 1, horizonSteps);
     actions(end+1) = makeAction( ... %#ok<AGROW>
-        sprintf('prefix-%02d-persistent-zero', prefixSize), ...
+        sprintf('%s-persistent-zero', setName), ...
         'persistent-zero', formationSet, formationSchedule, ...
         zeroTrust, horizonSteps, false, true);
 
     staggeredAdmission = cell(1, horizonSteps);
     for pageIdx = 1:horizonSteps
         if pageIdx <= formationCycleDiameter
-            factors = zeros(1, prefixSize);
+            factors = zeros(1, setSize);
         else
             restoredCount = min( ...
-                pageIdx - formationCycleDiameter, prefixSize);
-            factors = zeros(1, prefixSize);
+                pageIdx - formationCycleDiameter, setSize);
+            factors = zeros(1, setSize);
             if restoredCount > 0
-                firstRestored = prefixSize - restoredCount + 1;
-                factors(firstRestored:prefixSize) = 1;
+                firstRestored = setSize - restoredCount + 1;
+                factors(firstRestored:setSize) = 1;
             end
         end
         staggeredAdmission{pageIdx} = factors;
     end
     actions(end+1) = makeAction( ... %#ok<AGROW>
-        sprintf('prefix-%02d-staggered-binary-reentry', prefixSize), ...
+        sprintf('%s-staggered-binary-reentry', setName), ...
         'staggered-binary-reentry', formationSet, formationSchedule, ...
         staggeredAdmission, horizonSteps, true, false);
 end
 
 bank = struct();
-bank.contractVersion = 'v134-binary-admission-sequence-bank-v3';
+bank.contractVersion = 'v134-binary-admission-sequence-bank-v4';
 bank.referenceActionIndex = 1;
 bank.rankedFormationIds = rankedFormationIds;
 bank.formationCycleDiameter = formationCycleDiameter;
@@ -93,11 +99,44 @@ bank.horizonSteps = horizonSteps;
 bank.relativeTimes = relativeTimes;
 bank.actions = actions;
 bank.actionCount = numel(actions);
+bank.deployableSetCount = numel(candidateSets);
 bank.maximumPrefixSize = maximumPrefixSize;
+bank.candidateSetFamily = ...
+    'rank-equivariant-all-singletons-all-pairs-high-order-prefixes';
+bank.allSingletonsCovered = true;
+bank.allPairsCovered = numel(rankedFormationIds) >= 2;
+bank.highOrderSetsAreNestedPrefixes = true;
+bank.exponentialSubsetEnumerationUsed = false;
 bank.fullPosteriorPreservedWheneverTrustPositive = true;
 bank.zeroTrustUsesControlSynopsisOnly = true;
 bank.intermediateTrustAllowed = false;
 bank.learnedFusionWeightAllocationAllowed = false;
+end
+
+function sets = buildCandidateSets(rankedFormationIds, maximumPrefixSize)
+formationCount = numel(rankedFormationIds);
+sets = repmat(struct('name', '', 'formationSet', zeros(1, 0)), ...
+    1, 0);
+for rankIdx = 1:formationCount
+    sets(end+1) = struct( ... %#ok<AGROW>
+        'name', sprintf('singleton-rank-%02d', rankIdx), ...
+        'formationSet', rankedFormationIds(rankIdx));
+end
+if formationCount >= 2
+    rankPairs = nchoosek(1:formationCount, 2);
+    for pairIdx = 1:size(rankPairs, 1)
+        ranks = rankPairs(pairIdx, :);
+        sets(end+1) = struct( ... %#ok<AGROW>
+            'name', sprintf('pair-ranks-%02d-%02d', ...
+                ranks(1), ranks(2)), ...
+            'formationSet', rankedFormationIds(ranks));
+    end
+end
+for prefixSize = 3:maximumPrefixSize
+    sets(end+1) = struct( ... %#ok<AGROW>
+        'name', sprintf('prefix-ranks-01-%02d', prefixSize), ...
+        'formationSet', rankedFormationIds(1:prefixSize));
+end
 end
 
 function action = makeAction( ...

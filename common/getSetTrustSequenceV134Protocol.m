@@ -3,9 +3,9 @@ function protocol = getSetTrustSequenceV134Protocol()
 
 policy = getFormationBackboneBundleStaggeredRecoveryPolicyConfig();
 protocol = struct();
-protocol.id = 'formation-admission-sequence-v134-v3';
+protocol.id = 'formation-admission-sequence-v134-v4';
 protocol.contractVersion = ...
-    'v134-formation-admission-sequence-protocol-v3';
+    'v134-formation-admission-sequence-protocol-v4';
 protocol.methodName = ...
     'finite-horizon binary full-posterior admission scheduling';
 protocol.referenceCarrierSelection = ...
@@ -13,7 +13,7 @@ protocol.referenceCarrierSelection = ...
 protocol.referenceCarrierModes = { ...
     'fixed-clockwise', 'fixed-counter-clockwise'};
 protocol.outcomePolicyName = ...
-    'formation-admission-sequence-v134-headroom-v3';
+    'formation-admission-sequence-v134-headroom-v4';
 protocol.filterSeedOffset = 100000;
 protocol.developmentSeeds = [1601, 1607, 1613, 1619];
 protocol.pilotSeed = 1601;
@@ -39,7 +39,9 @@ protocol.nominalKlaWeightMode = 'metropolis';
 protocol.stalePosteriorSubstitutionAllowed = false;
 protocol.reentryOrder = ...
     'reverse-observable-risk-order-one-formation-per-page';
-protocol.candidateSetFamily = 'observable-risk-ranked-nested-prefixes';
+protocol.candidateSetFamily = [ ...
+    'rank-equivariant-all-singletons-all-pairs-', ...
+    'high-order-nested-prefixes'];
 protocol.persistentZeroCandidateEnabled = true;
 protocol.persistentZeroDiagnosticOnly = true;
 protocol.pilotEvaluatesPersistentZeroCandidates = false;
@@ -80,7 +82,8 @@ protocol.theoryBoundary = struct( ...
     'bernoulliExistenceNormalizerBounded', false, ...
     'mixtureApproximationBounded', false, ...
     'trackingSafetyGuaranteedByCertificateAlone', false);
-protocol.fullSubsetBankOfflineOracleOnly = true;
+protocol.fullSubsetBankOfflineOracleOnly = false;
+protocol.pairwiseCompleteBankDeployable = true;
 protocol.nestedPrefixBankDeployable = true;
 protocol.onPolicyLearningAuthorizedOnlyAfterHeadroomGate = true;
 protocol.gnnAuthorized = false;
@@ -101,6 +104,6 @@ protocol.reportingPolicy = struct( ...
     'stableMethodDesignMayBeReported', true);
 protocol.outputRoot = fullfile( ...
     'RUN', 'GA', 'dynamic_topology', 'evidence', ...
-    'tracking_aligned_v134', 'binary_admission_sequence_v3');
+    'tracking_aligned_v134', 'binary_admission_sequence_v4');
 protocol.validationClaimAllowed = false;
 end
