@@ -234,6 +234,12 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isTimeExpandedDualPathV119ExecutionContext(executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1514,6 +1520,7 @@ v115Context = ...
 v116Context = isDelayedLabelReturnOracleV116ExecutionContext(context);
 v117Context = isAlternativeGatewayV117ExecutionContext(context);
 v118Context = isAlternativeSourceV118ExecutionContext(context);
+v119Context = isTimeExpandedDualPathV119ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1536,7 +1543,14 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v118Context
+if v119Context
+    protocol = getTimeExpandedDualPathV119Protocol();
+    expectedCapability = 'time-expanded-dual-path-v119-development';
+    expectedAction = 'filter-time-expanded-dual-path-v119-development';
+    nameRequestsOnline = false;
+    authorizationMode = 'time-expanded-dual-path-v119-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v118Context
     protocol = getAlternativeSourceV118Protocol();
     expectedCapability = 'alternative-source-v118-development';
     expectedAction = 'filter-alternative-source-v118-development';
