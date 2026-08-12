@@ -6,7 +6,7 @@ required = { ...
     'name', 'scheduleKind', 'formationSet', ...
     'formationIdsByTime', 'trustFactorsByTime', ...
     'zeroTrustPageCount', 'fullPayloadPageCount', ...
-    'returnsToFullTrust'};
+    'returnsToFullTrust', 'gateEligible', 'diagnosticOnly'};
 if ~isstruct(action) || ~isscalar(action) || ...
         ~all(isfield(action, required)) || ...
         ~ischar(action.name) || isempty(action.name) || ...
@@ -44,14 +44,14 @@ if isReferencePhase
 elseif ~strcmp(phase, 'candidate-continuation') || ...
         isempty(formationSet) || ...
         ~ismember(action.scheduleKind, { ...
-            'persistent-zero', 'diameter-taper'})
+            'persistent-zero', 'staggered-binary-reentry'})
     error('V134SetTrustAction:InvalidCandidate', ...
         'Candidate phases require one registered nonempty sequence.');
 end
 
 zeroCount = 0;
 fullPayloadCount = 0;
-pageFactors = zeros(1, horizonSteps);
+pageFactors = cell(1, horizonSteps);
 for pageIdx = 1:horizonSteps
     formations = reshape(formationsByTime{pageIdx}, 1, []);
     factors = reshape(trustByTime{pageIdx}, 1, []);
@@ -59,34 +59,50 @@ for pageIdx = 1:horizonSteps
             ~isnumeric(factors) || numel(factors) ~= numel(formationSet) || ...
             any(~isfinite(factors)) || any(factors < 0) || ...
             any(factors > 1) || ...
-            (~isempty(factors) && ...
-             max(abs(factors - factors(1))) > 1e-12)
+            any(~ismember(factors, protocol.admissionFactors))
         error('V134SetTrustAction:InvalidPage', ...
-            'Every page must apply one common trust to the frozen set.');
+            ['Every page must use binary posterior admission for the ', ...
+             'frozen formation set.']);
     end
-    if isempty(factors)
-        pageFactors(pageIdx) = 1;
-    else
-        pageFactors(pageIdx) = factors(1);
-    end
+    pageFactors{pageIdx} = factors;
     zeroCount = zeroCount + nnz(factors <= 1e-12);
     fullPayloadCount = fullPayloadCount + nnz(factors > 1e-12);
 end
 
 if strcmp(action.scheduleKind, 'persistent-zero')
-    expected = zeros(1, horizonSteps);
-elseif strcmp(action.scheduleKind, 'diameter-taper')
-    expected = [ ...
-        zeros(1, caseInfo.formationCycleDiameter), ...
-        reshape(protocol.returnRamp, 1, [])];
+    expected = repmat({zeros(1, numel(formationSet))}, ...
+        1, horizonSteps);
+    expectedGateEligible = false;
+    expectedDiagnosticOnly = true;
+elseif strcmp(action.scheduleKind, 'staggered-binary-reentry')
+    expected = cell(1, horizonSteps);
+    for pageIdx = 1:horizonSteps
+        factors = zeros(1, numel(formationSet));
+        if pageIdx > caseInfo.formationCycleDiameter
+            restoredCount = min( ...
+                pageIdx - caseInfo.formationCycleDiameter, ...
+                numel(formationSet));
+            firstRestored = numel(formationSet) - restoredCount + 1;
+            if firstRestored <= numel(formationSet)
+                factors(firstRestored:end) = 1;
+            end
+        end
+        expected{pageIdx} = factors;
+    end
+    expectedGateEligible = true;
+    expectedDiagnosticOnly = false;
 else
-    expected = ones(1, horizonSteps);
+    expected = repmat({zeros(1, 0)}, 1, horizonSteps);
+    expectedGateEligible = false;
+    expectedDiagnosticOnly = false;
 end
-if max(abs(pageFactors - expected)) > 1e-12 || ...
+if ~isequal(pageFactors, expected) || ...
         action.zeroTrustPageCount ~= zeroCount || ...
         action.fullPayloadPageCount ~= fullPayloadCount || ...
+        logical(action.gateEligible) ~= expectedGateEligible || ...
+        logical(action.diagnosticOnly) ~= expectedDiagnosticOnly || ...
         logical(action.returnsToFullTrust) ~= ...
-            (isempty(formationSet) || pageFactors(end) >= 1 - 1e-12)
+            (isempty(formationSet) || all(pageFactors{end} == 1))
     error('V134SetTrustAction:ScheduleDrift', ...
         'The set--trust action differs from its registered sequence.');
 end
@@ -95,4 +111,6 @@ action.formationSet = formationSet;
 action.formationIdsByTime = reshape(formationsByTime, 1, []);
 action.trustFactorsByTime = reshape(trustByTime, 1, []);
 action.returnsToFullTrust = logical(action.returnsToFullTrust);
+action.gateEligible = logical(action.gateEligible);
+action.diagnosticOnly = logical(action.diagnosticOnly);
 end

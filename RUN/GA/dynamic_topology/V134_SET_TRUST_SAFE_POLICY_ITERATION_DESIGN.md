@@ -1,4 +1,23 @@
-# V134: finite-horizon formation-set trust scheduling
+# V134: finite-horizon binary posterior-admission scheduling
+
+## Boundary from the preceding Adaptive-KLA work
+
+The preceding Adaptive-KLA paper studies how received posteriors should be
+weighted: it adapts KLA fusion weights using posterior and communication
+quality. V134 therefore cannot claim a continuous trust factor as a new
+method. Its decision variable is instead whether a complete cross-formation
+posterior is admitted on each future page. Nominal KLA weights remain frozen.
+An admitted input uses its original route weight, and an omitted input is not
+sent beyond a charged control synopsis. Intermediate weights and learned
+fusion-weight allocation are forbidden by the protocol.
+
+This boundary is empirical as well as semantic. Persistent abstention is a
+diagnostic protection upper bound only and cannot pass the method gate. A
+gate-eligible action must restore every omitted input and retain its gain in a
+mature tail after full restoration. Later evaluation must include a 2-by-2
+factorial comparison of static versus binary admission and fixed versus
+Adaptive-KLA weights, so any gain can be attributed to message scheduling
+rather than to repeating the earlier weight-allocation mechanism.
 
 ## Why the one-page pulse is rejected
 
@@ -6,37 +25,36 @@ V133 remains useful as an atomic counterfactual: it measures the effect of withh
 
 The earlier V134 draft proposed a one-page set pulse followed immediately by full-posterior recovery. Existing tracking evidence contradicts that action. Useful protection takes several pages to propagate through the formation cycle; abrupt restoration produces a return shock, while persistent zero-trust protection eventually creates recursive downstream harm. The decision object must therefore include both the protected formation set and its finite-horizon reintegration schedule.
 
-## Action: a set and a trust sequence
+## Action: a set and a binary admission sequence
 
-At an eligible page, the controller chooses a nested receiver-formation set and a trust sequence
+At an eligible page, the controller chooses a nested receiver-formation set and a binary admission sequence
 
 \[
-    \mathcal A_k = \{(A_{k+h}, \alpha_{k+h})\}_{h=0}^{H-1},
-    \qquad 0 \leq \alpha_{k+h} \leq 1 .
+    \mathcal A_k = \{(A_{k+h}, a_{k+h})\}_{h=0}^{H-1},
+    \qquad a_{k+h} \in \{0,1\} .
 \]
 
 Only the selected cross-residual inputs into formations in \(A_{k+h}\) are affected. Physical reachability, the frozen static carrier, attempted message opportunities and all unselected fusion inputs remain unchanged.
 
-- \(\alpha=0\): the sender transmits only a charged control synopsis; the receiver does not consume that posterior.
-- \(0<\alpha<1\): the sender transmits its complete current mixture-aware LMB posterior; its nominal KLA input weight is multiplied by \(\alpha\) before normalization.
-- \(\alpha=1\): the reference full-posterior KLA input is recovered.
+- \(a=0\): the sender transmits only a charged control synopsis; the receiver does not consume that posterior.
+- \(a=1\): the sender transmits its complete current mixture-aware LMB posterior and the receiver uses its frozen nominal KLA input weight.
 
-No Gaussian-mixture component is collapsed when \(\alpha>0\). This is not the V129 light-posterior experiment: V129 changed both representation and weight, whereas V134 preserves the full mixture and changes only its trust. Communication saving comes only from zero-trust pages, so the estimation-stability role of intermediate trust and the bandwidth role of abstention remain separately measurable.
+No Gaussian-mixture component is collapsed when \(a=1\). This is not the V129 light-posterior experiment: V129 changed both representation and weight, whereas V134 preserves the full mixture and changes only temporal admission. Every non-reference action therefore has a direct wire-level interpretation.
 
-The frozen missing-input semantics determine where removed weight goes. Under `renormalize`, the remaining inputs are renormalized. Under `self`, removed neighbor mass is transferred to the receiver's self input. Both produce a row-stochastic KLA vector, and \(\alpha=0\) is operationally continuous with actual payload abstention.
+The frozen missing-input semantics determine where an omitted input's weight goes. Under `renormalize`, the remaining inputs are renormalized. Under `self`, removed neighbor mass is transferred to the receiver's self input. Both produce a row-stochastic KLA vector. These are missing-message semantics, not learned fusion-weight allocation.
 
 ## Scale-aware schedules
 
-Let \(D_F\) be the directed diameter of the frozen formation cycle. The first bank uses two sequence families for every nested set:
+Let \(D_F\) be the directed diameter of the frozen formation cycle and let \(F\) be the number of formations. The first bank uses two sequence families for every nested set:
 
-1. persistent zero trust over the full horizon, to measure the available protection headroom;
-2. zero trust for \(D_F\) pages, followed by the frozen return ramp \(0.25, 0.50, 1.00\).
+1. persistent zero admission over the full horizon, retained only to measure the protection upper bound;
+2. zero admission for \(D_F\) pages, followed by reverse-risk-order reentry of one formation per page; all remaining pages use full admission so the mature tail is measured after complete restoration.
 
-Thus \(H=D_F+3\): M24 uses \(D_F=3, H=6\), and X36 uses \(D_F=5, H=8\). This gives the intervention one complete formation-propagation time before reintegration and avoids a hand-tuned absolute dwell that changes meaning with scale.
+Thus \(H=2D_F+F\): M24 uses \(D_F=3,F=4,H=10\), and X36 uses \(D_F=5,F=6,H=16\). This gives the intervention one complete formation-propagation time before reintegration and one complete propagation time after the largest set is fully restored. Reverse risk order restores the least risky member first and keeps the most strongly protected formation omitted longest.
 
 ## Candidate-set construction
 
-Current observable posterior risk, disagreement, observation quality and downstream reach rank the formations. The deployable bank contains the empty reference plus nested prefixes of that ranking. With \(F\) formations it has \(1+2F\) actions rather than \(2^F\) subsets.
+Current observable posterior risk, disagreement, observation quality and downstream reach rank the formations. The bank contains the empty reference plus nested prefixes of that ranking. With \(F\) formations it has \(1+2F\) actions rather than \(2^F\) subsets. The persistent-zero member of each prefix is diagnostic-only; only the staggered binary-reentry member is deployable and gate-eligible.
 
 The full subset bank is retained only as an offline action-space oracle on a small number of registered development states. It answers whether the nested construction leaves important set interactions unexplained; it is not available to the deployed controller.
 

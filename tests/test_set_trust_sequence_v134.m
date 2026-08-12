@@ -3,22 +3,31 @@ function test_set_trust_sequence_v134()
 
 ranked = [4, 2, 1, 3];
 protocol = getSetTrustSequenceV134Protocol();
-assert(strcmp(protocol.payloadMode, 'full-posterior-trust'));
+assert(strcmp(protocol.payloadMode, ...
+    'binary-full-posterior-admission'));
+assert(strcmp(protocol.runtimePayloadMode, 'full-posterior-trust'));
+assert(isequal(protocol.admissionFactors, [0, 1]));
+assert(~protocol.intermediateTrustAllowed);
+assert(~protocol.learnedFusionWeightAllocationAllowed);
+assert(protocol.nominalKlaWeightsFrozen);
+assert(protocol.persistentZeroDiagnosticOnly);
 assert(protocol.preLearningGate.minimumPairedMeanEospGainFraction == 0.05);
 assert(protocol.preLearningGate.requireBothScales);
+assert(protocol.preLearningGate. ...
+    requireFullyRestoredGateEligibleAction);
 assert(protocol.reportingPolicy.failedCandidatesRepositoryOnly);
 assert(~protocol.gnnAuthorized);
 m24 = protocol.scaleCases(strcmp({protocol.scaleCases.scaleName}, 'M24'));
 x36 = protocol.scaleCases(strcmp({protocol.scaleCases.scaleName}, 'X36'));
-assert(m24.horizonSteps == 6 && x36.horizonSteps == 8);
+assert(m24.horizonSteps == 10 && x36.horizonSteps == 16);
 
 bank = buildSetTrustSequenceCandidatesV134( ...
-    ranked, m24.formationCycleDiameter, ...
-    struct('returnRamp', protocol.returnRamp));
+    ranked, m24.formationCycleDiameter);
 assert(strcmp(bank.contractVersion, ...
-    'v134-set-trust-sequence-bank-v1'));
-assert(bank.horizonSteps == 6);
+    'v134-binary-admission-sequence-bank-v2'));
+assert(bank.horizonSteps == 10);
 assert(bank.actionCount == 1 + 2 * numel(ranked));
+assert(~bank.intermediateTrustAllowed);
 assert(strcmp(bank.actions(1).scheduleKind, 'reference'));
 assert(isempty(bank.actions(1).formationSet));
 
@@ -30,10 +39,20 @@ assert(all(cellfun(@(x) isequal(x, 4), ...
 assert(all(cellfun(@(x) isequal(x, 0), ...
     persistentAction.trustFactorsByTime)));
 assert(~persistentAction.returnsToFullTrust);
+assert(persistentAction.diagnosticOnly);
+assert(~persistentAction.gateEligible);
 assert(isequal(cell2mat(tapered.trustFactorsByTime), ...
-    [0, 0, 0, 0.25, 0.50, 1.00]));
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1]));
 assert(tapered.returnsToFullTrust);
+assert(tapered.gateEligible);
+assert(~tapered.diagnosticOnly);
 assert(isequal(bank.actions(9).formationSet, ranked));
+assert(isequal(vertcat(bank.actions(9).trustFactorsByTime{:}), ...
+    [zeros(3, 4); ...
+     0, 0, 0, 1; ...
+     0, 0, 1, 1; ...
+     0, 1, 1, 1; ...
+     ones(4, 4)]));
 
 remapped = buildSetTrustSequenceCandidatesV134([8, 6, 5, 7], 3);
 assert(isequal(remapped.actions(7).formationSet, [8, 6, 5]));
@@ -125,7 +144,7 @@ request = struct( ...
         'receiverSafeFormationConditionedTrustFactorsByTime', ...
             {candidate.trustFactorsByTime}, ...
         'receiverSafeFormationConditionedPayloadMode', ...
-            protocol.payloadMode, ...
+            protocol.runtimePayloadMode, ...
         'receiverSafeFormationConditionedOnlinePolicyEnabled', false));
 authorization = assertDynamicTopologyTrackingOutcomeAuthorized( ...
     runtimeModel, execution, request);
@@ -145,32 +164,43 @@ end
 assert(failedClosed);
 
 referenceOutcome = struct( ...
-    'eospaBySensorTime', 10 * ones(4, 6), ...
-    'attemptedBytesByTime', 100 * ones(1, 6));
+    'eospaBySensorTime', 10 * ones(4, 10), ...
+    'attemptedBytesByTime', 100 * ones(1, 10));
 candidateOutcome = struct( ...
-    'eospaBySensorTime', 9 * ones(4, 6), ...
-    'attemptedBytesByTime', [20, 20, 20, 100, 100, 100]);
+    'eospaBySensorTime', 9 * ones(4, 10), ...
+    'attemptedBytesByTime', ...
+        [20, 20, 20, 100, 100, 100, 100, 100, 100, 100]);
 metrics = scoreSetTrustSequenceHeadroomV134( ...
-    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, protocol);
+    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, ...
+    protocol, tapered);
 assert(abs(metrics.meanGainFraction - 0.1) <= 1e-12);
 assert(abs(metrics.matureGainFraction - 0.1) <= 1e-12);
-assert(isequal(metrics.matureColumns, 4:6));
+assert(isequal(metrics.matureColumns, 8:10));
 assert(metrics.minimumSensorGainFraction > 0);
 assert(metrics.minimumFormationGainFraction > 0);
 assert(metrics.minimumMatureSensorGainFraction > 0);
 assert(metrics.minimumMatureFormationGainFraction > 0);
-assert(abs(metrics.attemptedByteSavingFraction - 0.4) <= 1e-12);
+assert(abs(metrics.attemptedByteSavingFraction - 0.24) <= 1e-12);
 assert(metrics.passesPreLearningGate);
+assert(metrics.actionReturnsToFullTrust);
 
-candidateOutcome.eospaBySensorTime(1, 4:6) = 12;
+candidateOutcome.eospaBySensorTime(1, 8:10) = 12;
 matureLocalRegression = scoreSetTrustSequenceHeadroomV134( ...
-    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, protocol);
+    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, ...
+    protocol, tapered);
 assert(matureLocalRegression.meanGainFraction > 0.05);
 assert(matureLocalRegression.minimumMatureSensorGainFraction < 0);
 assert(~matureLocalRegression.passesSensorGate);
 assert(~matureLocalRegression.passesPreLearningGate);
 
-fprintf('PASS: V134 set--trust sequence contract\n');
+diagnosticMetrics = scoreSetTrustSequenceHeadroomV134( ...
+    referenceOutcome, candidateOutcome, [1, 1, 2, 2], 3, ...
+    protocol, persistentAction);
+assert(diagnosticMetrics.actionDiagnosticOnly);
+assert(~diagnosticMetrics.actionGateEligible);
+assert(~diagnosticMetrics.passesPreLearningGate);
+
+fprintf('PASS: V134 binary posterior-admission contract\n');
 end
 
 function object = makeObject()
