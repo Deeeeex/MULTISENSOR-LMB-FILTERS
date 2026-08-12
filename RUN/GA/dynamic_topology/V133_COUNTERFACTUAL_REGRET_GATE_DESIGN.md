@@ -10,6 +10,8 @@ The action changes no physical or logical topology. The same carrier edge is att
 
 Development runs compare fixed clockwise and fixed counter-clockwise full-posterior carriers on complete trajectories. The lower paired mean E-OSPA carrier is then frozen before calibration. Per-state future outcomes are never used to switch the fallback carrier online.
 
+For recoverability, every scale--seed--carrier trajectory is executed and saved as an independent shard. The finalizer refuses partial, duplicated, dirty-source or mixed-commit matrices and applies the same complete-development-trajectory mean rule only after all 16 registered arms are present. Sharding changes execution reliability, not the statistical unit or carrier-selection rule.
+
 ## State representation
 
 The first model is deliberately interpretable. Its inputs combine:
