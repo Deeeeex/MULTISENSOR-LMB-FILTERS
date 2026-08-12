@@ -258,6 +258,13 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isProjectedFormationRowCompositionV123ExecutionContext( ...
+            executionContext)
+        authorization = ...
+            validateOnlinePositiveNetAddressablePayloadV99Execution( ...
+                model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
@@ -1542,6 +1549,8 @@ v119Context = isTimeExpandedDualPathV119ExecutionContext(context);
 v120Context = isTimeExpandedCarrierSwitchV120ExecutionContext(context);
 v121Context = isMixedCarrierInsertionV121ExecutionContext(context);
 v122Context = isUpstreamBoundaryReleaseV122ExecutionContext(context);
+v123Context = ...
+    isProjectedFormationRowCompositionV123ExecutionContext(context);
 v114Context = ...
     isInfluenceConeBoundaryShieldV114ExecutionContext(context);
 v113Context = isInfluenceConeCarrierV113ExecutionContext(context);
@@ -1564,7 +1573,17 @@ v100Context = ...
 expectedPayloadMode = 'control-only';
 expectedExceptionSchedule = cell(1, 0);
 expectedBoundaryFormationId = 0;
-if v122Context
+if v123Context
+    protocol = getProjectedFormationRowCompositionV123Protocol();
+    expectedCapability = ...
+        'projected-formation-row-composition-v123-development';
+    expectedAction = ...
+        'filter-projected-formation-row-composition-v123-development';
+    nameRequestsOnline = false;
+    authorizationMode = ...
+        'projected-formation-row-composition-v123-development';
+    expectedPayloadMode = 'abstention-only';
+elseif v122Context
     protocol = getUpstreamBoundaryReleaseV122Protocol();
     expectedCapability = ...
         'upstream-boundary-release-v122-development';
