@@ -344,6 +344,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isPredictiveEvidenceFallbackV137ExecutionContext(executionContext)
+        authorization = validatePredictiveEvidenceFallbackV137Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
