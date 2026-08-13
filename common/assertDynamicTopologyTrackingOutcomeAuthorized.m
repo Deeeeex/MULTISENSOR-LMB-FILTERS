@@ -354,6 +354,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isCombinedOutputSafetyV139ExecutionContext(executionContext)
+        authorization = validateCombinedOutputSafetyV139Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
