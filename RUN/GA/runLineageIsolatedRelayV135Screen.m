@@ -206,7 +206,7 @@ for formationIdx = 1:numel(formationIds)
         mean(candidateEosp(members, :), 'all'));
 end
 activeAbstentionByReceiverTime = squeeze(any( ...
-    candidate.abstentionByTime, 1));
+    candidate.abstentionByTime, 2));
 if isvector(activeAbstentionByReceiverTime)
     activeAbstentionByReceiverTime = reshape( ...
         activeAbstentionByReceiverTime, [], horizonSteps);
