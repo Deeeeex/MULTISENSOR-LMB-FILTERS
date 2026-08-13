@@ -333,6 +333,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isLineageIsolatedRelayV135ExecutionContext(executionContext)
+        authorization = validateLineageIsolatedRelayV135Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
