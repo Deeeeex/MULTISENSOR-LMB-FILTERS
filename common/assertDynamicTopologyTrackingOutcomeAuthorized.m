@@ -349,6 +349,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isPostFusionLabelReadoutV138ExecutionContext(executionContext)
+        authorization = validatePostFusionLabelReadoutV138Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
