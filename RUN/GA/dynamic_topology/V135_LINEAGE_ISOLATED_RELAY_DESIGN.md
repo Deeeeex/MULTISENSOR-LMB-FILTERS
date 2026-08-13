@@ -31,8 +31,10 @@ identical to the full-posterior reference.  This phase makes no communication
 saving claim; payload compression is authorized only after this mechanism
 passes both scales.
 
-M24 uses the frozen V134 rank-1/rank-3 pair action because it had the strongest
-useful aggregate headroom without the severe long-tail regression of the
-all-formation V134 action.  X36 uses the all-ranked-formation staggered action
-as a direct scale stress test.  Results that fail the joint gate remain in the
-repository only and are not added to the main Lark document.
+The first M24 pair screen proved that the relay state removes the long-tail
+regression but isolates useful working-state gains too narrowly.  The decisive
+mechanism screen therefore uses the all-ranked-formation staggered action on
+both scales.  In V134 that M24 action had +8.553% intervention headroom but
+failed because its altered state later propagated; V135 directly tests whether
+lineage isolation removes that failure mode.  Results that fail the joint gate
+remain in the repository only and are not added to the main Lark document.
