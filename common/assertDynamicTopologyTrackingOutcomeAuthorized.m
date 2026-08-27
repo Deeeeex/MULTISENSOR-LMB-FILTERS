@@ -359,6 +359,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isReferenceCardinalityReadoutV140ExecutionContext(executionContext)
+        authorization = validateReferenceCardinalityReadoutV140Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
