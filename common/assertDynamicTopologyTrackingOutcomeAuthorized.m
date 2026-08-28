@@ -397,6 +397,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isCounterfactualEdgeRoleV146ExecutionContext(executionContext)
+        authorization = validateCounterfactualEdgeRoleV146Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
