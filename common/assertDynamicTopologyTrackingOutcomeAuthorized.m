@@ -392,6 +392,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isProtectionLoadGatedRoleV145ExecutionContext(executionContext)
+        authorization = validateProtectionLoadGatedRoleV145Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isAddressableRiskAdaptivePayloadV96ExecutionContext( ...
             executionContext)
         authorization = ...
