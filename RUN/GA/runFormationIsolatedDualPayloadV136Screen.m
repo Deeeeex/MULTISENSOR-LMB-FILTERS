@@ -28,8 +28,12 @@ if seed ~= protocol.pilotSeed
 end
 anchorTime = ...
     resolveSetTrustSequenceV134PilotAnchor(caseInfo, protocol);
-statePath = getField(options, 'v134PilotStatePath', ...
-    defaultV134PilotStatePath(presetName, seed, anchorTime));
+if isfield(options, 'v134PilotStatePath') && ...
+        ~isempty(options.v134PilotStatePath)
+    statePath = options.v134PilotStatePath;
+else
+    statePath = defaultV134PilotStatePath(presetName, seed, anchorTime);
+end
 loaded = load(statePath, 'pilotState');
 state = validateV134State( ...
     loaded, presetName, seed, anchorTime, caseInfo);
