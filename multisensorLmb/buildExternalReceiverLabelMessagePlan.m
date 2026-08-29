@@ -28,6 +28,8 @@ supportThreshold = getField(triggerConfig, ...
     'receiverSafeExternalPositiveSupportThreshold', 0.20);
 explicitOmissionEnabled = logical(getField(triggerConfig, ...
     'receiverSafeExternalExplicitOmissionEnabled', false));
+positiveSupportOmissionAllowed = logical(getField(triggerConfig, ...
+    'receiverSafeExternalPositiveSupportOmissionAllowed', false));
 
 plan = struct();
 if explicitOmissionEnabled
@@ -68,7 +70,9 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
             localPosteriorBySensor{senderIdx}, activeThreshold);
         labelsToDrop = validateDropLabels( ...
             dropPlan{receiverIdx, senderIdx});
-        validateSenderSupport(objects, labelsToDrop, supportThreshold);
+        if ~positiveSupportOmissionAllowed
+            validateSenderSupport(objects, labelsToDrop, supportThreshold);
+        end
         payload = dropLabels(objects, labelsToDrop);
         baselineStats = estimateLmbPayloadSize( ...
             objects, model, 2, updateDiagnostics{senderIdx});

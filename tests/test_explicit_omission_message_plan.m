@@ -65,6 +65,18 @@ assert(numel(fullPlan.payloadByReceiverSender{1, 2}) == 1);
 assert(fullPlan.receiverDetails(1).controlSynopsisBytesBySender == 0);
 assert(fullPlan.totalAttemptedBytes == fullPlan.totalBaselineFullBytes);
 
+positiveObject = object;
+positiveObject.detectionAssociationMass = 0.8;
+positivePosteriors = {positiveObject, positiveObject};
+oracleConfig = config;
+oracleConfig.receiverSafeExternalPositiveSupportOmissionAllowed = true;
+oraclePlan = buildExternalReceiverLabelMessagePlan( ...
+    positivePosteriors, selectiveEdges, updateDiagnostics, model, ...
+    oracleConfig);
+assert(oraclePlan.explicitLabelOmissionRegisteredEdgeMask(2, 1));
+assert(isempty(oraclePlan.payloadByReceiverSender{1, 2}));
+assert(oraclePlan.totalAttemptedBytes == 24);
+
 fprintf('test_explicit_omission_message_plan passed\n');
 end
 
