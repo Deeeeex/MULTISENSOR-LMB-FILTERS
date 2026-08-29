@@ -59,20 +59,29 @@ screenOptions.outputAlignedLabelOracleBankOptions = bankOptions;
 
 [rankedCandidateIndices, rankedRecordIndices] = ...
     rankPositiveSingletons(singletonScreen);
-bundleSizes = bundleSizes(bundleSizes <= numel(rankedCandidateIndices));
+observableBundleSizes = bundleSizes( ...
+    bundleSizes <= numel(singletonScreen.bank.candidates));
+outcomeRankedBundleSizes = bundleSizes( ...
+    bundleSizes <= numel(rankedCandidateIndices));
 bundleScreen = struct();
 bundleReportPath = '';
-if ~isempty(bundleSizes)
-    selections = cell(1, 1 + numel(bundleSizes));
-    names = cell(1, 1 + numel(bundleSizes));
-    selections{1} = zeros(1, 0);
-    names{1} = 'reference-full-payload';
-    for bundleIdx = 1:numel(bundleSizes)
-        bundleSize = bundleSizes(bundleIdx);
-        selections{1 + bundleIdx} = ...
-            rankedCandidateIndices(1:bundleSize);
-        names{1 + bundleIdx} = sprintf( ...
-            'output-ranked-positive-top-%d', bundleSize);
+if ~isempty(observableBundleSizes) || ...
+        ~isempty(outcomeRankedBundleSizes)
+    selections = {zeros(1, 0)};
+    names = {'reference-full-payload'};
+    for bundleSize = observableBundleSizes
+        selections{end + 1} = 1:bundleSize; %#ok<AGROW>
+        names{end + 1} = sprintf( ...
+            'current-fused-impact-top-%d', bundleSize); %#ok<AGROW>
+    end
+    for bundleSize = outcomeRankedBundleSizes
+        selected = rankedCandidateIndices(1:bundleSize);
+        if selectionExists(selections, selected)
+            continue;
+        end
+        selections{end + 1} = selected; %#ok<AGROW>
+        names{end + 1} = sprintf( ...
+            'output-ranked-positive-top-%d', bundleSize); %#ok<AGROW>
     end
     bundleBankOptions = bankOptions;
     bundleBankOptions.actionCandidateSelections = selections;
@@ -100,7 +109,10 @@ result.protocol = protocol;
 result.caseEntry = caseEntry;
 result.cacheRoot = cacheRoot;
 result.maximumSingletonActions = maximumSingletonActions;
-result.bundleSizesEvaluated = bundleSizes;
+result.observableBundleSizesEvaluated = observableBundleSizes;
+result.outcomeRankedBundleSizesEvaluated = outcomeRankedBundleSizes;
+result.bundleSizesEvaluated = unique([ ...
+    observableBundleSizes, outcomeRankedBundleSizes], 'stable');
 result.singletonReportPath = singletonReportPath;
 result.bundleReportPath = bundleReportPath;
 result.rankedPositiveSingletonCandidateIndices = ...
@@ -110,7 +122,8 @@ result.bestActionSource = bestSource;
 result.bestRecord = bestRecord;
 result.bestOutcome = bestOutcome;
 result.gate = gate;
-result.futureOutcomesUsedForBundleComposition = true;
+result.futureOutcomesUsedForBundleComposition = ...
+    ~isempty(outcomeRankedBundleSizes);
 result.developmentEvidenceOnly = true;
 
 matPath = fullfile(outputRoot, ...
@@ -167,6 +180,17 @@ for idx = 1:numel(recordIndices)
     actionIdx = screen.records(recordIndices(idx)).actionIndex;
     candidateIndices(idx) = ...
         screen.bank.actionCandidateIndices{actionIdx};
+end
+end
+
+function detected = selectionExists(selections, candidate)
+detected = false;
+candidate = sort(reshape(candidate, 1, []));
+for idx = 1:numel(selections)
+    if isequal(sort(reshape(selections{idx}, 1, [])), candidate)
+        detected = true;
+        return;
+    end
 end
 end
 

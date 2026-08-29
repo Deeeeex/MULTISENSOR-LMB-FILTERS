@@ -29,15 +29,19 @@ the same action space is not justified.
 ## Two-stage oracle
 
 1. At an opened continuation state, construct a bounded candidate set from the
-   current posterior and the frozen cross-formation residual route.  The
-   observable pre-ranking uses source weight, existence disagreement, support
-   disagreement and spatial disagreement.  It does not use truth or future
-   measurements.
+   current posterior and the frozen cross-formation residual route.  Each
+   primitive omission is first replayed through the exact current one-round
+   mixture-aware LMB-KLA.  The observable pre-ranking prioritizes decision
+   crossings, MAP-cardinality changes, existence changes and spatial shifts;
+   source weight and posterior disagreement break ties.  It does not use truth
+   or future measurements.
 2. Replay each singleton omission through the ordinary filter and score the
    final recursive H=8 tracking outputs.
-3. Rank only byte-safe positive singleton outcomes, form small prefix bundles,
-   and replay those bundles independently.  This composition step uses future
-   outcomes and is therefore explicitly privileged development evidence.
+3. Independently replay two small bundle families: prefixes of the current
+   fused-impact ranking, and prefixes of byte-safe positive singleton outcomes.
+   The second family uses future outcomes and is therefore explicitly
+   privileged development evidence.  Keeping the first family prevents a lack
+   of positive singletons from hiding bundle interactions.
 
 The intervention lasts one step; all later steps return to the registered
 full-payload reference route.  This separates downstream value from a permanent
