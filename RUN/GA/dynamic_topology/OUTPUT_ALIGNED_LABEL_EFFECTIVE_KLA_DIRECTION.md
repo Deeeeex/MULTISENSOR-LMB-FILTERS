@@ -197,7 +197,10 @@ than grouping all prior work under a generic "adaptive" label:
    Transactions on Signal Processing, 2022,
    doi:`10.1109/TSP.2022.3154227`.  Its separated trigger is the closest
    communication-side alternative and must be compared at matched attempted
-   bytes, not only at a matched trigger count.
+   bytes, not only at a matched trigger count.  A silent component keeps the
+   receiver's predicted copy of the last received same-label Bernoulli; it is
+   not zero-weight abstention and must not be implemented with the candidate's
+   omission semantics.
 4. **Candidate without learned ranking:** the same explicit label-action
    protocol with a deterministic analytic score.  This establishes whether a
    learned model contributes beyond the action semantics and safety
