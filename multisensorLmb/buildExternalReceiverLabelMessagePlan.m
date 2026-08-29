@@ -4,8 +4,10 @@ function plan = buildExternalReceiverLabelMessagePlan( ...
 % BUILDEXTERNALRECEIVERLABELMESSAGEPLAN Execute a frozen V61 label mask.
 %
 % The externally supplied plan is built before future tracking outcomes are
-% scored.  This function only filters complete sender Bernoulli mixtures and
-% adds the compact synopsis cost needed to make the same decision online.
+% scored.  It filters complete sender Bernoulli mixtures.  In the explicit
+% omission mode, every dropped local label is named in a charged control
+% envelope so the receiver can distinguish deliberate omission from natural
+% label absence.
 
 sensorCount = numel(localPosteriorBySensor);
 dropPlan = getField(triggerConfig, ...
@@ -24,11 +26,24 @@ selectiveEdgeMask(1:sensorCount+1:end) = false;
 activeThreshold = triggerConfig.payloadExistenceThreshold;
 supportThreshold = getField(triggerConfig, ...
     'receiverSafeExternalPositiveSupportThreshold', 0.20);
+explicitOmissionEnabled = logical(getField(triggerConfig, ...
+    'receiverSafeExternalExplicitOmissionEnabled', false));
 
 plan = struct();
-plan.contractVersion = 'external-receiver-label-message-plan-v61-v1';
+if explicitOmissionEnabled
+    plan.contractVersion = ...
+        'external-explicit-label-omission-message-plan-v1';
+else
+    plan.contractVersion = 'external-receiver-label-message-plan-v61-v1';
+end
 plan.mode = 'external-label-plan';
 plan.selectiveEdgeMask = selectiveEdgeMask;
+plan.abstainFromFusionEdgeMask = false(sensorCount);
+plan.labelWhitelistRestrictedEdgeMask = false(sensorCount);
+plan.explicitLabelOmissionRegisteredEdgeMask = false(sensorCount);
+plan.explicitOmittedLabelsByReceiverSender = cell(sensorCount);
+plan.fusionTrustFactorByReceiverSender = ones(sensorCount);
+plan.eventTypeByReceiverSender = 2 * ones(sensorCount);
 plan.payloadByReceiverSender = cell(sensorCount);
 plan.synopsisByReceiverSender = cell(sensorCount);
 plan.receiverDetails = repmat(makeReceiverDetails(), 1, sensorCount);
@@ -59,7 +74,19 @@ for receiverIdx = reshape(find(any(selectiveEdgeMask, 1)), 1, [])
             objects, model, 2, updateDiagnostics{senderIdx});
         selectedStats = estimateLmbPayloadSize( ...
             payload, model, 2, updateDiagnostics{senderIdx});
-        synopsis = compactSynopsis(numel(objects), model.xDimension);
+        if explicitOmissionEnabled
+            if isempty(labelsToDrop)
+                synopsis = emptySynopsis();
+            else
+                synopsis = explicitOmissionEnvelopeSynopsis(labelsToDrop);
+                plan.explicitLabelOmissionRegisteredEdgeMask( ...
+                    senderIdx, receiverIdx) = true;
+                plan.explicitOmittedLabelsByReceiverSender{ ...
+                    receiverIdx, senderIdx} = labelsToDrop;
+            end
+        else
+            synopsis = compactSynopsis(numel(objects), model.xDimension);
+        end
         plan.payloadByReceiverSender{receiverIdx, senderIdx} = payload;
         plan.synopsisByReceiverSender{receiverIdx, senderIdx} = synopsis;
         plan.activeLabelCountBySender(senderIdx) = max( ...
@@ -103,6 +130,25 @@ if ~plan.byteBudgetSatisfied
     error('ExternalReceiverLabelPlan:ByteBudgetExceeded', ...
         'The selected labels plus synopsis exceed the reference payload.');
 end
+end
+
+function synopsis = emptySynopsis()
+synopsis = struct( ...
+    'contractVersion', 'lmb-no-separate-control-envelope-v1', ...
+    'labelCount', 0, ...
+    'estimatedBytes', 0, ...
+    'scalarCount', 0);
+end
+
+function synopsis = explicitOmissionEnvelopeSynopsis(labels)
+fixedEnvelopeBytes = 16;
+labelIdentifierBytes = 8 * size(labels, 2);
+estimatedBytes = fixedEnvelopeBytes + labelIdentifierBytes;
+synopsis = struct( ...
+    'contractVersion', 'lmb-explicit-omission-envelope-v1', ...
+    'labelCount', size(labels, 2), ...
+    'estimatedBytes', estimatedBytes, ...
+    'scalarCount', estimatedBytes / 8);
 end
 
 function labels = validateDropLabels(labels)
