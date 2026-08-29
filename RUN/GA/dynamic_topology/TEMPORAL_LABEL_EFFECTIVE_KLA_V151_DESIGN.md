@@ -36,6 +36,22 @@ projection keeps at least self participation, limits the omitted fraction on
 each edge, preserves the carrier graph and falls back to the complete
 reference message whenever a constraint is ambiguous.
 
+### Full-horizon communication debt
+
+Immediate payload saving is not the communication objective.  An omission can
+change the fused posterior, alter later component/label complexity and thereby
+increase later full messages by more than it saved at the intervention step.
+The selector therefore needs a predicted *posterior-complexity debt* term, and
+the hard gate is always the measured full-horizon attempted bytes.
+
+V150 also exposes two useful action roles: some omissions improve recursive
+tracking but consume future byte budget, while other omissions leave final
+outputs unchanged and release byte budget.  V151 treats selection as a joint
+benefit--budget projection rather than ranking every label by one scalar.  A
+small deterministic knapsack may combine task-benefit labels with verified
+budget-donor labels, subject to the same per-edge omission cap and full-message
+fallback.
+
 ## Temporal control
 
 The action is rebuilt from the actual candidate posterior at every active
