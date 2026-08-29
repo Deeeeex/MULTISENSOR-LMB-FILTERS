@@ -177,6 +177,37 @@ state plainly when that reproduction is unavailable.  Otherwise an observed
 gain over the repository's missing-label approximation cannot by itself be
 attributed to communication scheduling.
 
+## Required comparison roles
+
+The frozen evaluation names each baseline by the question it answers rather
+than grouping all prior work under a generic "adaptive" label:
+
+1. **Full-payload control:** the repository's single-state mixture-aware
+   LMB-KLA reference with the same physical graph and natural missing-label
+   rule.  This isolates the effect of selective communication.
+2. **Different-FoV adaptive-track control:** Shen et al., *Consensus-Based
+   Labeled Multi-Bernoulli Filter for Multitarget Tracking in Distributed
+   Sensor Network*, IEEE Transactions on Cybernetics, 2022,
+   doi:`10.1109/TCYB.2021.3087521`.  Its undetected-target model and
+   track-wise weight selection/evolution are the closest filtering-side
+   alternative.  Reproduce it under the common scenario contract when
+   feasible; otherwise report a component ablation and the exact mismatch.
+3. **Component event-trigger control:** Shen et al., *Consensus-Based Labeled
+   Multi-Bernoulli Filter With Event-Triggered Communication*, IEEE
+   Transactions on Signal Processing, 2022,
+   doi:`10.1109/TSP.2022.3154227`.  Its separated trigger is the closest
+   communication-side alternative and must be compared at matched attempted
+   bytes, not only at a matched trigger count.
+4. **Candidate without learned ranking:** the same explicit label-action
+   protocol with a deterministic analytic score.  This establishes whether a
+   learned model contributes beyond the action semantics and safety
+   projector.
+
+The 2023 adaptive-threshold extension (doi:`10.1109/TCSII.2023.3238346`) is a
+secondary event-trigger reference.  It is not a substitute for the separated
+component trigger because it adapts the threshold rather than introducing the
+same edge--label action semantics.
+
 ## Evaluation order
 
 After a joint M24/X36 development headroom pass, freeze the action semantics,
