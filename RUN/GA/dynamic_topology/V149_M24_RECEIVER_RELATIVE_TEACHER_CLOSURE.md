@@ -46,3 +46,12 @@ and does not increase communication.  One frozen X36 development audit is
 therefore more informative than another label-score refinement.  It cannot
 retroactively promote the below-gate M24 result and must be followed by fresh
 M24/X36 validation if the delayed-horizon hypothesis survives.
+
+This closure does not let M24 falsify the X36-only reference-cover mechanism.
+The V142 M24 arm was exactly unchanged because it contained no effective
+reference-supported missing-label output, whereas X36 contained the six
+decisive cells.  After the V145 transfer audit, one separately registered
+V149 X36 mechanism diagnostic may therefore test whether mandatory R-label
+cover repairs those cells under one payload.  Such a run does not reopen the
+failed joint V149 gate, does not authorize learning, and remains a privileged
+teacher diagnostic even if positive.
