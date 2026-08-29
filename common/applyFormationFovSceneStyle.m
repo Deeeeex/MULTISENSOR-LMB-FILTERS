@@ -156,6 +156,44 @@ switch styleName
             config.formationCount, 'merge-split');
         config.focusWindowName = 'formation-merge-and-branch-split';
         config = markExploratoryStyle(config);
+    case {'target-overlap', 'target-group-overlap-split', ...
+            'target-merge-split'}
+        if mod(config.targetGroupCount, 2) ~= 0
+            error(['Target-group overlap/split requires two equally ', ...
+                'sized target cohorts.']);
+        end
+        config.sceneStyle = 'target-group-overlap-split';
+        config.informationFlowStyle = [ ...
+            'stationary-sensor-chain-two-target-cohorts-overlap-', ...
+            'and-reseparate'];
+        config.regionLimits = [-1040, 1040; -520, 620];
+        config.formationHeadingMode = 'fixed';
+        config.sensorFovHeadingMode = 'formation-shared-fixed';
+        config.sensorFovFixedHeadingRadByFormation = ...
+            -(pi / 2) * ones(1, config.formationCount);
+        % Reuse the exact stationary relay formation motion.  The scene
+        % changes only target information flow, not platform trajectories
+        % or sensor hardware.
+        config.sensorCenterWaypoints = buildRelayFormationWaypoints( ...
+            config.formationCount);
+        config.targetRoutes = buildTargetGroupOverlapSplitRoutes( ...
+            config.targetGroupCount, config.formationCount);
+        config.targetBirthTimesByGroup = ...
+            ones(1, config.targetGroupCount);
+        config.targetDeathTimesByGroup = ...
+            config.simulationLength * ones(1, config.targetGroupCount);
+        config.targetCrossTrackSpacing = 18;
+        config.minimumTargetSeparation = 8;
+        config.minimumSensorTargetSeparation = 30;
+        config.targetAccelerationLimit = 1.5;
+        config.requireStaticPhysicalAllTimes = true;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
+            config.formationCount, 'target-group-overlap-split');
+        config.focusWindow = [50, 125];
+        config.focusWindowName = ...
+            'target-cohort-overlap-and-reseparation';
+        config = markExploratoryStyle(config);
     case {'curved-corridor', 'turning-corridor'}
         config.sceneStyle = 'curved-corridor';
         config.informationFlowStyle = ...
@@ -427,6 +465,43 @@ for groupIdx = 1:targetGroupCount
         0.55 * entryLanes(groupIdx), ...
         denseLanes(groupIdx), ...
         0.35 * denseLanes(groupIdx) + 0.65 * exitLane, ...
+        exitLane];
+    routes{groupIdx} = [ ...
+        progress + longitudinalOffsets(groupIdx); y];
+end
+end
+
+function routes = buildTargetGroupOverlapSplitRoutes( ...
+        targetGroupCount, formationCount)
+% Two target cohorts share the same monitored lanes near the middle of the
+% episode, then exchange their separated service bands.  Group-specific
+% longitudinal offsets prevent artificial target collisions while preserving
+% genuine FoV overlap and label ambiguity.  Sensor formations remain fixed.
+cohortSize = targetGroupCount / 2;
+if formationCount <= 4
+    progress = [-600, -300, 0, 300, 600];
+else
+    progress = [-850, -425, 0, 425, 850];
+end
+longitudinalOffsets = centeredValues(targetGroupCount, 50);
+separatedLocalLanes = centeredValues(cohortSize, 30);
+overlapLocalLanes = centeredValues(cohortSize, 45);
+entryCenters = [100, 200];
+exitCenters = [200, 100];
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    cohortIdx = 1 + (groupIdx > cohortSize);
+    localIdx = mod(groupIdx - 1, cohortSize) + 1;
+    entryLane = entryCenters(cohortIdx) + ...
+        separatedLocalLanes(localIdx);
+    overlapLane = 150 + overlapLocalLanes(localIdx);
+    exitLane = exitCenters(cohortIdx) + ...
+        separatedLocalLanes(localIdx);
+    y = [ ...
+        entryLane, ...
+        0.55 * entryLane + 0.45 * overlapLane, ...
+        overlapLane, ...
+        0.45 * overlapLane + 0.55 * exitLane, ...
         exitLane];
     routes{groupIdx} = [ ...
         progress + longitudinalOffsets(groupIdx); y];

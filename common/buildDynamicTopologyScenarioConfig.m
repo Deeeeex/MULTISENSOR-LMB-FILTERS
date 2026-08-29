@@ -50,6 +50,12 @@ switch canonicalName
     case {'m24-formation-fov-merge-split', 'm24-merge-split-fov'}
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'m24-formation-fov-target-overlap', ...
+            'm24-target-overlap-fov', ...
+            'm24-formation-fov-target-merge-split'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle( ...
+            config, 'target-group-overlap-split');
     case {'m24-formation-fov-curved-corridor', 'm24-curved-fov'}
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'curved-corridor');
@@ -79,6 +85,12 @@ switch canonicalName
     case {'x36-formation-fov-merge-split', 'x36-merge-split-fov'}
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'x36-formation-fov-target-overlap', ...
+            'x36-target-overlap-fov', ...
+            'x36-formation-fov-target-merge-split'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle( ...
+            config, 'target-group-overlap-split');
     case {'x36-formation-fov-curved-corridor', 'x36-curved-fov'}
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'curved-corridor');
