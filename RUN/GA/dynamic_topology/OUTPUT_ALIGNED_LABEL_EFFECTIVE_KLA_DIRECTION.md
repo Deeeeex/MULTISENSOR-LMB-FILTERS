@@ -10,12 +10,18 @@ boundary.  The remaining question is narrower:
 
 > Under a fixed physical carrier and a hard byte budget, can a time-varying
 > edge--label participation graph improve the final recursive tracking output
-> of a standard single-state LMB-KLA filter?
+> of a single-state mixture-aware LMB-KLA filter?
 
 The candidate must be compared with the same-scene, same-seed full-posterior
-single-state LMB-KLA baseline.  The lineage-relay W/R states, post-fusion
-label readout and whole-node predictive fallback are disabled.  They are not
-part of the new action space or baseline.
+single-state LMB-KLA reference used by this repository.  Its powered-product
+fusion retains Gaussian-mixture structure, while its handling of naturally
+different label sets still uses the explicitly documented
+`fov-aware-censored` approximation.  The reference is therefore not described
+as an exact arbitrary-label-set LMB-KLA.  The candidate and control keep that
+natural missing-label rule identical.  Only labels deliberately omitted by
+the communication action receive explicit zero participation.  The
+lineage-relay W/R states, post-fusion label readout and whole-node predictive
+fallback are disabled; they are not part of the new action space or baseline.
 
 ## Fusion semantics
 
@@ -45,7 +51,7 @@ neutral omission rule.
 No GNN is trained first.  A privileged finite-horizon oracle must establish
 that this action space has useful cross-scale headroom.
 
-The oracle starts from frozen standard full-payload state caches.  It changes
+The oracle starts from frozen single-state full-payload reference caches.  It changes
 only complete-label participation on physically attempted edges, replays the
 ordinary mixture-aware fusion, extraction, prediction and update chain, and
 scores the resulting final sensor outputs over a fixed horizon.  Candidate
@@ -119,6 +125,12 @@ The theory should therefore address two claims only:
 
 Neither claim implies tracking improvement.  That remains an empirical,
 paired cross-scale result.
+
+The experimental comparison must also include the closest adaptive
+track-weight / undetected-target treatment from prior consensus-LMB work, or
+state plainly when that reproduction is unavailable.  Otherwise an observed
+gain over the repository's missing-label approximation cannot by itself be
+attributed to communication scheduling.
 
 ## Evaluation order
 
