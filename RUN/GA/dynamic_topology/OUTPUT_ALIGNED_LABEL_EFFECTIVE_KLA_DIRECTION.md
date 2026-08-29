@@ -208,6 +208,14 @@ secondary event-trigger reference.  It is not a substitute for the separated
 component trigger because it adapts the threshold rather than introducing the
 same edge--label action semantics.
 
+The repository's existing `DualThresholdEventTriggerCompare` arm is not a
+reproduction of the 2022 separated trigger.  It classifies a whole message as
+silent, light or heavy from a calibrated aggregate utility, whereas the paper
+tests each same-label Bernoulli component against the prediction of its latest
+broadcast reference.  The existing arm may remain an engineering baseline,
+but it cannot satisfy comparison role 3 without a new faithful adapter and
+matched-byte calibration.
+
 ## Evaluation order
 
 After a joint M24/X36 development headroom pass, freeze the action semantics,
