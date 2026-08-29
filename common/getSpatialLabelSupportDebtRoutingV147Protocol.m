@@ -12,6 +12,9 @@ protocol.outcomePolicyName = ...
     'spatial-label-support-debt-routing-v147-screen-v1';
 protocol.pilotSeed = source.pilotSeed;
 protocol.filterSeedOffset = source.filterSeedOffset;
+protocol.pilotAnchorQuantileWithinFocusWindow = ...
+    source.pilotAnchorQuantileWithinFocusWindow;
+protocol.pilotAnchorRule = source.pilotAnchorRule;
 protocol.primaryMissingNeighborWeightMode = ...
     source.primaryMissingNeighborWeightMode;
 protocol.nominalKlaWeightMode = source.nominalKlaWeightMode;
