@@ -35,16 +35,61 @@ semantics:
 
 An omitted label is not imputed as low-existence evidence through
 `fov-aware-censored`.  The receiver renormalizes the registered KLA weights
-over the sources that explicitly participate for that label.  This is already
-supported by the repository's restricted label-whitelist metadata, but the
-new protocol must attach it to every selective payload and charge the
-transmitted label identifiers and control metadata.
+over the sources that explicitly participate for that label.
+
+The current restricted label-whitelist hook is not sufficient to implement
+this protocol.  It treats every label absent from a restricted payload as an
+explicit abstention, so it cannot distinguish the following two cases:
+
+- the sender did not contain the label in its local posterior; and
+- the sender contained the label but deliberately omitted it.
+
+Those cases must remain different because the first retains the reference's
+natural missing-label rule, while only the second has zero participation.  A
+selective message therefore carries an explicit **omitted-local-label set** in
+addition to the complete Bernoulli mixtures that participate.  For a label
+missing from the payload, the receiver applies zero weight if and only if its
+identifier appears in that set; otherwise it applies the unchanged natural
+`fov-aware-censored` rule.  Label identifiers and envelope fields are charged
+as attempted bytes.
+
+The runtime must also preserve a successfully delivered envelope when every
+local label is omitted.  The present message path drops an empty posterior
+before fusion, which would silently turn an all-label abstention into a
+whole-neighbor absence.  The new message representation therefore separates
+delivery from payload cardinality: a received zero-payload envelope remains a
+fusion input with its source weight and explicit omitted-label set.  This is a
+required semantic change, not an optional implementation optimization.
 
 The distinction is mathematical, not cosmetic.  For Bernoulli inputs, KLA
 combines existence log-odds and the spatial-overlap normalizer.  Assigning an
 arbitrary low existence to a non-transmitted source changes both terms;
 assigning zero participation weight is the only placeholder-independent
 neutral omission rule.
+
+## Minimal implementation boundary
+
+The mixture-aware powered-product kernel does not need to be replaced.  The
+smallest defensible implementation changes are:
+
+1. replace the whitelist-as-abstention contract with per-source explicit
+   omitted-local-label sets;
+2. carry a delivery flag and control envelope independently of whether the
+   posterior array is empty;
+3. let `fuseLmbPosteriorsByLabel` mask a source only when the current label is
+   explicitly listed as omitted, leaving all other missing labels to the
+   frozen natural-missing rule;
+4. introduce one general edge--label message planner, separate from the
+   formation-specific V62 planner, that emits complete Bernoulli mixtures,
+   omission metadata and exact byte accounting; and
+5. replay candidate and full-payload control through the same ordinary
+   single-state predict--update--fusion path with lineage and readout features
+   disabled.
+
+A focused semantic test must include all three states for the same source:
+participating label, explicitly omitted local label, and naturally absent
+label.  It must also cover an all-label-omitted delivered envelope.  Without
+those cases, an apparent oracle gain is not admissible evidence.
 
 ## Headroom before learning
 
