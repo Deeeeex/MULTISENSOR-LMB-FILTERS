@@ -30,6 +30,27 @@ no target truth, future measurement, future outcome, or paired alternative
 result.  A positive result would still require a separately transmitted and
 charged receiver request/synopsis before deployment.
 
+## Direct prior-work boundary
+
+Separated event-triggered LMB communication already compares each current
+Bernoulli component with the predicted copy of the most recently broadcast
+component and transmits the current component only when their KL discrepancy
+crosses a threshold (Shen et al., IEEE TSP 2022,
+doi:10.1109/TSP.2022.3154227).  Related event-triggered consensus LMB work
+also triggers informative Bernoulli components separately (Li et al., IEEE
+TAES 2023, doi:10.1109/TAES.2022.3187390).  Consequently, neither
+"per-label transmission" nor "choosing current versus retained information"
+is a valid novelty claim by itself.
+
+The narrower V149 question is whether four constraints can be combined in a
+useful way: the decision is conditioned on a particular receiver, its score
+is computed after the installed mixture-aware KLA rather than from a
+sender-only discrepancy, every R label remains covered, and the complete
+one-message payload obeys a hard same-edge byte cap.  V149 evaluates these
+properties edge by edge and is still only a privileged teacher.  A positive
+result would motivate a receiver-row joint projector and a charged synopsis;
+it would not establish priority over event-triggered component selection.
+
 ## Exact byte and support projection
 
 The same-edge full R payload is both the label-cover baseline and byte cap.
@@ -59,4 +80,3 @@ bytes, and compare an analytic scorer with a shallow model before considering
 a GNN.  If the safe receiver-relative teacher has no joint headroom, the
 label-role payload action family is not a useful basis for the paper and the
 method must instead change route timing or physical message allocation.
-
