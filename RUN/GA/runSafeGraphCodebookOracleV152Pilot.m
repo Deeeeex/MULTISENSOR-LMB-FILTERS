@@ -49,7 +49,7 @@ runnerOptions = struct( ...
     runDynamicTopologyOracleGapScreen( ...
         presetName, seed, runnerOptions);
 
-summary = summarizePilot(rawSummary, protocol, presetIdx);
+summary = summarizeSafeGraphCodebookOracleV152RawSummary(rawSummary);
 summary.rawReportPath = rawReportPath;
 summary.rawMatPath = rawSummary.matPath;
 reportPath = fullfile(outputDirectory, ...
@@ -59,7 +59,7 @@ matPath = fullfile(outputDirectory, ...
 summary.reportPath = reportPath;
 summary.matPath = matPath;
 save('-mat7-binary', matPath, 'summary');
-writePilotReport(reportPath, summary);
+writeSafeGraphCodebookOracleV152PilotReport(reportPath, summary);
 fprintf('V152 pilot summary: %s\n', reportPath);
 end
 

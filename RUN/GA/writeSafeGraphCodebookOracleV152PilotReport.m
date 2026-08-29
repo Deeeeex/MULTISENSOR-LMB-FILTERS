@@ -1,0 +1,47 @@
+function writeSafeGraphCodebookOracleV152PilotReport(path, summary)
+% WRITESAFEGRAPHCODEBOOKORACLEV152PILOTREPORT Render fixed pilot summary.
+
+fid = fopen(path, 'w');
+if fid < 0
+    error('Could not write V152 pilot report.');
+end
+cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
+fprintf(fid, '# V152 safe graph-codebook oracle pilot\n\n');
+fprintf(fid, '- Preset / seed / window: `%s / %d / %d:%d`\n', ...
+    summary.presetName, summary.seed, summary.analysisWindow);
+fprintf(fid, '- Better static reference: `%s`\n', ...
+    summary.referenceArmMode);
+fprintf(fid, '- Selected oracle action: `%s`\n', ...
+    summary.selectedArmMode);
+fprintf(fid, '- Admissible dynamic graphs: `%d / %d`\n\n', ...
+    summary.admissibleDynamicCount, summary.dynamicArmCount);
+fprintf(fid, ['| Mean gain | Worst-sensor gain | Minimum-formation gain | ', ...
+    'Consensus gain | Attempted-byte saving | 5%% pilot gate |\n']);
+fprintf(fid, '|--:|--:|--:|--:|--:|:--:|\n');
+fprintf(fid, '| %+.3f%% | %+.3f%% | %+.3f%% | %+.3f%% | %+.3f%% | %d |\n\n', ...
+    summary.oracleGainPercent, summary.worstSensorGainPercent, ...
+    summary.minimumFormationGainPercent, ...
+    summary.consensusGainPercent, ...
+    summary.attemptedByteSavingPercent, ...
+    summary.pilotMeanGatePassed);
+fprintf(fid, '## Codebook\n\n');
+fprintf(fid, '| Arm | Mean E-OSPA | Worst sensor | Consensus | Bytes | Admissible |\n');
+fprintf(fid, '|:--|--:|--:|--:|--:|:--:|\n');
+dynamicCursor = 0;
+for idx = 1:numel(summary.codebook)
+    record = summary.codebook(idx);
+    isDynamic = strncmp(record.armMode, ...
+        'v152-safe-graph-rank', numel('v152-safe-graph-rank'));
+    if isDynamic
+        dynamicCursor = dynamicCursor + 1;
+        admissible = summary.dynamicAdmissible(dynamicCursor);
+    else
+        admissible = strcmp(record.armMode, summary.referenceArmMode);
+    end
+    fprintf(fid, '| `%s` | %.6f | %.6f | %.6f | %.0f | %d |\n', ...
+        record.armMode, record.meanEospa, ...
+        record.worstSensorEospa, record.consensusOspa, ...
+        record.attemptedBytes, admissible);
+end
+fprintf(fid, '\n## Boundary\n\n%s\n', summary.claimBoundary);
+end
