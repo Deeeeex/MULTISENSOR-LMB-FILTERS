@@ -155,14 +155,28 @@ consensus improve by `0.035%`, `0.288%` and `0.778%`, with `6.010%` attempted
 byte saving relative to static.  Propagation distance is therefore retained
 as a causal model feature, not promoted to a hard accuracy gate.
 
-The two opened X36 teachers are complementary.  Formation-1 repair fixes the
+The opened X36 teachers are complementary.  Formation-1 repair fixes the
 formation-1 RMSE gap, whereas formation-3 repair moves formation-3 RMSE gain
-from `-1.489%` to `+6.829%` while trading E-OSPA and consensus.  Formation 2
-still has `-14.198%` RMSE gain and remains the binding gap.  The next bounded
-experiment evaluates the formation-2 action recursively; only then is a
-two-formation action-set teacher justified.  The teacher projector now allows
-two formations under ideal charged delivery, while the deployable default
-remains one.
+from `-1.489%` to `+6.829%` while trading E-OSPA and consensus.  The combined
+F3+F1 teacher is the first V188 arm with all-positive aggregate changes versus
+static: E-OSPA `+2.673%`, RMSE `+0.382%`, consensus `+5.712%` and attempted
+byte saving `+5.530%`.  This validates budgeted action-set selection as a
+mechanism, but not the registered paper gate.
+
+Formation 2 remains the binding gap.  Its dedicated one-label teacher is
+Pareto-positive relative to V99 (`+0.155%` E-OSPA, `+0.030%` RMSE and
+`+0.005%` consensus), yet changes formation-2 RMSE gain only from `-14.198%`
+to `-13.859%`.  The bottleneck is therefore no longer formation allocation
+alone: the hand-crafted proxy discards nearly the entire source-label action
+space before learning.  At t=72 each formation has `101--124` executable
+candidates but exports only one.
+
+The next bounded implementation is hierarchical.  A formation graph model
+allocates the repair budget across a variable number of formations; a
+label-level ranker chooses from a small diverse Top-K source-label bank inside
+each selected formation.  Repeated repair pages and multiple labels must show
+finite-horizon headroom before model fitting.  The ideal charged teacher cap
+is two formations per page, while the deployable default remains one.
 
 The revised method boundary is explicit: deterministic projection guarantees
 rolling graph connectivity and communication-credit conservation; it does

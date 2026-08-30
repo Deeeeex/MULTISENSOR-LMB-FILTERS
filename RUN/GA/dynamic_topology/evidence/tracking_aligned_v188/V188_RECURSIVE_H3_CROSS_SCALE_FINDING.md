@@ -72,8 +72,34 @@ be a hard accuracy gate.
 The per-formation result also exposes the next target.  Formation-1 repair
 fixes formation 1, and formation-3 repair moves formation-3 RMSE gain from
 `-1.489%` to `+6.829%`; neither touches formation 2, whose RMSE gain remains
-`-14.198%` and dominates the weakest-formation gate.  The next teacher must
-therefore evaluate the formation-2 action before testing a multi-action set.
+`-14.198%` and dominates the weakest-formation gate.
+
+The formation-2 teacher is also finite-horizon positive, despite being
+slightly negative on its action page.  Relative to V99, it improves mean
+E-OSPA, RMSE and consensus by `0.155%`, `0.030%` and `0.005%`, while keeping
+`6.191%` communication saving relative to static.  However, formation-2
+RMSE gain moves only from `-14.198%` to `-13.859%`.  The current top-one
+label is useful but far too weak to close the formation deficit.
+
+## Two-formation action-set teacher
+
+The causal V188 proxy ranks formation 3 first and formation 1 second.  Letting
+the charged teacher projector take both actions produces the first V188 arm
+that improves every aggregate objective relative to static:
+
+| X36 H=3 arm | Selected formation(s) | E-OSPA gain | RMSE gain | Consensus gain | Byte saving |
+|:--|:--|--:|--:|--:|--:|
+| V99 base | none | +2.802% | -0.666% | +5.149% | +6.550% |
+| F1 teacher | 1 | +2.836% | -0.377% | +5.887% | +6.010% |
+| F2 teacher | 2 | +2.953% | -0.636% | +5.154% | +6.191% |
+| F3 teacher | 3 | +2.639% | +0.092% | +4.991% | +5.697% |
+| F3 + F1 teacher | 3, 1 | +2.673% | +0.382% | +5.712% | +5.530% |
+
+Relative to V99, the two-action set improves RMSE and consensus by `1.041%`
+and `0.594%`, at a `0.132%` E-OSPA cost.  It establishes genuine
+multi-objective action-set headroom, but it is not the new overall best:
+formation 2 remains at `-14.198%` RMSE and formation 5 at `-1.000%`, and the
+aggregate E-OSPA/RMSE gains remain below the registered `5%/2%` paper gate.
 
 ## Revised method decision
 
@@ -86,13 +112,21 @@ consensus effects of each formation action; a calibrated lower-confidence
 rule admits an action only when the joint predicted value is positive.
 
 Because the formation-1 and formation-3 teachers improve complementary
-objectives and disjoint formations, the teacher projector now permits at
-most two formations on a page.  This expansion is restricted to ideal,
-charged teacher runs; the deployable default remains one action.  The bounded
-sequence is formation-2 recursive attribution first, followed by a
-formation-1 plus formation-3 set teacher if the remaining gap is genuinely
-complementary.  Model training remains closed until these teachers establish
-finite-horizon action-set headroom rather than only current-page headroom.
+objectives and disjoint formations, the teacher projector permits at most two
+formations on a page.  This expansion is restricted to ideal, charged teacher
+runs; the deployable default remains one action.  The paired result confirms
+finite-horizon action-set headroom, but the formation-2 attribution shows that
+one preselected label per formation is the new bottleneck.
+
+At X36 t=72, each formation has `101--124` executable common source-label
+candidates before the V188 hand-crafted proxy collapses them to one.  The
+next version therefore uses a hierarchical action space: a scale-equivariant
+formation graph model allocates repair opportunities across formations, and
+a label-level ranker selects from a small, diverse causal Top-K within each
+chosen formation.  Repeated repair pages and multiple labels are evaluated
+before training; otherwise the learner would merely optimize an action bank
+that cannot repair the binding formation.  Model training remains closed
+until this expanded bank demonstrates cross-scale finite-horizon headroom.
 
 ## Evidence boundary
 
