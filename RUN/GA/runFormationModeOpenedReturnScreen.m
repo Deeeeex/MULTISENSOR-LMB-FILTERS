@@ -242,6 +242,7 @@ if ~all(isfield(inputs, truthFields))
         'Scenario truth cannot be isolated from policy inputs.');
 end
 trackingTruthRfs = inputs.groundTruthRfs;
+positiveValueReferenceTruthTrajectories = inputs.targetTrajectories;
 inputs = rmfield(inputs, truthFields);
 inputs.model = removeExplicitTargetTruth(inputs.model);
 truthFieldsRemoved = [truthFields, { ...
@@ -2077,6 +2078,8 @@ elseif x36ScheduleBank
             'external-positive-value-reference-labels';
         config.shadowStateRollbackMaximumLabelEdits = ...
             scheduleProtocol.maximumLabelEdits;
+        config.shadowStateRollbackTruthTrajectories = ...
+            positiveValueReferenceTruthTrajectories;
         config.shadowStateRollbackTimes = shadowStateRollbackPlan.times;
         config.shadowStateRollbackSensorIdsByTime = ...
             shadowStateRollbackPlan.sensorIdsByTime;
