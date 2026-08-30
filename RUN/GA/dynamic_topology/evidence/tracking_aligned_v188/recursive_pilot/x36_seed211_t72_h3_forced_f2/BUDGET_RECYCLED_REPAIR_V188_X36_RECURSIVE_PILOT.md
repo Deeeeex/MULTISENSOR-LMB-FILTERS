@@ -2,6 +2,7 @@
 
 - Teacher-forced formation: `2`
 - Maximum repair formations per page: `1`
+- Repair page offsets: `0`
 - Selected formations by page: `{2, [], []}`
 - Repair applied by page: `[1 0 0]`
 - Feasible proposals by page: `[6 0 0]`
