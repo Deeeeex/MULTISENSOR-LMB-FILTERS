@@ -25,11 +25,13 @@ One candidate changes the residual-cycle cut in exactly one formation.  The
 sender released by that cut is reconnected through the same clockwise
 formation order, so changing one cut changes the two adjacent cross-formation
 sensor edges while preserving the complete residual permutation.  With six
-sensors per formation, one cut is the reference and four other nonduplicate
-cuts are available.  X36 therefore has exactly
+sensors per formation, two residual inputs coincide with dominant inputs and
+cannot be cut without changing the message count.  Four nonduplicate cuts
+remain; one is the reference and three are alternatives.  X36 therefore has
+exactly
 
 \[
-    6\,(5-1)=24
+    6\,(4-1)=18
 \]
 
 nonreference radius-one candidates.  The structural preflight must reproduce
@@ -63,7 +65,7 @@ cycles by graph contraction rather than recursive tracking value.
 
 The first and only opened case is `x36-formation-fov`, seed `83`, continuation
 window `60:67`.  The saved V152 clockwise and counter-clockwise shards remain
-the paired static controls; only the 24 radius-one arms are newly executed.
+the paired static controls; only the 18 radius-one arms are newly executed.
 
 Relative to the better static control, a candidate is admissible only if:
 
