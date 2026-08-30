@@ -33,7 +33,9 @@ protocol.lightSynopsisUsesGmComponents = false;
 protocol.richSynopsisBytesPerShortlistedLabel = 64;
 protocol.completeLabelRequestBytes = 48;
 protocol.maximumRepairLabelsPerFormationPage = 1;
-protocol.maximumRepairFormationsPerPage = 1;
+protocol.maximumDeployableRepairFormationsPerPage = 1;
+protocol.maximumRepairFormationsPerPage = 2;
+protocol.multiFormationRepairTeacherOnly = true;
 
 % Every control and repair byte is debited from causal communication credit
 % earned by the online admission layer.  Keeping a nonzero reserve gives a

@@ -52,32 +52,53 @@ compatible even though the copied velocity and position subsequently alter
 the recursive KLA trajectory.  The result rules out unconditional spending
 based only on current-page risk reduction.
 
-## Method decision
+## Alternative X36 teacher and falsified trust gate
 
-The next method should retain V99 as the safe base and add a two-stage,
-receiver-certified propagation trust region:
+The alternative formation-1 action is a Pareto improvement over V99 across
+the same recursive window.  Mean E-OSPA, RMSE and consensus improve by
+`0.035%`, `0.288%` and `0.778%`, while attempted communication remains
+`6.010%` below the static reference.  Within formation 1, RMSE gain relative
+to static moves from `-0.069%` under V99 to `+2.142%`.  This action therefore
+has genuine finite-horizon value even though its source-to-receiver predicted
+position distances are `176.984--198.816 m`, all outside the proposed
+`150 m` trust region.
 
-1. The existing light synopsis shortlists one formation action.
-2. The source sends a charged rich motion synopsis for that label.
-3. Each receiver predicts its own and the source's moment means over the
-   registered propagation horizon and returns a small charged safety vote.
-4. The complete label is requested only when every receiver remains inside
-   the pre-existing position-error cutoff and the learned horizon-value
-   estimate is positive; otherwise the explicit action is no-op.
-5. Rich-synopsis, vote, request and complete-label bytes are all debited from
-   V99 communication credit before transmission.
+The Euclidean cutoff is consequently not a necessary safety condition.  It
+rejects the beneficial formation-1 action, while it accepts the original
+formation-3 action that improves RMSE but sacrifices E-OSPA and consensus.
+The causal propagation diagnostic remains useful as a feature, but it cannot
+be a hard accuracy gate.
 
-The cutoff is a trust-region boundary, not a claimed sufficient condition
-for tracking improvement.  It would reject the harmful M24 action while
-retaining the selected X36 action on this opened pair.  A separate recursive
-teacher bank must determine whether the alternative X36 formation-1 action
-offers a better E-OSPA/RMSE/consensus balance before this gate is frozen.
+The per-formation result also exposes the next target.  Formation-1 repair
+fixes formation 1, and formation-3 repair moves formation-3 RMSE gain from
+`-1.489%` to `+6.829%`; neither touches formation 2, whose RMSE gain remains
+`-14.198%` and dominates the weakest-formation gate.  The next teacher must
+therefore evaluate the formation-2 action before testing a multi-action set.
+
+## Revised method decision
+
+The next method keeps only properties that can actually be guaranteed outside
+the value model: rolling graph connectivity, complete-label delivery,
+communication-credit conservation and an explicit no-op.  Positional
+propagation distance becomes one causal feature among others.  A shared
+finite-horizon value model must predict the separate E-OSPA, RMSE and
+consensus effects of each formation action; a calibrated lower-confidence
+rule admits an action only when the joint predicted value is positive.
+
+Because the formation-1 and formation-3 teachers improve complementary
+objectives and disjoint formations, the teacher projector now permits at
+most two formations on a page.  This expansion is restricted to ideal,
+charged teacher runs; the deployable default remains one action.  The bounded
+sequence is formation-2 recursive attribution first, followed by a
+formation-1 plus formation-3 set teacher if the remaining gap is genuinely
+complementary.  Model training remains closed until these teachers establish
+finite-horizon action-set headroom rather than only current-page headroom.
 
 ## Evidence boundary
 
-The temporal and formation metrics use truth only after the V188 action was
-frozen.  The propagation-gap diagnosis is causal and truth-free, but its
-interpretation was made after opening seed 211.  It authorizes a new method
-version and targeted recursive teacher comparisons only; it does not
-authorize model training, validation claims, or promotion to the main Lark
-current-best table.
+The temporal and formation metrics use truth only after each V188 action was
+frozen.  The propagation-gap diagnostic is causal and truth-free, but its
+interpretation and the alternative teacher choice were made after opening
+seed 211.  The result authorizes targeted recursive action and action-set
+teachers only; it does not authorize model training, validation claims, or
+promotion to the main Lark current-best table.

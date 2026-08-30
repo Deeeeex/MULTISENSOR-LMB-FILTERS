@@ -26,6 +26,10 @@ assert(isequal(projection.selectedProposalIndices, 1));
 assert(projection.selectedActionBytes == 100);
 assert(projection.cumulativeByteSafetyPassed);
 assert(projection.protectedSavingPreserved);
+twoActionProjection = projectBudgetRecycledRepairActionsV188( ...
+    proposals, state, struct('maximumActions', 2));
+assert(isequal(twoActionProjection.selectedProposalIndices, [1, 2]));
+assert(twoActionProjection.selectedActionBytes == 300);
 state = projection.nextCreditState;
 assert(abs(state.protectedSavingBytes - 200) < 1e-12);
 assert(abs(state.spendableCreditBytes - 600) < 1e-12);

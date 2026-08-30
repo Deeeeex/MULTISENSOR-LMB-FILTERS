@@ -147,13 +147,28 @@ change from `-0.666%` to `+0.092%`, but sacrifices `0.167%` E-OSPA and
 saving, but neither repair passes the joint development gate.
 
 The failure is not a reason to discard residual label routing; it identifies
-the missing safety variable.  The M24 source-to-receiver predicted mean gap
-is about `159--166 m`, crossing the registered `150 m` position-error cutoff,
-whereas the selected X36 action remains about `38--63 m`.  The next method
-version therefore replaces unconditional current-risk projection with a
-charged receiver-certified propagation trust region and explicit no-op.
-Alternative X36 actions must be evaluated recursively before freezing the
-horizon-value target.  Model training, H=4/H=6 teacher generation, and
-paper-facing claims remain unauthorized.  The full result and evidence
-boundary are recorded in
+that current-page value is not the finite-horizon target.  A proposed
+`150 m` propagation cutoff rejects every M24 proposal, but it also rejects
+the alternative X36 formation-1 action.  The recursive teacher shows that
+this formation-1 action is a Pareto improvement over V99: E-OSPA, RMSE and
+consensus improve by `0.035%`, `0.288%` and `0.778%`, with `6.010%` attempted
+byte saving relative to static.  Propagation distance is therefore retained
+as a causal model feature, not promoted to a hard accuracy gate.
+
+The two opened X36 teachers are complementary.  Formation-1 repair fixes the
+formation-1 RMSE gap, whereas formation-3 repair moves formation-3 RMSE gain
+from `-1.489%` to `+6.829%` while trading E-OSPA and consensus.  Formation 2
+still has `-14.198%` RMSE gain and remains the binding gap.  The next bounded
+experiment evaluates the formation-2 action recursively; only then is a
+two-formation action-set teacher justified.  The teacher projector now allows
+two formations under ideal charged delivery, while the deployable default
+remains one.
+
+The revised method boundary is explicit: deterministic projection guarantees
+rolling graph connectivity and communication-credit conservation; it does
+not claim that geometric proximity guarantees tracking benefit.  A shared
+finite-horizon model must estimate E-OSPA, RMSE and consensus value separately
+and use a calibrated positive lower bound with a no-op fallback.  Model
+training, H=4/H=6 teacher generation, and paper-facing claims remain
+unauthorized.  The full result is recorded in
 `evidence/tracking_aligned_v188/V188_RECURSIVE_H3_CROSS_SCALE_FINDING.md`.
