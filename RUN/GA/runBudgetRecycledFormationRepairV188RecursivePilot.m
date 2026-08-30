@@ -132,8 +132,8 @@ result.incrementalEospaGainPercent = relativeGain( ...
 result.referenceMeanRmse = reference.meanRmse;
 result.baseMeanRmse = base.meanRmse;
 result.repairMeanRmse = repair.meanRmse;
-result.baseRmseGainPercent = base.meanRmseGainPercent;
-result.repairRmseGainPercent = repair.meanRmseGainPercent;
+result.baseRmseGainPercent = base.rmseGainPercent;
+result.repairRmseGainPercent = repair.rmseGainPercent;
 result.incrementalRmseGainPercent = relativeGain( ...
     base.meanRmse, repair.meanRmse);
 result.baseConsensusGainPercent = base.consensusGainPercent;
