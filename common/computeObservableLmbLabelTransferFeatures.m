@@ -116,6 +116,12 @@ if isempty(object) || object.numberOfGmComponents <= 0
     value = 0;
     return;
 end
+if isfield(object, 'advertisedObservationOpportunity') && ...
+        isscalar(object.advertisedObservationOpportunity) && ...
+        isfinite(object.advertisedObservationOpportunity)
+    value = clamp01(object.advertisedObservationOpportunity);
+    return;
+end
 opportunity = computeLmbLabelObservationOpportunity( ...
     model, sensorIdx, object, currentTime);
 value = clamp01(opportunity.expectedDetectionProbability);
@@ -179,6 +185,13 @@ error('ObservableLabelTransfer:InvalidCovariance', ...
 end
 
 function bytes = labelPayloadBytes(object)
+if isfield(object, 'advertisedCompletePayloadBytes') && ...
+        isscalar(object.advertisedCompletePayloadBytes) && ...
+        isfinite(object.advertisedCompletePayloadBytes) && ...
+        object.advertisedCompletePayloadBytes >= 0
+    bytes = object.advertisedCompletePayloadBytes;
+    return;
+end
 dimension = numel(object.mu{1});
 bytes = 8 * (3 + object.numberOfGmComponents * ...
     (1 + dimension + dimension * dimension));

@@ -43,11 +43,16 @@ commonNeighborPrefilterEnabled = logical(getField(config, ...
 maximumAdvertisedLabelsPerSource = getField(config, ...
     'formationCoordinatedPosteriorRepairMaximumAdvertisedLabelsPerSource', ...
     inf);
+coordinatorAggregationEnabled = logical(getField(config, ...
+    'formationCoordinatedPosteriorRepairCoordinatorAggregationEnabled', ...
+    false));
 policy = loadPolicy(policyPath);
 classifier = loadClassifier(modelPath, policy);
 if config.learnedOneHopSafeLabelMaximumEdits ~= 1 || ...
-        config.learnedOneHopSafeLabelSynopsisBytesPerLabel ~= ...
+        (~coordinatorAggregationEnabled && ...
+         config.learnedOneHopSafeLabelSynopsisBytesPerLabel ~= ...
             policy.synopsisBytesPerLabel
+        )
     error('FormationPosteriorRepairV185:ConfigurationDrift', ...
         'The runtime configuration differs from the frozen V185 policy.');
 end
@@ -57,6 +62,15 @@ if numel(groupIds) ~= sensorCount || ...
         numel(unique(groupIds(receiverIds))) ~= 1
     error('FormationPosteriorRepairV185:FormationDrift', ...
         'All coordinated receivers must belong to one formation.');
+end
+if coordinatorAggregationEnabled
+    [posteriorBySensor, detailsByReceiver] = ...
+        selectCoordinatorAggregatedRepair( ...
+            posteriorBySensor, localPosteriorBySensor, ...
+            physicalAdjacency, directedLinkDelivered, config, ...
+            receiverIds, currentTime, model, classifier, policy, ...
+            groupIds, formationTimes);
+    return;
 end
 commonSourceIds = zeros(1, 0);
 if commonNeighborPrefilterEnabled
@@ -134,6 +148,338 @@ for receiverPosition = 1:numel(receiverIds)
     detailsByReceiver{receiverIdx} = details;
 end
 detailsByReceiver = finalizeDetails(detailsByReceiver, receiverIds);
+end
+
+function [posteriorBySensor, detailsByReceiver] = ...
+        selectCoordinatorAggregatedRepair( ...
+            posteriorBySensor, localPosteriorBySensor, ...
+            physicalAdjacency, directedLinkDelivered, config, ...
+            receiverIds, currentTime, model, classifier, policy, ...
+            groupIds, formationTimes)
+sensorCount = numel(localPosteriorBySensor);
+detailsByReceiver = cell(1, sensorCount);
+for receiverIdx = receiverIds
+    details = emptyDetails(sensorCount);
+    details.triggered = true;
+    details.pageIndex = find(formationTimes == currentTime, 1);
+    details.selectorMode = ...
+        'formation-coordinator-aggregated-posterior-repair';
+    details.sourceRule = 'single-coordinator-rich-moment-synopsis';
+    details.labelRule = 'safe-common-action-from-coordinator';
+    details.physicalNeighborCount = nnz( ...
+        physicalAdjacency(receiverIdx, :));
+    detailsByReceiver{receiverIdx} = details;
+end
+
+coordinatorIdx = chooseCoordinator(receiverIds, physicalAdjacency);
+if coordinatorIdx == 0
+    detailsByReceiver = finalizeDetails(detailsByReceiver, receiverIds);
+    return;
+end
+activeThreshold = config.observableOneHopRiskLabelExistenceThreshold;
+headerBytes = getField(config, ...
+    'formationCoordinatedPosteriorRepairCoordinatorHeaderBytes', 16);
+bytesPerLabel = getField(config, ...
+    'formationCoordinatedPosteriorRepairCoordinatorSynopsisBytesPerLabel', ...
+    64);
+requestBytes = getField(config, ...
+    'formationCoordinatedPosteriorRepairCoordinatorRequestBytes', 48);
+
+fullActiveBySource = cell(1, sensorCount);
+synopsisBySource = cell(1, sensorCount);
+for sourceIdx = 1:sensorCount
+    active = selectActiveLabels( ...
+        localPosteriorBySensor{sourceIdx}, activeThreshold);
+    fullActiveBySource{sourceIdx} = active;
+    if isempty(active)
+        continue;
+    end
+    synopsis = buildSynopsisObjects( ...
+        active, model, sourceIdx, currentTime);
+    if sourceIdx == coordinatorIdx
+        synopsisBySource{sourceIdx} = synopsis;
+        continue;
+    end
+    if ~physicalAdjacency(sourceIdx, coordinatorIdx)
+        continue;
+    end
+    bytes = headerBytes + bytesPerLabel * numel(active);
+    details = detailsByReceiver{coordinatorIdx};
+    details.attemptedSynopsisBytesBySource(sourceIdx) = ...
+        details.attemptedSynopsisBytesBySource(sourceIdx) + bytes;
+    details.attemptedSynopsisMessageBySource(sourceIdx) = true;
+    if directedLinkDelivered(sourceIdx, coordinatorIdx)
+        synopsisBySource{sourceIdx} = synopsis;
+        details.deliveredSynopsisBytesBySource(sourceIdx) = ...
+            details.deliveredSynopsisBytesBySource(sourceIdx) + bytes;
+        details.deliveredSynopsisMessageBySource(sourceIdx) = true;
+    end
+    detailsByReceiver{coordinatorIdx} = details;
+end
+
+receiverSynopsis = cell(1, sensorCount);
+receiverSummaryReady = true;
+for receiverIdx = receiverIds
+    active = selectActiveLabels( ...
+        posteriorBySensor{receiverIdx}, activeThreshold);
+    receiverSynopsis{receiverIdx} = buildSynopsisObjects( ...
+        active, model, receiverIdx, currentTime);
+    if receiverIdx == coordinatorIdx
+        continue;
+    end
+    bytes = headerBytes + bytesPerLabel * numel(active);
+    details = detailsByReceiver{receiverIdx};
+    details.attemptedRequestBytesBySource(coordinatorIdx) = ...
+        details.attemptedRequestBytesBySource(coordinatorIdx) + bytes;
+    details.attemptedRequestMessageBySource(coordinatorIdx) = true;
+    delivered = physicalAdjacency(receiverIdx, coordinatorIdx) && ...
+        directedLinkDelivered(receiverIdx, coordinatorIdx);
+    if delivered
+        details.deliveredRequestBytesBySource(coordinatorIdx) = ...
+            details.deliveredRequestBytesBySource(coordinatorIdx) + bytes;
+        details.deliveredRequestMessageBySource(coordinatorIdx) = true;
+    else
+        receiverSummaryReady = false;
+    end
+    detailsByReceiver{receiverIdx} = details;
+end
+if ~receiverSummaryReady
+    detailsByReceiver = finalizeDetails(detailsByReceiver, receiverIds);
+    return;
+end
+
+candidateByReceiver = cell(1, numel(receiverIds));
+for receiverPosition = 1:numel(receiverIds)
+    receiverIdx = receiverIds(receiverPosition);
+    [candidateByReceiver{receiverPosition}, ...
+     detailsByReceiver{receiverIdx}] = ...
+        buildCoordinatorReceiverCandidates( ...
+            receiverSynopsis{receiverIdx}, synopsisBySource, ...
+            fullActiveBySource, physicalAdjacency, receiverIdx, ...
+            currentTime, model, classifier, ...
+            detailsByReceiver{receiverIdx}, groupIds);
+end
+common = commonCandidateReadouts( ...
+    candidateByReceiver, receiverIds, policy);
+if isempty(common)
+    detailsByReceiver = finalizeDetails(detailsByReceiver, receiverIds);
+    return;
+end
+ranking = [[common.rescueScore]', ...
+    [common.minimumSafetyProbability]', ...
+    [common.minimumRiskReduction]', ...
+    -reshape([common.label], 2, [])', -[common.source]'];
+[~, order] = sortrows(ranking, [-1, -2, -3, -4, -5, -6]);
+selected = common(order(1));
+sourceIdx = selected.source;
+requestDelivered = sourceIdx == coordinatorIdx;
+if sourceIdx ~= coordinatorIdx && ...
+        physicalAdjacency(coordinatorIdx, sourceIdx)
+    details = detailsByReceiver{coordinatorIdx};
+    details.attemptedRequestBytesBySource(sourceIdx) = ...
+        details.attemptedRequestBytesBySource(sourceIdx) + requestBytes;
+    details.attemptedRequestMessageBySource(sourceIdx) = true;
+    if directedLinkDelivered(coordinatorIdx, sourceIdx)
+        details.deliveredRequestBytesBySource(sourceIdx) = ...
+            details.deliveredRequestBytesBySource(sourceIdx) + requestBytes;
+        details.deliveredRequestMessageBySource(sourceIdx) = true;
+        requestDelivered = true;
+    end
+    detailsByReceiver{coordinatorIdx} = details;
+end
+responseStats = estimateLmbPayloadSize( ...
+    selected.candidates(1).sourceObject, model, 2, struct());
+if responseStats.objectCount ~= 1
+    error('FormationCoordinatorV187:PayloadThresholdDrift', ...
+        'The selected complete label was omitted from its response.');
+end
+for receiverPosition = 1:numel(receiverIds)
+    receiverIdx = receiverIds(receiverPosition);
+    candidate = selected.candidates(receiverPosition);
+    details = detailsByReceiver{receiverIdx};
+    details.selectedLabelCount = 1;
+    details.selectedLabels = candidate.label;
+    details.selectedSources = sourceIdx;
+    details.selectedRiskReduction = candidate.riskReduction;
+    details.selectedSafetyScore = selected.minimumSafetyProbability;
+    if requestDelivered && physicalAdjacency(sourceIdx, receiverIdx)
+        details.attemptedResponseBytesBySource(sourceIdx) = ...
+            details.attemptedResponseBytesBySource(sourceIdx) + ...
+            responseStats.estimatedBytes;
+        details.attemptedResponseMessageBySource(sourceIdx) = true;
+        if directedLinkDelivered(sourceIdx, receiverIdx)
+            details.deliveredResponseBytesBySource(sourceIdx) = ...
+                details.deliveredResponseBytesBySource(sourceIdx) + ...
+                responseStats.estimatedBytes;
+            details.deliveredResponseMessageBySource(sourceIdx) = true;
+            posteriorBySensor{receiverIdx} = replaceLabelObject( ...
+                posteriorBySensor{receiverIdx}, candidate.sourceObject);
+            details.applied = true;
+            details.appliedLabelCount = 1;
+            details.appliedLabels = candidate.label;
+            details.appliedSources = sourceIdx;
+        end
+    end
+    detailsByReceiver{receiverIdx} = details;
+end
+detailsByReceiver = finalizeDetails(detailsByReceiver, receiverIds);
+end
+
+function [candidates, details] = buildCoordinatorReceiverCandidates( ...
+        receiverSynopsis, synopsisBySource, fullActiveBySource, ...
+        physicalAdjacency, receiverIdx, currentTime, model, classifier, ...
+        details, groupIds)
+sensorCount = numel(synopsisBySource);
+neighbors = reshape(find(logical( ...
+    physicalAdjacency(receiverIdx, :))), 1, []);
+neighbors = neighbors(neighbors ~= receiverIdx);
+receiverActiveCount = numel(receiverSynopsis);
+raw = repmat(emptyCandidate(), 1, 0);
+featureNames = cell(1, 0);
+for sourceIdx = neighbors
+    sourceObjects = synopsisBySource{sourceIdx};
+    for objectIdx = 1:numel(sourceObjects)
+        sourceSynopsis = sourceObjects(objectIdx);
+        label = objectLabel(sourceSynopsis);
+        sourceObject = findLabelObject( ...
+            fullActiveBySource{sourceIdx}, label);
+        if isempty(sourceObject)
+            continue;
+        end
+        peers = objectsForLabel( ...
+            synopsisBySource, neighbors, label, sourceIdx);
+        receiverObject = findLabelObject(receiverSynopsis, label);
+        featureContext = struct( ...
+            'receiverFormation', groupIds(receiverIdx), ...
+            'sourceFormation', groupIds(sourceIdx), ...
+            'nodeCount', sensorCount, ...
+            'physicalNeighborCount', numel(neighbors), ...
+            'receiverActiveLabelCount', receiverActiveCount, ...
+            'sourceActiveLabelCount', ...
+                numel(fullActiveBySource{sourceIdx}), ...
+            'formationSize', nnz(groupIds == groupIds(receiverIdx)));
+        [features, currentNames, featureDetails] = ...
+            computeObservableOneHopLabelActionFeatures( ...
+                receiverObject, sourceSynopsis, peers, model, ...
+                receiverIdx, sourceIdx, currentTime, featureContext);
+        expectedNames = classifier.featureNames;
+        if isfield(classifier, 'sourceFeatureNames')
+            expectedNames = classifier.sourceFeatureNames;
+        end
+        if ~isequal(currentNames, expectedNames)
+            error('FormationCoordinatorV187:FeatureContractDrift', ...
+                'Coordinator synopsis features differ from the classifier.');
+        end
+        if isempty(featureNames)
+            featureNames = currentNames;
+        elseif ~isequal(featureNames, currentNames)
+            error('FormationCoordinatorV187:FeatureContractDrift', ...
+                'Coordinator feature names changed within one cell.');
+        end
+        [lowerProbability, inSupport] = ...
+            scoreClassifier(classifier, features);
+        candidate = emptyCandidate();
+        candidate.label = label;
+        candidate.receiver = receiverIdx;
+        candidate.source = sourceIdx;
+        candidate.sourceObject = sourceObject;
+        candidate.features = features;
+        candidate.payloadBytes = featureDetails.payloadBytes;
+        candidate.riskReduction = featureValue( ...
+            features, currentNames, 'risk_reduction');
+        candidate.receiverPresent = featureValue( ...
+            features, currentNames, 'receiver_present');
+        candidate.compatibility = featureValue( ...
+            features, currentNames, 'receiver_source_compatibility');
+        candidate.peerConsensus = featureValue( ...
+            features, currentNames, 'peer_consensus_mean');
+        candidate.sourceEvidence = featureValue( ...
+            features, currentNames, 'source_evidence_quality');
+        candidate.minimumSafetyProbability = min(lowerProbability);
+        candidate.inSupport = inSupport;
+        candidate.rescueScore = candidate.peerConsensus * ...
+            max(1 - candidate.compatibility, 0) * ...
+            max(candidate.sourceEvidence, 0);
+        raw(end + 1) = candidate; %#ok<AGROW>
+    end
+end
+details.rawCandidateLabelCount = numel(raw);
+candidates = shortlistCandidates(raw, featureNames, 1);
+details.candidateLabelCount = numel(candidates);
+end
+
+function coordinatorIdx = chooseCoordinator(receiverIds, physicalAdjacency)
+eligible = zeros(1, 0);
+for receiverIdx = receiverIds
+    peers = receiverIds(receiverIds ~= receiverIdx);
+    if all(physicalAdjacency(receiverIdx, peers))
+        eligible(end + 1) = receiverIdx; %#ok<AGROW>
+    end
+end
+if isempty(eligible)
+    coordinatorIdx = 0;
+    return;
+end
+degree = sum(logical(physicalAdjacency(eligible, :)), 2);
+[~, order] = sortrows([-degree, eligible'], [1, 2]);
+coordinatorIdx = eligible(order(1));
+end
+
+function synopses = buildSynopsisObjects( ...
+        objects, model, sensorIdx, currentTime)
+objects = reshape(objects, 1, []);
+synopses = [];
+for objectIdx = 1:numel(objects)
+    object = objects(objectIdx);
+    [meanVector, covariance] = momentMatchSynopsis(object);
+    opportunity = computeLmbLabelObservationOpportunity( ...
+        model, sensorIdx, object, currentTime);
+    synopsis = object;
+    synopsis.numberOfGmComponents = 1;
+    synopsis.w = 1;
+    synopsis.mu = {meanVector(1:2)};
+    synopsis.Sigma = {covariance(1:2, 1:2)};
+    synopsis.advertisedObservationOpportunity = ...
+        opportunity.expectedDetectionProbability;
+    synopsis.advertisedCompletePayloadBytes = ...
+        completePayloadFeatureBytes(object);
+    if isempty(synopses)
+        synopses = synopsis;
+    else
+        synopses(end + 1) = synopsis; %#ok<AGROW>
+    end
+end
+synopses = reshape(synopses, 1, []);
+end
+
+function [meanVector, covariance] = momentMatchSynopsis(object)
+componentCount = object.numberOfGmComponents;
+weights = reshape(object.w, 1, []);
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if numel(weights) ~= componentCount || sum(weights) <= 0
+    weights = ones(1, componentCount);
+end
+weights = weights / sum(weights);
+stateDimension = numel(object.mu{1});
+meanVector = zeros(stateDimension, 1);
+for componentIdx = 1:componentCount
+    meanVector = meanVector + ...
+        weights(componentIdx) * object.mu{componentIdx};
+end
+covariance = zeros(stateDimension);
+for componentIdx = 1:componentCount
+    delta = object.mu{componentIdx} - meanVector;
+    covariance = covariance + weights(componentIdx) * ...
+        (object.Sigma{componentIdx} + delta * delta');
+end
+covariance = (covariance + covariance') / 2;
+end
+
+function bytes = completePayloadFeatureBytes(object)
+dimension = numel(object.mu{1});
+bytes = 8 * (3 + object.numberOfGmComponents * ...
+    (1 + dimension + dimension * dimension));
 end
 
 function [candidates, details] = buildReceiverCandidates( ...
