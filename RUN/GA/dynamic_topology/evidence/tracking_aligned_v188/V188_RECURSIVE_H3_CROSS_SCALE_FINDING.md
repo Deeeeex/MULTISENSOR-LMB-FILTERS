@@ -81,6 +81,22 @@ E-OSPA, RMSE and consensus by `0.155%`, `0.030%` and `0.005%`, while keeping
 RMSE gain moves only from `-14.198%` to `-13.859%`.  The current top-one
 label is useful but far too weak to close the formation deficit.
 
+## Repeated-page falsification
+
+Repeating the same formation-2 top-one repair on all three H=3 pages does
+not close that deficit.  The action is selected and applied on every page,
+with `60,232 / 60,280 / 60,112 B` of charged repair traffic.  Relative to
+V99, mean E-OSPA improves only `0.099%`, while mean RMSE and consensus
+degrade by `0.369%` and `1.164%`; communication saving relative to static
+falls from `6.550%` to `5.039%`.  This is worse than the one-page F2
+teacher, which was weakly positive on all three tracking objectives.
+
+The result rejects the hypothesis that the F2 gap is mainly caused by
+insufficient repetitions of the selected `[19,16]` label.  Reusing the same
+repair consumes more credit and eventually overwrites useful evolution with
+an increasingly stale cross-formation state.  The next teacher must change
+the source-label action, not increase the dose of the current one.
+
 ## Two-formation action-set teacher
 
 The causal V188 proxy ranks formation 3 first and formation 1 second.  Letting
@@ -123,10 +139,14 @@ candidates before the V188 hand-crafted proxy collapses them to one.  The
 next version therefore uses a hierarchical action space: a scale-equivariant
 formation graph model allocates repair opportunities across formations, and
 a label-level ranker selects from a small, diverse causal Top-K within each
-chosen formation.  Repeated repair pages and multiple labels are evaluated
-before training; otherwise the learner would merely optimize an action bank
-that cannot repair the binding formation.  Model training remains closed
-until this expanded bank demonstrates cross-scale finite-horizon headroom.
+chosen formation.  The repeated-top-one teacher has now failed, so the next
+bounded teacher evaluates a different F2 shortlist member before any model is
+fit.  The strongest causal contrast is source 19, label `[13,12]`: its
+minimum observable risk reduction is `0.31444`, versus `0.00098` for the
+current source-20 `[19,16]` action, and its normalized precision gain is
+`0.37389`, versus `0.00130`.  These are selection features rather than a
+tracking claim.  Model training remains closed until the expanded bank
+demonstrates cross-scale finite-horizon headroom.
 
 ## Evidence boundary
 

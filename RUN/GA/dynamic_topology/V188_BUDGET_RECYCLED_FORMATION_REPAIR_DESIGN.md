@@ -171,10 +171,20 @@ alone: the hand-crafted proxy discards nearly the entire source-label action
 space before learning.  At t=72 each formation has `101--124` executable
 candidates but exports only one.
 
+Increasing the dose of that same top-one F2 action is counterproductive.
+Applying it on all three H=3 pages changes the V99-relative mean E-OSPA,
+RMSE and consensus by `+0.099%`, `-0.369%` and `-1.164%`, and reduces the
+static-relative byte saving to `5.039%`.  The single-page action was weakly
+positive, so the multi-page result specifically rules out repetition as the
+next remedy.  The next teacher changes the source-label key.
+
 The next bounded implementation is hierarchical.  A formation graph model
 allocates the repair budget across a variable number of formations; a
 label-level ranker chooses from a small diverse Top-K source-label bank inside
-each selected formation.  Repeated repair pages and multiple labels must show
+each selected formation.  The first alternative F2 candidate is source 19,
+label `[13,12]`, which has much larger causal risk and precision margins than
+the current source-20 `[19,16]` action.  Those margins justify a teacher, not
+admission.  Alternative labels and complementary action sets must show
 finite-horizon headroom before model fitting.  The ideal charged teacher cap
 is two formations per page, while the deployable default remains one.
 
