@@ -95,3 +95,33 @@ posterior already held by a current local or fused node, first on an immediate
 physical neighbor and then elsewhere in the current physical graph.  The
 source posterior, hop deadline and payload are part of the action; a label
 identifier alone is not sufficient.
+
+V159 closes that source-feasibility gate more strongly than expected.  For all
+`35/35` restores above the frozen `0.1` marginal-gain threshold, a complete
+same-label posterior already exists at a current one-hop physical neighbor.
+Replacing the privileged static-reference label with the best neighbor's
+current local posterior retains `99.971%` of the capped immediate reference
+gain; every restore retains at least half of its reference value.  None of the
+best sources is the receiver itself, and only `4/35` best sources are in the
+receiver's formation.  The best local/fused source is local in `32/35` cases.
+
+The causal bottleneck is therefore not multi-hop delivery, tombstones, or a
+missing network-wide label memory.  It is **receiver-time source selection at
+formation handovers**: the useful complete density is already one hop away,
+but the baseline fusion route does not deliver the right source-label pair to
+the affected receiver.  This result rejects a premature GNN or time-expanded
+routing design.  The next method gate is a truth-free one-hop label-value
+proxy based on information available in a compact sender/receiver synopsis:
+
+- source versus receiver Bernoulli existence risk;
+- source versus receiver position uncertainty and mixture structure;
+- current observation opportunity and association support;
+- same-label spatial compatibility/disagreement;
+- complete-label payload bytes and the remaining receiver budget.
+
+An offline V160 candidate analysis will enumerate one-hop source-label actions,
+label them only for diagnosis with immediate truth E-OSPA, and compare simple
+observable scores before any learned model is introduced.  A deployable policy
+must then be run recursively and pass joint E-OSPA/OSPA, RMSE, communication,
+and consensus gates; V159 alone is still a single-window privileged mechanism
+result.
