@@ -121,3 +121,17 @@ common-source signal ranks formation 5 third at t=78 and fourth at t=79,
 versus fourth at both pages under the full-moment diagnostic, so the useful
 ordering survives the wire approximation.  These results authorize the
 bounded M24/X36 projected-action headroom pilot, not model training.
+
+The executable proposal path is now explicit.  A synopsis candidate is
+discarded unless every receiver in the formation has nonnegative observable
+Bayes-risk reduction from the same physically reachable source.  The routing
+key is then resolved back to the exact complete Bernoulli GM object held by
+that source.  Its proposal cost includes one 64-byte rich synopsis, one
+48-byte request, and one complete response per receiver; the global light
+synopsis has already been charged by the page preflight and is not counted a
+second time.  The immediate-headroom analyzer freezes these truth-free,
+budget-feasible proposals first and reads truth only afterward.  It reports
+both whether the action bank contains a jointly positive repair and whether
+the current observable proxy selects one.  This isolates action-space
+headroom from ranking error before any recursive pilot or learned model is
+authorized.
