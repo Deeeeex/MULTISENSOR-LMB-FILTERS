@@ -33,16 +33,20 @@ edge--label repairs; it does not claim that a light posterior is equivalent to
 a full LMB posterior.
 
 The wire protocol is hierarchical.  A 24-byte per-label light synopsis is
-used for value prediction and shortlisting.  Only shortlisted labels receive
-a reconstructable 64-byte moment synopsis.  A selected action then sends a
-48-byte request and the complete mixture-aware Bernoulli label density.  All
-headers, synopses, requests, failed deliveries, and responses are debited from
-the same credit ledger.  Synopsis exchange has a deterministic preflight and
-cannot occur before its cost is affordable.  Of every newly earned *net*
-admission saving, twenty percent is moved into a locked balance that later
-control or repair traffic cannot spend; cap overflow is locked as well.  This
-conservation ledger, rather than a per-page re-evaluation of the reserve,
-guarantees nonnegative cumulative attempted-byte saving.
+used for value prediction and shortlisting.  It carries a four-byte semantic
+label key, quantized existence/evidence/support/opportunity scalars, two
+float32 position coordinates, and a float32 position-covariance trace.  It
+does not carry a full covariance or GM components.  Only shortlisted labels
+receive a reconstructable 64-byte moment synopsis.  A selected action then
+sends a 48-byte request and the complete mixture-aware Bernoulli label
+density.  All headers, synopses, requests, failed deliveries, and responses
+are debited from the same credit ledger.  Synopsis exchange has a
+deterministic preflight and cannot occur before its cost is affordable.  Of
+every newly earned *net* admission saving, twenty percent is moved into a
+locked balance that later control or repair traffic cannot spend; cap
+overflow is locked as well.  This conservation ledger, rather than a
+per-page re-evaluation of the reserve, guarantees nonnegative cumulative
+attempted-byte saving.
 
 The learned component only predicts finite-horizon value.  It receives one
 row per formation from the frozen 17-feature V188 contract: local support
@@ -107,10 +111,13 @@ candidate.
 The locked two-stage credit ledger and repair projector pass their focused
 Octave invariant test: protected saving is monotone, synopsis traffic is
 charged only after preauthorization, and arbitrarily large learned utility
-cannot override either safety certificate.  Replaying the 17-feature block on
-the opened X36 seed-211 t=79 posterior produced a finite `6 x 17` matrix with
-no truth, future, absolute-time, or fixed-formation feature.  The uncached
-full-posterior implementation required `64.031 s` for that single page.  The
-next implementation step is therefore a once-per-page deployable synopsis
-cache shared by the pressure and common-source feature blocks; a multi-seed
-teacher sweep is not runtime-credible before that cache exists.
+cannot override either safety certificate.  Replaying the original
+full-posterior 17-feature block on the opened X36 seed-211 t=79 posterior
+required `64.031 s` for one page.  The deployed quantized synopsis cache now
+produces the same `6 x 17` contract in `2.684--2.725 s`, a roughly `23.5x`
+reduction.  The t=78/t=79 synopsis costs are `40,080 / 39,960 B`, about `1.1%`
+of one static full-posterior page in the opened trajectory.  The quantized
+common-source signal ranks formation 5 third at t=78 and fourth at t=79,
+versus fourth at both pages under the full-moment diagnostic, so the useful
+ordering survives the wire approximation.  These results authorize the
+bounded M24/X36 projected-action headroom pilot, not model training.
