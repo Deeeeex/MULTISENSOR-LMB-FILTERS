@@ -79,3 +79,19 @@ posteriors within the relevant deadline.  A scorer cannot make an unavailable
 posterior appear.  Only if a causal source oracle retains the V157 gain will
 we construct observable training features and learn label value; otherwise the
 static-reference label-memory interpretation is rejected.
+
+The V158 deterministic replay makes the source question concrete.  Across
+the 36 registered cells, V157 selected `144` edits: all `144` restored a
+complete reference Bernoulli density and none was a tombstone.  Every cell
+hit the four-edit cap, with an estimated `187560` bytes (`94.66%` of the
+frozen worst-case charge).  The value is nevertheless highly concentrated:
+the first three ranks account for `99.71%` of accepted current-step E-OSPA
+reduction, and only `35/144` edits exceed `0.1` while retaining `98.74%` of
+that reduction.
+
+This closes the negative-evidence interpretation.  The next oracle will test
+whether those high-value restores can be reproduced by a complete same-label
+posterior already held by a current local or fused node, first on an immediate
+physical neighbor and then elsewhere in the current physical graph.  The
+source posterior, hop deadline and payload are part of the action; a label
+identifier alone is not sufficient.
