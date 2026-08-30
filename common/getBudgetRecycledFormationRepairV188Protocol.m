@@ -36,6 +36,12 @@ protocol.maximumRepairLabelsPerFormationPage = 1;
 protocol.maximumDeployableRepairFormationsPerPage = 1;
 protocol.maximumRepairFormationsPerPage = 2;
 protocol.multiFormationRepairTeacherOnly = true;
+protocol.deployableUpdateModes = {'hard-replacement'};
+protocol.teacherUpdateModes = {'hard-replacement', 'label-kla'};
+protocol.teacherFusionStrengths = [0.5, 1.0];
+protocol.labelKlaTeacherOnly = true;
+protocol.labelKlaNumericalSemantics = ...
+    'two-input componentwise powered-GM approximation';
 
 % Every control and repair byte is debited from causal communication credit
 % earned by the online admission layer.  Keeping a nonzero reserve gives a

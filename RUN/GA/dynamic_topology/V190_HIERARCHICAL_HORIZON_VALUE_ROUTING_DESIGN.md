@@ -38,11 +38,21 @@ V99 by only `0.099%`, while degrading RMSE and consensus by `0.369%` and
 The binding failure is therefore not insufficient action frequency; it is
 the chosen action and the missing finite-horizon abstention decision.
 
+The first alternative-candidate teacher confirms that candidate collapse is
+causal rather than merely suspicious.  On the same X36 seed-211 t=72 H=3
+window, forcing formation 2 to receive source 19 label `[13,12]` changes the
+formation-2 RMSE gain from `-14.198%` under the V188 top-one choice to
+`+62.290%`.  Aggregate E-OSPA, RMSE, consensus and charged-byte saving versus
+static are `+3.641%`, `+6.098%`, `+7.164%` and `+5.161%`.  The arm still fails
+the development gate because formations 1, 3 and 5 retain small negative RMSE
+changes and mean E-OSPA is below 5%.  It is therefore strong action-space
+headroom evidence, not a deployable policy result.
+
 ## Runtime action and transport semantics
 
 A candidate action is
 
-`a = (target formation, source sensor, semantic label, ingress sensor, route)`.
+`a = (target formation, source sensor, semantic label, ingress sensor, route, fusion strength)`.
 
 The source holds one complete mixture-aware Bernoulli density for the label.
 The ingress sensor is physically reachable from the source.  The route is a
@@ -50,13 +60,66 @@ directed in-formation multicast tree rooted at the ingress sensor.  V190 does
 not require the source to reach every receiver directly; this removes a
 scale-limiting assumption of V188 and permits larger or elongated formations.
 
+The fusion strength is a registered scalar `omega` in `[0,1]`.  `omega=0`
+is the no-op endpoint and sends no payload; `omega=1` is the current hard
+replacement; an interior value performs residual label-wise KLA.  The first
+teacher grid is deliberately small, `{0, 0.5, 1}`, so the action-space
+expansion remains attributable before any learned continuous control is
+considered.
+
 Delivery uses a two-phase rule.  The payload is transmitted and acknowledged
-along the registered tree first.  Receivers apply the replacement only after
-the coordinator has received every acknowledgement; otherwise every receiver
-keeps the V99 posterior.  Attempted payload, acknowledgement and commit bytes
-are charged even when the action aborts.  The first implementation may use
-ideal delivery only as a charged teacher, but deployable evaluation must use
-the sampled link outcomes and the atomic commit rule.
+along the registered tree first.  Receivers apply the registered update
+operator only after the coordinator has received every acknowledgement;
+otherwise every receiver keeps the V99 posterior.  Attempted payload,
+acknowledgement and commit bytes are charged even when the action aborts.  The
+first implementation may use ideal delivery only as a charged teacher, but
+deployable evaluation must use the sampled link outcomes and atomic commit.
+
+### Update-operator decision
+
+The current V188 teacher performs a hard replacement: every receiver discards
+its current object for the selected label and installs the source object.
+That is a correction operator, not another KLA fusion.  It can be useful when
+the source is much better, but it also throws away receiver-specific evidence;
+the harmful repeated-F2 result makes this a first-order method decision rather
+than an implementation detail.
+
+V190 therefore keeps two update operators separate in teacher experiments:
+
+- **hard replacement**, retained as the existing upper-confidence correction;
+- **residual label-wise KLA**, which fuses the receiver object and the complete
+  source Bernoulli GM object with a registered source weight using the
+  repository's componentwise powered-GM approximation.
+
+Both operators consume the same transmitted payload and communication credit.
+Residual KLA preserves receiver evidence and is the more natural continuation
+of the paper's KLA foundation, but it is not assumed superior: unknown
+correlation and repeated information can still make an additional fusion
+harmful.  The source weight and operator are frozen per teacher arm, and the
+finite-horizon result decides which operator remains in the deployable action
+space.  No learned model may choose the operator until this ablation closes.
+
+For receiver `j`, source `s`, label `ell` and source strength `omega`, the
+exact LMB-KLA target is
+
+`p_bar_j(x,ell) proportional to p_j(x,ell)^(1-omega) p_s(x,ell)^omega`,
+
+with normalizer
+
+`eta_j(ell,omega) = integral p_j(x,ell)^(1-omega) p_s(x,ell)^omega dx`.
+
+Writing `q_i=1-r_i`, the fused existence probability is
+
+`r_bar_j = (r_j^(1-omega) r_s^omega eta_j) /
+           (q_j^(1-omega) q_s^omega +
+            r_j^(1-omega) r_s^omega eta_j)`.
+
+Thus no-op, residual fusion and hard correction are one bounded KLA action
+family rather than unrelated mechanisms.  The repository computes the
+spatial term with its componentwise powered-GM approximation; the exact LMB
+formula is the target semantics, not a claim that arbitrary GM powers are
+closed-form.  Communication cost is independent of an admitted nonzero
+`omega`, because every such action requires the same complete source density.
 
 ## Hierarchical decision model
 
@@ -142,10 +205,12 @@ this projection.
 ### Atomic repair
 
 Under the two-phase commit contract, every receiver in a selected formation
-either applies the same complete Bernoulli density or every receiver keeps its
-base posterior.  Partial delivery therefore cannot create a mixed repaired
-state inside a formation.  This statement concerns transport consistency,
-not tracking accuracy.
+either applies the same registered source payload and update operator, or
+every receiver keeps its base posterior.  Hard replacement installs the same
+Bernoulli density everywhere; residual KLA produces receiver-specific outputs
+because each receiver keeps its own prior in the fusion.  Partial delivery
+cannot split the formation between updated and non-updated nodes.  This is a
+transport-action consistency statement, not a tracking-accuracy guarantee.
 
 ### Calibrated abstention target
 
@@ -202,12 +267,14 @@ arm has not yet passed the final multi-seed paper gate.
 ## Immediate implementation sequence
 
 1. Treat repeated use of the current F2 top-one action as falsified.
-2. Resolve and run a one-page H=3 teacher for the strongest distinct F2
-   shortlist member, source 19 label `[13,12]`.
-3. Run paired per-action H=3 teachers only on the smallest informative Top-K.
-4. Fit the shallow hierarchical baseline and calibrate no-op.
-5. Add the formation GNN only after a measured residual remains.
-6. Freeze the method before opening new seeds and non-radial scenes.
+2. Use the successful source-19 label `[13,12]` teacher as proof that the
+   source-label bank must remain open through value estimation.
+3. Separate candidate value from update strength by comparing hard replacement
+   with residual label KLA on F2, and identify the missing F5 action.
+4. Run paired per-action H=3 teachers only on the smallest informative Top-K.
+5. Fit the shallow hierarchical baseline and calibrate no-op.
+6. Add the formation GNN only after a measured residual remains.
+7. Freeze the method before opening new seeds and non-radial scenes.
 
 No paper-facing tracking or generalization claim is authorized by this design
 document alone.

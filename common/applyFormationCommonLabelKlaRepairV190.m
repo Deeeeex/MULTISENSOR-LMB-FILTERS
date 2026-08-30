@@ -1,0 +1,193 @@
+function [posteriorBySensor, details] = ...
+        applyFormationCommonLabelKlaRepairV190( ...
+            posteriorBySensor, proposals, selectedProposalIndices, ...
+            model, options)
+% APPLYFORMATIONCOMMONLABELKLAREPAIRV190 Fuse residual evidence, do not copy.
+%
+% Every selected proposal already carries one complete Bernoulli GM object.
+% Each receiver performs a two-input label-wise KLA between its current
+% object and that source object.  The source weight is shared, while the
+% receiver result may differ because its prior is different.  This uses the
+% repository's componentwise powered-GM KLA approximation.
+
+if nargin < 5 || isempty(options)
+    options = struct();
+end
+sourceWeight = getField(options, 'sourceWeight', 0.5);
+if ~isscalar(sourceWeight) || ~isnumeric(sourceWeight) || ...
+        ~isfinite(sourceWeight) || sourceWeight <= 0 || sourceWeight >= 1
+    error('FormationLabelKlaRepairV190:InvalidSourceWeight', ...
+        'The source KLA weight must lie strictly between zero and one.');
+end
+if ~iscell(posteriorBySensor) || ~isstruct(proposals) || ...
+        ~isstruct(model) || ~isfield(model, 'xDimension')
+    error('FormationLabelKlaRepairV190:InvalidInput', ...
+        'The posterior, proposal, or model input is malformed.');
+end
+if nargin < 3 || isempty(selectedProposalIndices)
+    selectedProposalIndices = zeros(1, 0);
+end
+selectedProposalIndices = reshape(selectedProposalIndices, 1, []);
+if any(~isfinite(selectedProposalIndices)) || ...
+        any(selectedProposalIndices ~= round(selectedProposalIndices)) || ...
+        any(selectedProposalIndices < 1) || ...
+        any(selectedProposalIndices > numel(proposals)) || ...
+        numel(unique(selectedProposalIndices)) ~= ...
+            numel(selectedProposalIndices)
+    error('FormationLabelKlaRepairV190:InvalidSelection', ...
+        'The selected proposal indices are invalid.');
+end
+
+triggerConfig = buildMixtureAwareKlaReferenceConfig();
+fusionDetails = struct('eventType', [0, 2]);
+weights = [1 - sourceWeight, sourceWeight];
+trace = repmat(emptyTrace(), 1, 0);
+appliedKeys = zeros(0, 3);
+for proposalIdx = selectedProposalIndices
+    proposal = proposals(proposalIdx);
+    validateProposal(proposal, numel(posteriorBySensor));
+    for receiverIdx = reshape(proposal.receiverIds, 1, [])
+        key = [receiverIdx, reshape(proposal.label, 1, 2)];
+        if ~isempty(appliedKeys) && ismember(key, appliedKeys, 'rows')
+            error('FormationLabelKlaRepairV190:DuplicateReceiverLabel', ...
+                'A receiver label cannot be fused twice on one page.');
+        end
+        receiverObject = findLabelObject( ...
+            posteriorBySensor{receiverIdx}, proposal.label);
+        if isempty(receiverObject)
+            error('FormationLabelKlaRepairV190:MissingReceiverLabel', ...
+                'The initial V190 KLA action requires receiver support.');
+        end
+        fused = fuseLmbPosteriorsByLabel( ...
+            {receiverObject, proposal.sourceObject}, weights, model, ...
+            weights, fusionDetails, triggerConfig);
+        if numel(fused) ~= 1 || ...
+                fused.birthTime ~= proposal.label(1) || ...
+                fused.birthLocation ~= proposal.label(2)
+            error('FormationLabelKlaRepairV190:FusionContractDrift', ...
+                'The residual label KLA returned an invalid object.');
+        end
+        posteriorBySensor{receiverIdx} = replaceLabelObject( ...
+            posteriorBySensor{receiverIdx}, fused);
+        item = emptyTrace();
+        item.proposalIndex = proposalIdx;
+        item.formationId = proposal.formationId;
+        item.receiverId = receiverIdx;
+        item.sourceId = proposal.sourceId;
+        item.label = proposal.label;
+        item.receiverExistenceBefore = receiverObject.r;
+        item.sourceExistence = proposal.sourceObject.r;
+        item.fusedExistence = fused.r;
+        item.receiverComponentCountBefore = ...
+            receiverObject.numberOfGmComponents;
+        item.sourceComponentCount = ...
+            proposal.sourceObject.numberOfGmComponents;
+        item.fusedComponentCount = fused.numberOfGmComponents;
+        trace(end + 1) = item; %#ok<AGROW>
+        appliedKeys(end + 1, :) = key; %#ok<AGROW>
+    end
+end
+
+details = struct();
+details.contractVersion = ...
+    'formation-common-label-kla-repair-v190-v1';
+details.selectedProposalIndices = selectedProposalIndices;
+details.appliedActionCount = numel(selectedProposalIndices);
+details.appliedReceiverCount = numel(trace);
+details.sourceWeight = sourceWeight;
+details.receiverWeight = 1 - sourceWeight;
+details.updateMode = ...
+    'two-input-componentwise-powered-gm-label-kla';
+details.completeSourcePayloadApplied = ~isempty(selectedProposalIndices);
+details.hardReplacementApplied = false;
+details.truthUsed = false;
+details.futureInformationUsed = false;
+details.trackingBenefitClaimed = false;
+details.trace = trace;
+end
+
+function validateProposal(proposal, sensorCount)
+required = {'formationId', 'receiverIds', 'sourceId', 'label', ...
+    'sourceObject', 'safetyPassed', 'rollingConnectivityPassed'};
+if any(~isfield(proposal, required)) || ...
+        ~isscalar(proposal.formationId) || proposal.formationId < 1 || ...
+        ~isscalar(proposal.sourceId) || proposal.sourceId < 1 || ...
+        proposal.sourceId > sensorCount || ...
+        ~isequal(size(proposal.label), [2, 1]) || ...
+        any(~isfinite(proposal.label)) || ...
+        ~isscalar(proposal.sourceObject) || ...
+        ~isstruct(proposal.sourceObject) || ...
+        ~validTrueBoolean(proposal.safetyPassed) || ...
+        ~validTrueBoolean(proposal.rollingConnectivityPassed)
+    error('FormationLabelKlaRepairV190:UnsafeProposal', ...
+        'Only a safe projected complete-label proposal may be fused.');
+end
+receivers = reshape(proposal.receiverIds, 1, []);
+if isempty(receivers) || any(~isfinite(receivers)) || ...
+        any(receivers ~= round(receivers)) || any(receivers < 1) || ...
+        any(receivers > sensorCount) || ...
+        numel(unique(receivers)) ~= numel(receivers) || ...
+        proposal.sourceObject.birthTime ~= proposal.label(1) || ...
+        proposal.sourceObject.birthLocation ~= proposal.label(2)
+    error('FormationLabelKlaRepairV190:ProposalContractDrift', ...
+        'The proposal routing key is malformed.');
+end
+end
+
+function object = findLabelObject(objects, label)
+object = [];
+objects = reshape(objects, 1, []);
+for objectIdx = 1:numel(objects)
+    if objects(objectIdx).birthTime == label(1) && ...
+            objects(objectIdx).birthLocation == label(2)
+        object = objects(objectIdx);
+        return;
+    end
+end
+end
+
+function posterior = replaceLabelObject(posterior, object)
+posterior = reshape(posterior, 1, []);
+idx = 0;
+for objectIdx = 1:numel(posterior)
+    if posterior(objectIdx).birthTime == object.birthTime && ...
+            posterior(objectIdx).birthLocation == object.birthLocation
+        idx = objectIdx;
+        break;
+    end
+end
+if idx == 0
+    posterior(end + 1) = object;
+else
+    posterior(idx) = object;
+end
+end
+
+function value = emptyTrace()
+value = struct( ...
+    'proposalIndex', 0, ...
+    'formationId', 0, ...
+    'receiverId', 0, ...
+    'sourceId', 0, ...
+    'label', zeros(2, 1), ...
+    'receiverExistenceBefore', 0, ...
+    'sourceExistence', 0, ...
+    'fusedExistence', 0, ...
+    'receiverComponentCountBefore', 0, ...
+    'sourceComponentCount', 0, ...
+    'fusedComponentCount', 0);
+end
+
+function valid = validTrueBoolean(value)
+valid = isscalar(value) && ...
+    (islogical(value) || (isnumeric(value) && isfinite(value) && ...
+    (value == 0 || value == 1))) && logical(value);
+end
+
+function value = getField(data, name, fallback)
+if isstruct(data) && isfield(data, name)
+    value = data.(name);
+else
+    value = fallback;
+end
+end
