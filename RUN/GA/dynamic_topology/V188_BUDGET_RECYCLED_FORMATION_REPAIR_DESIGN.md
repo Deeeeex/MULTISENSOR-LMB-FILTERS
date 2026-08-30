@@ -136,16 +136,24 @@ the current observable proxy selects one.  This isolates action-space
 headroom from ranking error before any recursive pilot or learned model is
 authorized.
 
-The paired seed-211 immediate pilot now passes this bounded action-headroom
-check at both scales.  V99 alone gives M24 `+9.044%` E-OSPA, `+3.734%` RMSE,
-`+21.104%` consensus, and `+5.080%` byte saving; on X36 it gives `+2.802%`
-E-OSPA, `-0.666%` RMSE, `+5.149%` consensus, and `+6.550%` byte saving.  From
-the earned first-page credit, the truth-free utility-per-byte projection
-selects a jointly positive repair at both scales.  The selected X36 F3 label
-adds `+0.268%` network E-OSPA, `+0.699%` network RMSE, and `+0.458%`
-consensus while retaining `+5.180%` charged page saving; within F3, E-OSPA
-and RMSE improve by `+1.628% / +13.393%`.  The M24 increment is much smaller
-(`+0.003% / +0.055%` network E-OSPA/RMSE), so no-op remains a required action
-and positive proxy risk is only an eligibility condition.  These findings
-authorize the scale-aware recursive pilot (M24 H=4, X36 H=6) and grouped
-teacher generation, not model training or a final performance claim.
+The paired seed-211 immediate pilot passes the bounded current-page
+action-headroom check at both scales, but the subsequent H=3 recursive pilot
+rejects the original ranking rule.  On M24, the selected repair is slightly
+positive on its action page yet degrades E-OSPA, RMSE, and consensus relative
+to V99 by `0.738%`, `8.649%`, and `1.226%` over three pages.  On X36, it
+recovers `0.754%` RMSE relative to V99 and turns the static-relative RMSE
+change from `-0.666%` to `+0.092%`, but sacrifices `0.167%` E-OSPA and
+`0.167%` consensus.  Both scales retain positive charged communication
+saving, but neither repair passes the joint development gate.
+
+The failure is not a reason to discard residual label routing; it identifies
+the missing safety variable.  The M24 source-to-receiver predicted mean gap
+is about `159--166 m`, crossing the registered `150 m` position-error cutoff,
+whereas the selected X36 action remains about `38--63 m`.  The next method
+version therefore replaces unconditional current-risk projection with a
+charged receiver-certified propagation trust region and explicit no-op.
+Alternative X36 actions must be evaluated recursively before freezing the
+horizon-value target.  Model training, H=4/H=6 teacher generation, and
+paper-facing claims remain unauthorized.  The full result and evidence
+boundary are recorded in
+`evidence/tracking_aligned_v188/V188_RECURSIVE_H3_CROSS_SCALE_FINDING.md`.
