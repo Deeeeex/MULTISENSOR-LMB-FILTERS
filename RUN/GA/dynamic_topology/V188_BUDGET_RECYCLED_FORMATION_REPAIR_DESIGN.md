@@ -135,3 +135,17 @@ both whether the action bank contains a jointly positive repair and whether
 the current observable proxy selects one.  This isolates action-space
 headroom from ranking error before any recursive pilot or learned model is
 authorized.
+
+The paired seed-211 immediate pilot now passes this bounded action-headroom
+check at both scales.  V99 alone gives M24 `+9.044%` E-OSPA, `+3.734%` RMSE,
+`+21.104%` consensus, and `+5.080%` byte saving; on X36 it gives `+2.802%`
+E-OSPA, `-0.666%` RMSE, `+5.149%` consensus, and `+6.550%` byte saving.  From
+the earned first-page credit, the truth-free utility-per-byte projection
+selects a jointly positive repair at both scales.  The selected X36 F3 label
+adds `+0.268%` network E-OSPA, `+0.699%` network RMSE, and `+0.458%`
+consensus while retaining `+5.180%` charged page saving; within F3, E-OSPA
+and RMSE improve by `+1.628% / +13.393%`.  The M24 increment is much smaller
+(`+0.003% / +0.055%` network E-OSPA/RMSE), so no-op remains a required action
+and positive proxy risk is only an eligibility condition.  These findings
+authorize the scale-aware recursive pilot (M24 H=4, X36 H=6) and grouped
+teacher generation, not model training or a final performance claim.
