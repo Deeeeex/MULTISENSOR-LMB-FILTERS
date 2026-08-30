@@ -56,3 +56,26 @@ upper bound:
 
 As with V156, a below-gate result remains repository-only and is not added to
 the main Lark document.
+
+## Outcome and next method gate
+
+V157 passed the registered X36 development gate.  Relative to the paired
+static full-payload baseline, mean E-OSPA improved by `+6.522%`, the mature
+window improved by at least `+6.145%`, every formation-time cell was
+nonnegative, and window/terminal consensus improved by `+10.163%/+14.668%`.
+After charging the frozen worst-case `198144`-byte reference-label payload,
+the adjusted attempted-byte saving remained `+5.184%`.
+
+Together with the failed fixed-capacity V156 sweep, this isolates the useful
+mechanism more sharply: the X36 tail is not repaired by sending more labels
+uniformly; it is repaired by applying only labels with positive receiver-time
+value.  This is mechanism evidence, not a deployable result, because both the
+static reference label and its truth-valued marginal score are privileged.
+
+The next gate is therefore **causal source feasibility**, before any GNN is
+trained.  We must determine whether the beneficial edits are tombstones or
+complete labels that can be synthesized from runtime-available local/received
+posteriors within the relevant deadline.  A scorer cannot make an unavailable
+posterior appear.  Only if a causal source oracle retains the V157 gain will
+we construct observable training features and learn label value; otherwise the
+static-reference label-memory interpretation is rejected.
