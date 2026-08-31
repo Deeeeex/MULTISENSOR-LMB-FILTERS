@@ -22,6 +22,14 @@ The useful action is therefore state- and mode-dependent.  A single learned
 edge weight, a maximum-risk threshold, or a receiver-wise classifier cannot
 represent the observed action family.
 
+V208 does not reopen the closed V56--V57 source/trust/protection bank.  That
+bank already used tracking-aligned graph features and a deterministic safety
+projection, but its best M24 joint source/trust action reached only `1.482%`
+tracking gain and its joint protection bank only `0.304%`.  V208 reuses the
+representation machinery only.  Its action space is the new release plus
+complete-label KLA family that has already demonstrated more than `7%`
+aggregate headroom at both M24 and X36.
+
 ## Online action space
 
 For every formation and page, the controller considers only four action
@@ -55,12 +63,11 @@ probability, geometric distance normalized by range, FoV overlap, posterior
 agreement, cross-formation label support, and the bytes required by each
 candidate payload.
 
-**Candidate features** reuse the truth-free one-hop label features already
-implemented in `computeObservableOneHopLabelActionFeatures`, augmented with
-action type, formation coverage, bounded covariance log-ratio, support
-fraction, support-gap dwell, and payload cost.  Absolute sensor IDs, formation
-IDs, label keys, time indices, truth, future measurements, and future link
-draws are excluded.
+**Candidate features** reuse the bounded truth-free failure-mode primitives in
+`buildFormationLabelActionModeFeaturesV202`, augmented with action type,
+formation coverage, support state, and payload cost.  Absolute sensor IDs,
+formation IDs, label keys, time indices, truth, future measurements, and
+future link draws are excluded.
 
 Two shared message-passing layers aggregate neighboring formation evidence.
 An action head combines the receiver embedding, source embedding, graph-level
@@ -78,9 +85,9 @@ The model predicts a vector rather than a single reward:
 
 where the entries are finite-horizon improvements in E-OSPA, RMSE, consensus
 error, and attempted bytes relative to the same-state no-op continuation.
-It also predicts whether the action causes a material sensor- or
-formation-level regression.  Initialization ensembles provide a conservative
-lower bound for every output.
+It also predicts receiver-formation improvement, minimum affected-sensor
+improvement, and network-worst regression.  Initialization ensembles provide
+a conservative lower bound for every output.
 
 Selection is not based on a brittle weighted average.  Candidates must first
 have positive lower-confidence aggregate tracking and consensus value, fit the
@@ -89,6 +96,12 @@ candidates, the controller maximizes the minimum normalized improvement across
 the four objectives.  Tail metrics remain penalties and reported diagnostics,
 not an all-formations-must-be-strictly-positive veto; the latter is retained
 only as a strong-evidence label for experiments.
+
+The first dense t=72 block confirms why this vector contract is necessary.
+Two F5 actions improve mean E-OSPA by about `0.96%` and RMSE by about `7.93%`
+but worsen consensus and the minimum affected-sensor RMSE.  The V206 F2 action
+instead improves all aggregate objectives and both affected-sensor tails.  A
+scalar mean reward would rank the unsafe F5 action first.
 
 ## Deterministic safety projection
 
@@ -135,6 +148,13 @@ formation features, while the two-round pooling pattern in
 passing and the existing Adam code supplies training.  Only the action block
 and four-output heads are new.  This avoids a new runtime dependency and keeps
 training and deployment numerically aligned.
+
+The implemented V208 shortlist retains `2.769%` of the dense supported-label
+bank while preserving all five V206 teacher routing keys.  On the first X36
+page, 15 of 108 executable actions improve mean E-OSPA, RMSE, consensus, and
+the charged byte balance together; five also pass a zero-tolerance
+formation/sensor-tail screen.  These are development action-value results, not
+recursive policy performance.
 
 ## Promotion criteria
 
