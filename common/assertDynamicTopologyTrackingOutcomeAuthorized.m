@@ -1933,7 +1933,8 @@ elseif v191Context
     expectedPayloadMode = 'control-only';
 elseif v188Context
     repairProtocol = getBudgetRecycledFormationRepairV188Protocol();
-    protocol = getOnlinePositiveNetAddressablePayloadV99Protocol();
+    protocol = getOnlinePositiveNetAddressablePayloadV99Protocol( ...
+        context.measurementTimeCount - context.currentTime + 1);
     expectedFields{end + 1} = ...
         'budgetRecycledFormationRepairPlan';
     expectedProtocolId = repairProtocol.id;
