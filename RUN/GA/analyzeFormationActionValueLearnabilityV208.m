@@ -67,11 +67,11 @@ for heldoutBlock = 1:blockCount
     trainingRows = dataset.rows(trainingMask);
     heldoutRows = dataset.rows(heldoutMask);
     trainingTargets = vertcat(trainingRows.targets);
-    trainingTargets = ...
-        trainingTargets(:, predictionTargetIndices);
+    trainingTargets = gainPercentToLogRatio( ...
+        trainingTargets(:, predictionTargetIndices));
     heldoutTargetsFull = vertcat(heldoutRows.targets);
-    heldoutTargets = ...
-        heldoutTargetsFull(:, predictionTargetIndices);
+    heldoutTargets = gainPercentToLogRatio( ...
+        heldoutTargetsFull(:, predictionTargetIndices));
     targetScale = std(trainingTargets, 0, 1);
     targetScale(~isfinite(targetScale) | targetScale <= eps) = 1;
 
@@ -161,7 +161,8 @@ for heldoutBlock = 1:blockCount
 end
 
 trueTargets = vertcat(dataset.rows.targets);
-trueTargets = trueTargets(:, predictionTargetIndices);
+trueTargets = gainPercentToLogRatio( ...
+    trueTargets(:, predictionTargetIndices));
 targetSpearman = zeros(1, numel(predictionTargetIndices));
 for targetIdx = 1:numel(predictionTargetIndices)
     targetSpearman(targetIdx) = computeSpearman( ...
@@ -182,6 +183,9 @@ result.ridgeLambda = ridgeLambda;
 result.uncertaintyMultiplier = uncertaintyMultiplier;
 result.predictionTargetIndices = predictionTargetIndices;
 result.predictionTargetNames = predictionTargetNames;
+result.targetTransform = ...
+    'tanh_log_reference_over_candidate_ratio';
+result.zeroInTransformedSpaceMeansNoMetricChange = true;
 result.folds = folds;
 result.targetSpearman = targetSpearman;
 result.strictTailAuc = strictAuc;
@@ -342,6 +346,21 @@ mask = targets(:, 1) > 0 & targets(:, 2) > 0 & ...
     targets(:, 10) >= 0 & targets(:, 11) >= 0;
 end
 
+function transformed = gainPercentToLogRatio(gainPercent)
+% Relative gain is 100 * (reference-candidate) / reference.  Therefore
+% candidate/reference = 1-gain/100.  A tanh-compressed negative log ratio
+% gives a bounded, symmetric, monotone target whose zero and sign retain
+% their meaning while large regressions no longer dominate a squared-error
+% fit.
+ratio = 1 - gainPercent / 100;
+if any(~isfinite(ratio(:))) || any(ratio(:) < -1e-9)
+    error('FormationActionLearnabilityV208:InvalidGainTarget', ...
+        'Every learned metric target must imply a nonnegative error ratio.');
+end
+ratio = max(ratio, eps);
+transformed = tanh(-log(ratio));
+end
+
 function [meanValue, scaleValue] = fitScaler(X)
 meanValue = mean(X, 1);
 scaleValue = std(X, 0, 1);
@@ -437,6 +456,8 @@ fprintf(fid, '- Frozen encoder seeds / width: `%d / %d`\n', ...
     numel(result.encoderSeeds), result.hiddenWidth);
 fprintf(fid, '- Ridge lambda / LCB multiplier: `%.3g / %.3g`\n', ...
     result.ridgeLambda, result.uncertaintyMultiplier);
+fprintf(fid, '- Learned target transform: `%s`\n', ...
+    result.targetTransform);
 fprintf(fid, '- Pages with a strict action: `%d / %d`\n', ...
     result.pageWithStrictActionCount, result.pageCount);
 fprintf(fid, '- Top-1 / top-5 strict recovery: `%d / %d`\n', ...
@@ -479,6 +500,8 @@ for fold = reshape(result.folds, 1, [])
         minTail, strictText, fold.bestStrictRank);
 end
 fprintf(fid, '\n## Target rank correlation\n\n');
+fprintf(fid, ['Correlations use the bounded log error-ratio target; ', ...
+    'the selected-action table retains raw percent gains.\n\n']);
 fprintf(fid, '| Target | Spearman |\n|:--|--:|\n');
 for idx = 1:numel(result.predictionTargetNames)
     fprintf(fid, '| %s | %+.4f |\n', ...

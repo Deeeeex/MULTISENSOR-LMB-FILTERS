@@ -77,7 +77,20 @@ and allow the graph size to change without retraining the architecture.
 
 ## Learning target and decision rule
 
-The model predicts a vector rather than a single reward:
+The model predicts a vector rather than a single reward.  For numerical
+training, each reported percent improvement is mapped through the bounded,
+sign-preserving transform
+
+\[
+z=\tanh\!\left(\log\frac{e_{\mathrm{reference}}}
+{e_{\mathrm{candidate}}}\right),
+\]
+
+so zero still means no change and positive still means improvement, while a
+catastrophic sensor-tail ratio cannot dominate all other heads.  Tables and
+gates remain in the original metric units.
+
+The reported value vector is:
 
 \[
 (\Delta E,\;\Delta R,\;\Delta C,\;\Delta B),
