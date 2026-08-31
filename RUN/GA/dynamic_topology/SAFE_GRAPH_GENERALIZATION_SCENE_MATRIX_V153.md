@@ -28,6 +28,22 @@ property, and the same frozen method must transfer without retuning.
 `*` denotes the matched M24 or X36 prefix.  Existing scenario code and figure
 exporters are reused; no target or sensor path is manually edited for V153.
 
+## Current readiness, not method evidence
+
+| Family | Generation / geometry status | Tracking status |
+|:--|:--|:--|
+| Radial M24/X36 | Current controlled method-development pair | Opened development evidence only; held-out controller validation remains pending |
+| Convoy and relay M24/X36 | Frozen v5 geometry passed every absolute and cross-scale gate on 20 unseen seeds | Scene is eligible for a later frozen method transfer, but the geometry protocol explicitly authorizes no tracking outcome |
+| Crossing M24/X36 | Frozen generator and structural checks; registered as `stress-only-v5` | Failure-boundary stress test only |
+| Braided handover and target overlap M24/X36 | One-switch generators and structural tests are present | Development-only mechanism stress tests |
+| Merge-split and curved corridor M24/X36 | One-switch generators, structural metrics and editable figures are present | Development-only secondary robustness tests |
+
+The convoy/relay geometry evidence is
+`evidence/formation_fov_multistyle_v5/held_out_geometry_validation_r1_6715598/FORMATION_FOV_MULTISTYLE_GEOMETRY_VALIDATION_20260803_160329.md`.
+It records `20` held-out seeds, all absolute gates passed, all M24/X36
+cross-scale gates passed, and `tracking outcome authorized = 0`.  This prevents
+scene readiness from being misreported as policy generalization.
+
 ## Frozen order and claim boundary
 
 1. Tier 0 must pass M24 and X36 independently under the same graph generator,

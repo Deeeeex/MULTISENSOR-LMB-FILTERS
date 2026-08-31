@@ -20,6 +20,24 @@ The graph network estimates the consequence of an action.  It cannot override
 physical reachability, the communication ledger, cooldown, the one-action
 page cap, or the supported-label rule.
 
+## V208 representation gate
+
+The completed X36 seed-211 development bank contains `831` executable actions
+over eight pages.  A complete-page leave-one-out ridge readout over frozen
+two-round graph representations reaches strict-action AUC `0.7839`, top-1
+strict recovery on `3 / 8` pages, and selects two actions that are both
+strictly positive.  An action-only readout reaches AUC `0.7758` and top-1
+recovery on `2 / 8` pages.  The graph ranking advantage is therefore modest;
+the important requirement is calibrated abstention, not an unsupported claim
+that graph context alone solves selection.
+
+Aggregate and receiver-formation E-OSPA targets have Spearman correlation near
+`0.71`, while network-worst E-OSPA and RMSE reach only `0.23` and `0.12`.
+V209 therefore treats tail prediction as the binding representation problem.
+The result passes a proposal-model gate only.  It does not authorize an online
+controller, because page 76 has no jointly positive immediate action even
+though its teacher action belongs to a strong recursive sequence.
+
 ## Vector value and explicit risk budget
 
 For observable state `x`, feasible action `a`, and protected metric `j`, let
@@ -106,16 +124,40 @@ mixture of tracking, consensus and communication objectives.
 1. V208 complete-page holdout on one opened X36 trajectory is only a
    representation gate.  It cannot train or calibrate V209.
 2. Dense immediate action values are generated on disjoint radial, convoy and
-   relay M24/X36 development trajectories.  Sparse short-recursive targets
-   are added for high-ranked, high-uncertainty and policy-visited actions.
-3. Model fitting and conformal calibration use disjoint complete trajectories.
+   relay M24/X36 development trajectories.  They initialize the representation
+   and proposal ranker only.  Sparse short-recursive targets are then queried
+   for high-ranked, high-uncertainty and policy-visited actions, always paired
+   with the same-state no-op continuation.
+3. Recursive target generation is iterative: roll out the current frozen
+   selector, collect the states induced by its own earlier actions, query a
+   bounded action subset at those states, and refit.  A semantic cooldown
+   removes repeated receiver-formation/label repairs before ranking.  This is
+   required because an immediately attractive repeat may spend credit while a
+   different action has the delayed value.
+4. Model fitting and conformal calibration use disjoint complete trajectories.
    The calibration manifest, `alpha`, target scales and risk tolerances are
    frozen before recursive evaluation.
-4. A first promotion requires paired static-versus-controller gains in mean
+5. A first promotion requires paired static-versus-controller gains in mean
    E-OSPA, RMSE, consensus and attempted bytes on unseen M24 and X36 seeds.
-5. The frozen controller then transfers without retuning to convoy and relay;
+6. The frozen controller then transfers without retuning to convoy and relay;
    crossing, braided handover, target overlap, merge-split and curved corridor
    remain stress tests, followed by X48 scale extrapolation.
+
+The first sparse recursive check is deliberately smaller than a new exhaustive
+bank.  It reuses the completed V206 action trajectory and runs two paired
+delete-one-action continuations:
+
+- delete the t=73 F6 precision-refresh action while retaining the identical
+  t=72 prefix, then score t=73--75; and
+- delete the t=76 F3 repair while retaining the identical t=72--75 prefix and
+  the same forced t=77/t=78 continuation, then score t=76--78.
+
+Each pair must reproduce its common prefix before a return is accepted.  The
+three-page vector return is measured relative to the delete-action branch and
+reports aggregate tracking, consensus, receiver and sensor tails, the exact
+incremental bytes, and remaining saving relative to static full-payload
+routing.  These two probes test the delayed-value diagnosis; they are not
+training or calibration examples for a final model.
 
 ## Claim boundary
 
@@ -130,3 +172,18 @@ bound as a protected action-selection layer and still requires independent
 paired recursive evaluation.  The residual label operator remains the
 repository's componentwise powered-GM approximation and is not claimed to be
 exact KLA for arbitrary Gaussian mixtures.
+
+## Primary literature anchors
+
+- Kiyani et al., *Decision Theoretic Foundations for Conformal Prediction:
+  Optimal Uncertainty Quantification for Risk-Averse Agents*, ICML 2025,
+  <https://proceedings.mlr.press/v267/kiyani25a.html>, supplies the general
+  connection between conformal uncertainty sets and max-min risk-averse
+  decisions.  It does not supply the LMB action space or the trajectory-wide
+  score used here.
+- Dietterich and Hostetler, *Conformal Prediction Intervals for Markov Decision
+  Process Trajectories*, arXiv:2206.04860,
+  <https://arxiv.org/abs/2206.04860>, gives whole-trajectory coverage for a
+  fixed control policy.  Its fixed-policy condition is why V209 explicitly
+  refuses to transfer a base-route calibration guarantee to a new recursive
+  controller without additional evidence.
