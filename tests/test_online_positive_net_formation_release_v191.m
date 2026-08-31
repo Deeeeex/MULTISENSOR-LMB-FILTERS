@@ -26,9 +26,19 @@ assert(isequal(laterEffective, [1, 3, 4]));
 assert(isempty(laterDetails.appliedFormationIds));
 
 invalidPlan = plan;
-invalidPlan.formationIdsByTime = {[3, 4]};
+invalidPlan.formationIdsByTime = {[2, 3, 4]};
 assert(~isValidOnlinePositiveNetFormationReleaseV191Plan( ...
     invalidPlan, 4));
+
+pairedPlan = plan;
+pairedPlan.formationIdsByTime = {[2, 4]};
+assert(isValidOnlinePositiveNetFormationReleaseV191Plan( ...
+    pairedPlan, 4));
+[pairedEffective, pairedDetails] = ...
+    applyOnlinePositiveNetFormationReleaseV191( ...
+        [1, 2, 3, 4], currentTime, 4, pairedPlan);
+assert(isequal(pairedEffective, [1, 3]));
+assert(isequal(pairedDetails.appliedFormationIds, [2, 4]));
 
 context = buildOnlinePositiveNetFormationReleaseV191ExecutionContext( ...
     'm24-formation-fov', 211, currentTime, ...
