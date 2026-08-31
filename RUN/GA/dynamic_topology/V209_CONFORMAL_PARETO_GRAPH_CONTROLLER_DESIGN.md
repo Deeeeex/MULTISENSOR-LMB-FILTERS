@@ -49,6 +49,17 @@ and consensus by `2.951%`, with `2.708%` attempted-byte saving still remaining
 relative to static full-payload routing.  No immediate classifier can recover
 this action from its target sign.
 
+The first newly generated delete-action pair confirms the same phenomenon for
+F6.  The V206 and no-t=73 branches reproduce the complete t=72 prefix exactly.
+At t=73 the action has zero E-OSPA gain, but its E-OSPA gain becomes `0.940%`
+and `1.553%` on the next two pages.  Over t=73--75 it improves mean E-OSPA by
+`0.818%`, RMSE by `12.748%`, consensus by `2.831%`, and F6 formation RMSE by
+`55.479%`; minimum receiver-sensor, network-worst and cross-formation tails do
+not regress.  It adds `90,520 B` relative to no-op while the controller still
+retains `4.544%` attempted-byte saving relative to static full-payload routing.
+Thus H=3 recovers both the zero-immediate F1 set repair and the deferred F6
+precision refresh under one target definition.
+
 The formation-release action is also intrinsically vector-valued.  Comparing
 the existing V206 release branch with the same V204 label-action continuation
 over pages 72--74, releasing F5 improves RMSE by `0.097%`, consensus by
