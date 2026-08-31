@@ -30,7 +30,8 @@ proposal = selectPositiveNetAddressableRiskSetV97( ...
     metrics, protocol);
 projection = projectObservationSupportedSetSafeV194( ...
     control, context, groupIds, proposal.selectedFormationIds, ...
-    protocol.positiveSupportThreshold);
+    protocol.positiveSupportThreshold, struct( ...
+        'supportMode', protocol.supportMode));
 
 details.posteriorUsed = true;
 details.posteriorPayloadMetadataUsed = false;
@@ -59,4 +60,3 @@ details.onlinePositiveNetMetrics = metrics;
 details.onlinePositiveNetSelection = proposal;
 details.observationSupportedSetSafeProjection = projection;
 end
-

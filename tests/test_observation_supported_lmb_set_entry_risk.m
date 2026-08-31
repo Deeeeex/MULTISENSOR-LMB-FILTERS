@@ -16,6 +16,16 @@ assert(supported.unsupportedEntryCount == 0);
 assert(supportedRisk == 0);
 assert(unsupported.unsupportedEntryCount == 1);
 assert(unsupportedRisk > 0);
+
+networkPosterior = {posteriorObjects(0.00), posteriorObjects(0.90)};
+[networkRisk, network] = ...
+    computeObservationSupportedLmbSetEntryRisk( ...
+        {reference, reference}, {candidate, reference}, ...
+        networkPosterior, [1, 2], struct( ...
+            'supportMode', 'receiver-or-cross-sender', ...
+            'fusionWeights', [0.5, 0.5; 0.5, 0.5]));
+assert(network.unsupportedEntryCount(1) == 0);
+assert(networkRisk == 0);
 fprintf('test_observation_supported_lmb_set_entry_risk passed.\n');
 end
 
@@ -34,4 +44,3 @@ objects = repmat(template, 1, 2);
 objects(2).birthLocation = 2;
 objects(2).detectionAssociationMass = secondSupport;
 end
-

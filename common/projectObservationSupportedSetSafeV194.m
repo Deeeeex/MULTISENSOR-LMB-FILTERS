@@ -1,7 +1,14 @@
 function projection = projectObservationSupportedSetSafeV194( ...
         control, context, groupIds, proposedFormationIds, ...
-        positiveSupportThreshold)
+        positiveSupportThreshold, options)
 % PROJECTOBSERVATIONSUPPORTEDSETSAFEV194 Remove unsupported set entries.
+
+if nargin < 6 || isempty(options)
+    options = struct();
+end
+supportMode = lower(strrep(char(getField( ...
+    options, 'supportMode', 'receiver-only')), '_', '-'));
+fusionWeights = getField(control, 'referenceFusionWeights', []);
 
 groupIds = reshape(groupIds, 1, []);
 proposedFormationIds = reshape(proposedFormationIds, 1, []);
@@ -44,7 +51,9 @@ for formationId = proposedFormationIds
     [~, entry] = computeObservationSupportedLmbSetEntryRisk( ...
         referenceDistributions, candidateDistributions, ...
         context.localPosteriorBySensor, groupIds, struct( ...
-            'positiveSupportThreshold', positiveSupportThreshold));
+            'positiveSupportThreshold', positiveSupportThreshold, ...
+            'supportMode', supportMode, ...
+            'fusionWeights', fusionWeights));
     evaluatedMask(formationIdx) = true;
     unsupportedEntryCount(formationIdx) = ...
         entry.formationUnsupportedEntryCount(formationIdx);
@@ -76,9 +85,17 @@ projection.maximumReceiverRiskByFormation = maximumReceiverRisk;
 projection.minimumEntrySupportByFormation = minimumEntrySupport;
 projection.releaseOnAnyUnsupportedEntry = true;
 projection.positiveSupportThreshold = positiveSupportThreshold;
+projection.supportMode = supportMode;
 projection.truthUsed = false;
 projection.futureInformationUsed = false;
 projection.numericFormationIdentifiersUsedAsFeatures = false;
 projection.numericLabelIdentifiersUsedAsFeatures = false;
 end
 
+function value = getField(data, name, fallback)
+if isstruct(data) && isfield(data, name)
+    value = data.(name);
+else
+    value = fallback;
+end
+end
