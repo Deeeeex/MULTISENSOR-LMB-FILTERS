@@ -78,6 +78,38 @@ assert(~observableDiagnostics.delivered(2, 1, 1));
 assert(observableDiagnostics.delivered(1, 2, 2));
 assert(observableDiagnostics.delivered(2, 1, 2));
 
+topologyPolicyObservableContextTestState.mode = 'posterior-history';
+topologyPolicyObservableContextTestState.captured = ...
+    cell(1, timeCount);
+historyConfig = observableConfig;
+historyConfig.topologyPolicyLocalPosteriorHistoryEnabled = true;
+historyConfig.topologyPolicyLocalPosteriorHistoryDepth = 1;
+rng(1701);
+runEventTriggeredDistributedLmbFilter( ...
+    model, measurements, sensorTrajectories, neighborMap, ...
+    commConfig, historyConfig);
+for currentTime = 1:timeCount
+    captured = topologyPolicyObservableContextTestState. ...
+        captured{currentTime};
+    contract = captured.observableInputContract;
+    assert(contract.localPosteriorHistoryPresent);
+    assert(contract.pastLocalPosteriorHistoryOnly);
+    assert(contract.localPosteriorHistoryAligned);
+    assert(contract.localPosteriorHistorySchemaRestricted);
+    assert(contract.localPosteriorHistoryHasNoFutureTimestamps);
+    expectedCount = double(currentTime > 1);
+    assert(captured.previousLocalPosteriorHistoryCount == ...
+        expectedCount);
+    assert(numel(captured.previousLocalPosteriorHistory) == ...
+        expectedCount);
+    if expectedCount > 0
+        assert(isequal(captured.previousLocalPosteriorHistoryTimes, ...
+            currentTime - 1));
+        assert(numel(captured.previousLocalPosteriorHistory{1}) == ...
+            sensorCount);
+    end
+end
+
 topologyPolicyObservableContextTestState.mode = 'legacy';
 topologyPolicyObservableContextTestState.captured = ...
     cell(1, timeCount);
@@ -185,8 +217,8 @@ end
 function [adjacency, details] = observablePolicyCallback(context)
 global topologyPolicyObservableContextTestState;
 currentTime = context.currentTime;
-if strcmp(topologyPolicyObservableContextTestState.mode, ...
-        'observable')
+if ismember(topologyPolicyObservableContextTestState.mode, { ...
+        'observable', 'posterior-history'})
     assert(isfield(context, 'observableInputContract'));
     contract = context.observableInputContract;
     assert(contract.passed);
@@ -254,6 +286,10 @@ if strcmp(topologyPolicyObservableContextTestState.mode, ...
         'UniformOutput', false))));
     assert(all(context.previousAdjacencyHistoryTimes < currentTime));
     assert(all(context.localUpdateHistoryTimes <= currentTime));
+    if strcmp(topologyPolicyObservableContextTestState.mode, ...
+            'posterior-history')
+        assert(isfield(context, 'previousLocalPosteriorHistory'));
+    end
 else
     assert(~isfield(context, 'observableInputContract'));
 end
