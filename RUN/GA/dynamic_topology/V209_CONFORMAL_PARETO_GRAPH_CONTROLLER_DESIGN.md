@@ -38,6 +38,25 @@ The result passes a proposal-model gate only.  It does not authorize an online
 controller, because page 76 has no jointly positive immediate action even
 though its teacher action belongs to a strong recursive sequence.
 
+Existing paired recursive ablations make the target distinction causal rather
+than hypothetical.  On the unmodified V99 page-77 state, the F1 `[7,7]`
+label action has exactly zero immediate E-OSPA, RMSE and consensus effect.  On
+the policy-induced state with the same V204 prefix, deleting only that action
+leaves pages 72--76 numerically identical, while retaining it yields no effect
+at page 77 and then improves E-OSPA by `1.367%` and `1.373%` at pages 78 and
+79.  Its three-page return improves mean E-OSPA by `0.909%`, RMSE by `1.397%`
+and consensus by `2.951%`, with `2.708%` attempted-byte saving still remaining
+relative to static full-payload routing.  No immediate classifier can recover
+this action from its target sign.
+
+The formation-release action is also intrinsically vector-valued.  Comparing
+the existing V206 release branch with the same V204 label-action continuation
+over pages 72--74, releasing F5 improves RMSE by `0.097%`, consensus by
+`0.234%`, and F5 RMSE by `1.532%`, but worsens mean E-OSPA by `0.548%` and F5
+E-OSPA by `3.729%`.  It adds `19,520 B` in that window while retaining
+`4.325%` saving relative to static.  Release must therefore compete with
+no-op under the full risk vector; support-gap detection cannot force it.
+
 ## Vector value and explicit risk budget
 
 For observable state `x`, feasible action `a`, and protected metric `j`, let
@@ -49,6 +68,14 @@ vector contains mean E-OSPA, mean RMSE, consensus, receiver-formation E-OSPA
 and RMSE, minimum affected-sensor E-OSPA and RMSE, and network-worst E-OSPA
 and RMSE.  Attempted-byte saving is computed exactly by the communication
 ledger rather than learned.
+
+Communication feasibility is cumulative, not a demand that every repair send
+fewer bytes than no-op.  Dynamic routing first earns attempted-byte credit
+relative to static full-payload routing; a repair may spend part of that
+credit, as the F1 action does, provided the protected reserve and cumulative
+net saving remain nonnegative.  This preserves the actual research objective
+of lower total communication while allowing informative payloads to replace
+redundant ones.
 
 The regression heads operate on the bounded monotone target
 `z_j = tanh(log(error_reference/error_candidate))`.  Conformal residuals and
@@ -64,13 +91,48 @@ data are opened, each protected target receives a tolerance `tau_j`:
 
 - aggregate E-OSPA and RMSE require positive improvement;
 - consensus may not regress;
-- formation, affected-sensor and network-worst targets may use a small,
-  explicitly reported negative tolerance;
+- receiver-formation, cross-formation and network-worst targets may use a
+  small, explicitly reported negative tolerance;
+- the minimum affected-sensor value remains a reported diagnostic and receives
+  a broad, scale-free catastrophe cap rather than a zero-regression veto; and
 - exact attempted-byte saving must remain nonnegative.
 
 This turns the previously over-strict all-zero tail gate into an auditable
 risk budget.  The tolerances are shared across M24/X36 and scene styles and
 cannot be tuned on recursive evaluation outcomes.
+
+This distinction is required by the F1 branch rather than chosen for easier
+passing.  Its three-page receiver-sensor E-OSPA gains are all about `4.83%`,
+but two of six receiver RMSE gains are `-6.059%` and `-3.491%`.  At the same
+time, F1 formation RMSE improves `1.287%`, network-worst RMSE does not regress,
+and the aggregate E-OSPA/RMSE/consensus vector is strongly positive.  Requiring
+every node to improve would reject useful error redistribution.  Conversely,
+the dense bank contains affected-sensor RMSE losses exceeding `1000%`; the
+catastrophe cap is still needed to reject genuine local collapse.  The strong
+zero-tail label remains in all tables so this relaxation is visible.
+
+## Dense-immediate and sparse-recursive value model
+
+Let `d_j(x,a)` be the current-page transformed gain and `q_j^H(x,a)` the
+same-state no-op-relative gain over a fixed `H=3` continuation.  The shared
+graph encoder has a dense auxiliary head for `d_j` and a sparse propagation
+head for the residual
+
+`rho_j^H(x,a) = q_j^H(x,a) - d_j(x,a)`.
+
+The deployable value is `q_hat_j^H = d_hat_j + rho_hat_j^H`; selection never
+uses the immediate head by itself.  This decomposition lets all shortlisted
+actions train local posterior sensitivity while reserving expensive recursive
+rollouts for delayed propagation.  Losses are balanced by complete trajectory
+and action mode, so hundreds of immediate label rows cannot numerically erase
+the smaller recursive release and no-op comparisons.
+
+The sparse query set is the deterministic union of top-ranked actions,
+high-uncertainty actions, one representative per semantic mode, and actions
+actually visited by the current selector.  The same receiver-formation and
+label cannot be queried on consecutive pages; source changes do not reset this
+one-page semantic cooldown.  This preserves the useful t=76/t=78 F3 refresh
+while removing the empirically redundant t=78/t=79 repeat.
 
 ## Simultaneous trajectory-level conformal lower bound
 
@@ -125,9 +187,11 @@ mixture of tracking, consensus and communication objectives.
    representation gate.  It cannot train or calibrate V209.
 2. Dense immediate action values are generated on disjoint radial, convoy and
    relay M24/X36 development trajectories.  They initialize the representation
-   and proposal ranker only.  Sparse short-recursive targets are then queried
-   for high-ranked, high-uncertainty and policy-visited actions, always paired
-   with the same-state no-op continuation.
+   and proposal ranker only.  The finite-horizon head learns a sparse residual
+   over that immediate auxiliary target, so a zero-immediate but delayed-positive
+   action remains representable.  Recursive targets are queried for
+   high-ranked, high-uncertainty, mode-diverse and policy-visited actions,
+   always paired with the same-state no-op continuation.
 3. Recursive target generation is iterative: roll out the current frozen
    selector, collect the states induced by its own earlier actions, query a
    bounded action subset at those states, and refit.  A semantic cooldown
