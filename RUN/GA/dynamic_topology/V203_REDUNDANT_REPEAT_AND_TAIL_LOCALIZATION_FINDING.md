@@ -19,7 +19,8 @@ source weight `0.5`.
 
 The tracking change is negligible, F3 remains positive on both metrics, and
 the F1/F5/F6 tails are numerically unchanged.  The last-page action should
-therefore be removed.  A one-page exact-action cooldown is now a causal
+therefore be removed.  A one-page semantic-action cooldown (same formation
+and label, regardless of which source currently supplies it) is now a causal
 candidate for preventing this kind of redundant repeat without using time,
 formation, or label identifiers as learned features.
 
@@ -37,7 +38,7 @@ formation.
 | F1, t=77 | source 13, label `[7,7]` | 0.026886 | +35.880962 / +5.974390 | +7.724154 / +0.228923 | 6/6 | MAP-sensitive set-entry candidate; ordinary maximum-risk ranking misses it |
 | F1, t=79 | source 24, label `[25,19]` | 0.498770 | +35.597374 / +5.920303 | +7.514103 / +0.137656 | 6/6 | A high-risk alternative exists late, but competes with the stronger F5 tail |
 | F5, t=78 | source 19, label `[19,16]` | 0.498755 | +47.243813 / +7.037599 | -0.408344 / -0.642444 | 4/6 | Too early: set accuracy improves but the RMSE sign is not formation-safe |
-| F5, t=79 | source 22, label `[19,16]` | 0.498849 | +47.418628 / +7.129655 | +0.725895 / +0.097040 | 6/6 | Clean late observation-handover candidate in the corrected state |
+| F5, t=79 | source 22, label `[19,16]` | 0.498849 | +47.418628 / +7.129655 | +0.725895 / +0.097040 | 6/6 | Clean late support-restore candidate in the corrected state |
 | F6, t=78 | source 28, label `[7,5]` | 0.439397 | +33.125643 / +5.451272 | +242.033257 / +31.263074 | 6/6 | Strong precision-refresh opportunity |
 | F6, t=79 | source 21, label `[7,5]` | 0.498629 | +35.005447 / +5.823658 | +167.711171 / +2.549446 | 6/6 | The same semantic precision defect persists late |
 
@@ -53,6 +54,15 @@ The old V187 F5 action `[31,24]` must not be copied into the new rollout.  In
 the corrected F2+F3 state the observable common action is `[19,16]`, and its
 safe timing is `t=79`, not `t=78`.
 
+Receiver support exposes a hard operator boundary.  F1 `[7,7]` remains present
+at all six receivers with existence `0.0279--0.1869`, so residual KLA is
+defined.  F5 `[19,16]` is absent (`r=0`) at every receiver while source 22 has
+existence `0.999966`, evidence quality `0.998604`, and observation opportunity
+`0.777504`.  A KLA update cannot resurrect zero support and the current KLA
+implementation correctly rejects it.  F5 must therefore use a protected
+complete-label insertion/replacement.  This is a sparse set/cardinality
+restore action, not an observation-handover KLA action.
+
 ## Next recursive decision
 
 Two paired H=8 teachers are authorized.  Both use the already verified F2 to
@@ -62,11 +72,17 @@ on F5:
 1. F2 `[13,12] <- 19` at `t=72`;
 2. F6 `[7,5] <- 19` at `t=73`;
 3. F3 `[19,13] <- 23` at `t=76/78`;
-4. F5 `[19,16] <- 22` at `t=79`.
+4. F5 `[19,16] <- 17` at `t=79`, using hard support restoration rather than
+   residual KLA.  Source 17 is the opened teacher choice because its
+   formation-wide minimum RMSE margin and peer consensus exceed source 22;
+   source selection remains a learned within-mode decision at runtime.
 
-The paired arm adds only F1 `[7,7] <- 13` at `t=77`.  This is the minimum
-ablation needed to determine whether the MAP-sensitive F1 action belongs in
-the complete mode set.  It is not a parameter sweep.
+The first paired arm adds only F1 `[7,7] <- 13` at `t=77` while keeping the
+other supported-label actions on residual KLA.  It determines whether the
+MAP-sensitive F1 action belongs in the complete mode set.  The subsequent
+mixed-operator teacher adds the F5 hard restore after the per-page update
+schedule is implemented.  These are operator/mode ablations, not a parameter
+sweep.
 
 ## Evidence boundary
 

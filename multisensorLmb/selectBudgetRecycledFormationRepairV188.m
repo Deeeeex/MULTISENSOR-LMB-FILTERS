@@ -89,9 +89,17 @@ proposals = repmat(emptyProposalContract(), 1, 0);
 proposalDetails = struct();
 if synopsisDecision.lightSynopsisAuthorized
     if forcedSourceId > 0
+        receiverPresenceThreshold = cache.activeExistenceThreshold;
+        if strcmp(updateMode, 'hard-replacement')
+            % Support-restoration actions are defined precisely when the
+            % selected label is absent at one or more receivers.  Residual
+            % KLA keeps the active-support requirement because zero support
+            % cannot be resurrected by geometric fusion.
+            receiverPresenceThreshold = 0;
+        end
         forcedCandidateOptions = struct( ...
             'receiverPresenceThreshold', ...
-                cache.activeExistenceThreshold);
+                receiverPresenceThreshold);
         [candidateBank, bankDetails] = ...
             enumerateFormationCommonLabelRepairCandidatesV190( ...
                 cache, availableSourceAdjacency, ...
