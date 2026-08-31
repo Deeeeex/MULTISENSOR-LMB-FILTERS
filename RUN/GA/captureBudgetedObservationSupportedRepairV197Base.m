@@ -39,7 +39,7 @@ end
 defaultReferencePath = '';
 if strcmp(scaleName, 'X36') && horizonSteps == 8 && ...
         entry.seed == 211 && currentTime == 72
-    h8Protocol = getProtectionOnlyH8V105Protocol();
+    h8Protocol = getFormationCoordinatorAggregationV187Protocol();
     if exist(h8Protocol.referenceOutcomeScreenPath, 'file') == 2
         defaultReferencePath = h8Protocol.referenceOutcomeScreenPath;
     end
