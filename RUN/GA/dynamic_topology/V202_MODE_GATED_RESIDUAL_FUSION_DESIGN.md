@@ -41,7 +41,7 @@ on the smallest posterior object capable of addressing the observed failure.
 | Mode | Observable failure | Payload and update | Current evidence |
 |:--|:--|:--|:--|
 | No-op | The base carrier remains adequate or value is uncertain | No residual payload | Required fallback |
-| Observation handover | Receivers retain an active but weak, stale, or poorly observed label while a reachable source has strong current evidence | One complete source label, formation multicast, residual label KLA | X36 F2 is recursively useful; corrected F3 teacher is running |
+| Observation handover | Receivers retain an active but weak, stale, or poorly observed label while a reachable source has strong current evidence | One complete source label, formation multicast, residual label KLA | X36 F2 and F3 are recursively useful |
 | Precision refresh | Receiver and source describe a compatible label, but receiver uncertainty is much larger | One complete source label, formation multicast, residual label KLA | X36 F6 is recursively useful over H=3 |
 | Set/cardinality restore | The error is diffuse across the extracted label set and cannot be attributed to one label | One budgeted complete-formation restore | M24 V197 mechanism is positive |
 
@@ -126,7 +126,9 @@ tracking return.
 
 ## Experiment sequence
 
-1. Close the X36 mechanism space with the corrected F2+F3 H=8 teacher.
+1. Retain the corrected F2+F3 H=8 result as observation-handover headroom:
+   E-OSPA, RMSE, consensus, and attempted-byte gains are `7.145%`, `5.385%`,
+   `11.383%`, and `4.004%` relative to static.
 2. Test the budget-feasible F2 then F6 sequence before fitting a selector;
    this preserves the one-action-per-page deployable cap while exposing
    cross-mode recursion.
