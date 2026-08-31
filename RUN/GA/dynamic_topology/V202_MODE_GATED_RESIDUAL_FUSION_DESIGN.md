@@ -129,9 +129,8 @@ tracking return.
 1. Retain the corrected F2+F3 H=8 result as observation-handover headroom:
    E-OSPA, RMSE, consensus, and attempted-byte gains are `7.145%`, `5.385%`,
    `11.383%`, and `4.004%` relative to static.
-2. Test the budget-feasible F2 then F6 sequence before fitting a selector;
-   this preserves the one-action-per-page deployable cap while exposing
-   cross-mode recursion.
+2. Retain the confirmed budget-feasible F2 then F6 sequence as evidence that
+   the one-action-per-page deployable cap permits cross-mode recursion.
 3. Build causal teacher rows from complete scene-seed trajectories; keep
    training, calibration, and validation trajectories disjoint.
 4. Fit the shared shallow mode/value baseline and calibrate no-op.
@@ -149,10 +148,17 @@ worst-formation changes, improved consensus, and positive fully charged
 attempted-byte saving.  RMSE is reported together with E-OSPA and cardinality
 readout so that dropping difficult tracks cannot masquerade as improvement.
 
+The F2-to-F6 H=3 teacher has now confirmed cross-mode complementarity under
+that cap: E-OSPA, RMSE, consensus, and attempted-byte gains relative to static
+are `3.946%`, `13.956%`, `8.406%`, and `4.509%`.  The next full-window method
+therefore retains causal action history and may defer a second useful mode to
+the following page instead of raising the per-page action limit.
+
 ## Evidence boundary
 
-This file defines the next deployable-method hypothesis.  It does not claim
-that the mode classifier, online selector, F3 action, or F6 action has passed
-recursive, cross-seed, cross-scale, or cross-scene validation.  V187 remains
-the current balanced development best until a fully charged paired arm
-improves the joint record.
+This file defines the next deployable-method hypothesis.  F2/F3/F6 teacher
+actions have recursive headroom on one opened X36 trajectory, but the mode
+classifier and online selector remain unevaluated and no cross-seed,
+cross-scale, or cross-scene validation is claimed.  V187 remains the current
+balanced development best until a fully charged paired arm improves the joint
+record.
