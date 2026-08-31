@@ -69,5 +69,23 @@ assert(strcmp(authorization.mode, ...
 assert(strcmp(authorization.protocolId, protocol.id));
 assert(~authorization.groundTruthAccessAuthorized);
 assert(~authorization.futureOutcomeAccessAuthorized);
+
+h8Protocol = getBudgetedObservationSupportedRepairV197Protocol(8);
+h8Execution = ...
+    buildBudgetedObservationSupportedRepairV197ExecutionContext( ...
+        'x36-formation-fov', 211, 72, ...
+        'v99-online-positive-net-f1-f2-f4-f5', true, true, 8);
+assert(h8Execution.measurementTimeCount == 79);
+h8Request = request;
+h8Request.measurementTimeCount = 79;
+h8Request.sensorTrajectoryTimeCounts = repmat(79, 1, 36);
+h8Request.triggerConfig.topologyPolicyName = ...
+    h8Protocol.outcomePolicyName;
+h8Request.triggerConfig.receiverSafeExternalActiveTimes = 72:79;
+h8Request.triggerConfig.receiverSafeFormationConditionedSchedule = ...
+    cell(1, 8);
+h8Authorization = assertDynamicTopologyTrackingOutcomeAuthorized( ...
+    model, h8Execution, h8Request);
+assert(strcmp(h8Authorization.protocolId, h8Protocol.id));
 fprintf('test_budgeted_observation_supported_repair_v197 passed.\n');
 end

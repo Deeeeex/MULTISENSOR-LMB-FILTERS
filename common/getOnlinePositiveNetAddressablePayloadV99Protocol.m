@@ -1,8 +1,19 @@
-function protocol = getOnlinePositiveNetAddressablePayloadV99Protocol()
+function protocol = getOnlinePositiveNetAddressablePayloadV99Protocol( ...
+        horizonSteps)
 % GETONLINEPOSITIVENETADDRESSABLEPAYLOADV99PROTOCOL Causal online selector.
 
 source = getPositiveNetAddressablePayloadV97Protocol();
+if nargin < 1 || isempty(horizonSteps)
+    horizonSteps = source.horizonSteps;
+end
+if ~isscalar(horizonSteps) || ~isfinite(horizonSteps) || ...
+        horizonSteps ~= round(horizonSteps) || ...
+        horizonSteps < source.horizonSteps
+    error('OnlinePositiveNetV99:InvalidHorizon', ...
+        'The online selector requires an integer horizon >= 3.');
+end
 protocol = source;
+protocol.horizonSteps = horizonSteps;
 protocol.id = 'online-positive-net-addressable-payload-v99-v1';
 protocol.contractVersion = ...
     'online-positive-net-addressable-payload-v99-protocol-v1';

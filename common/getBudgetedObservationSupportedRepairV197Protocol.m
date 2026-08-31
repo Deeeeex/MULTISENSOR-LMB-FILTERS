@@ -1,8 +1,19 @@
-function protocol = getBudgetedObservationSupportedRepairV197Protocol()
+function protocol = getBudgetedObservationSupportedRepairV197Protocol( ...
+        horizonSteps)
 % GETBUDGETEDOBSERVATIONSUPPORTEDREPAIRV197 Top-one repair token.
 
 base = getObservationSupportedSetSafeV194Protocol();
+if nargin < 1 || isempty(horizonSteps)
+    horizonSteps = base.horizonSteps;
+end
+if ~isscalar(horizonSteps) || ~isfinite(horizonSteps) || ...
+        horizonSteps ~= round(horizonSteps) || ...
+        horizonSteps < base.horizonSteps
+    error('BudgetedSetRepairV197:InvalidHorizon', ...
+        'The repair controller requires an integer horizon >= 3.');
+end
 protocol = base;
+protocol.horizonSteps = horizonSteps;
 protocol.id = 'budgeted-observation-supported-repair-v197-v1';
 protocol.contractVersion = ...
     'budgeted-observation-supported-repair-v197-protocol-v1';
@@ -28,4 +39,3 @@ protocol.evidenceBoundary = [ ...
     'uses no truth, future measurement or future outcome. Opened anchors ', ...
     'remain development evidence only.'];
 end
-
