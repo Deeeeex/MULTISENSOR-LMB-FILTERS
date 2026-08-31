@@ -60,6 +60,28 @@ retains `4.544%` attempted-byte saving relative to static full-payload routing.
 Thus H=3 recovers both the zero-immediate F1 set repair and the deferred F6
 precision refresh under one target definition.
 
+The dense auxiliary page regenerated on the exact policy-induced t=73 state
+also recovers the F6 teacher key.  Its immediate E-OSPA, RMSE and consensus
+gains are `0.000%`, `13.166%` and `0.537%`, compared with `0.000%`, `12.047%`
+and `0.387%` on the base-route state.  The policy state shifts magnitude but
+not the immediate target semantics: E-OSPA still appears neutral even though
+the same action has positive three-page E-OSPA value.  This is the intended
+division of labor between the dense immediate auxiliary head and the sparse
+recursive residual head.
+
+The second newly generated delete-action pair is an equally important
+rejection example.  Retaining the t=76 F3 `[19,13]` repair improves the
+three-page mean E-OSPA and RMSE by `0.351%` and `2.348%`, but worsens mean
+consensus by `0.683%` and terminal consensus by `4.374%`; its minimum
+receiver-sensor E-OSPA also regresses by `0.352%`.  The action spends
+`97,384 B` relative to no-op and leaves only `1.419%` saving relative to
+static full-payload routing.  The common prefix matches exactly, so this is
+not trajectory drift.  V209 must reject the action despite its positive
+tracking coordinates: a scalar tracking score or immediate E-OSPA/RMSE
+classifier would make the wrong decision, whereas the vector lower-bound
+admission rule falls back to no-op because the consensus coordinate is
+negative.
+
 The formation-release action is also intrinsically vector-valued.  Comparing
 the existing V206 release branch with the same V204 label-action continuation
 over pages 72--74, releasing F5 improves RMSE by `0.097%`, consensus by
@@ -142,8 +164,10 @@ The sparse query set is the deterministic union of top-ranked actions,
 high-uncertainty actions, one representative per semantic mode, and actions
 actually visited by the current selector.  The same receiver-formation and
 label cannot be queried on consecutive pages; source changes do not reset this
-one-page semantic cooldown.  This preserves the useful t=76/t=78 F3 refresh
-while removing the empirically redundant t=78/t=79 repeat.
+one-page semantic cooldown.  The completed t=76 counterfactual removes the
+previous assumption that every F3 refresh in the teacher sequence is useful:
+cooldown controls duplicate queries, while the vector value gate must still
+reject an individually harmful, non-duplicate repair.
 
 ## Simultaneous trajectory-level conformal lower bound
 
@@ -218,21 +242,25 @@ mixture of tracking, consensus and communication objectives.
    crossing, braided handover, target overlap, merge-split and curved corridor
    remain stress tests, followed by X48 scale extrapolation.
 
-The first sparse recursive check is deliberately smaller than a new exhaustive
-bank.  It reuses the completed V206 action trajectory and runs two paired
-delete-one-action continuations:
+The completed sparse recursive check is deliberately smaller than a new
+exhaustive bank.  It reuses the V204/V206 teacher trajectories and two paired
+delete-one-action continuations.  Four same-prefix branches now provide the
+minimal protocol test:
 
-- delete the t=73 F6 precision-refresh action while retaining the identical
-  t=72 prefix, then score t=73--75; and
-- delete the t=76 F3 repair while retaining the identical t=72--75 prefix and
-  the same forced t=77/t=78 continuation, then score t=76--78.
+- t=72 F5 formation release is vector-negative and maps to no-op;
+- t=73 F6 precision refresh is strictly positive over t=73--75;
+- t=76 F3 repair has positive tracking but negative consensus and maps to
+  no-op; and
+- t=77 F1 set repair is aggregate-positive with a bounded receiver-sensor
+  tail and tests the explicit risk-tolerance path.
 
 Each pair must reproduce its common prefix before a return is accepted.  The
 three-page vector return is measured relative to the delete-action branch and
 reports aggregate tracking, consensus, receiver and sensor tails, the exact
 incremental bytes, and remaining saving relative to static full-payload
-routing.  These two probes test the delayed-value diagnosis; they are not
-training or calibration examples for a final model.
+routing.  All four prefixes match.  These four rows establish target semantics
+and unit-test the data path, but are far too few and too development-specific
+to train or calibrate a final model.
 
 ## Claim boundary
 
