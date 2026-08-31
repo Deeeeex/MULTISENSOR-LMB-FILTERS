@@ -52,21 +52,23 @@ t=72:79.  The first-page release protects t=73:76, but subsequent withholding
 recreates the tail at t=77:79.  A one-time early release is therefore not a
 complete controller for a persistent support defect.
 
-## Observable late-tail diagnosis
+## Observable late-tail diagnostic and V207 correction
 
 The t=79 V206 local posterior was replayed through the same truth-free V99
 state constructor.  F5 has zero observation-supported set-entry risk at that
-page, so lowering or tuning the existing set-entry threshold cannot authorize
-the needed action.  At the same time, label `[19,16]` has exactly zero fused
-existence at every F5 receiver, while 24 external local posteriors carry it
-with existence above 0.97.  This is an observable persistent support gap,
-not an ordinary set-entry event and not a supported-label precision refresh.
+page, while label `[19,16]` has zero fused existence at every F5 receiver and
+broad external support.  This originally nominated a persistent support-gap
+fallback, but the subsequent pre-intervention cache check shows that the same
+label was already absent from all F5 receivers before the V206 action window.
+The signal therefore does not establish a method-induced defect or receiver
+relevance.
 
-The next bounded experiment therefore adds one late full-posterior release
-when the already withheld formation still has a formation-wide zero-support
-gap backed by broad, high-existence external support.  The release is a
-deterministic safety fallback; label/action value ranking remains the part
-that can later be learned.  No set-risk threshold sweep is authorized.
+V207 executed the proposed t=79 full-posterior release and spent an additional
+`68,360 B`, but F5 E-OSPA and RMSE both worsened.  Persistent zero support is
+still a hard reason not to apply residual label KLA, but it is not a sufficient
+reason to force full release.  The release must be ranked against no-op using
+finite-horizon value and spatial/set context; no support-threshold sweep or
+automatic fallback is retained.
 
 ## Fusion and evidence boundary
 

@@ -8,14 +8,15 @@ of semantically different actions on a variable-size formation graph, while
 hard support and communication constraints remain deterministic.
 
 This decision follows from the current mechanism results.  Dynamic posterior
-withholding can save communication but creates two qualitatively different
-defects:
+withholding can save communication, but useful interventions fall into two
+qualitatively different classes:
 
 1. a supported label can become spatially inaccurate and can be repaired by
    one complete-label residual KLA update; and
-2. a label can lose support across an entire formation, in which case another
-   geometric-average update cannot recreate it and the formation must first
-   return to an ordinary full-posterior route.
+2. a diffuse set or route state can require a full-formation release, but a
+   zero-support label by itself does not prove that release is useful.  V207
+   shows that such a gap may predate the intervention and that a late full
+   release can worsen both tracking and communication.
 
 The useful action is therefore state- and mode-dependent.  A single learned
 edge weight, a maximum-risk threshold, or a receiver-wise classifier cannot
@@ -30,7 +31,7 @@ types:
 |:--|:--|:--|
 | No-op | No intervention has positive conservative value | None |
 | Withhold | The base dynamic route can omit a harmful or redundant posterior | Base route decision |
-| Full-formation release | A withheld formation needs set/support restoration | Ordinary full posterior already used by the baseline |
+| Full-formation release | A withheld formation has positive predicted diffuse set/route restoration value | Ordinary full posterior already used by the baseline |
 | Supported-label repair | Receiver support exists but a source has useful precision or observation information | One complete Bernoulli GM label |
 
 The label repair retains mixture structure through the repository's
@@ -46,7 +47,8 @@ can be used for M24, X36, and later X48.
 
 **Node features** summarize active-label count, existence mass, uncertainty,
 observation-supported set-entry risk, formation-wide support gaps, gap dwell,
-recent withholding/release history, and remaining communication credit.
+whether a gap predates the current intervention, recent withholding/release
+history, and remaining communication credit.
 
 **Directed edge features** summarize current physical reachability, delivery
 probability, geometric distance normalized by range, FoV overlap, posterior
@@ -97,15 +99,16 @@ Learning ranks useful choices but cannot override the following rules:
 2. never exceed the current attempted-byte credit or the one-action-per-page
    cap;
 3. never apply label KLA to a formation-wide zero-support label;
-4. after a zero-support gap with broad external support persists for two
-   consecutive pages, expose the full-formation release as the protected
-   fallback action;
+4. treat a persistent support gap as an action feature, not as an automatic
+   release: V207 shows that broad external support does not establish receiver
+   relevance or positive release value;
 5. apply cooldown and hysteresis so release and withholding cannot oscillate;
 6. use no-op whenever all conservative values are non-positive or the state is
    outside the training support.
 
-The two-page dwell is causal: the first page records a possible transient;
-the second page establishes persistence.  It is not a fitted time index.
+Support-gap dwell is causal context: the first page records a possible
+transient and later pages establish persistence.  Persistence alone never
+overrides the value and tail-risk screens.
 
 ## Data and validation plan
 
@@ -125,9 +128,13 @@ opened schedule.
    crossing, merge-split, curved-corridor, and finally X48 as stress and scale
    extrapolation tests.
 
-The first implementation reuses the repository's pure-Octave MLP optimizer
-and adds explicit shared graph aggregation.  This avoids a new runtime
-dependency and keeps training and deployment numerically aligned.
+The first implementation reuses the repository's pure-Octave graph stack:
+`computeTrackingAlignedFormationGraphFeatures` supplies variable-size
+formation features, while the two-round pooling pattern in
+`scoreLabelSetMessagePassingPolicyModel` supplies the equivariant message
+passing and the existing Adam code supplies training.  Only the action block
+and four-output heads are new.  This avoids a new runtime dependency and keeps
+training and deployment numerically aligned.
 
 ## Promotion criteria
 
