@@ -223,6 +223,8 @@ result.protocolId = protocol.id;
 result.sourceScreenPath = sourceScreenPath;
 result.presetName = screen.presetName;
 result.seed = screen.seed;
+result.splitName = char(getField( ...
+    screen, 'directGraphSplitName', 'training'));
 result.currentTime = currentTime;
 result.pageIndex = pageIndex;
 result.donorFormationId = donorFormationId;

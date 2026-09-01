@@ -17,6 +17,12 @@ presetName = char(getField(options, ...
 seed = getField(options, 'seed', 1301);
 splitName = char(getField(options, 'splitName', 'training'));
 windowIndex = getField(options, 'windowIndex', 1);
+formationIds = reshape(getField( ...
+    options, 'formationIds', zeros(1, 0)), 1, []);
+capturePosteriorSnapshotsEnabled = logical(getField( ...
+    options, 'capturePosteriorSnapshotsEnabled', false));
+captureFusedPosteriorSnapshotsEnabled = logical(getField( ...
+    options, 'captureFusedPosteriorSnapshotsEnabled', false));
 trajectoryRoot = char(getField(options, 'trajectoryRoot', fullfile( ...
     protocol.outputRoot, 'trajectory_collection', splitName, ...
     sprintf('%s_seed%d', strrep(presetName, '-', '_'), seed))));
@@ -24,7 +30,11 @@ trajectoryPath = fullfile(trajectoryRoot, ...
     'DIRECT_GRAPH_TRAJECTORY_V214.mat');
 if exist(trajectoryPath, 'file') ~= 2 || ...
         ~isscalar(windowIndex) || ~isfinite(windowIndex) || ...
-        windowIndex ~= round(windowIndex) || windowIndex < 1
+        windowIndex ~= round(windowIndex) || windowIndex < 1 || ...
+        ~isnumeric(formationIds) || any(~isfinite(formationIds)) || ...
+        any(formationIds ~= round(formationIds)) || ...
+        any(formationIds < 1) || ...
+        numel(unique(formationIds)) ~= numel(formationIds)
     error('DirectGraphPayloadRepairV214:InvalidWithholdingScreen', ...
         'A completed V214 trajectory and valid window are required.');
 end
@@ -40,7 +50,8 @@ if ~isfield(trajectory, 'selectedTimes') || ...
         'The V214 trajectory does not match the requested H=3 screen.');
 end
 currentTime = trajectory.selectedTimes(windowIndex);
-cachePath = trajectory.cachePaths{windowIndex};
+cachePath = resolveSourcePath( ...
+    trajectoryPath, trajectory.cachePaths{windowIndex});
 cacheRoot = fileparts(cachePath);
 outputRoot = char(getField(options, 'outputRoot', fullfile( ...
     protocol.outputRoot, 'formation_withholding_h3', splitName, ...
@@ -60,10 +71,17 @@ screenOptions.trackingAlignedExecutionProfile = ...
     'v214-direct-graph-payload-repair';
 screenOptions.receiverMode = protocol.receiverMode;
 screenOptions.directGraphSplitName = splitName;
+if ~isempty(formationIds)
+    screenOptions.directGraphPayloadRepairBankOptions = struct( ...
+        'actionMode', 'withholding-only', ...
+        'formationIds', formationIds);
+end
 screenOptions.outputDirectory = screenRoot;
 screenOptions.writeReport = true;
-screenOptions.capturePosteriorSnapshotsEnabled = false;
-screenOptions.captureFusedPosteriorSnapshotsEnabled = false;
+screenOptions.capturePosteriorSnapshotsEnabled = ...
+    capturePosteriorSnapshotsEnabled;
+screenOptions.captureFusedPosteriorSnapshotsEnabled = ...
+    captureFusedPosteriorSnapshotsEnabled;
 [screenReportPath, screen] = ...
     runFormationModeOpenedReturnScreen( ...
         presetName, seed, currentTime, screenOptions);
@@ -91,6 +109,7 @@ result.presetName = presetName;
 result.seed = seed;
 result.splitName = splitName;
 result.windowIndex = windowIndex;
+result.requestedFormationIds = formationIds;
 result.currentTime = currentTime;
 result.windowTimes = currentTime + (0:(protocol.horizonSteps - 1));
 result.trajectoryPath = trajectoryPath;
@@ -98,6 +117,7 @@ result.trajectoryGenerationGitCommit = ...
     trajectory.generationGitCommit;
 result.cachePath = cachePath;
 result.screenPath = screenReportPath;
+result.screenMatPath = screen.matPath;
 result.records = records;
 result.strictPositiveMask = strictPositiveMask;
 result.tailTolerantMask = tailTolerantMask;
@@ -108,6 +128,10 @@ result.anyEligibleCandidate = any(eligibleMask);
 result.posteriorCounterfactualEnumerationUsedAtRuntime = false;
 result.momentMatchedLightPosteriorUsed = false;
 result.retainedLabelsPreserveCompleteMixture = true;
+result.capturePosteriorSnapshotsEnabled = ...
+    capturePosteriorSnapshotsEnabled;
+result.captureFusedPosteriorSnapshotsEnabled = ...
+    captureFusedPosteriorSnapshotsEnabled;
 result.validationClaimAllowed = false;
 result.evidenceBoundary = [ ...
     'This training-split H=3 screen starts every arm from the same ', ...
@@ -128,6 +152,28 @@ result.reportPath = reportPath;
 save('-mat7-binary', matPath, 'result');
 writeReport(reportPath, result, candidateRecords);
 fprintf('V214 direct-graph withholding H=3: %s\n', reportPath);
+end
+
+function path = resolveSourcePath(trajectoryPath, referencedPath)
+path = char(referencedPath);
+if isempty(path)
+    error('DirectGraphPayloadRepairV214:MissingSourceCache', ...
+        'The selected trajectory cache path is empty.');
+end
+if path(1) ~= filesep
+    marker = [filesep, 'RUN', filesep, 'GA', filesep];
+    positions = strfind(trajectoryPath, marker);
+    if isempty(positions)
+        error('DirectGraphPayloadRepairV214:TrajectoryRoot', ...
+            'The trajectory path does not expose its repository root.');
+    end
+    repositoryRoot = trajectoryPath(1:(positions(end) - 1));
+    path = fullfile(repositoryRoot, path);
+end
+if exist(path, 'file') ~= 2
+    error('DirectGraphPayloadRepairV214:MissingSourceCache', ...
+        'The selected trajectory cache is unavailable: %s.', path);
+end
 end
 
 function passed = strictPositive(record)

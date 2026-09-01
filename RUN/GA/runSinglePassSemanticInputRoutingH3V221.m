@@ -124,7 +124,8 @@ for row = reshape(selectedRows, 1, [])
         screenOptions.trackingAlignedExecutionProfile = ...
             'v214-direct-graph-payload-repair';
         screenOptions.receiverMode = protocol.receiverMode;
-        screenOptions.directGraphSplitName = 'training';
+        screenOptions.directGraphSplitName = char(getField( ...
+            bankResult, 'splitName', 'training'));
         if isnan(synopsisBytesOverride)
             inputRouteSynopsisBytes = bankRecord.synopsisBytes;
         else
@@ -267,6 +268,8 @@ result.candidateBankPath = candidateBankPath;
 result.sourceScreenPath = bankResult.sourceScreenPath;
 result.presetName = bankResult.presetName;
 result.seed = bankResult.seed;
+result.splitName = char(getField( ...
+    bankResult, 'splitName', 'training'));
 result.currentTime = bankResult.currentTime;
 result.donorFormationId = bankResult.donorFormationId;
 result.sourceWeights = sourceWeights;
