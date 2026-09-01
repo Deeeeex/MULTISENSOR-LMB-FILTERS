@@ -6,6 +6,7 @@ if nargin < 1 || isempty(options)
     options = struct();
 end
 candidateBankPath = char(getField(options, 'candidateBankPath', ''));
+candidateIndicesProvided = isfield(options, 'candidateIndices');
 candidateIndices = reshape(getField( ...
     options, 'candidateIndices', zeros(1, 0)), 1, []);
 reuseExistingScreens = logical(getField( ...
@@ -27,8 +28,10 @@ if ~strcmp(bankResult.contractVersion, ...
         'The V217 candidate bank is malformed.');
 end
 feasibleRows = find(bankResult.creditFeasibleMask);
-if isempty(candidateIndices)
+if ~candidateIndicesProvided
     selectedRows = feasibleRows;
+elseif isempty(candidateIndices)
+    selectedRows = zeros(1, 0);
 else
     if any(~isfinite(candidateIndices)) || ...
             any(candidateIndices ~= round(candidateIndices)) || ...

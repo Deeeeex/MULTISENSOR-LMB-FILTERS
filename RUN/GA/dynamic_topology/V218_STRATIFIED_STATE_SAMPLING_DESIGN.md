@@ -77,3 +77,19 @@ controller improves the paired metrics.
    all four strata contain distinct positive and negative roles.
 6. Freeze the value model on radial M24/X36 before any convoy or relay outcome
    is used for method tuning.
+
+The executable label path is
+`runStratifiedDirectGraphThreeArmH3V218.m`.  It first creates the paired
+full-payload no-op and one-page withholding continuations.  It then uses the
+V216 causal post-fusion synopsis and the V217 position-support and exact-credit
+projection to bound complete-label KLA alternatives.  All feasible repair
+targets are retained as continuous twelve-coordinate H=3 vectors, including
+negative and below-gate rows; the deterministic guard certifies feasibility,
+not value.
+
+The repair teacher also requires the current realized request direction and
+all source-to-receiver response directions to be available before querying a
+forced action.  The subsequent ideal-delivery branch therefore measures the
+conditional fusion value of a transport-feasible action; it does not erase an
+unobserved packet-loss risk or license deployment without the same transport
+projection.
