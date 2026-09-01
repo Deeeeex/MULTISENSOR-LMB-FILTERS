@@ -56,6 +56,16 @@ from event-triggered LMB work.  The possible contribution is not the trigger
 itself; it is the byte-certified source-beneficiary-label acquisition and the
 safe change it induces in the effective label-wise KLA input graph.
 
+The first frozen byte contract allows each common source to return at most two
+24-byte offers.  A 16-byte solicitation and 16-byte response header are
+charged per source, hence the worst-case control cost is
+`S × (16 + 16 + 2 × 24) = 80S` bytes.  At t=133 both F5 and F6 have nine
+common sources, so the control plane costs 720 B.  With the 1,456 B complete
+label payload and 10,400 B admission credit, the action retains 8,224 B of
+certified net saving and 6,144 B of spendable feasibility margin.  This is
+736 B better than the three-key query-first bound, but it proves only byte
+feasibility; source-side causal ranking remains unimplemented.
+
 The source-offer protocol must be specified and charged before any additional
 tracking outcome is opened.  This single development state cannot establish
 recall, tracking gain or generalization; it only rejects the current simple
