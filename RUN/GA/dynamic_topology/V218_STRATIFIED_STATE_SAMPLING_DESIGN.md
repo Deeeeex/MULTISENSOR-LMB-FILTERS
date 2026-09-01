@@ -93,3 +93,23 @@ forced action.  The subsequent ideal-delivery branch therefore measures the
 conditional fusion value of a transport-feasible action; it does not erase an
 unobserved packet-loss risk or license deployment without the same transport
 projection.
+
+## Causal two-stage learning target
+
+The three alternatives are not a flat classifier.  The withholding decision
+is made before communication, while the exact repair candidates and their
+post-fusion features exist only after ordinary fusion.  V218 therefore stores
+two paired targets:
+
+1. the precommunication head predicts full-payload no-op versus withholding
+   from the V215 formation graph features;
+2. after a safe withholding action, the post-fusion head predicts every
+   complete-label repair relative to the paired withholding-only outcome.
+
+The first head must accept withholding without relying on a later repair.
+The second head may improve an already-safe state or abstain, but cannot
+retroactively authorize harmful withholding.  This ordering gives a direct
+composition argument: if withholding is non-regressive relative to the
+reference, repair is non-regressive relative to withholding, and the exact
+byte ledger remains nonnegative, the composed action is non-regressive
+relative to the reference while respecting its communication budget.
