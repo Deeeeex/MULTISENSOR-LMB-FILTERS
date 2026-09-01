@@ -1,0 +1,73 @@
+function bank = buildSinglePassSemanticInputRoutingV221ActionBank( ...
+        context, groupIds, options)
+% BUILDSINGLEPASSSEMANTICINPUTROUTINGV221ACTIONBANK Frozen V221 arm.
+
+if nargin < 3 || isempty(options)
+    options = struct();
+end
+protocol = getSinglePassSemanticInputRoutingV221Protocol();
+sourceWeight = getField(options, ...
+    'repairSourceWeight', protocol.repairSourceWeight);
+synopsisBytes = getField(options, 'inputRouteSynopsisBytes', 0);
+utilityLowerBound = getField(options, ...
+    'inputRouteUtilityLowerBound', 0);
+weightMode = lower(strrep(char(getField( ...
+    options, 'inputRouteWeightMode', 'proportional-share')), '_', '-'));
+if ~isscalar(sourceWeight) || ~isfinite(sourceWeight) || ...
+        sourceWeight <= 0 || sourceWeight >= 1 || ...
+        ~isscalar(synopsisBytes) || ~isfinite(synopsisBytes) || ...
+        synopsisBytes < 0 || ...
+        ~isscalar(utilityLowerBound) || ~isfinite(utilityLowerBound) || ...
+        utilityLowerBound <= 0 || ...
+        ~strcmp(weightMode, 'proportional-share')
+    error('SinglePassSemanticInputRoutingV221:InvalidActionBankInput', ...
+        'The V221 source share, synopsis, utility, or weight mode is invalid.');
+end
+
+baseOptions = options;
+baseOptions.repairSourceWeight = sourceWeight;
+bank = buildDecoupledSemanticShortcutV220ActionBank( ...
+    context, groupIds, baseOptions);
+actionIdx = find((1:bank.actionCount) ~= bank.referenceActionIndex);
+if numel(actionIdx) ~= 1
+    error('SinglePassSemanticInputRoutingV221:CarrierDrift', ...
+        'V221 requires exactly one donor action.');
+end
+plan = bank.actionBudgetRecycledFormationRepairPlans{actionIdx};
+if ~logical(plan.idealDeliveryTeacherMode) || ...
+        plan.forcedSourceId < 1 || any(plan.forcedLabel < 1)
+    error('SinglePassSemanticInputRoutingV221:TeacherKeyRequired', ...
+        'The first V221 headroom screen requires one frozen semantic key.');
+end
+plan.updateMode = 'single-pass-label-kla';
+plan.sourceWeight = sourceWeight;
+plan.inputRouteSynopsisBytes = synopsisBytes;
+plan.inputRouteUtilityLowerBound = utilityLowerBound;
+plan.inputRouteWeightMode = weightMode;
+bank.actionBudgetRecycledFormationRepairPlans{actionIdx} = plan;
+bank.actionNames{actionIdx} = sprintf( ...
+    ['v221-donor-f%d-to-beneficiary-f%d-single-pass-', ...
+     's%d-l%d-%d-w%03d'], ...
+    bank.donorFormationId, bank.beneficiaryFormationId, ...
+    bank.semanticShortcutSourceId, ...
+    bank.semanticShortcutLabel(1), ...
+    bank.semanticShortcutLabel(2), round(100 * sourceWeight));
+bank.contractVersion = ...
+    'single-pass-semantic-input-routing-action-bank-v221-v1';
+bank.bankVariant = 'single-pass-semantic-input-routing-v221';
+bank.protocolId = protocol.id;
+bank.semanticFusionMode = protocol.semanticFusionMode;
+bank.semanticShortcutSourceWeight = sourceWeight;
+bank.inputRouteSynopsisBytes = synopsisBytes;
+bank.inputRouteUtilityLowerBound = utilityLowerBound;
+bank.inputRouteWeightMode = weightMode;
+bank.postFusionResidualUpdateAllowed = false;
+end
+
+function value = getField(data, name, fallback)
+if isstruct(data) && isfield(data, name)
+    value = data.(name);
+else
+    value = fallback;
+end
+end

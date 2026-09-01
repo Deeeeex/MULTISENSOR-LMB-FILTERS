@@ -1,0 +1,219 @@
+function [route, nextCreditState, details] = ...
+        prepareBudgetRecycledLabelInputRouteV221( ...
+            localPosteriorBySensor, physicalAdjacency, ...
+            directedLinkDelivered, sensorGroupIds, model, currentTime, ...
+            previousCreditState, referencePageBytes, basePageBytes, options)
+% PREPAREBUDGETRECYCLEDLABELINPUTROUTEV221 One-pass label input route.
+%
+% This development headroom action spends V188 communication credit on one
+% complete Bernoulli GM label, but inserts it into the ordinary label-wise
+% KLA input set.  It does not perform a second post-fusion KLA update.
+
+if nargin < 10 || isempty(options)
+    options = struct();
+end
+sensorCount = numel(localPosteriorBySensor);
+groupIds = reshape(sensorGroupIds, 1, []);
+targetFormationId = getField(options, 'targetFormationId', 0);
+sourceId = getField(options, 'sourceId', 0);
+label = reshape(getField(options, 'label', zeros(2, 1)), [], 1);
+sourceWeight = getField(options, 'sourceWeight', 0.10);
+weightMode = lower(strrep(char(getField( ...
+    options, 'weightMode', 'proportional-share')), '_', '-'));
+lightSynopsisBytes = getField(options, 'lightSynopsisBytes', 0);
+utilityLowerBound = getField(options, 'utilityLowerBound', 0);
+idealDeliveryTeacherMode = logical(getField( ...
+    options, 'idealDeliveryTeacherMode', false));
+
+if ~iscell(localPosteriorBySensor) || sensorCount < 1 || ...
+        ~isequal(size(physicalAdjacency), [sensorCount, sensorCount]) || ...
+        ~isequal(size(directedLinkDelivered), [sensorCount, sensorCount]) || ...
+        numel(groupIds) ~= sensorCount || any(~isfinite(groupIds)) || ...
+        any(groupIds ~= round(groupIds)) || any(groupIds < 1) || ...
+        ~isscalar(currentTime) || ~isfinite(currentTime) || ...
+        currentTime ~= round(currentTime) || currentTime < 1 || ...
+        ~validNonnegativeScalar(referencePageBytes) || ...
+        ~validNonnegativeScalar(basePageBytes) || ...
+        ~validPositiveInteger(targetFormationId) || ...
+        ~ismember(targetFormationId, groupIds) || ...
+        ~validPositiveInteger(sourceId) || sourceId > sensorCount || ...
+        numel(label) ~= 2 || any(~isfinite(label)) || ...
+        any(label ~= round(label)) || any(label < 1) || ...
+        ~isscalar(sourceWeight) || ~isfinite(sourceWeight) || ...
+        sourceWeight <= 0 || sourceWeight >= 1 || ...
+        ~strcmp(weightMode, 'proportional-share') || ...
+        ~validNonnegativeScalar(lightSynopsisBytes) || ...
+        ~isscalar(utilityLowerBound) || ~isfinite(utilityLowerBound) || ...
+        utilityLowerBound <= 0 || ~isstruct(model) || ~isscalar(model)
+    error('LabelInputRouteV221:InvalidInput', ...
+        'The V221 label-input route request is malformed.');
+end
+
+physicalAdjacency = logical(physicalAdjacency);
+directedLinkDelivered = logical(directedLinkDelivered);
+receivers = reshape(find(groupIds == targetFormationId), 1, []);
+availableSourceAdjacency = physicalAdjacency & ...
+    directedLinkDelivered';
+commonSourcePassed = all(availableSourceAdjacency(receivers, sourceId));
+sourceObject = findLabelObject(localPosteriorBySensor{sourceId}, label);
+payloadPresent = ~isempty(sourceObject);
+responseBytesPerReceiver = 0;
+if payloadPresent
+    responseStats = estimateLmbPayloadSize(sourceObject, model, 2, struct());
+    payloadPresent = responseStats.objectCount == 1 && ...
+        responseStats.estimatedBytes > 0;
+    if payloadPresent
+        responseBytesPerReceiver = responseStats.estimatedBytes;
+    end
+end
+
+repairProtocol = getBudgetRecycledFormationRepairV188Protocol();
+proposal = emptyProposal();
+proposal.formationId = targetFormationId;
+proposal.receiverIds = receivers;
+proposal.sourceId = sourceId;
+proposal.label = reshape(label, 2, 1);
+proposal.sourceObject = sourceObject;
+proposal.richSynopsisBytes = ...
+    repairProtocol.richSynopsisBytesPerShortlistedLabel;
+proposal.requestBytes = repairProtocol.completeLabelRequestBytes;
+proposal.completeResponseBytesPerReceiver = responseBytesPerReceiver;
+proposal.responseBytes = numel(receivers) * responseBytesPerReceiver;
+proposal.attemptedBytes = proposal.richSynopsisBytes + ...
+    proposal.requestBytes + proposal.responseBytes;
+proposal.estimatedUtilityLowerBound = utilityLowerBound;
+proposal.commonSourcePassed = commonSourcePassed;
+proposal.safetyPassed = payloadPresent && commonSourcePassed;
+proposal.rollingConnectivityPassed = true;
+
+admissionNetSavingBytes = max(referencePageBytes - basePageBytes, 0);
+[creditAfterSynopsis, synopsisDecision] = ...
+    preflightBudgetRecycledRepairSynopsisV188( ...
+        previousCreditState, admissionNetSavingBytes, ...
+        lightSynopsisBytes, referencePageBytes);
+projectedProposals = repmat(emptyProposal(), 1, 0);
+if synopsisDecision.lightSynopsisAuthorized && proposal.safetyPassed
+    projectedProposals = proposal;
+end
+projection = projectBudgetRecycledRepairActionsV188( ...
+    projectedProposals, creditAfterSynopsis, struct('maximumActions', 1));
+nextCreditState = projection.nextCreditState;
+selected = ~isempty(projection.selectedProposalIndices);
+transportDelivered = selected && ...
+    (commonSourcePassed || idealDeliveryTeacherMode);
+applied = selected && transportDelivered;
+
+route = emptyRoute();
+if applied
+    route.active = true;
+    route.currentTime = currentTime;
+    route.targetFormationId = targetFormationId;
+    route.receiverIds = receivers;
+    route.sourceId = sourceId;
+    route.label = reshape(label, 2, 1);
+    route.sourceObject = sourceObject;
+    route.sourceWeight = sourceWeight;
+    route.weightMode = weightMode;
+end
+
+chargedAttemptedBytes = synopsisDecision.chargedSynopsisBytes + ...
+    projection.selectedActionBytes;
+chargedDeliveredBytes = synopsisDecision.chargedSynopsisBytes;
+if applied
+    chargedDeliveredBytes = chargedDeliveredBytes + ...
+        proposal.attemptedBytes;
+end
+details = struct();
+details.contractVersion = ...
+    'budget-recycled-label-input-route-page-v221-v1';
+details.currentTime = currentTime;
+details.referencePageBytes = referencePageBytes;
+details.basePageBytes = basePageBytes;
+details.admissionNetSavingBytes = referencePageBytes - basePageBytes;
+details.lightSynopsisBytes = lightSynopsisBytes;
+details.synopsisDecision = synopsisDecision;
+details.proposalCount = numel(projectedProposals);
+details.proposals = projectedProposals;
+details.projection = projection;
+details.forcedFormationId = targetFormationId;
+details.forcedSourceId = sourceId;
+details.forcedLabel = reshape(label, 2, 1);
+details.targetFormationId = targetFormationId;
+details.targetFormationScoped = true;
+details.updateMode = 'single-pass-label-kla';
+details.sourceWeight = sourceWeight;
+details.weightMode = weightMode;
+details.transportDelivered = transportDelivered;
+details.applyDetails = struct( ...
+    'contractVersion', 'label-input-route-apply-v221-v1', ...
+    'appliedActionCount', double(applied), ...
+    'appliedReceiverCount', double(applied) * numel(receivers));
+details.chargedAttemptedBytes = chargedAttemptedBytes;
+details.chargedDeliveredBytes = chargedDeliveredBytes;
+details.certifiedNetSavingBytes = ...
+    referencePageBytes - basePageBytes - chargedAttemptedBytes;
+details.idealDeliveryTeacherMode = idealDeliveryTeacherMode;
+details.candidateAvailabilityConditionedOnRealizedDelivery = true;
+details.singleOrdinaryKlaPass = true;
+details.postFusionUpdateApplied = false;
+details.truthUsed = false;
+details.futureInformationUsed = false;
+details.numericLabelIdentifiersUsedForTeacherSelection = true;
+details.validationClaimAllowed = false;
+details.evidenceBoundary = [ ...
+    'V221 is a frozen development headroom action. The semantic key is ', ...
+    'selected offline, but the complete current local Bernoulli mixture, ', ...
+    'physical reachability, realized delivery and communication charge ', ...
+    'are resolved at runtime. The label is fused once inside the ordinary ', ...
+    'KLA input set; no post-fusion residual update is used.'];
+end
+
+function object = findLabelObject(objects, label)
+object = [];
+objects = reshape(objects, 1, []);
+for objectIdx = 1:numel(objects)
+    candidate = objects(objectIdx);
+    if candidate.birthTime == label(1) && ...
+            candidate.birthLocation == label(2)
+        object = candidate;
+        return;
+    end
+end
+end
+
+function proposal = emptyProposal()
+proposal = struct( ...
+    'formationId', 0, 'receiverIds', zeros(1, 0), ...
+    'sourceId', 0, 'label', zeros(2, 1), 'sourceObject', [], ...
+    'richSynopsisBytes', 0, 'requestBytes', 0, ...
+    'completeResponseBytesPerReceiver', 0, 'responseBytes', 0, ...
+    'attemptedBytes', 0, 'estimatedUtilityLowerBound', 0, ...
+    'commonSourcePassed', false, 'safetyPassed', false, ...
+    'rollingConnectivityPassed', false);
+end
+
+function route = emptyRoute()
+route = struct( ...
+    'active', false, 'currentTime', 0, 'targetFormationId', 0, ...
+    'receiverIds', zeros(1, 0), 'sourceId', 0, ...
+    'label', zeros(2, 1), 'sourceObject', [], ...
+    'sourceWeight', 0, 'weightMode', '');
+end
+
+function valid = validPositiveInteger(value)
+valid = isscalar(value) && isnumeric(value) && ...
+    isfinite(value) && value >= 1 && value == round(value);
+end
+
+function valid = validNonnegativeScalar(value)
+valid = isscalar(value) && isnumeric(value) && ...
+    isfinite(value) && value >= 0;
+end
+
+function value = getField(data, name, fallback)
+if isstruct(data) && isfield(data, name)
+    value = data.(name);
+else
+    value = fallback;
+end
+end
