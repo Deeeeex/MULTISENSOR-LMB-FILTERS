@@ -82,6 +82,26 @@ classifier would make the wrong decision, whereas the vector lower-bound
 admission rule falls back to no-op because the consensus coordinate is
 negative.
 
+Policy-state transfer closes the naive small-top-K route.  When the base page
+at the same time is excluded, an immediate-target readout ranks the t=73 and
+t=77 delayed-positive teacher sources only `32 / 103` and `48 / 104` with the
+graph representation (`13` and `9` action-only); none enters global top-5.
+Adding 25 truth-free H=3 propagation descriptors but still training on the
+immediate target does not fix this target mismatch: the graph ranks become
+`33` and `50`.  Propagation features therefore belong in the recursive
+residual head, not in an immediate-value proposal score.
+
+The first structural alternative is more promising.  A development-only
+V211 rule first selects the formation with maximum observable `need_max`, then
+keeps the top three source-label actions for each of precision refresh,
+receiver existence deficit and observation handover.  It returns eight unique
+actions on each tested page.  The delayed-positive t=73 F6 and t=77 F1 actions
+belong to formations ranked first and both enter the proposal set; the
+vector-negative t=76 F3 formation ranks fourth and is excluded.  This gives
+`2 / 2` positive coverage and `1 / 1` negative exclusion on the three opened
+states.  The rule was designed after inspecting those states, so it is a
+mechanism result only; its caps must be frozen and tested on new trajectories.
+
 The formation-release action is also intrinsically vector-valued.  Comparing
 the existing V206 release branch with the same V204 label-action continuation
 over pages 72--74, releasing F5 improves RMSE by `0.097%`, consensus by
@@ -154,20 +174,46 @@ head for the residual
 `rho_j^H(x,a) = q_j^H(x,a) - d_j(x,a)`.
 
 The deployable value is `q_hat_j^H = d_hat_j + rho_hat_j^H`; selection never
-uses the immediate head by itself.  This decomposition lets all shortlisted
-actions train local posterior sensitivity while reserving expensive recursive
-rollouts for delayed propagation.  Losses are balanced by complete trajectory
-and action mode, so hundreds of immediate label rows cannot numerically erase
-the smaller recursive release and no-op comparisons.
+uses the immediate head by itself.  The dense head consumes the cheap current
+posterior/action features.  The residual head additionally consumes continuous
+H=3 open-loop distance, velocity, covariance and Mahalanobis descriptors from
+the known motion model.  These descriptors read no truth or future
+measurement and replace V189's invalid binary distance veto with learned
+evidence.  Their distributed layout costs one `64 B` source synopsis and six
+float32 summaries (`24 B`) per receiver: `208 B` for the six-node X36
+formations.  This cost is charged exactly and the descriptors are computed
+only after structural shortlisting.
 
-The sparse query set is the deterministic union of top-ranked actions,
-high-uncertainty actions, one representative per semantic mode, and actions
-actually visited by the current selector.  The same receiver-formation and
-label cannot be queried on consecutive pages; source changes do not reset this
-one-page semantic cooldown.  The completed t=76 counterfactual removes the
-previous assumption that every F3 refresh in the teacher sequence is useful:
-cooldown controls duplicate queries, while the vector value gate must still
-reject an individually harmful, non-duplicate repair.
+The decomposition lets all shortlisted actions train local posterior
+sensitivity while reserving expensive recursive rollouts for delayed
+propagation.  Losses are balanced by complete trajectory and action mode, so
+hundreds of immediate label rows cannot numerically erase the smaller
+recursive release and no-op comparisons.
+
+Exhaustively labeling every feasible action with an H=3 rollout is neither
+necessary nor computationally credible.  Before recursive fitting, a
+truth-free hierarchical proposal rule is frozen.  It first ranks formations
+from the observable graph, then forms a mode-diverse source-label union inside
+the retained formations.  This maps the physically feasible bank to a small,
+possibly variable-size registered set `P_K(x)` with a fixed maximum `K`.
+The residual model may rank or abstain inside this set, but it cannot add an
+action that the registered structural rule omitted.  `K`, formation score,
+mode caps and all tie-breaking are fixed before recursive calibration;
+actions outside `P_K(x)` are not assigned a conformal guarantee and cannot be
+selected.
+
+The sparse recursive training queries are the deterministic union of
+proposal-set actions on training states, high-uncertainty proposal
+alternatives, and actions actually visited during iterative state collection.
+Training may use this broader set, but calibration evaluates every member of
+the frozen `P_K(x)` set on each registered page.
+
+The same receiver-formation and label cannot be proposed on consecutive
+pages; source changes do not reset this one-page semantic cooldown.  The
+completed t=76 counterfactual removes the previous assumption that every F3
+refresh in the teacher sequence is useful: cooldown controls duplicate
+queries, while the vector value gate must still reject an individually
+harmful, non-duplicate repair.
 
 ## Simultaneous trajectory-level conformal lower bound
 
@@ -175,13 +221,13 @@ Training, calibration and evaluation are split by complete scene-seed
 trajectories.  For a calibration trajectory `k`, define the nonconformity
 score
 
-`S_k = max_(t,a,j) (h(hatDelta_j(x_kt,a)) - h(Delta_j(x_kt,a))) / s_j(x_kt,a)`,
+`S_k = max_(t,a in P_K(x_kt),j) (h(hatDelta_j(x_kt,a)) - h(Delta_j(x_kt,a))) / s_j(x_kt,a)`,
 
-where the maximum covers every evaluated page, every feasible candidate and
-every protected learned target.  `s_j` is a positive scale with a frozen
-floor; it may use ensemble dispersion, but dispersion alone is not a
-certificate.  Let `q_alpha` be the finite-sample conformal quantile of the
-trajectory scores.  The online lower bound is
+where the maximum covers every evaluated page, every member of the frozen
+proposal set and every protected learned target.  `s_j` is a positive scale
+with a frozen floor; it may use ensemble dispersion, but dispersion alone is
+not a certificate.  Let `q_alpha` be the finite-sample conformal quantile of
+the trajectory scores.  The online lower bound is
 
 `h(L_j(x,a)) = h(hatDelta_j(x,a)) - q_alpha s_j(x,a)`,
 
@@ -192,14 +238,16 @@ Under exchangeability of complete calibration and evaluation value
 trajectories generated by the same frozen state-collection protocol, the
 usual split-conformal rank argument gives
 
-`P[Delta_j(x_t,a) >= L_j(x_t,a) for every t, a and j] >= 1 - alpha`.
+`P[Delta_j(x_t,a) >= L_j(x_t,a) for every t, a in P_K(x_t) and j] >= 1 - alpha`.
 
 The maximum is taken before calibration, so the event is simultaneous over
-the action bank.  Consequently, choosing an action after reading all predicted
-lower bounds does not introduce the within-page post-selection gap that an
-independently calibrated per-row interval would have.  The guarantee is
-deliberately at the trajectory level; treating correlated pages or candidates
-as independent calibration examples is forbidden.
+the registered proposal set.  Consequently, choosing an action after reading
+all of its predicted lower bounds does not introduce the within-page
+post-selection gap that an independently calibrated per-row interval would
+have.  This reduces recursive labeling from the full feasible bank to a small
+fixed `K` without pretending to cover actions that were never calibrated.
+The guarantee is deliberately at the trajectory level; treating correlated
+pages or candidates as independent calibration examples is forbidden.
 
 ## Pareto admission and selection
 
@@ -224,7 +272,8 @@ mixture of tracking, consensus and communication objectives.
    relay M24/X36 development trajectories.  They initialize the representation
    and proposal ranker only.  The finite-horizon head learns a sparse residual
    over that immediate auxiliary target, so a zero-immediate but delayed-positive
-   action remains representable.  Recursive targets are queried for
+   action remains representable.  The proposal-set size and diversity rule are
+   registered before recursive calibration.  Training targets are queried for
    high-ranked, high-uncertainty, mode-diverse and policy-visited actions,
    always paired with the same-state no-op continuation.
 3. Recursive target generation is iterative: roll out the current frozen
@@ -234,8 +283,11 @@ mixture of tracking, consensus and communication objectives.
    required because an immediately attractive repeat may spend credit while a
    different action has the delayed value.
 4. Model fitting and conformal calibration use disjoint complete trajectories.
-   The calibration manifest, `alpha`, target scales and risk tolerances are
-   frozen before recursive evaluation.
+   On calibration trajectories, every member of the frozen `P_K(x)` set is
+   evaluated so the trajectory maximum covers every action the online
+   controller may later choose.  The proposal rule, calibration manifest,
+   `alpha`, target scales and risk tolerances are frozen before outcomes are
+   opened.
 5. A first promotion requires paired static-versus-controller gains in mean
    E-OSPA, RMSE, consensus and attempted bytes on unseen M24 and X36 seeds.
 6. The frozen controller then transfers without retuning to convoy and relay;
