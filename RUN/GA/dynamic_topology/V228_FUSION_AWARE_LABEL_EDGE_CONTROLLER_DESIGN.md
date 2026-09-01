@@ -89,7 +89,14 @@ three-candidate exact shortlist and the one-payload communication contract.
 This headroom run still uses teacher-selected donor/source/label rows.  Its
 purpose is narrower and necessary: determine whether the now-affordable,
 exactly projected action space contains enough multi-objective value to merit
-training an online rule, ridge model or GNN.
+building a causal query-key discovery rule.  Charging three query keys does
+not prove that a beneficiary-only online selector would place the teacher
+label in those three keys: the existing teacher shortlist was formed after
+seeing remote summaries.  A material headroom pass therefore does not yet
+authorize dataset expansion, a ridge model or a GNN.  It first authorizes a
+separate discoverability stage whose label keys are selected without remote
+label information; only measured top-three recall on grouped trajectories can
+open value-model training.
 
 Before opening the query-first H=3 outcomes, V228 freezes a separate material
 headroom gate.  A candidate must first be compositionally safe.  It must then
@@ -186,8 +193,11 @@ attempt on that page.
    diagnostics, not as authorization evidence.
 2. **V228 query-first headroom.**  Re-evaluate the safe t=133 donor with the
    bounded query charge and complete payload.  Require at least one action to
-   pass the frozen material headroom gate before constructing a learning
-   dataset; merely positive actions remain mechanism records.
+   pass the frozen material headroom gate before implementing causal query-key
+   discovery; merely positive actions remain mechanism records.  Do not build
+   a learning dataset until a beneficiary-only top-three selector recovers the
+   valuable teacher labels on grouped trajectories without reading remote
+   label inventories.
 3. **V227 carrier choice.**  Compare static and dynamic carrier routes using
    identical scene, seed, measurements, link uniforms, message count and full
    mixture-aware KLA.  Freeze the carrier before constructing V228 data.
