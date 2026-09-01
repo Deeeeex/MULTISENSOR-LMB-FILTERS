@@ -119,6 +119,24 @@ The proof uses only monotonicity of the logistic map.  The exact maximum of
 `alpha` moves `alpha * omega_j` from one non-self input to the offered source,
 leaving the weight sum and self weight unchanged.
 
+The communication side has a separate deterministic certificate.  For `P`
+participants, at most `K` queried labels, query header/key sizes `h_q,b_q` and
+response header/record sizes `h_r,b_r`, the worst-case control charge is
+
+`B_query = (P-1) [(h_q + K b_q) + (h_r + K b_r)]`.
+
+If suppressing the donor page earns `C` attempted bytes, the protected-credit
+fraction is `rho`, and the selected complete label costs `B_payload`, the
+payload is admitted only when
+
+`B_query + B_payload <= (1-rho) C`.
+
+Therefore the realized attempted-byte saving before delivery effects is
+`C-B_query-B_payload >= rho C > 0`.  The value model cannot weaken this
+inequality.  For the corrected t=133 F1 bank, `P=15`, `K=3`, `rho=0.2`,
+`C=10,400 B` and `B_query=B_payload=1,456 B`, giving a certified `7,488 B`
+net saving and `5,408 B` of spendable feasibility margin.
+
 These are algorithmic guarantees relative to the ordinary result produced by
 the installed mixture-aware KLA approximation.  They are not an E-OSPA, RMSE
 or spatial-density guarantee.  That limitation is why the H=3 paired teacher
