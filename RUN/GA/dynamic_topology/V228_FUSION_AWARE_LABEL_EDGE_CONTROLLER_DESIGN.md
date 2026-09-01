@@ -91,6 +91,15 @@ purpose is narrower and necessary: determine whether the now-affordable,
 exactly projected action space contains enough multi-objective value to merit
 training an online rule, ridge model or GNN.
 
+Before opening the query-first H=3 outcomes, V228 freezes a separate material
+headroom gate.  A candidate must first be compositionally safe.  It must then
+show at least `0.50%` incremental tracking gain in E-OSPA or RMSE, at least
+`0.50%` joint tracking gain, at least `0.25%` joint window or terminal
+consensus gain, and at least `0.25%` attempted-byte saving.  The corrected
+V226 t=50 action remains useful evidence but fails this material gate because
+its best consensus gain is only `0.052%`.  Therefore it authorizes V228 design
+but not grouped trajectory collection or model fitting by itself.
+
 ## The deterministic guarantee
 
 For one label, the Bernoulli KLA existence identity used by the active fusion
@@ -176,8 +185,9 @@ attempt on that page.
    Otherwise stop this line.  Keep merely joint-positive actions as mechanism
    diagnostics, not as authorization evidence.
 2. **V228 query-first headroom.**  Re-evaluate the safe t=133 donor with the
-   bounded query charge and complete payload.  Require a compositionally safe,
-   byte-positive action before constructing a learning dataset.
+   bounded query charge and complete payload.  Require at least one action to
+   pass the frozen material headroom gate before constructing a learning
+   dataset; merely positive actions remain mechanism records.
 3. **V227 carrier choice.**  Compare static and dynamic carrier routes using
    identical scene, seed, measurements, link uniforms, message count and full
    mixture-aware KLA.  Freeze the carrier before constructing V228 data.
