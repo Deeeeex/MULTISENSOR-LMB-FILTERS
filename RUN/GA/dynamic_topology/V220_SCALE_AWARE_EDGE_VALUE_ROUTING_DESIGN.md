@@ -1,30 +1,62 @@
-# V220 scale-aware edge-value routing
+# V220 scale-aware semantic effective-graph routing
 
 ## Decision
 
-V218/V219 remains useful as graph-state, trajectory-grouped dataset, and
-finite-horizon value infrastructure.  Its primary action space is changed,
-however.  Formation-wide posterior withholding is retained only as a negative
-mechanism control.  The deployable method will choose a physically executable
-cross-formation routing graph and will transmit complete Bernoulli Gaussian
-mixtures on every selected edge.
+V220 does **not** learn a denser full-posterior topology.  It keeps the
+registered static full-posterior cycle as the protected fallback and learns a
+two-stage, byte-conserving reallocation:
 
-The method is now:
+1. select one receiver formation whose ordinary full-posterior consumption can
+   be suspended for one page without material tracking harm (the communication
+   **donor**);
+2. spend only the resulting exact communication credit on one complete-label
+   Bernoulli Gaussian-mixture KLA shortcut from an information-rich source to
+   an independently selected information-deficient formation (the
+   **beneficiary**); and
+3. fall back to the unmodified static cycle whenever either stage lacks a
+   positive calibrated lower value or fails a deterministic safety check.
 
-1. use a permutation-equivariant formation graph to predict the three-step
-   value of candidate information-flow graphs;
-2. project every proposal onto physical reachability, strong connectivity,
-   temporal recovery, and message-budget constraints; and
-3. fall back to the registered static cycle when no proposal has a positive
-   calibrated lower value.
+The donor and beneficiary are deliberately decoupled.  The earlier V216
+controller forced them to be the same formation, although the strongest V206
+teacher sequence earned credit by releasing/suppressing one formation and
+spent it on labels needed by other formations.  V220 turns that mechanism into
+an explicit graph decision rather than preserving the same-formation
+restriction.
 
-The learned model ranks already executable graphs.  It does not create links,
-relax the communication ledger, or certify connectivity.
+The learned component ranks a finite bank of executable actions.  It cannot
+create a physical link, overspend communication credit, send a moment-matched
+surrogate, relax delivery checks, or certify a harmful donor by appealing to a
+later repair.
 
-## Key X36 finding
+## Why generic full-posterior rerouting is not the method
 
-The X36 seed-1301 reference trajectory separates sensing geometry from routing
-failure.
+The earlier V27 audit already tested the tempting alternative: use the same or
+similar message budget to increase full-posterior mixing through stronger
+cross weights, dual gateways, bidirectional cycles, or antipodal links.  It
+found `0/10` strong actions on the opened M24 state.
+
+| V27 action | Mean E-OSPA gain | Consensus gain | Mean cardinality error |
+|:--|--:|--:|--:|
+| Registered cycle, cross weight 0.05 | +0.000% | +0.000% | 2.708 |
+| Dual gateway, cross weight 0.05 | -6.848% | -20.863% | 3.167 |
+| Bidirectional cycle, cross weight 0.05 | -5.972% | -16.209% | 3.056 |
+| Cycle plus antipodal links, cross weight 0.05 | -8.358% | -24.621% | 3.250 |
+
+All ten nonreference actions reduced the moment-summary posterior
+disagreement while increasing cardinality error.  More agreement was therefore
+not more correct.  For a Bernoulli label, KLA satisfies
+
+`logit(r_bar_l) = sum_i omega_i logit(r_i,l) + log(eta_l)`, with `eta_l <= 1`.
+
+Spatial conflict makes `log(eta_l)` negative.  Indiscriminate full-posterior
+mixing can consequently suppress label existence even while it contracts
+inter-sensor disagreement.  Generic cycle rerouting remains a negative/static
+ablation; it is not the primary V220 action family.
+
+## Key X36 diagnosis
+
+The X36 seed-1301 reference trajectory separates sensing geometry from
+information-flow failure.
 
 | Diagnostic | t=118 | t=132 |
 |:--|--:|--:|
@@ -40,93 +72,130 @@ failure.
 
 The posterior container has the required 24-label capacity.  At t=118 every
 true label has existence at least 0.5 at one or more sensors, and at t=132 this
-holds for 21 of 24 labels.  The failure is therefore not explained by a narrow
-FoV, missing birth components, or a hard posterior-size cap.  Instead, label
-existence is strongly localized: for some target groups one formation has
-mean existence near one while another is near zero.
+holds for 21 of 24 labels.  Label information exists but is strongly
+localized: some formations assign high existence to a target group while
+others assign almost zero.
 
-At both selected times every formation pair is physically reachable.  The
-reference nevertheless schedules only six cross-formation directed messages
-per page, forming the fixed cycle
+At both selected times every formation pair has at least one physical sensor
+link.  The reference still schedules only six directed cross-formation
+messages per page, following
 
 `F1 -> F2 -> F3 -> F4 -> F5 -> F6 -> F1`.
 
-Its formation diameter is five pages.  The t=130--131 delivery history also
-loses one of two scheduled F3-to-F4 messages and both scheduled F5-to-F6
-messages.  This is consistent with the observed information localization.
-It is strong diagnostic evidence for a routing bottleneck, but the causal
-tracking gain must still be established by paired route counterfactuals.
-
-The completed t=118 withholding screen confirms that deleting a message is not
-the main remedy.  Its only multi-objective eligible action improves E-OSPA,
-RMSE, consensus, and attempted bytes by just 0.106%, 0.136%, 0.163%, and
-0.240%, respectively.  These values remain negative-route evidence and do not
-update the current-best method table.
+The cycle has a formation-level propagation diameter of five pages.  The
+t=130--131 history also contains missed scheduled cross-formation deliveries.
+This makes semantic information propagation, rather than FoV width, posterior
+capacity, or formation-level physical disconnection, the leading X36
+hypothesis.  Paired counterfactuals are still required to establish causal
+tracking gain.
 
 ## Executable action bank
 
-The formation-level action bank contains complete graph alternatives rather
-than isolated edge edits:
+An action is
 
-| Action | Cross-formation message count | Connectivity contract | Role |
-|:--|--:|:--|:--|
-| Static registered cycle | F | One directed Hamiltonian cycle | no-op baseline |
-| Equal-budget cycle reroute | F | Another physically reachable directed Hamiltonian cycle | redistribute propagation delay without adding messages |
-| Cycle plus one shortcut | F+1 | Registered cycle retained; shortcut physically reachable | buy one bounded reduction in information delay |
-| Strong static graph | fixed larger budget | Frozen before outcome scoring | quality-matched communication reference |
+`a = (d, b, s, l)`,
 
-An arbitrary one-edge replacement is not a valid atomic action: removing one
-edge from a minimal directed cycle generally destroys strong connectivity.
-Equal-budget rerouting therefore selects a complete alternative Hamiltonian
-cycle, even when several directed edges differ from the registered cycle.
+where `d` is the communication-donor formation, `b` is the beneficiary
+formation, `s` is a source sensor physically able to serve every receiver in
+`b`, and `l` is one complete Bernoulli GM label.  `d` and `b` may differ.
 
-Candidate cycles are generated deterministically from the current physical
-formation graph.  The bank is capped with identifier-free structural rules,
-for example cycle diameter, recent delivered-path overlap, and source-to-deficit
-delay.  The learned value model sees normalized graph and posterior summaries
-only after this executable bank has been built.
+| Arm | Full-posterior backbone | Label shortcut | Role |
+|:--|:--|:--|:--|
+| Static cycle | unchanged | none | no-op baseline and deployment fallback |
+| Donor only | one receiver formation suspends ordinary full-posterior consumption for one page | none | stage-1 causal safety label |
+| Donor + semantic shortcut | same one-page suspension, then ordinary fusion | complete label `(s,l)` sent to all receivers in independently chosen `b` | primary V220 action |
+| Same-formation donor + repair | donor forced equal to beneficiary | complete label | V216 structural ablation |
+| Generic full-posterior mixing | V27-style cycle/multi-gateway alternatives | none | negative topology ablation |
+| V206 teacher | opened identifier-driven sequence | complete labels | mechanism upper bound only |
 
-## Three-step target
+For each beneficiary, the candidate bank is reconstructed from current local
+and ordinary-fused posteriors.  It retains only complete-label candidates that
+pass physical/common-source reachability, current delivery availability,
+nonzero receiver support, position/mode compatibility, rolling recovery, and
+exact payload accounting.  A deterministic mode-diverse cap prevents the
+bank size from growing with raw sensor count.
 
-Every candidate graph is replayed from the same cached predecision state and
-compared with no-op over three pages.  The target retains the existing V218
-multi-objective convention:
+The exact ledger enforces
 
-- mean E-OSPA gain;
-- mean position-RMSE gain;
-- window and terminal consensus gain;
-- target-formation and worst-formation gains;
-- worst-sensor gains;
-- attempted-byte saving and delivered-byte change.
+`control_bytes + shortcut_bytes <= spendable_credit(d)`,
 
-Truth scores offline targets only.  Runtime features exclude truth, future
-measurements, and future delivery outcomes.  Dataset splitting, model fitting,
-and calibration remain grouped by complete scene-seed trajectory.
+after a fixed reserve fraction of the donor saving has been locked.  Protected
+savings cannot be spent.  The communication claim is therefore checked in
+attempted bytes, independently of whether the shortcut is delivered.
+
+## Causal two-stage target
+
+Every action is replayed from the same cached predecision state for three
+pages.  The two value heads have different counterfactual baselines:
+
+1. **Donor safety head:** donor-only versus the static cycle.  A repair is not
+   allowed to retroactively certify a harmful donor.
+2. **Semantic edge head:** donor plus shortcut versus donor-only, followed by a
+   joint donor-plus-shortcut check versus the static cycle.
+
+The frozen target vector retains mean E-OSPA, mean position RMSE, window and
+terminal consensus, beneficiary and worst-formation metrics, worst-sensor
+metrics, attempted-byte saving, and delivered-byte change.  A candidate is a
+positive training label only when stage 1 is safe, stage 2 adds value, and the
+joint action respects the risk and byte floors.
+
+Truth and future outcomes score offline H=3 targets only.  Runtime inputs are
+current graph, delivery history, local/fused posterior summaries, formation
+need, exact credit, and scale-normalized geometry.  Dataset splitting, model
+fitting, threshold selection, and calibration remain grouped by complete
+scene-seed trajectory.
+
+## Model and deployment projection
+
+The state encoder remains permutation-equivariant and scale-aware:
+
+- formation nodes summarize need, expected cardinality, label-existence
+  dispersion, uncertainty, recent delivery reliability, and normalized
+  geometry;
+- donor nodes/edges encode removable full-posterior bytes and delayed-risk
+  features;
+- semantic edges encode source-to-beneficiary label support, compatibility,
+  propagation delay, payload bytes, and credit utilization.
+
+A small GNN predicts donor value and conditional semantic-edge value.  Ridge
+heads over local/action features and pooled graph features remain mandatory
+baselines.  The deterministic projector then applies physical reachability,
+current delivery, complete-mixture payload, rolling recovery, exact-byte, and
+calibrated lower-bound constraints.  If no action survives, it returns the
+static cycle.
+
+The GNN is promoted only if it improves unseen trajectory groups over both
+ridge baselines.  Otherwise the simpler observable rule is retained.
 
 ## Comparison contract
 
-No single weak static graph is sufficient as a baseline.  V220 reports two
-paired trade-off questions:
+V220 must answer four paired questions:
 
-1. **Equal communication:** does a learned equal-budget cycle improve tracking
-   and consensus over the registered static cycle with the same number of
-   cross-formation messages?
-2. **Equal quality:** does a learned cycle-plus-shortcut policy approach a
-   frozen strong static graph while using fewer attempted bytes?
+1. Does donor-only improve or preserve tracking while saving bytes versus the
+   static cycle?
+2. Does a cross-formation semantic shortcut add value over the paired
+   donor-only state?
+3. Does decoupling donor and beneficiary outperform the same-formation V216
+   restriction under the same ledger?
+4. Does targeted label routing outperform generic full-posterior mixing on
+   tracking/cardinality, rather than merely reducing disagreement?
 
-The paper-facing result is a communication--tracking Pareto curve, with static
-cycle, strong static graph, deterministic observable heuristic, local/action
-ridge, graph ridge, and trainable GNN shown separately.  A GNN is promoted only
-if graph context improves unseen-trajectory results over both ridge baselines.
+The paper-facing result is a communication--tracking Pareto comparison with
+the static cycle, generic V27-style mixing, deterministic observable heuristic,
+local/action ridge, graph ridge, GNN, and V206 teacher upper bound shown
+separately.
 
 ## Immediate experiment order
 
-1. finish the already running X36 t=132 withholding batch and archive it;
-2. generate the executable cycle and shortcut bank at X36 t=118/t=132;
-3. run paired H=3 labels for a small bank before collecting more trajectories;
-4. require at least one non-trivial equal-budget positive route action on X36;
-5. only then collect M24/X36 training trajectories and fit the value model.
+1. finish and archive the X36 t=132 donor-only screen;
+2. reconstruct a small cross-formation semantic bank at X36 t=118/t=132 from
+   captured causal states;
+3. evaluate no-op, donor-only, and donor-plus-shortcut H=3 arms before any
+   larger trajectory collection;
+4. require a material joint X36 gain, not merely an output-neutral byte saving;
+5. only then collect grouped M24/X36 trajectories, fit the value heads, and
+   freeze unseen-seed and richer-scene validation.
 
 The current-best Lark tables remain V187 at strategy level and V206 at
-mechanism level until a complete online route policy improves their frozen
+mechanism level until a complete online V220 policy improves their frozen
 comparison records.
