@@ -483,6 +483,29 @@ underlying one-page withholding action.  H=3 screens remain training action
 values; only a later frozen, recursively executed controller can refresh the
 current-best table.
 
+The first `seed 1301 / t=131` execution separates affordability from value.
+With a network-wide 24-byte synopsis, all four arms produced safe proposals
+but none could pay a complete-label response: the synopsis alone cost about
+`17.4--17.6 kB`.  Scoping metadata to the withheld formation and its current
+common sources reduced each bank to one proposal, and removing the two fields
+not consumed by the repair rule (association support and observation
+opportunity) produced a 20-byte risk-only record.  The resulting F1 action
+paid a `16,576 B` complete-label response, retained `6,120 B` certified credit
+on the action page and reduced the full H=3 attempted bytes by `1.374%`.
+
+That affordable repair is a negative value label, not a promoted method.
+Relative to the same-state full-payload reference, E-OSPA and RMSE degrade by
+`0.187%` and `1.719%`; the minimum formation E-OSPA/RMSE gains are
+`-0.628% / -4.350%`.  Consensus nevertheless improves by `2.087%` over the
+window and `4.801%` at the terminal page.  The selected source has a positive
+advertised Bayes-risk reduction, so this result directly disproves using
+source risk as an acceptance certificate.  The analytic rule remains useful
+only as a truth-free executable proposal generator.  A separate finite-horizon
+repair-value head must distinguish tracking-improving refreshes from
+consensus-only or harmful KLA actions, while the deterministic ledger and
+support checks continue to own feasibility.  This failed training arm stays
+in the repository evidence and does not update the main current-best table.
+
 ## Claim boundary
 
 The conformal statement covers the registered counterfactual value targets

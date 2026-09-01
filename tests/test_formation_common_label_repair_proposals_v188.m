@@ -47,6 +47,8 @@ compactIdx = find([compactProposals.formationId] == 1, 1);
 assert(~isempty(compactIdx));
 assert(compactCache.bytesPerLabelRecord == 20);
 assert(compactCache.totalAttemptedBytes < cache.totalAttemptedBytes);
+assert(all(compactCache.attemptedBytesBySensor( ...
+    ~ismember(1:4, compactCache.participatingSensorIds)) == 0));
 assert(compactProposals(compactIdx).sourceId == proposal.sourceId);
 assert(isequal(compactProposals(compactIdx).label, proposal.label));
 assert(all(cellfun(@(summary) ...
