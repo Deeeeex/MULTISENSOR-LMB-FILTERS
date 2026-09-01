@@ -147,3 +147,59 @@ failure also shows that the immediate minimum-risk-reduction proxy is not a
 reliable finite-horizon value estimate.  The next bounded test is the strongest
 precision-refresh candidate under a deterministic query-first control-plane
 bound; a broad fixed-weight sweep remains unjustified.
+
+## Query-first S31 result and the missing eta gate
+
+Query-first discovery reduces the t=132 F1 control bound from 12,300 B to
+1,976 B and therefore makes the S31/[13,12] payload affordable without
+relaxing the 20% protected-credit reserve.  The frozen-teacher H=3 result is:
+
+| Metric | Static reference | F5 + S31/[13,12] | Relative gain |
+|:--|--:|--:|--:|
+| Mean E-OSPA | 119.815567 | 120.005241 | -0.158% |
+| Mean position RMSE | 379.106247 | 391.121805 | -3.169% |
+| Window consensus | 106.863798 | 106.334157 | +0.496% |
+| F1 E-OSPA | reference | candidate | -0.914% |
+| F1 position RMSE | reference | candidate | -9.436% |
+| Attempted bytes | 6,522,240 B | 6,507,416 B | +0.227% saving |
+
+Changing the source share from 0.10 to 0.05 produces virtually the same
+extracted output.  This is not a weight-routing bug.  Fusion-realized label-KLA
+diagnostics show that the active weights and fused existence do change, but
+both shares push the label below the 0.5 MAP extraction threshold.
+
+For receiver R1, the 0.05 and 0.10 shares give spatial normalizers 0.244625
+and 0.166985 and fused existence 0.380350 and 0.386187.  For R3 they give
+normalizers 0.247875 and 0.169237 and fused existence 0.422152 and 0.426163.
+All ordinary inputs contain the label and the routed source has existence
+approximately 0.9998.  The collapse is caused by spatial mixture conflict,
+not missing-label semantics.
+
+For a Bernoulli label, the exact identity is
+
+`logit(r_fused) = sum_i omega_i logit(r_i) + log(eta)`.
+
+The current candidate scorer never evaluates `eta`.  It uses existence,
+Bayes risk, moment means, covariance traces and an exponential moment-distance
+compatibility.  S31 is therefore a false positive: its moment summary looks
+compatible, while its complete Gaussian mixtures have too little powered
+overlap.  The negative `log(eta)` term overwhelms the positive input log odds
+and causes MAP-cardinality loss.
+
+The next action family is consequently receiver-specific and eta-safe.  Once
+the complete payload is delivered but before recursive state mutation, each
+receiver computes the same powered-GM `log(eta)` used by the proposed ordinary
+input set.  The route is admissible only if
+
+`log(eta) >= required_fused_log_odds - sum_i omega_i logit(r_i)`.
+
+The log-odds identity is exact for that computed normalizer; the normalizer
+retains the repository's documented truncated powered-GM approximation rather
+than claiming an exact arbitrary Gaussian-mixture power.  The required fused
+log odds protect both the ordinary fused existence and the
+0.5 MAP threshold.  A learned finite-horizon value model may rank only the
+edges that survive this deterministic projection; it cannot override the
+gate.  Rejected receivers use their ordinary static KLA inputs.  The pure
+projection contract is implemented in
+`common/projectLabelKlaExistenceRetentionByEtaV223.m`; integration into the
+recursive receiver loop precedes any new candidate sweep.

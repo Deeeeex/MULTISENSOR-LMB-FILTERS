@@ -259,3 +259,46 @@ makes the S31/[13,12] complete payload affordable under the unchanged 20%
 protected-credit reserve.  The first query-first run remains a frozen teacher
 headroom test: it can establish whether the action space has multi-objective
 value, but not whether an online coordinator can select the same label.
+
+## V223 update: mixture-overlap safety projection
+
+The query-first S31 teacher is communication-feasible but not tracking-safe.
+It saves 0.227% attempted bytes and improves window consensus by 0.496%, while
+degrading mean E-OSPA by 0.158%, mean RMSE by 3.169%, F1 E-OSPA by 0.914% and
+F1 RMSE by 9.436%.  Source shares 0.05 and 0.10 yield almost identical
+extracted tracks because both move the selected label below the 0.5 MAP
+threshold.
+
+Fusion-realized one-pass diagnostics rule out a routing-weight defect.  At R1, source
+shares 0.05/0.10 produce `eta=0.244625/0.166985` and fused existence
+`0.380350/0.386187`; at R3 they produce `eta=0.247875/0.169237` and existence
+`0.422152/0.426163`.  The current V188/V190 scorer omits this term: it derives
+compatibility only from existence, Bayes risk, position means and covariance
+traces.  A candidate can therefore appear moment-compatible while its full
+Gaussian mixtures have insufficient powered overlap.
+
+The semantic action is now a receiver-specific edge in the label-wise
+effective KLA graph.  The deterministic projector uses the Bernoulli
+identity
+
+`logit(r_fused) = sum_i omega_i logit(r_i) + log(eta)`
+
+and admits an edge only when the powered-GM `log(eta)` produced by the same
+fusion implementation retains the ordinary fused
+existence and does not cross the MAP-cardinality threshold.  The executable
+condition is
+
+`log(eta) >= required_fused_log_odds - sum_i omega_i logit(r_i)`.
+
+The log-odds identity is exact for the supplied normalizer; the normalizer is
+still the repository's truncated componentwise powered-GM approximation, not
+an exact arbitrary Gaussian-mixture power.  This projection is evaluated
+after complete-payload delivery but before
+recursive state mutation, so an unsafe receiver falls back to the ordinary
+static input set.  Communication remains charged to the exact ledger even
+when the payload is rejected.  The GNN is correspondingly demoted from safety
+arbiter to finite-horizon value ranker over only the physically reachable,
+byte-feasible and eta-safe edge set.  The pure gate contract is implemented by
+`common/projectLabelKlaExistenceRetentionByEtaV223.m`; it must be integrated
+and exercised on the frozen t=132/t=118 states before any broad weight sweep,
+dataset expansion or M24 training.
