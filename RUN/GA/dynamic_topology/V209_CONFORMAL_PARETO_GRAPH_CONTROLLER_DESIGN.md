@@ -389,10 +389,15 @@ There is no second full-trajectory replay and no online posterior
 counterfactual enumeration.
 
 The deployable action space becomes a direct graph decision rather than a
-wrapper around V99: retain full payload, use formation-supported light
-payload, execute one supported complete-label KLA repair, or combine light
-payload with one repair while preserving the reference route.  Proposal
-features, light synopses and complete-label responses are all charged in the
+wrapper around V99: retain full payload, withhold one receiver formation's
+complete cross-formation posterior for one page, execute one supported
+complete-label KLA repair, or combine withholding with one repair while
+preserving the reference route.  This correction deliberately does not revive
+moment-matched light posteriors: every transmitted label keeps its complete
+Gaussian mixture.  A formation cannot be withheld on consecutive pages, and
+the following pages return to the full-payload route, giving the effective
+label graph an explicit three-page recovery window.  Proposal features,
+control messages and complete-label responses are all charged in the
 attempted-byte account.  A later safe graph-codebook option may change the
 route only after the same rolling-connectivity projection; payload and repair
 learning do not receive permission to bypass that projection.  V99 remains an
@@ -400,6 +405,14 @@ offline action-value teacher and mechanism upper bound, not a runtime input.
 Consequently, fresh V214 results must be compared directly with the same-state
 full-payload reference, and the current-best table is unchanged until a paired
 controller result exists.
+
+The first registered training trajectory now closes the collection path.
+`m24-formation-fov / seed 1301` scanned pages `55:133` in `1689.83 s`, selected
+truth-free need maxima at `t=119` and `t=131` with scores `2.18074` and
+`4.48701`, and persisted two readable 24-sensor caches with exactly two past
+topology pages.  The selected windows meet the frozen 12-page separation and
+the runtime performed zero posterior counterfactual enumerations.  This is
+state-collection evidence only; recursive action targets remain uncollected.
 
 ## Claim boundary
 
