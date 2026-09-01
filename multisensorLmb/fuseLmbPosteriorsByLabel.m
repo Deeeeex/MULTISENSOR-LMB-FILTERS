@@ -75,20 +75,25 @@ for labelIdx = 1:size(labels, 2)
     templateIdx = find(present, 1, 'first');
     fusedObject = localObjects{templateIdx};
 
-    mixtureAwareSpatialUsed = shouldUseMixtureAwareFusion( ...
+    mixtureAwareSpatialRequested = shouldUseMixtureAwareFusion( ...
         localObjects, present, sourceModes, triggerConfig);
+    mixtureAwareSpatialUsed = false;
+    mixtureAwareFallbackReason = '';
+    poweredGmRawLogNormalizer = NaN;
     existenceEtaMode = 'moment-matched';
-    if mixtureAwareSpatialUsed
-        [fusedObject, logEta] = fuseSpatialMixtureAware( ...
+    if mixtureAwareSpatialRequested
+        [fusedObject, logEta, mixtureAwareSpatialUsed, ...
+         mixtureAwareFallbackReason, poweredGmRawLogNormalizer] = ...
+            fuseSpatialMixtureAware( ...
             fusedObject, localObjects, present, activeSpatialWeights, ...
             model, triggerConfig);
-        if strcmpi(getField(triggerConfig, ...
+        if mixtureAwareSpatialUsed && strcmpi(getField(triggerConfig, ...
                 'mixtureAwareExistenceEtaMode', 'momentMatched'), ...
                 'momentMatched')
             [~, logEta] = fuseSpatialMomentMatched( ...
                 fusedObject, localObjects, present, ...
                 activeSpatialWeights, model);
-        else
+        elseif mixtureAwareSpatialUsed
             existenceEtaMode = 'mixture-aware-powered-gm';
         end
     else
@@ -104,7 +109,9 @@ for labelIdx = 1:size(labels, 2)
                 label, localObjects, present, existencePresent, ...
                 existenceOverrides, activeSpatialWeights, ...
                 activeExistenceWeights, mixtureAwareSpatialUsed, ...
-                existenceEtaMode, logEta, fusedObject); %#ok<AGROW>
+                existenceEtaMode, mixtureAwareFallbackReason, ...
+                poweredGmRawLogNormalizer, logEta, ...
+                fusedObject); %#ok<AGROW>
     end
     fusedObjects(end+1) = fusedObject; %#ok<AGROW>
     fusionDiagnostics.fusedLabelCount = ...
@@ -392,7 +399,8 @@ function record = buildLabelKlaDiagnosticRecord( ...
         label, localObjects, spatialPresent, existencePresent, ...
         existenceOverrides, activeSpatialWeights, ...
         activeExistenceWeights, mixtureAwareSpatialUsed, ...
-        existenceEtaMode, logEta, fusedObject)
+        existenceEtaMode, mixtureAwareFallbackReason, ...
+        poweredGmRawLogNormalizer, logEta, fusedObject)
 record = emptyLabelKlaDiagnosticRecord();
 sourceCount = numel(localObjects);
 inputExistence = nan(1, sourceCount);
@@ -423,6 +431,8 @@ record.activeExistenceWeights = reshape(activeExistenceWeights, 1, []);
 record.inputExistence = inputExistence;
 record.mixtureAwareSpatialUsed = logical(mixtureAwareSpatialUsed);
 record.existenceEtaMode = existenceEtaMode;
+record.mixtureAwareFallbackReason = mixtureAwareFallbackReason;
+record.poweredGmRawLogNormalizer = poweredGmRawLogNormalizer;
 record.spatialLogNormalizer = real(logEta);
 record.spatialNormalizer = exp(min(real(logEta), log(realmax)));
 record.weightedInputLogOdds = weightedInputLogOdds;
@@ -444,6 +454,8 @@ record = struct( ...
     'inputExistence', zeros(1, 0), ...
     'mixtureAwareSpatialUsed', false, ...
     'existenceEtaMode', '', ...
+    'mixtureAwareFallbackReason', '', ...
+    'poweredGmRawLogNormalizer', NaN, ...
     'spatialLogNormalizer', 0, ...
     'spatialNormalizer', 1, ...
     'weightedInputLogOdds', 0, ...
@@ -567,8 +579,10 @@ minimumAssociationAmbiguity = getField( ...
 minimumDetectionAssociationMass = getField( ...
     triggerConfig, 'mixtureAwareMinDetectionAssociationMass', 0);
 for sourceIdx = activeSources
+    canonicalObject = collapseIdenticalGaussianComponents( ...
+        localObjects{sourceIdx});
     if sourceQualifiesForMixtureAwareFusion( ...
-            localObjects{sourceIdx}, minimumExistence, ...
+            canonicalObject, minimumExistence, ...
             minimumComponents, minimumEntropy, ...
             minimumAssociationAmbiguity, ...
             minimumDetectionAssociationMass)
@@ -617,9 +631,14 @@ fusedObject.mu = {fusedMean};
 fusedObject.Sigma = {fusedCovariance};
 end
 
-function [fusedObject, logEta] = fuseSpatialMixtureAware( ...
+function [fusedObject, logEta, mixtureAwareSpatialUsed, ...
+        fallbackReason, rawLogNormalizer] = ...
+        fuseSpatialMixtureAware( ...
     fusedObject, localObjects, present, activeSpatialWeights, model, ...
     triggerConfig)
+mixtureAwareSpatialUsed = false;
+fallbackReason = '';
+rawLogNormalizer = NaN;
 activeSources = find(present);
 topComponentCount = max(1, round(getField( ...
     triggerConfig, 'mixtureAwareTopComponents', 2)));
@@ -657,6 +676,7 @@ end
 
 componentCount = numel(partialG);
 if componentCount == 0
+    fallbackReason = 'empty-powered-gm-component-set';
     [fusedObject, logEta] = fuseSpatialMomentMatched( ...
         fusedObject, localObjects, present, activeSpatialWeights, model);
     return;
@@ -683,6 +703,18 @@ keepCount = min(maxOutputComponents, numel(sortedIndices));
 sortedIndices = sortedIndices(1:keepCount);
 componentLogWeights = componentLogWeights(1:keepCount);
 logEta = logSumExp(componentLogWeights);
+rawLogNormalizer = logEta;
+% A weighted geometric mean of normalized densities has integral at most
+% one (Holder's inequality).  A positive log normalizer therefore proves
+% that the componentwise powered-GM approximation has violated a KLA
+% invariant.  Fall back to the valid moment-matched Gaussian path instead
+% of propagating a representation-dependent existence probability.
+if logEta > 1e-12
+    fallbackReason = 'powered-gm-normalizer-exceeds-one';
+    [fusedObject, logEta] = fuseSpatialMomentMatched( ...
+        fusedObject, localObjects, present, activeSpatialWeights, model);
+    return;
+end
 normalizedWeights = exp(componentLogWeights - logEta);
 normalizedWeights = normalizedWeights / max(sum(normalizedWeights), eps);
 
@@ -690,6 +722,7 @@ maxFusedEntropy = getField(triggerConfig, 'mixtureAwareMaxFusedEntropy', 1);
 minFusedDominance = getField(triggerConfig, 'mixtureAwareMinFusedDominance', 0);
 if normalizedWeightEntropy(normalizedWeights) > maxFusedEntropy || ...
         max(normalizedWeights) < minFusedDominance
+    fallbackReason = 'powered-gm-output-shape-gate';
     [fusedObject, logEta] = fuseSpatialMomentMatched( ...
         fusedObject, localObjects, present, activeSpatialWeights, model);
     return;
@@ -699,10 +732,16 @@ fusedObject.numberOfGmComponents = keepCount;
 fusedObject.w = normalizedWeights;
 fusedObject.mu = means(sortedIndices);
 fusedObject.Sigma = covariances(sortedIndices);
+mixtureAwareSpatialUsed = true;
 end
 
 function [sourceObject, componentIdxs] = selectSourceFusionComponents( ...
     object, topComponentCount, stateDimension, triggerConfig)
+% The density represented by a Gaussian mixture is unchanged when one
+% component is split into identical weighted copies.  Collapsing exact
+% copies before the fractional-power approximation makes the result
+% invariant to this otherwise arbitrary representation choice.
+object = collapseIdenticalGaussianComponents(object);
 minimumEntropy = getField(triggerConfig, 'mixtureAwareMinEntropy', 0.35);
 minimumComponents = max(2, round(getField( ...
     triggerConfig, 'mixtureAwareMinComponentCount', 2)));
@@ -726,6 +765,53 @@ sourceObject.w = 1;
 sourceObject.mu = {mu};
 sourceObject.Sigma = {covariance};
 componentIdxs = 1;
+end
+
+function object = collapseIdenticalGaussianComponents(object)
+componentCount = object.numberOfGmComponents;
+if componentCount <= 1
+    return;
+end
+weights = reshape(object.w, 1, []);
+if numel(weights) ~= componentCount || ...
+        numel(object.mu) ~= componentCount || ...
+        numel(object.Sigma) ~= componentCount
+    return;
+end
+weights(~isfinite(weights)) = 0;
+weights = max(weights, 0);
+if sum(weights) <= 0
+    return;
+end
+
+representatives = zeros(1, 0);
+collapsedWeights = zeros(1, 0);
+for componentIdx = 1:componentCount
+    representativePosition = 0;
+    for position = 1:numel(representatives)
+        representativeIdx = representatives(position);
+        if isequal(object.mu{componentIdx}, ...
+                object.mu{representativeIdx}) && ...
+                isequal(object.Sigma{componentIdx}, ...
+                object.Sigma{representativeIdx})
+            representativePosition = position;
+            break;
+        end
+    end
+    if representativePosition == 0
+        representatives(end + 1) = componentIdx; %#ok<AGROW>
+        collapsedWeights(end + 1) = weights(componentIdx); %#ok<AGROW>
+    else
+        collapsedWeights(representativePosition) = ...
+            collapsedWeights(representativePosition) + ...
+            weights(componentIdx);
+    end
+end
+collapsedWeights = collapsedWeights / sum(collapsedWeights);
+object.numberOfGmComponents = numel(representatives);
+object.w = collapsedWeights;
+object.mu = reshape(object.mu(representatives), 1, []);
+object.Sigma = reshape(object.Sigma(representatives), 1, []);
 end
 
 function [partialK, partialH, partialG, partialLogMixture] = ...
