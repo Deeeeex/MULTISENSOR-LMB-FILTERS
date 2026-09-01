@@ -7,12 +7,22 @@ if nargin < 1 || isempty(options)
 end
 etaProjectionEnabled = getField(options, ...
     'etaProjectionEnabled', false);
+weightMode = lower(strrep(char(getField(options, ...
+    'inputRouteWeightMode', 'proportional-share')), '_', '-'));
 if ~validBoolean(etaProjectionEnabled)
     error('SinglePassSemanticInputRoutingV221:InvalidProjectionMode', ...
         'The eta-projection mode flag must be Boolean.');
 end
 etaProjectionEnabled = logical(etaProjectionEnabled);
-if etaProjectionEnabled
+dominantEdgeReplacementEnabled = ...
+    strcmp(weightMode, 'dominant-nonself-transfer');
+if dominantEdgeReplacementEnabled && ~etaProjectionEnabled
+    error('SinglePassSemanticInputRoutingV221:UnsafeReplacementMode', ...
+        'Dominant-edge replacement requires the V223 eta projection.');
+end
+if dominantEdgeReplacementEnabled
+    protocol = getEtaSafeDominantEdgeReplacementV225Protocol();
+elseif etaProjectionEnabled
     protocol = getEtaSafeSemanticInputRoutingV223Protocol();
 else
     protocol = getSinglePassSemanticInputRoutingV221Protocol();
@@ -33,6 +43,8 @@ if isempty(candidateBankPath) || exist(candidateBankPath, 'file') ~= 2 || ...
         any(sourceWeights <= 0) || any(sourceWeights >= 1) || ...
         numel(unique(sourceWeights)) ~= numel(sourceWeights) || ...
         ~isscalar(synopsisBytesOverride) || ...
+        ~ismember(weightMode, { ...
+            'proportional-share', 'dominant-nonself-transfer'}) || ...
         (~isnan(synopsisBytesOverride) && ...
          (~isfinite(synopsisBytesOverride) || synopsisBytesOverride < 0))
     error('SinglePassSemanticInputRoutingV221:InvalidRunRequest', ...
@@ -90,7 +102,10 @@ for row = reshape(selectedRows, 1, [])
         screenOptions.interventionDurationSteps = 1;
         screenOptions.filterSeedOffset = protocol.filterSeedOffset;
         screenOptions.cacheRoot = fileparts(sourceCachePath);
-        if etaProjectionEnabled
+        if dominantEdgeReplacementEnabled
+            screenOptions.interventionBankType = ...
+                'eta-safe-dominant-edge-replacement-v225';
+        elseif etaProjectionEnabled
             screenOptions.interventionBankType = ...
                 'eta-safe-semantic-input-routing-v223';
         else
@@ -119,7 +134,7 @@ for row = reshape(selectedRows, 1, [])
             'inputRouteSynopsisBytes', inputRouteSynopsisBytes, ...
             'inputRouteUtilityLowerBound', ...
                 bankRecord.candidate.minimumRiskReduction, ...
-            'inputRouteWeightMode', 'proportional-share', ...
+            'inputRouteWeightMode', weightMode, ...
             'inputRouteEtaProjectionEnabled', ...
                 etaProjectionEnabled, ...
             'inputRouteMinimumMapExistence', getField(protocol, ...
@@ -172,6 +187,7 @@ for row = reshape(selectedRows, 1, [])
         item = emptyRecord();
         item.recordIndex = bankRecord.recordIndex;
         item.sourceWeight = sourceWeight;
+        item.inputRouteWeightMode = weightMode;
         item.donorFormationId = bankRecord.donorFormationId;
         item.beneficiaryFormationId = ...
             bankRecord.beneficiaryFormationId;
@@ -208,12 +224,19 @@ for row = reshape(selectedRows, 1, [])
         item.etaProjectionRejectedReceiverIds = reshape(getField( ...
             routePageDetails, 'etaProjectionRejectedReceiverIds', ...
             zeros(1, 0)), 1, []);
+        [item.replacedSourceIdsByReceiver, ...
+         item.transferredTopologyWeightByReceiver] = ...
+            summarizeDominantEdgeTransfers(routePageDetails, ...
+                numel(candidateScreen.sensorGroupIds));
         records(recordPosition) = item;
     end
 end
 
 result = struct();
-if etaProjectionEnabled
+if dominantEdgeReplacementEnabled
+    result.contractVersion = ...
+        'eta-safe-dominant-edge-replacement-h3-v225-v1';
+elseif etaProjectionEnabled
     result.contractVersion = ...
         'eta-safe-semantic-input-routing-h3-v223-v1';
 else
@@ -230,11 +253,14 @@ result.currentTime = bankResult.currentTime;
 result.donorFormationId = bankResult.donorFormationId;
 result.sourceWeights = sourceWeights;
 result.inputRouteSynopsisBytesOverride = synopsisBytesOverride;
+result.inputRouteWeightMode = weightMode;
 result.records = records;
 result.candidateCount = numel(records);
 result.jointCorePositiveCount = nnz([records.jointCorePositive]);
 result.incrementalCorePositiveCount = nnz([records.incrementalCorePositive]);
 result.etaProjectionEnabled = etaProjectionEnabled;
+result.dominantEdgeReplacementEnabled = ...
+    dominantEdgeReplacementEnabled;
 result.truthUsedAtRuntime = false;
 result.futureInformationUsedAtRuntime = false;
 result.truthUsedForH3Targets = true;
@@ -243,7 +269,9 @@ result.evidenceBoundary = protocol.evidenceBoundary;
 if exist(outputRoot, 'dir') ~= 7
     mkdir(outputRoot);
 end
-if etaProjectionEnabled
+if dominantEdgeReplacementEnabled
+    stem = 'ETA_SAFE_DOMINANT_EDGE_REPLACEMENT_H3_V225';
+elseif etaProjectionEnabled
     stem = 'ETA_SAFE_SEMANTIC_INPUT_ROUTING_H3_V223';
 else
     stem = 'SINGLE_PASS_SEMANTIC_INPUT_ROUTING_H3_V221';
@@ -254,7 +282,10 @@ result.matPath = matPath;
 result.reportPath = reportPath;
 save('-mat7-binary', matPath, 'result');
 writeReport(reportPath, result);
-if etaProjectionEnabled
+if dominantEdgeReplacementEnabled
+    fprintf('V225 eta-safe dominant-edge replacement H=3: %s\n', ...
+        reportPath);
+elseif etaProjectionEnabled
     fprintf('V223 eta-safe semantic input routing H=3: %s\n', reportPath);
 else
     fprintf('V221 single-pass semantic input routing H=3: %s\n', reportPath);
@@ -296,7 +327,9 @@ if fid < 0
         'Could not write the V221 report.');
 end
 cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
-if result.etaProjectionEnabled
+if result.dominantEdgeReplacementEnabled
+    fprintf(fid, '# V225 eta-safe dominant-edge replacement H=3\n\n');
+elseif result.etaProjectionEnabled
     fprintf(fid, '# V223 eta-safe semantic input routing H=3\n\n');
 else
     fprintf(fid, '# V221 single-pass semantic input routing H=3\n\n');
@@ -307,17 +340,34 @@ fprintf(fid, '- Donor formation: `F%d`\n', result.donorFormationId);
 fprintf(fid, '- Evaluated / joint-positive / donor-increment-positive: `%d / %d / %d`\n\n', ...
     result.candidateCount, result.jointCorePositiveCount, ...
     result.incrementalCorePositiveCount);
-fprintf(fid, ['| Row | Weight | Donor -> beneficiary | Source | Label | ', ...
-    'Joint E / R / C / terminal | Increment over donor E / R / C / terminal | ', ...
-    'Beneficiary increment E / R | Byte saving | Joint+ / Increment+ |\n']);
-fprintf(fid, '|--:|--:|:--|--:|:--|:--|:--|:--|--:|:--:|\n');
+if result.dominantEdgeReplacementEnabled
+    fprintf(fid, ['| Row | Transfer min / median / max | ', ...
+        'Donor -> beneficiary | Source | Label | ', ...
+        'Joint E / R / C / terminal | ', ...
+        'Increment over donor E / R / C / terminal | ', ...
+        'Beneficiary increment E / R | Byte saving | ', ...
+        'Joint+ / Increment+ |\n']);
+else
+    fprintf(fid, ['| Row | Weight | Donor -> beneficiary | Source | ', ...
+        'Label | Joint E / R / C / terminal | ', ...
+        'Increment over donor E / R / C / terminal | ', ...
+        'Beneficiary increment E / R | Byte saving | ', ...
+        'Joint+ / Increment+ |\n']);
+end
+fprintf(fid, '|--:|:--|:--|--:|:--|:--|:--|:--|--:|:--:|\n');
 for record = result.records
+    if result.dominantEdgeReplacementEnabled
+        weightText = formatTransferRange( ...
+            record.transferredTopologyWeightByReceiver);
+    else
+        weightText = sprintf('%.3f', record.sourceWeight);
+    end
     fprintf(fid, ...
-        ['| %d | %.3f | F%d -> F%d | %d | `[%d,%d]` | ', ...
+        ['| %d | %s | F%d -> F%d | %d | `[%d,%d]` | ', ...
          '`%+.3f / %+.3f / %+.3f / %+.3f%%` | ', ...
          '`%+.3f / %+.3f / %+.3f / %+.3f%%` | ', ...
          '`%+.3f / %+.3f%%` | %+.3f%% | %d / %d |\n'], ...
-        record.recordIndex, record.sourceWeight, ...
+        record.recordIndex, weightText, ...
         record.donorFormationId, record.beneficiaryFormationId, ...
         record.sourceId, record.label(1), record.label(2), ...
         record.meanEospaGainPercent, record.meanRmseGainPercent, ...
@@ -345,6 +395,19 @@ if result.etaProjectionEnabled
             record.etaProjectionAppliedActionCount);
     end
 end
+if result.dominantEdgeReplacementEnabled
+    fprintf(fid, '\n## Replaced effective label edges\n\n');
+    fprintf(fid, '| Row | Replaced source IDs by receiver | Transferred topology weights |\n');
+    fprintf(fid, '|--:|:--|:--|\n');
+    for record = result.records
+        fprintf(fid, '| %d | `%s` | `%s` |\n', ...
+            record.recordIndex, ...
+            formatSourceIdVector( ...
+                record.replacedSourceIdsByReceiver), ...
+            formatFloatVector( ...
+                record.transferredTopologyWeightByReceiver));
+    end
+end
 fprintf(fid, '\n## Evidence boundary\n\n%s\n', result.evidenceBoundary);
 end
 
@@ -363,9 +426,50 @@ if exist(path, 'file') ~= 2
 end
 end
 
+function [sourceIds, transferredWeights] = ...
+        summarizeDominantEdgeTransfers(pageDetails, sensorCount)
+sourceIds = zeros(1, 0);
+transferredWeights = nan(1, 0);
+if ~isstruct(pageDetails) || ...
+        ~isfield(pageDetails, 'etaProjectionEvaluatedReceiverIds') || ...
+        ~isfield(pageDetails, 'etaProjectionByReceiver')
+    return;
+end
+receiverIds = reshape( ...
+    pageDetails.etaProjectionEvaluatedReceiverIds, 1, []);
+if any(receiverIds < 1) || any(receiverIds > sensorCount)
+    error('SinglePassSemanticInputRoutingV221:TransferDiagnostics', ...
+        'The receiver-specific route diagnostics are malformed.');
+end
+sourceIds = zeros(1, numel(receiverIds));
+transferredWeights = nan(1, numel(receiverIds));
+for receiverPosition = 1:numel(receiverIds)
+    receiverIdx = receiverIds(receiverPosition);
+    detail = pageDetails.etaProjectionByReceiver{receiverIdx};
+    if ~isstruct(detail) || ...
+            ~isfield(detail, 'routingOverride') || ...
+            isempty(detail.routingOverride)
+        continue;
+    end
+    override = detail.routingOverride;
+    if ~isscalar(override) || ...
+            ~isfield(override, 'mode') || ...
+            ~strcmp(lower(strrep(override.mode, '_', '-')), ...
+                'dominant-nonself-transfer') || ...
+            ~isfield(override, 'replacedSourceId') || ...
+            ~isfield(override, 'transferredTopologyWeight')
+        continue;
+    end
+    sourceIds(receiverPosition) = override.replacedSourceId;
+    transferredWeights(receiverPosition) = ...
+        override.transferredTopologyWeight;
+end
+end
+
 function value = emptyRecord()
 value = struct( ...
     'recordIndex', 0, 'sourceWeight', 0, ...
+    'inputRouteWeightMode', '', ...
     'donorFormationId', 0, 'beneficiaryFormationId', 0, ...
     'sourceId', 0, 'label', zeros(2, 1), 'screenPath', '', ...
     'inputRouteSynopsisBytes', 0, ...
@@ -386,7 +490,9 @@ value = struct( ...
     'etaProjectionAppliedActionCount', 0, ...
     'etaProjectionEvaluatedReceiverIds', zeros(1, 0), ...
     'etaProjectionAllowedReceiverIds', zeros(1, 0), ...
-    'etaProjectionRejectedReceiverIds', zeros(1, 0));
+    'etaProjectionRejectedReceiverIds', zeros(1, 0), ...
+    'replacedSourceIdsByReceiver', zeros(1, 0), ...
+    'transferredTopologyWeightByReceiver', nan(1, 0));
 end
 
 function textValue = formatIds(ids)
@@ -395,6 +501,52 @@ if isempty(ids)
     textValue = '-';
 else
     textValue = strtrim(sprintf('%d ', ids));
+end
+end
+
+function textValue = formatTransferRange(values)
+values = reshape(values, 1, []);
+values = values(isfinite(values) & values > 0);
+if isempty(values)
+    textValue = '-';
+else
+    textValue = sprintf('`%.3f / %.3f / %.3f`', ...
+        min(values), median(values), max(values));
+end
+end
+
+function textValue = formatFloatVector(values)
+values = reshape(values, 1, []);
+parts = cell(1, numel(values));
+for valueIdx = 1:numel(values)
+    if isfinite(values(valueIdx)) && values(valueIdx) > 0
+        parts{valueIdx} = sprintf('%.3f', values(valueIdx));
+    else
+        parts{valueIdx} = '-';
+    end
+end
+if isempty(parts)
+    textValue = '-';
+else
+    textValue = strjoin(parts, ' ');
+end
+end
+
+function textValue = formatSourceIdVector(values)
+values = reshape(values, 1, []);
+parts = cell(1, numel(values));
+for valueIdx = 1:numel(values)
+    if isfinite(values(valueIdx)) && values(valueIdx) >= 1 && ...
+            values(valueIdx) == round(values(valueIdx))
+        parts{valueIdx} = sprintf('%d', values(valueIdx));
+    else
+        parts{valueIdx} = '-';
+    end
+end
+if isempty(parts)
+    textValue = '-';
+else
+    textValue = strjoin(parts, ' ');
 end
 end
 
