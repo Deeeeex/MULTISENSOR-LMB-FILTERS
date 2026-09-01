@@ -4275,7 +4275,7 @@ valid = strcmp(screen.presetName, presetName) && ...
     screen.seed == seed && screen.currentTime == currentTime && ...
     screen.horizonSteps == horizonSteps && ...
     strcmpi(screen.missingLabelFusionMode, receiverMode) && ...
-    strcmp(screen.cachePath, cachePath) && ...
+    sameReferenceCacheFile(path, screen.cachePath, cachePath) && ...
     strcmp(screen.cacheSha256, cacheSha256) && ...
     isscalar(referenceIdx) && isfinite(referenceIdx) && ...
     referenceIdx == round(referenceIdx) && referenceIdx >= 1 && ...
@@ -4289,6 +4289,7 @@ if ~isempty(continuationStateKey)
         strcmp(screen.continuationStateKey, ...
             continuationStateKey);
 end
+
 if ~valid
     error('FormationModeScreen:ReferenceOutcomeBoundaryDrift', ...
         ['The frozen reference outcome does not match the current ', ...
@@ -4446,6 +4447,43 @@ if ~isequal(sort(fieldnames(candidate)), sort(fieldnames(template)))
         'The frozen reference outcome no longer matches the outcome schema.');
 end
 outcome = orderfields(candidate, template);
+end
+
+function matched = sameReferenceCacheFile( ...
+        referenceScreenPath, referenceCachePath, currentCachePath)
+% Treat absolute and worktree-relative names of the same frozen cache alike.
+referenceResolved = resolveReferenceRelativePath( ...
+    referenceScreenPath, referenceCachePath);
+currentResolved = currentCachePath;
+if ~isempty(currentResolved) && currentResolved(1) ~= filesep
+    currentResolved = fullfile(pwd, currentResolved);
+end
+[referenceOk, referenceAttributes] = fileattrib(referenceResolved);
+[currentOk, currentAttributes] = fileattrib(currentResolved);
+if referenceOk
+    referenceResolved = referenceAttributes.Name;
+end
+if currentOk
+    currentResolved = currentAttributes.Name;
+end
+matched = referenceOk && currentOk && ...
+    strcmp(referenceResolved, currentResolved);
+end
+
+function resolved = resolveReferenceRelativePath( ...
+        referenceScreenPath, referencedPath)
+if isempty(referencedPath) || referencedPath(1) == filesep
+    resolved = referencedPath;
+    return;
+end
+marker = [filesep, 'RUN', filesep, 'GA', filesep];
+positions = strfind(referenceScreenPath, marker);
+if isempty(positions)
+    resolved = fullfile(pwd, referencedPath);
+else
+    root = referenceScreenPath(1:(positions(end) - 1));
+    resolved = fullfile(root, referencedPath);
+end
 end
 
 function outcome = emptyOutcome()
