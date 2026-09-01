@@ -92,15 +92,24 @@ immediate target does not fix this target mismatch: the graph ranks become
 residual head, not in an immediate-value proposal score.
 
 The first structural alternative is more promising.  A development-only
-V211 rule first selects the formation with maximum observable `need_max`, then
-keeps the top three source-label actions for each of precision refresh,
-receiver existence deficit and observation handover.  It returns eight unique
-actions on each tested page.  The delayed-positive t=73 F6 and t=77 F1 actions
-belong to formations ranked first and both enter the proposal set; the
-vector-negative t=76 F3 formation ranks fourth and is excluded.  This gives
-`2 / 2` positive coverage and `1 / 1` negative exclusion on the three opened
-states.  The rule was designed after inspecting those states, so it is a
-mechanism result only; its caps must be frozen and tested on new trajectories.
+V211 rule selected the formation with maximum observable `need_max`, then
+kept the top three source-label actions for each of precision refresh,
+receiver existence deficit and observation handover.  The rule covered the
+delayed-positive t=73 F6 and t=77 F1 actions and excluded the vector-negative
+t=76 F3 action, but retaining exactly one formation would become increasingly
+narrow as the number of formations grows.
+
+V213 freezes the scale-aware replacement before opening new trajectories.
+It retains every formation with `need_max >= 0.90 max(need_max)`, capped at
+two formations, then takes the union of the top three actions in the same
+three modes.  It also adds a release action only when that formation is
+currently eligible to return to the ordinary full-posterior route.  The
+resulting registered set contains at most `18` label actions and two releases.
+On the already opened states it selects F6+F1 at t=73 and F1 at t=76/t=77,
+giving label-set sizes `16 / 8 / 8`, positive coverage `2 / 2`, and negative
+exclusion `1 / 1`.  These figures are a development contract check, not a
+held-out result; the thresholds and caps can no longer change in response to
+seeds 1301 and above.
 
 The formation-release action is also intrinsically vector-valued.  Comparing
 the existing V206 release branch with the same V204 label-action continuation
@@ -117,10 +126,11 @@ For observable state `x`, feasible action `a`, and protected metric `j`, let
 `Delta_j(x,a)`
 
 denote improvement relative to the same-state no-op continuation.  The value
-vector contains mean E-OSPA, mean RMSE, consensus, receiver-formation E-OSPA
-and RMSE, minimum affected-sensor E-OSPA and RMSE, and network-worst E-OSPA
-and RMSE.  Attempted-byte saving is computed exactly by the communication
-ledger rather than learned.
+vector contains mean E-OSPA and RMSE, window and terminal consistency,
+receiver-formation E-OSPA and RMSE, minimum affected-sensor E-OSPA and RMSE,
+network-worst E-OSPA and RMSE, and minimum-formation E-OSPA and RMSE.
+Attempted-byte saving is computed exactly by the communication ledger rather
+than learned.
 
 Communication feasibility is cumulative, not a demand that every repair send
 fewer bytes than no-op.  Dynamic routing first earns attempted-byte credit
@@ -140,19 +150,21 @@ tail from dominating the fit.
 
 Zero regression on every tail is retained as a strong reporting label, but it
 is not the only admissible definition of a useful action.  Before calibration
-data are opened, each protected target receives a tolerance `tau_j`:
+data are opened, V213 freezes the 12-target tolerance vector, in target order,
+as
 
-- aggregate E-OSPA and RMSE require positive improvement;
-- consensus may not regress;
-- receiver-formation, cross-formation and network-worst targets may use a
-  small, explicitly reported negative tolerance;
-- the minimum affected-sensor value remains a reported diagnostic and receives
-  a broad, scale-free catastrophe cap rather than a zero-regression veto; and
-- exact attempted-byte saving must remain nonnegative.
+`[0, 0, 0, 0, -1.5, -1.5, -5, -10, -1.5, -1.5, -1.5, -1.5]%`.
+
+Thus aggregate E-OSPA/RMSE and both consistency coordinates may not regress;
+receiver-formation, network-worst and minimum-formation tails have a visible
+`1.5%` redistribution budget; minimum affected-sensor E-OSPA has a `5%` cap;
+and affected-sensor RMSE has a `10%` catastrophe cap.  In addition, at least
+`1%` exact attempted-byte saving relative to static full-payload routing must
+remain after the action.  The vector is shared across scales and scene styles
+and cannot be tuned on recursive evaluation outcomes.
 
 This turns the previously over-strict all-zero tail gate into an auditable
-risk budget.  The tolerances are shared across M24/X36 and scene styles and
-cannot be tuned on recursive evaluation outcomes.
+risk budget while keeping every redistribution visible in result tables.
 
 This distinction is required by the F1 branch rather than chosen for easier
 passing.  Its three-page receiver-sensor E-OSPA gains are all about `4.83%`,
@@ -209,7 +221,11 @@ Training may use this broader set, but calibration evaluates every member of
 the frozen `P_K(x)` set on each registered page.
 
 The same receiver-formation and label cannot be proposed on consecutive
-pages; source changes do not reset this one-page semantic cooldown.  The
+pages; source changes do not reset this one-page semantic cooldown.  A
+formation release is keyed by its receiving formation and is proposed only
+when the current route state marks that release executable.  Cooldown is
+applied before mode ranking, allowing the next eligible source-label action
+to fill the structural proposal instead of wasting a slot.  The
 completed t=76 counterfactual removes the previous assumption that every F3
 refresh in the teacher sequence is useful: cooldown controls duplicate
 queries, while the vector value gate must still reject an individually
@@ -290,9 +306,44 @@ mixture of tracking, consensus and communication objectives.
    opened.
 5. A first promotion requires paired static-versus-controller gains in mean
    E-OSPA, RMSE, consensus and attempted bytes on unseen M24 and X36 seeds.
+   The frozen per-scale thresholds are respectively `5%`, `5%`, `2%` and
+   `1%`; a below-threshold controller may remain in the current-best table
+   with its evidence boundary but cannot become a paper conclusion.
 6. The frozen controller then transfers without retuning to convoy and relay;
    crossing, braided handover, target overlap, merge-split and curved corridor
    remain stress tests, followed by X48 scale extrapolation.
+
+The registered V213 manifest groups complete trajectories across scale and
+style.  Training seeds are `1301/1303`, architecture selection uses
+leave-one-complete-training-trajectory-out, and calibration seeds are
+`1409/1423` with trajectory-level miscoverage `alpha=0.10`.  Evaluation uses
+`1511/1523`; stress uses `1601/1607`; and X48 extrapolation uses `1709/1721`.
+The main radial, convoy and relay set is evaluated at both M24 and X36.  The
+five stress styles are also paired across M24/X36, giving ten stress presets,
+and X48 radial is the seventeenth registered preset.  Each trajectory exposes
+two truth-free local maxima of formation need separated by at least 12 pages.
+No page, scene-seed trajectory, or seed-211 mechanism anchor crosses a split.
+
+## V212--V213 freeze checkpoint
+
+V212 starts at the captured policy-induced t=73 state rather than replaying
+the full eight-page prefix.  Its no-op and known F6 `[7,5]` branches both
+reproduce the completed H=3 source windows with zero E-OSPA, RMSE and
+consistency difference and exact attempted bytes.  The short continuation
+recovers the known `+0.818%` E-OSPA, `+12.748%` RMSE and `+2.831%` consistency
+return.  This validates the faster recursive-label path only; its same-state
+static saving is `5.738%` and must not be confused with the older full-window
+`4.544%` figure.
+
+The V213 preflight then applies the frozen proposal and risk contracts without
+running a new tracking outcome.  Every X36 label proposal is charged
+`64 + 24*6 = 208 B`; total descriptor charges are `3328 / 1664 / 1664 B` at
+t=73/t=76/t=77.  The frozen risk budget admits t=73 and t=77, rejects the
+vector-negative t=72 release and t=76 repair, and preserves at least `1%`
+static communication credit in both admitted cases.  These four seed-211
+anchors are prohibited from training or calibration.  The next admissible
+evidence is therefore recursive data collected on the registered fresh
+M24/X36 training trajectories under the generic V99 base route.
 
 The completed sparse recursive check is deliberately smaller than a new
 exhaustive bank.  It reuses the V204/V206 teacher trajectories and two paired
