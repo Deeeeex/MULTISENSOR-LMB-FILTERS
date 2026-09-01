@@ -1,0 +1,19 @@
+function config = buildCausalMinimalEditFormationTreeV240Config(scenario)
+% BUILDCAUSALMINIMALEDITFORMATIONTREEV240CONFIG Matched full-posterior arm.
+
+protocol = getCausalMinimalEditFormationTreeV240Protocol();
+if ~isstruct(scenario) || ~isscalar(scenario) || ...
+        ~isfield(scenario, 'presetName') || ...
+        ~ismember(scenario.presetName, protocol.allowedPresets)
+    error('CausalMinimalEditFormationTreeV240:InvalidConfigInput', ...
+        'V240 requires one registered formation-braid preset.');
+end
+source = getCorrectedStaticRoutingBaselineV227Protocol();
+config = buildCorrectedStaticRoutingBaselineV227Config( ...
+    source.dynamicArmId, scenario, struct());
+config.topologyPolicyName = protocol.policyName;
+config.topologyPolicyFcn = ...
+    @selectCausalMinimalEditFormationTreeV240Policy;
+config.topologyPolicyHistoryDepth = max( ...
+    config.topologyPolicyHistoryDepth, 2);
+end

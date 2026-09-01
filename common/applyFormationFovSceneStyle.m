@@ -256,6 +256,45 @@ switch styleName
         config.focusWindowName = ...
             'paired-braided-handover-on-sparse-chain';
         config = markExploratoryStyle(config);
+    case {'formation-braid', 'dynamic-formation-braid'}
+        if mod(config.formationCount, 2) ~= 0
+            error('Formation braid requires an even formation count.');
+        end
+        config.sceneStyle = 'formation-braid';
+        config.informationFlowStyle = [ ...
+            'staggered-paired-overtakes-with-formation-neighbour-', ...
+            'handover'];
+        config.regionLimits = [-3000, 3000; -900, 900];
+        config.observationSpaceLimits = [-3000, 3000; -900, 900];
+        config.clutterSpatialProfile = ...
+            'uniform-global-box6000x1800-c4-v1';
+        % Adjacent formation centres begin 180 m apart.  A common 270 m
+        % radius keeps the local chain sparse while the staggered overtakes
+        % replace its inter-pair bridges without disconnecting the physical
+        % formation graph.
+        config.commRange = 270;
+        config.formationHeadingMode = 'motion';
+        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorCenterWaypoints = ...
+            buildFormationBraidWaypoints(config.formationCount);
+        config.targetRoutes = ...
+            buildFormationBraidTargetRoutes(config.targetGroupCount);
+        config.targetBirthTimesByGroup = ...
+            ones(1, config.targetGroupCount);
+        config.targetDeathTimesByGroup = ...
+            config.simulationLength * ones(1, config.targetGroupCount);
+        config.targetCrossTrackSpacing = 18;
+        config.minimumTargetSeparation = 8;
+        config.minimumSensorTargetSeparation = 30;
+        config.targetAccelerationLimit = 2.5;
+        config.requireStaticPhysicalAllTimes = false;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = buildStyleBlockageTimes( ...
+            config.formationCount, 'formation-braid');
+        config.focusWindow = [40, 140];
+        config.focusWindowName = ...
+            'staggered-formation-neighbour-handover';
+        config = markExploratoryStyle(config);
     otherwise
         error('Unknown formation-FoV scene style: %s', styleName);
 end
@@ -584,6 +623,58 @@ for groupIdx = 1:targetGroupCount
     end
     deltaX = formationX(destinationIdx) - formationX(groupIdx);
     serviceLaneY = 110 * (1 - 2 * mod(groupIdx, 2));
+    routes{groupIdx} = [ ...
+        formationX(groupIdx) + 85 + progress + ...
+            handoverPhase * deltaX; ...
+        serviceLaneY * ones(1, numel(progress))];
+end
+end
+
+function waypoints = buildFormationBraidWaypoints(formationCount)
+% Paired formations exchange longitudinal order in separated passing lanes.
+% The same local module is repeated as the number of formations grows.
+spacing = 180;
+baseX = centeredValues(formationCount, spacing);
+progress = [-360, -180, 0, 180, 360];
+normalizedTime = linspace(0, 1, numel(progress));
+pairCount = formationCount / 2;
+swapCentres = linspace(0.25, 0.75, pairCount);
+waypoints = cell(1, formationCount);
+for pairIdx = 1:pairCount
+    leftIdx = 2 * pairIdx - 1;
+    rightIdx = leftIdx + 1;
+    fraction = min(max((normalizedTime - ...
+        (swapCentres(pairIdx) - 0.25)) / 0.5, 0), 1);
+    lateralBell = sin(pi * fraction);
+    waypoints{leftIdx} = [ ...
+        baseX(leftIdx) + progress + spacing * fraction; ...
+        70 * lateralBell];
+    waypoints{rightIdx} = [ ...
+        baseX(rightIdx) + progress - spacing * fraction; ...
+        -70 * lateralBell];
+end
+end
+
+function routes = buildFormationBraidTargetRoutes(targetGroupCount)
+% Targets retain the modular adjacent-pair handover but use service lanes
+% outside the passing lanes.  The 170 m offset avoids platform encounters
+% while remaining inside the frozen 300 m, 120-degree sensing envelope.
+if mod(targetGroupCount, 2) ~= 0
+    error('Formation braid requires an even target-group count.');
+end
+spacing = 180;
+formationX = centeredValues(targetGroupCount, spacing);
+progress = [-360, -180, 0, 180, 360];
+handoverPhase = [0, 0.25, 0.50, 0.75, 1.00];
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    if mod(groupIdx, 2) == 1
+        destinationIdx = groupIdx + 1;
+    else
+        destinationIdx = groupIdx - 1;
+    end
+    deltaX = formationX(destinationIdx) - formationX(groupIdx);
+    serviceLaneY = 170 * (1 - 2 * mod(groupIdx, 2));
     routes{groupIdx} = [ ...
         formationX(groupIdx) + 85 + progress + ...
             handoverPhase * deltaX; ...
