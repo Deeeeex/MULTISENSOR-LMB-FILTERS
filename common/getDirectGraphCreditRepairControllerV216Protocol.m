@@ -24,6 +24,10 @@ protocol.repairSourceWeight = 0.5;
 protocol.maximumWithholdingFormationsPerPage = 1;
 protocol.maximumRepairFormationsPerPage = 1;
 protocol.repairDecisionPhase = 'post-ordinary-fusion-current-page';
+protocol.repairFormationScope = ...
+    'same-receiver-formation-as-withholding-action';
+protocol.synopsisScope = ...
+    'target-formation-receivers-plus-current-common-sources';
 protocol.actualDeliverySampled = true;
 protocol.communicationCreditReserveFraction = ...
     repair.communicationCreditReserveFraction;

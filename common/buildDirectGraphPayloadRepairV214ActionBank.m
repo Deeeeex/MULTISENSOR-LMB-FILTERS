@@ -98,7 +98,7 @@ for actionIdx = 2:actionCount
         actionNames{actionIdx} = sprintf( ...
             'v216-withhold-f%d-plus-causal-label-kla', formationId);
         actionRepairPlans{actionIdx} = buildCausalRepairPlan( ...
-            context.currentTime, referenceAttemptedBytes, ...
+            context.currentTime, formationId, referenceAttemptedBytes, ...
             repairSourceWeight);
     else
         actionNames{actionIdx} = sprintf( ...
@@ -166,7 +166,8 @@ bank.futureOutcomesUsed = false;
 end
 
 function plan = buildCausalRepairPlan( ...
-        currentTime, referenceAttemptedBytes, sourceWeight)
+        currentTime, targetFormationId, referenceAttemptedBytes, ...
+        sourceWeight)
 plan = struct();
 plan.times = currentTime;
 plan.referenceAttemptedBytes = referenceAttemptedBytes;
@@ -175,6 +176,7 @@ plan.maximumActions = 1;
 plan.forcedFormationId = 0;
 plan.forcedSourceId = 0;
 plan.forcedLabel = zeros(2, 1);
+plan.targetFormationId = targetFormationId;
 plan.updateMode = 'causal-label-kla';
 plan.sourceWeight = sourceWeight;
 end
