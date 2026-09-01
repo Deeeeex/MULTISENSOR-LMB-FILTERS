@@ -40,24 +40,21 @@ for i = 1:numel(objects)
     objects(i).detectionAssociationMass = detectionAssociationMass;
     objects(i).associationAmbiguity = associationAmbiguity;
     objects(i).associationConfidence = 1 - associationAmbiguity;
-    %% 3. mixture reduction：先按权重排序，再删除很小的 component
-    [posteriorWeights, sortedIndices] = sort(posteriorWeights, 'descend');
-    % Discard insignificant components
-    significantComponents = posteriorWeights > model.gmWeightThreshold;
-    significantWeights = posteriorWeights(significantComponents);
-    objects(i).w = significantWeights ./ sum(significantWeights);
-    sortedIndices = sortedIndices(significantComponents);
-    objects(i).numberOfGmComponents = numel(objects(i).w);
-    % 如果 component 仍太多，就只保留权重最高的前若干个。
-    if (objects(i).numberOfGmComponents > model.maximumNumberOfGmComponents)
-        objects(i).w = objects(i).w(1:model.maximumNumberOfGmComponents);
-        objects(i).w = objects(i).w ./ sum(objects(i).w);
-        sortedIndices = sortedIndices(1:model.maximumNumberOfGmComponents);
-        objects(i).numberOfGmComponents = model.maximumNumberOfGmComponents;
-    end
-    %% 4. 写回保留下来的 Gaussian 均值和协方差
-    objects(i).mu = reshape(posteriorParameters(i).mu(sortedIndices), 1, objects(i).numberOfGmComponents);
-    objects(i).Sigma = reshape(posteriorParameters(i).Sigma(sortedIndices), 1, objects(i).numberOfGmComponents);
+    %% 3. 先形成完整 GM，再合并完全相同的 component
+    % 相同 Gaussian 的权重求和不会改变密度。必须在 pruning 和数量上限
+    % 之前合并，否则重复副本会任意占用 component budget，并挤掉真正
+    % 不同但权重略低的模态。
+    objects(i).numberOfGmComponents = numberOfPosteriorComponents;
+    objects(i).w = posteriorWeights;
+    objects(i).mu = reshape( ...
+        posteriorParameters(i).mu, 1, numberOfPosteriorComponents);
+    objects(i).Sigma = reshape( ...
+        posteriorParameters(i).Sigma, 1, numberOfPosteriorComponents);
+    objects(i) = canonicalizeLmbGaussianMixtureRepresentation( ...
+        objects(i), struct( ...
+            'weightThreshold', model.gmWeightThreshold, ...
+            'maximumComponentCount', ...
+                model.maximumNumberOfGmComponents));
 end
 
 end

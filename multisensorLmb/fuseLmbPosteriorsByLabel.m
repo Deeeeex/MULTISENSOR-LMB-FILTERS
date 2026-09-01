@@ -579,8 +579,8 @@ minimumAssociationAmbiguity = getField( ...
 minimumDetectionAssociationMass = getField( ...
     triggerConfig, 'mixtureAwareMinDetectionAssociationMass', 0);
 for sourceIdx = activeSources
-    canonicalObject = collapseIdenticalGaussianComponents( ...
-        localObjects{sourceIdx});
+    canonicalObject = canonicalizeLmbGaussianMixtureRepresentation( ...
+        localObjects{sourceIdx}, struct());
     if sourceQualifiesForMixtureAwareFusion( ...
             canonicalObject, minimumExistence, ...
             minimumComponents, minimumEntropy, ...
@@ -741,7 +741,7 @@ function [sourceObject, componentIdxs] = selectSourceFusionComponents( ...
 % component is split into identical weighted copies.  Collapsing exact
 % copies before the fractional-power approximation makes the result
 % invariant to this otherwise arbitrary representation choice.
-object = collapseIdenticalGaussianComponents(object);
+object = canonicalizeLmbGaussianMixtureRepresentation(object, struct());
 minimumEntropy = getField(triggerConfig, 'mixtureAwareMinEntropy', 0.35);
 minimumComponents = max(2, round(getField( ...
     triggerConfig, 'mixtureAwareMinComponentCount', 2)));
@@ -765,53 +765,6 @@ sourceObject.w = 1;
 sourceObject.mu = {mu};
 sourceObject.Sigma = {covariance};
 componentIdxs = 1;
-end
-
-function object = collapseIdenticalGaussianComponents(object)
-componentCount = object.numberOfGmComponents;
-if componentCount <= 1
-    return;
-end
-weights = reshape(object.w, 1, []);
-if numel(weights) ~= componentCount || ...
-        numel(object.mu) ~= componentCount || ...
-        numel(object.Sigma) ~= componentCount
-    return;
-end
-weights(~isfinite(weights)) = 0;
-weights = max(weights, 0);
-if sum(weights) <= 0
-    return;
-end
-
-representatives = zeros(1, 0);
-collapsedWeights = zeros(1, 0);
-for componentIdx = 1:componentCount
-    representativePosition = 0;
-    for position = 1:numel(representatives)
-        representativeIdx = representatives(position);
-        if isequal(object.mu{componentIdx}, ...
-                object.mu{representativeIdx}) && ...
-                isequal(object.Sigma{componentIdx}, ...
-                object.Sigma{representativeIdx})
-            representativePosition = position;
-            break;
-        end
-    end
-    if representativePosition == 0
-        representatives(end + 1) = componentIdx; %#ok<AGROW>
-        collapsedWeights(end + 1) = weights(componentIdx); %#ok<AGROW>
-    else
-        collapsedWeights(representativePosition) = ...
-            collapsedWeights(representativePosition) + ...
-            weights(componentIdx);
-    end
-end
-collapsedWeights = collapsedWeights / sum(collapsedWeights);
-object.numberOfGmComponents = numel(representatives);
-object.w = collapsedWeights;
-object.mu = reshape(object.mu(representatives), 1, []);
-object.Sigma = reshape(object.Sigma(representatives), 1, []);
 end
 
 function [partialK, partialH, partialG, partialLogMixture] = ...
