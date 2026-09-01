@@ -85,6 +85,7 @@ if ~idealDeliveryTeacherMode
 end
 
 synopsisSensorIds = 1:sensorCount;
+fusedSynopsisSensorIds = 1:sensorCount;
 if targetFormationId > 0
     groupIds = reshape(sensorGroupIds, 1, []);
     targetReceivers = find(groupIds == targetFormationId);
@@ -93,11 +94,14 @@ if targetFormationId > 0
     synopsisSensorIds = unique( ...
         [reshape(targetReceivers, 1, []), ...
          reshape(commonSources, 1, [])], 'stable');
+    fusedSynopsisSensorIds = reshape(targetReceivers, 1, []);
 end
 
 cache = buildFormationRepairLightSynopsisCacheV188( ...
     posteriorBySensor, localPosteriorBySensor, model, currentTime, ...
-    struct('participatingSensorIds', synopsisSensorIds));
+    struct( ...
+        'localParticipatingSensorIds', synopsisSensorIds, ...
+        'fusedParticipatingSensorIds', fusedSynopsisSensorIds));
 admissionNetSavingBytes = max( ...
     referencePageBytes - basePageBytes, 0);
 [creditAfterSynopsis, synopsisDecision] = ...
@@ -237,6 +241,9 @@ details.targetFormationId = targetFormationId;
 details.targetFormationScoped = targetFormationId > 0;
 details.synopsisSensorIds = synopsisSensorIds;
 details.synopsisSensorCount = numel(synopsisSensorIds);
+details.fusedSynopsisSensorIds = fusedSynopsisSensorIds;
+details.fusedSynopsisSensorCount = ...
+    numel(fusedSynopsisSensorIds);
 details.fixedSourceLabelIdentifierUsed = forcedSourceId > 0;
 details.forcedCandidateTeacherMode = forcedSourceId > 0;
 details.updateMode = updateMode;
