@@ -63,3 +63,7 @@ The V241 two-input full episode remains the mechanism check: if restoring the
 formation tree does not improve tracking or consistency, sparse V242 tracking
 is not justified. If V241 is positive, V242 becomes the communication arm and
 is compared against both the fixed-tree baseline and the 2N V240 reference.
+The full-episode runner therefore accepts a completed V241 result, verifies
+that reference gate, reuses both recorded arms, and executes only the new V242
+arm. This keeps the comparison deterministic without repeating two long
+baselines.

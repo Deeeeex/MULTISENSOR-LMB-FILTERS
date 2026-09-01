@@ -2,6 +2,7 @@ function protocol = getCausalMinimumFormationBackboneV242Protocol()
 % GETCAUSALMINIMUMFORMATIONBACKBONEV242PROTOCOL Sparse dynamic backbone.
 
 source = getCausalMinimalEditFormationTreeV240Protocol();
+tracking = getCorrectedStaticRoutingBaselineV227Protocol();
 protocol = struct();
 protocol.id = 'causal-minimum-formation-backbone-v242-v1';
 protocol.contractVersion = ...
@@ -15,6 +16,11 @@ protocol.allowedSeeds = 1301;
 protocol.dominantWeight = source.dominantWeight;
 protocol.crossResidualWeight = source.residualWeight;
 protocol.localResidualWeight = 0;
+protocol.receiverMode = tracking.receiverMode;
+protocol.filterSeedOffset = tracking.filterSeedOffset;
+protocol.outputRoot = fullfile('RUN', 'GA', 'dynamic_topology', ...
+    'evidence', 'tracking_aligned_v242', ...
+    'causal_minimum_formation_backbone');
 protocol.developmentEvidenceOnly = true;
 protocol.validationClaimAllowed = false;
 protocol.evidenceBoundary = [ ...
