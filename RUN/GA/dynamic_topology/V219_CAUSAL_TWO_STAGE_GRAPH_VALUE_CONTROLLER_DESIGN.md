@@ -14,6 +14,39 @@ posterior communication while protecting tracking and consensus when its
 learned predictions are separated from exact topology, transport, label
 support and byte-credit projections.
 
+## Relation to existing learning-based communication
+
+The novelty claim cannot be that GNNs learn multi-agent communication.
+[CommFormer (ICLR 2024)](https://proceedings.iclr.cc/paper_files/paper/2024/hash/37c6d0bc4d2917dcbea693b18504bd87-Abstract-Conference.html)
+treats the communication architecture as a learnable graph and reports transfer
+across changing agent counts.  [I-GBNet (ICRA
+2023)](https://www.georgejpappas.org/wp-content/uploads/2023/05/Graph_Neural_Networks_for_Multi-Robot_Active_Information_Acquisition.pdf)
+uses permutation-equivariant graph blocks and centralized imitation targets for
+scalable multi-robot information acquisition.  [Zhou et al. (SSRR
+2022)](https://doi.org/10.1109/SSRR56537.2022.10018712) use a GNN for scalable
+decentralized multi-robot target-tracking action selection.
+
+V219 differs in the controlled object and the safety decomposition.  It does
+not learn arbitrary message embeddings, robot motion or a free communication
+graph.  It predicts the finite-horizon value of consuming a complete LMB
+posterior at one receiver formation and, after ordinary fusion, the incremental
+value of one complete-label KLA update.  The effective information-flow graph,
+physical and realized transport, same-label position support, complete-mixture
+payload and exact cumulative byte ledger are projected outside the neural
+model.  The paper claim must therefore be phrased as operator-aware posterior
+payload control with causal and compositional risk protection, not as the first
+GNN communication controller.
+
+[Conformal Risk Control (ICLR
+2024)](https://openreview.net/pdf?id=33XGfHLtZg) supplies a general expected-risk
+control framework for monotone losses, while [Kiyani et al. (ICML
+2025)](https://proceedings.mlr.press/v267/kiyani25a.html) justify max-min action
+selection for risk-averse decision makers.  V219 uses these as calibration and
+decision-theoretic anchors, but its two-stage vector composition and the
+controller-induced state shift still require a trajectory-level protocol and
+an explicit limitation statement; neither reference automatically proves
+closed-loop validity here.
+
 ## Causal policy
 
 At the start of a page, the precommunication head assigns each receiver
