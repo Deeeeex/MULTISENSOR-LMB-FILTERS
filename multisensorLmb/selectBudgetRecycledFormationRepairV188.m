@@ -119,6 +119,12 @@ proposalDetails = struct();
 if synopsisDecision.lightSynopsisAuthorized
     if forcedSourceId > 0
         receiverPresenceThreshold = cache.activeExistenceThreshold;
+        if deliveryConditionedForcedTeacher
+            directGraphProtocol = ...
+                getDirectGraphCreditRepairControllerV216Protocol();
+            receiverPresenceThreshold = directGraphProtocol. ...
+                candidateReceiverPresenceThreshold;
+        end
         if strcmp(updateMode, 'hard-replacement')
             % Support-restoration actions are defined precisely when the
             % selected label is absent at one or more receivers.  Residual
