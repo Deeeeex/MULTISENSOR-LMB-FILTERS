@@ -365,6 +365,42 @@ routing.  All four prefixes match.  These four rows establish target semantics
 and unit-test the data path, but are far too few and too development-specific
 to train or calibrate a final model.
 
+## V214 direct-graph pivot
+
+V213 assumed that the generic online V99 selector could serve as the no-op
+trajectory on every training page.  The completed X36 seed-211 H=8 screen
+contradicts the practical side of that assumption: the paired static arm took
+`251.51 s`, whereas the V99 online arm took `1394.69 s`, or `5.545x` as long.
+V99 repeatedly evaluates posterior counterfactuals for each formation, so a
+complete 133-page scan followed by an identical capture replay would turn the
+runtime controller into the dominant computational cost.  This does not
+invalidate V99 as a mechanism teacher, but it makes V99 an unsuitable
+deployable base and an inefficient state-collection policy.
+
+V214 therefore keeps the V213 complete-trajectory split, H=3 vector targets,
+proposal caps and trajectory-level risk calibration, but changes the causal
+base.  Each page now executes only the current-physical fixed spliced-cycle
+reference route and constructs one V208 observable formation graph.  The
+posterior-derived graph is diagnostic at collection time and cannot change the
+route.  All focus-page predecision posteriors are captured in one pass; two
+local maxima of `need_max`, separated by at least 12 pages, are selected after
+the truth-free trajectory is complete, and only those two states are persisted.
+There is no second full-trajectory replay and no online posterior
+counterfactual enumeration.
+
+The deployable action space becomes a direct graph decision rather than a
+wrapper around V99: retain full payload, use formation-supported light
+payload, execute one supported complete-label KLA repair, or combine light
+payload with one repair while preserving the reference route.  Proposal
+features, light synopses and complete-label responses are all charged in the
+attempted-byte account.  A later safe graph-codebook option may change the
+route only after the same rolling-connectivity projection; payload and repair
+learning do not receive permission to bypass that projection.  V99 remains an
+offline action-value teacher and mechanism upper bound, not a runtime input.
+Consequently, fresh V214 results must be compared directly with the same-state
+full-payload reference, and the current-best table is unchanged until a paired
+controller result exists.
+
 ## Claim boundary
 
 The conformal statement covers the registered counterfactual value targets

@@ -1,0 +1,114 @@
+function protocol = getDirectGraphPayloadRepairControllerV214Protocol()
+% GETDIRECTGRAPHPAYLOADREPAIRCONTROLLERV214PROTOCOL Freeze direct control.
+%
+% V214 removes the recursively enumerated V99 controller from the runtime
+% base.  A cheap current-physical reference route produces the observable
+% formation graph directly.  V99 remains an offline teacher/upper bound;
+% the deployable controller must select payload and label-repair actions
+% from graph features without evaluating posterior counterfactuals online.
+
+source = getHierarchicalDelayedValueControllerV213Protocol();
+v99 = getOnlinePositiveNetAddressablePayloadV99Protocol();
+protocol = struct();
+protocol.id = 'direct-graph-payload-repair-controller-v214-v1';
+protocol.contractVersion = ...
+    'direct-graph-payload-repair-controller-v214-protocol-v1';
+protocol.horizonSteps = source.horizonSteps;
+protocol.filterSeedOffset = 100000;
+protocol.receiverMode = v99.receiverMode;
+
+base = struct();
+base.policyName = ...
+    'direct-graph-current-physical-reference-v214-v1';
+base.routeMode = 'fixed-counter-clockwise-spliced-cycle';
+base.currentPhysicalReachabilityEnforced = true;
+base.fullPosteriorPayload = true;
+base.posteriorCounterfactualEnumerationUsed = false;
+base.truthUsed = false;
+base.futureInformationUsed = false;
+protocol.base = base;
+
+actions = struct();
+actions.contractVersion = ...
+    'direct-graph-payload-repair-action-space-v214-v1';
+actions.kinds = { ...
+    'reference-full-payload', ...
+    'formation-supported-light-payload', ...
+    'supported-complete-label-kla', ...
+    'light-payload-plus-complete-label-kla'};
+actions.maximumExecutedActionsPerPage = 1;
+actions.completeLabelSourceWeight = ...
+    source.completeLabelSourceWeight;
+actions.referenceRoutePreservedByPayloadActions = true;
+actions.rollingConnectivityProjectionRequiredForRouteOptions = true;
+actions.communicationAccountingIncludesProposalFeatures = true;
+actions.communicationAccountingIncludesSynopsis = true;
+actions.communicationAccountingIncludesCompleteLabelPayload = true;
+actions.truthUsedForProposal = false;
+actions.futureInformationUsedForProposal = false;
+protocol.actions = actions;
+
+protocol.proposal = source.proposal;
+protocol.risk = source.risk;
+protocol.model = source.model;
+protocol.split = source.split;
+protocol.promotion = source.promotion;
+
+collection = struct();
+collection.contractVersion = ...
+    'one-pass-direct-graph-trajectory-collection-v214-v1';
+collection.captureEveryFocusPageInMemory = true;
+collection.secondTrajectoryReplayRequired = false;
+collection.decisionWindowSelection = ...
+    source.split.decisionWindowSelection;
+collection.registeredDecisionWindowsPerTrajectory = ...
+    source.split.registeredDecisionWindowsPerTrajectory;
+collection.minimumDecisionWindowSeparation = ...
+    source.split.minimumDecisionWindowSeparation;
+collection.truthUsedForWindowSelection = false;
+collection.futureInformationUsedForWindowSelection = false;
+protocol.collection = collection;
+
+teacher = struct();
+teacher.policyName = source.basePolicyName;
+teacher.role = 'offline-action-value-teacher-and-mechanism-upper-bound';
+teacher.allowedAtRuntime = false;
+teacher.runtimeReferenceSecondsX36H8 = 251.51;
+teacher.runtimeOnlineSecondsX36H8 = 1394.69;
+teacher.runtimeRatioX36H8 = ...
+    teacher.runtimeOnlineSecondsX36H8 / ...
+        teacher.runtimeReferenceSecondsX36H8;
+teacher.runtimeEvidenceScope = ...
+    'x36-formation-fov-seed211-t72-h8-development-screen';
+protocol.teacher = teacher;
+
+protocol.outputRoot = fullfile( ...
+    'RUN', 'GA', 'dynamic_topology', 'evidence', ...
+    'tracking_aligned_v214');
+protocol.validationClaimAllowed = false;
+protocol.evidenceBoundary = [ ...
+    'V214 is frozen after observing that the V99 online arm required ', ...
+    '1394.69 seconds versus 251.51 seconds for the paired X36 H=8 ', ...
+    'reference arm. It therefore removes V99 counterfactual enumeration ', ...
+    'from the runtime base and retains V99 only as an offline teacher. ', ...
+    'The new controller uses current observable graph features and exact ', ...
+    'byte accounting. New split trajectories remain development, ', ...
+    'calibration or held-out evidence according to the inherited V213 ', ...
+    'complete-trajectory split; no validation claim is yet allowed.'];
+
+assertProtocol(protocol);
+end
+
+function assertProtocol(protocol)
+if protocol.horizonSteps ~= 3 || ...
+        protocol.filterSeedOffset ~= 100000 || ...
+        protocol.base.posteriorCounterfactualEnumerationUsed || ...
+        protocol.teacher.allowedAtRuntime || ...
+        protocol.teacher.runtimeRatioX36H8 <= 1 || ...
+        ~isequal(protocol.split.trainingSeeds, [1301, 1303]) || ...
+        protocol.collection.registeredDecisionWindowsPerTrajectory ~= 2 || ...
+        protocol.collection.minimumDecisionWindowSeparation ~= 12
+    error('DirectGraphPayloadRepairV214:InvalidProtocol', ...
+        'The frozen V214 direct-controller contract is inconsistent.');
+end
+end
