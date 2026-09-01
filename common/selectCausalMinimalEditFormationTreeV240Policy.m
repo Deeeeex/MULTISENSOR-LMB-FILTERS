@@ -60,10 +60,10 @@ details.protocolId = protocol.id;
 details.armId = protocol.armId;
 details.mode = 'causal-minimal-edit-current-physical-formation-tree';
 details.backboneMode = details.mode;
-details.objective = [selection.retainedEdgeCount, ...
+details.objective = selection.retainedEdgeCount;
+details.routeObjectiveComponents = [selection.retainedEdgeCount, ...
     selection.bottleneckReliability, ...
     selection.totalLogReliability, -selection.totalDistance];
-details.routeObjectiveComponents = details.objective;
 details.fusionWeightMatrix = fusionWeights;
 details.dominantAdjacency = dominantAdjacency;
 details.residualAdjacency = residualAdjacency;
