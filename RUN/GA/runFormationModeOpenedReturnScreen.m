@@ -542,6 +542,7 @@ if etaSafeSemanticInputRoutingBank
     timerId = tic;
     bank = buildEtaSafeSemanticInputRoutingV223ActionBank( ...
         context, groupIds, routeOptions);
+    bankConstructionSeconds = toc(timerId);
 elseif singlePassSemanticInputRoutingBank
     routeOptions = getField(options, ...
         'singlePassSemanticInputRoutingBankOptions', struct());
