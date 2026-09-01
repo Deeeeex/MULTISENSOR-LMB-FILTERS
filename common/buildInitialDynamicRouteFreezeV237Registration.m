@@ -1,0 +1,59 @@
+function registration = ...
+        buildInitialDynamicRouteFreezeV237Registration(inputs)
+% BUILDINITIALDYNAMICROUTEFREEZEV237REGISTRATION Select once at t=1.
+
+protocol = getInitialDynamicRouteFreezeV237Protocol();
+if ~isstruct(inputs) || ~isscalar(inputs) || ...
+        ~all(isfield(inputs, {'config', 'model', 'graphData', ...
+            'commConfig', 'seed'})) || ...
+        ~ismember(inputs.config.presetName, protocol.allowedPresets) || ...
+        ~ismember(inputs.seed, protocol.allowedSeeds)
+    error('InitialDynamicRouteFreezeV237:InvalidRegistrationInput', ...
+        'V237 requires one registered scene and seed.');
+end
+nodeCount = inputs.config.numberOfSensors;
+identity = buildDynamicTopologyPhysicalIdentityRegistry(inputs.config);
+context = struct();
+context.localPosteriorBySensor = repmat({struct([])}, 1, nodeCount);
+context.model = inputs.model;
+context.baseAdjacency = logical(inputs.graphData.staticAdjacency);
+context.directedMessageBudget = ...
+    protocol.directedInputsPerReceiver * nodeCount;
+context.sensorPhysicalUids = identity.sensorPhysicalUids;
+context.formationPhysicalUidsBySensor = ...
+    identity.formationPhysicalUidsBySensor;
+context.currentTime = 1;
+context.positions = inputs.graphData.positions(:, :, 1);
+context.physicalAdjacency = logical( ...
+    inputs.graphData.physicalAdjacency(:, :, 1));
+context.commConfig = struct('pDropByEdge', ...
+    inputs.commConfig.pDropByEdge(:, :, 1));
+[adjacency, details] = ...
+    selectCorrectedDynamicFormationBackboneV227Policy(context);
+weights = details.fusionWeightMatrix;
+allTimePhysical = all(all(all(repmat( ...
+    logical(adjacency), 1, 1, inputs.config.simulationLength) <= ...
+    logical(inputs.graphData.physicalAdjacency))));
+if nnz(adjacency) ~= ...
+        protocol.directedInputsPerReceiver * nodeCount || ...
+        ~allTimePhysical
+    error('InitialDynamicRouteFreezeV237:IneligibleFrozenRoute', ...
+        'The t=1 route is not an all-time physical matched baseline.');
+end
+registration = struct();
+registration.contractVersion = ...
+    'corrected-static-routing-v227-registration-v1';
+registration.v237ContractVersion = ...
+    'initial-dynamic-route-freeze-v237-registration-v1';
+registration.adjacency = logical(adjacency);
+registration.fusionWeightMatrix = weights;
+registration.selectionDetails = details;
+registration.messageCount = nnz(adjacency);
+registration.selectionTime = 1;
+registration.initialCurrentPhysicalGraphUsed = true;
+registration.registeredStaticGraphUsedAsMetadata = true;
+registration.allTimePhysicalEligibilityPassed = allTimePhysical;
+registration.targetTruthUsed = false;
+registration.futurePhysicalPageUsedBySelector = false;
+registration.futurePhysicalPagesUsedByEligibilityScreen = true;
+end
