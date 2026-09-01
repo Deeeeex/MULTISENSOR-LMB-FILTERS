@@ -77,7 +77,7 @@ for selectedPosition = 1:numel(selectedRows)
         upper(strrep(bankResult.presetName, '-', '_')), ...
         bankResult.seed, bankResult.currentTime);
     screenPath = fullfile(screenRoot, [screenStem, '.mat']);
-    if reuseExistingScreens && exist(screenPath, 'file') == 2
+    if reuseExistingScreens && reusableCandidateScreen(screenPath)
         existing = load(screenPath, 'screen');
         candidateScreen = existing.screen;
     else
@@ -205,6 +205,23 @@ result.reportPath = reportPath;
 save('-mat7-binary', matPath, 'result');
 writeReport(reportPath, result);
 fprintf('V217 position-safe candidate H=3: %s\n', reportPath);
+end
+
+function reusable = reusableCandidateScreen(screenPath)
+reusable = false;
+if exist(screenPath, 'file') ~= 2
+    return;
+end
+loaded = load(screenPath, 'screen');
+screen = loaded.screen;
+nonreferenceIdx = find([screen.records.actionIndex] ~= ...
+    screen.bank.referenceActionIndex);
+if numel(nonreferenceIdx) ~= 1
+    return;
+end
+applied = screen.outcomes(nonreferenceIdx). ...
+    budgetRecycledFormationRepairAppliedActionCountByTime;
+reusable = ~isempty(applied) && applied(1) == 1;
 end
 
 function bytes = repairReferencePageBytes(screen)
