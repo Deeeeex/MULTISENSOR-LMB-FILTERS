@@ -547,6 +547,28 @@ receiver position support in the multi-candidate bank, apply this guard before
 payload resolution, and label the remaining mode-diverse alternatives rather
 than executing the single largest analytic risk score.
 
+That bounded label set is now complete for the first M24 state.  At
+`seed 1301 / t=119 / F2`, the live bank contains `39` candidates, of which
+`31` pass position support and eight survive mode diversity and exact credit.
+All eight H=3 actions are negative under the frozen vector risk budget.  The
+best incremental repair, candidate 26, improves E-OSPA/RMSE/consistency by
+only `0.012% / 0.240% / 0.154%` relative to withholding-only; relative to the
+full-payload reference it still loses `19.267%` mean RMSE, `74.727%` F2 RMSE
+and `2.081%` terminal consistency while saving only `0.039%` attempted bytes.
+The only candidate retaining the `1%` byte reserve degrades all four aggregate
+tracking and consistency coordinates.  This is not a label-selection failure
+that warrants another geometric threshold.  It is a no-op preference: the F2
+withholding action itself is unsafe and one supported-label edit cannot rescue
+it.
+
+The controller must therefore compare no-op, withholding-only and
+withholding-plus-label as complete alternatives.  Feasible repair credit does
+not obligate the controller to spend it, and a repair head cannot retroactively
+certify a harmful withholding head.  The eight negative rows are useful
+training evidence, but they are not enough to fit a value model; the next data
+step must add independently collected positive and negative states across M24
+and X36 before architecture selection or conformal calibration.
+
 ## Claim boundary
 
 The conformal statement covers the registered counterfactual value targets
