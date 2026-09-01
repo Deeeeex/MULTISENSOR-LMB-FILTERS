@@ -1,8 +1,8 @@
 # V228 fusion-aware label-edge value controller
 
-## Decision before opening the corrected result
+## Mechanism decision
 
-V228 is conditional, not an automatic successor.  It is authorized only if
+V228 was conditional, not an automatic successor.  It was authorized only if
 the corrected V226 pilot contains a compositionally safe action: withholding
 alone must be non-regressive on aggregate E-OSPA, position RMSE, window
 consensus and terminal consensus; the label transfer must improve all four
@@ -15,8 +15,10 @@ controller.
 
 The registered local-tail tolerances remain the stricter paper-promotion gate;
 they do not hide a useful compositionally safe mechanism from the method
-decision.  If V226 has no such action, the label-edge action family is dropped
-and no GNN is trained.
+decision.  The corrected V226 result at commit `7e21892` contains one such
+action at X36 t=50, so the action family is authorized for method development.
+This is not yet authorization for an online policy, full-episode result or
+paper claim.
 
 The physical carrier is frozen separately from the V227 paired full-episode
 comparison.  The dynamic carrier is retained only if it is non-regressive at
@@ -45,6 +47,39 @@ does not manufacture a communication saving.
 This is not generic feature communication.  The learned decision changes the
 inputs of one ordinary label-wise LMB-KLA operation while retaining the full
 mixture density that later filter recursion consumes.
+
+## Query-first control plane
+
+The corrected t=133 state exposes a protocol bottleneck independently of
+value learning.  Withholding F1 is itself safe and earns 10,400 B, but the old
+all-active-label synopsis costs 9,480 B.  After the protected-credit reserve,
+even a 1,456 B complete label is rejected.  A GNN cannot recover an action
+that never enters the feasible bank.
+
+V228 therefore uses a bounded query-first exchange before payload selection.
+The beneficiary coordinator chooses at most three labels from its ordinary
+current posterior and broadcasts only their four-byte keys.  Every remote
+participant is conservatively charged one 16-byte query header plus the three
+keys, and one 16-byte response header plus one 20-byte record per key.  The
+response record contains quantized existence and evidence, two position
+coordinates, position-covariance trace and the complete-label payload size.
+For 20 participants the worst-case charge is 1,976 B.  The corrected t=133
+F1 banks have 15 participants, so their exact frozen bound is 1,456 B rather
+than the old 9,480/9,840 B all-label synopses.  With the 1,456 B smallest
+complete-label payload, both F1->F5 and F1->F6 teacher rows retain 7,488 B of
+net attempted-byte saving before delivery outcomes.
+
+The query is paid before a source is selected; the complete Bernoulli-GM label
+payload is paid separately before exact eta projection.  Twenty percent of
+new communication credit remains protected.  Numeric label identifiers are
+routing keys, not learned features.  The deterministic byte planner is
+`planFusionAwareQueryFirstExchangeV228`; the paired H=3 headroom runner is
+`runQueryFirstBoundedTransferHeadroomV228`.
+
+This headroom run still uses teacher-selected donor/source/label rows.  Its
+purpose is narrower and necessary: determine whether the now-affordable,
+exactly projected action space contains enough multi-objective value to merit
+training an online rule, ridge model or GNN.
 
 ## The deterministic guarantee
 
@@ -105,24 +140,27 @@ candidate passes, the controller returns the frozen carrier no-op.
 
 ## Evidence sequence and stop rules
 
-1. **V226 mechanism gate.**  Require a non-regressive donor-only state,
+1. **V226 mechanism gate (passed).**  Require a non-regressive donor-only state,
    positive incremental transfer gains, positive joint gains on aggregate
    E-OSPA, RMSE and both consistency measures, and attempted-byte saving.
    Otherwise stop this line.  Keep merely joint-positive actions as mechanism
    diagnostics, not as authorization evidence.
-2. **V227 carrier choice.**  Compare static and dynamic carrier routes using
+2. **V228 query-first headroom.**  Re-evaluate the safe t=133 donor with the
+   bounded query charge and complete payload.  Require a compositionally safe,
+   byte-positive action before constructing a learning dataset.
+3. **V227 carrier choice.**  Compare static and dynamic carrier routes using
    identical scene, seed, measurements, link uniforms, message count and full
    mixture-aware KLA.  Freeze the carrier before constructing V228 data.
-3. **Training only.**  Use radial M24/X36 seeds 1301 and 1303, grouped by the
+4. **Training only.**  Use radial M24/X36 seeds 1301 and 1303, grouped by the
    complete scene-seed trajectory.  Do not split states from one trajectory
    across train and validation folds.
-4. **Calibration.**  Use the registered 1409 and 1423 groups only after the
+5. **Calibration.**  Use the registered 1409 and 1423 groups only after the
    architecture and feature set are frozen.  Calibrate vector residuals and
    no-op abstention, not a truth-dependent runtime gate.
-5. **Primary evaluation.**  M24 and X36 seeds 1511 and 1523 must each show
+6. **Primary evaluation.**  M24 and X36 seeds 1511 and 1523 must each show
    lower E-OSPA and RMSE, better consistency and fewer attempted bytes.  Report
    the weakest sensor, formation and recovery tail as well as the mean.
-6. **No-retune transfer.**  Run convoy and relay first, then crossing,
+7. **No-retune transfer.**  Run convoy and relay first, then crossing,
    braided-handover, merge-split, target-overlap and curved-corridor, followed
    by X48.  A radial-only result remains development evidence.
 
