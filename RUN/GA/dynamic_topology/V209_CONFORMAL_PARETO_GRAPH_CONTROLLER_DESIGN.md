@@ -506,6 +506,47 @@ consensus-only or harmful KLA actions, while the deterministic ledger and
 support checks continue to own feasibility.  This failed training arm stays
 in the repository evidence and does not update the main current-best table.
 
+## V217 operator-consistent overlap diagnosis
+
+The next diagnosis reads the normalizer already used by the live residual
+label operator instead of treating the V188 isotropic position score as KLA
+itself.  For each receiver/source pair the instrumented fusion kernel now
+reports the powered-GM spatial `log eta`, the weighted input existence
+log-odds, the fused log-odds and their numerical identity residual.  The
+public diagnostic retains the important qualification that this is the
+repository's componentwise powered-GM approximation, not exact arbitrary-GM
+KLA.
+
+The three X36 actions with independently paired H=3 attribution show why a
+single full-state overlap threshold would be wrong:
+
+| action | paired H=3 interpretation | minimum isotropic position compatibility | receivers inside 99% position-support gate | median live `log eta` | median receiver log-odds change |
+|:--|:--|--:|--:|--:|--:|
+| t=73, F6 `[7,5]` | vector-positive | 0.875109 | 6/6 | -7.33536 | -3.69567 |
+| t=76, F3 `[19,13]` | vector-negative | 0.0000746 | 0/6 | -8.81939 | -3.19595 |
+| t=77, F1 `[7,7]` | vector-positive | 0.746688 | 6/6 | -5.40360 | +2.18231 |
+
+The positive t=73 action has a very small full-state normalizer and suppresses
+the label's existence, yet its paired three-page branch improves E-OSPA,
+RMSE and consistency.  Therefore neither positive advertised source risk nor
+large `eta` is a tracking-value certificate; low overlap may represent a
+useful suppression as well as a harmful conflict.  By contrast, the frozen
+99% two-dimensional chi-square support rule (`d^2 <= 9.21034`, equivalently
+the isotropic synopsis compatibility is at least about `0.01`) preserves both
+known positive actions and rejects the known t=76 negative action.  It also
+rejects the currently observed M24 proposals whose position compatibility is
+numerically zero.  The threshold follows the two-dimensional support model
+and was not fitted to these three outcomes.
+
+V217 therefore uses position support only as a deterministic semantic guard
+against clearly disjoint same-label hypotheses.  It is not promoted as a
+tracking guarantee.  Every support-safe, credit-feasible candidate remains a
+possibly positive or negative action and must compete with no-op under the
+H=3 vector value model.  The next implementation change is to export minimum
+receiver position support in the multi-candidate bank, apply this guard before
+payload resolution, and label the remaining mode-diverse alternatives rather
+than executing the single largest analytic risk score.
+
 ## Claim boundary
 
 The conformal statement covers the registered counterfactual value targets
