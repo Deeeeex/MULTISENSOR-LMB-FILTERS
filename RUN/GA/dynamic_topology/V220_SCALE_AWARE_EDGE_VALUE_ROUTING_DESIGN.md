@@ -223,3 +223,39 @@ separately.
 The current-best Lark tables remain V187 at strategy level and V206 at
 mechanism level until a complete online V220 policy improves their frozen
 comparison records.
+
+## V221/V222 update: single-pass routing and query-first control
+
+The first V221 X36-t132 H=3 screen resolves the post-fusion ambiguity.  S31
+is not an ordinary F1 input in the static page, so the old failure cannot be
+explained as literal duplicate insertion of the same source.  V221 instead
+adds a complete label with zero global topology mass, reallocates weight only
+for that label, and executes the ordinary mixture-aware KLA once.  Unrelated
+labels and the static full-posterior backbone remain unchanged.
+
+At a fixed source share of 0.10, the S7/[7,5] existence-deficit candidate
+degrades E-OSPA, RMSE, consensus and terminal consensus by 0.172%, 3.226%,
+0.494% and 0.409%.  The S9/[31,23] disagreement candidate is positive on all
+four metrics, but only by 0.0002%--0.0008%, while preserving 0.131% attempted
+byte saving.  This rejects uniform formation-wide source weighting as the
+main action and shows that the V217 immediate risk proxy is not an H=3 action
+value target.  No broad source-weight sweep or larger dataset is authorized.
+
+The next control-plane change is query-first discovery.  V188 sends all
+active local/fused label records from every target receiver and common source;
+the t=132 F1 page therefore spends 12,300 B across 20 participants before a
+label is requested.  All admissible V221 candidates already have receiver
+support, so a beneficiary coordinator can first choose at most K receiver
+labels, broadcast only their four-byte keys, and request risk-only records for
+those keys from the remaining receivers and common sources.  With K=3, a
+16-byte query header, four bytes per key, a 16-byte response header and 20
+bytes per response record, the deterministic upper bound is
+
+`(participants - 1) * [(16 + 4K) + (16 + 20K)]`.
+
+For the current 20-participant page this is 1,976 B, reducing control discovery
+by 10,324 B without omitting any field used to score the queried labels.  This
+makes the S31/[13,12] complete payload affordable under the unchanged 20%
+protected-credit reserve.  The first query-first run remains a frozen teacher
+headroom test: it can establish whether the action space has multi-objective
+value, but not whether an online coordinator can select the same label.

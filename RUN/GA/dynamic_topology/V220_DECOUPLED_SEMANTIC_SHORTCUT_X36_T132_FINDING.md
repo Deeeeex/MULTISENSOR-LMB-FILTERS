@@ -130,3 +130,20 @@ These are paired development results from one X36 scene, seed, and time. The
 synthetic-credit arm is a mechanism upper bound only. The evidence rejects an
 action semantics; it does not establish a held-out or cross-scene method
 claim.
+
+## V221 single-pass follow-up
+
+The selected complete label was next inserted into the ordinary label-wise
+KLA input set, with a 0.10 label-only source share and no post-fusion update.
+
+| Source / label | Joint E / R / C / terminal vs static | F1 E / R increment | Attempted-byte saving | Decision |
+|:--|:--|:--|--:|:--|
+| S7 / [7,5] | -0.172 / -3.226 / -0.494 / -0.409% | -1.009 / -9.606% | +0.332% | reject |
+| S9 / [31,23] | +0.0006 / +0.0005 / +0.0008 / +0.0002% | +0.0032 / +0.0016% | +0.131% | safe but immaterial |
+
+Single-pass execution removes the order-dependent second KLA call, but does
+not create material value for the two budget-feasible candidates.  The S7
+failure also shows that the immediate minimum-risk-reduction proxy is not a
+reliable finite-horizon value estimate.  The next bounded test is the strongest
+precision-refresh candidate under a deterministic query-first control-plane
+bound; a broad fixed-weight sweep remains unjustified.
