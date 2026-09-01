@@ -6,6 +6,9 @@ function schedule = ...
 % A scalar mode/weight retains the legacy V188 behavior.  A mixed teacher
 % schedule may use residual label KLA on supported labels and complete-label
 % hard restoration when a receiver formation has lost the label entirely.
+% The successor V216 action uses the distinct causal-label-kla mode: the
+% label is selected after the ordinary page fusion from current observable
+% posteriors, and delivery is sampled rather than granted by the teacher.
 
 if ~isscalar(pageCount) || ~isnumeric(pageCount) || ...
         ~isfinite(pageCount) || pageCount < 1 || ...
@@ -42,13 +45,18 @@ if any(~isfinite(weights)) || any(weights <= 0) || any(weights > 1)
 end
 
 hardMask = strcmp(modes, 'hard-replacement');
-labelKlaMask = strcmp(modes, 'label-kla');
+teacherLabelKlaMask = strcmp(modes, 'label-kla');
+causalLabelKlaMask = strcmp(modes, 'causal-label-kla');
+labelKlaMask = teacherLabelKlaMask | causalLabelKlaMask;
 if any(hardMask & abs(weights - 1) > 1e-12) || ...
-        any(labelKlaMask & ...
-            (~logical(idealDeliveryTeacherMode) | weights >= 1))
+        any(teacherLabelKlaMask & ...
+            (~logical(idealDeliveryTeacherMode) | weights >= 1)) || ...
+        any(causalLabelKlaMask & ...
+            (logical(idealDeliveryTeacherMode) | weights >= 1))
     error('BudgetRecycledRepairUpdateV205:InvalidSchedule', ...
-        ['Hard restoration requires unit source weight; residual label ', ...
-         'KLA remains an ideal-delivery teacher action with weight below one.']);
+        ['Hard restoration requires unit source weight; label-kla is an ', ...
+         'ideal-delivery teacher action; causal-label-kla requires sampled ', ...
+         'delivery. Both KLA modes require source weight below one.']);
 end
 
 schedule = struct();
@@ -59,6 +67,8 @@ schedule.modes = modes;
 schedule.sourceWeights = weights;
 schedule.hardReplacementMask = hardMask;
 schedule.labelKlaMask = labelKlaMask;
+schedule.teacherLabelKlaMask = teacherLabelKlaMask;
+schedule.causalLabelKlaMask = causalLabelKlaMask;
 schedule.mixedUpdateModes = numel(unique(modes)) > 1;
 schedule.scalarModeInput = scalarModeInput;
 schedule.scalarWeightInput = scalarWeightInput;
@@ -73,9 +83,11 @@ if ~ischar(mode) || isempty(mode)
         'Every update mode must be a nonempty character vector.');
 end
 mode = lower(strrep(mode, '_', '-'));
-if ~ismember(mode, {'hard-replacement', 'label-kla'})
+if ~ismember(mode, { ...
+        'hard-replacement', 'label-kla', 'causal-label-kla'})
     error('BudgetRecycledRepairUpdateV205:InvalidSchedule', ...
-        'Only hard-replacement and label-kla updates are registered.');
+        ['Only hard-replacement, label-kla, and causal-label-kla ', ...
+         'updates are registered.']);
 end
 end
 

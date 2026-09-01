@@ -441,6 +441,48 @@ payload complexity and incoming reference-payload share.  No action rule is
 changed yet: the two completed windows remain labels for the next frozen
 selector rather than thresholds fitted to two examples.
 
+The second M24 training trajectory changes the budget interpretation without
+changing that claim boundary.  `seed 1303` selected `t=104` and `t=132`.  At
+`t=104`, F2 improves E-OSPA, RMSE, window consistency and terminal consistency
+by `1.545% / 1.009% / 3.601% / 0.931%`, with no reported tail degradation,
+but spends `0.442%` more bytes than the same-state reference.  Conversely,
+several other formation actions across the four registered windows save about
+`0.8--1.1%` with exactly unchanged output.  Requiring every individual action
+to be byte-nonnegative therefore discards a plausible trajectory-level
+composition: harmless actions can earn credit, and a later high-value repair
+can spend only that already certified credit.  The exact cumulative ledger,
+not an unconditional per-action byte gate, is the correct invariant.
+
+## V216 causal credit-repair composition
+
+V216 implements that composition as a two-stage causal action rather than
+preselecting a semantic label from the precommunication graph.  Before the
+ordinary page exchange, the graph head may withhold one receiver formation's
+cross-formation full posterior for one page.  After the remaining messages
+have been fused, a deterministic repair head observes only the current fused
+and local posteriors, the current physical/delivery graph and the exact byte
+ledger.  It may choose at most one label for which every receiver already has
+positive support and a directly reachable source has lower advertised Bayes
+risk.  The source response preserves the complete Bernoulli Gaussian mixture,
+and each receiver applies the repository's componentwise powered-GM label KLA
+with source weight `0.5`.  Zero-support labels remain ineligible because a
+geometric average cannot restore them.
+
+This separates three decisions that were previously conflated.  The graph
+head decides which full posterior is redundant or conflicting enough to pause;
+the postfusion repair head decides which supported label is worth refreshing;
+and the byte projector decides whether the synopsis, request and complete
+label response fit after locking the frozen `20%` reserve.  Delivery is sampled
+from the current link state, fixed formation/source/label teacher identifiers
+are absent, and no posterior counterfactual is evaluated online.  The first
+paired screen keeps the existing four M24 withholding arms but turns each into
+`withhold one formation + causal supported-label KLA`, so it isolates whether
+the saved payload can finance a useful repair without expanding the action
+bank.  A repair that cannot be paid or delivered reduces automatically to the
+underlying one-page withholding action.  H=3 screens remain training action
+values; only a later frozen, recursively executed controller can refresh the
+current-best table.
+
 ## Claim boundary
 
 The conformal statement covers the registered counterfactual value targets
