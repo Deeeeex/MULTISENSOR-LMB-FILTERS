@@ -76,6 +76,16 @@ routing keys, not learned features.  The deterministic byte planner is
 `planFusionAwareQueryFirstExchangeV228`; the paired H=3 headroom runner is
 `runQueryFirstBoundedTransferHeadroomV228`.
 
+The online controller may fetch only one complete label per page.  It ranks
+source-label candidates from the compact query records and advertised payload
+size, fetches the highest calibrated candidate, and then applies the exact
+receiver-wise eta projector.  Full-mixture or realized eta features cannot be
+used for pre-fetch ranking because they do not exist until the payload has
+already been transmitted.  If every receiver rejects the payload, the page
+falls back to ordinary fusion and still pays the bytes; it does not try a
+second complete label.  This closes the earlier inconsistency between a
+three-candidate exact shortlist and the one-payload communication contract.
+
 This headroom run still uses teacher-selected donor/source/label rows.  Its
 purpose is narrower and necessary: determine whether the now-affordable,
 exactly projected action space contains enough multi-objective value to merit
@@ -133,10 +143,12 @@ is an observable rule, followed by action-only ridge and graph-feature ridge.
 A two-round formation GNN is retained only if grouped unseen-trajectory error
 and closed-loop paired outcomes improve over both ridge baselines.
 
-At runtime the value model ranks a bounded causal bank.  Exact projection is
-performed only for the top three candidates, and the highest calibrated
-vector-margin action that passes all deterministic checks is executed.  If no
-candidate passes, the controller returns the frozen carrier no-op.
+At runtime the value model ranks a bounded causal bank built from compact
+query records.  It selects at most one source-label payload using the highest
+calibrated vector margin, pays and fetches that complete payload, and then
+performs exact receiver-wise projection.  If projection rejects the payload,
+the controller returns the frozen carrier no-op without a second payload
+attempt on that page.
 
 ## Evidence sequence and stop rules
 
