@@ -3,10 +3,18 @@
 ## Decision before opening the corrected result
 
 V228 is conditional, not an automatic successor.  It is authorized only if
-the corrected V226 pilot contains a stage-best action that simultaneously
-improves aggregate E-OSPA, position RMSE, window consensus, terminal consensus
-and attempted bytes.  The registered local-tail tolerances remain the stricter
-paper-promotion gate; they do not hide a useful mechanism from the method
+the corrected V226 pilot contains a compositionally safe action: withholding
+alone must be non-regressive on aggregate E-OSPA, position RMSE, window
+consensus and terminal consensus; the label transfer must improve all four
+coordinates relative to that donor-only state; the joint action must improve
+all four relative to the ordinary reference; and attempted bytes must fall.
+This matters because a lost or receiver-rejected label transfer otherwise
+exposes the donor-only state.  A jointly positive action that repairs a harmful
+donor remains a mechanism upper bound but cannot authorize the safe online
+controller.
+
+The registered local-tail tolerances remain the stricter paper-promotion gate;
+they do not hide a useful compositionally safe mechanism from the method
 decision.  If V226 has no such action, the label-edge action family is dropped
 and no GNN is trained.
 
@@ -97,8 +105,11 @@ candidate passes, the controller returns the frozen carrier no-op.
 
 ## Evidence sequence and stop rules
 
-1. **V226 mechanism gate.**  Require positive aggregate E-OSPA, RMSE, both
-   consistency measures and attempted-byte saving.  Otherwise stop this line.
+1. **V226 mechanism gate.**  Require a non-regressive donor-only state,
+   positive incremental transfer gains, positive joint gains on aggregate
+   E-OSPA, RMSE and both consistency measures, and attempted-byte saving.
+   Otherwise stop this line.  Keep merely joint-positive actions as mechanism
+   diagnostics, not as authorization evidence.
 2. **V227 carrier choice.**  Compare static and dynamic carrier routes using
    identical scene, seed, measurements, link uniforms, message count and full
    mixture-aware KLA.  Freeze the carrier before constructing V228 data.
