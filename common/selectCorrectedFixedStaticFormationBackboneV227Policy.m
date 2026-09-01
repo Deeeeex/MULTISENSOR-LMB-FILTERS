@@ -26,6 +26,8 @@ if any(adjacency(:) & ~logical(context.physicalAdjacency(:)))
 end
 
 details = registration.selectionDetails;
+details.routeObjectiveComponents = reshape(details.objective, 1, []);
+details.objective = min(details.routeObjectiveComponents);
 details.contractVersion = ...
     'corrected-static-routing-v227-fixed-policy-v1';
 details.protocolId = protocol.id;
