@@ -1,5 +1,29 @@
 # V220 scale-aware semantic effective-graph routing
 
+## Outcome update: residual shortcut rejected
+
+The X36 seed-1301, t=132 H=3 screen completed after this design was frozen.
+The communication-donor stage is retained: F6 improves E-OSPA, RMSE,
+consensus, terminal consensus, and attempted bytes by 0.123%, 1.672%, 0.317%,
+0.344%, and 0.430%; F5 is output-neutral while saving 0.574%.
+
+The post-fusion semantic shortcut is rejected as the primary stage-2 action.
+One F6-to-F1 candidate degrades its donor-only state, while the other adds only
+about 0.001% across E-OSPA, RMSE, and consensus and leaves 0.008% byte saving.
+An explicitly nondeployable synthetic-credit teacher for the previously
+unaffordable top precision candidate improves F1 E-OSPA by 0.450% and network
+consensus by 0.485%, but worsens F1 RMSE by 2.034% and network RMSE by 0.683%.
+
+The successor therefore keeps the donor/credit mechanism but moves semantic
+routing **inside the ordinary label-wise KLA input set**. A selected source
+must replace or suppress a low-value/conflicting input, after which weights are
+renormalized and mixture-aware KLA is executed once. It must not append a
+second residual fusion after ordinary fusion. The detailed evidence and next
+contract are recorded in
+`V220_DECOUPLED_SEMANTIC_SHORTCUT_X36_T132_FINDING.md`. The remaining design
+below is retained as the frozen rationale and audit trail; its residual-KLA
+experiment order is no longer active.
+
 ## Decision
 
 V220 does **not** learn a denser full-posterior topology.  It keeps the
