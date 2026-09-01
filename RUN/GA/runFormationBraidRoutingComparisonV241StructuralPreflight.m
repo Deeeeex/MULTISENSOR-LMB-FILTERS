@@ -135,6 +135,10 @@ for currentTime = 1:config.simulationLength
         otherwise
             error('Unknown V241 structural arm: %s.', name);
     end
+    if ~isscalar(getField(details, 'objective', NaN))
+        error('FormationBraidRoutingV241:NonScalarDiagnostic', ...
+            'The topology objective must fit the scalar runtime trace.');
+    end
     currentPhysical = logical( ...
         graph.physicalAdjacency(:, :, currentTime));
     messages(currentTime) = nnz(adjacency);
