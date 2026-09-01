@@ -412,7 +412,34 @@ truth-free need maxima at `t=119` and `t=131` with scores `2.18074` and
 `4.48701`, and persisted two readable 24-sensor caches with exactly two past
 topology pages.  The selected windows meet the frozen 12-page separation and
 the runtime performed zero posterior counterfactual enumerations.  This is
-state-collection evidence only; recursive action targets remain uncollected.
+state-collection evidence only.
+
+Both registered H=3 withholding screens are now complete.  At `t=119`, F1
+withholding improves E-OSPA/RMSE/window consensus by `1.074% / 0.041% /
+1.093%`, but the next two full-payload pages rebound enough to increase total
+attempted bytes by `0.240%`; F2 saves `0.699%` but causes a `19.554%` RMSE
+loss; and F3/F4 remove `0.941% / 0.867%` communication with output metrics
+exactly unchanged.  At `t=131`, F1 is the first fully eligible direct action:
+E-OSPA, RMSE, window consensus and terminal consensus improve by `0.690%`,
+`0.645%`, `2.205%` and `2.930%`, attempted bytes fall by `1.254%`, and no
+reported sensor or formation tail degrades.  F4 again gives an exactly
+output-equivalent `0.960%` saving.  These are training-split action values,
+not an online-controller or validation claim.
+
+This evidence rejects a single `need_max` ranking.  Receiver need is a repair
+signal, while withholding value depends on a different causal question: is
+the incoming posterior redundant or mutually inconsistent with the receiver,
+and will the saved current payload reappear as extra labels or mixture
+components on the recovery pages?  The observable F1 state at `t=131` is an
+extreme case (`need_max=4.487`, mean quality `-1.923`, mean position variance
+`3.073`); its only cross-formation reference source has larger quality
+advantage and state discrepancy and lower label overlap than at `t=119`.
+V215 therefore keeps separate withholding, repair and payload-rebound heads.
+The new withholding feature schema combines the receiver node features, the
+selected incoming formation-edge semantics, scale-normalized current full-GM
+payload complexity and incoming reference-payload share.  No action rule is
+changed yet: the two completed windows remain labels for the next frozen
+selector rather than thresholds fitted to two examples.
 
 ## Claim boundary
 

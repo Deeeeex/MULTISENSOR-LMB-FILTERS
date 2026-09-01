@@ -39,6 +39,8 @@ if numel(featureIdx) ~= 1
         'The V208 graph must expose one need_max feature.');
 end
 formationNeed = reshape(graph.nodeFeatures(:, featureIdx), 1, []);
+withholdingFeatures = buildDirectGraphWithholdingFeaturesV215( ...
+    context, groupIds, adjacency, graph);
 protocol = getDirectGraphPayloadRepairControllerV214Protocol();
 
 details.posteriorUsed = true;
@@ -55,6 +57,20 @@ details.hierarchicalNeedAffectsRouting = false;
 details.hierarchicalHistoryWarmupReferenceUsed = false;
 details.hierarchicalNeedTruthUsed = false;
 details.hierarchicalNeedFutureInformationUsed = false;
+details.hierarchicalWithholdingFeatureContractVersion = ...
+    withholdingFeatures.contractVersion;
+details.hierarchicalWithholdingFeatureNames = ...
+    withholdingFeatures.formationFeatureNames;
+details.hierarchicalWithholdingFeaturesByFormation = ...
+    withholdingFeatures.formationFeatures;
+details.hierarchicalWithholdingPayloadFeatureNames = ...
+    withholdingFeatures.payloadFeatureNames;
+details.hierarchicalWithholdingPayloadFeaturesByFormation = ...
+    withholdingFeatures.payloadFeatures;
+details.hierarchicalWithholdingReferencePayloadBytesProxy = ...
+    withholdingFeatures.referencePayloadBytesProxy;
+details.hierarchicalWithholdingTruthUsed = false;
+details.hierarchicalWithholdingFutureInformationUsed = false;
 details.contractVersion = ...
     'direct-graph-payload-repair-v214-reference-policy-v1';
 details.armId = protocol.base.policyName;

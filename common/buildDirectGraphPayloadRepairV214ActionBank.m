@@ -59,6 +59,11 @@ schedules{1} = repmat({zeros(1, 0)}, 1, horizonSteps);
 actionFormationIds = cell(1, actionCount);
 actionFormationIds{1} = zeros(1, 0);
 actionObjective = zeros(1, actionCount);
+featureNames = referenceDetails. ...
+    hierarchicalWithholdingFeatureNames;
+formationFeatures = referenceDetails. ...
+    hierarchicalWithholdingFeaturesByFormation;
+actionFeatures = zeros(actionCount, numel(featureNames));
 for actionIdx = 2:actionCount
     formationId = requestedFormationIds(actionIdx - 1);
     schedule = repmat({zeros(1, 0)}, 1, horizonSteps);
@@ -69,6 +74,7 @@ for actionIdx = 2:actionCount
         'v214-withhold-full-posterior-f%d-one-page', formationId);
     needIdx = find(formationIds == formationId, 1);
     actionObjective(actionIdx) = -formationNeed(needIdx);
+    actionFeatures(actionIdx, :) = formationFeatures(needIdx, :);
 end
 
 referenceWeights = referenceDetails.fusionWeightMatrix;
@@ -89,6 +95,14 @@ bank.actionFusionWeights = repmat( ...
 bank.actionPolicyDetails = repmat( ...
     {referenceDetails}, 1, actionCount);
 bank.actionPosteriorObjective = actionObjective;
+bank.actionFeatureContractVersion = referenceDetails. ...
+    hierarchicalWithholdingFeatureContractVersion;
+bank.actionFeatureNames = featureNames;
+bank.actionFeatures = actionFeatures;
+bank.actionFeaturePresentMask = ...
+    (1:actionCount) ~= bank.referenceActionIndex;
+bank.actionFeaturesUseTruth = false;
+bank.actionFeaturesUseFutureInformation = false;
 bank.actionPosteriorProxyAllowed = true(1, actionCount);
 bank.actionWithinReferencePayload = true(1, actionCount);
 bank.actionPredictedNetSavingBytes = nan(1, actionCount);
