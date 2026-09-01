@@ -7,7 +7,10 @@ sensorCount = numel(estimates);
 timeCount = numel(truth.x);
 eospa = zeros(sensorCount, timeCount);
 cardinality = zeros(sensorCount, timeCount);
+rmse = nan(sensorCount, timeCount);
 for sensorIdx = 1:sensorCount
+    rmse(sensorIdx, :) = computeSetRmseOverTime( ...
+        estimates{sensorIdx}, truth);
     for currentTime = 1:timeCount
         components = computePositionEuclideanOspa( ...
             truth.x{currentTime}, estimates{sensorIdx}.mu{currentTime}, ...
@@ -41,10 +44,14 @@ focusTimes = protocol.activationStartTime:min( ...
 groupIds = reshape(config.sensorGroupIds, 1, []);
 groups = unique(groupIds, 'stable');
 perSensor = mean(eospa, 2);
+perSensorRmse = finiteMeanRows(rmse);
 perFormation = zeros(1, numel(groups));
+perFormationRmse = zeros(1, numel(groups));
 for formationIdx = 1:numel(groups)
     perFormation(formationIdx) = mean( ...
         perSensor(groupIds == groups(formationIdx)));
+    perFormationRmse(formationIdx) = finiteMean( ...
+        perSensorRmse(groupIds == groups(formationIdx)));
 end
 
 phaseCounts = struct('acquire', 0, 'broadcast', 0, 'reference', 0);
@@ -80,6 +87,15 @@ summary.perSensorPositionEospa = reshape(perSensor, 1, []);
 summary.perFormationPositionEospa = perFormation;
 summary.positionEospaBySensorTime = eospa;
 summary.networkMeanPositionEospaByTime = mean(eospa, 1);
+summary.fullHorizonPositionRmse = finiteMean(rmse(:));
+summary.focusWindowPositionRmse = finiteMean(reshape( ...
+    rmse(:, focusTimes), 1, []));
+summary.worstSensorPositionRmse = finiteMax(perSensorRmse);
+summary.perSensorPositionRmse = reshape(perSensorRmse, 1, []);
+summary.perFormationPositionRmse = perFormationRmse;
+summary.positionRmseBySensorTime = rmse;
+summary.networkMeanPositionRmseByTime = reshape( ...
+    finiteMeanRows(rmse'), 1, []);
 summary.meanAbsoluteCardinalityError = mean(cardinality(:));
 summary.focusAbsoluteCardinalityError = mean( ...
     reshape(cardinality(:, focusTimes), 1, []));
@@ -124,6 +140,31 @@ summary.missingLabelStaleIgnoredSourceCount = sumDiagnostic( ...
     diagnostics, 'missingLabelStaleIgnoredSourceCount');
 summary.missingLabelStrictVetoedLabelCount = sumDiagnostic( ...
     diagnostics, 'missingLabelStrictVetoedLabelCount');
+end
+
+function values = finiteMeanRows(matrix)
+values = nan(size(matrix, 1), 1);
+for rowIdx = 1:size(matrix, 1)
+    values(rowIdx) = finiteMean(matrix(rowIdx, :));
+end
+end
+
+function value = finiteMean(values)
+values = values(isfinite(values));
+if isempty(values)
+    value = NaN;
+else
+    value = mean(values);
+end
+end
+
+function value = finiteMax(values)
+values = values(isfinite(values));
+if isempty(values)
+    value = NaN;
+else
+    value = max(values);
+end
 end
 
 function value = sumDiagnostic(diagnostics, name)
