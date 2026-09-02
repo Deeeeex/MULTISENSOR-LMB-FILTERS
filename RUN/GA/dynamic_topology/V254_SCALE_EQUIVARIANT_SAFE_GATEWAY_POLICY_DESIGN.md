@@ -56,6 +56,10 @@ future physical pages and alternative-action outcomes are excluded.  Shared
 node/edge functions and symmetric aggregation make the score equivariant to a
 permutation of physical sensors and formations.
 
+Posterior moments are controller features only.  They neither replace the
+transmitted LMB posterior nor alter the mixture-aware LMB-KLA fusion carried
+out after an edge is selected.
+
 V253 is the linear screening baseline for this representation.  Its 47-,
 167- and 327-dimensional pooled summaries test whether current observable
 posterior and edge state contain cross-seed value signal before a graph model
