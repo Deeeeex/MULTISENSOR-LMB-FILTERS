@@ -12,7 +12,8 @@ protocol.developmentHoldoutSeeds = source.developmentHoldoutSeeds;
 protocol.untouchedFullEpisodeSeeds = source.untouchedFullEpisodeSeeds;
 protocol.anchorTimes = source.anchorTimes;
 protocol.horizonSteps = source.horizonSteps;
-protocol.featureSetNames = {'mean-47', 'distribution-167'};
+protocol.featureSetNames = { ...
+    'mean-47', 'edge-distribution-167', 'formation-tail-327'};
 protocol.ridgeLambdaGrid = source.ridgeLambdaGrid;
 protocol.activationThresholdGrid = [0, 0.02, 0.05, 0.1, 0.2];
 protocol.formationRegressionTolerancePercent = ...
