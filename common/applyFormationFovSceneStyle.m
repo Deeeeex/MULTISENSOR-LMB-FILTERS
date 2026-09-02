@@ -256,14 +256,26 @@ switch styleName
         config.focusWindowName = ...
             'paired-braided-handover-on-sparse-chain';
         config = markExploratoryStyle(config);
-    case {'formation-braid', 'dynamic-formation-braid'}
+    case {'formation-braid', 'dynamic-formation-braid', ...
+            'information-coupled-formation-braid', ...
+            'coupled-formation-braid'}
         if mod(config.formationCount, 2) ~= 0
             error('Formation braid requires an even formation count.');
         end
-        config.sceneStyle = 'formation-braid';
-        config.informationFlowStyle = [ ...
-            'staggered-paired-overtakes-with-formation-neighbour-', ...
-            'handover'];
+        informationCoupled = any(strcmp(styleName, { ...
+            'information-coupled-formation-braid', ...
+            'coupled-formation-braid'}));
+        if informationCoupled
+            config.sceneStyle = 'information-coupled-formation-braid';
+            config.informationFlowStyle = [ ...
+                'staggered-paired-overtakes-with-target-handoffs-', ...
+                'covering-every-initial-chain-cut'];
+        else
+            config.sceneStyle = 'formation-braid';
+            config.informationFlowStyle = [ ...
+                'staggered-paired-overtakes-with-formation-neighbour-', ...
+                'handover'];
+        end
         config.regionLimits = [-3000, 3000; -900, 900];
         config.observationSpaceLimits = [-3000, 3000; -900, 900];
         config.clutterSpatialProfile = ...
@@ -277,8 +289,26 @@ switch styleName
         config.sensorFovHeadingMode = 'formation-shared-velocity';
         config.sensorCenterWaypoints = ...
             buildFormationBraidWaypoints(config.formationCount);
-        config.targetRoutes = ...
-            buildFormationBraidTargetRoutes(config.targetGroupCount);
+        if informationCoupled
+            [config.targetRoutes, ...
+                config.targetRouteSourceFormationIds, ...
+                config.targetRouteDestinationFormationIds] = ...
+                buildInformationCoupledFormationBraidTargetRoutes( ...
+                    config.targetGroupCount);
+            config.taskTopologyCouplingContract = [ ...
+                'every-initial-chain-cut-has-an-adjacent-target-', ...
+                'handoff-v1'];
+        else
+            config.targetRoutes = ...
+                buildFormationBraidTargetRoutes( ...
+                    config.targetGroupCount);
+            config.targetRouteSourceFormationIds = ...
+                1:config.targetGroupCount;
+            config.targetRouteDestinationFormationIds = ...
+                pairedFormationDestinations(config.targetGroupCount);
+            config.taskTopologyCouplingContract = ...
+                'paired-module-target-handoffs-v1';
+        end
         config.targetBirthTimesByGroup = ...
             ones(1, config.targetGroupCount);
         config.targetDeathTimesByGroup = ...
@@ -662,6 +692,7 @@ function routes = buildFormationBraidTargetRoutes(targetGroupCount)
 if mod(targetGroupCount, 2) ~= 0
     error('Formation braid requires an even target-group count.');
 end
+
 spacing = 180;
 formationX = centeredValues(targetGroupCount, spacing);
 progress = [-360, -180, 0, 180, 360];
@@ -677,6 +708,56 @@ for groupIdx = 1:targetGroupCount
     serviceLaneY = 170 * (1 - 2 * mod(groupIdx, 2));
     routes{groupIdx} = [ ...
         formationX(groupIdx) + 85 + progress + ...
+            handoverPhase * deltaX; ...
+        serviceLaneY * ones(1, numel(progress))];
+end
+end
+
+function destinations = pairedFormationDestinations(formationCount)
+if mod(formationCount, 2) ~= 0
+    error('Paired formation destinations require an even count.');
+end
+destinations = zeros(1, formationCount);
+destinations(1:2:end) = 2:2:formationCount;
+destinations(2:2:end) = 1:2:(formationCount - 1);
+end
+
+function [routes, sourceFormationIds, destinationFormationIds] = ...
+        buildInformationCoupledFormationBraidTargetRoutes(targetGroupCount)
+% Couple target handoffs to the chain cuts that a fixed formation tree uses.
+%
+% The original formation-braid scene pairs both platform overtakes and target
+% handoffs as (1,2), (3,4), ... .  The bridge between two such modules can
+% therefore fail without carrying task-relevant target information.  This
+% variant assigns one target cohort to every adjacent chain cut.  The final
+% cohort returns across the last cut so that the target load remains one
+% cohort per formation at every scale.
+if targetGroupCount < 2
+    error('Information-coupled formation braid needs two target groups.');
+end
+spacing = 180;
+formationX = centeredValues(targetGroupCount, spacing);
+progress = [-360, -180, 0, 180, 360];
+handoverPhase = [0, 0.25, 0.50, 0.75, 1.00];
+sourceFormationIds = 1:targetGroupCount;
+destinationFormationIds = [2:targetGroupCount, targetGroupCount - 1];
+routes = cell(1, targetGroupCount);
+for groupIdx = 1:targetGroupCount
+    sourceIdx = sourceFormationIds(groupIdx);
+    destinationIdx = destinationFormationIds(groupIdx);
+    deltaX = formationX(destinationIdx) - formationX(sourceIdx);
+    serviceLaneY = 170 * (1 - 2 * mod(groupIdx, 2));
+    % The final return stream and the preceding forward stream both end at
+    % F-1.  Leaving them in the same +170 m lane makes their target groups
+    % coalesce at the route endpoint.  A separate +240 m service lane is the
+    % smallest scale-invariant offset that passes the existing target and
+    % sensor--target separation gates at M24, X36, and X48 while retaining a
+    % registered formation handover under the frozen 120-degree/300-m FoV.
+    if groupIdx == targetGroupCount
+        serviceLaneY = 240;
+    end
+    routes{groupIdx} = [ ...
+        formationX(sourceIdx) + 85 + progress + ...
             handoverPhase * deltaX; ...
         serviceLaneY * ones(1, numel(progress))];
 end
