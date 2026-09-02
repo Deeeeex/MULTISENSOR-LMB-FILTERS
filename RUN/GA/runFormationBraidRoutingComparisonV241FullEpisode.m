@@ -42,8 +42,16 @@ result = initializeResult(protocol, gitState.commit, presetName, seed, ...
     matPath, reportPath);
 if resume && exist(matPath, 'file') == 2
     loaded = load(matPath, 'result');
-    validateExisting(loaded.result, result);
+    crossCommitResume = validateExisting( ...
+        loaded.result, result, armNames);
     result = loaded.result;
+    result.currentExecutionGitCommit = gitState.commit;
+    if crossCommitResume
+        result.resumeSourceGenerationGitCommit = ...
+            result.generationGitCommit;
+        result.staticDropout = attachGenerationCommit( ...
+            result.staticDropout, result.generationGitCommit);
+    end
 end
 if all(cellfun(@(name) armComplete(result, name), armNames))
     fprintf('Reused completed V241 arm set: %s\n', reportPath);
@@ -53,15 +61,18 @@ end
 fprintf('\nV241 formation-braid routing: %s seed %d\n', ...
     presetName, seed);
 inputs = generateDynamicTopologyScenarioInputs(presetName, seed);
-if isempty(fieldnames(result.preflight))
+if isempty(fieldnames(result.preflight)) || ...
+        ~isfield(result.preflight, 'observableRuntimeContextPassed')
     fprintf('  running matched structural preflight ...\n');
     [~, preflight] = ...
         runFormationBraidRoutingComparisonV241StructuralPreflight( ...
             struct('presetName', presetName, 'seed', seed, ...
                 'writeReport', false));
     result.preflight = preflight;
-    result.initialRegistration = ...
-        buildInitialFormationBraidRouteV241Registration(inputs);
+    if isempty(fieldnames(result.initialRegistration))
+        result.initialRegistration = ...
+            buildInitialFormationBraidRouteV241Registration(inputs);
+    end
     save('-mat7-binary', matPath, 'result');
 else
     preflight = result.preflight;
@@ -108,6 +119,7 @@ for armIdx = 1:numel(armNames)
         armId, estimates, diagnostics, inputs.groundTruthRfs, ...
         inputs.config, representatives, metricWindow, toc(timerId));
     arm = attachTopologySummary(arm, diagnostics, inputs.config);
+    arm.generationGitCommit = gitState.commit;
     assertRuntimeArm(armName, arm, protocol, inputs.config);
     result.(armField(armName)) = arm;
     result.completedAt = datestr(now, 31);
@@ -268,6 +280,8 @@ result.protocol = protocol;
 result.startedAt = datestr(now, 31);
 result.completedAt = '';
 result.generationGitCommit = commit;
+result.currentExecutionGitCommit = commit;
+result.resumeSourceGenerationGitCommit = '';
 result.presetName = presetName;
 result.seed = seed;
 result.preflight = struct();
@@ -287,19 +301,52 @@ result.reportPath = reportPath;
 result.evidenceBoundary = protocol.evidenceBoundary;
 end
 
-function validateExisting(actual, expected)
+function crossCommitResume = validateExisting(actual, expected, armNames)
 required = {'contractVersion', 'protocolId', 'generationGitCommit', ...
     'presetName', 'seed', 'staticDropout', 'alwaysReplan', 'causal'};
-if ~isstruct(actual) || ~isscalar(actual) || ...
-        ~all(isfield(actual, required)) || ...
-        ~strcmp(actual.contractVersion, expected.contractVersion) || ...
-        ~strcmp(actual.protocolId, expected.protocolId) || ...
-        ~strcmp(actual.generationGitCommit, ...
-            expected.generationGitCommit) || ...
-        ~strcmp(actual.presetName, expected.presetName) || ...
-        actual.seed ~= expected.seed
+baseValid = isstruct(actual) && isscalar(actual) && ...
+    all(isfield(actual, required)) && ...
+    strcmp(actual.contractVersion, expected.contractVersion) && ...
+    strcmp(actual.protocolId, expected.protocolId) && ...
+    strcmp(actual.presetName, expected.presetName) && ...
+    actual.seed == expected.seed;
+sameCommit = baseValid && strcmp(actual.generationGitCommit, ...
+    expected.generationGitCommit);
+crossCommitResume = baseValid && ~sameCommit && ...
+    strcmp(actual.generationGitCommit, ...
+        expected.protocol.compatibleStaticReferenceCommit) && ...
+    numel(armNames) == 1 && strcmp(armNames{1}, 'causal') && ...
+    armComplete(actual, 'static-dropout') && ...
+    ~armComplete(actual, 'causal') && ...
+    compatibleResumeDiffPassed(expected.protocol);
+if ~sameCommit && ~crossCommitResume
     error('FormationBraidRoutingV241:InvalidResumeState', ...
         'The V241 checkpoint belongs to another source contract.');
+end
+end
+
+function passed = compatibleResumeDiffPassed(protocol)
+command = sprintf('git diff --name-only %s..HEAD --', ...
+    protocol.compatibleStaticReferenceCommit);
+[status, output] = system(command);
+if status ~= 0
+    passed = false;
+    return;
+end
+output = strtrim(output);
+if isempty(output)
+    changedFiles = {};
+else
+    changedFiles = strsplit(output, sprintf('\n'));
+end
+passed = all(ismember(changedFiles, ...
+    protocol.compatibleResumeChangedFiles));
+end
+
+function arm = attachGenerationCommit(arm, commit)
+if ~isempty(fieldnames(arm)) && ...
+        ~isfield(arm, 'generationGitCommit')
+    arm.generationGitCommit = commit;
 end
 end
 
@@ -314,6 +361,18 @@ fprintf(fid, '# V241 formation-braid routing comparison\n\n');
 fprintf(fid, '- Scene / seed: `%s / %d`\n', ...
     result.presetName, result.seed);
 fprintf(fid, '- Source commit: `%s`\n', result.generationGitCommit);
+fprintf(fid, '- Current execution commit: `%s`\n', ...
+    getField(result, 'currentExecutionGitCommit', ...
+        result.generationGitCommit));
+if ~isempty(getField(result, 'resumeSourceGenerationGitCommit', ''))
+    fprintf(fid, '- Compatible fixed-arm checkpoint reused: `%s`\n', ...
+        result.resumeSourceGenerationGitCommit);
+end
+fprintf(fid, '- Fixed arm commit: `%s`\n', ...
+    armGenerationCommit(result.staticDropout, ...
+        result.generationGitCommit));
+fprintf(fid, '- Causal arm commit: `%s`\n', ...
+    armGenerationCommit(result.causal, 'pending'));
 fprintf(fid, '- Fixed no-rerouting baseline included: `1`\n');
 fprintf(fid, '- Validation claim allowed: `0`\n\n');
 if ~isempty(fieldnames(result.preflight))
@@ -340,6 +399,14 @@ if result.causalAlwaysPairAvailable
 end
 fprintf(fid, '\n## Evidence boundary\n\n%s\n', ...
     result.evidenceBoundary);
+end
+
+function commit = armGenerationCommit(arm, fallback)
+if isempty(fieldnames(arm))
+    commit = fallback;
+else
+    commit = getField(arm, 'generationGitCommit', fallback);
+end
 end
 
 function writeArmRow(fid, label, arm)
