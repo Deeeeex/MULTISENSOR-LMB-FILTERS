@@ -80,6 +80,12 @@ share one additive objective.  Candidate-type indicators and numeric sensor or
 formation identifiers are absent.  V253 can authorize this next screen, but
 its coefficients are not reused as if they were edge values.
 
+The linear scorer is reference-centered at assignment level rather than edge
+level: the same standardized coefficient vector is applied to every feasible
+edge, and the predicted advantage is the sum of candidate edge values minus
+the sum of V242 edge values.  This keeps the intercept exactly zero and avoids
+introducing a sensor-count-dependent bias when transferring from M24 to X36.
+
 ## Edge scoring and exact projection
 
 The encoder produces a contextual value `s_theta(i -> j)` for every physically
