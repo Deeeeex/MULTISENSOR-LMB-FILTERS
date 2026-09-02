@@ -28,6 +28,7 @@ atLeastOneDetectionProbability = nan(targetCount, timeCount);
 visibleTargetCountBySensorTime = zeros( ...
     config.numberOfSensors, timeCount);
 ownerByTarget = zeros(targetCount, timeCount);
+visibleFormationMask = false(targetCount, formationCount, timeCount);
 activeMask = false(targetCount, timeCount);
 formationOwnershipSamples = zeros(1, formationCount);
 activeSampleCount = 0;
@@ -49,6 +50,7 @@ for targetIdx = 1:targetCount
                 config, sensorTrajectories, qualityModel, ...
                 state, timeIdx);
         visibleCount = sum(visible);
+        visibleFormationMask(targetIdx, :, timeIdx) = visible;
         visibilityCount(targetIdx, timeIdx) = visibleCount;
         visibleSensorCount(targetIdx, timeIdx) = ...
             sum(visibleSensors);
@@ -206,6 +208,7 @@ metrics.totalHandovers = sum(handoverCounts);
 metrics.focusTargetHandoverCounts = focusHandoverCounts;
 metrics.focusHandovers = sum(focusHandoverCounts);
 metrics.ownerByTarget = ownerByTarget;
+metrics.visibleFormationMaskByTargetTime = visibleFormationMask;
 metrics.formationOwnershipFraction = formationOwnershipSamples / ...
     max(sum(formationOwnershipSamples), 1);
 metrics.formationOwnershipEntropy = normalizedEntropy( ...

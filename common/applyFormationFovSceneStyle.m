@@ -258,14 +258,22 @@ switch styleName
         config = markExploratoryStyle(config);
     case {'formation-braid', 'dynamic-formation-braid', ...
             'information-coupled-formation-braid', ...
-            'coupled-formation-braid'}
+            'coupled-formation-braid', ...
+            'temporal-coupled-formation-braid'}
         if mod(config.formationCount, 2) ~= 0
             error('Formation braid requires an even formation count.');
         end
         informationCoupled = any(strcmp(styleName, { ...
             'information-coupled-formation-braid', ...
             'coupled-formation-braid'}));
-        if informationCoupled
+        temporalCoupled = strcmp( ...
+            styleName, 'temporal-coupled-formation-braid');
+        if temporalCoupled
+            config.sceneStyle = 'temporal-coupled-formation-braid';
+            config.informationFlowStyle = [ ...
+                'moving-formation-relative-target-handoffs-', ...
+                'aligned-with-initial-tree-cut-failures'];
+        elseif informationCoupled
             config.sceneStyle = 'information-coupled-formation-braid';
             config.informationFlowStyle = [ ...
                 'staggered-paired-overtakes-with-target-handoffs-', ...
@@ -289,7 +297,24 @@ switch styleName
         config.sensorFovHeadingMode = 'formation-shared-velocity';
         config.sensorCenterWaypoints = ...
             buildFormationBraidWaypoints(config.formationCount);
-        if informationCoupled
+        if temporalCoupled
+            [config.targetRoutes, ...
+                config.targetRouteSourceFormationIds, ...
+                config.targetRouteDestinationFormationIds, ...
+                config.targetRouteHandoverFractions, ...
+                config.targetRouteLaneSigns] = ...
+                buildTemporallyCoupledFormationBraidTargetRoutes( ...
+                    config.sensorCenterWaypoints, ...
+                    config.sensorWaypointTimes, ...
+                    config.simulationLength);
+            config.taskTopologyCouplingContract = [ ...
+                'actual-owner-side-transition-during-failed-', ...
+                'initial-tree-cut-v2'];
+            config.temporalCouplingLookbackSteps = 24;
+            config.temporalCouplingLookaheadSteps = 36;
+            config.temporalCouplingMinimumSupportFraction = 0.50;
+            config.temporalCouplingMinimumAlignedTargetFraction = 0.50;
+        elseif informationCoupled
             [config.targetRoutes, ...
                 config.targetRouteSourceFormationIds, ...
                 config.targetRouteDestinationFormationIds] = ...
@@ -761,6 +786,156 @@ for groupIdx = 1:targetGroupCount
             handoverPhase * deltaX; ...
         serviceLaneY * ones(1, numel(progress))];
 end
+end
+
+function [routes, sourceFormationIds, destinationFormationIds, ...
+        handoverFractions, laneSigns] = ...
+        buildTemporallyCoupledFormationBraidTargetRoutes( ...
+            formationWaypoints, waypointTimes, simulationLength)
+% Build handoffs relative to the moving formations, not their t=1 centres.
+%
+% A target cohort starts in front of its registered source formation and
+% gradually moves to the corresponding position in front of the destination
+% formation.  Transitions across the bridges between paired overtakes are
+% centred between the two neighbouring swap phases.  This is the same
+% scale-free rule for M24, X36 and X48; no scale-specific route is fitted.
+formationCount = numel(formationWaypoints);
+if formationCount < 2 || mod(formationCount, 2) ~= 0
+    error(['Temporally coupled formation braid requires a positive ', ...
+        'even formation count.']);
+end
+waypointCount = size(formationWaypoints{1}, 2);
+for formationIdx = 1:formationCount
+    if ~isequal(size(formationWaypoints{formationIdx}), ...
+            [2, waypointCount])
+        error('Formation waypoint shapes must agree.');
+    end
+end
+
+if numel(waypointTimes) ~= waypointCount || simulationLength < 2
+    error('Temporal route times do not match the formation waypoints.');
+end
+timeValues = 1:simulationLength;
+normalizedTime = linspace(0, 1, simulationLength);
+denseFormationRoutes = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    denseFormationRoutes{formationIdx} = interpolateStyleRoute( ...
+        waypointTimes, formationWaypoints{formationIdx}, timeValues);
+end
+pairCount = formationCount / 2;
+swapCentres = linspace(0.25, 0.75, pairCount);
+sourceFormationIds = 1:formationCount;
+destinationFormationIds = [2:formationCount, formationCount - 1];
+handoverFractions = zeros(1, formationCount);
+routeCandidates = cell(formationCount, 2);
+for groupIdx = 1:formationCount
+    sourceIdx = sourceFormationIds(groupIdx);
+    destinationIdx = destinationFormationIds(groupIdx);
+    if sourceIdx == formationCount
+        transitionCentre = min(0.88, swapCentres(end) + 0.10);
+    elseif mod(sourceIdx, 2) == 1
+        transitionCentre = swapCentres((sourceIdx + 1) / 2);
+    else
+        leftPair = sourceIdx / 2;
+        transitionCentre = 0.5 * ( ...
+            swapCentres(leftPair) + swapCentres(leftPair + 1));
+    end
+    handoverFractions(groupIdx) = transitionCentre;
+    transitionWidth = 0.48;
+    alpha = smoothStep01((normalizedTime - ...
+        (transitionCentre - transitionWidth / 2)) / transitionWidth);
+    source = denseFormationRoutes{sourceIdx};
+    destination = denseFormationRoutes{destinationIdx};
+    movingReference = source .* (1 - alpha) + destination .* alpha;
+    % The two lane candidates are symmetric in the world-frame service
+    % corridor.  A deterministic joint selector below chooses the
+    % assignment with the largest clearance from every formation centre
+    % and every other target
+    % cohort.  It uses geometry only and is identical at every scale.
+    % All formation-braid platforms move eastward; a fixed world-frame
+    % service corridor avoids amplifying the platforms' heading curvature
+    % into unrealistic target acceleration.  The 180/170 m offset remains
+    % inside the frozen 300 m, 120-degree sensor envelope while clearing the
+    % neighbouring 180 m-spaced formation centres.
+    forwardOffset = 180;
+    laneMagnitude = 170;
+    routeCandidates{groupIdx, 1} = movingReference + ...
+        repmat([forwardOffset; -laneMagnitude], 1, simulationLength);
+    routeCandidates{groupIdx, 2} = movingReference + ...
+        repmat([forwardOffset; laneMagnitude], 1, simulationLength);
+end
+[routes, laneSigns] = chooseTemporalServiceLanes( ...
+    routeCandidates, denseFormationRoutes);
+end
+
+function [routes, laneSigns] = chooseTemporalServiceLanes( ...
+        routeCandidates, formationRoutes)
+formationCount = size(routeCandidates, 1);
+assignmentCount = 2 ^ formationCount;
+bestScore = -inf;
+bestMeanClearance = -inf;
+bestAssignment = ones(1, formationCount);
+for assignmentCode = 0:(assignmentCount - 1)
+    assignment = 1 + bitget(assignmentCode, 1:formationCount);
+    selected = cell(1, formationCount);
+    for groupIdx = 1:formationCount
+        selected{groupIdx} = ...
+            routeCandidates{groupIdx, assignment(groupIdx)};
+    end
+    [score, meanClearance] = temporalLaneSafetyScore( ...
+        selected, formationRoutes);
+    if score > bestScore + 1e-9 || ...
+            (abs(score - bestScore) <= 1e-9 && ...
+             meanClearance > bestMeanClearance)
+        bestScore = score;
+        bestMeanClearance = meanClearance;
+        bestAssignment = assignment;
+    end
+end
+routes = cell(1, formationCount);
+laneSigns = zeros(1, formationCount);
+for groupIdx = 1:formationCount
+    routes{groupIdx} = ...
+        routeCandidates{groupIdx, bestAssignment(groupIdx)};
+    laneSigns(groupIdx) = 2 * bestAssignment(groupIdx) - 3;
+end
+end
+
+function [score, meanClearance] = temporalLaneSafetyScore( ...
+        routes, formationRoutes)
+% A 96 m centre clearance covers the 38.5 m jittered sensor ring, the
+% 27 m outer target offset and the registered 30 m sensor-target margin.
+% A 62 m inter-route clearance covers two 27 m cohort half-widths and the
+% registered 8 m target-target margin.
+formationClearances = [];
+for groupIdx = 1:numel(routes)
+    for formationIdx = 1:numel(formationRoutes)
+        formationClearances(end+1) = min(sqrt(sum( ... %#ok<AGROW>
+            (routes{groupIdx} - formationRoutes{formationIdx}).^2, 1)));
+    end
+end
+routeClearances = [];
+for leftIdx = 1:numel(routes)-1
+    for rightIdx = leftIdx+1:numel(routes)
+        routeClearances(end+1) = min(sqrt(sum( ... %#ok<AGROW>
+            (routes{leftIdx} - routes{rightIdx}).^2, 1)));
+    end
+end
+score = min([formationClearances - 96, routeClearances - 62]);
+meanClearance = mean([formationClearances, routeClearances]);
+end
+
+function values = interpolateStyleRoute(times, waypoints, queryTimes)
+values = zeros(size(waypoints, 1), numel(queryTimes));
+for dimensionIdx = 1:size(waypoints, 1)
+    values(dimensionIdx, :) = interp1( ...
+        times, waypoints(dimensionIdx, :), queryTimes, 'pchip');
+end
+end
+
+function values = smoothStep01(values)
+values = min(max(values, 0), 1);
+values = values .* values .* (3 - 2 * values);
 end
 
 function times = buildStyleBlockageTimes(formationCount, styleName)

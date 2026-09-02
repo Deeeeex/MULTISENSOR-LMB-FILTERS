@@ -72,6 +72,11 @@ switch canonicalName
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle( ...
             config, 'information-coupled-formation-braid');
+    case {'m24-formation-fov-temporal-coupled-formation-braid', ...
+            'm24-temporal-coupled-formation-braid-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle( ...
+            config, 'temporal-coupled-formation-braid');
     case {'x36', 'x36-topology'}
         config = configureX36(config, 'topology');
     case 'x36-joint'
@@ -116,6 +121,11 @@ switch canonicalName
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle( ...
             config, 'information-coupled-formation-braid');
+    case {'x36-formation-fov-temporal-coupled-formation-braid', ...
+            'x36-temporal-coupled-formation-braid-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle( ...
+            config, 'temporal-coupled-formation-braid');
     case {'x36-hard', 'x36-teacher'}
         config = configureX36(config, 'teacher');
     case {'x48-formation-fov', 'x48-realistic-fov'}
@@ -129,6 +139,11 @@ switch canonicalName
         config = configureX48(config, 'formation-fov');
         config = applyFormationFovSceneStyle( ...
             config, 'information-coupled-formation-braid');
+    case {'x48-formation-fov-temporal-coupled-formation-braid', ...
+            'x48-temporal-coupled-formation-braid-fov'}
+        config = configureX48(config, 'formation-fov');
+        config = applyFormationFovSceneStyle( ...
+            config, 'temporal-coupled-formation-braid');
     otherwise
         error('Unknown dynamic-topology scenario preset: %s', presetName);
 end
