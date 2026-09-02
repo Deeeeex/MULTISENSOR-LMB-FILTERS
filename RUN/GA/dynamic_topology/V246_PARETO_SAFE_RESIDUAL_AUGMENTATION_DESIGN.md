@@ -101,6 +101,49 @@ backbone, physical projection, communication budgets and exact Pareto guard
 remain authoritative.  Thus learning reduces search cost rather than owning
 connectivity or safety.
 
+## Related-method boundary
+
+Learned communication selection is already a mature research direction.
+SchedNet learns which agents may broadcast over a shared medium; When2com
+learns communication groups and timing; Learning Connectivity for Data
+Distribution in Robot Teams uses a decentralized GNN policy to decide when
+and where to forward state; Neurosymbolic Transformers hardens a learned soft
+communication graph into a low-degree program; and CGIBNet jointly compresses
+graph edges and message content.  V246 therefore does not claim novelty from
+using a GNN, learning an edge score, or combining learning with graph
+hardening.
+
+The intended distinction is narrower and fusion-specific.  The candidate set
+is induced by the ordinary mixture-aware LMB-KLA route, restoring an edge also
+restores its registered KLA weight, and the deployed graph is projected onto
+physical reachability, instantaneous strong connectivity, a payload budget,
+and posterior-risk constraints.  A future GNN may approximate the exact
+candidate ordering, but it cannot relax those constraints or directly emit
+the executed graph.
+
+Primary references used for this boundary:
+
+- SchedNet: https://openreview.net/pdf?id=HUAnBToP_a
+- When2com: https://openaccess.thecvf.com/content_CVPR_2020/html/Liu_When2com_Multi-Agent_Perception_via_Communication_Graph_Grouping_CVPR_2020_paper.html
+- Learning Connectivity for Data Distribution in Robot Teams: https://arxiv.org/abs/2103.05091
+- Neurosymbolic Transformers for Multi-Agent Communication: https://proceedings.neurips.cc/paper/2020/hash/9d740bd0f36aaa312c8d504e28c42163-Abstract.html
+- CGIBNet: https://arxiv.org/abs/2112.10374
+
+## Known horizon limitation
+
+The current exact evaluator is one-step.  Earlier paired counterfactuals in
+this repository include useful transfers whose current-page effect is zero but
+whose benefit appears over the following two pages.  V246 can therefore be a
+sound one-step teacher and closed-loop diagnostic while still rejecting
+actions with positive delayed value.  This is a method limitation, not a
+threshold-tuning issue.
+
+If the closed-loop run selects almost no residuals or fails to improve V242,
+the next controller should replace only the ranking objective with a causal
+finite-horizon value estimate trained from paired rollouts.  The V242
+backbone, physical projection, communication budgets, mixture-aware KLA
+semantics, and deterministic final backoff remain unchanged.
+
 ## Evidence sequence
 
 1. Wait for V245 to determine whether task--topology coupling strengthens the
