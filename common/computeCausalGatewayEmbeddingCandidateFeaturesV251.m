@@ -107,12 +107,14 @@ names(cursor + (1:numel(tailNames))) = tailNames;
 
 features = zeros(numel(candidateAssignments), numel(names));
 changedRowsByCandidate = cell(1, numel(candidateAssignments));
+edgeRowsByCandidate = cell(1, numel(candidateAssignments));
 for candidateIdx = 1:numel(candidateAssignments)
     assignment = normalizeAssignment(candidateAssignments{candidateIdx});
     validateAssignmentPairing(assignment, referenceAssignment, ...
         formationUidsBySensor, sensorUids, context.physicalAdjacency);
     rows = assignmentEdgeRows( ...
         assignment, sensorUids, edgeFeatures, selectedIndices);
+    edgeRowsByCandidate{candidateIdx} = rows;
     changed = find(any(assignment(:, 3:4) ~= ...
         referenceAssignment(:, 3:4), 2));
     changedRowsByCandidate{candidateIdx} = changed;
@@ -152,6 +154,8 @@ details.selectedDirectedEdgeFeatureNames = ...
 details.linkOnlyMask = linkOnlyMask;
 details.posteriorFeatureMask = posteriorMask;
 details.changedRowsByCandidate = changedRowsByCandidate;
+details.edgeRowsByCandidate = edgeRowsByCandidate;
+details.referenceEdgeRows = referenceRows;
 details.sensorPermutationInvariant = true;
 details.formationLabelPermutationInvariant = true;
 details.scaleNormalizedWhereApplicable = true;
