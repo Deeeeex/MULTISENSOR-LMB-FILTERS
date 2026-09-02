@@ -146,3 +146,24 @@ event.
 GNN escalation remains unauthorized.  It requires both positive held-out local
 selection evidence and a repeatable nonlinear residual that ridge cannot
 explain.
+
+## Frozen training outcome
+
+The seven-seed dataset contains 42 windows and 492 physically executable
+one-arc actions.  Every retained action passes the deterministic communication
+projection; windows contain 9--12 actions because seed 1304 at `t=140` has no
+physical replacement for one directed slot.  That missing action remains
+absent rather than being fabricated.
+
+Leave-one-seed-out selection chose `lambda=100`.  Even at this strongest
+regularization, the 32-dimensional compact model is worse than the seed-blind
+training-mean predictor by 3.636% over the seven tracking outcomes and by
+9.076% on receiver-formation RMSE.  Calibration is therefore not authorized,
+and seeds 1311--1312 remain unopened.
+
+This result rejects absolute multi-output regression from the current compact
+edge synopsis; it does not yet distinguish an unsuitable loss from missing
+observations.  Any successor must use only these training seeds to compare
+decision-aware within-window ranking against a fixed-dimensional posterior
+compatibility enrichment.  A nonlinear model is justified only if compact
+features retain cross-seed decision signal that a linear ranker cannot capture.

@@ -391,8 +391,8 @@ fprintf(fid, '- Calibration authorized: `%d`\n', ...
     summary.calibrationAuthorized);
 fprintf(fid, '- Next decision: `%s`\n\n', summary.nextDecision);
 
-fprintf(fid, '| Lambda | Tracking normalized MSE | Baseline | ', ...
-    'Skill | Receiver-RMSE MSE | Baseline | Skill |\n');
+fprintf(fid, ['| Lambda | Tracking normalized MSE | Baseline | ', ...
+    'Skill | Receiver-RMSE MSE | Baseline | Skill |\n']);
 fprintf(fid, '|--:|--:|--:|--:|--:|--:|--:|\n');
 for idx = 1:numel(summary.configurations)
     configuration = summary.configurations(idx);

@@ -326,8 +326,8 @@ for outcomeIdx = summary.protocol.modelSelectionOutcomeIndices
         summary.withinSeedMarginByOutcome(2, outcomeIdx), ...
         summary.oneSidedMarginByOutcome(outcomeIdx));
 end
-fprintf(fid, '\n| Seed | Anchor | Selected | Candidate | ', ...
-    'Lower receiver RMSE | Realized receiver RMSE | Safe |\n');
+fprintf(fid, ['\n| Seed | Anchor | Selected | Candidate | ', ...
+    'Lower receiver RMSE | Realized receiver RMSE | Safe |\n']);
 fprintf(fid, '|--:|--:|:--:|--:|--:|--:|:--:|\n');
 for idx = 1:numel(summary.decisions)
     row = summary.decisions(idx);
