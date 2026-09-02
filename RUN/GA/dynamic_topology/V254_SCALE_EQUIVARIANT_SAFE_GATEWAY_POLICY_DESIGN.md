@@ -86,6 +86,38 @@ edge, and the predicted advantage is the sum of candidate edge values minus
 the sum of V242 edge values.  This keeps the intercept exactly zero and avoids
 introducing a sensor-count-dependent bias when transferring from M24 to X36.
 
+## Control-plane cost and deployable feature sets
+
+The simulator exposes all local posteriors to the topology callback, but this
+central memory interface is not free communication in a real network.  V254
+therefore separates two feature contracts and charges the corresponding
+telemetry before making any end-to-end communication claim.
+
+The primary `compact-node-32` contract advertises one fixed 32-byte record per
+sensor.  It carries the node-level quantities needed for link reliability,
+distance, cardinality, uncertainty, association/detection support, source
+quality, receiver need and current full-LMB payload size; recent route use is
+maintained by the controller.  Six label-pair features (existence gain/gap,
+precision gain/gap, state discrepancy and active-label overlap) are disabled.
+The route command costs a 16-byte header plus eight bytes per directed gateway.
+Thus control cost grows as O(N+F) and is known before the action.
+
+The `rich-active-label-64` ablation allows all 22 features, but charges a
+16-byte header and a 64-byte packed record for every active label at every
+sensor, plus the same route command.  On the existing M24 seed-1302 t=60 H=3
+snapshot, the mean/max active-label counts are 15.33/16.  Compact control costs
+2,496 B over the three pages, 0.558% of the 447,624 B V242 posterior traffic;
+rich control costs 72,000 B, or 16.085%.  The rich option can therefore erase
+the current communication saving even if its posterior route is good.  This
+is a single-window accounting diagnostic, not a tracking result, but it fixes
+the method order: compact additive ridge first; compact GNN only if justified;
+rich features remain a cost-adjusted ablation rather than the default policy.
+
+V252 and V253 did not charge this controller telemetry, so their byte columns
+remain teacher/representation evidence.  Every V254 complete-window and
+complete-episode comparison must add `controlAttemptedBytes` to the posterior
+ledger before reporting communication gain.
+
 ## Edge scoring and exact projection
 
 The encoder produces a contextual value `s_theta(i -> j)` for every physically
