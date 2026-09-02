@@ -127,18 +127,46 @@ made until enough independent calibration seeds exist.
 
 ## Frozen evidence order
 
-1. Seeds 1302--1304 are development data for action-structure analysis and
-   multi-output model selection.
-2. Seed 1306 is generated after this design is committed and is opened once as
-   the new H=3 holdout.  Its bank contains V242 plus only one-arc replacements.
-3. Seed 1305 remains untouched.  It is used for a complete M24 episode only if
+1. Seeds 1302--1304 remain preliminary development data.  They justify the
+   one-arc action boundary and document why coordinate-wise worst-seed ridge
+   aggregation was rejected; their old full V250 banks are not relabelled as
+   newly generated V255 data.
+2. Seeds 1307--1310 are additional independent training realizations.  Each
+   evaluates V242 plus at most two ranked one-arc replacements per directed
+   formation-tree slot at the same six predeclared anchors.  Every non-reference
+   arm is charged the local control payload once for the complete H=3 hold.
+3. After the pooled expected-outcome representation, feature set and ridge
+   regularization are frozen using training data only, seeds 1311--1312 are
+   opened solely to calibrate one-sided uncertainty and the abstention margin.
+4. Seed 1306 remains the once-only H=3 development holdout.  It is not used to
+   choose features, regularization or calibration margins.
+5. Seed 1305 remains untouched.  It is used for a complete M24 episode only if
    seed 1306 supports the frozen selector.
-4. X36 starts only after the M24 model, margins, event trigger and communication
+6. X36 starts only after the M24 model, margins, event trigger and communication
    credit are frozen.  No X36 outcome may tune them.
-5. Crossing, merge-split and curved-corridor scenes follow only after M24 and
+7. Crossing, merge-split and curved-corridor scenes follow only after M24 and
    X36 independently retain lower tracking error, better consistency and a
    material communication saving relative to the static route.
 
 GNN escalation is not authorized by this design.  It becomes meaningful only
-if the local action labels are stable, the multi-output ridge exposes a
-repeatable nonlinear residual, and additional independent seeds are available.
+if the local action labels are stable, a transparent expected-outcome model
+exposes a repeatable nonlinear residual, and additional independent seeds are
+available.
+
+## Why the first multi-output sentinel was rejected
+
+The first V255 sentinel fitted one ridge member per seed 1302--1304 and used
+the coordinate-wise minimum across the three predictions.  This abstained in
+17/18 windows and retained only 0.006% aggregate RMSE gain while spending the
+control charge.  The result does not show that local repair lacks value: the
+paired teacher contains positive one-arc actions in 13/18 windows.  It shows
+that three stochastic realizations cannot support a worst-seed decision rule.
+
+The desired deployable quantity is the conditional expected outcome of an
+observable action, not the exact H=3 outcome under one future measurement and
+link-drop realization.  V255 therefore adds independent realizations of the
+same registered scene and time grid.  Model fitting pools these realizations
+to estimate expected coordinate outcomes; separate calibration seeds estimate
+one-sided abstention margins.  This separation is fixed before any new outcome
+is observed and replaces neither the paired static reference nor the final
+complete-episode test.

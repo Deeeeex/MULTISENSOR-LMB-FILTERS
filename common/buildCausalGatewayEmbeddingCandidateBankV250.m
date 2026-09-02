@@ -1,16 +1,38 @@
 function bank = buildCausalGatewayEmbeddingCandidateBankV250( ...
-        context, maximumCandidateCount)
+        context, maximumCandidateCount, options)
 % BUILDCAUSALGATEWAYEMBEDDINGCANDIDATEBANKV250 Bounded gateway bank.
 
 protocol = getCausalGatewayEmbeddingV250Protocol();
 if nargin < 2 || isempty(maximumCandidateCount)
     maximumCandidateCount = protocol.maximumCandidateCount;
 end
+if nargin < 3 || isempty(options)
+    options = struct();
+end
+singleArcOnly = logical(getField(options, 'singleArcOnly', false));
+singleArcAlternativesPerSlot = getField(options, ...
+    'singleArcAlternativesPerSlot', ...
+    protocol.singleArcAlternativesPerSlot);
+minimumCandidateCount = getField(options, ...
+    'minimumCandidateCount', protocol.minimumCandidateCount);
+minimumReceiverCoverage = getField(options, ...
+    'minimumReceiverCoveragePerFormation', ...
+    protocol.minimumReceiverCoveragePerFormation);
 if ~isscalar(maximumCandidateCount) || ...
         maximumCandidateCount < protocol.minimumCandidateCount || ...
-        maximumCandidateCount > protocol.maximumCandidateCount
+        maximumCandidateCount > protocol.maximumCandidateCount || ...
+        ~islogical(singleArcOnly) || ~isscalar(singleArcOnly) || ...
+        ~isscalar(singleArcAlternativesPerSlot) || ...
+        singleArcAlternativesPerSlot < 1 || ...
+        singleArcAlternativesPerSlot ~= ...
+            round(singleArcAlternativesPerSlot) || ...
+        ~isscalar(minimumCandidateCount) || ...
+        minimumCandidateCount < 2 || ...
+        minimumCandidateCount > maximumCandidateCount || ...
+        ~isscalar(minimumReceiverCoverage) || ...
+        minimumReceiverCoverage < 1
     error('CausalGatewayEmbeddingV250:InvalidBankCap', ...
-        'The candidate-bank cap violates the frozen V250 protocol.');
+        'The candidate-bank options violate the frozen V250 boundary.');
 end
 
 [referenceAdjacency, reference] = ...
@@ -26,47 +48,49 @@ definitions = appendUniqueDefinition(definitions, ...
     referenceAssignment, 'v242-reference', 0, 0, ...
     maximumCandidateCount);
 
-% Coordinated profiles and receiver-local replacements are inserted before
-% single-arc edits so every formation remains represented if the cap binds.
-for rankIdx = 1:protocol.globalRankProfileCount
-    assignment = referenceAssignment;
-    complete = true;
-    for formationIdx = 1:numel(localBanks)
-        alternatives = localBanks(formationIdx).alternativeAssignments;
-        if numel(alternatives) < rankIdx
-            complete = false;
-            break;
-        end
-        rows = assignment(:, 2) == ...
-            localBanks(formationIdx).receiverFormationUid;
-        assignment(rows, :) = alternatives{rankIdx};
-    end
-    if complete
-        definitions = appendUniqueDefinition(definitions, assignment, ...
-            'global-rank-profile', 0, rankIdx, ...
-            maximumCandidateCount);
-    end
-end
-for rankIdx = 1:protocol.localAssignmentsPerFormation
-    for formationIdx = 1:numel(localBanks)
-        alternatives = localBanks(formationIdx).alternativeAssignments;
-        if numel(alternatives) < rankIdx
-            continue;
-        end
+if ~singleArcOnly
+    % Coordinated profiles and receiver-local replacements are inserted
+    % before single-arc edits in the original V250 mode.
+    for rankIdx = 1:protocol.globalRankProfileCount
         assignment = referenceAssignment;
-        rows = assignment(:, 2) == ...
-            localBanks(formationIdx).receiverFormationUid;
-        assignment(rows, :) = alternatives{rankIdx};
-        definitions = appendUniqueDefinition(definitions, assignment, ...
-            'receiver-local-assignment', ...
-            localBanks(formationIdx).receiverFormationUid, rankIdx, ...
-            maximumCandidateCount);
+        complete = true;
+        for formationIdx = 1:numel(localBanks)
+            alternatives = localBanks(formationIdx).alternativeAssignments;
+            if numel(alternatives) < rankIdx
+                complete = false;
+                break;
+            end
+            rows = assignment(:, 2) == ...
+                localBanks(formationIdx).receiverFormationUid;
+            assignment(rows, :) = alternatives{rankIdx};
+        end
+        if complete
+            definitions = appendUniqueDefinition(definitions, assignment, ...
+                'global-rank-profile', 0, rankIdx, ...
+                maximumCandidateCount);
+        end
+    end
+    for rankIdx = 1:protocol.localAssignmentsPerFormation
+        for formationIdx = 1:numel(localBanks)
+            alternatives = localBanks(formationIdx).alternativeAssignments;
+            if numel(alternatives) < rankIdx
+                continue;
+            end
+            assignment = referenceAssignment;
+            rows = assignment(:, 2) == ...
+                localBanks(formationIdx).receiverFormationUid;
+            assignment(rows, :) = alternatives{rankIdx};
+            definitions = appendUniqueDefinition(definitions, assignment, ...
+                'receiver-local-assignment', ...
+                localBanks(formationIdx).receiverFormationUid, rankIdx, ...
+                maximumCandidateCount);
+        end
     end
 end
 
 edgeOptions = buildDirectedEdgeOptions( ...
     context, identity, referenceAssignment(:, 1:2));
-for rankIdx = 1:protocol.singleArcAlternativesPerSlot
+for rankIdx = 1:singleArcAlternativesPerSlot
     for slotIdx = 1:size(referenceAssignment, 1)
         assignment = referenceAssignment;
         receiverFormationUid = assignment(slotIdx, 2);
@@ -90,7 +114,7 @@ for rankIdx = 1:protocol.singleArcAlternativesPerSlot
     end
 end
 
-if numel(definitions) < protocol.minimumCandidateCount
+if numel(definitions) < minimumCandidateCount
     error('CausalGatewayEmbeddingV250:InsufficientCandidates', ...
         'The bounded construction produced too few unique candidates.');
 end
@@ -150,10 +174,9 @@ for formationIdx = 1:identity.formationCount
 end
 rawLocalCounts = [localBanks.rawAssignmentCount];
 rawGlobalCount = prod(rawLocalCounts);
-hardGatePassed = numel(candidates) >= ...
-        protocol.minimumCandidateCount && ...
+hardGatePassed = numel(candidates) >= minimumCandidateCount && ...
     numel(candidates) <= maximumCandidateCount && ...
-    all(coverage >= protocol.minimumReceiverCoveragePerFormation) && ...
+    all(coverage >= minimumReceiverCoverage) && ...
     all([candidates.messageCount] == expectedMessages) && ...
     all([candidates.stronglyConnected]) && ...
     all([candidates.physicallyFeasible]) && ...
@@ -167,6 +190,17 @@ end
 bank = struct();
 bank.contractVersion = ...
     'causal-gateway-embedding-v250-bank-v1';
+if singleArcOnly
+    bank.candidateBankMode = ...
+        'v242-reference-plus-single-directed-arc';
+else
+    bank.candidateBankMode = 'v250-full-bounded-bank';
+end
+bank.singleArcOnly = singleArcOnly;
+bank.singleArcAlternativesPerSlot = ...
+    singleArcAlternativesPerSlot;
+bank.minimumCandidateCount = minimumCandidateCount;
+bank.minimumReceiverCoveragePerFormation = minimumReceiverCoverage;
 bank.currentTime = context.currentTime;
 bank.formationPhysicalUids = identity.formationUids;
 bank.referenceSensorAdjacency = logical(referenceAdjacency);
@@ -431,4 +465,12 @@ while ~isempty(frontier)
         find(adjacency(node, :) & ~visited)]; %#ok<AGROW>
 end
 passed = all(visited);
+end
+
+function value = getField(data, name, fallback)
+if isstruct(data) && isfield(data, name)
+    value = data.(name);
+else
+    value = fallback;
+end
 end
