@@ -469,6 +469,14 @@ function value = maxOrNaN(values)
 if isempty(values), value = NaN; else, value = max(values); end
 end
 
+function sensors = selectFormationRepresentativesLocal(groupIds)
+groups = unique(groupIds, 'stable');
+sensors = zeros(1, numel(groups));
+for groupIdx = 1:numel(groups)
+    sensors(groupIdx) = find(groupIds == groups(groupIdx), 1);
+end
+end
+
 function absolute = isAbsolutePath(path)
 if ispc
     absolute = numel(path) >= 3 && isletter(path(1)) && ...
