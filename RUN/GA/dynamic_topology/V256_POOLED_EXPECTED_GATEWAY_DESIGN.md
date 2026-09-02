@@ -50,10 +50,17 @@ tracking outcomes: network E-OSPA, network RMSE, consistency, two formation-tail
 coordinates and two receiver-formation coordinates.
 
 The attempted-byte coordinate is still reported but cannot choose the penalty
-or admit an action.  Communication admission is a deterministic projection:
-the local action, including its 408 B controller exchange, may consume at most
-20% of the estimated static-versus-V242 saving.  This keeps stochastic payload
-prediction from being mistaken for a hard budget guarantee.
+or admit an action.  Communication admission is a deterministic projection.
+At the decision page, the current posterior sizes are evaluated on the current
+physical V240 two-input causal route, the V242 minimum backbone and every
+one-arc replacement.  Current per-node sizes are held constant only for the
+three-page byte estimate, and the 408 B controller exchange is charged once
+for the hold.  A local action may consume at most 20% of the estimated
+dense-causal-versus-V242 saving, so at least 80% of that saving is retained.
+The fixed static route remains the end-to-end experimental baseline; it is not
+used as an online guarantee when some of its edges are physically unavailable.
+This keeps stochastic realized payload prediction from being mistaken for a
+hard budget guarantee.
 
 The learned representation is considered informative only if its
 leave-one-seed-out error is lower than a seed-blind training-mean predictor both
