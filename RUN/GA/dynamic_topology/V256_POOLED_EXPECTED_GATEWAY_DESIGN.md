@@ -36,6 +36,13 @@ never fabricated to balance the dataset.  Ridge fitting gives every seed equal
 total weight, every registered anchor equal weight within a seed, and divides
 one anchor's weight uniformly over its observed actions.
 
+The same assembler is registered for three disjoint roles: the seven-seed
+training pool, seeds 1311--1312 for calibration, and seed 1306 for the
+development holdout.  Each role has a distinct seed registry and output
+artifact, while action reconstruction, observable features and deterministic
+communication projection are identical.  The untouched complete-episode seed
+1305 is not an assembler role and cannot enter any labeled local dataset.
+
 Each edge has a 16-dimensional compact observable summary.  The action feature
 is
 

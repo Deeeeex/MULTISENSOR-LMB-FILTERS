@@ -1,6 +1,6 @@
 function [matPath, dataset] = ...
         buildPooledExpectedGatewayDatasetV256(options)
-% BUILDPOOLEDEXPECTEDGATEWAYDATASETV256 Align seven local-action seeds.
+% BUILDPOOLEDEXPECTEDGATEWAYDATASETV256 Align one registered data split.
 
 if nargin < 1 || isempty(options)
     options = struct();
@@ -9,16 +9,10 @@ protocol = getPooledExpectedGatewayV256Protocol();
 legacy = getIndependentM24GatewayTeacherV252Protocol();
 teacher = getBudgetedLocalGatewayTeacherV255Protocol();
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
-legacyPaths = getField(options, 'legacyCheckpointPaths', ...
-    defaultCheckpointPaths(repoRoot, legacy.outputRoot, ...
-        protocol.preliminaryDevelopmentSeeds, legacy.oracleMatName));
-teacherPaths = getField(options, 'teacherCheckpointPaths', ...
-    defaultCheckpointPaths(repoRoot, teacher.outputRoot, ...
-        protocol.additionalTrainingSeeds, teacher.oracleMatName));
-legacyPaths = normalizePaths(legacyPaths, ...
-    numel(protocol.preliminaryDevelopmentSeeds), 'legacy');
-teacherPaths = normalizePaths(teacherPaths, ...
-    numel(protocol.additionalTrainingSeeds), 'teacher');
+selection = resolveDatasetSelection( ...
+    options, repoRoot, protocol, legacy, teacher);
+legacyPaths = selection.legacyCheckpointPaths;
+teacherPaths = selection.teacherCheckpointPaths;
 allPaths = [legacyPaths, teacherPaths];
 
 gitState = resolveResearchGitState();
@@ -37,7 +31,8 @@ for pathIdx = 1:numel(allPaths)
     checkpointPath = char(allPaths{pathIdx});
     if exist(checkpointPath, 'file') ~= 2
         error('PooledExpectedGatewayV256:MissingCheckpoint', ...
-            'Missing V256 training checkpoint: %s', checkpointPath);
+            'Missing V256 %s checkpoint: %s', ...
+            selection.datasetRole, checkpointPath);
     end
     envelope = load(checkpointPath, 'result');
     if ~isfield(envelope, 'result')
@@ -45,7 +40,8 @@ for pathIdx = 1:numel(allPaths)
             'A V256 source checkpoint lacks its result envelope.');
     end
     oracle = envelope.result;
-    sourceKind = validateOracle(oracle, legacy, teacher, protocol);
+    sourceKind = validateOracle( ...
+        oracle, legacy, teacher, protocol, selection);
     observedSeeds(pathIdx) = oracle.seed;
     sourceCommits{pathIdx} = oracle.generationGitCommit;
     sourceProtocolIds{pathIdx} = oracle.protocolId;
@@ -127,11 +123,12 @@ for pathIdx = 1:numel(allPaths)
     end
 end
 
-if ~isequal(sort(observedSeeds), sort(protocol.trainingSeeds))
-    error('PooledExpectedGatewayV256:TrainingSeedCoverage', ...
-        'The V256 dataset does not cover its seven frozen training seeds.');
+if ~isequal(sort(observedSeeds), sort(selection.expectedSeeds))
+    error('PooledExpectedGatewayV256:SeedCoverage', ...
+        'The V256 dataset does not cover its frozen %s seeds.', ...
+        selection.datasetRole);
 end
-expectedRecordCount = numel(protocol.trainingSeeds) * ...
+expectedRecordCount = numel(selection.expectedSeeds) * ...
     numel(protocol.anchorTimes);
 actionRowsPerWindow = cellfun( ...
     @(value) size(value.features, 1), records);
@@ -145,13 +142,14 @@ end
 
 dataset = struct();
 dataset.contractVersion = ...
-    'pooled-expected-gateway-v256-training-dataset-v2';
+    'pooled-expected-gateway-v256-dataset-v3';
+dataset.datasetRole = selection.datasetRole;
 dataset.protocol = protocol;
 dataset.assemblyGitCommit = gitState.commit;
 dataset.checkpointPaths = allPaths;
 dataset.sourceGenerationGitCommits = sourceCommits;
 dataset.sourceProtocolIds = sourceProtocolIds;
-dataset.trainingSeeds = observedSeeds;
+dataset.seeds = observedSeeds;
 dataset.featureNames = featureNames;
 dataset.outcomeNames = protocol.outcomeNames;
 dataset.records = records;
@@ -174,20 +172,66 @@ dataset.validationClaimAllowed = false;
 dataset.evidenceBoundary = protocol.evidenceBoundary;
 
 outputRoot = char(getField(options, 'outputRoot', ...
-    fullfile(repoRoot, protocol.outputRoot, 'training_dataset')));
+    fullfile(repoRoot, protocol.outputRoot, selection.outputSubdirectory)));
 if ~isAbsolutePath(outputRoot)
     outputRoot = fullfile(repoRoot, outputRoot);
 end
 if exist(outputRoot, 'dir') ~= 7
     mkdir(outputRoot);
 end
-matPath = fullfile(outputRoot, ...
-    'POOLED_EXPECTED_GATEWAY_V256_TRAINING_DATASET.mat');
+matPath = fullfile(outputRoot, selection.outputFileName);
 save('-mat7-binary', matPath, 'dataset');
-fprintf('V256 dataset: %d seeds, %d windows, %d action rows\n', ...
+fprintf('V256 %s dataset: %d seeds, %d windows, %d action rows\n', ...
+    selection.datasetRole, ...
     numel(unique(observedSeeds)), dataset.recordCount, ...
     dataset.actionRowCount);
 fprintf('V256 dataset MAT: %s\n', matPath);
+end
+
+function selection = resolveDatasetSelection( ...
+        options, repoRoot, protocol, legacy, teacher)
+role = lower(strrep(char(getField( ...
+    options, 'datasetRole', 'training')), '_', '-'));
+switch role
+    case 'training'
+        legacySeeds = protocol.preliminaryDevelopmentSeeds;
+        teacherSeeds = protocol.additionalTrainingSeeds;
+        outputSubdirectory = 'training_dataset';
+        outputFileName = ...
+            'POOLED_EXPECTED_GATEWAY_V256_TRAINING_DATASET.mat';
+    case 'calibration'
+        legacySeeds = zeros(1, 0);
+        teacherSeeds = protocol.calibrationSeeds;
+        outputSubdirectory = 'calibration_dataset';
+        outputFileName = ...
+            'POOLED_EXPECTED_GATEWAY_V256_CALIBRATION_DATASET.mat';
+    case 'development-holdout'
+        legacySeeds = zeros(1, 0);
+        teacherSeeds = protocol.developmentHoldoutSeeds;
+        outputSubdirectory = 'development_holdout_dataset';
+        outputFileName = ...
+            'POOLED_EXPECTED_GATEWAY_V256_DEVELOPMENT_HOLDOUT_DATASET.mat';
+    otherwise
+        error('PooledExpectedGatewayV256:InvalidDatasetRole', ...
+            'V256 supports training, calibration or development-holdout.');
+end
+legacyPaths = getField(options, 'legacyCheckpointPaths', ...
+    defaultCheckpointPaths(repoRoot, legacy.outputRoot, ...
+        legacySeeds, legacy.oracleMatName));
+teacherPaths = getField(options, 'teacherCheckpointPaths', ...
+    defaultCheckpointPaths(repoRoot, teacher.outputRoot, ...
+        teacherSeeds, teacher.oracleMatName));
+selection = struct();
+selection.datasetRole = role;
+selection.legacySeeds = legacySeeds;
+selection.teacherSeeds = teacherSeeds;
+selection.expectedSeeds = [legacySeeds, teacherSeeds];
+selection.legacyCheckpointPaths = normalizePaths( ...
+    legacyPaths, numel(legacySeeds), [role, '-legacy']);
+selection.teacherCheckpointPaths = normalizePaths( ...
+    teacherPaths, numel(teacherSeeds), [role, '-teacher']);
+selection.outputSubdirectory = outputSubdirectory;
+selection.outputFileName = outputFileName;
 end
 
 function projection = buildCommunicationProjection( ...
@@ -234,7 +278,8 @@ end
 paths = reshape(paths, 1, []);
 end
 
-function sourceKind = validateOracle(oracle, legacy, teacher, protocol)
+function sourceKind = validateOracle( ...
+        oracle, legacy, teacher, protocol, selection)
 required = {'contractVersion', 'protocolId', 'generationGitCommit', ...
     'presetName', 'seed', 'cachePath', 'windows', 'completedAt'};
 valid = isstruct(oracle) && isscalar(oracle) && ...
@@ -248,11 +293,11 @@ if ~valid
 end
 if strcmp(oracle.protocolId, legacy.id) && ...
         strcmp(oracle.contractVersion, legacy.resultContractVersion) && ...
-        ismember(oracle.seed, protocol.preliminaryDevelopmentSeeds)
+        ismember(oracle.seed, selection.legacySeeds)
     sourceKind = 'legacy-v252-full-bank';
 elseif strcmp(oracle.protocolId, teacher.id) && ...
         strcmp(oracle.contractVersion, teacher.resultContractVersion) && ...
-        ismember(oracle.seed, protocol.additionalTrainingSeeds)
+        ismember(oracle.seed, selection.teacherSeeds)
     sourceKind = 'v255-restricted-local-bank';
 else
     error('PooledExpectedGatewayV256:OracleProvenance', ...
