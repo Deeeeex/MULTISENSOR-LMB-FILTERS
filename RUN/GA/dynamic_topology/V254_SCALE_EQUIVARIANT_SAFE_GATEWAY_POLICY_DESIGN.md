@@ -60,18 +60,36 @@ Posterior moments are controller features only.  They neither replace the
 transmitted LMB posterior nor alter the mixture-aware LMB-KLA fusion carried
 out after an edge is selected.
 
-V253 is the linear screening baseline for this representation.  Its 47-,
-167- and 327-dimensional pooled summaries test whether current observable
-posterior and edge state contain cross-seed value signal before a graph model
-is trained.
+V253 is the first linear screening baseline for this representation.  Its
+47-, 167-, 327- and payload-aware 328-dimensional pooled summaries test whether
+current observable posterior and edge state contain cross-seed value signal
+before a graph model is trained.  Those pooled summaries include extrema and
+dispersion and therefore cannot themselves be passed to the exact edge
+projector: in general, the score of a complete assignment is not the sum of
+scores of its selected edges.
+
+V254 consequently introduces a separate projectable representation.  Every
+currently feasible gateway edge contributes 20 normalized posterior/link
+features, a causal recent-selection feature and its exact current full-LMB
+payload contribution.  The first 21 contributions are divided by the number
+of directed formation arcs, so summing an assignment recovers their means;
+payload contributions are divided by the total estimated V242 attempted
+bytes, so the candidate-minus-reference sum exactly recovers the estimated
+attempted-byte ratio change.  Training, online scoring and matching therefore
+share one additive objective.  Candidate-type indicators and numeric sensor or
+formation identifiers are absent.  V253 can authorize this next screen, but
+its coefficients are not reused as if they were edge values.
 
 ## Edge scoring and exact projection
 
 The encoder produces a contextual value `s_theta(i -> j)` for every physically
-available gateway edge.  For each receiving formation `q`, first retain the
-best sender for every pair of incoming formation-tree slot and receiver
-sensor.  A rectangular maximum-weight matching then assigns distinct receiver
-sensors to all incoming slots.  The projected gateway assignment maximizes
+available gateway edge.  In the linear sentinel, this value is a shared readout
+of the additive V254 edge contribution.  A later GNN, if authorized, may replace
+the encoder but must retain the same additive readout contract.  For each
+receiving formation `q`, first retain the best sender for every pair of incoming
+formation-tree slot and receiver sensor.  A rectangular maximum-weight matching
+then assigns distinct receiver sensors to all incoming slots.  The projected
+gateway assignment maximizes
 
 `sum s_theta(i -> j) - lambda_switch * changed_arcs`
 
@@ -126,12 +144,16 @@ uses differences between each action and the reference, so the model learns
 whether a topology change is worthwhile rather than merely predicting the
 absolute difficulty of the scene.
 
-The first nonlinear model, if V253 establishes cross-seed signal, should use a
-structured ranking loss over all actions from the same time window.  A
-one-sided calibration residual from independent scene seeds supplies the
-abstention margin.  With enough independent calibration seeds, this can be
-upgraded to a block-conformal lower bound; the current three-seed V252 study is
-too small for such a coverage claim.
+If V253 establishes cross-seed signal, the next model is an edge-additive ridge
+sentinel trained on complete-assignment feature differences.  This is a
+necessary bridge between pooled learnability and deployable projection.  Only
+if the additive sentinel preserves safe selections yet leaves systematic
+ranking error should a nonlinear encoder be compared using a structured
+ranking loss over all actions from the same time window.  A one-sided
+calibration residual from independent scene seeds supplies the abstention
+margin.  With enough independent calibration seeds, this can be upgraded to a
+block-conformal lower bound; the current three-seed V252 study is too small for
+such a coverage claim.
 
 ## Evidence sequence
 
