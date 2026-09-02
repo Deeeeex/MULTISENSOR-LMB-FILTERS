@@ -58,9 +58,12 @@ bank proves that gateway changes have finite-horizon task value.
    M24 anchor, with at least two receiver identities represented per
    formation.
 2. Capture the V242 pre-fusion state and two-page topology history once.
-3. Replay every bank candidate for `H=3` with identical measurements and link
-   uniforms; score E-OSPA, RMSE, consistency, weakest-formation tails and
-   attempted bytes.
+3. Replay every bank candidate for `H=3` with identical measurements, link
+   uniforms and filter RNG.  The anchor assignment persists while it remains
+   physical and otherwise falls back to V242.  The frozen oracle maximizes the
+   minimum percentage gain across E-OSPA, RMSE and consistency, subject to no
+   attempted-byte increase and at most 2% regression in either weakest-
+   formation metric.
 4. Stop if fewer than two anchors have a joint-positive candidate or if the
    aggregate oracle does not improve all three core metrics while respecting
    the frozen tail and byte tolerances.
