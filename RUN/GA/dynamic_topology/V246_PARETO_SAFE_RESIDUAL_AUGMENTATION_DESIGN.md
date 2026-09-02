@@ -55,8 +55,7 @@ For a current route `G`, V246 records:
 - `L(G',G)`: reference-relative label-existence loss when a candidate route
   `G'` is compared with `G`.
 
-A residual edge is admissible only if, after adding it to the current greedy
-route,
+A residual edge is individually admissible only if, after adding it to V242,
 
 `R(G+e) <= R(G)`, `D(G+e) <= D(G)`,
 
@@ -65,30 +64,35 @@ existence-retention guard additionally forbids a robust downward crossing:
 a label with reference existence at least `0.60` may not fall below the
 `0.50` reporting threshold.  This margin protects established support without
 reintroducing the earlier zero-tolerance rule for every small receiver-level
-change.  Among admissible edges, the policy maximizes the smaller of the
-relative task-risk and disagreement gains per added byte.  It then repeats
-until no admissible edge remains or either budget is exhausted.
+change.  Among admissible edges, the policy ranks the smaller of the relative
+task-risk and disagreement gains per added byte, then takes the best
+formation-distinct proposal under both budgets.  Because two individually
+safe receiver updates can interact in the network-disagreement term, the
+joint proposal is evaluated once more.  If it fails any constraint, the
+lowest-ranked edge is removed and the joint check is repeated until the
+proposal passes or V242 is recovered.
 
 ## What can be proved
 
-Let `G_0` be V242 and `G_k` the route after `k` accepted residual edges.
-Because each greedy step explicitly checks the inequalities above,
+Let `G_0` be V242 and `G_*` the final route after joint validation and any
+deterministic backoff.  The final check directly guarantees
 
-`R(G_k) <= R(G_0)`, `D(G_k) <= D(G_0)`, and
-`R_f(G_k) <= R_f(G_0)` for every formation.
+`R(G_*) <= R(G_0)`, `D(G_*) <= D(G_0)`, and
+`R_f(G_*) <= R_f(G_0)` for every formation.
 
-This follows by induction over accepted edges; it does not require a
-submodularity assumption.  Strong connectivity and physical feasibility are
-inherited from the candidate construction, while message and estimated-byte
-bounds follow directly from the two budgets.  These are current-step
-surrogate guarantees, not claims about truth-level E-OSPA or future tracking.
+No submodularity or independence assumption is used for this final guarantee.
+Strong connectivity and physical feasibility are inherited from the candidate
+construction, while message and estimated-byte bounds follow directly from
+the two budgets.  These are current-step surrogate guarantees, not claims
+about truth-level E-OSPA or future tracking.
 
 ## Stability and data-driven extension
 
-The first implementation uses the exact evaluator as an online teacher.
-Previously selected residual edges are considered first and are retained only
-while they remain admissible; unsafe edges are removed immediately.  This
-gives causal hysteresis without forcing a harmful multi-step hold.
+The first implementation uses the exact evaluator as an online teacher on
+every page.  Previously selected residual edges win only exact score ties and
+are retained only while they remain admissible; unsafe edges are removed
+immediately.  Thus stability comes from causal tie-breaking rather than a
+forced multi-step hold.
 
 For scale-up, a GNN may learn the teacher's edge ordering from label-support,
 covariance, compatibility, visibility, link-persistence and byte features.
