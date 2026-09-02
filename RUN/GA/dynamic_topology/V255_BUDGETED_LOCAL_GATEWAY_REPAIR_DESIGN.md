@@ -79,14 +79,16 @@ the reported end-to-end metric.
 
 ## Vector-valued prediction
 
-For every single-arc candidate, the learner predicts six coordinates:
+For every single-arc candidate, the learner predicts eight coordinates:
 
 - network E-OSPA gain;
 - network position-RMSE gain;
 - inter-formation consistency gain;
 - total attempted-byte saving after control cost;
 - minimum formation E-OSPA gain; and
-- minimum formation RMSE gain.
+- minimum formation RMSE gain;
+- E-OSPA gain of the receiving formation; and
+- RMSE gain of the receiving formation.
 
 The first sentinel is a multi-output ridge model.  It uses changed-edge
 features, the incumbent edge, source/receiver formation summaries and causal
@@ -94,12 +96,13 @@ route history.  Features are normalized by formation size and do not include
 numeric sensor IDs, numeric formation IDs, target truth or future pages.
 
 At deployment, a candidate is admissible only when conservative lower bounds
-for E-OSPA and consistency are positive, formation tails remain above their
-registered tolerances, and the deterministic communication-credit test passes.
-Among admissible actions, the policy maximizes the conservative RMSE gain and
-otherwise keeps V242.  Predicting coordinates separately prevents a tiny
-byte or consistency fluctuation from erasing a large and repeatable RMSE signal
-during training.
+for network E-OSPA, network RMSE and consistency are positive, formation tails
+remain above their registered tolerances, the receiving formation is predicted
+to improve, and the deterministic communication-credit test passes.  Among
+admissible actions, the policy maximizes the conservative receiving-formation
+RMSE gain and otherwise keeps V242.  Predicting coordinates separately prevents
+a tiny byte or consistency fluctuation from erasing a large and repeatable RMSE
+signal during training.
 
 ## Theory interface
 
