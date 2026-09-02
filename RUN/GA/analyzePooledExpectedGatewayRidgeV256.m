@@ -250,7 +250,8 @@ for foldIdx = 1:numel(trainingSeeds)
     end
     model = fitRidge(features(train, :), targets(train, :), lambda, ...
         fitWeights(train));
-    prediction = predictRidge(model, features(test, :));
+    prediction = predictPooledExpectedGatewayRidgeV256( ...
+        modelForPrediction(model, protocol), features(test, :));
     baselineMean = weightedMean( ...
         targets(trainSupport, :), supportWeights(trainSupport));
     baseline = repmat(baselineMean, nnz(test), 1);
@@ -350,13 +351,15 @@ end
 value = (weights' * values) / sum(weights);
 end
 
-function predictions = predictRidge(model, features)
-centered = bsxfun(@minus, features, model.featureMean);
-standard = bsxfun(@rdivide, ...
-    centered(:, model.activeFeatureMask), ...
-    model.featureScale(model.activeFeatureMask));
-predictions = bsxfun(@plus, ...
-    standard * model.coefficients, model.targetMean);
+function predictionModel = modelForPrediction(model, protocol)
+predictionModel = model;
+predictionModel.contractVersion = ...
+    'pooled-expected-gateway-v256-ridge-model-v1';
+predictionModel.protocolId = protocol.id;
+predictionModel.featureNames = cell(1, numel(model.featureMean));
+predictionModel.outcomeNames = protocol.outcomeNames;
+predictionModel.truthUsed = false;
+predictionModel.futureInformationUsed = false;
 end
 
 function writeReportFile(path, summary)

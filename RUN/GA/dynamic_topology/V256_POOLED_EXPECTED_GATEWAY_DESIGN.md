@@ -92,9 +92,12 @@ does not justify a more complex GNN.
 After the feature transform and ridge penalty are frozen, seeds 1311 and 1312
 are opened only for uncertainty calibration.  For every predicted tracking
 gain, the relevant one-sided residual is `prediction - realized gain`: positive
-values measure overconfidence.  V256 first takes the 80th percentile within
-each seed and then the 80th percentile across seed summaries.  The resulting
-margin is subtracted from each prediction.
+values measure overconfidence.  Because the online policy selects one action
+from a candidate set, V256 first takes the maximum residual over all
+communication-feasible actions in each window.  It then takes the nearest-rank
+80th percentile of the six window maxima within each seed and the nearest-rank
+80th percentile across seed summaries.  The resulting nonnegative margin is
+subtracted from each prediction.
 
 This is a deliberately empirical development margin.  Two calibration seeds do
 not provide a meaningful distribution-free 80% coverage guarantee at the seed
