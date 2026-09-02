@@ -45,7 +45,7 @@ candidate must improve E-OSPA, RMSE and consistency, stay within the existing
 window, a positive action exists in 13/18 windows.  Restricting the action to a
 single changed directed arc still covers all 13 windows.  Under the original
 zero-increment byte condition, a single-arc positive action remains available
-in 11/18 windows.
+in 10/18 windows.
 
 Thus global composition adds extrapolation risk without adding positive-window
 coverage in the available data.  A single-arc action also scales linearly in
@@ -56,14 +56,15 @@ two incident formations.
 
 V254 collected a 32-byte synopsis from all sensors and sent a full route command
 on every page.  A single-arc V255 decision only needs the source and receiver
-formations.  For M24, with four sensors per formation, one decision costs
+formations.  For M24, with six sensors per formation, one decision costs
 
-`2 * 4 * 32 + 16 + 8 = 280 B`.
+`2 * 6 * 32 + 16 + 8 = 408 B`.
 
 The chosen assignment then persists for the three-page horizon, so this cost is
-paid once rather than three times.  For X36 with six sensors per formation, the
-same contract costs 408 B.  The control scaling is therefore `O(S)` for sensors
-per formation, not `O(N)` for the whole network.
+paid once rather than three times.  X36 also uses six sensors per formation, so
+the same local contract remains 408 B even though the formation count grows
+from four to six.  The control scaling is therefore `O(S)` for sensors per
+formation, not `O(N)` for the whole network.
 
 The online budget is expressed as communication credit.  Let `B_static(t)` be
 the causal payload estimate for the registered static route and `B_242(t)` the
