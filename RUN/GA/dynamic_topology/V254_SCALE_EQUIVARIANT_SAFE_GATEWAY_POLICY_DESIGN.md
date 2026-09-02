@@ -204,14 +204,20 @@ such a coverage claim.
    seed 1304 once as the development holdout.  Continue only if the frozen
    selector improves all aggregate core metrics and attempted bytes without
    exceeding the 2% formation-tail tolerance.
-2. **Untouched M24 episode.** Freeze all features, weights, thresholds and
+2. **Exact-action bridge.** The candidate-bank holdout is not yet an outcome
+   test of the online projector: an additive score can compose a feasible
+   assignment that was absent from the 21-action teacher bank.  After the
+   model is frozen, compare its exact projected H=3 actions on seed 1304.  A
+   projected action already present in the bank may reuse its paired outcome;
+   every out-of-bank action must be run as a new paired continuation.
+3. **Untouched M24 episode.** Freeze all features, weights, thresholds and
    projection rules before opening seed 1305.  Report the fixed-tree baseline,
    V242 and the learned gateway policy together.
-3. **No-retuning X36 transfer.** Apply the identical encoder, normalization,
+4. **No-retuning X36 transfer.** Apply the identical encoder, normalization,
    abstention rule and projector to
    `x36-formation-fov-temporal-coupled-formation-braid`.  A new X36 seed set
    must pass independently; M24 success cannot compensate for X36 failure.
-4. **Non-radial scene transfer.** After scale transfer, evaluate at least
+5. **Non-radial scene transfer.** After scale transfer, evaluate at least
    crossing, merge-split and curved-corridor formation-FoV presets with the
    same 120-degree, range-limited sensor hardware.  These tests address scene
    geometry rather than provide extra tuning data.
