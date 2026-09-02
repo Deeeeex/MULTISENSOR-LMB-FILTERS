@@ -1,0 +1,23 @@
+function config = ...
+        buildScaleEquivariantSafeGatewayV254Config(scenario, model)
+% BUILDSCALEEQUIVARIANTSAFEGATEWAYV254CONFIG Learned sparse gateway route.
+
+protocol = getScaleEquivariantSafeGatewayV254Protocol();
+if ~isstruct(scenario) || ~isscalar(scenario) || ...
+        ~isfield(scenario, 'presetName') || ...
+        ~ismember(scenario.presetName, protocol.allowedPresets) || ...
+        ~isstruct(model) || ~isscalar(model)
+    error('ScaleEquivariantGatewayV254:InvalidConfigInput', ...
+        'V254 requires a registered temporal formation-braid scene and model.');
+end
+frozenModel = model;
+config = buildCausalMinimumFormationBackboneV242Config(scenario);
+config.topologyPolicyName = protocol.policyName;
+config.topologyPolicyFcn = @(context) ...
+    selectScaleEquivariantSafeGatewayV254Policy(context, frozenModel);
+config.topologyPolicyHistoryDepth = max( ...
+    config.topologyPolicyHistoryDepth, protocol.minimumHistoryDepth);
+config.topologyPolicyObservableContextOnly = true;
+config.topologyPolicySensorObservationEnabled = true;
+config.topologyPolicyPhysicalIdentityEnabled = true;
+end

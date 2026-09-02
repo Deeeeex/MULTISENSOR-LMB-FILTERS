@@ -115,6 +115,11 @@ The ordinary V242 assignment is always included as the reference action.  Let
 `Delta_hat` be the predicted robust advantage of the projected assignment over
 that reference.  V254 applies the learned assignment only when its calibrated
 lower confidence score is positive; otherwise it abstains and uses V242.
+The runtime path is therefore explicitly split into four functions: causal
+edge representation, a shared edge readout, exact matching projection and a
+thresholded policy wrapper.  A model failure is an invalid experiment rather
+than a silent route change; an uncertain but valid prediction is an ordinary
+V242 fallback.
 
 ## Properties supplied by construction
 
