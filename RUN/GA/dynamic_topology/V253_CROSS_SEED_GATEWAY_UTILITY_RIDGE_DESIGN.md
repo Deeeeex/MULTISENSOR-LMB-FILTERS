@@ -32,7 +32,7 @@ otherwise it uses the ordinary V242 gateway assignment.  This gives ridge a
 real abstention action instead of forcing a potentially harmful non-reference
 candidate at every page.
 
-Three representations are compared using training seeds only.  `mean-47` is
+Four representations are compared using training seeds only.  `mean-47` is
 the V251 permutation-invariant summary.  `edge-distribution-167` adds standard
 deviation, minimum and maximum pooling over the six directed gateway edges and
 over changed-edge deltas.  `formation-tail-327` additionally groups directed
@@ -40,9 +40,17 @@ edges by their receiving formation, averages the observable edge state within
 each receiver, and then pools the mean, standard deviation, minimum and maximum
 across formations for both the candidate state and its change from V242.  This
 last representation can expose a weak receiving formation that global edge
-pooling would dilute.  All three representations remain independent of sensor
-IDs, numeric formation IDs, truth and future data; the receiver-formation
-pooling also remains valid when the number of sensors or formations changes.
+pooling would dilute.  The first three representations remain independent of
+sensor IDs, numeric formation IDs, truth and future data; the
+receiver-formation pooling also remains valid when the number of sensors or
+formations changes.
+`payload-aware-328` appends the current candidate-to-reference attempted-byte
+ratio computed from the exact full-LMB payload-size estimator.  The estimate
+counts one local-cycle transmission per sensor plus the candidate's selected
+cross-formation senders.  It is available before routing and is only a
+controller feature; the transmitted posterior and mixture-aware LMB-KLA are
+unchanged.  This fourth representation shares the same identity, truth and
+future-information exclusions.
 
 ## Frozen selection and holdout gate
 
