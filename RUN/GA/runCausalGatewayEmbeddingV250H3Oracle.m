@@ -73,7 +73,8 @@ for windowIdx = 1:numel(protocol.anchorTimes)
             bank, anchorTime, endTime, protocol);
     else
         window = result.windows{windowIdx};
-        validateExistingWindow(window, bank, anchorTime, endTime);
+        validateExistingWindow( ...
+            window, bank, anchorTime, endTime, protocol);
     end
     cropped = cropInputs(inputs, endTime);
     for candidateIdx = 1:bank.candidateCount
@@ -237,7 +238,8 @@ window.selectedCandidateIndex = bank.referenceCandidateIndex;
 window.jointPositiveCandidateFound = false;
 end
 
-function validateExistingWindow(window, bank, anchorTime, endTime)
+function validateExistingWindow( ...
+        window, bank, anchorTime, endTime, protocol)
 valid = isstruct(window) && isscalar(window) && ...
     isfield(window, 'contractVersion') && ...
     strcmp(window.contractVersion, ...
