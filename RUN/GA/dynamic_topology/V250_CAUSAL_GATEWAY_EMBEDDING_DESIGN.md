@@ -67,5 +67,14 @@ bank proves that gateway changes have finite-horizon task value.
 5. Only after this gate, fit a ridge ranker on causal features.  A GNN is kept
    only if it improves complete held-out trajectories over ridge.
 
-V250 is a method specification until the structural bank and H=3 oracle are
-complete.  It currently makes no tracking-gain or generalization claim.
+## Structural preflight result
+
+The source-bound M24 preflight at `t=[70,84,151]` produced 21 unique,
+executable candidates at every anchor.  The corresponding raw assignment
+spaces contain `1,511,654,400`, `1,511,654,400`, and `1,428,840,000`
+combinations.  The minimum receiver-identity coverage is two in every
+formation at every anchor.  All candidates preserve 30 attempted messages,
+physical reachability, strong connectivity and valid KLA rows.
+
+This authorizes the paired H=3 tracking oracle.  It does not yet establish
+tracking value, justify a learned ranker, or support a generalization claim.
