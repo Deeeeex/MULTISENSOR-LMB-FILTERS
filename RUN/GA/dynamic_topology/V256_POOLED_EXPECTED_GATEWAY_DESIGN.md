@@ -31,7 +31,9 @@ directed formation slot.
 
 Each directed formation-tree slot contributes up to two physical one-arc
 alternatives.  A window may contain fewer than twelve actions when the current
-physical graph offers only one alternative in a slot; unavailable edges are
+physical graph offers only one alternative in a slot, or none when that slot
+has no executable replacement.  Such a slot is non-actionable for that window;
+its absence does not invalidate real alternatives in other slots, and edges are
 never fabricated to balance the dataset.  Ridge fitting gives every seed equal
 total weight, every registered anchor equal weight within a seed, and divides
 one anchor's weight uniformly over its observed actions.
