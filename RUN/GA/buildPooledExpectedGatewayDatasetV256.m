@@ -133,17 +133,19 @@ if ~isequal(sort(observedSeeds), sort(protocol.trainingSeeds))
 end
 expectedRecordCount = numel(protocol.trainingSeeds) * ...
     numel(protocol.anchorTimes);
-expectedActionCount = 2 * 2 * (4 - 1);
+actionRowsPerWindow = cellfun( ...
+    @(value) size(value.features, 1), records);
 if numel(records) ~= expectedRecordCount || ...
-        any(cellfun(@(value) size(value.features, 1), records) ~= ...
-            expectedActionCount)
+        any(actionRowsPerWindow < protocol.minimumActionsPerWindow) || ...
+        any(actionRowsPerWindow > protocol.maximumActionsPerWindow)
     error('PooledExpectedGatewayV256:DatasetShape', ...
-        'Every M24 training window must contain twelve local actions.');
+        ['Every M24 training window must retain one or two physical ', ...
+         'alternatives for each directed formation-tree slot.']);
 end
 
 dataset = struct();
 dataset.contractVersion = ...
-    'pooled-expected-gateway-v256-training-dataset-v1';
+    'pooled-expected-gateway-v256-training-dataset-v2';
 dataset.protocol = protocol;
 dataset.assemblyGitCommit = gitState.commit;
 dataset.checkpointPaths = allPaths;
@@ -156,7 +158,10 @@ dataset.records = records;
 dataset.recordCount = numel(records);
 dataset.actionRowCount = sum(cellfun( ...
     @(value) size(value.features, 1), records));
-dataset.actionsPerWindow = expectedActionCount;
+dataset.actionRowsPerWindow = actionRowsPerWindow;
+dataset.minimumActionsPerWindow = min(actionRowsPerWindow);
+dataset.maximumActionsPerWindow = max(actionRowsPerWindow);
+dataset.sampleWeighting = protocol.seedWeighting;
 dataset.communicationProjectionContractVersion = ...
     'pooled-expected-gateway-v256-communication-projection-v1';
 dataset.communicationAdmissionMode = ...

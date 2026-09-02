@@ -29,6 +29,13 @@ tree, local cycles, KLA weights and `N + 2(F-1)` posterior-message count.  The
 V255 teacher supplies the reference plus two ranked candidates for every
 directed formation slot.
 
+Each directed formation-tree slot contributes up to two physical one-arc
+alternatives.  A window may contain fewer than twelve actions when the current
+physical graph offers only one alternative in a slot; unavailable edges are
+never fabricated to balance the dataset.  Ridge fitting gives every seed equal
+total weight, every registered anchor equal weight within a seed, and divides
+one anchor's weight uniformly over its observed actions.
+
 Each edge has a 16-dimensional compact observable summary.  The action feature
 is
 
