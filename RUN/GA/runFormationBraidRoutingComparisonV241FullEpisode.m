@@ -45,6 +45,8 @@ if resume && exist(matPath, 'file') == 2
     crossCommitResume = validateExisting( ...
         loaded.result, result, armNames);
     result = loaded.result;
+    result.protocol = protocol;
+    result.evidenceBoundary = protocol.evidenceBoundary;
     result.currentExecutionGitCommit = gitState.commit;
     if crossCommitResume
         result.resumeSourceGenerationGitCommit = ...
