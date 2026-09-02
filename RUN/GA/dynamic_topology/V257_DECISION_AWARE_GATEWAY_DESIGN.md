@@ -46,3 +46,25 @@ calibration or holdout data.  Compact-only success motivates a better ranking
 model; rich-only success motivates a fixed-byte posterior compatibility sketch.
 Failure of both stops local gateway learning and redirects the method design to
 a different action scale or horizon.  GNN, X36 and paper claims remain sealed.
+
+## Frozen result
+
+The within-window uniform safe prevalence is 10.9%.  The strongest compact
+multi-output ranker reaches 14.3%, a lift of only 3.3 percentage points, and is
+positive in four of seven held seeds.  Its thresholded policy selects 16 of 42
+windows but only two selections are realized-safe; mean consistency regresses.
+The compact joint-safe model reaches only a 1.0-point lift and acts once.
+
+Exact pairwise posterior information does not repair the failure.  Its best
+top-action lift is 1.0 point.  The most conservative rich multi-output model
+selects 15 windows at 20% precision, with negative mean E-OSPA gain; the rich
+joint-safe models abstain completely.  Neither information mode passes the
+predeclared diagnostic.
+
+The local `one directed arc for H=3` learning route is therefore stopped before
+calibration.  The evidence points to a weak and realization-sensitive action,
+not merely a poor compact synopsis or the wrong regression loss.  A successor
+must change the intervention itself: a longer event-defined hold, coordinated
+cut reinforcement, or another action scale with a stronger deterministic link
+to consensus transport.  Increasing model capacity on the same labels is not
+authorized.
