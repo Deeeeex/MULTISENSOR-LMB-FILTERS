@@ -44,10 +44,15 @@ truth or future outcome.
 The seven training seeds are `1302--1304` and `1307--1310`.  A single
 multi-output ridge is fitted to all training rows with equal seed weight.  The
 regularization penalty is selected by leaving out one entire seed at a time.
-For each fold, squared prediction error is normalized by the training-fold
-standard deviation of that outcome and then averaged equally over seven
-tracking outcomes: network E-OSPA, network RMSE, consistency, two formation-tail
-coordinates and two receiver-formation coordinates.
+The fit may use all topologically valid one-arc outcomes, but model selection
+is evaluated only on held-seed actions that pass the deterministic
+communication projection, because other actions cannot be selected online.
+For each fold, squared prediction error is normalized by the supported
+training-fold standard deviation of that outcome and then averaged equally
+over seven tracking outcomes: network E-OSPA, network RMSE, consistency, two
+formation-tail coordinates and two receiver-formation coordinates.  Fold
+errors are averaged with equal weight per held seed, so a seed with more
+communication-feasible candidates cannot dominate the decision.
 
 The attempted-byte coordinate is still reported but cannot choose the penalty
 or admit an action.  Communication admission is a deterministic projection.

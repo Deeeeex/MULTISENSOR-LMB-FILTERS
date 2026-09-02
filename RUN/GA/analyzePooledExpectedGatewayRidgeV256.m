@@ -30,7 +30,8 @@ if ~isfield(envelope, 'dataset')
 end
 dataset = envelope.dataset;
 validateDataset(dataset, protocol);
-[features, targets, seedByRow] = flattenDataset(dataset);
+[features, targets, seedByRow, communicationFeasible] = ...
+    flattenDataset(dataset);
 
 configurations = repmat(emptyConfiguration(), ...
     1, numel(protocol.ridgeLambdaGrid));
@@ -39,7 +40,8 @@ bestKey = [-Inf, -Inf, -Inf];
 for lambdaIdx = 1:numel(protocol.ridgeLambdaGrid)
     lambda = protocol.ridgeLambdaGrid(lambdaIdx);
     evaluation = evaluateLambda( ...
-        features, targets, seedByRow, lambda, protocol);
+        features, targets, seedByRow, communicationFeasible, ...
+        lambda, protocol);
     configuration = emptyConfiguration();
     configuration.ridgeLambda = lambda;
     configuration.evaluation = evaluation;
@@ -65,6 +67,10 @@ model.outcomeNames = dataset.outcomeNames;
 model.trainingSeeds = protocol.trainingSeeds;
 model.featureTransform = protocol.actionFeatureTransform;
 model.modelSelectionMode = protocol.modelSelectionMode;
+model.modelSelectionActionSupport = ...
+    protocol.modelSelectionActionSupport;
+model.modelSelectionSeedAggregation = ...
+    protocol.modelSelectionSeedAggregation;
 model.ridgeLambda = selected.ridgeLambda;
 model.truthUsed = false;
 model.futureInformationUsed = false;
@@ -84,6 +90,7 @@ summary.datasetPath = datasetPath;
 summary.datasetAssemblyGitCommit = dataset.assemblyGitCommit;
 summary.trainingSeeds = protocol.trainingSeeds;
 summary.rowCount = size(features, 1);
+summary.communicationFeasibleRowCount = nnz(communicationFeasible);
 summary.featureCount = size(features, 2);
 summary.outcomeCount = size(targets, 2);
 summary.configurations = configurations;
@@ -173,10 +180,12 @@ valid = isstruct(record) && isscalar(record) && ...
 end
 end
 
-function [features, targets, seeds] = flattenDataset(dataset)
+function [features, targets, seeds, communicationFeasible] = ...
+        flattenDataset(dataset)
 features = zeros(dataset.actionRowCount, numel(dataset.featureNames));
 targets = zeros(dataset.actionRowCount, numel(dataset.outcomeNames));
 seeds = zeros(dataset.actionRowCount, 1);
+communicationFeasible = false(dataset.actionRowCount, 1);
 cursor = 0;
 for recordIdx = 1:numel(dataset.records)
     record = dataset.records{recordIdx};
@@ -185,6 +194,8 @@ for recordIdx = 1:numel(dataset.records)
     features(rows, :) = record.features;
     targets(rows, :) = record.targets;
     seeds(rows) = record.seed;
+    communicationFeasible(rows) = reshape( ...
+        logical(record.communicationProjection.candidateFeasible), [], 1);
     cursor = cursor + rowCount;
 end
 if cursor ~= dataset.actionRowCount || ...
@@ -195,31 +206,29 @@ end
 end
 
 function evaluation = evaluateLambda( ...
-        features, targets, seeds, lambda, protocol)
+        features, targets, seeds, communicationFeasible, lambda, protocol)
 trainingSeeds = protocol.trainingSeeds;
 outcomeCount = size(targets, 2);
 folds = repmat(emptyFold(), 1, numel(trainingSeeds));
-modelSquaredError = zeros(0, outcomeCount);
-baselineSquaredError = zeros(0, outcomeCount);
 for foldIdx = 1:numel(trainingSeeds)
     heldSeed = trainingSeeds(foldIdx);
     train = seeds ~= heldSeed;
-    test = seeds == heldSeed;
-    if ~any(train) || ~any(test)
+    trainSupport = train & communicationFeasible;
+    test = seeds == heldSeed & communicationFeasible;
+    if ~any(train) || ~any(trainSupport) || ~any(test)
         error('PooledExpectedGatewayV256:FoldCoverage', ...
-            'A V256 leave-one-seed-out fold is empty.');
+            ['A V256 leave-one-seed-out fold has no deterministic ', ...
+             'communication-feasible support.']);
     end
     model = fitRidge(features(train, :), targets(train, :), lambda);
     prediction = predictRidge(model, features(test, :));
-    baseline = repmat(mean(targets(train, :), 1), nnz(test), 1);
-    scale = std(targets(train, :), 0, 1);
+    baseline = repmat(mean(targets(trainSupport, :), 1), nnz(test), 1);
+    scale = std(targets(trainSupport, :), 0, 1);
     scale = max(scale, protocol.outputScaleFloor);
     modelError = bsxfun(@rdivide, ...
         prediction - targets(test, :), scale) .^ 2;
     baselineError = bsxfun(@rdivide, ...
         baseline - targets(test, :), scale) .^ 2;
-    modelSquaredError = [modelSquaredError; modelError]; %#ok<AGROW>
-    baselineSquaredError = [baselineSquaredError; baselineError]; %#ok<AGROW>
     fold = emptyFold();
     fold.heldSeed = heldSeed;
     fold.rowCount = nnz(test);
@@ -235,8 +244,8 @@ for foldIdx = 1:numel(trainingSeeds)
         fold.baselineMseByOutcome(protocol.primaryOutcomeIndex);
     folds(foldIdx) = fold;
 end
-modelMse = mean(modelSquaredError, 1);
-baselineMse = mean(baselineSquaredError, 1);
+modelMse = mean(vertcat(folds.modelMseByOutcome), 1);
+baselineMse = mean(vertcat(folds.baselineMseByOutcome), 1);
 tracking = protocol.modelSelectionOutcomeIndices;
 evaluation = struct();
 evaluation.folds = folds;
@@ -303,6 +312,8 @@ fprintf(fid, '- Analysis commit: `%s`\n', summary.analysisGitCommit);
 fprintf(fid, '- Training seeds: `%s`\n', mat2str(summary.trainingSeeds));
 fprintf(fid, '- Rows / features / outcomes: `%d / %d / %d`\n', ...
     summary.rowCount, summary.featureCount, summary.outcomeCount);
+fprintf(fid, '- Deterministic communication-feasible rows: `%d/%d`\n', ...
+    summary.communicationFeasibleRowCount, summary.rowCount);
 fprintf(fid, '- Selected ridge lambda: `%.6g`\n', ...
     selected.ridgeLambda);
 fprintf(fid, '- Mean tracking skill over seed-blind mean: `%+.3f%%`\n', ...
