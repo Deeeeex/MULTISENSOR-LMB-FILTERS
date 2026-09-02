@@ -128,3 +128,27 @@ bound over arbitrary directed graphs.
 
 V249 is a method specification until the oracle and closed-loop paired results
 exist.  It makes no current tracking-gain or generalization claim.
+
+## Structural falsification on the corrected scene
+
+The M24 V247 physical formation graph was inspected at the registered cut and
+handover anchors `t=[70,84,151]`.  At every anchor it contains exactly three
+undirected formation edges for four formations.  The graph is already a tree,
+and the exact V249 enumeration returns `[1,1,1]` feasible spanning trees,
+including the V242 reference.  There is therefore no alternative formation
+tree to score at any of the registered task-coupled windows.
+
+This falsifies the V249 action definition before any H=3 tracking rollout or
+GNN training.  The result does not falsify minimum-budget routing itself.  It
+shows that the useful degree of freedom lies one level lower: the same unique
+formation skeleton admits many physical sensor-to-sensor gateway embeddings.
+At the three anchors, the directed incoming-gateway assignment counts are
+respectively `[1080,36,1080,36]`, `[1080,36,1080,36]` and
+`[1050,36,36,1050]` by formation, corresponding to approximately
+`1.51e9`, `1.51e9` and `1.43e9` global combinations before bounded candidate
+construction.
+
+The next method should therefore keep the V242 formation tree, local cycles,
+message count and safety projection fixed while selecting a small causal bank
+of sensor-level cross-formation gateway assignments.  A finite-horizon oracle
+must again demonstrate joint tracking headroom before fitting a value model.
