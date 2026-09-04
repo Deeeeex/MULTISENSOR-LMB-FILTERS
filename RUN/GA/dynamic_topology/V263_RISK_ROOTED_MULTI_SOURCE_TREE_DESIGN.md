@@ -71,3 +71,29 @@ both improve, network E-OSPA, RMSE and consistency stay within the registered
 2% guards, no formation regresses by more than 3%, and spliced full-episode
 traffic remains below the static baseline.  The thresholds are inherited and
 will not be retuned after observing this continuation.
+
+## Result and structural conclusion
+
+V263 initiated the risk-rooted tree at `t=57` and kept it active through
+`t=66`.  Every active page was componentwise shortest to F4, the route served
+both eligible sources F1 and F2, and all physical, connectivity and 30-message
+requirements held.  Relative to V242, network E-OSPA improved by 2.302%,
+consistency by 4.185%, and F4 event RMSE by 26.236%.  However, network RMSE
+regressed by 7.723%, F4 event E-OSPA regressed by 0.634%, and formation RMSE
+regressed by 39.650% for F2 and 43.135% for F3.  The complete gate fails and a
+full M24 run is not authorized.
+
+The route comparison isolates the remaining topology conflict.  V242 uses
+the formation chain `F1-F2-F3-F4`; V263 uses `F1-F3, F2-F3, F3-F4`.  The
+latter improves F1-to-F4 and F1-to-F3 while preserving F2-to-F4, but it removes
+the direct F1-to-F2 exchange and lengthens that pair from one hop to two.  A
+tree has no fourth edge with which to preserve all of these relations.
+
+The next screen therefore relaxes the exact-tree constraint by the smallest
+possible amount: retain the V263 risk-rooted tree and restore only the
+displaced incumbent F1-F2 edge with its existing V242 residual trust.  The
+result is one formation-level cycle, two additional directed messages, and no
+new weight hyperparameter.  It componentwise dominates the V242 and V263
+pairwise-distance patterns while remaining below the static communication
+budget.  Label-selective trust is deferred until this minimal topology
+redundancy is tested.
