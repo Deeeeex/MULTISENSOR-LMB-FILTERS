@@ -1,0 +1,29 @@
+function context = ...
+        buildRiskRootedMultiSourceTreeV263ExecutionContext( ...
+            presetName, seed, measurementTimeCount)
+% BUILDRISKROOTEDMULTISOURCETREEV263EXECUTIONCONTEXT Dev permit.
+
+protocol = getRiskRootedMultiSourceTreeV263Protocol();
+if ~ischar(presetName) || ...
+        ~ismember(presetName, protocol.allowedPresets) || ...
+        ~ismember(seed, protocol.allowedSeeds) || ...
+        measurementTimeCount ~= protocol.continuationEndTime
+    error('RiskRootedMultiSourceV263:InvalidExecutionContextInput', ...
+        'V263 requires its registered continuation.');
+end
+context = struct();
+context.contractVersion = ...
+    'risk-rooted-multi-source-tree-v263-context-v1';
+context.capability = ...
+    'risk-rooted-multi-source-tree-v263-development';
+context.action = ...
+    'filter-risk-rooted-multi-source-tree-v263-development';
+context.protocolId = protocol.id;
+context.presetName = presetName;
+context.seed = seed;
+context.armId = protocol.armId;
+context.measurementTimeCount = measurementTimeCount;
+context.continuationStartTime = protocol.continuationStartTime;
+context.policyName = protocol.policyName;
+context.developmentEvidenceOnly = true;
+end
