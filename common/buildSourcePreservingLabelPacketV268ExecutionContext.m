@@ -1,0 +1,29 @@
+function context = ...
+        buildSourcePreservingLabelPacketV268ExecutionContext( ...
+            presetName, seed, measurementTimeCount)
+% BUILDSOURCEPRESERVINGLABELPACKETV268EXECUTIONCONTEXT Dev permit.
+
+protocol = getSourcePreservingLabelPacketV268Protocol();
+if ~ischar(presetName) || ...
+        ~ismember(presetName, protocol.allowedPresets) || ...
+        ~ismember(seed, protocol.allowedSeeds) || ...
+        measurementTimeCount ~= protocol.continuationEndTime
+    error('SourcePreservingLabelPacketV268:InvalidContextInput', ...
+        'V268 requires its registered continuation.');
+end
+context = struct();
+context.contractVersion = ...
+    'source-preserving-label-packet-v268-context-v1';
+context.capability = ...
+    'source-preserving-label-packet-v268-development';
+context.action = ...
+    'filter-source-preserving-label-packet-v268-development';
+context.protocolId = protocol.id;
+context.presetName = presetName;
+context.seed = seed;
+context.armId = protocol.armId;
+context.measurementTimeCount = measurementTimeCount;
+context.continuationStartTime = protocol.continuationStartTime;
+context.policyName = protocol.policyName;
+context.developmentEvidenceOnly = true;
+end
