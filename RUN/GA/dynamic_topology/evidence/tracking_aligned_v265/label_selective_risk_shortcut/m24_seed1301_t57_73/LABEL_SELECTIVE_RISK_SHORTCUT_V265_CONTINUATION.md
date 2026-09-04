@@ -1,7 +1,7 @@
 # V265 label-selective risk shortcut
 
 - Scene / seed: `m24-formation-fov-temporal-coupled-formation-braid / 1301`
-- Generation commit: `596acd89fcd6c019c533c51ad21028769d0e0081`
+- Generation commit: `5d62da5960cefb30f9a5af69aa74c6b715fba174`
 - Continuation: `t=57--73` from the V259 V242 state
 - Label-route active / delivered / applied pages: `[57 58 59 60 61 62 63 64 65 66 67 68 69] / [57 59 60 62 63 64 65 66 67] / [57 59]`
 - Label payload attempted / delivered bytes: `10976 / 8064`
@@ -24,6 +24,24 @@
 - Window byte change vs V242: `-1.230%`
 - Short-horizon gate: `0`
 - Next method decision: `inspect-label-route-action-value-before-any-learned-ranker`
+
+## Receiver projection diagnostics
+
+| t | Source to receiver | Source r / risk | Target / donor risk | Candidate r | Change in log odds | log eta | Outcome |
+|--:|:--|:--|:--|--:|--:|--:|:--|
+| 57 | S2 to S13 | 0.915 / 0.009 | 0.273 / 0.008 | 0.258 | +0.127 | -0.051 | accepted |
+| 58 | S1 to S13 | 0.838 / 0.009 | 0.311 / 0.009 | NaN | +NaN | NaN | transport-drop |
+| 59 | S1 to S13 | 0.977 / 0.008 | 0.355 / 0.008 | 0.272 | +0.003 | -0.243 | accepted |
+| 60 | S2 to S13 | 0.995 / 0.007 | 0.384 / 0.007 | 0.210 | -0.399 | -0.845 | eta-existence-lower-bound-failed |
+| 61 | S3 to S13 | 0.997 / 0.007 | 0.432 / 0.007 | NaN | +NaN | NaN | transport-drop |
+| 62 | S3 to S13 | 0.989 / 0.008 | 0.456 / 0.006 | 0.240 | -0.510 | -0.795 | eta-existence-lower-bound-failed |
+| 63 | S6 to S13 | 0.999 / 0.004 | 0.522 / 0.005 | 0.176 | -1.036 | -1.408 | eta-existence-lower-bound-failed |
+| 64 | S5 to S13 | 0.991 / 0.005 | 0.588 / 0.006 | 0.146 | -0.942 | -1.232 | eta-existence-lower-bound-failed |
+| 65 | S5 to S13 | 0.997 / 0.004 | 0.647 / 0.006 | 0.143 | -0.736 | -1.110 | eta-existence-lower-bound-failed |
+| 66 | S5 to S13 | 0.990 / 0.005 | 0.718 / 0.007 | 0.163 | -0.483 | -0.781 | eta-existence-lower-bound-failed |
+| 67 | S5 to S13 | 0.985 / 0.005 | 0.794 / 0.009 | 0.155 | -0.628 | -0.912 | eta-existence-lower-bound-failed |
+| 68 | S4 to S13 | 1.000 / 0.006 | 0.884 / 0.009 | NaN | +NaN | NaN | transport-drop |
+| 69 | S4 to S13 | 0.989 / 0.009 | 0.967 / 0.009 | NaN | +NaN | NaN | transport-drop |
 
 ## Decision
 

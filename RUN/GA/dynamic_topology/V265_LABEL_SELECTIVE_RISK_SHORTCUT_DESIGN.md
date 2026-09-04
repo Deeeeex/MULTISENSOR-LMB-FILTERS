@@ -65,10 +65,19 @@ scheduled, nine were delivered, but only the messages at `t=57` and `t=59`
 passed the receiver-side existence-retention projection.  The result therefore
 establishes localization leverage but fails the registered joint gate.
 
-The next replay records the donor/target risk values and the exact projection
-margin on each page.  This is the minimum diagnostic needed to distinguish
-transport loss, a non-complementary donor, and rejection by the existence
-guard before changing the action itself.
+The focused replay identifies the failure mechanism.  Every delivered action
+from `t=60` through `t=67` fails the lower existence-retention bound.  Although
+the selected F1 source copies have existence `0.989--0.999` and very small
+normalized covariance risk, their powered-GM overlap with the F3 relay is low:
+the recorded `log eta` reaches `-1.408`, and the candidate fused existence
+falls to `0.143--0.240`.  Thus the fixed `0.05` share is not too weak; the
+selection rule confuses a confident source with a compatible source.
+
+The next action should keep the eta guard and turn it into a trust allocator:
+rank source--relay pairs by causal information quality and spatial
+compatibility, then use the largest positive label weight that remains inside
+the same existence envelope.  Relaxing the envelope would instead force
+inconsistent modes into KLA and is not authorized by this result.
 
 ## Evidence boundary and next decision
 
