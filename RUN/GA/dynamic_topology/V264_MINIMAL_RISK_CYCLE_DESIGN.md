@@ -71,3 +71,28 @@ The policy uses current LMB summaries, current physical links, current link
 reliability and past selected routes.  It reads no truth or future outcome.
 The current-network control synopsis remains centralized and uncharged, so
 this screen cannot establish deployment cost, validation or generalization.
+
+## Result and decision
+
+V264 activated the F1-F2 protective edge on every risk-rooted page from
+`t=57` through `t=66`.  Each active graph used 32 messages, dominated both
+tree distance vectors, remained physical and strongly connected, and reused
+the frozen 0.05 residual weight.  Spliced attempted bytes remained 9.904%
+below the corrected static baseline.
+
+Relative to V242, network E-OSPA improved by 2.281%, consistency by 4.312%,
+and F4 event RMSE by 25.689%.  Network RMSE nevertheless regressed by 5.230%,
+F4 event E-OSPA regressed by 0.593%, and F2/F3 RMSE regressed by 32.070% and
+46.336%.  Restoring F1-F2 reduced the network-RMSE loss from V263's 7.723% to
+5.230%, so the protective relation matters, but one extra full-posterior edge
+cannot remove the collateral label effects.  The registered gate fails and a
+full M24 run is not authorized.
+
+Together, V261--V264 show that topology changes have genuine leverage but a
+formation edge acts on every transmitted label at once.  Replacing a tree
+edge sacrifices another relation; adding the missing full-posterior edge
+reduces that sacrifice but still perturbs unrelated labels.  The next method
+decision is therefore label-selective routing: keep the V242 full-posterior
+backbone unchanged and add only the at-risk Bernoulli component on a physical
+shortcut.  This uses the label factorization of the LMB KLA instead of asking
+one global formation graph to serve conflicting label-level needs.
