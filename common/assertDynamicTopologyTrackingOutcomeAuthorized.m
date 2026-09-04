@@ -241,6 +241,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isOneShotPacketEpisodeV270ExecutionContext(executionContext)
+        authorization = validateOneShotPacketEpisodeV270Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isPositiveNetAddressablePayloadV97ExecutionContext( ...
             executionContext)
         authorization = ...

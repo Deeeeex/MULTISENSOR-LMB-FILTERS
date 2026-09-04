@@ -13,6 +13,7 @@ protocol.sourcePreservingPacketRouteEnabled = true;
 protocol.packetMaximumAge = 1;
 protocol.packetMetadataScalars = 2;
 protocol.beneficiaryMode = 'backbone-first';
+protocol.oneShotPerEpisodeEnabled = false;
 protocol.resultContractVersion = ...
     'source-preserving-label-packet-v268-result-v1';
 protocol.resultFileName = ...
