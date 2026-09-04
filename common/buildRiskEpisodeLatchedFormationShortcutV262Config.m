@@ -1,0 +1,23 @@
+function config = buildRiskEpisodeLatchedFormationShortcutV262Config(scenario)
+% BUILDRISKEPISODELATCHEDFORMATIONSHORTCUTV262CONFIG Exact-budget continuation.
+
+protocol = getRiskEpisodeLatchedFormationShortcutV262Protocol();
+if ~isstruct(scenario) || ~isscalar(scenario) || ...
+        ~isfield(scenario, 'presetName') || ...
+        ~ismember(scenario.presetName, protocol.allowedPresets) || ...
+        ~isfield(scenario, 'numberOfSensors') || ...
+        ~isfield(scenario, 'sensorGroupIds')
+    error('RiskEpisodeLatchV262:InvalidConfigInput', ...
+        'V262 requires its registered M24 formation-braid scene.');
+end
+formationCount = numel(unique(scenario.sensorGroupIds));
+minimumMessages = scenario.numberOfSensors + ...
+    2 * (formationCount - 1);
+config = buildCausalMinimumFormationBackboneV242Config(scenario);
+config.topologyPolicyName = protocol.policyName;
+config.topologyPolicyFcn = ...
+    @selectRiskEpisodeLatchedFormationShortcutV262Policy;
+config.topologyDirectedMessageBudget = minimumMessages;
+config.topologyPolicyScheduleHistoryEnabled = true;
+config.topologyPolicyScheduleHistoryDepth = 1;
+end
