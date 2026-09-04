@@ -59,3 +59,30 @@ bytes against corrected static routing.  A pass authorizes one full M24 run.
 A failure closes this source-preserving packet source/beneficiary pairing;
 threshold sweeps or a learned ranker are not justified by a failed causal
 action.
+
+## Paired result and beneficiary diagnosis
+
+V268 delivers a much stronger localization signal than the per-hop-fusion
+variants: network RMSE improves by `18.328%` and F4 event RMSE by `49.255%`
+over the paired V242 continuation.  This confirms the structural hypothesis
+that preserving source provenance and bypassing relay fusion prevents the
+intermediate F3 state from absorbing most of the useful spatial information.
+
+The joint gate still fails.  Network E-OSPA regresses by `0.317%`, F4 event
+E-OSPA by `1.293%`, consistency by `0.468%`, and mean absolute cardinality
+error rises from `9.9412` to `10.0441`.  All E-OSPA/cardinality loss is
+localized to F4 and begins after the first accepted final fusion.  Two packet
+actions are applied (`t=58,60`); a third delivered packet at `t=61` is rejected
+by the registered eta projection.  The spliced episode still saves `9.955%`
+bytes against corrected static routing after charging both packet hops.
+
+The current receiver rule sends both accepted packets to S22 because S22 is
+the V242 backbone-aligned downstream receiver.  At `t=58`, however, all six F4
+sensors are physically reachable from relay S13 and all six frozen link draws
+deliver.  S22 has selected-label existence `0.577`, while the reachable F4
+maximum is `0.655`.  The rule therefore optimizes route alignment but ignores
+the final receiver's label-survival margin.  V268 establishes real packet-level
+localization headroom but rejects the backbone-first beneficiary rule.  The
+next justified test is an existence-margin beneficiary selector over the same
+current physical target set; weights, source rule, packet age, two-hop byte
+charge and eta guard remain frozen.
