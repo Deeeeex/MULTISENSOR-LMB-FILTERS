@@ -1,0 +1,29 @@
+function context = ...
+        buildLabelSelectiveRiskShortcutV265ExecutionContext( ...
+            presetName, seed, measurementTimeCount)
+% BUILDLABELSELECTIVERISKSHORTCUTV265EXECUTIONCONTEXT Dev permit.
+
+protocol = getLabelSelectiveRiskShortcutV265Protocol();
+if ~ischar(presetName) || ...
+        ~ismember(presetName, protocol.allowedPresets) || ...
+        ~ismember(seed, protocol.allowedSeeds) || ...
+        measurementTimeCount ~= protocol.continuationEndTime
+    error('LabelSelectiveRiskShortcutV265:InvalidExecutionContextInput', ...
+        'V265 requires its registered continuation.');
+end
+context = struct();
+context.contractVersion = ...
+    'label-selective-risk-shortcut-v265-context-v1';
+context.capability = ...
+    'label-selective-risk-shortcut-v265-development';
+context.action = ...
+    'filter-label-selective-risk-shortcut-v265-development';
+context.protocolId = protocol.id;
+context.presetName = presetName;
+context.seed = seed;
+context.armId = protocol.armId;
+context.measurementTimeCount = measurementTimeCount;
+context.continuationStartTime = protocol.continuationStartTime;
+context.policyName = protocol.policyName;
+context.developmentEvidenceOnly = true;
+end

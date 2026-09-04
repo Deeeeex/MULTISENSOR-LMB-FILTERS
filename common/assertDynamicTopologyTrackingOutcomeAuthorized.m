@@ -214,6 +214,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isLabelSelectiveRiskShortcutV265ExecutionContext(executionContext)
+        authorization = validateLabelSelectiveRiskShortcutV265Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isPositiveNetAddressablePayloadV97ExecutionContext( ...
             executionContext)
         authorization = ...
