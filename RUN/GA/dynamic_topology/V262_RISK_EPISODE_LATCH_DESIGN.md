@@ -33,17 +33,20 @@ temporal decision rule:
    V242 or initiate a new valid episode.
 
 There is no tuned hold length and no future look-ahead.  The risk condition is
-both the entry and release clock.  A one-page schedule certificate is enough
-to carry the state, so no target truth, future measurement, future outcome or
-realized future delivery is exposed to the policy.
+both the entry and release clock.  The observable boundary reduces the prior
+schedule certificate to eleven latch-state fields before exposing it to the
+policy: the active flag, accepted tree, label, donor/target identities, hop
+distances and path identities.  Target truth, future measurements, future
+outcomes, realized future deliveries and unrelated diagnostics are removed.
 
 ## Runtime interface
 
-The common filter receives an opt-in policy-schedule history channel.  It is
+The common filter receives an opt-in policy-state history channel.  It is
 disabled by default and therefore does not change existing policies.  V262
-enables a depth-one history and reads only the immediately preceding schedule
-certificate.  This makes stateful hysteresis reusable by later controllers
-without encoding method state in sensor identifiers or process-global memory.
+enables a depth-one history and reads only the restricted state derived from
+the immediately preceding schedule.  This makes stateful hysteresis reusable
+by later controllers without encoding method state in sensor identifiers or
+process-global memory.
 
 The development controller still assumes a centralized current-network
 posterior synopsis, and that control traffic is not charged.  V262 is therefore
@@ -60,3 +63,26 @@ regresses by more than 3%, and spliced full-episode traffic remains below the
 static baseline.  Failure closes the single-donor latch and motivates a
 multi-source risk-aware tree objective; thresholds are not retuned on this
 window.
+
+## Result and decision
+
+The corrected observable-state run exercised the intended mechanism.  The
+shortcut was initiated at `t=57`, retained through `t=66`, released at `t=67`,
+and suppressed nine instantaneous donor switches.  All eleven runtime
+contract checks passed, including physical feasibility, strong connectivity,
+truth/future exclusion, exact 30-message parity, latch retention and switch
+suppression.
+
+Relative to the paired V242 continuation, V262 improved network E-OSPA by
+0.530%, RMSE by 7.878%, and consistency by 0.338%.  F4 event RMSE improved by
+24.311%, but F4 event E-OSPA regressed by 0.567%; F4 event mean absolute
+cardinality error also rose from 10.677 to 10.885.  Formation F2 RMSE regressed
+by 6.464%.  The latch therefore strengthened the localization benefit while
+making the set-support trade-off more visible; temporal chattering was not the
+remaining cause.
+
+The registered gate fails, so V262 does not open a full M24 run.  The next
+method must replace the single-donor objective with a multi-source formation
+tree: one source may reduce localization risk, while another preserves
+existence/cardinality support for the same at-risk label.  This change must
+keep the exact message budget rather than add residual transmissions.
