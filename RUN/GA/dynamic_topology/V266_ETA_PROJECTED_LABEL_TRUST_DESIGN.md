@@ -35,3 +35,28 @@ Only the final recursive tracking trajectory is scored.  If this projection
 does not preserve the V265 localization headroom while repairing its set and
 tail metrics, the next decision moves to source value or multi-hop latency;
 no learned ranker is authorized.
+
+## Paired result and revised decision
+
+V266 applies every delivered label message by selecting source shares between
+`0.00625` and `0.05`.  Relative to the paired V242 window, network RMSE improves
+by `13.076%` and F4 event RMSE by `34.773%`; these are substantially larger than
+V265's `4.660%` and `12.353%`.  The action therefore has real recursive
+localization value, and the eta-projected trust rule is the first deterministic
+mechanism with material headroom on this event.
+
+The joint gate still fails: network E-OSPA and consistency regress by `0.193%`
+and `0.328%`, F4 event E-OSPA regresses by `0.751%`, and mean absolute
+cardinality error increases by `0.690%`.  The degradation grows after the
+projection admits several candidates whose selected-label log odds decrease
+while the ordinary receiver is already below the `0.5` MAP threshold.  This
+isolates the remaining issue to the existence side of the selected Bernoulli,
+not to insufficient spatial influence.
+
+The next variant must remain a standard label-wise KLA and use an asymmetric
+retention rule: a MAP-negative ordinary label may gain support but may not lose
+additional log odds, while a MAP-positive label retains the existing threshold
+and `0.25` drop allowance.  This follows the intended safety semantics and is
+not a threshold sweep.  If that rule cannot keep the localization gain while
+repairing E-OSPA/cardinality, only then should the method move to source value
+or packet-level multi-hop routing.
