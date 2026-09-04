@@ -50,6 +50,9 @@ switch canonicalName
     case {'m24-formation-fov-merge-split', 'm24-merge-split-fov'}
         config = configureM24(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'m24-formation-fov-zipper-merge', 'm24-zipper-merge-fov'}
+        config = configureM24(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'zipper-merge');
     case {'m24-formation-fov-target-overlap', ...
             'm24-target-overlap-fov', ...
             'm24-formation-fov-target-merge-split'}
@@ -99,6 +102,9 @@ switch canonicalName
     case {'x36-formation-fov-merge-split', 'x36-merge-split-fov'}
         config = configureX36(config, 'formation-fov');
         config = applyFormationFovSceneStyle(config, 'merge-split');
+    case {'x36-formation-fov-zipper-merge', 'x36-zipper-merge-fov'}
+        config = configureX36(config, 'formation-fov');
+        config = applyFormationFovSceneStyle(config, 'zipper-merge');
     case {'x36-formation-fov-target-overlap', ...
             'x36-target-overlap-fov', ...
             'x36-formation-fov-target-merge-split'}

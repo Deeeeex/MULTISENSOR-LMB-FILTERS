@@ -156,6 +156,51 @@ switch styleName
             config.formationCount, 'merge-split');
         config.focusWindowName = 'formation-merge-and-branch-split';
         config = markExploratoryStyle(config);
+    case {'zipper-merge', 'dynamic-zipper-merge', ...
+            'dual-interchange-zipper'}
+        if mod(config.formationCount, 2) ~= 0
+            error('Zipper merge requires an even formation count.');
+        end
+        config.sceneStyle = 'zipper-merge';
+        config.informationFlowStyle = [ ...
+            'two-parallel-platoons-zipper-through-one-', ...
+            'shared-bottleneck-and-split'];
+        config.regionLimits = [-3000, 3000; -900, 900];
+        config.observationSpaceLimits = [-3000, 3000; -900, 900];
+        config.clutterSpatialProfile = ...
+            'uniform-global-box6000x1800-c4-v1';
+        config.commRange = 270;
+        config.formationHeadingMode = 'motion';
+        config.sensorFovHeadingMode = 'formation-shared-velocity';
+        config.sensorCenterWaypoints = ...
+            buildZipperMergeFormationWaypoints(config.formationCount);
+        [config.targetRoutes, ...
+            config.targetRouteSourceFormationIds, ...
+            config.targetRouteDestinationFormationIds, ...
+            config.targetRouteHandoverFractions, ...
+            config.targetRouteLaneSigns] = ...
+            buildZipperMergeTargetRoutes( ...
+                config.sensorCenterWaypoints, ...
+                config.sensorWaypointTimes, config.simulationLength);
+        config.targetBirthTimesByGroup = ...
+            ones(1, config.targetGroupCount);
+        config.targetDeathTimesByGroup = ...
+            config.simulationLength * ones(1, config.targetGroupCount);
+        config.normalizeTargetRouteDuration = false;
+        config.targetCrossTrackSpacing = 18;
+        config.minimumTargetSeparation = 8;
+        config.minimumSensorTargetSeparation = 30;
+        config.targetAccelerationLimit = 2.5;
+        config.requireStaticPhysicalAllTimes = false;
+        config.blockageWindows = zeros(0, 4);
+        config.blockageWindowTimes = [48, 80; 96, 128];
+        config.focusWindow = [35, 145];
+        config.focusWindowName = ...
+            'zipper-merge-reorder-split-and-paired-handoffs';
+        config.taskTopologyCouplingContract = [ ...
+            'paired-target-handoffs-during-one-sustained-', ...
+            'geometric-tree-failure-episode-v1'];
+        config = markExploratoryStyle(config);
     case {'target-overlap', 'target-group-overlap-split', ...
             'target-merge-split'}
         if mod(config.targetGroupCount, 2) ~= 0
@@ -563,6 +608,71 @@ for groupIdx = 1:targetGroupCount
     routes{groupIdx} = [ ...
         progress + longitudinalOffsets(groupIdx); y];
 end
+end
+
+function waypoints = buildZipperMergeFormationWaypoints(formationCount)
+% Two parallel platoons repeatedly enter a one-dimensional zipper chain.
+%
+% At the separated waypoints, odd/even formations occupy upper/lower road
+% lanes at the same longitudinal stations.  At both bottlenecks, their
+% longitudinal order becomes 1,2,...,F.  Same-lane edges of the initial
+% ladder then become unavailable, while adjacent zipper neighbours keep
+% the physical formation graph connected.  The same distances are used at
+% M24 and X36; increasing scale only adds another local road module.
+stationCount = formationCount / 2;
+gridX = centeredValues(stationCount, 300);
+zipperX = centeredValues(formationCount, 180);
+progress = [-400, -200, 0, 200, 400];
+waypoints = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    stationIdx = ceil(formationIdx / 2);
+    laneSign = 1 - 2 * mod(formationIdx, 2);
+    midpointX = 0.5 * (gridX(stationIdx) + ...
+        zipperX(formationIdx));
+    relativeX = [ ...
+        gridX(stationIdx), midpointX, zipperX(formationIdx), ...
+        midpointX, gridX(stationIdx)];
+    relativeY = laneSign * [110, 80, 50, 80, 110];
+    waypoints{formationIdx} = [progress + relativeX; relativeY];
+end
+end
+
+function [routes, sourceFormationIds, destinationFormationIds, ...
+        handoverFractions, laneSigns] = buildZipperMergeTargetRoutes( ...
+            formationWaypoints, waypointTimes, simulationLength)
+% Pairwise target ownership changes are centred on the two bottlenecks.
+formationCount = numel(formationWaypoints);
+timeValues = 1:simulationLength;
+normalizedTime = linspace(0, 1, simulationLength);
+denseFormationRoutes = cell(1, formationCount);
+for formationIdx = 1:formationCount
+    denseFormationRoutes{formationIdx} = interpolateStyleRoute( ...
+        waypointTimes, formationWaypoints{formationIdx}, timeValues);
+end
+sourceFormationIds = 1:formationCount;
+destinationFormationIds = pairedFormationDestinations(formationCount);
+handoverFractions = zeros(1, formationCount);
+routeCandidates = cell(formationCount, 2);
+for groupIdx = 1:formationCount
+    if mod(groupIdx, 2) == 1
+        transitionCentre = 0.35;
+    else
+        transitionCentre = 0.65;
+    end
+    handoverFractions(groupIdx) = transitionCentre;
+    alpha = smoothStep01((normalizedTime - ...
+        (transitionCentre - 0.25)) / 0.50);
+    source = denseFormationRoutes{sourceFormationIds(groupIdx)};
+    destination = ...
+        denseFormationRoutes{destinationFormationIds(groupIdx)};
+    movingReference = source .* (1 - alpha) + destination .* alpha;
+    routeCandidates{groupIdx, 1} = movingReference + ...
+        repmat([160; -230], 1, simulationLength);
+    routeCandidates{groupIdx, 2} = movingReference + ...
+        repmat([160; 230], 1, simulationLength);
+end
+[routes, laneSigns] = chooseTemporalServiceLanes( ...
+    routeCandidates, denseFormationRoutes);
 end
 
 function routes = buildTargetGroupOverlapSplitRoutes( ...
