@@ -1,0 +1,29 @@
+function context = ...
+        buildRiskTriggeredFormationShortcutV261ExecutionContext( ...
+            presetName, seed, measurementTimeCount)
+% BUILDRISKTRIGGEREDFORMATIONSHORTCUTV261EXECUTIONCONTEXT Dev permit.
+
+protocol = getRiskTriggeredFormationShortcutV261Protocol();
+if ~ischar(presetName) || ...
+        ~ismember(presetName, protocol.allowedPresets) || ...
+        ~ismember(seed, protocol.allowedSeeds) || ...
+        measurementTimeCount ~= protocol.continuationEndTime
+    error('RiskTriggeredShortcutV261:InvalidExecutionContextInput', ...
+        'V261 requires its registered continuation.');
+end
+context = struct();
+context.contractVersion = ...
+    'risk-triggered-formation-shortcut-v261-context-v1';
+context.capability = ...
+    'risk-triggered-formation-shortcut-v261-development';
+context.action = ...
+    'filter-risk-triggered-formation-shortcut-v261-development';
+context.protocolId = protocol.id;
+context.presetName = presetName;
+context.seed = seed;
+context.armId = protocol.armId;
+context.measurementTimeCount = measurementTimeCount;
+context.continuationStartTime = protocol.continuationStartTime;
+context.policyName = protocol.policyName;
+context.developmentEvidenceOnly = true;
+end
