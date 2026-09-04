@@ -55,6 +55,21 @@ and target F4.  It schedules S2 to S13; S13 is already the V242 gateway toward
 F4.  The selected physical link reliability is `0.79`, and 23 physical
 sensor-level carrier candidates satisfy the source-support gate.
 
+## First paired result
+
+The `t=57--73` continuation improved network RMSE by `4.660%`, F4 event RMSE
+by `12.353%`, and consistency by `0.044%` over the stored V242 continuation.
+Network E-OSPA regressed by `0.026%`, F4 event E-OSPA regressed by `0.065%`,
+and the weakest-formation RMSE did not improve.  Thirteen label messages were
+scheduled, nine were delivered, but only the messages at `t=57` and `t=59`
+passed the receiver-side existence-retention projection.  The result therefore
+establishes localization leverage but fails the registered joint gate.
+
+The next replay records the donor/target risk values and the exact projection
+margin on each page.  This is the minimum diagnostic needed to distinguish
+transport loss, a non-complementary donor, and rejection by the existence
+guard before changing the action itself.
+
 ## Evidence boundary and next decision
 
 The scenario, seed and event were opened by V259, so a positive result is
