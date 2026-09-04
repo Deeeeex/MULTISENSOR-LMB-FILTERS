@@ -219,6 +219,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isEtaProjectedLabelTrustV266ExecutionContext(executionContext)
+        authorization = validateEtaProjectedLabelTrustV266Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isPositiveNetAddressablePayloadV97ExecutionContext( ...
             executionContext)
         authorization = ...

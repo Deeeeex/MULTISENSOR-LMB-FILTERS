@@ -18,6 +18,7 @@ protocol.continuationEndTime = source.continuationEndTime;
 protocol.localizationEventWindow = source.localizationEventWindow;
 protocol.localizationEventFormation = source.localizationEventFormation;
 protocol.sourceWeight = backbone.crossResidualWeight;
+protocol.sourceWeightGrid = protocol.sourceWeight;
 protocol.minimumMapExistence = 0.50;
 protocol.maximumReferenceLogOddsDrop = 0.25;
 protocol.maximumReferenceLogOddsIncrease = 0.25;
@@ -28,6 +29,18 @@ protocol.outputRoot = fullfile('RUN', 'GA', 'dynamic_topology', ...
     'evidence', 'tracking_aligned_v265', ...
     'label_selective_risk_shortcut', ...
     'm24_seed1301_t57_73');
+protocol.resultContractVersion = ...
+    'label-selective-risk-shortcut-v265-result-v2';
+protocol.resultFileName = ...
+    'LABEL_SELECTIVE_RISK_SHORTCUT_V265_CONTINUATION.mat';
+protocol.reportFileName = ...
+    'LABEL_SELECTIVE_RISK_SHORTCUT_V265_CONTINUATION.md';
+protocol.reportTitle = 'V265 label-selective risk shortcut';
+protocol.displayName = 'V265 label-selective risk shortcut';
+protocol.passDecision = ...
+    'run-one-full-causal-m24-arm-with-the-frozen-label-route';
+protocol.failDecision = ...
+    'inspect-label-route-action-value-before-any-learned-ranker';
 protocol.minimumEventFormationRmseGainPercent = 0;
 protocol.minimumEventFormationEospaGainPercent = 0;
 protocol.maximumNetworkRegressionPercent = 2;

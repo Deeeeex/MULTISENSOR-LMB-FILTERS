@@ -15,6 +15,8 @@ config.topologyPolicyName = protocol.policyName;
 config.topologyPolicyFcn = @selectLabelSelectiveRiskShortcutV265Policy;
 config.topologyPolicyLabelInputRouteEnabled = true;
 config.topologyPolicyLabelInputRouteSourceWeight = protocol.sourceWeight;
+config.topologyPolicyLabelInputRouteSourceWeightGrid = ...
+    protocol.sourceWeightGrid;
 config.topologyPolicyLabelInputRouteEtaProjectionEnabled = true;
 config.topologyPolicyLabelInputRouteMinimumMapExistence = ...
     protocol.minimumMapExistence;
