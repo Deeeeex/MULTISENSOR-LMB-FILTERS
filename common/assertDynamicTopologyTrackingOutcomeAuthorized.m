@@ -224,6 +224,11 @@ if ~isempty(fieldnames(executionContext))
             model, executionContext, runtimeRequest);
         return;
     end
+    if isAsymmetricEtaRetentionV267ExecutionContext(executionContext)
+        authorization = validateAsymmetricEtaRetentionV267Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isPositiveNetAddressablePayloadV97ExecutionContext( ...
             executionContext)
         authorization = ...

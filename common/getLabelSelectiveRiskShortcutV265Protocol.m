@@ -21,6 +21,8 @@ protocol.sourceWeight = backbone.crossResidualWeight;
 protocol.sourceWeightGrid = protocol.sourceWeight;
 protocol.minimumMapExistence = 0.50;
 protocol.maximumReferenceLogOddsDrop = 0.25;
+protocol.maximumSubMapReferenceLogOddsDrop = ...
+    protocol.maximumReferenceLogOddsDrop;
 protocol.maximumReferenceLogOddsIncrease = 0.25;
 protocol.etaIdentityTolerance = 1e-8;
 protocol.filterSeedOffset = source.filterSeedOffset;
