@@ -525,6 +525,10 @@ function value = meanOrNaN(values)
 if isempty(values), value = NaN; else, value = mean(values); end
 end
 
+function value = maxOrNaN(values)
+if isempty(values), value = NaN; else, value = max(values); end
+end
+
 function sensors = selectFormationRepresentativesLocal(groupIds)
 groups = unique(groupIds, 'stable');
 sensors = zeros(1, numel(groups));
