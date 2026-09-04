@@ -209,6 +209,11 @@ if ~isempty(fieldnames(executionContext))
                 model, executionContext, runtimeRequest);
         return;
     end
+    if isMinimalRiskCycleV264ExecutionContext(executionContext)
+        authorization = validateMinimalRiskCycleV264Execution( ...
+            model, executionContext, runtimeRequest);
+        return;
+    end
     if isPositiveNetAddressablePayloadV97ExecutionContext( ...
             executionContext)
         authorization = ...
