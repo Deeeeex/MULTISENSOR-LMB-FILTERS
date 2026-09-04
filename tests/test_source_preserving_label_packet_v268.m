@@ -2,25 +2,29 @@ function test_source_preserving_label_packet_v268()
 % TEST_SOURCEPRESERVINGLABELPACKET_V268 Two-hop source/age semantics.
 
 model = generateMultisensorModel( ...
-    3, zeros(1, 3), 0.9 * ones(1, 3), ...
-    3 * ones(1, 3), 'GA', 'LBP');
-model.dynamicTopologyScenario.config.sensorGroupIds = [1, 2, 3];
+    4, zeros(1, 4), 0.9 * ones(1, 4), ...
+    3 * ones(1, 4), 'GA', 'LBP');
+model.dynamicTopologyScenario.config.sensorGroupIds = [1, 2, 3, 3];
 label = [1; 4];
 source = makeObject(model, label, 0.80, [1; 2; 0.5; -0.25]);
 relay = makeObject(model, [1; 2], 0.60, zeros(4, 1));
 target = makeObject(model, label, 0.55, [4; 5; 0; 0]);
-posteriors = {source, relay, target};
+targetHigh = makeObject(model, label, 0.75, [5; 6; 0; 0]);
+posteriors = {source, relay, target, targetHigh};
 relayBefore = posteriors{2};
 
-physical = false(3);
+physical = false(4);
 physical(1, 2) = true;
 physical(2, 1) = true;
 physical(2, 3) = true;
 physical(3, 2) = true;
-delivered = false(3);
+physical(2, 4) = true;
+physical(4, 2) = true;
+delivered = false(4);
 delivered(1, 2) = true;
 delivered(2, 3) = true;
-edgeMask = false(3);
+delivered(2, 4) = true;
+edgeMask = false(4);
 edgeMask(2, 3) = true;
 config = struct( ...
     'topologyPolicySourcePreservingLabelPacketMaximumAge', 1, ...
@@ -73,6 +77,22 @@ assert(abs(route2.sourceObject.r - ...
 assert(norm(route2.sourceObject.mu{1} - ...
     (model.A * source.mu{1} + model.u)) <= 1e-12);
 assert(isempty(cache));
+
+% V269 changes only the beneficiary rule: maximum label-existence margin
+% takes S4 even though the current backbone edge points to S3.
+[~, marginCache] = prepareSourcePreservingLabelPacketRouteV268( ...
+    posteriors, physical, delivered, edgeMask, schedule, ...
+    model, 1, struct([]), config);
+config.topologyPolicySourcePreservingLabelPacketBeneficiaryMode = ...
+    'maximum-existence-margin';
+[marginRoute, marginCache, marginPage] = ...
+    prepareSourcePreservingLabelPacketRouteV268( ...
+        posteriors, physical, delivered, edgeMask, idleSchedule, ...
+        model, 2, marginCache, config);
+assert(marginRoute.active && isequal(marginRoute.receiverIds, 4));
+assert(~marginPage.secondHopBackboneAligned);
+assert(abs(marginPage.secondHopReceiverExistence - 0.75) <= 1e-12);
+assert(isempty(marginCache));
 fprintf('test_source_preserving_label_packet_v268 passed\n');
 end
 

@@ -4,7 +4,9 @@ function [reportPath, result] = ...
 
 if nargin < 1 || isempty(options), options = struct(); end
 variant = lower(char(getField(options, 'variant', 'v265')));
-if strcmp(variant, 'v268')
+if strcmp(variant, 'v269')
+    protocol = getExistenceMarginBeneficiaryV269Protocol();
+elseif strcmp(variant, 'v268')
     protocol = getSourcePreservingLabelPacketV268Protocol();
 elseif strcmp(variant, 'v266')
     protocol = getEtaProjectedLabelTrustV266Protocol();
@@ -14,7 +16,8 @@ elseif strcmp(variant, 'v265')
     protocol = getLabelSelectiveRiskShortcutV265Protocol();
 else
     error('LabelSelectiveRiskShortcut:UnknownVariant', ...
-        'The continuation variant must be v265, v266, v267 or v268.');
+        ['The continuation variant must be v265, v266, v267, v268 ', ...
+         'or v269.']);
 end
 tracePath = char(getField(options, 'tracePath', ''));
 resume = logical(getField(options, 'resume', true));
@@ -82,7 +85,9 @@ v242.splicedStaticByteSavingPercent = 100 * ...
     trace.passiveArm.attemptedPayloadBytes) / ...
     reference.fixedTree.attemptedPayloadBytes;
 
-if strcmp(variant, 'v268')
+if strcmp(variant, 'v269')
+    config = buildExistenceMarginBeneficiaryV269Config(inputs.config);
+elseif strcmp(variant, 'v268')
     config = buildSourcePreservingLabelPacketV268Config(inputs.config);
 elseif strcmp(variant, 'v266')
     config = buildEtaProjectedLabelTrustV266Config(inputs.config);
@@ -93,7 +98,10 @@ else
 end
 config = attachContinuation(config, initialPosteriors, initialHistory, ...
     protocol.continuationStartTime, tracePath);
-if strcmp(variant, 'v268')
+if strcmp(variant, 'v269')
+    execution = buildExistenceMarginBeneficiaryV269ExecutionContext( ...
+        bundle.presetName, bundle.seed, protocol.continuationEndTime);
+elseif strcmp(variant, 'v268')
     execution = buildSourcePreservingLabelPacketV268ExecutionContext( ...
         bundle.presetName, bundle.seed, protocol.continuationEndTime);
 elseif strcmp(variant, 'v266')
@@ -277,6 +285,7 @@ arm.firstHopRejectionReasonByTime = repmat({''}, 1, numel(times));
 arm.secondHopOriginalSourceIdByTime = zeros(1, numel(times));
 arm.secondHopSenderIdByTime = zeros(1, numel(times));
 arm.secondHopRejectionReasonByTime = repmat({''}, 1, numel(times));
+arm.secondHopReceiverExistenceByTime = nan(1, numel(times));
 for localTime = 1:numel(times)
     currentTime = times(localTime);
     schedule = diagnostics.topologyPolicyScheduleCertificate{currentTime};
@@ -330,6 +339,8 @@ for localTime = 1:numel(times)
             pageDetails, 'secondHopSenderId', 0);
         arm.secondHopRejectionReasonByTime{localTime} = getField( ...
             pageDetails, 'secondHopRejectionReason', '');
+        arm.secondHopReceiverExistenceByTime(localTime) = getField( ...
+            pageDetails, 'secondHopReceiverExistence', NaN);
         if arm.finalReceiverSensorIdByTime(localTime) > 0
             receiverId = arm.finalReceiverSensorIdByTime(localTime);
         end
@@ -711,11 +722,12 @@ if packetRoute
         second = '-';
         secondOutcome = '-';
         if candidate.secondHopScheduledByTime(localTime)
-            second = sprintf('S%d to S%d (S%d, age %.0f)', ...
+            second = sprintf('S%d to S%d (S%d, age %.0f, r %.3f)', ...
                 candidate.secondHopSenderIdByTime(localTime), ...
                 candidate.finalReceiverSensorIdByTime(localTime), ...
                 candidate.secondHopOriginalSourceIdByTime(localTime), ...
-                candidate.secondHopAgeByTime(localTime));
+                candidate.secondHopAgeByTime(localTime), ...
+                candidate.secondHopReceiverExistenceByTime(localTime));
             if candidate.secondHopDeliveredByTime(localTime)
                 if candidate.appliedByTime(localTime)
                     secondOutcome = 'delivered-and-fused';
