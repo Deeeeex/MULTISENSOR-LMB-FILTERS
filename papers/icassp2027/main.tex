@@ -35,7 +35,7 @@ Mobile sensor formations exchange posteriors to track beyond individual
 fields of view. Motion can break an initial route even when alternative
 physical links exist. Retaining many inputs improves redundancy but
 repeatedly transmits multi-object densities. Which inputs should reach
-which receivers within a finite tracking interval?
+which receivers soon enough to support both object existence and location?
 
 The labeled multi-Bernoulli (LMB) filter represents object existence and
 spatial states \cite{reuter2014lmb}. Consensus LMB filtering uses
@@ -277,8 +277,7 @@ in complete target-set recovery.
 
 X36 sparse repair has finite RMSE on 97.465\% of sensor--time cells, versus
 100\% for fixed routing. On common finite cells the means are 19.329 and
-31.394\,m, a 38.431\% reduction. Aligned cells need not contain the same
-matched target identities.
+31.394\,m, a 38.431\% reduction. Matched targets can still differ.
 
 \subsection{How much can localization alone improve?}
 To separate position refinement from target-set recovery, write squared
@@ -314,19 +313,20 @@ blackout is below 2.8\%, ideal eight-step sparse-path coverage falls from
 81.261\% on M24 to 63.183\% on X36. Perfect detection and indefinite
 retention are assumed; these are opportunities, not label recall.
 
-In an unchanged 40-step X36 trace, inputs without opportunity lineage
-contribute only 0.94\% of negative weighted log-odds magnitude at steps
-36--40. Yet 3,117/3,227 pools below pre-spatial existence 0.5 have no active
-input with $r\geq0.9$; these are descriptive levels, not output thresholds.
-Lineage includes missed detections propagated through used inputs, not
-confirmed detections or retained strength. Cold-start and cumulative
-spatial-overlap effects remain unisolated.
-Full multi-view LMB baselines, independent seeds, a zipper-merge scene,
-control-inclusive accounting and decentralized routing remain open.
+An unchanged 40-step X36 trace separates historical access from evidence
+strength: at steps 36--40, 3,117/3,227 pools below pre-spatial existence 0.5
+lack an active input with $r\geq0.9$. These are descriptive levels, not output
+thresholds. Opportunity lineage includes misses, not confirmed detections
+or retained strength. Recovery must be evaluated with the localization of
+additional outputs; a smaller covariance alone does not identify a more
+accurate source.
+Multi-view LMB baselines, independent seeds, zipper-merge validation,
+control traffic and decentralized routing remain open.
 
 \section{Conclusion}
-Sparse repair saves posterior traffic in two development cases. Target-set
-and weakest-formation tradeoffs remain unresolved.
+Sparse repair saves posterior traffic, but target-set and weakest-formation
+tradeoffs remain. Planned connectivity alone guarantees neither existence
+retention nor reliable localization.
 
 \section*{Acknowledgements and declarations}
 This work received no external funding. The authors declare no conflicts

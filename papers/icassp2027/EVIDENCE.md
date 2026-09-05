@@ -227,6 +227,36 @@ document or board was created. Routine integration status stayed out of Lark.
 The existing evidence-lint command returned `PASS: papers/icassp2027/EVIDENCE.md`
 after adding E13--E15; no additional adversarial or hash audit was run.
 
+### Spatial access and source reliability, 2026-09-06
+
+V285 and V286 are now completed saved-result diagnostics. They show why
+source access and reliable source selection must be distinguished; they
+do not add a candidate to the performance table. Exact scripts, scoped
+findings and numerical exports are in
+`RUN/GA/dynamic_topology/V285_SOURCE_AVAILABILITY_FINDING.md` and
+`RUN/GA/dynamic_topology/V286_FULL_MIXTURE_SOURCE_RISK_FINDING.md`.
+The source-description deduplication correction retains label identity;
+the source-selection RMSE tables are unchanged. This remains self-check
+only, not independent validation.
+
+The paper's question, discussion and conclusion now require both existence
+retention and reliable localization. No oracle number or failed new arm was
+added to the main table. `tectonic --keep-logs main.tex` completed with exit 0
+and generated the five-page PDF. Existing underfull-box and repeated-BibTeX
+rerun warnings remain; no missing citation or visible clipping was observed.
+Python PDFium readback places the complete conclusion on page 4 and only
+declarations/references on page 5. The changed pages 1, 4 and 5 were rendered
+and inspected. The two manuscript figures are unchanged; the new Python
+source-access/ranking figure is retained only with the V286 experiment.
+
+The canonical Lark document was updated in place to revision 1250. Six
+targeted paragraph replacements align the TL;DR, method rationale and next
+decision, plus one stale heading correction. Section/keyword readback
+confirmed the updated wording and preserved whiteboard
+`Yv1nwom4Bh15o5batldjLRr6prc`. The approved SVG had already been synchronized
+at `959a7f5`; it was not overwritten again. No best-table row, new document,
+or new board was created. The local mainline note uses the same framing.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth

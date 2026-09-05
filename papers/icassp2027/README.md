@@ -82,3 +82,13 @@ The routing-related comparison now includes Ramachandran et al., IEEE TCNS
 and joint topology/weight design already have prior art. Our remaining
 novelty burden is the useful interaction of a fixed sparse budget, directed
 delivery and finite-round LMB target-set recovery, not dynamic topology alone.
+
+V284--V286 now narrow the design requirement to joint existence retention and
+reliable spatial updates. The paired prefix and saved-output source analyses
+remain experiment records, not new best-table rows. Global same-label output
+headroom does not establish an available, accurate source selector; replacing
+component covariance with full-GM output risk still harms some formations in
+the final-snapshot check. The manuscript and mainline note state this design
+boundary without presenting oracle figures as tracking improvements.
+The new two-panel source diagnostic is retained with the V286 experiment,
+outside the two manuscript figures. No filter is running at this handoff.
