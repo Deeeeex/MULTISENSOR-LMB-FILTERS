@@ -15,9 +15,14 @@ The weight example has self / main-neighbor / weak-neighbor weights of
 0.8333 / 0.1667 to the surviving inputs; self fallback gives 0.95 / 0.05.
 These are two processing rules, not a claim that the candidate is uniformly better.
 
-The local SVG/PNG contain the completed V278 status. The retained online preview
-is still the earlier version: the minimal raw-node update was rejected, and an
-SVG overwrite awaits user confirmation. Do not treat that preview as synchronized.
+The approved SVG overwrite synchronized the existing Lark whiteboard
+`Yv1nwom4Bh15o5batldjLRr6prc` on 2026-09-06 (returned node `o1:103`).
+`method_mainline_lark-online-preview.jpg` was exported from that same board and
+visually checked for the `V278 已测试` label and the `相对原稀疏骨干` X36 footnote.
+The content is synchronized; Lark changes text colors/font layout and exports a
+square canvas, so the online preview is not pixel-identical to the local PNG.
+The SVG overwrite does not preserve native node identities or connector bindings,
+as approved by the user.
 
 To regenerate the local PNG on macOS from this directory:
 

@@ -113,6 +113,15 @@ was performed; that fallback awaits the user's confirmation because it rebuilds
 the board's node semantics. The retained online preview is therefore the earlier
 version, not evidence that the final status-text update reached Lark.
 
+On 2026-09-06 the user explicitly approved that SVG replacement. The same
+board `Yv1nwom4Bh15o5batldjLRr6prc` was updated successfully with idempotency
+token `20260906-method-mainline-svg-sync-v1` (returned node `o1:103`). No new
+document or whiteboard block was created. The fresh exported preview replaces
+the earlier local JPG; the primary agent visually confirmed `V278 已测试`
+and the explicit `相对原稀疏骨干` comparison. This resolves the pending
+online-diagram status above; the SVG import rebuilt the board's internal
+node structure as authorized.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
