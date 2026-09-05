@@ -7,7 +7,7 @@ if nargin < 4
     diagnostics = struct();
 end
 stats = struct('scalarCount', 0, 'estimatedBytes', 0, ...
-    'objectCount', 0, 'componentCount', 0);
+    'objectCount', 0, 'componentCount', 0, 'lineageMetadataBytes', 0);
 if eventType <= 0 || isempty(objects)
     return;
 end
@@ -30,6 +30,11 @@ for idx = 1:numel(objects)
     stats.componentCount = stats.componentCount + componentCount;
     % label pair + existence probability
     payloadScalars = payloadScalars + 3;
+    if isfield(objects(idx), 'hasObservationLineage')
+        % Charge one full scalar, including false flags and lost attempts.
+        payloadScalars = payloadScalars + 1;
+        stats.lineageMetadataBytes = stats.lineageMetadataBytes + 8;
+    end
     % mixture weight + mean + full covariance per Gaussian component
     payloadScalars = payloadScalars + componentCount * ...
         (1 + stateDimension + stateDimension * stateDimension);

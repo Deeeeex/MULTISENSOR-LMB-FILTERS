@@ -466,7 +466,9 @@ if ~iscell(fullPosteriors) || isempty(fullPosteriors)
 end
 requiredFields = observablePosteriorFields();
 droppedFields = { ...
-    'trajectoryLength', 'trajectory', 'timestamps'};
+    'trajectoryLength', 'trajectory', 'timestamps', 'hasObservationLineage'};
+% V284's transmitted flag belongs to fusion, not to the unchanged geometry-
+% based routing policy. Admit it in the live object and strip it at this boundary.
 allowedInputFields = [requiredFields, droppedFields];
 posteriors = cell(size(fullPosteriors));
 for sensorIdx = 1:numel(fullPosteriors)
@@ -494,6 +496,12 @@ end
 end
 
 function validatePosteriorObject(object, stateDimension, currentTime)
+if isfield(object, 'hasObservationLineage') && ...
+        (~islogical(object.hasObservationLineage) || ...
+         ~isscalar(object.hasObservationLineage))
+    error('ObservableTopologyContext:InvalidPosterior', ...
+        'Observation lineage must be a logical scalar.');
+end
 if isfield(object, 'timestamps') && ~isempty(object.timestamps) && ...
         (~isa(object.timestamps, 'double') || ...
          ~isreal(object.timestamps) || ...
