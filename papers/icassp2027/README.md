@@ -55,10 +55,27 @@ background process finished normally; no automatic M24 extension was started.
 
 V281 is complete on three cached M24 anchors: local-posterior MAP counts are
 already about six before the final fusion, whose immediate overlap and
-pruning mass losses are small. The next trace targets earlier local updates
-and propagation, with current existence pooling kept distinct. The detailed
+pruning mass losses are small. That finding motivated the subsequent local
+update and propagation trace, keeping existence pooling distinct. The detailed
 record is not a new policy result, a full-episode causal attribution or X36
 evidence; it does not change the paper's performance table.
+
+V282 and V283 are now complete on the unchanged X36 prefix, steps 1--40.
+All output metric cells match the stored reference prefix. Late weak pools
+persist after observation-opportunity flags have spread: never-informed
+inputs supply 0.937% of negative weighted log-odds magnitude at steps 36--40,
+and 3,117/3,227 weak pools have no input with r >= 0.9. These descriptive
+statistics are not a new tracking result and do not exclude a lasting
+cold-start effect. The next design targets useful evidence strength and age
+over repeated hops, not geometry-only input exclusion or output thresholds.
+See `RUN/GA/dynamic_topology/V283_OBSERVATION_EVIDENCE_FINDING.md` from the
+repository root. No filter is running at this handoff.
+
+The paper now distinguishes GM-PHD CA-GCI from multi-view LMB prior art and
+from the repository's own absent-label FoV censor. Li et al. (FUSION 2018)
+and Wang et al. (Signal Processing 2018) were added with verified DOI metadata;
+the G. Li et al. reference uses its 2020 journal record. Full algorithmic
+reproduction and a faithful multi-view baseline are still open.
 
 The routing-related comparison now includes Ramachandran et al., IEEE TCNS
 2021, DOI 10.1109/TCNS.2021.3059794. Topology reconfiguration, small edit count

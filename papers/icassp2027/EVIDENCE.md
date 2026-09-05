@@ -12,8 +12,9 @@ V240/V242 routing; completed V278 single-factor receiver ablation; official ICAS
 V279 adds a post-hoc count-error budget from the same saved paired episodes.
 V280 adds geometric observation and ideal-retention packet-path opportunity.
 V281 adds a completed one-round reference replay at three saved M24 anchors.
-V282 adds a completed two-step X36 capture integration check; the 40-step
-reference diagnostic is running and is not a completed result.
+V282 adds the completed unchanged-reference X36 trace, steps 1--40.
+V283 separates untouched states from historical observation-opportunity paths
+in that same trace, without a new filter run or candidate evaluation.
 Old full/light equivalence and earlier fusion-code results are excluded.
 
 ## Risk Tier
@@ -33,6 +34,9 @@ L2: reproducible internal research draft. No submission or publication action.
 | C7 | X36 self fallback improves E-OSPA by 0.175% and focus consistency by 0.865% versus V242, but worsens conditional RMSE by 4.836%. | E7 | Single opened seed; fails the frozen 1% RMSE tolerance for an M24 follow-up; worst formation RMSE change is -37.361%. |
 | C8 | Global geometric blackout occupies 2.773%/2.734% of active target-time on M24/X36; sparse eight-step geometric-path coverage is 81.261%/63.183%. | E8 | Perfect detection and indefinite retention assumed for paths. Not actual labels, posterior recall or causal attribution of tracking error. |
 | C9 | At saved M24 anchors 70/84/151, local-posterior MAP readout is already about six; the immediate spatial term removes mean existence mass 0.119/0.225/0.099. | E11 | Current reference replay of three post-local-update states, not a full-episode causal decomposition or X36 result. Labels and existence mass are not true-target recall. |
+| C10 | At 27,939 zero-component-mean-pD X36 label stages, maximum absolute local existence change is 2.22e-16; step-40 local/output MAP counts are 5.806/5.861. | E13 | Unchanged 40-step opened-seed prefix. Does not prove the component-mean sensing approximation accurate or exclude earlier cumulative loss. |
+| C11 | At X36 steps 36--40, never-informed inputs supply 0.937% of negative weighted log-odds magnitude; 3,117/3,227 weak pre-spatial pools contain no active input with r >= 0.9. | E14 | Opportunity lineage includes missed detections, not confirmed detections or retained information strength. Descriptive levels are not output thresholds; lasting cold-start effects remain possible. |
+| C12 | The repository's absent-label FoV censor is not an implementation of the cited complete multi-view PHD/LMB methods; information-based label weighting has prior art. | E4, E15 | Metadata and scoped source claims checked; full LMB algorithm reproduction and a faithful baseline remain open. |
 
 ## Evidence Ledger
 
@@ -49,7 +53,10 @@ L2: reproducible internal research draft. No submission or publication action.
 | E9 | `figures/exportPaperFigureData.m`, `figures/plot_paper_figures.py`, source CSVs and figure manifest | Existing seven episode rows exported without rounding; two Python vector figures generated without filtering. |
 | E10 | Ramachandran et al., IEEE TCNS 8(2):609--620, 2021; DOI 10.1109/TCNS.2021.3059794; author preprint https://arxiv.org/abs/2004.07197 | Prior topology/weight reconfiguration and subsequent robot repositioning explicitly distinguished from fixed-motion sparse LMB routing. |
 | E11 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeExistenceLossLocalizationV281();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v281/m24_existence_loss_seed1301/EXISTENCE_LOSS_LOCALIZATION_V281.md` | Exit 0; 72 receiver snapshots and 1,124 label records; 659 weighted log odds negative before spatial overlap; probability identity residual <=2.22e-16. |
-| E12 | `RUN/GA/dynamic_topology/V282_EXISTENCE_STAGE_TRACE_DESIGN.md` retains the launch command; `evidence/tracking_aligned_v282/x36_prefix2_integration_seed1301/EXISTENCE_STAGE_TRACE_V282.md` under `RUN/GA/dynamic_topology/` retains the completed short check. | Corrected integration session 61818 exit 0; 72 receiver-time cells, 1,728 label stages; E-OSPA/finite-RMSE differences 0 and finite masks match. Source `fbf17cd`. The 40-step diagnostic remains running in session 4122. |
+| E12 | `RUN/GA/dynamic_topology/V282_EXISTENCE_STAGE_TRACE_DESIGN.md` retains the launch command; `evidence/tracking_aligned_v282/x36_prefix2_integration_seed1301/EXISTENCE_STAGE_TRACE_V282.md` under `RUN/GA/dynamic_topology/` retains the completed short check. | Corrected integration session 61818 exit 0; 72 receiver-time cells, 1,728 label stages; E-OSPA/finite-RMSE differences 0 and finite masks match. Source `fbf17cd`. The subsequent 40-step completion is E13. |
+| E13 | `RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/EXISTENCE_STAGE_TRACE_V282.md`, `receiver_stages.csv`, `label_stages.csv`; local raw trace MAT. | Session 4122 exit 0; 1,440 receiver-time and 34,424 label stages; all E-OSPA/finite-RMSE values and masks match the stored reference prefix. Filter time 609.8 s, excluding scene generation and offline analysis. |
+| E14 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeObservationLineageV283('RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/EXISTENCE_STAGE_TRACE_V282.mat');"`; `OBSERVATION_LINEAGE_V283.md` and `observation_lineage_by_time.csv` in that directory. | Original offline analysis session 28909 and report-expansion session 42724 exit 0. Late mean never-informed weight 0.0083 versus zero-current-pD weight 0.7949. All 40 opened steps used; no counterfactual intervention. |
+| E15 | DOI content negotiation for G. Li et al., 10.1016/j.sigpro.2019.107246; S. Li et al., 10.23919/ICIF.2018.8455250; Wang et al., 10.1016/j.sigpro.2018.04.010. Sources and scope are recorded in `RUN/GA/dynamic_topology/V283_OBSERVATION_EVIDENCE_FINDING.md`. | CA-GCI author PDF concerns GM-PHD clustering/compensation. Official conference abstract establishes multi-view LMB prior art; Wang publisher abstract/introduction establishes centralized per-label information-based weights. No claim of full LMB algorithm replication. |
 
 ## Verification Record
 
@@ -170,10 +177,10 @@ update. The detailed 72-receiver trace remains in the experiment record.
 The evidence lint returned `PASS: papers/icassp2027/EVIDENCE.md` after E11
 was added. No new filter is running at this handoff.
 
-On the subsequent V282 handoff, an unchanged X36 reference prefix is running
+At the prior V282 handoff, an unchanged X36 reference prefix was running
 in session 4122, with runtime and capture source frozen at `fbf17cd`. Its
 two-step integration check (E12) passed after fixing Octave MAT serialization;
-the 40-step run has reported the start of step 6, not completion. The short
+the 40-step run had reported the start of step 6, not completion. The short
 trace numerically confirms neutral local existence updates at its zero-pD
 label stages (maximum absolute change 6.94e-18). It does not identify the
 full-episode bottleneck or justify a policy change. Raw trace MAT files and
@@ -188,7 +195,37 @@ content ends on page four; page five contains declarations and references.
 No overfull boxes remain; underfull spacing and the existing bibliography
 rerun-consistency warning remain. Figures and performance values are
 unchanged. Lark receives no routine integration-status paragraph or new
-best-method row from this diagnostic-only work.
+best-method row from that integration-only work.
+
+V282's 40-step capture and analysis have now completed (E13). V283 reuses
+the saved inputs and actual active weights to propagate observation-opportunity
+flags (E14), with sent-label presence respecting the existing 0.01 payload
+threshold. Its report includes both weak-pool denominators and counts lacking
+a strong input; the algorithm was not changed by this reporting expansion.
+No truth matching, policy intervention or new full episode was performed.
+The finding narrows the design question to useful evidence strength and age
+over repeated hops, while explicitly retaining cold-start and accumulated
+spatial effects as unresolved possibilities. No filter is running.
+
+The paper's multi-view paragraph was corrected, two verified LMB references
+added, and the CA-GCI citation upgraded to its journal record. A compact V283
+readout was added without changing any best-method performance value or figure
+data. Tectonic completed with exit 0. All five final pages under
+`tmp/pdfs/icassp2027-v283/page-*.png` were visually inspected: technical
+content including the conclusion ends on page four; page five contains only
+declarations and ten references. No overfull boxes remain. Underfull spacing
+and the known bibliography-rerun consistency warning remain. This is a
+producing-agent layout and evidence self-check, not submission readiness.
+
+Canonical Lark was updated in place through revision 1243: the new X36
+decision-relevant finding, related-work comparison, TL;DR and next-step
+paragraphs were synchronized. Stale statements that the X36 comparison was
+pending and that the V278 trial was next were corrected. Local keyword
+readback confirmed the new finding/table and multi-view comparison. The
+existing best-method table and approved whiteboard were preserved; no new
+document or board was created. Routine integration status stayed out of Lark.
+The existing evidence-lint command returned `PASS: papers/icassp2027/EVIDENCE.md`
+after adding E13--E15; no additional adversarial or hash audit was run.
 
 ## Risk and Escalation
 
@@ -206,13 +243,15 @@ The official template archive is retained locally. Bib metadata was retrieved
 with DOI content negotiation for 10.1109/TSP.2014.2323064,
 10.48550/arXiv.1501.01579, 10.48550/arXiv.1903.06985 and
 10.1109/TSP.2008.920469, 10.1016/j.automatica.2013.11.042,
-10.1109/TIT.2006.874516 and 10.48550/arXiv.1902.09825, with title/claim
+10.1109/TIT.2006.874516 and 10.48550/arXiv.1902.09825, plus E15's three
+multi-view journal/conference records, with title/claim
 checks against the primary papers and the metric implementation.
 
 ## Open Issues
 
-Earlier local-update/recursive transport existence loss, with the X36
-40-step diagnostic still running; weakest-formation behavior;
+Useful observation-evidence preservation over repeated lossy hops, with
+cold-start and cumulative spatial effects not causally isolated;
+faithful multi-view LMB algorithmic baselines; weakest-formation behavior;
 multi-seed and non-radial validation;
 control-inclusive communication; routing-specific prior-art comparison;
 extension of the exact fixed-density bound to approximate recursive filtering.
@@ -227,6 +266,11 @@ Prioritize successful target-set recovery and preservation (C5--C6), not
 further position-only or matrix-mixing optimization. V280 separates global
 visibility from time-respecting path opportunity but does not trace actual
 posterior evidence (C8). V281 finds weak inputs already before the final
-spatial term at three M24 anchors (C9). Trace earlier local updates and
-recursive propagation before changing an eta floor or output threshold;
-retain the current input-weighting effect as a distinct possible mechanism.
+spatial term at three M24 anchors (C9). The completed X36 trace and lineage
+analysis (C10--C11) distinguish historical opportunity access from current
+evidence strength. Do not treat low late untouched-prior mass as ruling out
+an early cold-start effect. Design one bounded evidence-preservation candidate
+with explicit source, age, duplicate-information handling and metadata cost;
+compare against relevant multi-view LMB prior art (C12), rather than claiming
+novelty for information-based label weighting alone. No new candidate is frozen
+or validated yet, and the joint M24/X36 success objective remains unmet.

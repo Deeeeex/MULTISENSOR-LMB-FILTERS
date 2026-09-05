@@ -55,10 +55,12 @@ repair itself as new. With prescribed motion, we ask how a sparse
 message budget interacts with directed packet loss and finite-round
 LMB fusion under unequal views.
 
-Multi-view GCI addresses label absence under unequal fields of view
-\cite{li2019multiview}. Here that fusion approximation is held fixed while
-communication structure and missing-input handling are compared. Routing
-uses physical links, not posterior-dependent learned weights.
+Multi-view GCI includes GM-PHD clustering and compensation
+\cite{li2020multiview}, LMB fusion under unequal views \cite{li2018multiviewlmb},
+and centralized per-label information-based weighting \cite{wang2018multiview}.
+Our arms share a repository-specific FoV censor for absent labels; they do
+not implement those complete multi-view methods. Routing uses current
+physical links, not learned posterior weights.
 
 We develop a sparse backbone with an exact message count and analyze
 packet-induced weight changes. Fixed, full-repair and sparse-repair
@@ -210,7 +212,8 @@ normalizer above one triggers moment-matched Gaussian fallback; arbitrary
 mixture powers are not exact. Local detection probabilities are evaluated
 at component means and set to zero outside the sensor FoV; an unobservable
 state is not assigned the nominal missed-detection penalty.
-Label-absence handling is fixed across arms. Each step has one fusion round.
+Present low-existence labels are not excluded merely for being outside the
+current view. Each step has one fusion round.
 MAP cardinality selects the output set; unselected labels remain in the
 posterior unless pruned below the shared existence threshold of 0.01.
 
@@ -224,11 +227,9 @@ exclude routing-control traffic.
 
 \begin{table*}[t]
 \centering
-\caption{Complete paired development episodes, seed 1301. Lower values are
-better in all four metric columns. Error measures are in metres; bytes are
-decimal MB of attempted posterior payload. Messages are scheduled, before
-delivery. Each scale has its own fixed baseline; no confidence intervals
-can be inferred from a single seed.}
+\caption{Paired 160-step development episodes, seed 1301. All error and
+payload measures are lower-is-better. Errors are in metres; payload is
+attempted posterior traffic in decimal MB. Message counts precede delivery.}
 \label{tab:main}
 \small
 \begin{tabular}{llrrrrr}
@@ -250,12 +251,11 @@ X36 & Fixed formation tree &132.680&36.925&139.407&76.871&66--72\\
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/routing_tradeoff.pdf}
-\caption{Posterior traffic versus complete-set error in the same episodes
-as Table~\ref{tab:main}. Lower left is better; axes differ between scales.
-Sparse repair spends fewer bytes than fixed routing, but the E-OSPA gain is
-modest, particularly on X36. Self fallback changes the tradeoff without
-dominating sparse repair across the other metrics. Each point is one
-development episode, not an estimate with across-seed uncertainty.}
+\caption{Payload versus complete-set error for Table~\ref{tab:main}.
+Lower left is better; axes differ between scales. Sparse repair saves bytes
+but yields modest E-OSPA gains, particularly on X36. Each point is one
+development episode, without across-seed uncertainty. Other metric tradeoffs
+remain in Table~\ref{tab:main}.}
 \label{fig:tradeoff}
 \end{figure*}
 
@@ -309,21 +309,24 @@ Against sparse renormalization, self fallback improves X36 E-OSPA by
 Conditional RMSE worsens by 4.836\%, with a 37.361\% loss in the most
 affected formation. Neither dominates.
 
-The remaining question is where target-existence evidence becomes weak.
-Despite global geometric blackout below 2.8\% in both scenes, ideal
-eight-step sparse-path coverage falls from 81.261\% on M24 to 63.183\%
-on X36. This offline replay assumes perfect detection and indefinite
-retention over actual packet opportunities, not actual label recall.
-Local updates, repeated existence pooling and spatial overlap must be
-separated before attributing set error to the final fusion.
-Statistical significance, control-inclusive savings and decentralized
-routing remain unestablished. Independent seeds and a zipper-merge scene
-are needed to test generalization.
+Target-existence evidence remains the bottleneck. Although global geometric
+blackout is below 2.8\%, ideal eight-step sparse-path coverage falls from
+81.261\% on M24 to 63.183\% on X36. Perfect detection and indefinite
+retention are assumed; these are opportunities, not label recall.
+
+In an unchanged 40-step X36 trace, inputs without opportunity lineage
+contribute only 0.94\% of negative weighted log-odds magnitude at steps
+36--40. Yet 3,117/3,227 pools below pre-spatial existence 0.5 have no active
+input with $r\geq0.9$; these are descriptive levels, not output thresholds.
+Lineage includes missed detections propagated through used inputs, not
+confirmed detections or retained strength. Cold-start and cumulative
+spatial-overlap effects remain unisolated.
+Full multi-view LMB baselines, independent seeds, a zipper-merge scene,
+control-inclusive accounting and decentralized routing remain open.
 
 \section{Conclusion}
-Sparse causal repair reduces posterior traffic in two development cases,
-but target-set and weakest-formation tradeoffs remain. Receiver reweighting
-alone does not resolve them.
+Sparse repair saves posterior traffic in two development cases. Target-set
+and weakest-formation tradeoffs remain unresolved.
 
 \section*{Acknowledgements and declarations}
 This work received no external funding. The authors declare no conflicts

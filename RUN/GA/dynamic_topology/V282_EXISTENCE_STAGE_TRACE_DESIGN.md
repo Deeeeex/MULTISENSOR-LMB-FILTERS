@@ -1,10 +1,21 @@
 # V282: early X36 existence-stage trace
 
-Status: two-step integration completed; 40-step capture running in the
-background (session 4122, frozen runtime/driver commit `fbf17cd`). No
-40-step result or new method gain is available yet.
+Status: COMPLETE. The unchanged 40-step reference capture and offline analysis
+exited 0 (session 4122; frozen runtime/driver commit `fbf17cd`). It captured
+1,440 receiver-time cells and 34,424 label stages. Every E-OSPA cell, finite
+RMSE value and finite-RMSE mask matches the stored reference prefix; maximum
+metric differences are zero. This is metric correspondence, not full-state
+equivalence or a new method gain. Filter runtime was 609.8 seconds, excluding
+scene generation and offline analysis.
 
-The short run completed in 21.6 seconds of filter time, after full-scene
+At 27,939 zero-component-mean-pD label stages, the maximum absolute local
+existence change is 2.22e-16. At step 40, mean predicted/local/pre-spatial/fused
+existence masses are 5.946/6.020/6.153/6.062, with local/output MAP counts
+5.806/5.861. These are averages over receivers, not true-target recall.
+The observation-lineage follow-up and bounded method decision are in
+`V283_OBSERVATION_EVIDENCE_FINDING.md`. No new tracking arm is running.
+
+The preceding short run completed in 21.6 seconds of filter time, after full-scene
 generation. Across 72 receiver-time cells, E-OSPA and finite RMSE match the
 saved reference prefix exactly, including the finite-RMSE mask. It captured
 1,728 label stages. At 1,488 zero-expected-pD stages, the maximum absolute
