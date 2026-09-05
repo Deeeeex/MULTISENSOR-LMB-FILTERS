@@ -65,6 +65,12 @@ validated scientific-performance claim or final method selection is authorized.
   Its two CSVs, editable SVG/PDF, 600-dpi PNG and parameter manifest are retained;
   PNG visually checked. No truth, empirical error, seed or uncertainty bar is
   represented in these exact one-dimensional curves.
+- E7: `git diff -- papers/icassp2027/MAINLINE_PROGRESS_CN.md` was inspected
+  after a consistency-only update: the TL;DR, method paragraph, related work
+  and next-action rows now agree with the actual fixed-label MIL control.
+  The full-episode numerical tables and original two method/result figures
+  are unchanged. This is documentation synchronization, not new performance
+  evidence; the background receiver remains frozen at `f67a1bb`.
 
 ## Verification Record
 
