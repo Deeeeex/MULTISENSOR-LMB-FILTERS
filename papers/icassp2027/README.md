@@ -35,7 +35,9 @@ sparse renormalization, but conditional RMSE worsens by 4.836%, failing the
 predefined M24 follow-up gate. The draft now includes the V279 count-error
 budget, common-finite-cell RMSE comparison and a compact V280 opportunity
 readout. Two Python-rendered vector figures replace the original stacked
-pipeline boxes and expose the payload/set-error tradeoff. Figure sources,
+pipeline boxes and expose the payload/set-error tradeoff. The result figure
+now includes fixed-count localization ceilings from the saved count-budget
+data, making the remaining target-set recovery problem explicit. Figure sources,
 data and regeneration instructions are in `figures/README.md`.
 No multiseed significance, exact arbitrary-GM powers, globally minimum graph,
 loss-resilient equal-weight consensus or end-to-end bandwidth saving is claimed.

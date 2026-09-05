@@ -256,11 +256,12 @@ X36 & Fixed formation tree &132.680&36.925&139.407&76.871&66--72\\
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/routing_tradeoff.pdf}
-\caption{Payload versus complete-set error for Table~\ref{tab:main}.
-Lower left is better; axes differ between scales. Sparse repair saves bytes
-but yields modest E-OSPA gains, particularly on X36. Each point is one
-development episode, without across-seed uncertainty. Other metric tradeoffs
-remain in Table~\ref{tab:main}.}
+\caption{Communication savings and the remaining target-set gap.
+(a,b) Payload versus E-OSPA for Table~\ref{tab:main}; lower left is better,
+with different vertical scales. Each point is one development episode,
+without across-seed uncertainty. (c) Upper bounds on further E-OSPA reduction
+from localization alone in the sparse arms, holding output counts fixed.
+These bounds are not achieved gains or confidence intervals.}
 \label{fig:tradeoff}
 \end{figure*}
 
@@ -300,8 +301,9 @@ For sparse repair, $\sum C/\sum E^2$ is 99.567\% on M24 and
 98.074--99.337\% on X36, not a linear decomposition of mean OSPA.
 The remaining fixed-count gain is at most
 $\operatorname{mean}(E-\sqrt{C_{\min}})$: 0.279 and 1.311\,m.
-These are bounds, not achieved gains or proof of correct emitted targets;
-substantial improvement requires changing target-set recovery.
+These ceilings, shown in Fig.~\ref{fig:tradeoff}(c), are not achieved gains
+or proof of correct target identities. Even perfect fixed-count localization
+leaves the count penalty; substantial gains require recovering the target set.
 
 Delivered sparse graphs are strongly connected on only 41/160 M24 steps
 and 18/160 X36 steps. These counts do not measure label-wise reachability
@@ -317,15 +319,15 @@ Global geometric blackout is below 2.8\%, but ideal eight-step sparse-path
 coverage falls from 81.261\% on M24 to 63.183\% on X36. Perfect detection
 and indefinite retention are assumed, not actual label recall.
 
-A 40-step X36 trace finds 3,117/3,227 late weak pools (pre-spatial existence
-below 0.5, steps 36--40) without an input at $r\geq0.9$. These descriptive
-levels are not output thresholds. Historical opportunity, including misses,
-need not retain strong evidence. Recovery also requires reliable locations
-and label correspondence; posterior precision alone is not a validated
-source-quality score. Fusion-rule controls should hold routing fixed;
-routing controls should share the same fusion rule. Label-matched and
-multi-view baselines remain needed. Independent seeds, zipper-merge
-validation, control traffic and decentralized routing remain open.
+A 40-step X36 trace finds 3,117/3,227 weak pools at steps 36--40
+(pre-spatial existence below 0.5) without an input at $r\geq0.9$.
+These are descriptive levels, not output thresholds; observation opportunity
+does not guarantee retained evidence. Recovery needs existence, spatial
+support and label correspondence; covariance alone is not a validated
+source-quality score. Fusion controls must hold routing fixed, and routing
+controls must share a fusion rule. Label-matched and multi-view baselines,
+independent seeds, zipper-merge validation, control traffic and decentralized
+routing remain open.
 
 \section{Conclusion}
 Sparse repair saves payload but retains target-set and formation-wise

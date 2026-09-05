@@ -20,12 +20,14 @@ is a separate artifact and is not overwritten by the paper renderer.
 - Statistical object: none. All schematic quantities are illustrative and
   deterministic. No graph-layout coordinate axes are needed.
 
-## Figure 2: communication versus complete-set error
+## Figure 2: communication versus complete-set error and its remaining headroom
 
 - Intended conclusion: sparse repair reduces posterior traffic, while its
   whole-set improvement is modest, particularly on X36. Full repair and
-  self fallback show different cost/error tradeoffs.
-- Archetype: two scatter panels, M24 and X36, at 6.90 by 2.18 inches total.
+  self fallback show different cost/error tradeoffs. A third panel explains
+  why localization alone cannot close the target-set recovery gap.
+- Archetype: quantitative grid, two primary scatter panels (M24 and X36)
+  plus a compact diagnostic panel, at 6.90 by 2.18 inches total.
   Horizontal axis: attempted posterior payload in decimal MB. Vertical axis:
   mean E-OSPA in metres. Lower left is better. Scales differ between panels
   and remain explicitly ticked; cross-panel distances are not effect sizes.
@@ -38,6 +40,12 @@ is a separate artifact and is not overwritten by the paper renderer.
   from a rounded manuscript table.
 - Include fixed, full-repair and sparse-repair arms on both scales; include
   self fallback only where executed (X36). Other metrics stay in Table 1.
+- Panel c reads only the sparse rows of `count_budget_source.csv`. Bars are
+  upper bounds on the decrease in mean E-OSPA with the output cardinalities
+  held fixed: mean(E - sqrt(C_min)). They are not measured improvements,
+  confidence intervals, a decomposition of mean OSPA, or evidence of correct
+  target identities. Count-sign ambiguity makes the X36 value conservative.
+  Explicit upper-bound labels distinguish this panel from achieved results.
 
 ## Exports and acceptance
 

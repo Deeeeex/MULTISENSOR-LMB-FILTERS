@@ -29,6 +29,7 @@
   },
   "sample": "one paired 160-step episode, seed 1301, per scale",
   "uncertainty": "no across-seed confidence interval is available",
+  "panel_c": "sparse-arm fixed-count E-OSPA reduction upper bounds, not achieved gains",
   "filter_rerun": false,
   "independent_validation": false,
   "source_commits": [
@@ -41,13 +42,15 @@
       "attempted_payload_bytes_sparse_reduction_percent": 10.040783760904814,
       "eospa_m_sparse_reduction_percent": 2.4033094790606557,
       "conditional_rmse_m_sparse_reduction_percent": 46.18979114512144,
-      "focus_consistency_m_sparse_reduction_percent": 1.4489357478900455
+      "focus_consistency_m_sparse_reduction_percent": 1.4489357478900455,
+      "localization_only_headroom_upper_bound_m": 0.278754529612
     },
     "X36": {
       "attempted_payload_bytes_sparse_reduction_percent": 21.829545932323402,
       "eospa_m_sparse_reduction_percent": 0.36819346319315605,
       "conditional_rmse_m_sparse_reduction_percent": 47.65505164734451,
-      "focus_consistency_m_sparse_reduction_percent": -0.7756802908351679
+      "focus_consistency_m_sparse_reduction_percent": -0.7756802908351679,
+      "localization_only_headroom_upper_bound_m": 1.31124785776
     }
   }
 }

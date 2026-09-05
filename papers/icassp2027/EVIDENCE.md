@@ -257,6 +257,22 @@ confirmed the updated wording and preserved whiteboard
 at `959a7f5`; it was not overwritten again. No best-table row, new document,
 or new board was created. The local mainline note uses the same framing.
 
+### Fixed-count localization ceiling in the result figure, 2026-09-06
+
+Figure 2 now pairs its original communication/error scatter panels with
+the sparse-arm ceilings from E6: 0.278754529612 m (M24) and 1.311247857760 m
+(X36). The new panel is a bound, not an achieved gain or uncertainty bar.
+`/Users/dex/miniconda3/bin/python3 papers/icassp2027/figures/plot_paper_figures.py --results-only`
+exited 0 and reported those values from `count_budget_source.csv`. No source
+episode or performance-table value changed. The approved board and the
+separate method schematic exports were left unchanged.
+
+`tectonic --keep-logs main.tex` exited 0. Python PDFium text readback confirmed
+five pages, the complete conclusion on page 4 and declarations/13 references
+on page 5. The revised result figure and its page placement were visually
+checked; no label clipping or overlap remains. Known underfull and bibliography
+rerun-consistency warnings remain. This is a producing-agent layout self-check.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
@@ -302,5 +318,10 @@ evidence strength. Do not treat low late untouched-prior mass as ruling out
 an early cold-start effect. Design one bounded evidence-preservation candidate
 with explicit source, age, duplicate-information handling and metadata cost;
 compare against relevant multi-view LMB prior art (C12), rather than claiming
-novelty for information-based label weighting alone. No new candidate is frozen
-or validated yet, and the joint M24/X36 success objective remains unmet.
+novelty for information-based label weighting alone. Subsequent V284--V287
+records distinguish existence retention, spatial reliability and correspondence;
+they do not establish a jointly improved method. V288 isolates an existing
+shared-label MIL receiver under the unchanged sparse route. Its frozen
+protocol and current status are in `RUN/GA/dynamic_topology/V288_RUN_STATUS.md`;
+it is not complete multi-view MIL or a new routing contribution. The joint
+M24/X36 success objective remains unmet.

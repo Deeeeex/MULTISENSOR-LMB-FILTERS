@@ -6,6 +6,7 @@ This script reads CSVs only: it does not rerun or select tracking policies.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -137,8 +138,12 @@ def read_rows():
 
 
 def results_figure(rows):
-    fig, axes = plt.subplots(1, 2, figsize=(6.90, 2.18))
-    fig.subplots_adjust(left=0.072, right=0.985, bottom=0.205, top=0.85, wspace=0.30)
+    fig = plt.figure(figsize=(6.90, 2.18))
+    axes = [fig.add_axes(rect) for rect in (
+        [0.068, 0.255, 0.267, 0.58],
+        [0.415, 0.255, 0.267, 0.58],
+        [0.778, 0.255, 0.205, 0.58],
+    )]
     offsets = {
         ("M24", "fixed"): (0, 8, "center", "bottom"),
         ("M24", "full"): (0, 9, "center", "bottom"),
@@ -146,7 +151,7 @@ def results_figure(rows):
         ("X36", "fixed"): (0, 8, "center", "bottom"),
         ("X36", "full"): (0, 9, "center", "bottom"),
         ("X36", "sparse"): (0, 9, "center", "bottom"),
-        ("X36", "self"): (10, -12, "left", "top"),
+        ("X36", "self"): (7, -10, "left", "top"),
     }
     facts = {}
     for ax, scale, letter in zip(axes, ("M24", "X36"), ("a", "b")):
@@ -154,7 +159,7 @@ def results_figure(rows):
         ax.grid(color="#E7EBEF", lw=0.5, zorder=0)
         ax.set_axisbelow(True)
         ax.set_title(f"{letter}  {scale}", loc="left", pad=7, weight="bold")
-        ax.set_xlabel("Attempted posterior payload (MB)", labelpad=3)
+        ax.set_xlabel("Attempted posterior\npayload (MB)", labelpad=3)
         ax.set_ylabel("Mean E-OSPA (m)", labelpad=4)
         subset = {r["policy"]: r for r in rows if r["scale"] == scale}
         for policy, row in subset.items():
@@ -165,7 +170,7 @@ def results_figure(rows):
             dx, dy, ha, va = offsets[(scale, policy)]
             ax.annotate(f"{LABELS[policy]}\n{y:.3f}", (x, y), xytext=(dx, dy),
                         textcoords="offset points", color=COLORS[policy],
-                        fontsize=7.0, ha=ha, va=va, linespacing=1.12)
+                        fontsize=6.5, ha=ha, va=va, linespacing=1.12)
         if scale == "M24":
             ax.set(xlim=(34.2, 48.2), ylim=(121.9, 126.8),
                    xticks=[35, 40, 45], yticks=[122, 123, 124, 125, 126])
@@ -177,13 +182,39 @@ def results_figure(rows):
             key + "_sparse_reduction_percent": 100 * (1 - float(s[key]) / float(b[key]))
             for key in ("attempted_payload_bytes", "eospa_m", "conditional_rmse_m", "focus_consistency_m")
         }
+    with (HERE / "count_budget_source.csv").open(newline="") as handle:
+        budget = {r["scale"]: r for r in csv.DictReader(handle) if r["policy"] == "sparse"}
+    assert set(budget) == {"M24", "X36"}
+    cx = axes[2]
+    cx.spines[["top", "right", "left"]].set_visible(False)
+    cx.set_title("c  Fixed-count ceiling", loc="left", pad=7,
+                 weight="bold", fontsize=7.4)
+    cx.set(xlim=(0, 1.72), ylim=(-0.6, 1.6), yticks=[1, 0],
+           yticklabels=["M24", "X36"], xticks=[0, 0.5, 1.0, 1.5])
+    cx.tick_params(axis="y", length=0, pad=4)
+    cx.set_xlabel("E-OSPA reduction ceiling\nat fixed counts (m)", labelpad=3)
+    cx.grid(axis="x", color="#E7EBEF", lw=0.5, zorder=0)
+    cx.set_axisbelow(True)
+    for scale, y in (("M24", 1), ("X36", 0)):
+        row = budget[scale]
+        ceiling = float(row["localization_only_headroom_m"])
+        cx.barh(y, ceiling, height=0.28, facecolor="#CEDAD7", edgecolor=COLORS["sparse"],
+                linewidth=0.8, zorder=2)
+        cx.text(ceiling / 2, y + 0.25, rf"$\leq {ceiling:.3f}$ m",
+                fontsize=7.0, ha="center", va="bottom", color=INK)
+        facts[scale]["localization_only_headroom_upper_bound_m"] = ceiling
     export(fig, "routing_tradeoff")
     return facts
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--results-only", action="store_true",
+                        help="Leave the unchanged method schematic exports untouched.")
+    args = parser.parse_args()
     rows = read_rows()
-    method_figure()
+    if not args.results_only:
+        method_figure()
     facts = results_figure(rows)
     manifest = {
         "backend": f"Python / Matplotlib {matplotlib.__version__}",
@@ -195,6 +226,7 @@ def main():
         "units": {"payload": "decimal MB, attempted posterior payload only", "eospa": "metres"},
         "sample": "one paired 160-step episode, seed 1301, per scale",
         "uncertainty": "no across-seed confidence interval is available",
+        "panel_c": "sparse-arm fixed-count E-OSPA reduction upper bounds, not achieved gains",
         "filter_rerun": False, "independent_validation": False,
         "source_commits": sorted({r["source_commit"] for r in rows}),
         "sparse_vs_fixed": facts,

@@ -4,7 +4,10 @@
 
 The paper uses two separate Python figures: `method_paper` explains the
 scheduled graph and missing-input weights; `routing_tradeoff` shows attempted
-payload versus E-OSPA for every executed main-table arm. Both have vector PDF,
+payload versus E-OSPA for every executed main-table arm, alongside the
+sparse arms' remaining fixed-count localization-only reduction ceilings.
+The ceiling bars are analytic post-hoc bounds, not achieved improvements.
+Both figures have vector PDF,
 editable-text SVG and 600-dpi PNG exports. `FIGURE_CONTRACT.md` defines the
 claims and layout before rendering; `paper_figures_manifest.json` records
 units, sample size and source commits.
