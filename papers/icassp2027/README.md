@@ -69,7 +69,7 @@ statistics are not a new tracking result and do not exclude a lasting
 cold-start effect. The next design targets useful evidence strength and age
 over repeated hops, not geometry-only input exclusion or output thresholds.
 See `RUN/GA/dynamic_topology/V283_OBSERVATION_EVIDENCE_FINDING.md` from the
-repository root. No filter is running at this handoff.
+repository root. No additional filter was launched with that diagnostic.
 
 The paper now distinguishes GM-PHD CA-GCI from multi-view LMB prior art and
 from the repository's own absent-label FoV censor. Li et al. (FUSION 2018)
@@ -91,7 +91,8 @@ component covariance with full-GM output risk still harms some formations in
 the final-snapshot check. The manuscript and mainline note state this design
 boundary without presenting oracle figures as tracking improvements.
 The new two-panel source diagnostic is retained with the V286 experiment,
-outside the two manuscript figures. No filter is running at this handoff.
+outside the two manuscript figures. No additional filter was launched with
+those source-only diagnostics.
 
 V287 adds a source-correspondence restriction to the same saved X36 queries:
 the lag-one global oracle changes from 11.083 m to 22.350 m when the source's
@@ -107,3 +108,17 @@ drop-in substitute for unequal-FoV unmatched-track handling.
 The V287 figure remains in the experiment record; the approved Lark method
 board is preserved. See `RUN/GA/dynamic_topology/LABEL_MATCHING_BASELINE_NOTES.md`
 for the bounded two-by-two fusion/routing comparison design.
+
+V288 now starts that comparison by isolating the fusion objective **before**
+geometric label reassignment. The shared-label LMB-MIL receiver follows the
+accessible Gao et al. author version (arXiv:1911.01083v1, Proposition 3), with
+explicit zero-existence extension and diagnosed eight-component GM reduction.
+It preserves the V242 route and is not the complete different-FoV/matching
+algorithm. Formula checks and two-step integration passed; the 40-step X36
+candidate is running in the background from source-freeze commit `f67a1bb`.
+The numerical main table is unchanged. The draft distinguishes the three
+factors, adds the verified 2020 MIL reference, and still has five pages with
+the complete conclusion on page 4 and declarations/references on page 5.
+See `RUN/GA/dynamic_topology/V288_RUN_STATUS.md` for the current run record.
+An analytic fusion-rule schematic is retained in the baseline notes, not
+introduced as tracking evidence or substituted for the approved Lark board.
