@@ -33,6 +33,30 @@ spatialWeights = normalizeWeights( ...
     spatialWeights, numel(posteriorDistributions));
 existenceWeights = normalizeWeights( ...
     existenceWeights, numel(posteriorDistributions));
+lmbFusionRule = lower(getField(triggerConfig, 'lmbFusionRule', 'kla'));
+if strcmp(lmbFusionRule, 'mil-common-label')
+    % Isolated known-rule baseline. Do not mix KLA censoring/eta heuristics
+    % or unequal branch weights into the LMB-constrained MIL formula.
+    if max(abs(spatialWeights - existenceWeights)) > 1e-12 || ...
+            untouchedPriorExclusionEnabled || captureLabelKlaDiagnostics || ...
+            ~isempty(getField(fusionDetails, 'labelSpecificWeightOverrides', []))
+        error('LmbMil:IncompatibleKlaOverride', ...
+            'Common-label MIL needs one weight vector and no KLA overrides.');
+    end
+    maximumComponents = getField(triggerConfig, ...
+        'mixtureAwareMaxFusedComponents', 6);
+    [fusedObjects, mil] = fuseCommonLabelLmbMil( ...
+        posteriorDistributions, spatialWeights, model, maximumComponents);
+    fusionDiagnostics.fusedLabelCount = mil.fusedLabelCount;
+    fusionDiagnostics.missingSourceCount = mil.missingSourceCount;
+    fusionDiagnostics.labelsWithMissingSourceCount = mil.labelsWithMissingSourceCount;
+    fusionDiagnostics.milTruncatedLabelCount = mil.truncatedLabelCount;
+    fusionDiagnostics.milDiscardedSpatialMassSum = mil.discardedSpatialMassSum;
+    fusionDiagnostics.milMaximumDiscardedSpatialMass = mil.maximumDiscardedSpatialMass;
+    return;
+elseif ~strcmp(lmbFusionRule, 'kla')
+    error('LmbFusion:UnknownRule', 'Unknown LMB fusion rule: %s.', lmbFusionRule);
+end
 sourceModes = resolveSourceModes(fusionDetails, numel(posteriorDistributions));
 
 labels = collectLabels(posteriorDistributions);
