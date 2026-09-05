@@ -1,0 +1,62 @@
+{
+  "size_mm": [
+    175,
+    83
+  ],
+  "backend": "Python / Matplotlib 3.10.9",
+  "png_dpi": 600,
+  "editable_svg_text": true,
+  "seed": 1301,
+  "scene": "X36",
+  "left": {
+    "source": "V285_SOURCE_AVAILABILITY_SUMMARY.csv",
+    "lag": 1,
+    "queries": 7818,
+    "truth_selected_oracle": true,
+    "retains_receiver": true
+  },
+  "right": {
+    "source": "V286_SOURCE_RISK_SUMMARY.csv",
+    "time": 40,
+    "queries": 139,
+    "truth_used_by_risk_selector": false
+  },
+  "uncertainty": "No independent repeats, confidence intervals, or significance test",
+  "scope": "Different query sets; no across-panel numerical comparison",
+  "online_policy": false,
+  "paper_insertion": false,
+  "lark_best_table_update": false,
+  "left_oracle_rmse_m": {
+    "Delivered input": 34.3800862213,
+    "Planned input": 34.3357512518,
+    "Same formation": 33.5048597411,
+    "Physical one-hop": 29.9786353948,
+    "Whole network": 11.0830940021
+  },
+  "right_rmse_m": {
+    "F1": {
+      "receiver": 11.7336384355,
+      "min_full_risk": 31.5086792108
+    },
+    "F2": {
+      "receiver": 15.4281767675,
+      "min_full_risk": 14.9276431414
+    },
+    "F3": {
+      "receiver": 16.6887472207,
+      "min_full_risk": 6.0001531742
+    },
+    "F4": {
+      "receiver": 88.6633626715,
+      "min_full_risk": 26.5358004749
+    },
+    "F5": {
+      "receiver": 106.535292883,
+      "min_full_risk": 76.9312532586
+    },
+    "F6": {
+      "receiver": 115.623210207,
+      "min_full_risk": 123.291109269
+    }
+  }
+}

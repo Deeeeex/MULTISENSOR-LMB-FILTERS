@@ -1,6 +1,8 @@
 # V285：新增目标的位置精度能否靠信息传递改善
 
-Status: decision-stage design only; no new candidate or filter run.
+Status: output-level source-availability analysis completed, including the
+physical one-hop extension. No new candidate or filter run. L2 exploratory,
+self-check only. See `V285_SOURCE_AVAILABILITY_FINDING.md` for the decision.
 
 ## 已有依据
 
@@ -25,6 +27,22 @@ V284 的 40 步 X36 干预使 E-OSPA 改善 13.362%，代表节点分歧改善
 和当前入邻居中的可用估计。保留全部新增匹配情况及各编队统计，不只挑
 误差最大的例子。
 
+执行时保留两个时间层：当前轮末状态作为乐观上限；上一轮末状态经过
+已注册的一步常速模型预测，作为较早可获得的信息层。第二层不包含新一轮
+测量，也不证明真实传递/融合会达到它的误差。入邻居分别按本轮计划发送
+和实际到达的边定义。全网、同编队、计划入邻居、到达入邻居使用同一规则。
+在首轮结果显示全网与已选入邻居之间有明显差距后，加入物理一跳来源池，
+区分物理不可达与未被路由选中。它直接复用保存的传感器轨迹及 270 m
+距离规则，不重生成观测，也不改变已有四个池。未选物理边仍未计新的
+通信费用、竞争预算和丢包，不能称作已执行的传输收益。
+
+每层同时报告按真值挑选的最佳同标签状态（允许保留当前状态）和按输出
+分量位置协方差迹最小选择的结果。后者不使用真值选择来源，但查询标签
+来自事后诊断，当前接收端协方差也是轮末量，且未计全网控制通信，因此
+仍不是在线策略。协方差对应已输出的选中 GM 分量，不代表整个混合密度。
+本检查还看不到未输出标签中的全部空间信息；没有输出级收益不能证明
+完整网络后验中没有信息。
+
 真值只用于离线解释与理想上限，不能进入在线评分。按真值选择最佳源是
 乐观上限，不是可部署方法；按后验位置不确定性选择源也仅是未计控制通信
 的可识别性检查，不是已实现的新路由。不同标签之间不能靠真值直接对齐后
@@ -48,3 +66,9 @@ V268--V270 的单次原始后验转发已显示递归集合损失，不能直接
 
 本轮只作上述有明确分支的问题分析。尚无依据添加 GNN、启动参数网格、
 改动场景范围/FoV，或升级论文与最优策略表。
+
+执行命令（复用已存结果，不重新滤波）：
+
+```sh
+octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeSameLabelSpatialAvailabilityV285('RUN/GA/dynamic_topology/evidence/tracking_aligned_v284/x36_prefix40_seed1301/UNTOUCHED_PRIOR_EXCLUSION_V284.mat');"
+```
