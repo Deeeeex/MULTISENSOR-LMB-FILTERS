@@ -23,8 +23,8 @@ general guarantee of unbiased convergence to the unweighted global KLA.
 
 Primary theorem reference:
 
-- Fantacci et al., “Distributed Fusion of Labeled Multi-Object Densities Via
-  Label Spaces Matching,” consensus LMB/KLA development,
+- Fantacci et al., “Consensus Labeled Random Finite Set Filtering for
+  Distributed Multi-Object Tracking,”
   <https://arxiv.org/abs/1501.01579>.
 
 ## Read-only diagnostic
@@ -47,6 +47,16 @@ of one on each instantaneous KLA matrix, and its frozen M24 event-window screen
 did not pass the tracking gate.
 
 ## Candidate construction after V274
+
+**2026-09-05 qualification.** The construction below concerns the scheduled
+matrix only. Opposite packet directions are sampled independently, and current
+V240/V242 use the runtime default `missingNeighborWeightMode='renormalize'`.
+Consequently, a reciprocal planned pair does not guarantee a reciprocal
+delivered graph or a doubly stochastic realized matrix. Even the local
+directed cycle can lose one arc. A self-weight fallback also does not guarantee
+double stochasticity. V277 separates these levels; reciprocal gateways alone
+are not the next method claim. The original V275 report remains a record of
+scheduled matrices, not actual packet or label-wise fusion.
 
 For an undirected formation-tree edge `(A, B)`, select one physically available
 sensor pair `(a in A, b in B)` and install both directed messages:
