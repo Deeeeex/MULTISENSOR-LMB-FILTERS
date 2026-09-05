@@ -1,5 +1,30 @@
 # Mainline method schematic
 
+## Reproducible paper figures
+
+The paper uses two separate Python figures: `method_paper` explains the
+scheduled graph and missing-input weights; `routing_tradeoff` shows attempted
+payload versus E-OSPA for every executed main-table arm. Both have vector PDF,
+editable-text SVG and 600-dpi PNG exports. `FIGURE_CONTRACT.md` defines the
+claims and layout before rendering; `paper_figures_manifest.json` records
+units, sample size and source commits.
+
+From the repository root:
+
+```sh
+octave --no-gui --quiet --eval "addpath('papers/icassp2027/figures'); exportPaperFigureData();"
+/Users/dex/miniconda3/bin/python3 papers/icassp2027/figures/plot_paper_figures.py
+```
+
+The exporter reads the already completed MAT results, not rounded paper
+tables. `routing_tradeoff_source.csv` has seven episode rows;
+`count_budget_source.csv` has six arm-level diagnostic rows. Replotting needs
+only these committed CSV files and Python with Matplotlib and NumPy. The
+Octave re-export additionally requires the locally retained source MAT files
+in the worktrees named in the CSV. Neither command runs a filter.
+
+## Canonical Lark schematic
+
 `method_mainline_lark.svg` is the editable, self-contained source for the
 method-design illustration in the canonical Lark document. The three
 formations are a structural example, not an M24/X36 sensor layout.

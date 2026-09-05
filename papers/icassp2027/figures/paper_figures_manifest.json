@@ -1,0 +1,53 @@
+{
+  "backend": "Python / Matplotlib 3.10.9",
+  "contract": "FIGURE_CONTRACT.md",
+  "data": "routing_tradeoff_source.csv",
+  "count_budget_data": "count_budget_source.csv",
+  "figures": {
+    "method_paper": {
+      "inches": [
+        3.46,
+        2.65
+      ]
+    },
+    "routing_tradeoff": {
+      "inches": [
+        6.9,
+        2.18
+      ]
+    }
+  },
+  "formats": [
+    "pdf",
+    "svg",
+    "png"
+  ],
+  "png_dpi": 600,
+  "units": {
+    "payload": "decimal MB, attempted posterior payload only",
+    "eospa": "metres"
+  },
+  "sample": "one paired 160-step episode, seed 1301, per scale",
+  "uncertainty": "no across-seed confidence interval is available",
+  "filter_rerun": false,
+  "independent_validation": false,
+  "source_commits": [
+    "78735d23f8c85d350ad80e5ddb6d44bb2736d310",
+    "c9c589d72209fcc8903b338fe77fd9fc26001409",
+    "eb7bc57f541af00f37636b61a1d2edaa919c51e6"
+  ],
+  "sparse_vs_fixed": {
+    "M24": {
+      "attempted_payload_bytes_sparse_reduction_percent": 10.040783760904814,
+      "eospa_m_sparse_reduction_percent": 2.4033094790606557,
+      "conditional_rmse_m_sparse_reduction_percent": 46.18979114512144,
+      "focus_consistency_m_sparse_reduction_percent": 1.4489357478900455
+    },
+    "X36": {
+      "attempted_payload_bytes_sparse_reduction_percent": 21.829545932323402,
+      "eospa_m_sparse_reduction_percent": 0.36819346319315605,
+      "conditional_rmse_m_sparse_reduction_percent": 47.65505164734451,
+      "focus_consistency_m_sparse_reduction_percent": -0.7756802908351679
+    }
+  }
+}

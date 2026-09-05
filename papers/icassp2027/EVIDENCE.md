@@ -42,6 +42,8 @@ L2: reproducible internal research draft. No submission or publication action.
 | E6 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeSetErrorBudgetV279();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v279/set_error_budget_seed1301/SET_ERROR_BUDGET_V279.md` | Exit 0. Sparse squared-OSPA count share: 99.567% M24; 98.074--99.337% X36. X36 common-cell RMSE: 19.329 / 31.394 m. |
 | E7 | The exact V278 launch command is retained in `RUN/GA/dynamic_topology/V278_MISSING_PACKET_SELF_WEIGHT_DESIGN.md`; completed result is `RUN/GA/dynamic_topology/evidence/tracking_aligned_v278/x36_missing_packet_self_seed1301/MISSING_PACKET_SELF_WEIGHT_V278.md` and its local MAT. | Process/session 43145 exit 0: `V278 complete: E 131.961; RMSE 20.263; consistency 139.273; card 18.518; bytes 60316640; M24 follow-up=0`. |
 | E8 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeObservationReachabilityV280();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v280/observation_reachability_seed1301/OBSERVATION_REACHABILITY_V280.md` | Exit 0; M24/X36 global blackout 2.773%/2.734%; sparse ideal coverage within eight steps 81.261%/63.183%. |
+| E9 | `figures/exportPaperFigureData.m`, `figures/plot_paper_figures.py`, source CSVs and figure manifest | Existing seven episode rows exported without rounding; two Python vector figures generated without filtering. |
+| E10 | Ramachandran et al., IEEE TCNS 8(2):609--620, 2021; DOI 10.1109/TCNS.2021.3059794; author preprint https://arxiv.org/abs/2004.07197 | Prior topology/weight reconfiguration and subsequent robot repositioning explicitly distinguished from fixed-motion sparse LMB routing. |
 
 ## Verification Record
 
@@ -121,6 +123,21 @@ the earlier local JPG; the primary agent visually confirmed `V278 已测试`
 and the explicit `相对原稀疏骨干` comparison. This resolves the pending
 online-diagram status above; the SVG import rebuilt the board's internal
 node structure as authorized.
+
+The 2026-09-06 paper revision replaces the stacked pipeline with a Python
+method schematic and adds a payload/E-OSPA tradeoff figure. The figure
+contract was written before plotting; CSV exports come from the saved MAT
+results, not the rounded table. The exact sparse/fixed gains agree with
+E1--E2. Vector PDF, editable-text SVG and 600-dpi PNG exports are retained.
+The primary agent inspected both figures and all five final manuscript
+pages rendered with Python/PDFium. Technical content ends on page four;
+page five contains declarations and eight references. Tectonic exits 0,
+with no overfull boxes; underfull spacing and the existing bibliography
+rerun-consistency warning remain. V280 is now a compact, explicitly idealized
+diagnostic in the paper. E10's metadata was retrieved by DOI content
+negotiation and its relevance checked against the author preprint.
+This is producing-agent self-check only, not author approval or a finding
+that the current novelty and generalization gaps are resolved.
 
 ## Risk and Escalation
 

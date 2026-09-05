@@ -33,7 +33,10 @@ and complete three-arm M24/X36 development results. The X36 self-weight
 fallback ablation is also complete: set error and consistency improve over
 sparse renormalization, but conditional RMSE worsens by 4.836%, failing the
 predefined M24 follow-up gate. The draft now includes the V279 count-error
-budget and the common-finite-cell RMSE comparison.
+budget, common-finite-cell RMSE comparison and a compact V280 opportunity
+readout. Two Python-rendered vector figures replace the original stacked
+pipeline boxes and expose the payload/set-error tradeoff. Figure sources,
+data and regeneration instructions are in `figures/README.md`.
 No multiseed significance, exact arbitrary-GM powers, globally minimum graph,
 loss-resilient equal-weight consensus or end-to-end bandwidth saving is claimed.
 
@@ -45,7 +48,13 @@ finalize the author-reviewed manuscript and any required AI-use disclosure.
 The derived perturbation bound is elementary and scoped; it is not by itself
 evidence of a novel estimation-optimal policy.
 
-V280 is a separate geometry/packet-opportunity diagnostic in the progress
-guide and experiment record, not an actual-label propagation experiment.
+V280 remains a geometry/packet-opportunity diagnostic, not an actual-label
+propagation experiment; its headline readout now appears in the manuscript.
 It reuses opened cases and changes no filter or sensing parameter. The V278
 background process finished normally; no automatic M24 extension was started.
+
+The routing-related comparison now includes Ramachandran et al., IEEE TCNS
+2021, DOI 10.1109/TCNS.2021.3059794. Topology reconfiguration, small edit count
+and joint topology/weight design already have prior art. Our remaining
+novelty burden is the useful interaction of a fixed sparse budget, directed
+delivery and finite-round LMB target-set recovery, not dynamic topology alone.
