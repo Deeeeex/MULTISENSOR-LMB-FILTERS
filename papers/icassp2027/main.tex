@@ -50,8 +50,8 @@ Network reconfiguration for multitarget tracking is also established:
 Ramachandran et al. jointly optimize communication topology and fusion
 weights after sensor-quality degradation, then reposition robots for
 coverage \cite{ramachandran2021reconfiguration}. We do not claim route
-repair itself as new. Here motion is fixed; the question is how a prescribed
-sparse message budget interacts with directed packet loss and finite-round
+repair itself as new. With prescribed motion, we ask how a sparse
+message budget interacts with directed packet loss and finite-round
 LMB fusion under unequal views.
 
 Multi-view GCI addresses label absence under unequal fields of view
@@ -204,9 +204,10 @@ and changes the formation tree when required. Sparse causal repair uses
 (\ref{eq:renorm}). A fourth X36 arm changes only missing-input handling
 to (\ref{eq:self}), including unavailable or empty neighbor packets.
 
-All arms use a componentwise powered-Gaussian-mixture approximation to KLA:
-at most three input components, eight fused components and 256 component
-tuples. This preserves multiple modes but is not an exact arbitrary-GM power.
+All arms use a guarded powered-Gaussian-mixture approximation: at most three
+components per input, eight fused components and 256 tuples. An overlap
+normalizer above one triggers moment-matched Gaussian fallback; arbitrary
+mixture powers are not exact.
 Label-absence handling is held fixed across arms. The implementation uses
 one communication/fusion round per tracking step.
 

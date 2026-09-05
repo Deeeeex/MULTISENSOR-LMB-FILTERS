@@ -11,6 +11,7 @@ V248 M24 and V274 X36 full episodes; V277 packet-only replay; implemented
 V240/V242 routing; completed V278 single-factor receiver ablation; official ICASSP kit.
 V279 adds a post-hoc count-error budget from the same saved paired episodes.
 V280 adds geometric observation and ideal-retention packet-path opportunity.
+V281 adds a completed one-round reference replay at three saved M24 anchors.
 Old full/light equivalence and earlier fusion-code results are excluded.
 
 ## Risk Tier
@@ -29,6 +30,7 @@ L2: reproducible internal research draft. No submission or publication action.
 | C6 | On X36 sensor-time cells with finite RMSE in both arms, sparse-vs-fixed RMSE gain is 38.431%. | E6 | Same cells do not imply the same matched target identities. |
 | C7 | X36 self fallback improves E-OSPA by 0.175% and focus consistency by 0.865% versus V242, but worsens conditional RMSE by 4.836%. | E7 | Single opened seed; fails the frozen 1% RMSE tolerance for an M24 follow-up; worst formation RMSE change is -37.361%. |
 | C8 | Global geometric blackout occupies 2.773%/2.734% of active target-time on M24/X36; sparse eight-step geometric-path coverage is 81.261%/63.183%. | E8 | Perfect detection and indefinite retention assumed for paths. Not actual labels, posterior recall or causal attribution of tracking error. |
+| C9 | At saved M24 anchors 70/84/151, local-posterior MAP readout is already about six; the immediate spatial term removes mean existence mass 0.119/0.225/0.099. | E11 | Current reference replay of three post-local-update states, not a full-episode causal decomposition or X36 result. Labels and existence mass are not true-target recall. |
 
 ## Evidence Ledger
 
@@ -44,6 +46,7 @@ L2: reproducible internal research draft. No submission or publication action.
 | E8 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeObservationReachabilityV280();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v280/observation_reachability_seed1301/OBSERVATION_REACHABILITY_V280.md` | Exit 0; M24/X36 global blackout 2.773%/2.734%; sparse ideal coverage within eight steps 81.261%/63.183%. |
 | E9 | `figures/exportPaperFigureData.m`, `figures/plot_paper_figures.py`, source CSVs and figure manifest | Existing seven episode rows exported without rounding; two Python vector figures generated without filtering. |
 | E10 | Ramachandran et al., IEEE TCNS 8(2):609--620, 2021; DOI 10.1109/TCNS.2021.3059794; author preprint https://arxiv.org/abs/2004.07197 | Prior topology/weight reconfiguration and subsequent robot repositioning explicitly distinguished from fixed-motion sparse LMB routing. |
+| E11 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeExistenceLossLocalizationV281();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v281/m24_existence_loss_seed1301/EXISTENCE_LOSS_LOCALIZATION_V281.md` | Exit 0; 72 receiver snapshots and 1,124 label records; 659 weighted log odds negative before spatial overlap; probability identity residual <=2.22e-16. |
 
 ## Verification Record
 
@@ -139,6 +142,31 @@ negotiation and its relevance checked against the author preprint.
 This is producing-agent self-check only, not author approval or a finding
 that the current novelty and generalization gaps are resolved.
 
+V281 then executed only the saved V242 reference assignment at each of the
+three registered M24 anchors. The observer uses cached post-local-update,
+pre-topology/pre-fusion posteriors, scheduled senders in runtime order, the
+paired directed uniforms, omitted empty/unavailable packets, and the actual
+MAP-cardinality extractor. There were four lost incoming packets, none of
+which removed a label's last scheduled input occurrence, and no delivered
+empty input. This does not imply zero loss of useful evidence. The fusion,
+MAP and reference-assignment sources have no diff from the cache generation
+commit to the replay runtime commit. No filter or runtime source was changed.
+Raw receiver/label CSVs and the analysis script are retained; the local MAT
+also retains per-source existences and active weights. The 0.5/0.9 levels
+describe input evidence only and are not candidate extraction thresholds.
+This limited self-check narrows the next trace to earlier local updates,
+propagation and current existence pooling; it does not establish a new
+tracking improvement. Main-paper performance values remain unchanged.
+
+The canonical Lark document was updated in place to revision 1232 with only
+the decision-relevant V281 interpretation after the existing V280 paragraph.
+A local keyword readback confirmed both new paragraphs, including the
+restriction to three M24 anchors and the remaining X36 evidence gap. The
+existing best-method table and whiteboard were not changed by this prose
+update. The detailed 72-receiver trace remains in the experiment record.
+The evidence lint returned `PASS: papers/icassp2027/EVIDENCE.md` after E11
+was added. No new filter is running at this handoff.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
@@ -160,7 +188,8 @@ checks against the primary papers and the metric implementation.
 
 ## Open Issues
 
-Post-fusion versus transport existence loss; weakest-formation behavior;
+Earlier local-update/recursive transport existence loss, with an X36 trace
+still missing; weakest-formation behavior;
 multi-seed and non-radial validation;
 control-inclusive communication; routing-specific prior-art comparison;
 extension of the exact fixed-density bound to approximate recursive filtering.
@@ -174,5 +203,7 @@ without starting an M24 extension or scanning fallback parameters.
 Prioritize successful target-set recovery and preservation (C5--C6), not
 further position-only or matrix-mixing optimization. V280 separates global
 visibility from time-respecting path opportunity but does not trace actual
-posterior evidence (C8). Localize whether existence evidence fails in transport or after fusion before
-opening a new policy family.
+posterior evidence (C8). V281 finds weak inputs already before the final
+spatial term at three M24 anchors (C9). Trace earlier local updates and
+recursive propagation before changing an eta floor or output threshold;
+retain the current input-weighting effect as a distinct possible mechanism.

@@ -1,5 +1,10 @@
 # Next discriminating diagnostic: locate existence loss
 
+Status: first pass completed on 2026-09-06. See
+`evidence/tracking_aligned_v281/m24_existence_loss_seed1301/EXISTENCE_LOSS_LOCALIZATION_V281.md`
+and `V281_EXISTENCE_LOSS_LOCALIZATION_FINDING.md`. The design below was
+executed only on the three saved M24 anchors; no full filter or X36 trace ran.
+
 ## Decision
 
 V278 is complete. Self fallback improves X36 set error and consistency over

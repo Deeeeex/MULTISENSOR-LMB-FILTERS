@@ -53,6 +53,13 @@ propagation experiment; its headline readout now appears in the manuscript.
 It reuses opened cases and changes no filter or sensing parameter. The V278
 background process finished normally; no automatic M24 extension was started.
 
+V281 is complete on three cached M24 anchors: local-posterior MAP counts are
+already about six before the final fusion, whose immediate overlap and
+pruning mass losses are small. The next trace targets earlier local updates
+and propagation, with current existence pooling kept distinct. The detailed
+record is not a new policy result, a full-episode causal attribution or X36
+evidence; it does not change the paper's performance table.
+
 The routing-related comparison now includes Ramachandran et al., IEEE TCNS
 2021, DOI 10.1109/TCNS.2021.3059794. Topology reconfiguration, small edit count
 and joint topology/weight design already have prior art. Our remaining
