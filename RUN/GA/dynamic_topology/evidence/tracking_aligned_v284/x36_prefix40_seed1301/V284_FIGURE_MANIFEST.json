@@ -1,0 +1,23 @@
+{
+  "backend": "Python / matplotlib 3.10.9",
+  "size_mm": [
+    175,
+    76
+  ],
+  "png_dpi": 600,
+  "sample": "X36 seed 1301, steps 1-40, 36 sensors; one opened episode",
+  "smoothing": "none",
+  "uncertainty": "no independent repeats or interval",
+  "rmse": "same finite sensor-time cells, not necessarily same target identities",
+  "disagreement": "same six formation representatives; entire prefix",
+  "communication": "attempted posterior bytes including lineage metadata and lost attempts",
+  "metric_changes_percent": {
+    "E-OSPA": -13.3621796765858,
+    "Count error": -25.7816394843672,
+    "Matched RMSE": 164.714952370053,
+    "Disagreement": -20.4276313369254,
+    "Payload bytes": 0.0371894335142287
+  },
+  "paper_insertion": false,
+  "independent_verification": false
+}

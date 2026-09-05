@@ -1,8 +1,10 @@
 # V284: causal startup-prior intervention
 
-Status: implemented; corrected two-step integration passed. The 40-step
-paired screen is the next run. L2 exploratory, self-check only. No new
-full-episode performance result yet.
+Status: the 40-step paired screen completed and failed its joint criterion
+on RMSE. E-OSPA and disagreement improved strongly at nearly unchanged
+attempted bytes. See the completed result interpretation; no startup-only
+parameter sweep or full-episode promotion is authorized by this result.
+L2 exploratory, self-check only; no new full-episode result.
 
 ## Question
 

@@ -1,7 +1,9 @@
 # V284 paired-result figure contract
 
-The experiment is still running when this contract is written. Do not draw
-mock results or promote the two-step integration to a result figure.
+The contract was written before the result. The completed 40-step screen
+now supports a tradeoff, not the original joint-improvement hypothesis:
+prior exclusion reduces E-OSPA, count error and disagreement at nearly
+unchanged attempted bytes, but markedly increases matched RMSE.
 
 - Core claim to adjudicate: excluding untouched priors improves target-set
   recovery at acceptable localization, disagreement and payload cost. This is
@@ -33,3 +35,12 @@ mock results or promote the two-step integration to a result figure.
 
 The final caption must state the observed tradeoff and the one-seed prefix
 boundary, not repeat the hypothesis as a proven result.
+
+Final caption: Untouched-prior exclusion improves X36 prefix set accuracy but
+not joint accuracy. (a) Unsmoothed network-mean E-OSPA at all 40 steps.
+(b) Whole-prefix changes against the unchanged sparse reference; negative
+values are improvements. RMSE compares the same 1,440 finite sensor-time
+cells, not necessarily the same matched targets. One opened seed; no across-
+seed interval or significance claim. Attempted bytes include metadata and
+failed attempts. The joint screen fails on RMSE; the figure is an experiment
+record, not a new full-episode paper result.
