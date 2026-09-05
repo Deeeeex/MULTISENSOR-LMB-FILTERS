@@ -64,6 +64,17 @@ guide; the English manuscript PDF has not yet been revised for this readout.
 Command `python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py papers/icassp2027/EVIDENCE.md`
 returned `PASS: papers/icassp2027/EVIDENCE.md` after adding E6.
 
+The canonical Lark method-design section and its later framework table were
+updated in place through revision 1216. They now distinguish the implemented
+V242 backbone, the unconfirmed V278 receiver rule, and the target-set bottleneck.
+One SVG schematic was inserted after the section introduction (revision 1217;
+block `doxlgarEJEouJwtTUYsrrC2TXkd`, board `Yv1nwom4Bh15o5batldjLRr6prc`).
+Two wording refinements updated that same board, without inserting another one.
+The primary agent visually checked both the final local PNG and the actual
+exported Lark preview under `figures/`. The Lark export uses black text and
+additional canvas whitespace, but the diagram remains complete and legible.
+This is a document/layout check, not independent scientific validation.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
