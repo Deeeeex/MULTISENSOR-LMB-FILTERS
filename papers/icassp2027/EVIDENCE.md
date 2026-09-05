@@ -104,6 +104,15 @@ after adding E7--E8. The next bounded diagnostic is specified in
 `RUN/GA/dynamic_topology/V281_EXISTENCE_LOSS_LOCALIZATION_DESIGN.md`; it is a
 plan, not an executed result or a new method claim.
 
+The local method SVG and PNG now label V278 as completed and explicitly state
+the X36 tradeoff against V242. The local PNG was rendered and visually checked.
+The online board still contains the earlier pending-status wording: a raw-node
+update was rejected by field validation, and a subsequent export confirmed the
+original board remained intact. Browser editing also timed out. No SVG overwrite
+was performed; that fallback awaits the user's confirmation because it rebuilds
+the board's node semantics. The retained online preview is therefore the earlier
+version, not evidence that the final status-text update reached Lark.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth

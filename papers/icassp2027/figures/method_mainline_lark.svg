@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1260" viewBox="0 0 1800 1260">
   <title>稀疏因果路由与实际投递后的逐标签 LMB-KLA 融合</title>
-  <desc>V242 已实现的计划路由由编队内有向环和编队间双向网关树组成。当前物理信息和上一轮路由决定计划，不使用未来或真值。实际投递受丢包影响。接收示例中主要邻居的 0.70 权重丢失后，当前基线重新归一化到自身 0.8333 和弱邻居 0.1667；验证中的 V278 候选将缺失权重归自身，得到自身 0.95 和弱邻居 0.05。两者尚未证实优劣，最终按标签融合完整 LMB 后验以估计目标存在与位置。</desc>
+  <desc>V242 已实现的计划路由由编队内有向环和编队间双向网关树组成。当前物理信息和上一轮路由决定计划，不使用未来或真值。实际投递受丢包影响。接收示例中主要邻居的 0.70 权重丢失后，当前基线重新归一化到自身 0.8333 和弱邻居 0.1667；已测试的 V278 将缺失权重归自身，得到自身 0.95 和弱邻居 0.05。X36 单种子对照中，V278 相对原稀疏骨干改善 E-OSPA 与一致性，但条件 RMSE 退化，尚未跨尺度验证。最终按标签融合完整 LMB 后验以估计目标存在与位置。</desc>
   <rect width="1800" height="1260" fill="#ffffff"/>
   <g font-family="Noto Sans SC, PingFang SC, Microsoft YaHei, sans-serif" fill="#15364b">
     <!-- Main title and semantic status key. -->
@@ -172,7 +172,7 @@
     <text x="625" y="911" font-size="26" font-weight="700" fill="#1262ad">自身 0.8333</text>
     <text x="1155" y="911" font-size="26" font-weight="700" fill="#087f8c" text-anchor="end">弱邻居 0.1667</text>
     <rect x="608" y="947" width="579" height="142" rx="20" fill="#fff8ee" stroke="#c96a15" stroke-width="2.5" stroke-dasharray="10 7"/>
-    <text x="625" y="982" font-size="25" font-weight="700" fill="#9d4c07">V278 验证中：缺失权重归自身</text>
+    <text x="625" y="982" font-size="25" font-weight="700" fill="#9d4c07">V278 已测试：缺失权重归自身</text>
     <rect x="625" y="1006" width="503.5" height="31" fill="#1262ad"/>
     <rect x="1128.5" y="1006" width="26.5" height="31" fill="#087f8c"/>
     <text x="625" y="1072" font-size="26" font-weight="700" fill="#1262ad">自身 0.95</text>
@@ -202,6 +202,6 @@
     <!-- The research question and the claim boundary stay on the main visual. -->
     <path d="M54 1159 H1746" stroke="#c6e2ec" stroke-width="2"/>
     <text x="900" y="1200" font-size="31" font-weight="700" text-anchor="middle">关注：目标信息有没有到达，到达后是否保住</text>
-    <text x="900" y="1239" font-size="23" text-anchor="middle" fill="#24516b">不只优化图连通 / 混合速度；两种权重处理尚未证实优劣，也不代表已保证共识。</text>
+    <text x="900" y="1239" font-size="23" text-anchor="middle" fill="#24516b">X36 相对原稀疏骨干：E-OSPA 与一致性改善，条件 RMSE 退化；尚未跨尺度验证。</text>
   </g>
 </svg>

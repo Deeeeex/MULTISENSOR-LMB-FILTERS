@@ -15,6 +15,10 @@ The weight example has self / main-neighbor / weak-neighbor weights of
 0.8333 / 0.1667 to the surviving inputs; self fallback gives 0.95 / 0.05.
 These are two processing rules, not a claim that the candidate is uniformly better.
 
+The local SVG/PNG contain the completed V278 status. The retained online preview
+is still the earlier version: the minimal raw-node update was rejected, and an
+SVG overwrite awaits user confirmation. Do not treat that preview as synchronized.
+
 To regenerate the local PNG on macOS from this directory:
 
 ```sh
