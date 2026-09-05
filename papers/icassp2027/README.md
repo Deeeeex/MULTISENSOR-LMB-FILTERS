@@ -29,14 +29,23 @@ The independent paper is maintained on `codex/icassp2027-sparse-causal-routing`.
 
 The manuscript contains the implemented sparse causal backbone, a scheduled
 connectivity/count proof, a conditional finite-round geometric-pooling bound,
-and complete three-arm M24/X36 development results. The self-weight fallback
-is presented as an in-progress controlled experiment, not as an observed gain.
+and complete three-arm M24/X36 development results. The X36 self-weight
+fallback ablation is also complete: set error and consistency improve over
+sparse renormalization, but conditional RMSE worsens by 4.836%, failing the
+predefined M24 follow-up gate. The draft now includes the V279 count-error
+budget and the common-finite-cell RMSE comparison.
 No multiseed significance, exact arbitrary-GM powers, globally minimum graph,
 loss-resilient equal-weight consensus or end-to-end bandwidth saving is claimed.
 
-Before submission: complete the receiver ablation and cross-scale confirmation;
-freeze independent seeds and the second scene style; assess control traffic;
+Before submission: locate the target-existence bottleneck and establish a
+jointly beneficial method on both scales; freeze independent seeds and the
+second scene style; assess control traffic;
 expand the routing-specific related-work comparison and establish novelty;
 finalize the author-reviewed manuscript and any required AI-use disclosure.
 The derived perturbation bound is elementary and scoped; it is not by itself
 evidence of a novel estimation-optimal policy.
+
+V280 is a separate geometry/packet-opportunity diagnostic in the progress
+guide and experiment record, not an actual-label propagation experiment.
+It reuses opened cases and changes no filter or sensing parameter. The V278
+background process finished normally; no automatic M24 extension was started.

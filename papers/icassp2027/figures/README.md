@@ -5,13 +5,15 @@ method-design illustration in the canonical Lark document. The three
 formations are a structural example, not an M24/X36 sensor layout.
 
 The figure separates the implemented V242 sparse routing backbone from the
-V278 missing-packet receiver rule that is still being evaluated. Planned
+V278 missing-packet receiver rule whose X36 single-seed comparison is complete.
+Its set-error/consistency gains trade off against conditional RMSE; it failed
+the predefined follow-up gate and is not a cross-scale replacement. Planned
 connectivity is not a guarantee of delivered connectivity or tracking gain.
 
 The weight example has self / main-neighbor / weak-neighbor weights of
 0.25 / 0.70 / 0.05. When the main packet is absent, renormalization gives
 0.8333 / 0.1667 to the surviving inputs; self fallback gives 0.95 / 0.05.
-These are two processing rules, not a claim that the candidate is better.
+These are two processing rules, not a claim that the candidate is uniformly better.
 
 To regenerate the local PNG on macOS from this directory:
 
