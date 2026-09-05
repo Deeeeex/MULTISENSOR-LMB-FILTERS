@@ -1,6 +1,7 @@
 % Independent ICASSP 2027 working manuscript. See README.md for evidence status.
 \documentclass{article}
 \usepackage{spconf,amsmath,amssymb,graphicx,booktabs,hyperref}
+\hypersetup{hidelinks}
 \newcommand{\KLA}{\operatorname{KLA}}
 \newcommand{\osc}{\operatorname{osc}}
 \newcommand{\diag}{\operatorname{diag}}
@@ -59,11 +60,10 @@ Multi-view GCI addresses label absence under unequal fields of view
 communication structure and missing-input handling are compared. Routing
 uses physical links, not posterior-dependent learned weights.
 
-We develop a local-cycle and bidirectional-tree backbone with an exact
-message count, analyze packet-induced weight changes, and compare fixed,
-full-repair and sparse-repair tracking. These comparisons expose a gap
-between localization gains and complete-set recovery. Results use one
-opened seed per scale: development evidence, not cross-scenario validation.
+We develop a sparse backbone with an exact message count and analyze
+packet-induced weight changes. Fixed, full-repair and sparse-repair
+comparisons expose a gap between localization gains and target-set recovery.
+One opened seed per scale provides development evidence, not validation.
 
 \section{Sparse Causal LMB Routing}
 \subsection{Fusion and communication model}
@@ -207,9 +207,12 @@ to (\ref{eq:self}), including unavailable or empty neighbor packets.
 All arms use a guarded powered-Gaussian-mixture approximation: at most three
 components per input, eight fused components and 256 tuples. An overlap
 normalizer above one triggers moment-matched Gaussian fallback; arbitrary
-mixture powers are not exact.
-Label-absence handling is held fixed across arms. The implementation uses
-one communication/fusion round per tracking step.
+mixture powers are not exact. Local detection probabilities are evaluated
+at component means and set to zero outside the sensor FoV; an unobservable
+state is not assigned the nominal missed-detection penalty.
+Label-absence handling is fixed across arms. Each step has one fusion round.
+MAP cardinality selects the output set; unselected labels remain in the
+posterior unless pruned below the shared existence threshold of 0.01.
 
 Metrics are Euclidean position OSPA (E-OSPA, order 2, cutoff 150\,m)
 \cite{schuhmacher2008ospa} and Hungarian-matched position RMSE, averaged over
@@ -272,11 +275,10 @@ from 18.456 to 18.597, and focus consistency worsens by 0.776\%.
 The RMSE decrease therefore does not establish a comparable improvement
 in complete target-set recovery.
 
-The RMSE averages also use different finite-cell sets: X36 sparse repair
-has finite RMSE on 97.465\% of sensor--time cells, versus 100\% for fixed
-routing. On their common finite cells, the means are 19.329 and 31.394\,m,
-a 38.431\% reduction. This comparison aligns sensor--time cells, not
-necessarily matched target identities.
+X36 sparse repair has finite RMSE on 97.465\% of sensor--time cells, versus
+100\% for fixed routing. On common finite cells the means are 19.329 and
+31.394\,m, a 38.431\% reduction. Aligned cells need not contain the same
+matched target identities.
 
 \subsection{How much can localization alone improve?}
 To separate position refinement from target-set recovery, write squared
@@ -285,41 +287,38 @@ OSPA at one sensor--time cell as
  E^2=C+L,\qquad C=c^2\frac{|n-T|}{\max(n,T)},\quad L\geq0,
  \label{eq:countbudget}
 \end{equation}
-where $T,n$ are true and estimated cardinalities and $c=150$\,m.
-Set $E=C=L=0$ for two empty sets. Zero localization error at a fixed
-estimated count leaves $\sqrt C$. The saved absolute count error permits
-two count signs; OSPA's floor and the recorded RMSE matching eliminate
-infeasible counts. Ambiguous cells retain $C_{\min}\leq C\leq C_{\max}$.
-The sparse arms have 0/3840 ambiguous M24 cells and 121/5760 on X36.
-For the sparse arms, $\sum C/\sum E^2$ is 99.567\% on M24 and
-98.074--99.337\% on X36. This is not a linear decomposition of mean OSPA.
-Consequently, localization alone can reduce mean OSPA by at most
+where $T,n$ are true and estimated counts and $c=150$\,m; two empty sets
+give $E=C=L=0$. Perfect localization at fixed counts leaves $\sqrt C$.
+Saved absolute count errors admit two signs. OSPA's floor and RMSE matching
+exclude infeasible counts, leaving 0/3840 ambiguous sparse M24 cells and
+121/5760 X36 cells with $C_{\min}\leq C\leq C_{\max}$.
+For sparse repair, $\sum C/\sum E^2$ is 99.567\% on M24 and
+98.074--99.337\% on X36, not a linear decomposition of mean OSPA.
+The remaining fixed-count gain is at most
 $\operatorname{mean}(E-\sqrt{C_{\min}})$: 0.279 and 1.311\,m.
-These are fixed-count bounds, not achieved gains or evidence that every
-emitted target is correct. Substantial set-error improvement requires
-changing target-set recovery, not just refining the emitted positions.
+These are bounds, not achieved gains or proof of correct emitted targets;
+substantial improvement requires changing target-set recovery.
 
-A packet-only replay finds strong connectivity on 41/160 M24 steps and
-18/160 X36 steps. Empty payloads and label-specific censoring can further
-restrict fusion; these counts neither exclude longer-window connectivity
-nor explain the tracking differences causally.
+Delivered sparse graphs are strongly connected on only 41/160 M24 steps
+and 18/160 X36 steps. These counts do not measure label-wise reachability
+or longer-window connectivity, nor establish tracking causality.
 
 \subsection{Receiver ablation and limitations}
-Self fallback reduces X36 E-OSPA by 0.175\% and focus disagreement by
-0.865\% relative to sparse renormalization, with cardinality error falling
-from 18.597 to 18.518. However, conditional RMSE worsens by 4.836\%,
-including a 37.361\% loss in the most affected formation. Relative to fixed
-routing, its four network means improve, but E-OSPA and consistency gains
-remain small (0.542\% and 0.096\%). No receiver rule is uniformly preferable.
+Against sparse renormalization, self fallback improves X36 E-OSPA by
+0.175\% and focus consistency by 0.865\%; cardinality error drops to 18.518.
+Conditional RMSE worsens by 4.836\%, with a 37.361\% loss in the most
+affected formation. Neither dominates.
 
-Next, transport and post-fusion existence loss must be distinguished.
+The remaining question is where target-existence evidence becomes weak.
 Despite global geometric blackout below 2.8\% in both scenes, ideal
 eight-step sparse-path coverage falls from 81.261\% on M24 to 63.183\%
 on X36. This offline replay assumes perfect detection and indefinite
-retention over actual packet opportunities: it is not actual label recall.
-No statistical significance, control-inclusive byte saving, decentralized
-routing implementation or cross-layout validity is established. Independent
-seeds and a non-radial zipper-merge scene remain necessary.
+retention over actual packet opportunities, not actual label recall.
+Local updates, repeated existence pooling and spatial overlap must be
+separated before attributing set error to the final fusion.
+Statistical significance, control-inclusive savings and decentralized
+routing remain unestablished. Independent seeds and a zipper-merge scene
+are needed to test generalization.
 
 \section{Conclusion}
 Sparse causal repair reduces posterior traffic in two development cases,

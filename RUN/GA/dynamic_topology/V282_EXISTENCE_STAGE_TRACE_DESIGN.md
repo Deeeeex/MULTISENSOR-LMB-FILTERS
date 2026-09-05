@@ -1,6 +1,21 @@
 # V282: early X36 existence-stage trace
 
-Status: implemented; two-step integration check and 40-step capture pending.
+Status: two-step integration completed; 40-step capture running in the
+background (session 4122, frozen runtime/driver commit `fbf17cd`). No
+40-step result or new method gain is available yet.
+
+The short run completed in 21.6 seconds of filter time, after full-scene
+generation. Across 72 receiver-time cells, E-OSPA and finite RMSE match the
+saved reference prefix exactly, including the finite-RMSE mask. It captured
+1,728 label stages. At 1,488 zero-expected-pD stages, the maximum absolute
+local existence change is 6.94e-18. This supports the narrow local-update
+check, not a full-episode explanation of X36's count error.
+
+An initial short run reached the save step but failed because Octave cannot
+serialize live model function handles as MAT7. The driver now saves only
+the sensor-quality numerical fields needed offline. The corrected short
+run exited 0; the 40-step trace uses that same corrected source. The stored
+trace is diagnostic data, not a complete restartable filter checkpoint.
 
 ## Question and decision
 
@@ -57,3 +72,9 @@ octave --no-gui --quiet --eval "addpath(genpath(pwd)); options=struct('reference
 Create the output directory before opening the tee log. The driver reports
 the start of every fifth step; a progress line does not mean that step has
 completed. Reinvocation after a saved trace only refreshes offline analysis.
+
+Follow the launched run without starting another process:
+
+```sh
+tail -f RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/run.log
+```

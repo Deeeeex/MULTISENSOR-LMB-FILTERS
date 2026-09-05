@@ -12,6 +12,8 @@ V240/V242 routing; completed V278 single-factor receiver ablation; official ICAS
 V279 adds a post-hoc count-error budget from the same saved paired episodes.
 V280 adds geometric observation and ideal-retention packet-path opportunity.
 V281 adds a completed one-round reference replay at three saved M24 anchors.
+V282 adds a completed two-step X36 capture integration check; the 40-step
+reference diagnostic is running and is not a completed result.
 Old full/light equivalence and earlier fusion-code results are excluded.
 
 ## Risk Tier
@@ -47,6 +49,7 @@ L2: reproducible internal research draft. No submission or publication action.
 | E9 | `figures/exportPaperFigureData.m`, `figures/plot_paper_figures.py`, source CSVs and figure manifest | Existing seven episode rows exported without rounding; two Python vector figures generated without filtering. |
 | E10 | Ramachandran et al., IEEE TCNS 8(2):609--620, 2021; DOI 10.1109/TCNS.2021.3059794; author preprint https://arxiv.org/abs/2004.07197 | Prior topology/weight reconfiguration and subsequent robot repositioning explicitly distinguished from fixed-motion sparse LMB routing. |
 | E11 | `octave --no-gui --quiet --eval "addpath(genpath(pwd)); analyzeExistenceLossLocalizationV281();"`; `RUN/GA/dynamic_topology/evidence/tracking_aligned_v281/m24_existence_loss_seed1301/EXISTENCE_LOSS_LOCALIZATION_V281.md` | Exit 0; 72 receiver snapshots and 1,124 label records; 659 weighted log odds negative before spatial overlap; probability identity residual <=2.22e-16. |
+| E12 | `RUN/GA/dynamic_topology/V282_EXISTENCE_STAGE_TRACE_DESIGN.md` retains the launch command; `evidence/tracking_aligned_v282/x36_prefix2_integration_seed1301/EXISTENCE_STAGE_TRACE_V282.md` under `RUN/GA/dynamic_topology/` retains the completed short check. | Corrected integration session 61818 exit 0; 72 receiver-time cells, 1,728 label stages; E-OSPA/finite-RMSE differences 0 and finite masks match. Source `fbf17cd`. The 40-step diagnostic remains running in session 4122. |
 
 ## Verification Record
 
@@ -167,6 +170,26 @@ update. The detailed 72-receiver trace remains in the experiment record.
 The evidence lint returned `PASS: papers/icassp2027/EVIDENCE.md` after E11
 was added. No new filter is running at this handoff.
 
+On the subsequent V282 handoff, an unchanged X36 reference prefix is running
+in session 4122, with runtime and capture source frozen at `fbf17cd`. Its
+two-step integration check (E12) passed after fixing Octave MAT serialization;
+the 40-step run has reported the start of step 6, not completion. The short
+trace numerically confirms neutral local existence updates at its zero-pD
+label stages (maximum absolute change 6.94e-18). It does not identify the
+full-episode bottleneck or justify a policy change. Raw trace MAT files and
+logs remain local; the compact short-run report is retained in git.
+
+The manuscript now states the component-mean FoV detection approximation
+and distinguishes MAP selection from posterior pruning. Duplicate prose was
+shortened, and hyperlink borders hidden without changing the template style.
+Tectonic completed with exit 0; the primary agent inspected all five final
+rendered pages under `tmp/pdfs/icassp2027-v282/verified-*.png`. Technical
+content ends on page four; page five contains declarations and references.
+No overfull boxes remain; underfull spacing and the existing bibliography
+rerun-consistency warning remain. Figures and performance values are
+unchanged. Lark receives no routine integration-status paragraph or new
+best-method row from this diagnostic-only work.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
@@ -188,8 +211,8 @@ checks against the primary papers and the metric implementation.
 
 ## Open Issues
 
-Earlier local-update/recursive transport existence loss, with an X36 trace
-still missing; weakest-formation behavior;
+Earlier local-update/recursive transport existence loss, with the X36
+40-step diagnostic still running; weakest-formation behavior;
 multi-seed and non-radial validation;
 control-inclusive communication; routing-specific prior-art comparison;
 extension of the exact fixed-density bound to approximate recursive filtering.
