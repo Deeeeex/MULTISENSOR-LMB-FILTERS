@@ -19,6 +19,13 @@ The working title is **Delivery-Aware Sparse Causal Routing for Distributed
 Multi-Object Tracking**. Jinhao Chen is first author; Tianyu Wo is corresponding
 author. Both affiliations are Beihang University, as confirmed by the author.
 No funding and no conflicts of interest were declared.
+The supplied English names are authoritative. Chinese-character expansions
+in the message of commit `1185a5d` were not author-confirmed and should not
+be used; they do not appear in the manuscript or its author block.
+
+The canonical progress document remains
+[the existing Lark document](https://jjp48fb03jzs.jp.larksuite.com/docx/HcFFdtKIRovhHLxKrx5jVpiBpJh).
+The independent paper is maintained on `codex/icassp2027-sparse-causal-routing`.
 
 The manuscript contains the implemented sparse causal backbone, a scheduled
 connectivity/count proof, a conditional finite-round geometric-pooling bound,
