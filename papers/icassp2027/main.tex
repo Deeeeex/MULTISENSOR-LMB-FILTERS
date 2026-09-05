@@ -31,11 +31,10 @@ topology, packet loss
 \end{keywords}
 
 \section{Introduction}
-Mobile sensor formations exchange posteriors to track beyond individual
-fields of view. Motion can break an initial route even when alternative
-physical links exist. Retaining many inputs improves redundancy but
-repeatedly transmits multi-object densities. Which inputs should reach
-which receivers soon enough to support both object existence and location?
+Mobile formations exchange posteriors to track beyond individual fields of
+view. Motion breaks routes; redundant inputs consume bandwidth. Which
+inputs should reach which receivers soon enough to support both object
+existence and location?
 
 The labeled multi-Bernoulli (LMB) filter represents object existence and
 spatial states \cite{reuter2014lmb}. Consensus LMB filtering uses
@@ -47,25 +46,26 @@ rounds; scheduled connectivity guarantees neither delivery nor lower error.
 Randomized gossip relates averaging time to a stochastic matrix spectrum
 \cite{boyd2006gossip}; event-triggered Bayesian filtering uses posterior
 divergence from a predicted last transmission \cite{battistelli2019event}.
-Network reconfiguration for multitarget tracking is also established:
-Ramachandran et al. jointly optimize communication topology and fusion
-weights after sensor-quality degradation, then reposition robots for
-coverage \cite{ramachandran2021reconfiguration}. We do not claim route
-repair itself as new. With prescribed motion, we ask how a sparse
-message budget interacts with directed packet loss and finite-round
-LMB fusion under unequal views.
+Ramachandran et al. jointly reconfigure topology and fusion weights after
+sensor-quality degradation, then reposition robots for coverage
+\cite{ramachandran2021reconfiguration}. We do not claim route repair as new.
+With prescribed motion, we study sparse messages, directed losses and
+finite-round LMB fusion under unequal views.
 
 Multi-view GCI includes GM-PHD clustering and compensation
 \cite{li2020multiview}, LMB fusion under unequal views \cite{li2018multiviewlmb},
 and centralized per-label information-based weighting \cite{wang2018multiview}.
-Our arms share a repository-specific FoV censor for absent labels; they do
-not implement those complete multi-view methods. Routing uses current
-physical links, not learned posterior weights.
+Our arms share a repository-specific absent-label FoV censor, not these
+complete methods; routing uses physical links, not learned weights.
 
-We develop a sparse backbone with an exact message count and analyze
-packet-induced weight changes. Fixed, full-repair and sparse-repair
-comparisons expose a gap between localization gains and target-set recovery.
-One opened seed per scale provides development evidence, not validation.
+Label correspondence is a separate requirement. Li et al. match labels
+before labelwise GCI \cite{li2019labelmatching}; Gao et al. address unequal
+views and label matching under constrained minimum information loss
+\cite{gao2022differentfov}. Neither procedure is part of our current arms.
+
+We give a sparse backbone's exact message count and analyze packet-induced
+weight changes. Paired routing comparisons expose a localization--set-recovery
+gap. One opened seed per scale provides development evidence, not validation.
 
 \section{Sparse Causal LMB Routing}
 \subsection{Fusion and communication model}
@@ -101,8 +101,8 @@ When that tree or its gateway assignment is infeasible, it selects a current
 feasible tree lexicographically: minimize replaced formation edges, maximize
 bottleneck reliability, maximize total log reliability, then minimize
 distance. Gateway feasibility includes the receiver input constraints.
-The retained object is the formation tree, not every sensor-level edge:
-local cycles and gateway endpoints are rebuilt from current geometry.
+Local cycles and gateway endpoints are rebuilt from current geometry;
+only the formation tree is retained.
 
 The sparse policy retains one directed cycle inside each formation. Each
 undirected edge of the formation tree is realized by one directed gateway
@@ -214,6 +214,8 @@ at component means and set to zero outside the sensor FoV; an unobservable
 state is not assigned the nominal missed-detection penalty.
 Present low-existence labels are not excluded merely for being outside the
 current view. Each step has one fusion round.
+Shared birth identifiers are fused directly, without label matching.
+Geometric output disagreement does not itself invalidate this shared-label model.
 MAP cardinality selects the output set; unselected labels remain in the
 posterior unless pruned below the shared existence threshold of 0.01.
 
@@ -308,25 +310,22 @@ Against sparse renormalization, self fallback improves X36 E-OSPA by
 Conditional RMSE worsens by 4.836\%, with a 37.361\% loss in the most
 affected formation. Neither dominates.
 
-Target-existence evidence remains the bottleneck. Although global geometric
-blackout is below 2.8\%, ideal eight-step sparse-path coverage falls from
-81.261\% on M24 to 63.183\% on X36. Perfect detection and indefinite
-retention are assumed; these are opportunities, not label recall.
+Global geometric blackout is below 2.8\%, but ideal eight-step sparse-path
+coverage falls from 81.261\% on M24 to 63.183\% on X36. Perfect detection
+and indefinite retention are assumed, not actual label recall.
 
-An unchanged 40-step X36 trace separates historical access from evidence
-strength: at steps 36--40, 3,117/3,227 pools below pre-spatial existence 0.5
-lack an active input with $r\geq0.9$. These are descriptive levels, not output
-thresholds. Opportunity lineage includes misses, not confirmed detections
-or retained strength. Recovery must be evaluated with the localization of
-additional outputs; a smaller covariance alone does not identify a more
-accurate source.
-Multi-view LMB baselines, independent seeds, zipper-merge validation,
-control traffic and decentralized routing remain open.
+A 40-step X36 trace finds 3,117/3,227 late weak pools (pre-spatial existence
+below 0.5, steps 36--40) without an input at $r\geq0.9$. These descriptive
+levels are not output thresholds. Historical opportunity, including misses,
+need not retain strong evidence. Recovery also requires reliable locations
+and label correspondence; posterior precision alone is not a validated
+source-quality score. Label-matched and multi-view baselines are needed
+before attributing the gap to routing. Independent seeds, zipper-merge
+validation, control traffic and decentralized routing remain open.
 
 \section{Conclusion}
-Sparse repair saves posterior traffic, but target-set and weakest-formation
-tradeoffs remain. Planned connectivity alone guarantees neither existence
-retention nor reliable localization.
+Sparse repair saves payload but retains target-set and formation-wise
+tradeoffs. Planned connectivity does not ensure accurate target recovery.
 
 \section*{Acknowledgements and declarations}
 This work received no external funding. The authors declare no conflicts

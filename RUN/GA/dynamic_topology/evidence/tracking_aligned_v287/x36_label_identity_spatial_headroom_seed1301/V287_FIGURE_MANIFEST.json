@@ -1,0 +1,37 @@
+{
+  "size_mm": [
+    150,
+    77
+  ],
+  "backend": "Python / Matplotlib 3.10.9",
+  "source": "V287_IDENTITY_RESTRICTED_HEADROOM.csv",
+  "seed": 1301,
+  "scene": "X36",
+  "time_scope": "prefix 1-40, previous-step sources predicted once",
+  "queries": 7818,
+  "birth_stratum": "all",
+  "pool_order": [
+    4,
+    5,
+    1
+  ],
+  "receiver_pooled_rmse": 34.7866399086,
+  "original_oracle_pooled_rmse": [
+    34.3800862213,
+    29.9786353948,
+    11.0830940021
+  ],
+  "assignment_coherent_oracle_pooled_rmse": [
+    34.5329533945,
+    32.0216461343,
+    22.349590868
+  ],
+  "truth_selected": true,
+  "retains_receiver": true,
+  "uncertainty": "One opened development seed; no independent repeats or inference",
+  "online_policy": false,
+  "paper_insertion": false,
+  "lark_best_table_update": false,
+  "svg_editable_text": true,
+  "png_dpi": 600
+}

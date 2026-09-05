@@ -92,3 +92,18 @@ the final-snapshot check. The manuscript and mainline note state this design
 boundary without presenting oracle figures as tracking improvements.
 The new two-panel source diagnostic is retained with the V286 experiment,
 outside the two manuscript figures. No filter is running at this handoff.
+
+V287 adds a source-correspondence restriction to the same saved X36 queries:
+the lag-one global oracle changes from 11.083 m to 22.350 m when the source's
+own geometric assignment must agree with the receiver query (receiver 34.787 m).
+These truth-based pooled diagnostics neither change the official metrics nor
+prove identity errors caused the tracking gap. The next comparison must separate
+label-matched fusion from routing effects. The paper now cites Li et al. (TSP
+2019) and Gao et al. (TAES 2022), explicitly states that current arms do not
+perform spatial label matching, and keeps the performance table unchanged.
+Their metadata and high-level claims are checked; the 2019 full implementation
+has not been obtained or reproduced. The earlier 2016 GCI-LSM text is not a
+drop-in substitute for unequal-FoV unmatched-track handling.
+The V287 figure remains in the experiment record; the approved Lark method
+board is preserved. See `RUN/GA/dynamic_topology/LABEL_MATCHING_BASELINE_NOTES.md`
+for the bounded two-by-two fusion/routing comparison design.
