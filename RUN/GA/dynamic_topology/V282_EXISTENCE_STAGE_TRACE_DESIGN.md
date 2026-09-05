@@ -1,0 +1,59 @@
+# V282: early X36 existence-stage trace
+
+Status: implemented; two-step integration check and 40-step capture pending.
+
+## Question and decision
+
+V281 localized weak existence evidence to before the final fusion at three
+M24 anchors. It did not separate earlier local updates from repeated fusion
+and did not inspect X36. V282 captures X36 steps 1--40 to locate the onset of
+that weakness. It is an unchanged-reference diagnostic, not a candidate arm.
+
+The local update already sets detection probability to zero outside its FoV.
+No evidence currently justifies a sensing-model or missed-detection code fix.
+The existing component-mean FoV approximation remains shared and unchanged.
+
+## Fixed inputs
+
+- Preset: `x36-formation-fov-temporal-coupled-formation-braid`, seed 1301.
+- Generate the original 160-step scene, then truncate the existing arrays.
+  Do not regenerate a 40-step scene with changed motion/phase timing.
+- V242 route, weights, packet handling, powered-GM approximation, local
+  association and MAP readout remain unchanged. Use the existing filter seed
+  offset and directed delivery uniforms.
+- Capture predicted, post-local-update and pre-pruning fused posteriors, plus
+  the actual label-wise weighted log odds and spatial overlap term.
+- The filter sees no realized target truth. Truth is used only for offline
+  metric correspondence with the already saved V274 reference prefix.
+
+## Outputs and stop rule
+
+Save the expensive raw trace before analysis. Produce receiver/time and
+label/time CSVs, expected component-mean detection probability, existence
+mass by stage, and MAP cardinality. Keep unselected retained labels distinct
+from pruned labels. Compare every E-OSPA/RMSE prefix cell with the old result;
+do not imply full-state identity merely from matching output metrics.
+
+First run two steps in a separate integration directory. If capture or metric
+correspondence fails, stop and resolve that difference before the 40-step run.
+After the prefix completes, identify whether local updates, existence pooling
+or spatial overlap is the earliest major change. Do not launch a threshold
+sweep or a new full episode without that analysis. If 40 steps do not localize
+the issue, state the diagnostic limit rather than asserting a cause.
+
+The existing X36 reference took about 10.2 hours for 160 steps. A prefix avoids
+spending another full episode before choosing a method change. No change to
+the paper's best-method table is warranted by this diagnostic alone.
+
+## Run
+
+From this worktree (set `maximumTime` to 2 and change `outputRoot` to
+`x36_prefix2_integration_seed1301` for the one integration check):
+
+```sh
+octave --no-gui --quiet --eval "addpath(genpath(pwd)); options=struct('referenceResultPath','/Users/dex/.config/superpowers/worktrees/MULTISENSOR-LMB-FILTERS/v274-x36-minimum-backbone/RUN/GA/dynamic_topology/evidence/tracking_aligned_v274/x36_minimum_backbone_seed1301/minimum_causal_backbone/CAUSAL_MINIMUM_FORMATION_BACKBONE_V242_FULL_EPISODE.mat','maximumTime',40,'outputRoot','RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301'); runExistenceStageTraceV282(options);" 2>&1 | tee RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/run.log
+```
+
+Create the output directory before opening the tee log. The driver reports
+the start of every fifth step; a progress line does not mean that step has
+completed. Reinvocation after a saved trace only refreshes offline analysis.
