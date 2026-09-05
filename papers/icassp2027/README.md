@@ -117,7 +117,9 @@ accessible Gao et al. author version (arXiv:1911.01083v1, Proposition 3), with
 explicit zero-existence extension and diagnosed eight-component GM reduction.
 It preserves the V242 route and is not the complete different-FoV/matching
 algorithm. Formula checks and two-step integration passed; the 40-step X36
-candidate is running in the background from source-freeze commit `f67a1bb`.
+candidate completed from source-freeze commit `f67a1bb` and failed its joint
+screen. This version is not extended to M24 or a full episode. Detailed
+candidate results remain in experiment records, not the main best table.
 The numerical main table is unchanged. The draft distinguishes the three
 factors, adds the verified 2020 MIL reference, and still has five pages with
 the complete conclusion on page 4 and declarations/references on page 5.

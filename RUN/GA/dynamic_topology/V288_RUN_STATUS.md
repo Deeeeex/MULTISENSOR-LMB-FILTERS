@@ -1,4 +1,4 @@
-# V288 shared-label MIL: implementation and running prefix
+# V288 shared-label MIL: completed prefix and method decision
 
 ## Question
 
@@ -9,8 +9,8 @@ and routing effects before claiming a new method.
 ## Scope
 
 Shared-label MIL implementation, formula checks, a completed two-step X36
-integration, one running 40-step development candidate, an analytic schematic,
-and scoped manuscript/Lark updates. No complete-prefix result yet; no new
+integration, the completed 40-step development candidate, an analytic schematic,
+and scoped manuscript/document updates. The joint screen failed. No new
 best-method row, M24 result, multiseed validation or paper submission.
 
 ## Risk Tier
@@ -24,8 +24,9 @@ validated scientific-performance claim or final method selection is authorized.
 | --- | --- | --- | --- |
 | C1 | Shared-label reduced-GM MIL is implemented with one source-weight vector and explicit zero-existence missing labels. | E1, E2 | Not KLA, label matching or full different-FoV MIL; eight-component reduction is approximate. |
 | C2 | The two-step integration completes with the same attempted/delivered edge masks. | E3 | Integration evidence only; E-OSPA is 139.697349 -> 139.270653, but RMSE and bytes increase. |
-| C3 | A frozen 40-step candidate is running from the committed source, with the old filter arm reused. | E4 | No result or screen outcome exists yet. |
+| C3 | The frozen 40-step candidate completed from the committed source, with the old filter arm reused and identical route masks. | E4, E8 | One opened prefix, not a full episode or independent validation. |
 | C4 | The paper and Lark now distinguish fusion, correspondence and routing; the explanatory plot is analytic. | E5, E6 | Does not increase evidence for a successful tracking method. |
+| C5 | MIL modestly improves set error, count error and disagreement, but worsens conditional RMSE and attempted bytes, failing the frozen joint screen. | E8, E9 | Reduced-GM shared-label MIL only; not a rejection of complete different-FoV MIL. |
 
 ## Evidence Ledger
 
@@ -48,10 +49,10 @@ validated scientific-performance claim or final method selection is authorized.
   that old MAT does not contain them. Numerical Markdown/CSV remain available.
 - E4: Commit `f67a1bb`, `Add an isolated shared-label MIL fusion control`, was
   pushed successfully: `d5fa9e4..f67a1bb codex/icassp2027-sparse-causal-routing`.
-  The exact 40-step command below is running in session 63055. Its log reports
-  `Filter starting step 11/40 at 2026-09-06 07:00:10`. Runtime source files
-  have not been changed during the run. The growing log is not a completed
-  experiment artifact.
+  The exact 40-step command below completed in session 63055 with exit 0.
+  The raw file records source `f67a1bbc5f19c56fe4005749888b4ef964437230` and
+  filter time 2205.5 s; subsequent metric aggregation is not included in
+  that filter time. Runtime source files were unchanged throughout the run.
 - E5: `tectonic --keep-logs main.tex` in `papers/icassp2027` exited 0; PDF
   text/page inspection reports five pages, complete conclusion on page 4,
   declarations and 13 references on page 5. Python-rendered changed pages
@@ -71,6 +72,53 @@ validated scientific-performance claim or final method selection is authorized.
   The full-episode numerical tables and original two method/result figures
   are unchanged. This is documentation synchronization, not new performance
   evidence; the background receiver remains frozen at `f67a1bb`.
+- E8: The E4 command returned `V288 prefix 40: E-OSPA 135.180030 -> 132.617637
+  (+1.896% gain), RMSE 8.425317 -> 19.735674, bytes ratio 3.2474, screen
+  evaluated 1 / passed 0.` The completed report and three numerical CSVs
+  are in `evidence/tracking_aligned_v288/x36_prefix40_seed1301/` relative to
+  this record. Raw/result MAT files are retained locally. Attempted/delivered
+  mask differences are 0/0, with 1840/1766 messages in both arms.
+- E9: `V288_SENSOR_METRICS.csv` has 36 paired rows: all 36 E-OSPA differences
+  are negative and all 36 RMSE differences are positive. Formation RMSE is
+  the mean of its six sensor rows, valid here because every sensor has all
+  40 finite RMSE cells. `V288_TIME_SERIES.csv` split into equal halves gives
+  reference/candidate RMSE 8.960806/15.191155 m at steps 1--20 and
+  7.889829/24.280192 m at steps 21--40. These are descriptive within-episode
+  summaries, not independent replicates or evidence about matched identities.
+- E10: Three scoped Lark paragraph replacements completed successfully;
+  `lark-cli docs +fetch --doc HcFFdtKIRovhHLxKrx5jVpiBpJh --scope keyword --keyword '目前卡点|下一步：把融合|下一道决策' --detail with-ids --as user`
+  returned revision 1263 with the completed-control status and the next
+  unequal-FoV/byte-budget decision. No numerical candidate row, board or
+  new document was added. The local mainline note uses the same status.
+
+## Completed result and interpretation
+
+| Quantity | V242 KLA | Reduced-GM MIL | Change |
+| --- | ---: | ---: | ---: |
+| E-OSPA, m | 135.180030 | 132.617637 | 1.896% lower |
+| Absolute count error | 19.501389 | 18.631944 | 4.458% lower |
+| Conditional matched RMSE, m | 8.425317 | 19.735674 | 134.242% higher |
+| Representative disagreement, entire prefix, m | 144.669699 | 140.162516 | 3.115% lower |
+| Attempted posterior payload, decimal MB | 18.435344 | 59.867264 | 3.2474 times |
+| Finite RMSE coverage | 100% | 100% | unchanged |
+
+The RMSE deterioration is not caused by losing finite sensor--time cells:
+all 1440 cells are finite in both arms. Their matched target sets can still
+differ, so this does not isolate the error of identical target identities.
+All six formations improve E-OSPA, but their RMSE increases range from
+78.324% to 181.395%. The later-half RMSE gap is larger, not just an initial
+transient. None of these single-episode summaries establishes generalization.
+
+Equal routing does not mean equal byte cost. The receiver keeps richer
+posteriors that affect subsequent packet sizes; even after the common
+eight-component cap, attempted payload is 59.867 MB. Spatial reduction
+truncates 22342/34560 label pools (64.647%); mean removed conditional mass is
+0.074527607 and the maximum is 0.663394592. The experiment therefore cannot
+attribute the spatial error solely to exact MIL's fusion objective.
+The missing-label zero-extension counters are both zero in the MIL arm:
+its declared missing-label branch is not activated on this prefix. This
+does not make the represented-posterior pruning histories of MIL and KLA
+identical, nor constitute a test of exclusive-FoV fusion.
 
 ## Verification Record
 
@@ -89,8 +137,9 @@ A fusion improvement is not a routing improvement. MIL may preserve inaccurate
 or false tracks and increases the number of transmitted mixture components.
 Changing missing-label semantics is explicit in this receiver-family control;
 do not attribute all differences solely to removing the overlap factor.
-The completed screen must jointly assess accuracy, cardinality, coverage,
-communication and formation tails before any extension.
+The completed screen rejects an extension of this version because accuracy
+and actual byte cost deteriorate. A capped-packet graph is not a byte-budget
+guarantee when the posterior representation changes.
 
 ## Reproducibility
 
@@ -102,23 +151,31 @@ set -o pipefail
 /opt/homebrew/bin/octave --no-gui --quiet --eval "addpath(genpath(pwd)); o=struct('baselineTracePath','RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/EXISTENCE_STAGE_TRACE_V282.mat','maximumTime',40,'outputRoot','RUN/GA/dynamic_topology/evidence/tracking_aligned_v288/x36_prefix40_seed1301'); [p,r]=runCommonLabelLmbMilV288(o); disp(p);" 2>&1 | tee RUN/GA/dynamic_topology/evidence/tracking_aligned_v288/x36_prefix40_seed1301/run.log
 ```
 
-Do not repeat that command while session 63055 is alive. Observe with
-`tail -f RUN/GA/dynamic_topology/evidence/tracking_aligned_v288/x36_prefix40_seed1301/run.log`.
+Session 63055 has exited 0. The run must not be restarted to fill an observation
+timeout or improve the opened-seed result. The same command reuses its saved
+raw file for metric regeneration; it need not rerun filtering.
 The original complete 160-step observations are generated before the 40-step
 crop. Saved raw results are reused on subsequent analysis calls. MAT files and
 logs remain local/ignored; numerical reports and figure data are tracked.
 
 ## Open Issues
 
-The 40-step outcome, truncation burden and costs are pending. A zero-extended
-represented-posterior MIL baseline is not the full exclusive-FoV construction.
+A zero-extended represented-posterior MIL baseline is not the full
+exclusive-FoV construction. The separate effects of objective, recursive GM
+reduction and posterior history are not causally isolated by this control.
 Neither label matching nor causal spatial-quality routing is implemented here.
 The main M24/X36 joint goal is still unmet; the approved main board is unchanged.
 
 ## Recommendation
 
-Keep C1--C2 as implementation evidence and wait for E4 to finish; do not call
-MIL a successful candidate. Analyze the joint screen once, without changing
-the frozen weights, reduction cap or source semantics for this opened seed.
-If it fails, retain the result only in experiment records and distinguish its
-limitations from those of the full published MIL method.
+Stop this version at the completed prefix: no full episode, M24 extension,
+same-fusion fixed-route extension, or weight/truncation sweep on this opened
+seed. Keep C5 in experiment records, not the main best-method table.
+
+Retain the sparse routing reference without calling it jointly optimal.
+Before selecting a new routing method, establish a faithful unequal-FoV
+fusion comparison with explicit treatment of exclusive evidence, reliable
+spatial support and real posterior bytes. Do not add geometric relabeling
+merely because this MIL control failed: the shared birth-label model has
+not been disproved. Only same-fusion routing comparisons can establish a
+routing contribution; existing MIL/matching methods are baselines, not novelty.
