@@ -42,6 +42,25 @@ total bytes. No age/source identity or measurement-level duplicate detector
 is introduced; this is a startup-semantic contrast, not the final evidence-age
 algorithm or a new theoretical contribution.
 
+## Why the intervention is not guaranteed to help
+
+For a label whose informed and untouched inputs both carry positive weight,
+let `u` be the total untouched weight and let `L_I` and `L_U` be the separately
+renormalized mean log odds of those two groups. In one frozen input pool,
+
+```text
+ordinary log odds = (1-u) L_I + u L_U + log eta_all
+restricted log odds = L_I + log eta_informed
+difference = u (L_I - L_U) + log eta_informed - log eta_all.
+```
+
+Removing weak priors helps the first term when `L_I > L_U`, but the spatial
+overlap term also changes. Missed-detection evidence may make `L_I` small, and
+the recursive trajectories change after this one fusion. Higher existence
+also does not by itself prove correct target identities, lower RMSE, or lower
+communication. This elementary KLA identity motivates the paired test; it is
+neither a new theorem nor a guarantee of full-episode tracking improvement.
+
 ## Paired protocol and stopping condition
 
 - X36 formation-braid, seed 1301, original 160-step inputs truncated to 1--40.
