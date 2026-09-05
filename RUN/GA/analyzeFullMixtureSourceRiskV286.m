@@ -102,22 +102,22 @@ for group = [0, unique(groups, 'stable')]
             mean(d(:, 10) ~= receivers)]; %#ok<AGROW>
     end
 end
-% First retain one unique receiver/sender/truth record. Also emit global
-% source calibration summary, explicitly descriptive and not independent data.
+% Collapse repeated source/label/truth states across receiver queries.
+% Different emitted labels can be assigned the same truth at different nodes.
 calibration = zeros(0, 8);
 for group = [0, unique(groups, 'stable')]
     mask = true(size(sourceRecords, 1), 1);
     if group > 0, mask = sourceRecords(:, 4) == group; end
     s = sourceRecords(mask, :);
-    % Same source and same truth recur across receiver queries: collapse them.
-    truthIds = queries(s(:, 1), 3);
-    [~, keep] = unique([s(:, 3), truthIds], 'rows'); s = s(keep, :);
+    % Keep label identity: sender/truth alone would discard distinct outputs.
+    truthAndLabel = queries(s(:, 1), 3:5);
+    [~, keep] = unique([s(:, 3), truthAndLabel], 'rows'); s = s(keep, :);
     componentCorr = corr(log1p(s(:, 6)), log1p(s(:, 5)));
     fullCorr = corr(log1p(s(:, 7)), log1p(s(:, 5)));
     calibration(end+1, :) = [group, size(s, 1), mean(s(:, 5)), mean(s(:, 6)), ...
         mean(s(:, 7)), componentCorr, fullCorr, mean(s(:, 11) > 1)]; %#ok<AGROW>
 end
-result = struct('contractVersion', 'full-mixture-output-source-risk-v286-v1', ...
+result = struct('contractVersion', 'full-mixture-output-source-risk-v286-v2', ...
     'v285ResultPath', v285ResultPath, 'v284RawPath', v284.rawPath, 'time', t, ...
     'queries', queries, 'details', details, 'sourceRecords', sourceRecords, ...
     'summary', summary, 'calibration', calibration, ...
@@ -128,7 +128,7 @@ save('-mat7-binary', fullfile(out, 'FULL_MIXTURE_SOURCE_RISK_V286.mat'), 'result
 writeCsv(fullfile(out, 'V286_SOURCE_RISK_SUMMARY.csv'), ...
     'formation,pool,query_count,receiver_pooled_rmse,oracle_pooled_rmse,min_component_trace_pooled_rmse,min_full_risk_pooled_rmse,component_worsening_fraction,full_risk_worsening_fraction,full_risk_switching_fraction', summary);
 writeCsv(fullfile(out, 'V286_SOURCE_RISK_CALIBRATION.csv'), ...
-    'source_formation,source_truth_pairs,mean_actual_squared_error,mean_component_trace,mean_full_output_risk,log_component_risk_error_correlation,log_full_risk_error_correlation,multicomponent_fraction', calibration);
+    'source_formation,source_label_truth_states,mean_actual_squared_error,mean_component_trace,mean_full_output_risk,log_component_risk_error_correlation,log_full_risk_error_correlation,multicomponent_fraction', calibration);
 reportPath = fullfile(out, 'FULL_MIXTURE_SOURCE_RISK_V286.md');
 writeReport(reportPath, result);
 s = summary(summary(:, 1) == 0 & summary(:, 2) == 1, :);
@@ -165,8 +165,8 @@ for k = 1:size(s, 1)
     fprintf(fid, '| %d | %d | %.6f | %.6f | %.6f | %.6f | %.2f |\n', s(k, 1), s(k, 3:7), 100*s(k, 9));
 end
 fprintf(fid, '\n## Descriptive risk/error check\n\n');
-fprintf(fid, 'Source-truth pairs are collapsed within the snapshot to avoid counting the same sender state repeatedly for multiple receiver queries. They still share labels, measurements and previous fusion, so correlations are descriptive, not independent calibration evidence. The entire GM spatial distribution is conditional on existence; this score does not evaluate missed/false targets or recursive set effects.\n\n');
-fprintf(fid, '| Source formation | Pairs | Actual MSE | Component trace | Full risk | Log-risk/error correlation: component / full | Multi-GM (%%) |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: |\n');
+fprintf(fid, 'Source-label-truth states are collapsed within the snapshot to avoid repeating the same source state for receiver queries. Distinct labels assigned the same truth are retained. Shared labels, observations and prior fusion make correlations descriptive, not independent calibration evidence. Same symbolic labels do not prove the same target identity. The conditional spatial risk does not evaluate missed/false targets or recursive set effects.\n\n');
+fprintf(fid, '| Source formation | Source-label-truth states | Actual MSE | Component trace | Full risk | Log-risk/error correlation: component / full | Multi-GM (%%) |\n| --- | ---: | ---: | ---: | ---: | ---: | ---: |\n');
 for k = 1:size(r.calibration, 1)
     s = r.calibration(k, :);
     fprintf(fid, '| %d | %d | %.3f | %.3f | %.3f | %.3f / %.3f | %.1f |\n', s(1:7), 100*s(8));

@@ -27,16 +27,16 @@ All displayed errors are pooled matched-position RMSE (m), not official average 
 
 ## Descriptive risk/error check
 
-Source-truth pairs are collapsed within the snapshot to avoid counting the same sender state repeatedly for multiple receiver queries. They still share labels, measurements and previous fusion, so correlations are descriptive, not independent calibration evidence. The entire GM spatial distribution is conditional on existence; this score does not evaluate missed/false targets or recursive set effects.
+Source-label-truth states are collapsed within the snapshot to avoid repeating the same source state for receiver queries. Distinct labels assigned the same truth are retained. Shared labels, observations and prior fusion make correlations descriptive, not independent calibration evidence. Same symbolic labels do not prove the same target identity. The conditional spatial risk does not evaluate missed/false targets or recursive set effects.
 
-| Source formation | Pairs | Actual MSE | Component trace | Full risk | Log-risk/error correlation: component / full | Multi-GM (%) |
+| Source formation | Source-label-truth states | Actual MSE | Component trace | Full risk | Log-risk/error correlation: component / full | Multi-GM (%) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 0 | 273 | 3362.741 | 83056.291 | 83056.487 | 0.334 / 0.334 | 6.2 |
-| 1 | 68 | 262.889 | 109571.221 | 109571.841 | 0.165 / 0.164 | 11.8 |
-| 2 | 60 | 315.855 | 95547.564 | 95547.474 | 0.207 / 0.206 | 10.0 |
-| 3 | 26 | 852.267 | 137082.461 | 137082.461 | -0.776 / -0.776 | 0.0 |
-| 4 | 18 | 7314.738 | 24932.129 | 24932.129 | 0.178 / 0.178 | 0.0 |
-| 5 | 48 | 7610.323 | 44964.195 | 44964.549 | 0.876 / 0.876 | 6.2 |
-| 6 | 53 | 6831.714 | 62631.448 | 62631.448 | 0.902 / 0.902 | 0.0 |
+| 0 | 503 | 6800.476 | 78326.345 | 78326.563 | 0.231 / 0.232 | 8.2 |
+| 1 | 136 | 5810.120 | 78846.826 | 78847.440 | -0.232 / -0.233 | 9.6 |
+| 2 | 126 | 6350.626 | 67645.211 | 67645.180 | -0.281 / -0.279 | 19.0 |
+| 3 | 28 | 798.380 | 141036.154 | 141036.154 | -0.774 / -0.774 | 0.0 |
+| 4 | 34 | 7844.131 | 37624.569 | 37624.569 | 0.430 / 0.430 | 0.0 |
+| 5 | 76 | 8722.497 | 59116.657 | 59117.050 | 0.888 / 0.889 | 5.3 |
+| 6 | 103 | 8527.371 | 101267.701 | 101267.701 | 0.936 / 0.936 | 0.0 |
 
 Maximum algebraic risk-decomposition residual 6.13e-13. No past full-mixture snapshots were inferred from trajectory means; no aged or full-episode claim is supported. A favorable snapshot score would still require actual causal transport, charged metadata, losses, and static-routing comparison under identical fusion.
