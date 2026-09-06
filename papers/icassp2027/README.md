@@ -140,7 +140,7 @@ Its source, completed tradeoff and execution command are recorded in
 `RUN/GA/dynamic_topology/V290_FOV_SPLITTING_DESIGN.md`. Neither that baseline
 nor the new explanatory figure is a newly validated routing contribution.
 
-V291 next isolates the conditional spatial-pooling operator relative to MIL,
+V291 isolates the conditional spatial-pooling operator relative to MIL,
 retaining its arithmetic existence, zero extension and conditional weights.
 It is an explicit alternative objective, not standard LMB-KLA, LMB-MIL,
 a reproduced Uney estimator or a new routing method. The manuscript now cites
@@ -149,6 +149,26 @@ explicitly excludes local FoV splitting from the reported routing arms.
 The new analytic operator figure stays in the design record, not the main
 paper or approved Lark board. No candidate row has been added to the main table.
 The bounded experiment registration was corrected at `bf3dca0`, without
-changing its formulas or parameters. Two-step integration completed normally;
-the unchanged 40-step candidate is now running (session 27392), not yet a
-completed result. See the V291 design note for the source and actual run state.
+changing its formulas or parameters. Both integration and the unchanged
+40-step candidate completed normally. The candidate substantially reduces
+MIL's localization/payload tradeoff, but slightly worsens mean RMSE versus
+KLA and retains formation-wise regressions. It misses the frozen joint
+screen, so no full/M24 extension or main-table promotion follows. See the
+V291 design note for the completed metrics and source record.
+
+V292 completed its packet-level replay from source `ae81dcc`, comparing
+binary temporal observation paths with weighted source-path hitting
+probabilities. No filter, policy or parameter changes were involved. Binary
+coverage increased much more than the weighted score; full and sparse repair
+have similar mean weighted scores. This diagnostic must not be read as actual
+posterior mass, label recall, output equivalence or a tracking-error guarantee.
+The Python figure and its explanatory paragraph were added to the existing
+Lark document and read back at revision 1278. The approved method board and
+the full-episode best table were preserved. The manuscript introduction and
+conclusion now emphasize scheduling, delivery weights and target-set recovery;
+the new diagnostic remains in progress/experiment records. The final build
+has five pages, with the complete conclusion on page 4 and only declarations
+and references on page 5. All five pages were rendered and visually checked.
+The build still emits underfull-box and BibTeX rerun-consistency warnings,
+with no unresolved citation or overfull-box message; this is a working draft,
+not a submission-ready claim.

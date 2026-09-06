@@ -135,9 +135,10 @@ existing raw file; never restart a live/completed filter after a tool timeout.
 
 ## Open Issues
 
-No completed 40-step result yet. Single-label r range preservation does not imply
-whole-LMB cardinality-distribution consistency. No new routing, exact
-mixture-power implementation, source-age model or generalization evidence.
+The 40-step screen is complete and did not pass the frozen RMSE tolerance.
+Single-label r range preservation does not imply whole-LMB cardinality-
+distribution consistency. No new routing, exact mixture-power implementation,
+source-age model or generalization evidence has been established.
 
 ### Integration entry correction
 
@@ -151,7 +152,7 @@ permission to change routing/truth/budget constraints. Preserve the rejected
 log as `preflight-rejected.log`, then freeze the correction before retrying
 integration. No performance metric or observation timeout triggered a retry.
 
-### Completed integration and live prefix
+### Completed integration and prefix
 
 The corrected source `bf3dca0` was committed and pushed before integration.
 Session 62648 exited 0. Its first filter step was at 09:50:03 local time on
@@ -161,16 +162,47 @@ Attempted/delivered route-mask differences were 0/0 and all 72 RMSE cells
 were finite. These two steps establish integration, not performance success;
 they do not evaluate the frozen 40-step gate or motivate a parameter change.
 
-The unchanged 40-step candidate is running as session 27392, Octave PID
-32154. It reached `Filter starting step 1/40` at 09:52:13 local time on
-2026-09-06, with source `bf3dca0` still at HEAD. Its runtime source remains
-frozen; only status/documentation files may change during execution.
-Reuse this session and its log, not a new invocation. The complete report
-and raw artifact will be written under `evidence/tracking_aligned_v291/x36_prefix40_seed1301/`.
+The unchanged 40-step candidate completed as session 27392 (exit 0), from
+source `bf3dca0`. It reached `Filter starting step 1/40` at 09:52:13 local
+time on 2026-09-06, saved its raw output after 634.7 seconds of filtering,
+then completed scoring. No filter was restarted while its scorer ran.
+The report, CSVs and raw artifact are under
+`evidence/tracking_aligned_v291/x36_prefix40_seed1301/`.
 
 ```sh
 tail -f RUN/GA/dynamic_topology/evidence/tracking_aligned_v291/x36_prefix40_seed1301/run.log
 ```
+
+### Completed result and decision
+
+| Metric | V242 KLA | V291 | Change versus KLA |
+| --- | ---: | ---: | ---: |
+| E-OSPA / m | 135.180030 | 132.339041 | 2.102% lower |
+| Common-finite RMSE / m | 8.425317 | 8.524262 | 1.174% higher |
+| Absolute count error | 19.501389 | 18.684722 | 4.188% lower |
+| Prefix representative disagreement / m | 144.669699 | 139.561394 | 3.531% lower |
+| Attempted posterior bytes | 18,435,344 | 19,033,448 | 3.244% higher |
+
+All 1,440 RMSE cells are finite in both arms; all 36 sensors and all six
+formations improve E-OSPA. Attempted/delivered route-mask differences are
+0/0, with the same 1,840/1,766 attempted/delivered messages. The frozen screen
+fails only its network-mean RMSE tolerance: 1.174% exceeds 1%. Do not move
+that threshold after observing the result. Formation RMSE still matters:
+formations 1 and 4 worsen by about 9.34% and 13.27%, respectively. The small
+average difference does not imply spatially uniform performance.
+
+Relative to V288 MIL, the conditional geometric operator reduces RMSE from
+19.735674 to 8.524262 m and attempted bytes from 59,867,264 to 19,033,448;
+E-OSPA is also slightly lower. This controlled recursive comparison supports
+separating existence and spatial pooling when interpreting MIL's tradeoff.
+It does not isolate a single intermediate covariance, truncation event or
+target-identity error, nor establish the composite objective as novel.
+
+Retain V291 as a useful development control, not a validated replacement.
+No automatic M24/full episode, threshold relaxation or nearby-parameter
+sweep. The next completed analysis uses existing scenes to distinguish
+binary temporal paths from their packet-level mixing weight (V292); it
+does not run another tracking arm or alter the paper's best-method table.
 
 ## Recommendation
 

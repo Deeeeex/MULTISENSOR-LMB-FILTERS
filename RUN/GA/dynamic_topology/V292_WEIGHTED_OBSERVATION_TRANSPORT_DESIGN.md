@@ -63,6 +63,17 @@ of positive-score masks to V280 path ages, plus route message counts. These
 are focused orientation/timing checks; no broad audit or hash validation.
 The two-source recursion directly follows the law of total probability.
 
+The command below completed with exit 0 from source `ae81dcc` on 2026-09-06.
+All probability/mask/count assertions passed for both scenes, three policies
+and four horizons. The Python export completed, and its PNG was visually
+checked: common axes, no clipping, readable legends and deliberately nearly
+overlapping weighted-score curves. Source CSV and editable vectors accompany
+the figure. These are producer self-checks, not independent validation.
+
+Package check: `/Users/dex/miniconda3/bin/python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py RUN/GA/dynamic_topology/V292_WEIGHTED_OBSERVATION_TRANSPORT_DESIGN.md`
+returned `PASS` on 2026-09-06. This checks record structure, not the scientific
+validity of the diagnostic or the success of a tracking method.
+
 ## Risk and Escalation
 
 Calling this score an actual fusion coefficient or a detector probability
@@ -79,13 +90,67 @@ The script saves the realized matrices and the eight-step score to permit
 follow-up analysis without regenerating observations. Figures use Python
 and the exported CSV only.
 
+## Figure contract
+
+Conclusion to examine: binary source-path coverage can rise while the
+weight-averaged probability of encountering such a source remains lower.
+This is an access diagnostic, not an estimator-performance figure. The
+two panels compare M24 and X36 on identical axes, with the same three
+policies and all four horizons. No panel introduces another parameter.
+
+Archetype: compact quantitative pair. Python/matplotlib only, 178 by 82 mm,
+editable SVG/PDF and 300 dpi PNG; restrained method colors plus distinct
+markers, dashed binary coverage versus solid weighted score. Source data:
+`V292_TRANSPORT_METRICS.csv`. One opened episode per scale; averages over
+active sensor-target-time triples are descriptive, not independent
+replicates. No error bars, p-values or across-seed claim.
+
+Caption: **Geometric paths and weighted access to recent observations.**
+(a) M24 and (b) X36 use the same opened seed and 160-step scene as the main
+development comparisons. Dashed lines show the fraction of active
+sensor-target-time triples with at least one geometric source path. Solid
+lines show the mean probability that a backwards source path sampled using
+delivered packet-level fusion weights encounters an observation opportunity
+within the same age window. Visibility is not realized detection; these
+scores omit label-specific filtering and do not measure tracking accuracy.
+Windows are shortened at the start of the episode.
+
+```sh
+/Users/dex/miniconda3/bin/python3 RUN/GA/plot_weighted_observation_transport_v292.py
+```
+
 ## Open Issues
 
-No completed result at registration. Source-hit scores ignore all
-label-specific estimator dynamics and cannot resolve their causal role.
+Source-hit scores ignore all label-specific estimator dynamics and cannot
+resolve their causal role. We have not intervened on fresh-evidence weight
+while controlling density compatibility and source duplication.
 
 ## Recommendation
 
-Complete this offline comparison while the frozen V291 result is scored.
-Keep unsuccessful fusion controls in experiment records. Use the combined
-evidence to narrow the next question before authorizing another filter run.
+The completed eight-step results are:
+
+| Scale | Policy | Binary path coverage | Mean weighted source-hit score |
+| --- | --- | ---: | ---: |
+| M24 | Fixed tree | 66.777% | 31.807% |
+| M24 | Full causal repair | 87.337% | 32.142% |
+| M24 | Sparse causal repair | 81.261% | 32.129% |
+| X36 | Fixed tree | 49.716% | 21.459% |
+| X36 | Full causal repair | 68.388% | 21.805% |
+| X36 | Sparse causal repair | 63.183% | 21.806% |
+
+Binary coverage improves much more than this weighted diagnostic. At X36,
+even the full route's 18.672 percentage-point coverage increase corresponds
+to only about 0.346 points of mean source-hit score. Full and sparse repair
+have similar mean weighted scores despite different message counts. This
+does not mean their actual label posteriors or tracking outputs are equal.
+Nor does it imply an 8-step-old observation is accurate or independent.
+
+Together with V291's completed mixed result, narrow the design question to
+how useful fresh evidence should influence a receiver without spreading
+spatial conflicts or repeatedly reusing the same information. Retain the
+sparse backbone as the communication scaffold. Generic mixing strength,
+binary reachability and fusion-objective substitution are not sufficient
+method-selection criteria. Do not start another weight sweep or claim a
+new source-aware policy has already been implemented.
+
+![Geometric paths and weighted access](evidence/tracking_aligned_v292/weighted_observation_transport_seed1301/WEIGHTED_OBSERVATION_TRANSPORT_V292.png)
