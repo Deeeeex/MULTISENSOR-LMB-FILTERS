@@ -139,6 +139,18 @@ No tracking result yet. Single-label r range preservation does not imply
 whole-LMB cardinality-distribution consistency. No new routing, exact
 mixture-power implementation, source-age model or generalization evidence.
 
+### Integration entry correction
+
+Source `aaf6782` was committed and pushed before the first two-step attempt
+(session 12847). The runtime validator rejected the unregistered fusion-rule
+name before `Filter starting step 1/2`; exit 1, no raw filter result. The
+existing V242 validator allowed KLA and V288 MIL only. Its explicit control
+list now also registers V291, restricted to X36 seed 1301, T=2/40, the same
+sparse route and no FoV splitting. This is not a disabled validator or
+permission to change routing/truth/budget constraints. Preserve the rejected
+log as `preflight-rejected.log`, then freeze the correction before retrying
+integration. No performance metric or observation timeout triggered a retry.
+
 ## Recommendation
 
 One candidate only. Report the V288 comparison to interpret spatial pooling,

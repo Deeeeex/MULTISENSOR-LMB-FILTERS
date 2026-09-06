@@ -58,18 +58,29 @@ if ~validModel
 end
 
 config = request.triggerConfig;
-% V288 registers an explicit fusion-family control on the unchanged V242
-% route. Do not disguise its zero-extension semantics as the KLA FoV censor.
+% Explicit fusion controls use the unchanged V242 route. Their zero-extension
+% semantics are not the KLA FoV censor; unknown operators remain rejected.
 fusionRule = 'kla';
 if isfield(config, 'lmbFusionRule'), fusionRule = config.lmbFusionRule; end
 receiverMode = protocol.receiverMode;
 validFusionControl = strcmp(fusionRule, 'kla');
-if strcmp(fusionRule, 'mil-common-label')
+if any(strcmp(fusionRule, {'mil-common-label', ...
+        'arithmetic-existence-geometric-spatial'}))
     receiverMode = 'strict-common-label';
     validFusionControl = isfield(config, 'fusionWeightMode') && ...
         strcmp(config.fusionWeightMode, 'metropolis') && ...
         (~isfield(config, 'untouchedPriorExclusionEnabled') || ...
          ~logical(config.untouchedPriorExclusionEnabled));
+end
+if strcmp(fusionRule, 'arithmetic-existence-geometric-spatial')
+    % V291 is one frozen X36 prefix control, not blanket authorization for
+    % this estimator on every V242 scene or in a FoV-splitting combination.
+    validFusionControl = validFusionControl && context.seed == 1301 && ...
+        strcmp(context.presetName, ...
+            'x36-formation-fov-temporal-coupled-formation-braid') && ...
+        ismember(context.measurementTimeCount, [2, 40]) && ...
+        (~isfield(model, 'fovGaussianSplitting') || ...
+         ~model.fovGaussianSplitting.enabled);
 end
 formationCount = numel(unique(scenario.config.sensorGroupIds));
 expectedMessages = model.numberOfSensors + 2 * (formationCount - 1);
