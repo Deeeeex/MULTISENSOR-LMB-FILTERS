@@ -533,6 +533,18 @@ for currentTime = continuationStartTime:simulationLength
                     sensorIdx, currentTime) = ...
                 updateDiagnostics{sensorIdx}. ...
                     predictiveMeasurementObservedCount;
+            if isfield(updateDiagnostics{sensorIdx},'fovSplit') && ...
+                    isfield(updateDiagnostics{sensorIdx}.fovSplit,'inputComponents')
+                split = updateDiagnostics{sensorIdx}.fovSplit;
+                diagnostics.localFovSplitInputComponents(sensorIdx,currentTime)=split.inputComponents;
+                diagnostics.localFovSplitOutputComponents(sensorIdx,currentTime)=split.outputComponents;
+                diagnostics.localFovSplitOperations(sensorIdx,currentTime)=split.splitOperations;
+                diagnostics.localFovSplitLabels(sensorIdx,currentTime)=split.splitLabels;
+                diagnostics.localFovSplitMaximumComponents(sensorIdx,currentTime)=split.maximumComponentsPerLabel;
+                diagnostics.localFovSplitMaximumDepth(sensorIdx,currentTime)=split.maximumDepth;
+                diagnostics.localFovSplitTerminalBoundaryMass(sensorIdx,currentTime)=split.terminalBoundaryMass;
+                diagnostics.localFovSplitSeconds(sensorIdx,currentTime)=split.elapsedSeconds;
+            end
         end
     end
     if lineageIsolatedRelayEnabled
@@ -10008,6 +10020,14 @@ diagnostics.localPredictiveMeasurementExpectedCount = ...
     nan(numberOfSensors, simulationLength);
 diagnostics.localPredictiveMeasurementObservedCount = ...
     nan(numberOfSensors, simulationLength);
+diagnostics.localFovSplitInputComponents=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitOutputComponents=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitOperations=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitLabels=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitMaximumComponents=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitMaximumDepth=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitTerminalBoundaryMass=zeros(numberOfSensors,simulationLength);
+diagnostics.localFovSplitSeconds=zeros(numberOfSensors,simulationLength);
 diagnostics.commConfig = commConfig;
 diagnostics.triggerConfig = triggerConfig;
 diagnostics.fullLightEquivalence = initializeFullLightEquivalenceStats();

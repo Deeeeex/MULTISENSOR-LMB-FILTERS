@@ -14,6 +14,10 @@ end
 weightThreshold = getField(options, 'weightThreshold', 0);
 maximumComponentCount = getField(options, ...
     'maximumComponentCount', inf);
+groupingMethod = getField(options,'groupingMethod','pairwise');
+if ~any(strcmp(groupingMethod,{'pairwise','sorted'}))
+    error('CanonicalLmbGm:InvalidGroupingMethod','Unknown exact grouping method.');
+end
 if ~isscalar(weightThreshold) || ~isfinite(weightThreshold) || ...
         weightThreshold < 0 || ~isscalar(maximumComponentCount) || ...
         isnan(maximumComponentCount) || maximumComponentCount < 1 || ...
@@ -64,7 +68,13 @@ for objectIdx = 1:numel(objects)
 
     representatives = zeros(1, 0);
     canonicalWeights = zeros(1, 0);
-    for componentIdx = 1:componentCount
+    usedSorted = false;
+    if strcmp(groupingMethod,'sorted') && componentCount>64
+        [representatives,canonicalWeights,usedSorted] = ...
+            sortedExactGroups(object,weights);
+    end
+    if ~usedSorted
+      for componentIdx = 1:componentCount
         representativePosition = 0;
         for position = 1:numel(representatives)
             representativeIdx = representatives(position);
@@ -84,6 +94,7 @@ for objectIdx = 1:numel(objects)
                 canonicalWeights(representativePosition) + ...
                 weights(componentIdx);
         end
+      end
     end
     canonicalCount = numel(representatives);
     diagnostics.identicalCopyCount = ...
@@ -129,6 +140,34 @@ for objectIdx = 1:numel(objects)
 end
 diagnostics.exactDensityPreserved = ...
     diagnostics.discardedNormalizedWeightMass == 0;
+end
+
+function [representatives,canonicalWeights,used] = sortedExactGroups(object,weights)
+% Numeric keys, not rounding or approximate hashing. Retain first occurrence
+% and original summation order so the legacy reduction sees the same inputs.
+representatives=[]; canonicalWeights=[]; used=false;
+n=numel(weights); meanSize=size(object.mu{1}); covarianceSize=size(object.Sigma{1});
+width=numel(object.mu{1})+numel(object.Sigma{1}); keys=zeros(n,width);
+for j=1:n
+    m=object.mu{j}; P=object.Sigma{j};
+    if ~isa(m,'double') || ~isa(P,'double') || ~isreal(m) || ~isreal(P) || ...
+            ~isequal(size(m),meanSize) || ~isequal(size(P),covarianceSize) || ...
+            any(~isfinite(m(:))) || any(~isfinite(P(:)))
+        return; % Preserve isequal semantics for unusual representations.
+    end
+    keys(j,:)=[m(:)',P(:)'];
+end
+ordered=sortrows([keys,(1:n)']);
+newGroup=[true;any(ordered(2:end,1:width)~=ordered(1:end-1,1:width),2)];
+groupIds=cumsum(newGroup); first=ordered(newGroup,end);
+[representatives,groupOrder]=sort(first);
+mapping=zeros(numel(first),1); mapping(groupOrder)=1:numel(first);
+membership=zeros(n,1); membership(ordered(:,end))=mapping(groupIds);
+canonicalWeights=zeros(1,numel(first));
+for j=1:n
+    k=membership(j); canonicalWeights(k)=canonicalWeights(k)+weights(j);
+end
+representatives=representatives'; used=true;
 end
 
 function value = getField(data, name, fallback)

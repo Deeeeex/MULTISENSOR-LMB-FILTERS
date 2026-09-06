@@ -11,6 +11,14 @@ if nargin < 6 || isempty(isScheduledSample)
 end
 
 diagnostics = defaultDiagnostics();
+splitStats = struct();
+if isScheduledSample && isfield(model,'fovGaussianSplitting') && ...
+        isfield(model.fovGaussianSplitting,'enabled') && ...
+        model.fovGaussianSplitting.enabled
+    [predictedObjects,splitStats] = splitLmbPredictionAtFovBoundary( ...
+        predictedObjects,model,sensorIdx,currentTime,model.fovGaussianSplitting);
+end
+diagnostics.fovSplit = splitStats;
 [predictiveLogScore, predictiveScoreDetails] = ...
     computeLmbPoissonMeasurementLogScore( ...
         predictedObjects, measurements, model, sensorIdx, currentTime);
@@ -42,6 +50,7 @@ else
 end
 
 diagnostics = extractDiagnostics(associationMatrices);
+diagnostics.fovSplit = splitStats;
 diagnostics.predictiveMeasurementLogScore = predictiveLogScore;
 diagnostics.predictiveMeasurementExpectedCount = ...
     predictiveScoreDetails.totalExpectedCount;

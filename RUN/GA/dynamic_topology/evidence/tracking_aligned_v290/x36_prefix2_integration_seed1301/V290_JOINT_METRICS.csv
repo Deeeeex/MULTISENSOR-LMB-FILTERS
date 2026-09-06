@@ -1,0 +1,11 @@
+metric,reference,candidate
+eospa,139.697348582,141.828991422
+conditionalRmse,11.8317743651,12.0150349347
+countError,20.8055555556,21.4444444444
+representativeDisagreement,149.479423713,148.440758127
+worstSensorEospa,146.843904672,146.854579004
+attemptedBytes,677584,2921296
+deliveredBytes,670880,2886536
+attemptedMessages,92,92
+deliveredMessages,91,91
+finiteRmseFraction,1,1

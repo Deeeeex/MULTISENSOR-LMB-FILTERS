@@ -25,6 +25,10 @@ function objects = computePosteriorLmbSpatialDistributions(objects, r, W, poster
 %       objects - struct. A struct containing the posterior LMB's Bernoulli
 %           components.
 
+groupingMethod='pairwise';
+if isfield(model,'gmCanonicalizationGroupingMethod')
+    groupingMethod=model.gmCanonicalizationGroupingMethod;
+end
 for i = 1:numel(objects)
     %% 1. 写回该 Bernoulli 的 posterior existence probability
     objects(i).r = r(i);
@@ -53,6 +57,7 @@ for i = 1:numel(objects)
     objects(i) = canonicalizeLmbGaussianMixtureRepresentation( ...
         objects(i), struct( ...
             'weightThreshold', model.gmWeightThreshold, ...
+            'groupingMethod', groupingMethod, ...
             'maximumComponentCount', ...
                 model.maximumNumberOfGmComponents));
 end
