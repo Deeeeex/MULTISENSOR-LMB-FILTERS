@@ -135,7 +135,7 @@ existing raw file; never restart a live/completed filter after a tool timeout.
 
 ## Open Issues
 
-No tracking result yet. Single-label r range preservation does not imply
+No completed 40-step result yet. Single-label r range preservation does not imply
 whole-LMB cardinality-distribution consistency. No new routing, exact
 mixture-power implementation, source-age model or generalization evidence.
 
@@ -150,6 +150,27 @@ sparse route and no FoV splitting. This is not a disabled validator or
 permission to change routing/truth/budget constraints. Preserve the rejected
 log as `preflight-rejected.log`, then freeze the correction before retrying
 integration. No performance metric or observation timeout triggered a retry.
+
+### Completed integration and live prefix
+
+The corrected source `bf3dca0` was committed and pushed before integration.
+Session 62648 exited 0. Its first filter step was at 09:50:03 local time on
+2026-09-06; filter runtime was 21.5 s. E-OSPA was 139.697349 -> 139.289019,
+RMSE 11.831774 -> 12.337711, attempted bytes 677584 -> 688168 (1.0156 times).
+Attempted/delivered route-mask differences were 0/0 and all 72 RMSE cells
+were finite. These two steps establish integration, not performance success;
+they do not evaluate the frozen 40-step gate or motivate a parameter change.
+
+The unchanged 40-step candidate is running as session 27392, Octave PID
+32154. It reached `Filter starting step 1/40` at 09:52:13 local time on
+2026-09-06, with source `bf3dca0` still at HEAD. Its runtime source remains
+frozen; only status/documentation files may change during execution.
+Reuse this session and its log, not a new invocation. The complete report
+and raw artifact will be written under `evidence/tracking_aligned_v291/x36_prefix40_seed1301/`.
+
+```sh
+tail -f RUN/GA/dynamic_topology/evidence/tracking_aligned_v291/x36_prefix40_seed1301/run.log
+```
 
 ## Recommendation
 

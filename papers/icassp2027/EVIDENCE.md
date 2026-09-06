@@ -400,3 +400,12 @@ Three scoped Lark paragraph updates returned success. Readback at revision
 prior-art boundary and unchanged best-table policy. No new document or
 whiteboard was created. The V290/V291 evidence-note lint commands returned
 `PASS`; these are documentation self-checks, not independent verification.
+
+V291 source `bf3dca0` corrects the bounded execution registration after an
+initial pre-filter rejection. The corrected two-step integration (session
+62648) exited 0, with route masks 0/0 differences, 72 finite RMSE cells and
+21.5 s filter runtime. It is not a successful performance screen. Session
+27392 now runs the unchanged 40-step candidate; there is no completed
+40-step result. Only documentation/status files change during this run.
+It reached filter step 1/40 at 09:52:13 local time (Octave PID 32154),
+capturing source `bf3dca0` before the subsequent record-only commit.

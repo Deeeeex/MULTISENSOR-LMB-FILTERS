@@ -148,3 +148,7 @@ Uney et al. (TAES 2019) for prior cardinality/localization decoupling and
 explicitly excludes local FoV splitting from the reported routing arms.
 The new analytic operator figure stays in the design record, not the main
 paper or approved Lark board. No candidate row has been added to the main table.
+The bounded experiment registration was corrected at `bf3dca0`, without
+changing its formulas or parameters. Two-step integration completed normally;
+the unchanged 40-step candidate is now running (session 27392), not yet a
+completed result. See the V291 design note for the source and actual run state.
