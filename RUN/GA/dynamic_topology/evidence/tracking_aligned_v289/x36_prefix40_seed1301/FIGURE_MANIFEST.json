@@ -1,0 +1,23 @@
+{
+  "type": "cached-density diagnostic, not a tracking arm",
+  "backend": "Python matplotlib",
+  "size_mm": [
+    178,
+    82
+  ],
+  "png_dpi": 600,
+  "seed": 1301,
+  "time_steps": 40,
+  "sensor_count": 36,
+  "label_stage_count": 33786,
+  "example_selection": "largest absolute pD discrepancy among r >= 0.5 stages",
+  "contours": "Mahalanobis radii 1 and 2; not 68/95 percent 2D regions",
+  "coordinates": "sensor-centered, rotated into current heading; no scale distortion",
+  "error_bars": "none; dependent label stages from one opened development episode",
+  "quadrature": "8192 fixed Halton points; see report for numerical sensitivity",
+  "source_data": [
+    "V289_BOUNDARY_EXAMPLE.json",
+    "V289_FORMATION_SUMMARY.csv"
+  ],
+  "uses_target_truth": false
+}

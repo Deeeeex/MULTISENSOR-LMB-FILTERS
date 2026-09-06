@@ -212,9 +212,10 @@ to (\ref{eq:self}), including unavailable or empty neighbor packets.
 All arms use a guarded powered-Gaussian-mixture approximation: at most three
 components per input, eight fused components and 256 tuples. An overlap
 normalizer above one triggers moment-matched Gaussian fallback; arbitrary
-mixture powers are not exact. Local detection probabilities are evaluated
-at component means and set to zero outside the sensor FoV; an unobservable
-state is not assigned the nominal missed-detection penalty.
+mixture powers are not exact. Local detection probabilities use component
+means and are zeroed outside the FoV, without integrating boundary-crossing
+mass. FoV-aware splitting would also change the missed-detection density
+\cite{legrand2022split}.
 Present low-existence labels are not excluded merely for being outside the
 current view. Each step has one fusion round.
 Shared birth identifiers are fused directly, without label matching.
