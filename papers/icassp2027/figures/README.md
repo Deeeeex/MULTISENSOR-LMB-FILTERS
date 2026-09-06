@@ -50,6 +50,12 @@ producing agent inspected all rendered pages and the analytic PNG. No new
 filter experiment or independent scientific verification was performed for
 this presentation update.
 
+The new mechanism PNG/explanation and paired RMSE table were synchronized
+to the existing Lark document on 2026-09-06 (read-back revision 1285).
+The approved SVG whiteboard and current-best table were retained. The
+paper-status paragraph now records three figures, two tables and 15 references;
+this synchronization adds no new filter result or performance claim.
+
 ## Canonical Lark schematic
 
 `method_mainline_lark.svg` is the editable, self-contained source for the
