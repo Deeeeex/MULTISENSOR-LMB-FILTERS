@@ -1,7 +1,7 @@
 function [fusedObjects, fusionDiagnostics] = fuseLmbPosteriorsByLabel( ...
     posteriorDistributions, spatialWeights, model, existenceWeights, ...
     fusionDetails, triggerConfig)
-% FUSELMBPOSTERIORSBYLABEL GA/KLA fusion for possibly different label sets.
+% FUSELMBPOSTERIORSBYLABEL Default GA/KLA and explicit alternative controls.
 %
 % Missing-label semantics are explicit. The legacy support-renormalized mode
 % excludes missing sources; strict-common-label treats any positively weighted
@@ -34,6 +34,16 @@ spatialWeights = normalizeWeights( ...
 existenceWeights = normalizeWeights( ...
     existenceWeights, numel(posteriorDistributions));
 lmbFusionRule = lower(getField(triggerConfig, 'lmbFusionRule', 'kla'));
+conditionalGeometricPool = strcmp(lmbFusionRule, ...
+    'arithmetic-existence-geometric-spatial');
+if conditionalGeometricPool && ( ...
+        max(abs(spatialWeights - existenceWeights)) > 1e-12 || ...
+        untouchedPriorExclusionEnabled || captureLabelKlaDiagnostics || ...
+        ~isempty(getField(fusionDetails, 'labelSpecificWeightOverrides', [])) || ...
+        any(getField(fusionDetails, 'labelWhitelistRestricted', false)))
+    error('LmbConditionalPool:IncompatibleOverride', ...
+        'The conditional-pool control needs one weight vector and no label overrides.');
+end
 if strcmp(lmbFusionRule, 'mil-common-label')
     % Isolated known-rule baseline. Do not mix KLA censoring/eta heuristics
     % or unequal branch weights into the LMB-constrained MIL formula.
@@ -54,7 +64,7 @@ if strcmp(lmbFusionRule, 'mil-common-label')
     fusionDiagnostics.milDiscardedSpatialMassSum = mil.discardedSpatialMassSum;
     fusionDiagnostics.milMaximumDiscardedSpatialMass = mil.maximumDiscardedSpatialMass;
     return;
-elseif ~strcmp(lmbFusionRule, 'kla')
+elseif ~strcmp(lmbFusionRule, 'kla') && ~conditionalGeometricPool
     error('LmbFusion:UnknownRule', 'Unknown LMB fusion rule: %s.', lmbFusionRule);
 end
 sourceModes = resolveSourceModes(fusionDetails, numel(posteriorDistributions));
@@ -78,12 +88,35 @@ for labelIdx = 1:size(labels, 2)
     [labelSpatialWeights, labelExistenceWeights] = ...
         resolveLabelSpecificWeights( ...
             label, spatialWeights, existenceWeights, fusionDetails);
-    [present, existencePresent, existenceOverrides, ...
+    arithmeticExistence = NaN;
+    if conditionalGeometricPool
+        % V291 controlled alternative, NOT standard LMB-KLA or LMB-MIL.
+        % Keep MIL's r=sum(w*r_i), zero extension and alpha_i=w_i*r_i/r;
+        % change only the conditional spatial pool from arithmetic to geometric.
+        inputExistence = zeros(size(present));
+        for sourceIdx = find(present)
+            value = localObjects{sourceIdx}.r;
+            assert(isscalar(value) && isfinite(value) && value >= 0 && value <= 1);
+            inputExistence(sourceIdx) = value;
+        end
+        missing = labelExistenceWeights > 0 & ~present;
+        labelDiagnostics = initializeMissingLabelFusionDiagnostics();
+        labelDiagnostics.missingSourceCount = nnz(missing);
+        labelDiagnostics.labelsWithMissingSourceCount = any(missing);
+        arithmeticExistence = sum(labelExistenceWeights .* inputExistence);
+        labelSpatialWeights = labelSpatialWeights .* inputExistence;
+        present = present & labelSpatialWeights > 0;
+        existencePresent = present;
+        existenceOverrides = nan(size(present));
+        missingLabelVeto = arithmeticExistence <= 0;
+    else
+        [present, existencePresent, existenceOverrides, ...
         missingLabelVeto, labelDiagnostics] = ...
         resolveMissingLabelParticipation( ...
         localObjects, present, labelSpatialWeights, ...
         labelExistenceWeights, ...
         model, fusionDetails, triggerConfig);
+    end
     fusionDiagnostics = accumulateMissingLabelFusionDiagnostics( ...
         fusionDiagnostics, labelDiagnostics);
     if missingLabelVeto
@@ -115,7 +148,15 @@ for labelIdx = 1:size(labels, 2)
     mixtureAwareFallbackReason = '';
     poweredGmRawLogNormalizer = NaN;
     existenceEtaMode = 'moment-matched';
-    if mixtureAwareSpatialRequested
+    if conditionalGeometricPool && nnz(present) == 1
+        % Identity for one conditional input, apart from the same explicit
+        % eight-component output reduction used by the MIL control.
+        fusedObject = canonicalizeLmbGaussianMixtureRepresentation( ...
+            fusedObject, struct('weightThreshold', 0, ...
+            'maximumComponentCount', getField(triggerConfig, ...
+                'mixtureAwareMaxFusedComponents', 6)));
+        logEta = 0;
+    elseif mixtureAwareSpatialRequested
         [fusedObject, logEta, mixtureAwareSpatialUsed, ...
          mixtureAwareFallbackReason, poweredGmRawLogNormalizer] = ...
             fuseSpatialMixtureAware( ...
@@ -134,9 +175,13 @@ for labelIdx = 1:size(labels, 2)
         [fusedObject, logEta] = fuseSpatialMomentMatched( ...
             fusedObject, localObjects, present, activeSpatialWeights, model);
     end
-    fusedObject.r = fuseExistenceProbability( ...
+    if conditionalGeometricPool
+        fusedObject.r = arithmeticExistence;
+    else
+        fusedObject.r = fuseExistenceProbability( ...
         localObjects, existencePresent, activeExistenceWeights, ...
         logEta, existenceOverrides);
+    end
     if untouchedPriorExclusionEnabled
         fusedObject.hasObservationLineage = lineageInformed;
     end

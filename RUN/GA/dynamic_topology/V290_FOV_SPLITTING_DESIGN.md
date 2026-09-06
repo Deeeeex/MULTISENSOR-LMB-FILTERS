@@ -117,7 +117,7 @@ analytic half-plane pD case. One additional exact-grouping check was required
 by the integration's computational bottleneck. It checks identical outputs
 and diagnostics, not tracking quality. No broad regression suite, hash audit
 or independent reviewer has been run. The two-step integration completed;
-freeze the unchanged runtime source before the single 40-step run.
+the unchanged runtime source was frozen at `702f84d` before the 40-step run.
 
 ## Risk and Escalation
 
@@ -141,11 +141,11 @@ timeouts or analysis failures. Do not restart a live or completed filter.
 ### Frozen 40-step execution
 
 Source checkpoint `702f84d` was committed and pushed before launch. The
-40-step candidate is session 87267, Octave PID 25555. Its first filter step
-started at 08:53:49 local time on 2026-09-06. At 09:07:23 the process was
-still running at 100% CPU, and the log had reached step 21/40 at 09:05:49.
-No completed 40-step metrics were available at that observation. Only paper
-and record files were edited after launch; the filtering source is frozen.
+40-step candidate (session 87267, Octave PID 25555) completed normally,
+exit 0. Its first filter step started at 08:53:49 local time on 2026-09-06.
+The filter took 1575.7 s and saved raw output before scoring. No live or
+completed filter was restarted. Only paper and record files changed during
+execution; the filtering source remained frozen.
 
 ```sh
 set -o pipefail
@@ -164,11 +164,39 @@ The local update and KLA remain approximate; low-weight boundary leaves and
 the original posterior truncation are retained. A fixed-route fusion/local
 update effect is not evidence of a dynamic-routing contribution.
 
+## Completed decision
+
+The saved 40-step report and CSVs are in
+`evidence/tracking_aligned_v290/x36_prefix40_seed1301/`.
+
+| Metric | V242 reference | V290 | Interpretation |
+| --- | ---: | ---: | --- |
+| E-OSPA | 135.180030 | 136.820305 | 1.213% worse |
+| Common-finite RMSE | 8.425317 | 8.725533 | 3.563% worse; 1440/1440 cells |
+| Absolute count error | 19.501389 | 19.975694 | Worse |
+| Prefix representative disagreement | 144.669699 | 144.634321 | 0.024% lower |
+| Attempted posterior bytes | 18,435,344 | 67,000,712 | 3.6344 times reference |
+| Attempted / delivered messages | 1840 / 1766 | 1840 / 1766 | Same route masks, differences 0/0 |
+
+All six formations have worse E-OSPA; only formation 1 improves RMSE.
+The splitter itself costs 100.6 s within the 1575.7 s filter runtime.
+It expands 64,048 input components to 483,286 components before ordinary
+local posterior reduction. These transient component counts are not packet
+component counts; measured packet bytes above provide the communication cost.
+
+The joint screen was evaluated and failed. Improved boundary integration
+in the analytic fixture did not translate to improved recursive tracking
+for this implementation and prefix. This does not establish that accurate
+FoV modeling is generally unhelpful, nor isolate whether approximation,
+truncation or later fusion causes the regression. Do not tune splitting
+parameters or expand this arm merely to chase the small disagreement change.
+
 ## Recommendation
 
-The integration is complete and the frozen 40-step candidate is running.
-Do not change parameters in response to the two-step metrics. Use the
-same development screen as V288: E-OSPA gain >= 1%, lower count error,
+The integration and frozen 40-step candidate are complete. Keep this
+published baseline default-off and close this branch without M24/full
+extension or a parameter sweep. The frozen development screen was the
+same as V288: E-OSPA gain >= 1%, lower count error,
 non-worse prefix representative disagreement, common-finite RMSE <= 1%
 degradation, worst-formation E-OSPA <= 1% degradation, attempted bytes <=
 1.05 times reference, and identical attempted/delivered masks. This is a

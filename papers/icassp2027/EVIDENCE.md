@@ -361,7 +361,42 @@ shared-label MIL receiver under the unchanged sparse route. Its frozen
 protocol and current status are in `RUN/GA/dynamic_topology/V288_RUN_STATUS.md`;
 it is not complete multi-view MIL or a new routing contribution. V288 has
 completed and failed the joint screen. V289's density-boundary diagnostic
-motivates the published local-update control V290, now running under the
-unchanged sparse route. It must be judged by the complete accuracy/payload
-tradeoff before any extension. The joint M24/X36 success objective remains
-unmet.
+motivated the published local-update control V290. That frozen 40-step run
+has now completed normally and failed its joint screen; it remains off and
+is not extended. The joint M24/X36 success objective remains unmet.
+
+## Completed local-update decision and conditional-pool control
+
+On 2026-09-06, session 87267 exited 0 with the completed V290 report:
+E-OSPA 135.180030 -> 136.820305, common-finite RMSE 8.425317 -> 8.725533,
+and attempted bytes 3.6344 times reference. All six formation E-OSPA means
+worsened; the route masks match. These failed candidate numbers stay in the
+experiment record, not the manuscript table or Lark best table.
+
+The new default-off V291 control retains MIL arithmetic existence and
+zero-extension semantics, replacing conditional arithmetic spatial pooling
+with an explicitly defined geometric objective. It is neither standard
+LMB-KLA/MIL nor a new routing contribution. `checkConditionalSpatialPoolV291()`
+and the existing `checkCommonLabelLmbMilV288()` both exited 0. An initial
+bitwise fixture mismatch was a 5.55e-17 weight normalization difference;
+the recorded tolerance check preserves exact means and covariances. No
+tracking result is inferred from these self-checks.
+
+The Uney et al. 2019 TAES citation was fetched with DOI content negotiation
+and checked against the UCL record and arXiv:1802.06220v2, Section IV-A.
+The manuscript now recognizes cardinality/localization decoupling as prior
+art and explicitly excludes FoV splitting from the reported routing arms.
+`tectonic --keep-logs main.tex` exited 0. The draft remains five pages,
+with the conclusion on page 4 and declarations plus 15 references on page 5.
+Known underfull/BibTeX consistency warnings remain; there are no unresolved
+citations or overfull boxes. Python PDF rendering was used for layout review.
+
+The new Python analytic intensity schematic is attached only to the V291
+design note. It includes no truth or empirical performance and does not
+replace either main-paper figure or the approved Lark board.
+
+Three scoped Lark paragraph updates returned success. Readback at revision
+1270 confirms the completed local-update decision, conditional-pool design,
+prior-art boundary and unchanged best-table policy. No new document or
+whiteboard was created. The V290/V291 evidence-note lint commands returned
+`PASS`; these are documentation self-checks, not independent verification.

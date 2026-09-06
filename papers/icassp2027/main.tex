@@ -60,7 +60,9 @@ complete methods; routing uses physical links, not learned weights.
 
 Label-matched GCI \cite{li2019labelmatching} and LMB minimum information loss
 fusion \cite{gao2020mil} address label correspondence and the pooling
-objective, respectively. Unequal-view fusion also treats exclusive tracks
+objective. Cardinality-consistent fusion already separates cardinality and
+localization objectives \cite{uney2019cardinality}; this separation is not
+our novelty. Unequal-view fusion also treats exclusive tracks
 \cite{gao2022differentfov}. These are separate estimator baselines, not
 components of the routing arms compared here.
 
@@ -213,9 +215,9 @@ to (\ref{eq:self}), including unavailable or empty neighbor packets.
 All arms share a guarded powered-GM approximation: at most three components
 per input, eight fused components and 256 tuples; overlap above one invokes
 moment-matched Gaussian fallback. Arbitrary mixture powers are not exact.
-Component-mean detection probabilities ignore FoV boundary-crossing mass;
-boundary-aware splitting changes the local spatial update
-\cite{legrand2022split}. Present labels are not excluded solely for being
+Component-mean detection probabilities ignore FoV boundary-crossing mass.
+Boundary-aware splitting \cite{legrand2022split} is a separate estimator
+baseline, not used in the reported routing arms. Present labels are not excluded solely for being
 outside the view. Each step uses one fusion round and shared birth labels
 without matching. MAP cardinality determines the output; other labels remain
 unless pruned below existence 0.01.

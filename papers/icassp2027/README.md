@@ -133,7 +133,18 @@ introduced as tracking evidence or substituted for the approved Lark board.
 V290 now isolates the local FoV-boundary approximation using published
 Gaussian splitting, with unchanged KLA and V242 routing. The two-step
 integration completed; it does not demonstrate a tracking improvement.
-The single 40-step X36 screen is running from source checkpoint `702f84d`.
-Its source, short-run tradeoff and frozen execution command are recorded in
+The single 40-step X36 screen completed from source checkpoint `702f84d`
+and failed the joint screen: set/localization/count error worsened and
+posterior bytes increased. It remains default-off, with no M24/full extension.
+Its source, completed tradeoff and execution command are recorded in
 `RUN/GA/dynamic_topology/V290_FOV_SPLITTING_DESIGN.md`. Neither that baseline
 nor the new explanatory figure is a newly validated routing contribution.
+
+V291 next isolates the conditional spatial-pooling operator relative to MIL,
+retaining its arithmetic existence, zero extension and conditional weights.
+It is an explicit alternative objective, not standard LMB-KLA, LMB-MIL,
+a reproduced Uney estimator or a new routing method. The manuscript now cites
+Uney et al. (TAES 2019) for prior cardinality/localization decoupling and
+explicitly excludes local FoV splitting from the reported routing arms.
+The new analytic operator figure stays in the design record, not the main
+paper or approved Lark board. No candidate row has been added to the main table.
