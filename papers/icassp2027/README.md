@@ -35,13 +35,17 @@ sparse renormalization, but conditional RMSE worsens by 4.836%, failing the
 predefined M24 follow-up gate. The draft includes the V279 count-error
 budget and common-finite-cell RMSE comparison. Detailed V280 opportunity
 and V282 weak-input diagnostics remain in the progress notes and experiment
-records rather than the compact manuscript. Two Python-rendered vector
-figures expose causal tree repair, directed delivery and the payload/set-error
-tradeoff. The method figure now appears on page 2 and distinguishes a failed
-physical branch from a lost packet after scheduling. The result figure
-now includes fixed-count localization ceilings from the saved count-budget
-data, making the remaining target-set recovery problem explicit. Figure sources,
-data and regeneration instructions are in `figures/README.md`.
+records rather than the compact manuscript. Three Python-rendered vector
+figures separate introduction, mechanism and results. The introductory
+repair/delivery schematic remains on page 2; the new page-3 mechanism links
+a missing packet to surviving weights, Gaussian overlap and Bernoulli
+existence, without a truth-based accuracy ranking. Page 4 retains the
+payload/set-error plot and fixed-count localization ceilings. The main
+table now includes cardinality error; a second table exposes common-finite
+RMSE support and formation tails. Repeated numeric comparisons were removed
+from the prose. The text and conclusion remain within four pages, with
+declarations and 15 references on page 5. Sources and regeneration
+instructions are in `figures/README.md`.
 No multiseed significance, exact arbitrary-GM powers, globally minimum graph,
 loss-resilient equal-weight consensus or end-to-end bandwidth saving is claimed.
 
@@ -96,7 +100,7 @@ component covariance with full-GM output risk still harms some formations in
 the final-snapshot check. The manuscript and mainline note state this design
 boundary without presenting oracle figures as tracking improvements.
 The new two-panel source diagnostic is retained with the V286 experiment,
-outside the two manuscript figures. No additional filter was launched with
+outside the manuscript figures. No additional filter was launched with
 those source-only diagnostics.
 
 V287 adds a source-correspondence restriction to the same saved X36 queries:

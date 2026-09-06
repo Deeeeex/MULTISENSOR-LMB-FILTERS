@@ -1,0 +1,34 @@
+{
+  "backend": "Python / Matplotlib 3.10.9",
+  "role": "analytic packet-to-weight-to-Bernoulli mechanism",
+  "dimensions_mm": [
+    178,
+    48
+  ],
+  "formats": [
+    "svg",
+    "pdf",
+    "png"
+  ],
+  "png_dpi": 600,
+  "source_data": [
+    "packet_fusion_mechanism_source.csv",
+    "packet_fusion_curves.csv"
+  ],
+  "assumptions": {
+    "input_existence": 0.8,
+    "input_means": [
+      0,
+      4
+    ],
+    "input_variances": [
+      1,
+      1
+    ]
+  },
+  "statistical_object": "deterministic analytic example; no random or tracking samples",
+  "accuracy_ranking": false,
+  "ground_truth_specified": false,
+  "arbitrary_gm_power_claim": false,
+  "filter_rerun": false
+}

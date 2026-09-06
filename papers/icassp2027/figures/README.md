@@ -1,22 +1,30 @@
-# Mainline method schematic
+# Mainline paper figures and Lark schematic
 
 ## Reproducible paper figures
 
-The paper uses two separate Python figures: `method_paper` explains causal
-tree retention, branch repair and directed packet loss; `routing_tradeoff` shows attempted
-payload versus E-OSPA for every executed main-table arm, alongside the
-sparse arms' remaining fixed-count localization-only reduction ceilings.
-The ceiling bars are analytic post-hoc bounds, not achieved improvements.
-Both figures have vector PDF,
-editable-text SVG and 600-dpi PNG exports. `FIGURE_CONTRACT.md` defines the
-claims and layout before rendering; `paper_figures_manifest.json` records
-units, sample size and source commits.
+The paper uses three Python figures with distinct roles:
+
+| Figure | Source stem | Role |
+|:--|:--|:--|
+| 1 | `method_paper` | Motivation and architecture: retain, repair, then distinguish scheduled links from delivered packets. |
+| 2 | `packet_fusion_mechanism` | Mechanism: a missing packet changes surviving weights, spatial overlap and Bernoulli existence. |
+| 3 | `routing_tradeoff` | Results: attempted payload versus E-OSPA, plus fixed-count localization-only improvement ceilings. |
+
+The mechanism is an exact illustrative Gaussian calculation, not a tracking
+experiment or a ranking against truth. The ceiling bars are post-hoc bounds,
+not achieved improvements. All figures have vector PDF, editable-text SVG
+and 600-dpi PNG exports. `FIGURE_CONTRACT.md` defines the claims and layout.
+`paper_figures_manifest.json` records the introductory/result sources and
+sample boundaries; `packet_fusion_mechanism_manifest.json` records the
+separate analytic assumptions and exports.
 
 From the repository root:
 
 ```sh
 octave --no-gui --quiet --eval "addpath('papers/icassp2027/figures'); exportPaperFigureData();"
 /Users/dex/miniconda3/bin/python3 papers/icassp2027/figures/plot_paper_figures.py
+/Users/dex/miniconda3/bin/python3 papers/icassp2027/figures/plot_packet_fusion_mechanism.py
+octave --no-gui --quiet --eval "addpath('papers/icassp2027/figures'); exportPaperGuardrailData();"
 ```
 
 The exporter reads the already completed MAT results, not rounded paper
@@ -25,11 +33,22 @@ tables. `routing_tradeoff_source.csv` has seven episode rows;
 only these committed CSV files and Python with Matplotlib and NumPy. The
 Octave re-export additionally requires the locally retained source MAT files
 in the worktrees named in the CSV. Neither command runs a filter.
-Use `--method-only` to revise the mechanism schematic without redrawing the
+Use `--method-only` to revise the introductory schematic without redrawing the
 result figure. The illustrative graphs contain 13 planned messages before
 and after repair and 12 delivered messages after one gateway packet is lost.
-The weight-renormalization example remains in the manuscript equations and
-the separately maintained, already approved Lark schematic.
+The independent mechanism renderer needs only NumPy and Matplotlib; it writes
+the input/weight CSV and every plotted ordinate. `paired_guardrail_source.csv`
+feeds Table 2: common-finite RMSE support/gains and the worst formation's gain.
+The latter uses each arm's original finite cells, not a common-cell restriction.
+No plot or table exporter runs a filter or treats sensor-time cells as
+independent statistical replicates.
+
+The final manuscript render has the three figures on pages 2, 3 and 4,
+respectively, with two result tables on page 4. Main text and conclusion fit
+within four pages; page 5 contains declarations and 15 references. The
+producing agent inspected all rendered pages and the analytic PNG. No new
+filter experiment or independent scientific verification was performed for
+this presentation update.
 
 ## Canonical Lark schematic
 

@@ -26,12 +26,36 @@ is a separate artifact and is not overwritten by the paper renderer.
   gateways. Dotted grey AC in a is an unused physical alternative; crossed
   BC in b is a failed physical link; a crossed directed arrow in c is one
   undelivered packet. The caption explains these distinct meanings.
-- The missing-weight numerical example remains in the equations and text;
+- The missing-weight numerical example is shown separately in Figure 2;
   the figure does not center the non-dominating self-fallback ablation.
 - Statistical object: none. All graph quantities are illustrative and
   deterministic. No coordinate axes, error bars or performance numbers.
 
-## Figure 2: communication versus complete-set error and its remaining headroom
+## Figure 2: packet loss, effective weights and Bernoulli fusion
+
+- Intended conclusion: omitting a packet changes the weights of the surviving
+  inputs, which changes both spatial pooling and the existence probability.
+  Preserving a higher existence probability is not proof of better tracking.
+- Archetype: schematic-led analytic pair. Python/matplotlib only, 178 by
+  48 mm, editable SVG/PDF and 600-dpi PNG. No new tracker or random samples.
+- Panel a uses the implemented planned row `(self,dominant,gateway) =
+  (0.25,0.70,0.05)` and a lost dominant packet. Renormalization gives
+  `(5/6,0,1/6)`; self fallback gives `(0.95,0,0.05)`. Use stacked bars with
+  labeled weights, and a crossed dominant segment in the planned row.
+- Panel b is an exact one-dimensional Gaussian Bernoulli example, not a
+  runtime arbitrary-GM approximation: surviving inputs both have r=0.8,
+  variance 1, and means 0 and 4. With gateway weight a, the spatial mean is
+  4a, variance is 1, eta=exp(-8a(1-a)), and fused existence is
+  0.8*eta/(0.2+0.8*eta). Plot singleton intensity r*p(x), not only normalized
+  p(x), so existence and position effects are both visible.
+- Draw both inputs in neutral dashed lines, renormalization in teal, self
+  fallback in purple. Annotate the two fused existence probabilities. The
+  two alternatives are not ranked by accuracy: no true position is specified.
+- `packet_fusion_mechanism_source.csv` stores weights, eta and fused Gaussian
+  parameters; `packet_fusion_curves.csv` stores every plotted ordinate.
+  The caption defines the analytic assumptions and absence of a truth ranking.
+
+## Figure 3: communication versus complete-set error and its remaining headroom
 
 - Intended conclusion: sparse repair reduces posterior traffic, while its
   whole-set improvement is modest, particularly on X36. Full repair and
@@ -66,7 +90,7 @@ is a separate artifact and is not overwritten by the paper renderer.
   thin neutral axes, no decorative gradients or statistical embellishments.
 - Export a machine-readable summary of units, sample size, sources and caveats.
 - Check illustrative edge counts/input limits and source row counts once, then visually inspect
-  both figures and the rendered manuscript at final placement. This is a
+  all three figures and the rendered manuscript at final placement. This is a
   producing-agent self-check, not independent scientific validation.
 - Stop when the figures are accurate and readable; do not run new filters or
   parameter searches merely to populate a plot.

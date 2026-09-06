@@ -2,6 +2,7 @@
 \documentclass{article}
 \usepackage{spconf,amsmath,amssymb,graphicx,booktabs,hyperref}
 \hypersetup{hidelinks}
+\raggedbottom
 \newcommand{\KLA}{\operatorname{KLA}}
 \newcommand{\osc}{\operatorname{osc}}
 \newcommand{\diag}{\operatorname{diag}}
@@ -33,8 +34,7 @@ topology, packet loss
 \section{Introduction}
 Mobile formations exchange posteriors to track beyond individual fields of
 view. Motion breaks routes; redundant inputs consume bandwidth. Which
-inputs should reach which receivers soon enough to support both object
-existence and location?
+messages support both object existence and location within limited rounds?
 
 The labeled multi-Bernoulli (LMB) filter represents object existence and
 spatial states \cite{reuter2014lmb}. Consensus LMB filtering uses
@@ -43,7 +43,7 @@ Kullback--Leibler averaging (KLA), or normalized geometric fusion
 on fixed inputs, tracking interleaves observations with few communication
 rounds; scheduled connectivity guarantees neither delivery nor lower error.
 
-Randomized gossip relates averaging time to a stochastic matrix spectrum
+Randomized gossip relates averaging time to matrix spectra
 \cite{boyd2006gossip}; event-triggered Bayesian filtering uses posterior
 divergence from a predicted last transmission \cite{battistelli2019event}.
 Ramachandran et al. jointly reconfigure topology and fusion weights after
@@ -52,19 +52,14 @@ sensor-quality degradation, then reposition robots for coverage
 With prescribed motion, we study sparse messages, directed losses and
 finite-round LMB fusion under unequal views.
 
-Multi-view GCI includes GM-PHD clustering and compensation
-\cite{li2020multiview}, LMB fusion under unequal views \cite{li2018multiviewlmb},
-and centralized per-label information-based weighting \cite{wang2018multiview}.
-Our arms share a repository-specific absent-label FoV censor, not these
-complete methods; routing uses physical links, not learned weights.
-
-Label-matched GCI \cite{li2019labelmatching} and LMB minimum information loss
-fusion \cite{gao2020mil} address label correspondence and the pooling
-objective. Cardinality-consistent fusion already separates cardinality and
-localization objectives \cite{uney2019cardinality}; this separation is not
-our novelty. Unequal-view fusion also treats exclusive tracks
-\cite{gao2022differentfov}. These are separate estimator baselines, not
-components of the routing arms compared here.
+Multi-view methods include GM-PHD compensation \cite{li2020multiview},
+LMB fusion \cite{li2018multiviewlmb}, and per-label weighting
+\cite{wang2018multiview}. Label matching \cite{li2019labelmatching}, LMB
+minimum information loss \cite{gao2020mil}, separate cardinality/localization
+objectives \cite{uney2019cardinality}, and exclusive-track handling
+\cite{gao2022differentfov} are established estimator ideas. All our routing
+arms share an implementation-specific absent-label FoV censor, not these
+complete algorithms. We claim no new fusion objective.
 
 We distinguish sparse scheduling, delivered weights and target-set recovery
 through exact message counts, conditional sensitivity bounds and paired
@@ -98,52 +93,44 @@ satisfies \cite{fantacci2015consensus}
 \operatorname{logit}\bar r^\ell
 &=\sum_j w_j\operatorname{logit}r_j^\ell+\log\eta^\ell.\label{eq:existence}
 \end{align}
-For these exact common-label densities, H\"older's inequality gives
-$\eta^\ell\leq1$: spatial disagreement can lower existence log odds relative
-to their weighted input value. Thus a new route changes both information
-access and density compatibility; more mixing need not preserve the target set.
+H\"older's inequality gives $\eta^\ell\leq1$: spatial disagreement can lower
+existence log odds relative to their weighted input value. Routing changes
+both information access and density compatibility.
 
 Let $G_t^{\rm phys}$ describe current physical links, and let $A_t$ be the
 scheduled directed graph, with rows denoting receivers and columns senders.
 The controller observes current positions, link reliabilities and its
-previous route, but no target truth or future trajectory. The implemented
-controller uses network-wide current geometry; decentralized acquisition
-and dissemination of this control information are outside the measured
-posterior-payload budget. Fusion itself is performed at each sensor.
+previous route, but no target truth or future trajectory. The controller
+uses network-wide current geometry; its decentralized acquisition and
+dissemination are outside the measured posterior-payload budget. Fusion is local.
 
 \subsection{Causal tree repair and sparse inputs}
-Sensors are partitioned into $F$ formations. A candidate edge in the
-formation graph is usable when current physical sensor pairs can realize
-the required gateways. The policy first tries the preceding formation tree.
-When that tree or its gateway assignment is infeasible, it selects a current
-feasible tree lexicographically: minimize replaced formation edges, maximize
-bottleneck reliability, maximize total log reliability, then minimize
-distance. Gateway feasibility includes the receiver input constraints.
-Local cycles and gateway endpoints are rebuilt from current geometry;
-only the formation tree is retained (Fig.~\ref{fig:method}).
+For $F$ formations, a formation edge is usable when current sensor pairs
+realize its gateways within receiver input constraints. The policy retains
+the preceding formation tree when feasible. Otherwise it selects a feasible
+tree lexicographically: minimize replaced formation edges, maximize bottleneck
+reliability, maximize total log reliability, then minimize distance. Local
+cycles and gateway endpoints use current geometry; only the formation tree
+is retained (Fig.~\ref{fig:method}).
 
 The sparse policy retains one directed cycle inside each formation. Each
 undirected edge of the formation tree is realized by one directed gateway
 in each direction; the two directions need not use the same sensor pair.
-Every sensor receives one dominant local input, and gateway receivers also
-receive one cross-formation input. The planned weights are 0.70 for the
-dominant input and 0.05 for a retained residual input, with the remaining
-mass assigned to self. The full-repair reference instead retains two
-nonself inputs per receiver. Removing its unused local residual input
-increases the sparse receiver's self weight by 0.05.
+Each receiver has one dominant local input (weight 0.70); gateway receivers
+also have a cross-formation input (0.05). Remaining weight is assigned to
+self. The full-repair reference has two nonself inputs per receiver;
+removing its unused local residual returns 0.05 to self.
 
 \noindent\textbf{Proposition 1 (scheduled backbone).}
 If every local cycle and every directed gateway is physically feasible,
 the scheduled sensor graph is strongly connected and contains exactly
 \begin{equation}M=N+2(F-1)\label{eq:messages}\end{equation}
 directed messages per round.
-\emph{Proof.} The local cycles contribute $N$ edges and provide directed
-paths between sensors in each formation. The tree contributes $F-1$
-formation edges, each realized in both directions. Concatenating local
-paths and gateways gives a directed path between any two sensors.
-The edge sets are disjoint, giving (\ref{eq:messages}).
-This is a count for the chosen architecture, not a global lower bound over
-all strongly connected directed graphs or a guarantee about delivered links.
+\emph{Proof.} The cycles contribute $N$ edges and directed paths within
+each formation. The tree contributes $2(F-1)$ disjoint gateway edges;
+concatenating local paths and gateways connects every ordered sensor pair.
+This architecture-specific count is neither a global lower bound over
+strongly connected digraphs nor a guarantee about delivered links.
 
 \section{Packet Delivery and Finite-Round Fusion}
 \subsection{Where a missing weight goes}
@@ -159,21 +146,28 @@ alternative receiver rule returns missing mass to self:
 \begin{equation}
  S_{ij}=W_{ij}D_{ij}+m_i\mathbf1\{i=j\}.\label{eq:self}
 \end{equation}
-Both are row stochastic, and both satisfy
+Both are row stochastic with identical row perturbation norm
 $\|R_{i:}-W_{i:}\|_1=\|S_{i:}-W_{i:}\|_1=2m_i$.
-Their distinction is therefore not a smaller row-wise perturbation norm.
-Rule (\ref{eq:self}) preserves the planned weight of each surviving
-neighbor. If a 0.70-weight dominant input is missing, a surviving
-0.05-weight input becomes $0.05/0.30=0.1667$ under
-(\ref{eq:renorm}), but stays at 0.05 under (\ref{eq:self}).
-The latter avoids amplification but can slow useful information transfer.
+Figure~\ref{fig:mechanism} shows how renormalization amplifies a surviving
+input, changing overlap and existence. Self fallback avoids amplification
+but can slow useful information transfer; neither rule is uniformly preferable.
 
-Neither rule preserves double stochasticity under arbitrary directed
-losses. For example, a symmetric two-node matrix with off-diagonal weight
-$a$ becomes $\left[\begin{smallmatrix}1&0\\a&1-a\end{smallmatrix}\right]$
-after one direction fails under self fallback. Its column sums are
-$1+a$ and $1-a$. Reciprocal scheduled gateways alone consequently do not
-establish equal-weight KLA consensus after packet loss.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/packet_fusion_mechanism.pdf}
+\caption{Packet-to-fusion mechanism. (a) A lost dominant packet changes
+surviving weights. (b) Exact Bernoulli KLA for surviving Gaussian inputs
+(dashed), with $r=0.8$, variance 1 and means 0/4. Weights affect location
+and existence through overlap. No truth is specified: higher existence does
+not establish higher accuracy.}
+\label{fig:mechanism}
+\end{figure*}
+
+Neither rule preserves double stochasticity under arbitrary directed loss.
+A symmetric two-node matrix with off-diagonal weight $a$ becomes
+$\left[\begin{smallmatrix}1&0\\a&1-a\end{smallmatrix}\right]$ under one-way
+loss and self fallback; column sums are $1+a$ and $1-a$. Reciprocal
+scheduled gateways therefore do not establish equal-weight KLA consensus.
 
 \subsection{A finite-round sensitivity bound}
 Freeze positive densities $q_j$ on a common support between fusion rounds,
@@ -186,10 +180,9 @@ delivered and planned products. For either receiver rule,
  &\leq L\|P_{i:}-Q_{i:}\|_1 \nonumber\\
  &\leq 2L\sum_{k=1}^K\max_j m_{j,k}.\label{eq:bound}
 \end{align}
-To see this, $h=\sum_j(\alpha_j-\beta_j)\log q_j$ has oscillation at most
-$L\|\alpha-\beta\|_1$, and the log normalization ratio lies between
-$\inf h$ and $\sup h$. Telescoping the products, whose stochastic factors
-have infinity norm one, bounds their row difference by
+Indeed, $h=\sum_j(\alpha_j-\beta_j)\log q_j$ has oscillation at most
+$L\|\alpha-\beta\|_1$; the log normalizer ratio is in
+$[\inf h,\sup h]$. Telescoping gives a row bound of
 $\sum_k\|\widetilde W_k-W_k\|_\infty=2\sum_k\max_jm_{j,k}$.
 This elementary bound favors neither receiver rule. Unbounded Gaussian
 support, mixture truncation, changing labels and intervening observations
@@ -197,31 +190,27 @@ prevent its direct use as a guarantee for the recursive tracker.
 
 \section{Experiments and Remaining Tradeoffs}
 \subsection{Paired protocol}
-M24 and X36 use four and six formations of six sensors, tracking 16 and
-24 targets over 160 steps. In this formation-braid scene, target handovers
-overlap physical-route failures. Formation members share a heading,
-$120^\circ$ fields of view and 300\,m range. Nominal detection probability,
-clutter rate and noise standard deviation are 0.88, 4 and 7\,m; sensing
-degrades with range and off-axis angle. Each scale uses seed 1301, with
-truth, measurements, directed delivery uniforms and filter randomness paired.
+M24/X36 have four/six six-sensor formations and 16/24 targets over 160 steps,
+with overlapping target handovers and route failures. Formation members
+share a heading, $120^\circ$ FoV and 300\,m range. Nominal detection
+probability, clutter rate and noise are 0.88, 4 and 7\,m; sensing degrades
+with range and off-axis angle. Seed 1301 pairs truth, measurements, directed
+delivery uniforms and filter randomness within each scale.
 
-The fixed baseline keeps its initial formation tree, while recomputing
-sensor gateways when that tree remains feasible. Otherwise, it retains
-the still-physical edges of its initial sensor route. Full causal repair retains two inputs per receiver
-and changes the formation tree when required. Sparse causal repair uses
-(\ref{eq:messages}). These three arms share packet renormalization
-(\ref{eq:renorm}). A fourth X36 arm changes only missing-input handling
-to (\ref{eq:self}), including unavailable or empty neighbor packets.
+Fixed routing keeps its initial formation tree and recomputes gateways while
+feasible; otherwise it retains the still-physical initial sensor edges.
+Full repair retains two nonself inputs, and sparse repair uses
+(\ref{eq:messages}); both may repair the tree. All three use
+(\ref{eq:renorm}). The X36 self-fallback ablation changes only handling of
+unavailable or empty neighbor inputs to (\ref{eq:self}).
 
-All arms share a guarded powered-GM approximation: at most three components
-per input, eight fused components and 256 tuples; overlap above one invokes
-moment-matched Gaussian fallback. Arbitrary mixture powers are not exact.
-Component-mean detection probabilities ignore FoV boundary-crossing mass.
-Boundary-aware splitting \cite{legrand2022split} is a separate estimator
-baseline, not used in the reported routing arms. Present labels are not excluded solely for being
-outside the view. Each step uses one fusion round and shared birth labels
-without matching. MAP cardinality determines the output; other labels remain
-unless pruned below existence 0.01.
+All arms share approximate powered-GM fusion (three components/input, eight
+output components, 256 tuples); overlap above one triggers moment-matched
+fallback. Arbitrary GM powers are not exact. Detection probability is
+evaluated at component means, without boundary splitting
+\cite{legrand2022split}. Present labels are not removed solely for being
+outside the FoV. Each step uses one fusion round, shared birth labels without
+matching, MAP-cardinality output and existence pruning below 0.01.
 
 Metrics are Euclidean position OSPA (E-OSPA, order 2, cutoff 150\,m)
 \cite{schuhmacher2008ospa} and Hungarian-matched position RMSE, averaged over
@@ -233,23 +222,24 @@ exclude routing-control traffic.
 
 \begin{table*}[t]
 \centering
-\caption{Paired 160-step development episodes, seed 1301. All error and
-payload measures are lower-is-better. Errors are in metres; payload is
-attempted posterior traffic in decimal MB. Message counts precede delivery.}
+\caption{Paired 160-step episodes, seed 1301. E-OSPA, conditional RMSE and
+representative disagreement are in metres; Count is mean absolute cardinality
+error. All errors and attempted posterior payload (decimal MB) are
+lower-is-better. Messages are scheduled, before delivery.}
 \label{tab:main}
 \small
-\begin{tabular}{llrrrrr}
+\begin{tabular}{llrrrrrr}
 \toprule
-Scale & Routing policy & E-OSPA & Cond. RMSE & Focus consistency & Payload & Messages/step\\
+Scale & Routing policy & E-OSPA & RMSE & Count & Disagr. & MB & Msgs/step\\
 \midrule
-M24 & Fixed formation tree &125.478&22.640&133.599&40.769&46--48\\
-    & Full causal repair &\textbf{122.380}&14.081&131.913&44.867&48\\
-    & Sparse causal repair &122.462&\textbf{12.183}&\textbf{131.664}&\textbf{36.676}&30\\
+M24 & Fixed formation tree &125.478&22.640&11.131&133.599&40.769&46--48\\
+    & Full causal repair &\textbf{122.380}&14.081&\textbf{10.671}&131.913&44.867&48\\
+    & Sparse causal repair &122.462&\textbf{12.183}&10.720&\textbf{131.664}&\textbf{36.676}&30\\
 \midrule
-X36 & Fixed formation tree &132.680&36.925&139.407&76.871&66--72\\
-    & Full causal repair &\textbf{131.795}&19.586&\textbf{139.004}&81.259&72\\
-    & Sparse causal repair &132.192&\textbf{19.329}&140.489&\textbf{60.090}&46\\
-    & Sparse + self fallback &131.961&20.263&139.273&60.317&46\\
+X36 & Fixed formation tree &132.680&36.925&\textbf{18.456}&139.407&76.871&66--72\\
+    & Full causal repair &\textbf{131.795}&19.586&18.463&\textbf{139.004}&81.259&72\\
+    & Sparse causal repair &132.192&\textbf{19.329}&18.597&140.489&\textbf{60.090}&46\\
+    & Sparse + self fallback &131.961&20.263&18.518&139.273&60.317&46\\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -268,23 +258,31 @@ These bounds are not achieved gains or confidence intervals.}
 
 \subsection{What the comparisons establish}
 Table~\ref{tab:main} and Fig.~\ref{fig:tradeoff} separate repair from
-sparsification. Full causal
-repair improves the three reported error measures over fixed routing at
-both scales, but increases attempted bytes by 10.052\% on M24 and
-5.708\% on X36. The sparse policy instead saves 10.041\% and 21.830\% of
-attempted bytes. On M24 its E-OSPA and conditional RMSE improve by
-2.403\% and 46.190\%, and focus consistency improves by 1.449\%.
-However, the worst formation-wise RMSE change is a 24.085\% degradation.
+sparsification. Full repair lowers E-OSPA, RMSE and disagreement but costs
+more bytes. Sparse repair reduces traffic; on X36 its lower RMSE coexists
+with worse count error and disagreement. Table~\ref{tab:guardrails} retains
+common-cell and formation-tail checks: localization gains survive the former,
+but means do not establish uniform benefits. Self fallback improves X36 set
+error and disagreement while worsening common-cell and formation-tail RMSE.
 
-On X36 sparse repair improves E-OSPA by only 0.368\% despite a
-47.655\% conditional-RMSE reduction. Mean absolute cardinality error rises
-from 18.456 to 18.597, and focus consistency worsens by 0.776\%.
-The RMSE decrease therefore does not establish a comparable improvement
-in complete target-set recovery.
-
-X36 sparse repair has finite RMSE on 97.465\% of sensor--time cells, versus
-100\% for fixed routing. On common finite cells the means are 19.329 and
-31.394\,m, a 38.431\% reduction. Matched targets can still differ.
+\begin{table}[t]
+\centering
+\caption{RMSE checks (\%). Negative gains are worse. Common cells have
+finite RMSE in both arms, not necessarily identical matches. Formation gains
+use each arm's finite cells.}
+\label{tab:guardrails}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Comparison & Common & \multicolumn{2}{c}{RMSE gain}\\
+ & cells & Common & Worst form.\\
+\midrule
+M24 sparse/fixed &99.870&+46.190&$-24.085$\\
+X36 sparse/fixed &97.465&+38.431&+4.444\\
+X36 self/sparse &96.493&$-5.471$&$-37.361$\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{How much can localization alone improve?}
 To separate position refinement from target-set recovery, write squared
@@ -293,37 +291,20 @@ OSPA at one sensor--time cell as
  E^2=C+L,\qquad C=c^2\frac{|n-T|}{\max(n,T)},\quad L\geq0,
  \label{eq:countbudget}
 \end{equation}
-where $T,n$ are true and estimated counts and $c=150$\,m; two empty sets
-give $E=C=L=0$. Perfect localization at fixed counts leaves $\sqrt C$.
-Saved absolute count errors admit two signs. OSPA's floor and RMSE matching
-exclude infeasible counts, leaving 0/3840 ambiguous sparse M24 cells and
-121/5760 X36 cells with $C_{\min}\leq C\leq C_{\max}$.
-For sparse repair, $\sum C/\sum E^2$ is 99.567\% on M24 and
-98.074--99.337\% on X36, not a linear decomposition of mean OSPA.
-The remaining fixed-count gain is at most
-$\operatorname{mean}(E-\sqrt{C_{\min}})$: 0.279 and 1.311\,m.
-These ceilings, shown in Fig.~\ref{fig:tradeoff}(c), are not achieved gains
-or proof of correct target identities. Even perfect fixed-count localization
-leaves the count penalty; substantial gains require recovering the target set.
-
-The delivered sparse graph is strongly connected in only 41/160 M24 and
-18/160 X36 steps; these counts measure neither label-wise nor temporal
-connectivity.
-
-\subsection{Receiver ablation and limitations}
-Against sparse renormalization, self fallback improves X36 E-OSPA by
-0.175\% and focus consistency by 0.865\%; cardinality error drops to 18.518.
-Conditional RMSE worsens by 4.836\%, with a 37.361\% loss in the most
-affected formation. Neither dominates.
-
-Future comparisons must separate estimator changes from routing effects.
-Multi-view and label-matched baselines, independent seeds and layouts,
-control traffic and decentralized routing remain open.
+where $T,n$ are true and estimated counts and $c=150$\,m; empty--empty gives
+zero. Perfect localization leaves $\sqrt C$. Saved count errors omit sign;
+OSPA/RMSE constraints give $C_{\min}\leq C\leq C_{\max}$, with 0/3840 M24
+and 121/5760 X36 sparse cells unresolved. Count terms account for 99.567\%
+and 98.074--99.337\% of summed squared OSPA, not mean OSPA.
+Figure~\ref{fig:tradeoff}(c) gives the fixed-count ceiling
+$\operatorname{mean}(E-\sqrt{C_{\min}})$, not an achieved gain. Substantial
+improvement requires target-set recovery, not just position refinement.
 
 \section{Conclusion}
-Sparse repair saves posterior traffic but retains target-set and
-formation-wise tradeoffs. Useful existence evidence and spatial
-compatibility remain joint design constraints.
+Sparse repair saves posterior traffic but retains target-set and formation
+tradeoffs. Useful existence evidence and spatial compatibility remain joint
+constraints. Multi-view and label-matched baselines, independent seeds and
+layouts, control traffic and decentralized routing remain open.
 
 \section*{Acknowledgements and declarations}
 This work received no external funding. The authors declare no conflicts
