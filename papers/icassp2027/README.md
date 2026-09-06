@@ -32,10 +32,13 @@ connectivity/count proof, a conditional finite-round geometric-pooling bound,
 and complete three-arm M24/X36 development results. The X36 self-weight
 fallback ablation is also complete: set error and consistency improve over
 sparse renormalization, but conditional RMSE worsens by 4.836%, failing the
-predefined M24 follow-up gate. The draft now includes the V279 count-error
-budget, common-finite-cell RMSE comparison and a compact V280 opportunity
-readout. Two Python-rendered vector figures replace the original stacked
-pipeline boxes and expose the payload/set-error tradeoff. The result figure
+predefined M24 follow-up gate. The draft includes the V279 count-error
+budget and common-finite-cell RMSE comparison. Detailed V280 opportunity
+and V282 weak-input diagnostics remain in the progress notes and experiment
+records rather than the compact manuscript. Two Python-rendered vector
+figures expose causal tree repair, directed delivery and the payload/set-error
+tradeoff. The method figure now appears on page 2 and distinguishes a failed
+physical branch from a lost packet after scheduling. The result figure
 now includes fixed-count localization ceilings from the saved count-budget
 data, making the remaining target-set recovery problem explicit. Figure sources,
 data and regeneration instructions are in `figures/README.md`.
@@ -51,7 +54,7 @@ The derived perturbation bound is elementary and scoped; it is not by itself
 evidence of a novel estimation-optimal policy.
 
 V280 remains a geometry/packet-opportunity diagnostic, not an actual-label
-propagation experiment; its headline readout now appears in the manuscript.
+propagation experiment; its readout is retained in the mainline progress note.
 It reuses opened cases and changes no filter or sensing parameter. The V278
 background process finished normally; no automatic M24 extension was started.
 
@@ -126,3 +129,11 @@ the complete conclusion on page 4 and declarations/references on page 5.
 See `RUN/GA/dynamic_topology/V288_RUN_STATUS.md` for the current run record.
 An analytic fusion-rule schematic is retained in the baseline notes, not
 introduced as tracking evidence or substituted for the approved Lark board.
+
+V290 now isolates the local FoV-boundary approximation using published
+Gaussian splitting, with unchanged KLA and V242 routing. The two-step
+integration completed; it does not demonstrate a tracking improvement.
+The single 40-step X36 screen is running from source checkpoint `702f84d`.
+Its source, short-run tradeoff and frozen execution command are recorded in
+`RUN/GA/dynamic_topology/V290_FOV_SPLITTING_DESIGN.md`. Neither that baseline
+nor the new explanatory figure is a newly validated routing contribution.

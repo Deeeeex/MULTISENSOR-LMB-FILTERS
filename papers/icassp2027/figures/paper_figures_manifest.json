@@ -6,9 +6,15 @@
   "figures": {
     "method_paper": {
       "inches": [
-        3.46,
-        2.65
-      ]
+        6.9,
+        1.95
+      ],
+      "role": "illustrative retain-repair-deliver sequence",
+      "scheduled_messages": [
+        13,
+        13
+      ],
+      "delivered_messages": 12
     },
     "routing_tradeoff": {
       "inches": [

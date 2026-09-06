@@ -24,7 +24,6 @@ COLORS = {"fixed": "#6B7280", "full": "#2474AD", "sparse": "#138571", "self": "#
 MARKERS = {"fixed": "s", "full": "^", "sparse": "o", "self": "D"}
 LABELS = {"fixed": "Fixed", "full": "Full repair", "sparse": "Sparse repair", "self": "Self fallback"}
 INK = "#253142"
-SELF = "#D3DAE1"
 MAIN = COLORS["full"]
 WEAK = "#D99131"
 
@@ -49,83 +48,68 @@ def export(fig, stem):
     plt.close(fig)
 
 
-def arrow(ax, start, end, color, rad=0, lw=1.0):
+def arrow(ax, start, end, color, rad=0, lw=1.0, linestyle="-"):
     ax.add_patch(FancyArrowPatch(
         start, end, arrowstyle="-|>", mutation_scale=6.4,
         linewidth=lw, color=color, shrinkA=3.5, shrinkB=3.5,
+        linestyle=linestyle,
         connectionstyle=f"arc3,rad={rad}", zorder=2,
     ))
 
 
 def method_figure():
-    fig = plt.figure(figsize=(3.46, 2.65))
-    ax = fig.add_axes([0.02, 0.55, 0.96, 0.43])
-    ax.set(xlim=(0, 3.28), ylim=(0, 1.16))
-    ax.axis("off")
-    ax.text(0.01, 1.13, "a  Causal sparse backbone", weight="bold", fontsize=8.4, va="top")
-    ax.text(0.04, 0.88, "Current links + previous tree", fontsize=7.0, va="center")
-    ax.annotate("retain / repair", xy=(1.72, 0.88), xytext=(2.07, 0.88),
-                va="center", fontsize=7.0,
-                arrowprops={"arrowstyle": "<-", "lw": 0.8, "color": INK})
+    fig, axes = plt.subplots(1, 3, figsize=(6.90, 1.95))
+    fig.subplots_adjust(left=0.012, right=0.995, bottom=0.015, top=0.985, wspace=0.14)
+    centers = np.array([[-0.88, 0.42], [0.88, 0.42], [0, -0.72]])
+    offsets = np.array([[-0.22, -0.10], [0, 0.25], [0.22, -0.10]])
+    nodes = np.vstack([c + offsets for c in centers])
+    local = [(3*f+j, 3*f+(j+1) % 3) for f in range(3) for j in range(3)]
+    ab, bc, ac = [(2, 3), (3, 2)], [(5, 8), (8, 5)], [(0, 6), (6, 0)]
+    planned = [local + ab + bc, local + ab + ac]
+    delivered = local + ab + ac[:1]
+    assert [len(set(edges)) for edges in planned] == [13, 13]
+    assert len(set(delivered)) == 12
+    assert all(max(sum(v == i for _, v in edges) for i in range(9)) == 2 for edges in planned)
+    assert not any(u >= 6 and v < 6 for u, v in delivered)
+    grey = "#A4ADB7"
 
-    nodes = []
-    for f, x in enumerate((0.56, 1.64, 2.72)):
-        ax.add_patch(FancyBboxPatch(
-            (x - 0.45, 0.17), 0.90, 0.56,
-            boxstyle="round,pad=0.015,rounding_size=0.04",
-            facecolor="#F3F7FA", edgecolor="#D7DFE5", linewidth=0.7, zorder=0,
-        ))
-        group = [(x - 0.25, 0.59), (x + 0.25, 0.59), (x, 0.28)]
-        nodes.append(group)
-        for i in range(3):
-            arrow(ax, group[i], group[(i + 1) % 3], MAIN, lw=0.9)
-        for p in group:
-            ax.add_patch(Circle(p, 0.042, facecolor="white", edgecolor=MAIN, lw=1, zorder=3))
-        ax.text(x, 0.065, f"Formation {f + 1}", ha="center", fontsize=6.6)
-    for left, right in ((0, 1), (1, 2)):
-        arrow(ax, nodes[left][1], nodes[right][0], COLORS["sparse"], rad=-0.06, lw=1.25)
-        arrow(ax, nodes[right][2], nodes[left][2], COLORS["sparse"], rad=-0.15, lw=1.25)
-    ax.text(1.64, -0.035, r"Local cycles + gateway tree: $N + 2(F-1)$ messages",
-            fontsize=7.0, ha="center", va="top")
+    def pair(ax, edges, color, lw=1.2):
+        for u, v in edges:
+            arrow(ax, nodes[u], nodes[v], color, rad=0.11, lw=lw)
 
-    bx = fig.add_axes([0.035, 0.045, 0.93, 0.405])
-    bx.set(xlim=(0, 1), ylim=(0, 1))
-    bx.axis("off")
-    bx.text(0, 1.0, "b  A dominant packet is unavailable", fontsize=8.4,
-            weight="bold", va="top")
-    for x, col, name in ((0.00, SELF, "Self"), (0.29, MAIN, "Dominant"), (0.68, WEAK, "Residual")):
-        bx.add_patch(plt.Rectangle((x, 0.735), 0.028, 0.07, color=col, lw=0))
-        bx.text(x + 0.041, 0.77, name, fontsize=6.8, va="center")
-    rows = [
-        ("Planned", [0.25, 0.70, 0.05], 0.56, ["0.25", "0.70", "0.05"]),
-        ("Renormalize", [5 / 6, 0, 1 / 6], 0.33, ["0.833", "", "0.167"]),
-        ("Self fallback", [0.95, 0, 0.05], 0.10, ["0.95", "", "0.05"]),
-    ]
-    start, width, height = 0.32, 0.60, 0.15
-    for label, weights, y, labels in rows:
-        assert np.isclose(sum(weights), 1.0)
-        bx.text(0, y + height / 2, label, fontsize=6.9, va="center")
-        offset = start
-        for i, (w, col) in enumerate(zip(weights, (SELF, MAIN, WEAK))):
-            if not w:
-                continue
-            bx.add_patch(plt.Rectangle((offset, y), width * w, height,
-                                       facecolor=col, edgecolor="white", lw=0.5))
-            if w >= 0.1:
-                bx.text(offset + width * w / 2, y + height / 2, labels[i],
-                        color="white" if i == 1 else INK, fontsize=6.2,
-                        ha="center", va="center")
-            else:
-                bx.text(start + width + 0.015, y + height / 2, labels[i],
-                        fontsize=6.2, va="center")
-            offset += width * w
-        if label == "Planned":
-            # Cross the lost input; do not remove it from the planned weights.
-            cx = start + width * (0.25 + 0.35)
-            bx.plot([cx - 0.021, cx + 0.021], [y - 0.01, y + height + 0.01],
-                    color=INK, lw=0.75)
-            bx.plot([cx + 0.021, cx - 0.021], [y - 0.01, y + height + 0.01],
-                    color=INK, lw=0.75)
+    def cross(ax, x, y):
+        ax.plot([x-0.055, x+0.055], [y-0.055, y+0.055], color=INK, lw=1.0, zorder=5)
+        ax.plot([x-0.055, x+0.055], [y+0.055, y-0.055], color=INK, lw=1.0, zorder=5)
+
+    titles = ["a  Retain the feasible tree", "b  Repair the failed branch", "c  Delivery is not guaranteed"]
+    subtitles = [r"$t-1$: AB + BC", r"$t$: retain AB; add AC", r"$t$: one C-to-A packet lost"]
+    for k, ax in enumerate(axes):
+        ax.set(xlim=(-1.38, 1.38), ylim=(-1.13, 1.43), aspect="equal")
+        ax.axis("off")
+        ax.text(-1.35, 1.38, titles[k], fontsize=8.1, weight="bold", va="top")
+        ax.text(-1.35, 1.10, subtitles[k], fontsize=7.2, va="top")
+        for f, c in enumerate(centers):
+            ax.add_patch(FancyBboxPatch(
+                (c[0]-0.34, c[1]-0.23), 0.68, 0.60,
+                boxstyle="round,pad=0.015,rounding_size=0.07",
+                facecolor="#F4F7FA", edgecolor="#D7DFE5", linewidth=0.65, zorder=0))
+            ax.text(c[0], c[1]-0.035, "ABC"[f], ha="center", va="center", fontsize=8.0)
+        for u, v in local:
+            arrow(ax, nodes[u], nodes[v], MAIN, lw=0.8)
+        pair(ax, ab, COLORS["sparse"])
+        if k == 0:
+            pair(ax, bc, COLORS["sparse"])
+            ax.plot(nodes[[0, 6], 0], nodes[[0, 6], 1], color=grey, lw=1, ls=":", zorder=1)
+        elif k == 1:
+            pair(ax, ac, WEAK, lw=1.7)
+            ax.plot(nodes[[5, 8], 0], nodes[[5, 8], 1], color=grey, lw=1, ls="--", zorder=1)
+            cross(ax, 0.66, -0.25)
+        else:
+            arrow(ax, nodes[0], nodes[6], WEAK, rad=0.11, lw=1.7)
+            arrow(ax, nodes[6], nodes[0], grey, rad=0.11, lw=1.0, linestyle="--")
+            cross(ax, -0.54, -0.18)
+        for p in nodes:
+            ax.add_patch(Circle(p, 0.042, facecolor="white", edgecolor=MAIN, lw=0.9, zorder=4))
     export(fig, "method_paper")
 
 
@@ -209,18 +193,24 @@ def results_figure(rows):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--results-only", action="store_true",
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--results-only", action="store_true",
                         help="Leave the unchanged method schematic exports untouched.")
+    group.add_argument("--method-only", action="store_true",
+                       help="Update the method schematic without redrawing result figures.")
     args = parser.parse_args()
     rows = read_rows()
     if not args.results_only:
         method_figure()
-    facts = results_figure(rows)
+    facts = (json.loads((HERE / "paper_figures_manifest.json").read_text())["sparse_vs_fixed"]
+             if args.method_only else results_figure(rows))
     manifest = {
         "backend": f"Python / Matplotlib {matplotlib.__version__}",
         "contract": "FIGURE_CONTRACT.md", "data": "routing_tradeoff_source.csv",
         "count_budget_data": "count_budget_source.csv",
-        "figures": {"method_paper": {"inches": [3.46, 2.65]},
+        "figures": {"method_paper": {"inches": [6.90, 1.95],
+                                    "role": "illustrative retain-repair-deliver sequence",
+                                    "scheduled_messages": [13, 13], "delivered_messages": 12},
                     "routing_tradeoff": {"inches": [6.90, 2.18]}},
         "formats": ["pdf", "svg", "png"], "png_dpi": 600,
         "units": {"payload": "decimal MB, attempted posterior payload only", "eospa": "metres"},

@@ -2,8 +2,8 @@
 
 ## Reproducible paper figures
 
-The paper uses two separate Python figures: `method_paper` explains the
-scheduled graph and missing-input weights; `routing_tradeoff` shows attempted
+The paper uses two separate Python figures: `method_paper` explains causal
+tree retention, branch repair and directed packet loss; `routing_tradeoff` shows attempted
 payload versus E-OSPA for every executed main-table arm, alongside the
 sparse arms' remaining fixed-count localization-only reduction ceilings.
 The ceiling bars are analytic post-hoc bounds, not achieved improvements.
@@ -25,6 +25,11 @@ tables. `routing_tradeoff_source.csv` has seven episode rows;
 only these committed CSV files and Python with Matplotlib and NumPy. The
 Octave re-export additionally requires the locally retained source MAT files
 in the worktrees named in the CSV. Neither command runs a filter.
+Use `--method-only` to revise the mechanism schematic without redrawing the
+result figure. The illustrative graphs contain 13 planned messages before
+and after repair and 12 delivered messages after one gateway packet is lost.
+The weight-renormalization example remains in the manuscript equations and
+the separately maintained, already approved Lark schematic.
 
 ## Canonical Lark schematic
 

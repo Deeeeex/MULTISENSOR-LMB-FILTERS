@@ -3,22 +3,33 @@
 Backend: Python / Matplotlib, explicitly selected by the user. The Lark board
 is a separate artifact and is not overwritten by the paper renderer.
 
-## Figure 1: method, not a performance claim
+## Figure 1: causal repair and its delivery boundary
 
-- Intended conclusion: the scheduled sparse backbone and the inputs actually
-  fused are different objects. A lost dominant packet changes surviving
-  weights differently under renormalization and self fallback.
-- Archetype: two-panel mechanism schematic, single-column width (3.46 inches),
-  height 2.65 inches. Panel a uses three illustrative formations with three
-  sensors each; it is not a scaled M24/X36 scene. Panel b shows exact weights.
-- Semantics: nine directed local-cycle edges plus four directed gateways;
-  each tree connection has both directions. The example contains 13 scheduled
-  messages, consistent with N + 2(F - 1), not a claimed global minimum.
-- Weight example: planned self / dominant / residual = 0.25 / 0.70 / 0.05;
-  after the dominant packet is unavailable, renormalization = 5/6 / 0 / 1/6,
-  self fallback = 0.95 / 0 / 0.05. The fallback is an ablation, not the winner.
-- Statistical object: none. All schematic quantities are illustrative and
-  deterministic. No graph-layout coordinate axes are needed.
+- Intended conclusion: the main method keeps feasible formation connections,
+  repairs a failed branch within the same message budget, and must distinguish
+  that planned graph from the packets actually delivered.
+- Archetype: three-stage mechanism schematic, double-column width 6.90 inches,
+  height 1.95 inches. Every stage uses the same three illustrative formations
+  with three sensors each. These are abstract graph positions, not M24/X36
+  simulation geometry or a quantitative movement trajectory.
+- Panel a: retain tree AB + BC although AC is another feasible alternative.
+  Panel b: BC becomes infeasible; retain AB and replace BC by AC. A single
+  formation-edge replacement suffices in this example, not in every scene.
+  Panel c: one C-to-A gateway packet is lost after the repaired plan is set;
+  C then has no delivered path out to the other formations.
+- Semantics: all stages keep nine directed local-cycle edges. Each planned
+  tree has four directed gateway messages, hence 13 scheduled messages,
+  consistent with N + 2(F - 1). The delivered example has 12. Each scheduled
+  receiver has at most two nonself inputs. Neither 13 nor this repair example
+  is a global optimality or tracking-performance claim.
+- Blue local cycles, green retained gateways, thicker orange repaired
+  gateways. Dotted grey AC in a is an unused physical alternative; crossed
+  BC in b is a failed physical link; a crossed directed arrow in c is one
+  undelivered packet. The caption explains these distinct meanings.
+- The missing-weight numerical example remains in the equations and text;
+  the figure does not center the non-dominating self-fallback ablation.
+- Statistical object: none. All graph quantities are illustrative and
+  deterministic. No coordinate axes, error bars or performance numbers.
 
 ## Figure 2: communication versus complete-set error and its remaining headroom
 
@@ -54,7 +65,7 @@ is a separate artifact and is not overwritten by the paper renderer.
 - Use consistent policy colors plus distinct marker shapes and direct labels;
   thin neutral axes, no decorative gradients or statistical embellishments.
 - Export a machine-readable summary of units, sample size, sources and caveats.
-- Check weight arithmetic and source row counts once, then visually inspect
+- Check illustrative edge counts/input limits and source row counts once, then visually inspect
   both figures and the rendered manuscript at final placement. This is a
   producing-agent self-check, not independent scientific validation.
 - Stop when the figures are accurate and readable; do not run new filters or

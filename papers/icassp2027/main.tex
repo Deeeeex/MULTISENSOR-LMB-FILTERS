@@ -58,17 +58,29 @@ and centralized per-label information-based weighting \cite{wang2018multiview}.
 Our arms share a repository-specific absent-label FoV censor, not these
 complete methods; routing uses physical links, not learned weights.
 
-Label alignment and the fusion objective are separate choices. Li et al.
-match labels before labelwise GCI \cite{li2019labelmatching}. Minimum
-information loss (MIL) instead minimizes
-$\sum_jw_jD_{\rm KL}(\pi_j\|\pi)$ within the LMB family
-\cite{gao2020mil}; unequal-view fusion also needs explicit treatment of
-exclusive tracks \cite{gao2022differentfov}. These alternatives are not
+Label-matched GCI \cite{li2019labelmatching} and LMB minimum information loss
+fusion \cite{gao2020mil} address label correspondence and the pooling
+objective, respectively. Unequal-view fusion also treats exclusive tracks
+\cite{gao2022differentfov}. These are separate estimator baselines, not
 components of the routing arms compared here.
 
-We give a sparse backbone's exact message count and analyze packet-induced
-weight changes. Paired routing comparisons expose a localization--set-recovery
-gap. One opened seed per scale provides development evidence, not validation.
+We give exact message counts and packet-induced weight bounds, and compare
+full with sparse repair. One opened seed per scale reveals development
+tradeoffs, not generalization.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/method_paper.pdf}
+\caption{Sparse causal repair with three illustrative formations of three
+sensors (not an M24/X36 layout). Blue arrows are local cycles.
+(a) Retain green AB--BC; dotted AC is unused.
+(b) Replace failed BC by orange AC, retaining AB. Both plans use 13 messages
+and at most two nonself inputs per receiver.
+(c) One C-to-A loss leaves 12 delivered messages and no path out of C.
+Scheduled connectivity therefore does not ensure delivery, let alone
+label-specific fusion quality.}
+\label{fig:method}
+\end{figure*}
 
 \section{Sparse Causal LMB Routing}
 \subsection{Fusion and communication model}
@@ -105,7 +117,7 @@ feasible tree lexicographically: minimize replaced formation edges, maximize
 bottleneck reliability, maximize total log reliability, then minimize
 distance. Gateway feasibility includes the receiver input constraints.
 Local cycles and gateway endpoints are rebuilt from current geometry;
-only the formation tree is retained.
+only the formation tree is retained (Fig.~\ref{fig:method}).
 
 The sparse policy retains one directed cycle inside each formation. Each
 undirected edge of the formation tree is realized by one directed gateway
@@ -116,17 +128,6 @@ dominant input and 0.05 for a retained residual input, with the remaining
 mass assigned to self. The full-repair reference instead retains two
 nonself inputs per receiver. Removing its unused local residual input
 increases the sparse receiver's self weight by 0.05.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/method_paper.pdf}
-\caption{Scheduled routing versus realized fusion. (a) An illustrative
-three-formation backbone: blue local cycles and green gateway pairs.
-This is not an M24/X36 layout. (b) Losing the dominant input amplifies the
-residual weight under renormalization; self fallback preserves it.
-The alternative receiver rule is an ablation, not a uniformly better method.}
-\label{fig:method}
-\end{figure}
 
 \noindent\textbf{Proposition 1 (scheduled backbone).}
 If every local cycle and every directed gateway is physically feasible,
@@ -209,19 +210,15 @@ and changes the formation tree when required. Sparse causal repair uses
 (\ref{eq:renorm}). A fourth X36 arm changes only missing-input handling
 to (\ref{eq:self}), including unavailable or empty neighbor packets.
 
-All arms use a guarded powered-Gaussian-mixture approximation: at most three
-components per input, eight fused components and 256 tuples. An overlap
-normalizer above one triggers moment-matched Gaussian fallback; arbitrary
-mixture powers are not exact. Local detection probabilities use component
-means and are zeroed outside the FoV, without integrating boundary-crossing
-mass. FoV-aware splitting would also change the missed-detection density
-\cite{legrand2022split}.
-Present low-existence labels are not excluded merely for being outside the
-current view. Each step has one fusion round.
-Shared birth identifiers are fused directly, without label matching.
-Geometric output disagreement does not itself invalidate this shared-label model.
-MAP cardinality selects the output set; unselected labels remain in the
-posterior unless pruned below the shared existence threshold of 0.01.
+All arms share a guarded powered-GM approximation: at most three components
+per input, eight fused components and 256 tuples; overlap above one invokes
+moment-matched Gaussian fallback. Arbitrary mixture powers are not exact.
+Component-mean detection probabilities ignore FoV boundary-crossing mass;
+boundary-aware splitting changes the local spatial update
+\cite{legrand2022split}. Present labels are not excluded solely for being
+outside the view. Each step uses one fusion round and shared birth labels
+without matching. MAP cardinality determines the output; other labels remain
+unless pruned below existence 0.01.
 
 Metrics are Euclidean position OSPA (E-OSPA, order 2, cutoff 150\,m)
 \cite{schuhmacher2008ospa} and Hungarian-matched position RMSE, averaged over
@@ -306,9 +303,9 @@ These ceilings, shown in Fig.~\ref{fig:tradeoff}(c), are not achieved gains
 or proof of correct target identities. Even perfect fixed-count localization
 leaves the count penalty; substantial gains require recovering the target set.
 
-Delivered sparse graphs are strongly connected on only 41/160 M24 steps
-and 18/160 X36 steps. These counts do not measure label-wise reachability
-or longer-window connectivity, nor establish tracking causality.
+The delivered sparse graph is strongly connected in only 41/160 M24 and
+18/160 X36 steps; these counts measure neither label-wise nor temporal
+connectivity.
 
 \subsection{Receiver ablation and limitations}
 Against sparse renormalization, self fallback improves X36 E-OSPA by
@@ -316,19 +313,9 @@ Against sparse renormalization, self fallback improves X36 E-OSPA by
 Conditional RMSE worsens by 4.836\%, with a 37.361\% loss in the most
 affected formation. Neither dominates.
 
-Global geometric blackout is below 2.8\%, but ideal eight-step sparse-path
-coverage falls from 81.261\% on M24 to 63.183\% on X36. Perfect detection
-and indefinite retention are assumed, not actual label recall.
-
-A 40-step X36 trace finds 3,117/3,227 weak pools at steps 36--40
-(pre-spatial existence below 0.5) without an input at $r\geq0.9$.
-These are descriptive levels, not output thresholds; observation opportunity
-does not guarantee retained evidence. Recovery needs existence, spatial
-support and label correspondence; covariance alone is not a validated
-source-quality score. Fusion controls must hold routing fixed, and routing
-controls must share a fusion rule. Label-matched and multi-view baselines,
-independent seeds, zipper-merge validation, control traffic and decentralized
-routing remain open.
+Future comparisons must separate estimator changes from routing effects.
+Multi-view and label-matched baselines, independent seeds and layouts,
+control traffic and decentralized routing remain open.
 
 \section{Conclusion}
 Sparse repair saves payload but retains target-set and formation-wise

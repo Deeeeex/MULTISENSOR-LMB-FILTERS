@@ -138,7 +138,25 @@ set -o pipefail
 
 Save raw candidate output before scoring, and reuse it after observation
 timeouts or analysis failures. Do not restart a live or completed filter.
-The long-run source checkpoint and command will be recorded if launched.
+### Frozen 40-step execution
+
+Source checkpoint `702f84d` was committed and pushed before launch. The
+40-step candidate is session 87267, Octave PID 25555. Its first filter step
+started at 08:53:49 local time on 2026-09-06. At 09:07:23 the process was
+still running at 100% CPU, and the log had reached step 21/40 at 09:05:49.
+No completed 40-step metrics were available at that observation. Only paper
+and record files were edited after launch; the filtering source is frozen.
+
+```sh
+set -o pipefail
+/opt/homebrew/bin/octave --no-gui --quiet --eval "addpath(genpath(pwd)); o=struct('baselineTracePath','RUN/GA/dynamic_topology/evidence/tracking_aligned_v282/x36_prefix40_seed1301/EXISTENCE_STAGE_TRACE_V282.mat','baselineSummaryPath','RUN/GA/dynamic_topology/evidence/tracking_aligned_v288/x36_prefix40_seed1301/COMMON_LABEL_MIL_V288.mat','maximumTime',40,'outputRoot','RUN/GA/dynamic_topology/evidence/tracking_aligned_v290/x36_prefix40_seed1301'); [p,r]=runFovGaussianSplittingV290(o); disp(p);" 2>&1 | tee RUN/GA/dynamic_topology/evidence/tracking_aligned_v290/x36_prefix40_seed1301/run.log
+```
+
+Read the log without restarting the filter:
+
+```sh
+tail -f RUN/GA/dynamic_topology/evidence/tracking_aligned_v290/x36_prefix40_seed1301/run.log
+```
 
 ## Open Issues
 
@@ -148,8 +166,8 @@ update effect is not evidence of a dynamic-routing contribution.
 
 ## Recommendation
 
-The integration is complete. Run one frozen 40-step candidate without
-changing parameters in response to the two-step metrics. Use the
+The integration is complete and the frozen 40-step candidate is running.
+Do not change parameters in response to the two-step metrics. Use the
 same development screen as V288: E-OSPA gain >= 1%, lower count error,
 non-worse prefix representative disagreement, common-finite RMSE <= 1%
 degradation, worst-formation E-OSPA <= 1% degradation, attempted bytes <=

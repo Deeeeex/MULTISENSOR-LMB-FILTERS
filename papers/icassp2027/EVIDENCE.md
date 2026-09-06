@@ -273,6 +273,42 @@ on page 5. The revised result figure and its page placement were visually
 checked; no label clipping or overlap remains. Known underfull and bibliography
 rerun-consistency warnings remain. This is a producing-agent layout self-check.
 
+### Causal-repair figure and frozen FoV control, 2026-09-06
+
+Figure 1 now illustrates retention of AB--BC, replacement of failed BC by
+AC, and a subsequent directed C-to-A packet loss. The deterministic drawing
+checks 13 planned messages before/after repair, at most two nonself inputs
+per receiver, and 12 delivered messages with no outgoing path from C.
+This is a three-formation graph example, not an M24/X36 geometry snapshot
+or a tracking result. The non-dominating self-fallback rule remains an
+ablation in the text, rather than the second panel of the method figure.
+
+`/Users/dex/miniconda3/bin/python3 papers/icassp2027/figures/plot_paper_figures.py --method-only`
+exited 0 and exported the editable SVG, vector PDF and 600-dpi PNG. It did
+not redraw the result figure or change any metric source. `tectonic
+--keep-logs main.tex` exited 0. Text readback and rendered-page inspection
+confirmed Figure 1 on page 2, the complete conclusion on page 4, and only
+declarations plus 14 references on page 5. No overfull box, unresolved
+citation or visible clipping remained; known underfull and repeated-BibTeX
+consistency warnings remain. This is a producing-agent layout self-check.
+The compact manuscript omits the detailed V280/V282 diagnostic readouts;
+their underlying evidence and mainline-document explanations are retained.
+`/Users/dex/miniconda3/bin/python3 /Users/dex/.codex/skills/auto-research/scripts/evidence_lint.py papers/icassp2027/EVIDENCE.md`
+returned `PASS`. After normalizing generated SVG line-end whitespace,
+`git diff --check` exited 0. Neither check establishes scientific validity.
+
+V290's default-off local Gaussian-splitting baseline and completed two-step
+integration were frozen and pushed at `702f84d`. The 40-step candidate was
+then launched without changing its parameters. The short integration is
+not a positive tracking result, and no completed 40-step result has been
+added to the paper or best-method table. The exact execution and observed
+status are in `RUN/GA/dynamic_topology/V290_FOV_SPLITTING_DESIGN.md`.
+
+Lark readback at revision 1267 confirms the same approved whiteboard block
+`doxlgarEJEouJwtTUYsrrC2TXkd` and board `Yv1nwom4Bh15o5batldjLRr6prc`.
+The earlier approved SVG replacement is complete; this paper-only figure
+revision neither replaces it again nor creates a new document.
+
 ## Risk and Escalation
 
 An overbroad interpretation would overstate tracking quality or total bandwidth
@@ -323,5 +359,9 @@ records distinguish existence retention, spatial reliability and correspondence;
 they do not establish a jointly improved method. V288 isolates an existing
 shared-label MIL receiver under the unchanged sparse route. Its frozen
 protocol and current status are in `RUN/GA/dynamic_topology/V288_RUN_STATUS.md`;
-it is not complete multi-view MIL or a new routing contribution. The joint
-M24/X36 success objective remains unmet.
+it is not complete multi-view MIL or a new routing contribution. V288 has
+completed and failed the joint screen. V289's density-boundary diagnostic
+motivates the published local-update control V290, now running under the
+unchanged sparse route. It must be judged by the complete accuracy/payload
+tradeoff before any extension. The joint M24/X36 success objective remains
+unmet.
