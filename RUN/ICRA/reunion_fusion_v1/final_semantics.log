@@ -1,0 +1,5 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+PASS reunion semantics: positive/negative evidence, no-opportunity fallback, wrapper equivalence, source-order invariance.
+PASS confirmation fallback, certificate propagation, negative evidence, fixed-input spatial invariance, source permutation.
+PASS MIL support specialization: zero-extension distinction, exact arithmetic existence/spatial mean, exclusive-label identity, source permutation.
