@@ -1,0 +1,22 @@
+Audited 51840 node-frames, pre/post OSPA, count, localization and support.
+split_latebirth    local    OSPA=6.9955 count=1.3399 miss2=97.58 false2=1.10
+split_latebirth    kla      OSPA=3.3594 count=0.5566 miss2=40.10 false2=0.02
+split_latebirth    fov      OSPA=3.3622 count=0.5576 miss2=40.15 false2=0.00
+split_latebirth    lineage  OSPA=2.6606 count=0.4188 miss2=30.15 false2=0.00
+split_latebirth    mil      OSPA=4.3544 count=0.5760 miss2=42.88 false2=1.40
+split_latebirth    recent   OSPA=2.8708 count=0.4632 miss2=33.35 false2=0.00
+churn_departure    local    OSPA=6.8690 count=1.1920 miss2=87.52 false2=1.70
+churn_departure    kla      OSPA=2.2988 count=0.3545 miss2=21.57 false2=4.25
+churn_departure    fov      OSPA=2.2762 count=0.3510 miss2=21.90 false2=3.62
+churn_departure    lineage  OSPA=0.7696 count=0.0934 miss2=2.45 false2=4.27
+churn_departure    mil      OSPA=3.9202 count=0.4125 miss2=25.75 false2=5.10
+churn_departure    recent   OSPA=1.3347 count=0.1910 miss2=10.55 false2=3.20
+split_no_new       local    OSPA=5.9897 count=0.6215 miss2=45.80 false2=1.05
+split_no_new       kla      OSPA=0.9182 count=0.0681 miss2=4.92 false2=0.02
+split_no_new       fov      OSPA=0.9443 count=0.0715 miss2=5.15 false2=0.00
+split_no_new       lineage  OSPA=0.8135 count=0.0556 miss2=3.83 false2=0.18
+split_no_new       mil      OSPA=2.3967 count=0.0351 miss2=3.85 false2=1.32
+split_no_new       recent   OSPA=0.7482 count=0.0441 miss2=3.18 false2=0.00
+lineage screen_passed False
+mil screen_passed False
+recent screen_passed True

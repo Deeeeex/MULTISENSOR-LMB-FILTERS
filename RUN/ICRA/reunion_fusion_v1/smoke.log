@@ -1,0 +1,42 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GEOMETRY split_latebirth speed 2.960 acceleration 1.054 reunions 1
+START split_latebirth seed 2801 arm local
+DONE OSPA 5.133827 count 0.625000 wire 0.000 MiB runtime 1.30s
+START split_latebirth seed 2801 arm kla
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 9.81s
+START split_latebirth seed 2801 arm fov
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 7.92s
+START split_latebirth seed 2801 arm lineage
+DONE OSPA 2.860708 count 0.375000 wire 0.879 MiB runtime 6.60s
+START split_latebirth seed 2801 arm mil
+DONE OSPA 4.708407 count 0.531250 wire 0.879 MiB runtime 0.37s
+START split_latebirth seed 2801 arm recent
+DONE OSPA 4.125961 count 0.562500 wire 0.879 MiB runtime 7.51s
+GEOMETRY churn_departure speed 2.823 acceleration 2.033 reunions 6
+START churn_departure seed 2801 arm local
+DONE OSPA 5.133827 count 0.625000 wire 0.000 MiB runtime 0.22s
+START churn_departure seed 2801 arm kla
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 8.25s
+START churn_departure seed 2801 arm fov
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 8.20s
+START churn_departure seed 2801 arm lineage
+DONE OSPA 2.860708 count 0.375000 wire 0.879 MiB runtime 6.71s
+START churn_departure seed 2801 arm mil
+DONE OSPA 4.708407 count 0.531250 wire 0.879 MiB runtime 0.25s
+START churn_departure seed 2801 arm recent
+DONE OSPA 4.125961 count 0.562500 wire 0.879 MiB runtime 8.07s
+GEOMETRY split_no_new speed 2.960 acceleration 1.054 reunions 1
+START split_no_new seed 2801 arm local
+DONE OSPA 5.133827 count 0.625000 wire 0.000 MiB runtime 0.09s
+START split_no_new seed 2801 arm kla
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 8.34s
+START split_no_new seed 2801 arm fov
+DONE OSPA 4.903204 count 0.656250 wire 0.879 MiB runtime 8.84s
+START split_no_new seed 2801 arm lineage
+DONE OSPA 2.860708 count 0.375000 wire 0.879 MiB runtime 7.20s
+START split_no_new seed 2801 arm mil
+DONE OSPA 4.708407 count 0.531250 wire 0.879 MiB runtime 0.25s
+START split_no_new seed 2801 arm recent
+DONE OSPA 4.125961 count 0.562500 wire 0.879 MiB runtime 8.47s
+COMPLETED smoke

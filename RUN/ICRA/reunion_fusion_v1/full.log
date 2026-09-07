@@ -1,0 +1,114 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GEOMETRY split_latebirth speed 2.960 acceleration 1.054 reunions 1
+START split_latebirth seed 2801 arm local
+DONE OSPA 6.677452 count 1.277083 wire 0.000 MiB runtime 6.58s
+START split_latebirth seed 2801 arm kla
+DONE OSPA 3.445035 count 0.577083 wire 24.961 MiB runtime 8.11s
+START split_latebirth seed 2801 arm fov
+DONE OSPA 3.442446 count 0.576042 wire 24.961 MiB runtime 5.22s
+START split_latebirth seed 2801 arm lineage
+DONE OSPA 2.654042 count 0.418750 wire 24.961 MiB runtime 4.58s
+START split_latebirth seed 2801 arm mil
+DONE OSPA 4.259302 count 0.583333 wire 24.961 MiB runtime 5.98s
+START split_latebirth seed 2801 arm recent
+DONE OSPA 2.789065 count 0.451042 wire 24.961 MiB runtime 4.39s
+START split_latebirth seed 2802 arm local
+DONE OSPA 7.007772 count 1.351042 wire 0.000 MiB runtime 3.78s
+START split_latebirth seed 2802 arm kla
+DONE OSPA 3.288143 count 0.545833 wire 24.961 MiB runtime 5.04s
+START split_latebirth seed 2802 arm fov
+DONE OSPA 3.299223 count 0.548958 wire 24.961 MiB runtime 4.56s
+START split_latebirth seed 2802 arm lineage
+DONE OSPA 2.718966 count 0.428125 wire 24.961 MiB runtime 4.47s
+START split_latebirth seed 2802 arm mil
+DONE OSPA 4.143909 count 0.579167 wire 24.961 MiB runtime 5.36s
+START split_latebirth seed 2802 arm recent
+DONE OSPA 2.901193 count 0.469792 wire 24.961 MiB runtime 4.63s
+START split_latebirth seed 2803 arm local
+DONE OSPA 7.301192 count 1.391667 wire 0.000 MiB runtime 3.79s
+START split_latebirth seed 2803 arm kla
+DONE OSPA 3.344980 count 0.546875 wire 24.961 MiB runtime 4.51s
+START split_latebirth seed 2803 arm fov
+DONE OSPA 3.344980 count 0.547917 wire 24.961 MiB runtime 4.56s
+START split_latebirth seed 2803 arm lineage
+DONE OSPA 2.608745 count 0.409375 wire 24.961 MiB runtime 4.49s
+START split_latebirth seed 2803 arm mil
+DONE OSPA 4.659859 count 0.565625 wire 24.961 MiB runtime 5.48s
+START split_latebirth seed 2803 arm recent
+DONE OSPA 2.922250 count 0.468750 wire 24.961 MiB runtime 4.58s
+GEOMETRY churn_departure speed 2.823 acceleration 2.033 reunions 6
+START churn_departure seed 2801 arm local
+DONE OSPA 6.683563 count 1.186458 wire 0.000 MiB runtime 3.46s
+START churn_departure seed 2801 arm kla
+DONE OSPA 2.728116 count 0.427083 wire 25.680 MiB runtime 4.63s
+START churn_departure seed 2801 arm fov
+DONE OSPA 2.685773 count 0.419792 wire 25.680 MiB runtime 4.77s
+START churn_departure seed 2801 arm lineage
+DONE OSPA 0.833517 count 0.103125 wire 25.680 MiB runtime 4.61s
+START churn_departure seed 2801 arm mil
+DONE OSPA 3.669024 count 0.411458 wire 25.680 MiB runtime 6.42s
+START churn_departure seed 2801 arm recent
+DONE OSPA 1.268906 count 0.181250 wire 25.680 MiB runtime 4.71s
+START churn_departure seed 2802 arm local
+DONE OSPA 6.705069 count 1.109375 wire 0.000 MiB runtime 3.56s
+START churn_departure seed 2802 arm kla
+DONE OSPA 2.176545 count 0.336458 wire 25.680 MiB runtime 4.95s
+START churn_departure seed 2802 arm fov
+DONE OSPA 2.188529 count 0.339583 wire 25.680 MiB runtime 4.78s
+START churn_departure seed 2802 arm lineage
+DONE OSPA 0.705536 count 0.083333 wire 25.680 MiB runtime 3.93s
+START churn_departure seed 2802 arm mil
+DONE OSPA 3.884344 count 0.438542 wire 25.680 MiB runtime 5.55s
+START churn_departure seed 2802 arm recent
+DONE OSPA 1.565801 count 0.232292 wire 25.680 MiB runtime 4.68s
+START churn_departure seed 2803 arm local
+DONE OSPA 7.218320 count 1.280208 wire 0.000 MiB runtime 3.03s
+START churn_departure seed 2803 arm kla
+DONE OSPA 1.991704 count 0.300000 wire 25.680 MiB runtime 4.49s
+START churn_departure seed 2803 arm fov
+DONE OSPA 1.954164 count 0.293750 wire 25.680 MiB runtime 4.62s
+START churn_departure seed 2803 arm lineage
+DONE OSPA 0.769620 count 0.093750 wire 25.680 MiB runtime 5.05s
+START churn_departure seed 2803 arm mil
+DONE OSPA 4.207104 count 0.387500 wire 25.680 MiB runtime 5.40s
+START churn_departure seed 2803 arm recent
+DONE OSPA 1.169361 count 0.159375 wire 25.680 MiB runtime 4.65s
+GEOMETRY split_no_new speed 2.960 acceleration 1.054 reunions 1
+START split_no_new seed 2801 arm local
+DONE OSPA 5.025727 count 0.516667 wire 0.000 MiB runtime 3.28s
+START split_no_new seed 2801 arm kla
+DONE OSPA 0.741929 count 0.060417 wire 24.961 MiB runtime 4.01s
+START split_no_new seed 2801 arm fov
+DONE OSPA 0.767903 count 0.063542 wire 24.961 MiB runtime 3.54s
+START split_no_new seed 2801 arm lineage
+DONE OSPA 0.690397 count 0.053125 wire 24.961 MiB runtime 3.60s
+START split_no_new seed 2801 arm mil
+DONE OSPA 2.124457 count 0.023958 wire 24.961 MiB runtime 3.44s
+START split_no_new seed 2801 arm recent
+DONE OSPA 0.630366 count 0.041667 wire 24.961 MiB runtime 3.52s
+START split_no_new seed 2802 arm local
+DONE OSPA 6.211405 count 0.589583 wire 0.000 MiB runtime 2.14s
+START split_no_new seed 2802 arm kla
+DONE OSPA 1.092751 count 0.073958 wire 24.961 MiB runtime 3.81s
+START split_no_new seed 2802 arm fov
+DONE OSPA 1.127437 count 0.078125 wire 24.961 MiB runtime 3.76s
+START split_no_new seed 2802 arm lineage
+DONE OSPA 1.031236 count 0.067708 wire 24.961 MiB runtime 3.52s
+START split_no_new seed 2802 arm mil
+DONE OSPA 1.858372 count 0.041667 wire 24.961 MiB runtime 3.55s
+START split_no_new seed 2802 arm recent
+DONE OSPA 0.898561 count 0.047917 wire 24.961 MiB runtime 3.62s
+START split_no_new seed 2803 arm local
+DONE OSPA 6.731874 count 0.758333 wire 0.000 MiB runtime 2.14s
+START split_no_new seed 2803 arm kla
+DONE OSPA 0.920023 count 0.069792 wire 24.961 MiB runtime 3.57s
+START split_no_new seed 2803 arm fov
+DONE OSPA 0.937521 count 0.072917 wire 24.961 MiB runtime 3.57s
+START split_no_new seed 2803 arm lineage
+DONE OSPA 0.718892 count 0.045833 wire 24.961 MiB runtime 4.17s
+START split_no_new seed 2803 arm mil
+DONE OSPA 3.207148 count 0.039583 wire 24.961 MiB runtime 4.39s
+START split_no_new seed 2803 arm recent
+DONE OSPA 0.715660 count 0.042708 wire 24.961 MiB runtime 4.69s
+COMPLETED full

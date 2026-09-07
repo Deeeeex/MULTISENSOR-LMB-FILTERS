@@ -1,0 +1,39 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START extension split_latebirth seed 2801 arm lineage_recent
+DONE OSPA 2.549484 count 0.398958 runtime 8.17s
+START extension split_latebirth seed 2801 arm qualified_exist
+DONE OSPA 2.524102 count 0.395833 runtime 3.93s
+START extension split_latebirth seed 2802 arm lineage_recent
+DONE OSPA 2.579537 count 0.405208 runtime 4.15s
+START extension split_latebirth seed 2802 arm qualified_exist
+DONE OSPA 2.512805 count 0.394792 runtime 3.42s
+START extension split_latebirth seed 2803 arm lineage_recent
+DONE OSPA 2.524205 count 0.393750 runtime 3.84s
+START extension split_latebirth seed 2803 arm qualified_exist
+DONE OSPA 2.494804 count 0.389583 runtime 3.47s
+START extension churn_departure seed 2801 arm lineage_recent
+DONE OSPA 0.719536 count 0.081250 runtime 3.59s
+START extension churn_departure seed 2801 arm qualified_exist
+DONE OSPA 0.708201 count 0.081250 runtime 3.29s
+START extension churn_departure seed 2802 arm lineage_recent
+DONE OSPA 0.768398 count 0.092708 runtime 3.40s
+START extension churn_departure seed 2802 arm qualified_exist
+DONE OSPA 0.651832 count 0.073958 runtime 3.16s
+START extension churn_departure seed 2803 arm lineage_recent
+DONE OSPA 0.624365 count 0.067708 runtime 3.52s
+START extension churn_departure seed 2803 arm qualified_exist
+DONE OSPA 0.624663 count 0.068750 runtime 3.35s
+START extension split_no_new seed 2801 arm lineage_recent
+DONE OSPA 0.616724 count 0.039583 runtime 3.12s
+START extension split_no_new seed 2801 arm qualified_exist
+DONE OSPA 0.509235 count 0.031250 runtime 2.84s
+START extension split_no_new seed 2802 arm lineage_recent
+DONE OSPA 0.892412 count 0.047917 runtime 2.96s
+START extension split_no_new seed 2802 arm qualified_exist
+DONE OSPA 0.788177 count 0.038542 runtime 2.79s
+START extension split_no_new seed 2803 arm lineage_recent
+DONE OSPA 0.597536 count 0.028125 runtime 3.13s
+START extension split_no_new seed 2803 arm qualified_exist
+DONE OSPA 0.545029 count 0.025000 runtime 2.81s
+COMPLETED extension

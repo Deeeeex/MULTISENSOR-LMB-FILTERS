@@ -1,0 +1,21 @@
+Audited extension node-frames: 17280
+split_latebirth lineage_recent OSPA 2.5511 count 0.3993 false2 0.0 post-departure false2 0.0
+split_latebirth qualified_exist OSPA 2.5106 count 0.3934 false2 0.0 post-departure false2 0.0
+churn_departure lineage_recent OSPA 0.7041 count 0.0806 false2 3.175 post-departure false2 12.7
+churn_departure qualified_exist OSPA 0.6616 count 0.0747 false2 2.8 post-departure false2 11.2
+split_no_new lineage_recent OSPA 0.7022 count 0.0385 false2 0.25 post-departure false2 0.4
+split_no_new qualified_exist OSPA 0.6141 count 0.0316 false2 0.175 post-departure false2 0.3
+lineage_recent screen_passed False
+  {'scene': 'split_latebirth', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.9588402479355798, 'passed': True}
+  {'scene': 'split_latebirth', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0876565316418902, 'passed': False}
+  {'scene': 'churn_departure', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.9149406545320307, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0384119913891297, 'passed': False}
+  {'scene': 'churn_departure', 'criterion': 'departure_false_ratio_vs_lineage', 'value': 0.7426900584795321, 'passed': True}
+  {'scene': 'split_no_new', 'criterion': 'false_cost_vs_fov', 'value': 0.25, 'passed': False}
+qualified_exist screen_passed False
+  {'scene': 'split_latebirth', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.9436161394342004, 'passed': True}
+  {'scene': 'split_latebirth', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 0.9999999049234877, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.8596693414393126, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0000073137911187, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'departure_false_ratio_vs_lineage', 'value': 0.6549707602339183, 'passed': True}
+  {'scene': 'split_no_new', 'criterion': 'false_cost_vs_fov', 'value': 0.17500000000000002, 'passed': False}

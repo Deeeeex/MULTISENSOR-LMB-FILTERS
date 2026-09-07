@@ -1,0 +1,46 @@
+{
+  "trials/icra_group_tracking/buildGroupPilotScene.m": {
+    "raw_sha256": "79cd7027fcfcf66719738878ec032a5e7ca62b212ff2faf5c0c144fca5746b6b",
+    "lf_sha256": "79cd7027fcfcf66719738878ec032a5e7ca62b212ff2faf5c0c144fca5746b6b"
+  },
+  "trials/icra_group_tracking/buildGroupPilotTopologies.m": {
+    "raw_sha256": "beb7ad77d8be0f2e3fed039232c6f2379ab1745ebd1f7712873fb0925e51f113",
+    "lf_sha256": "beb7ad77d8be0f2e3fed039232c6f2379ab1745ebd1f7712873fb0925e51f113"
+  },
+  "lmb/lmbPredictionStep.m": {
+    "raw_sha256": "2ec08b6205fde7cd579252a42ac86f13744202636da91bba00b1795eee4a0e81",
+    "lf_sha256": "2ec08b6205fde7cd579252a42ac86f13744202636da91bba00b1795eee4a0e81"
+  },
+  "multisensorLmb/updateLmbWithSensorMeasurement.m": {
+    "raw_sha256": "a23b9a891e4e253d1f7a34e0a143c40ba2bf0015a02f5cd9deb957a7dfe84dba",
+    "lf_sha256": "a23b9a891e4e253d1f7a34e0a143c40ba2bf0015a02f5cd9deb957a7dfe84dba"
+  },
+  "multisensorLmb/fuseLmbPosteriorsByLabel.m": {
+    "raw_sha256": "c10462104b63191abb57027393724ed2ff548e84e26d42ea5f1761b242a1db84",
+    "lf_sha256": "c10462104b63191abb57027393724ed2ff548e84e26d42ea5f1761b242a1db84"
+  },
+  "multisensorLmb/buildMixtureAwareKlaReferenceConfig.m": {
+    "raw_sha256": "22173ab00c82b79586116b1441dc25d4624b5769cc7fc47b6e00333df481d2c5",
+    "lf_sha256": "22173ab00c82b79586116b1441dc25d4624b5769cc7fc47b6e00333df481d2c5"
+  },
+  "common/computePositionEuclideanOspa.m": {
+    "raw_sha256": "2bc6860fc3f716484957925994390fd18acdd3cd6f4a0b2f016fcc300d7db234",
+    "lf_sha256": "2bc6860fc3f716484957925994390fd18acdd3cd6f4a0b2f016fcc300d7db234"
+  },
+  "trials/icra_reunion_fusion/runRobotReunionPilot.m": {
+    "raw_sha256": "21d96e57a81464eb129af43bac26781a89e3e5179158e58f286be5d69a12b778",
+    "lf_sha256": "21d96e57a81464eb129af43bac26781a89e3e5179158e58f286be5d69a12b778"
+  },
+  "trials/icra_reunion_fusion/fuseRobotReunionInputs.m": {
+    "raw_sha256": "266e2fe39c03d22e8c12d3f3de11621e69870759184d0c50f92b38088eb64e70",
+    "lf_sha256": "266e2fe39c03d22e8c12d3f3de11621e69870759184d0c50f92b38088eb64e70"
+  },
+  "trials/icra_reunion_fusion/buildRobotReunionScene.m": {
+    "raw_sha256": "b1c64c5f8a30c78605760edbe299beca13bb26fae9569fabe99be1555edc80bf",
+    "lf_sha256": "b1c64c5f8a30c78605760edbe299beca13bb26fae9569fabe99be1555edc80bf"
+  },
+  "trials/icra_reunion_fusion/PROTOCOL.md": {
+    "raw_sha256": "35b3fcd3dbb65b16a73f3ec66e3b2358130e5535e6b6192ff6ac8fce392c6e6d",
+    "lf_sha256": "35b3fcd3dbb65b16a73f3ec66e3b2358130e5535e6b6192ff6ac8fce392c6e6d"
+  }
+}
