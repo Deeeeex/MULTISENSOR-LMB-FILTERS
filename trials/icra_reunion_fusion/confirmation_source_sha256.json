@@ -1,0 +1,15 @@
+{
+  "trials/icra_reunion_fusion/CONFIRMATION_PROTOCOL.md": "b0e74fbf4128067fb05b423aa4685d551b841146d459c253da434d8b8d672726",
+  "trials/icra_reunion_fusion/fuseConfirmedReunionInputs.m": "c444d16488763ab2375efe81490dc469e8200e7f040007e65244ff6989ba8d57",
+  "trials/icra_reunion_fusion/runRobotReunionConfirmation.m": "4b3d128cffae49fc1cd3a4314d6e1d7080fd66243d0828220eb5c213c1d98443",
+  "trials/icra_reunion_fusion/make_confirmation_runner.py": "8b533ff4d3a40a679e6710f1f2ead16e15e6db93171afa12295c5ac0c67a6e2a",
+  "trials/icra_reunion_fusion/results/split_no_new_seed2802_full.mat": "be0f3cf557543b513336a409497f212f75d1098860c4e747c9029ba0f9c8dd9b",
+  "trials/icra_reunion_fusion/results/split_no_new_seed2803_full.mat": "6aa552fe8c1145e58c0a25a8d9a1785b1895dfb8770c8179ee0757ff4b9e5bf3",
+  "trials/icra_reunion_fusion/results/split_latebirth_seed2801_full.mat": "c7e606b1bd2d917ef56f9cff65cfd5a760ed27fce3b427d3dd61b467ab1a9152",
+  "trials/icra_reunion_fusion/results/churn_departure_seed2802_full.mat": "a41f501f52d092266914170f350e5d3828cc6e694ea1c51f178374bc4b8c4112",
+  "trials/icra_reunion_fusion/results/churn_departure_seed2803_full.mat": "d64c1d3d2776c242b3c2b1a63ab375399cffd87629577740afbe93af3bf7c3aa",
+  "trials/icra_reunion_fusion/results/split_latebirth_seed2802_full.mat": "b59d076078df8dc84069a757edf7da12dc9b53badeae365731c2bd17550c224e",
+  "trials/icra_reunion_fusion/results/split_latebirth_seed2803_full.mat": "c8a3c3faa289242e8d27f72a13b4f2703cbf7a2eb0d2d0d66c466b1b08f5c661",
+  "trials/icra_reunion_fusion/results/churn_departure_seed2801_full.mat": "48518c5db04871d71f32c971f69e652cf179f3fae0a8b4fa9f5cb6812b219c8a",
+  "trials/icra_reunion_fusion/results/split_no_new_seed2801_full.mat": "419b1e570a0d57783b9c6bab15a5d3fc178cd6b99628e118bb0cffa904ac7849"
+}

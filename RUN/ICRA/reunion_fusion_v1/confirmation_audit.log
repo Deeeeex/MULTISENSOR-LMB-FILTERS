@@ -1,0 +1,31 @@
+Audited extension node-frames: 25920
+split_latebirth qualified_exist OSPA 2.5106 count 0.3934 false2 0.0 post-departure false2 0.0
+split_latebirth confirmed_lineage OSPA 2.7781 count 0.4337 false2 0.0 post-departure false2 0.0
+split_latebirth confirmed_exist OSPA 2.577 count 0.4021 false2 0.0 post-departure false2 0.0
+churn_departure qualified_exist OSPA 0.6616 count 0.0747 false2 2.8 post-departure false2 11.2
+churn_departure confirmed_lineage OSPA 2.139 count 0.3285 false2 3.625 post-departure false2 14.5
+churn_departure confirmed_exist OSPA 1.2348 count 0.1757 false2 2.825 post-departure false2 11.3
+split_no_new qualified_exist OSPA 0.6141 count 0.0316 false2 0.175 post-departure false2 0.3
+split_no_new confirmed_lineage OSPA 0.9221 count 0.0688 false2 0.0 post-departure false2 0.0
+split_no_new confirmed_exist OSPA 0.6631 count 0.0375 false2 0.0 post-departure false2 0.0
+qualified_exist screen_passed False
+  {'scene': 'split_latebirth', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.9436161394342004, 'passed': True}
+  {'scene': 'split_latebirth', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 0.9999999049234877, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.8596693414393126, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0000073137911187, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'departure_false_ratio_vs_lineage', 'value': 0.6549707602339183, 'passed': True}
+  {'scene': 'split_no_new', 'criterion': 'false_cost_vs_fov', 'value': 0.17500000000000002, 'passed': False}
+confirmed_lineage screen_passed False
+  {'scene': 'split_latebirth', 'criterion': 'ospa_ratio_vs_lineage', 'value': 1.044170976265973, 'passed': False}
+  {'scene': 'split_latebirth', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0033255848287774, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'ospa_ratio_vs_lineage', 'value': 2.779486937762783, 'passed': False}
+  {'scene': 'churn_departure', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0003720019020683, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'departure_false_ratio_vs_lineage', 'value': 0.8479532163742691, 'passed': True}
+  {'scene': 'split_no_new', 'criterion': 'false_cost_vs_fov', 'value': 0.0, 'passed': True}
+confirmed_exist screen_passed False
+  {'scene': 'split_latebirth', 'criterion': 'ospa_ratio_vs_lineage', 'value': 0.9685791517729757, 'passed': True}
+  {'scene': 'split_latebirth', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 1.0036165243099326, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'ospa_ratio_vs_lineage', 'value': 1.6045916102136475, 'passed': False}
+  {'scene': 'churn_departure', 'criterion': 'common_rmse_ratio_vs_lineage', 'value': 0.9992795396255224, 'passed': True}
+  {'scene': 'churn_departure', 'criterion': 'departure_false_ratio_vs_lineage', 'value': 0.6608187134502924, 'passed': True}
+  {'scene': 'split_no_new', 'criterion': 'false_cost_vs_fov', 'value': 0.0, 'passed': True}
