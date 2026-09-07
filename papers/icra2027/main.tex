@@ -1,0 +1,40 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{times}
+\usepackage{amsmath,amssymb,graphicx,booktabs,array}
+\usepackage{cite}
+\newcommand{\ER}{\textsc{ER}}
+\input{generated/numbers}
+\title{\LARGE\bf Observation Recency in Bernoulli Fusion for Intermittent Multirobot Tracking}
+\author{}
+\begin{document}
+\maketitle
+\thispagestyle{empty}\pagestyle{empty}
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+\input{sections/introduction}
+
+\input{sections/method}
+\begin{figure}[t]
+ \centering\includegraphics[width=\columnwidth]{figures/mechanism.pdf}
+ \caption{Illustrative fixed-input example, not simulation results.
+ Two unit-covariance Gaussian densities have x means 0 and 2 m, with
+ existence 0.9 at the older source and 0.1 at the current source. Ordinary
+ spatial weights are equal. Increasing the older source's direct age
+ changes ER's existence while leaving its spatial mean at 1 m. Applying
+ age to both blocks also moves the spatial mean. Both rules retain their
+ respective spatial overlap normalizer.}
+ \label{fig:mechanism}
+\end{figure}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\section*{Acknowledgment}
+OpenAI Codex was used to develop the experimental harness and analysis code,
+generate the figures and tables from saved outputs, and draft and revise
+Sections I--VI, the abstract, captions, and mathematical exposition.
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

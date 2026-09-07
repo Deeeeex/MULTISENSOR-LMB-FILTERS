@@ -1,0 +1,104 @@
+{
+  "reuter2014lmb": {
+    "doi": "10.1109/TSP.2014.2323064",
+    "url": "https://api.crossref.org/works/10.1109/TSP.2014.2323064/transform/application/x-bibtex",
+    "bibtex": " @article{reuter2014lmb, title={The Labeled Multi-Bernoulli Filter}, volume={62}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2014.2323064}, DOI={10.1109/tsp.2014.2323064}, number={12}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Reuter, Stephan and Vo, Ba-Tuong and Vo, Ba-Ngu and Dietmayer, Klaus}, year={2014}, month=June, pages={3246–3260} }\n",
+    "verified": true
+  },
+  "li2020multiview": {
+    "doi": "10.1016/j.sigpro.2019.107246",
+    "url": "https://api.crossref.org/works/10.1016/j.sigpro.2019.107246/transform/application/x-bibtex",
+    "bibtex": " @article{li2020multiview, title={Distributed multi-sensor multi-view fusion based on generalized covariance intersection}, volume={166}, ISSN={0165-1684}, url={http://dx.doi.org/10.1016/j.sigpro.2019.107246}, DOI={10.1016/j.sigpro.2019.107246}, journal={Signal Processing}, publisher={Elsevier BV}, author={Li, Guchong and Battistelli, Giorgio and Yi, Wei and Kong, Lingjiang}, year={2020}, month=Jan, pages={107246} }\n",
+    "verified": true
+  },
+  "li2018multiviewlmb": {
+    "doi": "10.23919/ICIF.2018.8455250",
+    "url": "https://api.crossref.org/works/10.23919/ICIF.2018.8455250/transform/application/x-bibtex",
+    "bibtex": " @inproceedings{li2018multiviewlmb, title={Multi-Sensor Multi-Object Tracking with Different Fields-of-View Using the LMB Filter}, url={http://dx.doi.org/10.23919/ICIF.2018.8455250}, DOI={10.23919/icif.2018.8455250}, booktitle={2018 21st International Conference on Information Fusion (FUSION)}, publisher={IEEE}, author={Li, Suqi and Battistelli, Giorgio and Chisci, Luigi and Yi, Wei and Wang, Bailu and Kong, Lingjiang}, year={2018}, month=July, pages={1201–1208} }\n",
+    "verified": true
+  },
+  "wang2018multiview": {
+    "doi": "10.1016/j.sigpro.2018.04.010",
+    "url": "https://api.crossref.org/works/10.1016/j.sigpro.2018.04.010/transform/application/x-bibtex",
+    "bibtex": " @article{wang2018multiview, title={Centralized multiple-view sensor fusion using labeled multi-Bernoulli filters}, volume={150}, ISSN={0165-1684}, url={http://dx.doi.org/10.1016/j.sigpro.2018.04.010}, DOI={10.1016/j.sigpro.2018.04.010}, journal={Signal Processing}, publisher={Elsevier BV}, author={Wang, Xiaoying and Gostar, Amirali K. and Rathnayake, Tharindu and Xu, Benlian and Bab-Hadiashar, Alireza and Hoseinnezhad, Reza}, year={2018}, month=Sept, pages={75–84} }\n",
+    "verified": true
+  },
+  "schuhmacher2008ospa": {
+    "doi": "10.1109/TSP.2008.920469",
+    "url": "https://api.crossref.org/works/10.1109/TSP.2008.920469/transform/application/x-bibtex",
+    "bibtex": " @article{schuhmacher2008ospa, title={A Consistent Metric for Performance Evaluation of Multi-Object Filters}, volume={56}, ISSN={1053-587X}, url={http://dx.doi.org/10.1109/TSP.2008.920469}, DOI={10.1109/tsp.2008.920469}, number={8}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Schuhmacher, Dominic and Vo, Ba-Tuong and Vo, Ba-Ngu}, year={2008}, month=Aug, pages={3447–3457} }\n",
+    "verified": true
+  },
+  "battistelli2014kla": {
+    "doi": "10.1016/j.automatica.2013.11.042",
+    "url": "https://api.crossref.org/works/10.1016/j.automatica.2013.11.042/transform/application/x-bibtex",
+    "bibtex": " @article{battistelli2014kla, title={Kullback–Leibler average, consensus on probability densities, and distributed state estimation with guaranteed stability}, volume={50}, ISSN={0005-1098}, url={http://dx.doi.org/10.1016/j.automatica.2013.11.042}, DOI={10.1016/j.automatica.2013.11.042}, number={3}, journal={Automatica}, publisher={Elsevier BV}, author={Battistelli, Giorgio and Chisci, Luigi}, year={2014}, month=Mar, pages={707–718} }\n",
+    "verified": true
+  },
+  "boyd2006gossip": {
+    "doi": "10.1109/TIT.2006.874516",
+    "url": "https://api.crossref.org/works/10.1109/TIT.2006.874516/transform/application/x-bibtex",
+    "bibtex": " @article{boyd2006gossip, title={Randomized gossip algorithms}, volume={52}, ISSN={0018-9448}, url={http://dx.doi.org/10.1109/TIT.2006.874516}, DOI={10.1109/tit.2006.874516}, number={6}, journal={IEEE Transactions on Information Theory}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Boyd, S. and Ghosh, A. and Prabhakar, B. and Shah, D.}, year={2006}, month=June, pages={2508–2530} }\n",
+    "verified": true
+  },
+  "ramachandran2021reconfiguration": {
+    "doi": "10.1109/TCNS.2021.3059794",
+    "url": "https://api.crossref.org/works/10.1109/TCNS.2021.3059794/transform/application/x-bibtex",
+    "bibtex": " @article{ramachandran2021reconfiguration, title={Resilience in Multirobot Multitarget Tracking With Unknown Number of Targets Through Reconfiguration}, volume={8}, ISSN={2372-2533}, url={http://dx.doi.org/10.1109/TCNS.2021.3059794}, DOI={10.1109/tcns.2021.3059794}, number={2}, journal={IEEE Transactions on Control of Network Systems}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Ramachandran, Ragesh Kumar and Fronda, Nicole and Sukhatme, Gaurav S.}, year={2021}, month=June, pages={609–620} }\n",
+    "verified": true
+  },
+  "li2019labelmatching": {
+    "doi": "10.1109/TSP.2018.2880704",
+    "url": "https://api.crossref.org/works/10.1109/TSP.2018.2880704/transform/application/x-bibtex",
+    "bibtex": " @article{li2019labelmatching, title={Computationally Eff&lt;roman&gt;i&lt;/roman&gt;cient Multi-Agent Multi-Object Tracking With Labeled Random Finite Sets}, volume={67}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2018.2880704}, DOI={10.1109/tsp.2018.2880704}, number={1}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Li, Suqi and Battistelli, Giorgio and Chisci, Luigi and Yi, Wei and Wang, Bailu and Kong, Lingjiang}, year={2019}, month=Jan, pages={260–275} }\n",
+    "verified": true
+  },
+  "gao2022differentfov": {
+    "doi": "10.1109/TAES.2022.3182642",
+    "url": "https://api.crossref.org/works/10.1109/TAES.2022.3182642/transform/application/x-bibtex",
+    "bibtex": " @article{gao2022differentfov, title={Fusion of Labeled RFS Densities With Different Fields of View}, volume={58}, ISSN={2371-9877}, url={http://dx.doi.org/10.1109/TAES.2022.3182642}, DOI={10.1109/taes.2022.3182642}, number={6}, journal={IEEE Transactions on Aerospace and Electronic Systems}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Gao, Lin and Battistelli, Giorgio and Chisci, Luigi}, year={2022}, month=Dec, pages={5908–5924} }\n",
+    "verified": true
+  },
+  "gao2020mil": {
+    "doi": "10.1109/TSP.2020.3028496",
+    "url": "https://api.crossref.org/works/10.1109/TSP.2020.3028496/transform/application/x-bibtex",
+    "bibtex": " @article{gao2020mil, title={Fusion of Labeled RFS Densities With Minimum Information Loss}, volume={68}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2020.3028496}, DOI={10.1109/tsp.2020.3028496}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Gao, Lin and Battistelli, Giorgio and Chisci, Luigi}, year={2020}, pages={5855–5868} }\n",
+    "verified": true
+  },
+  "dames2020search": {
+    "doi": "10.1007/s10514-019-09840-9",
+    "url": "https://api.crossref.org/works/10.1007/s10514-019-09840-9/transform/application/x-bibtex",
+    "bibtex": " @article{dames2020search, title={Distributed multi-target search and tracking using the PHD filter}, volume={44}, ISSN={1573-7527}, url={http://dx.doi.org/10.1007/s10514-019-09840-9}, DOI={10.1007/s10514-019-09840-9}, number={3-4}, journal={Autonomous Robots}, publisher={Springer Science and Business Media LLC}, author={Dames, Philip M.}, year={2019}, month=Feb, pages={673–689} }\n",
+    "verified": true
+  },
+  "decster2024": {
+    "doi": "10.1109/ICRA57147.2024.10609977",
+    "url": "https://api.crossref.org/works/10.1109/ICRA57147.2024.10609977/transform/application/x-bibtex",
+    "bibtex": " @inproceedings{decster2024, title={Decentralized Multi-Agent Active Search and Tracking when Targets Outnumber Agents}, url={http://dx.doi.org/10.1109/ICRA57147.2024.10609977}, DOI={10.1109/icra57147.2024.10609977}, booktitle={2024 IEEE International Conference on Robotics and Automation (ICRA)}, publisher={IEEE}, author={Banerjee, Arundhati and Schneider, Jeff}, year={2024}, month=May, pages={7229–7235} }\n",
+    "verified": true
+  },
+  "li2021cphd": {
+    "doi": "10.1016/j.sigpro.2021.108210",
+    "url": "https://api.crossref.org/works/10.1016/j.sigpro.2021.108210/transform/application/x-bibtex",
+    "bibtex": " @article{li2021cphd, title={Distributed multi-view multi-target tracking based on CPHD filtering}, volume={188}, ISSN={0165-1684}, url={http://dx.doi.org/10.1016/j.sigpro.2021.108210}, DOI={10.1016/j.sigpro.2021.108210}, journal={Signal Processing}, publisher={Elsevier BV}, author={Li, Guchong and Battistelli, Giorgio and Chisci, Luigi and Yi, Wei and Kong, Lingjiang}, year={2021}, month=Nov, pages={108210} }\n",
+    "verified": true
+  },
+  "jin2024selector": {
+    "doi": "10.1016/j.dsp.2024.104585",
+    "url": "https://api.crossref.org/works/10.1016/j.dsp.2024.104585/transform/application/x-bibtex",
+    "bibtex": " @article{jin2024selector, title={Multisensor multitarget distributed fusion for discrepant fields of view}, volume={153}, ISSN={1051-2004}, url={http://dx.doi.org/10.1016/j.dsp.2024.104585}, DOI={10.1016/j.dsp.2024.104585}, journal={Digital Signal Processing}, publisher={Elsevier BV}, author={Jin, Yongwen and Lu, Xiaoyang and Li, Jianxun}, year={2024}, month=Oct, pages={104585} }\n",
+    "verified": true
+  },
+  "uney2019cardinality": {
+    "doi": "10.1109/TAES.2019.2893083",
+    "url": "https://api.crossref.org/works/10.1109/TAES.2019.2893083/transform/application/x-bibtex",
+    "bibtex": " @article{uney2019cardinality, title={Fusion of Finite-Set Distributions: Pointwise Consistency and Global Cardinality}, volume={55}, ISSN={2371-9877}, url={http://dx.doi.org/10.1109/TAES.2019.2893083}, DOI={10.1109/taes.2019.2893083}, number={6}, journal={IEEE Transactions on Aerospace and Electronic Systems}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Uney, Murat and Houssineau, Jeremie and Delande, Emmanuel and Julier, Simon J. and Clark, Daniel E.}, year={2019}, month=Dec, pages={2759–2773} }\n",
+    "verified": true
+  },
+  "gospa2017": {
+    "doi": "10.23919/ICIF.2017.8009645",
+    "url": "https://api.crossref.org/works/10.23919/ICIF.2017.8009645/transform/application/x-bibtex",
+    "bibtex": " @inproceedings{gospa2017, title={Generalized optimal sub-pattern assignment metric}, url={http://dx.doi.org/10.23919/ICIF.2017.8009645}, DOI={10.23919/icif.2017.8009645}, booktitle={2017 20th International Conference on Information Fusion (Fusion)}, publisher={IEEE}, author={Rahmathullah, Abu Sajana and Garcia-Fernandez, Angel F. and Svensson, Lennart}, year={2017}, month=July, pages={1–8} }\n",
+    "verified": true
+  }
+}

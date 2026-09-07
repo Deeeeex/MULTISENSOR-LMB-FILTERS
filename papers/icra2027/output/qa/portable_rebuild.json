@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "scope": "Extracted paper archive rebuilt without experiment directory.",
+  "byte_identical_tables_facts_and_raster_previews": [
+    "generated/numbers.tex",
+    "generated/common_table.tex",
+    "generated/false_table.tex",
+    "generated/main_table.tex",
+    "generated/facts.json",
+    "figures/scene.png",
+    "figures/mechanism.png",
+    "figures/outcomes.png",
+    "figures/time.png",
+    "build/preview/page-1.png",
+    "build/preview/page-2.png",
+    "build/preview/page-3.png",
+    "build/preview/page-4.png",
+    "build/preview/page-5.png",
+    "build/preview/page-6.png",
+    "build/preview/page-7.png"
+  ],
+  "limits": "Same local runtime and fonts; this does not rerun the MATLAB simulations."
+}

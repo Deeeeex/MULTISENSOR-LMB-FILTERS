@@ -1,0 +1,20 @@
+Intermittent contact between mobile robots brings together target beliefs
+with different observation histories. Weighting an entire Bernoulli density
+by direct-observation age can improve existence decisions while degrading
+spatial pooling. We study a lightweight alternative in an existing labeled
+multi-Bernoulli tracker: qualify observation lineage, retain ordinary spatial
+weights, and apply direct-opportunity recency only to existence terms.
+Recent missed detections remain valid evidence, and relays do not refresh
+local direct age. A two-block variational formulation establishes the
+fixed-input spatial invariance of this rule, without claiming recursive
+accuracy or cardinality consistency. In three prescribed eight-robot
+simulation families with twenty new paired seeds each, the rule reduces
+mean OSPA by \GainSplit\% and \GainChurn\% against a lineage-aware control
+in split--rejoin and churn--departure scenarios. Common-target localization
+RMSE remains within 0.02\% of the control, whereas applying age to both
+blocks increases it by 16.8\% and 3.1\%. False-target behavior remains a
+limitation: the departure benefit seen during development does not reproduce,
+and confirmation trades fewer false hypotheses for slower discovery.
+The findings concern the placement of temporal trust in posterior fusion
+under shared birth labels and known poses, not a complete robotic perception
+or navigation system.

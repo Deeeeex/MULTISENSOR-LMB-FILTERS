@@ -1,0 +1,20 @@
+{
+  "checked_text": [
+    "\u0394 OSPA (m)",
+    "a",
+    "RMSE change (%)",
+    "b",
+    "Departure cost (m\u00b2)",
+    "c",
+    "No-new false cost (m\u00b2)",
+    "d",
+    "ER",
+    "L+Age-all",
+    "Confirmed ER"
+  ],
+  "canvas_pixels": [
+    712,
+    315
+  ],
+  "passed": true
+}

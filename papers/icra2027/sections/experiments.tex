@@ -1,0 +1,91 @@
+\section{Experimental Protocol}
+\subsection{Prescribed mobile sensing scenarios}
+Eight simulated robots follow two smooth patrol families for 120 frames
+at $\Delta t=0.5$ s. Their maximum speed is below $3$ m/s and acceleration
+below $2.1$ m/s$^2$. Radio range is $24$ m and circular sensing range is
+$14$ m. The paths induce connected and two-component periods; they do not
+respond to tracking outcomes. All targets use a constant-velocity state
+with independent per-step acceleration standard deviation $0.016$ m/s$^2$.
+The filter uses a continuous white-acceleration covariance with intensity
+$0.0128$ and survival probability $0.995$. Within FoV, detection probability is
+$0.9$ and Cartesian observation noise has standard deviation $0.4$ m.
+Poisson clutter has mean one per robot per frame and is uniform over a
+fixed $104\times80$ m rectangle. This deliberately simple sensor model
+does not include occlusion or robot localization error. Local pruning discards
+existence at or below $0.01$; belief propagation uses tolerance $10^{-6}$
+and at most 1,000 iterations. These settings are identical across arms.
+
+The \emph{split--rejoin} scene has two initial targets and two targets born
+at frame 35 while the teams are separated. The \emph{churn--departure} scene
+uses repeated contact changes and removes one late target after frame 90;
+the filters receive no departure notification. In the \emph{no-new} control,
+only the two initial targets exist, although identical later birth priors
+are still offered. Six fixed candidate regions have prior existence $0.1$,
+position standard deviation $3.2$ m, and velocity standard deviation
+$0.2$ m/s. Regions 1--2 are activated at frame 1 and regions 3--6 at frame
+35. Regions 5--6 remain empty in every scene. Actual initial offsets and
+target count are not given to the filter. Birth schedules and broad regions
+are known, so the task is not unrestricted open-world discovery.
+
+Development uses seeds 2801--2803 and is explicitly separated from
+validation. Validation uses all seeds 2901--2920 in every family. Each
+robot receives an independent constant path offset uniform in
+$[-0.6,0.6]^2$ m, drawn before observations; physical components and trees
+are recomputed. Constant offsets preserve speed and acceleration and
+produce modest layout/contact variation. This is not twenty independently
+designed navigation environments. Truth, detections, clutter, and directed
+link-loss draws are paired across all arms. Directed packet loss is $0.1$.
+
+\subsection{Controls and ablations}
+The no-communication \emph{Local} arm provides context. \emph{FoV} uses the
+existing observable-absence censor. \emph{Lineage} adds untouched-prior
+exclusion; this is the main control for ER. \emph{Age-all} applies direct-age
+weights to both spatial and existence pooling without lineage exclusion.
+\emph{L+Age-all} additionally uses lineage exclusion, separating placement
+of the age factor from qualification. \emph{ER} uses the same qualification
+with age in existence alone. \emph{Confirmed ER} adds the two-hit gate.
+
+The \emph{MIL-Z} control uses constrained LMB MIL,
+$r=\sum_jw_jr_j$ and $p=\sum_jw_jr_jp_j/r$, with zero existence for absent
+labels~\cite{gao2020mil}. \emph{MIL-S} specializes label-subspace MIL
+\cite{gao2020mil,gao2022differentfov} to common label keys: for each
+source-membership pattern, renormalize weights on represented sources
+before the same formula. Its union of Gaussian components is reduced to
+the common cap. Untouched but represented priors participate. This support
+specialization does not reproduce the published independent-label
+assignment pipeline, and neither MIL arm is a new algorithm.
+
+Every nonlocal arm uses the same attempted links, delivered links, weights
+before label processing, packet size, and control charge. The local update
+and extraction are unchanged. All pre/post estimates and input caches are
+saved. The original code and every experiment protocol are hash recorded.
+
+\subsection{Metrics and uncertainty}
+We report position OSPA with order $2$ and cutoff $12$ m
+\cite{schuhmacher2008ospa}, cardinality absolute error, and GOSPA with
+$p=2,c=12$ m,$\alpha=2$~\cite{gospa2017}. Localization, missed-target,
+and false-target GOSPA components are reported as \emph{squared costs}
+in m$^2$. All extant targets are scored at every robot, including targets
+that are currently inaccessible. Thus a large error can represent a
+communication-limited discovery failure rather than poor local sensing.
+
+For localization comparisons, assignments are computed separately for each
+method and matched errors are pooled only on robot--time--truth triples
+matched within the cutoff by both methods. The RMSE and its support must
+be read together; unmatched targets remain penalized by OSPA/GOSPA.
+Departure false cost uses frames 91--120. Reunion OSPA uses the next ten
+frames, truncated at a further disconnection. For opposite-subteam robots,
+acquisition is the first of three consecutive assignments within 2 m of a
+late target, censored at that target's departure or the episode end. This
+measures geometric discovery, not label continuity. A separate Python evaluator
+exhaustively enumerates the small rectangular assignments and checks all
+saved MATLAB set metrics, independently of its Hungarian implementation.
+This is an independent metric implementation, not an independent research
+replication.
+
+Uncertainty uses the twenty paired episodes as units, not the individual
+robots or frames. We report paired mean differences and descriptive 95\%
+percentile bootstrap intervals from 10,000 seed resamples. Intervals are
+not adjusted for multiple comparisons and are not presented as confirmatory
+significance tests. No validation outcome changes a method, threshold,
+birth prior, path, or included seed.

@@ -1,0 +1,106 @@
+\section{Results}
+\input{generated/main_table}
+\subsection{Development results and the frozen decision}
+The initial Age-all arm passed a coarse direction screen against ordinary
+and FoV-aware KLA, but lost to the stronger Lineage control and worsened
+localization on common targets. Existence-only recency then reduced
+development OSPA against Lineage by 5.6\% and 14.0\% in the two event
+families, while retaining seven false estimates in 2,880 no-new
+robot--frames; FoV had none. The confirmation gate eliminated those extra
+false estimates but increased churn OSPA by 60.5\% against Lineage.
+Neither the v2 nor v3 combination met its full balanced screen. We retained
+these failures, froze the rules, and ran the new-seed study to assess the
+conditional mechanism rather than searching for a passing threshold.
+
+\subsection{Existence recency and set estimation}
+Table~\ref{tab:main} includes all 540 validation runs.
+Against Lineage, ER changes mean OSPA from \LineageSplit\ to \ErSplit\ m
+in split--rejoin and from \LineageChurn\ to \ErChurn\ m in
+churn--departure. The paired differences are
+\DeltaSplit\ m [\DeltaLowSplit, \DeltaHighSplit] and
+\DeltaChurn\ m [\DeltaLowChurn, \DeltaHighChurn], respectively.
+In the no-new control, the difference is
+\DeltaNonew\ m [\DeltaLowNonew, \DeltaHighNonew].
+Brackets denote the descriptive bootstrap intervals defined above.
+Cardinality error decreases in all three families. In the predeclared
+reunion windows, OSPA is 2.533 versus 3.264 m in split--rejoin and 0.926
+versus 1.248 m in churn--departure (ER versus Lineage).
+
+FoV and the two MIL variants have higher OSPA in these inputs. Support
+partitioning improves MIL in the event families but does not remove its
+localization and false-target tradeoffs. These results apply to the stated
+shared-label specialization and finite mixture cap, and do not establish
+superiority over complete published multi-view or label-matching systems.
+The large Local error reflects the deliberately global evaluation during
+separation; it should not be interpreted as a failed local detector.
+
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/outcomes.pdf}
+ \caption{Frozen validation outcomes. (a) Paired OSPA differences to Lineage;
+ small dots are the twenty episode differences, and large points with bars
+ show means and descriptive 95\% bootstrap intervals. (b) Pooled RMSE
+ ratios on common assignment support, displayed as percentage changes;
+ intervals resample episodes. (c,d) Departure and no-new false-target
+ squared costs, with twenty episode points per method. ER improves set
+ error while preserving common-target localization, but does not eliminate
+ false hypotheses. Confirmation has a different discovery/false-cost tradeoff.}
+ \label{fig:outcomes}
+\end{figure*}
+
+\subsection{Where the age factor belongs}
+Table~\ref{tab:common} and Fig.~\ref{fig:outcomes}(b) distinguish existence
+gains from localization. With the same lineage qualification, L+Age-all
+increases common-target RMSE relative to Lineage by 16.8\% in split--rejoin
+and 3.1\% in churn--departure. ER's ratios are 0.9999 and 0.9998, over
+57,988 and 58,936 common triples. Those differences are negligible relative
+to measurement noise. This supports the fixed-input motivation in
+Fig.~\ref{fig:mechanism}: recent direct sensor opportunity is useful for
+existence weighting, but does not measure the total spatial information
+retained in a posterior. The recursive result is empirical and specific
+to these scenes; the proposition alone does not establish it.
+\input{generated/common_table}
+
+\subsection{False hypotheses and the confirmation tradeoff}
+The false-cost results materially limit the conclusion
+(Table~\ref{tab:false}). In development ER lowered post-departure false
+cost by 34.5\% against Lineage. In validation it instead increases the mean
+from 10.785 to 12.255 m$^2$. The paired difference is $+1.470$ m$^2$
+[$-0.705$, $3.795$]; the development improvement does not reproduce.
+Similarly, ER's no-new false cost is 0.570 m$^2$, versus 0.00375 m$^2$
+for FoV. Lower OSPA therefore does not imply better false-track rejection.
+
+Confirmed ER reduces no-new false cost to 0.00375 m$^2$, but its churn
+OSPA is 1.519 m, versus ER's 0.846 m. This is consistent with the cost of
+requiring consecutive local positive associations during short sensing
+opportunities. In churn, ER acquires all 160 opposite-subteam robot--target
+queries across twenty episodes; Confirmed ER acquires 152. Among acquired
+queries, mean delays are 2.47 and 7.63 s, respectively; the eight censored
+confirmed queries are excluded from the latter mean and remain failures.
+The gate is a disclosed ablation, not an accepted remedy.
+The unsmoothed trajectories in Fig.~\ref{fig:time} show why discovery and
+post-departure persistence should be evaluated separately.
+\input{generated/false_table}
+
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/time.pdf}
+ \caption{Mean trajectories across the twenty validation episodes; no
+ smoothing is applied. Dotted event markers indicate late birth at 17 s
+ and, in churn, departure at 45 s. ER and the both-block ablation can
+ improve set error while differing in localization and false-target
+ persistence. The plotted means do not imply independent time samples;
+ episode-level uncertainty is reported in Fig.~\ref{fig:outcomes}.}
+ \label{fig:time}
+\end{figure*}
+
+\subsection{Accounting and verification}
+All communicating arms have exactly the same attempted and delivered
+messages for each paired episode. Mean attempted wire cost is 24.98 MiB
+for split/no-new and 25.74 MiB for churn. Across communicating arms and
+families, mean unpadded payload totals range from 2.14 to 9.85 MiB; all
+occupy the same padded slots. The metric
+audit recomputes 518,400 validation robot--frames and verifies 1,169 frozen
+source hashes. Focused checks verify signed age behavior, the
+no-opportunity fallback, source-order invariance, fixed-input spatial
+invariance, and exact v2 replay under the added confirmation metadata.
+These checks establish the stated implementation properties and agreement
+between the two metric implementations.

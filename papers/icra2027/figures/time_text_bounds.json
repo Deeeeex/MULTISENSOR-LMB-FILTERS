@@ -1,0 +1,25 @@
+{
+  "checked_text": [
+    "Time (s)",
+    "OSPA (m)",
+    "Split\u2013rejoin",
+    "a",
+    "Time (s)",
+    "OSPA (m)",
+    "Churn\u2013departure",
+    "b",
+    "Time (s)",
+    "False cost (m\u00b2)",
+    "Departure response",
+    "c",
+    "Lineage",
+    "L+Age-all",
+    "ER",
+    "Confirmed ER"
+  ],
+  "canvas_pixels": [
+    712,
+    202
+  ],
+  "passed": true
+}

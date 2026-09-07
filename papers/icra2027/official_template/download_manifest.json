@@ -1,0 +1,25 @@
+{
+  "ieeeconf.zip": {
+    "url": "https://ras.papercept.net/conferences/support/files/ieeeconf.zip",
+    "sha256": "11d1051d5fe3dafd1e25bc7a8b66265cbe65dc135e26440cc6661baeeeb90c76",
+    "members": [
+      "ieeeconf.cls",
+      "root.pdf",
+      "root.tex"
+    ]
+  },
+  "IEEEtranBST.zip": {
+    "url": "https://ras.papercept.net/conferences/support/files/IEEEtranBST.zip",
+    "sha256": "c6c0aa0ef6794eb502223eb6bf0ca6dfc5be0d8f6d288d06bbc8c9de3e5287a3",
+    "members": [
+      "IEEEabrv.bib",
+      "IEEEbcpat.bib",
+      "IEEEexample.bib",
+      "IEEEfull.bib",
+      "IEEEtran.bst",
+      "IEEEtranS.bst",
+      "IEEEtran_bst_HOWTO.pdf",
+      "README"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "checked_text": [
+    "x (m)",
+    "y (m)",
+    "Split\u2013rejoin",
+    "a",
+    "B3",
+    "B4",
+    "x (m)",
+    "y (m)",
+    "Churn\u2013departure",
+    "b",
+    "B3",
+    "B4",
+    "Time (s)",
+    "Physical components",
+    "c",
+    "Birth",
+    "Departure",
+    "Split",
+    "Churn",
+    "Robots 1\u20134",
+    "Robots 5\u20138",
+    "MST at 27 s",
+    "Occupied birth regions",
+    "Empty regions"
+  ],
+  "canvas_pixels": [
+    712,
+    238
+  ],
+  "passed": true
+}
