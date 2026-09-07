@@ -1,0 +1,10 @@
+{
+  "trials/icra_group_tracking/PROTOCOL.md": "95ad5168cdfe765be993fade75e72c221eddb460ad1f82705b37e739434ddedc",
+  "trials/icra_group_tracking/runGroupTrackingPilot.m": "75249c76545533cf571a209312e9c9371b061d7242db377f00928130beef0b01",
+  "trials/icra_group_tracking/buildGroupPilotScene.m": "79cd7027fcfcf66719738878ec032a5e7ca62b212ff2faf5c0c144fca5746b6b",
+  "trials/icra_group_tracking/buildGroupPilotTopologies.m": "beb7ad77d8be0f2e3fed039232c6f2379ab1745ebd1f7712873fb0925e51f113",
+  "lmb/lmbPredictionStep.m": "d741f25f8b4b68385b7a0521bdfcf59ac63c24fa87b3631a1e9ff3bd3af22058",
+  "multisensorLmb/updateLmbWithSensorMeasurement.m": "280de55b001a3692142735f6833c123bac8c5575607ef7ca66b636903aa20441",
+  "multisensorLmb/fuseLmbPosteriorsByLabel.m": "8eda17e58fd4ef31b9ef0b535499e6b49def89ea19e4f349298ca22b2ffb0c31",
+  "common/computePositionEuclideanOspa.m": "cf1a74cdab6b6a0d37b383d826d222ab1ff084b596765398699318561b9ca011"
+}

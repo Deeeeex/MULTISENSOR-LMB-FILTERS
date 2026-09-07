@@ -1,0 +1,1421 @@
+{
+  "metric_audit_node_frames": 23040,
+  "aggregate": [
+    {
+      "scene": "split_rejoin",
+      "arm": "local",
+      "ospa_mean": 2.295115049762391,
+      "ospa_sample_sd": 1.0705428365543208,
+      "count_mae": 0.05034722222222222,
+      "p90_mean": 7.78586689478367,
+      "worst_node_mean": 6.554583090208382,
+      "wire_mib": 0.0,
+      "raw_payload_mib": 0.0,
+      "control_mib": 0.0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "post_rejoin_ospa": 3.568552790261267
+    },
+    {
+      "scene": "split_rejoin",
+      "arm": "tree",
+      "ospa_mean": 0.5791026541230567,
+      "ospa_sample_sd": 0.08226168367065083,
+      "count_mae": 0.002777777777777778,
+      "p90_mean": 0.7921290828894123,
+      "worst_node_mean": 0.9685312477258171,
+      "wire_mib": 12.5390625,
+      "raw_payload_mib": 2.932703653971354,
+      "control_mib": 0.1171875,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "post_rejoin_ospa": 0.584004077100413
+    },
+    {
+      "scene": "split_rejoin",
+      "arm": "dynamic",
+      "ospa_mean": 0.5728009609869579,
+      "ospa_sample_sd": 0.07989729846283031,
+      "count_mae": 0.002777777777777778,
+      "p90_mean": 0.7653119833064435,
+      "worst_node_mean": 0.9502020204680357,
+      "wire_mib": 12.5390625,
+      "raw_payload_mib": 2.9924112955729165,
+      "control_mib": 0.1171875,
+      "pair_edits": 14,
+      "edge_edits": 30,
+      "post_rejoin_ospa": 0.5617183643834721
+    },
+    {
+      "scene": "split_rejoin",
+      "arm": "stable",
+      "ospa_mean": 0.5808189856680824,
+      "ospa_sample_sd": 0.0921754552960758,
+      "count_mae": 0.0031249999999999997,
+      "p90_mean": 0.7711386041905698,
+      "worst_node_mean": 0.9965177157080657,
+      "wire_mib": 12.5390625,
+      "raw_payload_mib": 2.978846232096354,
+      "control_mib": 0.1171875,
+      "pair_edits": 6,
+      "edge_edits": 40,
+      "post_rejoin_ospa": 0.5691226914970962
+    },
+    {
+      "scene": "boundary_churn",
+      "arm": "local",
+      "ospa_mean": 2.442125305605838,
+      "ospa_sample_sd": 0.845038971947783,
+      "count_mae": 0.06631944444444444,
+      "p90_mean": 8.488909929881414,
+      "worst_node_mean": 9.894524124368802,
+      "wire_mib": 0.0,
+      "raw_payload_mib": 0.0,
+      "control_mib": 0.0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "post_rejoin_ospa": 3.117198787114523
+    },
+    {
+      "scene": "boundary_churn",
+      "arm": "tree",
+      "ospa_mean": 0.5321001490303482,
+      "ospa_sample_sd": 0.05843485930338969,
+      "count_mae": 0.0024305555555555556,
+      "p90_mean": 0.70880445695798,
+      "worst_node_mean": 0.8633995748410549,
+      "wire_mib": 12.8984375,
+      "raw_payload_mib": 3.0080134073893228,
+      "control_mib": 0.1171875,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "post_rejoin_ospa": 0.47746310858362584
+    },
+    {
+      "scene": "boundary_churn",
+      "arm": "dynamic",
+      "ospa_mean": 0.5240979956389,
+      "ospa_sample_sd": 0.05926712481427939,
+      "count_mae": 0.0024305555555555556,
+      "p90_mean": 0.6919261112422088,
+      "worst_node_mean": 0.8458476380867617,
+      "wire_mib": 12.8984375,
+      "raw_payload_mib": 3.1595789591471353,
+      "control_mib": 0.1171875,
+      "pair_edits": 92,
+      "edge_edits": 58,
+      "post_rejoin_ospa": 0.4656420727307936
+    },
+    {
+      "scene": "boundary_churn",
+      "arm": "stable",
+      "ospa_mean": 0.5251437798539653,
+      "ospa_sample_sd": 0.059479606327885105,
+      "count_mae": 0.0024305555555555556,
+      "p90_mean": 0.6915637303132743,
+      "worst_node_mean": 0.8508364126813578,
+      "wire_mib": 12.8984375,
+      "raw_payload_mib": 3.1414210001627603,
+      "control_mib": 0.1171875,
+      "pair_edits": 16,
+      "edge_edits": 56,
+      "post_rejoin_ospa": 0.46544756810340604
+    }
+  ],
+  "paired": [
+    {
+      "scene": "split_rejoin",
+      "seed": 2701,
+      "stable_minus_tree_ospa": -0.0015459998766346184,
+      "stable_minus_dynamic_ospa": 0.002259735739346014,
+      "stable_minus_tree_worst_node": -0.012904123079391372
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2702,
+      "stable_minus_tree_ospa": 0.013981375898884596,
+      "stable_minus_dynamic_ospa": 0.02276770423412411,
+      "stable_minus_tree_worst_node": 0.10433223109225076
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2703,
+      "stable_minus_tree_ospa": -0.007286381387172747,
+      "stable_minus_dynamic_ospa": -0.0009733659300963371,
+      "stable_minus_tree_worst_node": -0.007468704066113552
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2701,
+      "stable_minus_tree_ospa": -0.00764086151169685,
+      "stable_minus_dynamic_ospa": -0.00020340166283738803,
+      "stable_minus_tree_worst_node": -0.00896142075657369
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2702,
+      "stable_minus_tree_ospa": -0.005698224713891142,
+      "stable_minus_dynamic_ospa": 0.0007562029531630321,
+      "stable_minus_tree_worst_node": -0.006512097218940416
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2703,
+      "stable_minus_tree_ospa": -0.007530021303560508,
+      "stable_minus_dynamic_ospa": 0.002584551354870346,
+      "stable_minus_tree_worst_node": -0.02221596850357721
+    }
+  ],
+  "runs": [
+    {
+      "scene": "split_rejoin",
+      "seed": 2701,
+      "arm": "local",
+      "ospa": 1.8272559588388166,
+      "p90": 3.7761324081902368,
+      "mean_worst_node": 4.357432142796341,
+      "count_mae": 0.026041666666666668,
+      "matched_rmse": 1.891522875407021,
+      "matched_support": 2859,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 1.8272559588388166,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 3.2460079,
+      "topology_s": 0.0063152,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 2.328088875441157,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2701,
+      "arm": "tree",
+      "ospa": 0.5152962209237474,
+      "p90": 0.7685542166846799,
+      "mean_worst_node": 0.7667726424534786,
+      "count_mae": 0.0,
+      "matched_rmse": 0.5463388564133418,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7257511736025576,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3084504,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1440,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 3.2370958,
+      "topology_s": 0.029618500000000006,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.4912115618282374,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2701,
+      "arm": "dynamic",
+      "ospa": 0.5114904853077668,
+      "p90": 0.7464181649196693,
+      "mean_worst_node": 0.7534751274871604,
+      "count_mae": 0.0,
+      "matched_rmse": 0.542016693183486,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7215824791851176,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3131040,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1431,
+      "pair_edits": 14,
+      "edge_edits": 30,
+      "runtime_s": 2.8104575,
+      "topology_s": 0.0702312,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.47817409116869547,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2701,
+      "arm": "stable",
+      "ospa": 0.5137502210471128,
+      "p90": 0.7642550965691276,
+      "mean_worst_node": 0.7538685193740873,
+      "count_mae": 0.0,
+      "matched_rmse": 0.5452461180303267,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7227253512062576,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3113400,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1438,
+      "pair_edits": 6,
+      "edge_edits": 40,
+      "runtime_s": 2.7422712,
+      "topology_s": 0.0512449,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.4826708631080763,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2702,
+      "arm": "local",
+      "ospa": 3.5199496704851216,
+      "p90": 17.321462273756328,
+      "mean_worst_node": 10.111968934835387,
+      "count_mae": 0.10625,
+      "matched_rmse": 3.041118097245556,
+      "matched_support": 2781,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 3.5199496704851216,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 2.7591808,
+      "topology_s": 0.0063152,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 6.265682220537184,
+          "recovery_delay_s": 5.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2702,
+      "arm": "tree",
+      "ospa": 0.6719446835772196,
+      "p90": 0.8415874097727618,
+      "mean_worst_node": 1.2445370998326026,
+      "count_mae": 0.007291666666666667,
+      "matched_rmse": 0.6245137776377893,
+      "matched_support": 2873,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.8968861827016235,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3047088,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1413,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 2.405437,
+      "topology_s": 0.029618500000000006,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.7535409437268077,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2702,
+      "arm": "dynamic",
+      "ospa": 0.6631583552419801,
+      "p90": 0.793518033462425,
+      "mean_worst_node": 1.2099095233073995,
+      "count_mae": 0.007291666666666667,
+      "matched_rmse": 0.6073692982356494,
+      "matched_support": 2873,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.8876922952563867,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3126888,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1421,
+      "pair_edits": 14,
+      "edge_edits": 30,
+      "runtime_s": 2.3597995,
+      "topology_s": 0.0702312,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.7288063547648511,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2702,
+      "arm": "stable",
+      "ospa": 0.6859260594761042,
+      "p90": 0.7939758688748215,
+      "mean_worst_node": 1.3488693309248534,
+      "count_mae": 0.008333333333333333,
+      "matched_rmse": 0.6659987252132042,
+      "matched_support": 2872,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.8886209061818934,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3110592,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1417,
+      "pair_edits": 6,
+      "edge_edits": 40,
+      "runtime_s": 2.4663262,
+      "topology_s": 0.0512449,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.738868953337694,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2703,
+      "arm": "local",
+      "ospa": 1.5381395199632344,
+      "p90": 2.260006002404445,
+      "mean_worst_node": 5.194348192993417,
+      "count_mae": 0.01875,
+      "matched_rmse": 1.7936182609844884,
+      "matched_support": 2863,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 1.5381395199632344,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 2.507092,
+      "topology_s": 0.0063152,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 2.111887274805462,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2703,
+      "arm": "tree",
+      "ospa": 0.5500670578682031,
+      "p90": 0.7662456222107951,
+      "mean_worst_node": 0.8942840008913698,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.6283564920926531,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7146050546131151,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3093896,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1437,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 2.3336018,
+      "topology_s": 0.029618500000000006,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.5072597257461942,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2703,
+      "arm": "dynamic",
+      "ospa": 0.5437540424111267,
+      "p90": 0.7559997515372361,
+      "mean_worst_node": 0.8872214106095472,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.6228024332140484,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7118161343592677,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3155384,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1438,
+      "pair_edits": 14,
+      "edge_edits": 30,
+      "runtime_s": 2.3444296,
+      "topology_s": 0.0702312,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.4781746472168697,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "split_rejoin",
+      "seed": 2703,
+      "arm": "stable",
+      "ospa": 0.5427806764810303,
+      "p90": 0.75518484712776,
+      "mean_worst_node": 0.8868152968252563,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.6221562805390511,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7099751807934068,
+      "wire_bytes": 13148160.0,
+      "payload_bytes": 3146648,
+      "control_bytes": 122880,
+      "attempted_messages": 1590,
+      "delivered_messages": 1432,
+      "pair_edits": 6,
+      "edge_edits": 40,
+      "runtime_s": 2.3283994,
+      "topology_s": 0.0512449,
+      "recovery": [
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 44,
+          "first10_ospa": 0.4858282580455183,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2701,
+      "arm": "local",
+      "ospa": 2.4574289816701453,
+      "p90": 5.235332291292147,
+      "mean_worst_node": 12.074482251472991,
+      "count_mae": 0.08958333333333333,
+      "matched_rmse": 1.3285598239178449,
+      "matched_support": 2799,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 2.4574289816701453,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 2.3406545,
+      "topology_s": 0.0009585999999999997,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 2.8486739267859145,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 2.967637720797518,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 3.137208802407126,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 3.1652749960386686,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 3.281890163493407,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 3.5554139139549075,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2701,
+      "arm": "tree",
+      "ospa": 0.48055761028311156,
+      "p90": 0.7009657877517139,
+      "mean_worst_node": 0.7216286721336473,
+      "count_mae": 0.0,
+      "matched_rmse": 0.5091690497405879,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7017378364725322,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3164480,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1471,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 2.4281264,
+      "topology_s": 0.0040494,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.48727748604793203,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.42769421130729524,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.4513249156537139,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.40317512347122,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.47283471958567685,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.5125624711367635,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2701,
+      "arm": "dynamic",
+      "ospa": 0.4731201504342521,
+      "p90": 0.6838459883211531,
+      "mean_worst_node": 0.7121508061581783,
+      "count_mae": 0.0,
+      "matched_rmse": 0.5025262906565003,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7006251309144489,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3319712,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1475,
+      "pair_edits": 92,
+      "edge_edits": 58,
+      "runtime_s": 2.4014212,
+      "topology_s": 0.018861799999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.5090971469774649,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.4078789245656958,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.42933331666297453,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.370616892246953,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.45180685295441336,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.4974562065957567,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2701,
+      "arm": "stable",
+      "ospa": 0.4729167487714147,
+      "p90": 0.6810584322750851,
+      "mean_worst_node": 0.7126672513770737,
+      "count_mae": 0.0,
+      "matched_rmse": 0.5022302606341246,
+      "matched_support": 2880,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7002413535083046,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3329960,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1475,
+      "pair_edits": 16,
+      "edge_edits": 56,
+      "runtime_s": 2.5617061,
+      "topology_s": 0.017788699999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.515237173063195,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.4047167086484706,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.4257165007041702,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.37303439076261163,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.44901182694494457,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.4918938070422692,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2702,
+      "arm": "local",
+      "ospa": 3.2794085019016226,
+      "p90": 17.322726405465527,
+      "mean_worst_node": 12.106747843543134,
+      "count_mae": 0.09166666666666666,
+      "matched_rmse": 3.038822110628484,
+      "matched_support": 2778,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 3.2794085019016226,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 2.6075866,
+      "topology_s": 0.0009585999999999997,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 3.1849550535262705,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 3.927087110819025,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 4.337463660422866,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 4.634088173374967,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 4.93570861338078,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 4.82466739219229,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2702,
+      "arm": "tree",
+      "ospa": 0.5955829260166854,
+      "p90": 0.7080481525889899,
+      "mean_worst_node": 0.9970129521718323,
+      "count_mae": 0.00625,
+      "matched_rmse": 0.5189576838927681,
+      "matched_support": 2874,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.8008886759870728,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3179312,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1463,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 2.3474527,
+      "topology_s": 0.0040494,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.4492128098019531,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.494739310212662,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.5004750877518073,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.4303009172925611,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.5312989983890875,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.4268494551102756,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2702,
+      "arm": "dynamic",
+      "ospa": 0.5891284983496312,
+      "p90": 0.6905862067333597,
+      "mean_worst_node": 0.9899336008150866,
+      "count_mae": 0.00625,
+      "matched_rmse": 0.5126980486256222,
+      "matched_support": 2874,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7998757093035763,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3308000,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1464,
+      "pair_edits": 92,
+      "edge_edits": 58,
+      "runtime_s": 2.4963209,
+      "topology_s": 0.018861799999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.48267248930365164,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.5057522765602055,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.4958225585485974,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.42574525990389694,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.4986475865139507,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.41894584191715595,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2702,
+      "arm": "stable",
+      "ospa": 0.5898847013027942,
+      "p90": 0.6940316312502757,
+      "mean_worst_node": 0.9905008549528919,
+      "count_mae": 0.00625,
+      "matched_rmse": 0.5131582203614762,
+      "matched_support": 2874,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.7994455529365561,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3290360,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1462,
+      "pair_edits": 16,
+      "edge_edits": 56,
+      "runtime_s": 2.4737767,
+      "topology_s": 0.017788699999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.48002091451809215,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.5101609698952253,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.4929763642635147,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.41565700718122683,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.49759062972238566,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.4249694501518651,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2703,
+      "arm": "local",
+      "ospa": 1.5895384332457452,
+      "p90": 2.9086710928865673,
+      "mean_worst_node": 5.502342278090281,
+      "count_mae": 0.017708333333333333,
+      "matched_rmse": 2.0390333287481184,
+      "matched_support": 2864,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 1.5895384332457452,
+      "wire_bytes": 0,
+      "payload_bytes": 0,
+      "control_bytes": 0,
+      "attempted_messages": 0,
+      "delivered_messages": 0,
+      "pair_edits": 0,
+      "edge_edits": 0,
+      "runtime_s": 2.6480462,
+      "topology_s": 0.0009585999999999997,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 1.0477598266131567,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 1.1627459236847135,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 2.4553421727184466,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 1.8181634171411105,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 2.2172109925431274,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 2.6082863081671204,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2703,
+      "arm": "tree",
+      "ospa": 0.5201599107912475,
+      "p90": 0.7173994305332361,
+      "mean_worst_node": 0.8715571002176851,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.6003724536870721,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.6916098253911263,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3118600,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1482,
+      "pair_edits": 0,
+      "edge_edits": 52,
+      "runtime_s": 2.6503021,
+      "topology_s": 0.0040494,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.4698168339226278,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.5087989949487289,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.5226821112707861,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.4987032110115061,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.4979726439714883,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.5086166536191808,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2703,
+      "arm": "dynamic",
+      "ospa": 0.5100453381328166,
+      "p90": 0.7013461386721136,
+      "mean_worst_node": 0.8354585072870201,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.5889038021299594,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.6876093005041344,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3311464,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1476,
+      "pair_edits": 92,
+      "edge_edits": 58,
+      "runtime_s": 2.4754686,
+      "topology_s": 0.018861799999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.4761052833118999,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.49341356808726183,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.49964877826572807,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.46467988430206725,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.4594293427786956,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.49450509965791617,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    },
+    {
+      "scene": "boundary_churn",
+      "seed": 2703,
+      "arm": "stable",
+      "ospa": 0.512629889487687,
+      "p90": 0.6996011274144623,
+      "mean_worst_node": 0.8493411317141079,
+      "count_mae": 0.0010416666666666667,
+      "matched_rmse": 0.5918625040160171,
+      "matched_support": 2879,
+      "possible_target_node_frames": 2880,
+      "pre_ospa": 0.6898750688495173,
+      "wire_bytes": 13524992.0,
+      "payload_bytes": 3261736,
+      "control_bytes": 122880,
+      "attempted_messages": 1636,
+      "delivered_messages": 1476,
+      "pair_edits": 16,
+      "edge_edits": 56,
+      "runtime_s": 2.809454,
+      "topology_s": 0.017788699999999998,
+      "recovery": [
+        {
+          "frame": 44,
+          "time_s": 21.5,
+          "available_frames": 19,
+          "first10_ospa": 0.4628715375538023,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 68,
+          "time_s": 33.5,
+          "available_frames": 6,
+          "first10_ospa": 0.49693930872585895,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 77,
+          "time_s": 38.0,
+          "available_frames": 11,
+          "first10_ospa": 0.502760725812663,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 91,
+          "time_s": 45.0,
+          "available_frames": 6,
+          "first10_ospa": 0.4649437708821984,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 102,
+          "time_s": 50.5,
+          "available_frames": 11,
+          "first10_ospa": 0.47956516267356786,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        },
+        {
+          "frame": 114,
+          "time_s": 56.5,
+          "available_frames": 7,
+          "first10_ospa": 0.48998997731524757,
+          "recovery_delay_s": 0.0,
+          "censored": false
+        }
+      ]
+    }
+  ],
+  "recovery_window_note": "Up to 10 frames, truncated at next physical disconnection; 5-frame recovery window must fit.",
+  "topology_and_control_note": "Centralized geometry; charged reliable out-of-band control; no distributed consensus implementation."
+}
