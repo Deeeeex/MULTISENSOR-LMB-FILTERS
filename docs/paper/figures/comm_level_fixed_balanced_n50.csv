@@ -1,0 +1,25 @@
+metric_group,metric,level,level_label,method,mean,std,ci_low,ci_high,n
+network,OSPA consensus error,0,none,Fixed Metropolis,1.634289,0.040164,1.623156,1.645422,50
+network,OSPA consensus error,0,none,Balanced mode,1.427058,0.035445,1.417233,1.436883,50
+network,OSPA consensus error,1,bandwidth cap,Fixed Metropolis,1.716898,0.045779,1.704209,1.729588,50
+network,OSPA consensus error,1,bandwidth cap,Balanced mode,1.483834,0.033936,1.474428,1.493241,50
+network,OSPA consensus error,2,tiered link loss,Fixed Metropolis,2.468973,0.219981,2.407997,2.529949,50
+network,OSPA consensus error,2,tiered link loss,Balanced mode,1.779218,0.072856,1.759023,1.799413,50
+network,OSPA consensus error,3,node outage,Fixed Metropolis,2.670898,0.225844,2.608297,2.733499,50
+network,OSPA consensus error,3,node outage,Balanced mode,1.799730,0.064590,1.781826,1.817633,50
+network,Matched localization disagreement,0,none,Fixed Metropolis,1.381434,0.040960,1.370081,1.392788,50
+network,Matched localization disagreement,0,none,Balanced mode,1.201835,0.030438,1.193398,1.210272,50
+network,Matched localization disagreement,1,bandwidth cap,Fixed Metropolis,1.450569,0.062109,1.433353,1.467784,50
+network,Matched localization disagreement,1,bandwidth cap,Balanced mode,1.241988,0.033957,1.232575,1.251400,50
+network,Matched localization disagreement,2,tiered link loss,Fixed Metropolis,2.326034,0.353065,2.228170,2.423899,50
+network,Matched localization disagreement,2,tiered link loss,Balanced mode,1.522191,0.157069,1.478654,1.565728,50
+network,Matched localization disagreement,3,node outage,Fixed Metropolis,2.724505,0.486455,2.589666,2.859343,50
+network,Matched localization disagreement,3,node outage,Balanced mode,1.569610,0.152480,1.527345,1.611876,50
+network,Cardinality dispersion,0,none,Fixed Metropolis,0.090125,0.020982,0.084309,0.095941,50
+network,Cardinality dispersion,0,none,Balanced mode,0.071300,0.017489,0.066452,0.076148,50
+network,Cardinality dispersion,1,bandwidth cap,Fixed Metropolis,0.137350,0.028452,0.129463,0.145237,50
+network,Cardinality dispersion,1,bandwidth cap,Balanced mode,0.085700,0.019256,0.080362,0.091038,50
+network,Cardinality dispersion,2,tiered link loss,Fixed Metropolis,0.716025,0.223795,0.653992,0.778058,50
+network,Cardinality dispersion,2,tiered link loss,Balanced mode,0.187675,0.031189,0.179030,0.196320,50
+network,Cardinality dispersion,3,node outage,Fixed Metropolis,0.944800,0.314742,0.857558,1.032042,50
+network,Cardinality dispersion,3,node outage,Balanced mode,0.192500,0.032530,0.183483,0.201517,50

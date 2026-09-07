@@ -139,9 +139,14 @@ def _card(
     subtitle_size=CARD_SUBTITLE_SIZE,
 ):
     _box(ax, x, y, w, h, edge=edge, face=face, lw=1.1, radius=0.07, z=2)
+    has_subtitle = bool(subtitle)
+    if isinstance(subtitle, str):
+        subtitle = [subtitle]
+    subtitle_lines = subtitle or []
+    title_y = y + h * (0.71 if len(subtitle_lines) > 1 else 0.64 if has_subtitle else 0.50)
     ax.text(
         x + w / 2,
-        y + h * 0.62,
+        title_y,
         title,
         ha="center",
         va="center",
@@ -150,14 +155,17 @@ def _card(
         color=title_color,
         zorder=5,
     )
-    if subtitle:
-        if isinstance(subtitle, str):
-            subtitle = [subtitle]
-        start = y + h * 0.38 + (len(subtitle) - 1) * 0.12
-        for index, line in enumerate(subtitle):
+    if subtitle_lines:
+        if len(subtitle_lines) == 1:
+            start = y + h * 0.31
+            line_step = 0.0
+        else:
+            start = y + h * 0.39
+            line_step = h * 0.20
+        for index, line in enumerate(subtitle_lines):
             ax.text(
                 x + w / 2,
-                start - index * 0.28,
+                start - index * line_step,
                 line,
                 ha="center",
                 va="center",
@@ -281,13 +289,15 @@ def draw_figure() -> plt.Figure:
     _card(
         ax,
         7.78,
-        2.10,
+        1.96,
         3.00,
-        1.08,
-        "Neighbor information",
-        ["neighbor posteriors", "and link outcomes"],
+        1.28,
+        "Neighbor inputs",
+        ["neighbor LMB posteriors", "delivered / dropped counts"],
         edge=BLUE_EDGE,
         face=BLUE_FILL,
+        title_size=7.9,
+        subtitle_size=6.5,
     )
     _path(ax, [(9.28, 6.08), (9.28, 5.33)], color=SLATE, lw=1.0)
 
@@ -296,11 +306,11 @@ def draw_figure() -> plt.Figure:
     _card(
         ax,
         12.78,
-        5.92,
+        5.86,
         3.42,
-        0.98,
+        1.02,
         "Quality cues",
-        ["shared: precision, link reliability", "existence cue on Bernoulli path"],
+        ["covariance concentration", "realized link quality + existence confidence"],
         edge=RED_EDGE,
         face=RED_FILL,
         title_color=RED,
@@ -309,11 +319,11 @@ def draw_figure() -> plt.Figure:
     _card(
         ax,
         12.78,
-        4.68,
+        4.58,
         3.42,
-        0.78,
-        "Shared quality score",
-        "common evidence before branch split",
+        0.92,
+        "Shared + branch scores",
+        ["normalize and interpolate", "weak prior: overlap + nominal drop tier"],
         edge=RED_EDGE,
         face=RED_FILL,
         title_color=RED,
@@ -322,11 +332,11 @@ def draw_figure() -> plt.Figure:
     _card(
         ax,
         12.30,
-        2.68,
+        2.54,
         1.95,
-        1.26,
+        1.18,
         "Spatial path",
-        "kinematic KLA fusion",
+        "Gaussian KLA fusion",
         edge=RED_EDGE,
         face=RED_FILL,
         title_color=RED,
@@ -336,19 +346,17 @@ def draw_figure() -> plt.Figure:
     _card(
         ax,
         14.52,
-        2.68,
+        2.42,
         1.78,
-        1.26,
+        1.30,
         "Existence path",
-        "Bernoulli fusion",
+        ["Bernoulli KLA fusion", "optional FID-FIA"],
         edge=RED_EDGE,
         face=RED_FILL,
         title_color=RED,
         title_size=7.0,
-        subtitle_size=6.1,
+        subtitle_size=5.9,
     )
-    _box(ax, 14.84, 2.78, 1.15, 0.34, edge=GREEN, face="#f2fbf6", lw=0.9, radius=0.04, z=3)
-    ax.text(15.42, 2.95, "FID-FIA cue", ha="center", va="center", fontsize=7.2, fontweight="bold", color=GREEN, zorder=5)
     _card(
         ax,
         13.20,
@@ -365,12 +373,12 @@ def draw_figure() -> plt.Figure:
     )
 
     _path(ax, [(10.78, 4.79), (11.78, 4.79), (11.78, 6.42), (12.78, 6.42)], color=SLATE, lw=1.05)
-    _curve(ax, [(10.78, 2.64), (11.50, 3.15), (11.70, 5.70), (12.78, 6.18)], color=BLUE, lw=1.05)
-    _path(ax, [(14.49, 5.92), (14.49, 5.46)], color=SLATE, lw=1.0)
-    _path(ax, [(14.49, 4.68), (13.30, 3.94)], color=SLATE, lw=1.0)
-    _path(ax, [(14.49, 4.68), (15.41, 3.94)], color=SLATE, lw=1.0)
-    _path(ax, [(13.27, 2.68), (14.00, 2.32)], color=SLATE, lw=1.0)
-    _path(ax, [(15.41, 2.68), (14.86, 2.32)], color=SLATE, lw=1.0)
+    _curve(ax, [(10.78, 2.60), (11.48, 3.10), (11.68, 5.72), (12.78, 6.18)], color=BLUE, lw=1.05)
+    _path(ax, [(14.49, 5.86), (14.49, 5.50)], color=SLATE, lw=1.0)
+    _path(ax, [(14.49, 4.58), (13.27, 3.72)], color=SLATE, lw=1.0)
+    _path(ax, [(14.49, 4.58), (15.41, 3.72)], color=SLATE, lw=1.0)
+    _path(ax, [(13.27, 2.54), (14.00, 2.32)], color=SLATE, lw=1.0)
+    _path(ax, [(15.41, 2.42), (14.86, 2.32)], color=SLATE, lw=1.0)
 
     return fig
 
@@ -383,12 +391,11 @@ def render(output_dir: Path, paper_fig_dir: Path, *, dpi: int = 300) -> dict[str
     outputs = {
         "source_pdf": output_dir / "figure1_v2.pdf",
         "source_png": output_dir / "figure1_v2.png",
-        "paper_pdf": paper_fig_dir / "unused-paper-figure1-v2.pdf",
-        "paper_png": paper_fig_dir / "unused-paper-figure1-v2.png",
+        "paper_pdf": paper_fig_dir / "Figure_1.pdf",
     }
     for path in (outputs["source_pdf"], outputs["paper_pdf"]):
         fig.savefig(path, format="pdf", bbox_inches="tight", pad_inches=0.015)
-    for path in (outputs["source_png"], outputs["paper_png"]):
+    for path in (outputs["source_png"],):
         fig.savefig(path, format="png", dpi=dpi, bbox_inches="tight", pad_inches=0.015)
     plt.close(fig)
     return outputs

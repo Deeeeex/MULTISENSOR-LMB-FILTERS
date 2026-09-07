@@ -119,6 +119,15 @@ baseAdaptiveFusionConfig = struct( ...
     'fiTraceUseDetectionProbability', false, ...
     'fiTraceUseClutterPenalty', false, ...
     'pdWeightPower', 1.0, ...
+    'zhengSpatialPrecisionPower', 1.0, ...
+    'zhengExistenceMarginPower', 1.0, ...
+    'zhengExistenceMinScore', 0.05, ...
+    'gaoDistanceScale', 2.0, ...
+    'gaoMinCredibility', 0.05, ...
+    'gaoSpatialDistancePower', 1.0, ...
+    'gaoExistenceDistancePower', 1.0, ...
+    'gaoHardReject', false, ...
+    'gaoHardRejectThreshold', 8.0, ...
     'useHistory', false, ...
     'historyEmaAlpha', 0.8, ...
     'historyScale', 2.0, ...
@@ -195,9 +204,11 @@ hOspa = zeros(numberOfTrials, numberOfSensors, numArms);
 rmse = zeros(numberOfTrials, numberOfSensors, numArms);
 cardErr = zeros(numberOfTrials, numberOfSensors, numArms);
 consOspa = zeros(numberOfTrials, numArms);
+consGospa = zeros(numberOfTrials, numArms);
 consPos = zeros(numberOfTrials, numArms);
 consCard = zeros(numberOfTrials, numArms);
 consOspaSeries = [];
+consGospaSeries = [];
 consPosSeries = [];
 consCardSeries = [];
 filterRuntimeSeconds = zeros(numberOfTrials, numArms);
@@ -261,17 +272,20 @@ for trial = 1:numberOfTrials
         % 5.5 Network disagreement metrics：比较 sensor 之间输出是否一致。
         % paper 主表里的 OSPA consensus error / matched localization disagreement /
         % cardinality dispersion 就来自这里的 consOspa / consPos / consCard。
-        [posArm, cardArm, ospaArm] = computeConsensusMetrics(stateEstimatesBySensor, armModel);
+        [posArm, cardArm, ospaArm, gospaArm] = computeConsensusMetrics(stateEstimatesBySensor, armModel);
         consOspa(trial, armIdx) = mean(ospaArm);
+        consGospa(trial, armIdx) = mean(gospaArm);
         consPos(trial, armIdx) = mean(posArm, 'omitnan');
         consCard(trial, armIdx) = mean(cardArm);
         if isempty(consOspaSeries)
             simLength = numel(ospaArm);
             consOspaSeries = zeros(numberOfTrials, simLength, numArms);
+            consGospaSeries = zeros(numberOfTrials, simLength, numArms);
             consPosSeries = NaN(numberOfTrials, simLength, numArms);
             consCardSeries = zeros(numberOfTrials, simLength, numArms);
         end
         consOspaSeries(trial, :, armIdx) = reshape(ospaArm, 1, []);
+        consGospaSeries(trial, :, armIdx) = reshape(gospaArm, 1, []);
         consPosSeries(trial, :, armIdx) = reshape(posArm, 1, []);
         consCardSeries(trial, :, armIdx) = reshape(cardArm, 1, []);
     end
@@ -285,17 +299,19 @@ fprintf('Tier levels=%s, counts=%s\n', mat2str(commConfig.pDropLevels, 3), mat2s
 fprintf('pDropBySensor=%s\n', mat2str(mean(pDropBySensorTrials, 1), 4));
 fprintf('=====================================\n');
 for armIdx = 1:numArms
-    fprintf('%s: OSPA %.6f, RMSE %.6f, Card %.6f, Runtime %.3f s\n', arms(armIdx).name, ...
-        mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), ...
+    fprintf('%s: OSPA %.6f, GOSPA %.6f, Localization %.6f, Card %.6f, Runtime %.3f s\n', arms(armIdx).name, ...
+        mean(consOspa(:, armIdx)), mean(consGospa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), ...
         mean(consCard(:, armIdx)), mean(filterRuntimeSeconds(:, armIdx)));
 end
 
 %% 7. summary 结构：给脚本调用方/批处理脚本复用，不必解析 markdown 报告
 summary.armNames = armNames;
 summary.consensus.ospa = mean(consOspa, 1);
+summary.consensus.gospa = mean(consGospa, 1);
 summary.consensus.pos = mean(consPos, 1, 'omitnan');
 summary.consensus.card = mean(consCard, 1);
 summary.consensusTrials.ospa = consOspa;
+summary.consensusTrials.gospa = consGospa;
 summary.consensusTrials.pos = consPos;
 summary.consensusTrials.card = consCard;
 summary.local.eOspa = squeeze(mean(eOspa, 1));
@@ -319,6 +335,7 @@ summary.trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
 if ~isempty(consOspaSeries)
     summary.consensusSeries.time = (1:size(consOspaSeries, 2))';
     summary.consensusSeries.ospa = squeeze(mean(consOspaSeries, 1));
+    summary.consensusSeries.gospa = squeeze(mean(consGospaSeries, 1));
     summary.consensusSeries.pos = squeeze(mean(consPosSeries, 1, 'omitnan'));
     summary.consensusSeries.card = squeeze(mean(consCardSeries, 1));
     summary.consensusSeries.armNames = armNames;
@@ -349,7 +366,7 @@ if writeReport
     reportPath = fullfile(reportDir, reportName);
     writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
         sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-        arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
+        arms, consOspa, consGospa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
         filterRuntimeSeconds, targetFormationConfig.targetFormationLifeSpan, finalArmMode);
     fprintf('Report written: %s\n', reportPath);
 end
@@ -386,7 +403,7 @@ for i = 1:numel(requested)
     for armIdx = 1:numel(arms)
         if strcmpi(query, 'final') && armIdx == numel(arms)
             matched(armIdx) = true;
-        elseif contains(lower(arms(armIdx).name), query)
+        elseif ~isempty(strfind(lower(arms(armIdx).name), query))
             matched(armIdx) = true;
         end
     end
@@ -533,6 +550,95 @@ switch lower(finalArmMode)
         cfg.existenceMinWeight = 0.0;
         arms(4).name = '+FID-FIA existence refinement';
         arms(4).adaptiveFusion = cfg;
+    case {'reviewerbaselines', 'reviewer_baselines', ...
+            'externalbaselines', 'external_baselines', ...
+            'zhenggao', 'zheng_gao'}
+        % Reviewer-requested comparison set.  The two literature rows are
+        % explicitly adaptations, not claims of exact source-code
+        % reproduction: Zheng et al. provide weighted RFS/GM-PHD
+        % realizations, whereas Gao et al. study attack-resilient LMB fusion.
+        % Both are mapped onto this paper's one-round GA-LMB protocol.
+        arms = repmat(struct('name', '', 'adaptiveFusion', struct()), 1, 5);
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = false;
+        cfg.method = 'factorized';
+        cfg.useDecoupledKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useNIS = false;
+        cfg.useFidFiaExistence = false;
+        arms(1).name = 'fixed weights';
+        arms(1).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'zhengStyleLmb';
+        cfg.useDecoupledKla = false;
+        cfg.useStructureAwareKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useExistenceConfidence = false;
+        cfg.useFidFiaExistence = false;
+        cfg.useNIS = false;
+        arms(2).name = 'Zheng-style subdensity GA-LMB adaptation';
+        arms(2).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'gaoStyleResilient';
+        cfg.useDecoupledKla = false;
+        cfg.useStructureAwareKla = false;
+        cfg.useCovariance = false;
+        cfg.useLinkQuality = false;
+        cfg.useExistenceConfidence = false;
+        cfg.useFidFiaExistence = false;
+        cfg.useNIS = false;
+        cfg.gaoHardReject = false;
+        arms(3).name = 'Gao-style local-trust GA-LMB adaptation';
+        arms(3).adaptiveFusion = cfg;
+
+        cfg = baseAdaptiveFusionConfig;
+        cfg.enabled = true;
+        cfg.method = 'factorized';
+        cfg.useCovariance = true;
+        cfg.useLinkQuality = true;
+        cfg.useExistenceConfidence = true;
+        cfg.useDecoupledKla = true;
+        cfg.useStructureAwareKla = true;
+        cfg.usePosteriorStructureConsistency = false;
+        cfg.useFidFiaExistence = false;
+        if abs(cfg.existenceConfidenceMinScore - 0.6) < 1e-9
+            cfg.existenceConfidenceMinScore = 0.85;
+        end
+        if abs(cfg.existenceConfidencePower - 1.0) < 1e-9
+            cfg.existenceConfidencePower = 2.0;
+        end
+        if abs(cfg.spatialDecouplingStrength - 1.0) < 1e-9
+            cfg.spatialDecouplingStrength = 0.5;
+        end
+        if abs(cfg.existenceDecouplingStrength - 1.0) < 1e-9
+            cfg.existenceDecouplingStrength = 0.15;
+        end
+        if cfg.spatialStructureStrength <= 0
+            cfg.spatialStructureStrength = 0.45;
+        end
+        if cfg.existenceStructureStrength <= 0
+            cfg.existenceStructureStrength = 0.08;
+        end
+        if cfg.structureReliabilityPower <= 0
+            cfg.structureReliabilityPower = 0.30;
+        end
+        arms(4).name = '+structure-aware decoupled KLA';
+        arms(4).adaptiveFusion = cfg;
+
+        cfg.useFidFiaExistence = true;
+        cfg.fidFiaExistenceStrength = 4.0;
+        cfg.fidFiaExistenceMinScore = 0.0;
+        cfg.existenceEmaAlpha = 0.0;
+        cfg.existenceMinWeight = 0.0;
+        arms(5).name = '+FID-FIA existence refinement';
+        arms(5).adaptiveFusion = cfg;
     case {'fidfia', 'fid_fia', 'fidfiabaseline', 'fid_fia_baseline', ...
             'fisherfia', 'fisher_fia', 'informationgeometry', ...
             'information_geometry', 'caozhao', 'cao_zhao'}
@@ -804,7 +910,7 @@ end
 
 function writeAblationReport(reportPath, numberOfTrials, baseSeed, useFixedSeed, ...
     sensorCommRange, fusionWeighting, leaderSensor, commConfig, pDropBySensorTrials, ...
-    arms, consOspa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
+    arms, consOspa, consGospa, consPos, consCard, eOspa, hOspa, rmse, cardErr, ...
     filterRuntimeSeconds, simulationLength, finalArmMode)
 % WRITEABLATIONREPORT - 把一次实验的配置和结果落成 markdown 报告。
 %
@@ -842,6 +948,10 @@ if getField(commConfig, 'enableMultiRate', false)
 end
 fprintf(fid, '\n');
 fprintf(fid, '- finalArmMode: %s\n\n', finalArmMode);
+fprintf(fid, '- OSPA/GOSPA Euclidean cutoff c: 5\n');
+fprintf(fid, '- OSPA/GOSPA order p: 2\n');
+fprintf(fid, '- GOSPA alpha: 2\n');
+fprintf(fid, '- OSPA/GOSPA ground space: complete extracted kinematic state vector\n\n');
 
 fprintf(fid, '## Arm Configs\n');
 for armIdx = 1:numel(arms)
@@ -911,34 +1021,36 @@ end
 fprintf(fid, '\n');
 
 fprintf(fid, '## Per-Trial Network Disagreement Metrics\n');
-fprintf(fid, '| Trial | Seed | Arm | OSPA | RMSE | Cardinality |\n');
-fprintf(fid, '|------:|-----:|:----|-----:|-----:|------------:|\n');
+fprintf(fid, '| Trial | Seed | Arm | OSPA | GOSPA | Localization | Cardinality |\n');
+fprintf(fid, '|------:|-----:|:----|-----:|------:|-----:|------------:|\n');
 trialSeeds = computeTrialSeeds(numberOfTrials, baseSeed, useFixedSeed);
 for trial = 1:numberOfTrials
     for armIdx = 1:numel(arms)
-        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f |\n', ...
+        fprintf(fid, '| %d | %.0f | %s | %.6f | %.6f | %.6f | %.6f |\n', ...
             trial, trialSeeds(trial), arms(armIdx).name, ...
-            consOspa(trial, armIdx), consPos(trial, armIdx), consCard(trial, armIdx));
+            consOspa(trial, armIdx), consGospa(trial, armIdx), ...
+            consPos(trial, armIdx), consCard(trial, armIdx));
     end
 end
 fprintf(fid, '\n');
 
 fprintf(fid, '## Network Disagreement Metrics (mean across trials)\n');
-fprintf(fid, '| Arm | OSPA | RMSE | Cardinality |\n');
-fprintf(fid, '|:----|-----:|-----:|------------:|\n');
+fprintf(fid, '| Arm | OSPA | GOSPA | Localization | Cardinality |\n');
+fprintf(fid, '|:----|-----:|------:|-----:|------------:|\n');
 for armIdx = 1:numel(arms)
-    fprintf(fid, '| %s | %.6f | %.6f | %.6f |\n', arms(armIdx).name, ...
-        mean(consOspa(:, armIdx)), mean(consPos(:, armIdx), 'omitnan'), mean(consCard(:, armIdx)));
+    fprintf(fid, '| %s | %.6f | %.6f | %.6f | %.6f |\n', arms(armIdx).name, ...
+        mean(consOspa(:, armIdx)), mean(consGospa(:, armIdx)), ...
+        mean(consPos(:, armIdx), 'omitnan'), mean(consCard(:, armIdx)));
 end
 
 fprintf(fid, '\n## Network Disagreement Metrics With Trial Variability\n');
-writeMetricStatsTable(fid, {arms.name}, {'OSPA', 'RMSE', 'Cardinality'}, ...
-    {consOspa, consPos, consCard}, [false, true, false]);
+writeMetricStatsTable(fid, {arms.name}, {'OSPA', 'GOSPA', 'Localization', 'Cardinality'}, ...
+    {consOspa, consGospa, consPos, consCard}, [false, false, true, false]);
 
 if numel(arms) >= 2
     fprintf(fid, '\n## Paired Improvements Relative to %s\n', baselineName);
-    writePairedImprovementTable(fid, {arms.name}, {'OSPA', 'RMSE', 'Cardinality'}, ...
-        {consOspa, consPos, consCard}, [false, true, false]);
+    writePairedImprovementTable(fid, {arms.name}, {'OSPA', 'GOSPA', 'Localization', 'Cardinality'}, ...
+        {consOspa, consGospa, consPos, consCard}, [false, false, true, false]);
 end
 
 fprintf(fid, '\n## Computational Cost\n');
@@ -1324,12 +1436,14 @@ for g = 1:numel(groupCounts)
 end
 end
 
-function [posConsensus, cardConsensus, ospaConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)
+function [posConsensus, cardConsensus, ospaConsensus, gospaConsensus] = computeConsensusMetrics(stateEstimatesBySensor, model)
 % COMPUTECONSENSUSMETRICS - 计算跨节点 disagreement，而不是 truth error。
 %
 % posConsensus  : 对每对 sensor 的估计集合做 Hungarian matching 后求位置 RMSE；
 % cardConsensus : 每个 sensor 的目标数和全网 median count 的平均偏差；
 % ospaConsensus : 对每对 sensor 输出做对称 OSPA，衡量有限集层面的 disagreement。
+% gospaConsensus: 与 Euclidean OSPA 相同完整状态集合上的
+%                 GOSPA(c=5,p=2,alpha=2)，不做基数归一化。
 %
 % 这些指标回答的是“各节点融合后是否趋于一致”。因此报告里必须同时
 % 保留 local tracking metrics，防止只优化一致性而牺牲 truth-referenced 质量。
@@ -1338,6 +1452,7 @@ simLength = numel(stateEstimatesBySensor{1}.mu);
 posConsensus = zeros(1, simLength);
 cardConsensus = zeros(1, simLength);
 ospaConsensus = zeros(1, simLength);
+gospaConsensus = zeros(1, simLength);
 for t = 1:simLength
     counts = zeros(1, numSensors);
     for s = 1:numSensors
@@ -1349,6 +1464,8 @@ for t = 1:simLength
     pairCount = 0;
     ospaSum = 0;
     ospaCount = 0;
+    gospaSum = 0;
+    gospaCount = 0;
     for i = 1:numSensors-1
         for j = i+1:numSensors
             d = estimateSetRmse(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t);
@@ -1359,6 +1476,9 @@ for t = 1:simLength
             dOspa = estimateSetOspaConsensus(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t, model);
             ospaSum = ospaSum + dOspa;
             ospaCount = ospaCount + 1;
+            dGospa = estimateSetGospaConsensus(stateEstimatesBySensor{i}, stateEstimatesBySensor{j}, t, model);
+            gospaSum = gospaSum + dGospa;
+            gospaCount = gospaCount + 1;
         end
     end
     if pairCount > 0
@@ -1370,6 +1490,11 @@ for t = 1:simLength
         ospaConsensus(t) = ospaSum / ospaCount;
     else
         ospaConsensus(t) = NaN;
+    end
+    if gospaCount > 0
+        gospaConsensus(t) = gospaSum / gospaCount;
+    else
+        gospaConsensus(t) = NaN;
     end
 end
 end
@@ -1468,6 +1593,10 @@ end
 [eAB, ~] = ospa(muA, muA, SigmaA, muB, SigmaB, model.ospaParameters);
 [eBA, ~] = ospa(muB, muB, SigmaB, muA, SigmaA, model.ospaParameters);
 dist = 0.5 * (eAB(1) + eBA(1));
+end
+
+function dist = estimateSetGospaConsensus(estA, estB, t, model)
+dist = computeGospaBetweenEstimates(estA, estB, t, model);
 end
 
 function offsets = localFormationOffsets(formationType, spacing, count)

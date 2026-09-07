@@ -1,0 +1,806 @@
+
+reviewer_baselines seed 2 (1/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 67.524 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 103.063 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.1 0 0.5 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.299615, GOSPA 4.983161, Localization 7.796852, Card 0.883750, Runtime 67.524 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.508667, GOSPA 6.425284, Localization 4.217979, Card 1.683750, Runtime 103.063 s
+
+reviewer_baselines seed 3 (2/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 81.129 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 111.853 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.5 0.2 0.1 0.1 0 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.909338, GOSPA 5.081458, Localization 12.179387, Card 1.327500, Runtime 81.129 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.446881, GOSPA 6.319524, Localization 4.848212, Card 1.657500, Runtime 111.853 s
+
+reviewer_baselines seed 4 (3/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 85.782 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 105.808 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.2 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.547293, GOSPA 4.521126, Localization 13.459519, Card 1.117500, Runtime 85.782 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.469673, GOSPA 6.400093, Localization 4.220014, Card 1.531250, Runtime 105.808 s
+
+reviewer_baselines seed 5 (4/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 76.196 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.253 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.5 0 0.1 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.401307, GOSPA 5.358507, Localization 17.906064, Card 0.687500, Runtime 76.196 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.293303, GOSPA 6.233397, Localization 3.995017, Card 1.295000, Runtime 104.253 s
+
+reviewer_baselines seed 6 (5/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 73.049 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 97.922 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.5 0.2 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.697470, GOSPA 5.073100, Localization 11.721443, Card 1.420000, Runtime 73.049 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.393451, GOSPA 6.149042, Localization 3.959874, Card 1.705000, Runtime 97.922 s
+
+reviewer_baselines seed 7 (6/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 82.218 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 96.348 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.2 0.1 0.5 0.1 0.5 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.488023, GOSPA 4.566055, Localization 15.231038, Card 0.905000, Runtime 82.218 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.358734, GOSPA 6.204748, Localization 3.942295, Card 1.522500, Runtime 96.348 s
+
+reviewer_baselines seed 8 (7/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 86.051 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 107.366 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.5 0 0.1 0.1 0.5 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.938013, GOSPA 5.395972, Localization 17.493841, Card 1.071250, Runtime 86.051 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.294743, GOSPA 6.249900, Localization 3.864162, Card 1.411250, Runtime 107.366 s
+
+reviewer_baselines seed 9 (8/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 78.797 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 109.477 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.1 0.5 0.1 0.1 0]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.528383, GOSPA 5.177732, Localization 13.570345, Card 1.146250, Runtime 78.797 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.346916, GOSPA 6.186195, Localization 3.984281, Card 1.500000, Runtime 109.477 s
+
+reviewer_baselines seed 10 (9/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 71.817 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.072 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.2 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.768214, GOSPA 4.662016, Localization 11.193897, Card 0.985000, Runtime 71.817 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.502872, GOSPA 6.393527, Localization 5.643591, Card 1.440000, Runtime 104.072 s
+
+reviewer_baselines seed 11 (10/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 80.643 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 101.414 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.5 0.1 0.1 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.762182, GOSPA 5.027168, Localization 14.106855, Card 1.017500, Runtime 80.643 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.118610, GOSPA 6.013161, Localization 3.952536, Card 1.088750, Runtime 101.414 s
+
+reviewer_baselines seed 12 (11/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 80.538 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 114.540 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.1 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.448887, GOSPA 4.985280, Localization 14.365917, Card 0.793750, Runtime 80.538 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.152610, GOSPA 6.096361, Localization 4.045259, Card 1.320000, Runtime 114.540 s
+
+reviewer_baselines seed 13 (12/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 95.090 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 101.642 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.5 0.1 0.1 0.2 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.448529, GOSPA 4.110940, Localization 17.309273, Card 0.747500, Runtime 95.090 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.217868, GOSPA 6.087979, Localization 3.915733, Card 1.267500, Runtime 101.642 s
+
+reviewer_baselines seed 14 (13/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 72.997 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.362 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.5 0 0.5 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.110663, GOSPA 5.214696, Localization 10.656543, Card 0.751250, Runtime 72.997 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.189900, GOSPA 6.038486, Localization 3.741170, Card 1.185000, Runtime 104.362 s
+
+reviewer_baselines seed 15 (14/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 89.686 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.345 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.2 0.5 0.1 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 4.027378, GOSPA 4.638882, Localization 18.256097, Card 0.778750, Runtime 89.686 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.092843, GOSPA 6.000485, Localization 4.163586, Card 1.085000, Runtime 104.345 s
+
+reviewer_baselines seed 16 (15/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 83.215 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 102.916 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.5 0.1 0.1 0.2 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.539613, GOSPA 5.451460, Localization 11.649497, Card 1.026250, Runtime 83.215 s
+Gao-style local-trust GA-LMB adaptation: OSPA 2.974974, GOSPA 5.771834, Localization 3.067175, Card 0.936250, Runtime 102.916 s
+
+reviewer_baselines seed 17 (16/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 72.939 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 111.944 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.5 0.1 0.1 0 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.510118, GOSPA 5.585892, Localization 8.814223, Card 1.203750, Runtime 72.939 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.448207, GOSPA 6.399458, Localization 4.600098, Card 1.646250, Runtime 111.944 s
+
+reviewer_baselines seed 18 (17/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 67.927 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 100.722 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.2 0.5 0.1 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.406421, GOSPA 5.542026, Localization 8.706770, Card 1.322500, Runtime 67.927 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.266387, GOSPA 6.140666, Localization 3.426177, Card 1.370000, Runtime 100.722 s
+
+reviewer_baselines seed 19 (18/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 70.815 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.159 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0 0.5 0.5 0.1 0.1 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.560363, GOSPA 5.456905, Localization 8.651041, Card 1.291250, Runtime 70.815 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.412152, GOSPA 6.252074, Localization 3.895537, Card 1.691250, Runtime 104.159 s
+
+reviewer_baselines seed 20 (19/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 80.495 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 99.648 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0 0.5 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.590118, GOSPA 4.678190, Localization 17.445575, Card 0.896250, Runtime 80.495 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.248698, GOSPA 6.091520, Localization 3.313116, Card 1.431250, Runtime 99.648 s
+
+reviewer_baselines seed 21 (20/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 78.907 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 109.793 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.1 0.5 0.1 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.411309, GOSPA 5.050550, Localization 12.653801, Card 0.945000, Runtime 78.907 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.448506, GOSPA 6.366912, Localization 4.691841, Card 1.527500, Runtime 109.793 s
+
+reviewer_baselines seed 22 (21/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 80.004 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 99.572 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0.2 0 0.5 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.725343, GOSPA 5.003391, Localization 14.160154, Card 0.907500, Runtime 80.004 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.246093, GOSPA 6.028373, Localization 3.849483, Card 1.427500, Runtime 99.572 s
+
+reviewer_baselines seed 23 (22/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 78.842 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 103.167 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.519014, GOSPA 4.902818, Localization 10.837681, Card 0.936250, Runtime 78.842 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.434206, GOSPA 6.293728, Localization 4.274319, Card 1.488750, Runtime 103.167 s
+
+reviewer_baselines seed 24 (23/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 78.015 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 103.889 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0 0.1 0.5 0.5 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.599280, GOSPA 4.607194, Localization 6.040532, Card 1.422500, Runtime 78.015 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.524311, GOSPA 6.305603, Localization 3.783197, Card 1.818750, Runtime 103.889 s
+
+reviewer_baselines seed 25 (24/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 81.882 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 105.096 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0.1 0.1 0 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.775019, GOSPA 5.377263, Localization 13.426439, Card 1.061250, Runtime 81.882 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.355745, GOSPA 6.255087, Localization 4.049820, Card 1.473750, Runtime 105.096 s
+
+reviewer_baselines seed 26 (25/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 84.749 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 110.282 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0.2 0.1 0.1 0]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.817840, GOSPA 4.752173, Localization 20.993560, Card 0.573750, Runtime 84.749 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.236075, GOSPA 6.112054, Localization 4.354892, Card 1.246250, Runtime 110.282 s
+
+reviewer_baselines seed 27 (26/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 90.352 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.094 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.1 0.1 0 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.506534, GOSPA 4.504377, Localization 14.410789, Card 0.802500, Runtime 90.352 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.066878, GOSPA 5.921068, Localization 3.393619, Card 1.151250, Runtime 104.094 s
+
+reviewer_baselines seed 28 (27/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 87.853 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 102.988 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.1 0.2 0.1 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.940819, GOSPA 5.236442, Localization 14.787976, Card 1.131250, Runtime 87.853 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.056213, GOSPA 5.959437, Localization 3.085163, Card 1.053750, Runtime 102.988 s
+
+reviewer_baselines seed 29 (28/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 71.393 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 100.799 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.2 0.5 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.333616, GOSPA 4.653662, Localization 11.935129, Card 0.895000, Runtime 71.393 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.518772, GOSPA 6.156756, Localization 3.890736, Card 1.668750, Runtime 100.799 s
+
+reviewer_baselines seed 30 (29/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 74.165 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 105.014 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.1 0.2 0.5 0.5 0]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.532647, GOSPA 5.557586, Localization 12.374086, Card 0.790000, Runtime 74.165 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.402688, GOSPA 6.235879, Localization 4.122057, Card 1.590000, Runtime 105.014 s
+
+reviewer_baselines seed 31 (30/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 80.138 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 103.580 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.1 0.5 0.2 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.734559, GOSPA 5.142319, Localization 12.551326, Card 1.062500, Runtime 80.138 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.217618, GOSPA 6.070998, Localization 3.908744, Card 1.311250, Runtime 103.580 s
+
+reviewer_baselines seed 32 (31/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 81.688 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 102.872 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.5 0.2 0.1 0.5 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.152519, GOSPA 4.739442, Localization 12.447770, Card 0.622500, Runtime 81.688 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.402461, GOSPA 6.255724, Localization 3.706824, Card 1.525000, Runtime 102.872 s
+
+reviewer_baselines seed 33 (32/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 95.203 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 108.249 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.2 0 0.1 0.1 0.1 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.636193, GOSPA 5.287919, Localization 14.930595, Card 0.912500, Runtime 95.203 s
+Gao-style local-trust GA-LMB adaptation: OSPA 2.998114, GOSPA 5.940098, Localization 2.722011, Card 1.022500, Runtime 108.249 s
+
+reviewer_baselines seed 34 (33/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 75.413 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 105.763 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0.5 0.5 0 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.422882, GOSPA 4.975133, Localization 13.654589, Card 1.172500, Runtime 75.413 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.354083, GOSPA 6.176353, Localization 3.675395, Card 1.651250, Runtime 105.763 s
+
+reviewer_baselines seed 35 (34/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 77.854 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 106.427 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0 0.1 0.1 0.5 0.2 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.778955, GOSPA 4.808838, Localization 10.055548, Card 1.217500, Runtime 77.854 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.500410, GOSPA 6.320638, Localization 3.574452, Card 1.647500, Runtime 106.427 s
+
+reviewer_baselines seed 36 (35/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 79.288 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 108.255 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0 0.1 0.1 0.5 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.352910, GOSPA 5.132440, Localization 9.512794, Card 0.960000, Runtime 79.288 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.211946, GOSPA 6.176045, Localization 3.660264, Card 1.300000, Runtime 108.255 s
+
+reviewer_baselines seed 37 (36/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 66.057 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 106.743 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0.1 0 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.254034, GOSPA 5.029643, Localization 11.596331, Card 0.737500, Runtime 66.057 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.522879, GOSPA 6.374362, Localization 4.246816, Card 1.776250, Runtime 106.743 s
+
+reviewer_baselines seed 38 (37/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 69.397 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 101.826 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.2 0 0.5 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.495870, GOSPA 5.239110, Localization 9.795487, Card 1.083750, Runtime 69.397 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.318737, GOSPA 6.093357, Localization 3.704153, Card 1.475000, Runtime 101.826 s
+
+reviewer_baselines seed 39 (38/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 88.416 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 110.495 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.1 0.5 0.1 0.1 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.759344, GOSPA 4.835091, Localization 14.706016, Card 0.897500, Runtime 88.416 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.384825, GOSPA 6.285627, Localization 4.126738, Card 1.318750, Runtime 110.495 s
+
+reviewer_baselines seed 40 (39/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 76.549 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 112.563 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 2.982955, GOSPA 4.913396, Localization 10.785500, Card 0.757500, Runtime 76.549 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.460289, GOSPA 6.353302, Localization 4.733561, Card 1.452500, Runtime 112.563 s
+
+reviewer_baselines seed 41 (40/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 91.902 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 117.095 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0 0.5 0.1 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.545900, GOSPA 5.161215, Localization 12.336821, Card 0.846250, Runtime 91.902 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.319332, GOSPA 6.164739, Localization 4.797862, Card 1.245000, Runtime 117.095 s
+
+reviewer_baselines seed 42 (41/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 90.342 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.556 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.1 0.1 0.1 0 0.5 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.877971, GOSPA 4.933073, Localization 16.003964, Card 1.018750, Runtime 90.342 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.070817, GOSPA 5.970528, Localization 3.267515, Card 1.278750, Runtime 104.556 s
+
+reviewer_baselines seed 43 (42/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 91.539 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 118.693 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.2 0.1 0.1 0.1 0.1 0.5]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.237350, GOSPA 3.921278, Localization 14.198723, Card 0.641250, Runtime 91.539 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.388664, GOSPA 6.326066, Localization 4.514991, Card 1.341250, Runtime 118.693 s
+
+reviewer_baselines seed 44 (43/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 76.732 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.617 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.855385, GOSPA 5.475844, Localization 12.488145, Card 1.441250, Runtime 76.732 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.433229, GOSPA 6.302254, Localization 3.616749, Card 1.748750, Runtime 104.617 s
+
+reviewer_baselines seed 45 (44/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 84.196 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 105.638 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.5 0.1 0.1 0.2 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.870708, GOSPA 5.193989, Localization 21.168723, Card 0.658750, Runtime 84.196 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.367269, GOSPA 6.280302, Localization 4.376738, Card 1.335000, Runtime 105.638 s
+
+reviewer_baselines seed 46 (45/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 73.551 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 104.089 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.5 0.1 0.1 0]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.446987, GOSPA 5.215792, Localization 11.637387, Card 0.960000, Runtime 73.551 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.475776, GOSPA 6.359219, Localization 4.765108, Card 1.447500, Runtime 104.089 s
+
+reviewer_baselines seed 47 (46/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 78.195 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 109.405 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.1 0.5 0.1 0 0.2]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.203830, GOSPA 4.997169, Localization 13.372940, Card 0.641250, Runtime 78.195 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.410636, GOSPA 6.337702, Localization 3.759960, Card 1.530000, Runtime 109.405 s
+
+reviewer_baselines seed 48 (47/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 83.827 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 112.413 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.1 0.5 0 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.809750, GOSPA 5.006342, Localization 12.472198, Card 0.937500, Runtime 83.827 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.418924, GOSPA 6.359239, Localization 4.533838, Card 1.556250, Runtime 112.413 s
+
+reviewer_baselines seed 49 (48/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 73.555 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 103.559 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.578278, GOSPA 4.823214, Localization 16.589696, Card 0.668750, Runtime 73.555 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.420023, GOSPA 6.217508, Localization 4.999550, Card 1.395000, Runtime 103.559 s
+
+reviewer_baselines seed 50 (49/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 76.663 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 99.684 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.5 0.1 0.2 0.1 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.800963, GOSPA 4.869586, Localization 10.355976, Card 1.187500, Runtime 76.663 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.349553, GOSPA 6.249718, Localization 3.838839, Card 1.663750, Runtime 99.684 s
+
+reviewer_baselines seed 51 (50/50)
+Trial 1/1
+  Arm 1/2: Zheng-style subdensity GA-LMB adaptation
+    Filter runtime: 70.279 s
+  Arm 2/2: Gao-style local-trust GA-LMB adaptation
+    Filter runtime: 114.373 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: Zheng-style subdensity GA-LMB adaptation -> Gao-style local-trust GA-LMB adaptation
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0 0.1 0.2 0.1]
+=====================================
+Zheng-style subdensity GA-LMB adaptation: OSPA 3.927630, GOSPA 5.549236, Localization 12.423665, Card 1.175000, Runtime 70.279 s
+Gao-style local-trust GA-LMB adaptation: OSPA 3.535019, GOSPA 6.438438, Localization 5.574592, Card 1.643750, Runtime 114.373 s
+REVIEWER_BASELINES_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/reviewer_baselines_validation/reviewer_baselines_n50_summary.mat
+
+Skipping completed seed 2 (1/50).
+Skipping completed seed 3 (2/50).
+Skipping completed seed 4 (3/50).
+Skipping completed seed 5 (4/50).
+Skipping completed seed 6 (5/50).
+Skipping completed seed 7 (6/50).
+Skipping completed seed 8 (7/50).
+Skipping completed seed 9 (8/50).
+Skipping completed seed 10 (9/50).
+Skipping completed seed 11 (10/50).
+Skipping completed seed 12 (11/50).
+Skipping completed seed 13 (12/50).
+Skipping completed seed 14 (13/50).
+Skipping completed seed 15 (14/50).
+Skipping completed seed 16 (15/50).
+Skipping completed seed 17 (16/50).
+Skipping completed seed 18 (17/50).
+Skipping completed seed 19 (18/50).
+Skipping completed seed 20 (19/50).
+Skipping completed seed 21 (20/50).
+Skipping completed seed 22 (21/50).
+Skipping completed seed 23 (22/50).
+Skipping completed seed 24 (23/50).
+Skipping completed seed 25 (24/50).
+Skipping completed seed 26 (25/50).
+Skipping completed seed 27 (26/50).
+Skipping completed seed 28 (27/50).
+Skipping completed seed 29 (28/50).
+Skipping completed seed 30 (29/50).
+Skipping completed seed 31 (30/50).
+Skipping completed seed 32 (31/50).
+Skipping completed seed 33 (32/50).
+Skipping completed seed 34 (33/50).
+Skipping completed seed 35 (34/50).
+Skipping completed seed 36 (35/50).
+Skipping completed seed 37 (36/50).
+Skipping completed seed 38 (37/50).
+Skipping completed seed 39 (38/50).
+Skipping completed seed 40 (39/50).
+Skipping completed seed 41 (40/50).
+Skipping completed seed 42 (41/50).
+Skipping completed seed 43 (42/50).
+Skipping completed seed 44 (43/50).
+Skipping completed seed 45 (44/50).
+Skipping completed seed 46 (45/50).
+Skipping completed seed 47 (46/50).
+Skipping completed seed 48 (47/50).
+Skipping completed seed 49 (48/50).
+Skipping completed seed 50 (49/50).
+Skipping completed seed 51 (50/50).
+REVIEWER_BASELINES_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/reviewer_baselines_validation/reviewer_baselines_n50_summary.mat
+

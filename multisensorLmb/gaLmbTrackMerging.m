@@ -47,9 +47,11 @@ for i = 1:numel(objects)
     % 对 Balanced / Cardinality-critical，则通常是每个 target 共享同一组
     % spatial/existence branch weights。
     spatialWeights = resolveObjectWeightVector( ...
-        model, 'gaTargetWiseWeights', 'gaSpatialWeights', model.gaSensorWeights, i);
+        model, 'gaSpatialTargetWiseWeights', 'gaTargetWiseWeights', ...
+        'gaSpatialWeights', model.gaSensorWeights, i);
     existenceWeights = resolveObjectWeightVector( ...
-        model, 'gaTargetWiseWeights', 'gaExistenceWeights', model.gaSensorWeights, i);
+        model, 'gaExistenceTargetWiseWeights', 'gaTargetWiseWeights', ...
+        'gaExistenceWeights', model.gaSensorWeights, i);
     %% 2. 空间融合：先 m-projection，再在 canonical form 中做几何平均
     % GA/KLA 对 Gaussian density 做加权几何平均。为了避免直接处理 mixture
     % product，这里先把每个传感器的 mixture posterior moment-match 成单 Gaussian，
@@ -100,15 +102,23 @@ for i = 1:numel(objects)
 end
 end
 
-function weights = resolveObjectWeightVector(model, targetWiseFieldName, fieldName, fallback, objectIdx)
+function weights = resolveObjectWeightVector(model, targetWiseFieldName, legacyTargetWiseFieldName, fieldName, fallback, objectIdx)
 % RESOLVEOBJECTWEIGHTVECTOR - 为当前 target 选择一组 sensor weights。
 % 优先级：
-%   1. target-wise weights：PD/FI direct baseline 可按 target 调整传感器权重；
+%   1. branch-specific target-wise weights：子密度适配基线可对
+%      spatial/existence 分支分别调整每个 target 的传感器权重；
+%   2. legacy target-wise weights：PD/FI direct baseline 共用一组目标级权重；
 %   2. branch weights：Balanced/Cardinality-critical 的 spatial/existence 权重；
 %   3. fallback：固定 GA sensor weights。
 weights = [];
 if isfield(model, targetWiseFieldName)
     targetWiseWeights = model.(targetWiseFieldName);
+    if size(targetWiseWeights, 1) >= objectIdx && size(targetWiseWeights, 2) == numel(fallback)
+        weights = targetWiseWeights(objectIdx, :);
+    end
+end
+if isempty(weights) && isfield(model, legacyTargetWiseFieldName)
+    targetWiseWeights = model.(legacyTargetWiseFieldName);
     if size(targetWiseWeights, 1) >= objectIdx && size(targetWiseWeights, 2) == numel(fallback)
         weights = targetWiseWeights(objectIdx, :);
     end

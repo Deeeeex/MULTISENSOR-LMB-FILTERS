@@ -73,6 +73,16 @@ if isPdWeightedGaMethod(method)
         measurementUpdatedDistributions, model, t, cfg, availabilityMask);
     return;
 end
+if isZhengStyleMethod(method)
+    [gaWeights, aaWeights, debug] = computeZhengStyleFusionWeights( ...
+        measurementUpdatedDistributions, model, cfg, availabilityMask);
+    return;
+end
+if isGaoStyleMethod(method)
+    [gaWeights, aaWeights, debug] = computeGaoStyleFusionWeights( ...
+        measurementUpdatedDistributions, model, cfg, availabilityMask);
+    return;
+end
 
 % 先把每个传感器的 local posterior 压缩成三个主线分数：
 %   covScore                  : posterior 越集中越大；没有显式下界。
@@ -254,6 +264,18 @@ tf = any(strcmpi(method, {'pdweightedga', 'pd_weighted_ga', ...
     'pd-weighted-ga', 'detectionweightedga', 'detection_weighted_ga'}));
 end
 
+function tf = isZhengStyleMethod(method)
+tf = any(strcmpi(method, {'zhengstyle', 'zheng_style', ...
+    'zhengstylelmb', 'zheng_style_lmb', 'subdensityweightedlmb', ...
+    'subdensity_weighted_lmb'}));
+end
+
+function tf = isGaoStyleMethod(method)
+tf = any(strcmpi(method, {'gaostyle', 'gao_style', ...
+    'gaostyleresilient', 'gao_style_resilient', ...
+    'localtrustlmb', 'local_trust_lmb'}));
+end
+
 function [gaWeights, aaWeights, debug] = computeFiTraceGaFusionWeights( ...
     measurementUpdatedDistributions, model, t, cfg, availabilityMask)
 
@@ -298,6 +320,210 @@ debug.aaSpatialWeights = weights;
 debug.gaExistenceWeights = weights;
 debug.aaExistenceWeights = weights;
 debug.useTargetWiseFiWeights = false;
+end
+
+function [gaWeights, aaWeights, debug] = computeZhengStyleFusionWeights( ...
+    measurementUpdatedDistributions, model, cfg, availabilityMask)
+% COMPUTEZHENGSTYLEFUSIONWEIGHTS - GA-LMB adaptation of the subdensity
+% weighting principle in Zheng et al.  The source paper develops weighted
+% RFS fusion and analytic GM-PHD realizations; it does not provide an LMB
+% implementation.  Here each label-associated Bernoulli is treated as one
+% RFS subdensity.  Its localization coefficient is posterior concentration
+% and its cardinality coefficient is the Bernoulli decision margin.  The
+% two coefficients are intentionally kept separate at the GA merge.
+
+numSensors = numel(measurementUpdatedDistributions);
+numTargets = resolveNumberOfBernoulliTracks(measurementUpdatedDistributions);
+spatialScores = zeros(numTargets, numSensors);
+existenceScores = zeros(numTargets, numSensors);
+spatialPower = max(getField(cfg, 'zhengSpatialPrecisionPower', 1.0), 0);
+existencePower = max(getField(cfg, 'zhengExistenceMarginPower', 1.0), 0);
+existenceMinScore = min(max(getField(cfg, 'zhengExistenceMinScore', 0.05), 0), 1);
+
+for objectIdx = 1:numTargets
+    for sensorIdx = 1:numSensors
+        if availabilityMask(sensorIdx) <= 0
+            continue;
+        end
+        objects = measurementUpdatedDistributions{sensorIdx};
+        if objectIdx > numel(objects) || objects(objectIdx).numberOfGmComponents < 1
+            continue;
+        end
+        [~, covariance] = mprojection(model.xDimension, objects(objectIdx));
+        covariance = regularizeCovariance(covariance);
+        positionDim = min(2, size(covariance, 1));
+        positionCovariance = covariance(1:positionDim, 1:positionDim);
+        concentration = 1 / (trace(positionCovariance) + eps);
+        spatialScores(objectIdx, sensorIdx) = concentration ^ spatialPower;
+
+        existenceProbability = min(max(objects(objectIdx).r, 0), 1);
+        decisionMargin = abs(2 * existenceProbability - 1);
+        existenceScores(objectIdx, sensorIdx) = existenceMinScore + ...
+            (1 - existenceMinScore) * (decisionMargin ^ existencePower);
+    end
+end
+
+spatialTargetWeights = normalizeTargetScores(spatialScores, availabilityMask);
+existenceTargetWeights = normalizeTargetScores(existenceScores, availabilityMask);
+spatialSensorScores = summarizeTargetScores(spatialScores, availabilityMask);
+existenceSensorScores = summarizeTargetScores(existenceScores, availabilityMask);
+spatialWeights = normalizeScores(spatialSensorScores, availabilityMask);
+existenceWeights = normalizeScores(existenceSensorScores, availabilityMask);
+
+gaWeights = spatialWeights;
+aaWeights = spatialWeights;
+debug = buildDirectWeightDebug(measurementUpdatedDistributions, availabilityMask, ...
+    spatialSensorScores, spatialWeights, 'zhengStyleLmbAdaptation');
+debug.adaptationOf = 'Zheng2026DistributedWeightedRFS';
+debug.isExactSourceImplementation = false;
+debug.spatialSubdensityScores = spatialScores;
+debug.existenceSubdensityScores = existenceScores;
+debug.gaSpatialTargetWiseWeights = spatialTargetWeights;
+debug.aaSpatialTargetWiseWeights = spatialTargetWeights;
+debug.gaExistenceTargetWiseWeights = existenceTargetWeights;
+debug.aaExistenceTargetWiseWeights = existenceTargetWeights;
+debug.gaSpatialWeights = spatialWeights;
+debug.aaSpatialWeights = spatialWeights;
+debug.gaExistenceWeights = existenceWeights;
+debug.aaExistenceWeights = existenceWeights;
+end
+
+function [gaWeights, aaWeights, debug] = computeGaoStyleFusionWeights( ...
+    measurementUpdatedDistributions, model, cfg, availabilityMask)
+% COMPUTEGAOSTYLEFUSIONWEIGHTS - Honest-network, soft-confidence adaptation
+% of Gao et al.'s local-trust resilient LMB principle.  The receiving node's
+% label-aligned Bernoulli-Gaussian posterior is the trusted reference.  A
+% neighbor's topology coefficient is attenuated by a bounded distance-based
+% credibility.  Hard false-component rejection is optional and remains off
+% in the paper's non-adversarial packet-loss experiment.
+
+numSensors = numel(measurementUpdatedDistributions);
+numTargets = resolveNumberOfBernoulliTracks(measurementUpdatedDistributions);
+referenceSensorIdx = round(getField(model, 'localReceiverSensorIndex', 1));
+referenceSensorIdx = min(max(referenceSensorIdx, 1), numSensors);
+topologyPrior = resolveStructurePrior(model, 'gaTopologyWeights', ...
+    'gaSensorWeights', numSensors);
+credibility = zeros(numTargets, numSensors);
+distanceValues = Inf(numTargets, numSensors);
+targetScores = zeros(numTargets, numSensors);
+outputObjects = measurementUpdatedDistributions{1};
+referenceObjects = measurementUpdatedDistributions{referenceSensorIdx};
+distanceScale = max(getField(cfg, 'gaoDistanceScale', 2.0), eps);
+minCredibility = min(max(getField(cfg, 'gaoMinCredibility', 0.05), 0), 1);
+spatialDistancePower = max(getField(cfg, 'gaoSpatialDistancePower', 1.0), 0);
+existenceDistancePower = max(getField(cfg, 'gaoExistenceDistancePower', 1.0), 0);
+hardReject = getField(cfg, 'gaoHardReject', false);
+hardThreshold = max(getField(cfg, 'gaoHardRejectThreshold', 8.0), 0);
+
+for objectIdx = 1:numTargets
+    if objectIdx > numel(outputObjects)
+        continue;
+    end
+    referenceObjectIdx = findLabelAlignedObject(referenceObjects, outputObjects(objectIdx), objectIdx);
+    if isempty(referenceObjectIdx)
+        continue;
+    end
+    referenceObject = referenceObjects(referenceObjectIdx);
+    for sensorIdx = 1:numSensors
+        if availabilityMask(sensorIdx) <= 0
+            continue;
+        end
+        candidateObjects = measurementUpdatedDistributions{sensorIdx};
+        candidateObjectIdx = findLabelAlignedObject(candidateObjects, outputObjects(objectIdx), objectIdx);
+        if isempty(candidateObjectIdx)
+            continue;
+        end
+        if sensorIdx == referenceSensorIdx
+            distanceValue = 0;
+            credibilityValue = 1;
+        else
+            [spatialDistance, existenceDistance] = computeBernoulliGaussianDistance( ...
+                referenceObject, candidateObjects(candidateObjectIdx), model.xDimension);
+            distanceValue = spatialDistancePower * spatialDistance + ...
+                existenceDistancePower * existenceDistance;
+            credibilityValue = exp(-distanceValue / distanceScale);
+            credibilityValue = max(credibilityValue, minCredibility);
+            if hardReject && distanceValue > hardThreshold
+                credibilityValue = 0;
+            end
+        end
+        distanceValues(objectIdx, sensorIdx) = distanceValue;
+        credibility(objectIdx, sensorIdx) = credibilityValue;
+        targetScores(objectIdx, sensorIdx) = topologyPrior(sensorIdx) * credibilityValue;
+    end
+end
+
+targetWeights = normalizeTargetScores(targetScores, availabilityMask);
+sensorScores = summarizeTargetScores(targetScores, availabilityMask);
+weights = normalizeScores(sensorScores, availabilityMask);
+
+gaWeights = weights;
+aaWeights = weights;
+debug = buildDirectWeightDebug(measurementUpdatedDistributions, availabilityMask, ...
+    sensorScores, weights, 'gaoStyleLocalTrustAdaptation');
+debug.adaptationOf = 'Gao2023ResilientLMB';
+debug.isExactSourceImplementation = false;
+debug.referenceSensorIdx = referenceSensorIdx;
+debug.localTrustDistance = distanceValues;
+debug.localTrustCredibility = credibility;
+debug.gaSpatialTargetWiseWeights = targetWeights;
+debug.aaSpatialTargetWiseWeights = targetWeights;
+debug.gaExistenceTargetWiseWeights = targetWeights;
+debug.aaExistenceTargetWiseWeights = targetWeights;
+debug.gaSpatialWeights = weights;
+debug.aaSpatialWeights = weights;
+debug.gaExistenceWeights = weights;
+debug.aaExistenceWeights = weights;
+debug.gaoHardReject = hardReject;
+end
+
+function objectIdx = findLabelAlignedObject(objects, referenceObject, fallbackIdx)
+% FINDLABELALIGNEDOBJECT - Match LMB components by their birth label.  Old
+% unit-test fixtures omit labels, so an in-range positional fallback is kept
+% only for that case.
+objectIdx = [];
+hasReferenceLabel = isfield(referenceObject, 'birthTime') && ...
+    isfield(referenceObject, 'birthLocation');
+if hasReferenceLabel
+    for idx = 1:numel(objects)
+        if isfield(objects(idx), 'birthTime') && isfield(objects(idx), 'birthLocation') && ...
+                isequal(objects(idx).birthTime, referenceObject.birthTime) && ...
+                isequal(objects(idx).birthLocation, referenceObject.birthLocation)
+            objectIdx = idx;
+            return;
+        end
+    end
+elseif fallbackIdx <= numel(objects)
+    objectIdx = fallbackIdx;
+end
+end
+
+function [spatialDistance, existenceDistance] = computeBernoulliGaussianDistance( ...
+    referenceObject, candidateObject, stateDimension)
+% COMPUTEBERNOULLIGAUSSIANDISTANCE - Symmetric KL distances for the
+% m-projected spatial Gaussian and Bernoulli existence variable.
+[referenceMean, referenceCovariance] = mprojection(stateDimension, referenceObject);
+[candidateMean, candidateCovariance] = mprojection(stateDimension, candidateObject);
+referenceCovariance = regularizeCovariance(referenceCovariance);
+candidateCovariance = regularizeCovariance(candidateCovariance);
+delta = candidateMean - referenceMean;
+dimension = numel(delta);
+referencePrecision = pinv(referenceCovariance);
+candidatePrecision = pinv(candidateCovariance);
+spatialDistance = 0.25 * ( ...
+    trace(candidatePrecision * referenceCovariance) + ...
+    trace(referencePrecision * candidateCovariance) - 2 * dimension + ...
+    delta' * (referencePrecision + candidatePrecision) * delta);
+spatialDistance = max(real(spatialDistance) / max(dimension, 1), 0);
+
+probabilityEpsilon = 1e-9;
+referenceExistence = min(max(referenceObject.r, probabilityEpsilon), 1 - probabilityEpsilon);
+candidateExistence = min(max(candidateObject.r, probabilityEpsilon), 1 - probabilityEpsilon);
+klReferenceCandidate = referenceExistence * log(referenceExistence / candidateExistence) + ...
+    (1 - referenceExistence) * log((1 - referenceExistence) / (1 - candidateExistence));
+klCandidateReference = candidateExistence * log(candidateExistence / referenceExistence) + ...
+    (1 - candidateExistence) * log((1 - candidateExistence) / (1 - referenceExistence));
+existenceDistance = max(0.5 * (klReferenceCandidate + klCandidateReference), 0);
 end
 
 function debug = buildDirectWeightDebug(measurementUpdatedDistributions, availabilityMask, rawScore, weights, methodName)

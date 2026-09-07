@@ -71,6 +71,17 @@ for s = 1:numberOfSensors
     % 就是一个 5-sensor LMB 问题；其中 local sensor index 1..5 分别
     % 对应全局 sensor 1,2,3,4,5。
     localModels{s} = buildSubModel(model, neighborIdx);
+    % Preserve the receiver identity inside the sliced neighborhood.  Most
+    % weighting rules are symmetric across the local sensors, but a
+    % local-trust resilient rule needs to know which posterior belongs to
+    % the receiving node and may therefore be treated as the trusted
+    % reference.
+    localModels{s}.localSensorGlobalIndices = reshape(neighborIdx, 1, []);
+    localModels{s}.localReceiverGlobalIndex = s;
+    localModels{s}.localReceiverSensorIndex = find(neighborIdx == s, 1, 'first');
+    if isempty(localModels{s}.localReceiverSensorIndex)
+        localModels{s}.localReceiverSensorIndex = 1;
+    end
     % 3.2 初始化 GA/AA scalar、spatial、existence 权重。
     % runParallelUpdateLmbFilter 会把这些字段读入 prevWeights；如果当前
     % arm 不启用动态权重，则 merging 端直接消费这些固定拓扑权重。

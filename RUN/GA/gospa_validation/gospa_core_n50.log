@@ -1,0 +1,1159 @@
+
+gospa_core seed 2 (1/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.919 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 137.742 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.493 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 142.144 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.1 0 0.5 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.605320, GOSPA 4.873585, RMSE 2.258061, Card 0.932500, Runtime 48.919 s
+Cao-Zhao FID-FIA baseline: OSPA 1.919750, GOSPA 4.146873, RMSE 1.703510, Card 0.160000, Runtime 137.742 s
++structure-aware decoupled KLA: OSPA 1.878234, GOSPA 4.020212, RMSE 1.439986, Card 0.240000, Runtime 52.493 s
++FID-FIA existence refinement: OSPA 1.714819, GOSPA 3.974035, RMSE 1.478188, Card 0.066250, Runtime 142.144 s
+
+gospa_core seed 3 (2/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.692 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 131.233 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.284 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.872 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.5 0.2 0.1 0.1 0 0.1]
+=====================================
+fixed weights: OSPA 2.604015, GOSPA 4.934377, RMSE 2.768626, Card 0.775000, Runtime 48.692 s
+Cao-Zhao FID-FIA baseline: OSPA 1.760426, GOSPA 3.992321, RMSE 1.579121, Card 0.085000, Runtime 131.233 s
++structure-aware decoupled KLA: OSPA 1.854447, GOSPA 3.911433, RMSE 1.371532, Card 0.191250, Runtime 51.284 s
++FID-FIA existence refinement: OSPA 1.663486, GOSPA 3.873832, RMSE 1.698166, Card 0.052500, Runtime 145.872 s
+
+gospa_core seed 4 (3/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 51.014 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.456 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.477 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 151.974 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.2 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.689713, GOSPA 5.121847, RMSE 2.372668, Card 0.917500, Runtime 51.014 s
+Cao-Zhao FID-FIA baseline: OSPA 1.765981, GOSPA 4.012071, RMSE 1.628179, Card 0.092500, Runtime 135.456 s
++structure-aware decoupled KLA: OSPA 1.808801, GOSPA 3.988064, RMSE 1.431204, Card 0.221250, Runtime 52.477 s
++FID-FIA existence refinement: OSPA 1.636377, GOSPA 3.880160, RMSE 1.664398, Card 0.055000, Runtime 151.974 s
+
+gospa_core seed 5 (4/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 50.464 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 195.297 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 75.828 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 188.150 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.5 0 0.1 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.388070, GOSPA 4.751869, Localization 2.724116, Card 0.645000, Runtime 50.464 s
+Cao-Zhao FID-FIA baseline: OSPA 1.842140, GOSPA 4.115889, Localization 1.761535, Card 0.131250, Runtime 195.297 s
++structure-aware decoupled KLA: OSPA 1.736420, GOSPA 3.901812, Localization 1.923505, Card 0.170000, Runtime 75.828 s
++FID-FIA existence refinement: OSPA 1.644623, GOSPA 3.910733, Localization 1.459300, Card 0.048750, Runtime 188.150 s
+
+gospa_core seed 6 (5/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 57.207 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 154.899 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 62.636 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 167.446 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.5 0.2 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.827419, GOSPA 5.173152, Localization 2.356402, Card 1.322500, Runtime 57.207 s
+Cao-Zhao FID-FIA baseline: OSPA 1.860653, GOSPA 4.127724, Localization 1.788350, Card 0.146250, Runtime 154.899 s
++structure-aware decoupled KLA: OSPA 1.852532, GOSPA 4.036347, Localization 1.777241, Card 0.243750, Runtime 62.636 s
++FID-FIA existence refinement: OSPA 1.679733, GOSPA 3.949204, Localization 1.496193, Card 0.053750, Runtime 167.446 s
+
+gospa_core seed 7 (6/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 51.876 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 138.956 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.212 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 156.285 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.2 0.1 0.5 0.1 0.5 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.564167, GOSPA 4.965837, Localization 2.619153, Card 0.798750, Runtime 51.876 s
+Cao-Zhao FID-FIA baseline: OSPA 1.869464, GOSPA 4.254364, Localization 1.794725, Card 0.157500, Runtime 138.956 s
++structure-aware decoupled KLA: OSPA 1.839920, GOSPA 4.165455, Localization 1.764960, Card 0.193750, Runtime 51.212 s
++FID-FIA existence refinement: OSPA 1.783806, GOSPA 4.243443, Localization 1.798401, Card 0.068750, Runtime 156.285 s
+
+gospa_core seed 8 (7/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 52.309 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 158.778 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 59.438 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 169.190 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.5 0 0.1 0.1 0.5 0.2]
+=====================================
+fixed weights: OSPA 2.392370, GOSPA 4.698450, Localization 2.197932, Card 0.583750, Runtime 52.309 s
+Cao-Zhao FID-FIA baseline: OSPA 1.777385, GOSPA 3.900894, Localization 1.501640, Card 0.125000, Runtime 158.778 s
++structure-aware decoupled KLA: OSPA 1.724528, GOSPA 3.735386, Localization 1.356549, Card 0.161250, Runtime 59.438 s
++FID-FIA existence refinement: OSPA 1.602056, GOSPA 3.706885, Localization 1.442085, Card 0.050000, Runtime 169.190 s
+
+gospa_core seed 9 (8/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 56.394 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 154.244 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 60.184 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 141.320 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.1 0.5 0.1 0.1 0]
+=====================================
+fixed weights: OSPA 2.465687, GOSPA 4.819339, Localization 2.549449, Card 0.686250, Runtime 56.394 s
+Cao-Zhao FID-FIA baseline: OSPA 1.765026, GOSPA 3.960273, Localization 1.553181, Card 0.090000, Runtime 154.244 s
++structure-aware decoupled KLA: OSPA 1.732578, GOSPA 3.858455, Localization 1.434821, Card 0.177500, Runtime 60.184 s
++FID-FIA existence refinement: OSPA 1.616239, GOSPA 3.787335, Localization 1.433022, Card 0.043750, Runtime 141.320 s
+
+gospa_core seed 10 (9/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 47.760 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.503 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.673 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 176.044 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.2 0.1]
+=====================================
+fixed weights: OSPA 2.561884, GOSPA 4.812789, Localization 2.756900, Card 0.791250, Runtime 47.760 s
+Cao-Zhao FID-FIA baseline: OSPA 1.832008, GOSPA 4.105990, Localization 1.807331, Card 0.133750, Runtime 135.503 s
++structure-aware decoupled KLA: OSPA 1.798485, GOSPA 3.990583, Localization 2.148753, Card 0.180000, Runtime 54.673 s
++FID-FIA existence refinement: OSPA 1.710576, GOSPA 4.013491, Localization 1.520268, Card 0.077500, Runtime 176.044 s
+
+gospa_core seed 11 (10/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 51.688 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 140.454 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.442 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.820 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.5 0.1 0.1 0.2]
+=====================================
+fixed weights: OSPA 2.179530, GOSPA 4.438979, Localization 2.304817, Card 0.425000, Runtime 51.688 s
+Cao-Zhao FID-FIA baseline: OSPA 1.791028, GOSPA 3.999919, Localization 1.578027, Card 0.115000, Runtime 140.454 s
++structure-aware decoupled KLA: OSPA 1.787456, GOSPA 3.924500, Localization 1.493683, Card 0.182500, Runtime 54.442 s
++FID-FIA existence refinement: OSPA 1.672873, GOSPA 3.931227, Localization 1.598233, Card 0.070000, Runtime 145.820 s
+
+gospa_core seed 12 (11/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 50.072 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 143.628 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.647 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 164.635 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.1 0.2]
+=====================================
+fixed weights: OSPA 2.267598, GOSPA 4.610584, Localization 2.220642, Card 0.522500, Runtime 50.072 s
+Cao-Zhao FID-FIA baseline: OSPA 1.872682, GOSPA 4.159634, Localization 1.777547, Card 0.136250, Runtime 143.628 s
++structure-aware decoupled KLA: OSPA 1.753632, GOSPA 3.963874, Localization 1.572377, Card 0.171250, Runtime 52.647 s
++FID-FIA existence refinement: OSPA 1.708450, GOSPA 3.944176, Localization 1.733906, Card 0.086250, Runtime 164.635 s
+
+gospa_core seed 13 (12/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 50.872 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 142.688 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.539 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 157.152 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.5 0.1 0.1 0.2 0.5]
+=====================================
+fixed weights: OSPA 2.391225, GOSPA 4.720798, Localization 1.945551, Card 0.696250, Runtime 50.872 s
+Cao-Zhao FID-FIA baseline: OSPA 1.912568, GOSPA 4.088222, Localization 1.624291, Card 0.148750, Runtime 142.688 s
++structure-aware decoupled KLA: OSPA 1.742848, GOSPA 3.831026, Localization 1.486898, Card 0.197500, Runtime 54.539 s
++FID-FIA existence refinement: OSPA 1.679613, GOSPA 3.858889, Localization 1.530487, Card 0.068750, Runtime 157.152 s
+
+gospa_core seed 14 (13/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 57.004 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 174.073 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.771 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 191.305 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.5 0 0.5 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.380845, GOSPA 4.814693, Localization 2.354441, Card 0.607500, Runtime 57.004 s
+Cao-Zhao FID-FIA baseline: OSPA 1.875715, GOSPA 4.102500, Localization 1.586621, Card 0.125000, Runtime 174.073 s
++structure-aware decoupled KLA: OSPA 1.790615, GOSPA 3.935026, Localization 1.451047, Card 0.182500, Runtime 65.771 s
++FID-FIA existence refinement: OSPA 1.704557, GOSPA 3.915483, Localization 1.463948, Card 0.072500, Runtime 191.305 s
+
+gospa_core seed 15 (14/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 57.130 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 145.191 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.465 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 151.845 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.2 0.5 0.1 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.162331, GOSPA 4.374098, Localization 1.975854, Card 0.408750, Runtime 57.130 s
+Cao-Zhao FID-FIA baseline: OSPA 1.834527, GOSPA 4.037512, Localization 1.599571, Card 0.117500, Runtime 145.191 s
++structure-aware decoupled KLA: OSPA 1.772452, GOSPA 3.879457, Localization 1.466171, Card 0.191250, Runtime 52.465 s
++FID-FIA existence refinement: OSPA 1.685614, GOSPA 3.875299, Localization 1.464790, Card 0.095000, Runtime 151.845 s
+
+gospa_core seed 16 (15/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.891 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 139.554 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 53.558 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 148.689 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.5 0.1 0.1 0.2 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.043693, GOSPA 4.297655, Localization 1.953721, Card 0.350000, Runtime 48.891 s
+Cao-Zhao FID-FIA baseline: OSPA 1.666159, GOSPA 3.756680, Localization 1.429455, Card 0.115000, Runtime 139.554 s
++structure-aware decoupled KLA: OSPA 1.704826, GOSPA 3.718158, Localization 1.517027, Card 0.176250, Runtime 53.558 s
++FID-FIA existence refinement: OSPA 1.543640, GOSPA 3.645493, Localization 1.367411, Card 0.048750, Runtime 148.689 s
+
+gospa_core seed 17 (16/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 49.762 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 157.424 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 63.398 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 172.191 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.5 0.1 0.1 0 0.1]
+=====================================
+fixed weights: OSPA 2.576292, GOSPA 4.864944, Localization 2.288784, Card 0.770000, Runtime 49.762 s
+Cao-Zhao FID-FIA baseline: OSPA 1.789898, GOSPA 3.927324, Localization 1.591812, Card 0.147500, Runtime 157.424 s
++structure-aware decoupled KLA: OSPA 1.830609, GOSPA 3.814489, Localization 1.438554, Card 0.228750, Runtime 63.398 s
++FID-FIA existence refinement: OSPA 1.628893, GOSPA 3.718640, Localization 1.409847, Card 0.072500, Runtime 172.191 s
+
+gospa_core seed 18 (17/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 59.325 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 171.462 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.591 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 165.571 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.2 0.5 0.1 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.522517, GOSPA 4.842797, Localization 2.040866, Card 0.775000, Runtime 59.325 s
+Cao-Zhao FID-FIA baseline: OSPA 1.912720, GOSPA 4.177718, Localization 1.789253, Card 0.188750, Runtime 171.462 s
++structure-aware decoupled KLA: OSPA 1.863847, GOSPA 4.065971, Localization 1.652217, Card 0.216250, Runtime 65.591 s
++FID-FIA existence refinement: OSPA 1.733908, GOSPA 3.961603, Localization 1.473600, Card 0.075000, Runtime 165.571 s
+
+gospa_core seed 19 (18/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 47.961 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 136.789 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.168 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 144.475 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0 0.5 0.5 0.1 0.1 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.438055, GOSPA 4.795620, Localization 2.267740, Card 0.782500, Runtime 47.961 s
+Cao-Zhao FID-FIA baseline: OSPA 1.744260, GOSPA 3.968885, Localization 1.643484, Card 0.107500, Runtime 136.789 s
++structure-aware decoupled KLA: OSPA 1.673306, GOSPA 3.855812, Localization 1.510607, Card 0.161250, Runtime 52.168 s
++FID-FIA existence refinement: OSPA 1.623403, GOSPA 3.884789, Localization 1.457256, Card 0.036250, Runtime 144.475 s
+
+gospa_core seed 20 (19/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.296 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 133.501 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.777 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 140.147 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0 0.5 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.524133, GOSPA 4.849102, Localization 2.218863, Card 0.863750, Runtime 48.296 s
+Cao-Zhao FID-FIA baseline: OSPA 1.816670, GOSPA 4.072918, Localization 1.618665, Card 0.110000, Runtime 133.501 s
++structure-aware decoupled KLA: OSPA 1.812300, GOSPA 3.966616, Localization 1.473501, Card 0.197500, Runtime 51.777 s
++FID-FIA existence refinement: OSPA 1.685378, GOSPA 3.941505, Localization 1.551796, Card 0.043750, Runtime 140.147 s
+
+gospa_core seed 21 (20/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 49.828 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.217 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.378 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.616 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.1 0.5 0.1 0.2]
+=====================================
+fixed weights: OSPA 2.488680, GOSPA 4.800492, Localization 2.535585, Card 0.638750, Runtime 49.828 s
+Cao-Zhao FID-FIA baseline: OSPA 1.795517, GOSPA 3.985932, Localization 1.591942, Card 0.091250, Runtime 135.217 s
++structure-aware decoupled KLA: OSPA 1.759623, GOSPA 3.857547, Localization 1.539784, Card 0.175000, Runtime 52.378 s
++FID-FIA existence refinement: OSPA 1.661180, GOSPA 3.836741, Localization 1.522340, Card 0.036250, Runtime 146.616 s
+
+gospa_core seed 22 (21/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.959 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 162.066 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.424 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 180.011 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0.2 0 0.5 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.445386, GOSPA 4.647941, Localization 2.063249, Card 0.706250, Runtime 48.959 s
+Cao-Zhao FID-FIA baseline: OSPA 1.765444, GOSPA 3.999334, Localization 1.576817, Card 0.126250, Runtime 162.066 s
++structure-aware decoupled KLA: OSPA 1.771566, GOSPA 3.893108, Localization 1.591554, Card 0.178750, Runtime 64.424 s
++FID-FIA existence refinement: OSPA 1.686873, GOSPA 3.920882, Localization 1.456035, Card 0.085000, Runtime 180.011 s
+
+gospa_core seed 23 (22/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 62.938 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 170.723 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.045 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 180.502 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.782054, GOSPA 5.116928, Localization 2.774744, Card 0.917500, Runtime 62.938 s
+Cao-Zhao FID-FIA baseline: OSPA 1.859706, GOSPA 4.134731, Localization 1.634981, Card 0.132500, Runtime 170.723 s
++structure-aware decoupled KLA: OSPA 1.828140, GOSPA 3.959968, Localization 1.410398, Card 0.208750, Runtime 65.045 s
++FID-FIA existence refinement: OSPA 1.717386, GOSPA 3.998733, Localization 1.484844, Card 0.063750, Runtime 180.502 s
+
+gospa_core seed 24 (23/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 62.231 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 154.442 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.747 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 147.278 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0 0.1 0.5 0.5 0.2]
+=====================================
+fixed weights: OSPA 2.811135, GOSPA 5.183505, Localization 1.942125, Card 1.156250, Runtime 62.231 s
+Cao-Zhao FID-FIA baseline: OSPA 1.851457, GOSPA 4.102780, Localization 1.616359, Card 0.110000, Runtime 154.442 s
++structure-aware decoupled KLA: OSPA 1.793788, GOSPA 3.963070, Localization 1.500075, Card 0.176250, Runtime 52.747 s
++FID-FIA existence refinement: OSPA 1.707424, GOSPA 3.988588, Localization 1.532879, Card 0.040000, Runtime 147.278 s
+
+gospa_core seed 25 (24/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.229 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 136.016 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 54.646 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 165.887 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0.1 0.1 0 0.1]
+=====================================
+fixed weights: OSPA 2.569606, GOSPA 4.918700, Localization 2.368173, Card 0.711250, Runtime 48.229 s
+Cao-Zhao FID-FIA baseline: OSPA 1.870342, GOSPA 4.183647, Localization 1.672704, Card 0.135000, Runtime 136.016 s
++structure-aware decoupled KLA: OSPA 1.875143, GOSPA 4.074102, Localization 1.500632, Card 0.221250, Runtime 54.646 s
++FID-FIA existence refinement: OSPA 1.717941, GOSPA 4.039715, Localization 1.523236, Card 0.085000, Runtime 165.887 s
+
+gospa_core seed 26 (25/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 68.512 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 177.779 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.604 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 188.317 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0.2 0.1 0.1 0]
+=====================================
+fixed weights: OSPA 2.225426, GOSPA 4.501432, Localization 2.278298, Card 0.403750, Runtime 68.512 s
+Cao-Zhao FID-FIA baseline: OSPA 1.802784, GOSPA 3.959490, Localization 1.614028, Card 0.127500, Runtime 177.779 s
++structure-aware decoupled KLA: OSPA 1.717305, GOSPA 3.705981, Localization 1.374395, Card 0.173750, Runtime 65.604 s
++FID-FIA existence refinement: OSPA 1.622779, GOSPA 3.718452, Localization 1.421175, Card 0.077500, Runtime 188.317 s
+
+gospa_core seed 27 (26/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 60.723 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 160.415 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.267 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.467 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.1 0.1 0 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.159231, GOSPA 4.423081, Localization 1.899203, Card 0.517500, Runtime 60.723 s
+Cao-Zhao FID-FIA baseline: OSPA 1.775112, GOSPA 3.920350, Localization 1.557627, Card 0.120000, Runtime 160.415 s
++structure-aware decoupled KLA: OSPA 1.646146, GOSPA 3.674766, Localization 1.363300, Card 0.142500, Runtime 64.267 s
++FID-FIA existence refinement: OSPA 1.652730, GOSPA 3.808093, Localization 1.490183, Card 0.060000, Runtime 145.467 s
+
+gospa_core seed 28 (27/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 61.459 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 170.045 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 66.101 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 189.029 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.1 0.2 0.1 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.126003, GOSPA 4.450401, Localization 1.944541, Card 0.406250, Runtime 61.459 s
+Cao-Zhao FID-FIA baseline: OSPA 1.809826, GOSPA 4.052321, Localization 1.580797, Card 0.132500, Runtime 170.045 s
++structure-aware decoupled KLA: OSPA 1.736613, GOSPA 3.876574, Localization 1.421164, Card 0.208750, Runtime 66.101 s
++FID-FIA existence refinement: OSPA 1.668913, GOSPA 3.888784, Localization 1.503191, Card 0.043750, Runtime 189.029 s
+
+gospa_core seed 29 (28/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 59.265 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 165.791 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 62.573 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 181.278 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.2 0.5 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.917753, GOSPA 5.145572, Localization 1.994773, Card 1.183750, Runtime 59.265 s
+Cao-Zhao FID-FIA baseline: OSPA 1.846308, GOSPA 4.129229, Localization 1.759788, Card 0.163750, Runtime 165.791 s
++structure-aware decoupled KLA: OSPA 1.873211, GOSPA 4.079513, Localization 1.616359, Card 0.268750, Runtime 62.573 s
++FID-FIA existence refinement: OSPA 1.659328, GOSPA 3.909547, Localization 1.472859, Card 0.086250, Runtime 181.278 s
+
+gospa_core seed 30 (29/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 60.450 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 171.860 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.037 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 187.058 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.1 0.2 0.5 0.5 0]
+=====================================
+fixed weights: OSPA 2.600417, GOSPA 4.811926, Localization 1.944603, Card 1.000000, Runtime 60.450 s
+Cao-Zhao FID-FIA baseline: OSPA 1.942099, GOSPA 4.302532, Localization 1.757728, Card 0.162500, Runtime 171.860 s
++structure-aware decoupled KLA: OSPA 1.870636, GOSPA 4.154422, Localization 1.691933, Card 0.227500, Runtime 65.037 s
++FID-FIA existence refinement: OSPA 1.769754, GOSPA 4.086680, Localization 1.490459, Card 0.085000, Runtime 187.058 s
+
+gospa_core seed 31 (30/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 60.632 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 170.151 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.523 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 187.648 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.1 0.5 0.2 0.5]
+=====================================
+fixed weights: OSPA 2.468399, GOSPA 4.716934, Localization 2.109218, Card 0.737500, Runtime 60.632 s
+Cao-Zhao FID-FIA baseline: OSPA 1.801926, GOSPA 3.981569, Localization 2.017408, Card 0.102500, Runtime 170.151 s
++structure-aware decoupled KLA: OSPA 1.770363, GOSPA 3.849509, Localization 1.471423, Card 0.161250, Runtime 64.523 s
++FID-FIA existence refinement: OSPA 1.671316, GOSPA 3.822105, Localization 1.432130, Card 0.055000, Runtime 187.648 s
+
+gospa_core seed 32 (31/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 59.728 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 167.090 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.420 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 180.565 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.5 0.2 0.1 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.513279, GOSPA 4.774374, Localization 1.885047, Card 0.721250, Runtime 59.728 s
+Cao-Zhao FID-FIA baseline: OSPA 1.792032, GOSPA 3.990749, Localization 1.568905, Card 0.131250, Runtime 167.090 s
++structure-aware decoupled KLA: OSPA 1.746697, GOSPA 3.809453, Localization 1.452005, Card 0.170000, Runtime 64.420 s
++FID-FIA existence refinement: OSPA 1.646013, GOSPA 3.846141, Localization 1.432492, Card 0.065000, Runtime 180.565 s
+
+gospa_core seed 33 (32/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 61.292 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 172.921 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 67.003 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 185.363 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.2 0 0.1 0.1 0.1 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.019727, GOSPA 4.290229, Localization 1.812822, Card 0.302500, Runtime 61.292 s
+Cao-Zhao FID-FIA baseline: OSPA 1.738279, GOSPA 3.892708, Localization 1.463929, Card 0.120000, Runtime 172.921 s
++structure-aware decoupled KLA: OSPA 1.679034, GOSPA 3.774920, Localization 1.408664, Card 0.165000, Runtime 67.003 s
++FID-FIA existence refinement: OSPA 1.648319, GOSPA 3.796563, Localization 1.381624, Card 0.061250, Runtime 185.363 s
+
+gospa_core seed 34 (33/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 61.041 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 165.053 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.582 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 180.776 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0.5 0.5 0 0.1]
+=====================================
+fixed weights: OSPA 2.490122, GOSPA 4.818739, Localization 2.173185, Card 0.962500, Runtime 61.041 s
+Cao-Zhao FID-FIA baseline: OSPA 1.847348, GOSPA 4.076976, Localization 1.861965, Card 0.106250, Runtime 165.053 s
++structure-aware decoupled KLA: OSPA 1.674970, GOSPA 3.849864, Localization 1.535775, Card 0.183750, Runtime 64.582 s
++FID-FIA existence refinement: OSPA 1.741679, GOSPA 3.968045, Localization 2.128409, Card 0.061250, Runtime 180.776 s
+
+gospa_core seed 35 (34/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 61.478 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 169.523 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 64.644 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 185.004 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0 0.1 0.1 0.5 0.2 0.5]
+=====================================
+fixed weights: OSPA 2.915586, GOSPA 5.269659, Localization 2.674676, Card 1.071250, Runtime 61.478 s
+Cao-Zhao FID-FIA baseline: OSPA 1.894216, GOSPA 4.158144, Localization 1.682247, Card 0.158750, Runtime 169.523 s
++structure-aware decoupled KLA: OSPA 1.864837, GOSPA 4.015372, Localization 1.559731, Card 0.185000, Runtime 64.644 s
++FID-FIA existence refinement: OSPA 1.781239, GOSPA 4.102797, Localization 1.542392, Card 0.088750, Runtime 185.004 s
+
+gospa_core seed 36 (35/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 62.815 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 150.486 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.323 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 146.092 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0 0.1 0.1 0.5 0.5]
+=====================================
+fixed weights: OSPA 2.381312, GOSPA 4.755408, Localization 2.282297, Card 0.561250, Runtime 62.815 s
+Cao-Zhao FID-FIA baseline: OSPA 1.748627, GOSPA 3.934772, Localization 1.554821, Card 0.093750, Runtime 150.486 s
++structure-aware decoupled KLA: OSPA 1.692204, GOSPA 3.769962, Localization 1.449569, Card 0.136250, Runtime 52.323 s
++FID-FIA existence refinement: OSPA 1.652536, GOSPA 3.823311, Localization 2.085584, Card 0.047500, Runtime 146.092 s
+
+gospa_core seed 37 (36/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.199 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 135.124 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.194 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 144.654 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0.1 0 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.794401, GOSPA 5.188878, Localization 3.053361, Card 0.971250, Runtime 48.199 s
+Cao-Zhao FID-FIA baseline: OSPA 1.834034, GOSPA 4.143366, Localization 1.652884, Card 0.112500, Runtime 135.124 s
++structure-aware decoupled KLA: OSPA 1.844239, GOSPA 4.012877, Localization 1.497974, Card 0.215000, Runtime 51.194 s
++FID-FIA existence refinement: OSPA 1.667394, GOSPA 3.945278, Localization 1.465123, Card 0.067500, Runtime 144.654 s
+
+gospa_core seed 38 (37/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.641 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 139.603 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.273 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 172.696 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.2 0 0.5 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.488304, GOSPA 4.828547, Localization 2.240250, Card 0.821250, Runtime 48.641 s
+Cao-Zhao FID-FIA baseline: OSPA 1.788970, GOSPA 3.989405, Localization 1.567237, Card 0.115000, Runtime 139.603 s
++structure-aware decoupled KLA: OSPA 1.697548, GOSPA 3.838763, Localization 1.538374, Card 0.148750, Runtime 52.273 s
++FID-FIA existence refinement: OSPA 1.708430, GOSPA 3.907726, Localization 1.923114, Card 0.098750, Runtime 172.696 s
+
+gospa_core seed 39 (38/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 65.320 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 169.417 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 65.773 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 181.967 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.1 0.5 0.1 0.1 0.2]
+=====================================
+fixed weights: OSPA 2.292857, GOSPA 4.517905, Localization 2.023920, Card 0.538750, Runtime 65.320 s
+Cao-Zhao FID-FIA baseline: OSPA 1.812445, GOSPA 4.062106, Localization 1.551533, Card 0.113750, Runtime 169.417 s
++structure-aware decoupled KLA: OSPA 1.826976, GOSPA 3.999196, Localization 1.463676, Card 0.183750, Runtime 65.773 s
++FID-FIA existence refinement: OSPA 1.699633, GOSPA 3.990289, Localization 1.498570, Card 0.061250, Runtime 181.967 s
+
+gospa_core seed 40 (39/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 60.925 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 171.521 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 68.689 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 186.091 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+fixed weights: OSPA 2.535165, GOSPA 4.827361, Localization 2.535969, Card 0.646250, Runtime 60.925 s
+Cao-Zhao FID-FIA baseline: OSPA 1.772170, GOSPA 3.942338, Localization 1.675977, Card 0.117500, Runtime 171.521 s
++structure-aware decoupled KLA: OSPA 1.796344, GOSPA 3.887012, Localization 1.662470, Card 0.206250, Runtime 68.689 s
++FID-FIA existence refinement: OSPA 1.640831, GOSPA 3.830007, Localization 1.570054, Card 0.085000, Runtime 186.091 s
+
+gospa_core seed 41 (40/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 60.575 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 161.601 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 63.633 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 179.890 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0 0.5 0.1 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.257174, GOSPA 4.545315, Localization 2.481788, Card 0.530000, Runtime 60.575 s
+Cao-Zhao FID-FIA baseline: OSPA 1.817595, GOSPA 4.079109, Localization 1.692176, Card 0.091250, Runtime 161.601 s
++structure-aware decoupled KLA: OSPA 1.780970, GOSPA 3.981348, Localization 1.560634, Card 0.201250, Runtime 63.633 s
++FID-FIA existence refinement: OSPA 1.696185, GOSPA 4.010495, Localization 1.717111, Card 0.050000, Runtime 179.890 s
+
+gospa_core seed 42 (41/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 61.292 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 171.682 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 66.273 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 156.951 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.1 0.1 0.1 0 0.5 0.5]
+=====================================
+fixed weights: OSPA 2.094739, GOSPA 4.341789, Localization 2.021235, Card 0.453750, Runtime 61.292 s
+Cao-Zhao FID-FIA baseline: OSPA 1.731595, GOSPA 3.842028, Localization 1.529723, Card 0.106250, Runtime 171.682 s
++structure-aware decoupled KLA: OSPA 1.593887, GOSPA 3.635314, Localization 1.271218, Card 0.158750, Runtime 66.273 s
++FID-FIA existence refinement: OSPA 1.576100, GOSPA 3.702809, Localization 1.581485, Card 0.055000, Runtime 156.951 s
+
+gospa_core seed 43 (42/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 50.337 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 134.230 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.001 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 145.353 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.2 0.1 0.1 0.1 0.1 0.5]
+=====================================
+fixed weights: OSPA 2.470491, GOSPA 4.838708, Localization 2.757701, Card 0.583750, Runtime 50.337 s
+Cao-Zhao FID-FIA baseline: OSPA 1.815590, GOSPA 4.063414, Localization 1.584592, Card 0.087500, Runtime 134.230 s
++structure-aware decoupled KLA: OSPA 1.717249, GOSPA 3.830126, Localization 1.437860, Card 0.095000, Runtime 51.001 s
++FID-FIA existence refinement: OSPA 1.703510, GOSPA 3.978458, Localization 1.660994, Card 0.058750, Runtime 145.353 s
+
+gospa_core seed 44 (43/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 47.829 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 137.735 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.339 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 142.054 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.550641, GOSPA 4.878641, Localization 2.146021, Card 0.801250, Runtime 47.829 s
+Cao-Zhao FID-FIA baseline: OSPA 1.884829, GOSPA 4.121569, Localization 1.593909, Card 0.137500, Runtime 137.735 s
++structure-aware decoupled KLA: OSPA 1.809049, GOSPA 3.926793, Localization 1.398760, Card 0.183750, Runtime 51.339 s
++FID-FIA existence refinement: OSPA 1.716981, GOSPA 3.960948, Localization 1.485193, Card 0.055000, Runtime 142.054 s
+
+gospa_core seed 45 (44/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.339 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 133.640 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.922 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 147.138 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.5 0.1 0.1 0.2 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.216546, GOSPA 4.492968, Localization 2.738044, Card 0.428750, Runtime 48.339 s
+Cao-Zhao FID-FIA baseline: OSPA 1.777799, GOSPA 3.917424, Localization 1.507427, Card 0.118750, Runtime 133.640 s
++structure-aware decoupled KLA: OSPA 1.710189, GOSPA 3.762215, Localization 1.388926, Card 0.165000, Runtime 51.922 s
++FID-FIA existence refinement: OSPA 1.619562, GOSPA 3.756335, Localization 1.400978, Card 0.047500, Runtime 147.138 s
+
+gospa_core seed 46 (45/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 47.666 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 129.714 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.319 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 141.267 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.5 0.1 0.1 0]
+=====================================
+fixed weights: OSPA 2.537339, GOSPA 4.851798, Localization 2.539290, Card 0.686250, Runtime 47.666 s
+Cao-Zhao FID-FIA baseline: OSPA 1.768407, GOSPA 3.996115, Localization 1.580512, Card 0.111250, Runtime 129.714 s
++structure-aware decoupled KLA: OSPA 1.745958, GOSPA 3.871686, Localization 1.425635, Card 0.173750, Runtime 50.319 s
++FID-FIA existence refinement: OSPA 1.669233, GOSPA 3.844037, Localization 1.489890, Card 0.072500, Runtime 141.267 s
+
+gospa_core seed 47 (46/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 49.647 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 139.451 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.311 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 149.721 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.1 0.5 0.1 0 0.2]
+=====================================
+fixed weights: OSPA 2.665038, GOSPA 4.899994, Localization 2.010381, Card 0.693750, Runtime 49.647 s
+Cao-Zhao FID-FIA baseline: OSPA 1.805441, GOSPA 3.996706, Localization 1.653108, Card 0.117500, Runtime 139.451 s
++structure-aware decoupled KLA: OSPA 1.871566, GOSPA 3.917837, Localization 1.802479, Card 0.161250, Runtime 52.311 s
++FID-FIA existence refinement: OSPA 1.632071, GOSPA 3.830264, Localization 1.488300, Card 0.040000, Runtime 149.721 s
+
+gospa_core seed 48 (47/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.782 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 130.646 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 50.792 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 141.551 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.1 0.5 0 0.1]
+=====================================
+fixed weights: OSPA 2.238065, GOSPA 4.563891, Localization 2.249780, Card 0.577500, Runtime 48.782 s
+Cao-Zhao FID-FIA baseline: OSPA 1.770124, GOSPA 3.988273, Localization 1.581392, Card 0.086250, Runtime 130.646 s
++structure-aware decoupled KLA: OSPA 1.751635, GOSPA 3.882326, Localization 1.357804, Card 0.170000, Runtime 50.792 s
++FID-FIA existence refinement: OSPA 1.625713, GOSPA 3.847658, Localization 1.472262, Card 0.032500, Runtime 141.551 s
+
+gospa_core seed 49 (48/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 48.071 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 136.759 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.294 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 154.615 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+fixed weights: OSPA 2.529967, GOSPA 4.789505, Localization 3.164643, Card 0.665000, Runtime 48.071 s
+Cao-Zhao FID-FIA baseline: OSPA 1.880506, GOSPA 4.158843, Localization 1.716774, Card 0.123750, Runtime 136.759 s
++structure-aware decoupled KLA: OSPA 1.917595, GOSPA 4.106187, Localization 1.648404, Card 0.238750, Runtime 51.294 s
++FID-FIA existence refinement: OSPA 1.734222, GOSPA 3.999048, Localization 1.492284, Card 0.092500, Runtime 154.615 s
+
+gospa_core seed 50 (49/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 47.234 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 132.482 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 51.241 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 148.102 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.5 0.1 0.2 0.1 0.1]
+=====================================
+fixed weights: OSPA 2.564502, GOSPA 4.934006, Localization 2.102492, Card 0.951250, Runtime 47.234 s
+Cao-Zhao FID-FIA baseline: OSPA 1.830986, GOSPA 4.032757, Localization 1.631762, Card 0.123750, Runtime 132.482 s
++structure-aware decoupled KLA: OSPA 1.726094, GOSPA 3.795407, Localization 1.431585, Card 0.183750, Runtime 51.241 s
++FID-FIA existence refinement: OSPA 1.741748, GOSPA 3.988399, Localization 1.524762, Card 0.066250, Runtime 148.102 s
+
+gospa_core seed 51 (50/50)
+Trial 1/1
+  Arm 1/4: fixed weights
+    Filter runtime: 49.571 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 134.344 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 52.262 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 153.643 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights -> Cao-Zhao FID-FIA baseline -> +structure-aware decoupled KLA -> +FID-FIA existence refinement
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0 0.1 0.2 0.1]
+=====================================
+fixed weights: OSPA 2.714437, GOSPA 5.116557, Localization 3.379717, Card 0.801250, Runtime 49.571 s
+Cao-Zhao FID-FIA baseline: OSPA 1.855060, GOSPA 4.197808, Localization 1.754974, Card 0.138750, Runtime 134.344 s
++structure-aware decoupled KLA: OSPA 1.913492, GOSPA 4.144936, Localization 1.626347, Card 0.232500, Runtime 52.262 s
++FID-FIA existence refinement: OSPA 1.721147, GOSPA 4.060317, Localization 1.594127, Card 0.051250, Runtime 153.643 s
+GOSPA_CORE_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/gospa_validation/gospa_core_n50_summary.mat
+
+Skipping completed seed 2 (1/50).
+Skipping completed seed 3 (2/50).
+Skipping completed seed 4 (3/50).
+Skipping completed seed 5 (4/50).
+Skipping completed seed 6 (5/50).
+Skipping completed seed 7 (6/50).
+Skipping completed seed 8 (7/50).
+Skipping completed seed 9 (8/50).
+Skipping completed seed 10 (9/50).
+Skipping completed seed 11 (10/50).
+Skipping completed seed 12 (11/50).
+Skipping completed seed 13 (12/50).
+Skipping completed seed 14 (13/50).
+Skipping completed seed 15 (14/50).
+Skipping completed seed 16 (15/50).
+Skipping completed seed 17 (16/50).
+Skipping completed seed 18 (17/50).
+Skipping completed seed 19 (18/50).
+Skipping completed seed 20 (19/50).
+Skipping completed seed 21 (20/50).
+Skipping completed seed 22 (21/50).
+Skipping completed seed 23 (22/50).
+Skipping completed seed 24 (23/50).
+Skipping completed seed 25 (24/50).
+Skipping completed seed 26 (25/50).
+Skipping completed seed 27 (26/50).
+Skipping completed seed 28 (27/50).
+Skipping completed seed 29 (28/50).
+Skipping completed seed 30 (29/50).
+Skipping completed seed 31 (30/50).
+Skipping completed seed 32 (31/50).
+Skipping completed seed 33 (32/50).
+Skipping completed seed 34 (33/50).
+Skipping completed seed 35 (34/50).
+Skipping completed seed 36 (35/50).
+Skipping completed seed 37 (36/50).
+Skipping completed seed 38 (37/50).
+Skipping completed seed 39 (38/50).
+Skipping completed seed 40 (39/50).
+Skipping completed seed 41 (40/50).
+Skipping completed seed 42 (41/50).
+Skipping completed seed 43 (42/50).
+Skipping completed seed 44 (43/50).
+Skipping completed seed 45 (44/50).
+Skipping completed seed 46 (45/50).
+Skipping completed seed 47 (46/50).
+Skipping completed seed 48 (47/50).
+Skipping completed seed 49 (48/50).
+Skipping completed seed 50 (49/50).
+Skipping completed seed 51 (50/50).
+GOSPA_CORE_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/gospa_validation/gospa_core_n50_summary.mat
+
+Skipping completed seed 2 (1/50).
+Skipping completed seed 3 (2/50).
+Skipping completed seed 4 (3/50).
+Skipping completed seed 5 (4/50).
+Skipping completed seed 6 (5/50).
+Skipping completed seed 7 (6/50).
+Skipping completed seed 8 (7/50).
+Skipping completed seed 9 (8/50).
+Skipping completed seed 10 (9/50).
+Skipping completed seed 11 (10/50).
+Skipping completed seed 12 (11/50).
+Skipping completed seed 13 (12/50).
+Skipping completed seed 14 (13/50).
+Skipping completed seed 15 (14/50).
+Skipping completed seed 16 (15/50).
+Skipping completed seed 17 (16/50).
+Skipping completed seed 18 (17/50).
+Skipping completed seed 19 (18/50).
+Skipping completed seed 20 (19/50).
+Skipping completed seed 21 (20/50).
+Skipping completed seed 22 (21/50).
+Skipping completed seed 23 (22/50).
+Skipping completed seed 24 (23/50).
+Skipping completed seed 25 (24/50).
+Skipping completed seed 26 (25/50).
+Skipping completed seed 27 (26/50).
+Skipping completed seed 28 (27/50).
+Skipping completed seed 29 (28/50).
+Skipping completed seed 30 (29/50).
+Skipping completed seed 31 (30/50).
+Skipping completed seed 32 (31/50).
+Skipping completed seed 33 (32/50).
+Skipping completed seed 34 (33/50).
+Skipping completed seed 35 (34/50).
+Skipping completed seed 36 (35/50).
+Skipping completed seed 37 (36/50).
+Skipping completed seed 38 (37/50).
+Skipping completed seed 39 (38/50).
+Skipping completed seed 40 (39/50).
+Skipping completed seed 41 (40/50).
+Skipping completed seed 42 (41/50).
+Skipping completed seed 43 (42/50).
+Skipping completed seed 44 (43/50).
+Skipping completed seed 45 (44/50).
+Skipping completed seed 46 (45/50).
+Skipping completed seed 47 (46/50).
+Skipping completed seed 48 (47/50).
+Skipping completed seed 49 (48/50).
+Skipping completed seed 50 (49/50).
+Skipping completed seed 51 (50/50).
+GOSPA_CORE_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/gospa_validation/gospa_core_n50_summary.mat
+

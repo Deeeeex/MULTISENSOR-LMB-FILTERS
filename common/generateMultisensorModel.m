@@ -370,6 +370,10 @@ model.ospaParameters.eC = 5; % Euclidean cut-off
 model.ospaParameters.eP = 2;
 model.ospaParameters.hC = 0.5; % Hellinger cut-off
 model.ospaParameters.hP = 2;
+%% GOSPA parameters (Euclidean finite-set disagreement)
+model.gospaParameters.c = model.ospaParameters.eC;
+model.gospaParameters.p = model.ospaParameters.eP;
+model.gospaParameters.alpha = 2;
 %% LMB approximate update model
 model.lmbParallelUpdateMode = lmbParallelUpdateMode;
 %% AA-LMB parameters

@@ -1,0 +1,656 @@
+
+gospa_pd_weighted seed 2 (1/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 61.013 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.1 0 0.5 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.390301, GOSPA 4.477938, Localization 1.842123, Card 0.856250, Runtime 61.013 s
+
+gospa_pd_weighted seed 3 (2/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.422 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.5 0.2 0.1 0.1 0 0.1]
+=====================================
+PD-weighted GA: OSPA 2.398230, GOSPA 4.586216, Localization 2.372404, Card 0.733750, Runtime 59.422 s
+
+gospa_pd_weighted seed 4 (3/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.990 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.2 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.241155, GOSPA 4.449075, Localization 1.772141, Card 0.708750, Runtime 60.990 s
+
+gospa_pd_weighted seed 5 (4/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.316 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.5 0 0.1 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.075510, GOSPA 4.234945, Localization 2.427941, Card 0.452500, Runtime 60.316 s
+
+gospa_pd_weighted seed 6 (5/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.696 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.5 0.2 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.446175, GOSPA 4.601346, Localization 2.081688, Card 1.105000, Runtime 58.696 s
+
+gospa_pd_weighted seed 7 (6/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 57.761 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.2 0.1 0.5 0.1 0.5 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.236962, GOSPA 4.420673, Localization 1.829525, Card 0.630000, Runtime 57.761 s
+
+gospa_pd_weighted seed 8 (7/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.412 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.5 0 0.1 0.1 0.5 0.2]
+=====================================
+PD-weighted GA: OSPA 2.043848, GOSPA 4.124212, Localization 1.716376, Card 0.463750, Runtime 59.412 s
+
+gospa_pd_weighted seed 9 (8/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.574 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.1 0.5 0.1 0.1 0]
+=====================================
+PD-weighted GA: OSPA 2.000498, GOSPA 4.096676, Localization 2.058397, Card 0.417500, Runtime 59.574 s
+
+gospa_pd_weighted seed 10 (9/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.719 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.2 0.1]
+=====================================
+PD-weighted GA: OSPA 2.388965, GOSPA 4.559188, Localization 2.058954, Card 0.766250, Runtime 58.719 s
+
+gospa_pd_weighted seed 11 (10/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.499 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.5 0.1 0.1 0.2]
+=====================================
+PD-weighted GA: OSPA 2.000776, GOSPA 4.096022, Localization 1.888090, Card 0.438750, Runtime 58.499 s
+
+gospa_pd_weighted seed 12 (11/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.543 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0 0.1 0.1 0.5 0.1 0.2]
+=====================================
+PD-weighted GA: OSPA 2.134934, GOSPA 4.397852, Localization 1.948271, Card 0.587500, Runtime 59.543 s
+
+gospa_pd_weighted seed 13 (12/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.838 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.5 0.1 0.1 0.2 0.5]
+=====================================
+PD-weighted GA: OSPA 1.998051, GOSPA 4.106284, Localization 1.625551, Card 0.453750, Runtime 60.838 s
+
+gospa_pd_weighted seed 14 (13/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 61.054 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.5 0 0.5 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.198798, GOSPA 4.392078, Localization 2.049692, Card 0.537500, Runtime 61.054 s
+
+gospa_pd_weighted seed 15 (14/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.487 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.2 0.5 0.1 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.020859, GOSPA 4.109301, Localization 1.665916, Card 0.396250, Runtime 58.487 s
+
+gospa_pd_weighted seed 16 (15/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.043 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.5 0.1 0.1 0.2 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 1.885429, GOSPA 3.980292, Localization 1.853179, Card 0.338750, Runtime 60.043 s
+
+gospa_pd_weighted seed 17 (16/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.655 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.2 0.5 0.1 0.1 0 0.1]
+=====================================
+PD-weighted GA: OSPA 2.193007, GOSPA 4.194122, Localization 1.782459, Card 0.540000, Runtime 59.655 s
+
+gospa_pd_weighted seed 18 (17/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.732 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.1 0.1 0.2 0.5 0.1 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.304562, GOSPA 4.442312, Localization 1.892512, Card 0.686250, Runtime 60.732 s
+
+gospa_pd_weighted seed 19 (18/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.283 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0 0.5 0.5 0.1 0.1 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.032608, GOSPA 4.205142, Localization 2.010096, Card 0.536250, Runtime 58.283 s
+
+gospa_pd_weighted seed 20 (19/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.494 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0 0.5 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.231632, GOSPA 4.337132, Localization 1.884299, Card 0.687500, Runtime 59.494 s
+
+gospa_pd_weighted seed 21 (20/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.618 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.1 0.5 0.1 0.2]
+=====================================
+PD-weighted GA: OSPA 2.261046, GOSPA 4.377805, Localization 2.156002, Card 0.597500, Runtime 60.618 s
+
+gospa_pd_weighted seed 22 (21/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.621 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0.2 0 0.5 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.066214, GOSPA 4.124122, Localization 1.780853, Card 0.495000, Runtime 60.621 s
+
+gospa_pd_weighted seed 23 (22/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.840 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.429467, GOSPA 4.504041, Localization 2.274308, Card 0.661250, Runtime 60.840 s
+
+gospa_pd_weighted seed 24 (23/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 62.347 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0 0.1 0.5 0.5 0.2]
+=====================================
+PD-weighted GA: OSPA 2.400164, GOSPA 4.592766, Localization 1.974802, Card 0.925000, Runtime 62.347 s
+
+gospa_pd_weighted seed 25 (24/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.213 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0.1 0.1 0 0.1]
+=====================================
+PD-weighted GA: OSPA 2.215882, GOSPA 4.387821, Localization 2.045332, Card 0.533750, Runtime 59.213 s
+
+gospa_pd_weighted seed 26 (25/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.832 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0.2 0.1 0.1 0]
+=====================================
+PD-weighted GA: OSPA 2.004920, GOSPA 4.089422, Localization 1.843632, Card 0.438750, Runtime 60.832 s
+
+gospa_pd_weighted seed 27 (26/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.962 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.1 0.1 0 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 2.102619, GOSPA 4.173034, Localization 1.885960, Card 0.517500, Runtime 60.962 s
+
+gospa_pd_weighted seed 28 (27/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.413 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0 0.1 0.2 0.1 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 1.870453, GOSPA 3.920355, Localization 1.656489, Card 0.316250, Runtime 59.413 s
+
+gospa_pd_weighted seed 29 (28/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 57.342 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.1 0 0.2 0.5 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.405282, GOSPA 4.453304, Localization 1.912411, Card 0.911250, Runtime 57.342 s
+
+gospa_pd_weighted seed 30 (29/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.055 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.1 0.2 0.5 0.5 0]
+=====================================
+PD-weighted GA: OSPA 2.248775, GOSPA 4.344560, Localization 1.896394, Card 0.805000, Runtime 60.055 s
+
+gospa_pd_weighted seed 31 (30/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.494 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.1 0.1 0.5 0.2 0.5]
+=====================================
+PD-weighted GA: OSPA 2.183131, GOSPA 4.254424, Localization 1.927515, Card 0.615000, Runtime 59.494 s
+
+gospa_pd_weighted seed 32 (31/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.245 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.1 0.5 0.2 0.1 0.5 0.1]
+=====================================
+PD-weighted GA: OSPA 2.215388, GOSPA 4.252276, Localization 1.807747, Card 0.515000, Runtime 59.245 s
+
+gospa_pd_weighted seed 33 (32/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.683 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.2 0 0.1 0.1 0.1 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 1.808896, GOSPA 3.914106, Localization 1.551333, Card 0.265000, Runtime 59.683 s
+
+gospa_pd_weighted seed 34 (33/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.706 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0.1 0.5 0.5 0 0.1]
+=====================================
+PD-weighted GA: OSPA 2.206139, GOSPA 4.368309, Localization 2.316573, Card 0.786250, Runtime 58.706 s
+
+gospa_pd_weighted seed 35 (34/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.162 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0 0.1 0.1 0.5 0.2 0.5]
+=====================================
+PD-weighted GA: OSPA 2.524605, GOSPA 4.683223, Localization 2.056169, Card 0.880000, Runtime 60.162 s
+
+gospa_pd_weighted seed 36 (35/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.885 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.1 0 0.1 0.1 0.5 0.5]
+=====================================
+PD-weighted GA: OSPA 2.105833, GOSPA 4.316288, Localization 1.994328, Card 0.505000, Runtime 60.885 s
+
+gospa_pd_weighted seed 37 (36/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.143 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0.5 0.1 0 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.393963, GOSPA 4.570366, Localization 2.665813, Card 0.671250, Runtime 58.143 s
+
+gospa_pd_weighted seed 38 (37/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.818 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.1 0.2 0 0.5 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 2.141029, GOSPA 4.312894, Localization 2.030257, Card 0.586250, Runtime 59.818 s
+
+gospa_pd_weighted seed 39 (38/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.972 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.1 0.5 0.1 0.1 0.2]
+=====================================
+PD-weighted GA: OSPA 2.178682, GOSPA 4.299761, Localization 1.986546, Card 0.518750, Runtime 59.972 s
+
+gospa_pd_weighted seed 40 (39/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.271 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+PD-weighted GA: OSPA 2.091245, GOSPA 4.143467, Localization 1.768588, Card 0.490000, Runtime 59.271 s
+
+gospa_pd_weighted seed 41 (40/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.894 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.5 0 0.5 0.1 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.094461, GOSPA 4.293062, Localization 2.234327, Card 0.536250, Runtime 58.894 s
+
+gospa_pd_weighted seed 42 (41/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.732 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.2 0.1 0.1 0.1 0 0.5 0.5]
+=====================================
+PD-weighted GA: OSPA 1.940991, GOSPA 3.990030, Localization 1.879144, Card 0.393750, Runtime 59.732 s
+
+gospa_pd_weighted seed 43 (42/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 61.552 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0 0.2 0.1 0.1 0.1 0.1 0.5]
+=====================================
+PD-weighted GA: OSPA 2.259994, GOSPA 4.390468, Localization 2.142787, Card 0.570000, Runtime 61.552 s
+
+gospa_pd_weighted seed 44 (43/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.499 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.2 0.1 0.5 0.5 0 0.1 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.173870, GOSPA 4.309364, Localization 2.079515, Card 0.505000, Runtime 58.499 s
+
+gospa_pd_weighted seed 45 (44/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.952 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.5 0.1 0.1 0.2 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.055270, GOSPA 4.169795, Localization 2.353187, Card 0.437500, Runtime 59.952 s
+
+gospa_pd_weighted seed 46 (45/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 57.895 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.5 0.1 0.1 0]
+=====================================
+PD-weighted GA: OSPA 2.097076, GOSPA 4.237879, Localization 2.150126, Card 0.498750, Runtime 57.895 s
+
+gospa_pd_weighted seed 47 (46/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 60.386 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.1 0.5 0.1 0 0.2]
+=====================================
+PD-weighted GA: OSPA 2.173818, GOSPA 4.190190, Localization 1.902870, Card 0.442500, Runtime 60.386 s
+
+gospa_pd_weighted seed 48 (47/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.892 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.5 0.1 0.1 0.2 0.1 0.5 0 0.1]
+=====================================
+PD-weighted GA: OSPA 2.167693, GOSPA 4.374377, Localization 1.957190, Card 0.627500, Runtime 59.892 s
+
+gospa_pd_weighted seed 49 (48/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.414 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0 0.5 0.1 0.1 0.5 0.1 0.2 0.1]
+=====================================
+PD-weighted GA: OSPA 2.259511, GOSPA 4.428880, Localization 2.020426, Card 0.676250, Runtime 59.414 s
+
+gospa_pd_weighted seed 50 (49/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 58.878 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0 0.5 0.5 0.1 0.2 0.1 0.1]
+=====================================
+PD-weighted GA: OSPA 2.176858, GOSPA 4.312083, Localization 2.159523, Card 0.583750, Runtime 58.878 s
+
+gospa_pd_weighted seed 51 (50/50)
+Trial 1/1
+  Arm 1/1: PD-weighted GA
+    Filter runtime: 59.914 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: PD-weighted GA
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.5 0.5 0.1 0 0.1 0.2 0.1]
+=====================================
+PD-weighted GA: OSPA 2.391279, GOSPA 4.708402, Localization 2.561643, Card 0.760000, Runtime 59.914 s
+PD_WEIGHTED_GOSPA_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/gospa_validation/gospa_pd_weighted_n50_summary.mat
+
+Skipping completed seed 2 (1/50).
+Skipping completed seed 3 (2/50).
+Skipping completed seed 4 (3/50).
+Skipping completed seed 5 (4/50).
+Skipping completed seed 6 (5/50).
+Skipping completed seed 7 (6/50).
+Skipping completed seed 8 (7/50).
+Skipping completed seed 9 (8/50).
+Skipping completed seed 10 (9/50).
+Skipping completed seed 11 (10/50).
+Skipping completed seed 12 (11/50).
+Skipping completed seed 13 (12/50).
+Skipping completed seed 14 (13/50).
+Skipping completed seed 15 (14/50).
+Skipping completed seed 16 (15/50).
+Skipping completed seed 17 (16/50).
+Skipping completed seed 18 (17/50).
+Skipping completed seed 19 (18/50).
+Skipping completed seed 20 (19/50).
+Skipping completed seed 21 (20/50).
+Skipping completed seed 22 (21/50).
+Skipping completed seed 23 (22/50).
+Skipping completed seed 24 (23/50).
+Skipping completed seed 25 (24/50).
+Skipping completed seed 26 (25/50).
+Skipping completed seed 27 (26/50).
+Skipping completed seed 28 (27/50).
+Skipping completed seed 29 (28/50).
+Skipping completed seed 30 (29/50).
+Skipping completed seed 31 (30/50).
+Skipping completed seed 32 (31/50).
+Skipping completed seed 33 (32/50).
+Skipping completed seed 34 (33/50).
+Skipping completed seed 35 (34/50).
+Skipping completed seed 36 (35/50).
+Skipping completed seed 37 (36/50).
+Skipping completed seed 38 (37/50).
+Skipping completed seed 39 (38/50).
+Skipping completed seed 40 (39/50).
+Skipping completed seed 41 (40/50).
+Skipping completed seed 42 (41/50).
+Skipping completed seed 43 (42/50).
+Skipping completed seed 44 (43/50).
+Skipping completed seed 45 (44/50).
+Skipping completed seed 46 (45/50).
+Skipping completed seed 47 (46/50).
+Skipping completed seed 48 (47/50).
+Skipping completed seed 49 (48/50).
+Skipping completed seed 50 (49/50).
+Skipping completed seed 51 (50/50).
+PD_WEIGHTED_GOSPA_N50_COMPLETE
+Summary: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/gospa_validation/gospa_pd_weighted_n50_summary.mat
+

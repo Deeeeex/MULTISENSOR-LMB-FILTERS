@@ -288,37 +288,55 @@ def save_figure6(output_path: str | Path, figure6: dict) -> Path:
 
 def save_figure4(output_path: str | Path, series: dict) -> Path:
     output_path = Path(output_path)
-    fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.7), sharex=True, constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(11.5, 4.2), sharex=True)
+    fig.subplots_adjust(left=0.065, right=0.99, bottom=0.24, top=0.88, wspace=0.24)
     configs = [
         ("OSPA consensus error", "ospa_fixed", "ospa_balanced", "ospa_cardinality"),
         ("Matched localization disagreement", "rmse_fixed", "rmse_balanced", "rmse_cardinality"),
         ("Cardinality dispersion", "card_fixed", "card_balanced", "card_cardinality"),
     ]
     time = np.asarray(series["time"])
+    marker_step = max(1, len(time) // 10)
+    line_specs = [
+        ("Fixed Metropolis", FIXED_COLOR, "-", "o"),
+        ("Balanced mode", ADAPTIVE_COLOR, "--", "s"),
+        ("Cardinality-critical mode", CARDINALITY_COLOR, "-.", "^"),
+    ]
     for ax, (title, fixed_key, balanced_key, cardinality_key) in zip(axes, configs):
-        ax.plot(time, series[fixed_key], color=FIXED_COLOR, linewidth=2.0, label="Fixed Metropolis")
-        ax.plot(time, series[balanced_key], color=ADAPTIVE_COLOR, linewidth=2.1, label="Balanced mode")
-        ax.plot(
-            time,
-            series[cardinality_key],
-            color=CARDINALITY_COLOR,
-            linewidth=2.1,
-            label="Cardinality-critical mode",
-        )
+        for key, (label, color, linestyle, marker) in zip(
+            (fixed_key, balanced_key, cardinality_key), line_specs
+        ):
+            ax.plot(
+                time,
+                series[key],
+                color=color,
+                linewidth=1.8,
+                linestyle=linestyle,
+                marker=marker,
+                markevery=(marker_step - 1, marker_step),
+                markersize=3.2,
+                markerfacecolor="white",
+                markeredgewidth=0.8,
+                label=label,
+            )
         ax.set_title(title)
         ax.grid(axis="y", alpha=0.25, linestyle="--", linewidth=0.7)
         ax.set_axisbelow(True)
         ax.set_xlabel("Time Step")
 
     axes[0].set_ylabel("Metric Value")
-    axes[0].legend(
-        frameon=True,
-        loc="lower right",
-        facecolor="white",
-        edgecolor="#D7DEE7",
-        framealpha=0.92,
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(
+        handles,
+        labels,
+        frameon=False,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 0.025),
+        ncol=3,
+        handlelength=2.6,
     )
     fig.savefig(output_path, format="pdf", bbox_inches="tight")
+    fig.savefig(output_path.with_suffix(".png"), format="png", dpi=300, bbox_inches="tight")
     plt.close(fig)
     return output_path
 

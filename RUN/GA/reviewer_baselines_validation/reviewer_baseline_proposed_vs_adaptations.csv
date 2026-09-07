@@ -1,0 +1,17 @@
+proposed_arm,adaptation_arm,metric,mean_paired_delta,improved_trials,non_tied_trials,exact_two_sided_sign_p
+Balanced mode,Zheng-style subdensity GA-LMB adaptation,OSPA,-1.798148424,50,50,1.7763568394e-15
+Balanced mode,Zheng-style subdensity GA-LMB adaptation,GOSPA,-1.098865226,50,50,1.7763568394e-15
+Balanced mode,Zheng-style subdensity GA-LMB adaptation,Localization,-11.582179500,50,50,1.7763568394e-15
+Balanced mode,Zheng-style subdensity GA-LMB adaptation,Cardinality,-0.781075000,50,50,1.7763568394e-15
+Balanced mode,Gao-style local-trust GA-LMB adaptation,OSPA,-1.552533621,50,50,1.7763568394e-15
+Balanced mode,Gao-style local-trust GA-LMB adaptation,GOSPA,-2.293560380,50,50,1.7763568394e-15
+Balanced mode,Gao-style local-trust GA-LMB adaptation,Localization,-2.525721902,50,50,1.7763568394e-15
+Balanced mode,Gao-style local-trust GA-LMB adaptation,Cardinality,-1.249900000,50,50,1.7763568394e-15
+Cardinality-critical mode,Zheng-style subdensity GA-LMB adaptation,OSPA,-1.899842147,50,50,1.7763568394e-15
+Cardinality-critical mode,Zheng-style subdensity GA-LMB adaptation,GOSPA,-1.103652494,49,50,9.05941988094e-14
+Cardinality-critical mode,Zheng-style subdensity GA-LMB adaptation,Localization,-11.558262853,50,50,1.7763568394e-15
+Cardinality-critical mode,Zheng-style subdensity GA-LMB adaptation,Cardinality,-0.905550000,50,50,1.7763568394e-15
+Cardinality-critical mode,Gao-style local-trust GA-LMB adaptation,OSPA,-1.654227345,50,50,1.7763568394e-15
+Cardinality-critical mode,Gao-style local-trust GA-LMB adaptation,GOSPA,-2.298347647,50,50,1.7763568394e-15
+Cardinality-critical mode,Gao-style local-trust GA-LMB adaptation,Localization,-2.501805255,50,50,1.7763568394e-15
+Cardinality-critical mode,Gao-style local-trust GA-LMB adaptation,Cardinality,-1.374375000,50,50,1.7763568394e-15

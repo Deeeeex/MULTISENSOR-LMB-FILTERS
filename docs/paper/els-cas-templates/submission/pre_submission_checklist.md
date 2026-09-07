@@ -98,6 +98,7 @@ Include:
 
 - [x] `manuscript.tex`
 - [x] `sections/*.tex`
+- [x] `sections/generated/*.tex` validated table-row fragments
 - [x] `paper-refs.bib`
 - [x] `cas-sc.cls`
 - [x] `cas-common.sty`

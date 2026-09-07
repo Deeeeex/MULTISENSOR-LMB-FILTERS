@@ -1,7 +1,7 @@
 \section{Theoretical Interpretation of Adaptive Branch-Decoupled Fusion}
 \label{app:theory}
 
-The proof chain behind the adaptive branch-decoupled rule is scoped to the same label alignment and moment-compatible Gaussian projection used by the implemented merger, together with standard geometric-average KLA and LMB background \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. Under these assumptions, it gives a local interpretation of the implemented update; unconstrained LMB fusion remains outside this appendix scope.
+This appendix interprets the adaptive branch-decoupled rule under the assumptions used by the implementation. Labels are aligned before fusion, and each Gaussian mixture is replaced by its moment-compatible Gaussian projection. The remaining steps use the standard geometric-average KLA and LMB constructions \cite{Battistelli2014KLA,Hlinka2014ICI,Uney2013EMDPHD,Bandyopadhyay2018LogOP,Vo2014LRFS,Reuter2014LMB,Vo2019MSGLMB}. The results below therefore explain the implemented local update; they do not characterize unconstrained LMB fusion.
 
 \subsection{Entropy-Regularized Interpretation of the Weight Backbone}
 
@@ -15,7 +15,7 @@ q_{\mathrm{exist},k}^{(j)},
 \qquad
 j \in \mathcal{A}_{k,s},
 \end{equation}
-where the three terms denote covariance quality, realized link quality, and existence confidence. Define $u_{0,j}=\log s_{0,j}$ and
+where the factors denote covariance quality, realized link quality, and existence confidence. The optimization below applies to positive scores in the simplex interior. A zero factor is interpreted as a boundary limit. If all active scores vanish, the implementation uses uniform weights over active neighbors. Define the additive utility $u_{0,j}=\log s_{0,j}$. The feasible weight set is
 \begin{equation}
 \Delta_{k,s}
 =
@@ -46,7 +46,7 @@ w_j^\star
 =
 \frac{s_{0,j}^{1/\tau}}{\sum_u s_{0,u}^{1/\tau}}.
 \end{equation}
-Thus $\tau=1$ recovers the implemented normalized product rule. The multiplicative backbone is an entropy-regularized allocation in log-utility space.
+Setting $\tau=1$ recovers the implemented normalized product rule. Multiplication combines the reliability factors, and the logarithm makes their utilities additive. The entropy term prevents a degenerate allocation within the simplex interior.
 
 \paragraph{Covariance score in the isotropic limit.}
 If the local Gaussian components satisfy $T_{k,i}^{(j)}=\sigma_j^2I_d$, then the implemented covariance score
@@ -203,15 +203,17 @@ Thus existence confidence is a bounded proxy for the Bernoulli decisiveness appe
 
 The temporal stabilization step computes
 \begin{equation}
-w_k^{\mathrm{ema}} = \alpha w_{k-1} + (1-\alpha)\hat w_k.
+w_k^{\mathrm{ema}} = \alpha_{\mathrm{EMA}} w_{k-1}
++ (1-\alpha_{\mathrm{EMA}})\hat w_k.
 \end{equation}
 
 \paragraph{Proposition C8.}
-For any $\alpha \in [0,1]$, $w_k^{\mathrm{ema}}$ is the minimizer of
+For any $\alpha_{\mathrm{EMA}} \in [0,1]$, $w_k^{\mathrm{ema}}$ is the minimizer of
 \begin{equation}
 \min_{w}
 \left\{
-\alpha \|w-w_{k-1}\|_2^2 + (1-\alpha)\|w-\hat w_k\|_2^2
+\alpha_{\mathrm{EMA}} \|w-w_{k-1}\|_2^2
++ (1-\alpha_{\mathrm{EMA}})\|w-\hat w_k\|_2^2
 \right\}.
 \end{equation}
 The EMA step is therefore a quadratic compromise between the previous weights and the instantaneous weights. The subsequent minimum-weight enforcement is a pragmatic feasibility projection outside this quadratic interpretation.

@@ -1,0 +1,13 @@
+started_at=2026-08-13 23:17:08
+completed_at=2026-08-13 23:17:09
+summary=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/reviewer_baselines_validation/reviewer_baselines_n50_summary.mat
+trial_directory=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/reviewer_baselines_validation/reviewer_baselines_trials
+trials=50
+seeds=[2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51]
+gospa_c=5
+gospa_p=2
+gospa_alpha=2
+gospa_ground_space=complete_extracted_kinematic_state_vector
+arms=Zheng-style subdensity GA-LMB adaptation | Gao-style local-trust GA-LMB adaptation
+implementations=explicit_adaptations_not_exact_source_reproductions
+reference_rows=Fixed and proposed modes from matched GOSPA/core run

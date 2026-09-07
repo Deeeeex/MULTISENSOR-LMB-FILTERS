@@ -7,7 +7,7 @@ Use these files for the required upload slots:
 - Cover letter: `cover_letter.txt`
 - Highlights: `highlights.txt`
 
-`manuscript.pdf` is generated from `../../manuscript.tex`. `manuscript_source.zip` contains the complete minimal source tree and has been verified by compiling it after extraction in a clean temporary directory. `cover_letter.txt` and `highlights.txt` are editable plain-text files.
+`manuscript.pdf` is generated from `../../manuscript.tex`. `manuscript_source.zip` contains the complete minimal source tree, including the validated row fragments under `sections/generated/`, and has been verified by compiling it after extraction in a clean temporary directory. `cover_letter.txt` and `highlights.txt` are editable plain-text files.
 
 Declaration handling:
 

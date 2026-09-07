@@ -5,6 +5,7 @@ Local manuscript entry points for this repository:
 - main source: `manuscript.tex`
 - bibliography: `paper-refs.bib`
 - section files: `sections/*.tex`
+- validated table-row fragments: `sections/generated/*.tex`
 - working derivation notes: `notes/*.tex`
 - adopted manuscript figures: `figs/Figure_1.pdf`, `figs/paper-figure2.pdf`, `figs/paper-figure3.pdf`, `figs/paper-figure-scenario.pdf`, `figs/paper-figure4.pdf`, and `figs/paper-figure7.pdf`
 - submission support files: `submission/highlights.txt`, `submission/cover_letter_information_fusion.md`, `submission/pre_submission_checklist.md`, declaration drafts under `submission/declarations/`, and the upload-ready split files under `submission/upload_files/`

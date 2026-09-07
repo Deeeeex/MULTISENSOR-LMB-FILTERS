@@ -1,0 +1,15 @@
+INVALID_POSITION_ONLY_GOSPA=1
+DO_NOT_USE_IN_PAPER=1
+Trial 1/1
+  Arm 1/1: fixed weights
+    Filter runtime: 94.490 s
+=====================================
+GA Tiered Link Ablation (N=1)
+Order: fixed weights
+Tier levels=[0 0.1 0.2 0.5], counts=[1 4 1 2]
+pDropBySensor=[0.1 0.1 0.2 0.1 0 0.5 0.5 0.1]
+=====================================
+fixed weights: OSPA 2.605320, GOSPA 4.758364, RMSE 2.258061, Card 0.932500, Runtime 94.490 s
+Report written: /Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/GA_TIERED_LINK_ABLATION_N1_SEED1_20260813_105316.md
+GOSPA_SMOKE_REPORT=/Users/dex/Desktop/Code/MULTISENSOR-LMB-FILTERS-inffus/RUN/GA/GA_TIERED_LINK_ABLATION_N1_SEED1_20260813_105316.md
+GOSPA_SMOKE_VALUE=4.758363786

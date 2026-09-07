@@ -188,6 +188,30 @@ for t = 1:simulationLength
         elseif isfield(model, 'aaTargetWiseWeights')
             model = rmfield(model, 'aaTargetWiseWeights');
         end
+        % Some reviewer-requested comparison methods assign different
+        % target-wise coefficients to the spatial and Bernoulli-existence
+        % subdensities.  Keep these fields separate; the GA merge consumes
+        % them before falling back to the legacy shared target-wise matrix.
+        if isfield(debug, 'gaSpatialTargetWiseWeights')
+            model.gaSpatialTargetWiseWeights = debug.gaSpatialTargetWiseWeights;
+        elseif isfield(model, 'gaSpatialTargetWiseWeights')
+            model = rmfield(model, 'gaSpatialTargetWiseWeights');
+        end
+        if isfield(debug, 'gaExistenceTargetWiseWeights')
+            model.gaExistenceTargetWiseWeights = debug.gaExistenceTargetWiseWeights;
+        elseif isfield(model, 'gaExistenceTargetWiseWeights')
+            model = rmfield(model, 'gaExistenceTargetWiseWeights');
+        end
+        if isfield(debug, 'aaSpatialTargetWiseWeights')
+            model.aaSpatialTargetWiseWeights = debug.aaSpatialTargetWiseWeights;
+        elseif isfield(model, 'aaSpatialTargetWiseWeights')
+            model = rmfield(model, 'aaSpatialTargetWiseWeights');
+        end
+        if isfield(debug, 'aaExistenceTargetWiseWeights')
+            model.aaExistenceTargetWiseWeights = debug.aaExistenceTargetWiseWeights;
+        elseif isfield(model, 'aaExistenceTargetWiseWeights')
+            model = rmfield(model, 'aaExistenceTargetWiseWeights');
+        end
         % 更新上一时刻状态，供下一时刻 EMA 使用。scalar、spatial、existence
         % 分开记录，是因为 decoupled KLA 两条分支可以有不同平滑系数和下界。
         prevWeights.ga = gaWeights;

@@ -135,3 +135,41 @@ def test_render_all_figures_creates_figure3_pdf(tmp_path):
     assert figure3.exists()
     assert outputs["figure3"] == figure3
     assert figure3.stat().st_size > 5_000
+
+
+def test_comm_level_fixed_balanced_data_matches_main_level_two():
+    from docs.paper.figures.plot_comm_level_method_compare import load_rows
+
+    csv_path = Path("docs/paper/figures/comm_level_fixed_balanced_n50.csv")
+    rows = load_rows(csv_path)
+    level_two = {
+        (str(row["metric"]), str(row["method"])): round(float(row["mean"]), 3)
+        for row in rows
+        if int(row["level"]) == 2
+    }
+    assert level_two == {
+        ("OSPA consensus error", "Fixed Metropolis"): 2.469,
+        ("OSPA consensus error", "Balanced mode"): 1.779,
+        ("Matched localization disagreement", "Fixed Metropolis"): 2.326,
+        ("Matched localization disagreement", "Balanced mode"): 1.522,
+        ("Cardinality dispersion", "Fixed Metropolis"): 0.716,
+        ("Cardinality dispersion", "Balanced mode"): 0.188,
+    }
+
+    manuscript_results = Path(
+        "docs/paper/els-cas-templates/sections/06_results.tex"
+    ).read_text()
+    assert (
+        "2 & tiered link loss & $2.469 / 1.779$ & $2.326 / 1.522$ "
+        "& $0.716 / 0.188$"
+    ) in manuscript_results
+
+
+def test_comm_level_two_method_renderer_creates_pdf_and_png(tmp_path):
+    from docs.paper.figures.plot_comm_level_method_compare import load_rows, save_plot
+
+    rows = load_rows(Path("docs/paper/figures/comm_level_fixed_balanced_n50.csv"))
+    outputs = save_plot(rows, tmp_path / "comm_level_fixed_balanced_n50")
+
+    assert {path.suffix for path in outputs} == {".pdf", ".png"}
+    assert all(path.exists() and path.stat().st_size > 5_000 for path in outputs)

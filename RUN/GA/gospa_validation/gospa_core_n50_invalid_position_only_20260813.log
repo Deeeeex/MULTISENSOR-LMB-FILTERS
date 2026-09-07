@@ -1,0 +1,29 @@
+Trial 1/50
+  Arm 1/4: fixed weights
+    Filter runtime: 96.088 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 263.530 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 102.658 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 291.177 s
+Trial 2/50
+  Arm 1/4: fixed weights
+    Filter runtime: 111.845 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 263.336 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 101.411 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 282.296 s
+Trial 3/50
+  Arm 1/4: fixed weights
+    Filter runtime: 102.928 s
+  Arm 2/4: Cao-Zhao FID-FIA baseline
+    Filter runtime: 265.437 s
+  Arm 3/4: +structure-aware decoupled KLA
+    Filter runtime: 100.197 s
+  Arm 4/4: +FID-FIA existence refinement
+    Filter runtime: 268.770 s
+Trial 4/50
+  Arm 1/4: fixed weights

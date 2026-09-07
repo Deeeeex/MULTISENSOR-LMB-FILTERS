@@ -1,11 +1,11 @@
 \section{Communication-Aware Adaptive KLA Fusion}
 \label{sec:method}
 
-This section describes the adaptive fusion rule used in the distributed GA-LMB filter. The starting point is the conservative geometric-average realization of Kullback-Leibler averaging for neighboring LMB posteriors under unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The method concentrates on online fusion-weight allocation inside this labeled-RFS filter family, using bounded reliability cues that the GA-LMB merger consumes at each node. A variational and information-geometric interpretation of the branch-decoupled update is given in Appendix~\ref{app:theory}.
+This section describes the adaptive fusion rule used by the distributed GA-LMB filter. The starting point is conservative geometric-average Kullback--Leibler averaging for neighboring posteriors with unknown cross-correlations \cite{Battistelli2014KLA,Hlinka2014ICI}. The method allocates online fusion weights from bounded reliability cues. Each node then passes these weights to its GA-LMB merger. Appendix~\ref{app:theory} gives variational and information-geometric interpretations of the separated branches.
 
 \subsection{Baseline GA-LMB fusion}
 
-At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood and let $\pi_k^{(j)}$ be the measurement-updated LMB posterior density produced from the delivered measurement stream associated with neighbor index $j \in \mathcal{N}_s$, as described in Section~\ref{sec:problem-formulation}. The conservative fusion target is the weighted geometric average in \eqref{eq:ga-kla-objective}. The remaining task is to specify how the LMB parameter sets are moment-projected and how the spatial and existence weights are consumed by the merger.
+At node $s$, let $\mathcal{N}_s$ denote the local communication neighborhood. Let $\pi_k^{(j)}$ be the measurement-updated LMB posterior density formed from the delivered stream associated with neighbor $j \in \mathcal{N}_s$, as described in Section~\ref{sec:problem-formulation}. The conservative fusion target is the weighted geometric average in \eqref{eq:ga-kla-objective}. The remaining task is to specify how the LMB parameter sets are moment-projected and how the spatial and existence weights are consumed by the merger.
 
 After moment projection, the Gaussian approximation of the $i$th Bernoulli spatial density at node $j$ is
 \begin{equation}
@@ -35,7 +35,7 @@ where $\eta_{k,i}^{(s)}$ is the Gaussian normalization term induced by the fused
 
 \subsection{Adaptive reliability factors}
 
-The adaptive layer is organized as a reliability-allocation design. It first forms a shared active-neighbor backbone that captures whether a neighbor is informative enough to participate in fusion, and then the next subsection routes this backbone into branch-specific spatial and existence weights.
+The adaptive layer is organized as a reliability-allocation design. It first forms a shared active-neighbor backbone that identifies informative fusion inputs. The next subsection routes this backbone into branch-specific spatial and existence weights.
 
 \paragraph{Shared backbone.}
 For node $s$ and neighbor $j \in \mathcal{N}_s$, define the raw score
@@ -102,7 +102,7 @@ where $\lambda_{\min} \in (0,1]$ and $p_e > 0$ are tunable parameters.
 Figure~\ref{fig:existence-confidence} visualizes this bounded Bernoulli-level mapping and representative node-level aggregation effects.
 
 \noindent\textbf{Remark 2 (existence confidence).}
-The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component near $r=0.5$ and high confidence to decisive absence or presence. Weighting this certainty by $r_{k,i}^{(j)}$ makes the node-level score emphasize components that are likely to exist. The lower bound $\lambda_{\min}$ is included because an uncertain existence profile should weaken the existence branch, but it should not by itself erase a neighbor that may still contain useful spatial information.
+The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component near $r=0.5$ and high confidence to decisive absence or presence. Weighting this certainty by $r_{k,i}^{(j)}$ makes the node-level score emphasize components that are likely to exist. The lower bound $\lambda_{\min}$ weakens the influence of an uncertain existence profile without erasing the neighbor. Its spatial information may still be useful.
 
 \begin{figure}[!t]
   \centering
@@ -120,7 +120,7 @@ The mapping $|2r-1|$ assigns low confidence to an undecided Bernoulli component 
 
 \subsection{Branch-decoupled allocation and FID-FIA refinement}
 
-The proposed method allows spatial fusion and existence fusion to use different adaptive scores. This separation is structurally motivated by the Bernoulli/LMB form itself: existence and spatial terms enter the fused posterior through different update blocks, with the formal variational interpretation deferred to Appendix~\ref{app:theory}. The method therefore constructs branch-specific dedicated scores:
+The proposed method allows spatial fusion and existence fusion to use different adaptive scores. This separation follows the Bernoulli/LMB structure because existence and spatial terms enter the fused posterior through different update blocks. Appendix~\ref{app:theory} gives the formal variational interpretation. The method therefore constructs branch-specific dedicated scores:
 \begin{equation}
 \label{eq:method-spatial-dedicated-score}
 \tilde{\omega}_{k,s,\mathrm{sp}}^{(j)} =
@@ -153,7 +153,7 @@ The powers $\alpha_x,\beta_x,\beta_r,\alpha_r \ge 0$ tune the influence of the b
 \left(\tilde{\omega}_{k,s,\mathrm{ex}}^{(j)}\right)^{\eta_r}.
 \end{equation}
 Here $\eta_x,\eta_r\in[0,1]$ are interpolation strengths: zero keeps the shared backbone, and one uses the dedicated branch score.
-This decoupling links a shared reliability backbone to two algebraically different fusion blocks: spatial consensus and existence consensus respond differently to weight perturbations. It also determines how Fisher-information-based cues are used in this paper. The information-geometric construction of Cao and Zhao is a natural scalar indicator of local target-separability and posterior informativeness, and in our experiments it is especially effective for cardinality and existence decisions \cite{CaoZhao2025InfoGeometryFusion}. Related multi-rate average-fusion work also supports Fisher information as a principled local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. Applying the same Fisher-type scalar weight to the whole fused posterior can trade away spatial RMSE in the present GA-LMB setting. In the log-utility view developed in Appendix~\ref{app:theory}, a single FID-FIA scalar-weight baseline is a constrained case that forces the same Fisher-separability utility into both the Gaussian spatial barycenter and the Bernoulli existence pool. The branch-decoupled formulation relaxes this constraint: the communication-aware covariance/link-quality branch continues to govern spatial fusion, while the FID-FIA signal is reserved for the existence branch where its empirical strength is most aligned with the fused Bernoulli variable.
+This separation connects one reliability backbone to two algebraically different fusion blocks. Spatial and existence consensus need not respond identically to a weight perturbation. The separation also determines how Fisher information enters the method. Cao and Zhao's construction provides a scalar indicator of target separability and posterior information \cite{CaoZhao2025InfoGeometryFusion}. In our experiments, this cue is especially effective for cardinality and existence decisions. Related multirate fusion work also supports Fisher information as a local information measure after time alignment \cite{Li2026FIMultirateAADensityFusion}. Applying one Fisher-based weight to the entire posterior can degrade spatial RMSE in the present GA-LMB setting. Appendix~\ref{app:theory} shows that this scalar baseline constrains both branches to use the same Fisher utility. Our formulation relaxes that constraint. Covariance and realized link quality continue to govern spatial fusion, whereas FID-FIA is reserved for Bernoulli existence.
 
 \noindent\textbf{Remark 3 (why geometric interpolation).}
 The shared score keeps both branches tied to the same reliability model. The dedicated spatial and existence scores then tilt the anchor toward the evidence most relevant to each branch. Geometric interpolation preserves the multiplicative reliability interpretation: a weak cue continues to constrain the final score even when another term is large.
@@ -186,7 +186,7 @@ Both priors are normalized to unit mean inside the local neighborhood,
 =
 \frac{a_{r,s}^{(j)}}{|\mathcal{N}_s|^{-1}\sum_{u\in\mathcal{N}_s}a_{r,s}^{(u)}}.
 \end{equation}
-When tiered packet-loss statistics are available, the implementation also forms a normalized communication-reliability prior from the persistent drop tier of each neighbor:
+When tiered packet-loss statistics are available, the implementation also forms a normalized nominal-reliability prior from the persistent drop tier of each neighbor:
 \begin{equation}
 \label{eq:method-structure-comm-prior}
 b_s^{(j)}
@@ -197,6 +197,7 @@ b_s^{(j)}
 =
 \frac{b_s^{(j)}}{|\mathcal{N}_s|^{-1}\sum_{u\in\mathcal{N}_s}b_s^{(u)}}.
 \end{equation}
+This slow prior is distinct from the realized link-quality score in the shared backbone. Specifically, $q_{\mathrm{link},k}^{(j)}$ uses delivered and dropped counts from the current step, whereas $\zeta_s^{(j)}$ summarizes the configured or long-run drop tier and does not change with the current packet outcome.
 The resulting structure factors are
 \begin{equation}
 \label{eq:method-structure-combined-prior}
@@ -225,9 +226,15 @@ Equivalently, for positive scores, the refinement adds $\gamma_x\log\bar{\xi}_{x
 
 The raw adaptive weights can fluctuate sharply over time, especially when packet delivery changes abruptly. To improve stability, the normalized weights are smoothed by an exponential moving average and then passed through a minimum-weight safeguard before final renormalization. This stabilization step preserves the intended quality ordering while preventing unstable weight collapse in a time-varying communication setting.
 
+\noindent\textbf{Remark 4 (non-Gaussian contamination and weight collapse).}
+The experiments use Gaussian measurement errors, and the covariance cue comes from a moment-projected Gaussian mixture. Fallback normalization, temporal smoothing, and a final weight floor protect an active neighbor from a transient zero score. They do not make a deceptively sharp covariance trustworthy. Under impulsive or heavy-tailed contamination, a precise outlier may therefore receive excessive spatial weight. A robust implementation could instead use a shrinkage or M-estimated scatter matrix for $T_{k,i}^{(j)}$. It could also use clipped whitened residuals to form a bounded innovation factor and cap each weight before normalization. These changes preserve the separated simplex allocation, but their thresholds depend on the assumed contamination model. We do not evaluate them here. The reported results therefore provide no evidence of robustness to non-Gaussian noise.
+
+\noindent\textbf{Remark 5 (trust and Byzantine scope).}
+The present communication model treats packet loss and outages as non-adversarial and assumes that posterior parameters and delivery counters reported by active neighbors are honest. A Byzantine node could violate this assumption by advertising an artificially small covariance or a deceptive existence probability. A security-aware extension could use label-aligned spatial residuals and Bernoulli log-odds agreement to form a bounded credibility factor. Authenticated delivery metadata and per-neighbor clipping or trimming could further limit malicious influence before normalization. Resilient labeled-RFS fusion provides relevant mechanisms for this extension \cite{Gao2023ResilientLMB}. Such a layer is outside the current algorithm; the packet-loss experiments therefore establish communication robustness, not Byzantine resilience.
+
 \paragraph{Existence-only FID-FIA refinement.}
 
-The Cardinality-critical mode then adds an information-geometric refinement only to the existence branch. This refinement follows the FID-FIA intuition of accumulating pairwise Fisher-information distance between locally represented targets and uses it as an existence-side modulation. For each node $j$, the method first computes a target-pair accumulation score $a_{k}^{(j)}$ from the local measurement-updated Bernoulli components. Each Bernoulli component is moment-projected, target pairs are weighted by their existence probabilities, and the pairwise distance is accumulated along the line segment between the two projected states using the local Fisher metric induced by the sensor's detection probability and measurement covariance. The score is then normalized over the available local neighborhood,
+Cardinality-critical mode adds an information-geometric refinement only to the existence branch. It accumulates pairwise Fisher information distances between locally represented targets and uses the result to modulate existence. For node $j$, the target-pair score $a_{k}^{(j)}$ is computed from measurement-updated Bernoulli components. Each component is first projected to one Gaussian. Target pairs are weighted by their existence probabilities. Their distance is then accumulated along the connecting line segment under the sensor's local Fisher metric. The metric depends on detection probability and measurement covariance. Finally, the score is normalized over the available neighborhood,
 \begin{equation}
 \label{eq:method-fid-normalization}
 \hat{a}_{k,s}^{(j)}
@@ -253,12 +260,12 @@ Only the existence score is modified:
 \tilde{\omega}_{k,s}^{r,(j)}
 \left(q_{\mathrm{fid},k,s}^{(j)}\right)^{\gamma_f}.
 \end{equation}
-Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables temporal smoothing and minimum-weight flooring for the existence weights, while leaving the spatial branch's structure-aware stabilized weights unchanged.
-Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ to the existence-branch utility while leaving the spatial utility unchanged; the zero-floor setting used in the main experiment is the boundary case that permits a zero instantaneous existence weight.
+Here $\gamma_f\ge0$ controls the strength of the FID-FIA modulation. The spatial score $\tilde{\omega}_{k,s}^{x,(j)}$ is left unchanged. In the main experiment, this branch uses a strong existence-only modulation and disables smoothing and flooring for the existence weights. The spatial branch retains its structure-aware stabilized weights.
+Equivalently, for positive $q_{\mathrm{fid},k,s}^{(j)}$, the update adds $\gamma_f \log q_{\mathrm{fid},k,s}^{(j)}$ only to the existence-branch utility. The zero-floor setting is the boundary case that permits a zero instantaneous existence weight.
 
 \subsection{Algorithm and operating modes}
 
-The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusion}. The algorithm is intentionally written at the level of quantities used by the implemented fusion layer: the spatial weights are consumed by the Gaussian canonical-form update, while the existence weights are consumed by the Bernoulli existence update.
+The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusion}. The algorithm uses the quantities consumed by the implemented fusion layer. Spatial weights enter the Gaussian canonical-form update, whereas existence weights enter the Bernoulli existence update.
 
 \begin{center}
 \small
@@ -280,11 +287,16 @@ The resulting per-node update is summarized in Algorithm~\ref{alg:adaptive-fusio
 \end{minipage}}
 \end{center}
 
+\paragraph{Computational cost.}
+Let $A_{k,s}=|\mathcal{A}_{k,s}|$ be the number of active neighbors and $M_k$ the number of aligned Bernoulli labels. Let $\bar G_k$ be the mean mixture size per local Bernoulli component and $d_x$ the state dimension. Forming the covariance backbone requires one moment projection per active neighbor and label, for $O(A_{k,s}M_k\bar G_k d_x^2)$ time. The remaining weight operations add $O(A_{k,s}M_k+A_{k,s})$ time. Neighborhood-overlap priors are computed once with the local graph, and their per-update modulation costs $O(A_{k,s})$. Thus Balanced-mode weight formation is linear in both active neighbors and aligned labels for fixed state dimension and mixture size.
+
+For each aligned Bernoulli component, the projected-Gaussian GA merger costs $O\!\left(A_{k,s}(\bar G_k d_x^2+d_x^3)\right)$. The first term is moment projection; the second covers covariance solves, inverses, and determinants. The Bernoulli existence product adds only $O(A_{k,s})$. Cardinality-critical mode additionally evaluates all retained target pairs. With $Q$ line-segment quadrature points and $C_F$ the cost of one fixed-dimension Fisher-metric evaluation, its FID-FIA term costs $O(A_{k,s}M_k^2 Q C_F)$ in the worst case. The implementation uses $Q=3$. This quadratic pair term, rather than branch normalization, explains the larger measured runtime of FID-FIA-based modes in Section~\ref{sec:results}.
+
 \paragraph{Operating modes.}
 
-The resulting method family supports two practical operating modes. The \emph{Balanced mode} uses the three-factor adaptive backbone, decoupled spatial and existence scores, weak structure-aware refinement, and the standard temporal stabilization, while leaving the final FID-FIA existence modulation inactive. This mode is recommended when spatial accuracy, RMSE stability, runtime, or energy budget is the primary operational concern.
+The method family supports two operating modes. \emph{Balanced mode} uses the three-factor backbone, separate spatial and existence scores, a weak graph prior, and temporal stabilization. It leaves the final FID-FIA modulation inactive. This mode is intended for deployments constrained by localization accuracy, RMSE stability, runtime, or energy.
 
-The \emph{Cardinality-critical mode} adds the FID-FIA cue only to the existence branch. This mode is recommended when the cost of target-number disagreement, missed tracks, or false support is higher than a modest local-RMSE and runtime tradeoff. Both modes share the same communication-aware backbone and the same branch-decoupled fusion algebra; they differ only in whether the final information-geometric cue is activated on the Bernoulli existence path. This framing is important because the experiments show a real operating tradeoff: the backbone is often the stronger low-overhead position-oriented choice, whereas the Cardinality-critical mode is the stronger cardinality-consensus choice with substantially higher information-geometric computation.
+\emph{Cardinality-critical mode} adds FID-FIA only to the existence branch. It is intended for settings where target-number errors, missed tracks, or false support outweigh moderate costs in RMSE and runtime. Both modes share the same backbone and branch algebra. They differ only in the final existence cue. The experiments show the resulting tradeoff. Balanced mode favors localization at low cost, whereas Cardinality-critical mode favors cardinality agreement with substantially more computation.
 
 \paragraph{Optional extension modules.}
 
