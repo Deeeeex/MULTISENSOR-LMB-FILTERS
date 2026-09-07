@@ -1,0 +1,48 @@
+{
+  "contract": "whales-dynamic-candidate-policy-check-v1",
+  "trackingExecuted": false,
+  "routingHistory": "empty for each frame",
+  "sensorUidSource": "original WHALES vehicle slot plus one",
+  "frames": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "fullMessages": [
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18,
+    18
+  ],
+  "sparseMessages": [
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13
+  ]
+}
