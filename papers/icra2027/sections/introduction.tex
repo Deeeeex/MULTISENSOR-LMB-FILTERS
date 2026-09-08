@@ -17,6 +17,9 @@ age does not separately control these contributions. A further coupling
 arises within each Bernoulli: the integral of its spatial product affects
 the probability that the target exists. An existence correction alone
 leaves this part of the current evidence unused.
+Figure~\ref{fig:intro} illustrates the distinction: a posterior weight
+acts on inherited and current information together, whereas a current
+ratio can change their relative contributions.
 
 We propose \emph{guarded current-evidence fusion} (GCE). Each robot encodes
 the ratio between its local update and prediction. Fusion augments a
@@ -26,7 +29,6 @@ opportunity, association-weighted score support, and Gaussian curvature
 determine which increments are admitted. Figure~\ref{fig:overview} shows
 how the same current evidence reaches both branches of the fused belief.
 
-\input{main_figure_integrated/figure}
 
 Prior--likelihood separation is established
 \cite{wu2022sharedpriors,hlinka2012likelihood}. GCE develops this principle
@@ -41,30 +43,35 @@ unequal sensing histories. The paper contributes:
  geometric and arithmetic fusion references, component ablations, and
  measured packet sizes.
 \end{itemize}
-Across both link conditions, GCE achieves the lowest main-comparison
-OSPA. Relative to no-age pooling and recency weighting, missed-target
-cost, false-target cost, and common-target localization improve together.
+\begin{figure}[t]
+ \centering\includegraphics[width=\columnwidth]{figures/intro.pdf}
+ \caption{Separating current sensing from inherited information. In the
+ idealized two-robot shared-prior case, geometric pooling retains the prior
+ but tempers each current likelihood. GCE admits bounded fractions of
+ current posterior-to-prediction ratios, increasing the likelihood
+ exponents $\omega_j$ while retaining one prior. Joint normalization
+ carries this correction into both spatial density and existence.}
+ \label{fig:intro}
+\end{figure}
+
+\input{main_figure_integrated/figure}
 
 \section{Related Work}
 \subsection{Cooperative robotic tracking}
-Distributed probability hypothesis density (PHD) filtering supports robot search and tracking
-\cite{dames2020search}. DecSTER combines PHD inference with decentralized
-action selection for simultaneous search and tracking
-\cite{decster2024}, while multirobot reconfiguration adapts sensing
-resources~\cite{ramachandran2021reconfiguration}. LMB representations
-also support distributed landmark mapping~\cite{gao2026lmbslam}.
-For cooperative driving, V2V4Real provides real multi-vehicle observations
-\cite{xu2023v2v4real}, while DMSTrack learns uncertainty in a
-differentiable multisensor tracker~\cite{chiu2024dmstrack}.
+Distributed probability hypothesis density (PHD) filters support robot
+search~\cite{dames2020search}, decentralized action selection
+\cite{decster2024}, and sensing reconfiguration
+\cite{ramachandran2021reconfiguration}; LMB filters also support
+distributed mapping~\cite{gao2026lmbslam}. V2V4Real provides real
+cooperative driving observations~\cite{xu2023v2v4real}, and DMSTrack
+learns uncertainty in a differentiable multisensor tracker
+\cite{chiu2024dmstrack}.
 
-Communication-efficient perception also exploits selective feature
-exchange. Where2comm selects spatial features using confidence maps
-\cite{hu2022where2comm}; CoopTrack exchanges sparse instance features and
-learns cross-agent association for cooperative sequential perception
-\cite{zhong2025cooptrack}. GCE operates on compact probabilistic track
-summaries, with explicit control over how a local update changes the
-fused existence probability and spatial density. We evaluate this fusion
-layer using DMSTrack's released per-vehicle detections.
+Where2comm selects spatial features using confidence maps
+\cite{hu2022where2comm}; CoopTrack exchanges instance features and learns
+cross-agent association~\cite{zhong2025cooptrack}. GCE instead operates
+on probabilistic track summaries. We evaluate this fusion layer using
+DMSTrack's released per-vehicle detections.
 
 \subsection{Finite-set fusion and sensing support}
 Covariance intersection addresses fusion with unknown cross-correlations
@@ -75,10 +82,9 @@ densities~\cite{battistelli2014kla}. Generalized covariance intersection
 filters exchange multi-object beliefs with track identities
 \cite{fantacci2015consensus}.
 
-Label consistency is essential when fusing labeled densities: direct GCI
-fusion can degrade under inconsistent labels~\cite{li2018robust}.
-Label matching can instead align local identities through a linear
-assignment before labelwise fusion~\cite{li2019labelmatching}.
+Direct GCI fusion can degrade under inconsistent labels
+\cite{li2018robust}; linear assignment can align local identities before
+labelwise fusion~\cite{li2019labelmatching}.
 Different fields of view require explicit treatment of absent labels and
 exclusive information
 \cite{li2018multiviewlmb,li2020multiview,gao2022differentfov}.

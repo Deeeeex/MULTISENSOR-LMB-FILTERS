@@ -134,12 +134,6 @@ in~\eqref{eq:existence} but uses the old spatial pool and its integral.
 GCE instead recomputes the spatial density and its normalizer from the
 admitted ratios, retaining their coupled effect on the Bernoulli belief.
 
-In the special case of a common prior $f^-$, equal weights
-$\alpha=\beta$, unit gates, and independent exact local observations,
-$\kappa_j=1-\beta_j$. The full product then reduces to
-$\prod_j f_j^+/(f^-)^{M-1}$, the standard shared-prior Bayesian
-combination~\cite{wu2022sharedpriors}.
-
 \subsection{Gaussian correction and curvature guard}
 For $p=\mathcal N(m,P)$, write
 \begin{equation}
@@ -181,6 +175,26 @@ retaining the aggregate integrability check. Current ratios and gates
 are recomputed after each local update.
 For state dimension $d$ and $M$ eligible sources, the dense Gaussian
 arithmetic costs $O(Md^3)$ and adds $O(d^2)$ numbers per track.
+
+\noindent\textbf{Current-likelihood interpretation.}
+Suppose all sources share a prior $f^-$, the supports and weights coincide
+($\alpha=\beta$), and each exact local update satisfies
+$f_j^+(X)\propto f^-(X)\ell_j(X)$ for a Bernoulli set $X$.
+Substitution into the joint product gives
+\begin{equation}
+ f^*(X)\propto f^-(X)\prod_j\ell_j(X)^{\omega_j},
+ \qquad \omega_j=\beta_j+\bar\kappa_j\in[\beta_j,1].
+ \label{eq:likelihoodpowers}
+\end{equation}
+The base retains one prior because $\sum_j\beta_j=1$; each ratio
+cancels its own prior. Admission therefore restores a bounded fraction
+of current likelihood without increasing the exponent of the inherited
+prior. Zero admission gives the original pool. In the formal unit-admission
+limit, independent observations recover the shared-prior Bayesian
+combination~\cite{wu2022sharedpriors}. With unequal inherited beliefs,
+GCE uses the directly available local ratios rather than assuming a common
+prior can be reconstructed. This distinction motivates separating the
+history switch from the current-evidence gates.
 
 \subsection{Exact zero-vector transmission}
 The full Gaussian implementation extends a 232-byte scalar Bernoulli

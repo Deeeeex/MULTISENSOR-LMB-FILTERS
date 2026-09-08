@@ -20,7 +20,7 @@ def sha(path):
 
 def check():
     reader = PdfReader(PDF)
-    assert 1 <= len(reader.pages) <= 8, ("ICRA page limit", len(reader.pages))
+    assert len(reader.pages) == 8, ('Seven body pages plus one acknowledgment/reference page', len(reader.pages))
     assert not reader.is_encrypted
     assert not reader.metadata.author
     fonts, seen = {}, set()
@@ -72,13 +72,15 @@ def check():
     (HERE / 'build/main.txt').write_text(full_text)
     # Check the rendered positions: valid TeX alone does not keep floats
     # before the bibliography or prevent a page crowded by wide floats.
-    captions, reference_positions = {}, []
+    captions, reference_positions, acknowledgment_positions = {}, [], []
     for page_number, page in enumerate(document, 1):
         for block in page.get_text('dict')['blocks']:
             for line in block.get('lines', []):
                 text = ''.join(span['text'] for span in line['spans']).strip()
                 if text == 'REFERENCES':
                     reference_positions.append((page_number, line['bbox'][1]))
+                if text == 'ACKNOWLEDGMENT':
+                    acknowledgment_positions.append((page_number, line['bbox'][1]))
                 match = re.match(r'^(Fig\.)\s+(\d+)\.|^(TABLE)\s+([IVX]+)$', text)
                 if match:
                     kind = 'figure' if match.group(1) else 'table'
@@ -88,17 +90,32 @@ def check():
                     captions[key] = (page_number, line['bbox'][3])
     assert len(reference_positions) == 1
     reference_position = reference_positions[0]
+    assert len(acknowledgment_positions) == 1
+    assert acknowledgment_positions[0][0] == reference_position[0] == 8
+    assert acknowledgment_positions[0] < reference_position
+    assert 'VI. DISCUSSION AND CONCLUSION' in texts[6]
+    assert not any(re.search(r'^ACKNOWLEDGMENT$|^REFERENCES$', t, re.M) for t in texts[:7])
+    body_bottoms = []
+    for side in [0, 1]:
+        boxes = [line['bbox'] for block in document[6].get_text('dict')['blocks']
+                 for line in block.get('lines', []) if (line['bbox'][0] < 305) == (side == 0)]
+        bottom = max(box[3] for box in boxes)
+        assert 700 <= bottom <= 742, ('Incomplete or overflowing seventh-page column', side, bottom)
+        body_bottoms.append(bottom)
     labels = re.findall(r'\\newlabel\{((?:fig|tab):[^}]+)\}\{\{([^}]+)\}\{(\d+)\}',
                         (HERE / 'build/main.aux').read_text())
-    assert len(labels) == 6 and len(captions) == 6
+    assert len(labels) == 9 and len(captions) == 9
     float_pages = {}
     for label, number, page in labels:
         kind = 'figure' if label.startswith('fig:') else 'table'
         position = captions[kind, number]
         assert position[0] == int(page), (label, page, position)
         assert position < reference_position, ('Float after References', label, position)
+        assert int(page) <= 7
         float_pages[label] = int(page)
-    wide_per_page = Counter(page for label, page in float_pages.items() if label != 'tab:communication')
+    assert float_pages['fig:intro'] == 1
+    wide_labels = {'fig:overview', 'fig:paired', 'tab:main', 'tab:ablation'}
+    wide_per_page = Counter(page for label, page in float_pages.items() if label in wide_labels)
     assert max(wide_per_page.values()) <= 2, ('Crowded wide-float page', wide_per_page)
     log = (HERE / 'build/compile.log').read_text() + (HERE / 'build/main.log').read_text()
     bad = ['Overfull', 'undefined', 'Missing character', 'Undefined control sequence',
@@ -113,16 +130,20 @@ def check():
         assert (HERE / filename).read_bytes() == (HERE / 'official_template' / filename).read_bytes()
 
     figures = {}
-    for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication', 'gaussian_sequence_differences']:
+    for name in ['intro', 'overview', 'gaussian_paired', 'gaussian_components',
+                 'gaussian_communication', 'gaussian_sequence_differences', 'gaussian_phases']:
         svg = ET.parse(HERE / 'figures' / f'{name}.svg')
         live = [x for x in svg.iter() if x.tag.endswith('}text')]
         assert live and not any(x.tag.endswith('}image') for x in svg.iter())
         bounds = json.loads((HERE / 'figures' / f'{name}_text_bounds.json').read_text())
         assert bounds['passed']
+        if name in ['intro', 'gaussian_communication', 'gaussian_phases']:
+            assert bounds['text_collisions_checked']
         figures[name] = {'live_svg_text_elements': len(live), 'no_embedded_raster': True,
                          'label_bounds_pass': True, 'svg_sha256': sha(HERE / 'figures' / f'{name}.svg')}
 
     numerical = check_gaussian_evidence()
+    mechanism = check_mechanism_analysis()
 
     tex = '\n'.join(p.read_text() for p in [HERE / 'main.tex', *(HERE / 'sections').glob('*.tex'),
                                          *(HERE / 'main_figure_integrated').glob('*.tex')])
@@ -136,6 +157,13 @@ def check():
     records = json.loads((HERE / 'literature/verification.json').read_text())
     assert cited <= records.keys()
     assert all(records[key]['verified'] for key in cited)
+    identifiers = {key: records[key]['doi'] for key in cited
+                   if records[key].get('doi') and not records[key]['doi'].lower().startswith('10.48550/')}
+    bbl = (HERE/'build/main.bbl').read_text()
+    compact_text = re.sub(r'\s+', '', full_text).lower()
+    for key, identifier in identifiers.items():
+        assert '\\url{'+identifier+'}' in bbl, ('Missing verified DOI', key)
+        assert identifier.lower() in compact_text, ('DOI not rendered', key, identifier)
     assert '\\author{}' in tex
     result = {'status': 'automated_artifact_checks_passed', 'pdf_sha256': sha(PDF),
               'pages': len(reader.pages), 'paper_size': 'US Letter', 'text_spans_in_page_bounds': span_count,
@@ -144,15 +172,20 @@ def check():
               'tex_informational_font_aliases': len(re.findall(r'LaTeX Font Info:\s+Font shape', log)),
               'official_class_and_bst_unmodified': True, 'figures': figures,
               'float_pages':float_pages, 'references_start_page':reference_position[0],
+              'acknowledgment_start_page':acknowledgment_positions[0][0],
+              'body_pages':7, 'acknowledgment_reference_pages':1,
+              'seventh_page_column_bottoms_pt':body_bottoms,
               'all_float_captions_before_references':True,
               'maximum_double_column_floats_per_page':max(wide_per_page.values()),
               'numerical_evidence': numerical,
-              'manuscript_figures': 3, 'companion_evidence_figures': 2, 'ablation_complete_method_last': True,
+              'additional_mechanism_analysis': mechanism,
+              'manuscript_figures': 5, 'manuscript_tables':4, 'companion_evidence_figures': 2, 'ablation_complete_method_last': True,
               'draft_page_cap': 8,
               'conference_page_limit': 8,
               'requires_length_revision_before_submission': len(reader.pages) > 8,
               'citation_keys_resolved': sorted(cited),
               'bibliography_entry_count': len(rendered_citations),
+              'verified_doi_identifiers_rendered':len(identifiers),
               'all_cited_keys_rendered_once': True,
               'citation_scope': 'Primary Crossref, DataCite, NeurIPS and CVF metadata plus available author texts; see LITERATURE_SCOPE.md',
               'limitations': 'Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check.'}
@@ -341,6 +374,159 @@ def check_gaussian_evidence():
                 main_figure_sequence_markers=50, main_figure_paired_gain_values=100,
                 codec_exact_primary_trajectories=68, all_real_outcomes_previously_seen=True,
                 portable_source_snapshots=len(manifest), source_result_identities=len(data['source_inputs_sha256']))
+
+
+def check_mechanism_analysis():
+    data_dir = HERE/'source_data'
+    snapshot = json.loads((data_dir/'mechanism_diagnostic_snapshot.json').read_text())
+    analysis = json.loads((data_dir/'mechanism_analysis.json').read_text())
+    evidence = json.loads((data_dir/'gaussian_paper_evidence.json').read_text())
+    primary = 'marked_gaussian_evidence'
+    names = evidence['sequences']
+    conditions = ['reliable', 'intermittent']
+    arms = ['marked_lineage', 'marked_asymmetric', primary]
+    phases = ['before', 'outage', 'after']
+    cells = ['base_space_base_integral', 'new_space_base_integral',
+             'base_space_new_integral', 'new_space_new_integral']
+    assert snapshot['sequences'] == analysis['sequences'] == names and len(names) == 25
+    assert len(snapshot['runs']) == len(snapshot['source_inputs_sha256']) == 150
+    assert len(snapshot['fixed_input']) == 50
+    assert snapshot['protocol_sha256'] == sha(HERE/'ANALYSIS_PROTOCOL.md')
+    assert snapshot['extractor_sha256'] == sha(HERE/'prepare_mechanism_analysis.py')
+    assert snapshot['source_evidence_sha256'] == sha(data_dir/'gaussian_paper_evidence.json')
+    assert analysis['snapshot_sha256'] == sha(data_dir/'mechanism_diagnostic_snapshot.json')
+    assert analysis['generator_sha256'] == sha(HERE/'prepare_mechanism_analysis.py')
+    assert snapshot['all_four_cells_share_admitted_kappa'] and not snapshot['alternate_outputs_fed_back']
+    assert not analysis['method_reselected'] and not analysis['new_tracking_trajectories']
+    assert snapshot['maximum_native_ospa_absolute_error'] < 1e-8
+    for path, digest in snapshot['source_inputs_sha256'].items():
+        assert evidence['source_inputs_sha256'][path] == digest
+        if (HERE.parents[1]/path).exists():
+            assert sha(HERE.parents[1]/path) == digest
+
+    means, traces, phase_rows = {}, {}, {}
+    native = {(r['sequence'], r['condition'], r['arm']): r['ospa'] for r in evidence['runs']}
+    count = 0
+    for row in snapshot['runs']:
+        key = row['sequence'], row['condition'], row['arm']
+        assert key not in traces
+        values = np.array(row['ospa'], float)
+        length = row['frames']
+        assert values.shape == (2, length) and np.isfinite(values).all()
+        assert np.all((values >= 0) & (values <= 12))
+        assert math.isclose(values.mean(), native[key], abs_tol=1e-9, rel_tol=0)
+        cuts = [0, int(.4*length), int(.6*length), length]
+        assert row['phase_boundaries'] == cuts
+        total = 0.
+        for phase, start, end in zip(phases, cuts, cuts[1:]):
+            selected = values[:, start:end]
+            phase_rows[key+(phase,)] = float(selected.mean())
+            total += selected.size*selected.mean()
+        assert math.isclose(total, values.sum(), abs_tol=1e-9, rel_tol=1e-12)
+        traces[key] = values
+        count += values.size
+    assert count == snapshot['rescored_native_receiver_scans'] == 67212
+    assert len(analysis['phase_rows']) == 450
+    for row in analysis['phase_rows']:
+        key = row['sequence'], row['condition'], row['arm'], row['phase']
+        assert math.isclose(row['ospa'], phase_rows[key], abs_tol=1e-12)
+
+    draws = np.random.default_rng(8301).integers(0, 25, (10000, 25))
+    def verify_summary(values, summary):
+        values = np.array(values)
+        expected = [values.mean(), *np.percentile(values[draws].mean(axis=1), [2.5, 97.5])]
+        assert summary['n'] == 25
+        assert np.allclose(expected, [summary[k] for k in ['mean', 'low', 'high']], atol=1e-12, rtol=0)
+
+    assert len(analysis['phase_aggregate']) == 18 and len(analysis['phase_paired']) == 12
+    for row in analysis['phase_aggregate']:
+        verify_summary([phase_rows[n, row['condition'], row['arm'], row['phase']] for n in names], row['ospa'])
+    for row in analysis['phase_paired']:
+        values = [phase_rows[n, row['condition'], primary, row['phase']]
+                  - phase_rows[n, row['condition'], row['reference'], row['phase']] for n in names]
+        assert np.allclose(values, row['differences'], atol=1e-12, rtol=0)
+        verify_summary(values, row['ospa'])
+
+    fixed_count, fixed_means = 0, {}
+    for row in snapshot['fixed_input']:
+        sites = np.array(row['receiver_scans'], int)
+        assert len(set(map(tuple, sites))) == len(sites)
+        assert np.isin(sites[:, 1], [1, 2]).all() and (sites[:, 0] >= 1).all()
+        full = traces[row['sequence'], row['condition'], primary]
+        joint = np.array(row['ospa']['new_space_new_integral'])
+        assert np.allclose(joint, full[sites[:, 1]-1, sites[:, 0]-1], atol=1e-8, rtol=0)
+        if row['condition'] == 'intermittent':
+            first, last = int(.4*full.shape[1]), int(.6*full.shape[1])
+            assert not ((sites[:, 0]-1 >= first) & (sites[:, 0]-1 < last)).any()
+        else:
+            assert len(sites) == full.size
+        for cell in cells:
+            values = np.array(row['ospa'][cell])
+            assert values.shape == (len(sites),) and np.isfinite(values).all()
+            assert np.all((values >= 0) & (values <= 12))
+            fixed_means[row['sequence'], row['condition'], cell] = float(values.mean())
+        fixed_count += len(sites)
+    assert fixed_count == snapshot['verified_joint_receiver_scans'] == 19235
+    assert len(analysis['fixed_input_rows']) == 200
+    for row in analysis['fixed_input_rows']:
+        assert math.isclose(row['ospa'], fixed_means[row['sequence'], row['condition'], row['cell']], abs_tol=1e-12)
+    assert len(analysis['fixed_input_aggregate']) == 8 and len(analysis['fixed_input_paired']) == 6
+    for row in analysis['fixed_input_aggregate']:
+        verify_summary([fixed_means[n, row['condition'], row['cell']] for n in names], row['ospa'])
+    for row in analysis['fixed_input_paired']:
+        values = [fixed_means[n, row['condition'], cells[-1]]-fixed_means[n, row['condition'], row['reference']] for n in names]
+        assert np.allclose(values, row['differences'], atol=1e-12, rtol=0)
+        verify_summary(values, row['ospa'])
+
+    table = (HERE/'generated/fixed_input_table.tex').read_text()
+    summary = {(r['condition'], r['cell']): r['ospa']['mean'] for r in analysis['fixed_input_aggregate']}
+    positions = []
+    for cell, (space, integral) in zip(cells, [('Base', 'Base'), ('Corrected', 'Base'), ('Base', 'Corrected'), ('Corrected', 'Corrected')]):
+        vals = [summary[c, cell] for c in conditions]
+        columns = [space, integral]+[f'{v:.3f}' for v in vals]
+        if cell == cells[-1]:
+            assert all(summary[c, cell] == min(summary[c, cc] for cc in cells) for c in conditions)
+            columns = [r'\textbf{'+v+'}' for v in columns]
+        expected = ' & '.join(columns)+r' \\'
+        assert expected in table
+        positions.append(table.index(expected))
+    assert positions == sorted(positions)
+
+    expected_facts = {}
+    for row in analysis['phase_paired']:
+        ref = 'NoAge' if row['reference'] == arms[0] else 'Scalar'
+        for stat in ['mean', 'low', 'high']:
+            name = 'Phase'+row['condition'].title()+row['phase'].title()+ref+stat.title()
+            expected_facts[name] = row['ospa'][stat]
+    for row in analysis['fixed_input_paired']:
+        aspect = {cells[0]: 'Both', cells[1]: 'Integral', cells[2]: 'Space'}[row['reference']]
+        for stat in ['mean', 'low', 'high']:
+            expected_facts['Joint'+row['condition'].title()+aspect+stat.title()] = row['ospa'][stat]
+    facts = json.loads((HERE/'generated/mechanism_facts.json').read_text())
+    assert facts == expected_facts and len(facts) == 54
+    macros = dict(re.findall(r'\\newcommand\{\\(\w+)\}\{([^}]+)\}', (HERE/'generated/mechanism_numbers.tex').read_text()))
+    assert macros == {key: f'{value:.3f}' for key, value in facts.items()}
+
+    figure = json.loads((data_dir/'gaussian_phases.json').read_text())
+    assert figure['point_count'] == 12 and figure['number_of_sequence_measurements'] == 300
+    assert figure['groups'] == analysis['phase_paired']
+    assert figure['mechanism_analysis_sha256'] == sha(data_dir/'mechanism_analysis.json')
+    assert figure['snapshot_sha256'] == sha(data_dir/'mechanism_diagnostic_snapshot.json')
+    for row in figure['groups']:
+        assert figure['y_limits'][0] < row['ospa']['low'] <= row['ospa']['mean'] <= row['ospa']['high'] < figure['y_limits'][1]
+    svg = ET.parse(HERE/'figures/gaussian_phases.svg')
+    mean_markers = [node for node in svg.iter() if node.tag.endswith('}use') and 'stroke: #ffffff' in node.get('style', '')]
+    assert len(mean_markers) == 12, ('Phase means missing from SVG', len(mean_markers))
+    intro = json.loads((data_dir/'intro.json').read_text())
+    assert intro['kind'] == 'qualitative_shared_prior_schematic' and not intro['empirical_data']
+    assert 'common prior' in intro['assumption'] and intro['width_mm'] == 89
+    return dict(complete_sequences=25, native_trajectory_files=150,
+                native_receiver_scan_scores=67212, fixed_input_receiver_scans=19235,
+                all_four_cells_share_admitted_increments=True, alternative_feedback=False,
+                sequence_phase_method_rows=450, phase_estimates=12, phase_pair_measurements=300,
+                fixed_input_means=8, additional_numeric_macros=54,
+                snapshot_sha256=sha(data_dir/'mechanism_diagnostic_snapshot.json'),
+                interpretation='Descriptive diagnostics on complete saved development-corpus trajectories.')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,169 @@
+{
+  "passed": true,
+  "dimensions_mm": [
+    89.0,
+    73.0
+  ],
+  "canvas_pixels": [
+    1051,
+    862
+  ],
+  "text_bounds": [
+    {
+      "text": "Shared past",
+      "font_size_pt": 8.2,
+      "bbox_pixels": [
+        427.77805118110234,
+        805.2567667322835,
+        195.625,
+        31.21875
+      ]
+    },
+    {
+      "text": "Robot A",
+      "font_size_pt": 7.4,
+      "bbox_pixels": [
+        181.65797244094486,
+        572.507874015748,
+        109.12499999999997,
+        29.0
+      ]
+    },
+    {
+      "text": "Robot B",
+      "font_size_pt": 7.4,
+      "bbox_pixels": [
+        759.5231299212597,
+        572.507874015748,
+        110.875,
+        29.0
+      ]
+    },
+    {
+      "text": "Current sensing",
+      "font_size_pt": 7.3,
+      "bbox_pixels": [
+        418.15305118110234,
+        596.6299212598426,
+        214.875,
+        28.0
+      ]
+    },
+    {
+      "text": "$f_1^+\\propto f^-\\ell_1$",
+      "font_size_pt": 9.0,
+      "bbox_pixels": [
+        156.20295229934328,
+        490.75467519685037,
+        160.03504028320316,
+        43.6875
+      ]
+    },
+    {
+      "text": "$f_2^+\\propto f^-\\ell_2$",
+      "font_size_pt": 9.0,
+      "bbox_pixels": [
+        733.8962347796581,
+        490.75467519685037,
+        162.12879028320322,
+        43.6875
+      ]
+    },
+    {
+      "text": "Pool",
+      "font_size_pt": 7.7,
+      "bbox_pixels": [
+        59.055118110236215,
+        377.62598425196853,
+        69.25,
+        29.0
+      ]
+    },
+    {
+      "text": "$f^-\\,\\ell_1^{1/2}\\,\\ell_2^{1/2}$",
+      "font_size_pt": 11.0,
+      "bbox_pixels": [
+        481.7299840672974,
+        363.52717355643045,
+        217.64239407012934,
+        54.835416666666674
+      ]
+    },
+    {
+      "text": "admit current ratios",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        561.023622047244,
+        298.99212598425197,
+        253.375,
+        28.0
+      ]
+    },
+    {
+      "text": "GCE",
+      "font_size_pt": 7.7,
+      "bbox_pixels": [
+        59.055118110236215,
+        214.63385826771653,
+        69.375,
+        29.0
+      ]
+    },
+    {
+      "text": "$f^-\\,\\ell_1^{\\omega_1}\\,\\ell_2^{\\omega_2}$",
+      "font_size_pt": 11.0,
+      "bbox_pixels": [
+        476.89425127776974,
+        211.40588910761156,
+        203.69181240509033,
+        49.62916666666669
+      ]
+    },
+    {
+      "text": "$\\frac{1}{2}\\leq\\omega_j\\leq1$",
+      "font_size_pt": 7.7,
+      "bbox_pixels": [
+        848.6189767752419,
+        178.0243807414698,
+        121.6596842447916,
+        45.526041666666686
+      ]
+    },
+    {
+      "text": "Spatial density",
+      "font_size_pt": 7.6,
+      "bbox_pixels": [
+        145.2814960629921,
+        69.35826771653544,
+        205.50000000000003,
+        29.0
+      ]
+    },
+    {
+      "text": "Existence",
+      "font_size_pt": 7.6,
+      "bbox_pixels": [
+        734.5871062992125,
+        69.35826771653544,
+        137.125,
+        29.0
+      ]
+    },
+    {
+      "text": "shared normalizer",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        432.4625984251968,
+        26.15748031496063,
+        233.5,
+        28.0
+      ]
+    }
+  ],
+  "editable_svg_text_elements": 15,
+  "embedded_raster_images": 0,
+  "text_collisions_checked": true,
+  "point_count": null,
+  "source_sequence_points_complete": true,
+  "individual_points_displayed": false
+}

@@ -54,11 +54,14 @@ for key,record in records.items():
     for proper in ['Bernoulli', 'Kalman', 'Bayesian', 'Kullback', 'Leibler', 'Gaussian']:
         title=re.sub(r'\b'+proper+r'\b','{'+proper+'}',title,flags=re.I)
     b=b[:match.start(1)]+title+b[match.end(1):]
-    b=b.replace('IEEE Transactions on Signal Processing','IEEE Trans. Signal Process.')
-    b=b.replace('IEEE Transactions on Aerospace and Electronic Systems','IEEE Trans. Aerosp. Electron. Syst.')
-    b=b.replace('IEEE Transactions on Control of Network Systems','IEEE Trans. Control Netw. Syst.')
-    b=b.replace('IEEE Transactions on Information Theory','IEEE Trans. Inf. Theory')
-    b=b.replace('IEEE Journal of Selected Topics in Signal Processing','IEEE J. Sel. Topics Signal Process.')
+    # Preserve primary publication titles and expose verified persistent identifiers.
+    # IEEEtran's supplied BST prints the note field but has no DOI formatter.
+    doi = record.get('doi', '')
+    if doi and not doi.lower().startswith('10.48550/'):
+        assert re.fullmatch(r'10\.\d{4,9}/\S+', doi), (key, doi)
+        assert not re.search(r'\bnote=\{', b), key
+        end = b.rfind('}')
+        b = b[:end].rstrip().rstrip(',') + ',\n  note={doi: \\url{' + doi + '}}\n' + b[end:]
     bibs.append(b.strip())
 bibs.append(r'''@misc{lang2026adaptive,
   author={Lang, Hao and Chen, Jinhao and Wo, Tianyu},

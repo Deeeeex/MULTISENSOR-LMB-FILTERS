@@ -1,0 +1,15 @@
+{
+  "kind": "qualitative_shared_prior_schematic",
+  "empirical_data": false,
+  "check_text_collisions": true,
+  "archetype": "schematic-led composite",
+  "width_mm": 89,
+  "height_mm": 73,
+  "assumption": "Two sources with common prior, equal base weights, exact local likelihoods.",
+  "pool": "f_minus * likelihood_1**0.5 * likelihood_2**0.5",
+  "corrected": "f_minus * likelihood_1**omega_1 * likelihood_2**omega_2",
+  "exponents": "omega_j = 0.5 + admitted_kappa_j in [0.5, 1]",
+  "message": "Admitted current ratios modify spatial density and existence through one normalizer.",
+  "full_restoration": "Exact shared-prior Bayes requires both admitted gates equal to one.",
+  "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
+}

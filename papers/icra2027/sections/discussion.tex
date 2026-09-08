@@ -1,19 +1,15 @@
 \section{Discussion and Conclusion}
-GCE restores bounded current evidence on top of an inherited posterior
-pool and normalizes the resulting Bernoulli jointly. This coupling is
-central: a spatial update changes both target localization and the
-singleton mass that determines existence. The Gaussian form supplies
-closed-form fusion, while source admission controls approximate local
-increments. Across both communication conditions, the complete rule
-improves on the main fusion references and combines lower missed and
-false costs with better localization relative to no-age and recency
-pooling. Exact zero omission makes the additional evidence cheaper to
-communicate at identical tracking output.
+GCE restores bounded current evidence on an inherited posterior pool
+and normalizes the resulting Bernoulli jointly. A spatial update changes
+both localization and the singleton mass that determines existence.
+Closed-form Gaussian fusion and source admission make this coupling
+practical for approximate local tracking. The complete rule improves
+on the main references under both link conditions; fixed-input and
+outage analyses explain its immediate effects and temporal behavior.
+Exact zero omission reduces communication at identical tracking output.
 
 The present evaluation uses approximate associations, a fitted score
 model, planar two-vehicle tracking, and emulated links. A curvature test
 ensures admissible Gaussian correction but does not resolve unknown
-cross-source correlation. Evaluation on new routes and detector splits,
-larger robot teams, and measured radio links will test transfer beyond
-the current corpus. The main finding is that current evidence is most
-useful when its spatial and existence effects are retained together.
+cross-source correlation. Future evaluation will use new routes,
+detector splits, larger teams, and measured radio links.

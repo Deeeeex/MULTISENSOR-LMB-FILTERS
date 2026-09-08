@@ -5,6 +5,11 @@ on 2026-09-08. `literature/verification.json` stores the records and retrieval
 sources; raw new BibTeX records are retained alongside it. A resolved key
 checks bibliographic identity, not implementation equivalence.
 
+The dedicated eighth page uses full primary publication titles and prints
+verified non-arXiv DOI identifiers as plain text. These identifiers come
+from the same verified records; no extra references or PDF hyperlink
+annotations are introduced by this formatting change.
+
 ## Expanded manuscript coverage
 
 Additional coverage was checked on 2026-09-09. The manuscript now cites

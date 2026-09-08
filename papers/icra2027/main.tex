@@ -12,6 +12,7 @@
 \renewcommand{\dbltopfraction}{0.75}
 \newcommand{\GCE}{\textsc{GCE}}
 \input{generated/numbers}
+\input{generated/mechanism_numbers}
 \title{\LARGE\bf Guarded Current-Evidence Fusion for Cooperative Multitarget Tracking}
 \author{}
 \begin{document}
@@ -26,15 +27,17 @@
 \input{sections/experiments}
 \input{sections/results}
 \input{sections/discussion}
+% Reserve the eighth page for acknowledgment and references.
+\FloatBarrier
+\clearpage
 \section*{Acknowledgment}
 OpenAI Codex was used to develop the experimental and analysis code,
-produce the result figures and tables from saved outputs, and draft and
+produce the schematic figures and the result figures and tables from saved outputs, and draft and
 revise Sections I--VI, the abstract, captions, and mathematical exposition.
 The mechanism overview was designed with OpenAI image generation and
 reconstructed as editable vector graphics.
-% Keep every float before the bibliography and balance the final columns.
-\FloatBarrier
-\IEEEtriggeratref{10}
+% Balance the dedicated acknowledgment/reference page.
+\IEEEtriggeratref{14}
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 \end{document}

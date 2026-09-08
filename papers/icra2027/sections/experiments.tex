@@ -11,6 +11,9 @@
  \label{fig:paired}
 \end{figure*}
 
+\input{generated/ablation_table}
+
+
 \subsection{Data and local tracking}
 We use the released per-vehicle, no-fusion detections from DMSTrack
 \cite{chiu2024dmstrack} on V2V4Real~\cite{xu2023v2v4real}. Nine validation
@@ -104,7 +107,29 @@ Three ablations remove the curvature guard, conservative history switch,
 or positive score constraint, one at a time, and run the complete
 recursive tracker. The score ablation retains the common local score
 model. Scalar provides a separate reference for existence-only
-correction. Analytical checks cover shared-prior fusion, conflicting
+correction.
+
+\subsection{Mechanism and outage diagnostics}
+To distinguish immediate fusion effects from recursive changes, we also
+hold every GCE input, label match, base weight, and admitted increment
+fixed. Write $z=\sum_j\beta_jz_j+\sum_j\bar\kappa_j\delta_j$.
+At each delivered receiver-scan, a $2\times2$ substitution uses the base
+or corrected spatial mean and either $z+\log I_0$ or $z+\log I$ for
+existence, where $I_0$ is the base spatial integral. All cells use the
+same pruning, MAP cardinality, and output domain. These substitutions
+are evaluated once on GCE-visited inputs; the original GCE output
+continues the recursion. The base/base cell is thus a guarded scalar
+substitution, distinct from the Scalar trajectory in Table~\ref{tab:main}.
+
+We partition each sequence at $\lfloor0.4T\rfloor$ and
+$\lfloor0.6T\rfloor$, matching the imposed outage, and compare OSPA
+before, during, and after that interval. Reliable links use the same
+scene-time windows. Each phase first averages both receivers and all
+included scans, then weights sequences equally. All phases and all four
+substitution cells are retained; their paired sequence intervals are
+descriptive and unadjusted for multiple comparisons.
+
+Analytical checks cover shared-prior fusion, conflicting
 observations, zero gates, single-source updates, and nonintegrable
 aggregates. Codec evaluation uses all 34 sequences under both link
 conditions and compares decoded values and tracking trajectories.

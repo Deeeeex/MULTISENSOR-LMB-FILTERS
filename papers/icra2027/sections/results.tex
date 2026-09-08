@@ -1,16 +1,25 @@
 \section{Results}
 % Queue the remaining result floats before their discussion.
-\input{generated/ablation_table}
-
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/gaussian_communication.pdf}
+\begin{figure}[t]
+ \centering\includegraphics[width=\columnwidth]{figures/gaussian_communication.pdf}
  \caption{Communication and tracking accuracy, averaged over 25 sequences.
- The arrows connect full and encoded GCE packets: exact zero omission
+ Circles denote reliable links and diamonds intermittent links.
+ Open markers denote full GCE packets. The arrows connect full and encoded
+ GCE packets: exact zero omission
  lowers raw payload while retaining identical OSPA. No-age KLA and Scalar
  provide the reference tradeoffs. Lower and leftward are better.}
  \label{fig:communication}
-\end{figure*}
+\end{figure}
 \input{generated/communication_table}
+\input{generated/fixed_input_table}
+\begin{figure}[t]
+ \centering\includegraphics[width=\columnwidth]{figures/gaussian_phases.pdf}
+ \caption{OSPA differences by communication phase. Points and bars show
+ means and 95\% paired sequence intervals (25 sequences). Reliable links
+ use the same scene-time windows as the imposed intermittent outage.
+ Negative values favor GCE; every comparison and phase is shown.}
+ \label{fig:phases}
+\end{figure}
 
 \subsection{Lower set error across both link conditions}
 GCE achieves the lowest OSPA among all main comparison methods
@@ -41,11 +50,7 @@ Table~\ref{tab:ablation} separates the Scalar reference, three component
 removals, and the complete GCE rule. GCE improves on Scalar in both
 conditions, with both paired OSPA intervals below zero.
 It reduces missed-target cost and common-target
-localization error, with a small increase in false-target cost. Applying
-the joint correction to the same saved fusion inputs also lowers OSPA
-relative to the scalar substitution. The immediate fusion benefit
-therefore accompanies the improvement accumulated through recursive
-tracking.
+localization error, with a small increase in false-target cost.
 
 
 The curvature guard lowers mean OSPA in both conditions, with a paired
@@ -64,6 +69,28 @@ of GCE, Scalar, and No-age KLA. Detection-score modeling also improves
 the local backend: unmarked No-age KLA is weaker than its score-aware
 counterpart. Because every main method shares the latter, the main
 comparison measures the additional improvement from fusion.
+
+\subsection{What changes at a fixed fusion input?}
+The corrected mean and integral give the lowest OSPA on identical GCE
+inputs (Table~\ref{tab:fixedinput}). Updating the mean at fixed corrected
+existence reduces OSPA by about 0.003 m, with both paired intervals
+below zero. The joint change from base/base is
+\JointReliableBothMean/\JointIntermittentBothMean\ m. Its intervals and
+those of changing the integral at corrected means include zero. These
+substitutions isolate immediate effects. Recursive Scalar also changes
+curvature admission and future inputs through prediction, association,
+and track extraction.
+
+\subsection{Behavior around a communication outage}
+GCE has lower mean OSPA than both references in every phase
+(Fig.~\ref{fig:phases}). Under intermittent links, its differences from
+No-age KLA are \PhaseIntermittentBeforeNoAgeMean,
+\PhaseIntermittentOutageNoAgeMean, and \PhaseIntermittentAfterNoAgeMean\ m
+before, during, and after the outage. The before/after intervals lie
+below zero; the outage interval includes zero. Without packets, receivers
+continue local tracking, so remaining gains reflect previously fused
+beliefs. When exchange resumes, the mean advantage returns to its
+pre-outage magnitude.
 
 \subsection{Communication--accuracy tradeoff}
 The zero-vector codec preserves the full Gaussian GCE trajectories while

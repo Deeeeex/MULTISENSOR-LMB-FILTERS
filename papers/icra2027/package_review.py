@@ -7,19 +7,23 @@ import zipfile
 HERE = Path(__file__).resolve().parent
 files = [HERE / name for name in [
     'main.tex', 'references.bib', 'ieeeconf.cls', 'IEEEtran.bst', 'README_CN.md',
-    'LITERATURE_SCOPE.md', 'FIGURE_CONTRACT.md', 'build.py', 'qa.py', 'package_review.py',
+    'LITERATURE_SCOPE.md', 'FIGURE_CONTRACT.md', 'ANALYSIS_PROTOCOL.md', 'build.py', 'qa.py', 'package_review.py',
     'build_bibliography.py', 'prepare_gaussian_evidence.py', 'make_gaussian_tables.py',
-    'make_gaussian_figures.py', 'make_main_figure_integrated.py']]
+    'make_gaussian_figures.py', 'make_main_figure_integrated.py', 'make_intro_figure.py',
+    'prepare_mechanism_analysis.py', 'make_mechanism_results.py']]
 for folder in ['sections', 'literature', 'official_template', 'main_figure_integrated']:
     files.extend(p for p in (HERE / folder).rglob('*') if p.is_file())
 files.extend(HERE / 'generated' / name for name in [
-    'numbers.tex', 'facts.json', 'main_table.tex', 'ablation_table.tex', 'communication_table.tex'])
-for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication', 'gaussian_sequence_differences']:
+    'numbers.tex', 'facts.json', 'main_table.tex', 'ablation_table.tex', 'communication_table.tex',
+    'mechanism_numbers.tex', 'mechanism_facts.json', 'fixed_input_table.tex'])
+for name in ['intro', 'overview', 'gaussian_paired', 'gaussian_components',
+             'gaussian_communication', 'gaussian_sequence_differences', 'gaussian_phases']:
     files.extend(HERE / 'figures' / (name+suffix) for suffix in ['.svg', '.pdf', '.png', '_text_bounds.json'])
 snapshots = json.loads((HERE / 'source_data/gaussian_source_manifest.json').read_text())
 files.extend(HERE / 'source_data' / name for name in [*snapshots,
     'gaussian_source_manifest.json', 'gaussian_paper_evidence.json', 'overview_schematic.json',
-    'gaussian_paired.json', 'gaussian_components.json', 'gaussian_communication.json', 'gaussian_sequence_differences.json'])
+    'gaussian_paired.json', 'gaussian_components.json', 'gaussian_communication.json', 'gaussian_sequence_differences.json',
+    'intro.json', 'gaussian_phases.json', 'mechanism_diagnostic_snapshot.json', 'mechanism_analysis.json'])
 pdf = HERE / 'output/pdf/icra2027_draft.pdf'
 files.extend([pdf, HERE / 'output/qa/artifact_qa.json'])
 pdf_hash = hashlib.sha256(pdf.read_bytes()).hexdigest()

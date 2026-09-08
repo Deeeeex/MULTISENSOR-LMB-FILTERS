@@ -1103,6 +1103,19 @@
   "bytes_per_mib": 1048576,
   "full_and_codec_trajectory_parity": true,
   "modeled_fragment_size_bytes": 16384,
-  "axes": "Native raw bytes versus complete-sequence OSPA; condition-specific OSPA scales",
+  "axes": "Native raw bytes versus complete-sequence OSPA; common scales for both link conditions",
+  "check_text_collisions": true,
+  "x_limits": [
+    3.3,
+    6.52
+  ],
+  "y_limits": [
+    3.34,
+    4.13
+  ],
+  "condition_markers": [
+    "o",
+    "D"
+  ],
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
 }

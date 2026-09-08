@@ -40,6 +40,14 @@ def export(fig, name, source):
         b = item.get_window_extent(renderer)
         assert b.x0 >= -.5 and b.y0 >= -.5 and b.x1 <= width+.5 and b.y1 <= height+.5, (name, item.get_text(), b)
         bounds.append(dict(text=item.get_text(), font_size_pt=item.get_fontsize(), bbox_pixels=list(b.bounds)))
+    collision_checked = source.get('check_text_collisions', False)
+    if collision_checked:
+        for i, left in enumerate(bounds):
+            x, y, w, h = left['bbox_pixels']
+            for right in bounds[i+1:]:
+                xx, yy, ww, hh = right['bbox_pixels']
+                intersection = [min(x+w, xx+ww)-max(x, xx), min(y+h, yy+hh)-max(y, yy)]
+                assert min(intersection) <= .7, (name, 'text overlap', left['text'], right['text'], intersection)
     for suffix in ['svg', 'pdf', 'png']:
         meta = {'Date': None} if suffix == 'svg' else ({'CreationDate': None, 'ModDate': None} if suffix == 'pdf' else None)
         path = OUT / f'{name}.{suffix}'
@@ -54,6 +62,7 @@ def export(fig, name, source):
     qa = dict(passed=True, dimensions_mm=list(fig.get_size_inches()*25.4),
               canvas_pixels=[width, height], text_bounds=bounds,
               editable_svg_text_elements=live, embedded_raster_images=0,
+              text_collisions_checked=collision_checked,
               point_count=source.get('point_count'), source_sequence_points_complete=True,
               individual_points_displayed=source.get('individual_points_displayed', source.get('kind') == 'paired_sequence_ospa'))
     (OUT / f'{name}_text_bounds.json').write_text(json.dumps(qa, indent=2)+'\n')
@@ -211,47 +220,52 @@ def communication(data):
     for row in rows:
         arm = PRIMARY if row['arm'] == 'full' else row['arm']
         row['mean_ospa_m'] = aggregate[row['condition'], arm]['ospa']['mean']
-    fig = plt.figure(figsize=(181/25.4, 57/25.4), dpi=300)
-    axes = [fig.add_axes([.095+i*.495, .255, .38, .59]) for i in range(2)]
-    styles = {'marked_lineage': ('^', '#798a95', 'No-age KLA'),
-              'marked_asymmetric': ('s', BLUE, 'Scalar'),
-              'full': ('o', '#82949e', 'GCE, full'),
-              PRIMARY: ('o', TEAL, 'GCE')}
-    for i, ((condition, title), ax) in enumerate(zip(CONDITIONS, axes)):
+    fig = plt.figure(figsize=(89/25.4, 59/25.4), dpi=300)
+    ax = fig.add_axes([.16, .20, .81, .68])
+    ax.set(xlim=(3.30, 6.52), ylim=(3.34, 4.13), xticks=[3.5, 4.5, 5.5, 6.0],
+           yticks=[3.4, 3.6, 3.8, 4.0])
+    styles = {'marked_lineage': ('#798a95', 'No-age KLA'),
+              'marked_asymmetric': (BLUE, 'Scalar'),
+              'full': ('#82949e', 'Full'), PRIMARY: (TEAL, 'GCE')}
+    for i, (condition, title) in enumerate(CONDITIONS):
+        marker = 'o' if i == 0 else 'D'
         group = {r['arm']: r for r in rows if r['condition'] == condition}
-        low = min(r['mean_ospa_m'] for r in group.values())
-        high = max(r['mean_ospa_m'] for r in group.values())
-        ax.set(xlim=(3.38, 6.38), ylim=(low-.080, high+.065), xticks=[3.5, 4.5, 5.5, 6.0])
         for key in keys:
             row = group[key]
             x, y = row['means_mib']['raw_bytes'], row['mean_ospa_m']
-            marker, color, label = styles[key]
-            ax.scatter([x], [y], s=43 if key == PRIMARY else 30, marker=marker,
+            color, label = styles[key]
+            ax.scatter([x], [y], s=25 if key == PRIMARY else 21, marker=marker,
                        facecolor='white' if key == 'full' else color,
-                       edgecolor=color, linewidth=1, zorder=4)
-            offset = (0, 9) if key == 'marked_lineage' else (0, -14)
+                       edgecolor=color, linewidth=.85, zorder=4)
+            offset = (0, 7) if key == 'marked_lineage' else (0, -12)
+            if key == 'marked_asymmetric' and i == 1:
+                offset = (-3, 7)
             ax.annotate(label, (x, y), xytext=offset, textcoords='offset points', ha='center',
-                        fontsize=8, color=TEAL if key == PRIMARY else INK,
+                        fontsize=7.1, color=TEAL if key == PRIMARY else INK,
                         weight='bold' if key == PRIMARY else 'normal')
         full, encoded = group['full'], group[PRIMARY]
         x0, x1, y = full['means_mib']['raw_bytes'], encoded['means_mib']['raw_bytes'], encoded['mean_ospa_m']
         ax.annotate('', xy=(x1+.10, y), xytext=(x0-.10, y),
-                    arrowprops=dict(arrowstyle='->', color=TEAL, linewidth=1.05), zorder=3)
+                    arrowprops=dict(arrowstyle='->', color=TEAL, linewidth=.9), zorder=3)
         saving = 100*(1-x1/x0)
-        ax.annotate(f'−{saving:.1f}% payload', ((x0+x1)/2, y), xytext=(0, 9),
-                    textcoords='offset points', ha='center', color=TEAL, fontsize=8)
-        ax.set_title(title, pad=9, fontsize=9)
-        ax.set_ylabel('OSPA (m)', labelpad=5)
-        ax.set_xlabel('Raw payload (MiB per sequence)', labelpad=6, fontsize=8)
-        ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(4))
-        ax.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.1f'))
-        ax.yaxis.grid(True, color=GRID, lw=.45, zorder=0)
-        for edge in ['top', 'right']:
-            ax.spines[edge].set_visible(False)
+        ax.annotate(f'−{saving:.1f}%', ((x0+x1)/2, y), xytext=(0, 7),
+                    textcoords='offset points', ha='center', color=TEAL, fontsize=7.2)
+    ax.set_ylabel('OSPA (m)', labelpad=5, fontsize=7.5)
+    ax.set_xlabel('Raw payload (MiB per sequence)', labelpad=5, fontsize=7.3)
+    ax.tick_params(axis='both', labelsize=7, length=2.5)
+    ax.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.1f'))
+    ax.yaxis.grid(True, color=GRID, lw=.45, zorder=0)
+    ax.spines[['top', 'right']].set_visible(False)
+    handles = [Line2D([], [], marker=marker, linestyle='none', color=INK,
+                      markersize=3.5, label=title) for marker, title in [('o', 'Reliable'), ('D', 'Intermittent')]]
+    fig.legend(handles=handles, loc='upper center', ncol=2, frameon=False,
+               bbox_to_anchor=(.60, 1.018), fontsize=7.2, handletextpad=.2, columnspacing=1.0)
     export(fig, 'gaussian_communication', dict(kind='actual_native_bytes_and_accuracy', rows=rows,
         number_of_sequence_measurements=200, sequence_count=25, bytes_per_mib=2**20,
         full_and_codec_trajectory_parity=True, modeled_fragment_size_bytes=16384,
-        axes='Native raw bytes versus complete-sequence OSPA; condition-specific OSPA scales'))
+        axes='Native raw bytes versus complete-sequence OSPA; common scales for both link conditions',
+        check_text_collisions=True,
+        x_limits=[3.30, 6.52], y_limits=[3.34, 4.13], condition_markers=['o', 'D']))
 
 
 

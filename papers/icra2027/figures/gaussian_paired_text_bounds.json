@@ -342,6 +342,7 @@
   ],
   "editable_svg_text_elements": 33,
   "embedded_raster_images": 0,
+  "text_collisions_checked": false,
   "point_count": 50,
   "source_sequence_points_complete": true,
   "individual_points_displayed": true

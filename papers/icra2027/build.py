@@ -29,8 +29,10 @@ def main():
     build.mkdir(exist_ok=True)
     if args.regenerate:
         plot_python = python_with(['numpy', 'matplotlib'], 'PAPER_PLOT_PYTHON')
-        for name in ['build_bibliography.py', 'prepare_gaussian_evidence.py', 'make_gaussian_tables.py', 'make_gaussian_figures.py',
-                     'make_main_figure_integrated.py']:
+        for name in ['build_bibliography.py', 'prepare_gaussian_evidence.py',
+                     'prepare_mechanism_analysis.py', 'make_gaussian_tables.py',
+                     'make_gaussian_figures.py', 'make_main_figure_integrated.py',
+                     'make_intro_figure.py', 'make_mechanism_results.py']:
             subprocess.run([plot_python, str(HERE / name)], cwd=HERE, check=True)
     tectonic = shutil.which('tectonic')
     if not tectonic and Path('/opt/homebrew/bin/tectonic').exists():

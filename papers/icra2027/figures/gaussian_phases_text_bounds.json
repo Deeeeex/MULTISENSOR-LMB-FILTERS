@@ -1,0 +1,189 @@
+{
+  "passed": true,
+  "dimensions_mm": [
+    89.0,
+    73.0
+  ],
+  "canvas_pixels": [
+    1051,
+    862
+  ],
+  "text_bounds": [
+    {
+      "text": "First 40%",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        272.07645974270815,
+        450.95669291338584,
+        123.125,
+        28.0
+      ]
+    },
+    {
+      "text": "Middle 20%",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        538.7534448818897,
+        450.95669291338584,
+        152.375,
+        28.0
+      ]
+    },
+    {
+      "text": "Last 40%",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        835.5554300210712,
+        450.95669291338584,
+        121.375,
+        28.0
+      ]
+    },
+    {
+      "text": "-0.6",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        142.45045931758528,
+        487.38976377952764,
+        50.125,
+        27.999999999999943
+      ]
+    },
+    {
+      "text": "-0.3",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        142.45045931758528,
+        584.3877952755906,
+        50.125,
+        28.0
+      ]
+    },
+    {
+      "text": "0",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        176.32545931758528,
+        681.3858267716536,
+        16.25,
+        28.0
+      ]
+    },
+    {
+      "text": "Reliable links",
+      "font_size_pt": 8.2,
+      "bbox_pixels": [
+        505.69094488188966,
+        763.9514435695538,
+        218.5,
+        31.0
+      ]
+    },
+    {
+      "text": "Before",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        290.63895974270815,
+        80.2086614173228,
+        86.0,
+        28.0
+      ]
+    },
+    {
+      "text": "Outage",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        567.1284448818897,
+        80.2086614173228,
+        95.625,
+        28.0
+      ]
+    },
+    {
+      "text": "After",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        865.4304300210712,
+        80.2086614173228,
+        61.625,
+        28.0
+      ]
+    },
+    {
+      "text": "-0.6",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        142.45045931758528,
+        116.6417322834645,
+        50.125,
+        28.0
+      ]
+    },
+    {
+      "text": "-0.3",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        142.45045931758528,
+        213.63976377952753,
+        50.125,
+        28.0
+      ]
+    },
+    {
+      "text": "0",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        176.32545931758528,
+        310.6377952755905,
+        16.25,
+        28.0
+      ]
+    },
+    {
+      "text": "Intermittent links",
+      "font_size_pt": 8.2,
+      "bbox_pixels": [
+        477.69094488188966,
+        393.20341207349077,
+        274.5,
+        31.0
+      ]
+    },
+    {
+      "text": "GCE \u2212 reference OSPA (m)",
+      "font_size_pt": 7.4,
+      "bbox_pixels": [
+        21.240157480314952,
+        260.2214566929134,
+        29.000000000000025,
+        376.25
+      ]
+    },
+    {
+      "text": "vs No-age KLA",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        430.45587270341207,
+        819.6505905511813,
+        198.375,
+        28.0
+      ]
+    },
+    {
+      "text": "vs Scalar",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        741.2475393700787,
+        819.6505905511813,
+        121.625,
+        28.0
+      ]
+    }
+  ],
+  "editable_svg_text_elements": 17,
+  "embedded_raster_images": 0,
+  "text_collisions_checked": true,
+  "point_count": 12,
+  "source_sequence_points_complete": true,
+  "individual_points_displayed": false
+}

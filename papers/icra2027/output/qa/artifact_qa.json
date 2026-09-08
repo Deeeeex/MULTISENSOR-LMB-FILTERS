@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "c9167d18beb3c5a65b086eafad097216904171a36cd665df8a5cfed8fde1d75c",
-  "pages": 7,
+  "pdf_sha256": "bfaa24f989d3f9b7ac601f186151f7b8a1f8e26c7969004fec973df46470aca1",
+  "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2016,
+  "text_spans_in_page_bounds": 2284,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -21,43 +21,15 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/YEUUOC+CMSY7": {
+    "/YEUUOC+CMMI8": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/AKHCZK+CMMI8": {
+    "/AKHCZK+CMMI6": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/VDVGTR+CMMI10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/CAFSZL+CMMI7": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/DDIEWW+CMR10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/FKPJSN+CMR7": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/PVTTLK+CMSY10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/JAGKKY+CMBX10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/NOMARO+CMEX10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/KPXLOM+CMMI5": {
+    "/VDVGTR+CMSY7": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -77,11 +49,47 @@
       "subtype": "/Type0",
       "embedded": true
     },
-    "/UTACNV+MSAM10": {
+    "/CAFSZL+CMMI10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/FZDNHS+CMR6": {
+    "/DDIEWW+CMMI7": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/FKPJSN+CMR10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/PVTTLK+CMR7": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/JAGKKY+CMSY10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/NOMARO+CMBX10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/KPXLOM+CMEX10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/UTACNV+CMMI5": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/FZDNHS+MSAM10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/DZGKAF+CMR6": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/GJMHKB+CMR8": {
       "subtype": "/Type1",
       "embedded": true
     }
@@ -93,6 +101,12 @@
   "tex_informational_font_aliases": 20,
   "official_class_and_bst_unmodified": true,
   "figures": {
+    "intro": {
+      "live_svg_text_elements": 15,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "4f00d3ad1f3ce21d3eec8ec664262748bb5efadaa9f7b1d85dc32a1394c8c78c"
+    },
     "overview": {
       "live_svg_text_elements": 48,
       "no_embedded_raster": true,
@@ -112,27 +126,43 @@
       "svg_sha256": "7a69556bf38b8518bd2be120f13ae727cb62613592dd8cdfc257fd97c19f715c"
     },
     "gaussian_communication": {
-      "live_svg_text_elements": 32,
+      "live_svg_text_elements": 22,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "c9430d33d5a9d7361ad94be44872bd2b5b4f1195d0f8b8ddaa75e86baaac05a5"
+      "svg_sha256": "f56710a08e6549f811ec744558fe95a22e2c476b32568656e6fecb90def795d9"
     },
     "gaussian_sequence_differences": {
       "live_svg_text_elements": 22,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
       "svg_sha256": "c131a72b5ccd4eb52d4129136e8f8e2580053b498eab5dc6d4fc4231d3ee1d79"
+    },
+    "gaussian_phases": {
+      "live_svg_text_elements": 17,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "9ec2d0a132d1292fbfea281f88691861ba50d2595a9e6bce5ded19158aa0ac80"
     }
   },
   "float_pages": {
+    "fig:intro": 1,
     "fig:overview": 2,
     "tab:main": 5,
     "fig:paired": 5,
     "tab:ablation": 6,
     "fig:communication": 6,
-    "tab:communication": 6
+    "tab:communication": 6,
+    "tab:fixedinput": 7,
+    "fig:phases": 7
   },
-  "references_start_page": 7,
+  "references_start_page": 8,
+  "acknowledgment_start_page": 8,
+  "body_pages": 7,
+  "acknowledgment_reference_pages": 1,
+  "seventh_page_column_bottoms_pt": [
+    733.92919921875,
+    725.5606689453125
+  ],
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,
   "numerical_evidence": {
@@ -152,7 +182,23 @@
     "portable_source_snapshots": 15,
     "source_result_identities": 850
   },
-  "manuscript_figures": 3,
+  "additional_mechanism_analysis": {
+    "complete_sequences": 25,
+    "native_trajectory_files": 150,
+    "native_receiver_scan_scores": 67212,
+    "fixed_input_receiver_scans": 19235,
+    "all_four_cells_share_admitted_increments": true,
+    "alternative_feedback": false,
+    "sequence_phase_method_rows": 450,
+    "phase_estimates": 12,
+    "phase_pair_measurements": 300,
+    "fixed_input_means": 8,
+    "additional_numeric_macros": 54,
+    "snapshot_sha256": "bb22d904f411bf92afb3ce2e83a21fe0b95e2aead7408ea2971fa4ee33f3aca7",
+    "interpretation": "Descriptive diagnostics on complete saved development-corpus trajectories."
+  },
+  "manuscript_figures": 5,
+  "manuscript_tables": 4,
   "companion_evidence_figures": 2,
   "ablation_complete_method_last": true,
   "draft_page_cap": 8,
@@ -191,6 +237,7 @@
     "zhong2025cooptrack"
   ],
   "bibliography_entry_count": 30,
+  "verified_doi_identifiers_rendered": 26,
   "all_cited_keys_rendered_once": true,
   "citation_scope": "Primary Crossref, DataCite, NeurIPS and CVF metadata plus available author texts; see LITERATURE_SCOPE.md",
   "limitations": "Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check."

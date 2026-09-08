@@ -1,0 +1,6002 @@
+{
+  "sequences": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0006",
+    "0007",
+    "0008",
+    "0009",
+    "0011",
+    "0012",
+    "0013",
+    "0014",
+    "0016",
+    "0017",
+    "0018",
+    "0019",
+    "0021",
+    "0022",
+    "0023",
+    "0024",
+    "0026",
+    "0027",
+    "0028",
+    "0029",
+    "0031"
+  ],
+  "phase_rows": [
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.6980224995041704
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 5.69444817811996
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 3.705134390703927
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.789423394134765
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 5.896169909053461
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 3.643636392405667
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.7727301204800225
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 6.293219708335882
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 3.8478307794112028
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.8818265618376073
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 7.287906876752473
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 4.410933732456681
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.8590691405075193
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 7.2901660877365675
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 4.030989403649033
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 324,
+      "ospa": 2.900418857814382
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 162,
+      "ospa": 7.29227909306773
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 324,
+      "ospa": 4.19608799563498
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.3100372125895712
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.8917669019884535
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.682976983746303
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.2862660660206966
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.891768819327069
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.0894736820109556
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.2451353629745856
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.8896549499085484
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.0858584996384613
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.1908173677423082
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.8971084490935901
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.9531635703196613
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.2151464434597112
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.8971084393467419
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.567866226619716
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 124,
+      "ospa": 1.1740161678246606
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 64,
+      "ospa": 0.9836764716063973
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 126,
+      "ospa": 3.563871892209081
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.1661455437482733
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 0.8757389379330663
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.3399010313392543
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.164259152695103
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 0.8873934923632433
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.1697674259056763
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.2715419428128203
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 0.9140373027207828
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.1535676482126835
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.24041303213226
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 3.0310377446549053
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.3640321672883595
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.0947372949189424
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 2.9864487809473306
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.1750649492319956
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 994,
+      "ospa": 2.190264062026326
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 498,
+      "ospa": 2.999254089223541
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 996,
+      "ospa": 1.2049202356370698
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.6288122048386606
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 3.5065770305548747
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.737942315576015
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.6287899530875978
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 6.043801629179778
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.712122414318155
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.6285389376547827
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 6.043808866773592
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.439031727581804
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.5032371785083158
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 2.4935052210441735
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 5.016677467664972
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.5032395561214955
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 2.493504706702522
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.763965617838234
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 106,
+      "ospa": 1.5029230361124317
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 52,
+      "ospa": 2.4935047169339573
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.717354932137754
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.825402728051725
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.3860832269629151
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.5361945704146397
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.7647942822518088
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.3860831746467974
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.5361977998708737
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.7649589316469014
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.3863504863159411
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.5400169907354119
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.8273407779882351
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.40197027351799636
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.5382540483753703
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.7668187713425229
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.40197029486738617
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.538256705908408
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 0.7669627484287815
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 0.40180571496639766
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 98,
+      "ospa": 0.5418330356192543
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 4.607214291098533
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 0.7136080920378188
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.0362919590027124
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 5.509744788281255
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 0.7136368594646956
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.0362940976184147
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 5.516823420169999
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 0.7093332696875417
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.0364998863597097
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 6.46888216732113
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 6.230378666043211
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 2.215894503064414
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 6.375059130914329
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 6.796480644539801
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.8534996205841159
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 6.505811249242399
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 58,
+      "ospa": 6.589675107137044
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.4603538402956417
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.669881241742197
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 6.56207545755782
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 6.099838122648456
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.391703436779925
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 5.5997125115695585
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 4.92892438957718
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.48854701397516
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 5.350495371804939
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 4.764773015626296
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.565297684357035
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 6.891870309570258
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 6.355834859458006
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.370091841188024
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 6.94398287249685
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 5.680431676279872
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 328,
+      "ospa": 5.350732863760623
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 164,
+      "ospa": 6.93224369010729
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 328,
+      "ospa": 5.713182303855254
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.9427759794777035
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 6.721402159017622
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.732959140726058
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.906526137655853
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 6.737263490126645
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.863122434449203
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.840084803235786
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 6.701072734716818
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.7529715138551865
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.953047022069322
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 7.863580312128315
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.703458199521329
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.941112001683274
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 7.879651018302353
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.76622851622873
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 252,
+      "ospa": 5.813525428153262
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 126,
+      "ospa": 7.8576955256048695
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 252,
+      "ospa": 7.747526408014673
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.5519901677052266
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 2.2666654163938293
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.4870539927080126
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.1833041858666
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 1.1697770417935056
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.4024777574428122
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.130945417376241
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 1.450199764293169
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.309145261953313
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.5508353854903953
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.155783862113125
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.3506597704619216
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.3847046987267735
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 3.930284384239751
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.421334568652453
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 84,
+      "ospa": 3.093102418067541
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 3.6148662966150216
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 86,
+      "ospa": 3.5154684631212794
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 6.565979044156656
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 6.957126837542311
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 6.05592637587382
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 6.446454128496836
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 6.383512625556531
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 4.26137900740269
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 5.745056963502968
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 6.1135926135598
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 4.870968933918649
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 6.754748227784704
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 7.431370667536916
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 5.637212658682704
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 6.227410595938086
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 7.122006295121329
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 4.967948703408152
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 98,
+      "ospa": 5.9059886505687205
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 50,
+      "ospa": 6.19211412016043
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 100,
+      "ospa": 4.380780081363222
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 2.9360814336443872
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 3.9192799244753025
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.127326974681271
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 2.1041785949005627
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 1.3898471193451003
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.092840410505037
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 1.9408527538508005
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 2.2878247144495996
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.032765882494495
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 2.7251385109816146
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 2.724993395550471
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.221506406825721
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 2.115192841243024
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 2.6270332719712766
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.2090163412315516
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 70,
+      "ospa": 1.9470963816640872
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 36,
+      "ospa": 2.6231070709725386
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 72,
+      "ospa": 4.100437270530553
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 6.1487506686429185
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 5.65598931544635
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 5.434216895261399
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 5.826424987459817
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 5.431657078497668
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 5.417556313942668
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 5.862952321989338
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 4.165942381572554
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 4.547236420665934
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 6.203498227646346
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 5.177577263287564
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 5.411880719876468
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 5.813009642942005
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 4.848640117511418
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 4.726438364800546
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 64,
+      "ospa": 5.578804341364361
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 32,
+      "ospa": 4.866732439764281
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 64,
+      "ospa": 4.350377557137003
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 4.050774013902962
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 3.005698612385775
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 2.972343283907803
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 3.8211937524100326
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 2.5806937428492254
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 2.9259849120575336
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 3.8818164298461495
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 2.6807191680986477
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 2.903363320665071
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 4.0778135661535115
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 5.524206704973877
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 3.002336480986343
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 3.8433755749570784
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 5.473509432295837
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 2.9602855363540455
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 234,
+      "ospa": 3.897822799557891
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 116,
+      "ospa": 5.522401889896506
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 236,
+      "ospa": 2.9810767849521325
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 4.383327032454559
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.53668404325199
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 3.2276091144966665
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 4.088023608715066
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.243377914809078
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 3.5566416080710073
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 3.9921301586228437
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.307113904404281
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 3.4263872807037483
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 4.3541783253303254
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 5.058660216494521
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 3.4008872234092538
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 3.652046997505775
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.685487776038429
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 4.256579459603283
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 88,
+      "ospa": 3.6377383696627756
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 44,
+      "ospa": 4.506289357258409
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 90,
+      "ospa": 4.167685416534414
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.7378662384244716
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.6942093555257083
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.7448655246080949
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.90291362698887
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.595929284217048
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.9432160850632763
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.963356833254105
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 3.0308776049147235
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.664194923865432
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.82811478733625
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.965513676071933
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.725844021384024
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.9693491949160378
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.983574510734987
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.9255023122015724
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 146,
+      "ospa": 2.985563578299635
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.982609305967475
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 148,
+      "ospa": 1.7887322097253835
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 3.0713389160728126
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.512774633085686
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.7959541774457994
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 3.099275121368065
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.274517486196333
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.499288644002573
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 2.8912203448640623
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 2.2559204015038787
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.4116354821679873
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 3.1700205989685717
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 4.683346249305718
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.8319757815574365
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 3.1548856269603776
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 4.896292552598307
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.3061911921221827
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 140,
+      "ospa": 2.90033678591402
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 72,
+      "ospa": 4.898640646080269
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 142,
+      "ospa": 2.378525506338641
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 4.832040111973618
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 5.241532140517468
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.433227551431155
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 4.5719607208164295
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 4.030943552314642
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.1514879857371025
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 4.76222385398499
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 3.958211579671979
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.3065572129858505
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 5.084535610278723
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 7.587660299352105
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.3897311470039235
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 4.865429612364234
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 7.493060096832375
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.1065176101854006
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 228,
+      "ospa": 4.851826479958674
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 114,
+      "ospa": 7.504957241020092
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 230,
+      "ospa": 3.2362852783865463
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 3.973005629650293
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 3.993572586334186
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.566884236050246
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 3.8243471329476892
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 3.849803755837663
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.515889170937172
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 3.5911288782404567
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 3.73041867376198
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.3237470135732634
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 4.004297025202582
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 5.162153378641184
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.6738970194017453
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 3.838440522819925
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 5.348314551992723
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.500103948878457
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 182,
+      "ospa": 3.6320977947109205
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 92,
+      "ospa": 5.216036870225602
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 184,
+      "ospa": 2.4617093096750047
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 4.449834111621796
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 3.498052212087213
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 3.3295310172545243
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 4.269381441042346
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 3.5643206476816736
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 2.9595479479106745
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 3.8825669309014885
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 3.250309183915148
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 2.9768256698377766
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 4.650619621562325
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 4.430361400334356
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 3.1106677098922773
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 4.227692533213918
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 4.234980193959125
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 3.012198601568052
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 96,
+      "ospa": 3.8378664121455177
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 48,
+      "ospa": 4.226180057689147
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 96,
+      "ospa": 3.1124431893256794
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 2.080653831729269
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 1.9070278174481798
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.0837531006521615
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 1.892877985997918
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 1.6205597137934724
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.1487371042280903
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 1.891966188779801
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 1.6220686562530418
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.1550809168495084
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 2.141605105786315
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 2.0282675851776935
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.0597714402695988
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 1.9628415908760377
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 2.0282797808775217
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.1676096472822601
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 134,
+      "ospa": 1.9907266918239865
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 2.0279542476749435
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 136,
+      "ospa": 1.169203699953554
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 4.529847247764013
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 5.582422892288476
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 3.799967148388752
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 5.016148182384701
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 6.044825897743708
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 3.042929963370571
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 4.957146688403234
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 5.984387722986647
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 3.180280699445138
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 5.081902027259691
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 6.0497006761554575
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 4.0370888688454025
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 5.086389385367124
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 6.258809253329468
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 3.011190803620981
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 108,
+      "ospa": 5.123915079224222
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 54,
+      "ospa": 6.520871550553687
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 108,
+      "ospa": 3.2235952418825313
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.197839346730217
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 5.459956169888466
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.902602441053107
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.243941503807715
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 4.7588191114473615
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.597195306278568
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.25539706734173
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 4.597563239506207
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.171992263054366
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.499780429738886
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 6.2007457111344255
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.956179980108893
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.370815649293151
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 6.166659870941555
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.646113192505263
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 114,
+      "ospa": 5.277504129911355
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 56,
+      "ospa": 6.122956282088343
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 116,
+      "ospa": 5.311470043407193
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 5.07021885324488
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 3.30192281315457
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.475571431523331
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 4.776705470969271
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 3.052877913064069
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.6460317596113436
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 4.47692747961025
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 2.8396757193238877
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.5791233302955034
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 5.082242405919554
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 4.0127853605840755
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.2386930691474058
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 4.866395221786306
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 4.012787250994314
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.5149439855164197
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 118,
+      "ospa": 4.47616357752938
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 60,
+      "ospa": 4.016139218182288
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 120,
+      "ospa": 1.4454880168213182
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.941850794464424
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.673437350079514
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 5.313728107622954
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.880591320076944
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.29486158114158
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 4.830975953613349
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.8867147839844804
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.097031808501122
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 4.132544957363378
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.967327333323804
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.893336448718558
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 5.407694967399774
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.89461126400948
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.858039940691136
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 5.08690467948482
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 132,
+      "ospa": 4.8544679097274335
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 66,
+      "ospa": 5.895739232179918
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 132,
+      "ospa": 4.7751751245903495
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.623641391242465
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 3.1588341105486895
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.501327962948194
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.501174602262524
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 3.158837382470714
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.3099953575912817
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.5870873022277756
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 2.9580497867252697
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.4494826645902417
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.5820634705381247
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 4.810687482078638
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.4821511769612585
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.4596201614629463
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 4.810687678793249
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.290784906028411
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "before",
+      "receiver_scans": 86,
+      "ospa": 2.544851910032068
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "outage",
+      "receiver_scans": 42,
+      "ospa": 4.8111458624326975
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "after",
+      "receiver_scans": 88,
+      "ospa": 2.353741124344019
+    }
+  ],
+  "phase_aggregate": [
+    {
+      "condition": "reliable",
+      "phase": "before",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.8397332213790323,
+        "low": 3.2251988648013095,
+        "high": 4.4362963141167855,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "before",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.755616143096736,
+        "low": 3.129514645464149,
+        "high": 4.357618492252804,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "before",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.6891140371892304,
+        "low": 3.080620061678307,
+        "high": 4.2764680244004465,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "outage",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.7886754485850505,
+        "low": 3.03496947731043,
+        "high": 4.545319554522948,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "outage",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.544039669379625,
+        "low": 2.760888341841963,
+        "high": 4.312152881217228,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "outage",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.5047151845482394,
+        "low": 2.7664556044359974,
+        "high": 4.231669407097435,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "after",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.524925114002586,
+        "low": 2.8211307259041867,
+        "high": 4.242396866397437,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "after",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.291268556956875,
+        "low": 2.6588418025211777,
+        "high": 3.9482363159539773,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "phase": "after",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.202475291834016,
+        "low": 2.5921384455336036,
+        "high": 3.833136770993832,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "before",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.9755832980503176,
+        "low": 3.311556592773073,
+        "high": 4.615682119319793,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "before",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.794299411780724,
+        "low": 3.148909001953245,
+        "high": 4.414336653209762,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "before",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.709621108941018,
+        "low": 3.0827507511620587,
+        "high": 4.315591260187316,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "outage",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 4.759780329212621,
+        "low": 3.9651819480285284,
+        "high": 5.53781122851438,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "outage",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 4.738710392154494,
+        "low": 3.935584456850844,
+        "high": 5.520051826221761,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "outage",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 4.683955043896355,
+        "low": 3.8942734817966436,
+        "high": 5.45158123531522,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "after",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.6198570796145173,
+        "low": 2.9254137046640794,
+        "high": 4.329598379708151,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "after",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.4194386627913578,
+        "low": 2.7834076310761815,
+        "high": 4.0824929532597976,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "phase": "after",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.355892998459701,
+        "low": 2.7255940906635723,
+        "high": 4.001586378552528,
+        "n": 25
+      }
+    }
+  ],
+  "phase_paired": [
+    {
+      "condition": "reliable",
+      "phase": "before",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.1506191841898012,
+        "low": -0.297000661555225,
+        "high": 0.0017431703197017417,
+        "n": 25
+      },
+      "differences": [
+        0.07470762097585215,
+        -0.06490184961498557,
+        0.10539639906454701,
+        -0.00027326718387787885,
+        -0.06044379640482356,
+        0.9096091290714661,
+        -0.1813342277670369,
+        -0.10269117624191715,
+        -0.42104475032898536,
+        -0.8209220806536877,
+        -0.9952286797935868,
+        -0.2857983466535803,
+        -0.1689575840568125,
+        -0.39119687383171486,
+        0.2254905948296333,
+        -0.1801185712087503,
+        -0.06981625798862812,
+        -0.38187675140983623,
+        -0.5672671807203078,
+        -0.18868764294946794,
+        0.42729944063922076,
+        0.057557720611512764,
+        -0.5932913736346297,
+        -0.05513601047994321,
+        -0.036554089014689595
+      ]
+    },
+    {
+      "condition": "reliable",
+      "phase": "before",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.06650210590750481,
+        "low": -0.14410521662798467,
+        "high": -0.0011148091690411702,
+        "n": 25
+      },
+      "differences": [
+        -0.01669327365474249,
+        -0.041130703046110995,
+        0.10728279011771713,
+        -0.00025101543281502714,
+        0.00016464939509264198,
+        0.007078631888743914,
+        0.0968435771952354,
+        -0.06644133442006694,
+        -0.05235876849035881,
+        -0.7013971649938684,
+        -0.16332584104976222,
+        0.03652733452952095,
+        0.060622677436116934,
+        -0.09589345009222194,
+        0.06044320626523492,
+        -0.20805477650400261,
+        0.19026313316856047,
+        -0.23321825470723256,
+        -0.3868145101408573,
+        -0.0009117972181169609,
+        -0.05900149398146759,
+        0.011455563534014779,
+        -0.2997779913590213,
+        0.006123463907536042,
+        0.08591269996525153
+      ]
+    },
+    {
+      "condition": "reliable",
+      "phase": "outage",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.28396026403681046,
+        "low": -0.5740284339446154,
+        "high": 0.05306434644537069,
+        "n": 25
+      },
+      "differences": [
+        0.598771530215922,
+        -0.0021119520799051106,
+        0.03829836478771642,
+        2.537231836218717,
+        0.000267259353026017,
+        -0.0042748223502770966,
+        -1.211580085752881,
+        -0.020329424300803645,
+        -0.8164656521006604,
+        -0.8435342239825108,
+        -1.631455210025703,
+        -1.4900469338737956,
+        -0.32497944428712744,
+        -0.22957013884770827,
+        0.3366682493890152,
+        -0.2568542315818072,
+        -1.2833205608454894,
+        -0.2631539125722058,
+        -0.24774302817206495,
+        -0.2849591611951381,
+        0.4019648306981711,
+        -0.8623929303822591,
+        -0.4622470938306824,
+        -0.5764055415783913,
+        -0.2007843238234197
+      ]
+    },
+    {
+      "condition": "reliable",
+      "phase": "outage",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.039324484831385516,
+        "low": -0.18511528930543553,
+        "high": 0.09591875895759845,
+        "n": 25
+      },
+      "differences": [
+        0.3970497992824207,
+        -0.002113869418520542,
+        0.026643810357539488,
+        7.237593814046761e-06,
+        0.0002673116691436772,
+        -0.004303589777153838,
+        -0.24921713976461923,
+        -0.036190755409826636,
+        0.2804227224996634,
+        -0.26992001199673066,
+        0.8979775951044993,
+        -1.265714696925114,
+        0.10002542524942237,
+        0.06373598959520343,
+        0.4349483206976754,
+        -0.018597084692454136,
+        -0.07273197264266296,
+        -0.11938508207568299,
+        -0.31401146376652544,
+        0.0015089424595693401,
+        -0.060438174757060814,
+        -0.16125587194115454,
+        -0.21320219374018112,
+        -0.19782977264045787,
+        -0.20078759574544414
+      ]
+    },
+    {
+      "condition": "reliable",
+      "phase": "after",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.3224498221685699,
+        "low": -0.5023604230851941,
+        "high": -0.15986026066340894,
+        "n": 25
+      },
+      "differences": [
+        0.14269638870727563,
+        -0.5971184841078419,
+        -0.18633338312657077,
+        -0.2989105879942118,
+        0.0038224203207721796,
+        0.00020792735699726173,
+        -1.3350651070221602,
+        0.020012373129128846,
+        -0.17790873075469982,
+        -1.1849574419551718,
+        -0.09456109218677611,
+        -0.8869804745954655,
+        -0.06897996324273192,
+        0.19877816620708177,
+        -0.08067060074266275,
+        -0.38431869527781215,
+        -0.1266703384453045,
+        -0.24313722247698255,
+        -0.35270534741674764,
+        0.07132781619734696,
+        -0.619686448943614,
+        -0.7306101779987406,
+        0.10355189877217241,
+        -1.1811831502595762,
+        -0.05184529835795226
+      ]
+    },
+    {
+      "condition": "reliable",
+      "phase": "after",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.08879326512285851,
+        "low": -0.20120679184718412,
+        "high": 0.01675111720143391,
+        "n": 25
+      },
+      "differences": [
+        0.20419438700553583,
+        -0.0036151823724943632,
+        -0.016199777692992745,
+        -0.2730906867363512,
+        0.003819190864538191,
+        0.0002057887412949544,
+        -0.16415137395088397,
+        -0.1101509205940161,
+        -0.0933324954894994,
+        0.6095899265159588,
+        -0.06007452801054214,
+        -0.8703198932767338,
+        -0.02262159139246256,
+        -0.13025432736725895,
+        -0.27902116119784415,
+        -0.08765316183458571,
+        0.15506922724874794,
+        -0.1921421573639086,
+        0.017277721927102085,
+        0.006343812621418143,
+        0.13735073607456716,
+        -0.42520304322420177,
+        -0.06690842931584018,
+        -0.6984309962499706,
+        0.13948730699895995
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "before",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.2659621891092994,
+        "low": -0.38581548257809267,
+        "high": -0.1550652454693175,
+        "n": 25
+      },
+      "differences": [
+        0.018592295976774587,
+        -0.016801199917647613,
+        -0.05014897010593433,
+        -0.0003141423958841205,
+        -0.060378029559453594,
+        0.03692908192126865,
+        -0.21456482059641235,
+        -0.13952159391606056,
+        -0.4577329674228543,
+        -0.8487595772159837,
+        -0.7780421293175275,
+        -0.6246938862819853,
+        -0.1799907665956204,
+        -0.7164399556675498,
+        0.1574487909633846,
+        -0.2696838130545518,
+        -0.2327091303200497,
+        -0.37219923049166104,
+        -0.8127532094168073,
+        -0.15087841396232848,
+        0.0420130519645312,
+        -0.22227629982753072,
+        -0.6060788283901735,
+        -0.11285942359637069,
+        -0.037211560506056784
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "before",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.08467830283970577,
+        "low": -0.14585129415868997,
+        "high": -0.02700460601063011,
+        "n": 25
+      },
+      "differences": [
+        0.041349717306862654,
+        -0.04113027563505067,
+        0.09552676710738339,
+        -0.0003165200090637921,
+        0.00014397708625868422,
+        0.13075211832806932,
+        -0.01935897742740078,
+        -0.1275865735300128,
+        -0.29160228065923244,
+        -0.32142194536936586,
+        -0.16809645957893693,
+        -0.23420530157764397,
+        0.05444722460081275,
+        -0.014308627842999577,
+        0.016214383383597042,
+        -0.25454884104635767,
+        -0.013603132405560103,
+        -0.20634272810900445,
+        -0.3898261210684,
+        0.027885100947948827,
+        0.037525693857098474,
+        -0.09331151938179616,
+        -0.39023164425692514,
+        -0.04014335428204685,
+        0.08523174856912163
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "outage",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.07582528531626663,
+        "low": -0.21198312505613787,
+        "high": 0.03737290262748293,
+        "n": 25
+      },
+      "differences": [
+        0.004372216315257305,
+        0.08656802251280715,
+        -0.03178365543136419,
+        -5.041102162373079e-07,
+        -0.00016455855159869248,
+        0.3592964410938331,
+        0.04037338053703188,
+        -0.005884786523445484,
+        -0.5409175654981038,
+        -1.2392565473764856,
+        -0.10188632457793245,
+        -0.3108448235232828,
+        -0.0018048150773708471,
+        -0.5523708592361114,
+        0.01709562989554181,
+        0.2152943967745511,
+        -0.08270305833201341,
+        0.05388349158441752,
+        -0.20418134264520926,
+        -0.0003133375027499774,
+        0.47117087439822924,
+        -0.07778942904608233,
+        0.003353857598212606,
+        0.002402783461359803,
+        0.0004583803540594289
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "outage",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.05475534825813922,
+        "low": -0.1480067043568411,
+        "high": 0.012215707932542383,
+        "n": 25
+      },
+      "differences": [
+        0.002113005331162654,
+        0.08656803225965537,
+        0.012805308276210514,
+        1.0231435254581811e-08,
+        -0.00016457990098850406,
+        -0.2068055374027571,
+        -0.011739182389559844,
+        -0.02195549269748387,
+        -0.31541808762472945,
+        -0.9298921749608988,
+        -0.003926200998737972,
+        0.018092322252862836,
+        0.04889245760066885,
+        -0.17919841878001996,
+        -0.0009652047675121622,
+        0.0023480934819612997,
+        0.011897144187717146,
+        -0.13227768176712118,
+        -0.008800136269978331,
+        -0.00032553320257822094,
+        0.2620622972242188,
+        -0.04370358885321224,
+        0.0033519671879744806,
+        0.03769929148878148,
+        0.00045818363944860607
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "after",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.2639640811548165,
+        "low": -0.4358854684644415,
+        "high": -0.09291123309287064,
+        "n": 25
+      },
+      "differences": [
+        -0.21484573682170094,
+        -0.3892916781105802,
+        -0.15911193165128967,
+        -0.2993225355272182,
+        0.0035789872438840575,
+        -0.7555406627687724,
+        -0.6426525556027523,
+        0.044068208493344585,
+        0.16480869265935771,
+        -1.2564325773194822,
+        -0.12106913629516836,
+        -1.0615031627394647,
+        -0.021259696034210407,
+        0.76679819312516,
+        0.06288818834135945,
+        -0.45345027521879544,
+        -0.1534458686173772,
+        -0.21218770972674061,
+        0.0017754794334021717,
+        0.1094322596839552,
+        -0.8134936269628712,
+        -0.6447099367017,
+        0.20679494767391238,
+        -0.6325198428094243,
+        -0.1284100526172396
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "phase": "after",
+      "reference": "marked_asymmetric",
+      "ospa": {
+        "mean": -0.0635456643316569,
+        "low": -0.14335505495531722,
+        "high": 0.007376687829482336,
+        "n": 25
+      },
+      "differences": [
+        0.1650985919859469,
+        -0.003994334410634792,
+        0.02985528640507429,
+        -0.04661068570047977,
+        0.0035763297108463155,
+        -0.39314578028847413,
+        0.03275062757538194,
+        -0.0187021082140566,
+        0.09413389446882636,
+        -0.5871686220449304,
+        -0.10857907070099859,
+        -0.376060807663543,
+        0.02079124859808701,
+        -0.08889404306886917,
+        -0.13677010247618893,
+        0.0723343142164583,
+        0.12976766820114571,
+        -0.03839463920345221,
+        0.10024458775762746,
+        0.0015940526712938663,
+        0.21240443826155042,
+        -0.3346431490980697,
+        -0.06945596869510151,
+        -0.3117295548944705,
+        0.06295621831560805
+      ]
+    }
+  ],
+  "fixed_input_rows": [
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 810,
+      "ospa": 3.8573137684852785
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 810,
+      "ospa": 3.8542301021506025
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 810,
+      "ospa": 3.9099161881777866
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 810,
+      "ospa": 3.9068683016236667
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 579,
+      "ospa": 3.5100252735640787
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 579,
+      "ospa": 3.5071509140364294
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 579,
+      "ospa": 3.5386405547373583
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 579,
+      "ospa": 3.53580695210727
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 314,
+      "ospa": 1.9077376796225642
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 314,
+      "ospa": 1.8994915627262674
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 314,
+      "ospa": 1.9189090550519503
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 314,
+      "ospa": 1.9113148813931273
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 227,
+      "ospa": 2.338260151094295
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 227,
+      "ospa": 2.3299871111592374
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 227,
+      "ospa": 2.316373287573106
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 227,
+      "ospa": 2.3081002476380483
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 2488,
+      "ospa": 1.5434412370359147
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 2488,
+      "ospa": 1.5401207562288437
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 2488,
+      "ospa": 1.5556411635180774
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 2488,
+      "ospa": 1.5522735713547935
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 1783,
+      "ospa": 1.6809966267869474
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 1783,
+      "ospa": 1.678023429206058
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 1783,
+      "ospa": 1.6892834128304786
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 1783,
+      "ospa": 1.686265672289302
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 266,
+      "ospa": 3.6784958111980837
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 266,
+      "ospa": 3.6772107638185547
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 266,
+      "ospa": 3.635157149172103
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 266,
+      "ospa": 3.6327767482799573
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 193,
+      "ospa": 3.129968533723943
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 193,
+      "ospa": 3.1284069028026416
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 193,
+      "ospa": 3.1202031575259195
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 193,
+      "ospa": 3.1186826575887454
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 244,
+      "ospa": 0.59622605419734
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 244,
+      "ospa": 0.5970297001884015
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 244,
+      "ospa": 0.59622605419734
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 244,
+      "ospa": 0.5970297001884015
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 187,
+      "ospa": 0.6596087760179117
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 187,
+      "ospa": 0.660562724257525
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 187,
+      "ospa": 0.6596087760179117
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 187,
+      "ospa": 0.660562724257525
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 296,
+      "ospa": 2.7823118336500987
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 296,
+      "ospa": 2.7820347524380744
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 296,
+      "ospa": 2.7587449176481815
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 296,
+      "ospa": 2.7584678364361572
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 206,
+      "ospa": 3.833807347845714
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 206,
+      "ospa": 3.833807347845714
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 206,
+      "ospa": 3.833807347845714
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 206,
+      "ospa": 3.833807347845714
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 820,
+      "ospa": 5.168679155619804
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 820,
+      "ospa": 5.165084310397156
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 820,
+      "ospa": 5.174849797925752
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 820,
+      "ospa": 5.171427086201571
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 585,
+      "ospa": 5.525458536896208
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 585,
+      "ospa": 5.522962280016479
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 585,
+      "ospa": 5.530329393850943
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 585,
+      "ospa": 5.527838478100271
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 630,
+      "ospa": 6.7966695939515365
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 630,
+      "ospa": 6.796680668546463
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 630,
+      "ospa": 6.777377434514945
+    },
+    {
+      "sequence": "0009",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 630,
+      "ospa": 6.777437073779751
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 447,
+      "ospa": 6.785756374701073
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 447,
+      "ospa": 6.786245285572847
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 447,
+      "ospa": 6.7797208955764034
+    },
+    {
+      "sequence": "0009",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 447,
+      "ospa": 6.780174044882786
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 214,
+      "ospa": 2.9167026133859246
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 214,
+      "ospa": 2.9125422089001685
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 214,
+      "ospa": 2.8614180830523797
+    },
+    {
+      "sequence": "0011",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 214,
+      "ospa": 2.8569845664321893
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 159,
+      "ospa": 3.3777259937974424
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 159,
+      "ospa": 3.372892174015991
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 159,
+      "ospa": 3.3384988228482104
+    },
+    {
+      "sequence": "0011",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 159,
+      "ospa": 3.333668352180885
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 248,
+      "ospa": 5.466387234384586
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 248,
+      "ospa": 5.464955018387887
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 248,
+      "ospa": 5.468349367631312
+    },
+    {
+      "sequence": "0012",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 248,
+      "ospa": 5.466903655214297
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 180,
+      "ospa": 5.138325886588216
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 180,
+      "ospa": 5.136305759425358
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 180,
+      "ospa": 5.114076805887839
+    },
+    {
+      "sequence": "0012",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 180,
+      "ospa": 5.11211251793221
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 178,
+      "ospa": 2.893680537703778
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 178,
+      "ospa": 2.891846177787981
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 178,
+      "ospa": 2.858757957695129
+    },
+    {
+      "sequence": "0013",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 178,
+      "ospa": 2.857193966456996
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 125,
+      "ospa": 2.9784010462321366
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 125,
+      "ospa": 2.975288546450661
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 125,
+      "ospa": 2.92867129229982
+    },
+    {
+      "sequence": "0013",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 125,
+      "ospa": 2.9259437975153384
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 160,
+      "ospa": 5.013143344080431
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 160,
+      "ospa": 5.012729439571628
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 160,
+      "ospa": 4.997755737950025
+    },
+    {
+      "sequence": "0014",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 160,
+      "ospa": 4.99726397337662
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 114,
+      "ospa": 4.998160813836837
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 114,
+      "ospa": 4.997597242707809
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 114,
+      "ospa": 4.988688210691858
+    },
+    {
+      "sequence": "0014",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 114,
+      "ospa": 4.988059676198786
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 586,
+      "ospa": 3.2448884614265325
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 586,
+      "ospa": 3.2386087401294072
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 586,
+      "ospa": 3.2560506511140987
+    },
+    {
+      "sequence": "0016",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 586,
+      "ospa": 3.250003774335152
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 417,
+      "ospa": 3.4387618291184454
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 417,
+      "ospa": 3.4343488893974943
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 417,
+      "ospa": 3.4399137331795933
+    },
+    {
+      "sequence": "0016",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 417,
+      "ospa": 3.4355022663190122
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 222,
+      "ospa": 3.8289743862041115
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 222,
+      "ospa": 3.825204148720432
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 222,
+      "ospa": 3.8289743862041115
+    },
+    {
+      "sequence": "0017",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 222,
+      "ospa": 3.825204148720432
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 159,
+      "ospa": 3.8865129260078395
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 159,
+      "ospa": 3.8813078643598087
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 159,
+      "ospa": 3.8865129260078395
+    },
+    {
+      "sequence": "0017",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 159,
+      "ospa": 3.8813078643598087
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 366,
+      "ospa": 2.5019336585267915
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 366,
+      "ospa": 2.500449003389485
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 366,
+      "ospa": 2.4531729117772354
+    },
+    {
+      "sequence": "0018",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 366,
+      "ospa": 2.451295447926348
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 261,
+      "ospa": 2.3591121442091127
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 261,
+      "ospa": 2.357543926018062
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 261,
+      "ospa": 2.334720684368737
+    },
+    {
+      "sequence": "0018",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 261,
+      "ospa": 2.332746166825078
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 354,
+      "ospa": 2.5754476067171543
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 354,
+      "ospa": 2.5709168410287258
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 354,
+      "ospa": 2.5742229103493988
+    },
+    {
+      "sequence": "0019",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 354,
+      "ospa": 2.569630948183905
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 256,
+      "ospa": 2.6632147234228447
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 256,
+      "ospa": 2.657155396771755
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 256,
+      "ospa": 2.667673488994238
+    },
+    {
+      "sequence": "0019",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 256,
+      "ospa": 2.661567411109768
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 572,
+      "ospa": 4.0095904731619845
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 572,
+      "ospa": 4.008019137273453
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 572,
+      "ospa": 4.018633820192732
+    },
+    {
+      "sequence": "0021",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 572,
+      "ospa": 4.016663142968407
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 410,
+      "ospa": 3.975632843350473
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 410,
+      "ospa": 3.9733651175160647
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 410,
+      "ospa": 4.00870171573036
+    },
+    {
+      "sequence": "0021",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 410,
+      "ospa": 4.005847891493233
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 458,
+      "ospa": 3.160118484399062
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 458,
+      "ospa": 3.1554827413239086
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 458,
+      "ospa": 3.116065008658246
+    },
+    {
+      "sequence": "0022",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 458,
+      "ospa": 3.1099419745051216
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 325,
+      "ospa": 3.062564128565363
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 325,
+      "ospa": 3.0575527949277586
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 325,
+      "ospa": 3.036690741799773
+    },
+    {
+      "sequence": "0022",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 325,
+      "ospa": 3.031415229346928
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 240,
+      "ospa": 3.4103013743675046
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 240,
+      "ospa": 3.40796104805065
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 240,
+      "ospa": 3.3961836996921932
+    },
+    {
+      "sequence": "0023",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 240,
+      "ospa": 3.393818877078736
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 175,
+      "ospa": 3.502856073959982
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 175,
+      "ospa": 3.500643550384709
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 175,
+      "ospa": 3.465769861366572
+    },
+    {
+      "sequence": "0023",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 175,
+      "ospa": 3.463446257195266
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 336,
+      "ospa": 1.567940574717272
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 336,
+      "ospa": 1.5694785174998303
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 336,
+      "ospa": 1.539558764178776
+    },
+    {
+      "sequence": "0024",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 336,
+      "ospa": 1.5406875157759738
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 235,
+      "ospa": 1.6024400981790887
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 235,
+      "ospa": 1.604326873268333
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 235,
+      "ospa": 1.5881970017138376
+    },
+    {
+      "sequence": "0024",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 235,
+      "ospa": 1.589649578065595
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 270,
+      "ospa": 4.448566423952334
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 270,
+      "ospa": 4.444976754257934
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 270,
+      "ospa": 4.455441520207965
+    },
+    {
+      "sequence": "0026",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 270,
+      "ospa": 4.451848499736678
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 193,
+      "ospa": 4.109545397685404
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 193,
+      "ospa": 4.106107178132244
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 193,
+      "ospa": 4.1304842564848245
+    },
+    {
+      "sequence": "0026",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 193,
+      "ospa": 4.127042516268273
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 286,
+      "ospa": 5.187453139072101
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 286,
+      "ospa": 5.181282706881036
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 286,
+      "ospa": 5.09997885355789
+    },
+    {
+      "sequence": "0027",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 286,
+      "ospa": 5.09276192169095
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 199,
+      "ospa": 5.301426490533661
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 199,
+      "ospa": 5.294924075531959
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 199,
+      "ospa": 5.229599591029551
+    },
+    {
+      "sequence": "0027",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 199,
+      "ospa": 5.221901592391818
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 298,
+      "ospa": 2.9887842383029444
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 298,
+      "ospa": 2.9819875884784177
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 298,
+      "ospa": 2.9872151085261547
+    },
+    {
+      "sequence": "0028",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 298,
+      "ospa": 2.9803784744594073
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 220,
+      "ospa": 2.950381043023116
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 220,
+      "ospa": 2.942710233463026
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 220,
+      "ospa": 2.9482555854163732
+    },
+    {
+      "sequence": "0028",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 220,
+      "ospa": 2.94053061538273
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 330,
+      "ospa": 4.703365340869816
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 330,
+      "ospa": 4.701712237515793
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 330,
+      "ospa": 4.629775469691541
+    },
+    {
+      "sequence": "0029",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 330,
+      "ospa": 4.627110258239369
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 235,
+      "ospa": 4.804972839239699
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 235,
+      "ospa": 4.802858721260834
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 235,
+      "ospa": 4.778150351267272
+    },
+    {
+      "sequence": "0029",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 235,
+      "ospa": 4.775897591593463
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 216,
+      "ospa": 2.511730651620311
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 216,
+      "ospa": 2.5103542895819264
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 216,
+      "ospa": 2.604541765550959
+    },
+    {
+      "sequence": "0031",
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 216,
+      "ospa": 2.603157747768478
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "receiver_scans": 163,
+      "ospa": 2.3904389995683353
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "receiver_scans": 163,
+      "ospa": 2.3902139701851293
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "receiver_scans": 163,
+      "ospa": 2.465308822387441
+    },
+    {
+      "sequence": "0031",
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "receiver_scans": 163,
+      "ospa": 2.4651197542181786
+    }
+  ],
+  "fixed_input_aggregate": [
+    {
+      "condition": "reliable",
+      "cell": "base_space_base_integral",
+      "ospa": {
+        "mean": 3.4703953470661304,
+        "low": 2.9297173861263897,
+        "high": 4.021620440684951,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "cell": "new_space_base_integral",
+      "ospa": {
+        "mean": 3.4676155686109214,
+        "low": 2.9272171464238594,
+        "high": 4.019234503173005,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "cell": "base_space_new_integral",
+      "ospa": {
+        "mean": 3.4589167110494516,
+        "low": 2.920204060068471,
+        "high": 4.0071186404655075,
+        "n": 25
+      }
+    },
+    {
+      "condition": "reliable",
+      "cell": "new_space_new_integral",
+      "ospa": {
+        "mean": 3.4559377636850592,
+        "low": 2.917646726130238,
+        "high": 4.004478925010651,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "cell": "base_space_base_integral",
+      "ospa": {
+        "mean": 3.520174195917927,
+        "low": 2.990299204364274,
+        "high": 4.0620529381740615,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "cell": "new_space_base_integral",
+      "ospa": {
+        "mean": 3.5172915323485574,
+        "low": 2.9875477592325614,
+        "high": 4.058645527163904,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "cell": "base_space_new_integral",
+      "ospa": {
+        "mean": 3.5127152286972785,
+        "low": 2.985273163125746,
+        "high": 4.052924081044538,
+        "n": 25
+      }
+    },
+    {
+      "condition": "intermittent",
+      "cell": "new_space_new_integral",
+      "ospa": {
+        "mean": 3.5097198881242417,
+        "low": 2.9822169663538145,
+        "high": 4.0499452731563315,
+        "n": 25
+      }
+    }
+  ],
+  "fixed_input_paired": [
+    {
+      "condition": "reliable",
+      "reference": "base_space_base_integral",
+      "ospa": {
+        "mean": -0.014457583381070971,
+        "low": -0.028629727635351928,
+        "high": 0.0007607592885177612,
+        "n": 25
+      },
+      "differences": [
+        0.0495545331383882,
+        0.0035772017705630876,
+        0.008832334318878754,
+        -0.04571906291812633,
+        0.0008036459910615301,
+        -0.02384399721394148,
+        0.002747930581766589,
+        -0.01923252017178534,
+        -0.05971804695373528,
+        0.0005164208297117057,
+        -0.03648657124678234,
+        -0.015879370703810736,
+        0.0051153129086194404,
+        -0.0037702374836796615,
+        -0.05063821060044349,
+        -0.00581665853324953,
+        0.007072669806422738,
+        -0.0501765098939404,
+        -0.016482497288768716,
+        -0.027253058941298258,
+        0.0032820757843436965,
+        -0.09469121738115138,
+        -0.008405763843537084,
+        -0.07625508263044711,
+        0.09142709614816713
+      ]
+    },
+    {
+      "condition": "reliable",
+      "reference": "new_space_base_integral",
+      "ospa": {
+        "mean": -0.011677804925861679,
+        "low": -0.025897456755280046,
+        "high": 0.003406986019523077,
+        "n": 25
+      },
+      "differences": [
+        0.05263819947306425,
+        0.011823318666859928,
+        0.01215281512594979,
+        -0.04443401553859738,
+        0.0,
+        -0.023566916001917182,
+        0.006342775804414558,
+        -0.01924359476671178,
+        -0.05555764246797912,
+        0.0019486368264098886,
+        -0.03465221133098506,
+        -0.015465466195007771,
+        0.011395034205744725,
+        0.0,
+        -0.04915355546313682,
+        -0.0012858928448209461,
+        0.00864400569495416,
+        -0.04554076681878705,
+        -0.014142170971914059,
+        -0.028791001723856402,
+        0.006871745478743918,
+        -0.08852078519008622,
+        -0.001609114019010427,
+        -0.07460197927642476,
+        0.09280345818655178
+      ]
+    },
+    {
+      "condition": "reliable",
+      "reference": "base_space_new_integral",
+      "ospa": {
+        "mean": -0.002978947364391957,
+        "low": -0.0039369506112323744,
+        "high": -0.0020672315308082915,
+        "n": 25
+      },
+      "differences": [
+        -0.0030478865541199163,
+        -0.007594173658822978,
+        -0.0033675921632838612,
+        -0.002380400892145751,
+        0.0008036459910615301,
+        -0.00027708121202429936,
+        -0.0034227117241814042,
+        5.963926480578863e-05,
+        -0.004433516620190314,
+        -0.001445712417014633,
+        -0.0015639912381333332,
+        -0.0004917645734048293,
+        -0.006046876778946775,
+        -0.0037702374836796615,
+        -0.0018774638508873842,
+        -0.004591962165493957,
+        -0.001970677224324646,
+        -0.006123034153124429,
+        -0.0023648226134573846,
+        0.0011287515971978301,
+        -0.0035930204712872893,
+        -0.007216931866940612,
+        -0.0068366340667473935,
+        -0.002665211452172578,
+        -0.001384017782480651
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "reference": "base_space_base_integral",
+      "ospa": {
+        "mean": -0.010454307793685422,
+        "low": -0.021646478001469988,
+        "high": 0.0017090115708881456,
+        "n": 25
+      },
+      "differences": [
+        0.025781678543191244,
+        -0.03015990345624653,
+        0.005269045502354519,
+        -0.011285876135197714,
+        0.0009539482396133669,
+        0.0,
+        0.002379941204063485,
+        -0.00558232981828688,
+        -0.04405764161655723,
+        -0.02621336865600643,
+        -0.052457248716798244,
+        -0.01010113763805176,
+        -0.00325956279943318,
+        -0.0052050616480308065,
+        -0.02636597738403479,
+        -0.0016473123130769096,
+        0.030215048142760104,
+        -0.031148899218434778,
+        -0.03940981676471589,
+        -0.012790520113493686,
+        0.01749711858286851,
+        -0.07952489814184283,
+        -0.009850427640385906,
+        -0.02907524764623659,
+        0.07468075464984336
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "reference": "new_space_base_integral",
+      "ospa": {
+        "mean": -0.007571644224315852,
+        "low": -0.01843249176443409,
+        "high": 0.004321031842667126,
+        "n": 25
+      },
+      "differences": [
+        0.028656038070840495,
+        -0.02188686352118907,
+        0.008242243083243839,
+        -0.009724245213896143,
+        0.0,
+        0.0,
+        0.00487619808379236,
+        -0.006071240690061153,
+        -0.039223821835105976,
+        -0.0241932414931485,
+        -0.0493447489353227,
+        -0.009537566509023598,
+        0.0011533769215179568,
+        0.0,
+        -0.024797759192983992,
+        0.00441201433801286,
+        0.03248277397716848,
+        -0.02613756558083047,
+        -0.03719729318944287,
+        -0.014677295202737861,
+        0.020935338136029102,
+        -0.07302248314014115,
+        -0.0021796180802962084,
+        -0.026961129667371075,
+        0.07490578403304937
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "reference": "base_space_new_integral",
+      "ospa": {
+        "mean": -0.0029953405730376702,
+        "low": -0.00403150659527883,
+        "high": -0.0019824708118438075,
+        "n": 25
+      },
+      "differences": [
+        -0.002833602630088361,
+        -0.008273039935057458,
+        -0.00301774054117665,
+        -0.001520499937174069,
+        0.0009539482396133669,
+        0.0,
+        -0.0024909157506716184,
+        0.0004531493063826275,
+        -0.004830470667325226,
+        -0.001964287955629196,
+        -0.0027274947844815323,
+        -0.0006285344930727632,
+        -0.004411466860581026,
+        -0.0052050616480308065,
+        -0.001974517543659182,
+        -0.006106077884470373,
+        -0.0028538242371265454,
+        -0.005275512452844744,
+        -0.0023236041713059485,
+        0.0014525763517574397,
+        -0.0034417402165516364,
+        -0.007697998637732795,
+        -0.0077249700336432525,
+        -0.0022527596738095568,
+        -0.00018906816926245185
+      ]
+    }
+  ],
+  "snapshot_sha256": "bb22d904f411bf92afb3ce2e83a21fe0b95e2aead7408ea2971fa4ee33f3aca7",
+  "generator_sha256": "c3cd45367462e5d6b283e973970f05a6808eb4c24998addf4420efa3791cc764",
+  "interval": "10000 paired complete-sequence percentile resamples; descriptive, unadjusted",
+  "method_reselected": false,
+  "new_tracking_trajectories": false
+}
