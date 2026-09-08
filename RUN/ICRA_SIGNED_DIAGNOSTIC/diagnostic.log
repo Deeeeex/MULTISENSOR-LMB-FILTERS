@@ -1,0 +1,26 @@
+NEGATIVE DIAGNOSTIC COMPLETE 0000
+NEGATIVE DIAGNOSTIC COMPLETE 0001
+NEGATIVE DIAGNOSTIC COMPLETE 0002
+NEGATIVE DIAGNOSTIC COMPLETE 0003
+NEGATIVE DIAGNOSTIC COMPLETE 0004
+NEGATIVE DIAGNOSTIC COMPLETE 0005
+NEGATIVE DIAGNOSTIC COMPLETE 0006
+NEGATIVE DIAGNOSTIC COMPLETE 0007
+NEGATIVE DIAGNOSTIC COMPLETE 0008
+reliable marked_selective positive {'mean': 0.0, 'sd': 0.0, 'low': 0.0, 'high': 0.0, 'n': 9} miss 0.0 false 0.0
+reliable marked_selective mark_signed {'mean': -0.0018903602631823446, 'sd': 0.00525223932635008, 'low': -0.005494354817116391, 'high': 0.0006558051134712725, 'n': 9} miss 0.07025089605735325 false -0.06251488449630768
+reliable marked_selective negative_all {'mean': -0.01149943698564483, 'sd': 0.05088993857666969, 'low': -0.04335708960662206, 'high': 0.018755325068262014, 'n': 9} miss 2.66536178182039 false -2.7731226168900056
+reliable marked_selective negative_miss {'mean': -0.005313655915011589, 'sd': 0.03385045784510713, 'low': -0.02530178171000714, 'high': 0.015613374664769308, 'n': 9} miss 1.9335513172425252 false -1.8037990390175418
+reliable marked_selective_signed positive {'mean': 0.002180768472296831, 'sd': 0.006542305416890493, 'low': 0.0, 'high': 0.006542305416890493, 'n': 9} miss 0.0 false 0.052631578947368335
+reliable marked_selective_signed mark_signed {'mean': 0.0, 'sd': 0.0, 'low': 0.0, 'high': 0.0, 'n': 9} miss 0.0 false 0.0
+reliable marked_selective_signed negative_all {'mean': -0.003045730611777289, 'sd': 0.0524659832647958, 'low': -0.03625171320798964, 'high': 0.02763742931840368, 'n': 9} miss 2.7794243086163557 false -2.453750442519328
+reliable marked_selective_signed negative_miss {'mean': -0.0032966879342470395, 'sd': 0.029456909757760944, 'low': -0.021741134901608068, 'high': 0.014052401471821546, 'n': 9} miss 1.9444634950477326 false -1.5651286190328293
+intermittent marked_selective positive {'mean': 0.0, 'sd': 0.0, 'low': 0.0, 'high': 0.0, 'n': 9} miss 0.0 false 0.0
+intermittent marked_selective mark_signed {'mean': -0.0011310095160089123, 'sd': 0.005123375292715802, 'low': -0.004766960727010883, 'high': 0.0013739321789841459, 'n': 9} miss 0.0650254668930417 false -0.11520467836257432
+intermittent marked_selective negative_all {'mean': -0.01371694496122612, 'sd': 0.03832741605864189, 'low': -0.040031100156004425, 'high': 0.005433425897334409, 'n': 9} miss 1.7106729433554564 false -2.1813933417249127
+intermittent marked_selective negative_miss {'mean': -0.012299946915413005, 'sd': 0.0377855610299743, 'low': -0.03857004845951563, 'high': 0.005580501940219976, 'n': 9} miss 1.2165534804753817 false -1.5185456653048794
+intermittent marked_selective_signed positive {'mean': 0.001041801825637931, 'sd': 0.005071353869048951, 'low': -0.00123863071146118, 'high': 0.00455482151168961, 'n': 9} miss -0.10893146601725413 false 0.02631578947368496
+intermittent marked_selective_signed mark_signed {'mean': 0.0, 'sd': 0.0, 'low': 0.0, 'high': 0.0, 'n': 9} miss 0.0 false 0.0
+intermittent marked_selective_signed negative_all {'mean': -0.0033688968045995577, 'sd': 0.017993446537564548, 'low': -0.014854989675355468, 'high': 0.006975456470515638, 'n': 9} miss 1.720331498345082 false -2.083622673585722
+intermittent marked_selective_signed negative_miss {'mean': -0.011283048809702113, 'sd': 0.03793705237548299, 'low': -0.03739681481167506, 'high': 0.006358091899346096, 'n': 9} miss 1.1926368952684712 false -1.5595671780531453
+NEGATIVE FIXED-INPUT DIAGNOSTIC PASSED 15944 79720
