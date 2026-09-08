@@ -1,0 +1,14 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+CR CHECK PASSED: constrained minimum on 16 opposing/agreement inputs, unchanged spatial Gaussian, identity, equal ages, and visible-absence censor.
+START PORT 0000 reliable marked_er 147 frames
+DONE PORT 0000 reliable marked_er OSPA 2.242465 runtime 10.69s
+START PORT 0000 reliable marked_conservative 147 frames
+DONE PORT 0000 reliable marked_conservative OSPA 2.054849 runtime 7.77s
+START PORT 0000 intermittent marked_er 147 frames
+DONE PORT 0000 intermittent marked_er OSPA 2.617595 runtime 5.38s
+START PORT 0000 intermittent marked_conservative 147 frames
+DONE PORT 0000 intermittent marked_conservative OSPA 2.493186 runtime 4.02s
+COMPLETED MARKED CONTROL indices 0--0 cohort=development_check

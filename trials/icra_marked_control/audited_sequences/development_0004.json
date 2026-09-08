@@ -1,0 +1,287 @@
+{
+  "cohort": "development",
+  "sequence": "0004",
+  "runs": [
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_conservative",
+      "frames": 180,
+      "ospa": 5.125054949988683,
+      "gospa": 22.404095234450644,
+      "loc2": 59.29855678808855,
+      "miss2": 353.2,
+      "false2": 103.2,
+      "countError": 3.4722222222222223,
+      "raw_bytes": 5755648,
+      "delivered_raw_bytes": 5755648,
+      "wire_bytes": 8614912,
+      "runtime_s": 153.20388566666668
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.119358519766966,
+      "gospa": 22.38598897490377,
+      "loc2": 59.10899699685235,
+      "miss2": 352.0,
+      "false2": 103.6,
+      "countError": 3.45,
+      "raw_bytes": 5985000,
+      "delivered_raw_bytes": 5985000,
+      "wire_bytes": 8811520,
+      "runtime_s": 45.19416833333333,
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_ceiling_score",
+      "frames": 180
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.116871531476196,
+      "gospa": 22.42015663073348,
+      "loc2": 61.49916915327948,
+      "miss2": 350.8,
+      "false2": 104.0,
+      "countError": 3.4277777777777776,
+      "raw_bytes": 6027984,
+      "delivered_raw_bytes": 6027984,
+      "wire_bytes": 8795136,
+      "runtime_s": 44.246819708333334,
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 180
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.112904317200598,
+      "gospa": 22.473488765532725,
+      "loc2": 59.79748842292349,
+      "miss2": 350.8,
+      "false2": 107.6,
+      "countError": 3.3777777777777778,
+      "raw_bytes": 6019776,
+      "delivered_raw_bytes": 6019776,
+      "wire_bytes": 8860672,
+      "runtime_s": 44.34488075,
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_er",
+      "frames": 180
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_conservative",
+      "frames": 180,
+      "ospa": 5.189354182465449,
+      "gospa": 21.501797245413325,
+      "loc2": 56.596550244329066,
+      "miss2": 361.4,
+      "false2": 61.4,
+      "countError": 4.166666666666667,
+      "raw_bytes": 6818736,
+      "delivered_raw_bytes": 5086512,
+      "wire_bytes": 9860096,
+      "runtime_s": 151.97205775
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.1842718822025615,
+      "gospa": 21.48774390622642,
+      "loc2": 56.60711513162857,
+      "miss2": 360.2,
+      "false2": 61.8,
+      "countError": 4.144444444444445,
+      "raw_bytes": 7085304,
+      "delivered_raw_bytes": 5287664,
+      "wire_bytes": 10073088,
+      "runtime_s": 61.2421305,
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_ceiling_score",
+      "frames": 180
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.196199370650485,
+      "gospa": 21.68809697083468,
+      "loc2": 58.2769063489444,
+      "miss2": 361.2,
+      "false2": 67.8,
+      "countError": 4.075,
+      "raw_bytes": 7174080,
+      "delivered_raw_bytes": 5353544,
+      "wire_bytes": 10269696,
+      "runtime_s": 61.353967708333336,
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 180
+    },
+    {
+      "cohort": "development",
+      "ospa": 5.179138928084923,
+      "gospa": 21.653094617692346,
+      "loc2": 57.736030624383964,
+      "miss2": 358.6,
+      "false2": 69.4,
+      "countError": 4.016666666666667,
+      "raw_bytes": 7157664,
+      "delivered_raw_bytes": 5347928,
+      "wire_bytes": 10155008,
+      "runtime_s": 64.696789875,
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_er",
+      "frames": 180
+    }
+  ],
+  "common": [
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "reliable",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_conservative",
+      "support": 8028,
+      "candidate_sse": 21274.5709144027,
+      "reference_sse": 21129.65517791922
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "reliable",
+      "candidate": "marked_lineage",
+      "reference": "marked_conservative",
+      "support": 8016,
+      "candidate_sse": 21393.577311314853,
+      "reference_sse": 21121.417969397902
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "reliable",
+      "candidate": "marked_er",
+      "reference": "marked_conservative",
+      "support": 8020,
+      "candidate_sse": 21269.1694560249,
+      "reference_sse": 21122.718660042505
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_conservative",
+      "support": 7989,
+      "candidate_sse": 20374.322307886254,
+      "reference_sse": 20374.758087958468
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "candidate": "marked_lineage",
+      "reference": "marked_conservative",
+      "support": 7963,
+      "candidate_sse": 20416.142397819058,
+      "reference_sse": 20362.08956668757
+    },
+    {
+      "cohort": "development",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "candidate": "marked_er",
+      "reference": "marked_conservative",
+      "support": 7968,
+      "candidate_sse": 20416.059639269126,
+      "reference_sse": 20351.55276128643
+    }
+  ],
+  "diagnostics": [
+    {
+      "condition": "reliable",
+      "arm": "marked_conservative",
+      "labels": 30832,
+      "positive_age_labels": 890,
+      "support_above_noage": 0,
+      "constrained_below_er": 886,
+      "preserved_above_cr": 0,
+      "same_input": {
+        "no_age": {
+          "ospa": 5.122036833138246,
+          "gospa": 22.39408874759263,
+          "loc2": 59.298190757861086,
+          "miss2": 352.8,
+          "false2": 103.2,
+          "countError": 3.466666666666667
+        },
+        "ER": {
+          "ospa": 5.113333852438452,
+          "gospa": 22.38448933998101,
+          "loc2": 59.11367951869581,
+          "miss2": 351.2,
+          "false2": 104.4,
+          "countError": 3.4277777777777776
+        },
+        "candidate": {
+          "ospa": 5.125054949988683,
+          "gospa": 22.404095234450644,
+          "loc2": 59.29855678808855,
+          "miss2": 353.2,
+          "false2": 103.2,
+          "countError": 3.4722222222222223
+        }
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_conservative",
+      "labels": 29344,
+      "positive_age_labels": 760,
+      "support_above_noage": 0,
+      "constrained_below_er": 758,
+      "preserved_above_cr": 0,
+      "same_input": {
+        "no_age": {
+          "ospa": 5.328223968866256,
+          "gospa": 22.113454591839314,
+          "loc2": 58.55135607358373,
+          "miss2": 392.0625,
+          "false2": 58.21875,
+          "countError": 4.63671875
+        },
+        "ER": {
+          "ospa": 5.315714624224041,
+          "gospa": 22.114881143701204,
+          "loc2": 58.668464969660214,
+          "miss2": 389.25,
+          "false2": 60.46875,
+          "countError": 4.56640625
+        },
+        "candidate": {
+          "ospa": 5.328215053652896,
+          "gospa": 22.11339981143677,
+          "loc2": 58.54910186858723,
+          "miss2": 392.0625,
+          "false2": 58.21875,
+          "countError": 4.63671875
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "trials/icra_marked_control/results_development/0004_reliable_marked_conservative.json.gz": "ae98ebd3bc1407963f81c44e2e0facf69e10e2bb7ad26321f82c04e52093c778",
+    "trials/icra_marked_iteration/results_stable/0004_reliable.json.gz": "5f3d1240a4ea0fcd25c507b1a2c0c1c7c8b89085790ccec4beb89aa4f867e72e",
+    "trials/icra_marked_control/results_development/0004_intermittent_marked_conservative.json.gz": "d6a76032c51b89ba25529f5b8559b19cb88a6eaa168907d415bdcbe93e21b2b9",
+    "trials/icra_marked_iteration/results_stable/0004_intermittent.json.gz": "fb07786da296b7efecbcde6ada45a69587aadaaa26f4ba0dbdf2cdd39b9d4f62"
+  },
+  "new_control_node_frames": 720,
+  "rescored_baseline_node_frames": 2160,
+  "analyzer_sha256": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+  "helper_sha256": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+  "control_freeze_sha256": "f6ba93818104e6bf78f3e4b11367bb4f7310a60d46f3865ef9d17dc16f18ff26"
+}

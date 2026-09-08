@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_fusion_holdout/analyze_holdout.py", line 346, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_fusion_holdout/analyze_holdout.py", line 338, in main
+    report = audit_sequence(entry, freeze, matlab_source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_fusion_holdout/analyze_holdout.py", line 216, in audit_sequence
+    diagnostic = audit_existence(run, data, freeze['primary'])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_fusion_holdout/analyze_holdout.py", line 100, in audit_existence
+    assert np.allclose(factors, expected_factors, rtol=0, atol=2e-14)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

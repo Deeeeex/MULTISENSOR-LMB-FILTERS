@@ -1,0 +1,13 @@
+panel,metric,condition,candidate,reference,n,mean,low,high
+a,ospa,reliable,marked_ceiling_score,marked_lineage,25,-0.03604891691145302,-0.0860440663793907,0.027644879029014847
+b,miss2,reliable,marked_ceiling_score,marked_lineage,25,-2.498806374444927,-4.125808345603245,-1.0322797747173624
+b,false2,reliable,marked_ceiling_score,marked_lineage,25,-1.6413550672106636,-2.7165510512986137,-0.6344663816824808
+a,ospa,reliable,marked_ceiling_score,marked_er,25,-0.00553636317623134,-0.08310913922661109,0.07261253121235572
+b,miss2,reliable,marked_ceiling_score,marked_er,25,4.734454449190913,2.594798362100278,7.049601383226644
+b,false2,reliable,marked_ceiling_score,marked_er,25,-4.91218089067743,-7.333443182402631,-2.7837340104056345
+a,ospa,intermittent,marked_ceiling_score,marked_lineage,25,-0.07481421152435543,-0.11648703994922643,-0.03878049861717337
+b,miss2,intermittent,marked_ceiling_score,marked_lineage,25,-2.788096531610266,-5.325513526294507,-0.9412785795896201
+b,false2,intermittent,marked_ceiling_score,marked_lineage,25,-1.1132506636275514,-1.961271097262025,-0.2973022149183709
+a,ospa,intermittent,marked_ceiling_score,marked_er,25,-0.038382759232426435,-0.12136815843482955,0.033216506076795396
+b,miss2,intermittent,marked_ceiling_score,marked_er,25,3.076544198343602,1.027270920949244,5.344428722637122
+b,false2,intermittent,marked_ceiling_score,marked_er,25,-3.940476282341743,-5.608894333453833,-2.4180623894781714

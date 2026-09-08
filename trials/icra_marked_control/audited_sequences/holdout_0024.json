@@ -1,0 +1,291 @@
+{
+  "cohort": "holdout",
+  "sequence": "0024",
+  "runs": [
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_conservative",
+      "frames": 168,
+      "ospa": 1.6431211625038362,
+      "gospa": 3.4899553803209877,
+      "loc2": 2.6897806922119853,
+      "miss2": 21.857142857142858,
+      "false2": 0.0,
+      "countError": 0.30357142857142855,
+      "raw_bytes": 1344864,
+      "delivered_raw_bytes": 1344864,
+      "wire_bytes": 5548032,
+      "runtime_s": 8.163893958333333
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.6435942374010497,
+      "gospa": 3.49110422274108,
+      "loc2": 2.690577279999154,
+      "miss2": 21.857142857142858,
+      "false2": 0.0,
+      "countError": 0.30357142857142855,
+      "raw_bytes": 1394232,
+      "delivered_raw_bytes": 1394232,
+      "wire_bytes": 5548032,
+      "runtime_s": 8.339454625,
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_ceiling_score",
+      "frames": 168
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.6430412830118928,
+      "gospa": 3.489740877827847,
+      "loc2": 2.688604821576676,
+      "miss2": 21.857142857142858,
+      "false2": 0.0,
+      "countError": 0.30357142857142855,
+      "raw_bytes": 1352768,
+      "delivered_raw_bytes": 1352768,
+      "wire_bytes": 5548032,
+      "runtime_s": 12.6865105,
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 168
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.529200237219109,
+      "gospa": 3.2835581781092356,
+      "loc2": 2.756494027417926,
+      "miss2": 19.285714285714285,
+      "false2": 0.0,
+      "countError": 0.26785714285714285,
+      "raw_bytes": 1350272,
+      "delivered_raw_bytes": 1350272,
+      "wire_bytes": 5548032,
+      "runtime_s": 11.613274125,
+      "sequence": "0024",
+      "condition": "reliable",
+      "arm": "marked_er",
+      "frames": 168
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_conservative",
+      "frames": 168,
+      "ospa": 1.6814610933378866,
+      "gospa": 3.584990023289636,
+      "loc2": 3.2931172619259144,
+      "miss2": 22.071428571428573,
+      "false2": 0.42857142857142855,
+      "countError": 0.30654761904761907,
+      "raw_bytes": 1331968,
+      "delivered_raw_bytes": 883616,
+      "wire_bytes": 5548032,
+      "runtime_s": 4.935319125
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.6711592751905004,
+      "gospa": 3.567997334081993,
+      "loc2": 3.308013059847796,
+      "miss2": 21.857142857142858,
+      "false2": 0.42857142857142855,
+      "countError": 0.30357142857142855,
+      "raw_bytes": 1377600,
+      "delivered_raw_bytes": 912344,
+      "wire_bytes": 5548032,
+      "runtime_s": 6.265118541666666,
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_ceiling_score",
+      "frames": 168
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.6814573234338075,
+      "gospa": 3.5849812475197007,
+      "loc2": 3.29306710824299,
+      "miss2": 22.071428571428573,
+      "false2": 0.42857142857142855,
+      "countError": 0.30654761904761907,
+      "raw_bytes": 1343200,
+      "delivered_raw_bytes": 894432,
+      "wire_bytes": 5548032,
+      "runtime_s": 8.503104708333334,
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 168
+    },
+    {
+      "cohort": "holdout",
+      "ospa": 1.6602680908400604,
+      "gospa": 3.5829241178963556,
+      "loc2": 3.3385378314538885,
+      "miss2": 20.785714285714285,
+      "false2": 1.7142857142857142,
+      "countError": 0.29464285714285715,
+      "raw_bytes": 1354224,
+      "delivered_raw_bytes": 902336,
+      "wire_bytes": 5548032,
+      "runtime_s": 6.415953375,
+      "sequence": "0024",
+      "condition": "intermittent",
+      "arm": "marked_er",
+      "frames": 168
+    }
+  ],
+  "common": [
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "reliable",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_conservative",
+      "support": 2212,
+      "candidate_sse": 904.0339660797157,
+      "reference_sse": 903.7663125832271
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "reliable",
+      "candidate": "marked_lineage",
+      "reference": "marked_conservative",
+      "support": 2212,
+      "candidate_sse": 903.371220049763,
+      "reference_sse": 903.7663125832271
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "reliable",
+      "candidate": "marked_er",
+      "reference": "marked_conservative",
+      "support": 2212,
+      "candidate_sse": 903.7721824943145,
+      "reference_sse": 903.7663125832271
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "intermittent",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_conservative",
+      "support": 2211,
+      "candidate_sse": 1106.5676035811364,
+      "reference_sse": 1106.4874000071072
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "intermittent",
+      "candidate": "marked_lineage",
+      "reference": "marked_conservative",
+      "support": 2211,
+      "candidate_sse": 1106.4705483696446,
+      "reference_sse": 1106.4874000071072
+    },
+    {
+      "cohort": "holdout",
+      "sequence": "0024",
+      "condition": "intermittent",
+      "candidate": "marked_er",
+      "reference": "marked_conservative",
+      "support": 2211,
+      "candidate_sse": 1106.6666677056476,
+      "reference_sse": 1106.4874000071072
+    }
+  ],
+  "diagnostics": [
+    {
+      "condition": "reliable",
+      "arm": "marked_conservative",
+      "labels": 6616,
+      "positive_age_labels": 634,
+      "support_above_noage": 0,
+      "constrained_below_er": 634,
+      "preserved_above_cr": 0,
+      "same_input": {
+        "no_age": {
+          "ospa": 1.6431211625038362,
+          "gospa": 3.4899553803209877,
+          "loc2": 2.6897806922119853,
+          "miss2": 21.857142857142858,
+          "false2": 0.0,
+          "countError": 0.30357142857142855
+        },
+        "ER": {
+          "ospa": 1.5530672201624174,
+          "gospa": 3.3258649750988565,
+          "loc2": 2.750322832983679,
+          "miss2": 19.714285714285715,
+          "false2": 0.0,
+          "countError": 0.27380952380952384
+        },
+        "candidate": {
+          "ospa": 1.6431211625038362,
+          "gospa": 3.4899553803209877,
+          "loc2": 2.6897806922119853,
+          "miss2": 21.857142857142858,
+          "false2": 0.0,
+          "countError": 0.30357142857142855
+        }
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_conservative",
+      "labels": 4357,
+      "positive_age_labels": 429,
+      "support_above_noage": 0,
+      "constrained_below_er": 429,
+      "preserved_above_cr": 0,
+      "same_input": {
+        "no_age": {
+          "ospa": 1.6106600027862181,
+          "gospa": 3.262305771736454,
+          "loc2": 1.9514126816531996,
+          "miss2": 21.4468085106383,
+          "false2": 0.0,
+          "countError": 0.2978723404255319
+        },
+        "ER": {
+          "ospa": 1.5990112996853383,
+          "gospa": 3.2529265779217655,
+          "loc2": 1.9788800701491025,
+          "miss2": 20.527659574468085,
+          "false2": 0.6127659574468085,
+          "countError": 0.2936170212765957
+        },
+        "candidate": {
+          "ospa": 1.6106600027862181,
+          "gospa": 3.262305771736454,
+          "loc2": 1.9514126816531996,
+          "miss2": 21.4468085106383,
+          "false2": 0.0,
+          "countError": 0.2978723404255319
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "trials/icra_marked_control/results_holdout/0024_reliable_marked_conservative.json.gz": "24aba48538dc8c53eae01226d716231ca5ab49c2b9bb0090fcd9306681ad1dca",
+    "trials/icra_fusion_holdout/results_holdout/0024_reliable_marked_ceiling_score.json.gz": "27b39c5564a408f11e563ea7f5993ff6bb36b815b7adb544a935dc6abe267569",
+    "trials/icra_fusion_holdout/results_holdout/0024_reliable_marked_lineage.json.gz": "69af53eed32f6b06abde14c91437222234b874f772a12980f10ce4d237d56dd4",
+    "trials/icra_fusion_holdout/results_holdout/0024_reliable_marked_er.json.gz": "fe7cd16d645568df266692fd9b79a360ad335c309da6a38c47110372a195a38e",
+    "trials/icra_marked_control/results_holdout/0024_intermittent_marked_conservative.json.gz": "3a3613a8fe800090f478fc0e560e64b171422f4ce2b969f6c29f29975263f651",
+    "trials/icra_fusion_holdout/results_holdout/0024_intermittent_marked_ceiling_score.json.gz": "9d0cd94855c2a3cb80d4cec5d56969f8126637e37e118806f2b6d61324e2ab6a",
+    "trials/icra_fusion_holdout/results_holdout/0024_intermittent_marked_lineage.json.gz": "6e92cc86f7373958c8ce15a3be732e25b0abe256788677e2ea18c93132957841",
+    "trials/icra_fusion_holdout/results_holdout/0024_intermittent_marked_er.json.gz": "5e5b3784a986469c39ee84414cf5b4dd022764bb8e29ae729bdee1407fc6e5c8"
+  },
+  "new_control_node_frames": 672,
+  "rescored_baseline_node_frames": 2016,
+  "analyzer_sha256": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+  "helper_sha256": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+  "control_freeze_sha256": "f6ba93818104e6bf78f3e4b11367bb4f7310a60d46f3865ef9d17dc16f18ff26"
+}

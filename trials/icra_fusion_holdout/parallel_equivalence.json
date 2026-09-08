@@ -1,0 +1,22 @@
+{
+  "previous_complete_files_byte_identical": 192,
+  "restarted_complete_arms": [
+    {
+      "file": "0008_reliable_lineage.json.gz",
+      "exact_values_except_runtime": true,
+      "node_frames": 820
+    },
+    {
+      "file": "0008_reliable_qualified_exist.json.gz",
+      "exact_values_except_runtime": true,
+      "node_frames": 820
+    },
+    {
+      "file": "0008_reliable_local.json.gz",
+      "exact_values_except_runtime": true,
+      "node_frames": 820
+    }
+  ],
+  "exact_restarted_output_node_frames": 2460,
+  "execution_amendment_sha256": "058a2cfd6927ee596062fa54519b902e34d4096123f19f1254ea4df002982ea2"
+}

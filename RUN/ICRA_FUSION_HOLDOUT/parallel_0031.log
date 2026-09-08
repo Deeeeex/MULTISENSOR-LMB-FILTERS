@@ -1,0 +1,72 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+START PORT 0031 local 108 frames
+START PORT 0031 marked_local 108 frames
+START PORT 0031 reliable local 108 frames
+DONE PORT 0031 reliable local OSPA 4.752991 runtime 5.51s
+START PORT 0031 reliable lineage 108 frames
+DONE PORT 0031 reliable lineage OSPA 3.014252 runtime 12.17s
+START PORT 0031 reliable qualified_exist 108 frames
+DONE PORT 0031 reliable qualified_exist OSPA 2.977960 runtime 7.67s
+START PORT 0031 reliable mil_support 108 frames
+DONE PORT 0031 reliable mil_support OSPA 4.524301 runtime 7.16s
+START PORT 0031 reliable tc_ospa2_w5 108 frames
+DONE PORT 0031 reliable tc_ospa2_w5 OSPA 3.770411 runtime 2.49s
+START PORT 0031 reliable tc_ospa2_w10 108 frames
+DONE PORT 0031 reliable tc_ospa2_w10 OSPA 3.492585 runtime 2.22s
+START PORT 0031 reliable ceiling_calibrated 108 frames
+DONE PORT 0031 reliable ceiling_calibrated OSPA 3.022912 runtime 6.99s
+START PORT 0031 reliable marked_local 108 frames
+DONE PORT 0031 reliable marked_local OSPA 4.455621 runtime 3.54s
+START PORT 0031 reliable marked_lineage 108 frames
+DONE PORT 0031 reliable marked_lineage OSPA 2.677875 runtime 6.54s
+START PORT 0031 reliable marked_er 108 frames
+DONE PORT 0031 reliable marked_er OSPA 2.677894 runtime 6.68s
+START PORT 0031 reliable marked_mil_support 108 frames
+DONE PORT 0031 reliable marked_mil_support OSPA 3.979851 runtime 6.35s
+START PORT 0031 reliable marked_tc_ospa2_w5 108 frames
+DONE PORT 0031 reliable marked_tc_ospa2_w5 OSPA 3.221436 runtime 1.33s
+START PORT 0031 reliable marked_tc_ospa2_w10 108 frames
+DONE PORT 0031 reliable marked_tc_ospa2_w10 OSPA 3.117950 runtime 1.77s
+START PORT 0031 reliable marked_ceiling_association 108 frames
+DONE PORT 0031 reliable marked_ceiling_association OSPA 2.677890 runtime 6.00s
+START PORT 0031 reliable marked_ceiling_score 108 frames
+DONE PORT 0031 reliable marked_ceiling_score OSPA 2.677890 runtime 5.71s
+START PORT 0031 reliable marked_ceiling_calibrated 108 frames
+DONE PORT 0031 reliable marked_ceiling_calibrated OSPA 2.677890 runtime 5.72s
+START PORT 0031 intermittent local 108 frames
+DONE PORT 0031 intermittent local OSPA 4.752991 runtime 5.51s
+START PORT 0031 intermittent lineage 108 frames
+DONE PORT 0031 intermittent lineage OSPA 3.362081 runtime 5.59s
+START PORT 0031 intermittent qualified_exist 108 frames
+DONE PORT 0031 intermittent qualified_exist OSPA 3.369725 runtime 5.62s
+START PORT 0031 intermittent mil_support 108 frames
+DONE PORT 0031 intermittent mil_support OSPA 4.263170 runtime 5.14s
+START PORT 0031 intermittent tc_ospa2_w5 108 frames
+DONE PORT 0031 intermittent tc_ospa2_w5 OSPA 4.424286 runtime 1.30s
+START PORT 0031 intermittent tc_ospa2_w10 108 frames
+DONE PORT 0031 intermittent tc_ospa2_w10 OSPA 4.138940 runtime 1.59s
+START PORT 0031 intermittent ceiling_calibrated 108 frames
+DONE PORT 0031 intermittent ceiling_calibrated OSPA 3.369724 runtime 6.08s
+START PORT 0031 intermittent marked_local 108 frames
+DONE PORT 0031 intermittent marked_local OSPA 4.455621 runtime 3.54s
+START PORT 0031 intermittent marked_lineage 108 frames
+DONE PORT 0031 intermittent marked_lineage OSPA 2.974702 runtime 5.73s
+START PORT 0031 intermittent marked_er 108 frames
+DONE PORT 0031 intermittent marked_er OSPA 2.974723 runtime 5.68s
+START PORT 0031 intermittent marked_mil_support 108 frames
+DONE PORT 0031 intermittent marked_mil_support OSPA 3.750855 runtime 4.99s
+START PORT 0031 intermittent marked_tc_ospa2_w5 108 frames
+DONE PORT 0031 intermittent marked_tc_ospa2_w5 OSPA 3.951573 runtime 0.84s
+START PORT 0031 intermittent marked_tc_ospa2_w10 108 frames
+DONE PORT 0031 intermittent marked_tc_ospa2_w10 OSPA 3.825259 runtime 1.13s
+START PORT 0031 intermittent marked_ceiling_association 108 frames
+DONE PORT 0031 intermittent marked_ceiling_association OSPA 2.974702 runtime 4.94s
+START PORT 0031 intermittent marked_ceiling_score 108 frames
+DONE PORT 0031 intermittent marked_ceiling_score OSPA 2.974702 runtime 6.42s
+START PORT 0031 intermittent marked_ceiling_calibrated 108 frames
+DONE PORT 0031 intermittent marked_ceiling_calibrated OSPA 2.974702 runtime 6.55s
+COMPLETED PORT indices 24--24 cohort=holdout

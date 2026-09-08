@@ -1,0 +1,321 @@
+{
+  "primary": "marked_ceiling_score",
+  "all_registered_primary_intervals_below_zero": false,
+  "full_sequence_set_retained": true,
+  "same_information_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "scope": "Released detector was trained on this train split; these are unused fusion-selection outcomes, not an independent detector benchmark. Routes may be related; intervals are descriptive. A raw support mark is not a proven statistical confidence bound.",
+  "paper_gate": "Inspect both radio conditions and all sequences. A persuasive main result must improve over same-information No-age and ER, supported by paired intervals rather than a favorable pooled mean alone; inspect missed/false cost, shared localization support and communication costs. Retain failures and do not revise the primary from this cohort. If evidence remains weak, continue method work and classify this cohort as seen.",
+  "cap_label_event_diagnostics": {
+    "reliable": {
+      "labels": 490204,
+      "positive_age_labels": 97338,
+      "support_above_noage": 1244,
+      "constrained_below_er": 96566,
+      "preserved_above_cr": 1240
+    },
+    "intermittent": {
+      "labels": 346607,
+      "positive_age_labels": 68702,
+      "support_above_noage": 915,
+      "constrained_below_er": 68110,
+      "preserved_above_cr": 911
+    }
+  },
+  "main_contrasts": [
+    {
+      "condition": "reliable",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.03604891691145302,
+        "sd": 0.15078921481247695,
+        "low": -0.0860440663793907,
+        "high": 0.027644879029014847,
+        "n": 25
+      },
+      "gospa": {
+        "mean": -0.15788261474492235,
+        "sd": 0.2479069684736737,
+        "low": -0.2533379592661634,
+        "high": -0.06192394101200991,
+        "n": 25
+      },
+      "loc2": {
+        "mean": 0.010572536935897077,
+        "sd": 0.6107550763965617,
+        "low": -0.22521639935230905,
+        "high": 0.23686472211755272,
+        "n": 25
+      },
+      "miss2": {
+        "mean": -2.498806374444927,
+        "sd": 4.123595162400823,
+        "low": -4.125808345603245,
+        "high": -1.0322797747173624,
+        "n": 25
+      },
+      "false2": {
+        "mean": -1.6413550672106636,
+        "sd": 2.7029534007222056,
+        "low": -2.7165510512986137,
+        "high": -0.6344663816824808,
+        "n": 25
+      },
+      "countError": {
+        "mean": -0.027788603792797108,
+        "sd": 0.05158577940702665,
+        "low": -0.04760695899968444,
+        "high": -0.008549607537802073,
+        "n": 25
+      },
+      "raw_bytes": {
+        "mean": -90755.52,
+        "sd": 213021.9780095315,
+        "low": -178384.136,
+        "high": -14086.008000000009,
+        "n": 25
+      },
+      "delivered_raw_bytes": {
+        "mean": -90755.52,
+        "sd": 213021.9780095315,
+        "low": -178384.136,
+        "high": -14086.008000000009,
+        "n": 25
+      },
+      "wire_bytes": {
+        "mean": -66191.36,
+        "sd": 180873.22578970424,
+        "low": -141557.76,
+        "high": -4587.52,
+        "n": 25
+      },
+      "ospa_wins": 17,
+      "leave_one_sequence_out_mean_range": [
+        -0.061058320160963776,
+        -0.026029391298619146
+      ]
+    },
+    {
+      "condition": "reliable",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_er",
+      "ospa": {
+        "mean": -0.00553636317623134,
+        "sd": 0.20181068994390988,
+        "low": -0.08310913922661109,
+        "high": 0.07261253121235572,
+        "n": 25
+      },
+      "gospa": {
+        "mean": -0.058664070095113416,
+        "sd": 0.33420543711807077,
+        "low": -0.1921189957779735,
+        "high": 0.06425372099147363,
+        "n": 25
+      },
+      "loc2": {
+        "mean": -0.34811965676891715,
+        "sd": 0.9653072790855873,
+        "low": -0.7362596556562853,
+        "high": 0.00860783530249951,
+        "n": 25
+      },
+      "miss2": {
+        "mean": 4.734454449190913,
+        "sd": 5.8748668930227055,
+        "low": 2.594798362100278,
+        "high": 7.049601383226644,
+        "n": 25
+      },
+      "false2": {
+        "mean": -4.91218089067743,
+        "sd": 5.934037674875173,
+        "low": -7.333443182402631,
+        "high": -2.7837340104056345,
+        "n": 25
+      },
+      "countError": {
+        "mean": 0.040957853258294215,
+        "sd": 0.13303543986794777,
+        "low": -0.008179956859111373,
+        "high": 0.09486332517956471,
+        "n": 25
+      },
+      "raw_bytes": {
+        "mean": 222467.52,
+        "sd": 503736.2506925226,
+        "low": 69682.488,
+        "high": 446355.0719999999,
+        "n": 25
+      },
+      "delivered_raw_bytes": {
+        "mean": 222467.52,
+        "sd": 503736.2506925226,
+        "low": 69682.488,
+        "high": 446355.0719999999,
+        "n": 25
+      },
+      "wire_bytes": {
+        "mean": 151388.16,
+        "sd": 400439.3951789792,
+        "low": 24903.68,
+        "high": 329646.08,
+        "n": 25
+      },
+      "ospa_wins": 14,
+      "leave_one_sequence_out_mean_range": [
+        -0.027731020797170065,
+        0.01624347946929579
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_lineage",
+      "ospa": {
+        "mean": -0.07481421152435543,
+        "sd": 0.10180929223089276,
+        "low": -0.11648703994922643,
+        "high": -0.03878049861717337,
+        "n": 25
+      },
+      "gospa": {
+        "mean": -0.16839921939979735,
+        "sd": 0.2321343913046821,
+        "low": -0.26402817607737084,
+        "high": -0.08791279151132059,
+        "n": 25
+      },
+      "loc2": {
+        "mean": -0.10969200317933828,
+        "sd": 0.9459023025615295,
+        "low": -0.4839309686008596,
+        "high": 0.24469960738410557,
+        "n": 25
+      },
+      "miss2": {
+        "mean": -2.788096531610266,
+        "sd": 5.830981773245068,
+        "low": -5.325513526294507,
+        "high": -0.9412785795896201,
+        "n": 25
+      },
+      "false2": {
+        "mean": -1.1132506636275514,
+        "sd": 2.1682846919152348,
+        "low": -1.961271097262025,
+        "high": -0.2973022149183709,
+        "n": 25
+      },
+      "countError": {
+        "mean": -0.012814376713618332,
+        "sd": 0.050335438524463684,
+        "low": -0.0325196683178976,
+        "high": 0.006558548838715811,
+        "n": 25
+      },
+      "raw_bytes": {
+        "mean": -76109.44,
+        "sd": 235190.10841694285,
+        "low": -163767.44799999997,
+        "high": 16427.279999999977,
+        "n": 25
+      },
+      "delivered_raw_bytes": {
+        "mean": -61787.84,
+        "sd": 177812.46860097672,
+        "low": -128572.256,
+        "high": 7243.223999999981,
+        "n": 25
+      },
+      "wire_bytes": {
+        "mean": -8519.68,
+        "sd": 460604.1392344334,
+        "low": -156631.04,
+        "high": 193331.2,
+        "n": 25
+      },
+      "ospa_wins": 20,
+      "leave_one_sequence_out_mean_range": [
+        -0.08057181509532786,
+        -0.06224275812677162
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "candidate": "marked_ceiling_score",
+      "reference": "marked_er",
+      "ospa": {
+        "mean": -0.038382759232426435,
+        "sd": 0.2039408827032874,
+        "low": -0.12136815843482955,
+        "high": 0.033216506076795396,
+        "n": 25
+      },
+      "gospa": {
+        "mean": -0.08777271504660679,
+        "sd": 0.37117491911008726,
+        "low": -0.2374649742321135,
+        "high": 0.04987392326235791,
+        "n": 25
+      },
+      "loc2": {
+        "mean": -0.3443323866735523,
+        "sd": 1.202081255965037,
+        "low": -0.84587629643546,
+        "high": 0.055394051258844126,
+        "n": 25
+      },
+      "miss2": {
+        "mean": 3.076544198343602,
+        "sd": 5.713377495187441,
+        "low": 1.027270920949244,
+        "high": 5.344428722637122,
+        "n": 25
+      },
+      "false2": {
+        "mean": -3.940476282341743,
+        "sd": 4.193439322531719,
+        "low": -5.608894333453833,
+        "high": -2.4180623894781714,
+        "n": 25
+      },
+      "countError": {
+        "mean": 0.027108799428455833,
+        "sd": 0.10326021633101695,
+        "low": -0.011089231808453033,
+        "high": 0.06814425898863873,
+        "n": 25
+      },
+      "raw_bytes": {
+        "mean": 167184.0,
+        "sd": 258016.65938978954,
+        "low": 79964.656,
+        "high": 278073.44,
+        "n": 25
+      },
+      "delivered_raw_bytes": {
+        "mean": 119737.92,
+        "sd": 190627.33385367377,
+        "low": 54238.6,
+        "high": 200633.424,
+        "n": 25
+      },
+      "wire_bytes": {
+        "mean": 191365.12,
+        "sd": 566961.3699944878,
+        "low": 14401.536000000015,
+        "high": 441057.28,
+        "n": 25
+      },
+      "ospa_wins": 12,
+      "leave_one_sequence_out_mean_range": [
+        -0.053097148938490095,
+        -0.0094313184572996
+      ]
+    }
+  ]
+}

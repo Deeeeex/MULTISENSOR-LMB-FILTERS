@@ -1,0 +1,49 @@
+{
+  "icra_fusion_holdout": {
+    "source_hashes": 1284,
+    "registration_hashes": 10,
+    "all_current_hashes_match": true
+  },
+  "icra_marked_control": {
+    "source_hashes": 1296,
+    "registration_hashes": 13,
+    "all_current_hashes_match": true
+  },
+  "passed": true,
+  "main_sequences": 25,
+  "main_result_files": 800,
+  "main_independently_scored_node_frames": 358464,
+  "extra_sequences": 34,
+  "extra_result_files": 68,
+  "extra_independently_scored_node_frames": 30376,
+  "extra_baselines_rescored_node_frames": 91128,
+  "primary_gate_passed": false,
+  "paper_rewritten": false,
+  "reserved_fusion_outcomes_now_seen": true,
+  "pdf_fonts": [
+    {
+      "name": "EKCCTD+Arial-BoldMT",
+      "embedded_bytes": 20596
+    },
+    {
+      "name": "BKNPVY+ArialMT",
+      "embedded_bytes": 33096
+    },
+    {
+      "name": "CECFXM+ArialMT",
+      "embedded_bytes": 12036
+    }
+  ],
+  "png_visually_inspected": true,
+  "all_300_sequence_points_retained": true,
+  "artifact_sha256": {
+    "trials/icra_fusion_holdout/summary_holdout.json": "d41ba1a4c92993256ca5cb5f8b469055c57d212e9c848c3c9e9f3de58ab94694",
+    "trials/icra_fusion_holdout/decision.json": "df99e75b99670b6438e6f990fff0a1ccf61cad1cc9210964d36190548a22bcd4",
+    "trials/icra_fusion_holdout/README_CN.md": "940be110a3c653cb225821ac3bc8a18cd18e6816018c73e52e293a14df5de629",
+    "trials/icra_fusion_holdout/parallel_equivalence.json": "8249cc420135f8fe0bb94cde9428b732db1de2e978693af066b2f1e9ecdb44ae",
+    "trials/icra_fusion_holdout/figures/qa.json": "300a3b04fb3b2d59f4a030a0be4020be57ff7f0fa7766b6ca6651a9fa72cc5f3",
+    "trials/icra_fusion_holdout/figures/paired_holdout.pdf": "744028fc594038947049bd3a4d20490afab86f8999d9247fde24ef6487a6b583",
+    "trials/icra_marked_control/summary_control.json": "7908d81b4da1d648d28fe0c7b3be5478531b3bc4babed05ea56add5717bf7118",
+    "trials/icra_marked_control/README_CN.md": "1e9e7f8479836a4c49f32800548ca7a5ad5b43876ebf55d64b1028572e5a141b"
+  }
+}

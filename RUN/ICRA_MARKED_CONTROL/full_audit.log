@@ -1,0 +1,47 @@
+CONTROL AUDITED development 0000 1 /34
+CONTROL AUDITED development 0001 2 /34
+CONTROL AUDITED development 0002 3 /34
+CONTROL AUDITED development 0003 4 /34
+CONTROL AUDITED development 0004 5 /34
+CONTROL AUDITED development 0005 6 /34
+CONTROL AUDITED development 0006 7 /34
+CONTROL AUDITED development 0007 8 /34
+CONTROL AUDITED development 0008 9 /34
+CONTROL AUDITED holdout 0001 10 /34
+CONTROL AUDITED holdout 0002 11 /34
+CONTROL AUDITED holdout 0003 12 /34
+CONTROL AUDITED holdout 0004 13 /34
+CONTROL AUDITED holdout 0006 14 /34
+CONTROL AUDITED holdout 0007 15 /34
+CONTROL AUDITED holdout 0008 16 /34
+CONTROL AUDITED holdout 0009 17 /34
+CONTROL AUDITED holdout 0011 18 /34
+CONTROL AUDITED holdout 0012 19 /34
+CONTROL AUDITED holdout 0013 20 /34
+CONTROL AUDITED holdout 0014 21 /34
+CONTROL AUDITED holdout 0016 22 /34
+CONTROL AUDITED holdout 0017 23 /34
+CONTROL AUDITED holdout 0018 24 /34
+CONTROL AUDITED holdout 0019 25 /34
+CONTROL AUDITED holdout 0021 26 /34
+CONTROL AUDITED holdout 0022 27 /34
+CONTROL AUDITED holdout 0023 28 /34
+CONTROL AUDITED holdout 0024 29 /34
+CONTROL AUDITED holdout 0026 30 /34
+CONTROL AUDITED holdout 0027 31 /34
+CONTROL AUDITED holdout 0028 32 /34
+CONTROL AUDITED holdout 0029 33 /34
+CONTROL AUDITED holdout 0031 34 /34
+development reliable marked_ceiling_score minus marked_conservative {'mean': -0.019499586110955133, 'sd': 0.04741213825247708, 'low': -0.04786331665359819, 'high': 0.010868214480918603, 'n': 9}
+development reliable marked_conservative minus marked_lineage {'mean': -0.026603655727503634, 'sd': 0.12793623701130416, 'low': -0.10671268298663826, 'high': 0.049278528334163865, 'n': 9}
+development reliable marked_conservative minus marked_er {'mean': -0.12642980021779182, 'sd': 0.4439595262871864, 'low': -0.43601055022877416, 'high': 0.06686650183362355, 'n': 9}
+development intermittent marked_ceiling_score minus marked_conservative {'mean': -0.03867919168595403, 'sd': 0.04181207939623379, 'low': -0.0645229763890341, 'high': -0.013509705822700176, 'n': 9}
+development intermittent marked_conservative minus marked_lineage {'mean': -0.04260912191770484, 'sd': 0.13079149174524166, 'low': -0.12858851370847393, 'high': 0.02989348205682872, 'n': 9}
+development intermittent marked_conservative minus marked_er {'mean': -0.1115767276914737, 'sd': 0.29688798421981244, 'low': -0.31943104537062866, 'high': 0.03364958057011029, 'n': 9}
+holdout reliable marked_ceiling_score minus marked_conservative {'mean': -0.0060465667372479985, 'sd': 0.10659460962041795, 'low': -0.043155359692080904, 'high': 0.03750128265692271, 'n': 25}
+holdout reliable marked_conservative minus marked_lineage {'mean': -0.03000235017420502, 'sd': 0.15258298997896402, 'low': -0.08026482890119344, 'high': 0.034963687756043596, 'n': 25}
+holdout reliable marked_conservative minus marked_er {'mean': 0.0005102035610166578, 'sd': 0.2779472600392268, 'low': -0.11078523133215035, 'high': 0.10130054828659645, 'n': 25}
+holdout intermittent marked_ceiling_score minus marked_conservative {'mean': -0.04281307582184361, 'sd': 0.09215747325864555, 'low': -0.08069286592163695, 'high': -0.010244552695070087, 'n': 25}
+holdout intermittent marked_conservative minus marked_lineage {'mean': -0.03200113570251182, 'sd': 0.09708280072375185, 'low': -0.07173746791056586, 'high': 0.003636191226062962, 'n': 25}
+holdout intermittent marked_conservative minus marked_er {'mean': 0.00443031658941718, 'sd': 0.260549458692737, 'low': -0.10072396695888812, 'high': 0.10109249830919965, 'n': 25}
+ALL EXTRA CONTROL COHORTS AUDITED: 30376 new node-frames; 91128 saved baseline node-frames rescored.

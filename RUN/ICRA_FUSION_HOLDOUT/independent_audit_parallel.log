@@ -1,0 +1,62 @@
+HOLDOUT SEQUENCE AUDITED 0001 25920 node-frames; 1 /25
+HOLDOUT SEQUENCE AUDITED 0002 10048 node-frames; 2 /25
+HOLDOUT SEQUENCE AUDITED 0003 79616 node-frames; 3 /25
+HOLDOUT SEQUENCE AUDITED 0004 8512 node-frames; 4 /25
+HOLDOUT SEQUENCE AUDITED 0006 7808 node-frames; 5 /25
+HOLDOUT SEQUENCE AUDITED 0007 9472 node-frames; 6 /25
+HOLDOUT SEQUENCE AUDITED 0008 26240 node-frames; 7 /25
+HOLDOUT SEQUENCE AUDITED 0009 20160 node-frames; 8 /25
+HOLDOUT SEQUENCE AUDITED 0011 6848 node-frames; 9 /25
+HOLDOUT SEQUENCE AUDITED 0012 7936 node-frames; 10 /25
+HOLDOUT SEQUENCE AUDITED 0013 5696 node-frames; 11 /25
+HOLDOUT SEQUENCE AUDITED 0014 5120 node-frames; 12 /25
+HOLDOUT SEQUENCE AUDITED 0016 18752 node-frames; 13 /25
+HOLDOUT SEQUENCE AUDITED 0017 7104 node-frames; 14 /25
+HOLDOUT SEQUENCE AUDITED 0018 11712 node-frames; 15 /25
+HOLDOUT SEQUENCE AUDITED 0019 11328 node-frames; 16 /25
+HOLDOUT SEQUENCE AUDITED 0021 18304 node-frames; 17 /25
+HOLDOUT SEQUENCE AUDITED 0022 14656 node-frames; 18 /25
+HOLDOUT SEQUENCE AUDITED 0023 7680 node-frames; 19 /25
+HOLDOUT SEQUENCE AUDITED 0024 10752 node-frames; 20 /25
+HOLDOUT SEQUENCE AUDITED 0026 8640 node-frames; 21 /25
+HOLDOUT SEQUENCE AUDITED 0027 9152 node-frames; 22 /25
+HOLDOUT SEQUENCE AUDITED 0028 9536 node-frames; 23 /25
+HOLDOUT SEQUENCE AUDITED 0029 10560 node-frames; 24 /25
+HOLDOUT SEQUENCE AUDITED 0031 6912 node-frames; 25 /25
+reliable local OSPA 6.060948
+reliable lineage OSPA 4.216921
+reliable qualified_exist OSPA 4.156129
+reliable mil_support OSPA 4.358499
+reliable tc_ospa2_w5 OSPA 4.554126
+reliable tc_ospa2_w10 OSPA 4.635526
+reliable ceiling_calibrated OSPA 4.120344
+reliable marked_local OSPA 5.913769
+reliable marked_lineage OSPA 3.702305
+reliable marked_er OSPA 3.671793
+reliable marked_mil_support OSPA 4.014037
+reliable marked_tc_ospa2_w5 OSPA 4.252808
+reliable marked_tc_ospa2_w10 OSPA 4.41351
+reliable marked_ceiling_association OSPA 3.677618
+reliable marked_ceiling_score OSPA 3.666256
+reliable marked_ceiling_calibrated OSPA 3.6495
+intermittent local OSPA 6.060948
+intermittent lineage OSPA 4.413433
+intermittent qualified_exist OSPA 4.341053
+intermittent mil_support OSPA 4.50813
+intermittent tc_ospa2_w5 OSPA 4.957822
+intermittent tc_ospa2_w10 OSPA 5.038738
+intermittent ceiling_calibrated OSPA 4.290939
+intermittent marked_local OSPA 5.913769
+intermittent marked_lineage OSPA 3.988215
+intermittent marked_er OSPA 3.951784
+intermittent marked_mil_support OSPA 4.162785
+intermittent marked_tc_ospa2_w5 OSPA 4.693356
+intermittent marked_tc_ospa2_w10 OSPA 4.829371
+intermittent marked_ceiling_association OSPA 3.922675
+intermittent marked_ceiling_score OSPA 3.913401
+intermittent marked_ceiling_calibrated OSPA 3.896688
+FROZEN PRIMARY CONTRAST reliable marked_lineage {'mean': -0.03604891691145302, 'sd': 0.15078921481247695, 'low': -0.0860440663793907, 'high': 0.027644879029014847, 'n': 25} wins 17
+FROZEN PRIMARY CONTRAST reliable marked_er {'mean': -0.00553636317623134, 'sd': 0.20181068994390988, 'low': -0.08310913922661109, 'high': 0.07261253121235572, 'n': 25} wins 14
+FROZEN PRIMARY CONTRAST intermittent marked_lineage {'mean': -0.07481421152435543, 'sd': 0.10180929223089276, 'low': -0.11648703994922643, 'high': -0.03878049861717337, 'n': 25} wins 20
+FROZEN PRIMARY CONTRAST intermittent marked_er {'mean': -0.038382759232426435, 'sd': 0.2039408827032874, 'low': -0.12136815843482955, 'high': 0.033216506076795396, 'n': 25} wins 12
+ALL HOLDOUT OUTPUTS INDEPENDENTLY AUDITED: 358464 node-frames; 800/800 files.

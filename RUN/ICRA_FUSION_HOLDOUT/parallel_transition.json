@@ -1,0 +1,14 @@
+[
+  {
+    "pid": 19051,
+    "command": "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/Resources/Python.app/Contents/MacOS/Python trials/icra_fusion_holdout/analyze_holdout.py --watch",
+    "signal": "SIGTERM",
+    "reason": "Intentional execution-scheduling change; keep frozen scientific inputs and methods."
+  },
+  {
+    "pid": 30080,
+    "command": "/Applications/MATLAB_R2024a.app/bin/maca64/../../Contents/MacOS/MATLAB_maca64 -singleCompThread -batch addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(6,6,'holdout');",
+    "signal": "SIGTERM",
+    "reason": "Intentional execution-scheduling change; keep frozen scientific inputs and methods."
+  }
+]

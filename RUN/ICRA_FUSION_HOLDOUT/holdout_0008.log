@@ -1,0 +1,14 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+START PORT 0008 local 410 frames
+START PORT 0008 marked_local 410 frames
+START PORT 0008 reliable local 410 frames
+DONE PORT 0008 reliable local OSPA 6.646277 runtime 27.43s
+START PORT 0008 reliable lineage 410 frames
+DONE PORT 0008 reliable lineage OSPA 6.424665 runtime 88.88s
+START PORT 0008 reliable qualified_exist 410 frames
+DONE PORT 0008 reliable qualified_exist OSPA 6.331718 runtime 77.88s
+START PORT 0008 reliable mil_support 410 frames

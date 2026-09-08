@@ -1,0 +1,47 @@
+{
+  "development": {
+    "sequences": 9,
+    "frames": 1993,
+    "sequence_macro": {
+      "positive_fraction": 0.6869117152427436,
+      "truth_per_frame": 10.054370072298388,
+      "detections_per_sensor_frame": 8.44962183540352,
+      "raw_brier": 0.1741555137695005,
+      "calibrated_brier": 0.11718024255612162,
+      "raw_log_loss": 0.5289680006742862,
+      "calibrated_log_loss": 0.36165597861754395
+    },
+    "detection_pooled": {
+      "detections": 38038,
+      "positives": 33230,
+      "positive_fraction": 0.8736000841263999,
+      "raw_brier": 0.20919545173714715,
+      "raw_log_loss": 0.6051189433730423,
+      "calibrated_brier": 0.10929807179023693,
+      "calibrated_log_loss": 0.32884679803872124
+    }
+  },
+  "reserved": {
+    "sequences": 25,
+    "frames": 5601,
+    "sequence_macro": {
+      "positive_fraction": 0.836968950061117,
+      "truth_per_frame": 9.33893053866601,
+      "detections_per_sensor_frame": 6.976299113815165,
+      "raw_brier": 0.17164103629681832,
+      "calibrated_brier": 0.08989670264320225,
+      "raw_log_loss": 0.5218983602187319,
+      "calibrated_log_loss": 0.2805220619505716
+    },
+    "detection_pooled": {
+      "detections": 69453,
+      "positives": 59186,
+      "positive_fraction": 0.8521734122356126,
+      "raw_brier": 0.16679502584032196,
+      "raw_log_loss": 0.511125896077163,
+      "calibrated_brier": 0.0815590134171838,
+      "calibrated_log_loss": 0.2605963845079536
+    }
+  }
+}
+All 34 input sequences diagnosed; calibration remains frozen; no tracking results read.
