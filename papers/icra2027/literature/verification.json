@@ -9,7 +9,10 @@
     "doi": "10.1016/j.sigpro.2019.107246",
     "url": "https://api.crossref.org/works/10.1016/j.sigpro.2019.107246/transform/application/x-bibtex",
     "bibtex": " @article{li2020multiview, title={Distributed multi-sensor multi-view fusion based on generalized covariance intersection}, volume={166}, ISSN={0165-1684}, url={http://dx.doi.org/10.1016/j.sigpro.2019.107246}, DOI={10.1016/j.sigpro.2019.107246}, journal={Signal Processing}, publisher={Elsevier BV}, author={Li, Guchong and Battistelli, Giorgio and Yi, Wei and Kong, Lingjiang}, year={2020}, month=Jan, pages={107246} }\n",
-    "verified": true
+    "verified": true,
+    "checked_date": "2026-09-09",
+    "claim_scope": "Clustering and compensation adapt GCI-PHD fusion to different fields of view.",
+    "primary_text_source": "https://arxiv.org/abs/1903.06985"
   },
   "li2018multiviewlmb": {
     "doi": "10.23919/ICIF.2018.8455250",
@@ -51,7 +54,10 @@
     "doi": "10.1109/TSP.2018.2880704",
     "url": "https://api.crossref.org/works/10.1109/TSP.2018.2880704/transform/application/x-bibtex",
     "bibtex": " @article{li2019labelmatching, title={Computationally Eff&lt;roman&gt;i&lt;/roman&gt;cient Multi-Agent Multi-Object Tracking With Labeled Random Finite Sets}, volume={67}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2018.2880704}, DOI={10.1109/tsp.2018.2880704}, number={1}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Li, Suqi and Battistelli, Giorgio and Chisci, Luigi and Yi, Wei and Wang, Bailu and Kong, Lingjiang}, year={2019}, month=Jan, pages={260–275} }\n",
-    "verified": true
+    "verified": true,
+    "checked_date": "2026-09-09",
+    "claim_scope": "Label matching by a linear assignment precedes labelwise GCI fusion. Journal volume and pages follow the DOI registry; the repository abstract has a conflicting volume field.",
+    "primary_text_source": "https://flore.unifi.it/handle/2158/1140832"
   },
   "gao2022differentfov": {
     "doi": "10.1109/TAES.2022.3182642",
@@ -75,7 +81,10 @@
     "doi": "10.1109/ICRA57147.2024.10609977",
     "url": "https://api.crossref.org/works/10.1109/ICRA57147.2024.10609977/transform/application/x-bibtex",
     "bibtex": " @inproceedings{decster2024, title={Decentralized Multi-Agent Active Search and Tracking when Targets Outnumber Agents}, url={http://dx.doi.org/10.1109/ICRA57147.2024.10609977}, DOI={10.1109/icra57147.2024.10609977}, booktitle={2024 IEEE International Conference on Robotics and Automation (ICRA)}, publisher={IEEE}, author={Banerjee, Arundhati and Schneider, Jeff}, year={2024}, month=May, pages={7229–7235} }\n",
-    "verified": true
+    "verified": true,
+    "checked_date": "2026-09-09",
+    "claim_scope": "DecSTER combines PHD inference with decentralized action selection for active search and tracking.",
+    "primary_text_source": "https://arxiv.org/abs/2401.03154"
   },
   "li2021cphd": {
     "doi": "10.1016/j.sigpro.2021.108210",
@@ -211,5 +220,106 @@
     "primary_text_source": "https://arxiv.org/abs/2106.08088",
     "checked_date": "2026-09-08",
     "scope": "Heterogeneous component-specific confidence in RFS fusion is prior work."
+  },
+  "fantacci2015consensus": {
+    "bibtex": "@misc{https://doi.org/10.48550/arxiv.1501.01579,\n  doi = {10.48550/ARXIV.1501.01579},\n  url = {https://arxiv.org/abs/1501.01579},\n  author = {Fantacci, C. and Vo, B. -N. and Vo, B. -T. and Battistelli, G. and Chisci, L.},\n  keywords = {Systems and Control (eess.SY), Computation (stat.CO), FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Computer and information sciences, FOS: Computer and information sciences},\n  title = {Consensus Labeled Random Finite Set Filtering for Distributed Multi-Object Tracking},\n  publisher = {arXiv},\n  year = {2015},\n  copyright = {arXiv.org perpetual, non-exclusive license}\n}\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Consensus marginalized GLMB and LMB filters exchange labeled multi-object beliefs.",
+    "doi": "10.48550/arXiv.1501.01579",
+    "metadata_source": "https://data.crosscite.org/application/x-bibtex/10.48550/arXiv.1501.01579",
+    "primary_text_source": "https://arxiv.org/abs/1501.01579",
+    "raw_metadata_file": "literature/fantacci2015consensus_primary.bib",
+    "raw_metadata_sha256": "263d728ba362c9cc4adc7221f42ef786c0de10f9d150e47e67238e54e9763c6b",
+    "source_note": "Cited as the 2015 arXiv preprint, with the latest author abstract checked. No unverified journal venue is assigned.",
+    "verified": true
+  },
+  "hu2022where2comm": {
+    "bibtex": "@inproceedings{NEURIPS2022_1f5c5cd0,\n author = {Hu, Yue and Fang, Shaoheng and Lei, Zixing and Zhong, Yiqi and Chen, Siheng},\n booktitle = {Advances in Neural Information Processing Systems},\n doi = {10.52202/068431-0352},\n editor = {S. Koyejo and S. Mohamed and A. Agarwal and D. Belgrave and K. Cho and A. Oh},\n pages = {4874--4886},\n publisher = {Curran Associates, Inc.},\n title = {Where2comm: Communication-Efficient Collaborative Perception via Spatial Confidence Maps},\n url = {https://proceedings.neurips.cc/paper_files/paper/2022/file/1f5c5cd01b864d53cc5fa0a3472e152e-Paper-Conference.pdf},\n volume = {35},\n year = {2022}\n}\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Spatial confidence maps select sparse feature regions for communication-efficient collaborative perception.",
+    "doi": "10.52202/068431-0352",
+    "metadata_source": "https://proceedings.neurips.cc/paper_files/paper/18250-/bibtex",
+    "primary_text_source": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/1f5c5cd01b864d53cc5fa0a3472e152e-Abstract-Conference.html",
+    "raw_metadata_file": "literature/hu2022where2comm_primary.bib",
+    "raw_metadata_sha256": "cd9c9ef63d5c5b8b7bf5fb88f450d18f789a231cba8748ad9baf3df35950fc9e",
+    "verified": true
+  },
+  "julier1997ci": {
+    "bibtex": " @inproceedings{Julier_1997, title={A non-divergent estimation algorithm in the presence of unknown correlations}, url={http://dx.doi.org/10.1109/ACC.1997.609105}, DOI={10.1109/acc.1997.609105}, booktitle={Proceedings of the 1997 American Control Conference (Cat. No.97CH36041)}, publisher={IEEE}, author={Julier, S.J. and Uhlmann, J.K.}, year={1997}, pages={2369–2373 vol.4} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Covariance intersection addresses estimate fusion under unknown cross-correlations.",
+    "doi": "10.1109/ACC.1997.609105",
+    "metadata_source": "https://api.crossref.org/works/10.1109/ACC.1997.609105/transform/application/x-bibtex",
+    "primary_text_source": "https://www.pure.ed.ac.uk/ws/files/19646890/preprint_emd_fusion.pdf",
+    "raw_metadata_file": "literature/julier1997ci_primary.bib",
+    "raw_metadata_sha256": "7a34769b3c9ce2c8cd989032798f5f692b573c0137ed5a35c830de0f790da9f4",
+    "source_note": "Original bibliographic identity checked through the DOI registry. The narrow CI background statement is corroborated by the Uney et al. 2013 author manuscript; the original 1997 full text was not retrieved.",
+    "verified": true
+  },
+  "li2018robust": {
+    "bibtex": " @article{Li_2018, title={Robust Distributed Fusion With Labeled Random Finite Sets}, volume={66}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2017.2760286}, DOI={10.1109/tsp.2017.2760286}, number={2}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Li, Suqi and Yi, Wei and Hoseinnezhad, Reza and Battistelli, Giorgio and Wang, Bailu and Kong, Lingjiang}, year={2018}, month=Jan, pages={278–293} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Labeled GCI fusion is sensitive to label inconsistency; the paper develops a robust unlabeled-marginalization approach.",
+    "doi": "10.1109/TSP.2017.2760286",
+    "metadata_source": "https://api.crossref.org/works/10.1109/TSP.2017.2760286/transform/application/x-bibtex",
+    "primary_text_source": "https://arxiv.org/abs/1710.00501",
+    "raw_metadata_file": "literature/li2018robust_primary.bib",
+    "raw_metadata_sha256": "b96021b8c9a36bd2c6a4c436c90ef4366864141171ed857adf08e1a658d584da",
+    "verified": true
+  },
+  "niculescu2005calibration": {
+    "bibtex": " @inproceedings{Niculescu_Mizil_2005, series={ICML ’05}, title={Predicting good probabilities with supervised learning}, url={http://dx.doi.org/10.1145/1102351.1102430}, DOI={10.1145/1102351.1102430}, booktitle={Proceedings of the 22nd international conference on Machine learning  - ICML ’05}, publisher={ACM Press}, author={Niculescu-Mizil, Alexandru and Caruana, Rich}, year={2005}, pages={625–632}, collection={ICML ’05} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Post-hoc sigmoid and isotonic calibration can map classifier outputs to probabilities; cited for the calibration principle, not an identical detector-specific fit.",
+    "doi": "10.1145/1102351.1102430",
+    "metadata_source": "https://api.crossref.org/works/10.1145/1102351.1102430/transform/application/x-bibtex",
+    "primary_text_source": "https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf",
+    "raw_metadata_file": "literature/niculescu2005calibration_primary.bib",
+    "raw_metadata_sha256": "3d0cb30fa0aeddba1709015e6ea8f98d13ec987bf9a784ad330269b5aacdb615",
+    "verified": true
+  },
+  "uney2013emd": {
+    "bibtex": " @article{Uney_2013, title={Distributed Fusion of PHD Filters Via Exponential Mixture Densities}, volume={7}, ISSN={1941-0484}, url={http://dx.doi.org/10.1109/JSTSP.2013.2257162}, DOI={10.1109/jstsp.2013.2257162}, number={3}, journal={IEEE Journal of Selected Topics in Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Uney, Murat and Clark, Daniel E. and Julier, Simon J.}, year={2013}, month=June, pages={521–531} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Exponential-mixture fusion extends generalized covariance intersection to finite-set and PHD densities.",
+    "doi": "10.1109/JSTSP.2013.2257162",
+    "metadata_source": "https://api.crossref.org/works/10.1109/JSTSP.2013.2257162/transform/application/x-bibtex",
+    "primary_text_source": "https://www.pure.ed.ac.uk/ws/files/19646890/preprint_emd_fusion.pdf",
+    "raw_metadata_file": "literature/uney2013emd_primary.bib",
+    "raw_metadata_sha256": "ddb024fcc02c3182d96cbb98b5eaa21ec1c75d68a18e766dd653f1104e539959",
+    "verified": true
+  },
+  "vo2013conjugate": {
+    "bibtex": " @article{Vo_2013, title={Labeled Random Finite Sets and Multi-Object Conjugate Priors}, volume={61}, ISSN={1941-0476}, url={http://dx.doi.org/10.1109/TSP.2013.2259822}, DOI={10.1109/tsp.2013.2259822}, number={13}, journal={IEEE Transactions on Signal Processing}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Vo, Ba-Tuong and Vo, Ba-Ngu}, year={2013}, month=July, pages={3460–3475} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Labeled random finite sets and multi-object conjugate priors provide the filtering foundation.",
+    "doi": "10.1109/TSP.2013.2259822",
+    "metadata_source": "https://api.crossref.org/works/10.1109/TSP.2013.2259822/transform/application/x-bibtex",
+    "primary_text_source": "https://ba-ngu.vo-au.com/vo/VV_Conjugate_TSP13.pdf",
+    "raw_metadata_file": "literature/vo2013conjugate_primary.bib",
+    "raw_metadata_sha256": "bac6b5c00ebce72c7323a16ec2f1e6b083b1dcf3ef530858917d6b5e740f3be6",
+    "verified": true
+  },
+  "williams2014bp": {
+    "bibtex": " @article{Williams_2014, title={Approximate evaluation of marginal association probabilities with belief propagation}, volume={50}, ISSN={2371-9877}, url={http://dx.doi.org/10.1109/TAES.2014.120568}, DOI={10.1109/taes.2014.120568}, number={4}, journal={IEEE Transactions on Aerospace and Electronic Systems}, publisher={Institute of Electrical and Electronics Engineers (IEEE)}, author={Williams, Jason and Lau, Roslyn}, year={2014}, month=Oct, pages={2942–2959} }\n",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Belief propagation approximates marginal target-measurement association probabilities.",
+    "doi": "10.1109/TAES.2014.120568",
+    "metadata_source": "https://api.crossref.org/works/10.1109/TAES.2014.120568/transform/application/x-bibtex",
+    "primary_text_source": "https://arxiv.org/abs/1209.6299",
+    "raw_metadata_file": "literature/williams2014bp_primary.bib",
+    "raw_metadata_sha256": "2c8d22d56eedbb0c14e73c8d5fb5e2682271ede85f55f068f7143a6bac01270a",
+    "verified": true
+  },
+  "zhong2025cooptrack": {
+    "bibtex": "@InProceedings{Zhong_2025_ICCV,\n    author    = {Zhong, Jiaru and Wang, Jiahao and Xu, Jiahui and Li, Xiaofan and Nie, Zaiqing and Yu, Haibao},\n    title     = {CoopTrack: Exploring End-to-End Learning for Efficient Cooperative Sequential Perception},\n    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},\n    month     = {October},\n    year      = {2025},\n    pages     = {26954-26965}\n}",
+    "checked_date": "2026-09-09",
+    "claim_scope": "Cooperative sequential perception with sparse instance features and learned cross-agent association.",
+    "doi": "",
+    "metadata_source": "https://openaccess.thecvf.com/content/ICCV2025/html/Zhong_CoopTrack_Exploring_End-to-End_Learning_for_Efficient_Cooperative_Sequential_Perception_ICCV_2025_paper.html",
+    "primary_text_source": "https://openaccess.thecvf.com/content/ICCV2025/html/Zhong_CoopTrack_Exploring_End-to-End_Learning_for_Efficient_Cooperative_Sequential_Perception_ICCV_2025_paper.html",
+    "raw_metadata_file": "literature/zhong2025cooptrack_primary.bib",
+    "raw_metadata_sha256": "be2a413d058e42f9f7f2b35755240e3e408753c159a0ba6f1dbd6acbc491f1c0",
+    "verified": true
   }
 }

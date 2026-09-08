@@ -1,41 +1,34 @@
-# Visual review of the seven-page GCE manuscript
+# Visual review of the expanded GCE manuscript
 
-Reviewed on 2026-09-08 by rendering the manuscript pages and inspecting the
-main vector figures in color and grayscale. PDF SHA-256: `3d03edf74563178ccd2fb9e02d712b38de4f09e092c1b3c5c8a9cafde5d6dc05`.
+Reviewed on 2026-09-09 from rendered manuscript pages.
+PDF SHA-256: `19247cc80353aa27c9ae73f41b4098edccc5d30850014d7926f038e2aa9ffd91`.
 
-- Page 1: the title, abstract, contribution list, and related work fit the
-  official two-column layout. The abstract leads with the mechanism and gains.
-- Page 2: the continuous overview retains the robot scene, source beliefs,
-  history junction, joint existence/spatial correction, and recursive feedback.
-  Arial labels, simplified robot glyphs, consistent strokes, and the shared
-  normalizer are legible. The final label-spacing refinement changed only
-  this page; its updated color and grayscale views were inspected again.
-- Page 3: the Bernoulli proof, Gaussian formulas, source guard, aggregate
-  fallback, and exact codec fit their columns. The proof end mark is inline.
-- Page 4: the data scope, shared local model, score fit, baselines, metrics,
-  and ablation definitions form a continuous reading order.
-- Page 5: Table I spans the text width and bolds each actual column minimum,
-  including TC-5 and Scalar where applicable. The paired forest plot shows
-  complete-sequence mean differences and intervals with shared axes.
-- Page 6: Table II separates Scalar, the three single-component removals,
-  and complete GCE in the bottom row. The communication plot displays the
-  full-to-encoded move at unchanged accuracy; Table III reports the matching
-  raw and fragmented byte means. Conclusion and AI disclosure remain readable.
-- Page 7: references begin together and occupy two columns. The template's
-  own reference-break command keeps the bibliography balanced at entry 10.
+- Page 1: the introduction and expanded related work follow the official
+  two-column layout. PHD, GCI, and RFS are defined on first use. Citations
+  accompany specific statements about filtering and cooperative perception.
+- Page 2: the continuous mechanism overview remains legible. Label
+  consistency, sensing support, prior information, and the local tracking
+  setup continue below it without overlap or orphaned section headings.
+- Page 3: the association citation, Bernoulli derivation, Gaussian formulas,
+  and curvature guard fit within the columns. The proof end mark is inline.
+- Page 4: the exact codec and experimental setup retain the local model,
+  data scope, score-calibration citation, baseline definitions, and metrics.
+- Page 5: Table I and the paired interval figure precede the result discussion.
+  Table minima remain correctly bold, and all plotted intervals are legible.
+- Page 6: Table II retains the complete method in its bottom row. The
+  communication figure and Table III agree on the packet comparisons and
+  leave room for the result discussion and conclusion.
+- Page 7: the closing discussion and AI acknowledgment precede 30 reference
+  entries. The official template's break at entry 12 balances the columns.
+  Each cited key appears exactly once in the compiled bibliography.
 
-The three main figures remain interpretable in grayscale: condition labels
-and marker shapes identify the comparisons, while direct labels identify
-packet formats. The forest plot displays sample summaries; all 300 source
-sequence differences remain in its companion view. The component companion
-retains all 200 differences, including intervals that cross zero.
+The numerical figure files are unchanged by this citation expansion.
+Their previously inspected color and grayscale encodings, live SVG text,
+and source measurements are retained. All six manuscript floats precede
+References; no page contains more than two wide floats.
 
-The overview has 48 editable SVG text elements and passes bounds and
-pairwise label collision checks. All five SVGs contain live text and no
-embedded raster. Twenty PDF fonts are embedded; there are no Type 3 fonts,
-PDF annotations, undefined references, or overfull boxes. All six floats
-precede References, with at most two wide floats on a page. The unmodified
-US Letter, 10 pt conference template yields seven pages including references
-and the acknowledgment, within the eight-page limit.
-
-This record documents artifact inspection in the current workflow.
+Automated checks confirm seven US Letter pages, twenty embedded PDF fonts,
+no Type 3 fonts or PDF annotations, and no unresolved references or overfull
+boxes. The official 10 pt class and bibliography style remain unmodified.
+The source records distinguish bibliographic identity from the scope of
+available author texts. This record documents the current artifact review.

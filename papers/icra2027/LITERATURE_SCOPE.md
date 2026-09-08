@@ -5,6 +5,35 @@ on 2026-09-08. `literature/verification.json` stores the records and retrieval
 sources; raw new BibTeX records are retained alongside it. A resolved key
 checks bibliographic identity, not implementation equivalence.
 
+## Expanded manuscript coverage
+
+Additional coverage was checked on 2026-09-09. The manuscript now cites
+30 distinct records, up from 18. Nine newly
+retrieved records and three already verified but previously uncited
+records support the following additions. Bibliographic metadata comes
+from Crossref, DataCite, or the official NeurIPS/CVF proceedings; the
+linked author texts and abstracts bound the claims made in the paper.
+
+| Added citation | Primary record or text | Role in the manuscript |
+| --- | --- | --- |
+| Vo and Vo, TSP 2013 | [Author manuscript](https://ba-ngu.vo-au.com/vo/VV_Conjugate_TSP13.pdf), DOI 10.1109/TSP.2013.2259822 | Labeled finite-set filtering foundations. |
+| Julier and Uhlmann, ACC 1997 | DOI 10.1109/ACC.1997.609105; CI background in the [Uney author manuscript](https://www.pure.ed.ac.uk/ws/files/19646890/preprint_emd_fusion.pdf) | Estimate fusion with unknown cross-correlations. The original 1997 full text was not retrieved. |
+| Uney et al., JSTSP 2013 | [Author manuscript](https://www.pure.ed.ac.uk/ws/files/19646890/preprint_emd_fusion.pdf), DOI 10.1109/JSTSP.2013.2257162 | Exponential-mixture finite-set and PHD fusion. |
+| Fantacci et al., arXiv 2015 | [Author preprint](https://arxiv.org/abs/1501.01579) | Consensus labeled multi-object filters. Cited as a preprint without an unverified journal assignment. |
+| Li et al., TSP 2018 | [Author preprint](https://arxiv.org/abs/1710.00501), DOI 10.1109/TSP.2017.2760286 | Sensitivity of labeled GCI fusion to inconsistent labels. |
+| Li et al., TSP 2019 | [Institutional author abstract](https://flore.unifi.it/handle/2158/1140832), DOI 10.1109/TSP.2018.2880704 | Linear assignment for label matching before fusion. Volume 67 follows the DOI registry rather than the repository's inconsistent volume field. |
+| Li et al., Signal Processing 2020 | [Author preprint](https://arxiv.org/abs/1903.06985), DOI 10.1016/j.sigpro.2019.107246 | Clustering and compensation for differing sensing fields of view. |
+| Williams and Lau, TAES 2014 | [Author preprint](https://arxiv.org/abs/1209.6299), DOI 10.1109/TAES.2014.120568 | Belief-propagation approximation of marginal association probabilities. |
+| Niculescu-Mizil and Caruana, ICML 2005 | [Author manuscript](https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf), DOI 10.1145/1102351.1102430 | Post-hoc probability calibration as background for the local score fit. |
+| Banerjee and Schneider, ICRA 2024 | [Author preprint](https://arxiv.org/abs/2401.03154), DOI 10.1109/ICRA57147.2024.10609977 | Decentralized active search and tracking with PHD inference. |
+| Hu et al., NeurIPS 2022 | [Official proceedings](https://proceedings.neurips.cc/paper_files/paper/2022/hash/1f5c5cd01b864d53cc5fa0a3472e152e-Abstract-Conference.html) | Where2comm's confidence-guided sparse feature communication. |
+| Zhong et al., ICCV 2025 | [Official proceedings](https://openaccess.thecvf.com/content/ICCV2025/html/Zhong_CoopTrack_Exploring_End-to-End_Learning_for_Efficient_Cooperative_Sequential_Perception_ICCV_2025_paper.html) | CoopTrack's sparse instance features and learned cross-agent association. |
+
+The robotics and feature-exchange papers establish context; they are not
+additional evaluated baselines. The local association and calibration
+citations support the shared backend. Related work distinguishes these
+roles from GCE's current Bernoulli ratio and joint normalizer.
+
 ## Principles that precede GCE
 
 - Reuter et al., TSP 2014, DOI 10.1109/TSP.2014.2323064: the LMB filter and

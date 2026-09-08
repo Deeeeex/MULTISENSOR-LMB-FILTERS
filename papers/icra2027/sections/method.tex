@@ -70,9 +70,11 @@ The local existence increment is
  \label{eq:increment}
 \end{equation}
 The local tracker incorporates a detection score $s$ through a fitted
-positive-to-negative mark ratio $L(s)>0$. Let $W_{jm}$ be the normalized
-local association mass for assigning this Bernoulli to measurement $m$,
-and let $A_j=\sum_m W_{jm}$. For a current sensing opportunity, use
+positive-to-negative mark ratio $L(s)>0$. Belief propagation approximates
+the marginal association probabilities~\cite{williams2014bp}.
+Let $W_{jm}$ be the normalized local association mass for assigning this
+Bernoulli to measurement $m$, and let $A_j=\sum_m W_{jm}$.
+For a current sensing opportunity, use
 \begin{align}
  g_j^+&=\sum_m W_{jm}
        \max\!\left(0,\frac{L(s_m)-1}{L(s_m)+1}\right),

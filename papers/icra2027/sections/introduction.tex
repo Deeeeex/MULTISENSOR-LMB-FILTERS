@@ -8,7 +8,7 @@ new observations without transmitting the entire sensing history.
 
 Labeled multi-Bernoulli (LMB) filtering represents each track by a label,
 existence probability, and conditional spatial density
-\cite{reuter2014lmb}. Geometric pooling, or Kullback--Leibler averaging
+\cite{vo2013conjugate,reuter2014lmb}. Geometric pooling, or Kullback--Leibler averaging
 (KLA), combines local posteriors when their cross-correlations are
 unavailable~\cite{battistelli2014kla}. In the ideal shared-prior case,
 normalized geometric weights retain one copy of the prior but also temper
@@ -47,24 +47,45 @@ cost, false-target cost, and common-target localization improve together.
 
 \section{Related Work}
 \subsection{Cooperative robotic tracking}
-Distributed PHD filtering supports robot search and tracking
-\cite{dames2020search}, and multirobot reconfiguration adapts sensing
+Distributed probability hypothesis density (PHD) filtering supports robot search and tracking
+\cite{dames2020search}. DecSTER combines PHD inference with decentralized
+action selection for simultaneous search and tracking
+\cite{decster2024}, while multirobot reconfiguration adapts sensing
 resources~\cite{ramachandran2021reconfiguration}. LMB representations
 also support distributed landmark mapping~\cite{gao2026lmbslam}.
 For cooperative driving, V2V4Real provides real multi-vehicle observations
 \cite{xu2023v2v4real}, while DMSTrack learns uncertainty in a
-differentiable multisensor tracker~\cite{chiu2024dmstrack}. We use its
-released per-vehicle detections for planar LMB tracking and focus on the
-fusion layer.
+differentiable multisensor tracker~\cite{chiu2024dmstrack}.
+
+Communication-efficient perception also exploits selective feature
+exchange. Where2comm selects spatial features using confidence maps
+\cite{hu2022where2comm}; CoopTrack exchanges sparse instance features and
+learns cross-agent association for cooperative sequential perception
+\cite{zhong2025cooptrack}. GCE operates on compact probabilistic track
+summaries, with explicit control over how a local update changes the
+fused existence probability and spatial density. We evaluate this fusion
+layer using DMSTrack's released per-vehicle detections.
 
 \subsection{Finite-set fusion and sensing support}
+Covariance intersection addresses fusion with unknown cross-correlations
+\cite{julier1997ci}, and KLA formulates geometric pooling over probability
+densities~\cite{battistelli2014kla}. Generalized covariance intersection
+(GCI) extends this approach to PHD filters through exponential mixtures
+\cite{uney2013emd}, while consensus labeled random finite set (RFS)
+filters exchange multi-object beliefs with track identities
+\cite{fantacci2015consensus}.
+
+Label consistency is essential when fusing labeled densities: direct GCI
+fusion can degrade under inconsistent labels~\cite{li2018robust}.
+Label matching can instead align local identities through a linear
+assignment before labelwise fusion~\cite{li2019labelmatching}.
 Different fields of view require explicit treatment of absent labels and
-exclusive information~\cite{li2018multiviewlmb,gao2022differentfov}.
+exclusive information
+\cite{li2018multiviewlmb,li2020multiview,gao2022differentfov}.
 Minimum-information-loss (MIL) fusion uses arithmetic pooling of labeled
 finite-set densities~\cite{gao2020mil}; track consensus matches and
-combines short trajectories~\cite{nguyen2021tc}. Our comparisons adapt
-the public MIL author manuscript~\cite{gao2019milpreprint} and the
-author's track-consensus functions to the common detections.
+combines short trajectories~\cite{nguyen2021tc}. These methods motivate
+our use of aligned labels and explicit sensing support.
 
 Cardinality and localization also play distinct roles in finite-set
 fusion: pointwise density consistency alone does not ensure a useful

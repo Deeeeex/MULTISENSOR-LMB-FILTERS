@@ -1,4 +1,15 @@
 \section{Experiments}
+% Queue wide result summaries before their first discussion on the next page.
+\input{generated/main_table}
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/gaussian_paired.pdf}
+ \caption{GCE improves on each geometric reference under both link
+ conditions. Points show equal-sequence mean OSPA differences; bars are
+ paired 95\% percentile intervals over the 25 sequences. All intervals
+ lie to the left of zero, favoring GCE.}
+ \label{fig:paired}
+\end{figure*}
+
 \subsection{Data and local tracking}
 We use the released per-vehicle, no-fusion detections from DMSTrack
 \cite{chiu2024dmstrack} on V2V4Real~\cite{xu2023v2v4real}. Nine validation
@@ -30,6 +41,8 @@ censoring are shared across the geometric methods. A censor uses existence
 0.001 when the represented mean lies in its sensor's support.
 
 \subsection{Detection-score likelihood}
+Following post-hoc probability calibration~\cite{niculescu2005calibration},
+we map detector scores to probabilities with a monotone logistic fit.
 Per-sensor one-to-one assignment within 12 m supplies offline calibration
 labels. We fit $u(s)=\sigma(a\,\operatorname{logit}s+b)$, $a\geq0$, by
 sequence-balanced binary log loss with regularization $0.001a^2$.

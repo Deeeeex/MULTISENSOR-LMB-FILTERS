@@ -1,11 +1,22 @@
 {
   "status": "passed",
-  "source_pdf_sha256": "3d03edf74563178ccd2fb9e02d712b38de4f09e092c1b3c5c8a9cafde5d6dc05",
-  "rebuilt_pdf_sha256": "049ae05034d0e04dcdd4d83a012a2541ed6afeb55308ff736af8ec33ed9afb97",
+  "verified_on": "2026-09-09",
+  "source_pdf_sha256": "19247cc80353aa27c9ae73f41b4098edccc5d30850014d7926f038e2aa9ffd91",
+  "rebuilt_pdf_sha256": "4eddddbb1a32f77105a489fac820295b31dbb139a7fdc41f3630683085246844",
   "pdf_binary_identical": false,
   "pages": 7,
   "pdf_text_identical": true,
   "pixel_identical_page_previews": 7,
+  "page_raster_sha256_1_5x": [
+    "51ba31b8d8ba68340351a1a199716c76ba1376a17c0dceba70b1258ba10409bd",
+    "7afa290c0cb37a37612440e40a8c4ec9c8c3f2aa850ff2a1397ab07693f7ef57",
+    "9f530d4138c6a2356b64801361dcce3a687ca0daca900e4749cd3e64c9f8a460",
+    "f3b6c0439b24afa0120ab28a60f525c3c24ce8eb8f9e521b62f3b216eab11e78",
+    "ef9361f4ebeaa384445cce8e12522ac26cc86e4b27366e0532c61636c2b08e36",
+    "302155ead3a05ef406e94e49e94721b8762af4e5480239e018576dfd4dd73e45",
+    "05f3010be1349aeca46ae5545d8ae0e629b6e88976ec1f702d9bc2af05720f04"
+  ],
+  "bibliography_entry_count": 30,
   "regenerated_file_hash_matches": 48,
   "regenerated_files": [
     "figures/gaussian_communication.pdf",
@@ -57,11 +68,12 @@
     "source_data/shared_main_qa.json",
     "source_data/shared_main_summary.json"
   ],
-  "build_input_manifest_sha256": "48c89bb9af0db259e391d926f76b97549d731fc809167dcde6e2fe84e04240a3",
-  "tested_archive_sha256_before_attaching_this_report": "870b0fdbe786236df1effc9ae8f0133fd06e8f12ff02e81f2939bfdcdbb71230",
-  "archive_input_files_verified": 124,
+  "build_input_manifest_sha256": "61a5d6507c6032c922a269be799838f197084ade49b3306574afc712e71bf5d6",
+  "tested_archive_sha256_before_attaching_this_report": "169050307bf2f718660f54c3b41cb844b901062dc09c14403611763834c2f43e",
+  "archive_input_files_verified": 133,
+  "non_output_files_identical_after_rebuild": 130,
   "native_experiment_corpus_available": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-gce-submission-60sckw_q/icra2027",
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-gce-citations-4codz_i_/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",

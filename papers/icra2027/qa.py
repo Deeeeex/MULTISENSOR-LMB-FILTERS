@@ -130,8 +130,12 @@ def check():
     cited = {key.strip() for group in re.findall(r'\\cite\{([^}]+)\}', tex) for key in group.split(',')}
     available = set(re.findall(r'@\w+\{([^,]+),', (HERE / 'references.bib').read_text()))
     assert cited <= available
+    rendered_citations = re.findall(r'\\bibitem\{([^}]+)\}', (HERE / 'build/main.bbl').read_text())
+    assert len(rendered_citations) == len(set(rendered_citations))
+    assert set(rendered_citations) == cited
     records = json.loads((HERE / 'literature/verification.json').read_text())
-    assert all(records[key]['verified'] for key in cited - {'lang2026adaptive'})
+    assert cited <= records.keys()
+    assert all(records[key]['verified'] for key in cited)
     assert '\\author{}' in tex
     result = {'status': 'automated_artifact_checks_passed', 'pdf_sha256': sha(PDF),
               'pages': len(reader.pages), 'paper_size': 'US Letter', 'text_spans_in_page_bounds': span_count,
@@ -148,7 +152,9 @@ def check():
               'conference_page_limit': 8,
               'requires_length_revision_before_submission': len(reader.pages) > 8,
               'citation_keys_resolved': sorted(cited),
-              'citation_scope': 'Crossref and DataCite metadata plus available author manuscripts; see LITERATURE_SCOPE.md',
+              'bibliography_entry_count': len(rendered_citations),
+              'all_cited_keys_rendered_once': True,
+              'citation_scope': 'Primary Crossref, DataCite, NeurIPS and CVF metadata plus available author texts; see LITERATURE_SCOPE.md',
               'limitations': 'Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check.'}
     out = HERE / 'output/qa/artifact_qa.json'
     out.parent.mkdir(parents=True, exist_ok=True)
