@@ -33,7 +33,9 @@ def main():
              '这里预留的是融合方法选择结果：公开检测器在训练划分训练过，驾驶路线也可能相关。',
              '本结果不能称为独立检测器测试、官方三维榜单或真实无线通信实验。', '',
              '## 固定范围与方法', '',
-             '开发阶段使用全部九个已发布验证序列。此前已见训练序列为 0000、0005、0010、',
+             '开发阶段使用作者发布代码 val 目录中的全部九个序列；作者把这些序列用于',
+             '测试，本研究已将其用于方法开发和校准。目录名与原数据集角色的对应见',
+             'DATA_SPLIT_NOTE.md。此前已见训练序列为 0000、0005、0010、',
              '0015、0020、0025、0030；其中 0000 是已知的跨划分真值重复控制。此次使用其余',
              '全部 25 个训练序列，共 5601 帧。没有按跟踪结果选取序列、帧窗或链路条件。',
              '主方法、两项内部参照、外部适配参照和完整 16 臂比较，在首次新队列回放前登记。', '',
@@ -65,6 +67,32 @@ def main():
             v = row['ospa']
             gain = -100 * v['mean'] / aggregate[condition, arm]['ospa']['mean']
             lines.append(f"| {label} | {NAMES[arm]} | {v['mean']:+.6f} [{v['low']:+.6f}, {v['high']:+.6f}] | {gain:+.2f}% | {row['ospa_wins']}/25 |")
+    lines += ['', '## 固定候选输入时的即时作用', '',
+              '以下保持 M-ECR-S 实际递推产生的同一批局部输入、标签和空间融合密度，',
+              '仅分别代入 r0、rER、rECR，重新执行同一提取与评分。统计范围为发生融合',
+              '的节点—帧，先在序列内平均，再对全部 25 个序列等权平均。',
+              '这项解析反事实不重新运行 No-age 或 ER 的历史，不等同于完整递推消融，',
+              '也不能把差值作为一般因果效应。它用于检查当前约束的直接作用。', '',
+              '| 链路 | 同输入存在规则 | OSPA ↓ | 漏检代价 ↓ | 虚假代价 ↓ |',
+              '| --- | --- | --- | --- | --- |']
+    cap_diagnostics = {}
+    for condition, label in conditions:
+        group = [r for r in result['diagnostics'] if r['condition'] == condition and r['arm'] == primary]
+        assert len(group) == 25 and all('same_input' in r for r in group)
+        cap_diagnostics[condition] = {key: sum(r[key] for r in group) for key in
+                                      ['labels', 'positive_age_labels', 'support_above_noage',
+                                       'constrained_below_er', 'preserved_above_cr']}
+        for rule, name in [('no_age', 'r0'), ('ER', 'rER'), ('candidate', 'rECR')]:
+            values = [sum(r['same_input'][rule][key] for r in group) / len(group)
+                      for key in ['ospa', 'miss2', 'false2']]
+            lines.append(f"| {label} | {name} | {values[0]:.6f} | {values[1]:.5f} | {values[2]:.5f} |")
+    lines += ['', '逐标签诊断计数如下。它们是递推中的重复标签事件，不是独立样本；',
+              '部分计数可以重叠。ER 正向加权事件受上限约束时仍保留全部负向修正。', '',
+              '| 链路 | 融合标签事件 | 正时效事件 | 上限实际截断 ER | 比保守控制保留更多存在概率 |',
+              '| --- | --- | --- | --- | --- |']
+    for condition, label in conditions:
+        d = cap_diagnostics[condition]
+        lines.append(f"| {label} | {d['labels']} | {d['positive_age_labels']} | {d['constrained_below_er']} | {d['preserved_above_cr']} |")
     lines += ['', '## 支持相同的定位比较与通信量', '',
               '定位只在双方都匹配到的同一节点—时刻—真值实例上计算 pooled RMSE。',
               '该支持量随比较变化，不把各自幸存轨迹上的误差当作相同定位任务。', '',
@@ -161,6 +189,7 @@ def main():
     decision = dict(primary=primary, all_registered_primary_intervals_below_zero=gate,
                     full_sequence_set_retained=True, same_information_references=freeze['primary_references'],
                     scope=freeze['limitations'], paper_gate=freeze['paper_gate'],
+                    cap_label_event_diagnostics=cap_diagnostics,
                     main_contrasts=[paired[condition, primary, reference] for condition, _ in conditions
                                     for reference in freeze['primary_references']])
     (OUT / 'decision.json').write_text(json.dumps(decision, indent=2, allow_nan=False) + '\n')

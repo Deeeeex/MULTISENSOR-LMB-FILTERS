@@ -1,0 +1,227 @@
+{
+  "protocol": "shared-information-conservative-control-v1",
+  "timestamp_utc": "2026-09-08T09:22:31.347192+00:00",
+  "primary": "marked_ceiling_score",
+  "additional_control": "marked_conservative",
+  "full_primary_cohort_aggregate_exists": false,
+  "completed_primary_sequences_at_registration": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    21,
+    24
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "added_after_partial_primary_outputs": true,
+  "no_primary_reselection": true,
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "holdout",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "source_and_evidence_sha256": {
+    "trials/icra_external_fusion/v2v4real_input_manifest.json": "8ac1745474cc52e451434380ba40e7ee98e4a81759c0e3abb5e154f4d66d1d07",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_ceiling_iteration/calibration.json": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512",
+    "trials/icra_marked_iteration/likelihood_manifest.json": "083a8cb2f32cb6163c19419ba317672aa1e95d2d8391cb53fa5faa9c4d33de09",
+    "trials/icra_marked_iteration/summary_development.json": "38f620f295a157910713fce0e0384891678eab75764fbc5c2b8401b1d2d3cb6a",
+    "trials/icra_marked_control/source_sha256.json": "8a0f57340f540e3711a8182a9be6e903f22cf0570441a9410b5da78bba84344c",
+    "trials/icra_marked_control/preflight_audit.json": "b8ef3213e709abd86f39d541c25952fed8632845c5a5d740b690581683865711",
+    "trials/icra_marked_control/PROTOCOL.md": "0d832ce1b62d94f440ff819a8379cfad0d25352a4fd6f524ebd45248ccf4688c",
+    "trials/icra_marked_control/analyze_control.py": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+    "trials/icra_marked_control/run_control.py": "0c2207ade92beea8a1c698e3aee5b20117ec6ce913ac7b1e80ac4738458e4476",
+    "trials/icra_marked_control/register_control.py": "4e83bc401020b671a76dcdfde467072528bdf69cfff906705d81b72d83ee5658",
+    "trials/icra_fusion_holdout/METHOD_FREEZE.json": "b503d716d367dbbd4b71f349c5466f93de6b755f12411b9151dd568e7d51e538",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc"
+  }
+}
