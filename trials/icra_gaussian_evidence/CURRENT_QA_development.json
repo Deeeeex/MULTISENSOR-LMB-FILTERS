@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "cohort": "development",
+  "source_files": 1347,
+  "registration_files": 21,
+  "result_files_with_verified_hashes": 126,
+  "native_matlab_stage_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "native_preflight_exit_observed_by_agent": 0,
+  "native_preflight_exec_session": 28142,
+  "native_final_unit_exit_observed_by_agent": 0,
+  "native_final_unit_exec_session": 26360,
+  "native_preflight_auditor_exit_observed_by_agent": 0,
+  "native_preflight_auditor_exec_session": 94089,
+  "preflight_node_frames": 2940,
+  "exact_as_node_frames": 588,
+  "new_node_frames": 31888,
+  "rescored_baseline_node_frames": 47832,
+  "counts": {
+    "local_update_records": 1590832,
+    "joined_source_records": 2462137,
+    "local_gaussian_records": 1430887,
+    "packet_gaussian_records": 1430887,
+    "gaussian_source_joins": 2462137,
+    "corrected_labels": 670876,
+    "curvature_rejected_sources": 109398,
+    "aggregate_fallbacks": 0
+  },
+  "primary": "marked_gaussian_evidence",
+  "continuation_gate_passed": true,
+  "summary_sha256": "93905008be22b3bc9625dbde67d8fd082ca596ff3f8aae8058d52999795e10ef",
+  "round_freeze_sha256": "46b29bcd4909d763069f33db18a7e2dd9a7f925b2f47bc1c69c7d1b116c5a9be",
+  "report_sha256": {
+    "trials/icra_gaussian_evidence/RESULTS_development_CN.md": "b15d33d4bb9ee77e4bf42b37587e8f85c6aaaebf4b1243951225438277b76605",
+    "trials/icra_gaussian_evidence/ablation_comparisons_development.json": "29f011f8537943d458175806fe4f3d395c0fe21132aa71fa91ac6735bcfca619",
+    "trials/icra_gaussian_evidence/DERIVATION_CN.md": "191734e2a1fc37153de4b37280bc604faf3ea87c8f0190c4af397b1f58048daf",
+    "trials/icra_gaussian_evidence/build_report.py": "903bd6fbae9c29b4694901f4db130d7beacf2282dfe663be47ff6c6ea83244c3",
+    "trials/icra_gaussian_evidence/verify_outputs.py": "6d5d0f75f7f26e638b81f6e9f7d523952bdc38321cdf2a73f48446aaf9f21767"
+  },
+  "scope": "Independent NumPy reconstruction within the same workflow; all real trajectories already seen. Native Gaussian 352 B vs scalar 232 B. No equal-byte, independent-test, or third-party-reproduction claim."
+}

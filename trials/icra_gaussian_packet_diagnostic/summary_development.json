@@ -1,0 +1,826 @@
+{
+  "protocol": "exact-spatial-ratio-omission-diagnostic-v1",
+  "sequences": 9,
+  "rows": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 2819,
+      "retained": 2819,
+      "raw_bytes": 1001696,
+      "delivered_raw_bytes": 1001696,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 2819,
+      "retained": 1049,
+      "raw_bytes": 792115,
+      "delivered_raw_bytes": 792115,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 2819,
+      "retained": 918,
+      "raw_bytes": 776395,
+      "delivered_raw_bytes": 776395,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 2819,
+      "retained": 876,
+      "raw_bytes": 771355,
+      "delivered_raw_bytes": 771355,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 2860,
+      "retained": 2860,
+      "raw_bytes": 1016128,
+      "delivered_raw_bytes": 754400,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 2860,
+      "retained": 1041,
+      "raw_bytes": 800708,
+      "delivered_raw_bytes": 588764,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 2860,
+      "retained": 911,
+      "raw_bytes": 785108,
+      "delivered_raw_bytes": 576884,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 2860,
+      "retained": 867,
+      "raw_bytes": 779828,
+      "delivered_raw_bytes": 572204,
+      "wire_bytes": 4854528
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 1968,
+      "retained": 1968,
+      "raw_bytes": 700032,
+      "delivered_raw_bytes": 700032,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 1968,
+      "retained": 608,
+      "raw_bytes": 538800,
+      "delivered_raw_bytes": 538800,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 1968,
+      "retained": 530,
+      "raw_bytes": 529440,
+      "delivered_raw_bytes": 529440,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 1968,
+      "retained": 284,
+      "raw_bytes": 499920,
+      "delivered_raw_bytes": 499920,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 2215,
+      "retained": 2215,
+      "raw_bytes": 786976,
+      "delivered_raw_bytes": 573472,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 2215,
+      "retained": 647,
+      "raw_bytes": 601031,
+      "delivered_raw_bytes": 437806,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 2215,
+      "retained": 558,
+      "raw_bytes": 590351,
+      "delivered_raw_bytes": 430246,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 2215,
+      "retained": 312,
+      "raw_bytes": 560831,
+      "delivered_raw_bytes": 411046,
+      "wire_bytes": 3764736
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 1334,
+      "retained": 1334,
+      "raw_bytes": 478784,
+      "delivered_raw_bytes": 478784,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 1334,
+      "retained": 447,
+      "raw_bytes": 373678,
+      "delivered_raw_bytes": 373678,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 1334,
+      "retained": 390,
+      "raw_bytes": 366838,
+      "delivered_raw_bytes": 366838,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 1334,
+      "retained": 231,
+      "raw_bytes": 347758,
+      "delivered_raw_bytes": 347758,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 1416,
+      "retained": 1416,
+      "raw_bytes": 507648,
+      "delivered_raw_bytes": 401248,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 1416,
+      "retained": 434,
+      "raw_bytes": 391224,
+      "delivered_raw_bytes": 309369,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 1416,
+      "retained": 371,
+      "raw_bytes": 383664,
+      "delivered_raw_bytes": 304809,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 1416,
+      "retained": 223,
+      "raw_bytes": 365904,
+      "delivered_raw_bytes": 291129,
+      "wire_bytes": 4755456
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 21928,
+      "retained": 21928,
+      "raw_bytes": 7731328,
+      "delivered_raw_bytes": 7731328,
+      "wire_bytes": 10814976
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 21928,
+      "retained": 7206,
+      "raw_bytes": 5986616,
+      "delivered_raw_bytes": 5986616,
+      "wire_bytes": 9750016
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 21928,
+      "retained": 5984,
+      "raw_bytes": 5839976,
+      "delivered_raw_bytes": 5839976,
+      "wire_bytes": 9717248
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 21928,
+      "retained": 5953,
+      "raw_bytes": 5836256,
+      "delivered_raw_bytes": 5836256,
+      "wire_bytes": 9668096
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 19018,
+      "retained": 19018,
+      "raw_bytes": 6707008,
+      "delivered_raw_bytes": 4713952,
+      "wire_bytes": 10798592
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 19018,
+      "retained": 6928,
+      "raw_bytes": 5275226,
+      "delivered_raw_bytes": 3727118,
+      "wire_bytes": 7996928
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 19018,
+      "retained": 5807,
+      "raw_bytes": 5140706,
+      "delivered_raw_bytes": 3622838,
+      "wire_bytes": 7751168
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 19018,
+      "retained": 5775,
+      "raw_bytes": 5136866,
+      "delivered_raw_bytes": 3619718,
+      "wire_bytes": 7751168
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 29983,
+      "retained": 29983,
+      "raw_bytes": 10565536,
+      "delivered_raw_bytes": 10565536,
+      "wire_bytes": 14054400
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 29983,
+      "retained": 28418,
+      "raw_bytes": 10407719,
+      "delivered_raw_bytes": 10407719,
+      "wire_bytes": 13972480
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 29983,
+      "retained": 24922,
+      "raw_bytes": 9988199,
+      "delivered_raw_bytes": 9988199,
+      "wire_bytes": 13612032
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 29983,
+      "retained": 24922,
+      "raw_bytes": 9988199,
+      "delivered_raw_bytes": 9988199,
+      "wire_bytes": 13612032
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 30916,
+      "retained": 30916,
+      "raw_bytes": 10893952,
+      "delivered_raw_bytes": 8055264,
+      "wire_bytes": 13792256
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 30916,
+      "retained": 29368,
+      "raw_bytes": 10739108,
+      "delivered_raw_bytes": 7934725,
+      "wire_bytes": 13726720
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 30916,
+      "retained": 25490,
+      "raw_bytes": 10273748,
+      "delivered_raw_bytes": 7565005,
+      "wire_bytes": 13464576
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 30916,
+      "retained": 25490,
+      "raw_bytes": 10273748,
+      "delivered_raw_bytes": 7565005,
+      "wire_bytes": 13464576
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 42553,
+      "retained": 42553,
+      "raw_bytes": 14998496,
+      "delivered_raw_bytes": 14998496,
+      "wire_bytes": 20461056
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 42553,
+      "retained": 16761,
+      "raw_bytes": 11946009,
+      "delivered_raw_bytes": 11946009,
+      "wire_bytes": 16381440
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 42553,
+      "retained": 14121,
+      "raw_bytes": 11629209,
+      "delivered_raw_bytes": 11629209,
+      "wire_bytes": 16053760
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 42553,
+      "retained": 14117,
+      "raw_bytes": 11628729,
+      "delivered_raw_bytes": 11628729,
+      "wire_bytes": 16053760
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 42162,
+      "retained": 42162,
+      "raw_bytes": 14860864,
+      "delivered_raw_bytes": 11326464,
+      "wire_bytes": 20559360
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 42162,
+      "retained": 16598,
+      "raw_bytes": 11835346,
+      "delivered_raw_bytes": 9051601,
+      "wire_bytes": 16414208
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 42162,
+      "retained": 13915,
+      "raw_bytes": 11513386,
+      "delivered_raw_bytes": 8792521,
+      "wire_bytes": 15955456
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 42162,
+      "retained": 13912,
+      "raw_bytes": 11513026,
+      "delivered_raw_bytes": 8792161,
+      "wire_bytes": 15955456
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 22528,
+      "retained": 22528,
+      "raw_bytes": 7949312,
+      "delivered_raw_bytes": 7949312,
+      "wire_bytes": 13021184
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 22528,
+      "retained": 12006,
+      "raw_bytes": 6709200,
+      "delivered_raw_bytes": 6709200,
+      "wire_bytes": 12398592
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 22528,
+      "retained": 10288,
+      "raw_bytes": 6503040,
+      "delivered_raw_bytes": 6503040,
+      "wire_bytes": 12349440
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 22528,
+      "retained": 10288,
+      "raw_bytes": 6503040,
+      "delivered_raw_bytes": 6503040,
+      "wire_bytes": 12349440
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 21374,
+      "retained": 21374,
+      "raw_bytes": 7543104,
+      "delivered_raw_bytes": 5880832,
+      "wire_bytes": 12660736
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 21374,
+      "retained": 11371,
+      "raw_bytes": 6364118,
+      "delivered_raw_bytes": 5005178,
+      "wire_bytes": 12267520
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 21374,
+      "retained": 9684,
+      "raw_bytes": 6161678,
+      "delivered_raw_bytes": 4840778,
+      "wire_bytes": 12201984
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 21374,
+      "retained": 9684,
+      "raw_bytes": 6161678,
+      "delivered_raw_bytes": 4840778,
+      "wire_bytes": 12201984
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 24830,
+      "retained": 24830,
+      "raw_bytes": 8754304,
+      "delivered_raw_bytes": 8754304,
+      "wire_bytes": 12754176
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 24830,
+      "retained": 9636,
+      "raw_bytes": 6955854,
+      "delivered_raw_bytes": 6955854,
+      "wire_bytes": 10067200
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 24830,
+      "retained": 8396,
+      "raw_bytes": 6807054,
+      "delivered_raw_bytes": 6807054,
+      "wire_bytes": 10001664
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 24830,
+      "retained": 8373,
+      "raw_bytes": 6804294,
+      "delivered_raw_bytes": 6804294,
+      "wire_bytes": 10001664
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 25290,
+      "retained": 25290,
+      "raw_bytes": 8916224,
+      "delivered_raw_bytes": 5521472,
+      "wire_bytes": 12492032
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 25290,
+      "retained": 9938,
+      "raw_bytes": 7099274,
+      "delivered_raw_bytes": 4392450,
+      "wire_bytes": 10149120
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 25290,
+      "retained": 8665,
+      "raw_bytes": 6946514,
+      "delivered_raw_bytes": 4277730,
+      "wire_bytes": 10083584
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 25290,
+      "retained": 8642,
+      "raw_bytes": 6943754,
+      "delivered_raw_bytes": 4275450,
+      "wire_bytes": 10083584
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 34051,
+      "retained": 34051,
+      "raw_bytes": 12009952,
+      "delivered_raw_bytes": 12009952,
+      "wire_bytes": 16709376
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 34051,
+      "retained": 20843,
+      "raw_bytes": 10459043,
+      "delivered_raw_bytes": 10459043,
+      "wire_bytes": 12760832
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 34051,
+      "retained": 19741,
+      "raw_bytes": 10326803,
+      "delivered_raw_bytes": 10326803,
+      "wire_bytes": 12711680
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 34051,
+      "retained": 19741,
+      "raw_bytes": 10326803,
+      "delivered_raw_bytes": 10326803,
+      "wire_bytes": 12711680
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 39178,
+      "retained": 39178,
+      "raw_bytes": 13814656,
+      "delivered_raw_bytes": 9744448,
+      "wire_bytes": 19887872
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 39178,
+      "retained": 20958,
+      "raw_bytes": 11667434,
+      "delivered_raw_bytes": 8270522,
+      "wire_bytes": 16348928
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 39178,
+      "retained": 19815,
+      "raw_bytes": 11530274,
+      "delivered_raw_bytes": 8170682,
+      "wire_bytes": 16021248
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 39178,
+      "retained": 19815,
+      "raw_bytes": 11530274,
+      "delivered_raw_bytes": 8170682,
+      "wire_bytes": 16021248
+    }
+  ],
+  "aggregate": [
+    {
+      "condition": "reliable",
+      "rule": "native",
+      "objects": 181994,
+      "retained": 181994,
+      "raw_bytes": 64189440,
+      "delivered_raw_bytes": 64189440,
+      "wire_bytes": 101189888
+    },
+    {
+      "condition": "reliable",
+      "rule": "exact_zero",
+      "objects": 181994,
+      "retained": 96974,
+      "raw_bytes": 54169034,
+      "delivered_raw_bytes": 54169034,
+      "wire_bytes": 88705280
+    },
+    {
+      "condition": "reliable",
+      "rule": "curvature",
+      "objects": 181994,
+      "retained": 85290,
+      "raw_bytes": 52766954,
+      "delivered_raw_bytes": 52766954,
+      "wire_bytes": 87820544
+    },
+    {
+      "condition": "reliable",
+      "rule": "current_gate",
+      "objects": 181994,
+      "retained": 84785,
+      "raw_bytes": 52706354,
+      "delivered_raw_bytes": 52706354,
+      "wire_bytes": 87771392
+    },
+    {
+      "condition": "intermittent",
+      "rule": "native",
+      "objects": 184429,
+      "retained": 184429,
+      "raw_bytes": 65046560,
+      "delivered_raw_bytes": 46971552,
+      "wire_bytes": 103565568
+    },
+    {
+      "condition": "intermittent",
+      "rule": "exact_zero",
+      "objects": 184429,
+      "retained": 97283,
+      "raw_bytes": 54773469,
+      "delivered_raw_bytes": 39717533,
+      "wire_bytes": 90278144
+    },
+    {
+      "condition": "intermittent",
+      "rule": "curvature",
+      "objects": 184429,
+      "retained": 85216,
+      "raw_bytes": 53325429,
+      "delivered_raw_bytes": 38581493,
+      "wire_bytes": 88852736
+    },
+    {
+      "condition": "intermittent",
+      "rule": "current_gate",
+      "objects": 184429,
+      "retained": 84720,
+      "raw_bytes": 53265909,
+      "delivered_raw_bytes": 38538173,
+      "wire_bytes": 88852736
+    }
+  ],
+  "inputs": {
+    "trials/icra_gaussian_evidence/results_development/0000_reliable_marked_gaussian_evidence.json.gz": "5e192e2812cc134091c3809c8a890cf25b5ffd01cccf811cc7d40a5a303acc86",
+    "trials/icra_gaussian_evidence/results_development/0000_intermittent_marked_gaussian_evidence.json.gz": "ac0c2f44f7aa20eab27e6b7326371cc4819244e2249f5361455d3fc734a0b772",
+    "trials/icra_gaussian_evidence/results_development/0001_reliable_marked_gaussian_evidence.json.gz": "8b42d451526e754df6e6407cfe629421076251bcaabb85247a632a15a8e5ddaa",
+    "trials/icra_gaussian_evidence/results_development/0001_intermittent_marked_gaussian_evidence.json.gz": "eed97f60f430c0c96d69c5261bd75680a18f49f1fb5bda0e09021974ced9a67a",
+    "trials/icra_gaussian_evidence/results_development/0002_reliable_marked_gaussian_evidence.json.gz": "e1d5b81b4e4f185baecbbc6500d837c594bfb772f50c93f87288182fa6096e21",
+    "trials/icra_gaussian_evidence/results_development/0002_intermittent_marked_gaussian_evidence.json.gz": "ead56ff76475be8a86b18259615054117fab0ef9b43d7fe47bfed6a45ae15bda",
+    "trials/icra_gaussian_evidence/results_development/0003_reliable_marked_gaussian_evidence.json.gz": "51b208786daf72d143f37766e150b286058fe3eb77774f42e830054e17b11416",
+    "trials/icra_gaussian_evidence/results_development/0003_intermittent_marked_gaussian_evidence.json.gz": "d682b2a64584b0c619e41c64353def78df1189f961647620a6afbbc8f61ec3c3",
+    "trials/icra_gaussian_evidence/results_development/0004_reliable_marked_gaussian_evidence.json.gz": "29feed6fb3fe44cf5b6a8ee30c9904cd7fa677454372c2a3dd8747071a4dca7d",
+    "trials/icra_gaussian_evidence/results_development/0004_intermittent_marked_gaussian_evidence.json.gz": "2f2159f4ddc3607f014e24f8bc16e8529cd643a411bef77bc9d67c34fe78917b",
+    "trials/icra_gaussian_evidence/results_development/0005_reliable_marked_gaussian_evidence.json.gz": "8f05dd2ae5a62abd54a2f63b9c889501c6edd35a47438cb01897c253c85f287b",
+    "trials/icra_gaussian_evidence/results_development/0005_intermittent_marked_gaussian_evidence.json.gz": "07c54972f6b8d5b6caac9310a3f3f82138c2b4618c869cdc98cb4c73d13ebb4b",
+    "trials/icra_gaussian_evidence/results_development/0006_reliable_marked_gaussian_evidence.json.gz": "41c663966325b4cf14bbe0dc5315faaef7065361648d6fdfed6a06066e550722",
+    "trials/icra_gaussian_evidence/results_development/0006_intermittent_marked_gaussian_evidence.json.gz": "f274f1a9a1ddec739e19d5fae6d48db77d52edbccef853db9f27befea74139f6",
+    "trials/icra_gaussian_evidence/results_development/0007_reliable_marked_gaussian_evidence.json.gz": "073c6d0213a76ee4ed716f5ef045d08b17a825e01922ef536676275743e5fb0c",
+    "trials/icra_gaussian_evidence/results_development/0007_intermittent_marked_gaussian_evidence.json.gz": "003aa65cc9f9758b10a3ea1e9a035a822f3f2c11077eed197fb65aa80e103c4c",
+    "trials/icra_gaussian_evidence/results_development/0008_reliable_marked_gaussian_evidence.json.gz": "d43dc1f11ba88e5a901118ce83a823bb1c85d2a589fd563881f946b2517cd576",
+    "trials/icra_gaussian_evidence/results_development/0008_intermittent_marked_gaussian_evidence.json.gz": "33eafe471aa17fc41250de48fcb853854ced5df3d94fd9da536d17bfc2bbdb38"
+  },
+  "source_summary_sha256": "93905008be22b3bc9625dbde67d8fd082ca596ff3f8aae8058d52999795e10ef",
+  "protocol_sha256": "715ef99ec1a0d6c55d80bb14fa9be015b87d2bc6eab86afe62196ccd1d70f42b",
+  "analyzer_sha256": "412d8364f302457bc886348b4d596e5c621586d4fedd5a000274d9735ef8934d",
+  "native_packet_roundtrip_executed": false,
+  "tracking_rerun": false,
+  "interpretation": "Projected specified codec lengths only; actual implementation and exact full-state parity still required. No change to original M-GE native results."
+}

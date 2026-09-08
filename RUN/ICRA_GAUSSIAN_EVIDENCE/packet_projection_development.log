@@ -1,0 +1,27 @@
+PACKET PROJECTION 0000 reliable 2819 {'exact_zero': 1049, 'curvature': 918, 'current_gate': 876}
+PACKET PROJECTION 0000 intermittent 2860 {'exact_zero': 1041, 'curvature': 911, 'current_gate': 867}
+PACKET PROJECTION 0001 reliable 1968 {'exact_zero': 608, 'curvature': 530, 'current_gate': 284}
+PACKET PROJECTION 0001 intermittent 2215 {'exact_zero': 647, 'curvature': 558, 'current_gate': 312}
+PACKET PROJECTION 0002 reliable 1334 {'exact_zero': 447, 'curvature': 390, 'current_gate': 231}
+PACKET PROJECTION 0002 intermittent 1416 {'exact_zero': 434, 'curvature': 371, 'current_gate': 223}
+PACKET PROJECTION 0003 reliable 21928 {'exact_zero': 7206, 'curvature': 5984, 'current_gate': 5953}
+PACKET PROJECTION 0003 intermittent 19018 {'exact_zero': 6928, 'curvature': 5807, 'current_gate': 5775}
+PACKET PROJECTION 0004 reliable 29983 {'exact_zero': 28418, 'curvature': 24922, 'current_gate': 24922}
+PACKET PROJECTION 0004 intermittent 30916 {'exact_zero': 29368, 'curvature': 25490, 'current_gate': 25490}
+PACKET PROJECTION 0005 reliable 42553 {'exact_zero': 16761, 'curvature': 14121, 'current_gate': 14117}
+PACKET PROJECTION 0005 intermittent 42162 {'exact_zero': 16598, 'curvature': 13915, 'current_gate': 13912}
+PACKET PROJECTION 0006 reliable 22528 {'exact_zero': 12006, 'curvature': 10288, 'current_gate': 10288}
+PACKET PROJECTION 0006 intermittent 21374 {'exact_zero': 11371, 'curvature': 9684, 'current_gate': 9684}
+PACKET PROJECTION 0007 reliable 24830 {'exact_zero': 9636, 'curvature': 8396, 'current_gate': 8373}
+PACKET PROJECTION 0007 intermittent 25290 {'exact_zero': 9938, 'curvature': 8665, 'current_gate': 8642}
+PACKET PROJECTION 0008 reliable 34051 {'exact_zero': 20843, 'curvature': 19741, 'current_gate': 19741}
+PACKET PROJECTION 0008 intermittent 39178 {'exact_zero': 20958, 'curvature': 19815, 'current_gate': 19815}
+{'condition': 'reliable', 'rule': 'native', 'objects': 181994, 'retained': 181994, 'raw_bytes': 64189440, 'delivered_raw_bytes': 64189440, 'wire_bytes': 101189888}
+{'condition': 'reliable', 'rule': 'exact_zero', 'objects': 181994, 'retained': 96974, 'raw_bytes': 54169034, 'delivered_raw_bytes': 54169034, 'wire_bytes': 88705280}
+{'condition': 'reliable', 'rule': 'curvature', 'objects': 181994, 'retained': 85290, 'raw_bytes': 52766954, 'delivered_raw_bytes': 52766954, 'wire_bytes': 87820544}
+{'condition': 'reliable', 'rule': 'current_gate', 'objects': 181994, 'retained': 84785, 'raw_bytes': 52706354, 'delivered_raw_bytes': 52706354, 'wire_bytes': 87771392}
+{'condition': 'intermittent', 'rule': 'native', 'objects': 184429, 'retained': 184429, 'raw_bytes': 65046560, 'delivered_raw_bytes': 46971552, 'wire_bytes': 103565568}
+{'condition': 'intermittent', 'rule': 'exact_zero', 'objects': 184429, 'retained': 97283, 'raw_bytes': 54773469, 'delivered_raw_bytes': 39717533, 'wire_bytes': 90278144}
+{'condition': 'intermittent', 'rule': 'curvature', 'objects': 184429, 'retained': 85216, 'raw_bytes': 53325429, 'delivered_raw_bytes': 38581493, 'wire_bytes': 88852736}
+{'condition': 'intermittent', 'rule': 'current_gate', 'objects': 184429, 'retained': 84720, 'raw_bytes': 53265909, 'delivered_raw_bytes': 38538173, 'wire_bytes': 88852736}
+PACKET PROJECTION COMPLETE: 18 immutable saved histories; no new tracking.

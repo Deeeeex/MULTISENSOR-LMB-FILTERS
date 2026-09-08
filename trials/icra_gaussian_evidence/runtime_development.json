@@ -1,0 +1,128 @@
+[
+  {
+    "cohort": "development",
+    "sequence": 0,
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(0,0,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 1,
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(1,1,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 2,
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(2,2,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 3,
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(3,3,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 4,
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(4,4,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 5,
+    "index": 5,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(5,5,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 6,
+    "index": 6,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(6,6,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 7,
+    "index": 7,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(7,7,'development');"
+    ]
+  },
+  {
+    "cohort": "development",
+    "sequence": 8,
+    "index": 8,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 8,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_gaussian_evidence'); runGaussianEvidenceReplay(8,8,'development');"
+    ]
+  }
+]

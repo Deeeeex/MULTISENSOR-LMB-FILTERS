@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_gaussian_evidence/analyze_gaussian.py", line 397, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_gaussian_evidence/analyze_gaussian.py", line 360, in main
+    preflight(source)
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_gaussian_evidence/analyze_gaussian.py", line 321, in preflight
+    data, row, _, diagnostic = audit_file(path, source, mat, 'development_check', '0000', condition, arm)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_gaussian_evidence/analyze_gaussian.py", line 162, in audit_file
+    assert data['protocol'] == 'gaussian-current-evidence-v1' and data['implementation'] == 'gaussian-evidence-v1'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

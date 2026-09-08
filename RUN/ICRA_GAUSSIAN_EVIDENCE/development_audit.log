@@ -1,0 +1,22 @@
+GAUSSIAN EVIDENCE AUDITED development 0000 1 / 9
+GAUSSIAN EVIDENCE AUDITED development 0001 2 / 9
+GAUSSIAN EVIDENCE AUDITED development 0002 3 / 9
+GAUSSIAN EVIDENCE AUDITED development 0003 4 / 9
+GAUSSIAN EVIDENCE AUDITED development 0004 5 / 9
+GAUSSIAN EVIDENCE AUDITED development 0005 6 / 9
+GAUSSIAN EVIDENCE AUDITED development 0006 7 / 9
+GAUSSIAN EVIDENCE AUDITED development 0007 8 / 9
+GAUSSIAN EVIDENCE AUDITED development 0008 9 / 9
+development reliable marked_gaussian_evidence minus marked_lineage {'mean': -0.17347383620398885, 'sd': 0.13753106633637519, 'low': -0.2604992875130811, 'high': -0.09364414715338579, 'n': 9}
+development reliable marked_gaussian_evidence minus marked_er {'mean': -0.273299980694277, 'sd': 0.38462061343682, 'low': -0.5402287699547941, 'high': -0.09528836816280825, 'n': 9}
+development reliable marked_gaussian_evidence minus marked_conservative {'mean': -0.14687018047648523, 'sd': 0.13599594413297175, 'low': -0.23023102229909698, 'high': -0.06266683253840322, 'n': 9}
+development reliable marked_gaussian_evidence minus marked_ceiling_calibrated {'mean': -0.13682098045657387, 'sd': 0.148916961128065, 'low': -0.22939981117858155, 'high': -0.048774311550733224, 'n': 9}
+development reliable marked_gaussian_evidence minus marked_ceiling_score {'mean': -0.12737059436553008, 'sd': 0.11931296392338941, 'low': -0.20269242191893225, 'high': -0.05475116114711231, 'n': 9}
+development reliable marked_gaussian_evidence minus marked_asymmetric {'mean': -0.05043852578186202, 'sd': 0.1048575497256028, 'low': -0.1144546381025879, 'high': 0.011988505211937683, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_lineage {'mean': -0.10592263721106995, 'sd': 0.12985651173412543, 'low': -0.183122724476298, 'high': -0.02619458257236799, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_er {'mean': -0.1748902429848388, 'sd': 0.23368165364080937, 'low': -0.3339146257084977, 'high': -0.05243794256553725, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_conservative {'mean': -0.06331351529336511, 'sd': 0.11050794637629613, 'low': -0.13073385366147314, 'high': 0.004319681359069799, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_ceiling_calibrated {'mean': -0.0488384314097797, 'sd': 0.09387623371370461, 'low': -0.10645036443122621, 'high': 0.007570427852503016, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_ceiling_score {'mean': -0.024634323607411086, 'sd': 0.10503724815570045, 'low': -0.09074078530328522, 'high': 0.03750237007431649, 'n': 9}
+development intermittent marked_gaussian_evidence minus marked_asymmetric {'mean': -0.0278072937253158, 'sd': 0.0507758147563158, 'low': -0.05954398672208235, 'high': 0.003202307265984013, 'n': 9}
+ALL GAUSSIAN EVIDENCE OUTPUTS AUDITED development 31888 new node-frames; 47832 baseline node-frames; continuation True

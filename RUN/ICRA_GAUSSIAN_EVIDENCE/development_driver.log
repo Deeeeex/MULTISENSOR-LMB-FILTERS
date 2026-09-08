@@ -1,0 +1,19 @@
+GAUSSIAN EVIDENCE START development 0000
+GAUSSIAN EVIDENCE START development 0001
+GAUSSIAN EVIDENCE START development 0002
+GAUSSIAN EVIDENCE END development 0001 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0003
+GAUSSIAN EVIDENCE END development 0002 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0004
+GAUSSIAN EVIDENCE END development 0000 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0005
+GAUSSIAN EVIDENCE END development 0003 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0006
+GAUSSIAN EVIDENCE END development 0006 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0007
+GAUSSIAN EVIDENCE END development 0005 return 0 complete True files 8
+GAUSSIAN EVIDENCE START development 0008
+GAUSSIAN EVIDENCE END development 0004 return 0 complete True files 8
+GAUSSIAN EVIDENCE END development 0007 return 0 complete True files 8
+GAUSSIAN EVIDENCE END development 0008 return 0 complete True files 8
+ALL GAUSSIAN EVIDENCE STAGE RUNS COMPLETE: development 9 sequences; 72 files.
