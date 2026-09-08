@@ -1,6 +1,6 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "9a4cd0c93645a109ea89727aeceded4669f2b207ae4ea65c16218059c0e79bfc",
+  "pdf_sha256": "e438b1c40729559474dc43360f25a50e274053cc363dd365f548aff2b7acdc20",
   "pages": 8,
   "paper_size": "US Letter",
   "text_spans_in_page_bounds": 2137,
@@ -161,6 +161,19 @@
       "svg_sha256": "17e0d7d135f84646b1d9c26177a07ef35b2364d5689cc465bab948da44bd40f1"
     }
   },
+  "float_pages": {
+    "fig:overview": 2,
+    "fig:mechanism": 3,
+    "fig:scene": 5,
+    "tab:real": 5,
+    "fig:real": 6,
+    "tab:main": 6,
+    "tab:ablation": 7,
+    "fig:outcomes": 7
+  },
+  "references_start_page": 8,
+  "all_float_captions_before_references": true,
+  "maximum_double_column_floats_per_page": 2,
   "validation_seeds_per_family": 20,
   "validation_arm_runs": 540,
   "audited_validation_node_frames": 518400,

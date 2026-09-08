@@ -6,10 +6,10 @@
   "exported_figures": 6,
   "cited_references": 25,
   "source_sha256": {
-    "main.tex": "8d46cbb676a19b368ed027e358324a5c5b1638296359869ab9db5507a2c36960",
+    "main.tex": "cd894949d72ea17dd500d91ae0b09dbd81c49d95a09427165823462fab3c15b1",
     "build.py": "d0504f24e074ef5bdbb05434df8cd0e66e4e74abd256c7b39034550ef1a63354",
     "build_bibliography.py": "d82e90f4643674024440f4ee8616213df78ac2dcb2abd152323b2bc910cfa3ee",
-    "qa.py": "f9ac55db1e2ace81b154e7fd25c9fdf48b581d7d94c4e63caa40d82ae152c8a4",
+    "qa.py": "992a43240b4ba0dee9647ddc9f5771946239f9b670f6d8ca23497e01ee09f0c5",
     "make_figures.py": "fa5acc3de3c1f9685df9ac6a16d45ab0435a9ca4b8c915b35925600d2dbecdab",
     "make_external_figures.py": "f0662460e560fab18997060749796bfe8f861c00ef60abcfc0fa79c454d47cec",
     "make_tables.py": "b7795a9b5793b70b82d64310681c3b39d69fd57b5f29a2de5c92d2782214ef3d",
@@ -18,10 +18,10 @@
     "literature/verification.json": "7592a91cc35ef3db28532b8ab85156bd26081d4b1fb087a3c27fc10100846dca",
     "sections/abstract.tex": "5dcabb2775564755d284c7db294497134b7b016bf8e4d271785b91397331bf85",
     "sections/discussion.tex": "32faef1247b2569924b5ba63b9bf7fa52193246b55c6c31c5052a51cca7b7bfb",
-    "sections/experiments.tex": "53db387e4b6832378e88d53e6b589cccd3fc5368bc6716fcd0ad7453245c6cc3",
+    "sections/experiments.tex": "cf04d0b3024f0ee37a4b05c5d38a2a9fad7726abd75bbc7be42af3e7b2f01a5f",
     "sections/introduction.tex": "74ed4a7179a140f3801b75a1820bb8fa688ea2104ee1d942936bf78c43d219f9",
-    "sections/method.tex": "5ff949743b200f14ca4ae5516e2792d733ec2f324d3caffdb761f2ea444e3980",
-    "sections/results.tex": "65d384a00e7311ba119cd053c817d1b4563358f2fc323552f9502ef73f1afb7f"
+    "sections/method.tex": "14cc811d578bece09276e9008c407165ec2793e09db807cd9bdb15913eeb2b64",
+    "sections/results.tex": "13c8216a357c46b77306d958aba32810a69adaf1d7cc8ce54f0462cc9d3dc187"
   },
   "byte_identical_bibliography_tables_figures_and_page_previews": [
     "references.bib",
@@ -59,5 +59,10 @@
     "build/preview/page-7.png",
     "build/preview/page-8.png"
   ],
-  "limits": "Same local Python, Tectonic and fonts; this does not rerun MATLAB experiments."
+  "limits": "Same local Python, Tectonic and fonts; this does not rerun MATLAB experiments.",
+  "layout_checks": {
+    "references_start_page": 8,
+    "all_float_captions_before_references": true,
+    "maximum_double_column_floats_per_page": 2
+  }
 }

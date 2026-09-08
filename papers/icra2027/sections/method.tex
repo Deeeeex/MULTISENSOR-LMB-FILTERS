@@ -104,6 +104,18 @@ existence decisions can affect associations, pruning, and state extraction.
 We therefore evaluate localization on common assignment support alongside
 global set metrics.
 
+\begin{figure}[t]
+ \centering\includegraphics[width=\columnwidth]{figures/mechanism.pdf}
+ \caption{Effect of observation age in a two-source Gaussian example.
+ Two unit-covariance Gaussian densities have x means 0 and 2 m, with
+ existence 0.9 at the older source and 0.1 at the current source. Ordinary
+ spatial weights are equal. Increasing the older source's direct age
+ changes ER's existence while leaving its spatial mean at 1 m. Applying
+ age to both blocks also moves the spatial mean. Both rules retain their
+ respective spatial overlap normalizer.}
+ \label{fig:mechanism}
+\end{figure}
+
 The implementation calls the existing mixture-aware Gaussian-power fusion
 routine with $a$ for spatial pooling and $q$ for existence. It retains at
 most three components per input for the powered-mixture calculation, at

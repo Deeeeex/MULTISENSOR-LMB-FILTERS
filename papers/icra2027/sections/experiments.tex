@@ -1,4 +1,14 @@
 \section{Experiments}
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/scene.pdf}
+ \caption{Mechanism case studies. Thin curves are robot paths; circles and
+ dashed tree edges show the state at 27 s. Light disks denote 14 m FoVs.
+ Crosses mark candidate birth regions; the two lower regions remain empty.
+ The split and churn scenarios create different contact histories, with
+ target departure at 45 s in the churn scenario.}
+ \label{fig:scene}
+\end{figure*}
+
 \subsection{Public real-detection replay}
 We use all nine evaluation sequences released with DMSTrack
 \cite{chiu2024dmstrack} for V2V4Real~\cite{xu2023v2v4real}: 1,993 paired
@@ -36,16 +46,18 @@ and resource corrections preceded the complete cohort. It is not the
 official three-dimensional benchmark or a reproduction of DMSTrack's
 learned tracker.
 
-\subsection{Mechanism case studies}
+\input{generated/real_table}
 \begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/scene.pdf}
- \caption{Mechanism case studies. Thin curves are robot paths; circles and
- dashed tree edges show the state at 27 s. Light disks denote 14 m FoVs.
- Crosses mark candidate birth regions; the two lower regions remain empty.
- The split and churn scenarios create different contact histories, with
- target departure at 45 s in the churn scenario.}
- \label{fig:scene}
+ \centering\includegraphics[width=\textwidth]{figures/v2v4real.pdf}
+ \caption{Real-detection replay: ER minus comparator OSPA for each released
+ evaluation sequence. Blue/negative values favor ER; orange/positive values
+ favor the comparator. All nine sequences and both radio conditions are
+ shown with one color scale. Cells are sequence summaries, not independent
+ significance tests.}
+ \label{fig:real}
 \end{figure*}
+
+\subsection{Mechanism case studies}
 Eight simulated robots follow two smooth patrol families for 120 frames
 at $\Delta t=0.5$ s. Their maximum speed is below $3$ m/s and acceleration
 below $2.1$ m/s$^2$. Radio range is $24$ m and circular sensing range is
@@ -78,6 +90,9 @@ $[-0.6,0.6]^2$ m, and the communication components and trees are recomputed.
 The offsets vary the layout and contacts while preserving speed and
 acceleration. Target trajectories, detections, clutter, and directed
 link-loss draws are paired across methods. Directed packet loss is $0.1$.
+
+\input{generated/main_table}
+\input{generated/ablation_table}
 
 \subsection{External methods, controls, and ablations}
 \emph{TC-OSPA$^2$} uses the unchanged author kinematic matching and

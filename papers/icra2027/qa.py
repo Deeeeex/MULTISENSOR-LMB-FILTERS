@@ -1,5 +1,6 @@
 """Artifact checks; these are automated self-checks, not author/third-party review."""
 from pathlib import Path
+from collections import Counter
 import csv
 import hashlib
 import json
@@ -69,6 +70,36 @@ def check():
     assert '??' not in full_text
     assert 'OpenAI Codex' in full_text and 'Acknowledgment' in full_text.replace('ACKNOWLEDGMENT', 'Acknowledgment')
     (HERE / 'build/main.txt').write_text(full_text)
+    # Check the rendered positions: valid TeX alone does not keep floats
+    # before the bibliography or prevent a page crowded by wide floats.
+    captions, reference_positions = {}, []
+    for page_number, page in enumerate(document, 1):
+        for block in page.get_text('dict')['blocks']:
+            for line in block.get('lines', []):
+                text = ''.join(span['text'] for span in line['spans']).strip()
+                if text == 'REFERENCES':
+                    reference_positions.append((page_number, line['bbox'][1]))
+                match = re.match(r'^(Fig\.)\s+(\d+)\.|^(TABLE)\s+([IVX]+)$', text)
+                if match:
+                    kind = 'figure' if match.group(1) else 'table'
+                    number = match.group(2) or match.group(4)
+                    key = (kind, number)
+                    assert key not in captions, ('Duplicate rendered caption', key)
+                    captions[key] = (page_number, line['bbox'][3])
+    assert len(reference_positions) == 1
+    reference_position = reference_positions[0]
+    labels = re.findall(r'\\newlabel\{((?:fig|tab):[^}]+)\}\{\{([^}]+)\}\{(\d+)\}',
+                        (HERE / 'build/main.aux').read_text())
+    assert len(labels) == 8 and len(captions) == 8
+    float_pages = {}
+    for label, number, page in labels:
+        kind = 'figure' if label.startswith('fig:') else 'table'
+        position = captions[kind, number]
+        assert position[0] == int(page), (label, page, position)
+        assert position < reference_position, ('Float after References', label, position)
+        float_pages[label] = int(page)
+    wide_per_page = Counter(page for label, page in float_pages.items() if label != 'fig:mechanism')
+    assert max(wide_per_page.values()) <= 2, ('Crowded wide-float page', wide_per_page)
     log = (HERE / 'build/compile.log').read_text() + (HERE / 'build/main.log').read_text()
     bad = ['Overfull', 'undefined', 'Missing character', 'Undefined control sequence',
            'LaTeX Error', 'BibTeX subsystem:', 'internal error']
@@ -141,6 +172,9 @@ def check():
               'embedded_fonts': fonts, 'type3_fonts': 0, 'pdf_annotations': 0, 'blank_author_metadata': True,
               'tex_font_substitution_warnings': 0,
               'official_class_and_bst_unmodified': True, 'figures': figures,
+              'float_pages':float_pages, 'references_start_page':reference_position[0],
+              'all_float_captions_before_references':True,
+              'maximum_double_column_floats_per_page':max(wide_per_page.values()),
               'validation_seeds_per_family': 20, 'validation_arm_runs': 540,
               'audited_validation_node_frames': 518400, 'scalar_facts_match_audited_summary': True,
               'external_tc_cases':60, 'external_tc_added_arm_runs':120,

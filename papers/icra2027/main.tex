@@ -6,6 +6,10 @@
 \usepackage{amsmath,amssymb,graphicx,booktabs,array}
 \usepackage{cite}
 \usepackage{url}
+\usepackage{placeins}
+% Keep double-column floats with surrounding text rather than a full-page stack.
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.75}
 \newcommand{\ER}{\textsc{ER}}
 \input{generated/numbers}
 \title{\LARGE\bf Observation Recency in Bernoulli Fusion for Intermittent Multirobot Tracking}
@@ -19,17 +23,6 @@
 \input{sections/introduction}
 
 \input{sections/method}
-\begin{figure}[t]
- \centering\includegraphics[width=\columnwidth]{figures/mechanism.pdf}
- \caption{Effect of observation age in a two-source Gaussian example.
- Two unit-covariance Gaussian densities have x means 0 and 2 m, with
- existence 0.9 at the older source and 0.1 at the current source. Ordinary
- spatial weights are equal. Increasing the older source's direct age
- changes ER's existence while leaving its spatial mean at 1 m. Applying
- age to both blocks also moves the spatial mean. Both rules retain their
- respective spatial overlap normalizer.}
- \label{fig:mechanism}
-\end{figure}
 \input{sections/experiments}
 \input{sections/results}
 \input{sections/discussion}
@@ -39,7 +32,7 @@ produce the result figures and tables from saved outputs, and draft and
 revise Sections I--VI, the abstract, captions, and mathematical exposition.
 The mechanism overview was designed with OpenAI image generation and
 reconstructed as editable vector graphics.
-\IEEEtriggeratref{16}
+\FloatBarrier
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 \end{document}

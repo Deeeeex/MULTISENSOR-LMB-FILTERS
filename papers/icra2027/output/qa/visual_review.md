@@ -2,18 +2,19 @@
 
 Reviewed on 2026-09-08 by the drafting agent. PDF identity is recorded in
 `artifact_qa.json`. All eight final pages were rendered and inspected after
-the external-method and real-detection extension.
+the external-method and real-detection extension and the subsequent float
+placement correction.
 
 | Page | Inspection |
 |---|---|
 | 1 | Anonymous title area, bold abstract and related work fit. The abstract explicitly reports the real-data transfer limit alongside the mechanism case-study gains. |
 | 2 | Integrated Fig. 1 preserves the user-selected layout and vector geometry. Recency and spatial branches, visible absence, overlap coupling and feedback are legible. Related work includes the distinct TC architecture. |
-| 3 | Weights, proposition, proof and finite-mixture scope fit the columns. Shared-label case studies are distinguished from independent-label real replay. Communication text separates density packets and trajectory histories. |
-| 4 | The illustrative Gaussian plot is readable. Real-data crop, independent births, approximate likelihood, emulated links and moving-frame limitation are explicit. TC and MIL-AM implementation boundaries are included. |
-| 5 | Case-study geometry remains unchanged. Metrics distinguish whole-trial and whole-sequence resampling. Real-data results retain the no-age comparison, intervals containing zero and adverse false cost. |
-| 6 | Three tables and the real-data heatmap fit without overfull boxes. Table I labels the internal ablation, Table II includes both TC windows, and Table III contains mechanism ablations. All nine sequences and both conditions appear; signed cells, centered color scale and units are legible without overlap. |
-| 7 | Mechanism interpretation, localization ratios, adverse departure/false costs and missed acquisitions remain visible. Communication text discloses unequal real-data byte costs. Discussion limits the claimed real-data transfer. AI disclosure and references start normally. |
-| 8 | Case-study outcome panels preserve all trial points and intervals. The bibliography resolves 25 cited records and is balanced at reference 16; no reference is stranded on a ninth page. |
+| 3 | Weights, proposition, proof and finite-mixture scope fit the columns. The illustrative Gaussian figure now appears beside the method. Communication and confirmation text remain readable. |
+| 4 | Real-data crop, independent births, approximate likelihood, emulated links and moving-frame limitation are explicit. Case-study and TC/MIL-AM implementation boundaries fit without an isolated float. |
+| 5 | The unchanged case-study scene and Table I share this page. The internal no-age ablation is marked; result text retains intervals containing zero and adverse false cost. |
+| 6 | The real-data heatmap and Table II share this page. All nine sequences, both radio conditions and both TC windows are legible; text continues below the two wide floats. |
+| 7 | Table III and the unchanged case-study outcome figure share this page. All trial points and intervals remain visible. Discussion and limitations continue in the columns below. |
+| 8 | Conclusion, AI disclosure and all 25 cited references fit. References begin on this page; no figure or table follows their heading. The obsolete forced split at reference 16 has been removed. |
 
 The manuscript contains five figures. Six editable-text SVG/PDF/PNG exports
 are included: the case-study time-trajectory figure remains as a companion

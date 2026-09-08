@@ -1,5 +1,16 @@
 \section{Results}
-\input{generated/real_table}
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/outcomes.pdf}
+ \caption{Set error, localization, and false-target costs. (a) Paired OSPA
+ differences relative to ER w/o age; small dots show individual trials,
+ and large points with bars show means and 95\% bootstrap intervals.
+ (b) Percentage changes in pooled RMSE on common assignment support.
+ (c,d) Departure and no-new false-target squared costs, with twenty trial
+ points per method. ER reduces set error with little change in common-target
+ localization; confirmation changes the discovery--false-cost tradeoff.}
+ \label{fig:outcomes}
+\end{figure*}
+
 \subsection{Transfer to real detections}
 Table~\ref{tab:real} reports all nine sequences. With reliable links,
 ER's macro-average OSPA is \RealErReliable\ m, compared with
@@ -22,18 +33,6 @@ sequences under each condition, but increases mean false-target cost by
 supports the full fusion configuration in this replay; it does not isolate
 a benefit of recency. Figure~\ref{fig:real} retains every sequence comparison.
 
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/v2v4real.pdf}
- \caption{Real-detection replay: ER minus comparator OSPA for each released
- evaluation sequence. Blue/negative values favor ER; orange/positive values
- favor the comparator. All nine sequences and both radio conditions are
- shown with one color scale. Cells are sequence summaries, not independent
- significance tests.}
- \label{fig:real}
-\end{figure*}
-
-\input{generated/main_table}
-\input{generated/ablation_table}
 \subsection{Case studies: existence recency and set estimation}
 Tables~\ref{tab:main} and~\ref{tab:ablation} separate external/control
 comparisons from mechanism ablations.
@@ -56,18 +55,6 @@ edges. Since every robot is scored against the global target set, this
 architectural difference contributes to the large TC gap; it cannot be
 attributed to the age factor. Support partitioning improves MIL in the two
 event cases. Local has the largest OSPA, consistent with its limited coverage.
-
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/outcomes.pdf}
- \caption{Set error, localization, and false-target costs. (a) Paired OSPA
- differences relative to ER w/o age; small dots show individual trials,
- and large points with bars show means and 95\% bootstrap intervals.
- (b) Percentage changes in pooled RMSE on common assignment support.
- (c,d) Departure and no-new false-target squared costs, with twenty trial
- points per method. ER reduces set error with little change in common-target
- localization; confirmation changes the discovery--false-cost tradeoff.}
- \label{fig:outcomes}
-\end{figure*}
 
 \subsection{Where the age factor belongs}
 Table~\ref{tab:ablation} and Fig.~\ref{fig:outcomes}(b) distinguish existence
