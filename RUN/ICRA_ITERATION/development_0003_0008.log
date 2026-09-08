@@ -1,0 +1,11 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START iteration V2V 0003 reliable qualified_exist 198 frames
+DONE iteration V2V 0003 reliable qualified_exist OSPA 6.463880 count 2.843434 runtime 92.62s
+START iteration V2V 0003 reliable innovation_recency 198 frames
+DONE iteration V2V 0003 reliable innovation_recency OSPA 6.502089 count 2.868687 runtime 55.47s
+START iteration V2V 0003 intermittent qualified_exist 198 frames
+DONE iteration V2V 0003 intermittent qualified_exist OSPA 6.890351 count 3.103535 runtime 96.80s
+START iteration V2V 0003 intermittent innovation_recency 198 frames
+DONE iteration V2V 0003 intermittent innovation_recency OSPA 6.873876 count 3.106061 runtime 80.68s
+START iteration V2V 0004 reliable qualified_exist 180 frames

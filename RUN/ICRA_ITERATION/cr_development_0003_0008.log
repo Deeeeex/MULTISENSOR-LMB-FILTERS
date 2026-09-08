@@ -1,0 +1,7 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START iteration V2V 0003 reliable conservative_recency 198 frames
+DONE iteration V2V 0003 reliable conservative_recency OSPA 6.515858 count 3.146465 runtime 130.15s
+START iteration V2V 0003 intermittent conservative_recency 198 frames
+DONE iteration V2V 0003 intermittent conservative_recency OSPA 7.000445 count 3.295455 runtime 201.21s
+START iteration V2V 0004 reliable conservative_recency 180 frames

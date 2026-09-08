@@ -1,0 +1,78 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+Assignment parity 5/35 passed.
+Assignment parity 35/35 passed.
+HUNGARIAN ACCELERATION PASS: 35 exact matching/cost comparisons, rectangular and tied matrices, Inf masks, and augmented private dummy slots.
+START iteration V2V 0000 reliable qualified_exist 147 frames
+DONE iteration V2V 0000 reliable qualified_exist OSPA 3.848730 count 0.482993 runtime 2.92s
+START iteration V2V 0000 reliable innovation_recency 147 frames
+DONE iteration V2V 0000 reliable innovation_recency OSPA 3.811667 count 0.482993 runtime 1.30s
+START iteration V2V 0000 intermittent qualified_exist 147 frames
+DONE iteration V2V 0000 intermittent qualified_exist OSPA 3.961321 count 0.486395 runtime 1.13s
+START iteration V2V 0000 intermittent innovation_recency 147 frames
+DONE iteration V2V 0000 intermittent innovation_recency OSPA 4.045637 count 0.496599 runtime 1.16s
+START iteration V2V 0001 reliable qualified_exist 114 frames
+DONE iteration V2V 0001 reliable qualified_exist OSPA 7.193531 count 0.894737 runtime 0.95s
+START iteration V2V 0001 reliable innovation_recency 114 frames
+DONE iteration V2V 0001 reliable innovation_recency OSPA 7.193531 count 0.903509 runtime 0.96s
+START iteration V2V 0001 intermittent qualified_exist 114 frames
+DONE iteration V2V 0001 intermittent qualified_exist OSPA 7.101121 count 1.043860 runtime 0.74s
+START iteration V2V 0001 intermittent innovation_recency 114 frames
+DONE iteration V2V 0001 intermittent innovation_recency OSPA 8.469542 count 1.166667 runtime 0.81s
+START iteration V2V 0002 reliable qualified_exist 144 frames
+DONE iteration V2V 0002 reliable qualified_exist OSPA 5.091670 count 0.458333 runtime 0.94s
+START iteration V2V 0002 reliable innovation_recency 144 frames
+DONE iteration V2V 0002 reliable innovation_recency OSPA 5.116047 count 0.451389 runtime 1.01s
+START iteration V2V 0002 intermittent qualified_exist 144 frames
+DONE iteration V2V 0002 intermittent qualified_exist OSPA 6.148643 count 0.555556 runtime 0.95s
+START iteration V2V 0002 intermittent innovation_recency 144 frames
+DONE iteration V2V 0002 intermittent innovation_recency OSPA 6.154802 count 0.541667 runtime 0.91s
+START iteration V2V 0003 reliable qualified_exist 198 frames
+DONE iteration V2V 0003 reliable qualified_exist OSPA 6.463880 count 2.843434 runtime 10.38s
+START iteration V2V 0003 reliable innovation_recency 198 frames
+DONE iteration V2V 0003 reliable innovation_recency OSPA 6.502089 count 2.868687 runtime 9.90s
+START iteration V2V 0003 intermittent qualified_exist 198 frames
+DONE iteration V2V 0003 intermittent qualified_exist OSPA 6.890351 count 3.103535 runtime 8.60s
+START iteration V2V 0003 intermittent innovation_recency 198 frames
+DONE iteration V2V 0003 intermittent innovation_recency OSPA 6.873876 count 3.106061 runtime 7.81s
+START iteration V2V 0004 reliable qualified_exist 180 frames
+DONE iteration V2V 0004 reliable qualified_exist OSPA 5.158462 count 2.305556 runtime 44.52s
+START iteration V2V 0004 reliable innovation_recency 180 frames
+DONE iteration V2V 0004 reliable innovation_recency OSPA 5.157346 count 2.305556 runtime 44.74s
+START iteration V2V 0004 intermittent qualified_exist 180 frames
+DONE iteration V2V 0004 intermittent qualified_exist OSPA 5.023765 count 2.066667 runtime 36.50s
+START iteration V2V 0004 intermittent innovation_recency 180 frames
+DONE iteration V2V 0004 intermittent innovation_recency OSPA 5.032351 count 2.094444 runtime 39.32s
+START iteration V2V 0005 reliable qualified_exist 310 frames
+DONE iteration V2V 0005 reliable qualified_exist OSPA 4.589181 count 1.403226 runtime 28.94s
+START iteration V2V 0005 reliable innovation_recency 310 frames
+DONE iteration V2V 0005 reliable innovation_recency OSPA 4.596240 count 1.474194 runtime 26.97s
+START iteration V2V 0005 intermittent qualified_exist 310 frames
+DONE iteration V2V 0005 intermittent qualified_exist OSPA 4.941829 count 1.546774 runtime 25.60s
+START iteration V2V 0005 intermittent innovation_recency 310 frames
+DONE iteration V2V 0005 intermittent innovation_recency OSPA 4.967149 count 1.583871 runtime 23.58s
+START iteration V2V 0006 reliable qualified_exist 304 frames
+DONE iteration V2V 0006 reliable qualified_exist OSPA 6.393488 count 1.641447 runtime 10.39s
+START iteration V2V 0006 reliable innovation_recency 304 frames
+DONE iteration V2V 0006 reliable innovation_recency OSPA 6.404947 count 1.654605 runtime 10.45s
+START iteration V2V 0006 intermittent qualified_exist 304 frames
+DONE iteration V2V 0006 intermittent qualified_exist OSPA 6.209742 count 1.449013 runtime 9.93s
+START iteration V2V 0006 intermittent innovation_recency 304 frames
+DONE iteration V2V 0006 intermittent innovation_recency OSPA 6.191030 count 1.439145 runtime 9.89s
+START iteration V2V 0007 reliable qualified_exist 221 frames
+DONE iteration V2V 0007 reliable qualified_exist OSPA 4.267144 count 1.366516 runtime 13.41s
+START iteration V2V 0007 reliable innovation_recency 221 frames
+DONE iteration V2V 0007 reliable innovation_recency OSPA 4.183513 count 1.330317 runtime 12.22s
+START iteration V2V 0007 intermittent qualified_exist 221 frames
+DONE iteration V2V 0007 intermittent qualified_exist OSPA 4.823202 count 1.864253 runtime 11.69s
+START iteration V2V 0007 intermittent innovation_recency 221 frames
+DONE iteration V2V 0007 intermittent innovation_recency OSPA 4.818434 count 1.825792 runtime 10.99s
+START iteration V2V 0008 reliable qualified_exist 375 frames
+DONE iteration V2V 0008 reliable qualified_exist OSPA 0.864686 count 0.221333 runtime 22.79s
+START iteration V2V 0008 reliable innovation_recency 375 frames
+DONE iteration V2V 0008 reliable innovation_recency OSPA 0.864701 count 0.221333 runtime 25.17s
+START iteration V2V 0008 intermittent qualified_exist 375 frames
+DONE iteration V2V 0008 intermittent qualified_exist OSPA 0.973572 count 0.261333 runtime 22.61s
+START iteration V2V 0008 intermittent innovation_recency 375 frames
+DONE iteration V2V 0008 intermittent innovation_recency OSPA 0.973587 count 0.261333 runtime 23.06s
+COMPLETED iteration sequences 0000--0008 smoke=0

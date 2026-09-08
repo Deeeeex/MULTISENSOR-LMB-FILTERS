@@ -1,0 +1,22 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+START V2V 0004 reliable lineage 12 frames
+START V2V 0004 reliable qualified_exist 12 frames
+START V2V 0004 reliable mil_support 12 frames
+DONE V2V 0004 reliable local OSPA 6.66172 count 6.66667 runtime 1.24s
+DONE V2V 0004 reliable lineage OSPA 7.00043 count 7.83333 runtime 5.97s
+DONE V2V 0004 reliable qualified_exist OSPA 6.94596 count 7.75000 runtime 5.23s
+DONE V2V 0004 reliable mil_support OSPA 6.43985 count 5.58333 runtime 3.21s
+DONE V2V 0004 reliable tc_ospa2_w5 OSPA 6.45583 count 5.58333 runtime 0.49s
+DONE V2V 0004 reliable tc_ospa2_w10 OSPA 6.66725 count 6.50000 runtime 0.27s
+START V2V 0004 intermittent lineage 12 frames
+START V2V 0004 intermittent qualified_exist 12 frames
+START V2V 0004 intermittent mil_support 12 frames
+DONE V2V 0004 intermittent local OSPA 6.66172 count 6.66667 runtime 1.24s
+DONE V2V 0004 intermittent lineage OSPA 6.65117 count 6.66667 runtime 2.56s
+DONE V2V 0004 intermittent qualified_exist OSPA 6.59579 count 6.62500 runtime 2.55s
+DONE V2V 0004 intermittent mil_support OSPA 6.36164 count 5.41667 runtime 2.41s
+DONE V2V 0004 intermittent tc_ospa2_w5 OSPA 6.56918 count 6.20833 runtime 0.19s
+DONE V2V 0004 intermittent tc_ospa2_w10 OSPA 6.72382 count 6.66667 runtime 0.16s
+COMPLETED V2V sequences 0004--0004 smoke=1

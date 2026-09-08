@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "canonical_result_files": {
+    "results_v2v_fast": 18,
+    "results_v2v_conservative_fast": 18,
+    "results_v2v_confirmed_fast": 18,
+    "results_cases": 60,
+    "results_cases_confirmed": 60,
+    "results_transfer": 14
+  },
+  "audited_unique_new_node_frames": 195216,
+  "original_source_protocol_files_unchanged": 1182,
+  "source_snapshots_verified": 8,
+  "pre_transfer_source_input_files_verified": 1222,
+  "transfer_primary_sequences": 6,
+  "transfer_primary_frames": 1357,
+  "transfer_overlap_control_sequences": 1,
+  "transfer_overlap_control_frames": 147,
+  "development_original_er_state_parity_node_frames": 7972,
+  "destination_option_summary_and_csv_byte_parity": true,
+  "figure_visual_and_vector_checks": "passed",
+  "source_formatting": "git diff --cached --check passed for new source/docs; unaltered frozen Hungarian whitespace, raw MATLAB logs, and generated SVG whitespace are preserved.",
+  "frozen_source_note": "Candidate code and every registered source snapshot remain byte-identical. Optional audit output directories only affect post-run analysis destinations.",
+  "analysis_sha256": {
+    "analyze_transfer.py": "d820d8c570538885abd362c1afd56edaa941599157ab122a2d774e3e7257d49b",
+    "analyze_cases.py": "c3efedf7cbde82f63c3b1d4d34323474278c19bc55168b5a681403490df1af9c",
+    "analyze_development.py": "ce6493b3f9cc96a5b4931ebcb6cec09e2c7ad221e64a04e12bef86b4223e54cb"
+  }
+}

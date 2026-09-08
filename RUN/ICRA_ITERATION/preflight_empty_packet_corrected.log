@@ -1,0 +1,12 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+IR CHECK PASSED: analytic Gaussian overlap, prediction/innovation separation, zero information, equal ages, identity, untouched exclusion, original ER parity and packet round trip.
+START iteration V2V 0000 reliable qualified_exist 12 frames
+DONE iteration V2V 0000 reliable qualified_exist OSPA 5.859750 count 0.833333 runtime 1.06s
+START iteration V2V 0000 reliable innovation_recency 12 frames
+DONE iteration V2V 0000 reliable innovation_recency OSPA 5.859750 count 0.833333 runtime 0.25s
+START iteration V2V 0000 intermittent qualified_exist 12 frames
+DONE iteration V2V 0000 intermittent qualified_exist OSPA 6.908006 count 0.833333 runtime 0.21s
+START iteration V2V 0000 intermittent innovation_recency 12 frames
+DONE iteration V2V 0000 intermittent innovation_recency OSPA 6.908004 count 0.833333 runtime 0.17s
+COMPLETED iteration sequences 0000--0000 smoke=1

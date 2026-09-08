@@ -1,0 +1,128 @@
+{
+  "protocol": "reserved-v2v4real-algorithm-transfer-v1",
+  "selected_sequences": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "frames": 1504,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 147,
+      "role": "overlap_control",
+      "ground_truth_rows": 347,
+      "detection_rows": [
+        382,
+        172
+      ],
+      "input_sha256": "0faf43306d7dd5bc10de89ab835f1c0a94487240574e9da7ea3f582ffbc83ebe"
+    },
+    {
+      "sequence": "0005",
+      "frames": 217,
+      "role": "reserved",
+      "ground_truth_rows": 1576,
+      "detection_rows": [
+        1468,
+        1558
+      ],
+      "input_sha256": "f65f504073e1935f48d0a99c6cd0044b997320f5315fcbd796d62384ca82ec89"
+    },
+    {
+      "sequence": "0010",
+      "frames": 119,
+      "role": "reserved",
+      "ground_truth_rows": 2186,
+      "detection_rows": [
+        1393,
+        2048
+      ],
+      "input_sha256": "18900333a9e5719ecd499adb202cfbbe6f8b49682efd75f30e27fbddf0fd5ac5"
+    },
+    {
+      "sequence": "0015",
+      "frames": 145,
+      "role": "reserved",
+      "ground_truth_rows": 1754,
+      "detection_rows": [
+        1361,
+        895
+      ],
+      "input_sha256": "c55ea9ed8fc39067f33a704024bdd81be4459e7fc6f9f53deda04b477e8330c1"
+    },
+    {
+      "sequence": "0020",
+      "frames": 275,
+      "role": "reserved",
+      "ground_truth_rows": 3400,
+      "detection_rows": [
+        2515,
+        2074
+      ],
+      "input_sha256": "0ba6452f54c107bf4d88525d6778461567285b4fca04f2ccca3410f193f40ac9"
+    },
+    {
+      "sequence": "0025",
+      "frames": 450,
+      "role": "reserved",
+      "ground_truth_rows": 4154,
+      "detection_rows": [
+        4195,
+        3573
+      ],
+      "input_sha256": "30e879d9a10052327a064952a87e927ac8f920383dac877663de7a694a6086c1"
+    },
+    {
+      "sequence": "0030",
+      "frames": 151,
+      "role": "reserved",
+      "ground_truth_rows": 1143,
+      "detection_rows": [
+        1018,
+        890
+      ],
+      "input_sha256": "8306beca674d8fef76c0074c7462b5c128a4b882f9a8ae74d29023c0befd5296"
+    }
+  ],
+  "source_files": {
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0000.txt": "6960dfef37e3f4b2608b9769810ad799152b9391620a2c74fa560134b9d116b4",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0000.txt": "ef0916b6502ad847823dcf5098ff2cf331748fd3bb6effa1a990ffffce1ee39d",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0000.txt": "ccd407835025aaffc607a55de64233b8483f089c56cff2f3fdeb5b7f44a182c9",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0005.txt": "76238b45660f92be24a7a99d3c360d37279975e14fdd8fe1711023f6326ad085",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0005.txt": "cbaa0bf9b9e12a730a379b8c5f9aa080cdeda23faf40da73f3c5d5baffafa671",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0005.txt": "8242e239a85e097da97f9dc449717c5bc618d4e74a8ae4f699972a98ef904ed7",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0010.txt": "af184d95c01b60d6d5d61b3cb4d9e03fa92f94f65661c1aab90130e8dda8ef83",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0010.txt": "3f67321927b2b3f66e18a61a1379b6787e2282fc01ea8c328cd21f03e381d83d",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0010.txt": "0fb7a7ffc556bc5b93bd3693d6ba8dbcdcae64f044847b752c66fcc8affb27af",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0015.txt": "bc23dd4437e2223e0eb428729ee56828eec45b89ebf3e2455efc1ae931b9bc6d",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0015.txt": "ec3ebc0e022372196471cde0eec17c6e103a0c111c78f7d3d785ab6996632dda",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0015.txt": "a3a4549c90bdcf0c45bbd5ab3ef4a78872ff2b7fd28e4de3cfac32cb85df4e6a",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0020.txt": "b964b33598221c5ada24648076cc763dccf13ca7ebc9d9d900ca48afa8221675",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0020.txt": "91574b45f6fdc75c0cfce3782192025c5a6babdd6885ee59603a27ac9884c229",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0020.txt": "ddf3f30605cc545430905ad0d82aec81dea8fa7dacc6474ba4c0e9c2d6eab908",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0025.txt": "5796c91d11c991c95746c1ac0616373c9fba68d571c713289b203fb714389964",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0025.txt": "bddec0be7b786729f80fa3a3479d6a1724ed61fa36d04a545c159aed8260ef9b",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0025.txt": "955be66665b37641478e78dd99f985e5e06b3b528b3f37dfc38b7d0d1dcb3602",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0030.txt": "6062859604ab9194788c9853f2d8d16ff987500e6e38d5d831461ac39250d579",
+    "AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0030.txt": "f6457d930287afb6a16a845d0361972cd9f8df03749ea1ad6f71a59c6124f93d",
+    "AB3DMOT/scripts/KITTI/v2v4real_train_label/0030.txt": "f3721199086fe93be0126d5391a1c2b3143b73412ef94669c53270b813dbfd76"
+  },
+  "source_commit": "d3b9949499c8e68ea33060873bd1cb95b6d4d323",
+  "transforms_manifest_sha256": "261fd09b875d072e73d24b2073b3debf045886f845de829180ac36d231896ac7",
+  "overlap_audit_sha256": "b1d94e8b827f0bdb85d15958c40f5585d7fae58358327e8a6ba44e9bb5b53721",
+  "primary_reserved_sequences": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "primary_reserved_frames": 1357,
+  "limitation": "Original detector train split; sequence 0000 overlaps development and is a separate control; related routes possible."
+}

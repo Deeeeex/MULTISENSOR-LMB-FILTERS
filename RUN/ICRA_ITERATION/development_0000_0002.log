@@ -1,0 +1,27 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START iteration V2V 0000 reliable qualified_exist 147 frames
+DONE iteration V2V 0000 reliable qualified_exist OSPA 3.848730 count 0.482993 runtime 3.07s
+START iteration V2V 0000 reliable innovation_recency 147 frames
+DONE iteration V2V 0000 reliable innovation_recency OSPA 3.811667 count 0.482993 runtime 1.26s
+START iteration V2V 0000 intermittent qualified_exist 147 frames
+DONE iteration V2V 0000 intermittent qualified_exist OSPA 3.961321 count 0.486395 runtime 1.16s
+START iteration V2V 0000 intermittent innovation_recency 147 frames
+DONE iteration V2V 0000 intermittent innovation_recency OSPA 4.045637 count 0.496599 runtime 1.13s
+START iteration V2V 0001 reliable qualified_exist 114 frames
+DONE iteration V2V 0001 reliable qualified_exist OSPA 7.193531 count 0.894737 runtime 0.98s
+START iteration V2V 0001 reliable innovation_recency 114 frames
+DONE iteration V2V 0001 reliable innovation_recency OSPA 7.193531 count 0.903509 runtime 0.92s
+START iteration V2V 0001 intermittent qualified_exist 114 frames
+DONE iteration V2V 0001 intermittent qualified_exist OSPA 7.101121 count 1.043860 runtime 0.75s
+START iteration V2V 0001 intermittent innovation_recency 114 frames
+DONE iteration V2V 0001 intermittent innovation_recency OSPA 8.469542 count 1.166667 runtime 0.78s
+START iteration V2V 0002 reliable qualified_exist 144 frames
+DONE iteration V2V 0002 reliable qualified_exist OSPA 5.091670 count 0.458333 runtime 0.90s
+START iteration V2V 0002 reliable innovation_recency 144 frames
+DONE iteration V2V 0002 reliable innovation_recency OSPA 5.116047 count 0.451389 runtime 1.03s
+START iteration V2V 0002 intermittent qualified_exist 144 frames
+DONE iteration V2V 0002 intermittent qualified_exist OSPA 6.148643 count 0.555556 runtime 0.93s
+START iteration V2V 0002 intermittent innovation_recency 144 frames
+DONE iteration V2V 0002 intermittent innovation_recency OSPA 6.154802 count 0.541667 runtime 0.92s
+COMPLETED iteration sequences 0000--0002 smoke=0

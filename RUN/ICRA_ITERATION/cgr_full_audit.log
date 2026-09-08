@@ -1,0 +1,33 @@
+AUDITED 0000 reliable new 294 original ER parity 0
+AUDITED 0000 intermittent new 588 original ER parity 0
+AUDITED 0001 reliable new 816 original ER parity 0
+AUDITED 0001 intermittent new 1044 original ER parity 0
+AUDITED 0002 reliable new 1332 original ER parity 0
+AUDITED 0002 intermittent new 1620 original ER parity 0
+AUDITED 0003 reliable new 2016 original ER parity 0
+AUDITED 0003 intermittent new 2412 original ER parity 0
+AUDITED 0004 reliable new 2772 original ER parity 0
+AUDITED 0004 intermittent new 3132 original ER parity 0
+AUDITED 0005 reliable new 3752 original ER parity 0
+AUDITED 0005 intermittent new 4372 original ER parity 0
+AUDITED 0006 reliable new 4980 original ER parity 0
+AUDITED 0006 intermittent new 5588 original ER parity 0
+AUDITED 0007 reliable new 6030 original ER parity 0
+AUDITED 0007 intermittent new 6472 original ER parity 0
+AUDITED 0008 reliable new 7222 original ER parity 0
+AUDITED 0008 intermittent new 7972 original ER parity 0
+reliable confirmation_recency OSPA 4.82274 false 79.8639
+reliable qualified_exist OSPA 4.87453 false 83.9677
+reliable lineage OSPA 4.71292 false 77.2386
+reliable mil_support OSPA 5.17746 false 92.1293
+reliable tc_ospa2_w5 OSPA 5.68952 false 115.1225
+reliable tc_ospa2_w10 OSPA 5.57406 false 101.0968
+reliable local OSPA 6.57481 false 73.8556
+intermittent confirmation_recency OSPA 5.03238 false 82.7197
+intermittent qualified_exist OSPA 5.11928 false 85.5729
+intermittent lineage OSPA 5.10858 false 81.113
+intermittent mil_support OSPA 5.30894 false 94.3466
+intermittent tc_ospa2_w5 OSPA 5.79245 false 103.5982
+intermittent tc_ospa2_w10 OSPA 5.7647 false 93.0905
+intermittent local OSPA 6.57481 false 73.8556
+METHOD DEVELOPMENT AUDIT PASSED 7972 node-frames; original ER bitwise parity checked on 0 node-frames.

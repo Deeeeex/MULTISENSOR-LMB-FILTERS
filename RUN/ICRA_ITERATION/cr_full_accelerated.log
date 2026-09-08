@@ -1,0 +1,42 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+Assignment parity 5/35 passed.
+Assignment parity 35/35 passed.
+HUNGARIAN ACCELERATION PASS: 35 exact matching/cost comparisons, rectangular and tied matrices, Inf masks, and augmented private dummy slots.
+START iteration V2V 0000 reliable conservative_recency 147 frames
+DONE iteration V2V 0000 reliable conservative_recency OSPA 3.171485 count 0.353741 runtime 3.33s
+START iteration V2V 0000 intermittent conservative_recency 147 frames
+DONE iteration V2V 0000 intermittent conservative_recency OSPA 4.034908 count 0.462585 runtime 1.41s
+START iteration V2V 0001 reliable conservative_recency 114 frames
+DONE iteration V2V 0001 reliable conservative_recency OSPA 5.151407 count 0.587719 runtime 1.15s
+START iteration V2V 0001 intermittent conservative_recency 114 frames
+DONE iteration V2V 0001 intermittent conservative_recency OSPA 6.094841 count 0.798246 runtime 0.91s
+START iteration V2V 0002 reliable conservative_recency 144 frames
+DONE iteration V2V 0002 reliable conservative_recency OSPA 5.079995 count 0.437500 runtime 1.15s
+START iteration V2V 0002 intermittent conservative_recency 144 frames
+DONE iteration V2V 0002 intermittent conservative_recency OSPA 6.114963 count 0.524306 runtime 0.98s
+START iteration V2V 0003 reliable conservative_recency 198 frames
+DONE iteration V2V 0003 reliable conservative_recency OSPA 6.515858 count 3.146465 runtime 11.27s
+START iteration V2V 0003 intermittent conservative_recency 198 frames
+DONE iteration V2V 0003 intermittent conservative_recency OSPA 7.000445 count 3.295455 runtime 8.63s
+START iteration V2V 0004 reliable conservative_recency 180 frames
+DONE iteration V2V 0004 reliable conservative_recency OSPA 5.112952 count 2.261111 runtime 45.43s
+START iteration V2V 0004 intermittent conservative_recency 180 frames
+DONE iteration V2V 0004 intermittent conservative_recency OSPA 5.068207 count 2.238889 runtime 35.74s
+START iteration V2V 0005 reliable conservative_recency 310 frames
+DONE iteration V2V 0005 reliable conservative_recency OSPA 4.695544 count 1.590323 runtime 27.17s
+START iteration V2V 0005 intermittent conservative_recency 310 frames
+DONE iteration V2V 0005 intermittent conservative_recency OSPA 5.027906 count 1.688710 runtime 25.58s
+START iteration V2V 0006 reliable conservative_recency 304 frames
+DONE iteration V2V 0006 reliable conservative_recency OSPA 6.187251 count 1.473684 runtime 13.01s
+START iteration V2V 0006 intermittent conservative_recency 304 frames
+DONE iteration V2V 0006 intermittent conservative_recency OSPA 6.316282 count 1.544408 runtime 12.32s
+START iteration V2V 0007 reliable conservative_recency 221 frames
+DONE iteration V2V 0007 reliable conservative_recency OSPA 3.810433 count 1.371041 runtime 17.94s
+START iteration V2V 0007 intermittent conservative_recency 221 frames
+DONE iteration V2V 0007 intermittent conservative_recency OSPA 4.328991 count 1.873303 runtime 16.25s
+START iteration V2V 0008 reliable conservative_recency 375 frames
+DONE iteration V2V 0008 reliable conservative_recency OSPA 0.870110 count 0.226667 runtime 28.08s
+START iteration V2V 0008 intermittent conservative_recency 375 frames
+DONE iteration V2V 0008 intermittent conservative_recency OSPA 0.984437 count 0.269333 runtime 26.49s
+COMPLETED iteration sequences 0000--0008 smoke=0

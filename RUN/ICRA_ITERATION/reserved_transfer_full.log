@@ -1,0 +1,188 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+CR CHECK PASSED: constrained minimum on 16 opposing/agreement inputs, unchanged spatial Gaussian, identity, equal ages, and visible-absence censor.
+CGR CHECK PASSED: consecutive local hits, miss/opportunity/empty/gap resets, unconfirmed cap, confirmed positive admission, stale-bit exclusion, unchanged negative correction and spatial density.
+START V2V 0000 reliable lineage 147 frames
+START V2V 0000 reliable qualified_exist 147 frames
+START V2V 0000 reliable conservative_recency 147 frames
+START V2V 0000 reliable confirmation_recency 147 frames
+START V2V 0000 reliable mil_support 147 frames
+DONE V2V 0000 reliable local OSPA 8.32618 count 0.89116 runtime 0.90s
+DONE V2V 0000 reliable lineage OSPA 3.43426 count 0.38776 runtime 1.66s
+DONE V2V 0000 reliable qualified_exist OSPA 3.84876 count 0.48299 runtime 1.26s
+DONE V2V 0000 reliable conservative_recency OSPA 3.17151 count 0.35374 runtime 1.41s
+DONE V2V 0000 reliable confirmation_recency OSPA 3.85351 count 0.47619 runtime 1.42s
+DONE V2V 0000 reliable mil_support OSPA 4.49921 count 0.63946 runtime 2.15s
+DONE V2V 0000 reliable tc_ospa2_w5 OSPA 4.93780 count 0.70068 runtime 0.53s
+DONE V2V 0000 reliable tc_ospa2_w10 OSPA 4.61866 count 0.61905 runtime 0.33s
+START V2V 0000 intermittent lineage 147 frames
+START V2V 0000 intermittent qualified_exist 147 frames
+START V2V 0000 intermittent conservative_recency 147 frames
+START V2V 0000 intermittent confirmation_recency 147 frames
+START V2V 0000 intermittent mil_support 147 frames
+DONE V2V 0000 intermittent local OSPA 8.32618 count 0.89116 runtime 0.90s
+DONE V2V 0000 intermittent lineage OSPA 4.09173 count 0.45918 runtime 1.11s
+DONE V2V 0000 intermittent qualified_exist OSPA 3.96133 count 0.48639 runtime 0.92s
+DONE V2V 0000 intermittent conservative_recency OSPA 4.03492 count 0.46259 runtime 1.06s
+DONE V2V 0000 intermittent confirmation_recency OSPA 4.03941 count 0.49320 runtime 1.21s
+DONE V2V 0000 intermittent mil_support OSPA 4.35053 count 0.59864 runtime 1.65s
+DONE V2V 0000 intermittent tc_ospa2_w5 OSPA 5.70280 count 0.69728 runtime 0.13s
+DONE V2V 0000 intermittent tc_ospa2_w10 OSPA 5.55836 count 0.67347 runtime 0.16s
+START V2V 0005 reliable lineage 217 frames
+START V2V 0005 reliable qualified_exist 217 frames
+START V2V 0005 reliable conservative_recency 217 frames
+START V2V 0005 reliable confirmation_recency 217 frames
+START V2V 0005 reliable mil_support 217 frames
+DONE V2V 0005 reliable local OSPA 6.29713 count 1.50691 runtime 1.82s
+DONE V2V 0005 reliable lineage OSPA 5.24796 count 1.04147 runtime 6.39s
+DONE V2V 0005 reliable qualified_exist OSPA 5.24340 count 1.07834 runtime 6.12s
+DONE V2V 0005 reliable conservative_recency OSPA 5.23125 count 1.02765 runtime 6.96s
+DONE V2V 0005 reliable confirmation_recency OSPA 5.18831 count 1.02765 runtime 7.38s
+DONE V2V 0005 reliable mil_support OSPA 5.24618 count 1.17051 runtime 5.60s
+DONE V2V 0005 reliable tc_ospa2_w5 OSPA 5.58805 count 1.64516 runtime 0.97s
+DONE V2V 0005 reliable tc_ospa2_w10 OSPA 5.48810 count 1.45161 runtime 1.29s
+START V2V 0005 intermittent lineage 217 frames
+START V2V 0005 intermittent qualified_exist 217 frames
+START V2V 0005 intermittent conservative_recency 217 frames
+START V2V 0005 intermittent confirmation_recency 217 frames
+START V2V 0005 intermittent mil_support 217 frames
+DONE V2V 0005 intermittent local OSPA 6.29713 count 1.50691 runtime 1.82s
+DONE V2V 0005 intermittent lineage OSPA 5.38635 count 1.06452 runtime 5.90s
+DONE V2V 0005 intermittent qualified_exist OSPA 5.39831 count 1.09677 runtime 5.72s
+DONE V2V 0005 intermittent conservative_recency OSPA 5.47562 count 1.11982 runtime 5.92s
+DONE V2V 0005 intermittent confirmation_recency OSPA 5.41307 count 1.09447 runtime 6.26s
+DONE V2V 0005 intermittent mil_support OSPA 5.52734 count 1.09677 runtime 4.54s
+DONE V2V 0005 intermittent tc_ospa2_w5 OSPA 5.85480 count 1.56452 runtime 0.68s
+DONE V2V 0005 intermittent tc_ospa2_w10 OSPA 5.80760 count 1.43318 runtime 0.96s
+START V2V 0010 reliable lineage 119 frames
+START V2V 0010 reliable qualified_exist 119 frames
+START V2V 0010 reliable conservative_recency 119 frames
+START V2V 0010 reliable confirmation_recency 119 frames
+START V2V 0010 reliable mil_support 119 frames
+DONE V2V 0010 reliable local OSPA 5.61891 count 3.42437 runtime 2.36s
+DONE V2V 0010 reliable lineage OSPA 4.42180 count 1.57983 runtime 12.69s
+DONE V2V 0010 reliable qualified_exist OSPA 4.75923 count 1.84874 runtime 14.76s
+DONE V2V 0010 reliable conservative_recency OSPA 4.47477 count 1.65546 runtime 13.59s
+DONE V2V 0010 reliable confirmation_recency OSPA 4.63449 count 1.70588 runtime 13.81s
+DONE V2V 0010 reliable mil_support OSPA 4.20140 count 1.29412 runtime 10.79s
+DONE V2V 0010 reliable tc_ospa2_w5 OSPA 4.37542 count 1.90756 runtime 1.24s
+DONE V2V 0010 reliable tc_ospa2_w10 OSPA 4.42207 count 1.85714 runtime 1.61s
+START V2V 0010 intermittent lineage 119 frames
+START V2V 0010 intermittent qualified_exist 119 frames
+START V2V 0010 intermittent conservative_recency 119 frames
+START V2V 0010 intermittent confirmation_recency 119 frames
+START V2V 0010 intermittent mil_support 119 frames
+DONE V2V 0010 intermittent local OSPA 5.61891 count 3.42437 runtime 2.36s
+DONE V2V 0010 intermittent lineage OSPA 4.64604 count 1.84454 runtime 13.00s
+DONE V2V 0010 intermittent qualified_exist OSPA 4.61786 count 1.77311 runtime 11.95s
+DONE V2V 0010 intermittent conservative_recency OSPA 4.69206 count 1.91597 runtime 12.83s
+DONE V2V 0010 intermittent confirmation_recency OSPA 4.61244 count 1.77311 runtime 11.82s
+DONE V2V 0010 intermittent mil_support OSPA 4.34823 count 1.45378 runtime 9.39s
+DONE V2V 0010 intermittent tc_ospa2_w5 OSPA 4.70878 count 2.19748 runtime 0.86s
+DONE V2V 0010 intermittent tc_ospa2_w10 OSPA 4.75049 count 2.18908 runtime 1.13s
+START V2V 0015 reliable lineage 145 frames
+START V2V 0015 reliable qualified_exist 145 frames
+START V2V 0015 reliable conservative_recency 145 frames
+START V2V 0015 reliable confirmation_recency 145 frames
+START V2V 0015 reliable mil_support 145 frames
+DONE V2V 0015 reliable local OSPA 6.67443 count 2.85862 runtime 1.56s
+DONE V2V 0015 reliable lineage OSPA 4.32933 count 1.39310 runtime 4.55s
+DONE V2V 0015 reliable qualified_exist OSPA 4.21991 count 1.46897 runtime 4.11s
+DONE V2V 0015 reliable conservative_recency OSPA 4.31995 count 1.39310 runtime 4.66s
+DONE V2V 0015 reliable confirmation_recency OSPA 4.20195 count 1.38621 runtime 4.90s
+DONE V2V 0015 reliable mil_support OSPA 4.63987 count 1.62759 runtime 6.40s
+DONE V2V 0015 reliable tc_ospa2_w5 OSPA 4.68209 count 1.62069 runtime 1.27s
+DONE V2V 0015 reliable tc_ospa2_w10 OSPA 4.85969 count 1.51034 runtime 1.69s
+START V2V 0015 intermittent lineage 145 frames
+START V2V 0015 intermittent qualified_exist 145 frames
+START V2V 0015 intermittent conservative_recency 145 frames
+START V2V 0015 intermittent confirmation_recency 145 frames
+START V2V 0015 intermittent mil_support 145 frames
+DONE V2V 0015 intermittent local OSPA 6.67443 count 2.85862 runtime 1.56s
+DONE V2V 0015 intermittent lineage OSPA 4.63336 count 1.46552 runtime 4.15s
+DONE V2V 0015 intermittent qualified_exist OSPA 4.41196 count 1.58966 runtime 3.70s
+DONE V2V 0015 intermittent conservative_recency OSPA 4.62177 count 1.51379 runtime 4.28s
+DONE V2V 0015 intermittent confirmation_recency OSPA 4.40151 count 1.55517 runtime 4.31s
+DONE V2V 0015 intermittent mil_support OSPA 4.86654 count 1.73103 runtime 7.77s
+DONE V2V 0015 intermittent tc_ospa2_w5 OSPA 5.12741 count 2.03103 runtime 0.90s
+DONE V2V 0015 intermittent tc_ospa2_w10 OSPA 5.19975 count 1.88276 runtime 1.20s
+START V2V 0020 reliable lineage 275 frames
+START V2V 0020 reliable qualified_exist 275 frames
+START V2V 0020 reliable conservative_recency 275 frames
+START V2V 0020 reliable confirmation_recency 275 frames
+START V2V 0020 reliable mil_support 275 frames
+DONE V2V 0020 reliable local OSPA 5.87738 count 2.64909 runtime 3.71s
+DONE V2V 0020 reliable lineage OSPA 3.24867 count 0.88000 runtime 10.10s
+DONE V2V 0020 reliable qualified_exist OSPA 2.98869 count 0.75636 runtime 9.55s
+DONE V2V 0020 reliable conservative_recency OSPA 3.17817 count 0.87273 runtime 10.12s
+DONE V2V 0020 reliable confirmation_recency OSPA 2.99848 count 0.79636 runtime 10.32s
+DONE V2V 0020 reliable mil_support OSPA 3.17284 count 0.77818 runtime 13.08s
+DONE V2V 0020 reliable tc_ospa2_w5 OSPA 3.41498 count 0.83273 runtime 3.09s
+DONE V2V 0020 reliable tc_ospa2_w10 OSPA 3.66118 count 0.90909 runtime 4.06s
+START V2V 0020 intermittent lineage 275 frames
+START V2V 0020 intermittent qualified_exist 275 frames
+START V2V 0020 intermittent conservative_recency 275 frames
+START V2V 0020 intermittent confirmation_recency 275 frames
+START V2V 0020 intermittent mil_support 275 frames
+DONE V2V 0020 intermittent local OSPA 5.87738 count 2.64909 runtime 3.71s
+DONE V2V 0020 intermittent lineage OSPA 3.58760 count 1.01818 runtime 9.17s
+DONE V2V 0020 intermittent qualified_exist OSPA 3.37655 count 0.91818 runtime 8.86s
+DONE V2V 0020 intermittent conservative_recency OSPA 3.59183 count 1.03455 runtime 9.14s
+DONE V2V 0020 intermittent confirmation_recency OSPA 3.39483 count 0.95273 runtime 9.63s
+DONE V2V 0020 intermittent mil_support OSPA 3.60871 count 0.97818 runtime 11.62s
+DONE V2V 0020 intermittent tc_ospa2_w5 OSPA 4.07430 count 1.20909 runtime 2.26s
+DONE V2V 0020 intermittent tc_ospa2_w10 OSPA 4.28798 count 1.31818 runtime 2.95s
+START V2V 0025 reliable lineage 450 frames
+START V2V 0025 reliable qualified_exist 450 frames
+START V2V 0025 reliable conservative_recency 450 frames
+START V2V 0025 reliable confirmation_recency 450 frames
+START V2V 0025 reliable mil_support 450 frames
+DONE V2V 0025 reliable local OSPA 5.51711 count 1.81333 runtime 4.96s
+DONE V2V 0025 reliable lineage OSPA 4.17553 count 1.64667 runtime 12.56s
+DONE V2V 0025 reliable qualified_exist OSPA 4.29358 count 1.84667 runtime 11.02s
+DONE V2V 0025 reliable conservative_recency OSPA 3.84128 count 1.48889 runtime 13.78s
+DONE V2V 0025 reliable confirmation_recency OSPA 3.75536 count 1.51778 runtime 14.65s
+DONE V2V 0025 reliable mil_support OSPA 4.32244 count 1.82444 runtime 22.19s
+DONE V2V 0025 reliable tc_ospa2_w5 OSPA 4.55577 count 2.06444 runtime 2.66s
+DONE V2V 0025 reliable tc_ospa2_w10 OSPA 4.50515 count 1.88889 runtime 3.64s
+START V2V 0025 intermittent lineage 450 frames
+START V2V 0025 intermittent qualified_exist 450 frames
+START V2V 0025 intermittent conservative_recency 450 frames
+START V2V 0025 intermittent confirmation_recency 450 frames
+START V2V 0025 intermittent mil_support 450 frames
+DONE V2V 0025 intermittent local OSPA 5.51711 count 1.81333 runtime 4.96s
+DONE V2V 0025 intermittent lineage OSPA 4.25394 count 1.63667 runtime 11.37s
+DONE V2V 0025 intermittent qualified_exist OSPA 4.27000 count 1.69778 runtime 10.67s
+DONE V2V 0025 intermittent conservative_recency OSPA 4.01358 count 1.61667 runtime 10.89s
+DONE V2V 0025 intermittent confirmation_recency OSPA 4.23173 count 1.64556 runtime 12.30s
+DONE V2V 0025 intermittent mil_support OSPA 4.24769 count 1.72444 runtime 18.07s
+DONE V2V 0025 intermittent tc_ospa2_w5 OSPA 4.46367 count 1.82778 runtime 1.84s
+DONE V2V 0025 intermittent tc_ospa2_w10 OSPA 4.42297 count 1.68333 runtime 2.58s
+START V2V 0030 reliable lineage 151 frames
+START V2V 0030 reliable qualified_exist 151 frames
+START V2V 0030 reliable conservative_recency 151 frames
+START V2V 0030 reliable confirmation_recency 151 frames
+START V2V 0030 reliable mil_support 151 frames
+DONE V2V 0030 reliable local OSPA 6.52501 count 1.82450 runtime 1.22s
+DONE V2V 0030 reliable lineage OSPA 4.96863 count 1.56291 runtime 3.14s
+DONE V2V 0030 reliable qualified_exist OSPA 5.13607 count 1.66887 runtime 2.87s
+DONE V2V 0030 reliable conservative_recency OSPA 5.06651 count 1.67550 runtime 3.08s
+DONE V2V 0030 reliable confirmation_recency OSPA 5.19394 count 1.70861 runtime 3.33s
+DONE V2V 0030 reliable mil_support OSPA 5.29365 count 1.83444 runtime 3.65s
+DONE V2V 0030 reliable tc_ospa2_w5 OSPA 5.59135 count 2.04636 runtime 0.82s
+DONE V2V 0030 reliable tc_ospa2_w10 OSPA 5.47453 count 1.91391 runtime 1.13s
+START V2V 0030 intermittent lineage 151 frames
+START V2V 0030 intermittent qualified_exist 151 frames
+START V2V 0030 intermittent conservative_recency 151 frames
+START V2V 0030 intermittent confirmation_recency 151 frames
+START V2V 0030 intermittent mil_support 151 frames
+DONE V2V 0030 intermittent local OSPA 6.52501 count 1.82450 runtime 1.22s
+DONE V2V 0030 intermittent lineage OSPA 5.17787 count 1.73841 runtime 2.63s
+DONE V2V 0030 intermittent qualified_exist OSPA 5.14371 count 1.68212 runtime 2.55s
+DONE V2V 0030 intermittent conservative_recency OSPA 5.20968 count 1.80464 runtime 2.68s
+DONE V2V 0030 intermittent confirmation_recency OSPA 5.17300 count 1.72185 runtime 2.85s
+DONE V2V 0030 intermittent mil_support OSPA 5.09526 count 1.68212 runtime 2.96s
+DONE V2V 0030 intermittent tc_ospa2_w5 OSPA 5.61045 count 1.86755 runtime 0.56s
+DONE V2V 0030 intermittent tc_ospa2_w10 OSPA 5.61116 count 1.85762 runtime 0.79s
+COMPLETED V2V sequences 0000--0006 smoke=0

@@ -1,0 +1,40 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+CGR CHECK PASSED: consecutive local hits, miss/opportunity/empty/gap resets, unconfirmed cap, confirmed positive admission, stale-bit exclusion, unchanged negative correction and spatial density.
+START iteration V2V 0000 reliable confirmation_recency 147 frames
+DONE iteration V2V 0000 reliable confirmation_recency OSPA 3.853487 count 0.476190 runtime 3.63s
+START iteration V2V 0000 intermittent confirmation_recency 147 frames
+DONE iteration V2V 0000 intermittent confirmation_recency OSPA 4.039403 count 0.493197 runtime 1.45s
+START iteration V2V 0001 reliable confirmation_recency 114 frames
+DONE iteration V2V 0001 reliable confirmation_recency OSPA 6.764271 count 0.798246 runtime 1.17s
+START iteration V2V 0001 intermittent confirmation_recency 114 frames
+DONE iteration V2V 0001 intermittent confirmation_recency OSPA 6.469542 count 0.859649 runtime 0.94s
+START iteration V2V 0002 reliable confirmation_recency 144 frames
+DONE iteration V2V 0002 reliable confirmation_recency OSPA 5.169705 count 0.472222 runtime 1.18s
+START iteration V2V 0002 intermittent confirmation_recency 144 frames
+DONE iteration V2V 0002 intermittent confirmation_recency OSPA 6.110304 count 0.545139 runtime 1.06s
+START iteration V2V 0003 reliable confirmation_recency 198 frames
+DONE iteration V2V 0003 reliable confirmation_recency OSPA 6.719261 count 3.065657 runtime 12.93s
+START iteration V2V 0003 intermittent confirmation_recency 198 frames
+DONE iteration V2V 0003 intermittent confirmation_recency OSPA 6.865624 count 3.101010 runtime 8.56s
+START iteration V2V 0004 reliable confirmation_recency 180 frames
+DONE iteration V2V 0004 reliable confirmation_recency OSPA 5.118951 count 2.250000 runtime 46.77s
+START iteration V2V 0004 intermittent confirmation_recency 180 frames
+DONE iteration V2V 0004 intermittent confirmation_recency OSPA 5.011651 count 2.072222 runtime 44.92s
+START iteration V2V 0005 reliable confirmation_recency 310 frames
+DONE iteration V2V 0005 reliable confirmation_recency OSPA 4.601347 count 1.503226 runtime 30.80s
+START iteration V2V 0005 intermittent confirmation_recency 310 frames
+DONE iteration V2V 0005 intermittent confirmation_recency OSPA 4.994138 count 1.633871 runtime 26.68s
+START iteration V2V 0006 reliable confirmation_recency 304 frames
+DONE iteration V2V 0006 reliable confirmation_recency OSPA 6.384501 count 1.631579 runtime 13.40s
+START iteration V2V 0006 intermittent confirmation_recency 304 frames
+DONE iteration V2V 0006 intermittent confirmation_recency OSPA 6.278772 count 1.516447 runtime 12.62s
+START iteration V2V 0007 reliable confirmation_recency 221 frames
+DONE iteration V2V 0007 reliable confirmation_recency OSPA 3.928493 count 1.375566 runtime 15.42s
+START iteration V2V 0007 intermittent confirmation_recency 221 frames
+DONE iteration V2V 0007 intermittent confirmation_recency OSPA 4.548388 count 1.726244 runtime 11.42s
+START iteration V2V 0008 reliable confirmation_recency 375 frames
+DONE iteration V2V 0008 reliable confirmation_recency OSPA 0.864683 count 0.221333 runtime 22.58s
+START iteration V2V 0008 intermittent confirmation_recency 375 frames
+DONE iteration V2V 0008 intermittent confirmation_recency OSPA 0.973569 count 0.261333 runtime 21.63s
+COMPLETED iteration sequences 0000--0008 smoke=0

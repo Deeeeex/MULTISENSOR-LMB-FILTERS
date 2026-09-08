@@ -1,0 +1,11 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START iteration V2V 0004 reliable qualified_exist 20 frames
+PROFILE frame 1 local 0 0 elapsed 0.00s
+PROFILE frame 2 local 26 23 elapsed 0.41s
+PROFILE frame 3 local 51 52 elapsed 1.32s
+PROFILE frame 4 local 77 75 elapsed 4.69s
+PROFILE frame 5 local 98 99 elapsed 12.08s
+PROFILE frame 6 local 118 116 elapsed 22.00s
+PROFILE frame 7 local 134 132 elapsed 92.24s
+PROFILE frame 8 local 143 142 elapsed 192.68s

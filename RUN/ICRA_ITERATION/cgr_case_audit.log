@@ -1,0 +1,76 @@
+AUDITED cgr case split_latebirth 2901 960
+AUDITED cgr case split_latebirth 2902 1920
+AUDITED cgr case split_latebirth 2903 2880
+AUDITED cgr case split_latebirth 2904 3840
+AUDITED cgr case split_latebirth 2905 4800
+AUDITED cgr case split_latebirth 2906 5760
+AUDITED cgr case split_latebirth 2907 6720
+AUDITED cgr case split_latebirth 2908 7680
+AUDITED cgr case split_latebirth 2909 8640
+AUDITED cgr case split_latebirth 2910 9600
+AUDITED cgr case split_latebirth 2911 10560
+AUDITED cgr case split_latebirth 2912 11520
+AUDITED cgr case split_latebirth 2913 12480
+AUDITED cgr case split_latebirth 2914 13440
+AUDITED cgr case split_latebirth 2915 14400
+AUDITED cgr case split_latebirth 2916 15360
+AUDITED cgr case split_latebirth 2917 16320
+AUDITED cgr case split_latebirth 2918 17280
+AUDITED cgr case split_latebirth 2919 18240
+AUDITED cgr case split_latebirth 2920 19200
+AUDITED cgr case churn_departure 2901 20160
+AUDITED cgr case churn_departure 2902 21120
+AUDITED cgr case churn_departure 2903 22080
+AUDITED cgr case churn_departure 2904 23040
+AUDITED cgr case churn_departure 2905 24000
+AUDITED cgr case churn_departure 2906 24960
+AUDITED cgr case churn_departure 2907 25920
+AUDITED cgr case churn_departure 2908 26880
+AUDITED cgr case churn_departure 2909 27840
+AUDITED cgr case churn_departure 2910 28800
+AUDITED cgr case churn_departure 2911 29760
+AUDITED cgr case churn_departure 2912 30720
+AUDITED cgr case churn_departure 2913 31680
+AUDITED cgr case churn_departure 2914 32640
+AUDITED cgr case churn_departure 2915 33600
+AUDITED cgr case churn_departure 2916 34560
+AUDITED cgr case churn_departure 2917 35520
+AUDITED cgr case churn_departure 2918 36480
+AUDITED cgr case churn_departure 2919 37440
+AUDITED cgr case churn_departure 2920 38400
+AUDITED cgr case split_no_new 2901 39360
+AUDITED cgr case split_no_new 2902 40320
+AUDITED cgr case split_no_new 2903 41280
+AUDITED cgr case split_no_new 2904 42240
+AUDITED cgr case split_no_new 2905 43200
+AUDITED cgr case split_no_new 2906 44160
+AUDITED cgr case split_no_new 2907 45120
+AUDITED cgr case split_no_new 2908 46080
+AUDITED cgr case split_no_new 2909 47040
+AUDITED cgr case split_no_new 2910 48000
+AUDITED cgr case split_no_new 2911 48960
+AUDITED cgr case split_no_new 2912 49920
+AUDITED cgr case split_no_new 2913 50880
+AUDITED cgr case split_no_new 2914 51840
+AUDITED cgr case split_no_new 2915 52800
+AUDITED cgr case split_no_new 2916 53760
+AUDITED cgr case split_no_new 2917 54720
+AUDITED cgr case split_no_new 2918 55680
+AUDITED cgr case split_no_new 2919 56640
+AUDITED cgr case split_no_new 2920 57600
+split_latebirth confirmation_recency OSPA 2.59274 missed 28.954 false 0.03
+split_latebirth qualified_exist OSPA 2.56915 missed 28.669 false 0.034
+split_latebirth lineage OSPA 2.65127 missed 29.625 false 0.034
+split_latebirth mil_support OSPA 4.76243 missed 48.713 false 3.772
+split_latebirth confirmed_exist OSPA 2.60714 missed 29.032 false 0.004
+churn_departure confirmation_recency OSPA 0.98333 missed 6.791 false 2.351
+churn_departure qualified_exist OSPA 0.8456 missed 4.384 false 3.064
+churn_departure lineage OSPA 1.12271 missed 8.164 false 2.7
+churn_departure mil_support OSPA 4.11234 missed 28.819 false 7.125
+churn_departure confirmed_exist OSPA 1.51923 missed 13.267 false 2.708
+split_no_new confirmation_recency OSPA 0.68707 missed 2.542 false 0.544
+split_no_new qualified_exist OSPA 0.66787 missed 2.351 false 0.57
+split_no_new lineage OSPA 0.79657 missed 3.386 false 0.679
+split_no_new mil_support OSPA 2.76941 missed 6.446 false 4.204
+split_no_new confirmed_exist OSPA 0.65162 missed 2.681 false 0.004
+CASE cgr AUDIT PASSED 57600 new node-frames; original source and baseline hashes unchanged.

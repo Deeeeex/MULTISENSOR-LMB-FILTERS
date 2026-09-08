@@ -1,0 +1,31 @@
+TRANSFER AUDITED 0000 overlap_control reliable 2352
+TRANSFER AUDITED 0000 overlap_control intermittent 4704
+TRANSFER AUDITED 0005 reserved reliable 8176
+TRANSFER AUDITED 0005 reserved intermittent 11648
+TRANSFER AUDITED 0010 reserved reliable 13552
+TRANSFER AUDITED 0010 reserved intermittent 15456
+TRANSFER AUDITED 0015 reserved reliable 17776
+TRANSFER AUDITED 0015 reserved intermittent 20096
+TRANSFER AUDITED 0020 reserved reliable 24496
+TRANSFER AUDITED 0020 reserved intermittent 28896
+TRANSFER AUDITED 0025 reserved reliable 36096
+TRANSFER AUDITED 0025 reserved intermittent 43296
+TRANSFER AUDITED 0030 reserved reliable 45712
+TRANSFER AUDITED 0030 reserved intermittent 48128
+reliable local OSPA 6.08499 false 71.673 miss 187.548
+reliable lineage OSPA 4.39865 false 66.482 miss 75.373
+reliable qualified_exist OSPA 4.44015 false 74.211 miss 70.256
+reliable conservative_recency OSPA 4.35199 false 62.333 miss 78.513
+reliable confirmation_recency OSPA 4.32875 false 69.345 miss 70.486
+reliable mil_support OSPA 4.4794 false 89.643 miss 67.914
+reliable tc_ospa2_w5 OSPA 4.70128 false 116.289 miss 56.447
+reliable tc_ospa2_w10 OSPA 4.73512 false 101.125 miss 74.226
+intermittent local OSPA 6.08499 false 71.673 miss 187.548
+intermittent lineage OSPA 4.61419 false 70.066 miss 89.295
+intermittent qualified_exist OSPA 4.5364 false 72.443 miss 81.743
+intermittent conservative_recency OSPA 4.60076 false 67.785 miss 92.337
+intermittent confirmation_recency OSPA 4.53776 false 71.738 miss 83.123
+intermittent mil_support OSPA 4.61563 false 87.86 miss 79.893
+intermittent tc_ospa2_w5 OSPA 4.97323 false 101.487 miss 89.019
+intermittent tc_ospa2_w10 OSPA 5.01333 false 90.634 miss 101.59
+RESERVED TRANSFER AUDIT PASSED 48128 node-frames, six reserved sequences and one separate overlap control.

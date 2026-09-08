@@ -1,0 +1,21 @@
+AUDITED 0000 reliable new 294 original ER parity 0
+AUDITED 0000 intermittent new 588 original ER parity 0
+AUDITED 0001 reliable new 816 original ER parity 0
+AUDITED 0001 intermittent new 1044 original ER parity 0
+AUDITED 0002 reliable new 1332 original ER parity 0
+AUDITED 0002 intermittent new 1620 original ER parity 0
+reliable conservative_recency OSPA 4.46763 false 19.051
+reliable qualified_exist OSPA 5.37798 false 34.1044
+reliable lineage OSPA 4.81284 false 24.1729
+reliable mil_support OSPA 6.01819 false 42.1475
+reliable tc_ospa2_w5 OSPA 7.1134 false 61.8586
+reliable tc_ospa2_w10 OSPA 6.71656 false 48.1278
+reliable local OSPA 7.74601 false 39.9867
+intermittent conservative_recency OSPA 5.4149 false 28.4474
+intermittent qualified_exist OSPA 5.73703 false 39.7052
+intermittent lineage OSPA 5.62589 false 31.9803
+intermittent mil_support OSPA 6.07786 false 47.9486
+intermittent tc_ospa2_w5 OSPA 6.75604 false 53.5602
+intermittent tc_ospa2_w10 OSPA 6.60621 false 43.8743
+intermittent local OSPA 7.74601 false 39.9867
+METHOD DEVELOPMENT AUDIT PASSED 1620 node-frames; original ER bitwise parity checked on 0 node-frames.

@@ -1,0 +1,31 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+START iteration V2V 0004 reliable qualified_exist 20 frames
+PROFILE frame 1 local 0 0 elapsed 0.00s
+PROFILE frame 2 local 26 23 elapsed 0.24s
+PROFILE frame 3 local 51 52 elapsed 1.05s
+PROFILE frame 4 local 77 75 elapsed 4.35s
+PROFILE frame 5 local 98 99 elapsed 12.37s
+PROFILE frame 6 local 118 116 elapsed 23.11s
+runMethodProfile 23.3360s 1 calls
+runMethodProfile>runDensity 23.1298s 1 calls
+alignGaussianLmbPair 21.8374s 10 calls
+Hungarian 21.5648s 8 calls
+Hungarian>step4 21.4977s 433 calls
+updateLmbWithSensorMeasurement 0.5414s 10 calls
+fuseInnovationRecency 0.4619s 10 calls
+fuseLmbPosteriorsByLabel 0.3781s 522 calls
+canonicalizeLmbGaussianMixtureRepresentation 0.2248s 1720 calls
+computePosteriorLmbSpatialDistributions 0.2127s 10 calls
+generateLmbSensorAssociationMatrices 0.1877s 10 calls
+computeLmbPoissonMeasurementLogScore 0.1166s 10 calls
+evaluateSensorQuality 0.0852s 2490 calls
+runMethodProfile>reduce 0.0797s 22 calls
+fuseLmbPosteriorsByLabel>shouldUseMixtureAwareFusion 0.0790s 522 calls
+addpath 0.0699s 2 calls
+addpath>doPathAddition 0.0685s 2 calls
+path 0.0680s 2 calls
+{错误使用 runMethodProfile>runDensity (第 119 行)
+Intentional bounded diagnostic stop
+出错 runMethodProfile (第 32 行)
+            runs{a}=runDensity(model,measurements,positions,delivered,arms{a});} 

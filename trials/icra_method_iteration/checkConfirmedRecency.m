@@ -1,0 +1,32 @@
+function checkConfirmedRecency()
+out=fileparts(mfilename('fullpath'));root=fileparts(fileparts(out));
+addpath(fullfile(root,'common'),fullfile(root,'lmb'),fullfile(root,'multisensorLmb'),fullfile(root,'trials','icra_reunion_fusion'));
+[c,h]=updateLocalConfirmation(0,0,1,.9,true,true);assert(c==1 && ~h);
+[c,h]=updateLocalConfirmation(c,1,2,.7,true,true);assert(c==2 && h);
+[c,h]=updateLocalConfirmation(c,2,3,.1,true,true);assert(c==0 && ~h);
+[c,h]=updateLocalConfirmation(2,2,4,.9,true,true);assert(c==1 && ~h);
+[c,h]=updateLocalConfirmation(2,2,3,.9,false,true);assert(c==0 && ~h);
+[c,h]=updateLocalConfirmation(2,2,3,.9,true,false);assert(c==0 && ~h);
+model=generateMultisensorModel(2,[3,3],[.9,.9],[1,1],'GA','LBP');model.T=.1;
+o=model.birthParameters(1);o.birthTime=1;o.birthLocation=1;o.r=.9;
+o.numberOfGmComponents=1;o.w=1;o.mu={zeros(4,1)};o.Sigma={eye(4)};
+o.hasObservationLineage=true;o.lastDirectOpportunity=20;o.positiveConfirmation=false;
+p=o;p.r=.1;p.lastDirectOpportunity=1;
+model.birthParameters=o;model.object=o([]);cfg=buildMixtureAwareKlaReferenceConfig();
+d=struct('eventType',[0,2],'sourceIndices',[1,2],'isStale',[false,false],'isSelf',[true,false],'currentTime',20);
+[base,~]=fuseValidationInputs({o,p},[.5,.5],model,d,cfg,'lineage',20);
+[er,~]=fuseValidationInputs({o,p},[.5,.5],model,d,cfg,'qualified_exist',20);
+[unconfirmed,~]=fuseConfirmedRecency({o,p},[.5,.5],model,d,cfg,'confirmation_recency',20);
+assert(er.r>base.r && abs(unconfirmed.r-base.r)<1e-12);
+o.positiveConfirmation=true;
+[admitted,~]=fuseConfirmedRecency({o,p},[.5,.5],model,d,cfg,'confirmation_recency',20);
+assert(admitted.r==er.r && isequal(admitted.mu,base.mu));
+o.positiveConfirmation=false;p.positiveConfirmation=true;
+[remoteBit,~]=fuseConfirmedRecency({o,p},[.5,.5],model,d,cfg,'confirmation_recency',20);
+assert(abs(remoteBit.r-base.r)<1e-12,'A downweighted stale source cannot admit an upward correction.');
+o.r=.1;p.r=.9;
+[negative,~]=fuseConfirmedRecency({o,p},[.5,.5],model,d,cfg,'confirmation_recency',20);
+[er,~]=fuseValidationInputs({o,p},[.5,.5],model,d,cfg,'qualified_exist',20);
+assert(negative.r==er.r);
+fprintf('CGR CHECK PASSED: consecutive local hits, miss/opportunity/empty/gap resets, unconfirmed cap, confirmed positive admission, stale-bit exclusion, unchanged negative correction and spatial density.\n');
+end

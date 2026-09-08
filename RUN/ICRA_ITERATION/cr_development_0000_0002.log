@@ -1,0 +1,16 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+CR CHECK PASSED: constrained minimum on 16 opposing/agreement inputs, unchanged spatial Gaussian, identity, equal ages, and visible-absence censor.
+START iteration V2V 0000 reliable conservative_recency 147 frames
+DONE iteration V2V 0000 reliable conservative_recency OSPA 3.171485 count 0.353741 runtime 3.62s
+START iteration V2V 0000 intermittent conservative_recency 147 frames
+DONE iteration V2V 0000 intermittent conservative_recency OSPA 4.034908 count 0.462585 runtime 1.44s
+START iteration V2V 0001 reliable conservative_recency 114 frames
+DONE iteration V2V 0001 reliable conservative_recency OSPA 5.151407 count 0.587719 runtime 1.25s
+START iteration V2V 0001 intermittent conservative_recency 114 frames
+DONE iteration V2V 0001 intermittent conservative_recency OSPA 6.094841 count 0.798246 runtime 0.94s
+START iteration V2V 0002 reliable conservative_recency 144 frames
+DONE iteration V2V 0002 reliable conservative_recency OSPA 5.079995 count 0.437500 runtime 1.14s
+START iteration V2V 0002 intermittent conservative_recency 144 frames
+DONE iteration V2V 0002 intermittent conservative_recency OSPA 6.114963 count 0.524306 runtime 0.96s
+COMPLETED iteration sequences 0000--0002 smoke=0

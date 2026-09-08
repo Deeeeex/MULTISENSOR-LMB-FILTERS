@@ -1,0 +1,12 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+IR CHECK PASSED: analytic Gaussian overlap, prediction/innovation separation, zero information, equal ages, identity, untouched exclusion, original ER parity and packet round trip.
+START iteration V2V 0000 reliable qualified_exist 12 frames
+{错误使用 assert
+断言失败。
+出错 innovationLmbPacket (第 6 行)
+assert(isequal(increment,decodedIncrement));
+出错 runMethodReplay>runDensity (第 122 行)
+        for n=1:2,[decoded{n},packet]=innovationLmbPacket(local{n},model,n,t);sizes(n)=numel(packet);end
+出错 runMethodReplay (第 32 行)
+            runs{a}=runDensity(model,measurements,positions,delivered,arms{a});} 
