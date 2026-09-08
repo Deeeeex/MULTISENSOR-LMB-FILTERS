@@ -1,0 +1,9 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+DONE split_latebirth seed 2901 tc_ospa2_w5 OSPA 4.823947 fusion 2.29s raw 993904 B
+DONE split_latebirth seed 2901 tc_ospa2_w10 OSPA 4.858913 fusion 1.43s raw 1881376 B
+DONE churn_departure seed 2901 tc_ospa2_w5 OSPA 5.204441 fusion 1.01s raw 968608 B
+DONE churn_departure seed 2901 tc_ospa2_w10 OSPA 5.248460 fusion 1.24s raw 1834256 B
+DONE split_no_new seed 2901 tc_ospa2_w5 OSPA 3.621352 fusion 0.78s raw 733456 B
+DONE split_no_new seed 2901 tc_ospa2_w10 OSPA 3.649612 fusion 0.98s raw 1374016 B
+COMPLETED external TC cases seeds 2901--2901

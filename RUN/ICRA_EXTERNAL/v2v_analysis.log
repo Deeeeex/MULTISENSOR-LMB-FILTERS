@@ -1,0 +1,31 @@
+AUDITED 0000 reliable node-frames 1764
+AUDITED 0000 intermittent node-frames 3528
+AUDITED 0001 reliable node-frames 4896
+AUDITED 0001 intermittent node-frames 6264
+AUDITED 0002 reliable node-frames 7992
+AUDITED 0002 intermittent node-frames 9720
+AUDITED 0003 reliable node-frames 12096
+AUDITED 0003 intermittent node-frames 14472
+AUDITED 0004 reliable node-frames 16632
+AUDITED 0004 intermittent node-frames 18792
+AUDITED 0005 reliable node-frames 22512
+AUDITED 0005 intermittent node-frames 26232
+AUDITED 0006 reliable node-frames 29880
+AUDITED 0006 intermittent node-frames 33528
+AUDITED 0007 reliable node-frames 36180
+AUDITED 0007 intermittent node-frames 38832
+AUDITED 0008 reliable node-frames 43332
+AUDITED 0008 intermittent node-frames 47832
+reliable local OSPA 6.5748 count 2.2271
+reliable lineage OSPA 4.7129 count 1.3164
+reliable qualified_exist OSPA 4.8745 count 1.2908
+reliable mil_support OSPA 5.1775 count 1.361
+reliable tc_ospa2_w5 OSPA 5.6895 count 1.4889
+reliable tc_ospa2_w10 OSPA 5.5741 count 1.4484
+intermittent local OSPA 6.5748 count 2.2271
+intermittent lineage OSPA 5.1086 count 1.4017
+intermittent qualified_exist OSPA 5.1193 count 1.3753
+intermittent mil_support OSPA 5.3089 count 1.4567
+intermittent tc_ospa2_w5 OSPA 5.7925 count 1.7041
+intermittent tc_ospa2_w10 OSPA 5.7647 count 1.7
+COMPLETE REPLAY AUDIT PASSED 47832 node-frames, 18 complete sequence/condition cases.

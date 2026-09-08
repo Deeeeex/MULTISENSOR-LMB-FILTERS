@@ -1,0 +1,77 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+START V2V 0000 reliable lineage 147 frames
+START V2V 0000 reliable qualified_exist 147 frames
+START V2V 0000 reliable mil_support 147 frames
+DONE V2V 0000 reliable local OSPA 8.32619 count 0.89116 runtime 1.13s
+DONE V2V 0000 reliable lineage OSPA 3.43423 count 0.39456 runtime 2.23s
+DONE V2V 0000 reliable qualified_exist OSPA 3.90069 count 0.48980 runtime 1.45s
+DONE V2V 0000 reliable mil_support OSPA 4.43368 count 0.60544 runtime 1.86s
+DONE V2V 0000 reliable tc_ospa2_w5 OSPA 4.93779 count 0.70068 runtime 0.69s
+DONE V2V 0000 reliable tc_ospa2_w10 OSPA 4.61864 count 0.61905 runtime 0.38s
+START V2V 0000 intermittent lineage 147 frames
+START V2V 0000 intermittent qualified_exist 147 frames
+START V2V 0000 intermittent mil_support 147 frames
+DONE V2V 0000 intermittent local OSPA 8.32619 count 0.89116 runtime 1.13s
+DONE V2V 0000 intermittent lineage OSPA 3.86258 count 0.43878 runtime 1.34s
+DONE V2V 0000 intermittent qualified_exist OSPA 4.00609 count 0.49320 runtime 1.21s
+DONE V2V 0000 intermittent mil_support OSPA 4.38424 count 0.60204 runtime 1.65s
+DONE V2V 0000 intermittent tc_ospa2_w5 OSPA 5.70279 count 0.69728 runtime 0.16s
+DONE V2V 0000 intermittent tc_ospa2_w10 OSPA 5.55835 count 0.67347 runtime 0.21s
+START V2V 0001 reliable lineage 114 frames
+START V2V 0001 reliable qualified_exist 114 frames
+START V2V 0001 reliable mil_support 114 frames
+DONE V2V 0001 reliable local OSPA 7.95986 count 1.13158 runtime 0.33s
+DONE V2V 0001 reliable lineage OSPA 6.74707 count 0.78947 runtime 1.08s
+DONE V2V 0001 reliable qualified_exist OSPA 8.24317 count 1.03509 runtime 0.88s
+DONE V2V 0001 reliable mil_support OSPA 9.09552 count 1.25439 runtime 1.20s
+DONE V2V 0001 reliable tc_ospa2_w5 OSPA 9.01569 count 1.35088 runtime 0.26s
+DONE V2V 0001 reliable tc_ospa2_w10 OSPA 8.45447 count 1.14912 runtime 0.28s
+START V2V 0001 intermittent lineage 114 frames
+START V2V 0001 intermittent qualified_exist 114 frames
+START V2V 0001 intermittent mil_support 114 frames
+DONE V2V 0001 intermittent local OSPA 7.95986 count 1.13158 runtime 0.33s
+DONE V2V 0001 intermittent lineage OSPA 7.20014 count 1.01316 runtime 0.85s
+DONE V2V 0001 intermittent qualified_exist OSPA 8.59817 count 1.17982 runtime 0.72s
+DONE V2V 0001 intermittent mil_support OSPA 8.96310 count 1.34211 runtime 0.83s
+DONE V2V 0001 intermittent tc_ospa2_w5 OSPA 8.13874 count 1.24561 runtime 0.10s
+DONE V2V 0001 intermittent tc_ospa2_w10 OSPA 7.99521 count 1.12281 runtime 0.13s
+START V2V 0002 reliable lineage 144 frames
+START V2V 0002 reliable qualified_exist 144 frames
+START V2V 0002 reliable mil_support 144 frames
+DONE V2V 0002 reliable local OSPA 7.03373 count 0.54167 runtime 0.24s
+DONE V2V 0002 reliable lineage OSPA 4.99188 count 0.45833 runtime 0.97s
+DONE V2V 0002 reliable qualified_exist OSPA 5.27978 count 0.51389 runtime 1.02s
+DONE V2V 0002 reliable mil_support OSPA 5.96973 count 0.53472 runtime 1.02s
+DONE V2V 0002 reliable tc_ospa2_w5 OSPA 7.55029 count 0.72222 runtime 0.11s
+DONE V2V 0002 reliable tc_ospa2_w10 OSPA 7.05156 count 0.63889 runtime 0.14s
+START V2V 0002 intermittent lineage 144 frames
+START V2V 0002 intermittent qualified_exist 144 frames
+START V2V 0002 intermittent mil_support 144 frames
+DONE V2V 0002 intermittent local OSPA 7.03373 count 0.54167 runtime 0.24s
+DONE V2V 0002 intermittent lineage OSPA 6.79677 count 0.59375 runtime 0.92s
+DONE V2V 0002 intermittent qualified_exist OSPA 6.21040 count 0.59375 runtime 0.91s
+DONE V2V 0002 intermittent mil_support OSPA 6.59595 count 0.67708 runtime 0.82s
+DONE V2V 0002 intermittent tc_ospa2_w5 OSPA 6.49588 count 0.62847 runtime 0.08s
+DONE V2V 0002 intermittent tc_ospa2_w10 OSPA 6.33435 count 0.58333 runtime 0.11s
+START V2V 0003 reliable lineage 198 frames
+START V2V 0003 reliable qualified_exist 198 frames
+START V2V 0003 reliable mil_support 198 frames
+DONE V2V 0003 reliable local OSPA 7.85265 count 3.89646 runtime 2.09s
+DONE V2V 0003 reliable lineage OSPA 6.74880 count 3.14646 runtime 16.48s
+DONE V2V 0003 reliable qualified_exist OSPA 6.55327 count 2.97980 runtime 19.12s
+DONE V2V 0003 reliable mil_support OSPA 6.76986 count 2.76768 runtime 19.88s
+DONE V2V 0003 reliable tc_ospa2_w5 OSPA 7.02452 count 2.78788 runtime 1.24s
+DONE V2V 0003 reliable tc_ospa2_w10 OSPA 7.17034 count 2.92929 runtime 1.72s
+START V2V 0003 intermittent lineage 198 frames
+START V2V 0003 intermittent qualified_exist 198 frames
+START V2V 0003 intermittent mil_support 198 frames
+DONE V2V 0003 intermittent local OSPA 7.85265 count 3.89646 runtime 2.09s
+DONE V2V 0003 intermittent lineage OSPA 6.91386 count 3.27273 runtime 15.97s
+DONE V2V 0003 intermittent qualified_exist OSPA 6.69966 count 2.97727 runtime 14.28s
+DONE V2V 0003 intermittent mil_support OSPA 7.26886 count 3.14394 runtime 15.81s
+DONE V2V 0003 intermittent tc_ospa2_w5 OSPA 7.24388 count 3.09848 runtime 0.88s
+DONE V2V 0003 intermittent tc_ospa2_w10 OSPA 7.33821 count 3.17424 runtime 1.21s
+START V2V 0004 reliable lineage 180 frames
+START V2V 0004 reliable qualified_exist 180 frames

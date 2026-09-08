@@ -1,0 +1,66 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+GAUSSIAN MIL PASS: independent labels, exact symmetric KL, unmatched slots, existence-independent assignment, common/exclusive subspaces, arithmetic moments, identity and source reversal.
+START V2V 0000 reliable lineage 147 frames
+START V2V 0000 reliable qualified_exist 147 frames
+START V2V 0000 reliable mil_support 147 frames
+DONE V2V 0000 reliable local OSPA 8.32619 count 0.86054 runtime 1.12s
+DONE V2V 0000 reliable lineage OSPA 3.43423 count 0.39456 runtime 2.17s
+DONE V2V 0000 reliable qualified_exist OSPA 3.90069 count 0.48980 runtime 1.44s
+DONE V2V 0000 reliable mil_support OSPA 4.43368 count 0.60544 runtime 1.87s
+DONE V2V 0000 reliable tc_ospa2_w5 OSPA 5.09164 count 0.76190 runtime 0.65s
+DONE V2V 0000 reliable tc_ospa2_w10 OSPA 4.83048 count 0.68027 runtime 0.39s
+START V2V 0000 intermittent lineage 147 frames
+START V2V 0000 intermittent qualified_exist 147 frames
+START V2V 0000 intermittent mil_support 147 frames
+DONE V2V 0000 intermittent local OSPA 8.32619 count 0.86054 runtime 1.12s
+DONE V2V 0000 intermittent lineage OSPA 3.86258 count 0.43878 runtime 1.31s
+DONE V2V 0000 intermittent qualified_exist OSPA 4.00609 count 0.49320 runtime 1.18s
+DONE V2V 0000 intermittent mil_support OSPA 4.38424 count 0.60204 runtime 1.62s
+DONE V2V 0000 intermittent tc_ospa2_w5 OSPA 5.83167 count 0.74830 runtime 0.16s
+DONE V2V 0000 intermittent tc_ospa2_w10 OSPA 5.74522 count 0.72449 runtime 0.18s
+START V2V 0001 reliable lineage 114 frames
+START V2V 0001 reliable qualified_exist 114 frames
+START V2V 0001 reliable mil_support 114 frames
+DONE V2V 0001 reliable local OSPA 11.44240 count 1.82456 runtime 0.32s
+DONE V2V 0001 reliable lineage OSPA 11.21778 count 1.84211 runtime 1.07s
+DONE V2V 0001 reliable qualified_exist OSPA 11.21273 count 1.61404 runtime 0.85s
+DONE V2V 0001 reliable mil_support OSPA 11.20724 count 1.48246 runtime 1.18s
+DONE V2V 0001 reliable tc_ospa2_w5 OSPA 11.27358 count 1.47368 runtime 0.26s
+DONE V2V 0001 reliable tc_ospa2_w10 OSPA 11.36748 count 1.64035 runtime 0.24s
+START V2V 0001 intermittent lineage 114 frames
+START V2V 0001 intermittent qualified_exist 114 frames
+START V2V 0001 intermittent mil_support 114 frames
+DONE V2V 0001 intermittent local OSPA 11.44240 count 1.82456 runtime 0.32s
+DONE V2V 0001 intermittent lineage OSPA 11.19849 count 1.67105 runtime 0.83s
+DONE V2V 0001 intermittent qualified_exist OSPA 11.21267 count 1.51316 runtime 0.72s
+DONE V2V 0001 intermittent mil_support OSPA 11.19629 count 1.44737 runtime 0.80s
+DONE V2V 0001 intermittent tc_ospa2_w5 OSPA 11.28486 count 1.57895 runtime 0.10s
+DONE V2V 0001 intermittent tc_ospa2_w10 OSPA 11.37541 count 1.70175 runtime 0.13s
+START V2V 0002 reliable lineage 144 frames
+START V2V 0002 reliable qualified_exist 144 frames
+START V2V 0002 reliable mil_support 144 frames
+DONE V2V 0002 reliable local OSPA 11.50273 count 1.98611 runtime 0.25s
+DONE V2V 0002 reliable lineage OSPA 11.12151 count 2.01389 runtime 0.96s
+DONE V2V 0002 reliable qualified_exist OSPA 11.10700 count 1.90278 runtime 1.01s
+DONE V2V 0002 reliable mil_support OSPA 11.03607 count 1.82639 runtime 1.00s
+DONE V2V 0002 reliable tc_ospa2_w5 OSPA 11.05881 count 1.47222 runtime 0.12s
+DONE V2V 0002 reliable tc_ospa2_w10 OSPA 11.12278 count 1.62500 runtime 0.14s
+START V2V 0002 intermittent lineage 144 frames
+START V2V 0002 intermittent qualified_exist 144 frames
+START V2V 0002 intermittent mil_support 144 frames
+DONE V2V 0002 intermittent local OSPA 11.50273 count 1.98611 runtime 0.25s
+DONE V2V 0002 intermittent lineage OSPA 11.27789 count 2.04514 runtime 0.89s
+DONE V2V 0002 intermittent qualified_exist OSPA 11.08228 count 1.83681 runtime 0.92s
+DONE V2V 0002 intermittent mil_support OSPA 11.05736 count 1.73958 runtime 0.81s
+DONE V2V 0002 intermittent tc_ospa2_w5 OSPA 11.08730 count 1.60069 runtime 0.08s
+DONE V2V 0002 intermittent tc_ospa2_w10 OSPA 11.14569 count 1.71528 runtime 0.11s
+START V2V 0003 reliable lineage 198 frames
+{错误使用 assert
+More than 100 Bernoullis; no silent truncation.
+出错 runV2v4realReplay>reduce (第 142 行)
+assert(numel(objects)<=100,'V2V:TrackBound','More than 100 Bernoullis; no silent truncation.');
+出错 runV2v4realReplay>runDensity (第 103 行)
+        local{n}=reduce(local{n},model);
+出错 runV2v4realReplay (第 28 行)
+            runs{a+1}=runDensity(model,measurements,positions,delivered,arms{a});} 
