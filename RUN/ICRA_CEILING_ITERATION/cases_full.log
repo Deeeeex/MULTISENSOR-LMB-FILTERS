@@ -1,0 +1,124 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+START ECR case split_latebirth seed 2901
+DONE ECR case split_latebirth seed 2901 OSPA 2.508627 count 0.387500 runtime 4.33s
+START ECR case churn_departure seed 2901
+DONE ECR case churn_departure seed 2901 OSPA 0.724894 count 0.080208 runtime 2.57s
+START ECR case split_no_new seed 2901
+DONE ECR case split_no_new seed 2901 OSPA 0.657822 count 0.047917 runtime 1.86s
+START ECR case split_latebirth seed 2902
+DONE ECR case split_latebirth seed 2902 OSPA 2.607391 count 0.401042 runtime 2.14s
+START ECR case churn_departure seed 2902
+DONE ECR case churn_departure seed 2902 OSPA 1.626274 count 0.188542 runtime 2.20s
+START ECR case split_no_new seed 2902
+DONE ECR case split_no_new seed 2902 OSPA 0.670907 count 0.036458 runtime 1.67s
+START ECR case split_latebirth seed 2903
+DONE ECR case split_latebirth seed 2903 OSPA 2.589803 count 0.398958 runtime 1.97s
+START ECR case churn_departure seed 2903
+DONE ECR case churn_departure seed 2903 OSPA 0.713872 count 0.072917 runtime 1.86s
+START ECR case split_no_new seed 2903
+DONE ECR case split_no_new seed 2903 OSPA 1.260622 count 0.133333 runtime 1.75s
+START ECR case split_latebirth seed 2904
+DONE ECR case split_latebirth seed 2904 OSPA 2.695803 count 0.416667 runtime 1.97s
+START ECR case churn_departure seed 2904
+DONE ECR case churn_departure seed 2904 OSPA 0.697828 count 0.076042 runtime 1.88s
+START ECR case split_no_new seed 2904
+DONE ECR case split_no_new seed 2904 OSPA 0.796663 count 0.052083 runtime 1.73s
+START ECR case split_latebirth seed 2905
+DONE ECR case split_latebirth seed 2905 OSPA 2.432098 count 0.383333 runtime 1.99s
+START ECR case churn_departure seed 2905
+DONE ECR case churn_departure seed 2905 OSPA 0.919585 count 0.121875 runtime 1.87s
+START ECR case split_no_new seed 2905
+DONE ECR case split_no_new seed 2905 OSPA 0.403330 count 0.015625 runtime 1.67s
+START ECR case split_latebirth seed 2906
+DONE ECR case split_latebirth seed 2906 OSPA 2.861300 count 0.445833 runtime 2.00s
+START ECR case churn_departure seed 2906
+DONE ECR case churn_departure seed 2906 OSPA 0.874683 count 0.103125 runtime 1.91s
+START ECR case split_no_new seed 2906
+DONE ECR case split_no_new seed 2906 OSPA 0.636414 count 0.040625 runtime 1.73s
+START ECR case split_latebirth seed 2907
+DONE ECR case split_latebirth seed 2907 OSPA 2.413470 count 0.380208 runtime 2.01s
+START ECR case churn_departure seed 2907
+DONE ECR case churn_departure seed 2907 OSPA 1.155847 count 0.165625 runtime 1.80s
+START ECR case split_no_new seed 2907
+DONE ECR case split_no_new seed 2907 OSPA 0.401227 count 0.015625 runtime 1.67s
+START ECR case split_latebirth seed 2908
+DONE ECR case split_latebirth seed 2908 OSPA 2.603133 count 0.404167 runtime 1.92s
+START ECR case churn_departure seed 2908
+DONE ECR case churn_departure seed 2908 OSPA 0.781436 count 0.093750 runtime 1.87s
+START ECR case split_no_new seed 2908
+DONE ECR case split_no_new seed 2908 OSPA 0.870446 count 0.044792 runtime 1.71s
+START ECR case split_latebirth seed 2909
+DONE ECR case split_latebirth seed 2909 OSPA 2.798798 count 0.432292 runtime 1.93s
+START ECR case churn_departure seed 2909
+DONE ECR case churn_departure seed 2909 OSPA 0.933148 count 0.110417 runtime 1.92s
+START ECR case split_no_new seed 2909
+DONE ECR case split_no_new seed 2909 OSPA 1.024842 count 0.073958 runtime 1.61s
+START ECR case split_latebirth seed 2910
+DONE ECR case split_latebirth seed 2910 OSPA 2.527641 count 0.396875 runtime 1.96s
+START ECR case churn_departure seed 2910
+DONE ECR case churn_departure seed 2910 OSPA 0.734077 count 0.089583 runtime 1.74s
+START ECR case split_no_new seed 2910
+DONE ECR case split_no_new seed 2910 OSPA 0.593411 count 0.027083 runtime 1.62s
+START ECR case split_latebirth seed 2911
+DONE ECR case split_latebirth seed 2911 OSPA 2.635382 count 0.408333 runtime 1.95s
+START ECR case churn_departure seed 2911
+DONE ECR case churn_departure seed 2911 OSPA 0.689239 count 0.068750 runtime 1.74s
+START ECR case split_no_new seed 2911
+DONE ECR case split_no_new seed 2911 OSPA 0.612679 count 0.038542 runtime 1.66s
+START ECR case split_latebirth seed 2912
+DONE ECR case split_latebirth seed 2912 OSPA 2.463358 count 0.383333 runtime 1.96s
+START ECR case churn_departure seed 2912
+DONE ECR case churn_departure seed 2912 OSPA 1.671925 count 0.246875 runtime 1.92s
+START ECR case split_no_new seed 2912
+DONE ECR case split_no_new seed 2912 OSPA 0.466292 count 0.027083 runtime 1.70s
+START ECR case split_latebirth seed 2913
+DONE ECR case split_latebirth seed 2913 OSPA 2.647237 count 0.403125 runtime 2.05s
+START ECR case churn_departure seed 2913
+DONE ECR case churn_departure seed 2913 OSPA 1.048531 count 0.123958 runtime 1.80s
+START ECR case split_no_new seed 2913
+DONE ECR case split_no_new seed 2913 OSPA 0.809488 count 0.050000 runtime 1.68s
+START ECR case split_latebirth seed 2914
+DONE ECR case split_latebirth seed 2914 OSPA 2.543446 count 0.394792 runtime 2.01s
+START ECR case churn_departure seed 2914
+DONE ECR case churn_departure seed 2914 OSPA 1.666059 count 0.246875 runtime 1.89s
+START ECR case split_no_new seed 2914
+DONE ECR case split_no_new seed 2914 OSPA 0.616574 count 0.034375 runtime 1.63s
+START ECR case split_latebirth seed 2915
+DONE ECR case split_latebirth seed 2915 OSPA 2.450439 count 0.381250 runtime 2.01s
+START ECR case churn_departure seed 2915
+DONE ECR case churn_departure seed 2915 OSPA 0.654646 count 0.072917 runtime 1.87s
+START ECR case split_no_new seed 2915
+DONE ECR case split_no_new seed 2915 OSPA 0.395305 count 0.021875 runtime 1.67s
+START ECR case split_latebirth seed 2916
+DONE ECR case split_latebirth seed 2916 OSPA 2.505267 count 0.391667 runtime 2.01s
+START ECR case churn_departure seed 2916
+DONE ECR case churn_departure seed 2916 OSPA 0.533325 count 0.056250 runtime 1.82s
+START ECR case split_no_new seed 2916
+DONE ECR case split_no_new seed 2916 OSPA 0.672199 count 0.043750 runtime 1.66s
+START ECR case split_latebirth seed 2917
+DONE ECR case split_latebirth seed 2917 OSPA 2.523001 count 0.384375 runtime 1.94s
+START ECR case churn_departure seed 2917
+DONE ECR case churn_departure seed 2917 OSPA 0.929349 count 0.106250 runtime 1.91s
+START ECR case split_no_new seed 2917
+DONE ECR case split_no_new seed 2917 OSPA 0.532142 count 0.017708 runtime 1.65s
+START ECR case split_latebirth seed 2918
+DONE ECR case split_latebirth seed 2918 OSPA 2.574258 count 0.396875 runtime 2.04s
+START ECR case churn_departure seed 2918
+DONE ECR case churn_departure seed 2918 OSPA 0.707189 count 0.076042 runtime 1.87s
+START ECR case split_no_new seed 2918
+DONE ECR case split_no_new seed 2918 OSPA 0.557533 count 0.026042 runtime 1.79s
+START ECR case split_latebirth seed 2919
+DONE ECR case split_latebirth seed 2919 OSPA 2.654717 count 0.405208 runtime 1.97s
+START ECR case churn_departure seed 2919
+DONE ECR case churn_departure seed 2919 OSPA 0.875114 count 0.101042 runtime 1.89s
+START ECR case split_no_new seed 2919
+DONE ECR case split_no_new seed 2919 OSPA 0.841399 count 0.045833 runtime 1.63s
+START ECR case split_latebirth seed 2920
+DONE ECR case split_latebirth seed 2920 OSPA 2.531152 count 0.389583 runtime 2.01s
+START ECR case churn_departure seed 2920
+DONE ECR case churn_departure seed 2920 OSPA 0.766650 count 0.086458 runtime 1.97s
+START ECR case split_no_new seed 2920
+DONE ECR case split_no_new seed 2920 OSPA 0.695695 count 0.034375 runtime 1.70s
+COMPLETED ECR cases seeds 2901--2920

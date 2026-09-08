@@ -1,0 +1,148 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+START iteration V2V 0000 reliable qualified_exist 147 frames
+DONE iteration V2V 0000 reliable qualified_exist OSPA 3.848730 count 0.482993 runtime 2.56s
+START iteration V2V 0000 reliable ceiling_association 147 frames
+DONE iteration V2V 0000 reliable ceiling_association OSPA 3.853487 count 0.476190 runtime 1.36s
+START iteration V2V 0000 reliable ceiling_score 147 frames
+DONE iteration V2V 0000 reliable ceiling_score OSPA 3.163276 count 0.360544 runtime 1.37s
+START iteration V2V 0000 reliable ceiling_calibrated 147 frames
+DONE iteration V2V 0000 reliable ceiling_calibrated OSPA 3.255156 count 0.374150 runtime 1.37s
+START iteration V2V 0000 intermittent qualified_exist 147 frames
+DONE iteration V2V 0000 intermittent qualified_exist OSPA 3.961321 count 0.486395 runtime 1.11s
+START iteration V2V 0000 intermittent ceiling_association 147 frames
+DONE iteration V2V 0000 intermittent ceiling_association OSPA 4.090472 count 0.503401 runtime 1.12s
+START iteration V2V 0000 intermittent ceiling_score 147 frames
+DONE iteration V2V 0000 intermittent ceiling_score OSPA 3.923970 count 0.452381 runtime 1.23s
+START iteration V2V 0000 intermittent ceiling_calibrated 147 frames
+DONE iteration V2V 0000 intermittent ceiling_calibrated OSPA 3.857829 count 0.452381 runtime 1.06s
+START iteration V2V 0001 reliable qualified_exist 114 frames
+DONE iteration V2V 0001 reliable qualified_exist OSPA 7.193531 count 0.894737 runtime 0.94s
+START iteration V2V 0001 reliable ceiling_association 114 frames
+DONE iteration V2V 0001 reliable ceiling_association OSPA 6.974798 count 0.833333 runtime 0.92s
+START iteration V2V 0001 reliable ceiling_score 114 frames
+DONE iteration V2V 0001 reliable ceiling_score OSPA 5.229001 count 0.596491 runtime 1.01s
+START iteration V2V 0001 reliable ceiling_calibrated 114 frames
+DONE iteration V2V 0001 reliable ceiling_calibrated OSPA 5.549627 count 0.640351 runtime 0.94s
+START iteration V2V 0001 intermittent qualified_exist 114 frames
+DONE iteration V2V 0001 intermittent qualified_exist OSPA 7.101121 count 1.043860 runtime 0.71s
+START iteration V2V 0001 intermittent ceiling_association 114 frames
+DONE iteration V2V 0001 intermittent ceiling_association OSPA 7.107100 count 1.043860 runtime 0.75s
+START iteration V2V 0001 intermittent ceiling_score 114 frames
+DONE iteration V2V 0001 intermittent ceiling_score OSPA 6.091072 count 0.811404 runtime 0.76s
+START iteration V2V 0001 intermittent ceiling_calibrated 114 frames
+DONE iteration V2V 0001 intermittent ceiling_calibrated OSPA 6.248591 count 0.802632 runtime 0.76s
+START iteration V2V 0002 reliable qualified_exist 144 frames
+DONE iteration V2V 0002 reliable qualified_exist OSPA 5.091670 count 0.458333 runtime 0.97s
+START iteration V2V 0002 reliable ceiling_association 144 frames
+DONE iteration V2V 0002 reliable ceiling_association OSPA 5.190044 count 0.486111 runtime 0.95s
+START iteration V2V 0002 reliable ceiling_score 144 frames
+DONE iteration V2V 0002 reliable ceiling_score OSPA 4.848020 count 0.409722 runtime 0.94s
+START iteration V2V 0002 reliable ceiling_calibrated 144 frames
+DONE iteration V2V 0002 reliable ceiling_calibrated OSPA 4.955143 count 0.437500 runtime 0.92s
+START iteration V2V 0002 intermittent qualified_exist 144 frames
+DONE iteration V2V 0002 intermittent qualified_exist OSPA 6.148643 count 0.555556 runtime 1.02s
+START iteration V2V 0002 intermittent ceiling_association 144 frames
+DONE iteration V2V 0002 intermittent ceiling_association OSPA 6.152525 count 0.565972 runtime 1.01s
+START iteration V2V 0002 intermittent ceiling_score 144 frames
+DONE iteration V2V 0002 intermittent ceiling_score OSPA 5.944975 count 0.503472 runtime 1.02s
+START iteration V2V 0002 intermittent ceiling_calibrated 144 frames
+DONE iteration V2V 0002 intermittent ceiling_calibrated OSPA 5.998013 count 0.520833 runtime 0.99s
+START iteration V2V 0003 reliable qualified_exist 198 frames
+DONE iteration V2V 0003 reliable qualified_exist OSPA 6.463880 count 2.843434 runtime 9.97s
+START iteration V2V 0003 reliable ceiling_association 198 frames
+DONE iteration V2V 0003 reliable ceiling_association OSPA 6.761685 count 3.060606 runtime 10.76s
+START iteration V2V 0003 reliable ceiling_score 198 frames
+DONE iteration V2V 0003 reliable ceiling_score OSPA 6.807821 count 3.247475 runtime 9.84s
+START iteration V2V 0003 reliable ceiling_calibrated 198 frames
+DONE iteration V2V 0003 reliable ceiling_calibrated OSPA 6.513203 count 3.070707 runtime 11.04s
+START iteration V2V 0003 intermittent qualified_exist 198 frames
+DONE iteration V2V 0003 intermittent qualified_exist OSPA 6.890351 count 3.103535 runtime 7.29s
+START iteration V2V 0003 intermittent ceiling_association 198 frames
+DONE iteration V2V 0003 intermittent ceiling_association OSPA 6.885095 count 3.090909 runtime 7.27s
+START iteration V2V 0003 intermittent ceiling_score 198 frames
+DONE iteration V2V 0003 intermittent ceiling_score OSPA 6.910687 count 3.217172 runtime 7.36s
+START iteration V2V 0003 intermittent ceiling_calibrated 198 frames
+DONE iteration V2V 0003 intermittent ceiling_calibrated OSPA 6.939495 count 3.219697 runtime 7.30s
+START iteration V2V 0004 reliable qualified_exist 180 frames
+DONE iteration V2V 0004 reliable qualified_exist OSPA 5.158462 count 2.305556 runtime 41.92s
+START iteration V2V 0004 reliable ceiling_association 180 frames
+DONE iteration V2V 0004 reliable ceiling_association OSPA 5.129521 count 2.250000 runtime 42.52s
+START iteration V2V 0004 reliable ceiling_score 180 frames
+DONE iteration V2V 0004 reliable ceiling_score OSPA 5.096450 count 2.233333 runtime 42.78s
+START iteration V2V 0004 reliable ceiling_calibrated 180 frames
+DONE iteration V2V 0004 reliable ceiling_calibrated OSPA 5.084791 count 2.205556 runtime 42.22s
+START iteration V2V 0004 intermittent qualified_exist 180 frames
+DONE iteration V2V 0004 intermittent qualified_exist OSPA 5.023765 count 2.066667 runtime 34.35s
+START iteration V2V 0004 intermittent ceiling_association 180 frames
+DONE iteration V2V 0004 intermittent ceiling_association OSPA 5.023633 count 2.094444 runtime 36.27s
+START iteration V2V 0004 intermittent ceiling_score 180 frames
+DONE iteration V2V 0004 intermittent ceiling_score OSPA 5.057700 count 2.222222 runtime 34.37s
+START iteration V2V 0004 intermittent ceiling_calibrated 180 frames
+DONE iteration V2V 0004 intermittent ceiling_calibrated OSPA 5.048491 count 2.200000 runtime 34.87s
+START iteration V2V 0005 reliable qualified_exist 310 frames
+DONE iteration V2V 0005 reliable qualified_exist OSPA 4.589181 count 1.403226 runtime 24.12s
+START iteration V2V 0005 reliable ceiling_association 310 frames
+DONE iteration V2V 0005 reliable ceiling_association OSPA 4.597971 count 1.493548 runtime 23.78s
+START iteration V2V 0005 reliable ceiling_score 310 frames
+DONE iteration V2V 0005 reliable ceiling_score OSPA 4.648124 count 1.600000 runtime 24.21s
+START iteration V2V 0005 reliable ceiling_calibrated 310 frames
+DONE iteration V2V 0005 reliable ceiling_calibrated OSPA 4.617214 count 1.583871 runtime 24.40s
+START iteration V2V 0005 intermittent qualified_exist 310 frames
+DONE iteration V2V 0005 intermittent qualified_exist OSPA 4.941829 count 1.546774 runtime 21.42s
+START iteration V2V 0005 intermittent ceiling_association 310 frames
+DONE iteration V2V 0005 intermittent ceiling_association OSPA 4.992726 count 1.625806 runtime 22.88s
+START iteration V2V 0005 intermittent ceiling_score 310 frames
+DONE iteration V2V 0005 intermittent ceiling_score OSPA 5.000711 count 1.645161 runtime 22.01s
+START iteration V2V 0005 intermittent ceiling_calibrated 310 frames
+DONE iteration V2V 0005 intermittent ceiling_calibrated OSPA 5.054014 count 1.679032 runtime 21.74s
+START iteration V2V 0006 reliable qualified_exist 304 frames
+DONE iteration V2V 0006 reliable qualified_exist OSPA 6.393488 count 1.641447 runtime 10.89s
+START iteration V2V 0006 reliable ceiling_association 304 frames
+DONE iteration V2V 0006 reliable ceiling_association OSPA 6.422059 count 1.664474 runtime 10.31s
+START iteration V2V 0006 reliable ceiling_score 304 frames
+DONE iteration V2V 0006 reliable ceiling_score OSPA 6.372488 count 1.618421 runtime 10.89s
+START iteration V2V 0006 reliable ceiling_calibrated 304 frames
+DONE iteration V2V 0006 reliable ceiling_calibrated OSPA 6.369189 count 1.641447 runtime 11.22s
+START iteration V2V 0006 intermittent qualified_exist 304 frames
+DONE iteration V2V 0006 intermittent qualified_exist OSPA 6.209742 count 1.449013 runtime 10.29s
+START iteration V2V 0006 intermittent ceiling_association 304 frames
+DONE iteration V2V 0006 intermittent ceiling_association OSPA 6.305108 count 1.523026 runtime 10.41s
+START iteration V2V 0006 intermittent ceiling_score 304 frames
+DONE iteration V2V 0006 intermittent ceiling_score OSPA 6.264485 count 1.542763 runtime 9.54s
+START iteration V2V 0006 intermittent ceiling_calibrated 304 frames
+DONE iteration V2V 0006 intermittent ceiling_calibrated OSPA 6.253599 count 1.537829 runtime 9.46s
+START iteration V2V 0007 reliable qualified_exist 221 frames
+DONE iteration V2V 0007 reliable qualified_exist OSPA 4.267144 count 1.366516 runtime 13.21s
+START iteration V2V 0007 reliable ceiling_association 221 frames
+DONE iteration V2V 0007 reliable ceiling_association OSPA 3.998862 count 1.307692 runtime 13.29s
+START iteration V2V 0007 reliable ceiling_score 221 frames
+DONE iteration V2V 0007 reliable ceiling_score OSPA 3.772733 count 1.280543 runtime 14.06s
+START iteration V2V 0007 reliable ceiling_calibrated 221 frames
+DONE iteration V2V 0007 reliable ceiling_calibrated OSPA 3.716608 count 1.230769 runtime 14.52s
+START iteration V2V 0007 intermittent qualified_exist 221 frames
+DONE iteration V2V 0007 intermittent qualified_exist OSPA 4.823202 count 1.864253 runtime 11.80s
+START iteration V2V 0007 intermittent ceiling_association 221 frames
+DONE iteration V2V 0007 intermittent ceiling_association OSPA 4.643668 count 1.692308 runtime 10.72s
+START iteration V2V 0007 intermittent ceiling_score 221 frames
+DONE iteration V2V 0007 intermittent ceiling_score OSPA 4.453014 count 1.760181 runtime 14.04s
+START iteration V2V 0007 intermittent ceiling_calibrated 221 frames
+DONE iteration V2V 0007 intermittent ceiling_calibrated OSPA 4.462083 count 1.649321 runtime 12.42s
+START iteration V2V 0008 reliable qualified_exist 375 frames
+DONE iteration V2V 0008 reliable qualified_exist OSPA 0.864686 count 0.221333 runtime 22.81s
+START iteration V2V 0008 reliable ceiling_association 375 frames
+DONE iteration V2V 0008 reliable ceiling_association OSPA 0.864683 count 0.221333 runtime 26.34s
+START iteration V2V 0008 reliable ceiling_score 375 frames
+DONE iteration V2V 0008 reliable ceiling_score OSPA 0.876514 count 0.229333 runtime 23.66s
+START iteration V2V 0008 reliable ceiling_calibrated 375 frames
+DONE iteration V2V 0008 reliable ceiling_calibrated OSPA 0.866420 count 0.224000 runtime 23.38s
+START iteration V2V 0008 intermittent qualified_exist 375 frames
+DONE iteration V2V 0008 intermittent qualified_exist OSPA 0.973572 count 0.261333 runtime 21.60s
+START iteration V2V 0008 intermittent ceiling_association 375 frames
+DONE iteration V2V 0008 intermittent ceiling_association OSPA 0.973569 count 0.261333 runtime 21.49s
+START iteration V2V 0008 intermittent ceiling_score 375 frames
+DONE iteration V2V 0008 intermittent ceiling_score OSPA 0.988739 count 0.270667 runtime 21.67s
+START iteration V2V 0008 intermittent ceiling_calibrated 375 frames
+DONE iteration V2V 0008 intermittent ceiling_calibrated OSPA 0.975308 count 0.264000 runtime 21.46s
+COMPLETED iteration sequences 0000--0008 smoke=0
