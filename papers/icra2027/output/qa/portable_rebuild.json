@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "verified_on": "2026-09-09",
-  "source_pdf_sha256": "19247cc80353aa27c9ae73f41b4098edccc5d30850014d7926f038e2aa9ffd91",
-  "rebuilt_pdf_sha256": "4eddddbb1a32f77105a489fac820295b31dbb139a7fdc41f3630683085246844",
+  "source_pdf_sha256": "c9167d18beb3c5a65b086eafad097216904171a36cd665df8a5cfed8fde1d75c",
+  "rebuilt_pdf_sha256": "b373455a4c8bb49471b43edc4c520523086dbe21e42b238ebf2a9cded6f5ec1c",
   "pdf_binary_identical": false,
   "pages": 7,
   "pdf_text_identical": true,
@@ -12,11 +12,13 @@
     "7afa290c0cb37a37612440e40a8c4ec9c8c3f2aa850ff2a1397ab07693f7ef57",
     "9f530d4138c6a2356b64801361dcce3a687ca0daca900e4749cd3e64c9f8a460",
     "f3b6c0439b24afa0120ab28a60f525c3c24ce8eb8f9e521b62f3b216eab11e78",
-    "ef9361f4ebeaa384445cce8e12522ac26cc86e4b27366e0532c61636c2b08e36",
-    "302155ead3a05ef406e94e49e94721b8762af4e5480239e018576dfd4dd73e45",
-    "05f3010be1349aeca46ae5545d8ae0e629b6e88976ec1f702d9bc2af05720f04"
+    "26db6e877b2ea7c782a0bd6f74017e16bda94adba5c536c173f792d395d9d6e6",
+    "bd07a354322230f890259b75eadc58b2d6ca4f46b95b9407d632f40319f4b802",
+    "6a6b41b3ace2b59562c6a9730e133643c8b788aa500565e7e5be06e57a1531b1"
   ],
   "bibliography_entry_count": 30,
+  "main_figure_sequence_markers": 50,
+  "main_figure_paired_gain_values": 100,
   "regenerated_file_hash_matches": 48,
   "regenerated_files": [
     "figures/gaussian_communication.pdf",
@@ -68,12 +70,12 @@
     "source_data/shared_main_qa.json",
     "source_data/shared_main_summary.json"
   ],
-  "build_input_manifest_sha256": "61a5d6507c6032c922a269be799838f197084ade49b3306574afc712e71bf5d6",
-  "tested_archive_sha256_before_attaching_this_report": "169050307bf2f718660f54c3b41cb844b901062dc09c14403611763834c2f43e",
+  "build_input_manifest_sha256": "ad5890627fd13d535d8b00e7d59c29c4b38d7d32118226dbed9e447dba902314",
+  "tested_archive_sha256_before_attaching_this_report": "abdf7243bc819a347bf270a70c34d59df09aa3962a01da0358c60b0640d7b268",
   "archive_input_files_verified": 133,
   "non_output_files_identical_after_rebuild": 130,
   "native_experiment_corpus_available": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-gce-citations-4codz_i_/icra2027",
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-fig2-rebuild-94000a4k/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",

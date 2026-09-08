@@ -285,7 +285,7 @@ def check_gaussian_evidence():
             positions.append(tex.index(expected))
         assert positions == sorted(positions), ('Incorrect table order', table)
     assert (HERE / 'generated/ablation_table.tex').read_text().rfind(r'\textbf{GCE (complete)}') > (HERE / 'generated/ablation_table.tex').read_text().rfind('w/o ')
-    for name, count in [('gaussian_paired', 300), ('gaussian_sequence_differences', 300), ('gaussian_components', 200)]:
+    for name, count in [('gaussian_sequence_differences', 300), ('gaussian_components', 200)]:
         figure = read(name)
         assert figure['evidence_sha256'] == sha(HERE / 'source_data/gaussian_paper_evidence.json')
         assert figure['point_count'] == count == sum(len(r['points']) for r in figure['groups'])
@@ -293,9 +293,40 @@ def check_gaussian_evidence():
             target = c if name == 'gaussian_components' else p
             assert group['summary'] == target[group['condition'], group['reference']]['ospa']
             assert [r['sequence'] for r in group['points']] == data['sequences']
-        if name == 'gaussian_paired':
-            assert figure['rendered_estimate_count'] == 12 and not figure['individual_points_displayed']
-            assert all(figure['x_limits'][0] < g['summary']['low'] < g['summary']['high'] < figure['x_limits'][1] for g in figure['groups'])
+    gains = read('gaussian_paired')
+    assert gains['evidence_sha256'] == sha(HERE / 'source_data/gaussian_paper_evidence.json')
+    assert gains['kind'] == 'paired_cross_condition_ospa_gain'
+    assert gains['point_count'] == 50 and gains['number_of_sequence_measurements'] == 100
+    assert gains['individual_points_displayed'] and not gains['intervals_shown']
+    assert gains['positive_favors'] == 'GCE'
+    assert [panel['reference'] for panel in gains['panels']] == ['marked_lineage', 'marked_asymmetric']
+    runs = {(r['condition'], r['arm'], r['sequence']): r for r in data['runs']}
+    for panel in gains['panels']:
+        assert [point['sequence'] for point in panel['points']] == data['sequences']
+        assert panel['x_limits'] == panel['y_limits'] and panel['equal_axis_scale']
+        assert not panel['coordinate_jitter']
+        counts = Counter()
+        for point in panel['points']:
+            values = []
+            for condition in ['reliable', 'intermittent']:
+                gain = (runs[condition, panel['reference'], point['sequence']]['ospa']
+                        - runs[condition, primary, point['sequence']]['ospa'])
+                close(point[condition+'_gain_m'], gain)
+                assert panel['x_limits'][0] < gain < panel['x_limits'][1]
+                values.append(gain)
+            category = ('both' if min(values) > 0 else
+                        'neither' if max(values) <= 0 else 'one')
+            assert point['outcome'] == category
+            counts[category] += 1
+        assert dict(counts) == panel['outcome_counts'] and sum(counts.values()) == 25
+        assert f'{counts["both"]}/25 improve in both' in (HERE / 'figures/gaussian_paired.svg').read_text()
+    plot_svg = ET.parse(HERE / 'figures/gaussian_paired.svg')
+    marker_count = sum(sum(node.tag.endswith('}use') for node in group.iter())
+                       for group in plot_svg.iter() if group.get('id', '').startswith('PathCollection_'))
+    assert marker_count == 50, ('Incomplete scatter markers', marker_count)
+    axis_boxes = plot_svg.findall('.//{http://www.w3.org/2000/svg}clipPath/{http://www.w3.org/2000/svg}rect')
+    assert len(axis_boxes) == 2
+    assert all(abs(float(box.get('width'))-float(box.get('height'))) < 1e-5 for box in axis_boxes)
     communication = read('gaussian_communication')
     assert communication['evidence_sha256'] == sha(HERE / 'source_data/gaussian_paper_evidence.json')
     assert sum(len(r['sequences']) for r in communication['rows']) == 200
@@ -307,6 +338,7 @@ def check_gaussian_evidence():
     return dict(main_sequences=25, main_frames=5601, development_sequences=9, development_frames=1993,
                 main_methods=11, main_sequence_condition_method_runs=550, scalar_facts_checked=64,
                 paired_sequence_points=300, component_sequence_points=200,
+                main_figure_sequence_markers=50, main_figure_paired_gain_values=100,
                 codec_exact_primary_trajectories=68, all_real_outcomes_previously_seen=True,
                 portable_source_snapshots=len(manifest), source_result_identities=len(data['source_inputs_sha256']))
 

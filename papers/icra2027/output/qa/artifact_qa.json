@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "19247cc80353aa27c9ae73f41b4098edccc5d30850014d7926f038e2aa9ffd91",
+  "pdf_sha256": "c9167d18beb3c5a65b086eafad097216904171a36cd665df8a5cfed8fde1d75c",
   "pages": 7,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 1998,
+  "text_spans_in_page_bounds": 2016,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -100,10 +100,10 @@
       "svg_sha256": "a42984e9e5a916b73400be69ade9ef69aebc3806343964398e7565a6a5872948"
     },
     "gaussian_paired": {
-      "live_svg_text_elements": 17,
+      "live_svg_text_elements": 33,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "77fb7e8f24a8f228daf27595364f69ed905ae8cb8883559c44f2f7aa78b50bf1"
+      "svg_sha256": "9f6e302db03ec4cc40cfe5f6ae52c36195c1a363d26fc0e1d8843bf696fd4f4b"
     },
     "gaussian_components": {
       "live_svg_text_elements": 21,
@@ -145,6 +145,8 @@
     "scalar_facts_checked": 64,
     "paired_sequence_points": 300,
     "component_sequence_points": 200,
+    "main_figure_sequence_markers": 50,
+    "main_figure_paired_gain_values": 100,
     "codec_exact_primary_trajectories": 68,
     "all_real_outcomes_previously_seen": true,
     "portable_source_snapshots": 15,

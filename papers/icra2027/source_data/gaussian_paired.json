@@ -1,1375 +1,360 @@
 {
-  "kind": "paired_sequence_ospa",
-  "groups": [
+  "kind": "paired_cross_condition_ospa_gain",
+  "panels": [
     {
-      "condition": "reliable",
       "reference": "marked_lineage",
-      "summary": {
-        "mean": -0.24636758812625953,
-        "sd": 0.35590227949631187,
-        "low": -0.3877735695823132,
-        "high": -0.11247051633712006,
-        "n": 25
-      },
+      "label": "No-age KLA",
       "points": [
         {
           "sequence": "0001",
-          "value": 0.20671590991643551
+          "reliable_gain_m": -0.20671590991643551,
+          "intermittent_gain_m": 0.07762693307491908,
+          "outcome": "one"
         },
         {
           "sequence": "0002",
-          "value": -0.2656685454871339
+          "reliable_gain_m": 0.2656685454871339,
+          "intermittent_gain_m": 0.14520301525764845,
+          "outcome": "both"
         },
         {
           "sequence": "0003",
-          "value": -0.024819711921069576
+          "reliable_gain_m": 0.024819711921069576,
+          "intermittent_gain_m": 0.09009317548826479,
+          "outcome": "both"
         },
         {
           "sequence": "0004",
-          "value": 0.3745291190169451
+          "reliable_gain_m": -0.3745291190169451,
+          "intermittent_gain_m": 0.12165473362644574,
+          "outcome": "one"
         },
         {
           "sequence": "0006",
-          "value": -0.022191165146623337
+          "reliable_gain_m": 0.022191165146623337,
+          "intermittent_gain_m": 0.02235154924338878,
+          "outcome": "both"
         },
         {
           "sequence": "0007",
-          "value": 0.3618611108680976
+          "reliable_gain_m": -0.3618611108680976,
+          "intermittent_gain_m": 0.2211758590611499,
+          "outcome": "one"
         },
         {
           "sequence": "0008",
-          "value": -0.8488757510662541
+          "reliable_gain_m": 0.8488757510662541,
+          "intermittent_gain_m": 0.33481227437225947,
+          "outcome": "both"
         },
         {
           "sequence": "0009",
-          "value": -0.03713740610527694
+          "reliable_gain_m": 0.03713740610527694,
+          "intermittent_gain_m": 0.039358311473774776,
+          "outcome": "both"
         },
         {
           "sequence": "0011",
-          "value": -0.40463737647181386
+          "reliable_gain_m": 0.40463737647181386,
+          "intermittent_gain_m": 0.22465604942397954,
+          "outcome": "both"
         },
         {
           "sequence": "0012",
-          "value": -0.9722694326560646
+          "reliable_gain_m": 0.9722694326560646,
+          "intermittent_gain_m": 1.0918730793062057,
+          "outcome": "both"
         },
         {
           "sequence": "0013",
-          "value": -0.7595887291231684
+          "reliable_gain_m": 0.7595887291231684,
+          "intermittent_gain_m": 0.37554963230497007,
+          "outcome": "both"
         },
         {
           "sequence": "0014",
-          "value": -0.7671209152743765
+          "reliable_gain_m": 0.7671209152743765,
+          "intermittent_gain_m": 0.7366477843132371,
+          "outcome": "both"
         },
         {
           "sequence": "0016",
-          "value": -0.15957843264826854
+          "reliable_gain_m": 0.15957843264826854,
+          "intermittent_gain_m": 0.0807926385604496,
+          "outcome": "both"
         },
         {
           "sequence": "0017",
-          "value": -0.11998367589122871
+          "reliable_gain_m": 0.11998367589122871,
+          "intermittent_gain_m": 0.08260899335076033,
+          "outcome": "both"
         },
         {
           "sequence": "0018",
-          "value": 0.12355872101426657
+          "reliable_gain_m": -0.12355872101426657,
+          "intermittent_gain_m": -0.09160071231599565,
+          "outcome": "neither"
         },
         {
           "sequence": "0019",
-          "value": -0.27763660839707427
+          "reliable_gain_m": 0.27763660839707427,
+          "intermittent_gain_m": 0.24475840774276492,
+          "outcome": "both"
         },
         {
           "sequence": "0021",
-          "value": -0.33452942062974333
+          "reliable_gain_m": 0.33452942062974333,
+          "intermittent_gain_m": 0.17094122402940126,
+          "outcome": "both"
         },
         {
           "sequence": "0022",
-          "value": -0.30229034421178547
+          "reliable_gain_m": 0.30229034421178547,
+          "intermittent_gain_m": 0.22232645701623577,
+          "outcome": "both"
         },
         {
           "sequence": "0023",
-          "value": -0.4175376168892351
+          "reliable_gain_m": 0.4175376168892351,
+          "intermittent_gain_m": 0.36522736052240434,
+          "outcome": "both"
         },
         {
           "sequence": "0024",
-          "value": -0.10235376723591894
+          "reliable_gain_m": 0.10235376723591894,
+          "intermittent_gain_m": 0.015939286991415447,
+          "outcome": "both"
         },
         {
           "sequence": "0026",
-          "value": 0.0034381628178765666
+          "reliable_gain_m": -0.0034381628178765666,
+          "intermittent_gain_m": 0.21435805511968997,
+          "outcome": "one"
         },
         {
           "sequence": "0027",
-          "value": -0.44224896713128636
+          "reliable_gain_m": 0.44224896713128636,
+          "intermittent_gain_m": 0.36532188414096733,
+          "outcome": "both"
         },
         {
           "sequence": "0028",
-          "value": -0.2862985901545856
+          "reliable_gain_m": 0.2862985901545856,
+          "intermittent_gain_m": 0.1560425388365041,
+          "outcome": "both"
         },
         {
           "sequence": "0029",
-          "value": -0.6098087726114851
+          "reliable_gain_m": 0.6098087726114851,
+          "intermittent_gain_m": 0.2976711498700464,
+          "outcome": "both"
         },
         {
           "sequence": "0031",
-          "value": -0.07471749773771652
+          "reliable_gain_m": 0.07471749773771652,
+          "intermittent_gain_m": 0.0670417910137382,
+          "outcome": "both"
         }
-      ]
-    },
-    {
-      "condition": "reliable",
-      "reference": "marked_er",
-      "summary": {
-        "mean": -0.21585503439103781,
-        "sd": 0.33488611425720693,
-        "low": -0.34529737002780253,
-        "high": -0.08874439842872149,
-        "n": 25
+      ],
+      "outcome_counts": {
+        "both": 20,
+        "one": 4,
+        "neither": 1
       },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.013881781292151008
-        },
-        {
-          "sequence": "0002",
-          "value": -0.16122595833498243
-        },
-        {
-          "sequence": "0003",
-          "value": -0.08893903806999526
-        },
-        {
-          "sequence": "0004",
-          "value": 0.3374877776664378
-        },
-        {
-          "sequence": "0006",
-          "value": -0.022191966666138874
-        },
-        {
-          "sequence": "0007",
-          "value": 0.14310758350808905
-        },
-        {
-          "sequence": "0008",
-          "value": -0.6994427635141749
-        },
-        {
-          "sequence": "0009",
-          "value": 0.18470549439121964
-        },
-        {
-          "sequence": "0011",
-          "value": 0.03497605468201348
-        },
-        {
-          "sequence": "0012",
-          "value": -0.6970376791086004
-        },
-        {
-          "sequence": "0013",
-          "value": -0.8373454555993516
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7671160102520398
-        },
-        {
-          "sequence": "0016",
-          "value": -0.06306184051281516
-        },
-        {
-          "sequence": "0017",
-          "value": 0.09103904115249861
-        },
-        {
-          "sequence": "0018",
-          "value": 0.15062074218790045
-        },
-        {
-          "sequence": "0019",
-          "value": -0.2861716305466424
-        },
-        {
-          "sequence": "0021",
-          "value": -0.4455168170430115
-        },
-        {
-          "sequence": "0022",
-          "value": -0.08759303113471795
-        },
-        {
-          "sequence": "0023",
-          "value": -0.1728454590088253
-        },
-        {
-          "sequence": "0024",
-          "value": 0.011487278556864933
-        },
-        {
-          "sequence": "0026",
-          "value": -0.6845095983625109
-        },
-        {
-          "sequence": "0027",
-          "value": -0.4456451225884823
-        },
-        {
-          "sequence": "0028",
-          "value": -0.32309062340130446
-        },
-        {
-          "sequence": "0029",
-          "value": -0.5072124306762928
-        },
-        {
-          "sequence": "0031",
-          "value": -0.07473618839323493
-        }
-      ]
+      "x_limits": [
+        -0.45,
+        1.2
+      ],
+      "y_limits": [
+        -0.45,
+        1.2
+      ],
+      "equal_axis_scale": true,
+      "coordinate_jitter": false
     },
     {
-      "condition": "reliable",
-      "reference": "marked_conservative",
-      "summary": {
-        "mean": -0.21636523795205448,
-        "sd": 0.36247765232434964,
-        "low": -0.3589258908174804,
-        "high": -0.07776608315843796,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.36186490838425867
-        },
-        {
-          "sequence": "0002",
-          "value": -0.11008174536595039
-        },
-        {
-          "sequence": "0003",
-          "value": 0.03125224098133961
-        },
-        {
-          "sequence": "0004",
-          "value": -0.2109924515565358
-        },
-        {
-          "sequence": "0006",
-          "value": -0.02219116531532872
-        },
-        {
-          "sequence": "0007",
-          "value": 0.5843920498729709
-        },
-        {
-          "sequence": "0008",
-          "value": -0.814856821415888
-        },
-        {
-          "sequence": "0009",
-          "value": -0.056854576390492184
-        },
-        {
-          "sequence": "0011",
-          "value": -0.2533655919320199
-        },
-        {
-          "sequence": "0012",
-          "value": -0.8464541233877156
-        },
-        {
-          "sequence": "0013",
-          "value": -0.7881520919635436
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7671209885627048
-        },
-        {
-          "sequence": "0016",
-          "value": -0.0809193564789874
-        },
-        {
-          "sequence": "0017",
-          "value": -0.1850966536928551
-        },
-        {
-          "sequence": "0018",
-          "value": 0.1411394054249575
-        },
-        {
-          "sequence": "0019",
-          "value": -0.15388379821056786
-        },
-        {
-          "sequence": "0021",
-          "value": -0.24653118461528045
-        },
-        {
-          "sequence": "0022",
-          "value": -0.27569054190271336
-        },
-        {
-          "sequence": "0023",
-          "value": -0.31725404022346027
-        },
-        {
-          "sequence": "0024",
-          "value": -0.10243364672786237
-        },
-        {
-          "sequence": "0026",
-          "value": 0.21948914181195978
-        },
-        {
-          "sequence": "0027",
-          "value": -0.5090766388663956
-        },
-        {
-          "sequence": "0028",
-          "value": -0.29787695074558274
-        },
-        {
-          "sequence": "0029",
-          "value": -0.6337191164711218
-        },
-        {
-          "sequence": "0031",
-          "value": -0.07471721145184285
-        }
-      ]
-    },
-    {
-      "condition": "reliable",
-      "reference": "marked_ceiling_score",
-      "summary": {
-        "mean": -0.21031867121480652,
-        "sd": 0.3272743339592136,
-        "low": -0.34194365918701836,
-        "high": -0.08537976044064882,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.2543360435976769
-        },
-        {
-          "sequence": "0002",
-          "value": -0.11008186029627964
-        },
-        {
-          "sequence": "0003",
-          "value": -0.00570338480143473
-        },
-        {
-          "sequence": "0004",
-          "value": -0.1896476420598603
-        },
-        {
-          "sequence": "0006",
-          "value": -0.02219116531532872
-        },
-        {
-          "sequence": "0007",
-          "value": 0.4480066318854341
-        },
-        {
-          "sequence": "0008",
-          "value": -0.7928762883949867
-        },
-        {
-          "sequence": "0009",
-          "value": -0.047674622276148604
-        },
-        {
-          "sequence": "0011",
-          "value": -0.12811984485234795
-        },
-        {
-          "sequence": "0012",
-          "value": -0.866777582665164
-        },
-        {
-          "sequence": "0013",
-          "value": -0.7881545343694518
-        },
-        {
-          "sequence": "0014",
-          "value": -0.767120920290429
-        },
-        {
-          "sequence": "0016",
-          "value": -0.03841796795600194
-        },
-        {
-          "sequence": "0017",
-          "value": -0.05604835264571584
-        },
-        {
-          "sequence": "0018",
-          "value": 0.16996672705713678
-        },
-        {
-          "sequence": "0019",
-          "value": -0.2465562521394089
-        },
-        {
-          "sequence": "0021",
-          "value": -0.17656071306553667
-        },
-        {
-          "sequence": "0022",
-          "value": -0.13463237259168537
-        },
-        {
-          "sequence": "0023",
-          "value": -0.28389514029195073
-        },
-        {
-          "sequence": "0024",
-          "value": -0.10290672162507586
-        },
-        {
-          "sequence": "0026",
-          "value": -0.15625701169362838
-        },
-        {
-          "sequence": "0027",
-          "value": -0.41996952091368467
-        },
-        {
-          "sequence": "0028",
-          "value": -0.1991494605213262
-        },
-        {
-          "sequence": "0029",
-          "value": -0.5228026723556782
-        },
-        {
-          "sequence": "0031",
-          "value": -0.07473215178928605
-        }
-      ]
-    },
-    {
-      "condition": "reliable",
-      "reference": "marked_ceiling_calibrated",
-      "summary": {
-        "mean": -0.1935625496087085,
-        "sd": 0.33773776391971194,
-        "low": -0.3303352136117156,
-        "high": -0.06736373167599019,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.1501329970962475
-        },
-        {
-          "sequence": "0002",
-          "value": -0.13763970884565513
-        },
-        {
-          "sequence": "0003",
-          "value": -0.009795663848636504
-        },
-        {
-          "sequence": "0004",
-          "value": 0.04002473141937646
-        },
-        {
-          "sequence": "0006",
-          "value": -0.02219116531532872
-        },
-        {
-          "sequence": "0007",
-          "value": 0.4480069142240177
-        },
-        {
-          "sequence": "0008",
-          "value": -0.745055257091682
-        },
-        {
-          "sequence": "0009",
-          "value": 0.08800482515750208
-        },
-        {
-          "sequence": "0011",
-          "value": -0.017003448301926127
-        },
-        {
-          "sequence": "0012",
-          "value": -0.8825786727563996
-        },
-        {
-          "sequence": "0013",
-          "value": -0.8221212125790447
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7671209235538461
-        },
-        {
-          "sequence": "0016",
-          "value": -0.08300955210550143
-        },
-        {
-          "sequence": "0017",
-          "value": 0.04074527812302753
-        },
-        {
-          "sequence": "0018",
-          "value": 0.1699755065362618
-        },
-        {
-          "sequence": "0019",
-          "value": -0.2472408461433342
-        },
-        {
-          "sequence": "0021",
-          "value": -0.2062333715887643
-        },
-        {
-          "sequence": "0022",
-          "value": -0.0958596123558828
-        },
-        {
-          "sequence": "0023",
-          "value": -0.09196200489378192
-        },
-        {
-          "sequence": "0024",
-          "value": -0.024277376808184092
-        },
-        {
-          "sequence": "0026",
-          "value": -0.34303950312636466
-        },
-        {
-          "sequence": "0027",
-          "value": -0.49951867241056647
-        },
-        {
-          "sequence": "0028",
-          "value": -0.20890391089881444
-        },
-        {
-          "sequence": "0029",
-          "value": -0.497670938010204
-        },
-        {
-          "sequence": "0031",
-          "value": -0.07473215214022888
-        }
-      ]
-    },
-    {
-      "condition": "reliable",
       "reference": "marked_asymmetric",
-      "summary": {
-        "mean": -0.06971561189915121,
-        "sd": 0.15635766366033865,
-        "low": -0.13487043383772918,
-        "high": -0.01330852509566107,
-        "n": 25
-      },
+      "label": "Scalar",
       "points": [
         {
           "sequence": "0001",
-          "value": 0.15441040519680183
+          "reliable_gain_m": -0.15441040519680183,
+          "intermittent_gain_m": -0.08300192478335688,
+          "outcome": "neither"
         },
         {
           "sequence": "0002",
-          "value": -0.018124228660628683
+          "reliable_gain_m": 0.018124228660628683,
+          "intermittent_gain_m": 0.00020091162378443883,
+          "outcome": "both"
         },
         {
           "sequence": "0003",
-          "value": 0.041709297569471504
+          "reliable_gain_m": -0.041709297569471504,
+          "intermittent_gain_m": -0.05267946755857933,
+          "outcome": "neither"
         },
         {
           "sequence": "0004",
-          "value": -0.11097753928017307
+          "reliable_gain_m": 0.11097753928017307,
+          "intermittent_gain_m": 0.019050769340518414,
+          "outcome": "both"
         },
         {
           "sequence": "0006",
-          "value": 0.0016534943857001716
+          "reliable_gain_m": -0.0016534943857001716,
+          "intermittent_gain_m": -0.0014593160528458826,
+          "outcome": "neither"
         },
         {
           "sequence": "0007",
-          "value": 0.0020620439349743336
+          "reliable_gain_m": -0.0020620439349743336,
+          "intermittent_gain_m": 0.14778197581508312,
+          "outcome": "one"
         },
         {
           "sequence": "0008",
-          "value": -0.07676654665518345
+          "reliable_gain_m": 0.07676654665518345,
+          "intermittent_gain_m": -0.0030088235812799624,
+          "outcome": "one"
         },
         {
           "sequence": "0009",
-          "value": -0.07787505308760068
+          "reliable_gain_m": 0.07787505308760068,
+          "intermittent_gain_m": 0.06290657123712329,
+          "outcome": "both"
         },
         {
           "sequence": "0011",
-          "value": -0.0004024830621585096
+          "reliable_gain_m": 0.0004024830621585096,
+          "intermittent_gain_m": 0.1414835163857231,
+          "outcome": "both"
         },
         {
           "sequence": "0012",
-          "value": -0.08578197628080542
+          "reliable_gain_m": 0.08578197628080542,
+          "intermittent_gain_m": 0.551253312898127,
+          "outcome": "both"
         },
         {
           "sequence": "0013",
-          "value": 0.0930843737838174
+          "reliable_gain_m": -0.0930843737838174,
+          "intermittent_gain_m": 0.11081903649973146,
+          "outcome": "one"
         },
         {
           "sequence": "0014",
-          "value": -0.5866599628839069
+          "reliable_gain_m": 0.5866599628839069,
+          "intermittent_gain_m": 0.24048797924590204,
+          "outcome": "both"
         },
         {
           "sequence": "0016",
-          "value": 0.0348975431405516
+          "reliable_gain_m": -0.0348975431405516,
+          "intermittent_gain_m": -0.0397933622993456,
+          "outcome": "neither"
         },
         {
           "sequence": "0017",
-          "value": -0.07818526814855886
+          "reliable_gain_m": 0.07818526814855886,
+          "intermittent_gain_m": 0.0772268178049682,
+          "outcome": "both"
         },
         {
           "sequence": "0018",
-          "value": -0.0031534006894102795
+          "reliable_gain_m": 0.0031534006894102795,
+          "intermittent_gain_m": 0.049027786709649135,
+          "outcome": "both"
         },
         {
           "sequence": "0019",
-          "value": -0.12122431578793247
+          "reliable_gain_m": 0.12122431578793247,
+          "intermittent_gain_m": 0.07117599547189801,
+          "outcome": "both"
         },
         {
           "sequence": "0021",
-          "value": 0.1236966289307353
+          "reliable_gain_m": -0.1236966289307353,
+          "intermittent_gain_m": -0.04912818869789426,
+          "outcome": "neither"
         },
         {
           "sequence": "0022",
-          "value": -0.1938500149839264
+          "reliable_gain_m": 0.1938500149839264,
+          "intermittent_gain_m": 0.12399243854115527,
+          "outcome": "both"
         },
         {
           "sequence": "0023",
-          "value": -0.21061700803880745
+          "reliable_gain_m": 0.21061700803880745,
+          "intermittent_gain_m": 0.11759264057830476,
+          "outcome": "both"
         },
         {
           "sequence": "0024",
-          "value": 0.002500499677430712
+          "reliable_gain_m": -0.002500499677430712,
+          "intermittent_gain_m": -0.011702111604020793,
+          "outcome": "neither"
         },
         {
           "sequence": "0026",
-          "value": 0.019252061885826954
+          "reliable_gain_m": -0.019252061885826954,
+          "intermittent_gain_m": -0.15238451229230332,
+          "outcome": "neither"
         },
         {
           "sequence": "0027",
-          "value": -0.19946834825116788
+          "reliable_gain_m": 0.19946834825116788,
+          "intermittent_gain_m": 0.18148083734503917,
+          "outcome": "both"
         },
         {
           "sequence": "0028",
-          "value": -0.1885736447069668
+          "reliable_gain_m": 0.1885736447069668,
+          "intermittent_gain_m": 0.18181520884043945,
+          "outcome": "both"
         },
         {
           "sequence": "0029",
-          "value": -0.31648896746506416
+          "reliable_gain_m": 0.31648896746506416,
+          "intermittent_gain_m": 0.13320930537285047,
+          "outcome": "both"
         },
         {
           "sequence": "0031",
-          "value": 0.051992111998201196
+          "reliable_gain_m": -0.051992111998201196,
+          "intermittent_gain_m": -0.05967278380358687,
+          "outcome": "neither"
         }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_lineage",
-      "summary": {
-        "mean": -0.226897258872985,
-        "sd": 0.24521965012380326,
-        "low": -0.33128361836386333,
-        "high": -0.1430419422247748,
-        "n": 25
+      ],
+      "outcome_counts": {
+        "both": 14,
+        "one": 3,
+        "neither": 8
       },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": -0.07762693307491908
-        },
-        {
-          "sequence": "0002",
-          "value": -0.14520301525764845
-        },
-        {
-          "sequence": "0003",
-          "value": -0.09009317548826479
-        },
-        {
-          "sequence": "0004",
-          "value": -0.12165473362644574
-        },
-        {
-          "sequence": "0006",
-          "value": -0.02235154924338878
-        },
-        {
-          "sequence": "0007",
-          "value": -0.2211758590611499
-        },
-        {
-          "sequence": "0008",
-          "value": -0.33481227437225947
-        },
-        {
-          "sequence": "0009",
-          "value": -0.039358311473774776
-        },
-        {
-          "sequence": "0011",
-          "value": -0.22465604942397954
-        },
-        {
-          "sequence": "0012",
-          "value": -1.0918730793062057
-        },
-        {
-          "sequence": "0013",
-          "value": -0.37554963230497007
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7366477843132371
-        },
-        {
-          "sequence": "0016",
-          "value": -0.0807926385604496
-        },
-        {
-          "sequence": "0017",
-          "value": -0.08260899335076033
-        },
-        {
-          "sequence": "0018",
-          "value": 0.09160071231599565
-        },
-        {
-          "sequence": "0019",
-          "value": -0.24475840774276492
-        },
-        {
-          "sequence": "0021",
-          "value": -0.17094122402940126
-        },
-        {
-          "sequence": "0022",
-          "value": -0.22232645701623577
-        },
-        {
-          "sequence": "0023",
-          "value": -0.36522736052240434
-        },
-        {
-          "sequence": "0024",
-          "value": -0.015939286991415447
-        },
-        {
-          "sequence": "0026",
-          "value": -0.21435805511968997
-        },
-        {
-          "sequence": "0027",
-          "value": -0.36532188414096733
-        },
-        {
-          "sequence": "0028",
-          "value": -0.1560425388365041
-        },
-        {
-          "sequence": "0029",
-          "value": -0.2976711498700464
-        },
-        {
-          "sequence": "0031",
-          "value": -0.0670417910137382
-        }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_er",
-      "summary": {
-        "mean": -0.19046580658105605,
-        "sd": 0.265273577993206,
-        "low": -0.2942035595859335,
-        "high": -0.09217836813401152,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": -0.14487128414266515
-        },
-        {
-          "sequence": "0002",
-          "value": -0.17328398117704635
-        },
-        {
-          "sequence": "0003",
-          "value": -0.12619645705488747
-        },
-        {
-          "sequence": "0004",
-          "value": 0.1279786248858854
-        },
-        {
-          "sequence": "0006",
-          "value": -0.02235156232012625
-        },
-        {
-          "sequence": "0007",
-          "value": -0.34753625207579564
-        },
-        {
-          "sequence": "0008",
-          "value": -0.3177173217909246
-        },
-        {
-          "sequence": "0009",
-          "value": 0.09614235305340468
-        },
-        {
-          "sequence": "0011",
-          "value": 0.16749363890541114
-        },
-        {
-          "sequence": "0012",
-          "value": -0.7410344105360895
-        },
-        {
-          "sequence": "0013",
-          "value": -0.35203517335892
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7366603750341651
-        },
-        {
-          "sequence": "0016",
-          "value": -0.08784801367293271
-        },
-        {
-          "sequence": "0017",
-          "value": 0.08797186141563085
-        },
-        {
-          "sequence": "0018",
-          "value": 0.11925035446509513
-        },
-        {
-          "sequence": "0019",
-          "value": -0.15603121768693828
-        },
-        {
-          "sequence": "0021",
-          "value": -0.3693805570323505
-        },
-        {
-          "sequence": "0022",
-          "value": 0.009162588336013577
-        },
-        {
-          "sequence": "0023",
-          "value": -0.16958860227328731
-        },
-        {
-          "sequence": "0024",
-          "value": 0.005249945602331607
-        },
-        {
-          "sequence": "0026",
-          "value": -0.7769749032407898
-        },
-        {
-          "sequence": "0027",
-          "value": -0.28942194925894427
-        },
-        {
-          "sequence": "0028",
-          "value": -0.2131137900817186
-        },
-        {
-          "sequence": "0029",
-          "value": -0.2837863559050522
-        },
-        {
-          "sequence": "0031",
-          "value": -0.06706232454753902
-        }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_conservative",
-      "summary": {
-        "mean": -0.19489612317047322,
-        "sd": 0.2627135785678363,
-        "low": -0.30619727786045126,
-        "high": -0.10332217928892518,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.0771228329861513
-        },
-        {
-          "sequence": "0002",
-          "value": -0.11864977061348059
-        },
-        {
-          "sequence": "0003",
-          "value": -0.022205638344827028
-        },
-        {
-          "sequence": "0004",
-          "value": -0.12165509316783396
-        },
-        {
-          "sequence": "0006",
-          "value": -0.022351538172868834
-        },
-        {
-          "sequence": "0007",
-          "value": 0.08965586005989934
-        },
-        {
-          "sequence": "0008",
-          "value": -0.32154743352350756
-        },
-        {
-          "sequence": "0009",
-          "value": -0.07225556736196115
-        },
-        {
-          "sequence": "0011",
-          "value": -0.32154432763498475
-        },
-        {
-          "sequence": "0012",
-          "value": -1.0497505019318316
-        },
-        {
-          "sequence": "0013",
-          "value": -0.29013062897339204
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7366482726647119
-        },
-        {
-          "sequence": "0016",
-          "value": -0.05794952895419936
-        },
-        {
-          "sequence": "0017",
-          "value": -0.13476115409175105
-        },
-        {
-          "sequence": "0018",
-          "value": 0.09159083062136686
-        },
-        {
-          "sequence": "0019",
-          "value": -0.23313356418728848
-        },
-        {
-          "sequence": "0021",
-          "value": -0.09281968834507648
-        },
-        {
-          "sequence": "0022",
-          "value": -0.13591908428021338
-        },
-        {
-          "sequence": "0023",
-          "value": -0.46212703960976986
-        },
-        {
-          "sequence": "0024",
-          "value": -0.01594305689549458
-        },
-        {
-          "sequence": "0026",
-          "value": 0.05809179111741969
-        },
-        {
-          "sequence": "0027",
-          "value": -0.3771109926171743
-        },
-        {
-          "sequence": "0028",
-          "value": -0.2298334058732867
-        },
-        {
-          "sequence": "0029",
-          "value": -0.3054863541466366
-        },
-        {
-          "sequence": "0031",
-          "value": -0.06704175265637691
-        }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_ceiling_score",
-      "summary": {
-        "mean": -0.15208304734862957,
-        "sd": 0.2161052132417074,
-        "low": -0.24240486714928486,
-        "high": -0.0747681765854246,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.02787700482477451
-        },
-        {
-          "sequence": "0002",
-          "value": -0.14673181609193442
-        },
-        {
-          "sequence": "0003",
-          "value": -0.04959137107410205
-        },
-        {
-          "sequence": "0004",
-          "value": 0.04724706093033726
-        },
-        {
-          "sequence": "0006",
-          "value": -0.022351538172868834
-        },
-        {
-          "sequence": "0007",
-          "value": 0.08965586738966014
-        },
-        {
-          "sequence": "0008",
-          "value": -0.3186178427908928
-        },
-        {
-          "sequence": "0009",
-          "value": -0.04941586658063457
-        },
-        {
-          "sequence": "0011",
-          "value": -0.1472689548076902
-        },
-        {
-          "sequence": "0012",
-          "value": -0.715343986239839
-        },
-        {
-          "sequence": "0013",
-          "value": -0.27793464051018013
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7366485378176684
-        },
-        {
-          "sequence": "0016",
-          "value": -0.02181541061497283
-        },
-        {
-          "sequence": "0017",
-          "value": 0.004412351385880697
-        },
-        {
-          "sequence": "0018",
-          "value": 0.11924796398477744
-        },
-        {
-          "sequence": "0019",
-          "value": -0.2614720403446378
-        },
-        {
-          "sequence": "0021",
-          "value": -0.0627800304425623
-        },
-        {
-          "sequence": "0022",
-          "value": -0.05967809671543467
-        },
-        {
-          "sequence": "0023",
-          "value": -0.2937649659596273
-        },
-        {
-          "sequence": "0024",
-          "value": -0.005641238748108401
-        },
-        {
-          "sequence": "0026",
-          "value": -0.043757565405319276
-        },
-        {
-          "sequence": "0027",
-          "value": -0.2981078032459985
-        },
-        {
-          "sequence": "0028",
-          "value": -0.21941081301548726
-        },
-        {
-          "sequence": "0029",
-          "value": -0.2931421609968341
-        },
-        {
-          "sequence": "0031",
-          "value": -0.06704175265637691
-        }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_ceiling_calibrated",
-      "summary": {
-        "mean": -0.13536960029478162,
-        "sd": 0.21148136237451665,
-        "low": -0.22066329020115444,
-        "high": -0.057735082343319435,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.02188584580018116
-        },
-        {
-          "sequence": "0002",
-          "value": -0.14673181950675973
-        },
-        {
-          "sequence": "0003",
-          "value": -0.07351155191853653
-        },
-        {
-          "sequence": "0004",
-          "value": 0.07689428666926368
-        },
-        {
-          "sequence": "0006",
-          "value": -0.022351538172868834
-        },
-        {
-          "sequence": "0007",
-          "value": -0.006201063360685488
-        },
-        {
-          "sequence": "0008",
-          "value": -0.30583306515519926
-        },
-        {
-          "sequence": "0009",
-          "value": -0.0015346677233187833
-        },
-        {
-          "sequence": "0011",
-          "value": -0.1098606113719156
-        },
-        {
-          "sequence": "0012",
-          "value": -0.526460470818348
-        },
-        {
-          "sequence": "0013",
-          "value": -0.3118723180368588
-        },
-        {
-          "sequence": "0014",
-          "value": -0.7366420451198419
-        },
-        {
-          "sequence": "0016",
-          "value": -0.02897182978196655
-        },
-        {
-          "sequence": "0017",
-          "value": 0.2586812188724479
-        },
-        {
-          "sequence": "0018",
-          "value": 0.11924848185759984
-        },
-        {
-          "sequence": "0019",
-          "value": -0.22332689998165822
-        },
-        {
-          "sequence": "0021",
-          "value": -0.04147786187668334
-        },
-        {
-          "sequence": "0022",
-          "value": 0.006537622365296425
-        },
-        {
-          "sequence": "0023",
-          "value": -0.2572767352218963
-        },
-        {
-          "sequence": "0024",
-          "value": -0.013022845074774914
-        },
-        {
-          "sequence": "0026",
-          "value": -0.14862782567111044
-        },
-        {
-          "sequence": "0027",
-          "value": -0.34280132727948676
-        },
-        {
-          "sequence": "0028",
-          "value": -0.20768967013524664
-        },
-        {
-          "sequence": "0029",
-          "value": -0.2962514614655536
-        },
-        {
-          "sequence": "0031",
-          "value": -0.06704185526161988
-        }
-      ]
-    },
-    {
-      "condition": "intermittent",
-      "reference": "marked_asymmetric",
-      "summary": {
-        "mean": -0.07026698452148337,
-        "sd": 0.1389995241369921,
-        "low": -0.12942555071763487,
-        "high": -0.02097418588048798,
-        "n": 25
-      },
-      "points": [
-        {
-          "sequence": "0001",
-          "value": 0.08300192478335688
-        },
-        {
-          "sequence": "0002",
-          "value": -0.00020091162378443883
-        },
-        {
-          "sequence": "0003",
-          "value": 0.05267946755857933
-        },
-        {
-          "sequence": "0004",
-          "value": -0.019050769340518414
-        },
-        {
-          "sequence": "0006",
-          "value": 0.0014593160528458826
-        },
-        {
-          "sequence": "0007",
-          "value": -0.14778197581508312
-        },
-        {
-          "sequence": "0008",
-          "value": 0.0030088235812799624
-        },
-        {
-          "sequence": "0009",
-          "value": -0.06290657123712329
-        },
-        {
-          "sequence": "0011",
-          "value": -0.1414835163857231
-        },
-        {
-          "sequence": "0012",
-          "value": -0.551253312898127
-        },
-        {
-          "sequence": "0013",
-          "value": -0.11081903649973146
-        },
-        {
-          "sequence": "0014",
-          "value": -0.24048797924590204
-        },
-        {
-          "sequence": "0016",
-          "value": 0.0397933622993456
-        },
-        {
-          "sequence": "0017",
-          "value": -0.0772268178049682
-        },
-        {
-          "sequence": "0018",
-          "value": -0.049027786709649135
-        },
-        {
-          "sequence": "0019",
-          "value": -0.07117599547189801
-        },
-        {
-          "sequence": "0021",
-          "value": 0.04912818869789426
-        },
-        {
-          "sequence": "0022",
-          "value": -0.12399243854115527
-        },
-        {
-          "sequence": "0023",
-          "value": -0.11759264057830476
-        },
-        {
-          "sequence": "0024",
-          "value": 0.011702111604020793
-        },
-        {
-          "sequence": "0026",
-          "value": 0.15238451229230332
-        },
-        {
-          "sequence": "0027",
-          "value": -0.18148083734503917
-        },
-        {
-          "sequence": "0028",
-          "value": -0.18181520884043945
-        },
-        {
-          "sequence": "0029",
-          "value": -0.13320930537285047
-        },
-        {
-          "sequence": "0031",
-          "value": 0.05967278380358687
-        }
-      ]
+      "x_limits": [
+        -0.2,
+        0.65
+      ],
+      "y_limits": [
+        -0.2,
+        0.65
+      ],
+      "equal_axis_scale": true,
+      "coordinate_jitter": false
     }
   ],
-  "point_count": 300,
-  "rendered_estimate_count": 12,
-  "plotted_statistic": "Equal-sequence mean and paired 95% percentile interval",
-  "individual_points_displayed": false,
-  "individual_points_companion": "gaussian_sequence_differences",
-  "x_limits": [
-    -0.425,
-    0.025
-  ],
-  "point_unit": "complete sequence",
-  "interval": "10000 percentile bootstrap resamples of the 25 paired sequences",
+  "point_count": 50,
+  "number_of_sequence_measurements": 100,
+  "sequence_count": 25,
+  "individual_points_displayed": true,
+  "point_unit": "one complete sequence paired across both link conditions",
+  "plotted_statistic": "Reference OSPA minus GCE OSPA for each sequence and condition",
+  "reference_selection": "No-age KLA is the inherited posterior pool; Scalar is the closest existence-only reference.",
+  "all_reference_companion": "gaussian_sequence_differences",
+  "outcome_rule": "Strictly positive gain in both, one, or neither condition",
+  "intervals_shown": false,
+  "positive_favors": "GCE",
   "development_corpus": true,
-  "negative_favors": "GCE",
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
 }

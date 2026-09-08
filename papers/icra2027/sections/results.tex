@@ -1,13 +1,28 @@
 \section{Results}
+% Queue the remaining result floats before their discussion.
+\input{generated/ablation_table}
+
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/gaussian_communication.pdf}
+ \caption{Communication and tracking accuracy, averaged over 25 sequences.
+ The arrows connect full and encoded GCE packets: exact zero omission
+ lowers raw payload while retaining identical OSPA. No-age KLA and Scalar
+ provide the reference tradeoffs. Lower and leftward are better.}
+ \label{fig:communication}
+\end{figure*}
+\input{generated/communication_table}
+
 \subsection{Lower set error across both link conditions}
 GCE achieves the lowest OSPA among all main comparison methods
 (Table~\ref{tab:main}). It improves on No-age KLA by
 \GainNoAgeReliable\%/\GainNoAgeIntermittent\% and on Recency by
 \GainRecencyReliable\%/\GainRecencyIntermittent\%
-(reliable/intermittent). Figure~\ref{fig:paired} shows that the paired
-OSPA intervals lie below zero against every geometric reference,
+(reliable/intermittent). The paired 95\% OSPA intervals lie below zero against every geometric reference,
 including both capped variants and Scalar. The improvement is thus
 consistent across several ways of weighting inherited posteriors.
+Figure~\ref{fig:paired} complements these aggregate results by pairing
+each sequence's gains across the two link conditions, separating
+consistent gains from condition-specific reversals.
 
 The gain improves several aspects of tracking together. Relative to
 No-age KLA, missed-target cost falls by
@@ -24,24 +39,14 @@ MIL-AM and both track-consensus adaptations.
 \subsection{Joint correction and component ablations}
 Table~\ref{tab:ablation} separates the Scalar reference, three component
 removals, and the complete GCE rule. GCE improves on Scalar in both
-conditions, with both paired OSPA intervals below zero
-(Fig.~\ref{fig:paired}). It reduces missed-target cost and common-target
+conditions, with both paired OSPA intervals below zero.
+It reduces missed-target cost and common-target
 localization error, with a small increase in false-target cost. Applying
 the joint correction to the same saved fusion inputs also lowers OSPA
 relative to the scalar substitution. The immediate fusion benefit
 therefore accompanies the improvement accumulated through recursive
 tracking.
 
-\input{generated/ablation_table}
-
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/gaussian_communication.pdf}
- \caption{Communication and tracking accuracy, averaged over 25 sequences.
- The arrows connect full and encoded GCE packets: exact zero omission
- lowers raw payload while retaining identical OSPA. No-age KLA and Scalar
- provide the reference tradeoffs. Lower and leftward are better.}
- \label{fig:communication}
-\end{figure*}
 
 The curvature guard lowers mean OSPA in both conditions, with a paired
 interval below zero under intermittent links. It also suppresses the
@@ -73,5 +78,3 @@ the reduction is
 fragmented bytes than No-age KLA, in exchange for its lower tracking error.
 The codec thus recovers much of the cost of joint Gaussian evidence
 without weakening the fusion rule.
-
-\input{generated/communication_table}

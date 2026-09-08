@@ -10,13 +10,14 @@
 - 论文：`output/pdf/icra2027_draft.pdf`
 - 可移植源码包：`output/icra2027_review_source.zip`
 - 方法总图：`figures/overview.svg`
-- 配对 OSPA 区间图：`figures/gaussian_paired.svg`
+- 逐序列双条件 OSPA 收益图：`figures/gaussian_paired.svg`
 - 精度与通信开销图：`figures/gaussian_communication.svg`
 - 逐序列视图：`figures/gaussian_sequence_differences.svg`、`figures/gaussian_components.svg`
 - 完整数值：`source_data/gaussian_paper_evidence.json`
 
-每幅图均提供 SVG、矢量 PDF 和 PNG。正文的区间图汇总全部 25 个序列；
-另外两幅逐序列视图保留全部观测点。源数据还包含正文精简后未逐项展示的比较结果。
+每幅图均提供 SVG、矢量 PDF 和 PNG。Fig. 2 的每个点对应同一序列在两种通信条件
+下的 OSPA 收益，两个对照各保留全部 25 个序列，共 50 个双坐标点。其他两幅
+逐序列视图保留全部六种几何对照及消融比较的观测值与区间。
 
 ## 本版重点
 
@@ -29,7 +30,9 @@
 描述和重复的边界声明已精简。数据来源与开发范围集中说明在实验设置中。
 
 主图沿用连续的机器人场景、来源密度、资格判断、两条融合分支及反馈路径，
-统一 Arial 字体、线条和颜色，并简化机器人图形。结果图改为配对区间图，
+统一 Arial 字体、线条和颜色，并简化机器人图形。Fig. 2 以 No-age KLA 和 Scalar
+为两个核心对照，展示逐序列收益的大小、跨通信条件的一致性和符号反转；两种条件
+均改善的序列分别为 20/25 和 14/25。颜色与符号共同编码结果，坐标不加抖动。
 通信图显示完整高斯包到精确编码包的移动及对应精度。
 
 Table I 按各列实际最优值加粗。Table II 将 Scalar 参考、三个单项消融与完整

@@ -58,7 +58,7 @@ def export(fig, name, source):
               individual_points_displayed=source.get('individual_points_displayed', source.get('kind') == 'paired_sequence_ospa'))
     (OUT / f'{name}_text_bounds.json').write_text(json.dumps(qa, indent=2)+'\n')
     plt.close(fig)
-    print('Rendered', name, 'from', source.get('point_count', source.get('number_of_sequence_measurements', 0)), 'sequence measurements.')
+    print('Rendered', name, 'from', source.get('number_of_sequence_measurements', source.get('point_count', 0)), 'sequence measurements.')
 
 
 def comparisons(data, component=False):
@@ -119,46 +119,79 @@ def comparisons(data, component=False):
         development_corpus=True, negative_favors='GCE'))
 
 
-def paired_summary(data):
-    refs = ['marked_lineage', 'marked_er', 'marked_conservative',
-            'marked_ceiling_score', 'marked_ceiling_calibrated', 'marked_asymmetric']
+def paired_sequence_gains(data):
+    refs = ['marked_lineage', 'marked_asymmetric']
     lookup = {(r['condition'], r['reference']): r for r in data['paired']}
-    groups = []
-    fig = plt.figure(figsize=(181/25.4, 59/25.4), dpi=300)
-    axes = [fig.add_axes([.215+i*.405, .245, .355, .62]) for i in range(2)]
-    limits = [-.425, .025]
-    for i, ((condition, title), ax) in enumerate(zip(CONDITIONS, axes)):
-        color, marker = (TEAL, 'o') if i == 0 else (BLUE, 'D')
-        for y, reference in enumerate(refs):
+    panels = []
+    fig = plt.figure(figsize=(181/25.4, 83/25.4), dpi=300)
+    axes = [fig.add_axes([.095+i*.495, .20, .35, .69]) for i in range(2)]
+    styles = {'both': dict(marker='o', color=TEAL, label='Improves both'),
+              'one': dict(marker='D', color=BLUE, label='Improves one'),
+              'neither': dict(marker='x', color='#a85f3d', label='Improves neither')}
+    for i, (reference, ax) in enumerate(zip(refs, axes)):
+        by_condition = {}
+        for condition, _ in CONDITIONS:
             row = lookup[condition, reference]
-            stats = row['ospa']
-            points = [dict(sequence=seq, value=value) for seq, value in zip(row['sequences'], row['ospa_differences'])]
-            assert len(points) == 25 and [p['sequence'] for p in points] == data['sequences']
-            assert np.isclose(np.mean([p['value'] for p in points]), stats['mean'], atol=1e-12)
-            assert limits[0] < stats['low'] < stats['high'] < limits[1]
-            groups.append(dict(condition=condition, reference=reference, summary=stats, points=points))
-            if y % 2 == 0:
-                ax.axhspan(y-.46, y+.46, color='#f4f7f8', lw=0, zorder=0)
-            ax.plot([stats['low'], stats['high']], [y, y], color=color, lw=1.6, solid_capstyle='round', zorder=3)
-            ax.plot([stats['low'], stats['low']], [y-.09, y+.09], color=color, lw=.7)
-            ax.plot([stats['high'], stats['high']], [y-.09, y+.09], color=color, lw=.7)
-            ax.scatter([stats['mean']], [y], s=25, marker=marker, facecolor=color,
-                       edgecolor='white', linewidth=.6, zorder=4)
-        ax.axvline(0, color=INK, lw=.65, linestyle=(0, (3, 2)), zorder=2)
-        ax.set(xlim=limits, ylim=(5.55, -.55), xticks=[-.4, -.2, 0], yticks=range(6),
-               yticklabels=[data['labels'][r] for r in refs] if i == 0 else ['']*6)
-        ax.set_title(title, fontsize=9, color=color, pad=9)
-        ax.set_xlabel('GCE − reference OSPA (m)', fontsize=8, labelpad=5)
-        for edge in ['top', 'right', 'left']:
+            assert row['sequences'] == data['sequences']
+            by_condition[condition] = dict(zip(row['sequences'], row['ospa_differences']))
+        points = []
+        for sequence in data['sequences']:
+            x = -by_condition['reliable'][sequence]
+            y = -by_condition['intermittent'][sequence]
+            positive = int(x > 0)+int(y > 0)
+            points.append(dict(sequence=sequence, reliable_gain_m=x,
+                               intermittent_gain_m=y, outcome=['neither', 'one', 'both'][positive]))
+        counts = {category: sum(p['outcome'] == category for p in points) for category in styles}
+        assert len(points) == sum(counts.values()) == 25
+        limits = [-.45, 1.20] if i == 0 else [-.20, .65]
+        ticks = [-.4, 0, .4, .8, 1.2] if i == 0 else [-.2, 0, .2, .4, .6]
+        ax.add_patch(mpl.patches.Rectangle((0, 0), limits[1], limits[1],
+                     facecolor='#f0f7f5', edgecolor='none', zorder=0))
+        ax.plot(limits, limits, color='#a9b7bd', lw=.65, ls=(0, (3, 3)), zorder=1)
+        ax.axhline(0, color='#788b94', lw=.65, zorder=2)
+        ax.axvline(0, color='#788b94', lw=.65, zorder=2)
+        for category, style in styles.items():
+            selected = [p for p in points if p['outcome'] == category]
+            x = [p['reliable_gain_m'] for p in selected]
+            y = [p['intermittent_gain_m'] for p in selected]
+            if category == 'both':
+                ax.scatter(x, y, s=19, marker=style['marker'], facecolor=style['color'],
+                           edgecolor='white', lw=.5, alpha=.85, zorder=4)
+            elif category == 'one':
+                ax.scatter(x, y, s=22, marker=style['marker'], facecolor='white',
+                           edgecolor=style['color'], lw=.9, zorder=5)
+            else:
+                ax.scatter(x, y, s=23, marker=style['marker'], color=style['color'],
+                           lw=1.0, zorder=6)
+        ax.set(xlim=limits, ylim=limits, xticks=ticks, yticks=ticks)
+        ax.set_aspect('equal', adjustable='box')
+        ax.set_xlabel('Reliable-link OSPA gain (m)', fontsize=8, labelpad=6)
+        ax.set_ylabel('Intermittent-link OSPA gain (m)', fontsize=8, labelpad=6)
+        ax.tick_params(axis='y', length=3, width=.5, pad=4, labelsize=7.5)
+        ax.xaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, pos: '0' if v == 0 else f'{v:.1f}'))
+        ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, pos: '0' if v == 0 else f'{v:.1f}'))
+        for edge in ['top', 'right']:
             ax.spines[edge].set_visible(False)
-        ax.tick_params(axis='y', pad=9, labelsize=8)
-    fig.text(.61, .035, '←  Lower OSPA with GCE', ha='center', va='center', fontsize=7.7, color=INK)
-    export(fig, 'gaussian_paired', dict(kind='paired_sequence_ospa', groups=groups, point_count=300,
-        rendered_estimate_count=12, plotted_statistic='Equal-sequence mean and paired 95% percentile interval',
-        individual_points_displayed=False, individual_points_companion='gaussian_sequence_differences',
-        x_limits=limits, point_unit='complete sequence',
-        interval='10000 percentile bootstrap resamples of the 25 paired sequences',
-        development_corpus=True, negative_favors='GCE'))
+        center = .27+i*.495
+        fig.text(center, .976, f'vs {data["labels"][reference]}', ha='center', va='center', fontsize=9.2, weight='bold')
+        fig.text(center, .933, f'{counts["both"]}/25 improve in both', ha='center', va='center', fontsize=8, color=TEAL)
+        fig.text(.044+i*.495, .976, 'ab'[i], ha='left', va='center', fontsize=10, weight='bold')
+        panels.append(dict(reference=reference, label=data['labels'][reference], points=points,
+                           outcome_counts=counts, x_limits=limits, y_limits=limits,
+                           equal_axis_scale=True, coordinate_jitter=False))
+    handles = [Line2D([], [], marker=style['marker'], linestyle='none',
+                      markerfacecolor=style['color'] if category == 'both' else 'white',
+                      markeredgecolor=style['color'], markeredgewidth=.9, markersize=4,
+                      label=style['label']) for category, style in styles.items()]
+    fig.legend(handles=handles, loc='lower center', ncol=3, frameon=False,
+               bbox_to_anchor=(.52, .012), fontsize=7.8, columnspacing=2.2, handletextpad=.5)
+    export(fig, 'gaussian_paired', dict(kind='paired_cross_condition_ospa_gain', panels=panels,
+        point_count=50, number_of_sequence_measurements=100, sequence_count=25,
+        individual_points_displayed=True, point_unit='one complete sequence paired across both link conditions',
+        plotted_statistic='Reference OSPA minus GCE OSPA for each sequence and condition',
+        reference_selection='No-age KLA is the inherited posterior pool; Scalar is the closest existence-only reference.',
+        all_reference_companion='gaussian_sequence_differences', outcome_rule='Strictly positive gain in both, one, or neither condition',
+        intervals_shown=False, positive_favors='GCE', development_corpus=True))
 
 
 def communication(data):
@@ -225,7 +258,7 @@ def communication(data):
 if __name__ == '__main__':
     OUT.mkdir(exist_ok=True)
     evidence = json.loads((DATA / 'gaussian_paper_evidence.json').read_text())
-    paired_summary(evidence)
+    paired_sequence_gains(evidence)
     comparisons(evidence)
     comparisons(evidence, component=True)
     communication(evidence)
