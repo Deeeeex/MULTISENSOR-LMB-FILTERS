@@ -1,0 +1,27 @@
+"""Record source and all preceding outcomes before selective preflight."""
+from pathlib import Path
+import hashlib
+import json
+
+OUT = Path(__file__).resolve().parent
+ROOT = OUT.parents[1]
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    assert not (OUT / 'source_sha256.json').exists()
+    source = json.loads((OUT.parent / 'icra_marked_joint/source_sha256.json').read_text())
+    for name, value in source.items():
+        assert sha(ROOT / name) == value, name
+    files = list(OUT.glob('*.m')) + [OUT / n for n in ['PROTOCOL.md', 'make_runner.py', 'freeze_source.py']]
+    files += [OUT.parent / 'icra_marked_joint/summary_development.json']
+    source.update({str(p.relative_to(ROOT)): sha(p) for p in files})
+    (OUT / 'source_sha256.json').write_text(json.dumps(source, indent=2, sort_keys=True) + '\n')
+    print('Selective source fixed before preflight:', len(source), 'files.')
+
+
+if __name__ == '__main__':
+    main()

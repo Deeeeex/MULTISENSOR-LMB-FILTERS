@@ -1,0 +1,19 @@
+SELECTIVE START development 0000
+SELECTIVE START development 0001
+SELECTIVE START development 0002
+SELECTIVE END development 0002 return 0 complete True files 8
+SELECTIVE START development 0003
+SELECTIVE END development 0001 return 0 complete True files 8
+SELECTIVE START development 0004
+SELECTIVE END development 0000 return 0 complete True files 8
+SELECTIVE START development 0005
+SELECTIVE END development 0003 return 0 complete True files 8
+SELECTIVE START development 0006
+SELECTIVE END development 0006 return 0 complete True files 8
+SELECTIVE START development 0007
+SELECTIVE END development 0005 return 0 complete True files 8
+SELECTIVE START development 0008
+SELECTIVE END development 0004 return 0 complete True files 8
+SELECTIVE END development 0007 return 0 complete True files 8
+SELECTIVE END development 0008 return 0 complete True files 8
+ALL SELECTIVE STAGE RUNS COMPLETE: development 9 sequences; 72 files.

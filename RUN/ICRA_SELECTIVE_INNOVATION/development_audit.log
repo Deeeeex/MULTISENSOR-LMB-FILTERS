@@ -1,0 +1,20 @@
+SELECTIVE AUDITED development 0000 1 / 9
+SELECTIVE AUDITED development 0001 2 / 9
+SELECTIVE AUDITED development 0002 3 / 9
+SELECTIVE AUDITED development 0003 4 / 9
+SELECTIVE AUDITED development 0004 5 / 9
+SELECTIVE AUDITED development 0005 6 / 9
+SELECTIVE AUDITED development 0006 7 / 9
+SELECTIVE AUDITED development 0007 8 / 9
+SELECTIVE AUDITED development 0008 9 / 9
+development reliable marked_selective minus marked_lineage {'mean': -0.07141206494760666, 'sd': 0.07644409061904787, 'low': -0.12028377675951944, 'high': -0.027238802470730964, 'n': 9}
+development reliable marked_selective minus marked_er {'mean': -0.17123820943789483, 'sd': 0.3848989330874963, 'low': -0.4413693078010351, 'high': -0.004063349682389539, 'n': 9}
+development reliable marked_selective minus marked_conservative {'mean': -0.04480840922010302, 'sd': 0.10632004370100398, 'low': -0.11415293845463406, 'high': 0.017901636587170373, 'n': 9}
+development reliable marked_selective minus marked_ceiling_calibrated {'mean': -0.03475920920019168, 'sd': 0.10327507450131926, 'low': -0.10102558956963294, 'high': 0.02370142140878194, 'n': 9}
+development reliable marked_selective minus marked_ceiling_score {'mean': -0.025308823109147886, 'sd': 0.07500559732098278, 'low': -0.07529205443220528, 'high': 0.01773008841019588, 'n': 9}
+development intermittent marked_selective minus marked_lineage {'mean': -0.0668141320865942, 'sd': 0.11607796461552831, 'low': -0.14108651664132946, 'high': -0.00019898196825036808, 'n': 9}
+development intermittent marked_selective minus marked_er {'mean': -0.13578173786036307, 'sd': 0.18675862741003046, 'low': -0.2583106210899434, 'high': -0.03211097431030669, 'n': 9}
+development intermittent marked_selective minus marked_conservative {'mean': -0.024205010168889367, 'sd': 0.14423728877940248, 'low': -0.09947048715023382, 'high': 0.07602496595113867, 'n': 9}
+development intermittent marked_selective minus marked_ceiling_calibrated {'mean': -0.009729926285303954, 'sd': 0.058812773460144345, 'low': -0.04596343441221277, 'high': 0.026927109915092444, 'n': 9}
+development intermittent marked_selective minus marked_ceiling_score {'mean': 0.014474181517064663, 'sd': 0.12702903840166643, 'low': -0.0495303652334031, 'high': 0.10240222053194199, 'n': 9}
+ALL SELECTIVE OUTPUTS AUDITED development 31888 new node-frames; 39860 baseline node-frames; continuation False

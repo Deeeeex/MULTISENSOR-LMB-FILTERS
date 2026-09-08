@@ -1,0 +1,22 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+START SELECTIVE 0004 reliable marked_selective 180 frames
+DONE SELECTIVE 0004 reliable marked_selective OSPA 5.091074 runtime 51.71s
+START SELECTIVE 0004 reliable marked_selective_no_history 180 frames
+DONE SELECTIVE 0004 reliable marked_selective_no_history OSPA 5.084401 runtime 48.67s
+START SELECTIVE 0004 reliable marked_selective_no_mark 180 frames
+DONE SELECTIVE 0004 reliable marked_selective_no_mark OSPA 4.857496 runtime 32.41s
+START SELECTIVE 0004 reliable marked_selective_signed 180 frames
+DONE SELECTIVE 0004 reliable marked_selective_signed OSPA 5.004096 runtime 46.60s
+START SELECTIVE 0004 intermittent marked_selective 180 frames
+DONE SELECTIVE 0004 intermittent marked_selective OSPA 5.144182 runtime 63.01s
+START SELECTIVE 0004 intermittent marked_selective_no_history 180 frames
+DONE SELECTIVE 0004 intermittent marked_selective_no_history OSPA 5.175773 runtime 72.43s
+START SELECTIVE 0004 intermittent marked_selective_no_mark 180 frames
+DONE SELECTIVE 0004 intermittent marked_selective_no_mark OSPA 4.959299 runtime 31.74s
+START SELECTIVE 0004 intermittent marked_selective_signed 180 frames
+DONE SELECTIVE 0004 intermittent marked_selective_signed OSPA 5.160785 runtime 68.48s
+COMPLETED SELECTIVE indices 4--4 cohort=development

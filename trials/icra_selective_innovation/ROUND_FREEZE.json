@@ -1,0 +1,227 @@
+{
+  "protocol": "selective-current-innovation-v1",
+  "timestamp_utc": "2026-09-08T11:09:08.590493+00:00",
+  "primary": "marked_selective",
+  "arms": [
+    "marked_selective",
+    "marked_selective_no_history",
+    "marked_selective_no_mark",
+    "marked_selective_signed"
+  ],
+  "primary_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "additional_references": [
+    "marked_conservative",
+    "marked_ceiling_calibrated",
+    "marked_ceiling_score"
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "all_previous_real_data_outcomes_seen": true,
+  "primary_selected_before_preflight": true,
+  "secondary_cannot_replace_primary": true,
+  "continuation_rule": "All nine development sequences complete; primary sequence-macro OSPA lower than M-No-age and M-ER in both conditions and no higher than M-CR and M-ECR-S in both conditions. Otherwise reject expansion, retain all secondary results.",
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "source_and_evidence_sha256": {
+    "trials/icra_selective_innovation/PROTOCOL.md": "44cdb96777113684a5ac603e97ec9c132bbd1e7e128f9f91fc2a9c50d953d902",
+    "trials/icra_selective_innovation/source_sha256.json": "1bbb29d4817023f3a3ebb065b37c8eaaa24eb98c2e00b4f302225492a298fda9",
+    "trials/icra_selective_innovation/preflight_audit.json": "e733231d522675f68d793b5a95901626c9d285a0916fe05f939c27063f3f246f",
+    "trials/icra_selective_innovation/analyze_selective.py": "ac3648d22926ffb3b67d81db2d0950e239ee1174a8a70f83777c81082daa307b",
+    "trials/icra_selective_innovation/run_sequences.py": "d852751bd999acf873bf9b124b8ebd77e81b3d00a2e8fe3d7d997a470360abd8",
+    "trials/icra_selective_innovation/register_round.py": "c14f977d68dbf8f68dfffda8e0283b3258822e72bff17b126c7cbfe88fad5a5d",
+    "trials/icra_selective_innovation/make_analysis.py": "89e110d15988c652c1599b31b76abb05d6a466f97604c3a05fe5c49c4f586dea",
+    "trials/icra_selective_innovation/probability_audit.inc": "c7acdb07a2a8c59c6da0cc584764f558148c78b878864e12ff861373d7a0de82",
+    "trials/icra_selective_innovation/make_drivers.py": "ce8ef7b7c2c84fd766e0d38d607e10fd28fb98effaffac3d3cc601ddc00db865",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_fusion_holdout/input_audit.json": "048d3669371014d2ae4df3b55e6545bbeafb1ec4030c4e59fcc3570f63284719",
+    "trials/icra_marked_control/analyze_control.py": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+    "trials/icra_marked_control/analyze_full.py": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+    "trials/icra_marked_control/summary_control.json": "7908d81b4da1d648d28fe0c7b3be5478531b3bc4babed05ea56add5717bf7118",
+    "trials/icra_method_iteration/analyze_development.py": "ce6493b3f9cc96a5b4931ebcb6cec09e2c7ad221e64a04e12bef86b4223e54cb",
+    "trials/icra_external_fusion/analyze_v2v4real.py": "2fc87d20e0114e65a687f788872e37d5d08f11eba2d7c66f51327fa913fd9399",
+    "trials/icra_external_fusion/analyze_case_studies.py": "20aa71fb679b3ea1a7708b83e226fe43d9df5f61845fa8e6965cc9a1922b453b"
+  }
+}
