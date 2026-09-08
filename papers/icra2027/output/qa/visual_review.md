@@ -1,47 +1,43 @@
-# Visual review of the seven-page body and one-page Ack/References revision
+# Visual review of the illustrated Intro revision
 
-Reviewed on 2026-09-09. PDF SHA-256: `bfaa24f989d3f9b7ac601f186151f7b8a1f8e26c7969004fec973df46470aca1`.
+Reviewed on 2026-09-09. PDF SHA-256: `da6f4f7adbeb31fde2396698ff7840f56de9df65f295b8993aa148fc6bfc36da`.
 
-All eight pages of this PDF were inspected at page-preview resolution.
+- Page 1 was inspected with the final illustrated Intro at its compiled
+  single-column size. The sensing vehicles, target, three gray history
+  poses, sensing wedges and dotted rays, pooling/GCE comparison, admitted
+  ratios arrow, and coupled outputs remain visible and correctly connected.
+  Labels and formulas are legible, without visible clipping or collisions.
+  The caption identifies the scene as an illustration and states the
+  idealized shared-prior interpretation.
+- Pages 2-7 are text- and pixel-identical (1.5x renders) to the previously
+  inspected seven-page-body revision. The method, experiment protocol,
+  all numerical results, and other four figures retain that visual review.
+- Page 7 was additionally inspected. Its two body columns end at 733.93
+  and 725.56 pt. Table IV, Fig. 5, and the conclusion remain on this page.
+- Page 8 was inspected after updating the AI acknowledgment to cover the
+  introductory scene. It contains the complete acknowledgment and all
+  thirty references, with twenty-six verified DOI identifiers.
 
-- Page 1 introduces the shared-history/current-observation distinction in
-  Fig. 1. Its arrows, two robot observations, likelihood exponents, and
-  spatial-density/existence outputs are legible in the compiled column.
-- Page 2 contains the complete method overview. Equations and text on
-  pages 2-4 remain within the official two-column layout, without visible
-  text collisions, clipped symbols, or obscured equation numbers.
-- Page 5 contains Table I and the two sequence-level gain panels in Fig. 3.
-  All 25 sequences are retained for each reference; the caption identifies
-  the different panel ranges, while each panel has equal axis scaling.
-- Page 6 contains Tables II-III and the consolidated communication plot.
-  All eight method/condition means are present. Shapes distinguish link
-  conditions, direct labels distinguish methods, and open symbols identify
-  the full Gaussian representation. Both codec savings arrows are legible.
-- Page 7 contains Table IV, the phase comparison in Fig. 5, and the final
-  discussion and conclusion. Both body columns reach near the page bottom
-  (733.93 and 725.56 pt). No figure or table spills onto the reference page.
-- Page 8 contains the acknowledgment and all 30 references in balanced
-  columns. The 26 verified DOI identifiers are rendered. Long titles,
-  journal names, and DOI lines remain within the column boundaries.
+The illustrated figure was reviewed against the third generated master and
+in grayscale. The two vehicles remain identified by direct labels in gray;
+source rays, shared-history dashes, formulas, and the GCE output connector
+remain legible. Three built-in image-generation versions and their prompts
+are retained with the vector source. The street scene is conceptual and
+must not be interpreted as an experiment capture or confidence-region plot.
 
-All five manuscript figures were inspected as separate color and grayscale
-renders, as well as in their compiled page context. The intro schematic's
-pooled and admitted likelihood expressions remain readable in grayscale.
-The gain plot preserves its filled circles, open diamonds, and crosses.
-Communication conditions and phase-comparison references remain separable
-by marker shape without color. Confidence intervals crossing zero remain
-visible in the phase plot; all twelve phase estimates are shown.
+The exported SVG contains all 4802 frozen non-text paths with their
+original fills. The maximum source-coordinate export error is
+9.3e-07 pt, below the 2e-6 pt serialization tolerance.
+All fourteen text/formula elements are live, at least 7.5 pt, and the SVG
+contains no bitmap image element. Vector fitting and font reconstruction
+introduce small appearance differences from the generated raster; this is
+an equal-scale reconstruction, not a claim of pixel-identical bitmap output.
+The non-text RGB comparison and geometry checks are recorded in
+`intro_design/vector_fidelity.json`.
 
-The additional results are diagnostics of complete saved development
-trajectories. The fixed-input table shows all four mean/integral combinations
-under both conditions, with complete GCE last. The accompanying text
-distinguishes immediate output substitutions from recursive tracking and
-reports intervals containing zero. No alternative outputs were fed back,
-and no new tracking experiment is claimed.
-
-Automated artifact checks pass: eight US Letter pages, a seven-page body,
-one Ack/References page, 22 embedded fonts, no Type 3 fonts or annotations,
-no unresolved citations or overfull boxes, and all nine floats before
-References. The official class and bibliography style remain unchanged.
-This records artifact inspection and data-consistency checks, not an
-independent scientific replication or author submission approval.
+Final automated artifact checks pass: eight US Letter pages, seven body
+pages, one Ack/References page, twenty-three embedded fonts, no Type 3
+fonts, no annotations, no unresolved citations or overfull boxes, and all
+nine floats before References. The official class and bibliography style
+remain unchanged. This is artifact validation, not a new tracking run or
+independent scientific replication.

@@ -4,7 +4,7 @@
 
 The new introductory figure must explain why a posterior weight couples
 inherited information and current sensing. Use an 89 mm single-column
-schematic with shared history feeding two robots, fresh observations, and
+illustration with two sensing vehicles, a target, shared history, and
 two compact expressions: geometric pooling tempers current likelihoods;
 admitted posterior-to-prediction ratios restore bounded fractions.
 The final branch explicitly connects the corrected spatial density to
@@ -12,10 +12,17 @@ existence through its integral. This is a schematic-led composite, with
 one continuous reading path and no empirical data, confidence regions,
 or claimed independent priors. The shared-prior interpretation is labeled
 as an idealized case; exact agreement with central Bayes requires exact
-local likelihoods and unit gates. Keep live Arial text at least 7 pt,
-gray history, blue current sensing, and teal admitted correction.
-Export SVG, PDF, PNG, source specification, and text-bound checks using
-the established Python backend.
+local likelihoods and unit gates. Keep live Arial-family text at least 7 pt,
+gray history, blue/amber source identities, and teal admitted correction.
+The selected generated master is replicated on the same 1385 by 1136 canvas:
+all non-text geometric paths and their source coordinates are retained,
+with live text and formulas rebuilt for editing. The street scene, sensing
+wedges, history trail, method comparison, and coupled output line remain
+explicit. Export SVG, PDF, PNG, the selected master and prompts, source
+specification, geometric-fidelity audit, and text-bound checks using the
+established Python backend. The scene is conceptual, not an experimental
+capture. See intro_design/README.md for inspected ICRA references and
+the generation, refinement, and vector reconstruction record.
 
 The new phase plot follows ANALYSIS_PROTOCOL.md: all 25 sequences in
 each before/outage/after phase and both conditions. Plot GCE-minus-control

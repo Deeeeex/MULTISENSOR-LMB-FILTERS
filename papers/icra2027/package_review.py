@@ -11,8 +11,9 @@ files = [HERE / name for name in [
     'build_bibliography.py', 'prepare_gaussian_evidence.py', 'make_gaussian_tables.py',
     'make_gaussian_figures.py', 'make_main_figure_integrated.py', 'make_intro_figure.py',
     'prepare_mechanism_analysis.py', 'make_mechanism_results.py']]
-for folder in ['sections', 'literature', 'official_template', 'main_figure_integrated']:
-    files.extend(p for p in (HERE / folder).rglob('*') if p.is_file())
+for folder in ['sections', 'literature', 'official_template', 'main_figure_integrated', 'intro_design']:
+    files.extend(p for p in (HERE / folder).rglob('*') if p.is_file()
+                 and '__pycache__' not in p.parts and p.suffix != '.pyc')
 files.extend(HERE / 'generated' / name for name in [
     'numbers.tex', 'facts.json', 'main_table.tex', 'ablation_table.tex', 'communication_table.tex',
     'mechanism_numbers.tex', 'mechanism_facts.json', 'fixed_input_table.tex'])

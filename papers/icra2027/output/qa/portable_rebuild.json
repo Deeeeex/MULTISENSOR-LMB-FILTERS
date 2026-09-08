@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "verified_on": "2026-09-09",
-  "source_pdf_sha256": "bfaa24f989d3f9b7ac601f186151f7b8a1f8e26c7969004fec973df46470aca1",
-  "rebuilt_pdf_sha256": "33071d3d13c24f0ccb6dc75beafd604e7035b1814da0faed7bac8f8215eeeba9",
+  "source_pdf_sha256": "da6f4f7adbeb31fde2396698ff7840f56de9df65f295b8993aa148fc6bfc36da",
+  "rebuilt_pdf_sha256": "6d0f86912ac30ae7358b9464ca68eb98303f91c1e43d5bee5a32a93fdf33b445",
   "pdf_binary_identical": false,
   "pages": 8,
   "body_pages": 7,
@@ -10,22 +10,59 @@
   "pdf_text_identical": true,
   "pixel_identical_page_previews": 8,
   "page_raster_sha256_1_5x": [
-    "29c3899b92420e6a50fa744c2949af65461bbcffaa3f802d7d1e6434a73a68ae",
+    "e4110ac98da272136e27da181621993375998b43efd99779dc28e7085e0d3a88",
     "c64036cd6a3eabd1c0be5c568a647b96da30fffd051ddc31fb6e92149736951e",
     "5450efe73eb189efdc5e8f88addf8f187a88469e3a53299e8abf6599b15e7bc1",
     "042b301210fc3ed392d8fd298757c0a6853ddc0a4711ecfb46a41a037a48e608",
     "c1ad4a165e885350c0fafeb84d39b0fea97516c4b7e3189788489c2bf7fa86f5",
     "e10925f66fd6f0e9833c95a880994b9e47135f390542082c6b4130262bb54ea4",
     "a1633f303f13d1a6461ec71f649f727d52a66eb86094024b01632adfa4466645",
-    "995fd7d69f70adf2cbe489e89cc2a60529f1e2e41a3b666f70b1c2295356477b"
+    "0bbe7ac60d9ca191beb4e246dfb9db0d396b2e9abd80d9eafaf95759945d9404"
   ],
   "bibliography_entry_count": 30,
   "verified_doi_identifiers_rendered": 26,
   "manuscript_figures": 5,
   "manuscript_tables": 4,
   "automated_qa_facts_identical": true,
-  "diagnostic_snapshot_sha256": "bb22d904f411bf92afb3ce2e83a21fe0b95e2aead7408ea2971fa4ee33f3aca7",
-  "regenerated_file_hash_matches": 47,
+  "illustrated_intro": {
+    "status": "passed",
+    "master_sha256": "95b5dcb60b61add7d148a53d10d26d7ecac65da3bcad030c0a50d38117c310f1",
+    "svg_sha256": "bb0aca57b1ded2a84a49ad6114b3245a01601e072d64d5280b09d76c4c792da8",
+    "all_source_paths_retained": 4802,
+    "all_path_fills_identical": true,
+    "maximum_geometry_error_pt": 9.29635348256852e-07,
+    "geometry_rounding_tolerance_pt": 2e-06,
+    "source_canvas_pixels": [
+      1385,
+      1136
+    ],
+    "final_dimensions_mm": [
+      89,
+      73
+    ],
+    "live_svg_text_elements": 14,
+    "expected_labels": [
+      "Shared history",
+      "Vehicle A",
+      "Vehicle B",
+      "Current observations",
+      "Posterior pool",
+      "Admit current",
+      "ratios",
+      "GCE",
+      "Spatial density",
+      "Existence",
+      "shared normalizer"
+    ],
+    "minimum_font_size_pt": 7.5,
+    "no_embedded_raster": true,
+    "text_collisions_checked": true,
+    "compared_nontext_pixels": 744389,
+    "mean_absolute_rgb_error_0_to_255": 3.1961949106358816,
+    "pixel_identical_to_generated_bitmap": false,
+    "scope": "Source-coordinate vector reconstruction with editable typography; fitting and font rasterization differ from the bitmap. Not experimental evidence."
+  },
+  "regenerated_file_hash_matches": 48,
   "regenerated_files": [
     "figures/gaussian_communication.pdf",
     "figures/gaussian_communication.png",
@@ -63,6 +100,7 @@
     "generated/mechanism_facts.json",
     "generated/mechanism_numbers.tex",
     "generated/numbers.tex",
+    "intro_design/vector_fidelity.json",
     "main_figure_integrated/vector_qa.json",
     "references.bib",
     "source_data/gaussian_communication.json",
@@ -75,17 +113,18 @@
     "source_data/mechanism_analysis.json",
     "source_data/overview_schematic.json"
   ],
-  "build_input_manifest_sha256": "bc48406c27bfc27274012186203abe153bbfd8062b6fe5c86f74c10dd2ade562",
-  "tested_archive_sha256_before_attaching_this_report": "8b2ef194831ab513751f3daec0aa861fefdf7352058a35cf314fa663e4d6172c",
-  "archive_input_files_verified": 152,
-  "non_output_files_identical_after_rebuild": 149,
+  "build_input_manifest_sha256": "de8629f02d10cc5358b2d634949da34459914fbc7adcd0bfe3bf90535f01e601",
+  "tested_archive_sha256_before_attaching_this_report": "b8c943b96e1db4f9928d5e15d1140b7267e81f43562a7c420807a11888acf5c4",
+  "archive_input_files_verified": 163,
+  "non_output_files_identical_after_rebuild": 160,
   "native_experiment_corpus_available": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-seven-plus-one-rebuild-lho3962n/icra2027",
+  "image_generation_or_tracing_required_for_rebuild": false,
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-illustrated-intro-rebuild-bknt2es2/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",
     "--regenerate"
   ],
   "returncode": 0,
-  "scope": "Fresh-directory source rebuild using bundled summaries and diagnostic snapshots with the same local runtime; numerical and rendered artifact equivalence. This does not rerun native tracking experiments."
+  "scope": "Fresh-directory source rebuild using bundled numerical snapshots and vector paths with the same local runtime and fonts; numerical and rendered artifact equivalence. This does not rerun native tracking experiments."
 }

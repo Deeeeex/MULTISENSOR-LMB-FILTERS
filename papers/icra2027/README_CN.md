@@ -10,7 +10,8 @@
 
 - 论文：`output/pdf/icra2027_draft.pdf`
 - 可移植源码包：`output/icra2027_review_source.zip`
-- 首页 Intro 图：`figures/intro.svg`
+- 首页 Intro 图：`figures/intro.svg`（场景、车辆、箭头为矢量路径，文字和公式可编辑）
+- Intro 母版、三次生图记录与复刻检查：`intro_design/README.md`
 - 方法总图：`figures/overview.svg`
 - 逐序列双条件 OSPA 收益图：`figures/gaussian_paired.svg`
 - 精度与通信开销图：`figures/gaussian_communication.svg`
@@ -25,7 +26,11 @@
 
 ## 本版重点
 
-首页新增共享历史与当前观测的示意图。方法部分推导共同先验条件下的有效似然
+首页 Intro 图采用更丰富的合作驾驶场景，参考两篇 ICRA 论文的首页表达方式，
+经过三版内置生图迭代后，保留母版构图和对象坐标复刻为 SVG。完整保留车辆、
+共享历史轨迹、感知扇区、融合对比及联合输出，文字和公式重新排为可编辑内容。
+图中场景是概念插画。生图记录与逐路径几何核对结果随源码提供。
+方法部分推导共同先验条件下的有效似然
 指数：接纳权重将当前似然指数从保守池的权重恢复到不超过 1，同时保留一份先验。
 共同先验的解释与实际不同历史下的可计算规则明确区分。
 
@@ -93,7 +98,7 @@ Scalar 是存在概率修正参考，未使用高斯比值或曲率检验；三�
 
 ## 构建
 
-需要 Tectonic、NumPy、matplotlib、PyMuPDF 和 pypdf。脚本自动选择可用 Python，
+需要 Tectonic、NumPy、matplotlib、Pillow、PyMuPDF 和 pypdf。脚本自动选择可用 Python，
 也可通过 `PAPER_PLOT_PYTHON` 和 `PAPER_PDF_PYTHON` 指定解释器。
 
 ```sh

@@ -47,7 +47,7 @@ def main():
     destination = HERE / 'output/pdf/icra2027_draft.pdf'
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(build / 'main.pdf', destination)
-    pdf_python = python_with(['pypdf', 'fitz', 'numpy'], 'PAPER_PDF_PYTHON')
+    pdf_python = python_with(['pypdf', 'fitz', 'numpy', 'PIL'], 'PAPER_PDF_PYTHON')
     subprocess.run([pdf_python, str(HERE / 'qa.py')], cwd=HERE, check=True)
     subprocess.run([sys.executable, str(HERE / 'package_review.py')], cwd=HERE, check=True)
     print('Built and audited:', destination)

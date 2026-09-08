@@ -144,6 +144,8 @@ def check():
 
     numerical = check_gaussian_evidence()
     mechanism = check_mechanism_analysis()
+    from intro_design.audit_vector import audit as audit_intro_vector
+    figures['intro']['master_reconstruction'] = audit_intro_vector()
 
     tex = '\n'.join(p.read_text() for p in [HERE / 'main.tex', *(HERE / 'sections').glob('*.tex'),
                                          *(HERE / 'main_figure_integrated').glob('*.tex')])

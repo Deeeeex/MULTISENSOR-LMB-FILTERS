@@ -6,10 +6,21 @@
   "width_mm": 89,
   "height_mm": 73,
   "assumption": "Two sources with common prior, equal base weights, exact local likelihoods.",
-  "pool": "f_minus * likelihood_1**0.5 * likelihood_2**0.5",
-  "corrected": "f_minus * likelihood_1**omega_1 * likelihood_2**omega_2",
+  "pool": "f_minus * likelihood_A**0.5 * likelihood_B**0.5",
+  "corrected": "f_minus * likelihood_A**omega_A * likelihood_B**omega_B",
   "exponents": "omega_j = 0.5 + admitted_kappa_j in [0.5, 1]",
   "message": "Admitted current ratios modify spatial density and existence through one normalizer.",
   "full_restoration": "Exact shared-prior Bayes requires both admitted gates equal to one.",
+  "generated_master": "intro_design/concept_v3.png",
+  "generated_master_sha256": "95b5dcb60b61add7d148a53d10d26d7ecac65da3bcad030c0a50d38117c310f1",
+  "vector_scene_sha256": "454934f9f0b02d6910d9aed6d9702ec26a73a8e628b7ca13298c327a312840a5",
+  "source_canvas_pixels": [
+    1385,
+    1136
+  ],
+  "traced_scene_paths": 4802,
+  "live_text_labels": 14,
+  "scene_treatment": "Same source-coordinate geometry; typography rebuilt as editable text.",
+  "image_integrity": "AI-generated conceptual illustration, not a captured test scene or measured result.",
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
 }

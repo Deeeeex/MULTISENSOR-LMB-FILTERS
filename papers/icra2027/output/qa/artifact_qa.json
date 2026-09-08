@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "bfaa24f989d3f9b7ac601f186151f7b8a1f8e26c7969004fec973df46470aca1",
+  "pdf_sha256": "da6f4f7adbeb31fde2396698ff7840f56de9df65f295b8993aa148fc6bfc36da",
   "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2284,
+  "text_spans_in_page_bounds": 2264,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -33,11 +33,7 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/GOFYPY+Arial-BoldMT": {
-      "subtype": "/Type0",
-      "embedded": true
-    },
-    "/GOFYPY+ArialMT": {
+    "/ESMMOR+ArialNarrow-Bold": {
       "subtype": "/Type0",
       "embedded": true
     },
@@ -67,6 +63,14 @@
     },
     "/JAGKKY+CMSY10": {
       "subtype": "/Type1",
+      "embedded": true
+    },
+    "/GOFYPY+Arial-BoldMT": {
+      "subtype": "/Type0",
+      "embedded": true
+    },
+    "/GOFYPY+ArialMT": {
+      "subtype": "/Type0",
       "embedded": true
     },
     "/NOMARO+CMBX10": {
@@ -102,10 +106,48 @@
   "official_class_and_bst_unmodified": true,
   "figures": {
     "intro": {
-      "live_svg_text_elements": 15,
+      "live_svg_text_elements": 14,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "4f00d3ad1f3ce21d3eec8ec664262748bb5efadaa9f7b1d85dc32a1394c8c78c"
+      "svg_sha256": "bb0aca57b1ded2a84a49ad6114b3245a01601e072d64d5280b09d76c4c792da8",
+      "master_reconstruction": {
+        "status": "passed",
+        "master_sha256": "95b5dcb60b61add7d148a53d10d26d7ecac65da3bcad030c0a50d38117c310f1",
+        "svg_sha256": "bb0aca57b1ded2a84a49ad6114b3245a01601e072d64d5280b09d76c4c792da8",
+        "all_source_paths_retained": 4802,
+        "all_path_fills_identical": true,
+        "maximum_geometry_error_pt": 9.29635348256852e-07,
+        "geometry_rounding_tolerance_pt": 2e-06,
+        "source_canvas_pixels": [
+          1385,
+          1136
+        ],
+        "final_dimensions_mm": [
+          89,
+          73
+        ],
+        "live_svg_text_elements": 14,
+        "expected_labels": [
+          "Shared history",
+          "Vehicle A",
+          "Vehicle B",
+          "Current observations",
+          "Posterior pool",
+          "Admit current",
+          "ratios",
+          "GCE",
+          "Spatial density",
+          "Existence",
+          "shared normalizer"
+        ],
+        "minimum_font_size_pt": 7.5,
+        "no_embedded_raster": true,
+        "text_collisions_checked": true,
+        "compared_nontext_pixels": 744389,
+        "mean_absolute_rgb_error_0_to_255": 3.1961949106358816,
+        "pixel_identical_to_generated_bitmap": false,
+        "scope": "Source-coordinate vector reconstruction with editable typography; fitting and font rasterization differ from the bitmap. Not experimental evidence."
+      }
     },
     "overview": {
       "live_svg_text_elements": 48,
