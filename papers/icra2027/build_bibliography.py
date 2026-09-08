@@ -10,6 +10,9 @@ bibs=[]
 for key,record in records.items():
     assert record['verified'], key
     b=record['bibtex']
+    b=re.sub(r'(\w+)\s*=\s*',r'\1=',b)
+    if key=='wu2022sharedpriors':
+        b=b.replace('publisher={arXiv},','howpublished={arXiv:2212.07311},')
     if key=='dames2020search':
         # Publisher's issue citation is 2020; Crossref returns online-first 2019.
         b=b.replace('year={2019}','year={2020}')
@@ -30,6 +33,8 @@ for key,record in records.items():
     title=match.group(1)
     for acronym in ['LMB','KLA','RFS','PHD','CPHD','SLAM','LIO-SAM','Autoware','V2V4Real','3D']:
         title=re.sub(r'\b'+acronym+r'\b','{'+acronym+'}',title)
+    for proper in ['Bernoulli', 'Kalman', 'Bayesian', 'Kullback', 'Leibler', 'Gaussian']:
+        title=re.sub(r'\b'+proper+r'\b','{'+proper+'}',title,flags=re.I)
     b=b[:match.start(1)]+title+b[match.end(1):]
     b=b.replace('IEEE Transactions on Signal Processing','IEEE Trans. Signal Process.')
     b=b.replace('IEEE Transactions on Aerospace and Electronic Systems','IEEE Trans. Aerosp. Electron. Syst.')

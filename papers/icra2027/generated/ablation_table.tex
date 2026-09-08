@@ -1,18 +1,19 @@
 \begin{table*}[t]
-\centering
-\caption{Internal mechanism ablations. OSPA (m) is averaged over twenty trials. RMSE ratios use common assignment support relative to ER w/o age; false costs are squared GOSPA components (m$^2$).}
+\centering\small
+\caption{Complete recursive component comparisons on the same 25 sequences. The score constraint ablation retains the common score-aware local update. Units match Table~\ref{tab:main}.}
 \label{tab:ablation}
-\small
-\begin{tabular}{lrrrrrrr}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lrrrrrr}
 \toprule
-& \multicolumn{3}{c}{OSPA} & \multicolumn{2}{c}{Common-target RMSE ratio} & \multicolumn{2}{c}{False cost}\\
-Method & Split & Churn & No-new & Split & Churn & Departure & No-new\\
+& \multicolumn{3}{c}{Reliable links} & \multicolumn{3}{c}{Intermittent links} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & OSPA & Missed & False & OSPA & Missed & False \\
 \midrule
-ER w/o age & 2.651 & 1.123 & 0.797 & 1.0000 & 1.0000 & 10.785 & 0.679\\
-Age-all & 2.912 & 1.960 & 0.745 & -- & -- & 9.690 & 0.004\\
-ER (both) & 2.589 & 0.937 & 0.752 & 1.1685 & 1.0307 & 10.905 & 0.570\\
-Confirmed ER & 2.607 & 1.519 & 0.652 & 1.0018 & 1.0028 & 10.815 & 0.004\\
-ER & 2.569 & 0.846 & 0.668 & 0.9999 & 0.9998 & 12.255 & 0.570\\
+\textbf{GCE} & 3.456 & 71.095 & 36.303 & 3.761 & 80.344 & 41.971 \\
+Scalar & 3.526 & 78.625 & 34.536 & 3.832 & 86.342 & 40.523 \\
+No curvature guard & 3.491 & 74.845 & 35.376 & 3.805 & 84.047 & 41.615 \\
+No history switch & 3.467 & 70.282 & 38.148 & 3.776 & 80.266 & 43.105 \\
+No positive score constraint & 3.713 & 55.993 & 59.014 & 3.922 & 69.042 & 57.784 \\
 \bottomrule
 \end{tabular}
 \end{table*}

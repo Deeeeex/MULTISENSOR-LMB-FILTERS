@@ -1,35 +1,45 @@
-# Visual artifact review
+# Visual review of the GCE manuscript
 
-Reviewed on 2026-09-08 by the drafting agent. PDF identity is recorded in
-`artifact_qa.json`. All eight final pages were rendered and inspected after
-the external-method and real-detection extension and the subsequent float
-placement correction.
+Reviewed on 2026-09-08 in the current workflow by rendering and inspecting
+all nine paper pages, the four complete figure previews, and the revised
+bibliography page. This is an agent visual review, not an independent human
+review or a conference submission check.
 
-| Page | Inspection |
-|---|---|
-| 1 | Anonymous title area, bold abstract and related work fit. The abstract explicitly reports the real-data transfer limit alongside the mechanism case-study gains. |
-| 2 | Integrated Fig. 1 preserves the user-selected layout and vector geometry. Recency and spatial branches, visible absence, overlap coupling and feedback are legible. Related work includes the distinct TC architecture. |
-| 3 | Weights, proposition, proof and finite-mixture scope fit the columns. The illustrative Gaussian figure now appears beside the method. Communication and confirmation text remain readable. |
-| 4 | Real-data crop, independent births, approximate likelihood, emulated links and moving-frame limitation are explicit. Case-study and TC/MIL-AM implementation boundaries fit without an isolated float. |
-| 5 | The unchanged case-study scene and Table I share this page. The internal no-age ablation is marked; result text retains intervals containing zero and adverse false cost. |
-| 6 | The real-data heatmap and Table II share this page. All nine sequences, both radio conditions and both TC windows are legible; text continues below the two wide floats. |
-| 7 | Table III and the unchanged case-study outcome figure share this page. All trial points and intervals remain visible. Discussion and limitations continue in the columns below. |
-| 8 | Conclusion, AI disclosure and all 25 cited references fit. References begin on this page; no figure or table follows their heading. The obsolete forced split at reference 16 has been removed. |
+PDF SHA-256: `f5500ce29fb942f576e581659ada71f8a2c0d80582638ea1fec5d6ce03693e80`.
 
-The manuscript contains five figures. Six editable-text SVG/PDF/PNG exports
-are included: the case-study time-trajectory figure remains as a companion
-artifact, with its unsmoothed data, outside the eight-page manuscript.
-The new heatmap uses vector cells and a vector color scale; no embedded
-raster remains. All six SVGs contain live text. The approved integrated
-overview remains unchanged and contains 62 text elements.
+- Page 1: title, abstract, introduction, and related work are legible; no
+  clipped text or overlapping sections.
+- Page 2: the approved continuous robot-scene composition is retained.
+  Current evidence, guarded weights, joint normalization, qualified absence,
+  and recursive feedback agree with the method. The admitted-weight arrow
+  routes around the spatial heading. No card panels or raster elements.
+- Pages 3–4: the Bernoulli derivation, Gaussian correction, fallback, codec,
+  data scope, and local model remain in the two-column flow. Equations,
+  superscripts, subscripts, and equation numbers are within the columns.
+- Page 5: experimental controls, metric definitions, principal differences,
+  common-target support, and Scalar comparison have resolved references.
+- Page 6: Table I and the complete paired plot are readable. The plot has
+  all 300 sequence points, a shared zero reference, and both conditions.
+- Page 7: Table II retains missed and false costs. The component plot keeps
+  all 200 points, including large differences. Its full data range makes
+  small intervals visually short; interval interpretation is stated in text.
+- Page 8: actual bytes agree between the communication table and bars.
+  The distinction between full and exact-zero GCE packets is explicit.
+  The last figure caption precedes References. AI disclosure is present.
+- Page 9: references continue in two balanced columns using the class's
+  own reference-break command. Remaining white space is retained in this
+  uncompressed author draft.
 
-No clipped text, overlapping labels, missing glyphs, unresolved references,
-font substitutions, Type 3 fonts or overfull boxes were found. All 28 PDF
-fonts, including figure resources, are embedded. One non-fatal underfull
-hbox remains in the mixture-implementation paragraph; that paragraph was
-visually inspected. The official class and bibliography style are unmodified.
+All four SVGs contain editable text, have no embedded bitmap elements,
+and pass automated text-bound checks. The mechanism SVG additionally
+passes pairwise label collision checks. Table numbers and plot coordinates
+are generated from the complete experiment summaries, not from the design
+reference. PDF fonts are embedded; there are no Type 3 fonts, PDF annotations,
+undefined references, or overfull boxes. Normal Times bold-series alias
+information and underfull TeX spacing messages are recorded by the compiler;
+no font warning or visibly clipped/overlapping line was observed.
 
-New tables/plots derive from the complete independently rescored cohort;
-the original case-study inputs, outputs and quantitative figures are
-unchanged. This is an artifact self-check, not independent scientific
-review, author approval or a Papercept submission-system check.
+The draft has nine pages because the current user instruction leaves length
+unconstrained. The official eight-page submission limit still requires a
+later length revision. This review does not establish independent empirical
+generalization, human scientific approval, or submission readiness.

@@ -1,31 +1,36 @@
 \section{Discussion and Conclusion}
-ER uses observation history to select participating inputs and direct
-sensing age to weight existence, while retaining ordinary spatial weights.
-In the robot case studies, this separation reduces set error
-relative to ER without recency. In split--rejoin and churn--departure, it
-also avoids the common-target localization degradation of applying age to
-both blocks. A robot's direct sensing age
-and the spatial information accumulated in its posterior describe different
-properties: earlier observations and relayed evidence can remain useful
-after direct contact ends.
+GCE separates a conservative inherited pool from admitted current local
+updates, then normalizes their Bernoulli product jointly. The Gaussian
+form makes explicit why a spatial ratio also changes existence: the
+integral of the corrected spatial product is part of the singleton mass.
+The complete 25-sequence result improves on qualified no-age pooling,
+recency weighting, conservative and capped controls, and the Scalar
+component in both link conditions. Relative to the two original geometric
+controls, missed cost, false cost, and common-target localization improve
+together.
 
-False-track rejection introduces a further tradeoff. ER retains some false
-hypotheses, and the two-hit confirmation gate reduces no-new false cost at
-the expense of discovery during short sensing contacts. The departure and
-acquisition results show why set error, localization, false cost, and
-discovery delay should be evaluated together.
+The ablations narrow the interpretation. The full spatial correction has
+a supported advantage over Scalar in the main corpus. The curvature
+guard prevents two invalid aggregates observed in its removal, but its
+OSPA effect is not resolved in both conditions. The history switch has
+a small, uncertain contribution. The score constraint exchanges fewer
+false targets for more misses, so its merit cannot be inferred from
+false cost alone. These distinctions favor studying complete Bernoulli
+evidence over attributing the entire result to observation age.
 
-The real-detection replay broadens the evidence beyond these prescribed
-events and removes shared truth-informed birth schedules. It also exposes
-a transfer limit: the complete ER configuration improves on the evaluated
-external adaptations, but its age term adds no consistent OSPA gain over
-the no-age ablation and increases false cost. The case-study effect should
-therefore be interpreted as conditional on sensing and contact history.
+Three limits remain. First, current ratios come from approximate
+association and Gaussian moment projection; a positive curvature check
+does not establish source independence or remove all inherited
+correlation. Second, the fitted mark model depends on geometric
+calibration labels and a separability approximation. All real sequences
+have informed development, and the main detections come from the
+detector's training split. A new route and detector split is needed to
+test generalization. Third, the replay is planar, involves two vehicles,
+uses uncompensated moving ego coordinates, and emulates communication.
+Larger robot networks, pose uncertainty, and measured radio effects
+remain outside this experiment.
 
-The replay uses two vehicles, a cropped planar task, approximate Gaussian
-detector likelihoods, moving ego coordinates without motion compensation,
-and emulated radio loss. It establishes neither full 3-D benchmark ranking
-nor performance in a larger real robot network. Label matching and detector
-calibration also affect existence decisions. Improving that calibration and
-testing contact-dependent confirmation are concrete next steps before
-claiming a broadly transferable recency benefit.
+Within that scope, the result establishes a concrete fusion improvement:
+bounded current evidence can be restored while keeping existence and
+spatial normalization consistent. Exact zero omission recovers part of
+the extra communication cost without changing a track or a probability.

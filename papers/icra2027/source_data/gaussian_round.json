@@ -1,0 +1,265 @@
+{
+  "protocol": "coherent-gaussian-evidence-v1",
+  "timestamp_utc": "2026-09-08T12:24:37.566493+00:00",
+  "primary": "marked_gaussian_evidence",
+  "arms": [
+    "marked_gaussian_evidence",
+    "marked_gaussian_evidence_no_curvature",
+    "marked_gaussian_evidence_no_history",
+    "marked_gaussian_evidence_no_mark"
+  ],
+  "arms_by_cohort": {
+    "development": [
+      "marked_gaussian_evidence",
+      "marked_gaussian_evidence_no_curvature",
+      "marked_gaussian_evidence_no_history",
+      "marked_gaussian_evidence_no_mark"
+    ],
+    "seen_transfer": [
+      "marked_gaussian_evidence",
+      "marked_gaussian_evidence_no_curvature",
+      "marked_gaussian_evidence_no_history",
+      "marked_gaussian_evidence_no_mark",
+      "marked_asymmetric"
+    ]
+  },
+  "references_by_cohort": {
+    "development": [
+      "marked_lineage",
+      "marked_er",
+      "marked_conservative",
+      "marked_ceiling_calibrated",
+      "marked_ceiling_score",
+      "marked_asymmetric"
+    ],
+    "seen_transfer": [
+      "marked_lineage",
+      "marked_er",
+      "marked_conservative",
+      "marked_ceiling_calibrated",
+      "marked_ceiling_score"
+    ]
+  },
+  "primary_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "additional_references": [
+    "marked_conservative",
+    "marked_ceiling_calibrated",
+    "marked_ceiling_score"
+  ],
+  "component_controls": [
+    "marked_asymmetric"
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "all_previous_real_data_outcomes_seen": true,
+  "primary_selected_before_preflight": true,
+  "secondary_cannot_replace_primary": true,
+  "continuation_rule": "All nine development sequences complete; primary sequence-macro OSPA lower than M-No-age and M-ER in both conditions and no higher than M-CR, M-ECR-S and the scalar M-AE control in both conditions. Otherwise reject expansion, retain all secondary results.",
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "source_and_evidence_sha256": {
+    "trials/icra_gaussian_evidence/PROTOCOL.md": "36dee681e2e504a51cd33e87a84aecb3da755445040b7e2ed7d2dd314b349ec3",
+    "trials/icra_gaussian_evidence/source_sha256.json": "74d8ad5facafb41bbcb65d5abe07453b78f3855c3bb8b14af2f5d2358ce576ba",
+    "trials/icra_gaussian_evidence/preflight_audit.json": "e02732f3f58c060e404eed75c18d876072de42a2affcb58c5311b229426fc524",
+    "trials/icra_gaussian_evidence/analyze_gaussian.py": "05400a34b1c4df25d1982f1af2acd336805add179e30653eae056394d957b903",
+    "trials/icra_gaussian_evidence/run_sequences.py": "193f6a4a745097eef68dd770a8f28686508439ebc04434c7639fff75620cd90a",
+    "trials/icra_gaussian_evidence/register_round.py": "2f572a1f574b4c8d492606cf3fd52a17273010eafd2720ccf37eea131d658252",
+    "trials/icra_gaussian_evidence/make_audit.py": "e8c5c54e51069cf4895f61103d60ec30af2a18ed798fe819beb0e66c2a71c7a1",
+    "trials/icra_gaussian_evidence/probability_audit.inc": "0777438f5999575b234f0de4ea7be70c59ed332afb8f95582c51e958046a0831",
+    "trials/icra_gaussian_evidence/gaussian_audit.py": "3dcf088d3e85522aadb9f4db9fedcc1e957c86de7f03cde344e6cbb15bdab0f1",
+    "trials/icra_gaussian_evidence/make_drivers.py": "2daad85bde2b59b7fafc2a845b06d645bb2de5bea55203eabd03018024dd0918",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_fusion_holdout/input_audit.json": "048d3669371014d2ae4df3b55e6545bbeafb1ec4030c4e59fcc3570f63284719",
+    "trials/icra_marked_control/analyze_control.py": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+    "trials/icra_marked_control/analyze_full.py": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+    "trials/icra_marked_control/summary_control.json": "7908d81b4da1d648d28fe0c7b3be5478531b3bc4babed05ea56add5717bf7118",
+    "trials/icra_method_iteration/analyze_development.py": "ce6493b3f9cc96a5b4931ebcb6cec09e2c7ad221e64a04e12bef86b4223e54cb",
+    "trials/icra_external_fusion/analyze_v2v4real.py": "2fc87d20e0114e65a687f788872e37d5d08f11eba2d7c66f51327fa913fd9399",
+    "trials/icra_external_fusion/analyze_case_studies.py": "20aa71fb679b3ea1a7708b83e226fe43d9df5f61845fa8e6965cc9a1922b453b",
+    "trials/icra_asymmetric_evidence/summary_development.json": "911f38684b5beb1eef75b9dcc738af9a7df5549656a8d4e8ff8415077df5fada",
+    "trials/icra_asymmetric_evidence/ROUND_FREEZE.json": "9ff70a138918bb9b3b0de5149d7c9c52fbf224e7b7dca520fb155f883f1ac9fb"
+  }
+}

@@ -1,21 +1,23 @@
-Intermittent contact between mobile robots brings together target beliefs
-with different observation histories. Weighting an entire Bernoulli density
-by direct-observation age can improve existence decisions while degrading
-spatial pooling. We propose existence recency (ER), a fusion rule for labeled
-multi-Bernoulli tracking that screens untouched priors, retains ordinary
-spatial weights, and applies observation recency to existence terms.
-Both detections and missed detections update the local observation age,
-which remains unchanged by relaying. A two-block variational formulation
-establishes that this weighting preserves the fused spatial density for
-fixed inputs. On nine public V2V4Real sequences with real per-vehicle
-detections, ER has lower mean OSPA than the evaluated MIL and track-consensus
-adaptations, but its age factor does not consistently improve its no-age
-ablation. Two eight-robot mechanism case studies, each with twenty
-Monte Carlo trials, show OSPA reductions of \GainSplit\% and
-\GainChurn\% relative to its no-recency ablation in split--rejoin and
-churn--departure scenarios. Common-target localization RMSE remains within
-0.02\% of that ablation, whereas applying recency to both blocks increases
-it by 16.8\% and 3.1\%. ER yields higher post-departure false-target cost;
-adding two-hit confirmation reduces false hypotheses at the
-cost of slower discovery. These results identify a tradeoff between timely
-existence decisions and spatial information retention in multirobot fusion.
+We propose guarded current-evidence fusion (GCE) for cooperative
+multitarget tracking with intermittent communication. A robot's posterior
+mixes inherited information with its latest local measurement update;
+observation age alone does not distinguish these contributions. GCE retains
+a conservative posterior pool and admits a bounded fraction of each
+current Bernoulli posterior-to-prediction ratio. The same admitted ratio
+updates the spatial density and the existence normalizer, yielding a
+closed-form Gaussian implementation. A curvature test rejects unsuitable
+moment-matched increments, while a zero-vector codec preserves every
+transmitted floating-point value. We evaluate released two-vehicle
+V2V4Real detections with a shared score-aware local tracker. On a complete
+25-sequence evaluation, GCE obtains OSPA of \MainReliable\ and
+\MainIntermittent\ m under reliable and intermittent links, respectively.
+These are \GainNoAgeReliable\% and \GainNoAgeIntermittent\% below
+qualified geometric pooling without age, with both paired 95\% sequence
+intervals below zero. Joint spatial and existence correction also improves
+over a scalar-only correction in both conditions. Missed-target and
+false-target costs decrease relative to the no-age and recency controls,
+and common-target localization improves. Exact zero omission reduces
+fragmented communication relative to the full Gaussian packet, although
+the resulting payload remains larger than scalar summaries. All real
+sequences informed development, so these results establish a corpus-level
+fusion improvement rather than independent generalization.

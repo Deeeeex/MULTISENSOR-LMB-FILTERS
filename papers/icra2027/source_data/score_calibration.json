@@ -1,0 +1,334 @@
+{
+  "protocol": "direct-evidence-ceiling-v1",
+  "label": "per-sensor assignment within 12 m",
+  "diagnosis_input_sha256": "0dafc965f266e77f7f9995deea5987969994817ff353e0fd7bd05f05e0aeef2b",
+  "folds": [
+    {
+      "excluded_sequence": "0000",
+      "a": 2.786243262981942,
+      "b": 2.185948079701219,
+      "training_sequences": [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 37485,
+      "objective": 0.3512222063047521,
+      "iterations": 11,
+      "raw": {
+        "n": 553,
+        "brier": 0.10610073630826763,
+        "log_loss": 0.3801903662039377
+      },
+      "calibrated": {
+        "n": 553,
+        "brier": 0.0710859113627671,
+        "log_loss": 0.23298568111164933
+      }
+    },
+    {
+      "excluded_sequence": "0001",
+      "a": 2.747798634539717,
+      "b": 2.346657114710982,
+      "training_sequences": [
+        "0000",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 37664,
+      "objective": 0.3279891463391219,
+      "iterations": 11,
+      "raw": {
+        "n": 374,
+        "brier": 0.08216990823528075,
+        "log_loss": 0.32899578131048507
+      },
+      "calibrated": {
+        "n": 374,
+        "brier": 0.148611072529284,
+        "log_loss": 0.4584718717709098
+      }
+    },
+    {
+      "excluded_sequence": "0002",
+      "a": 2.9335076984633086,
+      "b": 2.4723860889962315,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 37694,
+      "objective": 0.3136622532444618,
+      "iterations": 11,
+      "raw": {
+        "n": 344,
+        "brier": 0.1043809002872122,
+        "log_loss": 0.37794221933112276
+      },
+      "calibrated": {
+        "n": 344,
+        "brier": 0.17817990233968478,
+        "log_loss": 0.5656292337315918
+      }
+    },
+    {
+      "excluded_sequence": "0003",
+      "a": 2.9641597958184023,
+      "b": 2.1221176412989036,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 35679,
+      "objective": 0.3280667902112852,
+      "iterations": 11,
+      "raw": {
+        "n": 2359,
+        "brier": 0.2314360563143357,
+        "log_loss": 0.6538157929505285
+      },
+      "calibrated": {
+        "n": 2359,
+        "brier": 0.13611417600291112,
+        "log_loss": 0.41549841815748595
+      }
+    },
+    {
+      "excluded_sequence": "0004",
+      "a": 3.0432487145934712,
+      "b": 1.9855127416121061,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 29206,
+      "objective": 0.3147586881757955,
+      "iterations": 11,
+      "raw": {
+        "n": 8832,
+        "brier": 0.30743144229393643,
+        "log_loss": 0.8196226407996583
+      },
+      "calibrated": {
+        "n": 8832,
+        "brier": 0.195610591154087,
+        "log_loss": 0.5590334475011163
+      }
+    },
+    {
+      "excluded_sequence": "0005",
+      "a": 2.9534066285568907,
+      "b": 2.1176304264043178,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_n": 31012,
+      "objective": 0.3400617818067584,
+      "iterations": 11,
+      "raw": {
+        "n": 7026,
+        "brier": 0.19808520417434758,
+        "log_loss": 0.5812513745874874
+      },
+      "calibrated": {
+        "n": 7026,
+        "brier": 0.10701475763507838,
+        "log_loss": 0.3191174226496905
+      }
+    },
+    {
+      "excluded_sequence": "0006",
+      "a": 2.9105655829112926,
+      "b": 2.1615747227317272,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0007",
+        "0008"
+      ],
+      "train_n": 33574,
+      "objective": 0.3404853725214815,
+      "iterations": 11,
+      "raw": {
+        "n": 4464,
+        "brier": 0.16870968179967272,
+        "log_loss": 0.5157501496990238
+      },
+      "calibrated": {
+        "n": 4464,
+        "brier": 0.1008568732870532,
+        "log_loss": 0.31174809922648217
+      }
+    },
+    {
+      "excluded_sequence": "0007",
+      "a": 2.7731196423476407,
+      "b": 1.984546967400432,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0008"
+      ],
+      "train_n": 34395,
+      "objective": 0.35020802160529774,
+      "iterations": 11,
+      "raw": {
+        "n": 3643,
+        "brier": 0.2100524141825688,
+        "log_loss": 0.6078465232348385
+      },
+      "calibrated": {
+        "n": 3643,
+        "brier": 0.06954818861506562,
+        "log_loss": 0.24052300724129833
+      }
+    },
+    {
+      "excluded_sequence": "0008",
+      "a": 2.857357314761262,
+      "b": 2.041653746376905,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007"
+      ],
+      "train_n": 27595,
+      "objective": 0.36105769343893324,
+      "iterations": 11,
+      "raw": {
+        "n": 10443,
+        "brier": 0.1590332803298829,
+        "log_loss": 0.49529715795149387
+      },
+      "calibrated": {
+        "n": 10443,
+        "brier": 0.04760071007916341,
+        "log_loss": 0.15189662616767116
+      }
+    }
+  ],
+  "full_seen_fit": {
+    "a": 2.885765695910828,
+    "b": 2.1563524105609,
+    "training_sequences": [
+      "0000",
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005",
+      "0006",
+      "0007",
+      "0008"
+    ],
+    "train_n": 38038,
+    "objective": 0.3382157744984263,
+    "iterations": 10
+  },
+  "raw": {
+    "n": 38038,
+    "brier": 0.20919545173714715,
+    "log_loss": 0.6051189433730423
+  },
+  "held_out": {
+    "n": 38038,
+    "brier": 0.10929807179023693,
+    "log_loss": 0.32884679803872124
+  },
+  "inputs": [
+    {
+      "sequence": "0000",
+      "original_input_sha256": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+      "marks_sha256": "ff63b47454c546c6dabd58b1493c51c825d56d24c195682c112198543f3940e9"
+    },
+    {
+      "sequence": "0001",
+      "original_input_sha256": "a74fe915c307bdc86fe4b11cc4c2a9128f50eb10e0000dca7ae2afa4bdf4b058",
+      "marks_sha256": "76eca2d43b28c46c71106a0bfdc422898ed28d24ce60ec24276bfaa3dca8b71d"
+    },
+    {
+      "sequence": "0002",
+      "original_input_sha256": "d6294e27b43419708deb50960c86e5f9bec836f078ff61420dc6498cda3f7582",
+      "marks_sha256": "7a49403cfd811398b5aff81f0042db180068e3f3286d0cd544aee67aa91fa94f"
+    },
+    {
+      "sequence": "0003",
+      "original_input_sha256": "1e9974bc4ee6fe8132620bc23c4ad4a792fe3da727f5e9645bb35388f58031f9",
+      "marks_sha256": "2d2b6948f72772fed7664b1a5cb08430fff2935f8b1cd8a552bafd3ae9abee02"
+    },
+    {
+      "sequence": "0004",
+      "original_input_sha256": "11edd704672772998840e1bed434176a0695dc72f64e5547e555e6301648141d",
+      "marks_sha256": "eb365e0a4e7066217aab28d92ad9de422b399c11526eb5bc992c55ea29358043"
+    },
+    {
+      "sequence": "0005",
+      "original_input_sha256": "e94518425ca94539828689d2c765b151434e83013647476cc5ba99d0eb71bba4",
+      "marks_sha256": "c3dde08f9cc8f7bce67084be98012be3070ffe91aed7395adf1f478592ec5125"
+    },
+    {
+      "sequence": "0006",
+      "original_input_sha256": "fa8e15dfb82cbd7973c3837bed0cff0f9ef8dae3aa3b3ce35f5093e7eb771274",
+      "marks_sha256": "4c2043cbbf42c4bd90d7c5cf1ce3735857c81bb06ba0cc3d203f9c86257ecc8f"
+    },
+    {
+      "sequence": "0007",
+      "original_input_sha256": "1d2b01d8bca8b33e20ff701d3fb722d1827a85a726aacd9e000b7ae816583573",
+      "marks_sha256": "42cdbaff2cd8ca9768b3d00da2ca059f921265ed139e7fc270d82378bcb985f9"
+    },
+    {
+      "sequence": "0008",
+      "original_input_sha256": "65a1fbdb9560a79be35358bcaac89c03ae54f83ef087239a47a0d9e2fcc188b6",
+      "marks_sha256": "4f85e822bd550f33b8739c8b7a3931df6d7b732941e56bc5953de37752b7b4db"
+    }
+  ]
+}

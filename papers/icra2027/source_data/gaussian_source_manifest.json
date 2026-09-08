@@ -1,0 +1,62 @@
+{
+  "gaussian_main_summary.json": {
+    "source": "trials/icra_gaussian_evidence/summary_seen_transfer.json",
+    "sha256": "da32910f0b70d2ee01d5e1a5b80f501e4a4a682bca4c72a0476d7640027d4c7a"
+  },
+  "gaussian_development_summary.json": {
+    "source": "trials/icra_gaussian_evidence/summary_development.json",
+    "sha256": "93905008be22b3bc9625dbde67d8fd082ca596ff3f8aae8058d52999795e10ef"
+  },
+  "gaussian_main_qa.json": {
+    "source": "trials/icra_gaussian_evidence/CURRENT_QA_seen_transfer.json",
+    "sha256": "673bab51e93807e51015e692dd73ea4e20b64d880ff23006aaf7bd642a059304"
+  },
+  "gaussian_development_qa.json": {
+    "source": "trials/icra_gaussian_evidence/CURRENT_QA_development.json",
+    "sha256": "b45e5ae66a9225fa8116daebc9b2462c4bcb911726916b47a7b9ffa1a583268f"
+  },
+  "gaussian_main_components.json": {
+    "source": "trials/icra_gaussian_components/summary_seen_transfer.json",
+    "sha256": "69ccadc8308cf9bc17187d2745e3fea10c21d4378e577e859a20bd62c4c3899e"
+  },
+  "gaussian_development_components.json": {
+    "source": "trials/icra_gaussian_components/summary_development.json",
+    "sha256": "116c6251c68f567f19a7a7b6f4191f5f5304e5a10eb504b120b48e06f5149e36"
+  },
+  "gaussian_codec_main_summary.json": {
+    "source": "trials/icra_gaussian_zero_codec/summary_seen_transfer.json",
+    "sha256": "46b10b8accfbe08844b070a9db78fda4d4aeb9df297ada59ca6d1a08c894cdda"
+  },
+  "gaussian_codec_main_qa.json": {
+    "source": "trials/icra_gaussian_zero_codec/CURRENT_QA_seen_transfer.json",
+    "sha256": "e72f6cf8fa391d1ca0e629edc8b053bee492fbbc3e06b9f640949d61b77d8380"
+  },
+  "gaussian_codec_development_summary.json": {
+    "source": "trials/icra_gaussian_zero_codec/summary_development.json",
+    "sha256": "bbaa7ebdcefa96fb834345414351c606c8ce27e6a6263792c06d5a52e365cc4b"
+  },
+  "gaussian_codec_development_qa.json": {
+    "source": "trials/icra_gaussian_zero_codec/CURRENT_QA_development.json",
+    "sha256": "4bbd7ba9ddb86ca6b0d5d05e50a827ad4769a8ea778e10fafab888de57553e8d"
+  },
+  "gaussian_round.json": {
+    "source": "trials/icra_gaussian_evidence/ROUND_FREEZE.json",
+    "sha256": "46b29bcd4909d763069f33db18a7e2dd9a7f925b2f47bc1c69c7d1b116c5a9be"
+  },
+  "shared_main_summary.json": {
+    "source": "trials/icra_fusion_holdout/summary_holdout.json",
+    "sha256": "d41ba1a4c92993256ca5cb5f8b469055c57d212e9c848c3c9e9f3de58ab94694"
+  },
+  "shared_main_qa.json": {
+    "source": "trials/icra_fusion_holdout/CURRENT_QA.json",
+    "sha256": "e4f69a07d233e496d35ea0d24bfa061269eb2da779f95cb1e379ec90a96d5b8e"
+  },
+  "score_calibration.json": {
+    "source": "trials/icra_ceiling_iteration/calibration.json",
+    "sha256": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512"
+  },
+  "score_input_diagnostic.json": {
+    "source": "trials/icra_fusion_holdout/input_shift.json",
+    "sha256": "ae49cdd8f4f10b0d6eac6b5a0d32aaad1934035747c7b36ca394d06312bb906b"
+  }
+}

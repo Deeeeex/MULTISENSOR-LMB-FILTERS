@@ -13,12 +13,13 @@
   "construction": "Editable vector paths and text, manually recreated from the image-generation reference.",
   "rendered_data": "Qualitative robot poses, histories, and density glyphs; no empirical performance data.",
   "corrections": [
-    "Restore +log eta_a in the existence equation.",
-    "Connect the overlap arrow to the spatial-product node.",
-    "Route qualified visible absence to existence weighting only, with factor f_j=1.",
+    "Show the conservative inherited base and guarded current Bernoulli ratio.",
+    "Use the same admitted kappa in spatial and existence corrections.",
+    "Recompute I from the corrected spatial product and retain +log I in existence.",
+    "Route qualified visible absence to the existence base, without a current ratio.",
     "Route recursive feedback from the combined posterior to local prediction.",
     "Direct the detection/miss inlet to the local measurement update.",
-    "Use f on the age-curve vertical axis and keep floor rho=0.25."
+    "Use time since direct sensing for the inherited history term."
   ],
-  "spatial_invariance_conditions": "Fixed eligible input densities and ordinary spatial weights."
+  "spatial_correction": "The admitted Gaussian ratio changes mean, covariance, and the Bernoulli normalizer."
 }

@@ -1,97 +1,84 @@
-# Verified scope and remaining reproduction limits
+# Primary sources and experimental scope
 
-Checked primary sources on 2026-09-08. Bibliographic records are retrieved
-from Crossref, author-supplied BibTeX or official documentation and saved in
-`literature/verification.json`; manuscript keys must match titles, not just
-a successful HTTP response.
+Primary bibliographic metadata and available author manuscripts were checked
+on 2026-09-08. `literature/verification.json` stores the records and retrieval
+sources; raw new BibTeX records are retained alongside it. A resolved key
+checks bibliographic identity, not implementation equivalence.
 
-- Moore and Stouch, Intelligent Autonomous Systems 13, pp. 335--348,
-  DOI 10.1007/978-3-319-08338-4_25: generalized EKF sensor fusion in ROS
-  robot_localization. The Springer chapter abstract and author names were
-  checked. Its recommended proceedings citation uses 2016; Crossref uses
-  online-first 2015, so the bibliography follows the publisher's 2016 citation.
-- Shan et al., LIO-SAM, IROS 2020, pp. 5135--5142: factor-graph lidar-inertial
-  smoothing and mapping. Crossref DOI 10.1109/IROS45743.2020.9341176,
-  author-supplied BibTeX and arXiv:2007.00258 were cross-checked. The final
-  entry uses Crossref's canonical author list, including Daniela Rus.
-  A partially successful batch returned the record despite other requests
-  receiving HTTP 429; raw records from both sources are retained.
-- Autoware Foundation, Multi Object Tracker: the official Universe module
-  documentation confirms data association and EKF tracking. This is an
-  online-documentation reference with access date 2026-09-08, not a journal
-  paper or a performance comparison with ER.
-- Gao et al., Robotics and Autonomous Systems 198 (2026), 105358,
-  DOI 10.1016/j.robot.2026.105358: distributed multi-robot SLAM with LMB
-  landmark maps and map fusion under missed detections and clutter. The
-  publisher and University of Florence records report simulated and real
-  data. This supports a robotics application of LMB, not industry adoption
-  or hardware validation of the present target-tracking method.
+## Principles that precede GCE
 
-- Wang et al., Signal Processing 2018, DOI 10.1016/j.sigpro.2018.04.010:
-  information-divergence weighting for multiple-view LMB fusion predates
-  this work. Do not claim first per-Bernoulli informativeness weighting.
-  Primary publisher abstract plus Gao et al. 2019 introduction checked.
-- Gao et al., TSP 2020, DOI 10.1109/TSP.2020.3028496; author manuscript
-  https://arxiv.org/html/1911.01083v1, Proposition 3 and Sections IV/V-C:
-  exact constrained LMB MIL and label-subspace fusion. `mil` implements
-  zero-extension pooling; `mil_support` implements its represented-label
-  subspace specialization with known common labels in the case studies.
-  The new MIL-AM real replay also implements the public v1 manuscript's
-  augmented independent-label assignment and common/exclusive subspaces,
-  using exact Gaussian symmetric KL and moment-projected MIL mixtures.
-  Its assignment and arithmetic moments have numerical checks. The source
-  is explicitly cited as arXiv:1911.01083v1, not silently mapped to a later
-  publication version.
-- Gao et al., TAES 2022, DOI 10.1109/TAES.2022.3182642: publisher abstract
-  confirms FoV label decomposition, constrained MIL, and label assignment.
-  The University of Florence record marks the accepted manuscript closed.
-  Complete TAES 2022 implementation equivalence is not established. Do not
-  represent the general unequal-FoV problem as unsolved.
-- Nguyen et al., TSP 2021, DOI 10.1109/TSP.2021.3103125, pp. 5329--5344:
-  author paper arXiv:2012.12990 and pinned AdelaideAuto-IDLab MATLAB code
-  checked. Unchanged author kinematic TC-OSPA2 functions are used on common
-  Local-LMB outputs with windows 5/10 and independent node labels. Eighteen
-  multi-node adapter outputs exactly match the author's entry point.
-  No density feedback is preserved. Network-wide reporting-label
-  reconciliation is excluded; set metrics do not validate identity consensus.
-- Xu et al., V2V4Real, CVPR 2023, DOI 10.1109/CVPR52729.2023.01318,
-  pp. 13712--13722; Chiu et al., DMSTrack, ICRA 2024,
-  DOI 10.1109/ICRA57147.2024.10610487, pp. 18458--18464:
-  paper metadata and the DMSTrack author data release were checked. Use all
-  nine released evaluation sequences, per-source no-fusion detections,
-  evaluation labels and relative transforms. Author postprocessing already
-  places both sources' detections in the current ego frame. This work does
-  not reproduce DMSTrack's learned filtering or full 3-D benchmark scores.
-- Li et al., Signal Processing 2021, DOI 10.1016/j.sigpro.2021.108210:
-  publisher abstract explicitly recognizes useful out-of-current-FoV
-  information from history and relays. Our distinction is a lightweight
-  direct-opportunity age rule on LMB existence, not first historical FoV use.
-- Uney et al., TAES 2019, DOI 10.1109/TAES.2019.2893083, author PDF
-  https://discovery.ucl.ac.uk/id/eprint/10069137/1/08613927.pdf: cardinality
-  consistency and separate cardinality/localization fusion predate this
-  work. Our two weight vectors retain the spatial overlap penalty and do
-  not establish that paper's cardinality consistency.
-- Jin et al., DSP 2024, DOI 10.1016/j.dsp.2024.104585: publisher abstract and
-  introduction checked. Shared-prior conditions and a consensus information
-  selector address label sensitivity and different FoVs; do not claim that
-  shared birth labels solve independent birth/label matching.
+- Reuter et al., TSP 2014, DOI 10.1109/TSP.2014.2323064: the LMB filter and
+  Bernoulli representation are established components.
+- Battistelli and Chisci, Automatica 2014, DOI 10.1016/j.automatica.2013.11.042:
+  Kullback–Leibler averaging is the geometric fusion baseline.
+- Wu et al., [Bayesian data fusion with shared priors](https://arxiv.org/abs/2212.07311):
+  shared-prior correction and prior/likelihood separation are established.
+  The manuscript's common-prior identity is a limiting-case consistency
+  check, not a new Bayesian fusion theorem. Metadata comes from DataCite,
+  DOI 10.48550/arXiv.2212.07311; the citation identifies the 2022 preprint.
+- Hlinka et al., TSP 2012, DOI 10.1109/TSP.2012.2196697,
+  [author manuscript](https://arxiv.org/abs/1108.6214): likelihood consensus
+  aggregates exponential-family likelihood representations. Current
+  natural-parameter increments are therefore not a new principle by themselves.
+- Yi and Chai, TSP 2021, DOI 10.1109/TSP.2021.3087033,
+  [author manuscript](https://arxiv.org/abs/2106.08088): heterogeneous
+  component-level confidence in RFS fusion predates this work.
+- Uney et al., TAES 2019, DOI 10.1109/TAES.2019.2893083:
+  cardinality and spatial consistency can differ. GCE's separate base
+  weights do not establish that paper's cardinality-consistency guarantee.
+
+GCE's claimed contribution is the guarded, jointly normalized Bernoulli
+realization for approximate local LMB updates, its exact-zero transport,
+and the stated controlled experiment. Independence, universal calibration,
+and general correlation removal are not established.
+
+## Sensing support and external adaptations
+
+- Li et al., FUSION 2018, DOI 10.23919/ICIF.2018.8455250: multi-object LMB
+  fusion with different fields of view is existing work. Absent-label and
+  exclusive-information handling are not first introduced here.
+- Gao et al., TSP 2020, DOI 10.1109/TSP.2020.3028496, and
+  [public author manuscript, version 1](https://arxiv.org/html/1911.01083v1):
+  MIL arithmetic pooling and common/exclusive label subspaces. The replay
+  implements the public manuscript's augmented label assignment with
+  Gaussian symmetric-KL costs and moment-projected spatial mixtures.
+  The preprint version is cited separately instead of silently equating
+  its algorithm to every later published version.
+- Gao et al., TAES 2022, DOI 10.1109/TAES.2022.3182642: differing-FoV MIL
+  fusion and label assignment. Full equivalence to that implementation
+  and original experimental protocol remains unverified.
+- Nguyen et al., TSP 2021, DOI 10.1109/TSP.2021.3103125,
+  [author manuscript](https://arxiv.org/abs/2012.12990) and public
+  AdelaideAuto-IDLab MATLAB code: author kinematic track matching and
+  two-stage fusion functions are used with windows five and ten. Adapter
+  outputs were checked against the author entry point. Independent local
+  labels and no density feedback are retained. Set metrics do not verify
+  network-wide identity consensus.
+
+These methods share the local observation model and delivery opportunities
+in this replay, but their original architectures and benchmarks differ.
+The paper does not claim a reproduction of their native protocols.
+
+## Data, robotics setting, and metrics
+
+- Xu et al., V2V4Real, CVPR 2023, DOI 10.1109/CVPR52729.2023.01318;
+  Chiu et al., DMSTrack, ICRA 2024, DOI 10.1109/ICRA57147.2024.10610487:
+  metadata and author-released per-vehicle detections, scores, relative
+  transforms, and annotations were checked. The current experiment uses
+  nine validation and twenty-five train sequences, all already seen during
+  fusion development. The train detections are from the detector training
+  split. It does not reproduce DMSTrack's learned filtering or official
+  three-dimensional benchmark scores.
 - Dames, Autonomous Robots, DOI 10.1007/s10514-019-09840-9; Ramachandran
-  et al., TCNS 2021, DOI 10.1109/TCNS.2021.3059794; Banerjee and Schneider,
-  ICRA 2024, DOI 10.1109/ICRA57147.2024.10609977: distributed search/tracking,
-  resource-aware reconfiguration, and active search with unreliable/asynchronous
-  communication provide the robotics context. Our prescribed paths do not
-  compete with their action planners or solve navigation.
-- Lang et al., public SSRN preprint, abstract 7129254, posted 2026-07-16:
-  communication-aware adaptive KLA/LMB weighting is overlapping prior work
-  and must be described in third person if cited. This manuscript reuses
-  LMB/KLA code; it does not claim the estimator core as a new contribution.
+  et al., TCNS 2021, DOI 10.1109/TCNS.2021.3059794; Gao et al., RAS 2026,
+  DOI 10.1016/j.robot.2026.105358: distributed search, sensing-resource
+  reconfiguration, and LMB robot landmark mapping provide robotics context.
+  They are not evidence for real robot execution or planning by GCE.
+- Schuhmacher et al., TSP 2008, DOI 10.1109/TSP.2008.920469, and Rahmathullah
+  et al., FUSION 2017, DOI 10.23919/ICIF.2017.8009645: OSPA and GOSPA
+  definitions. Missed and false GOSPA components are reported as squared
+  costs, with the fixed cutoff and order stated in the experiment section.
 
-The paper combines two simulated mechanism case studies and a no-new control
-with an exploratory cropped 2-D two-vehicle real-detection replay. It has no
-hardware execution, raw LiDAR/image processing, pose-error robustness,
-universal calibration or consensus convergence result. The age term has no
-consistent real-data OSPA advantage over its own no-age ablation. Neither
-the v2 nor v3 combinations passed their balanced development
-gate. The simpler v1 Age-all arm passed its initial direction screen, but
-lost to the lineage control and worsened common-target localization.
-Preserving those facts is necessary even if validation yields conditional gains.
+No old synthetic recency result is used as evidence for the new GCE rule.
+The portable package retains the complete snapshots behind the current
+paper; archived experiment files remain in the versioned repository.

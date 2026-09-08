@@ -1,20 +1,25 @@
 \begin{table*}[t]
-\centering
-\caption{Mechanism case studies and no-new control: twenty paired trials each. OSPA is mean $\pm$ trial SD (m); count is cardinality MAE. TC uses local track histories without density feedback; MIL-Z/S use shared label keys.}
+\centering\small
+\caption{Main evaluation over 25 complete sequences. All methods use the same score-aware local tracker. OSPA is in m; missed and false GOSPA components are squared costs in m$^2$. Lower is better.}
 \label{tab:main}
-\small
+\setlength{\tabcolsep}{6pt}
 \begin{tabular}{lrrrrrr}
 \toprule
-& \multicolumn{2}{c}{Split--rejoin} & \multicolumn{2}{c}{Churn--departure} & \multicolumn{2}{c}{No-new control}\\
-Method & OSPA & Count & OSPA & Count & OSPA & Count\\
+& \multicolumn{3}{c}{Reliable links} & \multicolumn{3}{c}{Intermittent links} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & OSPA & Missed & False & OSPA & Missed & False \\
 \midrule
-Local & $7.099\pm0.454$ & 1.368 & $7.280\pm0.537$ & 1.308 & $6.004\pm0.839$ & 0.645\\
-FoV & $3.713\pm0.584$ & 0.614 & $2.867\pm0.551$ & 0.442 & $0.804\pm0.163$ & 0.056\\
-MIL-Z & $4.812\pm0.499$ & 0.641 & $4.204\pm0.574$ & 0.452 & $2.765\pm0.854$ & 0.032\\
-MIL-S & $4.762\pm0.506$ & 0.624 & $4.112\pm0.582$ & 0.431 & $2.769\pm0.854$ & 0.033\\
-TC-OSPA$^2$ (5) & $5.050\pm0.491$ & 0.861 & $5.538\pm0.648$ & 0.857 & $3.532\pm0.998$ & 0.305\\
-TC-OSPA$^2$ (10) & $5.096\pm0.496$ & 0.867 & $5.598\pm0.655$ & 0.870 & $3.578\pm1.000$ & 0.308\\
-ER & $2.569\pm0.110$ & 0.398 & $0.846\pm0.205$ & 0.103 & $0.668\pm0.219$ & 0.040\\
+Local & 5.914 & 190.030 & 45.556 & 5.914 & 190.030 & 45.556 \\
+MIL-AM & 4.014 & 74.566 & 56.973 & 4.163 & 82.428 & 58.363 \\
+TC-5 & 4.253 & 68.620 & 75.289 & 4.693 & 101.053 & 64.733 \\
+TC-10 & 4.414 & 88.338 & 65.001 & 4.829 & 116.571 & 57.691 \\
+No-age KLA & 3.702 & 85.564 & 40.715 & 3.988 & 92.977 & 44.776 \\
+Recency & 3.672 & 78.330 & 43.986 & 3.952 & 87.113 & 47.603 \\
+Conservative & 3.672 & 86.046 & 37.436 & 3.956 & 93.865 & 42.483 \\
+Capped-score & 3.666 & 83.065 & 39.074 & 3.913 & 90.189 & 43.663 \\
+Capped-cal. & 3.650 & 80.776 & 40.418 & 3.897 & 88.391 & 44.318 \\
+Scalar & 3.526 & 78.625 & 34.536 & 3.832 & 86.342 & 40.523 \\
+\textbf{GCE} & 3.456 & 71.095 & 36.303 & 3.761 & 80.344 & 41.971 \\
 \bottomrule
 \end{tabular}
 \end{table*}

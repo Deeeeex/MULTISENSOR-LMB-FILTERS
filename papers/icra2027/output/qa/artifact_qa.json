@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "e438b1c40729559474dc43360f25a50e274053cc363dd365f548aff2b7acdc20",
-  "pages": 8,
+  "pdf_sha256": "f5500ce29fb942f576e581659ada71f8a2c0d80582638ea1fec5d6ce03693e80",
+  "pages": 9,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2137,
+  "text_spans_in_page_bounds": 2227,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -21,35 +21,47 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/YEUUOC+CMMI8": {
+    "/YEUUOC+CMSY7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/AKHCZK+CMMI6": {
+    "/AKHCZK+CMR8": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/VDVGTR+CMMI10": {
+    "/VDVGTR+CMMI8": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/CAFSZL+CMMI7": {
+    "/CAFSZL+CMMI6": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DDIEWW+CMR10": {
+    "/DDIEWW+CMMI10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/FKPJSN+CMSY10": {
+    "/FKPJSN+CMMI7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/PVTTLK+CMBX10": {
+    "/PVTTLK+CMR10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/JAGKKY+CMEX10": {
+    "/JAGKKY+CMR7": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/NOMARO+CMSY10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/KPXLOM+CMBX10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/UTACNV+CMEX10": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -69,19 +81,15 @@
       "subtype": "/Type0",
       "embedded": true
     },
-    "/NOMARO+CMSY7": {
+    "/FZDNHS+CMMI5": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/KPXLOM+CMR7": {
+    "/DZGKAF+MSAM10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/UTACNV+CMMI5": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/FZDNHS+MSAM10": {
+    "/GJMHKB+CMR6": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -92,126 +100,90 @@
     "/GOFYPY+ArialMT": {
       "subtype": "/Type0",
       "embedded": true
-    },
-    "/DZGKAF+CMSY8": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/GJMHKB+CMR6": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/NITCSQ+CMR9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/UBBQTN+CMMI9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/LPOGEQ+CMSY9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/BMQQDV+DejaVuSans": {
-      "subtype": "/Type0",
-      "embedded": true
     }
   },
   "type3_fonts": 0,
   "pdf_annotations": 0,
   "blank_author_metadata": true,
   "tex_font_substitution_warnings": 0,
+  "tex_informational_font_aliases": 20,
   "official_class_and_bst_unmodified": true,
   "figures": {
     "overview": {
-      "live_svg_text_elements": 62,
+      "live_svg_text_elements": 60,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "cd8c434be86b9c64ee1e31145a921718fc04aeaf717b1468141df0efd68af70e"
+      "svg_sha256": "e612ddb0b78e021dee1b5d885a165a9737f3166318b7130ebfceb25e6dd99205"
     },
-    "scene": {
-      "live_svg_text_elements": 48,
+    "gaussian_paired": {
+      "live_svg_text_elements": 22,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "5f23da687e2019cef4a27fff1c2567e297cee9a1fd67bb7b68441ba143497bd4"
+      "svg_sha256": "9769aca5bd7424ca02cf7153b1a9c14701b4f93d1d24b5281ef66154b8ff7613"
     },
-    "mechanism": {
+    "gaussian_components": {
       "live_svg_text_elements": 21,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "6d09ba98796561695dbddcfed5881793fbb46a6ba010c98f1cfc0ed487ca1df4"
+      "svg_sha256": "badab5145c0bfd675909f57b44fac5c1c75958064af49843fde142d8b9372ab3"
     },
-    "outcomes": {
-      "live_svg_text_elements": 36,
+    "gaussian_communication": {
+      "live_svg_text_elements": 44,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "fc71f646a7ec5c5ceb6c4efccc67cea1759c63d53c6d454bef2649eeb1cb0846"
-    },
-    "time": {
-      "live_svg_text_elements": 46,
-      "no_embedded_raster": true,
-      "label_bounds_pass": true,
-      "svg_sha256": "ccbb45316f94ef7ade7469ebe5bade1f90821b7a3a4309d245a3dc8267d571ca"
-    },
-    "v2v4real": {
-      "live_svg_text_elements": 104,
-      "no_embedded_raster": true,
-      "label_bounds_pass": true,
-      "svg_sha256": "17e0d7d135f84646b1d9c26177a07ef35b2364d5689cc465bab948da44bd40f1"
+      "svg_sha256": "ad797dfdbe486365cf31f77d84b7fd85b676f9ba39ebf043a0cc2987a4a18297"
     }
   },
   "float_pages": {
     "fig:overview": 2,
-    "fig:mechanism": 3,
-    "fig:scene": 5,
-    "tab:real": 5,
-    "fig:real": 6,
     "tab:main": 6,
+    "fig:paired": 6,
     "tab:ablation": 7,
-    "fig:outcomes": 7
+    "fig:components": 7,
+    "tab:communication": 8,
+    "fig:communication": 8
   },
   "references_start_page": 8,
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,
-  "validation_seeds_per_family": 20,
-  "validation_arm_runs": 540,
-  "audited_validation_node_frames": 518400,
-  "scalar_facts_match_audited_summary": true,
-  "external_tc_cases": 60,
-  "external_tc_added_arm_runs": 120,
-  "audited_external_tc_node_frames": 115200,
-  "real_sequences": 9,
-  "real_frames": 1993,
-  "real_sequence_condition_arm_runs": 108,
-  "audited_real_node_frames": 47832,
+  "numerical_evidence": {
+    "main_sequences": 25,
+    "main_frames": 5601,
+    "development_sequences": 9,
+    "development_frames": 1993,
+    "main_methods": 11,
+    "main_sequence_condition_method_runs": 550,
+    "scalar_facts_checked": 64,
+    "paired_sequence_points": 300,
+    "component_sequence_points": 200,
+    "codec_exact_primary_trajectories": 68,
+    "all_real_outcomes_previously_seen": true,
+    "portable_source_snapshots": 15,
+    "source_result_identities": 850
+  },
+  "draft_page_cap": null,
+  "conference_page_limit": 8,
+  "requires_length_revision_before_submission": true,
   "citation_keys_resolved": [
-    "autoware2026tracker",
     "battistelli2014kla",
     "chiu2024dmstrack",
     "dames2020search",
-    "decster2024",
     "gao2019milpreprint",
     "gao2020mil",
     "gao2022differentfov",
     "gao2026lmbslam",
     "gospa2017",
-    "jin2024selector",
-    "lang2026adaptive",
+    "hlinka2012likelihood",
     "li2018multiviewlmb",
-    "li2019labelmatching",
-    "li2020multiview",
-    "li2021cphd",
-    "moore2016robotlocalization",
     "nguyen2021tc",
     "ramachandran2021reconfiguration",
     "reuter2014lmb",
     "schuhmacher2008ospa",
-    "shan2020liosam",
     "uney2019cardinality",
-    "wang2018multiview",
-    "xu2023v2v4real"
+    "wu2022sharedpriors",
+    "xu2023v2v4real",
+    "yi2021heterogeneous"
   ],
-  "citation_scope": "DOI metadata, author BibTeX, official documentation and public SSRN metadata; see LITERATURE_SCOPE.md",
+  "citation_scope": "Crossref and DataCite metadata plus available author manuscripts; see LITERATURE_SCOPE.md",
   "limitations": "Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check."
 }

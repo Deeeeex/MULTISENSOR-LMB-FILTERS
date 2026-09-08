@@ -1,161 +1,109 @@
-# ICRA 2027 完整论文初稿与复现说明
+# GCE 论文初稿与复现说明
 
-论文：**Observation Recency in Bernoulli Fusion for Intermittent Multirobot Tracking**。
-当前 8 页英文完整初稿包含正文、5 幅主文 SVG/PDF 图、3 张表、25 条引用和 AI 使用披露。
-另保留一幅 case-study 时间轨迹图及其数据，供作者核查，不计入主文图数。
-新补 TC-OSPA² 外部实验及 V2V4Real 全部 9 个已发布评估序列的真实检测回放。
-正式模板、引用元数据、图表源数据和构建脚本已放在本目录。
-这是供作者审阅的完整研究稿；自动检查不等于独立复现、作者批准或投稿系统验收。
+论文：**Guarded Current-Evidence Fusion for Cooperative Multitarget Tracking**。
+本稿围绕已完成的 Gaussian current-evidence 主实验重写，包含完整正文、四幅可编辑
+SVG/PDF 图、三张表、十八条正文引用及 AI 使用披露。当前按“篇幅先不管”的要求
+保留方法和实验细节；最终页数与版面检查见 `output/qa/artifact_qa.json`。
+这是作者审阅稿，尚未向会务系统提交。
 
-2026-09-08 基线复核：历史记录中的 Lineage 是已有历史资格筛选的内部消融，3.1% / 24.7%
-是加入时效的增量收益，不能解读为相对公开强基线的优势。现在已增加 TC 两个窗口，
-并在真实检测上增加含独立标签指派的 MIL-AM；TAES 2022 完整版本的等价性仍未确认。
-机器人融合路线、代码来源和具体候选见 [基线复核报告](ROBOTICS_FUSION_BASELINE_REVIEW_CN.md)。
-正文、图例和表格现统一使用 `ER w/o age`，组合空间/存在时效的消融使用 `ER (both)`；
-实验文件中的原始方案键保持不变。已清理正文中的种子编号、冻结/审计记录和重复防御性说明。
-方法定义、必要实验设置、统计方法和负面结果仍在正文中。
-最新输入、外部方法实现边界、全部结果和迁移限制见
-[外部基线与公开数据报告](EXTERNAL_DATASET_RESULTS_CN.md)。
+## 阅读入口
 
-主图按用户选定的一体化生图逐元素重绘，保留布局与配色，并修正公式与连线。
-最终矢量图为 `figures/overview.svg`；设计参考、prompt 和说明见
-[一体化主图目录](main_figure_integrated/README.md)。
+- PDF：`output/pdf/icra2027_draft.pdf`
+- 可移植源码包：`output/icra2027_review_source.zip`
+- 方法总图：`figures/overview.svg`；PNG 预览及矢量 PDF 位于同一目录。
+- 数值入口：`source_data/gaussian_paper_evidence.json`；十五份实验快照及其来源记录：
+  `source_data/gaussian_source_manifest.json`。
+- 自动检查：`output/qa/artifact_qa.json`；逐页视觉检查：`output/qa/visual_review.md`；
+  解压重建检查：`output/qa/portable_rebuild.json`。
+- 完整实验、日志和逐帧结果保存在仓库的 `trials/icra_gaussian_evidence/`、
+  `trials/icra_gaussian_components/`、`trials/icra_gaussian_zero_codec/` 及对应 `RUN/` 目录。
 
-- 阅读：`output/pdf/icra2027_draft.pdf`
-- 可移植论文源码包：`output/icra2027_review_source.zip`
-- 机器检查：`output/qa/artifact_qa.json`；人工版面记录：`output/qa/visual_review.md`
-- 源码入口：`main.tex`、`sections/`、`generated/`、`figures/`
-- 数值入口：`source_data/validation_summary.json`、`external_case_studies_summary.json`、
-  `external_v2v4real_summary.json` 与对应 CSV
-- 完整实验：`trials/icra_reunion_fusion/`、`trials/icra_external_fusion/`；
-  运行日志：`RUN/ICRA/reunion_fusion_v1/`、`RUN/ICRA_EXTERNAL/`
+## 当前方法和主结果
 
-## 主线与实际结论
+方法保留 LMB 本地跟踪与已有独立标签对齐，在融合层区分继承的后验与当前局部更新。
+先形成保守的存在概率基底，再以关联、检测分数或漏检证据及曲率条件决定当前
+Bernoulli 比值的权重。同一比值同时修正高斯空间密度和存在概率，重新计算空间积分。
+不合适的源增量整项拒绝；不可积的最终聚合回到基底。共享先验精确情形、零增量、
+冲突观测、单源与回退均有数值检查。先验/似然分离本身是已有原理，不能作为首创贡献。
 
-场景切换为八个低速移动机器人在局部视野和间歇通信下进行协作目标跟踪。
-重逢时区分未观测先验、已有观测来源和直接观测时效；ER 仅将时效用于存在概率，
-保留原有空间权重和空间重叠归一化项。近期漏检也计入直接观测机会，中继不刷新本地时效。
-固定输入下的空间不变性有简短变分推导，递归定位结果由实验检验。
-原有 LMB/KLA 核心未修改，没有增加规划器、控制器、学习系统或真实感知工程。
+主表使用 25 个完整序列、5,601 帧，两种固定通信条件，共享同一个 score-aware 本地模型。
+下表按完整序列等权，单位为 m，越低越好：
 
-V2V4Real 使用已发布的两车真实检测和相对变换，合计 1,993 帧；不训练新检测器。
-每个序列执行 6 个方案、可靠/模拟间歇两种通信条件，共 108 个组合。按序列等权平均：
+| 方法 | 可靠通信 OSPA | 间歇通信 OSPA |
+| --- | ---: | ---: |
+| No-age KLA | 3.702 | 3.988 |
+| Recency | 3.672 | 3.952 |
+| Scalar | 3.526 | 3.832 |
+| GCE | **3.456** | **3.761** |
 
-| 方法 | 可靠通信 OSPA（m） | 间歇通信 OSPA（m） |
-|---|---:|---:|
-| ER | 4.875 | 5.119 |
-| ER w/o age（内部消融） | 4.713 | 5.109 |
-| MIL-AM | 5.177 | 5.309 |
-| TC-OSPA²（5 / 10 帧窗口） | 5.690 / 5.574 | 5.792 / 5.765 |
+GCE 相对 No-age KLA 改善 6.7% / 5.7%，相对 Recency 改善 5.9% / 4.8%。
+对 No-age、Recency、Conservative、两个 capped 控制及 Scalar，两种条件下的配对
+OSPA 区间都低于零。图中保留每一个序列的点，没有按改进大小剔除序列。
+相对 No-age 与 Recency，漏检、误报平方代价和共同匹配目标定位一起改善。
+共同目标 RMSE 使用双方都匹配到的同一 robot–time–truth 支持，不能直接混用不同支持的比值。
 
-ER 相对外部适配方法的平均 OSPA 较低，但时效模块本身没有稳定迁移收益：
-相对无时效版本的差值为 +0.162 / +0.011 m，两个 95% 序列 bootstrap 区间均含零，
-误报代价也增加。全文保留这条负面发现，不把外部方法差距归因于时效模块。
+完整消融保留相反或不确定结果：无曲率保护的 OSPA 区间只有间歇条件排除零；
+可靠条件出现两次需要聚合回退的不可积结果。无历史项的贡献很小，两种区间都含零。
+去掉正证据分数约束减少漏检、增加误报，总 OSPA 区间也含零。Scalar 的空间修正对照
+有主实验支持，但九序列开发子集上的同类区间含零。
 
-机制 case study 使用两类事件及一个无新目标控制 × 20 个配对种子 × 9 个原有方案，
-共 540 次运行；另复用这些输入补跑 120 次 TC 对比。
-每个种子共享真值、量测、丢包随机数和路径偏移。下表均为验证集均值：
+零向量编码器省略恰好为零的十五维高斯增量，保留有符号零及所有非零浮点值。
+完整 34 序列 × 两种条件的原生回放验证所有跟踪输出和原有诊断完全一致。
+主实验相对完整高斯数据包，raw 字节下降 20.3% / 21.1%，含分片与控制量的字节下降
+11.3% / 10.8%。相对 No-age，编码后的 raw 仍增加 17.3% / 21.5%，含分片与控制量仍增加
+4.1% / 7.0%；不是同等字节预算的精度优势。字节数来自实际回放，不是平均轨迹数估算。
 
-| 指标 | 分队后重逢 | 反复相遇及目标离场 | 无新目标控制 |
-|---|---:|---:|---:|
-| ER w/o age OSPA (m) | 2.651 | 1.123 | 0.797 |
-| ER OSPA (m) | 2.569 | 0.846 | 0.668 |
-| 相对改善 | 3.1% | 24.7% | 16.2% |
+## 结论边界
 
-两个事件场景的共同目标 RMSE 比值约为 0.9999 / 0.9998，基本不变；同时改变空间和
-存在权重的消融则恶化约 16.8% / 3.1%。这支持将直接观测时效放在存在判断上的有限结论。
+九个开发序列和主实验的二十五个序列都已参与方法开发。主实验使用检测器训练划分
+中的已发布检测；它不是独立测试集。区间按二十五个完整序列重采样 10,000 次，
+是这批开发数据的描述，不能把帧或两车当作独立样本。
 
-负面结果已写入正文、图表和讨论：
+真实数据回放是两车、二维 car center、40 m 感知域与明确裁剪范围，采用移动 ego 坐标、
+固定观测模型及模拟丢包，没有自车运动补偿或机器人实机通信。检测分数拟合使用开发
+数据真值，在线过程使用检测及后验；其可分 mark likelihood 是近似。新路线、不同检测器
+及独立数据上的迁移效果仍需另外实验。四机器人总图只是机制示意。
 
-- ER 的离场后误报平方代价在新种子上为 12.255 m²，Lineage 为 10.785 m²；开发阶段的
-  34.5% 改善未复现。配对差值 +1.470 m²，描述性 95% bootstrap 区间 [-0.705, 3.795]。
-- 无新目标控制中 ER 误报平方代价为 0.570 m²，FoV 为 0.00375 m²；较低 OSPA 不表示更少误报。
-- 两次本地命中确认降低误报，但使反复相遇场景 OSPA 恶化为 1.519 m，且有 8/160 个远端发现
-  查询未成功。成功查询的平均时延为 7.63 s，ER 为 2.47 s；失败查询未混入该均值。
-- v1 Age-all 通过初始粗筛，但输给更强的 Lineage 对照并恶化定位；v2/v3 组合均未通过后续
-  完整平衡门槛。验证后没有改方法、阈值、先验、路径或筛除种子。
+MIL-AM 为公共作者稿的标签指派/子空间适配；TC 使用作者原生轨迹函数及共享 Local-LMB
+输出，其不回馈本地密度的架构保持不变。这里不声称复现各论文原生协议或三维榜单。
+没有通过新的实验验证多机器人实机、规划、定位误差鲁棒性或共识收敛。
 
-贡献限于时效权重在 Bernoulli 融合中的具体放置方式及其权衡。可变融合权重、多视域处理、
-存在/空间分解均已有文献；case-study MIL-Z/S 为共享标签的实现，真实检测的 MIL-AM
-增加公共作者稿中的独立标签关联。它们均不声称完整复现 TAES 2022。
-创新幅度、迁移效果和机器人适用范围仍需作者审阅判断。
+## 构建与可移植性
 
-## 必须保留的实验边界
-
-在机制 case study 中，机器人共享出生时刻、候选出生区域和标签，位姿及时钟精确已知；运动轨迹预设，
-量测为合成二维点。仅有小目标集合、固定噪声/视野/通信范围和适度路径偏移，
-不验证任意新生、独立标签匹配、遮挡、定位误差、传感器异构或真实机器人执行。
-可靠的中心几何协调器选择每个连通分量的 MST，其控制量计费，估计消息有丢包。
-每个方案使用同样的固定包槽；这不是通信节省或分布式网络协议的证明。
-
-真实回放使用两辆车、明确裁剪的二维目标域、发布检测与独立的上帧检测出生；
-坐标为随时间移动的 ego frame，没有自车运动补偿，检测似然为固定近似模型。
-通信中断为模拟，分片字节成本随方案而变，不能声称等字节比较。不是完整三维榜单，
-也不是更大真实机器人网络验证。所有 9 个评估序列均保留，预检修订单独记录。
-
-Python 用独立的穷举指派实现复算全部 518,400 个验证节点帧，并核验 1,169 个冻结源码散列。
-这是对指标实现与来源记录的核对，不是第三方实验验证。区间按 20 个配对 episode 重采样，
-不把机器人/帧作为独立样本，不作多重比较调整或确认性显著性宣称。
-新增 TC 重算 115,200 个节点帧；真实检测重算 47,832 个节点帧并核验 1,182 个源码/
-协议文件。真实数据的区间按 9 个完整序列重采样；序列可能来自相关驾驶路线。
-
-## 构建论文与图表
-
-需要 Tectonic，以及带 NumPy、matplotlib 的 Python；PDF 检查需要 pypdf 和 PyMuPDF。
-脚本自动探测可用 Python，也可用 `PAPER_PLOT_PYTHON`、`PAPER_PDF_PYTHON` 指定解释器。
-本机验证环境：MATLAB R2024a；NumPy 2.4.4；matplotlib 3.10.9；Tectonic 0.15.0。
+需要 Tectonic、NumPy、matplotlib、PyMuPDF 和 pypdf；脚本自动选择可用 Python。
+可通过 `PAPER_PLOT_PYTHON` 和 `PAPER_PDF_PYTHON` 指定解释器。本机已验证的绘图解释器为
+`/Users/dex/miniconda3/bin/python3`，Tectonic 为 `/opt/homebrew/bin/tectonic`。
 
 ```sh
 cd /Users/dex/Desktop/Code/icra27/papers/icra2027
-python3 build.py
-python3 build.py --regenerate
+/Users/dex/miniconda3/bin/python3 build.py --regenerate
 ```
 
-第一条构建命令使用已生成图表；第二条重新生成参考文献、表格、五组数值图和矢量主图。
-二者均编译、检查字体/页数/图文边界/引用/数值来源并打包。Tectonic 首次运行可能需要联网
-下载 TeX 依赖。固定两次重跑避免 IEEEtran 与 Tectonic 的参考文献稳定性重复警告。
-在加载官方类之前指定 T1 编码，使 Tectonic 正确使用 Times 字体及粗体、斜体；
-类文件保持原样。末页使用官方类提供的参考文献分栏命令整理版面。
-常规 LaTeX 环境也可执行 `pdflatex main; bibtex main; pdflatex main; pdflatex main`，
-但这里实际验证的是 Tectonic，不声称验证了另一编译链。
+这会从完整实验快照重建文献、所有数字与表格、三幅数值图和一幅连续式主图，编译 PDF，
+检查字体嵌入、文本边界、全部浮动体在参考文献之前、引用、550 个主表运行摘要及数值来源，
+然后生成源码 ZIP。省略 `--regenerate` 可使用已生成图表直接编译。
+Tectonic 首次使用可能需要联网下载 TeX 包。
 
-解压源码包后，在解压的 `icra2027` 目录运行相同命令即可。包内的 `source_data/` 支持
-图表与论文重建；大体积原始 MAT 输入和逐帧结果保留在版本化仓库中，没有放进论文 ZIP。
-此 ZIP 是作者审阅包，包含来源记录及脚本；未作为匿名补充材料向任何网站上传。
-源码包重建的具体检查项与页数见 `output/qa/portable_rebuild.json`。
-该检查使用同一本机运行时与字体，不替代 MATLAB 实验复跑。
+解压后在 `icra2027` 目录运行同一 `build.py --regenerate`，不需要原始 MATLAB 结果。
+在原始仓库构建时会核对实验文件；解压目录使用十五份完整快照和摘要生成图表。
+该重建检查验证论文材料可移植，不代表从原始检测重新运行 MATLAB 实验。
+`package_review.py` 只收录当前正文实际使用的文件；仓库中未被本文引用的历史实验与旧稿
+图表仍保留在 Git，未混入本次源码包。
 
-版本节点：`ddd49a4c` 保存初始方向筛选，`72d4e3ef` 保存确认消融及验证协议冻结，
-`f712a749` 保存全部新种子验证输入、逐帧结果和审计。论文包作为后续独立提交保存。
-`150b1337` 保存新增 TC 对比、MIL-AM 实现、V2V4Real 紧凑输入和完整回放结果。
+完整原生实验的入口和已完成阶段分别见：
 
-## 重新运行实验
+- `../../trials/icra_gaussian_evidence/README_CN.md`、`PROTOCOL.md` 与 `RESULTS_seen_transfer_CN.md`。
+- `../../trials/icra_gaussian_components/PROTOCOL.md` 与 `RESULTS_seen_transfer_CN.md`。
+- `../../trials/icra_gaussian_zero_codec/PROTOCOL.md` 与 `RESULTS_seen_transfer_CN.md`。
 
-新增外部方法和公开数据的最小复现入口见
-[`trials/icra_external_fusion/README_CN.md`](../../trials/icra_external_fusion/README_CN.md)。
-其数据准备需带 SciPy/NumPy 的 Python；论文源码 ZIP 自带汇总数据，重建图表不依赖 SciPy。
-以下命令针对原有机制 case study，原始结果无需为了增加 TC 而重跑。
+如需重跑，使用独立 checkout 保存现有结果。本文构建不会启动实验或改变方法参数。
+已提交的版本节点：`bab88ce3` 为完整 25 序列主实验，`64449548` 为九序列原生编码验证，
+`2c6ee6c5` 为开发组件分析，`955a8fc6` 为完整主实验编码与组件证据。
 
-完整实验需本仓库的 `common/`、`lmb/`、`multisensorLmb/` 与既有场景辅助函数。
-运行器会重写对应结果，建议在独立 checkout/worktree 中复跑并保留已提交结果以便比较。
-冻结协议按 v1/v2/v3/v4 保存在实验目录，`VALIDATION_NOTES.md` 单独澄清后验措辞，未改注册文本。
+## 模板与引用
 
-```sh
-cd /Users/dex/Desktop/Code/icra27
-/Applications/MATLAB_R2024a.app/bin/matlab -singleCompThread -batch "addpath('trials/icra_reunion_fusion'); runRobotReunionValidation(2901,2920);" 2>&1 | tee RUN/ICRA/reunion_fusion_v1/validation_replay.log
-/Users/dex/miniconda3/bin/python3 trials/icra_reunion_fusion/analyze_validation.py
-/Applications/MATLAB_R2024a.app/bin/matlab -singleCompThread -batch "addpath('trials/icra_reunion_fusion'); checkReunionFusion; checkConfirmedFusion; checkValidationControls;"
-```
-
-日志查看：`tail -f RUN/ICRA/reunion_fusion_v1/validation_replay.log`。
-`-singleCompThread` 是本机实测必要选项；默认多线程对这些小矩阵运算明显更慢。
-
-## 模板与格式依据
-
-2026-09-08 核对 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)：
-最多 8 页，包括参考文献、致谢及补充内容；双盲；AI 生成内容需要披露。
-本稿使用 [Papercept 官方模板](https://ras.papercept.net/conferences/support/tex.php)，
-下载压缩包和 SHA-256 记录在 `official_template/download_manifest.json`。
-根目录 `ieeeconf.cls` 与 `IEEEtran.bst` 均与下载副本逐字节一致。
-作者栏留空，正文以第三人称引用已有工作；已写明 OpenAI Codex 对代码、图表和正文的使用范围。
-最终作者身份、AI 披露措辞、与已有/在审稿件的重叠，以及会务系统的实时检查应由作者完成。
+`ieeeconf.cls`、`IEEEtran.bst` 与保存的 Papercept 官方模板逐字节一致。
+2026-09-08 核对的 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)
+要求完整投稿不超过八页，采用双盲审稿，并披露 AI 生成内容。本稿暂不按投稿页数压缩；
+作者栏留空，AI 使用范围已写入致谢。实际提交前仍需作者审阅研究贡献、版本重叠、
+披露措辞与最终长度。文献事实与外部复现边界见 `LITERATURE_SCOPE.md`。

@@ -1,11 +1,13 @@
 \begin{figure*}[t]
  \centering
  \includegraphics[width=\textwidth]{figures/overview.pdf}
- \caption{Existence recency in multirobot tracking. Each robot predicts and
- updates an LMB, then exchanges posteriors at contact. Observation history
- qualifies fusion inputs; direct sensing age modulates existence weights
- $q$, while spatial pooling retains ordinary weights $a$. Visible absence
- contributes only existence evidence. The spatial-overlap normalizer $\eta_a$
- connects both branches, and the fused Bernoulli feeds the next local step.}
+ \caption{Guarded current-evidence fusion. Local LMB predictions and updates
+ supply the inherited posterior and current Bernoulli ratio. Qualified
+ support forms the base; association, score or miss evidence, and a
+ curvature test admit each current correction with weight $\bar\kappa_j$.
+ The same ratio changes spatial density and existence, coupled by the
+ recomputed integral $I$. Visible absence contributes only to the base.
+ The fused posterior feeds the next local step. Robot poses and densities
+ are schematic; the real-detection experiment uses two vehicles.}
  \label{fig:overview}
 \end{figure*}

@@ -1,96 +1,158 @@
 \section{Results}
+\subsection{Main set-estimation comparison}
+Table~\ref{tab:main} reports all 25 sequences with the same score-aware
+local tracker. GCE attains OSPA of \MainReliable\ m under reliable links
+and \MainIntermittent\ m under intermittent links. Relative to No-age KLA,
+the reductions are \GainNoAgeReliable\% and \GainNoAgeIntermittent\%;
+relative to Recency they are \GainRecencyReliable\% and
+\GainRecencyIntermittent\%. GCE improves on No-age KLA in 20/25 reliable
+sequences and 24/25 intermittent sequences. Against Recency, it improves
+in 17/25 and 18/25 sequences, respectively.
+
+\input{generated/main_table}
+
+The paired GCE-minus-No-age OSPA differences are
+\DeltaNoAgeReliable\ m [\DeltaNoAgeLowReliable, \DeltaNoAgeHighReliable]
+and \DeltaNoAgeIntermittent\ m
+[\DeltaNoAgeLowIntermittent, \DeltaNoAgeHighIntermittent].
+The corresponding differences from Recency are
+\DeltaRecencyReliable\ m
+[\DeltaRecencyLowReliable, \DeltaRecencyHighReliable] and
+\DeltaRecencyIntermittent\ m
+[\DeltaRecencyLowIntermittent, \DeltaRecencyHighIntermittent].
+All four intervals lie below zero. The intervals against Conservative
+and both capped controls also lie below zero in both conditions.
+Figure~\ref{fig:paired} retains all sequence differences for these
+controls and the Scalar component.
+
 \begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/outcomes.pdf}
- \caption{Set error, localization, and false-target costs. (a) Paired OSPA
- differences relative to ER w/o age; small dots show individual trials,
- and large points with bars show means and 95\% bootstrap intervals.
- (b) Percentage changes in pooled RMSE on common assignment support.
- (c,d) Departure and no-new false-target squared costs, with twenty trial
- points per method. ER reduces set error with little change in common-target
- localization; confirmation changes the discovery--false-cost tradeoff.}
- \label{fig:outcomes}
+ \centering\includegraphics[width=\textwidth]{figures/gaussian_paired.pdf}
+ \caption{Complete 25-sequence comparisons. Small dots are individual
+ sequence OSPA differences, GCE minus the labeled control; large points
+ and bars show equal-sequence means and 95\% percentile intervals from
+ 10,000 sequence resamples. Negative values favor GCE. All points and
+ both link conditions are included; intervals describe this development
+ corpus.}
+ \label{fig:paired}
 \end{figure*}
 
-\subsection{Transfer to real detections}
-Table~\ref{tab:real} reports all nine sequences. With reliable links,
-ER's macro-average OSPA is \RealErReliable\ m, compared with
-\RealMilReliable\ m for MIL-AM and \RealTcFiveReliable/\RealTcTenReliable\ m
-for TC windows five/ten. With intermittent links, the corresponding values
-are \RealErIntermittent, \RealMilIntermittent, and
-\RealTcFiveIntermittent/\RealTcTenIntermittent\ m.
-ER beats MIL-AM in seven of nine reliable-link sequences and eight of nine
-intermittent-link sequences, and each TC window in eight of nine sequences
-under either condition. Sequence 0004 favors MIL-AM and TC over ER.
+Both missed-target and false-target squared costs decrease relative to
+No-age KLA and Recency. Against No-age KLA, mean missed cost decreases
+by \MissGainNoAgeReliable\%/\MissGainNoAgeIntermittent\%, and false cost
+by \FalseGainNoAgeReliable\%/\FalseGainNoAgeIntermittent\%
+(reliable/intermittent). On common matched truth, GCE/No-age RMSE is
+\LocMainNoAgeReliable/\LocNoAgeReliable\ m with reliable links and
+\LocMainNoAgeIntermittent/\LocNoAgeIntermittent\ m with intermittent
+links, on \SupportNoAgeReliable\ and \SupportNoAgeIntermittent\
+instances. The lower set error therefore does not arise solely from
+trading worse localization for a different target count.
 
-The age factor itself does not yield a consistent transfer gain.
-Relative to ER w/o age, paired OSPA differences are
-$+\RealDeltaReliable$ m [\RealDeltaLowReliable, \RealDeltaHighReliable]
-with reliable links and $+\RealDeltaIntermittent$ m
-[\RealDeltaLowIntermittent, \RealDeltaHighIntermittent] with intermittent
-links. Both intervals include zero. ER improves OSPA in five of nine
-sequences under each condition, but increases mean false-target cost by
-6.73 and 4.46 m$^2$, respectively. Thus the external-method comparison
-supports the full fusion configuration in this replay; it does not isolate
-a benefit of recency. Figure~\ref{fig:real} retains every sequence comparison.
+GCE also has lower sequence-macro OSPA than MIL-AM and both TC windows
+in both conditions. These are comparisons with the stated adaptations;
+TC's separate local-track architecture and MIL's arithmetic pooling
+differ from recursive geometric density fusion. The controlled
+No-age, Recency, and Scalar comparisons more directly isolate the change
+to the fusion rule.
 
-\subsection{Case studies: existence recency and set estimation}
-Tables~\ref{tab:main} and~\ref{tab:ablation} separate external/control
-comparisons from mechanism ablations.
-Relative to ER without recency, ER reduces mean OSPA from \LineageSplit\ to
-\ErSplit\ m in split--rejoin and from \LineageChurn\ to \ErChurn\ m in
-churn--departure. The paired differences are
-\DeltaSplit\ m [\DeltaLowSplit, \DeltaHighSplit] and
-\DeltaChurn\ m [\DeltaLowChurn, \DeltaHighChurn], respectively.
-In the no-new control, the difference is
-\DeltaNonew\ m [\DeltaLowNonew, \DeltaHighNonew].
-Brackets denote the 95\% bootstrap intervals defined above.
-Cardinality error decreases in all three scenarios. In the
-reunion windows, OSPA is 2.533 versus 3.264 m in split--rejoin and 0.926
-versus 1.248 m in churn--departure (ER versus ER w/o age).
+\subsection{The contribution of joint normalization}
+The complete Scalar control obtains \ScalarReliable/\ScalarIntermittent\
+m OSPA. The paired GCE-minus-Scalar differences are \DeltaScalarReliable\ m
+[\DeltaScalarLowReliable, \DeltaScalarHighReliable] and
+\DeltaScalarIntermittent\ m
+[\DeltaScalarLowIntermittent, \DeltaScalarHighIntermittent].
+Here differences retain the GCE-minus-control convention; both intervals
+lie below zero. GCE also lowers common-target RMSE from
+\LocScalarReliable\ to \LocMainScalarReliable\ m and from
+\LocScalarIntermittent\ to \LocMainScalarIntermittent\ m.
+Relative to Scalar, the correction reduces mean missed cost while
+slightly increasing mean false cost, as shown in
+Table~\ref{tab:ablation}.
 
-FoV, MIL-Z/S, and both TC windows have higher OSPA than ER in these
-case studies. TC uses independent local histories and no density feedback,
-whereas recursive density fusion relays information over successive tree
-edges. Since every robot is scored against the global target set, this
-architectural difference contributes to the large TC gap; it cannot be
-attributed to the age factor. Support partitioning improves MIL in the two
-event cases. Local has the largest OSPA, consistent with its limited coverage.
+\input{generated/ablation_table}
 
-\subsection{Where the age factor belongs}
-Table~\ref{tab:ablation} and Fig.~\ref{fig:outcomes}(b) distinguish existence
-gains from localization. With the same observation-history qualification,
-ER (both) increases common-target RMSE relative to ER w/o age by 16.8\%
-in split--rejoin and 3.1\% in churn--departure. ER leaves this RMSE almost
-unchanged, with ratios of 0.9999 and 0.9998. This agrees with the motivation in
-Fig.~\ref{fig:mechanism}: recent direct sensor opportunity is useful for
-existence weighting, while a posterior also retains spatial information
-from earlier observations and robot encounters.
+To distinguish immediate fusion effects from changes accumulated through
+recursive filtering, we also re-extract estimates on GCE's saved fusion
+inputs. Using the old spatial pool and Scalar existence gives OSPA
+\FixedScalarReliable/\FixedScalarIntermittent\ m on actual fusion
+frames, versus \FixedMainReliable/\FixedMainIntermittent\ m for the
+joint correction. Replacing only the mean or only the existence gives
+intermediate diagnostics. These substitutions do not reproduce the
+Scalar trajectory: the larger full-run difference also includes later
+association, pruning, and extraction effects.
 
-\subsection{False hypotheses and the confirmation tradeoff}
-Table~\ref{tab:ablation} shows the false-hypothesis tradeoff. ER's mean
-post-departure false cost is 12.255 m$^2$, compared with 10.785 m$^2$ for
-ER w/o age. The paired difference is $+1.470$ m$^2$
-[$-0.705$, $3.795$].
-Similarly, ER's no-new false cost is 0.570 m$^2$, versus 0.00375 m$^2$
-for FoV. Lower OSPA therefore does not imply better false-track rejection.
+\subsection{What the guards and history term contribute}
+Figure~\ref{fig:components} and Table~\ref{tab:ablation} report every
+declared component removal. Omitting the curvature guard raises mean
+OSPA in both conditions; its paired interval excludes zero only with
+intermittent links. The unguarded version encounters two nonintegrable
+aggregates under reliable links, which trigger the shared fallback.
+GCE encounters none. The largest observed immediate position changes
+are 6.85/7.93 m for GCE, versus 28.68/49.62 m without the source guard.
+These observed maxima illustrate the effect of rejecting unsuitable
+Gaussian ratios; they are not error bounds.
 
-Confirmed ER reduces no-new false cost to 0.00375 m$^2$, but its churn
-OSPA is 1.519 m, versus ER's 0.846 m. This is consistent with the cost of
-requiring consecutive local positive associations during short sensing
-opportunities. In churn, ER acquires 160/160 opposite-subteam robot--target
-queries, while Confirmed ER acquires 152/160. Among successful acquisitions,
-mean delays are 2.47 and 7.63 s, respectively. The remaining eight Confirmed
-ER queries are unacquired by their censoring time.
-Discovery and post-departure persistence therefore require separate metrics.
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/gaussian_components.pdf}
+ \caption{Component evidence on all 25 sequences. GCE-minus-control OSPA
+ differences use the same point and interval conventions as
+ Fig.~\ref{fig:paired}. The Scalar control removes the spatial ratio;
+ the other controls remove one admission or base-weighting component.
+ Intervals crossing zero do not establish an OSPA contribution for that
+ component.}
+ \label{fig:components}
+\end{figure*}
 
-\subsection{Communication cost}
-In the case studies, all communicating methods use the same attempted and delivered
-messages for each paired trial. Mean attempted wire cost is 24.98 MiB
-for split--rejoin and no-new, and 25.74 MiB for churn--departure. Across communicating methods and
-scenarios, mean unpadded payload totals range from 2.14 to 9.85 MiB;
-the padded message budget is identical. TC's raw payloads are 0.68--1.76 MiB.
-In the real replay, equal packet opportunities yield different fragment
-costs: mean attempted wire volume per sequence is 8.22/8.24 MiB for ER,
-9.97/9.85 MiB for MIL-AM, and 6.97/6.97 MiB for either TC window
-(reliable/intermittent). ER's raw payloads are 4.35/4.48 MiB, compared with
-1.35/2.64 MiB for TC windows five/ten. This is not an equal-byte comparison.
+Removing the conservative history switch changes mean OSPA by only
+about 0.01 m, and both intervals include zero. Removing the positive
+score constraint substantially increases mean false-target cost but
+reduces missed-target cost. Its total OSPA intervals also include zero.
+Thus the current experiment supports the full rule and the joint
+correction over Scalar, while leaving some individual design choices
+only weakly resolved.
+
+\subsection{Development results and the common local model}
+On the nine-sequence development subset, GCE attains
+\DevMainReliable/\DevMainIntermittent\ m OSPA, compared with
+\DevNoAgeReliable/\DevNoAgeIntermittent\ m for No-age KLA and
+\DevScalarReliable/\DevScalarIntermittent\ m for Scalar.
+All fixed methods and both conditions are retained in the accompanying
+source data. The development Scalar comparison is weaker than the
+25-sequence result: its two intervals include zero.
+
+The score-aware local model itself matters. In the 25-sequence
+evaluation, unmarked No-age KLA has OSPA
+\UnmarkedNoAgeReliable/\UnmarkedNoAgeIntermittent\ m, compared with
+\NoAgeReliable/\NoAgeIntermittent\ m when both methods use the common
+score-aware update. That gain belongs to the local observation model.
+The additional GCE improvement is measured against the latter, and the
+no-positive-score-constraint ablation retains that same local model.
+
+\subsection{Actual communication cost}
+Table~\ref{tab:communication} and Fig.~\ref{fig:communication} use the
+native zero-vector codec for GCE. It reproduces every primary trajectory
+and all original local and fusion diagnostics under both link conditions.
+Across the 25 sequences, raw payload falls by
+\CodecRawSavingReliable\%/\CodecRawSavingIntermittent\% relative to
+the full 352-byte Gaussian representation; fragmented totals fall by
+\CodecWireSavingReliable\%/\CodecWireSavingIntermittent\%.
+
+\input{generated/communication_table}
+
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/gaussian_communication.pdf}
+ \caption{Actual mean MiB per sequence over 25 sequences. Raw payload and
+ fragmented totals compare No-age KLA, Scalar, and two GCE packet formats.
+ Full Gaussian and exact zero-vector GCE packets yield identical tracking
+ trajectories. Fragmented totals include modeled control traffic and use
+ 16,384-byte fragments. The delivery trace is fixed across methods.}
+ \label{fig:communication}
+\end{figure*}
+
+Compared with No-age KLA, GCE's compressed raw payload is still
+\CodecRawExtraNoAgeReliable\%/\CodecRawExtraNoAgeIntermittent\% larger,
+while fragmented cost is
+\CodecWireExtraNoAgeReliable\%/\CodecWireExtraNoAgeIntermittent\% larger.
+The gain therefore trades additional transmitted information for lower
+tracking error. The 16,384-byte fragmentation model makes byte savings
+discontinuous at packet boundaries. We do not infer real-network latency,
+throughput, or size-dependent loss from this fixed delivery trace.

@@ -9,11 +9,11 @@
     85.15317286652079
   ],
   "pairwise_text_overlap": [],
-  "editable_svg_text_elements": 62,
+  "editable_svg_text_elements": 60,
   "embedded_raster_images": 0,
   "checked_text": [
     "A \u00b7 older belief",
-    "B \u00b7 recent miss",
+    "B \u00b7 current update",
     "C",
     "D",
     "Previous\npose",
@@ -21,50 +21,48 @@
     "Target\nhypothesis",
     "Missed\ndetection",
     "$x$",
-    "$r_A,\\ p_A$",
+    "$r_A^+,\\ p_A^+$",
     "older",
     "$x$",
-    "$r_B,\\ p_B$",
+    "$r_B^+,\\ p_B^+$",
     "recent",
     "$x$",
     "Untouched prior",
     "History\nqualification",
-    "$f_j=1$",
+    "Base only",
     "Visible absence",
-    "Existence only",
+    "No current ratio",
     "Detection or miss",
     "Predict",
     "(LMB)",
     "Local LMB\nupdate",
     "Local clock",
-    "$\\Delta_j$",
+    "$t-\\tau_j$",
     "Time since\ndirect sensing",
     "Measurements",
-    "Recency weights",
-    "$q_j\\propto w_j\\,f(\\Delta_j)$",
-    "$f$",
-    "1",
-    "$\\rho$",
-    "0",
-    "$\\Delta_j$",
-    "Decays with age, floor $\\rho>0$",
+    "Base + current evidence",
+    "Conservative base $\\beta$",
+    "$\\delta_j,\\ \\Delta J_j,\\ \\Delta v_j,\\ \\Delta c_j$",
+    "Association and score / miss",
+    "Curvature guard $\\rightarrow\\bar\\kappa_j$",
     "Existence fusion",
-    "$\\mathrm{logit}\\,r^*=\\sum_jq_j\\,\\mathrm{logit}\\,r_j$",
-    "$+\\log\\eta_a$",
-    "Spatial weights",
-    "$a_j\\propto w_j$",
+    "$\\mathrm{logit}\\,r^*=\\sum_j\\beta_j z_j$",
+    "$+\\sum_j\\bar\\kappa_j\\delta_j+\\log I$",
+    "Spatial base + ratio",
+    "$\\alpha_j\\ \\mathrm{and}\\ \\bar\\kappa_j$",
     "$x$",
-    "$a_1$",
+    "$\\alpha_1$",
     "$x$",
-    "$a_2$",
+    "$\\alpha_2$",
     "$x$",
-    "$a_J$",
-    "$\\vdots$",
+    "$\\bar\\kappa_j$",
+    "$R_j=p_j^+/p_j^-$",
     "$\\prod$",
     "$x$",
     "Spatial fusion",
-    "$p^*(x)=\\eta_a^{-1}\\prod_jp_j(x)^{a_j}$",
-    "Spatial overlap $\\eta_a$",
+    "$p^*(x)=h(x)/I$",
+    "$h=\\prod_j(p_j^+)^{\\alpha_j}\\prod_jR_j^{\\bar\\kappa_j}$",
+    "Recomputed integral $I$",
     "Fused Bernoulli",
     "$\\{\\ell,r^*,p^*\\}$",
     "Next local step"
@@ -81,13 +79,13 @@
       ]
     },
     {
-      "text": "B \u00b7 recent miss",
+      "text": "B \u00b7 current update",
       "font_size_pt": 8.0,
       "bbox_pixels": [
         412.82370475025414,
-        516.6098743948036,
-        195.875,
-        31.0
+        516.5004993948036,
+        235.625,
+        31.21875
       ]
     },
     {
@@ -161,13 +159,13 @@
       ]
     },
     {
-      "text": "$r_A,\\ p_A$",
+      "text": "$r_A^+,\\ p_A^+$",
       "font_size_pt": 8.7,
       "bbox_pixels": [
-        916.9017370119436,
-        838.3842157859372,
-        88.80890730590818,
-        33.0
+        907.3203917970999,
+        834.0185907859371,
+        107.97159773559565,
+        41.731250000000045
       ]
     },
     {
@@ -191,13 +189,13 @@
       ]
     },
     {
-      "text": "$r_B,\\ p_B$",
+      "text": "$r_B^+,\\ p_B^+$",
       "font_size_pt": 8.7,
       "bbox_pixels": [
-        916.5970495119436,
-        515.6098743948036,
-        89.41828230590818,
-        33.0
+        907.3203917970999,
+        511.24424939480355,
+        107.97159773559565,
+        41.731250000000045
       ]
     },
     {
@@ -241,13 +239,13 @@
       ]
     },
     {
-      "text": "$f_j=1$",
+      "text": "Base only",
       "font_size_pt": 7.1,
       "bbox_pixels": [
         1203.386946708248,
-        508.1970036186384,
-        32.700000000000045,
-        61.85940856933598
+        485.9392079033064,
+        28.0,
+        106.375
       ]
     },
     {
@@ -261,12 +259,12 @@
       ]
     },
     {
-      "text": "Existence only",
+      "text": "No current ratio",
       "font_size_pt": 7.0,
       "bbox_pixels": [
-        1008.1452493151157,
+        1002.8952493151157,
         195.33553300366998,
-        154.25,
+        164.75,
         28.0
       ]
     },
@@ -321,13 +319,13 @@
       ]
     },
     {
-      "text": "$\\Delta_j$",
-      "font_size_pt": 9.5,
+      "text": "$t-\\tau_j$",
+      "font_size_pt": 8.8,
       "bbox_pixels": [
         675.954961319113,
-        238.89231206602457,
-        38.94236267089843,
-        43.79999999999998
+        242.8423120660246,
+        70.0196472167969,
+        35.89999999999998
       ]
     },
     {
@@ -351,83 +349,53 @@
       ]
     },
     {
-      "text": "Recency weights",
-      "font_size_pt": 8.6,
+      "text": "Base + current evidence",
+      "font_size_pt": 8.3,
       "bbox_pixels": [
-        1270.0468650390255,
+        1245.4879477592654,
         928.4335791450578,
-        238.125,
+        326.625,
         33.0
       ]
     },
     {
-      "text": "$q_j\\propto w_j\\,f(\\Delta_j)$",
-      "font_size_pt": 9.0,
+      "text": "Conservative base $\\beta$",
+      "font_size_pt": 7.7,
       "bbox_pixels": [
-        1284.0805320560312,
-        878.0741613397889,
-        175.1174779452515,
-        42.5
+        1256.0131980220197,
+        868.290494322783,
+        243.09375,
+        34.0
       ]
     },
     {
-      "text": "$f$",
-      "font_size_pt": 7.5,
+      "text": "$\\delta_j,\\ \\Delta J_j,\\ \\Delta v_j,\\ \\Delta c_j$",
+      "font_size_pt": 8.3,
       "bbox_pixels": [
-        1231.491559016351,
-        853.4178828029429,
-        19.84375,
-        31.0
+        1256.0131980220197,
+        809.7058262547598,
+        236.7613482131958,
+        38.90000000000009
       ]
     },
     {
-      "text": "1",
-      "font_size_pt": 6.9,
+      "text": "Association and score / miss",
+      "font_size_pt": 7.0,
       "bbox_pixels": [
-        1259.2608095418598,
-        816.325298506177,
-        13.125,
+        1256.0131980220197,
+        749.6653801753994,
+        303.0,
         28.0
       ]
     },
     {
-      "text": "$\\rho$",
-      "font_size_pt": 8.0,
+      "text": "Curvature guard $\\rightarrow\\bar\\kappa_j$",
+      "font_size_pt": 7.8,
       "bbox_pixels": [
-        1253.3233095418598,
-        737.6401299126451,
-        19.0625,
-        31.0
-      ]
-    },
-    {
-      "text": "0",
-      "font_size_pt": 6.9,
-      "bbox_pixels": [
-        1282.1959210617,
-        685.3444063474561,
-        13.125,
-        28.0
-      ]
-    },
-    {
-      "text": "$\\Delta_j$",
-      "font_size_pt": 8.0,
-      "bbox_pixels": [
-        1532.0086493564672,
-        702.5949068729649,
-        33.10611572265634,
-        35.59999999999991
-      ]
-    },
-    {
-      "text": "Decays with age, floor $\\rho>0$",
-      "font_size_pt": 7.1,
-      "bbox_pixels": [
-        1287.5889488102828,
-        641.2434052964387,
-        304.449102783203,
-        32.0
+        1256.0131980220197,
+        691.7196566102106,
+        263.0476446533203,
+        36.299999999999955
       ]
     },
     {
@@ -441,43 +409,43 @@
       ]
     },
     {
-      "text": "$\\mathrm{logit}\\,r^*=\\sum_jq_j\\,\\mathrm{logit}\\,r_j$",
+      "text": "$\\mathrm{logit}\\,r^*=\\sum_j\\beta_j z_j$",
       "font_size_pt": 8.3,
       "bbox_pixels": [
-        1604.564674236272,
+        1640.3785291328172,
         785.8273329948398,
-        285.2537387619018,
+        213.62602896881117,
         70.28437499999995
       ]
     },
     {
-      "text": "$+\\log\\eta_a$",
+      "text": "$+\\sum_j\\bar\\kappa_j\\delta_j+\\log I$",
       "font_size_pt": 8.3,
       "bbox_pixels": [
-        1714.887064220433,
-        738.1485466668964,
-        102.03207083892812,
-        37.0
+        1655.301544587121,
+        694.3890251328849,
+        197.8136650772094,
+        68.38437500000009
       ]
     },
     {
-      "text": "Spatial weights",
-      "font_size_pt": 8.6,
+      "text": "Spatial base + ratio",
+      "font_size_pt": 8.4,
       "bbox_pixels": [
         1241.9795310050138,
-        467.6615120867003,
-        213.5,
+        500.4067351263807,
+        263.0,
         33.0
       ]
     },
     {
-      "text": "$a_j\\propto w_j$",
+      "text": "$\\alpha_j\\ \\mathrm{and}\\ \\bar\\kappa_j$",
       "font_size_pt": 8.8,
       "bbox_pixels": [
         1241.9795310050138,
-        420.3826220300143,
-        96.32687225341806,
-        34.0
+        416.43262203001433,
+        125.80057637695313,
+        41.89999999999998
       ]
     },
     {
@@ -491,12 +459,12 @@
       ]
     },
     {
-      "text": "$a_1$",
+      "text": "$\\alpha_1$",
       "font_size_pt": 8.1,
       "bbox_pixels": [
-        1381.1010273493519,
+        1380.2404011286487,
         337.6806199279795,
-        28.158737182617188,
+        29.879989624023438,
         31.0
       ]
     },
@@ -511,12 +479,12 @@
       ]
     },
     {
-      "text": "$a_2$",
+      "text": "$\\alpha_2$",
       "font_size_pt": 8.1,
       "bbox_pixels": [
-        1380.1869648493519,
+        1379.3263386286487,
         260.4954513344476,
-        29.986862182617188,
+        31.708114624023438,
         31.0
       ]
     },
@@ -531,23 +499,23 @@
       ]
     },
     {
-      "text": "$a_J$",
+      "text": "$\\bar\\kappa_j$",
       "font_size_pt": 8.1,
       "bbox_pixels": [
-        1379.9291523493519,
-        140.03980943848103,
-        30.502487182617188,
-        31.0
+        1382.9335209406604,
+        138.19293443848102,
+        24.49375000000009,
+        34.69375000000002
       ]
     },
     {
-      "text": "$\\vdots$",
-      "font_size_pt": 10.5,
+      "text": "$R_j=p_j^+/p_j^-$",
+      "font_size_pt": 7.7,
       "bbox_pixels": [
-        1263.2475872904427,
-        204.53867227209287,
-        15.9375,
-        40.0
+        1197.9276713663703,
+        200.12504718450816,
+        146.5773318481447,
+        41.8104166666667
       ]
     },
     {
@@ -565,7 +533,7 @@
       "font_size_pt": 7.0,
       "bbox_pixels": [
         1809.173572942332,
-        182.47133823808133,
+        120.48930891297232,
         15.796875,
         28.0
       ]
@@ -581,23 +549,33 @@
       ]
     },
     {
-      "text": "$p^*(x)=\\eta_a^{-1}\\prod_jp_j(x)^{a_j}$",
-      "font_size_pt": 8.6,
+      "text": "$p^*(x)=h(x)/I$",
+      "font_size_pt": 8.8,
       "bbox_pixels": [
-        1562.4016636823685,
-        325.72702293931667,
-        287.716702270508,
-        73.61874999999998
+        1602.8592865156206,
+        338.3779811850653,
+        206.80145660400376,
+        41.299999999999955
       ]
     },
     {
-      "text": "Spatial overlap $\\eta_a$",
+      "text": "$h=\\prod_j(p_j^+)^{\\alpha_j}\\prod_jR_j^{\\bar\\kappa_j}$",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        1587.709793641475,
+        246.0408334248666,
+        237.10044235229498,
+        71.60395833333337
+      ]
+    },
+    {
+      "text": "Recomputed integral $I$",
       "font_size_pt": 7.6,
       "bbox_pixels": [
-        1532.7129252352324,
-        571.2445424628268,
-        206.2923126220703,
-        34.0
+        1478.3502085604277,
+        571.7445424628268,
+        260.655029296875,
+        33.0
       ]
     },
     {
@@ -632,5 +610,6 @@
     }
   ],
   "hypothesis_within_current_sensor_fov": true,
-  "age_weight_floor": 0.25
+  "same_admitted_ratio_in_both_branches": true,
+  "qualitative_schematic_not_four_robot_validation": true
 }

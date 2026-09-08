@@ -28,7 +28,7 @@ mpl.rcParams.update({
     "font.family": "sans-serif",
     "font.sans-serif": ["Arial Narrow", "Arial", "DejaVu Sans"],
     "font.size": 7.2, "mathtext.fontset": "stix", "mathtext.default": "it",
-    "svg.fonttype": "none", "svg.hashsalt": "icra-er-integrated-overview",
+    "svg.fonttype": "none", "svg.hashsalt": "icra-gce-integrated-overview",
     "pdf.fonttype": 42, "ps.fonttype": 42, "axes.unicode_minus": False,
 })
 fig = plt.figure(figsize=(WIDTH_MM / 25.4, HEIGHT_MM / 25.4), dpi=300)
@@ -38,7 +38,8 @@ ax.axis("off")
 
 
 def text(x, y, value, size=7.2, color=INK, **kwargs):
-    return ax.text(x, y, value, fontsize=size, color=color, va="center",
+    kwargs.setdefault("va", "center")
+    return ax.text(x, y, value, fontsize=size, color=color,
                    linespacing=1.14, **kwargs)
 
 
@@ -168,7 +169,7 @@ robot(346, 65, .67)
 robot(209, 489, .63)
 robot(50, 368, .88, AMBER, faded=True)
 text(82, 179, "A · older belief", 8, "#ac6821", weight="bold")
-text(353, 405, "B · recent miss", 8, "#007d70", weight="bold")
+text(353, 405, "B · current update", 8, "#007d70", weight="bold")
 text(403, 35, "C", 7.4, "#172630")
 text(143, 496, "D", 7.4, "#172630")
 curved([(13, 422), (18, 402), (29, 397), (36, 393)], AMBER, .7, head=False, dashed=True)
@@ -193,7 +194,7 @@ check(619, 145)
 line([637, 653], [145, 145], "#b7742d", .75)
 bell(706, 165, 98, 59, "#b7742d", fill=.08)
 text(771, 184, r"$x$", 7.0)
-text(822, 129, r"$r_A,\ p_A$", 8.7, "#b7742d", ha="center")
+text(822, 129, r"$r_A^+,\ p_A^+$", 8.7, "#b7742d", ha="center")
 text(822, 168, "older", 7.5, "#b7742d", ha="center")
 curved([(882, 147), (933, 147), (927, 147), (927, 249)], "#b7742d", .8)
 
@@ -202,7 +203,7 @@ check(619, 417)
 line([637, 653], [417, 417], TEAL, .75)
 bell(705, 445, 98, 60, TEAL, fill=.08)
 text(771, 465, r"$x$", 7.0)
-text(822, 405, r"$r_B,\ p_B$", 8.7, TEAL, ha="center")
+text(822, 405, r"$r_B^+,\ p_B^+$", 8.7, TEAL, ha="center")
 text(822, 447, "recent", 7.5, TEAL, ha="center")
 curved([(883, 421), (894, 421), (890, 378), (887, 368)], TEAL, .8)
 
@@ -233,16 +234,16 @@ curved([(995, 308), (1010, 308), (986, 160), (1018, 160),
 curved([(988, 356), (1009, 356), (986, 626), (1019, 626),
         (1031, 626), (1036, 626), (1044, 626)], BLUE_DARK, .85)
 
-# Qualified absence bypasses spatial pooling and keeps factor f_j=1.
+# Qualified absence contributes only the inherited existence base.
 ax.add_patch(Circle((928, 516), 14, facecolor="white", edgecolor=TEAL,
                     linewidth=.8, linestyle=(0, (2, 2))))
 arrow((928, 600), (928, 543), TEAL, .85)
 curved([(943, 516), (1018, 516), (1018, 516), (1018, 470),
         (1018, 357), (1018, 232), (1018, 196),
         (1018, 179), (1034, 179), (1053, 179)], TEAL, .6)
-text(1029, 399, r"$f_j=1$", 7.1, TEAL, rotation=90)
+text(1029, 399, "Base only", 7.1, TEAL, rotation=90)
 text(928, 643, "Visible absence", 7.3, TEAL, ha="center")
-text(928, 681, "Existence only", 7.0, TEAL, ha="center")
+text(928, 681, "No current ratio", 7.0, TEAL, ha="center")
 
 # Direct observations update the local clock; posterior feedback returns to prediction.
 curved([(430, 483), (432, 520), (333, 510), (333, 541)], MUTED, .55, head=False)
@@ -258,70 +259,65 @@ arrow((419, 639), (467, 639), INK, .7)
 clock(501, 640)
 text(501, 606, "Local clock", 6.9, "#172630", ha="center")
 arrow((525, 640), (562, 640), INK, .7)
-text(578, 637, r"$\Delta_j$", 9.5, "#172630")
+text(578, 637, r"$t-\tau_j$", 8.8, "#172630")
 text(563, 695, "Time since\ndirect sensing", 7.1, "#172630")
 for x, y in [(312, 724), (353, 716), (343, 735), (368, 735), (326, 748), (350, 752)]:
     ax.add_patch(Circle((x, y), 4.5, facecolor="#e6effb", edgecolor=BLUE_DARK, linewidth=.55))
 arrow((337, 716), (337, 688), INK, .6)
 text(339, 777, "Measurements", 7.0, "#172630", ha="center")
 
-# Existence branch: recency changes weights, with the method's nonzero floor.
-text(1086, 52, "Recency weights", 8.6, TEAL, weight="bold")
-text(1098, 91, r"$q_j\propto w_j\,f(\Delta_j)$", 9.0, "#172630")
-arrow((1102, 242), (1293, 242), INK, .5)
-arrow((1102, 242), (1102, 116), INK, .5)
-ages = np.linspace(0, 5, 160)
-factor = .25 + .75 * np.exp(-ages)
-line(1102 + ages / 5 * 179, 242 - factor * 99, TEAL, .85)
-line([1102, 1282], [217.25, 217.25], "#7f9697", .55, ls=(0, (2.5, 2)))
-text(1070, 117, r"$f$", 7.5, "#172630", ha="right")
-text(1088, 150, "1", 6.9, "#172630", ha="right")
-text(1088, 216, r"$\rho$", 8.0, "#172630", ha="right")
-text(1102, 262, "0", 6.9, "#172630", ha="center")
-text(1310, 244, r"$\Delta_j$", 8.0, "#172630")
-text(1101, 298, r"Decays with age, floor $\rho>0$", 7.1, TEAL)
-arrow((1305, 160), (1370, 160), TEAL, .85)
+# The conservative base and admitted current evidence feed both branches.
+text(1065, 52, "Base + current evidence", 8.3, TEAL, weight="bold")
+text(1074, 103, r"Conservative base $\beta$", 7.7, "#172630")
+text(1074, 151, r"$\delta_j,\ \Delta J_j,\ \Delta v_j,\ \Delta c_j$", 8.3, "#172630")
+text(1074, 207, "Association and score / miss", 7.0, TEAL)
+text(1074, 253, r"Curvature guard $\rightarrow\bar\kappa_j$", 7.8, TEAL)
+arrow((1310, 115), (1364, 153), TEAL, .85)
+curved([(1322, 255), (1353, 255), (1345, 210), (1372, 210)], TEAL, .8)
+curved([(1077, 279), (1052, 302), (1052, 340), (1052, 420),
+        (1052, 462), (1052, 474), (1060, 479)], BLUE_DARK, .65)
 text(1493, 109, "Existence fusion", 8.6, TEAL, ha="center", weight="bold")
-text(1494, 158, r"$\mathrm{logit}\,r^*=\sum_jq_j\,\mathrm{logit}\,r_j$", 8.3, "#172630", ha="center")
-text(1510, 213, r"$+\log\eta_a$", 8.3, "#172630", ha="center")
+text(1494, 158, r"$\mathrm{logit}\,r^*=\sum_j\beta_j z_j$", 8.3, "#172630", ha="center")
+text(1500, 237, r"$+\sum_j\bar\kappa_j\delta_j+\log I$", 8.3, "#172630", ha="center")
 curved([(1649, 161), (1740, 161), (1738, 157), (1738, 304)], TEAL, .85)
 
-# Spatial branch: weighted Gaussian product with ordinary eligible weights.
-text(1062, 446, "Spatial weights", 8.6, BLUE_DARK, weight="bold")
-text(1062, 486, r"$a_j\propto w_j$", 8.8, "#172630")
+# Spatial branch: eligible posterior factors plus the same admitted ratio.
+text(1062, 418, "Spatial base + ratio", 8.4, BLUE_DARK, weight="bold")
+text(1062, 486, r"$\alpha_j\ \mathrm{and}\ \bar\kappa_j$", 8.8, "#172630")
 for i, (cx, base, height, lab) in enumerate([
-    (1095, 557, 44, r"$a_1$"),
-    (1093, 623, 42, r"$a_2$"),
-    (1090, 726, 35, r"$a_J$"),
+    (1095, 557, 44, r"$\alpha_1$"),
+    (1093, 623, 42, r"$\alpha_2$"),
+    (1090, 726, 35, r"$\bar\kappa_j$"),
 ]):
     bell(cx, base, 70, height, BLUE_DARK, fill=.055)
     text(cx + 49, base + 17, r"$x$", 7.0, "#172630")
     arrow((1148, base), (1176, base), BLUE_DARK, .7)
     text(1193, base + 1, lab, 8.1, "#172630", ha="center")
-text(1087, 668, r"$\vdots$", 10.5, "#172630", ha="center")
+text(1087, 671, r"$R_j=p_j^+/p_j^-$", 7.7, "#172630", ha="center")
 curved([(1215, 558), (1250, 558), (1246, 558), (1246, 614)], BLUE_DARK, .7)
 arrow((1215, 623), (1246, 623), BLUE_DARK, .7)
 curved([(1215, 726), (1250, 726), (1227, 663), (1247, 663)], BLUE_DARK, .7)
 box(1255, 610, 59, 70, fill="#fafbfc", edge=INK, width=.8, radius=12)
 text(1284, 641, r"$\prod$", 16, "#172630", ha="center")
-arrow((1315, 645), (1384, 645), BLUE_DARK, .8)
-bell(1460, 671, 139, 66, BLUE_DARK, fill=.075)
-text(1547, 692, r"$x$", 7.0, "#172630")
+arrow((1315, 645), (1384, 714), BLUE_DARK, .8)
+bell(1460, 720, 139, 46, BLUE_DARK, fill=.075)
+text(1547, 745, r"$x$", 7.0, "#172630")
 text(1459, 501, "Spatial fusion", 8.6, BLUE_DARK, ha="center", weight="bold")
-text(1459, 550, r"$p^*(x)=\eta_a^{-1}\prod_jp_j(x)^{a_j}$", 8.6, "#172630", ha="center")
+text(1459, 553, r"$p^*(x)=h(x)/I$", 8.8, "#172630", ha="center")
+text(1459, 619, r"$h=\prod_j(p_j^+)^{\alpha_j}\prod_jR_j^{\bar\kappa_j}$", 8.0, "#172630", ha="center")
 
 # Explicit overlap coupling starts at the spatial-product node and enters existence.
 curved([(1284, 603), (1284, 467), (1290, 464), (1364, 464),
         (1465, 464), (1505, 481), (1505, 422),
-        (1505, 354), (1505, 284), (1505, 240)], BLUE_DARK, .65)
-text(1487, 357, r"Spatial overlap $\eta_a$", 7.6, BLUE_DARK, ha="right")
+        (1505, 354), (1505, 311), (1505, 275)], BLUE_DARK, .65)
+text(1487, 357, r"Recomputed integral $I$", 7.6, BLUE_DARK, ha="right")
 
 # One fused posterior receives both results and supplies the recursive feedback.
 box(1641, 312, 179, 191, fill="white", edge=INK, width=.8, radius=22)
 text(1730, 342, "Fused Bernoulli", 7.0, "#172630", ha="center", weight="bold")
 text(1730, 384, r"$\{\ell,r^*,p^*\}$", 10, "#172630", ha="center")
 hypothesis(1730, 450, .91)
-curved([(1565, 670), (1625, 670), (1625, 670), (1625, 620),
+curved([(1565, 720), (1625, 720), (1625, 720), (1625, 620),
         (1625, 548), (1625, 450), (1637, 450)], BLUE_DARK, .85)
 curved([(1740, 510), (1740, 765), (1740, 813), (1420, 813),
         (1120, 813), (487, 813), (244, 813),
@@ -358,7 +354,8 @@ qa = {"passed": not overlaps, "canvas_pixels": [canvas_w, canvas_h],
       "editable_svg_text_elements": live, "embedded_raster_images": 0,
       "checked_text": [item["text"] for item in checks], "text_bounds": checks,
       "hypothesis_within_current_sensor_fov": ((504 - 451) / 150) ** 2 + ((274 - 330) / 146) ** 2 < 1,
-      "age_weight_floor": .25}
+      "same_admitted_ratio_in_both_branches": True,
+      "qualitative_schematic_not_four_robot_validation": True}
 (OUT / "overview_text_bounds.json").write_text(json.dumps(qa, indent=2) + "\n")
 (DESIGN / "vector_qa.json").write_text(json.dumps(qa, indent=2) + "\n")
 reference = DESIGN / "generated_reference.png"
@@ -369,13 +366,14 @@ reference = DESIGN / "generated_reference.png"
     "construction": "Editable vector paths and text, manually recreated from the image-generation reference.",
     "rendered_data": "Qualitative robot poses, histories, and density glyphs; no empirical performance data.",
     "corrections": [
-        "Restore +log eta_a in the existence equation.",
-        "Connect the overlap arrow to the spatial-product node.",
-        "Route qualified visible absence to existence weighting only, with factor f_j=1.",
+        "Show the conservative inherited base and guarded current Bernoulli ratio.",
+        "Use the same admitted kappa in spatial and existence corrections.",
+        "Recompute I from the corrected spatial product and retain +log I in existence.",
+        "Route qualified visible absence to the existence base, without a current ratio.",
         "Route recursive feedback from the combined posterior to local prediction.",
         "Direct the detection/miss inlet to the local measurement update.",
-        "Use f on the age-curve vertical axis and keep floor rho=0.25.",
+        "Use time since direct sensing for the inherited history term.",
     ],
-    "spatial_invariance_conditions": "Fixed eligible input densities and ordinary spatial weights.",
+    "spatial_correction": "The admitted Gaussian ratio changes mean, covariance, and the Bernoulli normalizer.",
 }, indent=2) + "\n")
 print(f"Exported integrated overview: {WIDTH_MM:.1f} x {HEIGHT_MM:.1f} mm, {live} live text elements.")

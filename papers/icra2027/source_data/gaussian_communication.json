@@ -1,0 +1,1099 @@
+{
+  "kind": "actual_native_bytes",
+  "rows": [
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "label": "No-age KLA",
+      "means_mib": {
+        "raw_bytes": 3.889775390625,
+        "wire_bytes": 8.346572265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 3360368,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 745744,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 9711264,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 352128,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 360992,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 756192,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 20364064,
+          "wire_bytes": 25598464
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 10384384,
+          "wire_bytes": 14859008
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1481152,
+          "wire_bytes": 3533568
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 4480144,
+          "wire_bytes": 6781952
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 869104,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 3078944,
+          "wire_bytes": 4476928
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 9654352,
+          "wire_bytes": 15082752
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1425664,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 2324256,
+          "wire_bytes": 6043392
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 3616384,
+          "wire_bytes": 5845248
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 4055584,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 8786016,
+          "wire_bytes": 12870912
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 3914960,
+          "wire_bytes": 5863424
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 1352768,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1409728,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 3398928,
+          "wire_bytes": 4787968
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2061248,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 3175488,
+          "wire_bytes": 5563648
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 848272,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "label": "Scalar",
+      "means_mib": {
+        "raw_bytes": 3.727069091796875,
+        "wire_bytes": 8.190322265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 3184368,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 830168,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 9736616,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 370664,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 395944,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 511520,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 17829456,
+          "wire_bytes": 23796224
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 10047432,
+          "wire_bytes": 14531328
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1376344,
+          "wire_bytes": 3533568
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 3368688,
+          "wire_bytes": 5209088
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 931840,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2796312,
+          "wire_bytes": 4198400
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 9895920,
+          "wire_bytes": 15754496
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1420216,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 2315936,
+          "wire_bytes": 6043392
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 3665560,
+          "wire_bytes": 5845248
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 3918224,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 8648536,
+          "wire_bytes": 12461312
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 3891128,
+          "wire_bytes": 5666816
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 1457736,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1429872,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 2971096,
+          "wire_bytes": 4722432
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2147648,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 3669432,
+          "wire_bytes": 5448960
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 892224,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "full",
+      "label": "GCE full",
+      "means_mib": {
+        "raw_bytes": 5.724046630859375,
+        "wire_bytes": 9.788447265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 4506880,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 1326528,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 15497920,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 584736,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 597408,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 844416,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 27498784,
+          "wire_bytes": 36166144
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 15828832,
+          "wire_bytes": 21592832
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 2128704,
+          "wire_bytes": 3795712
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 5325952,
+          "wire_bytes": 7388160
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 1468960,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2961920,
+          "wire_bytes": 4100096
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 15030496,
+          "wire_bytes": 19588352
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 2168384,
+          "wire_bytes": 3747584
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 3516928,
+          "wire_bytes": 6190848
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 5619392,
+          "wire_bytes": 8532224
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 6199776,
+          "wire_bytes": 9707008
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 13908800,
+          "wire_bytes": 17835264
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 6233856,
+          "wire_bytes": 7829504
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 2206880,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1984768,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 4572832,
+          "wire_bytes": 7671552
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 3412672,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 5277184,
+          "wire_bytes": 8070400
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 1349440,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "label": "GCE codec",
+      "means_mib": {
+        "raw_bytes": 4.561962203979492,
+        "wire_bytes": 8.686572265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 3458100,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 1058008,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 11785844,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 468130,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 595718,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 760600,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 21075038,
+          "wire_bytes": 26302976
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 12137574,
+          "wire_bytes": 16579328
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1755560,
+          "wire_bytes": 3599104
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 4920448,
+          "wire_bytes": 7158784
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 1223354,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2957720,
+          "wire_bytes": 4100096
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 11696030,
+          "wire_bytes": 16917760
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1757784,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 3196764,
+          "wire_bytes": 6043392
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 4566816,
+          "wire_bytes": 6222080
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 4944658,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 10783864,
+          "wire_bytes": 14836992
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 4987392,
+          "wire_bytes": 7714816
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 2010438,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1618476,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 3590522,
+          "wire_bytes": 5050112
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2724128,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 4290468,
+          "wire_bytes": 5694720
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 1225668,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "label": "No-age KLA",
+      "means_mib": {
+        "raw_bytes": 3.8820947265625,
+        "wire_bytes": 8.294072265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 3211024,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 656928,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 9732896,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 319680,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 358496,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 794880,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 20493648,
+          "wire_bytes": 25893376
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 10056160,
+          "wire_bytes": 14383872
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1457232,
+          "wire_bytes": 3533568
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 4106784,
+          "wire_bytes": 5979136
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 852048,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2476368,
+          "wire_bytes": 3919872
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 10325776,
+          "wire_bytes": 15131904
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1546304,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 2300960,
+          "wire_bytes": 6043392
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 3879088,
+          "wire_bytes": 5845248
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 4147728,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 8862560,
+          "wire_bytes": 13165824
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 3864624,
+          "wire_bytes": 5306368
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 1343200,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1371872,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 3478592,
+          "wire_bytes": 5279488
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2109504,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 3078352,
+          "wire_bytes": 5448960
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 942080,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "label": "Scalar",
+      "means_mib": {
+        "raw_bytes": 3.886344299316406,
+        "wire_bytes": 8.322197265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 2926616,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 706048,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 10374616,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 318232,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 395248,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 661856,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 22234672,
+          "wire_bytes": 29497856
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 10044184,
+          "wire_bytes": 14531328
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1489328,
+          "wire_bytes": 3533568
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 3670520,
+          "wire_bytes": 5422080
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 914904,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 1874576,
+          "wire_bytes": 3051520
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 9976424,
+          "wire_bytes": 14689536
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1513712,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 2285080,
+          "wire_bytes": 6043392
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 3776920,
+          "wire_bytes": 5861632
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 3906624,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 8583576,
+          "wire_bytes": 12215552
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 3898552,
+          "wire_bytes": 5634048
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 1478848,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1278144,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 3074336,
+          "wire_bytes": 4738816
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2192888,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 3310296,
+          "wire_bytes": 5448960
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 991984,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "full",
+      "label": "GCE full",
+      "means_mib": {
+        "raw_bytes": 5.9780859375,
+        "wire_bytes": 9.950947265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 4580096,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 1068160,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 16029088,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 489696,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 596352,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 1018304,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 32678112,
+          "wire_bytes": 40933888
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 15230784,
+          "wire_bytes": 20495104
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 2236768,
+          "wire_bytes": 3779328
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 4608224,
+          "wire_bytes": 6667264
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 1413696,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2565216,
+          "wire_bytes": 3772416
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 15411712,
+          "wire_bytes": 20292864
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 2323968,
+          "wire_bytes": 3731200
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 3509888,
+          "wire_bytes": 6207232
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 5967168,
+          "wire_bytes": 8909056
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 6476096,
+          "wire_bytes": 9985536
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 14373440,
+          "wire_bytes": 18343168
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 6563328,
+          "wire_bytes": 7813120
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 2241024,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1855584,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 4895616,
+          "wire_bytes": 7442176
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 3378528,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 5699936,
+          "wire_bytes": 8103168
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 1501152,
+          "wire_bytes": 3566592
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "label": "GCE codec",
+      "means_mib": {
+        "raw_bytes": 4.717267913818359,
+        "wire_bytes": 8.878447265625
+      },
+      "sequences": [
+        {
+          "sequence": "0001",
+          "raw_bytes": 3502932,
+          "wire_bytes": 13374720
+        },
+        {
+          "sequence": "0002",
+          "raw_bytes": 881572,
+          "wire_bytes": 5184768
+        },
+        {
+          "sequence": "0003",
+          "raw_bytes": 12142430,
+          "wire_bytes": 41081856
+        },
+        {
+          "sequence": "0004",
+          "raw_bytes": 400510,
+          "wire_bytes": 4392192
+        },
+        {
+          "sequence": "0006",
+          "raw_bytes": 595016,
+          "wire_bytes": 4028928
+        },
+        {
+          "sequence": "0007",
+          "raw_bytes": 868036,
+          "wire_bytes": 4887552
+        },
+        {
+          "sequence": "0008",
+          "raw_bytes": 24500354,
+          "wire_bytes": 31808000
+        },
+        {
+          "sequence": "0009",
+          "raw_bytes": 11748648,
+          "wire_bytes": 15825664
+        },
+        {
+          "sequence": "0011",
+          "raw_bytes": 1826798,
+          "wire_bytes": 3582720
+        },
+        {
+          "sequence": "0012",
+          "raw_bytes": 4166122,
+          "wire_bytes": 5979136
+        },
+        {
+          "sequence": "0013",
+          "raw_bytes": 1187096,
+          "wire_bytes": 2939136
+        },
+        {
+          "sequence": "0014",
+          "raw_bytes": 2544602,
+          "wire_bytes": 3772416
+        },
+        {
+          "sequence": "0016",
+          "raw_bytes": 12017252,
+          "wire_bytes": 16786688
+        },
+        {
+          "sequence": "0017",
+          "raw_bytes": 1848852,
+          "wire_bytes": 3665664
+        },
+        {
+          "sequence": "0018",
+          "raw_bytes": 3206244,
+          "wire_bytes": 6059776
+        },
+        {
+          "sequence": "0019",
+          "raw_bytes": 4821288,
+          "wire_bytes": 6582528
+        },
+        {
+          "sequence": "0021",
+          "raw_bytes": 5098828,
+          "wire_bytes": 9444864
+        },
+        {
+          "sequence": "0022",
+          "raw_bytes": 11107984,
+          "wire_bytes": 15131904
+        },
+        {
+          "sequence": "0023",
+          "raw_bytes": 5209176,
+          "wire_bytes": 7731200
+        },
+        {
+          "sequence": "0024",
+          "raw_bytes": 2034576,
+          "wire_bytes": 5548032
+        },
+        {
+          "sequence": "0026",
+          "raw_bytes": 1534038,
+          "wire_bytes": 4458240
+        },
+        {
+          "sequence": "0027",
+          "raw_bytes": 3805100,
+          "wire_bytes": 5771008
+        },
+        {
+          "sequence": "0028",
+          "raw_bytes": 2697350,
+          "wire_bytes": 4920576
+        },
+        {
+          "sequence": "0029",
+          "raw_bytes": 4589382,
+          "wire_bytes": 6219008
+        },
+        {
+          "sequence": "0031",
+          "raw_bytes": 1326162,
+          "wire_bytes": 3566592
+        }
+      ]
+    }
+  ],
+  "number_of_sequence_measurements": 200,
+  "sequence_count": 25,
+  "bytes_per_mib": 1048576,
+  "full_and_codec_trajectory_parity": true,
+  "modeled_fragment_size_bytes": 16384,
+  "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
+}

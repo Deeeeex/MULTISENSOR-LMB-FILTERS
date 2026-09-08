@@ -1,99 +1,103 @@
 \section{Introduction}
-Mobile robots often acquire complementary views while moving between
-connected and disconnected regions. When two subteams meet again, a newly
-received track can be supported by recent local measurements, inherited
-from an earlier encounter, or still close to an unobserved birth prior.
-Conversely, a low existence probability can reflect a useful recent missed
-detection or merely a lack of sensing opportunity. These distinctions matter
-when the communication opportunity permits only a small number of fusion
-rounds. The information exchanged over a newly available link can therefore
-differ substantially in recency. Figure~\ref{fig:overview} summarizes the
-proposed fusion mechanism.
+Mobile sensors encounter different targets, occlusions, and communication
+gaps. When two robots exchange tracks, a recently received posterior can
+contain old information, whereas a low existence probability can encode a
+useful current missed detection. A fusion rule must decide which part of
+each belief to trust without exchanging the entire observation history.
+This matters in cooperative vehicle tracking, where uncertain target
+number, independent track births, and brief communication opportunities
+occur together.
+
+Labeled multi-Bernoulli (LMB) filtering represents a track by its label,
+existence probability, and conditional spatial density
+\cite{reuter2014lmb}. Geometric pooling, or Kullback--Leibler averaging
+(KLA), combines such posteriors when cross-correlations are unavailable
+\cite{battistelli2014kla}. A normalized geometric pool retains one common
+prior in the ideal shared-prior case, but also tempers each sensor's new
+likelihood. Changing posterior weights according to observation age does
+not separately control the inherited and current contributions. Moreover,
+the existence probability depends on the integral of the spatial product:
+correcting only existence log-odds generally omits part of the same
+Bernoulli evidence.
+
+We propose \emph{guarded current-evidence fusion} (GCE). Each robot
+retains its prediction and local update long enough to encode their
+Bernoulli ratio. At a communication event, GCE starts from a conservative
+pool and supplements it with admitted current ratios. The ratios modify
+both the spatial distribution and its contribution to existence
+normalization. Admission depends on current sensing opportunity,
+association-weighted detection-score support, and whether the
+moment-matched Gaussian ratio has admissible curvature.
+Figure~\ref{fig:overview} presents this continuous information flow.
 
 \input{main_figure_integrated/figure}
 
-Random finite set filters provide a natural representation of uncertain
-target number and state. The labeled multi-Bernoulli (LMB) filter represents
-each candidate track by an existence probability and a conditional spatial
-density~\cite{reuter2014lmb}. Geometric pooling, also called generalized
-covariance intersection or Kullback--Leibler averaging (KLA), is widely used
-when cross-correlations are unavailable~\cite{battistelli2014kla}.
-Unequal fields of view (FoVs) create differences in label support and
-observation history. We ask: \emph{where should direct-observation recency enter
-a Bernoulli fusion rule when robots reunite?}
+Separating prior information from likelihood information is established
+\cite{wu2022sharedpriors,hlinka2012likelihood}. Our contribution is a
+guarded Bernoulli realization for approximate local tracking with unequal
+sensing histories, together with experiments that isolate the spatial
+correction from the scalar correction and the local detection-score model.
+We do not assume that the two vehicles' detector errors or inherited
+posteriors are independent.
 
-Multiplying a source's entire fusion weight by an age factor seems natural,
-but changes both existence and position pooling. A source that has not
-observed a track recently can still carry a useful spatial estimate received
-from another robot. Reducing its spatial influence solely because its own
-sensor has been uninformative can therefore sacrifice localization while
-improving target-number estimates. We study an existence-only alternative:
-retain ordinary spatial weights on eligible inputs, and use direct-opportunity
-age to weight the Bernoulli existence terms while retaining the spatial
-overlap normalizer.
-
-We make three contributions. First, we introduce existence recency (ER):
-an observation-history rule qualifies fusion inputs, and the time since a
-robot's last direct sensing opportunity determines its existence weight.
-Second, we derive the resulting Bernoulli pool from a two-block variational
-formulation and establish its fixed-input spatial invariance. Third, we
-evaluate transfer to public two-vehicle real detections and use two
-eight-robot event families as mechanism case studies, with external fusion
-comparisons and ablations of qualification, recency placement, and confirmation.
+The paper makes three contributions:
+\begin{itemize}
+ \item A normalized Bernoulli correction that applies the same admitted
+ current evidence to existence and spatial density, with a tractable
+ Gaussian form and an explicit integrability fallback.
+ \item A bounded admission rule for approximate local updates and a
+ bit-preserving codec that omits exactly zero Gaussian ratios.
+ \item A complete two-condition, 25-sequence comparison with shared
+ score-aware local filtering, external fusion adaptations, component
+ ablations, common-target localization, and actual encoded byte counts.
+\end{itemize}
+The main result is an improvement of the complete fusion rule on this
+development corpus. In particular, the small contribution of conservative
+history weighting remains uncertain; it is not used to explain all of the
+observed gain.
 
 \section{Related Work}
-\subsection{Robot sensor fusion}
-Robot sensor fusion uses representations suited to the estimated state.
-The ROS robot\_localization package provides generalized extended Kalman
-filter (EKF) fusion~\cite{moore2016robotlocalization}, while LIO-SAM
-organizes lidar and inertial constraints in a factor graph
-\cite{shan2020liosam}. For dynamic-object tracking, Autoware combines
-data association with EKF state updates~\cite{autoware2026tracker}.
-LMB representations also support robotic mapping: Gao \emph{et al.}
-develop distributed multi-robot SLAM with LMB landmark maps and map fusion,
-evaluated on simulated and real data~\cite{gao2026lmbslam}.
-In our target-tracking setting, labeled Bernoullis represent object
-identity, existence, and state, while ER determines how robots combine
-their posteriors.
+\subsection{Cooperative robotic tracking}
+Distributed PHD filtering supports robot search and tracking
+\cite{dames2020search}, while multirobot reconfiguration addresses changes
+in sensing resources~\cite{ramachandran2021reconfiguration}.
+LMB representations also support distributed robot landmark mapping
+\cite{gao2026lmbslam}. These works establish the broader robotic setting;
+our experiment keeps sensor trajectories and local dynamics fixed and
+changes posterior fusion. For cooperative driving, V2V4Real provides
+real multi-vehicle observations~\cite{xu2023v2v4real}, and DMSTrack learns
+uncertainty within a differentiable multisensor tracker
+\cite{chiu2024dmstrack}. We use its released per-vehicle detections to
+study a planar LMB fusion problem, without reproducing that learned
+tracker or claiming an official 3-D benchmark result.
 
-\subsection{Cooperative robotic search and tracking}
-Dames studies distributed search and tracking with PHD filtering and robot
-motion~\cite{dames2020search}. Ramachandran \emph{et al.} reconfigure a
-multirobot communication network after sensing-resource degradation,
-using a central optimization system~\cite{ramachandran2021reconfiguration}.
-DecSTER combines particle PHD filtering and Thompson-sampling action
-selection for decentralized search and tracking with unreliable,
-asynchronous inter-agent communication~\cite{decster2024}. These works
-address decisions about where robots should move or how resources should
-be connected. We hold motion and attempted links fixed to isolate the
-effect of posterior fusion during intermittent contact.
+\subsection{Finite-set fusion with different sensing support}
+Different fields of view require care with absent labels and exclusive
+information~\cite{li2018multiviewlmb,gao2022differentfov}.
+Minimum-information-loss (MIL) fusion uses arithmetic pooling of labeled
+finite-set densities~\cite{gao2020mil}. Track consensus instead matches
+and combines short trajectories, including tracks seen by only some
+sensors~\cite{nguyen2021tc}. Our comparisons include an implementation
+of the public MIL author manuscript~\cite{gao2019milpreprint} and the
+author's track-consensus functions under the same local detections.
+Their original experiments and architectures differ from this replay.
 
-\subsection{Unequal views and information weighting}
-Wang \emph{et al.} use information divergence to adapt LMB fusion
-weights across multiple views~\cite{wang2018multiview}. FoV compensation
-and multi-view geometric fusion are also established approaches
-\cite{li2018multiviewlmb,li2020multiview}. Gao \emph{et al.} derive
-LMB-constrained minimum-information-loss (MIL) pooling and decompose label
-spaces for unequal views~\cite{gao2020mil,gao2022differentfov}.
-Li \emph{et al.} explicitly recognize that retained or relayed information
-can remain useful outside the current nominal FoV, and develop a
-density-decomposition CPHD approach~\cite{li2021cphd}.
-Jin \emph{et al.} examine shared-prior label consistency and introduce a
-consensus information selector~\cite{jin2024selector}. Communication-aware
-adaptive KLA/LMB weights account for network constraints
-\cite{lang2026adaptive}, while label assignment methods address
-inconsistent identities across nodes~\cite{li2019labelmatching}.
-Nguyen \emph{et al.} use finite-history trajectory consensus under limited
-FoV, maintaining local filtering independently of fused tracks
-\cite{nguyen2021tc}. We include this distinct fusion architecture explicitly.
-Building on these approaches, we examine where a direct-observation age
-factor should enter the Bernoulli fusion recursion.
+Separating cardinality and localization in finite-set fusion is also
+established: pointwise density consistency alone does not ensure a good
+cardinality distribution~\cite{uney2019cardinality}.
+Heterogeneous fusion can assign confidence at the component level
+\cite{yi2021heterogeneous}.
+GCE addresses a narrower question: after choosing an inherited base,
+how should an admitted local Bernoulli update change both the spatial
+density and the probability that the target exists?
 
-\subsection{Existence and spatial fusion}
-\"Uney \emph{et al.} show that pointwise consistency of finite-set geometric
-mixtures does not ensure cardinality consistency, and advocate separate
-cardinality and localization fusion~\cite{uney2019cardinality}. Our rule
-retains the spatial overlap penalty while assigning distinct weights to
-spatial densities and Bernoulli existence terms. This formulation lets us
-isolate the effect of observation recency on existence decisions and
-examine the resulting discovery--localization tradeoff at robot encounters.
+\subsection{Prior and current likelihood information}
+Shared-prior Bayesian fusion studies the correction needed when local
+posteriors contain common prior information~\cite{wu2022sharedpriors}.
+Likelihood consensus aggregates exponential-family likelihood
+representations across sensors~\cite{hlinka2012likelihood}.
+These principles motivate transmitting current Gaussian natural-parameter
+increments. GCE uses fractional, source-specific increments because local
+LMB association and moment projection need not yield an exact independent
+likelihood. Its curvature guard is an implementation safeguard for that
+approximation, not a proof that the observation sources are independent.

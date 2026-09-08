@@ -1,148 +1,212 @@
-\section{Problem and Fusion Rule}
-\subsection{Robot, sensing, and communication model}
-There are $N$ robots with known poses $s_i(t)$ and a common clock. In the
-case studies, a physical edge exists within radio range and a geometry
-coordinator selects a bidirectional minimum spanning tree in each connected
-component. At each time, a robot predicts its LMB, updates with its own
-measurement set, and exchanges the resulting posterior for one synchronous
-fusion round. A dropped neighbor's Metropolis weight returns to the receiver's
-self weight. Fusion output is retained as the prior for the next local step.
-Communication cost includes coordinator traffic and lossy posterior messages.
+\section{Guarded Current-Evidence Fusion}
+\subsection{Local prediction, update, and information support}
+Each robot predicts its LMB, updates it with the current local measurement
+set, and exchanges one posterior packet with available neighbors. Fusion
+output becomes the next local prior. A label is aligned across sources
+before fusion; births remain local and measurement driven.
+For a represented label, write the local prediction and update as
+$f_j^-=(r_j^-,p_j^-)$ and $f_j^+=(r_j^+,p_j^+)$.
+The Bernoulli density has empty-set mass $1-r$ and singleton density $rp(x)$.
+Our replay moment-projects $p_j^-$ and $p_j^+$ to four-dimensional
+Gaussians over planar position and velocity.
 
-A label $\ell$ identifies a Bernoulli after cross-source label alignment.
-For represented label $\ell$, source $j$ supplies
-$\pi_j^\ell=(r_j^\ell,p_j^\ell)$, where $r_j^\ell\in[0,1]$ and
-$p_j^\ell(x)$ is a Gaussian-mixture density over position and velocity.
-The case studies use shared birth keys; the real-detection replay uses
-independent measurement-driven births and pairwise label assignment.
+A direct sensing opportunity occurs when the modeled detection
+probability at a predicted track is positive. Both a detection and a
+missed detection advance the local direct-opportunity timestamp $\tau_j$;
+receiving another robot's packet does not advance it. A separate history
+flag records whether a represented belief descends from an informative
+local update. When informed inputs exist, untouched priors are excluded.
+An absent label contributes an existence censor only if its source could
+observe the represented target. Otherwise that source abstains. Censors
+carry no spatial density. This support handling is shared with the
+qualified no-age and recency controls.
 
-\subsection{Observation history and participation}
-Each retained Bernoulli carries two metadata values. The history flag
-$h_j^\ell$ records whether the density descends from any scheduled local
-update with nonzero detection opportunity. A direct opportunity is evaluated
-on the predicted Gaussian means before the measurement update:
+Let $\mathcal P$ be eligible represented sources and $\mathcal E$ eligible
+existence sources, including qualified censors. Normalize ordinary
+delivered weights $w_j$ separately on the two supports:
 \begin{equation}
- o_j^\ell(t)=\mathbf{1}\!\left[
-   \sum_g w_{jg}^\ell p_{D,j}(\mu_{jg}^\ell,t)>0\right].
- \label{eq:opportunity}
-\end{equation}
-The local timestamp $\tau_j^\ell$ is the last time this condition held at
-robot $j$. Both detections and missed detections count. A received posterior
-propagates the history flag, while the receiver retains its own local
-timestamp after fusion. The resulting age measures time since the last
-\emph{direct sensor opportunity}.
-
-For each label, if at least one input carries observation history,
-represented inputs with no such history are
-excluded as untouched priors. Otherwise they retain ordinary participation.
-An absent label contributes a negative existence censor only when the
-represented spatial density places at least half its Gaussian-mean mass
-inside that source's current FoV, with expected detection at least $0.1$.
-Its existence upper bound is the transmission threshold ($0.01$ in the
-case studies, $0.001$ in the replay). Other absent sources abstain. Such
-censors are qualified negative evidence and are never assigned a spatial
-density. The flags propagate only through actual participating inputs.
-FoV occupancy is approximated at the Gaussian-component means.
-
-Let $\mathcal P$ denote eligible represented inputs and $\mathcal E$ eligible
-existence inputs, including qualified absence censors. For the receiver's
-delivered Metropolis weights $w_j$, define
-\begin{equation}
- a_j=\frac{w_j\mathbf1[j\in\mathcal P]}{\sum_{k\in\mathcal P}w_k},
+ \alpha_j=\frac{w_j\mathbf1[j\in\mathcal P]}{\sum_{k\in\mathcal P}w_k},
  \qquad
- q_j=\frac{w_j f_j\mathbf1[j\in\mathcal E]}{\sum_{k\in\mathcal E}w_k f_k}.
- \label{eq:weights}
+ b_j=\frac{w_j\mathbf1[j\in\mathcal E]}{\sum_{k\in\mathcal E}w_k}.
+ \label{eq:ordinary}
 \end{equation}
-For a represented label with a positive timestamp set
+All sums below use the corresponding support. A label without spatial
+support is omitted. For a represented source, define
 \begin{equation}
- f_j=\rho+(1-\rho)\exp\!\left[-(t-\tau_j^\ell)\Delta t/\lambda\right].
+ a_j=\rho+(1-\rho)e^{-(t-\tau_j)\Delta t/\lambda},
+ \qquad q_j=\frac{b_j a_j}{\sum_k b_k a_k},
+ \label{eq:age}
 \end{equation}
-Use $f_j=\rho$ for a represented but never-directly-observed label, and
-$f_j=1$ for a qualified absence censor.
-We set $\rho=0.25$ and $\lambda=5$ s.
-The age factor is independent of the sign of the existence claim: a recent
-low $r_j$ can outweigh an older high $r_j$. Positive self weight and the
-existing absence logic supply the ordinary single-input fallback; a label
-without eligible spatial support is omitted.
+with $a_j=\rho$ before any local opportunity and $a_j=1$ for a censor.
+We use $\rho=0.25$ and $\lambda=5$ s.
 
-\subsection{Existence recency with fixed spatial weights}
-For clarity suppress the label and receiver indices. Denote Bernoulli
-relative entropy by $D_B$ and ordinary density relative entropy by $D$.
-For fixed eligibility and normalized $a,q$, consider
+\subsection{A conservative inherited base}
+Set $z_j=\operatorname{logit}(r_j^+)$ and choose the existence weights
 \begin{equation}
- \min_{r\in(0,1),\,p}
- J(r,p)=\sum_{j\in\mathcal E}q_j D_B(r\|r_j)
-       +r\sum_{j\in\mathcal P}a_j D(p\|p_j).
- \label{eq:objective}
+ \beta=
+ \begin{cases}
+ q,&\sum_j(q_j-b_j)z_j<0,\\
+ b,&\text{otherwise}.
+ \end{cases}
+ \label{eq:baseweights}
 \end{equation}
-When the two supports and weight vectors agree, this reduces to the
-Bernoulli KLA objective.
-
-\noindent\textbf{Proposition 1 (fixed-input form).}
-Assume $0<r_j<1$, $\eta_a=\int\prod_{j\in\mathcal P}p_j(x)^{a_j}dx>0$,
-and finite relevant divergences. A minimizer of~\eqref{eq:objective} is
+Thus history can lower the base existence log-odds but cannot raise them.
+The spatial base retains the ordinary weights $\alpha$.
+An unnormalized base has masses
 \begin{align}
- p^*(x)&=\eta_a^{-1}\prod_{j\in\mathcal P}p_j(x)^{a_j},\label{eq:spatial}\\
- \operatorname{logit}r^*&=\sum_{j\in\mathcal E}q_j\operatorname{logit}r_j
-                           +\log\eta_a.\label{eq:existence}
+ A_0&=\prod_j(1-r_j^+)^{\beta_j},\\
+ A_1(x)&=\prod_j(r_j^+)^{\beta_j}
+                \prod_jp_j^+(x)^{\alpha_j}.
+ \label{eq:base}
 \end{align}
-For fixed $a$, eligibility, and input densities, changing $q$ changes
-existence without changing $p^*$.
+These are separate existence and spatial weights; when the weights and
+supports coincide, the base reduces to ordinary Bernoulli KLA.
+The no-history ablation sets $\beta=b$ throughout. Its purpose is to test
+the small conservative history adjustment separately from the current
+evidence correction.
 
-\noindent\emph{Proof.}
-Writing $p_a=\eta_a^{-1}\prod_jp_j^{a_j}$ gives
-$\sum_j a_jD(p\|p_j)=D(p\|p_a)-\log\eta_a$.
-For every $r>0$ this is minimized at $p=p_a$. Differentiating the remaining
-scalar objective yields
-$\operatorname{logit}r-\sum_jq_j\operatorname{logit}r_j-\log\eta_a=0$.
-Its second derivative is $1/[r(1-r)]>0$, establishing the stated solution.
-\hfill$\square$
+\subsection{Admitting current positive and negative evidence}
+The local existence increment is
+\begin{equation}
+ \delta_j=\operatorname{logit}(r_j^+)
+          -\operatorname{logit}(r_j^-).
+ \label{eq:increment}
+\end{equation}
+The local tracker incorporates a detection score $s$ through a fitted
+positive-to-negative mark ratio $L(s)>0$. Let $W_{jm}$ be the normalized
+local association mass for assigning this Bernoulli to measurement $m$,
+and let $A_j=\sum_m W_{jm}$. For a current sensing opportunity, use
+\begin{align}
+ g_j^+&=\sum_m W_{jm}
+       \max\!\left(0,\frac{L(s_m)-1}{L(s_m)+1}\right),
+       \label{eq:positivegate}\\
+ g_j^-&=(1-A_j)\frac{p_{D,j}}{2-p_{D,j}}.
+       \label{eq:negativegate}
+\end{align}
+Both gates are zero without a current opportunity. The first admits
+positive increments in proportion to association-weighted mark
+discrimination; the second weights the missed-detection branch by its
+bounded likelihood contrast. They satisfy $g_j^+\leq A_j$,
+$g_j^-\leq1-A_j$, and hence $g_j^++g_j^-\leq1$.
+They are bounded admission scores, not calibrated posterior error bounds.
 
-For normalized densities, $0<\eta_a\leq1$, so the spatial overlap term
-remains a penalty in the existence update. Across recursive filtering steps,
-existence decisions can affect associations, pruning, and state extraction.
-We therefore evaluate localization on common assignment support alongside
-global set metrics.
+If at least two eligible sources represent the label and none of the
+eligible existence inputs is a censor, define
+\begin{equation}
+ \kappa_j=(1-\beta_j)
+ \begin{cases}g_j^+,&\delta_j\geq0,\\g_j^-,&\delta_j<0.
+ \end{cases}
+ \label{eq:kappa}
+\end{equation}
+Otherwise set every $\kappa_j=0$. This restriction avoids constructing an
+unavailable current ratio for an absent label. The no-score ablation
+replaces the contrast in~\eqref{eq:positivegate} by one, retaining the
+same score-aware local tracker and setting $g_j^+=A_j$.
 
-\begin{figure}[t]
- \centering\includegraphics[width=\columnwidth]{figures/mechanism.pdf}
- \caption{Effect of observation age in a two-source Gaussian example.
- Two unit-covariance Gaussian densities have x means 0 and 2 m, with
- existence 0.9 at the older source and 0.1 at the current source. Ordinary
- spatial weights are equal. Increasing the older source's direct age
- changes ER's existence while leaving its spatial mean at 1 m. Applying
- age to both blocks also moves the spatial mean. Both rules retain their
- respective spatial overlap normalizer.}
- \label{fig:mechanism}
-\end{figure}
+\subsection{Joint existence and spatial normalization}
+For each admitted source, multiply the same fractional Bernoulli ratio
+$(f_j^+/f_j^-)^{\kappa_j}$ into both hypotheses in~\eqref{eq:base}.
+The resulting spatial product is
+\begin{equation}
+ h(x)=\prod_jp_j^+(x)^{\alpha_j}
+       \prod_j\left[\frac{p_j^+(x)}{p_j^-(x)}\right]^{\kappa_j},
+ \qquad I=\int h(x)\,dx.
+ \label{eq:product}
+\end{equation}
 
-The implementation calls the existing mixture-aware Gaussian-power fusion
-routine with $a$ for spatial pooling and $q$ for existence. It retains at
-most three components per input for the powered-mixture calculation, at
-most 256 component tuples, and at most eight output components. A
-non-admissible approximate overlap normalizer triggers a
-moment-matched fallback. This provides a finite-mixture approximation of
-the weighted density product. The case studies use this mixture cap;
-the real replay uses one moment-matched Gaussian per Bernoulli. Density
-methods share prediction, measurement update, and MAP-cardinality extraction
-within each evaluation. We call the rule
-\emph{existence recency} (ER); using $q$ in both blocks is the distinct
-\emph{ER (both)} ablation.
+\noindent\textbf{Proposition 1 (normalized Bernoulli form).}
+For $0<r_j^-,r_j^+<1$ and $0<I<\infty$, normalizing
+these empty and singleton masses yields
+\begin{align}
+ p^*(x)&=h(x)/I,\label{eq:spatial}\\
+ \operatorname{logit}(r^*)&=\sum_j\beta_j z_j+
+                    \sum_j\kappa_j\delta_j+\log I.
+                    \label{eq:existence}
+\end{align}
+\emph{Proof.} The empty mass is
+$H_0=A_0\prod_j[(1-r_j^+)/(1-r_j^-)]^{\kappa_j}$.
+The integrated singleton mass is
+$H_1=I\prod_j(r_j^+)^{\beta_j}
+       \prod_j(r_j^+/r_j^-)^{\kappa_j}$.
+Taking $\log(H_1/H_0)$ gives~\eqref{eq:existence}; normalizing the
+singleton shape gives~\eqref{eq:spatial}.\hfill$\square$
 
-\subsection{Confirmation ablation and communication cost}
-A separate ablation delays history-based input restriction until some input carries a
-positive confirmation. A robot creates this bit after two consecutive local
-updates with opportunity and detection-association mass at least $0.5$.
-Empty measurements reset the local streak. The confirmation bit propagates
-through fusion, while the hit counter and observation timestamp remain
-local. Ordinary FoV-aware pooling applies before confirmation. This two-hit
-rule tests the tradeoff between false-track rejection and discovery during
-short sensing contacts.
+A scalar-only correction keeps the first two terms
+in~\eqref{eq:existence} but uses the old spatial pool and its integral.
+It therefore implements a different approximation from the full admitted
+Bernoulli ratios. We evaluate this scalar rule as a complete recursive
+component control, in addition to substitutions on fixed fusion inputs.
 
-Density methods transmit the retained Gaussian parameters, labels, and
-metadata; trajectory methods transmit local track histories. Each directed
-link permits one packet per scan, divided into 16,384-byte fragments as
-needed, with a modeled 128-byte-per-robot control charge. We report raw
-payloads and fragment costs separately. Shared geometry is an input whose
-transport cost is excluded. ER adds constant metadata per represented label
-and linear-time weight calculations.
+In the special case of a common prior $f^-$, equal weights
+$\alpha=\beta$, unit gates, and independent exact local observations,
+$\kappa_j=1-\beta_j$. The full product then reduces to
+$\prod_j f_j^+/(f^-)^{M-1}$, the standard shared-prior Bayesian
+combination~\cite{wu2022sharedpriors}. This algebraic check does not
+make approximate LMB associations or correlated detector errors exact.
+
+\subsection{Gaussian correction and curvature guard}
+For $p=\mathcal N(m,P)$, write
+\begin{equation}
+ \log p(x)=-\tfrac12x^\top Jx+v^\top x+c,
+ \quad J=P^{-1},\quad v=Jm,
+\end{equation}
+where $c=-[d\log(2\pi)+\log|P|+m^\top Jm]/2$ and $d=4$.
+A source transmits the differences
+$(\Delta J_j,\Delta v_j,\Delta c_j)$ between its update and prediction.
+The symmetric precision difference needs ten numbers, the information
+vector four, and the constant one.
+
+Moment projection can widen a covariance after ambiguous association,
+so this Gaussian ratio need not be log-concave. GCE rejects the entire
+source correction, including its scalar increment, when
+\begin{equation}
+ \lambda_{\min}(\Delta J_j)<
+ -10^{-10}\max(1,\|J_j^+\|_2,\|J_j^-\|_2).
+ \label{eq:curvature}
+\end{equation}
+Let $\bar\kappa_j$ be the resulting weight. No eigenvalue is clipped.
+The aggregate natural parameters are
+\begin{align}
+ J&=\sum_j\alpha_jJ_j^++\sum_j\bar\kappa_j\Delta J_j,\\
+ v&=\sum_j\alpha_jv_j^++\sum_j\bar\kappa_j\Delta v_j,\\
+ c&=\sum_j\alpha_jc_j^++\sum_j\bar\kappa_j\Delta c_j.
+ \label{eq:natural}
+\end{align}
+For positive definite $J$, the normalized quantities are
+\begin{align}
+ P^*&=J^{-1},\qquad m^*=J^{-1}v,\\
+ \log I&=c+\tfrac12[d\log(2\pi)-\log|J|+v^\top J^{-1}v].
+ \label{eq:integral}
+\end{align}
+Use $\bar\kappa$ in~\eqref{eq:existence} as well. A nonfinite aggregate,
+failed Cholesky factorization, or reciprocal condition estimate below
+$10^{-12}$ discards all residual terms and restores the base. When no
+residual is admitted, the original base implementation is retained exactly.
+In exact arithmetic, positive semidefinite admitted precision gains and
+a positive definite base ensure a positive definite aggregate; the final
+test also covers numerical failures. The no-curvature ablation removes
+only~\eqref{eq:curvature}, retaining this necessary integrability test.
+
+Existence log-odds use a $[10^{-9},1-10^{-9}]$ numerical clip, and
+differences within $10^{-12}$ do not activate the history switch.
+Current gates and ratios are cleared after fusion; the next packet
+recomputes them from that robot's next local update.
+For state dimension $d$ and $M$ eligible sources, the dense Gaussian
+arithmetic costs $O(Md^3)$ and adds $O(d^2)$ numbers per track.
+
+\subsection{Exact zero-vector transmission}
+The full Gaussian implementation extends a 232-byte scalar Bernoulli
+summary by fifteen 64-bit numbers, giving 352 bytes per track plus a
+32-byte packet header. Many local updates leave all fifteen differences
+exactly zero. A two-byte tag distinguishes a full vector from an omitted
+zero vector and preserves the sign bit of each omitted zero. All nonzero
+vectors retain their original 120 bytes. For $n$ tracks and $k$ nonzero
+vectors, the actual packet length is
+\begin{equation}
+ B=32+234n+120k\quad\text{bytes}.
+ \label{eq:packet}
+\end{equation}
+This codec has no threshold or quantization parameter. Decoded numerical
+values, and hence the fusion rule, are unchanged. We verify complete
+recursive trajectories with the codec rather than estimating its savings
+from the mean number of tracks alone.

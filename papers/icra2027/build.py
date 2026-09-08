@@ -29,7 +29,7 @@ def main():
     build.mkdir(exist_ok=True)
     if args.regenerate:
         plot_python = python_with(['numpy', 'matplotlib'], 'PAPER_PLOT_PYTHON')
-        for name in ['build_bibliography.py', 'make_external_figures.py', 'make_tables.py', 'make_figures.py',
+        for name in ['build_bibliography.py', 'prepare_gaussian_evidence.py', 'make_gaussian_tables.py', 'make_gaussian_figures.py',
                      'make_main_figure_integrated.py']:
             subprocess.run([plot_python, str(HERE / name)], cwd=HERE, check=True)
     tectonic = shutil.which('tectonic')
@@ -45,7 +45,7 @@ def main():
     destination = HERE / 'output/pdf/icra2027_draft.pdf'
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(build / 'main.pdf', destination)
-    pdf_python = python_with(['pypdf', 'fitz'], 'PAPER_PDF_PYTHON')
+    pdf_python = python_with(['pypdf', 'fitz', 'numpy'], 'PAPER_PDF_PYTHON')
     subprocess.run([pdf_python, str(HERE / 'qa.py')], cwd=HERE, check=True)
     subprocess.run([sys.executable, str(HERE / 'package_review.py')], cwd=HERE, check=True)
     print('Built and audited:', destination)

@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "cohort": "seen_transfer",
+  "sequences": 25,
+  "source_files": 1382,
+  "node_frames": 22404,
+  "native_matlab_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "aggregate": [
+    {
+      "condition": "reliable",
+      "native_zero_codec": {
+        "raw_bytes": 119589102,
+        "delivered_raw_bytes": 119589102,
+        "wire_bytes": 227713280
+      },
+      "native_original": {
+        "raw_bytes": 150052448,
+        "delivered_raw_bytes": 150052448,
+        "wire_bytes": 256598272
+      },
+      "savings": {
+        "raw_bytes": 0.20301798741730626,
+        "delivered_raw_bytes": 0.20301798741730626,
+        "wire_bytes": 0.11256892641895888
+      },
+      "objects": 425267,
+      "nonzero_vectors": 164318
+    },
+    {
+      "condition": "intermittent",
+      "native_zero_codec": {
+        "raw_bytes": 123660348,
+        "delivered_raw_bytes": 87491050,
+        "wire_bytes": 232743168
+      },
+      "native_original": {
+        "raw_bytes": 156711936,
+        "delivered_raw_bytes": 110588288,
+        "wire_bytes": 260858112
+      },
+      "savings": {
+        "raw_bytes": 0.21090664083174882,
+        "delivered_raw_bytes": 0.20885790365070123,
+        "wire_bytes": 0.10777868391533862
+      },
+      "objects": 444186,
+      "nonzero_vectors": 161353
+    }
+  ],
+  "original_reference_byte_comparisons": [
+    {
+      "condition": "reliable",
+      "reference": "marked_lineage",
+      "raw_bytes": 0.1728086446776782,
+      "delivered_raw_bytes": 0.1728086446776782,
+      "wire_bytes": 0.04073528499840284
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_er",
+      "raw_bytes": 0.2703655391421269,
+      "delivered_raw_bytes": 0.2703655391421269,
+      "wire_bytes": 0.06726810896032243
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_conservative",
+      "raw_bytes": 0.2376777947489861,
+      "delivered_raw_bytes": 0.2376777947489861,
+      "wire_bytes": 0.05575594430577446
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_ceiling_score",
+      "raw_bytes": 0.19949863208586138,
+      "delivered_raw_bytes": 0.19949863208586138,
+      "wire_bytes": 0.04866633263579834
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_asymmetric",
+      "raw_bytes": 0.2240079514544504,
+      "delivered_raw_bytes": 0.2240079514544504,
+      "wire_bytes": 0.06058980146395143
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_lineage",
+      "raw_bytes": 0.2151346749839318,
+      "delivered_raw_bytes": 0.21431154954786913,
+      "wire_bytes": 0.0704569457903037
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_er",
+      "raw_bytes": 0.2923766671047734,
+      "delivered_raw_bytes": 0.29593761538727703,
+      "wire_bytes": 0.09563830979533461
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_conservative",
+      "raw_bytes": 0.26917122592686793,
+      "delivered_raw_bytes": 0.26907623962703275,
+      "wire_bytes": 0.07645957680590398
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_ceiling_score",
+      "raw_bytes": 0.23828695588226112,
+      "delivered_raw_bytes": 0.24091585043400476,
+      "wire_bytes": 0.07150661004783854
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_asymmetric",
+      "raw_bytes": 0.21380597047155847,
+      "delivered_raw_bytes": 0.21904153748148958,
+      "wire_bytes": 0.06683931926218589
+    }
+  ],
+  "exact_whole_trajectory_parity": true,
+  "summary_sha256": "46b10b8accfbe08844b070a9db78fda4d4aeb9df297ada59ca6d1a08c894cdda",
+  "stage_sha256": "baf06b7f7130a7f59aafad3ea019d577c9a6e7fb723c45141029c42a7064d09c",
+  "source_manifest_sha256": "121610f08c541f021c0c18daf693182c9dd5db387b5657dbedb456e7f970b962",
+  "report_sha256": "bf7edc3196db6fb50d9aa7affa211e936592e9490b29eacdc7c19f4aa6652e7e",
+  "verifier_sha256": "d7a5e562f7dd059426e05221df3739d2caa79600f1d554805ea049af45396097",
+  "unit_exit_observed": 0,
+  "unit_exec_session": 98989,
+  "preflight_exit_observed": 0,
+  "preflight_exec_session": 47935,
+  "preflight_auditor_exit_observed": 0,
+  "preflight_auditor_exec_session": 76273
+}
