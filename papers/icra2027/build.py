@@ -29,7 +29,8 @@ def main():
     build.mkdir(exist_ok=True)
     if args.regenerate:
         plot_python = python_with(['numpy', 'matplotlib'], 'PAPER_PLOT_PYTHON')
-        for name in ['build_bibliography.py', 'make_tables.py', 'make_figures.py']:
+        for name in ['build_bibliography.py', 'make_tables.py', 'make_figures.py',
+                     'make_main_figure_integrated.py']:
             subprocess.run([plot_python, str(HERE / name)], cwd=HERE, check=True)
     tectonic = shutil.which('tectonic')
     if not tectonic and Path('/opt/homebrew/bin/tectonic').exists():

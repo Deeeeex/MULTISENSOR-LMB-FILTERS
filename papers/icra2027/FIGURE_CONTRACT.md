@@ -1,12 +1,27 @@
 # Figure contract
 
 Target: ICRA 2027, official ieeeconf, US letter, two columns. Export every
-figure as editable-text SVG, vector PDF, and a 300 dpi PNG preview, using
-the existing Python/NumPy analysis workflow with matplotlib only. No R,
-AI-generated image, screenshot tracing, or external illustrative data.
+figure as editable-text SVG, vector PDF, and a 300 dpi PNG preview.
+Quantitative figures use the existing Python/NumPy/matplotlib workflow.
+For the main schematic, the user requested image generation first, followed
+by an editable SVG reconstruction. Its generated reference is a design source,
+not experimental data. The final schematic contains vector geometry and text.
 Use Arial/Helvetica, 7--8 pt labels at final size, 9 pt panel labels;
 single column 88.9 mm, double column 181 mm. Preserve SVG text and embed
 PDF TrueType fonts. Colorblind-safe blue/orange/green/purple plus line styles.
+The integrated overview may use Arial Narrow for compact annotations.
+
+0. overview: one integrated, full-width mechanism figure, about 181 x 85 mm.
+   A single continuous layout connects mobile robot sensing and encounters,
+   local LMB prediction/update, observation-history qualification, existence
+   and spatial weighting, the spatial-overlap coupling, and posterior feedback.
+   No a/b/c partitions or three-column panel framing. Direct sensor age updates
+   on detections and misses; untouched priors stop at qualification in the
+   depicted informed-input case; observable absence feeds existence only.
+   The diagram is illustrative. Its age curve has floor rho=0.25, and a
+   recent-miss hypothesis lies in the current FoV. Preserve the generated
+   design and exact prompt under main_figure_integrated/, with any scientific
+   or layout corrections recorded separately from quantitative results.
 
 1. `scene`: schematic-led composite. Claim: prescribed robot motion creates
    separated sensing histories before physical reunion. Show split and churn

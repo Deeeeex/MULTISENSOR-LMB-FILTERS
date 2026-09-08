@@ -1,15 +1,43 @@
 {
   "status": "passed",
-  "scope": "Extracted paper archive rebuilt without experiment directory.",
-  "byte_identical_tables_facts_and_raster_previews": [
+  "scope": "Extracted paper archive rebuilt without the experiment directory.",
+  "pages": 7,
+  "figures": 5,
+  "source_sha256": {
+    "main.tex": "5b212de35cd2fb64e4ca3d80d38c365b6fab3c8324ff27299004e86ad10d4566",
+    "build.py": "3739df24355e58ea9ca57f6bdcca694f50663081e3a75e2bc98a07ba78581bda",
+    "qa.py": "427c64c5114bc2e33c7d8712cf2c4c352751a8d650fbb3c3e05e1eeb26b5a863",
+    "make_figures.py": "fa5acc3de3c1f9685df9ac6a16d45ab0435a9ca4b8c915b35925600d2dbecdab",
+    "make_tables.py": "b1e2e048483400c8740964cb1d5b06b6d371d51b6e6fde998ad7349d49d9d28d",
+    "make_main_figure_integrated.py": "273140e3b16cd1e6a20b14bf70b8ac733d9cd3f10aa57abbfa608bd59ef5f1d4",
+    "main_figure_integrated/figure.tex": "26fd5336ee0278b05b105eb4337c3855d89c2f48a88c6dcd7fc89bc672a30955",
+    "sections/abstract.tex": "c169c08edaeb4e34b4ad9795356a9838a91ae1858fe21ac8ce9bcad7bb8266d1",
+    "sections/discussion.tex": "9cdb61f3456bdf6babb0435ec52b697335bff8ff44017c5627e73d35e7df2f95",
+    "sections/experiments.tex": "7a38a60f8cce24ee3d88f6c243168d00fccd71b4c0f9c72a93d5661d74c4ab46",
+    "sections/introduction.tex": "30d0811fc04f62b46bf4f9754692926115d4117bdfa49ff5ab81c262324f1439",
+    "sections/method.tex": "5eb7261e96b3370ff87edd9de6155d66128d0192f033fc4e4faecbeda3a3b163",
+    "sections/results.tex": "5ad5eb4160bec4a2b41f63caceb1bf33bf25b887cbe9ed4143e85fe82e20ab5d"
+  },
+  "byte_identical_tables_figures_and_page_previews": [
     "generated/numbers.tex",
     "generated/common_table.tex",
     "generated/false_table.tex",
     "generated/main_table.tex",
     "generated/facts.json",
+    "figures/overview.svg",
+    "figures/overview.pdf",
+    "figures/overview.png",
+    "figures/scene.svg",
+    "figures/scene.pdf",
     "figures/scene.png",
+    "figures/mechanism.svg",
+    "figures/mechanism.pdf",
     "figures/mechanism.png",
+    "figures/outcomes.svg",
+    "figures/outcomes.pdf",
     "figures/outcomes.png",
+    "figures/time.svg",
+    "figures/time.pdf",
     "figures/time.png",
     "build/preview/page-1.png",
     "build/preview/page-2.png",
@@ -19,5 +47,5 @@
     "build/preview/page-6.png",
     "build/preview/page-7.png"
   ],
-  "limits": "Same local runtime and fonts; this does not rerun the MATLAB simulations."
+  "limits": "Same local Python, Tectonic and fonts; this does not rerun MATLAB simulations."
 }

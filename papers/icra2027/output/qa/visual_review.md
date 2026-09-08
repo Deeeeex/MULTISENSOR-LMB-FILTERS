@@ -1,28 +1,32 @@
 # Visual artifact review
 
-Reviewed on 2026-09-08 by the drafting agent; this is a visual self-check,
-not independent scientific review. PDF identity is recorded in the adjacent
-`artifact_qa.json`. Every final PDF page was rendered and inspected.
+Reviewed on 2026-09-08 by the drafting agent. PDF identity is recorded in
+`artifact_qa.json`. All seven final PDF pages were rendered and inspected
+after the main-figure, prose, and font updates.
 
 | Page | Inspection |
 |---|---|
-| 1 | Title, anonymous author area, abstract and two-column prose fit the page. |
-| 2 | Scene geometry, component counts, legends and birth/departure labels are readable; no artificial separation of coincident curves. |
-| 3 | Eligibility/weight equations, proposition and proof remain within columns; approximation and communication limits remain visible. |
-| 4 | The two-Gaussian figure is labeled illustrative; experiment assumptions, all controls and metric definitions are readable. |
-| 5 | Results retain the failed development gate, adverse departure result, no-new false cost and censored discovery queries. |
-| 6 | Main table includes all nine arms; all episode dots and bootstrap bars are retained; cost units are squared meters; trajectories are unsmoothed. |
-| 7 | Common-support counts and false-cost table are readable; limitations, AI disclosure and all bibliography entries fit. |
+| 1 | Times title, bold abstract, italic subsection headings and anonymous author area render correctly. Prose describes the research without development logs. |
+| 2 | Integrated Fig. 1 preserves the selected design at 181 × 85.15 mm. Labels, equations, history junction, existence-only absence input and feedback loop are readable. The two weight paths retain their spatial-overlap connection. |
+| 3 | Weight definitions, proposition, proof and finite-mixture implementation fit the columns. The illustrative Gaussian figure remains separate from empirical results. |
+| 4 | Scene paths, sensing disks, communication timeline and candidate regions are readable. Experiment settings, controls and trial-based resampling are preserved. |
+| 5 | All nine methods remain in Table I and Table III. Table II retains common-support counts and uncertainty. The adverse departure cost, no-new false cost, failed acquisitions and conditional delay means are retained. |
+| 6 | Outcome points, intervals and unsmoothed trajectories are unchanged numerically. Legends use ER w/o age and ER (both). Discussion, AI disclosure and the beginning of the references fit. |
+| 7 | Remaining references use both columns, with the break supplied by the official class's reference-trigger command. |
 
-No clipped text, overlapping panels, missing glyphs, unresolved references,
-or Type 3 fonts were found. SVGs retain editable text; PDF fonts, including
-fonts inside figure Form XObjects, are embedded. Figures use vector output.
-Small ticks and legend text use the declared final-size style, with line
-styles and labels in addition to color. Source seed 2901 was selected by
-index, and the result figures use all twenty validation seeds per family.
+No clipped text, overlapping main-figure labels, missing glyphs, unresolved
+references or Type 3 fonts were found. All five SVGs contain editable text
+and no raster images. The main figure contains 62 SVG text elements.
+Its robots, density glyphs, connectors and shapes are vector geometry.
+The generated design reference remains outside the manuscript PDF.
 
-Tectonic retains non-fatal underfull-vbox warnings associated with float
-placement. The page layout was inspected rather than treating a warning-free
-compile as proof of quality. There are no overfull boxes. Tables/figures on
-pages 6--7 follow their first textual references because of two-column floats.
-This package has not been uploaded to Papercept or validated by its server.
+PDF fonts, including figure Form XObjects, are embedded. T1 encoding is set
+before the official class is loaded, resolving the previous Times fallback.
+The final TeX log has no font-substitution warning and no overfull box.
+One non-fatal underfull-hbox message remains in the implementation paragraph;
+the corresponding paragraph was visually inspected.
+
+Figure/table values and experiment inputs are unchanged. The schematic is
+illustrative; its corrected equations and arrow directions match the method.
+This is an artifact self-check, not independent scientific review or a
+Papercept submission-system check.

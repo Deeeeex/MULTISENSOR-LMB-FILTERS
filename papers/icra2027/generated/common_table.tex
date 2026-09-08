@@ -1,6 +1,6 @@
 \begin{table}[t]
 \centering
-\caption{Common-target localization relative to Lineage. Ratio is pooled candidate RMSE divided by reference RMSE; brackets are descriptive 95\% bootstrap intervals. $n_c$ counts common robot--time--truth triples, not independent samples.}
+\caption{Common-target localization relative to ER w/o age. Each ratio divides the pooled method RMSE by the reference RMSE; brackets give 95\% bootstrap intervals. $n_c$ counts common robot--time--truth triples.}
 \label{tab:common}
 \footnotesize
 \begin{tabular}{llrr}
@@ -8,10 +8,10 @@
 Scene & Method & RMSE ratio [95\% interval] & $n_c$\\
 \midrule
 Split & ER & 0.9999 [0.9997, 1.0001] & 57,988\\
-Split & L+Age-all & 1.1685 [1.1270, 1.2087] & 58,006\\
+Split & ER (both) & 1.1685 [1.1270, 1.2087] & 58,006\\
 Split & Confirmed & 1.0018 [1.0004, 1.0032] & 57,894\\
 Churn & ER & 0.9998 [0.9997, 1.0000] & 58,936\\
-Churn & L+Age-all & 1.0307 [1.0218, 1.0390] & 58,841\\
+Churn & ER (both) & 1.0307 [1.0218, 1.0390] & 58,841\\
 Churn & Confirmed & 1.0028 [0.9937, 1.0124] & 56,641\\
 \bottomrule
 \end{tabular}

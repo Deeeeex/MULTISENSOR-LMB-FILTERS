@@ -17,13 +17,14 @@ FIG=OUT/'figures';FIG.mkdir(exist_ok=True)
 SOURCE=OUT/'source_data';SOURCE.mkdir(exist_ok=True)
 SCENES=['split_latebirth','churn_departure','split_no_new']
 TITLES={'split_latebirth':'Split–rejoin','churn_departure':'Churn–departure','split_no_new':'No-new control'}
-LABEL={'local':'Local','fov':'FoV','lineage':'Lineage','mil':'MIL-Z','mil_support':'MIL-S',
-       'recent':'Age-all','lineage_recent':'L+Age-all','qualified_exist':'ER','confirmed_exist':'Confirmed ER'}
+LABEL={'local':'Local','fov':'FoV','lineage':'ER w/o age','mil':'MIL-Z','mil_support':'MIL-S',
+       'recent':'Age-all','lineage_recent':'ER (both)','qualified_exist':'ER','confirmed_exist':'Confirmed ER'}
 COLOR={'lineage':'#7560a5','lineage_recent':'#0072b2','qualified_exist':'#00856a','confirmed_exist':'#d55e00','fov':'#777777'}
 STYLE={'lineage':'--','lineage_recent':'-.','qualified_exist':'-','confirmed_exist':':','fov':(0,(1,2))}
 mpl.rcParams.update({'font.family':'sans-serif','font.sans-serif':['Arial','Helvetica','DejaVu Sans'],
     'font.size':7.4,'axes.labelsize':7.4,'axes.titlesize':8,'xtick.labelsize':6.7,'ytick.labelsize':6.7,
-    'legend.fontsize':6.8,'svg.fonttype':'none','pdf.fonttype':42,'ps.fonttype':42,
+    'legend.fontsize':6.8,'svg.fonttype':'none','svg.hashsalt':'icra-er-paper-figures',
+    'pdf.fonttype':42,'ps.fonttype':42,
     'axes.spines.top':False,'axes.spines.right':False,'axes.linewidth':.65,
     'xtick.major.width':.65,'ytick.major.width':.65,'lines.linewidth':1.3,'legend.frameon':False})
 
@@ -42,7 +43,11 @@ def save(fig,name):
         assert box.x0>=-.5 and box.y0>=-.5 and box.x1<=width+.5 and box.y1<=height+.5,(name,text.get_text(),box,width,height)
         checked.append(text.get_text())
     for suffix in ['svg','pdf','png']:
-        fig.savefig(FIG/f'{name}.{suffix}',dpi=300,facecolor='white')
+        meta={'Date':None} if suffix=='svg' else ({'CreationDate':None,'ModDate':None} if suffix=='pdf' else None)
+        path=FIG/f'{name}.{suffix}'
+        fig.savefig(path,dpi=300,facecolor='white',metadata=meta)
+        if suffix=='svg':
+            path.write_text('\n'.join(line.rstrip() for line in path.read_text().splitlines())+'\n')
     (FIG/f'{name}_text_bounds.json').write_text(json.dumps({'checked_text':checked,'canvas_pixels':[width,height],'passed':True},indent=2)+'\n')
     plt.close(fig)
 
@@ -146,7 +151,7 @@ def outcomes_plot(d):
             v=[rows[scene,s,arm][metric] for s in d['seeds']];r=aggregate[scene,arm][metric]
             ax.scatter(ai+rng.uniform(-.08,.08,20),v,s=7,alpha=.4,color=COLOR[arm])
             ax.errorbar(ai,r['mean'],yerr=[[max(0,r['mean']-r['low'])],[max(0,r['high']-r['mean'])]],fmt='D',ms=3.5,color=COLOR[arm],capsize=2)
-        ax.set(xticks=range(len(controls)),xticklabels=['Lineage','ER','Confirmed','FoV'],ylim=(0,None))
+        ax.set(xticks=range(len(controls)),xticklabels=['ER w/o age','ER','Confirmed','FoV'],ylim=(0,None))
     c.set_ylabel('Departure cost (m²)');e.set_ylabel('No-new false cost (m²)')
     fig.legend(handles=[Line2D([],[],marker='o',color=COLOR[k],lw=0,label=LABEL[k]) for k in main],loc='lower center',ncol=3,bbox_to_anchor=(.5,.002))
     save(fig,'outcomes')

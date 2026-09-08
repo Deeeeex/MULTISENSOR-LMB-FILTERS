@@ -1,0 +1,636 @@
+{
+  "passed": true,
+  "canvas_pixels": [
+    2137,
+    1005
+  ],
+  "dimensions_mm": [
+    181,
+    85.15317286652079
+  ],
+  "pairwise_text_overlap": [],
+  "editable_svg_text_elements": 62,
+  "embedded_raster_images": 0,
+  "checked_text": [
+    "A \u00b7 older belief",
+    "B \u00b7 recent miss",
+    "C",
+    "D",
+    "Previous\npose",
+    "A\u2013B radio link",
+    "Target\nhypothesis",
+    "Missed\ndetection",
+    "$x$",
+    "$r_A,\\ p_A$",
+    "older",
+    "$x$",
+    "$r_B,\\ p_B$",
+    "recent",
+    "$x$",
+    "Untouched prior",
+    "History\nqualification",
+    "$f_j=1$",
+    "Visible absence",
+    "Existence only",
+    "Detection or miss",
+    "Predict",
+    "(LMB)",
+    "Local LMB\nupdate",
+    "Local clock",
+    "$\\Delta_j$",
+    "Time since\ndirect sensing",
+    "Measurements",
+    "Recency weights",
+    "$q_j\\propto w_j\\,f(\\Delta_j)$",
+    "$f$",
+    "1",
+    "$\\rho$",
+    "0",
+    "$\\Delta_j$",
+    "Decays with age, floor $\\rho>0$",
+    "Existence fusion",
+    "$\\mathrm{logit}\\,r^*=\\sum_jq_j\\,\\mathrm{logit}\\,r_j$",
+    "$+\\log\\eta_a$",
+    "Spatial weights",
+    "$a_j\\propto w_j$",
+    "$x$",
+    "$a_1$",
+    "$x$",
+    "$a_2$",
+    "$x$",
+    "$a_J$",
+    "$\\vdots$",
+    "$\\prod$",
+    "$x$",
+    "Spatial fusion",
+    "$p^*(x)=\\eta_a^{-1}\\prod_jp_j(x)^{a_j}$",
+    "Spatial overlap $\\eta_a$",
+    "Fused Bernoulli",
+    "$\\{\\ell,r^*,p^*\\}$",
+    "Next local step"
+  ],
+  "text_bounds": [
+    {
+      "text": "A \u00b7 older belief",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        95.89672461620634,
+        780.9106032150796,
+        189.12500000000003,
+        31.0
+      ]
+    },
+    {
+      "text": "B \u00b7 recent miss",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        412.82370475025414,
+        516.6098743948036,
+        195.875,
+        31.0
+      ]
+    },
+    {
+      "text": "C",
+      "font_size_pt": 7.4,
+      "bbox_pixels": [
+        471.2973173211117,
+        950.3146074191493,
+        18.25,
+        29.0
+      ]
+    },
+    {
+      "text": "D",
+      "font_size_pt": 7.4,
+      "bbox_pixels": [
+        167.23453195265253,
+        411.1878995158428,
+        18.25,
+        29.0
+      ]
+    },
+    {
+      "text": "Previous\npose",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        8.402695816606077,
+        467.485706852289,
+        93.125,
+        59.08000000000004
+      ]
+    },
+    {
+      "text": "A\u2013B radio link",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        275.922203173728,
+        610.4981822567585,
+        147.5,
+        28.0
+      ]
+    },
+    {
+      "text": "Target\nhypothesis",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        589.5306550336842,
+        597.2971267595929,
+        114.375,
+        59.07999999999993
+      ]
+    },
+    {
+      "text": "Missed\ndetection",
+      "font_size_pt": 6.9,
+      "bbox_pixels": [
+        561.4825429883354,
+        440.58784506969454,
+        95.625,
+        59.08000000000004
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        901.663105842623,
+        776.5632419579938,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "$r_A,\\ p_A$",
+      "font_size_pt": 8.7,
+      "bbox_pixels": [
+        916.9017370119436,
+        838.3842157859372,
+        88.80890730590818,
+        33.0
+      ]
+    },
+    {
+      "text": "older",
+      "font_size_pt": 7.5,
+      "bbox_pixels": [
+        932.8061906648977,
+        794.7747979806683,
+        57.0,
+        29.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        901.663105842623,
+        447.9415393097745,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "$r_B,\\ p_B$",
+      "font_size_pt": 8.7,
+      "bbox_pixels": [
+        916.5970495119436,
+        515.6098743948036,
+        89.41828230590818,
+        33.0
+      ]
+    },
+    {
+      "text": "recent",
+      "font_size_pt": 7.5,
+      "bbox_pixels": [
+        925.6186906648977,
+        468.4920398352832,
+        71.375,
+        29.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        824.4779372490912,
+        320.4690639053051,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "Untouched prior",
+      "font_size_pt": 7.2,
+      "bbox_pixels": [
+        659.5427686555591,
+        286.55436861420776,
+        175.5,
+        28.0
+      ]
+    },
+    {
+      "text": "History\nqualification",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1022.0202493151157,
+        592.6192377539242,
+        126.5,
+        59.07999999999993
+      ]
+    },
+    {
+      "text": "$f_j=1$",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        1203.386946708248,
+        508.1970036186384,
+        32.700000000000045,
+        61.85940856933598
+      ]
+    },
+    {
+      "text": "Visible absence",
+      "font_size_pt": 7.3,
+      "bbox_pixels": [
+        998.0202493151157,
+        239.77547855752164,
+        174.5,
+        28.0
+      ]
+    },
+    {
+      "text": "Existence only",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1008.1452493151157,
+        195.33553300366998,
+        154.25,
+        28.0
+      ]
+    },
+    {
+      "text": "Detection or miss",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        185.936648202071,
+        340.3500921793966,
+        187.125,
+        28.0
+      ]
+    },
+    {
+      "text": "Predict",
+      "font_size_pt": 7.9,
+      "bbox_pixels": [
+        105.04942043281241,
+        258.1565068316132,
+        91.625,
+        31.0
+      ]
+    },
+    {
+      "text": "(LMB)",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        118.36192043281241,
+        226.911283791933,
+        65.0,
+        28.0
+      ]
+    },
+    {
+      "text": "Local LMB\nupdate",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        328.3080654818312,
+        223.309735560356,
+        138.625,
+        65.609375
+      ]
+    },
+    {
+      "text": "Local clock",
+      "font_size_pt": 6.9,
+      "bbox_pixels": [
+        527.4055979599924,
+        283.0459518599563,
+        117.0,
+        28.0
+      ]
+    },
+    {
+      "text": "$\\Delta_j$",
+      "font_size_pt": 9.5,
+      "bbox_pixels": [
+        675.954961319113,
+        238.89231206602457,
+        38.94236267089843,
+        43.79999999999998
+      ]
+    },
+    {
+      "text": "Time since\ndirect sensing",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        658.4128775478557,
+        163.42292148382987,
+        149.5,
+        59.079999999999984
+      ]
+    },
+    {
+      "text": "Measurements",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        317.263593230414,
+        83.06619686762349,
+        158.375,
+        28.0
+      ]
+    },
+    {
+      "text": "Recency weights",
+      "font_size_pt": 8.6,
+      "bbox_pixels": [
+        1270.0468650390255,
+        928.4335791450578,
+        238.125,
+        33.0
+      ]
+    },
+    {
+      "text": "$q_j\\propto w_j\\,f(\\Delta_j)$",
+      "font_size_pt": 9.0,
+      "bbox_pixels": [
+        1284.0805320560312,
+        878.0741613397889,
+        175.1174779452515,
+        42.5
+      ]
+    },
+    {
+      "text": "$f$",
+      "font_size_pt": 7.5,
+      "bbox_pixels": [
+        1231.491559016351,
+        853.4178828029429,
+        19.84375,
+        31.0
+      ]
+    },
+    {
+      "text": "1",
+      "font_size_pt": 6.9,
+      "bbox_pixels": [
+        1259.2608095418598,
+        816.325298506177,
+        13.125,
+        28.0
+      ]
+    },
+    {
+      "text": "$\\rho$",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        1253.3233095418598,
+        737.6401299126451,
+        19.0625,
+        31.0
+      ]
+    },
+    {
+      "text": "0",
+      "font_size_pt": 6.9,
+      "bbox_pixels": [
+        1282.1959210617,
+        685.3444063474561,
+        13.125,
+        28.0
+      ]
+    },
+    {
+      "text": "$\\Delta_j$",
+      "font_size_pt": 8.0,
+      "bbox_pixels": [
+        1532.0086493564672,
+        702.5949068729649,
+        33.10611572265634,
+        35.59999999999991
+      ]
+    },
+    {
+      "text": "Decays with age, floor $\\rho>0$",
+      "font_size_pt": 7.1,
+      "bbox_pixels": [
+        1287.5889488102828,
+        641.2434052964387,
+        304.449102783203,
+        32.0
+      ]
+    },
+    {
+      "text": "Existence fusion",
+      "font_size_pt": 8.6,
+      "bbox_pixels": [
+        1629.5220713658057,
+        861.7736608142802,
+        233.0,
+        33.0
+      ]
+    },
+    {
+      "text": "$\\mathrm{logit}\\,r^*=\\sum_jq_j\\,\\mathrm{logit}\\,r_j$",
+      "font_size_pt": 8.3,
+      "bbox_pixels": [
+        1604.564674236272,
+        785.8273329948398,
+        285.2537387619018,
+        70.28437499999995
+      ]
+    },
+    {
+      "text": "$+\\log\\eta_a$",
+      "font_size_pt": 8.3,
+      "bbox_pixels": [
+        1714.887064220433,
+        738.1485466668964,
+        102.03207083892812,
+        37.0
+      ]
+    },
+    {
+      "text": "Spatial weights",
+      "font_size_pt": 8.6,
+      "bbox_pixels": [
+        1241.9795310050138,
+        467.6615120867003,
+        213.5,
+        33.0
+      ]
+    },
+    {
+      "text": "$a_j\\propto w_j$",
+      "font_size_pt": 8.8,
+      "bbox_pixels": [
+        1241.9795310050138,
+        420.3826220300143,
+        96.32687225341806,
+        34.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1337.8762556212203,
+        320.4690639053051,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "$a_1$",
+      "font_size_pt": 8.1,
+      "bbox_pixels": [
+        1381.1010273493519,
+        337.6806199279795,
+        28.158737182617188,
+        31.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1335.5373111183858,
+        243.2838953117731,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "$a_2$",
+      "font_size_pt": 8.1,
+      "bbox_pixels": [
+        1380.1869648493519,
+        260.4954513344476,
+        29.986862182617188,
+        31.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1332.0288943641344,
+        122.82825341580656,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "$a_J$",
+      "font_size_pt": 8.1,
+      "bbox_pixels": [
+        1379.9291523493519,
+        140.03980943848103,
+        30.502487182617188,
+        31.0
+      ]
+    },
+    {
+      "text": "$\\vdots$",
+      "font_size_pt": 10.5,
+      "bbox_pixels": [
+        1263.2475872904427,
+        204.53867227209287,
+        15.9375,
+        40.0
+      ]
+    },
+    {
+      "text": "$\\prod$",
+      "font_size_pt": 16.0,
+      "bbox_pixels": [
+        1469.0320583196212,
+        220.114423060356,
+        65.140625,
+        72.0
+      ]
+    },
+    {
+      "text": "$x$",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1809.173572942332,
+        182.47133823808133,
+        15.796875,
+        28.0
+      ]
+    },
+    {
+      "text": "Spatial fusion",
+      "font_size_pt": 8.6,
+      "bbox_pixels": [
+        1610.1975148176225,
+        403.3405382587571,
+        192.125,
+        33.0
+      ]
+    },
+    {
+      "text": "$p^*(x)=\\eta_a^{-1}\\prod_jp_j(x)^{a_j}$",
+      "font_size_pt": 8.6,
+      "bbox_pixels": [
+        1562.4016636823685,
+        325.72702293931667,
+        287.716702270508,
+        73.61874999999998
+      ]
+    },
+    {
+      "text": "Spatial overlap $\\eta_a$",
+      "font_size_pt": 7.6,
+      "bbox_pixels": [
+        1532.7129252352324,
+        571.2445424628268,
+        206.2923126220703,
+        34.0
+      ]
+    },
+    {
+      "text": "Fused Bernoulli",
+      "font_size_pt": 7.0,
+      "bbox_pixels": [
+        1932.6244949516704,
+        591.786626234084,
+        181.125,
+        28.0
+      ]
+    },
+    {
+      "text": "$\\{\\ell,r^*,p^*\\}$",
+      "font_size_pt": 10.0,
+      "bbox_pixels": [
+        1929.639552629893,
+        532.7687916745638,
+        187.0948846435549,
+        47.799999999999955
+      ]
+    },
+    {
+      "text": "Next local step",
+      "font_size_pt": 8.1,
+      "bbox_pixels": [
+        893.0429969503265,
+        10.1190145311773,
+        195.0000000000001,
+        31.21875
+      ]
+    }
+  ],
+  "hypothesis_within_current_sensor_fov": true,
+  "age_weight_floor": 0.25
+}

@@ -1,6 +1,6 @@
 \begin{table}[t]
 \centering
-\caption{Residual false-target GOSPA squared cost (m$^2$), averaged over twenty episodes. Departure uses only frames 91--120; no-new uses the entire episode.}
+\caption{False-target GOSPA squared cost (m$^2$), averaged over twenty trials. Departure uses frames 91--120; no-new uses the full trial.}
 \label{tab:false}
 \small
 \begin{tabular}{lrr}
@@ -9,11 +9,11 @@ Method & Departure & No-new\\
 \midrule
 Local & 10.935 & 0.611\\
 FoV & 6.675 & 0.004\\
-Lineage & 10.785 & 0.679\\
+ER w/o age & 10.785 & 0.679\\
 MIL-Z & 23.430 & 4.162\\
 MIL-S & 26.370 & 4.204\\
 Age-all & 9.690 & 0.004\\
-L+Age-all & 10.905 & 0.570\\
+ER (both) & 10.905 & 0.570\\
 ER & 12.255 & 0.570\\
 Confirmed ER & 10.815 & 0.004\\
 \bottomrule

@@ -1,4 +1,4 @@
-"""Generate manuscript tables and checked scalar macros from audited outputs."""
+"""Generate manuscript tables and scalar macros from experiment summaries."""
 from pathlib import Path
 import json
 
@@ -6,8 +6,8 @@ OUT=Path(__file__).resolve().parent
 DATA=OUT.parents[1]/'trials/icra_reunion_fusion'
 GEN=OUT/'generated';GEN.mkdir(exist_ok=True)
 SCENES=['split_latebirth','churn_departure','split_no_new']
-NAMES={'local':'Local','fov':'FoV','lineage':'Lineage','mil':'MIL-Z','mil_support':'MIL-S',
-       'recent':'Age-all','lineage_recent':'L+Age-all','qualified_exist':'ER','confirmed_exist':'Confirmed ER'}
+NAMES={'local':'Local','fov':'FoV','lineage':'ER w/o age','mil':'MIL-Z','mil_support':'MIL-S',
+       'recent':'Age-all','lineage_recent':'ER (both)','qualified_exist':'ER','confirmed_exist':'Confirmed ER'}
 
 def main():
     summary=DATA/'summary_validation.json'
@@ -17,7 +17,7 @@ def main():
     a={(r['scene'],r['arm']):r for r in d['aggregate']}
     p={(r['scene'],r['arm'],r['reference']):r for r in d['paired']}
     lines=[r'\begin{table*}[t]',r'\centering',
-           r'\caption{Validation on all twenty paired seeds per family. OSPA is mean $\pm$ episode SD (m); count is mean absolute cardinality error. All nine arms and all seeds are included.}',
+           r'\caption{Set estimation over twenty paired Monte Carlo trials per scenario. OSPA is mean $\pm$ trial SD (m); count denotes mean absolute cardinality error.}',
            r'\label{tab:main}',r'\small',r'\begin{tabular}{lrrrrrr}',r'\toprule',
            r'& \multicolumn{2}{c}{Split--rejoin} & \multicolumn{2}{c}{Churn--departure} & \multicolumn{2}{c}{No-new control}\\',
            r'Method & OSPA & Count & OSPA & Count & OSPA & Count\\',r'\midrule']
@@ -29,14 +29,14 @@ def main():
     lines.extend([r'\bottomrule',r'\end{tabular}',r'\end{table*}'])
     (GEN/'main_table.tex').write_text('\n'.join(lines)+'\n')
     lines=[r'\begin{table}[t]',r'\centering',
-           r'\caption{Residual false-target GOSPA squared cost (m$^2$), averaged over twenty episodes. Departure uses only frames 91--120; no-new uses the entire episode.}',
+           r'\caption{False-target GOSPA squared cost (m$^2$), averaged over twenty trials. Departure uses frames 91--120; no-new uses the full trial.}',
            r'\label{tab:false}',r'\small',r'\begin{tabular}{lrr}',r'\toprule',r'Method & Departure & No-new\\',r'\midrule']
     for arm in d['arms']:
         lines.append(f"{NAMES[arm]} & {a['churn_departure',arm]['post_departure_false2']['mean']:.3f} & {a['split_no_new',arm]['false2']['mean']:.3f}"+r'\\')
     lines.extend([r'\bottomrule',r'\end{tabular}',r'\end{table}'])
     (GEN/'false_table.tex').write_text('\n'.join(lines)+'\n')
     lines=[r'\begin{table}[t]',r'\centering',
-           r'\caption{Common-target localization relative to Lineage. Ratio is pooled candidate RMSE divided by reference RMSE; brackets are descriptive 95\% bootstrap intervals. $n_c$ counts common robot--time--truth triples, not independent samples.}',
+           r'\caption{Common-target localization relative to ER w/o age. Each ratio divides the pooled method RMSE by the reference RMSE; brackets give 95\% bootstrap intervals. $n_c$ counts common robot--time--truth triples.}',
            r'\label{tab:common}',r'\footnotesize',r'\begin{tabular}{llrr}',r'\toprule',r'Scene & Method & RMSE ratio [95\% interval] & $n_c$\\',r'\midrule']
     for scene,short in zip(SCENES[:2],['Split','Churn']):
         for arm in ['qualified_exist','lineage_recent','confirmed_exist']:

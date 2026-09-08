@@ -6,19 +6,11 @@ from an earlier encounter, or still close to an unobserved birth prior.
 Conversely, a low existence probability can reflect a useful recent missed
 detection or merely a lack of sensing opportunity. These distinctions matter
 when the communication opportunity permits only a small number of fusion
-rounds. A geometrically valid link does not make the information at its two
-ends equally current. Figure~\ref{fig:scene} shows the prescribed contact patterns studied here.
+rounds. The information exchanged over a newly available link can therefore
+differ substantially in recency. Figure~\ref{fig:overview} summarizes the
+proposed fusion mechanism.
 
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/scene.pdf}
- \caption{Prescribed mobile sensing geometry (validation seed 2901, selected
- by index). Thin curves are complete robot paths; circles and dashed tree
- edges show the state at 27 s. Light disks denote 14 m FoVs. Crosses mark
- fixed candidate birth regions; the two lower regions are empty. The
- split and churn families produce different physical contact histories.
- Only the churn family includes the target departure at 45 s.}
- \label{fig:scene}
-\end{figure*}
+\input{main_figure_integrated/figure}
 
 Random finite set filters provide a natural representation of uncertain
 target number and state. The labeled multi-Bernoulli (LMB) filter represents
@@ -26,9 +18,8 @@ each candidate track by an existence probability and a conditional spatial
 density~\cite{reuter2014lmb}. Geometric pooling, also called generalized
 covariance intersection or Kullback--Leibler averaging (KLA), is widely used
 when cross-correlations are unavailable~\cite{battistelli2014kla}.
-Its interaction with unequal fields of view (FoVs), label support, and
-cardinality estimation is already well established. The practical question
-here is more specific: \emph{where should direct-observation recency enter
+Unequal fields of view (FoVs) create differences in label support and
+observation history. We ask: \emph{where should direct-observation recency enter
 a Bernoulli fusion rule when robots reunite?}
 
 Multiplying a source's entire fusion weight by an age factor seems natural,
@@ -38,26 +29,17 @@ from another robot. Reducing its spatial influence solely because its own
 sensor has been uninformative can therefore sacrifice localization while
 improving target-number estimates. We study an existence-only alternative:
 retain ordinary spatial weights on eligible inputs, and use direct-opportunity
-age to weight the Bernoulli existence terms. The spatial overlap normalizer
-is retained; this is not a claim of fully decoupled cardinality fusion.
+age to weight the Bernoulli existence terms while retaining the spatial
+overlap normalizer.
 
-We make three contributions within this restricted setting. First, we
-formulate an observation-history rule that distinguishes untouched priors,
-retained observation lineage, recent positive or negative opportunities, and
-observable label absence. Relaying does not refresh a robot's direct age.
-Second, a two-block variational formulation gives the resulting Bernoulli
-pool and establishes a fixed-input spatial invariance property. Third, a
-paired simulation study separates discovery, departure, and false-positive
-effects under identical motion and packet schedules, including failed
-confirmation and both-block recency ablations.
-
-The study changes only the fusion layer of an existing LMB implementation.
-The robot paths are prescribed and the inputs are synthetic point detections;
-there is no navigation, perception, or hardware claim. Birth regions and
-clocks are shared, and the label keys are already consistent. These
-assumptions isolate fusion behavior but limit the deployment scope. The
-development screens and their failures are retained, and the subsequent
-validation uses frozen parameters and new paired seeds.
+We make three contributions. First, we introduce existence recency (ER):
+an observation-history rule qualifies fusion inputs, and the time since a
+robot's last direct sensing opportunity determines its existence weight.
+Second, we derive the resulting Bernoulli pool from a two-block variational
+formulation and establish its fixed-input spatial invariance. Third, we
+evaluate discovery, departure, and false-track behavior in mobile robot
+teams, with ablations that separate input qualification, recency placement,
+and track confirmation.
 
 \section{Related Work}
 \subsection{Cooperative robotic search and tracking}
@@ -72,7 +54,7 @@ be connected. We hold motion and attempted links fixed to isolate the
 effect of posterior fusion during intermittent contact.
 
 \subsection{Unequal views and information weighting}
-Wang \emph{et al.} already use information divergence to adapt LMB fusion
+Wang \emph{et al.} use information divergence to adapt LMB fusion
 weights across multiple views~\cite{wang2018multiview}. FoV compensation
 and multi-view geometric fusion are also established approaches
 \cite{li2018multiviewlmb,li2020multiview}. Gao \emph{et al.} derive
@@ -83,19 +65,17 @@ can remain useful outside the current nominal FoV, and develop a
 density-decomposition CPHD approach~\cite{li2021cphd}.
 Jin \emph{et al.} examine shared-prior label consistency and introduce a
 consensus information selector~\cite{jin2024selector}. Communication-aware
-adaptive KLA/LMB weights also predate this study~\cite{lang2026adaptive}.
-Thus neither variable per-track weights nor historical FoV information is
-claimed as new. We examine the narrower placement of a causal direct-age
-factor within an existing Bernoulli fusion recursion.
+adaptive KLA/LMB weights account for network constraints
+\cite{lang2026adaptive}, while label assignment methods address
+inconsistent identities across nodes~\cite{li2019labelmatching}.
+Building on these approaches, we examine where a direct-observation age
+factor should enter the Bernoulli fusion recursion.
 
 \subsection{Existence and spatial fusion}
 \"Uney \emph{et al.} show that pointwise consistency of finite-set geometric
 mixtures does not ensure cardinality consistency, and advocate separate
-cardinality and localization fusion~\cite{uney2019cardinality}. Our use of
-different weight vectors is not a new general decoupling principle. Unlike
-fully independent cardinality pooling, the proposed expression retains the
-spatial overlap penalty. The contribution is the observation-history
-instantiation, its limited invariance property, and its measured tradeoffs
-at robot encounters. Label assignment remains a separate problem
-\cite{li2019labelmatching}; the shared-label MIL controls below are
-specializations, not full reproductions of independent-label systems.
+cardinality and localization fusion~\cite{uney2019cardinality}. Our rule
+retains the spatial overlap penalty while assigning distinct weights to
+spatial densities and Bernoulli existence terms. This formulation lets us
+isolate the effect of observation recency on existence decisions and
+examine the resulting discovery--localization tradeoff at robot encounters.

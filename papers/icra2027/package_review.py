@@ -6,7 +6,8 @@ import zipfile
 
 HERE = Path(__file__).resolve().parent
 files = [p for p in HERE.iterdir() if p.is_file() and p.name != '.gitignore']
-for folder in ['sections', 'generated', 'figures', 'source_data', 'literature', 'official_template']:
+for folder in ['sections', 'generated', 'figures', 'source_data', 'literature', 'official_template',
+               'main_figure_integrated']:
     files.extend(p for p in (HERE / folder).rglob('*') if p.is_file())
 files.extend(p for folder in ['output/pdf', 'output/qa'] for p in (HERE / folder).rglob('*') if p.is_file())
 manifest = {str(p.relative_to(HERE)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files)}

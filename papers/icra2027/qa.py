@@ -69,7 +69,7 @@ def check():
     assert '??' not in full_text
     assert 'OpenAI Codex' in full_text and 'Acknowledgment' in full_text.replace('ACKNOWLEDGMENT', 'Acknowledgment')
     (HERE / 'build/main.txt').write_text(full_text)
-    log = (HERE / 'build/compile.log').read_text()
+    log = (HERE / 'build/compile.log').read_text() + (HERE / 'build/main.log').read_text()
     bad = ['Overfull', 'undefined', 'Missing character', 'Undefined control sequence',
            'LaTeX Error', 'BibTeX subsystem:', 'internal error']
     assert not any(word.lower() in log.lower() for word in bad), log
@@ -81,7 +81,7 @@ def check():
         assert (HERE / filename).read_bytes() == (HERE / 'official_template' / filename).read_bytes()
 
     figures = {}
-    for name in ['scene', 'mechanism', 'outcomes', 'time']:
+    for name in ['overview', 'scene', 'mechanism', 'outcomes', 'time']:
         svg = ET.parse(HERE / 'figures' / f'{name}.svg')
         live = [x for x in svg.iter() if x.tag.endswith('}text')]
         assert live and not any(x.tag.endswith('}image') for x in svg.iter())
@@ -110,7 +110,9 @@ def check():
         for prefix, value in expected.items():
             assert math.isclose(facts[prefix + suffix], value, rel_tol=1e-12, abs_tol=1e-12)
 
-    tex = '\n'.join(p.read_text() for p in [HERE / 'main.tex', *(HERE / 'sections').glob('*.tex')])
+    tex = '\n'.join(p.read_text() for p in [HERE / 'main.tex', *(HERE / 'sections').glob('*.tex'),
+                                         *(HERE / 'main_figure_integrated').glob('*.tex')])
+    assert not re.search(r'\b(seed|frozen|hash|audit|v[234])\b', tex, flags=re.I)
     cited = {key.strip() for group in re.findall(r'\\cite\{([^}]+)\}', tex) for key in group.split(',')}
     available = set(re.findall(r'@\w+\{([^,]+),', (HERE / 'references.bib').read_text()))
     assert cited <= available
@@ -120,6 +122,7 @@ def check():
     result = {'status': 'automated_artifact_checks_passed', 'pdf_sha256': sha(PDF),
               'pages': len(reader.pages), 'paper_size': 'US Letter', 'text_spans_in_page_bounds': span_count,
               'embedded_fonts': fonts, 'type3_fonts': 0, 'pdf_annotations': 0, 'blank_author_metadata': True,
+              'tex_font_substitution_warnings': 0,
               'official_class_and_bst_unmodified': True, 'figures': figures,
               'validation_seeds_per_family': 20, 'validation_arm_runs': 540,
               'audited_validation_node_frames': 518400, 'scalar_facts_match_audited_summary': True,
@@ -129,7 +132,7 @@ def check():
     out = HERE / 'output/qa/artifact_qa.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2) + '\n')
-    print(f'PASS artifact QA: {len(reader.pages)} pages, {len(fonts)} embedded fonts, 4 live-text SVGs, {len(cited)} citation keys.')
+    print(f'PASS artifact QA: {len(reader.pages)} pages, {len(fonts)} embedded fonts, {len(figures)} live-text SVGs, {len(cited)} citation keys.')
 
 
 if __name__ == '__main__':

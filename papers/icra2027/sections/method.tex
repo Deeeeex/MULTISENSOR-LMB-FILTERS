@@ -1,27 +1,22 @@
 \section{Problem and Fusion Rule}
 \subsection{Robot, sensing, and communication model}
 There are $N$ robots with known poses $s_i(t)$ and a common clock. A physical
-edge exists when two robots are within radio range. A geometry-only
+edge exists when two robots are within radio range. A reliable geometry
 coordinator selects a bidirectional minimum spanning tree in each connected
 component. At each time, a robot predicts its LMB, updates with its own
 measurement set, and exchanges the resulting posterior for one synchronous
 fusion round. A dropped neighbor's Metropolis weight returns to the receiver's
 self weight. Fusion output is retained as the prior for the next local step.
-The coordinator is modeled as reliable and its traffic is charged; the
-estimator messages are lossy. This is not a decentralized tree-agreement
-protocol or a consensus-convergence guarantee.
+Communication cost includes coordinator traffic and lossy posterior messages.
 
 A label $\ell=(t_b,b)$ specifies a shared birth time and candidate region.
 For represented label $\ell$, source $j$ supplies
 $\pi_j^\ell=(r_j^\ell,p_j^\ell)$, where $r_j^\ell\in[0,1]$ and
 $p_j^\ell(x)$ is a Gaussian-mixture density over position and velocity.
-The birth prior does not disclose whether a target actually exists.
-All methods receive the same region/time prior and already-consistent keys.
-They do not use truth cardinality, target trajectories, or evaluation
-assignments in fusion decisions.
+All robots use the same birth priors and label keys.
 
 \subsection{Observation history and participation}
-Each retained Bernoulli carries two metadata values. The lineage flag
+Each retained Bernoulli carries two metadata values. The history flag
 $h_j^\ell$ records whether the density descends from any scheduled local
 update with nonzero detection opportunity. A direct opportunity is evaluated
 on the predicted Gaussian means before the measurement update:
@@ -32,14 +27,12 @@ on the predicted Gaussian means before the measurement update:
 \end{equation}
 The local timestamp $\tau_j^\ell$ is the last time this condition held at
 robot $j$. Both detections and missed detections count. A received posterior
-can propagate lineage but cannot advance $\tau_j^\ell$: after fusion the
-receiver attaches its own local timestamp. Consequently the age measures
-\emph{direct sensor opportunity}, not the age of every datum in a correlated
-posterior. We deliberately do not infer measurement novelty from packet
-arrival or attempt to remove all common information.
+propagates the history flag, while the receiver retains its own local
+timestamp after fusion. The resulting age measures time since the last
+\emph{direct sensor opportunity}.
 
-The participation rule is a controlled baseline component. If at least one
-input carries observation lineage, represented inputs without lineage are
+For each label, if at least one input carries observation history,
+represented inputs with no such history are
 excluded as untouched priors. Otherwise they retain ordinary participation.
 An absent label contributes a negative existence censor only when the
 represented spatial density places at least half its Gaussian-mean mass
@@ -47,8 +40,7 @@ inside that source's current FoV, with expected detection at least $0.1$.
 Its existence upper bound is $0.01$. Other absent sources abstain. Such
 censors are qualified negative evidence and are never assigned a spatial
 density. The flags propagate only through actual participating inputs.
-This rule uses a mean-based FoV approximation, not exact integration through
-a sensor boundary.
+FoV occupancy is approximated at the Gaussian-component means.
 
 Let $\mathcal P$ denote eligible represented inputs and $\mathcal E$ eligible
 existence inputs, including qualified absence censors. For the receiver's
@@ -65,7 +57,7 @@ For a represented label with a positive timestamp set
 \end{equation}
 Use $f_j=\rho$ for a represented but never-directly-observed label, and
 $f_j=1$ for a qualified absence censor.
-Here $\rho=0.25$ and $\lambda=5$ s are fixed before development outcomes.
+We set $\rho=0.25$ and $\lambda=5$ s.
 The age factor is independent of the sign of the existence claim: a recent
 low $r_j$ can outweigh an older high $r_j$. Positive self weight and the
 existing absence logic supply the ordinary single-input fallback; a label
@@ -81,9 +73,8 @@ For fixed eligibility and normalized $a,q$, consider
        +r\sum_{j\in\mathcal P}a_j D(p\|p_j).
  \label{eq:objective}
 \end{equation}
-When the two supports and weight vectors agree, this is the Bernoulli KLA
-objective. Allowing separate vectors changes that objective; ordinary KLA
-consistency claims cannot simply be transferred.
+When the two supports and weight vectors agree, this reduces to the
+Bernoulli KLA objective.
 
 \noindent\textbf{Proposition 1 (fixed-input form).}
 Assume $0<r_j<1$, $\eta_a=\int\prod_{j\in\mathcal P}p_j(x)^{a_j}dx>0$,
@@ -105,41 +96,37 @@ $\operatorname{logit}r-\sum_jq_j\operatorname{logit}r_j-\log\eta_a=0$.
 Its second derivative is $1/[r(1-r)]>0$, establishing the stated solution.
 \hfill$\square$
 
-The overlap term remains a penalty: for exact normalized densities,
-$0<\eta_a\leq1$. Thus the rule does not guarantee cardinality consistency,
-probability calibration, or an existence value between all inputs. Nor does
-the proposition guarantee identical recursive localization: different
-existence decisions can affect subsequent associations, pruning, and which
-states are extracted. We test localization on common assignment support
-in addition to global set metrics.
+For normalized densities, $0<\eta_a\leq1$, so the spatial overlap term
+remains a penalty in the existence update. Across recursive filtering steps,
+existence decisions can affect associations, pruning, and state extraction.
+We therefore evaluate localization on common assignment support alongside
+global set metrics.
 
 The implementation calls the existing mixture-aware Gaussian-power fusion
 routine with $a$ for spatial pooling and $q$ for existence. It retains at
 most three components per input for the powered-mixture calculation, at
 most 256 component tuples, and at most eight output components. A
-non-admissible approximate overlap normalizer triggers the existing
-moment-matched fallback. Fractional powers
-of Gaussian mixtures and component reduction are approximate, so the
-proposition describes the ideal densities rather than an exact mixture
-implementation. All arms retain the same eight-component cap, prediction,
+non-admissible approximate overlap normalizer triggers a
+moment-matched fallback. This provides a finite-mixture approximation of
+the weighted density product. All methods retain the same eight-component cap, prediction,
 measurement-update code, and MAP-cardinality extraction. We call the rule
 \emph{existence recency} (ER); using $q$ in both blocks is the distinct
-\emph{both-block recency} ablation.
+\emph{ER (both)} ablation.
 
 \subsection{Confirmation ablation and communication cost}
-A separate ablation delays lineage restriction until some input carries a
+A separate ablation delays history-based input restriction until some input carries a
 positive confirmation. A robot creates this bit after two consecutive local
 updates with opportunity and detection-association mass at least $0.5$.
-Empty measurements reset the local streak, even if the update retains old
-diagnostic fields. Only the bit propagates; relays cannot supply consecutive
-local hits or refresh direct age. Ordinary FoV-aware pooling applies before
-confirmation. This conventional two-hit gate tests a false-positive versus
-short-contact discovery tradeoff; it is not presumed beneficial.
+Empty measurements reset the local streak. The confirmation bit propagates
+through fusion, while the hit counter and observation timestamp remain
+local. Ordinary FoV-aware pooling applies before confirmation. This two-hit
+rule tests the tradeoff between false-track rejection and discovery during
+short sensing contacts.
 
-All communicating arms serialize the full retained mixture and identical
-metadata, then decode the packet before receiver fusion. Each attempted
+All communicating methods transmit the full retained mixture and identical
+metadata. Each attempted
 packet occupies 16,384 bytes, with a fixed 128-byte-per-robot control charge
 per frame. Padding isolates fusion at equal attempted wire cost. We also
 report unpadded payloads because differing mixture sizes can change actual
 data volume. The method adds constant metadata per represented label and
-linear-time weight calculations; it does not reduce the scheduled traffic.
+linear-time weight calculations.

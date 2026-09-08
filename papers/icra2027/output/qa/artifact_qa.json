@@ -1,47 +1,87 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "000f510ee40fc6e32c8d9730cd1c5a33ad76dc8544f885911c3c661055a29079",
+  "pdf_sha256": "b32f38eac567f62e0c0e175619fad4c17f9c7aa6dee98b1afc3c718ce72bbd4d",
   "pages": 7,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 1573,
+  "text_spans_in_page_bounds": 1727,
   "embedded_fonts": {
-    "/IHAIZV+LMRoman17-Regular-Identity-H": {
+    "/IHAIZV+NimbusRomNo9L-Medi": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/BZIVMZ+NimbusRomNo9L-MediItal": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/IXFAWU+NimbusRomNo9L-Regu": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/TQTHRL+NimbusRomNo9L-ReguItal": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/YEUUOC+CMMI8": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/AKHCZK+CMMI6": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/VDVGTR+CMMI10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/CAFSZL+CMMI7": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/DDIEWW+CMR10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/FKPJSN+CMSY10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/PVTTLK+CMBX10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/JAGKKY+CMEX10": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/NOMARO+CMSY7": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/ESMMOR+ArialNarrow-Bold": {
       "subtype": "/Type0",
       "embedded": true
     },
-    "/BZIVMZ+LMRoman9-Regular-Identity-H": {
+    "/ESMMOR+ArialNarrow": {
       "subtype": "/Type0",
       "embedded": true
     },
-    "/IXFAWU+LMRoman10-Regular-Identity-H": {
+    "/CZRBLR+STIXGeneral-Regular": {
       "subtype": "/Type0",
       "embedded": true
     },
-    "/TQTHRL+LMRoman8-Regular-Identity-H": {
+    "/FTXWZA+STIXGeneral-Italic": {
       "subtype": "/Type0",
       "embedded": true
     },
-    "/YEUUOC+CMMI10": {
+    "/KPXLOM+CMR7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/AKHCZK+CMMI7": {
+    "/UTACNV+CMMI5": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/VDVGTR+CMR10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/CAFSZL+CMSY10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/DDIEWW+CMBX10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/FKPJSN+CMEX10": {
+    "/FZDNHS+MSAM10": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -53,43 +93,19 @@
       "subtype": "/Type0",
       "embedded": true
     },
-    "/PVTTLK+CMSY7": {
+    "/DZGKAF+CMSY8": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/JAGKKY+CMR7": {
+    "/GJMHKB+CMR9": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/NOMARO+CMMI5": {
+    "/NITCSQ+CMMI9": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/KPXLOM+MSAM10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/UTACNV+CMSY8": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/FZDNHS+CMR9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/DZGKAF+CMMI9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/GJMHKB+CMSY9": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/NITCSQ+CMMI8": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/UBBQTN+CMMI6": {
+    "/UBBQTN+CMSY9": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -101,31 +117,38 @@
   "type3_fonts": 0,
   "pdf_annotations": 0,
   "blank_author_metadata": true,
+  "tex_font_substitution_warnings": 0,
   "official_class_and_bst_unmodified": true,
   "figures": {
+    "overview": {
+      "live_svg_text_elements": 62,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "cd8c434be86b9c64ee1e31145a921718fc04aeaf717b1468141df0efd68af70e"
+    },
     "scene": {
       "live_svg_text_elements": 48,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "cfaea34839d00eedc112c14659c04152f0e77a676e20861ec71f824a1d92e3e3"
+      "svg_sha256": "5f23da687e2019cef4a27fff1c2567e297cee9a1fd67bb7b68441ba143497bd4"
     },
     "mechanism": {
       "live_svg_text_elements": 21,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "850efcc4eb965fb7009d9c6ef1faf1fef43279bc84b2c3614de958056c280ac8"
+      "svg_sha256": "6d09ba98796561695dbddcfed5881793fbb46a6ba010c98f1cfc0ed487ca1df4"
     },
     "outcomes": {
       "live_svg_text_elements": 36,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "250975da8b8703e7c45947ac5670faffc20b2f0607b51960673edf0c27b0c46a"
+      "svg_sha256": "fc71f646a7ec5c5ceb6c4efccc67cea1759c63d53c6d454bef2649eeb1cb0846"
     },
     "time": {
       "live_svg_text_elements": 46,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "5af8b96816852e92b14b31c484fddf0139396dd6cceb4af71a36c0107d07e6d4"
+      "svg_sha256": "ccbb45316f94ef7ade7469ebe5bade1f90821b7a3a4309d245a3dc8267d571ca"
     }
   },
   "validation_seeds_per_family": 20,

@@ -1,27 +1,18 @@
 \section{Discussion and Conclusion}
-The useful result is conditional: direct-opportunity recency can improve
-existence decisions without also changing spatial weights. With a retained
-lineage qualifier, this improves global set estimation in the studied
-robot encounters and avoids the common-target localization degradation of
-both-block age weighting. It does not solve every failure induced by
-intermittent sensing. In particular, observation lineage can preserve an
-incorrect hypothesis, and a robot with old direct age may carry valuable
-relayed evidence. A confirmation gate can reject useful short-contact
-discoveries as well as false hypotheses. The failed development gate and
-reversed departure result make that limitation explicit.
+ER uses observation history to select participating inputs and direct
+sensing age to weight existence, while retaining ordinary spatial weights.
+Across the three mobile-robot scenarios, this separation reduces set error
+relative to ER without recency. In split--rejoin and churn--departure, it
+also avoids the common-target localization degradation of applying age to
+both blocks. A robot's direct sensing age
+and the spatial information accumulated in its posterior describe different
+properties: earlier observations and relayed evidence can remain useful
+after direct contact ends.
 
-The main threats to generality are the small target population, shared
-birth schedule and label keys, known global poses, simplified Cartesian
-detections, mean-based FoV tests, fixed paths, one fusion round, and limited
-mixture representation. Unknown birth locations, independent-label
-association, occlusion, localization error, sensor heterogeneity, and
-real robot execution are not validated. The simulations also use a reliable
-central geometry coordinator with modeled control traffic. Neither
-network-protocol feasibility nor closed-loop navigation follows from them.
-
-Within this scope, observation history should be treated as distinct from
-spatial information when designing a fusion rule for intermittently
-connected robot teams. The present evidence supports existence-only age
-weighting as a small fusion-layer change, with an explicit false-track
-tradeoff. Broader deployment requires evaluating that tradeoff under
-realistic birth, sensing, and label-association processes.
+False-track rejection introduces a further tradeoff. ER retains some false
+hypotheses, and the two-hit confirmation gate reduces no-new false cost at
+the expense of discovery during short sensing contacts. The departure and
+acquisition results show why set error, localization, false cost, and
+discovery delay should be evaluated together. An adaptive confirmation rule
+that accounts for sensing-contact duration is a concrete direction for
+extending this approach.
