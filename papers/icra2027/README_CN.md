@@ -5,6 +5,11 @@
 正式模板、引用元数据、图表源数据和构建脚本已放在本目录。
 这是供作者审阅的完整研究稿；自动检查不等于独立复现、作者批准或投稿系统验收。
 
+2026-09-08 基线复核：下文 Lineage 是已有历史资格筛选的内部消融，3.1% / 24.7%
+是加入时效的增量收益，不能解读为相对公开强基线的优势。外部基线的完整性仍需补足。
+机器人融合路线、代码来源和具体候选见 [基线复核报告](ROBOTICS_FUSION_BASELINE_REVIEW_CN.md)。
+本次复核未修改已冻结实验、论文 PDF 或先前的源码 ZIP。
+
 - 阅读：`output/pdf/icra2027_draft.pdf`
 - 可移植论文源码包：`output/icra2027_review_source.zip`
 - 机器检查：`output/qa/artifact_qa.json`；人工版面记录：`output/qa/visual_review.md`
