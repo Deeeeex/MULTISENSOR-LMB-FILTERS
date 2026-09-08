@@ -20,13 +20,13 @@ OUT.mkdir(exist_ok=True)
 W, H = 1828, 860
 WIDTH_MM = 181
 HEIGHT_MM = WIDTH_MM * H / W
-INK, MUTED = "#253746", "#667985"
-BLUE, BLUE_DARK = "#287fb5", "#19569d"
-TEAL, AMBER = "#008c7b", "#cc8b42"
+INK, MUTED = "#263c48", "#73858f"
+BLUE, BLUE_DARK = "#6c91b2", "#446c99"
+TEAL, AMBER = "#007f73", "#ba8645"
 
 mpl.rcParams.update({
     "font.family": "sans-serif",
-    "font.sans-serif": ["Arial Narrow", "Arial", "DejaVu Sans"],
+    "font.sans-serif": ["Arial", "DejaVu Sans"],
     "font.size": 7.2, "mathtext.fontset": "stix", "mathtext.default": "it",
     "svg.fonttype": "none", "svg.hashsalt": "icra-gce-integrated-overview",
     "pdf.fonttype": 42, "ps.fonttype": 42, "axes.unicode_minus": False,
@@ -37,7 +37,8 @@ ax.set(xlim=(0, W), ylim=(H, 0), aspect="equal")
 ax.axis("off")
 
 
-def text(x, y, value, size=7.2, color=INK, **kwargs):
+def text(x, y, value, size=7.6, color=INK, **kwargs):
+    size = max(size, 7.4)
     kwargs.setdefault("va", "center")
     return ax.text(x, y, value, fontsize=size, color=color,
                    linespacing=1.14, **kwargs)
@@ -57,7 +58,7 @@ def box(x, y, w, h, fill="white", edge=INK, width=.65, radius=12, **kwargs):
 
 
 def arrow(start, end, color=INK, width=.8, style="-|>", dashed=False, **kwargs):
-    item = FancyArrowPatch(start, end, arrowstyle=style, mutation_scale=6.5,
+    item = FancyArrowPatch(start, end, arrowstyle=style, mutation_scale=6.0,
                            color=color, linewidth=width, shrinkA=0, shrinkB=0,
                            linestyle=(0, (2.4, 2.3)) if dashed else "-", **kwargs)
     ax.add_patch(item)
@@ -67,7 +68,7 @@ def arrow(start, end, color=INK, width=.8, style="-|>", dashed=False, **kwargs):
 def curved(vertices, color=INK, width=.8, head=True, dashed=False, **kwargs):
     path = MplPath(vertices, [MplPath.MOVETO] + [MplPath.CURVE4] * (len(vertices) - 1))
     if head:
-        item = FancyArrowPatch(path=path, arrowstyle="-|>", mutation_scale=6.5,
+        item = FancyArrowPatch(path=path, arrowstyle="-|>", mutation_scale=6.0,
                                color=color, linewidth=width, capstyle="round",
                                linestyle=(0, (2.4, 2.3)) if dashed else "-", **kwargs)
     else:
@@ -83,7 +84,7 @@ def bell(cx, baseline, width=95, height=52, color=BLUE_DARK, axis=True, fill=.09
     xs = cx + u * width / 6.4
     ys = baseline - height * np.exp(-.5 * (u / .85) ** 2)
     ax.fill_between(xs, baseline, ys, color=color, alpha=fill, linewidth=0)
-    line(xs, ys, color, .8)
+    line(xs, ys, color, .9)
     if axis:
         arrow((cx - width / 2 - 7, baseline), (cx + width / 2 + 15, baseline), INK, .4)
     return cx + width / 2 + 15
@@ -141,24 +142,25 @@ def robot(x, y, scale=1, plate="#bcc4c9", faded=False):
     poly([(10, 14), (34, -2), (34, 4), (10, 20)], "#3b4a54", lw=.3, z=8)
     wheel(-16, 18, 9)
     wheel(24, 21, 9)
-    for cx, cy in [(-26, -19), (20, -20), (1, -32)]:
-        item = line([cx, cx], [cy, cy - 15], "#25343d", .55, alpha=alpha, zorder=9)
-        item.set_transform(trans)
-        ax.add_patch(Circle((cx, cy - 15), 2.1, facecolor="#52616b",
-                            edgecolor="#26343e", linewidth=.3, transform=trans,
-                            alpha=alpha, zorder=10))
+    ax.add_patch(Ellipse((0, -18), 21, 14, facecolor="#e4ebee", edgecolor=INK,
+                         linewidth=.55, transform=trans, alpha=alpha, zorder=9))
+    ax.add_patch(Ellipse((0, -23), 21, 14, facecolor="#c5d1d8", edgecolor=INK,
+                         linewidth=.55, transform=trans, alpha=alpha, zorder=10))
+    ax.add_patch(Ellipse((0, -23), 9, 6, facecolor="#526c7b", edgecolor="none",
+                         transform=trans, alpha=alpha, zorder=11))
+
 
 
 # One continuous sensing scene, with the reference's silhouettes and positions.
-ax.add_patch(Ellipse((189, 230), 293, 248, facecolor="#eaf2fb",
-                     edgecolor="#76a4cf", linewidth=.6, linestyle=(0, (3, 2.2)), zorder=0))
-ax.add_patch(Ellipse((451, 330), 300, 292, facecolor="#edf5fc",
-                     edgecolor="#76a4cf", linewidth=.6, linestyle=(0, (3, 2.2)), zorder=0))
+ax.add_patch(Ellipse((189, 230), 293, 248, facecolor="#f1f5f8",
+                     edgecolor="#9db6c7", linewidth=.6, linestyle=(0, (3, 2.2)), zorder=0))
+ax.add_patch(Ellipse((451, 330), 300, 292, facecolor="#eef5f4",
+                     edgecolor="#9db6c7", linewidth=.6, linestyle=(0, (3, 2.2)), zorder=0))
 for x, y, rw, rh in [(344, 59, 103, 99), (209, 486, 109, 99)]:
-    ax.add_patch(Ellipse((x, y), rw, rh, facecolor="#e4f1fb", edgecolor="none", zorder=0))
+    ax.add_patch(Ellipse((x, y), rw, rh, facecolor="#f0f3f5", edgecolor="none", zorder=0))
 for start, end in [((211, 198), (317, 83)), ((369, 94), (424, 280)),
                    ((383, 372), (239, 464)), ((196, 279), (242, 450))]:
-    arrow(start, end, "#909aa1", .55, dashed=True, zorder=1)
+    arrow(start, end, "#b4c0c7", .55, dashed=True, zorder=1)
 curved([(372, 70), (415, 80), (427, 44), (471, 66),
         (483, 68), (493, 73), (506, 73)], "#89949c", .6, head=False, dashed=True)
 ax.add_patch(Ellipse((507, 72), 18, 7, facecolor="none", edgecolor="#89949c",
@@ -168,52 +170,49 @@ robot(430, 339, 1.08, TEAL)
 robot(346, 65, .67)
 robot(209, 489, .63)
 robot(50, 368, .88, AMBER, faded=True)
-text(82, 179, "A · older belief", 8, "#ac6821", weight="bold")
-text(353, 405, "B · current update", 8, "#007d70", weight="bold")
+text(82, 162, "A · older belief", 8, "#a36f32", weight="bold")
+text(330, 405, "B · current update", 8, TEAL, weight="bold")
 text(403, 35, "C", 7.4, "#172630")
 text(143, 496, "D", 7.4, "#172630")
 curved([(13, 422), (18, 402), (29, 397), (36, 393)], AMBER, .7, head=False, dashed=True)
 curved([(75, 343), (132, 323), (55, 289), (112, 280),
-        (136, 278), (109, 252), (149, 252)], "#be772b", .85, head=False, dashed=True)
-text(47, 435, "Previous\npose", 7.0, "#b5732b", ha="center")
+        (136, 278), (109, 252), (149, 252)], "#ba8645", .85, head=False, dashed=True)
+text(65, 435, "Previous\npose", 7.0, "#a9783e", ha="center")
 arrow((222, 269), (387, 331), BLUE_DARK, .75, "<->", dashed=True, zorder=2)
-text(299, 326, "A–B radio link", 7.0, BLUE_DARK, ha="center")
+text(285, 330, "Radio link", 7.4, BLUE_DARK, ha="center")
 for radius in [11, 18, 25]:
     angle = np.linspace(-.85, .85, 80)
     line(306 - radius * np.cos(angle), 285 + radius * np.sin(angle), BLUE_DARK, .65)
     line(306 + radius * np.cos(angle), 285 + radius * np.sin(angle), BLUE_DARK, .65)
 ax.add_patch(Circle((306, 285), 2.5, facecolor=BLUE_DARK, edgecolor="none"))
 hypothesis(504, 274)
-text(553, 324, "Target\nhypothesis", 7.0, BLUE_DARK, ha="center")
+text(547, 324, "Target", 7.5, BLUE_DARK, ha="center")
 curved([(550, 405), (542, 382), (524, 350), (512, 316)], TEAL, .65, dashed=True)
-text(521, 458, "Missed\ndetection", 6.9, TEAL, ha="center")
+text(477, 463, "Current miss", 7.4, TEAL, ha="center")
 
 # Evidence is attached to its source, with no intermediate card column.
-curved([(484, 185), (486, 138), (506, 148), (594, 147)], "#b7742d", .8)
+curved([(484, 185), (486, 138), (506, 148), (594, 147)], "#a9783e", .8)
 check(619, 145)
-line([637, 653], [145, 145], "#b7742d", .75)
-bell(706, 165, 98, 59, "#b7742d", fill=.08)
-text(771, 184, r"$x$", 7.0)
-text(822, 129, r"$r_A^+,\ p_A^+$", 8.7, "#b7742d", ha="center")
-text(822, 168, "older", 7.5, "#b7742d", ha="center")
-curved([(882, 147), (933, 147), (927, 147), (927, 249)], "#b7742d", .8)
+line([637, 653], [145, 145], "#a9783e", .75)
+bell(706, 165, 98, 59, "#a9783e", fill=.08)
+text(822, 129, r"$r_A^+,\ p_A^+$", 8.7, "#a9783e", ha="center")
+text(822, 168, "older", 7.5, "#a9783e", ha="center")
+curved([(882, 147), (933, 147), (927, 147), (927, 249)], "#a9783e", .8)
 
 arrow((557, 417), (594, 417), TEAL, .8)
 check(619, 417)
 line([637, 653], [417, 417], TEAL, .75)
 bell(705, 445, 98, 60, TEAL, fill=.08)
-text(771, 465, r"$x$", 7.0)
 text(822, 405, r"$r_B^+,\ p_B^+$", 8.7, TEAL, ha="center")
 text(822, 447, "recent", 7.5, TEAL, ha="center")
 curved([(883, 421), (894, 421), (890, 378), (887, 368)], TEAL, .8)
 
 curved([(450, 487), (449, 553), (445, 549), (557, 549)], "#9fa8ae", .7, dashed=True)
 bell(641, 554, 100, 48, "#9da5aa", fill=.035)
-text(705, 574, r"$x$", 7.0, "#78858e")
 arrow((723, 552), (796, 552), "#929ca3", .65, dashed=True)
 line([810, 829], [541, 562], "#929ca3", 1.2)
 line([810, 829], [562, 541], "#929ca3", 1.2)
-text(639, 603, "Untouched prior", 7.2, "#858f96", ha="center")
+text(731, 593, "Untouched prior", 7.4, MUTED, ha="center")
 
 # A rounded selector gives the central junction one clear visual identity.
 vertices = [(928, 260), (938, 260), (944, 272), (950, 280),
@@ -228,7 +227,7 @@ vertices = [(928, 260), (938, 260), (944, 272), (950, 280),
 vertices = [(928 + 1.28 * (x - 928), y) for x, y in vertices]
 path = MplPath(vertices, [MplPath.MOVETO] + [MplPath.CURVE4] * (len(vertices) - 1))
 ax.add_patch(PathPatch(path, facecolor="#fbfbf7", edgecolor=INK, linewidth=.8))
-text(928, 328, "History\nqualification", 7.0, "#172630", ha="center")
+text(928, 328, "Qualified\nhistory", 7.6, INK, ha="center")
 curved([(995, 308), (1010, 308), (986, 160), (1018, 160),
         (1031, 160), (1042, 160), (1053, 160)], TEAL, .85)
 curved([(988, 356), (1009, 356), (986, 626), (1019, 626),
@@ -243,7 +242,6 @@ curved([(943, 516), (1018, 516), (1018, 516), (1018, 470),
         (1018, 179), (1034, 179), (1053, 179)], TEAL, .6)
 text(1029, 399, "Base only", 7.1, TEAL, rotation=90)
 text(928, 643, "Visible absence", 7.3, TEAL, ha="center")
-text(928, 681, "No current ratio", 7.0, TEAL, ha="center")
 
 # Direct observations update the local clock; posterior feedback returns to prediction.
 curved([(430, 483), (432, 520), (333, 510), (333, 541)], MUTED, .55, head=False)
@@ -257,32 +255,31 @@ box(261, 600, 157, 81, fill="white", width=.8, radius=14)
 text(340, 641, "Local LMB\nupdate", 8, "#172630", ha="center", weight="bold")
 arrow((419, 639), (467, 639), INK, .7)
 clock(501, 640)
-text(501, 606, "Local clock", 6.9, "#172630", ha="center")
+text(510, 596, "Sensing age", 6.9, "#172630", ha="center")
 arrow((525, 640), (562, 640), INK, .7)
 text(578, 637, r"$t-\tau_j$", 8.8, "#172630")
-text(563, 695, "Time since\ndirect sensing", 7.1, "#172630")
 for x, y in [(312, 724), (353, 716), (343, 735), (368, 735), (326, 748), (350, 752)]:
     ax.add_patch(Circle((x, y), 4.5, facecolor="#e6effb", edgecolor=BLUE_DARK, linewidth=.55))
 arrow((337, 716), (337, 688), INK, .6)
 text(339, 777, "Measurements", 7.0, "#172630", ha="center")
 
 # The conservative base and admitted current evidence feed both branches.
-text(1065, 52, "Base + current evidence", 8.3, TEAL, weight="bold")
-text(1074, 103, r"Conservative base $\beta$", 7.7, "#172630")
+text(1065, 52, "Base + update", 9.0, TEAL, weight="bold")
+text(1074, 103, r"Inherited base $\beta$", 7.7, INK)
 text(1074, 151, r"$\delta_j,\ \Delta J_j,\ \Delta v_j,\ \Delta c_j$", 8.3, "#172630")
-text(1074, 207, "Association and score / miss", 7.0, TEAL)
-text(1074, 253, r"Curvature guard $\rightarrow\bar\kappa_j$", 7.8, TEAL)
+text(1074, 207, "Score / miss evidence", 7.5, TEAL)
+text(1074, 253, r"Curvature $\rightarrow\bar\kappa_j$", 8.0, TEAL)
 arrow((1310, 115), (1364, 153), TEAL, .85)
 curved([(1322, 255), (1353, 255), (1345, 210), (1372, 210)], TEAL, .8)
 curved([(1077, 279), (1052, 302), (1052, 340), (1052, 420),
         (1052, 462), (1052, 474), (1060, 479)], BLUE_DARK, .65)
-text(1493, 109, "Existence fusion", 8.6, TEAL, ha="center", weight="bold")
+text(1493, 99, "Existence", 9.0, TEAL, ha="center", weight="bold")
 text(1494, 158, r"$\mathrm{logit}\,r^*=\sum_j\beta_j z_j$", 8.3, "#172630", ha="center")
 text(1500, 237, r"$+\sum_j\bar\kappa_j\delta_j+\log I$", 8.3, "#172630", ha="center")
 curved([(1649, 161), (1740, 161), (1738, 157), (1738, 304)], TEAL, .85)
 
 # Spatial branch: eligible posterior factors plus the same admitted ratio.
-text(1062, 418, "Spatial base + ratio", 8.4, BLUE_DARK, weight="bold")
+text(1062, 418, "Spatial factors", 8.8, BLUE_DARK, weight="bold")
 text(1062, 486, r"$\alpha_j\ \mathrm{and}\ \bar\kappa_j$", 8.8, "#172630")
 for i, (cx, base, height, lab) in enumerate([
     (1095, 557, 44, r"$\alpha_1$"),
@@ -290,7 +287,6 @@ for i, (cx, base, height, lab) in enumerate([
     (1090, 726, 35, r"$\bar\kappa_j$"),
 ]):
     bell(cx, base, 70, height, BLUE_DARK, fill=.055)
-    text(cx + 49, base + 17, r"$x$", 7.0, "#172630")
     arrow((1148, base), (1176, base), BLUE_DARK, .7)
     text(1193, base + 1, lab, 8.1, "#172630", ha="center")
 text(1087, 671, r"$R_j=p_j^+/p_j^-$", 7.7, "#172630", ha="center")
@@ -298,11 +294,10 @@ curved([(1215, 558), (1250, 558), (1246, 558), (1246, 614)], BLUE_DARK, .7)
 arrow((1215, 623), (1246, 623), BLUE_DARK, .7)
 curved([(1215, 726), (1250, 726), (1227, 663), (1247, 663)], BLUE_DARK, .7)
 box(1255, 610, 59, 70, fill="#fafbfc", edge=INK, width=.8, radius=12)
-text(1284, 641, r"$\prod$", 16, "#172630", ha="center")
+text(1284, 641, r"$\prod$", 13, "#172630", ha="center")
 arrow((1315, 645), (1384, 714), BLUE_DARK, .8)
 bell(1460, 720, 139, 46, BLUE_DARK, fill=.075)
-text(1547, 745, r"$x$", 7.0, "#172630")
-text(1459, 501, "Spatial fusion", 8.6, BLUE_DARK, ha="center", weight="bold")
+text(1459, 508, "Spatial density", 9.0, BLUE_DARK, ha="center", weight="bold")
 text(1459, 553, r"$p^*(x)=h(x)/I$", 8.8, "#172630", ha="center")
 text(1459, 619, r"$h=\prod_j(p_j^+)^{\alpha_j}\prod_jR_j^{\bar\kappa_j}$", 8.0, "#172630", ha="center")
 
@@ -310,11 +305,11 @@ text(1459, 619, r"$h=\prod_j(p_j^+)^{\alpha_j}\prod_jR_j^{\bar\kappa_j}$", 8.0, 
 curved([(1284, 603), (1284, 467), (1290, 464), (1364, 464),
         (1465, 464), (1505, 481), (1505, 422),
         (1505, 354), (1505, 311), (1505, 275)], BLUE_DARK, .65)
-text(1487, 357, r"Recomputed integral $I$", 7.6, BLUE_DARK, ha="right")
+text(1487, 357, r"Shared normalizer $I$", 8.0, BLUE_DARK, ha="right")
 
 # One fused posterior receives both results and supplies the recursive feedback.
 box(1641, 312, 179, 191, fill="white", edge=INK, width=.8, radius=22)
-text(1730, 342, "Fused Bernoulli", 7.0, "#172630", ha="center", weight="bold")
+text(1730, 345, "Fused belief", 7.7, "#172630", ha="center", weight="bold")
 text(1730, 384, r"$\{\ell,r^*,p^*\}$", 10, "#172630", ha="center")
 hypothesis(1730, 450, .91)
 curved([(1565, 720), (1625, 720), (1625, 720), (1625, 620),
@@ -322,7 +317,7 @@ curved([(1565, 720), (1625, 720), (1625, 720), (1625, 620),
 curved([(1740, 510), (1740, 765), (1740, 813), (1420, 813),
         (1120, 813), (487, 813), (244, 813),
         (140, 813), (129, 779), (129, 678)], "#244d83", .8)
-text(847, 838, "Next local step", 8.1, "#244d83", ha="center", weight="bold")
+text(847, 838, "Next local prediction", 8.0, INK, ha="center")
 
 fig.canvas.draw()
 renderer = fig.canvas.get_renderer()
@@ -348,7 +343,7 @@ for suffix in ["svg", "pdf", "png"]:
 plt.close(fig)
 svg = ET.parse(OUT / "overview.svg")
 live = sum(item.tag.endswith("}text") for item in svg.iter())
-assert live >= 45 and not any(item.tag.endswith("}image") for item in svg.iter())
+assert live >= 35 and not any(item.tag.endswith("}image") for item in svg.iter())
 qa = {"passed": not overlaps, "canvas_pixels": [canvas_w, canvas_h],
       "dimensions_mm": [WIDTH_MM, HEIGHT_MM], "pairwise_text_overlap": overlaps,
       "editable_svg_text_elements": live, "embedded_raster_images": 0,
@@ -363,7 +358,7 @@ reference = DESIGN / "generated_reference.png"
     "kind": "mechanism_schematic", "reference_image": "main_figure_integrated/generated_reference.png",
     "reference_sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
     "reference_canvas_pixels": [W, H], "dimensions_mm": [WIDTH_MM, HEIGHT_MM],
-    "construction": "Editable vector paths and text, manually recreated from the image-generation reference.",
+    "construction": "Editorial refinement of the approved continuous reference using live Arial text, simplified robot glyphs, and vector density paths.",
     "rendered_data": "Qualitative robot poses, histories, and density glyphs; no empirical performance data.",
     "corrections": [
         "Show the conservative inherited base and guarded current Bernoulli ratio.",

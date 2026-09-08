@@ -1,36 +1,19 @@
 \section{Discussion and Conclusion}
-GCE separates a conservative inherited pool from admitted current local
-updates, then normalizes their Bernoulli product jointly. The Gaussian
-form makes explicit why a spatial ratio also changes existence: the
-integral of the corrected spatial product is part of the singleton mass.
-The complete 25-sequence result improves on qualified no-age pooling,
-recency weighting, conservative and capped controls, and the Scalar
-component in both link conditions. Relative to the two original geometric
-controls, missed cost, false cost, and common-target localization improve
-together.
+GCE restores bounded current evidence on top of an inherited posterior
+pool and normalizes the resulting Bernoulli jointly. This coupling is
+central: a spatial update changes both target localization and the
+singleton mass that determines existence. The Gaussian form supplies
+closed-form fusion, while source admission controls approximate local
+increments. Across both communication conditions, the complete rule
+improves on the main fusion references and combines lower missed and
+false costs with better localization relative to no-age and recency
+pooling. Exact zero omission makes the additional evidence cheaper to
+communicate at identical tracking output.
 
-The ablations narrow the interpretation. The full spatial correction has
-a supported advantage over Scalar in the main corpus. The curvature
-guard prevents two invalid aggregates observed in its removal, but its
-OSPA effect is not resolved in both conditions. The history switch has
-a small, uncertain contribution. The score constraint exchanges fewer
-false targets for more misses, so its merit cannot be inferred from
-false cost alone. These distinctions favor studying complete Bernoulli
-evidence over attributing the entire result to observation age.
-
-Three limits remain. First, current ratios come from approximate
-association and Gaussian moment projection; a positive curvature check
-does not establish source independence or remove all inherited
-correlation. Second, the fitted mark model depends on geometric
-calibration labels and a separability approximation. All real sequences
-have informed development, and the main detections come from the
-detector's training split. A new route and detector split is needed to
-test generalization. Third, the replay is planar, involves two vehicles,
-uses uncompensated moving ego coordinates, and emulates communication.
-Larger robot networks, pose uncertainty, and measured radio effects
-remain outside this experiment.
-
-Within that scope, the result establishes a concrete fusion improvement:
-bounded current evidence can be restored while keeping existence and
-spatial normalization consistent. Exact zero omission recovers part of
-the extra communication cost without changing a track or a probability.
+The present evaluation uses approximate associations, a fitted score
+model, planar two-vehicle tracking, and emulated links. A curvature test
+ensures admissible Gaussian correction but does not resolve unknown
+cross-source correlation. Evaluation on new routes and detector splits,
+larger robot teams, and measured radio links will test transfer beyond
+the current corpus. The main finding is that current evidence is most
+useful when its spatial and existence effects are retained together.

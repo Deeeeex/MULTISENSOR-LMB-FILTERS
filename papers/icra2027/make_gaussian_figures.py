@@ -16,7 +16,7 @@ OUT = HERE / 'figures'
 DATA = HERE / 'source_data'
 PRIMARY = 'marked_gaussian_evidence'
 CONDITIONS = [('reliable', 'Reliable links'), ('intermittent', 'Intermittent links')]
-INK, TEAL, BLUE, LIGHT, GRID = '#253746', '#008577', '#246699', '#9bafb9', '#e1e7ea'
+INK, TEAL, BLUE, LIGHT, GRID = '#263c48', '#007f73', '#446c99', '#b0bec5', '#e7ecef'
 mpl.rcParams.update({
     'font.family': 'sans-serif', 'font.sans-serif': ['Arial', 'DejaVu Sans'],
     'font.size': 8, 'axes.labelsize': 8, 'axes.titlesize': 9,
@@ -54,7 +54,8 @@ def export(fig, name, source):
     qa = dict(passed=True, dimensions_mm=list(fig.get_size_inches()*25.4),
               canvas_pixels=[width, height], text_bounds=bounds,
               editable_svg_text_elements=live, embedded_raster_images=0,
-              point_count=source.get('point_count'), complete_sequence_points=True)
+              point_count=source.get('point_count'), source_sequence_points_complete=True,
+              individual_points_displayed=source.get('individual_points_displayed', source.get('kind') == 'paired_sequence_ospa'))
     (OUT / f'{name}_text_bounds.json').write_text(json.dumps(qa, indent=2)+'\n')
     plt.close(fig)
     print('Rendered', name, 'from', source.get('point_count', source.get('number_of_sequence_measurements', 0)), 'sequence measurements.')
@@ -70,7 +71,7 @@ def comparisons(data, component=False):
         refs = ['marked_lineage', 'marked_er', 'marked_conservative', 'marked_ceiling_score', 'marked_ceiling_calibrated', 'marked_asymmetric']
         labels = [data['labels'][r] for r in refs]
         lookup = {(r['condition'], r['reference']): r for r in data['paired']}
-        name, height, left, gap, aw = 'gaussian_paired', 82, .175, .065, .36
+        name, height, left, gap, aw = 'gaussian_sequence_differences', 82, .175, .065, .36
     groups = []
     for condition, _ in CONDITIONS:
         for reference in refs:
@@ -118,6 +119,48 @@ def comparisons(data, component=False):
         development_corpus=True, negative_favors='GCE'))
 
 
+def paired_summary(data):
+    refs = ['marked_lineage', 'marked_er', 'marked_conservative',
+            'marked_ceiling_score', 'marked_ceiling_calibrated', 'marked_asymmetric']
+    lookup = {(r['condition'], r['reference']): r for r in data['paired']}
+    groups = []
+    fig = plt.figure(figsize=(181/25.4, 59/25.4), dpi=300)
+    axes = [fig.add_axes([.215+i*.405, .245, .355, .62]) for i in range(2)]
+    limits = [-.425, .025]
+    for i, ((condition, title), ax) in enumerate(zip(CONDITIONS, axes)):
+        color, marker = (TEAL, 'o') if i == 0 else (BLUE, 'D')
+        for y, reference in enumerate(refs):
+            row = lookup[condition, reference]
+            stats = row['ospa']
+            points = [dict(sequence=seq, value=value) for seq, value in zip(row['sequences'], row['ospa_differences'])]
+            assert len(points) == 25 and [p['sequence'] for p in points] == data['sequences']
+            assert np.isclose(np.mean([p['value'] for p in points]), stats['mean'], atol=1e-12)
+            assert limits[0] < stats['low'] < stats['high'] < limits[1]
+            groups.append(dict(condition=condition, reference=reference, summary=stats, points=points))
+            if y % 2 == 0:
+                ax.axhspan(y-.46, y+.46, color='#f4f7f8', lw=0, zorder=0)
+            ax.plot([stats['low'], stats['high']], [y, y], color=color, lw=1.6, solid_capstyle='round', zorder=3)
+            ax.plot([stats['low'], stats['low']], [y-.09, y+.09], color=color, lw=.7)
+            ax.plot([stats['high'], stats['high']], [y-.09, y+.09], color=color, lw=.7)
+            ax.scatter([stats['mean']], [y], s=25, marker=marker, facecolor=color,
+                       edgecolor='white', linewidth=.6, zorder=4)
+        ax.axvline(0, color=INK, lw=.65, linestyle=(0, (3, 2)), zorder=2)
+        ax.set(xlim=limits, ylim=(5.55, -.55), xticks=[-.4, -.2, 0], yticks=range(6),
+               yticklabels=[data['labels'][r] for r in refs] if i == 0 else ['']*6)
+        ax.set_title(title, fontsize=9, color=color, pad=9)
+        ax.set_xlabel('GCE − reference OSPA (m)', fontsize=8, labelpad=5)
+        for edge in ['top', 'right', 'left']:
+            ax.spines[edge].set_visible(False)
+        ax.tick_params(axis='y', pad=9, labelsize=8)
+    fig.text(.61, .035, '←  Lower OSPA with GCE', ha='center', va='center', fontsize=7.7, color=INK)
+    export(fig, 'gaussian_paired', dict(kind='paired_sequence_ospa', groups=groups, point_count=300,
+        rendered_estimate_count=12, plotted_statistic='Equal-sequence mean and paired 95% percentile interval',
+        individual_points_displayed=False, individual_points_companion='gaussian_sequence_differences',
+        x_limits=limits, point_unit='complete sequence',
+        interval='10000 percentile bootstrap resamples of the 25 paired sequences',
+        development_corpus=True, negative_favors='GCE'))
+
+
 def communication(data):
     aggregate = {(r['condition'], r['arm']): r for r in data['aggregate']}
     names = ['No-age\nKLA', 'Scalar', 'GCE\nfull', 'GCE\ncodec']
@@ -132,31 +175,57 @@ def communication(data):
             rows.append(dict(condition=condition, arm=key, label=label.replace('\n', ' '), means_mib=means,
                 sequences=[dict(sequence=r['sequence'], raw_bytes=r[('full_gaussian_' if key == 'full' else '')+'raw_bytes'],
                                 wire_bytes=r[('full_gaussian_' if key == 'full' else '')+'wire_bytes']) for r in group]))
-    fig = plt.figure(figsize=(181/25.4, 66/25.4), dpi=300)
-    axes = [fig.add_axes([.095+i*.48, .27, .40, .57]) for i in range(2)]
-    ymax = max(r['means_mib']['wire_bytes'] for r in rows)*1.15
+    for row in rows:
+        arm = PRIMARY if row['arm'] == 'full' else row['arm']
+        row['mean_ospa_m'] = aggregate[row['condition'], arm]['ospa']['mean']
+    fig = plt.figure(figsize=(181/25.4, 57/25.4), dpi=300)
+    axes = [fig.add_axes([.095+i*.495, .255, .38, .59]) for i in range(2)]
+    styles = {'marked_lineage': ('^', '#798a95', 'No-age KLA'),
+              'marked_asymmetric': ('s', BLUE, 'Scalar'),
+              'full': ('o', '#82949e', 'GCE, full'),
+              PRIMARY: ('o', TEAL, 'GCE')}
     for i, ((condition, title), ax) in enumerate(zip(CONDITIONS, axes)):
-        for off, metric, color in [(-.17, 'raw_bytes', TEAL), (.17, 'wire_bytes', BLUE)]:
-            values = [next(r for r in rows if r['condition'] == condition and r['arm'] == key)['means_mib'][metric] for key in keys]
-            bars = ax.bar(np.arange(4)+off, values, width=.29, color=color, zorder=3)
-            ax.bar_label(bars, labels=[f'{v:.2f}' for v in values], padding=3, fontsize=7)
-        ax.set(ylim=(0, ymax), xticks=range(4), xticklabels=names)
-        ax.set_title(title, pad=10)
-        ax.set_ylabel('Mean MiB per sequence', labelpad=4)
-        ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(4, integer=True))
-        ax.yaxis.grid(True, color=GRID, lw=.55, zorder=0)
+        group = {r['arm']: r for r in rows if r['condition'] == condition}
+        low = min(r['mean_ospa_m'] for r in group.values())
+        high = max(r['mean_ospa_m'] for r in group.values())
+        ax.set(xlim=(3.38, 6.38), ylim=(low-.080, high+.065), xticks=[3.5, 4.5, 5.5, 6.0])
+        for key in keys:
+            row = group[key]
+            x, y = row['means_mib']['raw_bytes'], row['mean_ospa_m']
+            marker, color, label = styles[key]
+            ax.scatter([x], [y], s=43 if key == PRIMARY else 30, marker=marker,
+                       facecolor='white' if key == 'full' else color,
+                       edgecolor=color, linewidth=1, zorder=4)
+            offset = (0, 9) if key == 'marked_lineage' else (0, -14)
+            ax.annotate(label, (x, y), xytext=offset, textcoords='offset points', ha='center',
+                        fontsize=8, color=TEAL if key == PRIMARY else INK,
+                        weight='bold' if key == PRIMARY else 'normal')
+        full, encoded = group['full'], group[PRIMARY]
+        x0, x1, y = full['means_mib']['raw_bytes'], encoded['means_mib']['raw_bytes'], encoded['mean_ospa_m']
+        ax.annotate('', xy=(x1+.10, y), xytext=(x0-.10, y),
+                    arrowprops=dict(arrowstyle='->', color=TEAL, linewidth=1.05), zorder=3)
+        saving = 100*(1-x1/x0)
+        ax.annotate(f'−{saving:.1f}% payload', ((x0+x1)/2, y), xytext=(0, 9),
+                    textcoords='offset points', ha='center', color=TEAL, fontsize=8)
+        ax.set_title(title, pad=9, fontsize=9)
+        ax.set_ylabel('OSPA (m)', labelpad=5)
+        ax.set_xlabel('Raw payload (MiB per sequence)', labelpad=6, fontsize=8)
+        ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(4))
+        ax.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.1f'))
+        ax.yaxis.grid(True, color=GRID, lw=.45, zorder=0)
         for edge in ['top', 'right']:
             ax.spines[edge].set_visible(False)
-    fig.legend(handles=[Patch(facecolor=TEAL, label='Raw payload'), Patch(facecolor=BLUE, label='Fragmented + control')],
-               loc='lower center', bbox_to_anchor=(.54, -.005), ncol=2, frameon=False, columnspacing=2)
-    export(fig, 'gaussian_communication', dict(kind='actual_native_bytes', rows=rows,
+    export(fig, 'gaussian_communication', dict(kind='actual_native_bytes_and_accuracy', rows=rows,
         number_of_sequence_measurements=200, sequence_count=25, bytes_per_mib=2**20,
-        full_and_codec_trajectory_parity=True, modeled_fragment_size_bytes=16384))
+        full_and_codec_trajectory_parity=True, modeled_fragment_size_bytes=16384,
+        axes='Native raw bytes versus complete-sequence OSPA; condition-specific OSPA scales'))
+
 
 
 if __name__ == '__main__':
     OUT.mkdir(exist_ok=True)
     evidence = json.loads((DATA / 'gaussian_paper_evidence.json').read_text())
+    paired_summary(evidence)
     comparisons(evidence)
     comparisons(evidence, component=True)
     communication(evidence)

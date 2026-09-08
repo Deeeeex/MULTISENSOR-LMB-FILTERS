@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "f5500ce29fb942f576e581659ada71f8a2c0d80582638ea1fec5d6ce03693e80",
-  "pages": 9,
+  "pdf_sha256": "3d03edf74563178ccd2fb9e02d712b38de4f09e092c1b3c5c8a9cafde5d6dc05",
+  "pages": 7,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2227,
+  "text_spans_in_page_bounds": 1914,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -25,51 +25,47 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/AKHCZK+CMR8": {
+    "/AKHCZK+CMMI8": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/VDVGTR+CMMI8": {
+    "/VDVGTR+CMMI10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/CAFSZL+CMMI6": {
+    "/CAFSZL+CMMI7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DDIEWW+CMMI10": {
+    "/DDIEWW+CMR10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/FKPJSN+CMMI7": {
+    "/FKPJSN+CMR7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/PVTTLK+CMR10": {
+    "/PVTTLK+CMSY10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/JAGKKY+CMR7": {
+    "/JAGKKY+CMBX10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/NOMARO+CMSY10": {
+    "/NOMARO+CMEX10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/KPXLOM+CMBX10": {
+    "/KPXLOM+CMMI5": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/UTACNV+CMEX10": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/ESMMOR+ArialNarrow-Bold": {
+    "/GOFYPY+Arial-BoldMT": {
       "subtype": "/Type0",
       "embedded": true
     },
-    "/ESMMOR+ArialNarrow": {
+    "/GOFYPY+ArialMT": {
       "subtype": "/Type0",
       "embedded": true
     },
@@ -81,24 +77,12 @@
       "subtype": "/Type0",
       "embedded": true
     },
-    "/FZDNHS+CMMI5": {
+    "/UTACNV+MSAM10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DZGKAF+MSAM10": {
+    "/FZDNHS+CMR6": {
       "subtype": "/Type1",
-      "embedded": true
-    },
-    "/GJMHKB+CMR6": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/GOFYPY+Arial-BoldMT": {
-      "subtype": "/Type0",
-      "embedded": true
-    },
-    "/GOFYPY+ArialMT": {
-      "subtype": "/Type0",
       "embedded": true
     }
   },
@@ -110,40 +94,45 @@
   "official_class_and_bst_unmodified": true,
   "figures": {
     "overview": {
-      "live_svg_text_elements": 60,
+      "live_svg_text_elements": 48,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "e612ddb0b78e021dee1b5d885a165a9737f3166318b7130ebfceb25e6dd99205"
+      "svg_sha256": "a42984e9e5a916b73400be69ade9ef69aebc3806343964398e7565a6a5872948"
     },
     "gaussian_paired": {
-      "live_svg_text_elements": 22,
+      "live_svg_text_elements": 17,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "9769aca5bd7424ca02cf7153b1a9c14701b4f93d1d24b5281ef66154b8ff7613"
+      "svg_sha256": "77fb7e8f24a8f228daf27595364f69ed905ae8cb8883559c44f2f7aa78b50bf1"
     },
     "gaussian_components": {
       "live_svg_text_elements": 21,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "badab5145c0bfd675909f57b44fac5c1c75958064af49843fde142d8b9372ab3"
+      "svg_sha256": "7a69556bf38b8518bd2be120f13ae727cb62613592dd8cdfc257fd97c19f715c"
     },
     "gaussian_communication": {
-      "live_svg_text_elements": 44,
+      "live_svg_text_elements": 32,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "ad797dfdbe486365cf31f77d84b7fd85b676f9ba39ebf043a0cc2987a4a18297"
+      "svg_sha256": "c9430d33d5a9d7361ad94be44872bd2b5b4f1195d0f8b8ddaa75e86baaac05a5"
+    },
+    "gaussian_sequence_differences": {
+      "live_svg_text_elements": 22,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "c131a72b5ccd4eb52d4129136e8f8e2580053b498eab5dc6d4fc4231d3ee1d79"
     }
   },
   "float_pages": {
     "fig:overview": 2,
-    "tab:main": 6,
-    "fig:paired": 6,
-    "tab:ablation": 7,
-    "fig:components": 7,
-    "tab:communication": 8,
-    "fig:communication": 8
+    "tab:main": 5,
+    "fig:paired": 5,
+    "tab:ablation": 6,
+    "fig:communication": 6,
+    "tab:communication": 6
   },
-  "references_start_page": 8,
+  "references_start_page": 7,
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,
   "numerical_evidence": {
@@ -161,9 +150,12 @@
     "portable_source_snapshots": 15,
     "source_result_identities": 850
   },
-  "draft_page_cap": null,
+  "manuscript_figures": 3,
+  "companion_evidence_figures": 2,
+  "ablation_complete_method_last": true,
+  "draft_page_cap": 8,
   "conference_page_limit": 8,
-  "requires_length_revision_before_submission": true,
+  "requires_length_revision_before_submission": false,
   "citation_keys_resolved": [
     "battistelli2014kla",
     "chiu2024dmstrack",

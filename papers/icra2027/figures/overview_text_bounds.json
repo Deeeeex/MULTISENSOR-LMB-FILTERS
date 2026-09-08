@@ -9,7 +9,7 @@
     85.15317286652079
   ],
   "pairwise_text_overlap": [],
-  "editable_svg_text_elements": 60,
+  "editable_svg_text_elements": 48,
   "embedded_raster_images": 0,
   "checked_text": [
     "A \u00b7 older belief",
@@ -17,55 +17,46 @@
     "C",
     "D",
     "Previous\npose",
-    "A\u2013B radio link",
-    "Target\nhypothesis",
-    "Missed\ndetection",
-    "$x$",
+    "Radio link",
+    "Target",
+    "Current miss",
     "$r_A^+,\\ p_A^+$",
     "older",
-    "$x$",
     "$r_B^+,\\ p_B^+$",
     "recent",
-    "$x$",
     "Untouched prior",
-    "History\nqualification",
+    "Qualified\nhistory",
     "Base only",
     "Visible absence",
-    "No current ratio",
     "Detection or miss",
     "Predict",
     "(LMB)",
     "Local LMB\nupdate",
-    "Local clock",
+    "Sensing age",
     "$t-\\tau_j$",
-    "Time since\ndirect sensing",
     "Measurements",
-    "Base + current evidence",
-    "Conservative base $\\beta$",
+    "Base + update",
+    "Inherited base $\\beta$",
     "$\\delta_j,\\ \\Delta J_j,\\ \\Delta v_j,\\ \\Delta c_j$",
-    "Association and score / miss",
-    "Curvature guard $\\rightarrow\\bar\\kappa_j$",
-    "Existence fusion",
+    "Score / miss evidence",
+    "Curvature $\\rightarrow\\bar\\kappa_j$",
+    "Existence",
     "$\\mathrm{logit}\\,r^*=\\sum_j\\beta_j z_j$",
     "$+\\sum_j\\bar\\kappa_j\\delta_j+\\log I$",
-    "Spatial base + ratio",
+    "Spatial factors",
     "$\\alpha_j\\ \\mathrm{and}\\ \\bar\\kappa_j$",
-    "$x$",
     "$\\alpha_1$",
-    "$x$",
     "$\\alpha_2$",
-    "$x$",
     "$\\bar\\kappa_j$",
     "$R_j=p_j^+/p_j^-$",
     "$\\prod$",
-    "$x$",
-    "Spatial fusion",
+    "Spatial density",
     "$p^*(x)=h(x)/I$",
     "$h=\\prod_j(p_j^+)^{\\alpha_j}\\prod_jR_j^{\\bar\\kappa_j}$",
-    "Recomputed integral $I$",
-    "Fused Bernoulli",
+    "Shared normalizer $I$",
+    "Fused belief",
     "$\\{\\ell,r^*,p^*\\}$",
-    "Next local step"
+    "Next local prediction"
   ],
   "text_bounds": [
     {
@@ -73,8 +64,8 @@
       "font_size_pt": 8.0,
       "bbox_pixels": [
         95.89672461620634,
-        780.9106032150796,
-        189.12500000000003,
+        800.7916314891712,
+        230.37500000000003,
         31.0
       ]
     },
@@ -82,9 +73,9 @@
       "text": "B \u00b7 current update",
       "font_size_pt": 8.0,
       "bbox_pixels": [
-        412.82370475025414,
+        385.92584296765966,
         516.5004993948036,
-        235.625,
+        287.50000000000006,
         31.21875
       ]
     },
@@ -94,7 +85,7 @@
       "bbox_pixels": [
         471.2973173211117,
         950.3146074191493,
-        18.25,
+        22.125,
         29.0
       ]
     },
@@ -104,58 +95,48 @@
       "bbox_pixels": [
         167.23453195265253,
         411.1878995158428,
-        18.25,
+        22.25,
         29.0
       ]
     },
     {
       "text": "Previous\npose",
-      "font_size_pt": 7.0,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        8.402695816606077,
-        467.485706852289,
-        93.125,
-        59.08000000000004
+        16.07819634211478,
+        466.415706852289,
+        119.875,
+        61.21999999999997
       ]
     },
     {
-      "text": "A\u2013B radio link",
-      "font_size_pt": 7.0,
+      "text": "Radio link",
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        275.922203173728,
-        610.4981822567585,
-        147.5,
-        28.0
+        265.6745916538879,
+        605.3202932510899,
+        135.25,
+        29.0
       ]
     },
     {
-      "text": "Target\nhypothesis",
-      "font_size_pt": 7.0,
+      "text": "Target",
+      "font_size_pt": 7.5,
       "bbox_pixels": [
-        589.5306550336842,
-        597.2971267595929,
-        114.375,
-        59.07999999999993
+        596.2638215251814,
+        612.3371267595928,
+        86.875,
+        29.0
       ]
     },
     {
-      "text": "Missed\ndetection",
-      "font_size_pt": 6.9,
+      "text": "Current miss",
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        561.4825429883354,
-        440.58784506969454,
-        95.625,
-        59.08000000000004
-      ]
-    },
-    {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        901.663105842623,
-        776.5632419579938,
-        15.796875,
-        28.0
+        470.52576392598075,
+        449.78048381260885,
+        174.625,
+        29.0
       ]
     },
     {
@@ -172,20 +153,10 @@
       "text": "older",
       "font_size_pt": 7.5,
       "bbox_pixels": [
-        932.8061906648977,
+        926.4936906648977,
         794.7747979806683,
-        57.0,
+        69.625,
         29.0
-      ]
-    },
-    {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        901.663105842623,
-        447.9415393097745,
-        15.796875,
-        28.0
       ]
     },
     {
@@ -202,120 +173,100 @@
       "text": "recent",
       "font_size_pt": 7.5,
       "bbox_pixels": [
-        925.6186906648977,
+        917.8686906648977,
         468.4920398352832,
-        71.375,
+        86.875,
         29.0
       ]
     },
     {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        824.4779372490912,
-        320.4690639053051,
-        15.796875,
-        28.0
-      ]
-    },
-    {
       "text": "Untouched prior",
-      "font_size_pt": 7.2,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        659.5427686555591,
-        286.55436861420776,
-        175.5,
-        28.0
+        745.384215785937,
+        297.7490911283792,
+        219.0,
+        29.0
       ]
     },
     {
-      "text": "History\nqualification",
-      "font_size_pt": 7.0,
+      "text": "Qualified\nhistory",
+      "font_size_pt": 7.6,
       "bbox_pixels": [
-        1022.0202493151157,
-        592.6192377539242,
-        126.5,
-        59.07999999999993
+        1022.8952493151157,
+        591.5492377539241,
+        124.75,
+        61.22000000000003
       ]
     },
     {
       "text": "Base only",
-      "font_size_pt": 7.1,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
         1203.386946708248,
-        485.9392079033064,
-        28.0,
-        106.375
+        471.5642079033064,
+        29.0,
+        135.125
       ]
     },
     {
       "text": "Visible absence",
-      "font_size_pt": 7.3,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        998.0202493151157,
-        239.77547855752164,
-        174.5,
-        28.0
-      ]
-    },
-    {
-      "text": "No current ratio",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        1002.8952493151157,
-        195.33553300366998,
-        164.75,
-        28.0
+        977.6452493151157,
+        239.27547855752164,
+        215.25,
+        29.0
       ]
     },
     {
       "text": "Detection or miss",
-      "font_size_pt": 7.1,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        185.936648202071,
-        340.3500921793966,
-        187.125,
-        28.0
+        135.561648202071,
+        339.8500921793966,
+        237.5,
+        29.0
       ]
     },
     {
       "text": "Predict",
       "font_size_pt": 7.9,
       "bbox_pixels": [
-        105.04942043281241,
+        95.23692043281241,
         258.1565068316132,
-        91.625,
+        111.25,
         31.0
       ]
     },
     {
       "text": "(LMB)",
-      "font_size_pt": 7.0,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        118.36192043281241,
-        226.911283791933,
-        65.0,
-        28.0
+        108.98692043281241,
+        226.411283791933,
+        83.75,
+        29.0
       ]
     },
     {
       "text": "Local LMB\nupdate",
       "font_size_pt": 8.0,
       "bbox_pixels": [
-        328.3080654818312,
+        313.1830654818312,
         223.309735560356,
-        138.625,
+        168.875,
         65.609375
       ]
     },
     {
-      "text": "Local clock",
-      "font_size_pt": 6.9,
+      "text": "Sensing age",
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        527.4055979599924,
-        283.0459518599563,
-        117.0,
-        28.0
+        510.9933482227467,
+        294.2406743741278,
+        170.875,
+        29.0
       ]
     },
     {
@@ -329,42 +280,32 @@
       ]
     },
     {
-      "text": "Time since\ndirect sensing",
-      "font_size_pt": 7.1,
-      "bbox_pixels": [
-        658.4128775478557,
-        163.42292148382987,
-        149.5,
-        59.079999999999984
-      ]
-    },
-    {
       "text": "Measurements",
-      "font_size_pt": 7.0,
+      "font_size_pt": 7.4,
       "bbox_pixels": [
-        317.263593230414,
-        83.06619686762349,
-        158.375,
-        28.0
+        294.576093230414,
+        82.56619686762349,
+        203.75,
+        29.0
       ]
     },
     {
-      "text": "Base + current evidence",
-      "font_size_pt": 8.3,
+      "text": "Base + update",
+      "font_size_pt": 9.0,
       "bbox_pixels": [
         1245.4879477592654,
-        928.4335791450578,
-        326.625,
-        33.0
+        927.9335791450578,
+        255.5,
+        34.0
       ]
     },
     {
-      "text": "Conservative base $\\beta$",
+      "text": "Inherited base $\\beta$",
       "font_size_pt": 7.7,
       "bbox_pixels": [
         1256.0131980220197,
         868.290494322783,
-        243.09375,
+        230.15625,
         34.0
       ]
     },
@@ -379,33 +320,33 @@
       ]
     },
     {
-      "text": "Association and score / miss",
-      "font_size_pt": 7.0,
+      "text": "Score / miss evidence",
+      "font_size_pt": 7.5,
       "bbox_pixels": [
         1256.0131980220197,
-        749.6653801753994,
-        303.0,
-        28.0
+        749.1653801753994,
+        305.875,
+        29.0
       ]
     },
     {
-      "text": "Curvature guard $\\rightarrow\\bar\\kappa_j$",
-      "font_size_pt": 7.8,
+      "text": "Curvature $\\rightarrow\\bar\\kappa_j$",
+      "font_size_pt": 8.0,
       "bbox_pixels": [
         1256.0131980220197,
-        691.7196566102106,
-        263.0476446533203,
-        36.299999999999955
+        690.5696566102106,
+        220.61306762695312,
+        38.59999999999991
       ]
     },
     {
-      "text": "Existence fusion",
-      "font_size_pt": 8.6,
+      "text": "Existence",
+      "font_size_pt": 9.0,
       "bbox_pixels": [
-        1629.5220713658057,
-        861.7736608142802,
-        233.0,
-        33.0
+        1658.3345713658057,
+        872.9683833284516,
+        175.375,
+        34.0
       ]
     },
     {
@@ -429,13 +370,13 @@
       ]
     },
     {
-      "text": "Spatial base + ratio",
-      "font_size_pt": 8.4,
+      "text": "Spatial factors",
+      "font_size_pt": 8.8,
       "bbox_pixels": [
         1241.9795310050138,
-        500.4067351263807,
-        263.0,
-        33.0
+        499.9067351263807,
+        252.0,
+        34.0
       ]
     },
     {
@@ -449,16 +390,6 @@
       ]
     },
     {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        1337.8762556212203,
-        320.4690639053051,
-        15.796875,
-        28.0
-      ]
-    },
-    {
       "text": "$\\alpha_1$",
       "font_size_pt": 8.1,
       "bbox_pixels": [
@@ -469,16 +400,6 @@
       ]
     },
     {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        1335.5373111183858,
-        243.2838953117731,
-        15.796875,
-        28.0
-      ]
-    },
-    {
       "text": "$\\alpha_2$",
       "font_size_pt": 8.1,
       "bbox_pixels": [
@@ -486,16 +407,6 @@
         260.4954513344476,
         31.708114624023438,
         31.0
-      ]
-    },
-    {
-      "text": "$x$",
-      "font_size_pt": 7.0,
-      "bbox_pixels": [
-        1332.0288943641344,
-        122.82825341580656,
-        15.796875,
-        28.0
       ]
     },
     {
@@ -520,32 +431,22 @@
     },
     {
       "text": "$\\prod$",
-      "font_size_pt": 16.0,
+      "font_size_pt": 13.0,
       "bbox_pixels": [
-        1469.0320583196212,
-        220.114423060356,
-        65.140625,
-        72.0
+        1474.9539333196212,
+        226.614423060356,
+        53.296875,
+        59.0
       ]
     },
     {
-      "text": "$x$",
-      "font_size_pt": 7.0,
+      "text": "Spatial density",
+      "font_size_pt": 9.0,
       "bbox_pixels": [
-        1809.173572942332,
-        120.48930891297232,
-        15.796875,
-        28.0
-      ]
-    },
-    {
-      "text": "Spatial fusion",
-      "font_size_pt": 8.6,
-      "bbox_pixels": [
-        1610.1975148176225,
-        403.3405382587571,
-        192.125,
-        33.0
+        1573.6975148176225,
+        394.404232498837,
+        265.125,
+        34.5
       ]
     },
     {
@@ -569,23 +470,23 @@
       ]
     },
     {
-      "text": "Recomputed integral $I$",
-      "font_size_pt": 7.6,
+      "text": "Shared normalizer $I$",
+      "font_size_pt": 8.0,
       "bbox_pixels": [
-        1478.3502085604277,
-        571.7445424628268,
-        260.655029296875,
-        33.0
+        1442.2326548494902,
+        572.7445424628268,
+        296.7725830078125,
+        31.0
       ]
     },
     {
-      "text": "Fused Bernoulli",
-      "font_size_pt": 7.0,
+      "text": "Fused belief",
+      "font_size_pt": 7.7,
       "bbox_pixels": [
-        1932.6244949516704,
-        591.786626234084,
-        181.125,
-        28.0
+        1929.7494949516704,
+        587.7782094798326,
+        186.875,
+        29.0
       ]
     },
     {
@@ -599,13 +500,13 @@
       ]
     },
     {
-      "text": "Next local step",
-      "font_size_pt": 8.1,
+      "text": "Next local prediction",
+      "font_size_pt": 8.0,
       "bbox_pixels": [
-        893.0429969503265,
-        10.1190145311773,
-        195.0000000000001,
-        31.21875
+        840.4179969503265,
+        10.1502645311773,
+        300.2500000000001,
+        31.15625
       ]
     }
   ],

@@ -20,7 +20,7 @@ def sha(path):
 
 def check():
     reader = PdfReader(PDF)
-    assert len(reader.pages) >= 1
+    assert 1 <= len(reader.pages) <= 8, ("ICRA page limit", len(reader.pages))
     assert not reader.is_encrypted
     assert not reader.metadata.author
     fonts, seen = {}, set()
@@ -90,7 +90,7 @@ def check():
     reference_position = reference_positions[0]
     labels = re.findall(r'\\newlabel\{((?:fig|tab):[^}]+)\}\{\{([^}]+)\}\{(\d+)\}',
                         (HERE / 'build/main.aux').read_text())
-    assert len(labels) == 7 and len(captions) == 7
+    assert len(labels) == 6 and len(captions) == 6
     float_pages = {}
     for label, number, page in labels:
         kind = 'figure' if label.startswith('fig:') else 'table'
@@ -98,7 +98,7 @@ def check():
         assert position[0] == int(page), (label, page, position)
         assert position < reference_position, ('Float after References', label, position)
         float_pages[label] = int(page)
-    wide_per_page = Counter(float_pages.values())
+    wide_per_page = Counter(page for label, page in float_pages.items() if label != 'tab:communication')
     assert max(wide_per_page.values()) <= 2, ('Crowded wide-float page', wide_per_page)
     log = (HERE / 'build/compile.log').read_text() + (HERE / 'build/main.log').read_text()
     bad = ['Overfull', 'undefined', 'Missing character', 'Undefined control sequence',
@@ -113,7 +113,7 @@ def check():
         assert (HERE / filename).read_bytes() == (HERE / 'official_template' / filename).read_bytes()
 
     figures = {}
-    for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication']:
+    for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication', 'gaussian_sequence_differences']:
         svg = ET.parse(HERE / 'figures' / f'{name}.svg')
         live = [x for x in svg.iter() if x.tag.endswith('}text')]
         assert live and not any(x.tag.endswith('}image') for x in svg.iter())
@@ -143,7 +143,8 @@ def check():
               'all_float_captions_before_references':True,
               'maximum_double_column_floats_per_page':max(wide_per_page.values()),
               'numerical_evidence': numerical,
-              'draft_page_cap': None,
+              'manuscript_figures': 3, 'companion_evidence_figures': 2, 'ablation_complete_method_last': True,
+              'draft_page_cap': 8,
               'conference_page_limit': 8,
               'requires_length_revision_before_submission': len(reader.pages) > 8,
               'citation_keys_resolved': sorted(cited),
@@ -247,25 +248,48 @@ def check_gaussian_evidence():
         number = shown.replace(r'\,', '')
         decimals = len(number.split('.')[-1]) if '.' in number else 0
         assert number == f'{facts[key]:.{decimals}f}', (key, number, facts[key])
-    for table, methods, lookup, metrics, scale in [
-        ('main_table', data['methods'], a, ['ospa', 'miss2', 'false2'], 1),
-        ('ablation_table', [primary, 'marked_asymmetric', primary+'_no_curvature', primary+'_no_history', primary+'_no_mark'], na, ['ospa', 'miss2', 'false2'], 1),
-        ('communication_table', data['methods'], a, ['raw_bytes', 'delivered_raw_bytes', 'wire_bytes'], 2**20)]:
+    table_specs = [
+        ('main_table', [(arm, data['labels'][arm], a) for arm in data['methods']], ['ospa', 'miss2', 'false2'], 1, 3, 'GCE'),
+        ('ablation_table', [('marked_asymmetric', 'Scalar reference', na),
+                           (primary+'_no_curvature', 'w/o curvature guard', na),
+                           (primary+'_no_history', 'w/o history switch', na),
+                           (primary+'_no_mark', 'w/o score constraint', na),
+                           (primary, 'GCE (complete)', na)], ['ospa', 'miss2', 'false2'], 1, 3, 'GCE (complete)'),
+        ('communication_table', [('marked_lineage', 'No-age KLA', a), ('marked_asymmetric', 'Scalar', a),
+                                 (primary, 'GCE (full)', na), (primary, 'GCE (encoded)', a)],
+         ['raw_bytes', 'wire_bytes'], 2**20, 2, 'GCE (encoded)')]
+    for table, methods, metrics, scale, decimals, emphasized in table_specs:
         tex = (HERE / 'generated' / (table+'.tex')).read_text()
-        for method in methods:
-            label = data['labels'][method]
-            if method == primary:
+        numbers = np.array([[lookup[condition, arm][metric]['mean']/scale
+                            for condition in ['reliable', 'intermittent'] for metric in metrics]
+                           for arm, label, lookup in methods])
+        minima = numbers.min(axis=0)
+        positions = []
+        for (method, label, lookup), values in zip(methods, numbers):
+            if label == emphasized:
                 label = r'\textbf{'+label+'}'
-            values = [f"{lookup[condition, method][metric]['mean']/scale:.3f}" for condition in ['reliable', 'intermittent'] for metric in metrics]
-            assert label+' & '+' & '.join(values)+r' \\' in tex, (table, method)
-    for name, count in [('gaussian_paired', 300), ('gaussian_components', 200)]:
+            shown = []
+            for j, value in enumerate(values):
+                cell = f'{value:.{decimals}f}'
+                if table != 'communication_table' and abs(value-minima[j]) < 1e-12:
+                    cell = r'\textbf{'+cell+'}'
+                shown.append(cell)
+            expected = label+' & '+' & '.join(shown)+r' \\'
+            assert expected in tex, (table, method, expected)
+            positions.append(tex.index(expected))
+        assert positions == sorted(positions), ('Incorrect table order', table)
+    assert (HERE / 'generated/ablation_table.tex').read_text().rfind(r'\textbf{GCE (complete)}') > (HERE / 'generated/ablation_table.tex').read_text().rfind('w/o ')
+    for name, count in [('gaussian_paired', 300), ('gaussian_sequence_differences', 300), ('gaussian_components', 200)]:
         figure = read(name)
         assert figure['evidence_sha256'] == sha(HERE / 'source_data/gaussian_paper_evidence.json')
         assert figure['point_count'] == count == sum(len(r['points']) for r in figure['groups'])
         for group in figure['groups']:
-            target = p if name == 'gaussian_paired' else c
+            target = c if name == 'gaussian_components' else p
             assert group['summary'] == target[group['condition'], group['reference']]['ospa']
             assert [r['sequence'] for r in group['points']] == data['sequences']
+        if name == 'gaussian_paired':
+            assert figure['rendered_estimate_count'] == 12 and not figure['individual_points_displayed']
+            assert all(figure['x_limits'][0] < g['summary']['low'] < g['summary']['high'] < figure['x_limits'][1] for g in figure['groups'])
     communication = read('gaussian_communication')
     assert communication['evidence_sha256'] == sha(HERE / 'source_data/gaussian_paper_evidence.json')
     assert sum(len(r['sequences']) for r in communication['rows']) == 200
@@ -273,6 +297,7 @@ def check_gaussian_evidence():
         lookup, arm = (na, primary) if row['arm'] == 'full' else (a, row['arm'])
         for metric in ['raw_bytes', 'wire_bytes']:
             close(row['means_mib'][metric], lookup[row['condition'], arm][metric]['mean']/2**20)
+        close(row['mean_ospa_m'], a[row['condition'], arm]['ospa']['mean'])
     return dict(main_sequences=25, main_frames=5601, development_sequences=9, development_frames=1993,
                 main_methods=11, main_sequence_condition_method_runs=550, scalar_facts_checked=64,
                 paired_sequence_points=300, component_sequence_points=200,

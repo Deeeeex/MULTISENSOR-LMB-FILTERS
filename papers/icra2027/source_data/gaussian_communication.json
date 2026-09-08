@@ -1,5 +1,5 @@
 {
-  "kind": "actual_native_bytes",
+  "kind": "actual_native_bytes_and_accuracy",
   "rows": [
     {
       "condition": "reliable",
@@ -135,7 +135,8 @@
           "raw_bytes": 848272,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.7023053518113187
     },
     {
       "condition": "reliable",
@@ -271,7 +272,8 @@
           "raw_bytes": 892224,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.525653375584211
     },
     {
       "condition": "reliable",
@@ -407,7 +409,8 @@
           "raw_bytes": 1349440,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.4559377636850592
     },
     {
       "condition": "reliable",
@@ -543,7 +546,8 @@
           "raw_bytes": 1225668,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.4559377636850592
     },
     {
       "condition": "intermittent",
@@ -679,7 +683,8 @@
           "raw_bytes": 942080,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.988215375884194
     },
     {
       "condition": "intermittent",
@@ -815,7 +820,8 @@
           "raw_bytes": 991984,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.831585101532692
     },
     {
       "condition": "intermittent",
@@ -951,7 +957,8 @@
           "raw_bytes": 1501152,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.761318117011209
     },
     {
       "condition": "intermittent",
@@ -1087,7 +1094,8 @@
           "raw_bytes": 1326162,
           "wire_bytes": 3566592
         }
-      ]
+      ],
+      "mean_ospa_m": 3.761318117011209
     }
   ],
   "number_of_sequence_measurements": 200,
@@ -1095,5 +1103,6 @@
   "bytes_per_mib": 1048576,
   "full_and_codec_trajectory_parity": true,
   "modeled_fragment_size_bytes": 16384,
+  "axes": "Native raw bytes versus complete-sequence OSPA; condition-specific OSPA scales",
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
 }

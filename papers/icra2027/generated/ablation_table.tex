@@ -1,19 +1,21 @@
 \begin{table*}[t]
 \centering\small
-\caption{Complete recursive component comparisons on the same 25 sequences. The score constraint ablation retains the common score-aware local update. Units match Table~\ref{tab:main}.}
+\caption{Ablations of the recursive tracker. Each w/o row removes one GCE component; Scalar is a separate existence-only reference. Units and boldface follow Table~\ref{tab:main}.}
 \label{tab:ablation}
 \setlength{\tabcolsep}{6pt}
-\begin{tabular}{lrrrrrr}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
 \toprule
 & \multicolumn{3}{c}{Reliable links} & \multicolumn{3}{c}{Intermittent links} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}
 Method & OSPA & Missed & False & OSPA & Missed & False \\
 \midrule
-\textbf{GCE} & 3.456 & 71.095 & 36.303 & 3.761 & 80.344 & 41.971 \\
-Scalar & 3.526 & 78.625 & 34.536 & 3.832 & 86.342 & 40.523 \\
-No curvature guard & 3.491 & 74.845 & 35.376 & 3.805 & 84.047 & 41.615 \\
-No history switch & 3.467 & 70.282 & 38.148 & 3.776 & 80.266 & 43.105 \\
-No positive score constraint & 3.713 & 55.993 & 59.014 & 3.922 & 69.042 & 57.784 \\
+Scalar reference & 3.526 & 78.625 & \textbf{34.536} & 3.832 & 86.342 & \textbf{40.523} \\
+\midrule
+w/o curvature guard & 3.491 & 74.845 & 35.376 & 3.805 & 84.047 & 41.615 \\
+w/o history switch & 3.467 & 70.282 & 38.148 & 3.776 & 80.266 & 43.105 \\
+w/o score constraint & 3.713 & \textbf{55.993} & 59.014 & 3.922 & \textbf{69.042} & 57.784 \\
+\midrule
+\textbf{GCE (complete)} & \textbf{3.456} & 71.095 & 36.303 & \textbf{3.761} & 80.344 & 41.971 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}

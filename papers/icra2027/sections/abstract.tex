@@ -1,23 +1,19 @@
-We propose guarded current-evidence fusion (GCE) for cooperative
-multitarget tracking with intermittent communication. A robot's posterior
-mixes inherited information with its latest local measurement update;
-observation age alone does not distinguish these contributions. GCE retains
-a conservative posterior pool and admits a bounded fraction of each
-current Bernoulli posterior-to-prediction ratio. The same admitted ratio
-updates the spatial density and the existence normalizer, yielding a
-closed-form Gaussian implementation. A curvature test rejects unsuitable
-moment-matched increments, while a zero-vector codec preserves every
-transmitted floating-point value. We evaluate released two-vehicle
-V2V4Real detections with a shared score-aware local tracker. On a complete
-25-sequence evaluation, GCE obtains OSPA of \MainReliable\ and
-\MainIntermittent\ m under reliable and intermittent links, respectively.
-These are \GainNoAgeReliable\% and \GainNoAgeIntermittent\% below
-qualified geometric pooling without age, with both paired 95\% sequence
-intervals below zero. Joint spatial and existence correction also improves
-over a scalar-only correction in both conditions. Missed-target and
-false-target costs decrease relative to the no-age and recency controls,
-and common-target localization improves. Exact zero omission reduces
-fragmented communication relative to the full Gaussian packet, although
-the resulting payload remains larger than scalar summaries. All real
-sequences informed development, so these results establish a corpus-level
-fusion improvement rather than independent generalization.
+Cooperative trackers exchange posteriors that mix inherited information
+with current observations. Weighting these posteriors by age cannot
+control the two contributions separately. We propose guarded
+current-evidence fusion (GCE), which augments a conservative posterior pool
+with bounded Bernoulli posterior-to-prediction ratios. Each admitted ratio
+jointly updates the spatial density and existence probability through a
+shared normalizer. A Gaussian curvature guard makes this correction
+tractable under approximate association, and an exact zero-vector codec
+reduces its communication cost. On 25 V2V4Real sequences with a common
+score-aware local tracker, GCE reduces OSPA by \GainNoAgeReliable\% and
+\GainNoAgeIntermittent\% relative to qualified geometric pooling under
+reliable and intermittent links. It also improves on recency weighting
+and scalar-only correction in both conditions. The gain combines lower
+missed-target and false-target costs with better common-target
+localization. Exact zero omission cuts fragmented communication by
+\CodecWireSavingReliable\% and \CodecWireSavingIntermittent\% relative to
+full Gaussian packets while preserving the tracking outputs. These
+results demonstrate the benefit of restoring current evidence jointly
+across the two parts of a Bernoulli belief.

@@ -1,130 +1,96 @@
 \section{Experiments}
-\subsection{Real detections, sequence scope, and local model}
+\subsection{Data and local tracking}
 We use the released per-vehicle, no-fusion detections from DMSTrack
-\cite{chiu2024dmstrack} on V2V4Real~\cite{xu2023v2v4real}.
-The development subset contains all nine released validation sequences
-(1,993 paired frames). The main evaluation uses 25 train sequences
-(5,601 paired frames), excluding the seven train IDs previously used in
-initial transfer checks. Each sequence is complete. The released detector
-was trained on the train split. All 34 reported sequences informed method
-development, so this is a fusion development evaluation and not an
-independent detector or generalization test.
+\cite{chiu2024dmstrack} on V2V4Real~\cite{xu2023v2v4real}. Nine validation
+sequences provide the development subset; the main evaluation contains
+25 complete train sequences.
+The two subsets contain 1,993 and 5,601 paired frames. All 34 sequences
+informed method development, and the released detector was trained on
+the train split; the evaluation therefore measures fusion performance on
+this development corpus.
 
-Inputs include each vehicle's detections, detection scores, per-frame
-relative transforms, and car annotations. Released detections already use
-a confidence cutoff of 0.20; we apply no further score threshold.
-We evaluate planar car centers within 40 m of either sensor and inside
-the annotated ego-frame rectangle
+We track planar car centers within 40 m of either sensor and the
+annotated ego-frame rectangle
 $[-70.4,70.4]\times[-40,40]$ m, excluding a 3 m disk around each vehicle.
-The same domain is applied to estimates and truth, and each local sensor
-uses its own 40 m range. This range models sensing support rather than
-occlusion. Coordinates follow the current ego frame; the constant-velocity
-model does not compensate ego motion.
+The same domain applies to truth and estimates. Each local sensor uses
+its own 40 m support, with transforms supplied by the dataset.
+Detections retain the released confidence cutoff of 0.20.
+The model uses current ego coordinates without ego-motion compensation.
 
-Every method in the main comparison uses the same score-aware LBP-LMB
-local update. The model uses a 0.1 s scan interval, survival probability
-0.99, white-acceleration intensity 25 m$^2$/s$^3$, position observation
-covariance $I_2$ m$^2$, in-domain $p_D=0.9$, and nominal Poisson clutter
-mean three per sensor scan. The clutter density is $3/(\pi40^2)$.
-Each sensor independently creates a birth at every previous-scan
-detection with existence 0.01, zero velocity, and covariance
-$\operatorname{diag}(16,16,225,225)$. Bernoullis with $r\leq0.001$ are
-pruned, retained mixtures are moment-projected to one Gaussian, and
-MAP-cardinality extraction produces the reported set.
+All methods share the score-aware LBP-LMB local update. A constant-velocity
+model uses a 0.1 s interval, survival probability 0.99, acceleration
+intensity 25 m$^2$/s$^3$, position covariance $I_2$ m$^2$, and in-domain
+$p_D=0.9$. Poisson clutter has mean three per sensor scan and spatial
+density $3/(\pi40^2)$. Each previous-scan detection creates an independent
+local birth with existence 0.01, zero velocity, and covariance
+$\operatorname{diag}(16,16,225,225)$. Tracks with $r\leq0.001$ are pruned;
+retained mixtures are moment-projected to one Gaussian, and MAP
+cardinality determines set extraction. History qualification and absent-label
+censoring are shared across the geometric methods. A censor uses existence
+0.001 when the represented mean lies in its sensor's support.
 
-Observation-history qualification is identical across the geometric
-density controls. In the single-Gaussian implementation, an absent label
-is eligible for an existence censor when its represented mean is inside
-the absent source's modeled FoV and expected detection is at least 0.1.
-The censor's existence bound is the transmission threshold 0.001.
-Missing spatial densities do not participate in the spatial product.
-
-\subsection{Common detection-score model}
-Calibration labels are obtained by one-to-one, per-sensor geometric
-assignment of detections to truth within 12 m. We fit
-$u(s)=\sigma(a\,\operatorname{logit}s+b)$ with $a\geq0$ by minimizing
-sequence-balanced binary log loss plus $0.001a^2$.
-Each development sequence uses a fit on the other eight.
-For the 25-sequence evaluation, the fit uses all nine development
-sequences and remains fixed: $a=2.8858$, $b=2.1564$.
-Ground truth is used for this offline fit and evaluation; online births,
-association, and fusion use detections and communicated beliefs.
-
-The local detection-association likelihood is multiplied once by
+\subsection{Detection-score likelihood}
+Per-sensor one-to-one assignment within 12 m supplies offline calibration
+labels. We fit $u(s)=\sigma(a\,\operatorname{logit}s+b)$, $a\geq0$, by
+sequence-balanced binary log loss with regularization $0.001a^2$.
+Development sequences use leave-one-sequence-out fits. The main evaluation
+uses a fit on all nine development sequences, held fixed at
+$a=2.8858$, $b=2.1564$.
+The score enters each local association likelihood once through
 \begin{equation}
  L(s)=\frac{u(s)}{1-u(s)}\,\frac{1-\pi}{\pi},
  \label{eq:mark}
 \end{equation}
-where $\pi$ is the sequence-balanced positive fraction of the fitting
-data. Probabilities are clipped to $[10^{-6},1-10^{-6}]$ before this
-conversion. Treating the resulting score ratio as a separable mark
-likelihood is an approximation. The main baselines receive exactly the
-same ratios, so their comparison with GCE does not attribute local
-calibration gains to the fusion correction.
+where $\pi$ is the sequence-balanced fitting prevalence. This separable
+mark model is common to GCE and every main baseline. Online tracking and
+fusion use detections and communicated beliefs.
 
-\subsection{Communication and comparison methods}
-Reliable links deliver both directed packets at every scan.
-Intermittent links use independent directed loss of 0.1 and a common
-bidirectional outage over the middle 20\% of scans. Every method shares
-the same delivery realization and one packet opportunity per direction
-per scan. A receiver with a delivered neighbor uses weights $[0.5,0.5]$;
-otherwise it retains its own local update. Geometry and poses are supplied
-inputs. Byte totals include a modeled 256-byte control charge per scan
-and 16,384-byte packet fragments. The loss trace does not depend on
-packet size.
+\subsection{Communication and baselines}
+Reliable links deliver both directed packets each scan. Intermittent
+links combine independent directed loss of 0.1 with a bidirectional
+outage over the middle 20\% of scans. Methods share the delivery trace
+and one packet opportunity per direction per scan. A receiver pools its
+own and a delivered neighbor's update with weights $[0.5,0.5]$; without
+a neighbor packet it keeps its local update. We account for 16,384-byte
+fragments and a 256-byte control charge per scan. Delivery is independent
+of packet length. GCE uses $\rho=0.25$ and $\lambda=5$ s.
 
-\emph{No-age KLA} uses the qualified spatial and existence weights
-$\alpha,b$. \emph{Recency} replaces $b$ with $q$ in existence only.
-\emph{Conservative} uses $\beta$ from~\eqref{eq:baseweights} without a
-current correction. The internal \emph{Capped-score} and
-\emph{Capped-cal.} controls bound recency existence by
-$\min(r_{\rm rec},\max(r_{\rm noage},U))$, where $U$ is the largest
-current association-weighted raw or calibrated score among upweighted
-sources with input existence at least 0.5. These controls preserve the
-ordinary spatial pool. \emph{Scalar} retains GCE's base and positive and
-negative gates but corrects only existence log-odds, leaving the old
-spatial density and normalizer.
+\emph{No-age KLA} uses qualified weights $\alpha,b$.
+\emph{Recency} replaces $b$ with $q$ in existence, while
+\emph{Conservative} uses $\beta$ without a current correction.
+\emph{Capped-score} and \emph{Capped-cal.} bound recency existence by
+$\min(r_{\rm rec},\max(r_{\rm noage},U))$: $U$ is the largest
+association-weighted raw or calibrated score among currently observed,
+upweighted sources with existence at least 0.5.
+\emph{Scalar} uses GCE's base and admission gates to correct existence
+log-odds, retaining the original spatial pool and normalizer without a
+Gaussian ratio or curvature test.
 
-\emph{MIL-AM} implements the public author manuscript's augmented label
-assignment and common/exclusive label-subspace fusion
-\cite{gao2019milpreprint}. Gaussian labels are assigned by symmetric
-KL cost with unmatched cost 50 per side; the same alignment is used by
-the geometric density methods. Common labels use arithmetic existence
-pooling and existence-weighted spatial mixtures, and exclusive labels
-retain their source density. This is an adaptation of the public
-manuscript, not a verified reproduction of the complete later TAES
-experiment~\cite{gao2022differentfov}.
+\emph{MIL-AM} adapts the public manuscript's augmented label assignment
+and common/exclusive subspace fusion~\cite{gao2019milpreprint}.
+Symmetric KL cost with unmatched cost 50 per side aligns Gaussian labels;
+the geometric methods use the same alignment. Common labels use
+arithmetic existence pooling and existence-weighted spatial mixtures;
+exclusive labels retain their source density.
+\emph{TC-5/TC-10} use the author's kinematic matching and two-stage
+multi-neighbor functions~\cite{nguyen2021tc}, with five- or ten-scan
+histories, matching order one, and cutoff 12 m. They combine independently
+labeled local tracks and retain the architecture's separate local
+filters. \emph{Local} uses the shared backend without communication.
 
-\emph{TC-5/TC-10} call the author's kinematic track matching and
-two-stage multi-neighbor fusion functions~\cite{nguyen2021tc}, with
-five- or ten-scan histories, matching order one, and cutoff 12 m.
-They use independently labeled tracks from the same local backend.
-As in that architecture, the fused track output does not feed back into
-local densities. We evaluate set estimates without network-wide label
-reconciliation. \emph{Local} uses the shared backend without communication.
+\subsection{Metrics and ablations}
+We report position OSPA with $p=2,c=12$ m
+\cite{schuhmacher2008ospa} and the missed and false squared-cost
+components of GOSPA with $p=2,c=12$ m,$\alpha=2$~\cite{gospa2017}.
+Common-target RMSE pools errors on robot--time--truth instances matched
+by both compared methods. Sequences receive equal weight; 95\%
+percentile intervals use 10,000 paired resamples of complete sequences.
 
-\subsection{Metrics and component checks}
-The primary metric is position OSPA with $p=2$ and cutoff 12 m
-\cite{schuhmacher2008ospa}. We also report GOSPA with
-$p=2,c=12$ m,$\alpha=2$~\cite{gospa2017}; its missed and false components
-are \emph{squared costs} in m$^2$.
-For localization, each method is assigned to truth separately, then errors
-are pooled on robot--time--truth instances matched by both methods.
-Common support and RMSE are reported together.
-
-Sequences receive equal weight. Paired 95\% percentile intervals use
-10,000 resamples of complete sequences, with no multiplicity adjustment.
-Frames and vehicles are not independent replicates, and the intervals
-are descriptive because the trajectories have informed development.
-Every declared sequence and both link conditions are retained.
-
-All three GCE ablations run complete recursive trajectories:
-no curvature guard, no conservative history switch, and no positive
-score constraint. Single-Bernoulli checks cover the centralized
-shared-prior identity, conflicting observations, zero gates, single-source
-behavior, and nonintegrable aggregates. A separate Python implementation
-reconstructs local Gaussian ratios and the fused existence, mean, and
-covariance, and recomputes trajectory metrics and packet counts.
-Finally, the zero-vector codec is replayed on all 34 primary trajectories
-under both link conditions, requiring identical tracking outputs and
-original local and fusion diagnostics.
+Three ablations remove the curvature guard, conservative history switch,
+or positive score constraint, one at a time, and run the complete
+recursive tracker. The score ablation retains the common local score
+model. Scalar provides a separate reference for existence-only
+correction. Analytical checks cover shared-prior fusion, conflicting
+observations, zero gates, single-source updates, and nonintegrable
+aggregates. Codec evaluation uses all 34 sequences under both link
+conditions and compares decoded values and tracking trajectories.

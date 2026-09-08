@@ -1,12 +1,12 @@
 {
   "status": "passed",
-  "source_pdf_sha256": "f5500ce29fb942f576e581659ada71f8a2c0d80582638ea1fec5d6ce03693e80",
-  "rebuilt_pdf_sha256": "44d172cf097dc80f6238c6395646d4fcdeb4d162989d1caa4d66c9a022b9984d",
+  "source_pdf_sha256": "3d03edf74563178ccd2fb9e02d712b38de4f09e092c1b3c5c8a9cafde5d6dc05",
+  "rebuilt_pdf_sha256": "049ae05034d0e04dcdd4d83a012a2541ed6afeb55308ff736af8ec33ed9afb97",
   "pdf_binary_identical": false,
-  "pages": 9,
+  "pages": 7,
   "pdf_text_identical": true,
-  "pixel_identical_page_previews": 9,
-  "regenerated_file_hash_matches": 43,
+  "pixel_identical_page_previews": 7,
+  "regenerated_file_hash_matches": 48,
   "regenerated_files": [
     "figures/gaussian_communication.pdf",
     "figures/gaussian_communication.png",
@@ -20,6 +20,10 @@
     "figures/gaussian_paired.png",
     "figures/gaussian_paired.svg",
     "figures/gaussian_paired_text_bounds.json",
+    "figures/gaussian_sequence_differences.pdf",
+    "figures/gaussian_sequence_differences.png",
+    "figures/gaussian_sequence_differences.svg",
+    "figures/gaussian_sequence_differences_text_bounds.json",
     "figures/overview.pdf",
     "figures/overview.png",
     "figures/overview.svg",
@@ -45,6 +49,7 @@
     "source_data/gaussian_paired.json",
     "source_data/gaussian_paper_evidence.json",
     "source_data/gaussian_round.json",
+    "source_data/gaussian_sequence_differences.json",
     "source_data/gaussian_source_manifest.json",
     "source_data/overview_schematic.json",
     "source_data/score_calibration.json",
@@ -52,16 +57,16 @@
     "source_data/shared_main_qa.json",
     "source_data/shared_main_summary.json"
   ],
-  "build_input_manifest_sha256": "cd8e65b9d8db32aa634d9939511115ff739528c7f36f2ec1e86714bb48c3f081",
-  "tested_archive_sha256_before_attaching_this_report": "c009391926b6406bef59070d2ea755680cfbddce9e4299b21b1b5b3167e784cf",
-  "archive_input_files_verified": 119,
+  "build_input_manifest_sha256": "48c89bb9af0db259e391d926f76b97549d731fc809167dcde6e2fe84e04240a3",
+  "tested_archive_sha256_before_attaching_this_report": "870b0fdbe786236df1effc9ae8f0133fd06e8f12ff02e81f2939bfdcdbb71230",
+  "archive_input_files_verified": 124,
   "native_experiment_corpus_available": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-gce-review-sqz543wv/icra2027",
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-gce-submission-60sckw_q/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",
     "--regenerate"
   ],
   "returncode": 0,
-  "scope": "Fresh-directory source rebuild using bundled summaries and the same local runtime; no MATLAB rerun or third-party scientific review."
+  "scope": "Fresh-directory source rebuild using bundled summaries and the same local runtime; numerical and rendered artifact equivalence."
 }

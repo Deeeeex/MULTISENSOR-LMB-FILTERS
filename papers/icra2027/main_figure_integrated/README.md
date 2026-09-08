@@ -11,8 +11,9 @@ been updated to guarded current-evidence fusion. It is not a trace of the
 old recency equations in the reference image.
 
 The final 181 × 85.15 mm SVG has editable text and vector geometry, with no
-embedded raster images or panel cards. Arial Narrow is used for compact
-labels and STIX for mathematics. The following paths hold its outputs:
+embedded raster images or panel cards. Arial labels are at least 7.4 pt at the final size; STIX supplies the
+mathematics. Simplified robot glyphs, consistent strokes, and a shared
+teal/slate palette align the overview with the statistical figures. The following paths hold its outputs:
 
 - `../figures/overview.svg`, `.pdf`, `.png`: master, manuscript image, preview.
 - `figure.tex`: inclusion and caption.

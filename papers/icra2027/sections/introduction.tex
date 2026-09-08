@@ -1,103 +1,83 @@
 \section{Introduction}
-Mobile sensors encounter different targets, occlusions, and communication
-gaps. When two robots exchange tracks, a recently received posterior can
-contain old information, whereas a low existence probability can encode a
-useful current missed detection. A fusion rule must decide which part of
-each belief to trust without exchanging the entire observation history.
-This matters in cooperative vehicle tracking, where uncertain target
-number, independent track births, and brief communication opportunities
-occur together.
+Cooperative robots observe different targets, occlusions, and missed
+detections. Their exchanged tracks also contain information inherited
+from earlier communication. A recently received posterior may therefore
+carry old evidence, while a low existence probability may convey a useful
+current miss. Effective fusion must distinguish inherited beliefs from
+new observations without transmitting the entire sensing history.
 
-Labeled multi-Bernoulli (LMB) filtering represents a track by its label,
+Labeled multi-Bernoulli (LMB) filtering represents each track by a label,
 existence probability, and conditional spatial density
 \cite{reuter2014lmb}. Geometric pooling, or Kullback--Leibler averaging
-(KLA), combines such posteriors when cross-correlations are unavailable
-\cite{battistelli2014kla}. A normalized geometric pool retains one common
-prior in the ideal shared-prior case, but also tempers each sensor's new
-likelihood. Changing posterior weights according to observation age does
-not separately control the inherited and current contributions. Moreover,
-the existence probability depends on the integral of the spatial product:
-correcting only existence log-odds generally omits part of the same
-Bernoulli evidence.
+(KLA), combines local posteriors when their cross-correlations are
+unavailable~\cite{battistelli2014kla}. In the ideal shared-prior case,
+normalized geometric weights retain one copy of the prior but also temper
+each new likelihood. Changing posterior weights according to observation
+age does not separately control these contributions. A further coupling
+arises within each Bernoulli: the integral of its spatial product affects
+the probability that the target exists. An existence correction alone
+leaves this part of the current evidence unused.
 
-We propose \emph{guarded current-evidence fusion} (GCE). Each robot
-retains its prediction and local update long enough to encode their
-Bernoulli ratio. At a communication event, GCE starts from a conservative
-pool and supplements it with admitted current ratios. The ratios modify
-both the spatial distribution and its contribution to existence
-normalization. Admission depends on current sensing opportunity,
-association-weighted detection-score support, and whether the
-moment-matched Gaussian ratio has admissible curvature.
-Figure~\ref{fig:overview} presents this continuous information flow.
+We propose \emph{guarded current-evidence fusion} (GCE). Each robot encodes
+the ratio between its local update and prediction. Fusion augments a
+conservative posterior pool with admitted fractions of these ratios,
+then jointly normalizes existence and spatial density. Current sensing
+opportunity, association-weighted score support, and Gaussian curvature
+determine which increments are admitted. Figure~\ref{fig:overview} shows
+how the same current evidence reaches both branches of the fused belief.
 
 \input{main_figure_integrated/figure}
 
-Separating prior information from likelihood information is established
-\cite{wu2022sharedpriors,hlinka2012likelihood}. Our contribution is a
-guarded Bernoulli realization for approximate local tracking with unequal
-sensing histories, together with experiments that isolate the spatial
-correction from the scalar correction and the local detection-score model.
-We do not assume that the two vehicles' detector errors or inherited
-posteriors are independent.
-
-The paper makes three contributions:
+Prior--likelihood separation is established
+\cite{wu2022sharedpriors,hlinka2012likelihood}. GCE develops this principle
+into a bounded Bernoulli correction for approximate local tracking with
+unequal sensing histories. The paper contributes:
 \begin{itemize}
- \item A normalized Bernoulli correction that applies the same admitted
- current evidence to existence and spatial density, with a tractable
- Gaussian form and an explicit integrability fallback.
- \item A bounded admission rule for approximate local updates and a
- bit-preserving codec that omits exactly zero Gaussian ratios.
- \item A complete two-condition, 25-sequence comparison with shared
- score-aware local filtering, external fusion adaptations, component
- ablations, common-target localization, and actual encoded byte counts.
+ \item A joint existence and spatial correction with closed-form Gaussian
+ normalization and a source-level curvature guard.
+ \item An admission rule that combines current association, detection-score,
+ and missed-detection evidence, plus an exact codec for zero increments.
+ \item A cooperative tracking evaluation with common local filtering,
+ geometric and arithmetic fusion references, component ablations, and
+ measured packet sizes.
 \end{itemize}
-The main result is an improvement of the complete fusion rule on this
-development corpus. In particular, the small contribution of conservative
-history weighting remains uncertain; it is not used to explain all of the
-observed gain.
+Across both link conditions, GCE achieves the lowest main-comparison
+OSPA. Relative to no-age pooling and recency weighting, missed-target
+cost, false-target cost, and common-target localization improve together.
 
 \section{Related Work}
 \subsection{Cooperative robotic tracking}
 Distributed PHD filtering supports robot search and tracking
-\cite{dames2020search}, while multirobot reconfiguration addresses changes
-in sensing resources~\cite{ramachandran2021reconfiguration}.
-LMB representations also support distributed robot landmark mapping
-\cite{gao2026lmbslam}. These works establish the broader robotic setting;
-our experiment keeps sensor trajectories and local dynamics fixed and
-changes posterior fusion. For cooperative driving, V2V4Real provides
-real multi-vehicle observations~\cite{xu2023v2v4real}, and DMSTrack learns
-uncertainty within a differentiable multisensor tracker
-\cite{chiu2024dmstrack}. We use its released per-vehicle detections to
-study a planar LMB fusion problem, without reproducing that learned
-tracker or claiming an official 3-D benchmark result.
+\cite{dames2020search}, and multirobot reconfiguration adapts sensing
+resources~\cite{ramachandran2021reconfiguration}. LMB representations
+also support distributed landmark mapping~\cite{gao2026lmbslam}.
+For cooperative driving, V2V4Real provides real multi-vehicle observations
+\cite{xu2023v2v4real}, while DMSTrack learns uncertainty in a
+differentiable multisensor tracker~\cite{chiu2024dmstrack}. We use its
+released per-vehicle detections for planar LMB tracking and focus on the
+fusion layer.
 
-\subsection{Finite-set fusion with different sensing support}
-Different fields of view require care with absent labels and exclusive
-information~\cite{li2018multiviewlmb,gao2022differentfov}.
+\subsection{Finite-set fusion and sensing support}
+Different fields of view require explicit treatment of absent labels and
+exclusive information~\cite{li2018multiviewlmb,gao2022differentfov}.
 Minimum-information-loss (MIL) fusion uses arithmetic pooling of labeled
-finite-set densities~\cite{gao2020mil}. Track consensus instead matches
-and combines short trajectories, including tracks seen by only some
-sensors~\cite{nguyen2021tc}. Our comparisons include an implementation
-of the public MIL author manuscript~\cite{gao2019milpreprint} and the
-author's track-consensus functions under the same local detections.
-Their original experiments and architectures differ from this replay.
+finite-set densities~\cite{gao2020mil}; track consensus matches and
+combines short trajectories~\cite{nguyen2021tc}. Our comparisons adapt
+the public MIL author manuscript~\cite{gao2019milpreprint} and the
+author's track-consensus functions to the common detections.
 
-Separating cardinality and localization in finite-set fusion is also
-established: pointwise density consistency alone does not ensure a good
-cardinality distribution~\cite{uney2019cardinality}.
-Heterogeneous fusion can assign confidence at the component level
-\cite{yi2021heterogeneous}.
-GCE addresses a narrower question: after choosing an inherited base,
-how should an admitted local Bernoulli update change both the spatial
-density and the probability that the target exists?
+Cardinality and localization also play distinct roles in finite-set
+fusion: pointwise density consistency alone does not ensure a useful
+cardinality distribution~\cite{uney2019cardinality}. Heterogeneous fusion
+assigns confidence at the component level~\cite{yi2021heterogeneous}.
+GCE instead couples the two components through the normalizer of an
+admitted Bernoulli update.
 
 \subsection{Prior and current likelihood information}
-Shared-prior Bayesian fusion studies the correction needed when local
-posteriors contain common prior information~\cite{wu2022sharedpriors}.
-Likelihood consensus aggregates exponential-family likelihood
-representations across sensors~\cite{hlinka2012likelihood}.
-These principles motivate transmitting current Gaussian natural-parameter
-increments. GCE uses fractional, source-specific increments because local
-LMB association and moment projection need not yield an exact independent
-likelihood. Its curvature guard is an implementation safeguard for that
-approximation, not a proof that the observation sources are independent.
+Shared-prior Bayesian fusion corrects for common information in local
+posteriors~\cite{wu2022sharedpriors}. Likelihood consensus aggregates
+exponential-family likelihood representations~\cite{hlinka2012likelihood}.
+GCE transmits Gaussian natural-parameter increments and admits them
+fractionally. This accommodates local LMB association and moment
+projection, for which the posterior-to-prediction ratio can differ from
+an exact sensor likelihood.

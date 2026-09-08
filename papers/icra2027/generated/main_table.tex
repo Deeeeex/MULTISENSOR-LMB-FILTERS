@@ -1,9 +1,9 @@
 \begin{table*}[t]
 \centering\small
-\caption{Main evaluation over 25 complete sequences. All methods use the same score-aware local tracker. OSPA is in m; missed and false GOSPA components are squared costs in m$^2$. Lower is better.}
+\caption{Main comparison on 25 sequences with a shared local tracker. OSPA is in m; missed and false GOSPA costs are in m$^2$. Lower is better; best values are bold.}
 \label{tab:main}
 \setlength{\tabcolsep}{6pt}
-\begin{tabular}{lrrrrrr}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
 \toprule
 & \multicolumn{3}{c}{Reliable links} & \multicolumn{3}{c}{Intermittent links} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -11,15 +11,17 @@ Method & OSPA & Missed & False & OSPA & Missed & False \\
 \midrule
 Local & 5.914 & 190.030 & 45.556 & 5.914 & 190.030 & 45.556 \\
 MIL-AM & 4.014 & 74.566 & 56.973 & 4.163 & 82.428 & 58.363 \\
-TC-5 & 4.253 & 68.620 & 75.289 & 4.693 & 101.053 & 64.733 \\
+TC-5 & 4.253 & \textbf{68.620} & 75.289 & 4.693 & 101.053 & 64.733 \\
 TC-10 & 4.414 & 88.338 & 65.001 & 4.829 & 116.571 & 57.691 \\
+\midrule
 No-age KLA & 3.702 & 85.564 & 40.715 & 3.988 & 92.977 & 44.776 \\
 Recency & 3.672 & 78.330 & 43.986 & 3.952 & 87.113 & 47.603 \\
 Conservative & 3.672 & 86.046 & 37.436 & 3.956 & 93.865 & 42.483 \\
 Capped-score & 3.666 & 83.065 & 39.074 & 3.913 & 90.189 & 43.663 \\
 Capped-cal. & 3.650 & 80.776 & 40.418 & 3.897 & 88.391 & 44.318 \\
-Scalar & 3.526 & 78.625 & 34.536 & 3.832 & 86.342 & 40.523 \\
-\textbf{GCE} & 3.456 & 71.095 & 36.303 & 3.761 & 80.344 & 41.971 \\
+Scalar & 3.526 & 78.625 & \textbf{34.536} & 3.832 & 86.342 & \textbf{40.523} \\
+\midrule
+\textbf{GCE} & \textbf{3.456} & 71.095 & 36.303 & \textbf{3.761} & \textbf{80.344} & 41.971 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}

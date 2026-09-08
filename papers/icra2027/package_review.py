@@ -14,12 +14,12 @@ for folder in ['sections', 'literature', 'official_template', 'main_figure_integ
     files.extend(p for p in (HERE / folder).rglob('*') if p.is_file())
 files.extend(HERE / 'generated' / name for name in [
     'numbers.tex', 'facts.json', 'main_table.tex', 'ablation_table.tex', 'communication_table.tex'])
-for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication']:
+for name in ['overview', 'gaussian_paired', 'gaussian_components', 'gaussian_communication', 'gaussian_sequence_differences']:
     files.extend(HERE / 'figures' / (name+suffix) for suffix in ['.svg', '.pdf', '.png', '_text_bounds.json'])
 snapshots = json.loads((HERE / 'source_data/gaussian_source_manifest.json').read_text())
 files.extend(HERE / 'source_data' / name for name in [*snapshots,
     'gaussian_source_manifest.json', 'gaussian_paper_evidence.json', 'overview_schematic.json',
-    'gaussian_paired.json', 'gaussian_components.json', 'gaussian_communication.json'])
+    'gaussian_paired.json', 'gaussian_components.json', 'gaussian_communication.json', 'gaussian_sequence_differences.json'])
 pdf = HERE / 'output/pdf/icra2027_draft.pdf'
 files.extend([pdf, HERE / 'output/qa/artifact_qa.json'])
 pdf_hash = hashlib.sha256(pdf.read_bytes()).hexdigest()
