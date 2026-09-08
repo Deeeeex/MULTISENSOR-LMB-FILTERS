@@ -1,0 +1,39 @@
+JE AUDITED 0000 reliable 882 node-frames; ER parity 294
+JE AUDITED 0000 intermittent 1764 node-frames; ER parity 588
+JE AUDITED 0001 reliable 2448 node-frames; ER parity 816
+JE AUDITED 0001 intermittent 3132 node-frames; ER parity 1044
+JE AUDITED 0002 reliable 3996 node-frames; ER parity 1332
+JE AUDITED 0002 intermittent 4860 node-frames; ER parity 1620
+JE AUDITED 0003 reliable 6048 node-frames; ER parity 2016
+JE AUDITED 0003 intermittent 7236 node-frames; ER parity 2412
+JE AUDITED 0004 reliable 8316 node-frames; ER parity 2772
+JE AUDITED 0004 intermittent 9396 node-frames; ER parity 3132
+JE AUDITED 0005 reliable 11256 node-frames; ER parity 3752
+JE AUDITED 0005 intermittent 13116 node-frames; ER parity 4372
+JE AUDITED 0006 reliable 14940 node-frames; ER parity 4980
+JE AUDITED 0006 intermittent 16764 node-frames; ER parity 5588
+JE AUDITED 0007 reliable 18090 node-frames; ER parity 6030
+JE AUDITED 0007 intermittent 19416 node-frames; ER parity 6472
+JE AUDITED 0008 reliable 21666 node-frames; ER parity 7222
+JE AUDITED 0008 intermittent 23916 node-frames; ER parity 7972
+reliable joint_evidence OSPA 4.94054 miss 87.138 false 91.248
+reliable joint_evidence_recency OSPA 4.93154 miss 87.951 false 90.621
+reliable qualified_exist OSPA 4.87453 miss 96.545 false 83.968
+reliable lineage OSPA 4.71292 miss 103.356 false 77.239
+reliable conservative_recency OSPA 4.51056 miss 104.273 false 68.374
+reliable confirmation_recency OSPA 4.82274 miss 97.568 false 79.864
+reliable mil_support OSPA 5.17746 miss 88.399 false 92.129
+reliable tc_ospa2_w5 OSPA 5.68952 miss 82.852 false 115.123
+reliable tc_ospa2_w10 OSPA 5.57406 miss 95.742 false 101.097
+reliable local OSPA 6.57481 miss 188.892 false 73.856
+intermittent joint_evidence OSPA 5.25522 miss 102.375 false 89.012
+intermittent joint_evidence_recency OSPA 5.2476 miss 102.361 false 88.676
+intermittent qualified_exist OSPA 5.11928 miss 106.262 false 85.573
+intermittent lineage OSPA 5.10858 miss 112.089 false 81.113
+intermittent conservative_recency OSPA 4.99678 miss 114.619 false 75.771
+intermittent confirmation_recency OSPA 5.03238 miss 106.552 false 82.72
+intermittent mil_support OSPA 5.30894 miss 99.873 false 94.347
+intermittent tc_ospa2_w5 OSPA 5.79245 miss 116.286 false 103.598
+intermittent tc_ospa2_w10 OSPA 5.7647 miss 126.757 false 93.09
+intermittent local OSPA 6.57481 miss 188.892 false 73.856
+JE DEVELOPMENT AUDIT PASSED 23916 node-frames; original ER parity 7972

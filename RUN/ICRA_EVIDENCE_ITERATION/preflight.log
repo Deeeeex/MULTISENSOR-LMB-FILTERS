@@ -1,0 +1,6 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+{错误使用 assert
+断言失败。
+出错 checkJointEvidence (第 24 行)
+    assert(abs(single.r-o.r)<1e-12);} 

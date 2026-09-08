@@ -1,0 +1,76 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+JE CHECK PASSED: common-prior scalar Bayes identity, positive/negative/opposing evidence, zero increment, single source, untouched exclusion, unchanged censor fallback and spatial density, packet round trip.
+START iteration V2V 0003 reliable qualified_exist 198 frames
+DONE iteration V2V 0003 reliable qualified_exist OSPA 6.463880 count 2.843434 runtime 11.28s
+START iteration V2V 0003 reliable joint_evidence 198 frames
+DONE iteration V2V 0003 reliable joint_evidence OSPA 6.532157 count 2.823232 runtime 7.14s
+START iteration V2V 0003 reliable joint_evidence_recency 198 frames
+DONE iteration V2V 0003 reliable joint_evidence_recency OSPA 6.559272 count 2.828283 runtime 7.31s
+START iteration V2V 0003 intermittent qualified_exist 198 frames
+DONE iteration V2V 0003 intermittent qualified_exist OSPA 6.890351 count 3.103535 runtime 7.23s
+START iteration V2V 0003 intermittent joint_evidence 198 frames
+DONE iteration V2V 0003 intermittent joint_evidence OSPA 6.813572 count 2.962121 runtime 5.85s
+START iteration V2V 0003 intermittent joint_evidence_recency 198 frames
+DONE iteration V2V 0003 intermittent joint_evidence_recency OSPA 6.791067 count 2.952020 runtime 6.02s
+START iteration V2V 0004 reliable qualified_exist 180 frames
+DONE iteration V2V 0004 reliable qualified_exist OSPA 5.158462 count 2.305556 runtime 40.17s
+START iteration V2V 0004 reliable joint_evidence 180 frames
+DONE iteration V2V 0004 reliable joint_evidence OSPA 5.031931 count 2.077778 runtime 18.51s
+START iteration V2V 0004 reliable joint_evidence_recency 180 frames
+DONE iteration V2V 0004 reliable joint_evidence_recency OSPA 5.031932 count 2.077778 runtime 18.53s
+START iteration V2V 0004 intermittent qualified_exist 180 frames
+DONE iteration V2V 0004 intermittent qualified_exist OSPA 5.023765 count 2.066667 runtime 31.14s
+START iteration V2V 0004 intermittent joint_evidence 180 frames
+DONE iteration V2V 0004 intermittent joint_evidence OSPA 4.969455 count 2.036111 runtime 20.54s
+START iteration V2V 0004 intermittent joint_evidence_recency 180 frames
+DONE iteration V2V 0004 intermittent joint_evidence_recency OSPA 4.963130 count 2.052778 runtime 20.75s
+START iteration V2V 0005 reliable qualified_exist 310 frames
+DONE iteration V2V 0005 reliable qualified_exist OSPA 4.589181 count 1.403226 runtime 22.15s
+START iteration V2V 0005 reliable joint_evidence 310 frames
+DONE iteration V2V 0005 reliable joint_evidence OSPA 4.666408 count 1.467742 runtime 18.53s
+START iteration V2V 0005 reliable joint_evidence_recency 310 frames
+DONE iteration V2V 0005 reliable joint_evidence_recency OSPA 4.663436 count 1.461290 runtime 18.41s
+START iteration V2V 0005 intermittent qualified_exist 310 frames
+DONE iteration V2V 0005 intermittent qualified_exist OSPA 4.941829 count 1.546774 runtime 19.68s
+START iteration V2V 0005 intermittent joint_evidence 310 frames
+DONE iteration V2V 0005 intermittent joint_evidence OSPA 4.989871 count 1.598387 runtime 17.30s
+START iteration V2V 0005 intermittent joint_evidence_recency 310 frames
+DONE iteration V2V 0005 intermittent joint_evidence_recency OSPA 5.001406 count 1.604839 runtime 17.07s
+START iteration V2V 0006 reliable qualified_exist 304 frames
+DONE iteration V2V 0006 reliable qualified_exist OSPA 6.393488 count 1.641447 runtime 9.96s
+START iteration V2V 0006 reliable joint_evidence 304 frames
+DONE iteration V2V 0006 reliable joint_evidence OSPA 6.495226 count 1.700658 runtime 8.18s
+START iteration V2V 0006 reliable joint_evidence_recency 304 frames
+DONE iteration V2V 0006 reliable joint_evidence_recency OSPA 6.465420 count 1.694079 runtime 8.22s
+START iteration V2V 0006 intermittent qualified_exist 304 frames
+DONE iteration V2V 0006 intermittent qualified_exist OSPA 6.209742 count 1.449013 runtime 9.50s
+START iteration V2V 0006 intermittent joint_evidence 304 frames
+DONE iteration V2V 0006 intermittent joint_evidence OSPA 6.442325 count 1.625000 runtime 7.86s
+START iteration V2V 0006 intermittent joint_evidence_recency 304 frames
+DONE iteration V2V 0006 intermittent joint_evidence_recency OSPA 6.432342 count 1.620066 runtime 8.03s
+START iteration V2V 0007 reliable qualified_exist 221 frames
+DONE iteration V2V 0007 reliable qualified_exist OSPA 4.267144 count 1.366516 runtime 12.80s
+START iteration V2V 0007 reliable joint_evidence 221 frames
+DONE iteration V2V 0007 reliable joint_evidence OSPA 4.243388 count 1.425339 runtime 10.75s
+START iteration V2V 0007 reliable joint_evidence_recency 221 frames
+DONE iteration V2V 0007 reliable joint_evidence_recency OSPA 4.150553 count 1.262443 runtime 11.02s
+START iteration V2V 0007 intermittent qualified_exist 221 frames
+DONE iteration V2V 0007 intermittent qualified_exist OSPA 4.823202 count 1.864253 runtime 11.30s
+START iteration V2V 0007 intermittent joint_evidence 221 frames
+DONE iteration V2V 0007 intermittent joint_evidence OSPA 4.588462 count 1.830317 runtime 8.68s
+START iteration V2V 0007 intermittent joint_evidence_recency 221 frames
+DONE iteration V2V 0007 intermittent joint_evidence_recency OSPA 4.664685 count 1.821267 runtime 9.07s
+START iteration V2V 0008 reliable qualified_exist 375 frames
+DONE iteration V2V 0008 reliable qualified_exist OSPA 0.864686 count 0.221333 runtime 21.60s
+START iteration V2V 0008 reliable joint_evidence 375 frames
+DONE iteration V2V 0008 reliable joint_evidence OSPA 0.849523 count 0.200000 runtime 18.22s
+START iteration V2V 0008 reliable joint_evidence_recency 375 frames
+DONE iteration V2V 0008 reliable joint_evidence_recency OSPA 0.849523 count 0.200000 runtime 18.19s
+START iteration V2V 0008 intermittent qualified_exist 375 frames
+DONE iteration V2V 0008 intermittent qualified_exist OSPA 0.973572 count 0.261333 runtime 20.28s
+START iteration V2V 0008 intermittent joint_evidence 375 frames
+DONE iteration V2V 0008 intermittent joint_evidence OSPA 0.932952 count 0.230667 runtime 17.35s
+START iteration V2V 0008 intermittent joint_evidence_recency 375 frames
+DONE iteration V2V 0008 intermittent joint_evidence_recency OSPA 0.932952 count 0.230667 runtime 17.33s
+COMPLETED iteration sequences 0003--0008 smoke=0

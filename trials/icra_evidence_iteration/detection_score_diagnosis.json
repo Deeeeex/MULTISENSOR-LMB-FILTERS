@@ -1,0 +1,117 @@
+{
+  "scope": "Seen development detections only; diagnostics do not define a fitted tracker.",
+  "bins": [
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.2,
+      "score_high": 0.3,
+      "n": 6947,
+      "positive_fraction": 0.48222254210450555
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.3,
+      "score_high": 0.4,
+      "n": 5231,
+      "positive_fraction": 0.7700248518447715
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.4,
+      "score_high": 0.5,
+      "n": 4765,
+      "positive_fraction": 0.9284365162644281
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.5,
+      "score_high": 0.6,
+      "n": 5486,
+      "positive_fraction": 0.9578928180823916
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.6,
+      "score_high": 0.7,
+      "n": 5496,
+      "positive_fraction": 0.9861717612809315
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.7,
+      "score_high": 0.8,
+      "n": 7621,
+      "positive_fraction": 0.9963259414774964
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.8,
+      "score_high": 0.9,
+      "n": 2489,
+      "positive_fraction": 0.9967858577742065
+    },
+    {
+      "assignment_cutoff_m": 3,
+      "score_low": 0.9,
+      "score_high": 1.0,
+      "n": 3,
+      "positive_fraction": 1.0
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.2,
+      "score_high": 0.3,
+      "n": 6947,
+      "positive_fraction": 0.5328918957823521
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.3,
+      "score_high": 0.4,
+      "n": 5231,
+      "positive_fraction": 0.7927738482125789
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.4,
+      "score_high": 0.5,
+      "n": 4765,
+      "positive_fraction": 0.9374606505771249
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.5,
+      "score_high": 0.6,
+      "n": 5486,
+      "positive_fraction": 0.9786729857819905
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.6,
+      "score_high": 0.7,
+      "n": 5496,
+      "positive_fraction": 0.9907205240174672
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.7,
+      "score_high": 0.8,
+      "n": 7621,
+      "positive_fraction": 0.9985566198661593
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.8,
+      "score_high": 0.9,
+      "n": 2489,
+      "positive_fraction": 0.9991964644435516
+    },
+    {
+      "assignment_cutoff_m": 12,
+      "score_low": 0.9,
+      "score_high": 1.0,
+      "n": 3,
+      "positive_fraction": 1.0
+    }
+  ]
+}

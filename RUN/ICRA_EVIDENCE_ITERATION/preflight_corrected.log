@@ -1,0 +1,6 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+{错误使用 assert
+断言失败。
+出错 checkJointEvidence (第 37 行)
+    assert(isequal(missing.r,ref.r) && isequal(missing.mu,ref.mu));} 
