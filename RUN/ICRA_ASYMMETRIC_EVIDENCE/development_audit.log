@@ -1,0 +1,24 @@
+ASYMMETRIC AUDITED development 0000 1 / 9
+ASYMMETRIC AUDITED development 0001 2 / 9
+ASYMMETRIC AUDITED development 0002 3 / 9
+ASYMMETRIC AUDITED development 0003 4 / 9
+ASYMMETRIC AUDITED development 0004 5 / 9
+ASYMMETRIC AUDITED development 0005 6 / 9
+ASYMMETRIC AUDITED development 0006 7 / 9
+ASYMMETRIC AUDITED development 0007 8 / 9
+ASYMMETRIC AUDITED development 0008 9 / 9
+development reliable marked_asymmetric minus marked_lineage {'mean': -0.12303531042212684, 'sd': 0.1789481508702309, 'low': -0.2348120944640018, 'high': -0.018042970537821917, 'n': 9}
+development reliable marked_asymmetric minus marked_er {'mean': -0.22286145491241496, 'sd': 0.42502237762788825, 'low': -0.5163693300644812, 'high': -0.006106262927413176, 'n': 9}
+development reliable marked_asymmetric minus marked_conservative {'mean': -0.0964316546946232, 'sd': 0.15874313337880974, 'low': -0.199955730174365, 'high': -0.005386339922165344, 'n': 9}
+development reliable marked_asymmetric minus marked_ceiling_calibrated {'mean': -0.08638245467471187, 'sd': 0.17641003822212906, 'low': -0.20043074940577787, 'high': 0.014590073744415613, 'n': 9}
+development reliable marked_asymmetric minus marked_ceiling_score {'mean': -0.07693206858366806, 'sd': 0.14761135535725053, 'low': -0.17880778733091232, 'high': 0.0031900837061264145, 'n': 9}
+development reliable marked_asymmetric minus marked_selective {'mean': -0.05162324547452018, 'sd': 0.16444628044437387, 'low': -0.16662916891926732, 'high': 0.031965125428483655, 'n': 9}
+development reliable marked_asymmetric minus marked_selective_signed {'mean': -0.024412235385388233, 'sd': 0.1676414304315444, 'low': -0.1350082731660789, 'high': 0.06964846116840255, 'n': 9}
+development intermittent marked_asymmetric minus marked_lineage {'mean': -0.07811534348575416, 'sd': 0.1224513374373225, 'low': -0.14964784215427182, 'high': 1.3169099958197483e-06, 'n': 9}
+development intermittent marked_asymmetric minus marked_er {'mean': -0.14708294925952303, 'sd': 0.23979207831220978, 'low': -0.3114546813768044, 'high': -0.023279416215604254, 'n': 9}
+development intermittent marked_asymmetric minus marked_conservative {'mean': -0.03550622156804931, 'sd': 0.09529371548740188, 'low': -0.09336231420531114, 'high': 0.02345884488702981, 'n': 9}
+development intermittent marked_asymmetric minus marked_ceiling_calibrated {'mean': -0.0210311376844639, 'sd': 0.09514835122236769, 'low': -0.08131434907730546, 'high': 0.03515523589617814, 'n': 9}
+development intermittent marked_asymmetric minus marked_ceiling_score {'mean': 0.003172970117904714, 'sd': 0.0881240865301265, 'low': -0.05111013799541279, 'high': 0.05616984418934646, 'n': 9}
+development intermittent marked_asymmetric minus marked_selective {'mean': -0.011301211399159948, 'sd': 0.08786120506648129, 'low': -0.06951957125206341, 'high': 0.039146575630596085, 'n': 9}
+development intermittent marked_asymmetric minus marked_selective_signed {'mean': -0.006452485569816862, 'sd': 0.06790296066456035, 'low': -0.04907874027219804, 'high': 0.03449872926922259, 'n': 9}
+ALL ASYMMETRIC OUTPUTS AUDITED development 23916 new node-frames; 55804 baseline node-frames; continuation False

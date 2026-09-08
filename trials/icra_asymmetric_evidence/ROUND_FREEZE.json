@@ -1,0 +1,264 @@
+{
+  "protocol": "asymmetric-current-evidence-v1",
+  "timestamp_utc": "2026-09-08T11:40:22.322918+00:00",
+  "primary": "marked_asymmetric",
+  "arms": [
+    "marked_asymmetric",
+    "marked_asymmetric_no_history",
+    "marked_asymmetric_no_mark"
+  ],
+  "arms_by_cohort": {
+    "development": [
+      "marked_asymmetric",
+      "marked_asymmetric_no_history",
+      "marked_asymmetric_no_mark"
+    ],
+    "seen_transfer": [
+      "marked_asymmetric",
+      "marked_asymmetric_no_history",
+      "marked_asymmetric_no_mark",
+      "marked_selective",
+      "marked_selective_signed"
+    ]
+  },
+  "references_by_cohort": {
+    "development": [
+      "marked_lineage",
+      "marked_er",
+      "marked_conservative",
+      "marked_ceiling_calibrated",
+      "marked_ceiling_score",
+      "marked_selective",
+      "marked_selective_signed"
+    ],
+    "seen_transfer": [
+      "marked_lineage",
+      "marked_er",
+      "marked_conservative",
+      "marked_ceiling_calibrated",
+      "marked_ceiling_score"
+    ]
+  },
+  "primary_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "additional_references": [
+    "marked_conservative",
+    "marked_ceiling_calibrated",
+    "marked_ceiling_score"
+  ],
+  "component_controls": [
+    "marked_selective",
+    "marked_selective_signed"
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "all_previous_real_data_outcomes_seen": true,
+  "primary_selected_before_preflight": true,
+  "secondary_cannot_replace_primary": true,
+  "continuation_rule": "All nine development sequences complete; primary sequence-macro OSPA lower than M-No-age and M-ER in both conditions and no higher than M-CR, M-ECR-S and the no-negative M-SI control in both conditions. Otherwise reject expansion, retain all secondary results.",
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "source_and_evidence_sha256": {
+    "trials/icra_asymmetric_evidence/PROTOCOL.md": "282a0214452f90c8b03fb1c3f29786d1f4868fa434356bdd656df3aef17bb1dd",
+    "trials/icra_asymmetric_evidence/source_sha256.json": "54232731dce927fe5c2bc8e2e20cfc8679ec150964990bbd79d096baaa51157d",
+    "trials/icra_asymmetric_evidence/preflight_audit.json": "0392c58894d6e2482c61d918acd91cca3b4ead7dac91c86345b10a630d26021f",
+    "trials/icra_asymmetric_evidence/analyze_asymmetric.py": "5a3dd145be9644ad051b9d04d0d5fc0b21525191dabb82cdd950c6d551b96309",
+    "trials/icra_asymmetric_evidence/run_sequences.py": "1b3a6a86187ec19f2b2bcf73f9f2f40bd1388fab1160b3d97c63f936795a182b",
+    "trials/icra_asymmetric_evidence/register_round.py": "e515b9306943d257501b31bb16063f8efd8c4a8a216fb1c565bd228efd5b1604",
+    "trials/icra_asymmetric_evidence/make_audit.py": "9529502a65b7a2a7eff41c464ff075a85fc9660bec384831f6bcaf615fe5579d",
+    "trials/icra_asymmetric_evidence/probability_audit.inc": "2c52f9424ec6cfd8acfc7e344f250f66d48e4200e4f122aec9e0f30b63896cfa",
+    "trials/icra_asymmetric_evidence/make_drivers.py": "da3a77ab510db798230fb5de24fc9abd18129b9449538780a4067921ac713249",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_fusion_holdout/input_audit.json": "048d3669371014d2ae4df3b55e6545bbeafb1ec4030c4e59fcc3570f63284719",
+    "trials/icra_marked_control/analyze_control.py": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+    "trials/icra_marked_control/analyze_full.py": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+    "trials/icra_marked_control/summary_control.json": "7908d81b4da1d648d28fe0c7b3be5478531b3bc4babed05ea56add5717bf7118",
+    "trials/icra_method_iteration/analyze_development.py": "ce6493b3f9cc96a5b4931ebcb6cec09e2c7ad221e64a04e12bef86b4223e54cb",
+    "trials/icra_external_fusion/analyze_v2v4real.py": "2fc87d20e0114e65a687f788872e37d5d08f11eba2d7c66f51327fa913fd9399",
+    "trials/icra_external_fusion/analyze_case_studies.py": "20aa71fb679b3ea1a7708b83e226fe43d9df5f61845fa8e6965cc9a1922b453b",
+    "trials/icra_selective_innovation/summary_development.json": "00327192e18b7c8e943f378daa06d067a7ddd7bf10e86127a0246afe94ba3a91",
+    "trials/icra_selective_innovation/ROUND_FREEZE.json": "c5021a8d22a8d53fe1f24fe51de1df3c50bc67e45b2679fb97260f6a6f602ca8"
+  }
+}

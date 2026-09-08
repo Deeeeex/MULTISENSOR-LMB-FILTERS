@@ -1,0 +1,19 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+START ASYMMETRIC 0001 reliable marked_asymmetric 114 frames
+DONE ASYMMETRIC 0001 reliable marked_asymmetric OSPA 4.048104 runtime 5.34s
+START ASYMMETRIC 0001 reliable marked_asymmetric_no_history 114 frames
+DONE ASYMMETRIC 0001 reliable marked_asymmetric_no_history OSPA 4.153393 runtime 2.07s
+START ASYMMETRIC 0001 reliable marked_asymmetric_no_mark 114 frames
+DONE ASYMMETRIC 0001 reliable marked_asymmetric_no_mark OSPA 5.424786 runtime 1.84s
+START ASYMMETRIC 0001 intermittent marked_asymmetric 114 frames
+DONE ASYMMETRIC 0001 intermittent marked_asymmetric OSPA 4.487200 runtime 1.54s
+START ASYMMETRIC 0001 intermittent marked_asymmetric_no_history 114 frames
+DONE ASYMMETRIC 0001 intermittent marked_asymmetric_no_history OSPA 4.598222 runtime 1.67s
+START ASYMMETRIC 0001 intermittent marked_asymmetric_no_mark 114 frames
+DONE ASYMMETRIC 0001 intermittent marked_asymmetric_no_mark OSPA 5.551346 runtime 1.18s
+COMPLETED ASYMMETRIC indices 1--1 cohort=development
