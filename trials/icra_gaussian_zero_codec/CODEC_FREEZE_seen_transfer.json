@@ -1,0 +1,152 @@
+{
+  "protocol": "bit-preserving-gaussian-zero-codec-stage-v1",
+  "cohort": "seen_transfer",
+  "timestamp_utc": "2026-09-08T13:21:45.196357+00:00",
+  "primary": "marked_gaussian_evidence",
+  "max_workers": 2,
+  "units": [
+    {
+      "cohort": "seen_transfer",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "reference_summary_sha256": "da32910f0b70d2ee01d5e1a5b80f501e4a4a682bca4c72a0476d7640027d4c7a",
+  "source_and_evidence_sha256": {
+    "trials/icra_gaussian_zero_codec/PROTOCOL.md": "7686b27a8149b6be5aafcb04cbab5cb664163ec2c2dbc1597dd9456b194f8bbb",
+    "trials/icra_gaussian_zero_codec/source_sha256.json": "121610f08c541f021c0c18daf693182c9dd5db387b5657dbedb456e7f970b962",
+    "trials/icra_gaussian_zero_codec/preflight_audit.json": "c7bfc72cd0b5d1f370ef1dd0006d0ed81b3c2feab9e7846b72f7769eedd4cf46",
+    "trials/icra_gaussian_zero_codec/analyze_codec.py": "211dab3c9a06a6586a584c83a5f2b3f9881241bf28577732fd14dbd73970c324",
+    "trials/icra_gaussian_zero_codec/register_stage.py": "0df020346993b47e92e6c93358b053f97ce30d8f8b6903406b5ad9c262864c94",
+    "trials/icra_gaussian_zero_codec/run_sequences.py": "94224e0ec3c9a52ca33a8fb87a5c9a296b4f6cbc2e1bb11d80692cbca23d8086",
+    "trials/icra_gaussian_evidence/summary_seen_transfer.json": "da32910f0b70d2ee01d5e1a5b80f501e4a4a682bca4c72a0476d7640027d4c7a",
+    "trials/icra_gaussian_evidence/CURRENT_QA_seen_transfer.json": "673bab51e93807e51015e692dd73ea4e20b64d880ff23006aaf7bd642a059304",
+    "trials/icra_gaussian_evidence/ROUND_FREEZE.json": "46b29bcd4909d763069f33db18a7e2dd9a7f925b2f47bc1c69c7d1b116c5a9be"
+  },
+  "unit_exit_observed": 0,
+  "unit_exec_session": 98989,
+  "preflight_exit_observed": 0,
+  "preflight_exec_session": 47935,
+  "numerical_parameters_changed": false,
+  "complete_exact_trajectory_parity_required": true
+}
