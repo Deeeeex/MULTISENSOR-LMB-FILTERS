@@ -2,6 +2,8 @@
 
 论文：**Observation Recency in Bernoulli Fusion for Intermittent Multirobot Tracking**。
 当前 7 页英文完整初稿包含正文、5 幅 SVG/PDF 图、3 张表、参考文献和 AI 使用披露。
+正文现引用 21 条来源：新补 robot_localization、LIO-SAM、2026 年多机器人 LMB-SLAM
+及 Autoware 官方跟踪文档，并在 Related Work 中说明各自的融合任务；DecSTER 沿用已有引用。
 正式模板、引用元数据、图表源数据和构建脚本已放在本目录。
 这是供作者审阅的完整研究稿；自动检查不等于独立复现、作者批准或投稿系统验收。
 

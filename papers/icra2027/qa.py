@@ -127,7 +127,7 @@ def check():
               'validation_seeds_per_family': 20, 'validation_arm_runs': 540,
               'audited_validation_node_frames': 518400, 'scalar_facts_match_audited_summary': True,
               'citation_keys_resolved': sorted(cited),
-              'citation_scope': 'DOI metadata plus public SSRN metadata; see LITERATURE_SCOPE.md',
+              'citation_scope': 'DOI metadata, author BibTeX, official documentation and public SSRN metadata; see LITERATURE_SCOPE.md',
               'limitations': 'Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check.'}
     out = HERE / 'output/qa/artifact_qa.json'
     out.parent.mkdir(parents=True, exist_ok=True)

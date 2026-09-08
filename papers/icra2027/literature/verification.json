@@ -100,5 +100,55 @@
     "url": "https://api.crossref.org/works/10.23919/ICIF.2017.8009645/transform/application/x-bibtex",
     "bibtex": " @inproceedings{gospa2017, title={Generalized optimal sub-pattern assignment metric}, url={http://dx.doi.org/10.23919/ICIF.2017.8009645}, DOI={10.23919/icif.2017.8009645}, booktitle={2017 20th International Conference on Information Fusion (Fusion)}, publisher={IEEE}, author={Rahmathullah, Abu Sajana and Garcia-Fernandez, Angel F. and Svensson, Lennart}, year={2017}, month=July, pages={1–8} }\n",
     "verified": true
+  },
+  "moore2016robotlocalization": {
+    "doi": "10.1007/978-3-319-08338-4_25",
+    "url": "https://api.crossref.org/works/10.1007/978-3-319-08338-4_25/transform/application/x-bibtex",
+    "bibtex": " @inbook{Moore_2015, title={A Generalized Extended Kalman Filter Implementation for the Robot Operating System}, ISBN={9783319083384}, ISSN={2194-5365}, url={http://dx.doi.org/10.1007/978-3-319-08338-4_25}, DOI={10.1007/978-3-319-08338-4_25}, booktitle={Intelligent Autonomous Systems 13}, publisher={Springer International Publishing}, author={Moore, Thomas and Stouch, Daniel}, year={2015}, month=Sept, pages={335–348} }\n",
+    "verified": true,
+    "verified_on": "2026-09-08",
+    "primary_sources": [
+      "https://link.springer.com/chapter/10.1007/978-3-319-08338-4_25"
+    ],
+    "claim_scope": "ROS robot_localization provides generalized EKF sensor fusion. Cite the publisher proceedings year 2016 rather than the 2015 online-first metadata.",
+    "normalization": "Publisher Cite this paper specifies 2016; classify the conference chapter as inproceedings."
+  },
+  "gao2026lmbslam": {
+    "doi": "10.1016/j.robot.2026.105358",
+    "url": "https://api.crossref.org/works/10.1016/j.robot.2026.105358/transform/application/x-bibtex",
+    "bibtex": " @article{Gao_2026, title={Efficient distributed multi-robot SLAM under missed detections and clutter with labeled multi-Bernoulli map}, volume={198}, ISSN={0921-8890}, url={http://dx.doi.org/10.1016/j.robot.2026.105358}, DOI={10.1016/j.robot.2026.105358}, journal={Robotics and Autonomous Systems}, publisher={Elsevier BV}, author={Gao, Lin and Battistelli, Giorgio and Chisci, Luigi}, year={2026}, month=Apr, pages={105358} }\n",
+    "verified": true,
+    "verified_on": "2026-09-08",
+    "primary_sources": [
+      "https://www.sciencedirect.com/science/article/pii/S092188902600031X",
+      "https://flore.unifi.it/handle/2158/1451132"
+    ],
+    "claim_scope": "LMB landmark maps and distributed multi-robot SLAM/map fusion under missed detections and clutter; simulation and real-data experiments."
+  },
+  "shan2020liosam": {
+    "kind": "doi",
+    "url": "https://api.crossref.org/works/10.1109/IROS45743.2020.9341176/transform/application/x-bibtex",
+    "bibtex": " @inproceedings{Shan_2020, title={LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping}, url={http://dx.doi.org/10.1109/IROS45743.2020.9341176}, DOI={10.1109/iros45743.2020.9341176}, booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, publisher={IEEE}, author={Shan, Tixiao and Englot, Brendan and Meyers, Drew and Wang, Wei and Ratti, Carlo and Rus, Daniela}, year={2020}, month=Oct, pages={5135–5142} }\n",
+    "verified": true,
+    "verified_on": "2026-09-08",
+    "primary_sources": [
+      "https://github.com/TixiaoShan/LIO-SAM",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "claim_scope": "LIO-SAM uses factor-graph lidar-inertial smoothing and mapping; IROS 2020, pp. 5135-5142.",
+    "doi": "10.1109/IROS45743.2020.9341176",
+    "source_note": "Crossref BibTeX and work metadata were recovered from the partially successful batch. The author repository and arXiv confirm title, authors, IROS 2020 and pages; the canonical Crossref author field is used.",
+    "author_readme_sha256": "0526d61870f3be2c58cd029a51803159f150356bc08cdcf82dbe6739bfc03793"
+  },
+  "autoware2026tracker": {
+    "kind": "documentation",
+    "url": "https://autowarefoundation.github.io/autoware_universe/main/perception/autoware_multi_object_tracker/",
+    "bibtex": "@misc{autoware2026tracker,\n  author={{Autoware Foundation}},\n  title={Autoware Universe: Multi Object Tracker},\n  howpublished={Online documentation},\n  url={https://autowarefoundation.github.io/autoware_universe/main/perception/autoware_multi_object_tracker/},\n  note={Accessed: Sep. 8, 2026}\n}",
+    "verified": true,
+    "verified_on": "2026-09-08",
+    "primary_sources": [
+      "https://autowarefoundation.github.io/autoware_universe/main/perception/autoware_multi_object_tracker/"
+    ],
+    "claim_scope": "Official module documentation describes data association and EKF tracking; cited as documentation, with access date and no invented publication date."
   }
 }

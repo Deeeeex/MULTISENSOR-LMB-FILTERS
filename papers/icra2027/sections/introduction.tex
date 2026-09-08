@@ -42,12 +42,27 @@ teams, with ablations that separate input qualification, recency placement,
 and track confirmation.
 
 \section{Related Work}
+\subsection{Robot sensor fusion}
+Robot sensor fusion uses representations suited to the estimated state.
+The ROS robot\_localization package provides generalized extended Kalman
+filter (EKF) fusion~\cite{moore2016robotlocalization}, while LIO-SAM
+organizes lidar and inertial constraints in a factor graph
+\cite{shan2020liosam}. For dynamic-object tracking, Autoware combines
+data association with EKF state updates~\cite{autoware2026tracker}.
+LMB representations also support robotic mapping: Gao \emph{et al.}
+develop distributed multi-robot SLAM with LMB landmark maps and map fusion,
+evaluated on simulated and real data~\cite{gao2026lmbslam}.
+In our target-tracking setting, labeled Bernoullis represent object
+identity, existence, and state, while ER determines how robots combine
+their posteriors.
+
 \subsection{Cooperative robotic search and tracking}
 Dames studies distributed search and tracking with PHD filtering and robot
 motion~\cite{dames2020search}. Ramachandran \emph{et al.} reconfigure a
 multirobot communication network after sensing-resource degradation,
 using a central optimization system~\cite{ramachandran2021reconfiguration}.
-DecSTER combines decentralized active search and tracking with unreliable,
+DecSTER combines particle PHD filtering and Thompson-sampling action
+selection for decentralized search and tracking with unreliable,
 asynchronous inter-agent communication~\cite{decster2024}. These works
 address decisions about where robots should move or how resources should
 be connected. We hold motion and attempted links fixed to isolate the

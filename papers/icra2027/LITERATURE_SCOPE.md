@@ -1,8 +1,31 @@
 # Verified scope and remaining reproduction limits
 
 Checked primary sources on 2026-09-08. Bibliographic records are retrieved
-by DOI from Crossref in `literature/verification.json`; manuscript keys must
-match titles, not just a successful HTTP response.
+from Crossref, author-supplied BibTeX or official documentation and saved in
+`literature/verification.json`; manuscript keys must match titles, not just
+a successful HTTP response.
+
+- Moore and Stouch, Intelligent Autonomous Systems 13, pp. 335--348,
+  DOI 10.1007/978-3-319-08338-4_25: generalized EKF sensor fusion in ROS
+  robot_localization. The Springer chapter abstract and author names were
+  checked. Its recommended proceedings citation uses 2016; Crossref uses
+  online-first 2015, so the bibliography follows the publisher's 2016 citation.
+- Shan et al., LIO-SAM, IROS 2020, pp. 5135--5142: factor-graph lidar-inertial
+  smoothing and mapping. Crossref DOI 10.1109/IROS45743.2020.9341176,
+  author-supplied BibTeX and arXiv:2007.00258 were cross-checked. The final
+  entry uses Crossref's canonical author list, including Daniela Rus.
+  A partially successful batch returned the record despite other requests
+  receiving HTTP 429; raw records from both sources are retained.
+- Autoware Foundation, Multi Object Tracker: the official Universe module
+  documentation confirms data association and EKF tracking. This is an
+  online-documentation reference with access date 2026-09-08, not a journal
+  paper or a performance comparison with ER.
+- Gao et al., Robotics and Autonomous Systems 198 (2026), 105358,
+  DOI 10.1016/j.robot.2026.105358: distributed multi-robot SLAM with LMB
+  landmark maps and map fusion under missed detections and clutter. The
+  publisher and University of Florence records report simulated and real
+  data. This supports a robotics application of LMB, not industry adoption
+  or hardware validation of the present target-tracking method.
 
 - Wang et al., Signal Processing 2018, DOI 10.1016/j.sigpro.2018.04.010:
   information-divergence weighting for multiple-view LMB fusion predates

@@ -1,0 +1,900 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          8
+        ]
+      ],
+      "date-time": "2026-02-08T13:33:38Z",
+      "timestamp": 1770557618965,
+      "version": "3.49.0"
+    },
+    "reference-count": 55,
+    "publisher": "Elsevier BV",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2026-04-01T00:00:00Z",
+          "timestamp": 1775001600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100001809",
+        "name": "National Natural Science Foundation of China",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "62471110"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "62471110"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100001809",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "elsevier.com",
+        "sciencedirect.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Robotics and Autonomous Systems"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2026,
+          4
+        ]
+      ]
+    },
+    "DOI": "10.1016/j.robot.2026.105358",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          20
+        ]
+      ],
+      "date-time": "2026-01-20T16:21:42Z",
+      "timestamp": 1768926102000
+    },
+    "page": "105358",
+    "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "special_numbering": "C",
+    "title": [
+      "Efficient distributed multi-robot SLAM under missed detections and clutter with labeled multi-Bernoulli map"
+    ],
+    "prefix": "10.1016",
+    "volume": "198",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-2871-9239",
+        "authenticated-orcid": false,
+        "given": "Lin",
+        "family": "Gao",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-0124-4715",
+        "authenticated-orcid": false,
+        "given": "Giorgio",
+        "family": "Battistelli",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5049-3577",
+        "authenticated-orcid": false,
+        "given": "Luigi",
+        "family": "Chisci",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "78",
+    "reference": [
+      {
+        "key": "10.1016/j.robot.2026.105358_b1",
+        "series-title": "Probabilistic Robotics",
+        "author": "Thrun",
+        "year": "2005"
+      },
+      {
+        "issue": "2",
+        "key": "10.1016/j.robot.2026.105358_b2",
+        "doi-asserted-by": "crossref",
+        "first-page": "99",
+        "DOI": "10.1109/MRA.2006.1638022",
+        "article-title": "Simultaneous localization and mapping: part i",
+        "volume": "13",
+        "author": "Durrant-Whyte",
+        "year": "2006",
+        "journal-title": "IEEE Robot. Autom. Mag."
+      },
+      {
+        "issue": "3",
+        "key": "10.1016/j.robot.2026.105358_b3",
+        "doi-asserted-by": "crossref",
+        "first-page": "108",
+        "DOI": "10.1109/MRA.2006.1678144",
+        "article-title": "Simultaneous localization and mapping (SLAM): Part II",
+        "volume": "13",
+        "author": "Bailey",
+        "year": "2006",
+        "journal-title": "IEEE Robot. Autom. Mag."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b4",
+        "series-title": "2011 IEEE International Conference on Robotics and Automation",
+        "first-page": "1732",
+        "article-title": "Visual SLAM for autonomous ground vehicles",
+        "author": "Lategahn",
+        "year": "2011"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b5",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.robot.2022.104324",
+        "article-title": "A resilient solution to range-only SLAM based on a decoupled landmark range and bearing reconstruction",
+        "volume": "160",
+        "author": "Martinelli",
+        "year": "2023",
+        "journal-title": "Robot. Auton. Syst."
+      },
+      {
+        "issue": "6",
+        "key": "10.1016/j.robot.2026.105358_b6",
+        "doi-asserted-by": "crossref",
+        "first-page": "854",
+        "DOI": "10.1002/rob.20412",
+        "article-title": "Monocular-SLAM-based navigation for autonomous micro helicopters in GPS-denied environments",
+        "volume": "28",
+        "author": "Weiss",
+        "year": "2011",
+        "journal-title": "J. Field Robot."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b7",
+        "doi-asserted-by": "crossref",
+        "first-page": "26902",
+        "DOI": "10.1109/ACCESS.2021.3053486",
+        "article-title": "Convergent communication, sensing and localization in 6G systems: an overview of technologies, opportunities and challenges",
+        "volume": "9",
+        "author": "De Lima",
+        "year": "2021",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "issue": "1",
+        "key": "10.1016/j.robot.2026.105358_b8",
+        "doi-asserted-by": "crossref",
+        "first-page": "2457",
+        "DOI": "10.1016/j.ifacol.2017.08.410",
+        "article-title": "Random set approach to distributed multivehicle SLAM",
+        "volume": "50",
+        "author": "Battistelli",
+        "year": "2017",
+        "journal-title": "IFAC-PapersOnLine"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b9",
+        "doi-asserted-by": "crossref",
+        "first-page": "40",
+        "DOI": "10.1016/j.robot.2018.02.014",
+        "article-title": "An efficient approach for undelayed range-only SLAM based on Gaussian mixtures expectation",
+        "volume": "104",
+        "author": "Fabresse",
+        "year": "2018",
+        "journal-title": "Robot. Auton. Syst."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b10",
+        "series-title": "2005 IEEE/RSJ International Conference on Intelligent Robots and Systems",
+        "first-page": "3427",
+        "article-title": "Unscented SLAM for large-scale outdoor environments",
+        "author": "Martinez-Cantin",
+        "year": "2005"
+      },
+      {
+        "issue": "11",
+        "key": "10.1016/j.robot.2026.105358_b11",
+        "doi-asserted-by": "crossref",
+        "first-page": "1207",
+        "DOI": "10.1016/j.robot.2010.08.003",
+        "article-title": "SLAM in o(logn) with the combined Kalman-information filter",
+        "volume": "58",
+        "author": "Cadena",
+        "year": "2010",
+        "journal-title": "Robot. Auton. Syst."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b12",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.robot.2022.104305",
+        "article-title": "Improvement of strong tracking UKF-SLAM approach using three-position ultrasonic detection",
+        "volume": "159",
+        "author": "Yuan",
+        "year": "2023",
+        "journal-title": "Robot. Auton. Syst."
+      },
+      {
+        "issue": "4",
+        "key": "10.1016/j.robot.2026.105358_b13",
+        "first-page": "31",
+        "article-title": "A tutorial on graph-based SLAM",
+        "volume": "2",
+        "author": "Grisetti",
+        "year": "2010",
+        "journal-title": "IEEE Intell. Transp. Syst. Mag."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b14",
+        "unstructured": "M. Montemerlo, S. Thrun, FastSLAM: A Scalable Method for the Simultaneous Localization and Mapping Problem in Robotics, vol. 27, Springer, p. 2007."
+      },
+      {
+        "issue": "2",
+        "key": "10.1016/j.robot.2026.105358_b15",
+        "doi-asserted-by": "crossref",
+        "first-page": "268",
+        "DOI": "10.1109/TRO.2010.2101370",
+        "article-title": "A random-finite-set approach to Bayesian SLAM",
+        "volume": "27",
+        "author": "Mullane",
+        "year": "2011",
+        "journal-title": "IEEE Trans. Robot."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b16",
+        "series-title": "Tracking and Data Association",
+        "author": "Bar-Shalom",
+        "year": "1988"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b17",
+        "series-title": "Statistical Multisource-Multitarget Information Fusion",
+        "author": "Mahler",
+        "year": "2007"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b18",
+        "series-title": "Random Finite Sets for Robot Mapping & SLAM: New Concepts in Autonomous Robotic Map Representations",
+        "author": "Mullane",
+        "year": "2011"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b19",
+        "series-title": "IEEE International Conference on Acoustics, Speech and Signal Processing",
+        "first-page": "5220",
+        "article-title": "Low-complexity 5G SLAM with CKF-phd filter",
+        "author": "Kim",
+        "year": "2020"
+      },
+      {
+        "issue": "2",
+        "key": "10.1016/j.robot.2026.105358_b20",
+        "doi-asserted-by": "crossref",
+        "first-page": "26",
+        "DOI": "10.1109/MRA.2014.2304111",
+        "article-title": "SLAM gets a PHD: new concepts in map estimation",
+        "volume": "21",
+        "author": "Adams",
+        "year": "2014",
+        "journal-title": "IEEE Robot. Autom. Mag."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b21",
+        "series-title": "25th International Conference on Information Fusion",
+        "first-page": "1",
+        "article-title": "Cooperative mmwave PHD-SLAM with moving scatterers",
+        "author": "Kim",
+        "year": "2022"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b22",
+        "series-title": "24th International Conference on Information Fusion",
+        "first-page": "1",
+        "article-title": "Mmwave simultaneous localization and mapping using a computationally efficient EK-PHD filter",
+        "author": "Kaltiokallio",
+        "year": "2021"
+      },
+      {
+        "issue": "5",
+        "key": "10.1016/j.robot.2026.105358_b23",
+        "doi-asserted-by": "crossref",
+        "first-page": "1834",
+        "DOI": "10.1109/TRO.2021.3052078",
+        "article-title": "2.0: Efficient SLAM in the presence of missdetections and clutter",
+        "volume": "37",
+        "author": "Gao",
+        "year": "2021",
+        "journal-title": "IEEE Trans. Robot."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b24",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1109/COMST.2022.3178209",
+        "article-title": "A tutorial on terahertz-band localization for 6G communication systems",
+        "author": "Chen",
+        "year": "2022",
+        "journal-title": "IEEE Commun. Surv. & Tutorials"
+      },
+      {
+        "issue": "3",
+        "key": "10.1016/j.robot.2026.105358_b25",
+        "doi-asserted-by": "crossref",
+        "first-page": "543",
+        "DOI": "10.1109/JSTSP.2013.2251606",
+        "article-title": "SLAM with dynamic targets via single-cluster PHD filtering",
+        "volume": "7",
+        "author": "Lee",
+        "year": "2013",
+        "journal-title": "IEEE J. Sel. Top. Signal Process."
+      },
+      {
+        "issue": "6",
+        "key": "10.1016/j.robot.2026.105358_b26",
+        "doi-asserted-by": "crossref",
+        "first-page": "2697",
+        "DOI": "10.1109/TAES.2016.150566",
+        "article-title": "Multifeature-based importance weighting for the PHD SLAM filter",
+        "volume": "52",
+        "author": "Leung",
+        "year": "2016",
+        "journal-title": "IEEE Trans. Aerosp. Electron. Syst."
+      },
+      {
+        "issue": "11",
+        "key": "10.1016/j.robot.2026.105358_b27",
+        "doi-asserted-by": "crossref",
+        "first-page": "4091",
+        "DOI": "10.1109/TSP.2006.881190",
+        "article-title": "The Gaussian mixture probability hypothesis density filter",
+        "volume": "54",
+        "author": "Vo",
+        "year": "2006",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b28",
+        "series-title": "International Conference on Information Fusion",
+        "first-page": "1119",
+        "article-title": "A hierarchical approach to the multi-vehicle SLAM problem",
+        "author": "Moratuwage",
+        "year": "2012"
+      },
+      {
+        "issue": "2",
+        "key": "10.1016/j.robot.2026.105358_b29",
+        "doi-asserted-by": "crossref",
+        "first-page": "53",
+        "DOI": "10.1109/MRA.2014.2312841",
+        "article-title": "RFS collaborative multivehicle SLAM: SLAM in dynamic high-clutter environments",
+        "volume": "21",
+        "author": "Moratuwage",
+        "year": "2014",
+        "journal-title": "IEEE Robot. Autom. Mag."
+      },
+      {
+        "issue": "6",
+        "key": "10.1016/j.robot.2026.105358_b30",
+        "doi-asserted-by": "crossref",
+        "first-page": "1758",
+        "DOI": "10.1109/TRO.2020.3001664",
+        "article-title": "Random-finite-set-based distributed multirobot SLAM",
+        "volume": "36",
+        "author": "Gao",
+        "year": "2020",
+        "journal-title": "IEEE Trans. Robot."
+      },
+      {
+        "issue": "6",
+        "key": "10.1016/j.robot.2026.105358_b31",
+        "doi-asserted-by": "crossref",
+        "first-page": "3782",
+        "DOI": "10.1109/TWC.2020.2978479",
+        "article-title": "5G mmwave cooperative positioning and mapping using multi-model PHD filter and map fusion",
+        "volume": "19",
+        "author": "Kim",
+        "year": "2020",
+        "journal-title": "IEEE Trans. Wirel. Commun."
+      },
+      {
+        "issue": "12",
+        "key": "10.1016/j.robot.2026.105358_b32",
+        "doi-asserted-by": "crossref",
+        "first-page": "3246",
+        "DOI": "10.1109/TSP.2014.2323064",
+        "article-title": "The labeled multi-Bernoulli filter",
+        "volume": "62",
+        "author": "Reuter",
+        "year": "2014",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "issue": "10",
+        "key": "10.1016/j.robot.2026.105358_b33",
+        "doi-asserted-by": "crossref",
+        "first-page": "1561",
+        "DOI": "10.1109/LSP.2015.2414274",
+        "article-title": "The labeled multi-Bernoulli SLAM filter",
+        "volume": "22",
+        "author": "Deusch",
+        "year": "2015",
+        "journal-title": "IEEE Signal Process. Lett."
+      },
+      {
+        "issue": "10",
+        "key": "10.1016/j.robot.2026.105358_b34",
+        "doi-asserted-by": "crossref",
+        "first-page": "1",
+        "DOI": "10.3390/s19102290",
+        "article-title": "\u03b4-Generalized labeled multi-Bernoulli simultaneous localization and mapping with an optimal kernel-based particle filtering approach",
+        "volume": "19",
+        "author": "Moratuwage",
+        "year": "2019",
+        "journal-title": "Sensors"
+      },
+      {
+        "issue": "6",
+        "key": "10.1016/j.robot.2026.105358_b35",
+        "doi-asserted-by": "crossref",
+        "first-page": "5908",
+        "DOI": "10.1109/TAES.2022.3182642",
+        "article-title": "Fusion of labeled RFS densities with different fields of view",
+        "volume": "58",
+        "author": "Gao",
+        "year": "2022",
+        "journal-title": "IEEE Trans. Aerosp. Electron. Syst."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b36",
+        "first-page": "1151",
+        "article-title": "Fastslam 2.0: An improved particle filtering algorithm for simultaneous localization and mapping that provably converges",
+        "volume": "vol. 3",
+        "author": "Montemerlo",
+        "year": "2003"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b37",
+        "doi-asserted-by": "crossref",
+        "first-page": "5855",
+        "DOI": "10.1109/TSP.2020.3028496",
+        "article-title": "Fusion of labeled RFS densities with minimum information loss",
+        "volume": "68",
+        "author": "Gao",
+        "year": "2020",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "issue": "9",
+        "key": "10.1016/j.robot.2026.105358_b38",
+        "doi-asserted-by": "crossref",
+        "first-page": "15409",
+        "DOI": "10.1109/JSEN.2024.3377363",
+        "article-title": "Robust and convergent distributed cooperative localization with labelled Bernoulli random finite set",
+        "volume": "24",
+        "author": "Chen",
+        "year": "2024",
+        "journal-title": "IEEE Sensors J."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b39",
+        "series-title": "International Conference on Control, Automation and Information Sciences",
+        "first-page": "1",
+        "article-title": "Distributed joint mapping and registration with limited fields-of-view",
+        "author": "Gao",
+        "year": "2019"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b40",
+        "series-title": "Advances in Statistical Multisource-Multitarget Information Fusion",
+        "author": "Mahler",
+        "year": "2014"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b41",
+        "series-title": "Signal Processing, Sensor Fusion, and Target Recognition XX",
+        "first-page": "80500H",
+        "article-title": "Bayesian unified registration and tracking",
+        "volume": "vol. 8050",
+        "author": "Mahler",
+        "year": "2011"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b42",
+        "series-title": "The Multivariate Normal Distribution",
+        "author": "Tong",
+        "year": "1990"
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b43",
+        "series-title": "Elements of Information Theory",
+        "author": "Cover",
+        "year": "2012"
+      },
+      {
+        "issue": "3",
+        "key": "10.1016/j.robot.2026.105358_b44",
+        "doi-asserted-by": "crossref",
+        "first-page": "70",
+        "DOI": "10.1109/MSP.2014.2330626",
+        "article-title": "Resampling methods for particle filtering: classification",
+        "volume": "32",
+        "author": "Li",
+        "year": "2015",
+        "journal-title": "Implement. Strat. IEEE Signal Process. Mag."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b45",
+        "doi-asserted-by": "crossref",
+        "first-page": "3242",
+        "DOI": "10.1109/TSP.2024.3422406",
+        "article-title": "Distributed adaptive Bernoulli filtering for multi-sensor target tracking under uncertainty",
+        "volume": "72",
+        "author": "Shi",
+        "year": "2024",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b46",
+        "series-title": "Fusion of labeled RFS densities with minimum information loss",
+        "author": "Gao",
+        "year": "2019"
+      },
+      {
+        "issue": "1\u20132",
+        "key": "10.1016/j.robot.2026.105358_b47",
+        "doi-asserted-by": "crossref",
+        "first-page": "83",
+        "DOI": "10.1002/nav.3800020109",
+        "article-title": "The hungarian method for the assignment problem",
+        "volume": "2",
+        "author": "Kuhn",
+        "year": "1955",
+        "journal-title": "Nav. Res. Logist. Q."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b48",
+        "doi-asserted-by": "crossref",
+        "first-page": "201",
+        "DOI": "10.1109/LSP.2019.2963817",
+        "article-title": "Multiobject fusion with minimum information loss",
+        "volume": "27",
+        "author": "Gao",
+        "year": "2020",
+        "journal-title": "IEEE Signal Process. Lett."
+      },
+      {
+        "issue": "13",
+        "key": "10.1016/j.robot.2026.105358_b49",
+        "doi-asserted-by": "crossref",
+        "first-page": "3460",
+        "DOI": "10.1109/TSP.2013.2259822",
+        "article-title": "Labeled random finite sets and multi-object conjugate priors",
+        "volume": "61",
+        "author": "Vo",
+        "year": "2013",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "issue": "5",
+        "key": "10.1016/j.robot.2026.105358_b50",
+        "doi-asserted-by": "crossref",
+        "first-page": "1410",
+        "DOI": "10.1109/TAC.2014.2357135",
+        "article-title": "Consensus-based linear and nonlinear filtering",
+        "volume": "60",
+        "author": "Battistelli",
+        "year": "2015",
+        "journal-title": "IEEE Trans. Autom. Control"
+      },
+      {
+        "issue": "3",
+        "key": "10.1016/j.robot.2026.105358_b51",
+        "doi-asserted-by": "crossref",
+        "first-page": "851",
+        "DOI": "10.1109/7.599256",
+        "article-title": "Optimizing murty\u2019s ranked assignment method",
+        "volume": "33",
+        "author": "Miller",
+        "year": "1997",
+        "journal-title": "IEEE Trans. Aerosp. Electron. Syst."
+      },
+      {
+        "issue": "4",
+        "key": "10.1016/j.robot.2026.105358_b52",
+        "doi-asserted-by": "crossref",
+        "first-page": "1255",
+        "DOI": "10.1109/TAES.2005.1561886",
+        "article-title": "Survey of maneuvering target tracking.part V. Multiple-model methods",
+        "volume": "41",
+        "author": "Li",
+        "year": "2005",
+        "journal-title": "IEEE Trans. Aerosp. Electron. Syst."
+      },
+      {
+        "issue": "8",
+        "key": "10.1016/j.robot.2026.105358_b53",
+        "doi-asserted-by": "crossref",
+        "first-page": "3447",
+        "DOI": "10.1109/TSP.2008.920469",
+        "article-title": "A consistent metric for performance evaluation of multi-object filters",
+        "volume": "56",
+        "author": "Schuhmacher",
+        "year": "2008",
+        "journal-title": "IEEE Trans. Signal Process."
+      },
+      {
+        "issue": "1",
+        "key": "10.1016/j.robot.2026.105358_b54",
+        "doi-asserted-by": "crossref",
+        "first-page": "198",
+        "DOI": "10.1109/TRO.2016.2627027",
+        "article-title": "Metrics for evaluating feature-based mapping performance",
+        "volume": "33",
+        "author": "Barrios",
+        "year": "2016",
+        "journal-title": "IEEE Trans. Robot."
+      },
+      {
+        "key": "10.1016/j.robot.2026.105358_b55",
+        "series-title": "IEEE International Conference on Robotics and Automation",
+        "article-title": "Simultaneous localization and map building: test case for outdoor applications",
+        "author": "Guivant",
+        "year": "2002"
+      }
+    ],
+    "container-title": [
+      "Robotics and Autonomous Systems"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S092188902600031X?httpAccept=text/xml",
+        "content-type": "text/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S092188902600031X?httpAccept=text/plain",
+        "content-type": "text/plain",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          7
+        ]
+      ],
+      "date-time": "2026-02-07T16:29:58Z",
+      "timestamp": 1770481798000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://linkinghub.elsevier.com/retrieve/pii/S092188902600031X"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4
+        ]
+      ]
+    },
+    "references-count": 55,
+    "alternative-id": [
+      "S092188902600031X"
+    ],
+    "URL": "https://doi.org/10.1016/j.robot.2026.105358",
+    "relation": {},
+    "ISSN": [
+      "0921-8890"
+    ],
+    "issn-type": [
+      {
+        "value": "0921-8890",
+        "type": "print"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2026,
+          4
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "Elsevier",
+        "name": "publisher",
+        "label": "This article is maintained by"
+      },
+      {
+        "value": "Efficient distributed multi-robot SLAM under missed detections and clutter with labeled multi-Bernoulli map",
+        "name": "articletitle",
+        "label": "Article Title"
+      },
+      {
+        "value": "Robotics and Autonomous Systems",
+        "name": "journaltitle",
+        "label": "Journal Title"
+      },
+      {
+        "value": "https://doi.org/10.1016/j.robot.2026.105358",
+        "name": "articlelink",
+        "label": "CrossRef DOI link to publisher maintained version"
+      },
+      {
+        "value": "article",
+        "name": "content_type",
+        "label": "Content Type"
+      },
+      {
+        "value": "\u00a9 2026 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies.",
+        "name": "copyright",
+        "label": "Copyright"
+      }
+    ],
+    "article-number": "105358"
+  }
+}
