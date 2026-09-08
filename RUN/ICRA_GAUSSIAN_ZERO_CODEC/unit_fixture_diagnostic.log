@@ -1,0 +1,11 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+PLAIN_EQUAL=0 NAN_EQUAL=1
+DIFFERENT_FIELD birthLocation NAN_EQUAL 0
+DIFFERENT_FIELD trajectory NAN_EQUAL 1
+DIFFERENT_FIELD localSpatialLogRatio NAN_EQUAL 0
+GAUSSIAN ZERO CODEC UNIT PASS: empty, opaque base, mixed signed zeros, nonzero vectors and actual Bernoulli packets all 64-bit exact; original fusion fixtures pass.

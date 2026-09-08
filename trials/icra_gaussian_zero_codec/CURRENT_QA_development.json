@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "cohort": "development",
+  "sequences": 9,
+  "source_files": 1382,
+  "node_frames": 7972,
+  "native_matlab_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "aggregate": [
+    {
+      "condition": "reliable",
+      "native_zero_codec": {
+        "raw_bytes": 54351028,
+        "delivered_raw_bytes": 54351028,
+        "wire_bytes": 88934656
+      },
+      "native_original": {
+        "raw_bytes": 64189440,
+        "delivered_raw_bytes": 64189440,
+        "wire_bytes": 101189888
+      },
+      "savings": {
+        "raw_bytes": 0.1532715038486081,
+        "delivered_raw_bytes": 0.1532715038486081,
+        "wire_bytes": 0.12111123198397056
+      },
+      "objects": 181994,
+      "nonzero_vectors": 96974
+    },
+    {
+      "condition": "intermittent",
+      "native_zero_codec": {
+        "raw_bytes": 54957898,
+        "delivered_raw_bytes": 39850714,
+        "wire_bytes": 90409216
+      },
+      "native_original": {
+        "raw_bytes": 65046560,
+        "delivered_raw_bytes": 46971552,
+        "wire_bytes": 103565568
+      },
+      "savings": {
+        "raw_bytes": 0.1550990859470508,
+        "delivered_raw_bytes": 0.151598950786212,
+        "wire_bytes": 0.12703403509552513
+      },
+      "objects": 184429,
+      "nonzero_vectors": 97283
+    }
+  ],
+  "original_reference_byte_comparisons": [
+    {
+      "condition": "reliable",
+      "reference": "marked_lineage",
+      "raw_bytes": 0.165457130172602,
+      "delivered_raw_bytes": 0.165457130172602,
+      "wire_bytes": 0.041841481006090975
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_er",
+      "raw_bytes": 0.21677054653388805,
+      "delivered_raw_bytes": 0.21677054653388805,
+      "wire_bytes": 0.059740647983478556
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_conservative",
+      "raw_bytes": 0.23970003248021077,
+      "delivered_raw_bytes": 0.23970003248021077,
+      "wire_bytes": 0.06934402058650613
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_ceiling_score",
+      "raw_bytes": 0.19089645571377578,
+      "delivered_raw_bytes": 0.19089645571377578,
+      "wire_bytes": 0.05912032901536235
+    },
+    {
+      "condition": "reliable",
+      "reference": "marked_asymmetric",
+      "raw_bytes": 0.2845898645673186,
+      "delivered_raw_bytes": 0.2845898645673186,
+      "wire_bytes": 0.11069867669297939
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_lineage",
+      "raw_bytes": 0.22878801808945304,
+      "delivered_raw_bytes": 0.2403696129394035,
+      "wire_bytes": 0.08921978947238562
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_er",
+      "raw_bytes": 0.2916417149672028,
+      "delivered_raw_bytes": 0.3053745352163757,
+      "wire_bytes": 0.13585444534142121
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_conservative",
+      "raw_bytes": 0.2675844396675,
+      "delivered_raw_bytes": 0.28195382346734466,
+      "wire_bytes": 0.09051131854660666
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_ceiling_score",
+      "raw_bytes": 0.27403672555958214,
+      "delivered_raw_bytes": 0.28793287019860125,
+      "wire_bytes": 0.11881250851398839
+    },
+    {
+      "condition": "intermittent",
+      "reference": "marked_asymmetric",
+      "raw_bytes": 0.25075371262297264,
+      "delivered_raw_bytes": 0.2667814219740201,
+      "wire_bytes": 0.10603028452420094
+    }
+  ],
+  "exact_whole_trajectory_parity": true,
+  "summary_sha256": "bbaa7ebdcefa96fb834345414351c606c8ce27e6a6263792c06d5a52e365cc4b",
+  "stage_sha256": "d02618d0c799759c256ac095c764694a5df8d60db130cc002369bb3a9fda7289",
+  "source_manifest_sha256": "121610f08c541f021c0c18daf693182c9dd5db387b5657dbedb456e7f970b962",
+  "report_sha256": "4df19bca23f9108867b8f9e72dab1e0df8cd41ad218abc05bd6e48ec319097e1",
+  "verifier_sha256": "d7a5e562f7dd059426e05221df3739d2caa79600f1d554805ea049af45396097",
+  "unit_exit_observed": 0,
+  "unit_exec_session": 98989,
+  "preflight_exit_observed": 0,
+  "preflight_exec_session": 47935,
+  "preflight_auditor_exit_observed": 0,
+  "preflight_auditor_exec_session": 76273
+}

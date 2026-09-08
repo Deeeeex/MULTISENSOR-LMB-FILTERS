@@ -1,0 +1,72 @@
+{
+  "protocol": "bit-preserving-gaussian-zero-codec-stage-v1",
+  "cohort": "development",
+  "timestamp_utc": "2026-09-08T12:59:20.174127+00:00",
+  "primary": "marked_gaussian_evidence",
+  "max_workers": 2,
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    }
+  ],
+  "reference_summary_sha256": "93905008be22b3bc9625dbde67d8fd082ca596ff3f8aae8058d52999795e10ef",
+  "source_and_evidence_sha256": {
+    "trials/icra_gaussian_zero_codec/PROTOCOL.md": "7686b27a8149b6be5aafcb04cbab5cb664163ec2c2dbc1597dd9456b194f8bbb",
+    "trials/icra_gaussian_zero_codec/source_sha256.json": "121610f08c541f021c0c18daf693182c9dd5db387b5657dbedb456e7f970b962",
+    "trials/icra_gaussian_zero_codec/preflight_audit.json": "c7bfc72cd0b5d1f370ef1dd0006d0ed81b3c2feab9e7846b72f7769eedd4cf46",
+    "trials/icra_gaussian_zero_codec/analyze_codec.py": "211dab3c9a06a6586a584c83a5f2b3f9881241bf28577732fd14dbd73970c324",
+    "trials/icra_gaussian_zero_codec/register_stage.py": "0df020346993b47e92e6c93358b053f97ce30d8f8b6903406b5ad9c262864c94",
+    "trials/icra_gaussian_zero_codec/run_sequences.py": "94224e0ec3c9a52ca33a8fb87a5c9a296b4f6cbc2e1bb11d80692cbca23d8086",
+    "trials/icra_gaussian_evidence/summary_development.json": "93905008be22b3bc9625dbde67d8fd082ca596ff3f8aae8058d52999795e10ef",
+    "trials/icra_gaussian_evidence/CURRENT_QA_development.json": "b45e5ae66a9225fa8116daebc9b2462c4bcb911726916b47a7b9ffa1a583268f",
+    "trials/icra_gaussian_evidence/ROUND_FREEZE.json": "46b29bcd4909d763069f33db18a7e2dd9a7f925b2f47bc1c69c7d1b116c5a9be"
+  },
+  "unit_exit_observed": 0,
+  "unit_exec_session": 98989,
+  "preflight_exit_observed": 0,
+  "preflight_exec_session": 47935,
+  "numerical_parameters_changed": false,
+  "complete_exact_trajectory_parity_required": true
+}
