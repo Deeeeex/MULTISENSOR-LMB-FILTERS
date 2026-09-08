@@ -1,0 +1,39 @@
+MARKED AUDITED 0000 reliable 1470 node-frames
+MARKED AUDITED 0000 intermittent 2940 node-frames
+MARKED AUDITED 0001 reliable 4080 node-frames
+MARKED AUDITED 0001 intermittent 5220 node-frames
+MARKED AUDITED 0002 reliable 6660 node-frames
+MARKED AUDITED 0002 intermittent 8100 node-frames
+reliable marked_lineage OSPA 3.4428 miss 20.212 false 11.873
+reliable marked_er OSPA 3.84289 miss 17.808 false 16.155
+reliable marked_ceiling_association OSPA 3.51509 miss 17.975 false 12.199
+reliable marked_ceiling_score OSPA 3.38058 miss 18.965 false 10.399
+reliable marked_ceiling_calibrated OSPA 3.3854 miss 18.468 false 10.65
+reliable ceiling_association OSPA 5.33944 miss 20.253 false 32.301
+reliable ceiling_score OSPA 4.41343 miss 20.583 false 20.597
+reliable ceiling_calibrated OSPA 4.58664 miss 20.253 false 23.306
+reliable qualified_exist OSPA 5.37798 miss 20.093 false 34.104
+reliable lineage OSPA 4.81284 miss 21.997 false 24.173
+reliable conservative_recency OSPA 4.46763 miss 21.994 false 19.051
+reliable confirmation_recency OSPA 5.26249 miss 20.253 false 31.125
+reliable mil_support OSPA 6.01819 miss 19.814 false 42.148
+reliable tc_ospa2_w5 OSPA 7.1134 miss 19.445 false 61.859
+reliable tc_ospa2_w10 OSPA 6.71656 miss 23.222 false 48.128
+reliable local OSPA 7.74601 miss 51.212 false 39.987
+intermittent marked_lineage OSPA 3.72186 miss 19.577 false 13.58
+intermittent marked_er OSPA 4.00423 miss 17.928 false 17.23
+intermittent marked_ceiling_association OSPA 3.76581 miss 18.013 false 14.823
+intermittent marked_ceiling_score OSPA 3.6252 miss 19.081 false 12.945
+intermittent marked_ceiling_calibrated OSPA 3.70527 miss 18.506 false 13.764
+intermittent ceiling_association OSPA 5.78337 miss 19.898 false 40.112
+intermittent ceiling_score OSPA 5.32001 miss 20.557 false 29.385
+intermittent ceiling_calibrated OSPA 5.36814 miss 19.816 false 30.764
+intermittent qualified_exist OSPA 5.73703 miss 19.653 false 39.705
+intermittent lineage OSPA 5.62589 miss 21.805 false 31.98
+intermittent conservative_recency OSPA 5.4149 miss 21.924 false 28.447
+intermittent confirmation_recency OSPA 5.53975 miss 19.898 false 34.612
+intermittent mil_support OSPA 6.07786 miss 18.171 false 47.949
+intermittent tc_ospa2_w5 OSPA 6.75604 miss 28.666 false 53.56
+intermittent tc_ospa2_w10 OSPA 6.60621 miss 32.172 false 43.874
+intermittent local OSPA 7.74601 miss 51.212 false 39.987
+MARKED DEVELOPMENT AUDIT PASSED 8100 node-frames; exact unity-mark adapter parity is a separate analytic preflight.

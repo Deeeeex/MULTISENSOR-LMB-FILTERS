@@ -1,0 +1,65 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+START iteration V2V 0000 reliable marked_lineage 147 frames
+DONE iteration V2V 0000 reliable marked_lineage OSPA 2.111240 count 0.244898 runtime 2.71s
+START iteration V2V 0000 reliable marked_er 147 frames
+DONE iteration V2V 0000 reliable marked_er OSPA 2.242465 count 0.238095 runtime 1.34s
+START iteration V2V 0000 reliable marked_ceiling_association 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_association OSPA 2.006040 count 0.224490 runtime 1.30s
+START iteration V2V 0000 reliable marked_ceiling_score 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_score OSPA 2.017360 count 0.231293 runtime 1.37s
+START iteration V2V 0000 reliable marked_ceiling_calibrated 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_calibrated OSPA 2.034734 count 0.231293 runtime 1.23s
+START iteration V2V 0000 intermittent marked_lineage 147 frames
+DONE iteration V2V 0000 intermittent marked_lineage OSPA 2.539548 count 0.289116 runtime 1.05s
+START iteration V2V 0000 intermittent marked_er 147 frames
+DONE iteration V2V 0000 intermittent marked_er OSPA 2.617595 count 0.275510 runtime 1.22s
+START iteration V2V 0000 intermittent marked_ceiling_association 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_association OSPA 2.410098 count 0.255102 runtime 1.04s
+START iteration V2V 0000 intermittent marked_ceiling_score 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_score OSPA 2.502652 count 0.275510 runtime 1.06s
+START iteration V2V 0000 intermittent marked_ceiling_calibrated 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_calibrated OSPA 2.448823 count 0.268707 runtime 1.10s
+START iteration V2V 0001 reliable marked_lineage 114 frames
+DONE iteration V2V 0001 reliable marked_lineage OSPA 4.266653 count 0.543860 runtime 1.01s
+START iteration V2V 0001 reliable marked_er 114 frames
+DONE iteration V2V 0001 reliable marked_er OSPA 5.284571 count 0.622807 runtime 0.95s
+START iteration V2V 0001 reliable marked_ceiling_association 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_association OSPA 4.624392 count 0.526316 runtime 0.90s
+START iteration V2V 0001 reliable marked_ceiling_score 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_score OSPA 4.081383 count 0.464912 runtime 0.92s
+START iteration V2V 0001 reliable marked_ceiling_calibrated 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_calibrated OSPA 4.291894 count 0.482456 runtime 0.90s
+START iteration V2V 0001 intermittent marked_lineage 114 frames
+DONE iteration V2V 0001 intermittent marked_lineage OSPA 4.671126 count 0.543860 runtime 0.80s
+START iteration V2V 0001 intermittent marked_er 114 frames
+DONE iteration V2V 0001 intermittent marked_er OSPA 5.202650 count 0.596491 runtime 0.79s
+START iteration V2V 0001 intermittent marked_ceiling_association 114 frames
+DONE iteration V2V 0001 intermittent marked_ceiling_association OSPA 4.781597 count 0.561404 runtime 0.84s
+START iteration V2V 0001 intermittent marked_ceiling_score 114 frames
+DONE iteration V2V 0001 intermittent marked_ceiling_score OSPA 4.355332 count 0.517544 runtime 0.76s
+START iteration V2V 0001 intermittent marked_ceiling_calibrated 114 frames
+DONE iteration V2V 0001 intermittent marked_ceiling_calibrated OSPA 4.673728 count 0.548246 runtime 0.76s
+START iteration V2V 0002 reliable marked_lineage 144 frames
+DONE iteration V2V 0002 reliable marked_lineage OSPA 3.950517 count 0.305556 runtime 1.28s
+START iteration V2V 0002 reliable marked_er 144 frames
+DONE iteration V2V 0002 reliable marked_er OSPA 4.001638 count 0.354167 runtime 1.03s
+START iteration V2V 0002 reliable marked_ceiling_association 144 frames
+DONE iteration V2V 0002 reliable marked_ceiling_association OSPA 3.914831 count 0.333333 runtime 1.01s
+START iteration V2V 0002 reliable marked_ceiling_score 144 frames
+DONE iteration V2V 0002 reliable marked_ceiling_score OSPA 4.043005 count 0.326389 runtime 1.02s
+START iteration V2V 0002 reliable marked_ceiling_calibrated 144 frames
+DONE iteration V2V 0002 reliable marked_ceiling_calibrated OSPA 3.829557 count 0.312500 runtime 1.01s
+START iteration V2V 0002 intermittent marked_lineage 144 frames
+DONE iteration V2V 0002 intermittent marked_lineage OSPA 3.954912 count 0.302083 runtime 1.06s
+START iteration V2V 0002 intermittent marked_er 144 frames
+DONE iteration V2V 0002 intermittent marked_er OSPA 4.192447 count 0.347222 runtime 0.94s
+START iteration V2V 0002 intermittent marked_ceiling_association 144 frames
+DONE iteration V2V 0002 intermittent marked_ceiling_association OSPA 4.105748 count 0.340278 runtime 0.93s
+START iteration V2V 0002 intermittent marked_ceiling_score 144 frames
+DONE iteration V2V 0002 intermittent marked_ceiling_score OSPA 4.017624 count 0.309028 runtime 0.94s
+START iteration V2V 0002 intermittent marked_ceiling_calibrated 144 frames
+DONE iteration V2V 0002 intermittent marked_ceiling_calibrated OSPA 3.993260 count 0.315972 runtime 0.96s
+COMPLETED iteration sequences 0000--0002 smoke=0

@@ -1,0 +1,153 @@
+{
+  "protocol": "marked-evidence-ceiling-v1",
+  "calibration_sha256": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512",
+  "per_sequence_positive_fraction": {
+    "0000": 0.6094032549728752,
+    "0001": 0.20588235294117646,
+    "0002": 0.21511627906976744,
+    "0003": 0.7804154302670623,
+    "0004": 0.9144021739130435,
+    "0005": 0.863222317107885,
+    "0006": 0.7396953405017921,
+    "0007": 0.8682404611583859,
+    "0008": 0.9858278272527051
+  },
+  "full_seen_positive_prior": 0.6869117152427436,
+  "inputs": [
+    {
+      "sequence": "0000",
+      "training_sequences": [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.6966002727764772,
+      "likelihoods_sha256": "4ac8b3a25e01a1672613225a1c5310f85be8fa94175818f29927d4f75ce3c127"
+    },
+    {
+      "sequence": "0001",
+      "training_sequences": [
+        "0000",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.7470403855304395,
+      "likelihoods_sha256": "bab0b4e87039ab3de9f45bda8a531263eaf0c68d2a98fe78e8934fa8e1cefc23"
+    },
+    {
+      "sequence": "0002",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.7458861447643657,
+      "likelihoods_sha256": "e4f55f2992626f16736360e8f77d0a711c6a803ccb207d55f769dea09835264a"
+    },
+    {
+      "sequence": "0003",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.6752237508647038,
+      "likelihoods_sha256": "06a4ab60d002260b97e597d4bd6b2de9cdf5c5cd0b211b65e597f53393d0685d"
+    },
+    {
+      "sequence": "0004",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.6584754079089561,
+      "likelihoods_sha256": "2c4741ed32e0ef07011fe0fd29d92438dcc33f13e58a66bcc40b78949bb88311"
+    },
+    {
+      "sequence": "0005",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.664872890009601,
+      "likelihoods_sha256": "1a7e70e6e1c672e01a0bdd53324a00de3a61c7561c21365f2d1c2ce65ba20ad9"
+    },
+    {
+      "sequence": "0006",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0007",
+        "0008"
+      ],
+      "positive_prior": 0.6803137620853625,
+      "likelihoods_sha256": "f6411d2f221471c7ccde906645fcd2ecdb5dd30a98643366e621c0d340a68884"
+    },
+    {
+      "sequence": "0007",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0008"
+      ],
+      "positive_prior": 0.6642456220032884,
+      "likelihoods_sha256": "15340a0fcb0babce1b11df9a8af8743e5c6937930f96379fae057ac735d33001"
+    },
+    {
+      "sequence": "0008",
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007"
+      ],
+      "positive_prior": 0.6495472012414985,
+      "likelihoods_sha256": "6f6f8f96a22986b626f536e4f78ed1803d997379211aabc73eada2ab926ae994"
+    }
+  ]
+}

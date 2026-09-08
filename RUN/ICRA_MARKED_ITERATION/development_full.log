@@ -1,0 +1,159 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+MARKED CHECK PASSED: exact unity-mark and empty-update parity, scalar Bayes identity and monotonicity, actual association support, original No-age fusion parity.
+START iteration V2V 0000 reliable marked_lineage 147 frames
+DONE iteration V2V 0000 reliable marked_lineage OSPA 2.111240 count 0.244898 runtime 2.94s
+START iteration V2V 0000 reliable marked_er 147 frames
+DONE iteration V2V 0000 reliable marked_er OSPA 2.242465 count 0.238095 runtime 1.34s
+START iteration V2V 0000 reliable marked_ceiling_association 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_association OSPA 2.006040 count 0.224490 runtime 1.31s
+START iteration V2V 0000 reliable marked_ceiling_score 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_score OSPA 2.017360 count 0.231293 runtime 1.37s
+START iteration V2V 0000 reliable marked_ceiling_calibrated 147 frames
+DONE iteration V2V 0000 reliable marked_ceiling_calibrated OSPA 2.034734 count 0.231293 runtime 1.23s
+START iteration V2V 0000 intermittent marked_lineage 147 frames
+DONE iteration V2V 0000 intermittent marked_lineage OSPA 2.539548 count 0.289116 runtime 1.06s
+START iteration V2V 0000 intermittent marked_er 147 frames
+DONE iteration V2V 0000 intermittent marked_er OSPA 2.617595 count 0.275510 runtime 1.24s
+START iteration V2V 0000 intermittent marked_ceiling_association 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_association OSPA 2.410098 count 0.255102 runtime 1.02s
+START iteration V2V 0000 intermittent marked_ceiling_score 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_score OSPA 2.502652 count 0.275510 runtime 1.04s
+START iteration V2V 0000 intermittent marked_ceiling_calibrated 147 frames
+DONE iteration V2V 0000 intermittent marked_ceiling_calibrated OSPA 2.448823 count 0.268707 runtime 1.07s
+START iteration V2V 0001 reliable marked_lineage 114 frames
+DONE iteration V2V 0001 reliable marked_lineage OSPA 4.266653 count 0.543860 runtime 1.09s
+START iteration V2V 0001 reliable marked_er 114 frames
+DONE iteration V2V 0001 reliable marked_er OSPA 5.284571 count 0.622807 runtime 0.97s
+START iteration V2V 0001 reliable marked_ceiling_association 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_association OSPA 4.624392 count 0.526316 runtime 0.85s
+START iteration V2V 0001 reliable marked_ceiling_score 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_score OSPA 4.081383 count 0.464912 runtime 0.89s
+START iteration V2V 0001 reliable marked_ceiling_calibrated 114 frames
+DONE iteration V2V 0001 reliable marked_ceiling_calibrated OSPA 4.291894 count 0.482456 runtime 0.83s
+START iteration V2V 0001 intermittent marked_lineage 114 frames
+DONE iteration V2V 0001 intermittent marked_lineage OSPA 4.671126 count 0.543860 runtime 0.79s
+START iteration V2V 0001 intermittent marked_er 114 frames
+DONE iteration V2V 0001 intermittent marked_er OSPA 5.202650 count 0.596491 runtime 0.75s
+START iteration V2V 0001 intermittent marked_ceiling_association 114 frames
+
+--------------------------------------------------------------------------------
+          Segmentation violation detected at 2026-09-08 14:31:44 +0800
+--------------------------------------------------------------------------------
+
+Configuration:
+  Crash Decoding           : Disabled - No sandbox or build area path
+  Crash Mode               : continue (default)
+  Default Encoding         : UTF-8
+  Deployed                 : false
+  Graphics Driver          : Uninitialized hardware 
+  Java Version             : Java 11.0.29+7-LTS with Amazon.com Inc. OpenJDK 64-Bit Server VM mixed mode
+  MATLAB Architecture      : maca64
+  MATLAB Entitlement ID    : 1543264
+  MATLAB Root              : /Applications/MATLAB_R2024a.app
+  MATLAB Version           : 24.1.0.2603908 (R2024a) Update 3
+  OpenGL                   : hardware
+  Operating System         : Mac OS 版本26.5.1（版号25F80）
+  Process ID               : 83538
+  Processor ID             : ABI64 ARM ARM64E HG
+  Session Key              : 56d47eeb-2b9f-4957-a788-69ce8dec66dd
+  Window System            : Quartz
+
+Fault Count: 1
+
+
+Abnormal termination:
+Segmentation violation
+
+Current Thread: 'MCR 0 interpreter thread' id 0x16cc17000
+
+Register State (from fault):
+   X0 = 0000000000000001   X1 = 0000000000000000
+   X2 = 0000000000000060   X3 = fffff0007fc00000
+   X4 = 000000010854c05c   X5 = 0000000000000073
+   X6 = ffffffffbfc007ff   X7 = fffff0003ffff800
+   X8 = 0009c55471800000   X9 = 0057ee81d9a00000
+  X10 = 0009c3de4da00000  X11 = 0009c55471800000
+  X12 = 0009c55471800000  X13 = 0000000000000001
+  X14 = 0009c3de4da00010  X15 = 0009c55471800000
+  X16 = 0000000000000001  X17 = 0000000000000001
+  X18 = 0000000000000000  X19 = 000000017fd47a16
+  X20 = 0000000000000000  X21 = 0000000000000007
+  X22 = 000000007fffffff  X23 = ffffffffffffffff
+  X24 = 00000004d1c007f8  X25 = 000000011fc0e452
+  X26 = 000000013586f9d0  X27 = 0000000000000000
+  X28 = 00000004d1c007d8
+
+   FP = 000000016cc13e80   LR = 0000000107da467c
+   SP = 000000016cc13e50   PC = 0000000107da6a5c
+
+ CPSR = 20000000
+
+
+Stack Trace (from fault):
+[  0] 0x0000000104cd6ca0 /Applications/MATLAB_R2024a.app/bin/maca64/libmwfl.dylib+00011424 _ZN10foundation4core4diag15stacktrace_base7captureERKNS1_14thread_contextEm+00000064
+[  1] 0x0000000104cd9b68 /Applications/MATLAB_R2024a.app/bin/maca64/libmwfl.dylib+00023400 _ZN10foundation4core4test17terminate_handledERKNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE+00002144
+[  2] 0x0000000104cd9028 /Applications/MATLAB_R2024a.app/bin/maca64/libmwfl.dylib+00020520 _ZN10foundation4core4diag13terminate_logEPKcPK17__darwin_ucontext+00000140
+[  3] 0x00000001106d5de0 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00482784 _Z19mnPrintErrorMessageRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE+00011892
+[  4] 0x00000001106d3c80 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00474240 _Z19mnPrintErrorMessageRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE+00003348
+[  5] 0x00000001106d1720 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00464672 mnFatalSignalHandler+00000140
+[  6] 0x00000001895e7744           /usr/lib/system/libsystem_platform.dylib+00014148 _sigtramp+00000056
+[  7] 0x0000000107da467c /Applications/MATLAB_R2024a.app/bin/maca64/libmx.dylib+00083580 _ZN6matrix12destroyArrayEP11mxArray_tag+00000280
+[  8] 0x0000000107da467c /Applications/MATLAB_R2024a.app/bin/maca64/libmx.dylib+00083580 _ZN6matrix12destroyArrayEP11mxArray_tag+00000280
+[  9] 0x000000011ca1d9ec /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_lxe.dylib+04135404 _ZN9MathWorks3lxe21assign_pointer_xvalueEPvNS_2ts4TypeEPKvS1_+00000228
+[ 10] 0x000000011c9a7e30 /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_lxe.dylib+03653168 _ZN9MathWorks3lxe25cpp_primitive_template_fnIXadL_ZNS0_21assign_pointer_xvalueEPvNS_2ts4TypeEPKvS2_EEEEbS2_S4_S6_S2_+00000020
+[ 11] 0x000000011c86390c /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_lxe.dylib+02324748 callPrimitiveWrapper+00000284
+[ 12] 0x000000011c8433f4 /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_lxe.dylib+02192372 _ZN9MathWorks3lxe15ExecutionDriver9ThreadRunEv+00000368
+[ 13] 0x000000011c849300 /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_lxe.dylib+02216704 _ZN9MathWorks3lxe12IrEngineImpl5ApplyERKN2ir4termEPvS6_+00000328
+[ 14] 0x000000011836f2b8 /Applications/MATLAB_R2024a.app/bin/maca64/libmwlxemainservices.dylib+01962680 _ZN9MathWorks3lxe17IrEngineDecorator5ApplyERKN2ir4termEPvS6_+00000100
+[ 15] 0x00000001182669fc /Applications/MATLAB_R2024a.app/bin/maca64/libmwlxemainservices.dylib+00879100 _ZN9MathWorks3lxe9Evaluator15ApplyStatementsERKNSt3__112basic_stringIDsNS2_11char_traitsIDsEENS2_9allocatorIDsEEEERKN2ir4termERNS0_18IEvaluationContextE+00000496
+[ 16] 0x000000011826c0f4 /Applications/MATLAB_R2024a.app/bin/maca64/libmwlxemainservices.dylib+00901364 _ZN9MathWorks3lxe9Evaluator17EvalStatementImplERKNSt3__112basic_stringIDsNS2_11char_traitsIDsEENS2_9allocatorIDsEEEERNS0_18IEvaluationContextE+00000440
+[ 17] 0x0000000118315088 /Applications/MATLAB_R2024a.app/bin/maca64/libmwlxemainservices.dylib+01593480 _ZN9MathWorks3lxe9LxeBridge7EvalCmdERKNSt3__112basic_stringIDsNS2_11char_traitsIDsEENS2_9allocatorIDsEEEEbNS0_10EvalSourceE+00000368
+[ 18] 0x00000001183156ec /Applications/MATLAB_R2024a.app/bin/maca64/libmwlxemainservices.dylib+01595116 _ZN9MathWorks3lxe9LxeBridge18EvalCmdInDesiredWSERKNSt3__112basic_stringIDsNS2_11char_traitsIDsEENS2_9allocatorIDsEEEEP15inWorkSpace_tagbNS0_10EvalSourceE+00000112
+[ 19] 0x0000000115da599c /Applications/MATLAB_R2024a.app/bin/maca64/libmwm_interpreter.dylib+00399772 _Z51inEvalCmdWithLocalReturnInDesiredWSAndPublishEventsRKNSt3__112basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEEEPibbP15inWorkSpace_tagN9MathWorks3lxe10EvalSourceE+00000076
+[ 20] 0x000000011587bb70 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00506736 _ZNK3iqm18InternalEvalPlugin24inEvalCmdWithLocalReturnERKNSt3__112basic_stringIDsNS1_11char_traitsIDsEENS1_9allocatorIDsEEEEP15inWorkSpace_tag+00000108
+[ 21] 0x000000011587ab9c /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00502684 _ZN3iqm18InternalEvalPlugin7executeEP15inWorkSpace_tag+00000344
+[ 22] 0x000000011585d634 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00382516 _ZN3iqm17DefaultPacketInfo7executeEP15inWorkSpace_tagRKN7mwboost10shared_ptrINS_22IntermediatePacketInfoEEEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueE+00001268
+[ 23] 0x0000000115817360 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00095072 _ZN3iqm10DefaultIqm10executeNowERKN10foundation7msg_svc8exchange6IDTypeE+00002048
+[ 24] 0x000000011582275c /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00141148 _ZN7mwboost6detail8function26void_function_obj_invoker0IZN10foundation8catapult6common10threadutil6detail20OrderedWorkQueueImpl9terminateEbEUlvE_vE6invokeERNS1_15function_bufferE+00004616
+[ 25] 0x000000010a70a9d0 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmlutil.dylib+01092048 _ZNK14cmddistributor16IIPRunNowMessage7deliverERKN10foundation7msg_svc8exchange7RoutingE+00000040
+[ 26] 0x0000000107275f88 /Applications/MATLAB_R2024a.app/bin/maca64/libmwms.dylib+00843656 _ZN10foundation7msg_svc8exchange12MessageQueue7deliverERKN7mwboost10shared_ptrIKNS1_8EnvelopeEEE+00000356
+[ 27] 0x000000010727752c /Applications/MATLAB_R2024a.app/bin/maca64/libmwms.dylib+00849196 _ZN10foundation7msg_svc8exchange19NoQueueMessageQueue6submitERKN7mwboost10shared_ptrIKNS1_8EnvelopeEEE+00000304
+[ 28] 0x000000010725e0f8 /Applications/MATLAB_R2024a.app/bin/maca64/libmwms.dylib+00745720 _ZN10foundation7msg_svc8exchange15DefaultExchange7deliverERKN7mwboost10shared_ptrIKNS1_8EnvelopeEEE+00000352
+[ 29] 0x000000010725c3d8 /Applications/MATLAB_R2024a.app/bin/maca64/libmwms.dylib+00738264 _ZN10foundation7msg_svc8exchange15DefaultExchange17submitWithRoutingERKN7mwboost10shared_ptrIKNS1_7MessageEEERKNS1_7RoutingEj+00000664
+[ 30] 0x000000010725dd28 /Applications/MATLAB_R2024a.app/bin/maca64/libmwms.dylib+00744744 _ZN10foundation7msg_svc8exchange15DefaultExchange6submitERKN7mwboost10shared_ptrIKNS1_7MessageEEERKNS1_7AddressEj+00000216
+[ 31] 0x000000010a686da8 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmlutil.dylib+00552360 _ZN3tbb10interface519concurrent_hash_mapIN10foundation7msg_svc8exchange6IDTypeEN7mwboost8weak_ptrIN14cmddistributor18DefaultDistributorEEENS3_10threadutil4HashIS5_EENS_13tbb_allocatorINSt3__14pairIKS5_SA_EEEEE28allocate_node_copy_constructERNSE_INSK_4nodeEEERSH_PKSA_+00000476
+[ 32] 0x000000010a6875a4 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmlutil.dylib+00554404 _ZN3tbb10interface519concurrent_hash_mapIN10foundation7msg_svc8exchange6IDTypeEN7mwboost8weak_ptrIN14cmddistributor18DefaultDistributorEEENS3_10threadutil4HashIS5_EENS_13tbb_allocatorINSt3__14pairIKS5_SA_EEEEE28allocate_node_copy_constructERNSE_INSK_4nodeEEERSH_PKSA_+00002520
+[ 33] 0x00000001055352d0 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmvm.dylib+00103120 _ZN14cmddistributor21FEvalCmdRequestTraitsINSt3__16vectorIN10foundation10matlabdata5ArrayENS1_9allocatorIS5_EEEEE13extractResultERNS_9IIPResultE+00011332
+[ 34] 0x0000000105534674 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmvm.dylib+00099956 _ZN14cmddistributor21FEvalCmdRequestTraitsINSt3__16vectorIN10foundation10matlabdata5ArrayENS1_9allocatorIS5_EEEEE13extractResultERNS_9IIPResultE+00008168
+[ 35] 0x0000000110680208 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00131592 _ZNK7mwboost10shared_ptrIKNS_16exception_detail10clone_baseEE3getEv+00077552
+[ 36] 0x0000000110685efc /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00155388 _ZN7mwboost6detail8function26void_function_obj_invoker0INS_3_bi6bind_tINS3_11unspecifiedENS4_IS5_NS_8functionIFvvEEENS3_5list0EEENS3_5list1INS_17reference_wrapperINS_7promiseIvEEEEEEEEvE6invokeERNS1_15function_bufferE+00004588
+[ 37] 0x0000000110682d50 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00142672 _ZN14cmddistributor15PackagedTaskIIP13getTypeStringIvEENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEv+00000928
+[ 38] 0x0000000110682c0c /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00142348 _ZN14cmddistributor15PackagedTaskIIP13getTypeStringIvEENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEv+00000604
+[ 39] 0x0000000115884a08 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00543240 _ZN3iqm18PackagedTaskPlugin7executeEP15inWorkSpace_tag+00000088
+[ 40] 0x000000011585d634 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00382516 _ZN3iqm17DefaultPacketInfo7executeEP15inWorkSpace_tagRKN7mwboost10shared_ptrINS_22IntermediatePacketInfoEEEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueE+00001268
+[ 41] 0x000000011580db60 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00056160 _ZN3iqm10DefaultIqm7dequeueERKN7mwboost8optionalIKP15inWorkSpace_tagEEN14cmddistributor11IqmStreamIDERKNS1_9function2IN6mlutil14cmddistributor17inExecutionStatusERKNSt3__112basic_stringIDsNSF_11char_traitsIDsEENSF_9allocatorIDsEEEES5_EE+00001832
+[ 42] 0x0000000116d33a18 /Applications/MATLAB_R2024a.app/bin/maca64/libmwbridge.dylib+00064024 _Z10ioReadLinebP7__sFILERKN7mwboost8optionalIKP15inWorkSpace_tagEEbRbRKNS1_9function2IN6mlutil14cmddistributor17inExecutionStatusERKNSt3__112basic_stringIDsNSE_11char_traitsIDsEENSE_9allocatorIDsEEEES5_EE+00000212
+[ 43] 0x0000000116d54130 /Applications/MATLAB_R2024a.app/bin/maca64/libmwbridge.dylib+00196912 _Z22mnGetCommandLineBufferbRbN7mwboost8optionalIKP15inWorkSpace_tagEEbRKNS0_9function2IN6mlutil14cmddistributor17inExecutionStatusERKNSt3__112basic_stringIDsNSA_11char_traitsIDsEENSA_9allocatorIDsEEEES4_EE+00000288
+[ 44] 0x0000000116d546d8 /Applications/MATLAB_R2024a.app/bin/maca64/libmwbridge.dylib+00198360 _Z8mnParserv+00000436
+[ 45] 0x00000001106a0578 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00263544 _ZN3mcr7runtime13initializeIqmERKN6mlutil10contextmgr5McrIDE+00005320
+[ 46] 0x0000000110682d50 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00142672 _ZN14cmddistributor15PackagedTaskIIP13getTypeStringIvEENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEv+00000928
+[ 47] 0x0000000110682c0c /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00142348 _ZN14cmddistributor15PackagedTaskIIP13getTypeStringIvEENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEv+00000604
+[ 48] 0x0000000115884a08 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00543240 _ZN3iqm18PackagedTaskPlugin7executeEP15inWorkSpace_tag+00000088
+[ 49] 0x000000011585d634 /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00382516 _ZN3iqm17DefaultPacketInfo7executeEP15inWorkSpace_tagRKN7mwboost10shared_ptrINS_22IntermediatePacketInfoEEEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueE+00001268
+[ 50] 0x000000011581d35c /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00119644 _ZN3iqm10DefaultIqm13dequeueHelperEN7mwboost8optionalImEERKNSt3__112basic_stringIDsNS4_11char_traitsIDsEENS4_9allocatorIDsEEEEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueERKNS4_8functionIFbRKNS4_5tupleIJSG_NS1_10shared_ptrINS_22IntermediatePacketInfoEEESA_SA_NS4_10shared_ptrIN14cmddistributor16CoalesceableDataEEEEEEEEE+00001356
+[ 51] 0x000000011581052c /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00066860 _ZN3iqm10DefaultIqm15dequeueInternalEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueEN7mwboost8optionalImEE+00000860
+[ 52] 0x000000011581d78c /Applications/MATLAB_R2024a.app/bin/maca64/libmwiqm.dylib+00120716 _ZN3iqm10DefaultIqm7dequeueEN6mlutil14cmddistributor13WhenToDequeue13WhenToDequeueEN7mwboost8optionalImEE+00000124
+[ 53] 0x000000011068d8cc /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00186572 _ZN3mcr7runtime22InterpreterThreadMulti14process_eventsEv+00000228
+[ 54] 0x000000011068e054 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00188500 _ZN3mcr7runtime22InterpreterThreadMulti10threadMainENSt3__18functionIFvvEEENS2_7promiseIvEE+00000372
+[ 55] 0x000000011068f908 /Applications/MATLAB_R2024a.app/bin/maca64/libmwmcr.dylib+00194824 _ZN3mcr7runtime22InterpreterThreadMulti10threadMainENSt3__18functionIFvvEEENS2_7promiseIvEE+00006696
+[ 56] 0x0000000104bca868 /Applications/MATLAB_R2024a.app/bin/maca64/libmwboost_thread.dylib+00010344 _ZN7mwboost6thread21start_thread_noexceptEv+00000444
+[ 57] 0x00000001895ddc58            /usr/lib/system/libsystem_pthread.dylib+00027736 _pthread_start+00000136
+[ 58] 0x00000001895d8c1c            /usr/lib/system/libsystem_pthread.dylib+00007196 thread_start+00000008
+
+** This crash report has been saved to disk as /Users/dex/matlab_crash_dump.83538-1 **
+
+
+
+MATLAB is exiting because of fatal error

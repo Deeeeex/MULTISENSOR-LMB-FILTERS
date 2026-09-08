@@ -1,0 +1,16 @@
+{
+  "commands": [
+    {
+      "sequence": "0000",
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_marked_iteration'); runMarkedEvidenceReplay(0,0,false);"
+      ],
+      "returncode": -9,
+      "completion_line": false
+    }
+  ],
+  "overlap_parity_files": []
+}
