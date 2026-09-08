@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\caption{V2V4Real replay over nine sequences (1,993 frames). OSPA: equal-weight mean $\pm$ sequence SD (m); count: cardinality MAE; false: GOSPA squared false-target cost (m$^2$).}
+\label{tab:real}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+& \multicolumn{3}{c}{Reliable links} & \multicolumn{3}{c}{Intermittent links}\\
+Method & OSPA & Count & False & OSPA & Count & False\\
+\midrule
+Local & $6.575\pm1.928$ & 2.227 & 73.86 & $6.575\pm1.928$ & 2.227 & 73.86\\
+MIL-AM & $5.177\pm1.905$ & 1.361 & 92.13 & $5.309\pm1.949$ & 1.457 & 94.35\\
+TC-OSPA$^2$ (5) & $5.690\pm2.185$ & 1.489 & 115.12 & $5.792\pm1.815$ & 1.704 & 103.60\\
+TC-OSPA$^2$ (10) & $5.574\pm2.047$ & 1.448 & 101.10 & $5.765\pm1.760$ & 1.700 & 93.09\\
+ER & $4.875\pm1.868$ & 1.291 & 83.97 & $5.119\pm1.870$ & 1.375 & 85.57\\
+\midrule
+ER w/o age (ablation) & $4.713\pm1.755$ & 1.316 & 77.24 & $5.109\pm1.809$ & 1.402 & 81.11\\
+\bottomrule
+\end{tabular}
+\end{table*}

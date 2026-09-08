@@ -37,9 +37,9 @@ an observation-history rule qualifies fusion inputs, and the time since a
 robot's last direct sensing opportunity determines its existence weight.
 Second, we derive the resulting Bernoulli pool from a two-block variational
 formulation and establish its fixed-input spatial invariance. Third, we
-evaluate discovery, departure, and false-track behavior in mobile robot
-teams, with ablations that separate input qualification, recency placement,
-and track confirmation.
+evaluate transfer to public two-vehicle real detections and use two
+eight-robot event families as mechanism case studies, with external fusion
+comparisons and ablations of qualification, recency placement, and confirmation.
 
 \section{Related Work}
 \subsection{Robot sensor fusion}
@@ -83,6 +83,9 @@ consensus information selector~\cite{jin2024selector}. Communication-aware
 adaptive KLA/LMB weights account for network constraints
 \cite{lang2026adaptive}, while label assignment methods address
 inconsistent identities across nodes~\cite{li2019labelmatching}.
+Nguyen \emph{et al.} use finite-history trajectory consensus under limited
+FoV, maintaining local filtering independently of fused tracks
+\cite{nguyen2021tc}. We include this distinct fusion architecture explicitly.
 Building on these approaches, we examine where a direct-observation age
 factor should enter the Bernoulli fusion recursion.
 

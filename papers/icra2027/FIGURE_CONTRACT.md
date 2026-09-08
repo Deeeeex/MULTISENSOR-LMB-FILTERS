@@ -61,3 +61,18 @@ labels and citation claims; parse SVG for live text and PDF for embedded
 fonts. Editing layout may not select trials, alter values, smooth curves,
 or hide an adverse arm. Tables retain complete arm coverage even if the
 plots focus on the preregistered comparisons.
+
+5. `v2v4real`: quantitative grid, existing Python/matplotlib backend.
+   Claim: the real-detection replay has heterogeneous sequence outcomes;
+   an existence-age gain over its own no-age ablation does not transfer
+   consistently. Two aligned heatmaps show ER minus each comparator's OSPA
+   for all nine sequences under reliable and intermittent links. Include
+   no-age, MIL-AM, and both TC windows without outcome selection. Center the
+   diverging color scale at zero and display the actual signed values; use
+   one symmetric color range across both panels. Negative favors ER.
+   Source: the independently rescored complete 18-case replay summary.
+   Double-column, about 181 x 65 mm; vector SVG/PDF and 300 dpi PNG.
+   The main table reports absolute errors and sequence SD; paired sequence
+   bootstrap intervals are in the prose and source data. No cell is an
+   independent significance test. Labels 0000--0008 denote released
+   evaluation sequences, not nine independently sampled driving routes.

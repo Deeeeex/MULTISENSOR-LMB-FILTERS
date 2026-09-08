@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{Internal mechanism ablations. OSPA (m) is averaged over twenty trials. RMSE ratios use common assignment support relative to ER w/o age; false costs are squared GOSPA components (m$^2$).}
+\label{tab:ablation}
+\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+& \multicolumn{3}{c}{OSPA} & \multicolumn{2}{c}{Common-target RMSE ratio} & \multicolumn{2}{c}{False cost}\\
+Method & Split & Churn & No-new & Split & Churn & Departure & No-new\\
+\midrule
+ER w/o age & 2.651 & 1.123 & 0.797 & 1.0000 & 1.0000 & 10.785 & 0.679\\
+Age-all & 2.912 & 1.960 & 0.745 & -- & -- & 9.690 & 0.004\\
+ER (both) & 2.589 & 0.937 & 0.752 & 1.1685 & 1.0307 & 10.905 & 0.570\\
+Confirmed ER & 2.607 & 1.519 & 0.652 & 1.0018 & 1.0028 & 10.815 & 0.004\\
+ER & 2.569 & 0.846 & 0.668 & 0.9999 & 0.9998 & 12.255 & 0.570\\
+\bottomrule
+\end{tabular}
+\end{table*}

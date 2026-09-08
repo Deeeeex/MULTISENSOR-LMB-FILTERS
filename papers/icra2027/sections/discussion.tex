@@ -1,7 +1,7 @@
 \section{Discussion and Conclusion}
 ER uses observation history to select participating inputs and direct
 sensing age to weight existence, while retaining ordinary spatial weights.
-Across the three mobile-robot scenarios, this separation reduces set error
+In the robot case studies, this separation reduces set error
 relative to ER without recency. In split--rejoin and churn--departure, it
 also avoids the common-target localization degradation of applying age to
 both blocks. A robot's direct sensing age
@@ -13,6 +13,19 @@ False-track rejection introduces a further tradeoff. ER retains some false
 hypotheses, and the two-hit confirmation gate reduces no-new false cost at
 the expense of discovery during short sensing contacts. The departure and
 acquisition results show why set error, localization, false cost, and
-discovery delay should be evaluated together. An adaptive confirmation rule
-that accounts for sensing-contact duration is a concrete direction for
-extending this approach.
+discovery delay should be evaluated together.
+
+The real-detection replay broadens the evidence beyond these prescribed
+events and removes shared truth-informed birth schedules. It also exposes
+a transfer limit: the complete ER configuration improves on the evaluated
+external adaptations, but its age term adds no consistent OSPA gain over
+the no-age ablation and increases false cost. The case-study effect should
+therefore be interpreted as conditional on sensing and contact history.
+
+The replay uses two vehicles, a cropped planar task, approximate Gaussian
+detector likelihoods, moving ego coordinates without motion compensation,
+and emulated radio loss. It establishes neither full 3-D benchmark ranking
+nor performance in a larger real robot network. Label matching and detector
+calibration also affect existence decisions. Improving that calibration and
+testing contact-dependent confirmation are concrete next steps before
+claiming a broadly transferable recency benefit.

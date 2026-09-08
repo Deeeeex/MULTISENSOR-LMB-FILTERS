@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "2b84aa1e12903fdb50e3b3fba75a9af0f1c6717fc26b0b16c736838b46dc33d7",
-  "pages": 7,
+  "pdf_sha256": "9a4cd0c93645a109ea89727aeceded4669f2b207ae4ea65c16218059c0e79bfc",
+  "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 1777,
+  "text_spans_in_page_bounds": 2137,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -97,20 +97,24 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/GJMHKB+CMR9": {
+    "/GJMHKB+CMR6": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/NITCSQ+CMMI9": {
+    "/NITCSQ+CMR9": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/UBBQTN+CMSY9": {
+    "/UBBQTN+CMMI9": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/LPOGEQ+CMR6": {
+    "/LPOGEQ+CMSY9": {
       "subtype": "/Type1",
+      "embedded": true
+    },
+    "/BMQQDV+DejaVuSans": {
+      "subtype": "/Type0",
       "embedded": true
     }
   },
@@ -149,17 +153,32 @@
       "no_embedded_raster": true,
       "label_bounds_pass": true,
       "svg_sha256": "ccbb45316f94ef7ade7469ebe5bade1f90821b7a3a4309d245a3dc8267d571ca"
+    },
+    "v2v4real": {
+      "live_svg_text_elements": 104,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "17e0d7d135f84646b1d9c26177a07ef35b2364d5689cc465bab948da44bd40f1"
     }
   },
   "validation_seeds_per_family": 20,
   "validation_arm_runs": 540,
   "audited_validation_node_frames": 518400,
   "scalar_facts_match_audited_summary": true,
+  "external_tc_cases": 60,
+  "external_tc_added_arm_runs": 120,
+  "audited_external_tc_node_frames": 115200,
+  "real_sequences": 9,
+  "real_frames": 1993,
+  "real_sequence_condition_arm_runs": 108,
+  "audited_real_node_frames": 47832,
   "citation_keys_resolved": [
     "autoware2026tracker",
     "battistelli2014kla",
+    "chiu2024dmstrack",
     "dames2020search",
     "decster2024",
+    "gao2019milpreprint",
     "gao2020mil",
     "gao2022differentfov",
     "gao2026lmbslam",
@@ -171,12 +190,14 @@
     "li2020multiview",
     "li2021cphd",
     "moore2016robotlocalization",
+    "nguyen2021tc",
     "ramachandran2021reconfiguration",
     "reuter2014lmb",
     "schuhmacher2008ospa",
     "shan2020liosam",
     "uney2019cardinality",
-    "wang2018multiview"
+    "wang2018multiview",
+    "xu2023v2v4real"
   ],
   "citation_scope": "DOI metadata, author BibTeX, official documentation and public SSRN metadata; see LITERATURE_SCOPE.md",
   "limitations": "Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check."

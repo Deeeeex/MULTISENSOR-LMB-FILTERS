@@ -7,8 +7,11 @@ spatial weights, and applies observation recency to existence terms.
 Both detections and missed detections update the local observation age,
 which remains unchanged by relaying. A two-block variational formulation
 establishes that this weighting preserves the fused spatial density for
-fixed inputs. Across three eight-robot simulation scenarios with twenty
-Monte Carlo trials each, ER reduces mean OSPA by \GainSplit\% and
+fixed inputs. On nine public V2V4Real sequences with real per-vehicle
+detections, ER has lower mean OSPA than the evaluated MIL and track-consensus
+adaptations, but its age factor does not consistently improve its no-age
+ablation. Two eight-robot mechanism case studies, each with twenty
+Monte Carlo trials, show OSPA reductions of \GainSplit\% and
 \GainChurn\% relative to its no-recency ablation in split--rejoin and
 churn--departure scenarios. Common-target localization RMSE remains within
 0.02\% of that ablation, whereas applying recency to both blocks increases

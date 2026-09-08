@@ -35,11 +35,33 @@ a successful HTTP response.
   https://arxiv.org/html/1911.01083v1, Proposition 3 and Sections IV/V-C:
   exact constrained LMB MIL and label-subspace fusion. `mil` implements
   zero-extension pooling; `mil_support` implements its represented-label
-  subspace specialization with known common labels. Neither is a complete
-  end-to-end reproduction with independent-label association.
+  subspace specialization with known common labels in the case studies.
+  The new MIL-AM real replay also implements the public v1 manuscript's
+  augmented independent-label assignment and common/exclusive subspaces,
+  using exact Gaussian symmetric KL and moment-projected MIL mixtures.
+  Its assignment and arithmetic moments have numerical checks. The source
+  is explicitly cited as arXiv:1911.01083v1, not silently mapped to a later
+  publication version.
 - Gao et al., TAES 2022, DOI 10.1109/TAES.2022.3182642: publisher abstract
   confirms FoV label decomposition, constrained MIL, and label assignment.
-  Do not represent the general unequal-FoV problem as unsolved.
+  The University of Florence record marks the accepted manuscript closed.
+  Complete TAES 2022 implementation equivalence is not established. Do not
+  represent the general unequal-FoV problem as unsolved.
+- Nguyen et al., TSP 2021, DOI 10.1109/TSP.2021.3103125, pp. 5329--5344:
+  author paper arXiv:2012.12990 and pinned AdelaideAuto-IDLab MATLAB code
+  checked. Unchanged author kinematic TC-OSPA2 functions are used on common
+  Local-LMB outputs with windows 5/10 and independent node labels. Eighteen
+  multi-node adapter outputs exactly match the author's entry point.
+  No density feedback is preserved. Network-wide reporting-label
+  reconciliation is excluded; set metrics do not validate identity consensus.
+- Xu et al., V2V4Real, CVPR 2023, DOI 10.1109/CVPR52729.2023.01318,
+  pp. 13712--13722; Chiu et al., DMSTrack, ICRA 2024,
+  DOI 10.1109/ICRA57147.2024.10610487, pp. 18458--18464:
+  paper metadata and the DMSTrack author data release were checked. Use all
+  nine released evaluation sequences, per-source no-fusion detections,
+  evaluation labels and relative transforms. Author postprocessing already
+  places both sources' detections in the current ego frame. This work does
+  not reproduce DMSTrack's learned filtering or full 3-D benchmark scores.
 - Li et al., Signal Processing 2021, DOI 10.1016/j.sigpro.2021.108210:
   publisher abstract explicitly recognizes useful out-of-current-FoV
   information from history and relays. Our distinction is a lightweight
@@ -64,10 +86,12 @@ a successful HTTP response.
   and must be described in third person if cited. This manuscript reuses
   LMB/KLA code; it does not claim the estimator core as a new contribution.
 
-The paper is an evidence-bounded simulation study with a modest fusion rule.
-It has no hardware validation, raw LiDAR/image perception, localization error,
-arbitrary label matching, universal calibration or consensus convergence
-result. Neither the v2 nor v3 combinations passed their balanced development
+The paper combines two simulated mechanism case studies and a no-new control
+with an exploratory cropped 2-D two-vehicle real-detection replay. It has no
+hardware execution, raw LiDAR/image processing, pose-error robustness,
+universal calibration or consensus convergence result. The age term has no
+consistent real-data OSPA advantage over its own no-age ablation. Neither
+the v2 nor v3 combinations passed their balanced development
 gate. The simpler v1 Age-all arm passed its initial direction screen, but
 lost to the lineage control and worsened common-target localization.
 Preserving those facts is necessary even if validation yields conditional gains.

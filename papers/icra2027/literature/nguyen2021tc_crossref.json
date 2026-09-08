@@ -1,0 +1,669 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        9,
+        1
+      ]
+    ],
+    "date-time": "2026-09-01T15:29:49Z",
+    "timestamp": 1788276589343,
+    "version": "build-2803163510"
+  },
+  "reference-count": 71,
+  "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2021,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2021-01-01T00:00:00Z",
+        "timestamp": 1609459200000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/Crown.html"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2021,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2021-01-01T00:00:00Z",
+        "timestamp": 1609459200000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-029"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2021,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2021-01-01T00:00:00Z",
+        "timestamp": 1609459200000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-037"
+    }
+  ],
+  "funder": [
+    {
+      "DOI": "10.13039/501100000923",
+      "name": "Australian Research Council",
+      "doi-asserted-by": "publisher",
+      "id": [
+        {
+          "id": "10.13039/501100000923",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "name": "Linkage Project",
+      "award": [
+        "LP160101177"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "LP160101177"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Discovery Project",
+      "award": [
+        "DP160104662"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "DP160104662"
+          ]
+        }
+      ]
+    }
+  ],
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [
+    "IEEE Trans. Signal Process."
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2021
+      ]
+    ]
+  },
+  "DOI": "10.1109/tsp.2021.3103125",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2021,
+        8,
+        13
+      ]
+    ],
+    "date-time": "2021-08-13T15:54:14Z",
+    "timestamp": 1628870054000
+  },
+  "page": "5329-5344",
+  "source": "Crossref",
+  "is-referenced-by-count": 65,
+  "title": [
+    "Distributed Multi-Object Tracking Under Limited Field of View Sensors"
+  ],
+  "prefix": "10.1109",
+  "volume": "69",
+  "author": [
+    {
+      "ORCID": "https://orcid.org/0000-0002-6878-5102",
+      "authenticated-orcid": false,
+      "given": "Hoa Van",
+      "family": "Nguyen",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0002-8659-8773",
+      "authenticated-orcid": false,
+      "given": "Hamid",
+      "family": "Rezatofighi",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0003-4202-7722",
+      "authenticated-orcid": false,
+      "given": "Ba-Ngu",
+      "family": "Vo",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0002-2008-9255",
+      "authenticated-orcid": false,
+      "given": "Damith C.",
+      "family": "Ranasinghe",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "263",
+  "reference": [
+    {
+      "key": "ref71",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2019.2946023"
+    },
+    {
+      "key": "ref70",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LSP.2015.2414274"
+    },
+    {
+      "key": "ref39",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.sigpro.2019.107246"
+    },
+    {
+      "key": "ref38",
+      "doi-asserted-by": "crossref",
+      "first-page": "2759",
+      "DOI": "10.1109/TAES.2019.2893083",
+      "article-title": "Fusion of finite-set distributions: Pointwise consistency and global cardinality",
+      "volume": "55",
+      "author": "\u00fcney",
+      "year": "2019",
+      "journal-title": "IEEE Trans Aerosp Electron Syst"
+    },
+    {
+      "key": "ref33",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICIF.2002.1021196"
+    },
+    {
+      "key": "ref32",
+      "article-title": "Consensus labeled random finite set filtering for distributed multi-object tracking",
+      "author": "fantacci",
+      "year": "2015"
+    },
+    {
+      "key": "ref31",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/ic.2010.0233"
+    },
+    {
+      "key": "ref30",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/NSSPW.2006.4378844"
+    },
+    {
+      "key": "ref37",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2019.2957638"
+    },
+    {
+      "key": "ref36",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2017.2760286"
+    },
+    {
+      "key": "ref35",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LSP.2018.2811750"
+    },
+    {
+      "key": "ref34",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2016.2617825"
+    },
+    {
+      "key": "ref60",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1002/nav.3800020109"
+    },
+    {
+      "key": "ref62",
+      "doi-asserted-by": "crossref",
+      "first-page": "173",
+      "DOI": "10.1002/net.3230010206",
+      "article-title": "On some techniques useful for solution of transportation network problems",
+      "volume": "1",
+      "author": "tomizawa",
+      "year": "1971",
+      "journal-title": "Networks"
+    },
+    {
+      "key": "ref61",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1137/0105003"
+    },
+    {
+      "key": "ref63",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/321694.321699"
+    },
+    {
+      "key": "ref28",
+      "author": "cover",
+      "year": "2012",
+      "journal-title": "Elements of Information Theory"
+    },
+    {
+      "key": "ref64",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1007/BF02278710"
+    },
+    {
+      "key": "ref27",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2019.2928953"
+    },
+    {
+      "key": "ref65",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2013.2257765"
+    },
+    {
+      "key": "ref66",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.1986.310815"
+    },
+    {
+      "key": "ref29",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2010.5595611"
+    },
+    {
+      "key": "ref67",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2016.2641392"
+    },
+    {
+      "key": "ref68",
+      "first-page": "63",
+      "article-title": "A scheme for robust distributed sensor fusion based on average consensus",
+      "author": "xiao",
+      "year": "0",
+      "journal-title": "Proc 4th Int Symp Inf Process Sensor Netw"
+    },
+    {
+      "key": "ref69",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSMCA.2004.824848"
+    },
+    {
+      "key": "ref2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TRO.2010.2101370"
+    },
+    {
+      "key": "ref1",
+      "author": "blackman",
+      "year": "1999",
+      "journal-title": "Design and Analysis of Modern Tracking Systems"
+    },
+    {
+      "key": "ref20",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2003.1261119"
+    },
+    {
+      "key": "ref22",
+      "doi-asserted-by": "crossref",
+      "first-page": "409",
+      "DOI": "10.1109/TSP.2008.2007924",
+      "article-title": "The cardinality balanced multi-target multi-Bernoulli filter and its implementations",
+      "volume": "57",
+      "author": "vo",
+      "year": "2009",
+      "journal-title": "IEEE Trans Signal Process"
+    },
+    {
+      "key": "ref21",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2007.4441756"
+    },
+    {
+      "key": "ref24",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2014.2323064"
+    },
+    {
+      "key": "ref23",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2014.2370946"
+    },
+    {
+      "key": "ref26",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2014.2364014"
+    },
+    {
+      "key": "ref25",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2013.2259822"
+    },
+    {
+      "key": "ref50",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2002.1008994"
+    },
+    {
+      "key": "ref51",
+      "first-page": "553",
+      "article-title": "Track-to-track association metric IID-non-Poisson cases",
+      "author": "mori",
+      "year": "0",
+      "journal-title": "Proc 6th Int Conf Inf Fusion"
+    },
+    {
+      "key": "ref59",
+      "first-page": "1",
+      "article-title": "On performance evaluation of multi-object filters",
+      "author": "schuhmacher",
+      "year": "2008",
+      "journal-title": "2008 11th International Conference on Information Fusion FUSION"
+    },
+    {
+      "key": "ref58",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2020.2986136"
+    },
+    {
+      "key": "ref57",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.23919/ICIF.2018.8455700"
+    },
+    {
+      "key": "ref56",
+      "first-page": "86",
+      "article-title": "OSPA$^{\\text{(2)}}$: Using the OSPA metric to evaluate multi-target tracking performance",
+      "author": "beard",
+      "year": "0",
+      "journal-title": "Proc 7th Proc Int Conf Control Automat Inf Sci"
+    },
+    {
+      "key": "ref55",
+      "first-page": "1996",
+      "article-title": "Comparison of track fusion rules and track association metrics",
+      "author": "mori",
+      "year": "0",
+      "journal-title": "Proc 15th Int Conf Inf Fusion"
+    },
+    {
+      "key": "ref54",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1007/978-3-662-44785-7_2"
+    },
+    {
+      "key": "ref53",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2014.120687"
+    },
+    {
+      "key": "ref52",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2008.4560213"
+    },
+    {
+      "key": "ref10",
+      "author": "mahler",
+      "year": "2007",
+      "journal-title": "Statistical Multisource-Multitarget Information Fusion"
+    },
+    {
+      "key": "ref11",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAC.1979.1102177"
+    },
+    {
+      "key": "ref40",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.ins.2017.01.028"
+    },
+    {
+      "key": "ref12",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSTSP.2013.2250911"
+    },
+    {
+      "key": "ref13",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.automatica.2013.11.042"
+    },
+    {
+      "key": "ref14",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2018.2880704"
+    },
+    {
+      "key": "ref15",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2018.2848340"
+    },
+    {
+      "key": "ref16",
+      "doi-asserted-by": "crossref",
+      "first-page": "14",
+      "DOI": "10.1109/MSP.2006.1657813",
+      "article-title": "Distributed signal processing in sensor networks",
+      "volume": "23",
+      "author": "luo",
+      "year": "2006",
+      "journal-title": "IEEE Signal Process Mag"
+    },
+    {
+      "key": "ref17",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPROC.1997.554211"
+    },
+    {
+      "key": "ref18",
+      "first-page": "128",
+      "article-title": "Optimal/robust distributed data fusion: A unified approach",
+      "author": "mahler",
+      "year": "0",
+      "journal-title": "Proc Signal Process Sensor Fusion Target Recognit IX"
+    },
+    {
+      "key": "ref19",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSTSP.2013.2257162"
+    },
+    {
+      "key": "ref4",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/34.481539"
+    },
+    {
+      "key": "ref3",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1002/rob.21857"
+    },
+    {
+      "key": "ref6",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/IVS.2017.7995809"
+    },
+    {
+      "key": "ref5",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MITS.2010.937293"
+    },
+    {
+      "key": "ref8",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TMI.2015.2390647"
+    },
+    {
+      "key": "ref7",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.patcog.2012.04.004"
+    },
+    {
+      "key": "ref49",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/62.821657"
+    },
+    {
+      "key": "ref9",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2938639"
+    },
+    {
+      "key": "ref46",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSIPN.2019.2924196"
+    },
+    {
+      "key": "ref45",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2020.2985643"
+    },
+    {
+      "key": "ref48",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/7.625124"
+    },
+    {
+      "key": "ref47",
+      "first-page": "247",
+      "article-title": "Distributed multitarget multisensor tracking",
+      "author": "chong",
+      "year": "1990",
+      "journal-title": "Multitarget-Multisensor Tracking Advanced Applications"
+    },
+    {
+      "key": "ref42",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2018.2882960"
+    },
+    {
+      "key": "ref41",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSEN.2018.2882084"
+    },
+    {
+      "key": "ref44",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LSP.2019.2963817"
+    },
+    {
+      "key": "ref43",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSEN.2020.3004068"
+    }
+  ],
+  "container-title": [
+    "IEEE Transactions on Signal Processing"
+  ],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "http://xplorestaging.ieee.org/ielx7/78/9307529/09513575.pdf?arnumber=9513575",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2022,
+        5,
+        10
+      ]
+    ],
+    "date-time": "2022-05-10T10:50:33Z",
+    "timestamp": 1652179833000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "https://ieeexplore.ieee.org/document/9513575/"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2021
+      ]
+    ]
+  },
+  "references-count": 71,
+  "URL": "https://doi.org/10.1109/tsp.2021.3103125",
+  "relation": {},
+  "ISSN": [
+    "1053-587X",
+    "1941-0476"
+  ],
+  "issn-type": [
+    {
+      "value": "1053-587X",
+      "type": "print"
+    },
+    {
+      "value": "1941-0476",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2021
+      ]
+    ]
+  }
+}

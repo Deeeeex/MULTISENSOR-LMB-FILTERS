@@ -81,7 +81,7 @@ def check():
         assert (HERE / filename).read_bytes() == (HERE / 'official_template' / filename).read_bytes()
 
     figures = {}
-    for name in ['overview', 'scene', 'mechanism', 'outcomes', 'time']:
+    for name in ['overview', 'scene', 'mechanism', 'outcomes', 'time', 'v2v4real']:
         svg = ET.parse(HERE / 'figures' / f'{name}.svg')
         live = [x for x in svg.iter() if x.tag.endswith('}text')]
         assert live and not any(x.tag.endswith('}image') for x in svg.iter())
@@ -110,6 +110,23 @@ def check():
         for prefix, value in expected.items():
             assert math.isclose(facts[prefix + suffix], value, rel_tol=1e-12, abs_tol=1e-12)
 
+    external={}
+    for name in ['case_studies','v2v4real']:
+        snapshot=HERE/'source_data'/('external_'+name+'_summary.json')
+        original=HERE.parents[1]/'trials/icra_external_fusion'/('summary_'+name+'.json')
+        external[name]=json.loads(snapshot.read_text())
+        if original.exists():assert json.loads(original.read_text())==external[name]
+    assert external['case_studies']['audited_new_node_frames']==115200
+    real=external['v2v4real']
+    assert real['audited_node_frames']==47832 and real['frames']==1993 and len(real['runs'])==108
+    for condition,suffix in [('reliable','Reliable'),('intermittent','Intermittent')]:
+        rows={r['arm']:r for r in real['aggregate'] if r['condition']==condition}
+        for arm,prefix in [('qualified_exist','RealEr'),('lineage','RealNoAge'),('mil_support','RealMil'),('tc_ospa2_w5','RealTcFive'),('tc_ospa2_w10','RealTcTen')]:
+            assert math.isclose(facts[prefix+suffix],rows[arm]['ospa']['mean'],abs_tol=1e-12)
+        pair=next(r for r in real['paired'] if r['condition']==condition and r['reference']=='lineage')['ospa']
+        for key,prefix in [('mean','RealDelta'),('low','RealDeltaLow'),('high','RealDeltaHigh')]:
+            assert math.isclose(facts[prefix+suffix],pair[key],abs_tol=1e-12)
+
     tex = '\n'.join(p.read_text() for p in [HERE / 'main.tex', *(HERE / 'sections').glob('*.tex'),
                                          *(HERE / 'main_figure_integrated').glob('*.tex')])
     assert not re.search(r'\b(seed|frozen|hash|audit|v[234])\b', tex, flags=re.I)
@@ -126,6 +143,10 @@ def check():
               'official_class_and_bst_unmodified': True, 'figures': figures,
               'validation_seeds_per_family': 20, 'validation_arm_runs': 540,
               'audited_validation_node_frames': 518400, 'scalar_facts_match_audited_summary': True,
+              'external_tc_cases':60, 'external_tc_added_arm_runs':120,
+              'audited_external_tc_node_frames':115200,
+              'real_sequences':9, 'real_frames':1993, 'real_sequence_condition_arm_runs':108,
+              'audited_real_node_frames':47832,
               'citation_keys_resolved': sorted(cited),
               'citation_scope': 'DOI metadata, author BibTeX, official documentation and public SSRN metadata; see LITERATURE_SCOPE.md',
               'limitations': 'Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check.'}

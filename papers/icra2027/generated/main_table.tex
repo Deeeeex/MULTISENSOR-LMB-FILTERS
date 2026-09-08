@@ -1,6 +1,6 @@
 \begin{table*}[t]
 \centering
-\caption{Set estimation over twenty paired Monte Carlo trials per scenario. OSPA is mean $\pm$ trial SD (m); count denotes mean absolute cardinality error.}
+\caption{Mechanism case studies and no-new control: twenty paired trials each. OSPA is mean $\pm$ trial SD (m); count is cardinality MAE. TC uses local track histories without density feedback; MIL-Z/S use shared label keys.}
 \label{tab:main}
 \small
 \begin{tabular}{lrrrrrr}
@@ -10,13 +10,11 @@ Method & OSPA & Count & OSPA & Count & OSPA & Count\\
 \midrule
 Local & $7.099\pm0.454$ & 1.368 & $7.280\pm0.537$ & 1.308 & $6.004\pm0.839$ & 0.645\\
 FoV & $3.713\pm0.584$ & 0.614 & $2.867\pm0.551$ & 0.442 & $0.804\pm0.163$ & 0.056\\
-ER w/o age & $2.651\pm0.106$ & 0.411 & $1.123\pm0.421$ & 0.143 & $0.797\pm0.264$ & 0.056\\
 MIL-Z & $4.812\pm0.499$ & 0.641 & $4.204\pm0.574$ & 0.452 & $2.765\pm0.854$ & 0.032\\
 MIL-S & $4.762\pm0.506$ & 0.624 & $4.112\pm0.582$ & 0.431 & $2.769\pm0.854$ & 0.033\\
-Age-all & $2.912\pm0.123$ & 0.466 & $1.960\pm0.533$ & 0.292 & $0.745\pm0.172$ & 0.043\\
-ER (both) & $2.589\pm0.090$ & 0.399 & $0.937\pm0.250$ & 0.115 & $0.752\pm0.233$ & 0.045\\
+TC-OSPA$^2$ (5) & $5.050\pm0.491$ & 0.861 & $5.538\pm0.648$ & 0.857 & $3.532\pm0.998$ & 0.305\\
+TC-OSPA$^2$ (10) & $5.096\pm0.496$ & 0.867 & $5.598\pm0.655$ & 0.870 & $3.578\pm1.000$ & 0.308\\
 ER & $2.569\pm0.110$ & 0.398 & $0.846\pm0.205$ & 0.103 & $0.668\pm0.219$ & 0.040\\
-Confirmed ER & $2.607\pm0.107$ & 0.403 & $1.519\pm0.440$ & 0.220 & $0.652\pm0.157$ & 0.037\\
 \bottomrule
 \end{tabular}
 \end{table*}

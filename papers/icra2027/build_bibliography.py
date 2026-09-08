@@ -28,7 +28,7 @@ for key,record in records.items():
     b=re.sub(r'\bDOI=\{[^}]*\},?\s*','',b,flags=re.I)
     match=re.search(r'title=\{([^}]+)\}',b)
     title=match.group(1)
-    for acronym in ['LMB','KLA','RFS','PHD','CPHD','SLAM','LIO-SAM','Autoware']:
+    for acronym in ['LMB','KLA','RFS','PHD','CPHD','SLAM','LIO-SAM','Autoware','V2V4Real','3D']:
         title=re.sub(r'\b'+acronym+r'\b','{'+acronym+'}',title)
     b=b[:match.start(1)]+title+b[match.end(1):]
     b=b.replace('IEEE Transactions on Signal Processing','IEEE Trans. Signal Process.')

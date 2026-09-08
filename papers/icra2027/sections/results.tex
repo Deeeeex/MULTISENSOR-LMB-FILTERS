@@ -1,7 +1,42 @@
 \section{Results}
+\input{generated/real_table}
+\subsection{Transfer to real detections}
+Table~\ref{tab:real} reports all nine sequences. With reliable links,
+ER's macro-average OSPA is \RealErReliable\ m, compared with
+\RealMilReliable\ m for MIL-AM and \RealTcFiveReliable/\RealTcTenReliable\ m
+for TC windows five/ten. With intermittent links, the corresponding values
+are \RealErIntermittent, \RealMilIntermittent, and
+\RealTcFiveIntermittent/\RealTcTenIntermittent\ m.
+ER beats MIL-AM in seven of nine reliable-link sequences and eight of nine
+intermittent-link sequences, and each TC window in eight of nine sequences
+under either condition. Sequence 0004 favors MIL-AM and TC over ER.
+
+The age factor itself does not yield a consistent transfer gain.
+Relative to ER w/o age, paired OSPA differences are
+$+\RealDeltaReliable$ m [\RealDeltaLowReliable, \RealDeltaHighReliable]
+with reliable links and $+\RealDeltaIntermittent$ m
+[\RealDeltaLowIntermittent, \RealDeltaHighIntermittent] with intermittent
+links. Both intervals include zero. ER improves OSPA in five of nine
+sequences under each condition, but increases mean false-target cost by
+6.73 and 4.46 m$^2$, respectively. Thus the external-method comparison
+supports the full fusion configuration in this replay; it does not isolate
+a benefit of recency. Figure~\ref{fig:real} retains every sequence comparison.
+
+\begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{figures/v2v4real.pdf}
+ \caption{Real-detection replay: ER minus comparator OSPA for each released
+ evaluation sequence. Blue/negative values favor ER; orange/positive values
+ favor the comparator. All nine sequences and both radio conditions are
+ shown with one color scale. Cells are sequence summaries, not independent
+ significance tests.}
+ \label{fig:real}
+\end{figure*}
+
 \input{generated/main_table}
-\subsection{Existence recency and set estimation}
-Table~\ref{tab:main} compares set estimation across the three scenarios.
+\input{generated/ablation_table}
+\subsection{Case studies: existence recency and set estimation}
+Tables~\ref{tab:main} and~\ref{tab:ablation} separate external/control
+comparisons from mechanism ablations.
 Relative to ER without recency, ER reduces mean OSPA from \LineageSplit\ to
 \ErSplit\ m in split--rejoin and from \LineageChurn\ to \ErChurn\ m in
 churn--departure. The paired differences are
@@ -14,10 +49,13 @@ Cardinality error decreases in all three scenarios. In the
 reunion windows, OSPA is 2.533 versus 3.264 m in split--rejoin and 0.926
 versus 1.248 m in churn--departure (ER versus ER w/o age).
 
-FoV and the two MIL controls have higher OSPA than ER. Support partitioning
-improves MIL in the two event scenarios, while both controls incur larger
-localization and false-target costs. Local has the largest OSPA, consistent
-with evaluating global target sets while robots are separated.
+FoV, MIL-Z/S, and both TC windows have higher OSPA than ER in these
+case studies. TC uses independent local histories and no density feedback,
+whereas recursive density fusion relays information over successive tree
+edges. Since every robot is scored against the global target set, this
+architectural difference contributes to the large TC gap; it cannot be
+attributed to the age factor. Support partitioning improves MIL in the two
+event cases. Local has the largest OSPA, consistent with its limited coverage.
 
 \begin{figure*}[t]
  \centering\includegraphics[width=\textwidth]{figures/outcomes.pdf}
@@ -32,7 +70,7 @@ with evaluating global target sets while robots are separated.
 \end{figure*}
 
 \subsection{Where the age factor belongs}
-Table~\ref{tab:common} and Fig.~\ref{fig:outcomes}(b) distinguish existence
+Table~\ref{tab:ablation} and Fig.~\ref{fig:outcomes}(b) distinguish existence
 gains from localization. With the same observation-history qualification,
 ER (both) increases common-target RMSE relative to ER w/o age by 16.8\%
 in split--rejoin and 3.1\% in churn--departure. ER leaves this RMSE almost
@@ -40,10 +78,9 @@ unchanged, with ratios of 0.9999 and 0.9998. This agrees with the motivation in
 Fig.~\ref{fig:mechanism}: recent direct sensor opportunity is useful for
 existence weighting, while a posterior also retains spatial information
 from earlier observations and robot encounters.
-\input{generated/common_table}
 
 \subsection{False hypotheses and the confirmation tradeoff}
-Table~\ref{tab:false} shows the false-hypothesis tradeoff. ER's mean
+Table~\ref{tab:ablation} shows the false-hypothesis tradeoff. ER's mean
 post-departure false cost is 12.255 m$^2$, compared with 10.785 m$^2$ for
 ER w/o age. The paired difference is $+1.470$ m$^2$
 [$-0.705$, $3.795$].
@@ -57,23 +94,16 @@ opportunities. In churn, ER acquires 160/160 opposite-subteam robot--target
 queries, while Confirmed ER acquires 152/160. Among successful acquisitions,
 mean delays are 2.47 and 7.63 s, respectively. The remaining eight Confirmed
 ER queries are unacquired by their censoring time.
-The unsmoothed trajectories in Fig.~\ref{fig:time} show why discovery and
-post-departure persistence should be evaluated separately.
-\input{generated/false_table}
-
-\begin{figure*}[t]
- \centering\includegraphics[width=\textwidth]{figures/time.pdf}
- \caption{Mean trajectories across twenty Monte Carlo trials; no
- smoothing is applied. Dotted event markers indicate late birth at 17 s
- and, in churn, departure at 45 s. ER and ER (both) improve set error
- relative to ER w/o age while differing in localization and false-target
- persistence.}
- \label{fig:time}
-\end{figure*}
+Discovery and post-departure persistence therefore require separate metrics.
 
 \subsection{Communication cost}
-All communicating methods use the same attempted and delivered
+In the case studies, all communicating methods use the same attempted and delivered
 messages for each paired trial. Mean attempted wire cost is 24.98 MiB
 for split--rejoin and no-new, and 25.74 MiB for churn--departure. Across communicating methods and
 scenarios, mean unpadded payload totals range from 2.14 to 9.85 MiB;
-the padded message budget is identical.
+the padded message budget is identical. TC's raw payloads are 0.68--1.76 MiB.
+In the real replay, equal packet opportunities yield different fragment
+costs: mean attempted wire volume per sequence is 8.22/8.24 MiB for ER,
+9.97/9.85 MiB for MIL-AM, and 6.97/6.97 MiB for either TC window
+(reliable/intermittent). ER's raw payloads are 4.35/4.48 MiB, compared with
+1.35/2.64 MiB for TC windows five/ten. This is not an equal-byte comparison.

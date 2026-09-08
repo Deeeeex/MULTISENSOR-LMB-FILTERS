@@ -16,5 +16,21 @@
   "LineageNonew": 0.7965669726538064,
   "DeltaNonew": -0.12869600364041553,
   "DeltaLowNonew": -0.16663075716910145,
-  "DeltaHighNonew": -0.0953288170347925
+  "DeltaHighNonew": -0.0953288170347925,
+  "RealErReliable": 4.874530255208301,
+  "RealNoAgeReliable": 4.7129156310852895,
+  "RealMilReliable": 5.177462053503716,
+  "RealTcFiveReliable": 5.689523545758116,
+  "RealTcTenReliable": 5.57406433298183,
+  "RealDeltaReliable": 0.16161462412301006,
+  "RealDeltaLowReliable": -0.09184583982760225,
+  "RealDeltaHighReliable": 0.5173277280418769,
+  "RealErIntermittent": 5.119282857359237,
+  "RealNoAgeIntermittent": 5.108579506458074,
+  "RealMilIntermittent": 5.308937726150273,
+  "RealTcFiveIntermittent": 5.792454053947437,
+  "RealTcTenIntermittent": 5.764697320897827,
+  "RealDeltaIntermittent": 0.010703350901163169,
+  "RealDeltaLowIntermittent": -0.07736162524510348,
+  "RealDeltaHighIntermittent": 0.1355987496653243
 }

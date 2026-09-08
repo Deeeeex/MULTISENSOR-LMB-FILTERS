@@ -1,7 +1,7 @@
 \section{Problem and Fusion Rule}
 \subsection{Robot, sensing, and communication model}
-There are $N$ robots with known poses $s_i(t)$ and a common clock. A physical
-edge exists when two robots are within radio range. A reliable geometry
+There are $N$ robots with known poses $s_i(t)$ and a common clock. In the
+case studies, a physical edge exists within radio range and a geometry
 coordinator selects a bidirectional minimum spanning tree in each connected
 component. At each time, a robot predicts its LMB, updates with its own
 measurement set, and exchanges the resulting posterior for one synchronous
@@ -9,11 +9,12 @@ fusion round. A dropped neighbor's Metropolis weight returns to the receiver's
 self weight. Fusion output is retained as the prior for the next local step.
 Communication cost includes coordinator traffic and lossy posterior messages.
 
-A label $\ell=(t_b,b)$ specifies a shared birth time and candidate region.
+A label $\ell$ identifies a Bernoulli after cross-source label alignment.
 For represented label $\ell$, source $j$ supplies
 $\pi_j^\ell=(r_j^\ell,p_j^\ell)$, where $r_j^\ell\in[0,1]$ and
 $p_j^\ell(x)$ is a Gaussian-mixture density over position and velocity.
-All robots use the same birth priors and label keys.
+The case studies use shared birth keys; the real-detection replay uses
+independent measurement-driven births and pairwise label assignment.
 
 \subsection{Observation history and participation}
 Each retained Bernoulli carries two metadata values. The history flag
@@ -37,7 +38,8 @@ excluded as untouched priors. Otherwise they retain ordinary participation.
 An absent label contributes a negative existence censor only when the
 represented spatial density places at least half its Gaussian-mean mass
 inside that source's current FoV, with expected detection at least $0.1$.
-Its existence upper bound is $0.01$. Other absent sources abstain. Such
+Its existence upper bound is the transmission threshold ($0.01$ in the
+case studies, $0.001$ in the replay). Other absent sources abstain. Such
 censors are qualified negative evidence and are never assigned a spatial
 density. The flags propagate only through actual participating inputs.
 FoV occupancy is approximated at the Gaussian-component means.
@@ -108,8 +110,10 @@ most three components per input for the powered-mixture calculation, at
 most 256 component tuples, and at most eight output components. A
 non-admissible approximate overlap normalizer triggers a
 moment-matched fallback. This provides a finite-mixture approximation of
-the weighted density product. All methods retain the same eight-component cap, prediction,
-measurement-update code, and MAP-cardinality extraction. We call the rule
+the weighted density product. The case studies use this mixture cap;
+the real replay uses one moment-matched Gaussian per Bernoulli. Density
+methods share prediction, measurement update, and MAP-cardinality extraction
+within each evaluation. We call the rule
 \emph{existence recency} (ER); using $q$ in both blocks is the distinct
 \emph{ER (both)} ablation.
 
@@ -123,10 +127,10 @@ local. Ordinary FoV-aware pooling applies before confirmation. This two-hit
 rule tests the tradeoff between false-track rejection and discovery during
 short sensing contacts.
 
-All communicating methods transmit the full retained mixture and identical
-metadata. Each attempted
-packet occupies 16,384 bytes, with a fixed 128-byte-per-robot control charge
-per frame. Padding isolates fusion at equal attempted wire cost. We also
-report unpadded payloads because differing mixture sizes can change actual
-data volume. The method adds constant metadata per represented label and
-linear-time weight calculations.
+Density methods transmit the retained Gaussian parameters, labels, and
+metadata; trajectory methods transmit local track histories. Each directed
+link permits one packet per scan, divided into 16,384-byte fragments as
+needed, with a modeled 128-byte-per-robot control charge. We report raw
+payloads and fragment costs separately. Shared geometry is an input whose
+transport cost is excluded. ER adds constant metadata per represented label
+and linear-time weight calculations.
