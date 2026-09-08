@@ -1,0 +1,223 @@
+{
+  "protocol": "evidence-tempered-recency-v1",
+  "timestamp_utc": "2026-09-08T10:05:20.400895+00:00",
+  "primary": "marked_tempered_calibrated",
+  "arms": [
+    "marked_tempered_calibrated",
+    "marked_tempered_score",
+    "marked_tempered_association"
+  ],
+  "primary_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "additional_references": [
+    "marked_conservative",
+    "marked_ceiling_calibrated",
+    "marked_ceiling_score"
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "all_previous_real_data_outcomes_seen": true,
+  "primary_selected_before_preflight": true,
+  "secondary_cannot_replace_primary": true,
+  "continuation_rule": "All nine development sequences complete; primary sequence-macro OSPA lower than M-No-age and M-ER in both conditions and no higher than M-CR in both conditions. Otherwise reject expansion, retain all secondary results.",
+  "units": [
+    {
+      "cohort": "development",
+      "sequence": 0,
+      "index": 0
+    },
+    {
+      "cohort": "development",
+      "sequence": 1,
+      "index": 1
+    },
+    {
+      "cohort": "development",
+      "sequence": 2,
+      "index": 2
+    },
+    {
+      "cohort": "development",
+      "sequence": 3,
+      "index": 3
+    },
+    {
+      "cohort": "development",
+      "sequence": 4,
+      "index": 4
+    },
+    {
+      "cohort": "development",
+      "sequence": 5,
+      "index": 5
+    },
+    {
+      "cohort": "development",
+      "sequence": 6,
+      "index": 6
+    },
+    {
+      "cohort": "development",
+      "sequence": 7,
+      "index": 7
+    },
+    {
+      "cohort": "development",
+      "sequence": 8,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 1,
+      "index": 0
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 2,
+      "index": 1
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 3,
+      "index": 2
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 4,
+      "index": 3
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 6,
+      "index": 4
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 7,
+      "index": 5
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 8,
+      "index": 6
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 9,
+      "index": 7
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 11,
+      "index": 8
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 12,
+      "index": 9
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 13,
+      "index": 10
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 14,
+      "index": 11
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 16,
+      "index": 12
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 17,
+      "index": 13
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 18,
+      "index": 14
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 19,
+      "index": 15
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 21,
+      "index": 16
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 22,
+      "index": 17
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 23,
+      "index": 18
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 24,
+      "index": 19
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 26,
+      "index": 20
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 27,
+      "index": 21
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 28,
+      "index": 22
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 29,
+      "index": 23
+    },
+    {
+      "cohort": "seen_transfer",
+      "sequence": 31,
+      "index": 24
+    }
+  ],
+  "source_and_evidence_sha256": {
+    "trials/icra_tempered_iteration/PROTOCOL.md": "f9b01b42a05fbb4cbe3d29048a9128d3deee4aaa238975e450cf6525c90ac282",
+    "trials/icra_tempered_iteration/source_sha256.json": "daf41c65b9f31060a29c7db57df917db82e52542167428cd65557ea59194bcf5",
+    "trials/icra_tempered_iteration/preflight_audit.json": "06a3b6bdd1df0518d95093624caf939913fe5104682ae28b5793c47afa2f8bbf",
+    "trials/icra_tempered_iteration/analyze_tempered.py": "e042fb9b20aa64fe14c23164e629bf40b25762dba3d258441b577644a4b3a00b",
+    "trials/icra_tempered_iteration/run_sequences.py": "c42fd5fa748efd6d27c9391bdf38faf184ba5ac70b2ed894d5b9bbed3bcf75b9",
+    "trials/icra_tempered_iteration/register_round.py": "f8d43cd68abf214a9ef484da866a50cb849e0789dd1baeb4930294f02986a77e",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_fusion_holdout/input_audit.json": "048d3669371014d2ae4df3b55e6545bbeafb1ec4030c4e59fcc3570f63284719",
+    "trials/icra_marked_control/analyze_control.py": "97881dc02ee2aaa7a5e9a76ea23787e0932b50a9de8b3cfd54b1fc43296ece2c",
+    "trials/icra_marked_control/analyze_full.py": "deca84edf1b89e63e1573722bb1302ef3acb0fd5c68a9072da41f09a7bb58253",
+    "trials/icra_marked_control/summary_control.json": "7908d81b4da1d648d28fe0c7b3be5478531b3bc4babed05ea56add5717bf7118",
+    "trials/icra_method_iteration/analyze_development.py": "ce6493b3f9cc96a5b4931ebcb6cec09e2c7ad221e64a04e12bef86b4223e54cb",
+    "trials/icra_external_fusion/analyze_v2v4real.py": "2fc87d20e0114e65a687f788872e37d5d08f11eba2d7c66f51327fa913fd9399",
+    "trials/icra_external_fusion/analyze_case_studies.py": "20aa71fb679b3ea1a7708b83e226fe43d9df5f61845fa8e6965cc9a1922b453b"
+  }
+}

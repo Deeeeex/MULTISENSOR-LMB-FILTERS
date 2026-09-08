@@ -1,0 +1,20 @@
+TEMPERED AUDITED development 0000 1 / 9
+TEMPERED AUDITED development 0001 2 / 9
+TEMPERED AUDITED development 0002 3 / 9
+TEMPERED AUDITED development 0003 4 / 9
+TEMPERED AUDITED development 0004 5 / 9
+TEMPERED AUDITED development 0005 6 / 9
+TEMPERED AUDITED development 0006 7 / 9
+TEMPERED AUDITED development 0007 8 / 9
+TEMPERED AUDITED development 0008 9 / 9
+development reliable marked_tempered_calibrated minus marked_lineage {'mean': -0.019916081075588003, 'sd': 0.08758215745747275, 'low': -0.07398803211232631, 'high': 0.031103291241605397, 'n': 9}
+development reliable marked_tempered_calibrated minus marked_er {'mean': -0.11974222556587616, 'sd': 0.3008836556974427, 'low': -0.32928179278499375, 'high': 0.016497536144880722, 'n': 9}
+development reliable marked_tempered_calibrated minus marked_conservative {'mean': 0.006687574651915631, 'sd': 0.15529715769159508, 'low': -0.0709732708248699, 'high': 0.11595663315154932, 'n': 9}
+development reliable marked_tempered_calibrated minus marked_ceiling_calibrated {'mean': 0.01673677467182697, 'sd': 0.0633836955437712, 'low': -0.01902103473476885, 'high': 0.057294075239266065, 'n': 9}
+development reliable marked_tempered_calibrated minus marked_ceiling_score {'mean': 0.026187160762870768, 'sd': 0.11295676644605225, 'low': -0.026020652286761394, 'high': 0.10458238852232801, 'n': 9}
+development intermittent marked_tempered_calibrated minus marked_lineage {'mean': -0.025236979909778762, 'sd': 0.13213698283410932, 'low': -0.11237758072478733, 'high': 0.050781388491898415, 'n': 9}
+development intermittent marked_tempered_calibrated minus marked_er {'mean': -0.09420458568354763, 'sd': 0.20513501091546016, 'low': -0.23212360457605447, 'high': 0.015611902551979084, 'n': 9}
+development intermittent marked_tempered_calibrated minus marked_conservative {'mean': 0.017372142007926077, 'sd': 0.1265814673337383, 'low': -0.04759220133891312, 'high': 0.10511178179401776, 'n': 9}
+development intermittent marked_tempered_calibrated minus marked_ceiling_calibrated {'mean': 0.03184722589151149, 'sd': 0.06056064589758467, 'low': -0.001897249653076645, 'high': 0.07183616600359291, 'n': 9}
+development intermittent marked_tempered_calibrated minus marked_ceiling_score {'mean': 0.05605133369388011, 'sd': 0.1107405467517733, 'low': 0.00023282925065649877, 'high': 0.1313099182357479, 'n': 9}
+ALL TEMPERED OUTPUTS AUDITED development 23916 new node-frames; 39860 baseline node-frames; continuation False

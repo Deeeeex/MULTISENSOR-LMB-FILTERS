@@ -1,0 +1,267 @@
+{
+  "passed": true,
+  "independently_scored_node_frames": 2352,
+  "exact_er_node_frames": 588,
+  "full_er_fields_exact_except_runtime": true,
+  "scalar_radio_packet_and_extraction_checked": true,
+  "source_files": 1305,
+  "rows": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_er",
+      "frames": 147,
+      "ospa": 2.242465426652271,
+      "gospa": 2.7810313707372782,
+      "loc2": 0.2633034218581524,
+      "miss2": 13.714285714285714,
+      "false2": 9.306122448979592,
+      "countError": 0.23809523809523808,
+      "raw_bytes": 609904,
+      "delivered_raw_bytes": 609904,
+      "wire_bytes": 4854528,
+      "runtime_s": 4.171468583333334,
+      "diagnostics": {
+        "arm": "marked_er",
+        "labels": 3228,
+        "positive_age_labels": 1256,
+        "constrained_below_er": 0,
+        "preserved_above_cr": 1256,
+        "mean_positive_gate": 0.26947925566106157
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_tempered_calibrated",
+      "frames": 147,
+      "ospa": 2.0173212516806927,
+      "gospa": 2.4486387345229725,
+      "loc2": 0.16381656300403227,
+      "miss2": 15.183673469387756,
+      "false2": 4.408163265306122,
+      "countError": 0.23129251700680273,
+      "raw_bytes": 652656,
+      "delivered_raw_bytes": 652656,
+      "wire_bytes": 4854528,
+      "runtime_s": 2.1217157916666665,
+      "diagnostics": {
+        "arm": "marked_tempered_calibrated",
+        "labels": 3354,
+        "positive_age_labels": 1272,
+        "constrained_below_er": 1270,
+        "preserved_above_cr": 660,
+        "mean_positive_gate": 0.4894039185399596,
+        "same_input": {
+          "no_age": {
+            "ospa": 2.073716566930038,
+            "gospa": 2.5050417718373073,
+            "loc2": 0.16381656300403227,
+            "miss2": 15.183673469387756,
+            "false2": 4.8979591836734695,
+            "countError": 0.23809523809523808
+          },
+          "ER": {
+            "ospa": 2.048101844527892,
+            "gospa": 2.5045003071467073,
+            "loc2": 0.2533097806605719,
+            "miss2": 14.204081632653061,
+            "false2": 5.877551020408164,
+            "countError": 0.22448979591836735
+          },
+          "candidate": {
+            "ospa": 2.0173212516806927,
+            "gospa": 2.4486387345229725,
+            "loc2": 0.16381656300403227,
+            "miss2": 15.183673469387756,
+            "false2": 4.408163265306122,
+            "countError": 0.23129251700680273
+          }
+        }
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_tempered_score",
+      "frames": 147,
+      "ospa": 2.017343342335203,
+      "gospa": 2.448670026734206,
+      "loc2": 0.16386055573923256,
+      "miss2": 15.183673469387756,
+      "false2": 4.408163265306122,
+      "countError": 0.23129251700680273,
+      "raw_bytes": 652872,
+      "delivered_raw_bytes": 652872,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.826376875,
+      "diagnostics": {
+        "arm": "marked_tempered_score",
+        "labels": 3346,
+        "positive_age_labels": 1288,
+        "constrained_below_er": 1284,
+        "preserved_above_cr": 660,
+        "mean_positive_gate": 0.345634100460722
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_tempered_association",
+      "frames": 147,
+      "ospa": 2.0060407347406026,
+      "gospa": 2.4316553170413346,
+      "loc2": 0.26448266948006527,
+      "miss2": 13.714285714285714,
+      "false2": 5.387755102040816,
+      "countError": 0.22448979591836735,
+      "raw_bytes": 657624,
+      "delivered_raw_bytes": 657624,
+      "wire_bytes": 4854528,
+      "runtime_s": 2.015117125,
+      "diagnostics": {
+        "arm": "marked_tempered_association",
+        "labels": 3378,
+        "positive_age_labels": 1284,
+        "constrained_below_er": 1284,
+        "preserved_above_cr": 662,
+        "mean_positive_gate": 0.5150055326006878
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_er",
+      "frames": 147,
+      "ospa": 2.6175947589940143,
+      "gospa": 3.307663128448342,
+      "loc2": 1.3339431341298043,
+      "miss2": 14.204081632653061,
+      "false2": 10.53061224489796,
+      "countError": 0.2755102040816326,
+      "raw_bytes": 610736,
+      "delivered_raw_bytes": 449376,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.4555952083333332,
+      "diagnostics": {
+        "arm": "marked_er",
+        "labels": 2407,
+        "positive_age_labels": 830,
+        "constrained_below_er": 0,
+        "preserved_above_cr": 826,
+        "mean_positive_gate": 0.2727800236652988
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_tempered_calibrated",
+      "frames": 147,
+      "ospa": 2.5345428426819643,
+      "gospa": 3.1379660995274636,
+      "loc2": 1.285010841870562,
+      "miss2": 15.428571428571429,
+      "false2": 7.346938775510204,
+      "countError": 0.282312925170068,
+      "raw_bytes": 626304,
+      "delivered_raw_bytes": 468344,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.5435756666666667,
+      "diagnostics": {
+        "arm": "marked_tempered_calibrated",
+        "labels": 2509,
+        "positive_age_labels": 802,
+        "constrained_below_er": 802,
+        "preserved_above_cr": 441,
+        "mean_positive_gate": 0.5014308755860654,
+        "same_input": {
+          "no_age": {
+            "ospa": 2.6731151166161893,
+            "gospa": 3.119620109265283,
+            "loc2": 0.1622147005282205,
+            "miss2": 19.10900473933649,
+            "false2": 6.14218009478673,
+            "countError": 0.33175355450236965
+          },
+          "ER": {
+            "ospa": 2.7568523453916822,
+            "gospa": 3.2927466798869545,
+            "loc2": 0.25008821061335545,
+            "miss2": 18.42654028436019,
+            "false2": 8.872037914691942,
+            "countError": 0.3222748815165877
+          },
+          "candidate": {
+            "ospa": 2.816844360374562,
+            "gospa": 3.310980729596844,
+            "loc2": 0.1622147005282205,
+            "miss2": 19.10900473933649,
+            "false2": 8.189573459715639,
+            "countError": 0.3412322274881517
+          }
+        }
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_tempered_score",
+      "frames": 147,
+      "ospa": 2.4973540413097517,
+      "gospa": 3.084990608872581,
+      "loc2": 1.234636096413774,
+      "miss2": 15.673469387755102,
+      "false2": 6.612244897959184,
+      "countError": 0.282312925170068,
+      "raw_bytes": 626520,
+      "delivered_raw_bytes": 469208,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.7958774166666667,
+      "diagnostics": {
+        "arm": "marked_tempered_score",
+        "labels": 2516,
+        "positive_age_labels": 829,
+        "constrained_below_er": 827,
+        "preserved_above_cr": 441,
+        "mean_positive_gate": 0.34077920076496543
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_tempered_association",
+      "frames": 147,
+      "ospa": 2.4100978239149002,
+      "gospa": 3.0317137490043446,
+      "loc2": 1.385876212775138,
+      "miss2": 13.959183673469388,
+      "false2": 7.836734693877551,
+      "countError": 0.25510204081632654,
+      "raw_bytes": 648120,
+      "delivered_raw_bytes": 484544,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.4773568333333333,
+      "diagnostics": {
+        "arm": "marked_tempered_association",
+        "labels": 2487,
+        "positive_age_labels": 795,
+        "constrained_below_er": 795,
+        "preserved_above_cr": 443,
+        "mean_positive_gate": 0.5560274085346856
+      }
+    }
+  ],
+  "input_sha256": {
+    "trials/icra_tempered_iteration/results_development_check/0000_reliable_marked_er.json.gz": "c8592ca301766e00fa900197bb35ddcdccf18c45a98d87344d45f5f51bf3c653",
+    "trials/icra_fusion_holdout/results_development_check/0000_reliable_marked_er.json.gz": "9da35288f5393dd199fe761aec404b58487878b382e3429b9b17d19485786c38",
+    "trials/icra_tempered_iteration/results_development_check/0000_reliable_marked_tempered_calibrated.json.gz": "7421ed9ce4c90c624f0c47f64910c080984ead07e39bbf2b11e8e262c15dbd07",
+    "trials/icra_tempered_iteration/results_development_check/0000_reliable_marked_tempered_score.json.gz": "969445a62bb10a104c84b6b8ab1f04968eba31f3d713cb7868bc1c9b427957e1",
+    "trials/icra_tempered_iteration/results_development_check/0000_reliable_marked_tempered_association.json.gz": "c6a25b740852a90c5781f6dc4a32ecf0213935e50fd31417ed5a258451c15653",
+    "trials/icra_tempered_iteration/results_development_check/0000_intermittent_marked_er.json.gz": "e89406d93be32af6d7de402c283ad424fadfd5f98063c8f6303ae792a3b13522",
+    "trials/icra_fusion_holdout/results_development_check/0000_intermittent_marked_er.json.gz": "8f829a1918d10c2b9c4f23b104d69b1a1b1f29feec982f4d206e0d505ce3f4cd",
+    "trials/icra_tempered_iteration/results_development_check/0000_intermittent_marked_tempered_calibrated.json.gz": "ea9948f3c08aa34db26efb972c657a062736c5ba03ee39d1ef6d98ee91964588",
+    "trials/icra_tempered_iteration/results_development_check/0000_intermittent_marked_tempered_score.json.gz": "b59abb6fbd007b061c492168f732b10b02e17dedacd5a063d931da04a1c59b3a",
+    "trials/icra_tempered_iteration/results_development_check/0000_intermittent_marked_tempered_association.json.gz": "8b82fa991d462b07de3c9687723b075e6c2eadeac3b9464f78b8c19384717521"
+  },
+  "auditor_sha256": "e042fb9b20aa64fe14c23164e629bf40b25762dba3d258441b577644a4b3a00b"
+}

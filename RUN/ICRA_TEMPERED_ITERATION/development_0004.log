@@ -1,0 +1,18 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+TEMPERED CHECK PASSED: monotone geometric interpolation and endpoints, unchanged spatial density and negative correction, equal-age and single-source identity, stale/excluded-source control, censor, packet, and exact ER adapter parity.
+START TEMPERED 0004 reliable marked_tempered_calibrated 180 frames
+DONE TEMPERED 0004 reliable marked_tempered_calibrated OSPA 5.120960 runtime 78.29s
+START TEMPERED 0004 reliable marked_tempered_score 180 frames
+DONE TEMPERED 0004 reliable marked_tempered_score OSPA 5.124331 runtime 69.98s
+START TEMPERED 0004 reliable marked_tempered_association 180 frames
+DONE TEMPERED 0004 reliable marked_tempered_association OSPA 5.116614 runtime 79.25s
+START TEMPERED 0004 intermittent marked_tempered_calibrated 180 frames
+DONE TEMPERED 0004 intermittent marked_tempered_calibrated OSPA 5.177143 runtime 84.92s
+START TEMPERED 0004 intermittent marked_tempered_score 180 frames
+DONE TEMPERED 0004 intermittent marked_tempered_score OSPA 5.178003 runtime 88.61s
+START TEMPERED 0004 intermittent marked_tempered_association 180 frames
+DONE TEMPERED 0004 intermittent marked_tempered_association OSPA 5.184212 runtime 83.69s
+COMPLETED TEMPERED indices 4--4 cohort=development

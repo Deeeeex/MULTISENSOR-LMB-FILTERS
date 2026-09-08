@@ -1,0 +1,19 @@
+TEMPERED START development 0000
+TEMPERED START development 0001
+TEMPERED START development 0002
+TEMPERED END development 0001 return 0 complete True files 6
+TEMPERED START development 0003
+TEMPERED END development 0002 return 0 complete True files 6
+TEMPERED START development 0004
+TEMPERED END development 0000 return 0 complete True files 6
+TEMPERED START development 0005
+TEMPERED END development 0003 return 0 complete True files 6
+TEMPERED START development 0006
+TEMPERED END development 0006 return 0 complete True files 6
+TEMPERED START development 0007
+TEMPERED END development 0005 return 0 complete True files 6
+TEMPERED START development 0008
+TEMPERED END development 0004 return 0 complete True files 6
+TEMPERED END development 0007 return 0 complete True files 6
+TEMPERED END development 0008 return 0 complete True files 6
+ALL TEMPERED STAGE RUNS COMPLETE: development 9 sequences; 54 files.

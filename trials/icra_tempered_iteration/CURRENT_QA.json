@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_hashes": 1305,
+  "registration_hashes": 15,
+  "all_output_hashes_match": true,
+  "sequences": 9,
+  "new_node_frames": 23916,
+  "baseline_node_frames_rescored": 39860,
+  "primary_continuation_gate": false,
+  "seen_transfer_not_executed": true,
+  "paper_changed": false,
+  "summary_sha256": "9e2b3f4d1f9511be6cbab98bd6418642947a06e28716b83fbcb57ee9a7a7f072"
+}
