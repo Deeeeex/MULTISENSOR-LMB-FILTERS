@@ -1,0 +1,479 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        8,
+        19
+      ]
+    ],
+    "date-time": "2026-08-19T20:12:08Z",
+    "timestamp": 1787170328101,
+    "version": "build-2736575974"
+  },
+  "reference-count": 26,
+  "publisher": "Institution of Engineering and Technology (IET)",
+  "issue": "6",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2019,
+            6,
+            1
+          ]
+        ],
+        "date-time": "2019-06-01T00:00:00Z",
+        "timestamp": 1559347200000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+    }
+  ],
+  "funder": [
+    {
+      "DOI": "10.13039/501100001809",
+      "name": "National Natural Science Foundation of China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "61471019"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "61471019"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100001809",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/501100001809",
+      "name": "National Natural Science Foundation of China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "U1633122"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "U1633122"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100001809",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    }
+  ],
+  "content-domain": {
+    "domain": [
+      "ietresearch.onlinelibrary.wiley.com"
+    ],
+    "crossmark-restriction": true
+  },
+  "short-container-title": [
+    "IET Radar Sonar &amp; Navi"
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2019,
+        6
+      ]
+    ]
+  },
+  "abstract": "<jats:p>In marine radar detection applications, the threshold is generally lowered to detect weak targets with low signal to clutter ratios. Consequently, however, a large number of sea clutters can exceed the threshold, which leads to overwhelming spurious detections and makes the subsequent multi\u2010target tracking (MTT) difficult. In order to improve the tracking performance for marine weak targets, here, an approach to exploit the amplitude information of neighbouring cells is introduced. First, the joint amplitude likelihood of the neighbouring cells in sea clutter is derived, and then it is incorporated into the labelled multi\u2010Bernoulli filter to enhance the discrimination between targets and clutters. The simulation results of Swerling type 1 targets tracking in K\u2010distributed sea clutter show that the proposed method is superior in state estimation and cardinality estimation accuracy compared to the labelled multi\u2010Bernoulli filter utilising amplitude information of single cells. In addition, experiment results with real data prove its applicability to marine target tracking scenarios.</jats:p>",
+  "DOI": "10.1049/iet-rsn.2018.5293",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2019,
+        2,
+        19
+      ]
+    ],
+    "date-time": "2019-02-19T21:40:39Z",
+    "timestamp": 1550612439000
+  },
+  "page": "983-991",
+  "update-policy": "https://doi.org/10.1002/crossmark_policy",
+  "source": "Crossref",
+  "is-referenced-by-count": 15,
+  "title": [
+    "Labelled multi\u2010Bernoulli filter with amplitude information for tracking marine weak targets"
+  ],
+  "prefix": "10.1049",
+  "volume": "13",
+  "author": [
+    {
+      "given": "Jinping",
+      "family": "Sun",
+      "sequence": "first",
+      "affiliation": [
+        {
+          "name": "School of Electronic and Information Engineering Beihang University Beijing 100191 People's Republic of China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0001-6302-4219",
+      "authenticated-orcid": false,
+      "given": "Chao",
+      "family": "Liu",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "School of Electronic and Information Engineering Beihang University Beijing 100191 People's Republic of China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Qing",
+      "family": "Li",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Engineering University of Cambridge CB1 2PZ UK"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0002-1040-1655",
+      "authenticated-orcid": false,
+      "given": "Xiaolong",
+      "family": "Chen",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Naval Aviation University Yantai 264001 People's Republic of China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "265",
+  "published-online": {
+    "date-parts": [
+      [
+        2019,
+        6
+      ]
+    ]
+  },
+  "reference": [
+    {
+      "key": "e_1_2_9_2_1",
+      "first-page": "565",
+      "volume-title": "Statistical multisource multitarget infor\u2010mation fusion",
+      "author": "Mahler R.",
+      "year": "2007"
+    },
+    {
+      "key": "e_1_2_9_3_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/iet-rsn.2017.0102"
+    },
+    {
+      "key": "e_1_2_9_4_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/iet-rsn.2014.0089"
+    },
+    {
+      "key": "e_1_2_9_5_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2003.1261119"
+    },
+    {
+      "key": "e_1_2_9_6_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2007.4441756"
+    },
+    {
+      "key": "e_1_2_9_7_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2008.2007924"
+    },
+    {
+      "key": "e_1_2_9_8_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2014.2364014"
+    },
+    {
+      "key": "e_1_2_9_9_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2014.2323064"
+    },
+    {
+      "issue": "29",
+      "key": "e_1_2_9_10_1",
+      "first-page": "90850W",
+      "article-title": "Towards large scale multi\u2010target tracking",
+      "volume": "9085",
+      "author": "Vo B N",
+      "year": "2014",
+      "journal-title": "Proc. SPIE Int. Society Optical Engin."
+    },
+    {
+      "key": "e_1_2_9_11_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/ip-rsn:20040841"
+    },
+    {
+      "key": "e_1_2_9_12_1",
+      "first-page": "116",
+      "volume-title": "Multi\u2010target track\u2010before\u2010detect using labeled random finite set",
+      "author": "Papi F.",
+      "year": "2013"
+    },
+    {
+      "key": "e_1_2_9_13_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2016.140851"
+    },
+    {
+      "key": "e_1_2_9_14_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2017.2664639"
+    },
+    {
+      "key": "e_1_2_9_15_1",
+      "first-page": "2875",
+      "volume-title": "Automated tracking with target amplitude information",
+      "author": "Lerro D.",
+      "year": "1990"
+    },
+    {
+      "issue": "2",
+      "key": "e_1_2_9_16_1",
+      "first-page": "536",
+      "article-title": "Interacting multiple model tracking with target amplitude feature",
+      "volume": "29",
+      "author": "Lerro D.",
+      "year": "1997",
+      "journal-title": "IEEE Trans. Aerosp. Electron. Syst."
+    },
+    {
+      "key": "e_1_2_9_17_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2010.5461650"
+    },
+    {
+      "key": "e_1_2_9_18_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JOE.2010.2044670"
+    },
+    {
+      "key": "e_1_2_9_19_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAES.2011.6034670"
+    },
+    {
+      "key": "e_1_2_9_20_1",
+      "first-page": "1",
+      "volume-title": "PHD filtering with target amplitude feature",
+      "author": "Clark D.",
+      "year": "2008"
+    },
+    {
+      "key": "e_1_2_9_21_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2009.2030640"
+    },
+    {
+      "key": "e_1_2_9_22_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.3390/s18041153"
+    },
+    {
+      "key": "e_1_2_9_23_1",
+      "first-page": "1268",
+      "volume-title": "A new algorithm of plots centroid for radar target",
+      "author": "Liu H.",
+      "year": "2017"
+    },
+    {
+      "key": "e_1_2_9_24_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/el:19810394"
+    },
+    {
+      "key": "e_1_2_9_25_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/7.381906"
+    },
+    {
+      "key": "e_1_2_9_26_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2008.920469"
+    },
+    {
+      "key": "e_1_2_9_27_1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/7.78298"
+    }
+  ],
+  "container-title": [
+    "IET Radar, Sonar &amp; Navigation"
+  ],
+  "original-title": [],
+  "language": "en",
+  "link": [
+    {
+      "URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1049/iet-rsn.2018.5293",
+      "content-type": "application/pdf",
+      "content-version": "vor",
+      "intended-application": "text-mining"
+    },
+    {
+      "URL": "https://onlinelibrary.wiley.com/doi/full-xml/10.1049/iet-rsn.2018.5293",
+      "content-type": "application/xml",
+      "content-version": "vor",
+      "intended-application": "text-mining"
+    },
+    {
+      "URL": "https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/iet-rsn.2018.5293",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2025,
+        10,
+        28
+      ]
+    ],
+    "date-time": "2025-10-28T23:32:36Z",
+    "timestamp": 1761694356000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-rsn.2018.5293"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2019,
+        6
+      ]
+    ]
+  },
+  "references-count": 26,
+  "journal-issue": {
+    "issue": "6",
+    "published-print": {
+      "date-parts": [
+        [
+          2019,
+          6
+        ]
+      ]
+    }
+  },
+  "alternative-id": [
+    "10.1049/iet-rsn.2018.5293"
+  ],
+  "URL": "https://doi.org/10.1049/iet-rsn.2018.5293",
+  "archive": [
+    "Portico"
+  ],
+  "relation": {},
+  "ISSN": [
+    "1751-8784",
+    "1751-8792"
+  ],
+  "issn-type": [
+    {
+      "value": "1751-8784",
+      "type": "print"
+    },
+    {
+      "value": "1751-8792",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2019,
+        6
+      ]
+    ]
+  },
+  "assertion": [
+    {
+      "value": "2018-07-01",
+      "order": 0,
+      "name": "received",
+      "label": "Received",
+      "group": {
+        "name": "publication_history",
+        "label": "Publication History"
+      }
+    },
+    {
+      "value": "2019-02-12",
+      "order": 2,
+      "name": "accepted",
+      "label": "Accepted",
+      "group": {
+        "name": "publication_history",
+        "label": "Publication History"
+      }
+    },
+    {
+      "value": "2019-06-01",
+      "order": 3,
+      "name": "published",
+      "label": "Published",
+      "group": {
+        "name": "publication_history",
+        "label": "Publication History"
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "sequence": 1,
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(0,0,'holdout');"
+    ]
+  },
+  {
+    "sequence": 2,
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(1,1,'holdout');"
+    ]
+  },
+  {
+    "sequence": 3,
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(2,2,'holdout');"
+    ]
+  },
+  {
+    "sequence": 4,
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(3,3,'holdout');"
+    ]
+  },
+  {
+    "sequence": 6,
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(4,4,'holdout');"
+    ]
+  },
+  {
+    "sequence": 7,
+    "index": 5,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 32,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(5,5,'holdout');"
+    ]
+  },
+  {
+    "sequence": 8,
+    "index": 6,
+    "returncode": -15,
+    "completion_line": false,
+    "files": 3,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_fusion_holdout'); runFusionSelectionReplay(6,6,'holdout');"
+    ]
+  }
+]

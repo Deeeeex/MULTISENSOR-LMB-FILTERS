@@ -1,0 +1,86 @@
+{
+  "protocol": "remaining-v2v4real-fusion-selection-v1",
+  "primary": "marked_ceiling_score",
+  "arms": [
+    "local",
+    "lineage",
+    "qualified_exist",
+    "mil_support",
+    "tc_ospa2_w5",
+    "tc_ospa2_w10",
+    "ceiling_calibrated",
+    "marked_local",
+    "marked_lineage",
+    "marked_er",
+    "marked_mil_support",
+    "marked_tc_ospa2_w5",
+    "marked_tc_ospa2_w10",
+    "marked_ceiling_association",
+    "marked_ceiling_score",
+    "marked_ceiling_calibrated"
+  ],
+  "selection": "Shared calibrated mark-likelihood local update plus continuous raw-score evidence ceiling. Fixed from all nine development sequences: lowest mean OSPA of the five matched-information arms in both conditions. This is a development choice, not an independent result.",
+  "primary_references": [
+    "marked_lineage",
+    "marked_er"
+  ],
+  "external_references": [
+    "marked_mil_support",
+    "marked_tc_ospa2_w5",
+    "marked_tc_ospa2_w10"
+  ],
+  "conditions": [
+    "reliable",
+    "intermittent"
+  ],
+  "endpoint": "Sequence-macro 2D position OSPA, cutoff 12 m, p=2.",
+  "units": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    31
+  ],
+  "frames": 5601,
+  "bootstrap": {
+    "unit": "sequence",
+    "resamples": 10000,
+    "seed": 8301,
+    "interval": "95% percentile",
+    "multiplicity_adjusted": false
+  },
+  "paper_gate": "Inspect both radio conditions and all sequences. A persuasive main result must improve over same-information No-age and ER, supported by paired intervals rather than a favorable pooled mean alone; inspect missed/false cost, shared localization support and communication costs. Retain failures and do not revise the primary from this cohort. If evidence remains weak, continue method work and classify this cohort as seen.",
+  "source_and_selection_evidence_sha256": {
+    "trials/icra_fusion_holdout/source_sha256_port.json": "4e097c3903feb059562bc3f8d3c8b83513f1dc71b7d03f15a510fcc8f8b1fa26",
+    "trials/icra_fusion_holdout/input_manifest.json": "4aaf4bfd01437452ca49a8b064bf0d30789486c7df710cf0775dcf01b6d3bc08",
+    "trials/icra_fusion_holdout/COHORT_PROTOCOL.md": "fe78010789dfb151d834e5394148175483edc90488b18edb0b1038f53b2ca02b",
+    "trials/icra_fusion_holdout/PORT_PROTOCOL.md": "4be88992fcabaf69e5cd30ea10b84ee0ecdf6c738aee0bf2c0d46e84205c0b30",
+    "trials/icra_fusion_holdout/port_audit.json": "539a2585db57a8d31978181e9afd184dab95652bb42c4bc9eff98724f659fa3a",
+    "trials/icra_marked_iteration/summary_development.json": "38f620f295a157910713fce0e0384891678eab75764fbc5c2b8401b1d2d3cb6a",
+    "trials/icra_ceiling_iteration/summary_development.json": "c93ee1743e50a3eb58e10ffccbf9c502b2558a6f9ad01b358a257addb1cfbedf",
+    "trials/icra_ceiling_iteration/summary_cases.json": "bd8c9aab323880879f3bef3dff2274ad3c3a5e752271c7d7fccd6713409b3d46",
+    "trials/icra_fusion_holdout/register_method.py": "62c21298ecb54e79b9d30afe1dbe9f854a44bff461c4447aaf00039cbfbe32e8",
+    "trials/icra_fusion_holdout/run_holdout.py": "63690973db0932d5419668de2c17e4d9e6a5dda01d3997d60b9d95ce2ee82c26"
+  },
+  "limitations": "Released detector was trained on this train split; these are unused fusion-selection outcomes, not an independent detector benchmark. Routes may be related; intervals are descriptive. A raw support mark is not a proven statistical confidence bound."
+}

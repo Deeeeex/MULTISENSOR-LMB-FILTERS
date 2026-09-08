@@ -1,0 +1,9 @@
+{
+  "status": "Stopped intentionally after both official reliable MIL arms completed.",
+  "diagnostic_pid": 47693,
+  "signal": "SIGTERM",
+  "official_0008_mil_runtime_s": 354.48,
+  "official_0009_mil_runtime_s": 394.25,
+  "scientific_output_used": false,
+  "conclusion": "The observed waiting produced complete official MIL outputs; the separate reproduction diagnostic was no longer necessary. A native stack sample alone did not identify a source-level bug."
+}

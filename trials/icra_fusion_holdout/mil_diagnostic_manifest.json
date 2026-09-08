@@ -1,0 +1,7 @@
+{
+  "scope": "Diagnostic only; unchanged official tracking continues. Stop and snapshot an assignment exceeding 10000 control iterations; never use these modified-run outputs as scientific results.",
+  "files": {
+    "trials/icra_fusion_holdout/diagnoseMilProgress.m": "e4468dc08e3d5dff79df2f69b9c2258545931cde7cd0ae9265d5c5994ce74495",
+    "trials/icra_fusion_holdout/diagnostic_runtime/Hungarian.m": "6ade3264cbea51edc2a6cdb09f72825796773a0a587d27747e3465c808c06cea"
+  }
+}

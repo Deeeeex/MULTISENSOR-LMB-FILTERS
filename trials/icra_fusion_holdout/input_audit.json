@@ -1,0 +1,264 @@
+{
+  "protocol": "remaining-v2v4real-fusion-selection-v1",
+  "scope": "All frozen inputs reconstructed from source; no tracking outcomes inspected or models fitted.",
+  "source_hashes_verified": 1284,
+  "selection_hashes_verified": 10,
+  "matrix_hashes_verified": 11202,
+  "raw_detection_and_ground_truth_files": 75,
+  "frames": 5601,
+  "sequences": [
+    {
+      "sequence": "0001",
+      "frames": 405,
+      "detections": [
+        1309,
+        515
+      ],
+      "truth_rows": 1062,
+      "input_sha256": "19ea48e17800f3515ba3662b94e81302a4ab981c4b89023b471e98384fb86f25"
+    },
+    {
+      "sequence": "0002",
+      "frames": 157,
+      "detections": [
+        390,
+        315
+      ],
+      "truth_rows": 486,
+      "input_sha256": "6ff5ea6bc0f4e0e8ef9dacf25ea862738ab7aeb722a12fe8c61627c8e061a5aa"
+    },
+    {
+      "sequence": "0003",
+      "frames": 1244,
+      "detections": [
+        3350,
+        2701
+      ],
+      "truth_rows": 3590,
+      "input_sha256": "10745f6b87f3c20159167094b93b6f7ef027a2c40b27e963c7e2ccb2139f090b"
+    },
+    {
+      "sequence": "0004",
+      "frames": 133,
+      "detections": [
+        78,
+        193
+      ],
+      "truth_rows": 234,
+      "input_sha256": "06997bfc3593038eff42fe52a1bdc614919fda2e30d70bf0227800878d19c2e1"
+    },
+    {
+      "sequence": "0006",
+      "frames": 122,
+      "detections": [
+        428,
+        423
+      ],
+      "truth_rows": 414,
+      "input_sha256": "6945a64e18e6fc0cbce4a1ee852299c9752425c28a2c329eb6b9b611427ef6b4"
+    },
+    {
+      "sequence": "0007",
+      "frames": 148,
+      "detections": [
+        327,
+        293
+      ],
+      "truth_rows": 150,
+      "input_sha256": "036573c35a70a6a4d2299716f9f590ffd204789ff99ba54add7b523a22c70f96"
+    },
+    {
+      "sequence": "0008",
+      "frames": 410,
+      "detections": [
+        4257,
+        4916
+      ],
+      "truth_rows": 4409,
+      "input_sha256": "685369a467ce6affde49e4bf6cfe0168a6d91a31fc443625be69e217db4ab823"
+    },
+    {
+      "sequence": "0009",
+      "frames": 315,
+      "detections": [
+        3143,
+        1984
+      ],
+      "truth_rows": 4793,
+      "input_sha256": "6cef69d2bde88b927ce72688aed8c613e5a4b207e4bee1681d24dba75e21f194"
+    },
+    {
+      "sequence": "0011",
+      "frames": 107,
+      "detections": [
+        657,
+        530
+      ],
+      "truth_rows": 906,
+      "input_sha256": "d02a4430902415ee584f6c1a9897788b7016afc4914a22cc7a8ed30f35bf620b"
+    },
+    {
+      "sequence": "0012",
+      "frames": 124,
+      "detections": [
+        1394,
+        1137
+      ],
+      "truth_rows": 1375,
+      "input_sha256": "8adfcb7de0b949b7cdd0da0ec36e11e8d6fd0c3452515bc651e42474d895af5f"
+    },
+    {
+      "sequence": "0013",
+      "frames": 89,
+      "detections": [
+        566,
+        425
+      ],
+      "truth_rows": 642,
+      "input_sha256": "9d6dc2debb5941668c2c27b80ec31476f0e98a0b32d8cf3208eb3c30181b4f94"
+    },
+    {
+      "sequence": "0014",
+      "frames": 80,
+      "detections": [
+        1088,
+        1370
+      ],
+      "truth_rows": 1507,
+      "input_sha256": "0bb53a0213125cd98fa4cf5b8e3cb09b141c97de2e48d5bca90275b20957e1aa"
+    },
+    {
+      "sequence": "0016",
+      "frames": 293,
+      "detections": [
+        3628,
+        3123
+      ],
+      "truth_rows": 4909,
+      "input_sha256": "976e37667c2d32158647e2f1fc8c0c362d9af308da51d09b1c6ce7dd03e2c47b"
+    },
+    {
+      "sequence": "0017",
+      "frames": 111,
+      "detections": [
+        615,
+        593
+      ],
+      "truth_rows": 909,
+      "input_sha256": "ef6b7f3bf5ed56055abf0fad4920dffc5fe7f09c66fe01b3cf5e95bc8c234c60"
+    },
+    {
+      "sequence": "0018",
+      "frames": 183,
+      "detections": [
+        1655,
+        1716
+      ],
+      "truth_rows": 1584,
+      "input_sha256": "071b4ed53039b2e73f24ceb0d3a7df4302dfcc2913696b591213b0a7239b6b90"
+    },
+    {
+      "sequence": "0019",
+      "frames": 177,
+      "detections": [
+        1957,
+        1342
+      ],
+      "truth_rows": 2422,
+      "input_sha256": "0e0d6d790958ea1cd02b624930196a7762017052b06664aa5ccb990291ea228d"
+    },
+    {
+      "sequence": "0021",
+      "frames": 286,
+      "detections": [
+        1480,
+        1222
+      ],
+      "truth_rows": 1639,
+      "input_sha256": "4fbce5f3669dbbdf737a858ad3ff6bc8a86099a0eb66ba5607074dc285e8b394"
+    },
+    {
+      "sequence": "0022",
+      "frames": 229,
+      "detections": [
+        3762,
+        1894
+      ],
+      "truth_rows": 5375,
+      "input_sha256": "4e9882c5419d1daa192aa9fb1d59bd6eded26d618808dd3e66ed01dfd6525274"
+    },
+    {
+      "sequence": "0023",
+      "frames": 120,
+      "detections": [
+        1749,
+        1405
+      ],
+      "truth_rows": 2693,
+      "input_sha256": "68e1166eb4148196d900d3c4163e8168f5961346635feb5d06455998eb7aaad1"
+    },
+    {
+      "sequence": "0024",
+      "frames": 168,
+      "detections": [
+        1139,
+        1036
+      ],
+      "truth_rows": 1157,
+      "input_sha256": "9db0ce364fd6c7edb934f6ba8de81dede49e1b37d2362714723f83768e4ee36f"
+    },
+    {
+      "sequence": "0026",
+      "frames": 135,
+      "detections": [
+        697,
+        418
+      ],
+      "truth_rows": 661,
+      "input_sha256": "758d1053aa68f2ef1919ab16e300b16d117c912fe88f3386bab1d14bea32d38b"
+    },
+    {
+      "sequence": "0027",
+      "frames": 143,
+      "detections": [
+        1168,
+        708
+      ],
+      "truth_rows": 1447,
+      "input_sha256": "fd105f8d0af1f1dcb48cacb596b68110e7b2a774336677f7bbe6fb4951ad7fe9"
+    },
+    {
+      "sequence": "0028",
+      "frames": 149,
+      "detections": [
+        883,
+        965
+      ],
+      "truth_rows": 1176,
+      "input_sha256": "3d590c289cc48085a99118bdb77cde51f874f93307dafa0494b76db3df6fffb8"
+    },
+    {
+      "sequence": "0029",
+      "frames": 165,
+      "detections": [
+        1567,
+        1606
+      ],
+      "truth_rows": 2027,
+      "input_sha256": "5135bf1c0b2784e6dd5b8524619bde485aaff8a1d0cbbee283faca3854e86ce2"
+    },
+    {
+      "sequence": "0031",
+      "frames": 108,
+      "detections": [
+        621,
+        715
+      ],
+      "truth_rows": 661,
+      "input_sha256": "9eba049767879d4ab17e2ffebb29d5877840e8e0d940981ec71a577a7500bafd"
+    }
+  ],
+  "exact_pose_measurement_truth_score_and_likelihood_reconstruction": true,
+  "method_freeze_sha256": "b503d716d367dbbd4b71f349c5466f93de6b755f12411b9151dd568e7d51e538",
+  "auditor_sha256": "61a99d1c739582ece23de736e8efeb0987222d2265b9e34964bede7fe690be3f"
+}
