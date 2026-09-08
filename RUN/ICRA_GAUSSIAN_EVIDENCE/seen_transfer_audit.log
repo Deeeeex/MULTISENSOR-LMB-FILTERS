@@ -1,0 +1,36 @@
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0001 1 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0002 2 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0003 3 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0004 4 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0006 5 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0007 6 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0008 7 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0009 8 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0011 9 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0012 10 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0013 11 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0014 12 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0016 13 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0017 14 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0018 15 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0019 16 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0021 17 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0022 18 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0023 19 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0024 20 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0026 21 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0027 22 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0028 23 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0029 24 / 25
+GAUSSIAN EVIDENCE AUDITED seen_transfer 0031 25 / 25
+seen_transfer reliable marked_gaussian_evidence minus marked_lineage {'mean': -0.24636758812625953, 'sd': 0.35590227949631187, 'low': -0.3877735695823132, 'high': -0.11247051633712006, 'n': 25}
+seen_transfer reliable marked_gaussian_evidence minus marked_er {'mean': -0.21585503439103781, 'sd': 0.33488611425720693, 'low': -0.34529737002780253, 'high': -0.08874439842872149, 'n': 25}
+seen_transfer reliable marked_gaussian_evidence minus marked_conservative {'mean': -0.21636523795205448, 'sd': 0.36247765232434964, 'low': -0.3589258908174804, 'high': -0.07776608315843796, 'n': 25}
+seen_transfer reliable marked_gaussian_evidence minus marked_ceiling_calibrated {'mean': -0.1935625496087085, 'sd': 0.33773776391971194, 'low': -0.3303352136117156, 'high': -0.06736373167599019, 'n': 25}
+seen_transfer reliable marked_gaussian_evidence minus marked_ceiling_score {'mean': -0.21031867121480652, 'sd': 0.3272743339592136, 'low': -0.34194365918701836, 'high': -0.08537976044064882, 'n': 25}
+seen_transfer intermittent marked_gaussian_evidence minus marked_lineage {'mean': -0.226897258872985, 'sd': 0.24521965012380326, 'low': -0.33128361836386333, 'high': -0.1430419422247748, 'n': 25}
+seen_transfer intermittent marked_gaussian_evidence minus marked_er {'mean': -0.19046580658105605, 'sd': 0.265273577993206, 'low': -0.2942035595859335, 'high': -0.09217836813401152, 'n': 25}
+seen_transfer intermittent marked_gaussian_evidence minus marked_conservative {'mean': -0.19489612317047322, 'sd': 0.2627135785678363, 'low': -0.30619727786045126, 'high': -0.10332217928892518, 'n': 25}
+seen_transfer intermittent marked_gaussian_evidence minus marked_ceiling_calibrated {'mean': -0.13536960029478162, 'sd': 0.21148136237451665, 'low': -0.22066329020115444, 'high': -0.057735082343319435, 'n': 25}
+seen_transfer intermittent marked_gaussian_evidence minus marked_ceiling_score {'mean': -0.15208304734862957, 'sd': 0.2161052132417074, 'low': -0.24240486714928486, 'high': -0.0747681765854246, 'n': 25}
+ALL GAUSSIAN EVIDENCE OUTPUTS AUDITED seen_transfer 112020 new node-frames; 112020 baseline node-frames; continuation None

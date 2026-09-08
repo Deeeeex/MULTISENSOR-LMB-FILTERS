@@ -1,0 +1,51 @@
+GAUSSIAN EVIDENCE START seen_transfer 0001
+GAUSSIAN EVIDENCE START seen_transfer 0002
+GAUSSIAN EVIDENCE START seen_transfer 0003
+GAUSSIAN EVIDENCE END seen_transfer 0002 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0004
+GAUSSIAN EVIDENCE END seen_transfer 0004 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0006
+GAUSSIAN EVIDENCE END seen_transfer 0006 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0007
+GAUSSIAN EVIDENCE END seen_transfer 0001 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0008
+GAUSSIAN EVIDENCE END seen_transfer 0007 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0009
+GAUSSIAN EVIDENCE END seen_transfer 0003 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0011
+GAUSSIAN EVIDENCE END seen_transfer 0011 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0012
+GAUSSIAN EVIDENCE END seen_transfer 0009 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0013
+GAUSSIAN EVIDENCE END seen_transfer 0013 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0014
+GAUSSIAN EVIDENCE END seen_transfer 0012 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0016
+GAUSSIAN EVIDENCE END seen_transfer 0014 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0017
+GAUSSIAN EVIDENCE END seen_transfer 0017 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0018
+GAUSSIAN EVIDENCE END seen_transfer 0018 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0019
+GAUSSIAN EVIDENCE END seen_transfer 0016 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0021
+GAUSSIAN EVIDENCE END seen_transfer 0019 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0022
+GAUSSIAN EVIDENCE END seen_transfer 0008 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0023
+GAUSSIAN EVIDENCE END seen_transfer 0021 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0024
+GAUSSIAN EVIDENCE END seen_transfer 0024 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0026
+GAUSSIAN EVIDENCE END seen_transfer 0026 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0027
+GAUSSIAN EVIDENCE END seen_transfer 0023 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0028
+GAUSSIAN EVIDENCE END seen_transfer 0028 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0029
+GAUSSIAN EVIDENCE END seen_transfer 0027 return 0 complete True files 10
+GAUSSIAN EVIDENCE START seen_transfer 0031
+GAUSSIAN EVIDENCE END seen_transfer 0031 return 0 complete True files 10
+GAUSSIAN EVIDENCE END seen_transfer 0022 return 0 complete True files 10
+GAUSSIAN EVIDENCE END seen_transfer 0029 return 0 complete True files 10
+ALL GAUSSIAN EVIDENCE STAGE RUNS COMPLETE: seen_transfer 25 sequences; 250 files.

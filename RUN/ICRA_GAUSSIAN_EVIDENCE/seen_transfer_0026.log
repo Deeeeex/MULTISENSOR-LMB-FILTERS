@@ -1,0 +1,29 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+START GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence 135 frames
+DONE GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence OSPA 4.451848 runtime 8.31s
+START GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_curvature 135 frames
+DONE GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_curvature OSPA 4.534264 runtime 5.70s
+START GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_history 135 frames
+DONE GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_history OSPA 4.526528 runtime 4.62s
+START GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_mark 135 frames
+DONE GAUSSIAN EVIDENCE 0026 reliable marked_gaussian_evidence_no_mark OSPA 5.784626 runtime 5.58s
+START GAUSSIAN EVIDENCE 0026 reliable marked_asymmetric 135 frames
+DONE GAUSSIAN EVIDENCE 0026 reliable marked_asymmetric OSPA 4.432596 runtime 5.10s
+START GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence 135 frames
+DONE GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence OSPA 4.643178 runtime 4.59s
+START GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_curvature 135 frames
+DONE GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_curvature OSPA 4.600865 runtime 4.52s
+START GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_history 135 frames
+DONE GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_history OSPA 4.708065 runtime 4.53s
+START GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_mark 135 frames
+DONE GAUSSIAN EVIDENCE 0026 intermittent marked_gaussian_evidence_no_mark OSPA 5.829616 runtime 3.76s
+START GAUSSIAN EVIDENCE 0026 intermittent marked_asymmetric 135 frames
+DONE GAUSSIAN EVIDENCE 0026 intermittent marked_asymmetric OSPA 4.490794 runtime 3.68s
+COMPLETED GAUSSIAN EVIDENCE indices 20--20 cohort=seen_transfer

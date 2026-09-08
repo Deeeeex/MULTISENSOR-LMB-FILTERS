@@ -1,0 +1,29 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+START GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence 111 frames
+DONE GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence OSPA 3.825204 runtime 9.84s
+START GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_curvature 111 frames
+DONE GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_curvature OSPA 3.827251 runtime 6.23s
+START GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_history 111 frames
+DONE GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_history OSPA 3.771023 runtime 6.18s
+START GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_mark 111 frames
+DONE GAUSSIAN EVIDENCE 0017 reliable marked_gaussian_evidence_no_mark OSPA 3.708682 runtime 10.96s
+START GAUSSIAN EVIDENCE 0017 reliable marked_asymmetric 111 frames
+DONE GAUSSIAN EVIDENCE 0017 reliable marked_asymmetric OSPA 3.903389 runtime 12.06s
+START GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence 111 frames
+DONE GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence OSPA 4.024727 runtime 8.56s
+START GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_curvature 111 frames
+DONE GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_curvature OSPA 4.032045 runtime 12.09s
+START GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_history 111 frames
+DONE GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_history OSPA 4.138547 runtime 6.51s
+START GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_mark 111 frames
+DONE GAUSSIAN EVIDENCE 0017 intermittent marked_gaussian_evidence_no_mark OSPA 4.000901 runtime 8.08s
+START GAUSSIAN EVIDENCE 0017 intermittent marked_asymmetric 111 frames
+DONE GAUSSIAN EVIDENCE 0017 intermittent marked_asymmetric OSPA 4.101954 runtime 7.12s
+COMPLETED GAUSSIAN EVIDENCE indices 13--13 cohort=seen_transfer
