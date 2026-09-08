@@ -1,0 +1,410 @@
+{
+  "status": "export_and_text_bounds_passed",
+  "editable_svg_text_elements": 44,
+  "embedded_raster_images": 0,
+  "dimensions_mm": [
+    181,
+    89
+  ],
+  "pairwise_text_overlap": false,
+  "text_bounds": [
+    {
+      "text": "a",
+      "bbox_pixels": [
+        11.811023622047285,
+        326.6771653543307,
+        6.875000000000002,
+        12.0
+      ]
+    },
+    {
+      "text": "Different histories at reunion",
+      "bbox_pixels": [
+        31.496062992126028,
+        327.6771653543307,
+        145.75,
+        10.0
+      ]
+    },
+    {
+      "text": "b",
+      "bbox_pixels": [
+        212.59842519685046,
+        326.6771653543307,
+        7.75,
+        12.0
+      ]
+    },
+    {
+      "text": "Qualify each label",
+      "bbox_pixels": [
+        232.28346456692918,
+        327.6771653543307,
+        90.625,
+        10.0
+      ]
+    },
+    {
+      "text": "c",
+      "bbox_pixels": [
+        460.62992125984266,
+        326.6771653543307,
+        6.875,
+        12.0
+      ]
+    },
+    {
+      "text": "Two weights, one fused belief",
+      "bbox_pixels": [
+        480.31496062992136,
+        327.6381028543307,
+        149.87500000000006,
+        10.078125
+      ]
+    },
+    {
+      "text": "Earlier direct opportunity",
+      "bbox_pixels": [
+        11.811023622047285,
+        303.3740157480315,
+        103.375,
+        9.0
+      ]
+    },
+    {
+      "text": "A",
+      "bbox_pixels": [
+        63.866633858267775,
+        254.87401574803152,
+        6.125,
+        6.0
+      ]
+    },
+    {
+      "text": "Observed",
+      "bbox_pixels": [
+        118.1102362204725,
+        273.0590551181102,
+        39.75,
+        9.0
+      ]
+    },
+    {
+      "text": "target",
+      "bbox_pixels": [
+        118.1102362204725,
+        259.2795275590551,
+        23.625,
+        9.0
+      ]
+    },
+    {
+      "text": "Prescribed motion",
+      "bbox_pixels": [
+        74.80314960629927,
+        204.55511811023624,
+        71.74999999999999,
+        9.0
+      ]
+    },
+    {
+      "text": "Now: posterior exchange",
+      "bbox_pixels": [
+        51.181102362204776,
+        183.68897637795274,
+        105.5,
+        9.0
+      ]
+    },
+    {
+      "text": "Hypothesis",
+      "bbox_pixels": [
+        146.85137795275597,
+        167.68645423228347,
+        42.125,
+        6.359375
+      ]
+    },
+    {
+      "text": "A",
+      "bbox_pixels": [
+        40.24458661417328,
+        119.04724409448819,
+        6.125,
+        6.0
+      ]
+    },
+    {
+      "text": "B",
+      "bbox_pixels": [
+        130.7957677165355,
+        119.04724409448819,
+        6.125,
+        6.0
+      ]
+    },
+    {
+      "text": "posterior",
+      "bbox_pixels": [
+        71.70767716535438,
+        101.7992125984252,
+        33.75,
+        9.0
+      ]
+    },
+    {
+      "text": "Old direct age",
+      "bbox_pixels": [
+        15.11958661417328,
+        74.24015748031496,
+        56.37499999999999,
+        9.0
+      ]
+    },
+    {
+      "text": "Recent miss",
+      "bbox_pixels": [
+        108.9832677165355,
+        74.24015748031496,
+        49.75,
+        9.0
+      ]
+    },
+    {
+      "text": "Packet arrival does not reset\nlocal direct-opportunity age",
+      "bbox_pixels": [
+        42.89370078740163,
+        27.526574803149607,
+        115.0,
+        19.75
+      ]
+    },
+    {
+      "text": "A  Older observed belief",
+      "bbox_pixels": [
+        224.4094488188977,
+        284.4763779527559,
+        111.87499999999997,
+        9.0
+      ]
+    },
+    {
+      "text": "$h_A=1,\\quad \\Delta_A>0$",
+      "bbox_pixels": [
+        224.4094488188977,
+        263.1787401574803,
+        74.1719677734375,
+        13.799999999999955
+      ]
+    },
+    {
+      "text": "High $r_A$",
+      "bbox_pixels": [
+        224.4094488188977,
+        247.43700787401576,
+        32.16137695312497,
+        13.0
+      ]
+    },
+    {
+      "text": "$p_A$",
+      "bbox_pixels": [
+        378.7401574803151,
+        251.08661417322833,
+        12.297119140625,
+        12.0
+      ]
+    },
+    {
+      "text": "B  Recent missed detection",
+      "bbox_pixels": [
+        224.4094488188977,
+        209.67322834645668,
+        127.49999999999997,
+        9.0
+      ]
+    },
+    {
+      "text": "$h_B=1,\\quad \\Delta_B=0$",
+      "bbox_pixels": [
+        224.4094488188977,
+        188.37559055118112,
+        74.19828613281251,
+        13.800000000000011
+      ]
+    },
+    {
+      "text": "Low $r_B$",
+      "bbox_pixels": [
+        224.4094488188977,
+        172.88385826771653,
+        30.11328125,
+        12.5
+      ]
+    },
+    {
+      "text": "$p_B$",
+      "bbox_pixels": [
+        378.7401574803151,
+        176.28346456692915,
+        12.359619140625,
+        12.0
+      ]
+    },
+    {
+      "text": "U  Untouched prior",
+      "bbox_pixels": [
+        224.4094488188977,
+        134.87007874015748,
+        88.24999999999997,
+        9.0
+      ]
+    },
+    {
+      "text": "$h_U=0$",
+      "bbox_pixels": [
+        224.4094488188977,
+        114.35984251968505,
+        30.646685791015614,
+        13.799999999999997
+      ]
+    },
+    {
+      "text": "Excluded here: informed inputs exist",
+      "bbox_pixels": [
+        224.4094488188977,
+        100.2244094488189,
+        139.74999999999997,
+        9.0
+      ]
+    },
+    {
+      "text": "$h$: observation lineage",
+      "bbox_pixels": [
+        212.59842519685046,
+        65.94094488188976,
+        90.44287109375003,
+        13.0
+      ]
+    },
+    {
+      "text": "$\\Delta$: local direct-opportunity age",
+      "bbox_pixels": [
+        212.59842519685046,
+        50.58661417322835,
+        120.90136718750003,
+        13.0
+      ]
+    },
+    {
+      "text": "Observable absence enters $\\mathcal{E}$ only",
+      "bbox_pixels": [
+        241.71393158679882,
+        24.405511811023622,
+        134.682373046875,
+        13.0
+      ]
+    },
+    {
+      "text": "Existence: apply direct age",
+      "bbox_pixels": [
+        472.4409448818899,
+        283.29527559055117,
+        133.875,
+        9.0
+      ]
+    },
+    {
+      "text": "$q_j\\propto w_j f(\\Delta_j),\\quad j\\in\\mathcal{E}$",
+      "bbox_pixels": [
+        472.4409448818899,
+        251.24881889763782,
+        98.4284680175781,
+        16.399999999999977
+      ]
+    },
+    {
+      "text": "$\\mathrm{logit}\\,r^*=\\sum_j q_j\\,\\mathrm{logit}\\,r_j+\\log\\eta_a$",
+      "bbox_pixels": [
+        472.4409448818899,
+        219.60060285433073,
+        142.7451005737305,
+        26.15312499999999
+      ]
+    },
+    {
+      "text": "Recent detections and misses both count",
+      "bbox_pixels": [
+        472.4409448818899,
+        206.12992125984252,
+        165.375,
+        9.0
+      ]
+    },
+    {
+      "text": "Spatial density: retain base weights",
+      "bbox_pixels": [
+        472.4409448818899,
+        141.95669291338584,
+        172.25,
+        9.0
+      ]
+    },
+    {
+      "text": "$a_j\\propto w_j,\\quad j\\in\\mathcal{P}$",
+      "bbox_pixels": [
+        472.4409448818899,
+        112.2724409448819,
+        76.67351074218755,
+        16.39999999999999
+      ]
+    },
+    {
+      "text": "$p^*(x)=\\eta_a^{-1}\\prod_j p_j(x)^{a_j}$",
+      "bbox_pixels": [
+        472.4409448818899,
+        80.43392388451443,
+        105.70359741210939,
+        29.683333333333337
+      ]
+    },
+    {
+      "text": "Same eligible inputs and spatial weights",
+      "bbox_pixels": [
+        472.4409448818899,
+        65.97244094488188,
+        161.0,
+        9.0
+      ]
+    },
+    {
+      "text": "Spatial overlap $\\eta_a$",
+      "bbox_pixels": [
+        587.4368021807334,
+        172.63385826771653,
+        77.130126953125,
+        13.0
+      ]
+    },
+    {
+      "text": "Fixed inputs: spatial pooling stays unchanged",
+      "bbox_pixels": [
+        489.3336614173229,
+        26.996062992125985,
+        182.75,
+        9.0
+      ]
+    }
+  ],
+  "pdf_fonts": [
+    "/GOFYPY+Arial-BoldMT",
+    "/GOFYPY+ArialMT",
+    "/GCWXDV+DejaVuSans-Oblique",
+    "/BMQQDV+DejaVuSans",
+    "/EGWXSV+DejaVuSansDisplay",
+    "/EUPODS+STIXNonUnicode-Italic"
+  ],
+  "pdf_fonts_embedded": true,
+  "pdf_sha256": "9740ae87492f95b41f3f1dc044dbd4a471c8eb790fb8c5e06dd70ca060eca306",
+  "visual_review": "Reviewed exported PNG: arrows, text, eligibility conditions, local age semantics and overlap feedback; illustrative geometry only. The motion arrow was moved clear of the stage label."
+}

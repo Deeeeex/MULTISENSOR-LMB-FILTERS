@@ -1,0 +1,28 @@
+{
+  "kind": "schematic_not_trial_data",
+  "dimensions_mm": [
+    181,
+    89
+  ],
+  "inputs": [
+    {
+      "robot": "A",
+      "lineage": true,
+      "age": "older",
+      "existence": "high"
+    },
+    {
+      "robot": "B",
+      "lineage": true,
+      "age": "current",
+      "existence": "low after a miss"
+    },
+    {
+      "robot": "U",
+      "lineage": false,
+      "participation": "excluded because informed inputs exist"
+    }
+  ],
+  "illustration": "Qualitative geometry and density icons; no measurement or trial values are represented.",
+  "invariance_scope": "Fixed input densities, eligibility and ordinary spatial weights only."
+}
