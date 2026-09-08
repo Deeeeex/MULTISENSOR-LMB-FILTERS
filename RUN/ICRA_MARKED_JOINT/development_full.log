@@ -1,0 +1,19 @@
+MARKED JOINT START development 0000
+MARKED JOINT START development 0001
+MARKED JOINT START development 0002
+MARKED JOINT END development 0001 return 0 complete True files 4
+MARKED JOINT START development 0003
+MARKED JOINT END development 0002 return 0 complete True files 4
+MARKED JOINT START development 0004
+MARKED JOINT END development 0000 return 0 complete True files 4
+MARKED JOINT START development 0005
+MARKED JOINT END development 0003 return 0 complete True files 4
+MARKED JOINT START development 0006
+MARKED JOINT END development 0004 return 0 complete True files 4
+MARKED JOINT START development 0007
+MARKED JOINT END development 0005 return 0 complete True files 4
+MARKED JOINT START development 0008
+MARKED JOINT END development 0006 return 0 complete True files 4
+MARKED JOINT END development 0007 return 0 complete True files 4
+MARKED JOINT END development 0008 return 0 complete True files 4
+ALL MARKED JOINT STAGE RUNS COMPLETE: development 9 sequences; 36 files.

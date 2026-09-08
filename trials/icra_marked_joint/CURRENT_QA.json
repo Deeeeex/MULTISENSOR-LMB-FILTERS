@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "source_hashes": 1311,
+  "registration_hashes": 18,
+  "all_output_hashes_match": true,
+  "sequences": 9,
+  "new_node_frames": 15944,
+  "shared_backend_baselines_rescored": 39860,
+  "unmarked_joint_baselines_rescored": 15944,
+  "local_update_records_verified": 728215,
+  "continuation_gate_passed": false,
+  "seen_transfer_not_executed": true,
+  "paper_changed": false,
+  "summary_sha256": "d567dc961a8ab86efb2a5b76f298a7711c2682f4a41a1f0d772ece7dd59554d3"
+}

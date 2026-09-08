@@ -1,0 +1,14 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+JE CHECK PASSED: common-prior scalar Bayes identity, positive/negative/opposing evidence, zero increment, single source, untouched exclusion, unchanged censor fallback and spatial density, packet round trip.
+START MARKED JOINT 0001 reliable marked_joint_evidence 114 frames
+DONE MARKED JOINT 0001 reliable marked_joint_evidence OSPA 5.520154 runtime 5.38s
+START MARKED JOINT 0001 reliable marked_joint_evidence_recency 114 frames
+DONE MARKED JOINT 0001 reliable marked_joint_evidence_recency OSPA 5.491922 runtime 1.84s
+START MARKED JOINT 0001 intermittent marked_joint_evidence 114 frames
+DONE MARKED JOINT 0001 intermittent marked_joint_evidence OSPA 5.618489 runtime 1.28s
+START MARKED JOINT 0001 intermittent marked_joint_evidence_recency 114 frames
+DONE MARKED JOINT 0001 intermittent marked_joint_evidence_recency OSPA 5.513226 runtime 1.17s
+COMPLETED MARKED JOINT indices 1--1 cohort=development

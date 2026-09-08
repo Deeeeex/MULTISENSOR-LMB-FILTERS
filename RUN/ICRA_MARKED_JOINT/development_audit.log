@@ -1,0 +1,20 @@
+MARKED JOINT AUDITED development 0000 1 / 9
+MARKED JOINT AUDITED development 0001 2 / 9
+MARKED JOINT AUDITED development 0002 3 / 9
+MARKED JOINT AUDITED development 0003 4 / 9
+MARKED JOINT AUDITED development 0004 5 / 9
+MARKED JOINT AUDITED development 0005 6 / 9
+MARKED JOINT AUDITED development 0006 7 / 9
+MARKED JOINT AUDITED development 0007 8 / 9
+MARKED JOINT AUDITED development 0008 9 / 9
+development reliable marked_joint_evidence minus marked_lineage {'mean': 0.15648165731690222, 'sd': 0.4476203193289141, 'low': -0.06830356397348679, 'high': 0.4697074628724074, 'n': 9}
+development reliable marked_joint_evidence minus marked_er {'mean': 0.056655512826614025, 'sd': 0.17848414314017005, 'low': -0.05250584424338465, 'high': 0.16795175699228745, 'n': 9}
+development reliable marked_joint_evidence minus marked_conservative {'mean': 0.1830853130444058, 'sd': 0.5419586704512976, 'low': -0.08450108118333886, 'high': 0.5571045848171671, 'n': 9}
+development reliable marked_joint_evidence minus marked_ceiling_calibrated {'mean': 0.19313451306431717, 'sd': 0.45523689218684976, 'low': -0.05321652911045002, 'high': 0.5041188279168334, 'n': 9}
+development reliable marked_joint_evidence minus marked_ceiling_score {'mean': 0.20258489915536096, 'sd': 0.5131496845059442, 'low': -0.05805542439290199, 'high': 0.5566169250184473, 'n': 9}
+development intermittent marked_joint_evidence minus marked_lineage {'mean': 0.11946366998970445, 'sd': 0.35812266031866363, 'low': -0.07126604947828787, 'high': 0.36770860467180033, 'n': 9}
+development intermittent marked_joint_evidence minus marked_er {'mean': 0.05049606421593558, 'sd': 0.1745121252746396, 'low': -0.048368239996925494, 'high': 0.1661012763599304, 'n': 9}
+development intermittent marked_joint_evidence minus marked_conservative {'mean': 0.1620727919074093, 'sd': 0.4466174355602494, 'low': -0.06192912985035053, 'high': 0.47514728557694874, 'n': 9}
+development intermittent marked_joint_evidence minus marked_ceiling_calibrated {'mean': 0.1765478757909947, 'sd': 0.3402981528249485, 'low': -0.00995848527941439, 'high': 0.40731833085437663, 'n': 9}
+development intermittent marked_joint_evidence minus marked_ceiling_score {'mean': 0.2007519835933633, 'sd': 0.4348284248356383, 'low': -0.018383372213945134, 'high': 0.5039124193166735, 'n': 9}
+ALL MARKED JOINT OUTPUTS AUDITED development 15944 new node-frames; 39860 baseline node-frames; continuation False
