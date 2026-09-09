@@ -1,6 +1,6 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "eb0e7563637f827773dee012c60b95b2bbe8f50788465f87a6014240d9614634",
+  "pdf_sha256": "d912ef666c3466c6089680a3975f680e0b69132ce14230bb8e8722780fecab62",
   "pages": 8,
   "paper_size": "US Letter",
   "text_spans_in_page_bounds": 2508,
@@ -186,10 +186,10 @@
       "svg_sha256": "9ec2d0a132d1292fbfea281f88691861ba50d2595a9e6bce5ded19158aa0ac80"
     },
     "gaussian_robustness": {
-      "live_svg_text_elements": 46,
+      "live_svg_text_elements": 47,
       "no_embedded_raster": true,
       "label_bounds_pass": true,
-      "svg_sha256": "c41fd175f98aa95515378f00ad4be87a6746cf333c72de18aaf2901c70ab8de6"
+      "svg_sha256": "12ad8319993555ad081bef066a8e9880e0ec42707b169d9f5aeabfa8c873cff9"
     }
   },
   "float_pages": {

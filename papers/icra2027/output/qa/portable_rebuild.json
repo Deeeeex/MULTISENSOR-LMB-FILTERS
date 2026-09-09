@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "verified_on": "2026-09-09",
-  "source_pdf_sha256": "eb0e7563637f827773dee012c60b95b2bbe8f50788465f87a6014240d9614634",
-  "rebuilt_pdf_sha256": "fa887b5d3b29c9845ab8eedb3ee4cf540612cf9359ff75d86efd63ce330fa875",
+  "source_pdf_sha256": "d912ef666c3466c6089680a3975f680e0b69132ce14230bb8e8722780fecab62",
+  "rebuilt_pdf_sha256": "a6cc44b2bc2c02b5d6b8395becc37ccba36567ee0a515e116b7e899d0b95450c",
   "pdf_binary_identical": false,
   "pages": 8,
   "body_pages": 7,
@@ -15,7 +15,7 @@
     "3bf6390fba11f4ca29a7660bd47aec8bc13671940c6f2811f9aac530f9ec0dd6",
     "64e3b5061b18b601d81e75ba914bc0b16c68e5492f4cda87cbd0af71cd396557",
     "1b3a0cc4a6c6283236f699e234be837c239b4744cec97a420f823276e81a2bfa",
-    "11f0f3ff36c92bef41035bd1d8074e45fd3987ee7ee53cf2c7e673f6db5d4ab7",
+    "5bd5428974c985b99209ca6c0394e6daa291f34bc0e711d9e2ed8e848b626630",
     "ca003c1240a6345076d3fc11533646b896942cdf4c22bc2982bb2464f8b0a280",
     "0bbe7ac60d9ca191beb4e246dfb9db0d396b2e9abd80d9eafaf95759945d9404"
   ],
@@ -98,13 +98,13 @@
     "source_data/mechanism_analysis.json",
     "source_data/reviewer_evidence.json"
   ],
-  "build_input_manifest_sha256": "02909683eec85f68b86aa2e8fe5aa7db1d248e95679c90d631fc46b99cea72fd",
-  "tested_archive_sha256_before_attaching_this_report": "bdc1312db6110713112db963c935693b72094567c86b5c24c21122832d947be0",
+  "build_input_manifest_sha256": "ec803b769f75a188e544d9002232e8021d8ca281068a159b49ef5882a4caedb9",
+  "tested_archive_sha256_before_attaching_this_report": "f0698d19629a091d9dcb09b53439040178f5ab4c5e9db2fe196e234d6a57d168",
   "archive_input_files_verified": 212,
   "non_output_files_identical_after_rebuild": 209,
   "native_experiment_corpus_available": false,
   "image_generation_or_tracing_required_for_rebuild": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-reviewer-rebuild-0acwloth/icra2027",
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-reviewer-rebuild-3dbeaopf/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",

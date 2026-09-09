@@ -1,5 +1,28 @@
 # Figures for the eight-page GCE manuscript
 
+## Fig. 3 line-plot refinement
+
+The claim remains that relative accuracy depends on modeled detection
+probability and that PSD admission alone does not calibrate uncertainty
+under correlated observations. Use a quantitative triptych: reliable and
+intermittent tracking are paired comparisons with identical axes; the
+correlation control is the distinct uncertainty diagnostic. Preserve all
+47 measured points, the sequence averaging, the exact input hashes and
+the existing 181 by 70 mm canvas. Do not smooth, jitter, resample, insert
+uncertainty bands or select favorable settings during this visual edit.
+
+Follow the aligned small-multiple and line-style approach in Nature
+Methods' [controlled-perturbation figure](https://www.nature.com/articles/s41592-025-02630-5/figures/4),
+and use [Paul Tol's qualitative palette guidance](https://sronpersonalpages.nl/~pault/)
+to balance blue, rose, teal and neutral gray. Preserve the manuscript's
+teal GCE identity. Distinct marker shapes and selected dashed lines provide
+redundant identification; increase stroke and marker weight at print size.
+Use one shared legend for the tracking pair and direct labels for the
+three correlation curves. Label the nominal 95% line without implying
+that it is an estimated interval. Keep the baseline traces fully visible.
+Retain editable SVG/PDF text, 300 dpi PNG, at least 7 pt at compiled size,
+label collision checks and a before/after source-value identity check.
+
 ## Reviewer revision: model sensitivity and uncertainty
 
 Use the existing Python/Matplotlib backend and live-text SVG/PDF exports.
@@ -17,7 +40,7 @@ registered Gaussian controls, with 10,000 samples at each setting and an
 explicit nominal-coverage reference. It is conditional on target existence
 and uses unit admission, not the real tracker's adaptive gates. Every PSD
 test passes in this control; the plot must retain its coverage failure.
-Use teal for GCE, blue for Scalar, purple for Guarded Scalar, gray for
+Use teal for GCE, blue for Scalar, rose for Guarded Scalar, gray for
 No-age, and distinct markers as redundant encodings. Labels remain at least
 7 pt at final size. Check every label's canvas bounds and pairwise text
 collision, and retain source values, dimensions, plotted point counts,

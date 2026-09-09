@@ -118,9 +118,15 @@ def facts(evidence):
 
 def robustness(evidence):
     fig = plt.figure(figsize=(181 / 25.4, 70 / 25.4), dpi=300)
-    axes = [fig.add_axes(rect) for rect in [[.065, .22, .255, .60], [.385, .22, .255, .60], [.725, .22, .257, .60]]]
-    styles = [('marked_lineage', '#798a95', 's'), ('marked_asymmetric', BLUE, 'D'),
-              (GS, '#8256a2', '^'), (GCE, TEAL, 'o')]
+    axes = [fig.add_axes(rect) for rect in [[.065, .22, .255, .57], [.385, .22, .255, .57], [.725, .22, .257, .57]]]
+    # Qualitative hues inspired by Paul Tol; teal retains the paper's GCE identity.
+    gray, blue, rose, ochre = '#84929C', '#4477AA', '#CC6677', '#A47C2C'
+    styles = [
+        ('marked_lineage', gray, 's', (0, (4, 2)), 1.1),
+        ('marked_asymmetric', blue, 'D', (0, (2, 1.5)), 1.1),
+        (GS, rose, '^', (0, (5, 1.5, 1, 1.5)), 1.1),
+        (GCE, TEAL, 'o', '-', 1.65),
+    ]
     probabilities = [.7, .8, .9, .95]
     pd_rows = []
     for pd in probabilities:
@@ -131,49 +137,72 @@ def robustness(evidence):
     mapped = {(row['pd'], row['condition'], row['arm']): row for row in pd_rows}
     endpoints = [row['ospa'] for row in pd_rows]
     limits = [np.floor((min(endpoints) - .04) * 10) / 10, np.ceil((max(endpoints) + .04) * 10) / 10]
+
+    def line_style(color, marker, dash, width, primary=False):
+        return dict(color=color, marker=marker, linestyle=dash, linewidth=width,
+                    markersize=4.2 if primary else 4.0,
+                    markerfacecolor=color if primary else 'white',
+                    markeredgecolor='white' if primary else color,
+                    markeredgewidth=.65 if primary else .8,
+                    solid_capstyle='round', dash_capstyle='round', zorder=5 if primary else 3)
+
     for index, condition in enumerate(CONDITIONS):
         ax = axes[index]
-        for arm, color, marker in styles:
+        for arm, color, marker, dash, width in styles:
             values = [mapped[pd, condition, arm]['ospa'] for pd in probabilities]
-            ax.plot(probabilities, values, color=color, marker=marker, markersize=3.2, lw=.85,
-                    markeredgecolor='white', markeredgewidth=.45, label=LABELS[arm], gid='pd_' + condition + '_' + arm)
-        ax.set(xlim=(.68, .97), ylim=limits, xticks=probabilities)
-        ax.set_xticklabels(['0.70', '0.80', '0.90', '0.95'], fontsize=7.3)
-        ax.set_xlabel('Modeled detection probability', fontsize=7.3, labelpad=5)
-        ax.set_title('Reliable links' if index == 0 else 'Intermittent links', fontsize=8.2, pad=6)
-        ax.yaxis.set_major_locator(plt.MaxNLocator(5))
-        ax.tick_params(axis='both', labelsize=7.3, length=2.5)
+            ax.plot(probabilities, values, **line_style(color, marker, dash, width, arm == GCE),
+                    label=LABELS[arm], gid='pd_' + condition + '_' + arm)
+        ax.set(xlim=(.68, .97), ylim=limits, xticks=probabilities, yticks=[3.8, 4.0, 4.2, 4.4])
+        ax.set_xticklabels(['0.70', '0.80', '0.90', '0.95'], fontsize=7.4)
+        ax.set_yticklabels(['3.8', '4.0', '4.2', '4.4'], fontsize=7.4)
+        ax.set_xlabel('Modeled detection probability', fontsize=7.4, labelpad=6)
         if index == 0:
-            ax.set_ylabel('Mean OSPA (m)', fontsize=7.5, labelpad=5)
-        ax.yaxis.grid(color=GRID, lw=.5)
-        ax.spines[['top', 'right']].set_visible(False)
-    fig.legend(handles=[Line2D([], [], color=color, marker=marker, markersize=3.4, lw=.8, label=LABELS[arm])
-                        for arm, color, marker in styles],
-               loc='upper center', ncol=4, frameon=False, bbox_to_anchor=(.35, 1.003),
-               fontsize=7.3, columnspacing=1.1, handlelength=1.1, handletextpad=.4)
+            ax.set_ylabel('Mean OSPA (m)', fontsize=7.6, labelpad=6)
+    fig.legend(handles=[Line2D([], [], **line_style(color, marker, dash, width, arm == GCE), label=LABELS[arm])
+                        for arm, color, marker, dash, width in styles],
+               loc='upper center', ncol=4, frameon=False, bbox_to_anchor=(.35, .987),
+               fontsize=7.6, columnspacing=1.15, handlelength=2, handletextpad=.55)
+
     ax = axes[2]
     correlations = evidence['correlation']['specification']['rhos']
-    correlation_styles = [('No-age spatial pool', '#798a95', 's', 'Spatial pool'),
-                          ('Unit-admission GCE', TEAL, 'o', 'Unit-admission GCE'),
-                          ('Known-correlation oracle', '#b77732', '^', 'Known-correlation oracle')]
-    for arm, color, marker, label in correlation_styles:
+    correlation_styles = [
+        ('No-age spatial pool', gray, 's', (0, (4, 2)), 1.1),
+        ('Known-correlation oracle', ochre, '^', (0, (2, 1.5)), 1.1),
+        ('Unit-admission GCE', TEAL, 'o', '-', 1.65),
+    ]
+    for arm, color, marker, dash, width in correlation_styles:
         rows = [next(row for row in evidence['correlation']['rows'] if row['arm'] == arm and row['rho'] == rho) for rho in correlations]
-        ax.plot(correlations, [row['coverage_95'] for row in rows], color=color, marker=marker,
-                markersize=3.2, lw=.85, markeredgecolor='white', markeredgewidth=.4, label=label,
+        ax.plot(correlations, [row['coverage_95'] for row in rows],
+                **line_style(color, marker, dash, width, arm == 'Unit-admission GCE'),
                 gid='correlation_' + arm.replace(' ', '_'))
-    ax.axhline(.95, color=INK, lw=.65, ls=(0, (3, 3)), zorder=0)
+    ax.axhline(.95, color='#69757D', lw=.7, ls=(0, (5, 3)), zorder=1)
     ax.set(xlim=(-.035, .94), ylim=(.76, 1.015), xticks=[0, .25, .5, .75, .9], yticks=[.8, .85, .9, .95, 1.0])
-    ax.set_xticklabels(['0', '0.25', '0.50', '0.75', '0.90'], fontsize=7.3)
-    ax.set_yticklabels(['80', '85', '90', '95', '100'], fontsize=7.3)
-    ax.set_xlabel('Cross-source correlation', fontsize=7.3, labelpad=5)
-    ax.set_ylabel('95% region coverage (%)', fontsize=7.3, labelpad=4)
-    ax.set_title('Correlated Gaussian control', fontsize=8.1, pad=6)
-    ax.tick_params(axis='both', length=2.5)
-    ax.spines[['top', 'right']].set_visible(False)
-    ax.yaxis.grid(color=GRID, lw=.5)
-    ax.legend(loc='lower left', frameon=False, fontsize=7.3, handlelength=1.2, handletextpad=.4, borderpad=.3, labelspacing=.3)
-    for x, letter in zip([.024, .344, .676], ['a', 'b', 'c']):
-        fig.text(x, .87, letter, fontsize=10, weight='bold', ha='left', va='center')
+    ax.set_xticklabels(['0', '0.25', '0.50', '0.75', '0.90'], fontsize=7.4)
+    ax.set_yticklabels(['80', '85', '90', '95', '100'], fontsize=7.4)
+    ax.set_xlabel('Cross-source correlation', fontsize=7.4, labelpad=6)
+    ax.set_ylabel('95% region coverage (%)', fontsize=7.6, labelpad=5)
+    ax.text(.92, .997, 'Spatial pool', ha='right', va='center', color='#657784', fontsize=7.4)
+    ax.text(.035, .966, 'Nominal 95%', ha='left', va='center', color='#69757D', fontsize=7.3)
+    ax.text(.92, .925, 'Known-correlation\noracle', ha='right', va='center',
+            color=ochre, fontsize=7.4, linespacing=1.1)
+    ax.text(.025, .816, 'Unit-admission GCE', ha='left', va='center', color=TEAL, fontsize=7.4)
+    anchor = next(row for row in evidence['correlation']['rows']
+                  if row['arm'] == 'Unit-admission GCE' and row['rho'] == .75)
+    ax.plot([.61, anchor['rho']], [.817, anchor['coverage_95']],
+            color=TEAL, lw=.65, zorder=2, gid='gce_label_leader')
+    last = next(row for row in evidence['correlation']['rows'] if row['arm'] == 'Unit-admission GCE' and row['rho'] == .9)
+    ax.text(.92, .781, f"{100 * last['coverage_95']:.2f}%", ha='right', va='center', color=TEAL, fontsize=7.4, weight='bold')
+    for ax in axes:
+        ax.tick_params(axis='both', labelsize=7.4, length=2.5, width=.55, pad=3)
+        ax.spines[['top', 'right']].set_visible(False)
+        ax.spines[['left', 'bottom']].set_color('#849098')
+        ax.spines[['left', 'bottom']].set_linewidth(.55)
+        ax.set_axisbelow(True)
+        ax.yaxis.grid(color='#E6EAED', lw=.5)
+    for x, letter, title in zip([.065, .385, .725], ['a', 'b', 'c'],
+                               ['Reliable links', 'Intermittent links', 'Correlated Gaussian control']):
+        fig.text(x - .025, .852, letter, fontsize=10, weight='bold', ha='left', va='center')
+        fig.text(x + .004, .852, title, fontsize=8.4, weight='bold', ha='left', va='center')
     source = dict(kind='registered_pd_and_correlation_sensitivity', pd_rows=pd_rows,
         correlation_rows=evidence['correlation']['rows'], pd_sequence_count=9, pd_point_count=32,
         correlation_point_count=15, point_count=47, number_of_sequence_measurements=288,
@@ -181,6 +210,12 @@ def robustness(evidence):
         pd_y_limits=limits, coverage_y_limits=[.76, 1.015],
         averaging='Equal complete-sequence means for pD; 10000 independent joint Gaussian samples per correlation setting.',
         correlation_scope='Conditional-existing spatial model with unit admission and all source curvature checks accepted; no real-tracker consistency claim.',
+        style_revision=dict(palette={LABELS[arm]: color for arm, color, _, _, _ in styles},
+            oracle_color=ochre, shared_tracking_legend=True, direct_correlation_labels=True,
+            hollow_baseline_markers=True, redundant_line_styles=True, data_smoothed=False,
+            references=['https://www.nature.com/articles/s41592-025-02630-5/figures/4',
+                        'https://sronpersonalpages.nl/~pault/',
+                        'https://research-figure-guide.nature.com/figures/preparing-figures-our-specifications/']),
         reviewer_evidence_sha256=hashlib.sha256((DATA / 'reviewer_evidence.json').read_bytes()).hexdigest())
     export(fig, 'gaussian_robustness', source)
 

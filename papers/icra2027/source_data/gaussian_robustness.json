@@ -791,6 +791,25 @@
   ],
   "averaging": "Equal complete-sequence means for pD; 10000 independent joint Gaussian samples per correlation setting.",
   "correlation_scope": "Conditional-existing spatial model with unit admission and all source curvature checks accepted; no real-tracker consistency claim.",
+  "style_revision": {
+    "palette": {
+      "No-age KLA": "#84929C",
+      "Scalar": "#4477AA",
+      "Guarded Scalar": "#CC6677",
+      "GCE": "#007f73"
+    },
+    "oracle_color": "#A47C2C",
+    "shared_tracking_legend": true,
+    "direct_correlation_labels": true,
+    "hollow_baseline_markers": true,
+    "redundant_line_styles": true,
+    "data_smoothed": false,
+    "references": [
+      "https://www.nature.com/articles/s41592-025-02630-5/figures/4",
+      "https://sronpersonalpages.nl/~pault/",
+      "https://research-figure-guide.nature.com/figures/preparing-figures-our-specifications/"
+    ]
+  },
   "reviewer_evidence_sha256": "af04d46fdd272692af1de27bf6962d16db262a1d8e29e9156de94467c70e101d",
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
 }
