@@ -1,0 +1,201 @@
+{
+  "passed": true,
+  "source_runs": 18,
+  "checked_rows": 407972,
+  "checks": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 3090,
+      "maximum_bounded_mark_sum": 0.9983416734108497,
+      "maximum_mark_error": 1.1102230246251565e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 3169,
+      "maximum_bounded_mark_sum": 0.9983306600904089,
+      "maximum_mark_error": 1.1102230246251565e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 1996,
+      "maximum_bounded_mark_sum": 0.9963544817981014,
+      "maximum_mark_error": 2.220446049250313e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 2182,
+      "maximum_bounded_mark_sum": 0.9963702437293358,
+      "maximum_mark_error": 2.220446049250313e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 1473,
+      "maximum_bounded_mark_sum": 0.997795467362184,
+      "maximum_mark_error": 1.1102230246251565e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 1480,
+      "maximum_bounded_mark_sum": 0.9977830630783575,
+      "maximum_mark_error": 1.1102230246251565e-16,
+      "maximum_joint_error": 1.1102230246251565e-16
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 23941,
+      "maximum_bounded_mark_sum": 0.9988379193261404,
+      "maximum_mark_error": 3.3306690738754696e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 20983,
+      "maximum_bounded_mark_sum": 0.9988371120697911,
+      "maximum_mark_error": 3.3306690738754696e-16,
+      "maximum_joint_error": 4.440892098500626e-16
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 39072,
+      "maximum_bounded_mark_sum": 0.9990436406303962,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 39227,
+      "maximum_bounded_mark_sum": 0.9990433670080728,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 4.440892098500626e-16
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 45010,
+      "maximum_bounded_mark_sum": 0.9993893279234058,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 45708,
+      "maximum_bounded_mark_sum": 0.9993893596333789,
+      "maximum_mark_error": 3.3306690738754696e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 24724,
+      "maximum_bounded_mark_sum": 0.9988687860654806,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 23908,
+      "maximum_bounded_mark_sum": 0.998868786087496,
+      "maximum_mark_error": 3.3306690738754696e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 26559,
+      "maximum_bounded_mark_sum": 0.9971023974364538,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 4.440892098500626e-16
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 27603,
+      "maximum_bounded_mark_sum": 0.9971147520640175,
+      "maximum_mark_error": 3.3306690738754696e-16,
+      "maximum_joint_error": 3.3306690738754696e-16
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "backend": "GCE",
+      "checked_rows": 35015,
+      "maximum_bounded_mark_sum": 0.9970401272297434,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 4.440892098500626e-16
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "checked_rows": 42832,
+      "maximum_bounded_mark_sum": 0.9970402084498935,
+      "maximum_mark_error": 4.440892098500626e-16,
+      "maximum_joint_error": 4.440892098500626e-16
+    }
+  ],
+  "interpretation": "All available mark sums and joint association sums are finite and reproduce saved values using elementwise products and math.fsum. The NumPy warning root cause is not established; no frozen source, data, tolerance or decision was changed.",
+  "report_sha256": "17962169987a8c2936794169e85040f56af317e8ec0f300e444af6c8df4390a5",
+  "source_sha256": "e86c62548c15c1d4888df1a72e8d73152567e0cea05234b52b16572bf6cc8a1a",
+  "inputs": {
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat": "4ac8b3a25e01a1672613225a1c5310f85be8fa94175818f29927d4f75ce3c127",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_intermittent_marked_gaussian_evidence.json.gz": "28133b5772015a009615b785320a3f77964e8bb9c63059fb19270be271ea3022",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_reliable_marked_gaussian_evidence.json.gz": "7034580d342c0ba5f650cd7ce8b746ecb48d12267ce70bf16499c1db4ea912b1",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0001.mat": "bab0b4e87039ab3de9f45bda8a531263eaf0c68d2a98fe78e8934fa8e1cefc23",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_intermittent_marked_gaussian_evidence.json.gz": "b0e040885724ff2030b02792693e187bf37c8e41cd6e61074dc66ded8853720d",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_reliable_marked_gaussian_evidence.json.gz": "c09b3d326e309cd581c3f00a0bbe5ffe8faf7a4cdd8f9f4dab6036cd98bf4145",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0002.mat": "e4f55f2992626f16736360e8f77d0a711c6a803ccb207d55f769dea09835264a",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_intermittent_marked_gaussian_evidence.json.gz": "63b8c47f5dd5e214ba2c691e701069abca140f74e980c1a86bbc3b26ba6c7b54",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_reliable_marked_gaussian_evidence.json.gz": "8754ef530e2a074b3c545ac4395b8d34ff1cf960f8f10e4a7750ab5c67118b50",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0003.mat": "06a4ab60d002260b97e597d4bd6b2de9cdf5c5cd0b211b65e597f53393d0685d",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_intermittent_marked_gaussian_evidence.json.gz": "158c7bfdbdb32c1672d471f8f36f1f99c71558ec8e42a6d762ff624e6f374c7a",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_reliable_marked_gaussian_evidence.json.gz": "83e86d8b34a3523135cd06b1f05c343867cc38ccbf59a3ba3421c1e354f85475",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0004.mat": "2c4741ed32e0ef07011fe0fd29d92438dcc33f13e58a66bcc40b78949bb88311",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_intermittent_marked_gaussian_evidence.json.gz": "33be1ee0485065408f098aa64e602c15349af7a2e1ecf54aa08740de20d24fd7",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_reliable_marked_gaussian_evidence.json.gz": "9224226ab6fa4baa7637988af7ec281c0991edf7eec3c455b0a0090493b1cf15",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0005.mat": "1a7e70e6e1c672e01a0bdd53324a00de3a61c7561c21365f2d1c2ce65ba20ad9",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_intermittent_marked_gaussian_evidence.json.gz": "ffa36d2b5df785997932e07db2e8a954aa94c7ddde1a0b57ba2e7d6db0074a92",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0006.mat": "f6411d2f221471c7ccde906645fcd2ecdb5dd30a98643366e621c0d340a68884",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_reliable_marked_gaussian_evidence.json.gz": "fe1532cbd2676ef61e6e60d8a84118e07a7d0140b60e90ef596ba9592bf8c335",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0007.mat": "15340a0fcb0babce1b11df9a8af8743e5c6937930f96379fae057ac735d33001",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_intermittent_marked_gaussian_evidence.json.gz": "e189b6026939b11382a3b4ac78ae427a289d49cbc7f212b06d95a0e1e108b492",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_reliable_marked_gaussian_evidence.json.gz": "60aeea2185fc8c36ea610f271db9cf0bb00151dc52aed07f8abf0f35475248de",
+    "trials/icra_marked_iteration/data_likelihoods/likelihoods_0008.mat": "6f6f8f96a22986b626f536e4f78ed1803d997379211aabc73eada2ab926ae994",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_intermittent_marked_gaussian_evidence.json.gz": "799397494d6b712cdd18095f97c10b581850339e86a87985630efce6551026da"
+  }
+}

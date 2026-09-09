@@ -1,0 +1,67 @@
+SUBSTITUTION COMPLETE 1 / 56 0000 reliable GCE
+SUBSTITUTION COMPLETE 2 / 56 0000 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 3 / 56 0000 intermittent GCE
+SUBSTITUTION COMPLETE 4 / 56 0000 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 5 / 56 0001 reliable GCE
+SUBSTITUTION COMPLETE 6 / 56 0001 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 7 / 56 0001 intermittent GCE
+SUBSTITUTION COMPLETE 8 / 56 0001 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 9 / 56 0002 reliable GCE
+SUBSTITUTION COMPLETE 10 / 56 0002 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 11 / 56 0002 intermittent GCE
+SUBSTITUTION COMPLETE 12 / 56 0002 intermittent Guarded Scalar
+/Users/dex/Desktop/Code/icra27/trials/icra_joint_admission/joint_math.py:174: RuntimeWarning: divide by zero encountered in matmul
+  old_mark = np.clip(W[:,1:] @ marks, 0, 1)*opportunity
+/Users/dex/Desktop/Code/icra27/trials/icra_joint_admission/joint_math.py:174: RuntimeWarning: overflow encountered in matmul
+  old_mark = np.clip(W[:,1:] @ marks, 0, 1)*opportunity
+/Users/dex/Desktop/Code/icra27/trials/icra_joint_admission/joint_math.py:174: RuntimeWarning: invalid value encountered in matmul
+  old_mark = np.clip(W[:,1:] @ marks, 0, 1)*opportunity
+SUBSTITUTION COMPLETE 13 / 56 0003 reliable GCE
+SUBSTITUTION COMPLETE 14 / 56 0003 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 15 / 56 0003 intermittent GCE
+SUBSTITUTION COMPLETE 16 / 56 0003 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 17 / 56 0004 reliable GCE
+SUBSTITUTION COMPLETE 18 / 56 0004 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 19 / 56 0004 intermittent GCE
+SUBSTITUTION COMPLETE 20 / 56 0004 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 21 / 56 0005 reliable GCE
+SUBSTITUTION COMPLETE 22 / 56 0005 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 23 / 56 0005 intermittent GCE
+SUBSTITUTION COMPLETE 24 / 56 0005 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 25 / 56 0006 reliable GCE
+SUBSTITUTION COMPLETE 26 / 56 0006 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 27 / 56 0006 intermittent GCE
+SUBSTITUTION COMPLETE 28 / 56 0006 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 29 / 56 0007 reliable GCE
+SUBSTITUTION COMPLETE 30 / 56 0007 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 31 / 56 0007 intermittent GCE
+SUBSTITUTION COMPLETE 32 / 56 0007 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 33 / 56 0008 reliable GCE
+SUBSTITUTION COMPLETE 34 / 56 0008 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 35 / 56 0008 intermittent GCE
+SUBSTITUTION COMPLETE 36 / 56 0008 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 37 / 56 v2x_0000 reliable GCE
+SUBSTITUTION COMPLETE 38 / 56 v2x_0000 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 39 / 56 v2x_0000 intermittent GCE
+SUBSTITUTION COMPLETE 40 / 56 v2x_0000 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 41 / 56 v2x_0001 reliable GCE
+SUBSTITUTION COMPLETE 42 / 56 v2x_0001 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 43 / 56 v2x_0001 intermittent GCE
+SUBSTITUTION COMPLETE 44 / 56 v2x_0001 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 45 / 56 v2x_0002 reliable GCE
+SUBSTITUTION COMPLETE 46 / 56 v2x_0002 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 47 / 56 v2x_0002 intermittent GCE
+SUBSTITUTION COMPLETE 48 / 56 v2x_0002 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 49 / 56 v2x_0003 reliable GCE
+SUBSTITUTION COMPLETE 50 / 56 v2x_0003 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 51 / 56 v2x_0003 intermittent GCE
+SUBSTITUTION COMPLETE 52 / 56 v2x_0003 intermittent Guarded Scalar
+SUBSTITUTION COMPLETE 53 / 56 v2x_0004 reliable GCE
+SUBSTITUTION COMPLETE 54 / 56 v2x_0004 reliable Guarded Scalar
+SUBSTITUTION COMPLETE 55 / 56 v2x_0004 intermittent GCE
+SUBSTITUTION COMPLETE 56 / 56 v2x_0004 intermittent Guarded Scalar
+FIXED GATE {"dataset": "v2v_development", "reference": "original", "candidate_mean": 4.088399069315648, "reference_mean": 4.041849899290918, "difference": 0.046549170024730024, "passed": false}
+FIXED GATE {"dataset": "v2v_development", "reference": "conditional", "candidate_mean": 4.088399069315648, "reference_mean": 4.166622104563464, "difference": -0.07822303524781571, "passed": true}
+FIXED GATE {"dataset": "v2x_val", "reference": "original", "candidate_mean": 8.34760270272399, "reference_mean": 8.373292506913568, "difference": -0.02568980418957878, "passed": true}
+FIXED GATE {"dataset": "v2x_val", "reference": "conditional", "candidate_mean": 8.34760270272399, "reference_mean": 8.312896036797717, "difference": 0.03470666592627225, "passed": false}
+SCREEN COMPLETE advance False robot frames 83584

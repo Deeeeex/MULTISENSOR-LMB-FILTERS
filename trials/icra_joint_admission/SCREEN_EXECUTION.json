@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-09-09T21:45:16.374521+00:00",
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "/Users/dex/Desktop/Code/icra27/trials/icra_joint_admission/screen.py"
+  ],
+  "source_sha256": "0de3f91a635345118d7564e6b0050de3931a88865efb2db50372b3b43d33a3db",
+  "freeze_sha256": "6b5c04e93f2768722abfe3d9340b446154398c027f89c5652e0e99c48af7f361",
+  "log": "RUN/ICRA_JOINT_ADMISSION/screen.log",
+  "pid": 43657,
+  "returncode": 0,
+  "ended_utc": "2026-09-09T21:46:35.730667+00:00",
+  "log_sha256": "1df0f46dd0bec83093295f49376cea4486ea8d5494ee711759908c7320b7c7c1"
+}
