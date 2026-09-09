@@ -1,0 +1,20 @@
+{
+  "parsed_rows_unchanged": true,
+  "files": [
+    {
+      "path": "trials/icra_full_coverage/all_sequence_scores.csv",
+      "before_sha256": "3efb3026c7ddf8036d7f635457488d03b070b6900b477a553434709dc606015a",
+      "after_sha256": "1f5672b5825765fb161059b23437cfb7436bbf57dd1d0cde82b31546796a8a34"
+    },
+    {
+      "path": "trials/icra_full_coverage/scores_coverage_preflight.csv",
+      "before_sha256": "987f4ff22fd64feb203b8c54d57ee2f9a969b17805861436597f80d41a65fc39",
+      "after_sha256": "e5ee9c3bd2d048d77c21c24217dff12d1ddb03c570a335753eed2cab62c4768b"
+    },
+    {
+      "path": "trials/icra_full_coverage/scores_coverage_remaining_train.csv",
+      "before_sha256": "b2a25f707bbc111eebad3e8398790bbff1526e036a5ca8ae59cbab1511cd1d2f",
+      "after_sha256": "08e95dd6018b07a8d35937da9d72cb0f2e5f8fbea3f6590302681d9b49683703"
+    }
+  ]
+}

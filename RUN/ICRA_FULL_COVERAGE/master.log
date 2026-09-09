@@ -1,0 +1,29 @@
+2026-09-09T06:59:24.448698+00:00 STEP run_stage.py coverage_preflight --workers 1
+START coverage_preflight 0000
+END coverage_preflight 0000 return 0 complete True files 4
+ALL REVIEW STAGE RUNS COMPLETE coverage_preflight 1 sequences
+2026-09-09T06:59:41.258028+00:00 STEP audit_stage.py coverage_preflight
+AUDITED coverage_preflight 0000 reliable marked_asymmetric
+AUDITED coverage_preflight 0000 reliable marked_gaussian_evidence
+AUDITED coverage_preflight 0000 intermittent marked_asymmetric
+AUDITED coverage_preflight 0000 intermittent marked_gaussian_evidence
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_full_coverage/audit_stage.py", line 15, in <module>
+    module.main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_stage.py", line 96, in main
+    auditor_sha256={str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),OUT/'review_probability_audit.py',OUT/'review_gaussian_audit.py']})
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_stage.py", line 96, in <dictcomp>
+    auditor_sha256={str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),OUT/'review_probability_audit.py',OUT/'review_gaussian_audit.py']})
+                                             ^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_marked_control/analyze_control.py", line 26, in sha
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/dex/Desktop/Code/icra27/trials/icra_full_coverage/review_probability_audit.py'
+FULL COVERAGE FAILED audit_stage.py coverage_preflight native exit 1

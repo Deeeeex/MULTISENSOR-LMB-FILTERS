@@ -1,0 +1,10 @@
+{
+  "started_utc": "2026-09-09T07:01:33.945459+00:00",
+  "launcher_pid": 65743,
+  "caffeinate_pid": 65744,
+  "workers": 2,
+  "command": "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python -u /Users/dex/Desktop/Code/icra27/trials/icra_full_coverage/resume_background.py 2>&1 | /usr/bin/tee /Users/dex/Desktop/Code/icra27/RUN/ICRA_FULL_COVERAGE/resume_master.log",
+  "master_log": "/Users/dex/Desktop/Code/icra27/RUN/ICRA_FULL_COVERAGE/resume_master.log",
+  "runner_sha256": "caca278fdd0d4dc1c7c5d0e729b0186af0ae7892ee83708d159fad0b1e8fc3e1",
+  "preflight_audit_sha256": "bd042d2042c89e39013ecccc23de0316e3c262be896925e9d1be043b10df67f3"
+}

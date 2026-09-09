@@ -1,0 +1,38 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+START REVIEW coverage_remaining_train 0025 reliable marked_lineage 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_lineage OSPA 3.799422 runtime 27.51s
+START REVIEW coverage_remaining_train 0025 reliable marked_er 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_er OSPA 3.967031 runtime 25.87s
+START REVIEW coverage_remaining_train 0025 reliable marked_asymmetric 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_asymmetric OSPA 3.344152 runtime 20.98s
+START REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_guarded_scalar 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_guarded_scalar OSPA 3.288875 runtime 23.96s
+START REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_no_curvature 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_no_curvature OSPA 3.343223 runtime 23.58s
+START REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_fixed_025 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence_fixed_025 OSPA 3.698380 runtime 22.12s
+START REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence 450 frames
+DONE REVIEW coverage_remaining_train 0025 reliable marked_gaussian_evidence OSPA 3.302490 runtime 23.41s
+START REVIEW coverage_remaining_train 0025 intermittent marked_lineage 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_lineage OSPA 3.522148 runtime 24.74s
+START REVIEW coverage_remaining_train 0025 intermittent marked_er 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_er OSPA 3.709077 runtime 20.30s
+START REVIEW coverage_remaining_train 0025 intermittent marked_asymmetric 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_asymmetric OSPA 3.378121 runtime 20.46s
+START REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_guarded_scalar 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_guarded_scalar OSPA 3.368088 runtime 24.13s
+START REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_no_curvature 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_no_curvature OSPA 3.388574 runtime 22.01s
+START REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_fixed_025 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence_fixed_025 OSPA 3.662508 runtime 21.46s
+START REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence 450 frames
+DONE REVIEW coverage_remaining_train 0025 intermittent marked_gaussian_evidence OSPA 3.374478 runtime 19.36s
+COMPLETED REVIEW coverage_remaining_train 0025

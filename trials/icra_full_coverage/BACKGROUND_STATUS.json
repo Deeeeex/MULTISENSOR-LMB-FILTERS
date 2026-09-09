@@ -1,0 +1,9 @@
+{
+  "state": "complete",
+  "step": "all native runs, independent audits, and complete-release summary passed",
+  "pid": 65745,
+  "updated_utc": "2026-09-09T07:13:50.524482+00:00",
+  "returncode": 0,
+  "log": "RUN/ICRA_FULL_COVERAGE/resume_master.log",
+  "earlier_attempt": "trials/icra_full_coverage/BACKGROUND_ATTEMPT_1.json"
+}

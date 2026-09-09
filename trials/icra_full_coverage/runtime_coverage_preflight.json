@@ -1,0 +1,15 @@
+[
+  {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 4,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_preflight.json',1);"
+    ]
+  }
+]

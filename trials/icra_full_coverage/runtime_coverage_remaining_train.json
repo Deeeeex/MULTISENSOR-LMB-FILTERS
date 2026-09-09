@@ -1,0 +1,80 @@
+[
+  {
+    "sequence": "0005",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',1);"
+    ]
+  },
+  {
+    "sequence": "0010",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',2);"
+    ]
+  },
+  {
+    "sequence": "0015",
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',3);"
+    ]
+  },
+  {
+    "sequence": "0020",
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',4);"
+    ]
+  },
+  {
+    "sequence": "0025",
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',5);"
+    ]
+  },
+  {
+    "sequence": "0030",
+    "index": 5,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 14,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_full_coverage');runCoverageReplay('trials/icra_full_coverage/stages/coverage_remaining_train.json',6);"
+    ]
+  }
+]

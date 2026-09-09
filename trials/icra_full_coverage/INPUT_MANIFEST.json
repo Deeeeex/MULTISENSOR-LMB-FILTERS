@@ -1,0 +1,120 @@
+{
+  "sequences": [
+    {
+      "split": "train",
+      "sequence": "0005",
+      "scene": "testoutput_CAV_data_2022-03-15-10-29-43_0",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "frames": 217,
+      "sensor_frames": [
+        217,
+        217
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0005.mat",
+      "input_sha256": "990a230a3289d91b1db5041bd57959b0b5f7a83a6d3dd65b90d78cd4c86bc1ff",
+      "radio_seed": 8306
+    },
+    {
+      "split": "train",
+      "sequence": "0010",
+      "scene": "testoutput_CAV_data_2022-03-17-11-51-42_1",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "frames": 119,
+      "sensor_frames": [
+        119,
+        119
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0010.mat",
+      "input_sha256": "082fc654478ffac4bb3ad457ada4b973cae31a2d392e3eaf4260f5d91d79c534",
+      "radio_seed": 8311
+    },
+    {
+      "split": "train",
+      "sequence": "0015",
+      "scene": "testoutput_CAV_data_2022-03-17-14-44-47_1",
+      "recording": "testoutput_CAV_data_2022-03-17-14-44-47",
+      "frames": 145,
+      "sensor_frames": [
+        145,
+        145
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0015.mat",
+      "input_sha256": "2e3065829f7f8c70cf9d960219735ed43e947a19c467323587b27f2e43bb9609",
+      "radio_seed": 8316
+    },
+    {
+      "split": "train",
+      "sequence": "0020",
+      "scene": "testoutput_CAV_data_2022-03-17-14-59-30_0",
+      "recording": "testoutput_CAV_data_2022-03-17-14-59-30",
+      "frames": 275,
+      "sensor_frames": [
+        275,
+        275
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0020.mat",
+      "input_sha256": "d9796d4e8ebca80104399cfa662ca94471125d80c789d0bed944ab4d7549458e",
+      "radio_seed": 8321
+    },
+    {
+      "split": "train",
+      "sequence": "0025",
+      "scene": "testoutput_CAV_data_2022-03-21-09-35-07_3",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "frames": 450,
+      "sensor_frames": [
+        450,
+        450
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0025.mat",
+      "input_sha256": "15ad913ee412a550c9c936dd8a9ed3b1bc7a2eb3b2244ac3e7f01c29d797310e",
+      "radio_seed": 8326
+    },
+    {
+      "split": "train",
+      "sequence": "0030",
+      "scene": "testoutput_CAV_data_2022-03-21-09-35-07_9",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "frames": 151,
+      "sensor_frames": [
+        151,
+        151
+      ],
+      "data_path": "trials/icra_full_coverage/data/v2v4real_0030.mat",
+      "input_sha256": "56d74843d5b2b3e4412fcaee1d323cc07dabfeb69d61de789f6f9687cf6f9fc4",
+      "radio_seed": 8331
+    }
+  ],
+  "frames": 1357,
+  "source_sha256": {
+    "trials/icra_ceiling_iteration/calibration.json": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512",
+    "trials/icra_marked_iteration/likelihood_manifest.json": "083a8cb2f32cb6163c19419ba317672aa1e95d2d8391cb53fa5faa9c4d33de09",
+    "trials/icra_method_iteration/transfer_input_manifest.json": "3f9bf346517f36ef59609aef45479e735f9cd34fc8ca5e65f61254ffc88bc8d5",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0005.mat": "f65f504073e1935f48d0a99c6cd0044b997320f5315fcbd796d62384ca82ec89",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0005.txt": "76238b45660f92be24a7a99d3c360d37279975e14fdd8fe1711023f6326ad085",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0005.txt": "cbaa0bf9b9e12a730a379b8c5f9aa080cdeda23faf40da73f3c5d5baffafa671",
+    "trials/icra_full_coverage/data/v2v4real_0005.mat": "990a230a3289d91b1db5041bd57959b0b5f7a83a6d3dd65b90d78cd4c86bc1ff",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0010.mat": "18900333a9e5719ecd499adb202cfbbe6f8b49682efd75f30e27fbddf0fd5ac5",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0010.txt": "af184d95c01b60d6d5d61b3cb4d9e03fa92f94f65661c1aab90130e8dda8ef83",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0010.txt": "3f67321927b2b3f66e18a61a1379b6787e2282fc01ea8c328cd21f03e381d83d",
+    "trials/icra_full_coverage/data/v2v4real_0010.mat": "082fc654478ffac4bb3ad457ada4b973cae31a2d392e3eaf4260f5d91d79c534",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0015.mat": "c55ea9ed8fc39067f33a704024bdd81be4459e7fc6f9f53deda04b477e8330c1",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0015.txt": "bc23dd4437e2223e0eb428729ee56828eec45b89ebf3e2455efc1ae931b9bc6d",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0015.txt": "ec3ebc0e022372196471cde0eec17c6e103a0c111c78f7d3d785ab6996632dda",
+    "trials/icra_full_coverage/data/v2v4real_0015.mat": "2e3065829f7f8c70cf9d960219735ed43e947a19c467323587b27f2e43bb9609",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0020.mat": "0ba6452f54c107bf4d88525d6778461567285b4fca04f2ccca3410f193f40ac9",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0020.txt": "b964b33598221c5ada24648076cc763dccf13ca7ebc9d9d900ca48afa8221675",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0020.txt": "91574b45f6fdc75c0cfce3782192025c5a6babdd6885ee59603a27ac9884c229",
+    "trials/icra_full_coverage/data/v2v4real_0020.mat": "d9796d4e8ebca80104399cfa662ca94471125d80c789d0bed944ab4d7549458e",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0025.mat": "30e879d9a10052327a064952a87e927ac8f920383dac877663de7a694a6086c1",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0025.txt": "5796c91d11c991c95746c1ac0616373c9fba68d571c713289b203fb714389964",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0025.txt": "bddec0be7b786729f80fa3a3479d6a1724ed61fa36d04a545c159aed8260ef9b",
+    "trials/icra_full_coverage/data/v2v4real_0025.mat": "15ad913ee412a550c9c936dd8a9ed3b1bc7a2eb3b2244ac3e7f01c29d797310e",
+    "trials/icra_method_iteration/data_transfer/v2v4real_0030.mat": "8306beca674d8fef76c0074c7462b5c128a4b882f9a8ae74d29023c0befd5296",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/ego/0030.txt": "6062859604ab9194788c9853f2d8d16ff987500e6e38d5d831461ac39250d579",
+    "tmp/external_baselines/DMSTrack/AB3DMOT/data/v2v4real/detection/multi_sensor_differentiable_kalman_filter_Car_train/1/0030.txt": "f6457d930287afb6a16a845d0361972cd9f8df03749ea1ad6f71a59c6124f93d",
+    "trials/icra_full_coverage/data/v2v4real_0030.mat": "56d74843d5b2b3e4412fcaee1d323cc07dabfeb69d61de789f6f9687cf6f9fc4"
+  },
+  "calibration": "Existing full-nine fit; no refit.",
+  "coordinate_parity": "All original MAT fields identical."
+}

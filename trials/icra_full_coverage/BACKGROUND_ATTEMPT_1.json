@@ -1,0 +1,8 @@
+{
+  "state": "failed",
+  "step": "audit_stage.py coverage_preflight",
+  "pid": 65415,
+  "updated_utc": "2026-09-09T06:59:42.653339+00:00",
+  "returncode": 1,
+  "log": "RUN/ICRA_FULL_COVERAGE/master.log"
+}
