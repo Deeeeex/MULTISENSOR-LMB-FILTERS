@@ -1,0 +1,638 @@
+{
+  "passed": true,
+  "scope": "Descriptive sensitivity only; frozen sequence-macro selection remains unchanged",
+  "grouping": [
+    {
+      "dataset": "v2v_development",
+      "sequence": "0000",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "day": "2022-03-15"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0001",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "day": "2022-03-15"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0002",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "day": "2022-03-15"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0003",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "day": "2022-03-17"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0004",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "day": "2022-03-17"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0005",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "day": "2022-03-17"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0006",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "day": "2022-03-17"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0007",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "day": "2022-03-17"
+    },
+    {
+      "dataset": "v2v_development",
+      "sequence": "0008",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "day": "2022-03-21"
+    },
+    {
+      "dataset": "v2x_val",
+      "sequence": "v2x_0000",
+      "recording": "2023-03-17-16-03-02",
+      "day": "2023-03-17"
+    },
+    {
+      "dataset": "v2x_val",
+      "sequence": "v2x_0001",
+      "recording": "2023-03-17-16-10-12",
+      "day": "2023-03-17"
+    },
+    {
+      "dataset": "v2x_val",
+      "sequence": "v2x_0002",
+      "recording": "2023-04-04-15-43-17",
+      "day": "2023-04-04"
+    },
+    {
+      "dataset": "v2x_val",
+      "sequence": "v2x_0003",
+      "recording": "2023-04-04-16-01-17",
+      "day": "2023-04-04"
+    },
+    {
+      "dataset": "v2x_val",
+      "sequence": "v2x_0004",
+      "recording": "2023-04-05-16-09-26",
+      "day": "2023-04-05"
+    }
+  ],
+  "results": [
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": 0.0768662900603368,
+      "group_macro_delta": 0.0611394142600637,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": 0.09341809064318118,
+        "testoutput_CAV_data_2022-03-15-10-29-43": 0.04952518191163224,
+        "testoutput_CAV_data_2022-03-17-10-50-46": 0.029915793385242084,
+        "testoutput_CAV_data_2022-03-17-11-02-23": 0.24551914968577448,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.0329277503971761,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.018613979668271663
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": 0.05468367898344021,
+        "testoutput_CAV_data_2022-03-15-10-29-43": 0.06346226072975,
+        "testoutput_CAV_data_2022-03-17-10-50-46": 0.06738413843502802,
+        "testoutput_CAV_data_2022-03-17-11-02-23": 0.02426346717492155,
+        "testoutput_CAV_data_2022-03-17-11-51-42": 0.07995284719151166,
+        "testoutput_CAV_data_2022-03-21-09-35-07": 0.07709009304573078
+      },
+      "leave_one_out_min": 0.02426346717492155,
+      "leave_one_out_max": 0.07995284719151166
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.0768662900603368,
+      "group_macro_delta": 0.04971019965650499,
+      "per_group_delta": {
+        "2022-03-15": 0.06415615148881522,
+        "2022-03-17": 0.1035884271489714,
+        "2022-03-21": -0.018613979668271663
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": 0.04248722374034987,
+        "2022-03-17": 0.022771085910271778,
+        "2022-03-21": 0.08387228931889332
+      },
+      "leave_one_out_min": 0.022771085910271778,
+      "leave_one_out_max": 0.08387228931889332
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_constant",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": 0.020626839630008095,
+      "group_macro_delta": 0.005493932824831386,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": 0.12235772741076756,
+        "testoutput_CAV_data_2022-03-15-10-29-43": 0.10429464189045357,
+        "testoutput_CAV_data_2022-03-17-10-50-46": 0.036955856086603234,
+        "testoutput_CAV_data_2022-03-17-11-02-23": 0.011427461744027756,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.21238370871146306,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.029688381471400738
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.01787882609235585,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.01426620898829305,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.0007984518275229834,
+        "testoutput_CAV_data_2022-03-17-11-02-23": 0.004307227040992112,
+        "testoutput_CAV_data_2022-03-17-11-51-42": 0.04906946113209028,
+        "testoutput_CAV_data_2022-03-21-09-35-07": 0.012530395684077811
+      },
+      "leave_one_out_min": -0.01787882609235585,
+      "leave_one_out_max": 0.04906946113209028
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.020626839630008095,
+      "group_macro_delta": 0.019167958105261316,
+      "per_group_delta": {
+        "2022-03-15": 0.1103156703972249,
+        "2022-03-17": -0.023123414610040215,
+        "2022-03-21": -0.029688381471400738
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": -0.026405898040720476,
+        "2022-03-17": 0.04031364446291208,
+        "2022-03-21": 0.04359612789359234
+      },
+      "leave_one_out_min": -0.026405898040720476,
+      "leave_one_out_max": 0.04359612789359234
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_lineage_range",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": -0.1746931472163056,
+      "group_macro_delta": -0.17125412966203016,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.1813000031262506,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.21022849025162582,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.1822524236404579,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.1522326330824857,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.26719951716550194,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.03431171070585892
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.16924495496918607,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.163459257544111,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.1690544708663446,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.17505842897793905,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.15206505216133578,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.1986426134532644
+      },
+      "leave_one_out_min": -0.1986426134532644,
+      "leave_one_out_max": -0.15206505216133578
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_lineage_range",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.1746931472163056,
+      "group_macro_delta": -0.14071043267932362,
+      "per_group_delta": {
+        "2022-03-15": -0.2005856612098341,
+        "2022-03-17": -0.18723392612227782,
+        "2022-03-21": -0.03431171070585892
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": -0.11077281841406837,
+        "2022-03-17": -0.11744868595784651,
+        "2022-03-21": -0.19390979366605596
+      },
+      "leave_one_out_min": -0.19390979366605596,
+      "leave_one_out_max": -0.11077281841406837
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": -0.02489637798005825,
+      "group_macro_delta": -0.03352595151128158,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.06704483449845045,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.02470350260150722,
+        "testoutput_CAV_data_2022-03-17-10-50-46": 0.01936789336517797,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.017576083516505525,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.12736720749191033,
+        "testoutput_CAV_data_2022-03-21-09-35-07": 0.01616802567550607
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.026822174913847807,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.035290441293236455,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.04410472048657349,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.03671592511023679,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.01475770031515583,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.04346474694863911
+      },
+      "leave_one_out_min": -0.04410472048657349,
+      "leave_one_out_max": -0.01475770031515583
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.02489637798005825,
+      "group_macro_delta": -0.015801990594631773,
+      "per_group_delta": {
+        "2022-03-15": -0.0388172799004883,
+        "2022-03-17": -0.024756717558913087,
+        "2022-03-21": 0.01616802567550607
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": -0.004294345941703508,
+        "2022-03-17": -0.011324627112491114,
+        "2022-03-21": -0.03178699872970069
+      },
+      "leave_one_out_min": -0.03178699872970069,
+      "leave_one_out_max": -0.004294345941703508
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_lineage_constant",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": -0.033118747340923425,
+      "group_macro_delta": -0.07375345879300033,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.07501377585561975,
+        "testoutput_CAV_data_2022-03-15-10-29-43": 0.07939798400647957,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.006766633595030713,
+        "testoutput_CAV_data_2022-03-17-11-02-23": 0.07182067627824229,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.4916152700201548,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.020343733571918543
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.07350139538047644,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.10438374735289631,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.08715082383259425,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.10286828580724885,
+        "testoutput_CAV_data_2022-03-17-11-51-42": 0.009818903452430573,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.08443540383721668
+      },
+      "leave_one_out_min": -0.10438374735289631,
+      "leave_one_out_max": 0.009818903452430573
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_lineage_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.033118747340923425,
+      "group_macro_delta": -0.021572591038961694,
+      "per_group_delta": {
+        "2022-03-15": 0.0279273973857798,
+        "2022-03-17": -0.07230143693074634,
+        "2022-03-21": -0.020343733571918543
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": -0.04632258525133244,
+        "2022-03-17": 0.0037918319069306285,
+        "2022-03-21": -0.022187019772483267
+      },
+      "leave_one_out_min": -0.04632258525133244,
+      "leave_one_out_max": 0.0037918319069306285
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_guarded_scalar_constant",
+      "grouping": "recording",
+      "groups": 6,
+      "sequence_macro_delta": 0.005360255357186063,
+      "group_macro_delta": -0.008831687193980356,
+      "per_group_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": 0.015180644621221262,
+        "testoutput_CAV_data_2022-03-15-10-29-43": 0.09018775058499551,
+        "testoutput_CAV_data_2022-03-17-10-50-46": 0.01928721162334157,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.008242540829780376,
+        "testoutput_CAV_data_2022-03-17-11-51-42": -0.17371884105946434,
+        "testoutput_CAV_data_2022-03-21-09-35-07": 0.00431565189580424
+      },
+      "leave_one_group_out_delta": {
+        "testoutput_CAV_data_2022-03-15-09-54-40": -0.013634153557020679,
+        "testoutput_CAV_data_2022-03-15-10-29-43": -0.028635574749775527,
+        "testoutput_CAV_data_2022-03-17-10-50-46": -0.01445546695744474,
+        "testoutput_CAV_data_2022-03-17-11-02-23": -0.00894951646682035,
+        "testoutput_CAV_data_2022-03-17-11-51-42": 0.02414574357911644,
+        "testoutput_CAV_data_2022-03-21-09-35-07": -0.011461155011937275
+      },
+      "leave_one_out_min": -0.028635574749775527,
+      "leave_one_out_max": 0.02414574357911644
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_guarded_scalar_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.005360255357186063,
+      "group_macro_delta": 0.013058377977246646,
+      "per_group_delta": {
+        "2022-03-15": 0.06518538193040409,
+        "2022-03-17": -0.030325899894468388,
+        "2022-03-21": 0.00431565189580424
+      },
+      "leave_one_group_out_delta": {
+        "2022-03-15": -0.013005123999332074,
+        "2022-03-17": 0.034750516913104164,
+        "2022-03-21": 0.017429741017967848
+      },
+      "leave_one_out_min": -0.013005123999332074,
+      "leave_one_out_max": 0.034750516913104164
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": -0.08187159416290121,
+      "group_macro_delta": -0.08187159416290121,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": -0.05770846924226092,
+        "2023-03-17-16-10-12": -0.22209934085953353,
+        "2023-04-04-15-43-17": -0.10047292852075262,
+        "2023-04-04-16-01-17": -0.008039448041523567,
+        "2023-04-05-16-09-26": -0.021037784150435446
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": -0.08791237539306129,
+        "2023-03-17-16-10-12": -0.04681465748874314,
+        "2023-04-04-15-43-17": -0.07722126057343837,
+        "2023-04-04-16-01-17": -0.10032963069324563,
+        "2023-04-05-16-09-26": -0.09708004666601766
+      },
+      "leave_one_out_min": -0.10032963069324563,
+      "leave_one_out_max": -0.04681465748874314
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.08187159416290121,
+      "group_macro_delta": -0.07173262582749025,
+      "per_group_delta": {
+        "2023-03-17": -0.13990390505089723,
+        "2023-04-04": -0.054256188281138096,
+        "2023-04-05": -0.021037784150435446
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": -0.03764698621578677,
+        "2023-04-04": -0.08047084460066634,
+        "2023-04-05": -0.09708004666601766
+      },
+      "leave_one_out_min": -0.09708004666601766,
+      "leave_one_out_max": -0.03764698621578677
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_constant",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": 0.06913026639419373,
+      "group_macro_delta": 0.06913026639419373,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": -0.007555398257685475,
+        "2023-03-17-16-10-12": 0.06542357702695689,
+        "2023-04-04-15-43-17": -0.15815596824227196,
+        "2023-04-04-16-01-17": 0.500967344351209,
+        "2023-04-05-16-09-26": -0.055028222907239854
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": 0.08830168255716353,
+        "2023-03-17-16-10-12": 0.07005693873600294,
+        "2023-04-04-15-43-17": 0.12595182505331015,
+        "2023-04-04-16-01-17": -0.0388290030950601,
+        "2023-04-05-16-09-26": 0.10016988871955212
+      },
+      "leave_one_out_min": -0.0388290030950601,
+      "leave_one_out_max": 0.12595182505331015
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.06913026639419373,
+      "group_macro_delta": 0.048437184843954796,
+      "per_group_delta": {
+        "2023-03-17": 0.02893408938463571,
+        "2023-04-04": 0.17140568805446854,
+        "2023-04-05": -0.055028222907239854
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": 0.058188732573614343,
+        "2023-04-04": -0.013047066761302073,
+        "2023-04-05": 0.10016988871955212
+      },
+      "leave_one_out_min": -0.013047066761302073,
+      "leave_one_out_max": 0.10016988871955212
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_lineage_range",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": -0.02089902561757482,
+      "group_macro_delta": -0.02089902561757482,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": -0.04526748457693586,
+        "2023-03-17-16-10-12": 0.08203643212401701,
+        "2023-04-04-15-43-17": 0.26701674269398534,
+        "2023-04-04-16-01-17": -0.45113993459005286,
+        "2023-04-05-16-09-26": 0.04285911626111227
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": -0.014806910877734558,
+        "2023-03-17-16-10-12": -0.046632890052972775,
+        "2023-04-04-15-43-17": -0.09287796769546486,
+        "2023-04-04-16-01-17": 0.08666120162554469,
+        "2023-04-05-16-09-26": -0.03683856108724659
+      },
+      "leave_one_out_min": -0.09287796769546486,
+      "leave_one_out_max": 0.08666120162554469
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_lineage_range",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.02089902561757482,
+      "group_macro_delta": -0.010272668637793636,
+      "per_group_delta": {
+        "2023-03-17": 0.018384473773540577,
+        "2023-04-04": -0.09206159594803376,
+        "2023-04-05": 0.04285911626111227
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": -0.024601239843460743,
+        "2023-04-04": 0.030621795017326425,
+        "2023-04-05": -0.03683856108724659
+      },
+      "leave_one_out_min": -0.03683856108724659,
+      "leave_one_out_max": 0.030621795017326425
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": -0.0038478724038456314,
+      "group_macro_delta": -0.0038478724038456314,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": 0.005583330180322754,
+        "2023-03-17-16-10-12": 0.019736885774884527,
+        "2023-04-04-15-43-17": -0.01359616571154465,
+        "2023-04-04-16-01-17": -0.013260444032096252,
+        "2023-04-05-16-09-26": -0.017702968230794536
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": -0.006205673049887728,
+        "2023-03-17-16-10-12": -0.009744061948528171,
+        "2023-04-04-15-43-17": -0.0014107990769208767,
+        "2023-04-04-16-01-17": -0.001494729496782976,
+        "2023-04-05-16-09-26": -0.00038409844710840524
+      },
+      "leave_one_out_min": -0.009744061948528171,
+      "leave_one_out_max": -0.00038409844710840524
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": -0.0038478724038456314,
+      "group_macro_delta": -0.006157055041670449,
+      "per_group_delta": {
+        "2023-03-17": 0.01266010797760364,
+        "2023-04-04": -0.013428304871820451,
+        "2023-04-05": -0.017702968230794536
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": -0.015565636551307493,
+        "2023-04-04": -0.0025214301265954475,
+        "2023-04-05": -0.00038409844710840524
+      },
+      "leave_one_out_min": -0.015565636551307493,
+      "leave_one_out_max": -0.00038409844710840524
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_lineage_constant",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": 0.047011945846040515,
+      "group_macro_delta": 0.047011945846040515,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": -0.06364240234716512,
+        "2023-03-17-16-10-12": 0.2501331635971189,
+        "2023-04-04-15-43-17": -0.07122209368244636,
+        "2023-04-04-16-01-17": 0.11374286856447169,
+        "2023-04-05-16-09-26": 0.006048193098223464
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": 0.07467553289434192,
+        "2023-03-17-16-10-12": -0.003768358591729082,
+        "2023-04-04-15-43-17": 0.07657045572816223,
+        "2023-04-04-16-01-17": 0.03032921516643272,
+        "2023-04-05-16-09-26": 0.05725288403299478
+      },
+      "leave_one_out_min": -0.003768358591729082,
+      "leave_one_out_max": 0.07657045572816223
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_lineage_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.047011945846040515,
+      "group_macro_delta": 0.04018465372140434,
+      "per_group_delta": {
+        "2023-03-17": 0.09324538062497689,
+        "2023-04-04": 0.021260387441012663,
+        "2023-04-05": 0.006048193098223464
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": 0.013654290269618063,
+        "2023-04-04": 0.04964678686160018,
+        "2023-04-05": 0.05725288403299478
+      },
+      "leave_one_out_min": 0.013654290269618063,
+      "leave_one_out_max": 0.05725288403299478
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_guarded_scalar_constant",
+      "grouping": "recording",
+      "groups": 5,
+      "sequence_macro_delta": 0.001402985033052584,
+      "group_macro_delta": 0.001402985033052584,
+      "per_group_delta": {
+        "2023-03-17-16-03-02": -0.01936822632133861,
+        "2023-03-17-16-10-12": 0.04932351750208497,
+        "2023-04-04-15-43-17": -0.2539355314759364,
+        "2023-04-04-16-01-17": 0.28748517292431996,
+        "2023-04-05-16-09-26": -0.05649000746386701
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17-16-03-02": 0.006595787871650383,
+        "2023-03-17-16-10-12": -0.010577148084205512,
+        "2023-04-04-15-43-17": 0.06523761416029983,
+        "2023-04-04-16-01-17": -0.07011756193976426,
+        "2023-04-05-16-09-26": 0.015876233157282482
+      },
+      "leave_one_out_min": -0.07011756193976426,
+      "leave_one_out_max": 0.06523761416029983
+    },
+    {
+      "dataset": "v2x_val",
+      "reference": "marked_gaussian_evidence_guarded_scalar_constant",
+      "grouping": "day",
+      "groups": 3,
+      "sequence_macro_delta": 0.001402985033052584,
+      "group_macro_delta": -0.008245847049767349,
+      "per_group_delta": {
+        "2023-03-17": 0.014977645590373179,
+        "2023-04-04": 0.016774820724191786,
+        "2023-04-05": -0.05649000746386701
+      },
+      "leave_one_group_out_delta": {
+        "2023-03-17": -0.01985759336983761,
+        "2023-04-04": -0.020756180936746915,
+        "2023-04-05": 0.015876233157282482
+      },
+      "leave_one_out_min": -0.020756180936746915,
+      "leave_one_out_max": 0.015876233157282482
+    }
+  ],
+  "selection_sha256": "15f24825efc51ff5ec8f89b21647866729c9f5582c08fd318751e09fdfff917b",
+  "config_sha256": {
+    "stages/range_detection_preflight.json": "f187e21df4e94734a798e29579ed8347860dd03e8804933df7a0ca1961b71296",
+    "stages/range_detection_screen.json": "a7717ab22150c0383b78dbb83a818ccb380f5a69b58f89f32f6b11cae7ef954d"
+  },
+  "source_sha256": "53c6344d7cc436cc437f783ca8aad9694435247069aa556cdc79a4eddcf8a76d"
+}

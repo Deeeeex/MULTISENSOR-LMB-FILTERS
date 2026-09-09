@@ -1,0 +1,52 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+DIRECT OBSERVATION CHECK PASSED
+OBSERVATION ASSOCIATION CHECK PASSED
+PERSISTENT ASSOCIATION CHECK PASSED
+COLUMN ASSOCIATION CHECK PASSED
+SCREENED ASSOCIATION CHECK PASSED
+RANGE DETECTION CHECK PASSED
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence OSPA 8.750049 runtime 221.40s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage OSPA 8.574881 runtime 81.47s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar OSPA 8.938267 runtime 311.06s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_range OSPA 8.084339 runtime 39.08s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage_range OSPA 8.089536 runtime 36.45s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar_range OSPA 8.100054 runtime 39.64s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_constant OSPA 8.445625 runtime 137.70s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_lineage_constant OSPA 8.056172 runtime 33.76s
+START REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar_constant OSPA 8.535807 runtime 147.49s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence OSPA 8.653982 runtime 346.08s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage OSPA 8.264497 runtime 29.01s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar OSPA 8.797806 runtime 490.57s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_range OSPA 8.077136 runtime 29.92s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage_range OSPA 8.042825 runtime 24.11s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar_range 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar_range OSPA 8.565451 runtime 370.40s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_constant OSPA 8.074234 runtime 25.20s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_lineage_constant OSPA 8.020192 runtime 25.30s
+START REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar_constant 240 frames
+DONE REVIEW range_detection_preflight v2xt_0001 intermittent marked_gaussian_evidence_guarded_scalar_constant OSPA 8.093462 runtime 25.00s
+COMPLETED REVIEW range_detection_preflight v2xt_0001

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "method": "Independent algebra: normalized saved GS density plus logged spatial integral plus transmitted ratio, integrated by Cholesky",
+  "fusion_labels": 17199,
+  "counterfactual_robot_frames": 560,
+  "substitution_sha256": "1d8d225e863d65d189f1a91c5274eede1fcc0bd96f830fdbb01f20ceb4777637",
+  "native_sha256": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5",
+  "verifier_sha256": "f232202007039b5dcd8cb29b28171d6682a68941b2382f66c1bf7d8653059703"
+}

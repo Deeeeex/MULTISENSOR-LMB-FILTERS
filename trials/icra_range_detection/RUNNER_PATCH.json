@@ -1,0 +1,62 @@
+{
+  "source": "trials/icra_temporal_association/runScreenedAssociation.m",
+  "source_sha256": "1340191a7f5d4b7784d46c0e1b777736fbc2dbd4240bc6124580faf0dfe4798b",
+  "destination": "trials/icra_range_detection/runRangeDetectionReplay.m",
+  "destination_sha256": "e63f8403400aca52e8b3a619b7efc79426fada626f1085fbe93c5b10d43a6666",
+  "replacements": [
+    [
+      "function runScreenedAssociation(configPath,unitIndex)",
+      "function runRangeDetectionReplay(configPath,unitIndex)"
+    ],
+    [
+      "config=jsondecode(fileread(configPath));",
+      "addpath(fullfile(root,'trials','icra_temporal_association'));\nconfig=jsondecode(fileread(configPath));"
+    ],
+    [
+      "qualityPath=fullfile(original,'replay_quality');addpath(qualityPath);",
+      "qualityPath=fullfile(out,'range_quality');addpath(qualityPath);"
+    ],
+    [
+      "assert(strcmp(which('Hungarian'),fullfile(runtimePath,'Hungarian.m')));\ndata=load",
+      "assert(strcmp(which('Hungarian'),fullfile(runtimePath,'Hungarian.m')));\ncheckRangeDetection(baseQuality);\ndata=load"
+    ],
+    [
+      "model=makeModel(positions,T,baseQuality,config.pd);",
+      "model=makeModel(positions,T,baseQuality,config.pd);\nmodel.rangeDetection=unit.range_detection_model;"
+    ],
+    [
+      "'protocol','icra-screened-association-v1'",
+      "'protocol','icra-range-detection-v1'"
+    ],
+    [
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');",
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');\nmodel.rangeDetectionMode='nominal';\nif endsWith(rule,'_range'),model.rangeDetectionMode='range';rule=erase(rule,'_range');\nelseif endsWith(rule,'_constant'),model.rangeDetectionMode='constant';rule=erase(rule,'_constant');end"
+    ],
+    [
+      "run=emptyRun(arm,T);cfg=buildMixtureAwareKlaReferenceConfig();",
+      "run=emptyRun(arm,T);run.rangeDetectionMode=model.rangeDetectionMode;\nrun.rangeDetectionModel=model.rangeDetection;run.qualityRecords=zeros(0,10);\nrun.fusionSourceRecords=zeros(0,8);run.fusionOutputRecords=zeros(0,19);\ncfg=buildMixtureAwareKlaReferenceConfig();"
+    ],
+    [
+      "o=predicted(j);pd=evaluateSensorQuality(model,n,o.mu{1},t);predictedPd(j)=pd;",
+      "o=predicted(j);[pd,~,quality]=evaluateSensorQuality(model,n,o.mu{1},t);predictedPd(j)=pd;\n            run.qualityRecords(end+1,:)=[t,n,o.birthTime,o.birthLocation,o.mu{1}',quality.range,pd]; %#ok<AGROW>"
+    ],
+    [
+      "            run.iterationRecords=[run.iterationRecords;stats.records];",
+      "            for k=1:size(stats.records,1)\n                label=stats.records(k,3:4);originals=zeros(1,4);\n                for s=1:2\n                    index=find([inputs{s}.birthTime]==label(1) & [inputs{s}.birthLocation]==label(2));\n                    assert(numel(index)<=1);\n                    if ~isempty(index),originals(2*s-1:2*s)=details.originalLabels{s}(:,index)';end\n                end\n                if startsWith(rule,'gaussian_evidence'),assert(isequal(originals,stats.records(k,32:35)));end\n                run.fusionSourceRecords(end+1,:)=[t,n,label,originals]; %#ok<AGROW>\n                index=find([posterior{n}.birthTime]==label(1) & [posterior{n}.birthLocation]==label(2));\n                assert(numel(index)==1);o=posterior{n}(index);assert(o.numberOfGmComponents==1);\n                covariance=o.Sigma{1};lower=find(tril(true(4)));\n                run.fusionOutputRecords(end+1,:)=[t,n,label,o.r,o.mu{1}',covariance(lower)']; %#ok<AGROW>\n            end\n            run.iterationRecords=[run.iterationRecords;stats.records];"
+    ]
+  ],
+  "audit_source": "trials/icra_reviewer_revision/review_probability_audit.py",
+  "audit_source_sha256": "7f007360fc4d1402aa66179bf3f064bbec3b4f2349cc332f58bd04f196adf386",
+  "audit_destination": "trials/icra_range_detection/probability_audit.py",
+  "audit_destination_sha256": "a5d3bb02e8335dda3cd8bf9e352565976e26a0b7d0f3fd8c51c159ba5fa95173",
+  "audit_replacements": [
+    [
+      "from review_gaussian_audit import check_gaussians",
+      "from review_gaussian_audit import check_gaussians\nfrom range_audit import audit_actual_pd"
+    ],
+    [
+      "    assert np.isin(pd, [0, data['pd']]).all() and np.array_equal(pd > 0, local[:, 7].astype(bool))",
+      "    audit_actual_pd(run, data)\n    assert np.array_equal(pd > 0, local[:, 7].astype(bool))"
+    ]
+  ]
+}

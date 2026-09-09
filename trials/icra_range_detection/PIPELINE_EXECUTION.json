@@ -1,0 +1,75 @@
+{
+  "source_sha256": {
+    "audit_stage_v2.py": "f71f9e8257907268ccebf91d5c1edb74a3b3e0f73ae0a899ef9af1408efdf0a8",
+    "summarize.py": "a667e309e6eb7586da2b3d230b921beaa294c5dff3256be8f3b57306b0e8e2b4",
+    "run_stage.py": "4c6fd4c2834e10f5a46ab49243aedfbe65ce9ec6d71efd441a68d4fc9f397e57",
+    "verify_selection.py": "88cc91b698d4ea1784fb450f7fda04ed342c438bf10712074d88afb18b256936",
+    "build_report.py": "e1e56f216314f2f9b4dce6010f949cb6e6be6853cd3f98adeb6acffd28596dab"
+  },
+  "orchestrator_sha256": "005cd26220c67561b14cc4d8413e30901f35635a35837793b9341d9f8e8d7481",
+  "steps": [
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/audit_stage_v2.py",
+        "range_detection_preflight"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/summarize.py",
+        "--preflight-only"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "python3",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/run_stage.py",
+        "range_detection_screen",
+        "--workers",
+        "2"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/audit_stage_v2.py",
+        "range_detection_screen"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/summarize.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/verify_selection.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+        "-u",
+        "/Users/dex/Desktop/Code/icra27/trials/icra_range_detection/build_report.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "complete": true
+}

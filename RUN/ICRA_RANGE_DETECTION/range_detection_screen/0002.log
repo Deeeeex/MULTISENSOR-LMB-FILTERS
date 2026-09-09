@@ -1,0 +1,40 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+DIRECT OBSERVATION CHECK PASSED
+OBSERVATION ASSOCIATION CHECK PASSED
+PERSISTENT ASSOCIATION CHECK PASSED
+COLUMN ASSOCIATION CHECK PASSED
+SCREENED ASSOCIATION CHECK PASSED
+RANGE DETECTION CHECK PASSED
+START REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_range 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_range OSPA 3.817709 runtime 3.68s
+START REVIEW range_detection_screen 0002 reliable marked_lineage_range 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_lineage_range OSPA 4.057096 runtime 2.44s
+START REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_guarded_scalar_range 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_guarded_scalar_range OSPA 3.870580 runtime 2.31s
+START REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_constant 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_constant OSPA 3.835212 runtime 1.91s
+START REVIEW range_detection_screen 0002 reliable marked_lineage_constant 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_lineage_constant OSPA 3.894175 runtime 1.96s
+START REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_guarded_scalar_constant 144 frames
+DONE REVIEW range_detection_screen 0002 reliable marked_gaussian_evidence_guarded_scalar_constant OSPA 3.919330 runtime 1.86s
+START REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_range 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_range OSPA 4.900515 runtime 1.91s
+START REVIEW range_detection_screen 0002 intermittent marked_lineage_range 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_lineage_range OSPA 5.158505 runtime 1.80s
+START REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_guarded_scalar_range 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_guarded_scalar_range OSPA 4.930313 runtime 2.02s
+START REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_constant 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_constant OSPA 4.025521 runtime 1.77s
+START REVIEW range_detection_screen 0002 intermittent marked_lineage_constant 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_lineage_constant OSPA 4.104282 runtime 1.52s
+START REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_guarded_scalar_constant 144 frames
+DONE REVIEW range_detection_screen 0002 intermittent marked_gaussian_evidence_guarded_scalar_constant OSPA 4.079911 runtime 1.65s
+COMPLETED REVIEW range_detection_screen 0002

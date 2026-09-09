@@ -1,0 +1,11 @@
+{
+  "reason": "MATLAB prefixes digit-leading JSON metadata field names; all parameter values remain exactly checked",
+  "original_auditor_sha256": "6be33fb04431eef9b2d6d142d959af7e542f0888781127a4aebaaf7446a0df91",
+  "replacement_auditor_sha256": "f71f9e8257907268ccebf91d5c1edb74a3b3e0f73ae0a899ef9af1408efdf0a8",
+  "before": "                assert run['rangeDetectionModel']==unit['range_detection_model']",
+  "after": "                expected_fit=dict(unit['range_detection_model'])\n                if 'probabilities_by_range' in expected_fit:\n                    # MATLAB jsondecode prefixes fields that begin with digits.\n                    numeric_keys=expected_fit['probabilities_by_range']\n                    assert all(key.isdigit() for key in numeric_keys)\n                    expected_fit['probabilities_by_range']={'x'+key:value for key,value in numeric_keys.items()}\n                assert run['rangeDetectionModel']==expected_fit",
+  "native_evidence_sha256": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8",
+  "native_parameters_match_exactly_after_field_name_conversion": true,
+  "original_native_implementation_changed": false,
+  "original_manifest_changed": false
+}

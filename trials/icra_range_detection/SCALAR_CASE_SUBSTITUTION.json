@@ -1,0 +1,3965 @@
+{
+  "passed": true,
+  "scope": "Post-outcome fixed-input substitution on GS-visited states; never a recursive method result or selection input",
+  "window": [
+    53,
+    122
+  ],
+  "source_arm": "marked_gaussian_evidence_guarded_scalar_range",
+  "source_condition": "intermittent",
+  "fusion_labels": 17199,
+  "labels_with_admitted_spatial_increment": 6197,
+  "mean_absolute_normalizer_change": 0.002416834079214491,
+  "mean_absolute_existence_change": 2.6012476684805568e-05,
+  "summaries": [
+    {
+      "alternative": "actual",
+      "robot_frames": 140,
+      "detected": 9,
+      "mean_ospa": 8.502398810819818
+    },
+    {
+      "alternative": "normalizer_only",
+      "robot_frames": 140,
+      "detected": 9,
+      "mean_ospa": 8.502398810819818
+    },
+    {
+      "alternative": "mean_only",
+      "robot_frames": 140,
+      "detected": 9,
+      "mean_ospa": 8.502742515795129
+    },
+    {
+      "alternative": "joint",
+      "robot_frames": 140,
+      "detected": 9,
+      "mean_ospa": 8.502742515795129
+    }
+  ],
+  "frames": [
+    {
+      "frame": 53,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.607567999458668
+    },
+    {
+      "frame": 53,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.607567999458668
+    },
+    {
+      "frame": 53,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.607567999458668
+    },
+    {
+      "frame": 53,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.607567999458668
+    },
+    {
+      "frame": 53,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.48803338389868
+    },
+    {
+      "frame": 53,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.48803338389868
+    },
+    {
+      "frame": 53,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.4880072148563
+    },
+    {
+      "frame": 53,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.4880072148563
+    },
+    {
+      "frame": 54,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.486518763456235
+    },
+    {
+      "frame": 54,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.486518763456235
+    },
+    {
+      "frame": 54,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486384726169458
+    },
+    {
+      "frame": 54,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486384726169458
+    },
+    {
+      "frame": 54,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.486518763456235
+    },
+    {
+      "frame": 54,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.486518763456235
+    },
+    {
+      "frame": 54,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486384726169458
+    },
+    {
+      "frame": 54,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486384726169458
+    },
+    {
+      "frame": 55,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.487179143003493
+    },
+    {
+      "frame": 55,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.487179143003493
+    },
+    {
+      "frame": 55,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486816082192867
+    },
+    {
+      "frame": 55,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486816082192867
+    },
+    {
+      "frame": 55,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.487179143003493
+    },
+    {
+      "frame": 55,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.487179143003493
+    },
+    {
+      "frame": 55,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486816082192867
+    },
+    {
+      "frame": 55,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486816082192867
+    },
+    {
+      "frame": 56,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.486660383769612
+    },
+    {
+      "frame": 56,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.486660383769612
+    },
+    {
+      "frame": 56,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486368898780311
+    },
+    {
+      "frame": 56,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486368898780311
+    },
+    {
+      "frame": 56,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.486660383769612
+    },
+    {
+      "frame": 56,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.486660383769612
+    },
+    {
+      "frame": 56,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.486368898780311
+    },
+    {
+      "frame": 56,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.486368898780311
+    },
+    {
+      "frame": 57,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.253503321737553
+    },
+    {
+      "frame": 57,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.253503321737553
+    },
+    {
+      "frame": 57,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.253503321737553
+    },
+    {
+      "frame": 57,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.253503321737553
+    },
+    {
+      "frame": 57,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.864038780092526
+    },
+    {
+      "frame": 57,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.864038780092526
+    },
+    {
+      "frame": 57,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.863907926146826
+    },
+    {
+      "frame": 57,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.863907926146826
+    },
+    {
+      "frame": 58,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.255095611295231
+    },
+    {
+      "frame": 58,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.255095611295231
+    },
+    {
+      "frame": 58,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.255095611295231
+    },
+    {
+      "frame": 58,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.255095611295231
+    },
+    {
+      "frame": 58,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.856326358188335
+    },
+    {
+      "frame": 58,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.856326358188335
+    },
+    {
+      "frame": 58,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.858629207316286
+    },
+    {
+      "frame": 58,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.858629207316286
+    },
+    {
+      "frame": 59,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.796239581229393
+    },
+    {
+      "frame": 59,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.796239581229393
+    },
+    {
+      "frame": 59,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.799160458708046
+    },
+    {
+      "frame": 59,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.799160458708046
+    },
+    {
+      "frame": 59,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.796239581229393
+    },
+    {
+      "frame": 59,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.796239581229393
+    },
+    {
+      "frame": 59,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.799160458708046
+    },
+    {
+      "frame": 59,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.799160458708046
+    },
+    {
+      "frame": 60,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.978708965026156
+    },
+    {
+      "frame": 60,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.978708965026156
+    },
+    {
+      "frame": 60,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.978669626918231
+    },
+    {
+      "frame": 60,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.978669626918231
+    },
+    {
+      "frame": 60,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.978708965026156
+    },
+    {
+      "frame": 60,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.978708965026156
+    },
+    {
+      "frame": 60,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.978669626918231
+    },
+    {
+      "frame": 60,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.978669626918231
+    },
+    {
+      "frame": 61,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.92170913989726
+    },
+    {
+      "frame": 61,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.92170913989726
+    },
+    {
+      "frame": 61,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.924070213919615
+    },
+    {
+      "frame": 61,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.924070213919615
+    },
+    {
+      "frame": 61,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 7.92170913989726
+    },
+    {
+      "frame": 61,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 7.92170913989726
+    },
+    {
+      "frame": 61,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 7.924070213919615
+    },
+    {
+      "frame": 61,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 7.924070213919615
+    },
+    {
+      "frame": 62,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.653477572276948
+    },
+    {
+      "frame": 62,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.653477572276948
+    },
+    {
+      "frame": 62,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.657933055722774
+    },
+    {
+      "frame": 62,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.657933055722774
+    },
+    {
+      "frame": 62,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.653477572276948
+    },
+    {
+      "frame": 62,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.653477572276948
+    },
+    {
+      "frame": 62,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.657933055722774
+    },
+    {
+      "frame": 62,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.657933055722774
+    },
+    {
+      "frame": 63,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.604629330015218
+    },
+    {
+      "frame": 63,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.604629330015218
+    },
+    {
+      "frame": 63,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.604615836993867
+    },
+    {
+      "frame": 63,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.604615836993867
+    },
+    {
+      "frame": 63,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.604629330015218
+    },
+    {
+      "frame": 63,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.604629330015218
+    },
+    {
+      "frame": 63,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.604615836993867
+    },
+    {
+      "frame": 63,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.604615836993867
+    },
+    {
+      "frame": 64,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.563039409719064
+    },
+    {
+      "frame": 64,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.563039409719064
+    },
+    {
+      "frame": 64,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.56377381025281
+    },
+    {
+      "frame": 64,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.56377381025281
+    },
+    {
+      "frame": 64,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.563039409719064
+    },
+    {
+      "frame": 64,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.563039409719064
+    },
+    {
+      "frame": 64,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.56377381025281
+    },
+    {
+      "frame": 64,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.56377381025281
+    },
+    {
+      "frame": 65,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.531367131141591
+    },
+    {
+      "frame": 65,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.531367131141591
+    },
+    {
+      "frame": 65,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.534076260766602
+    },
+    {
+      "frame": 65,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.534076260766602
+    },
+    {
+      "frame": 65,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.716524029259608
+    },
+    {
+      "frame": 65,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.716524029259608
+    },
+    {
+      "frame": 65,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.716524029259608
+    },
+    {
+      "frame": 65,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.716524029259608
+    },
+    {
+      "frame": 66,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.696294754425381
+    },
+    {
+      "frame": 66,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.696294754425381
+    },
+    {
+      "frame": 66,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.698169807261764
+    },
+    {
+      "frame": 66,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.698169807261764
+    },
+    {
+      "frame": 66,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.696294754425381
+    },
+    {
+      "frame": 66,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.696294754425381
+    },
+    {
+      "frame": 66,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.698169807261764
+    },
+    {
+      "frame": 66,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.698169807261764
+    },
+    {
+      "frame": 67,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 6.780580780583989
+    },
+    {
+      "frame": 67,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 6.780580780583989
+    },
+    {
+      "frame": 67,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 6.780580780583989
+    },
+    {
+      "frame": 67,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 6.780580780583989
+    },
+    {
+      "frame": 67,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.663476043885514
+    },
+    {
+      "frame": 67,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.663476043885514
+    },
+    {
+      "frame": 67,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.66382225270737
+    },
+    {
+      "frame": 67,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.66382225270737
+    },
+    {
+      "frame": 68,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": true,
+      "ospa": 6.749682906476005
+    },
+    {
+      "frame": 68,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": true,
+      "ospa": 6.749682906476005
+    },
+    {
+      "frame": 68,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": true,
+      "ospa": 6.749682906476005
+    },
+    {
+      "frame": 68,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": true,
+      "ospa": 6.749682906476005
+    },
+    {
+      "frame": 68,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.635606883136273
+    },
+    {
+      "frame": 68,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.635606883136273
+    },
+    {
+      "frame": 68,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.636744143823705
+    },
+    {
+      "frame": 68,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.636744143823705
+    },
+    {
+      "frame": 69,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.42517524317289
+    },
+    {
+      "frame": 69,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.42517524317289
+    },
+    {
+      "frame": 69,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.425724643836094
+    },
+    {
+      "frame": 69,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.425724643836094
+    },
+    {
+      "frame": 69,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.42517524317289
+    },
+    {
+      "frame": 69,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.42517524317289
+    },
+    {
+      "frame": 69,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.425724643836094
+    },
+    {
+      "frame": 69,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.425724643836094
+    },
+    {
+      "frame": 70,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.588850575103779
+    },
+    {
+      "frame": 70,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.588850575103779
+    },
+    {
+      "frame": 70,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.588930025122537
+    },
+    {
+      "frame": 70,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.588930025122537
+    },
+    {
+      "frame": 70,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.588850575103779
+    },
+    {
+      "frame": 70,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.588850575103779
+    },
+    {
+      "frame": 70,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.588930025122537
+    },
+    {
+      "frame": 70,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.588930025122537
+    },
+    {
+      "frame": 71,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.570326932365302
+    },
+    {
+      "frame": 71,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.570326932365302
+    },
+    {
+      "frame": 71,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.572067296834033
+    },
+    {
+      "frame": 71,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.572067296834033
+    },
+    {
+      "frame": 71,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.570326932365302
+    },
+    {
+      "frame": 71,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.570326932365302
+    },
+    {
+      "frame": 71,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.572067296834033
+    },
+    {
+      "frame": 71,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.572067296834033
+    },
+    {
+      "frame": 72,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.543608069224954
+    },
+    {
+      "frame": 72,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.543608069224954
+    },
+    {
+      "frame": 72,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.5453907956939466
+    },
+    {
+      "frame": 72,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.5453907956939466
+    },
+    {
+      "frame": 72,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.543608069224954
+    },
+    {
+      "frame": 72,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.543608069224954
+    },
+    {
+      "frame": 72,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.5453907956939466
+    },
+    {
+      "frame": 72,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.5453907956939466
+    },
+    {
+      "frame": 73,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.5191947721194285
+    },
+    {
+      "frame": 73,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.5191947721194285
+    },
+    {
+      "frame": 73,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.520662383279492
+    },
+    {
+      "frame": 73,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.520662383279492
+    },
+    {
+      "frame": 73,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.5191947721194285
+    },
+    {
+      "frame": 73,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.5191947721194285
+    },
+    {
+      "frame": 73,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.520662383279492
+    },
+    {
+      "frame": 73,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.520662383279492
+    },
+    {
+      "frame": 74,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.502525537223348
+    },
+    {
+      "frame": 74,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.502525537223348
+    },
+    {
+      "frame": 74,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.506173916638599
+    },
+    {
+      "frame": 74,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.506173916638599
+    },
+    {
+      "frame": 74,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.502525537223348
+    },
+    {
+      "frame": 74,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.502525537223348
+    },
+    {
+      "frame": 74,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.506173916638599
+    },
+    {
+      "frame": 74,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.506173916638599
+    },
+    {
+      "frame": 75,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.48642116915606
+    },
+    {
+      "frame": 75,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.48642116915606
+    },
+    {
+      "frame": 75,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.487111474310314
+    },
+    {
+      "frame": 75,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.487111474310314
+    },
+    {
+      "frame": 75,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.48642116915606
+    },
+    {
+      "frame": 75,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.48642116915606
+    },
+    {
+      "frame": 75,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.487111474310314
+    },
+    {
+      "frame": 75,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.487111474310314
+    },
+    {
+      "frame": 76,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.945453544086762
+    },
+    {
+      "frame": 76,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.945453544086762
+    },
+    {
+      "frame": 76,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.945450257657781
+    },
+    {
+      "frame": 76,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.945450257657781
+    },
+    {
+      "frame": 76,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.945453544086762
+    },
+    {
+      "frame": 76,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.945453544086762
+    },
+    {
+      "frame": 76,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.945450257657781
+    },
+    {
+      "frame": 76,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.945450257657781
+    },
+    {
+      "frame": 77,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.931649711777127
+    },
+    {
+      "frame": 77,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.931649711777127
+    },
+    {
+      "frame": 77,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.9323238495998165
+    },
+    {
+      "frame": 77,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.9323238495998165
+    },
+    {
+      "frame": 77,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.931649711777127
+    },
+    {
+      "frame": 77,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.931649711777127
+    },
+    {
+      "frame": 77,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.9323238495998165
+    },
+    {
+      "frame": 77,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.9323238495998165
+    },
+    {
+      "frame": 78,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.44975128910309
+    },
+    {
+      "frame": 78,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.44975128910309
+    },
+    {
+      "frame": 78,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.442915485553916
+    },
+    {
+      "frame": 78,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.442915485553916
+    },
+    {
+      "frame": 78,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.44975128910309
+    },
+    {
+      "frame": 78,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.44975128910309
+    },
+    {
+      "frame": 78,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.442915485553916
+    },
+    {
+      "frame": 78,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.442915485553916
+    },
+    {
+      "frame": 79,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.4296990699166425
+    },
+    {
+      "frame": 79,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.4296990699166425
+    },
+    {
+      "frame": 79,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.429090127254021
+    },
+    {
+      "frame": 79,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.429090127254021
+    },
+    {
+      "frame": 79,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.4296990699166425
+    },
+    {
+      "frame": 79,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.4296990699166425
+    },
+    {
+      "frame": 79,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.429090127254021
+    },
+    {
+      "frame": 79,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.429090127254021
+    },
+    {
+      "frame": 80,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.623343624928397
+    },
+    {
+      "frame": 80,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.623343624928397
+    },
+    {
+      "frame": 80,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.623980150406908
+    },
+    {
+      "frame": 80,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.623980150406908
+    },
+    {
+      "frame": 80,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.623343624928397
+    },
+    {
+      "frame": 80,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.623343624928397
+    },
+    {
+      "frame": 80,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.623980150406908
+    },
+    {
+      "frame": 80,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.623980150406908
+    },
+    {
+      "frame": 81,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.609985739220903
+    },
+    {
+      "frame": 81,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.609985739220903
+    },
+    {
+      "frame": 81,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.61004934021643
+    },
+    {
+      "frame": 81,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.61004934021643
+    },
+    {
+      "frame": 81,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.609985739220903
+    },
+    {
+      "frame": 81,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.609985739220903
+    },
+    {
+      "frame": 81,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.61004934021643
+    },
+    {
+      "frame": 81,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.61004934021643
+    },
+    {
+      "frame": 82,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.59967289266175
+    },
+    {
+      "frame": 82,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.59967289266175
+    },
+    {
+      "frame": 82,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.599585862006329
+    },
+    {
+      "frame": 82,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.599585862006329
+    },
+    {
+      "frame": 82,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.59967289266175
+    },
+    {
+      "frame": 82,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.59967289266175
+    },
+    {
+      "frame": 82,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.599585862006329
+    },
+    {
+      "frame": 82,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.599585862006329
+    },
+    {
+      "frame": 83,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.596748251939932
+    },
+    {
+      "frame": 83,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.596748251939932
+    },
+    {
+      "frame": 83,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.596402826817537
+    },
+    {
+      "frame": 83,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.596402826817537
+    },
+    {
+      "frame": 83,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.596748251939932
+    },
+    {
+      "frame": 83,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.596748251939932
+    },
+    {
+      "frame": 83,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.596402826817537
+    },
+    {
+      "frame": 83,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.596402826817537
+    },
+    {
+      "frame": 84,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.602234476873923
+    },
+    {
+      "frame": 84,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.602234476873923
+    },
+    {
+      "frame": 84,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.601798750326694
+    },
+    {
+      "frame": 84,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.601798750326694
+    },
+    {
+      "frame": 84,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.596846379993865
+    },
+    {
+      "frame": 84,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.596846379993865
+    },
+    {
+      "frame": 84,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.596846379993865
+    },
+    {
+      "frame": 84,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.596846379993865
+    },
+    {
+      "frame": 85,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.596509736092003
+    },
+    {
+      "frame": 85,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.596509736092003
+    },
+    {
+      "frame": 85,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.598425567547125
+    },
+    {
+      "frame": 85,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.598425567547125
+    },
+    {
+      "frame": 85,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.596509736092003
+    },
+    {
+      "frame": 85,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.596509736092003
+    },
+    {
+      "frame": 85,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.598425567547125
+    },
+    {
+      "frame": 85,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.598425567547125
+    },
+    {
+      "frame": 86,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.594813572313551
+    },
+    {
+      "frame": 86,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.594813572313551
+    },
+    {
+      "frame": 86,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.594813572313551
+    },
+    {
+      "frame": 86,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.594813572313551
+    },
+    {
+      "frame": 86,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.593424074278024
+    },
+    {
+      "frame": 86,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.593424074278024
+    },
+    {
+      "frame": 86,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.594528470818991
+    },
+    {
+      "frame": 86,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.594528470818991
+    },
+    {
+      "frame": 87,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.592298095796764
+    },
+    {
+      "frame": 87,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.592298095796764
+    },
+    {
+      "frame": 87,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.593387102814063
+    },
+    {
+      "frame": 87,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.593387102814063
+    },
+    {
+      "frame": 87,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.592298095796764
+    },
+    {
+      "frame": 87,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.592298095796764
+    },
+    {
+      "frame": 87,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.593387102814063
+    },
+    {
+      "frame": 87,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.593387102814063
+    },
+    {
+      "frame": 88,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.590746401480974
+    },
+    {
+      "frame": 88,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.590746401480974
+    },
+    {
+      "frame": 88,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.591124333996936
+    },
+    {
+      "frame": 88,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.591124333996936
+    },
+    {
+      "frame": 88,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.590746401480974
+    },
+    {
+      "frame": 88,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.590746401480974
+    },
+    {
+      "frame": 88,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.591124333996936
+    },
+    {
+      "frame": 88,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.591124333996936
+    },
+    {
+      "frame": 89,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.58851028387539
+    },
+    {
+      "frame": 89,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.58851028387539
+    },
+    {
+      "frame": 89,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.588855346885536
+    },
+    {
+      "frame": 89,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.588855346885536
+    },
+    {
+      "frame": 89,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.58851028387539
+    },
+    {
+      "frame": 89,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.58851028387539
+    },
+    {
+      "frame": 89,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.588855346885536
+    },
+    {
+      "frame": 89,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.588855346885536
+    },
+    {
+      "frame": 90,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.587824607978705
+    },
+    {
+      "frame": 90,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.587824607978705
+    },
+    {
+      "frame": 90,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.588185960444017
+    },
+    {
+      "frame": 90,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.588185960444017
+    },
+    {
+      "frame": 90,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.587824607978705
+    },
+    {
+      "frame": 90,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.587824607978705
+    },
+    {
+      "frame": 90,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.588185960444017
+    },
+    {
+      "frame": 90,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.588185960444017
+    },
+    {
+      "frame": 91,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.583158201583105
+    },
+    {
+      "frame": 91,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.583158201583105
+    },
+    {
+      "frame": 91,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.583657955273031
+    },
+    {
+      "frame": 91,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.583657955273031
+    },
+    {
+      "frame": 91,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.583158201583105
+    },
+    {
+      "frame": 91,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.583158201583105
+    },
+    {
+      "frame": 91,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.583657955273031
+    },
+    {
+      "frame": 91,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.583657955273031
+    },
+    {
+      "frame": 92,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.579006901989509
+    },
+    {
+      "frame": 92,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.579006901989509
+    },
+    {
+      "frame": 92,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.578516146113333
+    },
+    {
+      "frame": 92,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.578516146113333
+    },
+    {
+      "frame": 92,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.579006901989509
+    },
+    {
+      "frame": 92,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.579006901989509
+    },
+    {
+      "frame": 92,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.578516146113333
+    },
+    {
+      "frame": 92,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.578516146113333
+    },
+    {
+      "frame": 93,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.580720918691881
+    },
+    {
+      "frame": 93,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.580720918691881
+    },
+    {
+      "frame": 93,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.581084961296497
+    },
+    {
+      "frame": 93,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.581084961296497
+    },
+    {
+      "frame": 93,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.580720918691881
+    },
+    {
+      "frame": 93,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.580720918691881
+    },
+    {
+      "frame": 93,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.581084961296497
+    },
+    {
+      "frame": 93,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.581084961296497
+    },
+    {
+      "frame": 94,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.577741060038448
+    },
+    {
+      "frame": 94,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.577741060038448
+    },
+    {
+      "frame": 94,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.577741060038448
+    },
+    {
+      "frame": 94,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.577741060038448
+    },
+    {
+      "frame": 94,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.576701671460384
+    },
+    {
+      "frame": 94,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.576701671460384
+    },
+    {
+      "frame": 94,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.577840599365643
+    },
+    {
+      "frame": 94,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.577840599365643
+    },
+    {
+      "frame": 95,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.574913432557224
+    },
+    {
+      "frame": 95,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.574913432557224
+    },
+    {
+      "frame": 95,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.575302379449035
+    },
+    {
+      "frame": 95,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.575302379449035
+    },
+    {
+      "frame": 95,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.574913432557224
+    },
+    {
+      "frame": 95,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.574913432557224
+    },
+    {
+      "frame": 95,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.575302379449035
+    },
+    {
+      "frame": 95,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.575302379449035
+    },
+    {
+      "frame": 96,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.575369841438318
+    },
+    {
+      "frame": 96,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.575369841438318
+    },
+    {
+      "frame": 96,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.575547517021178
+    },
+    {
+      "frame": 96,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.575547517021178
+    },
+    {
+      "frame": 96,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.575369841438318
+    },
+    {
+      "frame": 96,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.575369841438318
+    },
+    {
+      "frame": 96,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.575547517021178
+    },
+    {
+      "frame": 96,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.575547517021178
+    },
+    {
+      "frame": 97,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.577941168302269
+    },
+    {
+      "frame": 97,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.577941168302269
+    },
+    {
+      "frame": 97,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.577941168302269
+    },
+    {
+      "frame": 97,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.577941168302269
+    },
+    {
+      "frame": 97,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.577572488183103
+    },
+    {
+      "frame": 97,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.577572488183103
+    },
+    {
+      "frame": 97,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.577572488183103
+    },
+    {
+      "frame": 97,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.577572488183103
+    },
+    {
+      "frame": 98,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.852769450953924
+    },
+    {
+      "frame": 98,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.852769450953924
+    },
+    {
+      "frame": 98,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.852769450953924
+    },
+    {
+      "frame": 98,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.852769450953924
+    },
+    {
+      "frame": 98,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.576801706063899
+    },
+    {
+      "frame": 98,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.576801706063899
+    },
+    {
+      "frame": 98,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.576801706063899
+    },
+    {
+      "frame": 98,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.576801706063899
+    },
+    {
+      "frame": 99,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.095115604158248
+    },
+    {
+      "frame": 99,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.095115604158248
+    },
+    {
+      "frame": 99,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.095115604158248
+    },
+    {
+      "frame": 99,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.095115604158248
+    },
+    {
+      "frame": 99,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.24412379808125
+    },
+    {
+      "frame": 99,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.24412379808125
+    },
+    {
+      "frame": 99,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.24412379808125
+    },
+    {
+      "frame": 99,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.24412379808125
+    },
+    {
+      "frame": 100,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 6.706695493640116
+    },
+    {
+      "frame": 100,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 6.706695493640116
+    },
+    {
+      "frame": 100,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 6.706695493640116
+    },
+    {
+      "frame": 100,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 6.706695493640116
+    },
+    {
+      "frame": 100,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.798780296173652
+    },
+    {
+      "frame": 100,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.798780296173652
+    },
+    {
+      "frame": 100,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.798780296173652
+    },
+    {
+      "frame": 100,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.798780296173652
+    },
+    {
+      "frame": 101,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 6.742014475936214
+    },
+    {
+      "frame": 101,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 6.742014475936214
+    },
+    {
+      "frame": 101,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 6.742014475936214
+    },
+    {
+      "frame": 101,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 6.742014475936214
+    },
+    {
+      "frame": 101,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.799773339147494
+    },
+    {
+      "frame": 101,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.799773339147494
+    },
+    {
+      "frame": 101,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.799773339147494
+    },
+    {
+      "frame": 101,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.799773339147494
+    },
+    {
+      "frame": 102,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.256004176768294
+    },
+    {
+      "frame": 102,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.256004176768294
+    },
+    {
+      "frame": 102,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.256004176768294
+    },
+    {
+      "frame": 102,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.256004176768294
+    },
+    {
+      "frame": 102,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.800489291383698
+    },
+    {
+      "frame": 102,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.800489291383698
+    },
+    {
+      "frame": 102,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.800489291383698
+    },
+    {
+      "frame": 102,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.800489291383698
+    },
+    {
+      "frame": 103,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.397100069578286
+    },
+    {
+      "frame": 103,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.397100069578286
+    },
+    {
+      "frame": 103,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.397100069578286
+    },
+    {
+      "frame": 103,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.397100069578286
+    },
+    {
+      "frame": 103,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.801379277177379
+    },
+    {
+      "frame": 103,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.801379277177379
+    },
+    {
+      "frame": 103,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.801379277177379
+    },
+    {
+      "frame": 103,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.801379277177379
+    },
+    {
+      "frame": 104,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.573471981885318
+    },
+    {
+      "frame": 104,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.573471981885318
+    },
+    {
+      "frame": 104,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.573471981885318
+    },
+    {
+      "frame": 104,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.573471981885318
+    },
+    {
+      "frame": 104,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.802409132240525
+    },
+    {
+      "frame": 104,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.802409132240525
+    },
+    {
+      "frame": 104,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.802409132240525
+    },
+    {
+      "frame": 104,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.802409132240525
+    },
+    {
+      "frame": 105,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.8653016670015585
+    },
+    {
+      "frame": 105,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.8653016670015585
+    },
+    {
+      "frame": 105,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.8653016670015585
+    },
+    {
+      "frame": 105,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.8653016670015585
+    },
+    {
+      "frame": 105,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.803791142501254
+    },
+    {
+      "frame": 105,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.803791142501254
+    },
+    {
+      "frame": 105,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.803791142501254
+    },
+    {
+      "frame": 105,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.803791142501254
+    },
+    {
+      "frame": 106,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.8686246975076255
+    },
+    {
+      "frame": 106,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.8686246975076255
+    },
+    {
+      "frame": 106,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.8686246975076255
+    },
+    {
+      "frame": 106,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.8686246975076255
+    },
+    {
+      "frame": 106,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.80536661198836
+    },
+    {
+      "frame": 106,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.80536661198836
+    },
+    {
+      "frame": 106,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.80536661198836
+    },
+    {
+      "frame": 106,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.80536661198836
+    },
+    {
+      "frame": 107,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.59344748636687
+    },
+    {
+      "frame": 107,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.59344748636687
+    },
+    {
+      "frame": 107,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.59344748636687
+    },
+    {
+      "frame": 107,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.59344748636687
+    },
+    {
+      "frame": 107,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.806667413962032
+    },
+    {
+      "frame": 107,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.806667413962032
+    },
+    {
+      "frame": 107,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.806667413962032
+    },
+    {
+      "frame": 107,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.806667413962032
+    },
+    {
+      "frame": 108,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.598239118571685
+    },
+    {
+      "frame": 108,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.598239118571685
+    },
+    {
+      "frame": 108,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.598239118571685
+    },
+    {
+      "frame": 108,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.598239118571685
+    },
+    {
+      "frame": 108,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.808850504516945
+    },
+    {
+      "frame": 108,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.808850504516945
+    },
+    {
+      "frame": 108,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.808850504516945
+    },
+    {
+      "frame": 108,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.808850504516945
+    },
+    {
+      "frame": 109,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.597091534825232
+    },
+    {
+      "frame": 109,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.597091534825232
+    },
+    {
+      "frame": 109,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.597091534825232
+    },
+    {
+      "frame": 109,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.597091534825232
+    },
+    {
+      "frame": 109,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.81141661422816
+    },
+    {
+      "frame": 109,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.81141661422816
+    },
+    {
+      "frame": 109,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.81141661422816
+    },
+    {
+      "frame": 109,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.81141661422816
+    },
+    {
+      "frame": 110,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.598150398888471
+    },
+    {
+      "frame": 110,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.598150398888471
+    },
+    {
+      "frame": 110,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.598150398888471
+    },
+    {
+      "frame": 110,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.598150398888471
+    },
+    {
+      "frame": 110,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.814414880111848
+    },
+    {
+      "frame": 110,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.814414880111848
+    },
+    {
+      "frame": 110,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.814414880111848
+    },
+    {
+      "frame": 110,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.814414880111848
+    },
+    {
+      "frame": 111,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.599567762822092
+    },
+    {
+      "frame": 111,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.599567762822092
+    },
+    {
+      "frame": 111,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.599567762822092
+    },
+    {
+      "frame": 111,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.599567762822092
+    },
+    {
+      "frame": 111,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.818612543131396
+    },
+    {
+      "frame": 111,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.818612543131396
+    },
+    {
+      "frame": 111,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.818612543131396
+    },
+    {
+      "frame": 111,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.818612543131396
+    },
+    {
+      "frame": 112,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.588971298257132
+    },
+    {
+      "frame": 112,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.588971298257132
+    },
+    {
+      "frame": 112,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.588971298257132
+    },
+    {
+      "frame": 112,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.588971298257132
+    },
+    {
+      "frame": 112,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.82232300075177
+    },
+    {
+      "frame": 112,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.82232300075177
+    },
+    {
+      "frame": 112,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.82232300075177
+    },
+    {
+      "frame": 112,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.82232300075177
+    },
+    {
+      "frame": 113,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 7.862483354727613
+    },
+    {
+      "frame": 113,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 7.862483354727613
+    },
+    {
+      "frame": 113,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 7.862483354727613
+    },
+    {
+      "frame": 113,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 7.862483354727613
+    },
+    {
+      "frame": 113,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.825787818614513
+    },
+    {
+      "frame": 113,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.825787818614513
+    },
+    {
+      "frame": 113,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.825787818614513
+    },
+    {
+      "frame": 113,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.825787818614513
+    },
+    {
+      "frame": 114,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 8.591771150786254
+    },
+    {
+      "frame": 114,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 8.591771150786254
+    },
+    {
+      "frame": 114,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 8.591771150786254
+    },
+    {
+      "frame": 114,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 8.591771150786254
+    },
+    {
+      "frame": 114,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.830625302335974
+    },
+    {
+      "frame": 114,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.830625302335974
+    },
+    {
+      "frame": 114,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.830625302335974
+    },
+    {
+      "frame": 114,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.830625302335974
+    },
+    {
+      "frame": 115,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.256432270832825
+    },
+    {
+      "frame": 115,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.256432270832825
+    },
+    {
+      "frame": 115,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.256432270832825
+    },
+    {
+      "frame": 115,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.256432270832825
+    },
+    {
+      "frame": 115,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.835816598674471
+    },
+    {
+      "frame": 115,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.835816598674471
+    },
+    {
+      "frame": 115,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.835816598674471
+    },
+    {
+      "frame": 115,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.835816598674471
+    },
+    {
+      "frame": 116,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.25512852823205
+    },
+    {
+      "frame": 116,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.25512852823205
+    },
+    {
+      "frame": 116,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.25512852823205
+    },
+    {
+      "frame": 116,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.25512852823205
+    },
+    {
+      "frame": 116,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.212298590296625
+    },
+    {
+      "frame": 116,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.212298590296625
+    },
+    {
+      "frame": 116,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.212298590296625
+    },
+    {
+      "frame": 116,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.212298590296625
+    },
+    {
+      "frame": 117,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.691381915299885
+    },
+    {
+      "frame": 117,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.691381915299885
+    },
+    {
+      "frame": 117,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.691381915299885
+    },
+    {
+      "frame": 117,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.691381915299885
+    },
+    {
+      "frame": 117,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.663399499753934
+    },
+    {
+      "frame": 117,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.663399499753934
+    },
+    {
+      "frame": 117,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.663399499753934
+    },
+    {
+      "frame": 117,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.663399499753934
+    },
+    {
+      "frame": 118,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.691900492518569
+    },
+    {
+      "frame": 118,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.691900492518569
+    },
+    {
+      "frame": 118,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.691900492518569
+    },
+    {
+      "frame": 118,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.691900492518569
+    },
+    {
+      "frame": 118,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.669474902313464
+    },
+    {
+      "frame": 118,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.669474902313464
+    },
+    {
+      "frame": 118,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.669474902313464
+    },
+    {
+      "frame": 118,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.669474902313464
+    },
+    {
+      "frame": 119,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.692680053004594
+    },
+    {
+      "frame": 119,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.692680053004594
+    },
+    {
+      "frame": 119,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.692680053004594
+    },
+    {
+      "frame": 119,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.692680053004594
+    },
+    {
+      "frame": 119,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.675560998309628
+    },
+    {
+      "frame": 119,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.675560998309628
+    },
+    {
+      "frame": 119,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.675560998309628
+    },
+    {
+      "frame": 119,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.675560998309628
+    },
+    {
+      "frame": 120,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.69491145680177
+    },
+    {
+      "frame": 120,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.69491145680177
+    },
+    {
+      "frame": 120,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.69491145680177
+    },
+    {
+      "frame": 120,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.69491145680177
+    },
+    {
+      "frame": 120,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.683226784513131
+    },
+    {
+      "frame": 120,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.683226784513131
+    },
+    {
+      "frame": 120,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.683226784513131
+    },
+    {
+      "frame": 120,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.683226784513131
+    },
+    {
+      "frame": 121,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.161234963763741
+    },
+    {
+      "frame": 121,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.161234963763741
+    },
+    {
+      "frame": 121,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.161234963763741
+    },
+    {
+      "frame": 121,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.161234963763741
+    },
+    {
+      "frame": 121,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.690960179429156
+    },
+    {
+      "frame": 121,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.690960179429156
+    },
+    {
+      "frame": 121,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.690960179429156
+    },
+    {
+      "frame": 121,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.690960179429156
+    },
+    {
+      "frame": 122,
+      "robot": 1,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.156430604336922
+    },
+    {
+      "frame": 122,
+      "robot": 1,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.156430604336922
+    },
+    {
+      "frame": 122,
+      "robot": 1,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.156430604336922
+    },
+    {
+      "frame": 122,
+      "robot": 1,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.156430604336922
+    },
+    {
+      "frame": 122,
+      "robot": 2,
+      "alternative": "actual",
+      "detected": false,
+      "ospa": 9.15564138840507
+    },
+    {
+      "frame": 122,
+      "robot": 2,
+      "alternative": "normalizer_only",
+      "detected": false,
+      "ospa": 9.15564138840507
+    },
+    {
+      "frame": 122,
+      "robot": 2,
+      "alternative": "mean_only",
+      "detected": false,
+      "ospa": 9.15564138840507
+    },
+    {
+      "frame": 122,
+      "robot": 2,
+      "alternative": "joint",
+      "detected": false,
+      "ospa": 9.15564138840507
+    }
+  ],
+  "native_sha256": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5",
+  "audit_sha256": "5fa18edfcac824385b0d4652d668f4ea514da728282ae4900df090c509ebade0",
+  "source_sha256": "5e5c530d611c94c19946c188697caa3dbc053dd192b7079e55023b1e61443021"
+}

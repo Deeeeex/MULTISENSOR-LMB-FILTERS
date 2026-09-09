@@ -1,0 +1,1640 @@
+{
+  "passed": true,
+  "preflight_only": true,
+  "rows": [
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 147,
+      "ospa": 2.0540325088014852,
+      "gospa": 2.4366771750925214,
+      "loc2": 0.19032083902876012,
+      "miss2": 13.714285714285714,
+      "false2": 5.387755102040816,
+      "countError": 0.23809523809523808,
+      "raw_bytes": 1001696,
+      "delivered_raw_bytes": 1001696,
+      "wire_bytes": 4854528,
+      "runtime_s": 2.8030665833333335,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 147,
+      "ospa": 2.1112403445538552,
+      "gospa": 2.5475354198425153,
+      "loc2": 0.1435112359521936,
+      "miss2": 16.163265306122447,
+      "false2": 4.408163265306122,
+      "countError": 0.24489795918367346,
+      "raw_bytes": 684624,
+      "delivered_raw_bytes": 684624,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.9103205833333334,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 147,
+      "ospa": 2.035972427106574,
+      "gospa": 2.463565344850831,
+      "loc2": 0.20281919471732632,
+      "miss2": 14.693877551020408,
+      "false2": 4.8979591836734695,
+      "countError": 0.23129251700680273,
+      "raw_bytes": 1003104,
+      "delivered_raw_bytes": 1003104,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.672894875,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "frames": 147,
+      "ospa": 2.12116699916594,
+      "gospa": 2.510322604035546,
+      "loc2": 0.2418195777823385,
+      "miss2": 13.224489795918368,
+      "false2": 6.36734693877551,
+      "countError": 0.24489795918367346,
+      "raw_bytes": 1142848,
+      "delivered_raw_bytes": 1142848,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.7830412083333333,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "frames": 147,
+      "ospa": 2.2723823659889244,
+      "gospa": 2.695798321930055,
+      "loc2": 0.152176419452709,
+      "miss2": 16.163265306122447,
+      "false2": 5.387755102040816,
+      "countError": 0.272108843537415,
+      "raw_bytes": 921144,
+      "delivered_raw_bytes": 921144,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.9236829583333332,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "frames": 147,
+      "ospa": 2.19015224952917,
+      "gospa": 2.636950604937451,
+      "loc2": 0.2741837136135154,
+      "miss2": 15.183673469387756,
+      "false2": 5.877551020408164,
+      "countError": 0.25170068027210885,
+      "raw_bytes": 1159744,
+      "delivered_raw_bytes": 1159744,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.6573019583333333,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "frames": 147,
+      "ospa": 1.9432007121691142,
+      "gospa": 2.3275261443482016,
+      "loc2": 0.19473908618760222,
+      "miss2": 13.224489795918368,
+      "false2": 4.8979591836734695,
+      "countError": 0.22448979591836735,
+      "raw_bytes": 1137568,
+      "delivered_raw_bytes": 1137568,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.7089762083333333,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "frames": 147,
+      "ospa": 2.1728545307039564,
+      "gospa": 2.5873351601827816,
+      "loc2": 0.15535130966605634,
+      "miss2": 16.163265306122447,
+      "false2": 4.408163265306122,
+      "countError": 0.2585034013605442,
+      "raw_bytes": 939936,
+      "delivered_raw_bytes": 939936,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.971642,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "frames": 147,
+      "ospa": 2.0412132431736145,
+      "gospa": 2.47166447306529,
+      "loc2": 0.21284616028698258,
+      "miss2": 14.204081632653061,
+      "false2": 5.387755102040816,
+      "countError": 0.23129251700680273,
+      "raw_bytes": 1087232,
+      "delivered_raw_bytes": 1087232,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.5657685833333332,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 147,
+      "ospa": 2.298442285887365,
+      "gospa": 2.848733695505098,
+      "loc2": 1.2760828103021666,
+      "miss2": 13.959183673469388,
+      "false2": 6.122448979591836,
+      "countError": 0.25170068027210885,
+      "raw_bytes": 1016128,
+      "delivered_raw_bytes": 754400,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.36810675,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 147,
+      "ospa": 2.5395482514421954,
+      "gospa": 3.1271579668644116,
+      "loc2": 1.2141880055959131,
+      "miss2": 16.653061224489797,
+      "false2": 6.122448979591836,
+      "countError": 0.2891156462585034,
+      "raw_bytes": 614856,
+      "delivered_raw_bytes": 461432,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.199052125,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 147,
+      "ospa": 2.4132518976183985,
+      "gospa": 2.9868809486308465,
+      "loc2": 1.2732659723583635,
+      "miss2": 15.183673469387756,
+      "false2": 6.122448979591836,
+      "countError": 0.2687074829931973,
+      "raw_bytes": 1015776,
+      "delivered_raw_bytes": 754400,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.2654828333333332,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "frames": 147,
+      "ospa": 2.4181439768092727,
+      "gospa": 2.9609798680969277,
+      "loc2": 1.3541429237849867,
+      "miss2": 13.224489795918368,
+      "false2": 7.346938775510204,
+      "countError": 0.272108843537415,
+      "raw_bytes": 1263584,
+      "delivered_raw_bytes": 948704,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.5243590833333334,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "frames": 147,
+      "ospa": 2.6295286162387894,
+      "gospa": 3.222327932704424,
+      "loc2": 1.329426819655436,
+      "miss2": 15.673469387755102,
+      "false2": 7.346938775510204,
+      "countError": 0.30612244897959184,
+      "raw_bytes": 978816,
+      "delivered_raw_bytes": 728192,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.690074,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "frames": 147,
+      "ospa": 2.4832483954429434,
+      "gospa": 3.0572559549576255,
+      "loc2": 1.339420627123618,
+      "miss2": 15.183673469387756,
+      "false2": 6.36734693877551,
+      "countError": 0.2857142857142857,
+      "raw_bytes": 1272032,
+      "delivered_raw_bytes": 955744,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.5244875,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "frames": 147,
+      "ospa": 2.3513948089845633,
+      "gospa": 2.8881487275411404,
+      "loc2": 1.3117579434787638,
+      "miss2": 13.714285714285714,
+      "false2": 6.36734693877551,
+      "countError": 0.2653061224489796,
+      "raw_bytes": 1044640,
+      "delivered_raw_bytes": 741376,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.2741592083333333,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "frames": 147,
+      "ospa": 2.5164839969824957,
+      "gospa": 3.094673743904119,
+      "loc2": 1.2617538014472631,
+      "miss2": 15.673469387755102,
+      "false2": 6.36734693877551,
+      "countError": 0.2925170068027211,
+      "raw_bytes": 917472,
+      "delivered_raw_bytes": 676352,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.61358575,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "frames": 147,
+      "ospa": 2.4677364435591556,
+      "gospa": 3.028423350533827,
+      "loc2": 1.3074737297291903,
+      "miss2": 14.938775510204081,
+      "false2": 6.36734693877551,
+      "countError": 0.282312925170068,
+      "raw_bytes": 1042528,
+      "delivered_raw_bytes": 736800,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.2709844583333334,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 240,
+      "ospa": 8.750048563381354,
+      "gospa": 25.35252026215347,
+      "loc2": 22.59616116684202,
+      "miss2": 484.5,
+      "false2": 142.8,
+      "countError": 4.745833333333334,
+      "raw_bytes": 14532896,
+      "delivered_raw_bytes": 14532896,
+      "wire_bytes": 18853888,
+      "runtime_s": 221.40254420833332,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 240,
+      "ospa": 8.574881180595439,
+      "gospa": 24.954895505011375,
+      "loc2": 18.675333194009475,
+      "miss2": 466.8,
+      "false2": 143.7,
+      "countError": 4.4875,
+      "raw_bytes": 6863208,
+      "delivered_raw_bytes": 6863208,
+      "wire_bytes": 11382784,
+      "runtime_s": 81.46714616666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 240,
+      "ospa": 8.938266842655448,
+      "gospa": 25.664305816749184,
+      "loc2": 18.470392535406102,
+      "miss2": 503.4,
+      "false2": 142.8,
+      "countError": 5.008333333333334,
+      "raw_bytes": 15964128,
+      "delivered_raw_bytes": 15964128,
+      "wire_bytes": 20279296,
+      "runtime_s": 311.06188729166666,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "frames": 240,
+      "ospa": 8.08433882162552,
+      "gospa": 23.811995523175913,
+      "loc2": 19.42292479236586,
+      "miss2": 411.9,
+      "false2": 142.2,
+      "countError": 3.745833333333333,
+      "raw_bytes": 7995200,
+      "delivered_raw_bytes": 7995200,
+      "wire_bytes": 11677696,
+      "runtime_s": 39.083409083333336,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "frames": 240,
+      "ospa": 8.089535901514928,
+      "gospa": 23.871251361524763,
+      "loc2": 19.99697900756969,
+      "miss2": 410.7,
+      "false2": 144.9,
+      "countError": 3.691666666666667,
+      "raw_bytes": 4980984,
+      "delivered_raw_bytes": 4980984,
+      "wire_bytes": 9547776,
+      "runtime_s": 36.44500266666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "frames": 240,
+      "ospa": 8.100053627582875,
+      "gospa": 23.831434179358393,
+      "loc2": 19.35934432474086,
+      "miss2": 413.4,
+      "false2": 141.6,
+      "countError": 3.775,
+      "raw_bytes": 8060672,
+      "delivered_raw_bytes": 8060672,
+      "wire_bytes": 11743232,
+      "runtime_s": 39.64332004166667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "frames": 240,
+      "ospa": 8.44562511218559,
+      "gospa": 24.680242093547914,
+      "loc2": 22.010541745248627,
+      "miss2": 451.5,
+      "false2": 142.8,
+      "countError": 4.2875,
+      "raw_bytes": 15199936,
+      "delivered_raw_bytes": 15199936,
+      "wire_bytes": 19427328,
+      "runtime_s": 137.70270595833333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "frames": 240,
+      "ospa": 8.056172222039594,
+      "gospa": 23.816813357199955,
+      "loc2": 20.83835278700299,
+      "miss2": 407.4,
+      "false2": 144.6,
+      "countError": 3.65,
+      "raw_bytes": 4676208,
+      "delivered_raw_bytes": 4676208,
+      "wire_bytes": 9400320,
+      "runtime_s": 33.755358666666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "frames": 240,
+      "ospa": 8.535807100028865,
+      "gospa": 24.87671777021651,
+      "loc2": 21.085340951417077,
+      "miss2": 463.5,
+      "false2": 142.2,
+      "countError": 4.4625,
+      "raw_bytes": 15029920,
+      "delivered_raw_bytes": 15029920,
+      "wire_bytes": 19361792,
+      "runtime_s": 147.49205870833333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 240,
+      "ospa": 8.65398169218026,
+      "gospa": 25.055786637608364,
+      "loc2": 20.84003835463535,
+      "miss2": 474.9,
+      "false2": 139.5,
+      "countError": 4.658333333333333,
+      "raw_bytes": 19951584,
+      "delivered_raw_bytes": 14535840,
+      "wire_bytes": 24424448,
+      "runtime_s": 346.0845722083333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 240,
+      "ospa": 8.264497080283986,
+      "gospa": 24.136503587759957,
+      "loc2": 19.018138402599593,
+      "miss2": 431.4,
+      "false2": 138.6,
+      "countError": 4.066666666666666,
+      "raw_bytes": 4219368,
+      "delivered_raw_bytes": 3446960,
+      "wire_bytes": 9367552,
+      "runtime_s": 29.005752666666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 240,
+      "ospa": 8.797805690183287,
+      "gospa": 25.30815985711656,
+      "loc2": 20.32729327397336,
+      "miss2": 486.6,
+      "false2": 139.65,
+      "countError": 4.81875,
+      "raw_bytes": 21177600,
+      "delivered_raw_bytes": 15203232,
+      "wire_bytes": 25178112,
+      "runtime_s": 490.5669667916667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "frames": 240,
+      "ospa": 8.077136280729572,
+      "gospa": 23.700835409930423,
+      "loc2": 19.087989774052794,
+      "miss2": 413.55,
+      "false2": 136.65,
+      "countError": 3.845833333333333,
+      "raw_bytes": 7553088,
+      "delivered_raw_bytes": 6206112,
+      "wire_bytes": 11628544,
+      "runtime_s": 29.919771,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "frames": 240,
+      "ospa": 8.042825005391354,
+      "gospa": 23.663292207456198,
+      "loc2": 19.45690167367506,
+      "miss2": 408.75,
+      "false2": 138.75,
+      "countError": 3.75,
+      "raw_bytes": 4768440,
+      "delivered_raw_bytes": 3859520,
+      "wire_bytes": 9613312,
+      "runtime_s": 24.112762416666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "frames": 240,
+      "ospa": 8.565451353415877,
+      "gospa": 24.79561993569777,
+      "loc2": 21.115450914649696,
+      "miss2": 463.05,
+      "false2": 137.7,
+      "countError": 4.51875,
+      "raw_bytes": 24512800,
+      "delivered_raw_bytes": 18188192,
+      "wire_bytes": 28192768,
+      "runtime_s": 370.40152220833335,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "frames": 240,
+      "ospa": 8.074233956222969,
+      "gospa": 23.69672732374716,
+      "loc2": 21.19909907699447,
+      "miss2": 410.4,
+      "false2": 136.2,
+      "countError": 3.808333333333333,
+      "raw_bytes": 6786432,
+      "delivered_raw_bytes": 5427840,
+      "wire_bytes": 10661888,
+      "runtime_s": 25.19507475,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "frames": 240,
+      "ospa": 8.020191747611223,
+      "gospa": 23.56551803996511,
+      "loc2": 19.64575701969414,
+      "miss2": 405.45,
+      "false2": 136.8,
+      "countError": 3.73125,
+      "raw_bytes": 4247880,
+      "delivered_raw_bytes": 3411752,
+      "wire_bytes": 9089024,
+      "runtime_s": 25.30109675,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "frames": 240,
+      "ospa": 8.093462360293646,
+      "gospa": 23.73469106537032,
+      "loc2": 21.064460085732758,
+      "miss2": 413.1,
+      "false2": 135.75,
+      "countError": 3.8520833333333333,
+      "raw_bytes": 6794528,
+      "delivered_raw_bytes": 5467616,
+      "wire_bytes": 10727424,
+      "runtime_s": 25.0034805,
+      "reused": false
+    }
+  ],
+  "summaries": [
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.0540325088014852,
+        "gospa": 2.4366771750925214,
+        "loc2": 0.19032083902876012,
+        "miss2": 13.714285714285714,
+        "false2": 5.387755102040816,
+        "countError": 0.23809523809523808,
+        "raw_bytes": 1001696.0,
+        "delivered_raw_bytes": 1001696.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.1112403445538552,
+        "gospa": 2.5475354198425153,
+        "loc2": 0.1435112359521936,
+        "miss2": 16.163265306122447,
+        "false2": 4.408163265306122,
+        "countError": 0.24489795918367346,
+        "raw_bytes": 684624.0,
+        "delivered_raw_bytes": 684624.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.035972427106574,
+        "gospa": 2.463565344850831,
+        "loc2": 0.20281919471732632,
+        "miss2": 14.693877551020408,
+        "false2": 4.8979591836734695,
+        "countError": 0.23129251700680273,
+        "raw_bytes": 1003104.0,
+        "delivered_raw_bytes": 1003104.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.12116699916594,
+        "gospa": 2.510322604035546,
+        "loc2": 0.2418195777823385,
+        "miss2": 13.224489795918368,
+        "false2": 6.36734693877551,
+        "countError": 0.24489795918367346,
+        "raw_bytes": 1142848.0,
+        "delivered_raw_bytes": 1142848.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.2723823659889244,
+        "gospa": 2.695798321930055,
+        "loc2": 0.152176419452709,
+        "miss2": 16.163265306122447,
+        "false2": 5.387755102040816,
+        "countError": 0.272108843537415,
+        "raw_bytes": 921144.0,
+        "delivered_raw_bytes": 921144.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.19015224952917,
+        "gospa": 2.636950604937451,
+        "loc2": 0.2741837136135154,
+        "miss2": 15.183673469387756,
+        "false2": 5.877551020408164,
+        "countError": 0.25170068027210885,
+        "raw_bytes": 1159744.0,
+        "delivered_raw_bytes": 1159744.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 1.9432007121691142,
+        "gospa": 2.3275261443482016,
+        "loc2": 0.19473908618760222,
+        "miss2": 13.224489795918368,
+        "false2": 4.8979591836734695,
+        "countError": 0.22448979591836735,
+        "raw_bytes": 1137568.0,
+        "delivered_raw_bytes": 1137568.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.1728545307039564,
+        "gospa": 2.5873351601827816,
+        "loc2": 0.15535130966605634,
+        "miss2": 16.163265306122447,
+        "false2": 4.408163265306122,
+        "countError": 0.2585034013605442,
+        "raw_bytes": 939936.0,
+        "delivered_raw_bytes": 939936.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.0412132431736145,
+        "gospa": 2.47166447306529,
+        "loc2": 0.21284616028698258,
+        "miss2": 14.204081632653061,
+        "false2": 5.387755102040816,
+        "countError": 0.23129251700680273,
+        "raw_bytes": 1087232.0,
+        "delivered_raw_bytes": 1087232.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.298442285887365,
+        "gospa": 2.848733695505098,
+        "loc2": 1.2760828103021666,
+        "miss2": 13.959183673469388,
+        "false2": 6.122448979591836,
+        "countError": 0.25170068027210885,
+        "raw_bytes": 1016128.0,
+        "delivered_raw_bytes": 754400.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.5395482514421954,
+        "gospa": 3.1271579668644116,
+        "loc2": 1.2141880055959131,
+        "miss2": 16.653061224489797,
+        "false2": 6.122448979591836,
+        "countError": 0.2891156462585034,
+        "raw_bytes": 614856.0,
+        "delivered_raw_bytes": 461432.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.4132518976183985,
+        "gospa": 2.9868809486308465,
+        "loc2": 1.2732659723583635,
+        "miss2": 15.183673469387756,
+        "false2": 6.122448979591836,
+        "countError": 0.2687074829931973,
+        "raw_bytes": 1015776.0,
+        "delivered_raw_bytes": 754400.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.4181439768092727,
+        "gospa": 2.9609798680969277,
+        "loc2": 1.3541429237849867,
+        "miss2": 13.224489795918368,
+        "false2": 7.346938775510204,
+        "countError": 0.272108843537415,
+        "raw_bytes": 1263584.0,
+        "delivered_raw_bytes": 948704.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.6295286162387894,
+        "gospa": 3.222327932704424,
+        "loc2": 1.329426819655436,
+        "miss2": 15.673469387755102,
+        "false2": 7.346938775510204,
+        "countError": 0.30612244897959184,
+        "raw_bytes": 978816.0,
+        "delivered_raw_bytes": 728192.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.4832483954429434,
+        "gospa": 3.0572559549576255,
+        "loc2": 1.339420627123618,
+        "miss2": 15.183673469387756,
+        "false2": 6.36734693877551,
+        "countError": 0.2857142857142857,
+        "raw_bytes": 1272032.0,
+        "delivered_raw_bytes": 955744.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.3513948089845633,
+        "gospa": 2.8881487275411404,
+        "loc2": 1.3117579434787638,
+        "miss2": 13.714285714285714,
+        "false2": 6.36734693877551,
+        "countError": 0.2653061224489796,
+        "raw_bytes": 1044640.0,
+        "delivered_raw_bytes": 741376.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.5164839969824957,
+        "gospa": 3.094673743904119,
+        "loc2": 1.2617538014472631,
+        "miss2": 15.673469387755102,
+        "false2": 6.36734693877551,
+        "countError": 0.2925170068027211,
+        "raw_bytes": 917472.0,
+        "delivered_raw_bytes": 676352.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.4677364435591556,
+        "gospa": 3.028423350533827,
+        "loc2": 1.3074737297291903,
+        "miss2": 14.938775510204081,
+        "false2": 6.36734693877551,
+        "countError": 0.282312925170068,
+        "raw_bytes": 1042528.0,
+        "delivered_raw_bytes": 736800.0,
+        "wire_bytes": 4854528.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.750048563381354,
+        "gospa": 25.35252026215347,
+        "loc2": 22.59616116684202,
+        "miss2": 484.5,
+        "false2": 142.8,
+        "countError": 4.745833333333334,
+        "raw_bytes": 14532896.0,
+        "delivered_raw_bytes": 14532896.0,
+        "wire_bytes": 18853888.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.574881180595439,
+        "gospa": 24.954895505011375,
+        "loc2": 18.675333194009475,
+        "miss2": 466.8,
+        "false2": 143.7,
+        "countError": 4.4875,
+        "raw_bytes": 6863208.0,
+        "delivered_raw_bytes": 6863208.0,
+        "wire_bytes": 11382784.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.938266842655448,
+        "gospa": 25.664305816749184,
+        "loc2": 18.470392535406102,
+        "miss2": 503.4,
+        "false2": 142.8,
+        "countError": 5.008333333333334,
+        "raw_bytes": 15964128.0,
+        "delivered_raw_bytes": 15964128.0,
+        "wire_bytes": 20279296.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.08433882162552,
+        "gospa": 23.811995523175913,
+        "loc2": 19.42292479236586,
+        "miss2": 411.9,
+        "false2": 142.2,
+        "countError": 3.745833333333333,
+        "raw_bytes": 7995200.0,
+        "delivered_raw_bytes": 7995200.0,
+        "wire_bytes": 11677696.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.089535901514928,
+        "gospa": 23.871251361524763,
+        "loc2": 19.99697900756969,
+        "miss2": 410.7,
+        "false2": 144.9,
+        "countError": 3.691666666666667,
+        "raw_bytes": 4980984.0,
+        "delivered_raw_bytes": 4980984.0,
+        "wire_bytes": 9547776.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.100053627582875,
+        "gospa": 23.831434179358393,
+        "loc2": 19.35934432474086,
+        "miss2": 413.4,
+        "false2": 141.6,
+        "countError": 3.775,
+        "raw_bytes": 8060672.0,
+        "delivered_raw_bytes": 8060672.0,
+        "wire_bytes": 11743232.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.44562511218559,
+        "gospa": 24.680242093547914,
+        "loc2": 22.010541745248627,
+        "miss2": 451.5,
+        "false2": 142.8,
+        "countError": 4.2875,
+        "raw_bytes": 15199936.0,
+        "delivered_raw_bytes": 15199936.0,
+        "wire_bytes": 19427328.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.056172222039594,
+        "gospa": 23.816813357199955,
+        "loc2": 20.83835278700299,
+        "miss2": 407.4,
+        "false2": 144.6,
+        "countError": 3.65,
+        "raw_bytes": 4676208.0,
+        "delivered_raw_bytes": 4676208.0,
+        "wire_bytes": 9400320.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.535807100028865,
+        "gospa": 24.87671777021651,
+        "loc2": 21.085340951417077,
+        "miss2": 463.5,
+        "false2": 142.2,
+        "countError": 4.4625,
+        "raw_bytes": 15029920.0,
+        "delivered_raw_bytes": 15029920.0,
+        "wire_bytes": 19361792.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.65398169218026,
+        "gospa": 25.055786637608364,
+        "loc2": 20.84003835463535,
+        "miss2": 474.9,
+        "false2": 139.5,
+        "countError": 4.658333333333333,
+        "raw_bytes": 19951584.0,
+        "delivered_raw_bytes": 14535840.0,
+        "wire_bytes": 24424448.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.264497080283986,
+        "gospa": 24.136503587759957,
+        "loc2": 19.018138402599593,
+        "miss2": 431.4,
+        "false2": 138.6,
+        "countError": 4.066666666666666,
+        "raw_bytes": 4219368.0,
+        "delivered_raw_bytes": 3446960.0,
+        "wire_bytes": 9367552.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.797805690183287,
+        "gospa": 25.30815985711656,
+        "loc2": 20.32729327397336,
+        "miss2": 486.6,
+        "false2": 139.65,
+        "countError": 4.81875,
+        "raw_bytes": 21177600.0,
+        "delivered_raw_bytes": 15203232.0,
+        "wire_bytes": 25178112.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.077136280729572,
+        "gospa": 23.700835409930423,
+        "loc2": 19.087989774052794,
+        "miss2": 413.55,
+        "false2": 136.65,
+        "countError": 3.845833333333333,
+        "raw_bytes": 7553088.0,
+        "delivered_raw_bytes": 6206112.0,
+        "wire_bytes": 11628544.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.042825005391354,
+        "gospa": 23.663292207456198,
+        "loc2": 19.45690167367506,
+        "miss2": 408.75,
+        "false2": 138.75,
+        "countError": 3.75,
+        "raw_bytes": 4768440.0,
+        "delivered_raw_bytes": 3859520.0,
+        "wire_bytes": 9613312.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.565451353415877,
+        "gospa": 24.79561993569777,
+        "loc2": 21.115450914649696,
+        "miss2": 463.05,
+        "false2": 137.7,
+        "countError": 4.51875,
+        "raw_bytes": 24512800.0,
+        "delivered_raw_bytes": 18188192.0,
+        "wire_bytes": 28192768.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.074233956222969,
+        "gospa": 23.69672732374716,
+        "loc2": 21.19909907699447,
+        "miss2": 410.4,
+        "false2": 136.2,
+        "countError": 3.808333333333333,
+        "raw_bytes": 6786432.0,
+        "delivered_raw_bytes": 5427840.0,
+        "wire_bytes": 10661888.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.020191747611223,
+        "gospa": 23.56551803996511,
+        "loc2": 19.64575701969414,
+        "miss2": 405.45,
+        "false2": 136.8,
+        "countError": 3.73125,
+        "raw_bytes": 4247880.0,
+        "delivered_raw_bytes": 3411752.0,
+        "wire_bytes": 9089024.0
+      }
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.093462360293646,
+        "gospa": 23.73469106537032,
+        "loc2": 21.064460085732758,
+        "miss2": 413.1,
+        "false2": 135.75,
+        "countError": 3.8520833333333333,
+        "raw_bytes": 6794528.0,
+        "delivered_raw_bytes": 5467616.0,
+        "wire_bytes": 10727424.0
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 0.06713449036445462,
+      "sequence_deltas": {
+        "0000": 0.06713449036445462
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 0.11970169092190774,
+      "sequence_deltas": {
+        "0000": 0.11970169092190774
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_constant",
+      "mean_delta": 0.1779662869968257,
+      "sequence_deltas": {
+        "0000": 0.1779662869968257
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_constant",
+      "mean_delta": 0.06674916782470941,
+      "sequence_deltas": {
+        "0000": 0.06674916782470941
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_lineage_range",
+      "mean_delta": -0.15121536682298453,
+      "sequence_deltas": {
+        "0000": -0.15121536682298453
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_lineage_range",
+      "mean_delta": -0.21138463942951669,
+      "sequence_deltas": {
+        "0000": -0.21138463942951669
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "mean_delta": -0.06898525036323022,
+      "sequence_deltas": {
+        "0000": -0.06898525036323022
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "mean_delta": -0.06510441863367067,
+      "sequence_deltas": {
+        "0000": -0.06510441863367067
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.6657097417558333,
+      "sequence_deltas": {
+        "v2xt_0001": -0.6657097417558333
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.5768454114506874,
+      "sequence_deltas": {
+        "v2xt_0001": -0.5768454114506874
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_constant",
+      "mean_delta": -0.36128629056007,
+      "sequence_deltas": {
+        "v2xt_0001": -0.36128629056007
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_constant",
+      "mean_delta": 0.0029023245066035486,
+      "sequence_deltas": {
+        "v2xt_0001": 0.0029023245066035486
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_lineage_range",
+      "mean_delta": -0.005197079889407874,
+      "sequence_deltas": {
+        "v2xt_0001": -0.005197079889407874
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_lineage_range",
+      "mean_delta": 0.03431127533821865,
+      "sequence_deltas": {
+        "v2xt_0001": 0.03431127533821865
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "mean_delta": -0.015714805957355082,
+      "sequence_deltas": {
+        "v2xt_0001": -0.015714805957355082
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_range",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "mean_delta": -0.48831507268630503,
+      "sequence_deltas": {
+        "v2xt_0001": -0.48831507268630503
+      },
+      "improved": 1,
+      "worsened": 0
+    }
+  ],
+  "mechanism": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "detected_target_robot_frames_53_122": 0,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "detected_target_robot_frames_53_122": 140,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "detected_target_robot_frames_53_122": 0,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "detected_target_robot_frames_53_122": 140,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "detected_target_robot_frames_53_122": 140,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "detected_target_robot_frames_53_122": 140,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "detected_target_robot_frames_53_122": 70,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "detected_target_robot_frames_53_122": 140,
+      "total": 140
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "detected_target_robot_frames_53_122": 70,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "detected_target_robot_frames_53_122": 18,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "detected_target_robot_frames_53_122": 115,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "detected_target_robot_frames_53_122": 18,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "detected_target_robot_frames_53_122": 118,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "detected_target_robot_frames_53_122": 118,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "detected_target_robot_frames_53_122": 9,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "detected_target_robot_frames_53_122": 109,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "detected_target_robot_frames_53_122": 115,
+      "total": 140
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "detected_target_robot_frames_53_122": 109,
+      "total": 140
+    }
+  ],
+  "gates": [
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 0.09341809064318118,
+      "passes": false
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_constant",
+      "mean_delta": 0.12235772741076756,
+      "passes": false
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_lineage_range",
+      "mean_delta": -0.1813000031262506,
+      "passes": true
+    },
+    {
+      "dataset": "v2v_development",
+      "reference": "marked_gaussian_evidence_guarded_scalar_range",
+      "mean_delta": -0.06704483449845045,
+      "passes": true
+    }
+  ],
+  "advance": null,
+  "inputs": {
+    "trials/icra_range_detection/audit_range_detection_preflight.json": "5fa18edfcac824385b0d4652d668f4ea514da728282ae4900df090c509ebade0"
+  },
+  "source_sha256": "a667e309e6eb7586da2b3d230b921beaa294c5dff3256be8f3b57306b0e8e2b4",
+  "exposure": "All inputs exposed; case excluded from screen; no independent generalization claim"
+}

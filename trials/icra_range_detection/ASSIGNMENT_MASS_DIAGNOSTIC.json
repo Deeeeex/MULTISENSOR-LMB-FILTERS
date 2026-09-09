@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "scope": "Descriptive snapshot only; no change to conditional association definition, admission rule, or current screen",
+  "note": "W is conditional on a label existing. r_post times W gives its approximate joint association mass. A large conditional column sum alone is not a probability violation and does not prove that changing the gate would improve recursion.",
+  "rows": [
+    {
+      "arm": "marked_gaussian_evidence_range",
+      "source": 1,
+      "frame": 53,
+      "predicted_components": 157,
+      "detections": 10,
+      "closest_detection_column_1based": 7,
+      "closest_detection_distance_m": 0.06837284706978408,
+      "conditional_mass": 1.9113447026517463,
+      "joint_mass": 0.994917945872697,
+      "mark": 0.0,
+      "conditional_mark_mass": 0.0,
+      "joint_mark_mass": 0.0,
+      "high_conditional_tracks": 1,
+      "positive_delta_high_conditional_tracks": 1,
+      "largest_joint_mass_per_track": 0.9905332085594963,
+      "all_detection_joint_column_sum_max": 1.0000000328122869
+    },
+    {
+      "arm": "marked_gaussian_evidence_range",
+      "source": 2,
+      "frame": 53,
+      "predicted_components": 147,
+      "detections": 0,
+      "interpretation": "No current detections; conditional detection mass is zero."
+    },
+    {
+      "arm": "marked_lineage_range",
+      "source": 1,
+      "frame": 53,
+      "predicted_components": 145,
+      "detections": 10,
+      "closest_detection_column_1based": 7,
+      "closest_detection_distance_m": 0.06837284706978408,
+      "conditional_mass": 1.9096525361236902,
+      "joint_mass": 0.9944165254070294,
+      "mark": 0.0,
+      "conditional_mark_mass": 0.0,
+      "joint_mark_mass": 0.0,
+      "high_conditional_tracks": 1,
+      "positive_delta_high_conditional_tracks": 1,
+      "largest_joint_mass_per_track": 0.9892940926976628,
+      "all_detection_joint_column_sum_max": 0.9999987345079235
+    },
+    {
+      "arm": "marked_lineage_range",
+      "source": 2,
+      "frame": 53,
+      "predicted_components": 135,
+      "detections": 0,
+      "interpretation": "No current detections; conditional detection mass is zero."
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "source": 1,
+      "frame": 53,
+      "predicted_components": 172,
+      "detections": 10,
+      "closest_detection_column_1based": 7,
+      "closest_detection_distance_m": 0.06837284706978408,
+      "conditional_mass": 66.78904471422237,
+      "joint_mass": 0.9377666422721882,
+      "mark": 0.0,
+      "conditional_mark_mass": 0.0,
+      "joint_mark_mass": 0.0,
+      "high_conditional_tracks": 17,
+      "positive_delta_high_conditional_tracks": 16,
+      "largest_joint_mass_per_track": 0.32877661016735427,
+      "all_detection_joint_column_sum_max": 0.9999987580499823
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "source": 2,
+      "frame": 53,
+      "predicted_components": 162,
+      "detections": 0,
+      "interpretation": "No current detections; conditional detection mass is zero."
+    }
+  ],
+  "inputs": {
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_range.json.gz": "fb6f0499861ee3a96c5a11cad4064788a51bf4b04d4de1b2fca272f0f8c8a503",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage_range.json.gz": "4637f4ab77de8b5211d7679eb15395272bc0330ff25048e99773d805dac86d02",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_range.json.gz": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5"
+  },
+  "data_sha256": "d9c4381b1649c9443acd5d4ce0ca055cc05f8c5ef8dc449a1a8c322825cb9678",
+  "source_sha256": "4a0da789bf097e49d5681a954e64d73a64eae7f5674e53f2c43b51a931e80abe"
+}

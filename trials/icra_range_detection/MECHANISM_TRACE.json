@@ -1,0 +1,391 @@
+{
+  "passed": true,
+  "scope": "Post-outcome descriptive case only; no parameter or selection change",
+  "note": "The second interval coincides with scheduled blackout only for intermittent links; random losses also occur earlier. A nearby component need not have the correct identity, so these categories are not a causal attribution.",
+  "rows": 2520,
+  "summaries": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 88,
+      "max_active_components": 252
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 2,
+      "missed_with_active_component_within_2m": 50,
+      "max_active_components": 297
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 186
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 52,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 52
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 88,
+      "max_active_components": 272
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 2,
+      "missed_with_active_component_within_2m": 50,
+      "max_active_components": 318
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 186
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 52,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 51
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 187
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 52,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 61
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 187
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 52,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 50
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 70,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 18,
+      "max_active_components": 180
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 52,
+      "max_active_components": 104
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 166
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 52,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 50
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 70,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 18,
+      "max_active_components": 178
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 52,
+      "max_active_components": 108
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 3,
+      "missed_without_active_component_within_2m": 2,
+      "missed_with_active_component_within_2m": 83,
+      "max_active_components": 242
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 15,
+      "missed_without_active_component_within_2m": 26,
+      "missed_with_active_component_within_2m": 11,
+      "max_active_components": 249
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 169
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 27,
+      "missed_without_active_component_within_2m": 22,
+      "missed_with_active_component_within_2m": 3,
+      "max_active_components": 54
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 4,
+      "missed_without_active_component_within_2m": 2,
+      "missed_with_active_component_within_2m": 82,
+      "max_active_components": 268
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 14,
+      "missed_without_active_component_within_2m": 26,
+      "missed_with_active_component_within_2m": 12,
+      "max_active_components": 274
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 173
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 30,
+      "missed_without_active_component_within_2m": 15,
+      "missed_with_active_component_within_2m": 7,
+      "max_active_components": 35
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 176
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 30,
+      "missed_without_active_component_within_2m": 15,
+      "missed_with_active_component_within_2m": 7,
+      "max_active_components": 55
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 9,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 79,
+      "max_active_components": 258
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 0,
+      "missed_without_active_component_within_2m": 27,
+      "missed_with_active_component_within_2m": 25,
+      "max_active_components": 268
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 83,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 5,
+      "max_active_components": 161
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 26,
+      "missed_without_active_component_within_2m": 21,
+      "missed_with_active_component_within_2m": 5,
+      "max_active_components": 44
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 88,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 0,
+      "max_active_components": 155
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 27,
+      "missed_without_active_component_within_2m": 20,
+      "missed_with_active_component_within_2m": 5,
+      "max_active_components": 43
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "phase": "53_96",
+      "robot_frames": 88,
+      "detected": 83,
+      "missed_without_active_component_within_2m": 0,
+      "missed_with_active_component_within_2m": 5,
+      "max_active_components": 156
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_constant",
+      "phase": "97_122",
+      "robot_frames": 52,
+      "detected": 26,
+      "missed_without_active_component_within_2m": 21,
+      "missed_with_active_component_within_2m": 5,
+      "max_active_components": 43
+    }
+  ],
+  "inputs": {
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_range.json.gz": "ca0ef98acd971f0a3f7898000327cf0532d558b09a32930938441c95ebd4f236",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage_range.json.gz": "4d9ba15fec1a592080cd1db842ab896fd3eacb37788dd3d6a81f5385d16d1a7d",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_range.json.gz": "e9aa0fe883fd10b876209df354eb8a4b007e47d95a91d3ad8cbc94e3f3370859",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_constant.json.gz": "92f6aa77bee7584b5bf7013299372fa31ff9faaae8c044c413a9d1a2d635dc32",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage_constant.json.gz": "e974090d125bdfa02da894b8724cd265b9bd29c3f91eb838bb13844c8b41aa5f",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_constant.json.gz": "da37840f0b4b642a46d522ecef92415b808cf10d7c42dae38e6aea21fbf5c5d7",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_range.json.gz": "fb6f0499861ee3a96c5a11cad4064788a51bf4b04d4de1b2fca272f0f8c8a503",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage_range.json.gz": "4637f4ab77de8b5211d7679eb15395272bc0330ff25048e99773d805dac86d02",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_range.json.gz": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_constant.json.gz": "8b90118b0894c0c3c1c6dacd55b6c4d9e40b2397bc4249ad3111235c91bb4302",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage_constant.json.gz": "7a9ec73652d88e7aaac3b9403b77dd4988ff15679a61d389a0079a65b30aa0fa",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_constant.json.gz": "7d4f00ce2893a91de999326e1ac703aa85a357f66178428d406c37bdfe9cacac"
+  },
+  "audit_sha256": "5fa18edfcac824385b0d4652d668f4ea514da728282ae4900df090c509ebade0",
+  "csv_sha256": "0e6888e745ac36fd172745c97ca839e367f1bc833185b60897c707639e8f9f3b",
+  "source_sha256": "1b5a8bee8d7b8c36a4abfbfdb3165efc799292b462f6f6f30e0bb4f540b3e188"
+}

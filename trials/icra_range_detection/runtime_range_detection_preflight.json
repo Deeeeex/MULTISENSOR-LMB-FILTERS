@@ -1,0 +1,28 @@
+[
+  {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 18,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_preflight.json',1);"
+    ]
+  },
+  {
+    "sequence": "v2xt_0001",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 18,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_preflight.json',2);"
+    ]
+  }
+]

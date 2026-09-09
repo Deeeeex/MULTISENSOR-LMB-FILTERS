@@ -1,0 +1,171 @@
+[
+  {
+    "sequence": "0001",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',1);"
+    ]
+  },
+  {
+    "sequence": "0002",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',2);"
+    ]
+  },
+  {
+    "sequence": "0003",
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',3);"
+    ]
+  },
+  {
+    "sequence": "0004",
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',4);"
+    ]
+  },
+  {
+    "sequence": "0005",
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',5);"
+    ]
+  },
+  {
+    "sequence": "0006",
+    "index": 5,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',6);"
+    ]
+  },
+  {
+    "sequence": "0007",
+    "index": 6,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',7);"
+    ]
+  },
+  {
+    "sequence": "0008",
+    "index": 7,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',8);"
+    ]
+  },
+  {
+    "sequence": "v2x_0000",
+    "index": 8,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',9);"
+    ]
+  },
+  {
+    "sequence": "v2x_0001",
+    "index": 9,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',10);"
+    ]
+  },
+  {
+    "sequence": "v2x_0002",
+    "index": 10,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',11);"
+    ]
+  },
+  {
+    "sequence": "v2x_0003",
+    "index": 11,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',12);"
+    ]
+  },
+  {
+    "sequence": "v2x_0004",
+    "index": 12,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 12,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_range_detection');runRangeDetectionReplay('trials/icra_range_detection/stages/range_detection_screen.json',13);"
+    ]
+  }
+]
