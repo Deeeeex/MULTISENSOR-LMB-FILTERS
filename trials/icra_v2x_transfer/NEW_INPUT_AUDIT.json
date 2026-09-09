@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 104,
+      "measurement_rows": 452,
+      "ground_truth_rows": 659
+    },
+    {
+      "sequence": "0001",
+      "frames": 131,
+      "measurement_rows": 1310,
+      "ground_truth_rows": 1943
+    },
+    {
+      "sequence": "0002",
+      "frames": 140,
+      "measurement_rows": 2013,
+      "ground_truth_rows": 1037
+    },
+    {
+      "sequence": "0003",
+      "frames": 128,
+      "measurement_rows": 1305,
+      "ground_truth_rows": 1274
+    },
+    {
+      "sequence": "0004",
+      "frames": 116,
+      "measurement_rows": 61,
+      "ground_truth_rows": 92
+    }
+  ],
+  "frames": 619,
+  "manifest_sha256": "7eb905f320651330f32a4018e5d37d0ed7e05b40b3b21174e5568580fbdcaeb2",
+  "checker_sha256": "97a304abfadeebf5db13039f9fff56bc5d63ee04c025c04ee090711e2ac0f9df",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "calibration_probability_clamps": 0,
+  "checks": "All source hashes; exact saved poses, domain-filtered measurements, raw/calibrated scores, likelihood ratios, independent world-center and full-corner projection, first-occurrence ID union and annotation-only velocities."
+}

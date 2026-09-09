@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-09-09T08:01:23.213892+00:00",
+  "failed_stage": "projected_v1_preflight",
+  "phase": "auditor import before any outputs were checked",
+  "error": "NameError: OLD_ARMS is not defined. A generator matched the ARMS substring inside NEW_ARMS.",
+  "action": "Preserve all originally frozen sources and native results. Use the corrected versioned auditor, recording its own hashes in the final audit.",
+  "changed_native_code": false,
+  "changed_data": false,
+  "changed_scoring_rules": false,
+  "original_auditor_sha256": "182d30a5ce84135cd0c56d1ac9c12225b2b36f20cc31ed8277c4a1bd161be7d8",
+  "original_probability_sha256": "b46ba3dbde7803fae26122647e51546cbd1393005b03acd0fb03688413bc6cce",
+  "corrected_probability_sha256": "256e28c8cde7c99ee09c932ff1f98e73fa07023066e5bdd0c2de1a075870cab3",
+  "corrected_auditor_sha256": "69bcd82c425c544a321ec86820d78478cf4ff8559e1c13f5ecbe6e23336a74dd"
+}

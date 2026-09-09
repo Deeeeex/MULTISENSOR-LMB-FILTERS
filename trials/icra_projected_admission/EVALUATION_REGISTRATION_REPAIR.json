@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-09-09T08:31:30.323898+00:00",
+  "failed_stage": "final_v2v_evaluation",
+  "corrected_stage": "final_v2v_evaluation_v2",
+  "reason": "MATLAB jsondecode returned a cell array for units with different field sets; unit.data_path failed before data loading or any tracking.",
+  "failed_unit_count": 34,
+  "failed_result_count": 0,
+  "original_config_sha256": "0005cfe7c8bb2c971063427149148f323d8ae89f3777c588c4bf3bfbcf08db06",
+  "failed_runtime_sha256": "8e8742a1c9ec43c325a26c8d705c344f37a32e5e603406755743b00a7c372170",
+  "algorithm_changed": false,
+  "prepared_inputs_changed": false,
+  "arms_changed": false,
+  "radio_seeds_changed": false,
+  "repair_sha256": "7ac7e35fce112379022761f59eb4b7561569afc3daff6ee8a01c5d2c16214733",
+  "change": "Use one common unit field set. Embedded-mark inputs point optional mark/ratio paths to the same complete MAT."
+}

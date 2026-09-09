@@ -1,0 +1,44 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+ADMISSION CHECK PASSED: exact admitted-source parity, sign separation, consensus, fixed-strength endpoints, stale/single/absent source, and aggregate fallback.
+PROJECTED CHECK PASSED: exact admitted-source parity, normalized contracting marginal, coordinate invariance, expansion rejection, scalar rules, opportunity limits, and aggregate fallback.
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_lineage 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_lineage OSPA 9.038456 runtime 18.96s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_er 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_er OSPA 9.049933 runtime 17.62s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_asymmetric 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_asymmetric OSPA 8.800200 runtime 17.67s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_guarded_scalar 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_guarded_scalar OSPA 9.312560 runtime 5.15s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_no_curvature 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_no_curvature OSPA 8.867190 runtime 14.02s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_fixedx_000 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_fixedx_000 OSPA 9.090553 runtime 18.03s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence OSPA 9.143681 runtime 5.48s
+START REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_projected_space 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 reliable marked_gaussian_evidence_projected_space OSPA 9.136613 runtime 5.92s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_lineage 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_lineage OSPA 8.903877 runtime 9.92s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_er 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_er OSPA 8.850546 runtime 11.10s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_asymmetric 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_asymmetric OSPA 8.983009 runtime 4.59s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_guarded_scalar 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_guarded_scalar OSPA 9.036106 runtime 3.88s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_no_curvature 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_no_curvature OSPA 9.135242 runtime 4.34s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_fixedx_000 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_fixedx_000 OSPA 8.951801 runtime 9.89s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence OSPA 8.914656 runtime 4.78s
+START REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_projected_space 140 frames
+DONE REVIEW final_v2x_evaluation v2x_0002 intermittent marked_gaussian_evidence_projected_space OSPA 8.919200 runtime 4.97s
+COMPLETED REVIEW final_v2x_evaluation v2x_0002

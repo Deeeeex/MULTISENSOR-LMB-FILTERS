@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-09T07:49:51.678612+00:00",
+  "sequences": [
+    {
+      "sequence": "0000",
+      "scene": "2023-03-17-16-03-02_11_1",
+      "collection_date": "2023-03-17",
+      "source_recording": "2023-03-17-16-03-02",
+      "frames": 104,
+      "radio_seed": 8301,
+      "measurement_rows_by_sensor": [
+        452,
+        0
+      ],
+      "ground_truth_rows": 659,
+      "target_count_min": 1,
+      "target_count_max": 13,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0000.mat",
+      "input_sha256": "5f1e0efc578ce41e01524558ae77d8dc4c38841ccec257435445d78b5c6aeacc",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0000.mat",
+      "pose_sha256": "e00e6f6b33b26b2c4ec0819a040ea9723a7b3d01b86c9a3f19ff3c5f05b0e013",
+      "relative_vehicle_range_min": 226.47364192878408,
+      "relative_vehicle_range_max": 274.40767996912376
+    },
+    {
+      "sequence": "0001",
+      "scene": "2023-03-17-16-10-12_1_1",
+      "collection_date": "2023-03-17",
+      "source_recording": "2023-03-17-16-10-12",
+      "frames": 131,
+      "radio_seed": 8302,
+      "measurement_rows_by_sensor": [
+        771,
+        539
+      ],
+      "ground_truth_rows": 1943,
+      "target_count_min": 11,
+      "target_count_max": 18,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0001.mat",
+      "input_sha256": "d6f9b3707955f12bbd03262421cfd673a24635167d4222b31e18b9de4adae2d8",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0001.mat",
+      "pose_sha256": "7e69f79b91d47d28d7987ec7186073ce696d08bc2c2917c8699f8f90c849f71a",
+      "relative_vehicle_range_min": 18.7105118982182,
+      "relative_vehicle_range_max": 32.62880706162737
+    },
+    {
+      "sequence": "0002",
+      "scene": "2023-04-04-15-43-17_15_0",
+      "collection_date": "2023-04-04",
+      "source_recording": "2023-04-04-15-43-17",
+      "frames": 140,
+      "radio_seed": 8303,
+      "measurement_rows_by_sensor": [
+        1086,
+        927
+      ],
+      "ground_truth_rows": 1037,
+      "target_count_min": 6,
+      "target_count_max": 10,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0002.mat",
+      "input_sha256": "b87e71d16002dd729fa2ea600f6c60a02ca1d0db9d74d79b787f90b49620f8c6",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0002.mat",
+      "pose_sha256": "9bd6c859d547579083020bd6dba6555fed7b468f93b1913f705593dc2da0b5e0",
+      "relative_vehicle_range_min": 7.9927339409898925,
+      "relative_vehicle_range_max": 16.30162309567301
+    },
+    {
+      "sequence": "0003",
+      "scene": "2023-04-04-16-01-17_33_0",
+      "collection_date": "2023-04-04",
+      "source_recording": "2023-04-04-16-01-17",
+      "frames": 128,
+      "radio_seed": 8304,
+      "measurement_rows_by_sensor": [
+        607,
+        698
+      ],
+      "ground_truth_rows": 1274,
+      "target_count_min": 0,
+      "target_count_max": 17,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0003.mat",
+      "input_sha256": "b13a916163e1e9b5af207ae10ff420f003029d9f6ded58f5418d298f6fbd8df0",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0003.mat",
+      "pose_sha256": "a79bc1d94a06ec974a6af9dd813c291437a8a321260ca2c505d3c00012e6a2d5",
+      "relative_vehicle_range_min": 23.34941273758074,
+      "relative_vehicle_range_max": 43.71271904207851
+    },
+    {
+      "sequence": "0004",
+      "scene": "2023-04-05-16-09-26_6_1",
+      "collection_date": "2023-04-05",
+      "source_recording": "2023-04-05-16-09-26",
+      "frames": 116,
+      "radio_seed": 8305,
+      "measurement_rows_by_sensor": [
+        61,
+        0
+      ],
+      "ground_truth_rows": 92,
+      "target_count_min": 0,
+      "target_count_max": 2,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0004.mat",
+      "input_sha256": "c98c2046d23bd76b581038a14cdc08a37bbb00a2994a69a776a96ccc9176129a",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0004.mat",
+      "pose_sha256": "2742c9691490fce1670748d7dba64e10a7df2e0fa3f6d93b94742a6b2ae77c27",
+      "relative_vehicle_range_min": 136.95836550799103,
+      "relative_vehicle_range_max": 246.68378270431933
+    }
+  ],
+  "frames": 619,
+  "source_sha256": {
+    "trials/icra_v2x_transfer/detections/detections_0000.npz": "cc9f80c7fe302572ef6347839ddcda2912671cb3d7a6739ff2354eeb2d0ce100",
+    "trials/icra_v2x_transfer/detections/detections_0001.npz": "c8036a39c1d0c048887bc9d4839e3a71ce140506fd7922a92a6dd9114ff76b6e",
+    "trials/icra_v2x_transfer/detections/detections_0002.npz": "561025be314c4f723c70ac974d250246ef0ad06758373156f05b71351ca88183",
+    "trials/icra_v2x_transfer/detections/detections_0003.npz": "8e4baef9e429b839c1bd412c50f745e600bf09272148b3283aab51b1399f1134",
+    "trials/icra_v2x_transfer/detections/detections_0004.npz": "b19818ef279709f6343140d1f04acd6d14b21a88fb13edffe0c1f5540c874d74",
+    "trials/icra_v2x_transfer/prepare_inputs.py": "d29b7f38f765be8b47727dc5ee190aeee8330dcf6b2ae38e34f6a0c10d3707a0",
+    "trials/icra_v2x_transfer/input_adapter.py": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+    "trials/icra_reviewer_revision/official_input_adapter.py": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+    "trials/icra_reviewer_revision/prepare_pose_inputs.py": "cb64cc551f98de29a3ae0d01c915eebe7020085b3f5fba08bac1a668a7b1c8dc",
+    "trials/icra_v2x_transfer/INFERENCE_FREEZE.json": "fd7cd7ae4269ffcc6bfe5da32cca94e562f9576a9f37f8ffc5592a45b4664000",
+    "trials/icra_v2x_transfer/DETECTION_MANIFEST.json": "8f6af28d573b6299a31a3f9e3cae5e994d884f6d6867c028e147db2ccd84efbd",
+    "trials/icra_ceiling_iteration/calibration.json": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512",
+    "trials/icra_marked_iteration/likelihood_manifest.json": "083a8cb2f32cb6163c19419ba317672aa1e95d2d8391cb53fa5faa9c4d33de09",
+    "trials/icra_external_fusion/prepare_v2v4real.py": "eb88e62ed825ac1b0dcf58c5ae0b397522c618325490452e401d163b0894ba47"
+  },
+  "calibration_refitted": false,
+  "positive_prior_refitted": false,
+  "model_frame": "Current ego LiDAR x/y; optional known planar motion adapter has separate frozen pose inputs.",
+  "domain": "Identical rectangle, two 40 m sensor disks, and 3 m platform exclusion to original replay.",
+  "purpose": "External V2X vehicle-pair transfer. Annotation fields enter only scoring after each complete trajectory.",
+  "vehicle_class": [
+    "Car",
+    "LongVehicle",
+    "PoliceCar"
+  ],
+  "time_step_source": "Official dataset website: vehicle LiDAR 10 Hz."
+}

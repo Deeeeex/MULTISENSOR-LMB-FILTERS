@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-09-09T08:50:00.881562+00:00",
+  "event": "A routine tail of an active native log exposed two remaining-release scores before third-family FINAL_SELECTION was emitted.",
+  "source": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation_v2/train_0014.log",
+  "exposed_rows": [
+    {
+      "sequence": "train_0014",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_projected_space",
+      "ospa_printed": 5.364224
+    },
+    {
+      "sequence": "train_0014",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "ospa_printed": 5.764385
+    }
+  ],
+  "external_v2x_tracking_scores_inspected": false,
+  "third_family_native_development_completed_before_exposure": true,
+  "candidate_set_and_selection_rule_changed_after_exposure": false,
+  "pre_exposure_selector_sha256": "93ce71ceeec1f15189d30635651581fad9eb528285bcff8419cdf588c94686a9",
+  "handling": "Keep the previously written candidate set and development-only selection rule exactly. Correct the report metadata; do not claim no remaining-release outcome was viewed. No V2X score has been inspected."
+}

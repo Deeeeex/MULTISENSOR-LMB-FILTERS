@@ -1,0 +1,67 @@
+[
+  {
+    "sequence": "v2x_0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 16,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_projected_admission');runProjectedReplay('trials/icra_projected_admission/stages/final_v2x_evaluation.json',1);"
+    ]
+  },
+  {
+    "sequence": "v2x_0001",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 16,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_projected_admission');runProjectedReplay('trials/icra_projected_admission/stages/final_v2x_evaluation.json',2);"
+    ]
+  },
+  {
+    "sequence": "v2x_0002",
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 16,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_projected_admission');runProjectedReplay('trials/icra_projected_admission/stages/final_v2x_evaluation.json',3);"
+    ]
+  },
+  {
+    "sequence": "v2x_0003",
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 16,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_projected_admission');runProjectedReplay('trials/icra_projected_admission/stages/final_v2x_evaluation.json',4);"
+    ]
+  },
+  {
+    "sequence": "v2x_0004",
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 16,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_projected_admission');runProjectedReplay('trials/icra_projected_admission/stages/final_v2x_evaluation.json',5);"
+    ]
+  }
+]

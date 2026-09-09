@@ -1,0 +1,43 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+ADMISSION CHECK PASSED: exact admitted-source parity, sign separation, consensus, fixed-strength endpoints, stale/single/absent source, and aggregate fallback.
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_all 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_all OSPA 4.037052 runtime 4.51s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_positive 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_positive OSPA 4.037052 runtime 1.84s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_negative 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_negative OSPA 4.037052 runtime 1.27s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_consensus 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_decoupled_consensus OSPA 4.037052 runtime 1.29s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_000 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_000 OSPA 4.005979 runtime 1.46s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_050 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_050 OSPA 4.426765 runtime 1.37s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_100 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_100 OSPA 4.530437 runtime 1.26s
+START REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_125 114 frames
+DONE REVIEW admission_v1_development_rest 0001 reliable marked_gaussian_evidence_fixedx_125 OSPA 4.530193 runtime 1.28s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_all 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_all OSPA 4.491388 runtime 1.18s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_positive 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_positive OSPA 4.491388 runtime 1.08s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_negative 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_negative OSPA 4.491388 runtime 1.04s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_consensus 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_decoupled_consensus OSPA 4.491388 runtime 1.08s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_000 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_000 OSPA 4.355332 runtime 0.99s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_050 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_050 OSPA 4.670504 runtime 1.02s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_100 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_100 OSPA 4.775193 runtime 1.13s
+START REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_125 114 frames
+DONE REVIEW admission_v1_development_rest 0001 intermittent marked_gaussian_evidence_fixedx_125 OSPA 4.774921 runtime 1.13s
+COMPLETED REVIEW admission_v1_development_rest 0001

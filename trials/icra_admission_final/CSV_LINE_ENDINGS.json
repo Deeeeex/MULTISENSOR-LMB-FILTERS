@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "Normalize unfrozen derived CSV line endings for Git; no protected input or native trace changed.",
+  "files": [
+    {
+      "path": "trials/icra_admission_revision/scores_admission_v1_development_rest.csv",
+      "original_sha256": "51f7d3ef07771d01ea8e508b2d3d057c5687609f29edc6bd5b11505d14fd6ff3",
+      "normalized_sha256": "629936e660e348a0a120ef82472237a3200e1889d00081fb6ecf0231ac89249e",
+      "data_rows": 128,
+      "parsed_rows_identical": true
+    },
+    {
+      "path": "trials/icra_admission_revision/scores_admission_v1_preflight.csv",
+      "original_sha256": "b9eba6182d9e9ba64908250945fe8212844e2ff65c55be0efe2af6d612917be8",
+      "normalized_sha256": "2a5854f049409faa78a8b4d1d4b647f5a8efa46e4691c356b53fd086dc371cf6",
+      "data_rows": 20,
+      "parsed_rows_identical": true
+    },
+    {
+      "path": "trials/icra_admission_revision/fixed_input_scores.csv",
+      "original_sha256": "e6a136713fb68be87d6203c1976096bb67493ee94773148e07a5a1113b1b6288",
+      "normalized_sha256": "63e13dc971f6f82f30d406bef506b65b3b7338bba9f1bdffb5ce564b899c700b",
+      "data_rows": 80,
+      "parsed_rows_identical": true
+    },
+    {
+      "path": "trials/icra_admission_revision/rejected_sources.csv",
+      "original_sha256": "383e1c0c887519b669ae9998a313f7a38896eb3343205783d846547f0ddfab0d",
+      "normalized_sha256": "2057b71ba26425b64efafc3262a589e68d58a7b91d267832ac46b5006e90dbf0",
+      "data_rows": 39709,
+      "parsed_rows_identical": true
+    }
+  ]
+}

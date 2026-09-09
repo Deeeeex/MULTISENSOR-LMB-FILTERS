@@ -1,0 +1,15 @@
+[
+  {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 20,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_admission_revision');runAdmissionReplay('trials/icra_admission_revision/stages/admission_v1_preflight.json',1);"
+    ]
+  }
+]

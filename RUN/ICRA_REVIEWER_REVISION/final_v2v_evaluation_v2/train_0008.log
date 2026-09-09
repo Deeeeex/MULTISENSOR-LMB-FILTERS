@@ -1,0 +1,20 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+ADMISSION CHECK PASSED: exact admitted-source parity, sign separation, consensus, fixed-strength endpoints, stale/single/absent source, and aggregate fallback.
+PROJECTED CHECK PASSED: exact admitted-source parity, normalized contracting marginal, coordinate invariance, expansion rejection, scalar rules, opportunity limits, and aggregate fallback.
+START REVIEW final_v2v_evaluation_v2 train_0008 reliable marked_gaussian_evidence_projected_space 410 frames
+DONE REVIEW final_v2v_evaluation_v2 train_0008 reliable marked_gaussian_evidence_projected_space OSPA 5.133273 runtime 131.93s
+START REVIEW final_v2v_evaluation_v2 train_0008 reliable marked_gaussian_evidence_fixedx_000 410 frames
+DONE REVIEW final_v2v_evaluation_v2 train_0008 reliable marked_gaussian_evidence_fixedx_000 OSPA 5.986284 runtime 148.86s
+START REVIEW final_v2v_evaluation_v2 train_0008 intermittent marked_gaussian_evidence_projected_space 410 frames
+DONE REVIEW final_v2v_evaluation_v2 train_0008 intermittent marked_gaussian_evidence_projected_space OSPA 5.832720 runtime 174.64s
+START REVIEW final_v2v_evaluation_v2 train_0008 intermittent marked_gaussian_evidence_fixedx_000 410 frames
+DONE REVIEW final_v2v_evaluation_v2 train_0008 intermittent marked_gaussian_evidence_fixedx_000 OSPA 6.133562 runtime 187.62s
+COMPLETED REVIEW final_v2v_evaluation_v2 train_0008

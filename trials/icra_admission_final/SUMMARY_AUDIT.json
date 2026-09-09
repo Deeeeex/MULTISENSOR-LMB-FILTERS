@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "evaluation_rows": 854,
+  "development_rows": 396,
+  "recomputed_aggregates": 102,
+  "recomputed_paired_comparisons": 180,
+  "sources": {
+    "icra_admission_final/EVALUATION_ANALYSIS.json": "a5b13084acae8af142a20b3abdf9bd05b3e6bc44c2a5da444c98f4e25129989c",
+    "icra_admission_final/EXTERNAL_ANALYSIS.json": "1d1a8f2a022e90d4eb3e386062ebe248b9edd38f04038f3b17d1b0cdf361ead4",
+    "icra_compatible_admission/FINAL_SELECTION.json": "40e8c4bcc02500a959bc3ca342ee5627b863dee4d0d954a84817132c4177ebad"
+  },
+  "verifier_sha256": "c5609ad0760cd30a624df000f40bc19062351913fd5c97a84fcd6166ce332fd9",
+  "external_dates_descriptive_only": true,
+  "single_log_exposure_recorded": true
+}

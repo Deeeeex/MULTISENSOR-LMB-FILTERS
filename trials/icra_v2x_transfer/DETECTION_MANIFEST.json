@@ -1,0 +1,65 @@
+{
+  "completed_utc": "2026-09-09T07:47:46.648561+00:00",
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 104,
+      "detections_by_sensor": [
+        926,
+        0
+      ],
+      "path": "trials/icra_v2x_transfer/detections/detections_0000.npz",
+      "sha256": "cc9f80c7fe302572ef6347839ddcda2912671cb3d7a6739ff2354eeb2d0ce100"
+    },
+    {
+      "sequence": "0001",
+      "frames": 131,
+      "detections_by_sensor": [
+        1359,
+        1365
+      ],
+      "path": "trials/icra_v2x_transfer/detections/detections_0001.npz",
+      "sha256": "c8036a39c1d0c048887bc9d4839e3a71ce140506fd7922a92a6dd9114ff76b6e"
+    },
+    {
+      "sequence": "0002",
+      "frames": 140,
+      "detections_by_sensor": [
+        2170,
+        1263
+      ],
+      "path": "trials/icra_v2x_transfer/detections/detections_0002.npz",
+      "sha256": "561025be314c4f723c70ac974d250246ef0ad06758373156f05b71351ca88183"
+    },
+    {
+      "sequence": "0003",
+      "frames": 128,
+      "detections_by_sensor": [
+        1596,
+        1287
+      ],
+      "path": "trials/icra_v2x_transfer/detections/detections_0003.npz",
+      "sha256": "8e4baef9e429b839c1bd412c50f745e600bf09272148b3283aab51b1399f1134"
+    },
+    {
+      "sequence": "0004",
+      "frames": 116,
+      "detections_by_sensor": [
+        265,
+        0
+      ],
+      "path": "trials/icra_v2x_transfer/detections/detections_0004.npz",
+      "sha256": "b19818ef279709f6343140d1f04acd6d14b21a88fb13edffe0c1f5540c874d74"
+    }
+  ],
+  "freeze_sha256": "fd7cd7ae4269ffcc6bfe5da32cca94e562f9576a9f37f8ffc5592a45b4664000",
+  "inference_sha256": "1a30572bb133aa5a40b1f7a49b911b21a53a6efaa6f0e1dbf86c48fe8a0c7d11",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "elapsed_s": 193.65512800216675,
+  "numpy": "2.2.6",
+  "torch": "2.8.0",
+  "device": "MPS float32",
+  "truth_used_for_detections": false,
+  "model_checkpoint_unchanged": true
+}

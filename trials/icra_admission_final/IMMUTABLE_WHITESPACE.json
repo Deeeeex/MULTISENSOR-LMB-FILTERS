@@ -1,0 +1,258 @@
+{
+  "passed": true,
+  "issues": [
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0001.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0002.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0003.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0004.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0005.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0006.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0007.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0008.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0009.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0010.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0011.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0012.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0013.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0014.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0015.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0016.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0017.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0018.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0019.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0020.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0021.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0022.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0023.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0024.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0025.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0026.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0027.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0028.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0029.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0030.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/train_0031.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/val_0000.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/val_0001.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation/val_0002.log",
+      "line": 14,
+      "kind": "trailing whitespace",
+      "sha256": "1e44691e8efc2b9bb0585cfbf864ac21f926ab54d3a959fb4e44bae9448cbf20"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation_v2/train_0001.log",
+      "line": 12,
+      "kind": "trailing whitespace",
+      "sha256": "6602018fe01a25fb79469906b61b927c4c73ae304ad78c81bffcbb67a9f222de"
+    },
+    {
+      "path": "RUN/ICRA_REVIEWER_REVISION/final_v2v_evaluation_v2/train_0001.log",
+      "line": 13,
+      "kind": "trailing whitespace",
+      "sha256": "6602018fe01a25fb79469906b61b927c4c73ae304ad78c81bffcbb67a9f222de"
+    },
+    {
+      "path": "trials/icra_admission_revision/SOURCE_REVIEW_CN.md",
+      "line": 231,
+      "kind": "new blank line at EOF",
+      "sha256": "c691ddb4881a256327f810b59e845d0a244022cd32f9d8f5e432c11137807e60"
+    },
+    {
+      "path": "trials/icra_admission_revision/admission_probability_audit.py",
+      "line": 160,
+      "kind": "new blank line at EOF",
+      "sha256": "7c7c4bfe09205d36414f514c4933b55d2e2e8d8d052e53caa97aaca15957043e"
+    },
+    {
+      "path": "trials/icra_compatible_admission/compatibility_math.py",
+      "line": 13,
+      "kind": "new blank line at EOF",
+      "sha256": "893939654abf3b4148d0ae7598f6748089d9fbb83b0877cc957d2b37ffd2a5e8"
+    },
+    {
+      "path": "trials/icra_compatible_admission/compatible_probability_audit.py",
+      "line": 160,
+      "kind": "new blank line at EOF",
+      "sha256": "2c15f42c63bbec8510170aa6cc94c3d38b8e1d9cf702e2f7807939af0bcf37bd"
+    },
+    {
+      "path": "trials/icra_projected_admission/projected_probability_audit.py",
+      "line": 158,
+      "kind": "new blank line at EOF",
+      "sha256": "b46ba3dbde7803fae26122647e51546cbd1393005b03acd0fb03688413bc6cce"
+    },
+    {
+      "path": "trials/icra_projected_admission/projected_probability_audit_v2.py",
+      "line": 159,
+      "kind": "new blank line at EOF",
+      "sha256": "256e28c8cde7c99ee09c932ff1f98e73fa07023066e5bdd0c2de1a075870cab3"
+    }
+  ],
+  "handling": "Preserve original native ANSI log bytes and already-frozen audit/reviewer-source bytes. These are only log line endings and terminal blank lines. No source or log was rewritten to alter frozen evidence."
+}

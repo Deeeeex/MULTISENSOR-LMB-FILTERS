@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "completed_utc": "2026-09-09T07:42:24.975540+00:00",
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 104,
+      "vehicle_label_rows": 1071
+    },
+    {
+      "sequence": "0001",
+      "frames": 131,
+      "vehicle_label_rows": 2729
+    },
+    {
+      "sequence": "0002",
+      "frames": 140,
+      "vehicle_label_rows": 2012
+    },
+    {
+      "sequence": "0003",
+      "frames": 128,
+      "vehicle_label_rows": 2161
+    },
+    {
+      "sequence": "0004",
+      "frames": 116,
+      "vehicle_label_rows": 509
+    }
+  ],
+  "point_rows_read": 87783404,
+  "max_pose_difference_from_author": 0.0,
+  "author_pose_sha256": "3b53f44eea0d4bff1a1deefca05048ad1db6e5f4c7c077dc35f4c520fc57e254",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "checker_sha256": "e41b50de251cba8abc36e291bf479789b31ddad23e661475a538d1ca197f31ef",
+  "raw_manifest_sha256": "40a5e07a6973f86c81e32eadeeb2c932d572f332b5ef41f7f0ee0be3c9f85628",
+  "shared_annotation_centers": {
+    "count": 4924,
+    "median_m": 0.2805171273900154,
+    "maximum_m": 2.797785661924853,
+    "duplicate_rule": "First occurrence, agent 1 before agent 2, as in author BasePostprocessor.generate_gt_bbx."
+  },
+  "checks": "All input hashes; official pose parity; rotations and relative inverses; binary shape, finite xyz and zero intensity; shared object center discrepancies recorded with class agreement; unique projected IDs; no tracking outcomes."
+}
