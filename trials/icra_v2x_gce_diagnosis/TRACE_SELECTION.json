@@ -1,0 +1,42 @@
+{
+  "created_utc": "2026-09-09T15:36:18.938808+00:00",
+  "gap_sha256": "72c0bc650079d8f263ea53eaa1c2f4d00717127f2ef8d5b73b661b57b9d208bd",
+  "cases": [
+    {
+      "sequence": "v2x_0001",
+      "condition": "reliable",
+      "reason": "largest_sequence_loss"
+    },
+    {
+      "sequence": "v2x_0003",
+      "condition": "intermittent",
+      "reason": "largest_sequence_loss"
+    },
+    {
+      "sequence": "v2xt_0005",
+      "condition": "reliable",
+      "reason": "largest_sequence_loss"
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "reason": "largest_sequence_loss"
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "reason": "longest_strict_interval"
+    },
+    {
+      "sequence": "v2xt_0008",
+      "condition": "reliable",
+      "reason": "second_largest_sequence_loss"
+    },
+    {
+      "sequence": "v2xt_0009",
+      "condition": "reliable",
+      "reason": "largest_sequence_gain"
+    }
+  ],
+  "rule": "Use dominant strict-matched target ID in the selected 15-frame window; use the longest strict interval target for that case. Select one modal native output label from the winning method, then trace it through the full segment."
+}

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "pdf_pages": 1,
+  "pdf_size_mm": [
+    182.9999999999947,
+    147.9999999999936
+  ],
+  "fonts": [
+    {
+      "name": "/BHPUCF+Arial-BoldMT",
+      "type": "/Type0",
+      "embedded": true
+    },
+    {
+      "name": "/CMCUUS+ArialMT",
+      "type": "/Type0",
+      "embedded": true
+    },
+    {
+      "name": "/CECFXM+ArialMT",
+      "type": "/Type0",
+      "embedded": true
+    }
+  ],
+  "svg_live_text_elements": 63,
+  "pdf_text_characters": 667,
+  "visual_preview_review": "Labels, legends and annotations inspected at the exported size; no overlap found in final preview.",
+  "file_sha256": {
+    "gce_diagnosis.pdf": "8d01a3d1dfabc94c17723648b4948b1820b8c252c86909584b634a3959d66ba6",
+    "gce_diagnosis.svg": "88badee2cdd8613fc805a45ca72d347f364116383dff1b3f5b1ac3ff57c525c7",
+    "gce_diagnosis.png": "83a8cf5a8298a68ed6161ff91baedea85ad1d2902b8573688b5ec27f2f0f0565"
+  }
+}

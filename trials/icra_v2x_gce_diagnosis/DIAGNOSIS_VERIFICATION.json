@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "full": true,
+  "sequence_comparisons": 38,
+  "aggregate_rows": 6,
+  "paired_robot_frames": 11164,
+  "target_robot_frames": 5771,
+  "native_trace_records": 2547,
+  "source_files_checked": 1597,
+  "verifier_sha256": "61b752c6cb721b4ced1b879dbb53a5e9aa92c4920e738e9b02b7a2229b2078f6"
+}

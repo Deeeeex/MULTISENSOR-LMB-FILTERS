@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "backend": "Python/matplotlib",
+  "matplotlib": "3.11.1",
+  "numpy": "2.4.6",
+  "size_mm": [
+    183,
+    148
+  ],
+  "inputs": {
+    "GAP_DIAGNOSIS.json": "72c0bc650079d8f263ea53eaa1c2f4d00717127f2ef8d5b73b661b57b9d208bd",
+    "TRACK_DIAGNOSIS.json": "0fced80702be111cef368048267ea3d570cdcffb702ff7473ee8fdcb26cbc7fb"
+  },
+  "script_sha256": "6f555b834dfbc4ba5b06e978ff620699fe0e4d993469bde4bb532367290eeea0",
+  "source_rows": 1036,
+  "source_sha256": "f4efce8616d27b23b84e64e78ab1b6e41d2ef4aca0b855804c2f136a89f3aec5",
+  "outputs": {
+    "gce_diagnosis.svg": "88badee2cdd8613fc805a45ca72d347f364116383dff1b3f5b1ac3ff57c525c7",
+    "gce_diagnosis.pdf": "8d01a3d1dfabc94c17723648b4948b1820b8c252c86909584b634a3959d66ba6",
+    "gce_diagnosis.png": "83a8cf5a8298a68ed6161ff91baedea85ad1d2902b8573688b5ec27f2f0f0565"
+  },
+  "scope": "Report figure from native saved traces and exact additive means. Cropped time axes are declared in FIGURE_CONTRACT.md. Full source series retained; no smoothing or simulated data."
+}

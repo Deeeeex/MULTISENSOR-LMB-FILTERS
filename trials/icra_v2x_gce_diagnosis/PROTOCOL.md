@@ -1,0 +1,12 @@
+# GCE versus No-age KLA: post-outcome diagnosis
+
+Start from `e661f2e88764dd90a2d6bfcab6a000ef3bcaba05`, after completion and archival of the temporal association study. The user requested diagnosis of why original GCE loses to No-age KLA on V2X. This is a post-outcome analysis of exposed data, without method selection or new performance claims.
+
+Use all five earlier V2X validation segments and all fourteen additional V2X test segments, both radio conditions. Keep the two cohorts separate and also report their union. Use the saved full recursive GCE and No-age KLA trajectories, with source and result hashes checked against completed audits. No tracker, input, calibration, crop, communication draw, or manuscript file changes.
+
+1. Recompute per-robot-frame OSPA, GOSPA, localization, missed-target and false-target squared terms, output counts and truth assignments. Reconstruct each cohort's existing sequence means. Decompose OSPA differences exactly, including its count normalization; a GOSPA component difference alone does not identify an OSPA contribution.
+2. At the inputs actually visited by GCE, repeat only the current frame's MAP cardinality extraction after mechanical substitutions: the unaged KLA output, the retained scalar correction with the old spatial density, removal of positive or negative scalar increments, removal of the age term, restoration of the old spatial normalizer, and restoration of the old mean. Reconstruct the native GCE output first. Undelivered frames retain the native local output. These substitutions are local sensitivities, not recursively executed alternatives.
+3. Match saved measurements to the frozen truth inside each sensor's known 40 m support, with 2 m and 12 m cutoffs. Describe support for targets detected by No-age but missed by GCE. Annotated support includes occluded targets; it is not a visibility oracle.
+4. Retain all segment comparisons. Inspect the largest positive 15-frame OSPA windows and the longest consecutive No-age-only target runs, with an improving segment as a counterexample. Trace existence, local increments, source participation, current association mass, curvature admission, spatial normalization and extraction rank through these intervals.
+
+Report what is directly observed, what the same-input interventions establish, and what still requires a separate recursive intervention. Do not tune a new fusion method on these diagnostic results or relabel these now-exposed data as unseen validation.

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "inputs": {
+    "trials/icra_v2x_gce_diagnosis/GAP_DIAGNOSIS.json": "72c0bc650079d8f263ea53eaa1c2f4d00717127f2ef8d5b73b661b57b9d208bd",
+    "trials/icra_v2x_gce_diagnosis/TRACK_DIAGNOSIS.json": "0fced80702be111cef368048267ea3d570cdcffb702ff7473ee8fdcb26cbc7fb",
+    "trials/icra_v2x_gce_diagnosis/DIAGNOSIS_VERIFICATION.json": "4801c1a8724414624f8ef100b3c19ae0b6e0e0e79420301776ef061dd8356185",
+    "trials/icra_v2x_gce_diagnosis/FRAGMENTATION_DIAGNOSIS.json": "b8c2ae8ae6bf9cdab47880e9b80680a8f532d92c71fcb3ddb1350cf44968bfca",
+    "trials/icra_v2x_gce_diagnosis/target_robot_frames.csv.gz": "7182721a4687d5c23348092606c300d44ff13e3041287aae8524779670b9ac15",
+    "trials/icra_v2x_gce_diagnosis/build_report.py": "090809a1000d8c7fd029e80c764bcc1394e62069179a1cbcefc1bbc48079d9c2",
+    "trials/icra_selective_innovation/positiveInnovationSupport.m": "0d4ca359ebe84543dc5de109f2d52d404ea4dfa03083c3f41e9f60be9d554db1",
+    "trials/icra_asymmetric_evidence/negativeInnovationSupport.m": "2ade1cac310eb18e29afd8f86f911d34e67480fd9548c0a5a6b3ea34704edfbc",
+    "trials/icra_marked_iteration/likelihood_manifest.json": "083a8cb2f32cb6163c19419ba317672aa1e95d2d8391cb53fa5faa9c4d33de09"
+  },
+  "output_path": "trials/icra_v2x_gce_diagnosis/DIAGNOSIS_CN.md",
+  "output_sha256": "8886acae5b75fdbf7919b256d57b1df1fecf18b72886464423493f63892ec809",
+  "loss_classification": [
+    {
+      "cohort": "v2x_val",
+      "condition": "reliable",
+      "counts": {
+        "all": 506,
+        "map_rank": 468,
+        "pruned": 18,
+        "no_2m_component": 20
+      }
+    },
+    {
+      "cohort": "v2x_val",
+      "condition": "intermittent",
+      "counts": {
+        "all": 241,
+        "map_rank": 214,
+        "cropped": 3,
+        "no_2m_component": 13,
+        "pruned": 11
+      }
+    },
+    {
+      "cohort": "v2x_test",
+      "condition": "reliable",
+      "counts": {
+        "all": 1116,
+        "map_rank": 1092,
+        "no_2m_component": 22,
+        "pruned": 2
+      }
+    },
+    {
+      "cohort": "v2x_test",
+      "condition": "intermittent",
+      "counts": {
+        "all": 1084,
+        "map_rank": 1025,
+        "no_2m_component": 47,
+        "matching_competition": 9,
+        "pruned": 3
+      }
+    }
+  ]
+}

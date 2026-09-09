@@ -1,0 +1,45 @@
+PAIRED DIAGNOSED v2x_0000 reliable 104 frames
+PAIRED DIAGNOSED v2x_0000 intermittent 104 frames
+PAIRED DIAGNOSED v2x_0001 reliable 131 frames
+PAIRED DIAGNOSED v2x_0001 intermittent 131 frames
+PAIRED DIAGNOSED v2x_0002 reliable 140 frames
+PAIRED DIAGNOSED v2x_0002 intermittent 140 frames
+PAIRED DIAGNOSED v2x_0003 reliable 128 frames
+PAIRED DIAGNOSED v2x_0003 intermittent 128 frames
+PAIRED DIAGNOSED v2x_0004 reliable 116 frames
+PAIRED DIAGNOSED v2x_0004 intermittent 116 frames
+PAIRED DIAGNOSED v2xt_0000 reliable 119 frames
+PAIRED DIAGNOSED v2xt_0000 intermittent 119 frames
+PAIRED DIAGNOSED v2xt_0001 reliable 240 frames
+PAIRED DIAGNOSED v2xt_0001 intermittent 240 frames
+PAIRED DIAGNOSED v2xt_0002 reliable 150 frames
+PAIRED DIAGNOSED v2xt_0002 intermittent 150 frames
+PAIRED DIAGNOSED v2xt_0003 reliable 127 frames
+PAIRED DIAGNOSED v2xt_0003 intermittent 127 frames
+PAIRED DIAGNOSED v2xt_0004 reliable 123 frames
+PAIRED DIAGNOSED v2xt_0004 intermittent 123 frames
+PAIRED DIAGNOSED v2xt_0005 reliable 98 frames
+PAIRED DIAGNOSED v2xt_0005 intermittent 98 frames
+PAIRED DIAGNOSED v2xt_0006 reliable 187 frames
+PAIRED DIAGNOSED v2xt_0006 intermittent 187 frames
+PAIRED DIAGNOSED v2xt_0007 reliable 106 frames
+PAIRED DIAGNOSED v2xt_0007 intermittent 106 frames
+PAIRED DIAGNOSED v2xt_0008 reliable 103 frames
+PAIRED DIAGNOSED v2xt_0008 intermittent 103 frames
+PAIRED DIAGNOSED v2xt_0009 reliable 180 frames
+PAIRED DIAGNOSED v2xt_0009 intermittent 180 frames
+PAIRED DIAGNOSED v2xt_0010 reliable 148 frames
+PAIRED DIAGNOSED v2xt_0010 intermittent 148 frames
+PAIRED DIAGNOSED v2xt_0011 reliable 157 frames
+PAIRED DIAGNOSED v2xt_0011 intermittent 157 frames
+PAIRED DIAGNOSED v2xt_0012 reliable 283 frames
+PAIRED DIAGNOSED v2xt_0012 intermittent 283 frames
+PAIRED DIAGNOSED v2xt_0013 reliable 151 frames
+PAIRED DIAGNOSED v2xt_0013 intermittent 151 frames
+v2x_val reliable GAP 0.049546086464994935 CF {'native': 0.0, 'noage_same_input': -0.03113577488104054, 'guarded_scalar_same_input': 0.00974511762013674, 'without_negative_scalar': -0.025045378551644615, 'without_positive_scalar': 0.005013698924138326, 'without_age': -0.01638917620396428, 'old_normalizer': 0.008807075871739132, 'old_mean': 0.0009532451836696383}
+v2x_val intermittent GAP 0.0458436655003303 CF {'native': 0.0, 'noage_same_input': 0.01880271515007744, 'guarded_scalar_same_input': 0.0032656374080520397, 'without_negative_scalar': -0.009554829222343979, 'without_positive_scalar': 0.026651829785486462, 'without_age': 0.01114019262493939, 'old_normalizer': 0.0031773427158401104, 'old_mean': 8.43761899089012e-05}
+v2x_test reliable GAP 0.10624872521744737 CF {'native': 0.0, 'noage_same_input': 0.01045040898164777, 'guarded_scalar_same_input': 0.006445112096395888, 'without_negative_scalar': -0.03418900653151232, 'without_positive_scalar': 0.03970356101969973, 'without_age': -0.005530430240960365, 'old_normalizer': 0.006370595823727579, 'old_mean': 3.7691201917499006e-05}
+v2x_test intermittent GAP 0.024566793041230144 CF {'native': 0.0, 'noage_same_input': -0.001612184271466754, 'guarded_scalar_same_input': 0.001992127164625011, 'without_negative_scalar': -0.028267142976803557, 'without_positive_scalar': 0.025921962517471635, 'without_age': -0.0057352715983282985, 'old_normalizer': 0.0019173400385314946, 'old_mean': 6.830755649953414e-05}
+v2x_all reliable GAP 0.09132697817732831 CF {'native': 0.0, 'noage_same_input': -0.0004933236137965241, 'guarded_scalar_same_input': 0.00731353460264348, 'without_negative_scalar': -0.031782788642073456, 'without_positive_scalar': 0.030574649941920412, 'without_age': -0.008387994968066657, 'old_normalizer': 0.00701177478373062, 'old_mean': 0.0002786264602733251}
+v2x_all intermittent GAP 0.03016597000415123 CF {'native': 0.0, 'noage_same_input': 0.0037601576815711915, 'guarded_scalar_same_input': 0.002327261439211071, 'without_negative_scalar': -0.023342849883524724, 'without_positive_scalar': 0.026114032851159746, 'without_age': -0.0012943599606262748, 'old_normalizer': 0.0022489196904548147, 'old_mean': 7.253614423884126e-05}
+GAP DIAGNOSIS COMPLETE 11164 paired robot-frames

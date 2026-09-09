@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-09-09T15:39:44.262270+00:00",
+  "original_sha256": "b39608e894f4596eae9b5748facd095752f3d55ea93656fb5827cd9db11402e5",
+  "corrected_sha256": "90a2fb93235c16aee37995cd1556a8888aea69a32a982371472972c43440c077",
+  "failed_log_sha256": "2050103010189b4dbfcc9f2d14e930795f2b2895a21e5422e632fad12dda37f5",
+  "replacements": [
+    {
+      "old": "select_path = OUT/'TRACE_SELECTION.json'",
+      "new": "select_path = OUT/'TRACE_SELECTION_V2.json'"
+    },
+    {
+      "old": "def main():\n",
+      "new": "\ndef false_alarm_trace(cohort, unit, condition, reason, window, data, indices, cached, compact):\n    sequence = unit['sequence']\n    counts = Counter()\n    for t in range(window['first_frame'], window['last_frame']+1):\n        for n in [1, 2]:\n            run = data[GCE]['runs']\n            raw = np.asarray(run['rawEstimates'][n-1+2*(t-1)], float).reshape(-1, 4)\n            labels = np.asarray(run['labels'][n-1+2*(t-1)], int).reshape(2, -1).T\n            keep = domain(raw, compact['positions'][:, :, t-1])\n            states, labels = raw[keep], labels[keep]\n            matched = set(assignments(data[GCE]['truth'][t-1], states, 12.).values())\n            for j, label in enumerate(labels):\n                if j not in matched: counts[tuple(label)] += 1\n    assert counts, (sequence, condition, 'no unmatched output in false-alarm case')\n    anchor = tuple(sorted(counts, key=lambda k:(-counts[k], k))[0])\n    rows = []\n    for t in range(1, unit['frames']+1):\n        truth = np.asarray(data[GCE]['truth'][t-1], float).reshape(4, -1)[:2].T\n        for n in [1, 2]:\n            pools, unused = cached[t, n]\n            for arm in [GCE, NOAGE]:\n                records, selected, ranks, summary = pools[arm]\n                chosen = np.flatnonzero((records[:, 2]==anchor[0]) & (records[:, 3]==anchor[1]))\n                z = records[chosen[0]] if len(chosen) else None\n                observations = []\n                if z is not None:\n                    xy = z[4:6]\n                    for sensor in [0, 1]:\n                        meas = compact['measurements'][sensor, t-1].T\n                        distances = np.linalg.norm(meas-xy, axis=1)\n                        close = np.flatnonzero(distances <= 2.)\n                        observations.append(dict(sensor=sensor+1, detections=len(meas), near_2m=len(close),\n                                                 nearby=[dict(index=int(j)+1, distance=float(distances[j]),\n                                                              probability=float(compact['calibratedScores'][sensor, t-1].ravel()[j]),\n                                                              likelihood_ratio=float(compact['likelihoodRatios'][sensor, t-1].ravel()[j])) for j in close]))\n                nearest = float(np.linalg.norm(truth-z[4:6], axis=1).min()) if z is not None and len(truth) else None\n                detail = detailed_record(z, indices[arm], arm, z[4:6]) if z is not None else None\n                if detail is not None: detail.pop('distance')\n                rows.append(dict(frame=t, robot=n, arm=arm, nearest_truth_distance=nearest,\n                                 map_count=summary['map_count'], sum_r=summary['sum_r'],\n                                 anchor_selected=bool(len(chosen) and int(chosen[0]) in selected),\n                                 anchor_rank=int(ranks[chosen[0]]) if len(chosen) else None,\n                                 observations_near_estimate=observations, anchor=detail))\n    return dict(cohort=cohort, sequence=sequence, scene=unit['scene'], condition=condition, reason=reason,\n                case_type='scored_false_alarm', window=window, truth_id=None, anchor_label=list(map(int, anchor)), rows=rows,\n                note='The selected loss window has no strict No-age-only target. Trace its most frequent GCE output unmatched within 12 m instead. This is an annotation-relative false alarm; no claim that the physical object does not exist.')\n\ndef main():\n"
+    },
+    {
+      "old": "                    counts = Counter(r['truth_id'] for r in subset)\n                    truth_id =",
+      "new": "                    counts = Counter(r['truth_id'] for r in subset)\n                    if not counts and reason != 'longest_strict_interval':\n                        assert not gain\n                        traces.append(false_alarm_trace(cohort, unit, condition, reason, window, data, indices, cached, compact))\n                        print('FALSE-ALARM WINDOW TRACED', sequence, condition, flush=True)\n                        continue\n                    truth_id ="
+    },
+    {
+      "old": "    if isinstance(value, (np.integer, int)):\n",
+      "new": "    if isinstance(value, (np.bool_, bool)):\n        return bool(value)\n    if isinstance(value, (np.integer, int)):\n"
+    }
+  ],
+  "reason": "The old v2x_0003 intermittent loss window is a pure false-alarm increase, with no strict No-age-only target. Preserve it and trace a scored false output rather than silently excluding the case or inventing a missed target.",
+  "native_trajectories_changed": false,
+  "phase1_outputs_changed": false
+}
