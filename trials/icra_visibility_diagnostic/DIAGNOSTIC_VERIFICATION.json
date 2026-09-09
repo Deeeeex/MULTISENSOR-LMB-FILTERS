@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "input_files_checked": 91,
+  "visibility_queries": 305,
+  "raw_alignment_frames": 10,
+  "calibration_rows": 36836,
+  "recording_folds": 6,
+  "independent_stationary_point_max_parameter_error": 1.2979350350050822e-07,
+  "calibration_gate_recomputed": true,
+  "report_sha256": {
+    "BOX_VISIBILITY_DIAGNOSTIC.json": "07624b37f5a72ce815a7d22de6c253900cef47e64a33907c535d81517e7a8053",
+    "RAW_SAMPLE_INSPECTION.json": "fb58101d6d867c6e236a7446230eb3d8b26e5a0aee450c02c9f0dca6a0620ccd",
+    "RAW_GEOMETRY_RECHECK.json": "248ead3f30a7f8135762c3a727edd624e982576f67a649af88d7950dd1a2f823",
+    "RAW_ALIGNMENT_SEQUENCE.json": "806a3defc8039776cb5aec1c0094c7c7ef4f880fff8e88142049fa51ae318737",
+    "RANGE_RECALL_CALIBRATION.json": "5587f57bec3654b6b2028748f595fddb6b2de3ec080a506502c6824d96fc23e3"
+  },
+  "source_sha256": "5ffbc8cae006646b366cbaa5c6552a1830aad969de347de40c46fcd60af72d55"
+}

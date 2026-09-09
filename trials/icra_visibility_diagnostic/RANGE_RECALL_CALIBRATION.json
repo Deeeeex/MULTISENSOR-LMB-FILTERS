@@ -1,0 +1,382 @@
+{
+  "passed": true,
+  "rows": 36836,
+  "sequences": 9,
+  "recordings": 6,
+  "folds": {
+    "testoutput_CAV_data_2022-03-15-09-54-40": {
+      "intercept": 3.563290825645791,
+      "slope": -3.4593190890164425,
+      "constant": 0.7954458758927561,
+      "training_sequences": [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 36489,
+      "objective": 0.45028893638801915,
+      "iterations": 10
+    },
+    "testoutput_CAV_data_2022-03-15-10-29-43": {
+      "intercept": 3.487520216578666,
+      "slope": -2.690498435024091,
+      "constant": 0.8552114644157622,
+      "training_sequences": [
+        "0000",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 36622,
+      "objective": 0.383126303630619,
+      "iterations": 9
+    },
+    "testoutput_CAV_data_2022-03-17-10-50-46": {
+      "intercept": 3.727248558740787,
+      "slope": -3.205518760241437,
+      "constant": 0.8343353858540771,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 25065,
+      "objective": 0.4084095143472816,
+      "iterations": 10
+    },
+    "testoutput_CAV_data_2022-03-17-11-02-23": {
+      "intercept": 3.610285476344416,
+      "slope": -3.435589316224807,
+      "constant": 0.8039367593900404,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 26334,
+      "objective": 0.4428736605150033,
+      "iterations": 10
+    },
+    "testoutput_CAV_data_2022-03-17-11-51-42": {
+      "intercept": 3.2793345305272177,
+      "slope": -2.8429836671481223,
+      "constant": 0.8082104891988884,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0008"
+      ],
+      "train_rows": 33214,
+      "objective": 0.4527652995567927,
+      "iterations": 10
+    },
+    "testoutput_CAV_data_2022-03-21-09-35-07": {
+      "intercept": 3.3463158827964894,
+      "slope": -3.038052789421461,
+      "constant": 0.7915587175912124,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007"
+      ],
+      "train_rows": 26456,
+      "objective": 0.4725011436347152,
+      "iterations": 10
+    }
+  },
+  "sequence_metrics": [
+    {
+      "sequence": "0000",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "rows": 347,
+      "recall_2m": 0.9596541786743515,
+      "recall_12m": 0.9711815561959655,
+      "nominal": {
+        "log_loss": 0.1940093458673568,
+        "brier": 0.042276657060518724
+      },
+      "constant": {
+        "log_loss": 0.2836449290669569,
+        "brier": 0.06568240272961942
+      },
+      "range": {
+        "log_loss": 0.3554565806895341,
+        "brier": 0.09646358673429557
+      }
+    },
+    {
+      "sequence": "0001",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "rows": 105,
+      "recall_2m": 0.6761904761904762,
+      "recall_12m": 0.7333333333333333,
+      "nominal": {
+        "log_loss": 0.8168427597476495,
+        "brier": 0.2690476190476191
+      },
+      "constant": {
+        "log_loss": 0.731516339770558,
+        "brier": 0.2510054303249313
+      },
+      "range": {
+        "log_loss": 0.7043561282191754,
+        "brier": 0.24112626400908208
+      }
+    },
+    {
+      "sequence": "0002",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "rows": 109,
+      "recall_2m": 0.6605504587155964,
+      "recall_12m": 0.6788990825688074,
+      "nominal": {
+        "log_loss": 0.8512073905334239,
+        "brier": 0.28155963302752285
+      },
+      "constant": {
+        "log_loss": 0.7592941754004865,
+        "brier": 0.26211645734641165
+      },
+      "range": {
+        "log_loss": 0.6035575064529924,
+        "brier": 0.21369296169187554
+      }
+    },
+    {
+      "sequence": "0003",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "rows": 2492,
+      "recall_2m": 0.6464686998394864,
+      "recall_12m": 0.7315409309791332,
+      "nominal": {
+        "log_loss": 0.8821481772281351,
+        "brier": 0.29282504012841093
+      },
+      "constant": {
+        "log_loss": 0.7526633038151055,
+        "brier": 0.2638408116814353
+      },
+      "range": {
+        "log_loss": 0.7239759760190176,
+        "brier": 0.24795745408579808
+      }
+    },
+    {
+      "sequence": "0004",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "rows": 9279,
+      "recall_2m": 0.8364047849983834,
+      "recall_12m": 0.8698135574954198,
+      "nominal": {
+        "log_loss": 0.46481594279398114,
+        "brier": 0.14087617200129324
+      },
+      "constant": {
+        "log_loss": 0.445599311189466,
+        "brier": 0.13683610304300986
+      },
+      "range": {
+        "log_loss": 0.36268507439388814,
+        "brier": 0.1143064306590094
+      }
+    },
+    {
+      "sequence": "0005",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "rows": 6800,
+      "recall_2m": 0.8355882352941176,
+      "recall_12m": 0.8854411764705883,
+      "nominal": {
+        "log_loss": 0.4666100858728106,
+        "brier": 0.1415294117647059
+      },
+      "constant": {
+        "log_loss": 0.4502333733113346,
+        "brier": 0.13838235225908635
+      },
+      "range": {
+        "log_loss": 0.4419303032009396,
+        "brier": 0.13841909050336546
+      }
+    },
+    {
+      "sequence": "0006",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "rows": 3702,
+      "recall_2m": 0.8600756347920043,
+      "recall_12m": 0.8870880605078336,
+      "nominal": {
+        "log_loss": 0.4128057698610035,
+        "brier": 0.12193949216639653
+      },
+      "constant": {
+        "log_loss": 0.4156796117114139,
+        "brier": 0.12349711056053238
+      },
+      "range": {
+        "log_loss": 0.39227896911805205,
+        "brier": 0.11718559113007604
+      }
+    },
+    {
+      "sequence": "0007",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "rows": 3622,
+      "recall_2m": 0.8575372722252899,
+      "recall_12m": 0.8696852567642187,
+      "nominal": {
+        "log_loss": 0.4183831224787786,
+        "brier": 0.12397018221976808
+      },
+      "constant": {
+        "log_loss": 0.41785456299297047,
+        "brier": 0.12460023049343265
+      },
+      "range": {
+        "log_loss": 0.3199225831838188,
+        "brier": 0.09496562015340329
+      }
+    },
+    {
+      "sequence": "0008",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "rows": 10380,
+      "recall_2m": 0.9907514450867052,
+      "recall_12m": 0.9916184971098266,
+      "nominal": {
+        "log_loss": 0.12568166781816129,
+        "brier": 0.017398843930635836
+      },
+      "constant": {
+        "log_loss": 0.2460919957430863,
+        "brier": 0.04884076183240422
+      },
+      "range": {
+        "log_loss": 0.1636164589316535,
+        "brier": 0.03267880199137354
+      }
+    }
+  ],
+  "macro": {
+    "nominal": {
+      "log_loss": 0.5147226958001445,
+      "brier": 0.1590470057052079
+    },
+    "constant": {
+      "log_loss": 0.5002864003334864,
+      "brier": 0.15720018447454037
+    },
+    "range": {
+      "log_loss": 0.4519755089121191,
+      "brier": 0.14408842232869767
+    }
+  },
+  "full_fit": {
+    "intercept": 3.4857627462594856,
+    "slope": -3.1072756940997053,
+    "constant": 0.8136912428684921,
+    "training_sequences": [
+      "0000",
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005",
+      "0006",
+      "0007",
+      "0008"
+    ],
+    "train_rows": 36836,
+    "objective": 0.4385801949200509,
+    "iterations": 10,
+    "probabilities_by_range": {
+      "5": 0.9567834385227154,
+      "10": 0.9375523401761502,
+      "20": 0.873484427594698,
+      "30": 0.76047874015432,
+      "39": 0.6121049507402343
+    }
+  },
+  "descriptive_range_bins": [
+    {
+      "range_m": [
+        0,
+        10
+      ],
+      "rows": 5432,
+      "recall_2m": 0.9714653902798233,
+      "recall_12m": 0.9821428571428571
+    },
+    {
+      "range_m": [
+        10,
+        20
+      ],
+      "rows": 12570,
+      "recall_2m": 0.9645186953062848,
+      "recall_12m": 0.9817024661893397
+    },
+    {
+      "range_m": [
+        20,
+        30
+      ],
+      "rows": 9775,
+      "recall_2m": 0.8670076726342711,
+      "recall_12m": 0.9047570332480819
+    },
+    {
+      "range_m": [
+        30,
+        40
+      ],
+      "rows": 9059,
+      "recall_2m": 0.6874931007837509,
+      "recall_12m": 0.729771497957832
+    }
+  ],
+  "calibration_gate_passed": true,
+  "inputs": {
+    "trials/icra_full_coverage/DATA_INVENTORY.json": "8cddb159aa9006a4d6b4c3715fceec462bf8e4d7c15a6e9fdab80678330c3f3f",
+    "trials/icra_external_fusion/v2v4real_input_manifest.json": "8ac1745474cc52e451434380ba40e7ee98e4a81759c0e3abb5e154f4d66d1d07",
+    "trials/icra_visibility_diagnostic/RANGE_RECALL_PROTOCOL.md": "bc993b52a4cc2e90d15fb1bc4c51892d40c8b52225e7c0bab37c8f70ad277c50",
+    "trials/icra_external_fusion/data/v2v4real_0000.mat": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+    "trials/icra_external_fusion/data/v2v4real_0001.mat": "a74fe915c307bdc86fe4b11cc4c2a9128f50eb10e0000dca7ae2afa4bdf4b058",
+    "trials/icra_external_fusion/data/v2v4real_0002.mat": "d6294e27b43419708deb50960c86e5f9bec836f078ff61420dc6498cda3f7582",
+    "trials/icra_external_fusion/data/v2v4real_0003.mat": "1e9974bc4ee6fe8132620bc23c4ad4a792fe3da727f5e9645bb35388f58031f9",
+    "trials/icra_external_fusion/data/v2v4real_0004.mat": "11edd704672772998840e1bed434176a0695dc72f64e5547e555e6301648141d",
+    "trials/icra_external_fusion/data/v2v4real_0005.mat": "e94518425ca94539828689d2c765b151434e83013647476cc5ba99d0eb71bba4",
+    "trials/icra_external_fusion/data/v2v4real_0006.mat": "fa8e15dfb82cbd7973c3837bed0cff0f9ef8dae3aa3b3ce35f5093e7eb771274",
+    "trials/icra_external_fusion/data/v2v4real_0007.mat": "1d2b01d8bca8b33e20ff701d3fb722d1827a85a726aacd9e000b7ae816583573",
+    "trials/icra_external_fusion/data/v2v4real_0008.mat": "65a1fbdb9560a79be35358bcaac89c03ae54f83ef087239a47a0d9e2fcc188b6"
+  },
+  "rows_sha256": "2750c1b96611f9a2d09beab1a59aca9e5794756153abbbd56c9c7126ba39a68c",
+  "source_sha256": "400c39cc7af67edf77a637ba8e2b4602efdb8995eeadbf9355f621bbc1442275",
+  "scope": "All nine exposed V2V development sequences; entire recording excluded per fold; no V2X fit or tracking outcomes."
+}

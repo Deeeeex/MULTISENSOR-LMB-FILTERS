@@ -1,0 +1,366 @@
+{
+  "passed": true,
+  "samples": [
+    {
+      "sequence": "v2xt_0001",
+      "frame": 53,
+      "predicted_xy": [
+        6.10963917038747,
+        -3.4163936302916356
+      ],
+      "diagnostic_box": [
+        6.058894702451898,
+        -3.3999975825932225,
+        -1.2657128262105704,
+        1.7638565599918365,
+        1.9680419520202208,
+        4.409863035756879,
+        -0.06341337047331409
+      ],
+      "box_source": "Canonical first-source annotation ID 5, diagnostic only.",
+      "sources": [
+        {
+          "source": 1,
+          "source_xyz": [
+            -1.0658141036401503e-14,
+            -7.105427357601002e-15,
+            -3.5388358909926865e-16
+          ],
+          "raw_points": 70816,
+          "prepared_points": 70381,
+          "raw_points_in_diagnostic_box": 2045,
+          "prepared_points_in_diagnostic_box": 2045,
+          "nearest_annotations": [
+            {
+              "id": 5,
+              "type": "Car",
+              "xyz": [
+                6.058894702451898,
+                -3.3999975825932225,
+                -1.2657128262105704
+              ],
+              "planar_distance": 0.05332758579002924
+            },
+            {
+              "id": 8,
+              "type": "Car",
+              "xyz": [
+                8.592804641800667,
+                -0.7817261561751394,
+                -1.1935789917748567
+              ],
+              "planar_distance": 3.620439677385348
+            },
+            {
+              "id": 3,
+              "type": "Car",
+              "xyz": [
+                9.04474875315272,
+                5.475083107443091,
+                -1.2121549897661326
+              ],
+              "planar_distance": 9.363398252798936
+            },
+            {
+              "id": 1,
+              "type": "Car",
+              "xyz": [
+                -7.020504190415054,
+                0.5815861471876005,
+                -1.391212974106106
+              ],
+              "planar_distance": 13.725323565452273
+            },
+            {
+              "id": 2,
+              "type": "Truck",
+              "xyz": [
+                -7.014101206241453,
+                3.8890786466159213,
+                -1.1593063275647046
+              ],
+              "planar_distance": 15.020069462616513
+            }
+          ],
+          "closest_detection_distance": 0.01624377597242372,
+          "closest_detection_box": [
+            6.1214919090271,
+            -3.4275009632110596,
+            -1.2077946662902832,
+            1.6776561737060547,
+            1.9341635704040527,
+            4.248730659484863,
+            -0.01820467971265316
+          ],
+          "closest_detection_score": 0.31784185767173767
+        },
+        {
+          "source": 2,
+          "source_xyz": [
+            42.24127581229364,
+            13.13356310960404,
+            0.2999752586201576
+          ],
+          "raw_points": 71319,
+          "prepared_points": 68472,
+          "raw_points_in_diagnostic_box": 26,
+          "prepared_points_in_diagnostic_box": 26,
+          "nearest_annotations": [
+            {
+              "id": 5,
+              "type": "Car",
+              "xyz": [
+                6.3539713168532685,
+                -3.5859458467572125,
+                -1.2516040077509785
+              ],
+              "planar_distance": 0.2973989776461485
+            },
+            {
+              "id": 8,
+              "type": "Car",
+              "xyz": [
+                8.957898285562129,
+                -0.8755146888400915,
+                -1.2505637009717014
+              ],
+              "planar_distance": 3.81688954284604
+            },
+            {
+              "id": 35,
+              "type": "Pedestrian",
+              "xyz": [
+                2.003270053384619,
+                -8.305276976410475,
+                -0.9783018009524005
+              ],
+              "planar_distance": 6.3846258854401885
+            },
+            {
+              "id": 4,
+              "type": "Car",
+              "xyz": [
+                0.23573219751830865,
+                0.020819673207157052,
+                -1.0935550549683248
+              ],
+              "planar_distance": 6.805675456534056
+            },
+            {
+              "id": 63,
+              "type": "Pedestrian",
+              "xyz": [
+                14.913370636536213,
+                -6.578597012253429,
+                -1.336253211126064
+              ],
+              "planar_distance": 9.35442237430768
+            }
+          ],
+          "closest_detection_distance": 6.696147485752621,
+          "closest_detection_box": [
+            0.4403972625732422,
+            0.14704394340515137,
+            -1.9179177284240723,
+            1.5720025300979614,
+            1.9127600193023682,
+            4.562754154205322,
+            3.1106204986572266
+          ],
+          "closest_detection_score": 0.6936909556388855
+        }
+      ]
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 107,
+      "predicted_xy": [
+        6.429076528287036,
+        -0.3610387822418955
+      ],
+      "diagnostic_box": [
+        6.421995162963867,
+        -0.3494459390640259,
+        -1.345872402191162,
+        1.9821910858154297,
+        1.9268882274627686,
+        4.282907009124756,
+        0.05487366020679474
+      ],
+      "box_source": "Closest positive-source detector box, not an annotated target.",
+      "sources": [
+        {
+          "source": 1,
+          "source_xyz": [
+            2.842170943040401e-14,
+            8.881784197001252e-15,
+            -1.3322676295501878e-15
+          ],
+          "raw_points": 70725,
+          "prepared_points": 69809,
+          "raw_points_in_diagnostic_box": 290,
+          "prepared_points_in_diagnostic_box": 290,
+          "nearest_annotations": [
+            {
+              "id": 14,
+              "type": "Car",
+              "xyz": [
+                -0.6237573166044115,
+                -2.777938003056038,
+                -1.4668016362190262
+              ],
+              "planar_distance": 7.455458878380209
+            },
+            {
+              "id": 55,
+              "type": "Pedestrian",
+              "xyz": [
+                10.349217970127455,
+                -7.716463561613008,
+                -0.9424438134926652
+              ],
+              "planar_distance": 8.334853484556357
+            },
+            {
+              "id": 47,
+              "type": "Pedestrian",
+              "xyz": [
+                3.3882375453437135,
+                -8.162266464603904,
+                -1.0039696384246488
+              ],
+              "planar_distance": 8.372923926098881
+            },
+            {
+              "id": 53,
+              "type": "Pedestrian",
+              "xyz": [
+                -1.270455314528249,
+                -7.248390516002868,
+                -1.3321991968207456
+              ],
+              "planar_distance": 10.330460033467377
+            },
+            {
+              "id": 36,
+              "type": "Car",
+              "xyz": [
+                -4.213492009756749,
+                3.533092932480514,
+                -1.5524371512586042
+              ],
+              "planar_distance": 11.33263106690438
+            }
+          ],
+          "closest_detection_distance": 7.498532381213893,
+          "closest_detection_box": [
+            -0.6900376677513123,
+            -2.716076135635376,
+            -1.481313943862915,
+            1.485955834388733,
+            1.8461949825286865,
+            4.296850204467773,
+            -0.23534725606441498
+          ],
+          "closest_detection_score": 0.5971056222915649
+        },
+        {
+          "source": 2,
+          "source_xyz": [
+            -8.004802629042757,
+            0.3609804869265716,
+            -0.11203552172428166
+          ],
+          "raw_points": 71392,
+          "prepared_points": 67450,
+          "raw_points_in_diagnostic_box": 1038,
+          "prepared_points_in_diagnostic_box": 1038,
+          "nearest_annotations": [
+            {
+              "id": 12,
+              "type": "Car",
+              "xyz": [
+                0.35380864193297157,
+                0.09420090512124979,
+                -1.053475363347923
+              ],
+              "planar_distance": 6.092300309728294
+            },
+            {
+              "id": 14,
+              "type": "Car",
+              "xyz": [
+                -0.7935737337066655,
+                -2.6944073415210728,
+                -1.4729981300668538
+              ],
+              "planar_distance": 7.59020985484
+            },
+            {
+              "id": 47,
+              "type": "Pedestrian",
+              "xyz": [
+                3.3669060137955853,
+                -8.032448594011603,
+                -1.032165567956402
+              ],
+              "planar_distance": 8.259988907979077
+            },
+            {
+              "id": 53,
+              "type": "Pedestrian",
+              "xyz": [
+                -1.2250723912615058,
+                -7.219684632701659,
+                -1.3664774986846053
+              ],
+              "planar_distance": 10.277500600080499
+            },
+            {
+              "id": 36,
+              "type": "Car",
+              "xyz": [
+                -4.733798099766005,
+                3.5928365351768967,
+                -1.5573593562462138
+              ],
+              "planar_distance": 11.842419515762979
+            }
+          ],
+          "closest_detection_distance": 0.01358454076466524,
+          "closest_detection_box": [
+            6.421995162963867,
+            -0.3494459390640259,
+            -1.345872402191162,
+            1.9821910858154297,
+            1.9268882274627686,
+            4.282907009124756,
+            0.05487366020679474
+          ],
+          "closest_detection_score": 0.4427168071269989
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "trials/icra_visibility_diagnostic/BOX_VISIBILITY_DIAGNOSTIC.json": "07624b37f5a72ce815a7d22de6c253900cef47e64a33907c535d81517e7a8053",
+    "trials/icra_association_test/INFERENCE_FREEZE.json": "0bb9077f3dde77a1243c01bfe5dd91a73cc93f4591bd949c3ae7b2e3af3232bc",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000052.yaml": "0f34e3c40556c89b61bf55a457082df8c21753744e60f3554a9ede0a837a7816",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000052.yaml": "7dd1f5d2d8f53c55b27b0cd11be04acbeab9bd7a506c528d533f9a33bf014eb1",
+    "trials/icra_association_test/detections/detections_0001.npz": "6fda78ad7798890dea77c21d01f88b7d4f4f953a129366b3cd43d069896d2c65",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000052.bin": "fd429a6b6a2b9cd4bff1db967d546da37bd6c1962e08959b0a612064b4776420",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000052.bin": "f7207465841bb3bf76d4793700ebd714135629d826424a2517aee44c9419d09a",
+    "trials/icra_v2x_transfer/INFERENCE_FREEZE.json": "fd7cd7ae4269ffcc6bfe5da32cca94e562f9576a9f37f8ffc5592a45b4664000",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000106.yaml": "2fea82f1129d888b81db4efb1813c0adfea33fe5e45f1b0b6cc639fd1c40e692",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000106.yaml": "3c5a76d7325d061e601c63dd3bcaaf13df501a99172a846a35517f47f424139d",
+    "trials/icra_v2x_transfer/detections/detections_0002.npz": "561025be314c4f723c70ac974d250246ef0ad06758373156f05b71351ca88183",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000106.bin": "bf27f0ea2fe4fe3bb1576a6fd2c4b2f16b25ee55489998117085c92ce75aa6df",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000106.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "trials/icra_v2x_transfer/input_adapter.py": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+    "trials/icra_reviewer_revision/official_input_adapter.py": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+    "trials/icra_visibility_diagnostic/diagnose_boxes.py": "408af4bd6ca2c45e66d53be50f3e12a216d4db8f7abb00743075073e6c02b134"
+  },
+  "source_sha256": "827a75746fbf2d190914d8c6b2d76ef0f0874a50c39fac7cb0238d1cc44fd27c",
+  "figure_sha256": "9c109836777ba1bd418438cfcca9a1c5f52fa845045fd5e0b439b49793ee4244",
+  "scope": "Two declared samples; counts inside the stated diagnostic boxes are raw signal checks, not visibility labels or a method input."
+}

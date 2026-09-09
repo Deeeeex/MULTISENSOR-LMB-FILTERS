@@ -1,0 +1,175 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "sequence": "v2xt_0001",
+      "frame": 53,
+      "exact_box_counts": [
+        [
+          2045,
+          2045
+        ],
+        [
+          26,
+          26
+        ]
+      ],
+      "lidar_pose_equals_true_ego_pose": true,
+      "coarse_alignment": [
+        {
+          "common_z_band": [
+            -5.0,
+            3.0
+          ],
+          "occupied_voxels": [
+            5919,
+            5442
+          ],
+          "native_overlap_voxels": 1854.0,
+          "maximum_overlap_voxels": 1854.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "overlap_gain_ratio": 1.0
+        },
+        {
+          "common_z_band": [
+            -3.0,
+            -1.5
+          ],
+          "occupied_voxels": [
+            5471,
+            5096
+          ],
+          "native_overlap_voxels": 1699.0,
+          "maximum_overlap_voxels": 1699.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "overlap_gain_ratio": 1.0
+        },
+        {
+          "common_z_band": [
+            -1.5,
+            3.0
+          ],
+          "occupied_voxels": [
+            1058,
+            631
+          ],
+          "native_overlap_voxels": 194.0,
+          "maximum_overlap_voxels": 194.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "overlap_gain_ratio": 1.0
+        }
+      ]
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 107,
+      "exact_box_counts": [
+        [
+          290,
+          290
+        ],
+        [
+          1038,
+          1038
+        ]
+      ],
+      "lidar_pose_equals_true_ego_pose": true,
+      "coarse_alignment": [
+        {
+          "common_z_band": [
+            -5.0,
+            3.0
+          ],
+          "occupied_voxels": [
+            5060,
+            4751
+          ],
+          "native_overlap_voxels": 1816.0,
+          "maximum_overlap_voxels": 2028.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              -6.5,
+              0.5
+            ]
+          ],
+          "overlap_gain_ratio": 1.1167400881057268
+        },
+        {
+          "common_z_band": [
+            -3.0,
+            -1.5
+          ],
+          "occupied_voxels": [
+            4329,
+            4233
+          ],
+          "native_overlap_voxels": 1532.0,
+          "maximum_overlap_voxels": 1671.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              -6.5,
+              0.5
+            ]
+          ],
+          "overlap_gain_ratio": 1.0907310704960835
+        },
+        {
+          "common_z_band": [
+            -1.5,
+            3.0
+          ],
+          "occupied_voxels": [
+            1402,
+            962
+          ],
+          "native_overlap_voxels": 214.0,
+          "maximum_overlap_voxels": 505.0,
+          "maximizing_translation_of_source2_m": [
+            [
+              -6.5,
+              0.5
+            ]
+          ],
+          "overlap_gain_ratio": 2.3598130841121496
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "trials/icra_visibility_diagnostic/RAW_SAMPLE_INSPECTION.json": "fb58101d6d867c6e236a7446230eb3d8b26e5a0aee450c02c9f0dca6a0620ccd",
+    "trials/icra_visibility_diagnostic/BOX_VISIBILITY_DIAGNOSTIC.json": "07624b37f5a72ce815a7d22de6c253900cef47e64a33907c535d81517e7a8053",
+    "trials/icra_association_test/INFERENCE_FREEZE.json": "0bb9077f3dde77a1243c01bfe5dd91a73cc93f4591bd949c3ae7b2e3af3232bc",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000052.yaml": "0f34e3c40556c89b61bf55a457082df8c21753744e60f3554a9ede0a837a7816",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000052.yaml": "7dd1f5d2d8f53c55b27b0cd11be04acbeab9bd7a506c528d533f9a33bf014eb1",
+    "trials/icra_association_test/detections/detections_0001.npz": "6fda78ad7798890dea77c21d01f88b7d4f4f953a129366b3cd43d069896d2c65",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000052.bin": "fd429a6b6a2b9cd4bff1db967d546da37bd6c1962e08959b0a612064b4776420",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000052.bin": "f7207465841bb3bf76d4793700ebd714135629d826424a2517aee44c9419d09a",
+    "trials/icra_v2x_transfer/INFERENCE_FREEZE.json": "fd7cd7ae4269ffcc6bfe5da32cca94e562f9576a9f37f8ffc5592a45b4664000",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000106.yaml": "2fea82f1129d888b81db4efb1813c0adfea33fe5e45f1b0b6cc639fd1c40e692",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000106.yaml": "3c5a76d7325d061e601c63dd3bcaaf13df501a99172a846a35517f47f424139d",
+    "trials/icra_v2x_transfer/detections/detections_0002.npz": "561025be314c4f723c70ac974d250246ef0ad06758373156f05b71351ca88183",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000106.bin": "bf27f0ea2fe4fe3bb1576a6fd2c4b2f16b25ee55489998117085c92ce75aa6df",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000106.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "trials/icra_v2x_transfer/input_adapter.py": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+    "trials/icra_reviewer_revision/official_input_adapter.py": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+    "trials/icra_visibility_diagnostic/diagnose_boxes.py": "408af4bd6ca2c45e66d53be50f3e12a216d4db8f7abb00743075073e6c02b134"
+  },
+  "source_sha256": "a29bb7da3d91bdb9fd41c91cd055e0eb362404582c98a6fd5aeb706b80e18197",
+  "numerical_check": "All four source point clouds and box counts recomputed with explicit finite coordinate sums. Initial BLAS warnings did not change these counts; warning cause is unconfirmed.",
+  "alignment_scope": "Coarse occupancy overlap on a fixed 0.5 m grid and +/-10 m translation window in three fixed height bands. This is not an estimated correction or evidence of a uniform pose error."
+}

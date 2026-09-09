@@ -1,0 +1,246 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "sequence": "v2x_0002",
+      "frame": 1,
+      "native_overlap_voxels": 473,
+      "maximum_overlap_voxels": 473,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        -16.28453065757472,
+        0.7463087939242676,
+        -0.19572799140580432
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 36,
+      "native_overlap_voxels": 250,
+      "maximum_overlap_voxels": 531,
+      "maximizing_source2_translation_m": [
+        [
+          -4.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 2.124,
+      "source2_position": [
+        -10.660786440342974,
+        0.4916366446649878,
+        -0.13587451204212098
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 71,
+      "native_overlap_voxels": 214,
+      "maximum_overlap_voxels": 500,
+      "maximizing_source2_translation_m": [
+        [
+          -6.5,
+          0.5
+        ]
+      ],
+      "overlap_gain_ratio": 2.336448598130841,
+      "source2_position": [
+        -8.004675467772955,
+        0.3612451792710196,
+        -0.11150594642329992
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 106,
+      "native_overlap_voxels": 211,
+      "maximum_overlap_voxels": 502,
+      "maximizing_source2_translation_m": [
+        [
+          -6.5,
+          0.5
+        ]
+      ],
+      "overlap_gain_ratio": 2.3791469194312795,
+      "source2_position": [
+        -8.004339828509018,
+        0.36387070607668726,
+        -0.10946697677166073
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "frame": 140,
+      "native_overlap_voxels": 214,
+      "maximum_overlap_voxels": 498,
+      "maximizing_source2_translation_m": [
+        [
+          -6.5,
+          0.5
+        ]
+      ],
+      "overlap_gain_ratio": 2.3271028037383177,
+      "source2_position": [
+        -8.004108851871791,
+        0.3639660986583504,
+        -0.10816268495087167
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2xt_0001",
+      "frame": 1,
+      "native_overlap_voxels": 176,
+      "maximum_overlap_voxels": 176,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        42.65595226700821,
+        13.046335813376508,
+        0.3043639257987949
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2xt_0001",
+      "frame": 60,
+      "native_overlap_voxels": 180,
+      "maximum_overlap_voxels": 180,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        41.85718180965216,
+        13.207498798585533,
+        0.29606154611980817
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2xt_0001",
+      "frame": 120,
+      "native_overlap_voxels": 147,
+      "maximum_overlap_voxels": 147,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        41.26264170889361,
+        13.31599021172881,
+        0.27680340427428196
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2xt_0001",
+      "frame": 180,
+      "native_overlap_voxels": 150,
+      "maximum_overlap_voxels": 150,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        41.25121525502757,
+        13.320890694248632,
+        0.27200364935761523
+      ],
+      "lidar_equals_true_pose": true
+    },
+    {
+      "sequence": "v2xt_0001",
+      "frame": 240,
+      "native_overlap_voxels": 138,
+      "maximum_overlap_voxels": 138,
+      "maximizing_source2_translation_m": [
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "overlap_gain_ratio": 1.0,
+      "source2_position": [
+        41.24261502039761,
+        13.316188660560933,
+        0.2661219187230195
+      ],
+      "lidar_equals_true_pose": true
+    }
+  ],
+  "inputs": {
+    "trials/icra_v2x_transfer/INFERENCE_FREEZE.json": "fd7cd7ae4269ffcc6bfe5da32cca94e562f9576a9f37f8ffc5592a45b4664000",
+    "trials/icra_v2x_transfer/RAW_INPUT_MANIFEST.json": "40a5e07a6973f86c81e32eadeeb2c932d572f332b5ef41f7f0ee0be3c9f85628",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000000.yaml": "aa5ed70d5b0edb754e8dddfbdc1ea27448e55a3d39fd0026e145dd07edee6055",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000000.yaml": "96486c11e3b035afb71178bd7f4ab185e23b1181cc229e8d32568b968a495879",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000000.bin": "3b74ef26c0517df2ad4c1ec0013a940f1f2da2b7cb156fad59009707bdff68f7",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000000.bin": "2804cc590f826a2a8066fb264b6f2063b3749bcf8d705fa8b212f69ed152d355",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000035.yaml": "f5ee6192f4f881438162783a49163f1de13488cb8b6d67c01a554d5501b4d973",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000035.yaml": "e2d7e7258c48b6c5eddbb6abd15b9b23b2817af503e411370c4fffeb5285b427",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000035.bin": "dd89821634653ac1833607fdd26afc6553f8b9c6b2db1f26d90dab8904ee0099",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000035.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000070.yaml": "0398864946b709a9ab117604933d8bc60632ef5c4c3a88efa506d832e1dca781",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000070.yaml": "ba355258c004b826a4691af93f630ccb0d0ad8e43e1c3507f46b46221907e889",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000070.bin": "e87e2362eb824281379ee7600742a3ef4a2e4b298eae965fc1ccf643493d4c5b",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000070.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000105.yaml": "d6862b4aa08c7f807328bb970a9337c70de2688bbd2bcc1e9e04244d078e0899",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000105.yaml": "c8e659ad45c9c5ca46214d882aa558c94b9a239d88b47aabc52966846ae17f7a",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000105.bin": "c723ed5a16e9228bf2fdbfbc22f133ab6369ceadb83d6e3ec3b9deb0f1afdbfa",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000105.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000139.yaml": "d38ace1f92ef9ab2801fb7efa2ffe817617521539c875780ac4906dc5fadac45",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000139.yaml": "c7bf79937999343b5de9ecb3381776ddaecc74cc709d7cf653f6a0500eb66909",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/1/000139.bin": "0049b0b3a6260203118b5e389fa07edbf6e58213bd8e2e3ec9324cae6cda2da8",
+    "tmp/external_baselines/v2x_real/val/files/val/2023-04-04-15-43-17_15_0/2/000139.bin": "cd811562c596d6072b961e011da228169f58215cdc9603177315786ec056dff0",
+    "trials/icra_association_test/INFERENCE_FREEZE.json": "0bb9077f3dde77a1243c01bfe5dd91a73cc93f4591bd949c3ae7b2e3af3232bc",
+    "trials/icra_association_test/RAW_INPUT_MANIFEST.json": "9d4272a44f226fe26bc8c0955ca719c849883a00a7cb10a4e71e0ac68a0085fb",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000000.yaml": "d844909636da44308f06945b911286e994c97920b08f92527019a225411a95e7",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000000.yaml": "e4d8bcd024e356872da76520600db7b4836a7d894c51355c568b32a6a278a9db",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000000.bin": "4e12e32725026290ded6dfc33ef8eb6d3242959eb7b0bab841265fa5edc1014b",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000000.bin": "ce7906f3610e0e698d9734038a1aca0acfc9284a6f6ed856e622db8d15ae8637",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000059.yaml": "5bcb3cd78f4d3cae64979706ce6b99617372aceb4795e7da58dfddd73eaee85c",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000059.yaml": "6afdfaaa365915ab11f4c899966b585b4346af3949a19b94a943deb11635a129",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000059.bin": "2c252bcd0d0734a166cb4f4443fb1996757687643028069cea586d39ec3007a8",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000059.bin": "750ac385deaedcc65b23f6b68fbe183328c337a390d4bbebb883aafae9dddb40",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000119.yaml": "fbb95f948e10ecd3555736c001ac4ceea3e17c774c46e7b7ba6c41ddd2001433",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000119.yaml": "6a4225c84526297cc43411cfa8bb5a9fcd636e9c9a1f03ef476f25a25581650e",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000119.bin": "f2b73d734a0d1bd6527bfbad747c2cdab4ca2a9600c58adf95d6e7d06bd9a1b1",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000119.bin": "24dc8c6650f62bb09132511f4cb1ef5b05c6b583435231f5bae027a29e556e1a",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000179.yaml": "6464142ffa6aac278c818c7166905a47933b3300af6286c5ef75093e4c1bb154",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000179.yaml": "64c437a1b3c9ef7892b4a8564c6cfb4316112a8f8db8bcc7748a47ebedf04d79",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000179.bin": "0050ab68ef74ef662a1746049c7d54f5c78a6208db632ab28810c209a24f98a0",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000179.bin": "03bb181f4c681d2b6ee0ba7d79243460782e8eaeb7c4a952c277bce898b3e071",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000239.yaml": "88c7eccd9027de2c663b67e55c88a91e431957efe685c860b5038b60b7f87014",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000239.yaml": "e3958522affe4e8a40fd61ce308516a88a6bcd5d27de9e168166bad2cd7858e1",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/1/000239.bin": "b90eeb2b07381e8007599874d1a169afba41252d236ad4be3f7c9aa70c99a8b5",
+    "tmp/external_baselines/v2x_real/test/files/test/2023-04-03-18-19-32_13_0/2/000239.bin": "2e0d7540a5625337ccc6ae4d028fab14b1ddeb8ff9a8dc14306762a49dc9c44d",
+    "trials/icra_visibility_diagnostic/recheck_raw_geometry.py": "a29bb7da3d91bdb9fd41c91cd055e0eb362404582c98a6fd5aeb706b80e18197",
+    "trials/icra_v2x_transfer/input_adapter.py": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+    "trials/icra_reviewer_revision/official_input_adapter.py": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50"
+  },
+  "source_sha256": "a8fd2aa553cbd3b6529182d152756735195c207c030bc72190e5e5048548fc03",
+  "scope": "Five predetermined evenly spaced frames in each scene, 0.5 m occupancy grid, common z in [-1.5,3) m, translation +/-10 m. Translation is a post-hoc alignment diagnostic; no poses or outputs are corrected."
+}
