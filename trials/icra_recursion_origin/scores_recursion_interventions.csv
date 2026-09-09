@@ -1,0 +1,4 @@
+sequence,condition,arm,frames,ospa,gospa,loc2,miss2,false2,countError,raw_bytes,delivered_raw_bytes,wire_bytes,runtime_s,reused
+v2xt_0001,intermittent,marked_gaussian_evidence_guarded_scalar_once_joint_range,240,8.593399267244488,24.850924325394082,21.362682293781017,465.15,137.85,4.545833333333333,24660640,18314912,28340224,398.143731875,False
+v2xt_0001,intermittent,marked_gaussian_evidence_guarded_scalar_once_existence_range,240,8.093712706336028,23.7214728914264,19.45084262120495,414.45,136.2,3.8645833333333335,7570688,6221952,11563008,33.67826683333333,False
+v2xt_0001,intermittent,marked_gaussian_evidence_guarded_scalar_once_spatial_range,240,8.579815586383798,24.82199515055128,21.389398051022404,464.1,137.55,4.535416666666666,24545888,18221280,28258304,400.639531,False

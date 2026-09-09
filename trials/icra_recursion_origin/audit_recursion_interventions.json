@@ -1,0 +1,533 @@
+{
+  "passed": true,
+  "stage": "recursion_interventions",
+  "rows": [
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_joint_range",
+      "frames": 240,
+      "ospa": 8.593399267244488,
+      "gospa": 24.850924325394082,
+      "loc2": 21.362682293781017,
+      "miss2": 465.15,
+      "false2": 137.85,
+      "countError": 4.545833333333333,
+      "raw_bytes": 24660640,
+      "delivered_raw_bytes": 18314912,
+      "wire_bytes": 28340224,
+      "runtime_s": 398.143731875,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_existence_range",
+      "frames": 240,
+      "ospa": 8.093712706336028,
+      "gospa": 23.7214728914264,
+      "loc2": 19.45084262120495,
+      "miss2": 414.45,
+      "false2": 136.2,
+      "countError": 3.8645833333333335,
+      "raw_bytes": 7570688,
+      "delivered_raw_bytes": 6221952,
+      "wire_bytes": 11563008,
+      "runtime_s": 33.67826683333333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_spatial_range",
+      "frames": 240,
+      "ospa": 8.579815586383798,
+      "gospa": 24.82199515055128,
+      "loc2": 21.389398051022404,
+      "miss2": 464.1,
+      "false2": 137.55,
+      "countError": 4.535416666666666,
+      "raw_bytes": 24545888,
+      "delivered_raw_bytes": 18221280,
+      "wire_bytes": 28258304,
+      "runtime_s": 400.639531,
+      "reused": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_joint_range",
+      "quality": {
+        "all_predictions": 95316,
+        "retained_predictions": 70015,
+        "excluded_predictions": 3861,
+        "minimum_positive_pd": 0.5935306857610062,
+        "maximum_pd": 0.9624130957910254,
+        "all_local_odds_checked": 95316
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 95316,
+        "labels": 76003,
+        "joined_source_records": 104213,
+        "joint_labels": 28210,
+        "boosted_labels": 9389,
+        "negative_boost_labels": 17056,
+        "mean_gate": 0.02364385920872449,
+        "mean_negative_gate": 0.07055061412004503,
+        "mean_boost": 0.009391689178311955,
+        "local_gaussian_records": 70015,
+        "packet_gaussian_records": 70015,
+        "gaussian_source_joins": 104213,
+        "corrected_labels": 26887,
+        "curvature_rejected_sources": 11185,
+        "curvature_rejected_labels": 10692,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 4.578418575201816e-06,
+        "max_spatial_shift_m": 0.07907821838090853,
+        "mean_log_integral_change": 2.2351437925964626e-05
+      },
+      "direct": {
+        "direct_records": 70015,
+        "raw_association_weight_values": 768839
+      },
+      "positive_mark_rows": 95316,
+      "globally_checked_pairs": 28210,
+      "intervened_robot_frames": 2,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 28,
+            "robot_frames": 480,
+            "by_robot": [
+              18,
+              10
+            ],
+            "maximum_near_components": 257,
+            "maximum_components": 306
+          },
+          "before_event": {
+            "detected": 0,
+            "robot_frames": 4,
+            "by_robot": [
+              0,
+              0
+            ],
+            "maximum_near_components": 1,
+            "maximum_components": 9
+          },
+          "after_event": {
+            "detected": 28,
+            "robot_frames": 476,
+            "by_robot": [
+              18,
+              10
+            ],
+            "maximum_near_components": 257,
+            "maximum_components": 306
+          },
+          "original_window": {
+            "detected": 7,
+            "robot_frames": 140,
+            "by_robot": [
+              6,
+              1
+            ],
+            "maximum_near_components": 239,
+            "maximum_components": 269
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 165,
+            "near_active_components": 136,
+            "near_total_r": 1.829768301240096,
+            "near_max_r": 0.44403782569646805,
+            "association_has_column": true,
+            "association_effective_labels": 68.98524523959786,
+            "association_largest_share": 0.25196731571232767,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9334941706829903
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 160,
+            "near_active_components": 136,
+            "near_total_r": 0.5229756800472994,
+            "near_max_r": 0.15924833550476286,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      }
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_existence_range",
+      "quality": {
+        "all_predictions": 30754,
+        "retained_predictions": 21464,
+        "excluded_predictions": 3878,
+        "minimum_positive_pd": 0.5935306857610062,
+        "maximum_pd": 0.9624130957923724,
+        "all_local_odds_checked": 30754
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 30754,
+        "labels": 24792,
+        "joined_source_records": 35214,
+        "joint_labels": 10422,
+        "boosted_labels": 2203,
+        "negative_boost_labels": 6412,
+        "mean_gate": 0.0393325151922785,
+        "mean_negative_gate": 0.09061780852937489,
+        "mean_boost": 0.09502900082486673,
+        "local_gaussian_records": 21464,
+        "packet_gaussian_records": 21464,
+        "gaussian_source_joins": 35214,
+        "corrected_labels": 9557,
+        "curvature_rejected_sources": 746,
+        "curvature_rejected_labels": 719,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 6.575888213141361e-15,
+        "max_spatial_shift_m": 3.5704330589399866e-13,
+        "mean_log_integral_change": 6.852114943074739e-05
+      },
+      "direct": {
+        "direct_records": 21464,
+        "raw_association_weight_values": 219354
+      },
+      "positive_mark_rows": 30754,
+      "globally_checked_pairs": 10422,
+      "intervened_robot_frames": 2,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 386,
+            "robot_frames": 480,
+            "by_robot": [
+              217,
+              169
+            ],
+            "maximum_near_components": 32,
+            "maximum_components": 175
+          },
+          "before_event": {
+            "detected": 0,
+            "robot_frames": 4,
+            "by_robot": [
+              0,
+              0
+            ],
+            "maximum_near_components": 1,
+            "maximum_components": 9
+          },
+          "after_event": {
+            "detected": 386,
+            "robot_frames": 476,
+            "by_robot": [
+              217,
+              169
+            ],
+            "maximum_near_components": 32,
+            "maximum_components": 175
+          },
+          "original_window": {
+            "detected": 118,
+            "robot_frames": 140,
+            "by_robot": [
+              70,
+              48
+            ],
+            "maximum_near_components": 2,
+            "maximum_components": 175
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 150,
+            "near_active_components": 1,
+            "near_total_r": 0.9990071177153683,
+            "near_max_r": 0.9990071177153683,
+            "association_has_column": true,
+            "association_effective_labels": 1.0504580446633236,
+            "association_largest_share": 0.9955543477334198,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9949111830269938
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 145,
+            "near_active_components": 1,
+            "near_total_r": 0.9897438684811245,
+            "near_max_r": 0.9897438684811245,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      }
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_spatial_range",
+      "quality": {
+        "all_predictions": 95106,
+        "retained_predictions": 69689,
+        "excluded_predictions": 3861,
+        "minimum_positive_pd": 0.5935306857610062,
+        "maximum_pd": 0.9624130957909427,
+        "all_local_odds_checked": 95106
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 95106,
+        "labels": 75756,
+        "joined_source_records": 103586,
+        "joint_labels": 27830,
+        "boosted_labels": 9360,
+        "negative_boost_labels": 16705,
+        "mean_gate": 0.023682042510895535,
+        "mean_negative_gate": 0.06971873151679152,
+        "mean_boost": 0.01038238348750135,
+        "local_gaussian_records": 69689,
+        "packet_gaussian_records": 69689,
+        "gaussian_source_joins": 103586,
+        "corrected_labels": 26507,
+        "curvature_rejected_sources": 11147,
+        "curvature_rejected_labels": 10656,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 4.593346361603494e-06,
+        "max_spatial_shift_m": 0.07907821838090853,
+        "mean_log_integral_change": 0.0
+      },
+      "direct": {
+        "direct_records": 69689,
+        "raw_association_weight_values": 766177
+      },
+      "positive_mark_rows": 95106,
+      "globally_checked_pairs": 27830,
+      "intervened_robot_frames": 2,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 35,
+            "robot_frames": 480,
+            "by_robot": [
+              22,
+              13
+            ],
+            "maximum_near_components": 256,
+            "maximum_components": 305
+          },
+          "before_event": {
+            "detected": 0,
+            "robot_frames": 4,
+            "by_robot": [
+              0,
+              0
+            ],
+            "maximum_near_components": 1,
+            "maximum_components": 9
+          },
+          "after_event": {
+            "detected": 35,
+            "robot_frames": 476,
+            "by_robot": [
+              22,
+              13
+            ],
+            "maximum_near_components": 256,
+            "maximum_components": 305
+          },
+          "original_window": {
+            "detected": 7,
+            "robot_frames": 140,
+            "by_robot": [
+              6,
+              1
+            ],
+            "maximum_near_components": 238,
+            "maximum_components": 268
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 165,
+            "near_active_components": 136,
+            "near_total_r": 1.8394293977733118,
+            "near_max_r": 0.5286619904266285,
+            "association_has_column": true,
+            "association_effective_labels": 54.588811598778,
+            "association_largest_share": 0.31115917835741824,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9363901049332986
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 160,
+            "near_active_components": 136,
+            "near_total_r": 0.563139361786847,
+            "near_max_r": 0.20945156609438387,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      }
+    }
+  ],
+  "parity": [
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_joint_range",
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "iterationRecords",
+        "fusionSourceRecords",
+        "fusionOutputRecords",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "packetBytes",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "matchedLabels",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_existence_range",
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "iterationRecords",
+        "fusionSourceRecords",
+        "fusionOutputRecords",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "packetBytes",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "matchedLabels",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_spatial_range",
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "iterationRecords",
+        "fusionSourceRecords",
+        "fusionOutputRecords",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "packetBytes",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "matchedLabels",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    }
+  ],
+  "inputs": {
+    "trials/icra_recursion_origin/stages/recursion_interventions.json": "6d02d20f441ea95c0a2153103f519209acaf7c1590b7f2872330a023fbfd151c",
+    "trials/icra_recursion_origin/runtime_recursion_interventions.json": "f9634605ab11f1f4b9f83b1a9f46d5cfc4e24228b57a0a14e8e6f167724d5d7b",
+    "RUN/ICRA_RECURSION_ORIGIN/recursion_interventions/once_joint.log": "e8ae81a6f18fb7a39c2e856981ed6f94fee651be733e46584c3166414337b965",
+    "trials/icra_recursion_origin/results/recursion_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_range.json.gz": "8260de5cbfa1c0ab0548dae23530bb6de5e6df1fbe0a6ad54c65e3b307ef0e99",
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_joint_range.json.gz": "14dce170f4b0a8619b444597c7270f854244c957eb7689718fc12ce60557fce2",
+    "RUN/ICRA_RECURSION_ORIGIN/recursion_interventions/once_existence.log": "36d78152ce42f297c659124eca5c3f5a7da6035038b78557183c993c081acf8a",
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_existence_range.json.gz": "e6314657dba7e71ea17c5ece0fbc07e19f94156576daf04b37a2437f7ac31e44",
+    "RUN/ICRA_RECURSION_ORIGIN/recursion_interventions/once_spatial.log": "9c7621ab2284128d56f19f9a6389906a0e2d00021c0195035c6fd62f9c9ffd0c",
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_spatial_range.json.gz": "0e8da8b305e23f88934d7e47120f45e6b981078dc20c951e1c6ef0d7b1f2c55d"
+  },
+  "audited_robot_frames": 1440,
+  "reused_robot_frames": 0,
+  "source_sha256": {
+    "trials/icra_recursion_origin/verify_archive_v2.py": "4c665f39101b0ab40f1016cbca2fa9aa7069ec9ba25389b302902d19f29311e7",
+    "trials/icra_recursion_origin/trace_v2.py": "cf54dee6ab8f2b928a0e03be8fd3042644005d5046dd8b9f7ee78c39cce662f2",
+    "trials/icra_recursion_origin/trace.py": "12ba646c4eab5ae3c357f0a68e84f3bf157bc8a2ab2515ee1423cf38117684cd",
+    "trials/icra_recursion_origin/register_trace.py": "68bf863d102e69474121b3aebeef158b98084814a16be394300c0cde5f35c6ee",
+    "trials/icra_recursion_origin/run_stage.py": "a205fbfb55d5704865c0be96d7995861639cd1e9de8d06fd269bf673ed9c1389",
+    "trials/icra_recursion_origin/register_intervention.py": "d7e6457141081dfb8b625b62bb741865e6f1d6f68686d1e32f651f672ae3fae4",
+    "trials/icra_recursion_origin/audit_stage.py": "ee20374fa27a1eb1763835a6b95b63374f0956ea00bb7c97c8f9b206ff5426bb",
+    "trials/icra_recursion_origin/make_auditor.py": "8004e9b34b32e7e3497f1a59e23f43cf0b8031a2a3b769c58209f9cc062747d7",
+    "trials/icra_recursion_origin/make_runner.py": "a189707846d93659f1ce367ad4a8977ed673591734fe32c7f1ea4a45d8bf7370",
+    "trials/icra_recursion_origin/build_report.py": "2b1d264a4c592ed7e5b56ce1dd3cde158fee2077365d2e1b1fd9999656aaf61e",
+    "trials/icra_recursion_origin/describe_events.py": "1b14603660789fc9a7b14f4d0a75b9e02512f5f02fd3d1cd667601c1c2251aa9",
+    "trials/icra_recursion_origin/verify_trace.py": "ac11a831f30fa29416dbd5f2bbede0f22960f188199bd6a045aad22a238e5507",
+    "trials/icra_recursion_origin/verify_archive.py": "770e92ecbd541e4dcda0affbe102e34a64ae30318e3141351d78d30fe80703ca",
+    "trials/icra_recursion_origin/intervention_gaussian_audit.py": "e1f1573bb6323b565a308a786426974a02433579dc94df6d7bd4f50418689f6b",
+    "trials/icra_recursion_origin/event_audit.py": "ec237c944cf23dfb296c11f9c8d8b2e4ab5ecaff4f617d767d2e2b7fe6f3898e",
+    "trials/icra_recursion_origin/native_summary.py": "887972c7b26dd219348841fca7a5bbbbb0a3010cbc4b9649d44b4f316337207e"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "passed": true,
+  "target_robot_frames": 5760,
+  "association_columns": 4920,
+  "first_events": [
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "predicted",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "fused",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "target_local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "phase": "target_posterior",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "predicted",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "fused",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "target_local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "phase": "target_posterior",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "predicted",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "fused",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "target_local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "phase": "target_posterior",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "predicted",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "fused",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "target_local",
+      "frame": 4,
+      "robot": 1
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "phase": "target_posterior",
+      "frame": 4,
+      "robot": 1
+    }
+  ],
+  "prior_case_rows_identical": 1680,
+  "report_sha256": "751ed72c04e4c29edbfdf2ed75ccec32d6db8757f7cfb18cff9323ddf60f09fa",
+  "freeze_sha256": "2df9ccac017ecac8fbbd5ac7f555a99acabe2d0e1325eeccbaa16fcc18600367",
+  "source_sha256": "ac11a831f30fa29416dbd5f2bbede0f22960f188199bd6a045aad22a238e5507",
+  "repair_sha256": "1b098c1f279f4406d52135bf765f402d1fc6efcb4cf9e3c56663346a0d470bc1",
+  "timeline_sha256": "33cedda246c2b6789805407a7bc474d7caa874c3c338368e4d61b8346c79a2b8",
+  "differences_sha256": "4e4ac9a4e781ea315028c368c0feb5eb5e74d38d3f4a5e98735902c983b35aaa"
+}

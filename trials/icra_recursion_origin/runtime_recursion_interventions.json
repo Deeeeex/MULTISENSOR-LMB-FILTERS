@@ -1,0 +1,47 @@
+[
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "once_joint",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 1,
+    "files": 1,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_recursion_origin');runRecursionIntervention('trials/icra_recursion_origin/stages/recursion_interventions.json',1);"
+    ]
+  },
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "once_existence",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 1,
+    "files": 1,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_recursion_origin');runRecursionIntervention('trials/icra_recursion_origin/stages/recursion_interventions.json',2);"
+    ]
+  },
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "once_spatial",
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 1,
+    "files": 1,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_recursion_origin');runRecursionIntervention('trials/icra_recursion_origin/stages/recursion_interventions.json',3);"
+    ]
+  }
+]

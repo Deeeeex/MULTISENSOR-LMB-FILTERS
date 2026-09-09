@@ -1,0 +1,12 @@
+{
+  "reason": "The unused archive-checker draft assumed at least 40 baseline fields; native originals contain exactly 39 fields excluding runtime. Check the exact original field set instead. No native source, stage, completed audit, metric or acceptance threshold changes.",
+  "original_was_executed": false,
+  "source_sha256": "770e92ecbd541e4dcda0affbe102e34a64ae30318e3141351d78d30fe80703ca",
+  "target_sha256": "4c665f39101b0ab40f1016cbca2fa9aa7069ec9ba25389b302902d19f29311e7",
+  "changes": [
+    {
+      "before": "        if cfg['stage']=='recursion_preflight':assert len(audit['parity'])==2 and all(len(p['exact_fields'])>=40 for p in audit['parity'])",
+      "after": "        if cfg['stage']=='recursion_preflight':\n            assert len(audit['parity'])==2\n            for item in audit['parity']:\n                reference=next(u['references'][item['arm']] for u in cfg['units'] if item['arm'] in u['arms'])\n                with gzip.open(ROOT/reference['path'],'rt') as stream:original=json.load(stream)['runs']\n                assert set(item['exact_fields'])==set(original)-{'runtimeSeconds'}"
+    }
+  ]
+}

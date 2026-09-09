@@ -1,0 +1,11 @@
+{
+  "source": "trials/icra_reviewer_revision/review_gaussian_audit.py",
+  "source_sha256": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef",
+  "output_sha256": "e1f1573bb6323b565a308a786426974a02433579dc94df6d7bd4f50418689f6b",
+  "changes": [
+    {
+      "before": "    if run['arm'] == 'marked_gaussian_evidence_guarded_scalar':\n        mean, cov, log_i = base_mean, base_cov, records[:, 10].copy()",
+      "after": "    if run['arm'] == 'marked_gaussian_evidence_guarded_scalar':\n        from event_audit import apply_expected_event\n        mean, cov, log_i = apply_expected_event(run, records, base_mean, base_cov, mean, cov, log_i, beta, logits, kept, delta)"
+    }
+  ]
+}

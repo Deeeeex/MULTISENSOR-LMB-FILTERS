@@ -1,0 +1,28 @@
+{
+  "reason": "Native inactive-source input existence is NaN. Encode only those two allowed inactive fields as JSON null; preserve every finite value. Recomputed CSV text must exactly match the already produced files.",
+  "failure": "ValueError: Out of range float values are not JSON compliant: nan",
+  "original_source_sha256": "12ba646c4eab5ae3c357f0a68e84f3bf157bc8a2ab2515ee1423cf38117684cd",
+  "repaired_source_sha256": "cf54dee6ab8f2b928a0e03be8fd3042644005d5046dd8b9f7ee78c39cce662f2",
+  "changes": [
+    {
+      "before": "import hashlib\n",
+      "after": "import hashlib\nimport io\n"
+    },
+    {
+      "before": "def first_event_details(left,right,t,n,cfg):",
+      "after": "def record_json(row):\n    missing=np.flatnonzero(~np.isfinite(row))\n    assert not np.isinf(row).any() and np.isin(missing,[17,18]).all()\n    assert all(row[13+int(column)-17]==0 for column in missing)\n    return [None if np.isnan(value) else float(value) for value in row]\n\n\ndef first_event_details(left,right,t,n,cfg):"
+    },
+    {
+      "before": "gce_record=a.tolist(),scalar_record=b.tolist())",
+      "after": "gce_record=record_json(a),scalar_record=record_json(b))"
+    },
+    {
+      "before": "        path=OUT/name;assert not path.exists();fields=list(dict.fromkeys(k for r in rows for k in r))\n        with path.open('w',newline='') as stream:\n            writer=csv.DictWriter(stream,fieldnames=fields,lineterminator='\\n');writer.writeheader();writer.writerows(rows)",
+      "after": "        path=OUT/name;fields=list(dict.fromkeys(k for r in rows for k in r))\n        stream=io.StringIO(newline='')\n        writer=csv.DictWriter(stream,fieldnames=fields,lineterminator='\\n');writer.writeheader();writer.writerows(rows)\n        value=stream.getvalue()\n        if path.exists():assert path.read_text()==value,'Existing trace CSV changed'\n        else:path.write_text(value)"
+    }
+  ],
+  "preserved_csv": {
+    "PAIR_DIFFERENCES.csv": "4e4ac9a4e781ea315028c368c0feb5eb5e74d38d3f4a5e98735902c983b35aaa",
+    "TARGET_TIMELINE.csv": "33cedda246c2b6789805407a7bc474d7caa874c3c338368e4d61b8346c79a2b8"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "scope": "Descriptive audit of all three already fixed interventions; no new native work",
+  "events": [
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_joint_range",
+      "mode": "joint",
+      "event_rows": 38,
+      "robot_rows": [
+        19,
+        19
+      ],
+      "maximum_candidate_existence_difference": 0.005563431795342674,
+      "maximum_applied_existence_difference": 0.005563431795342674,
+      "maximum_applied_position_shift_m": 0.07907821838090559,
+      "maximum_applied_velocity_shift_mps": 0.28699348159046767,
+      "maximum_applied_covariance_element_difference": 20.881207579008034,
+      "target_near_rows": [
+        {
+          "robot": 1,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        },
+        {
+          "robot": 2,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        }
+      ]
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_existence_range",
+      "mode": "existence",
+      "event_rows": 38,
+      "robot_rows": [
+        19,
+        19
+      ],
+      "maximum_candidate_existence_difference": 0.005563431795342674,
+      "maximum_applied_existence_difference": 0.005563431795342674,
+      "maximum_applied_position_shift_m": 0.0,
+      "maximum_applied_velocity_shift_mps": 0.0,
+      "maximum_applied_covariance_element_difference": 0.0,
+      "target_near_rows": [
+        {
+          "robot": 1,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        },
+        {
+          "robot": 2,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        }
+      ]
+    },
+    {
+      "arm": "marked_gaussian_evidence_guarded_scalar_once_spatial_range",
+      "mode": "spatial",
+      "event_rows": 38,
+      "robot_rows": [
+        19,
+        19
+      ],
+      "maximum_candidate_existence_difference": 0.005563431795342674,
+      "maximum_applied_existence_difference": 0.0,
+      "maximum_applied_position_shift_m": 0.07907821838090559,
+      "maximum_applied_velocity_shift_mps": 0.28699348159046767,
+      "maximum_applied_covariance_element_difference": 20.881207579008034,
+      "target_near_rows": [
+        {
+          "robot": 1,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        },
+        {
+          "robot": 2,
+          "label": [
+            3,
+            100005
+          ],
+          "old_r": 0.009073840137579756,
+          "candidate_r": 0.009073840137579756,
+          "applied_r": 0.009073840137579756
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_joint_range.json.gz": "14dce170f4b0a8619b444597c7270f854244c957eb7689718fc12ce60557fce2",
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_existence_range.json.gz": "e6314657dba7e71ea17c5ece0fbc07e19f94156576daf04b37a2437f7ac31e44",
+    "trials/icra_recursion_origin/results/recursion_interventions/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_once_spatial_range.json.gz": "0e8da8b305e23f88934d7e47120f45e6b981078dc20c951e1c6ef0d7b1f2c55d"
+  },
+  "source_sha256": "1b14603660789fc9a7b14f4d0a75b9e02512f5f02fd3d1cd667601c1c2251aa9"
+}

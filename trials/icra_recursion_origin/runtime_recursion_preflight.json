@@ -1,0 +1,17 @@
+[
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "controls",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 2,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_recursion_origin');runRecursionIntervention('trials/icra_recursion_origin/stages/recursion_preflight.json',1);"
+    ]
+  }
+]

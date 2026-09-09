@@ -1,0 +1,52 @@
+{
+  "source": "trials/icra_range_detection/runRangeDetectionReplay.m",
+  "source_sha256": "e63f8403400aca52e8b3a619b7efc79426fada626f1085fbe93c5b10d43a6666",
+  "target": "trials/icra_recursion_origin/runRecursionIntervention.m",
+  "target_sha256": "33af8ae9796ecc94779c16af7489208afd63a81ceb3a0a9db88723204ac5e1b6",
+  "changes": [
+    {
+      "before": "function runRangeDetectionReplay(configPath,unitIndex)",
+      "after": "function runRecursionIntervention(configPath,unitIndex)"
+    },
+    {
+      "before": "addpath(fullfile(root,'trials','icra_temporal_association'));",
+      "after": "addpath(fullfile(root,'trials','icra_temporal_association'));\naddpath(fullfile(root,'trials','icra_range_detection'));\naddpath(out);"
+    },
+    {
+      "before": "qualityPath=fullfile(out,'range_quality');",
+      "after": "qualityPath=fullfile(root,'trials','icra_range_detection','range_quality');"
+    },
+    {
+      "before": "checkRangeDetection(baseQuality);",
+      "after": "checkRangeDetection(baseQuality);checkRecursionIntervention();"
+    },
+    {
+      "before": "model.rangeDetection=unit.range_detection_model;",
+      "after": "model.rangeDetection=unit.range_detection_model;\nmodel.recursionInterventionFrame=unit.intervention_frame;"
+    },
+    {
+      "before": "for condition={'reliable','intermittent'}",
+      "after": "runArms=unit.arms;\nfor condition=reshape(config.conditions,1,[])"
+    },
+    {
+      "before": "for a=1:numel(config.arms)\n        arm=config.arms{a};",
+      "after": "for a=1:numel(runArms)\n        arm=runArms{a};"
+    },
+    {
+      "before": "'protocol','icra-range-detection-v1'",
+      "after": "'protocol','icra-recursion-intervention-v1'"
+    },
+    {
+      "before": "associationMode='';",
+      "after": "interventionMode='none';\nfor mode={'joint','existence','spatial'}\n    suffix=['_once_',mode{1}];\n    if endsWith(rule,suffix),interventionMode=mode{1};rule=erase(rule,suffix);end\nend\nassert(strcmp(interventionMode,'none') || strcmp(rule,'gaussian_evidence_guarded_scalar'));\nassociationMode='';"
+    },
+    {
+      "before": "run.fusionSourceRecords=zeros(0,8);run.fusionOutputRecords=zeros(0,19);",
+      "after": "run.fusionSourceRecords=zeros(0,8);run.fusionOutputRecords=zeros(0,19);\nrun.interventionMode=interventionMode;run.interventionFrame=model.recursionInterventionFrame;\nrun.interventionRecords=zeros(0,54);run.interventionMask=false(2,T);"
+    },
+    {
+      "before": "[posterior{n},stats]=fuseReviewerEvidence(inputs,[.5,.5],model,details,cfg,rule,t);",
+      "after": "[posterior{n},stats]=fuseReviewerEvidence(inputs,[.5,.5],model,details,cfg,rule,t);\n                if t==model.recursionInterventionFrame && ~strcmp(interventionMode,'none')\n                    [joint,jointStats]=fuseGaussianEvidence(inputs,[.5,.5],model,details,cfg,'gaussian_evidence',t);\n                    [posterior{n},stats,intervention]=spliceRecursionIntervention( ...\n                        posterior{n},stats,joint,jointStats,interventionMode,t,n);\n                    run.interventionRecords=[run.interventionRecords;intervention]; %#ok<AGROW>\n                    run.interventionMask(n,t)=true;\n                end"
+    }
+  ]
+}

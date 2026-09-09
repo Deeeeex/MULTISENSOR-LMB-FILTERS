@@ -1,0 +1,226 @@
+{
+  "protocol": "icra-recursion-origin-v1",
+  "created_utc": "2026-09-09T22:11:57.752159+00:00",
+  "sequence": "v2xt_0001",
+  "truth_id": 5,
+  "range_m": 2.0,
+  "probability_tolerance": 1e-09,
+  "spatial_tolerance": 1e-07,
+  "active_threshold": 0.001,
+  "unit": {
+    "sequence": "v2xt_0001",
+    "scene": "2023-04-03-18-19-32_13_0",
+    "collection_date": "2023-04-03",
+    "source_recording": "2023-04-03-18-19-32",
+    "frames": 240,
+    "radio_seed": 8302,
+    "measurement_rows_by_sensor": [
+      2470,
+      448
+    ],
+    "ground_truth_rows": 3072,
+    "target_count_min": 9,
+    "target_count_max": 17,
+    "data_path": "trials/icra_association_test/new_data/v2xreal_0001.mat",
+    "input_sha256": "d9c4381b1649c9443acd5d4ce0ca055cc05f8c5ef8dc449a1a8c322825cb9678",
+    "pose_path": "trials/icra_association_test/pose_inputs/poses_0001.mat",
+    "pose_sha256": "a4d99132ec36af21fe50b602fb6e353e3502de52280240ae6eb1ebd382f3439a",
+    "relative_vehicle_range_min": 43.33853766543027,
+    "relative_vehicle_range_max": 44.62587155677316,
+    "original_sequence": "0001",
+    "split": "v2x_test",
+    "recording": "2023-04-03",
+    "dataset": "v2x_test_mechanism",
+    "reference_paths": {
+      "reliable": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "intermittent": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz"
+    },
+    "reference_sha256": {
+      "reliable": "71e8d9fd5019df1916336982929375b569f9e686e62a1cc3a8b20dca19e0f65e",
+      "intermittent": "7f7ab41f15e1cc13f731d4c2986039e2bc40ac8cda40bca2042e60e62a2d45a7"
+    },
+    "noage_reference_paths": {
+      "reliable": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_lineage.json.gz",
+      "intermittent": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_lineage.json.gz"
+    },
+    "noage_reference_sha256": {
+      "reliable": "5eacebd27268faf9c88b847dfdeb8ce669df7b6a12b39ae1fac62c92d505f5d6",
+      "intermittent": "9d6e47b60478695ae250162953b9b453c2e86e9e25481cf0588c5e6bc4e6c162"
+    },
+    "range_detection_model": {
+      "intercept": 3.4857627462594856,
+      "slope": -3.1072756940997053,
+      "constant": 0.8136912428684921,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 36836,
+      "objective": 0.4385801949200509,
+      "iterations": 10,
+      "probabilities_by_range": {
+        "5": 0.9567834385227154,
+        "10": 0.9375523401761502,
+        "20": 0.873484427594698,
+        "30": 0.76047874015432,
+        "39": 0.6121049507402343
+      }
+    },
+    "calibration_fold": "full_v2v_development_transfer",
+    "parity_paths": {
+      "reliable": {
+        "marked_gaussian_evidence": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+        "marked_lineage": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_lineage.json.gz",
+        "marked_gaussian_evidence_guarded_scalar": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz"
+      },
+      "intermittent": {
+        "marked_gaussian_evidence": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+        "marked_lineage": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_lineage.json.gz",
+        "marked_gaussian_evidence_guarded_scalar": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz"
+      }
+    },
+    "parity_sha256": {
+      "reliable": {
+        "marked_gaussian_evidence": "71e8d9fd5019df1916336982929375b569f9e686e62a1cc3a8b20dca19e0f65e",
+        "marked_lineage": "5eacebd27268faf9c88b847dfdeb8ce669df7b6a12b39ae1fac62c92d505f5d6",
+        "marked_gaussian_evidence_guarded_scalar": "abe1a3862c9d0461cc3ec2ee223180e6ba8701ecafcea88521bc07b544a11d57"
+      },
+      "intermittent": {
+        "marked_gaussian_evidence": "7f7ab41f15e1cc13f731d4c2986039e2bc40ac8cda40bca2042e60e62a2d45a7",
+        "marked_lineage": "9d6e47b60478695ae250162953b9b453c2e86e9e25481cf0588c5e6bc4e6c162",
+        "marked_gaussian_evidence_guarded_scalar": "6ccf4845a15f8e6145305f98345da51db87ab4c61a1802c7f81e634825d0c066"
+      }
+    }
+  },
+  "cells": [
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "sha256": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8"
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932"
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "No-age",
+      "arm": "marked_lineage",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz",
+      "sha256": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+      "sha256": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "No-age",
+      "arm": "marked_lineage",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz",
+      "sha256": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2"
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_range.json.gz",
+      "sha256": "ca0ef98acd971f0a3f7898000327cf0532d558b09a32930938441c95ebd4f236"
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_range.json.gz",
+      "sha256": "e9aa0fe883fd10b876209df354eb8a4b007e47d95a91d3ad8cbc94e3f3370859"
+    },
+    {
+      "mode": "range",
+      "condition": "reliable",
+      "backend": "No-age",
+      "arm": "marked_lineage_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage_range.json.gz",
+      "sha256": "4d9ba15fec1a592080cd1db842ab896fd3eacb37788dd3d6a81f5385d16d1a7d"
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_range.json.gz",
+      "sha256": "fb6f0499861ee3a96c5a11cad4064788a51bf4b04d4de1b2fca272f0f8c8a503"
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_range.json.gz",
+      "sha256": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5"
+    },
+    {
+      "mode": "range",
+      "condition": "intermittent",
+      "backend": "No-age",
+      "arm": "marked_lineage_range",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage_range.json.gz",
+      "sha256": "4637f4ab77de8b5211d7679eb15395272bc0330ff25048e99773d805dac86d02"
+    }
+  ],
+  "source_sha256": {
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_range.json.gz": "ca0ef98acd971f0a3f7898000327cf0532d558b09a32930938441c95ebd4f236",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_range.json.gz": "e9aa0fe883fd10b876209df354eb8a4b007e47d95a91d3ad8cbc94e3f3370859",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage_range.json.gz": "4d9ba15fec1a592080cd1db842ab896fd3eacb37788dd3d6a81f5385d16d1a7d",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_range.json.gz": "fb6f0499861ee3a96c5a11cad4064788a51bf4b04d4de1b2fca272f0f8c8a503",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_range.json.gz": "d99003a0a8b4219d9aaa10e50eecc3de24f74ec9ecbac3bbccabe07556e2a2f5",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage_range.json.gz": "4637f4ab77de8b5211d7679eb15395272bc0330ff25048e99773d805dac86d02",
+    "trials/icra_range_detection/stages/range_detection_preflight.json": "f187e21df4e94734a798e29579ed8347860dd03e8804933df7a0ca1961b71296",
+    "trials/icra_range_detection/audit_range_detection_preflight.json": "5fa18edfcac824385b0d4652d668f4ea514da728282ae4900df090c509ebade0",
+    "trials/icra_range_detection/FINAL_VERIFICATION.json": "2166983852ba127395dc9067ec7e134eba02b318e39cf7d0c4d462ccfe33acf3",
+    "trials/icra_recursion_origin/PROTOCOL.md": "3816aecb91bdec24c6b5893fdf038cd18e73e6209f3867ee15a409a923f571a1",
+    "trials/icra_recursion_origin/trace.py": "12ba646c4eab5ae3c357f0a68e84f3bf157bc8a2ab2515ee1423cf38117684cd",
+    "trials/icra_recursion_origin/register_trace.py": "68bf863d102e69474121b3aebeef158b98084814a16be394300c0cde5f35c6ee",
+    "trials/icra_association_test/new_data/v2xreal_0001.mat": "d9c4381b1649c9443acd5d4ce0ca055cc05f8c5ef8dc449a1a8c322825cb9678",
+    "trials/icra_association_test/pose_inputs/poses_0001.mat": "a4d99132ec36af21fe50b602fb6e353e3502de52280240ae6eb1ebd382f3439a",
+    "trials/icra_range_detection/diagnose_mechanism.py": "1b5a8bee8d7b8c36a4abfbfdb3165efc799292b462f6f6f30e0bb4f540b3e188",
+    "trials/icra_reviewer_revision/review_gaussian_audit.py": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef",
+    "trials/icra_v2x_gce_diagnosis/diagnose_gap.py": "1ed0f91b75479360bd77572cd20465bd98081c6622f26dc49017c2f45d6f3fdd"
+  },
+  "scope": "Descriptive only; no modified native trajectory or selection"
+}

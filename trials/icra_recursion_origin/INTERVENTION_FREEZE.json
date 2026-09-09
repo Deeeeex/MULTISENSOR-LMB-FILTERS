@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-09T22:42:55.764922+00:00",
+  "configurations": {
+    "trials/icra_recursion_origin/stages/recursion_preflight.json": "1965e4d1ecc8a23360aacbfae56f5b14ea19363025f73ea64cb970065932e937",
+    "trials/icra_recursion_origin/stages/recursion_interventions.json": "6d02d20f441ea95c0a2153103f519209acaf7c1590b7f2872330a023fbfd151c"
+  },
+  "native_trajectories": 5,
+  "fixture": "checkRecursionIntervention passed before freeze; rerun required in every native process",
+  "source_files": 1524
+}
