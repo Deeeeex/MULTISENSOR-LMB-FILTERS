@@ -1,0 +1,50 @@
+{
+  "source": "trials/icra_temporal_association/runScreenedAssociation.m",
+  "source_sha256": "1340191a7f5d4b7784d46c0e1b777736fbc2dbd4240bc6124580faf0dfe4798b",
+  "destination": "trials/icra_miss_history/runMissHistoryReplay.m",
+  "destination_sha256": "ec160946195d248f41aa553dfab7a14db5ba8af5482c3affc4a46446c35df56e",
+  "replacements": [
+    [
+      "function runScreenedAssociation(configPath,unitIndex)",
+      "function runMissHistoryReplay(configPath,unitIndex)"
+    ],
+    [
+      "config=jsondecode(fileread(configPath));",
+      "addpath(fullfile(root,'trials','icra_temporal_association'));\nconfig=jsondecode(fileread(configPath));"
+    ],
+    [
+      "checkPersistentAssociation();checkColumnAssociation();checkScreenedAssociation();",
+      "checkPersistentAssociation();checkColumnAssociation();checkScreenedAssociation();checkMissHistory();"
+    ],
+    [
+      "'protocol','icra-screened-association-v1'",
+      "'protocol','icra-miss-history-v1'"
+    ],
+    [
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');",
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');\nmissMode='original';\nif endsWith(rule,'_miss_history'),missMode='history';rule=erase(rule,'_miss_history');\nelseif endsWith(rule,'_miss_half'),missMode='half';rule=erase(rule,'_miss_half');end"
+    ],
+    [
+      "run=emptyRun(arm,T);cfg=buildMixtureAwareKlaReferenceConfig();",
+      "run=emptyRun(arm,T);run.negativeHistoryMode=missMode;run.negativeHistoryRecords=zeros(0,12);\nmissState={containers.Map('KeyType','char','ValueType','any'),containers.Map('KeyType','char','ValueType','any')};\ncfg=buildMixtureAwareKlaReferenceConfig();"
+    ],
+    [
+      "        negativeSupport=negativeInnovationSupport(associationMass,predictedPd);",
+      "        missBefore=zeros(size(associationMass));\n        for j=1:numel(local{n})\n            labelKey=key(local{n}(j));\n            if isKey(missState{n},labelKey)\n                old=missState{n}(labelKey);\n                if old(1)==t-1,missBefore(j)=old(2);end\n            end\n        end\n        nominalNegative=negativeInnovationSupport(associationMass,predictedPd);\n        [negativeSupport,missAfter,effectivePd,missDiscount]=missHistorySupport(associationMass,predictedPd,missBefore,missMode);\n        for j=1:numel(local{n})\n            o=local{n}(j);missState{n}(key(o))=[t,missAfter(j)];\n            run.negativeHistoryRecords(end+1,:)=[t,n,o.birthTime,o.birthLocation,missBefore(j), ...\n                associationMass(j),predictedPd(j),effectivePd(j),missDiscount(j),missAfter(j), ...\n                nominalNegative(j),negativeSupport(j)]; %#ok<AGROW>\n        end"
+    ]
+  ],
+  "audit_source": "trials/icra_reviewer_revision/review_probability_audit.py",
+  "audit_source_sha256": "7f007360fc4d1402aa66179bf3f064bbec3b4f2349cc332f58bd04f196adf386",
+  "audit_destination": "trials/icra_miss_history/probability_audit.py",
+  "audit_destination_sha256": "626b2e19f4c218122e4807d866a7472b86fef0bf81f217cfa03b92296d5d0b28",
+  "audit_replacements": [
+    [
+      "from review_gaussian_audit import check_gaussians",
+      "from review_gaussian_audit import check_gaussians\nfrom history_audit import audit_history"
+    ],
+    [
+      "    expected_negative = (1-local[:, 9])*pd/(2-pd)",
+      "    expected_negative = audit_history(run, data)"
+    ]
+  ]
+}

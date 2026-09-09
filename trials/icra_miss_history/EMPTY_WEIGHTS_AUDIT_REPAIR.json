@@ -1,0 +1,24 @@
+{
+  "failure": "ValueError: cannot reshape array of size 0 into shape (7,1)",
+  "context": "First early audit of 0000 reliable GCE after the density check passed; native code records W=[] for an empty measurement set.",
+  "fix": "Check both positive support and association mass are zero when the native W log is empty.",
+  "changes": [
+    {
+      "source": "history_audit.py",
+      "source_sha256": "fecc282b7f003a727df77334b32cc9bd4e50a74bb3c642271248808157a793eb",
+      "destination": "history_audit_v2.py",
+      "destination_sha256": "d439eaf8585cc602f9d06fc330b8950e57c06032aee3eb3a3bda858e5dca65e7",
+      "before": "            if not len(rows):assert not raw.size;continue\n            W=raw.reshape(len(rows),len(marks)+1)",
+      "after": "            if not len(rows):assert not raw.size;continue\n            if not raw.size:\n                assert not rows[:,8:10].any(),'empty native weights give zero positive support and association mass'\n                checked+=len(rows)\n                continue\n            W=raw.reshape(len(rows),len(marks)+1)"
+    },
+    {
+      "source": "audit_stage.py",
+      "source_sha256": "596eef53101245e71c198bd4fe0362a86bedbee62f89da072115863e19426f30",
+      "destination": "audit_stage_v2.py",
+      "destination_sha256": "ef91dc7ea621cf6480eba5096ba79c05148e95be9b3e33902dd5e7964a37dddb",
+      "before": "from history_audit import audit_positive_marks,audit_matching",
+      "after": "from history_audit_v2 import audit_positive_marks,audit_matching"
+    }
+  ],
+  "algorithm_or_selection_changed": false
+}

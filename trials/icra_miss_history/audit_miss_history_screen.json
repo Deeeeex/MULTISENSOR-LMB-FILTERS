@@ -1,0 +1,5400 @@
+{
+  "passed": true,
+  "stage": "miss_history_screen",
+  "rows": [
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 114,
+      "ospa": 4.037052225727778,
+      "gospa": 3.9220392071945795,
+      "loc2": 0.8615224587847625,
+      "miss2": 18.94736842105263,
+      "false2": 16.42105263157895,
+      "countError": 0.45614035087719296,
+      "raw_bytes": 700032,
+      "delivered_raw_bytes": 700032,
+      "wire_bytes": 3764736,
+      "runtime_s": 4.194569875,
+      "reused": true
+    },
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 114,
+      "ospa": 4.037052263993767,
+      "gospa": 3.9220392615465993,
+      "loc2": 0.8615224975010759,
+      "miss2": 18.94736842105263,
+      "false2": 16.42105263157895,
+      "countError": 0.45614035087719296,
+      "raw_bytes": 700736,
+      "delivered_raw_bytes": 700736,
+      "wire_bytes": 3764736,
+      "runtime_s": 3.58918725,
+      "reused": false
+    },
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 114,
+      "ospa": 4.037047712678611,
+      "gospa": 3.9220328911782407,
+      "loc2": 0.8615095300031854,
+      "miss2": 18.94736842105263,
+      "false2": 16.42105263157895,
+      "countError": 0.45614035087719296,
+      "raw_bytes": 785920,
+      "delivered_raw_bytes": 785920,
+      "wire_bytes": 3764736,
+      "runtime_s": 2.1896760416666665,
+      "reused": false
+    },
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 114,
+      "ospa": 4.491388169980095,
+      "gospa": 4.352179450052706,
+      "loc2": 0.862286002902925,
+      "miss2": 18.94736842105263,
+      "false2": 22.105263157894736,
+      "countError": 0.5350877192982456,
+      "raw_bytes": 786976,
+      "delivered_raw_bytes": 573472,
+      "wire_bytes": 3764736,
+      "runtime_s": 2.081993833333333,
+      "reused": true
+    },
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 114,
+      "ospa": 4.4913881793113415,
+      "gospa": 4.352179463273538,
+      "loc2": 0.862286021120513,
+      "miss2": 18.94736842105263,
+      "false2": 22.105263157894736,
+      "countError": 0.5350877192982456,
+      "raw_bytes": 786976,
+      "delivered_raw_bytes": 573472,
+      "wire_bytes": 3764736,
+      "runtime_s": 1.420754125,
+      "reused": false
+    },
+    {
+      "sequence": "0001",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 114,
+      "ospa": 4.491384140391849,
+      "gospa": 4.352173734333078,
+      "loc2": 0.8622723932968701,
+      "miss2": 18.94736842105263,
+      "false2": 22.105263157894736,
+      "countError": 0.5350877192982456,
+      "raw_bytes": 726784,
+      "delivered_raw_bytes": 533696,
+      "wire_bytes": 3764736,
+      "runtime_s": 1.3517223333333332,
+      "reused": false
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 144,
+      "ospa": 3.898063466473439,
+      "gospa": 3.4631169682768452,
+      "loc2": 0.08438529492901009,
+      "miss2": 22.5,
+      "false2": 10.5,
+      "countError": 0.2916666666666667,
+      "raw_bytes": 478784,
+      "delivered_raw_bytes": 478784,
+      "wire_bytes": 4755456,
+      "runtime_s": 4.180842625,
+      "reused": true
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 144,
+      "ospa": 3.8980634502131752,
+      "gospa": 3.487524698293617,
+      "loc2": 0.08438455349111458,
+      "miss2": 22.5,
+      "false2": 11.0,
+      "countError": 0.2847222222222222,
+      "raw_bytes": 475616,
+      "delivered_raw_bytes": 475616,
+      "wire_bytes": 4755456,
+      "runtime_s": 4.6270252916666665,
+      "reused": false
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 144,
+      "ospa": 3.8736858681464983,
+      "gospa": 3.4631772401076724,
+      "loc2": 0.08540783562335309,
+      "miss2": 22.0,
+      "false2": 11.0,
+      "countError": 0.2916666666666667,
+      "raw_bytes": 472800,
+      "delivered_raw_bytes": 472800,
+      "wire_bytes": 4755456,
+      "runtime_s": 3.0228345416666667,
+      "reused": false
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 144,
+      "ospa": 4.063124806782223,
+      "gospa": 3.560748409955118,
+      "loc2": 0.09833390700661696,
+      "miss2": 22.0,
+      "false2": 11.25,
+      "countError": 0.3020833333333333,
+      "raw_bytes": 507648,
+      "delivered_raw_bytes": 401248,
+      "wire_bytes": 4755456,
+      "runtime_s": 1.948679625,
+      "reused": true
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 144,
+      "ospa": 4.0631248069413015,
+      "gospa": 3.6038849177901406,
+      "loc2": 0.09833391240975906,
+      "miss2": 22.0,
+      "false2": 12.25,
+      "countError": 0.3020833333333333,
+      "raw_bytes": 509056,
+      "delivered_raw_bytes": 402304,
+      "wire_bytes": 4755456,
+      "runtime_s": 2.3239133333333335,
+      "reused": false
+    },
+    {
+      "sequence": "0002",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 144,
+      "ospa": 4.038747175900558,
+      "gospa": 3.5795374085505296,
+      "loc2": 0.09935706416677584,
+      "miss2": 21.5,
+      "false2": 12.25,
+      "countError": 0.3090277777777778,
+      "raw_bytes": 512224,
+      "delivered_raw_bytes": 405472,
+      "wire_bytes": 4755456,
+      "runtime_s": 2.1699285416666667,
+      "reused": false
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 198,
+      "ospa": 6.122249479331334,
+      "gospa": 15.250273261067981,
+      "loc2": 11.934718309063507,
+      "miss2": 241.8181818181818,
+      "false2": 55.63636363636363,
+      "countError": 3.121212121212121,
+      "raw_bytes": 7731328,
+      "delivered_raw_bytes": 7731328,
+      "wire_bytes": 10814976,
+      "runtime_s": 18.5403255,
+      "reused": true
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 198,
+      "ospa": 6.170938409852165,
+      "gospa": 15.41118549411713,
+      "loc2": 15.787862332023709,
+      "miss2": 240.0,
+      "false2": 56.72727272727273,
+      "countError": 3.0707070707070705,
+      "raw_bytes": 7645440,
+      "delivered_raw_bytes": 7645440,
+      "wire_bytes": 10847744,
+      "runtime_s": 22.93173875,
+      "reused": false
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 198,
+      "ospa": 6.147752636957865,
+      "gospa": 15.277460193692926,
+      "loc2": 11.942046829359667,
+      "miss2": 241.45454545454547,
+      "false2": 56.0,
+      "countError": 3.111111111111111,
+      "raw_bytes": 7888672,
+      "delivered_raw_bytes": 7888672,
+      "wire_bytes": 10896896,
+      "runtime_s": 24.051158291666667,
+      "reused": false
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 198,
+      "ospa": 6.629738284342926,
+      "gospa": 16.1817846794556,
+      "loc2": 10.327580337150478,
+      "miss2": 262.90909090909093,
+      "false2": 60.36363636363637,
+      "countError": 3.3333333333333335,
+      "raw_bytes": 6707008,
+      "delivered_raw_bytes": 4713952,
+      "wire_bytes": 10798592,
+      "runtime_s": 11.856407458333333,
+      "reused": true
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 198,
+      "ospa": 6.612087979271994,
+      "gospa": 16.128060244277794,
+      "loc2": 10.330686863104596,
+      "miss2": 260.0,
+      "false2": 60.36363636363637,
+      "countError": 3.287878787878788,
+      "raw_bytes": 6549664,
+      "delivered_raw_bytes": 4503808,
+      "wire_bytes": 10520064,
+      "runtime_s": 16.46377475,
+      "reused": false
+    },
+    {
+      "sequence": "0003",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 198,
+      "ospa": 6.630115669782965,
+      "gospa": 16.142169788818045,
+      "loc2": 10.189619070069833,
+      "miss2": 258.90909090909093,
+      "false2": 61.45454545454545,
+      "countError": 3.287878787878788,
+      "raw_bytes": 6706656,
+      "delivered_raw_bytes": 4628064,
+      "wire_bytes": 10634752,
+      "runtime_s": 15.863222958333333,
+      "reused": false
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 180,
+      "ospa": 5.001597884237048,
+      "gospa": 20.589116185493626,
+      "loc2": 61.14520940674198,
+      "miss2": 331.2,
+      "false2": 48.8,
+      "countError": 3.922222222222222,
+      "raw_bytes": 10565536,
+      "delivered_raw_bytes": 10565536,
+      "wire_bytes": 14054400,
+      "runtime_s": 68.645856625,
+      "reused": true
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 180,
+      "ospa": 4.989232775176561,
+      "gospa": 20.58357369604238,
+      "loc2": 61.17639399991218,
+      "miss2": 329.2,
+      "false2": 50.4,
+      "countError": 3.8722222222222222,
+      "raw_bytes": 10443744,
+      "delivered_raw_bytes": 10443744,
+      "wire_bytes": 13906944,
+      "runtime_s": 86.8418465,
+      "reused": false
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 180,
+      "ospa": 4.995718524326528,
+      "gospa": 20.612943870193163,
+      "loc2": 61.31360842313832,
+      "miss2": 330.4,
+      "false2": 50.4,
+      "countError": 3.888888888888889,
+      "raw_bytes": 10825664,
+      "delivered_raw_bytes": 10825664,
+      "wire_bytes": 14251008,
+      "runtime_s": 87.78253058333334,
+      "reused": false
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 180,
+      "ospa": 5.157977066480075,
+      "gospa": 21.18528848483337,
+      "loc2": 57.55235961007309,
+      "miss2": 354.8,
+      "false2": 53.2,
+      "countError": 4.188888888888889,
+      "raw_bytes": 10893952,
+      "delivered_raw_bytes": 8055264,
+      "wire_bytes": 13792256,
+      "runtime_s": 50.62067745833333,
+      "reused": true
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 180,
+      "ospa": 5.163710482496271,
+      "gospa": 21.21123241160169,
+      "loc2": 57.164555212001545,
+      "miss2": 356.2,
+      "false2": 53.6,
+      "countError": 4.2027777777777775,
+      "raw_bytes": 10877760,
+      "delivered_raw_bytes": 8051392,
+      "wire_bytes": 13775872,
+      "runtime_s": 46.908153,
+      "reused": false
+    },
+    {
+      "sequence": "0004",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 180,
+      "ospa": 5.162115788790978,
+      "gospa": 21.221502430016223,
+      "loc2": 57.13059177055985,
+      "miss2": 355.2,
+      "false2": 54.2,
+      "countError": 4.180555555555555,
+      "raw_bytes": 11167808,
+      "delivered_raw_bytes": 8283008,
+      "wire_bytes": 13939712,
+      "runtime_s": 49.945208791666666,
+      "reused": false
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 310,
+      "ospa": 4.586088315855473,
+      "gospa": 14.251478335838836,
+      "loc2": 15.330175384587886,
+      "miss2": 132.38709677419354,
+      "false2": 82.68387096774194,
+      "countError": 1.6516129032258065,
+      "raw_bytes": 14998496,
+      "delivered_raw_bytes": 14998496,
+      "wire_bytes": 20461056,
+      "runtime_s": 39.93749458333333,
+      "reused": true
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 310,
+      "ospa": 4.620077248154247,
+      "gospa": 14.30474219041472,
+      "loc2": 15.765368310594967,
+      "miss2": 131.45806451612904,
+      "false2": 83.84516129032258,
+      "countError": 1.6483870967741936,
+      "raw_bytes": 15267776,
+      "delivered_raw_bytes": 15267776,
+      "wire_bytes": 20723200,
+      "runtime_s": 40.332514333333336,
+      "reused": false
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 310,
+      "ospa": 4.609057239652844,
+      "gospa": 14.115526487289,
+      "loc2": 14.65742858941103,
+      "miss2": 132.15483870967742,
+      "false2": 77.34193548387097,
+      "countError": 1.7096774193548387,
+      "raw_bytes": 15454336,
+      "delivered_raw_bytes": 15454336,
+      "wire_bytes": 20919808,
+      "runtime_s": 43.95129754166667,
+      "reused": false
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 310,
+      "ospa": 5.011448071101461,
+      "gospa": 15.427610468183165,
+      "loc2": 17.89637976548887,
+      "miss2": 163.74193548387098,
+      "false2": 88.02580645161291,
+      "countError": 1.7903225806451613,
+      "raw_bytes": 14860864,
+      "delivered_raw_bytes": 11326464,
+      "wire_bytes": 20559360,
+      "runtime_s": 37.03122116666667,
+      "reused": true
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 310,
+      "ospa": 5.005277773544449,
+      "gospa": 15.396865238618483,
+      "loc2": 17.846505127629808,
+      "miss2": 162.11612903225807,
+      "false2": 88.49032258064516,
+      "countError": 1.7774193548387096,
+      "raw_bytes": 14984416,
+      "delivered_raw_bytes": 11457408,
+      "wire_bytes": 20690432,
+      "runtime_s": 36.156581,
+      "reused": false
+    },
+    {
+      "sequence": "0005",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 310,
+      "ospa": 5.026834620022235,
+      "gospa": 15.47145555291694,
+      "loc2": 17.914805284016566,
+      "miss2": 163.39354838709679,
+      "false2": 89.18709677419355,
+      "countError": 1.7661290322580645,
+      "raw_bytes": 15010112,
+      "delivered_raw_bytes": 11474304,
+      "wire_bytes": 20739584,
+      "runtime_s": 36.1023285,
+      "reused": false
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 304,
+      "ospa": 5.4765182937340855,
+      "gospa": 10.770003801373571,
+      "loc2": 4.905353438209171,
+      "miss2": 64.65789473684211,
+      "false2": 80.52631578947368,
+      "countError": 1.1151315789473684,
+      "raw_bytes": 7949312,
+      "delivered_raw_bytes": 7949312,
+      "wire_bytes": 13021184,
+      "runtime_s": 19.926077166666666,
+      "reused": true
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 304,
+      "ospa": 5.655211787485705,
+      "gospa": 11.041386727906715,
+      "loc2": 5.437525297111015,
+      "miss2": 62.76315789473684,
+      "false2": 86.92105263157895,
+      "countError": 1.2105263157894737,
+      "raw_bytes": 7834208,
+      "delivered_raw_bytes": 7834208,
+      "wire_bytes": 12873728,
+      "runtime_s": 18.164739208333334,
+      "reused": false
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 304,
+      "ospa": 5.692012538498615,
+      "gospa": 11.07045280594881,
+      "loc2": 2.9204707874915394,
+      "miss2": 61.578947368421055,
+      "false2": 89.05263157894737,
+      "countError": 1.2039473684210527,
+      "raw_bytes": 7859904,
+      "delivered_raw_bytes": 7859904,
+      "wire_bytes": 13037568,
+      "runtime_s": 17.187171666666668,
+      "reused": false
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 304,
+      "ospa": 5.547432849060025,
+      "gospa": 10.922876787450804,
+      "loc2": 2.32710535462426,
+      "miss2": 66.07894736842105,
+      "false2": 87.51315789473684,
+      "countError": 1.2351973684210527,
+      "raw_bytes": 7543104,
+      "delivered_raw_bytes": 5880832,
+      "wire_bytes": 12660736,
+      "runtime_s": 16.29348325,
+      "reused": true
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 304,
+      "ospa": 5.579903028399545,
+      "gospa": 11.045708833805437,
+      "loc2": 2.6145906354585837,
+      "miss2": 66.4342105263158,
+      "false2": 92.01315789473684,
+      "countError": 1.3125,
+      "raw_bytes": 7617728,
+      "delivered_raw_bytes": 5939968,
+      "wire_bytes": 12693504,
+      "runtime_s": 14.143800833333334,
+      "reused": false
+    },
+    {
+      "sequence": "0006",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 304,
+      "ospa": 5.5315627966688075,
+      "gospa": 10.969214373046178,
+      "loc2": 2.678743445489209,
+      "miss2": 63.828947368421055,
+      "false2": 90.94736842105263,
+      "countError": 1.1891447368421053,
+      "raw_bytes": 8201696,
+      "delivered_raw_bytes": 6467616,
+      "wire_bytes": 13234176,
+      "runtime_s": 15.101116083333334,
+      "reused": false
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 221,
+      "ospa": 2.889940560312305,
+      "gospa": 8.985144534339545,
+      "loc2": 10.539414288708471,
+      "miss2": 67.76470588235294,
+      "false2": 45.61085972850679,
+      "countError": 0.9864253393665159,
+      "raw_bytes": 8754304,
+      "delivered_raw_bytes": 8754304,
+      "wire_bytes": 12754176,
+      "runtime_s": 19.900164625,
+      "reused": true
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 221,
+      "ospa": 2.874079009303864,
+      "gospa": 8.87958468295667,
+      "loc2": 11.435543206742242,
+      "miss2": 64.83257918552036,
+      "false2": 43.65610859728507,
+      "countError": 0.9909502262443439,
+      "raw_bytes": 8692352,
+      "delivered_raw_bytes": 8692352,
+      "wire_bytes": 12606720,
+      "runtime_s": 18.466159416666667,
+      "reused": false
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 221,
+      "ospa": 2.944984486111282,
+      "gospa": 9.08302352304555,
+      "loc2": 11.206993215462864,
+      "miss2": 63.8552036199095,
+      "false2": 48.542986425339365,
+      "countError": 1.0,
+      "raw_bytes": 8793024,
+      "delivered_raw_bytes": 8793024,
+      "wire_bytes": 12950784,
+      "runtime_s": 16.766043166666666,
+      "reused": false
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 221,
+      "ospa": 3.6677597469572776,
+      "gospa": 12.074982670543115,
+      "loc2": 29.543906028110236,
+      "miss2": 144.81447963800906,
+      "false2": 68.90497737556561,
+      "countError": 1.4298642533936652,
+      "raw_bytes": 8916224,
+      "delivered_raw_bytes": 5521472,
+      "wire_bytes": 12492032,
+      "runtime_s": 18.822261333333334,
+      "reused": true
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 221,
+      "ospa": 3.650726557556477,
+      "gospa": 12.036709070093337,
+      "loc2": 29.455553195104578,
+      "miss2": 144.0,
+      "false2": 68.90497737556561,
+      "countError": 1.418552036199095,
+      "raw_bytes": 8922560,
+      "delivered_raw_bytes": 5525344,
+      "wire_bytes": 12541184,
+      "runtime_s": 18.047981333333333,
+      "reused": false
+    },
+    {
+      "sequence": "0007",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 221,
+      "ospa": 3.632355997559289,
+      "gospa": 11.984621480560019,
+      "loc2": 30.24014166182441,
+      "miss2": 139.76470588235293,
+      "false2": 69.23076923076923,
+      "countError": 1.3778280542986425,
+      "raw_bytes": 9296032,
+      "delivered_raw_bytes": 5823136,
+      "wire_bytes": 13114624,
+      "runtime_s": 18.735671916666668,
+      "reused": false
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 375,
+      "ospa": 0.8301047827587411,
+      "gospa": 2.7159118729812035,
+      "loc2": 2.8174220302493196,
+      "miss2": 5.952,
+      "false2": 9.6,
+      "countError": 0.20533333333333334,
+      "raw_bytes": 12009952,
+      "delivered_raw_bytes": 12009952,
+      "wire_bytes": 16709376,
+      "runtime_s": 31.99565829166667,
+      "reused": true
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 375,
+      "ospa": 0.8301047814020708,
+      "gospa": 2.715911865546541,
+      "loc2": 2.817421906021425,
+      "miss2": 5.952,
+      "false2": 9.6,
+      "countError": 0.20533333333333334,
+      "raw_bytes": 12009952,
+      "delivered_raw_bytes": 12009952,
+      "wire_bytes": 16709376,
+      "runtime_s": 31.22474525,
+      "reused": false
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 375,
+      "ospa": 0.8301048349385878,
+      "gospa": 2.7159123931336984,
+      "loc2": 2.8174427165451266,
+      "miss2": 5.952,
+      "false2": 9.6,
+      "countError": 0.20533333333333334,
+      "raw_bytes": 12008544,
+      "delivered_raw_bytes": 12008544,
+      "wire_bytes": 16578304,
+      "runtime_s": 30.926390666666666,
+      "reused": false
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 375,
+      "ospa": 0.9903393894133941,
+      "gospa": 3.141434803827554,
+      "loc2": 2.9417421509378885,
+      "miss2": 9.888,
+      "false2": 9.888,
+      "countError": 0.264,
+      "raw_bytes": 13814656,
+      "delivered_raw_bytes": 9744448,
+      "wire_bytes": 19887872,
+      "runtime_s": 27.77829854166667,
+      "reused": true
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 375,
+      "ospa": 0.9903393885693867,
+      "gospa": 3.1414347992590246,
+      "loc2": 2.9417420755797252,
+      "miss2": 9.888,
+      "false2": 9.888,
+      "countError": 0.264,
+      "raw_bytes": 13814656,
+      "delivered_raw_bytes": 9744448,
+      "wire_bytes": 19887872,
+      "runtime_s": 28.82504258333333,
+      "reused": false
+    },
+    {
+      "sequence": "0008",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 375,
+      "ospa": 0.9807172682305321,
+      "gospa": 3.1155506972171874,
+      "loc2": 2.946058105560066,
+      "miss2": 9.6,
+      "false2": 9.888,
+      "countError": 0.26,
+      "raw_bytes": 13813248,
+      "delivered_raw_bytes": 9749728,
+      "wire_bytes": 19937024,
+      "runtime_s": 30.095823375,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 104,
+      "ospa": 9.740904935709999,
+      "gospa": 17.648265488785857,
+      "loc2": 0.13394818308298637,
+      "miss2": 322.61538461538464,
+      "false2": 33.92307692307692,
+      "countError": 4.009615384615385,
+      "raw_bytes": 963040,
+      "delivered_raw_bytes": 963040,
+      "wire_bytes": 3434496,
+      "runtime_s": 1.68916975,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 104,
+      "ospa": 9.72757918971906,
+      "gospa": 17.590491931567218,
+      "loc2": 0.13447344146292714,
+      "miss2": 321.2307692307692,
+      "false2": 32.53846153846154,
+      "countError": 4.009615384615385,
+      "raw_bytes": 963392,
+      "delivered_raw_bytes": 963392,
+      "wire_bytes": 3434496,
+      "runtime_s": 3.4248367083333333,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 104,
+      "ospa": 9.727580344440554,
+      "gospa": 17.590495187826328,
+      "loc2": 0.13455131228148554,
+      "miss2": 321.2307692307692,
+      "false2": 32.53846153846154,
+      "countError": 4.009615384615385,
+      "raw_bytes": 938400,
+      "delivered_raw_bytes": 938400,
+      "wire_bytes": 3434496,
+      "runtime_s": 2.0549196666666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 104,
+      "ospa": 9.739305774485873,
+      "gospa": 17.6462129574126,
+      "loc2": 0.15794841345814614,
+      "miss2": 322.61538461538464,
+      "false2": 33.92307692307692,
+      "countError": 4.009615384615385,
+      "raw_bytes": 903200,
+      "delivered_raw_bytes": 726752,
+      "wire_bytes": 3434496,
+      "runtime_s": 1.28693125,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 104,
+      "ospa": 9.729310361618657,
+      "gospa": 17.60287771485559,
+      "loc2": 0.15812761556137878,
+      "miss2": 321.5769230769231,
+      "false2": 32.88461538461539,
+      "countError": 4.009615384615385,
+      "raw_bytes": 903552,
+      "delivered_raw_bytes": 727104,
+      "wire_bytes": 3434496,
+      "runtime_s": 1.9033016666666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0000",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 104,
+      "ospa": 9.729311495837429,
+      "gospa": 17.602880912172058,
+      "loc2": 0.15820405601673854,
+      "miss2": 321.5769230769231,
+      "false2": 32.88461538461539,
+      "countError": 4.009615384615385,
+      "raw_bytes": 908128,
+      "delivered_raw_bytes": 730624,
+      "wire_bytes": 3434496,
+      "runtime_s": 1.5620064583333333,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 131,
+      "ospa": 9.9873209850388,
+      "gospa": 27.421463127952922,
+      "loc2": 6.603758054843298,
+      "miss2": 738.1374045801526,
+      "false2": 12.091603053435115,
+      "countError": 10.083969465648854,
+      "raw_bytes": 2669504,
+      "delivered_raw_bytes": 2669504,
+      "wire_bytes": 4883200,
+      "runtime_s": 4.780478,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 131,
+      "ospa": 9.720066364140344,
+      "gospa": 26.684050619862813,
+      "loc2": 6.601586290649915,
+      "miss2": 696.9160305343512,
+      "false2": 12.091603053435115,
+      "countError": 9.511450381679388,
+      "raw_bytes": 2238304,
+      "delivered_raw_bytes": 2238304,
+      "wire_bytes": 4326144,
+      "runtime_s": 6.050499375,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 131,
+      "ospa": 9.681539219827133,
+      "gospa": 26.579594599576442,
+      "loc2": 6.418454916348593,
+      "miss2": 691.4198473282443,
+      "false2": 12.091603053435115,
+      "countError": 9.435114503816793,
+      "raw_bytes": 2185504,
+      "delivered_raw_bytes": 2185504,
+      "wire_bytes": 4326144,
+      "runtime_s": 4.047740875,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 131,
+      "ospa": 9.741793423745936,
+      "gospa": 26.752205391287944,
+      "loc2": 7.60684574321997,
+      "miss2": 700.2137404580153,
+      "false2": 12.091603053435115,
+      "countError": 9.557251908396946,
+      "raw_bytes": 2046464,
+      "delivered_raw_bytes": 1494336,
+      "wire_bytes": 4326144,
+      "runtime_s": 2.481477583333333,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 131,
+      "ospa": 9.65259965040445,
+      "gospa": 26.559111952103862,
+      "loc2": 7.924061402013385,
+      "miss2": 687.2977099236641,
+      "false2": 14.564885496183207,
+      "countError": 9.34351145038168,
+      "raw_bytes": 2105248,
+      "delivered_raw_bytes": 1545728,
+      "wire_bytes": 4326144,
+      "runtime_s": 3.073338625,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0001",
+      "dataset": "v2x_val",
+      "recording": "2023-03-17",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 131,
+      "ospa": 9.690997184688298,
+      "gospa": 26.63116272660196,
+      "loc2": 7.055614598810902,
+      "miss2": 693.3435114503817,
+      "false2": 13.19083969465649,
+      "countError": 9.446564885496183,
+      "raw_bytes": 2029920,
+      "delivered_raw_bytes": 1492576,
+      "wire_bytes": 4326144,
+      "runtime_s": 5.468753875,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 140,
+      "ospa": 9.143681433383385,
+      "gospa": 23.79752746403247,
+      "loc2": 116.77018146860557,
+      "miss2": 208.28571428571428,
+      "false2": 252.5142857142857,
+      "countError": 2.4571428571428573,
+      "raw_bytes": 3151264,
+      "delivered_raw_bytes": 3151264,
+      "wire_bytes": 5016576,
+      "runtime_s": 5.480845416666667,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 140,
+      "ospa": 9.187778819592605,
+      "gospa": 24.515601967440457,
+      "loc2": 89.07918604702637,
+      "miss2": 191.31428571428572,
+      "false2": 333.77142857142854,
+      "countError": 3.807142857142857,
+      "raw_bytes": 2413120,
+      "delivered_raw_bytes": 2413120,
+      "wire_bytes": 4623360,
+      "runtime_s": 7.041832666666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 140,
+      "ospa": 9.245461782563105,
+      "gospa": 24.572501700113662,
+      "loc2": 124.2756386817169,
+      "miss2": 193.37142857142857,
+      "false2": 299.3142857142857,
+      "countError": 3.2857142857142856,
+      "raw_bytes": 2814752,
+      "delivered_raw_bytes": 2814752,
+      "wire_bytes": 5065728,
+      "runtime_s": 5.524540083333333,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 140,
+      "ospa": 8.91465556433913,
+      "gospa": 23.01200610594203,
+      "loc2": 101.79952363083325,
+      "miss2": 209.82857142857142,
+      "false2": 226.8,
+      "countError": 1.9928571428571429,
+      "raw_bytes": 3316000,
+      "delivered_raw_bytes": 2329312,
+      "wire_bytes": 5590016,
+      "runtime_s": 4.78409525,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 140,
+      "ospa": 9.029332821655236,
+      "gospa": 23.665068150922963,
+      "loc2": 77.57993132401876,
+      "miss2": 207.5142857142857,
+      "false2": 286.7142857142857,
+      "countError": 2.9,
+      "raw_bytes": 2288160,
+      "delivered_raw_bytes": 1655584,
+      "wire_bytes": 4623360,
+      "runtime_s": 3.331410791666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0002",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 140,
+      "ospa": 9.02716266268397,
+      "gospa": 23.5028615418375,
+      "loc2": 82.2167533091531,
+      "miss2": 206.4857142857143,
+      "false2": 276.42857142857144,
+      "countError": 2.8714285714285714,
+      "raw_bytes": 2371936,
+      "delivered_raw_bytes": 1735840,
+      "wire_bytes": 4623360,
+      "runtime_s": 3.590704125,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 128,
+      "ospa": 7.771028817956946,
+      "gospa": 17.503629115057407,
+      "loc2": 1.504149863595957,
+      "miss2": 339.1875,
+      "false2": 31.5,
+      "countError": 4.6484375,
+      "raw_bytes": 3254336,
+      "delivered_raw_bytes": 3254336,
+      "wire_bytes": 4800512,
+      "runtime_s": 4.237563708333333,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 128,
+      "ospa": 7.796037895208523,
+      "gospa": 17.498991089672373,
+      "loc2": 1.880378818784826,
+      "miss2": 336.375,
+      "false2": 31.5,
+      "countError": 4.640625,
+      "raw_bytes": 3165632,
+      "delivered_raw_bytes": 3165632,
+      "wire_bytes": 4521984,
+      "runtime_s": 7.338745875,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 128,
+      "ospa": 7.769560518578996,
+      "gospa": 17.436076104130223,
+      "loc2": 2.065348258153361,
+      "miss2": 329.625,
+      "false2": 32.625,
+      "countError": 4.546875,
+      "raw_bytes": 3185344,
+      "delivered_raw_bytes": 3185344,
+      "wire_bytes": 4521984,
+      "runtime_s": 5.049521791666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 128,
+      "ospa": 7.886619566433642,
+      "gospa": 17.497680602779532,
+      "loc2": 3.6951141573848103,
+      "miss2": 323.4375,
+      "false2": 36.84375,
+      "countError": 4.57421875,
+      "raw_bytes": 3375776,
+      "delivered_raw_bytes": 2378784,
+      "wire_bytes": 5062656,
+      "runtime_s": 3.61679575,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 128,
+      "ospa": 7.990232855505009,
+      "gospa": 17.497852664919584,
+      "loc2": 3.701021594575627,
+      "miss2": 317.53125,
+      "false2": 38.8125,
+      "countError": 4.51953125,
+      "raw_bytes": 3341984,
+      "delivered_raw_bytes": 2341472,
+      "wire_bytes": 4931584,
+      "runtime_s": 4.155540541666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0003",
+      "dataset": "v2x_val",
+      "recording": "2023-04-04",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 128,
+      "ospa": 7.905828413825278,
+      "gospa": 17.394220287533592,
+      "loc2": 3.6992573848000347,
+      "miss2": 316.40625,
+      "false2": 37.6875,
+      "countError": 4.48828125,
+      "raw_bytes": 3419072,
+      "delivered_raw_bytes": 2408000,
+      "wire_bytes": 5160960,
+      "runtime_s": 4.262585291666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 116,
+      "ospa": 5.399006743259987,
+      "gospa": 4.782882490200941,
+      "loc2": 0.8046140370968606,
+      "miss2": 48.41379310344828,
+      "false2": 0.0,
+      "countError": 0.6724137931034483,
+      "raw_bytes": 220736,
+      "delivered_raw_bytes": 220736,
+      "wire_bytes": 3830784,
+      "runtime_s": 0.5795947916666667,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 116,
+      "ospa": 5.3990053563521005,
+      "gospa": 4.782879903672959,
+      "loc2": 0.8045628550577578,
+      "miss2": 48.41379310344828,
+      "false2": 0.0,
+      "countError": 0.6724137931034483,
+      "raw_bytes": 223200,
+      "delivered_raw_bytes": 223200,
+      "wire_bytes": 3830784,
+      "runtime_s": 1.8086519166666666,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 116,
+      "ospa": 5.398942918725999,
+      "gospa": 4.782763314338318,
+      "loc2": 0.8022616149557759,
+      "miss2": 48.41379310344828,
+      "false2": 0.0,
+      "countError": 0.6724137931034483,
+      "raw_bytes": 223904,
+      "delivered_raw_bytes": 223904,
+      "wire_bytes": 3830784,
+      "runtime_s": 1.5848974166666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 116,
+      "ospa": 5.408607824781972,
+      "gospa": 4.789067133154587,
+      "loc2": 2.4788578778733963,
+      "miss2": 45.62068965517241,
+      "false2": 0.0,
+      "countError": 0.6336206896551724,
+      "raw_bytes": 189760,
+      "delivered_raw_bytes": 156704,
+      "wire_bytes": 3830784,
+      "runtime_s": 0.4836008333333333,
+      "reused": true
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 116,
+      "ospa": 5.408606733821322,
+      "gospa": 4.789065097791837,
+      "loc2": 2.4788176850362325,
+      "miss2": 45.62068965517241,
+      "false2": 0.0,
+      "countError": 0.6336206896551724,
+      "raw_bytes": 190816,
+      "delivered_raw_bytes": 157056,
+      "wire_bytes": 3830784,
+      "runtime_s": 0.8296854583333333,
+      "reused": false
+    },
+    {
+      "sequence": "v2x_0004",
+      "dataset": "v2x_val",
+      "recording": "2023-04-05",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 116,
+      "ospa": 5.386811718995782,
+      "gospa": 4.774966101203642,
+      "loc2": 2.784307036326987,
+      "miss2": 45.0,
+      "false2": 0.0,
+      "countError": 0.625,
+      "raw_bytes": 193280,
+      "delivered_raw_bytes": 158464,
+      "wire_bytes": 3830784,
+      "runtime_s": 0.6678122083333333,
+      "reused": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2402,
+        "labels": 2320,
+        "joined_source_records": 3940,
+        "joint_labels": 1620,
+        "boosted_labels": 162,
+        "negative_boost_labels": 512,
+        "mean_gate": 0.041918259932218954,
+        "mean_negative_gate": 0.12743680005720306,
+        "mean_boost": 0.05275881653545806,
+        "local_gaussian_records": 1970,
+        "packet_gaussian_records": 1970,
+        "gaussian_source_joins": 3940,
+        "corrected_labels": 640,
+        "curvature_rejected_sources": 106,
+        "curvature_rejected_labels": 104,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.015001830765346466,
+        "max_spatial_shift_m": 1.4398614942879342,
+        "mean_log_integral_change": 0.004223853396134785,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.043345883228124,
+            "gospa": 3.9298416317475318,
+            "loc2": 0.8698052334011145,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "new_r_old_space": {
+            "ospa": 4.043345883228124,
+            "gospa": 3.9298416317475318,
+            "loc2": 0.8698052334011145,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "old_r_new_space": {
+            "ospa": 4.037052263993767,
+            "gospa": 3.9220392615465993,
+            "loc2": 0.8615224975010759,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "candidate": {
+            "ospa": 4.037052263993767,
+            "gospa": 3.9220392615465993,
+            "loc2": 0.8615224975010759,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 1970,
+        "raw_association_weight_values": 6384
+      },
+      "positive_mark_rows": 2402,
+      "globally_checked_pairs": 1620,
+      "domain": {
+        "checked_retained_local_predictions": 1970,
+        "outside_rectangle": 570,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1092
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2664,
+        "labels": 2576,
+        "joined_source_records": 4424,
+        "joint_labels": 1848,
+        "boosted_labels": 162,
+        "negative_boost_labels": 534,
+        "mean_gate": 0.03769583456588217,
+        "mean_negative_gate": 0.0598298052558289,
+        "mean_boost": 0.09636802354815802,
+        "local_gaussian_records": 2212,
+        "packet_gaussian_records": 2212,
+        "gaussian_source_joins": 4424,
+        "corrected_labels": 654,
+        "curvature_rejected_sources": 118,
+        "curvature_rejected_labels": 118,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.00994948025909173,
+        "max_spatial_shift_m": 0.7787464800785914,
+        "mean_log_integral_change": 0.004276211978788036,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.0433453182388135,
+            "gospa": 3.929840882732496,
+            "loc2": 0.8698052141801044,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "new_r_old_space": {
+            "ospa": 4.0433453182388135,
+            "gospa": 3.929840882732496,
+            "loc2": 0.8698052141801044,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "old_r_new_space": {
+            "ospa": 4.037047712678611,
+            "gospa": 3.9220328911782407,
+            "loc2": 0.8615095300031854,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          },
+          "candidate": {
+            "ospa": 4.037047712678611,
+            "gospa": 3.9220328911782407,
+            "loc2": 0.8615095300031854,
+            "miss2": 18.94736842105263,
+            "false2": 16.42105263157895,
+            "countError": 0.45614035087719296
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2212,
+        "raw_association_weight_values": 7061
+      },
+      "positive_mark_rows": 2664,
+      "globally_checked_pairs": 1848,
+      "domain": {
+        "checked_retained_local_predictions": 2212,
+        "outside_rectangle": 752,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1218
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2649,
+        "labels": 1893,
+        "joined_source_records": 3216,
+        "joint_labels": 1323,
+        "boosted_labels": 136,
+        "negative_boost_labels": 406,
+        "mean_gate": 0.04613417469308567,
+        "mean_negative_gate": 0.12564255482811948,
+        "mean_boost": 0.07570004784381497,
+        "local_gaussian_records": 2215,
+        "packet_gaussian_records": 2215,
+        "gaussian_source_joins": 3216,
+        "corrected_labels": 519,
+        "curvature_rejected_sources": 86,
+        "curvature_rejected_labels": 85,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.015674478923212488,
+        "max_spatial_shift_m": 1.0387061967437035,
+        "mean_log_integral_change": 0.003917235293582285,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.709326961772898,
+            "gospa": 4.709869597751008,
+            "loc2": 1.1794563567736362,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "new_r_old_space": {
+            "ospa": 4.709326961772898,
+            "gospa": 4.709869597751008,
+            "loc2": 1.1794563567736362,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "old_r_new_space": {
+            "ospa": 4.70305798768068,
+            "gospa": 4.70252288432756,
+            "loc2": 1.1741850702482566,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "candidate": {
+            "ospa": 4.70305798768068,
+            "gospa": 4.70252288432756,
+            "loc2": 1.1741850702482566,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2215,
+        "raw_association_weight_values": 7026
+      },
+      "positive_mark_rows": 2649,
+      "globally_checked_pairs": 1323,
+      "domain": {
+        "checked_retained_local_predictions": 2215,
+        "outside_rectangle": 764,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1187
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2478,
+        "labels": 1780,
+        "joined_source_records": 2995,
+        "joint_labels": 1215,
+        "boosted_labels": 132,
+        "negative_boost_labels": 420,
+        "mean_gate": 0.04823681215363848,
+        "mean_negative_gate": 0.06973113050071739,
+        "mean_boost": 0.1322331657945932,
+        "local_gaussian_records": 2044,
+        "packet_gaussian_records": 2044,
+        "gaussian_source_joins": 2995,
+        "corrected_labels": 526,
+        "curvature_rejected_sources": 97,
+        "curvature_rejected_labels": 96,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.011928545160146013,
+        "max_spatial_shift_m": 0.778698729705935,
+        "mean_log_integral_change": 0.00296855089549482,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.709327116101088,
+            "gospa": 4.70986978668884,
+            "loc2": 1.1794573818562841,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "new_r_old_space": {
+            "ospa": 4.709327116101088,
+            "gospa": 4.70986978668884,
+            "loc2": 1.1794573818562841,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "old_r_new_space": {
+            "ospa": 4.703052476142187,
+            "gospa": 4.702515069215684,
+            "loc2": 1.174166618574056,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          },
+          "candidate": {
+            "ospa": 4.703052476142187,
+            "gospa": 4.702515069215684,
+            "loc2": 1.174166618574056,
+            "miss2": 22.850299401197606,
+            "false2": 21.12574850299401,
+            "countError": 0.5748502994011976
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2044,
+        "raw_association_weight_values": 6584
+      },
+      "positive_mark_rows": 2478,
+      "globally_checked_pairs": 1215,
+      "domain": {
+        "checked_retained_local_predictions": 2044,
+        "outside_rectangle": 570,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1101
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 1777,
+        "labels": 1654,
+        "joined_source_records": 2650,
+        "joint_labels": 996,
+        "boosted_labels": 140,
+        "negative_boost_labels": 382,
+        "mean_gate": 0.05159094303671041,
+        "mean_negative_gate": 0.16559065909312656,
+        "mean_boost": 0.07570838163303992,
+        "local_gaussian_records": 1325,
+        "packet_gaussian_records": 1325,
+        "gaussian_source_joins": 2650,
+        "corrected_labels": 500,
+        "curvature_rejected_sources": 58,
+        "curvature_rejected_labels": 50,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.018723400693305553,
+        "max_spatial_shift_m": 1.5426036236914946,
+        "mean_log_integral_change": 0.0055225345441483505,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 3.899535025495228,
+            "gospa": 3.489025088703615,
+            "loc2": 0.08613986920847462,
+            "miss2": 22.5,
+            "false2": 11.0,
+            "countError": 0.2847222222222222
+          },
+          "new_r_old_space": {
+            "ospa": 3.899535025495228,
+            "gospa": 3.489025088703615,
+            "loc2": 0.08613986920847462,
+            "miss2": 22.5,
+            "false2": 11.0,
+            "countError": 0.2847222222222222
+          },
+          "old_r_new_space": {
+            "ospa": 3.8980634502131752,
+            "gospa": 3.487524698293617,
+            "loc2": 0.08438455349111458,
+            "miss2": 22.5,
+            "false2": 11.0,
+            "countError": 0.2847222222222222
+          },
+          "candidate": {
+            "ospa": 3.8980634502131752,
+            "gospa": 3.487524698293617,
+            "loc2": 0.08438455349111458,
+            "miss2": 22.5,
+            "false2": 11.0,
+            "countError": 0.2847222222222222
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 1325,
+        "raw_association_weight_values": 3882
+      },
+      "positive_mark_rows": 1777,
+      "globally_checked_pairs": 996,
+      "domain": {
+        "checked_retained_local_predictions": 1325,
+        "outside_rectangle": 336,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 631
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 1771,
+        "labels": 1640,
+        "joined_source_records": 2634,
+        "joint_labels": 994,
+        "boosted_labels": 138,
+        "negative_boost_labels": 388,
+        "mean_gate": 0.05191137578489499,
+        "mean_negative_gate": 0.08700766690478268,
+        "mean_boost": 0.14414472297994874,
+        "local_gaussian_records": 1317,
+        "packet_gaussian_records": 1317,
+        "gaussian_source_joins": 2634,
+        "corrected_labels": 500,
+        "curvature_rejected_sources": 58,
+        "curvature_rejected_labels": 50,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.01392403924452779,
+        "max_spatial_shift_m": 1.5426036236914946,
+        "mean_log_integral_change": 0.007716670043673833,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 3.8751574303464316,
+            "gospa": 3.464677617345378,
+            "loc2": 0.08716313202224311,
+            "miss2": 22.0,
+            "false2": 11.0,
+            "countError": 0.2916666666666667
+          },
+          "new_r_old_space": {
+            "ospa": 3.8751574303464316,
+            "gospa": 3.464677617345378,
+            "loc2": 0.08716313202224311,
+            "miss2": 22.0,
+            "false2": 11.0,
+            "countError": 0.2916666666666667
+          },
+          "old_r_new_space": {
+            "ospa": 3.8736858681464983,
+            "gospa": 3.4631772401076724,
+            "loc2": 0.08540783562335309,
+            "miss2": 22.0,
+            "false2": 11.0,
+            "countError": 0.2916666666666667
+          },
+          "candidate": {
+            "ospa": 3.8736858681464983,
+            "gospa": 3.4631772401076724,
+            "loc2": 0.08540783562335309,
+            "miss2": 22.0,
+            "false2": 11.0,
+            "countError": 0.2916666666666667
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 1317,
+        "raw_association_weight_values": 3871
+      },
+      "positive_mark_rows": 1771,
+      "globally_checked_pairs": 994,
+      "domain": {
+        "checked_retained_local_predictions": 1317,
+        "outside_rectangle": 336,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 625
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 1855,
+        "labels": 1394,
+        "joined_source_records": 2240,
+        "joint_labels": 846,
+        "boosted_labels": 124,
+        "negative_boost_labels": 307,
+        "mean_gate": 0.051091731346065504,
+        "mean_negative_gate": 0.1540604126604499,
+        "mean_boost": 0.11448167064606672,
+        "local_gaussian_records": 1420,
+        "packet_gaussian_records": 1420,
+        "gaussian_source_joins": 2240,
+        "corrected_labels": 416,
+        "curvature_rejected_sources": 39,
+        "curvature_rejected_labels": 34,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.01235053025751926,
+        "max_spatial_shift_m": 1.0357505491466972,
+        "mean_log_integral_change": 0.004948113780709447,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.848101090034887,
+            "gospa": 4.397956851860025,
+            "loc2": 0.12150755739798483,
+            "miss2": 27.692307692307693,
+            "false2": 14.884615384615385,
+            "countError": 0.35096153846153844
+          },
+          "new_r_old_space": {
+            "ospa": 4.848101090034887,
+            "gospa": 4.397956851860025,
+            "loc2": 0.12150755739798483,
+            "miss2": 27.692307692307693,
+            "false2": 14.884615384615385,
+            "countError": 0.35096153846153844
+          },
+          "old_r_new_space": {
+            "ospa": 4.8420386622316425,
+            "gospa": 4.391867402062821,
+            "loc2": 0.11443937918273318,
+            "miss2": 27.692307692307693,
+            "false2": 14.884615384615385,
+            "countError": 0.35096153846153844
+          },
+          "candidate": {
+            "ospa": 4.8420386622316425,
+            "gospa": 4.391867402062821,
+            "loc2": 0.11443937918273318,
+            "miss2": 27.692307692307693,
+            "false2": 14.884615384615385,
+            "countError": 0.35096153846153844
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 1420,
+        "raw_association_weight_values": 3954
+      },
+      "positive_mark_rows": 1855,
+      "globally_checked_pairs": 846,
+      "domain": {
+        "checked_retained_local_predictions": 1420,
+        "outside_rectangle": 371,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 766
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 1859,
+        "labels": 1397,
+        "joined_source_records": 2258,
+        "joint_labels": 861,
+        "boosted_labels": 124,
+        "negative_boost_labels": 314,
+        "mean_gate": 0.05082054754098831,
+        "mean_negative_gate": 0.07985315728629136,
+        "mean_boost": 0.17239564688777265,
+        "local_gaussian_records": 1429,
+        "packet_gaussian_records": 1429,
+        "gaussian_source_joins": 2258,
+        "corrected_labels": 427,
+        "curvature_rejected_sources": 37,
+        "curvature_rejected_labels": 32,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.009235151048623531,
+        "max_spatial_shift_m": 0.5291460294613743,
+        "mean_log_integral_change": 0.005391891433100765,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.814347447055453,
+            "gospa": 4.3642449159898495,
+            "loc2": 0.12292422906166665,
+            "miss2": 27.0,
+            "false2": 14.884615384615385,
+            "countError": 0.3605769230769231
+          },
+          "new_r_old_space": {
+            "ospa": 4.814347447055453,
+            "gospa": 4.3642449159898495,
+            "loc2": 0.12292422906166665,
+            "miss2": 27.0,
+            "false2": 14.884615384615385,
+            "countError": 0.3605769230769231
+          },
+          "old_r_new_space": {
+            "ospa": 4.808285019252198,
+            "gospa": 4.358155466192636,
+            "loc2": 0.11585605084636416,
+            "miss2": 27.0,
+            "false2": 14.884615384615385,
+            "countError": 0.3605769230769231
+          },
+          "candidate": {
+            "ospa": 4.808285019252198,
+            "gospa": 4.358155466192636,
+            "loc2": 0.11585605084636416,
+            "miss2": 27.0,
+            "false2": 14.884615384615385,
+            "countError": 0.3605769230769231
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 1429,
+        "raw_association_weight_values": 3972
+      },
+      "positive_mark_rows": 1859,
+      "globally_checked_pairs": 861,
+      "domain": {
+        "checked_retained_local_predictions": 1429,
+        "outside_rectangle": 371,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 768
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 24064,
+        "labels": 23596,
+        "joined_source_records": 43368,
+        "joint_labels": 19772,
+        "boosted_labels": 3798,
+        "negative_boost_labels": 4586,
+        "mean_gate": 0.0820334009707004,
+        "mean_negative_gate": 0.07121047421699228,
+        "mean_boost": 0.11827725494488966,
+        "local_gaussian_records": 21684,
+        "packet_gaussian_records": 21684,
+        "gaussian_source_joins": 43368,
+        "corrected_labels": 8146,
+        "curvature_rejected_sources": 2112,
+        "curvature_rejected_labels": 1930,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.028117173625649215,
+        "max_spatial_shift_m": 4.270587262287111,
+        "mean_log_integral_change": 0.0007403202208706223,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 6.1966088843393035,
+            "gospa": 15.443301597449347,
+            "loc2": 16.034349685387312,
+            "miss2": 242.54545454545453,
+            "false2": 55.63636363636363,
+            "countError": 3.121212121212121
+          },
+          "new_r_old_space": {
+            "ospa": 6.173338234435544,
+            "gospa": 15.416704399460563,
+            "loc2": 15.886099830559171,
+            "miss2": 240.0,
+            "false2": 56.72727272727273,
+            "countError": 3.0707070707070705
+          },
+          "old_r_new_space": {
+            "ospa": 6.194202100326003,
+            "gospa": 15.437762793458196,
+            "loc2": 15.937817747657189,
+            "miss2": 242.54545454545453,
+            "false2": 55.63636363636363,
+            "countError": 3.121212121212121
+          },
+          "candidate": {
+            "ospa": 6.170938409852165,
+            "gospa": 15.41118549411713,
+            "loc2": 15.787862332023709,
+            "miss2": 240.0,
+            "false2": 56.72727272727273,
+            "countError": 3.0707070707070705
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 21684,
+        "raw_association_weight_values": 176614
+      },
+      "positive_mark_rows": 24064,
+      "globally_checked_pairs": 19772,
+      "domain": {
+        "checked_retained_local_predictions": 21684,
+        "outside_rectangle": 8188,
+        "inside_vehicle_exclusion": 26,
+        "beyond_sensor_range": 14044
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 24826,
+        "labels": 24310,
+        "joined_source_records": 44750,
+        "joint_labels": 20440,
+        "boosted_labels": 3930,
+        "negative_boost_labels": 4660,
+        "mean_gate": 0.08088420037808364,
+        "mean_negative_gate": 0.03744392075410692,
+        "mean_boost": 0.1582025354300069,
+        "local_gaussian_records": 22375,
+        "packet_gaussian_records": 22375,
+        "gaussian_source_joins": 44750,
+        "corrected_labels": 8322,
+        "curvature_rejected_sources": 2100,
+        "curvature_rejected_labels": 1918,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.02109654853318699,
+        "max_spatial_shift_m": 4.27058724737031,
+        "mean_log_integral_change": 0.0028853225386791075,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 6.169664966613181,
+            "gospa": 15.32817171859861,
+            "loc2": 12.022664454167682,
+            "miss2": 243.27272727272728,
+            "false2": 56.0,
+            "countError": 3.1363636363636362
+          },
+          "new_r_old_space": {
+            "ospa": 6.1502496114674745,
+            "gospa": 15.283377050528317,
+            "loc2": 12.05450855855928,
+            "miss2": 241.45454545454547,
+            "false2": 56.0,
+            "countError": 3.111111111111111
+          },
+          "old_r_new_space": {
+            "ospa": 6.167201729437431,
+            "gospa": 15.322406449854562,
+            "loc2": 11.917744804652301,
+            "miss2": 243.27272727272728,
+            "false2": 56.0,
+            "countError": 3.1363636363636362
+          },
+          "candidate": {
+            "ospa": 6.147752636957865,
+            "gospa": 15.277460193692926,
+            "loc2": 11.942046829359667,
+            "miss2": 241.45454545454547,
+            "false2": 56.0,
+            "countError": 3.111111111111111
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 22375,
+        "raw_association_weight_values": 181070
+      },
+      "positive_mark_rows": 24826,
+      "globally_checked_pairs": 20440,
+      "domain": {
+        "checked_retained_local_predictions": 22375,
+        "outside_rectangle": 8400,
+        "inside_vehicle_exclusion": 34,
+        "beyond_sensor_range": 14615
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 20769,
+        "labels": 14140,
+        "joined_source_records": 25624,
+        "joint_labels": 11484,
+        "boosted_labels": 2545,
+        "negative_boost_labels": 2874,
+        "mean_gate": 0.08681073857719492,
+        "mean_negative_gate": 0.08530256177127861,
+        "mean_boost": 0.15746147185918094,
+        "local_gaussian_records": 18571,
+        "packet_gaussian_records": 18571,
+        "gaussian_source_joins": 25624,
+        "corrected_labels": 5337,
+        "curvature_rejected_sources": 1361,
+        "curvature_rejected_labels": 1216,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.027817675804332222,
+        "max_spatial_shift_m": 1.3793336421254674,
+        "mean_log_integral_change": -0.00021295638868659337,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 6.308397259640211,
+            "gospa": 15.135533525193093,
+            "loc2": 5.44554298784149,
+            "miss2": 239.49473684210525,
+            "false2": 57.85263157894737,
+            "countError": 3.0982456140350876
+          },
+          "new_r_old_space": {
+            "ospa": 6.304856780040154,
+            "gospa": 15.261491798146764,
+            "loc2": 5.623784938664841,
+            "miss2": 237.97894736842105,
+            "false2": 61.38947368421053,
+            "countError": 3.042105263157895
+          },
+          "old_r_new_space": {
+            "ospa": 6.307157446187578,
+            "gospa": 15.13181759274861,
+            "loc2": 5.353184942238692,
+            "miss2": 239.49473684210525,
+            "false2": 57.85263157894737,
+            "countError": 3.0982456140350876
+          },
+          "candidate": {
+            "ospa": 6.303603857995104,
+            "gospa": 15.25788689990798,
+            "loc2": 5.53725870728363,
+            "miss2": 237.97894736842105,
+            "false2": 61.38947368421053,
+            "countError": 3.042105263157895
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 18571,
+        "raw_association_weight_values": 152542
+      },
+      "positive_mark_rows": 20769,
+      "globally_checked_pairs": 11484,
+      "domain": {
+        "checked_retained_local_predictions": 18571,
+        "outside_rectangle": 6938,
+        "inside_vehicle_exclusion": 2,
+        "beyond_sensor_range": 11209
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 21367,
+        "labels": 14571,
+        "joined_source_records": 26341,
+        "joint_labels": 11770,
+        "boosted_labels": 2581,
+        "negative_boost_labels": 2881,
+        "mean_gate": 0.08546492453086345,
+        "mean_negative_gate": 0.044337907781812395,
+        "mean_boost": 0.20619530883017792,
+        "local_gaussian_records": 19017,
+        "packet_gaussian_records": 19017,
+        "gaussian_source_joins": 26341,
+        "corrected_labels": 5361,
+        "curvature_rejected_sources": 1358,
+        "curvature_rejected_labels": 1207,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.020207288690368523,
+        "max_spatial_shift_m": 1.6083502277287454,
+        "mean_log_integral_change": 0.002123286300389426,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 6.318765175312035,
+            "gospa": 15.210596660557139,
+            "loc2": 5.467536581295593,
+            "miss2": 238.4842105263158,
+            "false2": 59.873684210526314,
+            "countError": 3.0842105263157893
+          },
+          "new_r_old_space": {
+            "ospa": 6.314315964542938,
+            "gospa": 15.258514003911161,
+            "loc2": 5.396589962868628,
+            "miss2": 236.96842105263158,
+            "false2": 62.4,
+            "countError": 3.042105263157895
+          },
+          "old_r_new_space": {
+            "ospa": 6.3175478455810365,
+            "gospa": 15.207017635021208,
+            "loc2": 5.385056496568574,
+            "miss2": 238.4842105263158,
+            "false2": 59.873684210526314,
+            "countError": 3.0842105263157893
+          },
+          "candidate": {
+            "ospa": 6.313042867062675,
+            "gospa": 15.254781308639496,
+            "loc2": 5.3050321231328015,
+            "miss2": 236.96842105263158,
+            "false2": 62.4,
+            "countError": 3.042105263157895
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 19017,
+        "raw_association_weight_values": 156663
+      },
+      "positive_mark_rows": 21367,
+      "globally_checked_pairs": 11770,
+      "domain": {
+        "checked_retained_local_predictions": 19017,
+        "outside_rectangle": 6404,
+        "inside_vehicle_exclusion": 2,
+        "beyond_sensor_range": 11562
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 38382,
+        "labels": 36832,
+        "joined_source_records": 59274,
+        "joint_labels": 22442,
+        "boosted_labels": 8184,
+        "negative_boost_labels": 11872,
+        "mean_gate": 0.10284878725743099,
+        "mean_negative_gate": 0.16055712415938936,
+        "mean_boost": 0.18004296503964667,
+        "local_gaussian_records": 29637,
+        "packet_gaussian_records": 29637,
+        "gaussian_source_joins": 59274,
+        "corrected_labels": 20598,
+        "curvature_rejected_sources": 6784,
+        "curvature_rejected_labels": 5684,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.031939494784976055,
+        "max_spatial_shift_m": 1.6407030819612272,
+        "mean_log_integral_change": 0.008052876227512842,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.999338165709815,
+            "gospa": 20.58907436533676,
+            "loc2": 60.87007052964236,
+            "miss2": 330.8,
+            "false2": 49.2,
+            "countError": 3.911111111111111
+          },
+          "new_r_old_space": {
+            "ospa": 4.989005765899512,
+            "gospa": 20.582098412814794,
+            "loc2": 61.10015507496114,
+            "miss2": 329.2,
+            "false2": 50.4,
+            "countError": 3.8722222222222222
+          },
+          "old_r_new_space": {
+            "ospa": 4.999549422898647,
+            "gospa": 20.59043538028141,
+            "loc2": 60.940341698026856,
+            "miss2": 330.8,
+            "false2": 49.2,
+            "countError": 3.911111111111111
+          },
+          "candidate": {
+            "ospa": 4.989232775176561,
+            "gospa": 20.58357369604238,
+            "loc2": 61.17639399991218,
+            "miss2": 329.2,
+            "false2": 50.4,
+            "countError": 3.8722222222222222
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 29637,
+        "raw_association_weight_values": 979395
+      },
+      "positive_mark_rows": 38382,
+      "globally_checked_pairs": 22442,
+      "domain": {
+        "checked_retained_local_predictions": 29637,
+        "outside_rectangle": 470,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1182
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 40506,
+        "labels": 38486,
+        "joined_source_records": 61444,
+        "joint_labels": 22958,
+        "boosted_labels": 8484,
+        "negative_boost_labels": 12084,
+        "mean_gate": 0.09924938065908707,
+        "mean_negative_gate": 0.08148603941708674,
+        "mean_boost": 0.3083385956180022,
+        "local_gaussian_records": 30722,
+        "packet_gaussian_records": 30722,
+        "gaussian_source_joins": 61444,
+        "corrected_labels": 21054,
+        "curvature_rejected_sources": 6924,
+        "curvature_rejected_labels": 5764,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.018226172599413837,
+        "max_spatial_shift_m": 1.6258731999723277,
+        "mean_log_integral_change": 0.009139149793577694,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.013372804813917,
+            "gospa": 20.63887125977575,
+            "loc2": 60.7258865416344,
+            "miss2": 333.2,
+            "false2": 49.2,
+            "countError": 3.9444444444444446
+          },
+          "new_r_old_space": {
+            "ospa": 4.995508293855394,
+            "gospa": 20.611581632079076,
+            "loc2": 61.242696048552254,
+            "miss2": 330.4,
+            "false2": 50.4,
+            "countError": 3.888888888888889
+          },
+          "old_r_new_space": {
+            "ospa": 5.0135626595135,
+            "gospa": 20.640096569196707,
+            "loc2": 60.78910591229961,
+            "miss2": 333.2,
+            "false2": 49.2,
+            "countError": 3.9444444444444446
+          },
+          "candidate": {
+            "ospa": 4.995718524326528,
+            "gospa": 20.612943870193163,
+            "loc2": 61.31360842313832,
+            "miss2": 330.4,
+            "false2": 50.4,
+            "countError": 3.888888888888889
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 30722,
+        "raw_association_weight_values": 1033882
+      },
+      "positive_mark_rows": 40506,
+      "globally_checked_pairs": 22958,
+      "domain": {
+        "checked_retained_local_predictions": 30722,
+        "outside_rectangle": 470,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1181
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 39123,
+        "labels": 27359,
+        "joined_source_records": 45537,
+        "joint_labels": 18178,
+        "boosted_labels": 6704,
+        "negative_boost_labels": 9722,
+        "mean_gate": 0.10239961156153167,
+        "mean_negative_gate": 0.1660081568673974,
+        "mean_boost": 0.16157418553513325,
+        "local_gaussian_records": 30870,
+        "packet_gaussian_records": 30870,
+        "gaussian_source_joins": 45537,
+        "corrected_labels": 16718,
+        "curvature_rejected_sources": 5970,
+        "curvature_rejected_labels": 4969,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.0323090626980344,
+        "max_spatial_shift_m": 0.9810284237013925,
+        "mean_log_integral_change": 0.008142546564275382,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.301493457575058,
+            "gospa": 21.78555164269537,
+            "loc2": 58.887620801438736,
+            "miss2": 386.71875,
+            "false2": 49.21875,
+            "countError": 4.6875
+          },
+          "new_r_old_space": {
+            "ospa": 5.29634030884659,
+            "gospa": 21.7969010961588,
+            "loc2": 59.39335943748505,
+            "miss2": 385.3125,
+            "false2": 50.34375,
+            "countError": 4.65234375
+          },
+          "old_r_new_space": {
+            "ospa": 5.30157025630179,
+            "gospa": 21.785985744478545,
+            "loc2": 58.91060394147834,
+            "miss2": 386.71875,
+            "false2": 49.21875,
+            "countError": 4.6875
+          },
+          "candidate": {
+            "ospa": 5.2963967007976365,
+            "gospa": 21.797192010323755,
+            "loc2": 59.409028830101036,
+            "miss2": 385.3125,
+            "false2": 50.34375,
+            "countError": 4.65234375
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 30870,
+        "raw_association_weight_values": 1001260
+      },
+      "positive_mark_rows": 39123,
+      "globally_checked_pairs": 18178,
+      "domain": {
+        "checked_retained_local_predictions": 30870,
+        "outside_rectangle": 352,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1164
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 40571,
+        "labels": 28322,
+        "joined_source_records": 46858,
+        "joint_labels": 18536,
+        "boosted_labels": 6898,
+        "negative_boost_labels": 9844,
+        "mean_gate": 0.0998529177927642,
+        "mean_negative_gate": 0.08517275171831701,
+        "mean_boost": 0.2924879115728242,
+        "local_gaussian_records": 31694,
+        "packet_gaussian_records": 31694,
+        "gaussian_source_joins": 46858,
+        "corrected_labels": 17047,
+        "curvature_rejected_sources": 5968,
+        "curvature_rejected_labels": 4948,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.01878471364006833,
+        "max_spatial_shift_m": 1.0542928653633665,
+        "mean_log_integral_change": 0.009220404009028656,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.304634572881918,
+            "gospa": 21.857287745573178,
+            "loc2": 58.660225711620384,
+            "miss2": 386.15625,
+            "false2": 51.75,
+            "countError": 4.64453125
+          },
+          "new_r_old_space": {
+            "ospa": 5.295052022536744,
+            "gospa": 21.834852191301806,
+            "loc2": 59.35676992498191,
+            "miss2": 383.90625,
+            "false2": 52.03125,
+            "countError": 4.609375
+          },
+          "old_r_new_space": {
+            "ospa": 5.304687210913215,
+            "gospa": 21.857546474931404,
+            "loc2": 58.67576432738895,
+            "miss2": 386.15625,
+            "false2": 51.75,
+            "countError": 4.64453125
+          },
+          "candidate": {
+            "ospa": 5.295080999562789,
+            "gospa": 21.834947008431225,
+            "loc2": 59.362868829954294,
+            "miss2": 383.90625,
+            "false2": 52.03125,
+            "countError": 4.609375
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 31694,
+        "raw_association_weight_values": 1038340
+      },
+      "positive_mark_rows": 40571,
+      "globally_checked_pairs": 18536,
+      "domain": {
+        "checked_retained_local_predictions": 31694,
+        "outside_rectangle": 354,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1143
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 45728,
+        "labels": 45072,
+        "joined_source_records": 86636,
+        "joint_labels": 41564,
+        "boosted_labels": 10556,
+        "negative_boost_labels": 9924,
+        "mean_gate": 0.11971814290504387,
+        "mean_negative_gate": 0.11366541415043328,
+        "mean_boost": 0.3524843368379885,
+        "local_gaussian_records": 43318,
+        "packet_gaussian_records": 43318,
+        "gaussian_source_joins": 86636,
+        "corrected_labels": 19550,
+        "curvature_rejected_sources": 4770,
+        "curvature_rejected_labels": 4296,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.03335608711018756,
+        "max_spatial_shift_m": 3.9946366022414397,
+        "mean_log_integral_change": 0.001040696169497424,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.624905661101667,
+            "gospa": 14.26993452740615,
+            "loc2": 15.69276854835693,
+            "miss2": 133.31612903225806,
+            "false2": 80.8258064516129,
+            "countError": 1.6709677419354838
+          },
+          "new_r_old_space": {
+            "ospa": 4.621143122553135,
+            "gospa": 14.30968069232423,
+            "loc2": 15.879640424763432,
+            "miss2": 131.45806451612904,
+            "false2": 83.84516129032258,
+            "countError": 1.6483870967741936
+          },
+          "old_r_new_space": {
+            "ospa": 4.623788477281713,
+            "gospa": 14.264612652266194,
+            "loc2": 15.562560947763885,
+            "miss2": 133.31612903225806,
+            "false2": 80.8258064516129,
+            "countError": 1.6709677419354838
+          },
+          "candidate": {
+            "ospa": 4.620077248154247,
+            "gospa": 14.30474219041472,
+            "loc2": 15.765368310594967,
+            "miss2": 131.45806451612904,
+            "false2": 83.84516129032258,
+            "countError": 1.6483870967741936
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 43318,
+        "raw_association_weight_values": 591363
+      },
+      "positive_mark_rows": 45728,
+      "globally_checked_pairs": 41564,
+      "domain": {
+        "checked_retained_local_predictions": 43318,
+        "outside_rectangle": 14572,
+        "inside_vehicle_exclusion": 288,
+        "beyond_sensor_range": 25690
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 46428,
+        "labels": 45598,
+        "joined_source_records": 87696,
+        "joint_labels": 42098,
+        "boosted_labels": 10790,
+        "negative_boost_labels": 10166,
+        "mean_gate": 0.12021251397025347,
+        "mean_negative_gate": 0.05945016724191881,
+        "mean_boost": 0.4333047052879736,
+        "local_gaussian_records": 43848,
+        "packet_gaussian_records": 43848,
+        "gaussian_source_joins": 87696,
+        "corrected_labels": 20012,
+        "curvature_rejected_sources": 4932,
+        "curvature_rejected_labels": 4454,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.023860830830036827,
+        "max_spatial_shift_m": 5.763907635622994,
+        "mean_log_integral_change": 0.006088621872334132,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.617719258664981,
+            "gospa": 14.106225837009145,
+            "loc2": 14.576023700990687,
+            "miss2": 134.01290322580644,
+            "false2": 75.01935483870967,
+            "countError": 1.729032258064516
+          },
+          "new_r_old_space": {
+            "ospa": 4.610090921150448,
+            "gospa": 14.120359778831576,
+            "loc2": 14.763193026520815,
+            "miss2": 132.15483870967742,
+            "false2": 77.34193548387097,
+            "countError": 1.7096774193548387
+          },
+          "old_r_new_space": {
+            "ospa": 4.6166088845538615,
+            "gospa": 14.100854379455788,
+            "loc2": 14.452044357776252,
+            "miss2": 134.01290322580644,
+            "false2": 75.01935483870967,
+            "countError": 1.729032258064516
+          },
+          "candidate": {
+            "ospa": 4.609057239652844,
+            "gospa": 14.115526487289,
+            "loc2": 14.65742858941103,
+            "miss2": 132.15483870967742,
+            "false2": 77.34193548387097,
+            "countError": 1.7096774193548387
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 43848,
+        "raw_association_weight_values": 603696
+      },
+      "positive_mark_rows": 46428,
+      "globally_checked_pairs": 42098,
+      "domain": {
+        "checked_retained_local_predictions": 43848,
+        "outside_rectangle": 14874,
+        "inside_vehicle_exclusion": 298,
+        "beyond_sensor_range": 25778
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 46057,
+        "labels": 34021,
+        "joined_source_records": 65041,
+        "joint_labels": 31020,
+        "boosted_labels": 8022,
+        "negative_boost_labels": 7820,
+        "mean_gate": 0.11981300751927249,
+        "mean_negative_gate": 0.11583210695065738,
+        "mean_boost": 0.3451141022203167,
+        "local_gaussian_records": 42513,
+        "packet_gaussian_records": 42513,
+        "gaussian_source_joins": 65041,
+        "corrected_labels": 14986,
+        "curvature_rejected_sources": 3933,
+        "curvature_rejected_labels": 3530,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.03340952984202316,
+        "max_spatial_shift_m": 3.4596332444541433,
+        "mean_log_integral_change": -0.0002119315733008637,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.469755403445016,
+            "gospa": 14.27510931065404,
+            "loc2": 15.118374802172099,
+            "miss2": 139.95505617977528,
+            "false2": 75.88314606741574,
+            "countError": 1.604494382022472
+          },
+          "new_r_old_space": {
+            "ospa": 4.465028607474813,
+            "gospa": 14.26233746780273,
+            "loc2": 15.396566103137099,
+            "miss2": 136.5573033707865,
+            "false2": 78.95730337078652,
+            "countError": 1.6
+          },
+          "old_r_new_space": {
+            "ospa": 4.468583403434661,
+            "gospa": 14.269458527413445,
+            "loc2": 14.96244110472978,
+            "miss2": 139.95505617977528,
+            "false2": 75.88314606741574,
+            "countError": 1.604494382022472
+          },
+          "candidate": {
+            "ospa": 4.4638877675445245,
+            "gospa": 14.25682144624846,
+            "loc2": 15.246686628979964,
+            "miss2": 136.5573033707865,
+            "false2": 78.95730337078652,
+            "countError": 1.6
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 42513,
+        "raw_association_weight_values": 592062
+      },
+      "positive_mark_rows": 46057,
+      "globally_checked_pairs": 31020,
+      "domain": {
+        "checked_retained_local_predictions": 42513,
+        "outside_rectangle": 14940,
+        "inside_vehicle_exclusion": 67,
+        "beyond_sensor_range": 25209
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 46236,
+        "labels": 34074,
+        "joined_source_records": 65130,
+        "joint_labels": 31056,
+        "boosted_labels": 8130,
+        "negative_boost_labels": 7692,
+        "mean_gate": 0.1195321131734933,
+        "mean_negative_gate": 0.06083767451068636,
+        "mean_boost": 0.43396986515056646,
+        "local_gaussian_records": 42586,
+        "packet_gaussian_records": 42586,
+        "gaussian_source_joins": 65130,
+        "corrected_labels": 14978,
+        "curvature_rejected_sources": 3971,
+        "curvature_rejected_labels": 3575,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.023205672028628676,
+        "max_spatial_shift_m": 3.9932674053333077,
+        "mean_log_integral_change": 0.004975775354954243,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 4.489587661719089,
+            "gospa": 14.298811257450819,
+            "loc2": 15.706167846715672,
+            "miss2": 139.30786516853934,
+            "false2": 76.53033707865168,
+            "countError": 1.6089887640449438
+          },
+          "new_r_old_space": {
+            "ospa": 4.486552906269645,
+            "gospa": 14.357433197057933,
+            "loc2": 15.339967562846322,
+            "miss2": 137.85168539325844,
+            "false2": 80.25168539325843,
+            "countError": 1.5730337078651686
+          },
+          "old_r_new_space": {
+            "ospa": 4.488497663020956,
+            "gospa": 14.293562484223616,
+            "loc2": 15.562684974082915,
+            "miss2": 139.30786516853934,
+            "false2": 76.53033707865168,
+            "countError": 1.6089887640449438
+          },
+          "candidate": {
+            "ospa": 4.485440594730539,
+            "gospa": 14.352042166008253,
+            "loc2": 15.191524437794937,
+            "miss2": 137.85168539325844,
+            "false2": 80.25168539325843,
+            "countError": 1.5730337078651686
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 42586,
+        "raw_association_weight_values": 596597
+      },
+      "positive_mark_rows": 46236,
+      "globally_checked_pairs": 31056,
+      "domain": {
+        "checked_retained_local_predictions": 42586,
+        "outside_rectangle": 14996,
+        "inside_vehicle_exclusion": 75,
+        "beyond_sensor_range": 25219
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 24380,
+        "labels": 23486,
+        "joined_source_records": 44402,
+        "joint_labels": 20916,
+        "boosted_labels": 4642,
+        "negative_boost_labels": 6688,
+        "mean_gate": 0.1354021233717866,
+        "mean_negative_gate": 0.140076385519046,
+        "mean_boost": 0.33611385375676883,
+        "local_gaussian_records": 22201,
+        "packet_gaussian_records": 22201,
+        "gaussian_source_joins": 44402,
+        "corrected_labels": 11554,
+        "curvature_rejected_sources": 3108,
+        "curvature_rejected_labels": 2618,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.030347667029538762,
+        "max_spatial_shift_m": 3.9745489090369444,
+        "mean_log_integral_change": 0.010199488269514468,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.631466473639364,
+            "gospa": 10.986110670179087,
+            "loc2": 5.388298148603938,
+            "miss2": 63.71052631578947,
+            "false2": 85.02631578947368,
+            "countError": 1.2171052631578947
+          },
+          "new_r_old_space": {
+            "ospa": 5.6553041077395365,
+            "gospa": 11.042185364011878,
+            "loc2": 5.479071745101315,
+            "miss2": 62.76315789473684,
+            "false2": 86.92105263157895,
+            "countError": 1.2105263157894737
+          },
+          "old_r_new_space": {
+            "ospa": 5.631351411855055,
+            "gospa": 10.985327377876573,
+            "loc2": 5.354439744295758,
+            "miss2": 63.71052631578947,
+            "false2": 85.02631578947368,
+            "countError": 1.2171052631578947
+          },
+          "candidate": {
+            "ospa": 5.655211787485705,
+            "gospa": 11.041386727906715,
+            "loc2": 5.437525297111015,
+            "miss2": 62.76315789473684,
+            "false2": 86.92105263157895,
+            "countError": 1.2105263157894737
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 22201,
+        "raw_association_weight_values": 280762
+      },
+      "positive_mark_rows": 24380,
+      "globally_checked_pairs": 20916,
+      "domain": {
+        "checked_retained_local_predictions": 22201,
+        "outside_rectangle": 6438,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 9691
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 24716,
+        "labels": 23676,
+        "joined_source_records": 44548,
+        "joint_labels": 20872,
+        "boosted_labels": 4400,
+        "negative_boost_labels": 6566,
+        "mean_gate": 0.1264683625965171,
+        "mean_negative_gate": 0.0744381970551626,
+        "mean_boost": 0.4543091131463949,
+        "local_gaussian_records": 22274,
+        "packet_gaussian_records": 22274,
+        "gaussian_source_joins": 44548,
+        "corrected_labels": 11230,
+        "curvature_rejected_sources": 3166,
+        "curvature_rejected_labels": 2714,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.020887520927765038,
+        "max_spatial_shift_m": 4.14646375986411,
+        "mean_log_integral_change": 0.011891562905156604,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.681021875617614,
+            "gospa": 11.044659137047988,
+            "loc2": 2.965431463302556,
+            "miss2": 62.76315789473684,
+            "false2": 87.86842105263158,
+            "countError": 1.2105263157894737
+          },
+          "new_r_old_space": {
+            "ospa": 5.6921003857811,
+            "gospa": 11.07127012121243,
+            "loc2": 2.961706791210306,
+            "miss2": 61.578947368421055,
+            "false2": 89.05263157894737,
+            "countError": 1.2039473684210527
+          },
+          "old_r_new_space": {
+            "ospa": 5.680867569245816,
+            "gospa": 11.043665185441405,
+            "loc2": 2.9215226001845256,
+            "miss2": 62.76315789473684,
+            "false2": 87.86842105263158,
+            "countError": 1.2105263157894737
+          },
+          "candidate": {
+            "ospa": 5.692012538498615,
+            "gospa": 11.07045280594881,
+            "loc2": 2.9204707874915394,
+            "miss2": 61.578947368421055,
+            "false2": 89.05263157894737,
+            "countError": 1.2039473684210527
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 22274,
+        "raw_association_weight_values": 279793
+      },
+      "positive_mark_rows": 24716,
+      "globally_checked_pairs": 20872,
+      "domain": {
+        "checked_retained_local_predictions": 22274,
+        "outside_rectangle": 6622,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 9926
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 24174,
+        "labels": 17942,
+        "joined_source_records": 33662,
+        "joint_labels": 15720,
+        "boosted_labels": 3570,
+        "negative_boost_labels": 5172,
+        "mean_gate": 0.13920439401197549,
+        "mean_negative_gate": 0.14868355103974745,
+        "mean_boost": 0.3468294143648239,
+        "local_gaussian_records": 21586,
+        "packet_gaussian_records": 21586,
+        "gaussian_source_joins": 33662,
+        "corrected_labels": 8868,
+        "curvature_rejected_sources": 2594,
+        "curvature_rejected_labels": 2236,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.032965808340476487,
+        "max_spatial_shift_m": 3.9765350710874277,
+        "mean_log_integral_change": 0.00817368175657643,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.365328386167756,
+            "gospa": 11.124810407929234,
+            "loc2": 2.912497981949379,
+            "miss2": 70.4,
+            "false2": 94.4,
+            "countError": 1.3644444444444443
+          },
+          "new_r_old_space": {
+            "ospa": 5.391896954235469,
+            "gospa": 11.176969181667344,
+            "loc2": 2.9143820193005174,
+            "miss2": 69.76,
+            "false2": 95.68,
+            "countError": 1.3733333333333333
+          },
+          "old_r_new_space": {
+            "ospa": 5.365179651913457,
+            "gospa": 11.123860036859075,
+            "loc2": 2.87246269948207,
+            "miss2": 70.4,
+            "false2": 94.4,
+            "countError": 1.3644444444444443
+          },
+          "candidate": {
+            "ospa": 5.391732940485098,
+            "gospa": 11.175958017463593,
+            "loc2": 2.8713557139363286,
+            "miss2": 69.76,
+            "false2": 95.68,
+            "countError": 1.3733333333333333
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 21586,
+        "raw_association_weight_values": 269768
+      },
+      "positive_mark_rows": 24174,
+      "globally_checked_pairs": 15720,
+      "domain": {
+        "checked_retained_local_predictions": 21586,
+        "outside_rectangle": 6304,
+        "inside_vehicle_exclusion": 1,
+        "beyond_sensor_range": 9418
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 26117,
+        "labels": 19538,
+        "joined_source_records": 36645,
+        "joint_labels": 17107,
+        "boosted_labels": 3653,
+        "negative_boost_labels": 5178,
+        "mean_gate": 0.12446632195486841,
+        "mean_negative_gate": 0.07233839476902651,
+        "mean_boost": 0.4343522519074573,
+        "local_gaussian_records": 23245,
+        "packet_gaussian_records": 23245,
+        "gaussian_source_joins": 36645,
+        "corrected_labels": 9039,
+        "curvature_rejected_sources": 2614,
+        "curvature_rejected_labels": 2244,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.02143482487700631,
+        "max_spatial_shift_m": 3.976525710406548,
+        "mean_log_integral_change": 0.009126484687176363,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.325248624278025,
+            "gospa": 11.052809244118949,
+            "loc2": 2.9740500040823505,
+            "miss2": 68.8,
+            "false2": 92.0,
+            "countError": 1.2333333333333334
+          },
+          "new_r_old_space": {
+            "ospa": 5.339674309914802,
+            "gospa": 11.088689645396292,
+            "loc2": 2.973580329008599,
+            "miss2": 67.04,
+            "false2": 94.08,
+            "countError": 1.2333333333333334
+          },
+          "old_r_new_space": {
+            "ospa": 5.325061308678319,
+            "gospa": 11.051613653078489,
+            "loc2": 2.9260443134980174,
+            "miss2": 68.8,
+            "false2": 92.0,
+            "countError": 1.2333333333333334
+          },
+          "candidate": {
+            "ospa": 5.3394879411089,
+            "gospa": 11.087490998694346,
+            "loc2": 2.9246892700420624,
+            "miss2": 67.04,
+            "false2": 94.08,
+            "countError": 1.2333333333333334
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 23245,
+        "raw_association_weight_values": 298613
+      },
+      "positive_mark_rows": 26117,
+      "globally_checked_pairs": 17107,
+      "domain": {
+        "checked_retained_local_predictions": 23245,
+        "outside_rectangle": 7196,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 10946
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 26641,
+        "labels": 26020,
+        "joined_source_records": 49308,
+        "joint_labels": 23288,
+        "boosted_labels": 7886,
+        "negative_boost_labels": 6750,
+        "mean_gate": 0.13578583425341362,
+        "mean_negative_gate": 0.09699463341456228,
+        "mean_boost": 0.2410316352237764,
+        "local_gaussian_records": 24654,
+        "packet_gaussian_records": 24654,
+        "gaussian_source_joins": 49308,
+        "corrected_labels": 13770,
+        "curvature_rejected_sources": 2062,
+        "curvature_rejected_labels": 1918,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.04317901826982635,
+        "max_spatial_shift_m": 2.810338660950794,
+        "mean_log_integral_change": 0.002833464658438699,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 2.892146666454616,
+            "gospa": 8.95584489716198,
+            "loc2": 12.50274633918588,
+            "miss2": 65.4841628959276,
+            "false2": 43.65610859728507,
+            "countError": 0.9909502262443439
+          },
+          "new_r_old_space": {
+            "ospa": 2.890278048126645,
+            "gospa": 8.945341291931385,
+            "loc2": 12.505311900939406,
+            "miss2": 64.83257918552036,
+            "false2": 43.65610859728507,
+            "countError": 0.9909502262443439
+          },
+          "old_r_new_space": {
+            "ospa": 2.8761834038474627,
+            "gospa": 8.891565760061747,
+            "loc2": 11.493160849478011,
+            "miss2": 65.4841628959276,
+            "false2": 43.65610859728507,
+            "countError": 0.9909502262443439
+          },
+          "candidate": {
+            "ospa": 2.874079009303864,
+            "gospa": 8.87958468295667,
+            "loc2": 11.435543206742242,
+            "miss2": 64.83257918552036,
+            "false2": 43.65610859728507,
+            "countError": 0.9909502262443439
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 24654,
+        "raw_association_weight_values": 269343
+      },
+      "positive_mark_rows": 26641,
+      "globally_checked_pairs": 23288,
+      "domain": {
+        "checked_retained_local_predictions": 24654,
+        "outside_rectangle": 6558,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 14328
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 26985,
+        "labels": 26290,
+        "joined_source_records": 49880,
+        "joint_labels": 23590,
+        "boosted_labels": 7726,
+        "negative_boost_labels": 6794,
+        "mean_gate": 0.13209139772843514,
+        "mean_negative_gate": 0.05271504563147509,
+        "mean_boost": 0.2820428204240435,
+        "local_gaussian_records": 24940,
+        "packet_gaussian_records": 24940,
+        "gaussian_source_joins": 49880,
+        "corrected_labels": 13664,
+        "curvature_rejected_sources": 2050,
+        "curvature_rejected_labels": 1906,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.033736453297529514,
+        "max_spatial_shift_m": 2.974477858180236,
+        "mean_log_integral_change": 0.006795003609956907,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 2.9577638549811485,
+            "gospa": 9.135662945199186,
+            "loc2": 12.364593232697752,
+            "miss2": 63.529411764705884,
+            "false2": 48.542986425339365,
+            "countError": 0.995475113122172
+          },
+          "new_r_old_space": {
+            "ospa": 2.9605540490895113,
+            "gospa": 9.146004250813505,
+            "loc2": 12.233163710168238,
+            "miss2": 63.8552036199095,
+            "false2": 48.542986425339365,
+            "countError": 1.0
+          },
+          "old_r_new_space": {
+            "ospa": 2.9421438504880575,
+            "gospa": 9.072109119080476,
+            "loc2": 11.320797752362255,
+            "miss2": 63.529411764705884,
+            "false2": 48.542986425339365,
+            "countError": 0.995475113122172
+          },
+          "candidate": {
+            "ospa": 2.944984486111282,
+            "gospa": 9.08302352304555,
+            "loc2": 11.206993215462864,
+            "miss2": 63.8552036199095,
+            "false2": 48.542986425339365,
+            "countError": 1.0
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 24940,
+        "raw_association_weight_values": 271477
+      },
+      "positive_mark_rows": 26985,
+      "globally_checked_pairs": 23590,
+      "domain": {
+        "checked_retained_local_predictions": 24940,
+        "outside_rectangle": 6980,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 14661
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 27883,
+        "labels": 16671,
+        "joined_source_records": 31324,
+        "joint_labels": 14653,
+        "boosted_labels": 4820,
+        "negative_boost_labels": 3917,
+        "mean_gate": 0.12741959068971004,
+        "mean_negative_gate": 0.10006590656409764,
+        "mean_boost": 0.2572536130412545,
+        "local_gaussian_records": 25308,
+        "packet_gaussian_records": 25308,
+        "gaussian_source_joins": 31324,
+        "corrected_labels": 8107,
+        "curvature_rejected_sources": 1538,
+        "curvature_rejected_labels": 1427,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.046258331438433865,
+        "max_spatial_shift_m": 2.790790285112878,
+        "mean_log_integral_change": 0.0021747470702018915,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 2.7796594008098547,
+            "gospa": 8.500375050290058,
+            "loc2": 9.878734933861125,
+            "miss2": 69.42857142857143,
+            "false2": 40.675324675324674,
+            "countError": 0.8409090909090909
+          },
+          "new_r_old_space": {
+            "ospa": 2.7778534534412267,
+            "gospa": 8.499325354556357,
+            "loc2": 9.884957357807401,
+            "miss2": 68.72727272727273,
+            "false2": 41.142857142857146,
+            "countError": 0.8376623376623377
+          },
+          "old_r_new_space": {
+            "ospa": 2.760027229419715,
+            "gospa": 8.4260298935574,
+            "loc2": 8.738706199015764,
+            "miss2": 69.42857142857143,
+            "false2": 40.675324675324674,
+            "countError": 0.8409090909090909
+          },
+          "candidate": {
+            "ospa": 2.758143333793991,
+            "gospa": 8.424416278759475,
+            "loc2": 8.725326930740271,
+            "miss2": 68.72727272727273,
+            "false2": 41.142857142857146,
+            "countError": 0.8376623376623377
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 25308,
+        "raw_association_weight_values": 282591
+      },
+      "positive_mark_rows": 27883,
+      "globally_checked_pairs": 14653,
+      "domain": {
+        "checked_retained_local_predictions": 25308,
+        "outside_rectangle": 6669,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 14587
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 28945,
+        "labels": 17505,
+        "joined_source_records": 33006,
+        "joint_labels": 15501,
+        "boosted_labels": 4787,
+        "negative_boost_labels": 4049,
+        "mean_gate": 0.12312922468730216,
+        "mean_negative_gate": 0.05193561529291016,
+        "mean_boost": 0.2862996599414539,
+        "local_gaussian_records": 26369,
+        "packet_gaussian_records": 26369,
+        "gaussian_source_joins": 33006,
+        "corrected_labels": 8182,
+        "curvature_rejected_sources": 1557,
+        "curvature_rejected_labels": 1450,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.035218170155436136,
+        "max_spatial_shift_m": 2.7881327230561728,
+        "mean_log_integral_change": 0.0059919499332646104,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 2.769554276156932,
+            "gospa": 8.495598180395858,
+            "loc2": 11.021684543946863,
+            "miss2": 66.85714285714286,
+            "false2": 41.61038961038961,
+            "countError": 0.8181818181818182
+          },
+          "new_r_old_space": {
+            "ospa": 2.7725882824726997,
+            "gospa": 8.486709741500398,
+            "loc2": 10.885076799427214,
+            "miss2": 66.3896103896104,
+            "false2": 41.61038961038961,
+            "countError": 0.8246753246753247
+          },
+          "old_r_new_space": {
+            "ospa": 2.749411656200973,
+            "gospa": 8.417686413682421,
+            "loc2": 9.753368178918363,
+            "miss2": 66.85714285714286,
+            "false2": 41.61038961038961,
+            "countError": 0.8181818181818182
+          },
+          "candidate": {
+            "ospa": 2.7526161408935184,
+            "gospa": 8.409688576021136,
+            "loc2": 9.650296880758397,
+            "miss2": 66.3896103896104,
+            "false2": 41.61038961038961,
+            "countError": 0.8246753246753247
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 26369,
+        "raw_association_weight_values": 290776
+      },
+      "positive_mark_rows": 28945,
+      "globally_checked_pairs": 15501,
+      "domain": {
+        "checked_retained_local_predictions": 26369,
+        "outside_rectangle": 7541,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 15687
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 35015,
+        "labels": 34334,
+        "joined_source_records": 68102,
+        "joint_labels": 33768,
+        "boosted_labels": 10646,
+        "negative_boost_labels": 10518,
+        "mean_gate": 0.2650980925783192,
+        "mean_negative_gate": 0.2156013520943121,
+        "mean_boost": 0.9974748216266328,
+        "local_gaussian_records": 34051,
+        "packet_gaussian_records": 34051,
+        "gaussian_source_joins": 68102,
+        "corrected_labels": 20670,
+        "curvature_rejected_sources": 2190,
+        "curvature_rejected_labels": 1604,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.034392983106101255,
+        "max_spatial_shift_m": 2.6148598030907184,
+        "mean_log_integral_change": 0.028049626820347028,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 0.8205313062706197,
+            "gospa": 2.6794363063485354,
+            "loc2": 2.585206083416022,
+            "miss2": 6.336,
+            "false2": 8.064,
+            "countError": 0.18933333333333333
+          },
+          "new_r_old_space": {
+            "ospa": 0.8340984673129593,
+            "gospa": 2.7309276475178836,
+            "loc2": 2.845490509084147,
+            "miss2": 5.952,
+            "false2": 9.6,
+            "countError": 0.20533333333333334
+          },
+          "old_r_new_space": {
+            "ospa": 0.8165742890251068,
+            "gospa": 2.6645663282900798,
+            "loc2": 2.5587282271899383,
+            "miss2": 6.336,
+            "false2": 8.064,
+            "countError": 0.18933333333333333
+          },
+          "candidate": {
+            "ospa": 0.8301047814020708,
+            "gospa": 2.715911865546541,
+            "loc2": 2.817421906021425,
+            "miss2": 5.952,
+            "false2": 9.6,
+            "countError": 0.20533333333333334
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 34051,
+        "raw_association_weight_values": 523346
+      },
+      "positive_mark_rows": 35015,
+      "globally_checked_pairs": 33768,
+      "domain": {
+        "checked_retained_local_predictions": 34051,
+        "outside_rectangle": 3182,
+        "inside_vehicle_exclusion": 9142,
+        "beyond_sensor_range": 3945
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 35027,
+        "labels": 34332,
+        "joined_source_records": 68094,
+        "joint_labels": 33762,
+        "boosted_labels": 10648,
+        "negative_boost_labels": 10532,
+        "mean_gate": 0.2651083586381452,
+        "mean_negative_gate": 0.10831902869537097,
+        "mean_boost": 1.2212853291428378,
+        "local_gaussian_records": 34047,
+        "packet_gaussian_records": 34047,
+        "gaussian_source_joins": 68094,
+        "corrected_labels": 20692,
+        "curvature_rejected_sources": 2186,
+        "curvature_rejected_labels": 1608,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.019844081565370247,
+        "max_spatial_shift_m": 2.6148738828970064,
+        "mean_log_integral_change": 0.028686652037512136,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 0.8133352757028791,
+            "gospa": 2.6616944022754985,
+            "loc2": 2.5854086512326293,
+            "miss2": 6.144,
+            "false2": 8.064,
+            "countError": 0.18666666666666668
+          },
+          "new_r_old_space": {
+            "ospa": 0.8340980495164362,
+            "gospa": 2.730926398229968,
+            "loc2": 2.8455084466136036,
+            "miss2": 5.952,
+            "false2": 9.6,
+            "countError": 0.20533333333333334
+          },
+          "old_r_new_space": {
+            "ospa": 0.8093619650433619,
+            "gospa": 2.6467685311968947,
+            "loc2": 2.5589336506826283,
+            "miss2": 6.144,
+            "false2": 8.064,
+            "countError": 0.18666666666666668
+          },
+          "candidate": {
+            "ospa": 0.8301048349385878,
+            "gospa": 2.7159123931336984,
+            "loc2": 2.8174427165451266,
+            "miss2": 5.952,
+            "false2": 9.6,
+            "countError": 0.20533333333333334
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 34047,
+        "raw_association_weight_values": 523524
+      },
+      "positive_mark_rows": 35027,
+      "globally_checked_pairs": 33762,
+      "domain": {
+        "checked_retained_local_predictions": 34047,
+        "outside_rectangle": 3182,
+        "inside_vehicle_exclusion": 9120,
+        "beyond_sensor_range": 3949
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 42832,
+        "labels": 27895,
+        "joined_source_records": 55274,
+        "joint_labels": 27379,
+        "boosted_labels": 7696,
+        "negative_boost_labels": 7637,
+        "mean_gate": 0.23601657333198098,
+        "mean_negative_gate": 0.19186522268302,
+        "mean_boost": 0.8755192922476952,
+        "local_gaussian_records": 39178,
+        "packet_gaussian_records": 39178,
+        "gaussian_source_joins": 55274,
+        "corrected_labels": 14954,
+        "curvature_rejected_sources": 1653,
+        "curvature_rejected_labels": 1203,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.031158387591653163,
+        "max_spatial_shift_m": 2.6148598030907184,
+        "mean_log_integral_change": 0.027244357037404,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 0.9690732357618352,
+            "gospa": 3.0941734311325173,
+            "loc2": 2.6952096898983195,
+            "miss2": 8.8,
+            "false2": 10.666666666666666,
+            "countError": 0.25555555555555554
+          },
+          "new_r_old_space": {
+            "ospa": 0.9878904854507897,
+            "gospa": 3.165600658369777,
+            "loc2": 3.0567682564233194,
+            "miss2": 8.266666666666667,
+            "false2": 12.8,
+            "countError": 0.2777777777777778
+          },
+          "old_r_new_space": {
+            "ospa": 0.9650493671455221,
+            "gospa": 3.079104273583299,
+            "loc2": 2.675134577826901,
+            "miss2": 8.8,
+            "false2": 10.666666666666666,
+            "countError": 0.25555555555555554
+          },
+          "candidate": {
+            "ospa": 0.983817331799316,
+            "gospa": 3.1503345446177686,
+            "loc2": 3.034483771786046,
+            "miss2": 8.266666666666667,
+            "false2": 12.8,
+            "countError": 0.2777777777777778
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 39178,
+        "raw_association_weight_values": 637452
+      },
+      "positive_mark_rows": 42832,
+      "globally_checked_pairs": 27379,
+      "domain": {
+        "checked_retained_local_predictions": 39178,
+        "outside_rectangle": 3660,
+        "inside_vehicle_exclusion": 13638,
+        "beyond_sensor_range": 4464
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 42833,
+        "labels": 27909,
+        "joined_source_records": 55301,
+        "joint_labels": 27392,
+        "boosted_labels": 7696,
+        "negative_boost_labels": 7659,
+        "mean_gate": 0.2359295749878766,
+        "mean_negative_gate": 0.09643148847293699,
+        "mean_boost": 1.0733186531621488,
+        "local_gaussian_records": 39174,
+        "packet_gaussian_records": 39174,
+        "gaussian_source_joins": 55301,
+        "corrected_labels": 14978,
+        "curvature_rejected_sources": 1655,
+        "curvature_rejected_labels": 1209,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.018186613092266168,
+        "max_spatial_shift_m": 2.6148738828970064,
+        "mean_log_integral_change": 0.027789394359486616,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 0.9600351265541947,
+            "gospa": 3.0696884865784635,
+            "loc2": 2.697348159131191,
+            "miss2": 8.533333333333333,
+            "false2": 10.666666666666666,
+            "countError": 0.2518518518518518
+          },
+          "new_r_old_space": {
+            "ospa": 0.978852424199236,
+            "gospa": 3.141115918589397,
+            "loc2": 3.0589087394355174,
+            "miss2": 8.0,
+            "false2": 12.8,
+            "countError": 0.2740740740740741
+          },
+          "old_r_new_space": {
+            "ospa": 0.956004273350167,
+            "gospa": 3.0545928540678946,
+            "loc2": 2.677270165935637,
+            "miss2": 8.533333333333333,
+            "false2": 10.666666666666666,
+            "countError": 0.2518518518518518
+          },
+          "candidate": {
+            "ospa": 0.9747723310943864,
+            "gospa": 3.1258234856988576,
+            "loc2": 3.0366213975416327,
+            "miss2": 8.0,
+            "false2": 12.8,
+            "countError": 0.2740740740740741
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 39174,
+        "raw_association_weight_values": 637475
+      },
+      "positive_mark_rows": 42833,
+      "globally_checked_pairs": 27392,
+      "domain": {
+        "checked_retained_local_predictions": 39174,
+        "outside_rectangle": 3658,
+        "inside_vehicle_exclusion": 13612,
+        "beyond_sensor_range": 4468
+      }
+    },
+    {
+      "sequence": "v2x_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 3116,
+        "labels": 3066,
+        "joined_source_records": 5436,
+        "joint_labels": 2370,
+        "boosted_labels": 460,
+        "negative_boost_labels": 854,
+        "mean_gate": 0.04856729031975067,
+        "mean_negative_gate": 0.11949627854258968,
+        "mean_boost": 0.11067149963987298,
+        "local_gaussian_records": 2718,
+        "packet_gaussian_records": 2718,
+        "gaussian_source_joins": 5436,
+        "corrected_labels": 1574,
+        "curvature_rejected_sources": 186,
+        "curvature_rejected_labels": 186,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.013619986986934536,
+        "max_spatial_shift_m": 0.7154818335873616,
+        "mean_log_integral_change": 0.006058586772934802,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.727683925868725,
+            "gospa": 17.590805689793736,
+            "loc2": 0.14390111473463213,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "new_r_old_space": {
+            "ospa": 9.727683925868725,
+            "gospa": 17.590805689793736,
+            "loc2": 0.14390111473463213,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "old_r_new_space": {
+            "ospa": 9.72757918971906,
+            "gospa": 17.590491931567218,
+            "loc2": 0.13447344146292714,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "candidate": {
+            "ospa": 9.72757918971906,
+            "gospa": 17.590491931567218,
+            "loc2": 0.13447344146292714,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2718,
+        "raw_association_weight_values": 10971
+      },
+      "positive_mark_rows": 3116,
+      "globally_checked_pairs": 2370,
+      "domain": {
+        "checked_retained_local_predictions": 2718,
+        "outside_rectangle": 170,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1536
+      }
+    },
+    {
+      "sequence": "v2x_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 3048,
+        "labels": 2994,
+        "joined_source_records": 5294,
+        "joint_labels": 2300,
+        "boosted_labels": 458,
+        "negative_boost_labels": 868,
+        "mean_gate": 0.04976980690336551,
+        "mean_negative_gate": 0.06294677794508406,
+        "mean_boost": 0.1522111161532056,
+        "local_gaussian_records": 2647,
+        "packet_gaussian_records": 2647,
+        "gaussian_source_joins": 5294,
+        "corrected_labels": 1580,
+        "curvature_rejected_sources": 190,
+        "curvature_rejected_labels": 190,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.00916347290405423,
+        "max_spatial_shift_m": 0.5504218610898343,
+        "mean_log_integral_change": 0.007024743766629488,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.727685412171272,
+            "gospa": 17.590809882156467,
+            "loc2": 0.14400142562618684,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "new_r_old_space": {
+            "ospa": 9.727685412171272,
+            "gospa": 17.590809882156467,
+            "loc2": 0.14400142562618684,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "old_r_new_space": {
+            "ospa": 9.727580344440554,
+            "gospa": 17.590495187826328,
+            "loc2": 0.13455131228148554,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          },
+          "candidate": {
+            "ospa": 9.727580344440554,
+            "gospa": 17.590495187826328,
+            "loc2": 0.13455131228148554,
+            "miss2": 321.2307692307692,
+            "false2": 32.53846153846154,
+            "countError": 4.009615384615385
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2647,
+        "raw_association_weight_values": 10772
+      },
+      "positive_mark_rows": 3048,
+      "globally_checked_pairs": 2300,
+      "domain": {
+        "checked_retained_local_predictions": 2647,
+        "outside_rectangle": 134,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1461
+      }
+    },
+    {
+      "sequence": "v2x_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2948,
+        "labels": 2335,
+        "joined_source_records": 4121,
+        "joint_labels": 1786,
+        "boosted_labels": 361,
+        "negative_boost_labels": 675,
+        "mean_gate": 0.054376254157458184,
+        "mean_negative_gate": 0.11579388188115423,
+        "mean_boost": 0.13114417201243794,
+        "local_gaussian_records": 2548,
+        "packet_gaussian_records": 2548,
+        "gaussian_source_joins": 4121,
+        "corrected_labels": 1281,
+        "curvature_rejected_sources": 147,
+        "curvature_rejected_labels": 147,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.014148046174479467,
+        "max_spatial_shift_m": 0.677657503069172,
+        "mean_log_integral_change": 0.0061667435667725696,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.714145956982971,
+            "gospa": 18.10632501422213,
+            "loc2": 0.15625895324484612,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "new_r_old_space": {
+            "ospa": 9.714145956982971,
+            "gospa": 18.10632501422213,
+            "loc2": 0.15625895324484612,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "old_r_new_space": {
+            "ospa": 9.714015063389146,
+            "gospa": 18.105930540309963,
+            "loc2": 0.14423165822510445,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "candidate": {
+            "ospa": 9.714015063389146,
+            "gospa": 18.105930540309963,
+            "loc2": 0.14423165822510445,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2548,
+        "raw_association_weight_values": 10881
+      },
+      "positive_mark_rows": 2948,
+      "globally_checked_pairs": 1786,
+      "domain": {
+        "checked_retained_local_predictions": 2548,
+        "outside_rectangle": 136,
+        "inside_vehicle_exclusion": 4,
+        "beyond_sensor_range": 1370
+      }
+    },
+    {
+      "sequence": "v2x_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 2966,
+        "labels": 2344,
+        "joined_source_records": 4141,
+        "joint_labels": 1797,
+        "boosted_labels": 361,
+        "negative_boost_labels": 693,
+        "mean_gate": 0.054360443522121445,
+        "mean_negative_gate": 0.05956897232786595,
+        "mean_boost": 0.1647060133078056,
+        "local_gaussian_records": 2561,
+        "packet_gaussian_records": 2561,
+        "gaussian_source_joins": 4141,
+        "corrected_labels": 1284,
+        "curvature_rejected_sources": 155,
+        "curvature_rejected_labels": 155,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.009182753424766958,
+        "max_spatial_shift_m": 0.4290440607332696,
+        "mean_log_integral_change": 0.006535299440720383,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.714148050791296,
+            "gospa": 18.106330935538846,
+            "loc2": 0.15640150991507432,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "new_r_old_space": {
+            "ospa": 9.714148050791296,
+            "gospa": 18.106330935538846,
+            "loc2": 0.15640150991507432,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "old_r_new_space": {
+            "ospa": 9.714016693950795,
+            "gospa": 18.10593515286863,
+            "loc2": 0.14434276147185804,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          },
+          "candidate": {
+            "ospa": 9.714016693950795,
+            "gospa": 18.10593515286863,
+            "loc2": 0.14434276147185804,
+            "miss2": 340.32,
+            "false2": 39.84,
+            "countError": 4.173333333333333
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 2561,
+        "raw_association_weight_values": 10926
+      },
+      "positive_mark_rows": 2966,
+      "globally_checked_pairs": 1797,
+      "domain": {
+        "checked_retained_local_predictions": 2561,
+        "outside_rectangle": 136,
+        "inside_vehicle_exclusion": 4,
+        "beyond_sensor_range": 1382
+      }
+    },
+    {
+      "sequence": "v2x_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 7158,
+        "labels": 6972,
+        "joined_source_records": 12670,
+        "joint_labels": 5698,
+        "boosted_labels": 1372,
+        "negative_boost_labels": 2178,
+        "mean_gate": 0.08337921535649939,
+        "mean_negative_gate": 0.16086465744205802,
+        "mean_boost": 0.11551070926172112,
+        "local_gaussian_records": 6335,
+        "packet_gaussian_records": 6335,
+        "gaussian_source_joins": 12670,
+        "corrected_labels": 4066,
+        "curvature_rejected_sources": 600,
+        "curvature_rejected_labels": 562,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.02396872341535557,
+        "max_spatial_shift_m": 1.3778239738911613,
+        "mean_log_integral_change": -0.005403779516787642,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.7232060736436,
+            "gospa": 26.693669603599176,
+            "loc2": 6.624155444016898,
+            "miss2": 697.4656488549618,
+            "false2": 12.091603053435115,
+            "countError": 9.51908396946565
+          },
+          "new_r_old_space": {
+            "ospa": 9.720157627013949,
+            "gospa": 26.684541028930237,
+            "loc2": 6.625272744156736,
+            "miss2": 696.9160305343512,
+            "false2": 12.091603053435115,
+            "countError": 9.511450381679388
+          },
+          "old_r_new_space": {
+            "ospa": 9.723114809195467,
+            "gospa": 26.693179185117316,
+            "loc2": 6.600468990510076,
+            "miss2": 697.4656488549618,
+            "false2": 12.091603053435115,
+            "countError": 9.51908396946565
+          },
+          "candidate": {
+            "ospa": 9.720066364140344,
+            "gospa": 26.684050619862813,
+            "loc2": 6.601586290649915,
+            "miss2": 696.9160305343512,
+            "false2": 12.091603053435115,
+            "countError": 9.511450381679388
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 6335,
+        "raw_association_weight_values": 44399
+      },
+      "positive_mark_rows": 7158,
+      "globally_checked_pairs": 5698,
+      "domain": {
+        "checked_retained_local_predictions": 6335,
+        "outside_rectangle": 994,
+        "inside_vehicle_exclusion": 98,
+        "beyond_sensor_range": 2463
+      }
+    },
+    {
+      "sequence": "v2x_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 7028,
+        "labels": 6816,
+        "joined_source_records": 12370,
+        "joint_labels": 5554,
+        "boosted_labels": 1352,
+        "negative_boost_labels": 2108,
+        "mean_gate": 0.0857695497923472,
+        "mean_negative_gate": 0.0941354301572016,
+        "mean_boost": 0.22172452729290673,
+        "local_gaussian_records": 6185,
+        "packet_gaussian_records": 6185,
+        "gaussian_source_joins": 12370,
+        "corrected_labels": 3952,
+        "curvature_rejected_sources": 568,
+        "curvature_rejected_labels": 530,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.01677347886444235,
+        "max_spatial_shift_m": 0.9966950395036692,
+        "mean_log_integral_change": 0.001753520173391194,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.684886559515968,
+            "gospa": 26.58613518659969,
+            "loc2": 6.178181047687148,
+            "miss2": 691.9694656488549,
+            "false2": 12.091603053435115,
+            "countError": 9.442748091603054
+          },
+          "new_r_old_space": {
+            "ospa": 9.681636684237525,
+            "gospa": 26.580118329478367,
+            "loc2": 6.443682173827179,
+            "miss2": 691.4198473282443,
+            "false2": 12.091603053435115,
+            "countError": 9.435114503816793
+          },
+          "old_r_new_space": {
+            "ospa": 9.68478598519813,
+            "gospa": 26.585594770936755,
+            "loc2": 6.15218563327002,
+            "miss2": 691.9694656488549,
+            "false2": 12.091603053435115,
+            "countError": 9.442748091603054
+          },
+          "candidate": {
+            "ospa": 9.681539219827133,
+            "gospa": 26.579594599576442,
+            "loc2": 6.418454916348593,
+            "miss2": 691.4198473282443,
+            "false2": 12.091603053435115,
+            "countError": 9.435114503816793
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 6185,
+        "raw_association_weight_values": 43546
+      },
+      "positive_mark_rows": 7028,
+      "globally_checked_pairs": 5554,
+      "domain": {
+        "checked_retained_local_predictions": 6185,
+        "outside_rectangle": 1010,
+        "inside_vehicle_exclusion": 58,
+        "beyond_sensor_range": 2456
+      }
+    },
+    {
+      "sequence": "v2x_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 6879,
+        "labels": 4835,
+        "joined_source_records": 8751,
+        "joint_labels": 3916,
+        "boosted_labels": 960,
+        "negative_boost_labels": 1539,
+        "mean_gate": 0.0902004048974062,
+        "mean_negative_gate": 0.16518249444056204,
+        "mean_boost": 0.12041031907690578,
+        "local_gaussian_records": 5957,
+        "packet_gaussian_records": 5957,
+        "gaussian_source_joins": 8751,
+        "corrected_labels": 2863,
+        "curvature_rejected_sources": 402,
+        "curvature_rejected_labels": 376,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.029026455749042664,
+        "max_spatial_shift_m": 1.2122898904938506,
+        "mean_log_integral_change": -0.007963496696980947,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.638336510934431,
+            "gospa": 26.155670156640543,
+            "loc2": 8.161007908097416,
+            "miss2": 662.4,
+            "false2": 17.05263157894737,
+            "countError": 8.963157894736842
+          },
+          "new_r_old_space": {
+            "ospa": 9.626911871367708,
+            "gospa": 26.15535813321832,
+            "loc2": 8.18201574207849,
+            "miss2": 660.8842105263158,
+            "false2": 18.568421052631578,
+            "countError": 8.921052631578947
+          },
+          "old_r_new_space": {
+            "ospa": 9.638201516074238,
+            "gospa": 26.154948754576242,
+            "loc2": 8.126479222275556,
+            "miss2": 662.4,
+            "false2": 17.05263157894737,
+            "countError": 8.963157894736842
+          },
+          "candidate": {
+            "ospa": 9.626769166723665,
+            "gospa": 26.15459525191775,
+            "loc2": 8.145626689948584,
+            "miss2": 660.8842105263158,
+            "false2": 18.568421052631578,
+            "countError": 8.921052631578947
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 5957,
+        "raw_association_weight_values": 42955
+      },
+      "positive_mark_rows": 6879,
+      "globally_checked_pairs": 3916,
+      "domain": {
+        "checked_retained_local_predictions": 5957,
+        "outside_rectangle": 891,
+        "inside_vehicle_exclusion": 109,
+        "beyond_sensor_range": 2270
+      }
+    },
+    {
+      "sequence": "v2x_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 6670,
+        "labels": 4670,
+        "joined_source_records": 8444,
+        "joint_labels": 3774,
+        "boosted_labels": 959,
+        "negative_boost_labels": 1491,
+        "mean_gate": 0.09059575057697011,
+        "mean_negative_gate": 0.09745252928258516,
+        "mean_boost": 0.2336246111434573,
+        "local_gaussian_records": 5743,
+        "packet_gaussian_records": 5743,
+        "gaussian_source_joins": 8444,
+        "corrected_labels": 2832,
+        "curvature_rejected_sources": 391,
+        "curvature_rejected_labels": 367,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.020674332571421598,
+        "max_spatial_shift_m": 0.9966950395036692,
+        "mean_log_integral_change": 0.0009133750513468663,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.66694912473768,
+            "gospa": 26.218832090495084,
+            "loc2": 6.979692157361204,
+            "miss2": 667.3263157894737,
+            "false2": 16.673684210526314,
+            "countError": 9.036842105263158
+          },
+          "new_r_old_space": {
+            "ospa": 9.656998854101307,
+            "gospa": 26.190549088434462,
+            "loc2": 6.989683533687099,
+            "miss2": 665.8105263157895,
+            "false2": 16.673684210526314,
+            "countError": 9.01578947368421
+          },
+          "old_r_new_space": {
+            "ospa": 9.666823999010802,
+            "gospa": 26.21816357767856,
+            "loc2": 6.947645095664709,
+            "miss2": 667.3263157894737,
+            "false2": 16.673684210526314,
+            "countError": 9.036842105263158
+          },
+          "candidate": {
+            "ospa": 9.6568665310035,
+            "gospa": 26.189837469503896,
+            "loc2": 6.955208757222987,
+            "miss2": 665.8105263157895,
+            "false2": 16.673684210526314,
+            "countError": 9.01578947368421
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 5743,
+        "raw_association_weight_values": 41707
+      },
+      "positive_mark_rows": 6670,
+      "globally_checked_pairs": 3774,
+      "domain": {
+        "checked_retained_local_predictions": 5743,
+        "outside_rectangle": 744,
+        "inside_vehicle_exclusion": 109,
+        "beyond_sensor_range": 2111
+      }
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 7677,
+        "labels": 7472,
+        "joined_source_records": 13660,
+        "joint_labels": 6188,
+        "boosted_labels": 2288,
+        "negative_boost_labels": 2772,
+        "mean_gate": 0.1335523527698335,
+        "mean_negative_gate": 0.17983723294745535,
+        "mean_boost": 0.219374919409556,
+        "local_gaussian_records": 6830,
+        "packet_gaussian_records": 6830,
+        "gaussian_source_joins": 13660,
+        "corrected_labels": 5138,
+        "curvature_rejected_sources": 1584,
+        "curvature_rejected_labels": 1534,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.05723541553969582,
+        "max_spatial_shift_m": 1.6615240592932048,
+        "mean_log_integral_change": -0.03845440328471635,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.19718943990949,
+            "gospa": 24.520808496830494,
+            "loc2": 88.01734394772413,
+            "miss2": 192.85714285714286,
+            "false2": 333.25714285714287,
+            "countError": 3.807142857142857
+          },
+          "new_r_old_space": {
+            "ospa": 9.187603407529512,
+            "gospa": 24.51503653339042,
+            "loc2": 88.06066395742113,
+            "miss2": 191.82857142857142,
+            "false2": 334.2857142857143,
+            "countError": 3.807142857142857
+          },
+          "old_r_new_space": {
+            "ospa": 9.197350369542457,
+            "gospa": 24.52131077709036,
+            "loc2": 89.03361070907343,
+            "miss2": 192.34285714285716,
+            "false2": 332.74285714285713,
+            "countError": 3.807142857142857
+          },
+          "candidate": {
+            "ospa": 9.187778819592605,
+            "gospa": 24.515601967440457,
+            "loc2": 89.07918604702637,
+            "miss2": 191.31428571428572,
+            "false2": 333.77142857142854,
+            "countError": 3.807142857142857
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 6830,
+        "raw_association_weight_values": 63358
+      },
+      "positive_mark_rows": 7677,
+      "globally_checked_pairs": 6188,
+      "domain": {
+        "checked_retained_local_predictions": 6830,
+        "outside_rectangle": 0,
+        "inside_vehicle_exclusion": 837,
+        "beyond_sensor_range": 377
+      }
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 9931,
+        "labels": 9704,
+        "joined_source_records": 15942,
+        "joint_labels": 6238,
+        "boosted_labels": 2192,
+        "negative_boost_labels": 2940,
+        "mean_gate": 0.10908693529729895,
+        "mean_negative_gate": 0.10740252020708674,
+        "mean_boost": 0.21521825262303382,
+        "local_gaussian_records": 7971,
+        "packet_gaussian_records": 7971,
+        "gaussian_source_joins": 15942,
+        "corrected_labels": 5214,
+        "curvature_rejected_sources": 1608,
+        "curvature_rejected_labels": 1560,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.029507059368536183,
+        "max_spatial_shift_m": 1.7286425507508816,
+        "mean_log_integral_change": -0.013962660961475937,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.262036053020184,
+            "gospa": 24.60531641743878,
+            "loc2": 122.58698728334416,
+            "miss2": 195.94285714285715,
+            "false2": 299.8285714285714,
+            "countError": 3.2857142857142856
+          },
+          "new_r_old_space": {
+            "ospa": 9.245286885965813,
+            "gospa": 24.571891317009104,
+            "loc2": 123.25324153781608,
+            "miss2": 193.88571428571427,
+            "false2": 299.8285714285714,
+            "countError": 3.2857142857142856
+          },
+          "old_r_new_space": {
+            "ospa": 9.262206029460215,
+            "gospa": 24.605903080215608,
+            "loc2": 123.6089285203153,
+            "miss2": 195.42857142857142,
+            "false2": 299.3142857142857,
+            "countError": 3.2857142857142856
+          },
+          "candidate": {
+            "ospa": 9.245461782563105,
+            "gospa": 24.572501700113662,
+            "loc2": 124.2756386817169,
+            "miss2": 193.37142857142857,
+            "false2": 299.3142857142857,
+            "countError": 3.2857142857142856
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 7971,
+        "raw_association_weight_values": 82940
+      },
+      "positive_mark_rows": 9931,
+      "globally_checked_pairs": 6238,
+      "domain": {
+        "checked_retained_local_predictions": 7971,
+        "outside_rectangle": 0,
+        "inside_vehicle_exclusion": 841,
+        "beyond_sensor_range": 365
+      }
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 7674,
+        "labels": 5188,
+        "joined_source_records": 9387,
+        "joint_labels": 4199,
+        "boosted_labels": 1560,
+        "negative_boost_labels": 1970,
+        "mean_gate": 0.14212982834174215,
+        "mean_negative_gate": 0.19299677835235685,
+        "mean_boost": 0.2177343585076672,
+        "local_gaussian_records": 6475,
+        "packet_gaussian_records": 6475,
+        "gaussian_source_joins": 9387,
+        "corrected_labels": 3595,
+        "curvature_rejected_sources": 1024,
+        "curvature_rejected_labels": 970,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.05978928320691342,
+        "max_spatial_shift_m": 1.6775580422511678,
+        "mean_log_integral_change": -0.0412788472594933,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.059354951617026,
+            "gospa": 23.73498757794356,
+            "loc2": 66.54350861722047,
+            "miss2": 220.27722772277227,
+            "false2": 288.71287128712873,
+            "countError": 3.386138613861386
+          },
+          "new_r_old_space": {
+            "ospa": 9.031919202143726,
+            "gospa": 23.710486640781085,
+            "loc2": 66.07253619192866,
+            "miss2": 218.13861386138615,
+            "false2": 290.4950495049505,
+            "countError": 3.3613861386138613
+          },
+          "old_r_new_space": {
+            "ospa": 9.059073774172095,
+            "gospa": 23.733961133217214,
+            "loc2": 67.87163103688022,
+            "miss2": 219.56435643564356,
+            "false2": 288.0,
+            "countError": 3.386138613861386
+          },
+          "candidate": {
+            "ospa": 9.031666871139251,
+            "gospa": 23.709536717730693,
+            "loc2": 67.40410297614656,
+            "miss2": 217.4257425742574,
+            "false2": 289.7821782178218,
+            "countError": 3.3613861386138613
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 6475,
+        "raw_association_weight_values": 63781
+      },
+      "positive_mark_rows": 7674,
+      "globally_checked_pairs": 4199,
+      "domain": {
+        "checked_retained_local_predictions": 6475,
+        "outside_rectangle": 0,
+        "inside_vehicle_exclusion": 719,
+        "beyond_sensor_range": 303
+      }
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 8198,
+        "labels": 5584,
+        "joined_source_records": 9782,
+        "joint_labels": 4198,
+        "boosted_labels": 1570,
+        "negative_boost_labels": 2053,
+        "mean_gate": 0.14217738496958826,
+        "mean_negative_gate": 0.13019661968059848,
+        "mean_boost": 0.2827919465455105,
+        "local_gaussian_records": 6713,
+        "packet_gaussian_records": 6713,
+        "gaussian_source_joins": 9782,
+        "corrected_labels": 3689,
+        "curvature_rejected_sources": 1054,
+        "curvature_rejected_labels": 996,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.039785299444804086,
+        "max_spatial_shift_m": 1.2997334845428128,
+        "mean_log_integral_change": -0.019973019218409924,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.043558695787523,
+            "gospa": 23.53025909357983,
+            "loc2": 71.13219150903474,
+            "miss2": 218.13861386138615,
+            "false2": 277.66336633663366,
+            "countError": 3.3514851485148514
+          },
+          "new_r_old_space": {
+            "ospa": 9.026831699153657,
+            "gospa": 23.500837711907742,
+            "loc2": 70.81548363211745,
+            "miss2": 216.7128712871287,
+            "false2": 278.3762376237624,
+            "countError": 3.3415841584158414
+          },
+          "old_r_new_space": {
+            "ospa": 9.043262238896435,
+            "gospa": 23.529226667742645,
+            "loc2": 72.4541590451277,
+            "miss2": 217.4257425742574,
+            "false2": 276.9504950495049,
+            "countError": 3.3514851485148514
+          },
+          "candidate": {
+            "ospa": 9.026555626534494,
+            "gospa": 23.499890020692185,
+            "loc2": 72.14108731826396,
+            "miss2": 216.0,
+            "false2": 277.66336633663366,
+            "countError": 3.3415841584158414
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 6713,
+        "raw_association_weight_values": 68081
+      },
+      "positive_mark_rows": 8198,
+      "globally_checked_pairs": 4198,
+      "domain": {
+        "checked_retained_local_predictions": 6713,
+        "outside_rectangle": 0,
+        "inside_vehicle_exclusion": 550,
+        "beyond_sensor_range": 314
+      }
+    },
+    {
+      "sequence": "v2x_0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 10002,
+        "labels": 9812,
+        "joined_source_records": 17940,
+        "joint_labels": 8128,
+        "boosted_labels": 1546,
+        "negative_boost_labels": 2352,
+        "mean_gate": 0.060344532093059434,
+        "mean_negative_gate": 0.10376794202864138,
+        "mean_boost": 0.04238458419483607,
+        "local_gaussian_records": 8970,
+        "packet_gaussian_records": 8970,
+        "gaussian_source_joins": 17940,
+        "corrected_labels": 3886,
+        "curvature_rejected_sources": 1130,
+        "curvature_rejected_labels": 1006,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.023808745517040077,
+        "max_spatial_shift_m": 2.113853560914637,
+        "mean_log_integral_change": 0.001329753945359765,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 7.822385935033707,
+            "gospa": 17.56541172780756,
+            "loc2": 1.8974667226127346,
+            "miss2": 339.1875,
+            "false2": 31.5,
+            "countError": 4.6796875
+          },
+          "new_r_old_space": {
+            "ospa": 7.796080562353131,
+            "gospa": 17.499608706476696,
+            "loc2": 1.9057991591328667,
+            "miss2": 336.375,
+            "false2": 31.5,
+            "countError": 4.640625
+          },
+          "old_r_new_space": {
+            "ospa": 7.822343353058809,
+            "gospa": 17.564794230366854,
+            "loc2": 1.8719573815905237,
+            "miss2": 339.1875,
+            "false2": 31.5,
+            "countError": 4.6796875
+          },
+          "candidate": {
+            "ospa": 7.796037895208523,
+            "gospa": 17.498991089672373,
+            "loc2": 1.880378818784826,
+            "miss2": 336.375,
+            "false2": 31.5,
+            "countError": 4.640625
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 8970,
+        "raw_association_weight_values": 58980
+      },
+      "positive_mark_rows": 10002,
+      "globally_checked_pairs": 8128,
+      "domain": {
+        "checked_retained_local_predictions": 8970,
+        "outside_rectangle": 3316,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 5210
+      }
+    },
+    {
+      "sequence": "v2x_0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 10048,
+        "labels": 9824,
+        "joined_source_records": 18052,
+        "joint_labels": 8228,
+        "boosted_labels": 1614,
+        "negative_boost_labels": 2386,
+        "mean_gate": 0.06372110838409628,
+        "mean_negative_gate": 0.057839108669864976,
+        "mean_boost": 0.09589944894545815,
+        "local_gaussian_records": 9026,
+        "packet_gaussian_records": 9026,
+        "gaussian_source_joins": 18052,
+        "corrected_labels": 3962,
+        "curvature_rejected_sources": 1160,
+        "curvature_rejected_labels": 1038,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.018683553654935223,
+        "max_spatial_shift_m": 2.235267295694034,
+        "mean_log_integral_change": 0.003665576340344321,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 7.807839498744317,
+            "gospa": 17.542849116020058,
+            "loc2": 1.6303919385924277,
+            "miss2": 334.125,
+            "false2": 33.1875,
+            "countError": 4.6015625
+          },
+          "new_r_old_space": {
+            "ospa": 7.769709590238724,
+            "gospa": 17.43720666504984,
+            "loc2": 2.1079426188385173,
+            "miss2": 329.625,
+            "false2": 32.625,
+            "countError": 4.546875
+          },
+          "old_r_new_space": {
+            "ospa": 7.807693143189873,
+            "gospa": 17.541732702040953,
+            "loc2": 1.5878387389831312,
+            "miss2": 334.125,
+            "false2": 33.1875,
+            "countError": 4.6015625
+          },
+          "candidate": {
+            "ospa": 7.769560518578996,
+            "gospa": 17.436076104130223,
+            "loc2": 2.065348258153361,
+            "miss2": 329.625,
+            "false2": 32.625,
+            "countError": 4.546875
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 9026,
+        "raw_association_weight_values": 59258
+      },
+      "positive_mark_rows": 10048,
+      "globally_checked_pairs": 8228,
+      "domain": {
+        "checked_retained_local_predictions": 9026,
+        "outside_rectangle": 3316,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 5239
+      }
+    },
+    {
+      "sequence": "v2x_0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 10479,
+        "labels": 7235,
+        "joined_source_records": 13288,
+        "joint_labels": 6053,
+        "boosted_labels": 978,
+        "negative_boost_labels": 1664,
+        "mean_gate": 0.05057506737031929,
+        "mean_negative_gate": 0.10161949719082557,
+        "mean_boost": 0.02155258763267242,
+        "local_gaussian_records": 9471,
+        "packet_gaussian_records": 9471,
+        "gaussian_source_joins": 13288,
+        "corrected_labels": 2606,
+        "curvature_rejected_sources": 786,
+        "curvature_rejected_labels": 719,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.02397805557470591,
+        "max_spatial_shift_m": 2.113853560914637,
+        "mean_log_integral_change": -0.0010955504440040918,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 8.132102003529308,
+            "gospa": 17.054550843846997,
+            "loc2": 2.285240475774795,
+            "miss2": 305.03225806451616,
+            "false2": 47.61290322580645,
+            "countError": 4.370967741935484
+          },
+          "new_r_old_space": {
+            "ospa": 8.087873578941585,
+            "gospa": 16.94432298487673,
+            "loc2": 2.297761413612964,
+            "miss2": 300.38709677419354,
+            "false2": 47.61290322580645,
+            "countError": 4.306451612903226
+          },
+          "old_r_new_space": {
+            "ospa": 8.131685561397667,
+            "gospa": 17.053251630959224,
+            "loc2": 2.2538132441691565,
+            "miss2": 305.03225806451616,
+            "false2": 47.61290322580645,
+            "countError": 4.370967741935484
+          },
+          "candidate": {
+            "ospa": 8.087454312227134,
+            "gospa": 16.943009265960477,
+            "loc2": 2.2657077956205796,
+            "miss2": 300.38709677419354,
+            "false2": 47.61290322580645,
+            "countError": 4.306451612903226
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 9471,
+        "raw_association_weight_values": 61813
+      },
+      "positive_mark_rows": 10479,
+      "globally_checked_pairs": 6053,
+      "domain": {
+        "checked_retained_local_predictions": 9471,
+        "outside_rectangle": 3910,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 5716
+      }
+    },
+    {
+      "sequence": "v2x_0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 10727,
+        "labels": 7449,
+        "joined_source_records": 13676,
+        "joint_labels": 6227,
+        "boosted_labels": 995,
+        "negative_boost_labels": 1721,
+        "mean_gate": 0.04998073396922253,
+        "mean_negative_gate": 0.055284044849454275,
+        "mean_boost": 0.06893569657190812,
+        "local_gaussian_records": 9690,
+        "packet_gaussian_records": 9690,
+        "gaussian_source_joins": 13676,
+        "corrected_labels": 2664,
+        "curvature_rejected_sources": 814,
+        "curvature_rejected_labels": 742,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.017199235863995414,
+        "max_spatial_shift_m": 2.235267295694034,
+        "mean_log_integral_change": 0.0013056807681171441,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 7.991562597463557,
+            "gospa": 16.851901339437198,
+            "loc2": 2.278489220997308,
+            "miss2": 300.7741935483871,
+            "false2": 46.064516129032256,
+            "countError": 4.290322580645161
+          },
+          "new_r_old_space": {
+            "ospa": 7.969014616403021,
+            "gospa": 16.79473691295543,
+            "loc2": 2.282735526048451,
+            "miss2": 298.4516129032258,
+            "false2": 46.064516129032256,
+            "countError": 4.258064516129032
+          },
+          "old_r_new_space": {
+            "ospa": 7.991152082683604,
+            "gospa": 16.850610598386613,
+            "loc2": 2.247130148057404,
+            "miss2": 300.7741935483871,
+            "false2": 46.064516129032256,
+            "countError": 4.290322580645161
+          },
+          "candidate": {
+            "ospa": 7.968600831312691,
+            "gospa": 16.79343020919287,
+            "loc2": 2.251305014365711,
+            "miss2": 298.4516129032258,
+            "false2": 46.064516129032256,
+            "countError": 4.258064516129032
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 9690,
+        "raw_association_weight_values": 63375
+      },
+      "positive_mark_rows": 10727,
+      "globally_checked_pairs": 6227,
+      "domain": {
+        "checked_retained_local_predictions": 9690,
+        "outside_rectangle": 4016,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 5854
+      }
+    },
+    {
+      "sequence": "v2x_0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 782,
+        "labels": 750,
+        "joined_source_records": 1226,
+        "joint_labels": 476,
+        "boosted_labels": 52,
+        "negative_boost_labels": 182,
+        "mean_gate": 0.04728124062482495,
+        "mean_negative_gate": 0.07777039178598026,
+        "mean_boost": -0.01137997198417892,
+        "local_gaussian_records": 613,
+        "packet_gaussian_records": 613,
+        "gaussian_source_joins": 1226,
+        "corrected_labels": 222,
+        "curvature_rejected_sources": 20,
+        "curvature_rejected_labels": 20,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.028893663263088808,
+        "max_spatial_shift_m": 2.109969677811835,
+        "mean_log_integral_change": 0.02125777063310963,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.433327064183771,
+            "gospa": 4.817163741208336,
+            "loc2": 0.8110253340057755,
+            "miss2": 49.03448275862069,
+            "false2": 0.0,
+            "countError": 0.6810344827586207
+          },
+          "new_r_old_space": {
+            "ospa": 5.403200820250803,
+            "gospa": 4.7872101443577915,
+            "loc2": 0.8169059486221634,
+            "miss2": 48.41379310344828,
+            "false2": 0.0,
+            "countError": 0.6724137931034483
+          },
+          "old_r_new_space": {
+            "ospa": 5.429222199014663,
+            "gospa": 4.8130143832379435,
+            "loc2": 0.801762633841289,
+            "miss2": 49.03448275862069,
+            "false2": 0.0,
+            "countError": 0.6810344827586207
+          },
+          "candidate": {
+            "ospa": 5.3990053563521005,
+            "gospa": 4.782879903672959,
+            "loc2": 0.8045628550577578,
+            "miss2": 48.41379310344828,
+            "false2": 0.0,
+            "countError": 0.6724137931034483
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 613,
+        "raw_association_weight_values": 579
+      },
+      "positive_mark_rows": 782,
+      "globally_checked_pairs": 476,
+      "domain": {
+        "checked_retained_local_predictions": 613,
+        "outside_rectangle": 78,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 389
+      }
+    },
+    {
+      "sequence": "v2x_0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 772,
+        "labels": 742,
+        "joined_source_records": 1230,
+        "joint_labels": 488,
+        "boosted_labels": 54,
+        "negative_boost_labels": 192,
+        "mean_gate": 0.04802629095513374,
+        "mean_negative_gate": 0.04267038052524693,
+        "mean_boost": 0.007345055325238463,
+        "local_gaussian_records": 615,
+        "packet_gaussian_records": 615,
+        "gaussian_source_joins": 1230,
+        "corrected_labels": 230,
+        "curvature_rejected_sources": 24,
+        "curvature_rejected_labels": 24,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.027916765812173252,
+        "max_spatial_shift_m": 2.1232510058992973,
+        "mean_log_integral_change": 0.021396836255252006,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.433297236408031,
+            "gospa": 4.8171094346509085,
+            "loc2": 0.8098885427183733,
+            "miss2": 49.03448275862069,
+            "false2": 0.0,
+            "countError": 0.6810344827586207
+          },
+          "new_r_old_space": {
+            "ospa": 5.4031711530919235,
+            "gospa": 4.787156158279123,
+            "loc2": 0.8157746217548343,
+            "miss2": 48.41379310344828,
+            "false2": 0.0,
+            "countError": 0.6724137931034483
+          },
+          "old_r_new_space": {
+            "ospa": 5.429159717673515,
+            "gospa": 4.812897706571458,
+            "loc2": 0.7994599083284758,
+            "miss2": 49.03448275862069,
+            "false2": 0.0,
+            "countError": 0.6810344827586207
+          },
+          "candidate": {
+            "ospa": 5.398942918725999,
+            "gospa": 4.782763314338318,
+            "loc2": 0.8022616149557759,
+            "miss2": 48.41379310344828,
+            "false2": 0.0,
+            "countError": 0.6724137931034483
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 615,
+        "raw_association_weight_values": 571
+      },
+      "positive_mark_rows": 772,
+      "globally_checked_pairs": 488,
+      "domain": {
+        "checked_retained_local_predictions": 615,
+        "outside_rectangle": 78,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 387
+      }
+    },
+    {
+      "sequence": "v2x_0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 643,
+        "labels": 521,
+        "joined_source_records": 864,
+        "joint_labels": 343,
+        "boosted_labels": 30,
+        "negative_boost_labels": 147,
+        "mean_gate": 0.04166973355498009,
+        "mean_negative_gate": 0.08733199878935372,
+        "mean_boost": -0.025120765208090843,
+        "local_gaussian_records": 521,
+        "packet_gaussian_records": 521,
+        "gaussian_source_joins": 864,
+        "corrected_labels": 163,
+        "curvature_rejected_sources": 18,
+        "curvature_rejected_labels": 18,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.028590946241999458,
+        "max_spatial_shift_m": 1.925259616107284,
+        "mean_log_integral_change": 0.026021228819549082,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.214590885399171,
+            "gospa": 4.757578911139761,
+            "loc2": 2.7475397010002087,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          },
+          "new_r_old_space": {
+            "ospa": 5.214590885399171,
+            "gospa": 4.757578911139761,
+            "loc2": 2.7475397010002087,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          },
+          "old_r_new_space": {
+            "ospa": 5.214557407331797,
+            "gospa": 4.757504104447577,
+            "loc2": 2.746558495246546,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          },
+          "candidate": {
+            "ospa": 5.214557407331797,
+            "gospa": 4.757504104447577,
+            "loc2": 2.746558495246546,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 521,
+        "raw_association_weight_values": 536
+      },
+      "positive_mark_rows": 643,
+      "globally_checked_pairs": 343,
+      "domain": {
+        "checked_retained_local_predictions": 521,
+        "outside_rectangle": 78,
+        "inside_vehicle_exclusion": 2,
+        "beyond_sensor_range": 321
+      }
+    },
+    {
+      "sequence": "v2x_0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 656,
+        "labels": 529,
+        "joined_source_records": 872,
+        "joint_labels": 343,
+        "boosted_labels": 30,
+        "negative_boost_labels": 145,
+        "mean_gate": 0.041146672768177184,
+        "mean_negative_gate": 0.0463072014862025,
+        "mean_boost": 0.0016223843134458007,
+        "local_gaussian_records": 528,
+        "packet_gaussian_records": 528,
+        "gaussian_source_joins": 872,
+        "corrected_labels": 161,
+        "curvature_rejected_sources": 18,
+        "curvature_rejected_labels": 18,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.02560185411509588,
+        "max_spatial_shift_m": 1.8844065154294685,
+        "mean_log_integral_change": 0.025539207165215322,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 5.2263334935463455,
+            "gospa": 4.7799366188155,
+            "loc2": 3.169590987533714,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          },
+          "new_r_old_space": {
+            "ospa": 5.184362887848738,
+            "gospa": 4.7380877003352895,
+            "loc2": 3.173728613270375,
+            "miss2": 44.83832335329341,
+            "false2": 0.0,
+            "countError": 0.6227544910179641
+          },
+          "old_r_new_space": {
+            "ospa": 5.226288787926739,
+            "gospa": 4.779843368216675,
+            "loc2": 3.1681498116705606,
+            "miss2": 45.70059880239521,
+            "false2": 0.0,
+            "countError": 0.6347305389221557
+          },
+          "candidate": {
+            "ospa": 5.184283741249323,
+            "gospa": 4.737925638466825,
+            "loc2": 3.171117268402314,
+            "miss2": 44.83832335329341,
+            "false2": 0.0,
+            "countError": 0.6227544910179641
+          }
+        }
+      },
+      "direct": {
+        "direct_records": 528,
+        "raw_association_weight_values": 536
+      },
+      "positive_mark_rows": 656,
+      "globally_checked_pairs": 343,
+      "domain": {
+        "checked_retained_local_predictions": 528,
+        "outside_rectangle": 78,
+        "inside_vehicle_exclusion": 2,
+        "beyond_sensor_range": 328
+      }
+    }
+  ],
+  "parity": [],
+  "inputs": {
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0001.log": "c8f54632c35e5e05587962ee5139c759ec84041dd9eb301eacc577088b8fb2f4",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_reliable_marked_gaussian_evidence.json.gz": "7034580d342c0ba5f650cd7ce8b746ecb48d12267ce70bf16499c1db4ea912b1",
+    "trials/icra_miss_history/results/miss_history_screen/0001_reliable_marked_gaussian_evidence_miss_history.json.gz": "67c7186636b2b68651abb5b7f5a074f00de392f709574287df7d375d09a819d0",
+    "trials/icra_miss_history/results/miss_history_screen/0001_reliable_marked_gaussian_evidence_miss_half.json.gz": "3a4b28f76a6f7e40d2cb5fe715def160094abf739c10a5b893b4bea1c9d4fbf5",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_intermittent_marked_gaussian_evidence.json.gz": "b0e040885724ff2030b02792693e187bf37c8e41cd6e61074dc66ded8853720d",
+    "trials/icra_miss_history/results/miss_history_screen/0001_intermittent_marked_gaussian_evidence_miss_history.json.gz": "84888bbc10ba862573d3f7d59a0d61773537fd2dea522e5a3887d289566944ba",
+    "trials/icra_miss_history/results/miss_history_screen/0001_intermittent_marked_gaussian_evidence_miss_half.json.gz": "f43fd081b6384a3529f3f1be73e9ba0679d36cd5270cc53f73a38d7f74779293",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0002.log": "bcf333c24fce380b737c8d35ff415ade6c14281bcc3bbcd7dba374f8776a1015",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_reliable_marked_gaussian_evidence.json.gz": "c09b3d326e309cd581c3f00a0bbe5ffe8faf7a4cdd8f9f4dab6036cd98bf4145",
+    "trials/icra_miss_history/results/miss_history_screen/0002_reliable_marked_gaussian_evidence_miss_history.json.gz": "0c8447b96fa0d03b9cabad479b0ee20b553d56ef914a8248dca72f3e9266dc70",
+    "trials/icra_miss_history/results/miss_history_screen/0002_reliable_marked_gaussian_evidence_miss_half.json.gz": "ebeb85983805773656eeee4256000ede4c25131ec472c3eafd27c6f79f7a6667",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_intermittent_marked_gaussian_evidence.json.gz": "63b8c47f5dd5e214ba2c691e701069abca140f74e980c1a86bbc3b26ba6c7b54",
+    "trials/icra_miss_history/results/miss_history_screen/0002_intermittent_marked_gaussian_evidence_miss_history.json.gz": "431712bd8861e12317837032dac7bf029f2e4d640bbb714ac1f8c4d277208b4c",
+    "trials/icra_miss_history/results/miss_history_screen/0002_intermittent_marked_gaussian_evidence_miss_half.json.gz": "5412228fc1052900e17ef914f3decaa92fbb58fa9740e5d68b85db492e91a748",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0003.log": "3c3d6a00dae651fe1c4d394d29585caf9043d15693b06e4d2bf45906b3676cf9",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_reliable_marked_gaussian_evidence.json.gz": "8754ef530e2a074b3c545ac4395b8d34ff1cf960f8f10e4a7750ab5c67118b50",
+    "trials/icra_miss_history/results/miss_history_screen/0003_reliable_marked_gaussian_evidence_miss_history.json.gz": "4fcf3c4832cad763f3fbaea515d991a393c684fb49ec8a0edf120075ca068e9a",
+    "trials/icra_miss_history/results/miss_history_screen/0003_reliable_marked_gaussian_evidence_miss_half.json.gz": "4c531da4102afcc7e51455c7dd11f4ca7addb7cb64c1f2a29ab9d6b6ce461efa",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_intermittent_marked_gaussian_evidence.json.gz": "158c7bfdbdb32c1672d471f8f36f1f99c71558ec8e42a6d762ff624e6f374c7a",
+    "trials/icra_miss_history/results/miss_history_screen/0003_intermittent_marked_gaussian_evidence_miss_history.json.gz": "107f2d47feb9512abe73aa22dad25e029a2fe218bf4dc0505762279f501e9058",
+    "trials/icra_miss_history/results/miss_history_screen/0003_intermittent_marked_gaussian_evidence_miss_half.json.gz": "c0b56f7c9521b37491604894b1e16bc5f96806a72824863827626a38881dc65f",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0004.log": "a796fa2bfe6557232f32a02756b16830ae05eb8b1c4a7e78ea0755a0108e06df",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_reliable_marked_gaussian_evidence.json.gz": "83e86d8b34a3523135cd06b1f05c343867cc38ccbf59a3ba3421c1e354f85475",
+    "trials/icra_miss_history/results/miss_history_screen/0004_reliable_marked_gaussian_evidence_miss_history.json.gz": "f9948d4532dae3a87fbc86af31759b6f91a95281e75dc6e0846180fea3e3674d",
+    "trials/icra_miss_history/results/miss_history_screen/0004_reliable_marked_gaussian_evidence_miss_half.json.gz": "1a9af6b6eeb41909a8da07387a0197535553560ed740c00a42b473e44619bb96",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_intermittent_marked_gaussian_evidence.json.gz": "33be1ee0485065408f098aa64e602c15349af7a2e1ecf54aa08740de20d24fd7",
+    "trials/icra_miss_history/results/miss_history_screen/0004_intermittent_marked_gaussian_evidence_miss_history.json.gz": "02c501ec184bb20c455f764947b00bc15e773e3eb2ae91ca9fac00e5c1689b4f",
+    "trials/icra_miss_history/results/miss_history_screen/0004_intermittent_marked_gaussian_evidence_miss_half.json.gz": "554bfd2c31e2f36cb79a763c9472186cb92a51a1508ee99d94aeb1bcc90bb0d9",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0005.log": "2b33a5b0e68ba248070dc13ce004d4c421d43d6398c8ec5d4454e9b1bb101c74",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_reliable_marked_gaussian_evidence.json.gz": "9224226ab6fa4baa7637988af7ec281c0991edf7eec3c455b0a0090493b1cf15",
+    "trials/icra_miss_history/results/miss_history_screen/0005_reliable_marked_gaussian_evidence_miss_history.json.gz": "173edd73f4ccb581fe0edeceb022724c6593207df28e3f2629c085432434d379",
+    "trials/icra_miss_history/results/miss_history_screen/0005_reliable_marked_gaussian_evidence_miss_half.json.gz": "48798a841f994c50f124fedb1a7bdada2e735f3efad7735fd779714dc71d8720",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_intermittent_marked_gaussian_evidence.json.gz": "ffa36d2b5df785997932e07db2e8a954aa94c7ddde1a0b57ba2e7d6db0074a92",
+    "trials/icra_miss_history/results/miss_history_screen/0005_intermittent_marked_gaussian_evidence_miss_history.json.gz": "ed2ff8ca308d908e8c35aa477847ff7a160be2afc5a480e0a1fb73bef7ffddf6",
+    "trials/icra_miss_history/results/miss_history_screen/0005_intermittent_marked_gaussian_evidence_miss_half.json.gz": "c3639b33dec4137262efa00bf573026ec3483a4a5e203a3c7495956e21ce946f",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0006.log": "d3a0639bd0ed69c06cfaf6584e597a5a19a1fe7bd0379b67a9860b776f33b940",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107",
+    "trials/icra_miss_history/results/miss_history_screen/0006_reliable_marked_gaussian_evidence_miss_history.json.gz": "859b29a6a1bb295b134cb1ba0573a3b2aa6ae8d78070afd3b2dbfad48bfb0419",
+    "trials/icra_miss_history/results/miss_history_screen/0006_reliable_marked_gaussian_evidence_miss_half.json.gz": "8b69c12c5ed46102cd64c48e869e6ad8bdaf587478fc5288a76bbbd23f30d16b",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd",
+    "trials/icra_miss_history/results/miss_history_screen/0006_intermittent_marked_gaussian_evidence_miss_history.json.gz": "71a57c5d89fdb8a360f444926c01d2f4d0fef29427473e791fdd07656d443d06",
+    "trials/icra_miss_history/results/miss_history_screen/0006_intermittent_marked_gaussian_evidence_miss_half.json.gz": "7fc3f3723a3bdc4e7d5aca63e27e61449a27ee09928cae75e29cb6120d27287b",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0007.log": "26623623f96824a5cc88dd616790c62f964f4a6daf334d3fe4c7645bb107ddc0",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_reliable_marked_gaussian_evidence.json.gz": "fe1532cbd2676ef61e6e60d8a84118e07a7d0140b60e90ef596ba9592bf8c335",
+    "trials/icra_miss_history/results/miss_history_screen/0007_reliable_marked_gaussian_evidence_miss_history.json.gz": "81f6e4a8806a268315f0e24b88ddea9a548867c10d265fec200d412801e50e71",
+    "trials/icra_miss_history/results/miss_history_screen/0007_reliable_marked_gaussian_evidence_miss_half.json.gz": "aa6242052201d677961d62fdff4901525adaf97e0ac3d463acc9c6fbc2e1afe5",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_intermittent_marked_gaussian_evidence.json.gz": "e189b6026939b11382a3b4ac78ae427a289d49cbc7f212b06d95a0e1e108b492",
+    "trials/icra_miss_history/results/miss_history_screen/0007_intermittent_marked_gaussian_evidence_miss_history.json.gz": "b633341d05d6880c48c379e79d824199caec7d7b5f3240ab78c3e23aaab2f3d0",
+    "trials/icra_miss_history/results/miss_history_screen/0007_intermittent_marked_gaussian_evidence_miss_half.json.gz": "5423d0586823782fa761f37af3b148874b7e217c0ccf59aad4ad2cbfe713be59",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/0008.log": "129efd04dd6d8a06bee4121723f962c5ca4dea26d87b34ca47c9e52f18367991",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_reliable_marked_gaussian_evidence.json.gz": "60aeea2185fc8c36ea610f271db9cf0bb00151dc52aed07f8abf0f35475248de",
+    "trials/icra_miss_history/results/miss_history_screen/0008_reliable_marked_gaussian_evidence_miss_history.json.gz": "e6c37c0a9cf80a1b83f451ab8127047132f3eedf77e7d2b9a56f5c119500f8f8",
+    "trials/icra_miss_history/results/miss_history_screen/0008_reliable_marked_gaussian_evidence_miss_half.json.gz": "5e7d40ac88e48b66bd5c530ba982bdc84fa9583fe0946102e25743bb3707a459",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_intermittent_marked_gaussian_evidence.json.gz": "799397494d6b712cdd18095f97c10b581850339e86a87985630efce6551026da",
+    "trials/icra_miss_history/results/miss_history_screen/0008_intermittent_marked_gaussian_evidence_miss_history.json.gz": "481ed840689ec140f9837f23dd422cd9b0a308f142cc27012280f022dccc7c73",
+    "trials/icra_miss_history/results/miss_history_screen/0008_intermittent_marked_gaussian_evidence_miss_half.json.gz": "db182effec74325a3129bba893b216529f4e269df570a9b0ab1f1f25d5aed273",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/v2x_0000.log": "5fcf0fdb4edf6b40a4fe97a01fb30bb945961a694e0e5a639aad2cdc8eb92479",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0000_reliable_marked_gaussian_evidence.json.gz": "a2c10bcbeaa72dbecd81058ed63665dee7a1d64eb7fba206c264e786503fa4cb",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0000_reliable_marked_gaussian_evidence_miss_history.json.gz": "82a8f4feb0e5a65c0f41bb0151ad9d361726158491079391e1a224bf1a8d261b",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0000_reliable_marked_gaussian_evidence_miss_half.json.gz": "cc328286af40d879620ab791619024ff4ae29e8435bb3d11c4b94b4a11cbeb9a",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0000_intermittent_marked_gaussian_evidence.json.gz": "d5317dc1377ca2ce315f7bbb87b45954595a69a360584eb69a9380b185010f1c",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0000_intermittent_marked_gaussian_evidence_miss_history.json.gz": "88c242538bd7fbae3981ba11b5d709a2cc08288ba53231a50e9ea6617732d941",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0000_intermittent_marked_gaussian_evidence_miss_half.json.gz": "9c6e2e24db51afb353ffa927fad1d7331ce9c140eabfa15872788a5b4154fa94",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/v2x_0001.log": "015409e261084e6bbfec9cb2f56d95d3bf1a3a0a396f56e99e1beb825eea56b0",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0001_reliable_marked_gaussian_evidence.json.gz": "d1bc7c7558dbe9b2d237d07858e62e7d35bea1cfa4dd8f55813a281f570eb424",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0001_reliable_marked_gaussian_evidence_miss_history.json.gz": "259f302a3ce071624c484b4b80877b54d8c88f1ec16a858c79c73c7961b39c25",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0001_reliable_marked_gaussian_evidence_miss_half.json.gz": "f62b52a1c36f96adb2328efb052b7580dab95c8ccf49ffa51f85a38311ac8d6a",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0001_intermittent_marked_gaussian_evidence.json.gz": "a2bd811873575eea0770af685d054a7a32ded404ae4a6c9c4c454945259c0d26",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0001_intermittent_marked_gaussian_evidence_miss_history.json.gz": "51d401ab63cf87b6b8ecd244f6b7b676ae868d96d0787bef3ad3b6ed16979e65",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0001_intermittent_marked_gaussian_evidence_miss_half.json.gz": "39ebd35254364f6b347268fd2805ae22a3549a2922d884c7913c5c4ecf1915a0",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/v2x_0002.log": "7438a1e5df08d61ac714397916917e89f280209e32ad2410d5705245c7ca6406",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_gaussian_evidence.json.gz": "9c5b7af70bbf9587e1c92ba2445f5d7e7e88478639ab3fcb15d08e2bb4af1411",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_reliable_marked_gaussian_evidence_miss_history.json.gz": "ff2b3634369dc80c3744192c66719f7f4cc28e361ddf800267b9f6599a8d8be6",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_reliable_marked_gaussian_evidence_miss_half.json.gz": "caa4550c4c0beac2aecd44e87aa6c6fb2f1ffb79144857cf95ae7c99fada6f40",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_intermittent_marked_gaussian_evidence.json.gz": "3ff8de4e5843df9bea8a18245d4a079d7e39ea119da2fc5a3140b6207704b175",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_intermittent_marked_gaussian_evidence_miss_history.json.gz": "efe462f19d2f9a81710a315342907760b55afcd9c65588ee54d8b54c6d6b3920",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_intermittent_marked_gaussian_evidence_miss_half.json.gz": "af9ad658eedd5233243f575407fc74ac52cec4825d309ff2ab0c099aa84ff67b",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/v2x_0003.log": "ad15a601dea13a9a38eb3ef5b5cb24946be0c3856d61033e84716d9e67fcd08b",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0003_reliable_marked_gaussian_evidence.json.gz": "777390b021e1d6a7906b20e8bd2d4a4470a0a3f39c4def3d8d822453a292b718",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0003_reliable_marked_gaussian_evidence_miss_history.json.gz": "84cd4b02c9cba608ab3848e2c270f06136d7765f276a7a0bf90cb80124465b1e",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0003_reliable_marked_gaussian_evidence_miss_half.json.gz": "95dbd7a780320eac4e80b44c9ed5621a24b259ec73fe298361cc47c6d2fc6b85",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0003_intermittent_marked_gaussian_evidence.json.gz": "c2fa48e50320503a01ecd558d0b50b8d8884720ce70cda1bd01134cc06b92fb9",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0003_intermittent_marked_gaussian_evidence_miss_history.json.gz": "e5b13ad0a1e703be1b7c446b4ad27652ca577e0f2f00cc1f3d8736b0e004f424",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0003_intermittent_marked_gaussian_evidence_miss_half.json.gz": "94b7216ea28643f66aac51b227e9c5e750de25e5e7b8111f6bd202ab888b05c5",
+    "RUN/ICRA_MISS_HISTORY/miss_history_screen/v2x_0004.log": "3ccf180e1671b65a6f57bb567992ce695ca30b8c453439f95de04e096073f5bb",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0004_reliable_marked_gaussian_evidence.json.gz": "5b32df997fcca185b314eb55e7a5f232c0bb5b03e4e860dcf2b04a8ab192e643",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0004_reliable_marked_gaussian_evidence_miss_history.json.gz": "d19d2e026cea45fcf38d786abc8c460a291b2dec8afd54a2345f081c1fa1cd85",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0004_reliable_marked_gaussian_evidence_miss_half.json.gz": "06d3c2b790a65cc23397d16276757113ada5696d046b223f4db5bb4e4502b803",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0004_intermittent_marked_gaussian_evidence.json.gz": "85eca704c81ece41e309145aaeca73244a073e12a7dc9be4f801a2f997e9908c",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0004_intermittent_marked_gaussian_evidence_miss_history.json.gz": "c44f49e43b8272cdb3b576e9c6cbe661ace92c7d52384bf53ffa23447a125c05",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0004_intermittent_marked_gaussian_evidence_miss_half.json.gz": "08318c1a1db649d88301b7c2d8157d43f5406d8c764fec8eed994816139ca773"
+  },
+  "audited_robot_frames": 19720,
+  "config_sha256": "17da2f6e6192f0bef12b1b51a8579684ceeaf70a89389e92d5cc99a58be5b25c",
+  "runtime_sha256": "2da59d3b93831c66fd0ae69010c11c663cbe7af209e9fb12266534cea78402b0",
+  "auditor_sha256": {
+    "trials/icra_miss_history/audit_stage_v2.py": "ef91dc7ea621cf6480eba5096ba79c05148e95be9b3e33902dd5e7964a37dddb",
+    "trials/icra_miss_history/audit_stage_v3.py": "03455885d8f4246a6c630357f34c0e9a2c405f1ad29addaf5960ebe2bd2ce9c5",
+    "trials/icra_miss_history/run_stage.py": "b23aa01996898bec164a395af6895ae8e2c3ae45a248eb72fd02967d374145e6",
+    "trials/icra_miss_history/audit_stage.py": "596eef53101245e71c198bd4fe0362a86bedbee62f89da072115863e19426f30",
+    "trials/icra_miss_history/make_runner.py": "ee2ff9ac820a490e7c2b559c78db57d264c1c5f68e28b03d4944a420fed8fa8d",
+    "trials/icra_miss_history/repair_summary_pool.py": "7a1aa4f2edb6f849f677e34adfabd663ee2bde267290dc2dce1cd40a57b934e1",
+    "trials/icra_miss_history/repair_empty_weights_audit.py": "7d01ddd9e51d6ce15f88fb8bc8775544c4d060c1ee2748dcbd735d15e98e8a9f",
+    "trials/icra_miss_history/summarize.py": "f8b804675d3de0d63dc0eebe277d09891bda9284a5a1e61af6cd75ee8729dcbb",
+    "trials/icra_miss_history/history_audit_v2.py": "d439eaf8585cc602f9d06fc330b8950e57c06032aee3eb3a3bda858e5dca65e7",
+    "trials/icra_miss_history/audit_stage_v4.py": "591a4fadb9bd212f34257de8057a5935f18ceff6418c759c3303176c2ca1159f",
+    "trials/icra_miss_history/summarize_v2.py": "8f24621c6d3309ff47bd5342b7c598a4a37a99813a07282e3804f35fcdfa839e",
+    "trials/icra_miss_history/probability_audit.py": "626b2e19f4c218122e4807d866a7472b86fef0bf81f217cfa03b92296d5d0b28",
+    "trials/icra_miss_history/history_audit.py": "fecc282b7f003a727df77334b32cc9bd4e50a74bb3c642271248808157a793eb",
+    "trials/icra_miss_history/register_stage.py": "51b9006da4702ffe1598432a07597a2abe85b42b83f52b69476d292fc4383413",
+    "trials/icra_miss_history/history_audit_v3.py": "580e875d76c32b4ee05ea2ed5348c98243007e2d7e599276df9ea20d0c2f2db5"
+  }
+}

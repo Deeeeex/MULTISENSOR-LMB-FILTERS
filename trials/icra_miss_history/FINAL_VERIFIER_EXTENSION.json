@@ -1,0 +1,9 @@
+{
+  "original_sha256": "8aa29a00c38ed23e3cc465e5f8932de210b28c517dcfa5fa4ac236a5533c129a",
+  "extended_sha256": "f080db8e0aa0979a210868331b93cd2590d84aa15939bff7cac125c90dba9c26",
+  "changes": [
+    "New output path preserves initial verification.",
+    "Also bind final report and independently reproduced post-outcome diagnostic inputs."
+  ],
+  "native_method_unchanged": true
+}

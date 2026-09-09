@@ -1,0 +1,25 @@
+{
+  "report_sha256": "a230b82ac900837d1cbf6a899d0488d8e59f1a1e42ba8c78345c187499d23cfb",
+  "report_build_sha256": "1ef5d4edc7db7b78bce0be9b18074f18245af818c02714ce276952f611ab7ece",
+  "diagnostic_sha256": {
+    "FALSE_SUPPORT_DIAGNOSTIC.json": "62bb83759b721cfcbf90394fd83ab807f133ece17ddf72ff04e1824c099a0296",
+    "FALSE_EXTRA_POLARITY_DIAGNOSTIC.json": "5df26b9e53aa019857e6b6b28db67e05df59879ff153fdc439f8b8b0722401e3",
+    "FALSE_POLARITY_VERIFICATION.json": "d01bc78299d86d24f8e4aa8f3de46e6d7196ed99cb286c82b3492c299c7afa03"
+  },
+  "passed": true,
+  "full": true,
+  "rows": 90,
+  "summaries": 18,
+  "comparisons": 18,
+  "advancement_recomputed": false,
+  "two_condition_mean_deltas": {
+    "v2v_development": 0.012805295086817381,
+    "v2x_val": -0.00923750211183716
+  },
+  "native_files": 64,
+  "audited_robot_frames": 24364,
+  "exact_baseline_recursions": 4,
+  "protected_files_checked": 1613,
+  "selection_sha256": "30f772d0419e644125a828b2cf7d1222b8be1c8aa778208f7f3e9e2ff4c06f95",
+  "verifier_sha256": "f080db8e0aa0979a210868331b93cd2590d84aa15939bff7cac125c90dba9c26"
+}

@@ -1,0 +1,708 @@
+{
+  "passed": true,
+  "preflight_only": true,
+  "rows": [
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 147,
+      "ospa": 2.0540325088014852,
+      "gospa": 2.4366771750925214,
+      "loc2": 0.19032083902876012,
+      "miss2": 13.714285714285714,
+      "false2": 5.387755102040816,
+      "countError": 0.23809523809523808,
+      "raw_bytes": 1001696,
+      "delivered_raw_bytes": 1001696,
+      "wire_bytes": 4854528,
+      "runtime_s": 3.2467515833333334,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 147,
+      "ospa": 2.054032824829016,
+      "gospa": 2.436677622534812,
+      "loc2": 0.19032104947578685,
+      "miss2": 13.714285714285714,
+      "false2": 5.387755102040816,
+      "countError": 0.23809523809523808,
+      "raw_bytes": 1002752,
+      "delivered_raw_bytes": 1002752,
+      "wire_bytes": 4854528,
+      "runtime_s": 2.064484875,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 147,
+      "ospa": 2.0540326268697244,
+      "gospa": 2.4366773427626147,
+      "loc2": 0.19032064808739602,
+      "miss2": 13.714285714285714,
+      "false2": 5.387755102040816,
+      "countError": 0.23809523809523808,
+      "raw_bytes": 1004512,
+      "delivered_raw_bytes": 1004512,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.659995,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 147,
+      "ospa": 2.298442285887365,
+      "gospa": 2.848733695505098,
+      "loc2": 1.2760828103021666,
+      "miss2": 13.959183673469388,
+      "false2": 6.122448979591836,
+      "countError": 0.25170068027210885,
+      "raw_bytes": 1016128,
+      "delivered_raw_bytes": 754400,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.659776875,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 147,
+      "ospa": 2.298442752297914,
+      "gospa": 2.8487343727613594,
+      "loc2": 1.2760835910866393,
+      "miss2": 13.959183673469388,
+      "false2": 6.122448979591836,
+      "countError": 0.25170068027210885,
+      "raw_bytes": 1014720,
+      "delivered_raw_bytes": 752992,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.3901479583333334,
+      "reused": false
+    },
+    {
+      "sequence": "0000",
+      "dataset": "v2v_development",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 147,
+      "ospa": 2.298442839077698,
+      "gospa": 2.8487345099245216,
+      "loc2": 1.2760837943968926,
+      "miss2": 13.959183673469388,
+      "false2": 6.122448979591836,
+      "countError": 0.25170068027210885,
+      "raw_bytes": 1017888,
+      "delivered_raw_bytes": 756160,
+      "wire_bytes": 4854528,
+      "runtime_s": 1.4241948333333334,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 240,
+      "ospa": 8.750048563381354,
+      "gospa": 25.35252026215347,
+      "loc2": 22.59616116684202,
+      "miss2": 484.5,
+      "false2": 142.8,
+      "countError": 4.745833333333334,
+      "raw_bytes": 14532896,
+      "delivered_raw_bytes": 14532896,
+      "wire_bytes": 18853888,
+      "runtime_s": 202.190281125,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 240,
+      "ospa": 8.414683244564436,
+      "gospa": 24.610359782807905,
+      "loc2": 21.796311460178934,
+      "miss2": 448.8,
+      "false2": 142.2,
+      "countError": 4.258333333333334,
+      "raw_bytes": 10294464,
+      "delivered_raw_bytes": 10294464,
+      "wire_bytes": 14544896,
+      "runtime_s": 51.94606091666667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 240,
+      "ospa": 8.577842836544374,
+      "gospa": 24.97328953188079,
+      "loc2": 21.99496502821506,
+      "miss2": 467.4,
+      "false2": 142.2,
+      "countError": 4.516666666666667,
+      "raw_bytes": 13843680,
+      "delivered_raw_bytes": 13843680,
+      "wire_bytes": 18247680,
+      "runtime_s": 142.57521620833333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 240,
+      "ospa": 8.65398169218026,
+      "gospa": 25.055786637608364,
+      "loc2": 20.84003835463535,
+      "miss2": 474.9,
+      "false2": 139.5,
+      "countError": 4.658333333333333,
+      "raw_bytes": 19951584,
+      "delivered_raw_bytes": 14535840,
+      "wire_bytes": 24424448,
+      "runtime_s": 325.65231554166667,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "frames": 240,
+      "ospa": 8.392131952931358,
+      "gospa": 24.47990339547054,
+      "loc2": 20.39090453034408,
+      "miss2": 448.95,
+      "false2": 138.6,
+      "countError": 4.310416666666667,
+      "raw_bytes": 8170848,
+      "delivered_raw_bytes": 6920672,
+      "wire_bytes": 12742656,
+      "runtime_s": 46.05008470833333,
+      "reused": false
+    },
+    {
+      "sequence": "v2xt_0001",
+      "dataset": "v2x_test_mechanism",
+      "recording": "2023-04-03",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "frames": 240,
+      "ospa": 8.473851340461088,
+      "gospa": 24.67090651719924,
+      "loc2": 20.224289742481567,
+      "miss2": 457.35,
+      "false2": 139.35,
+      "countError": 4.416666666666667,
+      "raw_bytes": 16887776,
+      "delivered_raw_bytes": 12485440,
+      "wire_bytes": 21016576,
+      "runtime_s": 245.91721354166665,
+      "reused": false
+    }
+  ],
+  "summaries": [
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.0540325088014852,
+        "gospa": 2.4366771750925214,
+        "loc2": 0.19032083902876012,
+        "miss2": 13.714285714285714,
+        "false2": 5.387755102040816,
+        "countError": 0.23809523809523808
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.054032824829016,
+        "gospa": 2.436677622534812,
+        "loc2": 0.19032104947578685,
+        "miss2": 13.714285714285714,
+        "false2": 5.387755102040816,
+        "countError": 0.23809523809523808
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.0540326268697244,
+        "gospa": 2.4366773427626147,
+        "loc2": 0.19032064808739602,
+        "miss2": 13.714285714285714,
+        "false2": 5.387755102040816,
+        "countError": 0.23809523809523808
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.298442285887365,
+        "gospa": 2.848733695505098,
+        "loc2": 1.2760828103021666,
+        "miss2": 13.959183673469388,
+        "false2": 6.122448979591836,
+        "countError": 0.25170068027210885
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.298442752297914,
+        "gospa": 2.8487343727613594,
+        "loc2": 1.2760835910866393,
+        "miss2": 13.959183673469388,
+        "false2": 6.122448979591836,
+        "countError": 0.25170068027210885
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 2.298442839077698,
+        "gospa": 2.8487345099245216,
+        "loc2": 1.2760837943968926,
+        "miss2": 13.959183673469388,
+        "false2": 6.122448979591836,
+        "countError": 0.25170068027210885
+      },
+      "wire_bytes": 4854528
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.750048563381354,
+        "gospa": 25.35252026215347,
+        "loc2": 22.59616116684202,
+        "miss2": 484.5,
+        "false2": 142.8,
+        "countError": 4.745833333333334
+      },
+      "wire_bytes": 18853888
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.414683244564436,
+        "gospa": 24.610359782807905,
+        "loc2": 21.796311460178934,
+        "miss2": 448.8,
+        "false2": 142.2,
+        "countError": 4.258333333333334
+      },
+      "wire_bytes": 14544896
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.577842836544374,
+        "gospa": 24.97328953188079,
+        "loc2": 21.99496502821506,
+        "miss2": 467.4,
+        "false2": 142.2,
+        "countError": 4.516666666666667
+      },
+      "wire_bytes": 18247680
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.65398169218026,
+        "gospa": 25.055786637608364,
+        "loc2": 20.84003835463535,
+        "miss2": 474.9,
+        "false2": 139.5,
+        "countError": 4.658333333333333
+      },
+      "wire_bytes": 24424448
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.392131952931358,
+        "gospa": 24.47990339547054,
+        "loc2": 20.39090453034408,
+        "miss2": 448.95,
+        "false2": 138.6,
+        "countError": 4.310416666666667
+      },
+      "wire_bytes": 12742656
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "sequences": 1,
+      "sequence_macro": {
+        "ospa": 8.473851340461088,
+        "gospa": 24.67090651719924,
+        "loc2": 20.224289742481567,
+        "miss2": 457.35,
+        "false2": 139.35,
+        "countError": 4.416666666666667
+      },
+      "wire_bytes": 21016576
+    }
+  ],
+  "comparisons": [
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 3.160275308111693e-07,
+      "sequence_deltas": {
+        "0000": 3.160275308111693e-07
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_half",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 1.1806823918547593e-07,
+      "sequence_deltas": {
+        "0000": 1.1806823918547593e-07
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence_miss_half",
+      "mean_delta": 1.9795929162569337e-07,
+      "sequence_deltas": {
+        "0000": 1.9795929162569337e-07
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 4.6641054884943856e-07,
+      "sequence_deltas": {
+        "0000": 4.6641054884943856e-07
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_half",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": 5.531903330968646e-07,
+      "sequence_deltas": {
+        "0000": 5.531903330968646e-07
+      },
+      "improved": 0,
+      "worsened": 1
+    },
+    {
+      "dataset": "v2v_development",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence_miss_half",
+      "mean_delta": -8.677978424742605e-08,
+      "sequence_deltas": {
+        "0000": -8.677978424742605e-08
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.3353653188169172,
+      "sequence_deltas": {
+        "v2xt_0001": -0.3353653188169172
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_half",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.17220572683697988,
+      "sequence_deltas": {
+        "v2xt_0001": -0.17220572683697988
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence_miss_half",
+      "mean_delta": -0.16315959197993735,
+      "sequence_deltas": {
+        "v2xt_0001": -0.16315959197993735
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.26184973924890187,
+      "sequence_deltas": {
+        "v2xt_0001": -0.26184973924890187
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_half",
+      "reference": "marked_gaussian_evidence",
+      "mean_delta": -0.18013035171917124,
+      "sequence_deltas": {
+        "v2xt_0001": -0.18013035171917124
+      },
+      "improved": 1,
+      "worsened": 0
+    },
+    {
+      "dataset": "v2x_test_mechanism",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence_miss_history",
+      "reference": "marked_gaussian_evidence_miss_half",
+      "mean_delta": -0.08171938752973062,
+      "sequence_deltas": {
+        "v2xt_0001": -0.08171938752973062
+      },
+      "improved": 1,
+      "worsened": 0
+    }
+  ],
+  "mechanism": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "detected_target_robot_frames_53_122": 0,
+      "noage_only_target_robot_frames_53_122": 140,
+      "frame53_robot1_r": [
+        0.261401544575907
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "fused",
+          "components": 271,
+          "max_r": 0.002008524811978818
+        },
+        {
+          "robot": 2,
+          "pool": "fused",
+          "components": 271,
+          "max_r": 0.002008524811978818
+        }
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "detected_target_robot_frames_53_122": 140,
+      "noage_only_target_robot_frames_53_122": 0,
+      "frame53_robot1_r": [
+        0.9185191816856866
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "fused",
+          "components": 1,
+          "max_r": 0.8707573142875445
+        },
+        {
+          "robot": 2,
+          "pool": "fused",
+          "components": 1,
+          "max_r": 0.8707573142875445
+        }
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "detected_target_robot_frames_53_122": 42,
+      "noage_only_target_robot_frames_53_122": 98,
+      "frame53_robot1_r": [
+        0.9066798837914515
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "fused",
+          "components": 244,
+          "max_r": 0.002111660171449432
+        },
+        {
+          "robot": 2,
+          "pool": "fused",
+          "components": 244,
+          "max_r": 0.002111660171449432
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "detected_target_robot_frames_53_122": 18,
+      "noage_only_target_robot_frames_53_122": 97,
+      "frame53_robot1_r": [
+        0.7134126408553801
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "local",
+          "components": 211,
+          "max_r": 0.005104715060555434
+        },
+        {
+          "robot": 2,
+          "pool": "local",
+          "components": 0,
+          "max_r": 0.0
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "detected_target_robot_frames_53_122": 114,
+      "noage_only_target_robot_frames_53_122": 1,
+      "frame53_robot1_r": [
+        0.9643016616025841
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "local",
+          "components": 2,
+          "max_r": 0.9956243144053918
+        },
+        {
+          "robot": 2,
+          "pool": "local",
+          "components": 0,
+          "max_r": 0.0
+        }
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "detected_target_robot_frames_53_122": 68,
+      "noage_only_target_robot_frames_53_122": 47,
+      "frame53_robot1_r": [
+        0.969345459468226
+      ],
+      "frame119_fragmentation": [
+        {
+          "robot": 1,
+          "pool": "local",
+          "components": 163,
+          "max_r": 0.006825993260914777
+        },
+        {
+          "robot": 2,
+          "pool": "local",
+          "components": 0,
+          "max_r": 0.0
+        }
+      ]
+    }
+  ],
+  "advance": null,
+  "inputs": {
+    "trials/icra_miss_history/audit_miss_history_preflight.json": "d2202498beaad67a40cb1cc4ec77ea45240e044498eaed4a25a1d447d2cbcde1"
+  },
+  "source_sha256": "8f24621c6d3309ff47bd5342b7c598a4a37a99813a07282e3804f35fcdfa839e",
+  "exposure": "All inputs exposed; no new generalization claim"
+}

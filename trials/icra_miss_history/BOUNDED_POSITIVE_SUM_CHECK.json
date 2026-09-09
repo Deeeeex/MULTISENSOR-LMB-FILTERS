@@ -1,0 +1,22 @@
+{
+  "reason": "The preflight passed, but NumPy emitted divide/overflow/invalid warnings at the bounded positive-mark matrix product. Independently check finite [0,1] factors and their elementwise sums without relying on the BLAS matrix product. The warning source is not asserted.",
+  "changes": [
+    {
+      "source": "history_audit_v2.py",
+      "source_sha256": "d439eaf8585cc602f9d06fc330b8950e57c06032aee3eb3a3bda858e5dca65e7",
+      "destination": "history_audit_v3.py",
+      "destination_sha256": "580e875d76c32b4ee05ea2ed5348c98243007e2d7e599276df9ea20d0c2f2db5",
+      "before": "            expected=np.clip(weights[:,1:]@marks,0,1)*rows[:,7]",
+      "after": "            assert np.isfinite(marks).all() and ((marks>=0)&(marks<=1)).all()\n            assert np.isfinite(weights).all() and ((weights>=0)&(weights<=1)).all()\n            positive=np.sum(weights[:,1:]*marks,axis=1)\n            assert np.isfinite(positive).all() and ((positive>=0)&(positive<=1+1e-12)).all()\n            expected=np.clip(positive,0,1)*rows[:,7]"
+    },
+    {
+      "source": "audit_stage_v3.py",
+      "source_sha256": "03455885d8f4246a6c630357f34c0e9a2c405f1ad29addaf5960ebe2bd2ce9c5",
+      "destination": "audit_stage_v4.py",
+      "destination_sha256": "591a4fadb9bd212f34257de8057a5935f18ceff6418c759c3303176c2ca1159f",
+      "before": "from history_audit_v2 import audit_positive_marks,audit_matching",
+      "after": "from history_audit_v3 import audit_positive_marks,audit_matching"
+    }
+  ],
+  "algorithm_or_selection_changed": false
+}

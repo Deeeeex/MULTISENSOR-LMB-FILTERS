@@ -1,0 +1,22 @@
+{
+  "reason": "The intermittent blackout includes frame 119. A diagnostic count must use the saved local pool on undelivered frames rather than the absent fusion log.",
+  "original": "summarize.py",
+  "original_sha256": "f8b804675d3de0d63dc0eebe277d09891bda9284a5a1e61af6cd75ee8729dcbb",
+  "repaired": "summarize_v2.py",
+  "repaired_sha256": "8f24621c6d3309ff47bd5342b7c598a4a37a99813a07282e3804f35fcdfa839e",
+  "replacements": [
+    [
+      "            records=np.asarray(run['iterationRecords'],float).reshape(-1,60)",
+      "            records=np.asarray(run['iterationRecords'],float).reshape(-1,60)\n            local=np.asarray(run['localGaussianRecords'],float).reshape(-1,32)\n            increments={tuple(row[:4].astype(int)):row for row in np.asarray(run['localIncrementRecords'],float).reshape(-1,12)}\n            delivery=np.asarray(data['delivered'],bool)"
+    ],
+    [
+      "                    z=records[(records[:,0]==t)&(records[:,1]==n)]",
+      "                    z=records[(records[:,0]==t)&(records[:,1]==n)]\n                    pool='fused'\n                    if not delivery[n-1,2-n,t-1]:\n                        assert not len(z)\n                        current=local[(local[:,0]==t)&(local[:,1]==n)]\n                        z=np.zeros((len(current),60));z[:,:4]=current[:,:4];z[:,4:6]=current[:,18:20]\n                        z[:,9]=[increments[tuple(row[:4].astype(int))][5] for row in current]\n                        pool='local'"
+    ],
+    [
+      "fragment.append(dict(robot=n,components=len(nearby),max_r=float(max(nearby[:,9],default=0.))))",
+      "fragment.append(dict(robot=n,pool=pool,components=len(nearby),max_r=float(max(nearby[:,9],default=0.))))"
+    ]
+  ],
+  "algorithm_or_selection_changed": false
+}

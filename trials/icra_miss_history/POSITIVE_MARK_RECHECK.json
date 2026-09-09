@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "local_updates": 3251
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "local_updates": 3253
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "local_updates": 3257
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "local_updates": 3321
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "local_updates": 3315
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "local_updates": 3329
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "local_updates": 68949
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "local_updates": 47085
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "local_updates": 65227
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "local_updates": 87140
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "local_updates": 35889
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "local_updates": 73280
+    }
+  ],
+  "inputs": {
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence.json.gz": "961c9846a988fc3934037f26997adcddb6f6297d675ae03b16c5297e7e90599f",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence_miss_history.json.gz": "bdc0ba130ed28e02b25c983581a663abcb82251c284cc9b85198cd44d591adec",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence_miss_half.json.gz": "44e846109562cda08887465bad02f704d2a7497ebaec8ab1638c181e5092248f",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence.json.gz": "4e1e9d20b22fae488d6210d891bd6334e08cceccfca72eb4d8c19484043d9b38",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence_miss_history.json.gz": "d17e9c6d088d70a24971fb7a75121daa4327c8a5775180426cea9692ff20fb60",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence_miss_half.json.gz": "e3ff8d5a3c4230d18cd0d8a9b5cf519e38ba7f0c32980d077078da3366da10ba",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "d2f7b18cf7cfb828e2894d4e13b88b2fc19744de68109dd82ac99ac35f3d8f05",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_reliable_marked_gaussian_evidence_miss_history.json.gz": "a7876b31eb4ba403dc40908c02adfa4ec5dbf744956dcba6cbe05091fb31d903",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_reliable_marked_gaussian_evidence_miss_half.json.gz": "18caba6a66b68b2e14ba8ccba066a6f10002327e9a77ff9739cd0c885f14c4ba",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "167480f795f586e32d1d2e5e1ae1ac01ac74cf4e3af39f767f6c8901765d6408",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_miss_history.json.gz": "3c93748d89a51c36c5da6fa2be139c0446cc13f0d4fb7a91aef273b018d3400b",
+    "trials/icra_miss_history/results/miss_history_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_miss_half.json.gz": "11fb24c608f1999fc9941a377b5734e544ab7dcc26af8f16c17e50ee84240c49"
+  },
+  "local_updates": 397296,
+  "config_sha256": "9822cf12096a9a567c47a0c7cfbf9e9e4482e99b1b5d8a2e708c01c6fe54fb16",
+  "auditor_sha256": "580e875d76c32b4ee05ea2ed5348c98243007e2d7e599276df9ea20d0c2f2db5"
+}

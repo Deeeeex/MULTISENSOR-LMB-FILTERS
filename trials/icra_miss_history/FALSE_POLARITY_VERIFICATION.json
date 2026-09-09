@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "rows": 352,
+  "cases": 4,
+  "exact_saved_result_reproduced": true,
+  "inputs": {
+    "trials/icra_miss_history/results/miss_history_screen/0006_reliable_marked_gaussian_evidence_miss_history.json.gz": "859b29a6a1bb295b134cb1ba0573a3b2aa6ae8d78070afd3b2dbfad48bfb0419",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107",
+    "trials/icra_miss_history/results/miss_history_screen/0006_intermittent_marked_gaussian_evidence_miss_history.json.gz": "71a57c5d89fdb8a360f444926c01d2f4d0fef29427473e791fdd07656d443d06",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_reliable_marked_gaussian_evidence_miss_history.json.gz": "ff2b3634369dc80c3744192c66719f7f4cc28e361ddf800267b9f6599a8d8be6",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_gaussian_evidence.json.gz": "9c5b7af70bbf9587e1c92ba2445f5d7e7e88478639ab3fcb15d08e2bb4af1411",
+    "trials/icra_miss_history/results/miss_history_screen/v2x_0002_intermittent_marked_gaussian_evidence_miss_history.json.gz": "efe462f19d2f9a81710a315342907760b55afcd9c65588ee54d8b54c6d6b3920",
+    "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_intermittent_marked_gaussian_evidence.json.gz": "3ff8de4e5843df9bea8a18245d4a079d7e39ea119da2fc5a3140b6207704b175",
+    "trials/icra_miss_history/FALSE_SUPPORT_DIAGNOSTIC.json": "62bb83759b721cfcbf90394fd83ab807f133ece17ddf72ff04e1824c099a0296",
+    "trials/icra_miss_history/FALSE_EXTRA_POLARITY_DIAGNOSTIC.json": "5df26b9e53aa019857e6b6b28db67e05df59879ff153fdc439f8b8b0722401e3"
+  },
+  "source_sha256": "cd73fd28cd099bb0025d387f07bdaef13f4bafe706453caf56d2e0d73acf7733",
+  "scope": "Post-outcome fixed visited inputs; no candidate recursion or selection change."
+}

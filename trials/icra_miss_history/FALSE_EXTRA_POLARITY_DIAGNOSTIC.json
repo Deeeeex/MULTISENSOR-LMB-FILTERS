@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "scope": "Same visited history-candidate inputs; original admitted negative contribution reconstructed by undoing the positive history factor. No recursive performance claim.",
+  "rows": [
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "rows": 52,
+      "already_positive_extra": 4,
+      "zero_positive_extra": 40,
+      "positive_over_nominal_negative_quantiles": [
+        0.0,
+        3.36008066262829e-31,
+        1.5410760209186675e-26,
+        5.702689826468231e-11,
+        1.3459798985249045
+      ]
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "rows": 59,
+      "already_positive_extra": 0,
+      "zero_positive_extra": 48,
+      "positive_over_nominal_negative_quantiles": [
+        0.0,
+        4.385930477080881e-96,
+        8.760040431855169e-28,
+        6.040910442301634e-19,
+        0.49170398517843694
+      ]
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "reliable",
+      "rows": 134,
+      "already_positive_extra": 40,
+      "zero_positive_extra": 0,
+      "positive_over_nominal_negative_quantiles": [
+        0.48467915869035266,
+        0.8394134561363873,
+        0.910107531716329,
+        1.0311308994858701,
+        1.1576453101732733
+      ]
+    },
+    {
+      "sequence": "v2x_0002",
+      "condition": "intermittent",
+      "rows": 107,
+      "already_positive_extra": 27,
+      "zero_positive_extra": 19,
+      "positive_over_nominal_negative_quantiles": [
+        1.33622715729946e-85,
+        0.7258782833152579,
+        0.8766421573324252,
+        0.9952988235789639,
+        1.157703853802259
+      ]
+    }
+  ]
+}

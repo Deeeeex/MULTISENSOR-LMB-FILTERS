@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "native_unit": {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 6,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_miss_history');runMissHistoryReplay('trials/icra_miss_history/stages/miss_history_preflight.json',1);"
+    ]
+  },
+  "checks": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "exact_reference_fields": [
+        "arm",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "weightChangeL1",
+        "matchedLabels",
+        "observableAbsences",
+        "packetBytes",
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "packetGaussianRecords",
+        "localAssociationWeights",
+        "localDirectRecords",
+        "iterationRecords",
+        "maximumBernoulliCount",
+        "totalWireBytes"
+      ],
+      "positive_rows": 3251,
+      "pairs": 2428,
+      "ospa": 2.0540325088014852
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "exact_reference_fields": [],
+      "positive_rows": 3253,
+      "pairs": 2432,
+      "ospa": 2.054032824829016
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "exact_reference_fields": [],
+      "positive_rows": 3257,
+      "pairs": 2438,
+      "ospa": 2.0540326268697244
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "exact_reference_fields": [
+        "arm",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "weightChangeL1",
+        "matchedLabels",
+        "observableAbsences",
+        "packetBytes",
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "packetGaussianRecords",
+        "localAssociationWeights",
+        "localDirectRecords",
+        "iterationRecords",
+        "maximumBernoulliCount",
+        "totalWireBytes"
+      ],
+      "positive_rows": 3321,
+      "pairs": 1838,
+      "ospa": 2.298442285887365
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_history",
+      "exact_reference_fields": [],
+      "positive_rows": 3315,
+      "pairs": 1836,
+      "ospa": 2.298442752297914
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_miss_half",
+      "exact_reference_fields": [],
+      "positive_rows": 3329,
+      "pairs": 1842,
+      "ospa": 2.298442839077698
+    }
+  ],
+  "inputs": {
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence.json.gz": "961c9846a988fc3934037f26997adcddb6f6297d675ae03b16c5297e7e90599f",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence_miss_history.json.gz": "bdc0ba130ed28e02b25c983581a663abcb82251c284cc9b85198cd44d591adec",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_reliable_marked_gaussian_evidence_miss_half.json.gz": "44e846109562cda08887465bad02f704d2a7497ebaec8ab1638c181e5092248f",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_intermittent_marked_gaussian_evidence.json.gz": "28133b5772015a009615b785320a3f77964e8bb9c63059fb19270be271ea3022",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence.json.gz": "4e1e9d20b22fae488d6210d891bd6334e08cceccfca72eb4d8c19484043d9b38",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence_miss_history.json.gz": "d17e9c6d088d70a24971fb7a75121daa4327c8a5775180426cea9692ff20fb60",
+    "trials/icra_miss_history/results/miss_history_preflight/0000_intermittent_marked_gaussian_evidence_miss_half.json.gz": "e3ff8d5a3c4230d18cd0d8a9b5cf519e38ba7f0c32980d077078da3366da10ba"
+  },
+  "config_sha256": "9822cf12096a9a567c47a0c7cfbf9e9e4482e99b1b5d8a2e708c01c6fe54fb16"
+}

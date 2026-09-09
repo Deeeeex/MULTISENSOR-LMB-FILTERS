@@ -1,0 +1,27 @@
+{
+  "failure": "TypeError: dict() got multiple values for keyword argument 'wire_bytes'",
+  "reason": "The existing score_run already returns wire_bytes; remove duplicate keywords and explicitly validate that field against native totalWireBytes.",
+  "source": "audit_stage_v2.py",
+  "source_sha256": "ef91dc7ea621cf6480eba5096ba79c05148e95be9b3e33902dd5e7964a37dddb",
+  "destination": "audit_stage_v3.py",
+  "destination_sha256": "03455885d8f4246a6c630357f34c0e9a2c405f1ad29addaf5960ebe2bd2ce9c5",
+  "replacements": [
+    [
+      "**value,wire_bytes=old['totalWireBytes'],reused=True)",
+      "**value,reused=True)"
+    ],
+    [
+      "**value,wire_bytes=run['totalWireBytes'],reused=False)",
+      "**value,reused=False)"
+    ],
+    [
+      "                value,_=score_run(old_data,old)\n",
+      "                value,_=score_run(old_data,old)\n                assert value['wire_bytes']==old['totalWireBytes']\n"
+    ],
+    [
+      "                value,_=score_run(data,run)\n",
+      "                value,_=score_run(data,run)\n                assert value['wire_bytes']==run['totalWireBytes']\n"
+    ]
+  ],
+  "algorithm_or_selection_changed": false
+}

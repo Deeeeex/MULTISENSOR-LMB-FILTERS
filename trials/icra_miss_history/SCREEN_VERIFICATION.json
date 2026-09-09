@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "full": true,
+  "rows": 90,
+  "summaries": 18,
+  "comparisons": 18,
+  "advancement_recomputed": false,
+  "two_condition_mean_deltas": {
+    "v2v_development": 0.012805295086817381,
+    "v2x_val": -0.00923750211183716
+  },
+  "native_files": 64,
+  "audited_robot_frames": 24364,
+  "exact_baseline_recursions": 4,
+  "protected_files_checked": 1613,
+  "selection_sha256": "30f772d0419e644125a828b2cf7d1222b8be1c8aa778208f7f3e9e2ff4c06f95",
+  "verifier_sha256": "8aa29a00c38ed23e3cc465e5f8932de210b28c517dcfa5fa4ac236a5533c129a"
+}
