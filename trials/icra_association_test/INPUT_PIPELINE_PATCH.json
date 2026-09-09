@@ -1,0 +1,65 @@
+{
+  "files": [
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/input_adapter.py",
+      "source_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+      "destination": "input_adapter.py",
+      "destination_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+      "replacements": []
+    },
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/check_adapter.py",
+      "source_sha256": "e41b50de251cba8abc36e291bf479789b31ddad23e661475a538d1ca197f31ef",
+      "destination": "check_adapter.py",
+      "destination_sha256": "e41b50de251cba8abc36e291bf479789b31ddad23e661475a538d1ca197f31ef",
+      "replacements": []
+    },
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/prepare_inputs.py",
+      "source_sha256": "d29b7f38f765be8b47727dc5ee190aeee8330dcf6b2ae38e34f6a0c10d3707a0",
+      "destination": "prepare_inputs.py",
+      "destination_sha256": "d29b7f38f765be8b47727dc5ee190aeee8330dcf6b2ae38e34f6a0c10d3707a0",
+      "replacements": []
+    },
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/audit_inputs.py",
+      "source_sha256": "97a304abfadeebf5db13039f9fff56bc5d63ee04c025c04ee090711e2ac0f9df",
+      "destination": "audit_inputs.py",
+      "destination_sha256": "97a304abfadeebf5db13039f9fff56bc5d63ee04c025c04ee090711e2ac0f9df",
+      "replacements": []
+    },
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/infer_transfer.py",
+      "source_sha256": "1a30572bb133aa5a40b1f7a49b911b21a53a6efaa6f0e1dbf86c48fe8a0c7d11",
+      "destination": "infer_transfer.py",
+      "destination_sha256": "111799d6ac5f48f50c21721876cf97e8782518be93d1ea9eb438ac8775fa591b",
+      "replacements": [
+        {
+          "before": "619, 'paired frames'",
+          "after": "2172, 'paired frames'"
+        }
+      ]
+    },
+    {
+      "source": "/Users/dex/Desktop/Code/icra27/trials/icra_v2x_transfer/freeze_inference.py",
+      "source_sha256": "2f8e358764ad699a2fdcc15d92d7b0f2bf63594d97abcd3659c430835ab30d82",
+      "destination": "freeze_inference.py",
+      "destination_sha256": "34daa4807d835642e36d1e7e7313de970b605df8c0ee3291d89879d9de359f0a",
+      "replacements": [
+        {
+          "before": "'check_adapter.py', 'ADAPTER_CHECK.json', 'ADAPTER_NOTES.md',\n                              'SHARED_ANNOTATION_DIAGNOSTIC.json'",
+          "after": "'check_adapter.py', 'ADAPTER_CHECK.json', 'INPUT_PIPELINE_PATCH.json', 'fetch_inputs.py',\n                              'prepare_inputs.py', 'audit_inputs.py'"
+        },
+        {
+          "before": "paths += [old.OUT / 'official_input_adapter.py']",
+          "after": "paths += [old.OUT / 'official_input_adapter.py', OUT.parent / 'icra_v2x_transfer/ADAPTER_NOTES.md',\n              OUT.parent / 'icra_v2x_transfer/SHARED_ANNOTATION_DIAGNOSTIC.json']"
+        },
+        {
+          "before": "paired_frames=619",
+          "after": "paired_frames=2172"
+        }
+      ]
+    }
+  ],
+  "generator_sha256": "d282d4b561840bb1b8b656b5c9f45e82ee85acc10ac6dc355a6143566850b030"
+}

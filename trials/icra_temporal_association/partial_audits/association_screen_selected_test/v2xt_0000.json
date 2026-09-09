@@ -1,0 +1,954 @@
+{
+  "passed": true,
+  "stage": "association_screen_selected_test",
+  "rows": [
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 119,
+      "ospa": 9.42579655620401,
+      "gospa": 13.993958055503734,
+      "loc2": 0.0625916932481278,
+      "miss2": 140.9747899159664,
+      "false2": 58.6890756302521,
+      "countError": 1.2941176470588236,
+      "raw_bytes": 996032,
+      "delivered_raw_bytes": 996032,
+      "wire_bytes": 3929856,
+      "runtime_s": 3.302784625
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "frames": 119,
+      "ospa": 9.831510688130782,
+      "gospa": 14.369833993545084,
+      "loc2": 0.04619249977061457,
+      "miss2": 153.68067226890756,
+      "false2": 57.47899159663866,
+      "countError": 1.5378151260504203,
+      "raw_bytes": 1366688,
+      "delivered_raw_bytes": 1366688,
+      "wire_bytes": 3929856,
+      "runtime_s": 2.4890575833333335
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 119,
+      "ospa": 9.879611548847873,
+      "gospa": 14.32351146324753,
+      "loc2": 0.04699376597832201,
+      "miss2": 156.10084033613447,
+      "false2": 53.84873949579832,
+      "countError": 1.588235294117647,
+      "raw_bytes": 1443424,
+      "delivered_raw_bytes": 1443424,
+      "wire_bytes": 3929856,
+      "runtime_s": 2.275762041666667
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_quality_nis",
+      "frames": 119,
+      "ospa": 9.831510688130782,
+      "gospa": 14.369833993545084,
+      "loc2": 0.04619249977061457,
+      "miss2": 153.68067226890756,
+      "false2": 57.47899159663866,
+      "countError": 1.5378151260504203,
+      "raw_bytes": 1613792,
+      "delivered_raw_bytes": 1613792,
+      "wire_bytes": 3929856,
+      "runtime_s": 2.4600630416666665
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis",
+      "frames": 119,
+      "ospa": 9.879611548847873,
+      "gospa": 14.32351146324753,
+      "loc2": 0.04699376597832201,
+      "miss2": 156.10084033613447,
+      "false2": 53.84873949579832,
+      "countError": 1.588235294117647,
+      "raw_bytes": 1704480,
+      "delivered_raw_bytes": 1704480,
+      "wire_bytes": 3929856,
+      "runtime_s": 2.292537708333333
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 119,
+      "ospa": 9.48171457805793,
+      "gospa": 13.8297728354557,
+      "loc2": 0.07364824432504934,
+      "miss2": 134.01680672268907,
+      "false2": 61.714285714285715,
+      "countError": 1.5336134453781514,
+      "raw_bytes": 1013528,
+      "delivered_raw_bytes": 705312,
+      "wire_bytes": 3929856,
+      "runtime_s": 1.8303069583333333
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "frames": 119,
+      "ospa": 9.767813108407944,
+      "gospa": 14.510593214741162,
+      "loc2": 0.06717486369124508,
+      "miss2": 142.18487394957984,
+      "false2": 73.81512605042016,
+      "countError": 1.6050420168067228,
+      "raw_bytes": 1110432,
+      "delivered_raw_bytes": 804512,
+      "wire_bytes": 3929856,
+      "runtime_s": 1.4172087083333333
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "frames": 119,
+      "ospa": 9.751643459586624,
+      "gospa": 14.43118222125044,
+      "loc2": 0.06887819290069516,
+      "miss2": 141.88235294117646,
+      "false2": 71.69747899159664,
+      "countError": 1.6134453781512605,
+      "raw_bytes": 1157248,
+      "delivered_raw_bytes": 820352,
+      "wire_bytes": 3929856,
+      "runtime_s": 1.3891472916666667
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_quality_nis",
+      "frames": 119,
+      "ospa": 9.767813108407944,
+      "gospa": 14.510593214741162,
+      "loc2": 0.06717486369124508,
+      "miss2": 142.18487394957984,
+      "false2": 73.81512605042016,
+      "countError": 1.6050420168067228,
+      "raw_bytes": 1310944,
+      "delivered_raw_bytes": 949792,
+      "wire_bytes": 3929856,
+      "runtime_s": 1.5442544583333333
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis",
+      "frames": 119,
+      "ospa": 9.751643459586624,
+      "gospa": 14.43118222125044,
+      "loc2": 0.06887819290069516,
+      "miss2": 141.88235294117646,
+      "false2": 71.69747899159664,
+      "countError": 1.6134453781512605,
+      "raw_bytes": 1366272,
+      "delivered_raw_bytes": 968512,
+      "wire_bytes": 3929856,
+      "runtime_s": 1.4827079166666666
+    }
+  ],
+  "diagnostics": [
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "current_observation": {
+        "direct_records": 4576,
+        "raw_association_weight_values": 22252
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 5508,
+        "positive_age_labels": 1416,
+        "support_above_noage": 0,
+        "constrained_below_er": 1412,
+        "preserved_above_cr": 1348,
+        "same_input": {
+          "no_age": {
+            "ospa": 9.42579655620401,
+            "gospa": 13.993958055503734,
+            "loc2": 0.0625916932481278,
+            "miss2": 140.9747899159664,
+            "false2": 58.6890756302521,
+            "countError": 1.2941176470588236
+          },
+          "ER": {
+            "ospa": 9.45784640565426,
+            "gospa": 14.167434697959369,
+            "loc2": 0.0625916932481278,
+            "miss2": 140.9747899159664,
+            "false2": 64.1344537815126,
+            "countError": 1.2857142857142858
+          },
+          "candidate": {
+            "ospa": 9.42579655620401,
+            "gospa": 13.993958055503734,
+            "loc2": 0.0625916932481278,
+            "miss2": 140.9747899159664,
+            "false2": 58.6890756302521,
+            "countError": 1.2941176470588236
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 4576,
+        "outside_rectangle": 306,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1828
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "current_observation": {
+        "direct_records": 3861,
+        "raw_association_weight_values": 19054
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 4959,
+        "labels": 4768,
+        "joined_source_records": 7722,
+        "joint_labels": 2954,
+        "boosted_labels": 528,
+        "negative_boost_labels": 1276,
+        "mean_gate": 0.048976294305833036,
+        "mean_negative_gate": 0.13201332204617416,
+        "mean_boost": -0.061021263879853974,
+        "local_gaussian_records": 3861,
+        "packet_gaussian_records": 3861,
+        "gaussian_source_joins": 7722,
+        "corrected_labels": 1866,
+        "curvature_rejected_sources": 378,
+        "curvature_rejected_labels": 366,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.022143061857922326,
+        "max_spatial_shift_m": 1.7177645167535807,
+        "mean_log_integral_change": -0.008336848584091732,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.842565693540005,
+            "gospa": 14.35304882331395,
+            "loc2": 0.04715458312742991,
+            "miss2": 154.28571428571428,
+            "false2": 56.26890756302521,
+            "countError": 1.546218487394958
+          },
+          "new_r_old_space": {
+            "ospa": 9.831550107835884,
+            "gospa": 14.369920501413723,
+            "loc2": 0.04829477635299396,
+            "miss2": 153.68067226890756,
+            "false2": 57.47899159663866,
+            "countError": 1.5378151260504203
+          },
+          "old_r_new_space": {
+            "ospa": 9.842528341557625,
+            "gospa": 14.352965833854604,
+            "loc2": 0.04512785577853901,
+            "miss2": 154.28571428571428,
+            "false2": 56.26890756302521,
+            "countError": 1.546218487394958
+          },
+          "candidate": {
+            "ospa": 9.831510688130782,
+            "gospa": 14.369833993545084,
+            "loc2": 0.04619249977061457,
+            "miss2": 153.68067226890756,
+            "false2": 57.47899159663866,
+            "countError": 1.5378151260504203
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3861,
+        "outside_rectangle": 242,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1409
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "current_observation": {
+        "direct_records": 4079,
+        "raw_association_weight_values": 19939
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 5219,
+        "labels": 5030,
+        "joined_source_records": 8158,
+        "joint_labels": 3128,
+        "boosted_labels": 540,
+        "negative_boost_labels": 1292,
+        "mean_gate": 0.054030018177407116,
+        "mean_negative_gate": 0.12487976491092599,
+        "mean_boost": -0.05889776232255575,
+        "local_gaussian_records": 4079,
+        "packet_gaussian_records": 4079,
+        "gaussian_source_joins": 8158,
+        "corrected_labels": 1904,
+        "curvature_rejected_sources": 366,
+        "curvature_rejected_labels": 354,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 2.2072979544222215e-14,
+        "max_spatial_shift_m": 3.915728749875272e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 4079,
+        "outside_rectangle": 330,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1561
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_quality_nis",
+      "current_observation": {
+        "direct_records": 3861,
+        "raw_association_weight_values": 19054
+      },
+      "association": {
+        "receiver_frames": 238,
+        "accepted_pairs": 2954,
+        "reopened_known_pairs": 0,
+        "abstained_labels": 0,
+        "split_branches": 0,
+        "active_conflict_label_frames": 0
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 4959,
+        "labels": 4768,
+        "joined_source_records": 7722,
+        "joint_labels": 2954,
+        "boosted_labels": 528,
+        "negative_boost_labels": 1276,
+        "mean_gate": 0.048976294305833036,
+        "mean_negative_gate": 0.13201332204617416,
+        "mean_boost": -0.061021263879853974,
+        "local_gaussian_records": 3861,
+        "packet_gaussian_records": 3861,
+        "gaussian_source_joins": 7722,
+        "corrected_labels": 1866,
+        "curvature_rejected_sources": 378,
+        "curvature_rejected_labels": 366,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.022143061857922326,
+        "max_spatial_shift_m": 1.7177645167535807,
+        "mean_log_integral_change": -0.008336848584091732,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.842565693540005,
+            "gospa": 14.35304882331395,
+            "loc2": 0.04715458312742991,
+            "miss2": 154.28571428571428,
+            "false2": 56.26890756302521,
+            "countError": 1.546218487394958
+          },
+          "new_r_old_space": {
+            "ospa": 9.831550107835884,
+            "gospa": 14.369920501413723,
+            "loc2": 0.04829477635299396,
+            "miss2": 153.68067226890756,
+            "false2": 57.47899159663866,
+            "countError": 1.5378151260504203
+          },
+          "old_r_new_space": {
+            "ospa": 9.842528341557625,
+            "gospa": 14.352965833854604,
+            "loc2": 0.04512785577853901,
+            "miss2": 154.28571428571428,
+            "false2": 56.26890756302521,
+            "countError": 1.546218487394958
+          },
+          "candidate": {
+            "ospa": 9.831510688130782,
+            "gospa": 14.369833993545084,
+            "loc2": 0.04619249977061457,
+            "miss2": 153.68067226890756,
+            "false2": 57.47899159663866,
+            "countError": 1.5378151260504203
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3861,
+        "outside_rectangle": 242,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1409
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis",
+      "current_observation": {
+        "direct_records": 4079,
+        "raw_association_weight_values": 19939
+      },
+      "association": {
+        "receiver_frames": 238,
+        "accepted_pairs": 3128,
+        "reopened_known_pairs": 0,
+        "abstained_labels": 0,
+        "split_branches": 0,
+        "active_conflict_label_frames": 0
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 5219,
+        "labels": 5030,
+        "joined_source_records": 8158,
+        "joint_labels": 3128,
+        "boosted_labels": 540,
+        "negative_boost_labels": 1292,
+        "mean_gate": 0.054030018177407116,
+        "mean_negative_gate": 0.12487976491092599,
+        "mean_boost": -0.05889776232255575,
+        "local_gaussian_records": 4079,
+        "packet_gaussian_records": 4079,
+        "gaussian_source_joins": 8158,
+        "corrected_labels": 1904,
+        "curvature_rejected_sources": 366,
+        "curvature_rejected_labels": 354,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 2.2072979544222215e-14,
+        "max_spatial_shift_m": 3.915728749875272e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 4079,
+        "outside_rectangle": 330,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1561
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "current_observation": {
+        "direct_records": 4657,
+        "raw_association_weight_values": 22143
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 3792,
+        "positive_age_labels": 793,
+        "support_above_noage": 0,
+        "constrained_below_er": 793,
+        "preserved_above_cr": 729,
+        "same_input": {
+          "no_age": {
+            "ospa": 9.250077034585022,
+            "gospa": 13.779233935669424,
+            "loc2": 0.07187304285455141,
+            "miss2": 142.73684210526315,
+            "false2": 51.36842105263158,
+            "countError": 1.3859649122807018
+          },
+          "ER": {
+            "ospa": 9.29299729321408,
+            "gospa": 13.943232685412584,
+            "loc2": 0.07151240629540132,
+            "miss2": 143.1578947368421,
+            "false2": 56.0,
+            "countError": 1.3976608187134503
+          },
+          "candidate": {
+            "ospa": 9.250077034585022,
+            "gospa": 13.779233935669424,
+            "loc2": 0.07187304285455141,
+            "miss2": 142.73684210526315,
+            "false2": 51.36842105263158,
+            "countError": 1.3859649122807018
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 4657,
+        "outside_rectangle": 759,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 2326
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "current_observation": {
+        "direct_records": 3133,
+        "raw_association_weight_values": 15715
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 3970,
+        "labels": 2789,
+        "joined_source_records": 4546,
+        "joint_labels": 1757,
+        "boosted_labels": 368,
+        "negative_boost_labels": 786,
+        "mean_gate": 0.04127373919138422,
+        "mean_negative_gate": 0.15130531649753046,
+        "mean_boost": -0.06362571286586365,
+        "local_gaussian_records": 3133,
+        "packet_gaussian_records": 3133,
+        "gaussian_source_joins": 4546,
+        "corrected_labels": 1104,
+        "curvature_rejected_sources": 276,
+        "curvature_rejected_labels": 270,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.028305650088632495,
+        "max_spatial_shift_m": 1.7177645167535807,
+        "mean_log_integral_change": -0.01267832477196615,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.571026887731398,
+            "gospa": 14.263470376287751,
+            "loc2": 0.06641002679014003,
+            "miss2": 152.42105263157896,
+            "false2": 56.0,
+            "countError": 1.5497076023391814
+          },
+          "new_r_old_space": {
+            "ospa": 9.577974503697224,
+            "gospa": 14.286896113154292,
+            "loc2": 0.06641002679014003,
+            "miss2": 152.42105263157896,
+            "false2": 56.8421052631579,
+            "countError": 1.5614035087719298
+          },
+          "old_r_new_space": {
+            "ospa": 9.57099930702202,
+            "gospa": 14.263396360843382,
+            "loc2": 0.0646182647147082,
+            "miss2": 152.42105263157896,
+            "false2": 56.0,
+            "countError": 1.5497076023391814
+          },
+          "candidate": {
+            "ospa": 9.577946087428739,
+            "gospa": 14.286821576116589,
+            "loc2": 0.0646182647147082,
+            "miss2": 152.42105263157896,
+            "false2": 56.8421052631579,
+            "countError": 1.5614035087719298
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3133,
+        "outside_rectangle": 134,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1094
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "current_observation": {
+        "direct_records": 3266,
+        "raw_association_weight_values": 16372
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 4112,
+        "labels": 2845,
+        "joined_source_records": 4641,
+        "joint_labels": 1796,
+        "boosted_labels": 366,
+        "negative_boost_labels": 810,
+        "mean_gate": 0.04326666716966765,
+        "mean_negative_gate": 0.14865838806735632,
+        "mean_boost": -0.06775941082954384,
+        "local_gaussian_records": 3266,
+        "packet_gaussian_records": 3266,
+        "gaussian_source_joins": 4641,
+        "corrected_labels": 1120,
+        "curvature_rejected_sources": 279,
+        "curvature_rejected_labels": 271,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 2.3130461814315567e-14,
+        "max_spatial_shift_m": 7.208157508092947e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3266,
+        "outside_rectangle": 136,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1169
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_quality_nis",
+      "current_observation": {
+        "direct_records": 3133,
+        "raw_association_weight_values": 15715
+      },
+      "association": {
+        "receiver_frames": 171,
+        "accepted_pairs": 1757,
+        "reopened_known_pairs": 0,
+        "abstained_labels": 0,
+        "split_branches": 0,
+        "active_conflict_label_frames": 0
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 3970,
+        "labels": 2789,
+        "joined_source_records": 4546,
+        "joint_labels": 1757,
+        "boosted_labels": 368,
+        "negative_boost_labels": 786,
+        "mean_gate": 0.04127373919138422,
+        "mean_negative_gate": 0.15130531649753046,
+        "mean_boost": -0.06362571286586365,
+        "local_gaussian_records": 3133,
+        "packet_gaussian_records": 3133,
+        "gaussian_source_joins": 4546,
+        "corrected_labels": 1104,
+        "curvature_rejected_sources": 276,
+        "curvature_rejected_labels": 270,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.028305650088632495,
+        "max_spatial_shift_m": 1.7177645167535807,
+        "mean_log_integral_change": -0.01267832477196615,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 9.571026887731398,
+            "gospa": 14.263470376287751,
+            "loc2": 0.06641002679014003,
+            "miss2": 152.42105263157896,
+            "false2": 56.0,
+            "countError": 1.5497076023391814
+          },
+          "new_r_old_space": {
+            "ospa": 9.577974503697224,
+            "gospa": 14.286896113154292,
+            "loc2": 0.06641002679014003,
+            "miss2": 152.42105263157896,
+            "false2": 56.8421052631579,
+            "countError": 1.5614035087719298
+          },
+          "old_r_new_space": {
+            "ospa": 9.57099930702202,
+            "gospa": 14.263396360843382,
+            "loc2": 0.0646182647147082,
+            "miss2": 152.42105263157896,
+            "false2": 56.0,
+            "countError": 1.5497076023391814
+          },
+          "candidate": {
+            "ospa": 9.577946087428739,
+            "gospa": 14.286821576116589,
+            "loc2": 0.0646182647147082,
+            "miss2": 152.42105263157896,
+            "false2": 56.8421052631579,
+            "countError": 1.5614035087719298
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3133,
+        "outside_rectangle": 134,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1094
+      }
+    },
+    {
+      "sequence": "v2xt_0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis",
+      "current_observation": {
+        "direct_records": 3266,
+        "raw_association_weight_values": 16372
+      },
+      "association": {
+        "receiver_frames": 171,
+        "accepted_pairs": 1796,
+        "reopened_known_pairs": 0,
+        "abstained_labels": 0,
+        "split_branches": 0,
+        "active_conflict_label_frames": 0
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 4112,
+        "labels": 2845,
+        "joined_source_records": 4641,
+        "joint_labels": 1796,
+        "boosted_labels": 366,
+        "negative_boost_labels": 810,
+        "mean_gate": 0.04326666716966765,
+        "mean_negative_gate": 0.14865838806735632,
+        "mean_boost": -0.06775941082954384,
+        "local_gaussian_records": 3266,
+        "packet_gaussian_records": 3266,
+        "gaussian_source_joins": 4641,
+        "corrected_labels": 1120,
+        "curvature_rejected_sources": 279,
+        "curvature_rejected_labels": 271,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 2.3130461814315567e-14,
+        "max_spatial_shift_m": 7.208157508092947e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3266,
+        "outside_rectangle": 136,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1169
+      }
+    }
+  ],
+  "parity": [],
+  "audited_robot_frames": 2380,
+  "inputs": {
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_screen_selected_test/v2xt_0000.log": "9176b55e739ad21ac9fbec3e1d2073124b190fa57c9bb9c32922ce71ca7dfef8",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_lineage.json.gz": "aeae3da574359ded2810a283af5141e3cf2507fcb12a1ae1a4de71234d6b1408",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence.json.gz": "ea8b234e5161e9d2839586de1eba21b0b2d48db18ba3039e1f63f8125e3b74dd",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "31361fb242d84252eb759e088c270e3718a78227fc5aa2001e9712aa4eae77c9",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": "33c38ef042c400f2ebc0a5f9eba63ea65d611e801f3543904083d05ed056b67d",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": "7247517e4de31d700f0611c8ad0d033464031c24aba541db00961889570e7213",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_lineage.json.gz": "5bcad92e5f8372f6d2fb51354d4c0e4af27cca0f5f08569f8e10d0068a876ffe",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence.json.gz": "66debac4daebc423182984d8b136511aa2e02fc93a7c28704b70ff2adfff30ae",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "4daaf16607412d8243464102c68630f53c3d79d142d4a94034968e8483488aac",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": "f7d92465ff1cf2c4127eeb166d76fd9a54d46e0b402304266ffdd6a5341e91c8",
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": "587e95ce690311d30924886440dd45c874e1d2e45f65446fe4e13d2cdb844448"
+  },
+  "config_sha256": "d14e3a35d3ed63c95f559d2061569f02c5a1d54cbd1ad790a73339d2b3dfc28a",
+  "runtime_sha256": "a7591bd97b958265a6953313850c5679ba137e58af760fb3dc3ca9c3ebfd8722",
+  "execution_unit": "v2xt_0000",
+  "native_unit": {
+    "sequence": "v2xt_0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 10,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',1);"
+    ]
+  },
+  "runtime_snapshot": [
+    {
+      "sequence": "v2xt_0000",
+      "index": 0,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',1);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0002",
+      "index": 2,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',3);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0003",
+      "index": 3,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',4);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0004",
+      "index": 4,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',5);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0005",
+      "index": 5,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',6);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0006",
+      "index": 6,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',7);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0007",
+      "index": 7,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',8);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0008",
+      "index": 8,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',9);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0009",
+      "index": 9,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',10);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0010",
+      "index": 10,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',11);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0011",
+      "index": 11,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',12);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0012",
+      "index": 12,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',13);"
+      ]
+    },
+    {
+      "sequence": "v2xt_0013",
+      "index": 13,
+      "returncode": 0,
+      "completion_line": true,
+      "files": 10,
+      "command": [
+        "/Applications/MATLAB_R2024a.app/bin/matlab",
+        "-singleCompThread",
+        "-batch",
+        "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_test.json',14);"
+      ]
+    }
+  ],
+  "partial_unit_audit": true,
+  "auditor_sha256": {
+    "trials/icra_temporal_association/audit_screen_assessment_unit.py": "12bb838f984a3b2492ba2fe878165e8d699505c472a1e653e67d7580dc8a7dcb",
+    "trials/icra_temporal_association/screen_observation_math.py": "6b8a9df0cfcb808c187cd11230135e926f99dee0fabf94eb9ccaa025e939dcb3",
+    "trials/icra_temporal_association/screen_persistent_math.py": "5d005d196d1f134f48fa8e0b996b996b213cdeae94a1a1597e4315a219e190c0",
+    "trials/icra_temporal_association/audit_screened_run.py": "e9e7e82f2c870bf1be8ee78ce6763ccaebb0d711249add07ffcd08a783b7b8ab",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_temporal_association/audit_observation_domain.py": "33b141b6d08a362ffbfd64d6449255758c1728d70e619ba9d8d0df7cb7bbdcae",
+    "trials/icra_temporal_association/persistent_math.py": "3c83376e86654d18e4a57c9bed6d4e6a1cc156f8d80be7b1df45217222effa82",
+    "trials/icra_temporal_association/audit_persistent_run.py": "2bceff362a4b22fac67208a3cdd663934a27f672d392dd118fc17745b4cab4e7",
+    "trials/icra_temporal_association/association_math.py": "6d5c7ab2554d1276a0142ee644e722ef59fb544700f02a9a87e419edac7e7b23",
+    "trials/icra_temporal_association/audit_observation_run.py": "a30c974ade2023c5681a26cdb4a0742b0a1a5b545876329ace93c6e487006720",
+    "trials/icra_temporal_association/observation_math.py": "f5d61f72587602e240914d87580f613d5cb47192158d23239bc4f7dd2cfa5a39",
+    "trials/icra_reviewer_revision/review_probability_audit.py": "7f007360fc4d1402aa66179bf3f064bbec3b4f2349cc332f58bd04f196adf386",
+    "trials/icra_reviewer_revision/review_gaussian_audit.py": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef"
+  }
+}

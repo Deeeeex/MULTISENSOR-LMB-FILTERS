@@ -1,0 +1,558 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 622,
+        "known_unscored": 1286,
+        "assigned_unscored": 520
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 622,
+        "known_unscored": 1286,
+        "assigned_unscored": 520
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 388,
+        "known_unscored": 1112,
+        "assigned_unscored": 338
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 388,
+        "known_unscored": 1112,
+        "assigned_unscored": 338
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 96,
+        "known_unscored": 1236,
+        "assigned_unscored": 278,
+        "known_wrong": 10,
+        "known_wrong_observation_conflict": 6
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 96,
+        "known_unscored": 1236,
+        "assigned_unscored": 278,
+        "known_wrong": 10,
+        "known_wrong_observation_conflict": 10
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 87,
+        "known_unscored": 997,
+        "assigned_unscored": 229,
+        "known_wrong": 10,
+        "known_wrong_observation_conflict": 6
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 87,
+        "known_unscored": 997,
+        "assigned_unscored": 229,
+        "known_wrong": 10,
+        "known_wrong_observation_conflict": 10
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "known_unscored": 678,
+        "known_correct": 112,
+        "assigned_unscored": 208
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "known_unscored": 678,
+        "known_correct": 112,
+        "assigned_unscored": 208
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "known_unscored": 560,
+        "known_correct": 105,
+        "assigned_unscored": 177
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "known_unscored": 560,
+        "known_correct": 105,
+        "assigned_unscored": 177
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "known_unscored": 14968,
+        "known_correct": 1884,
+        "assigned_unscored": 3132,
+        "known_wrong": 68,
+        "known_unscored_observation_conflict": 6,
+        "known_wrong_observation_conflict": 4
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "known_unscored": 14968,
+        "known_correct": 1884,
+        "assigned_unscored": 3132,
+        "known_wrong": 68,
+        "known_wrong_observation_conflict": 10,
+        "known_unscored_observation_conflict": 8,
+        "known_correct_observation_conflict": 10
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "known_unscored": 6556,
+        "known_correct": 1349,
+        "assigned_unscored": 4091,
+        "known_wrong": 33,
+        "known_unscored_observation_conflict": 8,
+        "known_wrong_observation_conflict": 2,
+        "assigned_correct": 28
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "known_unscored": 6556,
+        "known_correct": 1349,
+        "assigned_unscored": 4091,
+        "known_wrong": 33,
+        "known_wrong_observation_conflict": 7,
+        "known_unscored_observation_conflict": 9,
+        "known_correct_observation_conflict": 5,
+        "assigned_correct": 28
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "assigned_correct": 6958,
+        "assigned_unscored": 10140,
+        "known_unscored": 4622,
+        "known_unscored_observation_conflict": 6,
+        "known_correct": 736,
+        "assigned_wrong": 24,
+        "known_wrong": 2
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "assigned_correct": 6958,
+        "assigned_unscored": 10140,
+        "known_unscored": 4622,
+        "known_correct": 736,
+        "assigned_wrong": 24,
+        "known_wrong": 2
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "assigned_correct": 4630,
+        "assigned_unscored": 7560,
+        "known_unscored": 5204,
+        "known_unscored_observation_conflict": 3,
+        "assigned_wrong": 29,
+        "known_correct": 741,
+        "assigned_unscored_observation_conflict": 4
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "assigned_correct": 4630,
+        "assigned_unscored": 7560,
+        "known_unscored": 5204,
+        "assigned_wrong": 29,
+        "known_correct": 741,
+        "known_unscored_observation_conflict": 1,
+        "assigned_unscored_observation_conflict": 3
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "assigned_unscored": 13268,
+        "assigned_correct": 1932,
+        "known_correct": 6024,
+        "assigned_wrong": 10,
+        "known_unscored": 19484,
+        "known_wrong": 46,
+        "known_correct_observation_conflict": 10,
+        "known_unscored_observation_conflict": 6,
+        "known_wrong_observation_conflict": 14
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "assigned_unscored": 13268,
+        "assigned_correct": 1932,
+        "known_correct": 6024,
+        "assigned_wrong": 10,
+        "known_unscored": 19484,
+        "known_wrong": 46,
+        "known_correct_observation_conflict": 22,
+        "known_unscored_observation_conflict": 16,
+        "known_wrong_observation_conflict": 30
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "assigned_unscored": 11140,
+        "assigned_correct": 1726,
+        "assigned_wrong": 10,
+        "known_correct": 4377,
+        "known_unscored": 13344,
+        "known_wrong": 47,
+        "known_unscored_observation_conflict": 7,
+        "known_wrong_observation_conflict": 22,
+        "known_correct_observation_conflict": 6
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "assigned_unscored": 11140,
+        "assigned_correct": 1726,
+        "assigned_wrong": 10,
+        "known_correct": 4377,
+        "known_unscored": 13344,
+        "known_wrong": 47,
+        "known_unscored_observation_conflict": 9,
+        "known_wrong_observation_conflict": 31,
+        "known_correct_observation_conflict": 13
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "assigned_unscored": 7638,
+        "assigned_correct": 1134,
+        "known_unscored": 10300,
+        "known_correct": 2114,
+        "known_unscored_observation_conflict": 18,
+        "known_correct_observation_conflict": 2,
+        "assigned_wrong": 6,
+        "known_wrong": 4
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "assigned_unscored": 7638,
+        "assigned_correct": 1134,
+        "known_unscored": 10300,
+        "known_correct": 2114,
+        "known_unscored_observation_conflict": 24,
+        "known_correct_observation_conflict": 4,
+        "assigned_wrong": 6,
+        "known_wrong": 4
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "assigned_unscored": 6937,
+        "assigned_correct": 1245,
+        "known_unscored": 5940,
+        "known_correct": 1449,
+        "known_unscored_observation_conflict": 18,
+        "assigned_wrong": 4,
+        "assigned_correct_observation_conflict": 2
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "assigned_unscored": 6937,
+        "assigned_correct": 1245,
+        "known_unscored": 5940,
+        "known_correct": 1449,
+        "known_unscored_observation_conflict": 24,
+        "assigned_wrong": 4,
+        "assigned_correct_observation_conflict": 4
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "assigned_unscored": 5176,
+        "assigned_correct": 488,
+        "known_unscored": 13242,
+        "known_correct": 4500,
+        "known_wrong": 58,
+        "known_wrong_observation_conflict": 2,
+        "known_unscored_observation_conflict": 4,
+        "known_correct_observation_conflict": 2
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "assigned_unscored": 5176,
+        "assigned_correct": 488,
+        "known_unscored": 13242,
+        "known_correct": 4500,
+        "known_wrong": 58,
+        "known_wrong_observation_conflict": 16,
+        "known_unscored_observation_conflict": 10,
+        "known_correct_observation_conflict": 8
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "assigned_correct": 153,
+        "assigned_unscored": 3694,
+        "known_correct": 2893,
+        "known_unscored": 7851,
+        "known_wrong": 51,
+        "known_wrong_observation_conflict": 2,
+        "known_unscored_observation_conflict": 4,
+        "known_correct_observation_conflict": 2
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "assigned_correct": 153,
+        "assigned_unscored": 3694,
+        "known_correct": 2893,
+        "known_unscored": 7851,
+        "known_wrong": 51,
+        "known_wrong_observation_conflict": 16,
+        "known_unscored_observation_conflict": 8,
+        "known_correct_observation_conflict": 7
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "assigned_correct": 10300,
+        "assigned_unscored": 20332,
+        "known_correct": 378,
+        "known_unscored": 2758
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "assigned_correct": 10300,
+        "assigned_unscored": 20332,
+        "known_correct": 378,
+        "known_unscored": 2758
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "assigned_correct": 6952,
+        "assigned_unscored": 13752,
+        "known_correct": 727,
+        "known_unscored": 5948
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "assigned_correct": 6952,
+        "assigned_unscored": 13752,
+        "known_correct": 727,
+        "known_unscored": 5948
+      }
+    }
+  ],
+  "aggregate": [
+    {
+      "condition": "reliable",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 16466,
+        "known_unscored": 68574,
+        "assigned_unscored": 60692,
+        "known_wrong": 188,
+        "known_wrong_observation_conflict": 26,
+        "known_unscored_observation_conflict": 40,
+        "assigned_correct": 20812,
+        "assigned_wrong": 40,
+        "known_correct_observation_conflict": 14
+      }
+    },
+    {
+      "condition": "reliable",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 16466,
+        "known_unscored": 68574,
+        "assigned_unscored": 60692,
+        "known_wrong": 188,
+        "known_wrong_observation_conflict": 66,
+        "known_unscored_observation_conflict": 58,
+        "known_correct_observation_conflict": 44,
+        "assigned_correct": 20812,
+        "assigned_wrong": 40
+      }
+    },
+    {
+      "condition": "intermittent",
+      "mode": "direct",
+      "counts": {
+        "known_correct": 12116,
+        "known_unscored": 47512,
+        "assigned_unscored": 47918,
+        "known_wrong": 141,
+        "known_wrong_observation_conflict": 32,
+        "known_unscored_observation_conflict": 40,
+        "assigned_correct": 14734,
+        "assigned_wrong": 43,
+        "assigned_unscored_observation_conflict": 4,
+        "known_correct_observation_conflict": 8,
+        "assigned_correct_observation_conflict": 2
+      }
+    },
+    {
+      "condition": "intermittent",
+      "mode": "temporal",
+      "counts": {
+        "known_correct": 12116,
+        "known_unscored": 47512,
+        "assigned_unscored": 47918,
+        "known_wrong": 141,
+        "known_wrong_observation_conflict": 64,
+        "known_unscored_observation_conflict": 51,
+        "known_correct_observation_conflict": 25,
+        "assigned_correct": 14734,
+        "assigned_wrong": 43,
+        "assigned_unscored_observation_conflict": 3,
+        "assigned_correct_observation_conflict": 4
+      }
+    }
+  ],
+  "inputs": {
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_intermittent_marked_gaussian_evidence.json.gz": "28133b5772015a009615b785320a3f77964e8bb9c63059fb19270be271ea3022",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_reliable_marked_gaussian_evidence.json.gz": "7034580d342c0ba5f650cd7ce8b746ecb48d12267ce70bf16499c1db4ea912b1",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_intermittent_marked_gaussian_evidence.json.gz": "b0e040885724ff2030b02792693e187bf37c8e41cd6e61074dc66ded8853720d",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_reliable_marked_gaussian_evidence.json.gz": "c09b3d326e309cd581c3f00a0bbe5ffe8faf7a4cdd8f9f4dab6036cd98bf4145",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_intermittent_marked_gaussian_evidence.json.gz": "63b8c47f5dd5e214ba2c691e701069abca140f74e980c1a86bbc3b26ba6c7b54",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_reliable_marked_gaussian_evidence.json.gz": "8754ef530e2a074b3c545ac4395b8d34ff1cf960f8f10e4a7750ab5c67118b50",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_intermittent_marked_gaussian_evidence.json.gz": "158c7bfdbdb32c1672d471f8f36f1f99c71558ec8e42a6d762ff624e6f374c7a",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_reliable_marked_gaussian_evidence.json.gz": "83e86d8b34a3523135cd06b1f05c343867cc38ccbf59a3ba3421c1e354f85475",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_intermittent_marked_gaussian_evidence.json.gz": "33be1ee0485065408f098aa64e602c15349af7a2e1ecf54aa08740de20d24fd7",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_reliable_marked_gaussian_evidence.json.gz": "9224226ab6fa4baa7637988af7ec281c0991edf7eec3c455b0a0090493b1cf15",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_intermittent_marked_gaussian_evidence.json.gz": "ffa36d2b5df785997932e07db2e8a954aa94c7ddde1a0b57ba2e7d6db0074a92",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_reliable_marked_gaussian_evidence.json.gz": "fe1532cbd2676ef61e6e60d8a84118e07a7d0140b60e90ef596ba9592bf8c335",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_intermittent_marked_gaussian_evidence.json.gz": "e189b6026939b11382a3b4ac78ae427a289d49cbc7f212b06d95a0e1e108b492",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_reliable_marked_gaussian_evidence.json.gz": "60aeea2185fc8c36ea610f271db9cf0bb00151dc52aed07f8abf0f35475248de",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_intermittent_marked_gaussian_evidence.json.gz": "799397494d6b712cdd18095f97c10b581850339e86a87985630efce6551026da"
+  },
+  "code_sha256": "7a3795170443dbe8bb1bd3db674725bc6bb5491a6b5d757a64ef072b39480bab",
+  "interpretation": "Original GCE trajectory only. This measures observation separation, not the recursively changed candidate outcome."
+}

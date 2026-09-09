@@ -1,0 +1,63 @@
+{
+  "association_math.py": {
+    "destination": "screen_observation_math.py",
+    "source_sha256": "6d5c7ab2554d1276a0142ee644e722ef59fb544700f02a9a87e419edac7e7b23",
+    "destination_sha256": "6b8a9df0cfcb808c187cd11230135e926f99dee0fabf94eb9ccaa025e939dcb3",
+    "bounded_replacements": [
+      [
+        "left_features, right_features, left_r, right_r, history, mode, frame):",
+        "left_features, right_features, left_r, right_r, history, mode, frame, quality_min=.5, cutoffs=CUTOFFS):"
+      ],
+      [
+        "qualified = (qleft >= .5)[:, None] & (qright >= .5)[None, :]",
+        "qualified = (qleft >= quality_min)[:, None] & (qright >= quality_min)[None, :]"
+      ],
+      [
+        "summed[qualified] / CUTOFFS[count[qualified] - 1]",
+        "summed[qualified] / cutoffs[count[qualified] - 1]"
+      ]
+    ]
+  },
+  "persistent_math.py": {
+    "destination": "screen_persistent_math.py",
+    "source_sha256": "3c83376e86654d18e4a57c9bed6d4e6a1cc156f8d80be7b1df45217222effa82",
+    "destination_sha256": "5d005d196d1f134f48fa8e0b996b996b213cdeae94a1a1597e4315a219e190c0",
+    "bounded_replacements": [
+      [
+        "from association_math import objective as observation_objective, legacy_costs, audit_selected",
+        "from screen_observation_math import objective as observation_objective\nfrom association_math import legacy_costs, audit_selected"
+      ],
+      [
+        "def objective(left, right, state, frame):",
+        "def objective(left, right, state, frame, quality_min, cutoffs):"
+      ],
+      [
+        "left['r'], right['r'], state['history'], 'temporal', frame)",
+        "left['r'], right['r'], state['history'], 'temporal', frame, quality_min, cutoffs)"
+      ]
+    ]
+  },
+  "audit_persistent_run.py": {
+    "destination": "audit_screened_run.py",
+    "source_sha256": "2bceff362a4b22fac67208a3cdd663934a27f672d392dd118fc17745b4cab4e7",
+    "destination_sha256": "e9e7e82f2c870bf1be8ee78ce6763ccaebb0d711249add07ffcd08a783b7b8ab",
+    "bounded_replacements": [
+      [
+        "from persistent_math import objective, audit_branches",
+        "from screen_persistent_math import objective, audit_branches"
+      ],
+      [
+        "def associations(run, data, frames, mode):",
+        "def associations(run, data, frames, mode):\n    assert mode in ['quality', 'nis', 'quality_nis']\n    quality_min = .9 if mode in ['quality', 'quality_nis'] else .5\n    cutoffs = np.array([13.815510557964274, 18.46682695290317, 22.457744484825326]\n        if mode in ['nis', 'quality_nis'] else [9.21034037197618, 13.2767041359876, 16.8118938297709])"
+      ],
+      [
+        "objective(left, right, states[n], t)",
+        "objective(left, right, states[n], t, quality_min, cutoffs)"
+      ],
+      [
+        "audit_branches(info, pairs, left['keys'], right['keys'], mode, n)",
+        "audit_branches(info, pairs, left['keys'], right['keys'], 'split', n)"
+      ]
+    ]
+  }
+}

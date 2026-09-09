@@ -1,0 +1,5 @@
+{
+  "source_sha256": "03fc906d0ddcbc57df34a0ebeaea7185c3a0d297cf56ee5f9692431951a71582",
+  "destination_sha256": "cf655ac885dbdb823a16722dc7fc28c7888dd467eb8dea70d643622beecab62f",
+  "change": "Extract the unchanged V1 evidence/history block and fix mode=temporal; no decision or outcome-based parameter change."
+}

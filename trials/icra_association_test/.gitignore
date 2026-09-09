@@ -1,0 +1,5 @@
+detections/
+new_data/
+pose_inputs/
+results/
+__pycache__/

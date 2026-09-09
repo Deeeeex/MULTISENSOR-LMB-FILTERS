@@ -1,0 +1,52 @@
+{
+  "source": "trials/icra_temporal_association/recordAssociationReplay.m",
+  "source_sha256": "84707b92c56b1e1189a2feab3440a0a7e159863b22c49afe192162f6a4852468",
+  "destination": "trials/icra_temporal_association/runAssociationReplay.m",
+  "destination_sha256": "4251ad9e0d4b65e92d1fecc8208c8c6a979a1232137b6257d447bb4eb0478cd4",
+  "bounded_replacements": [
+    [
+      "function recordAssociationReplay(configPath,unitIndex)",
+      "function runAssociationReplay(configPath,unitIndex)"
+    ],
+    [
+      "assert(strcmp(which('Hungarian'),fullfile(runtimePath,'Hungarian.m')));",
+      "assert(strcmp(which('Hungarian'),fullfile(runtimePath,'Hungarian.m')));\ncheckObservationAssociation();"
+    ],
+    [
+      "template.localSpatialLogRatio=zeros(1,15);",
+      "template.localSpatialLogRatio=zeros(1,15);template.localDirectObservation=zeros(1,8);"
+    ],
+    [
+      "'localDirectRecords',zeros(0,12),'iterationRecords'",
+      "'localDirectRecords',zeros(0,12),'packetDirectRecords',zeros(0,12),'associationRecords',zeros(0,10),'associationStats',zeros(0,11),'associationAbstentions',zeros(0,4),'associationReopenings',zeros(0,8),'iterationRecords'"
+    ],
+    [
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');",
+      "marked=startsWith(arm,'marked_');rule=erase(arm,'marked_');\nassociationMode='';\nif endsWith(rule,'_assoc_direct'),associationMode='direct';rule=erase(rule,'_assoc_direct');\nelseif endsWith(rule,'_assoc_temporal'),associationMode='temporal';rule=erase(rule,'_assoc_temporal');end"
+    ],
+    [
+      "cfg.captureIterationRecords=true;",
+      "cfg.captureIterationRecords=true;\nemptyHistory=struct('frame',{},'left',{},'right',{},'qualified',{},'distance',{});\nassociationMemory={emptyHistory,emptyHistory};"
+    ],
+    [
+      "                before=predicted(indices(j));after=local{n}(j);",
+      "                local{n}(j).localDirectObservation=directValues(indices(j),:);\n                before=predicted(indices(j));after=local{n}(j);"
+    ],
+    [
+      "            if startsWith(rule,'gaussian_evidence')\n                [decoded{n},packet]=gaussianEvidencePacket(local{n},model,n,t);",
+      "            if startsWith(rule,'gaussian_evidence') || ~isempty(associationMode)\n                if isempty(associationMode),[decoded{n},packet]=gaussianEvidencePacket(local{n},model,n,t);\n                else,[decoded{n},packet]=observationEvidencePacket(local{n},model,n,t);end"
+    ],
+    [
+      "                    o=decoded{n}(j);\n                    run.packetGaussianRecords",
+      "                    o=decoded{n}(j);\n                    if ~isempty(associationMode),run.packetDirectRecords(end+1,:)=[t,n,o.birthTime,o.birthLocation,o.localDirectObservation];end %#ok<AGROW>\n                    run.packetGaussianRecords"
+    ],
+    [
+      "            [remote,matching]=alignGaussianLmbPair(local{n},decoded{other},50);",
+      "            if isempty(associationMode)\n                [remote,matching]=alignGaussianLmbPair(local{n},decoded{other},50);\n            else\n                [remote,matching,associationMemory{n}]=alignObservationLmbPair(local{n},decoded{other},50,associationMemory{n},associationMode,t);\n            end"
+    ],
+    [
+      "            details.originalLabels={[[local{n}.birthTime];[local{n}.birthLocation]], ...\n                [[decoded{other}.birthTime];[decoded{other}.birthLocation]]};",
+      "            originalRemote=decoded{other};\n            if ~isempty(associationMode)\n                originalRemote=originalRemote(matching.keptRemoteIndices);\n                run.associationStats(end+1,:)=[t,n,numel(local{n}),numel(decoded{other}),matching.knownPairs,matching.assignedPairs, ...\n                    matching.reopenedKnown,matching.droppedRemote,size(matching.abstainLabels,2),matching.qualifiedPairs,matching.historyPairs]; %#ok<AGROW>\n                for k=1:size(matching.pairs,1)\n                    pair=matching.pairs(k,:);a=local{n}(pair(1));b=decoded{other}(pair(2));\n                    run.associationRecords(end+1,:)=[t,n,a.birthTime,a.birthLocation,b.birthTime,b.birthLocation,pair(3:6)]; %#ok<AGROW>\n                end\n                if ~isempty(matching.reopenedRecords)\n                    run.associationReopenings=[run.associationReopenings;repmat([t,n],size(matching.reopenedRecords,1),1),matching.reopenedRecords]; %#ok<AGROW>\n                end\n                for k=1:size(matching.abstainLabels,2)\n                    label=matching.abstainLabels(:,k);\n                    details.labelSpecificWeightOverrides(k)=struct('label',label,'sourceInputIndex',1, ...\n                        'replacedInputIndex',2,'mode','dominant-nonself-transfer');\n                    run.associationAbstentions(end+1,:)=[t,n,label']; %#ok<AGROW>\n                end\n            end\n            details.originalLabels={[[local{n}.birthTime];[local{n}.birthLocation]], ...\n                [[originalRemote.birthTime];[originalRemote.birthLocation]]};"
+    ]
+  ]
+}

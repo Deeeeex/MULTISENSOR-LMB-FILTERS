@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "completed_utc": "2026-09-09T13:33:05.816251+00:00",
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 119,
+      "vehicle_label_rows": 1300
+    },
+    {
+      "sequence": "0001",
+      "frames": 240,
+      "vehicle_label_rows": 3899
+    },
+    {
+      "sequence": "0002",
+      "frames": 150,
+      "vehicle_label_rows": 1865
+    },
+    {
+      "sequence": "0003",
+      "frames": 127,
+      "vehicle_label_rows": 2046
+    },
+    {
+      "sequence": "0004",
+      "frames": 123,
+      "vehicle_label_rows": 2340
+    },
+    {
+      "sequence": "0005",
+      "frames": 98,
+      "vehicle_label_rows": 1451
+    },
+    {
+      "sequence": "0006",
+      "frames": 187,
+      "vehicle_label_rows": 1789
+    },
+    {
+      "sequence": "0007",
+      "frames": 106,
+      "vehicle_label_rows": 2451
+    },
+    {
+      "sequence": "0008",
+      "frames": 103,
+      "vehicle_label_rows": 1632
+    },
+    {
+      "sequence": "0009",
+      "frames": 180,
+      "vehicle_label_rows": 3276
+    },
+    {
+      "sequence": "0010",
+      "frames": 148,
+      "vehicle_label_rows": 2012
+    },
+    {
+      "sequence": "0011",
+      "frames": 157,
+      "vehicle_label_rows": 2405
+    },
+    {
+      "sequence": "0012",
+      "frames": 283,
+      "vehicle_label_rows": 9819
+    },
+    {
+      "sequence": "0013",
+      "frames": 151,
+      "vehicle_label_rows": 7025
+    }
+  ],
+  "point_rows_read": 306818661,
+  "max_pose_difference_from_author": 0.0,
+  "author_pose_sha256": "3b53f44eea0d4bff1a1deefca05048ad1db6e5f4c7c077dc35f4c520fc57e254",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "checker_sha256": "2aabc5a4027d43e529271fdf10dee4896dedc0376d64840bd42547cf249b2efe",
+  "raw_manifest_sha256": "9d4272a44f226fe26bc8c0955ca719c849883a00a7cb10a4e71e0ac68a0085fb",
+  "shared_annotation_centers": {
+    "count": 28601,
+    "median_m": 0.29300153253850797,
+    "maximum_m": 8.017769160532385,
+    "duplicate_rule": "First occurrence, agent 1 before agent 2, as in author BasePostprocessor.generate_gt_bbx."
+  },
+  "checks": "All input hashes; official pose parity; rotations and relative inverses; binary shape, finite xyz and zero intensity; shared object center discrepancies recorded with class agreement; unique projected IDs; no tracking outcomes."
+}

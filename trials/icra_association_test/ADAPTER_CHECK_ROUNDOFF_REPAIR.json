@@ -1,0 +1,15 @@
+{
+  "completed_utc": "2026-09-09T13:32:42.793495+00:00",
+  "original_checker_sha256": "e41b50de251cba8abc36e291bf479789b31ddad23e661475a538d1ca197f31ef",
+  "repaired_checker_sha256": "2aabc5a4027d43e529271fdf10dee4896dedc0376d64840bd42547cf249b2efe",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "diagnostic_sha256": "454dcb159b2ddf13c12e8839f9fefa397054769802b32d8cdca452c67d9787ec",
+  "failure_log_sha256": "2195d8b92c864dec80dd625434883973cd8a0bfe8c69917181b6092ce5349635",
+  "exact_replacement": {
+    "before": "assert np.allclose(transforms[0], np.eye(4), rtol=0, atol=1e-13)",
+    "after": "assert np.allclose(transforms[0], np.eye(4), rtol=0, atol=1e-12)"
+  },
+  "reason": "Homogeneous inverse multiplied by the same world pose has finite-precision translation cancellation. All 2172 pairs also agree with an independent rotation-transpose relative transform within 2.54e-13. Use the existing inverse-closure tolerance of 1e-12 for self-identity too. No pose, point, detection, scoring or tracking transformation changed.",
+  "inference_started": false,
+  "tracking_started": false
+}

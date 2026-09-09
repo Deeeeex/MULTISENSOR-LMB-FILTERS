@@ -1,0 +1,14 @@
+VALID STAGE VERIFIED association_instrumentation_development 18 outputs
+VALID STAGE VERIFIED association_restored_preflight 20 outputs
+VALID STAGE VERIFIED association_restored_development_rest 56 outputs
+VALID STAGE VERIFIED association_selected_controls_development 18 outputs
+VALID STAGE VERIFIED association_selected_v2v_column 136 outputs
+VALID STAGE VERIFIED association_selected_v2x 20 outputs
+VALID STAGE VERIFIED association_screen_preflight 30 outputs
+VALID STAGE VERIFIED association_screen_rest 36 outputs
+VALID STAGE VERIFIED association_screen_selected_controls_development 18 outputs
+VALID STAGE VERIFIED association_screen_selected_v2v 136 outputs
+VALID STAGE VERIFIED association_screen_selected_v2x 20 outputs
+VALID STAGE VERIFIED association_screen_benchmark_check 2 outputs
+VALID STAGE VERIFIED association_screen_selected_test 140 outputs
+ASSOCIATION ASSESSMENT ACCEPTED 650 native outputs; 264016 robot-frames; 1347 unchanged original sources

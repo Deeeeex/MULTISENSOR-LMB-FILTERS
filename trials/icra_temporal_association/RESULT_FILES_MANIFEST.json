@@ -1,0 +1,2806 @@
+{
+  "invalid_results_preserved": {
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 733005,
+      "sha256": "2f1f99aa21d7dba8b20c827e736e679dcedeecb3c58cf1aacf525e493f736307"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 732333,
+      "sha256": "4da7cb3223130653fdd6dffd49da55d5150163476a085ec6d1ffd5124834a20e"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 746359,
+      "sha256": "7850aa120eb169efea4a832eb79e8214bba2501ae7b8885250c9178741b3f49f"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 745588,
+      "sha256": "d51fdec6b164fd63257426ab63715a44d7a7d5ff282cb5c94ae1cea1f6c0c6ae"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 576932,
+      "sha256": "a932826d1b46feda9b5fc1f067eb5c21ec3d1f60a588f1ca870020a6b25af312"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 576943,
+      "sha256": "c51704a4ad6955e72dd99d4e43a60e9f16824fb9d9bdf9a399502c5da911f6c4"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 558765,
+      "sha256": "3cddde90789ed31d2ce0bf253a0da4cec1b9dfdd9020f372463f3c75f1c875e7"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 558771,
+      "sha256": "05139f35788b5ff6a80e008628b48c65c97a00e55b89fe4a7ae9b424c70111e7"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 9379673,
+      "sha256": "b7c138e66fbff3646f17858259ca8e38afd923d420535f6f595b2901c3e20695"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 9218068,
+      "sha256": "3b4bb15f0d59633052d9483e85760cb9b7c3088086ebc1445dd361c30ac9cd27"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 11492541,
+      "sha256": "d40808c941b049906dead0304f9052c9fa3e4907eba77d8ad75b81c7478ff8ef"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 13156223,
+      "sha256": "6a71cba0481449262b099300d4b21fdf71c2bed04c7a097238b71de6713012d3"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 32753512,
+      "sha256": "4d264b5bc76987809210eabb576dcd97eafba6d2bd755414658cefc5f1bb1226"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 32625884,
+      "sha256": "1f27d60d56a2d29d10a31ed0c1bebb0aee2923d42c0adc39553a348404565a58"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 36333975,
+      "sha256": "f1c4c33e92faf8e2e8d4f39340e2f729dac1e15b03cbada2cf32f7954b3a7d89"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 36263678,
+      "sha256": "ea2421f910d0298269b6e3f74b255bfd385967dd7ba19bfec806fcf617de13a7"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 26811474,
+      "sha256": "7b4c1102f8702fe86e915e72809459660e64f79e172c9ca26ce2f2901c033afb"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 26766056,
+      "sha256": "f42c11e82d5445ce70402fd2e0ad16d438cb18a3910729833ff3df6253383afb"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 29198877,
+      "sha256": "349bb2ae3eb244fe770959c2227d0d6af551988087eb86dd613460d7d05e7f8b"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 29075892,
+      "sha256": "02f72fba0d6e2f90b281eaabc0a5cb07756798153343c8b0c9471628a6b5f132"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 14895368,
+      "sha256": "90af49e675948bd4d591d455f5bc7fa3c3f2ccbe33c15e086f5721729c5d3149"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 14898598,
+      "sha256": "36796bbcda40800ae98ba2a448e5a68d3d6cba334470fa58057d4dc566c54bc1"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 15889953,
+      "sha256": "8d6a811d79ee4f8410cf586a2dd8129c6837c0ee04868f4ca3aabb6b514a85f1"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 15301810,
+      "sha256": "f3493353cf093ac70bb6d75a7838fe1bc74ce81fcda65c49f99987c40860596c"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 12305764,
+      "sha256": "9accc3a5c131b46c27c5a60ede6be1339b22a586815cb1f7571aeb3e434e180b"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 12170681,
+      "sha256": "5e6a63ae7b7706d0974791c5232a9f9bcc72534110e37837e9f429062ec4207e"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 13737374,
+      "sha256": "27143f53aa5f5b6df0c37ed5470b029fdc70f73c0361a7330ca730ce2a6cee2c"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 13720342,
+      "sha256": "9846443dade2a67947374ffef8e48b543aa49a41dea5675922c9073a5be7dca7"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 18334839,
+      "sha256": "cf6b552e1da9bf49c20634225cda207fedb1e5ea0ffd15d967b5cf83bc14fe75"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 18345782,
+      "sha256": "9b42427e27fed91cdd8d58eaadee1a84666cc19e3115329650901e502350e514"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 19220487,
+      "sha256": "bfc86fa8f54979496d7f307726ed1ef5c147d758731e2b76dceee569a523d505"
+    },
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 19219355,
+      "sha256": "6615c4223a0e4bf1b8b39c7abece6120aa6e8e82126be46e6ed83bcf35a778ee"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 1130357,
+      "sha256": "12a1dc289486018761eb3de1eb6442c3dab2a6dd233d477c7790b6a8652ada3c"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 1211923,
+      "sha256": "5b167cecf0b32aecb15663c2deed288f0c67b1657e1bb9380304891ef56bfdc3"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 1211935,
+      "sha256": "3687a7e034122b20b27996656482ca31cf6432ef8d5869b1cab48c7dfbb58380"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 1194683,
+      "sha256": "e0ca484853c3c59844ba6614c93a4c18edfa68018f7b758063ce0d7a1181ed14"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 1281601,
+      "sha256": "433b8cfdfb9e42c87c69b1d3c3227347e00bb6d209491f93688d37fc01851f78"
+    },
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 1281609,
+      "sha256": "c66c51ec8baeb07a54c2b3bd2559d192433647e29bf98d4a15133a9586e017a9"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 681671,
+      "sha256": "26d9f368f164b4542748803ddc7c72b7d2df4637387dd52d45176892a15ef8b6"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 753755,
+      "sha256": "43ada1acd485116b97094284df8bf2e7bb506683988f63790876d1d12337a0d3"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 746030,
+      "sha256": "bd37339a026603a70d26498aea89b17e5e638e7b90b5135741447b96952bec99"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 694495,
+      "sha256": "f92c85627c4f4185f523cbda1354fce134ddf0c93d5b035f770595481c8ecc08"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 767175,
+      "sha256": "c5b43957f51cbab8aa0b809308e57fbad2da6773f81880e26c7a7c4782c241dd"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 760044,
+      "sha256": "852f936d96f2796ae74a26e47ae45d6811d8e560e8d3688b5e10ecdf8779cee4"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 16176164,
+      "sha256": "b2bab44c8bf05dabdeb170d48c9cab06c7ae85d437260bd5a5bebeb2fac378a0"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 17953627,
+      "sha256": "19525b34e5d09264af08bf892e06da4fabbfe664b5d63e61243efc868c9914e0"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 17953627,
+      "sha256": "d13ff95eaa4b14810363f1247ea1212faea330cbea3a56548943443bc0727f41"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 16428532,
+      "sha256": "90302a33fb8ff6ca03043a1e3bc9451cb37d2a88e867ed24de98ca81cbdcaafa"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 18272374,
+      "sha256": "884b97e2f594a76314ded9ffd8f64e7720cb5da88326b96c8c5f75d942480d7b"
+    },
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 18272376,
+      "sha256": "691e23b7f7a97140b34f9fa02c38fee1722446b172d6cde5cd046839752bf6cf"
+    }
+  },
+  "valid_results": {
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 1129873,
+      "sha256": "28133b5772015a009615b785320a3f77964e8bb9c63059fb19270be271ea3022"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 1194172,
+      "sha256": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 821427,
+      "sha256": "b0e040885724ff2030b02792693e187bf37c8e41cd6e61074dc66ded8853720d"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 804285,
+      "sha256": "7034580d342c0ba5f650cd7ce8b746ecb48d12267ce70bf16499c1db4ea912b1"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 572034,
+      "sha256": "63b8c47f5dd5e214ba2c691e701069abca140f74e980c1a86bbc3b26ba6c7b54"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 576165,
+      "sha256": "c09b3d326e309cd581c3f00a0bbe5ffe8faf7a4cdd8f9f4dab6036cd98bf4145"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 9775766,
+      "sha256": "158c7bfdbdb32c1672d471f8f36f1f99c71558ec8e42a6d762ff624e6f374c7a"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 12561985,
+      "sha256": "8754ef530e2a074b3c545ac4395b8d34ff1cf960f8f10e4a7750ab5c67118b50"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 30038787,
+      "sha256": "33be1ee0485065408f098aa64e602c15349af7a2e1ecf54aa08740de20d24fd7"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 30829807,
+      "sha256": "83e86d8b34a3523135cd06b1f05c343867cc38ccbf59a3ba3421c1e354f85475"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 24846630,
+      "sha256": "ffa36d2b5df785997932e07db2e8a954aa94c7ddde1a0b57ba2e7d6db0074a92"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 27252801,
+      "sha256": "9224226ab6fa4baa7637988af7ec281c0991edf7eec3c455b0a0090493b1cf15"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 12502457,
+      "sha256": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 14298242,
+      "sha256": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 13274490,
+      "sha256": "e189b6026939b11382a3b4ac78ae427a289d49cbc7f212b06d95a0e1e108b492"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 15273574,
+      "sha256": "fe1532cbd2676ef61e6e60d8a84118e07a7d0140b60e90ef596ba9592bf8c335"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 23281921,
+      "sha256": "799397494d6b712cdd18095f97c10b581850339e86a87985630efce6551026da"
+    },
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 21342748,
+      "sha256": "60aeea2185fc8c36ea610f271db9cf0bb00151dc52aed07f8abf0f35475248de"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 1213897,
+      "sha256": "43cfe77f0a161b915cf645269da1299b501adc585996c32350c609eb95e70b9a"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 1213909,
+      "sha256": "8fd82ef0e6e2b6f70fa0c1fafcb85195cfb0d6c45ddf6566b3969e2de8044b5d"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1213909,
+      "sha256": "da142af243084446b5987efe4b2e52f66eab77206a7d6260b2fad359be0827a4"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 1213909,
+      "sha256": "75dbc5d887010aabb16279b2b963703a67a26439a92f2a7d70f6308610e27a64"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 1283742,
+      "sha256": "470e1c0337867ce07587858eed4b4da3dbc6ea4f9fc3902d3f71542d76f894ff"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 1283759,
+      "sha256": "0c3f23e73469fb688be14ba6f6870c092c9b6921543f34664f650e512f4e6caa"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1283760,
+      "sha256": "a084d159cddbba5e807a229cd189ab1a3971c7bfa8adbfd1d36d0693f01376fe"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 1283747,
+      "sha256": "fde371529cffc4f546b644b62273c6d3676f9fcba6766c0c49abbe6294b50e64"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 608022,
+      "sha256": "b699c0cbd961f2f41a79df833c2ddf44dee039f6ecab40d11162c809950c3469"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 608061,
+      "sha256": "8e0c714e0a0df33d5c1c8f50ecc38b7f8687f2219537340f5e1432e3d3f94786"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 608055,
+      "sha256": "18cc5fdfc2d9d60df1b3037822a3ed3df64e27aa7a874d2f9ba77ee4fddf931b"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 608031,
+      "sha256": "5210a1d5e9328d914310b82323702e9c77c9456ec082b7cf724911a842491643"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 614096,
+      "sha256": "79b8939126d22ee3f782ebcd601a59d8c62b8aa9e2afa0db50b2497824438fad"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 614123,
+      "sha256": "97e08c2f02412d5c9cb8951e7ee03aaf1c7e3b36359dc33f6d5e98872173a9ab"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 614124,
+      "sha256": "324d994d619d8c9fbd0429e5278d70c47c838410bf41e41b20b43d9be7e9c4fb"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 614112,
+      "sha256": "5100f8122e5e2ac4551ede70168e80ab8efed8343c0a5c9dd466e8d3cabd8a30"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 10570730,
+      "sha256": "2acd746e8021d6d48e53093eb78c747712fabe38cfa1ddedd11ea47db5ad57f5"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 10602384,
+      "sha256": "c479557713b2bcdc2249f02199bc4e7e86b0d28e379bc2d4ae2d0e67b9ac440d"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 10615694,
+      "sha256": "0ef7e765b1a02199356d18004396ec6a1f7d80330e4d6a4890e247d3bfc76f56"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 10250628,
+      "sha256": "f5e9ecf194de1f3214f5e48512cbedbd03354c4c2504e51b6451aacbac97912e"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 13385269,
+      "sha256": "2b496c0662d599881dc00a2404449ab8166de13dfb8c6c0cbc05adc47b7b72be"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 13947873,
+      "sha256": "d7fb40d6fd953d3b82a1ff823b11301f9d4cd22a8f9eb65f8adb4347d8049044"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 13111367,
+      "sha256": "a010e00bcb4066ba3e9d3851f3d33effe32ee9a96045eeed751817aa2300502a"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 14736363,
+      "sha256": "15deba2437c6b23c8b67d0cbb6ded387a5e110e89439007024a6c848ec4a79da"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 32755298,
+      "sha256": "0c64e62b2ecdbff047f56f1bfc165c028315508548da07544feae18ec529efe3"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 32323938,
+      "sha256": "d51f772422ed17639bf9ed5ce2fd6aad584ec0b66b15b2bb4be79b8e81bc28b7"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 32323938,
+      "sha256": "45b5cb4cc633dbfdb34fe2025cbfb2354c1f9188ecc4b20ac86c130bb88cad94"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 32627534,
+      "sha256": "77ae368c433b914702437a6cbe52271dbd0329a2f1297bd2d6627392c6c6bc0b"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 36335441,
+      "sha256": "997064f662f003a68fe6ab7ed4c2ffbc6a88736fd48549da0b17adb61a811cdf"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 33030102,
+      "sha256": "2fb92af169f2fa7135272cd55d32c1adc98cb34d1af55989af4df141cc397580"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 33030103,
+      "sha256": "1017e2dbba181b7932572917d6421c015957f246110bb04d51d60c0593cd9877"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 36265376,
+      "sha256": "196822575d94f0f987c47b365e54c7b02466956a89e6b18a7d9849488dbcb11c"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 26939859,
+      "sha256": "e7d1ffdf2e118ab21360ed30811eac3fe5ec5df01d74baf8bd7a9d62cb2ffaeb"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 26738592,
+      "sha256": "fd0ffb1a0606b2eef34d7f2f97ba579f4ff03ece4769eb6496fcd17eb3448d31"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 26848662,
+      "sha256": "116aac31a2fbd18bcd8c6c2a203e54ab6c29f8f9f7f61c392fb41add3a60fdef"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 26913574,
+      "sha256": "b277249d57753f3be18aac60b394fe47187e9dd5d51dc16770068e3a04634f78"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 29389186,
+      "sha256": "9b36579312d416c4a753f6e8258d1816e659a84714866bd5d7c42d9859e85738"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 29043229,
+      "sha256": "201f75a345d49b62c09572156892a14d98aaf1931c63ce8bccaa5153db60f95b"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 29085215,
+      "sha256": "6413742793e21fd610c29d12ea49321bf88b50170480d641df7ee89b003058f8"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 29388538,
+      "sha256": "ae1f57c0b7b9bce8a700935c09b9f760aa9e0d74bc8f681eb0e2f8f6e6a83b1d"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 14892559,
+      "sha256": "3dd425e742ff0963a6f0acb06d0786a2d0d250921355817a85e151b1b33b51ec"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 13514913,
+      "sha256": "f1070f2ca1e0d9ed6c475499b19f5d066e07ea8229a73c63ff64486519ddfae4"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 13334285,
+      "sha256": "da2961efc0ef017e09e6cf73d66a2e37bedf15d4cc75b318b171ba1bbe06bcd6"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 14895752,
+      "sha256": "bd1944da75e3cc82b12e043242fef0e8a3ce37ad3bd4d2ecfea4cb2472d8f5d1"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 15891746,
+      "sha256": "bff136dfbb71a1ab36c200a23b02ede30324b0376c364a3ff26d6005c73966b1"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 14635214,
+      "sha256": "aed8685b86798e475ad7a703bac8a8fd1d785926edc1856c86042bd3976e230b"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14485911,
+      "sha256": "517ab3ff40f3c673800f19b8c69c9a54f2dc8790df430740d0e98eae62773a88"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 15303351,
+      "sha256": "72aa6f01f319b187a887959353c3d7d949e2d786994233dfae291086d010ddb5"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 14264812,
+      "sha256": "33e6417ce56036df776a17cd39d882434370b29fd25a8bbd6795618cc2dfdb77"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 13990283,
+      "sha256": "7ced3d3775b8ed03147dbeb038411c23cffe61230e654c49c4c0427f83b9a632"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14100831,
+      "sha256": "c734ad5312e97144561826c2445f55086dd07c734cf030484cd48f0a0606e501"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 14030757,
+      "sha256": "a394c9f083898db84fb750385e7bbe143e2b272e269d692d43702623094d7744"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 16266450,
+      "sha256": "b43fd8c1c274d057c86973f064ac001ddcaf5c28e00374b1478b8fbc1aff5b25"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 16098616,
+      "sha256": "ebb9adb4b52991273cf82ce4e1fcf8b146b2b0697a5f0d65cab50984b8c04f8c"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 16327214,
+      "sha256": "bb5b02a8f09fa88facd1546dd2fc44c95151ced0500dccfca453bb67827e0f7d"
+    },
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 16265063,
+      "sha256": "fe6fdb95212adf46dbc59d3c9461eb2cd0b0caa63c7cc0d7d6aa9945e8aa1ded"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 823518,
+      "sha256": "1065e5e4f6d5acc2a337b5a1cb138ebb65c48ffd930b705b89e25d0ee91a498d"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 880228,
+      "sha256": "a54f14ab23ba40550ac0b3154d126eb2b1de76057a1b9664573c3671f74fa5ae"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 879088,
+      "sha256": "0612726ceeeada3b33e464a91f54e6f9ccef536b8e3376341c25db41724d6c56"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 893400,
+      "sha256": "82a8e3d82e47aa5899f0929694b7ca30e19cd680e8d53b40ad9a824437f9c51b"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 879040,
+      "sha256": "be7a4ba1bdd15088335fd3ee136587da796021b540dae5dbf724cc80393c7a67"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 806454,
+      "sha256": "33b3a82237cbfee9c62a1568f5495c976e832d1bb6e0ed218ee3d3d435d9f593"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 862494,
+      "sha256": "658bfefa5f468074e06087770b602a6e10e3959cc196c943424ba01d4307caa3"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 859637,
+      "sha256": "e7992a1ab6b833f5b1a1c78afb8403c1a78e1dac596a2487db85be621b7e174e"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 877176,
+      "sha256": "9673347ea3e8f2f2e4325ef25134450a2630708666ff3814aaaca34c1b70b545"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 861465,
+      "sha256": "1f97908645a361327eb457e5d7c676a6804965895ac587d1ecef66c0322d6919"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 23283984,
+      "sha256": "00b24fd65bd4b9b4eb8605bed32bf1d034e854cc3f1aa09b71ac780eaf3069c8"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 25183825,
+      "sha256": "e9283316046aa1f062db8658dae6eec057271b1cb18e12cf4469893a4a424fff"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 25195337,
+      "sha256": "19bdbbe70aa82239a648ea395a288a5124a6083ea25175e237f8fae9b5428412"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 25195339,
+      "sha256": "fc23d9025388e8a4d47c6e012b56d5241ebd0a17de71895f6ba84db566956f61"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 25195078,
+      "sha256": "7f39f5bed3b5a462b59d7e17c3cc329e8e073753f06fd597105c2ada019c01af"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 21344525,
+      "sha256": "aa2aee3a12bb7ef36a7ef520f136b16cf7a7ad8ea05e0966e1ff70a6663c570e"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence_assoc_direct.json.gz": {
+      "bytes": 23285322,
+      "sha256": "4d485fd784644572c6d21d07ac0ac0b768a0bc268f76dcdea387dea47ba542f0"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": {
+      "bytes": 23286468,
+      "sha256": "f5a6818e13da93209d1112c048eb584e9d99c32571b6f233aae58834c58c630e"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 23286467,
+      "sha256": "db90a7d663a5ccf30b29f946786f28795d3b6239c219ab70ceef54acbe326851"
+    },
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": {
+      "bytes": 23284431,
+      "sha256": "40d5d48d208c877cf16f16435913275095ed5d30d80d1c72911ef7ed6adb20fb"
+    },
+    "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_intermittent_marked_lineage.json.gz": {
+      "bytes": 834022,
+      "sha256": "a38d61b9eee637ffa0742cc5bfbb95d2c0cbcd5f3be34ea90ad3a61236b9e9ea"
+    },
+    "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_reliable_marked_lineage.json.gz": {
+      "bytes": 874936,
+      "sha256": "be08083bbbb43223645ea268c5b62c9180756e7d73c93dcfaa2b6f8de1ce305f"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 825127,
+      "sha256": "1ed3a5075cc9d97009d6812cffdad9a2207ceea9de022ae98114c8a23c1c8d0c"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 894624,
+      "sha256": "6b08da4553872e7f22e43a7f02fed990a0d7ed1c32f3df39d8e012da60adbc90"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 894985,
+      "sha256": "47c1aebebd6eb644bd5fefdd0b75380b6127a960aeadba7542223518def61fa6"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 894581,
+      "sha256": "bb3c0336f2e25647bd6449eb68a188ac6943e62e1cb9f914b75decba0b32a81d"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 895009,
+      "sha256": "a0a69734b58ac27e4aef24e19947552e17afd2d5607e8b7ab523633e60c60459"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 808042,
+      "sha256": "0f6fb4569285d30249fe0c5956d75ea9cadcbec6f4363ed871829193618aec1e"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 877235,
+      "sha256": "9e42cf581a2ef330f92051033cd329b959016270d3a4c158dca41ddd819b9e80"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 878756,
+      "sha256": "0cb906985d7c51a824fdb65af8bb0711bb6e47eeb2909ac17aedf63e11090735"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 877189,
+      "sha256": "28bf9cd206350938239542c79e53825610416bbc3e185edda885d597ff0d0f2f"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 878786,
+      "sha256": "aa6b1309af5de9ff968f3b910aee2b954b12e6973b0aa13a0d6c74053de35e82"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 12506396,
+      "sha256": "0ee1aed471281dd2c1dea64b6c1f4aae2ea0e30f163de7ca26399892f237df07"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 13335522,
+      "sha256": "41446cf9dbcd34c1b66064680dca3ae0a3f34912cd35509c4b98d377b0bf1a73"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 13514245,
+      "sha256": "89bfa6340035405f36851ef48426641fbbb5a961b2e2c1821a1da803b58742ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 13514256,
+      "sha256": "3cda1963b6d4aadbbc4de2217c8df172f6f98a123fbe2b32464334a8ed0eaac1"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 13335552,
+      "sha256": "750edc551ef1753d4a14b0dc119b0d21bcce8637f5564d65d55ce5157590ab3d"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 14302293,
+      "sha256": "563a8c3ec9ef780bc81ceb95589e6bfa87dde8fd00f819e6d29ec93e01a2e9c0"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 15218553,
+      "sha256": "d6761061aba7516c46e2594be9a01958e5ca26d2450c5047db582a9facf65b63"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 14655895,
+      "sha256": "894d60294cc5f23c30fd01033a7273a8ea8e873e6935cbb7d088441ed959fded"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 15388776,
+      "sha256": "fca371c3e44860b9b2c7c16c42fc879aa3c5bb0c4c9fb13c45cdbb80e23fe8d2"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0006_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14487238,
+      "sha256": "32448f8ff5788582666cc2493880af762682c89dd3d12720eea962f4438d8d23"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 13278202,
+      "sha256": "c8bba6d321a09e20b2d7b1efd81faeecf4d46b05753e16fa6ed364b8c9126171"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 14197858,
+      "sha256": "2af5abaf063dc561e5bea682caae715fd63b530da95b616e08d23e82f22766ab"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 14121723,
+      "sha256": "0ea8a35a400a80736a9731b7ee0a6dc6c28fcd70ec27f2b00245516d8bc57595"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 14213402,
+      "sha256": "53b0480eb43f8ee3bce87ac1f37458d66d360779f5c5f6faf489b4e499c9f571"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14102123,
+      "sha256": "20705d6a85d2328d9f43bf686a172636c329dd91a46826ccc8e266c54052aaa2"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 15277915,
+      "sha256": "c813d67f325fcd91a33b0f84dd7e9ffa6a852a1b945e12287ffe627bf0481238"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 16311877,
+      "sha256": "9a55da5ebec97d971abf1898aaa80f6c08d0f54aa973b862a189fc98fc1c8eff"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 16325399,
+      "sha256": "48b44a44f1158955c56f057515e43ccc63b3ecfd18b315fbb12ace075c2cabe5"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 16301868,
+      "sha256": "28ac2e7381dcb32d3945fd43f66c19db9e36139eb45bc33553fba12e3a246fc5"
+    },
+    "trials/icra_temporal_association/results/association_screen_preflight/0007_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 16328431,
+      "sha256": "ae0ca6ca416397e2ed4906017e80f36b6dff3d98da3916aea520536712ce95dc"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 1215249,
+      "sha256": "f8e7acf34c491a410614b36976a19aba59e9ef75fcf6f424efcd0118ed6b98ec"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 1215247,
+      "sha256": "2ba9133232cbdb29fb0cbcf5675ae41ce8209ac9e7a078c6a1205217d10c24a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1215247,
+      "sha256": "4c7a88b49e592a242b75da76e0e0a0913a8d02d8c814a3af0297e5cbf4ac9975"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 1285269,
+      "sha256": "20b356e270bd6a1e5081b5ab3d03b7c84f8feaf6c3cbbec1060819407cc94fb1"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 1285256,
+      "sha256": "01f72a9b77d1f310f7a89fcbba74c789c466c704adf9ef622022ff6d6be09acc"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0000_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1285259,
+      "sha256": "c7f831086717fefda5cd946c44d6b60b049b6c38076f6ba1befc7fe7d0393d70"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 609468,
+      "sha256": "76ec0de988edbca2beb157ffd30bd70897a72254e9be9d2da22b1ee274485103"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 609468,
+      "sha256": "42816e3a39ab653aff260f0eafec725619b291c801de5627830b97865928eba2"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 609470,
+      "sha256": "504d98e350f9e2b4ae4f8688613f23bbac50c6c7fb9257421859db927b150546"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 615520,
+      "sha256": "aa7b432441976475f46bfc1f505289ad9efd5664a85ee2c3d5e53b6cd13f53e3"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 615528,
+      "sha256": "62e53abebbdc8db7a4c8684001758496b12e2dd364dc54783c138c5f939fff23"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0002_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 615532,
+      "sha256": "c55333856378f204f6e4a4e501c00080f12d928ae9e8504ae495d75a7dc2f699"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 10457562,
+      "sha256": "3786dc2e7c914f8eff70cdcf1b367d5543c67b886a4edfc494af93f8cde52c08"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 10614807,
+      "sha256": "5697c0a3ea9eafe13ade23349010deb19fb42f7fa5bc128cb001763783d444a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 10457150,
+      "sha256": "f353fd8eefeae37de7aef74518893c639f0ab719d82772fef4847774f40ee5df"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 14041842,
+      "sha256": "0ab3f138f061bd8d30a50d63915c544125af8a833af1e2a925eb37bb7942cce0"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 13104595,
+      "sha256": "5e4cad57369bdb52387456fb3700eb4af05a4ec47fe55d3adf0cb6d5a06b9e2e"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0003_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 13590427,
+      "sha256": "96c8e4a056ee08bc097eb2c40eee9508f1938fcf946a1d9fb32703fb9183ec06"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 32325208,
+      "sha256": "3e2e359cb33f509cbaddcfcbdf3673a6c275806b0b212661408282389c479614"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 32324270,
+      "sha256": "6f5463dc4ce4033086b19bdbbdb6fe1926097cce8782dce4acccf543d368d4fd"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 32324282,
+      "sha256": "08c16bb243fb6760c10028515c2861ca6199878f2e78466a4b040cebd99a4ae1"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 33031477,
+      "sha256": "249875ee1affe29367f798b559408b64eedf1ad6c1803df70e12e363d7f10aa4"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 33030595,
+      "sha256": "93a0fb6032b25d589b6577a89b7d5164c44fbfee324916092f963277cbc0c16e"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0004_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 33030599,
+      "sha256": "3c7635236c4d7354559d1da319ed40dbeeac6cf73f49cf49bb80de7d1ca0ce05"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 26752914,
+      "sha256": "49247518c520c6cde668a65d37e84a34e6e73130b89ca64a36239c4e08a3db6e"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 26727587,
+      "sha256": "05866ae63831d491f7463b6776054802dc372e826926b8f811dcc22de3f48ffe"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 26702663,
+      "sha256": "9c91dafcf4bce8f5f29970b4bb1b8b6182968cefaa7bcd0be197150cdc7e24c2"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 28975449,
+      "sha256": "86976e5581b6c91dae6a2222e341f191060abc49a2bb90b99fbceecd3912d1c7"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 29083324,
+      "sha256": "62caf01a8c876f1cfe52ec7e490c52d8d3c1066ea2ca50aa0fafebd7358b89ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0005_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 29080779,
+      "sha256": "a355322f23c2040720efa381396ed8f271af1b7b05db47d1d7cc440145babcf0"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_intermittent_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 25196507,
+      "sha256": "0967319dbf2c0a36520713eed2973859e53682c3e5b7bc9984f18dc37eca7db5"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_intermittent_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 25196300,
+      "sha256": "e9160097ab65e6191882e19ddb4085606030e8e325ad327178c42ec3c9d8e023"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 25196301,
+      "sha256": "e9465da9a0dabf8df16307c30913670c5f76041673eea0fd0f91a6f2791933cd"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_reliable_marked_gaussian_evidence_assoc_nis.json.gz": {
+      "bytes": 23288056,
+      "sha256": "8269fae3dcd5861adc721dcc5af73d36dde656f089b89de4aae084e1c920432a"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_reliable_marked_gaussian_evidence_assoc_quality.json.gz": {
+      "bytes": 23287883,
+      "sha256": "2e4e4bf09023a4f19ae2f5b070dc482426a2b7c029b94b8ed40b1742207d7524"
+    },
+    "trials/icra_temporal_association/results/association_screen_rest/0008_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 23287883,
+      "sha256": "e58895be2bf247b800e0fc008b8aefea6450aa46d26ca8a68e01eeea4ce51943"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1206064,
+      "sha256": "0c06c7ea6b6ae819d7f46cdd322cbc8620f64b36840a91a7335e72012fd81dd7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1270378,
+      "sha256": "88fd6321b0081620a9c2ae903b87e0a189bfae50a60856c66a8fd2cb48658e9c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 857619,
+      "sha256": "8027824c54efa2b04195e3037167f6ea4f9cbf5f830928ad10d8b03c0497419c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 899912,
+      "sha256": "4027b5be7399b5cd455fd7fcc4d8db8dae2e6eb8c6569f5b8aecc2f1a95bca2c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 613718,
+      "sha256": "9afddfca95e293872da9472e9b58f20f6cb63b023a7c7c9753e2b60659431f58"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 605537,
+      "sha256": "51248daf56e9f7649d46c2acc9d84ab109d467c4c72501fd22aca40378a7043d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 13239633,
+      "sha256": "120f81f3452301b4d852808bab6608d87304cfa661834d09e02d08a66e45190f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 15420309,
+      "sha256": "5318b4a9b760494c3edb341074ac3f7ebff66472ebc05713aecd9d33bf562ea2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 32095472,
+      "sha256": "e24177804ea7d690c399706c3f92cb6c82be30171852d65d6088c3d42543adf6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 32094101,
+      "sha256": "28145b546403a4db10ce343ed0e2f30ed2a2ad745c3e073ef5b6a2ffeb9e28ec"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0005_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 26902561,
+      "sha256": "ae531da31f9fb9bdde5d65323a358a3c390937d870a0001ce216edcd7eb8c133"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0005_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 29263232,
+      "sha256": "433070f085a732e767729b02999c7811ced7d4a7097f25210bbf201b20f3982d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0006_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 14145729,
+      "sha256": "76639794afa446813cdd5fddebe7fdad41876cb57deeaf87f00c847aafb01462"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0006_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 14369439,
+      "sha256": "603f0c81d29623af5980ba6ad0092166ffd2c6511afb9fc5fcf371e18bf39959"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0007_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 16765682,
+      "sha256": "fd5fd81819beb68d85274258eb9e30de8b64ae7274bbb02141307293c16adc5b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0007_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 20618840,
+      "sha256": "7ade142886d3c0f18fddbdf1ddd5dde2292da5e6553cff40185280b7897be837"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0008_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 23160648,
+      "sha256": "04b95aced52d0aba3093d8e49a4dd4849fcb82afa135ada879066f896d11c0a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_controls_development/0008_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 20315683,
+      "sha256": "5969b992a5fea5bfdc5d7581ef54023748c036345f8883cc1448fde10ec1bcf4"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 1553257,
+      "sha256": "66debac4daebc423182984d8b136511aa2e02fc93a7c28704b70ff2adfff30ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1701066,
+      "sha256": "f7d92465ff1cf2c4127eeb166d76fd9a54d46e0b402304266ffdd6a5341e91c8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 1588323,
+      "sha256": "4daaf16607412d8243464102c68630f53c3d79d142d4a94034968e8483488aac"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1740777,
+      "sha256": "587e95ce690311d30924886440dd45c874e1d2e45f65446fe4e13d2cdb844448"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_intermittent_marked_lineage.json.gz": {
+      "bytes": 1434374,
+      "sha256": "5bcad92e5f8372f6d2fb51354d4c0e4af27cca0f5f08569f8e10d0068a876ffe"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 2013519,
+      "sha256": "ea8b234e5161e9d2839586de1eba21b0b2d48db18ba3039e1f63f8125e3b74dd"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2193081,
+      "sha256": "33c38ef042c400f2ebc0a5f9eba63ea65d611e801f3543904083d05ed056b67d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 2078995,
+      "sha256": "31361fb242d84252eb759e088c270e3718a78227fc5aa2001e9712aa4eae77c9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2262628,
+      "sha256": "7247517e4de31d700f0611c8ad0d033464031c24aba541db00961889570e7213"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0000_reliable_marked_lineage.json.gz": {
+      "bytes": 1564181,
+      "sha256": "aeae3da574359ded2810a283af5141e3cf2507fcb12a1ae1a4de71234d6b1408"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 38632509,
+      "sha256": "7f7ab41f15e1cc13f731d4c2986039e2bc40ac8cda40bca2042e60e62a2d45a7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 41442072,
+      "sha256": "88814281b0e2b610cff7e78c4c2cd1e54b7902da909d5515a30d77fc978bf38d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 40785349,
+      "sha256": "6ccf4845a15f8e6145305f98345da51db87ab4c61a1802c7f81e634825d0c066"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 43752300,
+      "sha256": "71899fe07402d642d9ec3bd0c5101f00bbabb4acb5daa3ad9d58d12bbebe9064"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_lineage.json.gz": {
+      "bytes": 9492843,
+      "sha256": "9d6e47b60478695ae250162953b9b453c2e86e9e25481cf0588c5e6bc4e6c162"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 36687098,
+      "sha256": "71e8d9fd5019df1916336982929375b569f9e686e62a1cc3a8b20dca19e0f65e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 39290697,
+      "sha256": "20c5d0c3eb00fcf8d417909d822cb63ec50791bf71f3bead9c0d95058d8c6d62"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 40296612,
+      "sha256": "abe1a3862c9d0461cc3ec2ee223180e6ba8701ecafcea88521bc07b544a11d57"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 43130481,
+      "sha256": "fdf2e49e0f0137ec4a29de840b98265ebf9d2e3e0e2f8cfa52600adbb8d2c43f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_lineage.json.gz": {
+      "bytes": 17073322,
+      "sha256": "5eacebd27268faf9c88b847dfdeb8ce669df7b6a12b39ae1fac62c92d505f5d6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 6789524,
+      "sha256": "22c4efb96ca040286f80d30928b62e7cc027895061cbc0ce4cd0339dd6550288"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7340330,
+      "sha256": "a977ed07f9de4ef7063e1acc09594a25a390d81664684b1955b24595e2060c34"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 6823404,
+      "sha256": "cc89b602a156cc7ebf1b7d29479a84a75aa9fb032081d3b4186a1cadc2078cb6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7395496,
+      "sha256": "cc21b4394e45ff02ca5ded1d7e5aba5ddff947256d3f638d4b567428c5c78e57"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_intermittent_marked_lineage.json.gz": {
+      "bytes": 3953644,
+      "sha256": "fc9e63d9b475385dbcd33652f662948d26068d2be75f03b6a05ae9c16203a8bb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 6087753,
+      "sha256": "b1d27df15e25bcb4fd25dc964070fdd6a5b1bbdecc865c02a4ed9e4ef4192b0a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6589066,
+      "sha256": "a4fa052b33fd9d6bda508c8f6e020b10654ff3aeacb61b15d6da75c00aec5400"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 6985682,
+      "sha256": "973a8444342aa2974a61f7acb75d02d6e44cd93b515578056a48843224956e6e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7574909,
+      "sha256": "694c32f952d397ddb8d17c53961d8e4ff8f9fee6c8e369f5b4ecfcf86b1cab5a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0002_reliable_marked_lineage.json.gz": {
+      "bytes": 3678355,
+      "sha256": "bf7394bde72c6ded422e6e4d52bfa7041b204f69421e4f240fba89548ad9fa8b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 8238466,
+      "sha256": "0ad73436c5200774fd2d8dddac520e83984adf6ac7703c88fcc4b9f05643a8c7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 8947848,
+      "sha256": "f0bbb43e5f748089edc328ef70c42d4a0ab356ddd5809f42b6c30bab77964708"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 8230727,
+      "sha256": "b7a46187555a99c951f4cce22d2bcdb84108690acf7fe64d53419a316a4f1dcb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 9038836,
+      "sha256": "bbdba8b12757f4fee268ad84c75499c0f1c59ad8d5e3e76318727c1a60783e1f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_intermittent_marked_lineage.json.gz": {
+      "bytes": 6153007,
+      "sha256": "09f2255f2587663f52dab74be6f411aa2ce07d26c63f6742ef6b715f61094bd9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 11148324,
+      "sha256": "943d9e2d2c2e8a616c2cca8daa0f166d9eb1120fb55754123de6766f125a9308"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 11960276,
+      "sha256": "64375d450b77cb6537aae20443f8bfe8c755d38a00b96135cbe1a5bd9faf1264"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 11212269,
+      "sha256": "a96ae517b11fcbcc117ee2592e19409fe1168d2198b32e20615fd9c6dd5da79c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 12081698,
+      "sha256": "32e02736dfacd22bbd19ae7b603da618651c26b6fdde8705ab849948ecb280c7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0003_reliable_marked_lineage.json.gz": {
+      "bytes": 7401281,
+      "sha256": "1f1a2ac78ee6aad4e247673683bc74b7d74ef04f97299e065fcdbf9906673eae"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 6514221,
+      "sha256": "377746a6841ea1f0939bb650e537a7321a208eb2f4243e410ddce1840fb2fcd2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7037575,
+      "sha256": "0319375d0f08c4c0e4cfe7717196a72ccebf3d2a747b56906c6a3fae01117f04"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 6425597,
+      "sha256": "e6fb018bb6a9a365e927e6f2932a882caccb0156260e797fdb21faa826d7e944"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6949440,
+      "sha256": "eaeead8a24de0ca7c959d3c4444fa829ea8ab9c039a7469c3761f3c1ea9737a5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_intermittent_marked_lineage.json.gz": {
+      "bytes": 4486109,
+      "sha256": "b38f4c667ed7b98419ca090b7cd8455721993963b3350ad55c4ec6ae0fc9ef3a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 7202139,
+      "sha256": "00598d1ec938e25a3a0d0cd98a33a69866236a0e57952b90fc6ed45441b431a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7740170,
+      "sha256": "110f7d68f0f776f81b5a9e9011c59586b8bfbe2938a94e23247cea516d38a30f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 7103321,
+      "sha256": "1f42e0dcb9b30804991904bf5594926e3377846caa7124238fd0a5fa29a26f3b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7641150,
+      "sha256": "300037a935cb019f61271aac57f1c2a5c517c27cecf0a6a5d3f69310b381c4f3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0004_reliable_marked_lineage.json.gz": {
+      "bytes": 4825337,
+      "sha256": "7f9629e4b5095aa7bdd83127d994a797a53c6e50fa94e2ebc19a4cc2d1470e01"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 2132984,
+      "sha256": "79d15b1a53d0848ecc2908ea0e337fd867859d708332db61f6dbfa8e52524e5d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2356183,
+      "sha256": "8f1facd232c55705fe9289c6fd3069d623db813d5df22befc3d174de95016146"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 2107563,
+      "sha256": "b6f6e271e4b774ac91599115e0c14ffc3e732ee811c93fa0a2743842154949c0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2331306,
+      "sha256": "c1c9e9f8299880e2db27dabbe35dca9479fb820def646c4e9987fd711138be21"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_intermittent_marked_lineage.json.gz": {
+      "bytes": 1724164,
+      "sha256": "d880146568ba58f1120c554822f9aee6fcbf2251d1c8e47bbfa8ecbd4e20875e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 4412223,
+      "sha256": "3d43c4e1948c8f57385758ff37edaa89929f8469c35d7eb31277aa411f5038e8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4749481,
+      "sha256": "c09340d7d86a222cefe6a48b1950ccc1733e38ecbca136351f0b18a9936bd060"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 4549015,
+      "sha256": "a8ee64b0dd03058f3d30474c189cf123286dbcd6302e483ec0ac961782091ee4"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4899516,
+      "sha256": "6109afb46bbe1ff624c7beca51082fd6496e42fd65163e7cf0dd9e1dbdcfb922"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0005_reliable_marked_lineage.json.gz": {
+      "bytes": 2093615,
+      "sha256": "6454bdc8cd75dd324a65252d2095f57bf1d1a2f3ab80c377764ba020837214a0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 1844279,
+      "sha256": "d905e56f95a814426ea8e0a3e6aaf07ea9a6a2815b9ab41f7c52fb3c456173e1"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2033122,
+      "sha256": "f1cb281713054cddc12d1105f0e933813062ff34d9633f50913e1aa3f2644967"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 1836658,
+      "sha256": "c00adacbc30b22635d3d4d661ef0e2db598e1b5eedd32e8bddf3aa87e379d80c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2025607,
+      "sha256": "36668052407eac4a3eafc5280a0bfa4e52b80b140c9422838e67d6f0d965da4f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_intermittent_marked_lineage.json.gz": {
+      "bytes": 1380172,
+      "sha256": "1958e00ac2fc2af08b9c4b1c1795090ba86d25500056eaf0db123d317368a230"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 2308800,
+      "sha256": "658b80f6254c776978d39b09a2b4ea4f625b0897ad6ea5ecf621556975b00265"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2527287,
+      "sha256": "49c6885a001848a5dcbdd0f868fc248d57cc0173fa83df46a60700f92f2b090b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 2300582,
+      "sha256": "5c759e387ab21817fb275db4082c632de87cf28bd90aa0051db4544171dc4779"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2520019,
+      "sha256": "e5e322e840600322fed5cad29732dd4f6eebdb36f1874db9e7582490cdce6ad6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0006_reliable_marked_lineage.json.gz": {
+      "bytes": 1572466,
+      "sha256": "cbfbe0c350222acb80a76ea498fe807e55f4a14fc8a3381e62607f07ca9002d9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 1668359,
+      "sha256": "a8952b2f8771eb19a6ce849d16643ce8bd11e411125b299a1fd8213529c951c9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1814848,
+      "sha256": "7cf1562af90683a03338147dabe4a52439ea05bcb9a50bc32810010888f93c92"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 1646321,
+      "sha256": "5250e0382e75bf00c2e7b3719b681082dc2be3dc39d9f52644fdd9da8aa3596b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1793452,
+      "sha256": "ba4a3b1f1fd8c9799ee792fa00fd141862ad0cbdfb8678fe653ee8bab3edde71"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_intermittent_marked_lineage.json.gz": {
+      "bytes": 1261056,
+      "sha256": "3e35444fba46c731d4a0793cb8998b87e748552330081a6f1e34a8f9d7d10986"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 1738148,
+      "sha256": "68bf8ba59e69ac2c0919bc7c967be0c5d89a680dae6b87d0b4ba0da63fbcd1fa"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1892581,
+      "sha256": "118ca7c1d2799ec2884cd1196ae9a83cc57d8de1da0471a26f2ac231ba144679"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 1748519,
+      "sha256": "beab2a5b6bdf55a358d30b304e75f278d9fbec1254812b78863ee48d2b5da13b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1905643,
+      "sha256": "f9580141ad6e0371bca2bc6856762f961a3afe100d098c93c4895803d83e9fdf"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0007_reliable_marked_lineage.json.gz": {
+      "bytes": 1343250,
+      "sha256": "cee2027b6ce3e8a336defc207678cc0c7873a56d91704fd49386b8622d7997cd"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 4846730,
+      "sha256": "15e17d77eec988141dbb1b3111123181ede00c9017215804e40b04c87df4e0b3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5239416,
+      "sha256": "441359182d83d947b5da7c9de36a5de5bef269a551a5f49e6fa8156d9b7f69eb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 4932573,
+      "sha256": "1327e1b0cdfa91c74847aa20564c5161daebe777fc72f19d8c3ccf011000265a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5330439,
+      "sha256": "7e137d76614875c6095c0a7421beacb771e3cc23ef292c25c66cc15667ddb113"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_intermittent_marked_lineage.json.gz": {
+      "bytes": 3146278,
+      "sha256": "e4257ccc4766575b54ddd5548185193b67473ad55406943792103e31d8a6a892"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 6205626,
+      "sha256": "69cb4106b5e60a28f1c80fa215d5c9579db06afafe5f955f2cb27a891caddc03"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6674795,
+      "sha256": "5f9f3a50f822259e8ba74fd49274514220ffbef6926e7c5708778a4cc2ed7640"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 6422971,
+      "sha256": "e50875cb780f94e61de49b70d03d131c40c79fc8dadb9160c51bcf7c33fadc13"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6909569,
+      "sha256": "9e0880ba91c11fc7a30f9a104f15a5c3df0f4f818cbf25503468bc2729e96a39"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0008_reliable_marked_lineage.json.gz": {
+      "bytes": 2945325,
+      "sha256": "2c992e08770d021f531d708b8f2c94d1d9267a4f72454d60335374a1fba501f0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 5113041,
+      "sha256": "cee49c6e5948d324d68e2c259bf281841bfc05e3f5f8ff841928922c0a4b317d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5554749,
+      "sha256": "3f309006695cd0727a605d18ab118468db4c004a7aaf4aba47f18b95944b1a91"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 5139137,
+      "sha256": "d1fe0abbbf4cc1eb01b5a048fd21a1a2acba2518a722127cb805812994fea8cd"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5594504,
+      "sha256": "947b22073664e740cee88235cc4e302daf5588c2ce9a5827440d4c3ab4b1c087"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_intermittent_marked_lineage.json.gz": {
+      "bytes": 4794603,
+      "sha256": "fd5fd3d583e47f67ba67a3fd0903b5486e0c67f78a6a8047fab3ecde27f3fb0f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 5303617,
+      "sha256": "735a00d19a86dfacd335ac45de7292bc06ca1be15729f0dcf6568d6e9665d85b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5759557,
+      "sha256": "96fd73a13ed1dbe1426a48b7f0322a15b0d61a8a0f6f8376905c097931e316a6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 5362915,
+      "sha256": "659575eb69f142d88a73813f232173264c43a04d8d2ed29a46bf6b7ef5f3d108"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5832033,
+      "sha256": "6ed1d77b9b3953d3b7e6a777467d19ea44dae5e5c5a6832586298fae4e2143a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0009_reliable_marked_lineage.json.gz": {
+      "bytes": 4979489,
+      "sha256": "5be25612a95e172c35bfc3cd838211fe9a5d24a880e01a0f3d5e34cfaa936a99"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 11454063,
+      "sha256": "e5fb30a187c9fe0bfc711c22eda2757d861ef9a25d55c49b592f6e71c5ab8524"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 12397951,
+      "sha256": "52ba7d080b6590a6add72696ead07acad016c1613ccb3cd2df149d07786cec55"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 11328326,
+      "sha256": "238b85006a3fb17d92ecdec977bf219c2138b9c24742f11cc2719c4d02632e59"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 12267419,
+      "sha256": "eec0e1e69007a25065c576a32930024e571025fe3e5d75d4d7234f82cb6fb936"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_intermittent_marked_lineage.json.gz": {
+      "bytes": 7670402,
+      "sha256": "1996db31386ee4d5c92d763ed529ff790a1260102fd60716f95d216e5c6135b8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 13544955,
+      "sha256": "ef7c90a947b87f01b61f49c47afb8db88701bc97a391abc6d67edeb6b7df67ee"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 14523737,
+      "sha256": "f58d9050bd0caac7190959b15809b2c8ee42af9a647be7729ae4b0b7c3124695"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 13861880,
+      "sha256": "29ab33e9d63b61e06b3a2a9e906e8e6bcad21b9326987cfb52409db30b039ef0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 14860676,
+      "sha256": "dc148eca07ae773ea25a09843547bbf58a839b7ee77282021573d21260e849df"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0010_reliable_marked_lineage.json.gz": {
+      "bytes": 8663704,
+      "sha256": "1a4e866605c684c501edcdce6974c275b3bb7f60ed774fc41d9085890ca2d391"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 2672923,
+      "sha256": "4df444e79bb20a532920c6210eabc5e49cd293a1d23c6f86ca6c1d3ccc41e27f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2967118,
+      "sha256": "328f0750e6fb6d816c6caa4e6705d3e912a553e3bc2385aac257c91354c7eea3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 2661735,
+      "sha256": "224701100eb6aaca19681e118331db2c6a0b32ba296a496b9629e3955fc4b336"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2956209,
+      "sha256": "39608923605d3e43e78e5f712990853b2ca1dc854e3cd5d6608b00b02c95527e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_intermittent_marked_lineage.json.gz": {
+      "bytes": 2253383,
+      "sha256": "2ecd9daf8a32465fdd706d0ddcf5cfbe6edec88509c7242469519ff6ab88c6a3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 4995017,
+      "sha256": "a25bf58e99d0315cf4da54fbd91f765b756f6fe9c4f485cf0e81d90d91b8c2ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5470706,
+      "sha256": "73e9b58d5969736ed0026f8f5099b9471a774455af3bac9aa02e874f753d9ce8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 4609560,
+      "sha256": "a1e70089012c2dd325359c35e749332b257c21a649f7c26752e0284dc53661c1"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5066205,
+      "sha256": "ff146d52ae966cc436049e0ef63a5ed01fbf61273786e5e8975eff94d29d39c4"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0011_reliable_marked_lineage.json.gz": {
+      "bytes": 3596414,
+      "sha256": "339b42bc9b8c599f74cbb62500a0d99baa85c120d9c683f25a4b0f8a740708a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 23172995,
+      "sha256": "e10b9eaed9130cc70b657290d9d0cc4788f5500ac98936b09c261cbbafce303f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 24904295,
+      "sha256": "79585d939f6fd0791b83f616f98289dc2615265582981159936e9315adc5c0a3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 23328594,
+      "sha256": "b3fc6ec3fa575f1d3bafe21dd9241c8919fb8117f0657445dbc20e3be8549cf3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 25094240,
+      "sha256": "5c78801c350e96d77f862562781b2788e9290e454237a50432b95ee3d13da3ff"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_intermittent_marked_lineage.json.gz": {
+      "bytes": 18358481,
+      "sha256": "51bed361350ad6edeada1492206ad91f3cfe3783880b497a36bf62d9451854bf"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 23104428,
+      "sha256": "480d61932e8444a2c796e34676bcc51aa06ffdda88cb6ba7be192aad451681ac"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 24749205,
+      "sha256": "2d20962b65a21376d7d4499d892c988ef54af46ff46e3491dcf11a97650bd1cf"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 23872446,
+      "sha256": "748f29c565f87e6728ffb722dce9127e0ebc7e983e406bdd5a45c23c5837e2b7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 25614829,
+      "sha256": "edf4a4fe216f6dcbce1c809f1703878a7eef1ed9483e0cfbacfe3ce732b54f17"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0012_reliable_marked_lineage.json.gz": {
+      "bytes": 19516330,
+      "sha256": "397f223b7686c7cfa7ddac49cdaeb1242bebeaa6cb21f666f20f09440ba2048a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_intermittent_marked_gaussian_evidence.json.gz": {
+      "bytes": 14751891,
+      "sha256": "0d99a0024a5245f6c361d4b38d18ed0b8854ac4e39aae144b9475f3b43446134"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 15754620,
+      "sha256": "114cc046d6c3ea4f926e68f7fe06be49647fca3c24a3d6b106aba472dbd0073a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 14190578,
+      "sha256": "f33657a9730218f706788fdbe8564d3058202f4bd5bb365750c0f72a5d4b5390"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 15195468,
+      "sha256": "6e567f630ed82cc4dc4463fdbd27cef3f98f2e1c9e8daa61fb946371187de10b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_intermittent_marked_lineage.json.gz": {
+      "bytes": 11201723,
+      "sha256": "696a3657e0bd77bc4de2fa2a5012f0bd2c5244c6fb522756b011b1a089d3abe6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_reliable_marked_gaussian_evidence.json.gz": {
+      "bytes": 15673699,
+      "sha256": "92c9e98b11a5208237a685ff72f03fedcd3b5a941c4ab7fa7d72db6c574c40d9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 16697880,
+      "sha256": "8daf7864a3356de6237f17796f6dc44bdf2a903d5bf533ab46756b016f46f585"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": {
+      "bytes": 15555388,
+      "sha256": "da6973a0cd89b7774d6bc604753c0c938050dae92dd48e9d4d44a666cb6ac2e7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 16594578,
+      "sha256": "1264959c1329cb6734d051664d92aebb30beff6b966767f76fd89d071951565b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0013_reliable_marked_lineage.json.gz": {
+      "bytes": 11332326,
+      "sha256": "5c967197153060299b8f17fc9ee36cd1d60c7f234eebb56b8c50e0c24cf9ad7c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0001_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4846044,
+      "sha256": "574f3a7f2c201d4aba098e7f0e02e410dffc61de6bac8ad71b1914ba00a4dd0b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4818878,
+      "sha256": "915dd19c8f4bc7088109af40b226056eaec85f74dabe15803af0bd71e69c67fb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0001_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5141591,
+      "sha256": "a94713a73875fa2b0df5910ccefccb1e249e87fc642fd13f26582c7e6503a73b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5244917,
+      "sha256": "0363a99a358cd39a607295ba7de64a62d47c9583b863d1980c69e249fc213482"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0002_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1416623,
+      "sha256": "c9eebb8608226ff2f92477ba289caf87fc2d602d9ce0f211a19dbee73ffc71ca"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1396495,
+      "sha256": "27498cb0ba796244e2337fb787770eae46f0bdf73b036d58030275dce73aefa0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0002_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1668576,
+      "sha256": "1b0e444a0c1b4d347210d555f9fca097f3cb4a1659d7df260965c447217e5dc7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1583823,
+      "sha256": "9fc4d84ba5ee058f936778d60811bd6c57b6563483329e73f5adde352db07a06"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0003_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 15731286,
+      "sha256": "9fd73b0abd070692dcf325ca2f46138b357db53f03dff7e57099e162b36aa456"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 15196487,
+      "sha256": "03f27165aa8e86befa42d025491533b62ab482c51d52aaa987cdc65b924ab650"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0003_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 16640483,
+      "sha256": "1198ff0990b5cf0f3ea238afc85348a44cb3321e743aa283a033faad602ebdda"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 15866010,
+      "sha256": "cb3f6f3e6c2fe989215225cbe52974569f432a1e9e661091bf5c6f892df8c2fe"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0004_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 686742,
+      "sha256": "d0fceff52ac9878185ca22b0f9c50389b88f4b679efcc72e948e0a305e09589f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 689148,
+      "sha256": "28b05d8454a8eb2b868cb421de60f016b8a94dd36c3e221569fa041105a00868"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0004_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 785224,
+      "sha256": "2a51e7e161744b903e4c7bc3424c9544f3c53338f2066c2cae9888fa87621920"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 757505,
+      "sha256": "200183ae1a8cb21efadebeb6e6b9fda4999082437d0ab5655c360c93437a9295"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0005_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 8434753,
+      "sha256": "ba7d527dbd25fb4b373e55c1503a90121c46c9cb2215f3a5481a70f3d087f453"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0005_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 8323658,
+      "sha256": "76c4193eb1423951ae665f7dcf74257c67a62b07fe3e34cf832854f3f7f1494a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0005_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9234048,
+      "sha256": "15910a9a254f1adf85a06b47b83ecc9829d2c471a7a0353d33ee7dd1d6e104f5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0005_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 13946499,
+      "sha256": "a63bdc03594f5164639b6ad65c9d26d2b359f16634b5d63319edece035c54f25"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0006_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1162902,
+      "sha256": "358f6f7a6cf2b4180a3c556b7876eba57c38d76b94a8eb8f2960b604590670ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0006_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1138400,
+      "sha256": "dc8678e66efdc13f3f7f7621a5a27ecc18db818eb6f2aba70bfb9a39e89e7e07"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0006_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1192684,
+      "sha256": "1a9253838d4d228e0a9451b7c3a1fb04cbcc85ff5daad72f22d7f73729a3cd76"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0006_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1163216,
+      "sha256": "855361755d6cfe5fe6bd13375151cb3218ef9e4796bf86a972d7284c5295a161"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0007_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1432682,
+      "sha256": "6eeef1477825a326eccfae3ea1d638f1e2061a4ab475a0343494eff690a77e00"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0007_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1427037,
+      "sha256": "7f83fb93d751a72de94a1349a1e92b793dfd45cfb540d72647ddef364459958e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0007_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1409782,
+      "sha256": "d20fac7d86a7807ca67d0a051d779f64656e6c526f2c7e4941f6a5e7ced4c439"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0007_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1343610,
+      "sha256": "96ed31305f11bdb661c56beb98728beaa7a106df1ec6ac45b9d102c12b4381ae"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0008_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 50756998,
+      "sha256": "ba5813cd453ae2840478fbc83ca9cac07a25d3d625251733027288fa9f7136a6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0008_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 50157905,
+      "sha256": "a01346d0d729543e51476b1a68a48e57c8b2b116fc4927f47829d6a102560839"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0008_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 50851049,
+      "sha256": "5dca959785d9633fb152fc75c07fbfca0c41677ae6379a017bad7bf216607010"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0008_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 51698542,
+      "sha256": "c129c7d596125e709dcfce26601e739ec1862e7432438395d1abb5bf642cbd5b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0009_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 24799542,
+      "sha256": "b4def13b98d954da3e60bdd0004fedf2abc48026369f2238b5c560ba04b0b5c1"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0009_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 24707523,
+      "sha256": "259f9380543c4a0f8802401b5591276479802c6653840b130d48b8127ffa284b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0009_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 27843411,
+      "sha256": "0e12b6c42c4e963e35c3e999f0d87d65dd909e0c4a5a1b54e0dbe0e08a5318e5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0009_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 27145937,
+      "sha256": "5b24ad2da4b0c4e0176f5c66ada9d586662e4f233c9f0e7b1bee6330ab290bc2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0010_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 16523297,
+      "sha256": "8ba3132f07f77317495baacb46fb12e6249e48e63dc65eb3c511d231a172845b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0010_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 16232170,
+      "sha256": "3dde024d13327b630a34859d59011fab9fa8f448b413aaa5023e385bc4fbb76e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0010_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 16244697,
+      "sha256": "6b24e7a8330229cc6d0e56f6ed868b4f0bc2030600ee5f4d48c9d5abb08ce15b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0010_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 17474301,
+      "sha256": "df1e35c5df2dc32ef221c5466c2f3a679103d77178f79840a494e423eadb5c5e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0011_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3313756,
+      "sha256": "330a64444d61e21306816fbd23daf27d87db7bd06ecb3199b0d05d9d6ec2a7a2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0011_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3336424,
+      "sha256": "d803c62d95ec8e2caa801fac0fe6cc5304d93fd951562949a32b2fb1fa4de7b3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0011_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3371409,
+      "sha256": "cd9bfc8ce751b0824a27acf7476730893fd41033d820f960dd1d554978f9fe56"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0011_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3358568,
+      "sha256": "23567237b98837bf8239f35b50807102fd78eb71c1c04a5cfdfc7b1b408d1405"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0012_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 10178371,
+      "sha256": "f49d82e7b685e6c5ef3adf539afe5baa58c24c659b47a09eba8f551620c14bf7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0012_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 10647410,
+      "sha256": "2ceca6e1ecfecc3613053e3809de2c608c03649fbc909dfc3e5a18deedcc8e1f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0012_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 13299577,
+      "sha256": "11872113f2f38d0f54b96afedd3d73acbca86376f8cb937f6662607ba3de9ee2"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0012_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 13547503,
+      "sha256": "f0598455c0ef525c03a08c2b5015806174c00f24a2a50b1943d15bca79022e9d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0013_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2097078,
+      "sha256": "36850349741ca6cacb540797a0f9ad5e721813f797393b862d8941fc439c044f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0013_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2051036,
+      "sha256": "8d59b0f861a4469c9495de089e3f8f1d1a4fb2f3dc920c5d4bfd1fcfabb11ed7"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0013_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2218415,
+      "sha256": "16f32c54c6e55c0fbd0c4fc791e0586897c969f5a6a8011258c6de5bc2579f00"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0013_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2159662,
+      "sha256": "9deb870db4e212c7f00e9efe300a4d782961aa8fb5228f9c0fa137473a188089"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0014_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7011350,
+      "sha256": "06ff2900e5390e2befa74c84e039d14829853e06278a197f1ddd4d79f72b6b19"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0014_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7571491,
+      "sha256": "74bc8bd1ff494bf4e0726135b9e983bcc8ecf24b9799ad7f2a4db21ead1c4942"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0014_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9198817,
+      "sha256": "40b1cc452c97d26e9d461874ca0f3193345762cab98f63038bb8c0f57397ce40"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0014_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 15316744,
+      "sha256": "1e558d2beede1b27af02e2636e81c21991e3e9a280a8d991990ad8730662e279"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0015_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6429610,
+      "sha256": "a35d40bdd9657f7195d68ee5c38d5d662bcacc516b7179ffdacad3f0aedf76d5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0015_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6288225,
+      "sha256": "b4d5ea6a1783333e8964a474135942384a5433dd42574c5f7799d48ad43f7c57"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0015_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6709024,
+      "sha256": "02918d4d22e6ecff97cadcbb294665bfaa0cf4cdbc4f4c8d6badb6dc0cfca471"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0015_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6406422,
+      "sha256": "61ae4d1c94fa0376e76de4072fc0d990f3c3ea837e75e4a858533520655e7aee"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0016_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 26264004,
+      "sha256": "4ec8e6088e36dd5aeff89a30124e6da048dd079a33ea6f5bbe1c8c2119200ef6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0016_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 25788333,
+      "sha256": "15aa36a5aab61d79bd4f870cc0fe2d4eb4b3c2d46315068fb624ac9be9388e0b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0016_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 28128210,
+      "sha256": "c3c4c88cd797d735a0dd41e271018d3d59f421a4f007ef613a7f3519af20578a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0016_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 26995245,
+      "sha256": "c54004f822d05f9abf9ae14bf0eee339c815b2ae92c0f393b2c683477ed1b7a0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0017_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3087380,
+      "sha256": "1ba67a358a43920d710341fb974d92f9ac1b8f9471bd67e8a99ea04ab81cae46"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0017_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3071882,
+      "sha256": "7b02b1aebfc0378929e6fb8c4762b62c9fa1453a3dc973fb1b5b78cad5624dec"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0017_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3237743,
+      "sha256": "d13b7636ffff985a7f59961fa8d201dfb76ef426c5a61e703c04b618225a832c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0017_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3219083,
+      "sha256": "1618ffa5f28181995cb0c53a60e34991e2ccf6049f83a332241a19296dcf9799"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0018_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6443536,
+      "sha256": "f1c11a3735fdee21fc593897a385b08af6db9c6aeb24a7524b2a23d1f179c41e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0018_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6404010,
+      "sha256": "c06e465f2eee1e8ed363e4b07c38d1bc5ea5176ba7a121a728a8ae4ac23e8512"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0018_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6574505,
+      "sha256": "355deca7fff6a445fd48bbf303b1291c7fa2bcfd789f2001598a4d36eb965ed8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0018_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6524266,
+      "sha256": "35712ac84e7c079a3ea4f651cca1fff596a6e09a46e856fa2426987a64ee2438"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0019_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9708400,
+      "sha256": "17546d184788d8cedd1efdc44a05286642aae23264f909461325be940c684a27"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0019_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 9422536,
+      "sha256": "fec2b6347f60343fc70abfb4dddda234be7064fda33a0bd2bd28325a48d4875b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0019_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9768598,
+      "sha256": "aed75b7050af93b219b80767c100a89e1fcbd94bf62492fb013ff43e94310b81"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0019_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 9904859,
+      "sha256": "07fd055c06214425abeb370ac4f8176543a3ac163ccd273192c733409f65cb33"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0020_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 14648436,
+      "sha256": "17766a2802669d3efdc434df670b9dfadb556e72f0d2dd947a7f735894133928"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0020_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 14078662,
+      "sha256": "f30dbfe8e44cbc488c63bf87d65b9f2f7045a01ee494509b09cc88194cd116c0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0020_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 14738377,
+      "sha256": "8a7db51cf6b2ffc81f8cc3e33ab7e22a6d55d7748737646aec1ec5db9d81db8c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0020_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 14888468,
+      "sha256": "63b72d5269cb41d4b7a984a30e9dcdf0c0aae6316dc751852bfe5b6868e514f6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0021_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 8529195,
+      "sha256": "04b24088c7a0ad0172d6b337d4673c403c573f3e4d2c060e6e9098d60f26acaa"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0021_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 8118333,
+      "sha256": "50e55b2041c5a24c6148d12022fd586ad672eb887ebd808702304f9722910ea8"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0021_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 8864080,
+      "sha256": "edbf35c6579cf1c0c2d998bfb9df37763d37b3ecd41f56e7489d863a412550f3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0021_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 8570918,
+      "sha256": "45d5ab7d69270783f3cc070333f4abf725d41cdcbc980c4e0ed76f901b6e87ce"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0022_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 24478876,
+      "sha256": "4c0886fb7993765a609fdba565207beff98d49586c004385d7a1085006785517"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0022_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 22858724,
+      "sha256": "8c1f6e8128532d7f4270fc81a844bc866c100472353f360daa91334bb85e2deb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0022_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 26626425,
+      "sha256": "8460c5096c8ae49062fb8ed5c4129e2d11154ea0e6dc29f9d558588eb5e4eb2f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0022_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 25849148,
+      "sha256": "df6b8489647a83f3022570f506274edb6428de607ac84166b17d980c5724262e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0023_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 11732968,
+      "sha256": "7811587c692e42578181d24d78ad64bc457a353c6d3af8f2efdab490752a500a"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0023_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 11171344,
+      "sha256": "a0531d54a1f2674e82e9422df0c7af7a6e23d08a67ebbd1f5f5306aaf2346a2d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0023_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 12440742,
+      "sha256": "669d9ebb08d32c518daffdc7a46dffdd444f4fdd9fb381af5072e731f1fa2771"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0023_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 11953414,
+      "sha256": "ee4fcda2c03f12803f8f421afd5906b4b32775934371d14a07deb316e4c000a9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0024_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3788128,
+      "sha256": "fbfa42789f0762b03f08095617423313b295704be093f9c87e684bbdcc87d706"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0024_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3740532,
+      "sha256": "47d6408a811b4409f4fffa01a01c90f65f49f81a8e2482663bdffee53c077a3d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0024_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3880761,
+      "sha256": "c6e2dc6d7f69dfb97adef83e4fed07cdab33196dfeeb4caae526291c93c9e185"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0024_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3809918,
+      "sha256": "57aae58d174e6e4d484e4bed7dd80ef6ccf16ddf83fecddfa10559b165475922"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0025_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 19736915,
+      "sha256": "15117411d543da732e5a3dce9472b8ad66119f73c1cfee62106ed3a861118f12"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0025_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 19954523,
+      "sha256": "68a75111fb03ba80a13ddbc8ea7eeeec83bb9c17e46ce1855591e7a4a78ab0dc"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0025_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 20065212,
+      "sha256": "134e4035d1849b74e19bd54c1bf09c40ed0af0460f95bfa57791feb3e0b6f56f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0025_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 20111481,
+      "sha256": "29aba5eb576b05db47773ef89f5b5b5a9f703c89450b38d51cb58ae30029ba36"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0026_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2607049,
+      "sha256": "b27d4881ad483295d097ec1d401b3e71b6739b9405fe138e138548544f24b332"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0026_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2707580,
+      "sha256": "f95386dc96c42ca8436aaaecdd3c1e3c15a04e25f09d1cf0e6f5e3160dada80d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0026_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2807867,
+      "sha256": "9c6ef0051c967c480606c7cfc7e4ae2be1f1269e0fd517ef403b72731406bc53"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0026_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2855092,
+      "sha256": "0f8539cc7f064b2ddec51c5bb038f8feccccb634db0bdcfd287d48cdf8eddf5c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0027_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7187670,
+      "sha256": "3d3ff2ba6a47d90c9deedd70e009daf7b59042e1f39716e2181a7c1d5148f3e0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0027_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7227784,
+      "sha256": "1914f575afc3992548ae0a88e2f59a804305b9cab73488f8a6ab60607f881c9c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0027_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7507643,
+      "sha256": "d610a00c2ee9055107b414d6e369b4474221ce6cabbdc78c8cbff957f387b485"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0027_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 7964496,
+      "sha256": "2ca434c7f8a7aa5bd4b6a03d884e8eab75c63ec70951b1109f3ebcbe2726d885"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0028_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4369867,
+      "sha256": "55c46030c0e10cec3c05ae698494d1fb612aec44152c00778d8e5fa041dfa74f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0028_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4211438,
+      "sha256": "d843b2df9ac89d00fb09cebb4931b338c3f40319b42ae76bd8dfebd1556dea6c"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0028_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4490287,
+      "sha256": "e51e25e25fe546d11c8047e1b84661e2ed867f65863d128b929d8ccfd000450f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0028_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4288729,
+      "sha256": "eb9c7b5a0e81d0397c674680cc693a57fa49bf775a41cc228f4c7ec274c26167"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0029_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9229253,
+      "sha256": "4c9fc74510c633c827f42b4596c29ddf21c0d38a190ab299c9c3c1843741aaba"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0029_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 8416055,
+      "sha256": "831207ec5757c5942614c8aecba5128ab99c0cc942d5cd35cfd2c510e562a4d4"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0029_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 10218493,
+      "sha256": "b0d381b2c2c9f1be4258c9749ba592081d7ae2f5f6ac78582efcb7105016fc74"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0029_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 10278188,
+      "sha256": "244621789bfda272882d9dc4fa4a780e1c06d4df0d661e7a7554dc717d081421"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0030_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4228612,
+      "sha256": "7c557d065a7d4b3e8e73079350cecf927ae6ad2b8caa5a14d2ca904c80e423b1"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0030_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4191840,
+      "sha256": "4c6a575bf9a83fbbd72bb35827a5ef97b85bde5a8d3e08af2e197da962dfcdf3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0030_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4134847,
+      "sha256": "b2b2de3d5dab0ff4ad30fdaf4e1b2f06c97114dac1a2be767b46d641314d768d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0030_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4031338,
+      "sha256": "36cb79512260ec721c99906d0c1c5d9b3c45263068aab1942069ac70bf53535b"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0031_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2449817,
+      "sha256": "edb6d4ca21b62f5148372d2c5c72ed76ebf6238945a1b164fc1f86943cf57e31"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0031_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2428545,
+      "sha256": "3f2abee7fd6ec21c734f3163049e5154243af4f92414b179e537e1f5e6058cbc"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0031_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 2401306,
+      "sha256": "21bc74b21d2d44f53435926325fd352c69b7abe7b92283c688c7e371907e4cb0"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/train_0031_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 2368773,
+      "sha256": "e6c5012ffc8a6308c863603960d2c54efb1679632aa67a1af8e0f97b6a7c2d17"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0000_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6334429,
+      "sha256": "9c046afa3f0bb9e3c4af48a688deb31e797cabfccfd1071550e311011bbeaed9"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5766345,
+      "sha256": "f3bd0997adbae6d6403349a7e35e6161edc175805c3e8ecd3e0566a9f828610d"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0000_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6197413,
+      "sha256": "28a95c84dab05781720d8eaec944fccb66a6862c3af8ac946e7dd8f6ec4ad399"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5776373,
+      "sha256": "9ec3f845305c3065ec5c1f48657cfead43998d6c7684daed3c500c67592732c4"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0001_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6162863,
+      "sha256": "0550954fb405617eacf0aab7cb5b87640c323cb07446edad8c38e33097d46191"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6170285,
+      "sha256": "9261328b5d8c3e434d8b08802f2c32015b836459fefb496813f6abeb503cb5e6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0001_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 6109440,
+      "sha256": "7f45cb6b40266f7b058ace8be227e07f85b60f3e0211ba1737ae0bb70257399e"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6373370,
+      "sha256": "7a2e4261d6978609911b7da5569d00806fe4a541fcd2b991a3edb7a2f4b1bbeb"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0002_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 8343299,
+      "sha256": "05b7bd2938aad62b3237b7dc801076a4b47f703dae966b2159ad5a9ca11c9326"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 8416146,
+      "sha256": "9db756d9f079992125d7bc90cae4a8411e408c0af1d923b0a24372db2faf6e63"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0002_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 9124153,
+      "sha256": "ce2684d051a4476a0fe193fd756e9964bd89935c37e4562ff9eb5f6ccad41b90"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2v/val_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 9111902,
+      "sha256": "bcd90c90346b7cae6099e3df793e1939484a163f58a90d8d8676ec2a9fea05c3"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0000_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1324151,
+      "sha256": "99a3ac9f9cef325e3c27b76764e22c160ec1bfcde0fc3def9160a42e2f77e045"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1289998,
+      "sha256": "4e3ebdb1706113cdafa14c0e8ca3e5fe76a329164f0b232563527706d094bb11"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0000_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 1402044,
+      "sha256": "9de5e3f6bb1a76f96fcc97a9f725ae1116022c68d7da52220798c2cfc74c8f50"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 1400079,
+      "sha256": "99d7e52900b11b2dbdb8ab219b7095faf70589029ba8f0838958cc83bd63cb00"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0001_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 3167411,
+      "sha256": "b1ee9a0492c6b54f22644d26a78cf24e5d425c77ce093b53bf0aec67465915d5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 3283784,
+      "sha256": "f65d7b752d1b08f16f9cac7c6c5eb7e30bbf0a47f0c19d92b78949c313a8c6b1"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0001_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4978238,
+      "sha256": "e7851f9b2b42883fa6690aea06459a3bbe20a6241b2d40b298c15db8fe4cc398"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5034254,
+      "sha256": "e56edb03126a866961209718ed7114fa03b7b20226d96f1eed254d6e52597b25"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0002_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 5991641,
+      "sha256": "59beb278db791bf145ba2851a1a3ef4ceea000239d3d19662f0c647875b8fb98"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 6305796,
+      "sha256": "4f5a8fb33f0e04e602b90b344607038d3c8e034d80ab02c08afc3221f66389ea"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0002_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 7120153,
+      "sha256": "0d320fb76e2fbdac2ea774d3f3fd9666805229a618491e383d25f86fd3fbc091"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 5737068,
+      "sha256": "c9e0030bee2ea730b05d287eead16515e664e15b82a352d8154077510e9ec281"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0003_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4540973,
+      "sha256": "d17256faa92fb5486c127052bd8155c3cbe9f82a74beb5033369434c62ea645f"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4436766,
+      "sha256": "57f0a093b138d27831cacb592d15fc2dda90a52a2966cca3c3091f74fd17a4af"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0003_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 4831028,
+      "sha256": "fcf7f65eb0a828e0aa6a3a853738b30dce02fe8bfc82cc8f123b70dc79b898c5"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 4761498,
+      "sha256": "52d3e706a2fd4e859187d782bcf29e1de1b57319d2f5d8ccd8f8586d1cabcf08"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0004_intermittent_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 271565,
+      "sha256": "ccb2f70203c5af2f38992548f31ce4683d701e8555ab6f67bb936c391bc37d47"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 261605,
+      "sha256": "800871a65f3fc4ea2abd3c5d30c062e7c6ec2058dafccb5e6e7f2393385aadc6"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0004_reliable_marked_gaussian_evidence_assoc_quality_nis.json.gz": {
+      "bytes": 318267,
+      "sha256": "446cfd8a4df5c0c08e77bfd5cc57e58b76c6792cb340ca6e08780bcb883b31ee"
+    },
+    "trials/icra_temporal_association/results/association_screen_selected_v2x/v2x_0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_quality_nis.json.gz": {
+      "bytes": 323860,
+      "sha256": "5ae12786297ac2e4a324a2b81b8af6ba241921e688bcb4472fc635bae99893c5"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1204454,
+      "sha256": "39c925a4dc0f55cc7a691b3145772b7dd072c3518ff26d729be7170ee227cbe2"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1268756,
+      "sha256": "2c546cabd3359d27f79291ceaf6da0672d00eea848daa0a676229f1e0ebdf5d0"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 856849,
+      "sha256": "56b53635586778c262f3e6ce58c055b51b390bd76652ddcca1e1b8d243709892"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 899953,
+      "sha256": "ac7bec7a46aaf742dbe2fdc2585e3a90972b64199ec82878626f775066b52483"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 612142,
+      "sha256": "ed5f3db2f8c5b7a8ec072e6973e886e3816d369fd9114b37cf37da63e1f94553"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 603967,
+      "sha256": "a03d0bf3b76b869f58f7913207623dc9dc86980b173446a94fa32d5a23b7cd7b"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 13233082,
+      "sha256": "a036924db7d4deb3e90d7146b1c5ad0f9138f48199110c62eadbcd3d32aa452b"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 16912025,
+      "sha256": "2ec06bdcb965afb69df899757d4e2e1eda64913f21161155d13ca5ebd9c444dd"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 32095241,
+      "sha256": "76b36213505e2ee6c91fa37dc83391f08865cf846195b496c8ea112acacf8446"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 32076923,
+      "sha256": "c6acd0ca192d4b76f1d41bf66d12ca94bd00dec33195fa5bc26dc17f37e317a4"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0005_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 26886656,
+      "sha256": "78ec3e3d50a98c547d4e7d01e9e9d5bd359287a7a14c88801be775ffd0467501"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0005_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 29362872,
+      "sha256": "d24ebfc6a9109da0397d0992132506398a5c403f1921993160628d853c823de8"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0006_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 13959905,
+      "sha256": "e50c5862723e4869d6377b4377b09ed9fc22864a0d639bc45e432f9e2b6fc4d9"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0006_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 13825904,
+      "sha256": "3135114a464ca1ffe748b51b4da3f2d47a04d2466fb9b8dd0afa6ebff444c217"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0007_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 16714649,
+      "sha256": "26bbc26a56b5c8f24bec00265abc76d1c122e5642bfe0208fa58fa2c12e14445"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0007_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 20370983,
+      "sha256": "cda48dc9075953785ac374fce0ac7921ec82b32b37bee866a1ee9ef18bd0758a"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0008_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 23159126,
+      "sha256": "fe0ec0bc2b72f2507f72404c89b7cdf6e437512636166f7e98a42eeaf36c34e7"
+    },
+    "trials/icra_temporal_association/results/association_selected_controls_development/0008_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 20314363,
+      "sha256": "8ecf9517ca3fcb88eaf24a0db4aa6a34fdf8d65679885b5692a52f8cbf6ed388"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4845335,
+      "sha256": "19ae72fcdefb92e901ae0e569bda9e3ceeae7daca3488e3583a915bd987d2777"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4818227,
+      "sha256": "43cd0f35901097999f8d572b4abb1811b6da1416f347a19ec195863b5af2e1df"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 5140994,
+      "sha256": "7749d4de4c5065dddd54206bf942f7bf07103fddfc589010a4dc9b7e2d9f59ae"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 5244154,
+      "sha256": "e9fc1600f87473ac31a1d2728fd7ffd87c384675114ee4babd4ed76789367fad"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0002_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1415714,
+      "sha256": "de56b08e10bd0d75951c53de595a9c5f209609631f8781ce55e4327aa36565eb"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1395632,
+      "sha256": "537a0748c81db41184ac93892df110a00293a24622991007647e1c3e9fe90876"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0002_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1667812,
+      "sha256": "927cb29d6966146b91cc8155df639cec0d1a12f1ad5188a2b2a01a1cb88d5188"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1582984,
+      "sha256": "1d4c69c664b8f191666106b8278cdc4573de1829a391fba12a02dffe2ee13ac6"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0003_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 15730631,
+      "sha256": "4c2b5a5a949c55a60901b672cd112316b7f9054aa1c7e1ec3839a3ccdee69ada"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 15195654,
+      "sha256": "e35e00378f7c702784cc113167bc2a0d9f9441bdd2f47104dc22e9f7214fc0ec"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0003_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 16639656,
+      "sha256": "3b67bddc1608fcd4c2fd79c0936dd433304e72f0aacaee22f8423e7bd6d0f562"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 15865065,
+      "sha256": "4785a6144fc5af29bafe0e738af05c459fe6529fa29d586749e519307f3f10e1"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0004_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 699121,
+      "sha256": "adbbd1c2f0f80f811aeef892b255fc4ffbbfb5682877150f923606c29ed6bf36"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 694016,
+      "sha256": "eda136eea87bc6ad783be54b7bc1a10b9029e2ecd2905e77c6075dcc86cf1d5e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0004_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 788336,
+      "sha256": "6ce9b44565933a36b5c81762adb8f562e86184e35ff2bb940e92c0099dfb99c8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 759553,
+      "sha256": "68a016cb128deac7c5980d6102d5518c846132aff78af8f0dfc2a15e12ed73cd"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0005_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 8379140,
+      "sha256": "be4fd0c4fab8aaa2e35f41d9d595f9855f0723d26676af7e40686ad259f820a2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0005_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 8283532,
+      "sha256": "790c39f3d8263ade15d33d77e8396f0b2a81f26ac2493e710bf11e0181d40e0a"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0005_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9233515,
+      "sha256": "c4b7ab9649672026d692b1b9e24750ca6a934f896007c162311e6d98d4bbdc8c"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0005_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 13945973,
+      "sha256": "a56d3e93a9d0bc53c379ef99a4bae0c8382cb0e1735bfa0e09e7bd99a098dfa4"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0006_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1162008,
+      "sha256": "067152df47162f5125ed92d4aa516db84deaba6a608b06d0fc159511fa6e8f2f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0006_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1137526,
+      "sha256": "ca48d7f8aa3caa782edc3d5b26f4a5818bda53a7c746444a6f1df9ea3d9fde5f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0006_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1191898,
+      "sha256": "01cafc7ae2637e59ee0c0f54553d343a620a2c8079d300693da26c353a542e2d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0006_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1162327,
+      "sha256": "f4074caecaee4f13c16f5625d16eb0c138c74f10e33ca2900ec004a101f75ae2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0007_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1431828,
+      "sha256": "875c25e72cb2d6a30503947a0c1b704a8698947bcf1d095a20cacc873e128a37"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0007_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1426145,
+      "sha256": "5a2ce88a806609b6e0e49f6deb2d07cd7ab506e01415b0e1881a6f823e481171"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0007_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1409008,
+      "sha256": "ee96fb5f3f6045b65d93f658a97897d2cfb41a9b742afb083debae950cc1a9e8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0007_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1342822,
+      "sha256": "522d5271f20e697a6b1fd77c5d98ed430625a3bd1872e25185a87026682d88c3"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0008_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 50804246,
+      "sha256": "b3985771d1abf691f4c9e05a54336ff16444dad3b2d10e9d2aa1bec65245e6fd"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0008_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 50399904,
+      "sha256": "7feeecb215d69b256e93e78310d06822d0a662f601782ed30a3c8da70175d8d2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0008_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 51912981,
+      "sha256": "d5b624079c5d87cdd015e9e8561ad6b74f1cc74756c78976fcd6cfe3c9484882"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0008_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 52467665,
+      "sha256": "9baf0ae91b4a5596853131ae2fd7720bb6077e236df8228c2da022747a684368"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0009_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 24901144,
+      "sha256": "841fe23f275a9d8cf57ec80b8fd8c7207f6ad35b31426689fa21f405f654810e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0009_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 24687116,
+      "sha256": "1326fae1d774db4344bc0e4bc6ed6f8f7a86e60a708bdd80dfb85d76f0494470"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0009_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 28385459,
+      "sha256": "994e278d531dc34346fe873f66795192abe030bac43958b1f0b06802859208f4"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0009_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 27260385,
+      "sha256": "2c6f5ba0f5a449cff891536f48cae9ca18bdb011822a02f1816bd0cad556ceed"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0010_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 16596899,
+      "sha256": "ad32cc83bcfc0d2a92947e0d17be8893486f17a5a9914d3e4f3f2d36ac8a0375"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0010_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 16258904,
+      "sha256": "6387e6baf942285ceaae91d3c5d57ecf3e4d8a6349c6849cca14dc0402d18d92"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0010_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 16279404,
+      "sha256": "680d762a8e0c072878b3a40664fc46f119efa26e861147264330ec616e18eab2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0010_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 17480957,
+      "sha256": "11ad520a292e2067c71d54a0e9133bca173db8a91f310b296ab14d1dcd4effcc"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0011_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3312909,
+      "sha256": "5a8b475ec967d59eedc0b5773134c055fb0209a79cd01025272250c8da5a8792"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0011_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3335621,
+      "sha256": "6e2ee3cf66960a4d211a382005ff022bab9b257cb57b38c3e2b6b131203b039b"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0011_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3370510,
+      "sha256": "9cd712b792812624e524e2b25cb6a4a63a27fe8d04a31ffca659b8ad6c56cc18"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0011_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3357773,
+      "sha256": "a3aa6f987a52db37f6cfc4ad320dd5151af54e93a335a2dfef0ee515bacc22c5"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0012_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 10177688,
+      "sha256": "67e06250eaece4bc8bd595b62c61e299833c65bc4727773ae6bc6a17c807dbf2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0012_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 10646667,
+      "sha256": "d68cb870292e3dab91177b4d88231093abd1cc81b0a247bedc66f97e1151c136"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0012_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 13299072,
+      "sha256": "ff872c0b7c914abe8b4ce1d05369798c31ab98dcf86692201fe64cba75dc3332"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0012_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 13547014,
+      "sha256": "cff0788ddb418e585ba4bfe5ff02e195305ca7370e11315bc5b20b918f995700"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0013_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2096365,
+      "sha256": "29ec9a8374e7195600ec7b1d5498220fda12d868fcf88ea266aab26995bc13c2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0013_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2050175,
+      "sha256": "b0ce2adf7bbcd85e6dc70a16b96aca43ea55a5748e2397f43666cf89b4c3440c"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0013_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2217752,
+      "sha256": "e6be1a33d1feb81775cdc8cc905ca38aa3936c3a06337473b22d533a06c69bab"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0013_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2158657,
+      "sha256": "bce703439c3e8e6bf7fce1b3b6c3b69024859e862bdb830c8b642e5dd3811d69"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0014_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 7011428,
+      "sha256": "cf439043312bb52be9b9230ee7c5d9edf032284335fd5704ac36b840e2c82cbc"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0014_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 7572490,
+      "sha256": "bf8d6950ac3d3b019e13814db2ba08434fc171cf84050c0d5e008a839ccc5e56"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0014_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9199202,
+      "sha256": "e06a0cff6b1a5312c0b004ee156ac1495e3e6f9f7427ee901151ffb452caf4f8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0014_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 15317687,
+      "sha256": "de2b60f65bb4411e06fbba6ce64d272416afe847788469d03bb65d3067b085db"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0015_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6428653,
+      "sha256": "6842dc6bc43cf9fde46b2318e85abcb564afea631b70ddde7a3cb2920c6faf9f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0015_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6287075,
+      "sha256": "504e3e7a5b80e901b975ea709af3f0f152c924969af394eff070599f3ef13229"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0015_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6708190,
+      "sha256": "2edb93f94f2d762f57b2dbcde20eea52a96a720996c8331eaf2736d21fc05280"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0015_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6405448,
+      "sha256": "589f4d1ce51e466cf712f6307f85f06c82918ca0563022a226752c657e03565e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0016_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 26263283,
+      "sha256": "fdb9cd69bd9ef59ff63c1ae8f4a62c28dd058481fccf8ab91939e7adeabbe23b"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0016_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 25787416,
+      "sha256": "221a7e02274dd582c490705d7c01cece6225ef31fa34407336c737657efc2f47"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0016_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 28127232,
+      "sha256": "79446ab7d7c18daefc36ee84c8504d2b9a59bb0c5043d0cbad92a0d834ae234d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0016_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 26994593,
+      "sha256": "c85a4fa20c4d15016efc6d31d15b1fbde1ea5d75bc26e3cdd69f7509277c2d4b"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0017_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3086765,
+      "sha256": "5a07ccc63e778dad18c35eea2e993f4e77c34253366864c545f978e36fc92a28"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0017_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3071231,
+      "sha256": "9dd2b21bce2c66e17fb268fb165e40ff8957b080ca590bc5335eecab1fb902b6"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0017_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3236961,
+      "sha256": "563f06ff0d5e30473e450a105011d44ffa2bbb66be6e768fad868755ea251168"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0017_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3218403,
+      "sha256": "94bc9a73cd97b15c9c0fb1a9dab2dbce6f80e8fc971311e5d2601e6476c4c192"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0018_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6445030,
+      "sha256": "391b6674574ec9ccfb818aa4c7eb3d7539fd7eb488bccd71ae5251d3d271e005"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0018_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6404098,
+      "sha256": "397027668ee2f8fe50787060fcb6d1982749d55c182521ae5820d142286af313"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0018_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6574653,
+      "sha256": "8839aeaaedabdeef3872a9bb880e734657f0792cac7d7b6b0f4c999d887fd52b"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0018_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6530161,
+      "sha256": "f6bf956393670c72f9e6f3de6571470d6ff9f2e475a41ad5a418a6950c01f375"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0019_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9707541,
+      "sha256": "6d1b231186100f2e3588d397951d075de69dca031491d1877876b5a5bef2cfa7"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0019_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 9421753,
+      "sha256": "bff584e838142b16b3d35319def906d858325cf9678f53d4d614f4d498f3cea4"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0019_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9767851,
+      "sha256": "f943aa527a2d6a1ebd8569b9d560a6b3a2d336b1ef7a212330c7f5fb1672b175"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0019_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 9904120,
+      "sha256": "85729c6b4ddea32ce1729def319d28b63d3aa065561a50502f53aebe76647cb1"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0020_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14647602,
+      "sha256": "60db26791228389dd05e06846548a33f4b6ac6e8ce9d053cc790aae0cfe3a1aa"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0020_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 14078017,
+      "sha256": "a5478d9f4e21842e077f276957925ae7fc20b599c17dd7cf503318c5665be4b8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0020_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 14737664,
+      "sha256": "8e765ba56780b360dc2f01f6f669dd340f030c2faf5911e6322af1800a2eb6b2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0020_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 14887762,
+      "sha256": "f75a0f7d3b59360f7d3adc0f2a6f5742a2226b206aab8575ab955574840eda4f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0021_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 8528263,
+      "sha256": "a5c7d3f81b0ba545afd454ca057dc75430d2706c30b31060dd3df763ea0e2e0a"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0021_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 8117476,
+      "sha256": "469cddf90a6d87020aa75b666d62dd7739aa953504978a9af33527c92f54ab00"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0021_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 8863482,
+      "sha256": "012542c5841630a0e9126f258861991c8dbf1c74d05530b720404932567b660b"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0021_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 8570367,
+      "sha256": "d41be333dee1b7cada18f606c454b9ce5df84b350416b72459eb0c9bbf486681"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0022_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 24478108,
+      "sha256": "d62368cbb690ff8761b9d8746a6ebc2f2515f5d80dbe5162057097442d3d542e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0022_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 22455690,
+      "sha256": "98ec13ed7ac27a52dbf78b450a4554bafd07f910d418a1ac92d54a8f04a5d605"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0022_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 26625572,
+      "sha256": "607fba0aa0628cc11fc70404e4a094aa50731a6f716a8b315083dfedae7e866e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0022_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 25824210,
+      "sha256": "4780e4e5a8744732104194e6d3dc1993feaca65307d53da722ab04f6dcc20f9d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0023_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 11732269,
+      "sha256": "ca5ab675fd04944af9ca16e4d81fe4bac270c47afe5d37198bc9a32610c509a8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0023_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 11170692,
+      "sha256": "194d58402ae452d5521af117d91511b4b8e6e2e14879e13f7fec52de6f3e1efb"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0023_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 12440090,
+      "sha256": "797ad723e7ae3b997b4825cfe05a6f0381b210f1da14366f6218d16aa80f58e1"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0023_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 11952804,
+      "sha256": "4d3a5b0c5ed4a01e28b16a2a786d5769eb78095ca801eeea8abd853410ca3d70"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0024_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3787339,
+      "sha256": "57e547ba461e9491b994f46b83e40c29a20eea2adf8f1f5f4da7f18c1eaf1174"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0024_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3739723,
+      "sha256": "6672abb870e8d452766959a7dea459e0f2219d6c1776cdb176de73709b37e73f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0024_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3880000,
+      "sha256": "9dc9cb3a556fd015ba5f01b5e6bc5fbd752dd0fb7f75f8db18b02e97ccffa731"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0024_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3809071,
+      "sha256": "6ab7cb4a95ecaffd21f0b0a07660170a5c84300de68757253440d1fe7a7726f0"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0025_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 19736239,
+      "sha256": "b406c4745debbb60e2d2c32ccd0c8b1d93fb1d90b9986529707c380b7f5354d2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0025_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 19953799,
+      "sha256": "6461a952d409eabacb0cf7a0606bc1e59e36845f8d74abdb6c0c1307b9fac37e"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0025_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 20085033,
+      "sha256": "2049380026b4e649fafee311e99cc1671f648f0822ce2c283cd8c7d4e3225dc3"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0025_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 20110574,
+      "sha256": "f6bc0b89aac2224a09b362632ec21b147f7d15f496574482d4bbdfe1a51050b0"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0026_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2606180,
+      "sha256": "222c39ae7339132641a6527021db85f56b2ddb5602285a2cf31e74095d54e64d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0026_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2706746,
+      "sha256": "cea488d71e65ddf5774301f229aff2f7fbaed2a07b95a386444bb246cea259aa"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0026_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2806983,
+      "sha256": "3f38e48d6ec2563be8d2c3e73771a994593d303e19b1e30e7b0d62de604dc24d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0026_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2854217,
+      "sha256": "6745083becea1de47985a1c73fdd40bc5718182c17064c218ffe83a609da0edd"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0027_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 7253529,
+      "sha256": "408256a586d64a5022644d7fee886c294cca1d8ad9e40f612d73504611fb755f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0027_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 7501095,
+      "sha256": "9c6981da7d6c65d578f9408f5c830adb3da8f7b42cd066b1bfda0ecc76a0486c"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0027_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 7772818,
+      "sha256": "f4eefde7da08c10169060a54abb39d2ec3eebbdb6c9a096d29547ee9ac6715e2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0027_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 8129015,
+      "sha256": "e14e572391111c379cab4bd72fbc730e582ba87e77789153ae01637ab268660d"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0028_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4332408,
+      "sha256": "e3a51613d8df75908b9c84a91ec1053e849ffee3c661364ffd3a472a080202c1"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0028_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4210364,
+      "sha256": "a683e4d2403373b4cce974b5f6c3b6579d3edb2f080ec6c73a5ce477596d94fc"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0028_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4465388,
+      "sha256": "93bab63437ce1450870dd02b530fd7edd3b8d0fd76ee34013a325b5b23283d92"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0028_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4285227,
+      "sha256": "fc4155160bc50a1332cc68ee9be935154c1af9e8a9d12b71ed307db56a23f356"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0029_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9197603,
+      "sha256": "bd0cd87349b6f7c713c854195cb95e6fe2d88312f0814efb66b597c5cef21918"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0029_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 8401144,
+      "sha256": "88034463b9641a315f30eada84deb02df1687cf91c9857c3cdfadbd67f76add2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0029_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9951174,
+      "sha256": "8450629b12a937d9580eb0aafe0ba1b7300c940cfc97d61db906b5acacf425fe"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0029_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 10191077,
+      "sha256": "366c6e2fb749242e6995409843a2b7df0d3a7018149bb65db5258fb3f67a8f7a"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0030_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4225720,
+      "sha256": "c3129c5df42c9ca61004ace095be0c2650b7acb07b13149ca71170ce1a2c6c9a"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0030_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4214380,
+      "sha256": "75af408981552318b8d8d89871a2f132bdd6df6e779390786b8f3dbfe2bf02b2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0030_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4143835,
+      "sha256": "e34276b47a3aa58616b340575c3aa4cd23c67c8261f933516aed0677073966e7"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0030_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4028950,
+      "sha256": "f824d406d957e023cf5e6228f65d734b4bc610afd926f6acae1589c81e172d4a"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0031_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2449129,
+      "sha256": "559c4bff01132bc3bc224c2107a54c114e5b20946982a965c148eee2fe513ccb"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0031_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2427808,
+      "sha256": "622326bdf79bd82d0cfcc3ed1c30c123b0b7850885c4abf7a554843d2763e0e2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0031_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 2400611,
+      "sha256": "745843655b4846a09ccc2faa8525a0c61001ce787262b8e5f4c697547dbe966f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/train_0031_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 2367984,
+      "sha256": "a029bdab403d081590c1c153bf60d32ec37cc28d512f26ea28e56e7f2c4a0ec9"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0000_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6347354,
+      "sha256": "95f6080d38a7498e4de682cc176783a6eedf66c6ec1b3845eae4912b593c9f1c"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 5789420,
+      "sha256": "25547628fe784f25129ad99b1c4bec2b883f7fde1cf5423279844251c4ebce66"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0000_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6206333,
+      "sha256": "30f4126d9da138e0094e6e5ec900f64f9610dba6865b517b02e3075cb4e7c1e8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 5780716,
+      "sha256": "99dd97e2336ea52f0d6d8a81da0dd7c6a82f6522d78b57412b60e9862bbf08f8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6161986,
+      "sha256": "74914876f2deeb15dc5db9c814315d014db4864c959e4d93666eba92a5bb4c21"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6169644,
+      "sha256": "b479a130862cc456eedc63e44d9e1f12fa58ade1082dfa71b10bae73827cdfd7"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6091097,
+      "sha256": "19d4d266e4c3d9a3aee864bb5aa87fd909f33c601a2ecc02291298de8baf5834"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6354826,
+      "sha256": "a0926a7c3808f3e8abeff9257c59e0b2596e1b50b3637d75ecc8e5199d1869a6"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0002_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 8120589,
+      "sha256": "9aa524f8cd5357325de37be0b15053843380660e526b1e35d9132abba82d1d83"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 7858104,
+      "sha256": "15738709131bc07df7290d3b36410fa21c95a13fc8001d077661db187ee6b5cd"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0002_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 9139012,
+      "sha256": "b2e18f45f495f86880d1cfa831e03923c68a7e300d9c9ac963221e935d2a4629"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2v_column/val_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 9317322,
+      "sha256": "5120f7dc2f09474998db2b80d721656f8b5ea340bd41c5e837d4177be2cbaec2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0000_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1322497,
+      "sha256": "35ce331ec52601e9b17dd28d68c4d8069b3db235e6db2920ff0bc695fa9aff01"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0000_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1288520,
+      "sha256": "b0606654577b1c00875264fce3bcd76469cf2f01a119864b45d67f9034e80312"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0000_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 1400407,
+      "sha256": "d42ac4123c757a3337885f834323648dad718ccea01f67d50a0cf9c964797377"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0000_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 1398571,
+      "sha256": "099c216356eb805a7964567762f1415f758ab83e68c46df609af057fd332f4ec"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 3165963,
+      "sha256": "653753079f90252396c7929b42fa1c8ca44baaca5b71162335d9fc885f7ac267"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0001_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 3173240,
+      "sha256": "7b01c59ecbadd2ab32ea4358da39fde51ed3ad08769468d98cdd9aa2b90c1892"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4976732,
+      "sha256": "572398565adcb2af75136461123b7cd02308ef89bf59a4f162c8a89ccbda40e8"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0001_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 5032811,
+      "sha256": "b9a3fecd0fe630a19234938c2b12b8bf6ad246309a69bf5b31dc8d923522c4be"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0002_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 6787913,
+      "sha256": "08a2d0f7217bf2b1b575c993ce4c0f1d983ddadcc1376de5cd6de13cd123fec0"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0002_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 6245769,
+      "sha256": "af9dedf690a7a881dc584a43ce16facf754a931122db177a9da112c76c469ca2"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0002_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 7078811,
+      "sha256": "f84d866e660a749bf36687d2085f7db33af5505d82d441f2662341b6b870baf3"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0002_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 7527265,
+      "sha256": "9b229db4bc419d05344c7f9ae4820e62fe7971493d711240db7167d3e8be7f77"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0003_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4539726,
+      "sha256": "d6a1189ce2861f6778fb2820e2c1acfa5bc5d5e3404570ea43269adcee478ed3"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0003_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4435542,
+      "sha256": "0b24a031dd645a82d565ad8325d64142baf994291ae4756306f08c4906ec7730"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0003_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 4829642,
+      "sha256": "941d2787e4e986ffb84d056f0fbc194b3882e9eb1832332cda9b0107de5eb957"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0003_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 4760117,
+      "sha256": "84216e01bae1bacd9940b87fac95ddf44f977983c3b86fbdf4fa0b6b5df77ca5"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0004_intermittent_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 270005,
+      "sha256": "d3de8c8b51b1894af485ec2d940500df0b52c1268eca7829850a3e62744d9d9f"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0004_intermittent_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 260018,
+      "sha256": "6d6d48e7dc01e8ca1fe0bb4f2b57bfc560fa9f979656d3e5e208aa18a5b76b13"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0004_reliable_marked_gaussian_evidence_assoc_split.json.gz": {
+      "bytes": 316634,
+      "sha256": "5c4fd8cf64b262c7f90f416fa0a01c112f913c9268b766a343bf86c3bc7a9249"
+    },
+    "trials/icra_temporal_association/results/association_selected_v2x/v2x_0004_reliable_marked_gaussian_evidence_guarded_scalar_assoc_split.json.gz": {
+      "bytes": 322204,
+      "sha256": "103d2af4f4ea72d677ab0e9c8bab7974041dc6737c695b03aa9dccff98476336"
+    }
+  }
+}

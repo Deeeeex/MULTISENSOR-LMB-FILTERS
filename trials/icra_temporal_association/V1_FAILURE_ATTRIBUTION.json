@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "development_selection": "DEVELOPMENT_SELECTION.json",
+  "selected": null,
+  "advance": false,
+  "cause_probe": [
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "reopened_known_pairs": 0,
+      "abstained_labels": 0
+    }
+  ],
+  "finding": "All four candidate trajectories on original segment 0008 reopened zero known-label pairs yet worsened OSPA identically within each radio condition. Its regression is attributable to changing free-label assignment, not an executed known-label rejection. Segment 0002 also reopened zero known labels."
+}

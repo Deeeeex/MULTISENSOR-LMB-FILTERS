@@ -1,0 +1,70 @@
+{
+  "cause": "When the left input contains one component, logical extraction from a row vector can return a row; divide two explicitly column-shaped selections to avoid implicit expansion.",
+  "equation_change": false,
+  "files": [
+    {
+      "source": "trials/icra_temporal_association/observationPairEvidence.m",
+      "source_sha256": "cf655ac885dbdb823a16722dc7fc28c7888dd467eb8dea70d643622beecab62f",
+      "destination": "trials/icra_temporal_association/observationPairEvidenceColumn.m",
+      "destination_sha256": "ab275a418d119549558c2cc8db4e1867aadd588215ee3cb40e2255a697985a9f",
+      "replacements": [
+        [
+          "function [evidence,memory]=observationPairEvidence(local,remote,memory,t)",
+          "function [evidence,memory]=observationPairEvidenceColumn(local,remote,memory,t)"
+        ],
+        [
+          "currentCost(qualified)=sumDistance(qualified)./reshape(cutoffs(count(qualified)),[],1);",
+          "currentCost(qualified)=reshape(sumDistance(qualified),[],1)./reshape(cutoffs(count(qualified)),[],1);"
+        ]
+      ]
+    },
+    {
+      "source": "trials/icra_temporal_association/alignPersistentLmbPair.m",
+      "source_sha256": "493e89cf77142a61826152a83b75743d9a9c134c6dac9367328bd3d0624c6a23",
+      "destination": "trials/icra_temporal_association/alignPersistentColumn.m",
+      "destination_sha256": "420f8ff5cde9f496b7c8814d16a2c6d0425623b6e725613020fd052556a3a3a9",
+      "replacements": [
+        [
+          "function [aligned,d,state]=alignPersistentLmbPair(",
+          "function [aligned,d,state]=alignPersistentColumn("
+        ],
+        [
+          "observationPairEvidence(local,remote,state.snapshots,t)",
+          "observationPairEvidenceColumn(local,remote,state.snapshots,t)"
+        ]
+      ]
+    },
+    {
+      "source": "trials/icra_temporal_association/runListedAssociation.m",
+      "source_sha256": "2301f5c3a08e54f99cdc4135c6c8459d4c9cdec3b9fc281ddc4aaeeb97a65d59",
+      "destination": "trials/icra_temporal_association/runColumnAssociation.m",
+      "destination_sha256": "4d73056ab7b25e3621ac6f5b900d3dedf1f41b6fd975c1137cd3820f584f0905",
+      "replacements": [
+        [
+          "function runListedAssociation(",
+          "function runColumnAssociation("
+        ],
+        [
+          "checkPersistentAssociation();",
+          "checkPersistentAssociation();checkColumnAssociation();"
+        ],
+        [
+          "alignPersistentLmbPair(local{n},decoded{other},50,associationMemory{n},associationMode,t,n)",
+          "alignPersistentColumn(local{n},decoded{other},50,associationMemory{n},associationMode,t,n)"
+        ]
+      ]
+    },
+    {
+      "source": "trials/icra_temporal_association/run_listed_stage.py",
+      "source_sha256": "f6d4398126016d104f3e7e13ad419c05e94951ca4d3e6ecc0ab31c7a2df84324",
+      "destination": "trials/icra_temporal_association/run_column_stage.py",
+      "destination_sha256": "2428eaf6b1d6bfa2cf6758a0435f78d976a0726646cec7d1f970b46c63796080",
+      "replacements": [
+        [
+          "runListedAssociation(",
+          "runColumnAssociation("
+        ]
+      ]
+    }
+  ]
+}

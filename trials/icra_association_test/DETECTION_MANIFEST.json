@@ -1,0 +1,155 @@
+{
+  "completed_utc": "2026-09-09T13:48:12.609178+00:00",
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 119,
+      "detections_by_sensor": [
+        1356,
+        749
+      ],
+      "path": "trials/icra_association_test/detections/detections_0000.npz",
+      "sha256": "04d0667419e815620b9ad95acbe36767db11d1e96a5502456d14a5380a11b12e"
+    },
+    {
+      "sequence": "0001",
+      "frames": 240,
+      "detections_by_sensor": [
+        3990,
+        982
+      ],
+      "path": "trials/icra_association_test/detections/detections_0001.npz",
+      "sha256": "6fda78ad7798890dea77c21d01f88b7d4f4f953a129366b3cd43d069896d2c65"
+    },
+    {
+      "sequence": "0002",
+      "frames": 150,
+      "detections_by_sensor": [
+        1251,
+        1356
+      ],
+      "path": "trials/icra_association_test/detections/detections_0002.npz",
+      "sha256": "b0359aaa69b619083fd6fb6327eaf6c3427cf699c88258264c70deabec4bfba1"
+    },
+    {
+      "sequence": "0003",
+      "frames": 127,
+      "detections_by_sensor": [
+        1363,
+        781
+      ],
+      "path": "trials/icra_association_test/detections/detections_0003.npz",
+      "sha256": "fc91cf87d23e4f65978b0bc4e83811870453a63a14197b303c8caea4d79ec418"
+    },
+    {
+      "sequence": "0004",
+      "frames": 123,
+      "detections_by_sensor": [
+        1775,
+        809
+      ],
+      "path": "trials/icra_association_test/detections/detections_0004.npz",
+      "sha256": "d6e89ea764b10cafbb359db9cecde57aba6d61600c789b154e9dcdc6826a6fc1"
+    },
+    {
+      "sequence": "0005",
+      "frames": 98,
+      "detections_by_sensor": [
+        1041,
+        647
+      ],
+      "path": "trials/icra_association_test/detections/detections_0005.npz",
+      "sha256": "d1902dd48ee9ebbbd5ec92d96c49d82be9715898acf516c7877214bec4291359"
+    },
+    {
+      "sequence": "0006",
+      "frames": 187,
+      "detections_by_sensor": [
+        1518,
+        1575
+      ],
+      "path": "trials/icra_association_test/detections/detections_0006.npz",
+      "sha256": "bb4fb8725fb90efb9a78be369a520c601817a52df29d7cd3b31c201be8bd881b"
+    },
+    {
+      "sequence": "0007",
+      "frames": 106,
+      "detections_by_sensor": [
+        1165,
+        17
+      ],
+      "path": "trials/icra_association_test/detections/detections_0007.npz",
+      "sha256": "64100026e1001d74033ad874b4b6c85f8c16f9332c3d82def8c6225f49f061c5"
+    },
+    {
+      "sequence": "0008",
+      "frames": 103,
+      "detections_by_sensor": [
+        694,
+        763
+      ],
+      "path": "trials/icra_association_test/detections/detections_0008.npz",
+      "sha256": "3c2f07b83822cb49e9ec83f6ff04c2b72288a9678ce11d7c6be5a37f79af0a73"
+    },
+    {
+      "sequence": "0009",
+      "frames": 180,
+      "detections_by_sensor": [
+        1626,
+        1683
+      ],
+      "path": "trials/icra_association_test/detections/detections_0009.npz",
+      "sha256": "370368632bbd6948d16b669e20d2ba4dc7238d47ea564b3facbb2f0c48a41936"
+    },
+    {
+      "sequence": "0010",
+      "frames": 148,
+      "detections_by_sensor": [
+        1379,
+        1557
+      ],
+      "path": "trials/icra_association_test/detections/detections_0010.npz",
+      "sha256": "aae04dea5d2b8d6455e1e5c41d60c806dade93d5bd2c65bc9279912dc50f7e57"
+    },
+    {
+      "sequence": "0011",
+      "frames": 157,
+      "detections_by_sensor": [
+        1038,
+        1119
+      ],
+      "path": "trials/icra_association_test/detections/detections_0011.npz",
+      "sha256": "ac9bfe2d8f57dbab0edee8f1919a3ebe841e58289a51ddc74b7348ce7e60882e"
+    },
+    {
+      "sequence": "0012",
+      "frames": 283,
+      "detections_by_sensor": [
+        5507,
+        5485
+      ],
+      "path": "trials/icra_association_test/detections/detections_0012.npz",
+      "sha256": "104d3b0c630a24ccf4d1d562f6693c1ae5a22dd9a2a3cd55d7f7289e68f2d203"
+    },
+    {
+      "sequence": "0013",
+      "frames": 151,
+      "detections_by_sensor": [
+        4629,
+        3312
+      ],
+      "path": "trials/icra_association_test/detections/detections_0013.npz",
+      "sha256": "f540dae89cb9f322a3c614f0b237d5223f09d0b25f6cd8aba6c863975251d032"
+    }
+  ],
+  "freeze_sha256": "0bb9077f3dde77a1243c01bfe5dd91a73cc93f4591bd949c3ae7b2e3af3232bc",
+  "inference_sha256": "111799d6ac5f48f50c21721876cf97e8782518be93d1ea9eb438ac8775fa591b",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "elapsed_s": 735.7603981494904,
+  "numpy": "2.2.6",
+  "torch": "2.8.0",
+  "device": "MPS float32",
+  "truth_used_for_detections": false,
+  "model_checkpoint_unchanged": true
+}

@@ -1,0 +1,29 @@
+START association_screen_selected_test v2xt_0000
+END association_screen_selected_test v2xt_0000 return 0 complete True files 10
+START association_screen_selected_test START association_screen_selected_testv2xt_0001 
+v2xt_0002
+END association_screen_selected_test v2xt_0002 return 0 complete True files 10
+START association_screen_selected_test v2xt_0003
+END association_screen_selected_test v2xt_0003 return 0 complete True files 10
+START association_screen_selected_test v2xt_0004
+END association_screen_selected_test v2xt_0004 return 0 complete True files 10
+START association_screen_selected_test v2xt_0005
+END association_screen_selected_test v2xt_0005 return 0 complete True files 10
+START association_screen_selected_test v2xt_0006
+END association_screen_selected_test v2xt_0006 return 0 complete True files 10
+START association_screen_selected_test v2xt_0007
+END association_screen_selected_test v2xt_0007 return 0 complete True files 10
+START association_screen_selected_test v2xt_0008
+END association_screen_selected_test v2xt_0008 return 0 complete True files 10
+START association_screen_selected_test v2xt_0009
+END association_screen_selected_test v2xt_0009 return 0 complete True files 10
+START association_screen_selected_test v2xt_0010
+END association_screen_selected_test v2xt_0010 return 0 complete True files 10
+START association_screen_selected_test v2xt_0011
+END association_screen_selected_test v2xt_0011 return 0 complete True files 10
+START association_screen_selected_test v2xt_0012
+END association_screen_selected_test v2xt_0012 return 0 complete True files 10
+START association_screen_selected_test v2xt_0013
+END association_screen_selected_test v2xt_0013 return 0 complete True files 10
+END association_screen_selected_test v2xt_0001 return 0 complete True files 10
+ALL REVIEW STAGE RUNS COMPLETE association_screen_selected_test 14 sequences

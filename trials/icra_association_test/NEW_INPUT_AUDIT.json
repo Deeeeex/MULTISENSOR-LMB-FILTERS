@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 119,
+      "measurement_rows": 651,
+      "ground_truth_rows": 377
+    },
+    {
+      "sequence": "0001",
+      "frames": 240,
+      "measurement_rows": 2918,
+      "ground_truth_rows": 3072
+    },
+    {
+      "sequence": "0002",
+      "frames": 150,
+      "measurement_rows": 1411,
+      "ground_truth_rows": 1031
+    },
+    {
+      "sequence": "0003",
+      "frames": 127,
+      "measurement_rows": 1499,
+      "ground_truth_rows": 1226
+    },
+    {
+      "sequence": "0004",
+      "frames": 123,
+      "measurement_rows": 1793,
+      "ground_truth_rows": 1402
+    },
+    {
+      "sequence": "0005",
+      "frames": 98,
+      "measurement_rows": 1099,
+      "ground_truth_rows": 750
+    },
+    {
+      "sequence": "0006",
+      "frames": 187,
+      "measurement_rows": 1035,
+      "ground_truth_rows": 498
+    },
+    {
+      "sequence": "0007",
+      "frames": 106,
+      "measurement_rows": 751,
+      "ground_truth_rows": 1195
+    },
+    {
+      "sequence": "0008",
+      "frames": 103,
+      "measurement_rows": 1139,
+      "ground_truth_rows": 1223
+    },
+    {
+      "sequence": "0009",
+      "frames": 180,
+      "measurement_rows": 1721,
+      "ground_truth_rows": 1552
+    },
+    {
+      "sequence": "0010",
+      "frames": 148,
+      "measurement_rows": 1722,
+      "ground_truth_rows": 1072
+    },
+    {
+      "sequence": "0011",
+      "frames": 157,
+      "measurement_rows": 1119,
+      "ground_truth_rows": 1184
+    },
+    {
+      "sequence": "0012",
+      "frames": 283,
+      "measurement_rows": 6286,
+      "ground_truth_rows": 5322
+    },
+    {
+      "sequence": "0013",
+      "frames": 151,
+      "measurement_rows": 3822,
+      "ground_truth_rows": 3701
+    }
+  ],
+  "frames": 2172,
+  "manifest_sha256": "833f8444e528b28a9d7226a17b355495d59a32b70d79de650d6c3948089e34d2",
+  "checker_sha256": "97a304abfadeebf5db13039f9fff56bc5d63ee04c025c04ee090711e2ac0f9df",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "calibration_probability_clamps": 0,
+  "checks": "All source hashes; exact saved poses, domain-filtered measurements, raw/calibrated scores, likelihood ratios, independent world-center and full-corner projection, first-occurrence ID union and annotation-only velocities."
+}

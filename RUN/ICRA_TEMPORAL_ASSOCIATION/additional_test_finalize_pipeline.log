@@ -1,0 +1,15 @@
+WAITING FOR FINAL NATIVE UNIT
+START FINAL STEP audit_screen_assessment_unit.py
+END FINAL STEP audit_screen_assessment_unit.py return 0
+START FINAL STEP merge_unit_assessment_audits.py
+END FINAL STEP merge_unit_assessment_audits.py return 0
+START FINAL STEP analyze_additional_test.py
+END FINAL STEP analyze_additional_test.py return 1
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/complete_additional_test.py", line 44, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/complete_additional_test.py", line 40, in main
+    assert run.returncode==0,name
+           ^^^^^^^^^^^^^^^^^
+AssertionError: additional_test_analysis.log

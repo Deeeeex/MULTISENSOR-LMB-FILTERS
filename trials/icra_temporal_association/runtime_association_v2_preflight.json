@@ -1,0 +1,28 @@
+[
+  {
+    "sequence": "0001",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 6,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runPersistentReplay('trials/icra_temporal_association/stages/association_v2_preflight.json',1);"
+    ]
+  },
+  {
+    "sequence": "0008",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 6,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runPersistentReplay('trials/icra_temporal_association/stages/association_v2_preflight.json',2);"
+    ]
+  }
+]

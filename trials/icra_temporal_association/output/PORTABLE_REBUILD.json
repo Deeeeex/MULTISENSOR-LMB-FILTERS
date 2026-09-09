@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "archive_path": "trials/icra_temporal_association/output/icra_temporal_association_study.zip",
+  "archive_sha256": "742ec6fb5a5e901566551fa7c21cd895d6b05d20e08aa26cb0760c67b6359b19",
+  "manifest_sha256": "12050c09f376a478ec48c2bf58f24edd2a35b44d1421ea7eb42311b83bb2fc5b",
+  "files": 542,
+  "archive_bytes": 9665641,
+  "fresh_directory": "/Users/dex/Desktop/Code/icra27/tmp/icra_association_portable_vxt6wldd/icra_temporal_association_study",
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "trials/icra_temporal_association/verify_association_summary_v2.py"
+  ],
+  "returncode": 0,
+  "stdout": "PORTABLE ASSOCIATION SUMMARY VERIFIED 200 aggregates; 72 paired comparisons",
+  "native_valid_results": 650,
+  "native_results_in_archive": false,
+  "original_raw_clouds_in_archive": false,
+  "detector_checkpoint_in_archive": false,
+  "scope": "Exact archive-member hashes and fresh-directory independent summary recomputation. Includes frozen compact detection/score/pose inputs and original logs. Full native MATLAB re-execution was not repeated by this packaging step."
+}

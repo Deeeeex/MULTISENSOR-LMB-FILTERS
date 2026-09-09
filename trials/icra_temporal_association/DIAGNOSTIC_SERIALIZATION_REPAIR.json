@@ -1,0 +1,17 @@
+{
+  "reason": "The original diagnostic completed all 56 trajectories, then failed JSON serialization of NumPy int64 label coordinates. No result summary was written.",
+  "original_sha256": "e61ba8d06cbae4b257923366dfe7e7697215ac237ad248322d179c37488e8006",
+  "corrected_sha256": "28660b7656fa6940c6a1a8180adbb59880c61c18607b4e4f13b9f5404f37b551",
+  "changes": [
+    [
+      "local_label=list(akey), remote_label=list(bkey),",
+      "local_label=[int(v) for v in akey], remote_label=[int(v) for v in bkey],"
+    ],
+    [
+      "freeze = OUT / 'DIAGNOSTIC_FREEZE.json'",
+      "freeze = OUT / 'DIAGNOSTIC_FREEZE_V2.json'"
+    ]
+  ],
+  "algorithm_changes": false,
+  "original_source_preserved": true
+}

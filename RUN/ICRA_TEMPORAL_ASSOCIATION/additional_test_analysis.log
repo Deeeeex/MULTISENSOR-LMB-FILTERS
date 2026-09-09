@@ -1,0 +1,25 @@
+ADDITIONAL TEST ANALYZED v2xt_0000 reliable marked_lineage
+ADDITIONAL TEST ANALYZED v2xt_0000 reliable marked_gaussian_evidence
+ADDITIONAL TEST ANALYZED v2xt_0000 reliable marked_gaussian_evidence_guarded_scalar
+ADDITIONAL TEST ANALYZED v2xt_0000 reliable marked_gaussian_evidence_assoc_quality_nis
+ADDITIONAL TEST ANALYZED v2xt_0000 reliable marked_gaussian_evidence_guarded_scalar_assoc_quality_nis
+ADDITIONAL TEST ANALYZED v2xt_0000 intermittent marked_lineage
+ADDITIONAL TEST ANALYZED v2xt_0000 intermittent marked_gaussian_evidence
+ADDITIONAL TEST ANALYZED v2xt_0000 intermittent marked_gaussian_evidence_guarded_scalar
+ADDITIONAL TEST ANALYZED v2xt_0000 intermittent marked_gaussian_evidence_assoc_quality_nis
+ADDITIONAL TEST ANALYZED v2xt_0000 intermittent marked_gaussian_evidence_guarded_scalar_assoc_quality_nis
+ADDITIONAL TEST ANALYZED v2xt_0001 reliable marked_lineage
+ADDITIONAL TEST ANALYZED v2xt_0001 reliable marked_gaussian_evidence
+ADDITIONAL TEST ANALYZED v2xt_0001 reliable marked_gaussian_evidence_guarded_scalar
+ADDITIONAL TEST ANALYZED v2xt_0001 reliable marked_gaussian_evidence_assoc_quality_nis
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/analyze_additional_test.py", line 185, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/analyze_additional_test.py", line 125, in main
+    split_branches=sum(bool(mask[int(event[0])-1]) for event in run['associationSplits'])))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/analyze_additional_test.py", line 125, in <genexpr>
+    split_branches=sum(bool(mask[int(event[0])-1]) for event in run['associationSplits'])))
+                                     ~~~~~^^^
+TypeError: 'int' object is not subscriptable

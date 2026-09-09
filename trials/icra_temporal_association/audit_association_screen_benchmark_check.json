@@ -1,0 +1,271 @@
+{
+  "passed": true,
+  "stage": "association_screen_benchmark_check",
+  "rows": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "frames": 147,
+      "ospa": 2.1112403445538552,
+      "gospa": 2.5475354198425153,
+      "loc2": 0.1435112359521936,
+      "miss2": 16.163265306122447,
+      "false2": 4.408163265306122,
+      "countError": 0.24489795918367346,
+      "raw_bytes": 684624,
+      "delivered_raw_bytes": 684624,
+      "wire_bytes": 4854528,
+      "runtime_s": 5.8301960416666665
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "frames": 147,
+      "ospa": 2.5395482514421954,
+      "gospa": 3.1271579668644116,
+      "loc2": 1.2141880055959131,
+      "miss2": 16.653061224489797,
+      "false2": 6.122448979591836,
+      "countError": 0.2891156462585034,
+      "raw_bytes": 614856,
+      "delivered_raw_bytes": 461432,
+      "wire_bytes": 4854528,
+      "runtime_s": 3.218597625
+    }
+  ],
+  "diagnostics": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "current_observation": {
+        "direct_records": 3126,
+        "raw_association_weight_values": 10614
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 3514,
+        "positive_age_labels": 1276,
+        "support_above_noage": 0,
+        "constrained_below_er": 1274,
+        "preserved_above_cr": 860,
+        "same_input": {
+          "no_age": {
+            "ospa": 2.1112403445538552,
+            "gospa": 2.5475354198425153,
+            "loc2": 0.1435112359521936,
+            "miss2": 16.163265306122447,
+            "false2": 4.408163265306122,
+            "countError": 0.24489795918367346
+          },
+          "ER": {
+            "ospa": 2.1870493180440564,
+            "gospa": 2.642309749254992,
+            "loc2": 0.16394442923128247,
+            "miss2": 15.183673469387756,
+            "false2": 6.36734693877551,
+            "countError": 0.24489795918367346
+          },
+          "candidate": {
+            "ospa": 2.1112403445538552,
+            "gospa": 2.5475354198425153,
+            "loc2": 0.1435112359521936,
+            "miss2": 16.163265306122447,
+            "false2": 4.408163265306122,
+            "countError": 0.24489795918367346
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 3126,
+        "outside_rectangle": 108,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1908
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "current_observation": {
+        "direct_records": 2803,
+        "raw_association_weight_values": 9662
+      },
+      "association": {},
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 2404,
+        "positive_age_labels": 831,
+        "support_above_noage": 0,
+        "constrained_below_er": 829,
+        "preserved_above_cr": 664,
+        "same_input": {
+          "no_age": {
+            "ospa": 2.796525939586041,
+            "gospa": 3.2573232093587094,
+            "loc2": 0.13376196398766357,
+            "miss2": 20.473933649289098,
+            "false2": 6.14218009478673,
+            "countError": 0.35071090047393366
+          },
+          "ER": {
+            "ospa": 2.8809928759213053,
+            "gospa": 3.4225700579883434,
+            "loc2": 0.16233261003395197,
+            "miss2": 19.10900473933649,
+            "false2": 9.554502369668246,
+            "countError": 0.3412322274881517
+          },
+          "candidate": {
+            "ospa": 2.796525939586041,
+            "gospa": 3.2573232093587094,
+            "loc2": 0.13376196398766357,
+            "miss2": 20.473933649289098,
+            "false2": 6.14218009478673,
+            "countError": 0.35071090047393366
+          }
+        }
+      },
+      "observation_domain": {
+        "checked_retained_local_predictions": 2803,
+        "outside_rectangle": 50,
+        "inside_vehicle_exclusion": 0,
+        "beyond_sensor_range": 1595
+      }
+    }
+  ],
+  "parity": [
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "exact_fields": [
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "maximumBernoulliCount"
+      ],
+      "exact_record_columns_1based": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "unused_diagnostic_columns_1based": [
+        20,
+        21
+      ],
+      "robot_frames": 294
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "exact_fields": [
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "maximumBernoulliCount"
+      ],
+      "exact_record_columns_1based": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "unused_diagnostic_columns_1based": [
+        20,
+        21
+      ],
+      "robot_frames": 294
+    }
+  ],
+  "audited_robot_frames": 588,
+  "inputs": {
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_screen_benchmark_check/0000.log": "ea71b9c0a04a427959e08d2e084eb0beac796c63f1e47355b3f37555ac009e9c",
+    "trials/icra_marked_iteration/results_stable/0000_reliable.json.gz": "0c348fe3b16ef18257c8720fe6cad98207d81ca643942fd52f505f488a1f4d2e",
+    "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_reliable_marked_lineage.json.gz": "be08083bbbb43223645ea268c5b62c9180756e7d73c93dcfaa2b6f8de1ce305f",
+    "trials/icra_marked_iteration/results_stable/0000_intermittent.json.gz": "426ebdb90ed6ecdb7abf8d46a5553baee2ceb3a43cbd20caa6132741cdb7089f",
+    "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_intermittent_marked_lineage.json.gz": "a38d61b9eee637ffa0742cc5bfbb95d2c0cbcd5f3be34ea90ad3a61236b9e9ea"
+  },
+  "config_sha256": "3051df6f19818b7e70730a3ffeab3062bf13768d0a77d2159967b724e70f3a1a",
+  "runtime_sha256": "b497165054b393c6c93fd484f9474dcdb9f87fe68b1e3dbffa9c549afc5b15c4",
+  "auditor_sha256": {
+    "trials/icra_temporal_association/audit_screen_assessment_v2.py": "2fd2f1230a30f5b6bc9a44ba4ce2e7d3c88c5d0fff5dfbd40365dbbe389b4bd5",
+    "trials/icra_temporal_association/screen_observation_math.py": "6b8a9df0cfcb808c187cd11230135e926f99dee0fabf94eb9ccaa025e939dcb3",
+    "trials/icra_temporal_association/screen_persistent_math.py": "5d005d196d1f134f48fa8e0b996b996b213cdeae94a1a1597e4315a219e190c0",
+    "trials/icra_temporal_association/audit_screened_run.py": "e9e7e82f2c870bf1be8ee78ce6763ccaebb0d711249add07ffcd08a783b7b8ab",
+    "trials/icra_fusion_holdout/analyze_holdout.py": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "trials/icra_temporal_association/audit_observation_domain.py": "33b141b6d08a362ffbfd64d6449255758c1728d70e619ba9d8d0df7cb7bbdcae",
+    "trials/icra_temporal_association/persistent_math.py": "3c83376e86654d18e4a57c9bed6d4e6a1cc156f8d80be7b1df45217222effa82",
+    "trials/icra_temporal_association/audit_persistent_run.py": "2bceff362a4b22fac67208a3cdd663934a27f672d392dd118fc17745b4cab4e7",
+    "trials/icra_temporal_association/association_math.py": "6d5c7ab2554d1276a0142ee644e722ef59fb544700f02a9a87e419edac7e7b23",
+    "trials/icra_temporal_association/audit_observation_run.py": "a30c974ade2023c5681a26cdb4a0742b0a1a5b545876329ace93c6e487006720",
+    "trials/icra_temporal_association/observation_math.py": "f5d61f72587602e240914d87580f613d5cb47192158d23239bc4f7dd2cfa5a39",
+    "trials/icra_reviewer_revision/review_probability_audit.py": "7f007360fc4d1402aa66179bf3f064bbec3b4f2349cc332f58bd04f196adf386",
+    "trials/icra_reviewer_revision/review_gaussian_audit.py": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-09-09T11:41:59.511647+00:00",
+  "failed_stage": "association_selected_v2v_loaded",
+  "failed_units": 1,
+  "completed_trajectories": 0,
+  "equation_change": false,
+  "repair": "Columnize both indexed operands before division; retain scalar, column, matrix, and empty-case exact parity.",
+  "native_boundary_check_returncode": 0,
+  "inputs": {
+    "trials/icra_temporal_association/stages/association_selected_v2v_loaded.json": "73542052f8f0c4940a87d0e32bb5107be62f4df8783449fea0506e1f3c81a317",
+    "trials/icra_temporal_association/runtime_association_selected_v2v_loaded.json": "7896333690bf70ea3887bf0c53d7cd6faa427800cba4906e6b9c330c58a6b7ee",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v_loaded/train_0001.log": "9934ac012be6d5ebafba414542c3e4811910e718d390066d63554b130c9da6b4",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/column_shape_unit.log": "095300562ae835ef69477c2d9f44fd7cf76b92e1b274e13dc734ce6fb9bd312f",
+    "trials/icra_temporal_association/COLUMN_SHAPE_PATCH.json": "66c78800bc30546f7b6c7f3890c302a59ecd15b4e787469ae738760181aaa52a"
+  }
+}

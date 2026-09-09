@@ -1,0 +1,13 @@
+{
+  "stopped_utc": "2026-09-09T13:05:50.154233+00:00",
+  "pid": 67824,
+  "command": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python trials/icra_association_test/fetch_inputs.py --workers 12",
+  "reason": "7331 cached files; no file write for more than 18 minutes. Preserve cache and resume remaining public entries with bounded request concurrency.",
+  "cached_files": 7331,
+  "cached_bytes": 4196304642,
+  "source_sha256": "3c812267399a29d2a714b392c6c3f91ea2f46c4395599081c30a87be19b9ccd5",
+  "source_snapshot": "trials/icra_association_test/fetch_inputs_initial.py",
+  "log": "RUN/ICRA_TEMPORAL_ASSOCIATION/additional_test_fetch.log",
+  "log_sha256": "72fd015fd51e23ac94151f0c14363ede3e5b3b8b94d3d690e8886b98e429fbeb",
+  "termination_signal": "SIGTERM"
+}

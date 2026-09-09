@@ -1,0 +1,15 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+DIRECT OBSERVATION CHECK PASSED
+START REVIEW association_instrumentation_development 0007 reliable marked_gaussian_evidence 221 frames
+DONE REVIEW association_instrumentation_development 0007 reliable marked_gaussian_evidence OSPA 2.889941 runtime 19.90s
+START REVIEW association_instrumentation_development 0007 intermittent marked_gaussian_evidence 221 frames
+DONE REVIEW association_instrumentation_development 0007 intermittent marked_gaussian_evidence OSPA 3.667760 runtime 18.82s
+COMPLETED REVIEW association_instrumentation_development 0007

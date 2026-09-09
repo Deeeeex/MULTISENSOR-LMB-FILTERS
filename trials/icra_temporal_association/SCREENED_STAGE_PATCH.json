@@ -1,0 +1,65 @@
+{
+  "changes": [
+    {
+      "source": "register_restored_stage.py",
+      "source_sha256": "36d2c70e53ce9d0ce5f2bbadfd6f0f5ee582a8d9d0d179ba1e16ea4ba0c97ba6",
+      "destination": "register_screen_stage.py",
+      "destination_sha256": "f040543c777a45adf446a67d64dfd6046acdbb359a09112a46cdb72df9d7cff5",
+      "replacements": [
+        {
+          "before": "'PATH_RESTORATION.md', 'RESTORED_RUNNER_PATCH.json', 'PATH_FAILURE.json'",
+          "after": "'PATH_RESTORATION.md', 'RESTORED_RUNNER_PATCH.json', 'PATH_FAILURE.json',\n        'CANDIDATES_V3.md', 'SCREENED_RUNNER_PATCH.json', 'SCREENED_AUDIT_MATH_PATCH.json',\n        'SCREENED_STAGE_PATCH.json', 'SPLIT_EVENT_DIAGNOSTIC.json', 'COLUMN_SHAPE_PATCH.json'"
+        },
+        {
+          "before": "['direct', 'temporal', 'reopen', 'split']",
+          "after": "['quality', 'nis', 'quality_nis']"
+        },
+        {
+          "before": "assert sequences == ['0001', '0008']\n        arms.insert(0, 'marked_gaussian_evidence')",
+          "after": "assert sequences == ['0001', '0006', '0007']\n        arms[:0] = ['marked_gaussian_evidence', 'marked_gaussian_evidence_assoc_split']"
+        },
+        {
+          "before": "protocol='icra-restored-association-v1'",
+          "after": "protocol='icra-screened-association-v1'"
+        }
+      ]
+    },
+    {
+      "source": "audit_restored_stage.py",
+      "source_sha256": "6c0d3a3711d1751126ec1f6b09058b6114c956e020c62953e756551553a80160",
+      "destination": "audit_screen_stage.py",
+      "destination_sha256": "5e15253207d201c142f11b93ac5dec6269cafd7cf6865e3c965229b0dd71a7b0",
+      "replacements": [
+        {
+          "before": "from audit_observation_domain import audit_domain",
+          "after": "from audit_observation_domain import audit_domain\nfrom audit_screened_run import associations as screened_associations"
+        },
+        {
+          "before": "run['arm'].replace('_assoc_reopen', '').replace('_assoc_split', '').replace('_assoc_direct', '').replace('_assoc_temporal', '')",
+          "after": "run['arm'].split('_assoc_', 1)[0]"
+        },
+        {
+          "before": "assert 'PERSISTENT ASSOCIATION CHECK PASSED' in content",
+          "after": "assert 'SCREENED ASSOCIATION CHECK PASSED' in content"
+        },
+        {
+          "before": "'icra-restored-association-v1'",
+          "after": "'icra-screened-association-v1'"
+        },
+        {
+          "before": "                if mode in ['reopen', 'split']:\n                    matching = persistent_associations(run, data, frames, mode)",
+          "after": "                if mode in ['quality', 'nis', 'quality_nis']:\n                    matching = screened_associations(run, data, frames, mode)\n                elif mode == 'split':\n                    matching = persistent_associations(run, data, frames, mode)"
+        },
+        {
+          "before": "                if mode in ['reopen', 'split'] and seq == '0008':\n                    base_name = f'{seq}_{condition}_marked_gaussian_evidence.json.gz'\n                    oldpath = OUT.parent / 'icra_gaussian_evidence/results_development' / base_name\n                    assert sha(oldpath) == previous['inputs'][str(oldpath.relative_to(ROOT))]\n                    old = read(oldpath)['runs']\n                    metadata = {'arm', 'runtimeSeconds', 'rawPayloadBytes', 'deliveredRawBytes',\n                                'packetBytes', 'wireBytes', 'totalWireBytes'}\n                    for key in old.keys() - metadata:\n                        assert run[key] == old[key], (seq, condition, arm, key, 'no-conflict exact trajectory')\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm,\n                        exact_trajectory_fields=sorted(old.keys()-metadata), robot_frames=2*T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)\n",
+          "after": "                if mode == 'split':\n                    prior_stage = 'association_restored_preflight' if seq == '0001' else 'association_restored_development_rest'\n                    prior_audit = json.loads((OUT / ('audit_' + prior_stage + '.json')).read_text())\n                    assert prior_audit['passed']\n                    oldpath = OUT / 'results' / prior_stage / path.name\n                    assert sha(oldpath) == prior_audit['inputs'][str(oldpath.relative_to(ROOT))]\n                    old_run = read(oldpath)['runs']\n                    keys = [k for k in old_run if k != 'runtimeSeconds']\n                    for key in keys:\n                        assert run[key] == old_run[key], (seq, condition, arm, key, 'exact restored S recursion')\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm,\n                        exact_fields=keys, robot_frames=2*T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)\n"
+        },
+        {
+          "before": "OUT / 'audit_observation_domain.py', OUT / 'persistent_math.py'",
+          "after": "OUT / 'screen_observation_math.py', OUT / 'screen_persistent_math.py', OUT / 'audit_screened_run.py',\n            OUT / 'audit_observation_domain.py', OUT / 'persistent_math.py'"
+        }
+      ]
+    }
+  ],
+  "generator_sha256": "e8fd667ad7accdb206351856515468c63c4467163c83790e4402c62352db9ff8"
+}

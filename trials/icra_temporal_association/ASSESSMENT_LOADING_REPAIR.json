@@ -1,0 +1,81 @@
+{
+  "created_utc": "2026-09-09T11:31:21.734347+00:00",
+  "cause": "MATLAB jsondecode returns a cell array for units with differing metadata fields. The scalar cell must be unwrapped before reading data_path.",
+  "failed_stage": "association_selected_v2v",
+  "failed_units": 34,
+  "completed_trajectories": 0,
+  "original_matlab": {
+    "path": "trials/icra_temporal_association/runRestoredAssociation.m",
+    "sha256": "76da4a8ff193abbafb930d7585823d5f9926f10e6aed73fa8004cd442caba64a"
+  },
+  "new_matlab": {
+    "path": "trials/icra_temporal_association/runListedAssociation.m",
+    "sha256": "2301f5c3a08e54f99cdc4135c6c8459d4c9cdec3b9fc281ddc4aaeeb97a65d59"
+  },
+  "replacements": [
+    [
+      "function runRestoredAssociation(configPath,unitIndex)",
+      "function runListedAssociation(configPath,unitIndex)"
+    ],
+    [
+      "config=jsondecode(fileread(configPath));unit=config.units(unitIndex);",
+      "config=jsondecode(fileread(configPath));\nif iscell(config.units),unit=config.units{unitIndex};else,unit=config.units(unitIndex);end"
+    ]
+  ],
+  "original_launcher": {
+    "path": "trials/icra_temporal_association/run_restored_stage.py",
+    "sha256": "e78bfb2c1ff9239f5705afd35614a311f6d966d89650d856dd8c81eefe281c3c"
+  },
+  "new_launcher": {
+    "path": "trials/icra_temporal_association/run_listed_stage.py",
+    "sha256": "f6d4398126016d104f3e7e13ad419c05e94951ca4d3e6ecc0ab31c7a2df84324"
+  },
+  "launcher_changes": [
+    [
+      "    with ThreadPoolExecutor(max_workers=args.workers) as pool:\n        for future in as_completed([pool.submit(worker,i,u) for i,u in enumerate(cfg['units'])]):",
+      "    # Validate the complete first unit before dispatching the remaining list.\n    first=worker(0,cfg['units'][0])\n    assert first['returncode']==0 and first['completion_line'] and first['files']==2*len(cfg['arms']), first\n    with ThreadPoolExecutor(max_workers=args.workers) as pool:\n        for future in as_completed([pool.submit(worker,i,u) for i,u in enumerate(cfg['units']) if i>0]):"
+    ],
+    [
+      "runRestoredAssociation(",
+      "runListedAssociation("
+    ]
+  ],
+  "sources": {
+    "trials/icra_temporal_association/runtime_association_selected_v2v.json": "b50fa68f494904299c785cff7a93863dc77b8482c1025f0557e9bc97d85811bc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0001.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0002.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0003.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0004.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0006.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0007.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0008.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0009.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0011.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0012.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0013.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0014.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0016.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0017.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0018.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0019.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0021.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0022.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0023.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0024.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0026.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0027.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0028.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0029.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0031.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0005.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0010.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0015.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0020.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0025.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/train_0030.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/val_0000.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/val_0001.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc",
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/association_selected_v2v/val_0002.log": "1d342e73d687bbe04fad194426e9d7f22561d46a2068ef78deee9202097b25dc"
+  },
+  "algorithm_change": false
+}

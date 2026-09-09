@@ -1,0 +1,35 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+DIRECT OBSERVATION CHECK PASSED
+OBSERVATION ASSOCIATION CHECK PASSED
+PERSISTENT ASSOCIATION CHECK PASSED
+COLUMN ASSOCIATION CHECK PASSED
+SCREENED ASSOCIATION CHECK PASSED
+START REVIEW association_screen_selected_test v2xt_0011 reliable marked_lineage 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 reliable marked_lineage OSPA 10.151635 runtime 7.28s
+START REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence OSPA 10.008084 runtime 5.59s
+START REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_guarded_scalar 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_guarded_scalar OSPA 10.107458 runtime 4.77s
+START REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_assoc_quality_nis 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_assoc_quality_nis OSPA 10.008084 runtime 5.85s
+START REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_guarded_scalar_assoc_quality_nis 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 reliable marked_gaussian_evidence_guarded_scalar_assoc_quality_nis OSPA 10.107458 runtime 5.37s
+START REVIEW association_screen_selected_test v2xt_0011 intermittent marked_lineage 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 intermittent marked_lineage OSPA 9.994500 runtime 3.25s
+START REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence OSPA 9.900658 runtime 2.77s
+START REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_guarded_scalar 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_guarded_scalar OSPA 9.902286 runtime 2.71s
+START REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_assoc_quality_nis 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_assoc_quality_nis OSPA 9.900658 runtime 3.23s
+START REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_guarded_scalar_assoc_quality_nis 157 frames
+DONE REVIEW association_screen_selected_test v2xt_0011 intermittent marked_gaussian_evidence_guarded_scalar_assoc_quality_nis OSPA 9.902286 runtime 3.13s
+COMPLETED REVIEW association_screen_selected_test v2xt_0011

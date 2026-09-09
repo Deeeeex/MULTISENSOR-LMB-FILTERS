@@ -1,0 +1,151 @@
+{
+  "completed_utc": "2026-09-09T13:31:53.807222+00:00",
+  "paired_frames": 2172,
+  "rows": [
+    {
+      "sequence": "0000",
+      "frames": 119,
+      "max_abs_error": {
+        "identity": 1.0869083411080283e-13,
+        "inverse_closure": 1.3500311979441904e-13,
+        "rotation_transpose_agreement": 1.0302869668521453e-13,
+        "world_translation_abs": 346.95
+      }
+    },
+    {
+      "sequence": "0001",
+      "frames": 240,
+      "max_abs_error": {
+        "identity": 5.3734794391857577e-14,
+        "inverse_closure": 7.815970093361102e-14,
+        "rotation_transpose_agreement": 5.684341886080802e-14,
+        "world_translation_abs": 185.89
+      }
+    },
+    {
+      "sequence": "0002",
+      "frames": 150,
+      "max_abs_error": {
+        "identity": 4.973799150320701e-14,
+        "inverse_closure": 6.616929226765933e-14,
+        "rotation_transpose_agreement": 5.684341886080802e-14,
+        "world_translation_abs": 173.78
+      }
+    },
+    {
+      "sequence": "0003",
+      "frames": 127,
+      "max_abs_error": {
+        "identity": 4.773959005888173e-14,
+        "inverse_closure": 7.321920847402907e-14,
+        "rotation_transpose_agreement": 5.240252676230739e-14,
+        "world_translation_abs": 173.87
+      }
+    },
+    {
+      "sequence": "0004",
+      "frames": 123,
+      "max_abs_error": {
+        "identity": 5.523359547510154e-14,
+        "inverse_closure": 5.81756864903582e-14,
+        "rotation_transpose_agreement": 5.484501741648273e-14,
+        "world_translation_abs": 168.79
+      }
+    },
+    {
+      "sequence": "0005",
+      "frames": 98,
+      "max_abs_error": {
+        "identity": 5.1514348342607263e-14,
+        "inverse_closure": 6.261657858885883e-14,
+        "rotation_transpose_agreement": 5.062616992290714e-14,
+        "world_translation_abs": 171.79
+      }
+    },
+    {
+      "sequence": "0006",
+      "frames": 187,
+      "max_abs_error": {
+        "identity": 1.0391687510491465e-13,
+        "inverse_closure": 1.4921397450962104e-13,
+        "rotation_transpose_agreement": 9.237055564881302e-14,
+        "world_translation_abs": 371.93
+      }
+    },
+    {
+      "sequence": "0007",
+      "frames": 106,
+      "max_abs_error": {
+        "identity": 4.3520742565306136e-14,
+        "inverse_closure": 8.526512829121202e-14,
+        "rotation_transpose_agreement": 7.105427357601002e-14,
+        "world_translation_abs": 169.54
+      }
+    },
+    {
+      "sequence": "0008",
+      "frames": 103,
+      "max_abs_error": {
+        "identity": 4.973799150320701e-14,
+        "inverse_closure": 7.460698725481052e-14,
+        "rotation_transpose_agreement": 5.684341886080802e-14,
+        "world_translation_abs": 168.79
+      }
+    },
+    {
+      "sequence": "0009",
+      "frames": 180,
+      "max_abs_error": {
+        "identity": 2.2737367544323206e-13,
+        "inverse_closure": 2.8066438062523957e-13,
+        "rotation_transpose_agreement": 2.5224267119483557e-13,
+        "world_translation_abs": 491.3
+      }
+    },
+    {
+      "sequence": "0010",
+      "frames": 148,
+      "max_abs_error": {
+        "identity": 1.2079226507921703e-13,
+        "inverse_closure": 1.971756091734278e-13,
+        "rotation_transpose_agreement": 1.1191048088221578e-13,
+        "world_translation_abs": 452.63
+      }
+    },
+    {
+      "sequence": "0011",
+      "frames": 157,
+      "max_abs_error": {
+        "identity": 2.2737367544323206e-13,
+        "inverse_closure": 2.8421709430404007e-13,
+        "rotation_transpose_agreement": 2.2382096176443156e-13,
+        "world_translation_abs": 511.58
+      }
+    },
+    {
+      "sequence": "0012",
+      "frames": 283,
+      "max_abs_error": {
+        "identity": 2.2737367544323206e-13,
+        "inverse_closure": 3.665956427312267e-13,
+        "rotation_transpose_agreement": 2.2715163083830703e-13,
+        "world_translation_abs": 597.38
+      }
+    },
+    {
+      "sequence": "0013",
+      "frames": 151,
+      "max_abs_error": {
+        "identity": 2.2737367544323206e-13,
+        "inverse_closure": 3.2596148002994596e-13,
+        "rotation_transpose_agreement": 2.533528942194607e-13,
+        "world_translation_abs": 614.11
+      }
+    }
+  ],
+  "cohort_sha256": "7255365d0481e455a726625d8bd56d80ad2b50d38fe4e20cfb99200321616e5f",
+  "original_checker_sha256": "e41b50de251cba8abc36e291bf479789b31ddad23e661475a538d1ca197f31ef",
+  "adapter_sha256": "a53b69e107e0f57e1eebe644090f55160d64e543fb0c5a814c612d84c7b485f8",
+  "detector_started": false,
+  "tracking_started": false
+}

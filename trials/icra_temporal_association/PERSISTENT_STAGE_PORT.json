@@ -1,0 +1,71 @@
+{
+  "run_stage.py": {
+    "destination": "run_persistent_stage.py",
+    "source_sha256": "6d88a190c578f34e0779123c814123befea012f8be7e11207ea795d0e1cbf65f",
+    "destination_sha256": "fab0614135bdb034cacac801952c9e02879ffb1a3ec17545af04ab8bdc046e90",
+    "bounded_replacements": [
+      [
+        "runAssociationReplay(",
+        "runPersistentReplay("
+      ]
+    ]
+  },
+  "register_stage.py": {
+    "destination": "register_persistent_stage.py",
+    "source_sha256": "2fe8584a74c9dce4bef9192dd241e5f3d534a0899fb0ed47bb69e53b8cc95555",
+    "destination_sha256": "b33c0dab02a95617a30ab17fb1ea18425bd0faf5dcf28aa37ef3dfc477fcadb4",
+    "bounded_replacements": [
+      [
+        "'ASSOCIATION_RUNNER_PATCH.json', 'INSTRUMENTATION_PATCH.json'",
+        "'ASSOCIATION_RUNNER_PATCH.json', 'INSTRUMENTATION_PATCH.json', 'CANDIDATES_V2.md',\n        'PERSISTENT_RUNNER_PATCH.json', 'PERSISTENT_EVIDENCE_EXTRACTION.json'"
+      ],
+      [
+        "'marked_gaussian_evidence_assoc_direct', 'marked_gaussian_evidence_assoc_temporal'",
+        "'marked_gaussian_evidence_assoc_reopen', 'marked_gaussian_evidence_assoc_split'"
+      ],
+      [
+        "assert sequences == ['0000']",
+        "assert sequences == ['0001', '0008']"
+      ],
+      [
+        "protocol='icra-temporal-association-v1'",
+        "protocol='icra-persistent-association-v2'"
+      ]
+    ]
+  },
+  "audit_stage.py": {
+    "destination": "audit_persistent_stage.py",
+    "source_sha256": "1160e302fea456205717edd052d4adca9ded9f8daaa07f560ad891ddc631f6d6",
+    "destination_sha256": "847a053af147e3d2ca84ed977c7d3a93cbe3c856f0c0a6e2e65b4bae5556cdd8",
+    "bounded_replacements": [
+      [
+        "from audit_observation_run import current_records, associations",
+        "from audit_observation_run import current_records\nfrom audit_persistent_run import associations"
+      ],
+      [
+        ".replace('_assoc_direct', '').replace('_assoc_temporal', '')",
+        ".replace('_assoc_reopen', '').replace('_assoc_split', '')"
+      ],
+      [
+        "assert 'OBSERVATION ASSOCIATION CHECK PASSED' in content",
+        "assert 'PERSISTENT ASSOCIATION CHECK PASSED' in content"
+      ],
+      [
+        "mode = 'temporal' if arm.endswith('_assoc_temporal') else ('direct' if arm.endswith('_assoc_direct') else '')",
+        "mode = 'split' if arm.endswith('_assoc_split') else ('reopen' if arm.endswith('_assoc_reopen') else '')"
+      ],
+      [
+        "assert data['stage'] == args.stage",
+        "assert data['protocol'] == 'icra-persistent-association-v2'\n                assert data['stage'] == args.stage"
+      ],
+      [
+        "                hashes[str(path.relative_to(ROOT))] = sha(path)",
+        "                if mode and seq == '0008':\n                    base_name = f'{seq}_{condition}_marked_gaussian_evidence.json.gz'\n                    oldpath = OUT.parent / 'icra_gaussian_evidence/results_development' / base_name\n                    assert sha(oldpath) == previous['inputs'][str(oldpath.relative_to(ROOT))]\n                    old = read(oldpath)['runs']\n                    metadata = {'arm', 'runtimeSeconds', 'rawPayloadBytes', 'deliveredRawBytes',\n                                'packetBytes', 'wireBytes', 'totalWireBytes'}\n                    for key in old.keys() - metadata:\n                        assert run[key] == old[key], (seq, condition, arm, key, 'no-conflict exact trajectory')\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm,\n                        exact_trajectory_fields=sorted(old.keys()-metadata), robot_frames=2*T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)\n                hashes[str(path.relative_to(ROOT))] = sha(path)"
+      ],
+      [
+        "OUT / 'association_math.py', OUT / 'audit_observation_run.py', OUT / 'observation_math.py',",
+        "OUT / 'persistent_math.py', OUT / 'audit_persistent_run.py', OUT / 'association_math.py',\n            OUT / 'audit_observation_run.py', OUT / 'observation_math.py',"
+      ]
+    ]
+  }
+}

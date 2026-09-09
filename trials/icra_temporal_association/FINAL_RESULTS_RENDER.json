@@ -1,0 +1,16 @@
+{
+  "completed_utc": "2026-09-09T14:55:39.632329+00:00",
+  "passed": true,
+  "inputs": {
+    "trials/icra_temporal_association/SCREENED_DEVELOPMENT_SELECTION.json": "1e2feaa325a8b84b0b40a949eb31f93d744890fcda0def2f6f3571415d1dc177",
+    "trials/icra_temporal_association/RESTORED_ASSESSMENT_V2.json": "0c86c04562b90559dbbc40a2abeae3aea23b106513fc51e757bab52976320d41",
+    "trials/icra_temporal_association/SCREENED_ASSESSMENT_V2.json": "fe5fe2fc6665b67c9fb8104118fc69d8fc8d32e86898bddee627ae8e4b30ad19",
+    "trials/icra_temporal_association/ADDITIONAL_TEST_ANALYSIS.json": "7bc58737904dad9af3226940f47d9a535d838c0e87373a8cc224d99b13cb075f",
+    "trials/icra_association_test/COHORT_FREEZE.json": "7255365d0481e455a726625d8bd56d80ad2b50d38fe4e20cfb99200321616e5f",
+    "trials/icra_association_test/ADAPTER_CHECK.json": "3d5f9885686e1edcdd207e900452334795df1ed5b565d9e4a50abca9383c7356"
+  },
+  "generator_sha256": "025854dfee08e5d866c9f26b4424007d34d44869ed2606f0ecbdc1887d89ca17",
+  "output_path": "trials/icra_temporal_association/FINAL_RESULTS_CN.md",
+  "output_sha256": "75e6556efb5afa148f721a04f4ec64a9fec704adb68c53d543f96e4fd541ec37",
+  "transfer_improves_both_conditions": false
+}

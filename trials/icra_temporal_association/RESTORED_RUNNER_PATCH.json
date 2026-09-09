@@ -1,0 +1,28 @@
+{
+  "source": "trials/icra_temporal_association/runPersistentReplay.m",
+  "source_sha256": "634b3f6fb820daf700d1e7f28c1a803b464846ec0238e87346209673066d2881",
+  "destination": "trials/icra_temporal_association/runRestoredAssociation.m",
+  "destination_sha256": "76da4a8ff193abbafb930d7585823d5f9926f10e6aed73fa8004cd442caba64a",
+  "bounded_replacements": [
+    [
+      "function runPersistentReplay(configPath,unitIndex)",
+      "function runRestoredAssociation(configPath,unitIndex)"
+    ],
+    [
+      "checkPersistentAssociation();",
+      "checkPersistentAssociation();\n% The unit check adds common/ before the replay adapter. Restore that adapter.\naddpath(qualityPath,'-begin');addpath(runtimePath,'-begin');\nassert(strcmp(which('evaluateSensorQuality'),fullfile(qualityPath,'evaluateSensorQuality.m')));\nassert(strcmp(which('Hungarian'),fullfile(runtimePath,'Hungarian.m')));"
+    ],
+    [
+      "'protocol','icra-persistent-association-v2'",
+      "'protocol','icra-restored-association-v1'"
+    ],
+    [
+      "if endsWith(rule,'_assoc_reopen')",
+      "if endsWith(rule,'_assoc_direct'),associationMode='direct';rule=erase(rule,'_assoc_direct');\nelseif endsWith(rule,'_assoc_temporal'),associationMode='temporal';rule=erase(rule,'_assoc_temporal');\nelseif endsWith(rule,'_assoc_reopen')"
+    ],
+    [
+      "                [remote,matching,associationMemory{n}]=alignPersistentLmbPair(local{n},decoded{other},50,associationMemory{n},associationMode,t,n);",
+      "                if ismember(associationMode,{'direct','temporal'})\n                    [remote,matching,associationMemory{n}.snapshots]=alignObservationLmbPair(local{n},decoded{other},50,associationMemory{n}.snapshots,associationMode,t);\n                    matching.remoteOnlyLabels=zeros(2,0);matching.splitRecords=zeros(0,4);matching.conflictState=zeros(2,0);\n                else\n                    [remote,matching,associationMemory{n}]=alignPersistentLmbPair(local{n},decoded{other},50,associationMemory{n},associationMode,t,n);\n                end"
+    ]
+  ]
+}

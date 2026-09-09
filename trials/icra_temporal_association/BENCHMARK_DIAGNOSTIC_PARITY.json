@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "condition": "reliable",
+      "rows": 3514,
+      "changed_columns_1based": [
+        20,
+        21
+      ],
+      "changed_values": 2350,
+      "exact_nonrecord_fields": [
+        "arm",
+        "attemptedMessages",
+        "controlBytes",
+        "countError",
+        "deliveredMessages",
+        "deliveredRawBytes",
+        "estimates",
+        "labels",
+        "matchedCount",
+        "matchedLabels",
+        "matchedSquaredError",
+        "maximumBernoulliCount",
+        "observableAbsences",
+        "ospa",
+        "rawEstimates",
+        "rawPayloadBytes",
+        "totalWireBytes",
+        "weightChangeL1",
+        "wireBytes"
+      ],
+      "original_path": "trials/icra_marked_iteration/results_stable/0000_reliable.json.gz",
+      "original_sha256": "0c348fe3b16ef18257c8720fe6cad98207d81ca643942fd52f505f488a1f4d2e",
+      "new_path": "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_reliable_marked_lineage.json.gz",
+      "new_sha256": "be08083bbbb43223645ea268c5b62c9180756e7d73c93dcfaa2b6f8de1ce305f"
+    },
+    {
+      "condition": "intermittent",
+      "rows": 2404,
+      "changed_columns_1based": [
+        20,
+        21
+      ],
+      "changed_values": 1694,
+      "exact_nonrecord_fields": [
+        "arm",
+        "attemptedMessages",
+        "controlBytes",
+        "countError",
+        "deliveredMessages",
+        "deliveredRawBytes",
+        "estimates",
+        "labels",
+        "matchedCount",
+        "matchedLabels",
+        "matchedSquaredError",
+        "maximumBernoulliCount",
+        "observableAbsences",
+        "ospa",
+        "rawEstimates",
+        "rawPayloadBytes",
+        "totalWireBytes",
+        "weightChangeL1",
+        "wireBytes"
+      ],
+      "original_path": "trials/icra_marked_iteration/results_stable/0000_intermittent.json.gz",
+      "original_sha256": "426ebdb90ed6ecdb7abf8d46a5553baee2ceb3a43cbd20caa6132741cdb7089f",
+      "new_path": "trials/icra_temporal_association/results/association_screen_benchmark_check/0000_intermittent_marked_lineage.json.gz",
+      "new_sha256": "a38d61b9eee637ffa0742cc5bfbb95d2c0cbcd5f3be34ea90ad3a61236b9e9ea"
+    }
+  ],
+  "reason": "The original reviewer runner already sets directEvidenceCeiling to zero. No-age does not use this ceiling: its existence is r0, and every physical output plus every other recorded field is exactly unchanged.",
+  "initial_auditor_sha256": "d31f319c3754e1210f2a357e27a1e3ecb100802087bc214028b4d00aa4f952cf",
+  "revised_auditor_sha256": "2fd2f1230a30f5b6bc9a44ba4ce2e7d3c88c5d0fff5dfbd40365dbbe389b4bd5",
+  "replacement": {
+    "before": "                    assert np.array_equal(np.asarray(run['iterationRecords'])[:, :26], np.asarray(oldrun['iterationRecords']).reshape(-1, 26))\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm, exact_fields=keys + ['iterationRecords_first26'], robot_frames=2*T))",
+    "after": "                    new_records = np.asarray(run['iterationRecords'], float).reshape(-1, 60)[:, :26]\n                    old_records = np.asarray(oldrun['iterationRecords'], float).reshape(-1, 26)\n                    columns = [i for i in range(26) if i not in [19, 20]]\n                    assert np.array_equal(new_records[:, columns], old_records[:, columns], equal_nan=True)\n                    assert not new_records[:, 19:21].any()\n                    # No-age assigns r0 independently of the direct-evidence ceiling.\n                    assert np.array_equal(new_records[:, 6], new_records[:, 7])\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm, exact_fields=keys,\n                        exact_record_columns_1based=[i+1 for i in columns],\n                        unused_diagnostic_columns_1based=[20, 21], robot_frames=2*T))"
+  },
+  "evidence": {
+    "trials/icra_marked_iteration/fuseMarkedInputsStable.m": "49ec6fc25231ca0ca578325cfb7e88828635739efbd723fa4235e6c424c2aa9e",
+    "trials/icra_reviewer_revision/runReviewerReplay.m": "c45873358c57fee5f2c9248ea39ee4b65c23302152499cf1fb421ba4f1ede37e",
+    "trials/icra_temporal_association/runScreenedAssociation.m": "1340191a7f5d4b7784d46c0e1b777736fbc2dbd4240bc6124580faf0dfe4798b",
+    "trials/icra_temporal_association/repair_benchmark_audit.py": "c8541a3b727fee0608f6b78086475ac9c9c81995b46e0cd975013f2035c42bbd"
+  }
+}

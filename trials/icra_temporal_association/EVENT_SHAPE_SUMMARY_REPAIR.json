@@ -1,0 +1,924 @@
+{
+  "completed_utc": "2026-09-09T14:54:10.712886+00:00",
+  "passed": true,
+  "corrected_reports": [
+    {
+      "source": "RESTORED_ASSESSMENT.json",
+      "target": "RESTORED_ASSESSMENT_V2.json",
+      "source_sha256": "8d6d45da0e2ef8567c6dde3384c2354925dd22bb8cafe1a39bff5e9732b79ce4",
+      "target_sha256": "0c86c04562b90559dbbc40a2abeae3aea23b106513fc51e757bab52976320d41",
+      "changes": [
+        {
+          "section": "rows",
+          "index": 617,
+          "key": [
+            "v2v",
+            "test_0006",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 628,
+          "key": [
+            "v2v",
+            "test_0004",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 633,
+          "key": [
+            "v2v",
+            "test_0006",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 697,
+          "key": [
+            "v2v",
+            "train_0018",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 728,
+          "key": [
+            "v2v",
+            "train_0028",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 740,
+          "key": [
+            "v2v",
+            "train_0005",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 741,
+          "key": [
+            "v2v",
+            "train_0005",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 755,
+          "key": [
+            "v2v",
+            "train_0025",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 762,
+          "key": [
+            "v2v",
+            "val_0000",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 765,
+          "key": [
+            "v2v",
+            "val_0000",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 767,
+          "key": [
+            "v2v",
+            "val_0001",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 862,
+          "key": [
+            "v2x_val",
+            "v2x_0002",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "aggregate",
+          "index": 3,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 117,
+          "after": 112
+        },
+        {
+          "section": "aggregate",
+          "index": 6,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 136,
+          "after": 121
+        },
+        {
+          "section": "aggregate",
+          "index": 12,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 102,
+          "after": 87
+        },
+        {
+          "section": "aggregate",
+          "index": 15,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 117,
+          "after": 97
+        },
+        {
+          "section": "aggregate",
+          "index": 24,
+          "key": [
+            "v2v_development",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 32,
+          "after": 27
+        },
+        {
+          "section": "aggregate",
+          "index": 30,
+          "key": [
+            "v2v_development",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 23,
+          "after": 18
+        },
+        {
+          "section": "aggregate",
+          "index": 33,
+          "key": [
+            "v2v_development",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 25,
+          "after": 20
+        },
+        {
+          "section": "aggregate",
+          "index": 39,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 92,
+          "after": 87
+        },
+        {
+          "section": "aggregate",
+          "index": 42,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 104,
+          "after": 94
+        },
+        {
+          "section": "aggregate",
+          "index": 48,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 79,
+          "after": 69
+        },
+        {
+          "section": "aggregate",
+          "index": 51,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 92,
+          "after": 77
+        },
+        {
+          "section": "aggregate",
+          "index": 57,
+          "key": [
+            "v2x_val",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        }
+      ]
+    },
+    {
+      "source": "SCREENED_ASSESSMENT.json",
+      "target": "SCREENED_ASSESSMENT_V2.json",
+      "source_sha256": "e9eff11a3b5c3d5f4b81f0c40bc017e048de748f250ea1e46f2d442356820f48",
+      "target_sha256": "fe5fe2fc6665b67c9fb8104118fc69d8fc8d32e86898bddee627ae8e4b30ad19",
+      "changes": [
+        {
+          "section": "rows",
+          "index": 617,
+          "key": [
+            "v2v",
+            "test_0006",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 628,
+          "key": [
+            "v2v",
+            "test_0004",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 633,
+          "key": [
+            "v2v",
+            "test_0006",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 697,
+          "key": [
+            "v2v",
+            "train_0018",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 728,
+          "key": [
+            "v2v",
+            "train_0028",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 740,
+          "key": [
+            "v2v",
+            "train_0005",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 741,
+          "key": [
+            "v2v",
+            "train_0005",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 755,
+          "key": [
+            "v2v",
+            "train_0025",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 762,
+          "key": [
+            "v2v",
+            "val_0000",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 765,
+          "key": [
+            "v2v",
+            "val_0000",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 767,
+          "key": [
+            "v2v",
+            "val_0001",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 862,
+          "key": [
+            "v2x_val",
+            "v2x_0002",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 885,
+          "key": [
+            "v2v",
+            "test_0003",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 906,
+          "key": [
+            "v2v",
+            "test_0007",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 998,
+          "key": [
+            "v2v",
+            "train_0028",
+            "reliable",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1015,
+          "key": [
+            "v2v",
+            "train_0010",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1017,
+          "key": [
+            "v2v",
+            "train_0010",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1033,
+          "key": [
+            "v2v",
+            "train_0030",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1034,
+          "key": [
+            "v2v",
+            "val_0000",
+            "reliable",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1036,
+          "key": [
+            "v2v",
+            "val_0000",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1037,
+          "key": [
+            "v2v",
+            "val_0000",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1038,
+          "key": [
+            "v2v",
+            "val_0001",
+            "reliable",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "rows",
+          "index": 1039,
+          "key": [
+            "v2v",
+            "val_0001",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 6,
+          "after": 1
+        },
+        {
+          "section": "aggregate",
+          "index": 3,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 82,
+          "after": 67
+        },
+        {
+          "section": "aggregate",
+          "index": 4,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 117,
+          "after": 112
+        },
+        {
+          "section": "aggregate",
+          "index": 7,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 101,
+          "after": 86
+        },
+        {
+          "section": "aggregate",
+          "index": 8,
+          "key": [
+            "v2v_all",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 136,
+          "after": 121
+        },
+        {
+          "section": "aggregate",
+          "index": 14,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 61,
+          "after": 51
+        },
+        {
+          "section": "aggregate",
+          "index": 15,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 102,
+          "after": 87
+        },
+        {
+          "section": "aggregate",
+          "index": 18,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 80,
+          "after": 65
+        },
+        {
+          "section": "aggregate",
+          "index": 19,
+          "key": [
+            "v2v_all",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 117,
+          "after": 97
+        },
+        {
+          "section": "aggregate",
+          "index": 29,
+          "key": [
+            "v2v_development",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 19,
+          "after": 14
+        },
+        {
+          "section": "aggregate",
+          "index": 30,
+          "key": [
+            "v2v_development",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 32,
+          "after": 27
+        },
+        {
+          "section": "aggregate",
+          "index": 36,
+          "key": [
+            "v2v_development",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 17,
+          "after": 12
+        },
+        {
+          "section": "aggregate",
+          "index": 37,
+          "key": [
+            "v2v_development",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 23,
+          "after": 18
+        },
+        {
+          "section": "aggregate",
+          "index": 41,
+          "key": [
+            "v2v_development",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 25,
+          "after": 20
+        },
+        {
+          "section": "aggregate",
+          "index": 47,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 67,
+          "after": 52
+        },
+        {
+          "section": "aggregate",
+          "index": 48,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 92,
+          "after": 87
+        },
+        {
+          "section": "aggregate",
+          "index": 51,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 82,
+          "after": 72
+        },
+        {
+          "section": "aggregate",
+          "index": 52,
+          "key": [
+            "v2v_remaining",
+            "reliable",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 104,
+          "after": 94
+        },
+        {
+          "section": "aggregate",
+          "index": 58,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_quality_nis"
+          ],
+          "before": 44,
+          "after": 39
+        },
+        {
+          "section": "aggregate",
+          "index": 59,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 79,
+          "after": 69
+        },
+        {
+          "section": "aggregate",
+          "index": 62,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_quality_nis"
+          ],
+          "before": 66,
+          "after": 51
+        },
+        {
+          "section": "aggregate",
+          "index": 63,
+          "key": [
+            "v2v_remaining",
+            "intermittent",
+            "marked_gaussian_evidence_guarded_scalar_assoc_split"
+          ],
+          "before": 92,
+          "after": 77
+        },
+        {
+          "section": "aggregate",
+          "index": 70,
+          "key": [
+            "v2x_val",
+            "reliable",
+            "marked_gaussian_evidence_assoc_split"
+          ],
+          "before": 6,
+          "after": 1
+        }
+      ]
+    }
+  ],
+  "script_patches": [
+    {
+      "source": "analyze_additional_test.py",
+      "target": "analyze_additional_test_v2.py",
+      "source_sha256": "0bd6f6e1f7cbac84e5433763df9fd4b241cddc3c1a6cde4053d9e4c1410a0342",
+      "target_sha256": "81bb767bcb3ee79b16d127d92b435b81b09675f83f09d50a48c60ad1dcb741b9",
+      "replacements": [
+        {
+          "before": "    rows=[];identities=[];final_rows=[];opportunities=[]\n",
+          "after": "    rows=[];identities=[];final_rows=[];opportunities=[]\n    event_counts={(r['sequence'],r['condition'],r['arm']):r['association'].get('split_branches',0) for r in audit['diagnostics']}\n"
+        },
+        {
+          "before": "        run=data['runs'];T=len(data['time']);assert T==row['frames']==unit['frames']\n",
+          "after": "        run=data['runs'];T=len(data['time']);assert T==row['frames']==unit['frames']\n        split_events=np.asarray(run['associationSplits'],float).reshape(-1,6)\n        assert len(split_events)==event_counts[row['sequence'],row['condition'],row['arm']]\n        assert all(1<=int(e[0])<=T and int(e[1]) in [1,2] for e in split_events)\n"
+        },
+        {
+          "before": "split_branches=len(run['associationSplits'])",
+          "after": "split_branches=len(split_events)"
+        },
+        {
+          "before": "for event in run['associationSplits']",
+          "after": "for event in split_events"
+        }
+      ]
+    },
+    {
+      "source": "build_final_association_report.py",
+      "target": "build_final_association_report_v2.py",
+      "source_sha256": "abffdf50a8b694a383c35e955e28e6017b999a66d91b47eaef17241befca5977",
+      "target_sha256": "025854dfee08e5d866c9f26b4424007d34d44869ed2606f0ecbdc1887d89ca17",
+      "replacements": [
+        {
+          "before": "RESTORED_ASSESSMENT.json",
+          "after": "RESTORED_ASSESSMENT_V2.json"
+        },
+        {
+          "before": "SCREENED_ASSESSMENT.json",
+          "after": "SCREENED_ASSESSMENT_V2.json"
+        }
+      ]
+    },
+    {
+      "source": "accept_association_results.py",
+      "target": "accept_association_results_v2.py",
+      "source_sha256": "47e68498eeb6da95c25b015cd9524dd30cff656cd8c1f311bb002def62f216b0",
+      "target_sha256": "bc4f63841321341d2c07c10710d15d243a37406d6fedcea09115b8f904a89d5c",
+      "replacements": [
+        {
+          "before": "RESTORED_ASSESSMENT.json",
+          "after": "RESTORED_ASSESSMENT_V2.json"
+        },
+        {
+          "before": "SCREENED_ASSESSMENT.json",
+          "after": "SCREENED_ASSESSMENT_V2.json"
+        },
+        {
+          "before": "build_final_association_report.py",
+          "after": "build_final_association_report_v2.py"
+        }
+      ]
+    },
+    {
+      "source": "verify_association_summary.py",
+      "target": "verify_association_summary_v2.py",
+      "source_sha256": "e3b87da75cb8689d4d4c2c16765adc2bd77d85093d1282671d2a0f09f1e77f36",
+      "target_sha256": "48f9c7654ba22dfbc34123bd1f156612146b5663a73dca466aa32ca512cc2d73",
+      "replacements": [
+        {
+          "before": "RESTORED_ASSESSMENT.json",
+          "after": "RESTORED_ASSESSMENT_V2.json"
+        },
+        {
+          "before": "SCREENED_ASSESSMENT.json",
+          "after": "SCREENED_ASSESSMENT_V2.json"
+        }
+      ]
+    },
+    {
+      "source": "package_association_study.py",
+      "target": "package_association_study_v2.py",
+      "source_sha256": "a3f97f53adea1c229dccd48a82e485ecefaef6e9e8719b9fecfc661f8ef352cf",
+      "target_sha256": "e6fe7974bf684eca549899569d93e2c28382f41e323da78d31110941b5c1bd5d",
+      "replacements": [
+        {
+          "before": "verify_association_summary.py",
+          "after": "verify_association_summary_v2.py"
+        }
+      ]
+    }
+  ],
+  "source_sha256": "0c8189743ecbbed76ee7dd5c7fdca33dd5468adc3b1dae831af02b2a155b1a1d",
+  "audit_inputs": {
+    "trials/icra_temporal_association/audit_association_restored_preflight.json": "791aed8b397db63651bbffc7ab1b0d171a3f32cb25f3ace17d582421b96d2953",
+    "trials/icra_temporal_association/audit_association_restored_development_rest.json": "d252a96c3fb86930d86f21211596901b42c48e60c39d2e085eeb25f246c9e4d2",
+    "trials/icra_temporal_association/audit_association_selected_controls_development.json": "51241e49a25508c176d76a25f279c2f635308509d99c0baa886e7956b8869ffe",
+    "trials/icra_temporal_association/audit_association_selected_v2v_column.json": "de506f77b4f75587ce127d7c32fc028e38442e09936cc865b505d5a05e46ab5e",
+    "trials/icra_temporal_association/audit_association_selected_v2x.json": "68544a28a7712740dcd13590eec4c8790e046654d341145bc847efc69150f3d9",
+    "trials/icra_temporal_association/audit_association_screen_preflight.json": "70328e66fc0e00ad67a83a06a44d428a72bae4ad35dd2adbb1d15961390af7d7",
+    "trials/icra_temporal_association/audit_association_screen_rest.json": "79561ea5777d0f0ae8dd06cba0d6a8f0e0ac88c7d481daa1080a9fb0e62a26b7",
+    "trials/icra_temporal_association/audit_association_screen_selected_controls_development.json": "3dfbad506ad8d1482988a0bbbf176fb6501358f543daf0362ec7f7ff423be20b",
+    "trials/icra_temporal_association/audit_association_screen_selected_v2v.json": "64c169f9eafba162511d1099d8809c7b8df7c24610264f14a839514da554be96",
+    "trials/icra_temporal_association/audit_association_screen_selected_v2x.json": "0fb2fadc02ebdcae85c7f45e302a022d82d7b8a42d9cc671bfd22efb588e6d04"
+  },
+  "failure_log_sha256": "49aa0376f75d306ac394f3e6baf6df09183ea437043b0547595647e11f0a1b20",
+  "native_results_changed": false,
+  "ospa_gospa_cardinality_identity_communication_bytes_changed": false,
+  "method_or_selection_changed": false,
+  "reason": "A one-row MATLAB matrix is a flat six-value JSON vector. The old len counted six fields; the corrected count is one event. Independent native audits already reshape all events to six columns and have the correct counts."
+}

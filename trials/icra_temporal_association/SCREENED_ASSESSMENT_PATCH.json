@@ -1,0 +1,53 @@
+{
+  "source": "audit_restored_assessment.py",
+  "source_sha256": "d9c3d0dc8910cd84d562ce9ad4e49512ab402dcd9959730d8b4b9423dee86acb",
+  "destination": "audit_screen_assessment.py",
+  "destination_sha256": "d31f319c3754e1210f2a357e27a1e3ecb100802087bc214028b4d00aa4f952cf",
+  "replacements": [
+    {
+      "before": "from audit_observation_domain import audit_domain",
+      "after": "from audit_observation_domain import audit_domain\nfrom audit_screened_run import associations as screened_associations\nfrom analyze_holdout import audit_existence\nfrom analyze_full import baseline"
+    },
+    {
+      "before": "width = 416 if mode else 352",
+      "after": "width = 416 if mode else (352 if 'gaussian_evidence' in run['arm'] else 216)"
+    },
+    {
+      "before": "run['arm'].replace('_assoc_reopen', '').replace('_assoc_split', '').replace('_assoc_direct', '').replace('_assoc_temporal', '')",
+      "after": "run['arm'].split('_assoc_', 1)[0]"
+    },
+    {
+      "before": "base_view['packetBytes'] = (32 + 352 * counts).tolist()",
+      "after": "base_width = 352 if 'gaussian_evidence' in base_view['arm'] else 216\n    base_view['packetBytes'] = (32 + base_width * counts).tolist()"
+    },
+    {
+      "before": "assert cfg['cohort'].startswith('association_assessment_')\n    assert sha(OUT / 'RESTORED_DEVELOPMENT_SELECTION.json') == cfg['selection_sha256']",
+      "after": "assert cfg['cohort'].startswith('association_screen_assessment_')\n    if not cfg['preflight']:\n        assert sha(OUT / 'SCREENED_DEVELOPMENT_SELECTION.json') == cfg['selection_sha256']"
+    },
+    {
+      "before": "assert 'PERSISTENT ASSOCIATION CHECK PASSED' in content",
+      "after": "assert 'SCREENED ASSOCIATION CHECK PASSED' in content"
+    },
+    {
+      "before": "'icra-restored-association-v1'",
+      "after": "'icra-screened-association-v1'"
+    },
+    {
+      "before": "                density = audit_probability(base_view, data)",
+      "after": "                if arm == 'marked_lineage':\n                    short_view = dict(base_view, iterationRecords=np.asarray(run['iterationRecords'], float).reshape(-1, 60)[:, :26].tolist())\n                    density = audit_existence(short_view, data, 'marked_lineage')\n                else:\n                    density = audit_probability(base_view, data)"
+    },
+    {
+      "before": "                if mode in ['reopen', 'split']:\n                    matching = persistent_associations(run, data, frames, mode)",
+      "after": "                if mode in ['quality', 'nis', 'quality_nis']:\n                    matching = screened_associations(run, data, frames, mode)"
+    },
+    {
+      "before": "                assert mode in ['direct', 'temporal', 'reopen', 'split']",
+      "after": "                assert mode in ['', 'quality', 'nis', 'quality_nis']\n                if cfg['preflight']:\n                    assert arm == 'marked_lineage' and seq == '0000'\n                    original, _, _, oldpath = baseline('development', seq, condition, arm)\n                    oldrun = next(r for r in original['runs'] if r['arm'] == arm)\n                    keys = ['estimates','rawEstimates','labels','ospa','countError','matchedSquaredError','matchedCount',\n                        'rawPayloadBytes','deliveredRawBytes','wireBytes','controlBytes','attemptedMessages',\n                        'deliveredMessages','maximumBernoulliCount']\n                    for key in keys:\n                        assert run[key] == oldrun[key], (seq, condition, arm, key, 'exact No-age recursion')\n                    assert np.array_equal(np.asarray(run['iterationRecords'])[:, :26], np.asarray(oldrun['iterationRecords']).reshape(-1, 26))\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm, exact_fields=keys + ['iterationRecords_first26'], robot_frames=2*T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)"
+    },
+    {
+      "before": "OUT / 'audit_observation_domain.py', OUT / 'persistent_math.py'",
+      "after": "OUT / 'screen_observation_math.py', OUT / 'screen_persistent_math.py', OUT / 'audit_screened_run.py',\n            OUT.parent / 'icra_fusion_holdout/analyze_holdout.py',\n            OUT / 'audit_observation_domain.py', OUT / 'persistent_math.py'"
+    }
+  ],
+  "generator_sha256": "176928863b91a4e6e4a3c29a9dfd9a477311f12b1dd3b1e202c4d0c99b3a3144"
+}

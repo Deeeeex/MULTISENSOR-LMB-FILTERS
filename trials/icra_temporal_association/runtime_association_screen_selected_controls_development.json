@@ -1,0 +1,119 @@
+[
+  {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',1);"
+    ]
+  },
+  {
+    "sequence": "0001",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',2);"
+    ]
+  },
+  {
+    "sequence": "0002",
+    "index": 2,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',3);"
+    ]
+  },
+  {
+    "sequence": "0003",
+    "index": 3,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',4);"
+    ]
+  },
+  {
+    "sequence": "0004",
+    "index": 4,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',5);"
+    ]
+  },
+  {
+    "sequence": "0005",
+    "index": 5,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',6);"
+    ]
+  },
+  {
+    "sequence": "0006",
+    "index": 6,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',7);"
+    ]
+  },
+  {
+    "sequence": "0007",
+    "index": 7,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',8);"
+    ]
+  },
+  {
+    "sequence": "0008",
+    "index": 8,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runScreenedAssociation('trials/icra_temporal_association/stages/association_screen_selected_controls_development.json',9);"
+    ]
+  }
+]

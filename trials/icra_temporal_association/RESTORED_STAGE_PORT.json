@@ -1,0 +1,118 @@
+{
+  "run_persistent_stage.py": {
+    "destination": "run_restored_stage.py",
+    "source_sha256": "fab0614135bdb034cacac801952c9e02879ffb1a3ec17545af04ab8bdc046e90",
+    "destination_sha256": "e78bfb2c1ff9239f5705afd35614a311f6d966d89650d856dd8c81eefe281c3c",
+    "bounded_replacements": [
+      [
+        "runPersistentReplay(",
+        "runRestoredAssociation("
+      ]
+    ]
+  },
+  "register_persistent_stage.py": {
+    "destination": "register_restored_stage.py",
+    "source_sha256": "b33c0dab02a95617a30ab17fb1ea18425bd0faf5dcf28aa37ef3dfc477fcadb4",
+    "destination_sha256": "36d2c70e53ce9d0ce5f2bbadfd6f0f5ee582a8d9d0d179ba1e16ea4ba0c97ba6",
+    "bounded_replacements": [
+      [
+        "'PERSISTENT_RUNNER_PATCH.json', 'PERSISTENT_EVIDENCE_EXTRACTION.json'",
+        "'PERSISTENT_RUNNER_PATCH.json', 'PERSISTENT_EVIDENCE_EXTRACTION.json',\n        'PATH_RESTORATION.md', 'RESTORED_RUNNER_PATCH.json', 'PATH_FAILURE.json'"
+      ],
+      [
+        "arms = ['marked_gaussian_evidence_assoc_reopen', 'marked_gaussian_evidence_assoc_split']",
+        "arms = ['marked_gaussian_evidence_assoc_' + mode for mode in ['direct', 'temporal', 'reopen', 'split']]"
+      ],
+      [
+        "protocol='icra-persistent-association-v2'",
+        "protocol='icra-restored-association-v1'"
+      ]
+    ]
+  },
+  "audit_persistent_stage.py": {
+    "destination": "audit_restored_stage.py",
+    "source_sha256": "847a053af147e3d2ca84ed977c7d3a93cbe3c856f0c0a6e2e65b4bae5556cdd8",
+    "destination_sha256": "6c0d3a3711d1751126ec1f6b09058b6114c956e020c62953e756551553a80160",
+    "bounded_replacements": [
+      [
+        "from audit_persistent_run import associations",
+        "from audit_persistent_run import associations as persistent_associations\nfrom audit_observation_run import associations as observation_associations\nfrom audit_observation_domain import audit_domain"
+      ],
+      [
+        ".replace('_assoc_reopen', '').replace('_assoc_split', '')",
+        ".replace('_assoc_reopen', '').replace('_assoc_split', '').replace('_assoc_direct', '').replace('_assoc_temporal', '')"
+      ],
+      [
+        "mode = 'split' if arm.endswith('_assoc_split') else ('reopen' if arm.endswith('_assoc_reopen') else '')",
+        "mode = arm.rsplit('_assoc_', 1)[1] if '_assoc_' in arm else ''"
+      ],
+      [
+        "assert data['protocol'] == 'icra-persistent-association-v2'",
+        "assert data['protocol'] == 'icra-restored-association-v1'"
+      ],
+      [
+        "                density = audit_probability(base_view, data)",
+        "                domain = audit_domain(run, data)\n                density = audit_probability(base_view, data)"
+      ],
+      [
+        "                matching = associations(run, data, frames, mode) if mode else {}",
+        "                if mode in ['reopen', 'split']:\n                    matching = persistent_associations(run, data, frames, mode)\n                elif mode:\n                    assert not any(run[k] for k in ['associationRemoteAbstentions', 'associationSplits', 'associationConflicts'])\n                    matching = observation_associations(run, data, frames, mode)\n                else:\n                    matching = {}"
+      ],
+      [
+        "current_observation=direct, association=matching, density=density",
+        "current_observation=direct, association=matching, density=density, observation_domain=domain"
+      ],
+      [
+        "if mode and seq == '0008':",
+        "if mode in ['reopen', 'split'] and seq == '0008':"
+      ],
+      [
+        "OUT / 'persistent_math.py', OUT / 'audit_persistent_run.py',",
+        "OUT / 'audit_observation_domain.py', OUT / 'persistent_math.py', OUT / 'audit_persistent_run.py',"
+      ]
+    ]
+  },
+  "select_development.py": {
+    "destination": "select_restored_development.py",
+    "source_sha256": "4d80600faba4693242b5d5d87d8dbc325e2e932a03c0611754e7f21753bfe52f",
+    "destination_sha256": "73d658282a984e40297f5026ded64dd377cfc3c64d06100196f2438dd65a603d",
+    "bounded_replacements": [
+      [
+        "CANDIDATES = [BASE + '_assoc_direct', BASE + '_assoc_temporal']",
+        "CANDIDATES = [BASE + '_assoc_' + mode for mode in ['direct', 'temporal', 'reopen', 'split']]"
+      ],
+      [
+        "destination = OUT / 'DEVELOPMENT_SELECTION.json'",
+        "destination = OUT / 'RESTORED_DEVELOPMENT_SELECTION.json'"
+      ],
+      [
+        "[('association_v1_preflight', 6), ('association_v1_development_rest', 32)]",
+        "[('association_restored_preflight', 20), ('association_restored_development_rest', 56)]"
+      ],
+      [
+        "assert len(rows) == len(paths) == 54",
+        "assert len(rows) == len(paths) == 90"
+      ],
+      [
+        "assert len(lookup) == 54",
+        "assert len(lookup) == 90"
+      ],
+      [
+        "sha(OUT / 'CANDIDATES_V1.md')",
+        "sha(OUT / 'PATH_RESTORATION.md')"
+      ],
+      [
+        "exact ties prefer direct.",
+        "exact ties follow D, T, R, S order."
+      ],
+      [
+        "OUT / 'development_comparison.csv'",
+        "OUT / 'restored_development_comparison.csv'"
+      ],
+      [
+        "print('DEVELOPMENT SELECTION'",
+        "print('RESTORED DEVELOPMENT SELECTION'"
+      ]
+    ]
+  }
+}

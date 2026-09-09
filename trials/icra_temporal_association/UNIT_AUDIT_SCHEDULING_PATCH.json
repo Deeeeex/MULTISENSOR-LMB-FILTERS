@@ -1,0 +1,36 @@
+{
+  "source_sha256": "2fd2f1230a30f5b6bc9a44ba4ce2e7d3c88c5d0fff5dfbd40365dbbe389b4bd5",
+  "target_sha256": "12bb838f984a3b2492ba2fe878165e8d699505c472a1e653e67d7580dc8a7dcb",
+  "generator_sha256": "b296a43352ca8b933131ce12bfae7b84bb85da46a688fff3986bc960656c63fe",
+  "exact_replacements": [
+    {
+      "before": "import csv\n",
+      "after": "import csv\nimport hashlib\n"
+    },
+    {
+      "before": "    parser.add_argument('stage')\n",
+      "after": "    parser.add_argument('stage')\n    parser.add_argument('unit')\n"
+    },
+    {
+      "before": "    cfg, runtime = json.loads(cfgpath.read_text()), json.loads(runtimepath.read_text())\n    assert len(runtime) == len(cfg['units'])\n",
+      "after": "    cfg = json.loads(cfgpath.read_text())\n    runtime_text = runtimepath.read_text()\n    runtime_snapshot = json.loads(runtime_text)\n    cfg = dict(cfg, units=[u for u in cfg['units'] if u['sequence'] == args.unit])\n    runtime = [r for r in runtime_snapshot if r['sequence'] == args.unit]\n    assert len(runtime) == len(cfg['units']) == 1\n"
+    },
+    {
+      "before": "        config_sha256=sha(cfgpath), runtime_sha256=sha(runtimepath),\n",
+      "after": "        config_sha256=sha(cfgpath), runtime_sha256=hashlib.sha256(runtime_text.encode()).hexdigest(),\n        execution_unit=args.unit, native_unit=runtime[0], runtime_snapshot=runtime_snapshot, partial_unit_audit=True,\n"
+    },
+    {
+      "before": "    destination = OUT / ('audit_' + args.stage + '.json')\n",
+      "after": "    folder = OUT / 'partial_audits' / args.stage\n    folder.mkdir(parents=True, exist_ok=True)\n    destination = folder / (args.unit + '.json')\n"
+    },
+    {
+      "before": "    with (OUT / ('scores_' + args.stage + '.csv')).open('w') as handle:\n",
+      "after": "    with (folder / (args.unit + '.csv')).open('w') as handle:\n"
+    },
+    {
+      "before": "    print('ASSOCIATION STAGE AUDIT PASSED', args.stage, result['audited_robot_frames'], 'robot-frames', flush=True)\n",
+      "after": "    print('ASSOCIATION UNIT AUDIT PASSED', args.stage, args.unit, result['audited_robot_frames'], 'robot-frames', flush=True)\n"
+    }
+  ],
+  "purpose": "Scope the same audit loop to one completed native unit. Preserve all physical, packet, association, history, density, domain and score checks. Record the exact runtime snapshot; final merge requires all native units completed."
+}

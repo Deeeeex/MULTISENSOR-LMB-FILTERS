@@ -1,0 +1,15 @@
+[
+  {
+    "sequence": "0000",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "files": 6,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runAssociationReplay('trials/icra_temporal_association/stages/association_v1_preflight.json',1);"
+    ]
+  }
+]

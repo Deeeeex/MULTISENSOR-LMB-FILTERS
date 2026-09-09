@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/repair_event_shape_summaries.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_temporal_association/repair_event_shape_summaries.py", line 53, in main
+    value=row['association']['split_branches']
+          ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'split_branches'

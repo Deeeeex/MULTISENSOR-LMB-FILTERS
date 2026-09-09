@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "exact_fields": [
+    "passed",
+    "stage",
+    "rows",
+    "diagnostics",
+    "parity",
+    "audited_robot_frames",
+    "inputs",
+    "config_sha256",
+    "runtime_sha256"
+  ],
+  "old_audit_sha256": "1a4678558633e85e20a654d30806aaf2e190b8b99262ab32600c476eb2b3b928",
+  "unit_audit_sha256": "5e85e7fae26acb80b9f4d3d1b5d73403823056572c05c20dbca889206d46a790",
+  "scope": "Same native No-age results and all physical/diagnostic checks; only execution scoping and provenance/output wrappers differ."
+}

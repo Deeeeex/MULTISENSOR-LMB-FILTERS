@@ -1,0 +1,16 @@
+{
+  "source": "trials/icra_temporal_association/audit_restored_stage.py",
+  "source_sha256": "6c0d3a3711d1751126ec1f6b09058b6114c956e020c62953e756551553a80160",
+  "destination": "trials/icra_temporal_association/audit_restored_assessment.py",
+  "destination_sha256": "d9c3d0dc8910cd84d562ce9ad4e49512ab402dcd9959730d8b4b9423dee86acb",
+  "replacements": [
+    [
+      "                if not mode:\n                    oldpath = OUT.parent / 'icra_gaussian_evidence/results_development' / path.name\n                    assert sha(oldpath) == previous['inputs'][str(oldpath.relative_to(ROOT))]\n                    old = read(oldpath)['runs']\n                    keys = [k for k in old if k != 'runtimeSeconds']\n                    for key in keys:\n                        assert run[key] == old[key], (seq, condition, key, 'exact legacy recursion')\n                    parity.append(dict(sequence=seq, condition=condition, exact_fields=keys, robot_frames=2 * T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)\n                if mode in ['reopen', 'split'] and seq == '0008':\n                    base_name = f'{seq}_{condition}_marked_gaussian_evidence.json.gz'\n                    oldpath = OUT.parent / 'icra_gaussian_evidence/results_development' / base_name\n                    assert sha(oldpath) == previous['inputs'][str(oldpath.relative_to(ROOT))]\n                    old = read(oldpath)['runs']\n                    metadata = {'arm', 'runtimeSeconds', 'rawPayloadBytes', 'deliveredRawBytes',\n                                'packetBytes', 'wireBytes', 'totalWireBytes'}\n                    for key in old.keys() - metadata:\n                        assert run[key] == old[key], (seq, condition, arm, key, 'no-conflict exact trajectory')\n                    parity.append(dict(sequence=seq, condition=condition, arm=arm,\n                        exact_trajectory_fields=sorted(old.keys()-metadata), robot_frames=2*T))\n                    hashes[str(oldpath.relative_to(ROOT))] = sha(oldpath)\n",
+      "                assert mode in ['direct', 'temporal', 'reopen', 'split']\n"
+    ],
+    [
+      "    previous = json.loads((OUT.parent / 'icra_gaussian_evidence/summary_development.json').read_text())",
+      "    assert cfg['cohort'].startswith('association_assessment_')\n    assert sha(OUT / 'RESTORED_DEVELOPMENT_SELECTION.json') == cfg['selection_sha256']"
+    ]
+  ]
+}

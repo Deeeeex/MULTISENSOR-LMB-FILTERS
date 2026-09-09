@@ -1,0 +1,15 @@
+[
+  {
+    "sequence": "train_0001",
+    "index": 0,
+    "returncode": 1,
+    "completion_line": false,
+    "files": 0,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_temporal_association');runListedAssociation('trials/icra_temporal_association/stages/association_selected_v2v_loaded.json',1);"
+    ]
+  }
+]

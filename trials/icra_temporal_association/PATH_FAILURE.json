@@ -1,0 +1,1329 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-09T10:48:06.246338+00:00",
+  "native_probe_returncode": 0,
+  "invalidated_candidate_runs": 50,
+  "unaffected_instrumentation_runs": 18,
+  "cause": "The association unit check moved common/ ahead of replay_quality/. The restored runner reinstalls the adapter after checks.",
+  "failed_parity": {
+    "stage": "association_v2_preflight",
+    "sequence": "0001",
+    "condition": "reliable",
+    "field": "estimates",
+    "first_material_increment_key": [
+      8,
+      2,
+      2,
+      200001
+    ],
+    "original_pd": 0.0,
+    "incorrect_pd": 0.9
+  },
+  "interpretation": "All V1 candidate selection and V2 preflight method comparisons are withdrawn. Rerun the unchanged four candidate definitions with the original domain.",
+  "rows": [
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 2860,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 2860,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 2860,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 2819,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 2819,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_preflight",
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 2819,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 1545,
+      "domain_mismatches": 17,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 1543,
+      "domain_mismatches": 17,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 1492,
+      "domain_mismatches": 16,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 1490,
+      "domain_mismatches": 16,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 1291,
+      "domain_mismatches": 3,
+      "first_mismatch": {
+        "key": [
+          86,
+          2,
+          83,
+          200001
+        ],
+        "predicted_xy": [
+          -70.72236233135351,
+          -32.61867920550623
+        ],
+        "vehicle_squared_distances": [
+          6065.6307668389745,
+          1277.147967511357
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 1291,
+      "domain_mismatches": 3,
+      "first_mismatch": {
+        "key": [
+          86,
+          2,
+          83,
+          200001
+        ],
+        "predicted_xy": [
+          -70.72236233135351,
+          -32.61867920550623
+        ],
+        "vehicle_squared_distances": [
+          6065.6307668389745,
+          1277.147967511357
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 1109,
+      "domain_mismatches": 6,
+      "first_mismatch": {
+        "key": [
+          86,
+          2,
+          83,
+          200001
+        ],
+        "predicted_xy": [
+          -70.57595234892234,
+          -32.563056939227444
+        ],
+        "vehicle_squared_distances": [
+          6041.317727184725,
+          1267.2638399868406
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 1109,
+      "domain_mismatches": 6,
+      "first_mismatch": {
+        "key": [
+          86,
+          2,
+          83,
+          200001
+        ],
+        "predicted_xy": [
+          -70.57595234892234,
+          -32.563056939227444
+        ],
+        "vehicle_squared_distances": [
+          6041.317727184725,
+          1267.2638399868406
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 16706,
+      "domain_mismatches": 34,
+      "first_mismatch": {
+        "key": [
+          17,
+          2,
+          8,
+          200002
+        ],
+        "predicted_xy": [
+          -70.90757228004641,
+          29.210336052555235
+        ],
+        "vehicle_squared_distances": [
+          5881.127538953214,
+          1497.5606301699472
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 16587,
+      "domain_mismatches": 34,
+      "first_mismatch": {
+        "key": [
+          17,
+          2,
+          8,
+          200002
+        ],
+        "predicted_xy": [
+          -70.90757228004641,
+          29.210336052555235
+        ],
+        "vehicle_squared_distances": [
+          5881.127538953214,
+          1497.5606301699472
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 18886,
+      "domain_mismatches": 39,
+      "first_mismatch": {
+        "key": [
+          17,
+          2,
+          8,
+          200002
+        ],
+        "predicted_xy": [
+          -70.90780108426496,
+          29.209208144886215
+        ],
+        "vehicle_squared_distances": [
+          5881.094095056974,
+          1497.4850203801248
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 21095,
+      "domain_mismatches": 39,
+      "first_mismatch": {
+        "key": [
+          17,
+          2,
+          8,
+          200002
+        ],
+        "predicted_xy": [
+          -70.90780108426496,
+          29.209208144886215
+        ],
+        "vehicle_squared_distances": [
+          5881.094095056974,
+          1497.4850203801248
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 31202,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 31113,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 32490,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 32443,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0005",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 42395,
+      "domain_mismatches": 36,
+      "first_mismatch": {
+        "key": [
+          90,
+          1,
+          42,
+          200005
+        ],
+        "predicted_xy": [
+          0.9444404145656875,
+          -2.6811858666156487
+        ],
+        "vehicle_squared_distances": [
+          8.080725348004515,
+          111.4538494872561
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0005",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 42312,
+      "domain_mismatches": 36,
+      "first_mismatch": {
+        "key": [
+          90,
+          1,
+          42,
+          200005
+        ],
+        "predicted_xy": [
+          0.9444404145656875,
+          -2.6811858666156496
+        ],
+        "vehicle_squared_distances": [
+          8.08072534800452,
+          111.45384948725611
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0005",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 42903,
+      "domain_mismatches": 33,
+      "first_mismatch": {
+        "key": [
+          90,
+          1,
+          48,
+          200007
+        ],
+        "predicted_xy": [
+          0.9523365301278672,
+          -2.6844625117604166
+        ],
+        "vehicle_squared_distances": [
+          8.11328384366303,
+          111.3600581540533
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0005",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 42712,
+      "domain_mismatches": 33,
+      "first_mismatch": {
+        "key": [
+          90,
+          1,
+          48,
+          200007
+        ],
+        "predicted_xy": [
+          0.9523365301278688,
+          -2.684462511760415
+        ],
+        "vehicle_squared_distances": [
+          8.113283843663025,
+          111.36005815405326
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 23366,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 23366,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 23401,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 22298,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 21380,
+      "domain_mismatches": 39,
+      "first_mismatch": {
+        "key": [
+          22,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -39.3123812226399,
+          40.709486915518255
+        ],
+        "vehicle_squared_distances": [
+          3202.725642318922,
+          207.63081212919786
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 21139,
+      "domain_mismatches": 38,
+      "first_mismatch": {
+        "key": [
+          22,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -39.3123812226399,
+          40.709486915518255
+        ],
+        "vehicle_squared_distances": [
+          3202.725642318922,
+          207.63081212919786
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 20666,
+      "domain_mismatches": 38,
+      "first_mismatch": {
+        "key": [
+          22,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -38.924405482438694,
+          41.05226149715053
+        ],
+        "vehicle_squared_distances": [
+          3200.3975161917315,
+          193.24762299788827
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 20657,
+      "domain_mismatches": 38,
+      "first_mismatch": {
+        "key": [
+          22,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -38.924405482438694,
+          41.05226149715053
+        ],
+        "vehicle_squared_distances": [
+          3200.3975161917315,
+          193.24762299788827
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 25048,
+      "domain_mismatches": 23,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 25048,
+      "domain_mismatches": 23,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_direct",
+      "retained_local_predictions": 25573,
+      "domain_mismatches": 14,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v1_development_rest",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_temporal",
+      "retained_local_predictions": 25573,
+      "domain_mismatches": 14,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 1545,
+      "domain_mismatches": 17,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_reopen",
+      "retained_local_predictions": 1609,
+      "domain_mismatches": 17,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_split",
+      "retained_local_predictions": 1566,
+      "domain_mismatches": 17,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 1492,
+      "domain_mismatches": 16,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_reopen",
+      "retained_local_predictions": 1562,
+      "domain_mismatches": 16,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_split",
+      "retained_local_predictions": 1515,
+      "domain_mismatches": 16,
+      "first_mismatch": {
+        "key": [
+          8,
+          2,
+          2,
+          200001
+        ],
+        "predicted_xy": [
+          -71.60292647956908,
+          9.346342892284731
+        ],
+        "vehicle_squared_distances": [
+          5214.333205898736,
+          824.5315554511938
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 24725,
+      "domain_mismatches": 20,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_reopen",
+      "retained_local_predictions": 24725,
+      "domain_mismatches": 20,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_assoc_split",
+      "retained_local_predictions": 24725,
+      "domain_mismatches": 20,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 24824,
+      "domain_mismatches": 14,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_reopen",
+      "retained_local_predictions": 24824,
+      "domain_mismatches": 14,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_v2_preflight",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_assoc_split",
+      "retained_local_predictions": 24824,
+      "domain_mismatches": 14,
+      "first_mismatch": {
+        "key": [
+          3,
+          1,
+          2,
+          100014
+        ],
+        "predicted_xy": [
+          -2.7252792913997403,
+          0.7263463337663232
+        ],
+        "vehicle_squared_distances": [
+          7.95472621270805,
+          28.1570085113687
+        ],
+        "expected_pd": 0.0,
+        "executed_pd": 0.9
+      }
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0000",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 2860,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0000",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 2819,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 2215,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 1968,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0002",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 1416,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0002",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 1334,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0003",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 19018,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0003",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 21928,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0004",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 30916,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0004",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 29983,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0005",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 42162,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0005",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 42553,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0006",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 21374,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0006",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 22528,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0007",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 25290,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0007",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 24830,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0008",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 39178,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    },
+    {
+      "stage": "association_instrumentation_development",
+      "sequence": "0008",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "retained_local_predictions": 34051,
+      "domain_mismatches": 0,
+      "first_mismatch": null
+    }
+  ],
+  "inputs": {
+    "RUN/ICRA_TEMPORAL_ASSOCIATION/path_probe.log": "9abd9e62b9c7df55afc3c6d4bbf855246b723fa37765215fc276aba882e969e2",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence.json.gz": "12a1dc289486018761eb3de1eb6442c3dab2a6dd233d477c7790b6a8652ada3c",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "5b167cecf0b32aecb15663c2deed288f0c67b1657e1bb9380304891ef56bfdc3",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "3687a7e034122b20b27996656482ca31cf6432ef8d5869b1cab48c7dfbb58380",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence.json.gz": "e0ca484853c3c59844ba6614c93a4c18edfa68018f7b758063ce0d7a1181ed14",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "433b8cfdfb9e42c87c69b1d3c3227347e00bb6d209491f93688d37fc01851f78",
+    "trials/icra_temporal_association/results/association_v1_preflight/0000_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "c66c51ec8baeb07a54c2b3bd2559d192433647e29bf98d4a15133a9586e017a9",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "2f1f99aa21d7dba8b20c827e736e679dcedeecb3c58cf1aacf525e493f736307",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "4da7cb3223130653fdd6dffd49da55d5150163476a085ec6d1ffd5124834a20e",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "7850aa120eb169efea4a832eb79e8214bba2501ae7b8885250c9178741b3f49f",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0001_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "d51fdec6b164fd63257426ab63715a44d7a7d5ff282cb5c94ae1cea1f6c0c6ae",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "a932826d1b46feda9b5fc1f067eb5c21ec3d1f60a588f1ca870020a6b25af312",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "c51704a4ad6955e72dd99d4e43a60e9f16824fb9d9bdf9a399502c5da911f6c4",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "3cddde90789ed31d2ce0bf253a0da4cec1b9dfdd9020f372463f3c75f1c875e7",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0002_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "05139f35788b5ff6a80e008628b48c65c97a00e55b89fe4a7ae9b424c70111e7",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "b7c138e66fbff3646f17858259ca8e38afd923d420535f6f595b2901c3e20695",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "3b4bb15f0d59633052d9483e85760cb9b7c3088086ebc1445dd361c30ac9cd27",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "d40808c941b049906dead0304f9052c9fa3e4907eba77d8ad75b81c7478ff8ef",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0003_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "6a71cba0481449262b099300d4b21fdf71c2bed04c7a097238b71de6713012d3",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "4d264b5bc76987809210eabb576dcd97eafba6d2bd755414658cefc5f1bb1226",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "1f27d60d56a2d29d10a31ed0c1bebb0aee2923d42c0adc39553a348404565a58",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "f1c4c33e92faf8e2e8d4f39340e2f729dac1e15b03cbada2cf32f7954b3a7d89",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0004_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "ea2421f910d0298269b6e3f74b255bfd385967dd7ba19bfec806fcf617de13a7",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "7b4c1102f8702fe86e915e72809459660e64f79e172c9ca26ce2f2901c033afb",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "f42c11e82d5445ce70402fd2e0ad16d438cb18a3910729833ff3df6253383afb",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "349bb2ae3eb244fe770959c2227d0d6af551988087eb86dd613460d7d05e7f8b",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0005_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "02f72fba0d6e2f90b281eaabc0a5cb07756798153343c8b0c9471628a6b5f132",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "90af49e675948bd4d591d455f5bc7fa3c3f2ccbe33c15e086f5721729c5d3149",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "36796bbcda40800ae98ba2a448e5a68d3d6cba334470fa58057d4dc566c54bc1",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "8d6a811d79ee4f8410cf586a2dd8129c6837c0ee04868f4ca3aabb6b514a85f1",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0006_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "f3493353cf093ac70bb6d75a7838fe1bc74ce81fcda65c49f99987c40860596c",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "9accc3a5c131b46c27c5a60ede6be1339b22a586815cb1f7571aeb3e434e180b",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "5e6a63ae7b7706d0974791c5232a9f9bcc72534110e37837e9f429062ec4207e",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "27143f53aa5f5b6df0c37ed5470b029fdc70f73c0361a7330ca730ce2a6cee2c",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0007_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "9846443dade2a67947374ffef8e48b543aa49a41dea5675922c9073a5be7dca7",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_intermittent_marked_gaussian_evidence_assoc_direct.json.gz": "cf6b552e1da9bf49c20634225cda207fedb1e5ea0ffd15d967b5cf83bc14fe75",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_intermittent_marked_gaussian_evidence_assoc_temporal.json.gz": "9b42427e27fed91cdd8d58eaadee1a84666cc19e3115329650901e502350e514",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_reliable_marked_gaussian_evidence_assoc_direct.json.gz": "bfc86fa8f54979496d7f307726ed1ef5c147d758731e2b76dceee569a523d505",
+    "trials/icra_temporal_association/results/association_v1_development_rest/0008_reliable_marked_gaussian_evidence_assoc_temporal.json.gz": "6615c4223a0e4bf1b8b39c7abece6120aa6e8e82126be46e6ed83bcf35a778ee",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence.json.gz": "26d9f368f164b4542748803ddc7c72b7d2df4637387dd52d45176892a15ef8b6",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": "43ada1acd485116b97094284df8bf2e7bb506683988f63790876d1d12337a0d3",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "bd37339a026603a70d26498aea89b17e5e638e7b90b5135741447b96952bec99",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence.json.gz": "f92c85627c4f4185f523cbda1354fce134ddf0c93d5b035f770595481c8ecc08",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": "c5b43957f51cbab8aa0b809308e57fbad2da6773f81880e26c7a7c4782c241dd",
+    "trials/icra_temporal_association/results/association_v2_preflight/0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": "852f936d96f2796ae74a26e47ae45d6811d8e560e8d3688b5e10ecdf8779cee4",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence.json.gz": "b2bab44c8bf05dabdeb170d48c9cab06c7ae85d437260bd5a5bebeb2fac378a0",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence_assoc_reopen.json.gz": "19525b34e5d09264af08bf892e06da4fabbfe664b5d63e61243efc868c9914e0",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "d13ff95eaa4b14810363f1247ea1212faea330cbea3a56548943443bc0727f41",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence.json.gz": "90302a33fb8ff6ca03043a1e3bc9451cb37d2a88e867ed24de98ca81cbdcaafa",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence_assoc_reopen.json.gz": "884b97e2f594a76314ded9ffd8f64e7720cb5da88326b96c8c5f75d942480d7b",
+    "trials/icra_temporal_association/results/association_v2_preflight/0008_reliable_marked_gaussian_evidence_assoc_split.json.gz": "691e23b7f7a97140b34f9fa02c38fee1722446b172d6cde5cd046839752bf6cf",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_intermittent_marked_gaussian_evidence.json.gz": "28133b5772015a009615b785320a3f77964e8bb9c63059fb19270be271ea3022",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_intermittent_marked_gaussian_evidence.json.gz": "b0e040885724ff2030b02792693e187bf37c8e41cd6e61074dc66ded8853720d",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0001_reliable_marked_gaussian_evidence.json.gz": "7034580d342c0ba5f650cd7ce8b746ecb48d12267ce70bf16499c1db4ea912b1",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_intermittent_marked_gaussian_evidence.json.gz": "63b8c47f5dd5e214ba2c691e701069abca140f74e980c1a86bbc3b26ba6c7b54",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0002_reliable_marked_gaussian_evidence.json.gz": "c09b3d326e309cd581c3f00a0bbe5ffe8faf7a4cdd8f9f4dab6036cd98bf4145",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_intermittent_marked_gaussian_evidence.json.gz": "158c7bfdbdb32c1672d471f8f36f1f99c71558ec8e42a6d762ff624e6f374c7a",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0003_reliable_marked_gaussian_evidence.json.gz": "8754ef530e2a074b3c545ac4395b8d34ff1cf960f8f10e4a7750ab5c67118b50",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_intermittent_marked_gaussian_evidence.json.gz": "33be1ee0485065408f098aa64e602c15349af7a2e1ecf54aa08740de20d24fd7",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0004_reliable_marked_gaussian_evidence.json.gz": "83e86d8b34a3523135cd06b1f05c343867cc38ccbf59a3ba3421c1e354f85475",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_intermittent_marked_gaussian_evidence.json.gz": "ffa36d2b5df785997932e07db2e8a954aa94c7ddde1a0b57ba2e7d6db0074a92",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0005_reliable_marked_gaussian_evidence.json.gz": "9224226ab6fa4baa7637988af7ec281c0991edf7eec3c455b0a0090493b1cf15",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_intermittent_marked_gaussian_evidence.json.gz": "73022b8e74a5d61b5c60ec346e495bc7fa09e929a4ee1fc1522b517da9935ccd",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0006_reliable_marked_gaussian_evidence.json.gz": "db1c1662ef569a44e23ebc08c0a244a192feee20f0ced3bc7862449a4a078107",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_intermittent_marked_gaussian_evidence.json.gz": "e189b6026939b11382a3b4ac78ae427a289d49cbc7f212b06d95a0e1e108b492",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0007_reliable_marked_gaussian_evidence.json.gz": "fe1532cbd2676ef61e6e60d8a84118e07a7d0140b60e90ef596ba9592bf8c335",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_intermittent_marked_gaussian_evidence.json.gz": "799397494d6b712cdd18095f97c10b581850339e86a87985630efce6551026da",
+    "trials/icra_temporal_association/results/association_instrumentation_development/0008_reliable_marked_gaussian_evidence.json.gz": "60aeea2185fc8c36ea610f271db9cf0bb00151dc52aed07f8abf0f35475248de",
+    "trials/icra_temporal_association/DEVELOPMENT_SELECTION.json": "63f0145e2a09dd925036d17c562516609e4531d77c128a9dab5d315e4ed54c07",
+    "trials/icra_temporal_association/V1_FAILURE_ATTRIBUTION.json": "390226dfd37d44fae570a72a10c1d109f90e6c9f0831fb541b1b40ade5622f07",
+    "trials/icra_temporal_association/V1_RESULTS_CN.md": "acda0824537a59f98dec8fd3732af70ec49a3c21792286a3ec92462e48e5f709"
+  },
+  "source_sha256": {
+    "trials/icra_temporal_association/diagnose_path_failure.py": "871e92e67fefaf97cd97bee2602429632b11c1f0c0f0dd0a9fe1f393bfe0a87b",
+    "trials/icra_temporal_association/checkObservationAssociation.m": "92c35d64b3f0b765982fad7628c1d870a4905a9f2da1f233a6cc283ebe9b584f",
+    "trials/icra_temporal_association/probeAssociationPath.m": "4a289a44a7a322feef03917c5e2f01d03351c37c6dfaef204cbf96dafe45de1b",
+    "trials/icra_temporal_association/audit_observation_domain.py": "33b141b6d08a362ffbfd64d6449255758c1728d70e619ba9d8d0df7cb7bbdcae"
+  }
+}

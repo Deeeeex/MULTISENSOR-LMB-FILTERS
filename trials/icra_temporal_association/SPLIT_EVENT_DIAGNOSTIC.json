@@ -1,0 +1,5528 @@
+{
+  "passed": true,
+  "events": [
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "frame": 22,
+      "receiver": 1,
+      "original": [
+        8,
+        100001
+      ],
+      "alias": [
+        8,
+        1001100001
+      ],
+      "original_local_map_truth": [
+        2,
+        108
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999672624827921,
+        0.9999432951083567
+      ],
+      "majority_confidence": [
+        0.9996432154996431,
+        0.9993820109721715
+      ],
+      "observation_features": [
+        [
+          0.9996759424080099,
+          -18.839727,
+          19.025503,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.9994386840344538,
+          -22.747885,
+          18.654524,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "normalized_discrepancy": 1.2032767231152999,
+      "qualified_samples": 2,
+      "current_nis": 7.705662185702502,
+      "summed_nis": 15.97554904652251,
+      "posterior_distance_m": 1.4247655988262744,
+      "observation_distance_m": 3.9257259674364695,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 2,
+          "distance_m": 0.07520529154255264
+        },
+        {
+          "truth_id": 108,
+          "distance_m": 0.22279303130259812
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 22,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 23,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 24,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 25,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 26,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 27,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 28,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 29,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 30,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 31,
+          "original_truth": null,
+          "branch_truth": 108
+        },
+        {
+          "frame": 32,
+          "original_truth": null,
+          "branch_truth": 108
+        }
+      ]
+    },
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "frame": 22,
+      "receiver": 2,
+      "original": [
+        8,
+        100001
+      ],
+      "alias": [
+        8,
+        1002100001
+      ],
+      "original_local_map_truth": [
+        108,
+        2
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999432951083567,
+        0.9999672624827921
+      ],
+      "majority_confidence": [
+        0.9993820109721715,
+        0.9996432154996431
+      ],
+      "observation_features": [
+        [
+          0.9994386840344538,
+          -22.747885,
+          18.654524,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.9996759424080099,
+          -18.839727,
+          19.025503,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "normalized_discrepancy": 1.2032767231152999,
+      "qualified_samples": 2,
+      "current_nis": 7.705662185702502,
+      "summed_nis": 15.97554904652251,
+      "posterior_distance_m": 1.4247655988262744,
+      "observation_distance_m": 3.9257259674364695,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 108,
+          "distance_m": 0.22279303130259812
+        },
+        {
+          "truth_id": 2,
+          "distance_m": 0.07520529154255264
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 22,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 23,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 24,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 25,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 26,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 27,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 28,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 29,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 30,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 31,
+          "original_truth": 108,
+          "branch_truth": null
+        },
+        {
+          "frame": 32,
+          "original_truth": 108,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "frame": 22,
+      "receiver": 1,
+      "original": [
+        8,
+        100001
+      ],
+      "alias": [
+        8,
+        1001100001
+      ],
+      "original_local_map_truth": [
+        2,
+        108
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999670789864826,
+        0.9999416978902652
+      ],
+      "majority_confidence": [
+        0.9996412163440993,
+        0.9993646051004373
+      ],
+      "observation_features": [
+        [
+          0.999674126629535,
+          -18.839727,
+          19.025503,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.9994228735624833,
+          -22.747885,
+          18.654524,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "normalized_discrepancy": 1.2032767231152999,
+      "qualified_samples": 2,
+      "current_nis": 7.705662185702502,
+      "summed_nis": 15.97554904652251,
+      "posterior_distance_m": 1.423137756977926,
+      "observation_distance_m": 3.9257259674364695,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 2,
+          "distance_m": 0.07520529154255264
+        },
+        {
+          "truth_id": 108,
+          "distance_m": 0.22279303130259812
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 22,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 23,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 24,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 25,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 26,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 27,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 28,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 29,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 30,
+          "original_truth": 2,
+          "branch_truth": 108
+        },
+        {
+          "frame": 31,
+          "original_truth": null,
+          "branch_truth": 108
+        },
+        {
+          "frame": 32,
+          "original_truth": null,
+          "branch_truth": 108
+        }
+      ]
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "frame": 22,
+      "receiver": 2,
+      "original": [
+        8,
+        100001
+      ],
+      "alias": [
+        8,
+        1002100001
+      ],
+      "original_local_map_truth": [
+        108,
+        2
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999416978902652,
+        0.9999670789864826
+      ],
+      "majority_confidence": [
+        0.9993646051004373,
+        0.9996412163440993
+      ],
+      "observation_features": [
+        [
+          0.9994228735624833,
+          -22.747885,
+          18.654524,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.999674126629535,
+          -18.839727,
+          19.025503,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "normalized_discrepancy": 1.2032767231152999,
+      "qualified_samples": 2,
+      "current_nis": 7.705662185702502,
+      "summed_nis": 15.97554904652251,
+      "posterior_distance_m": 1.423137756977926,
+      "observation_distance_m": 3.9257259674364695,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 108,
+          "distance_m": 0.22279303130259812
+        },
+        {
+          "truth_id": 2,
+          "distance_m": 0.07520529154255264
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 22,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 23,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 24,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 25,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 26,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 27,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 28,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 29,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 30,
+          "original_truth": 108,
+          "branch_truth": 2
+        },
+        {
+          "frame": 31,
+          "original_truth": 108,
+          "branch_truth": null
+        },
+        {
+          "frame": 32,
+          "original_truth": 108,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "frame": 50,
+      "receiver": 2,
+      "original": [
+        18,
+        100005
+      ],
+      "alias": [
+        18,
+        1002100005
+      ],
+      "original_local_map_truth": [
+        105,
+        6
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9938170504423217,
+        0.9999358111339196
+      ],
+      "majority_confidence": [
+        0.9355184741582154,
+        0.9993044818972
+      ],
+      "observation_features": [
+        [
+          0.941349956982255,
+          -26.550999799986336,
+          -10.328681298652285,
+          1.0000474683873046,
+          9.633027098075416e-05,
+          1.000195488442606,
+          0.9999880671616954,
+          0.00014720600483641844
+        ],
+        [
+          0.999394844957287,
+          -22.2995129565255,
+          -10.003638937034452,
+          1.0000651088821375,
+          0.00010133902642535207,
+          1.0002948314186577,
+          0.9999737694055076,
+          0.00031975238278561855
+        ]
+      ],
+      "normalized_discrepancy": 1.0663310347859671,
+      "qualified_samples": 3,
+      "current_nis": 9.089738375927324,
+      "summed_nis": 17.92704414421142,
+      "posterior_distance_m": 1.6873286865616415,
+      "observation_distance_m": 4.263894102456893,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 105,
+          "distance_m": 0.16369481950998618
+        },
+        {
+          "truth_id": 6,
+          "distance_m": 0.15063951821873833
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 50,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 51,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 52,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 53,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 55,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 56,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": null,
+          "branch_truth": 105
+        },
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "frame": 70,
+      "receiver": 2,
+      "original": [
+        28,
+        100005
+      ],
+      "alias": [
+        28,
+        1002100005
+      ],
+      "original_local_map_truth": [
+        null,
+        18
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.998005625604098,
+        0.9999621500328766
+      ],
+      "majority_confidence": [
+        0.9223190741784275,
+        0.991858877931672
+      ],
+      "observation_features": [
+        [
+          0.9810644068219476,
+          -28.042756279295354,
+          -5.859907391146486,
+          1.0006617688240511,
+          -0.015272582691121975,
+          1.3532943445131025,
+          0.9419995192779523,
+          0.22147105985389054
+        ],
+        [
+          0.9996413365193958,
+          -23.29682745292045,
+          -5.2684515424226825,
+          1.0028333822318056,
+          0.015208457781743592,
+          1.0816604704069834,
+          0.9922523058442552,
+          0.045387851060536735
+        ]
+      ],
+      "normalized_discrepancy": 1.2825899420843778,
+      "qualified_samples": 2,
+      "current_nis": 11.386013212994833,
+      "summed_nis": 17.028567188847756,
+      "posterior_distance_m": 1.9953744981702741,
+      "observation_distance_m": 4.782641576159127,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 18,
+          "distance_m": 4.2320841027397895
+        },
+        {
+          "truth_id": 18,
+          "distance_m": 0.581172014029234
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 76,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 77,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 78,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 79,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 80,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "frame": 71,
+      "receiver": 2,
+      "original": [
+        58,
+        100005
+      ],
+      "alias": [
+        58,
+        1002100005
+      ],
+      "original_local_map_truth": [
+        22,
+        22
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9959354012927664,
+        0.9980908060673098
+      ],
+      "majority_confidence": [
+        0.7506459990272006,
+        0.8915249788792092
+      ],
+      "observation_features": [
+        [
+          0.994595578756516,
+          -28.346080449249428,
+          -10.88848638547806,
+          1.0309860849306027,
+          0.2405753633849258,
+          2.8758895991328752,
+          0.7578050233580168,
+          0.5565803584206402
+        ],
+        [
+          0.9974669563241931,
+          -25.458424416252278,
+          -11.30102451125619,
+          1.0015042242342365,
+          0.03279700864266553,
+          1.7161100754348646,
+          0.895498666036152,
+          0.3349451574604448
+        ]
+      ],
+      "normalized_discrepancy": 1.149650632721553,
+      "qualified_samples": 2,
+      "current_nis": 4.243455939822032,
+      "summed_nis": 15.263571310395005,
+      "posterior_distance_m": 1.446340544195029,
+      "observation_distance_m": 2.9169753290224048,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 22,
+          "distance_m": 2.5612886742129737
+        },
+        {
+          "truth_id": 22,
+          "distance_m": 0.374616360487557
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 22
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 21
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 21
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 21
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 21
+        },
+        {
+          "frame": 76,
+          "original_truth": 22,
+          "branch_truth": null
+        },
+        {
+          "frame": 77,
+          "original_truth": null,
+          "branch_truth": 22
+        },
+        {
+          "frame": 78,
+          "original_truth": null,
+          "branch_truth": 22
+        },
+        {
+          "frame": 79,
+          "original_truth": null,
+          "branch_truth": 22
+        },
+        {
+          "frame": 80,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 81,
+          "original_truth": null,
+          "branch_truth": 22
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "frame": 77,
+      "receiver": 2,
+      "original": [
+        61,
+        100013
+      ],
+      "alias": [
+        61,
+        1002100013
+      ],
+      "original_local_map_truth": [
+        null,
+        36
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9951318294495786,
+        0.9998135200588748
+      ],
+      "majority_confidence": [
+        0.9527958535480532,
+        0.9981917993468434
+      ],
+      "observation_features": [
+        [
+          0.9574569171152509,
+          -17.96118,
+          8.491501,
+          1.0,
+          -5.723661262516638e-55,
+          1.0,
+          1.0,
+          5.841367571089165e-55
+        ],
+        [
+          0.9983779773715489,
+          -13.084742997535498,
+          8.768416996818136,
+          1.0000000108600529,
+          -1.402118265179927e-08,
+          1.0000000181024498,
+          0.9999999994407242,
+          1.2474300026862276e-08
+        ]
+      ],
+      "normalized_discrepancy": 1.317779951109542,
+      "qualified_samples": 2,
+      "current_nis": 11.928160098707156,
+      "summed_nis": 17.495774527217595,
+      "posterior_distance_m": 2.2276450168552833,
+      "observation_distance_m": 4.884293225053011,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 119,
+          "distance_m": 0.2533165458472871
+        },
+        {
+          "truth_id": 36,
+          "distance_m": 0.5455565375405271
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 77,
+          "original_truth": null,
+          "branch_truth": 36
+        },
+        {
+          "frame": 78,
+          "original_truth": null,
+          "branch_truth": 36
+        },
+        {
+          "frame": 79,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 80,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 81,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 82,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 83,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 84,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 85,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 86,
+          "original_truth": 119,
+          "branch_truth": null
+        },
+        {
+          "frame": 87,
+          "original_truth": 119,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "frame": 50,
+      "receiver": 2,
+      "original": [
+        18,
+        100005
+      ],
+      "alias": [
+        18,
+        1002100005
+      ],
+      "original_local_map_truth": [
+        105,
+        6
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9970540337722259,
+        0.999913104311975
+      ],
+      "majority_confidence": [
+        0.9691663814252224,
+        0.9990498266903848
+      ],
+      "observation_features": [
+        [
+          0.972041428536835,
+          -26.550999554782226,
+          -10.328680801045783,
+          1.0000469793405484,
+          9.533782086335755e-05,
+          1.0001934744077048,
+          0.9999881901021431,
+          0.00014581169127647218
+        ],
+        [
+          0.9991776780655824,
+          -22.299550631696388,
+          -10.00369043378375,
+          1.0001669106198394,
+          0.0002468485057457824,
+          1.0005092410185887,
+          0.9999589355229852,
+          0.0004841129045882456
+        ]
+      ],
+      "normalized_discrepancy": 1.0659191125658545,
+      "qualified_samples": 3,
+      "current_nis": 9.08899736982309,
+      "summed_nis": 17.92011895158076,
+      "posterior_distance_m": 1.7073217096008138,
+      "observation_distance_m": 4.263852329105787,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 105,
+          "distance_m": 0.16369507504163547
+        },
+        {
+          "truth_id": 6,
+          "distance_m": 0.15069581979329752
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 50,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 51,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 52,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 53,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 55,
+          "original_truth": null,
+          "branch_truth": 6
+        },
+        {
+          "frame": 56,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": null,
+          "branch_truth": 105
+        },
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "frame": 70,
+      "receiver": 2,
+      "original": [
+        28,
+        100005
+      ],
+      "alias": [
+        28,
+        1002100005
+      ],
+      "original_local_map_truth": [
+        null,
+        18
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9978336254512306,
+        0.9999513627691473
+      ],
+      "majority_confidence": [
+        0.9191721341157104,
+        0.9932735527690618
+      ],
+      "observation_features": [
+        [
+          0.9793321078761887,
+          -28.042606620003482,
+          -5.863467235257126,
+          1.0006776094616259,
+          -0.015599280428198128,
+          1.3614101230551607,
+          0.9406081154996744,
+          0.2253945925164032
+        ],
+        [
+          0.9995369682835146,
+          -23.295898596475467,
+          -5.263467973156599,
+          1.002277282075438,
+          0.012224342711049812,
+          1.065654194966677,
+          0.9937820177874387,
+          0.03780419200516136
+        ]
+      ],
+      "normalized_discrepancy": 1.2837410293649807,
+      "qualified_samples": 2,
+      "current_nis": 11.401306890007962,
+      "summed_nis": 17.043849834107018,
+      "posterior_distance_m": 1.9861286318024407,
+      "observation_distance_m": 4.7844786732878655,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 18,
+          "distance_m": 4.232230188266433
+        },
+        {
+          "truth_id": 18,
+          "distance_m": 0.5841083193053431
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 76,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 77,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 78,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 79,
+          "original_truth": null,
+          "branch_truth": 18
+        },
+        {
+          "frame": 80,
+          "original_truth": null,
+          "branch_truth": 18
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "frame": 83,
+      "receiver": 2,
+      "original": [
+        61,
+        100013
+      ],
+      "alias": [
+        61,
+        1002100013
+      ],
+      "original_local_map_truth": [
+        119,
+        36
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999878954532024,
+        0.9857006913447155
+      ],
+      "majority_confidence": [
+        0.9998684084694154,
+        0.9793318182214322
+      ],
+      "observation_features": [
+        [
+          0.9998805115698597,
+          -33.783573,
+          8.053691,
+          1.0000000000000007,
+          -5.987571392329834e-16,
+          1.0000000000000007,
+          1.0,
+          3.7455246872252697e-16
+        ],
+        [
+          0.9935387352578654,
+          -30.392006,
+          8.317038,
+          1.0,
+          -1.5815654062505273e-75,
+          1.0,
+          1.0,
+          2.1589707667979917e-75
+        ]
+      ],
+      "normalized_discrepancy": 1.0895309546037404,
+      "qualified_samples": 2,
+      "current_nis": 5.786039178948992,
+      "summed_nis": 14.465380131274,
+      "posterior_distance_m": 3.9720651882890086,
+      "observation_distance_m": 3.4017757653757825,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 119,
+          "distance_m": 0.1587293649517964
+        },
+        {
+          "truth_id": 36,
+          "distance_m": 0.2584427739403822
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 83,
+          "original_truth": 119,
+          "branch_truth": 36
+        },
+        {
+          "frame": 84,
+          "original_truth": 119,
+          "branch_truth": 36
+        },
+        {
+          "frame": 85,
+          "original_truth": 119,
+          "branch_truth": 36
+        },
+        {
+          "frame": 86,
+          "original_truth": 119,
+          "branch_truth": 36
+        },
+        {
+          "frame": 87,
+          "original_truth": 119,
+          "branch_truth": 36
+        },
+        {
+          "frame": 88,
+          "original_truth": null,
+          "branch_truth": 36
+        },
+        {
+          "frame": 89,
+          "original_truth": null,
+          "branch_truth": 36
+        },
+        {
+          "frame": 90,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 91,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 92,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 93,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "frame": 116,
+      "receiver": 1,
+      "original": [
+        104,
+        100002
+      ],
+      "alias": [
+        104,
+        1001100002
+      ],
+      "original_local_map_truth": [
+        40,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999270630303584,
+        0.9999893814789662
+      ],
+      "majority_confidence": [
+        0.9992049948261933,
+        0.9998842592556069
+      ],
+      "observation_features": [
+        [
+          0.9992778791265267,
+          -4.895845,
+          11.787123,
+          1.0,
+          -8.977727821218691e-144,
+          1.0,
+          1.0,
+          1.3166664583029553e-143
+        ],
+        [
+          0.9998948766603862,
+          -8.118357,
+          11.895631,
+          1.0,
+          4.6853423932989945e-37,
+          1.0,
+          1.0,
+          3.088249622220383e-37
+        ]
+      ],
+      "normalized_discrepancy": 1.0411551011218658,
+      "qualified_samples": 3,
+      "current_nis": 5.198178788104,
+      "summed_nis": 17.50378902038519,
+      "posterior_distance_m": 1.0521538783163285,
+      "observation_distance_m": 3.224338316028267,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 40,
+          "distance_m": 0.12239477432456022
+        },
+        {
+          "truth_id": 40,
+          "distance_m": 3.2131368653973573
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 116,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 117,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 118,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 119,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 120,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 121,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 122,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 123,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 124,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 125,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 126,
+          "original_truth": 40,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "frame": 116,
+      "receiver": 2,
+      "original": [
+        104,
+        100002
+      ],
+      "alias": [
+        104,
+        1002100002
+      ],
+      "original_local_map_truth": [
+        null,
+        40
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999893814789662,
+        0.9999270630303584
+      ],
+      "majority_confidence": [
+        0.9998842592556069,
+        0.9992049948261933
+      ],
+      "observation_features": [
+        [
+          0.9998948766603862,
+          -8.118357,
+          11.895631,
+          1.0,
+          4.6853423932989945e-37,
+          1.0,
+          1.0,
+          3.088249622220383e-37
+        ],
+        [
+          0.9992778791265267,
+          -4.895845,
+          11.787123,
+          1.0,
+          -8.977727821218691e-144,
+          1.0,
+          1.0,
+          1.3166664583029553e-143
+        ]
+      ],
+      "normalized_discrepancy": 1.0411551011218658,
+      "qualified_samples": 3,
+      "current_nis": 5.198178788104,
+      "summed_nis": 17.50378902038519,
+      "posterior_distance_m": 1.0521538783163285,
+      "observation_distance_m": 3.224338316028267,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 40,
+          "distance_m": 3.2131368653973573
+        },
+        {
+          "truth_id": 40,
+          "distance_m": 0.12239477432456022
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 116,
+          "original_truth": null,
+          "branch_truth": 40
+        },
+        {
+          "frame": 117,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 118,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 119,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 120,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 121,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 122,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 123,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 124,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 125,
+          "original_truth": 40,
+          "branch_truth": null
+        },
+        {
+          "frame": 126,
+          "original_truth": 40,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 53,
+      "receiver": 2,
+      "original": [
+        41,
+        200018
+      ],
+      "alias": [
+        41,
+        1002200018
+      ],
+      "original_local_map_truth": [
+        142,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999780212915697,
+        0.9963584924268349
+      ],
+      "majority_confidence": [
+        0.9997605451446177,
+        0.9837881613495641
+      ],
+      "observation_features": [
+        [
+          0.999783408429514,
+          13.656541217812705,
+          10.204547035392373,
+          1.0000096301210422,
+          9.252468722424025e-06,
+          1.000009880583445,
+          0.9999991104509154,
+          1.3361225906617763e-05
+        ],
+        [
+          0.9874113290889329,
+          16.917202570314174,
+          10.146378698409645,
+          1.0006055540182572,
+          0.00012006285444537648,
+          1.000331788497303,
+          0.9999720456710646,
+          0.0003400709723292014
+        ]
+      ],
+      "normalized_discrepancy": 1.093056703840039,
+      "qualified_samples": 2,
+      "current_nis": 5.316025353211685,
+      "summed_nis": 14.51219046074202,
+      "posterior_distance_m": 2.681470732584721,
+      "observation_distance_m": 3.26118015618948,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 142,
+          "distance_m": 0.28419352162705935
+        },
+        {
+          "truth_id": 142,
+          "distance_m": 3.522697045028921
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 53,
+          "original_truth": 142,
+          "branch_truth": null
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 34
+        },
+        {
+          "frame": 55,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 56,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 60,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 62,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 63,
+          "original_truth": 34,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 189,
+      "receiver": 1,
+      "original": [
+        173,
+        200009
+      ],
+      "alias": [
+        173,
+        1001200009
+      ],
+      "original_local_map_truth": [
+        54,
+        152
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9958182388673653,
+        0.9999784428033516
+      ],
+      "majority_confidence": [
+        0.955595452824188,
+        0.9997710785469166
+      ],
+      "observation_features": [
+        [
+          0.9596083055388438,
+          28.510273,
+          12.56142,
+          1.0,
+          -6.680224468506918e-35,
+          1.0,
+          1.0,
+          6.1537543118186376e-34
+        ],
+        [
+          0.999792644971001,
+          24.375751088446826,
+          12.79712104212617,
+          1.0000005709866686,
+          2.719541604355614e-07,
+          1.0000001295285328,
+          0.9999999862994348,
+          2.617606539619987e-07
+        ]
+      ],
+      "normalized_discrepancy": 1.3139137798954308,
+      "qualified_samples": 2,
+      "current_nis": 8.574910899749064,
+      "summed_nis": 17.444444515868767,
+      "posterior_distance_m": 1.4774642341196276,
+      "observation_distance_m": 4.141234890509434,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 54,
+          "distance_m": 0.36276679905691317
+        },
+        {
+          "truth_id": 152,
+          "distance_m": 0.5384646892040761
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 189,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 190,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 191,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 192,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 193,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 194,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 195,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 196,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 197,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 198,
+          "original_truth": 54,
+          "branch_truth": null
+        },
+        {
+          "frame": 199,
+          "original_truth": 54,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 189,
+      "receiver": 2,
+      "original": [
+        173,
+        200009
+      ],
+      "alias": [
+        173,
+        1002200009
+      ],
+      "original_local_map_truth": [
+        152,
+        54
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999784428033516,
+        0.9958182388673653
+      ],
+      "majority_confidence": [
+        0.9997710785469166,
+        0.955595452824188
+      ],
+      "observation_features": [
+        [
+          0.999792644971001,
+          24.375751088446826,
+          12.79712104212617,
+          1.0000005709866686,
+          2.719541604355614e-07,
+          1.0000001295285328,
+          0.9999999862994348,
+          2.617606539619987e-07
+        ],
+        [
+          0.9596083055388438,
+          28.510273,
+          12.56142,
+          1.0,
+          -6.680224468506918e-35,
+          1.0,
+          1.0,
+          6.1537543118186376e-34
+        ]
+      ],
+      "normalized_discrepancy": 1.3139137798954308,
+      "qualified_samples": 2,
+      "current_nis": 8.574910899749064,
+      "summed_nis": 17.444444515868767,
+      "posterior_distance_m": 1.4774642341196276,
+      "observation_distance_m": 4.141234890509434,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 152,
+          "distance_m": 0.5384646892040761
+        },
+        {
+          "truth_id": 54,
+          "distance_m": 0.36276679905691317
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 189,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 190,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 191,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 192,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 193,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 194,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 195,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 196,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 197,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 198,
+          "original_truth": null,
+          "branch_truth": 54
+        },
+        {
+          "frame": 199,
+          "original_truth": null,
+          "branch_truth": 54
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 236,
+      "receiver": 2,
+      "original": [
+        218,
+        200001
+      ],
+      "alias": [
+        218,
+        1002200001
+      ],
+      "original_local_map_truth": [
+        156,
+        122
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999841899406248,
+        0.991901178168914
+      ],
+      "majority_confidence": [
+        0.9998277739756498,
+        0.921131520021195
+      ],
+      "observation_features": [
+        [
+          0.9998435815620402,
+          21.85099,
+          9.443356,
+          1.0,
+          -2.920087135805842e-22,
+          1.0,
+          1.0,
+          2.780750292056996e-21
+        ],
+        [
+          0.9286525112528222,
+          26.08548,
+          9.294071,
+          1.0,
+          -4.514823740986617e-44,
+          1.0,
+          1.0,
+          2.35198579112538e-44
+        ]
+      ],
+      "normalized_discrepancy": 1.3048473079910459,
+      "qualified_samples": 2,
+      "current_nis": 8.976595785662504,
+      "summed_nis": 17.324071650837006,
+      "posterior_distance_m": 2.2671821411686186,
+      "observation_distance_m": 4.23712066990368,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 156,
+          "distance_m": 0.42016385694274166
+        },
+        {
+          "truth_id": 122,
+          "distance_m": 0.1267888798761549
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 236,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 237,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 238,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 239,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 240,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 241,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 242,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 243,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 244,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 245,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 246,
+          "original_truth": 122,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 268,
+      "receiver": 1,
+      "original": [
+        256,
+        200006
+      ],
+      "alias": [
+        256,
+        1001200006
+      ],
+      "original_local_map_truth": [
+        123,
+        123
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9976773800864355,
+        0.9999908344106334
+      ],
+      "majority_confidence": [
+        0.9747217872369803,
+        0.99990024639126
+      ],
+      "observation_features": [
+        [
+          0.976990965909775,
+          35.94721,
+          9.928085,
+          1.0,
+          -4.66567565471556e-24,
+          1.0,
+          1.0,
+          1.0164956356887604e-23
+        ],
+        [
+          0.9999094111503264,
+          31.62857,
+          10.095991,
+          1.0,
+          -7.912762679124951e-23,
+          1.0,
+          1.0,
+          7.475925658746263e-23
+        ]
+      ],
+      "normalized_discrepancy": 1.1909539833873708,
+      "qualified_samples": 2,
+      "current_nis": 9.339421937217994,
+      "summed_nis": 15.811943677010014,
+      "posterior_distance_m": 1.8655375129210379,
+      "observation_distance_m": 4.321902807148257,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 123,
+          "distance_m": 3.0884933264025323
+        },
+        {
+          "truth_id": 123,
+          "distance_m": 1.3115872085702136
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 268,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 269,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 270,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 271,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 272,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 273,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 274,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 275,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 276,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 277,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 278,
+          "original_truth": null,
+          "branch_truth": 123
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "frame": 268,
+      "receiver": 2,
+      "original": [
+        256,
+        200006
+      ],
+      "alias": [
+        256,
+        1002200006
+      ],
+      "original_local_map_truth": [
+        123,
+        123
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9999908344106334,
+        0.9976773800864355
+      ],
+      "majority_confidence": [
+        0.99990024639126,
+        0.9747217872369803
+      ],
+      "observation_features": [
+        [
+          0.9999094111503264,
+          31.62857,
+          10.095991,
+          1.0,
+          -7.912762679124951e-23,
+          1.0,
+          1.0,
+          7.475925658746263e-23
+        ],
+        [
+          0.976990965909775,
+          35.94721,
+          9.928085,
+          1.0,
+          -4.66567565471556e-24,
+          1.0,
+          1.0,
+          1.0164956356887604e-23
+        ]
+      ],
+      "normalized_discrepancy": 1.1909539833873708,
+      "qualified_samples": 2,
+      "current_nis": 9.339421937217994,
+      "summed_nis": 15.811943677010014,
+      "posterior_distance_m": 1.8655375129210379,
+      "observation_distance_m": 4.321902807148257,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 123,
+          "distance_m": 1.3115872085702136
+        },
+        {
+          "truth_id": 123,
+          "distance_m": 3.0884933264025323
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 268,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 269,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 270,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 271,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 272,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 273,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 274,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 275,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 276,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 277,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 278,
+          "original_truth": 123,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 53,
+      "receiver": 1,
+      "original": [
+        41,
+        200018
+      ],
+      "alias": [
+        41,
+        1001200018
+      ],
+      "original_local_map_truth": [
+        142,
+        142
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9874904601209581,
+        0.999978010966326
+      ],
+      "majority_confidence": [
+        0.8638598648903677,
+        0.9997604200861733
+      ],
+      "observation_features": [
+        [
+          0.8751635466020475,
+          16.91457052981053,
+          10.145037910298912,
+          1.0172751063428616,
+          0.009300776084650417,
+          1.0050144048774785,
+          0.99958831059885,
+          0.003623273505682112
+        ],
+        [
+          0.9997833051006606,
+          13.65654117739495,
+          10.204546997461064,
+          1.0000097475656964,
+          9.387359758662893e-06,
+          1.0000100066515651,
+          0.9999990990392347,
+          1.3518695899415428e-05
+        ]
+      ],
+      "normalized_discrepancy": 1.0891019991080697,
+      "qualified_samples": 2,
+      "current_nis": 5.26467364129878,
+      "summed_nis": 14.459685016070472,
+      "posterior_distance_m": 1.2801529109013043,
+      "observation_distance_m": 3.2585727846184986,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 142,
+          "distance_m": 3.5200454502884884
+        },
+        {
+          "truth_id": 142,
+          "distance_m": 0.28419346960804676
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 53,
+          "original_truth": null,
+          "branch_truth": 142
+        },
+        {
+          "frame": 54,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 55,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 56,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 60,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 62,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 63,
+          "original_truth": 34,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 53,
+      "receiver": 2,
+      "original": [
+        41,
+        200018
+      ],
+      "alias": [
+        41,
+        1002200018
+      ],
+      "original_local_map_truth": [
+        142,
+        142
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.999978010966326,
+        0.9874904601209581
+      ],
+      "majority_confidence": [
+        0.9997604200861733,
+        0.8638598648903677
+      ],
+      "observation_features": [
+        [
+          0.9997833051006606,
+          13.65654117739495,
+          10.204546997461064,
+          1.0000097475656964,
+          9.387359758662893e-06,
+          1.0000100066515651,
+          0.9999990990392347,
+          1.3518695899415428e-05
+        ],
+        [
+          0.8751635466020475,
+          16.91457052981053,
+          10.145037910298912,
+          1.0172751063428616,
+          0.009300776084650417,
+          1.0050144048774785,
+          0.99958831059885,
+          0.003623273505682112
+        ]
+      ],
+      "normalized_discrepancy": 1.0891019991080697,
+      "qualified_samples": 2,
+      "current_nis": 5.26467364129878,
+      "summed_nis": 14.459685016070472,
+      "posterior_distance_m": 1.2801529109013043,
+      "observation_distance_m": 3.2585727846184986,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 142,
+          "distance_m": 0.28419346960804676
+        },
+        {
+          "truth_id": 142,
+          "distance_m": 3.5200454502884884
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 53,
+          "original_truth": 142,
+          "branch_truth": null
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 34
+        },
+        {
+          "frame": 55,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 56,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 60,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 62,
+          "original_truth": 34,
+          "branch_truth": null
+        },
+        {
+          "frame": 63,
+          "original_truth": 34,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 71,
+      "receiver": 2,
+      "original": [
+        52,
+        200018
+      ],
+      "alias": [
+        52,
+        1002200018
+      ],
+      "original_local_map_truth": [
+        140,
+        140
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.943498285935499,
+        0.9665936526101262
+      ],
+      "majority_confidence": [
+        0.9037229363733243,
+        0.9431443748155852
+      ],
+      "observation_features": [
+        [
+          0.9579916496248027,
+          -19.24910754454601,
+          20.45033568819448,
+          1.0018093557282874,
+          0.0026799412177436217,
+          1.003969415642417,
+          0.9998445086106396,
+          0.0015189708853114588
+        ],
+        [
+          0.9757562289413169,
+          -13.865960623292368,
+          21.32626797259128,
+          1.0000002244815285,
+          -7.108666740043462e-06,
+          1.0003084831185887,
+          0.9999836691785909,
+          0.00019636463734794458
+        ]
+      ],
+      "normalized_discrepancy": 1.1510001464058173,
+      "qualified_samples": 2,
+      "current_nis": 14.852591498864044,
+      "summed_nis": 15.281488404308448,
+      "posterior_distance_m": 2.9247447811550416,
+      "observation_distance_m": 5.453946107420861,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 140,
+          "distance_m": 2.8608385612674887
+        },
+        {
+          "truth_id": 140,
+          "distance_m": 2.822557079422683
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 140
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 140
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 140
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 140
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 140
+        },
+        {
+          "frame": 76,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 77,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 78,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 79,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 80,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 81,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 144,
+      "receiver": 1,
+      "original": [
+        125,
+        200002
+      ],
+      "alias": [
+        125,
+        1001200002
+      ],
+      "original_local_map_truth": [
+        53,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999787464062,
+        0.9999377914602157
+      ],
+      "majority_confidence": [
+        0.9997683778261665,
+        0.9993220498447609
+      ],
+      "observation_features": [
+        [
+          0.9997896269487939,
+          11.055228999999953,
+          9.47970300000009,
+          1.0000000000002092,
+          -3.850784911443328e-13,
+          1.0000000000007085,
+          0.9999999999999891,
+          3.6222036710283087e-13
+        ],
+        [
+          0.9993842200778186,
+          7.354185599999978,
+          9.503946000000347,
+          1.0000000000000113,
+          -1.779775758946938e-13,
+          1.0000000000027833,
+          0.9999999999999569,
+          1.3693109142554668e-12
+        ]
+      ],
+      "normalized_discrepancy": 1.0316832603233703,
+      "qualified_samples": 3,
+      "current_nis": 6.849154985865413,
+      "summed_nis": 17.344549438508395,
+      "posterior_distance_m": 1.2726681394047816,
+      "observation_distance_m": 3.701122798791251,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 53,
+          "distance_m": 0.3570569455534803
+        },
+        {
+          "truth_id": 143,
+          "distance_m": 0.6180784555530906
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 144,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 145,
+          "original_truth": 53,
+          "branch_truth": 143
+        },
+        {
+          "frame": 146,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 147,
+          "original_truth": 53,
+          "branch_truth": 143
+        },
+        {
+          "frame": 148,
+          "original_truth": 53,
+          "branch_truth": 143
+        },
+        {
+          "frame": 149,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 150,
+          "original_truth": 42,
+          "branch_truth": null
+        },
+        {
+          "frame": 151,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 152,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 153,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 154,
+          "original_truth": 53,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 144,
+      "receiver": 2,
+      "original": [
+        125,
+        200002
+      ],
+      "alias": [
+        125,
+        1002200002
+      ],
+      "original_local_map_truth": [
+        null,
+        53
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999377914602157,
+        0.9999787464062
+      ],
+      "majority_confidence": [
+        0.9993220498447609,
+        0.9997683778261665
+      ],
+      "observation_features": [
+        [
+          0.9993842200778186,
+          7.354185599999978,
+          9.503946000000347,
+          1.0000000000000113,
+          -1.779775758946938e-13,
+          1.0000000000027833,
+          0.9999999999999569,
+          1.3693109142554668e-12
+        ],
+        [
+          0.9997896269487939,
+          11.055228999999953,
+          9.47970300000009,
+          1.0000000000002092,
+          -3.850784911443328e-13,
+          1.0000000000007085,
+          0.9999999999999891,
+          3.6222036710283087e-13
+        ]
+      ],
+      "normalized_discrepancy": 1.0316832603233703,
+      "qualified_samples": 3,
+      "current_nis": 6.849154985865413,
+      "summed_nis": 17.344549438508395,
+      "posterior_distance_m": 1.2726681394047816,
+      "observation_distance_m": 3.701122798791251,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 143,
+          "distance_m": 0.6180784555530906
+        },
+        {
+          "truth_id": 53,
+          "distance_m": 0.3570569455534803
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 144,
+          "original_truth": null,
+          "branch_truth": 53
+        },
+        {
+          "frame": 145,
+          "original_truth": 143,
+          "branch_truth": 53
+        },
+        {
+          "frame": 146,
+          "original_truth": null,
+          "branch_truth": 53
+        },
+        {
+          "frame": 147,
+          "original_truth": 143,
+          "branch_truth": 53
+        },
+        {
+          "frame": 148,
+          "original_truth": 143,
+          "branch_truth": 53
+        },
+        {
+          "frame": 149,
+          "original_truth": null,
+          "branch_truth": 53
+        },
+        {
+          "frame": 150,
+          "original_truth": null,
+          "branch_truth": 42
+        },
+        {
+          "frame": 151,
+          "original_truth": null,
+          "branch_truth": 53
+        },
+        {
+          "frame": 152,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 153,
+          "original_truth": 53,
+          "branch_truth": null
+        },
+        {
+          "frame": 154,
+          "original_truth": 53,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 189,
+      "receiver": 1,
+      "original": [
+        173,
+        200009
+      ],
+      "alias": [
+        173,
+        1001200009
+      ],
+      "original_local_map_truth": [
+        54,
+        152
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9964175601642525,
+        0.9999706203199633
+      ],
+      "majority_confidence": [
+        0.9613494286044705,
+        0.999682999694543
+      ],
+      "observation_features": [
+        [
+          0.96480578729062,
+          28.510273,
+          12.56142,
+          1.0,
+          -2.8217984967404777e-34,
+          1.0,
+          1.0,
+          7.311982263796186e-34
+        ],
+        [
+          0.999712396913153,
+          24.37575116782576,
+          12.797121079933415,
+          1.0000010834337454,
+          5.160266092926828e-07,
+          1.0000002457773376,
+          0.9999999740034999,
+          4.800332735959936e-07
+        ]
+      ],
+      "normalized_discrepancy": 1.3637385642548625,
+      "qualified_samples": 3,
+      "current_nis": 8.574908507802396,
+      "summed_nis": 22.927027953816946,
+      "posterior_distance_m": 1.4780792479301805,
+      "observation_distance_m": 4.141234813410997,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 54,
+          "distance_m": 0.36276679905691317
+        },
+        {
+          "truth_id": 152,
+          "distance_m": 0.5384647569189446
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 189,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 190,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 191,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 192,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 193,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 194,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 195,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 196,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 197,
+          "original_truth": 54,
+          "branch_truth": 152
+        },
+        {
+          "frame": 198,
+          "original_truth": 54,
+          "branch_truth": null
+        },
+        {
+          "frame": 199,
+          "original_truth": 54,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 189,
+      "receiver": 2,
+      "original": [
+        173,
+        200009
+      ],
+      "alias": [
+        173,
+        1002200009
+      ],
+      "original_local_map_truth": [
+        152,
+        54
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999706203199633,
+        0.9964175601642525
+      ],
+      "majority_confidence": [
+        0.999682999694543,
+        0.9613494286044705
+      ],
+      "observation_features": [
+        [
+          0.999712396913153,
+          24.37575116782576,
+          12.797121079933415,
+          1.0000010834337454,
+          5.160266092926828e-07,
+          1.0000002457773376,
+          0.9999999740034999,
+          4.800332735959936e-07
+        ],
+        [
+          0.96480578729062,
+          28.510273,
+          12.56142,
+          1.0,
+          -2.8217984967404777e-34,
+          1.0,
+          1.0,
+          7.311982263796186e-34
+        ]
+      ],
+      "normalized_discrepancy": 1.3637385642548625,
+      "qualified_samples": 3,
+      "current_nis": 8.574908507802396,
+      "summed_nis": 22.927027953816946,
+      "posterior_distance_m": 1.4780792479301805,
+      "observation_distance_m": 4.141234813410997,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 152,
+          "distance_m": 0.5384647569189446
+        },
+        {
+          "truth_id": 54,
+          "distance_m": 0.36276679905691317
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 189,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 190,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 191,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 192,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 193,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 194,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 195,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 196,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 197,
+          "original_truth": 152,
+          "branch_truth": 54
+        },
+        {
+          "frame": 198,
+          "original_truth": null,
+          "branch_truth": 54
+        },
+        {
+          "frame": 199,
+          "original_truth": null,
+          "branch_truth": 54
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 235,
+      "receiver": 1,
+      "original": [
+        218,
+        200001
+      ],
+      "alias": [
+        218,
+        1001200001
+      ],
+      "original_local_map_truth": [
+        null,
+        156
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9993185923729201,
+        0.9999907585748252
+      ],
+      "majority_confidence": [
+        0.9925826377686371,
+        0.9998994038291742
+      ],
+      "observation_features": [
+        [
+          0.9932594523351275,
+          28.658566,
+          9.154268,
+          1.0,
+          -9.319949648810259e-65,
+          1.0,
+          1.0,
+          4.616651921741998e-65
+        ],
+        [
+          0.9999086444100931,
+          24.583696,
+          9.454911,
+          1.0,
+          -3.9354869097290075e-20,
+          1.0,
+          1.0,
+          8.271103512302138e-20
+        ]
+      ],
+      "normalized_discrepancy": 1.2513338517452164,
+      "qualified_samples": 2,
+      "current_nis": 8.347475865174504,
+      "summed_nis": 16.61358932496701,
+      "posterior_distance_m": 1.7465466041052016,
+      "observation_distance_m": 4.085945634776484,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 122,
+          "distance_m": 0.2918322334304421
+        },
+        {
+          "truth_id": 156,
+          "distance_m": 0.4018603413625192
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 235,
+          "original_truth": null,
+          "branch_truth": 156
+        },
+        {
+          "frame": 236,
+          "original_truth": 122,
+          "branch_truth": 156
+        },
+        {
+          "frame": 237,
+          "original_truth": 122,
+          "branch_truth": 156
+        },
+        {
+          "frame": 238,
+          "original_truth": 122,
+          "branch_truth": 156
+        },
+        {
+          "frame": 239,
+          "original_truth": 122,
+          "branch_truth": 156
+        },
+        {
+          "frame": 240,
+          "original_truth": 122,
+          "branch_truth": 156
+        },
+        {
+          "frame": 241,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 242,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 243,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 244,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 245,
+          "original_truth": null,
+          "branch_truth": 122
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 235,
+      "receiver": 2,
+      "original": [
+        218,
+        200001
+      ],
+      "alias": [
+        218,
+        1002200001
+      ],
+      "original_local_map_truth": [
+        156,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9999907585748252,
+        0.9993185923729201
+      ],
+      "majority_confidence": [
+        0.9998994038291742,
+        0.9925826377686371
+      ],
+      "observation_features": [
+        [
+          0.9999086444100931,
+          24.583696,
+          9.454911,
+          1.0,
+          -3.9354869097290075e-20,
+          1.0,
+          1.0,
+          8.271103512302138e-20
+        ],
+        [
+          0.9932594523351275,
+          28.658566,
+          9.154268,
+          1.0,
+          -9.319949648810259e-65,
+          1.0,
+          1.0,
+          4.616651921741998e-65
+        ]
+      ],
+      "normalized_discrepancy": 1.2513338517452164,
+      "qualified_samples": 2,
+      "current_nis": 8.347475865174504,
+      "summed_nis": 16.61358932496701,
+      "posterior_distance_m": 1.7465466041052016,
+      "observation_distance_m": 4.085945634776484,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 156,
+          "distance_m": 0.4018603413625192
+        },
+        {
+          "truth_id": 122,
+          "distance_m": 0.2918322334304421
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 235,
+          "original_truth": 156,
+          "branch_truth": null
+        },
+        {
+          "frame": 236,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 237,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 238,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 239,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 240,
+          "original_truth": 156,
+          "branch_truth": 122
+        },
+        {
+          "frame": 241,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 242,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 243,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 244,
+          "original_truth": 122,
+          "branch_truth": null
+        },
+        {
+          "frame": 245,
+          "original_truth": 122,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 268,
+      "receiver": 1,
+      "original": [
+        256,
+        200006
+      ],
+      "alias": [
+        256,
+        1001200006
+      ],
+      "original_local_map_truth": [
+        123,
+        123
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9978842401365126,
+        0.999990686967136
+      ],
+      "majority_confidence": [
+        0.9769711302988298,
+        0.9998986328155447
+      ],
+      "observation_features": [
+        [
+          0.9790425492291351,
+          35.94721,
+          9.928085,
+          1.0,
+          -4.810085217884661e-24,
+          1.0,
+          1.0,
+          1.0473987451030087e-23
+        ],
+        [
+          0.9999079449910974,
+          31.62857,
+          10.095991,
+          1.0,
+          -8.869133056518705e-23,
+          1.0,
+          1.0,
+          8.362099917496695e-23
+        ]
+      ],
+      "normalized_discrepancy": 1.1909539833873708,
+      "qualified_samples": 2,
+      "current_nis": 9.339421937217994,
+      "summed_nis": 15.811943677010014,
+      "posterior_distance_m": 1.8663017962338162,
+      "observation_distance_m": 4.321902807148257,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 123,
+          "distance_m": 3.0884933264025323
+        },
+        {
+          "truth_id": 123,
+          "distance_m": 1.3115872085702136
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 268,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 269,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 270,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 271,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 272,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 273,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 274,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 275,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 276,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 277,
+          "original_truth": null,
+          "branch_truth": 123
+        },
+        {
+          "frame": 278,
+          "original_truth": null,
+          "branch_truth": 123
+        }
+      ]
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "frame": 268,
+      "receiver": 2,
+      "original": [
+        256,
+        200006
+      ],
+      "alias": [
+        256,
+        1002200006
+      ],
+      "original_local_map_truth": [
+        123,
+        123
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.999990686967136,
+        0.9978842401365126
+      ],
+      "majority_confidence": [
+        0.9998986328155447,
+        0.9769711302988298
+      ],
+      "observation_features": [
+        [
+          0.9999079449910974,
+          31.62857,
+          10.095991,
+          1.0,
+          -8.869133056518705e-23,
+          1.0,
+          1.0,
+          8.362099917496695e-23
+        ],
+        [
+          0.9790425492291351,
+          35.94721,
+          9.928085,
+          1.0,
+          -4.810085217884661e-24,
+          1.0,
+          1.0,
+          1.0473987451030087e-23
+        ]
+      ],
+      "normalized_discrepancy": 1.1909539833873708,
+      "qualified_samples": 2,
+      "current_nis": 9.339421937217994,
+      "summed_nis": 15.811943677010014,
+      "posterior_distance_m": 1.8663017962338162,
+      "observation_distance_m": 4.321902807148257,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 123,
+          "distance_m": 1.3115872085702136
+        },
+        {
+          "truth_id": 123,
+          "distance_m": 3.0884933264025323
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 268,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 269,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 270,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 271,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 272,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 273,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 274,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 275,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 276,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 277,
+          "original_truth": 123,
+          "branch_truth": null
+        },
+        {
+          "frame": 278,
+          "original_truth": 123,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "frame": 60,
+      "receiver": 1,
+      "original": [
+        37,
+        200006
+      ],
+      "alias": [
+        37,
+        1001200006
+      ],
+      "original_local_map_truth": [
+        null,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9978670835984652,
+        0.8940821274071264
+      ],
+      "majority_confidence": [
+        0.992702618055571,
+        0.6376214414707518
+      ],
+      "observation_features": [
+        [
+          0.9948244955387542,
+          33.185177,
+          21.562624,
+          1.0,
+          5.0941864513071315e-164,
+          1.0,
+          1.0,
+          4.509565972045428e-164
+        ],
+        [
+          0.713157574595389,
+          28.773258,
+          24.648113,
+          1.0,
+          1.7915008852727175e-169,
+          1.0,
+          1.0,
+          1.4036970910374846e-169
+        ]
+      ],
+      "normalized_discrepancy": 2.2106391488725383,
+      "qualified_samples": 2,
+      "current_nis": 14.492635815841016,
+      "summed_nis": 29.350001931012137,
+      "posterior_distance_m": 2.436233199180671,
+      "observation_distance_m": 5.383797138793589,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 9,
+          "distance_m": 40.92513925102296
+        },
+        {
+          "truth_id": 9,
+          "distance_m": 37.73203501069787
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 62,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 63,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 64,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 65,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "frame": 60,
+      "receiver": 1,
+      "original": [
+        37,
+        200006
+      ],
+      "alias": [
+        37,
+        1001200006
+      ],
+      "original_local_map_truth": [
+        null,
+        null
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9978670836276725,
+        0.8940820402325246
+      ],
+      "majority_confidence": [
+        0.9927026186285718,
+        0.6376211667110714
+      ],
+      "observation_features": [
+        [
+          0.9948244960838615,
+          33.185177,
+          21.562624,
+          1.0,
+          5.094244767190652e-164,
+          1.0,
+          1.0,
+          4.509617460346671e-164
+        ],
+        [
+          0.7131573368202819,
+          28.773258,
+          24.648113,
+          1.0,
+          1.7915147546107957e-169,
+          1.0,
+          1.0,
+          1.4037079305712902e-169
+        ]
+      ],
+      "normalized_discrepancy": 2.210639148872467,
+      "qualified_samples": 2,
+      "current_nis": 14.492635815841016,
+      "summed_nis": 29.35000193101119,
+      "posterior_distance_m": 2.436232478935947,
+      "observation_distance_m": 5.383797138793589,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 9,
+          "distance_m": 40.92513925102296
+        },
+        {
+          "truth_id": 9,
+          "distance_m": 37.73203501069787
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 62,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 63,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 64,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 65,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": null
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "frame": 203,
+      "receiver": 1,
+      "original": [
+        150,
+        100004
+      ],
+      "alias": [
+        150,
+        1001100004
+      ],
+      "original_local_map_truth": [
+        13,
+        13
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9988936527226174,
+        0.9961239849563317
+      ],
+      "majority_confidence": [
+        0.9942640375923166,
+        0.9799044323273476
+      ],
+      "observation_features": [
+        [
+          0.9953652572346594,
+          -18.066242,
+          12.195683,
+          1.0,
+          4.2432186883956775e-18,
+          1.0,
+          1.0,
+          2.1009819644886985e-18
+        ],
+        [
+          0.9837173355185347,
+          -21.28987,
+          10.711201,
+          1.0,
+          6.7206608963569765e-18,
+          1.0,
+          1.0,
+          5.888566436517463e-18
+        ]
+      ],
+      "normalized_discrepancy": 1.2071837212237537,
+      "qualified_samples": 2,
+      "current_nis": 6.297732145354004,
+      "summed_nis": 16.027421104468313,
+      "posterior_distance_m": 1.6260790706892778,
+      "observation_distance_m": 3.5490089166847705,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 13,
+          "distance_m": 1.870226583279417
+        },
+        {
+          "truth_id": 13,
+          "distance_m": 1.7935187142790021
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 203,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 204,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 205,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 206,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 207,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 208,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 209,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 210,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 211,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 212,
+          "original_truth": null,
+          "branch_truth": 13
+        },
+        {
+          "frame": 213,
+          "original_truth": null,
+          "branch_truth": 13
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "frame": 51,
+      "receiver": 1,
+      "original": [
+        20,
+        100006
+      ],
+      "alias": [
+        20,
+        1001100006
+      ],
+      "original_local_map_truth": [
+        3,
+        128
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999665026657997,
+        0.9999036455293112
+      ],
+      "majority_confidence": [
+        0.9996349086082873,
+        0.9989498212726046
+      ],
+      "observation_features": [
+        [
+          0.9996683948345986,
+          7.607974,
+          20.47885,
+          1.0,
+          1.6994329609681e-18,
+          1.0,
+          1.0,
+          2.4614628384668637e-18
+        ],
+        [
+          0.9990460838292057,
+          11.2357855,
+          19.986738,
+          1.0,
+          -1.1486617359283244e-29,
+          1.0,
+          1.0,
+          8.581202643593476e-30
+        ]
+      ],
+      "normalized_discrepancy": 1.1870447194930702,
+      "qualified_samples": 3,
+      "current_nis": 6.70159525003813,
+      "summed_nis": 19.956469795307676,
+      "posterior_distance_m": 1.2260121122995191,
+      "observation_distance_m": 3.661036806708758,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 3,
+          "distance_m": 0.14671585252112626
+        },
+        {
+          "truth_id": 128,
+          "distance_m": 0.41449779877943843
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 51,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 52,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 53,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 55,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 56,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 57,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 58,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 59,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 61,
+          "original_truth": null,
+          "branch_truth": 128
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "frame": 51,
+      "receiver": 2,
+      "original": [
+        20,
+        100006
+      ],
+      "alias": [
+        20,
+        1002100006
+      ],
+      "original_local_map_truth": [
+        128,
+        3
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999036455293112,
+        0.9999665026657997
+      ],
+      "majority_confidence": [
+        0.9989498212726046,
+        0.9996349086082873
+      ],
+      "observation_features": [
+        [
+          0.9990460838292057,
+          11.2357855,
+          19.986738,
+          1.0,
+          -1.1486617359283244e-29,
+          1.0,
+          1.0,
+          8.581202643593476e-30
+        ],
+        [
+          0.9996683948345986,
+          7.607974,
+          20.47885,
+          1.0,
+          1.6994329609681e-18,
+          1.0,
+          1.0,
+          2.4614628384668637e-18
+        ]
+      ],
+      "normalized_discrepancy": 1.1870447194930702,
+      "qualified_samples": 3,
+      "current_nis": 6.70159525003813,
+      "summed_nis": 19.956469795307676,
+      "posterior_distance_m": 1.2260121122995191,
+      "observation_distance_m": 3.661036806708758,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 128,
+          "distance_m": 0.41449779877943843
+        },
+        {
+          "truth_id": 3,
+          "distance_m": 0.14671585252112626
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 51,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 52,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 53,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 54,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 55,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 56,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 60,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": 128,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "frame": 64,
+      "receiver": 1,
+      "original": [
+        30,
+        100004
+      ],
+      "alias": [
+        30,
+        1001100004
+      ],
+      "original_local_map_truth": [
+        4,
+        4
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9999099525445063,
+        0.9999482793114773
+      ],
+      "majority_confidence": [
+        0.9990190825882267,
+        0.9994365890336077
+      ],
+      "observation_features": [
+        [
+          0.9991090498159233,
+          22.16999,
+          6.014109,
+          1.0,
+          2.76460691712502e-34,
+          1.0,
+          1.0,
+          2.154660710839401e-34
+        ],
+        [
+          0.999488283255788,
+          24.371937,
+          3.3839524,
+          1.0,
+          -1.4827882155386555e-17,
+          1.0,
+          1.0,
+          2.6125563626003222e-17
+        ]
+      ],
+      "normalized_discrepancy": 1.0049491096762155,
+      "qualified_samples": 3,
+      "current_nis": 5.883147165666282,
+      "summed_nis": 16.895097736199325,
+      "posterior_distance_m": 1.2189954852051943,
+      "observation_distance_m": 3.430203249274387,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 4,
+          "distance_m": 0.5509306838187551
+        },
+        {
+          "truth_id": 4,
+          "distance_m": 2.8824549045135046
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 64,
+          "original_truth": 4,
+          "branch_truth": null
+        },
+        {
+          "frame": 65,
+          "original_truth": 4,
+          "branch_truth": null
+        },
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 129
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "frame": 64,
+      "receiver": 2,
+      "original": [
+        30,
+        100004
+      ],
+      "alias": [
+        30,
+        1002100004
+      ],
+      "original_local_map_truth": [
+        4,
+        4
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9999482793114773,
+        0.9999099525445063
+      ],
+      "majority_confidence": [
+        0.9994365890336077,
+        0.9990190825882267
+      ],
+      "observation_features": [
+        [
+          0.999488283255788,
+          24.371937,
+          3.3839524,
+          1.0,
+          -1.4827882155386555e-17,
+          1.0,
+          1.0,
+          2.6125563626003222e-17
+        ],
+        [
+          0.9991090498159233,
+          22.16999,
+          6.014109,
+          1.0,
+          2.76460691712502e-34,
+          1.0,
+          1.0,
+          2.154660710839401e-34
+        ]
+      ],
+      "normalized_discrepancy": 1.0049491096762155,
+      "qualified_samples": 3,
+      "current_nis": 5.883147165666282,
+      "summed_nis": 16.895097736199325,
+      "posterior_distance_m": 1.2189954852051943,
+      "observation_distance_m": 3.430203249274387,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 4,
+          "distance_m": 2.8824549045135046
+        },
+        {
+          "truth_id": 4,
+          "distance_m": 0.5509306838187551
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 64,
+          "original_truth": null,
+          "branch_truth": 4
+        },
+        {
+          "frame": 65,
+          "original_truth": null,
+          "branch_truth": 4
+        },
+        {
+          "frame": 66,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 67,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 68,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 69,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 70,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 71,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 72,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 73,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 74,
+          "original_truth": 129,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "frame": 66,
+      "receiver": 1,
+      "original": [
+        45,
+        200001
+      ],
+      "alias": [
+        45,
+        1001200001
+      ],
+      "original_local_map_truth": [
+        null,
+        122
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9665990751811956,
+        0.9998838974159597
+      ],
+      "majority_confidence": [
+        0.6609375191375524,
+        0.9988208427709738
+      ],
+      "observation_features": [
+        [
+          0.6837762792330989,
+          37.912804,
+          10.349771,
+          1.0,
+          -8.010817359680883e-39,
+          1.0,
+          1.0,
+          3.000402420266096e-39
+        ],
+        [
+          0.9989373881882281,
+          32.560878670671634,
+          11.65248714648655,
+          1.000023768716211,
+          -1.2001327667944314e-05,
+          1.0000060707757994,
+          0.999999433126697,
+          8.72180929195371e-06
+        ]
+      ],
+      "normalized_discrepancy": 2.2637790748512767,
+      "qualified_samples": 2,
+      "current_nis": 15.169872432758254,
+      "summed_nis": 30.055525006040128,
+      "posterior_distance_m": 2.1792863831568074,
+      "observation_distance_m": 5.508191544329528,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 121,
+          "distance_m": 2.5251532940322643
+        },
+        {
+          "truth_id": 122,
+          "distance_m": 0.6868482514167982
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 76,
+          "original_truth": null,
+          "branch_truth": 122
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "frame": 51,
+      "receiver": 1,
+      "original": [
+        20,
+        100006
+      ],
+      "alias": [
+        20,
+        1001100006
+      ],
+      "original_local_map_truth": [
+        3,
+        128
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999656774128576,
+        0.9999049755806735
+      ],
+      "majority_confidence": [
+        0.9996259150961279,
+        0.9989643204743909
+      ],
+      "observation_features": [
+        [
+          0.9996602260213483,
+          7.607974,
+          20.47885,
+          1.0,
+          1.516378387496184e-18,
+          1.0,
+          1.0,
+          2.2019718032630646e-18
+        ],
+        [
+          0.9990592555000175,
+          11.2357855,
+          19.986738,
+          1.0,
+          -1.1450496287545493e-29,
+          1.0,
+          1.0,
+          8.555369035568236e-30
+        ]
+      ],
+      "normalized_discrepancy": 1.1870447194930702,
+      "qualified_samples": 3,
+      "current_nis": 6.70159525003813,
+      "summed_nis": 19.956469795307676,
+      "posterior_distance_m": 1.225685143150166,
+      "observation_distance_m": 3.661036806708758,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 3,
+          "distance_m": 0.14671585252112626
+        },
+        {
+          "truth_id": 128,
+          "distance_m": 0.41449779877943843
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 51,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 52,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 53,
+          "original_truth": 3,
+          "branch_truth": 128
+        },
+        {
+          "frame": 54,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 55,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 56,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 57,
+          "original_truth": null,
+          "branch_truth": 128
+        },
+        {
+          "frame": 58,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 59,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 60,
+          "original_truth": null,
+          "branch_truth": 3
+        },
+        {
+          "frame": 61,
+          "original_truth": null,
+          "branch_truth": 128
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "frame": 51,
+      "receiver": 2,
+      "original": [
+        20,
+        100006
+      ],
+      "alias": [
+        20,
+        1002100006
+      ],
+      "original_local_map_truth": [
+        128,
+        3
+      ],
+      "classification": "different_objects",
+      "existence": [
+        0.9999049755806735,
+        0.9999656774128576
+      ],
+      "majority_confidence": [
+        0.9989643204743909,
+        0.9996259150961279
+      ],
+      "observation_features": [
+        [
+          0.9990592555000175,
+          11.2357855,
+          19.986738,
+          1.0,
+          -1.1450496287545493e-29,
+          1.0,
+          1.0,
+          8.555369035568236e-30
+        ],
+        [
+          0.9996602260213483,
+          7.607974,
+          20.47885,
+          1.0,
+          1.516378387496184e-18,
+          1.0,
+          1.0,
+          2.2019718032630646e-18
+        ]
+      ],
+      "normalized_discrepancy": 1.1870447194930702,
+      "qualified_samples": 3,
+      "current_nis": 6.70159525003813,
+      "summed_nis": 19.956469795307676,
+      "posterior_distance_m": 1.225685143150166,
+      "observation_distance_m": 3.661036806708758,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 128,
+          "distance_m": 0.41449779877943843
+        },
+        {
+          "truth_id": 3,
+          "distance_m": 0.14671585252112626
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 51,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 52,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 53,
+          "original_truth": 128,
+          "branch_truth": 3
+        },
+        {
+          "frame": 54,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 55,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 56,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 57,
+          "original_truth": 128,
+          "branch_truth": null
+        },
+        {
+          "frame": 58,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 59,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 60,
+          "original_truth": 3,
+          "branch_truth": null
+        },
+        {
+          "frame": 61,
+          "original_truth": 128,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "frame": 64,
+      "receiver": 1,
+      "original": [
+        31,
+        100009
+      ],
+      "alias": [
+        31,
+        1001100009
+      ],
+      "original_local_map_truth": [
+        4,
+        4
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9999099499905156,
+        0.9999482762033383
+      ],
+      "majority_confidence": [
+        0.9990190548191437,
+        0.9994365552056979
+      ],
+      "observation_features": [
+        [
+          0.9991090245962845,
+          22.16999,
+          6.014109,
+          1.0,
+          2.7646056161619443e-34,
+          1.0,
+          1.0,
+          2.15465970927979e-34
+        ],
+        [
+          0.9994882525328377,
+          24.371937,
+          3.3839524,
+          1.0,
+          -1.482895497837436e-17,
+          1.0,
+          1.0,
+          2.612741861808817e-17
+        ]
+      ],
+      "normalized_discrepancy": 1.0049491096762155,
+      "qualified_samples": 3,
+      "current_nis": 5.883147165666282,
+      "summed_nis": 16.895097736199325,
+      "posterior_distance_m": 1.2189973811155053,
+      "observation_distance_m": 3.430203249274387,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 4,
+          "distance_m": 0.5509306838187551
+        },
+        {
+          "truth_id": 4,
+          "distance_m": 2.8824549045135046
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 64,
+          "original_truth": 4,
+          "branch_truth": null
+        },
+        {
+          "frame": 65,
+          "original_truth": 4,
+          "branch_truth": null
+        },
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 129
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 129
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "frame": 64,
+      "receiver": 2,
+      "original": [
+        31,
+        100009
+      ],
+      "alias": [
+        31,
+        1002100009
+      ],
+      "original_local_map_truth": [
+        4,
+        4
+      ],
+      "classification": "same_object",
+      "existence": [
+        0.9999482762033383,
+        0.9999099499905156
+      ],
+      "majority_confidence": [
+        0.9994365552056979,
+        0.9990190548191437
+      ],
+      "observation_features": [
+        [
+          0.9994882525328377,
+          24.371937,
+          3.3839524,
+          1.0,
+          -1.482895497837436e-17,
+          1.0,
+          1.0,
+          2.612741861808817e-17
+        ],
+        [
+          0.9991090245962845,
+          22.16999,
+          6.014109,
+          1.0,
+          2.7646056161619443e-34,
+          1.0,
+          1.0,
+          2.15465970927979e-34
+        ]
+      ],
+      "normalized_discrepancy": 1.0049491096762155,
+      "qualified_samples": 3,
+      "current_nis": 5.883147165666282,
+      "summed_nis": 16.895097736199325,
+      "posterior_distance_m": 1.2189973811155053,
+      "observation_distance_m": 3.430203249274387,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 4,
+          "distance_m": 2.8824549045135046
+        },
+        {
+          "truth_id": 4,
+          "distance_m": 0.5509306838187551
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 64,
+          "original_truth": null,
+          "branch_truth": 4
+        },
+        {
+          "frame": 65,
+          "original_truth": null,
+          "branch_truth": 4
+        },
+        {
+          "frame": 66,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 67,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 68,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 69,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 70,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 71,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 72,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 73,
+          "original_truth": 129,
+          "branch_truth": null
+        },
+        {
+          "frame": 74,
+          "original_truth": 129,
+          "branch_truth": null
+        }
+      ]
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "frame": 66,
+      "receiver": 1,
+      "original": [
+        45,
+        200001
+      ],
+      "alias": [
+        45,
+        1001200001
+      ],
+      "original_local_map_truth": [
+        null,
+        122
+      ],
+      "classification": "unscored",
+      "existence": [
+        0.9665992506999308,
+        0.9998818393757624
+      ],
+      "majority_confidence": [
+        0.6607673024931662,
+        0.998799332506231
+      ],
+      "observation_features": [
+        [
+          0.6836000566053547,
+          37.912804,
+          10.349771,
+          1.0,
+          -7.980966912115013e-39,
+          1.0,
+          1.0,
+          2.989341807285152e-39
+        ],
+        [
+          0.9989179415079256,
+          32.560878735748865,
+          11.652487113319921,
+          1.0000241899680007,
+          -1.2216171995661933e-05,
+          1.0000061780475182,
+          0.9999994230734717,
+          8.866034648131233e-06
+        ]
+      ],
+      "normalized_discrepancy": 2.263778827881604,
+      "qualified_samples": 2,
+      "current_nis": 15.169868230430552,
+      "summed_nis": 30.055521727096853,
+      "posterior_distance_m": 2.178802760225829,
+      "observation_distance_m": 5.508191473254443,
+      "nearest_detection_truth": [
+        {
+          "truth_id": 121,
+          "distance_m": 2.5251532940322643
+        },
+        {
+          "truth_id": 122,
+          "distance_m": 0.6868481793190704
+        }
+      ],
+      "next_eleven_frames": [
+        {
+          "frame": 66,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 67,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 68,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 69,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 70,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 71,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 72,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 73,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 74,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 75,
+          "original_truth": null,
+          "branch_truth": 122
+        },
+        {
+          "frame": 76,
+          "original_truth": null,
+          "branch_truth": 122
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "sequence": "0001",
+      "condition": "intermittent",
+      "branches": 2,
+      "classification": {
+        "different_objects": 2
+      },
+      "changes": {
+        "ospa": -0.5585835957597003,
+        "loc2": -0.17641935881247262,
+        "miss2": -5.052631578947366,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0001",
+      "condition": "reliable",
+      "branches": 2,
+      "classification": {
+        "different_objects": 2
+      },
+      "changes": {
+        "ospa": -0.5582746055655554,
+        "loc2": -0.1750303130291877,
+        "miss2": -5.052631578947366,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "intermittent",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0008",
+      "condition": "reliable",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "intermittent",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0000",
+      "condition": "reliable",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "intermittent",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0002",
+      "condition": "reliable",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "intermittent",
+      "branches": 4,
+      "classification": {
+        "different_objects": 1,
+        "unscored": 2,
+        "same_object": 1
+      },
+      "changes": {
+        "ospa": 0.014461321360938584,
+        "loc2": 0.3230454831893681,
+        "miss2": -2.727272727272748,
+        "false2": 0.5454545454545396
+      }
+    },
+    {
+      "sequence": "0003",
+      "condition": "reliable",
+      "branches": 5,
+      "classification": {
+        "different_objects": 2,
+        "unscored": 3
+      },
+      "changes": {
+        "ospa": 0.1276694100776261,
+        "loc2": 1.1936116195920068,
+        "miss2": 0.545454545454561,
+        "false2": 4.0
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "intermittent",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0004",
+      "condition": "reliable",
+      "branches": 0,
+      "classification": {},
+      "changes": {
+        "ospa": 0.0,
+        "loc2": 0.0,
+        "miss2": 0.0,
+        "false2": 0.0
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "intermittent",
+      "branches": 6,
+      "classification": {
+        "unscored": 1,
+        "different_objects": 3,
+        "same_object": 2
+      },
+      "changes": {
+        "ospa": -0.0009834763735909746,
+        "loc2": 0.3542031854120715,
+        "miss2": -1.741935483870975,
+        "false2": 1.8580645161290334
+      }
+    },
+    {
+      "sequence": "0005",
+      "condition": "reliable",
+      "branches": 11,
+      "classification": {
+        "same_object": 5,
+        "unscored": 4,
+        "different_objects": 2
+      },
+      "changes": {
+        "ospa": -0.014057398337572025,
+        "loc2": -0.8762580172168519,
+        "miss2": -3.01935483870966,
+        "false2": 3.9483870967741836
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "intermittent",
+      "branches": 1,
+      "classification": {
+        "unscored": 1
+      },
+      "changes": {
+        "ospa": 0.16623444547203814,
+        "loc2": 3.5651481766763027e-12,
+        "miss2": 0.0,
+        "false2": 8.76315789473685
+      }
+    },
+    {
+      "sequence": "0006",
+      "condition": "reliable",
+      "branches": 2,
+      "classification": {
+        "unscored": 1,
+        "same_object": 1
+      },
+      "changes": {
+        "ospa": 0.19165264562381967,
+        "loc2": -0.2667569484396566,
+        "miss2": 2.1315789473684106,
+        "false2": 10.89473684210526
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "intermittent",
+      "branches": 5,
+      "classification": {
+        "different_objects": 2,
+        "same_object": 2,
+        "unscored": 1
+      },
+      "changes": {
+        "ospa": 0.306700594967523,
+        "loc2": 0.09102710565181837,
+        "miss2": 4.886877828054281,
+        "false2": 0.48868778280542813
+      }
+    },
+    {
+      "sequence": "0007",
+      "condition": "reliable",
+      "branches": 5,
+      "classification": {
+        "different_objects": 2,
+        "same_object": 2,
+        "unscored": 1
+      },
+      "changes": {
+        "ospa": -0.008879158813522192,
+        "loc2": -0.02016063675195312,
+        "miss2": -0.9773755656108563,
+        "false2": 0.9773755656108563
+      }
+    }
+  ],
+  "branch_count": 43,
+  "inputs": {
+    "trials/icra_temporal_association/RESTORED_DEVELOPMENT_SELECTION.json": "ea820b15e0db67bddb9e65954014f49c6cad33f7b52ae764b3342a7640a955c5",
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "82a8e3d82e47aa5899f0929694b7ca30e19cd680e8d53b40ad9a824437f9c51b",
+    "trials/icra_temporal_association/results/association_restored_preflight/0001_reliable_marked_gaussian_evidence_assoc_split.json.gz": "9673347ea3e8f2f2e4325ef25134450a2630708666ff3814aaaca34c1b70b545",
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "fc23d9025388e8a4d47c6e012b56d5241ebd0a17de71895f6ba84db566956f61",
+    "trials/icra_temporal_association/results/association_restored_preflight/0008_reliable_marked_gaussian_evidence_assoc_split.json.gz": "db90a7d663a5ccf30b29f946786f28795d3b6239c219ab70ceef54acbe326851",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "da142af243084446b5987efe4b2e52f66eab77206a7d6260b2fad359be0827a4",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0000_reliable_marked_gaussian_evidence_assoc_split.json.gz": "a084d159cddbba5e807a229cd189ab1a3971c7bfa8adbfd1d36d0693f01376fe",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "18cc5fdfc2d9d60df1b3037822a3ed3df64e27aa7a874d2f9ba77ee4fddf931b",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0002_reliable_marked_gaussian_evidence_assoc_split.json.gz": "324d994d619d8c9fbd0429e5278d70c47c838410bf41e41b20b43d9be7e9c4fb",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "0ef7e765b1a02199356d18004396ec6a1f7d80330e4d6a4890e247d3bfc76f56",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0003_reliable_marked_gaussian_evidence_assoc_split.json.gz": "a010e00bcb4066ba3e9d3851f3d33effe32ee9a96045eeed751817aa2300502a",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "45b5cb4cc633dbfdb34fe2025cbfb2354c1f9188ecc4b20ac86c130bb88cad94",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0004_reliable_marked_gaussian_evidence_assoc_split.json.gz": "1017e2dbba181b7932572917d6421c015957f246110bb04d51d60c0593cd9877",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "116aac31a2fbd18bcd8c6c2a203e54ab6c29f8f9f7f61c392fb41add3a60fdef",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0005_reliable_marked_gaussian_evidence_assoc_split.json.gz": "6413742793e21fd610c29d12ea49321bf88b50170480d641df7ee89b003058f8",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "da2961efc0ef017e09e6cf73d66a2e37bedf15d4cc75b318b171ba1bbe06bcd6",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0006_reliable_marked_gaussian_evidence_assoc_split.json.gz": "517ab3ff40f3c673800f19b8c69c9a54f2dc8790df430740d0e98eae62773a88",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_intermittent_marked_gaussian_evidence_assoc_split.json.gz": "c734ad5312e97144561826c2445f55086dd07c734cf030484cd48f0a0606e501",
+    "trials/icra_temporal_association/results/association_restored_development_rest/0007_reliable_marked_gaussian_evidence_assoc_split.json.gz": "bb5b02a8f09fa88facd1546dd2fc44c95151ced0500dccfca453bb67827e0f7d"
+  },
+  "source_sha256": {
+    "trials/icra_temporal_association/diagnose_split_events.py": "dec57bf0d3e1349899b3da30d168cd815f38b20c668ce9af20c48f00a9609f9a",
+    "trials/icra_temporal_association/identity_metrics.py": "ea4459123bde675daaac72c88935dbbbce6f1d4aa499b02d55b02caff598f71d"
+  },
+  "interpretation": "Offline diagnostic on already exposed development trajectories. Strict 2 m local MAP assignment determines same/different/unscored labels. Nearest-detection truth is descriptive and does not replace that assignment. No new candidate is evaluated or chosen here."
+}
