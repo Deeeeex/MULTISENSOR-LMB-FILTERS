@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 95, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 76, in main
+    save_mat(path, dict(egoLidarToWorld=poses.transpose(1, 2, 0),
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 12, in save_mat
+    assert not path.exists()
+           ^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,135 +1,86 @@
-# GCE 论文与源码
+# GCE 论文与可复核源码
 
 **Guarded Current-Evidence Fusion for Cooperative Multitarget Tracking**
 
-本版按 ICRA 2027 官方模板整理为 **正文完整 7 页 + Ack/Ref 单独 1 页**。
-正文包含五幅可编辑矢量图、四张表；第 8 页集中放置 AI 使用披露与三十条参考文献。
-尚未上传会务系统。
+版面约束为正文完整七页，Ack/Ref 单独一页；四幅正文矢量图、四张表和三十条参考文献。
+本版按审稿意见补充实际实验，并据结果收紧结论。未提交会议。
 
 ## 阅读入口
 
 - 论文：`output/pdf/icra2027_draft.pdf`
 - 可移植源码包：`output/icra2027_review_source.zip`
-- 首页 Intro 图：`figures/intro.svg`（场景、车辆、箭头为矢量路径，文字和公式可编辑）
-- Intro 母版、三次生图记录与复刻检查：`intro_design/README.md`
-- 方法总图：`figures/overview.svg`
-- 逐序列双条件 OSPA 收益图：`figures/gaussian_paired.svg`
-- 精度与通信开销图：`figures/gaussian_communication.svg`
-- 断链阶段比较：`figures/gaussian_phases.svg`
-- 逐序列视图：`figures/gaussian_sequence_differences.svg`、`figures/gaussian_components.svg`
-- 完整数值：`source_data/gaussian_paper_evidence.json`
-- 新增机制与阶段诊断：`source_data/mechanism_analysis.json`
+- 审稿修改、全部新数据与敏感性结果：`REVIEW_REVISION_CN.md`
+- 新增实验数值：`source_data/reviewer_evidence.json`
+- 来源快照和协议：`source_data/reviewer_revision/`
+- 原有 25 段数值：`source_data/gaussian_paper_evidence.json`
+- 固定输入与断链阶段：`source_data/mechanism_analysis.json`
 
-每幅图均提供 SVG、矢量 PDF 和 PNG。Fig. 3 的每个点对应同一序列在两种通信条件
-下的 OSPA 收益，两个对照各保留全部 25 个序列，共 50 个双坐标点。其他两幅
-逐序列视图保留全部六种几何对照及消融比较的观测值与区间。
+## 本轮结果应如何理解
 
-## 本版重点
+以下比较使用已参与方法开发的 25 个完整序列，不能当作冻结后的独立测试。
 
-首页 Intro 图采用更丰富的合作驾驶场景，参考两篇 ICRA 论文的首页表达方式，
-经过三版内置生图迭代后，保留母版构图和对象坐标复刻为 SVG。完整保留车辆、
-共享历史轨迹、感知扇区、融合对比及联合输出，文字和公式重新排为可编辑内容。
-图中场景是概念插画。生图记录与逐路径几何核对结果随源码提供。
-方法部分推导共同先验条件下的有效似然
-指数：接纳权重将当前似然指数从保守池的权重恢复到不超过 1，同时保留一份先验。
-共同先验的解释与实际不同历史下的可计算规则明确区分。
-
-新增两类完整诊断，方案记录于 `ANALYSIS_PROTOCOL.md`：按精确断链边界比较全部
-25 段的三个阶段；固定 GCE 的输入、匹配、基底权重与曲率接纳结果，评估空间均值
-和存在积分的全部四种组合。后者只替换当前输出，不将替代输出反馈到下一帧。
-重新计算了 150 份既有轨迹的 67,212 个机器人—帧 OSPA，并验证 19,235 个接收帧
-中的完整组合重现原 GCE 输出。原始跟踪结果和算法实现均未改动。
-
-三十条参考文献保留完整期刊名称，并显示已有核验记录中的 DOI，方便定位原文。
-官方 BibTeX、来源记录、类文件和参考文献样式均随包提供。
-
-全文围绕“继承后验与当前证据分离，再联合归一化存在概率和空间密度”展开。
-摘要、引言和结果首先说明方法收益，方法部分保留完整推导；重复数字、运行过程
-描述和重复的边界声明已精简。数据来源与开发范围集中说明在实验设置中。
-
-主图沿用连续的机器人场景、来源密度、资格判断、两条融合分支及反馈路径，
-统一 Arial 字体、线条和颜色，并简化机器人图形。Fig. 3 以 No-age KLA 和 Scalar
-为两个核心对照，展示逐序列收益的大小、跨通信条件的一致性和符号反转；两种条件
-均改善的序列分别为 20/25 和 14/25。颜色与符号共同编码结果，坐标不加抖动。
-通信图将两种条件的全部八个均值放在同一坐标系，显示完整高斯包到精确编码包的移动。
-
-Table I 按各列实际最优值加粗。Table II 将 Scalar 参考、三个单项消融与完整
-GCE 分开，完整方法置于最后。Table III 比较四种表示的原始与分片开销。
-Table IV 展示固定输入下的全部四种均值/积分组合，Fig. 5 展示三个通信阶段的配对区间。
-
-## 方法与结果
-
-GCE 在保守后验基底上补入当前 Bernoulli 更新与预测的比值。关联、检测分数、
-漏检证据与曲率条件决定可接纳的权重。同一比值同时修改高斯空间密度与存在概率，
-由重新计算的空间积分保持两者一致。精确零向量编码省略零增量，保留所有浮点值。
-
-主实验使用 25 个完整序列、两种通信条件和相同的 score-aware 本地模型。
-序列等权 OSPA（m，越低越好）如下：
-
-| 方法 | 可靠通信 | 间歇通信 |
-| --- | ---: | ---: |
+| 方法 | 可靠 OSPA（m） | 间歇 OSPA（m） |
+| --- | --- | --- |
 | No-age KLA | 3.702 | 3.988 |
-| Recency | 3.672 | 3.952 |
 | Scalar | 3.526 | 3.832 |
-| GCE | **3.456** | **3.761** |
+| Guarded Scalar | 3.508 | 3.793 |
+| Fixed Ratio (0.25) | 3.691 | 3.926 |
+| GCE | 3.456 | 3.761 |
 
-GCE 相对 No-age KLA 改善 6.7% / 5.7%，相对 Recency 改善 5.9% / 4.8%；
-漏检、误报代价和共同匹配目标定位同时改善。对五种几何控制及 Scalar，
-两种条件的配对 OSPA 区间均低于零。
+Guarded Scalar 使用与 GCE 相同的曲率保护，并运行自己的完整递归。
+GCE 对它的均值优势较小；校正×曲率交互的两个区间均包含零。
+固定强度 0.25 仅由旧九段开发数据选定，随后应用于其余数据。
 
-Scalar 是存在概率修正参考，未使用高斯比值或曲率检验；三个单项消融分别移除
-曲率保护、保守历史开关和正证据分数约束。历史项影响较小；分数约束主要控制
-误报，其移除也会减少漏检。相应总 OSPA 区间的具体结果保存在逐序列视图和数据中。
+新增官方 validation 有三个成对片段、748 帧，来自两个原始记录。
+仅 409 帧的那个记录此前缺席；GCE 在其原主配置评估中反而逊于 No-age 和 Scalar。
+三个片段的均值优势不能证明稳定跨记录泛化。真实位姿补偿和全部 pD 敏感性结果
+也同时保留，未按新结果重选 GCE。相关高斯控制则显示，即使全部 PSD 检验通过，
+名义 95% 区域仍可明显欠覆盖。
 
-新增诊断中，间歇通信下 GCE 减 No-age KLA 的 OSPA 差值，在断链前、断链中、
-恢复后分别为 −0.266、−0.076、−0.264 m。前后两个区间低于零，断链期间的区间
-包含零。固定输入下，空间均值更新的约 0.003 m 即时收益具有较稳定的方向；
-联合更新相对基底组合的均值差为 −0.014/−0.010 m，对应区间包含零。
-这些是已有开发轨迹上的补充分析，不是新采集数据或新增递推实验。
+通信图比较精度与字节开销。相对完整高斯包，编码节省分片字节 11.3%/10.8%；
+相对 No-age，仍增加 raw 字节 17.3%/21.5% 和分片字节 4.1%/7.0%。
+这是规定记账模型下的字节变化，未测量实际无线时延、容量或能耗。
 
-编码后的跟踪结果与完整高斯表示一致。相对完整高斯包，原始字节减少
-20.3% / 21.1%，分片与控制开销减少 11.3% / 10.8%；相对 No-age KLA，
-编码后的分片开销增加 4.1% / 7.0%。
+## 图表与来源
 
-实验采用已发布的 V2V4Real/DMSTrack 检测、二维两车跟踪和模拟通信。
-九个开发序列与二十五个主实验序列均参与过方法开发，主实验检测来自检测器的
-训练划分。MIL-AM 和 TC 是共享输入下的适配比较。新路线、不同检测器和实际
-无线网络上的迁移仍需后续实验。
+- Fig. 1：`figures/intro.svg`；生图母版、提示词及可编辑复刻记录在 `intro_design/`。
+- Fig. 2：`figures/overview.svg`，保留连续场景、两条融合分支及递归反馈。
+- Fig. 3：`figures/gaussian_robustness.svg`，包含全部四个 pD、两种通信及五个相关系数。
+- Fig. 4：`figures/gaussian_communication.svg`，保留相对 No-age 的额外成本。
+- Table I/II：完整基线与校正×曲率控制；Table III/IV：通信成本与新增数据。
+- 附带矢量图：`gaussian_paired`、`gaussian_components`、`gaussian_sequence_differences`、`gaussian_phases`。
+
+每幅图有 SVG、矢量 PDF 和 PNG。旧逐序列图保留全部点；固定输入的四个替换
+和全部断链阶段仍在源码数据内。它们与新增完整递归 GS 回答的问题不同。
 
 ## 构建
 
-需要 Tectonic、NumPy、matplotlib、Pillow、PyMuPDF 和 pypdf。脚本自动选择可用 Python，
-也可通过 `PAPER_PLOT_PYTHON` 和 `PAPER_PDF_PYTHON` 指定解释器。
+需要 Tectonic、NumPy、Matplotlib、Pillow、PyMuPDF 和 pypdf。在本目录执行：
 
 ```sh
-cd /Users/dex/Desktop/Code/icra27/papers/icra2027
-/Users/dex/miniconda3/bin/python3 build.py --regenerate
+python3 build.py --regenerate
 ```
 
-命令从十五份主实验快照和一份逐帧诊断快照重建数值、表格和全部矢量图，编译 PDF，
-完成自动检查并生成 ZIP。检查强制要求正文七页、Ack/Ref 位于第八页、正文末页两栏
-接近页底，并核对字体、图表顺序、引用与 DOI、数值、全部诊断组合和消融行顺序。
-省略 `--regenerate` 可直接使用已生成图表。首次使用 Tectonic 可能需要下载 TeX 包。
+脚本会探测可用 Python，也可用 `PAPER_PLOT_PYTHON`、`PAPER_PDF_PYTHON` 指定。
+省略 `--regenerate` 可复用已经生成的图表。命令重建数值、表格和图形，编译 PDF，
+核对完整七页正文与第八页 Ack/Ref、字体、浮动图表、引用/DOI 和来源数值，再生成 ZIP。
 
-解压后在 `icra2027` 目录运行相同命令即可重建，无需原始 MATLAB 输出。
-在原始仓库内，构建还会核对对应实验文件。构建过程只处理论文材料。
-诊断快照由 `prepare_mechanism_analysis.py --extract` 首次提取，提取需要 SciPy
-和完整研究仓库；常规构建直接使用随包保存的逐帧分数，不需要 SciPy。
+解压后在 `icra2027` 目录运行相同命令即可重建图表和论文，无需原始 MATLAB 轨迹。
+完整跟踪重放另依赖研究仓库的 `trials/icra_reviewer_revision/`、MATLAB 与公开原始数据。
+数 GiB 的完整后验轨迹保留在本地，不写入 Git 或论文 ZIP；随包清单记录其完整 SHA-256。
+原算法、检测器和校准保持情况见 `source_data/reviewer_revision/REPLAY_ACCEPTANCE.json`。
+
+## 验收边界
 
 - 自动检查：`output/qa/artifact_qa.json`
 - 逐页视觉检查：`output/qa/visual_review.md`
-- 独立目录重建记录：`output/qa/portable_rebuild.json`
-- 打包文件清单：`output/review_manifest.json`
-- 数值快照来源：`source_data/gaussian_source_manifest.json`
-- 引用与外部实现说明：`LITERATURE_SCOPE.md`
+- 独立目录重建：`output/qa/portable_rebuild.json`
+- ZIP 文件清单：`output/review_manifest.json`
+- 文献来源：`LITERATURE_SCOPE.md`
 
-完整实验入口位于仓库的 `trials/icra_gaussian_evidence/`、
-`trials/icra_gaussian_components/` 和 `trials/icra_gaussian_zero_codec/`；
-各目录的协议和结果说明记录具体配置与输出。
+这些是代码/制品检查与另一实现路径的数值复算，不表示第三方评审、作者批准或投稿完成。
+稳定泛化、完整检测器训练独立性、真实跟踪协方差一致性及实测无线性能仍未建立。
 
-## 投稿格式
-
-2026-09-09 核对的 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)
-规定总页数不超过八页，采用双盲审稿并披露 AI 生成内容。本稿使用 US Letter、
-10 pt 双栏官方模板，作者栏留空；`ieeeconf.cls` 与 `IEEEtran.bst` 保持官方原件。
-最终 PDF 的字体、页数、注释及版面检查结果随源码一并提供。
+官方 `ieeeconf.cls` 与 `IEEEtran.bst` 未修改，作者栏留空，AI 使用在 Ack 中披露。
+页数约束依据此前核对的 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)，
+最终文件状态以匹配 PDF 标识的验收记录为准。

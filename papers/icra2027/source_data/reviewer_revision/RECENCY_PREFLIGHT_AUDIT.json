@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "condition": "reliable",
+      "fields_exact": [
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "maximumBernoulliCount"
+      ],
+      "new_sha256": "9eb47b2609c38773447a1a0a93651618ad2d7f9b2c16ded556accb73e45150df",
+      "reference_sha256": "0c348fe3b16ef18257c8720fe6cad98207d81ca643942fd52f505f488a1f4d2e",
+      "ospa": 2.242465426652271
+    },
+    {
+      "condition": "intermittent",
+      "fields_exact": [
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "ospa",
+        "countError",
+        "matchedSquaredError",
+        "matchedCount",
+        "rawPayloadBytes",
+        "deliveredRawBytes",
+        "wireBytes",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages",
+        "maximumBernoulliCount"
+      ],
+      "new_sha256": "db903d5fb404ca252a4e0863e474c01d81182b76493753a6c6bd5937686fa78c",
+      "reference_sha256": "426ebdb90ed6ecdb7abf8d46a5553baee2ceb3a43cbd20caa6132741cdb7089f",
+      "ospa": 2.6175947589940143
+    }
+  ],
+  "auditor_sha256": "a8620ba75882bbe99b6b2bcf64e7fbd2edd696b6b2e154bee25b3475b8434b17"
+}

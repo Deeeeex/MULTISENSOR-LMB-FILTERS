@@ -1,0 +1,27 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+REVIEW EGO MOTION CHECK PASSED: identity, translation/rotation, full covariance, stationary/moving world points.
+START REVIEW motion_seen_transfer 0013 reliable marked_lineage 89 frames
+DONE REVIEW motion_seen_transfer 0013 reliable marked_lineage OSPA 3.631603 runtime 8.70s
+START REVIEW motion_seen_transfer 0013 reliable marked_asymmetric 89 frames
+DONE REVIEW motion_seen_transfer 0013 reliable marked_asymmetric OSPA 2.936019 runtime 6.78s
+START REVIEW motion_seen_transfer 0013 reliable marked_gaussian_evidence_guarded_scalar 89 frames
+DONE REVIEW motion_seen_transfer 0013 reliable marked_gaussian_evidence_guarded_scalar OSPA 2.901898 runtime 6.64s
+START REVIEW motion_seen_transfer 0013 reliable marked_gaussian_evidence 89 frames
+DONE REVIEW motion_seen_transfer 0013 reliable marked_gaussian_evidence OSPA 3.020947 runtime 6.63s
+START REVIEW motion_seen_transfer 0013 intermittent marked_lineage 89 frames
+DONE REVIEW motion_seen_transfer 0013 intermittent marked_lineage OSPA 3.407915 runtime 4.89s
+START REVIEW motion_seen_transfer 0013 intermittent marked_asymmetric 89 frames
+DONE REVIEW motion_seen_transfer 0013 intermittent marked_asymmetric OSPA 3.025131 runtime 4.73s
+START REVIEW motion_seen_transfer 0013 intermittent marked_gaussian_evidence_guarded_scalar 89 frames
+DONE REVIEW motion_seen_transfer 0013 intermittent marked_gaussian_evidence_guarded_scalar OSPA 2.991024 runtime 5.26s
+START REVIEW motion_seen_transfer 0013 intermittent marked_gaussian_evidence 89 frames
+DONE REVIEW motion_seen_transfer 0013 intermittent marked_gaussian_evidence OSPA 2.938206 runtime 4.98s
+COMPLETED REVIEW motion_seen_transfer 0013

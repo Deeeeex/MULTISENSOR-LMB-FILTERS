@@ -1,0 +1,45 @@
+{
+  "completed_utc": "2026-09-09T02:50:41.536509+00:00",
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 409,
+      "detections_by_sensor": [
+        2753,
+        3163
+      ],
+      "path": "trials/icra_reviewer_revision/new_detections/detections_0000.npz",
+      "sha256": "42f28383028f00bad7cf642a8e0f210eee002b0184669d748111f0338af3268d"
+    },
+    {
+      "sequence": "0001",
+      "frames": 117,
+      "detections_by_sensor": [
+        1900,
+        2068
+      ],
+      "path": "trials/icra_reviewer_revision/new_detections/detections_0001.npz",
+      "sha256": "c2ea3df65ccd03709c7b8fea1b3529925eb8b7bb3781aff35e31313e698ade0e"
+    },
+    {
+      "sequence": "0002",
+      "frames": 222,
+      "detections_by_sensor": [
+        2821,
+        2439
+      ],
+      "path": "trials/icra_reviewer_revision/new_detections/detections_0002.npz",
+      "sha256": "feb7f0627269bbd6d5f03d11a36117d772d59bb57569e3cf080914b60b2e809d"
+    }
+  ],
+  "freeze_sha256": "933c8e16d402c40127a76acf52ebbe75d61b5cf6a4278b03556a5331f6629b5c",
+  "inference_sha256": "5933f35800b33f389631ddb715bcb8214ae2b2ea2fdb4e5142bf36c215434fe4",
+  "adapter_sha256": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+  "elapsed_s": 514.9602098464966,
+  "numpy": "2.2.6",
+  "torch": "2.8.0",
+  "device": "MPS float32",
+  "truth_used_for_detections": false,
+  "model_checkpoint_unchanged": true
+}

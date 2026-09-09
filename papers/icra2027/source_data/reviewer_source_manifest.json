@@ -1,0 +1,138 @@
+{
+  "CONTROLS_ANALYSIS.json": {
+    "source": "trials/icra_reviewer_revision/CONTROLS_ANALYSIS.json",
+    "sha256": "5295181ebb9027bce94eda4a8499b9889e6fd0053703cb84124ab3f4b2ac43c2"
+  },
+  "NEW_DATA_ANALYSIS.json": {
+    "source": "trials/icra_reviewer_revision/NEW_DATA_ANALYSIS.json",
+    "sha256": "9f93b42847c54515dbbf4980360fbe3921830fa2b2d6bd70a86d849f9b835059"
+  },
+  "MODEL_SENSITIVITY_ANALYSIS.json": {
+    "source": "trials/icra_reviewer_revision/MODEL_SENSITIVITY_ANALYSIS.json",
+    "sha256": "23bbb7a602d8dfe5826d1a494af4216c9f38de54b83763660643d11fe94bb26d"
+  },
+  "LEGACY_RESCORING.json": {
+    "source": "trials/icra_reviewer_revision/LEGACY_RESCORING.json",
+    "sha256": "f8c12d41fa193bfcb24c33f5c45177e565af987a1df8065d46b102b2d623099e"
+  },
+  "FIXED_SELECTION.json": {
+    "source": "trials/icra_reviewer_revision/FIXED_SELECTION.json",
+    "sha256": "477a7bcbcca97633d4c2446f38446691ffd3438a79306e8e1c8361e5739945cd"
+  },
+  "correlation_control.json": {
+    "source": "trials/icra_reviewer_revision/correlation_control.json",
+    "sha256": "506244e74adedb5b934c0fb287678ea6efa9888596423c8093332050b3ca6713"
+  },
+  "CORRELATION_AUDIT_V2.json": {
+    "source": "trials/icra_reviewer_revision/CORRELATION_AUDIT_V2.json",
+    "sha256": "b3ef1549a1efe7b217249511befb52084a05ff0769ba43277f6a3045ac7e2f2a"
+  },
+  "OFFICIAL_ADAPTER_PREFLIGHT.json": {
+    "source": "trials/icra_reviewer_revision/OFFICIAL_ADAPTER_PREFLIGHT.json",
+    "sha256": "f0bf1355778e154bd8e6d792416f66940493e6d9c1e8120875e2f746814db441"
+  },
+  "NEW_INPUT_AUDIT.json": {
+    "source": "trials/icra_reviewer_revision/NEW_INPUT_AUDIT.json",
+    "sha256": "8342037f3168d18bb1bbc57786132f66b4da363d4cc26809f9dcaff505a68f31"
+  },
+  "NEW_INPUT_MANIFEST.json": {
+    "source": "trials/icra_reviewer_revision/NEW_INPUT_MANIFEST.json",
+    "sha256": "977e310cae7638031dde94afd0c0bd9cece787c92153a665cf73e6e6b1021719"
+  },
+  "NEW_DETECTION_MANIFEST.json": {
+    "source": "trials/icra_reviewer_revision/NEW_DETECTION_MANIFEST.json",
+    "sha256": "471217811736c2a5dbe12a22eda36dc6de130e44a056b1487645abf7f90e799c"
+  },
+  "NEW_DATA_FREEZE.json": {
+    "source": "trials/icra_reviewer_revision/NEW_DATA_FREEZE.json",
+    "sha256": "933c8e16d402c40127a76acf52ebbe75d61b5cf6a4278b03556a5331f6629b5c"
+  },
+  "POSE_INPUTS_development.json": {
+    "source": "trials/icra_reviewer_revision/POSE_INPUTS_development.json",
+    "sha256": "5eb69047dbe338d756738792fdbb7f70802ba00894cba05a9050df8e1f7ace8c"
+  },
+  "POSE_INPUTS_seen_transfer.json": {
+    "source": "trials/icra_reviewer_revision/POSE_INPUTS_seen_transfer.json",
+    "sha256": "4f77f82f1e67d67955da2bd5d0dc55db4df403e8cae415f34edefc358d48d4dc"
+  },
+  "audit_controls_development.json": {
+    "source": "trials/icra_reviewer_revision/audit_controls_development.json",
+    "sha256": "37794ab64522c2f2c482413ad4b771cb5e483d14041e8cf463fdaf1fe95aab06"
+  },
+  "audit_gs_seen_transfer.json": {
+    "source": "trials/icra_reviewer_revision/audit_gs_seen_transfer.json",
+    "sha256": "fe85153b148ba5b2e019b3ffc0cd5261c56fb22bdf3cb7941b41faff9c22a5a8"
+  },
+  "audit_fixed025_seen_transfer.json": {
+    "source": "trials/icra_reviewer_revision/audit_fixed025_seen_transfer.json",
+    "sha256": "c1a904843de09369d64935f7ce21d37462b269063543b2d607c351d75551fac1"
+  },
+  "audit_new_validation_primary.json": {
+    "source": "trials/icra_reviewer_revision/audit_new_validation_primary.json",
+    "sha256": "985269dcc3b9bccf11f13adb9e8aa13dacf63047f60c85594e56fc1e72507139"
+  },
+  "audit_new_validation_recency.json": {
+    "source": "trials/icra_reviewer_revision/audit_new_validation_recency.json",
+    "sha256": "00320f17c172a337415879c93372131386ea5e9c724f9d361c3fa234df56905b"
+  },
+  "audit_motion_development.json": {
+    "source": "trials/icra_reviewer_revision/audit_motion_development.json",
+    "sha256": "01ac81cbcb2d17f5fdfbf2e0204b80f46b31eaa3227c80f93794edc4df436c80"
+  },
+  "audit_motion_seen_transfer.json": {
+    "source": "trials/icra_reviewer_revision/audit_motion_seen_transfer.json",
+    "sha256": "e4edf5e9e1f85d6d67960eb485be76d267a694bc840a3608bbc1d5146a6466eb"
+  },
+  "audit_motion_new_validation.json": {
+    "source": "trials/icra_reviewer_revision/audit_motion_new_validation.json",
+    "sha256": "dd9ddcb5ea0b0c355ef00101739deeb08a351f3940f2b1a29d1ad65ce8229fb8"
+  },
+  "audit_pd070_development.json": {
+    "source": "trials/icra_reviewer_revision/audit_pd070_development.json",
+    "sha256": "504a9113b2d6bfaf891897545fab64558294c7ea5063dbc73772befe033c6bb7"
+  },
+  "audit_pd080_development.json": {
+    "source": "trials/icra_reviewer_revision/audit_pd080_development.json",
+    "sha256": "c68429cba353e59eb5544ce72e1ab75a710059f54387eb1195312c0b606c4533"
+  },
+  "audit_pd095_development.json": {
+    "source": "trials/icra_reviewer_revision/audit_pd095_development.json",
+    "sha256": "a287b20fc4170a5ed607358860f31b62c017ca1bbef2a1893263c45c436189af"
+  },
+  "audit_preflight_v1.json": {
+    "source": "trials/icra_reviewer_revision/audit_preflight_v1.json",
+    "sha256": "e70336fe397d0bd03e1b246033cb59139cea04fcd4bec9491419158275f38a73"
+  },
+  "audit_motion_identity_preflight.json": {
+    "source": "trials/icra_reviewer_revision/audit_motion_identity_preflight.json",
+    "sha256": "62aa4b0a8976084e15614b9b6ba3c18e129fcc71459db5403839648a040b2547"
+  },
+  "RECENCY_PREFLIGHT_AUDIT.json": {
+    "source": "trials/icra_reviewer_revision/RECENCY_PREFLIGHT_AUDIT.json",
+    "sha256": "a4f31c5f62d01123f6f4f3d790e011b89863d1e70462a24a4cae7ff3156ee775"
+  },
+  "PROTOCOL.md": {
+    "source": "trials/icra_reviewer_revision/PROTOCOL.md",
+    "sha256": "ca8666186fe3cd8c36ba850e33badb9e8879d6c9c2f29a9673a30ab741e66395"
+  },
+  "CANCELLED_STAGES.json": {
+    "source": "trials/icra_reviewer_revision/CANCELLED_STAGES.json",
+    "sha256": "3f7b72d9fdd64b8e1dac97eade694803c83562409c27def65652286e341c241a"
+  },
+  "PRE_REVISION_FREEZE.json": {
+    "source": "trials/icra_reviewer_revision/PRE_REVISION_FREEZE.json",
+    "sha256": "4df017f57250ef7281d80d45b26a4e33a9cf6977e751a0181b8ee17cd3c7b8f3"
+  },
+  "DATA_DIRECTORY_AUDIT.json": {
+    "source": "trials/icra_reviewer_revision/DATA_DIRECTORY_AUDIT.json",
+    "sha256": "89e4444d1afdaa1621cf38b26276541d26cc377657c8c9f11cf2cd3105042505"
+  },
+  "REPLAY_ACCEPTANCE.json": {
+    "source": "trials/icra_reviewer_revision/REPLAY_ACCEPTANCE.json",
+    "sha256": "58955aa5e011b81bb2d99cb94f3df8b714bf2b193a947306ca39301581c1ddd6"
+  },
+  "RESULT_FILES_MANIFEST.json": {
+    "source": "trials/icra_reviewer_revision/RESULT_FILES_MANIFEST.json",
+    "sha256": "000c59a3e2a40ff40cf2ba5f80b070b01a6b60094ddd50686f657b8295425cbd"
+  }
+}

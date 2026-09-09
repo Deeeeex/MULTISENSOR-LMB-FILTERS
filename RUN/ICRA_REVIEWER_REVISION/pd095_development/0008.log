@@ -1,0 +1,26 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+START REVIEW pd095_development 0008 reliable marked_lineage 375 frames
+DONE REVIEW pd095_development 0008 reliable marked_lineage OSPA 0.827173 runtime 32.66s
+START REVIEW pd095_development 0008 reliable marked_asymmetric 375 frames
+DONE REVIEW pd095_development 0008 reliable marked_asymmetric OSPA 0.727276 runtime 35.53s
+START REVIEW pd095_development 0008 reliable marked_gaussian_evidence_guarded_scalar 375 frames
+DONE REVIEW pd095_development 0008 reliable marked_gaussian_evidence_guarded_scalar OSPA 0.723924 runtime 39.52s
+START REVIEW pd095_development 0008 reliable marked_gaussian_evidence 375 frames
+DONE REVIEW pd095_development 0008 reliable marked_gaussian_evidence OSPA 0.745901 runtime 30.26s
+START REVIEW pd095_development 0008 intermittent marked_lineage 375 frames
+DONE REVIEW pd095_development 0008 intermittent marked_lineage OSPA 0.967726 runtime 33.81s
+START REVIEW pd095_development 0008 intermittent marked_asymmetric 375 frames
+DONE REVIEW pd095_development 0008 intermittent marked_asymmetric OSPA 0.892535 runtime 35.83s
+START REVIEW pd095_development 0008 intermittent marked_gaussian_evidence_guarded_scalar 375 frames
+DONE REVIEW pd095_development 0008 intermittent marked_gaussian_evidence_guarded_scalar OSPA 0.898351 runtime 36.63s
+START REVIEW pd095_development 0008 intermittent marked_gaussian_evidence 375 frames
+DONE REVIEW pd095_development 0008 intermittent marked_gaussian_evidence OSPA 0.889956 runtime 31.84s
+COMPLETED REVIEW pd095_development 0008

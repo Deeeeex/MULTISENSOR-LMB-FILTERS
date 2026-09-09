@@ -1,6 +1,6 @@
 \begin{table*}[t]
 \centering\small
-\caption{Ablations of the recursive tracker. Each w/o row removes one GCE component; Scalar is a separate existence-only reference. Units and boldface follow Table~\ref{tab:main}.}
+\caption{Recursive controls on the same 25 sequences. Scalar, Guarded Scalar, w/o curvature, and GCE form the scalar/joint $\times$ guard-off/on comparison. Other rows remove one admission component; units follow Table~\ref{tab:main}.}
 \label{tab:ablation}
 \setlength{\tabcolsep}{6pt}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
@@ -10,8 +10,9 @@
 Method & OSPA & Missed & False & OSPA & Missed & False \\
 \midrule
 Scalar reference & 3.526 & 78.625 & \textbf{34.536} & 3.832 & 86.342 & \textbf{40.523} \\
-\midrule
+Guarded Scalar & 3.508 & 75.839 & 35.438 & 3.793 & 83.328 & 41.019 \\
 w/o curvature guard & 3.491 & 74.845 & 35.376 & 3.805 & 84.047 & 41.615 \\
+\midrule
 w/o history switch & 3.467 & 70.282 & 38.148 & 3.776 & 80.266 & 43.105 \\
 w/o score constraint & 3.713 & \textbf{55.993} & 59.014 & 3.922 & \textbf{69.042} & 57.784 \\
 \midrule

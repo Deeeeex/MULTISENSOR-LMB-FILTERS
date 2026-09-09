@@ -31,17 +31,19 @@ how the same current evidence reaches both branches of the fused belief.
 
 
 Prior--likelihood separation is established
-\cite{wu2022sharedpriors,hlinka2012likelihood}. GCE develops this principle
-into a bounded Bernoulli correction for approximate local tracking with
-unequal sensing histories. The paper contributes:
+\cite{wu2022sharedpriors,hlinka2012likelihood}, as is normalization of a
+Bernoulli spatial product. Our focus is deciding which approximate local
+increments to admit when sensing histories and associations differ.
+The paper contributes:
 \begin{itemize}
- \item A joint existence and spatial correction with closed-form Gaussian
- normalization and a source-level curvature guard.
- \item An admission rule that combines current association, detection-score,
- and missed-detection evidence, plus an exact codec for zero increments.
- \item A cooperative tracking evaluation with common local filtering,
- geometric and arithmetic fusion references, component ablations, and
- measured packet sizes.
+ \item A bounded admission rule combining current opportunity,
+ association-weighted score and miss support, and a source-level
+ curvature check for approximate Gaussian Bernoulli ratios.
+ \item A closed-form implementation that couples admitted spatial and
+ existence corrections, with an exact omission code for zero vectors.
+ \item Recursive correction--curvature controls, a fixed-strength ratio
+ baseline, and evaluations of new sequence inputs, known ego motion,
+ detection-probability sensitivity, and correlated Gaussian observations.
 \end{itemize}
 \begin{figure}[t]
  \centering\includegraphics[width=\columnwidth]{figures/intro.pdf}
@@ -67,20 +69,18 @@ cooperative driving observations~\cite{xu2023v2v4real}, and DMSTrack
 learns uncertainty in a differentiable multisensor tracker
 \cite{chiu2024dmstrack}.
 
-Where2comm selects spatial features using confidence maps
-\cite{hu2022where2comm}; CoopTrack exchanges instance features and learns
-cross-agent association~\cite{zhong2025cooptrack}. GCE instead operates
-on probabilistic track summaries. We evaluate this fusion layer using
-DMSTrack's released per-vehicle detections.
+Where2comm selects spatial features by confidence~\cite{hu2022where2comm};
+CoopTrack exchanges instance features and learns cross-agent association
+\cite{zhong2025cooptrack}. GCE operates on probabilistic track summaries
+using DMSTrack's per-vehicle detections.
 
 \subsection{Finite-set fusion and sensing support}
 Covariance intersection addresses fusion with unknown cross-correlations
 \cite{julier1997ci}, and KLA formulates geometric pooling over probability
 densities~\cite{battistelli2014kla}. Generalized covariance intersection
-(GCI) extends this approach to PHD filters through exponential mixtures
-\cite{uney2013emd}, while consensus labeled random finite set (RFS)
-filters exchange multi-object beliefs with track identities
-\cite{fantacci2015consensus}.
+(GCI) extends geometric pooling to PHD filters~\cite{uney2013emd};
+consensus labeled random finite set (RFS) filters preserve track
+identities~\cite{fantacci2015consensus}.
 
 Direct GCI fusion can degrade under inconsistent labels
 \cite{li2018robust}; linear assignment can align local identities before
@@ -105,6 +105,7 @@ Shared-prior Bayesian fusion corrects for common information in local
 posteriors~\cite{wu2022sharedpriors}. Likelihood consensus aggregates
 exponential-family likelihood representations~\cite{hlinka2012likelihood}.
 GCE transmits Gaussian natural-parameter increments and admits them
-fractionally. This accommodates local LMB association and moment
-projection, for which the posterior-to-prediction ratio can differ from
-an exact sensor likelihood.
+fractionally. Local LMB association and moment projection can make these
+ratios differ from exact sensor likelihoods. The admission rule is a
+practical restriction on such approximations; it does not estimate
+unknown cross-source correlation or certify covariance consistency.

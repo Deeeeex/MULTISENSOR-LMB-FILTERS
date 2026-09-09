@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "rho": 0,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.25,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.25,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.25,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.5,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.5,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.5,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.75,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.75,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.75,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.9,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.9,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    },
+    {
+      "rho": 0.9,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "full_joint_matrix_check": true
+    }
+  ],
+  "tested_samples": 50000,
+  "producer_sha256": "9c49fb5008d2dd1e3f7ff2c556dbd9ff02821f8678adbb526525aeb65a566708",
+  "source_report_sha256": "506244e74adedb5b934c0fb287678ea6efa9888596423c8093332050b3ca6713",
+  "samples_sha256": "5c8d5157c95dbb4b965b51b4bc6943089d87b6ac3499117d29505e12dab3b759",
+  "auditor_sha256": "637c2081a583f8adaa0d4af41e6ef013c8455e29f1d378973b125bde0048aa7a"
+}

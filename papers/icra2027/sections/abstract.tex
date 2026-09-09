@@ -1,19 +1,20 @@
-Cooperative trackers exchange posteriors that mix inherited information
-with current observations. Weighting these posteriors by age cannot
-control the two contributions separately. We propose guarded
-current-evidence fusion (GCE), which augments a conservative posterior pool
-with bounded Bernoulli posterior-to-prediction ratios. Each admitted ratio
-jointly updates the spatial density and existence probability through a
-shared normalizer. A Gaussian curvature guard makes this correction
-tractable under approximate association, and an exact zero-vector codec
-reduces its communication cost. On 25 V2V4Real sequences with a common
-score-aware local tracker, GCE reduces OSPA by \GainNoAgeReliable\% and
-\GainNoAgeIntermittent\% relative to qualified geometric pooling under
-reliable and intermittent links. It also improves on recency weighting
-and scalar-only correction in both conditions. The gain combines lower
-missed-target and false-target costs with better common-target
-localization. Exact zero omission cuts fragmented communication by
-\CodecWireSavingReliable\% and \CodecWireSavingIntermittent\% relative to
-full Gaussian packets while preserving the tracking outputs. These
-results demonstrate the benefit of restoring current evidence jointly
-across the two parts of a Bernoulli belief.
+Cooperative posteriors mix inherited and current information, which age
+weighting cannot control separately. We propose guarded current-evidence
+fusion (GCE), admitting bounded Bernoulli posterior-to-prediction ratios
+using sensing opportunity, score and miss support, and Gaussian curvature.
+Admitted ratios jointly update spatial density and existence through a
+shared normalizer. On 25 previously used V2V4Real sequences with a common
+local tracker, GCE reduces OSPA by
+\GainNoAgeReliable\%/\GainNoAgeIntermittent\% over qualified geometric
+pooling under reliable/intermittent links. Recursive controls show a
+smaller advantage over equally guarded scalar correction; the
+correction--guard interaction intervals include zero.
+GCE has lower mean OSPA on three newly acquired segments, but
+underperforms pooling on the sole previously absent recording.
+Correlated Gaussian observations also yield undercovered spatial regions
+despite positive semidefinite increments. Exact zero omission reduces
+fragmented traffic by
+\CodecWireSavingReliable\%/\CodecWireSavingIntermittent\% relative to
+full GCE packets, with remaining overhead over pooling.
+These results support selective admission on the evaluated corpus while
+limiting claims about generalization and uncertainty.

@@ -1,0 +1,157 @@
+{
+  "passed": true,
+  "checked_utc": "2026-09-09T04:47:43.068963+00:00",
+  "base_commit": "9479f0d39958056464ab23ec07da94244abb5711",
+  "prior_algorithm_sources_unchanged": 1347,
+  "detector_and_calibration_unchanged": true,
+  "raw_new_sensor_files_unchanged": 3028,
+  "registered_stages": [
+    {
+      "stage": "controls_development",
+      "sequences": 9,
+      "arms": 4,
+      "files": 72,
+      "config_sha256": "f602f104958d5226e5f7208c51e439967b141c24d18669a4a52e46169fbfc670",
+      "runtime_sha256": "7dee013a6c6dc2aa102d696060fd05cb3a75a20c98aaa62c6e7aac4fdbbf93dc",
+      "audit_sha256": "37794ab64522c2f2c482413ad4b771cb5e483d14041e8cf463fdaf1fe95aab06"
+    },
+    {
+      "stage": "fixed025_seen_transfer",
+      "sequences": 25,
+      "arms": 1,
+      "files": 50,
+      "config_sha256": "6b5434aca1666b1df4e67ebb440fccc8881ce124cd19d82b965d1d4938c21732",
+      "runtime_sha256": "23e33266ebb726ecdf41e11796a9d4e753b2471216a52b039b71174558506d06",
+      "audit_sha256": "c1a904843de09369d64935f7ce21d37462b269063543b2d607c351d75551fac1"
+    },
+    {
+      "stage": "gs_seen_transfer",
+      "sequences": 25,
+      "arms": 1,
+      "files": 50,
+      "config_sha256": "881d0d758061c931b132d02f0430df6f0c6e1b79b26372d912e0a54a6e61de2f",
+      "runtime_sha256": "37c2866b192970bab0a2d6e4f0ca461b78a326071e5a1b319ccb8fd75893bfb1",
+      "audit_sha256": "fe85153b148ba5b2e019b3ffc0cd5261c56fb22bdf3cb7941b41faff9c22a5a8"
+    },
+    {
+      "stage": "motion_development",
+      "sequences": 9,
+      "arms": 4,
+      "files": 72,
+      "config_sha256": "915a9c6f4793389de6335d58d43b75b3d9c7c4924c2734b2df5d26bdab940098",
+      "runtime_sha256": "b26a2374face2adacc3ba72753627c8a2af1a46b83a0418442278fa5d732e628",
+      "audit_sha256": "01ac81cbcb2d17f5fdfbf2e0204b80f46b31eaa3227c80f93794edc4df436c80"
+    },
+    {
+      "stage": "motion_identity_preflight",
+      "sequences": 1,
+      "arms": 4,
+      "files": 8,
+      "config_sha256": "0a14baad9773609c84fd7b9bcb4bc01969b0b834a6d2a15f5c7e04f721f602d9",
+      "runtime_sha256": "37135d5f0d940401dbba044cfc61b070e04a1cb35f715e3884c42f5f4b0297a3",
+      "audit_sha256": "62aa4b0a8976084e15614b9b6ba3c18e129fcc71459db5403839648a040b2547"
+    },
+    {
+      "stage": "motion_new_validation",
+      "sequences": 3,
+      "arms": 4,
+      "files": 24,
+      "config_sha256": "e93849b97fcce39671b07cd734f71271d76202f81718714b46d24f9038295066",
+      "runtime_sha256": "6a29465ad4cec45e80065b1ce37b3163f9c2de64863bfbbe1aa085fb0e90220e",
+      "audit_sha256": "dd9ddcb5ea0b0c355ef00101739deeb08a351f3940f2b1a29d1ad65ce8229fb8"
+    },
+    {
+      "stage": "motion_seen_transfer",
+      "sequences": 25,
+      "arms": 4,
+      "files": 200,
+      "config_sha256": "bfa05631ff32b4dfda5e4bd5cf960d656ebc46de41ce4c0edc6fcb8748b085a0",
+      "runtime_sha256": "d83050b74adaf22ff124b21f8a8e7e11da026740e2f949bb5a4d781bf0bd5100",
+      "audit_sha256": "e4edf5e9e1f85d6d67960eb485be76d267a694bc840a3608bbc1d5146a6466eb"
+    },
+    {
+      "stage": "new_validation_primary",
+      "sequences": 3,
+      "arms": 6,
+      "files": 36,
+      "config_sha256": "3e7e716e9de8ce702e0a0cbe1c9534d4930bf632bae690215e63a5ae28363a89",
+      "runtime_sha256": "ad635d738e64784461b579a1e2f05b7741ba631e9c317b86b1482a1ed954f605",
+      "audit_sha256": "985269dcc3b9bccf11f13adb9e8aa13dacf63047f60c85594e56fc1e72507139"
+    },
+    {
+      "stage": "new_validation_recency",
+      "sequences": 3,
+      "arms": 1,
+      "files": 6,
+      "config_sha256": "4aac78127db778529cc9e5aebc18fd43bada0ded70d9b34ea47ca995efc8d548",
+      "runtime_sha256": "644b93d7f765e53dfcdf981e2aa5265660f362b240441af0d9276fa9c73bb53b",
+      "audit_sha256": "00320f17c172a337415879c93372131386ea5e9c724f9d361c3fa234df56905b"
+    },
+    {
+      "stage": "pd070_development",
+      "sequences": 9,
+      "arms": 4,
+      "files": 72,
+      "config_sha256": "387bbd71e29e53690172e5d46610edd540f116b4d9e53f2768384f05d5c14318",
+      "runtime_sha256": "e66356cf9b037bcd109c26feebc0c1dcf5a3f59fa98a84f370ae8f911fda0ef7",
+      "audit_sha256": "504a9113b2d6bfaf891897545fab64558294c7ea5063dbc73772befe033c6bb7"
+    },
+    {
+      "stage": "pd080_development",
+      "sequences": 9,
+      "arms": 4,
+      "files": 72,
+      "config_sha256": "14fc0c3ee25bdba4f650e59f4ea1d0c08e222542904ef9ce920a2136e2c3f501",
+      "runtime_sha256": "3ecae689d9531f16c179389122768f72c2b5ae235ee8988aa9b362f0cac28f02",
+      "audit_sha256": "c68429cba353e59eb5544ce72e1ab75a710059f54387eb1195312c0b606c4533"
+    },
+    {
+      "stage": "pd095_development",
+      "sequences": 9,
+      "arms": 4,
+      "files": 72,
+      "config_sha256": "1ddfad4c0baff3cc4f71a2c2d3993dfcbadd828d35de5afb57e94fb2b4004309",
+      "runtime_sha256": "037e837f714ffa11522261197d438a3441b31ed04ead33afa17c11eafe882e4f",
+      "audit_sha256": "a287b20fc4170a5ed607358860f31b62c017ca1bbef2a1893263c45c436189af"
+    },
+    {
+      "stage": "preflight_v1",
+      "sequences": 1,
+      "arms": 7,
+      "files": 14,
+      "config_sha256": "4f2c2b930fb9010d4789ec19718bfe9e93ce8110925e34ad92dcc3a80f3ece46",
+      "runtime_sha256": "815edc3a2c87bc7ac259fdd3397a0377b94951c6b3e9345e5fa55aa890716ff8",
+      "audit_sha256": "e70336fe397d0bd03e1b246033cb59139cea04fcd4bec9491419158275f38a73"
+    },
+    {
+      "stage": "recency_identity_preflight",
+      "sequences": 1,
+      "arms": 1,
+      "files": 2,
+      "config_sha256": "aa18aba9a17b37cee16e438c003fb380a39c3969745573afaf2fe6a39497509f",
+      "runtime_sha256": "30ab67d27045e6486cc63f9cd62db4457713a9059975713f2083d539c75cacad",
+      "audit_sha256": "a4f31c5f62d01123f6f4f3d790e011b89863d1e70462a24a4cae7ff3156ee775"
+    }
+  ],
+  "cancelled_without_execution": {
+    "fixed_seen_transfer": {
+      "reason": "Registration command mistakenly named lambda=1 although frozen development selection chose lambda=0.25. Never executed. Correct stage: fixed025_seen_transfer.",
+      "config_sha256": "4bd910a1be0f75f2610bd4953e46a04d4c99cf072ca1ad28c7378b82d6a611de"
+    }
+  },
+  "manuscript_revision": [
+    {
+      "path": "papers/icra2027/main.tex",
+      "original_sha256": "a4444b9fa6c7d4680b4295437bf305ccaccde9ee65addbbf923ef77fc004256b",
+      "current_sha256": "9013968ec2996fac8c79abb65724cb8d11121c8bb2130591c63c82b2dba25fe1",
+      "purpose": "Reviewed manuscript identity; manuscript revision is explicitly authorized."
+    }
+  ],
+  "retained_native_result_files": 750,
+  "retained_native_result_bytes": 6190334983,
+  "result_manifest_sha256": "000c59a3e2a40ff40cf2ba5f80b070b01a6b60094ddd50686f657b8295425cbd",
+  "all_native_unit_exit_codes_zero": true,
+  "all_expected_results_present_and_independently_audited": true,
+  "paper_author_approval_or_submission": false,
+  "checker_sha256": "4cfcc93e5793f33bce0d6fd0a97360608978194b160dc089efd72457933c531c"
+}

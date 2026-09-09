@@ -1,0 +1,6 @@
+{
+  "fixed_seen_transfer": {
+    "reason": "Registration command mistakenly named lambda=1 although frozen development selection chose lambda=0.25. Never executed. Correct stage: fixed025_seen_transfer.",
+    "config_sha256": "4bd910a1be0f75f2610bd4953e46a04d4c99cf072ca1ad28c7378b82d6a611de"
+  }
+}

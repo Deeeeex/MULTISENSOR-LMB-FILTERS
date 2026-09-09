@@ -1,0 +1,796 @@
+{
+  "kind": "registered_pd_and_correlation_sensitivity",
+  "pd_rows": [
+    {
+      "pd": 0.7,
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "ospa": 4.028502889667717,
+      "sequence_values": [
+        2.227806538652786,
+        3.3567872328234487,
+        3.7552735621527358,
+        6.54355293358222,
+        4.936420347734612,
+        4.692483569476982,
+        6.207351476622742,
+        3.6923694490769243,
+        0.8444808968870096
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "ospa": 3.9667998744848623,
+      "sequence_values": [
+        2.1157205956146745,
+        3.68614317997239,
+        3.8949506638721556,
+        6.305691759422342,
+        4.917664672037451,
+        4.75582674755791,
+        6.0060624794210655,
+        3.204613072881973,
+        0.8145256995837987
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 3.947732912598138,
+      "sequence_values": [
+        2.1154995565119856,
+        3.6725602197758516,
+        3.870585089378131,
+        6.327639284776806,
+        4.836049825807269,
+        4.558531914692018,
+        5.991433957459376,
+        3.3427747300342494,
+        0.8145216349475536
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 3.935198400389735,
+      "sequence_values": [
+        2.0259726695538007,
+        3.7716180949080593,
+        3.7620876663518317,
+        6.306988688416044,
+        4.774293489624702,
+        4.592457162231082,
+        6.04219342042665,
+        3.2874514158302395,
+        0.8537229961652001
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "ospa": 4.449518211066823,
+      "sequence_values": [
+        2.559935175812784,
+        4.296748682731849,
+        5.080749977133071,
+        6.855229123146221,
+        4.865070403792764,
+        4.934585778671674,
+        6.124160300627512,
+        4.315547275531242,
+        1.0136371821542915
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "ospa": 4.35062772430193,
+      "sequence_values": [
+        2.486007768272113,
+        4.298504005585575,
+        4.916779978599141,
+        6.65843228077499,
+        5.012743384659314,
+        5.054790643174119,
+        5.877687525999284,
+        3.8963425060230508,
+        0.9543614256297871
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 4.391079104893099,
+      "sequence_values": [
+        2.4669905251080118,
+        4.40719615103256,
+        4.9167800200223555,
+        6.880086699414498,
+        4.953853448432026,
+        5.016973049388018,
+        6.005280702057203,
+        3.912782296171984,
+        0.9597690524112398
+      ]
+    },
+    {
+      "pd": 0.7,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 4.3525378950408,
+      "sequence_values": [
+        2.2834956193963625,
+        4.39375392462182,
+        4.9702560245177105,
+        6.72342863602615,
+        4.932177272563104,
+        5.128866191732856,
+        5.9509628187994545,
+        3.7850008896764824,
+        1.0048996780332489
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "ospa": 3.9745281720319303,
+      "sequence_values": [
+        2.1727924877300318,
+        3.6426013780712894,
+        3.7552841720905454,
+        6.357714201190864,
+        4.949381420226191,
+        4.728896760513593,
+        6.049125279741999,
+        3.2774842406621323,
+        0.8374736080607353
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "ospa": 3.9236278596684024,
+      "sequence_values": [
+        1.982326272973936,
+        3.841617137434005,
+        3.8641382308333316,
+        6.146276271442239,
+        5.081624874510961,
+        4.700116584762232,
+        5.812656164017028,
+        3.0658254955431237,
+        0.8180697054987742
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 3.953054663571313,
+      "sequence_values": [
+        2.0389183351937064,
+        3.841617474801825,
+        3.919329610715732,
+        6.222820746592912,
+        4.938018156229235,
+        4.6991033726282625,
+        6.0637809681416455,
+        3.0391909962692036,
+        0.8147123115692927
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 3.9292852188933196,
+      "sequence_values": [
+        1.9432399397747484,
+        3.7630236286727436,
+        3.810836540557235,
+        6.194917825265022,
+        4.922451279618808,
+        4.562169237636305,
+        6.129997224890497,
+        3.2029190844176836,
+        0.8340122092068418
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "ospa": 4.3151440820472065,
+      "sequence_values": [
+        2.5168685372228063,
+        4.255319325534877,
+        4.4240704152215224,
+        6.711864317341997,
+        5.102525912551204,
+        4.999852805495754,
+        5.824808657221408,
+        4.029443757042607,
+        0.9715430107926767
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "ospa": 4.273024575897433,
+      "sequence_values": [
+        2.4119615902286125,
+        4.352620833031524,
+        4.3996966402658595,
+        6.754107171213546,
+        5.1260310398071685,
+        5.088861802892599,
+        5.621274643402096,
+        3.761789599214746,
+        0.9408778630207447
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 4.266264251741077,
+      "sequence_values": [
+        2.4681108341856492,
+        4.3526208892788,
+        4.399696851739094,
+        6.482920285364864,
+        5.043938721670768,
+        5.011444825837633,
+        5.9543122972102385,
+        3.7383519542757364,
+        0.9449816061069047
+      ]
+    },
+    {
+      "pd": 0.8,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 4.243545662732582,
+      "sequence_values": [
+        2.3514475000643222,
+        4.279917042479346,
+        4.345258876260198,
+        6.54727936621972,
+        5.060950640385234,
+        4.908877823136396,
+        5.998271387949825,
+        3.7484565981531905,
+        0.9514517299450008
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "ospa": 4.050768004785287,
+      "sequence_values": [
+        2.1112403445538552,
+        4.266652951077348,
+        3.95051734733339,
+        6.4276549784294845,
+        5.116871531476196,
+        4.69068954888509,
+        5.849564381847548,
+        3.2166540403924393,
+        0.8270669190722366
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "ospa": 3.927732694363161,
+      "sequence_values": [
+        1.979611037311224,
+        4.048104151053303,
+        3.926974960639229,
+        6.2273227914264915,
+        5.2169768477216865,
+        4.76664846080268,
+        5.390085124002655,
+        2.9723198672525553,
+        0.8215510090586232
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 3.9269582585742793,
+      "sequence_values": [
+        2.035972427106574,
+        4.048104147664298,
+        3.9269747205540946,
+        6.280622916377265,
+        5.004198076160943,
+        4.617581671968873,
+        5.529563380703039,
+        3.0741824718402118,
+        0.8254245147932215
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 3.8772941685812987,
+      "sequence_values": [
+        2.0540325088014852,
+        4.037052225727778,
+        3.898063466473439,
+        6.122249479331334,
+        5.001597884237048,
+        4.586088315855473,
+        5.4765182937340855,
+        2.889940560312305,
+        0.8301047827587411
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "ospa": 4.312328267211608,
+      "sequence_values": [
+        2.5395482514421954,
+        4.671126059490567,
+        3.954912228731807,
+        6.889729521033739,
+        5.196199370650485,
+        5.025026208561458,
+        5.631264060964536,
+        3.9074112277399946,
+        0.9957374762896873
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "ospa": 4.2342129237258535,
+      "sequence_values": [
+        2.4132499879515246,
+        4.4871998711539325,
+        4.092658078600703,
+        6.700680570668571,
+        5.226589387384028,
+        5.032249934750007,
+        5.493182804098003,
+        3.6837244482738805,
+        0.9783812306520331
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 4.224593849961716,
+      "sequence_values": [
+        2.4132518976183985,
+        4.487199868596875,
+        4.092658065279272,
+        6.712785816591965,
+        5.154998800864758,
+        5.024268753990188,
+        5.519530165479254,
+        3.6309403577162063,
+        0.9857109235185262
+      ]
+    },
+    {
+      "pd": 0.9,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 4.206405630000537,
+      "sequence_values": [
+        2.298442285887365,
+        4.491388169980095,
+        4.063124806782223,
+        6.629738284342926,
+        5.157977066480075,
+        5.011448071101461,
+        5.547432849060025,
+        3.6677597469572776,
+        0.9903393894133941
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "ospa": 4.141453850241587,
+      "sequence_values": [
+        2.1068374477465035,
+        4.495901953241622,
+        3.9505218113271976,
+        6.575569014339628,
+        5.267063546087837,
+        4.941189050565554,
+        5.969271653419448,
+        3.139557564408622,
+        0.8271726110378759
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "ospa": 4.046370632496958,
+      "sequence_values": [
+        2.069060284058305,
+        4.09131255583971,
+        3.8391011002009297,
+        6.254053490217173,
+        5.27823970044,
+        5.068785346539942,
+        4.821253603374878,
+        4.268253191075557,
+        0.7272764207261346
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 4.04279099918573,
+      "sequence_values": [
+        2.069060680873729,
+        4.091312555787308,
+        3.8391011002008946,
+        6.258089491675455,
+        5.197778728918172,
+        4.956073325974346,
+        5.283417339515506,
+        3.9663613458594127,
+        0.7239244238667388
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 3.930123326408242,
+      "sequence_values": [
+        2.0873935884127417,
+        4.092416189049641,
+        3.8108451291165033,
+        6.202501611171375,
+        5.217304753884426,
+        4.9502871528696275,
+        5.300780308234695,
+        2.9636801094532736,
+        0.7459010954818912
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "ospa": 4.313728797622938,
+      "sequence_values": [
+        2.5026173696276386,
+        4.769973718902617,
+        3.914862267591845,
+        6.932502001255925,
+        5.125097301104902,
+        5.233633028514267,
+        5.596699462731425,
+        3.780448139734901,
+        0.9677258891429206
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "ospa": 4.198969626804999,
+      "sequence_values": [
+        2.5012516600936237,
+        4.548475386685416,
+        3.9803564292890963,
+        6.672473651658649,
+        5.266214246605814,
+        5.280205194728766,
+        5.061777357317269,
+        3.587437881721092,
+        0.8925348331452666
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": 4.234454330090417,
+      "sequence_values": [
+        2.5012521197452617,
+        4.548475386646852,
+        3.9803564292830456,
+        6.731100741420202,
+        5.110205951118951,
+        5.17107387346159,
+        5.493717980418062,
+        3.6755557083098473,
+        0.8983507804099418
+      ]
+    },
+    {
+      "pd": 0.95,
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "ospa": 4.216452213749244,
+      "sequence_values": [
+        2.3864241308873,
+        4.646797263706892,
+        3.9775445848530016,
+        6.696949605376183,
+        5.114147284419617,
+        5.162957939546108,
+        5.4557702226595115,
+        3.6175230186029466,
+        0.8899558736916384
+      ]
+    }
+  ],
+  "correlation_rows": [
+    {
+      "rho": 0,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "position_rmse": 1.0046786379748003,
+      "expected_rmse": 0.999260081289737,
+      "reported_position_variance": 0.9615384615384615,
+      "mean_nees_per_dimension": 0.5248771661135078,
+      "expected_nees_per_dimension": 0.5192307692307694,
+      "coverage_95": 0.9969,
+      "expected_coverage_95": 0.9968788646613834,
+      "coverage_wilson_lower": 0.9956032190146442,
+      "coverage_wilson_upper": 0.9978151493849514,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "position_rmse": 0.997068977738586,
+      "expected_rmse": 0.9901475429766744,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.0140294772960423,
+      "expected_nees_per_dimension": 1.0000000000000002,
+      "coverage_95": 0.945,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.9403582923301534,
+      "coverage_wilson_upper": 0.9492999365646342,
+      "admitted_source_fraction": 1.0
+    },
+    {
+      "rho": 0,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "position_rmse": 0.997068977738586,
+      "expected_rmse": 0.9901475429766744,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.0140294772960423,
+      "expected_nees_per_dimension": 1.0000000000000002,
+      "coverage_95": 0.945,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.9403582923301534,
+      "coverage_wilson_upper": 0.9492999365646342,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.25,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "position_rmse": 1.108525336844171,
+      "expected_rmse": 1.1089002494875766,
+      "reported_position_variance": 0.9615384615384615,
+      "mean_nees_per_dimension": 0.6389907796612512,
+      "expected_nees_per_dimension": 0.639423076923077,
+      "coverage_95": 0.9907,
+      "expected_coverage_95": 0.9907677730283824,
+      "coverage_wilson_lower": 0.988621165509827,
+      "coverage_wilson_upper": 0.9924019646444929,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.25,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "position_rmse": 1.1063205534797107,
+      "expected_rmse": 1.1048458499592788,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.2484240703926865,
+      "expected_nees_per_dimension": 1.2450980392156863,
+      "coverage_95": 0.9129,
+      "expected_coverage_95": 0.9098266361104558,
+      "coverage_wilson_lower": 0.9072133899104451,
+      "coverage_wilson_upper": 0.9182694925854153,
+      "admitted_source_fraction": 1.0
+    },
+    {
+      "rho": 0.25,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "position_rmse": 1.1053114749994433,
+      "expected_rmse": 1.1043152607484654,
+      "reported_position_variance": 0.6097560975609756,
+      "mean_nees_per_dimension": 1.0018050345476652,
+      "expected_nees_per_dimension": 1.0,
+      "coverage_95": 0.9507,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.9462809355358969,
+      "coverage_wilson_upper": 0.9547729156166443,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.5,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "position_rmse": 1.2096834983313045,
+      "expected_rmse": 1.208635104805436,
+      "reported_position_variance": 0.9615384615384615,
+      "mean_nees_per_dimension": 0.7609337663902329,
+      "expected_nees_per_dimension": 0.7596153846153846,
+      "coverage_95": 0.9806,
+      "expected_coverage_95": 0.9806245565413818,
+      "coverage_wilson_lower": 0.9777063152939052,
+      "coverage_wilson_upper": 0.9831245719124657,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.5,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "position_rmse": 1.210664960966624,
+      "expected_rmse": 1.2087086280331327,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.4950238406665637,
+      "expected_nees_per_dimension": 1.4901960784313726,
+      "coverage_95": 0.8659,
+      "expected_coverage_95": 0.8660507156504585,
+      "coverage_wilson_lower": 0.8590804035982427,
+      "coverage_wilson_upper": 0.8724385760705278,
+      "admitted_source_fraction": 1.0
+    },
+    {
+      "rho": 0.5,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "position_rmse": 1.2082495150291908,
+      "expected_rmse": 1.2067769800636945,
+      "reported_position_variance": 0.7281553398058253,
+      "mean_nees_per_dimension": 1.0024419315235487,
+      "expected_nees_per_dimension": 1.0,
+      "coverage_95": 0.949,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.9445130043605195,
+      "coverage_wilson_upper": 0.953142152434446,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.75,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "position_rmse": 1.30494701574769,
+      "expected_rmse": 1.300745121006604,
+      "reported_position_variance": 0.9615384615384615,
+      "mean_nees_per_dimension": 0.8855010912325768,
+      "expected_nees_per_dimension": 0.8798076923076924,
+      "coverage_95": 0.9667,
+      "expected_coverage_95": 0.9667926923184086,
+      "coverage_wilson_lower": 0.9630002832260631,
+      "coverage_wilson_upper": 0.9700412795271895,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.75,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "position_rmse": 1.3073475902464873,
+      "expected_rmse": 1.3043269309460854,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.7433408761577638,
+      "expected_nees_per_dimension": 1.7352941176470589,
+      "coverage_95": 0.8219,
+      "expected_coverage_95": 0.82206806537015,
+      "coverage_wilson_lower": 0.8142779080986787,
+      "coverage_wilson_upper": 0.829274864668135,
+      "admitted_source_fraction": 1.0
+    },
+    {
+      "rho": 0.75,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "position_rmse": 1.304227963915905,
+      "expected_rmse": 1.30031582934249,
+      "reported_position_variance": 0.8454106280193237,
+      "mean_nees_per_dimension": 1.0060262584144772,
+      "expected_nees_per_dimension": 0.9999999999999999,
+      "coverage_95": 0.9505,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.946072872708346,
+      "coverage_wilson_upper": 0.9545811320491863,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.9,
+      "arm": "No-age spatial pool",
+      "samples": 10000,
+      "position_rmse": 1.3411388404199205,
+      "expected_rmse": 1.3530045461029123,
+      "reported_position_variance": 0.9615384615384615,
+      "mean_nees_per_dimension": 0.9352997624271026,
+      "expected_nees_per_dimension": 0.9519230769230769,
+      "coverage_95": 0.9597,
+      "expected_coverage_95": 0.9570204940764008,
+      "coverage_wilson_lower": 0.9556655950415553,
+      "coverage_wilson_upper": 0.9633813438863861,
+      "admitted_source_fraction": null
+    },
+    {
+      "rho": 0.9,
+      "arm": "Unit-admission GCE",
+      "samples": 10000,
+      "position_rmse": 1.3455843131340544,
+      "expected_rmse": 1.3584712216226489,
+      "reported_position_variance": 0.49019607843137253,
+      "mean_nees_per_dimension": 1.8468090866274935,
+      "expected_nees_per_dimension": 1.8823529411764703,
+      "coverage_95": 0.8055,
+      "expected_coverage_95": 0.7963765390460225,
+      "coverage_wilson_lower": 0.7976253069322747,
+      "coverage_wilson_upper": 0.8131400614438098,
+      "admitted_source_fraction": 1.0
+    },
+    {
+      "rho": 0.9,
+      "arm": "Known-correlation oracle",
+      "samples": 10000,
+      "position_rmse": 1.3409740961332681,
+      "expected_rmse": 1.3529387125523937,
+      "reported_position_variance": 0.9152215799614644,
+      "mean_nees_per_dimension": 0.982391349740764,
+      "expected_nees_per_dimension": 0.9999999999999999,
+      "coverage_95": 0.9519,
+      "expected_coverage_95": 0.95,
+      "coverage_wilson_lower": 0.9475297208388072,
+      "coverage_wilson_upper": 0.9559232086837872,
+      "admitted_source_fraction": null
+    }
+  ],
+  "pd_sequence_count": 9,
+  "pd_point_count": 32,
+  "correlation_point_count": 15,
+  "point_count": 47,
+  "number_of_sequence_measurements": 288,
+  "individual_points_displayed": false,
+  "intervals_shown": false,
+  "check_text_collisions": true,
+  "pd_y_limits": [
+    3.8,
+    4.5
+  ],
+  "coverage_y_limits": [
+    0.76,
+    1.015
+  ],
+  "averaging": "Equal complete-sequence means for pD; 10000 independent joint Gaussian samples per correlation setting.",
+  "correlation_scope": "Conditional-existing spatial model with unit admission and all source curvature checks accepted; no real-tracker consistency claim.",
+  "reviewer_evidence_sha256": "af04d46fdd272692af1de27bf6962d16db262a1d8e29e9156de94467c70e101d",
+  "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"
+}

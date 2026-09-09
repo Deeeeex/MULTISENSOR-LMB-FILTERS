@@ -1,0 +1,3 @@
+# Complete posterior traces are retained locally and identified by SHA-256
+# in the committed stage audits and result manifest; they exceed several GiB.
+results/

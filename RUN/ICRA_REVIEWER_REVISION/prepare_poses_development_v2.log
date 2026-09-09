@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 91, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 53, in main
+    assert np.allclose(pose[:3, :3].T @ pose[:3, :3], np.eye(3), atol=1e-10, rtol=0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

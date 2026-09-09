@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-09-09T02:30:39.072551+00:00",
+  "rule": "Lowest mean of the two 9-sequence macro OSPA values; exact ties prefer smaller lambda. Old development data only.",
+  "development_audit_sha256": "37794ab64522c2f2c482413ad4b771cb5e483d14041e8cf463fdaf1fe95aab06",
+  "candidates": [
+    {
+      "lambda": 0.25,
+      "arm": "marked_gaussian_evidence_fixed_025",
+      "sequence_macro_ospa_by_condition": {
+        "reliable": 4.066156686010909,
+        "intermittent": 4.329554834287562
+      },
+      "selection_mean_ospa": 4.197855760149236
+    },
+    {
+      "lambda": 0.5,
+      "arm": "marked_gaussian_evidence_fixed_050",
+      "sequence_macro_ospa_by_condition": {
+        "reliable": 4.205055275417723,
+        "intermittent": 4.394455235988945
+      },
+      "selection_mean_ospa": 4.299755255703333
+    },
+    {
+      "lambda": 1.0,
+      "arm": "marked_gaussian_evidence_fixed_100",
+      "sequence_macro_ospa_by_condition": {
+        "reliable": 4.468733020687631,
+        "intermittent": 4.581786716490846
+      },
+      "selection_mean_ospa": 4.525259868589238
+    }
+  ],
+  "selected": {
+    "lambda": 0.25,
+    "arm": "marked_gaussian_evidence_fixed_025",
+    "sequence_macro_ospa_by_condition": {
+      "reliable": 4.066156686010909,
+      "intermittent": 4.329554834287562
+    },
+    "selection_mean_ospa": 4.197855760149236
+  },
+  "new_tracking_data_seen_at_selection": false
+}

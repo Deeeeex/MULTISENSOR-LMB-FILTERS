@@ -1,0 +1,7 @@
+AUDITED V2 new_validation_recency 0000 reliable marked_er
+AUDITED V2 new_validation_recency 0000 intermittent marked_er
+AUDITED V2 new_validation_recency 0001 reliable marked_er
+AUDITED V2 new_validation_recency 0001 intermittent marked_er
+AUDITED V2 new_validation_recency 0002 reliable marked_er
+AUDITED V2 new_validation_recency 0002 intermittent marked_er
+V2 REVIEW STAGE AUDIT PASSED new_validation_recency 2992 node-frames

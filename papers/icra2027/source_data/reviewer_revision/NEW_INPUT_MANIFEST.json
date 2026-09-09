@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-09T02:56:00.080085+00:00",
+  "sequences": [
+    {
+      "sequence": "0000",
+      "scene": "testoutput_CAV_data_2022-03-15-15-20-01_0",
+      "original_recording": "testoutput_CAV_data_2022-03-15-15-20-01",
+      "original_recording_present_in_old_data": false,
+      "frames": 409,
+      "radio_seed": 8301,
+      "measurement_rows_by_sensor": [
+        1463,
+        1254
+      ],
+      "ground_truth_rows": 1820,
+      "target_count_min": 2,
+      "target_count_max": 11,
+      "data_path": "trials/icra_reviewer_revision/new_data/v2v4real_0000.mat",
+      "input_sha256": "42856e7ed7831795fd55b564afcb19b4415fe2fda1c43cfd7912382f52064ac4",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/new_validation/poses_0000.mat",
+      "pose_sha256": "96c71f4d4a7229cd14e416dffa70dfeccc23243fdf34c9bdfd91f20a57aff5eb",
+      "relative_vehicle_range_min": 36.38917011005406,
+      "relative_vehicle_range_max": 65.59268437111075
+    },
+    {
+      "sequence": "0001",
+      "scene": "testoutput_CAV_data_2022-03-21-09-35-07_0",
+      "original_recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "original_recording_present_in_old_data": true,
+      "frames": 117,
+      "radio_seed": 8302,
+      "measurement_rows_by_sensor": [
+        1031,
+        1252
+      ],
+      "ground_truth_rows": 1729,
+      "target_count_min": 5,
+      "target_count_max": 21,
+      "data_path": "trials/icra_reviewer_revision/new_data/v2v4real_0001.mat",
+      "input_sha256": "bbbf9035e85d7b9b2887524942d8725dc639d8fd3b616f1f5760a2f14ee39e7e",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/new_validation/poses_0001.mat",
+      "pose_sha256": "91dd0925189316194d5fee7e9b35bd80e8bf19d54810e92b6b678008caa7c28b",
+      "relative_vehicle_range_min": 11.216191236559013,
+      "relative_vehicle_range_max": 19.025489531974408
+    },
+    {
+      "sequence": "0002",
+      "scene": "testoutput_CAV_data_2022-03-21-09-35-07_10",
+      "original_recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "original_recording_present_in_old_data": true,
+      "frames": 222,
+      "radio_seed": 8303,
+      "measurement_rows_by_sensor": [
+        1315,
+        1128
+      ],
+      "ground_truth_rows": 2032,
+      "target_count_min": 4,
+      "target_count_max": 21,
+      "data_path": "trials/icra_reviewer_revision/new_data/v2v4real_0002.mat",
+      "input_sha256": "5ab9340fc544bcb255670ed5d2a52b4f2e9e5526703f8205b3afd7eb4285d91c",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/new_validation/poses_0002.mat",
+      "pose_sha256": "af6292e89e2f522cce411dddc91dd8c6378131247f3e27a1ca3a486560386507",
+      "relative_vehicle_range_min": 26.72532654397149,
+      "relative_vehicle_range_max": 58.44819260695984
+    }
+  ],
+  "frames": 748,
+  "source_sha256": {
+    "trials/icra_reviewer_revision/new_detections/detections_0000.npz": "42f28383028f00bad7cf642a8e0f210eee002b0184669d748111f0338af3268d",
+    "trials/icra_reviewer_revision/new_detections/detections_0001.npz": "c2ea3df65ccd03709c7b8fea1b3529925eb8b7bb3781aff35e31313e698ade0e",
+    "trials/icra_reviewer_revision/new_detections/detections_0002.npz": "feb7f0627269bbd6d5f03d11a36117d772d59bb57569e3cf080914b60b2e809d",
+    "trials/icra_reviewer_revision/prepare_new_inputs.py": "f49f9dae457904d3bdc1499071a28966d6cf5363a05e76bb8a228b82b786848d",
+    "trials/icra_reviewer_revision/official_input_adapter.py": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+    "trials/icra_reviewer_revision/prepare_pose_inputs.py": "cb64cc551f98de29a3ae0d01c915eebe7020085b3f5fba08bac1a668a7b1c8dc",
+    "trials/icra_reviewer_revision/NEW_DATA_FREEZE.json": "933c8e16d402c40127a76acf52ebbe75d61b5cf6a4278b03556a5331f6629b5c",
+    "trials/icra_reviewer_revision/NEW_DETECTION_MANIFEST.json": "471217811736c2a5dbe12a22eda36dc6de130e44a056b1487645abf7f90e799c",
+    "trials/icra_ceiling_iteration/calibration.json": "a0d7aefa90dde19ca8f1d27cc71619da95b1ec0ffb8876ae81f709535e7e4512",
+    "trials/icra_marked_iteration/likelihood_manifest.json": "083a8cb2f32cb6163c19419ba317672aa1e95d2d8391cb53fa5faa9c4d33de09",
+    "trials/icra_external_fusion/prepare_v2v4real.py": "eb88e62ed825ac1b0dcf58c5ae0b397522c618325490452e401d163b0894ba47"
+  },
+  "calibration_refitted": false,
+  "positive_prior_refitted": false,
+  "model_frame": "Current ego LiDAR x/y; optional known planar motion adapter has separate frozen pose inputs.",
+  "domain": "Identical rectangle, two 40 m sensor disks, and 3 m platform exclusion to original replay.",
+  "purpose": "Frozen new method-evaluation input; annotation fields enter only scoring after each complete trajectory."
+}

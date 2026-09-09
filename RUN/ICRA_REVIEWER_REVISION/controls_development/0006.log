@@ -1,0 +1,26 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+ECR CHECK PASSED: association weighting, miss/opportunity reset, continuous bound, unchanged negative correction and spatial density, one/equal-age identity, source exclusion, censor, packet, exact local-update and ER parity.
+STABLE MARKED CHECK PASSED: exact prior-adapter state/W parity, original unity/empty diagnostic parity, unchanged scalar Bayes, exact original fusion-object and record parity for all five arms.
+SELECTIVE CHECK PASSED: scalar identity, gated increments, conservative fallback, stale resets, numerical ties, exclusion, censor, spatial parity, association and mark endpoints, 224 B packet round trip.
+ASYMMETRIC CHECK PASSED: both evidence signs, opposing scalar endpoints, zero-negative exact SI fallback, single-source/exclusion, stale reset, missed-likelihood contrast and native 232 B round trip.
+SINGLE CHECK differences: r 2.6367796834847468e-15 mu 1.7763568394002505e-15 Sigma 0; new/old r 0 mu 0 Sigma 0
+GAUSSIAN EVIDENCE CHECK PASSED: centralized Bernoulli Gaussian agreement/conflict, spatial and existence normalization, zero-gate/base and one-source behavior, curvature rejection, aggregate integrability fallback, and native 352 B round trip.
+REVIEW CONTROL CHECK PASSED: GS p0/I0 and guarded exponents; fixed ratio equivalence; rejection, stale/single source, aggregate fallback.
+START REVIEW controls_development 0006 reliable marked_gaussian_evidence_guarded_scalar 304 frames
+DONE REVIEW controls_development 0006 reliable marked_gaussian_evidence_guarded_scalar OSPA 5.529563 runtime 30.16s
+START REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_025 304 frames
+DONE REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_025 OSPA 5.883787 runtime 26.89s
+START REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_050 304 frames
+DONE REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_050 OSPA 6.255149 runtime 22.77s
+START REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_100 304 frames
+DONE REVIEW controls_development 0006 reliable marked_gaussian_evidence_fixed_100 OSPA 6.346854 runtime 25.34s
+START REVIEW controls_development 0006 intermittent marked_gaussian_evidence_guarded_scalar 304 frames
+DONE REVIEW controls_development 0006 intermittent marked_gaussian_evidence_guarded_scalar OSPA 5.519530 runtime 26.09s
+START REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_025 304 frames
+DONE REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_025 OSPA 5.849236 runtime 24.03s
+START REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_050 304 frames
+DONE REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_050 OSPA 6.083355 runtime 20.66s
+START REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_100 304 frames
+DONE REVIEW controls_development 0006 intermittent marked_gaussian_evidence_fixed_100 OSPA 6.187777 runtime 21.43s
+COMPLETED REVIEW controls_development 0006

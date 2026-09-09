@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "da6f4f7adbeb31fde2396698ff7840f56de9df65f295b8993aa148fc6bfc36da",
+  "pdf_sha256": "eb0e7563637f827773dee012c60b95b2bbe8f50788465f87a6014240d9614634",
   "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2264,
+  "text_spans_in_page_bounds": 2508,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -93,7 +93,7 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/GJMHKB+CMR8": {
+    "/GJMHKB+CMSY8": {
       "subtype": "/Type1",
       "embedded": true
     }
@@ -184,18 +184,23 @@
       "no_embedded_raster": true,
       "label_bounds_pass": true,
       "svg_sha256": "9ec2d0a132d1292fbfea281f88691861ba50d2595a9e6bce5ded19158aa0ac80"
+    },
+    "gaussian_robustness": {
+      "live_svg_text_elements": 46,
+      "no_embedded_raster": true,
+      "label_bounds_pass": true,
+      "svg_sha256": "c41fd175f98aa95515378f00ad4be87a6746cf333c72de18aaf2901c70ab8de6"
     }
   },
   "float_pages": {
     "fig:intro": 1,
     "fig:overview": 2,
     "tab:main": 5,
-    "fig:paired": 5,
-    "tab:ablation": 6,
+    "tab:ablation": 5,
+    "fig:robustness": 6,
     "fig:communication": 6,
-    "tab:communication": 6,
-    "tab:fixedinput": 7,
-    "fig:phases": 7
+    "tab:communication": 7,
+    "tab:newdata": 7
   },
   "references_start_page": 8,
   "acknowledgment_start_page": 8,
@@ -203,7 +208,7 @@
   "acknowledgment_reference_pages": 1,
   "seventh_page_column_bottoms_pt": [
     733.92919921875,
-    725.5606689453125
+    718.8359375
   ],
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,
@@ -212,15 +217,15 @@
     "main_frames": 5601,
     "development_sequences": 9,
     "development_frames": 1993,
-    "main_methods": 11,
-    "main_sequence_condition_method_runs": 550,
+    "original_comparison_methods": 11,
+    "original_sequence_condition_method_runs": 550,
     "scalar_facts_checked": 64,
     "paired_sequence_points": 300,
     "component_sequence_points": 200,
     "main_figure_sequence_markers": 50,
     "main_figure_paired_gain_values": 100,
     "codec_exact_primary_trajectories": 68,
-    "all_real_outcomes_previously_seen": true,
+    "original_corpus_outcomes_previously_seen": true,
     "portable_source_snapshots": 15,
     "source_result_identities": 850
   },
@@ -239,9 +244,32 @@
     "snapshot_sha256": "bb22d904f411bf92afb3ce2e83a21fe0b95e2aead7408ea2971fa4ee33f3aca7",
     "interpretation": "Descriptive diagnostics on complete saved development-corpus trajectories."
   },
-  "manuscript_figures": 5,
+  "reviewer_experiments": {
+    "portable_source_snapshots": 34,
+    "checked_trajectory_files": 748,
+    "native_node_frames_independently_rescored": 333244,
+    "main_comparison_methods": 13,
+    "new_segments": 3,
+    "new_paired_frames": 748,
+    "original_recordings": 2,
+    "previously_absent_recordings": 1,
+    "new_recording_reversal_retained": true,
+    "recursive_factor_cells": 4,
+    "all_motion_cohorts_complete": true,
+    "modeled_detection_probabilities": [
+      0.7,
+      0.8,
+      0.9,
+      0.95
+    ],
+    "correlation_samples": 50000,
+    "plotted_sensitivity_points": 47,
+    "intervals_from_whole_sequences": true,
+    "statistical_generalization_or_covariance_guarantee": false
+  },
+  "manuscript_figures": 4,
   "manuscript_tables": 4,
-  "companion_evidence_figures": 2,
+  "companion_evidence_figures": 4,
   "ablation_complete_method_last": true,
   "draft_page_cap": 8,
   "conference_page_limit": 8,

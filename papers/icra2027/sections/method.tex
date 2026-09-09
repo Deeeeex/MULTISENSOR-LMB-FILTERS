@@ -112,7 +112,7 @@ The resulting spatial product is
  \label{eq:product}
 \end{equation}
 
-\noindent\textbf{Proposition 1 (normalized Bernoulli form).}
+\noindent\textbf{Bernoulli normalization identity.}
 For $0<r_j^-,r_j^+<1$ and $0<I<\infty$, normalizing
 these empty and singleton masses yields
 \begin{align}
@@ -129,10 +129,10 @@ $H_1=I\prod_j(r_j^+)^{\beta_j}
 Taking $\log(H_1/H_0)$ gives~\eqref{eq:existence}; normalizing the
 singleton shape gives~\eqref{eq:spatial}. $\square$
 
-A scalar-only correction keeps the first two terms
-in~\eqref{eq:existence} but uses the old spatial pool and its integral.
-GCE instead recomputes the spatial density and its normalizer from the
-admitted ratios, retaining their coupled effect on the Bernoulli belief.
+This normalization identity provides no error ordering or
+covariance-consistency guarantee. Scalar correction keeps the original
+spatial pool and integral in~\eqref{eq:existence}; GCE recomputes both
+from the admitted ratios.
 
 \subsection{Gaussian correction and curvature guard}
 For $p=\mathcal N(m,P)$, write
@@ -170,7 +170,9 @@ For positive definite $J$, the normalized quantities are
 Use $\bar\kappa$ in~\eqref{eq:existence} as well. A nonfinite or ill-conditioned aggregate, or a failed Cholesky factorization,
 restores the base. In exact arithmetic, positive semidefinite admitted
 precision gains and a positive definite base ensure a positive definite
-aggregate. The no-curvature ablation removes the source test while
+aggregate. Positive semidefiniteness does not establish that an increment
+is statistically reliable: correlated measurement errors can pass the
+same test. The no-curvature ablation removes the source test while
 retaining the aggregate integrability check. Current ratios and gates
 are recomputed after each local update.
 For state dimension $d$ and $M$ eligible sources, the dense Gaussian

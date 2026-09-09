@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 91, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/prepare_pose_inputs.py", line 23, in main
+    assert (CACHE / archive / 'manifest_yaml.json').exists(), ('Raw pose download incomplete', archive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('Raw pose download incomplete', 'test_01')

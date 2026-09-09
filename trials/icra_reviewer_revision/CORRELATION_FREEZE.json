@@ -1,0 +1,26 @@
+{
+  "seed": 20260909,
+  "samples_per_rho": 10000,
+  "rhos": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    0.9
+  ],
+  "dimensions": 2,
+  "prior_mean": [
+    0,
+    0
+  ],
+  "prior_variance": 25.0,
+  "measurement_variance": 1.0,
+  "assumed_cross_source_correlation": 0.0,
+  "nominal_region_probability": 0.95,
+  "arms": [
+    "No-age spatial pool",
+    "Unit-admission GCE",
+    "Known-correlation oracle"
+  ],
+  "code_sha256": "9c49fb5008d2dd1e3f7ff2c556dbd9ff02821f8678adbb526525aeb65a566708"
+}

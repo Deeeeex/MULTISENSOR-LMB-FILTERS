@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_legacy_for_revision.py", line 47, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_legacy_for_revision.py", line 34, in main
+    assert len(run[field]) == 2 and all(len(values) == len(data['time']) for values in run[field])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

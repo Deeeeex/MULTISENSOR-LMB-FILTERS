@@ -198,7 +198,7 @@ def paired_sequence_gains(data):
         point_count=50, number_of_sequence_measurements=100, sequence_count=25,
         individual_points_displayed=True, point_unit='one complete sequence paired across both link conditions',
         plotted_statistic='Reference OSPA minus GCE OSPA for each sequence and condition',
-        reference_selection='No-age KLA is the inherited posterior pool; Scalar is the closest existence-only reference.',
+        reference_selection='No-age KLA is the inherited posterior pool; Scalar is the original unguarded existence-only reference. The added Guarded Scalar comparison is reported in the revised tables.',
         all_reference_companion='gaussian_sequence_differences', outcome_rule='Strictly positive gain in both, one, or neither condition',
         intervals_shown=False, positive_favors='GCE', development_corpus=True))
 

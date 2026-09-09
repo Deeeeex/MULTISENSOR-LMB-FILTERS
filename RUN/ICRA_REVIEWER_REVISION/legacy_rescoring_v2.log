@@ -1,0 +1,25 @@
+LEGACY INPUTS RESCORED development 0000
+LEGACY INPUTS RESCORED development 0001
+LEGACY INPUTS RESCORED development 0002
+LEGACY INPUTS RESCORED development 0003
+LEGACY INPUTS RESCORED development 0004
+LEGACY INPUTS RESCORED development 0005
+LEGACY INPUTS RESCORED development 0006
+LEGACY INPUTS RESCORED development 0007
+LEGACY INPUTS RESCORED development 0008
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_legacy_for_revision.py", line 46, in <module>
+    main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_reviewer_revision/audit_legacy_for_revision.py", line 29, in main
+    data = read(path); run = data['runs']; row, _ = score_run(data, run)
+           ^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_marked_control/analyze_control.py", line 30, in read
+    with gzip.open(path, 'rt') as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/gzip.py", line 58, in open
+    binary_file = GzipFile(filename, gz_mode, compresslevel)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/gzip.py", line 174, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/dex/Desktop/Code/icra27/trials/icra_asymmetric_evidence/results_seen_transfer/0001_reliable_marked_asymmetric.json.gz'

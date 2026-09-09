@@ -1,107 +1,125 @@
 \section{Results}
-% Queue the remaining result floats before their discussion.
 \begin{figure}[t]
  \centering\includegraphics[width=\columnwidth]{figures/gaussian_communication.pdf}
- \caption{Communication and tracking accuracy, averaged over 25 sequences.
- Circles denote reliable links and diamonds intermittent links.
- Open markers denote full GCE packets. The arrows connect full and encoded
- GCE packets: exact zero omission
- lowers raw payload while retaining identical OSPA. No-age KLA and Scalar
- provide the reference tradeoffs. Lower and leftward are better.}
+ \caption{Communication and tracking accuracy on the 25-sequence corpus.
+ Circles/diamonds denote reliable/intermittent links; open markers are
+ full GCE packets. Arrows show exact zero omission reducing raw payload
+ at identical OSPA. Encoded GCE still costs more than No-age KLA.
+ Lower and leftward are better.}
  \label{fig:communication}
 \end{figure}
 \input{generated/communication_table}
-\input{generated/fixed_input_table}
-\begin{figure}[t]
- \centering\includegraphics[width=\columnwidth]{figures/gaussian_phases.pdf}
- \caption{OSPA differences by communication phase. Points and bars show
- means and 95\% paired sequence intervals (25 sequences). Reliable links
- use the same scene-time windows as the imposed intermittent outage.
- Negative values favor GCE; every comparison and phase is shown.}
- \label{fig:phases}
-\end{figure}
+\input{generated/new_data_table}
 
-\subsection{Lower set error across both link conditions}
-GCE achieves the lowest OSPA among all main comparison methods
-(Table~\ref{tab:main}). It improves on No-age KLA by
+\subsection{Fusion on the previously used corpus}
+GCE has the lowest mean OSPA among the main comparisons
+(Table~\ref{tab:main}), improving on No-age KLA by
 \GainNoAgeReliable\%/\GainNoAgeIntermittent\% and on Recency by
 \GainRecencyReliable\%/\GainRecencyIntermittent\%
-(reliable/intermittent). The paired 95\% OSPA intervals lie below zero against every geometric reference,
-including both capped variants and Scalar. The improvement is thus
-consistent across several ways of weighting inherited posteriors.
-Figure~\ref{fig:paired} complements these aggregate results by pairing
-each sequence's gains across the two link conditions, separating
-consistent gains from condition-specific reversals.
-
-The gain improves several aspects of tracking together. Relative to
-No-age KLA, missed-target cost falls by
+(reliable/intermittent). Against No-age, missed-target cost falls by
 \MissGainNoAgeReliable\%/\MissGainNoAgeIntermittent\% and false-target
 cost by \FalseGainNoAgeReliable\%/\FalseGainNoAgeIntermittent\%.
-Common-target RMSE also drops from \LocNoAgeReliable\ to
-\LocMainNoAgeReliable\ m under reliable links and from
-\LocNoAgeIntermittent\ to \LocMainNoAgeIntermittent\ m under intermittent
-links. Recency exhibits the same direction of improvement across these
-metrics. GCE therefore improves target recovery and localization while
-suppressing false tracks. Its OSPA also remains below the arithmetic
-MIL-AM and both track-consensus adaptations.
+Common-target RMSE decreases from \LocNoAgeReliable\ to
+\LocMainNoAgeReliable\ m and from \LocNoAgeIntermittent\ to
+\LocMainNoAgeIntermittent\ m. These are fusion comparisons on the
+development corpus, not an independent estimate of end-to-end
+generalization.
 
-\subsection{Joint correction and component ablations}
-Table~\ref{tab:ablation} separates the Scalar reference, three component
-removals, and the complete GCE rule. GCE improves on Scalar in both
-conditions, with both paired OSPA intervals below zero.
-It reduces missed-target cost and common-target
-localization error, with a small increase in false-target cost.
+GCE--Fixed Ratio is
+\RevSeenDeltaFixedReliableMean/\RevSeenDeltaFixedIntermittentMean\ m.
+Both paired intervals lie
+below zero. This supports adaptive score/miss admission relative to
+the selected constant-strength control; it does not rule out a better
+fixed strength outside the three-point development grid.
 
+\subsection{What the recursive controls identify}
+Guarded Scalar narrows the gap previously attributed to joint correction
+(Table~\ref{tab:ablation}). GCE--GS is
+\RevSeenDeltaGSReliableMean/\RevSeenDeltaGSIntermittentMean\ m,
+with intervals
+$[\RevSeenDeltaGSReliableLow,\RevSeenDeltaGSReliableHigh]$ and
+$[\RevSeenDeltaGSIntermittentLow,\RevSeenDeltaGSIntermittentHigh]$.
+The intermittent upper bound is within $10^{-4}$ m of zero.
+On the nine development sequences, the intermittent GCE--GS interval
+includes zero.
 
-The curvature guard lowers mean OSPA in both conditions, with a paired
-interval below zero under intermittent links. It also suppresses the
-large position shifts produced by unsuitable Gaussian ratios; removing
-it activates the aggregate fallback twice. The conservative history
-switch makes a smaller contribution. Removing the positive score
-constraint reduces missed-target cost but substantially increases
-false-target cost, showing its role in controlling positive evidence.
-For the history and score removals, paired total-OSPA intervals include
-zero. Together, the results support the complete joint correction over Scalar
-and show how the positive score constraint controls false tracks.
+The correction--curvature interaction is
+\RevSeenInteractionReliableMean/\RevSeenInteractionIntermittentMean\ m,
+with intervals
+$[\RevSeenInteractionReliableLow,\RevSeenInteractionReliableHigh]$ and
+$[\RevSeenInteractionIntermittentLow,\RevSeenInteractionIntermittentHigh]$.
+Both include zero, providing no distinct interaction benefit or
+normalizer-only explanation of the gain.
+Removing curvature allows large position shifts and activates aggregate
+fallback twice. Removing positive score support trades fewer misses
+for more false targets; the history and score-removal total-OSPA
+intervals include zero.
 
-The nine-sequence development subset shows the same mean OSPA ordering
-of GCE, Scalar, and No-age KLA. Detection-score modeling also improves
-the local backend: unmarked No-age KLA is weaker than its score-aware
-counterpart. Because every main method shares the latter, the main
-comparison measures the additional improvement from fusion.
+On identical GCE inputs, changing only the spatial mean at corrected
+existence reduces immediate OSPA by about 0.003 m. The joint
+base/base-to-corrected/corrected difference is
+\JointReliableBothMean/\JointIntermittentBothMean\ m, and its intervals
+include zero, as do those for changing the integral at corrected means.
+These substitutions hold admission fixed and never change future
+predictions. They answer a different question from the fully recursive
+GS comparison.
 
-\subsection{What changes at a fixed fusion input?}
-The corrected mean and integral give the lowest OSPA on identical GCE
-inputs (Table~\ref{tab:fixedinput}). Updating the mean at fixed corrected
-existence reduces OSPA by about 0.003 m, with both paired intervals
-below zero. The joint change from base/base is
-\JointReliableBothMean/\JointIntermittentBothMean\ m. Its intervals and
-those of changing the integral at corrected means include zero. These
-substitutions isolate immediate effects. Recursive Scalar also changes
-curvature admission and future inputs through prediction, association,
-and track extraction.
+\subsection{New segments and the generalization limit}
+Across all three newly acquired segments, GCE has the lowest mean OSPA
+among the seven evaluated methods (Table~\ref{tab:newdata}).
+However, two segments come from an already represented recording. On the only previously absent recording, GCE worsens OSPA to
+\RevNewRecordingGCEReliable/\RevNewRecordingGCEIntermittent\ m,
+compared with No-age's
+\RevNewRecordingNoAgeReliable/\RevNewRecordingNoAgeIntermittent\ m
+and Scalar's
+\RevNewRecordingScalarReliable/\RevNewRecordingScalarIntermittent\ m.
+The aggregate gain therefore does not establish stable generalization
+to new recordings. All settings and segments are retained.
 
-\subsection{Behavior around a communication outage}
-GCE has lower mean OSPA than both references in every phase
-(Fig.~\ref{fig:phases}). Under intermittent links, its differences from
-No-age KLA are \PhaseIntermittentBeforeNoAgeMean,
-\PhaseIntermittentOutageNoAgeMean, and \PhaseIntermittentAfterNoAgeMean\ m
-before, during, and after the outage. The before/after intervals lie
-below zero; the outage interval includes zero. Without packets, receivers
-continue local tracking, so remaining gains reflect previously fused
-beliefs. When exchange resumes, the mean advantage returns to its
-pre-outage magnitude.
+\subsection{Motion and detection-probability sensitivity}
+With planar ego-motion compensation, GCE--GS on the 25 sequences is
+\RevMotionSeenDeltaGSReliableMean/\RevMotionSeenDeltaGSIntermittentMean\ m,
+with paired intervals
+$[\RevMotionSeenDeltaGSReliableLow,\RevMotionSeenDeltaGSReliableHigh]$/
+$[\RevMotionSeenDeltaGSIntermittentLow,\RevMotionSeenDeltaGSIntermittentHigh]$
+below zero. Absolute error does not improve uniformly. On the new
+recording, GCE reaches
+\RevMotionNewRecordingGCEReliable/\RevMotionNewRecordingGCEIntermittent\ m,
+compared with No-age's
+\RevMotionNewRecordingNoAgeReliable/\RevMotionNewRecordingNoAgeIntermittent\ m
+and Scalar's
+\RevMotionNewRecordingScalarReliable/\RevMotionNewRecordingScalarIntermittent\ m.
+It now beats No-age but remains worse than Scalar. These runs change
+the coordinate model for every method without retuning admission.
+Across all four modeled $p_D$ values, GCE retains a lower mean than
+No-age and GS, but Scalar wins at reliable $p_D=0.8$ and intermittent
+$p_D\in\{0.7,0.95\}$ (Fig.~\ref{fig:robustness}a,b).
+Varying a constant $p_D$ cannot validate visibility under occlusion.
+All sequence-level sensitivity results, including the nine development
+sequences and each new segment, remain available in the companion evidence.
 
-\subsection{Communication--accuracy tradeoff}
-The zero-vector codec preserves the full Gaussian GCE trajectories while
-reducing raw payload by
+\subsection{Integrability does not ensure calibrated uncertainty}
+Every precision increment in the Gaussian correlation control is
+positive semidefinite. At zero correlation, unit-admission GCE and the
+known-correlation oracle agree exactly. At $\varrho=0.9$, GCE's nominal
+95\% regions cover only \RevCorrelationGCECoverage\% of samples, versus
+\RevCorrelationOracleCoverage\% for the oracle
+(Fig.~\ref{fig:robustness}c). Its mean normalized squared error per
+dimension is \RevCorrelationGCENEES. The guard therefore certifies an
+admissible Gaussian correction, not reliability under unknown
+cross-source correlation. Covariance coverage with adaptive gates remains
+unmeasured.
+
+\subsection{Communication cost}
+The codec preserves full GCE trajectories and reduces raw payload by
 \CodecRawSavingReliable\%/\CodecRawSavingIntermittent\%.
-Figure~\ref{fig:communication} shows the resulting shift toward lower
-communication at unchanged OSPA. With fragmentation and control traffic,
-the reduction is
+Fragmentation and control traffic reduce this saving to
 \CodecWireSavingReliable\%/\CodecWireSavingIntermittent\%
-(Table~\ref{tab:communication}). Encoded GCE requires
+(Table~\ref{tab:communication}). Relative to native No-age KLA, encoded
+GCE still requires
+\CodecRawExtraNoAgeReliable\%/\CodecRawExtraNoAgeIntermittent\% more raw
+payload and
 \CodecWireExtraNoAgeReliable\%/\CodecWireExtraNoAgeIntermittent\% more
-fragmented bytes than No-age KLA, in exchange for its lower tracking error.
-The codec thus recovers much of the cost of joint Gaussian evidence
-without weakening the fusion rule.
+fragmented bytes. GS and Fixed Ratio use the same full 352-byte
+per-Bernoulli schema as GCE; native Scalar uses 232 bytes. Packet-length-independent loss emulation does not
+measure wireless latency, channel capacity, or energy.

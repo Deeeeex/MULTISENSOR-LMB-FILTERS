@@ -1,0 +1,89 @@
+{
+  "purpose": "Already exposed development frames for detector adapter checks only",
+  "files": [
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/0/000000.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/0/000000.pcd",
+      "bytes": 1854721,
+      "crc32": 727579991,
+      "sha256": "b8d5d834a432ff60a76cbda1482dcb1820ffcd173e8969212e6f9401aa6d51ee"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/0/000001.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/0/000001.pcd",
+      "bytes": 1856487,
+      "crc32": 1431180736,
+      "sha256": "fd4545dac741d24daac9eb0e0670241fa205ea09d7b592acec755f459e1b4c27"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/0/000073.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/0/000073.pcd",
+      "bytes": 2129883,
+      "crc32": 576418432,
+      "sha256": "8cb81f6a77d586cadd5971a505e90f9a94b6c01b638d20edd64920687e92e1dc"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/0/000146.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/0/000146.pcd",
+      "bytes": 2151804,
+      "crc32": 3910948655,
+      "sha256": "512585af50324bd67cfece438ae0b981cb8298f4018a1cdd45d3d4a472a938e0"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/1/000000.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/1/000000.pcd",
+      "bytes": 2144384,
+      "crc32": 3489498746,
+      "sha256": "b6f104c668bd57f3fb1282c4e2a9e75ab1e6b7e176de3b0a54886d6b8b5ab3d8"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/1/000001.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/1/000001.pcd",
+      "bytes": 2146387,
+      "crc32": 1312334979,
+      "sha256": "6228258653ee97ea69b110b99d8fdfda8be4d5923b288530e275d05a5c720c8a"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/1/000073.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/1/000073.pcd",
+      "bytes": 2265073,
+      "crc32": 1682132610,
+      "sha256": "ef8c996903226a8cd37c366bb1cb989f6568f7ba22685e87fdb22712942f2e38"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-09-54-40_0/1/000146.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-09-54-40_0/1/000146.pcd",
+      "bytes": 2235578,
+      "crc32": 1017442772,
+      "sha256": "c77ae2a891652d025badd50ca416dedcdfcd3d4ca1f465a8aea64d59308d0a80"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-10-29-43_3/0/000000.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-10-29-43_3/0/000000.pcd",
+      "bytes": 2251761,
+      "crc32": 4033454912,
+      "sha256": "b7f48d0b4c60dd4ef37676827bcf42fd13f8eb653ee83c0520462b2fbd2f3c2f"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-10-29-43_3/0/000113.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-10-29-43_3/0/000113.pcd",
+      "bytes": 1956280,
+      "crc32": 83399202,
+      "sha256": "71572c034a29e9a06d287c6d63963f92567be1638e765bf4aacf07242edc3ecb"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-10-29-43_3/1/000000.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-10-29-43_3/1/000000.pcd",
+      "bytes": 2385579,
+      "crc32": 3085433001,
+      "sha256": "6b50f2bb7cac68fb933d9d25ee91a4668d368bcc675df78986fc44f2e0fa2f62"
+    },
+    {
+      "name": "testoutput_CAV_data_2022-03-15-10-29-43_3/1/000113.pcd",
+      "path": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-10-29-43_3/1/000113.pcd",
+      "bytes": 2262560,
+      "crc32": 1774906185,
+      "sha256": "112ef999480723d44467ca1e0c3fbcdcaf837fc87de0aa4b24a921c35016f739"
+    }
+  ]
+}

@@ -104,7 +104,7 @@ def check():
         body_bottoms.append(bottom)
     labels = re.findall(r'\\newlabel\{((?:fig|tab):[^}]+)\}\{\{([^}]+)\}\{(\d+)\}',
                         (HERE / 'build/main.aux').read_text())
-    assert len(labels) == 9 and len(captions) == 9
+    assert len(labels) == 8 and len(captions) == 8
     float_pages = {}
     for label, number, page in labels:
         kind = 'figure' if label.startswith('fig:') else 'table'
@@ -114,7 +114,7 @@ def check():
         assert int(page) <= 7
         float_pages[label] = int(page)
     assert float_pages['fig:intro'] == 1
-    wide_labels = {'fig:overview', 'fig:paired', 'tab:main', 'tab:ablation'}
+    wide_labels = {'fig:overview', 'fig:robustness', 'tab:main', 'tab:ablation'}
     wide_per_page = Counter(page for label, page in float_pages.items() if label in wide_labels)
     assert max(wide_per_page.values()) <= 2, ('Crowded wide-float page', wide_per_page)
     log = (HERE / 'build/compile.log').read_text() + (HERE / 'build/main.log').read_text()
@@ -131,19 +131,21 @@ def check():
 
     figures = {}
     for name in ['intro', 'overview', 'gaussian_paired', 'gaussian_components',
-                 'gaussian_communication', 'gaussian_sequence_differences', 'gaussian_phases']:
+                 'gaussian_communication', 'gaussian_sequence_differences', 'gaussian_phases', 'gaussian_robustness']:
         svg = ET.parse(HERE / 'figures' / f'{name}.svg')
         live = [x for x in svg.iter() if x.tag.endswith('}text')]
         assert live and not any(x.tag.endswith('}image') for x in svg.iter())
         bounds = json.loads((HERE / 'figures' / f'{name}_text_bounds.json').read_text())
         assert bounds['passed']
-        if name in ['intro', 'gaussian_communication', 'gaussian_phases']:
+        if name in ['intro', 'gaussian_communication', 'gaussian_phases', 'gaussian_robustness']:
             assert bounds['text_collisions_checked']
         figures[name] = {'live_svg_text_elements': len(live), 'no_embedded_raster': True,
                          'label_bounds_pass': True, 'svg_sha256': sha(HERE / 'figures' / f'{name}.svg')}
 
     numerical = check_gaussian_evidence()
     mechanism = check_mechanism_analysis()
+    from reviewer_artifact_qa import check_reviewer_evidence
+    reviewer = check_reviewer_evidence()
     from intro_design.audit_vector import audit as audit_intro_vector
     figures['intro']['master_reconstruction'] = audit_intro_vector()
 
@@ -181,7 +183,8 @@ def check():
               'maximum_double_column_floats_per_page':max(wide_per_page.values()),
               'numerical_evidence': numerical,
               'additional_mechanism_analysis': mechanism,
-              'manuscript_figures': 5, 'manuscript_tables':4, 'companion_evidence_figures': 2, 'ablation_complete_method_last': True,
+              'reviewer_experiments': reviewer,
+              'manuscript_figures': 4, 'manuscript_tables':4, 'companion_evidence_figures': 4, 'ablation_complete_method_last': True,
               'draft_page_cap': 8,
               'conference_page_limit': 8,
               'requires_length_revision_before_submission': len(reader.pages) > 8,
@@ -289,9 +292,15 @@ def check_gaussian_evidence():
         number = shown.replace(r'\,', '')
         decimals = len(number.split('.')[-1]) if '.' in number else 0
         assert number == f'{facts[key]:.{decimals}f}', (key, number, facts[key])
+    revision = read('reviewer_evidence')
+    controls = {(r['condition'], r['arm']): r for r in revision['controls']['cohorts']['seen_transfer']['aggregate']}
+    gs, fixed = primary + '_guarded_scalar', primary + '_fixed_025'
     table_specs = [
-        ('main_table', [(arm, data['labels'][arm], a) for arm in data['methods']], ['ospa', 'miss2', 'false2'], 1, 3, 'GCE'),
+        ('main_table', [(arm, data['labels'][arm], a) for arm in data['methods'][:-1]] +
+                       [(gs, 'Guarded Scalar', controls), (fixed, 'Fixed Ratio (0.25)', controls), (primary, 'GCE', a)],
+                       ['ospa', 'miss2', 'false2'], 1, 3, 'GCE'),
         ('ablation_table', [('marked_asymmetric', 'Scalar reference', na),
+                           (gs, 'Guarded Scalar', controls),
                            (primary+'_no_curvature', 'w/o curvature guard', na),
                            (primary+'_no_history', 'w/o history switch', na),
                            (primary+'_no_mark', 'w/o score constraint', na),
@@ -371,10 +380,10 @@ def check_gaussian_evidence():
             close(row['means_mib'][metric], lookup[row['condition'], arm][metric]['mean']/2**20)
         close(row['mean_ospa_m'], a[row['condition'], arm]['ospa']['mean'])
     return dict(main_sequences=25, main_frames=5601, development_sequences=9, development_frames=1993,
-                main_methods=11, main_sequence_condition_method_runs=550, scalar_facts_checked=64,
+                original_comparison_methods=11, original_sequence_condition_method_runs=550, scalar_facts_checked=64,
                 paired_sequence_points=300, component_sequence_points=200,
                 main_figure_sequence_markers=50, main_figure_paired_gain_values=100,
-                codec_exact_primary_trajectories=68, all_real_outcomes_previously_seen=True,
+                codec_exact_primary_trajectories=68, original_corpus_outcomes_previously_seen=True,
                 portable_source_snapshots=len(manifest), source_result_identities=len(data['source_inputs_sha256']))
 
 

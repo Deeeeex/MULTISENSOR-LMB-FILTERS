@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "sequences": [
+    {
+      "sequence": "0000",
+      "frames": 409,
+      "measurement_rows": 2717,
+      "ground_truth_rows": 1820
+    },
+    {
+      "sequence": "0001",
+      "frames": 117,
+      "measurement_rows": 2283,
+      "ground_truth_rows": 1729
+    },
+    {
+      "sequence": "0002",
+      "frames": 222,
+      "measurement_rows": 2443,
+      "ground_truth_rows": 2032
+    }
+  ],
+  "frames": 748,
+  "manifest_sha256": "977e310cae7638031dde94afd0c0bd9cece787c92153a665cf73e6e6b1021719",
+  "checker_sha256": "f79534cb819200f59083904e2a1b26cdc3a31e96b93a1bb7b9dd9330df87665e",
+  "adapter_sha256": "fcdecc6e1011b149ddc85c5f42ed587c11261c314294de1b16365f86f71bdf50",
+  "calibration_probability_clamps": 0,
+  "checks": "All source hashes; exact saved poses, domain-filtered measurements, raw/calibrated scores, likelihood ratios, author-geometry label union and annotation-only velocities."
+}
