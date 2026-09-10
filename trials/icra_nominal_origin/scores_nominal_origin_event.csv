@@ -1,0 +1,3 @@
+sequence,condition,arm,frames,ospa,gospa,loc2,miss2,false2,countError,raw_bytes,delivered_raw_bytes,wire_bytes,runtime_s,reused
+v2xt_0001,reliable,marked_gaussian_evidence_once_initial_negative,240,8.75397795185146,25.35944213776518,22.595509775053088,484.8,142.8,4.75,14566336,14566336,18886656,240.24983258333333,False
+v2xt_0001,intermittent,marked_gaussian_evidence_once_initial_negative,240,8.67486155694158,25.09049273666408,20.73233170452047,476.55,139.5,4.68125,20030080,14593568,24473600,369.37861433333336,False

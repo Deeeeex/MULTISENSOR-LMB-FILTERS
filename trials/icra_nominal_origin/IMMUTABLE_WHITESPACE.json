@@ -1,0 +1,13 @@
+{
+  "reason": "Preserve exact closed native console output: concurrent result-directory creation emitted MATLAB directory-already-exists warning. Distinct condition files completed and passed full audits; native logs are not reformatted.",
+  "files": [
+    {
+      "path": "RUN/ICRA_NOMINAL_ORIGIN/nominal_origin_controls/reliable.log",
+      "lines": [
+        17,
+        18
+      ],
+      "sha256": "2fa823145e2f635d7ac883767886ce3a2f004ff6adc01ff9ab2041c65ddcb46b"
+    }
+  ]
+}

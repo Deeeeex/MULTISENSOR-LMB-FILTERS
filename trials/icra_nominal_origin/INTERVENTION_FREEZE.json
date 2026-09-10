@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-10T00:37:08.835310+00:00",
+  "configurations": {
+    "trials/icra_nominal_origin/stages/nominal_origin_controls.json": "d081a21cff08ebe468ce2577ec9d2a501b5bf70683bd753791888c1e91f9fa71",
+    "trials/icra_nominal_origin/stages/nominal_origin_event.json": "36c853afb6bc38edf22c1b4f168225d49a9e56cf6be1e94374bf4118723f7e63"
+  },
+  "native_trajectories": 4,
+  "reused_noage_trajectories": 2,
+  "source_files": 1520,
+  "fixture": "checkInitialNegative passed before freeze; every native job reruns the fixture"
+}

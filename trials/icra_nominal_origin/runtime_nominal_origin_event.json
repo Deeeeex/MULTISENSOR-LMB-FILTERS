@@ -1,0 +1,32 @@
+[
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "reliable",
+    "index": 0,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 1,
+    "files": 1,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_nominal_origin');runNominalOriginReplay('trials/icra_nominal_origin/stages/nominal_origin_event.json',1);"
+    ]
+  },
+  {
+    "sequence": "v2xt_0001",
+    "execution_id": "intermittent",
+    "index": 1,
+    "returncode": 0,
+    "completion_line": true,
+    "expected_files": 1,
+    "files": 1,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_nominal_origin');runNominalOriginReplay('trials/icra_nominal_origin/stages/nominal_origin_event.json',2);"
+    ]
+  }
+]

@@ -1,0 +1,4773 @@
+{
+  "passed": true,
+  "scope": "Descriptive nominal comparison; no modified recursion",
+  "origins": [
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "first": {
+        "predicted": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005224895172753624,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.07200101023620918,
+          "maximum_mean_difference": 0.08555446348985174,
+          "maximum_covariance_difference": 0.7929191828077364,
+          "equal": false
+        },
+        "posterior": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670327,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 3.552713678800501e-15,
+          "equal": false
+        },
+        "fused": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670327,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 3.552713678800501e-15,
+          "equal": false
+        },
+        "target_local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.0008844582338071311,
+          "maximum_mean_difference": 0.031120889577867406,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        },
+        "target_posterior": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 5.6274603103888265e-05,
+          "maximum_mean_difference": 0.031120889577870514,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        }
+      },
+      "event": {
+        "frame": 2,
+        "robot": 1,
+        "local_sources": [
+          {
+            "source": 1,
+            "distribution": {
+              "left_count": 9,
+              "right_count": 9,
+              "common_labels": 9,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          },
+          {
+            "source": 2,
+            "distribution": {
+              "left_count": 1,
+              "right_count": 1,
+              "common_labels": 1,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          }
+        ],
+        "source_matching_equal": true,
+        "same_output_labels": true,
+        "rows": [
+          {
+            "label": [
+              2,
+              100001
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100002
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100003
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100004
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100005
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100006
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": 0.0,
+              "actual_integral": -0.3193290779682876,
+              "r": 0.003401795027527528,
+              "reconstructed_r": 0.0034017950275275397,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.40909090909090906
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.008679466919197855,
+              "reconstructed_r": 0.008679466919197854,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.7763568394002505e-15
+            }
+          },
+          {
+            "label": [
+              2,
+              100007
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100008
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100009
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "first": {
+        "predicted": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005224895172753618,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.07200101023620914,
+          "maximum_mean_difference": 0.08555446348985174,
+          "maximum_covariance_difference": 0.7929191828077364,
+          "equal": false
+        },
+        "posterior": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670322,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "fused": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670322,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "target_local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.0008844582338071311,
+          "maximum_mean_difference": 0.031120889577867406,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        },
+        "target_posterior": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 5.6274603103888265e-05,
+          "maximum_mean_difference": 0.031120889577870514,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        }
+      },
+      "event": {
+        "frame": 2,
+        "robot": 1,
+        "local_sources": [
+          {
+            "source": 1,
+            "distribution": {
+              "left_count": 9,
+              "right_count": 9,
+              "common_labels": 9,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          },
+          {
+            "source": 2,
+            "distribution": {
+              "left_count": 1,
+              "right_count": 1,
+              "common_labels": 1,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          }
+        ],
+        "source_matching_equal": true,
+        "same_output_labels": true,
+        "rows": [
+          {
+            "label": [
+              2,
+              100001
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100002
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100003
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100004
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100005
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100006
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.0034017950275275336,
+              "reconstructed_r": 0.003401795027527534,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.40909090909090906
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.008679466919197855,
+              "reconstructed_r": 0.008679466919197854,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100007
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100008
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100009
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "first": {
+        "predicted": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005224895172753624,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.07200101023620918,
+          "maximum_mean_difference": 0.08555446348985174,
+          "maximum_covariance_difference": 0.7929191828077364,
+          "equal": false
+        },
+        "posterior": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670327,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 3.552713678800501e-15,
+          "equal": false
+        },
+        "fused": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670327,
+          "maximum_mean_difference": 1.7763568394002505e-15,
+          "maximum_covariance_difference": 3.552713678800501e-15,
+          "equal": false
+        },
+        "target_local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.0008844582338071311,
+          "maximum_mean_difference": 0.031120889577867406,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        },
+        "target_posterior": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 5.6274603103888265e-05,
+          "maximum_mean_difference": 0.031120889577870514,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        }
+      },
+      "event": {
+        "frame": 2,
+        "robot": 1,
+        "local_sources": [
+          {
+            "source": 1,
+            "distribution": {
+              "left_count": 9,
+              "right_count": 9,
+              "common_labels": 9,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          },
+          {
+            "source": 2,
+            "distribution": {
+              "left_count": 1,
+              "right_count": 1,
+              "common_labels": 1,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          }
+        ],
+        "source_matching_equal": true,
+        "same_output_labels": true,
+        "rows": [
+          {
+            "label": [
+              2,
+              100001
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100002
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100003
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100004
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100005
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100006
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": 0.0,
+              "actual_integral": -0.3193290779682876,
+              "r": 0.003401795027527528,
+              "reconstructed_r": 0.0034017950275275397,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.40909090909090906
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.008679466919197855,
+              "reconstructed_r": 0.008679466919197854,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.7763568394002505e-15
+            }
+          },
+          {
+            "label": [
+              2,
+              100007
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100008
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100009
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "GCE",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "first": {
+        "predicted": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005224895172753618,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 19,
+          "right_count": 19,
+          "common_labels": 19,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.07200101023620914,
+          "maximum_mean_difference": 0.08555446348985174,
+          "maximum_covariance_difference": 0.7929191828077364,
+          "equal": false
+        },
+        "posterior": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670322,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "fused": {
+          "frame": 2,
+          "robot": 1,
+          "left_count": 9,
+          "right_count": 9,
+          "common_labels": 9,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.005277671891670322,
+          "maximum_mean_difference": 0.0,
+          "maximum_covariance_difference": 0.0,
+          "equal": false
+        },
+        "target_local": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 0.0008844582338071311,
+          "maximum_mean_difference": 0.031120889577867406,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        },
+        "target_posterior": {
+          "frame": 3,
+          "robot": 1,
+          "left_count": 1,
+          "right_count": 1,
+          "common_labels": 1,
+          "same_labels": true,
+          "exact": false,
+          "maximum_existence_difference": 5.6274603103888265e-05,
+          "maximum_mean_difference": 0.031120889577870514,
+          "maximum_covariance_difference": 0.18478443740552475,
+          "equal": false
+        }
+      },
+      "event": {
+        "frame": 2,
+        "robot": 1,
+        "local_sources": [
+          {
+            "source": 1,
+            "distribution": {
+              "left_count": 9,
+              "right_count": 9,
+              "common_labels": 9,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          },
+          {
+            "source": 2,
+            "distribution": {
+              "left_count": 1,
+              "right_count": 1,
+              "common_labels": 1,
+              "same_labels": true,
+              "exact": true,
+              "maximum_existence_difference": 0.0,
+              "maximum_mean_difference": 0.0,
+              "maximum_covariance_difference": 0.0,
+              "equal": true
+            },
+            "exact_increment": true,
+            "exact_gaussian": true
+          }
+        ],
+        "source_matching_equal": true,
+        "same_output_labels": true,
+        "rows": [
+          {
+            "label": [
+              2,
+              100001
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 2.1468981506387084,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -1.7763568394002505e-15,
+              "r": 0.8953785648402904,
+              "reconstructed_r": 0.8953785648402904,
+              "r_with_no_extra_scalar": 0.8953785648402907,
+              "mean": [
+                -7.256962809537713,
+                0.3366748268134499,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.029289273690829,
+                  0.6350114208492688,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.6350114208492688,
+                  1.3180491840907376,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100002
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": 1.4797285245503558,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 3.552713678800501e-15,
+              "spatial_integral_change": -7.105427357601002e-15,
+              "actual_integral": -3.552713678800501e-15,
+              "r": 0.814531572442568,
+              "reconstructed_r": 0.814531572442568,
+              "r_with_no_extra_scalar": 0.8145315724425691,
+              "mean": [
+                -10.508101617327421,
+                -1.579640447346042,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  3.255674034075464,
+                  1.3608924893551264,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.3608924893551264,
+                  1.74626070355293,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100003
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.089888655888512,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.016465447810627153,
+              "reconstructed_r": 0.016465447810627153,
+              "r_with_no_extra_scalar": 0.016465447810627153,
+              "mean": [
+                9.11542226668342,
+                5.285380395355316,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.3797448637963727,
+                  0.5784873677187894,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5784873677187894,
+                  3.0870733351214246,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100004
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -0.09426188461932583,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -2.4868995751603507e-14,
+              "actual_integral": -2.4868995751603507e-14,
+              "r": 0.4764519622176636,
+              "reconstructed_r": 0.47645196221766356,
+              "r_with_no_extra_scalar": 0.4764519622176698,
+              "mean": [
+                -32.73237239835622,
+                -0.1388601576378324,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  0.958515139450115,
+                  -4.946583000241329e-05,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -4.946583000241329e-05,
+                  0.9579009086481282,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.0
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100005
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.574265198795483,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0,
+              "actual_integral": 0.0,
+              "r": 0.010208584972325912,
+              "reconstructed_r": 0.010208584972325912,
+              "r_with_no_extra_scalar": 0.010208584972325912,
+              "mean": [
+                6.2096697269911445,
+                -1.5855292646556898,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  11.40567938877029,
+                  1.7784453500994024,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.7784453500994024,
+                  9.625051862140657,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100006
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.0034017950275275336,
+              "reconstructed_r": 0.003401795027527534,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.40909090909090906
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.418748736195106,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": -0.3193290779682876,
+              "spatial_integral_change": -1.7763568394002505e-15,
+              "actual_integral": -0.31932907796828935,
+              "r": 0.008679466919197855,
+              "reconstructed_r": 0.008679466919197854,
+              "r_with_no_extra_scalar": 0.008679466919197869,
+              "mean": [
+                8.709403114983775,
+                3.599768670789471,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  6.2926713501721645,
+                  3.7886044642630203,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.7886044642630203,
+                  15.290838348679495,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": -0.9419666289521098,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100007
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.701221136591797,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 1.2434497875801753e-14,
+              "actual_integral": 1.2434497875801753e-14,
+              "r": 0.02409828657020892,
+              "reconstructed_r": 0.02409828657020892,
+              "r_with_no_extra_scalar": 0.024098286570208623,
+              "mean": [
+                -2.7592769298504884,
+                -26.247314848952403,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.527073978560744,
+                  2.2455007992768037,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.2455007992768037,
+                  6.756144263511491,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100008
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -3.637004469316849,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -5.329070518200751e-15,
+              "actual_integral": -5.329070518200751e-15,
+              "r": 0.02565556235098302,
+              "reconstructed_r": 0.025655562350983024,
+              "r_with_no_extra_scalar": 0.02565556235098316,
+              "mean": [
+                -5.488690718810995,
+                -32.56094885351291,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  2.372374872123822,
+                  1.9770223486291594,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.9770223486291594,
+                  6.098271754166403,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  224.99999999999994,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  224.99999999999994
+                ]
+              ],
+              "beta": [
+                1.0,
+                0.0
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          },
+          {
+            "label": [
+              2,
+              100009
+            ],
+            "source_labels_equal": true,
+            "left": {
+              "backend": "Guarded Scalar",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "noage": {
+              "backend": "No-age",
+              "inherited_log_odds": -4.8593227148963205,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": -1.0658141036401503e-14,
+              "actual_integral": -1.0658141036401503e-14,
+              "r": 0.007696046459900261,
+              "reconstructed_r": 0.007696046459900261,
+              "r_with_no_extra_scalar": 0.007696046459900342,
+              "mean": [
+                29.01509361048455,
+                13.998951941749215,
+                0.0,
+                0.0
+              ],
+              "covariance": [
+                [
+                  1.1965245784868368,
+                  -0.00033744022521825805,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.00033744022521825805,
+                  1.2019325824968725,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  225.00000000000006,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  225.00000000000006
+                ]
+              ],
+              "beta": [
+                0.5,
+                0.5
+              ],
+              "kept": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_odds_difference_parts": {
+              "inherited_log_odds": 0.0,
+              "history_change": 0.0,
+              "current_scalar_change": 0.0,
+              "base_spatial_integral": 0.0,
+              "spatial_integral_change": 0.0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "comparisons": 11264,
+  "target_reference_rows": 2880,
+  "target_reference_path": "trials/icra_recursion_origin/TARGET_TIMELINE.csv",
+  "target_reference_sha256": "33cedda246c2b6789805407a7bc474d7caa874c3c338368e4d61b8346c79a2b8",
+  "inputs": {
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2"
+  },
+  "freeze_sha256": "98b65d134ed49717418e180c7d9bf498fadbf4ffe295ff544f826cbb3daa7ca7",
+  "source_sha256": "8519c8d9bc4fe465d4177334c0f635aae034e84a8f250dc9d44bd24fcf07b783",
+  "differences_sha256": "e0d3520c23b3eb09aaa73b0df80f818105bab92405c55a2304b4cfb92267111f"
+}

@@ -1,0 +1,187 @@
+{
+  "passed": true,
+  "target_rows_recounted": 2880,
+  "first_events": [
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "predicted",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "posterior",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "fused",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "target_local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "GCE",
+      "phase": "target_posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "predicted",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "posterior",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "fused",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "target_local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "phase": "target_posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "predicted",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "posterior",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "fused",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "target_local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "GCE",
+      "phase": "target_posterior",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "predicted",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "posterior",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "fused",
+      "frame": 2,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "target_local",
+      "frame": 3,
+      "robot": 1
+    },
+    {
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "phase": "target_posterior",
+      "frame": 3,
+      "robot": 1
+    }
+  ],
+  "first_event_scalar_decompositions_checked": 36,
+  "scope": "Independent native first-event and target recount, plus scalar decomposition arithmetic; Gaussian reconstruction uses the previously audited moment formulas",
+  "inputs": {
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464",
+    "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2"
+  },
+  "report_sha256": "b748d90b47adbc971cf3f7b3935e456dfe8e80caf608098490646a83f1a701c6",
+  "source_sha256": "ecf755d6cd74fbdddad78b566f6ed10e75c87ee15eeb555ff73170367ca007b7",
+  "freeze_sha256": "98b65d134ed49717418e180c7d9bf498fadbf4ffe295ff544f826cbb3daa7ca7"
+}

@@ -1,0 +1,12 @@
+{
+  "source": "trials/icra_reviewer_revision/review_gaussian_audit.py",
+  "source_sha256": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef",
+  "target": "trials/icra_nominal_origin/initial_gaussian_audit.py",
+  "target_sha256": "dc4b03e8ec483a46210de1d4b675ff8007ba9e68d3844ec9e618d06aa01f0013",
+  "changes": [
+    {
+      "before": "    expected_r = expit((beta*logits).sum(1)+(kept*delta).sum(1)+log_i)",
+      "after": "    expected_r = expit((beta*logits).sum(1)+(kept*delta).sum(1)+log_i)\n    if run['initialNegativeEnabled']:\n        from event_audit import check_initial_event\n        expected_r = check_initial_event(run, records, expected_r, beta, logits, kept, delta, log_i)"
+    }
+  ]
+}

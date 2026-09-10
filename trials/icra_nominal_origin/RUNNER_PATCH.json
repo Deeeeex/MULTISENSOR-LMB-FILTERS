@@ -1,0 +1,52 @@
+{
+  "source": "trials/icra_range_detection/runRangeDetectionReplay.m",
+  "source_sha256": "e63f8403400aca52e8b3a619b7efc79426fada626f1085fbe93c5b10d43a6666",
+  "target": "trials/icra_nominal_origin/runNominalOriginReplay.m",
+  "target_sha256": "9571f385d7c2245363344c3e3bad633eb8fdbffdbe59860be68e8d239c477c77",
+  "changes": [
+    {
+      "before": "function runRangeDetectionReplay(configPath,unitIndex)",
+      "after": "function runNominalOriginReplay(configPath,unitIndex)"
+    },
+    {
+      "before": "addpath(fullfile(root,'trials','icra_temporal_association'));",
+      "after": "addpath(fullfile(root,'trials','icra_temporal_association'));\naddpath(fullfile(root,'trials','icra_range_detection'));addpath(out);"
+    },
+    {
+      "before": "qualityPath=fullfile(out,'range_quality');addpath(qualityPath);",
+      "after": "qualityPath=fullfile(root,'trials','icra_range_detection','range_quality');addpath(qualityPath);"
+    },
+    {
+      "before": "checkRangeDetection(baseQuality);",
+      "after": "checkRangeDetection(baseQuality);checkInitialNegative();"
+    },
+    {
+      "before": "model.rangeDetection=unit.range_detection_model;",
+      "after": "model.rangeDetection=unit.range_detection_model;\nmodel.initialNegativeFrame=unit.intervention_frame;"
+    },
+    {
+      "before": "for a=1:numel(config.arms)\n        arm=config.arms{a};",
+      "after": "for a=1:numel(unit.arms)\n        arm=unit.arms{a};"
+    },
+    {
+      "before": "for condition={'reliable','intermittent'}",
+      "after": "for condition=reshape(unit.conditions,1,[])"
+    },
+    {
+      "before": "'protocol','icra-range-detection-v1'",
+      "after": "'protocol','icra-nominal-origin-intervention-v1'"
+    },
+    {
+      "before": "associationMode='';",
+      "after": "initialNegativeEnabled=endsWith(rule,'_once_initial_negative');\nif initialNegativeEnabled,rule=erase(rule,'_once_initial_negative');end\nassert(~initialNegativeEnabled || strcmp(rule,'gaussian_evidence'));\nassociationMode='';"
+    },
+    {
+      "before": "run.fusionSourceRecords=zeros(0,8);run.fusionOutputRecords=zeros(0,19);",
+      "after": "run.fusionSourceRecords=zeros(0,8);run.fusionOutputRecords=zeros(0,19);\nrun.initialNegativeEnabled=initialNegativeEnabled;run.initialNegativeFrame=model.initialNegativeFrame;\nrun.initialNegativeRecords=zeros(0,18);run.initialNegativeMask=false(2,T);"
+    },
+    {
+      "before": "                [posterior{n},stats]=fuseGaussianEvidence(inputs,[.5,.5],model,details,cfg,rule,t);",
+      "after": "                [posterior{n},stats]=fuseGaussianEvidence(inputs,[.5,.5],model,details,cfg,rule,t);\n                if initialNegativeEnabled && t==model.initialNegativeFrame\n                    [posterior{n},stats,event]=removeInitialNegative(posterior{n},stats,t,n);\n                    run.initialNegativeRecords=[run.initialNegativeRecords;event]; %#ok<AGROW>\n                    run.initialNegativeMask(n,t)=true;\n                end"
+    }
+  ]
+}
