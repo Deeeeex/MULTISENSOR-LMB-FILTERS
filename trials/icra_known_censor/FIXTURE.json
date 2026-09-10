@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "command": [
+    "/Applications/MATLAB_R2024a.app/bin/matlab",
+    "-singleCompThread",
+    "-batch",
+    "addpath('common','lmb','multisensorLmb','trials/icra_known_censor');checkKnownCensor();"
+  ],
+  "completed_utc": "2026-09-10T02:28:12.212281+00:00",
+  "log": "RUN/ICRA_KNOWN_CENSOR/fixture.log",
+  "log_sha256": "6bc7b73fe32d04969fe887c505e3f99524169e18208e733b7f5441d3c04c45fb",
+  "source_sha256": {
+    "trials/icra_known_censor/runKnownCensorReplay.m": "e4cbc84a7ddd0512602bf5136e446d1be7407e3b8c09a6690584de684941e393",
+    "trials/icra_known_censor/refineKnownCensor.m": "957fd99f07ab5a1dc5b31be764cbba04d15e22ae19b8d6839bde4d36b49fce44",
+    "trials/icra_known_censor/checkKnownCensor.m": "0c9a8055e1ab70d491362a1f31166fffe8e7e57b1503aebcdb7ec95506358d0d"
+  }
+}

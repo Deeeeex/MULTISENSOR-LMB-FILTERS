@@ -1,0 +1,5 @@
+# Native traces and compressed event tables remain local, bound by the
+# committed SHA256 manifests and rebuild scripts.
+/results/
+/reentry/results/
+__pycache__/

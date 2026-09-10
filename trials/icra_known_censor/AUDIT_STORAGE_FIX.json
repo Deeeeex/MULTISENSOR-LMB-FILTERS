@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-10T03:02:57.946378+00:00",
+  "reason": "NumPy int64 in final JSON serialization after six complete control checks",
+  "native_or_formula_changes": false,
+  "refined_outcomes_exposed": false,
+  "ports": [
+    {
+      "source": "trials/icra_known_censor/audit_stage.py",
+      "source_sha256": "71d8c9af7e94d45e57dabd0ae0e09df2048fd7c6378ea037f5825bd109bc5900",
+      "target": "trials/icra_known_censor/audit_stage_v2.py",
+      "target_sha256": "b6c8c24a33b6f12fbac02611716081f9d71cb2951bcffd6b47a513eecac095b1",
+      "changes": [
+        {
+          "before": "SUFFIX='_known_censor'\n",
+          "after": "SUFFIX='_known_censor'\n\ndef storage_value(value):\n    if isinstance(value,np.generic):return value.item()\n    raise TypeError(type(value).__name__)\n"
+        },
+        {
+          "before": "destination=OUT/('audit_'+args.stage+'.json')",
+          "after": "destination=OUT/('audit_v2_'+args.stage+'.json')"
+        },
+        {
+          "before": "    for name,h in cfg['source_sha256'].items():assert sha(ROOT/name)==h,name\n",
+          "after": "    for name,h in cfg['source_sha256'].items():assert sha(ROOT/name)==h,name\n    v2=json.loads((OUT/'AUDIT_FREEZE_V2.json').read_text())\n    for name,h in v2['source_sha256'].items():assert sha(ROOT/name)==h,name\n"
+        },
+        {
+          "before": "_reimport.csv.gz'",
+          "after": "_reimport_v2.csv.gz'"
+        },
+        {
+          "before": "OUT/'audit_known_censor_controls.json'",
+          "after": "OUT/'audit_v2_known_censor_controls.json'"
+        },
+        {
+          "before": "[('scores_',rows),('target_frames_',timeline),('population_frames_',population_rows)]",
+          "after": "[('scores_v2_',rows),('target_frames_v2_',timeline),('population_frames_v2_',population_rows)]"
+        },
+        {
+          "before": "indent=2,allow_nan=False)+'\\n')",
+          "after": "indent=2,allow_nan=False,default=storage_value)+'\\n')"
+        }
+      ]
+    },
+    {
+      "source": "trials/icra_known_censor/run_stage.py",
+      "source_sha256": "91a657cf64b3cd16cf336ace8aca7d494f528cd612ba1e451da12175fc23d819",
+      "target": "trials/icra_known_censor/run_stage_v2.py",
+      "target_sha256": "0ace0240c0ed6acb9578061dc594a691d0fdd231a95a49936b305c59da42749f",
+      "changes": [
+        {
+          "before": "    for name,h in cfg['source_sha256'].items():assert sha(ROOT/name)==h,name\n",
+          "after": "    for name,h in cfg['source_sha256'].items():assert sha(ROOT/name)==h,name\n    v2=json.loads((OUT/'AUDIT_FREEZE_V2.json').read_text())\n    for name,h in v2['source_sha256'].items():assert sha(ROOT/name)==h,name\n"
+        },
+        {
+          "before": "OUT/'audit_known_censor_controls.json'",
+          "after": "OUT/'audit_v2_known_censor_controls.json'"
+        }
+      ]
+    },
+    {
+      "source": "trials/icra_known_censor/finish.py",
+      "source_sha256": "888872715d25d6e1a8e54fd96ebe6c74cc00cc51ff04ace06206cd863fdce68f",
+      "target": "trials/icra_known_censor/finish_v2.py",
+      "target_sha256": "394889ec4581ef555b76b4a936f0726fd82fac873c023f6ba867e9a8f87db28a",
+      "changes": [
+        {
+          "before": "    freeze=json.loads((OUT/'FREEZE.json').read_text());assert freeze['passed'];protected={};scores={};diags={};paths={};target_count=0;event_count=0\n",
+          "after": "    freeze=json.loads((OUT/'FREEZE.json').read_text());assert freeze['passed'];protected={};scores={};diags={};paths={};target_count=0;event_count=0\n    v2=json.loads((OUT/'AUDIT_FREEZE_V2.json').read_text())\n    for name,h in v2['source_sha256'].items():assert sha(ROOT/name)==h,name\n"
+        },
+        {
+          "before": "auditpath=OUT/('audit_'+stage+'.json')",
+          "after": "auditpath=OUT/('audit_v2_'+stage+'.json')"
+        },
+        {
+          "before": "OUT/('target_frames_'+stage+'.csv')",
+          "after": "OUT/('target_frames_v2_'+stage+'.csv')"
+        },
+        {
+          "before": "OUT/('population_frames_'+stage+'.csv')",
+          "after": "OUT/('population_frames_v2_'+stage+'.csv')"
+        },
+        {
+          "before": "        '\u516c\u5e73\u6bd4\u8f83\uff1a']",
+          "after": "        '\u516c\u5e73\u6bd4\u8f83\uff1a']"
+        },
+        {
+          "before": "    lines=['# \u4f7f\u7528\u672c\u5730\u5df2\u77e5\u5b58\u5728\u7387\uff1a\u5b8c\u6574\u9012\u5f52\u56e0\u679c\u68c0\u9a8c','',\n",
+          "after": "    lines=['# \u4f7f\u7528\u672c\u5730\u5df2\u77e5\u5b58\u5728\u7387\uff1a\u5b8c\u6574\u9012\u5f52\u56e0\u679c\u68c0\u9a8c','',\n        '\u63a7\u5236\u5ba1\u8ba1 v1 \u5728\u516d\u6761\u8f68\u8ff9\u7684\u5168\u90e8\u6570\u503c\u4e0e\u9010\u5b57\u6bb5\u68c0\u67e5\u901a\u8fc7\u540e\uff0c\u56e0 NumPy int64 \u65e0\u6cd5\u76f4\u63a5\u5199\u5165 JSON \u800c\u9000\u51fa\u3002v2 \u53ea\u5c06 NumPy \u6807\u91cf\u8f6c\u6362\u4e3a\u7b49\u503c Python \u6807\u91cf\u5e76\u4f7f\u7528\u65b0\u5ba1\u8ba1\u8f93\u51fa\u8def\u5f84\uff1b\u539f\u6e90\u7801\u3001\u90e8\u5206 CSV/\u4e8b\u4ef6\u6587\u4ef6\u53ca\u5931\u8d25\u65e5\u5fd7\u4fdd\u7559\u3002\u539f\u751f\u7b97\u6cd5\u3001\u516d\u6761\u63a7\u5236\u3001\u516d\u6761\u5f85\u8fd0\u884c\u5e72\u9884\u914d\u7f6e\u3001\u516c\u5f0f\u3001\u5bb9\u5dee\u4e0e\u95e8\u69db\u672a\u6539\u53d8\u3002v2 \u5b8c\u6210\u4e86\u6574\u4e2a\u5ba1\u8ba1\u3002','',\n"
+        }
+      ]
+    }
+  ]
+}

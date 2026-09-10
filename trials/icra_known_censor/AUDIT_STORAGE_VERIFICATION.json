@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "exact_content_pairs": [
+    [
+      "trials/icra_known_censor/scores_known_censor_controls.csv",
+      "trials/icra_known_censor/scores_v2_known_censor_controls.csv"
+    ],
+    [
+      "trials/icra_known_censor/target_frames_known_censor_controls.csv",
+      "trials/icra_known_censor/target_frames_v2_known_censor_controls.csv"
+    ],
+    [
+      "trials/icra_known_censor/population_frames_known_censor_controls.csv",
+      "trials/icra_known_censor/population_frames_v2_known_censor_controls.csv"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage_reimport_v2.csv.gz"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage_reimport_v2.csv.gz"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_reimport_v2.csv.gz"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_reimport_v2.csv.gz"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_reimport_v2.csv.gz"
+    ],
+    [
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_reimport.csv.gz",
+      "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_reimport_v2.csv.gz"
+    ]
+  ],
+  "comparison": "Exact bytes for CSV; exact decompressed bytes for gzip CSV",
+  "sha256": {
+    "trials/icra_known_censor/scores_known_censor_controls.csv": "f5da78c98d7480bcc1f60676197d1ae69174a80b6c3af04ea5ca178f10c65dbb",
+    "trials/icra_known_censor/scores_v2_known_censor_controls.csv": "f5da78c98d7480bcc1f60676197d1ae69174a80b6c3af04ea5ca178f10c65dbb",
+    "trials/icra_known_censor/target_frames_known_censor_controls.csv": "4e153a27fa7ad5f4d0d78f86bfbd301032cd3dd165f2916aba3ae9e900861af1",
+    "trials/icra_known_censor/target_frames_v2_known_censor_controls.csv": "4e153a27fa7ad5f4d0d78f86bfbd301032cd3dd165f2916aba3ae9e900861af1",
+    "trials/icra_known_censor/population_frames_known_censor_controls.csv": "233b7f54532030d4e52777558ac067434b981589343dacfb7663bf7e4f19fd13",
+    "trials/icra_known_censor/population_frames_v2_known_censor_controls.csv": "233b7f54532030d4e52777558ac067434b981589343dacfb7663bf7e4f19fd13",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage_reimport.csv.gz": "6d761e12a3b0df7b8f866419badc183ef9cc88c53455188d0037f4954f050af0",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage_reimport_v2.csv.gz": "4144285ffdcbaa4955fb631eb8e095364a31e0928d61239ab67e16c356a3eeef",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage_reimport.csv.gz": "acee5bfdc999c4005c6b92729a7e0249082baabb0ac4463b7ccd8c9a77217621",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage_reimport_v2.csv.gz": "cc6db754fdc8d07bcc49ea6ef608feb533eece675b235c7410399263f1447952",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_reimport.csv.gz": "c6ab08fddfd3e6b3954c0a02700130a763c540ecab50cd85373821f10a948353",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_reimport_v2.csv.gz": "b7ca66668871b50cfd845bdd3cd1c0c25c8e196ff3d54fa41f2e75ba1f7fe448",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_reimport.csv.gz": "a5951db8979b19db29148da112d4445067ef9a73beafdec62918fc5059a5180d",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_reimport_v2.csv.gz": "dc218fefffc2de7a7fac4ccf202906cceb3967a624a479d83b2ab41ed9a3d3e5",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_reimport.csv.gz": "e64d4003d3c1feca5c62230d8ff8d583b55c7f9816ed077ffe9a4f317ad015f4",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_reimport_v2.csv.gz": "c672283ce69554584f9f6438edef0b4bce61d8a97f1d123d5d68216a1c5a7ca6",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_reimport.csv.gz": "c5ca1b8cd2b758d0cc8bf88ce02882c62fe2bb4e55b6029545be657117995169",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_reimport_v2.csv.gz": "51d83fcde12d9c6a62de38890e501795812c8534617e8456ba6f85be094a0496"
+  }
+}

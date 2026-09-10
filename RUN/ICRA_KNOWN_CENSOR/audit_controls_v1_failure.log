@@ -1,0 +1,15 @@
+Captured task execution: tmp/external_baselines/v2v_inference_venv/bin/python trials/icra_known_censor/audit_stage.py known_censor_controls
+Task execution exit code: 1
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_gaussian_evidence
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_gaussian_evidence_guarded_scalar
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_lineage
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_gaussian_evidence
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_gaussian_evidence_guarded_scalar
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_lineage
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_known_censor/audit_stage.py", line 124, in <module>
+    if __name__=='__main__':main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_known_censor/audit_stage.py", line 120, in main
+    destination.write_text(json.dumps(dict(passed=True,stage=args.stage,rows=rows,diagnostics=diagnostics,parity=parity,
+TypeError: Object of type int64 is not JSON serializable
+The middle frames are omitted in this concise execution capture. The failure occurred during the final JSON dump, after all six per-trajectory checks and three CSV writes. No completed audit JSON or refined trajectory existed.

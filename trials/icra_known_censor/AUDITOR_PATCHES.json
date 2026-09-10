@@ -1,0 +1,47 @@
+[
+  {
+    "source": "trials/icra_reviewer_revision/review_gaussian_audit.py",
+    "source_sha256": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef",
+    "target": "trials/icra_known_censor/censor_gaussian_audit.py",
+    "target_sha256": "0a31b220a61cd1d26b957979c9919c87dfd936957e24d6454ddf74a0ef75e8c6",
+    "extract": null,
+    "prefix": "",
+    "changes": [
+      {
+        "before": "    expected_r = expit((beta*logits).sum(1)+(kept*delta).sum(1)+log_i)",
+        "after": "    expected_r = expit((beta*logits).sum(1)+(kept*delta).sum(1)+log_i)\n    from event_audit import check_censor_event\n    expected_r = check_censor_event(run, records, expected_r, beta, logits, kept, delta, log_i)"
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_fusion_holdout/analyze_holdout.py",
+    "source_sha256": "ac11f132c85e9259e40d0f06725993f2fbb6a484e56415a593871a52a7d005bc",
+    "target": "trials/icra_known_censor/censor_scalar_audit.py",
+    "target_sha256": "eda6017bb32be958e7301fafe13132670f1d5585d1aaae42cc9466a9385b8147",
+    "extract": [
+      "def audit_existence(",
+      "\n\ndef audit_sequence("
+    ],
+    "prefix": "\"\"\"Original No-age scalar audit with explicit final-r refinement.\"\"\"\nimport numpy as np\nfrom scipy.special import expit\nfrom analyze_holdout import counterfactual, score, METRICS\n\n",
+    "changes": [
+      {
+        "before": "    for column, value in [(6, expected), (7, r0), (8, rER), (9, expected)]:",
+        "after": "    from event_audit import check_censor_event\n    expected = check_censor_event(run, records, expected, b, logits, np.zeros_like(b), np.zeros_like(b), records[:, 10])\n    for column, value in [(6, expected), (7, r0), (8, rER), (9, expected)]:"
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_range_detection/range_audit.py",
+    "source_sha256": "9fc99f7430da4a7480410e8c87011f550a9d6eaccfae6c2ace3047376c56ce34",
+    "target": "trials/icra_known_censor/censor_range_audit.py",
+    "target_sha256": "901c08b0201c4471f2613c113995fd2b272ab6eb481fbfe2f67d6c22a364d2a1",
+    "extract": null,
+    "prefix": "",
+    "changes": [
+      {
+        "before": "    from analyze_holdout import audit_existence",
+        "after": "    from censor_scalar_audit import audit_existence"
+      }
+    ]
+  }
+]

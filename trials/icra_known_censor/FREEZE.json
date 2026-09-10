@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-10T02:32:02.544404+00:00",
+  "configurations": {
+    "trials/icra_known_censor/stages/known_censor_controls.json": "aad2f4f4f35b7cd44ac2acc34ebd458063c5360bc1212c374b674a7e6ed13d4d",
+    "trials/icra_known_censor/stages/known_censor_refined.json": "0b358fb26ea4ca8223adbcd907665c5542f64411a1374fd633553b9e60dd516b"
+  },
+  "native_trajectories": 12,
+  "source_files": 1524,
+  "fixture_sha256": "929747bcf442821f8b24266ff38c262d4c30ff4a186428fb915837adf7a7395e"
+}

@@ -1,0 +1,946 @@
+{
+  "passed": true,
+  "completed_utc": "2026-09-10T03:34:53.831206+00:00",
+  "summaries": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 26967,
+      "same_frame_pruned": 25440,
+      "first_local_arrival": 1527,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 19877,
+      "same_frame_pruned": 19663,
+      "first_local_arrival": 214,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 15086,
+      "same_frame_pruned": 14620,
+      "first_local_arrival": 466,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 13108,
+      "same_frame_pruned": 13040,
+      "first_local_arrival": 68,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 21966,
+      "same_frame_pruned": 15716,
+      "first_local_arrival": 1545,
+      "return_after_gap": 4705,
+      "after_refinement_prune": 4703,
+      "direct_one_frame_rebound": 4703,
+      "gap_counts": {
+        "1": 4703,
+        "4": 2
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 15417,
+      "same_frame_pruned": 11218,
+      "first_local_arrival": 224,
+      "return_after_gap": 3975,
+      "after_refinement_prune": 3974,
+      "direct_one_frame_rebound": 3974,
+      "gap_counts": {
+        "1": 3974,
+        "4": 1
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 11151,
+      "same_frame_pruned": 7002,
+      "first_local_arrival": 466,
+      "return_after_gap": 3683,
+      "after_refinement_prune": 3683,
+      "direct_one_frame_rebound": 3683,
+      "gap_counts": {
+        "1": 3683
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 9572,
+      "same_frame_pruned": 5945,
+      "first_local_arrival": 68,
+      "return_after_gap": 3559,
+      "after_refinement_prune": 3559,
+      "direct_one_frame_rebound": 3559,
+      "gap_counts": {
+        "1": 3559
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 32597,
+      "same_frame_pruned": 31071,
+      "first_local_arrival": 1525,
+      "return_after_gap": 1,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 1
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 28669,
+      "same_frame_pruned": 28437,
+      "first_local_arrival": 232,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 16863,
+      "same_frame_pruned": 16397,
+      "first_local_arrival": 466,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 15694,
+      "same_frame_pruned": 15628,
+      "first_local_arrival": 66,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 25081,
+      "same_frame_pruned": 16749,
+      "first_local_arrival": 1532,
+      "return_after_gap": 6800,
+      "after_refinement_prune": 6799,
+      "direct_one_frame_rebound": 6799,
+      "gap_counts": {
+        "1": 6800
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 18536,
+      "same_frame_pruned": 12378,
+      "first_local_arrival": 217,
+      "return_after_gap": 5941,
+      "after_refinement_prune": 5941,
+      "direct_one_frame_rebound": 5941,
+      "gap_counts": {
+        "1": 5941
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 11192,
+      "same_frame_pruned": 6687,
+      "first_local_arrival": 464,
+      "return_after_gap": 4041,
+      "after_refinement_prune": 4041,
+      "direct_one_frame_rebound": 4041,
+      "gap_counts": {
+        "1": 4041
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 9660,
+      "same_frame_pruned": 5764,
+      "first_local_arrival": 69,
+      "return_after_gap": 3827,
+      "after_refinement_prune": 3827,
+      "direct_one_frame_rebound": 3827,
+      "gap_counts": {
+        "1": 3827
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 20789,
+      "same_frame_pruned": 19538,
+      "first_local_arrival": 1248,
+      "return_after_gap": 3,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 2,
+        "2": 1
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 9783,
+      "same_frame_pruned": 9607,
+      "first_local_arrival": 176,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 6036,
+      "same_frame_pruned": 5648,
+      "first_local_arrival": 386,
+      "return_after_gap": 2,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 1,
+        "2": 1
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 34,
+      "same_frame_pruned": 0,
+      "first_local_arrival": 34,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 17258,
+      "same_frame_pruned": 12547,
+      "first_local_arrival": 1249,
+      "return_after_gap": 3462,
+      "after_refinement_prune": 3458,
+      "direct_one_frame_rebound": 3458,
+      "gap_counts": {
+        "1": 3462
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 8165,
+      "same_frame_pruned": 6333,
+      "first_local_arrival": 177,
+      "return_after_gap": 1655,
+      "after_refinement_prune": 1655,
+      "direct_one_frame_rebound": 1655,
+      "gap_counts": {
+        "1": 1655
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 4581,
+      "same_frame_pruned": 2781,
+      "first_local_arrival": 387,
+      "return_after_gap": 1413,
+      "after_refinement_prune": 1410,
+      "direct_one_frame_rebound": 1410,
+      "gap_counts": {
+        "1": 1413
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 34,
+      "same_frame_pruned": 0,
+      "first_local_arrival": 34,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 29575,
+      "same_frame_pruned": 26179,
+      "first_local_arrival": 1158,
+      "return_after_gap": 2238,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 2005,
+        "2": 21,
+        "4": 1,
+        "46": 1,
+        "50": 210
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 23977,
+      "same_frame_pruned": 22127,
+      "first_local_arrival": 149,
+      "return_after_gap": 1701,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 1478,
+        "2": 13,
+        "50": 210
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 7570,
+      "same_frame_pruned": 6917,
+      "first_local_arrival": 303,
+      "return_after_gap": 350,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 346,
+        "2": 4
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 6414,
+      "same_frame_pruned": 6043,
+      "first_local_arrival": 46,
+      "return_after_gap": 325,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 325
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 21225,
+      "same_frame_pruned": 10173,
+      "first_local_arrival": 1157,
+      "return_after_gap": 9895,
+      "after_refinement_prune": 8552,
+      "direct_one_frame_rebound": 7640,
+      "gap_counts": {
+        "1": 8759,
+        "2": 924,
+        "4": 1,
+        "46": 1,
+        "50": 200,
+        "51": 10
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 15936,
+      "same_frame_pruned": 6663,
+      "first_local_arrival": 149,
+      "return_after_gap": 9124,
+      "after_refinement_prune": 8269,
+      "direct_one_frame_rebound": 7408,
+      "gap_counts": {
+        "1": 8050,
+        "2": 864,
+        "50": 200,
+        "51": 10
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 6495,
+      "same_frame_pruned": 4954,
+      "first_local_arrival": 303,
+      "return_after_gap": 1238,
+      "after_refinement_prune": 1054,
+      "direct_one_frame_rebound": 888,
+      "gap_counts": {
+        "1": 1067,
+        "2": 171
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 5399,
+      "same_frame_pruned": 4179,
+      "first_local_arrival": 46,
+      "return_after_gap": 1174,
+      "after_refinement_prune": 1014,
+      "direct_one_frame_rebound": 849,
+      "gap_counts": {
+        "1": 1009,
+        "2": 165
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 34498,
+      "same_frame_pruned": 30823,
+      "first_local_arrival": 1154,
+      "return_after_gap": 2521,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 2263,
+        "2": 21,
+        "46": 1,
+        "50": 236
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 31626,
+      "same_frame_pruned": 29068,
+      "first_local_arrival": 167,
+      "return_after_gap": 2391,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 2152,
+        "2": 3,
+        "50": 236
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 8792,
+      "same_frame_pruned": 8081,
+      "first_local_arrival": 303,
+      "return_after_gap": 408,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 404,
+        "2": 4
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 8281,
+      "same_frame_pruned": 7838,
+      "first_local_arrival": 43,
+      "return_after_gap": 400,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 400
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 22731,
+      "same_frame_pruned": 11186,
+      "first_local_arrival": 1157,
+      "return_after_gap": 10388,
+      "after_refinement_prune": 9331,
+      "direct_one_frame_rebound": 8075,
+      "gap_counts": {
+        "1": 8907,
+        "2": 1263,
+        "46": 1,
+        "50": 204,
+        "51": 13
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 17833,
+      "same_frame_pruned": 8037,
+      "first_local_arrival": 151,
+      "return_after_gap": 9645,
+      "after_refinement_prune": 9075,
+      "direct_one_frame_rebound": 7869,
+      "gap_counts": {
+        "1": 8232,
+        "2": 1196,
+        "50": 204,
+        "51": 13
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 6744,
+      "same_frame_pruned": 5011,
+      "first_local_arrival": 303,
+      "return_after_gap": 1430,
+      "after_refinement_prune": 1088,
+      "direct_one_frame_rebound": 1067,
+      "gap_counts": {
+        "1": 1404,
+        "2": 26
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 5825,
+      "same_frame_pruned": 4413,
+      "first_local_arrival": 45,
+      "return_after_gap": 1367,
+      "after_refinement_prune": 1048,
+      "direct_one_frame_rebound": 1028,
+      "gap_counts": {
+        "1": 1347,
+        "2": 20
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 8836,
+      "same_frame_pruned": 7140,
+      "first_local_arrival": 921,
+      "return_after_gap": 775,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 749,
+        "2": 24,
+        "46": 2
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 300,
+      "same_frame_pruned": 192,
+      "first_local_arrival": 83,
+      "return_after_gap": 25,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 11,
+        "2": 13,
+        "46": 1
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 4639,
+      "same_frame_pruned": 4124,
+      "first_local_arrival": 256,
+      "return_after_gap": 259,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 255,
+        "2": 4
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 24,
+      "same_frame_pruned": 0,
+      "first_local_arrival": 24,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "window": "full",
+      "scope": "all",
+      "remote_only_retained": 7657,
+      "same_frame_pruned": 5086,
+      "first_local_arrival": 923,
+      "return_after_gap": 1648,
+      "after_refinement_prune": 1031,
+      "direct_one_frame_rebound": 863,
+      "gap_counts": {
+        "1": 1457,
+        "2": 189,
+        "46": 2
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "window": "full",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 303,
+      "same_frame_pruned": 193,
+      "first_local_arrival": 84,
+      "return_after_gap": 26,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {
+        "1": 13,
+        "2": 12,
+        "46": 1
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "window": "original_window",
+      "scope": "all",
+      "remote_only_retained": 3723,
+      "same_frame_pruned": 2544,
+      "first_local_arrival": 256,
+      "return_after_gap": 923,
+      "after_refinement_prune": 788,
+      "direct_one_frame_rebound": 662,
+      "gap_counts": {
+        "1": 793,
+        "2": 130
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "window": "original_window",
+      "scope": "target_neighbourhood",
+      "remote_only_retained": 24,
+      "same_frame_pruned": 0,
+      "first_local_arrival": 24,
+      "return_after_gap": 0,
+      "after_refinement_prune": 0,
+      "direct_one_frame_rebound": 0,
+      "gap_counts": {}
+    }
+  ],
+  "artifacts": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_gaussian_evidence.csv.gz",
+      "sha256": "43c3bb1d4706a8df4a5d3229081233ec640f98d7737436eec5fa50f758898363",
+      "rows": 26967
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_gaussian_evidence_known_censor.csv.gz",
+      "sha256": "c0586f5d4018c0f9f43b2b8bc384e5d354e864379595dbc82895cabf71d1d872",
+      "rows": 21966
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_gaussian_evidence_guarded_scalar.csv.gz",
+      "sha256": "208dd6c42fa01162c83ee19657aa5d07b424966fb7b25790f4669fe8255fc00e",
+      "rows": 32597
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_gaussian_evidence_guarded_scalar_known_censor.csv.gz",
+      "sha256": "fde7ea11ea018f65b05b6ce5c65022b8d05285a3e2af3e9b42cea1d16829090e",
+      "rows": 25081
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_lineage.csv.gz",
+      "sha256": "0187d330c7fab433c8fc8b0e102f3975e01851e312e46dddabc073483ab5e2fa",
+      "rows": 20789
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/reliable_marked_lineage_known_censor.csv.gz",
+      "sha256": "7d51642d7399926fe220abfea37f1b9a1a314a6eea4cf3e569bca62a9bec56ca",
+      "rows": 17258
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_gaussian_evidence.csv.gz",
+      "sha256": "8ce5a06adeca6fb28b1d88c942b1e39554f851d9988e0ae631a731d064aeb8a3",
+      "rows": 29575
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_gaussian_evidence_known_censor.csv.gz",
+      "sha256": "33d871263d07113b992b6feea6c92bf66bbde3d50ecd06554d6d9f95d0c68ad9",
+      "rows": 21225
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_gaussian_evidence_guarded_scalar.csv.gz",
+      "sha256": "a94ea318a094df6a7b884f7148217e8b5bf0c6dd1d122eb39bad147e241673ce",
+      "rows": 34498
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_gaussian_evidence_guarded_scalar_known_censor.csv.gz",
+      "sha256": "af0269619fc1f33ab0ffe4da55cd1fbc6dea9b714c7e17b63590264ae09fb9de",
+      "rows": 22731
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_lineage.csv.gz",
+      "sha256": "e166c5e78dff0faf3a7a1bad579e1010888edddbc461bd4d92e8ec4d72a93566",
+      "rows": 8836
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "path": "trials/icra_known_censor/reentry/results/intermittent_marked_lineage_known_censor.csv.gz",
+      "sha256": "7611e24695f66dfbc13dd35a0d6e0e3b6fda74f6cfc1ff6b8abc517c09e13bc4",
+      "rows": 7657
+    }
+  ],
+  "examples": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "frame": 54,
+      "robot": 2,
+      "birth_frame": 50,
+      "birth_location": 100007,
+      "remote_birth_frame": 50,
+      "remote_birth_location": 100007,
+      "remote_input_r": 0.002611693019580035,
+      "kind": "return_after_gap",
+      "returned_r": 0.0016163806050625545,
+      "near_target": true,
+      "censor_participates": true,
+      "current_censor": 0.001,
+      "last_prediction_frame": 53,
+      "gap": 1,
+      "last_local_r": 0.0001242801978543679,
+      "last_local_opportunity": true,
+      "last_final_r": 0.0004706155971738239,
+      "last_refinement_old_r": 0.0013343819164844852,
+      "last_refinement_actual_r": 0.0004706155971738239,
+      "last_refinement_caused_prune": true,
+      "peer_retained_at_last_prediction": true,
+      "peer_r_at_last_prediction": 0.0013343819164844852,
+      "direct_one_frame_rebound": true
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "frame": 54,
+      "robot": 2,
+      "birth_frame": 50,
+      "birth_location": 100007,
+      "remote_birth_frame": 50,
+      "remote_birth_location": 100007,
+      "remote_input_r": 0.0025889112048949484,
+      "kind": "return_after_gap",
+      "returned_r": 0.0016093083351247405,
+      "near_target": true,
+      "censor_participates": true,
+      "current_censor": 0.001,
+      "last_prediction_frame": 53,
+      "gap": 1,
+      "last_local_r": 0.00012224320263081007,
+      "last_local_opportunity": true,
+      "last_final_r": 0.00046034033364196144,
+      "last_refinement_old_r": 0.0013160894277236207,
+      "last_refinement_actual_r": 0.00046034033364196144,
+      "last_refinement_caused_prune": true,
+      "peer_retained_at_last_prediction": true,
+      "peer_r_at_last_prediction": 0.0013160894277236207,
+      "direct_one_frame_rebound": true
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "frame": 54,
+      "robot": 2,
+      "birth_frame": 48,
+      "birth_location": 100006,
+      "remote_birth_frame": 48,
+      "remote_birth_location": 100006,
+      "remote_input_r": 0.002963071046023491,
+      "kind": "return_after_gap",
+      "returned_r": 0.0017218061341192543,
+      "near_target": true,
+      "censor_participates": true,
+      "current_censor": 0.001,
+      "last_prediction_frame": 53,
+      "gap": 1,
+      "last_local_r": 0.0001362440180439161,
+      "last_local_opportunity": true,
+      "last_final_r": 0.0007771384023565397,
+      "last_refinement_old_r": 0.002103538370193968,
+      "last_refinement_actual_r": 0.0007771384023565397,
+      "last_refinement_caused_prune": true,
+      "peer_retained_at_last_prediction": true,
+      "peer_r_at_last_prediction": 0.004419486250647328,
+      "direct_one_frame_rebound": true
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "frame": 54,
+      "robot": 2,
+      "birth_frame": 49,
+      "birth_location": 100006,
+      "remote_birth_frame": 49,
+      "remote_birth_location": 100006,
+      "remote_input_r": 0.005040271915748333,
+      "kind": "return_after_gap",
+      "returned_r": 0.0022468010428546513,
+      "near_target": true,
+      "censor_participates": true,
+      "current_censor": 0.001,
+      "last_prediction_frame": 53,
+      "gap": 1,
+      "last_local_r": 0.00014840504233641386,
+      "last_local_opportunity": true,
+      "last_final_r": 0.0009651982608665507,
+      "last_refinement_old_r": 0.002502697400611774,
+      "last_refinement_actual_r": 0.0009651982608665507,
+      "last_refinement_caused_prune": true,
+      "peer_retained_at_last_prediction": true,
+      "peer_r_at_last_prediction": 0.006249368457556675,
+      "direct_one_frame_rebound": true
+    }
+  ],
+  "event_rows": 269180,
+  "freeze_sha256": "7fa2b51644d382672120e49a8a85985065b40badd542a877d54509b26da6931d"
+}

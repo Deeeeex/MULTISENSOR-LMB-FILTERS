@@ -1,0 +1,13 @@
+REENTRY CENSUS reliable marked_gaussian_evidence 26967 events
+REENTRY CENSUS reliable marked_gaussian_evidence_known_censor 21966 events
+REENTRY CENSUS reliable marked_gaussian_evidence_guarded_scalar 32597 events
+REENTRY CENSUS reliable marked_gaussian_evidence_guarded_scalar_known_censor 25081 events
+REENTRY CENSUS reliable marked_lineage 20789 events
+REENTRY CENSUS reliable marked_lineage_known_censor 17258 events
+REENTRY CENSUS intermittent marked_gaussian_evidence 29575 events
+REENTRY CENSUS intermittent marked_gaussian_evidence_known_censor 21225 events
+REENTRY CENSUS intermittent marked_gaussian_evidence_guarded_scalar 34498 events
+REENTRY CENSUS intermittent marked_gaussian_evidence_guarded_scalar_known_censor 22731 events
+REENTRY CENSUS intermittent marked_lineage 8836 events
+REENTRY CENSUS intermittent marked_lineage_known_censor 7657 events
+REENTRY CENSUS COMPLETE 269180 events

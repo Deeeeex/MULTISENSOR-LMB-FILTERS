@@ -1,0 +1,7 @@
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_gaussian_evidence
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_gaussian_evidence_guarded_scalar
+AUDITED KNOWN CENSOR known_censor_controls reliable marked_lineage
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_gaussian_evidence
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_gaussian_evidence_guarded_scalar
+AUDITED KNOWN CENSOR known_censor_controls intermittent marked_lineage
+KNOWN CENSOR NATIVE AUDIT PASSED known_censor_controls 2880 robot frames

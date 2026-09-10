@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-10T03:34:31.460837+00:00",
+  "cells": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "sha256": "c7947443d550efb091419d9e4a713556b4a675a64badf98931e3d9da10e06a50"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_gaussian_evidence_known_censor.json.gz",
+      "sha256": "8fdf56b610ed3a065737d223d8fb0f87771605a7b26b522a72f4f7bb6811fce1"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "0d97ebbfad50da6d13272a4f15c844ae46c3f09e23c4707087d687fcf0a6c794"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz",
+      "sha256": "9d6dc7c77405f2a1e79c52a8457b724bc4c7d5a93dae5c2b5773ec71a4a3d2f5"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage.json.gz",
+      "sha256": "a6bacb9af6bd9c8221330c1c0945e1d991e60f8ef310ff27ceaabbad97d347db"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_lineage_known_censor.json.gz",
+      "sha256": "3832f3b74fad578e1a3e0fd9ca356a3f73e1347f31a461e33b37670c65cce592"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+      "sha256": "285f932389ce4eeead38993a5e313747c4ee89190c1163b5aed4c8a9af1b233e"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_gaussian_evidence_known_censor.json.gz",
+      "sha256": "364d583b07df33ca024f3da568ed50c3094512fd5d3fcf9d9fc288cdd8ad829c"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "e365f66e0d9b942c93bf1e39b069dcf2a88dc7c821a821e62e940294693f93ba"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz",
+      "sha256": "be085ab9366a60544b8f7385bc1193f7decaabc7b5886c8d93bcfcda8399b7e1"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "mode": "controls",
+      "path": "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage.json.gz",
+      "sha256": "802d29e13a9d0233f08b4648c32c4efbee3f879e743d3ebeeffcfa95b5cb891d"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_known_censor",
+      "mode": "refined",
+      "path": "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_lineage_known_censor.json.gz",
+      "sha256": "5bfc5002dffa37b8dca1888d201e2a6c561e4a4b4cea9a6befb64f3a8e1b248d"
+    }
+  ],
+  "source_sha256": {
+    "trials/icra_known_censor/FINAL_VERIFICATION.json": "07b757606c3316832672527f06ffc62ff46c61aa952670d1e51dc3ef8afbf2d9",
+    "trials/icra_known_censor/RESULTS.json": "e805b5109efa0e64932d901f2d4bcd4e1b3dbb50c9c562e430d6e6c42316f9eb",
+    "trials/icra_known_censor/reentry/PROTOCOL.md": "c70353aac70410175004e106675b558ed8fa0bb689646e4db1480d0c6c13f929",
+    "trials/icra_known_censor/reentry/register.py": "ea24803b3852ad3d65b0fb26b2713e8d6dcbf1269f800f750738bf77217ac87a",
+    "trials/icra_known_censor/reentry/verify.py": "912f270e581bc13552ff01728334efbacfbf556977557d4e784c88eab77b7f1a",
+    "trials/icra_known_censor/reentry/report.py": "81dd11fe4e6e25776a0545c04254b06f3f62bb0ae659b9be6df2b20edd971ce5",
+    "trials/icra_known_censor/reentry/analyze.py": "990fcd8adae3b28699b470befa798b77746e3d8928ed08301211897c1a667513",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence.json.gz": "c7947443d550efb091419d9e4a713556b4a675a64badf98931e3d9da10e06a50",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_gaussian_evidence_known_censor.json.gz": "8fdf56b610ed3a065737d223d8fb0f87771605a7b26b522a72f4f7bb6811fce1",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz": "0d97ebbfad50da6d13272a4f15c844ae46c3f09e23c4707087d687fcf0a6c794",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz": "9d6dc7c77405f2a1e79c52a8457b724bc4c7d5a93dae5c2b5773ec71a4a3d2f5",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_reliable_marked_lineage.json.gz": "a6bacb9af6bd9c8221330c1c0945e1d991e60f8ef310ff27ceaabbad97d347db",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_reliable_marked_lineage_known_censor.json.gz": "3832f3b74fad578e1a3e0fd9ca356a3f73e1347f31a461e33b37670c65cce592",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz": "285f932389ce4eeead38993a5e313747c4ee89190c1163b5aed4c8a9af1b233e",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_gaussian_evidence_known_censor.json.gz": "364d583b07df33ca024f3da568ed50c3094512fd5d3fcf9d9fc288cdd8ad829c",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz": "e365f66e0d9b942c93bf1e39b069dcf2a88dc7c821a821e62e940294693f93ba",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz": "be085ab9366a60544b8f7385bc1193f7decaabc7b5886c8d93bcfcda8399b7e1",
+    "trials/icra_known_censor/results/known_censor_controls/v2xt_0001_intermittent_marked_lineage.json.gz": "802d29e13a9d0233f08b4648c32c4efbee3f879e743d3ebeeffcfa95b5cb891d",
+    "trials/icra_known_censor/results/known_censor_refined/v2xt_0001_intermittent_marked_lineage_known_censor.json.gz": "5bfc5002dffa37b8dca1888d201e2a6c561e4a4b4cea9a6befb64f3a8e1b248d"
+  },
+  "exposed_diagnostic": true,
+  "native_changes": false,
+  "frames": 240,
+  "threshold": 0.001,
+  "truth_id": 5,
+  "range_m": 2.0,
+  "window": [
+    53,
+    122
+  ]
+}
