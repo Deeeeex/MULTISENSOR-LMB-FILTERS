@@ -1,0 +1,13 @@
+MOTIVATING TRACE CHECKED reliable original marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED reliable original marked_lineage 480 robot frames
+MOTIVATING TRACE CHECKED reliable local marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED reliable local marked_lineage 480 robot frames
+MOTIVATING TRACE CHECKED reliable shared marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED reliable shared marked_lineage 480 robot frames
+MOTIVATING TRACE CHECKED intermittent original marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED intermittent original marked_lineage 480 robot frames
+MOTIVATING TRACE CHECKED intermittent local marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED intermittent local marked_lineage 480 robot frames
+MOTIVATING TRACE CHECKED intermittent shared marked_gaussian_evidence 480 robot frames
+MOTIVATING TRACE CHECKED intermittent shared marked_lineage 480 robot frames
+MOTIVATING TRACE VERIFIED 5760 robot frames

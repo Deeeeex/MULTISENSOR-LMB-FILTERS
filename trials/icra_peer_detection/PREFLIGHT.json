@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "fixtures": {
+    "exact_assignment_cases": 6,
+    "support_cases": 7,
+    "source_permutation": true,
+    "excluded_and_absent_zero": true,
+    "stale_current_mass_zero": true,
+    "conditional_joint_order": true,
+    "scalar_endpoint_order": true
+  },
+  "checks": [
+    {
+      "cell": {
+        "dataset": "v2v_development",
+        "sequence": "0000",
+        "condition": "reliable",
+        "backend": "GCE",
+        "path": "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz",
+        "sha256": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+        "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+        "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+        "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat"
+      },
+      "fusion_labels": 3210,
+      "unchanged_distribution_exact": true
+    },
+    {
+      "cell": {
+        "dataset": "v2v_development",
+        "sequence": "0000",
+        "condition": "reliable",
+        "backend": "Guarded Scalar",
+        "path": "trials/icra_reviewer_revision/results/controls_development/0000_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+        "sha256": "fd33b8876365a19b79a629993fa994a590c92e955a64718e9433df27c8dc3123",
+        "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+        "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+        "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat"
+      },
+      "fusion_labels": 3210,
+      "unchanged_distribution_exact": true
+    }
+  ],
+  "parsed_python": [
+    "trace_motivation.py",
+    "screen.py",
+    "register.py",
+    "peer_math.py",
+    "execute_screen.py",
+    "make_ports.py",
+    "verify_screen.py",
+    "finish.py",
+    "preflight.py"
+  ],
+  "preselection": "Only original rule evaluated, no alternate scores",
+  "source_sha256": {
+    "trials/icra_peer_detection/trace_motivation.py": "fb25b8ae496d3142eaef0092c377f5321b5b90b9bf014b22a661eea185e36932",
+    "trials/icra_peer_detection/screen.py": "3dc5b7b205ffd460a878d8f0e6f71cff59295c7ff41284c5a0d645c4eb37114e",
+    "trials/icra_peer_detection/register.py": "5db33a510c919a57856804c419c1213a8d2c512b2fe87e62aa3f0ac00b09081f",
+    "trials/icra_peer_detection/peer_math.py": "b7b16c1cf79c8f95c4f950f27f6845b9a4dd9acff45dbebca33c2968fba3b58f",
+    "trials/icra_peer_detection/execute_screen.py": "2fce8677688dc3a71d870bea2bda6f88e771cb92acc810989a4fce3476b61420",
+    "trials/icra_peer_detection/make_ports.py": "851dea5864d7968a82c24edee6939a8ad9c8b65e10b8250115fa47aaf756c2b7",
+    "trials/icra_peer_detection/verify_screen.py": "4852235ff1069be2d0bf38375f2ea9b5ad37f19ff354e3c5766107475aba181c",
+    "trials/icra_peer_detection/finish.py": "d3bed709df9c513ad73dffab8831cf5328f993ecf496b151f5017e589b285fac",
+    "trials/icra_peer_detection/preflight.py": "a1a58468021b032a8f1a9fc5ede286f448ba444469618356adc42df78a23d735"
+  }
+}

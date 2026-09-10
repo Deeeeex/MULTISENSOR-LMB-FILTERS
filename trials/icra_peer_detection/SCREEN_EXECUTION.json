@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-09-10T05:38:19.485721+00:00",
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "/Users/dex/Desktop/Code/icra27/trials/icra_peer_detection/screen.py"
+  ],
+  "source_sha256": "2fce8677688dc3a71d870bea2bda6f88e771cb92acc810989a4fce3476b61420",
+  "freeze_sha256": "f9763c180e50cfd3f4127446da8694a36d330ef37187b6dbdf44e4cff31de0e9",
+  "log": "RUN/ICRA_PEER_DETECTION/screen.log",
+  "pid": 72003,
+  "returncode": 0,
+  "ended_utc": "2026-09-10T05:39:40.793254+00:00",
+  "log_sha256": "253a94487c0474e34a2ac5f5bcfb18194b10953a8903b037e283f961381625f3"
+}

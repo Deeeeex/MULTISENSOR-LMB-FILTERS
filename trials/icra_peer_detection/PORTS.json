@@ -1,0 +1,70 @@
+[
+  {
+    "source": "trials/icra_joint_admission/screen.py",
+    "source_sha256": "83f545b6e25fa9d2e2561f29da6fac3c365b191386d2ec51f56c284858b29201",
+    "target": "trials/icra_peer_detection/screen.py",
+    "target_sha256": "3dc5b7b205ffd460a878d8f0e6f71cff59295c7ff41284c5a0d645c4eb37114e",
+    "changes": [
+      {
+        "before": "from joint_math import RULES, check_fixtures, source_state, calculate, audit_raw_weights",
+        "after": "from peer_math import RULES, check_fixtures, source_state, calculate, audit_raw_weights"
+      },
+      {
+        "before": "cfg['primary'] == 'joint'",
+        "after": "cfg['primary'] == 'peer_joint'"
+      },
+      {
+        "before": "    gates = []\n    for dataset in ['v2v_development','v2x_val']:\n        primary = lookup[dataset,'GCE','joint']['selection_mean_ospa']\n        for reference in cfg['references']:\n            ref = lookup[dataset,'GCE',reference]['selection_mean_ospa']\n            gates.append(dict(dataset=dataset, reference=reference, candidate_mean=primary,\n                              reference_mean=ref, difference=primary-ref, passed=primary < ref))\n",
+        "after": "    gates = []\n    for dataset in ['v2v_development','v2x_val']:\n        for condition in cfg['conditions']:\n            for metric in ['ospa','gospa']:\n                primary=lookup[dataset,'GCE','peer_joint']['conditions'][condition][metric]\n                ref=lookup[dataset,'GCE','original']['conditions'][condition][metric]\n                gates.append(dict(dataset=dataset,condition=condition,metric=metric,reference='original',\n                    candidate_mean=primary,reference_mean=ref,difference=primary-ref,\n                    passed=primary<ref if metric=='ospa' else primary<=ref))\n"
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_joint_admission/execute_screen.py",
+    "source_sha256": "0de3f91a635345118d7564e6b0050de3931a88865efb2db50372b3b43d33a3db",
+    "target": "trials/icra_peer_detection/execute_screen.py",
+    "target_sha256": "2fce8677688dc3a71d870bea2bda6f88e771cb92acc810989a4fce3476b61420",
+    "changes": [
+      {
+        "before": "RUN/ICRA_JOINT_ADMISSION/screen.log",
+        "after": "RUN/ICRA_PEER_DETECTION/screen.log"
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_joint_admission/verify_screen.py",
+    "source_sha256": "ae8a6347ecb918f5c2048d7f632ba7a5733d6274a2f0dc3f1c4790b31f8c017c",
+    "target": "trials/icra_peer_detection/verify_screen.py",
+    "target_sha256": "4852235ff1069be2d0bf38375f2ea9b5ad37f19ff354e3c5766107475aba181c",
+    "changes": [
+      {
+        "before": "RULES = ['original','joint_mark','conditional','joint']",
+        "after": "RULES = ['original','peer_conditional','peer_joint','no_negative']"
+      },
+      {
+        "before": "    good = np.ones(present.shape,bool)",
+        "after": "    conditional=np.zeros_like(support);peer_joint=np.zeros_like(support)\n    good = np.ones(present.shape,bool)"
+      },
+      {
+        "before": "            support[i,s] = (row[8] if rule == 'original' else row[5]*row[8] if rule == 'joint_mark'\n                            else row[9] if rule == 'conditional' else row[5]*row[9])",
+        "after": "            support[i,s]=row[8];conditional[i,s]=row[9];peer_joint[i,s]=row[5]*row[9]"
+      },
+      {
+        "before": "    raw = joint[:,None]*(active-rec[:,28:30])*np.where(rec[:,19:21]>=0,support,rec[:,35:37])",
+        "after": "    conditional[~active]=0;peer_joint[~active]=0\n    retention=np.ones_like(support)\n    for i in range(len(rec)):\n        for s in range(2):\n            if rule=='no_negative':retention[i,s]=0.\n            elif rule=='peer_conditional':retention[i,s]=1-conditional[i,1-s]\n            elif rule=='peer_joint':retention[i,s]=1-peer_joint[i,1-s]\n    negative=rec[:,35:37]*retention\n    assert np.all((retention>=0)&(retention<=1))\n    raw = joint[:,None]*(active-rec[:,28:30])*np.where(rec[:,19:21]>=0,support,negative)"
+      },
+      {
+        "before": "    return rec,dict(r=r,mean=mean,covariance=covariance,log_integral=log_i,\n                    kept=kept,allowed=allowed,fallback=fallback,positive=support)",
+        "after": "    unchanged=np.all(kept==rec[:,52:54],axis=1)\n    assert np.allclose(r[unchanged],rec[unchanged,9],atol=2e-10,rtol=0)\n    assert np.allclose(mean[unchanged],mean_actual[unchanged],atol=1e-7,rtol=0)\n    assert np.allclose(covariance[unchanged],covariance_actual[unchanged],atol=1e-7,rtol=0)\n    if rule=='original':assert unchanged.all()\n    r[unchanged]=rec[unchanged,9];mean[unchanged]=mean_actual[unchanged];covariance[unchanged]=covariance_actual[unchanged]\n    log_i[unchanged]=rec[unchanged,10 if scalar else 56]\n    return rec,dict(r=r,mean=mean,covariance=covariance,log_integral=log_i,\n                    kept=kept,allowed=allowed,fallback=fallback,positive=support,negative=negative,\n                    retention=retention,conditional=conditional,peer_joint=peer_joint,unchanged=unchanged)"
+      },
+      {
+        "before": "if key in ['allowed','fallback']:",
+        "after": "if key in ['allowed','fallback','unchanged']:"
+      },
+      {
+        "before": "    gates=[]\n    for dataset in ['v2v_development','v2x_val']:\n        values={}\n        for rule in ['joint','original','conditional']:\n            group=[r for r in rebuilt_rows if (r['dataset'],r['backend'],r['rule'])==(dataset,'GCE',rule)]\n            assert len(group)==(18 if dataset=='v2v_development' else 10)\n            values[rule]=math.fsum(r['ospa'] for r in group)/len(group)\n        for reference in ['original','conditional']:\n            gate=dict(dataset=dataset,reference=reference,difference=values['joint']-values[reference],passed=values['joint']<values[reference])\n            expected=next(g for g in report['gates'] if (g['dataset'],g['reference'])==(dataset,reference))\n            assert gate['passed']==expected['passed'] and abs(gate['difference']-expected['difference'])<1e-7\n            gates.append(gate)\n",
+        "after": "    gates=[]\n    for dataset in ['v2v_development','v2x_val']:\n        for condition in ['reliable','intermittent']:\n            for metric in ['ospa','gospa']:\n                values={}\n                for rule in ['peer_joint','original']:\n                    group=[r for r in rebuilt_rows if (r['dataset'],r['backend'],r['condition'],r['rule'])==(dataset,'GCE',condition,rule)]\n                    assert len(group)==(9 if dataset=='v2v_development' else 5)\n                    values[rule]=math.fsum(r[metric] for r in group)/len(group)\n                gate=dict(dataset=dataset,condition=condition,metric=metric,reference='original',\n                    difference=values['peer_joint']-values['original'],\n                    passed=values['peer_joint']<values['original'] if metric=='ospa' else values['peer_joint']<=values['original'])\n                expected=next(g for g in report['gates'] if (g['dataset'],g['condition'],g['metric'])==(dataset,condition,metric))\n                assert gate['passed']==expected['passed'] and abs(gate['difference']-expected['difference'])<1e-7\n                gates.append(gate)\n"
+      }
+    ]
+  }
+]
