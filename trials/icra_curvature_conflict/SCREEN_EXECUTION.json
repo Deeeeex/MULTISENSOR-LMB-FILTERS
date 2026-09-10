@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-09-10T01:16:22.795457+00:00",
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "/Users/dex/Desktop/Code/icra27/trials/icra_curvature_conflict/screen.py"
+  ],
+  "source_sha256": "ba69706ba54f37d9ec30ef386f789a2d3d7713ebf19de3a6fab203c67a4b11e7",
+  "freeze_sha256": "1d779147317a344673233387007f91fc6566bc9c52df2189386c9cd7b5df6d80",
+  "log": "RUN/ICRA_CURVATURE_CONFLICT/screen.log",
+  "pid": 73540,
+  "returncode": 1,
+  "ended_utc": "2026-09-10T01:16:23.614643+00:00",
+  "log_sha256": "4dc2f8ad83eb6575e71f69930053105d8cab3f95a961faa37aefefbc48926118"
+}

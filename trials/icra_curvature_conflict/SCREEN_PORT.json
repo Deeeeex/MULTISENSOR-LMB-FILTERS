@@ -1,0 +1,71 @@
+{
+  "screen.py": {
+    "source": "trials/icra_joint_admission/screen.py",
+    "source_sha256": "83f545b6e25fa9d2e2561f29da6fac3c365b191386d2ec51f56c284858b29201",
+    "output_sha256": "f0643361a60b3b677b7b18f40290b51547dcdf5c26dea35e747250a7d1bd6b80",
+    "replacements": [
+      {
+        "old": "from scipy.io import loadmat\n",
+        "new": ""
+      },
+      {
+        "old": "from joint_math import RULES, check_fixtures, source_state, calculate, audit_raw_weights",
+        "new": "from conflict_math import RULES, check_fixtures, source_state, calculate"
+      },
+      {
+        "old": "cfg['primary'] == 'joint'",
+        "new": "cfg['primary'] == 'paired_veto'"
+      },
+      {
+        "old": "        ratio = loadmat(ROOT / cell['ratios_path'])['likelihoodRatios']\n        raw = audit_raw_weights(data, state, ratio)",
+        "new": "        raw = dict(rechecked_here=False, earlier_audit='icra_joint_admission/WEIGHT_ARITHMETIC_VERIFICATION.json')"
+      },
+      {
+        "old": "    gates = []\n    for dataset in ['v2v_development','v2x_val']:\n        primary = lookup[dataset,'GCE','joint']['selection_mean_ospa']\n        for reference in cfg['references']:\n            ref = lookup[dataset,'GCE',reference]['selection_mean_ospa']\n            gates.append(dict(dataset=dataset, reference=reference, candidate_mean=primary,\n                              reference_mean=ref, difference=primary-ref, passed=primary < ref))\n",
+        "new": "    gates = []\n    for dataset in ['v2v_development','v2x_val']:\n        for condition in cfg['conditions']:\n            primary=lookup[dataset,'GCE','paired_veto']['conditions'][condition]['ospa']\n            ref=lookup[dataset,'GCE','original']['conditions'][condition]['ospa']\n            gates.append(dict(dataset=dataset,condition=condition,reference='original',\n                candidate_mean=primary,reference_mean=ref,difference=primary-ref,passed=primary<ref))\n"
+      }
+    ]
+  },
+  "execute_screen.py": {
+    "source": "trials/icra_joint_admission/execute_screen.py",
+    "source_sha256": "0de3f91a635345118d7564e6b0050de3931a88865efb2db50372b3b43d33a3db",
+    "output_sha256": "ba69706ba54f37d9ec30ef386f789a2d3d7713ebf19de3a6fab203c67a4b11e7",
+    "replacements": [
+      {
+        "old": "RUN/ICRA_JOINT_ADMISSION/screen.log",
+        "new": "RUN/ICRA_CURVATURE_CONFLICT/screen.log"
+      }
+    ]
+  },
+  "verify_screen.py": {
+    "source": "trials/icra_joint_admission/verify_screen.py",
+    "source_sha256": "ae8a6347ecb918f5c2048d7f632ba7a5733d6274a2f0dc3f1c4790b31f8c017c",
+    "output_sha256": "5e0ca9ceb3a20792814aac01ce9e5799e4cd9c6e8d3d9467154d3ea0a7aa6f9f",
+    "replacements": [
+      {
+        "old": "RULES = ['original','joint_mark','conditional','joint']",
+        "new": "RULES = ['original','paired_veto','positive_rejected_veto','negative_rejected_veto']"
+      },
+      {
+        "old": "            support[i,s] = (row[8] if rule == 'original' else row[5]*row[8] if rule == 'joint_mark'\n                            else row[9] if rule == 'conditional' else row[5]*row[9])",
+        "new": "            support[i,s] = row[8]"
+      },
+      {
+        "old": "    root = np.linalg.cholesky(j)\n",
+        "new": "    # Determine sign-loss events from independently rebuilt original admission.\n    positive_rejected=np.zeros(len(rec),bool); negative_rejected=np.zeros(len(rec),bool)\n    for i in range(len(rec)):\n        rejected_signs=[np.sign(rec[i,19+s]) for s in range(2) if raw[i,s]>0 and not allowed[i,s]]\n        accepted_signs=[np.sign(rec[i,19+s]) for s in range(2) if kept[i,s]>0]\n        positive_rejected[i]=1 in rejected_signs and -1 in accepted_signs\n        negative_rejected[i]=-1 in rejected_signs and 1 in accepted_signs\n    trigger=np.zeros(len(rec),bool)\n    if rule in ['paired_veto','positive_rejected_veto']: trigger |= positive_rejected\n    if rule in ['paired_veto','negative_rejected_veto']: trigger |= negative_rejected\n    kept[trigger]=0\n    j[trigger],h[trigger],c[trigger]=base_j[trigger],base_h[trigger],base_c[trigger]\n    root = np.linalg.cholesky(j)\n"
+      },
+      {
+        "old": "    return rec,dict(r=r,mean=mean,covariance=covariance,log_integral=log_i,\n                    kept=kept,allowed=allowed,fallback=fallback,positive=support)",
+        "new": "    # Original reconstruction must match before enforcing exact no-op storage.\n    unchanged=~trigger\n    assert np.allclose(r[unchanged],rec[unchanged,9],atol=2e-10,rtol=0)\n    assert np.allclose(mean[unchanged],mean_actual[unchanged],atol=1e-7,rtol=0)\n    assert np.allclose(covariance[unchanged],covariance_actual[unchanged],atol=1e-7,rtol=0)\n    assert np.allclose(kept[unchanged],rec[unchanged,52:54],atol=2e-14,rtol=0)\n    r[unchanged]=rec[unchanged,9]; mean[unchanged]=mean_actual[unchanged]\n    covariance[unchanged]=covariance_actual[unchanged]\n    log_i[unchanged]=rec[unchanged,10 if scalar else 56]\n    return rec,dict(r=r,mean=mean,covariance=covariance,log_integral=log_i,\n                    kept=kept,allowed=allowed,fallback=fallback,positive=support,\n                    positive_rejected=positive_rejected,negative_rejected=negative_rejected,trigger=trigger)"
+      },
+      {
+        "old": "if key in ['allowed','fallback']:",
+        "new": "if key in ['allowed','fallback','positive_rejected','negative_rejected','trigger']:"
+      },
+      {
+        "old": "    gates=[]\n    for dataset in ['v2v_development','v2x_val']:\n        values={}\n        for rule in ['joint','original','conditional']:\n            group=[r for r in rebuilt_rows if (r['dataset'],r['backend'],r['rule'])==(dataset,'GCE',rule)]\n            assert len(group)==(18 if dataset=='v2v_development' else 10)\n            values[rule]=math.fsum(r['ospa'] for r in group)/len(group)\n        for reference in ['original','conditional']:\n            gate=dict(dataset=dataset,reference=reference,difference=values['joint']-values[reference],passed=values['joint']<values[reference])\n            expected=next(g for g in report['gates'] if (g['dataset'],g['reference'])==(dataset,reference))\n            assert gate['passed']==expected['passed'] and abs(gate['difference']-expected['difference'])<1e-7\n            gates.append(gate)\n",
+        "new": "    gates=[]\n    for dataset in ['v2v_development','v2x_val']:\n        for condition in ['reliable','intermittent']:\n            values={}\n            for rule in ['paired_veto','original']:\n                group=[r for r in rebuilt_rows if (r['dataset'],r['backend'],r['condition'],r['rule'])==(dataset,'GCE',condition,rule)]\n                assert len(group)==(9 if dataset=='v2v_development' else 5)\n                values[rule]=math.fsum(r['ospa'] for r in group)/len(group)\n            gate=dict(dataset=dataset,condition=condition,reference='original',difference=values['paired_veto']-values['original'],passed=values['paired_veto']<values['original'])\n            expected=next(g for g in report['gates'] if (g['dataset'],g['condition'])==(dataset,condition))\n            assert gate['passed']==expected['passed'] and abs(gate['difference']-expected['difference'])<1e-7\n            gates.append(gate)\n"
+      }
+    ]
+  }
+}

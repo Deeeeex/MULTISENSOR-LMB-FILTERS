@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_curvature_conflict/screen.py", line 115, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_curvature_conflict/screen.py", line 49, in main
+    alternate, values, diag = calculate(state, rule, cell['backend'] == 'Guarded Scalar')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_curvature_conflict/conflict_math.py", line 65, in calculate
+    assert np.array_equal(candidate[~trigger],rec[~trigger])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

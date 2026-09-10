@@ -1,0 +1,81 @@
+{
+  "reason": "Absent-source existence fields are JSON null / NumPy NaN; array_equal falsely rejected byte-identical records.",
+  "evidence": {
+    "first_source_rows": 3210,
+    "missing_rows_per_column": {
+      "17": 244,
+      "18": 244
+    },
+    "nonmissing_mismatches": 0,
+    "entire_record_bytes_identical": true,
+    "completed_artifacts": 0
+  },
+  "change": "Only the unchanged-row assertion uses exact byte comparison. Formula, event logic, protocol, cohorts and gates are unchanged.",
+  "ports": {
+    "conflict_math_v2.py": {
+      "source": "conflict_math.py",
+      "source_sha256": "f33b68ae9d5ebd350ae61bcc2597bae05b3556e35bb91cd6cd0bc74174fcd073",
+      "output_sha256": "dd575fecc06b5cac4d58f379cd125922b40ef07ab79c21fc8c38dd2bcd0f655b",
+      "patches": [
+        [
+          "assert np.array_equal(candidate[~trigger],rec[~trigger])",
+          "assert candidate[~trigger].tobytes() == rec[~trigger].tobytes()"
+        ]
+      ]
+    },
+    "screen_v2.py": {
+      "source": "screen.py",
+      "source_sha256": "f0643361a60b3b677b7b18f40290b51547dcdf5c26dea35e747250a7d1bd6b80",
+      "output_sha256": "6a51ce491a73dfc8d7c3969a31e8052e036ebea2e7f5e90550e02194d2eb7e47",
+      "patches": [
+        [
+          "from conflict_math import",
+          "from conflict_math_v2 import"
+        ],
+        [
+          "OUT / 'SCREEN_FREEZE.json'",
+          "OUT / 'SCREEN_FREEZE_V2.json'"
+        ]
+      ]
+    },
+    "execute_screen_v2.py": {
+      "source": "execute_screen.py",
+      "source_sha256": "ba69706ba54f37d9ec30ef386f789a2d3d7713ebf19de3a6fab203c67a4b11e7",
+      "output_sha256": "ca4d3bc383cfae4412337ca3275bb1fabb71c826166122f185baca8e9e3994b0",
+      "patches": [
+        [
+          "'SCREEN_EXECUTION.json'",
+          "'SCREEN_EXECUTION_V2.json'"
+        ],
+        [
+          "screen.log",
+          "screen_v2.log"
+        ],
+        [
+          "'SCREEN_FREEZE.json'",
+          "'SCREEN_FREEZE_V2.json'"
+        ],
+        [
+          "'screen.py'",
+          "'screen_v2.py'"
+        ]
+      ]
+    },
+    "verify_screen_v2.py": {
+      "source": "verify_screen.py",
+      "source_sha256": "5e0ca9ceb3a20792814aac01ce9e5799e4cd9c6e8d3d9467154d3ea0a7aa6f9f",
+      "output_sha256": "80bda7273294c3009d46346e41814f270550b465529c1c05be60c9e54e3db77d",
+      "patches": [
+        [
+          "'SCREEN_FREEZE.json'",
+          "'SCREEN_FREEZE_V2.json'"
+        ],
+        [
+          "'SCREEN_EXECUTION.json'",
+          "'SCREEN_EXECUTION_V2.json'"
+        ]
+      ]
+    }
+  },
+  "failed_execution_sha256": "f1551310197a6f22fb26643eaf96346f78fc1c401ce245fa9c70c8584de9e76e"
+}
