@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "diagnostic_only": true,
+  "root_label": [
+    3,
+    100004
+  ],
+  "robot_frames": 960,
+  "groups": [
+    {
+      "condition": "reliable",
+      "robot": 1,
+      "frames": 240,
+      "negative_reversals": 13,
+      "positive_reversals": 0,
+      "negative_spans": [
+        [
+          4,
+          4
+        ],
+        [
+          45,
+          56
+        ]
+      ],
+      "positive_spans": []
+    },
+    {
+      "condition": "reliable",
+      "robot": 2,
+      "frames": 240,
+      "negative_reversals": 13,
+      "positive_reversals": 0,
+      "negative_spans": [
+        [
+          4,
+          4
+        ],
+        [
+          45,
+          56
+        ]
+      ],
+      "positive_spans": []
+    },
+    {
+      "condition": "intermittent",
+      "robot": 1,
+      "frames": 240,
+      "negative_reversals": 9,
+      "positive_reversals": 1,
+      "negative_spans": [
+        [
+          4,
+          4
+        ],
+        [
+          46,
+          52
+        ],
+        [
+          55,
+          55
+        ]
+      ],
+      "positive_spans": [
+        [
+          191,
+          191
+        ]
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "robot": 2,
+      "frames": 240,
+      "negative_reversals": 8,
+      "positive_reversals": 2,
+      "negative_spans": [
+        [
+          4,
+          4
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          49,
+          50
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          55,
+          55
+        ]
+      ],
+      "positive_spans": [
+        [
+          187,
+          187
+        ],
+        [
+          191,
+          191
+        ]
+      ]
+    }
+  ],
+  "scope": "Original states only; all frames and both links; not an intervention or selection input",
+  "freeze_sha256": "b125e46ade36b42810b6307ca57b217ae5605d3d0cda506d6ade2d896a61e7d3",
+  "source_sha256": "77ce5011502a6a719af57340a8f50373fb3231c20e805e0469e0c9d67112e7f4",
+  "table_sha256": "edd7b5aa7c5c047e29b16052d96692229e0eca966fc1fce08d1f545b12a672b4",
+  "source_table_sha256": "c71c8ed5dd0bcc0dd5ee4cf799f847479ee642369dfb8547aa7efd84e571eb25",
+  "native_inputs": {
+    "reliable": {
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "sha256": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8"
+    },
+    "intermittent": {
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+      "sha256": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384"
+    }
+  },
+  "source_checks": [
+    {
+      "condition": "reliable",
+      "fusion_distributions": 68210
+    },
+    {
+      "condition": "intermittent",
+      "fusion_distributions": 70539
+    }
+  ]
+}

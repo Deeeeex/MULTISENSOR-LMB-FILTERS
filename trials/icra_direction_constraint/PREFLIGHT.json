@@ -1,0 +1,182 @@
+{
+  "passed": true,
+  "scope": "Frozen two-input density parity; no output-set scores",
+  "checks": [
+    {
+      "cell": {
+        "dataset": "v2v_development",
+        "sequence": "0000",
+        "condition": "reliable",
+        "backend": "GCE",
+        "path": "trials/icra_temporal_association/results/association_instrumentation_development/0000_reliable_marked_gaussian_evidence.json.gz",
+        "sha256": "c5e285d684a42dd1e6452946c70ad7fa3f7872bf1c66a1ab69723c1b7b6e6ef5",
+        "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+        "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+        "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat"
+      },
+      "rules": [
+        {
+          "rule": "original",
+          "fusion_labels": 3210,
+          "changed_labels": 0,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 0,
+          "mean_multiplier_on_changed": null,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 0,
+          "mean_absolute_existence_change": 0.0
+        },
+        {
+          "rule": "nonreversal",
+          "fusion_labels": 3210,
+          "changed_labels": 8,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 8,
+          "mean_multiplier_on_changed": 0.37986961256230756,
+          "maximum_boundary_residual": 2.62234678416462e-13,
+          "increased_existence": 0,
+          "decreased_existence": 8,
+          "mean_absolute_existence_change": 1.1236590621231595e-05
+        },
+        {
+          "rule": "negative_reversal",
+          "fusion_labels": 3210,
+          "changed_labels": 0,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 0,
+          "mean_multiplier_on_changed": null,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 0,
+          "mean_absolute_existence_change": 0.0
+        },
+        {
+          "rule": "positive_reversal",
+          "fusion_labels": 3210,
+          "changed_labels": 8,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 8,
+          "mean_multiplier_on_changed": 0.37986961256230756,
+          "maximum_boundary_residual": 2.62234678416462e-13,
+          "increased_existence": 0,
+          "decreased_existence": 8,
+          "mean_absolute_existence_change": 1.1236590621231595e-05
+        }
+      ]
+    },
+    {
+      "cell": {
+        "dataset": "v2v_development",
+        "sequence": "0000",
+        "condition": "reliable",
+        "backend": "Guarded Scalar",
+        "path": "trials/icra_reviewer_revision/results/controls_development/0000_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+        "sha256": "fd33b8876365a19b79a629993fa994a590c92e955a64718e9433df27c8dc3123",
+        "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+        "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+        "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat"
+      },
+      "rules": [
+        {
+          "rule": "original",
+          "fusion_labels": 3210,
+          "changed_labels": 0,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 0,
+          "mean_multiplier_on_changed": null,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 0,
+          "mean_absolute_existence_change": 0.0
+        },
+        {
+          "rule": "nonreversal",
+          "fusion_labels": 3210,
+          "changed_labels": 8,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 8,
+          "mean_multiplier_on_changed": 0.21997682728318366,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 8,
+          "mean_absolute_existence_change": 1.4249503783327106e-05
+        },
+        {
+          "rule": "negative_reversal",
+          "fusion_labels": 3210,
+          "changed_labels": 0,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 0,
+          "mean_multiplier_on_changed": null,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 0,
+          "mean_absolute_existence_change": 0.0
+        },
+        {
+          "rule": "positive_reversal",
+          "fusion_labels": 3210,
+          "changed_labels": 8,
+          "negative_reversals": 0,
+          "positive_reversals": 8,
+          "changed_negative_reversals": 0,
+          "changed_positive_reversals": 8,
+          "mean_multiplier_on_changed": 0.21997682728318366,
+          "maximum_boundary_residual": 0.0,
+          "increased_existence": 0,
+          "decreased_existence": 8,
+          "mean_absolute_existence_change": 1.4249503783327106e-05
+        }
+      ]
+    }
+  ],
+  "fixtures": {
+    "gaussian_quadrature_and_brent": [
+      {
+        "d0": 0.4,
+        "d1": -0.9465735902799726,
+        "lambda_value": 0.2775341231788852,
+        "brent_value": 0.2775341231788852
+      },
+      {
+        "d0": -0.4,
+        "d1": 1.2534264097200274,
+        "lambda_value": 0.25722715665212265,
+        "brent_value": 0.25722715665212265
+      },
+      {
+        "d0": 0.6,
+        "d1": -2.2417847137663793,
+        "lambda_value": 0.18692107909060918,
+        "brent_value": 0.1869210790906092
+      },
+      {
+        "d0": -0.6,
+        "d1": 2.2072794062277925,
+        "lambda_value": 0.3245968089314188,
+        "brent_value": 0.3245968089314188
+      }
+    ],
+    "scalar_exact_boundary": true,
+    "directional_cases": 6,
+    "numerical_dead_band": 1e-07,
+    "bisections": 60
+  },
+  "freeze_sha256": "b125e46ade36b42810b6307ca57b217ae5605d3d0cda506d6ade2d896a61e7d3",
+  "source_sha256": "7dbf2da99c3dfbd82914863a54f559008f23594af0ab6a9360b9e8d0aaaf0fd7"
+}

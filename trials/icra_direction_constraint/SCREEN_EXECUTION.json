@@ -1,0 +1,17 @@
+{
+  "started_utc": "2026-09-10T06:16:53.853690+00:00",
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "/Users/dex/Desktop/Code/icra27/trials/icra_direction_constraint/screen.py"
+  ],
+  "source_sha256": "154519f475c5e9cbda43e4f4954c2dc69cd29742ba0e5df0dcf309911efb63bb",
+  "freeze_sha256": "b125e46ade36b42810b6307ca57b217ae5605d3d0cda506d6ade2d896a61e7d3",
+  "log": "RUN/ICRA_DIRECTION_CONSTRAINT/screen.log",
+  "preflight_sha256": "c3631406746a1ac65348dbc0b5961a594bf1e83d944d08e533c68fdb5386813a",
+  "pid": 77133,
+  "returncode": 0,
+  "ended_utc": "2026-09-10T06:18:03.343572+00:00",
+  "log_sha256": "ba32de98f184000b65775254342199ca29ddfc9eccaf18a203581743ee235e1e"
+}

@@ -1,0 +1,81 @@
+[
+  {
+    "source": "trials/icra_peer_detection/screen.py",
+    "source_sha256": "3dc5b7b205ffd460a878d8f0e6f71cff59295c7ff41284c5a0d645c4eb37114e",
+    "target": "trials/icra_direction_constraint/screen.py",
+    "target_sha256": "7cd3437e9ab0a85fafb17d9ea444c1fe8797575eefe925073fbc3f51cf13d60a",
+    "changes": [
+      {
+        "before": "from peer_math import RULES, check_fixtures, source_state, calculate, audit_raw_weights",
+        "after": "from direction_math import RULES, check_fixtures, source_state, calculate, audit_raw_weights",
+        "count": 1
+      },
+      {
+        "before": "'peer_joint'",
+        "after": "'nonreversal'",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_peer_detection/verify_screen.py",
+    "source_sha256": "4852235ff1069be2d0bf38375f2ea9b5ad37f19ff354e3c5766107475aba181c",
+    "target": "trials/icra_direction_constraint/verify_screen.py",
+    "target_sha256": "458822a2d9722bddf0c626e172541ba969fb49292bd7311df7d83637b2323612",
+    "changes": [
+      {
+        "before": "RULES = ['original','peer_conditional','peer_joint','no_negative']",
+        "after": "RULES = ['original','nonreversal','negative_reversal','positive_reversal']",
+        "count": 1
+      },
+      {
+        "before": "def rebuilt(run, rule, scalar):\n    rec = np.asarray(run['iterationRecords'],float).reshape(-1,60)\n    packets = np.asarray(run['packetGaussianRecords'],float).reshape(-1,19)\n    local = np.asarray(run['localIncrementRecords'],float).reshape(-1,12)\n    gauss = np.asarray(run['localGaussianRecords'],float).reshape(-1,32)\n    packet_map = {tuple(v[:4].astype(int)):v[4:] for v in packets}\n    local_map = {tuple(v[:4].astype(int)):v for v in local}\n    cov_map = {tuple(v[:4].astype(int)):matrix(v[22:32]) for v in gauss}\n    original = rec[:,31:35].reshape(-1,2,2).astype(int); present = original[:,:,0] > 0\n    encoded = np.zeros((len(rec),2,15)); support = np.zeros((len(rec),2))\n    conditional=np.zeros_like(support);peer_joint=np.zeros_like(support)\n    good = np.ones(present.shape,bool)\n    for i,s in np.argwhere(present):\n        t,n = map(int,rec[i,:2]); key = (t,n if s == 0 else 3-n,*original[i,s])\n        encoded[i,s] = packet_map[key]; row = local_map[key]\n        if rec[i,21+s] == t:\n            support[i,s]=row[8];conditional[i,s]=row[9];peer_joint[i,s]=row[5]*row[9]\n        posterior_j = np.linalg.solve(cov_map[key],np.eye(4)); posterior_j = (posterior_j+posterior_j.T)/2\n        increment_j = matrix(encoded[i,s,:10]); prior_j = posterior_j-increment_j\n        tolerance = 1e-10*max(1.,np.linalg.norm(posterior_j,2),np.linalg.norm(prior_j,2))\n        good[i,s] = np.linalg.eigvalsh(increment_j)[0] >= -tolerance\n    active = rec[:,13:15] > 0; joint = (active.sum(1)>=2) & ((~active)|present).all(1)\n    conditional[~active]=0;peer_joint[~active]=0\n    retention=np.ones_like(support)\n    for i in range(len(rec)):\n        for s in range(2):\n            if rule=='no_negative':retention[i,s]=0.\n            elif rule=='peer_conditional':retention[i,s]=1-conditional[i,1-s]\n            elif rule=='peer_joint':retention[i,s]=1-peer_joint[i,1-s]\n    negative=rec[:,35:37]*retention\n    assert np.all((retention>=0)&(retention<=1))\n    raw = joint[:,None]*(active-rec[:,28:30])*np.where(rec[:,19:21]>=0,support,negative)\n    called = (raw>0).any(1); allowed = (~called[:,None]) | (~present) | good; kept = raw*allowed\n    mean_actual = np.c_[rec[:,4:6],rec[:,40:42]]; covariance_actual = matrix(rec[:,42:52])\n    root = np.linalg.cholesky(covariance_actual)\n    actual_j = np.linalg.solve(covariance_actual,np.broadcast_to(np.eye(4),covariance_actual.shape))\n    actual_j = (actual_j+actual_j.swapaxes(-1,-2))/2\n    actual_h = np.einsum('nij,nj->ni',actual_j,mean_actual)\n    constant = -.5*(4*np.log(2*np.pi)+2*np.log(np.diagonal(root,axis1=-2,axis2=-1)).sum(1)\n                     +np.einsum('ni,ni->n',mean_actual,actual_h))\n    increment_j = matrix(encoded[:,:,:10]); increment_h = encoded[:,:,10:14]; increment_c = encoded[:,:,14]\n    old_kept = np.zeros_like(kept) if scalar else rec[:,52:54]\n    base_j = actual_j-np.einsum('ns,nsij->nij',old_kept,increment_j)\n    base_h = actual_h-np.einsum('ns,nsi->ni',old_kept,increment_h)\n    base_c = constant+(rec[:,10] if scalar else rec[:,56])-np.sum(old_kept*increment_c,axis=1)\n    j = base_j+np.einsum('ns,nsij->nij',kept,increment_j)\n    h = base_h+np.einsum('ns,nsi->ni',kept,increment_h)\n    c = base_c+np.sum(kept*increment_c,axis=1); j = (j+j.swapaxes(-1,-2))/2\n    fallback = np.zeros(len(rec),bool)\n    for i in np.flatnonzero(called):\n        try:\n            np.linalg.cholesky(j[i])\n            fallback[i] = (not np.isfinite(j[i]).all() or not np.isfinite(h[i]).all()\n                           or not np.isfinite(c[i]) or 1/np.linalg.cond(j[i],1)<1e-12)\n        except np.linalg.LinAlgError: fallback[i] = True\n    kept[fallback] = 0; j[fallback],h[fallback],c[fallback] = base_j[fallback],base_h[fallback],base_c[fallback]\n    root = np.linalg.cholesky(j)\n    forward = np.linalg.solve(root,h[...,None])\n    mean = np.linalg.solve(root.swapaxes(-1,-2),forward)[...,0]\n    covariance = np.linalg.solve(j,np.broadcast_to(np.eye(4),j.shape))\n    log_i = c+.5*(4*np.log(2*np.pi)-2*np.log(np.diagonal(root,axis1=-2,axis2=-1)).sum(1)+np.einsum('ni,ni->n',h,mean))\n    log_i[~(kept>0).any(1)] = rec[~(kept>0).any(1),10]\n    if scalar: mean,covariance,log_i = mean_actual,covariance_actual,rec[:,10].copy()\n    logits = np.zeros_like(kept); p = np.clip(rec[:,17:19][active],1e-9,1-1e-9)\n    logits[active] = np.log(p)-np.log1p(-p)\n    r = expit(np.sum(rec[:,28:30]*logits,axis=1)+np.sum(kept*rec[:,19:21],axis=1)+log_i)\n    unchanged=np.all(kept==rec[:,52:54],axis=1)\n    assert np.allclose(r[unchanged],rec[unchanged,9],atol=2e-10,rtol=0)\n    assert np.allclose(mean[unchanged],mean_actual[unchanged],atol=1e-7,rtol=0)\n    assert np.allclose(covariance[unchanged],covariance_actual[unchanged],atol=1e-7,rtol=0)\n    if rule=='original':assert unchanged.all()\n    r[unchanged]=rec[unchanged,9];mean[unchanged]=mean_actual[unchanged];covariance[unchanged]=covariance_actual[unchanged]\n    log_i[unchanged]=rec[unchanged,10 if scalar else 56]\n    return rec,dict(r=r,mean=mean,covariance=covariance,log_integral=log_i,\n                    kept=kept,allowed=allowed,fallback=fallback,positive=support,negative=negative,\n                    retention=retention,conditional=conditional,peer_joint=peer_joint,unchanged=unchanged)\n\n",
+        "after": "from independent_math import rebuilt\n\n",
+        "count": 1
+      },
+      {
+        "before": "['allowed','fallback','unchanged']",
+        "after": "['allowed','fallback','unchanged','negative_reversal','positive_reversal']",
+        "count": 1
+      },
+      {
+        "before": "tolerance=1e-7 if key in ['mean','covariance'] else 1e-8 if key=='log_integral' else 2e-10 if key=='r' else 2e-14",
+        "after": "tolerance=1e-7 if key in ['mean','covariance','multiplier','kept'] else 1e-8 if key in ['log_integral','reference_log_odds','prediction_log_integral','base_direction','original_direction','final_direction'] else 2e-10 if key=='r' else 2e-14",
+        "count": 1
+      },
+      {
+        "before": "'peer_joint'",
+        "after": "'nonreversal'",
+        "count": 4
+      },
+      {
+        "before": "Saved fused density minus original transmitted residual plus new residual; Cholesky integration, separate cardinality recurrence and scores",
+        "after": "Source predictions reconstructed from encoded ratios; saved density minus original residual, Brent boundary, Cholesky integration and separate cardinality and scores",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "source": "trials/icra_peer_detection/execute_screen.py",
+    "source_sha256": "2fce8677688dc3a71d870bea2bda6f88e771cb92acc810989a4fce3476b61420",
+    "target": "trials/icra_direction_constraint/execute_screen.py",
+    "target_sha256": "154519f475c5e9cbda43e4f4954c2dc69cd29742ba0e5df0dcf309911efb63bb",
+    "changes": [
+      {
+        "before": "RUN/ICRA_PEER_DETECTION/screen.log",
+        "after": "RUN/ICRA_DIRECTION_CONSTRAINT/screen.log",
+        "count": 1
+      },
+      {
+        "before": "    for name, digest in cfg['source_sha256'].items(): assert sha(ROOT/name) == digest, name",
+        "after": "    for name, digest in cfg['source_sha256'].items(): assert sha(ROOT/name) == digest, name\n    preflight=json.loads((OUT/'PREFLIGHT.json').read_text());assert preflight['passed'] and preflight['freeze_sha256']==sha(OUT/'SCREEN_FREEZE.json')",
+        "count": 1
+      },
+      {
+        "before": "log=str(log.relative_to(ROOT)))",
+        "after": "log=str(log.relative_to(ROOT)),preflight_sha256=sha(OUT/'PREFLIGHT.json'))",
+        "count": 1
+      }
+    ]
+  }
+]
