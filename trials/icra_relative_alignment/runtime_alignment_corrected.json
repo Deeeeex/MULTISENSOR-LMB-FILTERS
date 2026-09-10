@@ -1,0 +1,212 @@
+[
+  {
+    "index": 0,
+    "sequence": "0000",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',1);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0000.log",
+    "log_sha256": "a2f2e2c92d1b502234f47ffe15e4de53583dd160d688d0ee3f12f05d35966a03"
+  },
+  {
+    "index": 1,
+    "sequence": "0001",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',2);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0001.log",
+    "log_sha256": "531194543ead778c96e856b75d4051fa5ca24edbf063c48a756f9137a2fb4249"
+  },
+  {
+    "index": 2,
+    "sequence": "0002",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',3);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0002.log",
+    "log_sha256": "39f680fcfd3fb9c626892dcc0bd6e666fb82a4f0a1febe42c01668d221eca48f"
+  },
+  {
+    "index": 3,
+    "sequence": "0003",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',4);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0003.log",
+    "log_sha256": "904a3339ec2128d8c7c103c7c8768560dd9061fb57da0e74d11227a56675c5c4"
+  },
+  {
+    "index": 4,
+    "sequence": "0004",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',5);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0004.log",
+    "log_sha256": "f51d5ab56cc82755e326e0db822fc0f220b156dcc2a4972e8b2af6bde792dc17"
+  },
+  {
+    "index": 5,
+    "sequence": "0005",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',6);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0005.log",
+    "log_sha256": "d696742889d928278895c863e676adadaabccb0761860ca3feab5a4985fbc8e7"
+  },
+  {
+    "index": 6,
+    "sequence": "0006",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',7);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0006.log",
+    "log_sha256": "d4e207620c2daa6ca9bc1d60f02421dcb66b5bf35db7ac42db532a076729b36c"
+  },
+  {
+    "index": 7,
+    "sequence": "0007",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',8);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0007.log",
+    "log_sha256": "531524c47c8f9b1be30509241befd5ee6bedd2cc3f4e2c152570c88fb4703fae"
+  },
+  {
+    "index": 8,
+    "sequence": "0008",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',9);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/0008.log",
+    "log_sha256": "8dbf575dc108352c8139354c0c6f337924e17b9bd51cfcde73f9432099501b3d"
+  },
+  {
+    "index": 9,
+    "sequence": "v2x_0000",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',10);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/v2x_0000.log",
+    "log_sha256": "7ba78cb68518716fc6f29cad962b8a6cd2584afdfd7cc84e8e01436d48d23c25"
+  },
+  {
+    "index": 10,
+    "sequence": "v2x_0001",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',11);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/v2x_0001.log",
+    "log_sha256": "42a0a726df45bb5f1f2571197462953a588b89176a47ae703ac1e6cdc310964c"
+  },
+  {
+    "index": 11,
+    "sequence": "v2x_0002",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',12);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/v2x_0002.log",
+    "log_sha256": "ab62486b3a8ddb8eda78bcf6e7f4c9e7cdd9c064fa83007acc17e025620d0d25"
+  },
+  {
+    "index": 12,
+    "sequence": "v2x_0003",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',13);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/v2x_0003.log",
+    "log_sha256": "c536065a3563c3c1d18ea9db324661293ff6cfc28c0991c34c52ff52f473c9cc"
+  },
+  {
+    "index": 13,
+    "sequence": "v2x_0004",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_corrected.json',14);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_corrected/v2x_0004.log",
+    "log_sha256": "09ed67d955f05020c0555818a8e974f0a97b8b408b0f99120032bf43b1c1ae4c"
+  }
+]

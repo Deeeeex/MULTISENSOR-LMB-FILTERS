@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "attempts": [
+    {
+      "attempt": 3,
+      "returncode": 0,
+      "receipt": "trials/icra_relative_alignment/FEATURE_EXECUTION.json"
+    },
+    {
+      "attempt": 2,
+      "returncode": 1,
+      "receipt": "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT2.json"
+    },
+    {
+      "attempt": 1,
+      "returncode": 1,
+      "receipt": "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT1.json"
+    }
+  ],
+  "retained_existing_raw_files_rehashed": 1250,
+  "feature_clouds": 5224,
+  "native_runs": 32,
+  "producer_grid_unchanged": true,
+  "raw_selection_unchanged": true,
+  "independent_index_repair_checked": true,
+  "native_and_statistical_protocol_unchanged": true,
+  "artifacts": {
+    "trials/icra_relative_alignment/FEATURE_EXECUTION.json": "9c42e81e9d1a0ea302dce9caa32c37fab45e578bfb27907ff220c6cf62c9b0e2",
+    "RUN/ICRA_RELATIVE_ALIGNMENT/features_attempt3.log": "28c7d74e2a8434f830702d105233aa26d3dd8bc409efa1fee9d14466fc6b1b3e",
+    "trials/icra_relative_alignment/resume_features_v3.py": "d860932ad40ab476e9846cde23e919fdcd7d3ce3c1f0bfa9e8f9d08d521a69e3",
+    "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT2.json": "bb4afaa42d8b1220c72bf03f6cbaf96c7191a4b89651e5e4ea5fc8d778fea343",
+    "RUN/ICRA_RELATIVE_ALIGNMENT/features_attempt2.log": "52f5e3ead3bcd8ac2cdc3f4592aaf943919a80515e7ecb641701a130eb43cfea",
+    "trials/icra_relative_alignment/resume_features.py": "bd31d949940d1ebea138b008b4382c3abfeffb7a11ee54944c7411ad89d1a34f",
+    "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT1.json": "937a062bad59d1f50d0af3b7c8cbf1f4a5fa6128f6219fe67c0bc7dae04fb23a",
+    "RUN/ICRA_RELATIVE_ALIGNMENT/features.log": "b928583ce499800f283686755b0f9e3cabd69121944c168db74eec848a0357c5",
+    "trials/icra_relative_alignment/execute_features.py": "68f86f6b82b3a07bf1bb054bc1caf09fb9f3bb7dfe38008315d6a9178e1abf0a",
+    "trials/icra_relative_alignment/verify_grid_repair.py": "4c2558bad4ef07a2c61fb61671e792dacd5e4783bfc563bb333c5f1abcd8365f",
+    "trials/icra_relative_alignment/independent_voxel_index.py": "fe032ce74c632f1fa017a5621aea904240359598ea983a27d717c9c3e6805991",
+    "trials/icra_relative_alignment/GRID_CHECK_DIAGNOSTIC.json": "7d17a6bab007a9f6f96f68b4fc4e7415ae977c4e6fb5cba5e9b7924bd19a43e7",
+    "trials/icra_relative_alignment/features/diagnostic_failed_cloud.pcd": "f8cd9685c099fc8763cd7de8985dfdfd6628814a36e15d9afcf39ed619fbeaff",
+    "trials/icra_relative_alignment/features/diagnostic_range_00095.bin": "3849bc1bf3f7b999f7249d46f254fee35765f709c0d3405e194438e14b43da14",
+    "trials/icra_relative_alignment/prepare_features_index_retry.py": "8743085b9c9cfcc98d9d4ba3feb3d2d48f73677c1a2ec8b1d7e20e1a47f96593",
+    "trials/icra_relative_alignment/audit_alignment_parity.json": "9031707a336ab2dbe2ce165e5d5a179cc3a2a6c295b20e51626716969a018469",
+    "trials/icra_relative_alignment/audit_alignment_corrected.json": "5d4b3ef75f32770ba8281200f0e7a84ac3b80b39b5c2bc5e3512ca7f1f1ea7ca",
+    "trials/icra_relative_alignment/FEATURES.json": "9f6511b871471e3113ed8d8b279ecb0a7cb11bf9ef9d27f58f419a77b2861c3d",
+    "trials/icra_relative_alignment/ESTIMATION.json": "51333d77a6532a85cc56e70a88dc00dec83ca83a75eef935c4def8ee75888fe4",
+    "trials/icra_relative_alignment/GRID_VERIFIER_REPAIR.json": "ba11a94ca3bcb4b1534276690114040afb262dd3ab448ea1f26101bf1019c52b",
+    "trials/icra_relative_alignment/prepare_features_retry.py": "8cd9eea1355e52ba946d3cce5fd474bb25623718c5207cb84fe9d39c94361b6c",
+    "trials/icra_relative_alignment/INPUT_TRANSPORT_NOTE.md": "23afebd4bdda0e86de167d3bd0933b8a727a3b99209860a2efc20f266ac19a8a",
+    "trials/icra_relative_alignment/GRID_CHECK_NOTE.md": "2c8e7c34780a23504b6a5d7b73ce2dbdb2a77e151995687be4af97594fe52272",
+    "trials/icra_relative_alignment/verify_complete.py": "c018059eec5747d109083cc8af8bdfaf93b68ae3b46ec9eb879539f31b62224b"
+  },
+  "verifier_sha256": "c018059eec5747d109083cc8af8bdfaf93b68ae3b46ec9eb879539f31b62224b"
+}

@@ -1,0 +1,13 @@
+{
+  "returncode": 1,
+  "completed": false,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "trials/icra_relative_alignment/prepare_features.py"
+  ],
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "log": "RUN/ICRA_RELATIVE_ALIGNMENT/features.log",
+  "log_sha256": "b928583ce499800f283686755b0f9e3cabd69121944c168db74eec848a0357c5",
+  "source_sha256": "68f86f6b82b3a07bf1bb054bc1caf09fb9f3bb7dfe38008315d6a9178e1abf0a"
+}

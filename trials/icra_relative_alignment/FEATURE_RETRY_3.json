@@ -1,0 +1,23 @@
+{
+  "returncode": 0,
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "trials/icra_relative_alignment/prepare_features_index_retry.py"
+  ],
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "log": "RUN/ICRA_RELATIVE_ALIGNMENT/features_attempt3.log",
+  "log_sha256": "28c7d74e2a8434f830702d105233aa26d3dd8bc409efa1fee9d14466fc6b1b3e",
+  "source_sha256": "d860932ad40ab476e9846cde23e919fdcd7d3ce3c1f0bfa9e8f9d08d521a69e3",
+  "attempt": 3,
+  "previous_receipt": "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT2.json",
+  "previous_receipt_sha256": "bb4afaa42d8b1220c72bf03f6cbaf96c7191a4b89651e5e4ea5fc8d778fea343",
+  "original_preparer_sha256": "f86ed3c4d6d79f1b78e9ac41abfa2d9dbb38d740e50e541d1907f375570fd5f3",
+  "transport_retry_sha256": "8cd9eea1355e52ba946d3cce5fd474bb25623718c5207cb84fe9d39c94361b6c",
+  "unchanged_estimator_sha256": "7199b1b4bd50faaf97632c20bc384ed43efb9efe3b613fcbc4a011ca701aa2c4",
+  "effective_voxel_checker_sha256": "fe032ce74c632f1fa017a5621aea904240359598ea983a27d717c9c3e6805991",
+  "checker_repair_sha256": "ba11a94ca3bcb4b1534276690114040afb262dd3ab448ea1f26101bf1019c52b",
+  "retry_entry_sha256": "8743085b9c9cfcc98d9d4ba3feb3d2d48f73677c1a2ec8b1d7e20e1a47f96593",
+  "note": "Previous failed receipt archived byte-for-byte. Frozen producer grids preserved; independent boundary checker corrected as documented."
+}

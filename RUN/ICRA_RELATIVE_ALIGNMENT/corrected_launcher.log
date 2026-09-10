@@ -1,0 +1,29 @@
+START alignment_corrected 0000
+START alignment_corrected 0001
+END alignment_corrected 0001 exit 0 complete True files 2
+START alignment_corrected 0002
+END alignment_corrected 0000 exit 0 complete True files 2
+START alignment_corrected 0003
+END alignment_corrected 0002 exit 0 complete True files 2
+START alignment_corrected 0004
+END alignment_corrected 0003 exit 0 complete True files 2
+START alignment_corrected 0005
+END alignment_corrected 0005 exit 0 complete True files 2
+START alignment_corrected 0006
+END alignment_corrected 0006 exit 0 complete True files 2
+START alignment_corrected 0007
+END alignment_corrected 0004 exit 0 complete True files 2
+START alignment_corrected 0008
+END alignment_corrected 0007 exit 0 complete True files 2
+START alignment_corrected v2x_0000
+END alignment_corrected 0008 exit 0 complete True files 2
+START alignment_corrected v2x_0001
+END alignment_corrected v2x_0000 exit 0 complete True files 2
+START alignment_corrected v2x_0002
+END alignment_corrected v2x_0001 exit 0 complete True files 2
+START alignment_corrected v2x_0003
+END alignment_corrected v2x_0003 exit 0 complete True files 2
+START alignment_corrected v2x_0004
+END alignment_corrected v2x_0004 exit 0 complete True files 2
+END alignment_corrected v2x_0002 exit 0 complete True files 2
+ALL NATIVE ALIGNMENT RUNS EXITED alignment_corrected 28

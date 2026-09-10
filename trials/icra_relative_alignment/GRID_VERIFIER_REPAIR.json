@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "actual_source": "tmp/external_baselines/v2v_official/test_01/files/testoutput_CAV_data_2022-03-15-10-29-43_3/0/000009.pcd",
+  "actual_raw_sha256": "f8cd9685c099fc8763cd7de8985dfdfd6628814a36e15d9afcf39ed619fbeaff",
+  "actual_mismatch_cells": [
+    [
+      99,
+      37
+    ],
+    [
+      100,
+      47
+    ]
+  ],
+  "actual_repaired_grid_exact": true,
+  "grid_edge_cases": 1086,
+  "old_false_failures": 248,
+  "examples": [
+    {
+      "axis": 0,
+      "boundary": -17.5,
+      "position": -17.500000000000004,
+      "position_hex": "-0x1.1800000000001p+4"
+    },
+    {
+      "axis": 0,
+      "boundary": -17.0,
+      "position": -17.000000000000004,
+      "position_hex": "-0x1.1000000000001p+4"
+    },
+    {
+      "axis": 0,
+      "boundary": -16.5,
+      "position": -16.500000000000004,
+      "position_hex": "-0x1.0800000000001p+4"
+    },
+    {
+      "axis": 0,
+      "boundary": -16.0,
+      "position": -16.000000000000004,
+      "position_hex": "-0x1.0000000000001p+4"
+    },
+    {
+      "axis": 0,
+      "boundary": -15.5,
+      "position": -15.500000000000002,
+      "position_hex": "-0x1.f000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -15.0,
+      "position": -15.000000000000002,
+      "position_hex": "-0x1.e000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -14.5,
+      "position": -14.500000000000002,
+      "position_hex": "-0x1.d000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -14.0,
+      "position": -14.000000000000002,
+      "position_hex": "-0x1.c000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -13.5,
+      "position": -13.500000000000002,
+      "position_hex": "-0x1.b000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -13.0,
+      "position": -13.000000000000002,
+      "position_hex": "-0x1.a000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -12.5,
+      "position": -12.500000000000002,
+      "position_hex": "-0x1.9000000000001p+3"
+    },
+    {
+      "axis": 0,
+      "boundary": -12.0,
+      "position": -12.000000000000002,
+      "position_hex": "-0x1.8000000000001p+3"
+    }
+  ],
+  "method_sha256": "7199b1b4bd50faaf97632c20bc384ed43efb9efe3b613fcbc4a011ca701aa2c4",
+  "original_preparer_sha256": "f86ed3c4d6d79f1b78e9ac41abfa2d9dbb38d740e50e541d1907f375570fd5f3",
+  "native_runner_sha256": "4ee8e61bdedf732021686098d4c254f1cbec23b56c2d9f8c7dc043471f014b95",
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "artifacts": {
+    "trials/icra_relative_alignment/verify_grid_repair.py": "4c2558bad4ef07a2c61fb61671e792dacd5e4783bfc563bb333c5f1abcd8365f",
+    "trials/icra_relative_alignment/independent_voxel_index.py": "fe032ce74c632f1fa017a5621aea904240359598ea983a27d717c9c3e6805991",
+    "trials/icra_relative_alignment/GRID_CHECK_DIAGNOSTIC.json": "7d17a6bab007a9f6f96f68b4fc4e7415ae977c4e6fb5cba5e9b7924bd19a43e7",
+    "trials/icra_relative_alignment/features/diagnostic_failed_cloud.pcd": "f8cd9685c099fc8763cd7de8985dfdfd6628814a36e15d9afcf39ed619fbeaff",
+    "trials/icra_relative_alignment/features/diagnostic_range_00095.bin": "3849bc1bf3f7b999f7249d46f254fee35765f709c0d3405e194438e14b43da14",
+    "trials/icra_relative_alignment/prepare_features_index_retry.py": "8743085b9c9cfcc98d9d4ba3feb3d2d48f73677c1a2ec8b1d7e20e1a47f96593",
+    "trials/icra_relative_alignment/resume_features_v3.py": "d860932ad40ab476e9846cde23e919fdcd7d3ce3c1f0bfa9e8f9d08d521a69e3"
+  },
+  "scope": "Independent voxel checker only: floor(2*x)+integer_origin. No producer grid, correction, input, tracking, or statistical gate changes."
+}

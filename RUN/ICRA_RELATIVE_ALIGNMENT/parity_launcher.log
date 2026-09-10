@@ -1,0 +1,5 @@
+START alignment_parity 0000
+START alignment_parity v2x_0002
+END alignment_parity 0000 exit 0 complete True files 2
+END alignment_parity v2x_0002 exit 0 complete True files 2
+ALL NATIVE ALIGNMENT RUNS EXITED alignment_parity 4

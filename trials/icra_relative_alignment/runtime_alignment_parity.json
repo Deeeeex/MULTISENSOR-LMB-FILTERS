@@ -1,0 +1,32 @@
+[
+  {
+    "index": 0,
+    "sequence": "0000",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_parity.json',1);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_parity/0000.log",
+    "log_sha256": "7576308d7f2983695d5e7b66d4d55ad853297a433e05324f3cd07eb9feb2fc7e"
+  },
+  {
+    "index": 1,
+    "sequence": "v2x_0002",
+    "returncode": 0,
+    "completion_line": true,
+    "files": 2,
+    "command": [
+      "/Applications/MATLAB_R2024a.app/bin/matlab",
+      "-singleCompThread",
+      "-batch",
+      "addpath('trials/icra_relative_alignment');runAlignmentReplay('trials/icra_relative_alignment/stages/alignment_parity.json',2);"
+    ],
+    "log": "RUN/ICRA_RELATIVE_ALIGNMENT/alignment_parity/v2x_0002.log",
+    "log_sha256": "5c782a24bfda70e178a82634d2f8806f70554bf97e87b12ea4cc40caf67c67f0"
+  }
+]

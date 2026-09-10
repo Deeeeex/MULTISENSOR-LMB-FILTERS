@@ -1,0 +1,92 @@
+{
+  "protocol": "icra-relative-alignment-v1",
+  "stage": "alignment_parity",
+  "cohort": "alignment_parity",
+  "arms": [
+    "marked_gaussian_evidence",
+    "marked_lineage"
+  ],
+  "pd": 0.9,
+  "conditions": [
+    "reliable"
+  ],
+  "alignment_mode": "zero",
+  "units": [
+    {
+      "sequence": "0000",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+      "input_sha256": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+      "radio_seed": 8301,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0000.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat",
+      "frames": 147,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-15-09-54-40_0",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0000.mat",
+      "pose_sha256": "80e167852c4b0ab77ecc44f81228ceea8565b7eae6db3b9d2e5215b0f840a64b",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0000.mat": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+        "trials/icra_ceiling_iteration/data_marks/marks_0000.mat": "ff63b47454c546c6dabd58b1493c51c825d56d24c195682c112198543f3940e9",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat": "4ac8b3a25e01a1672613225a1c5310f85be8fa94175818f29927d4f75ce3c127",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0000.mat": "80e167852c4b0ab77ecc44f81228ceea8565b7eae6db3b9d2e5215b0f840a64b"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0000_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "5e192e2812cc134091c3809c8a890cf25b5ffd01cccf811cc7d40a5a303acc86"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0000_reliable.json.gz",
+          "sha256": "0c348fe3b16ef18257c8720fe6cad98207d81ca643942fd52f505f488a1f4d2e"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0000_alignment.mat",
+      "alignment_sha256": ""
+    },
+    {
+      "sequence": "v2x_0002",
+      "scene": "2023-04-04-15-43-17_15_0",
+      "collection_date": "2023-04-04",
+      "source_recording": "2023-04-04-15-43-17",
+      "frames": 140,
+      "radio_seed": 8303,
+      "measurement_rows_by_sensor": [
+        1086,
+        927
+      ],
+      "ground_truth_rows": 1037,
+      "target_count_min": 6,
+      "target_count_max": 10,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0002.mat",
+      "input_sha256": "b87e71d16002dd729fa2ea600f6c60a02ca1d0db9d74d79b787f90b49620f8c6",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0002.mat",
+      "pose_sha256": "9bd6c859d547579083020bd6dba6555fed7b468f93b1913f705593dc2da0b5e0",
+      "relative_vehicle_range_min": 7.9927339409898925,
+      "relative_vehicle_range_max": 16.30162309567301,
+      "original_sequence": "0002",
+      "split": "v2x_val",
+      "recording": "2023-04-04",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0002.mat": "b87e71d16002dd729fa2ea600f6c60a02ca1d0db9d74d79b787f90b49620f8c6",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0002.mat": "9bd6c859d547579083020bd6dba6555fed7b468f93b1913f705593dc2da0b5e0"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "9c5b7af70bbf9587e1c92ba2445f5d7e7e88478639ab3fcb15d08e2bb4af1411"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_lineage.json.gz",
+          "sha256": "354461416ce345653302fa5328a1d15ed4db3849e4e4669f6febeb20dc798717"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0002_alignment.mat",
+      "alignment_sha256": ""
+    }
+  ],
+  "source_sha256": {
+    "method_freeze": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93"
+  }
+}

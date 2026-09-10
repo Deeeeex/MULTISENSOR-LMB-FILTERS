@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "advance": false,
+  "gates": [
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_gaussian_evidence",
+      "metric": "ospa",
+      "reference": 3.8772941685812987,
+      "candidate": 4.3878329914782785,
+      "difference": 0.5105388228969798,
+      "relative_change_percent": 13.167399756098108,
+      "passed": false
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_gaussian_evidence",
+      "metric": "gospa",
+      "reference": 9.1537512601843,
+      "candidate": 10.367174870574262,
+      "difference": 1.2134236103899614,
+      "relative_change_percent": 13.256025599777232,
+      "passed": false
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_lineage",
+      "metric": "ospa",
+      "reference": 4.050768004785287,
+      "candidate": 4.638772814185218,
+      "difference": 0.5880048093999308,
+      "relative_change_percent": 14.515884610160445,
+      "passed": false
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_lineage",
+      "metric": "gospa",
+      "reference": 9.687301678030492,
+      "candidate": 10.953285226539837,
+      "difference": 1.265983548509345,
+      "relative_change_percent": 13.06848481224061,
+      "passed": false
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_gaussian_evidence",
+      "metric": "ospa",
+      "reference": 8.408388583069824,
+      "candidate": 8.077737597998318,
+      "difference": -0.3306509850715056,
+      "relative_change_percent": -3.9323942013962943,
+      "passed": true
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_gaussian_evidence",
+      "metric": "gospa",
+      "reference": 18.23075353720592,
+      "candidate": 17.033593916872938,
+      "difference": -1.1971596203329824,
+      "relative_change_percent": -6.5667039921843084,
+      "passed": true
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_lineage",
+      "metric": "ospa",
+      "reference": 8.35884249660483,
+      "candidate": 8.076423728641032,
+      "difference": -0.2824187679637973,
+      "relative_change_percent": -3.378682731233529,
+      "passed": true
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_lineage",
+      "metric": "gospa",
+      "reference": 17.91317992148731,
+      "candidate": 16.90761699821701,
+      "difference": -1.0055629232703005,
+      "relative_change_percent": -5.61353666784814,
+      "passed": true
+    }
+  ],
+  "groups": [
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_gaussian_evidence",
+      "mode": "original",
+      "sequences": 9,
+      "ospa": 3.8772941685812987,
+      "gospa": 9.1537512601843,
+      "loc2": 11.978724605589207,
+      "miss2": 99.88239259410096,
+      "false2": 39.46291309507842,
+      "total_wire_bytes": 11243320.888888888,
+      "raw_bytes": 7132160.0,
+      "alignment_payload_bytes": 0.0,
+      "alignment_compute_seconds": 0.0
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_gaussian_evidence",
+      "mode": "occupancy",
+      "sequences": 9,
+      "ospa": 4.3878329914782785,
+      "gospa": 10.367174870574262,
+      "loc2": 18.02432597745529,
+      "miss2": 115.36262849721713,
+      "false2": 44.25767993845921,
+      "total_wire_bytes": 19386424.888888888,
+      "raw_bytes": 7907498.666666667,
+      "alignment_payload_bytes": 1785728.0,
+      "alignment_compute_seconds": 1.0779587523850043
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_lineage",
+      "mode": "original",
+      "sequences": 9,
+      "ospa": 4.050768004785287,
+      "gospa": 9.687301678030492,
+      "loc2": 12.68278621161747,
+      "miss2": 106.37059745578296,
+      "false2": 47.223702384173144,
+      "total_wire_bytes": 9484771.555555556,
+      "raw_bytes": 5181660.444444444,
+      "alignment_payload_bytes": 0.0,
+      "alignment_compute_seconds": 0.0
+    },
+    {
+      "dataset": "v2v_development",
+      "arm": "marked_lineage",
+      "mode": "occupancy",
+      "sequences": 9,
+      "ospa": 4.638772814185218,
+      "gospa": 10.953285226539837,
+      "loc2": 16.84489637803537,
+      "miss2": 129.919599735725,
+      "false2": 49.20874399014754,
+      "total_wire_bytes": 17030769.777777776,
+      "raw_bytes": 5343084.444444444,
+      "alignment_payload_bytes": 1785728.0,
+      "alignment_compute_seconds": 1.0779587523850043
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_gaussian_evidence",
+      "mode": "original",
+      "sequences": 5,
+      "ospa": 8.408388583069824,
+      "gospa": 18.23075353720592,
+      "loc2": 25.163330321444935,
+      "miss2": 331.32795931693994,
+      "false2": 66.00579313815955,
+      "total_wire_bytes": 4393113.6,
+      "raw_bytes": 2051776.0,
+      "alignment_payload_bytes": 0.0,
+      "alignment_compute_seconds": 0.0
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_gaussian_evidence",
+      "mode": "occupancy",
+      "sequences": 5,
+      "ospa": 8.077737597998318,
+      "gospa": 17.033593916872938,
+      "loc2": 5.067510163237776,
+      "miss2": 328.6466070813893,
+      "false2": 37.411507423873836,
+      "total_wire_bytes": 9264640.0,
+      "raw_bytes": 2733529.6,
+      "alignment_payload_bytes": 998323.2,
+      "alignment_compute_seconds": 0.7345949124079197
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_lineage",
+      "mode": "original",
+      "sequences": 5,
+      "ospa": 8.35884249660483,
+      "gospa": 17.91317992148731,
+      "loc2": 23.256017689946237,
+      "miss2": 316.19559114746795,
+      "false2": 60.35582061068702,
+      "total_wire_bytes": 4357068.8,
+      "raw_bytes": 1564937.6,
+      "alignment_payload_bytes": 0.0,
+      "alignment_compute_seconds": 0.0
+    },
+    {
+      "dataset": "v2x_val",
+      "arm": "marked_lineage",
+      "mode": "occupancy",
+      "sequences": 5,
+      "ospa": 8.076423728641032,
+      "gospa": 16.90761699821701,
+      "loc2": 8.283807897179763,
+      "miss2": 313.237859413553,
+      "false2": 36.58168756815703,
+      "total_wire_bytes": 9018880.0,
+      "raw_bytes": 2216091.2,
+      "alignment_payload_bytes": 998323.2,
+      "alignment_compute_seconds": 0.7345949124079197
+    }
+  ],
+  "corrected_method_comparisons": [
+    {
+      "dataset": "v2v_development",
+      "gce_minus_noage": {
+        "ospa": -0.2509398227069397,
+        "gospa": -0.5861103559655749
+      }
+    },
+    {
+      "dataset": "v2x_val",
+      "gce_minus_noage": {
+        "ospa": 0.0013138693572862792,
+        "gospa": 0.12597691865592964
+      }
+    }
+  ],
+  "native_runs": 32,
+  "new_corrected_robot_frames": 10448,
+  "zero_parity_robot_frames": 1148,
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "corrected_audit_sha256": "5d4b3ef75f32770ba8281200f0e7a84ac3b80b39b5c2bc5e3512ca7f1f1ea7ca"
+}

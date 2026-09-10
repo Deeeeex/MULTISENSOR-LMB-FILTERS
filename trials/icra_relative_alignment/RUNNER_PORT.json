@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "original": "trials/icra_reviewer_revision/runReviewerReplay.m",
+  "original_sha256": "c45873358c57fee5f2c9248ea39ee4b65c23302152499cf1fb421ba4f1ede37e",
+  "result": "trials/icra_relative_alignment/runAlignmentReplay.m",
+  "result_sha256": "4ee8e61bdedf732021686098d4c254f1cbec23b56c2d9f8c7dc043471f014b95",
+  "changes": [
+    {
+      "before": "function runReviewerReplay(configPath,unitIndex)",
+      "after": "function runAlignmentReplay(configPath,unitIndex)"
+    },
+    {
+      "before": "config=jsondecode(fileread(configPath));unit=config.units(unitIndex);",
+      "after": "addpath(fullfile(root,'trials','icra_reviewer_revision'));\nconfig=jsondecode(fileread(configPath));\nif iscell(config.units),unit=config.units{unitIndex};else,unit=config.units(unitIndex);end"
+    },
+    {
+      "before": "model=makeModel(positions,T,baseQuality,config.pd);",
+      "after": "alignment=zeros(2,T);gridSeconds=zeros(2,T);solveSeconds=zeros(2,T);\nif strcmp(config.alignment_mode,'occupancy')\n    prepared=load(fullfile(root,unit.alignment_path));\n    alignment=prepared.translations;gridSeconds=prepared.gridSeconds;solveSeconds=prepared.solveSeconds;\nelse\n    assert(strcmp(config.alignment_mode,'zero'));\nend\nassert(isequal(size(alignment),[2,T]) && all(isfinite(alignment),'all'));\nmodelPositions=positions;\nfor t=1:T\n    measurements{2,t}=measurements{2,t}+alignment(:,t);\n    modelPositions(:,2,t)=modelPositions(:,2,t)+alignment(:,t);\nend\n% Evaluation positions remain the original benchmark crop.\nmodel=makeModel(modelPositions,T,baseQuality,config.pd);"
+    },
+    {
+      "before": "for condition={'reliable','intermittent'}",
+      "after": "for condition=reshape(config.conditions,1,[])"
+    },
+    {
+      "before": "run=scoreOutputs(run,data.truth);",
+      "after": "run=scoreOutputs(run,data.truth);\n        extra=double(strcmp(config.alignment_mode,'occupancy'));\n        run.alignmentPayloadBytes=repmat(extra*8064,1,T);\n        run.alignmentWireBytes=repmat(extra*33024,1,T);\n        run.totalWithAlignmentWireBytes=run.totalWireBytes+sum(run.alignmentWireBytes);\n        run.alignmentComputeSeconds=sum(gridSeconds,'all')+sum(solveSeconds,'all');"
+    },
+    {
+      "before": "'protocol','icra-reviewer-revision-v1'",
+      "after": "'protocol','icra-relative-alignment-v1'"
+    },
+    {
+      "before": "'pd',config.pd,'time',double(data.time),'positions',positions, ...",
+      "after": "'pd',config.pd,'time',double(data.time),'positions',positions, ...\n            'modelPositions',modelPositions,'measurements',{measurements},'alignmentTranslations',alignment, ...\n            'alignmentMode',config.alignment_mode, ..."
+    }
+  ],
+  "all_local_update_fusion_reduction_extraction_and_scoring_functions_byte_identical": true
+}

@@ -1,0 +1,47 @@
+RAW GRID SHARDS VERIFIED 10 / 292 160 clouds
+RAW GRID SHARDS VERIFIED 20 / 292 320 clouds
+RAW GRID SHARDS VERIFIED 30 / 292 480 clouds
+RAW GRID SHARDS VERIFIED 40 / 292 640 clouds
+RAW GRID SHARDS VERIFIED 50 / 292 800 clouds
+RAW GRID SHARDS VERIFIED 60 / 292 960 clouds
+RAW GRID SHARDS VERIFIED 70 / 292 1120 clouds
+RAW GRID SHARDS VERIFIED 80 / 292 1271 clouds
+RAW GRID SHARDS VERIFIED 90 / 292 1440 clouds
+RAW GRID SHARDS VERIFIED 100 / 292 1622 clouds
+RAW GRID SHARDS VERIFIED 110 / 292 1826 clouds
+RAW GRID SHARDS VERIFIED 120 / 292 2022 clouds
+RAW GRID SHARDS VERIFIED 130 / 292 2218 clouds
+RAW GRID SHARDS VERIFIED 140 / 292 2399 clouds
+RAW GRID SHARDS VERIFIED 150 / 292 2588 clouds
+RAW GRID SHARDS VERIFIED 160 / 292 2771 clouds
+RAW GRID SHARDS VERIFIED 170 / 292 2954 clouds
+RAW GRID SHARDS VERIFIED 180 / 292 3134 clouds
+RAW GRID SHARDS VERIFIED 190 / 292 3308 clouds
+RAW GRID SHARDS VERIFIED 200 / 292 3473 clouds
+RAW GRID SHARDS VERIFIED 210 / 292 3653 clouds
+RAW GRID SHARDS VERIFIED 220 / 292 3832 clouds
+RAW GRID SHARDS VERIFIED 230 / 292 4007 clouds
+RAW GRID SHARDS VERIFIED 240 / 292 4174 clouds
+PUBLIC ARCHIVE CONNECTION RETRY test_03 1
+PUBLIC ARCHIVE CONNECTION RETRY test_03 2
+Traceback (most recent call last):
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_relative_alignment/prepare_features_retry.py", line 17, in <module>
+    original.main()
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_relative_alignment/prepare_features.py", line 137, in main
+    reports.append(future.result())
+                   ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_relative_alignment/prepare_features.py", line 127, in worker
+    packed,row=prepare_one(raw,info);values.append(packed);rows.append(row)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dex/Desktop/Code/icra27/trials/icra_relative_alignment/prepare_features.py", line 65, in prepare_one
+    assert np.array_equal(independent.occupancy(projected),grid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

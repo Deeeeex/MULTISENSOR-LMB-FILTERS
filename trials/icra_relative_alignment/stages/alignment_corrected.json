@@ -1,0 +1,514 @@
+{
+  "protocol": "icra-relative-alignment-v1",
+  "stage": "alignment_corrected",
+  "cohort": "alignment_corrected",
+  "arms": [
+    "marked_gaussian_evidence",
+    "marked_lineage"
+  ],
+  "pd": 0.9,
+  "conditions": [
+    "reliable"
+  ],
+  "alignment_mode": "occupancy",
+  "units": [
+    {
+      "sequence": "0000",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0000.mat",
+      "input_sha256": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+      "radio_seed": 8301,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0000.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat",
+      "frames": 147,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-15-09-54-40_0",
+      "recording": "testoutput_CAV_data_2022-03-15-09-54-40",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0000.mat",
+      "pose_sha256": "80e167852c4b0ab77ecc44f81228ceea8565b7eae6db3b9d2e5215b0f840a64b",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0000.mat": "d8fb64f93c49ef63ba1e935a4bab1e8baf10f90fc1b8c03105cd56a75034a091",
+        "trials/icra_ceiling_iteration/data_marks/marks_0000.mat": "ff63b47454c546c6dabd58b1493c51c825d56d24c195682c112198543f3940e9",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0000.mat": "4ac8b3a25e01a1672613225a1c5310f85be8fa94175818f29927d4f75ce3c127",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0000.mat": "80e167852c4b0ab77ecc44f81228ceea8565b7eae6db3b9d2e5215b0f840a64b"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0000_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "5e192e2812cc134091c3809c8a890cf25b5ffd01cccf811cc7d40a5a303acc86"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0000_reliable.json.gz",
+          "sha256": "0c348fe3b16ef18257c8720fe6cad98207d81ca643942fd52f505f488a1f4d2e"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0000_alignment.mat",
+      "alignment_sha256": "88aae42e641b587050dde579cc45fb12566f969d6945e7f02e3965609c8bc394"
+    },
+    {
+      "sequence": "0001",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0001.mat",
+      "input_sha256": "a74fe915c307bdc86fe4b11cc4c2a9128f50eb10e0000dca7ae2afa4bdf4b058",
+      "radio_seed": 8302,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0001.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0001.mat",
+      "frames": 114,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-15-10-29-43_3",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0001.mat",
+      "pose_sha256": "31fd4a03555f63f038315b93e89a5e4c641f11fa4aea3e3c56bc06d9d2dbc7c7",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0001.mat": "a74fe915c307bdc86fe4b11cc4c2a9128f50eb10e0000dca7ae2afa4bdf4b058",
+        "trials/icra_ceiling_iteration/data_marks/marks_0001.mat": "76eca2d43b28c46c71106a0bfdc422898ed28d24ce60ec24276bfaa3dca8b71d",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0001.mat": "bab0b4e87039ab3de9f45bda8a531263eaf0c68d2a98fe78e8934fa8e1cefc23",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0001.mat": "31fd4a03555f63f038315b93e89a5e4c641f11fa4aea3e3c56bc06d9d2dbc7c7"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0001_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "8b42d451526e754df6e6407cfe629421076251bcaabb85247a632a15a8e5ddaa"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0001_reliable.json.gz",
+          "sha256": "ca1b7501ff6e23dbf90c2379984a16c4e118ce4170b5cce7ccd4c70f43c85864"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0001_alignment.mat",
+      "alignment_sha256": "2d3cceba2c33b1c0bfd15d785f68850fb9f9aa64d350aae29abaa8149cb50c9c"
+    },
+    {
+      "sequence": "0002",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0002.mat",
+      "input_sha256": "d6294e27b43419708deb50960c86e5f9bec836f078ff61420dc6498cda3f7582",
+      "radio_seed": 8303,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0002.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0002.mat",
+      "frames": 144,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-15-10-29-43_4",
+      "recording": "testoutput_CAV_data_2022-03-15-10-29-43",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0002.mat",
+      "pose_sha256": "2191fa91959aa46003eaab51da068b2d4917cc748a0bd4ea6d4ac02509f64bea",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0002.mat": "d6294e27b43419708deb50960c86e5f9bec836f078ff61420dc6498cda3f7582",
+        "trials/icra_ceiling_iteration/data_marks/marks_0002.mat": "7a49403cfd811398b5aff81f0042db180068e3f3286d0cd544aee67aa91fa94f",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0002.mat": "e4f55f2992626f16736360e8f77d0a711c6a803ccb207d55f769dea09835264a",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0002.mat": "2191fa91959aa46003eaab51da068b2d4917cc748a0bd4ea6d4ac02509f64bea"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0002_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "e1d5b81b4e4f185baecbbc6500d837c594bfb772f50c93f87288182fa6096e21"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0002_reliable.json.gz",
+          "sha256": "2655f3ca8096b1ae9b785ef47b48062cfb20f5ea86078cf8ad3d1cfbe3bc6aeb"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0002_alignment.mat",
+      "alignment_sha256": "85b9905ff4a9328e8c82edb700c20ad47109ed6bd3084f2258a6423c310a60c0"
+    },
+    {
+      "sequence": "0003",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0003.mat",
+      "input_sha256": "1e9974bc4ee6fe8132620bc23c4ad4a792fe3da727f5e9645bb35388f58031f9",
+      "radio_seed": 8304,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0003.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0003.mat",
+      "frames": 198,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-17-10-50-46_0",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0003.mat",
+      "pose_sha256": "a744a0290c75819d610131d4928e9d795aed780e09198a71a434b15562ec1473",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0003.mat": "1e9974bc4ee6fe8132620bc23c4ad4a792fe3da727f5e9645bb35388f58031f9",
+        "trials/icra_ceiling_iteration/data_marks/marks_0003.mat": "2d2b6948f72772fed7664b1a5cb08430fff2935f8b1cd8a552bafd3ae9abee02",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0003.mat": "06a4ab60d002260b97e597d4bd6b2de9cdf5c5cd0b211b65e597f53393d0685d",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0003.mat": "a744a0290c75819d610131d4928e9d795aed780e09198a71a434b15562ec1473"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0003_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "51b208786daf72d143f37766e150b286058fe3eb77774f42e830054e17b11416"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0003_reliable.json.gz",
+          "sha256": "f8ce02e0c7856507715a05d65c92571bfa3e87bb64c0eb57c88421413cacc7f8"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0003_alignment.mat",
+      "alignment_sha256": "e6615182ea416d9bfecb46f609c69afc2d5e247a91097ba2b3eb69daa8ca9e52"
+    },
+    {
+      "sequence": "0004",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0004.mat",
+      "input_sha256": "11edd704672772998840e1bed434176a0695dc72f64e5547e555e6301648141d",
+      "radio_seed": 8305,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0004.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0004.mat",
+      "frames": 180,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-17-10-50-46_1",
+      "recording": "testoutput_CAV_data_2022-03-17-10-50-46",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0004.mat",
+      "pose_sha256": "c7406ca7239f3075c4afc5e7ce8f78536d7477e4a097f24e164e1b9e2c4081a2",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0004.mat": "11edd704672772998840e1bed434176a0695dc72f64e5547e555e6301648141d",
+        "trials/icra_ceiling_iteration/data_marks/marks_0004.mat": "eb365e0a4e7066217aab28d92ad9de422b399c11526eb5bc992c55ea29358043",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0004.mat": "2c4741ed32e0ef07011fe0fd29d92438dcc33f13e58a66bcc40b78949bb88311",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0004.mat": "c7406ca7239f3075c4afc5e7ce8f78536d7477e4a097f24e164e1b9e2c4081a2"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0004_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "29feed6fb3fe44cf5b6a8ee30c9904cd7fa677454372c2a3dd8747071a4dca7d"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0004_reliable.json.gz",
+          "sha256": "5f3d1240a4ea0fcd25c507b1a2c0c1c7c8b89085790ccec4beb89aa4f867e72e"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0004_alignment.mat",
+      "alignment_sha256": "82c7990dbde64f8300f04efc705b786066d1bdf4fd8763c44e2b7cfa796310c4"
+    },
+    {
+      "sequence": "0005",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0005.mat",
+      "input_sha256": "e94518425ca94539828689d2c765b151434e83013647476cc5ba99d0eb71bba4",
+      "radio_seed": 8306,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0005.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0005.mat",
+      "frames": 310,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-17-11-02-23_1",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0005.mat",
+      "pose_sha256": "38383c803743cd966b74dd8a6a669f194c9651e3b51fd04ad929ddb089e99e40",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0005.mat": "e94518425ca94539828689d2c765b151434e83013647476cc5ba99d0eb71bba4",
+        "trials/icra_ceiling_iteration/data_marks/marks_0005.mat": "c3dde08f9cc8f7bce67084be98012be3070ffe91aed7395adf1f478592ec5125",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0005.mat": "1a7e70e6e1c672e01a0bdd53324a00de3a61c7561c21365f2d1c2ce65ba20ad9",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0005.mat": "38383c803743cd966b74dd8a6a669f194c9651e3b51fd04ad929ddb089e99e40"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0005_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "8f05dd2ae5a62abd54a2f63b9c889501c6edd35a47438cb01897c253c85f287b"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0005_reliable.json.gz",
+          "sha256": "7ea8a1bb93e7ca236ef1c9322a5202dd34ba1cef5a1250ceb60737a0231cea83"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0005_alignment.mat",
+      "alignment_sha256": "15d33251b619d9d067917d0e79efcf6f20ee983dc8109fcbbe85cd9729c2e034"
+    },
+    {
+      "sequence": "0006",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0006.mat",
+      "input_sha256": "fa8e15dfb82cbd7973c3837bed0cff0f9ef8dae3aa3b3ce35f5093e7eb771274",
+      "radio_seed": 8307,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0006.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0006.mat",
+      "frames": 304,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-17-11-02-23_2",
+      "recording": "testoutput_CAV_data_2022-03-17-11-02-23",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0006.mat",
+      "pose_sha256": "8bc84281c2975c111004188d2bdd86226df7b6c3d3661de6f19d102aa5d98e42",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0006.mat": "fa8e15dfb82cbd7973c3837bed0cff0f9ef8dae3aa3b3ce35f5093e7eb771274",
+        "trials/icra_ceiling_iteration/data_marks/marks_0006.mat": "4c2043cbbf42c4bd90d7c5cf1ce3735857c81bb06ba0cc3d203f9c86257ecc8f",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0006.mat": "f6411d2f221471c7ccde906645fcd2ecdb5dd30a98643366e621c0d340a68884",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0006.mat": "8bc84281c2975c111004188d2bdd86226df7b6c3d3661de6f19d102aa5d98e42"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0006_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "41c663966325b4cf14bbe0dc5315faaef7065361648d6fdfed6a06066e550722"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0006_reliable.json.gz",
+          "sha256": "171d9f7684782f5a1c876918609e6dbdab9614071e8879b314ffa4b641c7a8e8"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0006_alignment.mat",
+      "alignment_sha256": "d3302878f9dc2ea02aacebc140776feadf7d642b08d74e4657041927a726afed"
+    },
+    {
+      "sequence": "0007",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0007.mat",
+      "input_sha256": "1d2b01d8bca8b33e20ff701d3fb722d1827a85a726aacd9e000b7ae816583573",
+      "radio_seed": 8308,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0007.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0007.mat",
+      "frames": 221,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-17-11-51-42_0",
+      "recording": "testoutput_CAV_data_2022-03-17-11-51-42",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0007.mat",
+      "pose_sha256": "ebe5a7511882200079bca06604472e0f5cdf673c523ae1c7a7351d50f1d7042d",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0007.mat": "1d2b01d8bca8b33e20ff701d3fb722d1827a85a726aacd9e000b7ae816583573",
+        "trials/icra_ceiling_iteration/data_marks/marks_0007.mat": "42cdbaff2cd8ca9768b3d00da2ca059f921265ed139e7fc270d82378bcb985f9",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0007.mat": "15340a0fcb0babce1b11df9a8af8743e5c6937930f96379fae057ac735d33001",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0007.mat": "ebe5a7511882200079bca06604472e0f5cdf673c523ae1c7a7351d50f1d7042d"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0007_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "073c6d0213a76ee4ed716f5ef045d08b17a825e01922ef536676275743e5fb0c"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0007_reliable.json.gz",
+          "sha256": "366ed40d593df2f8d3f1ffe4c328b296fa016c831ea1ffbf85cb06ffafbe2346"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0007_alignment.mat",
+      "alignment_sha256": "21ce9b35fe32728f2220cfe98a952f69a6eaff07a345fb88a12a55aac04d586a"
+    },
+    {
+      "sequence": "0008",
+      "data_path": "trials/icra_external_fusion/data/v2v4real_0008.mat",
+      "input_sha256": "65a1fbdb9560a79be35358bcaac89c03ae54f83ef087239a47a0d9e2fcc188b6",
+      "radio_seed": 8309,
+      "marks_path": "trials/icra_ceiling_iteration/data_marks/marks_0008.mat",
+      "ratios_path": "trials/icra_marked_iteration/data_likelihoods/likelihoods_0008.mat",
+      "frames": 375,
+      "dataset": "v2v_development",
+      "scene": "testoutput_CAV_data_2022-03-21-09-35-07_7",
+      "recording": "testoutput_CAV_data_2022-03-21-09-35-07",
+      "pose_path": "trials/icra_reviewer_revision/pose_inputs/development/poses_0008.mat",
+      "pose_sha256": "863145ba46af40cd6d4fc4a9a0746ccd2cd352e8055b43bf08b09cf4d4bc850c",
+      "input_files": {
+        "trials/icra_external_fusion/data/v2v4real_0008.mat": "65a1fbdb9560a79be35358bcaac89c03ae54f83ef087239a47a0d9e2fcc188b6",
+        "trials/icra_ceiling_iteration/data_marks/marks_0008.mat": "4f85e822bd550f33b8739c8b7a3931df6d7b732941e56bc5953de37752b7b4db",
+        "trials/icra_marked_iteration/data_likelihoods/likelihoods_0008.mat": "6f6f8f96a22986b626f536e4f78ed1803d997379211aabc73eada2ab926ae994",
+        "trials/icra_reviewer_revision/pose_inputs/development/poses_0008.mat": "863145ba46af40cd6d4fc4a9a0746ccd2cd352e8055b43bf08b09cf4d4bc850c"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_gaussian_evidence/results_development/0008_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "d43dc1f11ba88e5a901118ce83a823bb1c85d2a589fd563881f946b2517cd576"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_marked_iteration/results_stable/0008_reliable.json.gz",
+          "sha256": "7590450bf3a3441ab5811387e44aed475922e3db6b6b88b60b68777d799534ea"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/0008_alignment.mat",
+      "alignment_sha256": "84fc0a22f1299c0f159ea15c31bd14d38e1b528dd64338d69ced0fbec5c566f0"
+    },
+    {
+      "sequence": "v2x_0000",
+      "scene": "2023-03-17-16-03-02_11_1",
+      "collection_date": "2023-03-17",
+      "source_recording": "2023-03-17-16-03-02",
+      "frames": 104,
+      "radio_seed": 8301,
+      "measurement_rows_by_sensor": [
+        452,
+        0
+      ],
+      "ground_truth_rows": 659,
+      "target_count_min": 1,
+      "target_count_max": 13,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0000.mat",
+      "input_sha256": "5f1e0efc578ce41e01524558ae77d8dc4c38841ccec257435445d78b5c6aeacc",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0000.mat",
+      "pose_sha256": "e00e6f6b33b26b2c4ec0819a040ea9723a7b3d01b86c9a3f19ff3c5f05b0e013",
+      "relative_vehicle_range_min": 226.47364192878408,
+      "relative_vehicle_range_max": 274.40767996912376,
+      "original_sequence": "0000",
+      "split": "v2x_val",
+      "recording": "2023-03-17",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0000.mat": "5f1e0efc578ce41e01524558ae77d8dc4c38841ccec257435445d78b5c6aeacc",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0000.mat": "e00e6f6b33b26b2c4ec0819a040ea9723a7b3d01b86c9a3f19ff3c5f05b0e013"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0000_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "a2c10bcbeaa72dbecd81058ed63665dee7a1d64eb7fba206c264e786503fa4cb"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0000_reliable_marked_lineage.json.gz",
+          "sha256": "19ab788f377d9cdd4bbb05ed14523c0c267ea57d1eaaf9ab0d1676516a63bea6"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0000_alignment.mat",
+      "alignment_sha256": "3e72209399308a811333e693c3c5a73f8dbc1773b4be0205c539715717c2dc12"
+    },
+    {
+      "sequence": "v2x_0001",
+      "scene": "2023-03-17-16-10-12_1_1",
+      "collection_date": "2023-03-17",
+      "source_recording": "2023-03-17-16-10-12",
+      "frames": 131,
+      "radio_seed": 8302,
+      "measurement_rows_by_sensor": [
+        771,
+        539
+      ],
+      "ground_truth_rows": 1943,
+      "target_count_min": 11,
+      "target_count_max": 18,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0001.mat",
+      "input_sha256": "d6f9b3707955f12bbd03262421cfd673a24635167d4222b31e18b9de4adae2d8",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0001.mat",
+      "pose_sha256": "7e69f79b91d47d28d7987ec7186073ce696d08bc2c2917c8699f8f90c849f71a",
+      "relative_vehicle_range_min": 18.7105118982182,
+      "relative_vehicle_range_max": 32.62880706162737,
+      "original_sequence": "0001",
+      "split": "v2x_val",
+      "recording": "2023-03-17",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0001.mat": "d6f9b3707955f12bbd03262421cfd673a24635167d4222b31e18b9de4adae2d8",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0001.mat": "7e69f79b91d47d28d7987ec7186073ce696d08bc2c2917c8699f8f90c849f71a"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0001_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "d1bc7c7558dbe9b2d237d07858e62e7d35bea1cfa4dd8f55813a281f570eb424"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0001_reliable_marked_lineage.json.gz",
+          "sha256": "d29e7f2b8dbc09bf024fd7d6ca50735afd7980c23f2c6d70b551a31708f9b461"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0001_alignment.mat",
+      "alignment_sha256": "75cba13b8a72eb31bd1964874e4de8f59cfb65a4d15861d96df3586b8eb85c39"
+    },
+    {
+      "sequence": "v2x_0002",
+      "scene": "2023-04-04-15-43-17_15_0",
+      "collection_date": "2023-04-04",
+      "source_recording": "2023-04-04-15-43-17",
+      "frames": 140,
+      "radio_seed": 8303,
+      "measurement_rows_by_sensor": [
+        1086,
+        927
+      ],
+      "ground_truth_rows": 1037,
+      "target_count_min": 6,
+      "target_count_max": 10,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0002.mat",
+      "input_sha256": "b87e71d16002dd729fa2ea600f6c60a02ca1d0db9d74d79b787f90b49620f8c6",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0002.mat",
+      "pose_sha256": "9bd6c859d547579083020bd6dba6555fed7b468f93b1913f705593dc2da0b5e0",
+      "relative_vehicle_range_min": 7.9927339409898925,
+      "relative_vehicle_range_max": 16.30162309567301,
+      "original_sequence": "0002",
+      "split": "v2x_val",
+      "recording": "2023-04-04",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0002.mat": "b87e71d16002dd729fa2ea600f6c60a02ca1d0db9d74d79b787f90b49620f8c6",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0002.mat": "9bd6c859d547579083020bd6dba6555fed7b468f93b1913f705593dc2da0b5e0"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "9c5b7af70bbf9587e1c92ba2445f5d7e7e88478639ab3fcb15d08e2bb4af1411"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0002_reliable_marked_lineage.json.gz",
+          "sha256": "354461416ce345653302fa5328a1d15ed4db3849e4e4669f6febeb20dc798717"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0002_alignment.mat",
+      "alignment_sha256": "2ab0087fb71c31845b17c8e2fad28dd6583350eb8de6f9a46b40be1fc3e7929d"
+    },
+    {
+      "sequence": "v2x_0003",
+      "scene": "2023-04-04-16-01-17_33_0",
+      "collection_date": "2023-04-04",
+      "source_recording": "2023-04-04-16-01-17",
+      "frames": 128,
+      "radio_seed": 8304,
+      "measurement_rows_by_sensor": [
+        607,
+        698
+      ],
+      "ground_truth_rows": 1274,
+      "target_count_min": 0,
+      "target_count_max": 17,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0003.mat",
+      "input_sha256": "b13a916163e1e9b5af207ae10ff420f003029d9f6ded58f5418d298f6fbd8df0",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0003.mat",
+      "pose_sha256": "a79bc1d94a06ec974a6af9dd813c291437a8a321260ca2c505d3c00012e6a2d5",
+      "relative_vehicle_range_min": 23.34941273758074,
+      "relative_vehicle_range_max": 43.71271904207851,
+      "original_sequence": "0003",
+      "split": "v2x_val",
+      "recording": "2023-04-04",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0003.mat": "b13a916163e1e9b5af207ae10ff420f003029d9f6ded58f5418d298f6fbd8df0",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0003.mat": "a79bc1d94a06ec974a6af9dd813c291437a8a321260ca2c505d3c00012e6a2d5"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0003_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "777390b021e1d6a7906b20e8bd2d4a4470a0a3f39c4def3d8d822453a292b718"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0003_reliable_marked_lineage.json.gz",
+          "sha256": "33a4d414c0bb2f1bdac6441290e797a2d5b1f0f62d4113bb5174dcddab3a20a7"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0003_alignment.mat",
+      "alignment_sha256": "3cfdbcd784d1d46b821c5538aa17b716d4763aee2ced96df7190793205d3de95"
+    },
+    {
+      "sequence": "v2x_0004",
+      "scene": "2023-04-05-16-09-26_6_1",
+      "collection_date": "2023-04-05",
+      "source_recording": "2023-04-05-16-09-26",
+      "frames": 116,
+      "radio_seed": 8305,
+      "measurement_rows_by_sensor": [
+        61,
+        0
+      ],
+      "ground_truth_rows": 92,
+      "target_count_min": 0,
+      "target_count_max": 2,
+      "data_path": "trials/icra_v2x_transfer/new_data/v2xreal_0004.mat",
+      "input_sha256": "c98c2046d23bd76b581038a14cdc08a37bbb00a2994a69a776a96ccc9176129a",
+      "pose_path": "trials/icra_v2x_transfer/pose_inputs/poses_0004.mat",
+      "pose_sha256": "2742c9691490fce1670748d7dba64e10a7df2e0fa3f6d93b94742a6b2ae77c27",
+      "relative_vehicle_range_min": 136.95836550799103,
+      "relative_vehicle_range_max": 246.68378270431933,
+      "original_sequence": "0004",
+      "split": "v2x_val",
+      "recording": "2023-04-05",
+      "dataset": "v2x_val",
+      "input_files": {
+        "trials/icra_v2x_transfer/new_data/v2xreal_0004.mat": "c98c2046d23bd76b581038a14cdc08a37bbb00a2994a69a776a96ccc9176129a",
+        "trials/icra_v2x_transfer/pose_inputs/poses_0004.mat": "2742c9691490fce1670748d7dba64e10a7df2e0fa3f6d93b94742a6b2ae77c27"
+      },
+      "references": {
+        "marked_gaussian_evidence": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0004_reliable_marked_gaussian_evidence.json.gz",
+          "sha256": "5b32df997fcca185b314eb55e7a5f232c0bb5b03e4e860dcf2b04a8ab192e643"
+        },
+        "marked_lineage": {
+          "path": "trials/icra_projected_admission/results/final_v2x_evaluation/v2x_0004_reliable_marked_lineage.json.gz",
+          "sha256": "7e7a001eb90b74d0dd5a34e4fda67269d3de53dc2e9ef56cf771977440628b33"
+        }
+      },
+      "alignment_path": "trials/icra_relative_alignment/features/v2x_0004_alignment.mat",
+      "alignment_sha256": "8739636347bc23c86520ad27b8ce84ae0040c31533683b8e8ffedfe09dc2af41"
+    }
+  ],
+  "source_sha256": {
+    "method_freeze": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+    "alignment_estimation": "51333d77a6532a85cc56e70a88dc00dec83ca83a75eef935c4def8ee75888fe4",
+    "parity_audit": "9031707a336ab2dbe2ce165e5d5a179cc3a2a6c295b20e51626716969a018469"
+  }
+}

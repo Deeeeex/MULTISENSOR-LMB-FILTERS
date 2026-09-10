@@ -1,0 +1,21 @@
+{
+  "returncode": 1,
+  "completed": false,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "trials/icra_relative_alignment/prepare_features_retry.py"
+  ],
+  "freeze_sha256": "d436409ed408e6a32748adad53b9902f90346962b5125152681e9425fde88a93",
+  "log": "RUN/ICRA_RELATIVE_ALIGNMENT/features_attempt2.log",
+  "log_sha256": "52f5e3ead3bcd8ac2cdc3f4592aaf943919a80515e7ecb641701a130eb43cfea",
+  "source_sha256": "bd31d949940d1ebea138b008b4382c3abfeffb7a11ee54944c7411ad89d1a34f",
+  "attempt": 2,
+  "previous_receipt": "trials/icra_relative_alignment/FEATURE_EXECUTION_ATTEMPT1.json",
+  "previous_receipt_sha256": "937a062bad59d1f50d0af3b7c8cbf1f4a5fa6128f6219fe67c0bc7dae04fb23a",
+  "original_preparer_sha256": "f86ed3c4d6d79f1b78e9ac41abfa2d9dbb38d740e50e541d1907f375570fd5f3",
+  "transport_retry_sha256": "8cd9eea1355e52ba946d3cce5fd474bb25623718c5207cb84fe9d39c94361b6c",
+  "unchanged_estimator_sha256": "7199b1b4bd50faaf97632c20bc384ed43efb9efe3b613fcbc4a011ca701aa2c4",
+  "unchanged_grid_verifier_sha256": "5f3108f6e6adfbf037b41f84ad4a341ecb4137a3ebe1a5336f186d9f1f5bb136",
+  "note": "Input execution journal updated after archiving the failed receipt byte-for-byte. Only transient transport setup retries were added."
+}
