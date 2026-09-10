@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "event_rows": 153262,
+  "summary_rows": 24,
+  "report_sha256": "84ff6b124a6e65b53a12dd673be8262d3724b9bedc3d38d1717cdd653976c4a7",
+  "freeze_sha256": "4fedfcaba21f59ed5c7cd2d595f7fe04b717c5679f935131c0b528237f9df9a7",
+  "verifier_sha256": "2504bc4ca5c6960ae3037d6b4354a246d32e480046d5bd0d0853dede1d65cc49",
+  "method": "Independent pruned-local and retained-fusion key intersection, every native event field, consecutive-label timelines and all summary counts"
+}

@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "robot_frames": 2880,
+  "target_phase_rows": 5760,
+  "checks": [
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "reliable",
+        "backend": "GCE",
+        "arm": "marked_gaussian_evidence",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+        "sha256": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8"
+      },
+      "checked_predictions": 68949,
+      "checked_predicted_covariances": 41243,
+      "source_links": 82486
+    },
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "reliable",
+        "backend": "Guarded Scalar",
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+        "sha256": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932"
+      },
+      "checked_predictions": 78651,
+      "checked_predicted_covariances": 45309,
+      "source_links": 90618
+    },
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "reliable",
+        "backend": "No-age",
+        "arm": "marked_lineage",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz",
+        "sha256": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8"
+      },
+      "checked_predictions": 53913,
+      "checked_predicted_covariances": 31703,
+      "source_links": 63406
+    },
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "intermittent",
+        "backend": "GCE",
+        "arm": "marked_gaussian_evidence",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+        "sha256": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384"
+      },
+      "checked_predictions": 87140,
+      "checked_predicted_covariances": 56637,
+      "source_links": 82227
+    },
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "intermittent",
+        "backend": "Guarded Scalar",
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz",
+        "sha256": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464"
+      },
+      "checked_predictions": 95553,
+      "checked_predicted_covariances": 60120,
+      "source_links": 85991
+    },
+    {
+      "cell": {
+        "mode": "nominal",
+        "condition": "intermittent",
+        "backend": "No-age",
+        "arm": "marked_lineage",
+        "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz",
+        "sha256": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2"
+      },
+      "checked_predictions": 30217,
+      "checked_predicted_covariances": 19463,
+      "source_links": 31780
+    }
+  ],
+  "method": "Independent raw-native reconstruction with frozenset birth IDs, manual CV prediction, population balances, every saved ancestry set, all CSV rows",
+  "report_sha256": "f014cc1e09c315114ecc2483a08ad94be78228f420bb3327847e5676694bf80d",
+  "freeze_sha256": "5ea2de8e03632cd7e6c9ca9fe351d8ecf84add22c57d1b1e5828ab81cda447af",
+  "execution_sha256": "7a7089b2084515bd0a9bd3a66639d9e058e0edd3881449cbb8d43acedc54afc6",
+  "verifier_sha256": "e87b5a1e8c7e1501206d345ec27746452c025a6ff6830874cb529e870b515400"
+}

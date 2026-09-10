@@ -1,0 +1,185 @@
+{
+  "protocol": "icra-nominal-label-genealogy-v1",
+  "created_utc": "2026-09-10T01:50:49.666991+00:00",
+  "unit": {
+    "sequence": "v2xt_0001",
+    "scene": "2023-04-03-18-19-32_13_0",
+    "collection_date": "2023-04-03",
+    "source_recording": "2023-04-03-18-19-32",
+    "frames": 240,
+    "radio_seed": 8302,
+    "measurement_rows_by_sensor": [
+      2470,
+      448
+    ],
+    "ground_truth_rows": 3072,
+    "target_count_min": 9,
+    "target_count_max": 17,
+    "data_path": "trials/icra_association_test/new_data/v2xreal_0001.mat",
+    "input_sha256": "d9c4381b1649c9443acd5d4ce0ca055cc05f8c5ef8dc449a1a8c322825cb9678",
+    "pose_path": "trials/icra_association_test/pose_inputs/poses_0001.mat",
+    "pose_sha256": "a4d99132ec36af21fe50b602fb6e353e3502de52280240ae6eb1ebd382f3439a",
+    "relative_vehicle_range_min": 43.33853766543027,
+    "relative_vehicle_range_max": 44.62587155677316,
+    "original_sequence": "0001",
+    "split": "v2x_test",
+    "recording": "2023-04-03",
+    "dataset": "v2x_test_mechanism",
+    "reference_paths": {
+      "reliable": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "intermittent": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz"
+    },
+    "reference_sha256": {
+      "reliable": "71e8d9fd5019df1916336982929375b569f9e686e62a1cc3a8b20dca19e0f65e",
+      "intermittent": "7f7ab41f15e1cc13f731d4c2986039e2bc40ac8cda40bca2042e60e62a2d45a7"
+    },
+    "noage_reference_paths": {
+      "reliable": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_lineage.json.gz",
+      "intermittent": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_lineage.json.gz"
+    },
+    "noage_reference_sha256": {
+      "reliable": "5eacebd27268faf9c88b847dfdeb8ce669df7b6a12b39ae1fac62c92d505f5d6",
+      "intermittent": "9d6e47b60478695ae250162953b9b453c2e86e9e25481cf0588c5e6bc4e6c162"
+    },
+    "range_detection_model": {
+      "intercept": 3.4857627462594856,
+      "slope": -3.1072756940997053,
+      "constant": 0.8136912428684921,
+      "training_sequences": [
+        "0000",
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008"
+      ],
+      "train_rows": 36836,
+      "objective": 0.4385801949200509,
+      "iterations": 10,
+      "probabilities_by_range": {
+        "5": 0.9567834385227154,
+        "10": 0.9375523401761502,
+        "20": 0.873484427594698,
+        "30": 0.76047874015432,
+        "39": 0.6121049507402343
+      }
+    },
+    "calibration_fold": "full_v2v_development_transfer",
+    "parity_paths": {
+      "reliable": {
+        "marked_gaussian_evidence": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+        "marked_lineage": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_lineage.json.gz",
+        "marked_gaussian_evidence_guarded_scalar": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz"
+      },
+      "intermittent": {
+        "marked_gaussian_evidence": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+        "marked_lineage": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_lineage.json.gz",
+        "marked_gaussian_evidence_guarded_scalar": "trials/icra_temporal_association/results/association_screen_selected_test/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz"
+      }
+    },
+    "parity_sha256": {
+      "reliable": {
+        "marked_gaussian_evidence": "71e8d9fd5019df1916336982929375b569f9e686e62a1cc3a8b20dca19e0f65e",
+        "marked_lineage": "5eacebd27268faf9c88b847dfdeb8ce669df7b6a12b39ae1fac62c92d505f5d6",
+        "marked_gaussian_evidence_guarded_scalar": "abe1a3862c9d0461cc3ec2ee223180e6ba8701ecafcea88521bc07b544a11d57"
+      },
+      "intermittent": {
+        "marked_gaussian_evidence": "7f7ab41f15e1cc13f731d4c2986039e2bc40ac8cda40bca2042e60e62a2d45a7",
+        "marked_lineage": "9d6e47b60478695ae250162953b9b453c2e86e9e25481cf0588c5e6bc4e6c162",
+        "marked_gaussian_evidence_guarded_scalar": "6ccf4845a15f8e6145305f98345da51db87ab4c61a1802c7f81e634825d0c066"
+      }
+    }
+  },
+  "cells": [
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence.json.gz",
+      "sha256": "341465a555d15786d3350581796ef1efffb0721e9e7a950eeadd89b920bb6be8"
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "b7009373c11c459299a58170ef54fc32d51cfa4b55186f9e9742230dfc02a932"
+    },
+    {
+      "mode": "nominal",
+      "condition": "reliable",
+      "backend": "No-age",
+      "arm": "marked_lineage",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_reliable_marked_lineage.json.gz",
+      "sha256": "ad53db8cd5a6394389e216e5b166635b5ed2687af9bdb20aa617a35f9926e6d8"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "GCE",
+      "arm": "marked_gaussian_evidence",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence.json.gz",
+      "sha256": "6f12ff0bf4537b9337990e854fe47a4703c46c50f7a283c496f3b4f081f0e384"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "Guarded Scalar",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar.json.gz",
+      "sha256": "26953f00b259033f9fb37a14194075d65a975dd58b1ea37c9d1ceaf42e15a464"
+    },
+    {
+      "mode": "nominal",
+      "condition": "intermittent",
+      "backend": "No-age",
+      "arm": "marked_lineage",
+      "path": "trials/icra_range_detection/results/range_detection_preflight/v2xt_0001_intermittent_marked_lineage.json.gz",
+      "sha256": "a95eaf0f9856db6372692c22a5ce51c7200de7265651edb04100cd99f5f8f0c2"
+    }
+  ],
+  "truth_id": 5,
+  "range_m": 2.0,
+  "active_threshold": 0.001,
+  "fixed_window": [
+    53,
+    122
+  ],
+  "source_sha256": {
+    "trials/icra_nominal_origin/PROTOCOL.md": "b12d2d3e9cbd0ba37a512396bbf03556e1314293856883ff3e9b5ef6ab0f87fd",
+    "trials/icra_recursion_origin/TRACE_FREEZE.json": "2df9ccac017ecac8fbbd5ac7f555a99acabe2d0e1325eeccbaa16fcc18600367",
+    "trials/icra_recursion_origin/TRACE_VERIFICATION.json": "be360d8409175738834ac93d40b5cb81cf80664bc70b75a4c1065b6e57c85364",
+    "trials/icra_recursion_origin/TARGET_TIMELINE.csv": "33cedda246c2b6789805407a7bc474d7caa874c3c338368e4d61b8346c79a2b8",
+    "trials/icra_recursion_origin/FINAL_VERIFICATION.json": "422df41688087efa6967edf053c4dacbf97f0ed209b8b84a69782a522653e0f8",
+    "trials/icra_recursion_origin/trace_v2.py": "cf54dee6ab8f2b928a0e03be8fd3042644005d5046dd8b9f7ee78c39cce662f2",
+    "trials/icra_recursion_origin/verify_trace.py": "ac11a831f30fa29416dbd5f2bbede0f22960f188199bd6a045aad22a238e5507",
+    "trials/icra_reviewer_revision/review_gaussian_audit.py": "ae2139bb8c552f3774aa35c4010ce320f78da40b70f46a13cb57033e329ff7ef",
+    "trials/icra_association_test/new_data/v2xreal_0001.mat": "d9c4381b1649c9443acd5d4ce0ca055cc05f8c5ef8dc449a1a8c322825cb9678",
+    "trials/icra_nominal_origin/trace.py": "8519c8d9bc4fe465d4177334c0f635aae034e84a8f250dc9d44bd24fcf07b783",
+    "trials/icra_nominal_origin/register_trace.py": "63baa67d10aae93c2e2eb6c5f7bd359e50787fdac82f0e806f823cda32681992",
+    "trials/icra_nominal_origin/verify_trace.py": "ecf755d6cd74fbdddad78b566f6ed10e75c87ee15eeb555ff73170367ca007b7",
+    "trials/icra_nominal_origin/TRACE_FREEZE.json": "98b65d134ed49717418e180c7d9bf498fadbf4ffe295ff544f826cbb3daa7ca7",
+    "trials/icra_label_genealogy/.gitignore": "3c9f3aa8cc90718b4b544b01fafa74cecce1940a8e1317c6aae06f169ae27467",
+    "trials/icra_label_genealogy/PROTOCOL.md": "04ac072590508e782ee3a69e5527080e48390deeaad12b4dd454c89901b44ded",
+    "trials/icra_label_genealogy/register_census.py": "d980e2572c5c300138fe38cd17ba4b37836465ccb2a6b0533c31e82ca53cfdcd",
+    "trials/icra_label_genealogy/census.py": "fd859c0a9d57dcaad009f35ace289bc0e6a582ca7a4c3ec7a0d17560bd1ba2f1",
+    "trials/icra_label_genealogy/execute_census.py": "cf296b0cbc992280ec3e6b0075c6500dbfc0d468f8981c461924bc76bf2d593f",
+    "trials/icra_label_genealogy/verify_census.py": "25527fc65521665aea68245b3756a4b6aa0eb4b71003e53a1671e26fac3fcc41",
+    "trials/icra_nominal_origin/TRACE_VERIFICATION.json": "fb011e5dadb1f4c8c9655d3fd59f1c21f2be6c1a84df072e4a7538347b277be3",
+    "trials/icra_range_detection/runRangeDetectionReplay.m": "e63f8403400aca52e8b3a619b7efc79426fada626f1085fbe93c5b10d43a6666",
+    "lmb/lmbPredictionStep.m": "2ec08b6205fde7cd579252a42ac86f13744202636da91bba00b1795eee4a0e81"
+  },
+  "fixtures": {
+    "disjoint": true,
+    "shared_root": true,
+    "all_shared": true,
+    "empty": true,
+    "population_identity": true
+  },
+  "scope": "All nominal labels, both robots and all frames; exposed case, diagnostic birth ancestry only"
+}

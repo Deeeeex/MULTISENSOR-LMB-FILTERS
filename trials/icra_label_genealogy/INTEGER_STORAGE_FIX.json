@@ -1,0 +1,70 @@
+{
+  "reason": "Tuple labels retained NumPy int64 values, which the standard JSON encoder cannot serialize.",
+  "change": "Normalize label entries to Python int at parsing; numeric label values, populations, ancestry rules and all native inputs are unchanged.",
+  "failed_partial_file": "trials/icra_label_genealogy/results/reliable_GCE.json.gz",
+  "failed_partial_sha256": "fa14c8743e41ca9c9daedc803c827b59fa5fa78df38fb00accad04642f121a87",
+  "failed_execution_sha256": "6749d066ef0ff6ed49c9a80d7627a23a6f1c1b503835b08eab4099861bea4e11",
+  "ports": {
+    "census_v2.py": {
+      "source": "census.py",
+      "source_sha256": "fd859c0a9d57dcaad009f35ace289bc0e6a582ca7a4c3ec7a0d17560bd1ba2f1",
+      "output_sha256": "d10f2ec8c3bc352cf1a06cc652615c86a02368d216b98c3f3572ce1987645acb",
+      "patches": [
+        [
+          "def label(row):return tuple(row[2:4].astype(int))",
+          "def label(row):return tuple(map(int,row[2:4]))"
+        ],
+        [
+          "OUT/'CENSUS_FREEZE.json'",
+          "OUT/'CENSUS_FREEZE_V2.json'"
+        ],
+        [
+          "resultdir=OUT/'results'",
+          "resultdir=OUT/'results'/'v2'"
+        ]
+      ]
+    },
+    "verify_census_v2.py": {
+      "source": "verify_census.py",
+      "source_sha256": "25527fc65521665aea68245b3756a4b6aa0eb4b71003e53a1671e26fac3fcc41",
+      "output_sha256": "e87b5a1e8c7e1501206d345ec27746452c025a6ff6830874cb529e870b515400",
+      "patches": [
+        [
+          "OUT/'CENSUS_FREEZE.json'",
+          "OUT/'CENSUS_FREEZE_V2.json'"
+        ],
+        [
+          "OUT/'CENSUS_EXECUTION.json'",
+          "OUT/'CENSUS_EXECUTION_V2.json'"
+        ],
+        [
+          "OUT/'results'/f",
+          "OUT/'results'/'v2'/f"
+        ]
+      ]
+    },
+    "execute_census_v2.py": {
+      "source": "execute_census.py",
+      "source_sha256": "cf296b0cbc992280ec3e6b0075c6500dbfc0d468f8981c461924bc76bf2d593f",
+      "output_sha256": "00d0e7ba5b833f30cf03d6f5f21bec3d8a43f5f5b680803fe91022caefde3eba",
+      "patches": [
+        [
+          "'CENSUS_EXECUTION.json'",
+          "'CENSUS_EXECUTION_V2.json'"
+        ],
+        [
+          "/census.log",
+          "/census_v2.log"
+        ],
+        [
+          "'CENSUS_FREEZE.json'",
+          "'CENSUS_FREEZE_V2.json'"
+        ],
+        [
+          "'census.py'",
+          "'census_v2.py'"
+        ]
+      ]
+    }
+  }
+}

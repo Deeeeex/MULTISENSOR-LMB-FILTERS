@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-09-10T01:50:49.730747+00:00",
+  "completed": true,
+  "command": [
+    "/Users/dex/Desktop/Code/icra27/tmp/external_baselines/v2v_inference_venv/bin/python",
+    "-u",
+    "/Users/dex/Desktop/Code/icra27/trials/icra_label_genealogy/census.py"
+  ],
+  "source_sha256": "cf296b0cbc992280ec3e6b0075c6500dbfc0d468f8981c461924bc76bf2d593f",
+  "freeze_sha256": "1b18cc223a72a71f95cf348e2a81bd2ed444447cdf3f27a22a12c5dc7e51b5eb",
+  "log": "RUN/ICRA_LABEL_GENEALOGY/census.log",
+  "pid": 80967,
+  "returncode": 1,
+  "ended_utc": "2026-09-10T01:50:55.220494+00:00",
+  "log_sha256": "464b439720001f4aaf292858c4690f9a9d4699f45e3d4c2502a4348a5c2d0864"
+}
