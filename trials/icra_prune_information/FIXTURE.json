@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "command": [
+    "/Applications/MATLAB_R2024a.app/bin/matlab",
+    "-singleCompThread",
+    "-batch",
+    "addpath('common','lmb','multisensorLmb','trials/icra_known_censor','trials/icra_prune_information');checkKnownCensor();checkPruneInformation();"
+  ],
+  "completed_utc": "2026-09-10T04:17:56.026659+00:00",
+  "log": "RUN/ICRA_PRUNE_INFORMATION/fixture.log",
+  "log_sha256": "ed16b1b93e90a8504ef415404ee7698176bc0c2f590d8b67fd4670f5657f0344",
+  "source_sha256": {
+    "trials/icra_prune_information/checkPruneInformation.m": "bc6f2e456ebff78ccaf462f7e30ae60a6c727b03b952d054b58fc5ff4a7f0215",
+    "trials/icra_prune_information/runPruneInformationReplay.m": "5962428c51a17686214b698039ecd668258d02c04bbccdacd9d4b278d82a44df",
+    "trials/icra_prune_information/encodePruneInformation.m": "79cbcd4df58dd8224ea516a0396b64fa7c4fb51831515e06e8a9bb36d1326b45",
+    "trials/icra_prune_information/decodePruneInformation.m": "c0771998bc15a5a5f49102bb5454d12d637a763cda01775d1b1a82a72db0b701",
+    "trials/icra_prune_information/refinePruneInformation.m": "8a5d269fc5eeea9760cead86398448e553ef4dd2023d782f639271497e412898"
+  }
+}

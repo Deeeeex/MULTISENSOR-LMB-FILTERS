@@ -1,0 +1,1330 @@
+{
+  "passed": true,
+  "stage": "prune_info_shared",
+  "rows": [
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "frames": 240,
+      "ospa": 8.749327734889867,
+      "gospa": 25.287200133006266,
+      "loc2": 22.31497076211601,
+      "miss2": 484.8,
+      "false2": 139.8,
+      "countError": 4.791666666666667,
+      "raw_bytes": 6787040,
+      "delivered_raw_bytes": 6787040,
+      "wire_bytes": 11431936,
+      "runtime_s": 24.868939875
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "frames": 240,
+      "ospa": 8.92368191635351,
+      "gospa": 25.599581052782565,
+      "loc2": 18.742561755977704,
+      "miss2": 501.6,
+      "false2": 141.0,
+      "countError": 5.008333333333334,
+      "raw_bytes": 7508000,
+      "delivered_raw_bytes": 7508000,
+      "wire_bytes": 12087296,
+      "runtime_s": 30.490925458333333
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "reliable",
+      "arm": "marked_lineage_prune_info",
+      "frames": 240,
+      "ospa": 8.294486167056943,
+      "gospa": 24.29792954830954,
+      "loc2": 19.983683763775836,
+      "miss2": 432.3,
+      "false2": 143.4,
+      "countError": 4.0125,
+      "raw_bytes": 3151512,
+      "delivered_raw_bytes": 3151512,
+      "wire_bytes": 7925760,
+      "runtime_s": 13.303118625
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "frames": 240,
+      "ospa": 8.670273000933438,
+      "gospa": 25.030704758340654,
+      "loc2": 19.195906356038464,
+      "miss2": 477.45,
+      "false2": 137.7,
+      "countError": 4.71875,
+      "raw_bytes": 7989728,
+      "delivered_raw_bytes": 6015584,
+      "wire_bytes": 12267520,
+      "runtime_s": 26.593512583333332
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "frames": 240,
+      "ospa": 8.715747462299346,
+      "gospa": 25.113014353793595,
+      "loc2": 18.363892106378486,
+      "miss2": 481.65,
+      "false2": 138.0,
+      "countError": 4.772916666666666,
+      "raw_bytes": 8091680,
+      "delivered_raw_bytes": 6094528,
+      "wire_bytes": 12169216,
+      "runtime_s": 25.89744225
+    },
+    {
+      "sequence": "v2xt_0001",
+      "condition": "intermittent",
+      "arm": "marked_lineage_prune_info",
+      "frames": 240,
+      "ospa": 8.255886200747081,
+      "gospa": 24.100178441849533,
+      "loc2": 18.763293488038887,
+      "miss2": 430.65,
+      "false2": 138.0,
+      "countError": 4.064583333333333,
+      "raw_bytes": 3253240,
+      "delivered_raw_bytes": 2559904,
+      "wire_bytes": 7942144,
+      "runtime_s": 12.368561958333334
+    }
+  ],
+  "diagnostics": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "quality": {
+        "all_predictions": 26809,
+        "retained_predictions": 18436,
+        "excluded_predictions": 3281,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 26809
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 26809,
+        "labels": 26990,
+        "joined_source_records": 36872,
+        "joint_labels": 9882,
+        "boosted_labels": 3672,
+        "negative_boost_labels": 4138,
+        "mean_gate": 0.05942857595673108,
+        "mean_negative_gate": 0.08488683525751536,
+        "mean_boost": 0.11560846844056014,
+        "local_gaussian_records": 18436,
+        "packet_gaussian_records": 18436,
+        "gaussian_source_joins": 36872,
+        "corrected_labels": 8594,
+        "curvature_rejected_sources": 1618,
+        "curvature_rejected_labels": 1522,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.013898319466146138,
+        "max_spatial_shift_m": 1.6391035581259468,
+        "mean_log_integral_change": -0.0012623089012503172,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 8.751414375061788,
+            "gospa": 25.303190992664994,
+            "loc2": 22.14243576459696,
+            "miss2": 485.1,
+            "false2": 140.4,
+            "countError": 4.7875
+          },
+          "new_r_old_space": {
+            "ospa": 8.748677363666229,
+            "gospa": 25.284052522453884,
+            "loc2": 22.14110786227474,
+            "miss2": 484.8,
+            "false2": 139.8,
+            "countError": 4.791666666666667
+          },
+          "old_r_new_space": {
+            "ospa": 8.75206624694681,
+            "gospa": 25.30634615160561,
+            "loc2": 22.316727051656247,
+            "miss2": 485.1,
+            "false2": 140.4,
+            "countError": 4.7875
+          },
+          "candidate": {
+            "ospa": 8.749327734889867,
+            "gospa": 25.287200133006266,
+            "loc2": 22.31497076211601,
+            "miss2": 484.8,
+            "false2": 139.8,
+            "countError": 4.791666666666667
+          }
+        }
+      },
+      "communication": {
+        "attempted_trailer_bytes": 282208,
+        "delivered_trailer_bytes": 282208,
+        "reported_pruned_rows": 8339,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 6504832,
+        "attempted_payload_bytes": 6787040
+      },
+      "direct": {
+        "direct_records": 18436,
+        "raw_association_weight_values": 200304
+      },
+      "positive_mark_rows": 26809,
+      "globally_checked_pairs": 9882,
+      "eligible_labels": 14002,
+      "event_records": 14002,
+      "changed_event_records": 14002,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 70,
+            "robot_frames": 480,
+            "by_robot": [
+              35,
+              35
+            ],
+            "maximum_near_components": 60,
+            "maximum_components": 106
+          },
+          "original_window": {
+            "detected": 0,
+            "robot_frames": 140,
+            "by_robot": [
+              0,
+              0
+            ],
+            "maximum_near_components": 60,
+            "maximum_components": 106
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 39,
+            "near_active_components": 1,
+            "near_total_r": 0.33355071245303214,
+            "near_max_r": 0.33355071245303214,
+            "association_has_column": true,
+            "association_effective_labels": 1.1369769802194891,
+            "association_largest_share": 0.9841463324863984,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9577458048117613
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 39,
+            "near_active_components": 1,
+            "near_total_r": 0.33355071245303214,
+            "near_max_r": 0.33355071245303214,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 26809,
+        "available_prediction_covariances_checked": 18436,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 7938,
+            "same_frame_deleted": 6388,
+            "qualified_censor": 6385,
+            "qualified_with_opportunity": 6385,
+            "at_least_two_consecutive_returns": 5436,
+            "maximum_consecutive_returns": 115
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 4169,
+            "same_frame_deleted": 3863,
+            "qualified_censor": 3863,
+            "qualified_with_opportunity": 3863,
+            "at_least_two_consecutive_returns": 3429,
+            "maximum_consecutive_returns": 115
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 2985,
+            "same_frame_deleted": 2518,
+            "qualified_censor": 2517,
+            "qualified_with_opportunity": 2517,
+            "at_least_two_consecutive_returns": 2251,
+            "maximum_consecutive_returns": 115
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 1877,
+            "same_frame_deleted": 1787,
+            "qualified_censor": 1787,
+            "qualified_with_opportunity": 1787,
+            "at_least_two_consecutive_returns": 1657,
+            "maximum_consecutive_returns": 115
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_prune_info_reimport.csv.gz"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "quality": {
+        "all_predictions": 31105,
+        "retained_predictions": 20259,
+        "excluded_predictions": 3311,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 31105
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 31105,
+        "labels": 31270,
+        "joined_source_records": 40518,
+        "joint_labels": 9248,
+        "boosted_labels": 3208,
+        "negative_boost_labels": 3950,
+        "mean_gate": 0.05116383740295025,
+        "mean_negative_gate": 0.06938597510741094,
+        "mean_boost": 0.09825423356828228,
+        "local_gaussian_records": 20259,
+        "packet_gaussian_records": 20259,
+        "gaussian_source_joins": 40518,
+        "corrected_labels": 7902,
+        "curvature_rejected_sources": 1454,
+        "curvature_rejected_labels": 1372,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 5.6493408881335624e-15,
+        "max_spatial_shift_m": 2.0253584144909417e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "communication": {
+        "attempted_trailer_bytes": 361472,
+        "delivered_trailer_bytes": 361472,
+        "reported_pruned_rows": 10816,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 7146528,
+        "attempted_payload_bytes": 7508000
+      },
+      "direct": {
+        "direct_records": 20259,
+        "raw_association_weight_values": 227030
+      },
+      "positive_mark_rows": 31105,
+      "globally_checked_pairs": 9248,
+      "eligible_labels": 18932,
+      "event_records": 18932,
+      "changed_event_records": 18932,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 2,
+            "robot_frames": 480,
+            "by_robot": [
+              1,
+              1
+            ],
+            "maximum_near_components": 89,
+            "maximum_components": 134
+          },
+          "original_window": {
+            "detected": 0,
+            "robot_frames": 140,
+            "by_robot": [
+              0,
+              0
+            ],
+            "maximum_near_components": 89,
+            "maximum_components": 134
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 91,
+            "near_active_components": 74,
+            "near_total_r": 0.15875850271424793,
+            "near_max_r": 0.009310597701975858,
+            "association_has_column": true,
+            "association_effective_labels": 66.87101662335725,
+            "association_largest_share": 0.056203886164996275,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.8132589572170251
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 91,
+            "near_active_components": 74,
+            "near_total_r": 0.15875850271424793,
+            "near_max_r": 0.009310597701975858,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 31105,
+        "available_prediction_covariances_checked": 20259,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 10391,
+            "same_frame_deleted": 8848,
+            "qualified_censor": 8846,
+            "qualified_with_opportunity": 8846,
+            "at_least_two_consecutive_returns": 7907,
+            "maximum_consecutive_returns": 114
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 7558,
+            "same_frame_deleted": 7220,
+            "qualified_censor": 7220,
+            "qualified_with_opportunity": 7220,
+            "at_least_two_consecutive_returns": 6757,
+            "maximum_consecutive_returns": 114
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 4083,
+            "same_frame_deleted": 3621,
+            "qualified_censor": 3620,
+            "qualified_with_opportunity": 3620,
+            "at_least_two_consecutive_returns": 3348,
+            "maximum_consecutive_returns": 114
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 3328,
+            "same_frame_deleted": 3240,
+            "qualified_censor": 3240,
+            "qualified_with_opportunity": 3240,
+            "at_least_two_consecutive_returns": 3099,
+            "maximum_consecutive_returns": 114
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_prune_info_reimport.csv.gz"
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_prune_info",
+      "quality": {
+        "all_predictions": 18869,
+        "retained_predictions": 13685,
+        "excluded_predictions": 3392,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 18869
+      },
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 18102,
+        "positive_age_labels": 5144,
+        "support_above_noage": 0,
+        "constrained_below_er": 11536,
+        "preserved_above_cr": 570,
+        "same_input": {
+          "no_age": {
+            "ospa": 8.294486167056943,
+            "gospa": 24.29792954830954,
+            "loc2": 19.983683763775836,
+            "miss2": 432.3,
+            "false2": 143.4,
+            "countError": 4.0125
+          },
+          "ER": {
+            "ospa": 8.291904998695705,
+            "gospa": 24.2984419695684,
+            "loc2": 19.98028426226522,
+            "miss2": 432.0,
+            "false2": 143.7,
+            "countError": 4.004166666666666
+          },
+          "candidate": {
+            "ospa": 8.294486167056943,
+            "gospa": 24.29792954830954,
+            "loc2": 19.983683763775836,
+            "miss2": 432.3,
+            "false2": 143.4,
+            "countError": 4.0125
+          }
+        },
+        "full_gaussians": 18102,
+        "source_joins": 27370
+      },
+      "communication": {
+        "attempted_trailer_bytes": 180192,
+        "delivered_trailer_bytes": 180192,
+        "reported_pruned_rows": 5151,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 2971320,
+        "attempted_payload_bytes": 3151512
+      },
+      "direct": {
+        "direct_records": 13685,
+        "raw_association_weight_values": 140653
+      },
+      "positive_mark_rows": 18869,
+      "globally_checked_pairs": 9268,
+      "eligible_labels": 6402,
+      "event_records": 6402,
+      "changed_event_records": 6402,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 402,
+            "robot_frames": 480,
+            "by_robot": [
+              201,
+              201
+            ],
+            "maximum_near_components": 30,
+            "maximum_components": 60
+          },
+          "original_window": {
+            "detected": 140,
+            "robot_frames": 140,
+            "by_robot": [
+              70,
+              70
+            ],
+            "maximum_near_components": 2,
+            "maximum_components": 57
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 34,
+            "near_active_components": 1,
+            "near_total_r": 0.9871550913374746,
+            "near_max_r": 0.9871550913374746,
+            "association_has_column": true,
+            "association_effective_labels": 1.043835405001609,
+            "association_largest_share": 0.9953053893931131,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9856103962418906
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 34,
+            "near_active_components": 1,
+            "near_total_r": 0.9871550913374746,
+            "near_max_r": 0.9871550913374746,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 18869,
+        "available_prediction_covariances_checked": 13685,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 3966,
+            "same_frame_deleted": 2752,
+            "qualified_censor": 2750,
+            "qualified_with_opportunity": 2750,
+            "at_least_two_consecutive_returns": 2187,
+            "maximum_consecutive_returns": 82
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 313,
+            "same_frame_deleted": 230,
+            "qualified_censor": 230,
+            "qualified_with_opportunity": 230,
+            "at_least_two_consecutive_returns": 180,
+            "maximum_consecutive_returns": 14
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 1367,
+            "same_frame_deleted": 976,
+            "qualified_censor": 975,
+            "qualified_with_opportunity": 975,
+            "at_least_two_consecutive_returns": 775,
+            "maximum_consecutive_returns": 82
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 11,
+            "same_frame_deleted": 0,
+            "qualified_censor": 0,
+            "qualified_with_opportunity": 0,
+            "at_least_two_consecutive_returns": 0,
+            "maximum_consecutive_returns": 0
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_lineage_prune_info_reimport.csv.gz"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "quality": {
+        "all_predictions": 30830,
+        "retained_predictions": 21792,
+        "excluded_predictions": 3300,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 30830
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence",
+        "local_update_records": 30830,
+        "labels": 24834,
+        "joined_source_records": 32646,
+        "joint_labels": 7812,
+        "boosted_labels": 2895,
+        "negative_boost_labels": 3304,
+        "mean_gate": 0.05091628408796343,
+        "mean_negative_gate": 0.0729640395780267,
+        "mean_boost": 0.09494771267533123,
+        "local_gaussian_records": 21792,
+        "packet_gaussian_records": 21792,
+        "gaussian_source_joins": 32646,
+        "corrected_labels": 6887,
+        "curvature_rejected_sources": 1416,
+        "curvature_rejected_labels": 1365,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 0.011929542731567827,
+        "max_spatial_shift_m": 1.6416265146557991,
+        "mean_log_integral_change": -0.0019094100319097494,
+        "same_input": {
+          "scalar_AS": {
+            "ospa": 8.594889840470245,
+            "gospa": 24.646499680919263,
+            "loc2": 19.749700574941418,
+            "miss2": 457.5681818181818,
+            "false2": 136.63636363636363,
+            "countError": 4.457386363636363
+          },
+          "new_r_old_space": {
+            "ospa": 8.591988578485724,
+            "gospa": 24.639154306541762,
+            "loc2": 19.749939687903943,
+            "miss2": 457.15909090909093,
+            "false2": 136.63636363636363,
+            "countError": 4.451704545454546
+          },
+          "old_r_new_space": {
+            "ospa": 8.595484669464703,
+            "gospa": 24.64932797046513,
+            "loc2": 19.899417318450766,
+            "miss2": 457.5681818181818,
+            "false2": 136.63636363636363,
+            "countError": 4.457386363636363
+          },
+          "candidate": {
+            "ospa": 8.59258364488886,
+            "gospa": 24.641983559492544,
+            "loc2": 19.899656431413295,
+            "miss2": 457.15909090909093,
+            "false2": 136.63636363636363,
+            "countError": 4.451704545454546
+          }
+        }
+      },
+      "communication": {
+        "attempted_trailer_bytes": 303584,
+        "delivered_trailer_bytes": 256160,
+        "reported_pruned_rows": 9007,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 7686144,
+        "attempted_payload_bytes": 7989728
+      },
+      "direct": {
+        "direct_records": 21792,
+        "raw_association_weight_values": 245054
+      },
+      "positive_mark_rows": 30830,
+      "globally_checked_pairs": 7812,
+      "eligible_labels": 13396,
+      "event_records": 13396,
+      "changed_event_records": 13396,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 94,
+            "robot_frames": 480,
+            "by_robot": [
+              64,
+              30
+            ],
+            "maximum_near_components": 67,
+            "maximum_components": 106
+          },
+          "original_window": {
+            "detected": 23,
+            "robot_frames": 140,
+            "by_robot": [
+              23,
+              0
+            ],
+            "maximum_near_components": 67,
+            "maximum_components": 106
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 55,
+            "near_active_components": 13,
+            "near_total_r": 0.5620843788750891,
+            "near_max_r": 0.3245018139186703,
+            "association_has_column": true,
+            "association_effective_labels": 13.320405684866333,
+            "association_largest_share": 0.46714948112664934,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.6786929005204444
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 52,
+            "near_active_components": 13,
+            "near_total_r": 0.045526995540444655,
+            "near_max_r": 0.01188397567241015,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 30830,
+        "available_prediction_covariances_checked": 21792,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 8080,
+            "same_frame_deleted": 6289,
+            "qualified_censor": 6287,
+            "qualified_with_opportunity": 6287,
+            "at_least_two_consecutive_returns": 5075,
+            "maximum_consecutive_returns": 22
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 5105,
+            "same_frame_deleted": 4511,
+            "qualified_censor": 4511,
+            "qualified_with_opportunity": 4511,
+            "at_least_two_consecutive_returns": 3886,
+            "maximum_consecutive_returns": 22
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 2525,
+            "same_frame_deleted": 2098,
+            "qualified_censor": 2097,
+            "qualified_with_opportunity": 2097,
+            "at_least_two_consecutive_returns": 1802,
+            "maximum_consecutive_returns": 17
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 1870,
+            "same_frame_deleted": 1715,
+            "qualified_censor": 1715,
+            "qualified_with_opportunity": 1715,
+            "at_least_two_consecutive_returns": 1545,
+            "maximum_consecutive_returns": 17
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_prune_info_reimport.csv.gz"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "quality": {
+        "all_predictions": 31716,
+        "retained_predictions": 22022,
+        "excluded_predictions": 3344,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 31716
+      },
+      "density": {
+        "arm": "marked_gaussian_evidence_guarded_scalar",
+        "local_update_records": 31716,
+        "labels": 25649,
+        "joined_source_records": 32981,
+        "joint_labels": 7332,
+        "boosted_labels": 2631,
+        "negative_boost_labels": 3086,
+        "mean_gate": 0.04799226375319683,
+        "mean_negative_gate": 0.06952487056215931,
+        "mean_boost": 0.08652462804615732,
+        "local_gaussian_records": 22022,
+        "packet_gaussian_records": 22022,
+        "gaussian_source_joins": 32981,
+        "corrected_labels": 6397,
+        "curvature_rejected_sources": 1256,
+        "curvature_rejected_labels": 1204,
+        "aggregate_fallbacks": 0,
+        "mean_spatial_shift_m": 5.246105708027515e-15,
+        "max_spatial_shift_m": 3.330467747348952e-13,
+        "mean_log_integral_change": 0.0
+      },
+      "communication": {
+        "attempted_trailer_bytes": 324576,
+        "delivered_trailer_bytes": 276672,
+        "reported_pruned_rows": 9663,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 7767104,
+        "attempted_payload_bytes": 8091680
+      },
+      "direct": {
+        "direct_records": 22022,
+        "raw_association_weight_values": 250955
+      },
+      "positive_mark_rows": 31716,
+      "globally_checked_pairs": 7332,
+      "eligible_labels": 14631,
+      "event_records": 14631,
+      "changed_event_records": 14631,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 78,
+            "robot_frames": 480,
+            "by_robot": [
+              55,
+              23
+            ],
+            "maximum_near_components": 68,
+            "maximum_components": 106
+          },
+          "original_window": {
+            "detected": 22,
+            "robot_frames": 140,
+            "by_robot": [
+              22,
+              0
+            ],
+            "maximum_near_components": 68,
+            "maximum_components": 106
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 55,
+            "near_active_components": 11,
+            "near_total_r": 0.6439340767710221,
+            "near_max_r": 0.48920916042578744,
+            "association_has_column": true,
+            "association_effective_labels": 6.010249573867679,
+            "association_largest_share": 0.6715758114501134,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.714734942760225
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": false,
+            "output_count": 8,
+            "active_components": 51,
+            "near_active_components": 10,
+            "near_total_r": 0.045896293119993194,
+            "near_max_r": 0.021701016451132784,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 31716,
+        "available_prediction_covariances_checked": 22022,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 8724,
+            "same_frame_deleted": 6901,
+            "qualified_censor": 6899,
+            "qualified_with_opportunity": 6899,
+            "at_least_two_consecutive_returns": 5705,
+            "maximum_consecutive_returns": 22
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 5745,
+            "same_frame_deleted": 5102,
+            "qualified_censor": 5102,
+            "qualified_with_opportunity": 5102,
+            "at_least_two_consecutive_returns": 4464,
+            "maximum_consecutive_returns": 22
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 2566,
+            "same_frame_deleted": 2137,
+            "qualified_censor": 2136,
+            "qualified_with_opportunity": 2136,
+            "at_least_two_consecutive_returns": 1836,
+            "maximum_consecutive_returns": 17
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 1888,
+            "same_frame_deleted": 1726,
+            "qualified_censor": 1726,
+            "qualified_with_opportunity": 1726,
+            "at_least_two_consecutive_returns": 1555,
+            "maximum_consecutive_returns": 17
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_prune_info_reimport.csv.gz"
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_prune_info",
+      "quality": {
+        "all_predictions": 19530,
+        "retained_predictions": 14125,
+        "excluded_predictions": 3362,
+        "minimum_positive_pd": 0.9,
+        "maximum_pd": 0.9,
+        "all_local_odds_checked": 19530
+      },
+      "density": {
+        "arm": "marked_lineage",
+        "labels": 15282,
+        "positive_age_labels": 3795,
+        "support_above_noage": 0,
+        "constrained_below_er": 9541,
+        "preserved_above_cr": 627,
+        "same_input": {
+          "no_age": {
+            "ospa": 8.10984482036846,
+            "gospa": 23.606700893414203,
+            "loc2": 19.582082353423747,
+            "miss2": 402.95454545454544,
+            "false2": 139.29545454545453,
+            "countError": 3.6619318181818183
+          },
+          "ER": {
+            "ospa": 8.102787575192249,
+            "gospa": 23.628823752196503,
+            "loc2": 19.63796857999258,
+            "miss2": 402.1363636363636,
+            "false2": 140.9318181818182,
+            "countError": 3.627840909090909
+          },
+          "candidate": {
+            "ospa": 8.10984482036846,
+            "gospa": 23.606700893414203,
+            "loc2": 19.582082353423747,
+            "miss2": 402.95454545454544,
+            "false2": 139.29545454545453,
+            "countError": 3.6619318181818183
+          }
+        },
+        "full_gaussians": 15282,
+        "source_joins": 22265
+      },
+      "communication": {
+        "attempted_trailer_bytes": 186880,
+        "delivered_trailer_bytes": 150176,
+        "reported_pruned_rows": 5360,
+        "checked_packets": 480,
+        "header_bytes": 15360,
+        "attempted_base_bytes": 3066360,
+        "attempted_payload_bytes": 3253240
+      },
+      "direct": {
+        "direct_records": 14125,
+        "raw_association_weight_values": 148316
+      },
+      "positive_mark_rows": 19530,
+      "globally_checked_pairs": 6983,
+      "eligible_labels": 5759,
+      "event_records": 5759,
+      "changed_event_records": 5759,
+      "target": {
+        "map_extractions_checked": 480,
+        "windows": {
+          "full": {
+            "detected": 382,
+            "robot_frames": 480,
+            "by_robot": [
+              217,
+              165
+            ],
+            "maximum_near_components": 30,
+            "maximum_components": 76
+          },
+          "original_window": {
+            "detected": 115,
+            "robot_frames": 140,
+            "by_robot": [
+              70,
+              45
+            ],
+            "maximum_near_components": 2,
+            "maximum_components": 76
+          }
+        },
+        "frame53": [
+          {
+            "frame": 53,
+            "robot": 1,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 51,
+            "near_active_components": 1,
+            "near_total_r": 0.9965979980492334,
+            "near_max_r": 0.9965979980492334,
+            "association_has_column": true,
+            "association_effective_labels": 1.060192257454802,
+            "association_largest_share": 0.9938304768110073,
+            "association_nearest_distance_m": 0.06837284706978408,
+            "association_joint_mass": 0.9873380431239148
+          },
+          {
+            "frame": 53,
+            "robot": 2,
+            "detected": true,
+            "output_count": 9,
+            "active_components": 48,
+            "near_active_components": 1,
+            "near_total_r": 0.9400218233118915,
+            "near_max_r": 0.9400218233118915,
+            "association_has_column": false,
+            "association_effective_labels": null,
+            "association_largest_share": null,
+            "association_nearest_distance_m": null,
+            "association_joint_mass": null
+          }
+        ]
+      },
+      "population": {
+        "predictions_checked": 19530,
+        "available_prediction_covariances_checked": 14125,
+        "reimport_summaries": [
+          {
+            "window": "full",
+            "scope": "all",
+            "remote_only_retained": 3805,
+            "same_frame_deleted": 2549,
+            "qualified_censor": 2547,
+            "qualified_with_opportunity": 2547,
+            "at_least_two_consecutive_returns": 1935,
+            "maximum_consecutive_returns": 17
+          },
+          {
+            "window": "full",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 236,
+            "same_frame_deleted": 152,
+            "qualified_censor": 152,
+            "qualified_with_opportunity": 152,
+            "at_least_two_consecutive_returns": 118,
+            "maximum_consecutive_returns": 7
+          },
+          {
+            "window": "original_window",
+            "scope": "all",
+            "remote_only_retained": 1516,
+            "same_frame_deleted": 1165,
+            "qualified_censor": 1164,
+            "qualified_with_opportunity": 1164,
+            "at_least_two_consecutive_returns": 947,
+            "maximum_consecutive_returns": 17
+          },
+          {
+            "window": "original_window",
+            "scope": "target_neighbourhood",
+            "remote_only_retained": 10,
+            "same_frame_deleted": 0,
+            "qualified_censor": 0,
+            "qualified_with_opportunity": 0,
+            "at_least_two_consecutive_returns": 0,
+            "maximum_consecutive_returns": 0
+          }
+        ]
+      },
+      "reimport_event_path": "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_lineage_prune_info_reimport.csv.gz"
+    }
+  ],
+  "parity": [
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage_prune_info",
+      "first_changed_frame": 3,
+      "exact_prefix_fields": [
+        "localIncrementRecords",
+        "localGaussianRecords",
+        "qualityRecords",
+        "packetGaussianRecords",
+        "localDirectRecords",
+        "packetDirectRecords",
+        "fusionSourceRecords",
+        "iterationRecords_except_actual_r_at_first_peer_event",
+        "fusionOutputRecords_except_actual_r_at_first_peer_event",
+        "estimates",
+        "rawEstimates",
+        "labels",
+        "localAssociationWeights",
+        "basePacketBytes",
+        "matchedLabels",
+        "controlBytes",
+        "attemptedMessages",
+        "deliveredMessages"
+      ]
+    }
+  ],
+  "inputs": {
+    "trials/icra_prune_information/stages/prune_info_shared.json": "0e4153c47109a9219e2e394ab81f7fbe4061d3359f645d823b1eb8bc556918dc",
+    "trials/icra_prune_information/runtime_prune_info_shared.json": "e549491ef951bbe8d7ed96edf486e3f3fc111e8abedb7a04e40cc6e27f9797cb",
+    "RUN/ICRA_PRUNE_INFORMATION/prune_info_shared/reliable.log": "134f966eda2a7a3bc20344a64e015991b62571629df88030da74e37a210ee6d4",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_prune_info_reimport.csv.gz": "bc06900ca5b1101e15bd9f0c923a6086cdad4d9e88244cfa7c4d59239eb7de07",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_reliable_marked_gaussian_evidence_known_censor.json.gz": "dc8eca8a6385bd30fe83e44b92f8d5633c34fdc6bf01d62f2714dbf725f36532",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_prune_info.json.gz": "7fdf2e9bf511c15fa29c6cf513e9de2f5ebec70b492f067f81f8298bcbfbba33",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_prune_info_reimport.csv.gz": "3f28286ee325a9925f926ca1a6326dabb4b3211eedcbb2a3aa319b49436e69f9",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz": "0173dfc99f6ace51c86a7ab3080a10593c11371b46985afa892deaedf41c4c99",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_gaussian_evidence_guarded_scalar_prune_info.json.gz": "ad33f156ef7a83c658e21efd2c055f344cd7dc2416ba119b13eced1a6269ec92",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_lineage_prune_info_reimport.csv.gz": "f32095fca8519a6f55b4e0506357aa10a3a7ccf2a3575bf2e0e926632322088d",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_reliable_marked_lineage_known_censor.json.gz": "346933e27ef0eacea15d6fcfe6d0fb995d95a9f17da23ce403c0f2e65e98f6d4",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_reliable_marked_lineage_prune_info.json.gz": "1fe84e5a8c9c001cfc6bd5aebb85cf9e905c8acc4ee77f958e27c1534e094a03",
+    "RUN/ICRA_PRUNE_INFORMATION/prune_info_shared/intermittent.log": "6a39b8527028e78f5c362b79fc0adefec3928194ec7813058e8f6c1b83036063",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_prune_info_reimport.csv.gz": "093fe731d687d578305a7187b06b7ffc4cf57b3d9186c7ecc2bb4db01e22dcde",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_intermittent_marked_gaussian_evidence_known_censor.json.gz": "5c8e74635f9525b8444b0c23746bf6cdd1d486e39f9615ca7faa3e60f7df432b",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_prune_info.json.gz": "2740ffdc758a8f1aef21e14018357503a3e25379f6d11fdbdbab8e78be1dfa8e",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_prune_info_reimport.csv.gz": "2a5723e68ee645b1dc93a5ea40e4354ed58ffb52d1ea27eb130dd6c37d7773f6",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_known_censor.json.gz": "a33275dc168db32630f4dba2f064bf0d60cc7c8bb78213a401f4b7ee0af1adc5",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_gaussian_evidence_guarded_scalar_prune_info.json.gz": "89af533df7697b1c1a23cffdbe7cbf4986bb35046aa21bef57b5ba47fb3926e7",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_lineage_prune_info_reimport.csv.gz": "8c46ef66281111d9074833117cd27b4cec2fa58dab1335f963bb1a68b3107890",
+    "trials/icra_prune_information/results/prune_info_controls/v2xt_0001_intermittent_marked_lineage_known_censor.json.gz": "52d1ead9f33f7d5db6d8b09c5676d78fcaf3eaccda9e1ef1d558cb4efe38dcb1",
+    "trials/icra_prune_information/results/prune_info_shared/v2xt_0001_intermittent_marked_lineage_prune_info.json.gz": "d1055dc9eafc18906fa9da54c1dd261a9d6a8072681eaa7a8402f5695fa0e284",
+    "trials/icra_prune_information/scores_prune_info_shared.csv": "0cdfef02cc1996dbdeff8c5c8cf9f1dfa19e3d580fca76017cd7e0bad47a27be",
+    "trials/icra_prune_information/target_frames_prune_info_shared.csv": "872a4a9e81c99252981639abca272a909b81b75f53cb40420febf6bd6e6acfc1",
+    "trials/icra_prune_information/population_frames_prune_info_shared.csv": "4def54712a4f3464a4c07ceee3b02786b7efd9ecb9b2e1263f705e649dc01e55"
+  },
+  "audited_robot_frames": 2880,
+  "source_sha256": {
+    "trials/icra_prune_information/prune_event_audit.py": "795081a98bb48333e706543f268b614c855b6e907bb8aeaae455b120a755858e",
+    "trials/icra_prune_information/reentry_audit.py": "a93fcae2612201682ddebbfad1f67440723506e851496830a4095e73265981da",
+    "trials/icra_prune_information/run_stage.py": "9f58dcde3e4dd2342027c9f69a9e091a0189bc7c7643dd231b50ac454ccd1ae6",
+    "trials/icra_prune_information/audit_stage.py": "758500774e9e36aa073ec8bba8dbd652e1c38d997f211f779efaa3fc15a7b990",
+    "trials/icra_prune_information/register.py": "72e922cc4b1cc328b57e2ec6c85035ae49e00ed2b74a8c8a0c98bb9b41ff907f",
+    "trials/icra_prune_information/preflight_fixture.py": "3420611b4ee402f108e2376704ae792da9cb72578c6ab6f1b5c3016e2b5ab775",
+    "trials/icra_prune_information/make_audit.py": "71990483e6abf3a74ba807dbff1a172e4f41eec1ef7016914fa3a4d31d63d1a2",
+    "trials/icra_prune_information/censor_range_audit.py": "901c08b0201c4471f2613c113995fd2b272ab6eb481fbfe2f67d6c22a364d2a1",
+    "trials/icra_prune_information/censor_scalar_audit.py": "a4b95148bd3665ece80857c783719903cce0e4d76cf396b2d7c64d1128f6931c",
+    "trials/icra_prune_information/make_ports.py": "3fd6f92e9cf179dfe19f1f830039bb896fc54e7fcfd986d8cf801c0e311d67f2",
+    "trials/icra_prune_information/censor_gaussian_audit.py": "76b1db731dfdbac581cdb0f845df8335697669a55966d20acdb765fac4e1b3b7",
+    "trials/icra_prune_information/finish.py": "83f7a45063545a053e52c2b2aca76193aa4c57c8b1ed1d0b69a60f3ae721643e"
+  }
+}

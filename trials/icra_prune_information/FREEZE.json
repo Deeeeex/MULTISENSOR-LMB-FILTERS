@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "created_utc": "2026-09-10T04:30:55.186248+00:00",
+  "configurations": {
+    "trials/icra_prune_information/stages/prune_info_controls.json": "4c1e65b57ad3ee3aa0c4fbd965a00537bab9291e4342cb0f4f1176038f9cd645",
+    "trials/icra_prune_information/stages/prune_info_shared.json": "0e4153c47109a9219e2e394ab81f7fbe4061d3359f645d823b1eb8bc556918dc"
+  },
+  "native_trajectories": 12,
+  "prior_original_references": 6,
+  "source_files": 1566,
+  "fixture_sha256": "77b2365f8e8a240a1cb742d5fa58ffb26af75378893ddbf00050f25d4e4100ee"
+}

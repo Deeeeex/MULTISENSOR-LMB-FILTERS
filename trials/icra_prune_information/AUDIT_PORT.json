@@ -1,0 +1,100 @@
+{
+  "source": "trials/icra_known_censor/audit_stage_v2.py",
+  "source_sha256": "b6c8c24a33b6f12fbac02611716081f9d71cb2951bcffd6b47a513eecac095b1",
+  "target": "trials/icra_prune_information/audit_stage.py",
+  "target_sha256": "758500774e9e36aa073ec8bba8dbd652e1c38d997f211f779efaa3fc15a7b990",
+  "changes": [
+    {
+      "before": "'icra_temporal_association','icra_miss_history','icra_range_detection','icra_recursion_origin'",
+      "after": "'icra_temporal_association','icra_miss_history','icra_range_detection','icra_recursion_origin','icra_known_censor'"
+    },
+    {
+      "before": "from audit_screen_assessment_v2 import packets",
+      "after": "from prune_event_audit import packets,eligible_rows\nfrom event_audit import eligible_rows as local_eligible_rows"
+    },
+    {
+      "before": "from event_audit import eligible_rows\n",
+      "after": ""
+    },
+    {
+      "before": "SUFFIX='_known_censor'",
+      "after": "SUFFIX='_prune_info'"
+    },
+    {
+      "before": "def exact_prefix(run,control):\n    events=np.asarray(run['knownCensorRecords'],float).reshape(-1,25);changed=events[events[:,4]!=events[:,5]]\n    assert len(changed);first=int(changed[:,0].min());checked=[]\n    for name in ['localIncrementRecords','localGaussianRecords','qualityRecords','packetGaussianRecords',\n                 'localDirectRecords','packetDirectRecords','fusionSourceRecords']:\n        assert [r for r in run[name] if r[0]<=first]==[r for r in control[name] if r[0]<=first],name;checked.append(name)\n    for name,omit in [('iterationRecords',{6,9}),('fusionOutputRecords',{4})]:\n        assert [r for r in run[name] if r[0]<first]==[r for r in control[name] if r[0]<first],name\n        a=[[x for i,x in enumerate(r) if i not in omit] for r in run[name] if r[0]==first]\n        b=[[x for i,x in enumerate(r) if i not in omit] for r in control[name] if r[0]==first]\n        assert a==b,name;checked.append(name+'_except_actual_r_at_first_event')\n    for name in ['estimates','rawEstimates','labels']:\n        assert run[name][:2*(first-1)]==control[name][:2*(first-1)],name;checked.append(name)\n    assert run['localAssociationWeights'][:2*first]==control['localAssociationWeights'][:2*first];checked.append('localAssociationWeights')\n    for name in ['packetBytes','matchedLabels']:\n        assert [r[:first] for r in run[name]]==[r[:first] for r in control[name]],name;checked.append(name)\n    for name in ['rawPayloadBytes','deliveredRawBytes','wireBytes','controlBytes','attemptedMessages','deliveredMessages']:\n        assert run[name][:first]==control[name][:first],name;checked.append(name)\n    return dict(first_changed_frame=first,exact_prefix_fields=checked)\n",
+      "after": "def exact_prefix(run,control):\n    events=np.asarray(run['pruneInformationRecords'],float).reshape(-1,24)\n    changed=events[(events[:,6]==2)&(events[:,4]!=events[:,5])]\n    assert len(changed);first=int(changed[:,0].min());checked=[]\n    for name in ['localIncrementRecords','localGaussianRecords','qualityRecords','packetGaussianRecords',\n                 'localDirectRecords','packetDirectRecords','fusionSourceRecords']:\n        assert [r for r in run[name] if r[0]<=first]==[r for r in control[name] if r[0]<=first],name;checked.append(name)\n    for name,omit in [('iterationRecords',{6,9}),('fusionOutputRecords',{4})]:\n        assert [r for r in run[name] if r[0]<first]==[r for r in control[name] if r[0]<first],name\n        a=[[x for i,x in enumerate(r) if i not in omit] for r in run[name] if r[0]==first]\n        b=[[x for i,x in enumerate(r) if i not in omit] for r in control[name] if r[0]==first]\n        assert a==b,name;checked.append(name+'_except_actual_r_at_first_peer_event')\n    for name in ['estimates','rawEstimates','labels']:\n        assert run[name][:2*(first-1)]==control[name][:2*(first-1)],name;checked.append(name)\n    assert run['localAssociationWeights'][:2*first]==control['localAssociationWeights'][:2*first];checked.append('localAssociationWeights')\n    for name in ['basePacketBytes','matchedLabels']:\n        assert [r[:first] for r in run[name]]==[r[:first] for r in control[name]],name;checked.append(name)\n    for name in ['controlBytes','attemptedMessages','deliveredMessages']:\n        assert run[name]==control[name],name;checked.append(name)\n    return dict(first_changed_frame=first,exact_prefix_fields=checked)\n\n"
+    },
+    {
+      "before": "choices=['known_censor_controls','known_censor_refined']",
+      "after": "choices=['prune_info_controls','prune_info_shared']"
+    },
+    {
+      "before": "destination=OUT/('audit_v2_'+args.stage+'.json')",
+      "after": "destination=OUT/('audit_'+args.stage+'.json')"
+    },
+    {
+      "before": "    v2=json.loads((OUT/'AUDIT_FREEZE_V2.json').read_text())\n    for name,h in v2['source_sha256'].items():assert sha(ROOT/name)==h,name\n",
+      "after": ""
+    },
+    {
+      "before": "'RUN/ICRA_KNOWN_CENSOR'",
+      "after": "'RUN/ICRA_PRUNE_INFORMATION'"
+    },
+    {
+      "before": "['KNOWN CENSOR CHECK PASSED','RANGE DETECTION CHECK PASSED',",
+      "after": "['PRUNE INFORMATION CHECK PASSED','KNOWN CENSOR CHECK PASSED','RANGE DETECTION CHECK PASSED',"
+    },
+    {
+      "before": "base=arm.removesuffix(SUFFIX)",
+      "after": "base=arm.removesuffix(SUFFIX).removesuffix('_known_censor')"
+    },
+    {
+      "before": "run['knownCensorEnabled']==arm.endswith(SUFFIX)",
+      "after": "run['knownCensorEnabled']==arm.endswith('_known_censor') and run['pruneInformationEnabled']==arm.endswith(SUFFIX)"
+    },
+    {
+      "before": "quality=audit_actual_pd(run,data);view=source_view(packets(run,delivered,240,''));view['arm']=base",
+      "after": "quality=audit_actual_pd(run,data);packet_view,communication=packets(run,delivered,240);view=source_view(packet_view);view['arm']=base"
+    },
+    {
+      "before": "pop=audit_population(data,mat);ix,_=eligible_rows(view,np.asarray(view['iterationRecords']).reshape(-1,60))\n            events=np.asarray(run['knownCensorRecords'],float).reshape(-1,25)\n            assert len(events)==(len(ix) if run['knownCensorEnabled'] else 0)",
+      "after": "pop=audit_population(data,mat)\n            if run['pruneInformationEnabled']:\n                ix,_=eligible_rows(view,np.asarray(view['iterationRecords']).reshape(-1,60))\n                events=np.asarray(run['pruneInformationRecords'],float).reshape(-1,24)\n            else:\n                ix,_=local_eligible_rows(view,np.asarray(view['iterationRecords']).reshape(-1,60))\n                events=np.asarray(run['knownCensorRecords'],float).reshape(-1,25)\n            assert len(events)==len(ix)"
+    },
+    {
+      "before": "_reimport_v2.csv.gz",
+      "after": "_reimport.csv.gz"
+    },
+    {
+      "before": "quality=quality,density=density,direct=direct,positive_mark_rows=marks,",
+      "after": "quality=quality,density=density,communication=communication,direct=direct,positive_mark_rows=marks,"
+    },
+    {
+      "before": "if args.stage=='known_censor_controls':",
+      "after": "if args.stage=='prune_info_controls':"
+    },
+    {
+      "before": "ref=u['references'][base]",
+      "after": "ref=u['references'][arm]"
+    },
+    {
+      "before": "'results/known_censor_controls'/f'{seq}_{condition}_{base}.json.gz'",
+      "after": "'results/prune_info_controls'/f'{seq}_{condition}_{base}_known_censor.json.gz'"
+    },
+    {
+      "before": "'audit_v2_known_censor_controls.json'",
+      "after": "'audit_prune_info_controls.json'"
+    },
+    {
+      "before": "AUDITED KNOWN CENSOR",
+      "after": "AUDITED PRUNE INFORMATION"
+    },
+    {
+      "before": "[('scores_v2_',rows),('target_frames_v2_',timeline),('population_frames_v2_',population_rows)]",
+      "after": "[('scores_',rows),('target_frames_',timeline),('population_frames_',population_rows)]"
+    },
+    {
+      "before": "KNOWN CENSOR NATIVE AUDIT PASSED",
+      "after": "PRUNE INFORMATION NATIVE AUDIT PASSED"
+    }
+  ]
+}

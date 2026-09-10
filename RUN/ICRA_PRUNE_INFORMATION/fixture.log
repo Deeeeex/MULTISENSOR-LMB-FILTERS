@@ -1,0 +1,4 @@
+WARNING: package sun.awt.X11 not in java.desktop
+WARNING: package sun.awt.X11 not in java.desktop
+KNOWN CENSOR CHECK PASSED: 163 fixtures; eligibility, all three backends, history branch, clipping, exact identity and spatial/metadata preservation.
+PRUNE INFORMATION CHECK PASSED: 448 fixtures; byte parser, both sides, three backends, receiver-only parity and unchanged spatial fields.
