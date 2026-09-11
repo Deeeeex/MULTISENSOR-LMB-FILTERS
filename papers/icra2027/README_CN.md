@@ -2,13 +2,15 @@
 
 **Guarded Current-Evidence Fusion for Cooperative Multitarget Tracking**
 
-版面约束为正文完整七页，Ack/Ref 单独一页；四幅正文矢量图、四张表和三十条参考文献。
-本版按审稿意见补充实际实验，并据结果收紧结论。未提交会议。
+版面约束为正文完整七页，Ack/Ref 单独一页；四幅正文矢量图、四张表和三十一条参考文献。
+本版补入已完成的扩展数据和固定强度复核，并据结果收紧结论。未提交会议。
 
 ## 阅读入口
 
 - 论文：`output/pdf/icra2027_draft.pdf`
 - 可移植源码包：`output/icra2027_review_source.zip`
+- 本次 43 段 V2V、五段 V2X 与七点固定强度修订：`FOLLOWUP_REVISION_CN.md`
+- 扩展证据与完整来源：`source_data/followup_evidence.json`、`source_data/admission_followup/`
 - 审稿修改、全部新数据与敏感性结果：`REVIEW_REVISION_CN.md`
 - 新增实验数值：`source_data/reviewer_evidence.json`
 - 来源快照和协议：`source_data/reviewer_revision/`
@@ -24,16 +26,19 @@
 | No-age KLA | 3.702 | 3.988 |
 | Scalar | 3.526 | 3.832 |
 | Guarded Scalar | 3.508 | 3.793 |
-| Fixed Ratio (0.25) | 3.691 | 3.926 |
+| Fixed Ratio (0) | 3.672 | 3.956 |
 | GCE | 3.456 | 3.761 |
 
 Guarded Scalar 使用与 GCE 相同的曲率保护，并运行自己的完整递归。
 GCE 对它的均值优势较小；校正×曲率交互的两个区间均包含零。
-固定强度 0.25 仅由旧九段开发数据选定，随后应用于其余数据。
+完整七点固定强度搜索由旧九段开发数据选出 η=0；原 η=0.25 结果仍保留。
 
 新增官方 validation 有三个成对片段、748 帧，来自两个原始记录。
 仅 409 帧的那个记录此前缺席；GCE 在其原主配置评估中反而逊于 No-age 和 Scalar。
-三个片段的均值优势不能证明稳定跨记录泛化。真实位姿补偿和全部 pD 敏感性结果
+扩展到全部 43 个去重片段后，GCE 相对 No-age 的平均改善为 5.8%/4.4%，
+但录制等权 GCE−GS 在间歇链路下的区间跨零。五段 V2X-Real、619 对帧的两种条件
+均未优于 No-age。扩展 V2V 包含开发数据，不能称为独立验证。
+真实位姿补偿和全部 pD 敏感性结果
 也同时保留，未按新结果重选 GCE。相关高斯控制则显示，即使全部 PSD 检验通过，
 名义 95% 区域仍可明显欠覆盖。
 
@@ -47,7 +52,7 @@ GCE 对它的均值优势较小；校正×曲率交互的两个区间均包含�
 - Fig. 2：`figures/overview.svg`，保留连续场景、两条融合分支及递归反馈。
 - Fig. 3：`figures/gaussian_robustness.svg`，包含全部四个 pD、两种通信及五个相关系数。
 - Fig. 4：`figures/gaussian_communication.svg`，保留相对 No-age 的额外成本。
-- Table I/II：完整基线与校正×曲率控制；Table III/IV：通信成本与新增数据。
+- Table I/II：原 25 段完整基线与校正×曲率控制；Table III：同一批数据的通信成本；Table IV：43 段 V2V 与五段 V2X。
 - 附带矢量图：`gaussian_paired`、`gaussian_components`、`gaussian_sequence_differences`、`gaussian_phases`。
 
 每幅图有 SVG、矢量 PDF 和 PNG。旧逐序列图保留全部点；固定输入的四个替换
@@ -69,6 +74,9 @@ python3 build.py --regenerate
 完整跟踪重放另依赖研究仓库的 `trials/icra_reviewer_revision/`、MATLAB 与公开原始数据。
 数 GiB 的完整后验轨迹保留在本地，不写入 Git 或论文 ZIP；随包清单记录其完整 SHA-256。
 原算法、检测器和校准保持情况见 `source_data/reviewer_revision/REPLAY_ACCEPTANCE.json`。
+扩展实验的 458 份轨迹、187,444 个机器人帧的验收记录见
+`source_data/admission_followup/icra_admission_final/REPLAY_ACCEPTANCE.json`。
+其独立汇总核查器随源包运行，复算 854 行结果和 180 项配对比较。
 
 ## 验收边界
 

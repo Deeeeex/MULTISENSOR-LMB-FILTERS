@@ -1,0 +1,809 @@
+{
+  "source_manifest_sha256": "4d5c960f70c441b4393d4a26553d7c6ff4c2bc204f287c2a4258a328ed9e6a7c",
+  "generator_sha256": "ce2629b16d6d21d913fedc7429ce0c2f7cbf854c9a81d256dbe5a848b0a3ae8f",
+  "datasets": {
+    "v2v": {
+      "scenes": 43,
+      "paired_frames": 9699,
+      "groups": 17,
+      "arms": [
+        "marked_asymmetric",
+        "marked_er",
+        "marked_gaussian_evidence",
+        "marked_gaussian_evidence_fixed_025",
+        "marked_gaussian_evidence_fixedx_000",
+        "marked_gaussian_evidence_guarded_scalar",
+        "marked_gaussian_evidence_no_curvature",
+        "marked_gaussian_evidence_projected_space",
+        "marked_lineage"
+      ]
+    },
+    "v2x": {
+      "scenes": 5,
+      "paired_frames": 619,
+      "groups": 3,
+      "arms": [
+        "marked_asymmetric",
+        "marked_er",
+        "marked_gaussian_evidence",
+        "marked_gaussian_evidence_fixedx_000",
+        "marked_gaussian_evidence_guarded_scalar",
+        "marked_gaussian_evidence_no_curvature",
+        "marked_gaussian_evidence_projected_space",
+        "marked_lineage"
+      ]
+    }
+  },
+  "methods": [
+    "marked_lineage",
+    "marked_er",
+    "marked_asymmetric",
+    "marked_gaussian_evidence_guarded_scalar",
+    "marked_gaussian_evidence_no_curvature",
+    "marked_gaussian_evidence_fixedx_000",
+    "marked_gaussian_evidence"
+  ],
+  "aggregate": [
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.7296257470681473,
+        "gospa": 9.117507727685618,
+        "loc2": 8.734582048036303,
+        "miss2": 89.72100034303331,
+        "false2": 35.077955628311855,
+        "countError": 1.2911782816325077
+      },
+      "frame_weighted_ospa": 3.495718215417675,
+      "group_macro_ospa": 3.705012257448364
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_er",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.9141205684803677,
+        "gospa": 9.611989750311727,
+        "loc2": 9.469400662124741,
+        "miss2": 88.26186542250832,
+        "false2": 46.53706576642264,
+        "countError": 1.3216784685941478
+      },
+      "frame_weighted_ospa": 3.668484605516629,
+      "group_macro_ospa": 3.8650203866491544
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.671040964265667,
+        "gospa": 8.966019685430352,
+        "loc2": 8.538754758715703,
+        "miss2": 82.13826663226995,
+        "false2": 37.94439517208874,
+        "countError": 1.22036573981019
+      },
+      "frame_weighted_ospa": 3.462621429612782,
+      "group_macro_ospa": 3.6508970344107095
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.854382277448267,
+        "gospa": 9.495151581128146,
+        "loc2": 9.053353540549091,
+        "miss2": 95.09179936436551,
+        "false2": 39.6831823641916,
+        "countError": 1.357684381345526
+      },
+      "frame_weighted_ospa": 3.597979106567739,
+      "group_macro_ospa": 3.842062798295032
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.7221039605159705,
+        "gospa": 9.110536613155672,
+        "loc2": 9.269219455882471,
+        "miss2": 86.8510951364441,
+        "false2": 36.5628981078694,
+        "countError": 1.2589373745832373
+      },
+      "frame_weighted_ospa": 3.496966855755882,
+      "group_macro_ospa": 3.698698037981589
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_no_curvature",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.695188200460807,
+        "gospa": 9.012229726671036,
+        "loc2": 8.264394581155068,
+        "miss2": 86.13871121454194,
+        "false2": 36.32114292185634,
+        "countError": 1.2687210717760076
+      },
+      "frame_weighted_ospa": 3.4782854648988293,
+      "group_macro_ospa": 3.6658660501485736
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.8952967072782116,
+        "gospa": 9.630662329875895,
+        "loc2": 9.248392659560977,
+        "miss2": 94.12647978714463,
+        "false2": 42.952251322968344,
+        "countError": 1.3627575172523203
+      },
+      "frame_weighted_ospa": 3.648492592052276,
+      "group_macro_ospa": 3.8810588079221966
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 4.014412525433087,
+        "gospa": 9.792901800253954,
+        "loc2": 10.912746254976122,
+        "miss2": 98.6905595684068,
+        "false2": 40.933696258711095,
+        "countError": 1.3971325952143152
+      },
+      "frame_weighted_ospa": 3.808851106328523,
+      "group_macro_ospa": 4.067809120633852
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_er",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 4.145183395725362,
+        "gospa": 10.118033787888923,
+        "loc2": 11.144511404789602,
+        "miss2": 98.07372224002583,
+        "false2": 47.88099633422986,
+        "countError": 1.432509152796041
+      },
+      "frame_weighted_ospa": 3.945374655759844,
+      "group_macro_ospa": 4.193538786343154
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.9603643007040743,
+        "gospa": 9.667350001834187,
+        "loc2": 10.591646584880651,
+        "miss2": 93.19009742109833,
+        "false2": 42.86108545291047,
+        "countError": 1.3487823453496477
+      },
+      "frame_weighted_ospa": 3.7886799251265058,
+      "group_macro_ospa": 4.003564350415099
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 4.108963367766254,
+        "gospa": 10.06238040852018,
+        "loc2": 10.831159908808194,
+        "miss2": 104.07666651214427,
+        "false2": 42.67163345960037,
+        "countError": 1.4680083011187988
+      },
+      "frame_weighted_ospa": 3.8952736257887843,
+      "group_macro_ospa": 4.191505847351352
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.9833312192298402,
+        "gospa": 9.726002807683294,
+        "loc2": 10.988261611429031,
+        "miss2": 95.70434891614877,
+        "false2": 41.72623687530589,
+        "countError": 1.3740529297141373
+      },
+      "frame_weighted_ospa": 3.7933104106761646,
+      "group_macro_ospa": 4.020259168568726
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_no_curvature",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 3.985083761551443,
+        "gospa": 9.728117278610632,
+        "loc2": 10.548688044094373,
+        "miss2": 96.50062213899768,
+        "false2": 41.72814268954201,
+        "countError": 1.3867900222930338
+      },
+      "frame_weighted_ospa": 3.7952955762454534,
+      "group_macro_ospa": 4.0301633098985485
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "sequences": 43,
+      "groups": 17,
+      "frames": 9699,
+      "sequence_macro": {
+        "ospa": 4.144280400814711,
+        "gospa": 10.141509918082756,
+        "loc2": 11.08918682510866,
+        "miss2": 103.04685500021662,
+        "false2": 44.84048557554469,
+        "countError": 1.4602370361263133
+      },
+      "frame_weighted_ospa": 3.935449196539597,
+      "group_macro_ospa": 4.230197115189402
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.5030059247155,
+        "gospa": 18.226604722655214,
+        "loc2": 24.83051939098571,
+        "miss2": 343.7783242842969,
+        "false2": 47.60400742387384,
+        "countError": 4.318085750045558
+      },
+      "frame_weighted_ospa": 8.526286084792714,
+      "group_macro_ospa": 7.991498860077894
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_er",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.417927631337783,
+        "gospa": 18.16037477589344,
+        "loc2": 24.157292761109968,
+        "miss2": 318.3028334379493,
+        "false2": 64.6555458854123,
+        "countError": 4.141361136642378
+      },
+      "frame_weighted_ospa": 8.449369463999934,
+      "group_macro_ospa": 7.903390157065176
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.408388583069824,
+        "gospa": 18.23075353720592,
+        "loc2": 25.163330321444935,
+        "miss2": 331.32795931694,
+        "false2": 66.00579313815955,
+        "countError": 4.374315800102109
+      },
+      "frame_weighted_ospa": 8.436970975677294,
+      "group_macro_ospa": 7.906824943101516
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.463784860473414,
+        "gospa": 18.129895114738638,
+        "loc2": 23.514138331333264,
+        "miss2": 329.07524728167334,
+        "false2": 57.70972170958812,
+        "countError": 4.278162061517056
+      },
+      "frame_weighted_ospa": 8.485984217359068,
+      "group_macro_ospa": 7.968866501084918
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.440868876363727,
+        "gospa": 18.364516503320242,
+        "loc2": 24.613296921006814,
+        "miss2": 335.6523627458354,
+        "false2": 68.4454359953024,
+        "countError": 4.440225173122481
+      },
+      "frame_weighted_ospa": 8.472231612261046,
+      "group_macro_ospa": 7.939717998332168
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_no_curvature",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.375528913782732,
+        "gospa": 17.962453409000002,
+        "loc2": 16.310010161264387,
+        "miss2": 341.12277309095225,
+        "false2": 52.10079313815955,
+        "countError": 4.28294416601101
+      },
+      "frame_weighted_ospa": 8.397365141718922,
+      "group_macro_ospa": 7.879441983385028
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.358842496604828,
+        "gospa": 17.913179921487306,
+        "loc2": 23.256017689946237,
+        "miss2": 316.19559114746795,
+        "false2": 60.35582061068702,
+        "countError": 4.120562289201322
+      },
+      "frame_weighted_ospa": 8.382321966620125,
+      "group_macro_ospa": 7.877874043868483
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.44504788456686,
+        "gospa": 18.11575061038007,
+        "loc2": 23.06078397923253,
+        "miss2": 329.3501871299272,
+        "false2": 60.08949731566143,
+        "countError": 4.250580017261627
+      },
+      "frame_weighted_ospa": 8.469861228059623,
+      "group_macro_ospa": 7.938987744879583
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_er",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.332704325447299,
+        "gospa": 17.82863946401886,
+        "loc2": 23.15849344729112,
+        "miss2": 315.4443839652714,
+        "false2": 58.85637614294103,
+        "countError": 4.045909830865699
+      },
+      "frame_weighted_ospa": 8.350659423467526,
+      "group_macro_ospa": 7.848668356913717
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.33819643075731,
+        "gospa": 17.93943443811534,
+        "loc2": 23.147657964553915,
+        "miss2": 320.34317723142874,
+        "false2": 61.9316859953024,
+        "countError": 4.153512775104929
+      },
+      "frame_weighted_ospa": 8.358643506046755,
+      "group_macro_ospa": 7.849931663094755
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.33975195739569,
+        "gospa": 17.83809562764396,
+        "loc2": 22.506340022958476,
+        "miss2": 322.6405885151963,
+        "false2": 56.69464537371025,
+        "countError": 4.191595440457148
+      },
+      "frame_weighted_ospa": 8.358234616917905,
+      "group_macro_ospa": 7.860130426194641
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.35883989629789,
+        "gospa": 18.005259195391087,
+        "loc2": 21.904908619865857,
+        "miss2": 322.5736121781614,
+        "false2": 64.9819591477225,
+        "countError": 4.2314564905021275
+      },
+      "frame_weighted_ospa": 8.381928768506437,
+      "group_macro_ospa": 7.867147769165441
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_no_curvature",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.439693933381564,
+        "gospa": 18.090579724992484,
+        "loc2": 22.522591609496487,
+        "miss2": 327.68174264337927,
+        "false2": 61.20847170958812,
+        "countError": 4.192535509001067
+      },
+      "frame_weighted_ospa": 8.467396425661825,
+      "group_macro_ospa": 7.939552532284022
+    },
+    {
+      "dataset": "v2x",
+      "scope": "all",
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "sequences": 5,
+      "groups": 3,
+      "frames": 619,
+      "sequence_macro": {
+        "ospa": 8.292352765256979,
+        "gospa": 17.71387413222392,
+        "loc2": 22.874647493799923,
+        "miss2": 316.29259398439154,
+        "false2": 56.71242775354417,
+        "countError": 4.096574729396689
+      },
+      "frame_weighted_ospa": 8.309517194005615,
+      "group_macro_ospa": 7.812068952562197
+    }
+  ],
+  "seen_25": [
+    {
+      "condition": "reliable",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.7023053518113187
+      },
+      "miss2": {
+        "mean": 85.56367285237299
+      },
+      "false2": {
+        "mean": 40.715413665451614
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.525653375584211
+      },
+      "miss2": {
+        "mean": 78.62489711423729
+      },
+      "false2": {
+        "mean": 34.53559887839859
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": {
+        "mean": 3.5084402640242764
+      },
+      "miss2": {
+        "mean": 75.83946831795112
+      },
+      "false2": {
+        "mean": 35.438472565367846
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.4559377636850592
+      },
+      "miss2": {
+        "mean": 71.09496245508943
+      },
+      "false2": {
+        "mean": 36.30349398906872
+      }
+    },
+    {
+      "condition": "reliable",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "ospa": {
+        "mean": 3.67230300163712
+      },
+      "miss2": {
+        "mean": 86.04576562156308
+      },
+      "false2": {
+        "mean": 37.435895908367044
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_lineage",
+      "ospa": {
+        "mean": 3.988215375884194
+      },
+      "miss2": {
+        "mean": 92.97724052505936
+      },
+      "false2": {
+        "mean": 44.776030901178885
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_asymmetric",
+      "ospa": {
+        "mean": 3.831585101532692
+      },
+      "miss2": {
+        "mean": 86.34184738879908
+      },
+      "false2": {
+        "mean": 40.522561365466686
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_guarded_scalar",
+      "ospa": {
+        "mean": 3.7929861501859303
+      },
+      "miss2": {
+        "mean": 83.32815747399088
+      },
+      "false2": {
+        "mean": 41.01938434619117
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence",
+      "ospa": {
+        "mean": 3.761318117011209
+      },
+      "miss2": {
+        "mean": 80.34447723794489
+      },
+      "false2": {
+        "mean": 41.971456525502816
+      }
+    },
+    {
+      "condition": "intermittent",
+      "arm": "marked_gaussian_evidence_fixedx_000",
+      "ospa": {
+        "mean": 3.9562142401816747
+      },
+      "miss2": {
+        "mean": 93.86504540260752
+      },
+      "false2": {
+        "mean": 42.48272904910469
+      }
+    }
+  ],
+  "seen_fixed_paired": [
+    {
+      "condition": "reliable",
+      "mean": -0.21636523795206103,
+      "low": -0.35892589081748594,
+      "high": -0.0777660831584436
+    },
+    {
+      "condition": "intermittent",
+      "mean": -0.1948961231704659,
+      "low": -0.3061972778604525,
+      "high": -0.10332217928892198
+    }
+  ],
+  "recording_gce_gs": [
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "reliable",
+      "candidate": "marked_gaussian_evidence",
+      "reference": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 43,
+      "groups": 17,
+      "sequence_macro_difference": -0.0510629962503039,
+      "group_macro_difference": -0.047801003570879914,
+      "wins": 26,
+      "ties": 0,
+      "losses": 17,
+      "low": -0.08517366122944985,
+      "high": -0.012288801256266689
+    },
+    {
+      "dataset": "v2v",
+      "scope": "all",
+      "condition": "intermittent",
+      "candidate": "marked_gaussian_evidence",
+      "reference": "marked_gaussian_evidence_guarded_scalar",
+      "sequences": 43,
+      "groups": 17,
+      "sequence_macro_difference": -0.022966918525765878,
+      "group_macro_difference": -0.01669481815362682,
+      "wins": 22,
+      "ties": 0,
+      "losses": 21,
+      "low": -0.04416346159916399,
+      "high": 0.006225975733251217
+    }
+  ],
+  "selected_fixed": {
+    "arm": "marked_gaussian_evidence_fixedx_000",
+    "sequence_macro_ospa_by_condition": {
+      "reliable": 4.024164349057783,
+      "intermittent": 4.269719145293909
+    },
+    "selection_mean_ospa": 4.1469417471758465,
+    "metrics": {
+      "reliable": {
+        "sequence_macro": {
+          "ospa": 4.024164349057783,
+          "gospa": 9.604962394353034,
+          "loc2": 12.228030133602331,
+          "miss2": 109.2167946199823,
+          "false2": 44.12329415684574,
+          "countError": 1.3688906736010429
+        },
+        "recording_macro_ospa": 3.51364308206537,
+        "recording_count": 6
+      },
+      "intermittent": {
+        "sequence_macro": {
+          "ospa": 4.269719145293909,
+          "gospa": 10.092430613703574,
+          "loc2": 13.917151470047012,
+          "miss2": 121.40943931365035,
+          "false2": 44.4076305812228,
+          "countError": 1.527281038314956
+        },
+        "recording_macro_ospa": 3.803649383335939,
+        "recording_count": 6
+      }
+    },
+    "eta": 0.0
+  },
+  "fixed_grid": [
+    0,
+    0.05,
+    0.1,
+    0.125,
+    0.25,
+    0.5,
+    1
+  ],
+  "native_result_files": 458,
+  "native_robot_frames": 187444,
+  "evaluation_rows": 854,
+  "recomputed_paired_comparisons": 180,
+  "scope": "Previously exposed V2V corpus; V2X evaluated after final candidate selection, now exposed for later work. No prospective validation claim."
+}

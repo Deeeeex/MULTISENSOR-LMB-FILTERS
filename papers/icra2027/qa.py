@@ -146,6 +146,8 @@ def check():
     mechanism = check_mechanism_analysis()
     from reviewer_artifact_qa import check_reviewer_evidence
     reviewer = check_reviewer_evidence()
+    from followup_artifact_qa import check_followup_evidence
+    followup = check_followup_evidence()
     from intro_design.audit_vector import audit as audit_intro_vector
     figures['intro']['master_reconstruction'] = audit_intro_vector()
 
@@ -184,6 +186,7 @@ def check():
               'numerical_evidence': numerical,
               'additional_mechanism_analysis': mechanism,
               'reviewer_experiments': reviewer,
+              'completed_followup_experiments': followup,
               'manuscript_figures': 4, 'manuscript_tables':4, 'companion_evidence_figures': 4, 'ablation_complete_method_last': True,
               'draft_page_cap': 8,
               'conference_page_limit': 8,
@@ -294,10 +297,11 @@ def check_gaussian_evidence():
         assert number == f'{facts[key]:.{decimals}f}', (key, number, facts[key])
     revision = read('reviewer_evidence')
     controls = {(r['condition'], r['arm']): r for r in revision['controls']['cohorts']['seen_transfer']['aggregate']}
-    gs, fixed = primary + '_guarded_scalar', primary + '_fixed_025'
+    gs, fixed = primary + '_guarded_scalar', primary + '_fixedx_000'
+    followup = {(r['condition'], r['arm']): r for r in read('followup_evidence')['seen_25']}
     table_specs = [
         ('main_table', [(arm, data['labels'][arm], a) for arm in data['methods'][:-1]] +
-                       [(gs, 'Guarded Scalar', controls), (fixed, 'Fixed Ratio (0.25)', controls), (primary, 'GCE', a)],
+                       [(gs, 'Guarded Scalar', controls), (fixed, 'Fixed Ratio (0)', followup), (primary, 'GCE', a)],
                        ['ospa', 'miss2', 'false2'], 1, 3, 'GCE'),
         ('ablation_table', [('marked_asymmetric', 'Scalar reference', na),
                            (gs, 'Guarded Scalar', controls),

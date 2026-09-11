@@ -321,5 +321,15 @@
     "raw_metadata_file": "literature/zhong2025cooptrack_primary.bib",
     "raw_metadata_sha256": "be2a413d058e42f9f7f2b35755240e3e408753c159a0ba6f1dbd6acbc491f1c0",
     "verified": true
+  },
+  "xiang2024v2x": {
+    "doi": "10.1007/978-3-031-72943-0_26",
+    "url": "https://api.crossref.org/works/10.1007%2F978-3-031-72943-0_26/transform/application/x-bibtex",
+    "bibtex": " @inbook{Xiang_2024, title={V2X-Real: A Largs-Scale Dataset for Vehicle-to-Everything Cooperative Perception}, ISBN={9783031729430}, ISSN={1611-3349}, url={http://dx.doi.org/10.1007/978-3-031-72943-0_26}, DOI={10.1007/978-3-031-72943-0_26}, booktitle={Computer Vision – ECCV 2024}, publisher={Springer Nature Switzerland}, author={Xiang, Hao and Zheng, Zhaoliang and Xia, Xin and Xu, Runsheng and Gao, Letian and Zhou, Zewei and Han, Xu and Ji, Xinkai and Li, Mingxi and Meng, Zonglin and Jin, Li and Lei, Mingyue and Ma, Zhaoyang and He, Zihang and Ma, Haoxuan and Yuan, Yunshuang and Zhao, Yingqian and Ma, Jiaqi}, year={2024}, month=Nov, pages={455–470} }\n\n",
+    "verified": true,
+    "verified_on": "2026-09-11",
+    "primary_publisher": "https://link.springer.com/chapter/10.1007/978-3-031-72943-0_26",
+    "official_code": "https://github.com/ucla-mobility/V2X-Real",
+    "verification_note": "DOI, ECCV 2024 venue, title and author list checked against the publisher; official repository confirms the dataset. Preserve publisher title spelling Largs-Scale and publisher author name Jin, Li (the repository uses Li, Jin)."
   }
 }

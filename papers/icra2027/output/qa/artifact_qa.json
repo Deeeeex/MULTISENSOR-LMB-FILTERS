@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "d912ef666c3466c6089680a3975f680e0b69132ce14230bb8e8722780fecab62",
+  "pdf_sha256": "8a242c59441f75602f9e93945f115b7e84cc10d3bf67b93845297c0a6f984c21",
   "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2508,
+  "text_spans_in_page_bounds": 2544,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -200,15 +200,15 @@
     "fig:robustness": 6,
     "fig:communication": 6,
     "tab:communication": 7,
-    "tab:newdata": 7
+    "tab:followup": 7
   },
   "references_start_page": 8,
   "acknowledgment_start_page": 8,
   "body_pages": 7,
   "acknowledgment_reference_pages": 1,
   "seventh_page_column_bottoms_pt": [
-    733.92919921875,
-    718.8359375
+    733.9290771484375,
+    733.929443359375
   ],
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,
@@ -267,6 +267,17 @@
     "intervals_from_whole_sequences": true,
     "statistical_generalization_or_covariance_guarantee": false
   },
+  "completed_followup_experiments": {
+    "passed": true,
+    "evaluation_rows": 854,
+    "paired_comparisons": 180,
+    "v2v_segments": 43,
+    "v2x_segments": 5,
+    "selected_fixed_eta": 0,
+    "native_results": 458,
+    "native_robot_frames": 187444,
+    "source_scope": "Portable summary recomputation; native trajectory acceptance retained from the completed study."
+  },
   "manuscript_figures": 4,
   "manuscript_tables": 4,
   "companion_evidence_figures": 4,
@@ -302,12 +313,13 @@
     "vo2013conjugate",
     "williams2014bp",
     "wu2022sharedpriors",
+    "xiang2024v2x",
     "xu2023v2v4real",
     "yi2021heterogeneous",
     "zhong2025cooptrack"
   ],
-  "bibliography_entry_count": 30,
-  "verified_doi_identifiers_rendered": 26,
+  "bibliography_entry_count": 31,
+  "verified_doi_identifiers_rendered": 27,
   "all_cited_keys_rendered_once": true,
   "citation_scope": "Primary Crossref, DataCite, NeurIPS and CVF metadata plus available author texts; see LITERATURE_SCOPE.md",
   "limitations": "Automated artifact self-checks; not independent replication, author approval, or a submission acceptance check."

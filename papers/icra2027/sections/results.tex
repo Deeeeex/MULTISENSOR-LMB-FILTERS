@@ -9,7 +9,7 @@
  \label{fig:communication}
 \end{figure}
 \input{generated/communication_table}
-\input{generated/new_data_table}
+\input{generated/followup_table}
 
 \subsection{Fusion on the previously used corpus}
 GCE has the lowest mean OSPA among the main comparisons
@@ -26,11 +26,11 @@ development corpus, not an independent estimate of end-to-end
 generalization.
 
 GCE--Fixed Ratio is
-\RevSeenDeltaFixedReliableMean/\RevSeenDeltaFixedIntermittentMean\ m.
+\FollowFixedReliableMean/\FollowFixedIntermittentMean\ m.
 Both paired intervals lie
 below zero. This supports adaptive score/miss admission relative to
-the selected constant-strength control; it does not rule out a better
-fixed strength outside the three-point development grid.
+the zero-strength control selected by the expanded seven-point grid.
+The full grid and earlier $\eta=0.25$ results are retained.
 
 \subsection{What the recursive controls identify}
 Guarded Scalar narrows the gap previously attributed to joint correction
@@ -48,33 +48,41 @@ The correction--curvature interaction is
 with intervals
 $[\RevSeenInteractionReliableLow,\RevSeenInteractionReliableHigh]$ and
 $[\RevSeenInteractionIntermittentLow,\RevSeenInteractionIntermittentHigh]$.
-Both include zero, providing no distinct interaction benefit or
-normalizer-only explanation of the gain.
+Both include zero, so this contrast does not detect a correction--guard
+interaction. It does not isolate the normalizer's contribution.
 Removing curvature allows large position shifts and activates aggregate
 fallback twice. Removing positive score support trades fewer misses
 for more false targets; the history and score-removal total-OSPA
 intervals include zero.
 
-On identical GCE inputs, changing only the spatial mean at corrected
-existence reduces immediate OSPA by about 0.003 m. The joint
+On fixed GCE inputs, changing only the mean at corrected existence
+reduces immediate OSPA by about 0.003 m. The
 base/base-to-corrected/corrected difference is
 \JointReliableBothMean/\JointIntermittentBothMean\ m, and its intervals
 include zero, as do those for changing the integral at corrected means.
-These substitutions hold admission fixed and never change future
-predictions. They answer a different question from the fully recursive
-GS comparison.
+These substitutions hold admission fixed and do not alter subsequent
+predictions, unlike the recursive GS comparison.
 
-\subsection{New segments and the generalization limit}
-Across all three newly acquired segments, GCE has the lowest mean OSPA
-among the seven evaluated methods (Table~\ref{tab:newdata}).
-However, two segments come from an already represented recording. On the only previously absent recording, GCE worsens OSPA to
+\subsection{Expanded data and transfer limits}
+On all 43 V2V4Real segments, GCE reduces OSPA relative to No-age by
+\FollowGainNoAgeReliable\%/\FollowGainNoAgeIntermittent\%
+(Table~\ref{tab:followup}). The recording-equal GCE--GS differences are
+\FollowRecordingGSReliableMean/\FollowRecordingGSIntermittentMean\ m,
+with intervals
+$[\FollowRecordingGSReliableLow,\FollowRecordingGSReliableHigh]$/
+$[\FollowRecordingGSIntermittentLow,\FollowRecordingGSIntermittentHigh]$.
+The intermittent interval crosses zero; the corpus includes development
+inputs and related segments.
+
+On the previously absent 409-frame V2V recording, GCE worsens OSPA to
 \RevNewRecordingGCEReliable/\RevNewRecordingGCEIntermittent\ m,
 compared with No-age's
 \RevNewRecordingNoAgeReliable/\RevNewRecordingNoAgeIntermittent\ m
-and Scalar's
-\RevNewRecordingScalarReliable/\RevNewRecordingScalarIntermittent\ m.
-The aggregate gain therefore does not establish stable generalization
-to new recordings. All settings and segments are retained.
+and Scalar's \RevNewRecordingScalarReliable/\RevNewRecordingScalarIntermittent\ m.
+On V2X-Real, GCE also underperforms No-age in both link conditions
+(Table~\ref{tab:followup}).
+All five segments are retained, including two with nonoverlapping
+sensing circles. Aggregate V2V gains do not establish stable transfer.
 
 \subsection{Motion and detection-probability sensitivity}
 With planar ego-motion compensation, GCE--GS on the 25 sequences is
@@ -82,44 +90,40 @@ With planar ego-motion compensation, GCE--GS on the 25 sequences is
 with paired intervals
 $[\RevMotionSeenDeltaGSReliableLow,\RevMotionSeenDeltaGSReliableHigh]$/
 $[\RevMotionSeenDeltaGSIntermittentLow,\RevMotionSeenDeltaGSIntermittentHigh]$
-below zero. Absolute error does not improve uniformly. On the new
+below zero. Absolute error does not improve uniformly. On the 409-frame
 recording, GCE reaches
 \RevMotionNewRecordingGCEReliable/\RevMotionNewRecordingGCEIntermittent\ m,
 compared with No-age's
 \RevMotionNewRecordingNoAgeReliable/\RevMotionNewRecordingNoAgeIntermittent\ m
 and Scalar's
 \RevMotionNewRecordingScalarReliable/\RevMotionNewRecordingScalarIntermittent\ m.
-It now beats No-age but remains worse than Scalar. These runs change
-the coordinate model for every method without retuning admission.
+It beats No-age but remains worse than Scalar.
 Across all four modeled $p_D$ values, GCE retains a lower mean than
 No-age and GS, but Scalar wins at reliable $p_D=0.8$ and intermittent
 $p_D\in\{0.7,0.95\}$ (Fig.~\ref{fig:robustness}a,b).
 Varying a constant $p_D$ cannot validate visibility under occlusion.
-All sequence-level sensitivity results, including the nine development
-sequences and each new segment, remain available in the companion evidence.
+All sequence-level results remain in the companion evidence.
 
 \subsection{Integrability does not ensure calibrated uncertainty}
-Every precision increment in the Gaussian correlation control is
-positive semidefinite. At zero correlation, unit-admission GCE and the
-known-correlation oracle agree exactly. At $\varrho=0.9$, GCE's nominal
+All precision increments in the Gaussian control are positive semidefinite.
+At zero correlation, GCE and the known-correlation oracle agree.
+At $\varrho=0.9$, GCE's nominal
 95\% regions cover only \RevCorrelationGCECoverage\% of samples, versus
 \RevCorrelationOracleCoverage\% for the oracle
-(Fig.~\ref{fig:robustness}c). Its mean normalized squared error per
-dimension is \RevCorrelationGCENEES. The guard therefore certifies an
-admissible Gaussian correction, not reliability under unknown
-cross-source correlation. Covariance coverage with adaptive gates remains
+(Fig.~\ref{fig:robustness}c), with mean normalized squared error per
+dimension \RevCorrelationGCENEES. The guard certifies integrability
+but cannot guarantee calibration. Coverage with adaptive gates remains
 unmeasured.
 
 \subsection{Communication cost}
-The codec preserves full GCE trajectories and reduces raw payload by
+The codec preserves GCE trajectories and reduces raw payload by
 \CodecRawSavingReliable\%/\CodecRawSavingIntermittent\%.
 Fragmentation and control traffic reduce this saving to
 \CodecWireSavingReliable\%/\CodecWireSavingIntermittent\%
-(Table~\ref{tab:communication}). Relative to native No-age KLA, encoded
-GCE still requires
+(Table~\ref{tab:communication}). Relative to No-age KLA, encoded GCE requires
 \CodecRawExtraNoAgeReliable\%/\CodecRawExtraNoAgeIntermittent\% more raw
 payload and
 \CodecWireExtraNoAgeReliable\%/\CodecWireExtraNoAgeIntermittent\% more
-fragmented bytes. GS and Fixed Ratio use the same full 352-byte
-per-Bernoulli schema as GCE; native Scalar uses 232 bytes. Packet-length-independent loss emulation does not
-measure wireless latency, channel capacity, or energy.
+fragmented bytes. GS and Fixed Ratio use GCE's full 352-byte schema;
+Scalar uses 232 bytes. The loss model does not measure wireless latency,
+capacity, or energy.

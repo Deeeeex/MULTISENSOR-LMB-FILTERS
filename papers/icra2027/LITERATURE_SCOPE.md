@@ -12,8 +12,8 @@ annotations are introduced by this formatting change.
 
 ## Expanded manuscript coverage
 
-Additional coverage was checked on 2026-09-09. The manuscript now cites
-30 distinct records, up from 18. Nine newly
+Additional coverage was checked on 2026-09-09, with V2X-Real added on
+2026-09-11. The manuscript now cites 31 distinct records, up from 18. Nine initially
 retrieved records and three already verified but previously uncited
 records support the following additions. Bibliographic metadata comes
 from Crossref, DataCite, or the official NeurIPS/CVF proceedings; the
@@ -33,6 +33,7 @@ linked author texts and abstracts bound the claims made in the paper.
 | Banerjee and Schneider, ICRA 2024 | [Author preprint](https://arxiv.org/abs/2401.03154), DOI 10.1109/ICRA57147.2024.10609977 | Decentralized active search and tracking with PHD inference. |
 | Hu et al., NeurIPS 2022 | [Official proceedings](https://proceedings.neurips.cc/paper_files/paper/2022/hash/1f5c5cd01b864d53cc5fa0a3472e152e-Abstract-Conference.html) | Where2comm's confidence-guided sparse feature communication. |
 | Zhong et al., ICCV 2025 | [Official proceedings](https://openaccess.thecvf.com/content/ICCV2025/html/Zhong_CoopTrack_Exploring_End-to-End_Learning_for_Efficient_Cooperative_Sequential_Perception_ICCV_2025_paper.html) | CoopTrack's sparse instance features and learned cross-agent association. |
+| Xiang et al., ECCV 2024 | [Publisher record](https://link.springer.com/chapter/10.1007/978-3-031-72943-0_26), DOI 10.1007/978-3-031-72943-0_26; [official code](https://github.com/ucla-mobility/V2X-Real) | Identity and scope of the V2X-Real transfer dataset. Fetched Crossref BibTeX is retained in `literature/v2xreal_primary.bib`; the publisher's title spelling is preserved. |
 
 The robotics and feature-exchange papers establish context; they are not
 additional evaluated baselines. The local association and calibration

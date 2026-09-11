@@ -12,14 +12,16 @@ files = [HERE / name for name in [
     'make_gaussian_figures.py', 'make_main_figure_integrated.py', 'make_intro_figure.py',
     'prepare_mechanism_analysis.py', 'make_mechanism_results.py',
     'prepare_reviewer_evidence.py', 'make_reviewer_results.py', 'reviewer_artifact_qa.py', 'verify_portable_rebuild.py',
-    'REVIEW_REVISION_CN.md']]
+    'REVIEW_REVISION_CN.md', 'FOLLOWUP_REVISION_CN.md', 'prepare_followup_evidence.py',
+    'make_followup_results.py', 'followup_artifact_qa.py']]
 for folder in ['sections', 'literature', 'official_template', 'main_figure_integrated', 'intro_design']:
     files.extend(p for p in (HERE / folder).rglob('*') if p.is_file()
                  and '__pycache__' not in p.parts and p.suffix != '.pyc')
 files.extend(HERE / 'generated' / name for name in [
     'numbers.tex', 'facts.json', 'main_table.tex', 'ablation_table.tex', 'communication_table.tex',
     'mechanism_numbers.tex', 'mechanism_facts.json', 'fixed_input_table.tex',
-    'reviewer_numbers.tex', 'reviewer_facts.json', 'new_data_table.tex'])
+    'reviewer_numbers.tex', 'reviewer_facts.json', 'new_data_table.tex',
+    'followup_numbers.tex', 'followup_facts.json', 'followup_table.tex'])
 for name in ['intro', 'overview', 'gaussian_paired', 'gaussian_components',
              'gaussian_communication', 'gaussian_sequence_differences', 'gaussian_phases', 'gaussian_robustness']:
     files.extend(HERE / 'figures' / (name+suffix) for suffix in ['.svg', '.pdf', '.png', '_text_bounds.json'])
@@ -31,6 +33,9 @@ files.extend(HERE / 'source_data' / name for name in [*snapshots,
 reviewer_snapshots = json.loads((HERE / 'source_data/reviewer_source_manifest.json').read_text())
 files.extend(HERE / 'source_data/reviewer_revision' / name for name in reviewer_snapshots)
 files.extend(HERE / 'source_data' / name for name in ['reviewer_source_manifest.json', 'reviewer_evidence.json', 'gaussian_robustness.json'])
+followup_snapshots = json.loads((HERE / 'source_data/followup_source_manifest.json').read_text())
+files.extend(HERE / 'source_data/admission_followup' / name for name in followup_snapshots)
+files.extend(HERE / 'source_data' / name for name in ['followup_source_manifest.json', 'followup_evidence.json'])
 pdf = HERE / 'output/pdf/icra2027_draft.pdf'
 files.extend([pdf, HERE / 'output/qa/artifact_qa.json'])
 pdf_hash = hashlib.sha256(pdf.read_bytes()).hexdigest()

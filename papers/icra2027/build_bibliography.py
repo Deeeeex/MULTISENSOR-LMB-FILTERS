@@ -36,6 +36,8 @@ for key,record in records.items():
     if key=='moore2016robotlocalization':
         # Springer identifies the proceedings citation as 2016 (online first 2015).
         b=b.replace('year={2015}','year={2016}').replace('@inbook{','@inproceedings{')
+    if key=='xiang2024v2x':
+        b=b.replace('@inbook{','@inproceedings{')
     b=re.sub(r'(@\w+\{)[^,]+,',r'\g<1>'+key+',',b,count=1)
     b=re.sub(r'</?roman>', '', html.unescape(b))
     b=b.replace('–','--').replace('\u00a0',' ')
@@ -49,7 +51,7 @@ for key,record in records.items():
     b=re.sub(r'\bDOI=\{[^}]*\},?\s*','',b,flags=re.I)
     match=re.search(r'title=\{([^}]+)\}',b)
     title=match.group(1)
-    for acronym in ['LMB','KLA','RFS','PHD','CPHD','SLAM','LIO-SAM','Autoware','V2V4Real','Where2comm','CoopTrack','3D']:
+    for acronym in ['LMB','KLA','RFS','PHD','CPHD','SLAM','LIO-SAM','Autoware','V2V4Real','V2X-Real','Where2comm','CoopTrack','3D']:
         title=re.sub(r'\b'+acronym+r'\b','{'+acronym+'}',title)
     for proper in ['Bernoulli', 'Kalman', 'Bayesian', 'Kullback', 'Leibler', 'Gaussian']:
         title=re.sub(r'\b'+proper+r'\b','{'+proper+'}',title,flags=re.I)
@@ -68,5 +70,5 @@ bibs.append(r'''@misc{lang2026adaptive,
   title={Communication-Aware Adaptive Weights for Consensus-Oriented Distributed {KLA}-Based {LMB} Fusion},
   howpublished={SSRN preprint 7129254}, year={2026}
 }''')
-(out/'references.bib').write_text('% Primary DOI, author and proceedings records; additional citations checked 2026-09-09; sources in literature/.\n'+'\n\n'.join(bibs)+'\n')
+(out/'references.bib').write_text('% Primary DOI, author and proceedings records; additional citations checked 2026-09-11; sources in literature/.\n'+'\n\n'.join(bibs)+'\n')
 print('Wrote',len(bibs),'verified/reference-mapped records.')

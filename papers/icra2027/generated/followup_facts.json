@@ -1,0 +1,106 @@
+{
+  "FollowVTwoVGCEReliable": [
+    3.671040964265667,
+    3
+  ],
+  "FollowVTwoVNoAgeReliable": [
+    3.8952967072782116,
+    3
+  ],
+  "FollowVTwoVGSReliable": [
+    3.7221039605159705,
+    3
+  ],
+  "FollowVTwoXGCEReliable": [
+    8.408388583069824,
+    3
+  ],
+  "FollowVTwoXNoAgeReliable": [
+    8.358842496604828,
+    3
+  ],
+  "FollowVTwoXGSReliable": [
+    8.440868876363727,
+    3
+  ],
+  "FollowGainNoAgeReliable": [
+    5.757090149090094,
+    1
+  ],
+  "FollowFixedReliableMean": [
+    -0.21636523795206103,
+    3
+  ],
+  "FollowFixedReliableLow": [
+    -0.35892589081748594,
+    3
+  ],
+  "FollowFixedReliableHigh": [
+    -0.0777660831584436,
+    3
+  ],
+  "FollowRecordingGSReliableMean": [
+    -0.047801003570879914,
+    3
+  ],
+  "FollowRecordingGSReliableLow": [
+    -0.08517366122944985,
+    3
+  ],
+  "FollowRecordingGSReliableHigh": [
+    -0.012288801256266689,
+    3
+  ],
+  "FollowVTwoVGCEIntermittent": [
+    3.9603643007040743,
+    3
+  ],
+  "FollowVTwoVNoAgeIntermittent": [
+    4.144280400814711,
+    3
+  ],
+  "FollowVTwoVGSIntermittent": [
+    3.9833312192298402,
+    3
+  ],
+  "FollowVTwoXGCEIntermittent": [
+    8.33819643075731,
+    3
+  ],
+  "FollowVTwoXNoAgeIntermittent": [
+    8.292352765256979,
+    3
+  ],
+  "FollowVTwoXGSIntermittent": [
+    8.35883989629789,
+    3
+  ],
+  "FollowGainNoAgeIntermittent": [
+    4.437829546342509,
+    1
+  ],
+  "FollowFixedIntermittentMean": [
+    -0.1948961231704659,
+    3
+  ],
+  "FollowFixedIntermittentLow": [
+    -0.3061972778604525,
+    3
+  ],
+  "FollowFixedIntermittentHigh": [
+    -0.10332217928892198,
+    3
+  ],
+  "FollowRecordingGSIntermittentMean": [
+    -0.01669481815362682,
+    3
+  ],
+  "FollowRecordingGSIntermittentLow": [
+    -0.04416346159916399,
+    3
+  ],
+  "FollowRecordingGSIntermittentHigh": [
+    0.006225975733251217,
+    3
+  ]
+}

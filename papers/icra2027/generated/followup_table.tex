@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering\small
+\caption{Expanded-corpus OSPA (m), with equal segment weights. V2V4Real: 43 deduplicated segments, 9,699 paired frames, 17 recordings. V2X-Real: five segments, 619 paired frames, three collection dates. R/I denote reliable/intermittent links.}
+\label{tab:followup}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrrr@{}}
+\toprule
+& \multicolumn{2}{c}{V2V4Real} & \multicolumn{2}{c}{V2X-Real} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Method & R & I & R & I \\
+\midrule
+No-age KLA & 3.895 & 4.144 & \textbf{8.359} & \textbf{8.292} \\
+Recency & 3.914 & 4.145 & 8.418 & 8.333 \\
+Scalar & 3.730 & 4.014 & 8.503 & 8.445 \\
+Guarded Scalar & 3.722 & 3.983 & 8.441 & 8.359 \\
+w/o curvature & 3.695 & 3.985 & 8.376 & 8.440 \\
+Fixed Ratio (0) & 3.854 & 4.109 & 8.464 & 8.340 \\
+\midrule
+\textbf{GCE} & \textbf{3.671} & \textbf{3.960} & 8.408 & 8.338 \\
+\bottomrule
+\end{tabular*}
+\end{table}

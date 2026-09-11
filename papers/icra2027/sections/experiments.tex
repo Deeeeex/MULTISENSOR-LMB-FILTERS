@@ -13,7 +13,7 @@
  \label{fig:robustness}
 \end{figure*}
 
-\subsection{Previously used and newly acquired data}
+\subsection{Data and evaluation scope}
 We use DMSTrack's released per-vehicle detections
 \cite{chiu2024dmstrack} on V2V4Real~\cite{xu2023v2v4real}.
 Nine test-backed validation sequences form the development subset
@@ -22,16 +22,20 @@ Nine test-backed validation sequences form the development subset
 design, and the detector was trained on train. These are previously
 used data.
 
-We fixed GCE settings, the detector checkpoint, and calibration before
-acquiring the official validation archive. It yields three paired
-segments (748 frames) from two recordings. Two segments share an earlier
-recording; only the 409-frame segment is from a previously absent one.
-No scene or sensor file is identical to an earlier one.
-The checkpoint configuration assigns train/test to training/validation;
-its complete history is unverified. Replay uses the same checkpoint with
-CPU voxelization and MPS inference. Twelve old sensor frames reproduce
-detection counts, with maximum matched center/score differences of
-0.0078 m/0.0031. New labels serve geometry and scoring only.
+An expanded evaluation covers 43 deduplicated V2V4Real segments: 9,699 paired
+frames from 17 recordings. It includes the earlier 9/25 cohorts and three
+subsequently acquired validation segments. Only one of those three,
+with 409 frames, comes from a previously absent recording. The checkpoint
+configuration assigns train/test to training/validation; its complete
+history is unverified.
+
+We also evaluate all five paired-vehicle segments in the official
+64-beam V2X-Real validation release~\cite{xiang2024v2x}: 619 paired
+frames from three collection dates. A single-vehicle segment is excluded
+by input structure before scoring. Detector, calibration, tracker and
+communication settings remain fixed. V2X scores were first inspected
+after development selection; these inputs are now exposed for later work.
+The companion evidence records all selection and exposure events.
 
 \subsection{Shared local tracking and score likelihood}
 We track planar car centers within 40 m of either sensor and the
@@ -93,7 +97,9 @@ $\operatorname{logit}r=\sum_j\beta_jz_j+
 GS runs its own full recursion. \emph{Fixed Ratio} retains GCE's joint
 update, guard conditions, and history weights, replacing both sign-dependent supports
 by $\eta$. The lowest two-condition mean OSPA on the nine development
-sequences selects $\eta=0.25$ from $\{0.25,0.5,1\}$, then holds it fixed.
+sequences selects $\eta=0$ from
+$\{0,0.05,0.1,0.125,0.25,0.5,1\}$, then holds it fixed.
+Zero strength retains the history-weighted base pool.
 GS and Fixed Ratio require full Gaussian ratio packets.
 
 \emph{MIL-AM} adapts the public manuscript's augmented assignment and
@@ -112,8 +118,10 @@ and missed/false squared GOSPA costs~\cite{gospa2017} ($\alpha=2$).
 Common-target RMSE pools robot--time--truth matches shared by both
 methods. Sequences receive equal weight. Descriptive 95\% intervals
 use 10,000 paired whole-sequence percentile resamples of the old 9/25
-cohorts, without multiplicity adjustment. New-segment means are reported
-without an inferential interval.
+cohorts, without multiplicity adjustment. For the expanded V2V corpus,
+we first average paired differences within each recording, then resample
+the 17 recording means. V2X results are descriptive because only three
+collection dates are represented.
 
 Scalar, GS, joint correction without the guard, and GCE form a complete
 recursive correction--curvature $2\times2$ comparison. We report GCE--GS

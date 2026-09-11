@@ -64,6 +64,7 @@ def main():
     generated = [name for name in inputs if name.startswith(('generated/', 'figures/'))
                  or name in ['references.bib', 'source_data/gaussian_paper_evidence.json',
                              'source_data/mechanism_analysis.json', 'source_data/reviewer_evidence.json',
+                             'source_data/followup_evidence.json',
                              'source_data/gaussian_robustness.json']]
     result = dict(status='passed', verified_on=datetime.date.today().isoformat(),
         source_pdf_sha256=sha(original_pdf), rebuilt_pdf_sha256=sha(rebuilt_pdf),
@@ -73,6 +74,7 @@ def main():
         verified_doi_identifiers_rendered=source_qa['verified_doi_identifiers_rendered'],
         manuscript_figures=source_qa['manuscript_figures'], manuscript_tables=source_qa['manuscript_tables'],
         automated_qa_facts_identical=True, reviewer_experiments=source_qa['reviewer_experiments'],
+        completed_followup_experiments=source_qa['completed_followup_experiments'],
         regenerated_file_hash_matches=len(generated), regenerated_files=sorted(generated),
         build_input_manifest_sha256=input_digest, tested_archive_sha256_before_attaching_this_report=archive_digest,
         archive_input_files_verified=len(manifest), non_output_files_identical_after_rebuild=len(inputs),

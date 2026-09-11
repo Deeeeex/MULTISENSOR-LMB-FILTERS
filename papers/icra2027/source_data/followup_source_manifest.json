@@ -1,0 +1,47 @@
+{
+  "icra_admission_final/EVALUATION_ANALYSIS.json": {
+    "source": "trials/icra_admission_final/EVALUATION_ANALYSIS.json",
+    "sha256": "a5b13084acae8af142a20b3abdf9bd05b3e6bc44c2a5da444c98f4e25129989c",
+    "bytes": 1433001
+  },
+  "icra_admission_final/EXTERNAL_ANALYSIS.json": {
+    "source": "trials/icra_admission_final/EXTERNAL_ANALYSIS.json",
+    "sha256": "1d1a8f2a022e90d4eb3e386062ebe248b9edd38f04038f3b17d1b0cdf361ead4",
+    "bytes": 350145
+  },
+  "icra_admission_final/REPLAY_ACCEPTANCE.json": {
+    "source": "trials/icra_admission_final/REPLAY_ACCEPTANCE.json",
+    "sha256": "1a400da763a81cf5600177a519179a1e233f9d45e936ae059a5c89af6af8a82b",
+    "bytes": 295361
+  },
+  "icra_admission_final/RESULT_FILES_MANIFEST.json": {
+    "source": "trials/icra_admission_final/RESULT_FILES_MANIFEST.json",
+    "sha256": "10ab1dc125494defe77d960eb42681df28d24a15b1110abad6ea89ecee1be533",
+    "bytes": 112537
+  },
+  "icra_admission_final/SUMMARY_AUDIT.json": {
+    "source": "trials/icra_admission_final/SUMMARY_AUDIT.json",
+    "sha256": "b8ad35cbaa2b022af04a72173546796e47ddb74daa2c75aab57f55e7c77edfa8",
+    "bytes": 699
+  },
+  "icra_admission_final/verify_summary.py": {
+    "source": "trials/icra_admission_final/verify_summary.py",
+    "sha256": "c5609ad0760cd30a624df000f40bc19062351913fd5c97a84fcd6166ce332fd9",
+    "bytes": 6106
+  },
+  "icra_admission_final/RESULTS_CN.md": {
+    "source": "trials/icra_admission_final/RESULTS_CN.md",
+    "sha256": "9dba0c322e66cb3ebdd879c94312cb4ea5c782bd5edfebcbe3e14cca9eaec942",
+    "bytes": 6400
+  },
+  "icra_compatible_admission/FINAL_SELECTION.json": {
+    "source": "trials/icra_compatible_admission/FINAL_SELECTION.json",
+    "sha256": "40e8c4bcc02500a959bc3ca342ee5627b863dee4d0d954a84817132c4177ebad",
+    "bytes": 255812
+  },
+  "icra_compatible_admission/DATA_EXPOSURE.json": {
+    "source": "trials/icra_compatible_admission/DATA_EXPOSURE.json",
+    "sha256": "6dbbb71aaafd98726448edd026c012fb4f9f085cccfa53cf37dc011d1b09045b",
+    "bytes": 1134
+  }
+}

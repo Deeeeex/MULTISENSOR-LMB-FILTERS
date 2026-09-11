@@ -1,65 +1,16 @@
-# Visual review of the Fig. 3 line-plot refinement
+# 逐页视觉检查：完成证据并行修订
 
-Reviewed on 2026-09-09. PDF SHA-256: `d912ef666c3466c6089680a3975f680e0b69132ce14230bb8e8722780fecab62`.
-Baseline manuscript: commit `8ff9e0874d781fe493dbf67ff7fb907a59a62a11`,
-PDF SHA-256 `eb0e7563637f827773dee012c60b95b2bbe8f50788465f87a6014240d9614634`.
+检查者：Codex。检查日期：2026-09-11。
 
-## Verified scope
+PDF SHA-256：`8a242c59441f75602f9e93945f115b7e84cc10d3bf67b93845297c0a6f984c21`
 
-This edit changes Fig. 3 styling and clarifies that the nominal-coverage
-reference is a horizontal gray dashed line. The 47 measured points, all
-axis ranges, all original figure evidence fields, the full reviewer input,
-scalar facts and generated tables are unchanged. No smoothing, jitter,
-resampling, uncertainty band or new experiment is introduced.
+本次查看全部八页的渲染图。正文为七页，第八页仅致谢与参考文献；没有溢出、遮挡、缺字或空白正文页。
 
-Pages 1-5, 7 and 8 are pixel-identical to the previously reviewed manuscript
-at 1.5x RGB resolution. Page-6 changes are confined to the Fig. 3 and caption
-area, ending above 300 pt; the remaining page content is pixel-identical.
+- 第 1 页：摘要的 43 段数据、5.8%/4.4% 数字与跨录制限制可读，Intro 插图完整。
+- 第 2–4 页：方法图、公式和数据划分段落清晰；方法定义与矢量图源未改动。
+- 第 5 页：主表已使用七点搜索选出的 Fixed Ratio (0)，消融表保持原 25 段；数值粗体和表头对齐。
+- 第 6 页：敏感性图及通信图保持原数据范围，图例和坐标标签没有互相覆盖。
+- 第 7 页：扩展表包含全部 43 段 V2V 和五段 V2X，No-age 在两个 V2X 列的最低值均保留；记录等权区间跨零及 409 帧失败可读。两栏结束于约 733.93 pt。
+- 第 8 页：31 条引用与 DOI 均可读，新 V2X-Real 引文完整，未挤出页面。
 
-## Figure and page inspection
-
-- Fig. 3 retains the 181 by 70 mm canvas and both matched pD axes. The
-  paper scales it to its 177.8 mm text width; the smallest source text is
-  7.3 pt, remaining above 7 pt at that compiled size.
-- Blue, rose and neutral-gray baselines use hollow, distinct marker shapes
-  and different dashed patterns. GCE retains the paper's teal identity
-  with a modestly heavier solid line and filled circles.
-- The two tracking panels use one shared legend. Correlation curves have
-  direct labels; the GCE endpoint annotation is read from the saved
-  0.9-correlation row and displays 80.55%. Its label leader anchors to the
-  saved 0.75-correlation measurement.
-- The oracle label was repositioned below its own curve after detecting
-  a clash with the descending GCE curve in the first styling draft.
-  The final color and grayscale renders show no text/curve collision,
-  clipped label, missing data setting or displaced measurement.
-- The complete compiled page 6 was inspected at 1.5x. Panel headings,
-  tick labels, direct labels, caption and neighboring communication plot
-  are legible without overlap.
-- All statistical limitations remain explicit in the unchanged results:
-  ranking reversals, small recursive effects and covariance undercoverage
-  have not been hidden by the visual refinement.
-
-## Public design references
-
-The [Nature Methods controlled-perturbation figure](https://www.nature.com/articles/s41592-025-02630-5/figures/4)
-was inspected for aligned small multiples and consistent color/line-style
-encodings. [Paul Tol's qualitative color guidance](https://sronpersonalpages.nl/~pault/)
-informed the blue/rose/teal/neutral palette; the exact paper palette is an
-adaptation, not a certification of every color-vision condition.
-[Nature's figure specifications](https://research-figure-guide.nature.com/figures/preparing-figures-our-specifications/)
-informed editable typography and final-size inspection. The figure does
-not reproduce the source paper's scientific data or image content.
-
-## Artifact checks
-
-The automated artifact checks pass: eight US Letter pages, seven complete
-body pages, one Ack/References page, four manuscript figures and four
-tables, 23 embedded fonts, no Type 3 fonts, no annotations, 30 citations
-and 26 verified DOI identifiers. The source SVG has live text and no
-embedded raster; every plotted setting and all text bounds are checked.
-Page 7 ends at 733.929/718.836 pt in its left/right columns. The official
-class, bibliography style and manuscript body font remain unchanged.
-
-This is a visual artifact revision, not a new native tracking experiment
-or an independent scientific replication. The paper source archive is
-verified separately by `portable_rebuild.json`.
+自动检查报告确认 23 个嵌入字体、无 Type 3 字体、无未解析引用或 overfull boxes。该检查是制品审阅，不表示第三方评审或投稿完成。
