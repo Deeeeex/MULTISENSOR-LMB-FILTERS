@@ -1,0 +1,139 @@
+{
+  "status": "local_preflight_passed",
+  "checked_on": "2026-09-11",
+  "checked_by": "Codex",
+  "pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
+  "pdf_bytes": 2037605,
+  "pdf_format": "PDF 1.5",
+  "pages": 8,
+  "body_pages": 7,
+  "acknowledgment_reference_pages": 1,
+  "embedded_fonts": 23,
+  "no_type3_fonts": true,
+  "no_pdf_annotations_or_bookmarks_or_attachments": true,
+  "unencrypted": true,
+  "blank_author_metadata": true,
+  "identity_placeholder_and_extension_scan_hits": {
+    "email": false,
+    "local_path": false,
+    "account": false,
+    "unresolved": false,
+    "placeholder": false,
+    "excluded_extensions": false
+  },
+  "rendered_ink_bounds_pt": [
+    [
+      54.0,
+      74.0,
+      558.5,
+      733.75
+    ],
+    [
+      54.0,
+      56.25,
+      558.5,
+      733.75
+    ],
+    [
+      54.0,
+      55.25,
+      558.0,
+      735.75
+    ],
+    [
+      54.0,
+      55.25,
+      558.0,
+      733.75
+    ],
+    [
+      53.75,
+      55.0,
+      558.0,
+      735.75
+    ],
+    [
+      53.25,
+      59.0,
+      558.0,
+      733.75
+    ],
+    [
+      54.0,
+      55.0,
+      558.5,
+      733.75
+    ],
+    [
+      54.25,
+      55.25,
+      558.25,
+      672.75
+    ]
+  ],
+  "margin_raster_tolerance_pt": 0.75,
+  "visually_reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "manuscript_figures": 4,
+  "manuscript_tables": 4,
+  "resolved_citations": 31,
+  "rendered_verified_doi_identifiers": 27,
+  "protected_source_files_checked": 71,
+  "only_protected_source_changes": "5 pt positive top spacing in two table containers; all table values, captions and other protected source bytes unchanged",
+  "formula_implementation_review": [
+    "eligible spatial and existence supports",
+    "history base switch",
+    "signed score and miss admission",
+    "joint Bernoulli normalization",
+    "Gaussian natural parameters and integral",
+    "source PSD guard and aggregate fallback",
+    "exact zero-vector packet size"
+  ],
+  "quantitative_claims": {
+    "expanded_v2v_segments": 43,
+    "reference": "No-age KLA",
+    "ospa_reduction_percent_reliable_intermittent": [
+      5.8,
+      4.4
+    ],
+    "communication_corpus_segments": 25,
+    "communication_reference": "full GCE packets",
+    "fragmented_byte_reduction_percent_reliable_intermittent": [
+      11.3,
+      10.8
+    ]
+  },
+  "recomputed_followup_evaluation_rows": 854,
+  "recomputed_followup_paired_comparisons": 180,
+  "resolved_layout_issues": [
+    "conclusion overflow eliminated by editing prose",
+    "two top table captions shifted inside the margin"
+  ],
+  "official_pdf_test": "not run; no paper uploaded",
+  "official_conference_specific_file_size_limit": "not verified in the dynamic PDF checker",
+  "formal_submission": "not performed",
+  "portable_rebuild": {
+    "status": "passed",
+    "source_inputs": 228,
+    "regenerated_files": 52,
+    "text_identical_pages": 8,
+    "pixel_identical_pages": 8,
+    "scope": "Fresh-directory paper rebuild with saved audited sequence values and vector sources, using the same local runtime and fonts. All page text and RGB pixels agree. This does not rerun detector inference or native tracking."
+  },
+  "official_sources": [
+    "https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/",
+    "https://www.ieee-ras.org/publications/rules-for-the-double-anonymous-review-process/",
+    "https://ras.papercept.net/conferences/support/general.php",
+    "https://ras.papercept.net/conferences/support/page.php",
+    "https://ras.papercept.net/conferences/scripts/pdftest.pl"
+  ],
+  "scope": "Local manuscript and artifact preflight, saved-summary recomputation and formula/code inspection. No new detector or tracking experiment, third-party review, author sign-off, or PaperPlaza validation."
+}

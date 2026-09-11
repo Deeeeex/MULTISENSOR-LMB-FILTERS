@@ -42,6 +42,10 @@ pdf_hash = hashlib.sha256(pdf.read_bytes()).hexdigest()
 visual = HERE / 'output/qa/visual_review.md'
 if visual.exists() and pdf_hash in visual.read_text():
     files.append(visual)
+for name in ['final_submission_check.md', 'final_submission_check.json']:
+    preflight = HERE / 'output/qa' / name
+    if preflight.exists() and pdf_hash in preflight.read_text():
+        files.append(preflight)
 portable = HERE / 'output/qa/portable_rebuild.json'
 if portable.exists():
     report = json.loads(portable.read_text())

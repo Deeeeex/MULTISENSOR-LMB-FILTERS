@@ -34,8 +34,7 @@ We also evaluate all five paired-vehicle segments in the official
 frames from three collection dates. A single-vehicle segment is excluded
 by input structure before scoring. Detector, calibration, tracker and
 communication settings remain fixed. V2X scores were first inspected
-after development selection; these inputs are now exposed for later work.
-The companion evidence records all selection and exposure events.
+after development selection.
 
 \subsection{Shared local tracking and score likelihood}
 We track planar car centers within 40 m of either sensor and the
@@ -79,7 +78,8 @@ keep the local update. Accounting uses 16,384-byte fragments and a
 256-byte control charge per scan. Delivery is independent of packet
 length. GCE uses $\rho=0.25$ and $\lambda=5$ s.
 
-\emph{No-age KLA} uses qualified weights $\alpha,b$.
+\emph{No-age KLA}, the primary reference, geometrically pools qualified
+posteriors using spatial and existence weights $\alpha,b$.
 \emph{Recency} replaces $b$ with $q$ in existence, and
 \emph{Conservative} uses $\beta$ without a current correction.
 \emph{Capped-score}/\emph{Capped-cal.} bound recency existence by

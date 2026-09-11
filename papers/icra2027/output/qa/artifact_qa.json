@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "a1ab6f8e70d1db14f497a1138fb0d11f8f032bb21a645dd5e8a5f2701b5dcad6",
+  "pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
   "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2544,
+  "text_spans_in_page_bounds": 2534,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -101,6 +101,59 @@
   "type3_fonts": 0,
   "pdf_annotations": 0,
   "blank_author_metadata": true,
+  "pdf_bookmarks": 0,
+  "pdf_embedded_files": 0,
+  "rendered_ink_bounds_pt": [
+    [
+      54.0,
+      74.0,
+      558.5,
+      733.75
+    ],
+    [
+      54.0,
+      56.25,
+      558.5,
+      733.75
+    ],
+    [
+      54.0,
+      55.25,
+      558.0,
+      735.75
+    ],
+    [
+      54.0,
+      55.25,
+      558.0,
+      733.75
+    ],
+    [
+      53.75,
+      55.0,
+      558.0,
+      735.75
+    ],
+    [
+      53.25,
+      59.0,
+      558.0,
+      733.75
+    ],
+    [
+      54.0,
+      55.0,
+      558.5,
+      733.75
+    ],
+    [
+      54.25,
+      55.25,
+      558.25,
+      672.75
+    ]
+  ],
+  "margin_raster_tolerance_pt": 0.75,
   "tex_font_substitution_warnings": 0,
   "tex_informational_font_aliases": 20,
   "official_class_and_bst_unmodified": true,
@@ -207,7 +260,7 @@
   "body_pages": 7,
   "acknowledgment_reference_pages": 1,
   "seventh_page_column_bottoms_pt": [
-    733.9290771484375,
+    733.92919921875,
     733.929443359375
   ],
   "all_float_captions_before_references": true,

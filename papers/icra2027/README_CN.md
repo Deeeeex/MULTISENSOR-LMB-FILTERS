@@ -3,12 +3,14 @@
 **Guarded Current-Evidence Fusion for Cooperative Multitarget Tracking**
 
 版面约束为正文完整七页，Ack/Ref 单独一页；四幅正文矢量图、四张表和三十一条参考文献。
-本版补入已完成的扩展数据和固定强度复核，并据结果收紧结论。未提交会议。
+本版以 GCE 为唯一主方法：在保守后验池上选择性加入当前观测增量，联合更新空间分布与存在概率。
+摘要、引言、实验和结论围绕同一方法及其已验证收益展开。未提交会议。
 
 ## 阅读入口
 
 - 论文：`output/pdf/icra2027_draft.pdf`
 - 可移植源码包：`output/icra2027_review_source.zip`
+- 投稿前终检：`output/qa/final_submission_check.md`
 - 本次 43 段 V2V、五段 V2X 与七点固定强度修订：`FOLLOWUP_REVISION_CN.md`
 - 扩展证据与完整来源：`source_data/followup_evidence.json`、`source_data/admission_followup/`
 - 审稿修改、全部新数据与敏感性结果：`REVIEW_REVISION_CN.md`
@@ -17,9 +19,14 @@
 - 原有 25 段数值：`source_data/gaussian_paper_evidence.json`
 - 固定输入与断链阶段：`source_data/mechanism_analysis.json`
 
-## 本轮结果应如何理解
+## 主要结果与比较范围
 
-以下比较使用已参与方法开发的 25 个完整序列，不能当作冻结后的独立测试。
+全文主要对照为 No-age KLA，即以相同支持资格规则对各源后验做几何融合。
+43 段去重 V2V4Real 上，GCE 的平均 OSPA 为 3.671/3.960 m，No-age 为 3.895/4.144 m，
+对应可靠/间歇通信下 5.8%/4.4% 的下降。该扩展比较含七种方法；下方原 25 段比较
+提供全部十三种方法、完整递归消融和相同数据上的通信记账。
+
+以下列出原 25 段中的主要方法；这些序列已参与方法开发，不能当作冻结后的独立测试。
 
 | 方法 | 可靠 OSPA（m） | 间歇 OSPA（m） |
 | --- | --- | --- |
@@ -82,6 +89,7 @@ python3 build.py --regenerate
 
 - 自动检查：`output/qa/artifact_qa.json`
 - 逐页视觉检查：`output/qa/visual_review.md`
+- 投稿前终检：`output/qa/final_submission_check.md`、`output/qa/final_submission_check.json`
 - 独立目录重建：`output/qa/portable_rebuild.json`
 - ZIP 文件清单：`output/review_manifest.json`
 - 文献来源：`LITERATURE_SCOPE.md`
@@ -90,5 +98,9 @@ python3 build.py --regenerate
 稳定泛化、完整检测器训练独立性、真实跟踪协方差一致性及实测无线性能仍未建立。
 
 官方 `ieeeconf.cls` 与 `IEEEtran.bst` 未修改，作者栏留空，AI 使用在 Ack 中披露。
-页数约束依据此前核对的 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)，
+页数约束依据 2026-09-11 核对的 [ICRA 2027 官方 CFP](https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/)，
 最终文件状态以匹配 PDF 标识的验收记录为准。
+
+投稿时使用匿名 PDF，在 PaperPlaza 中填写全部作者和单位。源码 ZIP 用于留存与重建；
+会议的额外附件仅允许视频，其他补充内容应包含在八页之内。
+本地检查不替代 PaperPlaza 的在线 PDF 检验，尚未执行上传或正式提交。

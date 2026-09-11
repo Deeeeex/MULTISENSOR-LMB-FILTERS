@@ -11,7 +11,11 @@ PRIMARY = 'marked_gaussian_evidence'
 def write_table(name, caption, label, rows, metrics, emphasized, separators=(), wide=True):
     environment = 'table*' if wide else 'table'
     count = len(metrics)
-    lines = [r'\begin{'+environment+r'}[t]', r'\centering\small', '\\caption{'+caption+'}',
+    lines = [r'\begin{'+environment+r'}[t]', r'\centering\small']
+    # The class's first table-caption baseline extends above top-float bounds.
+    if name in {'main_table', 'communication_table'}:
+        lines.append(r'\vspace*{5pt}')
+    lines += ['\\caption{'+caption+'}',
              '\\label{'+label+'}', r'\setlength{\tabcolsep}{'+('6' if wide else '3.5')+r'pt}',
              r'\begin{tabular*}{'+(r'\textwidth' if wide else r'\columnwidth')+r'}{@{\extracolsep{\fill}}l'+('r'*(2*count))+r'@{}}', r'\toprule',
              r'& \multicolumn{'+str(count)+r'}{c}{Reliable links} & \multicolumn{'+str(count)+r'}{c}{Intermittent links} \\',

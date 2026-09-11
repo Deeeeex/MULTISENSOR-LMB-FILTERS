@@ -30,10 +30,11 @@ determine which increments are admitted. Figure~\ref{fig:overview} shows
 how the same current evidence reaches both branches of the fused belief.
 
 
-Prior--likelihood separation is established
-\cite{wu2022sharedpriors,hlinka2012likelihood}, as is normalization of a
-Bernoulli spatial product. Our focus is deciding which approximate local
-increments to admit when sensing histories and associations differ.
+Building on prior--likelihood separation
+\cite{wu2022sharedpriors,hlinka2012likelihood}, GCE makes selective admission
+of approximate local increments the central fusion decision when sensing
+histories and associations differ. Bernoulli normalization then carries
+each admitted increment into both parts of the track belief.
 The paper contributes:
 \begin{itemize}
  \item A bounded admission rule combining current opportunity,
@@ -41,9 +42,10 @@ The paper contributes:
  curvature check for approximate Gaussian Bernoulli ratios.
  \item A closed-form implementation that couples admitted spatial and
  existence corrections, with an exact omission code for zero vectors.
- \item Recursive controls separating joint correction from curvature
- rejection, with a fixed-strength baseline and recording-aware evaluation
- of the gain and its transfer limits.
+ \item A shared-tracker evaluation with
+ \FollowGainNoAgeReliable\%/\FollowGainNoAgeIntermittent\% lower mean OSPA
+ than No-age KLA across 43 V2V4Real segments, supported by matched
+ recursive controls and explicit communication accounting.
 \end{itemize}
 \begin{figure}[t]
  \centering\includegraphics[width=\columnwidth]{figures/intro.pdf}

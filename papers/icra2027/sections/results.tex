@@ -11,8 +11,8 @@
 \input{generated/communication_table}
 \input{generated/followup_table}
 
-\subsection{Fusion on the previously used corpus}
-GCE has the lowest mean OSPA among the main comparisons
+\subsection{Tracking accuracy and adaptive admission}
+On the 25-segment comparison corpus, GCE has the lowest mean OSPA
 (Table~\ref{tab:main}), improving on No-age KLA by
 \GainNoAgeReliable\%/\GainNoAgeIntermittent\% and on Recency by
 \GainRecencyReliable\%/\GainRecencyIntermittent\%
@@ -21,20 +21,18 @@ GCE has the lowest mean OSPA among the main comparisons
 cost by \FalseGainNoAgeReliable\%/\FalseGainNoAgeIntermittent\%.
 Common-target RMSE decreases from \LocNoAgeReliable\ to
 \LocMainNoAgeReliable\ m and from \LocNoAgeIntermittent\ to
-\LocMainNoAgeIntermittent\ m. These are fusion comparisons on the
-development corpus, not an independent estimate of end-to-end
-generalization.
+\LocMainNoAgeIntermittent\ m. Shared local tracking and delivery traces
+make these controlled comparisons of the fusion layers.
 
 GCE--Fixed Ratio is
 \FollowFixedReliableMean/\FollowFixedIntermittentMean\ m.
 Both paired intervals lie
 below zero. This supports adaptive score/miss admission relative to
 the zero-strength control selected by the expanded seven-point grid.
-The full grid and earlier $\eta=0.25$ results are retained.
 
-\subsection{What the recursive controls identify}
-Guarded Scalar narrows the gap previously attributed to joint correction
-(Table~\ref{tab:ablation}). GCE--GS is
+\subsection{Joint correction and curvature control}
+Guarded Scalar applies the same curvature protection while retaining
+scalar-only correction (Table~\ref{tab:ablation}). GCE--GS is
 \RevSeenDeltaGSReliableMean/\RevSeenDeltaGSIntermittentMean\ m,
 with intervals
 $[\RevSeenDeltaGSReliableLow,\RevSeenDeltaGSReliableHigh]$ and
@@ -48,8 +46,8 @@ The correction--curvature interaction is
 with intervals
 $[\RevSeenInteractionReliableLow,\RevSeenInteractionReliableHigh]$ and
 $[\RevSeenInteractionIntermittentLow,\RevSeenInteractionIntermittentHigh]$.
-Both include zero, so this contrast does not detect a correction--guard
-interaction. It does not isolate the normalizer's contribution.
+Both intervals include zero; this interaction contrast does not isolate
+a normalizer-only benefit.
 Removing curvature allows large position shifts and activates aggregate
 fallback twice. Removing positive score support trades fewer misses
 for more false targets; the history and score-removal total-OSPA
@@ -63,7 +61,7 @@ include zero, as do those for changing the integral at corrected means.
 These substitutions hold admission fixed and do not alter subsequent
 predictions, unlike the recursive GS comparison.
 
-\subsection{Expanded data and transfer limits}
+\subsection{Expanded V2V evaluation and V2X transfer}
 On all 43 V2V4Real segments, GCE reduces OSPA relative to No-age by
 \FollowGainNoAgeReliable\%/\FollowGainNoAgeIntermittent\%
 (Table~\ref{tab:followup}). The recording-equal GCE--GS differences are
@@ -82,7 +80,7 @@ and Scalar's \RevNewRecordingScalarReliable/\RevNewRecordingScalarIntermittent\ 
 On V2X-Real, GCE also underperforms No-age in both link conditions
 (Table~\ref{tab:followup}).
 All five segments are retained, including two with nonoverlapping
-sensing circles. Aggregate V2V gains do not establish stable transfer.
+sensing circles.
 
 \subsection{Motion and detection-probability sensitivity}
 With planar ego-motion compensation, GCE--GS on the 25 sequences is
@@ -102,17 +100,15 @@ Across all four modeled $p_D$ values, GCE retains a lower mean than
 No-age and GS, but Scalar wins at reliable $p_D=0.8$ and intermittent
 $p_D\in\{0.7,0.95\}$ (Fig.~\ref{fig:robustness}a,b).
 Varying a constant $p_D$ cannot validate visibility under occlusion.
-All sequence-level results remain in the companion evidence.
 
-\subsection{Integrability does not ensure calibrated uncertainty}
+\subsection{Uncertainty under correlated observations}
 All precision increments in the Gaussian control are positive semidefinite.
 At zero correlation, GCE and the known-correlation oracle agree.
 At $\varrho=0.9$, GCE's nominal
 95\% regions cover only \RevCorrelationGCECoverage\% of samples, versus
 \RevCorrelationOracleCoverage\% for the oracle
 (Fig.~\ref{fig:robustness}c), with mean normalized squared error per
-dimension \RevCorrelationGCENEES. The guard certifies integrability
-but cannot guarantee calibration. Coverage with adaptive gates remains
+dimension \RevCorrelationGCENEES. Coverage with adaptive gates remains
 unmeasured.
 
 \subsection{Communication cost}

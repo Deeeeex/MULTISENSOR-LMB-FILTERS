@@ -23,6 +23,7 @@ def check():
     assert len(reader.pages) == 8, ('Seven body pages plus one acknowledgment/reference page', len(reader.pages))
     assert not reader.is_encrypted
     assert not reader.metadata.author
+    assert not reader.outline
     fonts, seen = {}, set()
 
     def resources(ref):
@@ -54,7 +55,8 @@ def check():
         resources(page.get('/Resources'))
     assert fonts
     document = fitz.open(PDF)
-    texts, span_count = [], 0
+    assert document.embfile_count() == 0
+    texts, span_count, ink_bounds = [], 0, []
     preview = HERE / 'build/preview'
     preview.mkdir(parents=True, exist_ok=True)
     for number, page in enumerate(document, 1):
@@ -66,6 +68,18 @@ def check():
                     assert x0 >= -.5 and y0 >= -.5 and x1 <= 612.5 and y1 <= 792.5, (number, span)
                     span_count += 1
         page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5), alpha=False).save(preview / f'page-{number}.png')
+        # Check rendered ink, including table captions and vector figures.
+        # Font bounding boxes include empty ascender space; visible ink is
+        # the relevant margin signal. Allow 0.75 pt for stroke/raster edges.
+        pix = page.get_pixmap(matrix=fitz.Matrix(4, 4), alpha=False)
+        pixels = np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, pix.n)
+        ys, xs = np.where(np.any(pixels[:, :, :3] < 180, axis=2))
+        bounds = [float(xs.min()/4), float(ys.min()/4),
+                  float((xs.max()+1)/4), float((ys.max()+1)/4)]
+        top = 72 if number == 1 else 54
+        assert bounds[0] >= 53.25 and bounds[1] >= top-.75, ('Ink outside left/top margins', number, bounds)
+        assert bounds[2] <= 558.75 and bounds[3] <= 738.75, ('Ink outside right/bottom margins', number, bounds)
+        ink_bounds.append(bounds)
     full_text = '\n'.join(texts)
     assert '??' not in full_text
     assert 'OpenAI Codex' in full_text and 'Acknowledgment' in full_text.replace('ACKNOWLEDGMENT', 'Acknowledgment')
@@ -174,6 +188,8 @@ def check():
     result = {'status': 'automated_artifact_checks_passed', 'pdf_sha256': sha(PDF),
               'pages': len(reader.pages), 'paper_size': 'US Letter', 'text_spans_in_page_bounds': span_count,
               'embedded_fonts': fonts, 'type3_fonts': 0, 'pdf_annotations': 0, 'blank_author_metadata': True,
+              'pdf_bookmarks': 0, 'pdf_embedded_files': 0,
+              'rendered_ink_bounds_pt': ink_bounds, 'margin_raster_tolerance_pt': .75,
               'tex_font_substitution_warnings': 0,
               'tex_informational_font_aliases': len(re.findall(r'LaTeX Font Info:\s+Font shape', log)),
               'official_class_and_bst_unmodified': True, 'figures': figures,
