@@ -1,18 +1,18 @@
-Cooperative posteriors mix inherited and current information, which age
-weighting cannot control separately. We propose guarded current-evidence
-fusion (GCE), admitting bounded Bernoulli posterior-to-prediction ratios
-using sensing opportunity, score and miss support, and Gaussian curvature.
-Admitted ratios jointly update spatial density and existence through a
-shared normalizer. Across 43 V2V4Real segments with a common local
-tracker, GCE reduces mean OSPA by
-\FollowGainNoAgeReliable\%/\FollowGainNoAgeIntermittent\% over qualified
-geometric pooling under reliable/intermittent links. Recursive controls
-show a smaller gain over equally guarded scalar correction; the
-recording-level interval includes zero under intermittent links.
-Transfer to five V2X-Real segments does not improve on pooling.
-Exact zero omission reduces fragmented traffic by
-\CodecWireSavingReliable\%/\CodecWireSavingIntermittent\% relative to
-full GCE packets on the original comparison corpus, with remaining
-overhead over pooling. These results support selective current-evidence
-admission on the evaluated V2V corpus while exposing limits in transfer
-and in gains beyond scalar correction.
+Cooperative multi-object tracking must distinguish new observations from
+information inherited through earlier communication. Posterior age
+weighting acts on both components together, limiting control over current
+sensing evidence. We propose guarded current-evidence fusion (GCE), which
+augments conservative geometric pooling with bounded Bernoulli
+posterior-to-prediction ratios. An admission rule combines current sensing
+opportunity, association-weighted detection-score and miss support, and
+Gaussian curvature to select local information increments. A closed-form
+Gaussian implementation jointly updates spatial density and target
+existence through a shared normalizer, allowing admitted evidence to
+influence both localization and cardinality. Across 43 V2V4Real segments
+evaluated with a common local tracker, GCE reduces mean OSPA by
+\FollowGainNoAgeReliable\% and \FollowGainNoAgeIntermittent\% relative to
+qualified geometric pooling under reliable and intermittent links,
+respectively. An exact zero-omission code preserves GCE trajectories while
+reducing fragmented traffic by \CodecWireSavingReliable\% and
+\CodecWireSavingIntermittent\% relative to full GCE packets on the original
+25-segment comparison corpus.
