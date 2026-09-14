@@ -1,9 +1,9 @@
 {
   "status": "automated_artifact_checks_passed",
-  "pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
+  "pdf_sha256": "5a206e0a538042de4af92b85b9a4ca35efc8e09f5b12ebb4fa037adc737b4d0c",
   "pages": 8,
   "paper_size": "US Letter",
-  "text_spans_in_page_bounds": 2534,
+  "text_spans_in_page_bounds": 2530,
   "embedded_fonts": {
     "/IHAIZV+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
@@ -143,14 +143,14 @@
     [
       54.0,
       55.0,
-      558.5,
+      558.0,
       733.75
     ],
     [
-      54.25,
+      54.5,
       55.25,
       558.25,
-      672.75
+      690.75
     ]
   ],
   "margin_raster_tolerance_pt": 0.75,
@@ -261,7 +261,7 @@
   "acknowledgment_reference_pages": 1,
   "seventh_page_column_bottoms_pt": [
     733.92919921875,
-    733.929443359375
+    728.6988525390625
   ],
   "all_float_captions_before_references": true,
   "maximum_double_column_floats_per_page": 2,

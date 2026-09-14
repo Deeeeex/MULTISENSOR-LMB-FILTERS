@@ -1,12 +1,11 @@
 \section{Discussion and Conclusion}
-GCE augments a conservative posterior pool with selected current
-Bernoulli ratios, jointly updating spatial density and existence.
-On 43 V2V4Real segments, mean OSPA falls by
-\FollowGainNoAgeReliable\%/\FollowGainNoAgeIntermittent\% relative to
-No-age KLA. Exact zero omission preserves the tracking outputs while
-saving \CodecWireSavingReliable\%/\CodecWireSavingIntermittent\% of
-fragmented traffic relative to full GCE packets on the 25-segment corpus.
-
-Gains beyond guarded scalar correction are smaller; V2X transfer and
-covariance calibration remain open. Future evaluation should cover
-independent recordings, larger teams and measured radio links.
+GCE combines selective current-evidence admission with joint spatial
+and existence updates for cooperative vehicle tracking.
+Across 43 V2V4Real segments, it reduces mean OSPA by
+\FollowGainNoAgeReliable\% and \FollowGainNoAgeIntermittent\% relative to
+No-age KLA under reliable links and links with packet loss and temporary
+outages, respectively. On the 25-segment corpus, exact zero omission
+saves \CodecWireSavingReliable\%/\CodecWireSavingIntermittent\% of
+fragmented traffic relative to full GCE packets without altering
+tracking outputs. Future work will address transfer across datasets
+and uncertainty calibration.

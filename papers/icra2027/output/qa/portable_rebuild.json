@@ -1,8 +1,8 @@
 {
   "status": "passed",
-  "verified_on": "2026-09-11",
-  "source_pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
-  "rebuilt_pdf_sha256": "e7c762bd9ec173a3e34a08270dc5fa4b04d5411dfab291c58400d8904a7b293e",
+  "verified_on": "2026-09-14",
+  "source_pdf_sha256": "5a206e0a538042de4af92b85b9a4ca35efc8e09f5b12ebb4fa037adc737b4d0c",
+  "rebuilt_pdf_sha256": "abe461f2a0a7a241ceba31220dc3947fa45626ccfa743933a08690689d562f26",
   "pdf_binary_identical": false,
   "pages": 8,
   "body_pages": 7,
@@ -16,8 +16,8 @@
     "4cbc24278ac7285dbdc17cc6ef5e7588af3d95bfd57cd156b44d2583892139e0",
     "e812fe07c9c37ee8f78d7a3f0c23ba3220d49bc60fd27b81e1391ea2dce7f831",
     "21c12cb9c98a3eb6e64e556986a8743dc74d13a9ff41240bf8aa4d16751bd356",
-    "6beaaae3d6196305a78eeb80ffa92c106632a51c03fb2aa7f1ae50a7ebe7df66",
-    "3d96a235599b980fd1af00adceff799718be2c356a6e3e2e140fd11a497f890a"
+    "7ad5d43bff8b9530f4c52fb1b674cc114179c0b11641bfb92e09d8691a948889",
+    "3f8e3820aac093d119d894fa7aa5f3cec913eb502bbd8cb8a0bf147ab8b95772"
   ],
   "bibliography_entry_count": 31,
   "verified_doi_identifiers_rendered": 27,
@@ -113,13 +113,13 @@
     "source_data/mechanism_analysis.json",
     "source_data/reviewer_evidence.json"
   ],
-  "build_input_manifest_sha256": "566d767ce7a31692967f039c8a1f7ae0dda31c9c6bec2e64974011feb942f157",
-  "tested_archive_sha256_before_attaching_this_report": "9c148b95e4f31c620641dc46be01c7903ec1bc2c613f5735cde77546df41a1cb",
-  "archive_input_files_verified": 232,
+  "build_input_manifest_sha256": "f2792e1e2d0173d73bf281ec8cadba55f143b7a94d3f53207092ba28106bc6bc",
+  "tested_archive_sha256_before_attaching_this_report": "301dfab104cb308ed895601a3adc89b22c42ee5c78e9396877794267bd5bf472",
+  "archive_input_files_verified": 230,
   "non_output_files_identical_after_rebuild": 228,
   "native_experiment_corpus_available": false,
   "image_generation_or_tracing_required_for_rebuild": false,
-  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-reviewer-rebuild-zapc4ncm/icra2027",
+  "extracted_directory": "/var/folders/kk/cvcgrbs92kz0p4nd8tsnkz100000gn/T/icra-reviewer-rebuild-_qkdegva/icra2027",
   "python_executable": "/Users/dex/miniconda3/bin/python3",
   "command": [
     "build.py",

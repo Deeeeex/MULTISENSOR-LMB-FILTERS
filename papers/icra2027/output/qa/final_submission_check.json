@@ -1,9 +1,9 @@
 {
   "status": "local_preflight_passed",
-  "checked_on": "2026-09-11",
+  "checked_on": "2026-09-14",
   "checked_by": "Codex",
-  "pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
-  "pdf_bytes": 2037605,
+  "pdf_sha256": "5a206e0a538042de4af92b85b9a4ca35efc8e09f5b12ebb4fa037adc737b4d0c",
+  "pdf_bytes": 2037365,
   "pdf_format": "PDF 1.5",
   "pages": 8,
   "body_pages": 7,
@@ -61,14 +61,14 @@
     [
       54.0,
       55.0,
-      558.5,
+      558.0,
       733.75
     ],
     [
-      54.25,
+      54.5,
       55.25,
       558.25,
-      672.75
+      690.75
     ]
   ],
   "margin_raster_tolerance_pt": 0.75,
@@ -86,8 +86,8 @@
   "manuscript_tables": 4,
   "resolved_citations": 31,
   "rendered_verified_doi_identifiers": 27,
-  "protected_source_files_checked": 71,
-  "only_protected_source_changes": "5 pt positive top spacing in two table containers; all table values, captions and other protected source bytes unchanged",
+  "protected_source_files_checked": 227,
+  "only_protected_source_changes": "Only sections/discussion.tex changed from the author-display revision; all other 227 packaged source files are identical.",
   "formula_implementation_review": [
     "eligible spatial and existence supports",
     "history base switch",
@@ -135,5 +135,103 @@
     "https://ras.papercept.net/conferences/support/page.php",
     "https://ras.papercept.net/conferences/scripts/pdftest.pl"
   ],
-  "scope": "Local manuscript and artifact preflight, saved-summary recomputation and formula/code inspection. No new detector or tracking experiment, third-party review, author sign-off, or PaperPlaza validation."
+  "scope": "Discussion and Conclusion emphasis revision with current claim-to-result checks, artifact QA, source fingerprints, page comparison and a fresh-directory rebuild. Pages 1-6 and 8 are text- and pixel-identical to the previous revision; preceding results text on page 7 is unchanged. Prior manual method/formula review remains applicable to unchanged content. Earlier ACK and author-display revisions are preserved. No new native tracking experiment, submission or online PDF test was performed.",
+  "acknowledgment_revision": {
+    "previous_full_manual_preflight_on": "2026-09-11",
+    "previous_pdf_sha256": "d009d41eee1e05d9a50b99486c5954e8dae2763daf75b40a6a7addebff4356da",
+    "wording": "OpenAI Codex was used to assist in developing the simulation environment code.",
+    "body_pages_text_and_pixels_unchanged": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "reference_text_unchanged": true,
+    "current_visual_review_pages": [
+      8
+    ],
+    "current_checks": [
+      "Compilation and automated artifact QA",
+      "Source fingerprint comparison",
+      "Body-page text and pixel comparison",
+      "Page 8 visual inspection",
+      "Fresh-directory source-package rebuild"
+    ],
+    "inherited_manual_checks": "The prior formula/code and research-content review applies to the unchanged body pages; it was not repeated for this acknowledgment edit."
+  },
+  "bibliography_author_revision": {
+    "previous_pdf_sha256": "f28fb8053040855eaf91dae32e83fb2c84d2474f6c31081ba1d4b439c05fc983",
+    "cause": "IEEEtran replaced identical consecutive author lists with dashes.",
+    "setting": "CTLdash_repeated_names={no}",
+    "restored_references": [
+      19,
+      22
+    ],
+    "restored_keys": [
+      "li2018multiviewlmb",
+      "gao2020mil"
+    ],
+    "verified_authors": "S. Li, G. Battistelli, L. Chisci, W. Yi, B. Wang, and L. Kong",
+    "author_metadata_source": "https://flore.unifi.it/handle/2158/1178709",
+    "body_pages_text_and_pixels_unchanged": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "acknowledgment_unchanged": true,
+    "reference_numbering_titles_and_identifiers_unchanged": true,
+    "current_visual_review_pages": [
+      8
+    ],
+    "changed_sources": [
+      "build_bibliography.py",
+      "main.tex",
+      "references.bib"
+    ]
+  },
+  "discussion_conclusion_revision": {
+    "previous_pdf_sha256": "9601d20d39716a33e79eb777848cb4470beb6268eb2701bb533cc7db7b73872c",
+    "section": "Discussion and Conclusion",
+    "structure": [
+      "Selective evidence admission and joint spatial/existence updates for cooperative vehicle tracking",
+      "Mean OSPA reductions on 43 V2V4Real segments under reliable links and packet loss plus temporary outages",
+      "Exact-output-preserving traffic savings on the 25-segment corpus",
+      "One final sentence on transfer and uncertainty calibration"
+    ],
+    "quantitative_claims_verified_against": "sections/results.tex, sections/experiments.tex, generated/numbers.tex, generated/followup_numbers.tex",
+    "ospa_reference": "No-age KLA",
+    "ospa_reduction_percent": [
+      5.8,
+      4.4
+    ],
+    "traffic_reference": "Full GCE packets",
+    "fragmented_traffic_saving_percent": [
+      11.3,
+      10.8
+    ],
+    "unchanged_text_and_pixels_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+    ],
+    "page_7_text_before_conclusion_unchanged": true,
+    "changed_sources": [
+      "sections/discussion.tex"
+    ],
+    "current_visual_review_pages": [
+      7
+    ],
+    "previous_ack_and_author_display_changes_preserved": true
+  }
 }

@@ -70,5 +70,8 @@ bibs.append(r'''@misc{lang2026adaptive,
   title={Communication-Aware Adaptive Weights for Consensus-Oriented Distributed {KLA}-Based {LMB} Fusion},
   howpublished={SSRN preprint 7129254}, year={2026}
 }''')
-(out/'references.bib').write_text('% Primary DOI, author and proceedings records; additional citations checked 2026-09-11; sources in literature/.\n'+'\n\n'.join(bibs)+'\n')
+style_control = '''@IEEEtranBSTCTL{IEEEtranControl,
+  CTLdash_repeated_names={no}
+}'''
+(out/'references.bib').write_text('% Primary DOI, author and proceedings records; additional citations checked 2026-09-11; sources in literature/.\n'+style_control+'\n\n'+'\n\n'.join(bibs)+'\n')
 print('Wrote',len(bibs),'verified/reference-mapped records.')
