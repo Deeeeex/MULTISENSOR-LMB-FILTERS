@@ -19,7 +19,8 @@
     1136
   ],
   "traced_scene_paths": 4802,
-  "live_text_labels": 14,
+  "live_text_labels": 11,
+  "latex_equation_lines": 3,
   "scene_treatment": "Same source-coordinate geometry; typography rebuilt as editable text.",
   "image_integrity": "AI-generated conceptual illustration, not a captured test scene or measured result.",
   "evidence_sha256": "b0b23dc16c34003d780a9e1f1c45f6dfe0b0a83d16c9ae459db6d54e9b9ef34e"

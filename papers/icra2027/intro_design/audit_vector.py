@@ -38,7 +38,7 @@ def audit():
         assert (fill.group(1) if fill else '#000000').lower() == shape['fill'].lower()
     assert max(errors) < 2e-6, max(errors)
     texts = [n for n in svg.iter() if n.tag.endswith('}text')]
-    assert len(texts) == 14
+    assert len(texts) == 11
     strings = [''.join(n.itertext()).strip() for n in texts]
     expected_labels = ['Shared history', 'Vehicle A', 'Vehicle B', 'Current observations',
                        'Posterior pool', 'Admit current', 'ratios', 'GCE',
@@ -47,6 +47,13 @@ def audit():
     bounds = json.loads((PAPER/'figures/intro_text_bounds.json').read_text())
     assert bounds['text_collisions_checked'] and bounds['passed']
     assert min(t['font_size_pt'] for t in bounds['text_bounds']) >= 7
+    latex_lines = [item['text'] for item in bounds['text_bounds'] if item['text'].startswith('$')]
+    assert len(latex_lines) == 3
+    latex_equations = latex_lines
+    caption = (PAPER/'sections/introduction.tex').read_text()
+    svg_text = (PAPER/'figures/intro.svg').read_text()
+    assert all(equation in caption for equation in latex_equations)
+    assert all(f'<!-- {line} -->' in svg_text for line in latex_lines)
 
     # Appearance is compared descriptively, excluding intentionally re-typeset text.
     with Image.open(PAPER/'figures/intro.png') as preview:
@@ -72,6 +79,7 @@ def audit():
                   maximum_geometry_error_pt=max(errors), geometry_rounding_tolerance_pt=2e-6,
                   source_canvas_pixels=source['canvas'], final_dimensions_mm=[89, 73],
                   live_svg_text_elements=len(texts), expected_labels=expected_labels,
+                  latex_equations_match_caption=True, latex_equations=latex_equations,
                   minimum_font_size_pt=min(t['font_size_pt'] for t in bounds['text_bounds']),
                   no_embedded_raster=True, text_collisions_checked=True,
                   compared_nontext_pixels=int(mask.sum()),

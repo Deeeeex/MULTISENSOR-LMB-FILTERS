@@ -74,6 +74,15 @@ python3 build.py --regenerate
 ```
 
 脚本会探测可用 Python，也可用 `PAPER_PLOT_PYTHON`、`PAPER_PDF_PYTHON` 指定。
+Fig. 1/2 的公式使用 LaTeX 排版，由 CairoSVG 将 SVG 转成 PDF 和 PNG；重新绘图
+还需要 Python 包 `cairosvg`、`latex`、
+`type1cm` 和 `cm-super`，正文所用的 `amsmath`、`amssymb`、`times` 宏包也须可用。
+英文标签保留 SVG 文本，公式保留矢量轮廓及原始 TeX 注释。
+`figure_typography.py` 按实际字形边界定位公式，避免不同导出后端的宽度测量差异造成偏移。
+Fig. 2 另外检查连线与文字边界，保证文字周围留有间距。
+Fig. 1 的特例表达式与图注核对；Fig. 2 的五个核心表达式与
+`sections/method.tex` 核对，并按 III-E 在存在概率和空间密度两条
+修正分支中统一使用曲率检查后的 `\bar\kappa_j`。
 省略 `--regenerate` 可复用已经生成的图表。命令重建数值、表格和图形，编译 PDF，
 核对完整七页正文与第八页 Ack/Ref、字体、浮动图表、引用/DOI 和来源数值，再生成 ZIP。
 

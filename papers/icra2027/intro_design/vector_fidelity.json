@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "master_sha256": "95b5dcb60b61add7d148a53d10d26d7ecac65da3bcad030c0a50d38117c310f1",
-  "svg_sha256": "bb0aca57b1ded2a84a49ad6114b3245a01601e072d64d5280b09d76c4c792da8",
+  "svg_sha256": "39ac5701767d80c7eea64100582ee5fbaff3e88357127c82f35800f406f820e7",
   "all_source_paths_retained": 4802,
   "all_path_fills_identical": true,
   "maximum_geometry_error_pt": 9.29635348256852e-07,
@@ -14,7 +14,7 @@
     89,
     73
   ],
-  "live_svg_text_elements": 14,
+  "live_svg_text_elements": 11,
   "expected_labels": [
     "Shared history",
     "Vehicle A",
@@ -28,11 +28,17 @@
     "Existence",
     "shared normalizer"
   ],
-  "minimum_font_size_pt": 7.5,
+  "latex_equations_match_caption": true,
+  "latex_equations": [
+    "$f^-(X)\\ell_A(X)^{1/2}\\ell_B(X)^{1/2}$",
+    "$f^-(X)\\ell_A(X)^{\\omega_A}\\ell_B(X)^{\\omega_B}$",
+    "$\\omega_j=1/2+\\bar\\kappa_j\\in[1/2,1]$"
+  ],
+  "minimum_font_size_pt": 7.0,
   "no_embedded_raster": true,
   "text_collisions_checked": true,
-  "compared_nontext_pixels": 744389,
-  "mean_absolute_rgb_error_0_to_255": 3.1961949106358816,
+  "compared_nontext_pixels": 738846,
+  "mean_absolute_rgb_error_0_to_255": 3.1977629077417125,
   "pixel_identical_to_generated_bitmap": false,
   "scope": "Source-coordinate vector reconstruction with editable typography; fitting and font rasterization differ from the bitmap. Not experimental evidence."
 }

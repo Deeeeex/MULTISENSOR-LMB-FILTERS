@@ -17,6 +17,7 @@
     "Use the same admitted kappa in spatial and existence corrections.",
     "Recompute I from the corrected spatial product and retain +log I in existence.",
     "Route qualified visible absence to the existence base, without a current ratio.",
+    "Disable all current corrections when any eligible censor is present or fewer than two sources represent the label.",
     "Route recursive feedback from the combined posterior to local prediction.",
     "Direct the detection/miss inlet to the local measurement update.",
     "Use time since direct sensing for the inherited history term."

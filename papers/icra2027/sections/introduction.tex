@@ -49,12 +49,12 @@ The paper contributes:
 \end{itemize}
 \begin{figure}[t]
  \centering\includegraphics[width=\columnwidth]{figures/intro.pdf}
- \caption{Cooperative tracking with shared history (illustration). In the
- idealized shared-prior case, equal-weight geometric pooling retains the prior
- but tempers each current likelihood. GCE admits bounded fractions of
- current posterior-to-prediction ratios, increasing the likelihood
- exponents $\omega_j$ while retaining one prior. Joint normalization
- carries this correction into both spatial density and existence.}
+ \caption{Cooperative tracking with a common prior, exact local updates,
+ and $\alpha_j=\beta_j=1/2$ for $j=A,B$ (illustration).
+ The unnormalized pool $f^-(X)\ell_A(X)^{1/2}\ell_B(X)^{1/2}$ becomes
+ $f^-(X)\ell_A(X)^{\omega_A}\ell_B(X)^{\omega_B}$ under GCE, with
+ $\omega_j=1/2+\bar\kappa_j\in[1/2,1]$.
+ Joint normalization couples spatial density and existence.}
  \label{fig:intro}
 \end{figure}
 

@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import cairosvg
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -11,9 +12,12 @@ from matplotlib.path import Path as MplPath
 from matplotlib.patches import PathPatch
 from matplotlib.transforms import Affine2D
 from make_gaussian_figures import export
+from figure_typography import tex_label
 
 HERE = Path(__file__).resolve().parent
-mpl.rcParams.update({'mathtext.fontset': 'stix', 'svg.hashsalt': 'icra-gce-intro-illustrated'})
+mpl.rcParams.update({'mathtext.fontset': 'stix', 'svg.hashsalt': 'icra-gce-intro-illustrated',
+                     'font.sans-serif': ['Arial Narrow', 'Liberation Sans Narrow'],
+                     'text.latex.preamble': r'\usepackage[T1]{fontenc}\usepackage{times}\usepackage{amsmath,amssymb}'})
 
 
 def parse_d(d):
@@ -58,9 +62,12 @@ def main():
         ax.add_patch(patch)
 
     def text(x, y, value, size=8, color='#141414', **kwargs):
+        if '$' in value:
+            return tex_label(ax, x, y, value, size, color, ha=kwargs.pop('ha', 'center'))
         return ax.text(x, y, value, ha=kwargs.pop('ha', 'center'), va='center',
-                       fontsize=size, color=color, fontfamily='Arial Narrow',
-                       fontweight=kwargs.pop('weight', 'bold'), zorder=10, **kwargs)
+                       fontsize=size, color=color, fontfamily='sans-serif',
+                       fontweight=kwargs.pop('weight', 'bold'), usetex='$' in value,
+                       zorder=10, **kwargs)
 
     text(691, 47, 'Shared history', 9.7)
     text(18, 461, 'Vehicle A', 8.0, '#174c96', ha='left')
@@ -70,9 +77,11 @@ def main():
     text(694, 718, 'Admit current', 8.7)
     text(694, 768, 'ratios', 8.7)
     text(1148, 716, 'GCE', 12.0, '#00787e')
-    text(290, 855, r'$f^{-}\,\ell_A^{(1/2)}\,\ell_B^{(1/2)}$', 12.2, weight='normal')
-    text(1105, 849, r'$f^{-}\,\ell_A^{(\omega_A)}\,\ell_B^{(\omega_B)}$', 12.9, weight='normal')
-    text(1100, 933, r'$1/2\leq\omega_j\leq1$', 8.5, weight='normal')
+    likelihood_equations = [r'f^-(X)\ell_A(X)^{1/2}\ell_B(X)^{1/2}',
+                            r'f^-(X)\ell_A(X)^{\omega_A}\ell_B(X)^{\omega_B}']
+    for x, equation in zip([287, 1101], likelihood_equations):
+        text(x, 860, f'${equation}$', 7.8)
+    text(1101, 945, r'$\omega_j=1/2+\bar\kappa_j\in[1/2,1]$', 7.0)
     text(236, 1055, 'Spatial density', 8.0)
     text(1149, 1055, 'Existence', 8.0)
     text(693, 1029, 'shared normalizer', 8.5, '#00848a')
@@ -89,10 +98,12 @@ def main():
                   generated_master_sha256=scene['master_sha256'],
                   vector_scene_sha256=hashlib.sha256(scene_path.read_bytes()).hexdigest(),
                   source_canvas_pixels=scene['canvas'], traced_scene_paths=len(scene['paths']),
-                  live_text_labels=14,
+                  live_text_labels=11, latex_equation_lines=3,
                   scene_treatment='Same source-coordinate geometry; typography rebuilt as editable text.',
                   image_integrity='AI-generated conceptual illustration, not a captured test scene or measured result.')
     export(fig, 'intro', source)
+    cairosvg.svg2pdf(url=str(HERE/'figures/intro.svg'), write_to=str(HERE/'figures/intro.pdf'))
+    cairosvg.svg2png(url=str(HERE/'figures/intro.svg'), write_to=str(HERE/'figures/intro.png'), dpi=300)
 
 
 if __name__ == '__main__':

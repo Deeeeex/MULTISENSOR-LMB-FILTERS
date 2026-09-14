@@ -10,6 +10,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
+from figure_typography import figure_text_bounds, preserve_tex_source
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / 'figures'
@@ -31,15 +32,11 @@ mpl.rcParams.update({
 
 def export(fig, name, source):
     fig.canvas.draw()
-    renderer = fig.canvas.get_renderer()
     width, height = fig.canvas.get_width_height()
-    bounds = []
-    for item in fig.findobj(mpl.text.Text):
-        if not item.get_visible() or not item.get_text():
-            continue
-        b = item.get_window_extent(renderer)
-        assert b.x0 >= -.5 and b.y0 >= -.5 and b.x1 <= width+.5 and b.y1 <= height+.5, (name, item.get_text(), b)
-        bounds.append(dict(text=item.get_text(), font_size_pt=item.get_fontsize(), bbox_pixels=list(b.bounds)))
+    bounds = figure_text_bounds(fig)
+    for item in bounds:
+        x, y, w, h = item['bbox_pixels']
+        assert x >= -.5 and y >= -.5 and x+w <= width+.5 and y+h <= height+.5, (name, item)
     collision_checked = source.get('check_text_collisions', False)
     if collision_checked:
         for i, left in enumerate(bounds):
@@ -54,6 +51,7 @@ def export(fig, name, source):
         fig.savefig(path, dpi=300, facecolor='white', metadata=meta)
         if suffix == 'svg':
             path.write_text('\n'.join(line.rstrip() for line in path.read_text().splitlines())+'\n')
+            preserve_tex_source(fig, path)
     svg = ET.parse(OUT / f'{name}.svg')
     live = sum(node.tag.endswith('}text') for node in svg.iter())
     assert live and not any(node.tag.endswith('}image') for node in svg.iter())
